@@ -2,7 +2,9 @@
 
 class Text_Wiki_Render_Xhtml_Blockquote extends Text_Wiki_Render {
     
-    var $conf = array('css' => null);
+	var $conf = array(
+		'css' => null
+	);
     
     /**
     * 
@@ -28,10 +30,7 @@ class Text_Wiki_Render_Xhtml_Blockquote extends Text_Wiki_Render {
 		$pad = str_replace("\t", '    ', $pad);
 		
 		// pick the css type
-		$css = $this->getConf('css', '');
-		if ($css) {
-			$css = " class=\"$css\"";
-		}
+		$css = $this->formatConf(' class="%s"', 'css');
 		
 		// starting
 		if ($type == 'start') {

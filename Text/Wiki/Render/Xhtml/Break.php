@@ -2,6 +2,10 @@
 
 class Text_Wiki_Render_Xhtml_Break extends Text_Wiki_Render {
 
+	var $conf = array(
+		'css' => null
+	);
+
     /**
     * 
     * Renders a token into text matching the requested format.
@@ -17,7 +21,8 @@ class Text_Wiki_Render_Xhtml_Break extends Text_Wiki_Render {
     
     function token($options)
     {
-        return "<br />\n";
+		$css = $this->formatConf(' class="%s"', 'css');
+        return "<br$css />\n";
     }
 }
 

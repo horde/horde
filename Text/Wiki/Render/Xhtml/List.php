@@ -40,13 +40,8 @@ class Text_Wiki_Render_Xhtml_List extends Text_Wiki_Render {
 		
 		case 'bullet_list_start':
 		
-			// pick the CSS class
-			$css = $this->getConf('css_ul', '');
-			if ($css) {
-				$css = " class=\"$css\"";
-			}
-			
 			// build the base HTML
+			$css = $this->formatConf(' class="%s"', 'css_ul');
 			$html = "<ul$css>";
 			
 			// if this is the opening block for the list,
@@ -78,13 +73,8 @@ class Text_Wiki_Render_Xhtml_List extends Text_Wiki_Render {
 		
 		case 'number_list_start':
 		
-			// pick the CSS class
-			$css = $this->getConf('css_ol', '');
-			if ($css) {
-				$css = " class=\"$css\"";
-			}
-			
 			// build the base HTML
+			$css = $this->formatConf(' class="%s"', 'css_ol');
 			$html = "<ol$css>";
 			
 			// if this is the opening block for the list,
@@ -119,13 +109,9 @@ class Text_Wiki_Render_Xhtml_List extends Text_Wiki_Render {
 		
 			// pick the proper CSS class
 			if ($type == 'bullet_item_start') {
-				$css = $this->getConf('css_ul_li', '');
+				$css = $this->formatConf(' class="%s"', 'css_ul_li');
 			} else {
-				$css = $this->getConf('css_ol_li', '');
-			}
-			
-			if ($css) {
-				$css = " class=\"$css\"";
+				$css = $this->formatConf(' class="%s"', 'css_ol_li');
 			}
 			
 			// build the base HTML

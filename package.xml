@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<!-- $Id: package.xml,v 1.24 2004-08-18 12:23:32 pmjones Exp $ -->
+<!-- $Id: package.xml,v 1.25 2004-09-18 22:58:23 pmjones Exp $ -->
 <package version="1.0">
 	<name>Text_Wiki</name>
 	<summary>Abstracts parsing and rendering rules for Wiki markup in structured plain text.</summary>
@@ -14,13 +14,16 @@
 		</maintainer>
 	</maintainers>
 	<release>
-		<version>0.21.0</version>
-		<date>2004-08-18</date>
+		<version>0.22.0</version>
+		<date>????</date>
 		<license>LGPL</license>
-		<state>alpha</state>
+		<state>beta</state>
 		<notes>
-			* for deflist, must now use ": " (colon-space) at beginning and " : " (space-colon-space) to separate term from def; this it becuase URLs as terms were breaking the rule
-			* fixed bug 2095 so that CSS is now honored in deflist rule (thanks for the patch,  glamm at a-s-i dot com)
+			* Render rules for Url and Interwiki use XHTML compliant "target"s now, per suggestion from Aaron Kalin and JS code from youngpup.net
+			* Parse rule for Heading now adds an ID attribute to the token, will be used when generating table of contents (based on ideas from Stephane Le Solliec)
+			* Render rule for Image now guesses width and height, and adds a pseudo-center alignment option (thanks Stephane Solliec)
+			* Base Render class now has formatConf() method to wrap a config value in an sprintf() format
+			* Added CSS class configuration keys for all appropriate rules (*big* thanks to Bob Glamm, glamm at a-s-i dot com, who did a ton of work on this)
 		</notes>
 		<filelist>
 		

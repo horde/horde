@@ -5,9 +5,13 @@ class Text_Wiki_Render_Xhtml_Url extends Text_Wiki_Render {
     
     
     var $conf = array(
-		'target' => false,
+		'target' => '_blank',
 		'images' => true,
-    	'img_ext' => array('jpg', 'jpeg', 'gif', 'png')
+    	'img_ext' => array('jpg', 'jpeg', 'gif', 'png'),
+		'css_inline' => null,
+		'css_footnote' => null,
+		'css_descr' => null,
+		'css_img' => null
 	);
     
     /**
@@ -46,7 +50,8 @@ class Text_Wiki_Render_Xhtml_Url extends Text_Wiki_Render {
             }
             
             // generate an image tag
-            $output = "<img src=\"$href\" alt=\"$text\" />";
+			$css = $this->formatConf(' class="%s"', 'css_img');
+            $output = "<img$css src=\"$href\" alt=\"$text\" />";
             
         } else {
         	
@@ -54,12 +59,13 @@ class Text_Wiki_Render_Xhtml_Url extends Text_Wiki_Render {
         	if ($href{0} == '#') {
         		$target = '';
         	} else {
-	        	$target = $this->getConf('target', false);
+	        	$target = $this->getConf('target');
 	        }
 	        
             // generate a regular link (not an image)
             $text = htmlspecialchars($text);
-            $output = "<a href=\"$href\"";
+			$css = $this->formatConf(' class="%s"', "css_$type");
+            $output = "<a$css href=\"$href\"";
             
             if ($target) {
             	// use a "popup" window.  this is XHTML compliant, suggested by
@@ -69,10 +75,12 @@ class Text_Wiki_Render_Xhtml_Url extends Text_Wiki_Render {
             	$output .= " return false;\"";
             }
             
+			// finish up output
             $output .= ">$text</a>";
             
-            // make numbered references look like footnotes
-            if ($type == 'footnote') {
+            // make numbered references look like footnotes when no
+            // CSS class specified, make them superscript by default
+            if ($type == 'footnote' && ! $css) {
                 $output = '<sup>' . $output . '</sup>';
             }
         }

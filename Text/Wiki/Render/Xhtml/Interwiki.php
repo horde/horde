@@ -8,7 +8,8 @@ class Text_Wiki_Render_Xhtml_Interwiki extends Text_Wiki_Render {
 			'Advogato' => 'http://advogato.org/%s',
 			'Wiki'	   => 'http://c2.com/cgi/wiki?%s'
 		),
-		'target' => '_blank'
+		'target' => '_blank',
+		'css' => null
 	);
 	
 	
@@ -30,7 +31,8 @@ class Text_Wiki_Render_Xhtml_Interwiki extends Text_Wiki_Render {
         $site = $options['site'];
         $page = $options['page'];
         $text = $options['text'];
-        
+		$css = $this->formatConf(' class="%s"', 'css');
+		
         if (isset($this->conf['sites'][$site])) {
             $href = $this->conf['sites'][$site];
         } else {
@@ -52,13 +54,15 @@ class Text_Wiki_Render_Xhtml_Interwiki extends Text_Wiki_Render {
         
         // build base link
 		$text = htmlspecialchars($text);
-		$output = "<a href=\"$href\"";
+		$output = "<a$css href=\"$href\"";
 		
+		// are we targeting a specific window?
 		if ($target) {
-			// use a "popup" window.  this is XHTML compliant, suggested by
-			// Aaron Kalin.  uses the $target as the new window name.
+			// this is XHTML compliant, suggested by Aaron Kalin.
+			// code tip is actually from youngpup.net, and it
+			// uses the $target as the new window name.
 			$target = htmlspecialchars($target);
-			$output .= " onclick=\"window.open(this.href, '$target');";
+			$output .= " onClick=\"window.open(this.href, '$target');";
 			$output .= " return false;\"";
 		}
 		

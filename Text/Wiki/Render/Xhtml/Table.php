@@ -33,14 +33,7 @@ class Text_Wiki_Render_Xhtml_Table extends Text_Wiki_Render {
 		switch ($type) {
 		
 		case 'table_start':
-			
-			// pick the CSS class
-			$css = $this->getConf('css_table', '');
-			if ($css) {
-				$css = " class=\"$css\"";
-			}
-			
-			// done!
+			$css = $this->formatConf(' class="%s"', 'css_table');
 			return "\n\n<table$css>\n";
 			break;
 		
@@ -49,15 +42,7 @@ class Text_Wiki_Render_Xhtml_Table extends Text_Wiki_Render {
 			break;
 		
 		case 'row_start':
-			$html = "$pad<tr";
-			
-			// pick the CSS class
-			$css = $this->getConf('css_tr', '');
-			if ($css) {
-				$css = " class=\"$css\"";
-			}
-			
-			// done
+			$css = $this->formatConf(' class="%s"', 'css_tr');
 			return "$pad<tr$css>\n";
 			break;
 		
@@ -72,26 +57,13 @@ class Text_Wiki_Render_Xhtml_Table extends Text_Wiki_Render {
 			
 			// is this a TH or TD cell?
 			if ($attr == 'header') {
-				
 				// start a header cell
-				$html .= '<th';
-				
-				// add CSS class
-				$css = $this->getConf('css_th', '');
-				if ($css) {
-					$html .= " class=\"$css\"";
-				}
-				
+				$css = $this->formatConf(' class="%s"', 'css_th');
+				$html .= "<th$css";
 			} else {
-			
 				// start a normal cell
-				$html .= '<td';
-				
-				// add the CSS class
-				$css = $this->getConf('css_td', '');
-				if ($css) {
-					$html .= " class=\"$css\"";
-				}
+				$css = $this->formatConf(' class="%s"', 'css_td');
+				$html .= "<td$css";
 			}
 			
 			// add the column span

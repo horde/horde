@@ -2,6 +2,10 @@
 
 class Text_Wiki_Render_Xhtml_Paragraph extends Text_Wiki_Render {
     
+	var $conf = array(
+		'css' => null
+	);
+	
     /**
     * 
     * Renders a token into text matching the requested format.
@@ -20,7 +24,8 @@ class Text_Wiki_Render_Xhtml_Paragraph extends Text_Wiki_Render {
         extract($options); //type
         
         if ($type == 'start') {
-            return '<p>';
+			$css = $this->formatConf(' class="%s"', 'css');
+            return "<p$css>";
         }
         
         if ($type == 'end') {

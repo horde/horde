@@ -31,7 +31,7 @@ class Text_Wiki_Parse_Toc extends Text_Wiki_Parse {
 	* 
 	*/
 	
-	var $regex = "/\[\[toc( .*)?\]\]/m";
+	var $regex = "/\n\[\[toc( .*)?\]\]\n/m";
 	
 	
 	/**

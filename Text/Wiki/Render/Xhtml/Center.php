@@ -18,12 +18,10 @@ class Text_Wiki_Render_Xhtml_Center extends Text_Wiki_Render {
     function token($options)
     {
     	if ($options['type'] == 'start') {
-    		//return "\n<center>\n";
     		return '<div style="text-align: center;">';
     	}
     	
     	if ($options['type'] == 'end') {
-    		//return "</center>\n";
     		return '</div>';
     	}
     }

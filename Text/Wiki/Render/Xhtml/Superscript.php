@@ -2,6 +2,10 @@
 
 class Text_Wiki_Render_Xhtml_Superscript extends Text_Wiki_Render {
     
+	var $conf = array(
+		'css' => null
+	);
+	
     /**
     * 
     * Renders a token into text matching the requested format.
@@ -18,7 +22,8 @@ class Text_Wiki_Render_Xhtml_Superscript extends Text_Wiki_Render {
     function token($options)
     {
         if ($options['type'] == 'start') {
-            return '<sup>';
+			$css = $this->formatConf(' class="%s"', 'css');
+            return "<sup$css>";
         }
         
         if ($options['type'] == 'end') {

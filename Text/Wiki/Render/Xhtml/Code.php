@@ -2,6 +2,12 @@
 
 class Text_Wiki_Render_Xhtml_Code extends Text_Wiki_Render {
     
+	var $conf = array(
+		'css'      => null, // class for <pre>
+		'css_code' => null, // class for generic <code>
+		'css_php'  => null, // class for PHP <code>
+		'css_html' => null // class for HTML <code>
+	);
     
     /**
     * 
@@ -20,11 +26,16 @@ class Text_Wiki_Render_Xhtml_Code extends Text_Wiki_Render {
     {
         $text = $options['text'];
         $attr = $options['attr'];
+       	$type = strtolower($attr['type']);
         
-        if (strtolower($attr['type']) == 'php') {
+        $css      = $this->formatConf(' class="%s"', 'css');
+        $css_code = $this->formatConf(' class="%s"', 'css_code');
+        $css_php  = $this->formatConf(' class="%s"', 'css_php');
+        $css_html = $this->formatConf(' class="%s"', 'css_html');
+        
+        if ($type == 'php') {
         	
-        	// PHP code example
-        	
+        	// PHP code example:
             // add the PHP tags
             $text = "<?php\n" . $options['text'] . "\n?>"; // <?php
             
@@ -38,16 +49,10 @@ class Text_Wiki_Render_Xhtml_Code extends Text_Wiki_Render {
             $text = ob_get_contents();
             ob_end_clean();
             
-            // replace <br /> tags with simple newlines
-            //$text = str_replace("<br />", "\n", $text);
-            
-            // replace non-breaking space with simple spaces
-            //$text = str_replace("&nbsp;", " ", $text);
-            
-            // replace <br /> tags with simple newlines
-            // replace non-breaking space with simple spaces
-            // translate old HTML to new XHTML
-            // courtesy of research by A. Kalin :-)
+            // replace <br /> tags with simple newlines.
+            // replace non-breaking space with simple spaces.
+            // translate HTML <font> and color to XHTML <span> and style.
+            // courtesy of research by A. Kalin :-).
             $map = array(
                 '<br />'  => "\n",
                 '&nbsp;'  => ' ',
@@ -63,10 +68,15 @@ class Text_Wiki_Render_Xhtml_Code extends Text_Wiki_Render {
                 $text = substr($text, 0, -8) . "</code>";
             }
             
+            // replace all <code> tags with classed tags
+            if ($css_php) {
+	            $text = str_replace('<code>', "<code$css_php>", $text);
+	        }
+	        
             // done
-            $text = "<pre>$text</pre>";
+            $text = "<pre$css>$text</pre>";
         
-        } elseif (strtolower($attr['type']) == 'html') {
+        } elseif ($type == 'html' || $type == 'xhtml') {
         
             // HTML code example:
             // add <html> opening and closing tags,
@@ -75,7 +85,7 @@ class Text_Wiki_Render_Xhtml_Code extends Text_Wiki_Render {
             $text = str_replace("\t", "    ", $text);
             $text = "<html>\n$text\n</html>";
             $text = htmlentities($text);
-            $text = "<pre><code>$text</code></pre>";
+            $text = "<pre$css><code$css_html>$text</code></pre>";
             
         } else {
             // generic code example:
@@ -83,7 +93,7 @@ class Text_Wiki_Render_Xhtml_Code extends Text_Wiki_Render {
             // convert entities.
             $text = str_replace("\t", "    ", $text);
             $text = htmlentities($text);
-            $text = "<pre><code>$text</code></pre>";
+            $text = "<pre$css><code$css_code>$text</code></pre>";
         }
         
         return "\n$text\n\n";
