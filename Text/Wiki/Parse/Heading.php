@@ -53,12 +53,20 @@ class Text_Wiki_Parse_Heading extends Text_Wiki_Parse {
 	
 	function process(&$matches)
 	{
+		// keep a running count for header IDs.  we use this later
+		// when constructing TOC entries, etc.
+		static $id;
+		if (! isset($id)) {
+			$id = 0;
+		}
+		
 		$start = $this->wiki->addToken(
 			$this->rule, 
 			array(
 				'type' => 'start',
 				'level' => strlen($matches[1]),
-				'text' => $matches[2]
+				'text' => $matches[2],
+				'id' => $id ++;
 			)
 		);
 		
