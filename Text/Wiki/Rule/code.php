@@ -102,8 +102,7 @@ class Text_Wiki_Rule_code extends Text_Wiki_Rule {
     
     function renderXhtml($options)
     {
-        // trim opening and closing whitespace
-        $text = trim($options['text']);
+        $text = $options['text'];
         $args = $options['args'];
         
         if (strtolower($args['type']) == 'php') {
