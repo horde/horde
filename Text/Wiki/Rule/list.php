@@ -25,8 +25,9 @@
 * a bulleted or numbered list.  In short, if a line starts with '* ' then
 * it is a bullet list item; if a line starts with '# ' then it is a 
 * number list item.  Spaces in front of the * or # indicate an indented
-* sub-list.  The list items must be on sequential lines (no blank lines
-* between them) -- a blank line indicates the beginning of a new list.
+* sub-list.  The list items must be on sequential lines, and may be 
+* separated by blank lines to improve readability.  Using a non-* non-#
+* non-whitespace character at the beginning of a line ends the list.
 *
 * @author Paul M. Jones <pmjones@ciaweb.net>
 *
@@ -50,7 +51,7 @@ class Text_Wiki_Rule_list extends Text_Wiki_Rule {
     * 
     */
     
-    var $regex = '/\n((\*|#) .*\n)(?! {0,}(\*|#))/Us';
+    var $regex = '/\n((\*|#) .*\n)(?! {0,}(\*|#|\n))/Us';
     
     
     /**
