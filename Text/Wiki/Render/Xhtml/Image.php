@@ -26,15 +26,18 @@ class Text_Wiki_Render_Xhtml_Image extends Text_Wiki_Render {
     		$options['src'] . '"';
     	
     	if (isset($options['attr']['link'])) {
-		// this image has a link
-		
-		if (strpos($options['attr']['link'], '://')) {
-			// it's a URL
-			$href = $options['attr']['link'];
-		} else {
-	    		$href = $this->wiki->getRenderConf('xhtml', 'wikilink', 'view_url') .
-	    			$options['attr']['link'];
-		}
+    	
+			// this image has a link ... idea from Stephane Le Solliec,
+			// stephane@metacites.net
+			if (strpos($options['attr']['link'], '://')) {
+				// it's a URL
+				$href = $options['attr']['link'];
+			} else {
+				// it's a WikiPage
+				$href = $this->wiki->getRenderConf('xhtml', 'wikilink', 'view_url') .
+					$options['attr']['link'];
+			}
+			
     	} else {
     		// image is not linked
     		$href = null;
@@ -52,16 +55,16 @@ class Text_Wiki_Render_Xhtml_Image extends Text_Wiki_Render {
     		$attr .= " $key=\"$val\"";
     	}
     	
-	// always add an "alt" attribute per Stephane Solliec
-	if (! $alt) {
-		$attr .= ' alt="' . basename($options['src']) . '"';
-	}
-	
-    	if ($href) {
-    		return "<a href=\"$href\"><img src=$src$attr/></a>";
-    	} else {
-	    	return "<img src=$src$attr/>";
-	    }
+		// always add an "alt" attribute per Stephane Solliec
+		if (! $alt) {
+			$attr .= ' alt="' . basename($options['src']) . '"';
+		}
+		
+		if ($href) {
+			return "<a href=\"$href\"><img src=$src$attr/></a>";
+		} else {
+			return "<img src=$src$attr/>";
+		}
 	}
 }
 ?>
