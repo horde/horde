@@ -322,8 +322,10 @@ class Text_Wiki_Rule {
     
     /**
     * 
-	* Simple method to extract 'option="value"' portions of wiki markup,
-	* typically used only in macros.
+	* Extract 'option="value"' portions of wiki markup.
+	*
+	* This kind of markup is typically used only in macros, but is useful
+	* anywhere.
 	* 
 	* The syntax is pretty strict; there can be no spaces between the
 	* option name, the equals, and the first double-quote; the value
@@ -333,7 +335,7 @@ class Text_Wiki_Rule {
 	* 
 	* @access public
 	* 
-	* @param string $text The "macro options" portion of macro markup.
+	* @param string $text The "options" portion of markup.
 	* 
 	* @return array An associative array of key-value pairs where the
 	* key is the option name and the value is the option value.
@@ -370,6 +372,32 @@ class Text_Wiki_Rule {
 		
 		return $arg;
 		
+    }
+    
+    
+    /**
+	* 
+	* Simple method to safely get configuration key values.
+	* 
+	* @access public
+	* 
+	* @param string $key The configuration key.
+	* 
+	* @param mixed $default If the key does not exist, return this value
+	* instead.
+	* 
+	* @return mixed The configuration key value (if it exists) or the
+	* default value (if not).
+	* 
+    */
+    
+    function getConf($key, $default = null)
+    {
+    	if (isset($this->_conf[$key])) {
+    		return $this->_conf[$key];
+    	} else {
+    		return $default;
+    	}
     }
 }
 ?>
