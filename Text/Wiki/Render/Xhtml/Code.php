@@ -26,7 +26,7 @@ class Text_Wiki_Render_Xhtml_Code extends Text_Wiki_Render {
     {
         $text = $options['text'];
         $attr = $options['attr'];
-           $type = strtolower($attr['type']);
+        $type = strtolower($attr['type']);
         
         $css      = $this->formatConf(' class="%s"', 'css');
         $css_code = $this->formatConf(' class="%s"', 'css_code');
