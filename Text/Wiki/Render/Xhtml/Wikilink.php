@@ -2,7 +2,6 @@
 
 class Text_Wiki_Render_Xhtml_Wikilink extends Text_Wiki_Render {
     
-    
     var $conf = array(
         'pages' => array(), // set to null or false to turn off page checks
         'view_url' => 'http://example.com/index.php?page=%s',
@@ -10,7 +9,8 @@ class Text_Wiki_Render_Xhtml_Wikilink extends Text_Wiki_Render {
         'new_text' => '?',
         'new_text_pos' => 'after', // 'before', 'after', or null/false
         'css' => null,
-        'css_new' => null
+        'css_new' => null,
+        'exists_callback' => null // call_user_func() callback
     );
     
     
@@ -32,14 +32,21 @@ class Text_Wiki_Render_Xhtml_Wikilink extends Text_Wiki_Render {
         // make nice variable names (page, anchor, text)
         extract($options);
         
-        // are we checking page existence?
-        $list =& $this->getConf('pages');
-        if (is_array($list)) {
-            // yes, check against the page list
-            $exists = in_array($page, $list);
+        // is there a "page existence" callback?
+        $callback = $this->getConf('exists_callback');
+        if (! is_null($callback)) {
+            // use the callback function
+            $exists = call_user_func($callback, $page);
         } else {
-            // no, assume it exists
-            $exists = true;
+            // no callback, go to the naive page array.
+            $list =& $this->getConf('pages');
+            if (is_array($list)) {
+                // yes, check against the page list
+                $exists = in_array($page, $list);
+            } else {
+                // no, assume it exists
+                $exists = true;
+            }
         }
         
         // convert *after* checking against page names so as not to mess
@@ -53,7 +60,7 @@ class Text_Wiki_Render_Xhtml_Wikilink extends Text_Wiki_Render {
         
             // PAGE EXISTS.
         
-            // yes, link to the page view, but we have to build
+            // link to the page view, but we have to build
             // the HREF.  we support both the old form where
             // the page always comes at the end, and the new
             // form that uses %s for sprintf()
