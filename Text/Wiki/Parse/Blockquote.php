@@ -93,7 +93,7 @@ class Text_Wiki_Parse_Blockquote extends Text_Wiki_Parse {
             $text = $val[2];
             
             // add a level to the list?
-            if ($level > count($stack)) {
+            while ($level > count($stack)) {
                 
                 // the current indent level is greater than the number
                 // of stack elements, so we must be starting a new
