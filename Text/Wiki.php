@@ -1,6 +1,22 @@
 <?php
 
 /**
+* 
+* Parse structured wiki text and render into arbitrary formats such as XHTML.
+* 
+* @category Text
+* 
+* @package Text_Wiki
+* 
+* @author Paul M. Jones <pmjones@ciaweb.net>
+* 
+* @license LGPL
+* 
+* @version $Id$
+* 
+*/
+
+/**
 * The baseline abstract parser class.
 */
 
@@ -12,6 +28,7 @@ require_once 'Text/Wiki/Parse.php';
 
 require_once 'Text/Wiki/Render.php';
 
+
 /**
 * 
 * Parse structured wiki text and render into arbitrary formats such as XHTML.
@@ -19,15 +36,11 @@ require_once 'Text/Wiki/Render.php';
 * This is the "master" class for handling the management and convenience
 * functions to transform Wiki-formatted text.
 * 
-* $Id$
-* 
-* @author Paul M. Jones <pmjones@ciaweb.net>
+* @category Text
 * 
 * @package Text_Wiki
 * 
-* @version 0.24.1
-*
-* @license LGPL
+* @version 0.25.0 beta
 * 
 */
 
