@@ -34,6 +34,9 @@ class Text_Wiki_Parse_Heading extends Text_Wiki_Parse {
 	
 	var $regex = '/^(\+{1,6}) (.*)/m';
 	
+	var $conf = array(
+		'id_prefix' => 'toc'
+	);
 	
 	/**
 	* 
@@ -60,13 +63,15 @@ class Text_Wiki_Parse_Heading extends Text_Wiki_Parse {
 			$id = 0;
 		}
 		
+		$prefix = htmlspecialchars($this->getConf('id_prefix'));
+		
 		$start = $this->wiki->addToken(
 			$this->rule, 
 			array(
 				'type' => 'start',
 				'level' => strlen($matches[1]),
 				'text' => $matches[2],
-				'id' => $id ++;
+				'id' => $prefix . $id ++
 			)
 		);
 		
