@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<!-- $Id: package.xml,v 1.8 2004-06-06 15:53:38 pmjones Exp $ -->
+<!-- $Id: package.xml,v 1.9 2004-06-07 00:43:44 pmjones Exp $ -->
 <package version="1.0">
 	<name>Text_Wiki</name>
 	<summary>Abstracts parsing and rendering rules for Wiki markup in structured plain text.</summary>
@@ -14,26 +14,12 @@
 		</maintainer>
 	</maintainers>
 	<release>
-		<version>0.19</version>
+		<version>0.19.1</version>
 		<date>2004-06-06</date>
 		<license>PHP License</license>
 		<state>alpha</state>
 		<notes>
-			* WARNING: This release represents a major BC break in the API and organization.
-			* WARNING: Do not expect to upgrade in-place and have everything work.
-			* WARNING: Read these notes carefully, you will need to re-work how you configure the Text_Wiki object.
-			* Directory structure is competely different but should lend itself to easier extensibility
-			* Rules are now split up: one class for parse, another class for each render-format
-			* Formats themselves (XHTML, DocBook, Plain, etc) have their own class and get their own pre- and post-render methods
-			* Instead of set/getRuleConf(), mostly use set/getRenderConf() instead
-			* Wikilinks parser uses numbers as lower-case letters
-			* List parser has better token type names
-			* Xhtml List renders with proper semantics for nested lists (per notes from Michael Wallner and others)
-			* Xhtml List and Table renderers apply CSS classes now instead of inline attributes
-		 	* Renamed all Entities rules to Translatehtml (more accurately descriptive)
-		 	* In Translatehtml parser, added conf option for translation table type (HTML_ENTITIES, HTML_SPECIALCHARS, etc) -- helps with i18n
-		 	* In abstract parser, renamed getOptions() to getAttrs() (more accurately descriptive for parsing markup attributes)
-			* NOTE: Documentation on this new Text_Wiki is not yet complete
+			* Fixed bug 1564 ("insertRule() doesn't work when second argument is supplied")
 		</notes>
 		<filelist>
 			<file role="php" name="Text/Wiki.php" />
