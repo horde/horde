@@ -4,7 +4,7 @@ class Text_Wiki_Render_Xhtml_Image extends Text_Wiki_Render {
 	var $conf = array(
 		'base' => '/',
 		'css'  => null,
-		'css_href' => null
+		'css_link' => null
 	);
 	
 	
@@ -43,9 +43,10 @@ class Text_Wiki_Render_Xhtml_Image extends Text_Wiki_Render {
 				$href = $options['attr']['link'];
 			} else {
 				// it's a WikiPage; assume it exists.
-				/** @todo This needs to honor the sprintf convention (pmjones) */
-				$href =
-					$this->wiki->getRenderConf('xhtml', 'wikilink', 'view_url') .
+				/** @todo This needs to honor sprintf wikilinks (pmjones) */
+				/** @todo This needs to honor interwiki (pmjones) */
+				/** @todo This needs to honor freelinks (pmjones) */
+				$href = $this->wiki->getRenderConf('xhtml', 'wikilink', 'view_url') .
 					$options['attr']['link'];
 			}
     	} else {
@@ -104,13 +105,24 @@ class Text_Wiki_Render_Xhtml_Image extends Text_Wiki_Render {
     	// start the HTML output
     	$output = '<img src="' . htmlspecialchars($src) . '"';
     	
+    	// get the CSS class but don't add it yet
+    	$css = $this->formatConf(' class="%s"', 'css');
+    	
     	// add the attributes to the output, and be sure to
     	// track whether or not we find an "alt" attribute
     	$alt = false;
     	foreach ($options['attr'] as $key => $val) {
+    		
+    		// track the 'alt' attribute
     		if (strtolower($key) == 'alt') {
     			$alt = true;
     		}
+    		
+    		// the 'class' attribute overrides the CSS class conf
+    		if (strtolower($key) == 'class') {
+    			$css = null;
+    		}
+    		
     		$key = htmlspecialchars($key);
     		$val = htmlspecialchars($val);
     		$output .= " $key=\"$val\"";
@@ -122,14 +134,15 @@ class Text_Wiki_Render_Xhtml_Image extends Text_Wiki_Render {
 			$output .= " alt=\"$alt\"";
 		}
 		
-		// end the image tag
-		$output .= ' />';
+		// end the image tag with the automatic CSS class (if any)
+		$output .= "$css />";
 		
 		// was the image clickable?
 		if ($href) {
 			// yes, add the href and return
 			$href = htmlspecialchars($href);
-			$output = "<a href=\"$href\">$output</a>";
+			$css = $this->formatConf(' class="%s"', 'css_link');
+			$output = "<a$css href=\"$href\">$output</a>";
 		}
 		
 		return $output;
