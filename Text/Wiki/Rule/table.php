@@ -172,7 +172,7 @@ class Text_Wiki_Rule_table extends Text_Wiki_Rule {
         $return .= $this->addToken(array('type' => 'table_end'));
         
         // we're done!
-        return "\n$return\n";
+        return "\n$return\n\n";
     }
     
     
@@ -208,13 +208,13 @@ class Text_Wiki_Rule_table extends Text_Wiki_Rule {
         switch ($type) {
         
         case 'table_start':
-            return "<table border=\"$border\" " .
+            return "\n<table border=\"$border\" " .
             	"cellspacing=\"$spacing\" " .
             	"cellpadding=\"$padding\">\n";
             break;
         
         case 'table_end':
-            return "</table>\n";
+            return "</table>\n\n";
             break;
         
         case 'row_start':
