@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<!-- $Id: package.xml,v 1.18 2004-06-28 23:18:11 pmjones Exp $ -->
+<!-- $Id: package.xml,v 1.19 2004-07-11 17:11:43 pmjones Exp $ -->
 <package version="1.0">
 	<name>Text_Wiki</name>
 	<summary>Abstracts parsing and rendering rules for Wiki markup in structured plain text.</summary>
@@ -14,13 +14,12 @@
 		</maintainer>
 	</maintainers>
 	<release>
-		<version>0.19.6</version>
-		<date>2004-06-28</date>
+		<version>0.19.7</version>
+		<date>2004-07-11</date>
 		<license>PHP License</license>
 		<state>alpha</state>
 		<notes>
-			* Fixed bug 1729 (URL parsing of hashes for same-page anchors interferes with colortext parsing)
-			* Changes "mailto" scheme to "mailto:" in URL parser
+			* XHTML renderer for URL rule no longer adds 'target="_blank"' by default; this aids in minimal XHTML compliance, but will need a solution for specified targets for full compliance
 		</notes>
 		<filelist>
 			<file role="php" name="Text/Wiki.php" />
