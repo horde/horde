@@ -252,9 +252,11 @@ class Text_Wiki_Rule_list extends Text_Wiki_Rule {
         $pad = str_replace("\t", '    ', $pad);
         
         // attempt XHTML compliance so that sub-lists are part
-        // of a list item, not between list items
+        // of a list item, not between list items.  this is not
+        // by any means perfect; the 'display' style is specifically
+        // for Internet Exploder.
         if ($level > 0) {
-        	$pre = '<li style="list-style: none;">';
+        	$pre = '<li style="list-style: none; display: inline;">';
         	$post = '</li>';
         } else {
         	$pre = '';
