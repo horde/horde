@@ -1,5 +1,7 @@
 <?php
 
+// $Id$
+
 class Text_Wiki_Render_Plain_Function extends Text_Wiki_Render {
     
     /**
@@ -22,13 +24,13 @@ class Text_Wiki_Render_Plain_Function extends Text_Wiki_Render {
         $output = "$access $return $name ( ";
         
         foreach ($params as $key => $val) {
-        	$output .= "{$val['type']} {$val['descr']} {$val['default']} ";
+            $output .= "{$val['type']} {$val['descr']} {$val['default']} ";
         }
         
         $output .= ') ';
         
         foreach ($throws as $key => $val) {
-        	$output .= "{$val['type']} {$val['descr']} ";
+            $output .= "{$val['type']} {$val['descr']} ";
         }
         
         return $output;
