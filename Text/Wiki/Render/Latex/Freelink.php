@@ -3,13 +3,13 @@
 class Text_Wiki_Render_Latex_Freelink extends Text_Wiki_Render {
     
     var $conf = array(
-		'pages' => array(),
-		'view_url' => 'http://example.com/index.php?page=%s',
-		'new_url'  => 'http://example.com/new.php?page=%s',
-		'new_text' => '?'
-	);
-	
-	
+        'pages' => array(),
+        'view_url' => 'http://example.com/index.php?page=%s',
+        'new_url'  => 'http://example.com/new.php?page=%s',
+        'new_text' => '?'
+    );
+    
+    
     /**
     * 
     * Renders a token into text matching the requested format.

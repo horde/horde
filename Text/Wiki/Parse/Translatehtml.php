@@ -26,21 +26,21 @@ class Text_Wiki_Parse_Translatehtml extends Text_Wiki_Parse {
     
     function parse()
     {
-    	// get the type of html translation
-    	$type = $this->getConf('type', null);
-    	
-    	// shoule we translate?
-    	if ($type) {
-    	
-    		// yes! get the translation table.
-			$xlate = get_html_translation_table($type);
-			
-			// remove the delimiter character it doesn't get translated
-			unset($xlate[$this->wiki->delim]);
-			
-			// convert!
-			$this->wiki->source = strtr($this->wiki->source, $xlate);
-		}
+        // get the type of html translation
+        $type = $this->getConf('type', null);
+        
+        // shoule we translate?
+        if ($type) {
+        
+            // yes! get the translation table.
+            $xlate = get_html_translation_table($type);
+            
+            // remove the delimiter character it doesn't get translated
+            unset($xlate[$this->wiki->delim]);
+            
+            // convert!
+            $this->wiki->source = strtr($this->wiki->source, $xlate);
+        }
     }
 
 }

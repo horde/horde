@@ -23,62 +23,62 @@
 */
 
 class Text_Wiki_Parse_Include extends Text_Wiki_Parse {
-	
-	var $conf = array(
-		'base' => '/path/to/scripts/'
-	);
-	
-	var $file = null;
-	
-	var $output = null;
-	
-	var $vars = null;
+    
+    var $conf = array(
+        'base' => '/path/to/scripts/'
+    );
+    
+    var $file = null;
+    
+    var $output = null;
+    
+    var $vars = null;
 
-	/**
-	* 
-	* The regular expression used to find source text matching this
-	* rule.
-	* 
-	* @access public
-	* 
-	* @var string
-	* 
-	*/
-	
-	var $regex = '/(\[\[include )(.+?)( .+?)?(\]\])/i';
-	
-	
-	/**
-	* 
-	* Includes the results of the script directly into the source; the output
-	* will subsequently be parsed by the remaining Text_Wiki rules.
-	* 
-	* @access public
-	*
-	* @param array &$matches The array of matches from parse().
-	*
-	* @return The results of the included script.
-	*
-	*/
-	
-	function process(&$matches)
-	{
-		// save the file location
-		$this->file = $this->getConf('base', './') . $matches[2];
+    /**
+    * 
+    * The regular expression used to find source text matching this
+    * rule.
+    * 
+    * @access public
+    * 
+    * @var string
+    * 
+    */
+    
+    var $regex = '/(\[\[include )(.+?)( .+?)?(\]\])/i';
+    
+    
+    /**
+    * 
+    * Includes the results of the script directly into the source; the output
+    * will subsequently be parsed by the remaining Text_Wiki rules.
+    * 
+    * @access public
+    *
+    * @param array &$matches The array of matches from parse().
+    *
+    * @return The results of the included script.
+    *
+    */
+    
+    function process(&$matches)
+    {
+        // save the file location
+        $this->file = $this->getConf('base', './') . $matches[2];
 
-		// extract attribs as variables in the local space
-		$this->vars = $this->getAttrs($matches[3]);
-		unset($this->vars['this']);
-		extract($this->vars);
+        // extract attribs as variables in the local space
+        $this->vars = $this->getAttrs($matches[3]);
+        unset($this->vars['this']);
+        extract($this->vars);
 
-		// run the script
-		ob_start();
-		include($this->file);
-		$this->output = ob_get_contents();
-		ob_end_clean();
-	
-		// done, place the script output directly in the source
-		return $this->output;
-	}
+        // run the script
+        ob_start();
+        include($this->file);
+        $this->output = ob_get_contents();
+        ob_end_clean();
+    
+        // done, place the script output directly in the source
+        return $this->output;
+    }
 }
 ?>

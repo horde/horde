@@ -32,7 +32,7 @@ class Text_Wiki_Render_Plain_Deflist extends Text_Wiki_Render {
         
         case 'term_start':
         
-			// done!
+            // done!
             return $pad;
             break;
         
@@ -42,7 +42,7 @@ class Text_Wiki_Render_Plain_Deflist extends Text_Wiki_Render {
         
         case 'narr_start':
         
-			// done!
+            // done!
             return $pad . $pad;
             break;
         

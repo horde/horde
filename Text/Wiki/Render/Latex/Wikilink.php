@@ -1,12 +1,12 @@
 <?php
 
 class Text_Wiki_Render_Latex_Wikilink extends Text_Wiki_Render {
-	var $conf = array(
-		'pages' => array(),
-		'view_url' => 'http://example.com/index.php?page=%s',
-		'new_url'  => 'http://example.com/new.php?page=%s',
-		'new_text' => '?'
-	);
+    var $conf = array(
+        'pages' => array(),
+        'view_url' => 'http://example.com/index.php?page=%s',
+        'new_url'  => 'http://example.com/new.php?page=%s',
+        'new_text' => '?'
+    );
     
     /**
     * 
@@ -29,11 +29,11 @@ class Text_Wiki_Render_Latex_Wikilink extends Text_Wiki_Render {
         // are we checking page existence?
         $list =& $this->getConf('pages');
         if (is_array($list)) {
-        	// yes, check against the page list
-        	$exists = in_array($page, $list);
+            // yes, check against the page list
+            $exists = in_array($page, $list);
         } else {
-        	// no, assume it exists
-        	$exists = true;
+            // no, assume it exists
+            $exists = true;
         }
         
         // convert *after* checking against page names so as not to mess

@@ -105,7 +105,7 @@ class Text_Wiki_Parse_Blockquote extends Text_Wiki_Parse {
                 
                 // ...and add a start token to the return.
                 $return .= $this->wiki->addToken(
-                	$this->rule, 
+                    $this->rule, 
                     array(
                         'type' => 'start',
                         'level' => $level - 1
@@ -127,7 +127,7 @@ class Text_Wiki_Parse_Blockquote extends Text_Wiki_Parse {
                 $return .= "\n\n";
                 
                 $return .= $this->wiki->addToken(
-                	$this->rule, 
+                    $this->rule, 
                     array (
                         'type' => 'end',
                         'level' => count($stack)
@@ -148,7 +148,7 @@ class Text_Wiki_Parse_Blockquote extends Text_Wiki_Parse {
         while (count($stack) > 0) {
             array_pop($stack);
             $return .= $this->wiki->addToken(
-            	$this->rule, 
+                $this->rule, 
                 array (
                     'type' => 'end',
                     'level' => count($stack)

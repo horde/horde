@@ -3,9 +3,9 @@
 class Text_Wiki_Render_Xhtml_Deflist extends Text_Wiki_Render {
     
     var $conf = array(
-    	'css_dl' => null,
-    	'css_dt' => null,
-    	'css_dd' => null
+        'css_dl' => null,
+        'css_dt' => null,
+        'css_dd' => null
     );
     
     /**
@@ -29,7 +29,7 @@ class Text_Wiki_Render_Xhtml_Deflist extends Text_Wiki_Render {
         switch ($type) {
         
         case 'list_start':
-			$css = $this->formatConf(' class="%s"', 'css_dl');
+            $css = $this->formatConf(' class="%s"', 'css_dl');
             return "<dl$css>\n";
             break;
         
@@ -38,7 +38,7 @@ class Text_Wiki_Render_Xhtml_Deflist extends Text_Wiki_Render {
             break;
         
         case 'term_start':
-			$css = $this->formatConf(' class="%s"', 'css_dt');
+            $css = $this->formatConf(' class="%s"', 'css_dt');
             return $pad . "<dt$css>";
             break;
         
@@ -47,7 +47,7 @@ class Text_Wiki_Render_Xhtml_Deflist extends Text_Wiki_Render {
             break;
         
         case 'narr_start':
-			$css = $this->formatConf(' class="%s"', 'css_dd');
+            $css = $this->formatConf(' class="%s"', 'css_dd');
             return $pad . $pad . "<dd$css>";
             break;
         

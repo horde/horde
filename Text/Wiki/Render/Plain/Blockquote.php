@@ -19,21 +19,21 @@ class Text_Wiki_Render_Plain_Blockquote extends Text_Wiki_Render {
     {
         $type = $options['type'];
         $level = $options['level'];
-	
-		// set up indenting so that the results look nice; we do this
-		// in two steps to avoid str_pad mathematics.  ;-)
-		$pad = str_pad('', $level + 1, "\t");
-		$pad = str_replace("\t", '    ', $pad);
-		
-		// starting
-		if ($type == 'start') {
-			return "\n$pad";
-		}
-		
-		// ending
-		if ($type == 'end') {
-			return "\n$pad";
-		}
+    
+        // set up indenting so that the results look nice; we do this
+        // in two steps to avoid str_pad mathematics.  ;-)
+        $pad = str_pad('', $level + 1, "\t");
+        $pad = str_replace("\t", '    ', $pad);
+        
+        // starting
+        if ($type == 'start') {
+            return "\n$pad";
+        }
+        
+        // ending
+        if ($type == 'end') {
+            return "\n$pad";
+        }
     }
 }
 ?>

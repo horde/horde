@@ -74,7 +74,7 @@ class Text_Wiki_Render_Latex extends Text_Wiki_Render {
 
         $this->wiki->source = $this->escape_latex($this->wiki->source);
 
-    	return
+        return
             "\\documentclass{article}\n".
             "\\usepackage{ulem}\n".
             "\\pagestyle{headings}\n".
@@ -83,7 +83,7 @@ class Text_Wiki_Render_Latex extends Text_Wiki_Render {
     
     function post()
     {
-    	return "\\end{document}\n";
+        return "\\end{document}\n";
     }
     
 }

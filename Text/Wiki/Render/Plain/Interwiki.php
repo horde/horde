@@ -1,7 +1,7 @@
 <?php
 
 class Text_Wiki_Render_Plain_Interwiki extends Text_Wiki_Render {
-	
+    
     /**
     * 
     * Renders a token into text matching the requested format.

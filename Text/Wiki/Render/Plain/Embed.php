@@ -17,7 +17,7 @@ class Text_Wiki_Render_Plain_Embed extends Text_Wiki_Render {
     
     function token($options)
     {
-    	return strip_tags($options['text']);
+        return strip_tags($options['text']);
     }
 }
 ?>

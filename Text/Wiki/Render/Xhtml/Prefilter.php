@@ -32,9 +32,9 @@
 */
 
 class Text_Wiki_Render_Xhtml_Prefilter extends Text_Wiki_Render {
-	function token()
-	{
-		return '';
-	}
+    function token()
+    {
+        return '';
+    }
 }
 ?>

@@ -5,14 +5,14 @@ class Text_Wiki_Render_Xhtml_Url extends Text_Wiki_Render {
     
     
     var $conf = array(
-		'target' => '_blank',
-		'images' => true,
-    	'img_ext' => array('jpg', 'jpeg', 'gif', 'png'),
-		'css_inline' => null,
-		'css_footnote' => null,
-		'css_descr' => null,
-		'css_img' => null
-	);
+        'target' => '_blank',
+        'images' => true,
+        'img_ext' => array('jpg', 'jpeg', 'gif', 'png'),
+        'css_inline' => null,
+        'css_footnote' => null,
+        'css_descr' => null,
+        'css_img' => null
+    );
     
     /**
     * 
@@ -41,7 +41,7 @@ class Text_Wiki_Render_Xhtml_Url extends Text_Wiki_Render {
         
         // does the filename extension indicate an image file?
         if ($this->getConf('images') &&
-        	in_array($ext, $this->getConf('img_ext', array()))) {
+            in_array($ext, $this->getConf('img_ext', array()))) {
             
             // create alt text for the image
             if (! isset($text) || $text == '') {
@@ -50,32 +50,32 @@ class Text_Wiki_Render_Xhtml_Url extends Text_Wiki_Render {
             }
             
             // generate an image tag
-			$css = $this->formatConf(' class="%s"', 'css_img');
+            $css = $this->formatConf(' class="%s"', 'css_img');
             $output = "<img$css src=\"$href\" alt=\"$text\" />";
             
         } else {
-        	
-        	// allow for alternative targets on non-anchor HREFs
-        	if ($href{0} == '#') {
-        		$target = '';
-        	} else {
-	        	$target = $this->getConf('target');
-	        }
-	        
+            
+            // allow for alternative targets on non-anchor HREFs
+            if ($href{0} == '#') {
+                $target = '';
+            } else {
+                $target = $this->getConf('target');
+            }
+            
             // generate a regular link (not an image)
             $text = htmlspecialchars($text);
-			$css = $this->formatConf(' class="%s"', "css_$type");
+            $css = $this->formatConf(' class="%s"', "css_$type");
             $output = "<a$css href=\"$href\"";
             
             if ($target) {
-            	// use a "popup" window.  this is XHTML compliant, suggested by
-            	// Aaron Kalin.  uses the $target as the new window name.
-            	$target = htmlspecialchars($target);
-            	$output .= " onclick=\"window.open(this.href, '$target');";
-            	$output .= " return false;\"";
+                // use a "popup" window.  this is XHTML compliant, suggested by
+                // Aaron Kalin.  uses the $target as the new window name.
+                $target = htmlspecialchars($target);
+                $output .= " onclick=\"window.open(this.href, '$target');";
+                $output .= " return false;\"";
             }
             
-			// finish up output
+            // finish up output
             $output .= ">$text</a>";
             
             // make numbered references look like footnotes when no

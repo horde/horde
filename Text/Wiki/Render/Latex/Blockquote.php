@@ -21,16 +21,16 @@ class Text_Wiki_Render_Latex_Blockquote extends Text_Wiki_Render {
     {
         $type = $options['type'];
         $level = $options['level'];
-	
-		// starting
-		if ($type == 'start') {
+    
+        // starting
+        if ($type == 'start') {
             return "\\begin{quote}\n";
-		}
-		
-		// ending
-		if ($type == 'end') {
+        }
+        
+        // ending
+        if ($type == 'end') {
             return "\\end{quote}\n\n";
-		}
+        }
     }
 }
 ?>

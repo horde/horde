@@ -21,13 +21,13 @@ class Text_Wiki_Render_Latex_Phplookup extends Text_Wiki_Render {
     {
         return 'Phplookup: NI';
         
-    	$text = trim($options['text']);
-    	
-    	$target = $this->getConf('target', '');
-    	if ($target) {
-    		$target = " target=\"$target\"";
-    	}
-    	
+        $text = trim($options['text']);
+        
+        $target = $this->getConf('target', '');
+        if ($target) {
+            $target = " target=\"$target\"";
+        }
+        
         return "<a$target href=\"http://php.net/$text\">$text</a>";
     }
 }

@@ -17,13 +17,13 @@ class Text_Wiki_Render_Latex_Emphasis extends Text_Wiki_Render {
     
     function token($options)
     {
-		if ($options['type'] == 'start') {
-			return '\textsl{';
-		}
-		
-		if ($options['type'] == 'end') {
-			return '}';
-		}
+        if ($options['type'] == 'start') {
+            return '\textsl{';
+        }
+        
+        if ($options['type'] == 'end') {
+            return '}';
+        }
     }
 }
 ?>

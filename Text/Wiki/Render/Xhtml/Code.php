@@ -2,12 +2,12 @@
 
 class Text_Wiki_Render_Xhtml_Code extends Text_Wiki_Render {
     
-	var $conf = array(
-		'css'      => null, // class for <pre>
-		'css_code' => null, // class for generic <code>
-		'css_php'  => null, // class for PHP <code>
-		'css_html' => null // class for HTML <code>
-	);
+    var $conf = array(
+        'css'      => null, // class for <pre>
+        'css_code' => null, // class for generic <code>
+        'css_php'  => null, // class for PHP <code>
+        'css_html' => null // class for HTML <code>
+    );
     
     /**
     * 
@@ -26,7 +26,7 @@ class Text_Wiki_Render_Xhtml_Code extends Text_Wiki_Render {
     {
         $text = $options['text'];
         $attr = $options['attr'];
-       	$type = strtolower($attr['type']);
+           $type = strtolower($attr['type']);
         
         $css      = $this->formatConf(' class="%s"', 'css');
         $css_code = $this->formatConf(' class="%s"', 'css_code');
@@ -34,8 +34,8 @@ class Text_Wiki_Render_Xhtml_Code extends Text_Wiki_Render {
         $css_html = $this->formatConf(' class="%s"', 'css_html');
         
         if ($type == 'php') {
-        	
-        	// PHP code example:
+            
+            // PHP code example:
             // add the PHP tags
             $text = "<?php\n" . $options['text'] . "\n?>"; // <?php
             
@@ -70,9 +70,9 @@ class Text_Wiki_Render_Xhtml_Code extends Text_Wiki_Render {
             
             // replace all <code> tags with classed tags
             if ($css_php) {
-	            $text = str_replace('<code>', "<code$css_php>", $text);
-	        }
-	        
+                $text = str_replace('<code>', "<code$css_php>", $text);
+            }
+            
             // done
             $text = "<pre$css>$text</pre>";
         

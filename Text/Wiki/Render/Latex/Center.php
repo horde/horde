@@ -19,15 +19,15 @@ class Text_Wiki_Render_Latex_Center extends Text_Wiki_Render {
     {
         return 'Center: NI';
         
-    	if ($options['type'] == 'start') {
-    		//return "\n<center>\n";
-    		return '<div style="text-align: center;">';
-    	}
-    	
-    	if ($options['type'] == 'end') {
-    		//return "</center>\n";
-    		return '</div>';
-    	}
+        if ($options['type'] == 'start') {
+            //return "\n<center>\n";
+            return '<div style="text-align: center;">';
+        }
+        
+        if ($options['type'] == 'end') {
+            //return "</center>\n";
+            return '</div>';
+        }
     }
 }
 ?>

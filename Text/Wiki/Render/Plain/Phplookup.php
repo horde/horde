@@ -19,7 +19,7 @@ class Text_Wiki_Render_Plain_Phplookup extends Text_Wiki_Render {
     
     function token($options)
     {
-    	return trim($options['text']);
+        return trim($options['text']);
     }
 }
 ?>

@@ -5,14 +5,14 @@ class Text_Wiki_Render_Latex_Table extends Text_Wiki_Render {
     var $cell_count = 0;
     var $is_spanning = false;
     
-	var $conf = array(
+    var $conf = array(
                       'css_table' => null,
                       'css_tr' => null,
                       'css_th' => null,
                       'css_td' => null
                       );
 
-	/**
+    /**
      *
      * Renders a token into text matching the requested format.
      *
@@ -25,12 +25,12 @@ class Text_Wiki_Render_Latex_Table extends Text_Wiki_Render {
      *
      */
 
-	function token($options)
-	{
-		// make nice variable names (type, attr, span)
-		extract($options);
+    function token($options)
+    {
+        // make nice variable names (type, attr, span)
+        extract($options);
 
-		switch ($type)
+        switch ($type)
             {
             case 'table_start':
                 $this->cell_count = $cols;
@@ -88,6 +88,6 @@ class Text_Wiki_Render_Latex_Table extends Text_Wiki_Render {
                 return '';
 
             }
-	}
+    }
 }
 ?>

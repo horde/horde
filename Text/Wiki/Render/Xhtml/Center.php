@@ -17,13 +17,13 @@ class Text_Wiki_Render_Xhtml_Center extends Text_Wiki_Render {
     
     function token($options)
     {
-    	if ($options['type'] == 'start') {
-    		return '<div style="text-align: center;">';
-    	}
-    	
-    	if ($options['type'] == 'end') {
-    		return '</div>';
-    	}
+        if ($options['type'] == 'start') {
+            return '<div style="text-align: center;">';
+        }
+        
+        if ($options['type'] == 'end') {
+            return '</div>';
+        }
     }
 }
 ?>

@@ -5,10 +5,10 @@ class Text_Wiki_Render_Latex_Url extends Text_Wiki_Render {
     
     
     var $conf = array(
-		'target' => false,
-		'images' => true,
-    	'img_ext' => array('jpg', 'jpeg', 'gif', 'png')
-	);
+        'target' => false,
+        'images' => true,
+        'img_ext' => array('jpg', 'jpeg', 'gif', 'png')
+    );
     
     /**
     * 

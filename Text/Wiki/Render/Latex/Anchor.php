@@ -13,21 +13,21 @@
 */
 
 class Text_Wiki_Render_Latex_Anchor extends Text_Wiki_Render {
-	
-	function token($options)
-	{
-		extract($options); // $type, $name
-		
-		if ($type == 'start') {
-			//return sprintf('<a id="%s">',$name);
+    
+    function token($options)
+    {
+        extract($options); // $type, $name
+        
+        if ($type == 'start') {
+            //return sprintf('<a id="%s">',$name);
             return '';
-		}
-		
-		if ($type == 'end') {
-			//return '</a>';
+        }
+        
+        if ($type == 'end') {
+            //return '</a>';
             return '';
-		}
-	}
+        }
+    }
 }
 
 ?>

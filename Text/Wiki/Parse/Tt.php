@@ -23,47 +23,47 @@
 */
 
 class Text_Wiki_Parse_Tt extends Text_Wiki_Parse {
-	
-	
-	/**
-	* 
-	* The regular expression used to parse the source text.
-	* 
-	* @access public
-	* 
-	* @var string
-	* 
-	* @see parse()
-	* 
-	*/
-	
-	var $regex = "/{{({*?.*}*?)}}/U";
-	
-	
-	/**
-	* 
-	* Generates a replacement for the matched text. 
-	* 
-	* @access public
-	*
-	* @param array &$matches The array of matches from parse().
-	*
-	* @return string A pair of delimited tokens to be used as a
-	* placeholder in the source text surrounding the teletype text.
-	*
-	*/
-	
-	function process(&$matches)
-	{
-		$start = $this->wiki->addToken(
-			$this->rule, array('type' => 'start')
-		);
-		
-		$end = $this->wiki->addToken(
-			$this->rule, array('type' => 'end')
-		);
-		
-		return $start . $matches[1] . $end;
-	}
+    
+    
+    /**
+    * 
+    * The regular expression used to parse the source text.
+    * 
+    * @access public
+    * 
+    * @var string
+    * 
+    * @see parse()
+    * 
+    */
+    
+    var $regex = "/{{({*?.*}*?)}}/U";
+    
+    
+    /**
+    * 
+    * Generates a replacement for the matched text. 
+    * 
+    * @access public
+    *
+    * @param array &$matches The array of matches from parse().
+    *
+    * @return string A pair of delimited tokens to be used as a
+    * placeholder in the source text surrounding the teletype text.
+    *
+    */
+    
+    function process(&$matches)
+    {
+        $start = $this->wiki->addToken(
+            $this->rule, array('type' => 'start')
+        );
+        
+        $end = $this->wiki->addToken(
+            $this->rule, array('type' => 'end')
+        );
+        
+        return $start . $matches[1] . $end;
+    }
 }
 ?>

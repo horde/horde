@@ -2,10 +2,10 @@
 
 class Text_Wiki_Render_Xhtml_Revise extends Text_Wiki_Render {
     
-	var $conf = array(
-		'css_ins' => null,
-		'css_del' => null
-	);
+    var $conf = array(
+        'css_ins' => null,
+        'css_del' => null
+    );
     
     
     /**
@@ -24,7 +24,7 @@ class Text_Wiki_Render_Xhtml_Revise extends Text_Wiki_Render {
     function token($options)
     {
         if ($options['type'] == 'del_start') {
-			$css = $this->formatConf(' class="%s"', 'css_del');
+            $css = $this->formatConf(' class="%s"', 'css_del');
             return "<del$css>";
         }
         
@@ -33,7 +33,7 @@ class Text_Wiki_Render_Xhtml_Revise extends Text_Wiki_Render {
         }
         
         if ($options['type'] == 'ins_start') {
-			$css = $this->formatConf(' class="%s"', 'css_ins');
+            $css = $this->formatConf(' class="%s"', 'css_ins');
             return "<ins$css>";
         }
         

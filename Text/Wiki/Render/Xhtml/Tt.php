@@ -3,10 +3,10 @@
 class Text_Wiki_Render_Xhtml_tt extends Text_Wiki_Render {
     
     
-	var $conf = array(
-		'css' => null
-	);
-	
+    var $conf = array(
+        'css' => null
+    );
+    
     /**
     * 
     * Renders a token into text matching the requested format.
@@ -23,7 +23,7 @@ class Text_Wiki_Render_Xhtml_tt extends Text_Wiki_Render {
     function token($options)
     {
         if ($options['type'] == 'start') {
-			$css = $this->formatConf(' class="%s"', 'css');
+            $css = $this->formatConf(' class="%s"', 'css');
             return "<tt$css>";
         }
         
