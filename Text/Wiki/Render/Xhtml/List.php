@@ -1,14 +1,7 @@
 <?php
 
 
-class Text_Wiki_Render_Xhtml_List extends Text_Wiki_Render {
-	
-	var $conf = array(
-		'css_ol' => null,
-		'css_ol_li' => null,
-		'css_ul' => null,
-		'css_ul_li' => null
-	);
+class Text_Wiki_Render_Plain_List extends Text_Wiki_Render {
 	
     /**
     * 
@@ -39,107 +32,26 @@ class Text_Wiki_Render_Xhtml_List extends Text_Wiki_Render {
 		switch ($type) {
 		
 		case 'bullet_list_start':
-		
-			// pick the CSS class
-			$css = $this->getConf('css_ul', '');
-			if ($css) {
-				$css = " class=\"$css\"";
-			}
-			
-			// build the base HTML
-			$html = "<ul$css>";
-			
-			// if this is the opening block for the list,
-			// put an extra newline in front of it so the
-			// output looks nice.
-			if ($level == 0) {
-				$html = "\n$html";
-			}
-			
-			// done!
-			return $html;
 			break;
 		
 		case 'bullet_list_end':
-		
-			// build the base HTML
-			$html = "</li>\n$pad</ul>";
-			
-			// if this is the closing block for the list,
-			// put extra newlines after it so the output
-			// looks nice.
 			if ($level == 0) {
-				$html .= "\n\n";
+				return "\n\n";
 			}
-			
-			// done!
-			return $html;
 			break;
 		
 		case 'number_list_start':
-		
-			// pick the CSS class
-			$css = $this->getConf('css_ol', '');
-			if ($css) {
-				$css = " class=\"$css\"";
-			}
-			
-			// build the base HTML
-			$html = "<ol$css>";
-			
-			// if this is the opening block for the list,
-			// put an extra newline in front of it so the
-			// output looks nice.
-			if ($level == 0) {
-				$html = "\n$html";
-			}
-			
-			// done!
-			return $html;
 			break;
 		
 		case 'number_list_end':
-		
-			// build the base HTML
-			$html = "</li>\n$pad</ol>";
-			
-			// if this is the closing block for the list,
-			// put extra newlines after it so the output
-			// looks nice.
 			if ($level == 0) {
-				$html .= "\n\n";
+				return "\n\n";
 			}
-			
-			// done!
-			return $html;
 			break;
 		
 		case 'bullet_item_start':
 		case 'number_item_start':
-		
-			// pick the proper CSS class
-			if ($type == 'bullet_item_start') {
-				$css = $this->getConf('css_ul_li', '');
-			} else {
-				$css = $this->getConf('css_ol_li', '');
-			}
-			
-			if ($css) {
-				$css = " class=\"$css\"";
-			}
-			
-			// build the base HTML
-			$html = "\n$pad<li$css>";
-			
-			// for the very first item in the list, do nothing.
-			// but for additional items, be sure to close the
-			// previous item.
-			if ($count > 0) {
-				$html = "</li>$html";
-			}
-			
-			// done!
-			return $html;
+			return "\n$pad";
 			break;
 		
 		case 'bullet_item_end':
@@ -148,7 +60,7 @@ class Text_Wiki_Render_Xhtml_List extends Text_Wiki_Render {
 			// ignore item endings and all other types.
 			// item endings are taken care of by the other types
 			// depending on their place in the list.
-			return '';
+			return;
 			break;
 		}
     }

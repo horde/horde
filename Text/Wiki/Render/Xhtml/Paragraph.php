@@ -1,6 +1,6 @@
 <?php
 
-class Text_Wiki_Render_Xhtml_Paragraph extends Text_Wiki_Render {
+class Text_Wiki_Render_Plain_Paragraph extends Text_Wiki_Render {
     
     /**
     * 
@@ -20,11 +20,11 @@ class Text_Wiki_Render_Xhtml_Paragraph extends Text_Wiki_Render {
         extract($options); //type
         
         if ($type == 'start') {
-            return '<p>';
+            return '';
         }
         
         if ($type == 'end') {
-            return "</p>\n\n";
+            return "\n\n";
         }
     }
 }

@@ -1,12 +1,6 @@
 <?php
 
-class Text_Wiki_Render_Xhtml_Deflist extends Text_Wiki_Render {
-    
-    var $conf = array(
-    	'css_dl' => null,
-    	'css_dt' => null,
-    	'css_dd' => null
-    );
+class Text_Wiki_Render_Plain_Deflist extends Text_Wiki_Render {
     
     /**
     * 
@@ -26,60 +20,34 @@ class Text_Wiki_Render_Xhtml_Deflist extends Text_Wiki_Render {
         $type = $options['type'];
         $pad = "    ";
         
-		// pick the css type
-		$css = $this->getConf('css', '');
-		if ($css) {
-			$css = " class=\"$css\"";
-		}
-		
         switch ($type) {
         
         case 'list_start':
-        
-			// pick the css type
-			$css = $this->getConf('css_dl', '');
-			if ($css) {
-				$css = " class=\"$css\"";
-			}
-			
-			// done!
-            return "<dl>\n";
+            return "\n";
             break;
         
         case 'list_end':
-            return "</dl>\n\n";
+            return "\n\n";
             break;
         
         case 'term_start':
         
-			// pick the css type
-			$css = $this->getConf('css_dt', '');
-			if ($css) {
-				$css = " class=\"$css\"";
-			}
-			
 			// done!
-            return $pad . "<dt>";
+            return $pad;
             break;
         
         case 'term_end':
-            return "</dt>\n";
+            return "\n";
             break;
         
         case 'narr_start':
         
-			// pick the css type
-			$css = $this->getConf('css_dd', '');
-			if ($css) {
-				$css = " class=\"$css\"";
-			}
-			
 			// done!
-            return $pad . $pad . "<dd>";
+            return $pad . $pad;
             break;
         
         case 'narr_end':
-            return "</dd>\n";
+            return "\n";
             break;
         
         default:

@@ -1,6 +1,6 @@
 <?php
 
-class Text_Wiki_Render_Xhtml_Embed extends Text_Wiki_Render {
+class Text_Wiki_Render_Plain_Embed extends Text_Wiki_Render {
     
     /**
     * 
@@ -17,7 +17,7 @@ class Text_Wiki_Render_Xhtml_Embed extends Text_Wiki_Render {
     
     function token($options)
     {
-    	return $options['text'];
+    	return strip_tags($options['text']);
     }
 }
 ?>

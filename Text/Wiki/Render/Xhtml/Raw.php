@@ -1,6 +1,6 @@
 <?php
 
-class Text_Wiki_Render_Xhtml_Raw extends Text_Wiki_Render {
+class Text_Wiki_Render_Plain_Raw extends Text_Wiki_Render {
     
     /**
     * 

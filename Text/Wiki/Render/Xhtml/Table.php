@@ -1,14 +1,6 @@
 <?php
 
-class Text_Wiki_Render_Xhtml_Table extends Text_Wiki_Render {
-	
-	var $conf = array(
-		'css_table' => null,
-		'css_tr' => null,
-		'css_th' => null,
-		'css_td' => null
-	);
-	
+class Text_Wiki_Render_Plain_Table extends Text_Wiki_Render {
 	
 	/**
 	* 
@@ -33,88 +25,27 @@ class Text_Wiki_Render_Xhtml_Table extends Text_Wiki_Render {
 		switch ($type) {
 		
 		case 'table_start':
-			
-			// pick the CSS class
-			$css = $this->getConf('css_table', '');
-			if ($css) {
-				$css = " class=\"$css\"";
-			}
-			
-			// done!
-			return "\n\n<table$css>\n";
+			return;
 			break;
 		
 		case 'table_end':
-			return "</table>\n\n";
+			return;
 			break;
 		
 		case 'row_start':
-			$html = "$pad<tr";
-			
-			// pick the CSS class
-			$css = $this->getConf('css_tr', '');
-			if ($css) {
-				$css = " class=\"$css\"";
-			}
-			
-			// done
-			return "$pad<tr$css>\n";
+			return;
 			break;
 		
 		case 'row_end':
-			return "$pad</tr>\n";
+			return " ||\n";
 			break;
 		
 		case 'cell_start':
-			
-			// base html
-			$html = $pad . $pad;
-			
-			// is this a TH or TD cell?
-			if ($attr == 'header') {
-				
-				// start a header cell
-				$html .= '<th';
-				
-				// add CSS class
-				$css = $this->getConf('css_th', '');
-				if ($css) {
-					$html .= " class=\"$css\"";
-				}
-				
-			} else {
-			
-				// start a normal cell
-				$html .= '<td';
-				
-				// add the CSS class
-				$css = $this->getConf('css_td', '');
-				if ($css) {
-					$html .= " class=\"$css\"";
-				}
-			}
-			
-			// add the column span
-			if ($span > 1) {
-				$html .= " colspan=\"$span\"";
-			}
-			
-			// add alignment
-			if ($attr != 'header' && $attr != '') {
-				$html .= " style=\"text-align: $attr;\"";
-			}
-			
-			// done!
-			$html .= '>';
-			return $html;
+			return " || ";
 			break;
 		
 		case 'cell_end':
-			if ($attr == 'header') {
-				return "</th>\n";
-			} else {
-				return "</td>\n";
-			}
+			return;
 			break;
 		
 		default:

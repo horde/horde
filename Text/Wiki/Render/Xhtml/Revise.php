@@ -1,6 +1,6 @@
 <?php
 
-class Text_Wiki_Render_Xhtml_Revise extends Text_Wiki_Render {
+class Text_Wiki_Render_Plain_Revise extends Text_Wiki_Render {
     
     
     /**
@@ -18,21 +18,7 @@ class Text_Wiki_Render_Xhtml_Revise extends Text_Wiki_Render {
     
     function token($options)
     {
-        if ($options['type'] == 'del_start') {
-            return '<del>';
-        }
-        
-        if ($options['type'] == 'del_end') {
-            return '</del>';
-        }
-        
-        if ($options['type'] == 'ins_start') {
-            return '<ins>';
-        }
-        
-        if ($options['type'] == 'ins_end') {
-            return '</ins>';
-        }
+        return;
     }
 }
 ?>

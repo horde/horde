@@ -1,8 +1,6 @@
 <?php
 
-class Text_Wiki_Render_Xhtml_Blockquote extends Text_Wiki_Render {
-    
-    var $conf = array('css' => null);
+class Text_Wiki_Render_Plain_Blockquote extends Text_Wiki_Render {
     
     /**
     * 
@@ -24,23 +22,17 @@ class Text_Wiki_Render_Xhtml_Blockquote extends Text_Wiki_Render {
 	
 		// set up indenting so that the results look nice; we do this
 		// in two steps to avoid str_pad mathematics.  ;-)
-		$pad = str_pad('', $level, "\t");
+		$pad = str_pad('', $level + 1, "\t");
 		$pad = str_replace("\t", '    ', $pad);
-		
-		// pick the css type
-		$css = $this->getConf('css', '');
-		if ($css) {
-			$css = " class=\"$css\"";
-		}
 		
 		// starting
 		if ($type == 'start') {
-			return "$pad<blockquote$css>";
+			return "\n$pad";
 		}
 		
 		// ending
 		if ($type == 'end') {
-			return $pad . "</blockquote>\n";
+			return "\n$pad";
 		}
     }
 }

@@ -1,15 +1,7 @@
 <?php
 
-class Text_Wiki_Render_Xhtml_Freelink extends Text_Wiki_Render {
+class Text_Wiki_Render_Plain_Freelink extends Text_Wiki_Render {
     
-    var $conf = array(
-		'pages' => array(),
-		'view_url' => 'http://example.com/index.php?page=%s',
-		'new_url'  => 'http://example.com/new.php?page=%s',
-		'new_text' => '?'
-	);
-	
-	
     /**
     * 
     * Renders a token into text matching the requested format.
@@ -25,40 +17,7 @@ class Text_Wiki_Render_Xhtml_Freelink extends Text_Wiki_Render {
     
     function token($options)
     {
-        // get nice variable names (page, text, anchor)
-        extract($options);
-        
-        if (in_array($page, $this->getConf('pages'))){
-        
-            // the page exists, show a link to the page
-            $href = $this->getConf('view_url');
-            if (strpos($href, '%s') === false) {
-            	// use the old form
-	            $href = $href . urlencode($page) . '#' . $anchor;
-	        } else {
-	        	// use the new form
-	        	$href = sprintf($href, urlencode($page) . '#' . $anchor);
-	        }
-	        
-	        $text = htmlspecialchars($text);
-            return "<a href=\"$href\">$text</a>";
-            
-        } else {
-        
-            // the page does not exist, show the page name and
-            // the "new page" text
-            $href = $this->getConf('new_url');
-            if (strpos($href, '%s') === false) {
-            	// use the old form
-	            $href = $href . urlencode($page);
-	        } else {
-	        	// use the new form
-	        	$href = sprintf($href, urlencode($page));
-	        }
-			
-            return $text . "<a href=\"$href\">" . $this->getConf('new_text') . "</a>";
-            
-        }
+        return $options['text'];
     }
 }
 ?>

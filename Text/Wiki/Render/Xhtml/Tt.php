@@ -1,6 +1,6 @@
 <?php
 
-class Text_Wiki_Render_Xhtml_tt extends Text_Wiki_Render {
+class Text_Wiki_Render_Plain_tt extends Text_Wiki_Render {
     
     
     /**
@@ -18,13 +18,7 @@ class Text_Wiki_Render_Xhtml_tt extends Text_Wiki_Render {
     
     function token($options)
     {
-        if ($options['type'] == 'start') {
-            return '<tt>';
-        }
-        
-        if ($options['type'] == 'end') {
-            return '</tt>';
-        }
+        return;
     }
 }
 ?>

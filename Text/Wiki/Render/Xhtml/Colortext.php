@@ -1,26 +1,6 @@
 <?php
 
-class Text_Wiki_Render_Xhtml_Colortext extends Text_Wiki_Render {
-    
-    var $colors = array(
-        'aqua',
-        'black',
-        'blue',
-        'fuchsia',
-        'gray',
-        'green',
-        'lime',
-        'maroon',
-        'navy',
-        'olive',
-        'purple',
-        'red',
-        'silver',
-        'teal',
-        'white',
-        'yellow'
-    );
-    
+class Text_Wiki_Render_Plain_Colortext extends Text_Wiki_Render {
     
     /**
     * 
@@ -37,20 +17,7 @@ class Text_Wiki_Render_Xhtml_Colortext extends Text_Wiki_Render {
     
     function token($options)
     {
-        $type = $options['type'];
-        $color = $options['color'];
-        
-        if (! in_array($color, $this->colors)) {
-            $color = '#' . $color;
-        }
-        
-        if ($type == 'start') {
-            return "<span style=\"color: $color;\">";
-        }
-        
-        if ($options['type'] == 'end') {
-            return '</span>';
-        }
+		return;
     }
 }
 ?>
