@@ -1250,8 +1250,6 @@ class Text_Wiki {
 			return $path;
 		}
 	}
-	
-	
 }
 
 ?>
