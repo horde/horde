@@ -405,7 +405,7 @@ class Text_Wiki {
         $rule = ucwords(strtolower($rule));
         
         // the rule does not exist
-        if (isset($this->parseConf[$rule])) {
+        if (! isset($this->parseConf[$rule])) {
             return null;
         }
         
@@ -493,7 +493,7 @@ class Text_Wiki {
         
         if (! isset($this->renderConf[$format]) ||
             ! isset($this->renderConf[$format][$rule])) {
-            return;
+            return null;
         }
         
         // no key requested, return the whole array
@@ -565,7 +565,7 @@ class Text_Wiki {
     function getFormatConf($format, $key = null)
     {
         // the format does not exist
-        if (isset($this->formatConf[$format])) {
+        if (! isset($this->formatConf[$format])) {
             return null;
         }
         
