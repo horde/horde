@@ -40,9 +40,15 @@ require_once 'Text/Wiki/Render.php';
 * 
 * @package Text_Wiki
 * 
+<<<<<<< Wiki.php
+* @version 0.25.0
+*
+* @license LGPL
+=======
 * @author Paul M. Jones <pmjones@php.net>
 * 
 * @version @package_version@
+>>>>>>> 1.28
 * 
 */
 
@@ -92,6 +98,7 @@ class Text_Wiki {
         'Italic',
         'Tt',
         'Superscript',
+        'Subscript',
         'Revise',
         'Tighten'
     );
