@@ -168,7 +168,7 @@ class Text_Wiki_Rule_blockquote extends Text_Wiki_Rule {
         }
         
         // we're done!  send back the replacement text.
-        return "$return\n";
+        return "\n$return\n\n";
     }
     
     
