@@ -10,7 +10,7 @@ class Text_Wiki_Render_Xhtml extends Text_Wiki_Render {
         $type = $this->getConf('translate', null);
         
         // are we translating html?
-        if ($type) {
+        if ($type !== false && $type !== null) {
         
             // yes! get the translation table.
             $xlate = get_html_translation_table($type);
