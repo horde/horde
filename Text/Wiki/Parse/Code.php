@@ -60,9 +60,18 @@ class Text_Wiki_Parse_Code extends Text_Wiki_Parse {
                 'attr' => array('type' => '')
             );
         } else {
+        	// get the attributes...
+        	$attr = $this->getAttrs($args);
+        	
+        	// ... and make sure we have a 'type'
+        	if (! isset($attr['type'])) {
+        		$attr['type'] = '';
+        	}
+        	
+        	// retain the options
             $options = array(
                 'text' => $matches[3],
-                'attr' => $this->getAttrs($args)
+                'attr' => $attr
             );
         }
         
