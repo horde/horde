@@ -4,10 +4,26 @@
 * 
 * Parse for URLS in the source text.
 * 
+* @category Text
+* 
+* @package Text_Wiki
+* 
+* @author Paul M. Jones <pmjones@php.net>
+* 
+* @license LGPL
+* 
+* @version $Id$
+* 
+*/
+
+/**
+* 
+* Parse for URLS in the source text.
+* 
 * Various URL markings are supported: inline (the URL by itself),
-* numbered or footnote reference (where the URL is enclosed in square brackets), and
-* named reference (where the URL is enclosed in square brackets and has a
-* name included inside the brackets).  E.g.:
+* numbered or footnote reference (where the URL is enclosed in square
+* brackets), and named reference (where the URL is enclosed in square
+* brackets and has a name included inside the brackets).  E.g.:
 *
 * inline    -- http://example.com
 * numbered  -- [http://example.com]
@@ -25,12 +41,14 @@
 * 
 * 'text' => the displayed text of the URL link
 * 
-* $Id$
+* @category Text
 * 
-* @author Paul M. Jones <pmjones@ciaweb.net>
-*
 * @package Text_Wiki
-*
+* 
+* @author Paul M. Jones <pmjones@php.net>
+* 
+* @version @package_version@
+* 
 */
 
 class Text_Wiki_Parse_Url extends Text_Wiki_Parse {

@@ -1,16 +1,36 @@
 <?php
-// $Id$
-
 
 /**
+* 
+* Parses for centered lines of text.
+* 
+* @category Text
+* 
+* @package Text_Wiki
+* 
+* @author Paul M. Jones <pmjones@php.net>
+* 
+* @license LGPL
+* 
+* @version $Id$
+* 
+*/
+
+/**
+* 
+* Parses for centered lines of text.
 * 
 * This class implements a Text_Wiki_Parse to find lines marked for centering.
 * The line must start with "= " (i.e., an equal-sign followed by a space).
 *
-* @author Paul M. Jones <pmjones@ciaweb.net>
-*
+* @category Text
+* 
 * @package Text_Wiki
-*
+* 
+* @author Paul M. Jones <pmjones@php.net>
+* 
+* @version @package_version@
+* 
 */
 
 class Text_Wiki_Parse_Center extends Text_Wiki_Parse {

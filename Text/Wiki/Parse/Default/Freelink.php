@@ -1,8 +1,24 @@
 <?php
-// $Id$
-
 
 /**
+* 
+* Parses for wiki freelink text.
+* 
+* @category Text
+* 
+* @package Text_Wiki
+* 
+* @author Paul M. Jones <pmjones@php.net>
+* 
+* @license LGPL
+* 
+* @version $Id$
+* 
+*/
+
+/**
+* 
+* Parses for freelinked page links.
 * 
 * This class implements a Text_Wiki_Parse to find source text marked as a
 * wiki freelink, and automatically create a link to that page.
@@ -15,10 +31,14 @@
 * Page)).  Finally, you can use named anchors on the target page:
 * ((MyHomePage|My Home Page#Section1)).
 *
-* @author Paul M. Jones <pmjones@ciaweb.net>
-*
+* @category Text
+* 
 * @package Text_Wiki
-*
+* 
+* @author Paul M. Jones <pmjones@php.net>
+* 
+* @version @package_version@
+* 
 */
 
 class Text_Wiki_Parse_Freelink extends Text_Wiki_Parse {

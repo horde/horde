@@ -13,7 +13,7 @@
 // | obtain it through the world-wide-web, please send a note to          |
 // | license@php.net so we can mail you a copy immediately.               |
 // +----------------------------------------------------------------------+
-// | Authors: Paul M. Jones <pmjones@ciaweb.net>                          |
+// | Authors: Paul M. Jones <pmjones@php.net>                          |
 // +----------------------------------------------------------------------+
 //
 // $Id$
@@ -25,7 +25,7 @@
 * that line endings are consistently \n, lines ending in a backslash \
 * are concatenated with the next line, and tabs are converted to spaces.
 *
-* @author Paul M. Jones <pmjones@ciaweb.net>
+* @author Paul M. Jones <pmjones@php.net>
 *
 * @package Text_Wiki
 *

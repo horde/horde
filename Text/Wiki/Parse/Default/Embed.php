@@ -1,8 +1,24 @@
 <?php
-// $Id$
-
 
 /**
+* 
+* Embeds the results of a PHP script at render-time.
+* 
+* @category Text
+* 
+* @package Text_Wiki
+* 
+* @author Paul M. Jones <pmjones@php.net>
+* 
+* @license LGPL
+* 
+* @version $Id$
+* 
+*/
+
+/**
+* 
+* Embeds the results of a PHP script at render-time.
 * 
 * This class implements a Text_Wiki_Parse to embed the contents of a URL
 * inside the page at render-time.  Typically used to get script output.
@@ -14,10 +30,14 @@
 * occur if the embedded output has <script> or other similar tags.  Be
 * careful.
 *
-* @author Paul M. Jones <pmjones@ciaweb.net>
-*
+* @category Text
+* 
 * @package Text_Wiki
-*
+* 
+* @author Paul M. Jones <pmjones@php.net>
+* 
+* @version @package_version@
+* 
 */
 
 class Text_Wiki_Parse_Embed extends Text_Wiki_Parse {

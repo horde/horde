@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<!-- $Id: package.xml,v 1.38 2005-02-01 16:54:49 pmjones Exp $ -->
+<!-- $Id: package.xml,v 1.39 2005-02-22 19:12:57 pmjones Exp $ -->
 <package version="1.0">
     <name>Text_Wiki</name>
     <summary>Abstracts parsing and rendering rules for Wiki markup in structured plain text.</summary>
@@ -9,7 +9,7 @@
         <maintainer>
             <user>pmjones</user>
             <name>Paul M. Jones</name>
-            <email>pmjones@ciaweb.net</email>
+            <email>pmjones@php.net</email>
             <role>lead</role>
         </maintainer>
     </maintainers>

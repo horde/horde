@@ -1,16 +1,36 @@
 <?php
-// $Id$
-
 
 /**
+* 
+* Parses for horizontal ruling lines.
+* 
+* @category Text
+* 
+* @package Text_Wiki
+* 
+* @author Paul M. Jones <pmjones@php.net>
+* 
+* @license LGPL
+* 
+* @version $Id$
+* 
+*/
+
+/**
+* 
+* Parses for horizontal ruling lines.
 * 
 * This class implements a Text_Wiki_Parse to find source text marked to
 * be a horizontal rule, as defined by four dashed on their own line.
 *
-* @author Paul M. Jones <pmjones@ciaweb.net>
-*
+* @category Text
+* 
 * @package Text_Wiki
-*
+* 
+* @author Paul M. Jones <pmjones@php.net>
+* 
+* @version @package_version@
+* 
 */
 
 class Text_Wiki_Parse_Horiz extends Text_Wiki_Parse {

@@ -1,19 +1,33 @@
 <?php
-// $Id$
-
 
 /**
 * 
-* This class implements a Text_Wiki_Parse to find source text marked for
-* strong emphasis (bold) as defined by text surrounded by three
-* single-quotes. On parsing, the text itself is left in place, but the
-* starting and ending instances of three single-quotes are replaced with
-* tokens.
-*
-* @author Paul M. Jones <pmjones@ciaweb.net>
-*
+* Parses for superscripted text.
+* 
+* @category Text
+* 
 * @package Text_Wiki
-*
+* 
+* @author Paul M. Jones <pmjones@php.net>
+* 
+* @license LGPL
+* 
+* @version $Id$
+* 
+*/
+
+/**
+* 
+* Parses for superscripted text.
+* 
+* @category Text
+* 
+* @package Text_Wiki
+* 
+* @author Paul M. Jones <pmjones@php.net>
+* 
+* @version @package_version@
+* 
 */
 
 class Text_Wiki_Parse_Superscript extends Text_Wiki_Parse {

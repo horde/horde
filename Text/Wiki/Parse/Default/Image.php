@@ -1,23 +1,33 @@
 <?php
-// $Id$
-
 
 /**
 * 
-* This class implements a Text_Wiki_Parse to embed the contents of a URL
-* inside the page.  Typically used to get script output.
-*
-* This rule is inherently not secure; it allows cross-site scripting to
-* occur if the embedded output has <script> or other similar tags.  Be
-* careful.
-*
-* In the future, we'll add a rule config options to set the base embed
-* path so that it is limited to one directory.
-*
-* @author Paul M. Jones <pmjones@ciaweb.net>
-*
+* Parses for image placement.
+* 
+* @category Text
+* 
 * @package Text_Wiki
-*
+* 
+* @author Paul M. Jones <pmjones@php.net>
+* 
+* @license LGPL
+* 
+* @version $Id$
+* 
+*/
+
+/**
+* 
+* Parses for image placement.
+* 
+* @category Text
+* 
+* @package Text_Wiki
+* 
+* @author Paul M. Jones <pmjones@php.net>
+* 
+* @version @package_version@
+* 
 */
 
 class Text_Wiki_Parse_Image extends Text_Wiki_Parse {

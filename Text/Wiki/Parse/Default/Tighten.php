@@ -1,15 +1,34 @@
 <?php
-// $Id$
+
+/**
+* 
+* The rule removes all remaining newlines.
+* 
+* @category Text
+* 
+* @package Text_Wiki
+* 
+* @author Paul M. Jones <pmjones@php.net>
+* 
+* @license LGPL
+* 
+* @version $Id$
+* 
+*/
 
 
 /**
 * 
 * The rule removes all remaining newlines.
 *
-* @author Paul M. Jones <pmjones@ciaweb.net>
-*
+* @category Text
+* 
 * @package Text_Wiki
-*
+* 
+* @author Paul M. Jones <pmjones@php.net>
+* 
+* @version @package_version@
+* 
 */
 
 class Text_Wiki_Parse_Tighten extends Text_Wiki_Parse {

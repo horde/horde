@@ -3,6 +3,22 @@
 /**
 * 
 * Parse for links to wiki pages.
+* 
+* @category Text
+* 
+* @package Text_Wiki
+* 
+* @author Paul M. Jones <pmjones@php.net>
+* 
+* @license LGPL
+* 
+* @version $Id$
+* 
+*/
+
+/**
+* 
+* Parse for links to wiki pages.
 *
 * Wiki page names are typically in StudlyCapsStyle made of
 * WordsSmashedTogether.
@@ -18,12 +34,14 @@
 * 
 * 'anchor' => a named anchor on the target wiki page.
 * 
-* $Id$
-*
-* @author Paul M. Jones <pmjones@ciaweb.net>
-*
+* @category Text
+* 
 * @package Text_Wiki
-*
+* 
+* @author Paul M. Jones <pmjones@php.net>
+* 
+* @version @package_version@
+* 
 */
 
 class Text_Wiki_Parse_Wikilink extends Text_Wiki_Parse {

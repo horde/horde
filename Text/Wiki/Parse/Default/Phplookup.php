@@ -1,16 +1,33 @@
 <?php
-// $Id$
-
 
 /**
 * 
-* Find source text marked for
-* lookup in the PHP online manual.
-*
-* @author Paul M. Jones <pmjones@ciaweb.net>
-*
+* Find source text marked for lookup in the PHP online manual.
+* 
+* @category Text
+* 
 * @package Text_Wiki
+* 
+* @author Paul M. Jones <pmjones@php.net>
+* 
+* @license LGPL
+* 
+* @version $Id$
+* 
+*/
+
+/**
+* 
+* Find source text marked for lookup in the PHP online manual.
 *
+* @category Text
+* 
+* @package Text_Wiki
+* 
+* @author Paul M. Jones <pmjones@php.net>
+* 
+* @version @package_version@
+* 
 */
 
 class Text_Wiki_Parse_Phplookup extends Text_Wiki_Parse {

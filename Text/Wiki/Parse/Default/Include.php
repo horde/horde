@@ -1,6 +1,20 @@
 <?php
-// $Id$
 
+/**
+* 
+* Includes the contents of another PHP script into the source text.
+* 
+* @category Text
+* 
+* @package Text_Wiki
+* 
+* @author Paul M. Jones <pmjones@php.net>
+* 
+* @license LGPL
+* 
+* @version $Id$
+* 
+*/
 
 /**
 * 
@@ -16,10 +30,14 @@
 * occur if the embedded output has <script> or other similar tags.  Be
 * careful.
 *
-* @author Paul M. Jones <pmjones@ciaweb.net>
-*
+* @category Text
+* 
 * @package Text_Wiki
-*
+* 
+* @author Paul M. Jones <pmjones@php.net>
+* 
+* @version @package_version@
+* 
 */
 
 class Text_Wiki_Parse_Include extends Text_Wiki_Parse {

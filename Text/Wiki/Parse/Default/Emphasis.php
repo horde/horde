@@ -1,18 +1,38 @@
 <?php
-// $Id$
-
 
 /**
+* 
+* Parses for emphasized text.
+* 
+* @category Text
+* 
+* @package Text_Wiki
+* 
+* @author Paul M. Jones <pmjones@php.net>
+* 
+* @license LGPL
+* 
+* @version $Id$
+* 
+*/
+
+/**
+* 
+* Parses for emphasized text.
 * 
 * This class implements a Text_Wiki_Parse to find source text marked for
 * emphasis (italics) as defined by text surrounded by two single-quotes.
 * On parsing, the text itself is left in place, but the starting and ending
 * instances of two single-quotes are replaced with tokens.
 *
-* @author Paul M. Jones <pmjones@ciaweb.net>
-*
+* @category Text
+* 
 * @package Text_Wiki
-*
+* 
+* @author Paul M. Jones <pmjones@php.net>
+* 
+* @version @package_version@
+* 
 */
 
 class Text_Wiki_Parse_emphasis extends Text_Wiki_Parse {

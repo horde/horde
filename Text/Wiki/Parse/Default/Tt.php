@@ -4,6 +4,22 @@
 * 
 * Find source text marked for teletype (monospace).
 * 
+* @category Text
+* 
+* @package Text_Wiki
+* 
+* @author Paul M. Jones <pmjones@php.net>
+* 
+* @license LGPL
+* 
+* @version $Id$
+* 
+*/
+
+/**
+* 
+* Find source text marked for teletype (monospace).
+* 
 * Defined by text surrounded by two curly braces. On parsing, the text
 * itself is left in place, but the starting and ending instances of
 * curly braces are replaced with tokens.
@@ -13,13 +29,14 @@
 * 'type' => ['start'|'end'] The starting or ending point of the
 * teletype text.  The text itself is left in the source.
 * 
+* @category Text
 * 
-* $Id$
-* 
-* @author Paul M. Jones <pmjones@ciaweb.net>
-*
 * @package Text_Wiki
-*
+* 
+* @author Paul M. Jones <pmjones@php.net>
+* 
+* @version @package_version@
+* 
 */
 
 class Text_Wiki_Parse_Tt extends Text_Wiki_Parse {

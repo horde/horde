@@ -4,8 +4,24 @@
 * 
 * Baseline rule class for extension into a "real" parser component.
 * 
+* @category Text
+* 
+* @package Text_Wiki
+* 
+* @author Paul M. Jones <pmjones@php.net>
+* 
+* @license LGPL
+* 
+* @version @package_version@
+* 
+*/
+
+/**
+* 
+* Baseline rule class for extension into a "real" parser component.
+* 
 * Text_Wiki_Rule classes do not stand on their own; they are called by a
-* Text_Wiki object, typcially in the transform()method. Each rule class
+* Text_Wiki object, typcially in the transform() method. Each rule class
 * performs three main activities: parse, process, and render.
 * 
 * The parse() method takes a regex and applies it to the whole block of
@@ -18,11 +34,13 @@
 * process() method returns the text that should replace the matched text
 * from parse().
 * 
-* @author Paul M. Jones <pmjones@ciaweb.net>
+* @category Text
 * 
 * @package Text_Wiki
 * 
-* $Id$
+* @author Paul M. Jones <pmjones@php.net>
+* 
+* @version @package_version@
 * 
 */
 
