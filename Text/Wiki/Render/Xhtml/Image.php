@@ -3,6 +3,7 @@ class Text_Wiki_Render_Xhtml_Image extends Text_Wiki_Render {
 
     var $conf = array(
         'base' => '/',
+        'url_base' => null,
         'css'  => null,
         'css_link' => null
     );
@@ -39,8 +40,8 @@ class Text_Wiki_Render_Xhtml_Image extends Text_Wiki_Render {
             // yes, the image is clickable.
             // are we linked to a URL or a wiki page?
             if (strpos($options['attr']['link'], '://')) {
-                // it's a URL
-                $href = $options['attr']['link'];
+                // it's a URL, prefix the URL base
+                $href = $this->getConf('url_base') . $options['attr']['link'];
             } else {
                 // it's a WikiPage; assume it exists.
                 /** @todo This needs to honor sprintf wikilinks (pmjones) */
