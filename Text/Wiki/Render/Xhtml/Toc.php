@@ -7,7 +7,7 @@ class Text_Wiki_Render_Xhtml_Toc extends Text_Wiki_Render {
     var $conf = array(
 		'css_list' => null,
 		'css_item' => null,
-		'title' => 'Table of Contents',
+		'title' => '<strong>Table of Contents</strong>',
 		'div_id' => 'toc'
 	);
     
@@ -35,14 +35,6 @@ class Text_Wiki_Render_Xhtml_Toc extends Text_Wiki_Render {
         
 		case 'list_start':
 		
-			if (isset($attr['min'])) {
-				$this->min = $attr['min'];
-			}
-			
-			if (isset($attr['max'])) {
-				$this->max = $attr['max'];
-			}
-        
 			$html = '<div';
 			
 			$css = $this->getConf('css_list');

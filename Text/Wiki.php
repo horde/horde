@@ -25,7 +25,7 @@ require_once 'Text/Wiki/Render.php';
 * 
 * @package Text_Wiki
 * 
-* @version 0.20.1 alpha
+* @version 0.22.0 alpha
 * 
 */
 
