@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<!-- $Id: package.xml,v 1.42 2005-03-07 15:50:50 pmjones Exp $ -->
+<!-- $Id: package.xml,v 1.43 2005-03-14 01:03:24 pmjones Exp $ -->
 <package version="1.0">
     <name>Text_Wiki</name>
     <summary>Abstracts parsing and rendering rules for Wiki markup in structured plain text.</summary>
@@ -14,13 +14,12 @@
         </maintainer>
     </maintainers>
     <release>
-        <version>1.0.0RC2</version>
-        <date>2005-03-07</date>
+        <version>1.0.0</version>
+        <date>2005-03-12</date>
         <license>LGPL</license>
-        <state>beta</state>
+        <state>stable</state>
         <notes>
-        	* second 1.0.0 release candidate
-        	* Fixed bug 3004 (Wrong path for rule "image") -- patch provded by reg at dav-muz dot net
+        	* First stable release
         </notes>
         <filelist>
         
