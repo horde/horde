@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<!-- $Id: package.xml,v 1.29 2004-09-19 21:45:06 pmjones Exp $ -->
+<!-- $Id: package.xml,v 1.30 2004-09-25 18:53:05 pmjones Exp $ -->
 <package version="1.0">
 	<name>Text_Wiki</name>
 	<summary>Abstracts parsing and rendering rules for Wiki markup in structured plain text.</summary>
@@ -15,18 +15,11 @@
 	</maintainers>
 	<release>
 		<version>0.22.0</version>
-		<date>2004-09-19</date>
+		<date>2004-??-??</date>
 		<license>LGPL</license>
 		<state>alpha</state>
 		<notes>
-			* Render rules for Url and Interwiki use XHTML compliant "target"s now, per suggestion from Aaron Kalin and JS code from youngpup.net
-			* Parse rule for Heading now adds an ID attribute to the token, will be used when generating table of contents (based on ideas from Stephane Le Solliec)
-			* Render rule for Image now guesses width and height, and adds a pseudo-center alignment option, and works better with non-local images (thanks Stephane Le Solliec)
-			* Base Render class now has formatConf() method to wrap a config value in an sprintf() format (based on ideas from Bob Glamm)
-			* Added CSS class configuration keys for all appropriate rules (*big* thanks to Bob Glamm, glamm at a-s-i dot com, who did a ton of work on this)
-			* Much improved Toc generation, uses CSS and the Heading rule ID values
-			* Render rules for Wikilink and Freelink are much more configurable: put new-link text before or after the page name, or use only CSS to control the look of new-links
-			* fixed bug 2316: swapped processing order for Center and Newline
+			* Added preliminary Latex renderer by Jeremy Cowgar.  Thanks, Jeremy!
 		</notes>
 		<filelist>
 		
@@ -107,6 +100,43 @@
 			<file role="php" name="Text/Wiki/Render/Xhtml/Tt.php" />
 			<file role="php" name="Text/Wiki/Render/Xhtml/Url.php" />
 			<file role="php" name="Text/Wiki/Render/Xhtml/Wikilink.php" />
+			
+			<file role="php" name="Text/Wiki/Render/Latex.php" />
+			<file role="php" name="Text/Wiki/Render/Latex/Anchor.php" />
+			<file role="php" name="Text/Wiki/Render/Latex/Blockquote.php" />
+			<file role="php" name="Text/Wiki/Render/Latex/Bold.php" />
+			<file role="php" name="Text/Wiki/Render/Latex/Break.php" />
+			<file role="php" name="Text/Wiki/Render/Latex/Center.php" />
+			<file role="php" name="Text/Wiki/Render/Latex/Code.php" />
+			<file role="php" name="Text/Wiki/Render/Latex/Colortext.php" />
+			<file role="php" name="Text/Wiki/Render/Latex/Deflist.php" />
+			<file role="php" name="Text/Wiki/Render/Latex/Delimiter.php" />
+			<file role="php" name="Text/Wiki/Render/Latex/Embed.php" />
+			<file role="php" name="Text/Wiki/Render/Latex/Emphasis.php" />
+			<file role="php" name="Text/Wiki/Render/Latex/Freelink.php" />
+			<file role="php" name="Text/Wiki/Render/Latex/Heading.php" />
+			<file role="php" name="Text/Wiki/Render/Latex/Horiz.php" />
+			<file role="php" name="Text/Wiki/Render/Latex/Html.php" />
+			<file role="php" name="Text/Wiki/Render/Latex/Image.php" />
+			<file role="php" name="Text/Wiki/Render/Latex/Include.php" />
+			<file role="php" name="Text/Wiki/Render/Latex/Interwiki.php" />
+			<file role="php" name="Text/Wiki/Render/Latex/Italic.php" />
+			<file role="php" name="Text/Wiki/Render/Latex/List.php" />
+			<file role="php" name="Text/Wiki/Render/Latex/Newline.php" />
+			<file role="php" name="Text/Wiki/Render/Latex/Paragraph.php" />
+			<file role="php" name="Text/Wiki/Render/Latex/Phplookup.php" />
+			<file role="php" name="Text/Wiki/Render/Latex/Prefilter.php" />
+			<file role="php" name="Text/Wiki/Render/Latex/Raw.php" />
+			<file role="php" name="Text/Wiki/Render/Latex/Revise.php" />
+			<file role="php" name="Text/Wiki/Render/Latex/Strong.php" />
+			<file role="php" name="Text/Wiki/Render/Latex/Superscript.php" />
+			<file role="php" name="Text/Wiki/Render/Latex/Table.php" />
+			<file role="php" name="Text/Wiki/Render/Latex/Tighten.php" />
+			<file role="php" name="Text/Wiki/Render/Latex/Toc.php" />
+			<file role="php" name="Text/Wiki/Render/Latex/Translatehtml.php" />
+			<file role="php" name="Text/Wiki/Render/Latex/Tt.php" />
+			<file role="php" name="Text/Wiki/Render/Latex/Url.php" />
+			<file role="php" name="Text/Wiki/Render/Latex/Wikilink.php" />
 			
 			<file role="php" name="Text/Wiki/Render/Plain.php" />
 			<file role="php" name="Text/Wiki/Render/Plain/Anchor.php" />
