@@ -88,8 +88,12 @@ class Text_Wiki_Render_Xhtml_Image extends Text_Wiki_Render {
             if (strpos($src,'://')) {
                 // is a URL link
                 $imageFile = $src;
-            } else {
-                // is a local file
+            } elseif ($src[0] == '.') {
+            	// reg at dav-muz dot net -- 2005-03-07
+				// is a local file on relative path.
+				$imageFile = $src; # ...don't do anything because it's perfect!
+			} else {
+                // is a local file on absolute path.
                 $imageFile = $_SERVER['DOCUMENT_ROOT'] . $src;
             }
             
