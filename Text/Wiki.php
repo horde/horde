@@ -616,7 +616,7 @@ class Text_Wiki {
 		// in the list of rules. this means we're trying to insert after
 		// a target key, but the target key isn't there.
 		if (! is_null($tgt) && $tgt != '' &&
-			! in_array($name, $this->rules)) {
+			! in_array($tgt, $this->rules)) {
 			return false;
 		}
 		
@@ -630,27 +630,26 @@ class Text_Wiki {
 		
 		// save a copy of the current rules, then reset the rule set
 		// so we can insert in the proper place later.
-		$tmp = $this->rules;
-		$this->rules = array();
-		
 		// where to insert the rule?
 		if ($tgt == '') {
 			// insert at the beginning
-			$this->rules[] = $name;
-			foreach ($tmp as $key => $val) {
-				$this->rules[$key] = $val;
-			}
+			array_unshift($this->rules, $name);
 			return true;
-		} else {
-			// insert after the named rule
-			foreach ($tmp as $key => $val) {
-				$this->rules[] = $val;
-				if ($key == $tgt) {
-					$this->rules[] = $name;
-				}
+		}
+		
+		// insert after the named rule
+		$tmp = $this->rules;
+		$this->rules = array();
+		
+		foreach ($tmp as $val) {
+			$this->rules[] = $val;
+			if ($val == $tgt) {
+				$this->rules[] = $name;
 			}
 		}
+		
 		return true;
+		
 	}
 	
 	
