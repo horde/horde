@@ -28,7 +28,7 @@ require_once 'Text/Wiki/Rule.php';
 * 
 * @author Paul M. Jones <pmjones@ciaweb.net>
 * 
-* @version 0.16 alpha
+* @version 0.17 alpha
 * 
 */
 
