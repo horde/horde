@@ -38,10 +38,19 @@ class Text_Wiki_Render_Xhtml_Image extends Text_Wiki_Render {
     	unset($options['attr']['link']);
     	
     	$attr = '';
+    	$alt = false;
     	foreach ($options['attr'] as $key => $val) {
-    		$attr .= "$key=\"$val\" ";
+    		if (strtolower($key) == 'alt') {
+    			$alt = true;
+    		}
+    		$attr .= " $key=\"$val\"";
     	}
     	
+	// always add an "alt" attribute per Stephane Solliec
+	if (! $alt) {
+		$attr .= ' alt="' . basename($options['src']) . '"';
+	}
+	
     	if ($href) {
     		return "<a href=\"$href\"><img src=$src$attr/></a>";
     	} else {
