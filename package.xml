@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<!-- $Id: package.xml,v 1.36 2005-01-30 19:16:21 pmjones Exp $ -->
+<!-- $Id: package.xml,v 1.37 2005-01-30 19:30:26 pmjones Exp $ -->
 <package version="1.0">
     <name>Text_Wiki</name>
     <summary>Abstracts parsing and rendering rules for Wiki markup in structured plain text.</summary>
@@ -19,7 +19,7 @@
         <license>LGPL</license>
         <state>beta</state>
         <notes>
-        	* moving to "beta" even all the desired renderers are not yet in place; the API has for all practical purposes proven to be stable
+        	* moving state to "beta" even all the desired renderers are not yet in place; the API has for all practical purposes proven to be stable
         	* fixed Bug:2670 (incorrect css_new case in "wikilink" xhtml renderer)
         	* fixed Bug:2916 (parser for "code" does not set all attributes)
         	* implemented Request:2947 (more flexible way to handle wikilinks) -- the wikilink renderer now lets you specify a callback to determine if a page exists or not
