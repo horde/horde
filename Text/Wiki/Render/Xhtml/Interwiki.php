@@ -51,7 +51,7 @@ class Text_Wiki_Render_Xhtml_Interwiki extends Text_Wiki_Render {
 		$target = $this->getConf('target', '');
 		
 		if ($target && trim($target) != '') {
-			$target = "target=\"$target\"";
+			$target = " target=\"$target\"";
 		}
 		
         return "<a$target href=\"$href\">$text</a>";
