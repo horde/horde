@@ -1070,13 +1070,15 @@ class Text_Wiki {
 			if ($loc) {
 				// found the class
 				include_once $loc;
-				$this->parseObj[$rule] =& new $class($this);
 			} else {
 				// can't find the class
 				$this->parseObj[$rule] = null;
 				return false;
 			}
 		}
+		
+		$this->parseObj[$rule] =& new $class($this);
+
 	}
 	
 	
