@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<!-- $Id: package.xml,v 1.31 2004-09-25 19:05:13 pmjones Exp $ -->
+<!-- $Id: package.xml,v 1.32 2004-09-26 15:12:21 pmjones Exp $ -->
 <package version="1.0">
     <name>Text_Wiki</name>
     <summary>Abstracts parsing and rendering rules for Wiki markup in structured plain text.</summary>
@@ -14,12 +14,15 @@
         </maintainer>
     </maintainers>
     <release>
-        <version>0.22.0</version>
+        <version>0.23.0 ??</version>
         <date>2004-??-??</date>
         <license>LGPL</license>
         <state>alpha</state>
         <notes>
             * Added preliminary Latex renderer by Jeremy Cowgar.  Thanks, Jeremy!
+            * Added new parse rule 'Function' to support function definitions for documentation
+            * Added new Xhtml render rule 'Function' (mostly implemented, still missing 'throws' and needs better CSS support)
+            * Added stubs for Latex and Plain render rules 'Function' (not implemented)
         </notes>
         <filelist>
         
@@ -38,6 +41,7 @@
             <file role="php" name="Text/Wiki/Parse/Embed.php" />
             <file role="php" name="Text/Wiki/Parse/Emphasis.php" />
             <file role="php" name="Text/Wiki/Parse/Freelink.php" />
+            <file role="php" name="Text/Wiki/Parse/Function.php" />
             <file role="php" name="Text/Wiki/Parse/Heading.php" />
             <file role="php" name="Text/Wiki/Parse/Horiz.php" />
             <file role="php" name="Text/Wiki/Parse/Html.php" />
@@ -77,6 +81,7 @@
             <file role="php" name="Text/Wiki/Render/Xhtml/Embed.php" />
             <file role="php" name="Text/Wiki/Render/Xhtml/Emphasis.php" />
             <file role="php" name="Text/Wiki/Render/Xhtml/Freelink.php" />
+            <file role="php" name="Text/Wiki/Render/Xhtml/Function.php" />
             <file role="php" name="Text/Wiki/Render/Xhtml/Heading.php" />
             <file role="php" name="Text/Wiki/Render/Xhtml/Horiz.php" />
             <file role="php" name="Text/Wiki/Render/Xhtml/Html.php" />
@@ -114,6 +119,7 @@
             <file role="php" name="Text/Wiki/Render/Latex/Embed.php" />
             <file role="php" name="Text/Wiki/Render/Latex/Emphasis.php" />
             <file role="php" name="Text/Wiki/Render/Latex/Freelink.php" />
+            <file role="php" name="Text/Wiki/Render/Latex/Function.php" />
             <file role="php" name="Text/Wiki/Render/Latex/Heading.php" />
             <file role="php" name="Text/Wiki/Render/Latex/Horiz.php" />
             <file role="php" name="Text/Wiki/Render/Latex/Html.php" />
@@ -151,6 +157,7 @@
             <file role="php" name="Text/Wiki/Render/Plain/Embed.php" />
             <file role="php" name="Text/Wiki/Render/Plain/Emphasis.php" />
             <file role="php" name="Text/Wiki/Render/Plain/Freelink.php" />
+            <file role="php" name="Text/Wiki/Render/Plain/Function.php" />
             <file role="php" name="Text/Wiki/Render/Plain/Heading.php" />
             <file role="php" name="Text/Wiki/Render/Plain/Horiz.php" />
             <file role="php" name="Text/Wiki/Render/Plain/Html.php" />

@@ -47,6 +47,7 @@ class Text_Wiki {
         'Prefilter',
         'Delimiter',
         'Code',
+        'Function',
         'Html',
         'Raw',
         'Include',
