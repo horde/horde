@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<!-- $Id: package.xml,v 1.33 2004-09-30 13:40:24 pmjones Exp $ -->
+<!-- $Id: package.xml,v 1.34 2004-09-30 13:47:01 pmjones Exp $ -->
 <package version="1.0">
     <name>Text_Wiki</name>
     <summary>Abstracts parsing and rendering rules for Wiki markup in structured plain text.</summary>
@@ -25,6 +25,7 @@
             * Added stubs for Latex and Plain render rules 'Function' (not implemented)
             * Fixed bug 2419, "getParseConf returns null if rule exists"
             * Fixed identical bug in getFormatConf()
+            * Removed parse rule 'Translatehtml', placed its functionality in the Xhtml format class (use setFormatConf() to modify HTML translation tables)
         </notes>
         <filelist>
         
@@ -63,7 +64,6 @@
             <file role="php" name="Text/Wiki/Parse/Table.php" />
             <file role="php" name="Text/Wiki/Parse/Tighten.php" />
             <file role="php" name="Text/Wiki/Parse/Toc.php" />
-            <file role="php" name="Text/Wiki/Parse/Translatehtml.php" />
             <file role="php" name="Text/Wiki/Parse/Tt.php" />
             <file role="php" name="Text/Wiki/Parse/Url.php" />
             <file role="php" name="Text/Wiki/Parse/Wikilink.php" />
@@ -103,7 +103,6 @@
             <file role="php" name="Text/Wiki/Render/Xhtml/Table.php" />
             <file role="php" name="Text/Wiki/Render/Xhtml/Tighten.php" />
             <file role="php" name="Text/Wiki/Render/Xhtml/Toc.php" />
-            <file role="php" name="Text/Wiki/Render/Xhtml/Translatehtml.php" />
             <file role="php" name="Text/Wiki/Render/Xhtml/Tt.php" />
             <file role="php" name="Text/Wiki/Render/Xhtml/Url.php" />
             <file role="php" name="Text/Wiki/Render/Xhtml/Wikilink.php" />
@@ -141,7 +140,6 @@
             <file role="php" name="Text/Wiki/Render/Latex/Table.php" />
             <file role="php" name="Text/Wiki/Render/Latex/Tighten.php" />
             <file role="php" name="Text/Wiki/Render/Latex/Toc.php" />
-            <file role="php" name="Text/Wiki/Render/Latex/Translatehtml.php" />
             <file role="php" name="Text/Wiki/Render/Latex/Tt.php" />
             <file role="php" name="Text/Wiki/Render/Latex/Url.php" />
             <file role="php" name="Text/Wiki/Render/Latex/Wikilink.php" />
@@ -179,7 +177,6 @@
             <file role="php" name="Text/Wiki/Render/Plain/Table.php" />
             <file role="php" name="Text/Wiki/Render/Plain/Tighten.php" />
             <file role="php" name="Text/Wiki/Render/Plain/Toc.php" />
-            <file role="php" name="Text/Wiki/Render/Plain/Translatehtml.php" />
             <file role="php" name="Text/Wiki/Render/Plain/Tt.php" />
             <file role="php" name="Text/Wiki/Render/Plain/Url.php" />
             <file role="php" name="Text/Wiki/Render/Plain/Wikilink.php" />
