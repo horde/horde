@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<!-- $Id: package.xml,v 1.3 2004-05-02 23:15:25 pmjones Exp $ -->
+<!-- $Id: package.xml,v 1.4 2004-05-02 23:18:01 pmjones Exp $ -->
 <package version="1.0">
     <name>Text_Wiki</name>
     <summary>Abstracts parsing and rendering rules for Wiki markup in structured plain text.</summary>
@@ -36,7 +36,6 @@
 			* "phpcode" rule is deprated, use "code" instead with 'type="php"'
         </notes>
         <filelist>
-        
             <file role="php" name="Text/Wiki.php" />
             <file role="php" name="Text/Wiki/Rule.php" />
             <file role="php" name="Text/Wiki/Rule/blockquote.php" />
@@ -74,10 +73,6 @@
             <file role="php" name="Text/Wiki/Rule/tt.php" />
             <file role="php" name="Text/Wiki/Rule/url.php" />
             <file role="php" name="Text/Wiki/Rule/wikilink.php" />
-            
-            <file role="doc" name="docs/README" />
-            <file role="test" name="tests/README" />
-            
         </filelist>
     </release>
 </package>
