@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<!-- $Id: package.xml,v 1.16 2004-06-19 23:52:31 pmjones Exp $ -->
+<!-- $Id: package.xml,v 1.17 2004-06-26 01:13:30 pmjones Exp $ -->
 <package version="1.0">
 	<name>Text_Wiki</name>
 	<summary>Abstracts parsing and rendering rules for Wiki markup in structured plain text.</summary>
@@ -14,15 +14,13 @@
 		</maintainer>
 	</maintainers>
 	<release>
-		<version>0.19.4</version>
-		<date>2004-06-19</date>
+		<version>0.19.5</version>
+		<date>2004-06-25</date>
 		<license>PHP License</license>
 		<state>alpha</state>
 		<notes>
-			* Fixed bug 1628 (encoding of URLs and freelinks)
-			* Updated "Table" parser and Xhtml renderer to mark a header cell (e.g., "||~ this is a header ||")
-			* Added "Anchor" parser and Xhtml renderer to mark anchors on a page, submitted by Manuel Holtgrewe (e.g., "[[# anchorName nice anchor text]]" to mark anchor, "#anchorName" to link to it)
-			* Updated "URL" parser and Xhtml renderer to recognize on-page anchors
+			* Fixed bug 1709 (interwiki targets)
+			* Fixed bug 1722 (dual Text_Wiki objects)
 		</notes>
 		<filelist>
 			<file role="php" name="Text/Wiki.php" />
