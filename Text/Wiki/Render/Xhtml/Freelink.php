@@ -34,11 +34,13 @@ class Text_Wiki_Render_Xhtml_Freelink extends Text_Wiki_Render {
             $href = $this->getConf('view_url');
             if (strpos($href, '%s') === false) {
             	// use the old form
-	            $href = $href . $page . '#' . $anchor;
+	            $href = $href . urlencode($page) . '#' . $anchor;
 	        } else {
 	        	// use the new form
-	        	$href = sprintf($href, $page . '#' . $anchor);
+	        	$href = sprintf($href, urlencode($page) . '#' . $anchor);
 	        }
+	        
+	        $text = htmlspecialchars($text);
             return "<a href=\"$href\">$text</a>";
             
         } else {
@@ -48,11 +50,12 @@ class Text_Wiki_Render_Xhtml_Freelink extends Text_Wiki_Render {
             $href = $this->getConf('new_url');
             if (strpos($href, '%s') === false) {
             	// use the old form
-	            $href = $href . $page;
+	            $href = $href . urlencode($page);
 	        } else {
 	        	// use the new form
-	        	$href = sprintf($href, $page);
+	        	$href = sprintf($href, urlencode($page));
 	        }
+			
             return $text . "<a href=\"$href\">" . $this->getConf('new_text') . "</a>";
             
         }
