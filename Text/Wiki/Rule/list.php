@@ -250,26 +250,36 @@ class Text_Wiki_Rule_list extends Text_Wiki_Rule {
         $pad = str_pad('', $level, "\t");
         $pad = str_replace("\t", '    ', $pad);
         
+        // attempt XHTML compliance so that sub-lists are part
+        // of a list item, not between list items
+        if ($level > 0) {
+        	$pre = '<li style="list-style: none;">';
+        	$post = '</li>';
+        } else {
+        	$pre = '';
+        	$post = '';
+        }
+        
         switch ($type) {
         
         case 'bullet_start':
-            return $pad . "<ul>\n";
+            return "$pad$pre<ul>\n";
             break;
         
         case 'bullet_end':
-            return $pad . "</ul>\n";
+            return "$pad</ul>$post\n";
             break;
         
         case 'number_start':
-            return $pad . "<ol>\n";
+            return "$pad$pre<ol>\n";
             break;
         
         case 'number_end':
-            return $pad . "</ol>\n";
+            return "$pad</ol>$post\n";
             break;
         
         case 'item_start':
-            return $pad . "<li>";
+            return "$pad<li>";
             break;
         
         case 'item_end':

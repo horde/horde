@@ -146,15 +146,33 @@ class Text_Wiki_Rule_freelink extends Text_Wiki_Rule {
         // get nice variable names (page, text, anchor)
         extract($options);
         
-        if (in_array($page, $this->_wiki->pages)) {
+        if (in_array($page, $this->_conf['pages'])) {
+        
             // the page exists, show a link to the page
-            $href = $this->_wiki->view_url . $page . "#" . $anchor;
+            $href = $this->_conf['view_url'];
+            if (strpos($href, '%s') === false) {
+            	// use the old form
+	            $href = $href . $page . '#' . $anchor;
+	        } else {
+	        	// use the new form
+	        	$href = sprintf($href, $page . '#' . $anchor);
+	        }
             return "<a href=\"$href\">$text</a>";
+            
         } else {
+        
             // the page does not exist, show the page name and
             // the "new page" text
-            $href = $this->_wiki->new_url;
-            return $text . "<a href=\"$href$page\">{$this->_wiki->new_text}</a>";
+            $href = $this->_conf['new_url'];
+            if (strpos($href, '%s') === false) {
+            	// use the old form
+	            $href = $href . $page;
+	        } else {
+	        	// use the new form
+	        	$href = sprintf($href, $page);
+	        }
+            return $text . "<a href=\"$href\">{$this->_conf['new_text']}</a>";
+            
         }
     }
 }

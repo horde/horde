@@ -196,8 +196,20 @@ class Text_Wiki_Rule_wikilink extends Text_Wiki_Rule {
         // does the page exist?
         if (in_array($page, $this->_conf['pages'])) {
         
-            // yes, link to the page view
-            $href = $this->_conf['view_url'] . $page . $anchor;
+            // yes, link to the page view, but we have to build
+            // the HREF.  we support both the old form where
+            // the page always comes at the end, and the new
+            // form that uses %s for sprintf()
+            $href = $this->_conf['view_url'];
+            
+            if (strpos($href, '%s') === false) {
+            	// use the old form
+	            $href = $href . $page . $anchor;
+	        } else {
+	        	// use the new form
+	        	$href = sprintf($href, $page . $anchor);
+	        }
+	        
             return "<a href=\"$href\">$text</a>";
             
         }
@@ -207,8 +219,22 @@ class Text_Wiki_Rule_wikilink extends Text_Wiki_Rule {
 			trim($this->_conf['new_url']) == '') {
 			return $text;
 		} else {
-			$href = $this->_conf['new_url'];
-			return $text . "<a href=\"$href$page\">{$this->_conf['new_text']}</a>";
+		
+            // yes, link to the page view, but we have to build
+            // the HREF.  we support both the old form where
+            // the page always comes at the end, and the new
+            // form that uses sprintf()
+            $href = $this->_conf['new_url'];
+            
+            if (strpos($href, '%s') === false) {
+            	// use the old form
+	            $href = $href . $page;
+	        } else {
+	        	// use the new form
+	        	$href = sprintf($href, $page);
+	        }
+	        
+			return $text . "<a href=\"$href\">{$this->_conf['new_text']}</a>";
 		}
     }
 }

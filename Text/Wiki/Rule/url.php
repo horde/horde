@@ -292,9 +292,17 @@ class Text_Wiki_Rule_url extends Text_Wiki_Rule {
             $output = "<img src=\"$href\" alt=\"$text\" />";
             
         } else {
-        
+        	
+        	// allow for alternative targets
+        	if (isset($this->_conf['target']) &&
+        		trim($this->_conf['target']) != '') {
+        		$target = 'target="' . $this->_conf['target'] . '"';
+        	} else {
+        		$target = '';
+        	}
+        	
             // generate a regular link (not an image)
-            $output = "<a href=\"$href\">$text</a>";
+            $output = "<a $target href=\"$href\">$text</a>";
             
             // make numbered references look like footnotes
             if ($type == 'footnote') {

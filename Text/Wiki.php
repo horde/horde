@@ -28,7 +28,7 @@ require_once 'Text/Wiki/Rule.php';
 * 
 * @author Paul M. Jones <pmjones@ciaweb.net>
 * 
-* @version 0.14 alpha
+* @version 0.15 alpha
 * 
 */
 
@@ -189,6 +189,8 @@ class Text_Wiki {
 			'flag' => true,
 			'conf' => array(
 				'skip' => array(
+					'code',
+					'phpcode',
 					'heading',
 					'horiz',
 					'deflist',
@@ -213,6 +215,8 @@ class Text_Wiki {
 			'conf' => array(
 				'skip' => array(
 					'blockquote',
+					'code',
+					'phpcode',
 					'heading',
 					'horiz',
 					'deflist',
@@ -227,7 +231,21 @@ class Text_Wiki {
 			'file' => 'Text/Wiki/Rule/url.php',
 			'name' => 'Text_Wiki_Rule_url',
 			'flag' => true,
-			'conf' => array()
+			'conf' => array(
+				'target' => '_BLANK'
+			)
+		),
+		
+		'freelink' => array(
+			'file' => 'Text/Wiki/Rule/freelink.php',
+			'name' => 'Text_Wiki_Rule_freelink',
+			'flag' => true,
+			'conf' => array(
+				'pages'	   => array(),
+				'view_url' => 'http://example.com/index.php?page=%s',
+				'new_url'  => 'http://example.com/new.php?page=%s',
+				'new_text' => '?'
+			)
 		),
 		
 		'interwiki' => array(
@@ -236,10 +254,11 @@ class Text_Wiki {
 			'flag' => true,
 			'conf' => array(
 				'sites' => array(
-					'MeatBall' => 'http://www.usemod.com/cgi-bin/mb.pl?',
-					'Advogato' => 'http://advogato.org/',
-					'Wiki'	   => 'http://c2.com/cgi/wiki?'
-				)
+					'MeatBall' => 'http://www.usemod.com/cgi-bin/mb.pl?%s',
+					'Advogato' => 'http://advogato.org/%s',
+					'Wiki'	   => 'http://c2.com/cgi/wiki?%s'
+				),
+				'target' => '_BLANK'
 			)
 		),
 		
@@ -249,8 +268,8 @@ class Text_Wiki {
 			'flag' => true,
 			'conf' => array(
 				'pages'	   => array(),
-				'view_url' => 'http://example.com/index.php?page=',
-				'new_url'  => 'http://example.com/new.php?page=',
+				'view_url' => 'http://example.com/index.php?page=%s',
+				'new_url'  => 'http://example.com/new.php?page=%s',
 				'new_text' => '?'
 			)
 		),

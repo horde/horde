@@ -144,6 +144,7 @@ class Text_Wiki_Rule_interwiki extends Text_Wiki_Rule {
 	    }
     }
     
+    
     /**
     * 
     * Renders a token into text matching the requested format.
@@ -166,14 +167,29 @@ class Text_Wiki_Rule_interwiki extends Text_Wiki_Rule {
         if (isset($this->_conf['sites'][$site])) {
             $href = $this->_conf['sites'][$site];
         } else {
-            $href = '';
-        }
-        
-        if ($href != '') {
-            return "<a href=\"$href$page\">$text</a>";
-        } else {
             return $text;
         }
+        
+		// old form where page is at end,
+		// or new form with %s placeholder for sprintf()?
+		if (strpos($href, '%s') === false) {
+			// use the old form
+			$href = $href . $page;
+		} else {
+			// use the new form
+			$href = sprintf($href, $page);
+		}
+		
+		// allow for alternative targets
+		if (isset($this->_conf['target']) &&
+			trim($this->_conf['target']) != '') {
+			$target = 'target="' . $this->_conf['target'] . '"';
+		} else {
+			$target = '';
+		}
+		
+		
+        return "<a $target href=\"$href\">$text</a>";
     }
 }
 ?>

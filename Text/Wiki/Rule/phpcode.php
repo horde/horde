@@ -102,17 +102,31 @@ class Text_Wiki_Rule_phpcode extends Text_Wiki_Rule {
 		ob_end_clean();
 		
 		// replace <br /> tags with simple newlines
-		$text = str_replace("<br />", "\n", $text);
+		//$text = str_replace("<br />", "\n", $text);
 		
 		// replace non-breaking space with simple spaces
-		$text = str_replace("&nbsp;", " ", $text);
+		//$text = str_replace("&nbsp;", " ", $text);
 		
+		// replace <br /> tags with simple newlines
+		// replace non-breaking space with simple spaces
+		// translate old HTML to new XHTML
+		// courtesy of research by A. Kalin :-)
+		$map = array(
+			'<br />'  => "\n",
+			'&nbsp;'  => ' ',
+			'<font'   => '<span',
+			'</font>' => '</span>',
+			'color="' => 'style="color:'
+		);
+		$text = strtr($text, $map);
+	   
 		// get rid of the last newline inside the code block
 		// (becuase higlight_string puts one there)
 		if (substr($text, -8) == "\n</code>") {
 			$text = substr($text, 0, -8) . "</code>";
 		}
 		
+	   // done
 		return "\n<pre>$text</pre>\n";
     }
 }
