@@ -1,65 +1,113 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<!-- $Id: package.xml,v 1.7 2004-05-25 21:38:02 pmjones Exp $ -->
+<!-- $Id: package.xml,v 1.8 2004-06-06 15:53:38 pmjones Exp $ -->
 <package version="1.0">
-    <name>Text_Wiki</name>
-    <summary>Abstracts parsing and rendering rules for Wiki markup in structured plain text.</summary>
-    <description>Abstracts parsing and rendering rules for Wiki markup in structured plain text.</description>
-    <maintainers>
-        <maintainer>
-            <user>pmjones</user>
-            <name>Paul M. Jones</name>
-            <email>pmjones@ciaweb.net</email>
-            <role>lead</role>
-        </maintainer>
-    </maintainers>
-    <release>
-        <version>0.17</version>
-        <date>2004-05-17</date>
-        <license>PHP License</license>
-        <state>alpha</state>
-        <notes>
-        	* wikilink rule now supports numbers as lower-case letters; turned off by default; turn it on with setRuleConf('wikilink', 'numbers', true) (thanks to Tobias Schlitt as the final convincer :-)
-        	* fixed bug 1476, problem with blockquote parsing (thanks Moritz Heidkamp)
-        </notes>
-        <filelist>
-            <file role="php" name="Text/Wiki.php" />
-            <file role="php" name="Text/Wiki/Rule.php" />
-            <file role="php" name="Text/Wiki/Rule/blockquote.php" />
-            <file role="php" name="Text/Wiki/Rule/bold.php" />
-            <file role="php" name="Text/Wiki/Rule/break.php" />
-            <file role="php" name="Text/Wiki/Rule/center.php" />
-            <file role="php" name="Text/Wiki/Rule/code.php" />
-            <file role="php" name="Text/Wiki/Rule/colortext.php" />
-            <file role="php" name="Text/Wiki/Rule/deflist.php" />
-            <file role="php" name="Text/Wiki/Rule/delimiter.php" />
-            <file role="php" name="Text/Wiki/Rule/embed.php" />
-            <file role="php" name="Text/Wiki/Rule/emphasis.php" />
-            <file role="php" name="Text/Wiki/Rule/entities.php" />
-            <file role="php" name="Text/Wiki/Rule/freelink.php" />
-            <file role="php" name="Text/Wiki/Rule/heading.php" />
-            <file role="php" name="Text/Wiki/Rule/horiz.php" />
-            <file role="php" name="Text/Wiki/Rule/html.php" />
-            <file role="php" name="Text/Wiki/Rule/image.php" />
-            <file role="php" name="Text/Wiki/Rule/include.php" />
-            <file role="php" name="Text/Wiki/Rule/interwiki.php" />
-            <file role="php" name="Text/Wiki/Rule/italic.php" />
-            <file role="php" name="Text/Wiki/Rule/list.php" />
-            <file role="php" name="Text/Wiki/Rule/newline.php" />
-            <file role="php" name="Text/Wiki/Rule/paragraph.php" />
-            <file role="php" name="Text/Wiki/Rule/phpcode.php" />
-            <file role="php" name="Text/Wiki/Rule/phplookup.php" />
-            <file role="php" name="Text/Wiki/Rule/prefilter.php" />
-            <file role="php" name="Text/Wiki/Rule/raw.php" />
-            <file role="php" name="Text/Wiki/Rule/revise.php" />
-            <file role="php" name="Text/Wiki/Rule/strong.php" />
-            <file role="php" name="Text/Wiki/Rule/superscript.php" />
-            <file role="php" name="Text/Wiki/Rule/table.php" />
-            <file role="php" name="Text/Wiki/Rule/tighten.php" />
-            <file role="php" name="Text/Wiki/Rule/toc.php" />
-            <file role="php" name="Text/Wiki/Rule/tt.php" />
-            <file role="php" name="Text/Wiki/Rule/url.php" />
-            <file role="php" name="Text/Wiki/Rule/wikilink.php" />
-        </filelist>
-    </release>
+	<name>Text_Wiki</name>
+	<summary>Abstracts parsing and rendering rules for Wiki markup in structured plain text.</summary>
+	<description>Abstracts parsing and rendering rules for Wiki markup in structured plain text.</description>
+	<maintainers>
+		<maintainer>
+			<user>pmjones</user>
+			<name>Paul M. Jones</name>
+			<email>pmjones@ciaweb.net</email>
+			<role>lead</role>
+		</maintainer>
+	</maintainers>
+	<release>
+		<version>0.19</version>
+		<date>2004-06-06</date>
+		<license>PHP License</license>
+		<state>alpha</state>
+		<notes>
+			* WARNING: This release represents a major BC break in the API and organization.
+			* WARNING: Do not expect to upgrade in-place and have everything work.
+			* WARNING: Read these notes carefully, you will need to re-work how you configure the Text_Wiki object.
+			* Directory structure is competely different but should lend itself to easier extensibility
+			* Rules are now split up: one class for parse, another class for each render-format
+			* Formats themselves (XHTML, DocBook, Plain, etc) have their own class and get their own pre- and post-render methods
+			* Instead of set/getRuleConf(), mostly use set/getRenderConf() instead
+			* Wikilinks parser uses numbers as lower-case letters
+			* List parser has better token type names
+			* Xhtml List renders with proper semantics for nested lists (per notes from Michael Wallner and others)
+			* Xhtml List and Table renderers apply CSS classes now instead of inline attributes
+		 	* Renamed all Entities rules to Translatehtml (more accurately descriptive)
+		 	* In Translatehtml parser, added conf option for translation table type (HTML_ENTITIES, HTML_SPECIALCHARS, etc) -- helps with i18n
+		 	* In abstract parser, renamed getOptions() to getAttrs() (more accurately descriptive for parsing markup attributes)
+			* NOTE: Documentation on this new Text_Wiki is not yet complete
+		</notes>
+		<filelist>
+			<file role="php" name="Text/Wiki.php" />
+			<file role="php" name="Text/Wiki/Parse.php" />
+			<file role="php" name="Text/Wiki/Parse/Blockquote.php" />
+			<file role="php" name="Text/Wiki/Parse/Bold.php" />
+			<file role="php" name="Text/Wiki/Parse/Break.php" />
+			<file role="php" name="Text/Wiki/Parse/Center.php" />
+			<file role="php" name="Text/Wiki/Parse/Code.php" />
+			<file role="php" name="Text/Wiki/Parse/Colortext.php" />
+			<file role="php" name="Text/Wiki/Parse/Deflist.php" />
+			<file role="php" name="Text/Wiki/Parse/Delimiter.php" />
+			<file role="php" name="Text/Wiki/Parse/Embed.php" />
+			<file role="php" name="Text/Wiki/Parse/Emphasis.php" />
+			<file role="php" name="Text/Wiki/Parse/Freelink.php" />
+			<file role="php" name="Text/Wiki/Parse/Heading.php" />
+			<file role="php" name="Text/Wiki/Parse/Horiz.php" />
+			<file role="php" name="Text/Wiki/Parse/Html.php" />
+			<file role="php" name="Text/Wiki/Parse/Image.php" />
+			<file role="php" name="Text/Wiki/Parse/Include.php" />
+			<file role="php" name="Text/Wiki/Parse/Interwiki.php" />
+			<file role="php" name="Text/Wiki/Parse/Italic.php" />
+			<file role="php" name="Text/Wiki/Parse/List.php" />
+			<file role="php" name="Text/Wiki/Parse/Newline.php" />
+			<file role="php" name="Text/Wiki/Parse/Paragraph.php" />
+			<file role="php" name="Text/Wiki/Parse/Phplookup.php" />
+			<file role="php" name="Text/Wiki/Parse/Prefilter.php" />
+			<file role="php" name="Text/Wiki/Parse/Raw.php" />
+			<file role="php" name="Text/Wiki/Parse/Revise.php" />
+			<file role="php" name="Text/Wiki/Parse/Strong.php" />
+			<file role="php" name="Text/Wiki/Parse/Superscript.php" />
+			<file role="php" name="Text/Wiki/Parse/Table.php" />
+			<file role="php" name="Text/Wiki/Parse/Tighten.php" />
+			<file role="php" name="Text/Wiki/Parse/Toc.php" />
+			<file role="php" name="Text/Wiki/Parse/Translatehtml.php" />
+			<file role="php" name="Text/Wiki/Parse/Tt.php" />
+			<file role="php" name="Text/Wiki/Parse/Url.php" />
+			<file role="php" name="Text/Wiki/Parse/Wikilink.php" />
+			<file role="php" name="Text/Wiki/Render.php" />
+			<file role="php" name="Text/Wiki/Render/Xhtml.php" />
+			<file role="php" name="Text/Wiki/Render/Xhtml/Blockquote.php" />
+			<file role="php" name="Text/Wiki/Render/Xhtml/Bold.php" />
+			<file role="php" name="Text/Wiki/Render/Xhtml/Break.php" />
+			<file role="php" name="Text/Wiki/Render/Xhtml/Center.php" />
+			<file role="php" name="Text/Wiki/Render/Xhtml/Code.php" />
+			<file role="php" name="Text/Wiki/Render/Xhtml/Colortext.php" />
+			<file role="php" name="Text/Wiki/Render/Xhtml/Deflist.php" />
+			<file role="php" name="Text/Wiki/Render/Xhtml/Delimiter.php" />
+			<file role="php" name="Text/Wiki/Render/Xhtml/Embed.php" />
+			<file role="php" name="Text/Wiki/Render/Xhtml/Emphasis.php" />
+			<file role="php" name="Text/Wiki/Render/Xhtml/Freelink.php" />
+			<file role="php" name="Text/Wiki/Render/Xhtml/Heading.php" />
+			<file role="php" name="Text/Wiki/Render/Xhtml/Horiz.php" />
+			<file role="php" name="Text/Wiki/Render/Xhtml/Html.php" />
+			<file role="php" name="Text/Wiki/Render/Xhtml/Image.php" />
+			<file role="php" name="Text/Wiki/Render/Xhtml/Include.php" />
+			<file role="php" name="Text/Wiki/Render/Xhtml/Interwiki.php" />
+			<file role="php" name="Text/Wiki/Render/Xhtml/Italic.php" />
+			<file role="php" name="Text/Wiki/Render/Xhtml/List.php" />
+			<file role="php" name="Text/Wiki/Render/Xhtml/Newline.php" />
+			<file role="php" name="Text/Wiki/Render/Xhtml/Paragraph.php" />
+			<file role="php" name="Text/Wiki/Render/Xhtml/Phplookup.php" />
+			<file role="php" name="Text/Wiki/Render/Xhtml/Prefilter.php" />
+			<file role="php" name="Text/Wiki/Render/Xhtml/Raw.php" />
+			<file role="php" name="Text/Wiki/Render/Xhtml/Revise.php" />
+			<file role="php" name="Text/Wiki/Render/Xhtml/Strong.php" />
+			<file role="php" name="Text/Wiki/Render/Xhtml/Superscript.php" />
+			<file role="php" name="Text/Wiki/Render/Xhtml/Table.php" />
+			<file role="php" name="Text/Wiki/Render/Xhtml/Tighten.php" />
+			<file role="php" name="Text/Wiki/Render/Xhtml/Toc.php" />
+			<file role="php" name="Text/Wiki/Render/Xhtml/Translatehtml.php" />
+			<file role="php" name="Text/Wiki/Render/Xhtml/Tt.php" />
+			<file role="php" name="Text/Wiki/Render/Xhtml/Url.php" />
+			<file role="php" name="Text/Wiki/Render/Xhtml/Wikilink.php" />
+		</filelist>
+	</release>
 </package>
