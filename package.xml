@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<!-- $Id: package.xml,v 1.2 2004-05-02 13:13:16 pmjones Exp $ -->
+<!-- $Id: package.xml,v 1.3 2004-05-02 23:15:25 pmjones Exp $ -->
 <package version="1.0">
     <name>Text_Wiki</name>
     <summary>Abstracts parsing and rendering rules for Wiki markup in structured plain text.</summary>
@@ -14,16 +14,26 @@
         </maintainer>
     </maintainers>
     <release>
-        <version>0.14</version>
-        <date>2004-04-06</date>
+        <version>0.15</version>
+        <date>2004-05-02</date>
         <license>PHP License</license>
         <state>alpha</state>
         <notes>
-        	* added line compression into 'prefilter' rule (from the current 'tighten' rule)
-        	* changed 'tighten' rule back to its original behavior (i.e., remove all newlines)
-        	* moved 'tighten' rule to next-to-last in the default rule set
-        	* sorry to keep moving things around, this is alpha code after all :-(
-        	* added extra newline to returned 'table' parsing, fixes paragraph breaks
+			* No BC breaks :-)
+			* sprintf() notatation for wikilink rule config new_url and edit_url now supported, per reuqest from Alan Knowles
+			* sprintf() notatation for interwiki rule config site URLs now supported, per request from Alan Knowled
+			* URL rule config now supports alternative targets, per request from Tobias Schlitt
+			* interwiki rule config now supports alternative targets
+			* freelink rule patched by Tobias Schlitt for proper knowledge of which pages exist in the wiki
+			* freelink rule added back into the default rule set
+			* XHTML compliance: "a" tags in toc should use "id", not name, per note from Aaron Kalin
+			* XHTML compliance: list rule generates now generates valid XHTML lists, per note Aaron Kalin
+			* XHTML compliance: "pre" tags not allowed within "p" tags, fixed per note from Aaron Kalin
+			* XHTML compliance: PHP highlighting fixed per note from Aaron Kalin, email dated Apr 6, 2004done
+			* code rule now supports 'type="php" to convert PHP code (identical to phpcode rule), can support 'type="html"' and other types in future
+			* "bold" rule is deprecated, use "strong" instead
+			* "italic" rule is deprecated, use "emphasis" instead
+			* "phpcode" rule is deprated, use "code" instead with 'type="php"'
         </notes>
         <filelist>
         
