@@ -55,10 +55,14 @@ class Text_Wiki_Render_Xhtml_Url extends Text_Wiki_Render {
             
         } else {
             
-            // allow for alternative targets on non-anchor HREFs
-            if ($href{0} == '#') {
+            // should we build a target clause?
+            if ($href{0} == '#' ||
+            	strtolower(substr($href, 0, 7)) == 'mailto:') {
+            	// targets not allowed for on-page anchors
+            	// and mailto: links.
                 $target = '';
             } else {
+				// allow targets on non-anchor non-mailto links
                 $target = $this->getConf('target');
             }
             
