@@ -49,7 +49,13 @@ class Text_Wiki_Parse_Table extends Text_Wiki_Parse {
 	*	 'cell_start'   : the start of item text (bullet or number)
 	*	 'cell_end'	 : the end of item text (bullet or number)
 	* 
-	* 'span' => column span (for a cell)
+	* 'cols' => the number of columns in the table (for 'table_start')
+	* 
+	* 'rows' => the number of rows in the table (for 'table_start')
+	* 
+	* 'span' => column span (for 'cell_start')
+	* 
+	* 'attr' => column attribute flag (for 'cell_start')
 	* 
 	* @access public
 	*
@@ -62,20 +68,23 @@ class Text_Wiki_Parse_Table extends Text_Wiki_Parse {
 	
 	function process(&$matches)
 	{
-		// out eventual return value
+		// our eventual return value
 		$return = '';
 		
-		// start a new table
-		$return .= $this->wiki->addToken(
-			$this->rule,
-			array('type' => 'table_start')
-		);
+		// the number of columns in the table
+		$num_cols = 0;
+		
+		// the number of rows in the table
+		$num_rows = 0;
 		
 		// rows are separated by newlines in the matched text
 		$rows = explode("\n", $matches[1]);
 		
 		// loop through each row
 		foreach ($rows as $row) {
+			
+			// increase the row count
+			$num_rows ++;
 			
 			// start a new row
 			$return .= $this->wiki->addToken(
@@ -86,8 +95,15 @@ class Text_Wiki_Parse_Table extends Text_Wiki_Parse {
 			// cells are separated by double-pipes
 			$cell = explode("||", $row);
 			
-			// get the last cell number
+			// get the number of cells (columns) in this row
 			$last = count($cell) - 1;
+			
+			// is this more than the current column count?
+			// (we decrease by 1 because we never use cell zero)
+			if ($last - 1 > $num_cols) {
+				// increase the column count
+				$num_cols = $last - 1;
+			}
 			
 			// by default, cells span only one column (their own)
 			$span = 1;
@@ -167,11 +183,23 @@ class Text_Wiki_Parse_Table extends Text_Wiki_Parse {
 			
 		}
 		
-		// end the table
-		$return .= $this->wiki->addToken(
-			$this->rule,
-			array('type' => 'table_end')
-		);
+		// wrap the return value in start and end tokens 
+		$return =
+			$this->wiki->addToken(
+				$this->rule,
+				array(
+					'type' => 'table_start',
+					'rows' => $num_rows,
+					'cols' => $num_cols
+				)
+			)
+			. $return .
+			$this->wiki->addToken(
+				$this->rule,
+				array(
+					'type' => 'table_end'
+				)
+			);
 		
 		// we're done!
 		return "\n$return\n\n";
