@@ -23,44 +23,58 @@ class Text_Wiki_Render_Xhtml_Image extends Text_Wiki_Render {
     
     function token($options)
     {
-    	$src = '"' .
-    		$this->getConf('base', '/') .
-    		$options['src'] . '"';
+    	// note the image source
+    	$src = $options['src'];
     	
+    	// is the source a local file or URL?
+    	if (strpos($src, '://') === false) {
+    		// the source refers to a local file.
+    		// add the URL base to it.
+    		$src = $this->getConf('base', '/') . $src;
+    	}
+    	
+    	// stephane@metacites.net
+    	// is the image clickable? 
     	if (isset($options['attr']['link'])) {
-    	
-			// this image has a link ... idea from Stephane Le Solliec,
-			// stephane@metacites.net
+    		// yes, the image is clickable.
+    		// are we linked to a URL or a wiki page?
 			if (strpos($options['attr']['link'], '://')) {
 				// it's a URL
 				$href = $options['attr']['link'];
 			} else {
-				// it's a WikiPage
-				$href = $this->wiki->getRenderConf('xhtml', 'wikilink', 'view_url') .
+				// it's a WikiPage; assume it exists.
+				/** @todo This needs to honor the sprintf convention (pmjones) */
+				$href =
+					$this->wiki->getRenderConf('xhtml', 'wikilink', 'view_url') .
 					$options['attr']['link'];
 			}
-			
     	} else {
-    		// image is not linked
+    		// image is not clickable.
     		$href = null;
     	}
+    	// unset so it won't show up as an attribute
+    	unset($options['attr']['link']);
     	
 		// stephane@metacites.net -- 25/07/2004 
-		// we make up an align="center" value for the <img> tag
-		// ok, this value doesn't exist, but USERS often want it, 
-		// and as wiki syntax if for USERS who don't know much of 
-		// html and is here to make life easy for THEM, we create
-		// it. Proficient html coders will understand the trick.
+		// we make up an align="center" value for the <img> tag.
 		if (isset($options['attr']['align']) &&
 			$options['attr']['align'] == 'center') {
 			
+			// unset so it won't show up as an attribute
 	    	unset($options['attr']['align']);
 	    	
+	    	// make sure we have a style attribute
 	    	if (! isset($options['attr']['style'])) {
+	    		// no style, set up a blank one
 	    		$options['attr']['style'] = '';
+	    	} else {
+	    		// style exists, add a space
+	    		$options['attr']['style'] .= ' ';
 	    	}
 	    	
-			$options['attr']['style'] .= ' display: block; margin-left: auto; margin-right: auto;';
+	    	// add a "center" style to the existing style.
+			$options['attr']['style'] .=
+				'display: block; margin-left: auto; margin-right: auto;';
 		}
 		
 		// stephane@metacites.net -- 25/07/2004 
@@ -68,16 +82,17 @@ class Text_Wiki_Render_Xhtml_Image extends Text_Wiki_Render {
 		if (! isset($options['attr']['width']) &&
 			! isset($options['attr']['height'])) {
 			
-			$imageFile = trim($src,'"');
+			// does the source refer to a local file or a URL?
 			if (strpos($src,'://')) {
-				// discard protocol
-				$imageFile = substr($imageFile,strpos($src,'://')+3); 
-				
-				// discard hostname but keep the leading slash
-				$imageFile = substr($imageFile,strpos($imageFile,'/'));  
+				// is a URL link
+				$imageFile = $src;
+			} else {
+				// is a local file
+				$imageFile = $_SERVER['DOCUMENT_ROOT'] . $src;
 			}
 			
-			$imageSize = @getimagesize($_SERVER['DOCUMENT_ROOT'] . $imageFile);
+			// attempt to get the image size
+			$imageSize = @getimagesize($imageFile);
 			
 			if (is_array($imageSize)) {
 				$options['attr']['width'] = $imageSize[0];
@@ -85,28 +100,39 @@ class Text_Wiki_Render_Xhtml_Image extends Text_Wiki_Render {
 			}
 			
 		}
-    	// unset these so they don't show up as attributes
-    	unset($options['attr']['link']);
     	
-    	$attr = '';
+    	// start the HTML output
+    	$output = '<img src="' . htmlspecialchars($src) . '"';
+    	
+    	// add the attributes to the output, and be sure to
+    	// track whether or not we find an "alt" attribute
     	$alt = false;
     	foreach ($options['attr'] as $key => $val) {
     		if (strtolower($key) == 'alt') {
     			$alt = true;
     		}
-    		$attr .= " $key=\"$val\"";
+    		$key = htmlspecialchars($key);
+    		$val = htmlspecialchars($val);
+    		$output .= " $key=\"$val\"";
     	}
     	
 		// always add an "alt" attribute per Stephane Solliec
 		if (! $alt) {
-			$attr .= ' alt="' . basename($options['src']) . '"';
+			$alt = htmlspecialchars(basename($options['src']));
+			$output .= " alt=\"$alt\"";
 		}
 		
+		// end the image tag
+		$output .= ' />';
+		
+		// was the image clickable?
 		if ($href) {
-			return "<a href=\"$href\"><img src=$src$attr/></a>";
-		} else {
-			return "<img src=$src$attr/>";
+			// yes, add the href and return
+			$href = htmlspecialchars($href);
+			$output = "<a href=\"$href\">$output</a>";
 		}
+		
+		return $output;
 	}
 }
 ?>
