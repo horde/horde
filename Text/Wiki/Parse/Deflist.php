@@ -33,7 +33,7 @@ class Text_Wiki_Parse_Deflist extends Text_Wiki_Parse {
 	* 
 	*/
 	
-	var $regex = '/\n((:).*\n)(?!(:|\n))/Us';
+	var $regex = '/\n((: ).*\n)(?!(: |\n))/Us';
 	
 	
 	/**
@@ -74,7 +74,7 @@ class Text_Wiki_Parse_Deflist extends Text_Wiki_Parse {
 		// create an array called $list that contains a new set of
 		// matches for the various definition-list elements.
 		preg_match_all(
-			'/^(:)(.*)?(:)(.*)?$/Ums',
+			'/^(: )(.*)?( : )(.*)?$/Ums',
 			$matches[1],
 			$list,
 			PREG_SET_ORDER
