@@ -16,8 +16,8 @@ class Text_Wiki_Parse_Function extends Text_Wiki_Parse {
 		// default options
 		$opts = array(
 			'name' => null,
-			'access' => 'public',
-			'return' => 'void',
+			'access' => null,
+			'return' => null,
 			'params' => array(),
 			'throws' => array()
 		);
@@ -47,6 +47,17 @@ class Text_Wiki_Parse_Function extends Text_Wiki_Parse {
 			
 			switch($type) {
 			
+			case 'a':
+			case 'access':
+				$opts['access'] = $val;
+				break;
+				
+			case 'n':
+			case 'name':
+				$opts['name'] = $val;
+				break;
+				
+			case 'p':
 			case 'param':
 				$tmp = explode(',', $val);
 				$k = count($tmp);
@@ -70,22 +81,19 @@ class Text_Wiki_Parse_Function extends Text_Wiki_Parse {
 					);
 				}
 				break;
-		
-			case 'throws':
-				$opts[$type][] = $val;
-				
-			case 'name':
+			
+			case 'r':
 			case 'return':
-			case 'access':
+			case 'returns':
+				$opts['return'] = $val;
+				break;
+			
+			case 't':
+			case 'throws':
+				$opts['throws'][] = $val;
+				break;
+		
 			default:
-				if ($type == 'returns') {
-					$type = 'return';
-				}
-				
-				if ($type == 'throw') {
-					$type = 'throws';
-				}
-				
 				$opts[$type] = $val;
 				break;
 			
