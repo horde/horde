@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<!-- $Id: package.xml,v 1.28 2004-09-19 21:42:57 pmjones Exp $ -->
+<!-- $Id: package.xml,v 1.29 2004-09-19 21:45:06 pmjones Exp $ -->
 <package version="1.0">
 	<name>Text_Wiki</name>
 	<summary>Abstracts parsing and rendering rules for Wiki markup in structured plain text.</summary>
@@ -24,6 +24,7 @@
 			* Render rule for Image now guesses width and height, and adds a pseudo-center alignment option, and works better with non-local images (thanks Stephane Le Solliec)
 			* Base Render class now has formatConf() method to wrap a config value in an sprintf() format (based on ideas from Bob Glamm)
 			* Added CSS class configuration keys for all appropriate rules (*big* thanks to Bob Glamm, glamm at a-s-i dot com, who did a ton of work on this)
+			* Much improved Toc generation, uses CSS and the Heading rule ID values
 			* Render rules for Wikilink and Freelink are much more configurable: put new-link text before or after the page name, or use only CSS to control the look of new-links
 			* fixed bug 2316: swapped processing order for Center and Newline
 		</notes>
