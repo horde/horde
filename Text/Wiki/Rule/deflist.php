@@ -50,7 +50,7 @@ class Text_Wiki_Rule_deflist extends Text_Wiki_Rule {
     * 
     */
     
-    var $regex = '/\n((:).*\n)(?!(:))/Us';
+    var $regex = '/\n((:).*\n)(?!(:|\n))/Us';
     
     
     /**
