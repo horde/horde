@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<!-- $Id: package.xml,v 1.10 2004-06-11 15:00:03 pmjones Exp $ -->
+<!-- $Id: package.xml,v 1.11 2004-06-11 17:20:33 pmjones Exp $ -->
 <package version="1.0">
 	<name>Text_Wiki</name>
 	<summary>Abstracts parsing and rendering rules for Wiki markup in structured plain text.</summary>
@@ -14,12 +14,14 @@
 		</maintainer>
 	</maintainers>
 	<release>
-		<version>0.19.2</version>
+		<version>0.19.3</version>
 		<date>2004-06-11</date>
 		<license>PHP License</license>
 		<state>alpha</state>
 		<notes>
-			* Fixed bugs 1571 and 1573 (include parser and embed xhtml render)
+			* Fixed bug 1616 (blockquote parsing)
+			* Image markup now always renders with an "alt" tag (per Stephane Le Solliec)
+			* Image markup "link" attribute now accepts URLs in addition to WikiPageNames
 		</notes>
 		<filelist>
 			<file role="php" name="Text/Wiki.php" />

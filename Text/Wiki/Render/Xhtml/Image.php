@@ -26,9 +26,15 @@ class Text_Wiki_Render_Xhtml_Image extends Text_Wiki_Render {
     		$options['src'] . '"';
     	
     	if (isset($options['attr']['link'])) {
-			// this image has a wikilink
-    		$href = $this->_wiki->getRuleConf('wikilink', 'view_url') .
-    			$options['attr']['link'];
+		// this image has a link
+		
+		if (strpos($options['attr']['link'], '://')) {
+			// it's a URL
+			$href = $options['attr']['link'];
+		} else {
+	    		$href = $this->wiki->getRenderConf('xhtml', 'wikilink', 'view_url') .
+	    			$options['attr']['link'];
+		}
     	} else {
     		// image is not linked
     		$href = null;
