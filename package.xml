@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<!-- $Id: package.xml,v 1.21 2004-07-20 14:16:20 pmjones Exp $ -->
+<!-- $Id: package.xml,v 1.22 2004-07-20 15:55:43 pmjones Exp $ -->
 <package version="1.0">
 	<name>Text_Wiki</name>
 	<summary>Abstracts parsing and rendering rules for Wiki markup in structured plain text.</summary>
@@ -14,11 +14,12 @@
 		</maintainer>
 	</maintainers>
 	<release>
-		<version>0.20.0</version>
+		<version>0.20.1</version>
 		<date>2004-07-20</date>
 		<license>LGPL</license>
 		<state>alpha</state>
 		<notes>
+			* Released and then pulled 0.20.0, borked the Xhtml renderers (were Plain, not Xhtml)
 			* Added new renderer "Plain" to render a non-marked-up version of the wiki text.  You should disable the Translatehtml rule to avoid HTML entities in your plain text.
 			* License change; now uses LGPL, not PHP license
 		</notes>
