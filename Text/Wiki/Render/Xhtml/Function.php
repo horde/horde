@@ -1,15 +1,39 @@
 <?php
 
+/**
+
+format_main:
+	access
+	return
+	name
+	params
+	throws
+
+format_param:
+	type
+	descr
+
+format_paramd:
+	type
+	descr
+	default
+
+format_throws:
+	type
+	descr
+
+list_sep: ', '
+
+*/
+
 class Text_Wiki_Render_Xhtml_Function extends Text_Wiki_Render {
     
     var $conf = array(
-    	'css_div' => null,
-    	'access'  => '%s',
-    	'return'  => '%s',
-    	'name'    => '<strong>%s</strong>',
-    	'type'    => '%s',
-    	'descr'   => '<em>%s</em>',
-    	'default' => 'default %s'
+    	'list_sep' => ', ',
+    	'format_main' => '%access %return <b>%name</b> ( %params ) %throws',
+    	'format_param' => '%type <i>%descr</i>',
+    	'format_paramd' => '[%type <i>%descr</i> default %default]',
+    	'format_throws' => '<b>throws</b> %type <i>%descr</i>'
     );
     
     /**
@@ -27,27 +51,51 @@ class Text_Wiki_Render_Xhtml_Function extends Text_Wiki_Render {
     
     function token($options)
     {
-    	extract($options); // name, access, return, params
+    	extract($options); // name, access, return, params, throws
     	
-    	$css = $this->formatConf(' class="%s"', $this->conf['css_div']);
-    	$output = "<div$css>";
+    	// build the baseline output
+    	$output = $this->conf['format_main'];
+    	$output = str_replace('%access', htmlspecialchars($access), $output);
+    	$output = str_replace('%return', htmlspecialchars($return), $output);
+    	$output = str_replace('%name', htmlspecialchars($name), $output);
     	
-    	$output .= sprintf($this->conf['access'], $access) . ' ';
-    	$output .= sprintf($this->conf['return'], $return) . ' ';
-    	$output .= sprintf($this->conf['name'], $name) . ' ( ';
-    	
+    	// build the set of params
     	$list = array();
     	foreach ($params as $key => $val) {
-    		$tmp = sprintf($this->conf['type'], $val['type']) . ' ';
-    		$tmp .= sprintf($this->conf['descr'], $val['descr']);
+    		
+			// is there a default value?
     		if ($val['default']) {
-    			$tmp .= ' ' . sprintf($this->conf['default'], $val['default']);
-    			$tmp = "[$tmp]";
+    			$tmp = $this->conf['format_paramd'];
+    		} else {
+    			$tmp = $this->conf['format_param'];
     		}
+    		
+    		// add the param elements
+    		$tmp = str_replace('%type', htmlspecialchars($val['type']), $tmp);
+    		$tmp = str_replace('%descr', htmlspecialchars($val['descr']), $tmp);
+    		$tmp = str_replace('%default', htmlspecialchars($val['default']), $tmp);
     		$list[] = $tmp;
     	}
-    	$output .= implode(', ', $list) . " )</div>";
     	
+    	// insert params into output
+    	$tmp = implode($this->conf['list_sep'], $list);
+    	$output = str_replace('%params', $tmp, $output);
+    	
+    	// build the set of throws
+    	$list = array();
+    	foreach ($throws as $key => $val) {
+   			$tmp = $this->conf['format_throws'];
+    		$tmp = str_replace('%type', htmlspecialchars($val['type']), $tmp);
+    		$tmp = str_replace('%descr', htmlspecialchars($val['descr']), $tmp);
+    		$list[] = $tmp;
+    	}
+    	
+    	// insert throws into output
+    	$tmp = implode($this->conf['list_sep'], $list);
+    	$output = str_replace('%throws', $tmp, $output);
+    	
+    	// close the div and return the output
+    	$output .= '</div>';
     	return "\n$output\n\n";
     }
 }

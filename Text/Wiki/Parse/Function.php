@@ -1,11 +1,6 @@
 <?php
 
-/*
-<function name="" return="" access="">
-type, descr
-type, descr, default (if there is a default value, then it is optional!)
-</function>
-*/
+// $Id$
 
 class Text_Wiki_Parse_Function extends Text_Wiki_Parse {
 
@@ -90,7 +85,19 @@ class Text_Wiki_Parse_Function extends Text_Wiki_Parse {
 			
 			case 't':
 			case 'throws':
-				$opts['throws'][] = $val;
+				$tmp = explode(',', $val);
+				$k = count($tmp);
+				if ($k == 1) {
+					$opts['throws'][] = array(
+						'type' => $tmp[0],
+						'descr' => null
+					);
+				} else {
+					$opts['throws'][] = array(
+						'type' => $tmp[0],
+						'descr' => $tmp[1]
+					);
+				}
 				break;
 		
 			default:
