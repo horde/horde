@@ -31,8 +31,6 @@ require_once 'Text/Wiki/Render.php';
 
 class Text_Wiki {
 	
-	var $_dirSep = DIRECTORY_SEPARATOR;
-	
 	/**
 	* 
 	* The default list of rules, in order, to apply to the source text.
@@ -302,6 +300,20 @@ class Text_Wiki {
 		'parse' => array(),
 		'render' => array()
 	);
+	
+	
+	
+	/**
+	* 
+	* The directory separator character.
+	* 
+	* @access private
+	* 
+	* @var string
+	* 
+	*/
+	
+	var $_dirSep = DIRECTORY_SEPARATOR;
 	
 	
 	/**
