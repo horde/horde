@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<!-- $Id: package.xml,v 1.40 2005-02-23 17:38:28 pmjones Exp $ -->
+<!-- $Id: package.xml,v 1.41 2005-02-23 17:47:34 pmjones Exp $ -->
 <package version="1.0">
     <name>Text_Wiki</name>
     <summary>Abstracts parsing and rendering rules for Wiki markup in structured plain text.</summary>
@@ -14,14 +14,15 @@
         </maintainer>
     </maintainers>
     <release>
-        <version>1.0.0</version>
+        <version>1.0.0RC1</version>
         <date>2005-02-23</date>
         <license>LGPL</license>
         <state>beta</state>
         <notes>
-        	* first 1.0.0 beta
+        	* first 1.0.0 release candidate
         	* added more docblocks
-        	* doing an @package_version@ replacement in Text/Wiki.php now
+        	* added a @package_version@ replacement in Wiki.php
+        	* added 'url_base' config key in Wiki/Render/Xhtml/Image.php
         </notes>
         <filelist>
         
