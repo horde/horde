@@ -100,7 +100,7 @@ class Text_Wiki_Render_Xhtml_Wikilink extends Text_Wiki_Render {
             }
             
             // get the appropriate CSS class and new-link text
-            $css = $this->formatConf(' class="%s"', 'css');
+            $css = $this->formatConf(' class="%s"', 'css_new');
             $new = $this->getConf('new_text');
             
             // what kind of linking are we doing?
