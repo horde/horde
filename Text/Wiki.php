@@ -28,7 +28,7 @@ require_once 'Text/Wiki/Rule.php';
 * 
 * @author Paul M. Jones <pmjones@ciaweb.net>
 * 
-* @version 0.15 alpha
+* @version 0.16 alpha
 * 
 */
 
@@ -232,7 +232,8 @@ class Text_Wiki {
 			'name' => 'Text_Wiki_Rule_url',
 			'flag' => true,
 			'conf' => array(
-				'target' => '_BLANK'
+				'target' => '_blank',
+				'images' => true
 			)
 		),
 		
@@ -258,7 +259,7 @@ class Text_Wiki {
 					'Advogato' => 'http://advogato.org/%s',
 					'Wiki'	   => 'http://c2.com/cgi/wiki?%s'
 				),
-				'target' => '_BLANK'
+				'target' => '_blank'
 			)
 		),
 		

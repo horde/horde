@@ -177,7 +177,7 @@ class Text_Wiki_Rule_wikilink extends Text_Wiki_Rule {
     
     /**
     * 
-    * Renders a token into text matching the requested format.
+    * Renders a token into XHTML.
     * 
     * @access public
     * 

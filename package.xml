@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<!-- $Id: package.xml,v 1.5 2004-05-21 21:14:47 pmjones Exp $ -->
+<!-- $Id: package.xml,v 1.6 2004-05-22 20:33:09 pmjones Exp $ -->
 <package version="1.0">
     <name>Text_Wiki</name>
     <summary>Abstracts parsing and rendering rules for Wiki markup in structured plain text.</summary>
@@ -14,12 +14,18 @@
         </maintainer>
     </maintainers>
     <release>
-        <version>0.15.1?</version>
-        <date>????</date>
+        <version>0.16</version>
+        <date>2004-05-22</date>
         <license>PHP License</license>
         <state>alpha</state>
         <notes>
         	* code rule no longer trims the contents, this leaves leading and trailing preformatted white space in place
+        	* in newline and paragraph skipped elements, added code and phpcode
+        	* entities rule now converts all entities (instead of just specialchars) except the token delimiter
+        	* extra newline after table, deflist, and list rules to help with paragraph parsing
+        	* list rule now adds "display: inline;" to list-item style to help with MSIE display
+        	* url rule now has 'images' rule conf key to turn image processing on and off
+        	* started adding renderPlain() method to all rules, will render the source with all markup removed (not done yet)
         </notes>
         <filelist>
             <file role="php" name="Text/Wiki.php" />
