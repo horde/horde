@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<!-- $Id: package.xml,v 1.35 2004-10-08 17:50:55 pmjones Exp $ -->
+<!-- $Id: package.xml,v 1.36 2005-01-30 19:16:21 pmjones Exp $ -->
 <package version="1.0">
     <name>Text_Wiki</name>
     <summary>Abstracts parsing and rendering rules for Wiki markup in structured plain text.</summary>
@@ -14,14 +14,17 @@
         </maintainer>
     </maintainers>
     <release>
-        <version>0.23.1</version>
-        <date>2004-10-08</date>
+        <version>0.24.0</version>
+        <date>2005-01-30</date>
         <license>LGPL</license>
-        <state>alpha</state>
+        <state>beta</state>
         <notes>
-            * revamped Function render rule for Xhtml, now has full formatting strings instead of simple element control
-            * Function render rule for Plain now outputs the function text
-            * Tighten render rule in Latex now properly outputs nothing
+        	* moving to "beta" even all the desired renderers are not yet in place; the API has for all practical purposes proven to be stable
+        	* fixed Bug:2670 (incorrect css_new case in "wikilink" xhtml renderer)
+        	* fixed Bug:2916 (parser for "code" does not set all attributes)
+        	* implemented Request:2947 (more flexible way to handle wikilinks) -- the wikilink renderer now lets you specify a callback to determine if a page exists or not
+        	* implemented Request:2917 (allow dot in interwiki regex parser)
+        	* implemented Request:3162 (allow for additional punctuation in interwiki regex parser)
         </notes>
         <filelist>
         
