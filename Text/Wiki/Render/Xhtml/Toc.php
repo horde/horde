@@ -1,8 +1,17 @@
 <?php
 
+// $Id$
+
 class Text_Wiki_Render_Xhtml_Toc extends Text_Wiki_Render {
     
+    var $conf = array(
+		'css_list' => null,
+		'css_item' => null,
+		'title' => 'Table of Contents',
+		'div_id' => 'toc'
+	);
     
+    var $min = 2;
     
     /**
     * 
@@ -19,46 +28,61 @@ class Text_Wiki_Render_Xhtml_Toc extends Text_Wiki_Render {
     
     function token($options)
     {
-        // type, count, level
+        // type, id, level, count, attr
         extract($options);
         
-        // the prefix used for anchor names
-        $prefix = 'toc';
+        switch ($type) {
         
-        if ($type == 'target') {
-            // ... generate an anchor.
-            return "<a id=\"$prefix$count\"></a>";
-        }
+		case 'list_start':
+		
+			if (isset($attr['min'])) {
+				$this->min = $attr['min'];
+			}
+			
+			if (isset($attr['max'])) {
+				$this->max = $attr['max'];
+			}
         
-        if ($type == 'list_start') {
-            return "<p>\n";
-        }
-        
-        if ($type == 'list_end') {
-            return "</p>\n";
-        }
-        
-        if ($type == 'item_start') {
-            
-            // build some indenting spaces for the text
-            $indent = ($level - 2) * 4;
-            $pad = str_pad('', $indent);
-            $pad = str_replace(' ', '&nbsp;', $pad);
-            
-            // add an extra linebreak in front of heading-2
-            // entries (makes for nice section separations)
-            if ($level <= 2 && $count > 0) {
-                $pad = "<br />\n$pad";
-            }
-            
-            // create the entry line as a link to the toc anchor
-            return "$pad<a href=\"#$prefix$count\">";
-        }
-        
-        if ($type == 'item_end') {
-            return "</a><br />\n";
-        }
+			$html = '<div';
+			
+			$css = $this->getConf('css_list');
+			if ($css) {
+				$html .= " class=\"$css\"";
+			}
+			
+			$div_id = $this->getConf('div_id');
+			if ($div_id) {
+				$html .= " id=\"$div_id\"";
+			}
+			
+			$html .= '>';
+			$html .= $this->getConf('title');
+			return $html;
+			break;
+		
+		case 'list_end':
+			return "</div>\n";
+			break;
+			
+		case 'item_start':
+			$html = '<div';
+			
+			$css = $this->getConf('css_item');
+			if ($css) {
+				$html .= " class=\"$css\"";
+			}
+			
+			$pad = ($level - $this->min);
+			$html .= " style=\"margin-left: {$pad}em;\">";
+			
+			$html .= "<a href=\"#$id\">";
+			return $html;
+			break;
+		
+		case 'item_end':
+			return "</a></div>\n";
+			break;
+		}
     }
-
 }
 ?>

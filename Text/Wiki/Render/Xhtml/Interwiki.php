@@ -48,13 +48,23 @@ class Text_Wiki_Render_Xhtml_Interwiki extends Text_Wiki_Render {
 		}
 		
 		// allow for alternative targets
-		$target = $this->getConf('target', '');
+		$target = $this->getConf('target');
+        
+        // build base link
+		$text = htmlspecialchars($text);
+		$output = "<a href=\"$href\"";
 		
-		if ($target && trim($target) != '') {
-			$target = " target=\"$target\"";
+		if ($target) {
+			// use a "popup" window.  this is XHTML compliant, suggested by
+			// Aaron Kalin.  uses the $target as the new window name.
+			$target = htmlspecialchars($target);
+			$output .= " onclick=\"window.open(this.href, '$target');";
+			$output .= " return false;\"";
 		}
 		
-        return "<a$target href=\"$href\">$text</a>";
+		$output .= ">$text</a>";
+		
+		return $output;
     }
 }
 ?>

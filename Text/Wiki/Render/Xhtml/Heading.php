@@ -8,7 +8,7 @@ class Text_Wiki_Render_Xhtml_Heading extends Text_Wiki_Render {
         extract($options);
         
         if ($type == 'start') {
-            return "<h$level>";
+            return "<h$level id=\"$id\">";
         }
         
         if ($type == 'end') {
