@@ -17,7 +17,7 @@
 class Text_Wiki_Parse_Interwiki extends Text_Wiki_Parse {
     
     
-    var $regex = '([A-Za-z0-9_]+):([\/=&~#A-Za-z0-9_\.]+)';
+    var $regex = '([A-Za-z0-9_]+):([\/=&~#A-Za-z0-9_:.;-]+)';
     
     
     /**
