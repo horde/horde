@@ -269,6 +269,7 @@ class Text_Wiki {
 			'flag' => true,
 			'conf' => array(
 				'pages'	   => array(),
+				'numbers'  => false,
 				'view_url' => 'http://example.com/index.php?page=%s',
 				'new_url'  => 'http://example.com/new.php?page=%s',
 				'new_text' => '?'
