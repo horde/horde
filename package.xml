@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<!-- $Id: package.xml,v 1.19 2004-07-11 17:11:43 pmjones Exp $ -->
+<!-- $Id: package.xml,v 1.20 2004-07-20 14:12:01 pmjones Exp $ -->
 <package version="1.0">
 	<name>Text_Wiki</name>
 	<summary>Abstracts parsing and rendering rules for Wiki markup in structured plain text.</summary>
@@ -14,15 +14,18 @@
 		</maintainer>
 	</maintainers>
 	<release>
-		<version>0.19.7</version>
-		<date>2004-07-11</date>
-		<license>PHP License</license>
+		<version>0.20</version>
+		<date>2004-07-20</date>
+		<license>LGPL</license>
 		<state>alpha</state>
 		<notes>
-			* XHTML renderer for URL rule no longer adds 'target="_blank"' by default; this aids in minimal XHTML compliance, but will need a solution for specified targets for full compliance
+			* Added new renderer "Plain" to render a non-marked-up version of the wiki text.  You should disable the Translatehtml rule to avoid HTML entities in your plain text.
+			* License change; now uses LGPL, not PHP license
 		</notes>
 		<filelist>
+		
 			<file role="php" name="Text/Wiki.php" />
+			
 			<file role="php" name="Text/Wiki/Parse.php" />
 			<file role="php" name="Text/Wiki/Parse/Anchor.php" />
 			<file role="php" name="Text/Wiki/Parse/Blockquote.php" />
@@ -59,7 +62,9 @@
 			<file role="php" name="Text/Wiki/Parse/Tt.php" />
 			<file role="php" name="Text/Wiki/Parse/Url.php" />
 			<file role="php" name="Text/Wiki/Parse/Wikilink.php" />
+			
 			<file role="php" name="Text/Wiki/Render.php" />
+			
 			<file role="php" name="Text/Wiki/Render/Xhtml.php" />
 			<file role="php" name="Text/Wiki/Render/Xhtml/Anchor.php" />
 			<file role="php" name="Text/Wiki/Render/Xhtml/Blockquote.php" />
@@ -96,6 +101,44 @@
 			<file role="php" name="Text/Wiki/Render/Xhtml/Tt.php" />
 			<file role="php" name="Text/Wiki/Render/Xhtml/Url.php" />
 			<file role="php" name="Text/Wiki/Render/Xhtml/Wikilink.php" />
+			
+			<file role="php" name="Text/Wiki/Render/Plain.php" />
+			<file role="php" name="Text/Wiki/Render/Plain/Anchor.php" />
+			<file role="php" name="Text/Wiki/Render/Plain/Blockquote.php" />
+			<file role="php" name="Text/Wiki/Render/Plain/Bold.php" />
+			<file role="php" name="Text/Wiki/Render/Plain/Break.php" />
+			<file role="php" name="Text/Wiki/Render/Plain/Center.php" />
+			<file role="php" name="Text/Wiki/Render/Plain/Code.php" />
+			<file role="php" name="Text/Wiki/Render/Plain/Colortext.php" />
+			<file role="php" name="Text/Wiki/Render/Plain/Deflist.php" />
+			<file role="php" name="Text/Wiki/Render/Plain/Delimiter.php" />
+			<file role="php" name="Text/Wiki/Render/Plain/Embed.php" />
+			<file role="php" name="Text/Wiki/Render/Plain/Emphasis.php" />
+			<file role="php" name="Text/Wiki/Render/Plain/Freelink.php" />
+			<file role="php" name="Text/Wiki/Render/Plain/Heading.php" />
+			<file role="php" name="Text/Wiki/Render/Plain/Horiz.php" />
+			<file role="php" name="Text/Wiki/Render/Plain/Html.php" />
+			<file role="php" name="Text/Wiki/Render/Plain/Image.php" />
+			<file role="php" name="Text/Wiki/Render/Plain/Include.php" />
+			<file role="php" name="Text/Wiki/Render/Plain/Interwiki.php" />
+			<file role="php" name="Text/Wiki/Render/Plain/Italic.php" />
+			<file role="php" name="Text/Wiki/Render/Plain/List.php" />
+			<file role="php" name="Text/Wiki/Render/Plain/Newline.php" />
+			<file role="php" name="Text/Wiki/Render/Plain/Paragraph.php" />
+			<file role="php" name="Text/Wiki/Render/Plain/Phplookup.php" />
+			<file role="php" name="Text/Wiki/Render/Plain/Prefilter.php" />
+			<file role="php" name="Text/Wiki/Render/Plain/Raw.php" />
+			<file role="php" name="Text/Wiki/Render/Plain/Revise.php" />
+			<file role="php" name="Text/Wiki/Render/Plain/Strong.php" />
+			<file role="php" name="Text/Wiki/Render/Plain/Superscript.php" />
+			<file role="php" name="Text/Wiki/Render/Plain/Table.php" />
+			<file role="php" name="Text/Wiki/Render/Plain/Tighten.php" />
+			<file role="php" name="Text/Wiki/Render/Plain/Toc.php" />
+			<file role="php" name="Text/Wiki/Render/Plain/Translatehtml.php" />
+			<file role="php" name="Text/Wiki/Render/Plain/Tt.php" />
+			<file role="php" name="Text/Wiki/Render/Plain/Url.php" />
+			<file role="php" name="Text/Wiki/Render/Plain/Wikilink.php" />
+			
 		</filelist>
 	</release>
 </package>
