@@ -5,7 +5,7 @@ class Text_Wiki_Render_Xhtml_Url extends Text_Wiki_Render {
     
     
     var $conf = array(
-		'target' => '_blank',
+		'target' => false,
 		'images' => true,
     	'img_ext' => array('jpg', 'jpeg', 'gif', 'png')
 	);
