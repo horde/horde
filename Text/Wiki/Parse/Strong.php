@@ -32,7 +32,7 @@ class Text_Wiki_Parse_Strong extends Text_Wiki_Parse {
     * 
     */
     
-    var $regex =  "/\*\*(()|.*)\*\*/U";
+    var $regex =  "/\*\*(.*?)\*\*/";
     
     
     /**

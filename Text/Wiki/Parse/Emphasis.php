@@ -31,7 +31,7 @@ class Text_Wiki_Parse_emphasis extends Text_Wiki_Parse {
     * 
     */
     
-    var $regex = "/\/\/(()|.*)\/\//U";
+    var $regex = "/\/\/(.*?)\/\//";
     
     
     /**

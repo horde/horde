@@ -19,7 +19,7 @@ class Text_Wiki_Parse_Anchor extends Text_Wiki_Parse {
     /**
     * 
     * The regular expression used to find source text matching this
-    * rule.
+    * rule.  Looks like a macro: [[# anchor_name]]
     * 
     * @access public
     * 
