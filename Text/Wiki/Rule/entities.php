@@ -43,14 +43,14 @@ class Text_Wiki_Rule_entities extends Text_Wiki_Rule {
     
     function parse()
     {
-        // first, decode any entities already in the text so that they
-        // don't get double-encoded
-        $trans_table = get_html_translation_table(HTML_SPECIALCHARS);
-        $this->_wiki->_source = strtr($this->_wiki->_source,
-            array_flip($trans_table));
-            
-        // now encode all html special characters
-        $this->_wiki->_source = htmlspecialchars($this->_wiki->_source);
+    	// get the translation table
+        $xlate = get_html_translation_table(HTML_ENTITIES);
+        
+        // remove the delimiter character it doesn't get translated
+        unset($xlate[$this->_wiki->delim]);
+        
+        // convert!
+        $this->_wiki->_source = strtr($this->_wiki->_source, $xlate);
     }
 
 }
