@@ -172,7 +172,7 @@ class Text_Wiki_Rule_table extends Text_Wiki_Rule {
         $return .= $this->addToken(array('type' => 'table_end'));
         
         // we're done!
-        return "\n$return";
+        return "\n$return\n";
     }
     
     

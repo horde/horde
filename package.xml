@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<!-- $Id: package.xml,v 1.1 2004-04-25 16:14:01 pmjones Exp $ -->
+<!-- $Id: package.xml,v 1.2 2004-05-02 13:13:16 pmjones Exp $ -->
 <package version="1.0">
     <name>Text_Wiki</name>
     <summary>Abstracts parsing and rendering rules for Wiki markup in structured plain text.</summary>
@@ -14,23 +14,24 @@
         </maintainer>
     </maintainers>
     <release>
-        <version>0.11</version>
-        <date>2004-03-27</date>
+        <version>0.14</version>
+        <date>2004-04-06</date>
         <license>PHP License</license>
         <state>alpha</state>
         <notes>
-        	* added getMacroArgs() in Rule.php to get argument parameters within markup of macros
-        	* 'table' rule now supports rule config options for border, spacing, and padding
-        	* 'table' rule now allows cell-specific alignment
-        	* 'image' rule now supports linking to wiki pages
-        	* removed package docs in favor of linking to the inline docs
-       	</notes>
+        	* added line compression into 'prefilter' rule (from the current 'tighten' rule)
+        	* changed 'tighten' rule back to its original behavior (i.e., remove all newlines)
+        	* moved 'tighten' rule to next-to-last in the default rule set
+        	* sorry to keep moving things around, this is alpha code after all :-(
+        	* added extra newline to returned 'table' parsing, fixes paragraph breaks
+        </notes>
         <filelist>
         
             <file role="php" name="Text/Wiki.php" />
             <file role="php" name="Text/Wiki/Rule.php" />
             <file role="php" name="Text/Wiki/Rule/blockquote.php" />
             <file role="php" name="Text/Wiki/Rule/bold.php" />
+            <file role="php" name="Text/Wiki/Rule/break.php" />
             <file role="php" name="Text/Wiki/Rule/center.php" />
             <file role="php" name="Text/Wiki/Rule/code.php" />
             <file role="php" name="Text/Wiki/Rule/colortext.php" />

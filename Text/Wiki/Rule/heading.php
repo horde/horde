@@ -85,7 +85,7 @@ class Text_Wiki_Rule_heading extends Text_Wiki_Rule {
             )
         );
         
-        return $start . $matches[2] . $end;
+        return $start . $matches[2] . $end . "\n";
     }
     
     

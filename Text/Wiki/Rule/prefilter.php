@@ -64,6 +64,13 @@ class Text_Wiki_Rule_prefilter extends Text_Wiki_Rule {
         // add extra newlines at the top and end; this
         // seems to help many rules.
         $this->_wiki->_source = "\n" . $this->_wiki->_source . "\n\n";
+        
+        // finally, compress all instances of 3 or more newlines
+        // down to two newlines.
+    	$find = "/\n{3,}/m";
+    	$replace = "\n\n";
+    	$this->_wiki->_source = preg_replace($find, $replace,
+    		$this->_wiki->_source);
     }
 
 }

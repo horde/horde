@@ -28,7 +28,7 @@ require_once 'Text/Wiki/Rule.php';
 * 
 * @author Paul M. Jones <pmjones@ciaweb.net>
 * 
-* @version 0.11 alpha
+* @version 0.14 alpha
 * 
 */
 
@@ -98,13 +98,6 @@ class Text_Wiki {
 			)
 		),
 		
-		'newline' => array(
-			'file' => 'Text/Wiki/Rule/newline.php',
-			'name' => 'Text_Wiki_Rule_newline',
-			'flag' => true,
-			'conf' => array()
-		),
-		
 		'heading' => array(
 			'file' => 'Text/Wiki/Rule/heading.php',
 			'name' => 'Text_Wiki_Rule_heading',
@@ -119,9 +112,23 @@ class Text_Wiki {
 			'conf' => array()
 		),
 		
+		'break' => array(
+			'file' => 'Text/Wiki/Rule/break.php',
+			'name' => 'Text_Wiki_Rule_break',
+			'flag' => true,
+			'conf' => array()
+		),
+		
 		'blockquote' => array(
 			'file' => 'Text/Wiki/Rule/blockquote.php',
 			'name' => 'Text_Wiki_Rule_blockquote',
+			'flag' => true,
+			'conf' => array()
+		),
+		
+		'list' => array(
+			'file' => 'Text/Wiki/Rule/list.php',
+			'name' => 'Text_Wiki_Rule_list',
 			'flag' => true,
 			'conf' => array()
 		),
@@ -142,13 +149,6 @@ class Text_Wiki {
 				'spacing' => 0,
 				'padding' => 4
 			)
-		),
-		
-		'list' => array(
-			'file' => 'Text/Wiki/Rule/list.php',
-			'name' => 'Text_Wiki_Rule_list',
-			'flag' => true,
-			'conf' => array()
 		),
 		
 		'embed' => array(
@@ -183,6 +183,22 @@ class Text_Wiki {
 			'conf' => array()
 		),
 		
+		'newline' => array(
+			'file' => 'Text/Wiki/Rule/newline.php',
+			'name' => 'Text_Wiki_Rule_newline',
+			'flag' => true,
+			'conf' => array(
+				'skip' => array(
+					'heading',
+					'horiz',
+					'deflist',
+					'table',
+					'list',
+					'toc'
+				)
+			)
+		),
+		
 		'center' => array(
 			'file' => 'Text/Wiki/Rule/center.php',
 			'name' => 'Text_Wiki_Rule_center',
@@ -196,6 +212,7 @@ class Text_Wiki {
 			'flag' => true,
 			'conf' => array(
 				'skip' => array(
+					'blockquote',
 					'heading',
 					'horiz',
 					'deflist',
@@ -294,16 +311,16 @@ class Text_Wiki {
 			'conf' => array()
 		),
 		
-		'entities' => array(
-			'file' => 'Text/Wiki/Rule/entities.php',
-			'name' => 'Text_Wiki_Rule_entities',
+		'tighten' => array(
+			'file' => 'Text/Wiki/Rule/tighten.php',
+			'name' => 'Text_Wiki_Rule_tighten',
 			'flag' => true,
 			'conf' => array()
 		),
 		
-		'tighten' => array(
-			'file' => 'Text/Wiki/Rule/tighten.php',
-			'name' => 'Text_Wiki_Rule_tighten',
+		'entities' => array(
+			'file' => 'Text/Wiki/Rule/entities.php',
+			'name' => 'Text_Wiki_Rule_entities',
 			'flag' => true,
 			'conf' => array()
 		)

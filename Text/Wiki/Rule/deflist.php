@@ -115,7 +115,7 @@ class Text_Wiki_Rule_deflist extends Text_Wiki_Rule {
         $return .= $this->addToken($options);
         
         // done!
-        return $return;
+        return "\n" . $return . "\n";
     }
     
     

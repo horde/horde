@@ -33,7 +33,6 @@
 
 class Text_Wiki_Rule_paragraph extends Text_Wiki_Rule {
     
-    
     /**
     * 
     * The regular expression used to find source text matching this
@@ -45,13 +44,8 @@ class Text_Wiki_Rule_paragraph extends Text_Wiki_Rule {
     * 
     */
     
-    function Text_Wiki_Rule_paragraph(&$obj, $name)
-    {
-        parent::Text_Wiki_Rule($obj, $name);
-        //$this->regex = "/^(?!{$this->_wiki->delim}).*?\n\n/m";
-        $this->regex = "/^.*?\n\n/m";
-        $this->_conf =& $this->_wiki->rules[$name]['conf'];
-    }
+    var $regex = "/^.*?\n\n/m";
+    
     
     /**
     * 

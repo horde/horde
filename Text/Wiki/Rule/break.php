@@ -21,9 +21,8 @@
 
 /**
 * 
-* This class implements a Text_Wiki_Rule to mark implied line breaks in the
-* source text, usually a single carriage return in the middle of a paragraph
-* or block-quoted text.
+* This class implements a Text_Wiki_Rule to mark forced line breaks in the
+* source text.
 *
 * @author Paul M. Jones <pmjones@ciaweb.net>
 *
@@ -31,7 +30,7 @@
 *
 */
 
-class Text_Wiki_Rule_newline extends Text_Wiki_Rule {
+class Text_Wiki_Rule_break extends Text_Wiki_Rule {
     
     
     /**
@@ -47,7 +46,7 @@ class Text_Wiki_Rule_newline extends Text_Wiki_Rule {
     * 
     */
     
-    var $regex = '/([^\n])\n([^\n])/m';
+    var $regex = '/ _\n/';
     
     
     /**
@@ -65,7 +64,7 @@ class Text_Wiki_Rule_newline extends Text_Wiki_Rule {
     
     function process(&$matches)
     {    
-        return $matches[1] . $this->addToken() . $matches[2];
+        return $this->addToken();
     }
     
     

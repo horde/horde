@@ -115,6 +115,8 @@ class Text_Wiki_Rule_blockquote extends Text_Wiki_Rule {
                 // dummy value (boolean true)...
                 array_push($stack, true);
                 
+                $return .= "\n";
+                
                 // ...and add a start token to the return.
                 $return .= $this->addToken(
                     array(
@@ -123,7 +125,7 @@ class Text_Wiki_Rule_blockquote extends Text_Wiki_Rule {
                     )
                 );
                 
-                $return .= "\n";
+                $return .= "\n\n";
             }
             
             // remove a level?
@@ -134,6 +136,8 @@ class Text_Wiki_Rule_blockquote extends Text_Wiki_Rule {
                 // continue adding end-list tokens until the stack count
                 // and the indent level are the same.
                 array_pop($stack);
+                
+                $return .= "\n\n";
                 
                 $return .= $this->addToken(
                     array (
@@ -146,11 +150,13 @@ class Text_Wiki_Rule_blockquote extends Text_Wiki_Rule {
             }
             
             // add the line text.
-            $return .= $text . "\n";
+            $return .= $text;
         }
         
         // the last line may have been indented.  go through the stack
         // and create end-tokens until the stack is empty.
+        $return .= "\n";
+        
         while (count($stack) > 0) {
             array_pop($stack);
             $return .= $this->addToken(
@@ -162,7 +168,7 @@ class Text_Wiki_Rule_blockquote extends Text_Wiki_Rule {
         }
         
         // we're done!  send back the replacement text.
-        return "\n$return";
+        return "$return\n";
     }
     
     
