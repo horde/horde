@@ -224,7 +224,7 @@ class Text_Wiki_Rule_list extends Text_Wiki_Rule {
         }
         
         // we're done!  send back the replacement text.
-        return "\n" . $return . "\n";
+        return "\n" . $return . "\n\n";
     }
     
     
