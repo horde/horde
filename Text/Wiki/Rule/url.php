@@ -281,7 +281,8 @@ class Text_Wiki_Rule_url extends Text_Wiki_Rule {
         $ext = strtolower(substr($href, $pos));
         
         // does the filename extension indicate an image file?
-        if (in_array($ext, $this->img_ext)) {
+        if (in_array($ext, $this->img_ext) &&
+        	$this->_conf['images']) {
             
             // create alt text for the image
             if (! isset($text) || $text == '') {
