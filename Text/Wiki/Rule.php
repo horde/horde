@@ -271,8 +271,10 @@ class Text_Wiki_Rule {
     
     /**
     * 
+    * Abstract method to render XHTML.
+    * 
     * Simple rendering method to take a set of token options and
-    * generate replacement text for it.  This is another method you will
+    * generate replacement XHTML for it.  This is another method you will
     * definitely want to override in your rule subclass extensions.
     *
     * @access public
@@ -287,6 +289,34 @@ class Text_Wiki_Rule {
     function renderXhtml($options)
     {
         return '';
+    }
+    
+    
+    /**
+    * 
+    * Abstract method to render plain text, no markup at all.
+    * 
+	* Simple rendering method to take a set of token options and
+	* generate replacement plain (no markup) text for it.  This is
+	* another method you will definitely want to override in your rule
+	* subclass extensions.
+    *
+    * @access public
+    * 
+    * @param array $options The "options" portion of the token (second element).
+    * 
+    * @return string The text rendered from the token options; by default,
+    * no text is returned.  You should change this in your subclass.  ;-)
+    * 
+    */
+    
+    function renderPlain($options)
+    {
+        if (isset($options['text'])) {
+        	return $options['text'] . ' ';
+        } else {
+        	return '';
+        }
     }
     
     
