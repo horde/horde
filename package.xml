@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<!-- $Id: package.xml,v 1.1 2004-04-25 16:14:01 pmjones Exp $ -->
+<package version="1.0">
+    <name>Text_Wiki</name>
+    <summary>Abstracts parsing and rendering rules for Wiki markup in structured plain text.</summary>
+    <description>Abstracts parsing and rendering rules for Wiki markup in structured plain text.</description>
+    <maintainers>
+        <maintainer>
+            <user>pmjones</user>
+            <name>Paul M. Jones</name>
+            <email>pmjones@ciaweb.net</email>
+            <role>lead</role>
+        </maintainer>
+    </maintainers>
+    <release>
+        <version>0.11</version>
+        <date>2004-03-27</date>
+        <license>PHP License</license>
+        <state>alpha</state>
+        <notes>
+        	* added getMacroArgs() in Rule.php to get argument parameters within markup of macros
+        	* 'table' rule now supports rule config options for border, spacing, and padding
+        	* 'table' rule now allows cell-specific alignment
+        	* 'image' rule now supports linking to wiki pages
+        	* removed package docs in favor of linking to the inline docs
+       	</notes>
+        <filelist>
+        
+            <file role="php" name="Text/Wiki.php" />
+            <file role="php" name="Text/Wiki/Rule.php" />
+            <file role="php" name="Text/Wiki/Rule/blockquote.php" />
+            <file role="php" name="Text/Wiki/Rule/bold.php" />
+            <file role="php" name="Text/Wiki/Rule/center.php" />
+            <file role="php" name="Text/Wiki/Rule/code.php" />
+            <file role="php" name="Text/Wiki/Rule/colortext.php" />
+            <file role="php" name="Text/Wiki/Rule/deflist.php" />
+            <file role="php" name="Text/Wiki/Rule/delimiter.php" />
+            <file role="php" name="Text/Wiki/Rule/embed.php" />
+            <file role="php" name="Text/Wiki/Rule/emphasis.php" />
+            <file role="php" name="Text/Wiki/Rule/entities.php" />
+            <file role="php" name="Text/Wiki/Rule/freelink.php" />
+            <file role="php" name="Text/Wiki/Rule/heading.php" />
+            <file role="php" name="Text/Wiki/Rule/horiz.php" />
+            <file role="php" name="Text/Wiki/Rule/html.php" />
+            <file role="php" name="Text/Wiki/Rule/image.php" />
+            <file role="php" name="Text/Wiki/Rule/include.php" />
+            <file role="php" name="Text/Wiki/Rule/interwiki.php" />
+            <file role="php" name="Text/Wiki/Rule/italic.php" />
+            <file role="php" name="Text/Wiki/Rule/list.php" />
+            <file role="php" name="Text/Wiki/Rule/newline.php" />
+            <file role="php" name="Text/Wiki/Rule/paragraph.php" />
+            <file role="php" name="Text/Wiki/Rule/phpcode.php" />
+            <file role="php" name="Text/Wiki/Rule/phplookup.php" />
+            <file role="php" name="Text/Wiki/Rule/prefilter.php" />
+            <file role="php" name="Text/Wiki/Rule/raw.php" />
+            <file role="php" name="Text/Wiki/Rule/revise.php" />
+            <file role="php" name="Text/Wiki/Rule/strong.php" />
+            <file role="php" name="Text/Wiki/Rule/superscript.php" />
+            <file role="php" name="Text/Wiki/Rule/table.php" />
+            <file role="php" name="Text/Wiki/Rule/tighten.php" />
+            <file role="php" name="Text/Wiki/Rule/toc.php" />
+            <file role="php" name="Text/Wiki/Rule/tt.php" />
+            <file role="php" name="Text/Wiki/Rule/url.php" />
+            <file role="php" name="Text/Wiki/Rule/wikilink.php" />
+            
+            <file role="doc" name="docs/README" />
+            <file role="test" name="tests/README" />
+            
+        </filelist>
+    </release>
+</package>
