@@ -33,6 +33,7 @@ class Text_Wiki_Render_Xhtml_Url extends Text_Wiki_Render {
         // extension.
         $pos = strrpos($href, '.');
         $ext = strtolower(substr($href, $pos + 1));
+        $href = htmlspecialchars($href);
         
         // does the filename extension indicate an image file?
         if ($this->getConf('images') &&
@@ -41,6 +42,7 @@ class Text_Wiki_Render_Xhtml_Url extends Text_Wiki_Render {
             // create alt text for the image
             if (! isset($text) || $text == '') {
                 $text = basename($href);
+                $text = htmlspecialchars($text);
             }
             
             // generate an image tag
@@ -51,11 +53,12 @@ class Text_Wiki_Render_Xhtml_Url extends Text_Wiki_Render {
         	// allow for alternative targets
         	$target = $this->getConf('target', '');
         	if ($target) {
-        		$target = 'target="$target"';
+        		$target = ' target="' . htmlspecialchars($target) . '"';
         	}
         	
             // generate a regular link (not an image)
-            $output = "<a $target href=\"$href\">$text</a>";
+            $text = htmlspecialchars($text);
+            $output = "<a$target href=\"$href\">$text</a>";
             
             // make numbered references look like footnotes
             if ($type == 'footnote') {
