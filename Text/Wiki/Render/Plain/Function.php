@@ -17,7 +17,21 @@ class Text_Wiki_Render_Plain_Function extends Text_Wiki_Render {
     
     function token($options)
     {
-        return "";
+        extract($options); // access, return, name, params, throws
+        
+        $output = "$access $return $name ( ";
+        
+        foreach ($params as $key => $val) {
+        	$output .= "{$val['type']} {$val['descr']} {$val['default']} ";
+        }
+        
+        $output .= ') ';
+        
+        foreach ($throws as $key => $val) {
+        	$output .= "{$val['type']} {$val['descr']} ";
+        }
+        
+        return $output;
     }
 }
 ?>
