@@ -26,6 +26,13 @@ class Text_Wiki_Parse_Embed extends Text_Wiki_Parse {
 		'base' => '/path/to/scripts/'
 	);
 	
+	var $file = null;
+
+	var $output = null;
+
+	var $vars = null;
+
+
 	/**
 	* 
 	* The regular expression used to find source text matching this
@@ -37,7 +44,7 @@ class Text_Wiki_Parse_Embed extends Text_Wiki_Parse {
 	* 
 	*/
 	
-	var $regex = '/(\[\[embed )(.+?)(\]\])/i';
+	var $regex = '/(\[\[embed )(.+?)( .+?)?(\]\])/i';
 	
 	
 	/**
@@ -57,12 +64,25 @@ class Text_Wiki_Parse_Embed extends Text_Wiki_Parse {
 	
 	function process(&$matches)
 	{	
-    	$file = $this->getConf('base') . $matches[2];
-    	ob_start();
-    	include($file);
-    	$options = array('text' => ob_get_contents());
-    	ob_end_clean();
-		return $this->wiki->addToken($this->rule, $options);
+               // save the file location
+                $this->file = $this->getConf('base', './') . $matches[2];
+
+                // extract attribs as variables in the local space
+                $this->vars = $this->getAttrs($matches[3]);
+                unset($this->vars['this']);
+                extract($this->vars);
+
+                // run the script
+                ob_start();
+                include($this->file);
+                $this->output = ob_get_contents();
+                ob_end_clean();
+
+                // done, place the script output directly in the source
+		return $this->wiki->addToken(
+			$this->rule,
+			array('text' => $this->output)
+		);
 	}
 }
 ?>

@@ -17,12 +17,7 @@ class Text_Wiki_Render_Xhtml_Embed extends Text_Wiki_Render {
     
     function token($options)
     {
-    	$file = $this->getConf('base') . $options['path'];
-    	ob_start();
-    	include($file);
-    	$output = ob_get_contents();
-    	ob_end_clean();
-		return $output;
-	}
+    	return $options['text'];
+    }
 }
 ?>
