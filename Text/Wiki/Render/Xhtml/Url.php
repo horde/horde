@@ -54,16 +54,22 @@ class Text_Wiki_Render_Xhtml_Url extends Text_Wiki_Render {
         	if ($href{0} == '#') {
         		$target = '';
         	} else {
-	        	$target = $this->getConf('target', '');
+	        	$target = $this->getConf('target', false);
 	        }
 	        
-        	if ($target) {
-	       		$target = ' target="' . htmlspecialchars($target) . '"';
-        	}
-        	
             // generate a regular link (not an image)
             $text = htmlspecialchars($text);
-            $output = "<a$target href=\"$href\">$text</a>";
+            $output = "<a href=\"$href\"";
+            
+            if ($target) {
+            	// use a "popup" window.  this is XHTML compliant, suggested by
+            	// Aaron Kalin.  uses the $target as the new window name.
+            	$target = htmlspecialchars($target);
+            	$output .= " onclick=\"window.open(this.href, '$target');";
+            	$output .= " return false;\"";
+            }
+            
+            $output .= ">$text</a>";
             
             // make numbered references look like footnotes
             if ($type == 'footnote') {
