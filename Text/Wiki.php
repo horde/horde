@@ -25,7 +25,7 @@ require_once 'Text/Wiki/Render.php';
 * 
 * @package Text_Wiki
 * 
-* @version 0.23.1
+* @version 0.24.1
 *
 * @license LGPL
 * 
@@ -337,7 +337,7 @@ class Text_Wiki {
         
         $this->addPath(
             'parse',
-            $this->fixPath(dirname(__FILE__)) . 'Wiki/Parse/'
+            $this->fixPath(dirname(__FILE__)) . 'Wiki/Parse/Default/'
         );
         
         $this->addPath(
