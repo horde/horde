@@ -30,8 +30,6 @@
 * 
 * @author Paul M. Jones <pmjones@php.net>
 * 
-* @version @package_version@
-* 
 */
 
 

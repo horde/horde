@@ -28,8 +28,6 @@
 * 
 * @license LGPL
 * 
-* @version @package_version@
-* 
 */
 
 class Text_Wiki_Render {

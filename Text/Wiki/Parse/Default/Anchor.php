@@ -31,8 +31,6 @@
 * 
 * @package Text_Wiki
 * 
-* @version @package_version@
-* 
 */
 
 class Text_Wiki_Parse_Anchor extends Text_Wiki_Parse {

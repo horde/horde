@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<!-- $Id: package.xml,v 1.39 2005-02-22 19:12:57 pmjones Exp $ -->
+<!-- $Id: package.xml,v 1.40 2005-02-23 17:38:28 pmjones Exp $ -->
 <package version="1.0">
     <name>Text_Wiki</name>
     <summary>Abstracts parsing and rendering rules for Wiki markup in structured plain text.</summary>
@@ -14,18 +14,20 @@
         </maintainer>
     </maintainers>
     <release>
-        <version>0.25.0</version>
-        <date>2005-02-01</date>
+        <version>1.0.0</version>
+        <date>2005-02-23</date>
         <license>LGPL</license>
         <state>beta</state>
         <notes>
-        	* moved all parsing rules from Text/Wiki/Parse to Text/Wiki/Parse/Default (this will help separate entire parsing rule sets, e.g. BBCode)
-        	* changed Wiki.php to use the new Parse/Default directory as the default directory
-        	* fixed interwiki regex so that page names starting with : are not honored (it was messing up wikilinks with 2 colons in the text)
+        	* first 1.0.0 beta
+        	* added more docblocks
+        	* doing an @package_version@ replacement in Text/Wiki.php now
         </notes>
         <filelist>
         
-            <file role="php" name="Text/Wiki.php" />
+            <file role="php" name="Text/Wiki.php">
+				<replace from="@package_version@" to="version" type="package-info" />
+            </file>
             
             <file role="php" name="Text/Wiki/Parse.php" />
             

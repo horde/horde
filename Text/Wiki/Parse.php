@@ -12,8 +12,6 @@
 * 
 * @license LGPL
 * 
-* @version @package_version@
-* 
 */
 
 /**
@@ -39,8 +37,6 @@
 * @package Text_Wiki
 * 
 * @author Paul M. Jones <pmjones@php.net>
-* 
-* @version @package_version@
 * 
 */
 

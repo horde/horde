@@ -35,8 +35,6 @@
 * 
 * @author Paul M. Jones <pmjones@php.net>
 * 
-* @version @package_version@
-* 
 */
 
 class Text_Wiki_Parse_Tt extends Text_Wiki_Parse {
