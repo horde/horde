@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<!-- $Id: package.xml,v 1.15 2004-06-19 23:51:34 pmjones Exp $ -->
+<!-- $Id: package.xml,v 1.16 2004-06-19 23:52:31 pmjones Exp $ -->
 <package version="1.0">
 	<name>Text_Wiki</name>
 	<summary>Abstracts parsing and rendering rules for Wiki markup in structured plain text.</summary>
@@ -27,6 +27,7 @@
 		<filelist>
 			<file role="php" name="Text/Wiki.php" />
 			<file role="php" name="Text/Wiki/Parse.php" />
+			<file role="php" name="Text/Wiki/Parse/Anchor.php" />
 			<file role="php" name="Text/Wiki/Parse/Blockquote.php" />
 			<file role="php" name="Text/Wiki/Parse/Bold.php" />
 			<file role="php" name="Text/Wiki/Parse/Break.php" />
@@ -63,6 +64,7 @@
 			<file role="php" name="Text/Wiki/Parse/Wikilink.php" />
 			<file role="php" name="Text/Wiki/Render.php" />
 			<file role="php" name="Text/Wiki/Render/Xhtml.php" />
+			<file role="php" name="Text/Wiki/Render/Xhtml/Anchor.php" />
 			<file role="php" name="Text/Wiki/Render/Xhtml/Blockquote.php" />
 			<file role="php" name="Text/Wiki/Render/Xhtml/Bold.php" />
 			<file role="php" name="Text/Wiki/Render/Xhtml/Break.php" />
