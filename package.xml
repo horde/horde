@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<!-- $Id: package.xml,v 1.22 2004-07-20 15:55:43 pmjones Exp $ -->
+<!-- $Id: package.xml,v 1.23 2004-08-18 12:21:54 pmjones Exp $ -->
 <package version="1.0">
 	<name>Text_Wiki</name>
 	<summary>Abstracts parsing and rendering rules for Wiki markup in structured plain text.</summary>
@@ -14,14 +14,13 @@
 		</maintainer>
 	</maintainers>
 	<release>
-		<version>0.20.1</version>
-		<date>2004-07-20</date>
+		<version>0.21</version>
+		<date>2004-08-18</date>
 		<license>LGPL</license>
 		<state>alpha</state>
 		<notes>
-			* Released and then pulled 0.20.0, borked the Xhtml renderers (were Plain, not Xhtml)
-			* Added new renderer "Plain" to render a non-marked-up version of the wiki text.  You should disable the Translatehtml rule to avoid HTML entities in your plain text.
-			* License change; now uses LGPL, not PHP license
+			* for deflist, must now use ": " (colon-space) at beginning and " : " (space-colon-space) to separate term from def; this it becuase URLs as terms were breaking the rule
+			* fixed bug 2095 so that CSS is now honored in deflist rule (thanks for the patch,  glamm at a-s-i dot com)
 		</notes>
 		<filelist>
 		
