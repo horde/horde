@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<!-- $Id: package.xml,v 1.34 2004-09-30 13:47:01 pmjones Exp $ -->
+<!-- $Id: package.xml,v 1.35 2004-10-08 17:50:55 pmjones Exp $ -->
 <package version="1.0">
     <name>Text_Wiki</name>
     <summary>Abstracts parsing and rendering rules for Wiki markup in structured plain text.</summary>
@@ -14,18 +14,14 @@
         </maintainer>
     </maintainers>
     <release>
-        <version>0.23.0</version>
-        <date>2004-09-30</date>
+        <version>0.23.1</version>
+        <date>2004-10-08</date>
         <license>LGPL</license>
         <state>alpha</state>
         <notes>
-            * Added preliminary Latex renderer by Jeremy Cowgar.  Thanks, Jeremy!
-            * Added new parse rule 'Function' to support function definitions for documentation
-            * Added new Xhtml render rule 'Function' (mostly implemented, still missing 'throws' and needs better CSS support)
-            * Added stubs for Latex and Plain render rules 'Function' (not implemented)
-            * Fixed bug 2419, "getParseConf returns null if rule exists"
-            * Fixed identical bug in getFormatConf()
-            * Removed parse rule 'Translatehtml', placed its functionality in the Xhtml format class (use setFormatConf() to modify HTML translation tables)
+            * revamped Function render rule for Xhtml, now has full formatting strings instead of simple element control
+            * Function render rule for Plain now outputs the function text
+            * Tighten render rule in Latex now properly outputs nothing
         </notes>
         <filelist>
         
