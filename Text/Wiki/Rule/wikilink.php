@@ -56,20 +56,43 @@ class Text_Wiki_Rule_wikilink extends Text_Wiki_Rule {
     {
         parent::Text_Wiki_Rule($obj, $name);
         
-        $this->regex =
-            "(!?" .              // START WikiPage pattern (1)
-            "[A-Z]" .            // 1 upper
-            "[A-Za-z]*" .        // 0+ alpha
-            "[a-z]+" .           // 1+ lower
-            "[A-Z]" .            // 1 upper
-            "[A-Za-z]*" .        // 0+ or more alpha
-            ")" .                // END WikiPage pattern (/1)
-            "((\#" .             // START Anchor pattern (2)(3)
-            "[A-Za-z]" .         // 1 alpha
-            "(" .                // start sub pattern (4)
-            "[-A-Za-z0-9_:.]*" . // 0+ dash, alpha, digit, underscore, colon, dot
-            "[-A-Za-z0-9_]" .    // 1 dash, alpha, digit, or underscore
-            ")?)?)";             // end subpatterns (/4)(/3)(/2)
+        if (isset($this->_conf['numbers']) &&
+        	$this->_conf['numbers']) {
+        
+        	// allow numbers as "lowercase letters" in the regex
+			$this->regex =
+				"(!?" .              // START WikiPage pattern (1)
+				"[A-Z]" .            // 1 upper
+				"[A-Za-z0-9]*" .     // 0+ alpha or digit
+				"[a-z0-9]+" .        // 1+ lower or digit
+				"[A-Z]" .            // 1 upper
+				"[A-Za-z0-9]*" .     // 0+ or more alpha or digit
+				")" .                // END WikiPage pattern (/1)
+				"((\#" .             // START Anchor pattern (2)(3)
+				"[A-Za-z]" .         // 1 alpha
+				"(" .                // start sub pattern (4)
+				"[-A-Za-z0-9_:.]*" . // 0+ dash, alpha, digit, underscore, colon, dot
+				"[-A-Za-z0-9_]" .    // 1 dash, alpha, digit, or underscore
+				")?)?)";             // end subpatterns (/4)(/3)(/2)
+		
+		} else {
+			
+			// no numbers allowed in the regex
+			$this->regex =
+				"(!?" .              // START WikiPage pattern (1)
+				"[A-Z]" .            // 1 upper
+				"[A-Za-z]*" .        // 0+ alpha
+				"[a-z]+" .           // 1+ lower
+				"[A-Z]" .            // 1 upper
+				"[A-Za-z]*" .        // 0+ or more alpha
+				")" .                // END WikiPage pattern (/1)
+				"((\#" .             // START Anchor pattern (2)(3)
+				"[A-Za-z]" .         // 1 alpha
+				"(" .                // start sub pattern (4)
+				"[-A-Za-z0-9_:.]*" . // 0+ dash, alpha, digit, underscore, colon, dot
+				"[-A-Za-z0-9_]" .    // 1 dash, alpha, digit, or underscore
+				")?)?)";             // end subpatterns (/4)(/3)(/2)
+		}
     }
     
     
