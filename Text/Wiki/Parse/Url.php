@@ -66,7 +66,8 @@ class Text_Wiki_Parse_Url extends Text_Wiki_Parse {
 			'ftp://',
 			'gopher://',
 			'news://',
-			'mailto'
+			'mailto',
+			'#'
 		)
 	);
 	

@@ -5,6 +5,7 @@ class Text_Wiki_Render_Xhtml_Table extends Text_Wiki_Render {
 	var $conf = array(
 		'css_table' => null,
 		'css_tr' => null,
+		'css_th' => null,
 		'css_td' => null
 	);
 	
@@ -24,7 +25,7 @@ class Text_Wiki_Render_Xhtml_Table extends Text_Wiki_Render {
 	
 	function token($options)
 	{
-		// make nice variable names (type, align, colspan)
+		// make nice variable names (type, attr, span)
 		extract($options);
 		
 		$pad = '    ';
@@ -66,23 +67,41 @@ class Text_Wiki_Render_Xhtml_Table extends Text_Wiki_Render {
 		
 		case 'cell_start':
 			
-			// build the base html
-			$html = "$pad$pad<td";
+			// base html
+			$html = $pad . $pad;
 			
-			// pick and add the CSS class
-			$css = $this->getConf('css_td', '');
-			if ($css) {
-				$html .= " class=\"$css\"";
+			// is this a TH or TD cell?
+			if ($attr == 'header') {
+				
+				// start a header cell
+				$html .= '<th';
+				
+				// add CSS class
+				$css = $this->getConf('css_th', '');
+				if ($css) {
+					$html .= " class=\"$css\"";
+				}
+				
+			} else {
+			
+				// start a normal cell
+				$html .= '<td';
+				
+				// add the CSS class
+				$css = $this->getConf('css_td', '');
+				if ($css) {
+					$html .= " class=\"$css\"";
+				}
 			}
 			
 			// add the column span
-			if ($colspan > 1) {
-				$html .= " colspan=\"$colspan\"";
+			if ($span > 1) {
+				$html .= " colspan=\"$span\"";
 			}
 			
 			// add alignment
-			if ($align) {
-				$html .= " style=\"text-align: $align;\"";
+			if ($attr != 'header' && $attr != '') {
+				$html .= " style=\"text-align: $attr;\"";
 			}
 			
 			// done!
@@ -91,7 +110,11 @@ class Text_Wiki_Render_Xhtml_Table extends Text_Wiki_Render {
 			break;
 		
 		case 'cell_end':
-			return "</td>\n";
+			if ($attr == 'header') {
+				return "</th>\n";
+			} else {
+				return "</td>\n";
+			}
 			break;
 		
 		default:

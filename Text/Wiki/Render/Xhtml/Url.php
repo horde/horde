@@ -50,10 +50,15 @@ class Text_Wiki_Render_Xhtml_Url extends Text_Wiki_Render {
             
         } else {
         	
-        	// allow for alternative targets
-        	$target = $this->getConf('target', '');
+        	// allow for alternative targets on non-anchor HREFs
+        	if ($href{0} == '#') {
+        		$target = '';
+        	} else {
+	        	$target = $this->getConf('target', '');
+	        }
+	        
         	if ($target) {
-        		$target = ' target="' . htmlspecialchars($target) . '"';
+	       		$target = ' target="' . htmlspecialchars($target) . '"';
         	}
         	
             // generate a regular link (not an image)

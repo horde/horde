@@ -49,6 +49,7 @@ class Text_Wiki {
 		'Raw',
 		'Include',
 		'Embed',
+		'Anchor',
 		'Heading',
 		'Toc',
 		'Horiz',

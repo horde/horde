@@ -49,7 +49,7 @@ class Text_Wiki_Parse_Table extends Text_Wiki_Parse {
 	*	 'cell_start'   : the start of item text (bullet or number)
 	*	 'cell_end'	 : the end of item text (bullet or number)
 	* 
-	* 'colspan' => column span (for a cell)
+	* 'span' => column span (for a cell)
 	* 
 	* @access public
 	*
@@ -99,7 +99,7 @@ class Text_Wiki_Parse_Table extends Text_Wiki_Parse {
 				
 				// if there is no content at all, then it's an instance
 				// of two sets of || next to each other, indicating a
-				// colspan.
+				// span.
 				if ($cell[$i] == '') {
 					
 					// add to the span and loop to the next cell
@@ -110,21 +110,24 @@ class Text_Wiki_Parse_Table extends Text_Wiki_Parse {
 					
 					// this cell has content.
 					
-					// find the alignment, if any.
+					// find any special "attr"ibute cell markers
 					if (substr($cell[$i], 0, 2) == '> ') {
-						// set to right-align and strip the tag
-						$align = 'right';
+						// right-align
+						$attr = 'right';
 						$cell[$i] = substr($cell[$i], 2);
 					} elseif (substr($cell[$i], 0, 2) == '= ') {
-						// set to center-align and strip the tag
-						$align = 'center';
+						// center-align
+						$attr = 'center';
 						$cell[$i] = substr($cell[$i], 2);
 					} elseif (substr($cell[$i], 0, 2) == '< ') {
-						// set to left-align and strip the tag
-						$align = 'left';
+						// left-align
+						$attr = 'left';
+						$cell[$i] = substr($cell[$i], 2);
+					} elseif (substr($cell[$i], 0, 2) == '~ ') {
+						$attr = 'header';
 						$cell[$i] = substr($cell[$i], 2);
 					} else {
-						$align = null;
+						$attr = null;
 					}
 					
 					// start a new cell...
@@ -132,8 +135,8 @@ class Text_Wiki_Parse_Table extends Text_Wiki_Parse {
 						$this->rule, 
 						array (
 							'type' => 'cell_start',
-							'align' => $align,
-							'colspan' => $span
+							'attr' => $attr,
+							'span' => $span
 						)
 					);
 					
@@ -145,12 +148,12 @@ class Text_Wiki_Parse_Table extends Text_Wiki_Parse {
 						$this->rule, 
 						array (
 							'type' => 'cell_end',
-							'align' => $align,
-							'colspan' => $span
+							'attr' => $attr,
+							'span' => $span
 						)
 					);
 					
-					// reset the colspan.
+					// reset the span.
 					$span = 1;
 				}
 					
