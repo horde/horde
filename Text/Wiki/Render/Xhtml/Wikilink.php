@@ -33,8 +33,16 @@ class Text_Wiki_Render_Xhtml_Wikilink extends Text_Wiki_Render {
         extract($options);
         
         // is there a "page existence" callback?
-        $callback = $this->getConf('exists_callback');
-        if (! is_null($callback)) {
+        // we need to access it directly instead of through
+        // getConf() because we'll need a reference (for
+        // object instance method callbacks).
+        if (isset($this->conf['exists_callback'])) {
+            $callback =& $this->conf['exists_callback'];
+        } else {
+        	$callback = false;
+        }
+		
+        if ($callback) {
             // use the callback function
             $exists = call_user_func($callback, $page);
         } else {
