@@ -17,7 +17,7 @@ class Text_Wiki_Render_Latex_Function extends Text_Wiki_Render {
     
     function token($options)
     {
-        return "'FUNCTION' NOT IMPLEMENTED";
+        return "Function: NI";
     }
 }
 ?>
