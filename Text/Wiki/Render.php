@@ -137,5 +137,31 @@ class Text_Wiki_Render {
 			return $default;
 		}
 	}
+	
+	
+	/**
+	* 
+	* Simple method to wrap a configuration in an sprintf() format.
+	* 
+	* @access public
+	* 
+	* @param string $key The configuration key.
+	* 
+	* @param string $format The sprintf() format string.
+	* 
+	* @return mixed The formatted configuration key value (if it exists) 
+	* or null (if it does not).
+	* 
+	*/
+	
+	function formatConf($format, $key)
+	{
+		if (isset($this->conf[$key])) {
+			return sprintf($format, $this->conf[$key]);
+		} else {
+			return null;
+		}
+	}
+	
 }
 ?>
