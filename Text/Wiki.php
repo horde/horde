@@ -75,8 +75,7 @@ class Text_Wiki {
 		'Tt',
 		'Superscript',
 		'Revise',
-		'Tighten',
-		'Translatehtml'
+		'Tighten'
 	);
 	
 	
