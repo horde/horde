@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<!-- $Id: package.xml,v 1.43 2005-03-14 01:03:24 pmjones Exp $ -->
+<!-- $Id: package.xml,v 1.44 2005-05-28 21:34:33 pmjones Exp $ -->
 <package version="1.0">
     <name>Text_Wiki</name>
     <summary>Abstracts parsing and rendering rules for Wiki markup in structured plain text.</summary>
@@ -14,12 +14,15 @@
         </maintainer>
     </maintainers>
     <release>
-        <version>1.0.0</version>
-        <date>2005-03-12</date>
+        <version>1.1</version>
+        <date>2005-??-??</date>
         <license>LGPL</license>
         <state>stable</state>
         <notes>
-        	* First stable release
+        	* Fixed bug 3881 and 4442, UTF-8 encoding problems.  There are new config options for Render_Xhtml, 'charset' and 'quotes', that allow you to specify the charset for translation.
+        	* Fixed bug 3959, "XHTML lists not rendered according W3C Standards" (where a line of text before a list leaves an open paragraph tag and closes it after the list)
+        	* In Parse_Xhtml_Toc, returns an extra newline before the parsed replacement text to comply with the matching regex.
+        	* In Render_Xhtml_Toc, added a 'collapse' config key to collapse the div horizontally within a table; this is for aesthetics, nothing else.  The 'collapse' option is true by default.
         </notes>
         <filelist>
         
