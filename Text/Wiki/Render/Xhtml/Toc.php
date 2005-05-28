@@ -8,7 +8,8 @@ class Text_Wiki_Render_Xhtml_Toc extends Text_Wiki_Render {
         'css_list' => null,
         'css_item' => null,
         'title' => '<strong>Table of Contents</strong>',
-        'div_id' => 'toc'
+        'div_id' => 'toc',
+        'collapse' => true
     );
     
     var $min = 2;
@@ -35,9 +36,17 @@ class Text_Wiki_Render_Xhtml_Toc extends Text_Wiki_Render {
         
         case 'list_start':
         
-            $html = '<div';
-            
             $css = $this->getConf('css_list');
+            $html = '';
+            
+            // collapse div within a table?
+            if ($this->getConf('collapse')) {
+                $html .= '<table border="0" cellspacing="0" cellpadding="0">';
+                $html .= "<tr><td>\n";
+            }
+            
+            // add the div, class, and id
+            $html .= '<div';
             if ($css) {
                 $html .= " class=\"$css\"";
             }
@@ -47,17 +56,22 @@ class Text_Wiki_Render_Xhtml_Toc extends Text_Wiki_Render {
                 $html .= " id=\"$div_id\"";
             }
             
+            // add the title, and done
             $html .= '>';
             $html .= $this->getConf('title');
             return $html;
             break;
         
         case 'list_end':
-            return "</div>\n";
+        	if ($this->getConf('collapse')) {
+        	    return "\n</div>\n</td></tr></table>\n\n";
+        	} else {
+                return "\n</div>\n\n";
+            }
             break;
             
         case 'item_start':
-            $html = '<div';
+            $html = "\n\t<div";
             
             $css = $this->getConf('css_item');
             if ($css) {
@@ -72,7 +86,7 @@ class Text_Wiki_Render_Xhtml_Toc extends Text_Wiki_Render {
             break;
         
         case 'item_end':
-            return "</a></div>\n";
+            return "</a></div>";
             break;
         }
     }
