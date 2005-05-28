@@ -2,26 +2,58 @@
 
 class Text_Wiki_Render_Xhtml extends Text_Wiki_Render {
     
-    var $conf = array('translate' => HTML_ENTITIES);
+    var $conf = array(
+    	'translate' => HTML_ENTITIES,
+    	'quotes'    => ENT_COMPAT,
+    	'charset'   => 'ISO-8859-1'
+    );
     
     function pre()
     {
-        // attempt to translate HTML entities in the source before continuing.
-        $type = $this->getConf('translate', null);
+        // attempt to translate HTML entities in the source.
+        // get the config options.
+        $type = $this->getConf('translate', HTML_ENTITIES);
+        $quotes = $this->getConf('quotes', ENT_COMPAT);
+        $charset = $this->getConf('charset', 'ISO-8859-1');
         
-        // are we translating html?
-        if ($type !== false && $type !== null) {
+        // have to check null and false because HTML_ENTITIES is a zero
+        if ($type !== null && $type !== false && $type == HTML_ENTITIES) {
         
-            // yes! get the translation table.
-            $xlate = get_html_translation_table($type);
-            
-            // remove the delimiter character it doesn't get translated
-            unset($xlate[$this->wiki->delim]);
-            
-            // translate!
-            $this->wiki->source = strtr($this->wiki->source, $xlate);
-        }
-        
+			// keep a copy of the translated version of the delimiter
+			// so we can convert it back.
+			$new_delim = htmlentities($this->wiki->delim, $quotes, $charset);
+			
+			// convert the entities
+			$this->wiki->source = htmlentities(
+				$this->wiki->source,
+				$quotes,
+				$charset
+			);
+			
+			// re-convert the delimiter
+			$this->wiki->source = str_replace(
+				$new_delim, $this->wiki->delim, $this->wiki->source
+			);
+			
+		} elseif ($type == HTML_SPECIALCHARS) {
+			
+			// keep a copy of the translated version of the delimiter
+			// so we can convert it back.
+			$new_delim = htmlspecialchars($this->wiki->delim, $quotes,
+			    $charset);
+			
+			// convert the special chars
+			$this->wiki->source = htmlspecialchars(
+				$this->wiki->source,
+				$quotes,
+				$charset
+			);
+			
+			// re-convert the delimiter
+			$this->wiki->source = str_replace(
+				$new_delim, $this->wiki->delim, $this->wiki->source
+			);
+		}
     }
     
     function post()
