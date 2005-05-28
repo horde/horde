@@ -242,7 +242,7 @@ class Text_Wiki_Parse_List extends Text_Wiki_Parse {
         }
         
         // we're done!  send back the replacement text.
-        return "\n" . $return . "\n\n";
+        return "\n\n" . $return . "\n\n";
     }
 }
 ?>
