@@ -44,12 +44,14 @@ class Text_Wiki_Render_Xhtml_List extends Text_Wiki_Render {
             $css = $this->formatConf(' class="%s"', 'css_ul');
             $html = "<ul$css>";
             
+            /*
             // if this is the opening block for the list,
             // put an extra newline in front of it so the
             // output looks nice.
             if ($level == 0) {
                 $html = "\n$html";
             }
+            */
             
             // done!
             return $html;
@@ -77,12 +79,14 @@ class Text_Wiki_Render_Xhtml_List extends Text_Wiki_Render {
             $css = $this->formatConf(' class="%s"', 'css_ol');
             $html = "<ol$css>";
             
+            /*
             // if this is the opening block for the list,
             // put an extra newline in front of it so the
             // output looks nice.
             if ($level == 0) {
                 $html = "\n$html";
             }
+            */
             
             // done!
             return $html;
