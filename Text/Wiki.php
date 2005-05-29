@@ -980,7 +980,7 @@ class Text_Wiki {
             $result = array();
             foreach ($this->tokens as $key => $val) {
                 if (in_array($val[0], $rules)) {
-                    $result[] = $val;
+                    $result[$key] = $val;
                 }
             }
             return $result;
