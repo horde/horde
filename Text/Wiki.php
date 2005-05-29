@@ -40,15 +40,11 @@ require_once 'Text/Wiki/Render.php';
 * 
 * @package Text_Wiki
 * 
-<<<<<<< Wiki.php
-* @version 0.25.0
-*
-* @license LGPL
-=======
 * @author Paul M. Jones <pmjones@php.net>
 * 
+* @license LGPL
+* 
 * @version @package_version@
->>>>>>> 1.28
 * 
 */
 
@@ -875,8 +871,11 @@ class Text_Wiki {
         // when in a delimited section, capture the token key number
         $key = '';
         
-        // load the format object
-        $this->loadFormatObj($format);
+        // load the format object, or crap out if we can't find it
+        $result = $this->loadFormatObj($format);
+        if ($this->isError($result)) {
+        	return $result;
+        }
         
         // pre-rendering activity
         if (is_object($this->formatObj[$format])) {
@@ -1097,7 +1096,10 @@ class Text_Wiki {
             } else {
                 // can't find the class
                 $this->parseObj[$rule] = null;
-                return false;
+                // can't find the class
+                return $this->error(
+                	"Parse rule '$rule' not found"
+                );
             }
         }
         
@@ -1131,7 +1133,9 @@ class Text_Wiki {
                 include_once $loc;
             } else {
                 // can't find the class
-                return false;
+                return $this->error(
+                	"Render rule '$rule' in format '$format' not found"
+                );
             }
         }
         
@@ -1162,7 +1166,9 @@ class Text_Wiki {
                 include_once $loc;
             } else {
                 // can't find the class
-                return false;
+                return $this->error(
+                	"Rendering format class '$class' not found"
+                );
             }
         }
         
@@ -1274,6 +1280,45 @@ class Text_Wiki {
         } else {
             return $path;
         }
+    }
+    
+    
+    /**
+    * 
+    * Simple error-object generator.
+    * 
+    * @access public
+    * 
+    * @param string $message The error message.
+    * 
+    * @return object PEAR_Error
+    * 
+    */
+    
+    function &error($message)
+    {
+    	if (! class_exists('PEAR_Error')) {
+    		include_once 'PEAR.php';
+    	}
+    	return PEAR::throwError($message, $code, $info);
+    }
+    
+    
+    /**
+    * 
+    * Simple error checker.
+    * 
+    * @access public
+    * 
+    * @param mixed $obj Check if this is a PEAR_Error object or not.
+    * 
+    * @return bool True if a PEAR_Error, false if not.
+    * 
+    */
+    
+    function isError(&$obj)
+    {
+    	return is_a($obj, 'PEAR_Error');
     }
 }
 
