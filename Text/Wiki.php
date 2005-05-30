@@ -1300,7 +1300,7 @@ class Text_Wiki {
     	if (! class_exists('PEAR_Error')) {
     		include_once 'PEAR.php';
     	}
-    	return PEAR::throwError($message, $code, $info);
+    	return PEAR::throwError($message);
     }
     
     
