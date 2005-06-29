@@ -26,29 +26,75 @@ class Shout_Driver {
      */
     var $_params = array();
     // }}}
-    
+
     // {{{ Shout_Driver constructor
     function Shout_Driver($params = array())
     {
         $this->_params = $params;
     }
     // }}}
-    
-    // {{{ getContexts method
+
+    // {{{ getContexts function
     /**
-     * Get a list of contexts from the backend and filter for which contexts
-     * the current user can read/write
-     *
-     * @return array Contexts valid for this user
-     *
-     * @access public
-     */
+    * Get a list of contexts from the instantiated driver and filter
+    * the returned contexts for those which the current user can see/edit
+    *
+    * @return array Contexts valid for this user
+    *
+    * @access public
+    */
     function getContexts()
     {
-        return PEAR::raiseError(_("Not implemented."));
+        # Initialize array to be returned
+        $retcontexts = array();
+
+        # Collect the master list of contexts from the backend
+        $contexts = $this->_getContexts();
+
+
+        # Narrow down the list of contexts to those valid for this user.
+        global $perms;
+
+        $superadminPermName = "shout:superadmin";
+        if ($perms->exists($superadminPermName)) {
+            $superadmin = $perms->getPermissions($superadminPermName) &
+                (PERMS_SHOW|PERMS_READ);
+        } else {
+            $superadmin = 0;
+        }
+
+        foreach($contexts as $context) {
+            $permName = "shout:contexts:".$context;
+            if ($perms->exists($permName)) {
+                $userperms = $perms->getPermissions($permName) &
+                    (PERMS_SHOW|PERMS_READ);
+            } else {
+                $userperms = 0;
+            }
+
+            if ((($userperms | $superadmin) ^ (PERMS_SHOW|PERMS_READ)) == 0) {
+                $retcontexts[] = $context;
+            }
+        }
+        return $retcontexts;
     }
     // }}}
-    
+
+    // {{{
+    /**
+     * Get a list of users valid for the current context.  Return an array
+     * indexed by the extension.
+     *
+     * @param string $context Context for which users should be returned
+     *
+     * @return array User information indexed by voice mailbox number
+     */
+    function getUsers($context)
+    {
+        return $this->_getUsers($context);
+    }
+    // }}}
+
     // {{{ factory method
     /**
      * Attempts to return a concrete Shout_Driver instance based on

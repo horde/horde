@@ -9,13 +9,13 @@
  */
 
 define('SHOUT_BASE', dirname(__FILE__));
-$shout_configured = (@is_readable(SHOUT_BASE . '/config/conf.php') &&
-                     @is_readable(SHOUT_BASE . '/config/prefs.php'));
+$shout_configured = (@is_readable(SHOUT_BASE . '/config/conf.php'));# &&
+                     #@is_readable(SHOUT_BASE . '/config/prefs.php'));
 
-// if (!$shout_configured) {
-//     require SHOUT_BASE . '/../lib/Test.php';
-//     Horde_Test::configFilesMissing('Shout', SHOUT_BASE,
-//                                    array('conf.php', 'prefs.php'));
-// }
+if (!$shout_configured) {
+    require SHOUT_BASE . '/../lib/Test.php';
+    Horde_Test::configFilesMissing('Shout', SHOUT_BASE,
+                                   array('conf.php', 'prefs.php'));
+}
 
 require SHOUT_BASE . '/contexts.php';
