@@ -1,0 +1,72 @@
+<!DOCTYPE webproject>
+<webproject>
+  <project usePreviewPrefix="0" previewPrefix="" usePersistentBookmarks="0" name="Shout" encoding="iso 8859-1" enableEvents="true" >
+    <upload/>
+    <templates>templates/</templates>
+    <toolbars>toolbars/</toolbars>
+    <item url="" uploadstatus="2" />
+    <item modified_time="1120021726" url="templates/content_page" uploadstatus="2" />
+    <item url="templates/" uploadstatus="2" />
+    <item url="lib/" uploadstatus="2" />
+    <item url="lib/Driver/" uploadstatus="2" />
+    <item modified_time="1120027108" url="lib/Driver/ldap.php" uploadstatus="2" />
+    <item modified_time="1120026738" url="lib/base.php" uploadstatus="2" />
+    <item modified_time="1120022640" url="lib/Driver.php" uploadstatus="2" />
+    <item modified_time="1120025651" url="contexts.php" uploadstatus="2" />
+    <item modified_time="1120021933" url="index.php" uploadstatus="2" />
+    <uploadprofiles showtreeviews="true" defaultProfile="Shout" >
+      <profile remote_host="picasso.v-office.biz" remote_port="" remote_path="/srv/vhost/users/aklang/sites/intranet.v-office.biz/shout" remote_protocol="sftp" user="aklang" name="Shout" >
+        <uploadeditem upload_time="0" url="config/" />
+        <uploadeditem upload_time="1120022446" url="config/conf.xml" />
+        <uploadeditem upload_time="1120025616" url="contexts.php" />
+        <uploadeditem upload_time="1120021928" url="index.php" />
+        <uploadeditem upload_time="1120021874" url="index.php~" />
+        <uploadeditem upload_time="0" url="lib/" />
+        <uploadeditem upload_time="1120022595" url="lib/Driver.php" />
+        <uploadeditem upload_time="1120022560" url="lib/Driver.php~" />
+        <uploadeditem upload_time="0" url="lib/Driver/" />
+        <uploadeditem upload_time="1120027088" url="lib/Driver/ldap.php" />
+        <uploadeditem upload_time="1120026921" url="lib/Driver/ldap.php~" />
+        <uploadeditem upload_time="1120026672" url="lib/Shout.php" />
+        <uploadeditem upload_time="1120026697" url="lib/base.php" />
+        <uploadeditem upload_time="1120016080" url="lib/defines.php" />
+        <uploadeditem upload_time="1120027019" url="shout.webprj" />
+        <uploadeditem upload_time="0" url="templates/" />
+        <uploadeditem upload_time="1120013664" url="templates/content_page" />
+      </profile>
+    </uploadprofiles>
+    <debuggers>
+      <Gubed>
+        <serverhost>localhost</serverhost>
+        <serverport>8026</serverport>
+        <localbasedir/>
+        <serverbasedir/>
+        <useproxy>0</useproxy>
+        <listenport>8016</listenport>
+        <startsession>http://localhost/Gubed/StartSession.php?gbdScript=/%rfpp</startsession>
+        <defaultexecutionstate>0</defaultexecutionstate>
+        <displaydelay>0</displaydelay>
+        <errormask>0</errormask>
+      </Gubed>
+      <pathmapper/>
+    </debuggers>
+    <defaultDTD>-//w3c//dtd xhtml 1.0 strict//en</defaultDTD>
+    <item modified_time="1120021725" url="lib/defines.php" uploadstatus="1" />
+    <item modified_time="1120022441" url="config/conf.xml" uploadstatus="1" />
+    <item url="config/" uploadstatus="1" />
+    <item modified_time="1120026739" url="lib/Shout.php" uploadstatus="1" />
+    <author>Ben Klang</author>
+    <email>ben@alkaloid.net</email>
+    <debuggerclient>Gubed</debuggerclient>
+    <exclude cvsignore="true" >*~;*.webprj;CVS;</exclude>
+    <teamdata>
+      <taskleaders/>
+      <subprojectleaders/>
+      <mailinglist address="" />
+    </teamdata>
+    <events/>
+    <treestatus>
+      <openfolder url="lib" />
+    </treestatus>
+  </project>
+</webproject>

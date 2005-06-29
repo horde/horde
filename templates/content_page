@@ -1,0 +1,8 @@
+<?php
+
+if (!defined(SHOUT_BASE)) {
+    define(SHOUT_BASE, dirname($_SELF['PHP_SELF']));
+}
+
+require_once SHOUT_BASE."/lib/defines.php";
+require_once SHOUT_BASE."/lib/base.php";
