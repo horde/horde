@@ -3,12 +3,8 @@ if (!defined(SHOUT_BASE)) {
     define(SHOUT_BASE, dirname(__FILE__));
 }
 
-require_once SHOUT_BASE . "/lib/base.php";
-require_once SHOUT_BASE . "/lib/Shout.php";
-
-# Get list of available contexts from the driver
-$contexts = $shout->getContexts();
-if (is_a($contexts, 'PEAR_Error')) {
+# Check that we are properly initialized
+if (!isset($contexts) || is_a($contexts, 'PEAR_Error')) {
     $notification->push(_("Internal error viewing requested page"),
                         'horde.error');
 }
@@ -19,11 +15,15 @@ system.", 'horde.error'));
     exit();
 } elseif (count($contexts) == 1) {
     header("Location: " .
-        Horde::applicationUrl("users.php?context=$contexts[0]"));
+        Horde::applicationUrl("index.php?context=$contexts[0]&section=users"));
     exit();
 }
 
+$notification->notify();
+
 # Print the contexts
+$toggle = false;
 foreach($contexts as $context) {
-    print "$context<br>\n";
+    include SHOUT_TEMPLATES . "/context/contextline.inc";
+    $toggle = !$toggle;
 }
