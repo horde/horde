@@ -66,7 +66,7 @@
       <mailinglist address="" />
     </teamdata>
     <events/>
-    <item modified_time="1120084144" url="users.php" />
+    <item url="users.php" />
     <treestatus>
       <openfolder url="lib" />
       <openfolder url="lib/Driver" />
