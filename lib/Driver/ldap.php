@@ -42,8 +42,11 @@ class Shout_Driver_ldap extends Shout_Driver
     *
     * @access private
     */
-    function _getContexts($filter = "both")
+    function _getContexts($filter = "all")
     {
+        # TODO Add caching mechanism here.  Possibly cache results per
+        # filter $this->contexts['customer'] and return either data
+        # or possibly a reference to that data
         switch ($filter) {
             case "customer":
                 $searchfilter="(objectClass=vofficeCustomer)";
@@ -60,7 +63,7 @@ class Shout_Driver_ldap extends Shout_Driver
         # Collect all the possible contexts from the backend
         $res = ldap_search($this->_LDAP,
             SHOUT_ASTERISK_BRANCH.','.$this->_params['basedn'],
-            "(&(objectClass=asteriskObject))",
+            "(&(objectClass=asteriskObject)$searchfilter)",
             array('context'));
         if (!$res) {
             return PEAR::raiseError("Unable to locate any customers " .
@@ -107,28 +110,28 @@ class Shout_Driver_ldap extends Shout_Driver
             $extension = $res[$i]['voicemailbox'][0];
             $entries[$extension] = array();
 
-            $entries[$extension]['dialopts'] =
+            @$entries[$extension]['dialopts'] =
                 $res[$i]['asteriskuserdialoptions'];
 
-            $entries[$extension]['mailboxopts'] =
+            @$entries[$extension]['mailboxopts'] =
                 $res[$i]['asteriskvoicemailboxoptions'];
 
-            $entries[$extension]['mailboxpin'] =
+            @$entries[$extension]['mailboxpin'] =
                 $res[$i]['voicemailboxpin'][0];
 
-            $entries[$extension]['name'] =
+            @$entries[$extension]['name'] =
                 $res[$i]['cn'][0];
 
-            $entries[$extension]['phonenumbers'] =
+            @$entries[$extension]['phonenumbers'] =
                 $res[$i]['telephonenumber'];
 
-            $entries[$extension]['dialtimeout'] =
+            @$entries[$extension]['dialtimeout'] =
                 $res[$i]['asteriskuserdialtimeout'][0];
 
-            $entries[$extension]['email'] =
+            @$entries[$extension]['email'] =
                 $res[$i]['mail'][0];
 
-            $entries[$extension]['pageremail'] =
+            @$entries[$extension]['pageremail'] =
                 $res[$i]['asteriskpager'][0];
 
             $i++;

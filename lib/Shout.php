@@ -71,7 +71,7 @@ null, $cellclass);
             return false;
         }
         $tabs = &new Horde_UI_Tabs('section', $vars);
-        if (count($shout->contexts) > 1 ||
+        if (count($shout->getContexts()) > 1 ||
             Auth::isAdmin("shout:superadmin", PERMS_SHOW|PERMS_READ)) {
             $tabs->addTab(_("Contexts"),
                     Horde::applicationUrl('index.php'), 'contexts');

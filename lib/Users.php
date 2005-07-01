@@ -1,24 +1,24 @@
 <?php
 /**
- * CreateStep1Form Class
+ * SelectContextForm Class
  *
- * $Horde: whups/lib/Create.php,v 1.56 2005/01/03 14:35:44 jan Exp $
+ * $Horde: shout/lib/Users.php,v 1.56 2005/01/03 14:35:44 jan Exp $
  *
- * Copyright 2001-2005 Robert E. Coyle <robertecoyle@hotmail.com>
+ * Copyright 2005 Ben Klang <ben@alkaloid.net>
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
  *
- * @author  Robert E. Coyle <robertecoyle@hotmail.com>
+ * @author  Ben Klang <ben@alkaloid.net>
  * @package Whups
  */
 class SelectContextForm extends Horde_Form {
 
     var $_useFormToken = false;
 
-    function CreateStep1Form(&$vars)
+    function SelectContextForm(&$vars)
     {
-        global $whups;
+        global $shout;
 
         parent::Horde_Form($vars, _("Choose a context"));
 

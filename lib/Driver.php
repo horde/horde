@@ -25,7 +25,6 @@ class Shout_Driver {
      * @var array $_params
      */
     var $_params = array();
-    var $contexts = array();
     // }}}
 
     // {{{ Shout_Driver constructor
@@ -83,10 +82,10 @@ class Shout_Driver {
             }
 
             if ((($userperms | $superadmin) ^ ($filterperms)) == 0) {
-                $this->contexts[] = $context;
+                $retcontexts[] = $context;
             }
         }
-        return $this->contexts;
+        return $retcontexts;
     }
     // }}}
 
