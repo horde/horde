@@ -21,7 +21,7 @@ $registry = &Registry::singleton();
 if (is_a(($pushed = $registry->pushApp('shout', !defined('AUTH_HANDLER'))),
 'PEAR_Error')) {
     if ($pushed->getCode() == 'permission_denied') {
-        Horde::authenticationFailureRedirect(); 
+        Horde::authenticationFailureRedirect();
     }
     Horde::fatal($pushed, __FILE__, __LINE__, false);
 }
@@ -38,6 +38,13 @@ $notification->attach('status');
 // Shout base libraries.
 require_once SHOUT_BASE . '/lib/Shout.php';
 require_once SHOUT_BASE . '/lib/Driver.php';
+
+// Form libraries.
+require_once 'Horde/Form.php';
+require_once 'Horde/Form/Renderer.php';
+
+// UI classes.
+require_once 'Horde/UI/Tabs.php';
 
 $GLOBALS['shout'] = &Shout_Driver::singleton();
 

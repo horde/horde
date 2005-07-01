@@ -36,16 +36,31 @@ class Shout_Driver_ldap extends Shout_Driver
     /**
     * Get a list of contexts from the backend
     *
+    * @param string $filter Search filter
+    *
     * @return array Contexts valid for this system
     *
     * @access private
     */
-    function _getContexts()
+    function _getContexts($filter = "both")
     {
+        switch ($filter) {
+            case "customer":
+                $searchfilter="(objectClass=vofficeCustomer)";
+                break;
+            case "system":
+                $searchfilter="(!(objectClass=vofficeCustomer))";
+                break;
+            case "all":
+            default:
+                $searchfilter="";
+                break;
+        }
+
         # Collect all the possible contexts from the backend
         $res = ldap_search($this->_LDAP,
             SHOUT_ASTERISK_BRANCH.','.$this->_params['basedn'],
-            '(&(objectClass=asteriskObject))',
+            "(&(objectClass=asteriskObject))",
             array('context'));
         if (!$res) {
             return PEAR::raiseError("Unable to locate any customers " .
@@ -89,37 +104,20 @@ class Shout_Driver_ldap extends Shout_Driver
         $entries = array();
         $i = 0;
         while ($i < $res['count']) {
-            # FIXME Add method to handle this ldap silliness
             $extension = $res[$i]['voicemailbox'][0];
             $entries[$extension] = array();
 
-            if ($res[$i]['asteriskuserdialoptions']['count'] > 0) {
-                $entries[$extension]['dialopts'] =
-                    $res[$i]['asteriskuserdialoptions'];
-            } else {
-                $entries[$extension]['dialopts'] = null;
-            }
+            $entries[$extension]['dialopts'] =
+                $res[$i]['asteriskuserdialoptions'];
 
-            if ($res[$i]['asteriskvoicemailboxoptions']['count'] > 0) {
-                $entries[$extension]['mailboxopts'] =
-                    $res[$i]['asteriskvoicemailboxoptions'];
-            } else {
-                $entries[$extension]['mailboxopts'] = null;
-            }
+            $entries[$extension]['mailboxopts'] =
+                $res[$i]['asteriskvoicemailboxoptions'];
 
-            if ($res[$i]['voicemailboxpin']['count'] > 0) {
-                $entries[$extension]['mailboxpin'] =
-                    $res[$i]['voicemailboxpin'][0];
-            } else {
-                $entries[$extension]['mailboxpin'] = null;
-            }
+            $entries[$extension]['mailboxpin'] =
+                $res[$i]['voicemailboxpin'][0];
 
-            if ($res[$i]['cn']['count'] > 0) {
-                $entries[$extension]['name'] =
-                    $res[$i]['cn'][0];
-            } else {
-                $entries[$extension]['name'] = null;
-            }
+            $entries[$extension]['name'] =
+                $res[$i]['cn'][0];
 
             $entries[$extension]['phonenumbers'] =
                 $res[$i]['telephonenumber'];

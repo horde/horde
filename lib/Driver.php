@@ -25,6 +25,7 @@ class Shout_Driver {
      * @var array $_params
      */
     var $_params = array();
+    var $contexts = array();
     // }}}
 
     // {{{ Shout_Driver constructor
@@ -39,17 +40,26 @@ class Shout_Driver {
     * Get a list of contexts from the instantiated driver and filter
     * the returned contexts for those which the current user can see/edit
     *
+    * @param optional string $filter Filter for types of contexts to return.
+    *                                One of "system" "customer" or "all"
+    *
+    * @param optional string $filterperms Filter contexts for given permissions
+    *
     * @return array Contexts valid for this user
     *
     * @access public
     */
-    function getContexts()
+    function getContexts($filter = "all", $filterperms = null)
     {
         # Initialize array to be returned
         $retcontexts = array();
 
+        if ($filterperms == null) {
+            $filterperms = PERMS_SHOW|PERMS_READ;
+        }
+
         # Collect the master list of contexts from the backend
-        $contexts = $this->_getContexts();
+        $contexts = $this->_getContexts($filter);
 
 
         # Narrow down the list of contexts to those valid for this user.
@@ -58,7 +68,7 @@ class Shout_Driver {
         $superadminPermName = "shout:superadmin";
         if ($perms->exists($superadminPermName)) {
             $superadmin = $perms->getPermissions($superadminPermName) &
-                (PERMS_SHOW|PERMS_READ);
+                ($filterperms);
         } else {
             $superadmin = 0;
         }
@@ -67,16 +77,16 @@ class Shout_Driver {
             $permName = "shout:contexts:".$context;
             if ($perms->exists($permName)) {
                 $userperms = $perms->getPermissions($permName) &
-                    (PERMS_SHOW|PERMS_READ);
+                    ($filterperms);
             } else {
                 $userperms = 0;
             }
 
-            if ((($userperms | $superadmin) ^ (PERMS_SHOW|PERMS_READ)) == 0) {
-                $retcontexts[] = $context;
+            if ((($userperms | $superadmin) ^ ($filterperms)) == 0) {
+                $this->contexts[] = $context;
             }
         }
-        return $retcontexts;
+        return $this->contexts;
     }
     // }}}
 

@@ -56,5 +56,38 @@ null, $cellclass);
     }
     // }}}
 
+    // {{{
+    /**
+     * Generate the tabs at the top of each Shout pages
+     *
+     * @param &$vars Reference to the passed in variables
+     *
+     * @return object Horde_UI_Tabs
+     */
+    function &getTabs(&$vars)
+    {
+        global $shout;
+        if (!Auth::isAdmin("shout", PERMS_SHOW|PERMS_READ)) {
+            return false;
+        }
+        $tabs = &new Horde_UI_Tabs('section', $vars);
+        if (count($shout->contexts) > 1 ||
+            Auth::isAdmin("shout:superadmin", PERMS_SHOW|PERMS_READ)) {
+            $tabs->addTab(_("Contexts"),
+                    Horde::applicationUrl('index.php'), 'contexts');
+        }
+        $tabs->addTab(_("Users"),
+            Horde::applicationUrl('index.php'), 'users');
+        $tabs->addTab(_("Music on Hold"),
+            Horde::applicationUrl('index.php'), 'moh');
+        // $tabs->addTab(_("Watch"), Horde::applicationUrl('ticket/watch.php'));
+        if (Auth::isAdmin('shout:superadmin', PERMS_READ|PERMS_SHOW)) {
+            $tabs->addTab(_("Global Settings"),
+                Horde::applicationUrl('index.php'), 'global');
+        }
+
+        return $tabs;
+    }
+
 }
 // }}}
