@@ -51,8 +51,14 @@ class Shout_Driver_ldap extends Shout_Driver
             case "customer":
                 $searchfilter="(objectClass=vofficeCustomer)";
                 break;
-            case "system":
-                $searchfilter="(!(objectClass=vofficeCustomer))";
+            case "extensions":
+                $searchfilter="(objectClass=asteriskExtensions)";
+                break;
+            case "moh":
+                $searchfilter="(objectClass=asteriskMusicOnHold)";
+                break;
+            case "conference":
+                $searchfilter="(objectClass=asteriskMeetMe)";
                 break;
             case "all":
             default:
@@ -80,6 +86,58 @@ class Shout_Driver_ldap extends Shout_Driver
         }
         # return the array
         return $entries;
+    }
+    // }}}
+    
+    // {{{ _checkContextType method
+    /**
+     * For the given context and type, make sure the context has the
+     * appropriate properties, that it is effectively of that "type"
+     *
+     * @param string $context the context to check type for
+     *
+     * @param string $type the type to verify the context is of
+     *
+     * @return boolean true of the context is of type, false if not
+     *
+     * @access public
+     */
+    function _checkContextType($context, $type) {
+        switch ($type) {
+            case "dialplan":
+                $searchfilter = "(objectClass=asteriskExtensions)";
+                break;
+            case "moh":
+                $searchfilter="(objectClass=asteriskMusicOnHold)";
+                break;
+            case "conference":
+                $searchfilter="(objectClass=asteriskMeetMe)";
+                break;
+            case "all":
+            default:
+                $searchfilter="";
+                break;
+        }
+
+        $res = ldap_search($this->_LDAP,
+            SHOUT_ASTERISK_BRANCH.','.$this->_params['basedn'],
+            "(&(objectClass=asteriskObject)$searchfilter(context=$context))",
+            array("context"));
+        if (!$res) {
+            return PEAR::raiseError("Unable to search directory for context
+type");
+        }
+        
+        $res = ldap_get_entries($this->_LDAP, $res);
+        if (!$res) {
+            return PEAR::raiseError("Unable to get results from LDAP query");
+        }
+        print_r($res);
+        if ($res['count'] == 1) {
+            return true;
+        } else {
+            return false;
+        }
     }
     // }}}
 

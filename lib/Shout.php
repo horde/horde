@@ -64,30 +64,59 @@ null, $cellclass);
      *
      * @return object Horde_UI_Tabs
      */
-    function &getTabs(&$vars)
+    function &getTabs($context, &$vars)
     {
         global $shout;
         if (!Auth::isAdmin("shout", PERMS_SHOW|PERMS_READ)) {
             return false;
         }
-        $tabs = &new Horde_UI_Tabs('section', $vars);
-        if (count($shout->getContexts()) > 1 ||
-            Auth::isAdmin("shout:superadmin", PERMS_SHOW|PERMS_READ)) {
-            $tabs->addTab(_("Contexts"),
-                    Horde::applicationUrl('index.php'), 'contexts');
-        }
-        $tabs->addTab(_("Users"),
-            Horde::applicationUrl('index.php'), 'users');
-        $tabs->addTab(_("Music on Hold"),
-            Horde::applicationUrl('index.php'), 'moh');
-        // $tabs->addTab(_("Watch"), Horde::applicationUrl('ticket/watch.php'));
-        if (Auth::isAdmin('shout:superadmin', PERMS_READ|PERMS_SHOW)) {
-            $tabs->addTab(_("Global Settings"),
-                Horde::applicationUrl('index.php'), 'global');
-        }
+        
+        $permprefix = "shout:contexts:$context";
 
+        $tabs = &new Horde_UI_Tabs('section', $vars);
+        
+        if (Shout::checkRights("$permprefix:users") &&
+            $shout->checkContextType($context, "conference")) {
+            $tabs->addTab(_("Users"),
+                    Horde::applicationUrl("index.php?context=$context"),
+                    'users');
+        }
+        
+        if (Shout::checkRights("$permprefix:dialplan") &&
+            $shout->checkContextType($context, "conference")) {
+            $tabs->addTab(_("Dial Plan"),
+                Horde::applicationUrl('index.php'), 'dialplan');
+        }
+       
+        if (Shout::checkRights("$permprefix:conference") &&
+            $shout->checkContextType($context, "conference")) {
+            $tabs->addTab(_("Conference Rooms"),
+                Horde::applicationUrl('index.php'), 'conference');
+        }
+       
+       if (Shout::checkRights("$permprefix:moh") &&
+            $shout->checkContextType($context, "conference")) {
+            $tabs->addTab(_("Music on Hold"),
+                Horde::applicationUrl('index.php'), 'moh');
+        }
+       
         return $tabs;
     }
 
+    function checkRights($permname, $permmask = null) 
+    {
+        if ($permmask == null) {
+            $permmask = PERMS_SHOW|PERMS_READ;
+        }
+    
+        $superadmin = Auth::isAdmin("shout:superadmin", $permmask);
+        $user = Auth::isAdmin($permname, $permmask);
+        $test = $superadmin | $user;
+        if ($test) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
 }
 // }}}

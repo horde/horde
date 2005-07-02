@@ -62,32 +62,56 @@ class Shout_Driver {
 
 
         # Narrow down the list of contexts to those valid for this user.
-        global $perms;
-
-        $superadminPermName = "shout:superadmin";
-        if ($perms->exists($superadminPermName)) {
-            $superadmin = $perms->getPermissions($superadminPermName) &
-                ($filterperms);
-        } else {
-            $superadmin = 0;
-        }
-
-        foreach($contexts as $context) {
-            $permName = "shout:contexts:".$context;
-            if ($perms->exists($permName)) {
-                $userperms = $perms->getPermissions($permName) &
-                    ($filterperms);
-            } else {
-                $userperms = 0;
-            }
-
-            if ((($userperms | $superadmin) ^ ($filterperms)) == 0) {
+//         global $perms;
+// 
+//         $superadminPermName = "shout:superadmin";
+//         if ($perms->exists($superadminPermName)) {
+//             $superadmin = $perms->getPermissions($superadminPermName) &
+//                 ($filterperms);
+//         } else {
+//             $superadmin = 0;
+//         }
+// 
+//         foreach($contexts as $context) {
+//             $permName = "shout:contexts:".$context;
+//             if ($perms->exists($permName)) {
+//                 $userperms = $perms->getPermissions($permName) &
+//                     ($filterperms);
+//             } else {
+//                 $userperms = 0;
+//             }
+// 
+//             if ((($userperms | $superadmin) ^ ($filterperms)) == 0) {
+//                 $retcontexts[$context] = $context;
+//             }
+//         }
+        foreach ($contexts as $context) {
+            if (Shout::checkRights("shout:contexts:$context", $filterperms)) {
                 $retcontexts[] = $context;
             }
         }
         return $retcontexts;
     }
     // }}}
+    
+    // {{{ checkContextType
+    /**
+     * For the given context and type, make sure the context has the
+     * appropriate properties, that it is effectively of that "type"
+     *
+     * @param string $context the context to check type for
+     *
+     * @param string $type the type to verify the context is of
+     *
+     * @return boolean true of the context is of type, false if not
+     *
+     * @access public
+     */
+    function checkContextType($context, $type)
+    {
+        return $this->_checkContextType($context, $type);
+    }
+    //}}}
 
     // {{{
     /**
