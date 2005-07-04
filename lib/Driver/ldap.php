@@ -42,29 +42,39 @@ class Shout_Driver_ldap extends Shout_Driver
     *
     * @access private
     */
-    function _getContexts($filter = "all")
+    function _getContexts($filters = "all")
     {
         # TODO Add caching mechanism here.  Possibly cache results per
         # filter $this->contexts['customer'] and return either data
         # or possibly a reference to that data
-        switch ($filter) {
-            case "customer":
-                $searchfilter="(objectClass=vofficeCustomer)";
-                break;
-            case "extensions":
-                $searchfilter="(objectClass=asteriskExtensions)";
-                break;
-            case "moh":
-                $searchfilter="(objectClass=asteriskMusicOnHold)";
-                break;
-            case "conference":
-                $searchfilter="(objectClass=asteriskMeetMe)";
-                break;
-            case "all":
-            default:
-                $searchfilter="";
-                break;
+        if(!is_array($filters)) {
+            $tmp = $filters;
+            $filters = array();
+            $filters[] = $tmp;
         }
+        
+        $searchfilter = "(|";
+        foreach ($filters as $filter) {
+            switch ($filter) {
+                case "customers":
+                    $searchfilter.="(objectClass=vofficeCustomer)";
+                    break;
+                case "extensions":
+                    $searchfilter.="(objectClass=asteriskExtensions)";
+                    break;
+                case "moh":
+                    $searchfilter.="(objectClass=asteriskMusicOnHold)";
+                    break;
+                case "conference":
+                    $searchfilter.="(objectClass=asteriskMeetMe)";
+                    break;
+                case "all":
+                default:
+                    $searchfilter.="(objectClass=*)";
+                    break;
+            }
+        }
+        $searchfilter .= ")";
 
         # Collect all the possible contexts from the backend
         $res = ldap_search($this->_LDAP,
@@ -104,6 +114,9 @@ class Shout_Driver_ldap extends Shout_Driver
      */
     function _checkContextType($context, $type) {
         switch ($type) {
+            case "users":
+                $searchfilter = "(objectClass=vofficeCustomer)";
+                break;
             case "dialplan":
                 $searchfilter = "(objectClass=asteriskExtensions)";
                 break;
@@ -132,7 +145,7 @@ type");
         if (!$res) {
             return PEAR::raiseError("Unable to get results from LDAP query");
         }
-        print_r($res);
+
         if ($res['count'] == 1) {
             return true;
         } else {
@@ -196,6 +209,137 @@ type");
         }
 
         return $entries;
+    }
+    // }}}
+    
+    // {{{ _getHomeContext method
+    /**
+     * Returns the name of the user's default context
+     *
+     * @return string User's default context
+     */
+    function _getHomeContext()
+    {
+        $res = ldap_search($this->_LDAP,
+            SHOUT_USERS_BRANCH.','.$this->_params['basedn'],
+            "(&(mail=".Auth::getAuth().")(objectClass=asteriskUser))",
+            array('context'));
+        if (!$res) {
+            return PEAR::raiseError("Unable to locate any customers " .
+            "underneath ".SHOUT_ASTERISK_BRANCH.",".$this->_params['basedn'] .
+            " matching those search filters");
+        }
+
+        $res = ldap_get_entries($this->_LDAP, $res);
+        
+        # Assume the user only has one context.  The schema encforces this
+        return $res[0]['context'][0];
+    }
+    // }}}
+    
+    // {{{ _getDialplan method
+    /**
+     * Get a context's dialplan and return as a multi-dimensional associative
+     * array
+     *
+     * @param string $context Context to return extensions for
+     *
+     * @return array Multi-dimensional associative array of extensions data
+     *
+     */
+    function _getDialplan($context)
+    {
+        $res = ldap_search($this->_LDAP,
+            SHOUT_ASTERISK_BRANCH.','.$this->_params['basedn'],
+            "(&(objectClass=asteriskExtensions)(context=$context))",
+            array('asteriskExtensionLine', 'asteriskIncludeLine',
+                'asteriskIgnorePat', 'description',
+                'asteriskExtensionBareLine'));
+        if (!$res) {
+            return PEAR::raiseError("Unable to locate any extensions " .
+            "underneath ".SHOUT_ASTERISK_BRANCH.",".$this->_params['basedn'] .
+            " matching those search filters");
+        }
+
+        $res = ldap_get_entries($this->_LDAP, $res);
+        $retdialplan = array();
+        $i = 0;
+        while ($i < $res['count']) {
+            # Handle extension lines
+            if (isset($res[$i]['asteriskextensionline'])) {
+                $j = 0;
+                while ($j < $res[$i]['asteriskextensionline']['count']) {
+                    @$line = $res[$i]['asteriskextensionline'][$j];
+                    
+                    # Basic sanity check for length.  FIXME
+                    if (strlen($line) < 5) {
+                        break;
+                    }
+                    # Can't use strtok here because there may be ','s in the arg
+                    # string
+                    
+                    # Get the extension
+                    $token1 = strpos($line, ',');
+                    $token2 = strpos($line, ',', $token1 + 1);
+                    
+                    $extension = substr($line, 0, $token1);
+                    if (!isset($retdialplan[$extension])) {
+                        $retdialplan[$extension] = array();
+                    }
+                    $token1++;
+                    # Get the priority
+                    $priority = substr($line, $token1, $token2 - $token1);
+                    $retdialplan[$extension][$priority] = array();
+                    $token2++;
+                    
+                    # Get Application and args
+                    $application = substr($line, $token2);
+                    
+                    # Merge all that data into the returning array
+                    $retdialplan['extensions'][$extension][$priority] =
+                        $application;
+                    $j++;
+                }
+                
+                # Sort the extensions data
+                foreach ($retdialplan['extensions'] as $extension) {
+                    ksort($extension);
+                }
+                ksort($retdialplan['extensions']);
+            }
+            # Handle include lines
+            if (isset($res[$i]['asteriskincludeline'])) {
+                $j = 0;
+                while ($j < $res[$i]['asteriskincludeline']['count']) {
+                    @$line = $res[$i]['asteriskincludeline'][$j];
+                    $retdialplan['include'][$j] = $line;
+                    $j++;
+                }
+            }
+            
+            # Handle ignorepat
+            if (isset($res[$i]['asteriskignorepat'])) {
+                $j = 0;
+                while ($j < $res[$i]['asteriskignorepat']['count']) {
+                    @$line = $res[$i]['asteriskignorepat'][$j];
+                    $retdialplan['include'][$j] = $line;
+                    $j++;
+                }
+            }
+            # Handle ignorepat
+            if (isset($res[$i]['asteriskextensionbareline'])) {
+                $j = 0;
+                while ($j < $res[$i]['asteriskextensionbareline']['count']) {
+                    @$line = $res[$i]['asteriskextensionbareline'][$j];
+                    $retdialplan['bareline'][$j] = $line;
+                    $j++;
+                }
+            }
+            
+            # Increment object
+            $i++;
+        }
+        return $retdialplan;
     }
     // }}}
 

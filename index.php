@@ -32,6 +32,8 @@ $vars = &Variables::getDefaultVariables();
 
 if (count($contexts) == 1) {
     $context = $contexts[0];
+} elseif (!$context) {
+    $context = $shout->getHomeContext();
 }
 
 #$title = '[#' . $ticket->getId() . '] ' . $ticket->get('summary');
@@ -42,10 +44,17 @@ $tabs = &Shout::getTabs($context, $vars);
 $tabs->preserve('context', $context);
 
 echo "<br />";
+// if (!$section) {
+//     $section = 
+if (!$section) {
+    $section = $tabs->_tabs[0]['tabname'];
+}
+
 echo $tabs->render($section);
 switch ($section) {
     case "conference":
     case "dialplan":
+    case "security":
     case "users":
     case "moh":
         require "$section.php";

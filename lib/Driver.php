@@ -48,7 +48,7 @@ class Shout_Driver {
     *
     * @access public
     */
-    function getContexts($filter = "all", $filterperms = null)
+    function getContexts($filters = "all", $filterperms = null)
     {
         # Initialize array to be returned
         $retcontexts = array();
@@ -58,7 +58,7 @@ class Shout_Driver {
         }
 
         # Collect the master list of contexts from the backend
-        $contexts = $this->_getContexts($filter);
+        $contexts = $this->_getContexts($filters);
 
 
         # Narrow down the list of contexts to those valid for this user.
@@ -127,7 +127,35 @@ class Shout_Driver {
         return $this->_getUsers($context);
     }
     // }}}
-
+    
+    // {{{ getHomeContext method
+    /**
+     * Returns the name of the user's default context
+     *
+     * @return string User's default context
+     */
+    function getHomeContext()
+    {
+        return $this->_getHomeContext();
+    }
+    // }}}
+    
+        // {{{ getExtensions method
+    /**
+     * Get a context's extensions and return as a multi-dimensional associative
+     * array
+     *
+     * @param string $context Context to return extensions for
+     *
+     * @return array Multi-dimensional associative array of extensions data
+     *
+     */
+    function getDialplan($context)
+    {
+        return $this->_getDialplan($context);
+    }
+    // }}}
+    
     // {{{ factory method
     /**
      * Attempts to return a concrete Shout_Driver instance based on

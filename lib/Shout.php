@@ -76,14 +76,14 @@ null, $cellclass);
         $tabs = &new Horde_UI_Tabs('section', $vars);
         
         if (Shout::checkRights("$permprefix:users") &&
-            $shout->checkContextType($context, "conference")) {
+            $shout->checkContextType($context, "users")) {
             $tabs->addTab(_("Users"),
                     Horde::applicationUrl("index.php?context=$context"),
                     'users');
         }
         
         if (Shout::checkRights("$permprefix:dialplan") &&
-            $shout->checkContextType($context, "conference")) {
+            $shout->checkContextType($context, "dialplan")) {
             $tabs->addTab(_("Dial Plan"),
                 Horde::applicationUrl('index.php'), 'dialplan');
         }
@@ -95,11 +95,16 @@ null, $cellclass);
         }
        
        if (Shout::checkRights("$permprefix:moh") &&
-            $shout->checkContextType($context, "conference")) {
+            $shout->checkContextType($context, "moh")) {
             $tabs->addTab(_("Music on Hold"),
                 Horde::applicationUrl('index.php'), 'moh');
         }
-       
+        
+        if (Auth::isAdmin("shout:superadmin", PERMS_SHOW|PERMS_READ)) {
+            $tabs->addTab(_("Security"),
+                Horde::applicationUrl('index.php'), 'security');
+        }
+
         return $tabs;
     }
 
