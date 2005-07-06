@@ -43,6 +43,10 @@ require_once SHOUT_BASE . '/lib/Driver.php';
 require_once 'Horde/Form.php';
 require_once 'Horde/Form/Renderer.php';
 
+// Variable handling libraries
+require_once 'Horde/Variables.php';
+require_once 'Horde/Text/Filter.php';
+
 // UI classes.
 require_once 'Horde/UI/Tabs.php';
 

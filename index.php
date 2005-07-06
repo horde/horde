@@ -20,8 +20,8 @@ if (!$shout_configured) {
 require_once SHOUT_BASE . '/lib/base.php';
 require_once SHOUT_BASE . '/lib/Shout.php';
 #require_once SHOUT_TEMPLATES . '/comment.inc';
-require_once 'Horde/Variables.php';
-require_once 'Horde/Text/Filter.php';
+#require_once 'Horde/Variables.php';
+#require_once 'Horde/Text/Filter.php';
 
 $context = Util::getFormData("context");
 $section = Util::getFormData("section");
@@ -66,13 +66,3 @@ switch ($section) {
 
 
 require $registry->get('templates', 'horde') . '/common-footer.inc';
-
-
-
-
-
-
-
-
-
-#require SHOUT_BASE . '/contexts.php';
