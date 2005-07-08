@@ -50,50 +50,10 @@ class Shout_Driver {
     */
     function getContexts($filters = "all", $filterperms = null)
     {
-        # Initialize array to be returned
-        $retcontexts = array();
-
-        if ($filterperms == null) {
-            $filterperms = PERMS_SHOW|PERMS_READ;
-        }
-
-        # Collect the master list of contexts from the backend
-        $contexts = $this->_getContexts($filters);
-
-
-        # Narrow down the list of contexts to those valid for this user.
-//         global $perms;
-// 
-//         $superadminPermName = "shout:superadmin";
-//         if ($perms->exists($superadminPermName)) {
-//             $superadmin = $perms->getPermissions($superadminPermName) &
-//                 ($filterperms);
-//         } else {
-//             $superadmin = 0;
-//         }
-// 
-//         foreach($contexts as $context) {
-//             $permName = "shout:contexts:".$context;
-//             if ($perms->exists($permName)) {
-//                 $userperms = $perms->getPermissions($permName) &
-//                     ($filterperms);
-//             } else {
-//                 $userperms = 0;
-//             }
-// 
-//             if ((($userperms | $superadmin) ^ ($filterperms)) == 0) {
-//                 $retcontexts[$context] = $context;
-//             }
-//         }
-        foreach ($contexts as $context) {
-            if (Shout::checkRights("shout:contexts:$context", $filterperms)) {
-                $retcontexts[] = $context;
-            }
-        }
-        return $retcontexts;
+        return PEAR::raiseError("This function is not implemented.");
     }
     // }}}
-    
+
     // {{{ checkContextType
     /**
      * For the given context and type, make sure the context has the
@@ -109,7 +69,7 @@ class Shout_Driver {
      */
     function checkContextType($context, $type)
     {
-        return $this->_checkContextType($context, $type);
+        return PEAR::raiseError("This function is not implemented.");
     }
     //}}}
 
@@ -124,10 +84,10 @@ class Shout_Driver {
      */
     function getUsers($context)
     {
-        return $this->_getUsers($context);
+        return PEAR::raiseError("This function is not implemented.");
     }
     // }}}
-    
+
     // {{{ getHomeContext method
     /**
      * Returns the name of the user's default context
@@ -136,11 +96,25 @@ class Shout_Driver {
      */
     function getHomeContext()
     {
-        return $this->_getHomeContext();
+        return PEAR::raiseError("This function is not implemented.");
     }
     // }}}
-    
-        // {{{ getExtensions method
+
+    // {{{
+    /**
+     * Get a context's properties
+     *
+     * @param string $context Context to get properties for
+     *
+     * @return integer Bitfield of properties valid for this context
+     */
+    function getContextProperties($context)
+    {
+        return PEAR::raiseError("This function is not implemented.");
+    }
+    // }}}
+
+    // {{{ getExtensions method
     /**
      * Get a context's extensions and return as a multi-dimensional associative
      * array
@@ -152,10 +126,10 @@ class Shout_Driver {
      */
     function getDialplan($context)
     {
-        return $this->_getDialplan($context);
+        return PEAR::raiseError("This function is not implemented.");
     }
     // }}}
-    
+
     // {{{ factory method
     /**
      * Attempts to return a concrete Shout_Driver instance based on

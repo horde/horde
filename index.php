@@ -45,7 +45,7 @@ $tabs->preserve('context', $context);
 
 echo "<br />";
 // if (!$section) {
-//     $section = 
+//     $section =
 if (!$section) {
     $section = $tabs->_tabs[0]['tabname'];
 }
@@ -55,6 +55,7 @@ switch ($section) {
     case "conference":
     case "dialplan":
     case "security":
+    case "system":
     case "users":
     case "moh":
         require "$section.php";

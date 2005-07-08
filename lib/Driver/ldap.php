@@ -42,39 +42,40 @@ class Shout_Driver_ldap extends Shout_Driver
     *
     * @access private
     */
-    function _getContexts($filters = "all")
+    function getContexts($searchfilters = SHOUT_CONTEXT_ALL,
+                         $filterperms = null)
     {
+        if ($filterperms == null) {
+            $filterperms = PERMS_SHOW|PERMS_READ;
+        }
+
         # TODO Add caching mechanism here.  Possibly cache results per
         # filter $this->contexts['customer'] and return either data
         # or possibly a reference to that data
-        if(!is_array($filters)) {
-            $tmp = $filters;
-            $filters = array();
-            $filters[] = $tmp;
-        }
-        
-        $searchfilter = "(|";
-        foreach ($filters as $filter) {
-            switch ($filter) {
-                case "customers":
-                    $searchfilter.="(objectClass=vofficeCustomer)";
-                    break;
-                case "extensions":
-                    $searchfilter.="(objectClass=asteriskExtensions)";
-                    break;
-                case "moh":
-                    $searchfilter.="(objectClass=asteriskMusicOnHold)";
-                    break;
-                case "conference":
-                    $searchfilter.="(objectClass=asteriskMeetMe)";
-                    break;
-                case "all":
-                default:
-                    $searchfilter.="(objectClass=*)";
-                    break;
+
+        # Determine which combination of contexts need to be returned
+        if ($searchfilters == SHOUT_CONTEXT_ALL) {
+            $searchfilter="(objectClass=*)";
+        } else {
+            $searchfilter = "(|";
+            if ($searchfilters & SHOUT_CONTEXT_CUSTOMERS) {
+                $searchfilter.="(objectClass=vofficeCustomer)";
             }
+
+            if ($searchfilters & SHOUT_CONTEXT_EXTENSIONS) {
+                $searchfilter.="(objectClass=asteriskExtensions)";
+            }
+
+            if ($searchfilters & SHOUT_CONTEXT_MOH) {
+                $searchfilter.="(objectClass=asteriskMusicOnHold)";
+            }
+
+            if ($searchfilters & SHOUT_CONTEXT_CONFERENCE) {
+                $searchfilter.="(objectClass=asteriskMeetMe)";
+            }
+            $searchfilter .= ")";
         }
-        $searchfilter .= ")";
+
 
         # Collect all the possible contexts from the backend
         $res = ldap_search($this->_LDAP,
@@ -82,7 +83,7 @@ class Shout_Driver_ldap extends Shout_Driver
             "(&(objectClass=asteriskObject)$searchfilter)",
             array('context'));
         if (!$res) {
-            return PEAR::raiseError("Unable to locate any customers " .
+            return PEAR::raiseError("Unable to locate any contexts " .
             "underneath ".SHOUT_ASTERISK_BRANCH.",".$this->_params['basedn'] .
             " matching those search filters");
         }
@@ -91,14 +92,17 @@ class Shout_Driver_ldap extends Shout_Driver
         $res = ldap_get_entries($this->_LDAP, $res);
         $i = 0;
         while ($i < $res['count']) {
-            $entries[] = $res[$i]['context'][0];
+            $context = $res[$i]['context'][0];
+            if (Shout::checkRights("shout:contexts:$context", $filterperms)) {
+                $entries[] = $context;
+            }
             $i++;
         }
         # return the array
         return $entries;
     }
     // }}}
-    
+
     // {{{ _checkContextType method
     /**
      * For the given context and type, make sure the context has the
@@ -112,7 +116,7 @@ class Shout_Driver_ldap extends Shout_Driver
      *
      * @access public
      */
-    function _checkContextType($context, $type) {
+    function checkContextType($context, $type) {
         switch ($type) {
             case "users":
                 $searchfilter = "(objectClass=vofficeCustomer)";
@@ -140,7 +144,7 @@ class Shout_Driver_ldap extends Shout_Driver
             return PEAR::raiseError("Unable to search directory for context
 type");
         }
-        
+
         $res = ldap_get_entries($this->_LDAP, $res);
         if (!$res) {
             return PEAR::raiseError("Unable to get results from LDAP query");
@@ -162,7 +166,7 @@ type");
      *
      * @return array User information indexed by voice mailbox number
      */
-    function _getUsers($context)
+    function getUsers($context)
     {
         $search = ldap_search($this->_LDAP,
             SHOUT_USERS_BRANCH.','.$this->_params['basedn'],
@@ -211,14 +215,14 @@ type");
         return $entries;
     }
     // }}}
-    
+
     // {{{ _getHomeContext method
     /**
      * Returns the name of the user's default context
      *
      * @return string User's default context
      */
-    function _getHomeContext()
+    function getHomeContext()
     {
         $res = ldap_search($this->_LDAP,
             SHOUT_USERS_BRANCH.','.$this->_params['basedn'],
@@ -231,12 +235,62 @@ type");
         }
 
         $res = ldap_get_entries($this->_LDAP, $res);
-        
+
         # Assume the user only has one context.  The schema encforces this
         return $res[0]['context'][0];
     }
     // }}}
-    
+
+    // {{{
+    /**
+     * Get a context's properties
+     *
+     * @param string $context Context to get properties for
+     *
+     * @return integer Bitfield of properties valid for this context
+     */
+    function getContextProperties($context)
+    {
+
+        $res = ldap_search($this->_LDAP,
+            SHOUT_ASTERISK_BRANCH.','.$this->_params['basedn'],
+            "(&(objectClass=asteriskObject)(context=$context))",
+            array('objectClass'));
+        if(!$res) {
+            return PEAR::raiseError(_("Unable to get properties for $context"));
+        }
+
+        $res = ldap_get_entries($this->_LDAP, $res);
+
+        $properties = 0;
+        if ($res['count'] != 1) {
+            return PEAR::raiseError(_("Incorrect number of properties found
+for $context"));
+        }
+
+        foreach ($res[0]['objectclass'] as $objectClass) {
+            switch ($objectClass) {
+                case "vofficeCustomer":
+                    $properties = $properties | SHOUT_CONTEXT_CUSTOMERS;
+                    break;
+
+                case "asteriskExtensions":
+                    $properties = $properties | SHOUT_CONTEXT_EXTENSIONS;
+                    break;
+
+                case "asteriskMusicOnHold":
+                    $properties = $properties | SHOUT_CONTEXT_MOH;
+                    break;
+
+                case "asteriskMeetMe":
+                    $properties = $properties | SHOUT_CONTEXT_CONFERENCE;
+                    break;
+            }
+        }
+        return $properties;
+    }
+    // }}}
+
     // {{{ _getDialplan method
     /**
      * Get a context's dialplan and return as a multi-dimensional associative
@@ -247,7 +301,7 @@ type");
      * @return array Multi-dimensional associative array of extensions data
      *
      */
-    function _getDialplan($context)
+    function getDialplan($context)
     {
         $res = ldap_search($this->_LDAP,
             SHOUT_ASTERISK_BRANCH.','.$this->_params['basedn'],
@@ -270,18 +324,18 @@ type");
                 $j = 0;
                 while ($j < $res[$i]['asteriskextensionline']['count']) {
                     @$line = $res[$i]['asteriskextensionline'][$j];
-                    
+
                     # Basic sanity check for length.  FIXME
                     if (strlen($line) < 5) {
                         break;
                     }
                     # Can't use strtok here because there may be ','s in the arg
                     # string
-                    
+
                     # Get the extension
                     $token1 = strpos($line, ',');
                     $token2 = strpos($line, ',', $token1 + 1);
-                    
+
                     $extension = substr($line, 0, $token1);
                     if (!isset($retdialplan[$extension])) {
                         $retdialplan[$extension] = array();
@@ -291,16 +345,16 @@ type");
                     $priority = substr($line, $token1, $token2 - $token1);
                     $retdialplan[$extension][$priority] = array();
                     $token2++;
-                    
+
                     # Get Application and args
                     $application = substr($line, $token2);
-                    
+
                     # Merge all that data into the returning array
                     $retdialplan['extensions'][$extension][$priority] =
                         $application;
                     $j++;
                 }
-                
+
                 # Sort the extensions data
                 foreach ($retdialplan['extensions'] as $extension) {
                     ksort($extension);
@@ -316,7 +370,7 @@ type");
                     $j++;
                 }
             }
-            
+
             # Handle ignorepat
             if (isset($res[$i]['asteriskignorepat'])) {
                 $j = 0;
@@ -335,7 +389,7 @@ type");
                     $j++;
                 }
             }
-            
+
             # Increment object
             $i++;
         }

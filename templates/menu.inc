@@ -12,7 +12,7 @@ $menu_view = $prefs->getValue('menu_view');
    <label for="context" accesskey="<?php echo $accesskey ?>">
     <select id="context" name="context" onchange="contextSubmit()">
      <?php
-        foreach ($shout->getContexts("customers") as $item) {
+        foreach ($shout->getContexts(SHOUT_CONTEXT_CUSTOMERS) as $item) {
             print "<option name=\"$item\"";
             if ($item == $context) {
                 print " selected";
