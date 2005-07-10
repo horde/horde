@@ -92,6 +92,7 @@ class Text_Wiki {
         'Bold',
         'Emphasis',
         'Italic',
+        'Underline',
         'Tt',
         'Superscript',
         'Subscript',
