@@ -22,7 +22,7 @@ class Text_Wiki_Parse_Colortext extends Text_Wiki_Parse_BBCode {
     * 
     * The regular expression used to parse the source text and find
     * matches conforming to this rule.  Used by the parse() method.
-    * We match only [color..]...[/color] with no nesting (will rerun)
+    * We match either [color..] or [/color], will be post synchronized
     * 
     * @access public
     * 
