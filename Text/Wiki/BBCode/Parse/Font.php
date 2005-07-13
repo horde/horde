@@ -2,7 +2,7 @@
 /**
 * @version Exp $
 * 
-* Parses for italic text.
+* Parses for font size tag.
 * 
 * This class implements a Text_Wiki_Rule to find source text with size
 * as defined by text surrounded by [size=...] ... [/size]
@@ -17,7 +17,7 @@
 * 
 */
 
-class Text_Wiki_Parse_Font extends Text_Wiki_Parse {
+class Text_Wiki_Parse_Font extends Text_Wiki_Parse_BBCode {
     
     /**
     * 
@@ -32,7 +32,7 @@ class Text_Wiki_Parse_Font extends Text_Wiki_Parse {
     * 
     */
     
-    var $regex = "#\[size=(\d+)](.*?)\[/size]#i";
+    var $regex = "#\[size=(\d+)]|\[/size]#i";
     
     /**
     * 
@@ -55,23 +55,45 @@ class Text_Wiki_Parse_Font extends Text_Wiki_Parse {
     
     function process(&$matches)
     {
-        $start = $this->wiki->addToken(
+        // end tag ?
+        if (!isset($matches[1])) {
+            return $this->wiki->addToken(
+                $this->rule, 
+                array(
+                    'type' => 'end',
+                    'size' => ''
+                )
+            );
+        }
+        return $this->wiki->addToken(
             $this->rule, 
             array(
                 'type' => 'start',
                 'size' => $matches[1]
             )
         );
-        
-        $end = $this->wiki->addToken(
-            $this->rule, 
-            array(
-                'type' => 'end',
-                'size' => $matches[1]
-            )
-        );
-        
-        return $start . $matches[2] . $end;
+    }
+    
+    /**
+    * 
+    * Post parsing, start and end synchro
+    * 
+    * That will just report 'color' => the color indicator
+    * from start token to end token
+    *
+    * @access public
+    *
+    * @param &array $statok the param array of start token
+    * @param &array $endtok the param array of end token
+    * @param int $stapos the position behind start token in source
+    * @param int $endpos the position of end token in source (after tag's data)
+    *
+    * @return null or error or integer resize source or boolean redo
+    */
+    
+    function synchStartEnd(&$statok, &$endtok, $stapos, $endpos)
+    {
+        $endtok['size'] = $statok['size'];
     }
 }
 ?>
