@@ -1,80 +1,104 @@
 <?php
+// vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4:
+/**
+ * BBCode: extension of base Text_Wiki text conversion handler
+ *
+ * PHP versions 4 and 5
+ *
+ * @category   Text
+ * @package    Text_Wiki
+ * @author     Bertrand Gugger <bertrand@toggg.com>
+ * @copyright  2005 bertrand Gugger
+ * @license    http://www.gnu.org/copyleft/lesser.html  LGPL License 2.1
+ * @version    CVS: $Id$
+ * @link       http://pear.php.net/package/Text_Wiki
+ */
+
+/**
+* "master" class for handling the management and convenience
+*/
 require_once(dirname(__FILE__).'/../Wiki.php');
 
+/**
+* The baseline abstract parser class redefinition for BBCode
+*/
 require_once(dirname(__FILE__).'/BBCode/Parse.php');
 
+/**
+ * Base Text_Wiki handler class extension for BBCode
+ *
+ * @category   Text
+ * @package    Text_Wiki
+ * @author     Bertrand Gugger <bertrand@toggg.com>
+ * @copyright  2005 bertrand Gugger
+ * @license    http://www.gnu.org/copyleft/lesser.html  LGPL License 2.1
+ * @version    Release: @package_version@
+ * @link       http://pear.php.net/package/Text_Wiki
+ * @see        Text_Wiki::Text_Wiki()
+ */
 class Text_Wiki_BBCode extends Text_Wiki {
+
+    /**
+     * The default list of rules, in order, to apply to the source text.
+     * 
+     * @access public
+     * @var array
+     */
     var $rules = array(
         'Prefilter',
         'Delimiter',
         'Code',
-        'Plugin',
-        'Function',
-        'Html',
-        'Raw',
-        'Preformatted',
-        'Include',
-        'Embed',
-        'Page',
-        'Anchor',
-        'Heading',
-        'Toc',
-        'Titlebar',
-        'Horiz',
-        'Break',
+//        'Plugin',
+//        'Function',
+//        'Html',
+//        'Raw',
+//        'Preformatted',
+//        'Include',
+//        'Embed',
+//        'Page',
+//        'Anchor',
+//        'Heading',
+//        'Toc',
+//        'Titlebar',
+//        'Horiz',
+//        'Break',
         'Blockquote',
         'List',
-        'Deflist',
-        'Table',
-        'Box',
+//        'Deflist',
+//        'Table',
+//        'Box',
         'Image',
-        'Phplookup',
-        'Center',
+//        'Phplookup',
+//        'Center',
         'Newline',
-        'Paragraph',
+//        'Paragraph',
         'Url',
-        //'Freelink',
+//        'Freelink',
         'Colortext',
         'Font',
-        'Strong',
+//        'Strong',
         'Bold',
-        'Emphasis',
+//        'Emphasis',
         'Italic',
         'Underline',
-        'Tt',
-        'Superscript',
-        'Subscript',
+//        'Tt',
+//        'Superscript',
+//        'Subscript',
         'Specialchar',
-        'Revise',
-        'Interwiki',
+//        'Revise',
+//        'Interwiki',
         'Tighten'
     );
 
+    /**
+     * Constructor: just adds the path to BBCode rules
+     *
+     * @access public
+     * @param array $rules The set of rules to load for this object.
+     */
     function Text_Wiki_BBCode($rules = null) {
         parent::Text_Wiki($rules);
         $this->addPath('parse', $this->fixPath(dirname(__FILE__)).'BBCode/Parse');
         $this->addPath('render', $this->fixPath(dirname(__FILE__)).'BBCode/Render');
     }
-
-    function getTokens($rules = null, $originalIndex = false)
-    {
-        if (is_null($rules)) {
-            return $this->tokens;
-        } else {
-            settype($rules, 'array');
-            $result = array();
-            foreach ($this->tokens as $key => $val) {
-                if (in_array($val[0], $rules)) {
-                    if ($originalIndex) {
-                        $result[$key] = $val;
-                    } else {
-                        $result[] = $val;
-                    }
-                }
-            }
-            return $result;
-        }
-    }
-}
-
 ?>
