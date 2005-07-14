@@ -33,8 +33,14 @@ if (!isset($context)) {#FIXME || !Shout::checkContext()) {
     exit(0);
 }
 
+require SHOUT_TEMPLATES . '/common-header.inc';
+require SHOUT_TEMPLATES . '/menu.inc';
+
+echo "<br />";
+
 $tabs = &Shout::getTabs($context, $vars);
 $tabs->preserve('context', $context);
+echo $tabs->render($section);
 
 switch ($action) {
     case "add":

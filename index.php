@@ -21,7 +21,7 @@ require_once SHOUT_BASE . '/lib/base.php';
 require_once SHOUT_BASE . '/lib/Shout.php';
 
 $context = Util::getFormData("context");
-$section = "users";
+$section = Util::getFormData("section");
 
 $contexts = $shout->getContexts();
 $vars = &Variables::getDefaultVariables();
