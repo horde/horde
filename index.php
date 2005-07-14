@@ -19,9 +19,6 @@ if (!$shout_configured) {
 
 require_once SHOUT_BASE . '/lib/base.php';
 require_once SHOUT_BASE . '/lib/Shout.php';
-#require_once SHOUT_TEMPLATES . '/comment.inc';
-#require_once 'Horde/Variables.php';
-#require_once 'Horde/Text/Filter.php';
 
 $context = Util::getFormData("context");
 $section = Util::getFormData("section");
@@ -36,19 +33,26 @@ if (count($contexts) == 1) {
     $context = $shout->getHomeContext();
 }
 
+$tabs = &Shout::getTabs($context, $vars);
+$tabs->preserve('context', $context);
+if (!$section) {
+    $section = $tabs->_tabs[0]['tabname'];
+}
+
+#require_once SHOUT_TEMPLATES . '/comment.inc';
+#require_once 'Horde/Variables.php';
+#require_once 'Horde/Text/Filter.php';
+
+
+
 #$title = '[#' . $ticket->getId() . '] ' . $ticket->get('summary');
 require SHOUT_TEMPLATES . '/common-header.inc';
 require SHOUT_TEMPLATES . '/menu.inc';
 
-$tabs = &Shout::getTabs($context, $vars);
-$tabs->preserve('context', $context);
 
 echo "<br />";
 // if (!$section) {
 //     $section =
-if (!$section) {
-    $section = $tabs->_tabs[0]['tabname'];
-}
 
 echo $tabs->render($section);
 switch ($section) {

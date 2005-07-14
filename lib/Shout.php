@@ -22,36 +22,17 @@ class Shout
      */
     function getMenu($returnType = 'object')
     {
-        global $conf, $page;
+        global $conf, $context, $section;
 
         require_once 'Horde/Menu.php';
 
         $menu = &new Menu(HORDE_MENU_MASK_ALL);
 
-        if (@count($conf['menu']['pages'])) {
-            foreach ($conf['menu']['pages'] as $pagename) {
-                /* Determine who we should say referred us. */
-                $curpage = isset($page) ? $page->pageName() : null;
-                $referrer = Util::getFormData('referrer', $curpage);
-
-                /* Determine if we should depress the button. We have to do
-                 * this on our own because all the buttons go to the same .php
-                 * file, just with different args. */
-                if (!strstr($_SERVER['PHP_SELF'], 'prefs.php') &&
-                    $curpage === _($pagename)) {
-                    $cellclass = 'current';
-                } else {
-                    $cellclass = '__noselection';
-                }
-
-                /* Construct the URL. */
-                $url = Horde::applicationUrl('display.php');
-                $url = Util::addParameter($url, array('page' => $pagename,
-                                                      'referrer' => $referrer));
-
-                $menu->add($url, _($pagename), $pagename . '.png', null, null,
-null, $cellclass);
-            }
+        if (isset($context) && isset($section) && $section == "users" &&
+            Shout::checkRights("shout:contexts:$context:users",
+                PERMS_EDIT, 1)) {
+            $menu->add("#", _("Add User"), "add-user.gif", null, null,
+                "open_adduser_win('context=$context')", null);
         }
 
         if ($returnType == 'object') {
@@ -81,26 +62,26 @@ null, $cellclass);
 
         $tabs = &new Horde_UI_Tabs('section', $vars);
 
-        if (Shout::checkRights("$permprefix:users") &&
+        if (Shout::checkRights("$permprefix:users", null, 1) &&
             $shout->checkContextType($context, "users")) {
             $tabs->addTab(_("Users"),
                     Horde::applicationUrl("index.php?context=$context"),
                     'users');
         }
 
-        if (Shout::checkRights("$permprefix:dialplan") &&
+        if (Shout::checkRights("$permprefix:dialplan", null, 1) &&
             $shout->checkContextType($context, "dialplan")) {
             $tabs->addTab(_("Dial Plan"),
                 Horde::applicationUrl('index.php'), 'dialplan');
         }
 
-        if (Shout::checkRights("$permprefix:conference") &&
+        if (Shout::checkRights("$permprefix:conference", null, 1) &&
             $shout->checkContextType($context, "conference")) {
             $tabs->addTab(_("Conference Rooms"),
                 Horde::applicationUrl('index.php'), 'conference');
         }
 
-       if (Shout::checkRights("$permprefix:moh") &&
+       if (Shout::checkRights("$permprefix:moh", null, 1) &&
             $shout->checkContextType($context, "moh")) {
             $tabs->addTab(_("Music on Hold"),
                 Horde::applicationUrl('index.php'), 'moh');
@@ -119,21 +100,48 @@ null, $cellclass);
         return $tabs;
     }
 
-    function checkRights($permname, $permmask = null)
+    // {{{
+    /**
+     * Checks for the given permissions for the current user on the given
+     * permission.  Optionally check for higher-level permissions and ultimately
+     * test for superadmin priveleges.
+     *
+     * @param string $permname Name of the permission to check
+     *
+     * @param optional int $permmask Bitfield of permissions to check for
+     *
+     * @param options int $numparents Check for the same permissions this
+     *                                many levels up the tree
+     *
+     * @return boolean the effective permissions for the user.
+     */
+    function checkRights($permname, $permmask = null, $numparents = 0)
     {
         if ($permmask == null) {
             $permmask = PERMS_SHOW|PERMS_READ;
         }
 
+        # Default deny all permissions
+        $user = 0;
+
         $superadmin = Auth::isAdmin("shout:superadmin", $permmask);
-        $user = Auth::isAdmin($permname, $permmask);
-        $test = $superadmin | $user;
-        if ($test) {
-            return TRUE;
-        } else {
-            return FALSE;
+
+        while ($numparents >= 0) {
+            $tmpuser = Auth::isAdmin($permname, $permmask);
+            $user = $user | $tmpuser;
+            if ($numparents> 0) {
+                $pos = strrpos($permname, ':');
+                if ($pos) {
+                    $permname = substr($permname, 0, $pos);
+                }
+            }
+            $numparents--;
         }
+
+        $test = $superadmin | $user;
+        return $test;
     }
+    // }}}
 
     function getContextTypes()
     {

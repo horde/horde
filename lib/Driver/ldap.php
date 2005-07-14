@@ -55,23 +55,31 @@ class Shout_Driver_ldap extends Shout_Driver
 
         # Determine which combination of contexts need to be returned
         if ($searchfilters == SHOUT_CONTEXT_ALL) {
-            $searchfilter="(objectClass=*)";
+            $searchfilter="(objectClass=asteriskObject)";
         } else {
             $searchfilter = "(|";
             if ($searchfilters & SHOUT_CONTEXT_CUSTOMERS) {
                 $searchfilter.="(objectClass=vofficeCustomer)";
+            } else {
+                $searchfilter.="(!(objectClass=vofficeCustomer))";
             }
 
             if ($searchfilters & SHOUT_CONTEXT_EXTENSIONS) {
                 $searchfilter.="(objectClass=asteriskExtensions)";
+            } else {
+                $searchfilter.="(!(objectClass=asteriskExtensions))";
             }
 
             if ($searchfilters & SHOUT_CONTEXT_MOH) {
                 $searchfilter.="(objectClass=asteriskMusicOnHold)";
+            } else {
+                $searchfilter.="(!(objectClass=asteriskMusicOnHold))";
             }
 
             if ($searchfilters & SHOUT_CONTEXT_CONFERENCE) {
                 $searchfilter.="(objectClass=asteriskMeetMe)";
+            } else {
+                $searchfilter.="(!(objectClass=asteriskMeetMe))";
             }
             $searchfilter .= ")";
         }
