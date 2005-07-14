@@ -31,8 +31,11 @@ class Shout
         if (isset($context) && isset($section) && $section == "users" &&
             Shout::checkRights("shout:contexts:$context:users",
                 PERMS_EDIT, 1)) {
-            $menu->add("#", _("Add User"), "add-user.gif", null, null,
-                "open_adduser_win('context=$context')", null);
+            $url = Horde::applicationUrl("users/index.php");
+            $url = Util::addParameter($url, array('context' => $context,
+                                                  'section' => $section,
+                                                  'action' => 'add'));
+            $menu->add($url, _("Add User"), "add-user.gif");
         }
 
         if ($returnType == 'object') {

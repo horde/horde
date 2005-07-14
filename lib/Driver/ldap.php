@@ -45,6 +45,11 @@ class Shout_Driver_ldap extends Shout_Driver
     function getContexts($searchfilters = SHOUT_CONTEXT_ALL,
                          $filterperms = null)
     {
+        static $entries = array();
+        if (array_key_exists($searchfilters, $entries)) {
+            return $entries[$searchfilters];
+        }
+
         if ($filterperms == null) {
             $filterperms = PERMS_SHOW|PERMS_READ;
         }
@@ -96,18 +101,18 @@ class Shout_Driver_ldap extends Shout_Driver
             " matching those search filters");
         }
 
-        $entries = array();
         $res = ldap_get_entries($this->_LDAP, $res);
         $i = 0;
+        $entries[$searchfilters] = array();
         while ($i < $res['count']) {
             $context = $res[$i]['context'][0];
             if (Shout::checkRights("shout:contexts:$context", $filterperms)) {
-                $entries[] = $context;
+                $entries[$searchfilters][] = $context;
             }
             $i++;
         }
         # return the array
-        return $entries;
+        return $entries[$searchfilters];
     }
     // }}}
 
@@ -176,6 +181,11 @@ type");
      */
     function getUsers($context)
     {
+    
+        static $entries = array();
+        if (array_key_exists($context, $entries)) {
+            return $entries[$context];
+        }
         $search = ldap_search($this->_LDAP,
             SHOUT_USERS_BRANCH.','.$this->_params['basedn'],
             '(&(objectClass='.SHOUT_USER_OBJECTCLASS.')(context='.$context.'))',
@@ -187,40 +197,40 @@ type");
             return PEAR::raiseError("Unable to search directory");
         }
         $res = ldap_get_entries($this->_LDAP, $search);
-        $entries = array();
+        $entries[$context] = array();
         $i = 0;
         while ($i < $res['count']) {
             $extension = $res[$i]['voicemailbox'][0];
-            $entries[$extension] = array();
+            $entries[$context][$extension] = array();
 
-            @$entries[$extension]['dialopts'] =
+            @$entries[$context][$extension]['dialopts'] =
                 $res[$i]['asteriskuserdialoptions'];
 
-            @$entries[$extension]['mailboxopts'] =
+            @$entries[$context][$extension]['mailboxopts'] =
                 $res[$i]['asteriskvoicemailboxoptions'];
 
-            @$entries[$extension]['mailboxpin'] =
+            @$entries[$context][$extension]['mailboxpin'] =
                 $res[$i]['voicemailboxpin'][0];
 
-            @$entries[$extension]['name'] =
+            @$entries[$context][$extension]['name'] =
                 $res[$i]['cn'][0];
 
-            @$entries[$extension]['phonenumbers'] =
+            @$entries[$context][$extension]['phonenumbers'] =
                 $res[$i]['telephonenumber'];
 
-            @$entries[$extension]['dialtimeout'] =
+            @$entries[$context][$extension]['dialtimeout'] =
                 $res[$i]['asteriskuserdialtimeout'][0];
 
-            @$entries[$extension]['email'] =
+            @$entries[$context][$extension]['email'] =
                 $res[$i]['mail'][0];
 
-            @$entries[$extension]['pageremail'] =
+            @$entries[$context][$extension]['pageremail'] =
                 $res[$i]['asteriskpager'][0];
 
             $i++;
         }
 
-        return $entries;
+        return $entries[$context];
     }
     // }}}
 
