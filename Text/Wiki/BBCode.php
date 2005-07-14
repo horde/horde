@@ -96,7 +96,8 @@ class Text_Wiki_BBCode extends Text_Wiki {
      * @access public
      * @param array $rules The set of rules to load for this object.
      */
-    function Text_Wiki_BBCode($rules = null) {
+    function Text_Wiki_BBCode($rules = null)
+    {
         parent::Text_Wiki($rules);
         $this->addPath('parse', $this->fixPath(dirname(__FILE__)).'BBCode/Parse');
         $this->addPath('render', $this->fixPath(dirname(__FILE__)).'BBCode/Render');
