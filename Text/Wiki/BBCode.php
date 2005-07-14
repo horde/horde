@@ -101,4 +101,5 @@ class Text_Wiki_BBCode extends Text_Wiki {
         $this->addPath('parse', $this->fixPath(dirname(__FILE__)).'BBCode/Parse');
         $this->addPath('render', $this->fixPath(dirname(__FILE__)).'BBCode/Render');
     }
+}
 ?>
