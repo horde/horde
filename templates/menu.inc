@@ -22,6 +22,13 @@ $menu_view = $prefs->getValue('menu_view');
      ?>
     </select>
    </label>
+   <?php
+     if (isset($section)) {
+         ?>
+         <input type="hidden" name="section" value="<?php echo $section; ?>" />
+         <?php
+     }
+    ?>
   </form>
  </span>
  <span style="float:right">

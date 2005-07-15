@@ -1,11 +1,11 @@
 <table width="95%" border="0" cellpadding="0" cellspacing="0" class="header">
   <tr valign="bottom">
-    <td width="61"><div align="center"><font size="1">
+    <td width="8%"><div align="center"><font size="1">
       &nbsp;
     </td>
-    <td width="148"><div align="center"></div></td>
-    <td width="332">&nbsp;</td>
-    <td width="202"><font size="3">Context: <?php echo $context; ?></font></td>
+    <td width="20%"><div align="center"></div></td>
+    <td width="45%">&nbsp;</td>
+    <td width="27%"><font size="3">Context: <?php echo $context; ?></font></td>
   </tr>
 </table>
 
