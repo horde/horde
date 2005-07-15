@@ -15,13 +15,13 @@
  */
 
 /**
-* "master" class for handling the management and convenience
-*/
+ * "master" class for handling the management and convenience
+ */
 require_once(dirname(__FILE__).'/../Wiki.php');
 
 /**
-* The baseline abstract parser class redefinition for BBCode
-*/
+ * The baseline abstract parser class redefinition for BBCode
+ */
 require_once(dirname(__FILE__).'/BBCode/Parse.php');
 
 /**
