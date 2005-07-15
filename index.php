@@ -62,7 +62,7 @@ switch ($section) {
     case "system":
     case "users":
     case "moh":
-        require "$section.php";
+        require "main/$section.php";
         break;
 
     default:

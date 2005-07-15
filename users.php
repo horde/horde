@@ -8,7 +8,7 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  */
 
-@define('SHOUT_BASE', dirname(__FILE__) . "/..");
+@define('SHOUT_BASE', dirname(__FILE__));
 $shout_configured = (@is_readable(SHOUT_BASE . '/config/conf.php'));# &&
     #@is_readable(SHOUT_BASE . '/config/prefs.php'));
 if (!$shout_configured) {
@@ -28,7 +28,7 @@ $contexts = $shout->getContexts();
 $vars = &Variables::getDefaultVariables();
 
 if (!isset($context)) {#FIXME || !Shout::checkContext()) {
-    $url = Horde::applicationUrl("/shout/index.php");
+    $url = Horde::applicationUrl("index.php");
     header("Location: $url");
     exit(0);
 }
@@ -45,6 +45,7 @@ echo $tabs->render($section);
 switch ($action) {
     case "add":
     case "edit":
+    case "save":
     case "delete":
         require SHOUT_BASE . "/users/$action.php";
         break;

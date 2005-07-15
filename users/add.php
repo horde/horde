@@ -24,7 +24,7 @@ $title = _("System Settings");
 $UserDetailsForm = &Horde_Form::singleton('UserDetailsForm', $vars);
 $UserDetailsFormValid = $UserDetailsForm->validate($vars, true);
 
-$UserDetailsForm->open($RENDERER, $vars, 'index.php', 'post');
+$UserDetailsForm->open($RENDERER, $vars, 'users.php', 'post');
 $UserDetailsForm->preserveVarByPost($vars, "section");
 $UserDetailsForm->preserve($vars);
 $RENDERER->beginActive($UserDetailsForm->getTitle());

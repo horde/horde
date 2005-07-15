@@ -12,9 +12,11 @@ class UserDetailsForm extends Horde_Form {
 
         parent::Horde_Form($vars, _("Add User - Context: $context"));
 
-        $this->preserve($vars);
         $users = $shout->getUsers($context);
-
+        
+        $this->addHidden('', 'context', 'text', true);
+        $this->addHidden('', 'action', 'text', true);
+        $vars->set('action', 'save');
         $this->addVariable(_("Full Name"), 'name', 'text', true);
         $this->addVariable(_("Extension"), 'extension', 'int', true);
         $this->addVariable(_("E-Mail Address"), 'email', 'text', false);
