@@ -42,7 +42,7 @@ class Text_Wiki_Parse_Image extends Text_Wiki_Parse {
     * 
     */
     
-    var $regex = '/(\[\[image )(.+?)(\]\])/i';
+    var $regex = '/(\[\[image\s+)(.+?)(\]\])/i';
     
     
     /**
