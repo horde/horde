@@ -34,8 +34,6 @@ class Text_Wiki_Render_Xhtml_Code extends Text_Wiki_Render {
         $css_php  = $this->formatConf(' class="%s"', 'css_php');
         $css_html = $this->formatConf(' class="%s"', 'css_html');
         $css_filename = $this->formatConf(' class="%s"', 'css_filename');
-print_r($options);
-print_r($css_filename);
         
         if ($type == 'php') {
             
