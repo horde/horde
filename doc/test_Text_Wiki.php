@@ -22,7 +22,8 @@ $wiki =& new $class();
 // set an array of pages that exist in the wiki
 // and tell the XHTML renderer about them
 //$pages = array('HomePage', 'AnotherPage', 'SomeOtherPage');
-//$wiki->setRenderConf('xhtml', 'wikilink', 'pages', $pages);
+
+$wiki->setRenderConf('xhtml', 'code', 'css_filename', 'codefilename');
 
 // transform the wiki text into given rendering
 $result = $wiki->transform($source, $render);

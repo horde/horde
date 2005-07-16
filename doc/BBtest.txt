@@ -33,11 +33,14 @@ Ordered list:
 [*] This is the first bulleted item.
 [*] This is the second bulleted item.
 [/list]
+<code type="html"  filename="you.htm">
+You
+</code>
 [quote]And a quote!
 [/quote]
-<code type=php >
+<code type="php" filename="ibi.php">
 Hello
-<code type=html >
+<code type="html" >
 You
 </code>
  , how are you
