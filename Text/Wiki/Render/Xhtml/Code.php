@@ -6,7 +6,8 @@ class Text_Wiki_Render_Xhtml_Code extends Text_Wiki_Render {
         'css'      => null, // class for <pre>
         'css_code' => null, // class for generic <code>
         'css_php'  => null, // class for PHP <code>
-        'css_html' => null // class for HTML <code>
+        'css_html' => null, // class for HTML <code>
+        'css_filename' => null // class for optional filename <div>
     );
     
     /**
@@ -32,6 +33,9 @@ class Text_Wiki_Render_Xhtml_Code extends Text_Wiki_Render {
         $css_code = $this->formatConf(' class="%s"', 'css_code');
         $css_php  = $this->formatConf(' class="%s"', 'css_php');
         $css_html = $this->formatConf(' class="%s"', 'css_html');
+        $css_filename = $this->formatConf(' class="%s"', 'css_filename');
+print_r($options);
+print_r($css_filename);
         
         if ($type == 'php') {
             
@@ -94,6 +98,11 @@ class Text_Wiki_Render_Xhtml_Code extends Text_Wiki_Render {
             $text = str_replace("\t", "    ", $text);
             $text = htmlentities($text);
             $text = "<pre$css><code$css_code>$text</code></pre>";
+        }
+        
+        if ($css_filename && isset($attr['filename'])) {
+            $text = '<div$css_filename>' .
+                $attr['filename'] . '</div>' . $text;
         }
         
         return "\n$text\n\n";
