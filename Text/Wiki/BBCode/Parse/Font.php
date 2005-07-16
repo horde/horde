@@ -84,13 +84,15 @@ class Text_Wiki_Parse_Font extends Text_Wiki_Parse_BBCode {
      * @access public
      * @param &array $statok the param array of start token
      * @param &array $endtok the param array of end token
+     * @param int $level nesting depth
      * @param int $stapos the position behind start token in source
      * @param int $endpos the position of end token in source (after tag's data)
-     * @return null or error or integer resize source or boolean redo
+     * @return null or error
      */
-    function synchStartEnd(&$statok, &$endtok, $stapos, $endpos)
+    function synchStartEnd(&$statok, &$endtok, $level, $stapos, $endpos)
     {
         $endtok['size'] = $statok['size'];
+        return null;
     }
 }
 ?>
