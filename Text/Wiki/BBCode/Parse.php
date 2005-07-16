@@ -17,13 +17,20 @@
 /**
  * Baseline rule class for BBCode parser.
  * 
- * @see Text_Wiki_Parse
- * 
  * The parse() method enables the nesting of components
  * thru a custom method to synchronize "start" and "end" tags
  *
  * It also checks the done property (default true)
  * A process() method needing to "rerun" has to set it to false
+ *
+ * @category   Text
+ * @package    Text_Wiki
+ * @author     Bertrand Gugger <bertrand@toggg.com>
+ * @copyright  2005 bertrand Gugger
+ * @license    http://www.gnu.org/copyleft/lesser.html  LGPL License 2.1
+ * @version    Release: @package_version@
+ * @link       http://pear.php.net/package/Text_Wiki
+ * @see        Text_Wiki::Text_Wiki_Parse()
  */
 class Text_Wiki_Parse_BBCode extends Text_Wiki_Parse {
     
@@ -102,11 +109,15 @@ class Text_Wiki_Parse_BBCode extends Text_Wiki_Parse {
                     if ($this->wiki->tokens[$tokno][1]['type'] != 'end') {
                         continue;
                     }
-                    $this->synchStartEnd(
+                    $oldlen = strlen($this->wiki->source);
+                    if ($err = $this->synchStartEnd(
                         $this->wiki->tokens[array_pop($statok)][1],
                         $this->wiki->tokens[$tokno][1],
-                        $lev, array_pop($stapos), $newpos);
-                    $pos = $newpos + strlen($find);
+                        $lev, array_pop($stapos), $newpos)) {
+                        // error ?
+                    }
+                    $pos = $newpos + strlen($find) +
+                                 strlen($this->wiki->source) - $oldlen;
                     $lev--;
                 }
             } while (!$this->done);
