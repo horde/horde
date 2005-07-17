@@ -18,8 +18,6 @@
     </tr>
     <?php
         $line = 0;
-        $users = $shout->getUsers($context);
-        ksort($users);
         foreach ($users as $extension => $user) {
             $rowcolor = $line % 2;
             $line++;
