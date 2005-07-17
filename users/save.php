@@ -18,7 +18,10 @@ $wereerrors = 0;
 $vars = &Variables::getDefaultVariables();
 $formname = $vars->get('formname');
 print_r($vars);
-$title = _("System Settings");
 
 $UserDetailsForm = &Horde_Form::singleton('UserDetailsForm', $vars);
 $UserDetailsFormValid = $UserDetailsForm->validate($vars, true);
+if (!$UserDetailsFormValid) {
+    # FIXME Handle invalid forms gracefully
+}
+

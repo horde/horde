@@ -1,6 +1,6 @@
 <?php
 /**
- * $Horde: shout/users.php,v 0.1 2005/07/13 10:01:01 ben Exp $
+ * $Horde: shout/dialplan.php,v 0.1 2005/07/17 01:56:48 ben Exp $
  *
  * Copyright 2005 Ben Klang <ben@alkaloid.net>
  *
@@ -21,7 +21,7 @@ require_once SHOUT_BASE . '/lib/base.php';
 require_once SHOUT_BASE . '/lib/Shout.php';
 
 $context = Util::getFormData("context");
-$section = "users";
+$section = "dialplan";
 $action = Util::getFormData("action");
 $extension = Util::getFormData("extension");
 

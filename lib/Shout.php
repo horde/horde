@@ -49,6 +49,27 @@ class Shout
             $menu->add($url, _("$icontitle User"), "add-user.gif");
         }
 
+        if (isset($context) && isset($section) && $section == "dialplan" &&
+            Shout::checkRights("shout:contexts:$context:dialplan",
+                PERMS_EDIT, 1)) {
+            $url = Horde::applicationUrl("dialplan.php");
+            $url = Util::addParameter($url, array('context' => $context,
+                                                  'section' => $section,
+                                                  'action' => 'add'));
+            
+            # Goofy hack to make the icon make a little sense
+            # when editing/deleting users
+            if (!isset($action)) {
+                $icontitle = "Add";
+            } else {
+                $icontitle = $action;
+                $icontitle[0] = strtoupper($action[0]);
+            }
+            # End goofy hack
+
+            $menu->add($url, _("$icontitle Extension"), "add-extension.gif");
+        }
+        
         if ($returnType == 'object') {
             return $menu;
         } else {

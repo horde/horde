@@ -47,7 +47,7 @@
                 $editurl = Util::addParameter($editurl, "section=dialplan");
                 $editurl = Util::addParameter($editurl, "extension=$extension");
                 ?>&nbsp;<a class="lighthint" href="<?php
-                    echo editurl;
+                    echo $editurl;
                 ?>">edit</a>
               </th>
             </tr>

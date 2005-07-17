@@ -57,17 +57,29 @@ echo "<br />";
 echo $tabs->render($section);
 switch ($section) {
     case "conference":
+        $title = _('Conferences');
+        break;
     case "dialplan":
+        $title = _('Dial Plan');
+        break;
     case "security":
+        $title = _('Security/Access Control');
+        break;
     case "system":
+        $title = _('System Settings');
+        break;
     case "users":
+        $title = _('Users');
+        break;
     case "moh":
-        require "main/$section.php";
+        $title = _('Music on Hold');
         break;
 
     default:
+        require SHOUT_TEMPLATES . '/common-footer.inc';
+        exit();
         break;
 }
 
-
+require "main/$section.php";
 require $registry->get('templates', 'horde') . '/common-footer.inc';
