@@ -1,6 +1,6 @@
 <?php
 /**
- * $Horde: shout/lib/User.php,v 0.1 2005/07/16 11:06:48 ben Exp $
+ * $Horde: shout/lib/Dialplan.php,v 0.1 2005/07/16 11:06:48 ben Exp $
  *
  * Copyright 2005 Ben Klang <ben@alkaloid.net>
  *
@@ -10,21 +10,19 @@
  * @package Shout
  */
 // {{{
-class UserDetailsForm extends Horde_Form {
+class ExtensionDetailsForm extends Horde_Form {
 
-    function UserDetailsForm(&$vars)
+    function ExtensionDetailsForm(&$vars)
     {
         global $shout;
         $context = $vars->get("context");
         $extension = $vars->get("extension");
         
-        $users = $shout->getUsers($context);
-        if (array_key_exists($extension, $users)) {
-            # We must be editing an existing user
-            $this->fillUserForm(&$vars, $users[$extension]);
-            $formtitle = "Edit User";
+        $dialplan = $shout->getDialplan($context);
+        if (array_key_exists($extension, $dialplan['extensions'])) {
+            $formtitle = "Edit Extension";
         } else {
-            $formtitle = "Add User";
+            $formtitle = "Add Extension";
         }
        
         parent::Horde_Form($vars, _("$formtitle - Context: $context"));
@@ -34,26 +32,7 @@ class UserDetailsForm extends Horde_Form {
         $vars->set('oldextension', $extension);
         $this->addHidden('', 'action', 'text', true);
         $vars->set('action', 'save');
-        $this->addVariable(_("Full Name"), 'name', 'text', true);
-        $this->addVariable(_("Extension"), 'extension', 'int', true);
-        $this->addVariable(_("E-Mail Address"), 'email', 'text', false);
-        # TODO: Integrate with To-Be-Written user manager and possibly make this
-        # TODO: new user also an email account.
-        $this->addVariable(_("PIN"), 'pin', 'int', true);
-        $this->addVariable(_("Telephone Number 1:"), 'telephone1', 'text',
-            false);
-        $this->addVariable(_("Telephone Number 2:"), 'telephone2', 'text',
-            false);
-        $this->addVariable(_("Telephone Number 3:"), 'telephone3', 'text',
-            false);
-        $this->addVariable(_("Telephone Number 4:"), 'telephone4', 'text',
-            false);
-        $this->addVariable(_("Music on Hold while transferring"), 'moh',
-            'radio', true, false, null,
-            array('values' => array(true => 'Yes', false => 'No')));
-        $this->addVariable(_("Allow Call Transfers"), 'transfer',
-            'radio', true, false, null,
-            array('values' => array(true => 'Yes', false => 'No')));
+        $this->addVariable(_("Extension"), 'extension', 'text', true);
     }
     
     // {{{ fillUserForm method
@@ -66,7 +45,7 @@ class UserDetailsForm extends Horde_Form {
      *
      * @return boolean True if successful, Pear::raiseError object on failure
      */
-    function fillUserForm(&$vars, $userdetails)
+    function fillExtensionFormPriority(&$vars, $extensiondetails)
     {
     #Array ( [dialopts] => Array ( [0] => m [1] => t ) [mailboxopts] => Array (
     #) [mailboxpin] => 1234 [name] => Ricardo Paul [phonenumbers] => Array ( )
@@ -96,5 +75,32 @@ class UserDetailsForm extends Horde_Form {
         return true;
     }
     // }}}
+}
+// }}}
+
+class ExtensionPriorityForm extends ExtensionDetailsForm {
+
+    function ExtensionPriorityForm(&$vars)
+    {
+        global $shout;
+        $context = $vars->get("context");
+        $extension = $vars->get("extension");
+        
+        $dialplan = $shout->getDialplan($context);
+        if (array_key_exists($extension, $dialplan['extensions'])) {
+            $formtitle = "Edit Extension";
+        } else {
+            $formtitle = "Add Extension";
+        }
+        
+        parent::Horde_Form($vars, _("$formtitle - Context: $context"));
+        
+        $this->addHidden('', 'context', 'text', true);
+        $this->addHidden('', 'oldextension', 'text', true);
+        $vars->set('oldextension', $extension);
+        $this->addHidden('', 'action', 'text', true);
+        $vars->set('action', 'save');
+        $this->addVariable(_("Extension"), 'extension', 'text', true);
+    }
 }
 // }}}

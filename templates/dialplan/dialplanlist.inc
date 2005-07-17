@@ -7,7 +7,6 @@
   <table width="95%" border="0" cellpadding="0" cellspacing="0" class="item">
   <?php
     $line = 0;
-    $dialplan = $shout->getDialplan($context);
     if (isset($dialplan['extensions']) &&
         (count($dialplan['extensions']) > 0)) {
         foreach ($dialplan['extensions'] as $extension => $priorities) {

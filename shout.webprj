@@ -57,6 +57,7 @@
         <uploadeditem upload_time="0" url="themes/" />
         <uploadeditem upload_time="0" url="themes/graphics/" />
         <uploadeditem upload_time="1121580098" url="themes/graphics/add-dialplan.gif" />
+        <uploadeditem upload_time="1121580098" url="themes/graphics/add-extension.gif" />
         <uploadeditem upload_time="1121300828" url="themes/graphics/add-user.gif" />
         <uploadeditem upload_time="1121574328" url="themes/screen.css" />
         <uploadeditem upload_time="1121579644" url="users.php" />
@@ -123,6 +124,10 @@
     <item modified_time="1121578576" url="templates/table-limiter-end.inc" />
     <item modified_time="1121579932" url="dialplan.php" />
     <item modified_time="1121580098" url="themes/graphics/add-dialplan.gif" />
+    <item modified_time="1121580098" url="themes/graphics/add-extension.gif" />
+    <item url="dialplan/edit.php" />
+    <item url="dialplan/" />
+    <item url="lib/Dialplan.php" />
     <treestatus>
       <openfolder url="config" />
       <openfolder url="lib" />

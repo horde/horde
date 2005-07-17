@@ -37,19 +37,19 @@ if (!isset($context)) {#FIXME || !Shout::checkContext()) {
 
 switch ($action) {
     case "add":
-        $title = _("Add User");
+        $title = _("Add Extension");
         # Treat adds just like an empty edit
         unset($extension);
         $action = 'edit';
         break;
     case "edit":
-        $title = _("Edit User (Extension") . "$extension)";
+        $title = _("Edit Extension") . "$extension";
         break;
     case "save":
-        $title = _("Save User (Extension") . "$extension)";
+        $title = _("Save Extension") . "$extension";
         break;
     case "delete":
-        $title = _("Delete User (Extension") . "$extension)";
+        $title = _("Delete Extension") . "$extension";
         break;
     default:
         $url = Horde::applicationUrl('/');
@@ -66,6 +66,6 @@ $tabs = &Shout::getTabs($context, $vars);
 $tabs->preserve('context', $context);
 echo $tabs->render($section);
 
-require SHOUT_BASE . "/users/$action.php";
+require SHOUT_BASE . "/dialplan/$action.php";
 
 require $registry->get('templates', 'horde') . '/common-footer.inc';
