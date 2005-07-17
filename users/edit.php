@@ -1,6 +1,6 @@
 <?php
 /**
- * $Horde: shout/users/add.php,v 1.0 2005/07/14 01:06:48 ben Exp $
+ * $Horde: shout/users/edit.php,v 1.0 2005/07/14 01:06:48 ben Exp $
  *
  * Copyright 2005 Ben Klang <ben@alkaloid.net>
  *
@@ -27,8 +27,10 @@ $UserDetailsFormValid = $UserDetailsForm->validate($vars, true);
 $UserDetailsForm->open($RENDERER, $vars, 'users.php', 'post');
 $UserDetailsForm->preserveVarByPost($vars, "section");
 $UserDetailsForm->preserve($vars);
+require SHOUT_TEMPLATES . '/table-limiter-begin.inc';
 $RENDERER->beginActive($UserDetailsForm->getTitle());
 $RENDERER->renderFormActive($UserDetailsForm, $vars);
 $RENDERER->submit();
 $RENDERER->end();
 $UserDetailsForm->close($RENDERER);
+require SHOUT_TEMPLATES . '/table-limiter-end.inc';

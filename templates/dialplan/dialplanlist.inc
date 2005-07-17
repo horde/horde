@@ -41,7 +41,14 @@
                 } else {
                     echo "Extension $extension";
                 }
-                ?>
+                $editurl = Horde::applicationUrl("dialplan.php");
+                $editurl = Util::addParameter($editurl, "context=$context");
+                $editurl = Util::addParameter($editurl, "action=edit");
+                $editurl = Util::addParameter($editurl, "section=dialplan");
+                $editurl = Util::addParameter($editurl, "extension=$extension");
+                ?>&nbsp;<a class="lighthint" href="<?php
+                    echo editurl;
+                ?>">edit</a>
               </th>
             </tr>
             <tr class="smallheader">

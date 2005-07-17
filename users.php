@@ -1,6 +1,6 @@
 <?php
 /**
- * $Horde: shout/users/index.php,v 0.1 2005/07/13 10:01:01 ben Exp $
+ * $Horde: shout/users.php,v 0.1 2005/07/13 10:01:01 ben Exp $
  *
  * Copyright 2005 Ben Klang <ben@alkaloid.net>
  *
@@ -44,6 +44,9 @@ echo $tabs->render($section);
 
 switch ($action) {
     case "add":
+        # Treat adds just like an empty edit
+        unset($extension);
+        $action = 'edit';
     case "edit":
     case "save":
     case "delete":

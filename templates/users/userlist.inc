@@ -23,38 +23,22 @@
         foreach ($users as $extension => $user) {
             $rowcolor = $line % 2;
             $line++;
+            $url = Horde::applicationUrl("users.php");
+            $url = Util::addParameter($url, array('context' => $context,
+                                                  'extension' => $extension));
+            $editurl = Util::addParameter($url, "action=edit");
+            $deleteurl = Util::addParameter($url, "action=delete");
     ?>
     <tr class="item<?php echo $rowcolor; ?>">
-        <td width="7%"><?php
-                $url = Horde::applicationUrl("users/edit.php");
-                $url = Util::addParameter($url, "context=$context");
-                $url = Util::addParameter($url, "extension=$extension");
-                echo Horde::link($url);
-            ?>
-            <?php echo $extension; ?></a>
+        <td width="7%"><?php echo Horde::link($editurl); echo $extension; ?></a>
         </td>
-        <td><?php
-                $url = Horde::applicationUrl("users/edit.php");
-                $url = Util::addParameter($url, "context=$context");
-                $url = Util::addParameter($url, "extension=$extension");
-                echo Horde::link($url);?>
-            <?php echo $user['name'];?></a>
+        <td><?php echo Horde::link($editurl); echo $user['name']; ?></a>
         </td>
         <td width="100">
             <div align="center">
-                <?php
-                $url = Horde::applicationUrl("users/edit.php");
-                $url = Util::addParameter($url, "context=$context");
-                $url = Util::addParameter($url, "extension=$extension");
-                echo Horde::link($url); ?>
-                <font size="1">edit</font></a>
-                &nbsp;&nbsp;|&nbsp;&nbsp;
-                <?php
-$url = Horde::applicationUrl("users/delete.php");
-                $url = Util::addParameter($url, "context=$context");
-                $url = Util::addParameter($url, "extension=$extension");
-                echo Horde::link($url); ?>
-                <font size="1">delete</font></a>
+                <?php echo Horde::link($editurl, '', 'darkhint'); ?>edit</a>
+                &nbsp;|&nbsp;
+                <?php echo Horde::link($deleteurl, '', 'darkhint'); ?>delete</a>
             </div>
             <div align="center"></div>
         </td>

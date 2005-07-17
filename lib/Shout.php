@@ -22,7 +22,7 @@ class Shout
      */
     function getMenu($returnType = 'object')
     {
-        global $conf, $context, $section;
+        global $conf, $context, $section, $action;
 
         require_once 'Horde/Menu.php';
 
@@ -31,11 +31,22 @@ class Shout
         if (isset($context) && isset($section) && $section == "users" &&
             Shout::checkRights("shout:contexts:$context:users",
                 PERMS_EDIT, 1)) {
-            $url = Horde::applicationUrl("users/index.php");
+            $url = Horde::applicationUrl("users.php");
             $url = Util::addParameter($url, array('context' => $context,
                                                   'section' => $section,
                                                   'action' => 'add'));
-            $menu->add($url, _("Add User"), "add-user.gif");
+            
+            # Goofy hack to make the icon make a little sense
+            # when editing/deleting users
+            if (!isset($action)) {
+                $icontitle = "Add";
+            } else {
+                $icontitle = $action;
+                $icontitle[0] = strtoupper($action[0]);
+            }
+            # End goofy hack
+
+            $menu->add($url, _("$icontitle User"), "add-user.gif");
         }
 
         if ($returnType == 'object') {

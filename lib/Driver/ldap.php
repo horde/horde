@@ -203,21 +203,37 @@ type");
             $extension = $res[$i]['voicemailbox'][0];
             $entries[$context][$extension] = array();
 
-            @$entries[$context][$extension]['dialopts'] =
-                $res[$i]['asteriskuserdialoptions'];
+            $j = 0;
+            $entries[$context][$extension]['dialopts'] = array();
+            while ($j < @$res[$i]['asteriskuserdialoptions']['count']) {
+                $entries[$context][$extension]['dialopts'][] =
+                    $res[$i]['asteriskuserdialoptions'][$j];
+                $j++;
+            }
 
-            @$entries[$context][$extension]['mailboxopts'] =
-                $res[$i]['asteriskvoicemailboxoptions'];
+            $j = 0;
+            $entries[$context][$extension]['mailboxopts'] = array();
+            while ($j < @$res[$i]['asteriskvoicemailboxoptions']['count']) {
+                $entries[$context][$extension]['mailboxopts'][] =
+                    $res[$i]['asteriskvoicemailboxoptions'][$j];
+                $j++;
+            }
 
-            @$entries[$context][$extension]['mailboxpin'] =
+            $entries[$context][$extension]['mailboxpin'] =
                 $res[$i]['voicemailboxpin'][0];
 
             @$entries[$context][$extension]['name'] =
                 $res[$i]['cn'][0];
 
-            @$entries[$context][$extension]['phonenumbers'] =
-                $res[$i]['telephonenumber'];
+            $j = 0;
+            $entries[$context][$extension]['phonenumbers'] = array();
+            while ($j < @$res[$i]['telephonenumber']['count']) {
+                $entries[$context][$extension]['phonenumbers'][] =
+                    $res[$i]['telephonenumber'][$j];
+                $j++;
+            }
 
+            # FIXME Do some sanity checking here.  Also set a default?
             @$entries[$context][$extension]['dialtimeout'] =
                 $res[$i]['asteriskuserdialtimeout'][0];
 
