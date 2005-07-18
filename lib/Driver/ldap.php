@@ -42,7 +42,7 @@ class Shout_Driver_ldap extends Shout_Driver
     *
     * @access private
     */
-    function getContexts($searchfilters = SHOUT_CONTEXT_ALL,
+    function &getContexts($searchfilters = SHOUT_CONTEXT_ALL,
                          $filterperms = null)
     {
         static $entries = array();
@@ -179,7 +179,7 @@ type");
      *
      * @return array User information indexed by voice mailbox number
      */
-    function getUsers($context)
+    function &getUsers($context)
     {
     
         static $entries = array();
@@ -335,8 +335,13 @@ for $context"));
      * @return array Multi-dimensional associative array of extensions data
      *
      */
-    function getDialplan($context)
+    function &getDialplan($context)
     {
+        static $dialplans = array();
+        if (array_key_exists($context, $dialplans)) {
+            return $dialplans[$context];
+        }
+        
         $res = ldap_search($this->_LDAP,
             SHOUT_ASTERISK_BRANCH.','.$this->_params['basedn'],
             "(&(objectClass=asteriskExtensions)(context=$context))",
@@ -350,7 +355,7 @@ for $context"));
         }
 
         $res = ldap_get_entries($this->_LDAP, $res);
-        $retdialplan = array();
+        $dialplans[$context] = array();
         $i = 0;
         while ($i < $res['count']) {
             # Handle extension lines
@@ -371,36 +376,37 @@ for $context"));
                     $token2 = strpos($line, ',', $token1 + 1);
 
                     $extension = substr($line, 0, $token1);
-                    if (!isset($retdialplan[$extension])) {
-                        $retdialplan[$extension] = array();
+                    if (!isset($dialplans[$context][$extension])) {
+                        $dialplan[$context][$extension] = array();
                     }
                     $token1++;
                     # Get the priority
                     $priority = substr($line, $token1, $token2 - $token1);
-                    $retdialplan[$extension][$priority] = array();
+                    $dialplans[$context][$extension][$priority] = array();
                     $token2++;
 
                     # Get Application and args
                     $application = substr($line, $token2);
 
                     # Merge all that data into the returning array
-                    $retdialplan['extensions'][$extension][$priority] =
+                    $dialplans[$context]['extensions'][$extension][$priority] =
                         $application;
                     $j++;
                 }
 
                 # Sort the extensions data
-                foreach ($retdialplan['extensions'] as $extension) {
-                    ksort($extension);
+                foreach ($dialplans[$context]['extensions'] as
+                    $extension => $data) {
+                    ksort($dialplans[$context]['extensions'][$extension]);
                 }
-                ksort($retdialplan['extensions']);
+                ksort($dialplans[$context]['extensions']);
             }
             # Handle include lines
             if (isset($res[$i]['asteriskincludeline'])) {
                 $j = 0;
                 while ($j < $res[$i]['asteriskincludeline']['count']) {
                     @$line = $res[$i]['asteriskincludeline'][$j];
-                    $retdialplan['include'][$j] = $line;
+                    $dialplans[$context]['include'][$j] = $line;
                     $j++;
                 }
             }
@@ -410,7 +416,7 @@ for $context"));
                 $j = 0;
                 while ($j < $res[$i]['asteriskignorepat']['count']) {
                     @$line = $res[$i]['asteriskignorepat'][$j];
-                    $retdialplan['include'][$j] = $line;
+                    $dialplans[$context]['ignorepat'][$j] = $line;
                     $j++;
                 }
             }
@@ -419,7 +425,7 @@ for $context"));
                 $j = 0;
                 while ($j < $res[$i]['asteriskextensionbareline']['count']) {
                     @$line = $res[$i]['asteriskextensionbareline'][$j];
-                    $retdialplan['bareline'][$j] = $line;
+                    $dialplans[$context]['bareline'][$j] = $line;
                     $j++;
                 }
             }
@@ -427,7 +433,7 @@ for $context"));
             # Increment object
             $i++;
         }
-        return $retdialplan;
+        return $dialplans[$context];
     }
     // }}}
 

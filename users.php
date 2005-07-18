@@ -25,7 +25,7 @@ $section = "users";
 $action = Util::getFormData("action");
 $extension = Util::getFormData("extension");
 
-$contexts = $shout->getContexts();
+$contexts = &$shout->getContexts();
 $vars = &Variables::getDefaultVariables();
 
 if (!isset($context)) {#FIXME || !Shout::checkContext()) {

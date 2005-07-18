@@ -18,7 +18,7 @@ class UserDetailsForm extends Horde_Form {
         $context = $vars->get("context");
         $extension = $vars->get("extension");
         
-        $users = $shout->getUsers($context);
+        $users = &$shout->getUsers($context);
         if (array_key_exists($extension, $users)) {
             # We must be editing an existing user
             $this->fillUserForm(&$vars, $users[$extension]);

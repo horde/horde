@@ -23,7 +23,7 @@ require_once SHOUT_BASE . '/lib/Shout.php';
 $context = Util::getFormData("context");
 $section = Util::getFormData("section");
 
-$contexts = $shout->getContexts();
+$contexts = &$shout->getContexts();
 $vars = &Variables::getDefaultVariables();
 #$ticket->setDetails($vars);
 

@@ -23,9 +23,12 @@ require_once SHOUT_BASE . '/lib/Shout.php';
 $context = Util::getFormData("context");
 $section = "dialplan";
 $action = Util::getFormData("action");
+if ($button = Util::getFormData("submitbutton")) {
+    $action = $button;
+}
 $extension = Util::getFormData("extension");
 
-$contexts = $shout->getContexts();
+$contexts = &$shout->getContexts();
 $vars = &Variables::getDefaultVariables();
 
 if (!isset($context)) {#FIXME || !Shout::checkContext()) {
@@ -34,7 +37,6 @@ if (!isset($context)) {#FIXME || !Shout::checkContext()) {
     exit(0);
 }
 
-
 switch ($action) {
     case "add":
         $title = _("Add Extension");
@@ -42,9 +44,25 @@ switch ($action) {
         unset($extension);
         $action = 'edit';
         break;
+    case "Add Priority":
+        $dialplan = &$shout->getDialplan($context);
+        #FIXME Handle added-but-not-yet-saved priorities
+        $dialplan['extensions'][$extension][] = '';
+        $action = 'edit';
+        break;
+    case "Add 5 Priorities":
+        $dialplan = &$shout->getDialplan($context);
+        $dialplan['extensions'][$extension][] = '';
+        $dialplan['extensions'][$extension][] = '';
+        $dialplan['extensions'][$extension][] = '';
+        $dialplan['extensions'][$extension][] = '';
+        $dialplan['extensions'][$extension][] = '';
+        $action = 'edit';
+        break;
     case "edit":
         $title = _("Edit Extension") . "$extension";
         break;
+    case "Save":
     case "save":
         $title = _("Save Extension") . "$extension";
         break;

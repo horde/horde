@@ -18,7 +18,8 @@ class ExtensionDetailsForm extends Horde_Form {
         $context = $vars->get("context");
         $extension = $vars->get("extension");
         
-        $dialplan = $shout->getDialplan($context);
+        $dialplan = &$shout->getDialplan($context);
+        $extendata = $dialplan['extensions'][$extension];
         if (array_key_exists($extension, $dialplan['extensions'])) {
             $formtitle = "Edit Extension";
         } else {
@@ -31,8 +32,14 @@ class ExtensionDetailsForm extends Horde_Form {
         $this->addHidden('', 'oldextension', 'text', true);
         $vars->set('oldextension', $extension);
         $this->addHidden('', 'action', 'text', true);
-        $vars->set('action', 'save');
+//         $vars->set('action', 'save');
         $this->addVariable(_("Extension"), 'extension', 'text', true);
+        $this->addVariable(_("Priority"), 'priority', 'priority', true);
+//         foreach ($extendata as $priority => $application) {
+//             $vars->set("priority$priority", $application);
+//             $this->addVariable("Priority $priority", "priority$priority",
+//                 'text', false);
+//         }
     }
     
     // {{{ fillUserForm method
@@ -78,29 +85,111 @@ class ExtensionDetailsForm extends Horde_Form {
 }
 // }}}
 
-class ExtensionPriorityForm extends ExtensionDetailsForm {
+class Horde_Form_Type_priority extends Horde_Form_Type {
 
-    function ExtensionPriorityForm(&$vars)
+//     var $_regex;
+//     var $_size;
+//     var $_maxlength;
+
+    /**
+     * The initialisation function for the text variable type.
+     *
+     * @access private
+     *
+     * @param string $regex       Any valid PHP PCRE pattern syntax that
+     *                            needs to be matched for the field to be
+     *                            considered valid. If left empty validity
+     *                            will be checked only for required fields
+     *                            whether they are empty or not.
+     *                            If using this regex test it is advisable
+     *                            to enter a description for this field to
+     *                            warn the user what is expected, as the
+     *                            generated error message is quite generic
+     *                            and will not give any indication where
+     *                            the regex failed.
+     * @param integer $size       The size of the input field.
+     * @param integer $maxlength  The max number of characters.
+     */
+     function init()
+     {
+     }
+//     function init($regex = '', $size = 40, $maxlength = null)
+//     {
+//         $this->_regex     = $regex;
+//         $this->_size      = $size;
+//         $this->_maxlength = $maxlength;
+//     }
+
+    function isValid(&$var, &$vars, $value, &$message)
     {
-        global $shout;
-        $context = $vars->get("context");
-        $extension = $vars->get("extension");
-        
-        $dialplan = $shout->getDialplan($context);
-        if (array_key_exists($extension, $dialplan['extensions'])) {
-            $formtitle = "Edit Extension";
-        } else {
-            $formtitle = "Add Extension";
-        }
-        
-        parent::Horde_Form($vars, _("$formtitle - Context: $context"));
-        
-        $this->addHidden('', 'context', 'text', true);
-        $this->addHidden('', 'oldextension', 'text', true);
-        $vars->set('oldextension', $extension);
-        $this->addHidden('', 'action', 'text', true);
-        $vars->set('action', 'save');
-        $this->addVariable(_("Extension"), 'extension', 'text', true);
+        $valid = true;
+
+//         if ($var->isRequired() && empty($this->_regex)) {
+//             $valid = strlen(trim($value)) > 0;
+// 
+//             if (!$valid) {
+//                 $message = _("This field is required.");
+//             }
+//         } elseif (!empty($this->_regex)) {
+//             $valid = preg_match($this->_regex, $value);
+// 
+//             if (!$valid) {
+//                 $message = _("You have to enter a valid value.");
+//             }
+//         }
+
+        return $valid;
     }
+
+    function getSize()
+    {
+        return $this->_size;
+    }
+
+    function getMaxLength()
+    {
+        return $this->_maxlength;
+    }
+
+    /**
+     * Return info about field type.
+     */
+    function about()
+    {
+        $about = array();
+        $about['name'] = _("Extension Priority");
+        $about['params'] = array(
+            'priority'  => array('label' => _("Priority"),
+                                 'type'  => 'int'),
+            'application'      => array('label' => _("Application"),
+                                 'type'  => 'stringlist'),
+            'args' => array('label' => _("Arguments"),
+                                 'type'  => 'text'),
+        );
+        return $about;
+    }
+
 }
-// }}}
+
+// require_once HORDE_BASE . '/lib/Horde/UI/VarRenderer.php';
+// require_once HORDE_BASE . '/lib/Horde/UI/VarRenderer/html.php';
+// class Horde_UI_VarRenderer_html_priority extends Horde_UI_VarRenderer_html
+// {
+//     function _renderVarInput_priority(&$form, &$var, &$vars)
+//     {
+//         echo '<input type="text" name="priority[0]" value="88" size="3" ';
+//         echo 'id="priority[0]" />';
+//         echo '<select><option>GotoSelf</option></select>\n';
+//         echo '<input type="text" name="application[0]" ';
+//         echo 'size="40" value="101" id="application[0]" />';
+//     }
+//     
+//     function _renderVarDisplay_priority(&$form, &$var, &$vars)
+//     {
+//         echo '<input type="text" name="priority[0]" value="88" size="3" ';
+//         echo 'id="priority[0]" />';
+//         echo '<select><option>GotoSelf</option></select>\n';
+//         echo '<input type="text" name="application[0]" ';
+//         echo 'size="40" value="101" id="application[0]" />';
+//     }
+// }

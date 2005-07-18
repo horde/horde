@@ -24,7 +24,7 @@ class ContextForm extends Horde_Form {
 
         $contextfilter = SHOUT_CONTEXT_CUSTOMERS | SHOUT_CONTEXT_EXTENSIONS|
                          SHOUT_CONTEXT_MOH | SHOUT_CONTEXT_CONFERENCE;
-        $contexts = $shout->getContexts($contextfilter);
+        $contexts = &$shout->getContexts($contextfilter);
         foreach ($contexts as $context) {
             $tmpcontexts[$context] = $context;
         }
