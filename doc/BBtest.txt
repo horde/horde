@@ -36,7 +36,10 @@ Ordered list:
 <code type="html"  filename="you.htm">
 You
 </code>
-[quote]And a quote!
+[quote="bibi"]And a quote!
+[quote]And a second
+inside
+[/quote]
 [/quote]
 <code type="php" filename="ibi.php">
 Hello
@@ -45,4 +48,11 @@ You
 </code>
  , how are you
 </code>
+[code]
+Hello
+[code]
+You
+[/code]
+ , how are you
+[/code]
 
