@@ -23,8 +23,9 @@ $UserDetailsForm = &Horde_Form::singleton('UserDetailsForm', $vars);
 $UserDetailsFormValid = $UserDetailsForm->validate($vars, true);
 
 $UserDetailsForm->open($RENDERER, $vars, 'users.php', 'post');
+$vars->set('section', $section);
 $UserDetailsForm->preserveVarByPost($vars, "section");
-$UserDetailsForm->preserve($vars);
+// $UserDetailsForm->preserve($vars);
 require SHOUT_TEMPLATES . '/table-limiter-begin.inc';
 $RENDERER->beginActive($UserDetailsForm->getTitle());
 $RENDERER->renderFormActive($UserDetailsForm, $vars);

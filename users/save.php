@@ -23,5 +23,15 @@ $UserDetailsForm = &Horde_Form::singleton('UserDetailsForm', $vars);
 $UserDetailsFormValid = $UserDetailsForm->validate($vars, true);
 if (!$UserDetailsFormValid) {
     # FIXME Handle invalid forms gracefully
+    echo "Invalid Form!";
 }
 
+$oldextension = Util::getFormData('oldextension');
+$extension = Util::getFormData('extension');
+
+#$user = &new Shout_User();
+
+#$user->define($context, $oldextension);
+#$user->set('name', Util::getFormData('name'));
+#$user->set('extension', Util::getFormData('extension'));
+#$user->set('telephone'

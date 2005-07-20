@@ -9,6 +9,22 @@
  *
  * @package Shout
  */
+
+// {{{ Shout_User class
+/**
+ * Class defining a single Asterisk user
+ *
+ * @package Shout
+ */
+class Shout_User {
+    var $_name;
+    var $_extension;
+    var $_email;
+    var $_pager;
+    var $_pin;
+}
+    
+
 // {{{
 class UserDetailsForm extends Horde_Form {
 
@@ -22,11 +38,13 @@ class UserDetailsForm extends Horde_Form {
         if (array_key_exists($extension, $users)) {
             # We must be editing an existing user
             $this->fillUserForm(&$vars, $users[$extension]);
+            $limits = &$shout->getLimits($context, $extension);
             $formtitle = "Edit User";
         } else {
+            $limits = &$shout->getLimits($context);
             $formtitle = "Add User";
         }
-       
+
         parent::Horde_Form($vars, _("$formtitle - Context: $context"));
         
         $this->addHidden('', 'context', 'text', true);
@@ -40,14 +58,15 @@ class UserDetailsForm extends Horde_Form {
         # TODO: Integrate with To-Be-Written user manager and possibly make this
         # TODO: new user also an email account.
         $this->addVariable(_("PIN"), 'pin', 'int', true);
-        $this->addVariable(_("Telephone Number 1:"), 'telephone1', 'text',
-            false);
-        $this->addVariable(_("Telephone Number 2:"), 'telephone2', 'text',
-            false);
-        $this->addVariable(_("Telephone Number 3:"), 'telephone3', 'text',
-            false);
-        $this->addVariable(_("Telephone Number 4:"), 'telephone4', 'text',
-            false);
+        
+        $t = 1;
+        while ($t <= $limits['telephonenumbersmax']) {
+            $this->addVariable(_("Telephone Number $t:"), "telephone$t",
+'text',
+                false);
+            $t++;
+        }
+        
         $this->addVariable(_("Music on Hold while transferring"), 'moh',
             'radio', true, false, null,
             array('values' => array(true => 'Yes', false => 'No')));

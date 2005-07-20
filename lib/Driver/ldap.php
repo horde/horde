@@ -270,7 +270,9 @@ type");
 
         $res = ldap_get_entries($this->_LDAP, $res);
 
-        # Assume the user only has one context.  The schema encforces this
+        # Assume the user only has one context.  The schema enforces this
+        # FIXME: Handle cases where the managing user isn't a valid telephone
+        # system user
         return $res[0]['context'][0];
     }
     // }}}
@@ -436,60 +438,135 @@ for $context"));
         return $dialplans[$context];
     }
     // }}}
-
-    // {{{ getUserPhoneNumbers method
+    
+    // {{{
     /**
-     * Get a list of phone numbers for the given user from the backend
+     * Get the limits for the current user, the user's context, and global
+     * Return the most specific values in every case.  Return default values
+     * where no data is found.  If $extension is specified, $context must 
+     * also be specified.
      *
-     * @param string $extension Extension on which to search
+     * @param optional string $context Context to search
      *
-     * @param string $context Context for which this user is valid
+     * @param optional string $extension Extension/user to search
      *
-     * @return array Phone numbers for this user
-     *
-     * @access public
+     * @return array Array with elements indicating various limits
      */
-    function getUserPhoneNumbers($extension, $context = null)
+    function &getLimits($context = null, $extension = null)
     {
-        $userfilter = "(".$this->userkey."=".$username.",".
-            $this->usersOU.",".$this->_params['basedn'].")";
-        $searchfilter = "(&".$userfilter;
-        foreach ($prefs["searchfilters"]["phoneuser"] as $filter) {
-            $searchfilter .= "($filter)";
-        }
-        $searchfilter .= ")";
+    
+        $limits = array('telephonenumbersmax',
+                        'voicemailboxesmax',
+                        'asteriskusers');
 
-        $res = ldap_search($this->_LDAP, $this->_params['basedn'],
-$searchfilter,
-            array("userNumber"));
-        if (!res) {
-            return PEAR::raiseError("Unable to locate any LDAP entries for
-$searchfilter under ".$this->_params['basedn']);
+        if(is_null($extension) && !is_null($context)) {
+            return PEAR::raiseError("Extension specified but no context " .
+                "given.");
         }
-        // FIXME
-    }
 
-    // {{{ getUserVoicemailInfo method
-    /**
-     * Get the named user's voicemail particulars from LDAP
-     *
-     * @param string $extension Extension for which voicemail information should
-     *                          be returned
-     * @param optional string $context Context to which this extension belongs
-     *
-     * @return array Array containing voicemail options, user's name, email
-     *               and pager addresses and PIN number
-     *
-     * @access public
-     */
-    function getUserVoicemailInfo($extension, $context = null)
-    {
-        $userfilter = "(&(objectClass=asteriskVoiceMailbox)(context=$context))";
-        $res = ldap_search($this->_LDAP, $this->_params['basedn'],
-$userfilter,
-            array('asteriskVoiceMailboxOptions', 'mail', 'asteriskPager',
-                'voiceMailboxPin', 'cn'));
-        return $res;
+        if (!is_null($context) && array_key_exists($context, $limits)) {
+            if (!is_null($extension) &&
+                array_key_exists($extension, $limits[$context])) {
+                return $limits[$context][$extension];
+            }
+            return $limits[$context];
+        }
+        
+        # Set some default limits (to unlimited)
+        static $cachedlimits = array();
+        # Initialize the limits with defaults
+        if (count($cachedlimits) < 1) {
+            foreach ($limits as $limit) {
+                $cachedlimits[$limit] = -1;
+            }
+        }
+        
+        # Collect the global limits
+        $res = ldap_search($this->_LDAP,
+            SHOUT_ASTERISK_BRANCH.','.$this->_params['basedn'],
+            '(&(objectClass=asteriskLimits)(cn=globals))',
+            $limits);
+        
+        if (!$res) {
+            return PEAR::raiseError('Unable to search the LDAP server for ' .
+                'global limits');
+        }
+        
+        $res = ldap_get_entries($this->_LDAP, $res);
+        # There should only have been one object returned so we'll just take the
+        # first result returned
+        if ($res['count'] > 0) {
+            foreach ($limits as $limit) {
+                if (isset($res[0][$limit][0])) {
+                    $cachedlimits[$limit] = $res[0][$limit][0];
+                }
+            }
+        } else {    
+            return PEAR::raiseError("No global object found.");
+        }
+
+        # Get limits for the context, if provided
+        if (isset($context)) {
+            $res = ldap_search($this->_LDAP,
+                SHOUT_ASTERISK_BRANCH.','.$this->_params['basedn'],
+                "(&(objectClass=asteriskLimits)(cn=$context))");
+            
+            if (!$res) {
+                return PEAR::raiseError('Unable to search the LDAP server ' .
+                    "for $context specific limits");
+            }
+            
+            $cachedlimits[$context][$extension] = array();
+            if ($res['count'] > 0) {
+                foreach ($limits as $limit) {
+                    if (isset($res[0][$limit][0])) {
+                        $cachedlimits[$context][$limit] = $res[0][$limit][0];
+                    } else {
+                        # If no value is provided use the global limit
+                        $cachedlimits[$context][$limit] = $cachedlimits[$limit];
+                    }
+                }
+            } else {
+
+                foreach ($limits as $limit) {
+                    $cachedlimits[$context][$limit] =
+                        $cachedlimits[$limit];
+                }
+            }
+            
+            if (isset($extension)) {
+                $res = ldap_search($this->_LDAP,
+                    SHOUT_USERS_BRANCH.','.$this->_params['basedn'],
+                    "(&(objectClass=asteriskLimits)(voiceMailbox=$extension)".
+                    "(context=$context))");
+                
+                if (!$res) {
+                    return PEAR::raiseError('Unable to search the LDAP server '.
+                        "for Extension $extension, $context specific limits");
+                }
+                
+                $cachedlimits[$context][$extension] = array();
+                if ($res['count'] > 0) {
+                    foreach ($limits as $limit) {
+                        if (isset($res[0][$limit][0])) {
+                            $cachedlimits[$context][$extension][$limit] =
+                                $res[0][$limit][0];
+                        } else {
+                            # If no value is provided use the context limit
+                            $cachedlimits[$context][$extension][$limit] =
+                                $cachedlimits[$context][$limit];
+                        }
+                    }
+                } else {
+                    foreach ($limits as $limit) {
+                        $cachedlimits[$context][$extension][$limit] =
+                            $cachedlimits[$context][$limit];
+                    }
+                }
+                return $cachedlimits[$context][$extension];
+            }
+            return $cachedlimits[$context];
+        }
     }
     // }}}
 
