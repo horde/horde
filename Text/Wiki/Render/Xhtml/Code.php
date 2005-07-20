@@ -99,7 +99,7 @@ class Text_Wiki_Render_Xhtml_Code extends Text_Wiki_Render {
         }
         
         if ($css_filename && isset($attr['filename'])) {
-            $text = '<div$css_filename>' .
+            $text = "<div$css_filename>" .
                 $attr['filename'] . '</div>' . $text;
         }
         
