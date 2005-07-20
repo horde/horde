@@ -71,7 +71,7 @@ class Text_Wiki_BBCode extends Text_Wiki {
 //        'Phplookup',
 //        'Center',
         'Newline',
-//        'Paragraph',
+        'Paragraph',
         'Url',
 //        'Freelink',
         'Colortext',
