@@ -5,7 +5,7 @@
  */
 $parser = $render = $source = '';
 $plist = array('Default', 'BBCode');
-$rlist = array('Xhtml', 'Plain', 'Latex');php_sapi_name();
+$rlist = array('Xhtml', 'Plain', 'Latex');
 
 /**
  * Here we need to know if we are running from command line or from web
@@ -23,7 +23,8 @@ if (in_array(php_sapi_name(), array('cli', 'cgi'))) {
 } else {
     $html = true;
     $elist = findExamples(dirname(__FILE__));
-    if (isset($_REQUEST['example'])) {
+    if (isset($_REQUEST['example'])
+        && in_array($_REQUEST['exchoice'], $elist)) {
         $_REQUEST['source'] = file_get_contents ($_REQUEST['exchoice']);
         if (preg_match('#(\b'.implode('\b|\b', $plist).'\b)#i',
                          $_REQUEST['source'], $match)) {
@@ -102,14 +103,16 @@ function bldHtml($result, $plist, $rlist, $elist) {
   <meta name="AUTHOR" content="bertrand Gugger / Toggg">
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="KEYWORDS" content="PEAR, Wiki, Parse, Render, Convert, PHP, BBCode, Xhtml, Plain, Latex">
-  <!--
-  <link rel="stylesheet" type="text/css" href="test_Text_Wiki.css">
-  -->
-  <script language="javascript" type="text/javascript">
-  // <!--
-  
-  // -->
-  </script>
+  <style type="text/css">
+    blockquote, pre {
+        border: solid;
+    }
+    .codefilename {
+        color: blue;
+        background-color:orange;
+        text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
 <h3>PEAR::Text_Wiki Demo</h3>
@@ -117,18 +120,20 @@ function bldHtml($result, $plist, $rlist, $elist) {
 <FORM method="post">
 Translate from
 <SELECT name="parser">{$optparser}</SELECT>
-to
+ to
 <SELECT name="render">{$optrender}</SELECT>
+ <INPUT type="submit" name="translate" value="translate">
 <br />
-<textarea name="source" cols="80" rows="25">{$_REQUEST['source']}</textarea>
+<textarea name="source" cols="60" rows="25">{$_REQUEST['source']}</textarea>
 <br />
-<INPUT type="submit" name="translate" value="translate"> or choose
+<h4> Or choose
 <SELECT name="exchoice">{$optexample}</SELECT>
-and
-<INPUT type="submit" name="example" value="example">
+ and
+<INPUT type="submit" name="example" value="Load example">
+</h4>
 </FORM>
 </div>
-<div style="float: down;">
+<div style="float: down; font-family: monospace;">
 {$hresult}
 </div>
 <div>
@@ -142,7 +147,8 @@ function findExamples($dir=null) {
     $ret = array();
     $dh=opendir($dir? $dir : '.');
     while ($subfil = readdir($dh)) {
-        if (!is_dir($subfil) && (substr($subfil, -4) == '.txt')) {
+        if (!is_dir($subfil) && is_readable($subfil)
+            && (substr($subfil, -4) == '.txt')) {
         	$ret[] = $subfil;
         }
     }
