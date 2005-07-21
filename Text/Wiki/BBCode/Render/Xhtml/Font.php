@@ -1,7 +1,7 @@
 <?php
 // vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4:
 /**
- * BBCode: exra Font rules renderer to size the text
+ * BBCode: extra Font rules renderer to size the text
  *
  * PHP versions 4 and 5
  *
