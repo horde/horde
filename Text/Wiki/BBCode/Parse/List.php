@@ -42,7 +42,7 @@ class Text_Wiki_Parse_List extends Text_Wiki_Parse {
      * @var string
      * @see parse()
      */
-    var $regex =  "#\[list(=.+?)?]((?:((?R))|.)*?)\[/list]#msi";
+    var $regex =  "#\[list(?:=(.+?))?]((?:((?R))|.)*?)\[/list]#msi";
 
     /**
      * The regular expression used in second stage to find list's elements
