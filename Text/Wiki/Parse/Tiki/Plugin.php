@@ -1,28 +1,28 @@
 <?php
 class Text_Wiki_Parse_Plugin extends Text_Wiki_Parse {
-    
-    
+
+
     /**
-    * 
+    *
     * The regular expression used to find source text matching this
     * rule.
-    * 
+    *
     * @access public
-    * 
+    *
     * @var string
-    * 
+    *
     */
-    
+
     //var $regex = '/^({([A-Z]+?)\((.+)?\)})((.+)({\2}))?(\s|$)/Umsi';
-    var $regex = '/^(?:{([A-Z]+?)\((.+)?\)})(?:(.+)(?:{\1}))(\s|$)/Umsi';
-    
-    
+    var $regex = '/(^|\s)\{([A-Z]+?)\((.+?)?\)}(.*?)\{\2}(\s|$)/msi';
+
+
     /**
-    * 
+    *
     * Generates a token entry for the matched text.  Token options are:
-    * 
+    *
     * 'text' => The full matched text, not including the <code></code> tags.
-    * 
+    *
     * @access public
     *
     * @param array &$matches The array of matches from parse().
@@ -31,12 +31,12 @@ class Text_Wiki_Parse_Plugin extends Text_Wiki_Parse {
     * the source text.
     *
     */
-    
+
     function process(&$matches)
     {
         // are there additional attribute arguments?
         $args = trim($matches[2]);
-        
+
         if ($args == '') {
             $options = array(
                 'text' => $matches[3],
@@ -53,7 +53,7 @@ class Text_Wiki_Parse_Plugin extends Text_Wiki_Parse {
                     $attr[$part] = '';
                 }
             }
-        	
+
         	// retain the options
             $options = array(
                 'text' => $matches[3],
@@ -61,7 +61,7 @@ class Text_Wiki_Parse_Plugin extends Text_Wiki_Parse {
                 'attr' => $attr
             );
         }
-        
+
         return $this->wiki->addToken($this->rule, $options) . $matches[4];
     }
 }
