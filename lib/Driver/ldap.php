@@ -46,7 +46,7 @@ class Shout_Driver_ldap extends Shout_Driver
                          $filterperms = null)
     {
         static $entries = array();
-        if (array_key_exists($searchfilters, $entries)) {
+        if (isset($entries[$searchfilters])) {
             return $entries[$searchfilters];
         }
 
@@ -183,7 +183,7 @@ type");
     {
     
         static $entries = array();
-        if (array_key_exists($context, $entries)) {
+        if (isset($entries[$context])) {
             return $entries[$context];
         }
         $search = ldap_search($this->_LDAP,
@@ -250,7 +250,7 @@ type");
     }
     // }}}
 
-    // {{{ _getHomeContext method
+    // {{{ getHomeContext method
     /**
      * Returns the name of the user's default context
      *
@@ -340,7 +340,7 @@ for $context"));
     function &getDialplan($context)
     {
         static $dialplans = array();
-        if (array_key_exists($context, $dialplans)) {
+        if (isset($dialplans[$context])) {
             return $dialplans[$context];
         }
         
@@ -459,14 +459,14 @@ for $context"));
                         'voicemailboxesmax',
                         'asteriskusers');
 
-        if(is_null($extension) && !is_null($context)) {
+        if(!is_null($extension) && is_null($context)) {
             return PEAR::raiseError("Extension specified but no context " .
                 "given.");
         }
 
-        if (!is_null($context) && array_key_exists($context, $limits)) {
+        if (!is_null($context) && isset($limits[$context])) {
             if (!is_null($extension) &&
-                array_key_exists($extension, $limits[$context])) {
+                isset($limits[$context][$extension])) {
                 return $limits[$context][$extension];
             }
             return $limits[$context];
@@ -477,12 +477,12 @@ for $context"));
         # Initialize the limits with defaults
         if (count($cachedlimits) < 1) {
             foreach ($limits as $limit) {
-                $cachedlimits[$limit] = -1;
+                $cachedlimits[$limit] = 99999;
             }
         }
         
         # Collect the global limits
-        $res = ldap_search($this->_LDAP,
+        $res = @ldap_search($this->_LDAP,
             SHOUT_ASTERISK_BRANCH.','.$this->_params['basedn'],
             '(&(objectClass=asteriskLimits)(cn=globals))',
             $limits);
@@ -535,7 +535,7 @@ for $context"));
             }
             
             if (isset($extension)) {
-                $res = ldap_search($this->_LDAP,
+                $res = @ldap_search($this->_LDAP,
                     SHOUT_USERS_BRANCH.','.$this->_params['basedn'],
                     "(&(objectClass=asteriskLimits)(voiceMailbox=$extension)".
                     "(context=$context))");
@@ -569,6 +569,117 @@ for $context"));
         }
     }
     // }}}
+    
+    // {{{
+    /**
+     * Save a user to the LDAP tree
+     *
+     * @param string $context Context to which the user should be added
+     *
+     * @param string $extension Extension to be saved
+     *
+     * @param array $userdetails Phone numbers, PIN, options, etc to be saved
+     *
+     * @return TRUE on success, PEAR::Error object on error
+     */
+    function saveUser($context, $extension, $userdetails)
+    {
+        
+        $dn = $this->_params['uid'];
+        switch ($this->_params['uid']) {
+        case 'mail':
+            $uid = 'email';
+            break;
+        case 'cn':
+            $uid = 'name';
+            break;
+        case 'voiceMailbox':
+            return PEAR::raiseError("Unsupported user key/DN");
+        }
+        
+        
+        
+        # FIXME Access Control/Authorization
+        $entry = array(
+            'cn' => $userdetails['name'],
+            'mail' => $userdetails['email'],
+            'voiceMailbox' => $userdetails['newextension'],
+            'voiceMailboxPin' => $userdetails['pin'],
+            'context' => $context,
+            'asteriskUserDialOptions' => $userdetails['dialopts'],
+        );
+        if (!empty($userdetails['telephonenumbers'])) {
+            $entry['telephoneNumber'] = $userdetails['telephonenumbers'];
+        }
+        
+        $validusers = &$this->getUsers($context);
+        if (!isset($validusers[$extension])) {
+            # FIXME: What if just the extension changed?
+            
+            # We must be adding a new user.
+            $dn .= '='.$userdetails[$uid].',';
+            $dn .= SHOUT_USERS_BRANCH.','.$this->_params['basedn'];
+            
+            $entry['objectClass'] = array(
+                'top',
+                'person',
+                'organizationalPerson',
+                'inetOrgPerson',
+                'hordePerson',
+                'asteriskUser',
+                'asteriskVoiceMailbox'
+            );
+            
+            # Check to see if the maximum number of users for this context
+            # has been reached
+            $limits = $this->getLimits($context);
+            if (is_a($limits, "PEAR_Error")) {
+                return $limits;
+            }
+            if (count($validusers) >= $limits['asteriskusers']) {
+                print count($validusers).$limits['asteriskusers'];
+                return PEAR::raiseError('Maximum number of users reached.');
+            }
+            
+            $res = ldap_add($this->_LDAP, $dn, $entry);
+            if (!$res) {
+                print $dn;
+                print_r($entry);
+                return PEAR::raiseError('LDAP Add failed: ' .
+                    ldap_error($this->_LDAP));
+            }
+            
+            return true;
+        } else {
+            $key = $this->_params['uid'];
+            if ($validusers[$extension][$uid] != $entry[$key]) {
+            print "need rename\n";
+                $oldrdn = $key.'='.$validusers[$extension][$uid];
+                $oldparent = SHOUT_USERS_BRANCH.','.$this->_params['basedn'];
+                $newrdn = $key.'='.$entry[$key];
+                $res = ldap_rename($this->_LDAP, "$oldrdn,$oldparent",
+                    $newrdn, $oldparent, true);
+                if (!$res) {
+                    print $oldrdn;
+                    print $newrdn;
+                    print_r($entry);
+                    return PEAR::raiseError('LDAP Rename failed: ' .
+                        ldap_error($this->_LDAP));
+                }
+            }
+            $dn = $key.'='.$entry[$key];
+            $dn .= ','.SHOUT_USERS_BRANCH.','.$this->_params['basedn'];
+            $res = ldap_modify($this->_LDAP, $dn, $entry);
+            print_r($entry);
+            if (!$res) {
+                print $dn;
+                print_r($entry);
+                return PEAR::raiseError('LDAP Modify failed: ' .
+                    ldap_error($this->_LDAP));
+            }
+            return true;
+        }
+    }
 
     // {{{ _connect method
     /**

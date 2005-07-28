@@ -10,21 +10,6 @@
  * @package Shout
  */
 
-// {{{ Shout_User class
-/**
- * Class defining a single Asterisk user
- *
- * @package Shout
- */
-class Shout_User {
-    var $_name;
-    var $_extension;
-    var $_email;
-    var $_pager;
-    var $_pin;
-}
-    
-
 // {{{
 class UserDetailsForm extends Horde_Form {
 
@@ -48,13 +33,13 @@ class UserDetailsForm extends Horde_Form {
         parent::Horde_Form($vars, _("$formtitle - Context: $context"));
         
         $this->addHidden('', 'context', 'text', true);
-        $this->addHidden('', 'oldextension', 'text', true);
-        $vars->set('oldextension', $extension);
+        $this->addHidden('', 'curextension', 'text', true);
+        $vars->set('curextension', $extension);
         $this->addHidden('', 'action', 'text', true);
         $vars->set('action', 'save');
         $this->addVariable(_("Full Name"), 'name', 'text', true);
-        $this->addVariable(_("Extension"), 'extension', 'int', true);
-        $this->addVariable(_("E-Mail Address"), 'email', 'text', false);
+        $this->addVariable(_("Extension"), 'newextension', 'int', true);
+        $this->addVariable(_("E-Mail Address"), 'email', 'text', true);
         # TODO: Integrate with To-Be-Written user manager and possibly make this
         # TODO: new user also an email account.
         $this->addVariable(_("PIN"), 'pin', 'int', true);
@@ -93,6 +78,7 @@ class UserDetailsForm extends Horde_Form {
         $vars->set('name', $userdetails['name']);
         $vars->set('email', @$userdetails['email']);
         $vars->set('pin', $userdetails['mailboxpin']);
+        $vars->set('newextension', $vars->get('extension'));
         
         $i = 1;
         foreach($userdetails['phonenumbers'] as $number) {
