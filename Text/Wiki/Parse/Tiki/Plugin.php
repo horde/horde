@@ -1,6 +1,26 @@
 <?php
 class Text_Wiki_Parse_Plugin extends Text_Wiki_Parse {
 
+    /**
+     * Configurations keys, the script's name of the plugin will be prefixed and an extension added
+     * the path is a comma separated list of directories where to find it
+     *
+     * @access public
+     * @var string
+     */
+    var $conf = array (
+    	'file_prefix' => 'wikiplugin_',
+    	'file_extension' => '.php',
+    	'file_path' => 'lib/wiki-plugins/'
+    );
+
+    /**
+     * The regular expression used in second stage to find plugin's arguments
+     *
+     * @access public
+     * @var string
+     */
+    var $regexArgs =  '#(\w+?)=>?("[^"]+"|\'[^\']+\'|[^"\'][^,]+)#';
 
     /**
     *
@@ -14,7 +34,7 @@ class Text_Wiki_Parse_Plugin extends Text_Wiki_Parse {
     */
 
     //var $regex = '/^({([A-Z]+?)\((.+)?\)})((.+)({\2}))?(\s|$)/Umsi';
-    var $regex = '/(^|\s)\{([A-Z]+?)\((.+?)?\)}(.*?)\{\2}(\s|$)/msi';
+    var $regex = '/\{([A-Z]+?)\((.*?)\)}((?:(?R)|.)*?)\{\1}/msi';
 
 
     /**
@@ -34,35 +54,40 @@ class Text_Wiki_Parse_Plugin extends Text_Wiki_Parse {
 
     function process(&$matches)
     {
-        // are there additional attribute arguments?
-        $args = trim($matches[2]);
-
-        if ($args == '') {
-            $options = array(
-                'text' => $matches[3],
-                'plugin' => $matches[1],
-                'attr' => array()
-            );
-        } else {
-        	// get the attributes...
-        	//$attr = $this->getAttrs($args);
-            foreach (explode(',', $args) as $part) {
-                if (false !== ($eq = strpos($part, '=')) && $eq != strlen($part) - 1) {
-                    $attr[substr($part, 0, $eq)] = substr($part, $eq + 1 + ($part[$eq + 1] == '>' ? 1 : 0));
-                } else {
-                    $attr[$part] = '';
+        $func = $this->getConf('file_prefix') . strtolower($matches[1]);
+        if (!function_exists($func)) {
+            $file = $func . $this->getConf('file_extension');
+            $paths = explode(',', $this->getConf('file_path'));
+            $found = false;
+            foreach ($paths as $path) {
+                if (file_exists($pathfile = trim($path) . DIRECTORY_SEPARATOR . $file)) {
+                    require_once $pathfile;
+                    break;
                 }
             }
-
-        	// retain the options
-            $options = array(
-                'text' => $matches[3],
-                'plugin' => $matches[1],
-                'attr' => $attr
-            );
+            if (!function_exists($func)) {
+                return $matches[0];
+            }
         }
 
-        return $this->wiki->addToken($this->rule, $options) . $matches[4];
+        // are there additional attribute arguments?
+    	preg_match_all($this->regexArgs, $matches[2], $args, PREG_PATTERN_ORDER);
+        $attr = array();
+        foreach ($args[1] as $i=>$name) {
+            if ($args[2][$i]{0} == '"' || $args[2][$i]{0} == "'") {
+                $attr[$name] = substr($args[2][$i], 1, -1);
+            } else {
+                $attr[$name] = trim($args[2][$i]);
+            }
+        }
+
+        // executes the plugin with data and pameters then recursive re-parse for nested or produced plugins
+        $res = $func($matches[3], $attr);
+        return preg_replace_callback(
+                $this->regex,
+                array(&$this, 'process'),
+                $res
+            );
     }
 }
 ?>
