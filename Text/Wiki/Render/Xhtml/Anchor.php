@@ -25,7 +25,7 @@ class Text_Wiki_Render_Xhtml_Anchor extends Text_Wiki_Render {
         if ($type == 'start') {
             $css = $this->formatConf(' class="%s"', 'css');
             $format = "<a$css id=\"%s\">";
-            return sprintf($format ,$name);
+            return sprintf($format, htmlentities($name));
         }
         
         if ($type == 'end') {
