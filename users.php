@@ -40,7 +40,6 @@ switch ($action) {
         $title = _("Add User");
         # Treat adds just like an empty edit
         unset($extension);
-        $action = 'edit';
         break;
     case "edit":
         $title = _("Edit User (Extension") . "$extension)";

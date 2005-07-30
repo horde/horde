@@ -1,8 +1,13 @@
 <?php
 
+# Make Shout methods available
+require_once SHOUT_BASE . '/lib/Shout.php';
+
 // {{{ Shout_Driver_ldap class
 class Shout_Driver_ldap extends Shout_Driver
 {
+    var $_ldapKey;  // Index used for storing objects
+    var $_appKey;   // Index used for moving info to/from the app
 
     // {{{ Class local variables
     /**
@@ -29,6 +34,42 @@ class Shout_Driver_ldap extends Shout_Driver
     {
         parent::Shout_Driver($params);
         $this->_connect();
+       
+        /* These next lines will translate between indexes used in the
+         * application and LDAP.  The rationale is that translation here will
+         * help make Shout more driver-independant.  The keys used to contruct
+         * user arrays should be more appropriate to human-legibility (name
+         * instead of 'cn' and email instead of 'mail').  This translation is
+         * only needed because LDAP indexes users based on an arbitrary
+         * attribute and the application indexes by extension/context.  In my
+         * environment users are indexed by their 'mail' attribute and others
+         * may index based on 'cn' or 'uid'.  Any time a new $prefs['uid'] needs
+         * to be supported, this function should be checked and possibly
+         * modified to handle that translation.
+         */
+        switch($this->_params['uid']) {
+        case 'cn':
+            $this->_ldapKey = 'cn';
+            $this->_appKey = 'name';
+            break;
+        case 'mail':
+            $this->_ldapKey = 'mail';
+            $this->_appKey = 'email';
+            break;
+        case 'uid':
+            # There is no value that maps uid to LDAP so we can choose to use
+            # either extension or name, or anything really.  I want to
+            # support it since it's a very common DN attribute.
+            # Since it's entirely administrator's preference, I'll
+            # set it to name for now
+            $this->_ldapKey = 'uid';
+            $this->_appKey = 'name';
+            break;
+        case 'voiceMailbox':
+            $this->_ldapKey = 'voiceMailbox';
+            $this->_appKey = 'extension';
+            break;
+        }
     }
     // }}}
 
@@ -91,7 +132,7 @@ class Shout_Driver_ldap extends Shout_Driver
 
 
         # Collect all the possible contexts from the backend
-        $res = ldap_search($this->_LDAP,
+        $res = @ldap_search($this->_LDAP,
             SHOUT_ASTERISK_BRANCH.','.$this->_params['basedn'],
             "(&(objectClass=asteriskObject)$searchfilter)",
             array('context'));
@@ -149,7 +190,7 @@ class Shout_Driver_ldap extends Shout_Driver
                 break;
         }
 
-        $res = ldap_search($this->_LDAP,
+        $res = @ldap_search($this->_LDAP,
             SHOUT_ASTERISK_BRANCH.','.$this->_params['basedn'],
             "(&(objectClass=asteriskObject)$searchfilter(context=$context))",
             array("context"));
@@ -171,7 +212,7 @@ type");
     }
     // }}}
 
-    // {{{ _getUsers method
+    // {{{ getUsers method
     /**
      * Get a list of users valid for the contexts
      *
@@ -186,7 +227,8 @@ type");
         if (isset($entries[$context])) {
             return $entries[$context];
         }
-        $search = ldap_search($this->_LDAP,
+        
+        $search = @ldap_search($this->_LDAP,
             SHOUT_USERS_BRANCH.','.$this->_params['basedn'],
             '(&(objectClass='.SHOUT_USER_OBJECTCLASS.')(context='.$context.'))',
             array('voiceMailbox', 'asteriskUserDialOptions',
@@ -194,7 +236,8 @@ type");
                 'cn', 'telephoneNumber',
                 'asteriskUserDialTimeout', 'mail', 'asteriskPager'));
         if (!$search) {
-            return PEAR::raiseError("Unable to search directory");
+            return PEAR::raiseError("Unable to search directory: " .
+                ldap_error($this->_LDAP));
         }
         $res = ldap_get_entries($this->_LDAP, $search);
         $entries[$context] = array();
@@ -258,7 +301,7 @@ type");
      */
     function getHomeContext()
     {
-        $res = ldap_search($this->_LDAP,
+        $res = @ldap_search($this->_LDAP,
             SHOUT_USERS_BRANCH.','.$this->_params['basedn'],
             "(&(mail=".Auth::getAuth().")(objectClass=asteriskUser))",
             array('context'));
@@ -288,7 +331,7 @@ type");
     function getContextProperties($context)
     {
 
-        $res = ldap_search($this->_LDAP,
+        $res = @ldap_search($this->_LDAP,
             SHOUT_ASTERISK_BRANCH.','.$this->_params['basedn'],
             "(&(objectClass=asteriskObject)(context=$context))",
             array('objectClass'));
@@ -327,7 +370,7 @@ for $context"));
     }
     // }}}
 
-    // {{{ _getDialplan method
+    // {{{ getDialplan method
     /**
      * Get a context's dialplan and return as a multi-dimensional associative
      * array
@@ -344,7 +387,7 @@ for $context"));
             return $dialplans[$context];
         }
         
-        $res = ldap_search($this->_LDAP,
+        $res = @ldap_search($this->_LDAP,
             SHOUT_ASTERISK_BRANCH.','.$this->_params['basedn'],
             "(&(objectClass=asteriskExtensions)(context=$context))",
             array('asteriskExtensionLine', 'asteriskIncludeLine',
@@ -584,22 +627,13 @@ for $context"));
      */
     function saveUser($context, $extension, $userdetails)
     {
-        
-        $dn = $this->_params['uid'];
-        switch ($this->_params['uid']) {
-        case 'mail':
-            $uid = 'email';
-            break;
-        case 'cn':
-            $uid = 'name';
-            break;
-        case 'voiceMailbox':
-            return PEAR::raiseError("Unsupported user key/DN");
-        }
-        
-        
+        # FIXME: Add test to make sure we aren't duplicating the extension
         
         # FIXME Access Control/Authorization
+        
+        $ldapKey = &$this->_ldapKey;
+        $appKey = &$this->_appKey;
+        
         $entry = array(
             'cn' => $userdetails['name'],
             'mail' => $userdetails['email'],
@@ -608,80 +642,159 @@ for $context"));
             'context' => $context,
             'asteriskUserDialOptions' => $userdetails['dialopts'],
         );
-        if (!empty($userdetails['telephonenumbers'])) {
+        
+        if (!empty ($userdetails['telephonenumbers'])) {
             $entry['telephoneNumber'] = $userdetails['telephonenumbers'];
         }
         
         $validusers = &$this->getUsers($context);
         if (!isset($validusers[$extension])) {
-            # FIXME: What if just the extension changed?
+            # Test to see if we're modifying an existing user that has
+            # no telephone system objectClasses and update that object/user
+            $rdn = "$ldapKey=".$userdetails[$appKey].',';
+            $branch = SHOUT_USERS_BRANCH.','.$this->_params['basedn'];
             
-            # We must be adding a new user.
-            $dn .= '='.$userdetails[$uid].',';
-            $dn .= SHOUT_USERS_BRANCH.','.$this->_params['basedn'];
-            
-            $entry['objectClass'] = array(
-                'top',
-                'person',
-                'organizationalPerson',
-                'inetOrgPerson',
-                'hordePerson',
-                'asteriskUser',
-                'asteriskVoiceMailbox'
-            );
-            
-            # Check to see if the maximum number of users for this context
-            # has been reached
-            $limits = $this->getLimits($context);
-            if (is_a($limits, "PEAR_Error")) {
-                return $limits;
-            }
-            if (count($validusers) >= $limits['asteriskusers']) {
-                print count($validusers).$limits['asteriskusers'];
-                return PEAR::raiseError('Maximum number of users reached.');
-            }
-            
-            $res = ldap_add($this->_LDAP, $dn, $entry);
-            if (!$res) {
-                print $dn;
-                print_r($entry);
-                return PEAR::raiseError('LDAP Add failed: ' .
-                    ldap_error($this->_LDAP));
-            }
-            
-            return true;
-        } else {
-            $key = $this->_params['uid'];
-            if ($validusers[$extension][$uid] != $entry[$key]) {
-            print "need rename\n";
-                $oldrdn = $key.'='.$validusers[$extension][$uid];
-                $oldparent = SHOUT_USERS_BRANCH.','.$this->_params['basedn'];
-                $newrdn = $key.'='.$entry[$key];
-                $res = ldap_rename($this->_LDAP, "$oldrdn,$oldparent",
-                    $newrdn, $oldparent, true);
+            # This test is something of a hack.  I want a cheap way to check
+            # for the existance of an object.  I don't want to do a full search
+            # so instead I compare that the dn equals the dn.  If the object
+            # exists then it'll return true.  If the object doesn't exist,
+            # it'll return error.  If it ever returns false something wierd
+            # is going on.
+            $res = @ldap_compare($this->_LDAP, $rdn.$branch,
+                    $ldapKey, $userdetails[$appKey]);
+            if ($res === false) {
+                # We should never get here: a DN should ALWAYS match itself
+                return PEAR::raiseError("Internal Error: " . __FILE__ . " at " .
+                    __LINE__);
+            } elseif ($res === true) {
+                # The object/user exists but doesn't have the Asterisk
+                # objectClasses
+                $extension = $userdetails['newextension'];
+                
+                # $tmp is the minimal information required to establish
+                # an account in LDAP as required by the objectClasses.
+                # The entry will be fully populated below.
+                $tmp = array();
+                $tmp['objectClass'] = array(
+                    'asteriskUser',
+                    'asteriskVoiceMailbox'
+                );
+                $tmp['voiceMailbox'] = $extension;
+                $tmp['context'] = $context;
+                $res = @ldap_mod_add($this->_LDAP, $rdn.$branch, $tmp);
                 if (!$res) {
-                    print $oldrdn;
-                    print $newrdn;
-                    print_r($entry);
-                    return PEAR::raiseError('LDAP Rename failed: ' .
+                    return PEAR::raiseError("Unable to modify the user: " .
                         ldap_error($this->_LDAP));
                 }
+                
+                # Populate the $validusers array to make the edit go smoothly
+                # below
+                $validusers[$extension] = array();
+                $validusers[$extension][$appKey] = $userdetails[$appKey];
+
+                # The remainder of the work is done at the outside of the
+                # parent if() like a normal edit.
+                
+            } elseif ($res === -1) {
+                # We must be adding a new user.
+                $entry['objectClass'] = array(
+                    'top',
+                    'person',
+                    'organizationalPerson',
+                    'inetOrgPerson',
+                    'hordePerson',
+                    'asteriskUser',
+                    'asteriskVoiceMailbox'
+                );
+                
+                # Check to see if the maximum number of users for this context
+                # has been reached
+                $limits = $this->getLimits($context);
+                if (is_a($limits, "PEAR_Error")) {
+                    return $limits;
+                }
+                if (count($validusers) >= $limits['asteriskusers']) {
+                    print count($validusers).$limits['asteriskusers'];
+                    return PEAR::raiseError('Maximum number of users reached.');
+                }
+                
+                $res = @ldap_add($this->_LDAP, $rdn.$branch, $entry);
+                if (!$res) {
+                    return PEAR::raiseError('LDAP Add failed: ' .
+                        ldap_error($this->_LDAP));
+                }
+                
+                return true;
             }
-            $dn = $key.'='.$entry[$key];
-            $dn .= ','.SHOUT_USERS_BRANCH.','.$this->_params['basedn'];
-            $res = ldap_modify($this->_LDAP, $dn, $entry);
-            print_r($entry);
+        }
+        
+        # Anything after this point is an edit.
+        
+        # Check to see if the object needs to be renamed (DN changed)
+        if ($validusers[$extension][$appKey] != $entry[$ldapKey]) {
+            $oldrdn = $ldapKey.'='.$validusers[$extension][$appKey];
+            $oldparent = SHOUT_USERS_BRANCH.','.$this->_params['basedn'];
+            $newrdn = $ldapKey.'='.$entry[$ldapKey];
+            $res = @ldap_rename($this->_LDAP, "$oldrdn,$oldparent",
+                $newrdn, $oldparent, true);
             if (!$res) {
-                print $dn;
-                print_r($entry);
-                return PEAR::raiseError('LDAP Modify failed: ' .
+                return PEAR::raiseError('LDAP Rename failed: ' .
                     ldap_error($this->_LDAP));
             }
-            return true;
         }
+        
+        # Update the object/user
+        $dn = $ldapKey.'='.$entry[$ldapKey];
+        $dn .= ','.SHOUT_USERS_BRANCH.','.$this->_params['basedn'];
+        $res = @ldap_modify($this->_LDAP, $dn, $entry);
+        if (!$res) {
+            return PEAR::raiseError('LDAP Modify failed: ' .
+                ldap_error($this->_LDAP));
+        }
+        
+        # We must have been successful
+        return true;
     }
-
-    // {{{ _connect method
+    // }}}
+    
+    // {{{ deleteUser method
+    /**
+     * Deletes a user from the LDAP tree
+     * 
+     * @param string $context Context to delete the user from
+     * @param string $extension Extension of the user to be deleted
+     *
+     * @return boolean True on success, PEAR::Error object on error
+     */
+    function deleteUser($context, $extension)
+    {
+        $ldapKey = &$this->_ldapKey;
+        $appKey = &$this->_appKey;
+        
+        if (!Shout::checkRights("shout:contexts:$context:users",
+            PERMS_DELETE, 1)) {
+            return PEAR::raiseError("No permission to delete users in this " .
+                "context.");
+        }
+        
+        $validusers = $this->getUsers($context);
+        if (!isset($validusers[$extension])) {
+            return PEAR::raiseError("That extension does not exist.");
+        }
+        
+        $dn = "$ldapKey=".$validusers[$extension][$appKey];
+        $dn .= ',' . SHOUT_USERS_BRANCH . ',' . $this->_params['basedn'];
+        
+        $res = @ldap_delete($this->_LDAP, $dn);
+        if (!$res) {
+            return PEAR::raiseError("Unable to delete $extension from " .
+                "$context: " . ldap_error($this->_LDAP));
+        }
+        return true;
+    }
+    // }}}
+    
+    // {{{ connect method
     /**
      * Attempts to open a connection to the LDAP server.
      *

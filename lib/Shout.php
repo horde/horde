@@ -36,7 +36,7 @@ class Shout
                                                   'section' => $section,
                                                   'action' => 'add'));
             
-            # Goofy hack to make the icon make a little sense
+            # Goofy hack to make the icon make a little more sense
             # when editing/deleting users
             if (!isset($action)) {
                 $icontitle = "Add";
@@ -158,13 +158,14 @@ class Shout
 
         # Default deny all permissions
         $user = 0;
+        $superadmin = 0;
 
         $superadmin = Auth::isAdmin("shout:superadmin", $permmask);
 
         while ($numparents >= 0) {
             $tmpuser = Auth::isAdmin($permname, $permmask);
             $user = $user | $tmpuser;
-            if ($numparents> 0) {
+            if ($numparents > 0) {
                 $pos = strrpos($permname, ':');
                 if ($pos) {
                     $permname = substr($permname, 0, $pos);
