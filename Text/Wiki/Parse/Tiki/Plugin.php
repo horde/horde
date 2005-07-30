@@ -1,4 +1,33 @@
 <?php
+// vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4:
+/**
+ * Plugin rule end parser for tikiwiki
+ *
+ * PHP versions 4 and 5
+ *
+ * @category   Text
+ * @package    Text_Wiki
+ * @author     Bertrand Gugger <bertrand@toggg.com>
+ * @author     Justin Patrin <papercrane@reversefold.com>
+ * @author     Paul M. Jones <pmjones@php.net>
+ * @license    http://www.gnu.org/copyleft/lesser.html  LGPL License 2.1
+ * @version    CVS: $Id$
+ * @link       http://pear.php.net/package/Text_Wiki
+ */
+
+/**
+ * This class parses plugins for tikiwiki and replace them with the produced markup
+ * Plugins are defined by {NAME(param=>val, ...)}...data...{NAME} (parameters optional)
+ * They can nest and produce plugins themselves
+ *
+ * @category   Text
+ * @package    Text_Wiki
+ * @author     Bertrand Gugger <bertrand@toggg.com>
+ * @author     Justin Patrin <papercrane@reversefold.com>
+ * @license    http://www.gnu.org/copyleft/lesser.html  LGPL License 2.1
+ * @version    Release: @package_version@
+ * @link       http://pear.php.net/package/Text_Wiki
+ */
 class Text_Wiki_Parse_Plugin extends Text_Wiki_Parse {
 
     /**
