@@ -1,7 +1,30 @@
 <?php
+// vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4:
+/**
+ * Wikilink rule end renderer for Xhtml
+ *
+ * PHP versions 4 and 5
+ *
+ * @category   Text
+ * @package    Text_Wiki
+ * @author     Paul M. Jones <pmjones@php.net>
+ * @license    http://www.gnu.org/copyleft/lesser.html  LGPL License 2.1
+ * @version    CVS: $Id$
+ * @link       http://pear.php.net/package/Text_Wiki
+ */
 
+/**
+ * This class renders wiki links in XHTML.
+ *
+ * @category   Text
+ * @package    Text_Wiki
+ * @author     Paul M. Jones <pmjones@php.net>
+ * @license    http://www.gnu.org/copyleft/lesser.html  LGPL License 2.1
+ * @version    Release: @package_version@
+ * @link       http://pear.php.net/package/Text_Wiki
+ */
 class Text_Wiki_Render_Xhtml_Wikilink extends Text_Wiki_Render {
-    
+
     var $conf = array(
         'pages' => array(), // set to null or false to turn off page checks
         'view_url' => 'http://example.com/index.php?page=%s',
@@ -12,26 +35,26 @@ class Text_Wiki_Render_Xhtml_Wikilink extends Text_Wiki_Render {
         'css_new' => null,
         'exists_callback' => null // call_user_func() callback
     );
-    
-    
+
+
     /**
-    * 
+    *
     * Renders a token into XHTML.
-    * 
+    *
     * @access public
-    * 
+    *
     * @param array $options The "options" portion of the token (second
     * element).
-    * 
+    *
     * @return string The text rendered from the token options.
-    * 
+    *
     */
-    
+
     function token($options)
     {
         // make nice variable names (page, anchor, text)
         extract($options);
-        
+
         // is there a "page existence" callback?
         // we need to access it directly instead of through
         // getConf() because we'll need a reference (for
@@ -41,7 +64,7 @@ class Text_Wiki_Render_Xhtml_Wikilink extends Text_Wiki_Render {
         } else {
         	$callback = false;
         }
-		
+
         if ($callback) {
             // use the callback function
             $exists = call_user_func($callback, $page);
@@ -56,24 +79,24 @@ class Text_Wiki_Render_Xhtml_Wikilink extends Text_Wiki_Render {
                 $exists = true;
             }
         }
-        
+
         // convert *after* checking against page names so as not to mess
         // up what the user typed and what we're checking.
         $page = htmlspecialchars($page);
         $anchor = htmlspecialchars($anchor);
         $text = htmlspecialchars($text);
-        
+
         // does the page exist?
         if ($exists) {
-        
+
             // PAGE EXISTS.
-        
+
             // link to the page view, but we have to build
             // the HREF.  we support both the old form where
             // the page always comes at the end, and the new
             // form that uses %s for sprintf()
             $href = $this->getConf('view_url');
-            
+
             if (strpos($href, '%s') === false) {
                 // use the old form (page-at-end)
                 $href = $href . $page . $anchor;
@@ -81,26 +104,26 @@ class Text_Wiki_Render_Xhtml_Wikilink extends Text_Wiki_Render {
                 // use the new form (sprintf format string)
                 $href = sprintf($href, $page . $anchor);
             }
-            
+
             // get the CSS class and generate output
             $css = $this->formatConf(' class="%s"', 'css');
             $output = "<a$css href=\"$href\">$text</a>";
-        
+
         } else {
-            
+
             // PAGE DOES NOT EXIST.
-            
+
             // link to a create-page url, but only if new_url is set
             $href = $this->getConf('new_url', null);
-            
+
             // set the proper HREF
             if (! $href || trim($href) == '') {
-            
+
                 // no useful href, return the text as it is
                 $output = $text;
-                
+
             } else {
-            
+
                 // yes, link to the new-page href, but we have to build
                 // it.  we support both the old form where
                 // the page always comes at the end, and the new
@@ -113,11 +136,11 @@ class Text_Wiki_Render_Xhtml_Wikilink extends Text_Wiki_Render {
                     $href = sprintf($href, $page);
                 }
             }
-            
+
             // get the appropriate CSS class and new-link text
             $css = $this->formatConf(' class="%s"', 'css_new');
             $new = $this->getConf('new_text');
-            
+
             // what kind of linking are we doing?
             $pos = $this->getConf('new_text_pos');
             if (! $pos || ! $new) {
