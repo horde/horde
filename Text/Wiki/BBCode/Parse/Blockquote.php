@@ -29,27 +29,35 @@
  * @license    http://www.gnu.org/copyleft/lesser.html  LGPL License 2.1
  * @version    Release: @package_version@
  * @link       http://pear.php.net/package/Text_Wiki
- * @see        Text_Wiki_Parse_BBCode::Text_Wiki_Parse_BBCode()
+ * @see        Text_Wiki_Parse_BBCode::Text_Wiki_Parse()
  */
-class Text_Wiki_Parse_Blockquote extends Text_Wiki_Parse_BBCode {
+class Text_Wiki_Parse_Blockquote extends Text_Wiki_Parse {
 
     /**
      * The regular expression used to parse the source text and find
      * matches conforming to this rule.  Used by the parse() method.
-     * We match either [color..] or [/color], will be post synchronized
+     * We match [quote=..] ... [/quote] with nesting
      *
      * @access public
      * @var string
      * @see Text_Wiki_Parse_BBCode::parse()
      */
+    var $regex = '#\[quote(?:=\s*"(.*?)")?\s*]((?:((?R))|.)*?)\[/quote]#msi';
 
-    var $regex = '#(?:(\[quote(?:=\s*"(.*?)")?\s*])|\[/quote])#i';
+    /**
+     * The current quote nesting depth, starts by zero
+     *
+     * @access private
+     * @var int
+     */
+    var $_level = 0;
 
     /**
      * Generates a replacement for the matched text.  Token options are:
      * - 'type' => ['start'|'end'] The starting or ending point of the
      * block-quoted text.  The text itself is left in the source.
-     * - 'name' => the author indicator 'optional) (by post synchro for end)
+     * - 'level' => the level of nesting (starting 0)
+     * - 'name' => the author indicator (optional)
      *
      * @access public
      * @param array &$matches The array of matches from parse().
@@ -58,27 +66,28 @@ class Text_Wiki_Parse_Blockquote extends Text_Wiki_Parse_BBCode {
      * colored.
      */
     function process(&$matches)
-    {
-        // end tag ?
-        if (!isset($matches[1])) {
-            if (!($start = $this->getStart())) {
-                return $matches;
-            }
-            // builds the option array
-            $options = array('type' => 'end', 'level'=>$start['level']);
-            if (isset($this->wiki->tokens[$start['tok']][1]['name'])) {
-                $options['name'] = $this->wiki->tokens[$start['tok']][1]['name'];
-            }
-            return $this->wiki->addToken($this->rule, $options);
+    {print_r($matches);
+        // nested block ?
+        if (array_key_exists(3, $matches)) {
+            $this->_level++;
+            $expsub = preg_replace_callback(
+                $this->regex,
+                array(&$this, 'process'),
+                $matches[2]
+            );
+            $this->_level--;
+        } else {
+            $expsub = $matches[2];
         }
 
         // builds the option array
-        $options = array();
-        if (isset($matches[2])) {
-            $options['name'] = $matches[2];
+        $options = array('type' => 'start', 'level'=>$this->_level);
+        if (isset($matches[1])) {
+            $options['name'] = $matches[1];
         }
-
-        return $this->addStart($options, $matches);
+        $statok = $this->wiki->addToken($this->rule, $options);
+        $options['type'] = 'end';
+        return $statok . $expsub . $this->wiki->addToken($this->rule, $options);
     }
 }
 ?>
