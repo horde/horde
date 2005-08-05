@@ -16,7 +16,7 @@
 
 /**
  * Baseline rule class for BBCode parser.
- * 
+ *
  * The parse() method enables the nesting of components
  * thru a custom method to synchronize "start" and "end" tags
  *
@@ -33,100 +33,82 @@
  * @see        Text_Wiki::Text_Wiki_Parse()
  */
 class Text_Wiki_Parse_BBCode extends Text_Wiki_Parse {
-    
+
     /**
      * Flag indicating to the parse method to re-parse the source for nesting
-     * 
+     *
      * @access public
      * @var boolean
      */
     var $done = true;
-    
+
     /**
-     * Flag indicating to the parse method to synchronize nested start and end tags
-     * by calling the custom method synchStartEnd() for each corresponding pair of them
-     * 'type'=>'start' or 'type'=>'end' are then mandatory for this rule's tokens
-     * The post synchronization function has the followolng interface:
-     * function synchStartEnd(&$statok, &$endtok, $level, $stapos, $endpos)
-     *   @param &array $statok the param array of start token
-     *   @param &array $endtok the param array of end token
-     *   @param int $level nesting depth
-     *   @param int $stapos the position behind start token in source
-     *   @param int $endpos the position of end token in source (after tag's data)
-     *   @return null or error
-     * 
+     * Array staking the start tags as they are parsed
+     * They will be correspondingly unstacked when parsing the end tags
+     * Each element is an associative array:
+     * 'token'=>'token number', 'tag'=>'original tag' , 'level' of nesting (starting  0)
+     * and eventually specific values for this rule
+     *
      * @access private
      * @var boolean
      */
-    var $_synch = false;
-    
+    var $_start = array();
+
     /**
-     * Constructor for this parser rule.
-     * 
+     * Adds a token id and stacks the start tag
+     * The options 'type'=>'start' and 'level' will be auto-added
+     *
      * @access public
-     * @param object &$obj The calling "parent" Text_Wiki object.
-     * 
+     * @param array $options The extra options for this token
+     * @param string $tag The original tag text
+     * @return string The delemited token id
      */
-    function Text_Wiki_Parse_BBCode(&$obj)
+    function addStart($options = array(), $tag = '')
     {
-        parent::Text_Wiki_Parse($obj);
-        $this->_synch = method_exists($this, 'synchStartEnd');
+        $options['type'] = 'start';
+        $options['level'] = count($this->_start);
+        $tok = $this->wiki->addToken($this->rule, $options, true);
+        $this->_start[] = array('tok'=>$tok, 'level'=>$options['level'], 'tag'=>$tag);
+
+        // return the token number with delimiters
+        return $this->wiki->delim . $tok . $this->wiki->delim;
     }
-    
-    
+
+    /**
+     * Pops a start token from the stack
+     *
+     * @access public
+     * @return mixed null if error, the associative array describing the start token if OK
+     */
+    function getStart()
+    {
+        // pops and returns the last element in stack
+        return array_pop($this->_start);
+    }
+
     /**
      * Abstract method to parse source text for matches.
      *
      * Repeats the parent parse method until done
      * Nesting rules process() can set this flag to false for redo
-     * Calls the custom post synchronization if exists in the class
+     * Cares of orphan start tags if any
      *
      * @access public
      * @see Text_Wiki_Parse::parse()
      */
     function parse()
     {
-        if ($this->_synch) {
-            $loop = -1;
-            do {
-                $this->done = true;
-                $tokno = $this->wiki->addToken(
-                    $this->rule, array('type'=>'parseStart'.$loop), 'id_only');
-                parent::parse();
-                $tokend = $this->wiki->addToken(
-                    $this->rule, array('type'=>'parseEnd'.$loop), 'id_only');
-                $pos = $lev = 0;
-                $stapos = array();
-                $statok = array();
-                while (++$tokno < $tokend) {
-                    $find = $this->wiki->delim . $tokno . $this->wiki->delim;
-                    $newpos = strpos($this->wiki->source, $find, $pos);
-                    if ($this->wiki->tokens[$tokno][1]['type'] == 'start') {
-                        $stapos[$lev] = $newpos + strlen($find);
-                        $statok[$lev++] = $tokno;
-                        continue;
-                    }
-                    if ($this->wiki->tokens[$tokno][1]['type'] != 'end') {
-                        continue;
-                    }
-                    $oldlen = strlen($this->wiki->source);
-                    if ($err = $this->synchStartEnd(
-                        $this->wiki->tokens[array_pop($statok)][1],
-                        $this->wiki->tokens[$tokno][1],
-                        $lev, array_pop($stapos), $newpos)) {
-                        // error ?
-                    }
-                    $pos = $newpos + strlen($find) +
-                                 strlen($this->wiki->source) - $oldlen;
-                    $lev--;
-                }
-            } while (!$this->done);
-        } else {
-            do {
-                $this->done = true;
-                parent::parse();
-            } while (!$this->done);
-        }
+        do {
+            $this->done = true;
+            $this->_start = array();
+            parent::parse();
+            foreach ($this->_start as $elt) { // orphan start tags
+                $this->wiki->source = str_replace(
+                        $this->wiki->delim . $elt['tok'] . $this->wiki->delim,
+                        $elt['tag'],
+                        $this->wiki->source);
+            }
+        } while (!$this->done);
     }
 }
 ?>
