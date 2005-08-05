@@ -66,7 +66,7 @@ class Text_Wiki_Parse_Blockquote extends Text_Wiki_Parse {
      * colored.
      */
     function process(&$matches)
-    {print_r($matches);
+    {
         // nested block ?
         if (array_key_exists(3, $matches)) {
             $this->_level++;
