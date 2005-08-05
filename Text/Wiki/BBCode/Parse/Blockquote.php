@@ -54,16 +54,15 @@ class Text_Wiki_Parse_Blockquote extends Text_Wiki_Parse {
 
     /**
      * Generates a replacement for the matched text.  Token options are:
-     * - 'type' => ['start'|'end'] The starting or ending point of the
-     * block-quoted text.  The text itself is left in the source.
+     * - 'type' => ['start'|'end'] The starting or ending point of the block-quoted text.
+     * The text itself is left in the source but may content bested blocks
      * - 'level' => the level of nesting (starting 0)
      * - 'name' => the author indicator (optional)
      *
      * @access public
      * @param array &$matches The array of matches from parse().
-     * @return string A delimited token to be used as a start/end
-     * placeholder in the source text surrounding the text to be
-     * colored.
+     * @return string Delimited by start/end tokens to be used as
+     * placeholder in the source text surrounding the text to be quoted.
      */
     function process(&$matches)
     {
