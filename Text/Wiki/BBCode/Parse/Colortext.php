@@ -29,53 +29,65 @@
  * @license    http://www.gnu.org/copyleft/lesser.html  LGPL License 2.1
  * @version    Release: @package_version@
  * @link       http://pear.php.net/package/Text_Wiki
- * @see        Text_Wiki_Parse_BBCode::Text_Wiki_Parse_BBCode()
+ * @see        Text_Wiki_Parse_BBCode::Text_Wiki_Parse()
  */
-class Text_Wiki_Parse_Colortext extends Text_Wiki_Parse_BBCode {
+class Text_Wiki_Parse_Colortext extends Text_Wiki_Parse {
 
     /**
      * The regular expression used to parse the source text and find
      * matches conforming to this rule.  Used by the parse() method.
-     * We match either [color..] or [/color], will be post synchronized
+     * We match either [color..] ... [/color] nested
      *
      * @access public
      * @var string
      * @see Text_Wiki_Parse_BBCode::parse()
      */
 
-    var $regex = "'(?:\[color=(aqua|black|blue|fuchsia|gray|green|lime|maroon|navy|olive|purple|red|silver|teal|white|yellow|\#[0-9a-f]{6})]|\[/color])'i";
+    var $regex = "'(?:\[color=(aqua|black|blue|fuchsia|gray|green|lime|maroon|navy|olive|purple|red|silver|teal|white|yellow|\#[0-9a-f]{6})]((?:((?R))|.)*?)\[/color])'msi";
+
+    /**
+     * The current color nesting depth, starts by zero
+     *
+     * @access private
+     * @var int
+     */
+    var $_level = 0;
 
     /**
      * Generates a replacement for the matched text.  Token options are:
-     * - 'type' => ['start'|'end'] The starting or ending point of the
-     * colored text.  The text itself is left in the source.
-     * - 'color' => the color indicator (by post synchro for end)
+     * - 'type' => ['start'|'end'] The starting or ending point of the colored text.
+     * The text itself is left in the source but may content bested blocks
+     * - 'level' => the level of nesting (starting 0)
+     * - 'color' => the color indicator
      *
      * @access public
      * @param array &$matches The array of matches from parse().
-     * @return string A delimited token to be used as a start/end
-     * placeholder in the source text surrounding the text to be
-     * colored.
+     * @return string Delimited by start/end tokens to be used as
+     * placeholder in the source text surrounding the text to be colored.
      */
     function process(&$matches)
     {
-        // end tag ?
-        if (!isset($matches[1])) {
-            if (!($start = $this->getStart())) {
-                return $matches;
-            }
-            return $this->wiki->addToken(
-                $this->rule,
-                array(
-                    'type' => 'end',
-                    'color' => $this->wiki->tokens[$start['tok']][1]['color']
-                )
+        // nested block ?
+        if (array_key_exists(3, $matches)) {
+            $this->_level++;
+            $expsub = preg_replace_callback(
+                $this->regex,
+                array(&$this, 'process'),
+                $matches[2]
             );
+            $this->_level--;
+        } else {
+            $expsub = $matches[2];
         }
 
         // needs to withdraw leading # as renderer put it in
         $color = $matches[1]{0} == '#' ? substr($matches[1], 1) : $matches[1];
-        return $this->addStart(array('color' => $color), $matches);
+
+        // builds the option array
+        $options = array('type' => 'start', 'level' => $this->_level, 'color' => $color);
+        $statok = $this->wiki->addToken($this->rule, $options);
+        $options['type'] = 'end';
+        return $statok . $expsub . $this->wiki->addToken($this->rule, $options);
     }
 }
 ?>
