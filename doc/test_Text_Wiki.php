@@ -4,8 +4,8 @@
  * $Id$
  */
 $parser = $render = $source = '';
-$plist = array('Default', 'BBCode');
-$rlist = array('Xhtml', 'Plain', 'Latex');
+$plist = array('Default', 'BBCode', 'Cowiki', 'Doku', 'Mediawiki', 'Tiki');
+$rlist = array('Xhtml', 'Plain', 'Latex', 'Cowiki', 'Doku', 'Tiki');
 
 /**
  * Here we need to know if we are running from command line or from web
