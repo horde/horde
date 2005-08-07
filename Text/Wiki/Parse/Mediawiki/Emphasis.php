@@ -1,7 +1,7 @@
 <?php
 // vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4:
 /**
- * Pedia: Parses for emphazised text.
+ * Mediawiki: Parses for emphazised text.
  *
  * Text_Wiki rule parser to find source text emphazised
  * as defined by text surrounded by repeated single quotes  ''...'' and more
@@ -20,7 +20,7 @@
  */
 
 /**
- * Emphazised text rule parser class for Pedia. Makes Emphasis, Strong or both
+ * Emphazised text rule parser class for Mediawiki. Makes Emphasis, Strong or both
  * This class implements a Text_Wiki_Parse to find source text marked for
  * emphasis, stronger and very as defined by text surrounded by 2,3 or 5 single-quotes.
  * On parsing, the text itself is left in place, but the starting and ending
@@ -47,24 +47,6 @@ class Text_Wiki_Parse_Emphasis extends Text_Wiki_Parse {
      * @see Text_Wiki_Parse::parse()
      */
     var $regex = "/(?<!')'('{1,4})(.*?)\\1'(?!')/";
-
-
-    /**
-    *
-    * Generates a replacement for the matched text.  Token options are:
-    *
-    * 'type' => ['start'|'end'] The starting or ending point of the
-    * emphasized text.  The text itself is left in the source.
-    *
-    * @access public
-    *
-    * @param array &$matches The array of matches from parse().
-    *
-    * @return string A pair of delimited tokens to be used as a
-    * placeholder in the source text surrounding the text to be
-    * emphasized.
-    *
-    */
 
     /**
      * Generates a replacement for the matched text.  Token options are:
