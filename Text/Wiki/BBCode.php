@@ -20,11 +20,6 @@
 require_once 'Text/Wiki.php';
 
 /**
- * The baseline abstract parser class redefinition for BBCode
- */
-require_once 'Text/Wiki/BBCode/Parse.php';
-
-/**
  * Base Text_Wiki handler class extension for BBCode
  *
  * @category   Text
@@ -40,7 +35,7 @@ class Text_Wiki_BBCode extends Text_Wiki {
 
     /**
      * The default list of rules, in order, to apply to the source text.
-     * 
+     *
      * @access public
      * @var array
      */
