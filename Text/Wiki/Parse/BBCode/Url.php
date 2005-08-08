@@ -84,6 +84,11 @@ class Text_Wiki_Parse_Url extends Text_Wiki_Parse {
     {
         parent::Text_Wiki_Parse($obj);
 
+        // store the list of refused schemes
+        $this->refused = $this->getConf('refused', array());
+        if (is_string($this->refused)) {
+            $this->refused = array($this->refused);
+        }
         // convert the list of recognized schemes to a regex OR,
         $schemes = $this->getConf('schemes', '[a-z][-+.a-z0-9]*');
         $url = '(?:(' . (is_array($schemes) ? implode('|', $schemes) : $schemes) . ')://';
@@ -95,7 +100,10 @@ class Text_Wiki_Parse_Url extends Text_Wiki_Parse {
         // the full url regexp
         $url .= ')' . $this->getConf('url-regexp',
                  '(?:[^.\s/"\'<\\\#delim#]*\.)*[a-z](?:[-a-z0-9]*[a-z0-9])?\.?(?:/[^\s"<\\\#delim#]*)?');
-
+        // inline to disable ?
+        if (!$this->getConf('inline-enable', true)) {
+            unset($this->regex[1]);
+        }
         // replace in the regexps
         $this->regex = str_replace( '#url#', $url, $this->regex);
         $this->regex = str_replace( '#delim#', $this->wiki->delim, $this->regex);
@@ -113,6 +121,9 @@ class Text_Wiki_Parse_Url extends Text_Wiki_Parse {
      */
     function process(&$matches)
     {
+        if ($this->refused && isset($matches[3]) && in_array($matches[3], $this->refused)) {
+            return $matches[0];
+        }
         $pre = '';
         if (isset($matches[1])) {
             if ($matches[1] === '=') {
