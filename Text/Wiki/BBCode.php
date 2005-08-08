@@ -94,8 +94,7 @@ class Text_Wiki_BBCode extends Text_Wiki {
     function Text_Wiki_BBCode($rules = null)
     {
         parent::Text_Wiki($rules);
-        $this->addPath('parse', $this->fixPath(dirname(__FILE__)).'BBCode/Parse');
-        $this->addPath('render', $this->fixPath(dirname(__FILE__)).'BBCode/Render');
+        $this->addPath('parse', $this->fixPath(dirname(__FILE__)).'Parse/BBCode');
     }
 }
 ?>
