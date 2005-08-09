@@ -40,7 +40,9 @@ class Text_Wiki_Parse_Url extends Text_Wiki_Parse {
      *              That is some regex string, must be safe with a pattern delim '#'
      * 'refused' => which schemes are refused (usefull if 'schemes' is not an exhaustive list as by default
      * 'prefixes' => which prefixes are usable for "lazy" url as www.xxxx.yyyy... (defaulted to http://...)
-     * 'url-regexp' => the regexp used to match the rest of url
+     * 'host-regexp' => the regexp used to match the host part of url (after 'scheme://')
+     * 'path-regexp' => the regexp used to match the rest of url (starting with '/' included)
+     * 'user-regexp' => the regexp used to match user name in email
      * 'inline-enable' => are inline urls enabled (default true)
      *
      * @access public
@@ -50,7 +52,9 @@ class Text_Wiki_Parse_Url extends Text_Wiki_Parse {
         'schemes' => '[a-z][-+.a-z0-9]*',  // can be also as array('htpp', 'htpps', 'ftp')
         'refused' => array('script', 'about', 'applet', 'activex', 'chrome'),
         'prefixes' => array('www', 'ftp'),
-        'url-regexp' => '(?:[^.\s/"\'<\\\#delim#]*\.)*[a-z](?:[-a-z0-9]*[a-z0-9])?\.?(?:/[^\s"<\\\#delim#]*)?',
+        'host-regexp' => '(?:[^.\s/"\'<\\\#delim#\ca-\cz]+\.)*[a-z](?:[-a-z0-9]*[a-z0-9])?\.?',
+        'path-regexp' => '(?:/[^\s"<\\\#delim#\ca-\cz]*)?',
+        'user-regexp' => '[^]()<>[:;@\,."\s\\\#delim#\ca-\cz]+(?:\.[^]()<>[:;@\,."\s\\\#delim#\ca-\cz]+)*',
         'inline-enable' => true
     );
 
@@ -63,14 +67,11 @@ class Text_Wiki_Parse_Url extends Text_Wiki_Parse {
      * @see parse()
      */
     var $regex =  array(
-            '#\[url(?:(=)|])(#url#)(?(1)](.*?))\[/url]#i',
+            '#\[url(?:(=)|])(#url#)(?(1)](.*?))\[/url]#mi',
             '#([\n\r\s#delim#])(#url#)#i',
+            '#\[(email)(?:(=)|])(#email#)(?(2)](.*?))\[/email]#mi',
+            '#([\n\r\s#delim#](mailto:)?)(#email#)#i',
         );
-/*
-        array ("#\[url(?:=(.+))?](.*?)\[/url]#i", 'url'),
-        array ("#\[mail(?:=(.+))?](.*?)\[/mail]#i", 'mail'),
-        array ("#\[mail(?:=(.+))?](.*?)\[/mail]#i", 'mail'),
-*/
 
      /**
      * Constructor.
@@ -82,6 +83,7 @@ class Text_Wiki_Parse_Url extends Text_Wiki_Parse {
      */
     function Text_Wiki_Parse_Url(&$obj)
     {
+        $default = $this->conf;
         parent::Text_Wiki_Parse($obj);
 
         // store the list of refused schemes
@@ -90,34 +92,38 @@ class Text_Wiki_Parse_Url extends Text_Wiki_Parse {
             $this->refused = array($this->refused);
         }
         // convert the list of recognized schemes to a regex OR,
-        $schemes = $this->getConf('schemes', '[a-z][-+.a-z0-9]*');
+        $schemes = $this->getConf('schemes', $default['schemes']);
         $url = '(?:(' . (is_array($schemes) ? implode('|', $schemes) : $schemes) . ')://';
         // add the "lazy" prefixes if any
         $prefixes = $this->getConf('prefixes', array());
         foreach ($prefixes as $val) {
             $url .= '|' . preg_quote($val, '#') . '\.';
         }
+        $host = $this->getConf('host-regexp', $default['host-regexp']);
         // the full url regexp
-        $url .= ')' . $this->getConf('url-regexp',
-                 '(?:[^.\s/"\'<\\\#delim#]*\.)*[a-z](?:[-a-z0-9]*[a-z0-9])?\.?(?:/[^\s"<\\\#delim#]*)?');
+        $url .= ')' . $host . $this->getConf('path-regexp', $default['path-regexp']);
+        // the full email regexp
+        $email = $this->getConf('user-regexp', $default['user-regexp']) . '@' . $host;
         // inline to disable ?
         if (!$this->getConf('inline-enable', true)) {
             unset($this->regex[1]);
+            unset($this->regex[3]);
         }
         // replace in the regexps
         $this->regex = str_replace( '#url#', $url, $this->regex);
+        $this->regex = str_replace( '#email#', $email, $this->regex);
         $this->regex = str_replace( '#delim#', $this->wiki->delim, $this->regex);
     }
 
     /**
      * Generates a replacement for the matched text.  Token options are:
-     * - 'type' => ['start'|'end'] The starting or ending point of the
-     * emphasized text.  The text itself is left in the source.
+     *     'type' => ['inline'|'footnote'|'descr'] the type of URL
+     *     'href' => the URL link href portion
+     *     'text' => the displayed text of the URL link
      *
      * @access public
      * @param array &$matches The array of matches from parse().
-     * @return A pair of delimited tokens to be used as a placeholder in
-     * the source text surrounding the text to be emphasized.
+     * @return string Delimited token representing the url
      */
     function process(&$matches)
     {
@@ -125,15 +131,29 @@ class Text_Wiki_Parse_Url extends Text_Wiki_Parse {
             return $matches[0];
         }
         $pre = '';
+        $type = 'inline';
         if (isset($matches[1])) {
-            if ($matches[1] === '=') {
+            if (strpos(strtolower($matches[1]), 'mail')) {
+                if (isset($matches[2])) {
+                    if ($matches[2] === '=') {
+                        $type = 'descr';
+                    } elseif ($matches[2]) {
+                        $pre = $matches[1]{0};
+                    }
+                }
+                $matches[2] = 'mailto:' . $matches[3];
+                if (!isset($matches[4])) {
+                    $matches[4] = $matches[3];
+                }
+            } elseif ($matches[1] === '=') {
                 $type = 'descr';
             } else {
-                $type = 'inline';
                 $pre = $matches[1];
+                if (!$matches[2]) {
+                    $matches[2] = 'mailto:' . $matches[3];
+                    $matches[4] = $matches[3];
+                }
             }
-        } else {
-            $type = 'inline';
         }
         // set options
         $options = array(
