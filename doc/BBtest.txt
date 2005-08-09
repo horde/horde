@@ -21,6 +21,13 @@ or
 url:
 [url=http://www.totalgeek.org]totalgeek.org[/url]
 [url]www.totalgeek.org[/url]
+www.totalgeek.org
+[email=user@example.com]example Mail[/email]
+[email]user@example.com[/email]
+user@example.com
+
+[img]rond.gif[/img]
+[img]http://pear.php.net/gifs/pearsmall.gif[/img]
 
 Unordered list:
 [list]
