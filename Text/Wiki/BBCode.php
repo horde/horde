@@ -63,6 +63,7 @@ class Text_Wiki_BBCode extends Text_Wiki {
 //        'Table',
 //        'Box',
         'Image',
+        'Smiley',
 //        'Phplookup',
 //        'Center',
         'Newline',
