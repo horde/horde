@@ -83,11 +83,10 @@ class Text_Wiki_Parse_Image extends Text_Wiki_Parse {
         // replace delim in the regexps
         $this->regex = str_replace( '#delim#', $this->wiki->delim, $this->regex);
         $this->regex .= ')\[/img]#i';
-        print_r($this->regex);
     }
 
     /**
-     * Generates a replacement for the matched text.  Token options are:
+     * Generates a replacement token for the matched text.  Token options are:
      *     'src' => the URL / path to the image
      *     'attr' => empty for basic BBCode
      *
