@@ -30,7 +30,7 @@ class Text_Wiki_Render_Latex_Smiley extends Text_Wiki_Render {
 
     /**
       * Renders a token into text matching the requested format.
-      * process the Mileys
+      * process the Smileys
       *
       * @access public
       * @param array $options The "options" portion of the token (second element).
