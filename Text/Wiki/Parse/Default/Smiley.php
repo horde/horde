@@ -72,12 +72,12 @@ class Text_Wiki_Parse_Smiley extends Text_Wiki_Parse {
             ':|'  => array('neutral', 'Neutral'),
             ':mrgreen:' => array('mrgreen', 'Mr. Green'),
         // left-handed variantes
-            ':)'  => '(:',
-            ':('  => '):',
-            ':o'  => 'o:',
-            '8)'  => '(8',
-            ';)'  => '(;',
-            ':|'  => '|:'
+            '(:'  => ':)',
+            '):'  => ':(',
+            'o:'  => ':o',
+            '(8'  => '8)',
+            '(;'  => ';)',
+            '|:'  => ':|'
         ),
         'auto-nose' => true
     );
@@ -120,7 +120,7 @@ class Text_Wiki_Parse_Smiley extends Text_Wiki_Parse {
                 $sep1 = '|';
                 continue;
             }
-            if (autoNose && ($len === 2)) {
+            if ($autoNose && ($len === 2)) {
                 $variante = $smiley{0} . '-' . $smiley{1};
                 $this->smileys[$variante] = &$this->smileys[$smiley];
                 $smiley = preg_quote($smiley{0}, '#') . '-?' . preg_quote($smiley{1}, '#');
@@ -130,10 +130,10 @@ class Text_Wiki_Parse_Smiley extends Text_Wiki_Parse {
             $reg2 .= $sep2 . $smiley;
             $sep2 = '|';
         }
-        $delim = '([\n\r\s' . $this->wiki->delim . '])';
-        $this->regex = '#' . $delim .
-             '(' . ($reg1 ? $reg1 . '):' . ($reg2 ? '|' : '') : '') . $reg2 .
-             ')' . $delim . '#i';
+        $delim = '[\n\r\s' . $this->wiki->delim . '$^]';
+        $this->regex = '#(?<=' . $delim .
+             ')(' . ($reg1 ? $reg1 . '):' . ($reg2 ? '|' : '') : '') . $reg2 .
+             ')(?=' . $delim . ')#i';
     }
 
     /**
@@ -148,12 +148,12 @@ class Text_Wiki_Parse_Smiley extends Text_Wiki_Parse {
     function process(&$matches)
     {
         // tokenize
-        return $matches[1] . $this->wiki->addToken($this->rule,
+        return $this->wiki->addToken($this->rule,
             array(
-                'symbol' => $matches[2],
-                'name'   => $this->smileys[$matches[2]][0],
-                'desc'   => $this->smileys[$matches[2]][1],
-            )) . $matches[3];
+                'symbol' => $matches[1],
+                'name'   => $this->smileys[$matches[1]][0],
+                'desc'   => $this->smileys[$matches[1]][1],
+            ));
     }
 }
 ?>
