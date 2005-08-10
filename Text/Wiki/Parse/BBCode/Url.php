@@ -4,10 +4,9 @@
  * BBCode: Parses for url and mail links
  *
  * This class implements a Text_Wiki_Rule to find source text marked as
- * links as defined by text surrounded by [utl] ... [/url], [mail] ... [/mail]
- * or direct in lines url or mails adresses
- * On parsing, the text itself is left in place, but the starting and ending
- * tags are replaced with tokens.
+ * links as defined by text surrounded by [url] ... [/url], [mail] ... [/mail]
+ * described as [url=..., [mail= or direct in lines url or mails adresses
+ * The eventual tags and the text itself is replaced with a token.
  *
  * PHP versions 4 and 5
  *
@@ -37,7 +36,7 @@ class Text_Wiki_Parse_Url extends Text_Wiki_Parse {
     /**
      * Configuration keys for this rule
      * 'schemes' => URL scheme(s) (array) recognized by this rule, default is the single rfc2396 pattern
-     *              That is some regex string, must be safe with a pattern delim '#'
+     *              That is some (array of) regex string(s), must be safe with a pattern delim '#'
      * 'refused' => which schemes are refused (usefull if 'schemes' is not an exhaustive list as by default
      * 'prefixes' => which prefixes are usable for "lazy" url as www.xxxx.yyyy... (defaulted to http://...)
      * 'host-regexp' => the regexp used to match the host part of url (after 'scheme://')
