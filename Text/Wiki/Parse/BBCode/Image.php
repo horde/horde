@@ -5,7 +5,7 @@
  *
  * This class implements a Text_Wiki_Rule to find source text marked as
  * images as defined by text surrounded by [img] ... [/img]
- * The eventual tags and the text itself is replaced with a token.
+ * The tags and the text itself is replaced with a token.
  *
  * PHP versions 4 and 5
  *
@@ -14,7 +14,7 @@
  * @author     Bertrand Gugger <bertrand@toggg.com>
  * @copyright  2005 bertrand Gugger
  * @license    http://www.gnu.org/copyleft/lesser.html  LGPL License 2.1
- * @version    CVS: Exp $
+ * @version    CVS: $Id$
  * @link       http://pear.php.net/package/Text_Wiki
  */
 
