@@ -49,12 +49,15 @@ class Text_Wiki_Parse_Smiley extends Text_Wiki_Parse {
      */
     var $conf = array(
         'smileys' => array(
-            ':D'  => array('biggrin', 'Very Happy','grin'),
+            ':D'  => array('biggrin', 'Very Happy'),
+            ':grin:' => ':D',
             ':)'  => array('smile', 'Smile'),
             ':('  => array('sad', 'Sad'),
-            ':o'  => array('surprised', 'Surprised', 'eek'),
+            ':o'  => array('surprised', 'Surprised'),
+            ':eek:' => ':o',
             ':shock:' => array('eek', 'Shocked'),
-            ':?'  => array('confused', 'Confused', '???'),
+            ':?'  => array('confused', 'Confused'),
+            ':???:' => ':?',
             '8)'  => array('cool', 'Cool'),
             ':lol:' => array('lol', 'Laughing'),
             ':x'  => array('mad', 'Mad'),
@@ -110,10 +113,6 @@ class Text_Wiki_Parse_Smiley extends Text_Wiki_Parse {
                     continue;
                 }
                 $this->smileys[$smiley] = &$this->smileys[$def];
-            } elseif (isset($def[2]) && !isset($this->smileys[$short = ":{$def[2]}:"])) {
-                $reg1 .= $sep1 . preg_quote($def[2], '#');
-                $sep1 = '|';
-                $this->smileys[$short] = &$this->smileys[$smiley];
             }
             if (($smiley{0} == ':') && ($len > 2) && ($smiley{$len - 1} == ':')) {
                 $reg1 .= $sep1 . preg_quote(substr($smiley, 1, -1), '#');
