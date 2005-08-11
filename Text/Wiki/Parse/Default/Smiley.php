@@ -35,11 +35,10 @@ class Text_Wiki_Parse_Smiley extends Text_Wiki_Parse {
     /**
      * Configuration keys for this rule
      * 'smileys' => array Smileys recognized by this rule, symbols key definitions:
-     *              'symbol' => array ( 'name', 'description' [, 'shortname'] ) as
+     *              'symbol' => array ( 'name', 'description' [, 'variante', ...] ) as
      *                  ':)'  => array('smile', 'Smile'),
-     *                  ':D'  => array('biggrin', 'Very Happy','grin'),
-     *              or, in order to define a variante
-     *              'variante' => 'symbol'  as e.g. '(:' => ':)' equates left handed smile
+     *                  ':D'  => array('biggrin', 'Very Happy',':grin:'),
+     *              the eventual elements after symbol and description are variantes
      *
      * 'auto_nose' => boolean enabling the auto nose feature:
      *                auto build a variante for 2 chars symbols by inserting a '-' as ':)' <=> ':-)'
@@ -49,43 +48,40 @@ class Text_Wiki_Parse_Smiley extends Text_Wiki_Parse {
      */
     var $conf = array(
         'smileys' => array(
-            ':D'  => array('biggrin', 'Very Happy'),
-            ':grin:' => ':D',
-            ':)'  => array('smile', 'Smile'),
-            ':('  => array('sad', 'Sad'),
-            ':o'  => array('surprised', 'Surprised'),
-            ':eek:' => ':o',
-            ':shock:' => array('eek', 'Shocked'),
-            ':?'  => array('confused', 'Confused'),
-            ':???:' => ':?',
-            '8)'  => array('cool', 'Cool'),
-            ':lol:' => array('lol', 'Laughing'),
-            ':x'  => array('mad', 'Mad'),
-            ':P'  => array('razz', 'Razz'),
-            ':oops:' => array('redface', 'Embarassed'),
-            ':cry:' => array('cry', 'Crying or Very sad'),
-            ':evil:' => array('evil', 'Evil or Very Mad'),
+            ':D'        => array('biggrin', 'Very Happy', ':grin:'),
+            ':)'        => array('smile', 'Smile', '(:'),
+            ':('        => array('sad', 'Sad', '):'),
+            ':o'        => array('surprised', 'Surprised', ':eek:', 'o:'),
+            ':shock:'   => array('eek', 'Shocked'),
+            ':?'        => array('confused', 'Confused', ':???:'),
+            '8)'        => array('cool', 'Cool', '(8'),
+            ':lol:'     => array('lol', 'Laughing'),
+            ':x'        => array('mad', 'Mad'),
+            ':P'        => array('razz', 'Razz'),
+            ':oops:'    => array('redface', 'Embarassed'),
+            ':cry:'     => array('cry', 'Crying or Very sad'),
+            ':evil:'    => array('evil', 'Evil or Very Mad'),
             ':twisted:' => array('twisted', 'Twisted Evil'),
-            ':roll:' => array('rolleyes', 'Rolling Eyes'),
-            ';)'  => array('wink', 'Wink'),
-            ':!:' => array('exclaim', 'Exclamation'),
-            ':?:' => array('question', 'Question'),
-            ':idea:' => array('idea', 'Idea'),
-            ':arrow:' => array('arrow', 'Arrow'),
-            ':|'  => array('neutral', 'Neutral'),
+            ':roll:'    => array('rolleyes', 'Rolling Eyes'),
+            ';)'        => array('wink', 'Wink', '(;'),
+            ':!:'       => array('exclaim', 'Exclamation'),
+            ':?:'       => array('question', 'Question'),
+            ':idea:'    => array('idea', 'Idea'),
+            ':arrow:'   => array('arrow', 'Arrow'),
+            ':|'        => array('neutral', 'Neutral', '|:'),
             ':mrgreen:' => array('mrgreen', 'Mr. Green'),
-        // left-handed variantes
-            '(:'  => ':)',
-            '):'  => ':(',
-            'o:'  => ':o',
-            '(8'  => '8)',
-            '(;'  => ';)',
-            '|:'  => ':|'
         ),
         'auto_nose' => true
     );
 
-    var $smileys = array();
+    /**
+     * Definition array of smileys, variantes references their model
+     * 'symbol' => array ( 'name', 'description')
+     *
+     * @access private
+     * @var array 'config-key' => mixed config-value
+     */
+    var $_smileys = array();
 
      /**
      * Constructor.
@@ -101,33 +97,35 @@ class Text_Wiki_Parse_Smiley extends Text_Wiki_Parse {
         parent::Text_Wiki_Parse($obj);
 
         // read the list of smileys to sort out variantes and :xxx: while building the regexp
-        $this->smileys = $this->getConf('smileys', $default['smileys']);
+        $this->_smileys = $this->getConf('smileys', $default['smileys']);
         $autoNose = $this->getConf('auto_nose', $default['auto_nose']);
         $reg1 = $reg2 = '';
         $sep1 = ':(?:';
         $sep2 = '';
-        foreach ($this->smileys as $smiley => $def) {
-            $len = strlen($smiley);
-            if (is_string($def)) {
-                if (!isset($this->smileys[$def])) { // missing smiley !
+        foreach ($this->_smileys as $smiley => $def) {
+            for ($i = 1; $i < count($def); $i++) {
+                if ($i > 1) {
+                    $cur = $def[$i];
+                    $this->_smileys[$cur] = &$this->_smileys[$smiley];
+                } else {
+                    $cur = $smiley;
+                }
+                $len = strlen($cur);
+                if (($cur{0} == ':') && ($len > 2) && ($cur{$len - 1} == ':')) {
+                    $reg1 .= $sep1 . preg_quote(substr($cur, 1, -1), '#');
+                    $sep1 = '|';
                     continue;
                 }
-                $this->smileys[$smiley] = &$this->smileys[$def];
+                if ($autoNose && ($len === 2)) {
+                    $variante = $cur{0} . '-' . $cur{1};
+                    $this->_smileys[$variante] = &$this->_smileys[$smiley];
+                    $cur = preg_quote($cur{0}, '#') . '-?' . preg_quote($cur{1}, '#');
+                } else {
+                    $cur = preg_quote($cur, '#');
+                }
+                $reg2 .= $sep2 . $cur;
+                $sep2 = '|';
             }
-            if (($smiley{0} == ':') && ($len > 2) && ($smiley{$len - 1} == ':')) {
-                $reg1 .= $sep1 . preg_quote(substr($smiley, 1, -1), '#');
-                $sep1 = '|';
-                continue;
-            }
-            if ($autoNose && ($len === 2)) {
-                $variante = $smiley{0} . '-' . $smiley{1};
-                $this->smileys[$variante] = &$this->smileys[$smiley];
-                $smiley = preg_quote($smiley{0}, '#') . '-?' . preg_quote($smiley{1}, '#');
-            } else {
-                $smiley = preg_quote($smiley, '#');
-            }
-            $reg2 .= $sep2 . $smiley;
-            $sep2 = '|';
         }
         $delim = '[\n\r\s' . $this->wiki->delim . '$^]';
         $this->regex = '#(?<=' . $delim .
@@ -150,8 +148,8 @@ class Text_Wiki_Parse_Smiley extends Text_Wiki_Parse {
         return $this->wiki->addToken($this->rule,
             array(
                 'symbol' => $matches[1],
-                'name'   => $this->smileys[$matches[1]][0],
-                'desc'   => $this->smileys[$matches[1]][1],
+                'name'   => $this->_smileys[$matches[1]][0],
+                'desc'   => $this->_smileys[$matches[1]][1],
             ));
     }
 }
