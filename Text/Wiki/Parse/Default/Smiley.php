@@ -41,7 +41,7 @@ class Text_Wiki_Parse_Smiley extends Text_Wiki_Parse {
      *              or, in order to define a variante
      *              'variante' => 'symbol'  as e.g. '(:' => ':)' equates left handed smile
      *
-     * 'auto-nose' => boolean enabling the auto nose feature:
+     * 'auto_nose' => boolean enabling the auto nose feature:
      *                auto build a variante for 2 chars symbols by inserting a '-' as ':)' <=> ':-)'
      *
      * @access public
@@ -79,7 +79,7 @@ class Text_Wiki_Parse_Smiley extends Text_Wiki_Parse {
             '(;'  => ';)',
             '|:'  => ':|'
         ),
-        'auto-nose' => true
+        'auto_nose' => true
     );
 
     var $smileys = array();
@@ -88,9 +88,9 @@ class Text_Wiki_Parse_Smiley extends Text_Wiki_Parse {
      * Constructor.
      * We override the constructor to build up the regex from config
      *
-     * @access public
      * @param object &$obj the base conversion handler
      * @return The parser object
+     * @access public
      */
     function Text_Wiki_Parse_Smiley(&$obj)
     {
@@ -99,7 +99,7 @@ class Text_Wiki_Parse_Smiley extends Text_Wiki_Parse {
 
         // read the list of smileys to sort out variantes and :xxx: while building the regexp
         $this->smileys = $this->getConf('smileys', $default['smileys']);
-        $autoNose = $this->getConf('auto-nose', $default['auto-nose']);
+        $autoNose = $this->getConf('auto_nose', $default['auto_nose']);
         $reg1 = $reg2 = '';
         $sep1 = ':(?:';
         $sep2 = '';
@@ -141,9 +141,9 @@ class Text_Wiki_Parse_Smiley extends Text_Wiki_Parse {
      *     'src' => the URL / path to the smiley
      *     'attr' => empty for basic BBCode
      *
-     * @access public
      * @param array &$matches The array of matches from parse().
      * @return string Delimited token representing the smiley
+     * @access public
      */
     function process(&$matches)
     {
