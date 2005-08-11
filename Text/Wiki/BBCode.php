@@ -80,7 +80,7 @@ class Text_Wiki_BBCode extends Text_Wiki {
 //        'Tt',
 //        'Superscript',
 //        'Subscript',
-        'Specialchar',
+//        'Specialchar',
 //        'Revise',
 //        'Interwiki',
         'Tighten'
