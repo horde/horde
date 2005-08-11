@@ -2,12 +2,12 @@
 // vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4:
 /**
  * BBCode: Parses for code blocks.
- * 
+ *
  * This class implements a Text_Wiki_Rule to find source text marked as
  * code blocks as defined by text surrounded by [code] ... [/code]
  * On parsing, the text itself is left in place, but the starting and ending
  * tags are replaced with tokens. (nested blocks ignored)
- * 
+ *
  * PHP versions 4 and 5
  *
  * @category   Text
@@ -36,23 +36,23 @@ class Text_Wiki_Parse_Code extends Text_Wiki_Parse {
     /**
      * The regular expression used to parse the source text and find
      * matches conforming to this rule.  Used by the parse() method.
-     * 
+     *
      * @access public
      * @var string
      * @see parse()
      */
     var $regex =  "#\[code]((?:(?R)|.)*?)\[/code]#msi";
-    
-    
+
+
     /**
      * Generates a replacement for the matched text.  Token options are:
      * - 'text' => the contained text
      * - 'attr' => type empty
-     * 
-     * @access public
+     *
      * @param array &$matches The array of matches from parse().
      * @return A delimited token to be used as a placeholder in
      * the source text and containing the original block of text
+     * @access public
      */
     function process(&$matches)
     {

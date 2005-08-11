@@ -39,22 +39,22 @@ class Text_Wiki_Parse_Url extends Text_Wiki_Parse {
      *              That is some (array of) regex string(s), must be safe with a pattern delim '#'
      * 'refused' => which schemes are refused (usefull if 'schemes' is not an exhaustive list as by default
      * 'prefixes' => which prefixes are usable for "lazy" url as www.xxxx.yyyy... (defaulted to http://...)
-     * 'host-regexp' => the regexp used to match the host part of url (after 'scheme://')
-     * 'path-regexp' => the regexp used to match the rest of url (starting with '/' included)
-     * 'user-regexp' => the regexp used to match user name in email
-     * 'inline-enable' => are inline urls enabled (default true)
+     * 'host_regexp' => the regexp used to match the host part of url (after 'scheme://')
+     * 'path_regexp' => the regexp used to match the rest of url (starting with '/' included)
+     * 'user_regexp' => the regexp used to match user name in email
+     * 'inline_enable' => are inline urls and emails enabled (default true)
      *
-     * @access public
      * @var array 'config-key' => mixed config-value
+     * @access public
      */
     var $conf = array(
         'schemes' => '[a-z][-+.a-z0-9]*',  // can be also as array('htpp', 'htpps', 'ftp')
         'refused' => array('script', 'about', 'applet', 'activex', 'chrome'),
         'prefixes' => array('www', 'ftp'),
-        'host-regexp' => '(?:[^.\s/"\'<\\\#delim#\ca-\cz]+\.)*[a-z](?:[-a-z0-9]*[a-z0-9])?\.?',
-        'path-regexp' => '(?:/[^\s"<\\\#delim#\ca-\cz]*)?',
-        'user-regexp' => '[^]()<>[:;@\,."\s\\\#delim#\ca-\cz]+(?:\.[^]()<>[:;@\,."\s\\\#delim#\ca-\cz]+)*',
-        'inline-enable' => true
+        'host_regexp' => '(?:[^.\s/"\'<\\\#delim#\ca-\cz]+\.)*[a-z](?:[-a-z0-9]*[a-z0-9])?\.?',
+        'path_regexp' => '(?:/[^\s"<\\\#delim#\ca-\cz]*)?',
+        'user_regexp' => '[^]()<>[:;@\,."\s\\\#delim#\ca-\cz]+(?:\.[^]()<>[:;@\,."\s\\\#delim#\ca-\cz]+)*',
+        'inline_enable' => true
     );
 
     /**
@@ -76,9 +76,9 @@ class Text_Wiki_Parse_Url extends Text_Wiki_Parse {
      * Constructor.
      * We override the constructor to build up the regex from config
      *
-     * @access public
      * @param object &$obj the base conversion handler
      * @return The parser object
+     * @access public
      */
     function Text_Wiki_Parse_Url(&$obj)
     {
@@ -98,13 +98,13 @@ class Text_Wiki_Parse_Url extends Text_Wiki_Parse {
         foreach ($prefixes as $val) {
             $url .= '|' . preg_quote($val, '#') . '\.';
         }
-        $host = $this->getConf('host-regexp', $default['host-regexp']);
+        $host = $this->getConf('host_regexp', $default['host_regexp']);
         // the full url regexp
-        $url .= ')' . $host . $this->getConf('path-regexp', $default['path-regexp']);
+        $url .= ')' . $host . $this->getConf('path_regexp', $default['path_regexp']);
         // the full email regexp
-        $email = $this->getConf('user-regexp', $default['user-regexp']) . '@' . $host;
+        $email = $this->getConf('user_regexp', $default['user_regexp']) . '@' . $host;
         // inline to disable ?
-        if (!$this->getConf('inline-enable', true)) {
+        if (!$this->getConf('inline_enable', true)) {
             unset($this->regex[1]);
             unset($this->regex[3]);
         }
@@ -120,9 +120,9 @@ class Text_Wiki_Parse_Url extends Text_Wiki_Parse {
      *     'href' => the URL link href portion
      *     'text' => the displayed text of the URL link
      *
-     * @access public
      * @param array &$matches The array of matches from parse().
      * @return string Delimited token representing the url
+     * @access public
      */
     function process(&$matches)
     {

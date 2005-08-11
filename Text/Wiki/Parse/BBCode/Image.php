@@ -38,8 +38,8 @@ class Text_Wiki_Parse_Image extends Text_Wiki_Parse {
      *              That is some (array of) regex string(s), must be safe with a pattern delim '#'
      * 'extensions' => URL scheme(s) (array) recognized by this rule, default is 'jpg|jpeg|gif|png'
      *              That is some (array of) regex string(s), must be safe with a pattern delim '#'
-     * 'url-regexp' => the regexp used to match the url after 'scheme://' and before '.extension'
-     * 'path-regexp' => the regexp used to match the local images path before '.extension'
+     * 'url_regexp' => the regexp used to match the url after 'scheme://' and before '.extension'
+     * 'path_regexp' => the regexp used to match the local images path before '.extension'
      *
      * @access public
      * @var array 'config-key' => mixed config-value
@@ -47,18 +47,18 @@ class Text_Wiki_Parse_Image extends Text_Wiki_Parse {
     var $conf = array(
         'schemes' => 'http|ftp|https|ftps',  // can be also as array of regexps/strings
         'extensions' => 'jpg|jpeg|gif|png',  // can be also as array of regexps/strings
-        'url-regexp' =>
+        'url_regexp' =>
          '(?:[^.\s/"\'<\\\#delim#\ca-\cz]+\.)*[a-z](?:[-a-z0-9]*[a-z0-9])?\.?(?:/[^\s"<\\\#delim#\ca-\cz]*)?',
-        'local-regexp' => '(?:/?[^/\s"<\\\#delim#\ca-\cz]+)*'
+        'local_regexp' => '(?:/?[^/\s"<\\\#delim#\ca-\cz]+)*'
     );
 
      /**
      * Constructor.
      * We override the constructor to build up the regex from config
      *
-     * @access public
      * @param object &$obj the base conversion handler
      * @return The parser object
+     * @access public
      */
     function Text_Wiki_Parse_Image(&$obj)
     {
@@ -68,8 +68,8 @@ class Text_Wiki_Parse_Image extends Text_Wiki_Parse {
         // convert the list of recognized schemes to a regex OR,
         $schemes = $this->getConf('schemes', $default['schemes']);
         $this->regex = '#\[img]((?:(?:' . (is_array($schemes) ? implode('|', $schemes) : $schemes) . ')://' .
-                    $this->getConf('url-regexp', $default['url-regexp']);
-        if ($local = $this->getConf('local-regexp', $default['local-regexp'])) {
+                    $this->getConf('url_regexp', $default['url_regexp']);
+        if ($local = $this->getConf('local_regexp', $default['local_regexp'])) {
             $this->regex .= '|' . ( is_array($local) ? implode('|', $local) : $local );
         }
         $this->regex .= ')';
@@ -90,9 +90,9 @@ class Text_Wiki_Parse_Image extends Text_Wiki_Parse {
      *     'src' => the URL / path to the image
      *     'attr' => empty for basic BBCode
      *
-     * @access public
      * @param array &$matches The array of matches from parse().
      * @return string Delimited token representing the image
+     * @access public
      */
     function process(&$matches)
     {

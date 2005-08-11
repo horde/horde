@@ -101,10 +101,10 @@ class Text_Wiki_Parse_List extends Text_Wiki_Parse {
      *
      * 'key' => the optional starting number/letter (not for items)
      *
-     * @access public
      * @param array &$matches The array of matches from parse().
      * @return A delimited token to be used as a placeholder in
      * the source text and containing the original block of text
+     * @access public
      */
     function process(&$matches)
     {
@@ -161,10 +161,10 @@ class Text_Wiki_Parse_List extends Text_Wiki_Parse {
      *
      * 'count' => the item ordeer at this level.
      *
-     * @access public
      * @param array &$matches The array of matches from parse().
      * @return A delimited token to be used as a placeholder in
      * the source text and containing the original block of text
+     * @access public
      */
     function processElement(&$matches)
     {
