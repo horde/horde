@@ -243,13 +243,10 @@ class Text_Wiki_Parse_Table extends Text_Wiki_Parse {
     {//var_dump($matches);echo '<br />';
         $param = array(
                 'type'  => 'cell_start',
-                'attr'  => $matches[1]{0} == '!' ? 'header': null,
+                'attr'  => $matches[1] && ($matches[1]{0} == '!') ? 'header': null,
                 'span'  => 1,
                 'order' => $this->_countCells[$this->_level][$this->_countRows[$this->_level]]++
         );
-        if ($matches[1]{0} == '!') {
-            $param['attr'] = 'header';
-        }
         if ($matches[2]) {
             $param['format'] = $matches[2];
         }
