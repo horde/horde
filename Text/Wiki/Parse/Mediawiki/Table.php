@@ -52,7 +52,7 @@ class Text_Wiki_Parse_Table extends Text_Wiki_Parse {
      * @see process()
      * @see processRows()
      */
-    var $regexRows =  '#^(\||!)-(.*?)^(.*?)(?=^(?:\|-|!-|\z))#msi';
+    var $regexRows =  '#(?:^(\||!)-|\G)(.*?)^(.*?)(?=^(?:\|-|!-|\z))#msi';
 
     /**
      * The regular expression used in third stage to find rows's cells
@@ -63,7 +63,7 @@ class Text_Wiki_Parse_Table extends Text_Wiki_Parse {
      * @see process()
      * @see processCells()
      */
-    var $regexCells =  '#(^\||^!|\|\||!!)( [^|\n]*? \|(?!\|))?(.*?)(?=^\||^!|\|\||!!|\z)#msi';
+    var $regexCells =  '#((?:^\||^!|\|\||!!|\G))( [^|\n]*? \|(?!\|))?(.*?)(?=^\||^!|\|\||!!|\z)#msi';
 
     /**
      * The current table nesting depth, starts by zero
