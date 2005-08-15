@@ -64,7 +64,7 @@ class Text_Wiki_Parse_Table extends Text_Wiki_Parse {
      * @see processCells()
      */
     var $regexCells =
-    '#((?:^\||^!|\|\||!!|\G))( [^|\n]*? \|(?!\|))?(.*?)(?=^\||^!|\|\||!!|\z)#msi';
+    '#((?:^\||^!|\|\||!!|\G))(?:( [^|\n]*?) \|(?!\|))?(.+?)(?=^\||^!|\|\||!!|\z)#msi';
 
     /**
      * The current table nesting depth, starts by zero
@@ -99,12 +99,12 @@ class Text_Wiki_Parse_Table extends Text_Wiki_Parse {
     var $_countCells = array();
 
     /**
-     * The type of table for this level ('bullet' or 'number')
+     * The count of spanned cells from previous rowspans for each column
      *
      * @access private
-     * @var int
-    var $_type = array();
+     * @var array of int
      */
+    var $_spanCells = array();
 
     /**
      * Generates a replacement for the matched text. Returned token options are:
@@ -152,7 +152,7 @@ class Text_Wiki_Parse_Table extends Text_Wiki_Parse {
             $expsub = $matches[3];
         }
         $this->_countRows[$this->_level] = $this->_maxCells[$this->_level] = 0;
-        $this->_countCells[$this->_level] = array();
+        $this->_countCells[$this->_level] = $this->_spanCells[$this->_level] = array();
         $sub = preg_replace_callback(
             $this->regexRows,
             array(&$this, 'processRows'),
@@ -251,15 +251,33 @@ class Text_Wiki_Parse_Table extends Text_Wiki_Parse {
      */
     function processCells(&$matches)
     {//var_dump($matches);echo '<br />';
+        $order = & $this->_countCells[$this->_level][$this->_countRows[$this->_level]];
+        while (isset($this->_spanCells[$this->_level][$order])) {
+            if (--$this->_spanCells[$this->_level][$order] < 2) {
+                unset($this->_spanCells[$this->_level][$order]);
+            }
+            $order++;
+        }
         $param = array(
                 'type'  => 'cell_start',
                 'attr'  => $matches[1] && ($matches[1]{0} == '!') ? 'header': null,
                 'span'  => 1,
-                'order' => $this->_countCells[$this->_level][$this->_countRows[$this->_level]]++
+                'rowspan'  => 1,
+                'order' => $order
         );
         if ($format = trim($matches[2])) {
+            if (preg_match('#(.*)colspan=("|\')?(\d+)\2(.*)#i', $format, $pieces)) {
+                $param['span'] = (int)$pieces[3];
+                $format = $pieces[1] . $pieces[4];
+            }
+            if (preg_match('#(.*)rowspan=("|\')?(\d+)\2(.*)#i', $format, $pieces)) {
+                $this->_spanCells[$this->_level][$order] =
+                                    $param['rowspan'] = (int)$pieces[3];
+                $format = $pieces[1] . $pieces[4];
+            }
             $param['format'] = $format;
         }
+        $this->_countCells[$this->_level][$this->_countRows[$this->_level]] += $param['span'];
         $ret = $this->wiki->addToken($this->rule, $param );
         $param['type'] = 'cell_end';
         return $ret . $matches[3] . $this->wiki->addToken($this->rule, $param );
