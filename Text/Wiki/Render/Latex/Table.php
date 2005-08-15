@@ -4,7 +4,7 @@ class Text_Wiki_Render_Latex_Table extends Text_Wiki_Render {
     var $cell_id    = 0;
     var $cell_count = 0;
     var $is_spanning = false;
-    
+
     var $conf = array(
                       'css_table' => null,
                       'css_tr' => null,
@@ -34,17 +34,23 @@ class Text_Wiki_Render_Latex_Table extends Text_Wiki_Render {
             {
             case 'table_start':
                 $this->cell_count = $cols;
-                
+
                 $tbl_start = '\begin{tabular}{|';
                 for ($a=0; $a < $this->cell_count; $a++) {
                     $tbl_start .= 'l|';
                 }
                 $tbl_start .= "}\n";
-                
+
                 return $tbl_start;
 
             case 'table_end':
                 return "\\hline\n\\end{tabular}\n";
+
+            case 'caption_start':
+                return "\\hline\n\\multicolumn\{$this->cell_count}\{|1|}{";
+
+            case 'caption_end':
+                return "}\\\\\n";
 
             case 'row_start':
                 $this->is_spanning = false;
@@ -61,10 +67,10 @@ class Text_Wiki_Render_Latex_Table extends Text_Wiki_Render {
                         $col_spec = '|';
                     }
                     $col_spec .= 'l|';
-                        
+
                     $this->cell_id += $span;
                     $this->is_spanning = true;
-                    
+
                     return "\\multicolumn\{$span}\{$col_spec}{";
                 }
 
@@ -77,7 +83,7 @@ class Text_Wiki_Render_Latex_Table extends Text_Wiki_Render {
                     $this->is_spanning = false;
                     $out = '}';
                 }
-                
+
                 if ($this->cell_id != $this->cell_count) {
                     $out .= ' & ';
                 }

@@ -41,7 +41,7 @@ class Text_Wiki_Parse_Table extends Text_Wiki_Parse {
      * @var string
      * @see parse()
      */
-    var $regex =  '#^\{\|(.*?)^((?:((?R))|.)*?)^\|}#msi';
+    var $regex = '#^\{\|(.*?)(?:^\|\+(.*?))?(^(?:((?R))|.)*?)^\|}#msi';
 
     /**
      * The regular expression used in second stage to find table's rows
@@ -52,7 +52,7 @@ class Text_Wiki_Parse_Table extends Text_Wiki_Parse {
      * @see process()
      * @see processRows()
      */
-    var $regexRows =  '#(?:^(\||!)-|\G)(.*?)^(.*?)(?=^(?:\|-|!-|\z))#msi';
+    var $regexRows = '#(?:^(\||!)-|\G)(.*?)^(.*?)(?=^(?:\|-|!-|\z))#msi';
 
     /**
      * The regular expression used in third stage to find rows's cells
@@ -63,7 +63,8 @@ class Text_Wiki_Parse_Table extends Text_Wiki_Parse {
      * @see process()
      * @see processCells()
      */
-    var $regexCells =  '#((?:^\||^!|\|\||!!|\G))( [^|\n]*? \|(?!\|))?(.*?)(?=^\||^!|\|\||!!|\z)#msi';
+    var $regexCells =
+    '#((?:^\||^!|\|\||!!|\G))( [^|\n]*? \|(?!\|))?(.*?)(?=^\||^!|\|\||!!|\z)#msi';
 
     /**
      * The current table nesting depth, starts by zero
@@ -108,13 +109,14 @@ class Text_Wiki_Parse_Table extends Text_Wiki_Parse {
     /**
      * Generates a replacement for the matched text. Returned token options are:
      * 'type' =>
-     *     'table_start' : the start of a bullet list
-     *     'table_end'   : the end of a bullet list
-     *     'row_start'   : the start of a number list
-     *     'row_end'     : the end of a number list
-     *     'cell_start'  : the start of item text (bullet or number)
-     *     'cell_end'    : the end of item text (bullet or number)
-     *     'caption'     : the associated caption
+     *     'table_start'   : the start of a bullet list
+     *     'table_end'     : the end of a bullet list
+     *     'row_start'     : the start of a number list
+     *     'row_end'       : the end of a number list
+     *     'cell_start'    : the start of item text (bullet or number)
+     *     'cell_end'      : the end of item text (bullet or number)
+     *     'caption_start' : the start of associated caption
+     *     'caption_end'   : the end of associated caption
      *
      * 'level' => the table nesting level (starting zero) ('table_start')
      *
@@ -138,16 +140,16 @@ class Text_Wiki_Parse_Table extends Text_Wiki_Parse {
      */
     function process(&$matches)
     {//var_dump($matches);echo '<br />';
-        if (array_key_exists(3, $matches)) {
+        if (array_key_exists(4, $matches)) {
             $this->_level++;
             $expsub = preg_replace_callback(
                 $this->regex,
                 array(&$this, 'process'),
-                $matches[2]
+                $matches[3]
             );
             $this->_level--;
         } else {
-            $expsub = $matches[2];
+            $expsub = $matches[3];
         }
         $this->_countRows[$this->_level] = $this->_maxCells[$this->_level] = 0;
         $this->_countCells[$this->_level] = array();
@@ -162,10 +164,18 @@ class Text_Wiki_Parse_Table extends Text_Wiki_Parse {
                 'rows' => $this->_countRows[$this->_level],
                 'cols' => $this->_maxCells[$this->_level]
         );
-        if ($matches[1]) {
-            $param['format'] = $matches[1];
+        if ($format = trim($matches[1])) {
+            $param['format'] = $format;
         }
         $ret = $this->wiki->addToken($this->rule, $param );
+        if ($matches[2]) {
+            $ret .= $this->wiki->addToken($this->rule, array(
+                'type'  => 'caption_start',
+                'level' => $this->_level ) ) . $matches[2] .
+                    $this->wiki->addToken($this->rule, array(
+                'type'  => 'caption_end',
+                'level' => $this->_level ) );
+        }
         $param['type'] = 'table_end';
         return $ret . $sub . $this->wiki->addToken($this->rule, $param );
     }
@@ -205,8 +215,8 @@ class Text_Wiki_Parse_Table extends Text_Wiki_Parse {
         if ($matches[1] == '!') {
             $param['attr'] = 'header';
         }
-        if ($matches[2]) {
-            $param['format'] = $matches[2];
+        if ($format = trim($matches[2])) {
+            $param['format'] = $format;
         }
         if ($this->_maxCells[$this->_level] < $param['cols']) {
             $this->_maxCells[$this->_level] = $param['cols'];
@@ -247,8 +257,8 @@ class Text_Wiki_Parse_Table extends Text_Wiki_Parse {
                 'span'  => 1,
                 'order' => $this->_countCells[$this->_level][$this->_countRows[$this->_level]]++
         );
-        if ($matches[2]) {
-            $param['format'] = $matches[2];
+        if ($format = trim($matches[2])) {
+            $param['format'] = $format;
         }
         $ret = $this->wiki->addToken($this->rule, $param );
         $param['type'] = 'cell_end';

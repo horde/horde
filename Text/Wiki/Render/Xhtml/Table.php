@@ -27,6 +27,7 @@ class Text_Wiki_Render_Xhtml_Table extends Text_Wiki_Render {
 
     var $conf = array(
         'css_table' => null,
+        'css_caption' => null,
         'css_tr' => null,
         'css_th' => null,
         'css_td' => null
@@ -51,22 +52,34 @@ class Text_Wiki_Render_Xhtml_Table extends Text_Wiki_Render {
         // make nice variable names (type, attr, span)
         extract($options);
 
+        // free format
+        $format = isset($format) ? ' '. $format : '';
+
         $pad = '    ';
 
         switch ($type) {
 
         case 'table_start':
             $css = $this->formatConf(' class="%s"', 'css_table');
-            return "\n\n<table$css>\n";
+            return "\n\n<table$css$format>\n";
             break;
 
         case 'table_end':
             return "</table>\n\n";
             break;
 
+        case 'caption_start':
+            $css = $this->formatConf(' class="%s"', 'css_caption');
+            return "<caption$css$format>\n";
+            break;
+
+        case 'caption_end':
+            return "</caption>\n";
+            break;
+
         case 'row_start':
             $css = $this->formatConf(' class="%s"', 'css_tr');
-            return "$pad<tr$css>\n";
+            return "$pad<tr$css$format>\n";
             break;
 
         case 'row_end':
@@ -100,7 +113,7 @@ class Text_Wiki_Render_Xhtml_Table extends Text_Wiki_Render {
             }
 
             // done!
-            $html .= '>';
+            $html .= "$format>";
             return $html;
             break;
 
