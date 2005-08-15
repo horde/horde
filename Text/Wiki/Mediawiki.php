@@ -65,7 +65,7 @@ class Text_Wiki_Mediawiki extends Text_Wiki {
 //        'Colortext',
 //        'Wikilink',
 //        'Strong',
-//        'Bold',
+        'Bold',
         'Emphasis',
 //        'Italic',
 //        'Underline',
