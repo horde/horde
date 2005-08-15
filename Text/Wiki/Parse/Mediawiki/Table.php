@@ -266,11 +266,11 @@ class Text_Wiki_Parse_Table extends Text_Wiki_Parse {
                 'order' => $order
         );
         if ($format = trim($matches[2])) {
-            if (preg_match('#(.*)colspan=("|\')?(\d+)\2(.*)#i', $format, $pieces)) {
+            if (preg_match('#(.*)colspan=("|\')?(\d+)(?(2)\2)(.*)#i', $format, $pieces)) {
                 $param['span'] = (int)$pieces[3];
                 $format = $pieces[1] . $pieces[4];
             }
-            if (preg_match('#(.*)rowspan=("|\')?(\d+)\2(.*)#i', $format, $pieces)) {
+            if (preg_match('#(.*)rowspan=("|\')?(\d+)(?(2)\2)(.*)#i', $format, $pieces)) {
                 $this->_spanCells[$this->_level][$order] =
                                     $param['rowspan'] = (int)$pieces[3];
                 $format = $pieces[1] . $pieces[4];
