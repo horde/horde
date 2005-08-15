@@ -47,10 +47,10 @@ class Text_Wiki_Render_Latex_Table extends Text_Wiki_Render {
                 return "\\hline\n\\end{tabular}\n";
 
             case 'caption_start':
-                return "\\hline\n\\multicolumn\{$this->cell_count}\{|1|}{";
+                return "\\caption{";
 
             case 'caption_end':
-                return "}\\\\\n";
+                return "}\n";
 
             case 'row_start':
                 $this->is_spanning = false;
