@@ -107,13 +107,18 @@ class Text_Wiki_Render_Xhtml_Table extends Text_Wiki_Render {
                 $html .= " colspan=\"$span\"";
             }
 
+            // add the row span
+            if ($rowspan > 1) {
+                $html .= " rowspan=\"$rowspan\"";
+            }
+
             // add alignment
             if ($attr != 'header' && $attr != '') {
                 $html .= " style=\"text-align: $attr;\"";
             }
 
             // done!
-            $html .= "$format>";
+            $html .= " $format>";
             return $html;
             break;
 
