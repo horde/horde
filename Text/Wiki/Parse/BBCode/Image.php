@@ -48,7 +48,7 @@ class Text_Wiki_Parse_Image extends Text_Wiki_Parse {
         'schemes' => 'http|ftp|https|ftps',  // can be also as array of regexps/strings
         'extensions' => 'jpg|jpeg|gif|png',  // can be also as array of regexps/strings
         'url_regexp' =>
-         '(?:[^.\s/"\'<\\\#delim#\ca-\cz]+\.)*[a-z](?:[-a-z0-9]*[a-z0-9])?\.?(?:/[^\s"<\\\#delim#\ca-\cz]*)?',
+         '(?:[^.\s/"\'<\\\#delim#\ca-\cz]+\.)*[a-z](?:[-a-z0-9]*[a-z0-9])?\.?(?:/[^\s"<>\\\#delim#\ca-\cz]*)?',
         'local_regexp' => '(?:/?[^/\s"<\\\#delim#\ca-\cz]+)*'
     );
 
