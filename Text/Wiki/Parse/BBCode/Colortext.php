@@ -43,7 +43,7 @@ class Text_Wiki_Parse_Colortext extends Text_Wiki_Parse {
      * @see Text_Wiki_Parse::parse()
      */
 
-    var $regex = "'(?:\[color=(aqua|black|blue|fuchsia|gray|green|lime|maroon|navy|olive|purple|red|silver|teal|white|yellow|\#[0-9a-f]{6})]((?:((?R))|.)*?)\[/color])'msi";
+    var $regex = "'(?:\[color=(aqua|black|blue|fuchsia|gray|green|lime|maroon|navy|olive|purple|red|silver|teal|white|yellow|\#?[0-9a-f]{6})]((?:((?R))|.)*?)\[/color])'msi";
 
     /**
      * The current color nesting depth, starts by zero
@@ -68,7 +68,7 @@ class Text_Wiki_Parse_Colortext extends Text_Wiki_Parse {
     function process(&$matches)
     {
         // nested block ?
-        if (array_key_exists(3, $matches)) {
+        if (array_key_exists(2, $matches)) {
             $this->_level++;
             $expsub = preg_replace_callback(
                 $this->regex,
