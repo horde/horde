@@ -36,6 +36,7 @@ class Text_Wiki_Render_Xhtml_Heading extends Text_Wiki_Render {
 
     function token($options)
     {
+    	$collapse = null;
         static $jsOutput = false;
         // get nice variable names (id, type, level)
         extract($options);
