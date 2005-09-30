@@ -49,7 +49,7 @@ class Text_Wiki_Parse_Plugin extends Text_Wiki_Parse {
      * @access public
      * @var string
      */
-    var $regexArgs =  '#(\w+?)=>?("[^"]+"|\'[^\']+\'|[^"\'][^,]+)#';
+    var $regexArgs = '#(\w+?)=(?:>|&gt;)?([^"\'][^,]+?|"[^"]+"|\'[^\']+\')#';
 
     /**
     *
