@@ -38,9 +38,9 @@ class Text_Wiki_Parse_Plugin extends Text_Wiki_Parse {
      * @var string
      */
     var $conf = array (
-    	'file_prefix' => 'wikiplugin_',
-    	'file_extension' => '.php',
-    	'file_path' => 'lib/wiki-plugins/'
+        'file_prefix' => 'wikiplugin_',
+        'file_extension' => '.php',
+        'file_path' => 'lib/wiki-plugins/'
     );
 
     /**
@@ -62,9 +62,10 @@ class Text_Wiki_Parse_Plugin extends Text_Wiki_Parse {
     *
     */
 
-    //var $regex = '/^({([A-Z]+?)\((.+)?\)})((.+)({\2}))?(\s|$)/Umsi';
-    var $regex = '/\{([A-Z]+?)\((.*?)\)}((?:(?R)|.)*?)\{\1}/msi';
-
+    // var $regex = '/\{([A-Z]+?)\((.*?)\)}((?:(?R)|.)*?)\{\1}/msi';
+    var $regex = '#(?:\{([A-Z]+?)\((.*?)\)}|(~pp~)|(~np~)|(&lt;pre&gt;))
+                  ((?:(?R)|.)*?)
+                  (?(1)\{\1})(?(3)~/pp~)(?(4)~/np~)(?(5)&lt;/pre&gt;)#mixs';
 
     /**
     *
@@ -83,6 +84,17 @@ class Text_Wiki_Parse_Plugin extends Text_Wiki_Parse {
 
     function process(&$matches)
     {
+        // preparsed area
+        if (isset($matches[3]) || isset($matches[5])) {
+            return $this->wiki->addToken('Preformatted',
+                                         array('text' => $matches[6]));
+        }
+        // non parsed area
+        if (isset($matches[4])) {
+            return $this->wiki->addToken('Raw',
+                                         array('text' => $matches[6]));
+        }
+        // plugin
         $func = $this->getConf('file_prefix') . strtolower($matches[1]);
         if (!function_exists($func)) {
             $file = $func . $this->getConf('file_extension');
@@ -100,7 +112,7 @@ class Text_Wiki_Parse_Plugin extends Text_Wiki_Parse {
         }
 
         // are there additional attribute arguments?
-    	preg_match_all($this->regexArgs, $matches[2], $args, PREG_PATTERN_ORDER);
+        preg_match_all($this->regexArgs, $matches[2], $args, PREG_PATTERN_ORDER);
         $attr = array();
         foreach ($args[1] as $i=>$name) {
             if ($args[2][$i]{0} == '"' || $args[2][$i]{0} == "'") {
@@ -111,7 +123,7 @@ class Text_Wiki_Parse_Plugin extends Text_Wiki_Parse {
         }
 
         // executes the plugin with data and pameters then recursive re-parse for nested or produced plugins
-        $res = $func($matches[3], $attr);
+        $res = $func($matches[6], $attr);
         return preg_replace_callback(
                 $this->regex,
                 array(&$this, 'process'),
