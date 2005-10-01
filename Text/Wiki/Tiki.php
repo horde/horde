@@ -39,10 +39,10 @@ class Text_Wiki_Tiki extends Text_Wiki {
         'Delimiter',
         'Code',
         'Plugin',
-        'Function',
+//        'Function',
         'Html',
-        'Raw',
-        'Preformatted',
+        'Raw',    // Now Parsed in Plugin
+        'Preformatted',    // Now Parsed in Plugin
         'Include',
         'Embed',
         'Page',
@@ -58,7 +58,7 @@ class Text_Wiki_Tiki extends Text_Wiki {
         'Table',
         'Box',
         'Image',
-        'Phplookup',
+//        'Phplookup',
         'Center',
         'Newline',
         'Paragraph',
