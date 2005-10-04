@@ -135,8 +135,9 @@ class Text_Wiki_Parse_Smiley extends Text_Wiki_Parse {
 
     /**
      * Generates a replacement token for the matched text.  Token options are:
-     *     'src' => the URL / path to the smiley
-     *     'attr' => empty for basic BBCode
+     *     'symbol' => the original marker
+     *     'name' => the name of the smiley
+     *     'desc' => the description of the smiley
      *
      * @param array &$matches The array of matches from parse().
      * @return string Delimited token representing the smiley
@@ -149,7 +150,7 @@ class Text_Wiki_Parse_Smiley extends Text_Wiki_Parse {
             array(
                 'symbol' => $matches[1],
                 'name'   => $this->_smileys[$matches[1]][0],
-                'desc'   => $this->_smileys[$matches[1]][1],
+                'desc'   => $this->_smileys[$matches[1]][1]
             ));
     }
 }
