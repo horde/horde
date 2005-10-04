@@ -58,6 +58,7 @@ class Text_Wiki_Tiki extends Text_Wiki {
         'Table',
         'Box',
         'Image',
+        'Smiley',
 //        'Phplookup',
         'Center',
         'Newline',
