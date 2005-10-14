@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<!-- $Id: packageTiki.xml,v 1.1 2005-10-14 22:25:24 justinpatrin Exp $ -->
+<!-- $Id: packageTiki.xml,v 1.2 2005-10-14 22:27:56 justinpatrin Exp $ -->
 <package version="1.0">
     <name>Text_Wiki_Tiki</name>
-    <summary>Tiki parser for Text_Wiki</summary>
-    <description>Parses TikiWiki mark-up to tokenize the text for Text_Wiki rendering and also renders for wiki conversion. You can see a reference for this syntax here: <a href="http://tikiwiki.org/tiki-index.php?page=WikiSyntax">http://tikiwiki.org/tiki-index.php?page=WikiSyntax</a></description>
+    <summary>Tiki parser and renderer for Text_Wiki</summary>
+    <description>Parses TikiWiki mark-up to tokenize the text for Text_Wiki rendering and also renders for wiki conversion. You can see a reference for this syntax here: http://tikiwiki.org/tiki-index.php?page=WikiSyntax</description>
     <maintainers>
         <maintainer>
             <user>justinpatrin</user>
