@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<!-- $Id: packageCowiki.xml,v 1.1 2005-10-14 23:09:31 justinpatrin Exp $ -->
+<!-- $Id: packageCowiki.xml,v 1.2 2005-10-15 17:13:34 justinpatrin Exp $ -->
 <package version="1.0">
     <name>Text_Wiki_Cowiki</name>
     <summary>Cowiki parser and renderer for Text_Wiki</summary>
@@ -10,6 +10,12 @@
             <user>justinpatrin</user>
             <name>Justin Patrin</name>
             <email>papercrane@reversefold.com</email>
+            <role>lead</role>
+        </maintainer>
+        <maintainer>
+            <user>toggg</user>
+            <name>betrand Gugger</name>
+            <email>bertrand@toggg.com</email>
             <role>lead</role>
         </maintainer>
      </maintainers>
