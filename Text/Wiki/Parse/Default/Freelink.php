@@ -102,9 +102,7 @@ class Text_Wiki_Parse_Freelink extends Text_Wiki_Parse {
         // use nice variable names
         $page = $matches[1];
         $text = $matches[2];
-        
-        // get rid of the leading # from the anchor, if any
-        $anchor = substr($matches[3], 1);
+        $anchor = $matches[3];
         
         // is the page given a new text appearance?
         if (trim($text) == '') {
