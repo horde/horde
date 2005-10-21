@@ -28,7 +28,7 @@ class Shout
 
         $menu = &new Menu(HORDE_MENU_MASK_ALL);
 
-        if (isset($context) && isset($section) && $section == "users" &&
+        if (isset($context) && $section == "users" &&
             Shout::checkRights("shout:contexts:$context:users",
                 PERMS_EDIT, 1)) {
             $url = Horde::applicationUrl("users.php");
@@ -89,6 +89,7 @@ class Shout
     function &getTabs($context, &$vars)
     {
         global $shout;
+        # FIXME Is this right?
         if (!Auth::isAdmin("shout", PERMS_SHOW|PERMS_READ)) {
             return false;
         }
@@ -99,7 +100,7 @@ class Shout
 
         if (Shout::checkRights("$permprefix:users", null, 1) &&
             $shout->checkContextType($context, "users")) {
-            $tabs->addTab(_("Users"),
+             $tabs->addTab(_("Users"),
                     Horde::applicationUrl("index.php?context=$context"),
                     'users');
         }
@@ -152,7 +153,7 @@ class Shout
      */
     function checkRights($permname, $permmask = null, $numparents = 0)
     {
-        if ($permmask == null) {
+        if ($permmask === null) {
             $permmask = PERMS_SHOW|PERMS_READ;
         }
 

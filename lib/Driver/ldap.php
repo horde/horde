@@ -628,9 +628,22 @@ for $context"));
     function saveUser($context, $extension, $userdetails)
     {
         # FIXME: Add test to make sure we aren't duplicating the extension
+        $res = ldap_search($this->_LDAP, SHOUT_USERS_BRANCH.','.$this->_params['basedn'],
+            "(&(objectClass=asteriskUser)(voiceMailbox=".
+                $userdetails['newextension']."))");
+        $res = ldap_get_entries($this->_LDAP, $res);
+        if ($res['count'] > 0) {
+            # The extension already exists.  Do some sanity checking to make
+            # sure we know we're modifying an existing user
+            # FIXME
+        }
         
         # FIXME Access Control/Authorization
-        
+        if (!Shout::checkRights("shout:contexts:$context:users",
+            PERMS_DELETE, 1)) {
+            return PEAR::raiseError("No permission to modify users in this " .
+                "context.");
+        }
         $ldapKey = &$this->_ldapKey;
         $appKey = &$this->_appKey;
         
