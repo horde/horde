@@ -98,6 +98,7 @@ class Text_Wiki_Parse_Url extends Text_Wiki_Parse {
         foreach ($prefixes as $val) {
             $url .= '|' . preg_quote($val, '#') . '\.';
         }
+        $url .= '|/';
         $host = $this->getConf('host_regexp', $default['host_regexp']);
         // the full url regexp
         $url .= ')' . $host . $this->getConf('path_regexp', $default['path_regexp']);
