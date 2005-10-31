@@ -195,13 +195,10 @@ type");
             return $entries[$context];
         }
 
-        $contexts = &$this->getContexts();
-        $domain = $contexts[$context]['domain'];
-
         $registry = &Registry::singleton();
         require_once $registry->applicationFilePath('%application%/lib/defines.php', 'congregation');
-        $users = $registry->callByPackage('congregation', 'getUsersByDomain',
-            array($domain, CONGREGATION_USER_PHONE));
+        $users = $registry->callByPackage('congregation', 'getUsersByContext',
+            array($context, CONGREGATION_USER_PHONE));
 
         foreach ($users as $user) {
             $extension = $user['extension'];
@@ -210,69 +207,6 @@ type");
         ksort($entries[$context]);
 
         return($entries[$context]);
-
-//         $search = @ldap_search($this->_LDAP,
-//             SHOUT_USERS_BRANCH.','.$this->_params['basedn'],
-//'(&(objectClass='.SHOUT_USER_OBJECTCLASS.')(context='.$context.'))',
-//             array('voiceMailbox', 'asteriskUserDialOptions',
-//                 'asteriskVoiceMailboxOptions', 'voiceMailboxPin',
-//                 'cn', 'telephoneNumber',
-//                 'asteriskUserDialTimeout', 'mail', 'asteriskPager'));
-//         if (!$search) {
-//             return PEAR::raiseError("Unable to search directory: " .
-//                 ldap_error($this->_LDAP));
-//         }
-//         $res = ldap_get_entries($this->_LDAP, $search);
-//         $entries[$context] = array();
-//         $i = 0;
-//         while ($i < $res['count']) {
-//             $extension = $res[$i]['voicemailbox'][0];
-//             $entries[$context][$extension] = array();
-//
-//             $j = 0;
-//             $entries[$context][$extension]['dialopts'] = array();
-//             while ($j < @$res[$i]['asteriskuserdialoptions']['count']) {
-//                 $entries[$context][$extension]['dialopts'][] =
-//                     $res[$i]['asteriskuserdialoptions'][$j];
-//                 $j++;
-//             }
-//
-//             $j = 0;
-//             $entries[$context][$extension]['mailboxopts'] = array();
-//             while ($j < @$res[$i]['asteriskvoicemailboxoptions']['count']) {
-//                 $entries[$context][$extension]['mailboxopts'][] =
-//                     $res[$i]['asteriskvoicemailboxoptions'][$j];
-//                 $j++;
-//             }
-//
-//             $entries[$context][$extension]['mailboxpin'] =
-//                 $res[$i]['voicemailboxpin'][0];
-//
-//             @$entries[$context][$extension]['name'] =
-//                 $res[$i]['cn'][0];
-//
-//             $j = 0;
-//             $entries[$context][$extension]['phonenumbers'] = array();
-//             while ($j < @$res[$i]['telephonenumber']['count']) {
-//                 $entries[$context][$extension]['phonenumbers'][] =
-//                     $res[$i]['telephonenumber'][$j];
-//                 $j++;
-//             }
-//
-//             # FIXME Do some sanity checking here.  Also set a default?
-//             @$entries[$context][$extension]['dialtimeout'] =
-//                 $res[$i]['asteriskuserdialtimeout'][0];
-//
-//             @$entries[$context][$extension]['email'] =
-//                 $res[$i]['mail'][0];
-//
-//             @$entries[$context][$extension]['pageremail'] =
-//                 $res[$i]['asteriskpager'][0];
-//
-//             $i++;
-//         }
-//
-//         return $entries[$context];
     }
     // }}}
 
@@ -638,7 +572,7 @@ for $context"));
         }
         if (($res['count'] > 1) ||
             ($res['count'] != 0 &&
-            !in_array($res[0][$ldapKey], $userdetails[$appKey])_) {
+            !in_array($res[0][$ldapKey], $userdetails[$appKey]))) {
             return PEAR::raiseError('Duplicate extension found.  Not saving changes.');
         }
 
