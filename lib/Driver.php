@@ -14,6 +14,7 @@
  * @since   Shout 0.1
  * @package Shout
  */
+require_once SHOUT_BASE . "/lib/defines.php";
 
 // {{{ Shout_Driver class
 class Shout_Driver {
@@ -25,6 +26,7 @@ class Shout_Driver {
      * @var array $_params
      */
     var $_params = array();
+
     // }}}
 
     // {{{ Shout_Driver constructor

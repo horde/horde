@@ -1,14 +1,20 @@
 <?php
-
-@define(SHOUT_ASTERISK_BRANCH, "ou=Asterisk");
-@define(SHOUT_USERS_BRANCH, "ou=Customers");
-@define(SHOUT_USER_OBJECTCLASS, "asteriskUser");
-
-@define(SHOUT_CONTEXT_ALL, 0);
-@define(SHOUT_CONTEXT_CUSTOMERS, 1 << 0);
-@define(SHOUT_CONTEXT_EXTENSIONS, 1 << 1);
-@define(SHOUT_CONTEXT_MOH, 1 << 2);
-@define(SHOUT_CONTEXT_CONFERENCE, 1 << 3);
+/**
+ * Shout:: defines an set of classes for the Shout application.
+ *
+ * $Horde: shout/lib/Shout.php,v 0.01 2005/06/28 11:15:03 ben Exp $
+ *
+ * Copyright 2005 Ben Klang <ben@alkaloid.net>
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ *
+ * @author  Ben Klang <ben@alkaloid.net>
+ * @version $Revision$
+ * @since   Shout 0.1
+ * @package Shout
+ */
+require_once SHOUT_BASE . "/lib/defines.php";
 
 // {{{ Class Shout
 class Shout
@@ -35,7 +41,7 @@ class Shout
             $url = Util::addParameter($url, array('context' => $context,
                                                   'section' => $section,
                                                   'action' => 'add'));
-            
+
             # Goofy hack to make the icon make a little more sense
             # when editing/deleting users
             if (!isset($action)) {
@@ -56,7 +62,7 @@ class Shout
             $url = Util::addParameter($url, array('context' => $context,
                                                   'section' => $section,
                                                   'action' => 'add'));
-            
+
             # Goofy hack to make the icon make a little sense
             # when editing/deleting users
             if (!isset($action)) {
@@ -69,7 +75,7 @@ class Shout
 
             $menu->add($url, _("$icontitle Extension"), "add-extension.gif");
         }
-        
+
         if ($returnType == 'object') {
             return $menu;
         } else {

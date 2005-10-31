@@ -13,8 +13,6 @@ require_once 'Horde/Variables.php';
 
 $RENDERER = &new Horde_Form_Renderer();
 
-$wereerrors = 0;
-
 $vars = &Variables::getDefaultVariables();
 $formname = $vars->get('formname');
 
@@ -57,7 +55,7 @@ if (Util::getFormData('transfer')) {
     $userdetails['dialopts'][] = 't';
 }
 
-$res = $shout->saveUser($context, $curextension, $userdetails);
-if (is_a($res, 'PEAR_Error')) {
-    print $res->getMessage();
-}
+// $res = $shout->saveUser($context, $curextension, $userdetails);
+// if (is_a($res, 'PEAR_Error')) {
+//     print $res->getMessage();
+// }

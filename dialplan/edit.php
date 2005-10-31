@@ -14,7 +14,6 @@ require_once 'Horde/Variables.php';
 $RENDERER = &new Horde_Form_Renderer();
 
 $empty = '';
-$wereerrors = 0;
 
 $vars = &Variables::getDefaultVariables($empty);
 $formname = $vars->get('formname');

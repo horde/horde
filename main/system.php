@@ -15,7 +15,6 @@ $RENDERER = &new Horde_Form_Renderer();
 
 $empty = '';
 $beendone = 0;
-$wereerrors = 0;
 
 $vars = &Variables::getDefaultVariables($empty);
 $syscontext = Util::getFormData("syscontext");

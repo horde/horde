@@ -51,6 +51,7 @@ require_once 'Horde/Text/Filter.php';
 require_once 'Horde/UI/Tabs.php';
 
 $GLOBALS['shout'] = &Shout_Driver::singleton();
+// $shout = $GLOBALS['shout'];
 
 // Horde libraries.
 require_once 'Horde/Help.php';
