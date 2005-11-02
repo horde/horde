@@ -85,7 +85,7 @@ class Text_Wiki_Render_Xhtml_Interwiki extends Text_Wiki_Render {
             // code tip is actually from youngpup.net, and it
             // uses the $target as the new window name.
             $target = htmlspecialchars($target);
-            $output .= " onClick=\"window.open(this.href, '$target');";
+            $output .= " onclick=\"window.open(this.href, '$target');";
             $output .= " return false;\"";
         }
 
