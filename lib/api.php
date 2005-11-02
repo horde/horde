@@ -17,11 +17,6 @@ $_services['perms'] = array(
     'type' => '{urn:horde}stringArray'
 );
 
-$_services['getUsersByDomain'] = array(
-    'args' => array('domain' => 'string', 'timestamp' => 'int'),
-    'type' => '{urn:horde}stringArray',
-);
-
 function _shout_perms()
 {
     static $perms = array();

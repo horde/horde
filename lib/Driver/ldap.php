@@ -68,33 +68,25 @@ class Shout_Driver_ldap extends Shout_Driver
         if ($searchfilters == SHOUT_CONTEXT_ALL) {
             $searchfilter="(objectClass=asteriskObject)";
         } else {
-            $searchfilter = "(|";
+            $searchfilter = "(&";
             # FIXME Change this to non-V-Office specific objectClass
             if ($searchfilters & SHOUT_CONTEXT_CUSTOMERS) {
+                # FIXME what does this objectClass really do for us?
                 $searchfilter.="(objectClass=vofficeCustomer)";
-            } else {
-                $searchfilter.="(!(objectClass=vofficeCustomer))";
             }
-
             if ($searchfilters & SHOUT_CONTEXT_EXTENSIONS) {
                 $searchfilter.="(objectClass=asteriskExtensions)";
-            } else {
-                $searchfilter.="(!(objectClass=asteriskExtensions))";
             }
-
             if ($searchfilters & SHOUT_CONTEXT_MOH) {
                 $searchfilter.="(objectClass=asteriskMusicOnHold)";
-            } else {
-                $searchfilter.="(!(objectClass=asteriskMusicOnHold))";
             }
-
             if ($searchfilters & SHOUT_CONTEXT_CONFERENCE) {
                 $searchfilter.="(objectClass=asteriskMeetMe)";
-            } else {
-                $searchfilter.="(!(objectClass=asteriskMeetMe))";
             }
             $searchfilter .= ")";
         }
+
+        $attributes = array(SHOUT_ACCOUNT_ID_ATTRIBUTE, 'objectClass', 'context');
 
         # Collect all the possible contexts from the backend
         $res = @ldap_search($this->_LDAP,
@@ -112,10 +104,33 @@ class Shout_Driver_ldap extends Shout_Driver
         $entries[$searchfilters] = array();
         while ($i < $res['count']) {
             $context = $res[$i]['context'][0];
-            @$domain = $res[$i]['associateddomain'][0];
+            $type = SHOUT_CONTEXT_NONE;
+            foreach ($res[$i][strtolower('objectClass')] as $objectClass) {
+                switch ($objectClass) {
+                    case SHOUT_CONTEXT_CUSTOMERS_OBJECTCLASS:
+                        # FIXME What does this objectClass really get us?
+                        $type = $type | SHOUT_CONTEXT_CUSTOMERS;
+                        break;
+                    case SHOUT_CONTEXT_EXTENSIONS_OBJECTCLASS:
+                        $type = $type | SHOUT_CONTEXT_EXTENSIONS;
+                        break;
+                    case SHOUT_CONTEXT_MOH_OBJECTCLASS:
+                        $type = $type | SHOUT_CONTEXT_MOH;
+                        break;
+                    case SHOUT_CONTEXT_CONFERENCE_OBJECTCLASS:
+                        $type = $type | SHOUT_CONTEXT_CONFERENCE;
+                        break;
+                    case SHOUT_CONTEXT_VOICEMAIL_OBJECTCLASS:
+                        $type = $type | SHOUT_CONTEXT_VOICEMAIL;
+                        break;
+                }
+            }
             if (Shout::checkRights("shout:contexts:$context", $filterperms)) {
                 $entries[$searchfilters][$context] =
-                    array('domain' => $domain);
+                    array(
+                        'custid' => SHOUT_ACCOUNT_ID_ATTRIBUTE,
+                        'type' => $type,
+                    );
             }
             $i++;
         }
@@ -270,6 +285,7 @@ for $context"));
         foreach ($res[0]['objectclass'] as $objectClass) {
             switch ($objectClass) {
                 case "vofficeCustomer":
+                    # FIXME What does this objectClass really do for us?
                     $properties = $properties | SHOUT_CONTEXT_CUSTOMERS;
                     break;
 

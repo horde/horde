@@ -13,9 +13,20 @@
 @define(SHOUT_USERS_BRANCH, "ou=Customers");
 @define(SHOUT_USER_OBJECTCLASS, "asteriskUser");
 
-@define(SHOUT_CONTEXT_ALL, 0xF);
-@define(SHOUT_CONTEXT_NONE, 0);
-@define(SHOUT_CONTEXT_CUSTOMERS, 1 << 0);
-@define(SHOUT_CONTEXT_EXTENSIONS, 1 << 1);
-@define(SHOUT_CONTEXT_MOH, 1 << 2);
-@define(SHOUT_CONTEXT_CONFERENCE, 1 << 3);
+@define('SHOUT_CONTEXT_ALL', 0xFFF);
+@define('SHOUT_CONTEXT_NONE', 0);
+@define('SHOUT_CONTEXT_CUSTOMERS', 1 << 0);
+@define('SHOUT_CONTEXT_EXTENSIONS', 1 << 1);
+@define('SHOUT_CONTEXT_MOH', 1 << 2);
+@define('SHOUT_CONTEXT_CONFERENCE', 1 << 3);
+@define('SHOUT_CONTEXT_VOICEMAIL', 1 << 4);
+
+# FIXME Maybe these should be params instead?
+@define('SHOUT_CONTEXT_CUSTOMERS_OBJECTCLASS', 'vofficeCustomer');
+@define('SHOUT_CONTEXT_EXTENSIONS_OBJECTCLASS', 'asteriskExtensions');
+@define('SHOUT_CONTEXT_MOH_OBJECTCLASS', 'asteriskMusiconHold');
+@define('SHOUT_CONTEXT_CONFERENCE_OBJECTCLASS', 'asteriskMeetMe');
+@define('SHOUT_CONTEXT_VOICEMAIL_OBJECTCLASS', 'asteriskVoicemail');
+
+# FIXME Maybe these should be params instead?
+@define('SHOUT_ACCOUNT_ID_ATTRIBUTE', 'vofficeCustomerNumber');

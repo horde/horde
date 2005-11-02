@@ -13,12 +13,12 @@ $menu_view = $prefs->getValue('menu_view');
     <select id="context" name="context" onchange="contextSubmit()">
      <?php
         $contexts = &$shout->getContexts();
-        foreach ($contexts as $item) {
-            print "<option name=\"$item\"";
-            if ($item == $context) {
+        foreach ($contexts as $c => $cdata) {
+            print "<option name=\"$c\"";
+            if ($c == $context) {
                 print " selected";
             }
-            print ">$item</option>\n";
+            print ">$c</option>\n";
         }
      ?>
     </select>
