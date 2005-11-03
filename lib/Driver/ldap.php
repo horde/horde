@@ -325,10 +325,10 @@ for $context"));
 
         $res = @ldap_search($this->_LDAP,
             SHOUT_ASTERISK_BRANCH.','.$this->_params['basedn'],
-            "(&(objectClass=asteriskExtensions)(context=$context))",
-            array('asteriskExtensionLine', 'asteriskIncludeLine',
-                'asteriskIgnorePat', 'description',
-                'asteriskExtensionBareLine'));
+            "(&(objectClass=".SHOUT_CONTEXT_EXTENSIONS_OBJECTCLASS.")(context=$context))",
+            array(SHOUT_DIALPLAN_EXTENSIONLINE_ATTRIBUTE, SHOUT_DIALPLAN_INCLUDE_ATTRIBUTE,
+                SHOUT_DIALPLAN_IGNOREPAT_ATTRIBUTE, 'description',
+                SHOUT_DIALPLAN_BARELINE_ATTRIBUTE));
         if (!$res) {
             return PEAR::raiseError("Unable to locate any extensions " .
             "underneath ".SHOUT_ASTERISK_BRANCH.",".$this->_params['basedn'] .
@@ -340,10 +340,10 @@ for $context"));
         $i = 0;
         while ($i < $res['count']) {
             # Handle extension lines
-            if (isset($res[$i]['asteriskextensionline'])) {
+            if (isset($res[$i][strtolower(SHOUT_DIALPLAN_EXTENSIONLINE_ATTRIBUTE)])) {
                 $j = 0;
-                while ($j < $res[$i]['asteriskextensionline']['count']) {
-                    @$line = $res[$i]['asteriskextensionline'][$j];
+                while ($j < $res[$i][strtolower(SHOUT_DIALPLAN_EXTENSIONLINE_ATTRIBUTE)]['count']) {
+                    @$line = $res[$i][strtolower(SHOUT_DIALPLAN_EXTENSIONLINE_ATTRIBUTE)][$j];
 
                     # Basic sanity check for length.  FIXME
                     if (strlen($line) < 5) {
@@ -387,7 +387,7 @@ for $context"));
                 $j = 0;
                 while ($j < $res[$i]['asteriskincludeline']['count']) {
                     @$line = $res[$i]['asteriskincludeline'][$j];
-                    $dialplans[$context]['include'][$j] = $line;
+                    $dialplans[$context]['includes'][$j] = $line;
                     $j++;
                 }
             }
@@ -397,7 +397,7 @@ for $context"));
                 $j = 0;
                 while ($j < $res[$i]['asteriskignorepat']['count']) {
                     @$line = $res[$i]['asteriskignorepat'][$j];
-                    $dialplans[$context]['ignorepat'][$j] = $line;
+                    $dialplans[$context]['ignorepats'][$j] = $line;
                     $j++;
                 }
             }
@@ -406,7 +406,7 @@ for $context"));
                 $j = 0;
                 while ($j < $res[$i]['asteriskextensionbareline']['count']) {
                     @$line = $res[$i]['asteriskextensionbareline'][$j];
-                    $dialplans[$context]['bareline'][$j] = $line;
+                    $dialplans[$context]['barelines'][$j] = $line;
                     $j++;
                 }
             }

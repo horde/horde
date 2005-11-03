@@ -1,6 +1,6 @@
 <!DOCTYPE webproject>
 <webproject>
-  <project usePreviewPrefix="0" previewPrefix="" type="Local" usePersistentBookmarks="0" name="Shout" encoding="iso 8859-1" enableEvents="true" >
+  <project usePreviewPrefix="0" type="Local" previewPrefix="" usePersistentBookmarks="0" name="Shout" encoding="iso 8859-1" enableEvents="true" >
     <upload/>
     <defaultDTD>-//w3c//dtd xhtml 1.0 strict//en</defaultDTD>
     <item url="config/" uploadstatus="1" />
@@ -9,7 +9,7 @@
     <item modified_time="1130769960" url="dialplan/edit.php" uploadstatus="1" />
     <item url="lib/" uploadstatus="1" />
     <item url="lib/Driver/" uploadstatus="1" />
-    <item modified_time="1130864652" url="lib/Driver/ldap.php" uploadstatus="1" />
+    <item modified_time="1131046511" url="lib/Driver/ldap.php" uploadstatus="1" />
     <item modified_time="1130769961" url="lib/base.php" uploadstatus="1" />
     <item modified_time="1121689003" url="lib/Dialplan.php" uploadstatus="1" />
     <item modified_time="1130769960" url="lib/Driver.php" uploadstatus="1" />
@@ -17,7 +17,7 @@
     <item modified_time="1121689003" url="lib/System.php" uploadstatus="1" />
     <item modified_time="1130769961" url="lib/User.php" uploadstatus="1" />
     <item url="main/" uploadstatus="1" />
-    <item modified_time="1121689003" url="main/dialplan.php" uploadstatus="1" />
+    <item modified_time="1131047244" url="main/dialplan.php" uploadstatus="1" />
     <item modified_time="1121401845" url="main/moh.php" uploadstatus="1" />
     <item modified_time="1130769962" url="main/system.php" uploadstatus="1" />
     <item modified_time="1121689003" url="main/users.php" uploadstatus="1" />
@@ -46,7 +46,7 @@
     <item modified_time="1122704539" url="users/delete.php" uploadstatus="1" />
     <item modified_time="1130769962" url="users/edit.php" uploadstatus="1" />
     <item modified_time="1130769962" url="users/save.php" uploadstatus="1" />
-    <item modified_time="1121689003" url="dialplan.php" uploadstatus="1" />
+    <item modified_time="1131044239" url="dialplan.php" uploadstatus="1" />
     <item modified_time="1129871121" url="index.php" uploadstatus="1" />
     <item modified_time="1122704475" url="users.php" uploadstatus="1" />
     <item url="" uploadstatus="1" />
@@ -55,7 +55,7 @@
       <profile remote_host="picasso.v-office.biz" remote_port="22" remote_path="/srv/vhost/users/alkaloid/sites/intranet.v-office.biz/shout" remote_protocol="sftp" user="alkaloid" name="Shout" >
         <uploadeditem upload_time="0" url="config/" />
         <uploadeditem upload_time="1120073766" url="config/conf.xml" />
-        <uploadeditem upload_time="1121689003" url="dialplan.php" />
+        <uploadeditem upload_time="1131044239" url="dialplan.php" />
         <uploadeditem upload_time="0" url="dialplan/" />
         <uploadeditem upload_time="1130769960" url="dialplan/edit.php" />
         <uploadeditem upload_time="1129871121" url="index.php" />
@@ -63,15 +63,15 @@
         <uploadeditem upload_time="1121689003" url="lib/Dialplan.php" />
         <uploadeditem upload_time="1130769960" url="lib/Driver.php" />
         <uploadeditem upload_time="0" url="lib/Driver/" />
-        <uploadeditem upload_time="1130864652" url="lib/Driver/ldap.php" />
+        <uploadeditem upload_time="1131046511" url="lib/Driver/ldap.php" />
         <uploadeditem upload_time="1130769961" url="lib/Shout.php" />
         <uploadeditem upload_time="1121689003" url="lib/System.php" />
         <uploadeditem upload_time="1130769961" url="lib/User.php" />
         <uploadeditem upload_time="1130862539" url="lib/api.php" />
         <uploadeditem upload_time="1130769961" url="lib/base.php" />
-        <uploadeditem upload_time="1130864200" url="lib/defines.php" />
+        <uploadeditem upload_time="1131045729" url="lib/defines.php" />
         <uploadeditem upload_time="0" url="main/" />
-        <uploadeditem upload_time="1121689003" url="main/dialplan.php" />
+        <uploadeditem upload_time="1131047244" url="main/dialplan.php" />
         <uploadeditem upload_time="1121401845" url="main/moh.php" />
         <uploadeditem upload_time="1130769962" url="main/system.php" />
         <uploadeditem upload_time="1121689003" url="main/users.php" />
@@ -116,7 +116,7 @@
       <mailinglist address="" />
     </teamdata>
     <events/>
-    <item modified_time="1130864200" url="lib/defines.php" uploadstatus="1" />
+    <item modified_time="1131045729" url="lib/defines.php" uploadstatus="1" />
     <treestatus>
       <openfolder url="config" />
       <openfolder url="dialplan" />
@@ -124,6 +124,7 @@
       <openfolder url="lib/Driver" />
       <openfolder url="main" />
       <openfolder url="templates" />
+      <openfolder url="templates/dialplan" />
       <openfolder url="users" />
     </treestatus>
   </project>

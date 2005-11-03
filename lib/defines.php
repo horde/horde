@@ -9,9 +9,9 @@
  *
  * @package Shout
  */
-@define(SHOUT_ASTERISK_BRANCH, "ou=Asterisk");
-@define(SHOUT_USERS_BRANCH, "ou=Customers");
-@define(SHOUT_USER_OBJECTCLASS, "asteriskUser");
+@define('SHOUT_ASTERISK_BRANCH', "ou=Asterisk");
+@define('SHOUT_USERS_BRANCH', "ou=Customers");
+@define('SHOUT_USER_OBJECTCLASS', "asteriskUser");
 
 @define('SHOUT_CONTEXT_ALL', 0xFFF);
 @define('SHOUT_CONTEXT_NONE', 0);
@@ -27,6 +27,11 @@
 @define('SHOUT_CONTEXT_MOH_OBJECTCLASS', 'asteriskMusiconHold');
 @define('SHOUT_CONTEXT_CONFERENCE_OBJECTCLASS', 'asteriskMeetMe');
 @define('SHOUT_CONTEXT_VOICEMAIL_OBJECTCLASS', 'asteriskVoicemail');
+
+@define('SHOUT_DIALPLAN_EXTENSIONLINE_ATTRIBUTE', 'asteriskExtensionLine');
+@define('SHOUT_DIALPLAN_INCLUDE_ATTRIBUTE', 'asteriskIncludeLine');
+@define('SHOUT_DIALPLAN_IGNOREPAT_ATTRIBUTE', 'asteriskIgnorePat');
+@define('SHOUT_DIALPLAN_BARELINE_ATTRIBUTE', 'asteriskExtensionBareLine');
 
 # FIXME Maybe these should be params instead?
 @define('SHOUT_ACCOUNT_ID_ATTRIBUTE', 'vofficeCustomerNumber');

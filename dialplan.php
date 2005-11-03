@@ -9,6 +9,9 @@
  */
 
 @define('SHOUT_BASE', dirname(__FILE__));
+# FIXME Need a cleaner script prologue... probably all we need to do is check
+# for some kind of sane startup vars and otherwise redirect to '/'
+# This standard prologue should be consistent across every file that ends in .php
 $shout_configured = (@is_readable(SHOUT_BASE . '/config/conf.php'));# &&
     #@is_readable(SHOUT_BASE . '/config/prefs.php'));
 if (!$shout_configured) {
