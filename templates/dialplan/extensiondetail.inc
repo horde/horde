@@ -1,0 +1,1 @@
+<div class='extensiondetail'>This is where extension details will be printed.</div>
