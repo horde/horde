@@ -84,7 +84,7 @@ class Text_Wiki_Parse_List extends Text_Wiki_Parse {
     */
 
     function process(&$matches)
-    {var_dump($matches);
+    {
         // the replacement text we will return
         $return = '';
 
