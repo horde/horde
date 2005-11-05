@@ -46,10 +46,13 @@ foreach ($dialplan as $linetype => $linedata) {
                         $nodetext = $extension;
                         break;
                     }
-                $tree->addNode($extension, 'extensions', $nodetext, null);
-                foreach ($priorities as $priority => $application) {
-                    $tree->addNode("$extension-$priority", $extension, "$priority: $application", null);
-                }
+                $url = Horde::applicationUrl('index.php?section=dialplan' .
+                    '&extension=' . $extension . '&context=' . $context);
+                $tree->addNode($extension, 'extensions', $nodetext, null, false,
+                    array('url' => $url));
+//                 foreach ($priorities as $priority => $application) {
+//                     $tree->addNode("$extension-$priority", $extension, "$priority: $application", null);
+//                 }
             }
             break;
 
@@ -71,7 +74,11 @@ foreach ($dialplan as $linetype => $linedata) {
     }
 }
 
-$tree->renderTree();
+require SHOUT_TEMPLATES . '/dialplan/contexttree.inc';
+
+if ($extension = Util::getFormData('extension')) {
+    require SHOUT_TEMPLATES . '/dialplan/extensiondetail.inc';
+}
 
 // Horde::addScriptFile('httpclient.js', 'horde', true);
 // Horde::addScriptFile('hideable.js', 'horde', true);
