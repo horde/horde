@@ -52,9 +52,10 @@ class Text_Wiki_Parse_Url extends Text_Wiki_Parse {
         'refused' => array('script', 'about', 'applet', 'activex', 'chrome'),
         'prefixes' => array('www', 'ftp'),
         'host_regexp' => '(?:[^.\s/"\'<\\\#delim#\ca-\cz]+\.)*[a-z](?:[-a-z0-9]*[a-z0-9])?\.?',
-        'path_regexp' => '(?:/[^\s"<\\\#delim#\ca-\cz]*)?',
+        'path_regexp' => '(?:/[^][\'\s"<\\\#delim#\ca-\cz]*)?',
         'user_regexp' => '[^]()<>[:;@\,."\s\\\#delim#\ca-\cz]+(?:\.[^]()<>[:;@\,."\s\\\#delim#\ca-\cz]+)*',
-        'inline_enable' => true
+        'inline_enable' => true,
+        'relative_enable' => false
     );
 
     /**
@@ -98,16 +99,20 @@ class Text_Wiki_Parse_Url extends Text_Wiki_Parse {
         foreach ($prefixes as $val) {
             $url .= '|' . preg_quote($val, '#') . '\.';
         }
-        $url .= '|/';
         $host = $this->getConf('host_regexp', $default['host_regexp']);
+        $path = $this->getConf('path_regexp', $default['path_regexp']);
         // the full url regexp
-        $url .= ')' . $host . $this->getConf('path_regexp', $default['path_regexp']);
+        $url .= ')' . $host . $path;
         // the full email regexp
         $email = $this->getConf('user_regexp', $default['user_regexp']) . '@' . $host;
         // inline to disable ?
         if (!$this->getConf('inline_enable', true)) {
             unset($this->regex[1]);
             unset($this->regex[3]);
+        }
+        // relative url to enable ?
+        if ($this->getConf('relative_enable', false)) {
+            $this->regex[5] = str_replace( '#url#', $path, $this->regex[0]);
         }
         // replace in the regexps
         $this->regex = str_replace( '#url#', $url, $this->regex);
