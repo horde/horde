@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<!-- $Id: packageBBCode.xml,v 1.1 2005-09-13 19:59:24 toggg Exp $ -->
+<!-- $Id: packageBBCode.xml,v 1.2 2005-11-06 08:38:44 toggg Exp $ -->
 <package version="1.0">
     <name>Text_Wiki_BBCode</name>
     <summary>BBCode parser for Text_Wiki</summary>
@@ -12,14 +12,26 @@
             <email>bertrand@toggg.com</email>
             <role>lead</role>
         </maintainer>
+        <maintainer>
+            <user>firman</user>
+            <name>Firman Wandayandi</name>
+            <email>firman at php dot net</email>
+            <role>lead</role>
+        </maintainer>
      </maintainers>
     <release>
-        <version>0.0.1</version>
-        <date>2005-09-13</date>
+        <version>0.0.2</version>
+        <date>2005-11-06</date>
         <license>LGPL</license>
         <state>alpha</state>
         <notes>
-This is the basic BBCode syntax as per http://www.phpbb.com/phpBB/faq.php?mode=bbcode
+* Firman is now co-lead of the package
+* Added a test file to use with doc/Text_Wiki/doc/test_Text_Wiki.php
+* Added examples showing how to replace deprecated HTML_BBCodeParser by Text_Wiki_BBCode
+* # is optional for hexadecimal colours
+* Add superscript and subscript extension
+* Option relative_enable default false for relative urls, e.g., [url=/contact.php] (Request #5767)
+* Refuse ] , [ and ' in path part of the url, should be urlencoded
         </notes>
         <filelist>
 
@@ -36,11 +48,26 @@ This is the basic BBCode syntax as per http://www.phpbb.com/phpBB/faq.php?mode=b
             <file role="php" name="Text/Wiki/Parse/BBCode/Underline.php" />
             <file role="php" name="Text/Wiki/Parse/BBCode/Url.php" />
 
+            <file role="doc" name="doc/BBtest.txt" />
+            <file role="doc" name="doc/BBCodeParser.php" />
+            <file role="doc" name="doc/BBCodeParser_V2.ini" />
+            <file role="doc" name="doc/parser.php" />
+            <file role="doc" name="doc/README_BBCodeParser" />
+
         </filelist>
         <deps>
             <dep type="pkg" rel="ge" version="1.0.1">Text_Wiki</dep>
         </deps>
     </release>
   <changelog>
+    <release>
+        <version>0.0.1</version>
+        <date>2005-09-13</date>
+        <license>LGPL</license>
+        <state>alpha</state>
+        <notes>
+This is the basic BBCode syntax as per http://www.phpbb.com/phpBB/faq.php?mode=bbcode
+        </notes>
+    </release>
   </changelog>
 </package>
