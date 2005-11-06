@@ -122,14 +122,14 @@ class Text_Wiki_Parse_List extends Text_Wiki_Parse {
         if ($matches[1]) {
             $this->_type[$this->_level] = 'number';
             if (is_numeric($matches[1])) {
-                $param['format'] = '1';
-                $param['key'] = $matches[1] + 0;
+                $format = '1';
+                $key = $matches[1] + 0;
             } elseif (($matches[1] == 'i') || ($matches[1] == 'I')) {
-                $param['format'] = $matches[1];
+                $format = $matches[1];
             } else {
-                $param['format'] =
+                $format =
                     ($matches[1] >= 'a') && ($matches[1] <='z') ? 'a' : 'A';
-                $param['key'] = $matches[1];
+                $key = $matches[1];
             }
         } else {
             $this->_type[$this->_level] = 'bullet';
@@ -144,6 +144,12 @@ class Text_Wiki_Parse_List extends Text_Wiki_Parse {
                 'level' => $this->_level,
                 'count' => $this->_count[$this->_level] );
         $param['type'] = $this->_type[$this->_level].'_list_start';
+        if (isset($format)) {
+            $param['format'] = $format;
+        }
+        if (isset($key)) {
+            $param['key'] = $key;
+        }
         $ret = $this->wiki->addToken($this->rule, $param );
         $param['type'] = $this->_type[$this->_level].'_list_end';
         return $ret . $sub . $this->wiki->addToken($this->rule, $param );
