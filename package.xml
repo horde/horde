@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<!-- $Id: package.xml,v 1.45 2005-09-12 14:45:39 toggg Exp $ -->
+<!-- $Id: package.xml,v 1.46 2005-11-06 11:44:11 toggg Exp $ -->
 <package version="1.0">
     <name>Text_Wiki</name>
     <summary>Abstracts parsing and rendering rules for any markup as Wiki or BBCode in structured plain text.</summary>
@@ -27,35 +27,22 @@ Used for versatile transformers as well as converters.</description>
         </maintainer>
      </maintainers>
     <release>
-        <version>1.0.1</version>
-        <date>2005-09-12</date>
+        <version>1.0.2</version>
+        <date>2005-11-06</date>
         <license>LGPL</license>
         <state>stable</state>
         <notes>
-This is a bug fix and security release, also preparing the introduction of new parsers/renderers
-* Fixed bug 3881 and 4442, UTF-8 encoding problems.  There are new config options for Render_Xhtml, 'charset' and 'quotes', that allow you to specify the charset for translation.
-* Fixed bug 3959, "XHTML lists not rendered according W3C Standards" (where a line of text before a list leaves an open paragraph tag and closes it after the list)
-* In Parse_Xhtml_Toc, returns an extra newline before the parsed replacement text to comply with the matching regex.
-* In Render_Xhtml_Toc, added a 'collapse' config key to collapse the div horizontally within a table; this is for aesthetics, nothing else.  The 'collapse' option is true by default.
-* Added general rules Smiley, Subscript ",,text,," and Underline "__text__"
-* Added rendering rules Box, Font, Page, Plugin, Preformatted, Specialchar and Titelbar
-              for the optional extra parsers (BBCode, Cowiki, Doku, Mediawiki and Tiki)
-* Fixed bug 4175 "Wrong transform method" by generating PEAR_Error objects when a parse, format, or render rule cannot be found.
-* applied feature request 4436 "Add option to getTokens to get original token indices" -- now the return array from getTokens() is keyed to the original token index number.
-* Fixed Bug #4473 Undefined variables in error()
-* Fixed bug 4474 to silence calls to htmlentities and htmlspecialchars so that errors about charsets don't pop up, per counsel from Jan at Horde.
-* Fixed Code potential nesting
-* Fixed bug #4719, "In Latex, newline rule does not produce a new line"
-* Request #4520  	Additional space confuses image tag, adapted regexp
-* Request #4634  	Code block title/filename, uses conf css_filename
-* Code Xhtml: add php tags only if not there
-* Heading: collapsing in headers
-* Colortext Xhtml: don't add # if allready present
-* Anchor Xhtml htlmentify the link
-* Cleaned Xhtml renderers documentation headers
-* Added an example in doc
-* Rowspan and space before free format in Table renderer
-* Secured url linked on images
+This is a bug fix release, also with a few enhancements
+Default parser:
+* Bug #5660: The # is to be kept in the anchor option, (jeremy Lecour)
+* Bug #5863: Don't mix bullet and numbered lists when following each other, (stefan dot kilp at gmx dot net)
+* Bug #5397: variable used inside single quotes bugs WikiLinks (kristof dot coomans at sckcen dot be)
+Xhtml renderer:
+* Bug #5447: Preset $collapse to null (martin at mein-horde dot de)
+* Bug #5847: onclick in lowercase for Xhtml compliance (meisteg at msoe dot edu)
+* Unitiliazed row and column 's spans when coming from not mediawiki parser
+Xhtml and Latex renderers:
+* Render enumeration type a, A, i, or I in lists
         </notes>
         <filelist>
 
@@ -251,4 +238,38 @@ This is a bug fix and security release, also preparing the introduction of new p
 
         </filelist>
     </release>
+  <changelog>
+    <release>
+        <version>1.0.1</version>
+        <date>2005-09-12</date>
+        <license>LGPL</license>
+        <state>stable</state>
+        <notes>
+This is a bug fix and security release, also preparing the introduction of new parsers/renderers
+* Fixed bug 3881 and 4442, UTF-8 encoding problems.  There are new config options for Render_Xhtml, 'charset' and 'quotes', that allow you to specify the charset for translation.
+* Fixed bug 3959, "XHTML lists not rendered according W3C Standards" (where a line of text before a list leaves an open paragraph tag and closes it after the list)
+* In Parse_Xhtml_Toc, returns an extra newline before the parsed replacement text to comply with the matching regex.
+* In Render_Xhtml_Toc, added a 'collapse' config key to collapse the div horizontally within a table; this is for aesthetics, nothing else.  The 'collapse' option is true by default.
+* Added general rules Smiley, Subscript ",,text,," and Underline "__text__"
+* Added rendering rules Box, Font, Page, Plugin, Preformatted, Specialchar and Titelbar
+              for the optional extra parsers (BBCode, Cowiki, Doku, Mediawiki and Tiki)
+* Fixed bug 4175 "Wrong transform method" by generating PEAR_Error objects when a parse, format, or render rule cannot be found.
+* applied feature request 4436 "Add option to getTokens to get original token indices" -- now the return array from getTokens() is keyed to the original token index number.
+* Fixed Bug #4473 Undefined variables in error()
+* Fixed bug 4474 to silence calls to htmlentities and htmlspecialchars so that errors about charsets don't pop up, per counsel from Jan at Horde.
+* Fixed Code potential nesting
+* Fixed bug #4719, "In Latex, newline rule does not produce a new line"
+* Request #4520  	Additional space confuses image tag, adapted regexp
+* Request #4634  	Code block title/filename, uses conf css_filename
+* Code Xhtml: add php tags only if not there
+* Heading: collapsing in headers
+* Colortext Xhtml: don't add # if allready present
+* Anchor Xhtml htlmentify the link
+* Cleaned Xhtml renderers documentation headers
+* Added an example in doc
+* Rowspan and space before free format in Table renderer
+* Secured url linked on images
+        </notes>
+    </release>
+  </changelog>
 </package>

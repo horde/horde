@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<!-- $Id: packageBBCode.xml,v 1.3 2005-11-06 10:40:31 toggg Exp $ -->
+<!-- $Id: packageBBCode.xml,v 1.4 2005-11-06 11:44:11 toggg Exp $ -->
 <package version="1.0">
     <name>Text_Wiki_BBCode</name>
     <summary>BBCode parser for Text_Wiki</summary>
@@ -57,7 +57,7 @@
 
         </filelist>
         <deps>
-            <dep type="pkg" rel="ge" version="1.0.1">Text_Wiki</dep>
+            <dep type="pkg" rel="ge" version="1.0.2">Text_Wiki</dep>
         </deps>
     </release>
   <changelog>
