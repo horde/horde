@@ -20,14 +20,18 @@ or
 
 url:
 [url=http://www.totalgeek.org]totalgeek.org[/url]
+[url=/some/relative/url.php]relative url[/url]
 [url]www.totalgeek.org[/url]
 www.totalgeek.org
 [email=user@example.com]example Mail[/email]
 [email]user@example.com[/email]
 user@example.com
+An [url=http://www.totalgeek.org]totalgeek.org[/url] is an url as [url=/some/relative/url.php]relative url[/url], [url]www.totalgeek.org[/url], www.totalgeek.org also emails as [email=user@example.com]example Mail[/email], [email]user@example.com[/email] or user@example.com
 
 [img]rond.gif[/img]
 [img]http://pear.php.net/gifs/pearsmall.gif[/img]
+
+[u][b][i]Test for BBCode lists[/i][/b][/u]
 
 Unordered list:
 [list]
@@ -40,21 +44,49 @@ Ordered list:
 [*] This is the first bulleted item.
 [*] This is the second bulleted item.
 [/list]
-<code type="html"  filename="you.htm">
-You
-</code>
+
+[list]
+[*]unordered item 1
+[*]unordered item 2
+[/list]
+
+[list=1]
+[*]ordered item 1
+[*]ordered item 2
+[/list]
+
+[list=i][*]ordered item 1 type i[*]ordered item 2 type i[/list]
+
+an empty one:
+[list][/list]
+some more:
+	[list=I]
+	[*]ordered item 1 type I
+	[/list]
+	[list=a]
+	[*]ordered item 1 type a
+	[*]ordered item 2 type a
+	[/list]
+	[list=A]
+	[*]ordered item 1 type A
+	[*]ordered item 2 type A
+	[/list]
+
+	[list=X]
+	[*]ordered item 1, nested list:
+		[list=99]
+		[*]nested item 1
+		[*]nested item 2
+		[/list]
+	[*]ordered item 2
+	[/list]
+
 [quote="bibi"]And a quote!
 [quote]And a second
 inside
 [/quote]
 [/quote]
-<code type="php" filename="ibi.php">
-Hello
-<code type="html" >
-You
-</code>
- , how are you
-</code>
+
 [code]
 Hello
 [code]
@@ -63,3 +95,8 @@ You
  , how are you
 [/code]
 
+[size=18][color=red][b]CRAP ![/b][/color][/size]
+
+[color=expression(alert('fooba'));]test[/color]
+
+[size=18pt;width:expression(alert("foobar"));]test[/size]
