@@ -22,29 +22,47 @@ class Text_Wiki_Render_Latex_List extends Text_Wiki_Render {
     {
         // make nice variables (type, level, count)
         extract($options);
-        
+
         switch ($type)
             {
             case 'bullet_list_start':
                 return "\\begin{itemize}\n";
-                
+
             case 'bullet_list_end':
                 return "\\end{itemize}\n";
-                
+
             case 'number_list_start':
-                return "\\begin{enumerate}\n";
-                
+                $depth = 'enumi' . str_pad('', $level, 'i');
+                $enum = '\arabic';
+                if (isset($format)) {
+                    switch ($format) {
+                        case 'a':
+                            $enum = '\alph';
+                            break;
+                        case 'A':
+                            $enum = '\Alph';
+                            break;
+                        case 'i':
+                            $enum = '\roman';
+                            break;
+                        case 'I':
+                            $enum = '\Roman';
+                            break;
+                    }
+                }
+                return "\\renewcommand{\labelenumi}{{$enum}{{$depth}}}\n\\begin{enumerate}\n";
+
             case 'number_list_end':
                 return "\\end{enumerate}\n";
-                
+
             case 'bullet_item_start':
             case 'number_item_start':
                 return "\\item{";
-                
+
             case 'bullet_item_end':
             case 'number_item_end':
                 return "}\n";
-                
+
             default:
                 // ignore item endings and all other types.
                 // item endings are taken care of by the other types

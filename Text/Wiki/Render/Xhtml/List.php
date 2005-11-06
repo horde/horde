@@ -96,10 +96,14 @@ class Text_Wiki_Render_Xhtml_List extends Text_Wiki_Render {
             break;
 
         case 'number_list_start':
-
+            if (isset($format)) {
+                $format = ' type="' . $format . '"';
+            } else  {
+                $format = '';
+            }
             // build the base HTML
             $css = $this->formatConf(' class="%s"', 'css_ol');
-            $html = "<ol$css>";
+            $html = "<ol{$format}{$css}>";
 
             /*
             // if this is the opening block for the list,
