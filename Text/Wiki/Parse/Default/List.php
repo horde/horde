@@ -52,7 +52,7 @@ class Text_Wiki_Parse_List extends Text_Wiki_Parse {
     *
     */
 
-    var $regex = '/^((\*|#) .*\n)(?! {0,}(\2 |\n))/Usm';
+    var $regex = '/^((\*|#) .*\n)(?!\2 |(?: {1,}((?:\*|#) |\n)))/Usm';
 
 
     /**
