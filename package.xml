@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<!-- $Id: package.xml,v 1.46 2005-11-06 11:44:11 toggg Exp $ -->
+<!-- $Id: package.xml,v 1.47 2005-11-08 19:15:02 toggg Exp $ -->
 <package version="1.0">
     <name>Text_Wiki</name>
     <summary>Abstracts parsing and rendering rules for any markup as Wiki or BBCode in structured plain text.</summary>
@@ -27,22 +27,12 @@ Used for versatile transformers as well as converters.</description>
         </maintainer>
      </maintainers>
     <release>
-        <version>1.0.2</version>
-        <date>2005-11-06</date>
+        <version>1.0.3</version>
+        <date>2005-11-08</date>
         <license>LGPL</license>
         <state>stable</state>
         <notes>
-This is a bug fix release, also with a few enhancements
-Default parser:
-* Bug #5660: The # is to be kept in the anchor option, (jeremy Lecour)
-* Bug #5863: Don't mix bullet and numbered lists when following each other, (stefan dot kilp at gmx dot net)
-* Bug #5397: variable used inside single quotes bugs WikiLinks (kristof dot coomans at sckcen dot be)
-Xhtml renderer:
-* Bug #5447: Preset $collapse to null (martin at mein-horde dot de)
-* Bug #5847: onclick in lowercase for Xhtml compliance (meisteg at msoe dot edu)
-* Unitiliazed row and column 's spans when coming from not mediawiki parser
-Xhtml and Latex renderers:
-* Render enumeration type a, A, i, or I in lists
+This is a bug fix release, the Bug #5863: mixed &lt;ul&gt; &lt;ol&gt; when using * and # fix introduced a potential BBC: Bug #5879 Nested lists to do not parse properly in Text_Wiki
         </notes>
         <filelist>
 
@@ -239,6 +229,25 @@ Xhtml and Latex renderers:
         </filelist>
     </release>
   <changelog>
+    <release>
+        <version>1.0.2</version>
+        <date>2005-11-06</date>
+        <license>LGPL</license>
+        <state>stable</state>
+        <notes>
+This is a bug fix release, also with a few enhancements
+Default parser:
+* Bug #5660: The # is to be kept in the anchor option, (jeremy Lecour)
+* Bug #5863: Don't mix bullet and numbered lists when following each other, (stefan dot kilp at gmx dot net)
+* Bug #5397: variable used inside single quotes bugs WikiLinks (kristof dot coomans at sckcen dot be)
+Xhtml renderer:
+* Bug #5447: Preset $collapse to null (martin at mein-horde dot de)
+* Bug #5847: onclick in lowercase for Xhtml compliance (meisteg at msoe dot edu)
+* Unitiliazed row and column 's spans when coming from not mediawiki parser
+Xhtml and Latex renderers:
+* Render enumeration type a, A, i, or I in lists
+        </notes>
+    </release>
     <release>
         <version>1.0.1</version>
         <date>2005-09-12</date>
