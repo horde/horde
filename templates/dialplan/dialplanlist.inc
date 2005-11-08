@@ -10,27 +10,7 @@
     if (isset($dialplan['extensions']) &&
         (count($dialplan['extensions']) > 0)) {
         foreach ($dialplan['extensions'] as $extension => $priorities) {
-            unset($extname);
-            # Cast as a string to avoid misinterpreted digits
-            switch ((string)$extension) {
-                case "h":
-                    $extname = "Hangup";
-                    break;
-                case "i":
-                    $extname = "Invalid";
-                    break;
-                case "t":
-                    $extname = "Timeout";
-                    break;
-                case "s":
-                    $extname = "Start";
-                    break;
-                case "o":
-                    $extname = "Operator";
-                    break;
-                default:
-                    break;
-            }
+            $extname = Shout::exten2name($extension);
             ?>
             <tr class="header">
               <th colspan="2" class="header">

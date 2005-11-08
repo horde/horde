@@ -313,11 +313,15 @@ for $context"));
      *
      * @param string $context Context to return extensions for
      *
+     * @param boolean $preprocess Parse includes and barelines and add their
+     *                            information into the extensions array
+     *
      * @return array Multi-dimensional associative array of extensions data
      *
      */
-    function &getDialplan($context)
+    function &getDialplan($context, $preprocess = false)
     {
+        # FIXME Implement preprocess functionality.  Don't forget to cache!
         static $dialplans = array();
         if (isset($dialplans[$context])) {
             return $dialplans[$context];
@@ -349,25 +353,29 @@ for $context"));
                     if (strlen($line) < 5) {
                         break;
                     }
-                    # Can't use strtok here because there may be ','s in the arg
-                    # string
+                    # Can't use strtok here because there may be commass in the
+                    # arg string
 
                     # Get the extension
                     $token1 = strpos($line, ',');
                     $token2 = strpos($line, ',', $token1 + 1);
+                    $token3 = strpos($line, '(', $token2 + 1);
 
                     $extension = substr($line, 0, $token1);
-                    if (!isset($dialplans[$context][$extension])) {
-                        $dialplan[$context][$extension] = array();
+                    if (!isset($dialplans[$context]['extensions'][$extension])) {
+                        $dialplan[$context]['extensions'][$extension] = array();
                     }
                     $token1++;
                     # Get the priority
                     $priority = substr($line, $token1, $token2 - $token1);
-                    $dialplans[$context][$extension][$priority] = array();
+                    $dialplans[$context]['extensions'][$extension][$priority] =
+                        array();
                     $token2++;
 
                     # Get Application and args
                     $application = substr($line, $token2);
+
+                    #$args = strpos($)
 
                     # Merge all that data into the returning array
                     $dialplans[$context]['extensions'][$extension][$priority] =
@@ -380,7 +388,8 @@ for $context"));
                     $extension => $data) {
                     ksort($dialplans[$context]['extensions'][$extension]);
                 }
-                ksort($dialplans[$context]['extensions']);
+                uksort($dialplans[$context]['extensions'],
+                    array(new Shout, "extensort"));
             }
             # Handle include lines
             if (isset($res[$i]['asteriskincludeline'])) {
@@ -763,6 +772,16 @@ for $context"));
         return true;
     }
     // }}}
+
+
+    /* Needed because uksort can't take a classed function as its callback arg */
+    function _sortexten($e1, $e2)
+    {
+        print "$e1 and $e2\n";
+        $ret =  Shout::extensort($e1, $e2);
+        print "returning $ret";
+        return $ret;
+    }
 
     // {{{ connect method
     /**

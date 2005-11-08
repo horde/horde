@@ -1,3 +1,4 @@
+<a name="top"></a>
 <?php
 $accesskey = $prefs->getValue('widget_accesskey') ?
     Horde::getAccessKey(_("Select _Context")) : '';
@@ -14,7 +15,7 @@ $menu_view = $prefs->getValue('menu_view');
      <?php
         $contexts = &$shout->getContexts();
         foreach ($contexts as $c => $cdata) {
-            print "<option name=\"$c\"";
+            print "<option name=\"$c\" value=\"$c\"";
             if ($c == $context) {
                 print " selected";
             }
@@ -51,8 +52,8 @@ $menu_view = $prefs->getValue('menu_view');
 var loading;
 function contextSubmit(clear)
 {
-    if (document.menu.context[document.menu.context.selectedIndex].value !=
-'') {
+
+    if (document.menu.context[document.menu.context.selectedIndex].name != '') {
         if ((loading == null) || (clear != null)) {
             loading = true;
             document.menu.submit();

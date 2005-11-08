@@ -49,11 +49,9 @@ if (!$section) {
 require SHOUT_TEMPLATES . '/common-header.inc';
 require SHOUT_TEMPLATES . '/menu.inc';
 
-
-echo "<br />";
 // if (!$section) {
 //     $section =
-
+print '<div style="width:95%;left:10px;position:relative">';
 echo $tabs->render($section);
 switch ($section) {
     case "conference":
@@ -77,9 +75,12 @@ switch ($section) {
 
     default:
         require SHOUT_TEMPLATES . '/common-footer.inc';
+        require $registry->get('templates', 'horde') . '/common-footer.inc';
         exit();
         break;
 }
 
 require "main/$section.php";
+print '</div>';
+require SHOUT_TEMPLATES . '/common-footer.inc';
 require $registry->get('templates', 'horde') . '/common-footer.inc';

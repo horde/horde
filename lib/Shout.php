@@ -223,5 +223,104 @@ class Shout
         return $array[$int];
     }
 
+    /**
+     * Convert Asterisk's special extensions to friendly names
+     *
+     * @param string $extension  Extension to search for friendly name.
+     */
+    function exten2name($exten)
+    {
+        # Cast as a string to avoid misinterpreted digits
+        switch((string)$exten) {
+        case 'i':
+            $nodetext = 'Invalid Handler';
+            break;
+        case 's':
+            $nodetext = 'Entry Point';
+            break;
+        case 't':
+            $nodetext = 'Timeout Handler';
+            break;
+        case 'o':
+            $nodetext = 'Operator';
+            break;
+        case 'h':
+            $nodetext = 'Hangup Handler';
+            break;
+        case 'fax':
+            $nodetext = 'FAX Detection';
+            break;
+        default:
+            $nodetext = "Extension $exten";
+            break;
+        }
+
+        return $nodetext;
+    }
+
+    /**
+     * Compare two inputs as extensions and return them in the following order:
+     * 's', numbers (low to high), single chars, multi-chars
+     * 's' comes first because in Asterisk it is commonly the 'starting' exten.
+     * This function is expected to be used with uksort()
+     *
+     * @param string $e1
+     *
+     * @param string $e2
+     *
+     * @return int Relation of $e1 to $e2
+     */
+    function extensort($e1, $e2)
+    {
+        # Assumptions: We don't have to deal with negative numbers.  If we do
+        # they'll sort as strings
+        $e1 = (string)$e1;
+        $e2 = (string)$e2;
+        # Try to return quickly if either extension is 's'
+        if ($e1 == 's' || $e2 == 's') {
+            if ($e1 == $e2) {
+                # They are both s?
+                # FIXME Should we warn here?  Or assume the rest of the app
+                # is smart enough to handle this condition?
+                return 0;
+            }
+
+            return ($e1 == 's') ? -1 : 1;
+        }
+
+        # Next check for numeric extensions
+        if (preg_match('/^[*#0-9]+$/', $e1)) {
+            # e1 is a numeric extension
+            if (preg_match('/^[*#0-9]+$/', $e2)) {
+                # e2 is also numeric
+                if (strlen($e1) == 1 || strlen($e2) == 1) {
+                    if (strlen($e1) == strlen($e2)) {
+                        # Both are 1 digit long
+                        return ($e1 < $e2) ? -1 : 1;
+                    } else {
+                        return (strlen($e1) == 1) ? -1 : 1;
+                    }
+                }
+                return ($e1 < $e2) ? -1 : 1;
+            } else {
+                # e2 is not a numeric extension so it must sort after e1
+                return -1;
+            }
+        } elseif (preg_match('/^[*#0-9]+$/', $e2)) {
+            # e2 is numeric but e1 is not.  e2 must sort before e1
+            return 1;
+        }
+
+        # e1 and e2 are both strings
+        if (strlen($e1) == 1 || strlen($e2) == 1) {
+            # e1 or e2 is a single char extension (reserved in Asterisk)
+            return (strlen($e1) == 1) ? -1 : 1;
+        } else {
+            # e1 and e2 are both multi-char strings.  Sort them equally.
+            # FIXME Should add logic to make one multi-char take precedence
+            # over another?
+            return 0;
+        }
+    }
 }
 // }}}

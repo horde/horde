@@ -20,36 +20,23 @@ require_once 'Horde/Block/Collection.php';
 
 // Set up the tree.
 $tree = &Horde_Tree::singleton('shout_dialplan_menu', 'javascript');
-
 foreach ($dialplan as $linetype => $linedata) {
     switch($linetype) {
         case 'extensions':
-            $tree->addNode('extensions', null, 'Extensions', null);
+            $url = '#top';
+            $tree->addNode('extensions', null, 'Extensions', null, array('url' => $url));
             foreach ($linedata as $extension => $priorities) {
-                switch($extension) {
-                    case 'i':
-                        $nodetext = 'Invalid Extension';
-                        break;
-                    case 's':
-                        $nodetext = 'Main';
-                        break;
-                    case 't':
-                        $nodetext = 'Timeout';
-                        break;
-                    case 'o':
-                        $nodetext = 'Operator';
-                        break;
-                    case 'h':
-                        $nodetext = 'Hangup';
-                        break;
-                    default:
-                        $nodetext = $extension;
-                        break;
-                    }
+                $nodetext = Shout::exten2name($extension);
                 $url = Horde::applicationUrl('index.php?section=dialplan' .
                     '&extension=' . $extension . '&context=' . $context);
-                $tree->addNode($extension, 'extensions', $nodetext, null, false,
-                    array('url' => $url));
+                $url = "#$extension";
+                $tree->addNode("extension_".$extension, 'extensions', $nodetext,
+                    null, false,
+                    array(
+                        'url' => $url,
+                        'onclick' => 'highlightExten(\''.$extension.'\')',
+                    )
+                );
 //                 foreach ($priorities as $priority => $application) {
 //                     $tree->addNode("$extension-$priority", $extension, "$priority: $application", null);
 //                 }
@@ -60,25 +47,26 @@ foreach ($dialplan as $linetype => $linedata) {
             $tree->addNode('includes', null, 'Includes', null);
             foreach ($linedata as $include) {
                 $url = Horde::applicationUrl('index.php?section=dialplan&context='.$include);
-                $tree->addNode($include, 'includes', $include, null, true, array('url' => $url));
+                $tree->addNode("include_$include", 'includes', $include, null,
+                    true, array('url' => $url));
             }
             break;
 
         # TODO Ignoring ignorepat lines for now
+
         case 'barelines':
             $tree->addNode('barelines', null, 'Extra Settings', null);
+            $i = 0;
             foreach ($linedata as $bareline) {
-                $tree->addNode($bareline, 'barelines', $bareline, null);
+                $tree->addNode("bareline_".$i, 'barelines', $bareline, null);
+                $i++;
             }
             break;
     }
 }
 
 require SHOUT_TEMPLATES . '/dialplan/contexttree.inc';
-
-if ($extension = Util::getFormData('extension')) {
-    require SHOUT_TEMPLATES . '/dialplan/extensiondetail.inc';
-}
+require SHOUT_TEMPLATES . '/dialplan/extensiondetail.inc';
 
 // Horde::addScriptFile('httpclient.js', 'horde', true);
 // Horde::addScriptFile('hideable.js', 'horde', true);

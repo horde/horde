@@ -1,18 +1,171 @@
 .lighthint {
     color: #ffffff;
     font-size: 10px;
-}
+  }
+
 
 .darkhint {
-    color: #770000;
+    color: #700;
     font-size: 10px;
+  }
+
+.contextHeader {
+    color: #fff;
+    font-size: 15px;
+    right: auto;
+    position: relative;
 }
 
-.contexttree {
-    float: left;
-    width: 50px;
+#userList table {
+    width: 100%;
 }
 
-.extensiondetail {
-    float: right;
+#userList .header {
+    color: #777;
+    background: #fff;
+}
+
+#userList .headerText {
+    font-style: italic;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+#contextTree {
+    width: 180px;
+    left: 12px;
+    position: fixed;
+    top: 108px;
+    background: #fbb;
+    border: 1px solid #a22;
+    padding: 5px;
+  }
+
+
+#extensionDetail {
+    left: 200px;
+    position: absolute;
+    top: 50px;
+    background: #ccc;
+    border: 1px solid #000;
+    padding: 15px;
+  }
+
+#extensionDetail .lightHint {
+    background: #888;
+    color: #ddd;
+}
+
+#extensionDetail .darkHint{
+     background: #797
+     color: #fff;
+}
+
+#extensionDetail .extension {
+    border: 2px solid #000;
+    background: inherit;
+    padding: 5px;
+    padding-bottom: 20px;
+}
+
+#extensionDetail .extensionHighlight {
+    border: 2px solid #a22;
+    padding: 5px;
+    padding-bottom: 20px;
+    background: #fbb;
+}
+
+#extensionDetail .extensionBox {
+    background: #fff;
+    color: #a22;
+    font-weight: bold;
+    font-size: 14px;
+    border: 2px solid #787;
+    padding: 5px;
+}
+
+#extensionDetail .extensionBoxHighlight {
+    background: #fbb;
+    color: #000;
+    font-weight: bold;
+    font-size: 14px;
+    border: 2px solid #fff;
+    padding: 5px;
+}
+
+#extensionDetail .pList {
+    border: 1px solid #787;
+    background: inherit;
+    left: 10px;
+    position: relative;
+}
+
+#extensionDetail .pListHighlight{
+    border: 1px solid #fff;
+    background: #fbb;
+    left: 10px;
+    position: relative;
+}
+
+#extensionDetail .priority {
+    padding: 3px;
+    left: 20px;
+    position: relative;
+    background: inherit;
+}
+
+#extensionDetail .pElement {
+    background: inherit;
+    padding: 3px;
+}
+#extensionDetail .pElementHighlight {
+    background: #ccf;
+    padding: 3px;
+    border-bottom: 1px solid #000;
+    border-top: 1px solid #000;
+    text-decoration: none;
+    font-color: #000;
+}
+
+#extensionDetail .priorityBox {
+    background: #fff;
+    color: #a22;
+    padding: 3px;
+    border: 1px solid #000;
+    width: 120px;
+    height: 16px;
+    text-align: center;
+    vertical-align: middle;
+    text-decoration: underline;
+}
+
+#extensionDetail .add {
+    border: 1px solid #000;
+    font-size: 10px;
+    font-weight: bold;
+    padding: 1px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+#extensionDetail .remove {
+    border: 1px solid #000;
+    font-size: 10px;
+    font-weight: bold;
+    padding: 1px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+#extensionDetail .pButtons {
+    visibility: hidden;
+    padding: 3px;
+}
+
+#extensionDetail .pButtonsHighlight {
+    visibility: visible;
+    background: #ccf;
+    padding: 3px;
+    border-bottom: 1px solid #000;
+    border-top: 1px solid #000;
 }
