@@ -32,7 +32,7 @@ if(!isset($dialplan['extensions'])) {
                     id="<?php echo "pList-$extension"; ?>">
                     <?php
                     $p = 0;
-                    foreach($priorities as $priority => $application) {
+                    foreach($priorities as $priority => $data) {
                         ?>
                         <tr class="priority">
                             <td class="pButtons"
@@ -58,7 +58,8 @@ if(!isset($dialplan['extensions'])) {
                                     <select
                                         name="app[<?php echo $extension; ?>][<?php echo $priority; ?>]"
                                         id="app[<?php echo $extension; ?>][<?php echo $priority; ?>]">
-                                        <option value="APPID"><?php echo "APPLICATION"; ?></option>
+                                        <option value="<?php echo $data['application']; ?>">
+                                            <?php echo $data['application']; ?></option>
                                     </select>
                                 </span>
                             </td>
@@ -66,7 +67,7 @@ if(!isset($dialplan['extensions'])) {
                                 id="<?php echo "pArgs-$extension-$priority"; ?>"
                                 name="<?php echo "pArgs-$extension-$priority"; ?>">
                                 <span class="argBox">
-                                    <?php echo $application; ?>
+                                    <?php echo $data['args']; ?>
                                 </span>
                             </td>
                         </tr>

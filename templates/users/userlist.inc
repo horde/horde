@@ -1,9 +1,9 @@
-<div class="header">
-    <span class="contextHeader">Context: <?php echo $context; ?></span>
+<div class="header" style="text-align: right">
+    <span class="contextHeader" style="padding-right: 20px">Context: <?php echo $context; ?></span>
 </div>
 
 <div id="userlist">
-    <table cellspacing="0">
+    <table width="100%" cellspacing="0">
         <tr class="header">
             <td>Extension</td>
             <td>Name</td>

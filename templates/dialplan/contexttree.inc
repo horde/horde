@@ -34,11 +34,23 @@ function activatePriority(exten, prio)
 
 function deactivatePriority()
 {
-    if (curPrio) {
+    if (curPrio && document.getElementById('pButtons-'+curExten+'-'+curPrio)) {
         document.getElementById('pButtons-'+curExten+'-'+curPrio).className = 'pButtons';
         document.getElementById('pNumber-'+curExten+'-'+curPrio).className = 'pElement';
         document.getElementById('pApp-'+curExten+'-'+curPrio).className = 'pElement';
         document.getElementById('pArgs-'+curExten+'-'+curPrio).className = 'pElement';
+    }
+}
+
+function addRow() {
+    if (!curExten || !curPrio) {
+        alert('No extension or priority selected.');
+    }
+
+    tmpPrio = curPrio + 1;
+    while(o = document.getElementById('pNumber-'+tmpexten+'-'+tmpPrio)) {
+
+        tmpPrio++;
     }
 }
 -->

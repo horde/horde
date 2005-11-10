@@ -373,13 +373,24 @@ for $context"));
                     $token2++;
 
                     # Get Application and args
-                    $application = substr($line, $token2);
+                    $application = substr($line, $token2, $token3 - $token2);
 
-                    #$args = strpos($)
+                    if ($token3) {
+                        $application = substr($line, $token2, $token3 - $token2);
+                        $args = substr($line, $token3);
+                        $args = preg_replace('/^\(/', '', $args);
+                        $args = preg_replace('/\)$/', '', $args);
+                    } else {
+                        # This application must not have any args
+                        $application = substr($line, $token2);
+                        $args = '';
+                    }
 
                     # Merge all that data into the returning array
-                    $dialplans[$context]['extensions'][$extension][$priority] =
+                    $dialplans[$context]['extensions'][$extension][$priority]['application'] =
                         $application;
+                    $dialplans[$context]['extensions'][$extension][$priority]['args'] =
+                        $args;
                     $j++;
                 }
 
