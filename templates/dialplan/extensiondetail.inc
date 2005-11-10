@@ -7,6 +7,19 @@ if(!isset($dialplan['extensions'])) {
     <?php
 } else {
     ?>
+    <script language="JavaScript" type="text/javascript">
+
+    var dialplan = Array();
+    <?php
+    foreach($dialplan['extensions'] as $extension => $priorities) {
+        print "dialplan['$extension']['name'] = '".Shout::exten2name($extension)."'\n";
+        foreach($priorities as $priority => $data) {
+            print "dialplan['$extension']['$priority']['application'] = '".$data['application']."'\n";
+            print "dialplan['$extension']['$priority']['args'] = '".$data['args']."'\n";
+        }
+    }
+    ?>
+    </script>
     <table id='extensionDetail' cellspacing="0">
     <?
     $e = 0;
