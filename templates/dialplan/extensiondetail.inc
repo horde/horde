@@ -10,13 +10,12 @@ if(!isset($dialplan['extensions'])) {
     <script language="JavaScript" type="text/javascript">
 
     var dialplan = Array();
-    var extensions = Array();
     <?php
     foreach($dialplan['extensions'] as $extension => $priorities) {
-        print "extensions['$extension'] = '".Shout::exten2name($extension)."'\n";
+        print "dialplan['$extension']['name'] = '".Shout::exten2name($extension)."'\n";
         foreach($priorities as $priority => $data) {
-            print "dialplan['$extension']['$priority']['application'] = '".$data['application']."'\n";
-            print "dialplan['$extension']['$priority']['args'] = '".$data['args']."'\n";
+            print "dialplan['$extension']['priorities']['$priority']['application'] = '".$data['application']."'\n";
+            print "dialplan['$extension']['priorities']['$priority']['args'] = '".$data['args']."'\n";
         }
     }
     ?>
