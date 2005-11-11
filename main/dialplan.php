@@ -34,7 +34,7 @@ foreach ($dialplan as $linetype => $linedata) {
                     null, false,
                     array(
                         'url' => $url,
-                        'onclick' => 'highlightExten(\''.$extension.'\')',
+                        'onclick' => 'dp.highlightExten(\''.$extension.'\')',
                     )
                 );
 //                 foreach ($priorities as $priority => $application) {

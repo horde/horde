@@ -17,7 +17,7 @@
     <item modified_time="1121689003" url="lib/System.php" uploadstatus="1" />
     <item modified_time="1130769961" url="lib/User.php" uploadstatus="1" />
     <item url="main/" uploadstatus="1" />
-    <item modified_time="1131593241" url="main/dialplan.php" uploadstatus="1" />
+    <item modified_time="1131735732" url="main/dialplan.php" uploadstatus="1" />
     <item modified_time="1121401845" url="main/moh.php" uploadstatus="1" />
     <item modified_time="1130769962" url="main/system.php" uploadstatus="1" />
     <item modified_time="1121689003" url="main/users.php" uploadstatus="1" />
@@ -71,7 +71,7 @@
         <uploadeditem upload_time="1131497449" url="lib/base.php" />
         <uploadeditem upload_time="1131045729" url="lib/defines.php" />
         <uploadeditem upload_time="0" url="main/" />
-        <uploadeditem upload_time="1131593241" url="main/dialplan.php" />
+        <uploadeditem upload_time="1131735732" url="main/dialplan.php" />
         <uploadeditem upload_time="1121401845" url="main/moh.php" />
         <uploadeditem upload_time="1130769962" url="main/system.php" />
         <uploadeditem upload_time="1121689003" url="main/users.php" />
@@ -82,12 +82,14 @@
         <uploadeditem upload_time="0" url="templates/context/" />
         <uploadeditem upload_time="1120175005" url="templates/context/contextline.inc" />
         <uploadeditem upload_time="0" url="templates/dialplan/" />
-        <uploadeditem upload_time="1131600075" url="templates/dialplan/contexttree.inc" />
+        <uploadeditem upload_time="1131723538" url="templates/dialplan/contexttree.inc" />
         <uploadeditem upload_time="1131593241" url="templates/dialplan/dialplanlist.inc" />
-        <uploadeditem upload_time="1131606281" url="templates/dialplan/extensiondetail.inc" />
+        <uploadeditem upload_time="1131741629" url="templates/dialplan/extensiondetail.inc" />
         <uploadeditem upload_time="1121689030" url="templates/dialplan/priority-form-begin.inc" />
         <uploadeditem upload_time="1121689030" url="templates/dialplan/priority-form-end.inc" />
         <uploadeditem upload_time="1121689030" url="templates/dialplan/priority-form-line.inc" />
+        <uploadeditem upload_time="0" url="templates/javascript/" />
+        <uploadeditem upload_time="1131741807" url="templates/javascript/dialplan.js" />
         <uploadeditem upload_time="1131593241" url="templates/menu.inc" />
         <uploadeditem upload_time="1121578596" url="templates/table-limiter-begin.inc" />
         <uploadeditem upload_time="1121578596" url="templates/table-limiter-end.inc" />
@@ -120,20 +122,18 @@
     </teamdata>
     <events/>
     <item modified_time="1131045729" url="lib/defines.php" uploadstatus="1" />
-    <item modified_time="1131600075" url="templates/dialplan/contexttree.inc" uploadstatus="1" />
-    <item modified_time="1131606281" url="templates/dialplan/extensiondetail.inc" uploadstatus="1" />
+    <item modified_time="1131723538" url="templates/dialplan/contexttree.inc" uploadstatus="1" />
+    <item modified_time="1131741629" url="templates/dialplan/extensiondetail.inc" uploadstatus="1" />
     <item modified_time="1131497712" url="security.php" uploadstatus="1" />
+    <item url="templates/javascript/" uploadstatus="1" />
+    <item modified_time="1131741807" url="templates/javascript/dialplan.js" uploadstatus="1" />
     <treestatus>
-      <openfolder url="config" />
-      <openfolder url="dialplan" />
       <openfolder url="lib" />
       <openfolder url="lib/Driver" />
       <openfolder url="main" />
       <openfolder url="templates" />
       <openfolder url="templates/dialplan" />
-      <openfolder url="templates/users" />
-      <openfolder url="themes" />
-      <openfolder url="users" />
+      <openfolder url="templates/javascript" />
     </treestatus>
   </project>
 </webproject>
