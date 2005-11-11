@@ -40,7 +40,7 @@
     <item url="themes/graphics/" uploadstatus="1" />
     <item modified_time="1121581526" url="themes/graphics/add-extension.gif" uploadstatus="1" />
     <item modified_time="1130861777" url="themes/graphics/add-user.gif" uploadstatus="1" />
-    <item modified_time="1131593241" url="themes/screen.css" uploadstatus="1" />
+    <item modified_time="1131744337" url="themes/screen.css" uploadstatus="1" />
     <item url="users/" uploadstatus="1" />
     <item modified_time="1122704539" url="users/add.php" uploadstatus="1" />
     <item modified_time="1122704539" url="users/delete.php" uploadstatus="1" />
@@ -84,12 +84,12 @@
         <uploadeditem upload_time="0" url="templates/dialplan/" />
         <uploadeditem upload_time="1131723538" url="templates/dialplan/contexttree.inc" />
         <uploadeditem upload_time="1131593241" url="templates/dialplan/dialplanlist.inc" />
-        <uploadeditem upload_time="1131741629" url="templates/dialplan/extensiondetail.inc" />
+        <uploadeditem upload_time="1131744370" url="templates/dialplan/extensiondetail.inc" />
         <uploadeditem upload_time="1121689030" url="templates/dialplan/priority-form-begin.inc" />
         <uploadeditem upload_time="1121689030" url="templates/dialplan/priority-form-end.inc" />
         <uploadeditem upload_time="1121689030" url="templates/dialplan/priority-form-line.inc" />
         <uploadeditem upload_time="0" url="templates/javascript/" />
-        <uploadeditem upload_time="1131741807" url="templates/javascript/dialplan.js" />
+        <uploadeditem upload_time="1131744813" url="templates/javascript/dialplan.js" />
         <uploadeditem upload_time="1131593241" url="templates/menu.inc" />
         <uploadeditem upload_time="1121578596" url="templates/table-limiter-begin.inc" />
         <uploadeditem upload_time="1121578596" url="templates/table-limiter-end.inc" />
@@ -99,7 +99,7 @@
         <uploadeditem upload_time="0" url="themes/graphics/" />
         <uploadeditem upload_time="1121581526" url="themes/graphics/add-extension.gif" />
         <uploadeditem upload_time="1130861777" url="themes/graphics/add-user.gif" />
-        <uploadeditem upload_time="1131593241" url="themes/screen.css" />
+        <uploadeditem upload_time="1131744337" url="themes/screen.css" />
         <uploadeditem upload_time="1122704475" url="users.php" />
         <uploadeditem upload_time="0" url="users/" />
         <uploadeditem upload_time="1122704539" url="users/add.php" />
@@ -123,10 +123,10 @@
     <events/>
     <item modified_time="1131045729" url="lib/defines.php" uploadstatus="1" />
     <item modified_time="1131723538" url="templates/dialplan/contexttree.inc" uploadstatus="1" />
-    <item modified_time="1131741629" url="templates/dialplan/extensiondetail.inc" uploadstatus="1" />
+    <item modified_time="1131744370" url="templates/dialplan/extensiondetail.inc" uploadstatus="1" />
     <item modified_time="1131497712" url="security.php" uploadstatus="1" />
     <item url="templates/javascript/" uploadstatus="1" />
-    <item modified_time="1131741807" url="templates/javascript/dialplan.js" uploadstatus="1" />
+    <item modified_time="1131744813" url="templates/javascript/dialplan.js" uploadstatus="1" />
     <treestatus>
       <openfolder url="lib" />
       <openfolder url="lib/Driver" />
@@ -134,6 +134,7 @@
       <openfolder url="templates" />
       <openfolder url="templates/dialplan" />
       <openfolder url="templates/javascript" />
+      <openfolder url="themes" />
     </treestatus>
   </project>
 </webproject>

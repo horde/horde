@@ -79,12 +79,12 @@ Dialplan.prototype.drawPrioTable = function (exten)
     for (var p in this.dp[exten]['priorities']) {
         table += '        <td class="pButtons" id="pButtons-'+exten+'-'+p+'"\n';
         table += '            name="pButtons-'+exten+'-'+p+'">\n';
-        table += '            <span class="add">+</span>\n';
-        table += '            <span class="remove">-</span>\n';
+        table += '            <span class="add" onclick="javascript:dp.addPrio(\''+exten+'\', \''+p+'\');">+</span>\n';
+        table += '            <span class="remove" onclick="javascript:dp.delPrio(\''+exten+'\', \''+p+'\');">-</span>\n';
         table += '        </td>\n';
         table += '        <td class="pElement" id="pNumber-'+exten+'-'+p+'"\n';
         table += '            name="pNumber-'+exten+'-'+p+'"\n';
-        table += '            onclick="javascript:activatePriority(\''+exten+'\', \''+p+'\')">\n';
+        table += '            onclick="javascript:dp.activatePriority(\''+exten+'\', \''+p+'\')">\n';
         table += '            <span class="priorityBox">'+p+'</span>\n';
         table += '        </td>\n';
         table += '        <td class="pElement" id="pApp-'+exten+'-'+p+'"\n';
@@ -116,7 +116,7 @@ Dialplan.prototype.addExten = function (exten, extenName)
 Dialplan.prototype.addPrio = function(exten, prio)
 {
     prio = Number(prio);
-    if (this.dp[exten][prio] != 'undefined') {
+    if (this.dp[exten]['priorities'][prio] != 'undefined') {
         this._incrPrio(exten, prio);
     }
     this.dp[exten]['priorities'][prio] = new Array();
@@ -129,17 +129,17 @@ Dialplan.prototype._incrPrio = function (exten, prio)
     h = Number(prio) + 101;
 
     // Check for error handlers
-    if (this.dp[exten][h] != 'undefined') {
-        //alert(this.dp[exten][h]);
+    if (this.dp[exten]['priorities'][h] != 'undefined') {
+        alert(this.dp[exten][h]);
         //this._incrPrio(exten, h);
     }
 
     // Make sure the next slot is empty.  If not move it first.
-    if (this.dp[exten][p] != 'undefined') {
-        //alert(p);
+    if (this.dp[exten]['priorities'][p] != 'undefined') {
+        alert(p);
         //this._incrPrio(exten, p);
     }
 
     // Copy the existing prio to its new home
-    this.dp[exten][p] = this.dp[exten][prio];
+    this.dp[exten]['priorities'][p] = this.dp[exten]['priorities'][prio];
 }
