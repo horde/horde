@@ -146,7 +146,7 @@ class Shout_Dialplan
         return true;
     }
 
-    function renderAppList()
+    function generateAppList()
     {
         # $applist = Shout::getApplist();
         print '<script language="JavaScript" type="text/javascript">'."\n";
@@ -204,7 +204,7 @@ class Shout_Dialplan
                         print '<div class="extensionBox" ';
                             print 'id="eBox-'.$extension.'" ';
                             print 'onclick="javascript:shout_dialplan_object_'.$this->_instance.'.highlightExten';
-                                print '('.$extension.');">'."\n";
+                                print '(\''.$extension.'\');">'."\n";
                             print Shout::exten2name($extension);
                         print '</div>'."\n";
                     print '<div id="pList-'.$extension.'">'."\n";

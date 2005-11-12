@@ -4,6 +4,6 @@
 
 <?php
 $dpgui->renderNavTree();
-$dpgui->renderAppList();
+$dpgui->generateAppList();
 $dpgui->renderExtensions();
 ?>

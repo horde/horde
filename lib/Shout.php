@@ -322,5 +322,49 @@ class Shout
             return 0;
         }
     }
+
+    function xml2applist()
+    {
+        $file = SHOUT_BASE . '/config/applist.xml';
+
+        $xml_parser = xml_parser_create();
+        $ShoutObject = new Shout;
+        xml_set_element_handler($xml_parser,
+            array($ShoutObject, '_xml2applist_startElement'),
+            array($ShoutObject, '_xml2applist_startElement'));
+        xml_set_character_data_handler($xml_parser,
+            array($ShoutObject, '_xml2applist_characterData'));
+
+        if (!$fp = fopen($file, 'r')) {
+            return PEAR::raiseError('Unable to open applist.xml for reading');
+        }
+
+        while ($data = fread($fp, 4096)) {
+            if (!xml_parse($xml_parser, $data, feof($fp))) {
+                return PEAR::raiseError(sprintf("Invalid XML %s at line %d",
+                    xml_error_string(xml_get_error_code($xml_parser)),
+                    xml_get_current_line_number($xml_parser)));
+            }
+        }
+        xml_parser_free($xml_parser);
+    }
+
+    function _xml2applist_startElement($parser, $name, $attrs = array())
+    {
+        print "Name: $name<br />\n";
+        print_r($attrs);
+        print "<br />\n";
+        print "<br />\n";
+    }
+
+    function _xml2applist_endElement($parser, $name)
+    {
+        echo '';
+    }
+
+    function _xml2applist_characterData($parser, $string)
+    {
+        print "Data: $string<br />\n";
+    }
 }
 // }}}

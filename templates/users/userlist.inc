@@ -1,13 +1,13 @@
-<div class="header" style="text-align: right">
-    <span class="contextHeader" style="padding-right: 20px">Context: <?php echo $context; ?></span>
+<div class="header">
+    Context: <?php echo $context; ?>
 </div>
 
-<div id="userlist">
+<div id="userList" class="userList">
     <table width="100%" cellspacing="0">
-        <tr class="header">
-            <td>Extension</td>
-            <td>Name</td>
-            <td>E-Mail Address</td>
+        <tr>
+            <td class="uheader">Extension</td>
+            <td class="uheader">Name</td>
+            <td class="uheader">E-Mail Address</td>
         </tr>
         <?php
             $line = 0;

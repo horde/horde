@@ -43,69 +43,81 @@ Dialplan.prototype.highlightExten = function(exten)
 Dialplan.prototype.activatePriority = function(exten, prio)
 {
     prio = Number(prio);
-    if (this.curExten) {
-        this.deactivatePriority();
-    }
+    this.curPrio = Number(this.curPrio);
+    if (prio != this.curPrio || exten != this.curExten) {
+        if (this.curExten) {
+            this.deactivatePriority();
+        }
 
-    if (exten != this.curExten) {
-        this.highlightExten(exten);
-    }
+        if (exten != this.curExten) {
+            this.highlightExten(exten);
+        }
 
-    this.curPrio = prio;
-    document.getElementById('pButtons-'+exten+'-'+prio).className = 'pButtonsHighlight';
-    document.getElementById('pNumber-'+exten+'-'+prio).className = 'pElementHighlight';
-    document.getElementById('pApp-'+exten+'-'+prio).className = 'pElementHighlight';
-    document.getElementById('pArgs-'+exten+'-'+prio).className = 'pElementHighlight';
+        this.curPrio = prio;
+        document.getElementById('priority-'+exten+'-'+prio).className = 'priorityHighlight';
+        document.getElementById('pButtons-'+exten+'-'+prio).style['visibility'] = 'visible';
+    //     document.getElementById('pButtons-'+exten+'-'+prio).className = 'pButtonsHighlight';
+    //     document.getElementById('pNumber-'+exten+'-'+prio).className = 'pElementHighlight';
+    //     document.getElementById('pApp-'+exten+'-'+prio).className = 'pElementHighlight';
+    //     document.getElementById('pArgs-'+exten+'-'+prio).className = 'pElementHighlight';
+    } else {
+        var form = '';
+        //form += '<form id="renumber">';
+        form += '    <span class="priorityBox">';
+        form += '        <input type="text" size="3" maxlength="3" name="newprio" value="'+this.curPrio+'" />';
+        form += '    </span>';
+        //form += '</form>';
+        document.getElementById('pBox-'+this.curExten+'-'+this.curPrio).innerHTML = form;
+    }
 }
 
 Dialplan.prototype.deactivatePriority = function()
 {
     if (this.curPrio && document.getElementById('pButtons-'+this.curExten+'-'+this.curPrio)) {
-        document.getElementById('pButtons-'+this.curExten+'-'+this.curPrio).className = 'pButtons';
-        document.getElementById('pNumber-'+this.curExten+'-'+this.curPrio).className = 'pElement';
-        document.getElementById('pApp-'+this.curExten+'-'+this.curPrio).className = 'pElement';
-        document.getElementById('pArgs-'+this.curExten+'-'+this.curPrio).className = 'pElement';
+        document.getElementById('priority-'+this.curExten+'-'+this.curPrio).className = 'priority';
+        document.getElementById('pButtons-'+this.curExten+'-'+this.curPrio).style['visibility'] = 'hidden';
+//         document.getElementById('pButtons-'+this.curExten+'-'+this.curPrio).className = 'pButtons';
+//         document.getElementById('pNumber-'+this.curExten+'-'+this.curPrio).className = 'pElement';
+//         document.getElementById('pApp-'+this.curExten+'-'+this.curPrio).className = 'pElement';
+//         document.getElementById('pArgs-'+this.curExten+'-'+this.curPrio).className = 'pElement';
     }
 }
 
 Dialplan.prototype.drawPrioTable = function (exten)
 {
+    var table = '';
     if (!exten) {
         alert('Must first choose an extension to draw');
         return false;
     }
     //alert(document.getElementById('pList-'+exten).innerHTML);
-    table  = '<table class="pList" cellspacing="0">';
-    table += '  <tbody>\n';
-    table += '    <tr class="priority">\n';
     for (var p in this.dp[exten]['priorities']) {
-        table += '        <td class="pButtons" id="pButtons-'+exten+'-'+p+'"\n';
+        table += '<div class="priority" id="priority-'+exten+'-'+p+'">\n';
+        table += '        <span class="pButtons" id="pButtons-'+exten+'-'+p+'"\n';
         table += '            name="pButtons-'+exten+'-'+p+'">\n';
         table += '            <span class="add" onclick="javascript:'+this.object+'.addPrio(\''+exten+'\', \''+p+'\');">+</span>\n';
         table += '            <span class="remove" onclick="javascript:'+this.object+'.delPrio(\''+exten+'\', \''+p+'\');">-</span>\n';
-        table += '        </td>\n';
-        table += '        <td class="pElement" id="pNumber-'+exten+'-'+p+'"\n';
-        table += '            name="pNumber-'+exten+'-'+p+'"\n';
+        table += '        </span>\n';
+        table += '        <span class="pElement" id="pBox-'+exten+'-'+p+'"\n';
+        table += '            name="pBox-'+exten+'-'+p+'"\n';
         table += '            onclick="javascript:'+this.object+'.activatePriority(\''+exten+'\', \''+p+'\')">\n';
         table += '            <span class="priorityBox">'+p+'</span>\n';
-        table += '        </td>\n';
-        table += '        <td class="pElement" id="pApp-'+exten+'-'+p+'"\n';
+        table += '        </span>\n';
+        table += '        <span class="pElement" id="pApp-'+exten+'-'+p+'"\n';
         table += '            name="pApp-'+exten+'-'+p+'">\n';
         table += '            <span class="applicationBox"></span>\n';
         table += '                <select name="app['+exten+']['+p+']">\n';;
         table += this.genAppList(this.dp[exten]['priorities'][p]['application']);
         table += '                </select>\n';
         table += '            </span>\n';
-        table += '        </td>\n';
-        table += '        <td class="pElement" id="pArgs-'+exten+'-'+p+'"\n';
+        table += '        </span>\n';
+        table += '        <span class="pElement" id="pArgs-'+exten+'-'+p+'"\n';
         table += '            name="pArgs-'+exten+'-'+p+'">\n';
         table += '            <span class="argBox" id="args-'+exten+'-'+p+'"\n';
         table += '                name="args-'+exten+'-'+p+'">ARGS</span>\n';
-        table += '        </td>\n';
+        table += '        </span>\n';
+        table += '</div>\n';
     }
-    table += '    </tr>\n';
-    table += '  </tbody>\n';
-    table += '</table>\n';
     //alert(table);
     document.getElementById('pList-'+exten).innerHTML = table;
 }
@@ -128,6 +140,7 @@ Dialplan.prototype.addPrio = function(exten, prio)
         this._incrPrio(exten, prio);
     }
     this.dp[exten]['priorities'][prio] = new Array();
+    this.curPrio = 0;
     this.drawPrioTable(exten);
 }
 
@@ -149,9 +162,12 @@ Dialplan.prototype._incrPrio = function (exten, prio)
 
     for (p in this.dp[exten]['priorities']) {
         p = Number(p);
+        prio = Number(prio);
         // Make a notch for the new priority by incrementing all priorities greater
-        // than the requested one
-        if (p > prio) {
+        // than the requested one.  Try to exclude error handling priorities
+        // which are unrelated to the changed extension.  See README for
+        // more information.
+        if (p > prio && (p < 101 || p > prio + 100)) {
             tmp[p + 1] = this.dp[exten]['priorities'][p];
             plist[i] = p + 1;
         } else {
