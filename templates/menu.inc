@@ -7,15 +7,16 @@ $menu_view = $prefs->getValue('menu_view');
 
 <div id="menu">
 
- <span style="float:right">
-  <form action="index.php" method="get" name="menu">
+
+ <form action="index.php" method="get" name="contextMenu">
+  <span style="float:right">
    <?php Util::pformInput() ?>
    <label for="context" accesskey="<?php echo $accesskey ?>">
     <select id="context" name="context" onchange="contextSubmit()">
      <?php
         $contexts = &$shout->getContexts();
         foreach ($contexts as $c => $cdata) {
-            print "<option name=\"$c\" value=\"$c\"";
+            print "<option value=\"$c\"";
             if ($c == $context) {
                 print " selected";
             }
@@ -31,9 +32,10 @@ $menu_view = $prefs->getValue('menu_view');
          <?php
      }
     ?>
-  </form>
- </span>
- <span style="float:right">
+  </span>
+ </form>
+
+ <div style="float:right">
   <?php
    $link = Horde::link('#', _("Select Context"), '', '', 'contextSubmit(true);
     return false;');
@@ -42,7 +44,7 @@ $menu_view = $prefs->getValue('menu_view');
     ($menu_view != 'icon') ?
     Horde::highlightAccessKey(_("Select _Context"), $accesskey) : '');
   ?>
- </span>
+ </div>
 
   <?php echo Shout::getMenu('string') ?>
 </div>
@@ -53,10 +55,10 @@ var loading;
 function contextSubmit(clear)
 {
 
-    if (document.menu.context[document.menu.context.selectedIndex].name != '') {
+    if (document.contextMenu.context[document.contextMenu.context.selectedIndex].name != '') {
         if ((loading == null) || (clear != null)) {
             loading = true;
-            document.menu.submit();
+            document.contextMenu.submit();
         }
     }
 }

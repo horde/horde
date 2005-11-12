@@ -18,7 +18,9 @@ function Dialplan(instanceName)
 {
     this._instanceName = instanceName;
     this.dp = new Array();
-    this.dp = eval('shout_dialplan_'+instanceName);
+    this.dp = eval('shout_dialplan_entry_'+instanceName);
+    this.applist = eval('shout_dialplan_applist_'+instanceName);
+    this.object = 'shout_dialplan_object_'+instanceName;
     this.curExten = '';
     this.curPrio = '';
 }
@@ -72,26 +74,26 @@ Dialplan.prototype.drawPrioTable = function (exten)
         alert('Must first choose an extension to draw');
         return false;
     }
-    alert(document.getElementById('pList-'+exten).innerHTML);
+    //alert(document.getElementById('pList-'+exten).innerHTML);
     table  = '<table class="pList" cellspacing="0">';
     table += '  <tbody>\n';
     table += '    <tr class="priority">\n';
     for (var p in this.dp[exten]['priorities']) {
         table += '        <td class="pButtons" id="pButtons-'+exten+'-'+p+'"\n';
         table += '            name="pButtons-'+exten+'-'+p+'">\n';
-        table += '            <span class="add" onclick="javascript:dp.addPrio(\''+exten+'\', \''+p+'\');">+</span>\n';
-        table += '            <span class="remove" onclick="javascript:dp.delPrio(\''+exten+'\', \''+p+'\');">-</span>\n';
+        table += '            <span class="add" onclick="javascript:'+this.object+'.addPrio(\''+exten+'\', \''+p+'\');">+</span>\n';
+        table += '            <span class="remove" onclick="javascript:'+this.object+'.delPrio(\''+exten+'\', \''+p+'\');">-</span>\n';
         table += '        </td>\n';
         table += '        <td class="pElement" id="pNumber-'+exten+'-'+p+'"\n';
         table += '            name="pNumber-'+exten+'-'+p+'"\n';
-        table += '            onclick="javascript:dp.activatePriority(\''+exten+'\', \''+p+'\')">\n';
+        table += '            onclick="javascript:'+this.object+'.activatePriority(\''+exten+'\', \''+p+'\')">\n';
         table += '            <span class="priorityBox">'+p+'</span>\n';
         table += '        </td>\n';
         table += '        <td class="pElement" id="pApp-'+exten+'-'+p+'"\n';
         table += '            name="pApp-'+exten+'-'+p+'">\n';
         table += '            <span class="applicationBox"></span>\n';
-        table += '                <select name="app['+exten+']['+p+']">\n';
-        table += '                    <option value="APPLICATION">APPLICATION</option>\n';
+        table += '                <select name="app['+exten+']['+p+']">\n';;
+        table += this.genAppList(this.dp[exten]['priorities'][p]['application']);
         table += '                </select>\n';
         table += '            </span>\n';
         table += '        </td>\n';
@@ -104,8 +106,14 @@ Dialplan.prototype.drawPrioTable = function (exten)
     table += '    </tr>\n';
     table += '  </tbody>\n';
     table += '</table>\n';
-    alert(table);
+    //alert(table);
     document.getElementById('pList-'+exten).innerHTML = table;
+}
+
+Dialplan.prototype.genAppList = function (app)
+{
+    applist = '<option value="APPLICATION">APPLICATION</option>\n';
+    return applist;
 }
 
 Dialplan.prototype.addExten = function (exten, extenName)
@@ -123,23 +131,50 @@ Dialplan.prototype.addPrio = function(exten, prio)
     this.drawPrioTable(exten);
 }
 
+Dialplan.prototype._numCompare = function(a, b)
+{
+    return (a - b);
+}
+
 Dialplan.prototype._incrPrio = function (exten, prio)
 {
-    p = Number(prio) + 1;
-    h = Number(prio) + 101;
+    // Due to javascript's inability to remove an array element while maintaining
+    // associations, we copy the elements into a tmp array and ultimately replace
+    // the object's copy.  We will also have to sort the resulting array manually
+    // so it renders correctly.
+    var tmp = new Array();
+    var plist = new Array();
+    var i = 0;
+    var p;
 
-    // Check for error handlers
-    if (this.dp[exten]['priorities'][h] != 'undefined') {
-        alert(this.dp[exten][h]);
-        //this._incrPrio(exten, h);
+    for (p in this.dp[exten]['priorities']) {
+        p = Number(p);
+        // Make a notch for the new priority by incrementing all priorities greater
+        // than the requested one
+        if (p > prio) {
+            tmp[p + 1] = this.dp[exten]['priorities'][p];
+            plist[i] = p + 1;
+        } else {
+            tmp[p] = this.dp[exten]['priorities'][p];
+            plist[i] = p;
+        }
+        i++;
     }
+    // Seed the new priority
+    prio = Number(prio) + 1;
+    tmp[prio] = new Array();
+    tmp[prio]['application'] = '';
+    tmp[prio]['args'] = '';
+    plist[i] = prio;
 
-    // Make sure the next slot is empty.  If not move it first.
-    if (this.dp[exten]['priorities'][p] != 'undefined') {
-        alert(p);
-        //this._incrPrio(exten, p);
+    // Empty the original array
+    this.dp[exten]['priorities'] = new Array();
+
+    // Sort the priorities and put them back into the original array
+    plist.sort(this._numCompare);
+    for (i = 0; i < plist.length; i++) {
+        p = Number(plist[i]);
+        this.dp[exten]['priorities'][p] = tmp[p];
     }
-
-    // Copy the existing prio to its new home
-    this.dp[exten]['priorities'][p] = this.dp[exten]['priorities'][prio];
+    return true;
 }

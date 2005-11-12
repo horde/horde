@@ -10,186 +10,215 @@
  * @package Shout
  */
 // {{{
-class ExtensionDetailsForm extends Horde_Form {
-
-    function ExtensionDetailsForm(&$vars)
-    {
-        global $shout;
-        $context = $vars->get("context");
-        $extension = $vars->get("extension");
-        
-        $dialplan = &$shout->getDialplan($context);
-        $extendata = $dialplan['extensions'][$extension];
-        if (array_key_exists($extension, $dialplan['extensions'])) {
-            $formtitle = "Edit Extension";
-        } else {
-            $formtitle = "Add Extension";
-        }
-       
-        parent::Horde_Form($vars, _("$formtitle - Context: $context"));
-        
-        $this->addHidden('', 'context', 'text', true);
-        $this->addHidden('', 'oldextension', 'text', true);
-        $vars->set('oldextension', $extension);
-        $this->addHidden('', 'action', 'text', true);
-//         $vars->set('action', 'save');
-        $this->addVariable(_("Extension"), 'extension', 'text', true);
-        $this->addVariable(_("Priority"), 'priority', 'priority', true);
-//         foreach ($extendata as $priority => $application) {
-//             $vars->set("priority$priority", $application);
-//             $this->addVariable("Priority $priority", "priority$priority",
-//                 'text', false);
-//         }
-    }
-    
-    // {{{ fillUserForm method
+/**
+ * The Shout_Dialplan:: class provides an interactive view of an Asterisk dialplan.
+ * It allows for expanding/collapsing of extensions and priorities and maintains their state.
+ * It can work together with the Horde_Tree javascript class to achieve this in
+ * DHTML on supported browsers.
+ *
+ * Copyright 2005 Ben Klang <ben@alkaloid.net>
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ *
+ * $Horde: framework/Tree/Tree.php,v 1.46.6.7 2005/07/03 05:22:36 selsky Exp $
+ *
+ * @author  Ben Klang <ben@alkaloid.net>
+ * @package Shout_Dialplan
+ * @since   Shout 0.1
+ */
+class Shout_Dialplan
+{
     /**
-     * Fill in the blanks for the UserDetailsForm
+     * The name of this instance.
      *
-     * @param object Reference to a Variables object to fill in
-     *
-     * @param array User details
-     *
-     * @return boolean True if successful, Pear::raiseError object on failure
+     * @var string
      */
-    function fillExtensionFormPriority(&$vars, $extensiondetails)
+    var $_instance = null;
+
+    /**
+     * The array of dialplan information to render the form
+     *
+     * @var array
+     */
+    var $_dialplan = array();
+
+    /**
+     * Object containing the instantiation of the Horde_Tree class
+     *
+     * @var object
+     */
+     var $_tree = null;
+
+    /**
+     * Create or return a unique instance of the Shout_Dialplan object
+     *
+     * @param string $instance Unique identifier for this instance
+     * @param array $dialplan Dialplan array as returned by the driver
+     * @return object Instantiation of the Shout_Dialplan object
+     */
+     function &singleton($instance, $dialplan)
+     {
+        static $instances = array();
+
+        if (isset($instances[$instance])) {
+            return $instances[$instance];
+        }
+        $instances[$instance] = new Shout_Dialplan($instance, $dialplan);
+        return $instances[$instance];
+    }
+
+    /**
+     * Instantiator for the Shout_Dialplan
+     *
+     * @param string $instance Unique identifier for this instance
+     * @param array $dialplan Dialplan array as returned by the driver
+     * @return Shout_Dialplan Instantiation of the Shout_Dialplan object
+     */
+    function Shout_Dialplan($instance, $dialplan)
     {
-    #Array ( [dialopts] => Array ( [0] => m [1] => t ) [mailboxopts] => Array (
-    #) [mailboxpin] => 1234 [name] => Ricardo Paul [phonenumbers] => Array ( )
-    #[dialtimeout] => 30 [email] => ricardo.paul@v-office.biz [pageremail] => ) 
-        $vars->set('name', $userdetails['name']);
-        $vars->set('email', @$userdetails['email']);
-        $vars->set('pin', $userdetails['mailboxpin']);
-        
-        $i = 1;
-        foreach($userdetails['phonenumbers'] as $number) {
-            $vars->set("telephone$i", $number);
-            $i++;
+        require_once 'Horde/Tree.php';
+        require_once 'Horde/Block.php';
+        require_once 'Horde/Block/Collection.php';
+
+        $this->_instance = $instance;
+        $this->_dialplan = $dialplan;
+        $this->_tree = Horde_Tree::singleton('shout_dialplan_nav_'.$instance, 'javascript');
+
+        foreach ($this->_dialplan as $linetype => $linedata) {
+            switch($linetype) {
+                case 'extensions':
+                    $url = '#top';
+                    $this->_tree->addNode('extensions', null, 'Extensions', null, array('url' => $url));
+                    foreach ($linedata as $extension => $priorities) {
+                        $nodetext = Shout::exten2name($extension);
+                        $url = Horde::applicationUrl('index.php?section=dialplan' .
+                            '&extension=' . $extension . '&context=' . $this->_dialplan['name']);
+                        $url = "#$extension";
+                        $this->_tree->addNode("extension_".$extension, 'extensions', $nodetext,
+                            null, false,
+                            array(
+                                'url' => $url,
+                                'onclick' =>
+                                    'shout_dialplan_object_'.$this->_instance.
+                                        '.highlightExten(\''.$extension.'\')',
+                            )
+                        );
+        //                 foreach ($priorities as $priority => $application) {
+        //                     $this->_tree->addNode("$extension-$priority", $extension, "$priority: $application", null);
+        //                 }
+                    }
+                    break;
+
+                case 'includes':
+                    $this->_tree->addNode('includes', null, 'Includes', null);
+                    foreach ($linedata as $include) {
+                        $url = Horde::applicationUrl('index.php?section=dialplan&context='.$include);
+                        $this->_tree->addNode("include_$include", 'includes', $include, null,
+                            true, array('url' => $url));
+                    }
+                    break;
+
+                # TODO Ignoring ignorepat lines for now
+
+                case 'barelines':
+                    $this->_tree->addNode('barelines', null, 'Extra Settings', null);
+                    $i = 0;
+                    foreach ($linedata as $bareline) {
+                        $this->_tree->addNode("bareline_".$i, 'barelines', $bareline, null);
+                        $i++;
+                    }
+                    break;
+            }
         }
-        
-        if (in_array('m', $userdetails['dialopts'])) {
-            $vars->set('moh', true);
-        } else {
-            $vars->set('moh', false);
-        }
-        
-        if (in_array('t', $userdetails['dialopts'])) {
-            $vars->set('transfer', true);
-        } else {
-            $vars->set('transfer', false);
-        }
-        
+    }
+
+    /**
+     * Render dialplan side navigation tree
+     */
+    function renderNavTree()
+    {
+        print '<div id=\'contextTree\'>'."\n";
+        $this->_tree->renderTree(true);
+        print '    <br />'."\n";
+        print '    <a href="#top" class="small">Back to Top</a>'."\n";
+        print '</div>'."\n";
         return true;
     }
-    // }}}
+
+    function renderAppList()
+    {
+        # $applist = Shout::getApplist();
+        print '<script language="JavaScript" type="text/javascript">'."\n";
+        print '<!--'."\n";
+        print 'var shout_dialplan_applist_'.$this->_instance.' = new Array();'."\n";
+
+        $i = 0;
+        $app = "APPLICATION";
+        # foreach ($applist as $app) {
+            print 'shout_dialplan_applist_'.$this->_instance.'['.$i.'] = \''.$app.'\''."\n";
+        # }
+        print '//-->'."\n";
+        print '</script>'."\n";
+        return true;
+    }
+
+    function renderExtensions()
+    {
+        if(!isset($this->_dialplan['extensions'])) {
+            print '<div id="extensionDetail">'."\n";
+            print '    <div class="extensionBox">No Configured Extensions</div>'."\n";
+            print '</div>'."\n";
+        } else {
+            print '<script language="JavaScript" type="text/javascript"';
+            print ' src="/services/javascript.php?file=dialplan.js&amp;app=shout"></script>'."\n";
+            print '<script language="JavaScript" type="text/javascript">'."\n";
+            print '<!--'."\n";
+            print 'var shout_dialplan_entry_'.$this->_instance.' = new Array();'."\n";
+            foreach($this->_dialplan['extensions'] as $extension => $priorities) {
+                print 'shout_dialplan_entry_'.$this->_instance.'[\''.$extension.'\'] = new Array();'."\n";
+                print 'shout_dialplan_entry_'.$this->_instance.'[\''.$extension.'\'][\'name\'] =';
+                print '\''.Shout::exten2name($extension).'\';'."\n";
+                print 'shout_dialplan_entry_'.$this->_instance.'[\''.$extension.'\'][\'priorities\']';
+                print ' = new Array();'."\n";
+                foreach($priorities as $priority => $data) {
+                    print 'shout_dialplan_entry_'.$this->_instance.'[\''.$extension.'\']';
+                    print '[\'priorities\']['.$priority.'] = new Array();'."\n";
+                    print 'shout_dialplan_entry_'.$this->_instance.'[\''.$extension.'\']';
+                    print '[\'priorities\']['.$priority.'][\'application\'] = ';
+                    print '\''.$data['application'].'\';'."\n";
+                    print 'shout_dialplan_entry_'.$this->_instance.'[\''.$extension.'\'][\'priorities\']';
+                    print '['.$priority.'][\'args\'] = \''.$data['args'].'\';'."\n";
+                }
+            }
+            print 'var shout_dialplan_object_'.$this->_instance.' = new Dialplan(\''.$this->_instance.'\');'."\n";
+            print '//-->'."\n";
+            print '</script>'."\n";
+
+            print '<div id="extensionDetail">'."\n";
+            $e = 0;
+            foreach($this->_dialplan['extensions'] as $extension => $priorities) {
+                print '<div class="extension" ';
+                    print 'id="extension_'.$extension.'" ';
+                    print '<a name="'.$extension.'" />'."\n";
+                        print '<div class="extensionBox" ';
+                            print 'id="eBox-'.$extension.'" ';
+                            print 'onclick="javascript:shout_dialplan_object_'.$this->_instance.'.highlightExten';
+                                print '('.$extension.');">'."\n";
+                            print Shout::exten2name($extension);
+                        print '</div>'."\n";
+                    print '<div id="pList-'.$extension.'">'."\n";
+                    print '</div>'."\n";
+                $e++;
+                print '</div>'."\n";
+                print '<br />'."\n";
+                print '<script language="JavaScript" type="text/javascript">'."\n";
+                print '<!--'."\n";
+                print 'shout_dialplan_object_'.$this->_instance.'.drawPrioTable(\''.$extension.'\');'."\n";
+                print '//-->'."\n";
+                print '</script>'."\n";
+            }
+            print '</div>'."\n";
+        }
+    }
 }
-// }}}
-
-class Horde_Form_Type_priority extends Horde_Form_Type {
-
-//     var $_regex;
-//     var $_size;
-//     var $_maxlength;
-
-    /**
-     * The initialisation function for the text variable type.
-     *
-     * @access private
-     *
-     * @param string $regex       Any valid PHP PCRE pattern syntax that
-     *                            needs to be matched for the field to be
-     *                            considered valid. If left empty validity
-     *                            will be checked only for required fields
-     *                            whether they are empty or not.
-     *                            If using this regex test it is advisable
-     *                            to enter a description for this field to
-     *                            warn the user what is expected, as the
-     *                            generated error message is quite generic
-     *                            and will not give any indication where
-     *                            the regex failed.
-     * @param integer $size       The size of the input field.
-     * @param integer $maxlength  The max number of characters.
-     */
-     function init()
-     {
-     }
-//     function init($regex = '', $size = 40, $maxlength = null)
-//     {
-//         $this->_regex     = $regex;
-//         $this->_size      = $size;
-//         $this->_maxlength = $maxlength;
-//     }
-
-    function isValid(&$var, &$vars, $value, &$message)
-    {
-        $valid = true;
-
-//         if ($var->isRequired() && empty($this->_regex)) {
-//             $valid = strlen(trim($value)) > 0;
-// 
-//             if (!$valid) {
-//                 $message = _("This field is required.");
-//             }
-//         } elseif (!empty($this->_regex)) {
-//             $valid = preg_match($this->_regex, $value);
-// 
-//             if (!$valid) {
-//                 $message = _("You have to enter a valid value.");
-//             }
-//         }
-
-        return $valid;
-    }
-
-    function getSize()
-    {
-        return $this->_size;
-    }
-
-    function getMaxLength()
-    {
-        return $this->_maxlength;
-    }
-
-    /**
-     * Return info about field type.
-     */
-    function about()
-    {
-        $about = array();
-        $about['name'] = _("Extension Priority");
-        $about['params'] = array(
-            'priority'  => array('label' => _("Priority"),
-                                 'type'  => 'int'),
-            'application'      => array('label' => _("Application"),
-                                 'type'  => 'stringlist'),
-            'args' => array('label' => _("Arguments"),
-                                 'type'  => 'text'),
-        );
-        return $about;
-    }
-
-}
-
-// require_once HORDE_BASE . '/lib/Horde/UI/VarRenderer.php';
-// require_once HORDE_BASE . '/lib/Horde/UI/VarRenderer/html.php';
-// class Horde_UI_VarRenderer_html_priority extends Horde_UI_VarRenderer_html
-// {
-//     function _renderVarInput_priority(&$form, &$var, &$vars)
-//     {
-//         echo '<input type="text" name="priority[0]" value="88" size="3" ';
-//         echo 'id="priority[0]" />';
-//         echo '<select><option>GotoSelf</option></select>\n';
-//         echo '<input type="text" name="application[0]" ';
-//         echo 'size="40" value="101" id="application[0]" />';
-//     }
-//     
-//     function _renderVarDisplay_priority(&$form, &$var, &$vars)
-//     {
-//         echo '<input type="text" name="priority[0]" value="88" size="3" ';
-//         echo 'id="priority[0]" />';
-//         echo '<select><option>GotoSelf</option></select>\n';
-//         echo '<input type="text" name="application[0]" ';
-//         echo 'size="40" value="101" id="application[0]" />';
-//     }
-// }

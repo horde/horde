@@ -341,6 +341,7 @@ for $context"));
 
         $res = ldap_get_entries($this->_LDAP, $res);
         $dialplans[$context] = array();
+        $dialplans[$context]['name'] = $context;
         $i = 0;
         while ($i < $res['count']) {
             # Handle extension lines
