@@ -19,6 +19,9 @@ require_once SHOUT_BASE . "/lib/defines.php";
 // {{{ Class Shout
 class Shout
 {
+    var $applist = array();
+    var $_applist_curapp = '';
+    var $_applist_curfield = '';
 
     // {{{ getMenu method
     /**
@@ -323,17 +326,21 @@ class Shout
         }
     }
 
-    function xml2applist()
+    function getApplist()
     {
+        if (isset($_SESSION['shout']['applist'])) {
+            return $_SESSION['shout']['applist'];
+        }
+
         $file = SHOUT_BASE . '/config/applist.xml';
 
         $xml_parser = xml_parser_create();
         $ShoutObject = new Shout;
         xml_set_element_handler($xml_parser,
-            array($ShoutObject, '_xml2applist_startElement'),
-            array($ShoutObject, '_xml2applist_startElement'));
+            array(&$ShoutObject, '_xml2applist_startElement'),
+            array(&$ShoutObject, '_xml2applist_startElement'));
         xml_set_character_data_handler($xml_parser,
-            array($ShoutObject, '_xml2applist_characterData'));
+            array(&$ShoutObject, '_xml2applist_characterData'));
 
         if (!$fp = fopen($file, 'r')) {
             return PEAR::raiseError('Unable to open applist.xml for reading');
@@ -346,25 +353,50 @@ class Shout
                     xml_get_current_line_number($xml_parser)));
             }
         }
+        ksort($ShoutObject->applist);
         xml_parser_free($xml_parser);
+        $_SESSION['shout']['applist'] = $ShoutObject->applist;
+        unset($ShoutObject);
+        return $_SESSION['shout']['applist'];
     }
 
     function _xml2applist_startElement($parser, $name, $attrs = array())
     {
-        print "Name: $name<br />\n";
-        print_r($attrs);
-        print "<br />\n";
-        print "<br />\n";
+        if (count($attrs) > 1) { print_r($attrs); }
+        switch($name) {
+        case 'APPLICATION':
+            if (isset($attrs['NAME'])) {
+                $this->_applist_curapp = $attrs['NAME'];
+                if (!isset($this->applist[$name])) {
+                    $this->applist[$this->_applist_curapp] = array();
+                }
+                $this->_applist_curfield = '';
+            }
+            break;
+        case 'SYNOPSIS':
+        case 'USAGE':
+            $this->_applist_curfield = $name;
+            if (!isset($this->applist[$name])) {
+                $this->applist[$this->_applist_curapp][$name] = "";
+            }
+            break;
+        }
     }
 
     function _xml2applist_endElement($parser, $name)
     {
-        echo '';
+        print ''; #NOOP
     }
 
     function _xml2applist_characterData($parser, $string)
     {
-        print "Data: $string<br />\n";
+        $string = preg_replace('/^\s+/', '', $string);
+        $string = preg_replace('/\s+$/', '', $string);
+        if (strlen($string) > 1) {
+            $field = $this->_applist_curfield;
+            $app = $this->_applist_curapp;
+            $this->applist[$app][$field] .= "$string ";
+        }
     }
 }
 // }}}

@@ -148,16 +148,16 @@ class Shout_Dialplan
 
     function generateAppList()
     {
-        # $applist = Shout::getApplist();
+        $applist = Shout::getApplist();
         print '<script language="JavaScript" type="text/javascript">'."\n";
         print '<!--'."\n";
         print 'var shout_dialplan_applist_'.$this->_instance.' = new Array();'."\n";
 
         $i = 0;
-        $app = "APPLICATION";
-        # foreach ($applist as $app) {
+        foreach ($applist as $app => $appdata) {
             print 'shout_dialplan_applist_'.$this->_instance.'['.$i.'] = \''.$app.'\''."\n";
-        # }
+            $i++;
+        }
         print '//-->'."\n";
         print '</script>'."\n";
         return true;
@@ -195,18 +195,20 @@ class Shout_Dialplan
             print '//-->'."\n";
             print '</script>'."\n";
 
+            print '<form id="shout_dialplan_'.$this->_instance.'">'."\n";
             print '<div id="extensionDetail">'."\n";
             $e = 0;
             foreach($this->_dialplan['extensions'] as $extension => $priorities) {
                 print '<div class="extension" ';
                     print 'id="extension_'.$extension.'" ';
-                    print '<a name="'.$extension.'" />'."\n";
-                        print '<div class="extensionBox" ';
-                            print 'id="eBox-'.$extension.'" ';
-                            print 'onclick="javascript:shout_dialplan_object_'.$this->_instance.'.highlightExten';
-                                print '(\''.$extension.'\');">'."\n";
+                    print '<div class="extensionBox" ';
+                        print 'id="eBox-'.$extension.'" ';
+                        print 'onclick="javascript:shout_dialplan_object_'.$this->_instance.'.highlightExten';
+                            print '(\''.$extension.'\');">'."\n";
+                        print '<a name="'.$extension.'">'."\n";
                             print Shout::exten2name($extension);
-                        print '</div>'."\n";
+                        print '</a>'."\n";
+                    print '</div>'."\n";
                     print '<div id="pList-'.$extension.'">'."\n";
                     print '</div>'."\n";
                 $e++;
@@ -219,6 +221,7 @@ class Shout_Dialplan
                 print '</script>'."\n";
             }
             print '</div>'."\n";
+            print '</form>'."\n";
         }
     }
 }

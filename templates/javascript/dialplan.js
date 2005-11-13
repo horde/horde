@@ -56,10 +56,7 @@ Dialplan.prototype.activatePriority = function(exten, prio)
         this.curPrio = prio;
         document.getElementById('priority-'+exten+'-'+prio).className = 'priorityHighlight';
         document.getElementById('pButtons-'+exten+'-'+prio).style['visibility'] = 'visible';
-    //     document.getElementById('pButtons-'+exten+'-'+prio).className = 'pButtonsHighlight';
-    //     document.getElementById('pNumber-'+exten+'-'+prio).className = 'pElementHighlight';
-    //     document.getElementById('pApp-'+exten+'-'+prio).className = 'pElementHighlight';
-    //     document.getElementById('pArgs-'+exten+'-'+prio).className = 'pElementHighlight';
+
     } else {
         var form = '';
         //form += '<form id="renumber">';
@@ -76,10 +73,6 @@ Dialplan.prototype.deactivatePriority = function()
     if (this.curPrio && document.getElementById('pButtons-'+this.curExten+'-'+this.curPrio)) {
         document.getElementById('priority-'+this.curExten+'-'+this.curPrio).className = 'priority';
         document.getElementById('pButtons-'+this.curExten+'-'+this.curPrio).style['visibility'] = 'hidden';
-//         document.getElementById('pButtons-'+this.curExten+'-'+this.curPrio).className = 'pButtons';
-//         document.getElementById('pNumber-'+this.curExten+'-'+this.curPrio).className = 'pElement';
-//         document.getElementById('pApp-'+this.curExten+'-'+this.curPrio).className = 'pElement';
-//         document.getElementById('pArgs-'+this.curExten+'-'+this.curPrio).className = 'pElement';
     }
 }
 
@@ -90,7 +83,6 @@ Dialplan.prototype.drawPrioTable = function (exten)
         alert('Must first choose an extension to draw');
         return false;
     }
-    //alert(document.getElementById('pList-'+exten).innerHTML);
     for (var p in this.dp[exten]['priorities']) {
         table += '<div class="priority" id="priority-'+exten+'-'+p+'">\n';
         table += '        <span class="pButtons" id="pButtons-'+exten+'-'+p+'"\n';
@@ -106,7 +98,7 @@ Dialplan.prototype.drawPrioTable = function (exten)
         table += '        <span class="pElement" id="pApp-'+exten+'-'+p+'"\n';
         table += '            name="pApp-'+exten+'-'+p+'">\n';
         table += '            <span class="applicationBox"></span>\n';
-        table += '                <select name="app['+exten+']['+p+']">\n';;
+        table += '                <select name="app['+exten+']['+p+']">\n';
         table += this.genAppList(this.dp[exten]['priorities'][p]['application']);
         table += '                </select>\n';
         table += '            </span>\n';
@@ -114,18 +106,25 @@ Dialplan.prototype.drawPrioTable = function (exten)
         table += '        <span class="pElement" id="pArgs-'+exten+'-'+p+'"\n';
         table += '            name="pArgs-'+exten+'-'+p+'">\n';
         table += '            <span class="argBox" id="args-'+exten+'-'+p+'"\n';
-        table += '                name="args-'+exten+'-'+p+'">ARGS</span>\n';
+        table += '                name="args-'+exten+'-'+p+'">';
+        table +=                      this.dp[exten]['priorities'][p]['args']+'</span>\n';
         table += '        </span>\n';
         table += '</div>\n';
     }
-    //alert(table);
     document.getElementById('pList-'+exten).innerHTML = table;
 }
 
 Dialplan.prototype.genAppList = function (app)
 {
-    applist = '<option value="APPLICATION">APPLICATION</option>\n';
-    return applist;
+    var appstring = '';
+    for (var a in this.applist) {
+        appstring += '<option value="'+this.applist[a]+'"';
+        if (this.applist[a] == app) {
+            appstring += ' selected';
+        }
+        appstring += '>'+this.applist[a]+'</option>\n';
+    }
+    return appstring;
 }
 
 Dialplan.prototype.addExten = function (exten, extenName)
@@ -137,9 +136,97 @@ Dialplan.prototype.addPrio = function(exten, prio)
 {
     prio = Number(prio);
     if (this.dp[exten]['priorities'][prio] != 'undefined') {
-        this._incrPrio(exten, prio);
+        // Due to javascript's inability to remove an array element while maintaining
+        // associations, we copy the elements into a tmp array and ultimately replace
+        // the object's copy.  We will also have to sort the resulting array manually
+        // so it renders correctly.
+        var tmp = new Array();
+        var plist = new Array();
+        var i = 0;
+        var p;
+
+        for (p in this.dp[exten]['priorities']) {
+            p = Number(p);
+            prio = Number(prio);
+            // Make a notch for the new priority by incrementing all priorities greater
+            // than the requested one.  Try to exclude error handling priorities
+            // which are unrelated to the changed extension.  See README for
+            // more information.
+            // TODO: Make a decision about whether this is the best way to handle
+            // error handling priorities.
+            if (p > prio && (p < prio + 90 || p > prio + 100)) {
+                tmp[p + 1] = this.dp[exten]['priorities'][p];
+                plist[i] = p + 1;
+            } else {
+                tmp[p] = this.dp[exten]['priorities'][p];
+                plist[i] = p;
+            }
+            i++;
+        }
+
+        // Seed the new priority
+        var newP = Number(prio) + 1;
+        tmp[newP] = new Array();
+        tmp[newP]['application'] = '';
+        tmp[newP]['args'] = '';
+        plist[i] = newP;
+
+
+        // Empty the original array
+        this.dp[exten]['priorities'] = new Array();
+
+        // Sort the priorities and put them back into the original array
+        plist.sort(this._numCompare);
+        for (i = 0; i < plist.length; i++) {
+
+            p = Number(plist[i]);
+            this.dp[exten]['priorities'][p] = tmp[p];
+        }
     }
-    this.dp[exten]['priorities'][prio] = new Array();
+    this.curPrio = 0;
+    this.drawPrioTable(exten);
+}
+
+Dialplan.prototype.delPrio = function(exten, prio)
+{
+    prio = Number(prio);
+    if (this.dp[exten]['priorities'][prio] != 'undefined') {
+        // Due to javascript's inability to remove an array element while maintaining
+        // associations, we copy the elements into a tmp array and ultimately replace
+        // the object's copy.  We will also have to sort the resulting array manually
+        // so it renders correctly.
+        var tmp = new Array();
+        var plist = new Array();
+        var i = 0;
+        var p;
+
+        for (p in this.dp[exten]['priorities']) {
+            // Notch out the old priority by decrementing all priorities greater
+            // than the requested one.  Try to exclude error handling priorities
+            // which are unrelated to the changed extension.  See README for
+            // more information.
+            // TODO: Make a decision about whether this is the best way to handle
+            // error handling priorities.
+            p = Number(p);
+            if (p != prio) {
+                if (p > prio && (p < prio + 90 || p > prio + 100)) {
+                    p = Number(p) - 1;
+                }
+                tmp[p] = this.dp[exten]['priorities'][p];
+                plist[i++] = p;
+            }
+        }
+
+        // Empty the original array
+        this.dp[exten]['priorities'] = new Array();
+
+        // Sort the priorities and put them back into the original array
+        plist.sort(this._numCompare);
+        for (i = 0; i < plist.length; i++) {
+            p = Number(plist[i]);
+            this.dp[exten]['priorities'][p] = tmp[p];
+        }
+    }
     this.curPrio = 0;
     this.drawPrioTable(exten);
 }
@@ -151,46 +238,6 @@ Dialplan.prototype._numCompare = function(a, b)
 
 Dialplan.prototype._incrPrio = function (exten, prio)
 {
-    // Due to javascript's inability to remove an array element while maintaining
-    // associations, we copy the elements into a tmp array and ultimately replace
-    // the object's copy.  We will also have to sort the resulting array manually
-    // so it renders correctly.
-    var tmp = new Array();
-    var plist = new Array();
-    var i = 0;
-    var p;
 
-    for (p in this.dp[exten]['priorities']) {
-        p = Number(p);
-        prio = Number(prio);
-        // Make a notch for the new priority by incrementing all priorities greater
-        // than the requested one.  Try to exclude error handling priorities
-        // which are unrelated to the changed extension.  See README for
-        // more information.
-        if (p > prio && (p < 101 || p > prio + 100)) {
-            tmp[p + 1] = this.dp[exten]['priorities'][p];
-            plist[i] = p + 1;
-        } else {
-            tmp[p] = this.dp[exten]['priorities'][p];
-            plist[i] = p;
-        }
-        i++;
-    }
-    // Seed the new priority
-    prio = Number(prio) + 1;
-    tmp[prio] = new Array();
-    tmp[prio]['application'] = '';
-    tmp[prio]['args'] = '';
-    plist[i] = prio;
-
-    // Empty the original array
-    this.dp[exten]['priorities'] = new Array();
-
-    // Sort the priorities and put them back into the original array
-    plist.sort(this._numCompare);
-    for (i = 0; i < plist.length; i++) {
-        p = Number(plist[i]);
-        this.dp[exten]['priorities'][p] = tmp[p];
-    }
     return true;
 }
