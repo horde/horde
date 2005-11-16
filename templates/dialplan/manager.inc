@@ -7,3 +7,8 @@ $dpgui->renderNavTree();
 $dpgui->generateAppList();
 $dpgui->renderExtensions();
 ?>
+<script language="javascript" type="text/javascript">
+<!--
+// shout_dialplan_object_x.drawInitial();
+//-->
+</script>

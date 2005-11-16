@@ -200,7 +200,7 @@ class Shout_Dialplan
             $e = 0;
             foreach($this->_dialplan['extensions'] as $extension => $priorities) {
                 print '<div class="extension" ';
-                    print 'id="extension_'.$extension.'" ';
+                    print 'id="extension_'.$extension.'">';
                     print '<div class="extensionBox" ';
                         print 'id="eBox-'.$extension.'" ';
                         print 'onclick="javascript:shout_dialplan_object_'.$this->_instance.'.highlightExten';
