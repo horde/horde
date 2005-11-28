@@ -69,7 +69,7 @@ table {
     border: 2px solid #000;
     background: inherit;
     padding: 5px;
-    width: 400px;
+    width: 450px;
 }
 
 #extensionDetail .extensionHighlight {
@@ -126,7 +126,7 @@ table {
     font-color: #000;*/
 }
 
-/*#extensionDetail .pElement {
+#extensionDetail .pElement {
     background: inherit;
     padding: 3px;
 }
@@ -137,9 +137,9 @@ table {
     border-top: 1px solid #000;
     text-decoration: none;
     font-color: #000;
-}*/
+}
 
-#extensionDetail .priorityBox {
+#extensionDetail .pBox {
     background: #fff;
     color: #a22;
     padding: 3px;
@@ -172,6 +172,12 @@ table {
 #extensionDetail .pButtons {
     visibility: hidden;
     padding: 1px;
+}
+
+#extensionDetail .pArgs {
+    border: 1px #777 dotted;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 /*#extensionDetail .pButtonsHighlight {

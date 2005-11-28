@@ -195,7 +195,7 @@ class Shout_Dialplan
             print '//-->'."\n";
             print '</script>'."\n";
 
-            print '<form id="shout_dialplan_'.$this->_instance.'">'."\n";
+            print '<form id="shout_dialplan_form_'.$this->_instance.'" action="#">'."\n";
             print '<div id="extensionDetail">'."\n";
             $e = 0;
             foreach($this->_dialplan['extensions'] as $extension => $priorities) {

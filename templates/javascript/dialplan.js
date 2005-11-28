@@ -21,22 +21,16 @@ function Dialplan(instanceName)
     this.dp = eval('shout_dialplan_entry_'+instanceName);
     this.applist = eval('shout_dialplan_applist_'+instanceName);
     this.object = 'shout_dialplan_object_'+instanceName;
-    this.curExten = '';
-    this.curPrio = '';
-    this.dom = new Array(); // Store rendered elements for IE
-    for (var e in this.dp) {
-        this.dom[e] = new Array();
-    }
+    this.curExten = 0;
+    this.curPrio = 0;
+    this.prioActive = false;
 }
 
 Dialplan.prototype.highlightExten = function(exten)
 {
-    this.drawPrioTable(exten);
     if (this.curExten && this.curExten != exten) {
-        this.deactivatePriority();
-
-        document.getElementById('eBox-' + this.curExten).className = 'extensionBox';
-        document.getElementById('pList-' + this.curExten).className = 'pList';
+        this.dehighlightPrio();
+        this.dehighlightExten();
     }
 
     this.curExten = exten;
@@ -44,42 +38,101 @@ Dialplan.prototype.highlightExten = function(exten)
     document.getElementById('pList-' + exten).className = 'pListHighlight';
 }
 
-
-Dialplan.prototype.activatePriority = function(exten, prio)
+Dialplan.prototype.dehighlightExten = function(exten)
 {
-    prio = Number(prio);
-    this.curPrio = Number(this.curPrio);
-    if (prio != this.curPrio || exten != this.curExten) {
-        if (this.curExten) {
-            this.deactivatePriority();
-        }
-        if (exten != this.curExten) {
-            this.highlightExten(exten);
-        }
-
-        this.curPrio = prio;
-        this.dom[exten][prio]['priority'].className = 'priorityHighlight';
-        this.dom[exten][prio]['pButtons'].style['visibility'] = 'visible';
-
-    } else {
-        var form = '';
-        form += '    <span class="priorityBox">';
-        form += '        <input id="p" type="text" size="3" maxlength="3" name="newprio"';
-        form +=              ' value="'+this.curPrio+'" />';
-        form += '    </span>';
-        this.dom[exten][prio]['pBox'].innerHTML = form;
-        this.dom[exten][prio]['pBox'].p.focus;
-        this.dom[exten][prio]['pBox'].p.select;
-    }
+    document.getElementById('eBox-' + this.curExten).className = 'extensionBox';
+    document.getElementById('pList-' + this.curExten).className = 'pList';
+    this.curExten = 0;
 }
 
-Dialplan.prototype.deactivatePriority = function()
+Dialplan.prototype.highlightPrio = function(exten, prio)
 {
-    if (this.curPrio && document.getElementById('pButtons-'+this.curExten+'-'+this.curPrio)) {
-        this.dom[this.curExten][this.curPrio]['priority'].className = 'priority';
-        this.dom[this.curExten][this.curPrio]['pButtons'].style['visibility'] = 'hidden';
+    if (exten != this.curExten) {
+        this.highlightExten(exten);
     }
+    if (this.curPrio && prio != this.curPrio) {
+        this.dehighlightPrio();
+    }
+
+    this.curPrio = prio;
+    priority = document.getElementById('priority-'+exten+'-'+prio);
+    priority.className = 'priorityHighlight';
+    priority.onclick = priority.activate;
+    document.getElementById('pButtons-'+exten+'-'+prio).style['visibility'] = 'visible';
+}
+
+Dialplan.prototype.dehighlightPrio = function()
+{
+    this.deactivatePrio();
+    if (!this.curPrio) {
+        return true;
+    }
+
+    priority = document.getElementById('priority-'+this.curExten+'-'+this.curPrio);
+    priority.className = 'priority';
+    priority.onclick = priority.highlight;
+    document.getElementById('pButtons-'+this.curExten+'-'+this.curPrio).style['visibility'] = 'hidden';
     this.curPrio = 0;
+    return true;
+}
+
+
+Dialplan.prototype.activatePrio = function(exten, prio)
+{
+    document.getElementById('pBox-'+exten+'-'+prio).style['display'] = 'none';
+    document.getElementById('pBoxInput-'+exten+'-'+prio).style['display'] = 'inline';
+    document.getElementById('pApp-'+exten+'-'+prio).style['display'] = 'none';
+    document.getElementById('pAppInput-'+exten+'-'+prio).style['display'] = 'inline';
+    document.getElementById('pArgs-'+exten+'-'+prio).style['display'] = 'none';
+    document.getElementById('pArgsInput-'+exten+'-'+prio).style['display'] = 'inline';
+    this.prioActive = true;
+}
+
+Dialplan.prototype.deactivatePrio = function()
+{
+    if (!this.prioActive) {
+        // Speed hack: If thie priority isn't active, don't go through the
+        // motions to deactivate it.
+        return true;
+    }
+    var dirty = false;
+    var pAppInput = document.getElementById('pAppInput-'+this.curExten+'-'+this.curPrio);
+    var pArgsInput = document.getElementById('pArgsInput-'+this.curExten+'-'+this.curPrio);
+
+    if (pAppInput.value != this.dp[this.curExten]['priorities'][this.curPrio]['application']) {
+        this.dp[this.curExten]['priorities'][this.curPrio]['application'] = pAppInput.value;
+        dirty = true;
+    }
+
+    if (pArgsInput != this.dp[this.curExten]['priorities'][this.curPrio]['args']) {
+        this.dp[this.curExten]['priorities'][this.curPrio]['args'] = pArgsInput.value;
+        dirty = true;
+    }
+
+    // Check to see if the priority number was updated
+    prio = Number(document.getElementById('pBoxInput-'+this.curExten+'-'+this.curPrio).value);
+    if (this.curPrio != prio) {
+        this.renumberPrio(prio);
+        this.curPrio = prio;
+        // Since we've just redrawn the prio table no sense in drawing it again
+        dirty = false;
+    }
+
+    // This test is purely a speed hack.  Redrawing the prio table is slower than simply resetting
+    // the status of the elements.  However if data has changed we are forced to redraw the prio table.
+    if (dirty) {
+        this.drawPrioTable(this.curExten);
+    } else {
+        document.getElementById('pBox-'+this.curExten+'-'+this.curPrio).style['display'] = 'inline';
+        document.getElementById('pBoxInput-'+this.curExten+'-'+this.curPrio).style['display'] = 'none';
+        document.getElementById('pApp-'+this.curExten+'-'+this.curPrio).style['display'] = 'inline';
+        document.getElementById('pAppInput-'+this.curExten+'-'+this.curPrio).style['display'] = 'none';
+        document.getElementById('pArgs-'+this.curExten+'-'+this.curPrio).style['display'] = 'inline';
+        document.getElementById('pArgsInput-'+this.curExten+'-'+this.curPrio).style['display'] = 'none';
+    }
+    this.prioActive = false;
+
+    return true;
 }
 
 Dialplan.prototype.drawPrioTable = function (exten)
@@ -102,20 +155,24 @@ Dialplan.prototype.drawPrioTable = function (exten)
         var priority = document.createElement('div');
         priority.className = 'priority';
         priority.id = 'priority-' + exten + '-' + p;
+        // The next 5 lines are hijinks required to make the highlighting work properly.  We
+        // have to save a reference to this object in the pElement object so we can call back
+        // into the activate/deactivate routines.  We also have to save the prio and exten because
+        // the onclick assignment has to be a function reference which takes no arguments.
+        // See above and below comments disparaging javascript.
+        priority.dp = this;
+        priority.exten = exten;
+        priority.prio = p;
+        priority.highlight = function () { this.dp.highlightPrio(this.exten, this.prio); }
+        priority.activate = function () { this.dp.activatePrio(this.exten, this.prio); }
+        priority.onclick = priority.highlight;
         pList.appendChild(priority);
-        this.dom[exten][p] = new Array();
-        this.dom[exten][p]['priority'] = priority;
 
-//         table += '        <span class="pButtons" id="pButtons-'+exten+'-'+p+'"\n';
-//         table += '            name="pButtons-'+exten+'-'+p+'">\n';
         var pButtons = document.createElement('span');
         pButtons.className = 'pButtons';
         pButtons.id = 'pButtons-' + exten + '-' + p;
         priority.appendChild(pButtons);
-        this.dom[exten][p]['pButtons'] = pButtons;
 
-//         table += '            <span class="add" onclick="javascript:'+this.object+'.addPrio(\''+exten+'\',';
-//         table +=                  ' \''+p+'\');">+</span>\n';
         var button = document.createElement('span');
         button.className = 'add';
         button.id = 'pButton-add-'+exten+'-'+p;
@@ -126,10 +183,7 @@ Dialplan.prototype.drawPrioTable = function (exten)
         button.onclick = button.addPrio;
         button.innerHTML='+';
         pButtons.appendChild(button);
-        this.dom[exten][p]['pButton-add'] = button;
 
-//         table += '            <span class="remove" onclick="javascript:'+this.object+'.delPrio(\''+exten+'\',';
-//         table +=                  ' \''+p+'\');">-</span>\n';
         var button = document.createElement('span');
         button.className = 'remove';
         button.id = 'pButton-del-'+exten+'-'+p;
@@ -140,99 +194,85 @@ Dialplan.prototype.drawPrioTable = function (exten)
         button.onclick = button.delPrio;
         button.innerHTML='-';
         pButtons.appendChild(button);
-        this.dom[exten][p]['pButton-del'] = button;
 
-//         table += '        </span>\n';
-
-//         table += '        <span class="pElement" id="pBox-'+exten+'-'+p+'"\n';
-//         table += '            name="pBox-'+exten+'-'+p+'"\n';
-//         table += '            onclick="javascript:'+this.object+'.activatePriority(\''+exten+'\',';
-//         table +=                  ' \''+p+'\')">\n';
         var pElement = document.createElement('span');
         pElement.className = 'pElement';
-        pElement.id = 'pBox-'+exten+'-'+p;
-        // The next 5 lines are hijinks required to make the highlighting work properly.  We
-        // have to save a reference to this object in the pElement object so we can call back
-        // into the activate/deactivate routines.  We also have to save the prio and exten because
-        // the onclick assignment has to be a function reference which takes no arguments.
-        // See above and below comments disparaging javascript.
-        pElement.dp = this;
-        pElement.exten = exten;
-        pElement.prio = p;
-        pElement.activate = function () { this.dp.activatePriority(this.exten, this.prio); }
-        pElement.onclick = pElement.activate;
         priority.appendChild(pElement);
-        this.dom[exten][p]['pBox'] = pElement;
 
-//         table += '            <span class="priorityBox">'+p+'</span>\n';
-        var priorityBox = document.createElement('span');
-        priorityBox.className = 'priorityBox';
-        priorityBox.innerHTML = p;
-        pElement.appendChild(priorityBox);
+        var pBox = document.createElement('span');
+        pBox.className = 'pBox';
+        pBox.id = 'pBox-'+exten+'-'+p;
+        pBox.style['display'] = 'inline';
+        pBox.innerHTML = p;
+        pElement.appendChild(pBox);
 
-//         table += '        </span>\n';
+        var pBoxInput = document.createElement('input');
+        pBoxInput.type = 'text';
+        pBoxInput.size = 3;
+        pBoxInput.id = 'pBoxInput-'+exten+'-'+p;
+        pBoxInput.name = 'pBoxInput-'+exten+'-'+p;
+        pBoxInput.value = p;
+        pBoxInput.maxlength = 3;
+        pBoxInput.style['display'] = 'none';
+        pBoxInput.dp = this;
+        pBoxInput.exten = exten;
+        pBoxInput.prio = p;
+        pBoxInput.onblur = pBoxInput.deactivate;
+        pBoxInput.deactivate = function () { this.dp.deactivatePriority(); }
+        pElement.appendChild(pBoxInput);
 
-//         table += '        <span class="pElement" id="pApp-'+exten+'-'+p+'"\n';
-//         table += '            name="pApp-'+exten+'-'+p+'">\n';
         var pElement = document.createElement('span');
         pElement.className = 'pElement';
-        pElement.id = 'pApp-' + exten + '-' + p;
         priority.appendChild(pElement);
-        this.dom[exten][p]['pApp'] = pElement;
 
-//         table += '            <span class="applicationBox">\n';
-        var applicationBox = document.createElement('span');
-        applicationBox.className = 'applicationBox';
-        applicationBox.id = 'applicationBox-' + exten + '-' + p;
-        pElement.appendChild(applicationBox);
-        this.dom[exten][p]['applicationBox'] = applicationBox;
+        var pApp = document.createElement('span');
+        pApp.className = 'pApp';
+        pApp.id = 'pApp-' + exten + '-' + p;
+        pApp.style['display'] = 'inline';
+        pElement.appendChild(pApp);
+        pApp.innerHTML = this.dp[exten]['priorities'][p]['application'];
 
-        var selectHTML = '';
-        selectHTML += '                <select name="app['+exten+']['+p+']"';
-        selectHTML +=                    'onclick="javascript:'+this.object+'.activatePriority(\''+exten+'\', ';
-        selectHTML +=                    '\''+p+'\')">\n';
-        selectHTML += this.genAppList(this.dp[exten]['priorities'][p]['application']);
-        selectHTML += '                </select>\n';
-        applicationBox.innerHTML = selectHTML;
+        var pAppInput = document.createElement('select');
+        pAppInput.className = 'pAppInput';
+        pAppInput.id = 'pAppInput-' + exten + '-' + p;
+        pAppInput.name = 'pAppInput-' + exten + '-' + p;
+        pAppInput.style['display'] ='none';
+        pElement.appendChild(pAppInput);
+        this.genAppList(pAppInput, this.dp[exten]['priorities'][p]['application']);
 
-//         table += '            </span>\n';
-//         table += '        </span>\n';
-
-//         table += '        <span class="pElement" id="pArgs-'+exten+'-'+p+'"\n';
-//         table += '            name="pArgs-'+exten+'-'+p+'">\n';
         var pElement = document.createElement('span');
         pElement.className = 'pElement';
-        pElement.id = 'pArgs-' + exten + '-' + p;
         priority.appendChild(pElement);
-        this.dom[exten][p]['pArgs'] = pElement;
 
-//         table += '            <span class="argBox" id="args-'+exten+'-'+p+'"\n';
-//         table += '                name="args-'+exten+'-'+p+'">';
-//         table +=                      this.dp[exten]['priorities'][p]['args']+'</span>\n';
-        var argsBox = document.createElement('span');
-        argsBox.className = 'argBox';
-        argsBox.id = 'argsBox-' + exten + '-' + p;
-        argsBox.innerHTML = this.dp[exten]['priorities'][p]['args'];
-        pElement.appendChild(argsBox);
-        this.dom[exten][p]['argsBox'] = argsBox;
+        var pArgs = document.createElement('span');
+        pArgs.className = 'pArgs';
+        pArgs.id = 'pArgs-' + exten + '-' + p;
+        pArgs.innerHTML = this.dp[exten]['priorities'][p]['args'];
+        pElement.appendChild(pArgs);
 
-//         table += '        </span>\n';
-//         table += '</div>\n';
+        var pArgsInput = document.createElement('input');
+        pArgsInput.className = 'pArgsInput';
+        pArgsInput.id = 'pArgsInput-' + exten + '-' + p;
+        pArgsInput.name = 'pArgsInput-' + exten + '-' + p;
+        pArgsInput.value = this.dp[exten]['priorities'][p]['args'];
+        pArgsInput.style['display'] = 'none';
+        pElement.appendChild(pArgsInput);
     }
-//     document.getElementById('pList-'+exten).innerHTML = table;
+    return true;
 }
 
-Dialplan.prototype.genAppList = function (app)
+Dialplan.prototype.genAppList = function (selectObj, app)
 {
-    var appstring = '';
     for (var a in this.applist) {
-        appstring += '<option value="'+this.applist[a]+'"';
+        var o = document.createElement('option');
+        o.value = this.applist[a];
         if (this.applist[a] == app) {
-            appstring += ' selected';
+            o.selected = true;
         }
-        appstring += '>'+this.applist[a]+'</option>\n';
+        o.innerHTML = this.applist[a];
+        selectObj.appendChild(o);
     }
-    return appstring;
+    return true;
 }
 
 Dialplan.prototype.addExten = function (exten, extenName)
@@ -251,7 +291,13 @@ Dialplan.prototype.addPrio = function(exten, prio)
         var tmp = new Array();
         var plist = new Array();
         var i = 0;
-        var p;
+        var firstEmpty = prio + 1;
+
+        // Locate an empty priority.  We should not increment any priorities past this as
+        // the lower priorities will move to fill this hole.
+        while (this.dp[exten]['priorities'][firstEmpty]) {
+            firstEmpty++;
+        }
 
         for (p in this.dp[exten]['priorities']) {
             p = Number(p);
@@ -261,7 +307,7 @@ Dialplan.prototype.addPrio = function(exten, prio)
             // more information.
             // TODO: Make a decision about whether this is the best way to handle
             // error handling priorities.
-            if (p > prio && (p < prio + 90 || p > prio + 100)) {
+            if (p > prio && (p < prio + 90 || p > prio + 100) && p < firstEmpty) {
                 tmp[p + 1] = this.dp[exten]['priorities'][p];
                 plist[i++] = p + 1;
             } else {
@@ -289,10 +335,17 @@ Dialplan.prototype.addPrio = function(exten, prio)
         }
     }
 
-    this.curPrio = 0;
     this.drawPrioTable(exten);
-    this.activatePriority(exten, prio);
+    this.highlightPrio(exten, prio);
     return true;
+}
+
+Dialplan.prototype.insertPrio = function(exten, prio)
+{
+    // Simple wrapper for addPrio()
+    // Create an empty slot.  Subtract one from the new prio because the
+    // behavior of addPrio is to append to the specified location.
+    return this.addPrio(exten, prio - 1);
 }
 
 Dialplan.prototype.delPrio = function(exten, prio)
@@ -347,13 +400,30 @@ Dialplan.prototype.delPrio = function(exten, prio)
     return true;
 }
 
+Dialplan.prototype.renumberPrio = function(newPrio)
+{
+    // Copy the old prio to a temporary location for future use
+    var tmp = new Array();
+    var oldPrio = Number(this.curPrio);
+    tmp = this.dp[this.curExten]['priorities'][oldPrio];
+    newPrio = Number(newPrio);
+
+    // Empty out the old priority
+    this.delPrio(this.curExten, oldPrio);
+
+    this.insertPrio(this.curExten, newPrio);
+    // Copy the old priority into its new home
+    this.dp[this.curExten]['priorities'][newPrio] = tmp;
+    this.drawPrioTable(this.curExten);
+
+    // Highlight the renumbered priority
+    this.curPrio = newPrio;
+    this.highlightPrio(this.curExten, this.curPrio);
+
+    return true;
+}
+
 Dialplan.prototype._numCompare = function(a, b)
 {
     return (a - b);
-}
-
-Dialplan.prototype._incrPrio = function (exten, prio)
-{
-
-    return true;
 }
