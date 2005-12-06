@@ -119,7 +119,7 @@ class Text_Wiki_Render_Xhtml_Table extends Text_Wiki_Render {
             }
 
             // done!
-            $html .= " $format>";
+            $html .= "$format>";
             return $html;
             break;
 
