@@ -39,28 +39,28 @@ class Text_Wiki_Mediawiki extends Text_Wiki {
 //        'Plugin',
 //        'Function',
 //        'Html',
-//        'Raw',
+        'Raw',
 //        'Preformatted',
 //        'Include',
 //        'Embed',
 //        'Page',
 //        'Anchor',
-//        'Heading',
-//        'Toc',
+        'Heading',
+        'Toc',
 //        'Titlebar',
-//        'Horiz',
+        'Horiz',
         'Break',
 //        'Blockquote',
-//        'List',
+        'List',
 //        'Deflist',
         'Table',
 //        'Box',
-//        'Image',
+        'Image',
 //        'Phplookup',
 //        'Center',
         'Newline',
         'Paragraph',
-//        'Url',
+        'Url',
 //        'Freelink',
 //        'Colortext',
 //        'Wikilink',
@@ -74,15 +74,19 @@ class Text_Wiki_Mediawiki extends Text_Wiki {
 //        'Subscript',
 //        'Specialchar',
 //        'Revise',
-//        'Interwiki',
+        'Interwiki',
         'Tighten'
     );
 
+	/**
+     * Constructor: just adds the path to Mediawiki rules
+     *
+     * @access public
+     * @param array $rules The set of rules to load for this object.
+     */
     function Text_Wiki_Mediawiki($rules = null) {
         parent::Text_Wiki($rules);
         $this->addPath('parse', $this->fixPath(dirname(__FILE__)).'Parse/Mediawiki');
-        $this->addPath('render', $this->fixPath(dirname(__FILE__)).'Render');
-        $v = $this->getPath('parse');
     }
 
     function getTokens($rules = null, $originalIndex = false)

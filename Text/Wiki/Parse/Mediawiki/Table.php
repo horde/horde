@@ -64,7 +64,7 @@ class Text_Wiki_Parse_Table extends Text_Wiki_Parse {
      * @see processCells()
      */
     var $regexCells =
-    '#((?:^\||^!|\|\||!!|\G))(?:( [^|\n]*?) \|(?!\|))?(.+?)(?=^\||^!|\|\||!!|\z)#msi';
+    '#((?:^\||^!|\|\||!!|\G))(?:([^|\n]*?) \|(?!\|))?(.+?)(?=^\||^!|\|\||!!|\z)#msi';
 
     /**
      * The current table nesting depth, starts by zero
@@ -139,7 +139,7 @@ class Text_Wiki_Parse_Table extends Text_Wiki_Parse {
      * @access public
      */
     function process(&$matches)
-    {//var_dump($matches);echo '<br />';
+    {
         if (array_key_exists(4, $matches)) {
             $this->_level++;
             $expsub = preg_replace_callback(
@@ -200,7 +200,7 @@ class Text_Wiki_Parse_Table extends Text_Wiki_Parse {
      * @access public
      */
     function processRows(&$matches)
-    {//var_dump($matches);echo '<br />';
+    {
         $this->_countCells[$this->_level][$this->_countRows[$this->_level]] = 0;
         $sub = preg_replace_callback(
             $this->regexCells,
@@ -250,7 +250,7 @@ class Text_Wiki_Parse_Table extends Text_Wiki_Parse {
      * @access public
      */
     function processCells(&$matches)
-    {//var_dump($matches);echo '<br />';
+    {
         $order = & $this->_countCells[$this->_level][$this->_countRows[$this->_level]];
         while (isset($this->_spanCells[$this->_level][$order])) {
             if (--$this->_spanCells[$this->_level][$order] < 2) {
@@ -278,7 +278,7 @@ class Text_Wiki_Parse_Table extends Text_Wiki_Parse {
             $param['format'] = $format;
         }
         $this->_countCells[$this->_level][$this->_countRows[$this->_level]] += $param['span'];
-        $ret = $this->wiki->addToken($this->rule, $param );
+        $ret = $this->wiki->addToken($this->rule, $param);
         $param['type'] = 'cell_end';
         return $ret . $matches[3] . $this->wiki->addToken($this->rule, $param );
     }
