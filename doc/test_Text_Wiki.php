@@ -28,7 +28,7 @@ if (in_array(php_sapi_name(), array('cli', 'cgi'))) {
         $_REQUEST['source'] = file_get_contents ($_REQUEST['exchoice']);
         if (preg_match('#(\b'.implode('\b|\b', $plist).'\b)#i',
                          $_REQUEST['source'], $match)) {
-            $_REQUEST['parser'] = $match[1];
+            $_REQUEST['parser'] = ucwords(strtolower($match[1]));
         }
         $_REQUEST['translate'] = true;
     }
@@ -94,6 +94,7 @@ function bldHtml($result, $plist, $rlist, $elist) {
     if ($_REQUEST['render'] != 'Xhtml') {
         $result = '';
     }
+    $_REQUEST['source'] = htmlspecialchars($_REQUEST['source']);
     return <<<EOT
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
