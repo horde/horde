@@ -1,6 +1,6 @@
 <?php
 /**
- * $Horde: shout/dialplan.php,v 0.1 2005/07/17 01:56:48 ben Exp $
+ * $Id$
  *
  * Copyright 2005 Ben Klang <ben@alkaloid.net>
  *

@@ -1,6 +1,6 @@
 <?php
 /**
- * $Horde: shout/index.php,v 0.1 2005/06/28 10:35:46 ben Exp $
+ * $Id$
  *
  * Copyright 2005 Ben Klang <ben@alkaloid.net>
  *

@@ -8,7 +8,7 @@
  * See the enclosed file COPYING for license information (GPL). If you did not
  * receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * $Horde: shout/templates/javascript/dialplan.js,v 1.0.0.1 2005/11/10 06:23:22 ben Exp $
+ * $Id$
  *
  * @author  Ben Klang <ben@alkaloid.net>
  * @package Shout

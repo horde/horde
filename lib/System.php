@@ -2,7 +2,7 @@
 /**
  * ContextForm Class
  *
- * $Horde: shout/lib/System.php,v 1.0 2005/07/07 23:48:11 ben Exp $
+ * $Id$
  *
  * Copyright 2005 Ben Klang <ben@alkaloid.net>
  *

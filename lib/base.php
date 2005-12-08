@@ -2,7 +2,7 @@
 /**
  * Shout base inclusion file.
  *
- * $Horde: shout/lib/base.php,v 0.1 2005/06/29 01:00:23 ben Exp $
+ * $Id$
  *
  * This file brings in all of the dependencies that every Shout
  * script will need and sets up objects that all scripts use.

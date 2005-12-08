@@ -2,7 +2,7 @@
 /**
  * Shout external API interface.
  *
- * $Horde: shout/lib/defines.php,v 1.120.2.4 2005/01/24 11:01:27 ben Exp $
+ * $Id$
  *
  * This file defines Shout's constants.  Any file needing to use the
  * driver or external API should require_once() this file.

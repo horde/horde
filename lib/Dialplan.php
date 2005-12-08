@@ -1,6 +1,6 @@
 <?php
 /**
- * $Horde: shout/lib/Dialplan.php,v 0.1 2005/07/16 11:06:48 ben Exp $
+ * $Id$
  *
  * Copyright 2005 Ben Klang <ben@alkaloid.net>
  *
@@ -21,7 +21,7 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * $Horde: framework/Tree/Tree.php,v 1.46.6.7 2005/07/03 05:22:36 selsky Exp $
+ * $Id$
  *
  * @author  Ben Klang <ben@alkaloid.net>
  * @package Shout_Dialplan

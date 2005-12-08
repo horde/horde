@@ -2,7 +2,7 @@
 /**
  * Shout_Driver:: defines an API for implementing storage backends for Shout.
  *
- * $Horde: shout/lib/Driver.php,v 0.01 2005/06/28 11:15:03 ben Exp $
+ * $Id$
  *
  * Copyright 2005 Ben Klang <ben@alkaloid.net>
  *
@@ -10,7 +10,7 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author  Ben Klang <ben@alkaloid.net>
- * @version $Revision$
+ * @version $Revision: 76 $
  * @since   Shout 0.1
  * @package Shout
  */

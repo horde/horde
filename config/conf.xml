@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!-- $Horde: horde/config/conf.xml,v 1.74.2.5 2005/03/22 11:40:14 jan Exp $ -->
+<!-- $Id$ -->
 <configuration>
 <!--   <configtab name="storage" desc="Storage Backend"> -->
     <configsection name="auth">
