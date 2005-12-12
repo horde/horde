@@ -8,6 +8,7 @@
  * script will need and sets up objects that all scripts use.
  */
 
+
 // Check for a prior definition of HORDE_BASE (perhaps by an
 // auto_prepend_file definition for site customization).
 if (!defined('HORDE_BASE')) {
@@ -31,6 +32,15 @@ $conf = &$GLOBALS['conf'];
 // Find the base file path of Shout.
 @define('SHOUT_BASE', dirname(__FILE__) . '/..');
 
+// Ensure Shout is properly configured before use
+$shout_configured = (@is_readable(SHOUT_BASE . '/config/conf.php') /* &&
+    * @is_readable(SHOUT_BASE . '/config/prefs.php') */);
+if (!$shout_configured) {
+    require SHOUT_BASE . '/../lib/Test.php';
+    Horde_Test::configFilesMissing('Shout', SHOUT_BASE,
+    array('conf.php' /*, 'prefs.php' */));
+}
+
 // Notification system.
 $notification = &Notification::singleton();
 $notification->attach('status');
@@ -40,8 +50,8 @@ require_once SHOUT_BASE . '/lib/Shout.php';
 require_once SHOUT_BASE . '/lib/Driver.php';
 
 // Form libraries.
-require_once 'Horde/Form.php';
-require_once 'Horde/Form/Renderer.php';
+// require_once 'Horde/Form.php';
+// require_once 'Horde/Form/Renderer.php';
 
 // Variable handling libraries
 require_once 'Horde/Variables.php';

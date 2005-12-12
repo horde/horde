@@ -9,16 +9,17 @@
  */
 
 @define('SHOUT_BASE', dirname(__FILE__));
-$shout_configured = (@is_readable(SHOUT_BASE . '/config/conf.php'));# &&
-    #@is_readable(SHOUT_BASE . '/config/prefs.php'));
-if (!$shout_configured) {
-    require SHOUT_BASE . '/../lib/Test.php';
-    Horde_Test::configFilesMissing('Shout', SHOUT_BASE,
-    array('conf.php', 'prefs.php'));
-}
-
 require_once SHOUT_BASE . '/lib/base.php';
 require_once SHOUT_BASE . '/lib/Shout.php';
+
+// Form libraries.
+require_once 'Horde/Form.php';
+require_once 'Horde/Form/Renderer.php';
+
+// Variable handling libraries
+require_once 'Horde/Variables.php';
+require_once 'Horde/Text/Filter.php';
+
 
 $context = Util::getFormData("context");
 $section = "users";

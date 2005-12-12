@@ -36,7 +36,7 @@ class UserDetailsForm extends Horde_Form {
         $this->addHidden('', 'curextension', 'text', true);
         $vars->set('curextension', $extension);
         $this->addHidden('', 'action', 'text', true);
-        $vars->set('action', 'save');
+        $vars->set('action', 'edit');
         $this->addVariable(_("Full Name"), 'name', 'text', true);
         $this->addVariable(_("Extension"), 'newextension', 'int', true);
         $this->addVariable(_("E-Mail Address"), 'email', 'text', true);
