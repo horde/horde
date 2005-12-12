@@ -1,6 +1,6 @@
 <!DOCTYPE webproject>
 <webproject>
-  <project usePreviewPrefix="0" previewPrefix="" type="Local" usePersistentBookmarks="0" name="Shout" encoding="iso 8859-1" enableEvents="true" >
+  <project usePreviewPrefix="0" type="Local" previewPrefix="" usePersistentBookmarks="0" name="Shout" encoding="iso 8859-1" enableEvents="true" >
     <upload/>
     <defaultDTD>-//w3c//dtd xhtml 1.0 strict//en</defaultDTD>
     <item url="config/" uploadstatus="1" />

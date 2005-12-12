@@ -7,7 +7,7 @@
  * This file brings in all of the dependencies that every Shout
  * script will need and sets up objects that all scripts use.
  */
-
+ 
 
 // Check for a prior definition of HORDE_BASE (perhaps by an
 // auto_prepend_file definition for site customization).
@@ -54,8 +54,8 @@ require_once SHOUT_BASE . '/lib/Driver.php';
 // require_once 'Horde/Form/Renderer.php';
 
 // Variable handling libraries
-require_once 'Horde/Variables.php';
-require_once 'Horde/Text/Filter.php';
+// require_once 'Horde/Variables.php';
+// require_once 'Horde/Text/Filter.php';
 
 // UI classes.
 require_once 'Horde/UI/Tabs.php';
