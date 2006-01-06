@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<!-- $Id: packageMediawiki.xml,v 1.1 2006-01-06 15:42:38 ritzmo Exp $ -->
+<package version="1.0">
+    <name>Text_Wiki_Mediawiki</name>
+    <summary>Mediawiki parser for Text_Wiki</summary>
+    <description>Parses Mediawiki mark-up to tokenize the text for Text_Wiki renderings. You can see a reference for this syntax here: http://meta.wikimedia.org/wiki/Help:Editing#The_wiki_markup</description>
+    <maintainers>
+        <maintainer>
+            <user>ritzmo</user>
+            <name>Moritz Venn</name>
+            <email>moritz.venn@freaque.net</email>
+            <role>lead</role>
+        </maintainer>
+        <maintainer>
+            <user>toggg</user>
+            <name>betrand Gugger</name>
+            <email>bertrand@toggg.com</email>
+            <role>lead</role>
+        </maintainer>
+     </maintainers>
+    <release>
+        <version>0.0.1</version>
+        <date>2005-10-14</date>
+        <license>LGPL</license>
+        <state>alpha</state>
+        <notes>
+First released version of Text_Wiki_Mediawiki.
+        </notes>
+	<filelist>
+	    <file role="php" name="Text/Wiki/Mediawiki.php" />
+	    <file role="php" name="Text/Wiki/Parse/Mediawiki/Emphasis.php" />
+	    <file role="php" name="Text/Wiki/Parse/Mediawiki/Heading.php" />
+	    <file role="php" name="Text/Wiki/Parse/Mediawiki/Image.php" />
+	    <file role="php" name="Text/Wiki/Parse/Mediawiki/Interwiki.php" />
+	    <file role="php" name="Text/Wiki/Parse/Mediawiki/Raw.php" />
+	    <file role="php" name="Text/Wiki/Parse/Mediawiki/Table.php" />
+	    <file role="php" name="Text/Wiki/Parse/Mediawiki/Url.php" />
+        </filelist>
+        <deps>
+            <dep type="pkg" rel="ge" version="1.0.1">Text_Wiki</dep>
+        </deps>
+    </release>
+  <changelog>
+  </changelog>
+</package>
