@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<!-- $Id: packageMediawiki.xml,v 1.1 2006-01-06 15:42:38 ritzmo Exp $ -->
+<!-- $Id: packageMediawiki.xml,v 1.2 2006-01-07 04:49:37 toggg Exp $ -->
 <package version="1.0">
     <name>Text_Wiki_Mediawiki</name>
     <summary>Mediawiki parser for Text_Wiki</summary>
@@ -21,7 +21,7 @@
      </maintainers>
     <release>
         <version>0.0.1</version>
-        <date>2005-10-14</date>
+        <date>2006-01-07</date>
         <license>LGPL</license>
         <state>alpha</state>
         <notes>
