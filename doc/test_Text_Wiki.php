@@ -5,7 +5,7 @@
  */
 $parser = $render = $source = '';
 $plist = array('Default', 'BBCode', 'Cowiki', 'Doku', 'Mediawiki', 'Tiki');
-$rlist = array('Xhtml', 'Plain', 'Latex', 'Cowiki', 'Doku', 'Tiki');
+$rlist = array('Xhtml', 'Plain', 'Latex', 'Cowiki', 'Doku', 'Tiki', 'Ooo', 'Pdf', 'Docbook');
 
 /**
  * Here we need to know if we are running from command line or from web
@@ -90,7 +90,7 @@ function bldHtml($result, $plist, $rlist, $elist) {
     $optparser = bldOpt('parser', $plist);
     $optrender = bldOpt('render', $rlist);
     $optexample = bldOpt('exchoice', $elist);
-    $hresult = nl2br(htmlentities($result));
+    $hresult = PEAR::isError($result) ? '' : nl2br(htmlentities($result));
     if ($_REQUEST['render'] != 'Xhtml') {
         $result = '';
     }
@@ -123,14 +123,14 @@ Translate from
 <SELECT name="parser">{$optparser}</SELECT>
  to
 <SELECT name="render">{$optrender}</SELECT>
- <INPUT type="submit" name="translate" value="translate">
+ <INPUT type="submit" name="translate" value="translate" />
 <br />
 <textarea name="source" cols="60" rows="25">{$_REQUEST['source']}</textarea>
 <br />
 <h4> Or choose
 <SELECT name="exchoice">{$optexample}</SELECT>
  and
-<INPUT type="submit" name="example" value="Load example">
+<INPUT type="submit" name="example" value="Load example" />
 </h4>
 </FORM>
 </div>
