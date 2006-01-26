@@ -60,7 +60,7 @@ switch ($action) {
 require SHOUT_TEMPLATES . '/common-header.inc';
 require SHOUT_TEMPLATES . '/menu.inc';
 
-echo "<br />";
+$notification->notify();
 
 $tabs = &Shout::getTabs($context, $vars);
 $tabs->preserve('context', $context);
