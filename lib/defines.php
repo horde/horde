@@ -11,7 +11,7 @@
  */
 # Branches
 @define('SHOUT_ASTERISK_BRANCH', "ou=Asterisk");
-@define('SHOUT_USERS_BRANCH', "ou=Customers");
+@define('SHOUT_USERS_BRANCH', "ou=People");
 
 # Object Classes - Users
 @define('SHOUT_USER_OBJECTCLASS', "asteriskUser");
