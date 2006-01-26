@@ -14,7 +14,6 @@
  * @since   Shout 0.1
  * @package Shout
  */
-require_once SHOUT_BASE . "/lib/defines.php";
 
 // {{{ Shout_Driver class
 class Shout_Driver {

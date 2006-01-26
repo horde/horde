@@ -10,7 +10,6 @@
  * @package Shout
  */
 @define('SHOUT_BASE', dirname(__FILE__) . "/..");
-require_once SHOUT_BASE . "/lib/defines.php";
 
 $_services['perms'] = array(
     'args' => array(),

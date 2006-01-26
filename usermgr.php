@@ -2,70 +2,56 @@
 /**
  * $Id$
  *
- * Copyright 2005 Ben Klang <ben@alkaloid.net>
+ * Copyright 2005-2006 Ben Klang <ben@alkaloid.net>
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  */
 
-@define('SHOUT_BASE', dirname(__FILE__));
-require_once SHOUT_BASE . '/lib/base.php';
-require_once SHOUT_BASE . '/lib/Shout.php';
+if (!isset($SHOUT_RUNNING) || !$SHOUT_RUNNING) {
+    header('Location: /');
+    exit();
+}
 
 // Form libraries.
 require_once 'Horde/Form.php';
 require_once 'Horde/Form/Renderer.php';
 
-// Variable handling libraries
-require_once 'Horde/Variables.php';
-require_once 'Horde/Text/Filter.php';
-
-
-$context = Util::getFormData("context");
-$section = "users";
 $action = Util::getFormData("action");
 $extension = Util::getFormData("extension");
 
-$contexts = &$shout->getContexts();
-$vars = &Variables::getDefaultVariables();
-
-if (!isset($context)) {#FIXME || !Shout::checkContext()) {
-    $url = Horde::applicationUrl("index.php");
-    header("Location: $url");
-    exit(0);
-}
-
-
+$title = _("User Manager: ");
 switch ($action) {
     case "add":
-        $title = _("Add User");
+        $title .= _("Add User");
         # Treat adds just like an empty edit
         unset($extension);
         break;
     case "edit":
-        $title = _("Edit User (Extension") . "$extension)";
+        $title .= _("Edit User (Extension") . "$extension)";
         break;
     case "save":
-        $title = _("Save User (Extension") . "$extension)";
+        $title .= _("Save User (Extension") . "$extension)";
         break;
     case "delete":
-        $title = _("Delete User (Extension") . "$extension)";
+        $title .= _("Delete User (Extension") . "$extension)";
         break;
+    case "list":
     default:
-        $url = Horde::applicationUrl('/');
-        header("Location: $url");
-        exit();
+        $title .= _("List Users");
+        $action = "list";
+        break;
 }
+
+
 
 require SHOUT_TEMPLATES . '/common-header.inc';
 require SHOUT_TEMPLATES . '/menu.inc';
 
 $notification->notify();
 
-$tabs = &Shout::getTabs($context, $vars);
-$tabs->preserve('context', $context);
 echo $tabs->render($section);
 
-require SHOUT_BASE . "/users/$action.php";
+require SHOUT_BASE . "/usermgr/$action.php";
 
 require $registry->get('templates', 'horde') . '/common-footer.inc';

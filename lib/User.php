@@ -113,13 +113,13 @@ class UserDetailsForm extends Horde_Form {
             $vars->set('eca', false);
         }
 
-        if (in_array('__CALLPRESENT:${VOFFICENUM}', $userdetails['dialopts'])) {
+        if (in_array('e(${VOFFICENUM})', $userdetails['dialopts'])) {
             $vars->set('eca', true);
             $vars->set('callappearance', 'v-office');
-        } elseif (in_array('__CALLPRESENT:${CALLER}', $userdetails['dialopts'])) {
+        } elseif (in_array('e(${CALLER})', $userdetails['dialopts'])) {
             $vars->set('eca', true);
             $vars->set('callappearance', 'caller');
-        } elseif (in_array('__CALLPRESENT:${SELF}', $userdetails['dialopts'])) {
+        } elseif (in_array('e(${SELF})', $userdetails['dialopts'])) {
             $vars->set('eca', true);
             $vars->set('callappearance', 'self');
         }

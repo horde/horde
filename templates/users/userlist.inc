@@ -14,9 +14,14 @@
             foreach ($users as $extension => $user) {
                 $rowcolor = $line % 2;
                 $line++;
-                $url = Horde::applicationUrl("users.php");
-                $url = Util::addParameter($url, array('context' => $context,
-                                                    'extension' => $extension));
+                $url = Horde::applicationUrl("index.php");
+                $url = Util::addParameter($url,
+                    array(
+                        'context' => $context,
+                        'extension' => $extension,
+                        'section' => 'users',
+                    )
+                );
                 $editurl = Util::addParameter($url, "action=edit");
                 $deleteurl = Util::addParameter($url, "action=delete");
         ?>

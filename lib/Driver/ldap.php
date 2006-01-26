@@ -210,15 +210,87 @@ type");
             return $entries[$context];
         }
 
-        $registry = &Registry::singleton();
-        require_once $registry->applicationFilePath('%application%/lib/defines.php', 'congregation');
-        $users = $registry->callByPackage('congregation', 'getUsersByContext',
-            array($context, CONGREGATION_USER_PHONE));
+        $basedn = SHOUT_USERS_BRANCH.','.$this->_params['basedn'];
 
-        foreach ($users as $user) {
-            $extension = $user['extension'];
-            $entries[$context][$extension] = $user;
+        $filter  = '(&';
+        $filter .= '(objectClass='.SHOUT_USER_OBJECTCLASS.')';
+        $filter .= '(context='.$context.')';
+        $filter .= ')';
+
+        $attributes = array(
+            'voiceMailbox',
+            'asteriskUserDialOptions',
+            'asteriskVoiceMailboxOptions',
+            'voiceMailboxPin',
+            'cn',
+            'telephoneNumber',
+            'asteriskUserDialTimeout',
+            'mail',
+            'asteriskPager',
+        );
+
+        $search = @ldap_search($this->_LDAP, $basedn, $filter, $attributes);
+
+        if (!$search) {
+            return PEAR::raiseError("Unable to search directory: " .
+                ldap_error($this->_LDAP));
         }
+
+        $res = ldap_get_entries($this->_LDAP, $search);
+
+        #
+        # ATTRIBUTES RETURNED FROM ldap_get_entries ARE ALL LOWER CASE!!
+        #
+        $entries[$context] = array();
+        $i = 0;
+        while ($i < $res['count']) {
+            $extension = $res[$i]['voicemailbox'][0];
+            $entries[$context][$extension] = array();
+
+            $j = 0;
+            $entries[$context][$extension]['dialopts'] = array();
+            while ($j < @$res[$i]['asteriskuserdialoptions']['count']) {
+                $entries[$context][$extension]['dialopts'][] =
+                    $res[$i]['asteriskuserdialoptions'][$j];
+                $j++;
+            }
+
+            $j = 0;
+            $entries[$context][$extension]['mailboxopts'] = array();
+            while ($j < @$res[$i]['asteriskvoicemailboxoptions']['count']) {
+                $entries[$context][$extension]['mailboxopts'][] =
+                    $res[$i]['asteriskvoicemailboxoptions'][$j];
+                $j++;
+            }
+
+            $entries[$context][$extension]['mailboxpin'] =
+                $res[$i]['voicemailboxpin'][0];
+
+            @$entries[$context][$extension]['name'] =
+                $res[$i]['cn'][0];
+
+            $j = 0;
+            $entries[$context][$extension]['phonenumbers'] = array();
+            while ($j < @$res[$i]['telephonenumber']['count']) {
+                $entries[$context][$extension]['phonenumbers'][] =
+                    $res[$i]['telephonenumber'][$j];
+                $j++;
+            }
+
+            # FIXME Do some sanity checking here.  Also set a default?
+            @$entries[$context][$extension]['dialtimeout'] =
+                $res[$i]['asteriskuserdialtimeout'][0];
+
+            @$entries[$context][$extension]['email'] =
+                $res[$i]['mail'][0];
+
+            @$entries[$context][$extension]['pageremail'] =
+                $res[$i]['asteriskpager'][0];
+
+            $i++;
+
+        }
+
         ksort($entries[$context]);
 
         return($entries[$context]);
@@ -236,14 +308,20 @@ type");
         # FIXME Probably should key this off the domain part of the user's
         # FIXME Auth::getAuth() and match context with associatedDomain
         # FIXME Also, cache this lookup
-        $res = @ldap_search($this->_LDAP,
-            SHOUT_USERS_BRANCH.','.$this->_params['basedn'],
-            "(&(mail=".Auth::getAuth().")(objectClass=asteriskUser))",
-            array('context'));
+
+        $basedn = SHOUT_USERS_BRANCH.','.$this->_params['basedn'];
+        $filter  = '(&';
+        $filter .= '(mail='.Auth::getAuth().')';
+        $filter .= '(objectClass='.SHOUT_USER_OBJECTCLASS.')';
+        $filter .= ')';
+        $attributes = array('context');
+
+        $res = @ldap_search($this->_LDAP, $basedn, $filter, $attributes);
         if (!$res) {
             return PEAR::raiseError("Unable to locate any customers " .
             "underneath ".SHOUT_ASTERISK_BRANCH.",".$this->_params['basedn'] .
             " matching those search filters");
+            # FIXME Better error string above
         }
 
         $res = ldap_get_entries($this->_LDAP, $res);
@@ -251,6 +329,7 @@ type");
         # Assume the user only has one context.  The schema enforces this
         # FIXME: Handle cases where the managing user isn't a valid telephone
         # system user
+        # FIXME: Handle cases where no attribute is found?
         return $res[0]['context'][0];
     }
     // }}}

@@ -2,91 +2,61 @@
 /**
  * $Id$
  *
- * Copyright 2005 Ben Klang <ben@alkaloid.net>
+ * Copyright 2005-2006 Ben Klang <ben@alkaloid.net>
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ *
+ * @package shout
  */
 
-@define('SHOUT_BASE', dirname(__FILE__));
-# FIXME Need a cleaner script prologue... probably all we need to do is check
-# for some kind of sane startup vars and otherwise redirect to '/'
-# This standard prologue should be consistent across every file that ends in .php
-$shout_configured = (@is_readable(SHOUT_BASE . '/config/conf.php'));# &&
-    #@is_readable(SHOUT_BASE . '/config/prefs.php'));
-if (!$shout_configured) {
-    require SHOUT_BASE . '/../lib/Test.php';
-    Horde_Test::configFilesMissing('Shout', SHOUT_BASE,
-    array('conf.php', 'prefs.php'));
+if (!isset($SHOUT_RUNNING) || !$SHOUT_RUNNING) {
+    header('Location: /');
+    exit();
 }
 
-require_once SHOUT_BASE . '/lib/base.php';
-require_once SHOUT_BASE . '/lib/Shout.php';
+require_once SHOUT_BASE . '/lib/Dialplan.php';
+$dialplan = &$shout->getDialplan($context);
 
-$context = Util::getFormData("context");
-$section = "dialplan";
+// Set up the tree.
+$dpgui = Shout_Dialplan::singleton('x', $dialplan);
+
 $action = Util::getFormData("action");
-if ($button = Util::getFormData("submitbutton")) {
-    $action = $button;
-}
-$extension = Util::getFormData("extension");
 
-$contexts = &$shout->getContexts();
-$vars = &Variables::getDefaultVariables();
-
-if (!isset($context)) {#FIXME || !Shout::checkContext()) {
-    $url = Horde::applicationUrl("index.php");
-    header("Location: $url");
-    exit(0);
+switch($action) {
+case "do":
+    echo "stuff\n";
+    break;
 }
 
-switch ($action) {
-    case "add":
-        $title = _("Add Extension");
-        # Treat adds just like an empty edit
-        unset($extension);
-        $action = 'edit';
-        break;
-    case "Add Priority":
-        $dialplan = &$shout->getDialplan($context);
-        #FIXME Handle added-but-not-yet-saved priorities
-        $dialplan['extensions'][$extension][] = '';
-        $action = 'edit';
-        break;
-    case "Add 5 Priorities":
-        $dialplan = &$shout->getDialplan($context);
-        $dialplan['extensions'][$extension][] = '';
-        $dialplan['extensions'][$extension][] = '';
-        $dialplan['extensions'][$extension][] = '';
-        $dialplan['extensions'][$extension][] = '';
-        $dialplan['extensions'][$extension][] = '';
-        $action = 'edit';
-        break;
-    case "edit":
-        $title = _("Edit Extension") . "$extension";
-        break;
-    case "Save":
-    case "save":
-        $title = _("Save Extension") . "$extension";
-        break;
-    case "delete":
-        $title = _("Delete Extension") . "$extension";
-        break;
-    default:
-        $url = Horde::applicationUrl('/');
-        header("Location: $url");
-        exit();
-}
+$title = _("Dialplan Manager");
 
 require SHOUT_TEMPLATES . '/common-header.inc';
 require SHOUT_TEMPLATES . '/menu.inc';
 
-echo "<br />";
+$notification->notify();
 
-$tabs = &Shout::getTabs($context, $vars);
-$tabs->preserve('context', $context);
 echo $tabs->render($section);
 
 require SHOUT_BASE . "/dialplan/$action.php";
+
+require SHOUT_TEMPLATES . '/dialplan/manager.inc';
+
+// Horde::addScriptFile('httpclient.js', 'horde', true);
+// Horde::addScriptFile('hideable.js', 'horde', true);
+// require HORDE_TEMPLATES . '/common-header.inc';
+// require HORDE_TEMPLATES . '/portal/sidebar.inc';
+
+
+// require SHOUT_TEMPLATES . "/dialplan/dialplanlist.inc";
+
+
+
+
+
+
+
+
+
 
 require $registry->get('templates', 'horde') . '/common-footer.inc';

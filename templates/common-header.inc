@@ -6,7 +6,7 @@
      ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
           "DTD/xhtml1-transitional.dtd">
-<!--          Shout: Copyright 2005, Ben Klang.           -->
+<!--          Shout: Copyright 2005-2006, Ben Klang.           -->
 <!-- Horde Project: http://horde.org/ | Shout: http://projects.alkaloid.net/ -->
 <!--          Horde Licenses: http://www.horde.org/licenses/           -->
 <?php echo !empty($language) ? '<html lang="' . strtr($language, '_', '-') .

@@ -14,7 +14,7 @@
  * @since   Shout 0.1
  * @package Shout
  */
-require_once SHOUT_BASE . "/lib/defines.php";
+require_once SHOUT_BASE . "/config/defines.php";
 
 // {{{ Class Shout
 class Shout
@@ -109,9 +109,9 @@ class Shout
 
         if (Shout::checkRights("$permprefix:users", null, 1) &&
             $shout->checkContextType($context, "users")) {
-             $tabs->addTab(_("Users"),
+             $tabs->addTab(_("User Manager"),
                     Horde::applicationUrl("index.php?context=$context"),
-                    'users');
+                    'usermgr');
         }
 
         if (Shout::checkRights("$permprefix:dialplan", null, 1) &&
@@ -130,11 +130,6 @@ class Shout
             $shout->checkContextType($context, "moh")) {
             $tabs->addTab(_("Music on Hold"),
                 Horde::applicationUrl('index.php'), 'moh');
-        }
-
-        if (Auth::isAdmin("shout:system", PERMS_SHOW|PERMS_READ)) {
-            $tabs->addTab(_("System Settings"),
-                Horde::applicationUrl('index.php'), 'system');
         }
 
         if (Auth::isAdmin("shout:superadmin", PERMS_SHOW|PERMS_READ)) {

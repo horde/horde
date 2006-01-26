@@ -9,13 +9,12 @@
  *
  * @package shout
  */
-
 if (!isset($SHOUT_RUNNING) || !$SHOUT_RUNNING) {
     header('Location: /');
     exit();
 }
 
-$title = _('Security');
+$title = _('Music on Hold');
 
 require SHOUT_TEMPLATES . '/common-header.inc';
 require SHOUT_TEMPLATES . '/menu.inc';
@@ -23,7 +22,5 @@ require SHOUT_TEMPLATES . '/menu.inc';
 $notification->notify();
 
 $tabs->render($section);
-
-Shout::getApplist();
 
 require $registry->get('templates', 'horde') . '/common-footer.inc';

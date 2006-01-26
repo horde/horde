@@ -2,13 +2,12 @@
 <!-- $Id$ -->
 <configuration>
 <!--   <configtab name="storage" desc="Storage Backend"> -->
-    <configsection name="auth">
+    <configsection name="storage">
       <configheader>Shout Storage</configheader>
-      <configlist name="admins" desc="Which users should be treated as
-        super-administrators (root, super-user) by Shout?"/>
+      <!-- <configlist name="admins" desc="Which users should be treated as
+        super-administrators (root, super-user) by Shout?"/> -->
       <configswitch name="driver" desc="What backend should we use for
-        authenticating users to Horde?">
-          
+        authenticating users to Horde?">ldap
         <case name="ldap" desc="LDAP authentication">
           <configsection name="params">
             <configstring name="hostspec" desc="The hostname of the LDAP

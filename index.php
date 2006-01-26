@@ -2,85 +2,69 @@
 /**
  * $Id$
  *
- * Copyright 2005 Ben Klang <ben@alkaloid.net>
+ * Copyright 2005-2006 Ben Klang <ben@alkaloid.net>
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ *
+ * @package shout
  */
 
 @define('SHOUT_BASE', dirname(__FILE__));
-$shout_configured = (@is_readable(SHOUT_BASE . '/config/conf.php'));# &&
+$shout_configured = (@is_readable(SHOUT_BASE . '/config/conf.php') &&
+                     @is_readable(SHOUT_BASE . '/config/defines.php'));# &&
                      #@is_readable(SHOUT_BASE . '/config/prefs.php'));
 if (!$shout_configured) {
     require SHOUT_BASE . '/../lib/Test.php';
     Horde_Test::configFilesMissing('Shout', SHOUT_BASE,
-                                   array('conf.php', 'prefs.php'));
+                                   array('conf.php', 'defines.php'));
+                                   #, 'prefs.php'));
 }
 
 require_once SHOUT_BASE . '/lib/base.php';
 require_once SHOUT_BASE . '/lib/Shout.php';
 
+// Variable handling libraries
+require_once 'Horde/Variables.php';
+require_once 'Horde/Text/Filter.php';
+
 $context = Util::getFormData("context");
 $section = Util::getFormData("section");
 
 $contexts = &$shout->getContexts();
-$vars = &Variables::getDefaultVariables();
-#$ticket->setDetails($vars);
-
-if (count($contexts) == 1) {
+# Check that we are properly initialized
+if (is_a($contexts, 'PEAR_Error')) {
+    $notification->push($contexts, 'horde.error');
+    $contexts = false;
+} elseif (count($contexts) == 1) {
+    # Default to the user's only context
     $context = $contexts[0];
 } elseif (!$context) {
+    # Attempt to locate the user's "home" context
     $context = $shout->getHomeContext();
 }
 
+$vars = &Variables::getDefaultVariables();
 $tabs = &Shout::getTabs($context, $vars);
 $tabs->preserve('context', $context);
-if (!$section) {
-    $section = $tabs->_tabs[0]['tabname'];
-}
 
-#require_once SHOUT_TEMPLATES . '/comment.inc';
-#require_once 'Horde/Variables.php';
-#require_once 'Horde/Text/Filter.php';
-
-
-
-#$title = '[#' . $ticket->getId() . '] ' . $ticket->get('summary');
-require SHOUT_TEMPLATES . '/common-header.inc';
-require SHOUT_TEMPLATES . '/menu.inc';
-
-// if (!$section) {
-//     $section =
-print '<div style="width:95%;left:10px;position:relative">';
-echo $tabs->render($section);
 switch ($section) {
     case "conference":
-        $title = _('Conferences');
-        break;
     case "dialplan":
-        $title = _('Dial Plan');
-        break;
     case "security":
-        $title = _('Security/Access Control');
-        break;
-    case "system":
-        $title = _('System Settings');
-        break;
-    case "users":
-        $title = _('Users');
-        break;
+    case "usermgr":
     case "moh":
-        $title = _('Music on Hold');
         break;
-
     default:
-        require SHOUT_TEMPLATES . '/common-footer.inc';
-        require $registry->get('templates', 'horde') . '/common-footer.inc';
-        exit();
+        $section = $tabs->_tabs[0]['tabname'];
         break;
 }
+# We've passed the initialization tests.  This flag allows other pages to run.
+$SHOUT_RUNNING = true;
 
-require "main/$section.php";
-print '</div>';
-require SHOUT_TEMPLATES . '/common-footer.inc';
+require SHOUT_BASE . "/$section.php";
+
+#print '<div style="width:95%;left:10px;position:relative">';
+
+#print '</div>';
 require $registry->get('templates', 'horde') . '/common-footer.inc';
