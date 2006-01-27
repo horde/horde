@@ -60,13 +60,15 @@ class UserDetailsForm extends Horde_Form {
         $this->addVariable(_("Explicit Call Acceptance"), 'eca',
             'boolean', true, false);#, _("When checked, the called user will be required to press 1 to accept the call.  Only turn this off if you really know what you're doing!"));
         $this->addVariable(_("Call Appearance"), 'callappearance',
-            'radio', true, false, null, array('values' =>
+            'radio', $vars->get('eca'), false, null, array('values' =>
                 array('caller' => 'From Calling Party',
                     'self' => 'From Self',
-                    'v-office' => 'From V-Office',
+                    'switch' => 'From V-Office',
                 )
             )
         );
+
+        return true;
     }
 
     // {{{ fillUserForm method
@@ -95,35 +97,42 @@ class UserDetailsForm extends Horde_Form {
             $i++;
         }
 
-        if (in_array('m', $userdetails['dialopts'])) {
-            $vars->set('moh', true);
-        } else {
-            $vars->set('moh', false);
-        }
+        $vars->set('moh', false);
+        $vars->set('eca', false);
+        $vars->set('transfer', false);
+        $vars->set('callappearance', 'caller');
 
-        if (in_array('t', $userdetails['dialopts'])) {
-            $vars->set('transfer', true);
-        } else {
-            $vars->set('transfer', false);
-        }
 
-        if (in_array('e', $userdetails['dialopts'])) {
-            $vars->set('eca', true);
-        } else {
-            $vars->set('eca', false);
-        }
+        foreach ($userdetails['dialopts'] as $opt) {
+            if ($opt == 'm') {
+                $vars->set('moh', true);
+            }
+            if ($opt == 't') {
+                $vars->set('transfer', true);
+            }
+            if (preg_match('/^e(\(.*\))*/', $opt, $matches)) {
+                # This matches 'e' and 'e(ARGS)'
+                $vars->set('eca', true);
+                if (count($matches) > 1) {
+                    # We must have found an argument
+                    switch($matches[1]) {
+                    case '(${VOFFICENUM})':
+                        $vars->set('callappearance', 'switch');
+                        break;
 
-        if (in_array('e(${VOFFICENUM})', $userdetails['dialopts'])) {
-            $vars->set('eca', true);
-            $vars->set('callappearance', 'v-office');
-        } elseif (in_array('e(${CALLER})', $userdetails['dialopts'])) {
-            $vars->set('eca', true);
-            $vars->set('callappearance', 'caller');
-        } elseif (in_array('e(${SELF})', $userdetails['dialopts'])) {
-            $vars->set('eca', true);
-            $vars->set('callappearance', 'self');
-        }
+                    case '(${CALLERANI})':
+                        $vars->set('callappearance', 'self');
+                        break;
 
+                    case '(${CALLERIDNUM})':
+                    default:
+                        $vars->set('callappearance', 'caller');
+                        break;
+
+                    }
+                }
+            }
+        }
         return true;
     }
     // }}}

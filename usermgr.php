@@ -28,13 +28,13 @@ switch ($action) {
         unset($extension);
         break;
     case "edit":
-        $title .= _("Edit User (Extension") . "$extension)";
+        $title .= _("Edit User (Extension ") . "$extension)";
         break;
     case "save":
-        $title .= _("Save User (Extension") . "$extension)";
+        $title .= _("Save User (Extension ") . "$extension)";
         break;
     case "delete":
-        $title .= _("Delete User (Extension") . "$extension)";
+        $title .= _("Delete User (Extension ") . "$extension)";
         break;
     case "list":
     default:

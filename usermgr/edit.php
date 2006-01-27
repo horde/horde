@@ -23,28 +23,34 @@ $wereerrors = 0;
 $vars = &Variables::getDefaultVariables($empty);
 $formname = $vars->get('formname');
 
-$title = _("FIXME " . __FILE__.":".__LINE__);
+$Form = &Horde_Form::singleton('UserDetailsForm', $vars);
 
-$UserDetailsForm = &Horde_Form::singleton('UserDetailsForm', $vars);
+$FormValid = $Form->validate($vars, true);
 
-$UserDetailsFormValid = $UserDetailsForm->validate($vars, true);
+if ($Form->isSubmitted()) {
+    $notification->push('Submitted.', 'horde.message');
+}
+if ($FormValid) {
+    $notification->push('Valid.', 'horde.message');
+}
+$notification->notify();
 
-if (!$UserDetailsFormValid) {
-    $UserDetailsForm->open($RENDERER, $vars, 'users.php', 'post');
+if (!$FormValid || !$Form->isSubmitted()) {
+    # Display the form for editing
+    $Form->open($RENDERER, $vars, 'usermgr.php', 'post');
     $vars->set('section', $section);
-    $UserDetailsForm->preserveVarByPost($vars, "section");
-    // $UserDetailsForm->preserve($vars);
-    $RENDERER->beginActive($UserDetailsForm->getTitle());
-    $RENDERER->renderFormActive($UserDetailsForm, $vars);
+    $Form->preserveVarByPost($vars, "section");
+    // $Form->preserve($vars);
+    $RENDERER->beginActive($Form->getTitle());
+    $RENDERER->renderFormActive($Form, $vars);
     $RENDERER->submit();
     $RENDERER->end();
-    $UserDetailsForm->close($RENDERER);
+    $Form->close($RENDERER);
 } else {
+    # Process the Valid and Submitted form
 
-//     require WHUPS_TEMPLATES . '/common-header.inc';
-//     require WHUPS_TEMPLATES . '/menu.inc';
     $info = array();
-    $UserDetailsForm->getInfo($vars, $info);
+    $Form->getInfo($vars, $info);
 
     $name = $info['name'];
     $curextension = $info['curextension'];
