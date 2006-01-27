@@ -15,30 +15,36 @@ class UserDetailsForm extends Horde_Form {
 
     function UserDetailsForm(&$vars)
     {
-        global $shout;
-        $context = $vars->get("context");
-        $extension = $vars->get("extension");
+        global $shout, $notification;
+        $context = $vars->get('context');
+        $curexten = $vars->get('curexten');
 
         $users = &$shout->getUsers($context);
-        if (array_key_exists($extension, $users)) {
+        if (is_a($users, 'PEAR_Error')) {
+            $notification->push($users);
+        }
+        if (array_key_exists($curexten, $users)) {
             # We must be editing an existing user
-            $this->fillUserForm(&$vars, $users[$extension]);
-            $limits = &$shout->getLimits($context, $extension);
+            $this->fillUserForm(&$vars, $users[$curexten]);
+            $limits = &$shout->getLimits($context, $curexten);
+            if (is_a($limits, 'PEAR_Error')) {
+                $notification->push($limits);
+            }
             $formtitle = "Edit User";
         } else {
             $limits = &$shout->getLimits($context);
+            if (is_a($limits, 'PEAR_Error')) {
+                $notification->push($limits);
+            }
             $formtitle = "Add User";
         }
 
         parent::Horde_Form($vars, _("$formtitle - Context: $context"));
 
-        $this->addHidden('', 'context', 'text', true);
-        $this->addHidden('', 'curextension', 'text', true);
-        $vars->set('curextension', $extension);
         $this->addHidden('', 'action', 'text', true);
-        $vars->set('action', 'edit');
+        $vars->set('action', 'save');
         $this->addVariable(_("Full Name"), 'name', 'text', true);
-        $this->addVariable(_("Extension"), 'newextension', 'int', true);
+        $this->addVariable(_("Extension"), 'newexten', 'int', true);
         $this->addVariable(_("E-Mail Address"), 'email', 'text', true);
         $this->addVariable(_("Pager E-Mail Address"), 'pageremail', 'text', false);
         # TODO: Integrate with To-Be-Written user manager and possibly make this
@@ -59,14 +65,14 @@ class UserDetailsForm extends Horde_Form {
             'boolean', true, false);#, _("When checked, the called user will be allowed to transfer the incoming call to other extensions"));
         $this->addVariable(_("Explicit Call Acceptance"), 'eca',
             'boolean', true, false);#, _("When checked, the called user will be required to press 1 to accept the call.  Only turn this off if you really know what you're doing!"));
-        $this->addVariable(_("Call Appearance"), 'callappearance',
-            'radio', $vars->get('eca'), false, null, array('values' =>
-                array('caller' => 'From Calling Party',
-                    'self' => 'From Self',
-                    'switch' => 'From V-Office',
-                )
-            )
-        );
+//         $this->addVariable(_("Call Appearance"), 'callappearance',
+//             'radio', $vars->get('eca'), false, null, array('values' =>
+//                 array('caller' => 'From Calling Party',
+//                     'self' => 'From Self',
+//                     'switch' => 'From V-Office',
+//                 )
+//             )
+//         );
 
         return true;
     }
@@ -89,7 +95,7 @@ class UserDetailsForm extends Horde_Form {
         $vars->set('name', $userdetails['name']);
         $vars->set('email', @$userdetails['email']);
         $vars->set('pin', $userdetails['mailboxpin']);
-        $vars->set('newextension', $vars->get('extension'));
+        $vars->set('newexten', $vars->get('curexten'));
 
         $i = 1;
         foreach($userdetails['phonenumbers'] as $number) {
@@ -100,7 +106,7 @@ class UserDetailsForm extends Horde_Form {
         $vars->set('moh', false);
         $vars->set('eca', false);
         $vars->set('transfer', false);
-        $vars->set('callappearance', 'caller');
+//         $vars->set('callappearance', 'caller');
 
 
         foreach ($userdetails['dialopts'] as $opt) {
@@ -113,24 +119,24 @@ class UserDetailsForm extends Horde_Form {
             if (preg_match('/^e(\(.*\))*/', $opt, $matches)) {
                 # This matches 'e' and 'e(ARGS)'
                 $vars->set('eca', true);
-                if (count($matches) > 1) {
-                    # We must have found an argument
-                    switch($matches[1]) {
-                    case '(${VOFFICENUM})':
-                        $vars->set('callappearance', 'switch');
-                        break;
-
-                    case '(${CALLERANI})':
-                        $vars->set('callappearance', 'self');
-                        break;
-
-                    case '(${CALLERIDNUM})':
-                    default:
-                        $vars->set('callappearance', 'caller');
-                        break;
-
-                    }
-                }
+//                 if (count($matches) > 1) {
+//                     # We must have found an argument
+//                     switch($matches[1]) {
+//                     case '(${VOFFICENUM})':
+//                         $vars->set('callappearance', 'switch');
+//                         break;
+//
+//                     case '(${CALLERANI})':
+//                         $vars->set('callappearance', 'self');
+//                         break;
+//
+//                     case '(${CALLERIDNUM})':
+//                     default:
+//                         $vars->set('callappearance', 'caller');
+//                         break;
+//
+//                     }
+//                 }
             }
         }
         return true;

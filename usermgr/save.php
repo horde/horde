@@ -9,55 +9,66 @@
  *
  * @package shout
  */
-@define('SHOUT_BASE', dirname(__FILE__) . '/..');
+if (!isset($SHOUT_RUNNING) || !$SHOUT_RUNNING) {
+    header('Location: /');
+    exit();
+}
+
 require_once SHOUT_BASE . '/lib/User.php';
 require_once 'Horde/Variables.php';
 
 $RENDERER = &new Horde_Form_Renderer();
 
 $vars = &Variables::getDefaultVariables();
-$formname = $vars->get('formname');
+$FormName = $vars->get('formname');
 
-$UserDetailsForm = &Horde_Form::singleton('UserDetailsForm', $vars);
-$UserDetailsFormValid = $UserDetailsForm->validate($vars, true);
-if (!$UserDetailsFormValid) {
-    # FIXME Handle invalid forms gracefully
-    echo "Invalid Form!";
-}
+$Form = &Horde_Form::singleton($FormName, $vars);
 
-$name = Util::getFormData('name');
-$curextension = Util::getFormData('curextension');
-$newextension = Util::getFormData('newextension');
-$email = Util::getFormData('email');
-$pin = Util::getFormData('pin');
+$FormValid = $Form->validate($vars, true);
+
+if (!$FormValid || !$Form->isSubmitted()) {
+    require SHOUT_BASE . '/usermgr/edit.php';
+} else {
+    # Form is Valid and Submitted
+    $name = $vars->get('name');
+    $curexten = $vars->get('curexten');
+    $newexten = $vars->get('newexten');
+    $email = $vars->get('email');
+    $pin = $vars->get('pin');
 
 
-$limits = $shout->getLimits($context, $curextension);
+    $limits = $shout->getLimits($context, $curexten);
 
-$userdetails = array("newextension" => $newextension,
-              "name" => $name,
-              "pin" => $pin,
-              "email" => $email);
+    $userdetails = array("newexten" => $newexten,
+                "name" => $name,
+                "pin" => $pin,
+                "email" => $email);
 
-$i = 1;
-$userdetails['telephonenumbers'] = array();
-while ($i <= $limits['telephonenumbersmax']) {
-    $tmp = Util::getFormData("telephone$i");
-    if (!empty($tmp)) {
-        $userdetails['telephonenumbers'][] = $tmp;
+    $i = 1;
+    $userdetails['telephonenumbers'] = array();
+    while ($i <= $limits['telephonenumbersmax']) {
+        $tmp = $vars->get("telephone$i");
+        $notification->push('Number: '.$tmp, 'horde.warning');
+        if (!empty($tmp)) {
+            $userdetails['telephonenumbers'][] = $tmp;
+        }
+        $i++;
     }
-    $i++;
-}
 
-$userdetails['dialopts'] = array();
-if (Util::getFormData('moh')) {
-    $userdetails['dialopts'][] = 'm';
+    $userdetails['dialopts'] = array();
+    if ($vars->get('moh')) {
+        $userdetails['dialopts'][] = 'm';
+    }
+    if ($vars->get('transfer')) {
+        $userdetails['dialopts'][] = 't';
+    }
+    if ($vars->get('eca')) {
+        $userdetails['dialopts'][] = 'e';
+    }
+    $notification->notify();
+    print_r($userdetails);
 }
-if (Util::getFormData('transfer')) {
-    $userdetails['dialopts'][] = 't';
-}
-
-// $res = $shout->saveUser($context, $curextension, $userdetails);
+// $res = $shout->saveUser($context, $curexten, $userdetails);
 // if (is_a($res, 'PEAR_Error')) {
-//     print $res->getMessage();
+//     $notification->push($res);
 // }

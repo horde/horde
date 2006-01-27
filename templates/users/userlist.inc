@@ -18,7 +18,7 @@
                 $url = Util::addParameter($url,
                     array(
                         'context' => $context,
-                        'extension' => $extension,
+                        'curexten' => $extension,
                         'section' => 'users',
                     )
                 );
