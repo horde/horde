@@ -17,16 +17,16 @@ class UserDetailsForm extends Horde_Form {
     {
         global $shout, $notification;
         $context = $vars->get('context');
-        $curexten = $vars->get('curexten');
+        $extension = $vars->get('extension');
 
         $users = &$shout->getUsers($context);
         if (is_a($users, 'PEAR_Error')) {
             $notification->push($users);
         }
-        if (array_key_exists($curexten, $users)) {
+        if (array_key_exists($extension, $users)) {
             # We must be editing an existing user
-            $this->fillUserForm(&$vars, $users[$curexten]);
-            $limits = &$shout->getLimits($context, $curexten);
+            $this->fillUserForm(&$vars, $users[$extension]);
+            $limits = &$shout->getLimits($context, $extension);
             if (is_a($limits, 'PEAR_Error')) {
                 $notification->push($limits);
             }
@@ -44,18 +44,18 @@ class UserDetailsForm extends Horde_Form {
         $this->addHidden('', 'action', 'text', true);
         $vars->set('action', 'save');
         $this->addVariable(_("Full Name"), 'name', 'text', true);
-        $this->addVariable(_("Extension"), 'newexten', 'int', true);
-        $this->addVariable(_("E-Mail Address"), 'email', 'text', true);
-        $this->addVariable(_("Pager E-Mail Address"), 'pageremail', 'text', false);
+        $this->addVariable(_("Extension"), 'newextension', 'int', true);
+        $this->addVariable(_("E-Mail Address"), 'email', 'email', true);
+        $this->addVariable(_("Pager E-Mail Address"), 'pageremail', 'email', false);
         # TODO: Integrate with To-Be-Written user manager and possibly make this
         # TODO: new user also an email account.
         $this->addVariable(_("PIN"), 'pin', 'int', true);
 
+        # FIXME: Make this work if limits don't exist.
         $t = 1;
         while ($t <= $limits['telephonenumbersmax']) {
             $this->addVariable(_("Telephone Number $t:"), "telephone$t",
-'text',
-                false);
+            'cellphone', false);
             $t++;
         }
 
@@ -95,7 +95,7 @@ class UserDetailsForm extends Horde_Form {
         $vars->set('name', $userdetails['name']);
         $vars->set('email', @$userdetails['email']);
         $vars->set('pin', $userdetails['mailboxpin']);
-        $vars->set('newexten', $vars->get('curexten'));
+        $vars->set('newextension', $vars->get('extension'));
 
         $i = 1;
         foreach($userdetails['phonenumbers'] as $number) {

@@ -30,25 +30,21 @@ if (!$FormValid || !$Form->isSubmitted()) {
     require SHOUT_BASE . '/usermgr/edit.php';
 } else {
     # Form is Valid and Submitted
-    $name = $vars->get('name');
-    $curexten = $vars->get('curexten');
-    $newexten = $vars->get('newexten');
-    $email = $vars->get('email');
-    $pin = $vars->get('pin');
+    $extension = $vars->get('extension');
 
+    $limits = $shout->getLimits($context, $extension);
 
-    $limits = $shout->getLimits($context, $curexten);
-
-    $userdetails = array("newexten" => $newexten,
-                "name" => $name,
-                "pin" => $pin,
-                "email" => $email);
+    $userdetails = array(
+        "newextension" => $vars->get('newextension'),
+        "name" => $vars->get('name'),
+        "pin" => $vars->get('pin'),
+        "email" => $vars->get('email'),
+    );
 
     $i = 1;
     $userdetails['telephonenumbers'] = array();
     while ($i <= $limits['telephonenumbersmax']) {
         $tmp = $vars->get("telephone$i");
-        $notification->push('Number: '.$tmp, 'horde.warning');
         if (!empty($tmp)) {
             $userdetails['telephonenumbers'][] = $tmp;
         }
@@ -65,10 +61,14 @@ if (!$FormValid || !$Form->isSubmitted()) {
     if ($vars->get('eca')) {
         $userdetails['dialopts'][] = 'e';
     }
+    $res = $shout->saveUser($context, $extension, $userdetails);
+    $res = $shout->saveUser($context, $extension, $userdetails);
+    if (is_a($res, 'PEAR_Error')) {
+        $notification->push($res);
+    } else {
+        $notification->push('User information updated.', 'horde.success');
+    }
     $notification->notify();
-    print_r($userdetails);
+
+    require SHOUT_BASE . '/usermgr/edit.php';
 }
-// $res = $shout->saveUser($context, $curexten, $userdetails);
-// if (is_a($res, 'PEAR_Error')) {
-//     $notification->push($res);
-// }

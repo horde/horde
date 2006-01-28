@@ -55,13 +55,13 @@ $notification->notify();
 //     $Form->getInfo($vars, $info);
 //
 //     $name = $info['name'];
-//     $curextension = $info['curextension'];
+//     $extension = $info['extension'];
 //     $newextension = $info['newextension'];
 //     $email = $info['email'];
 //     $pin = $info['pin'];
 //
 //
-//     $limits = $shout->getLimits($context, $curextension);
+//     $limits = $shout->getLimits($context, $extension);
 //
 //     $userdetails = array("newextension" => $newextension,
 //                 "name" => $name,

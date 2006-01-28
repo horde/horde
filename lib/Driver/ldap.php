@@ -35,6 +35,43 @@ class Shout_Driver_ldap extends Shout_Driver
     {
         parent::Shout_Driver($params);
         $this->_connect();
+
+        /* These next lines will translate between indexes used in the
+         * application and LDAP.  The rationale is that translation here will
+         * help make Congregation more driver-independant.  The keys used to
+         * contruct user arrays should be more appropriate to human-legibility
+         * (name instead of 'cn' and email instead of 'mail').  This translation
+         * is only needed because LDAP indexes users based on an arbitrary
+         * attribute and the application indexes by extension/context.  In my
+         * environment users are indexed by their 'mail' attribute and others
+         * may index based on 'cn' or 'uid'.  Any time a new $prefs['uid'] needs
+         * to be supported, this function should be checked and possibly
+         * extended to handle that translation.
+         */
+        switch($this->_params['uid']) {
+        case 'cn':
+            $this->_ldapKey = 'cn';
+            $this->_appKey = 'name';
+            break;
+        case 'mail':
+            $this->_ldapKey = 'mail';
+            $this->_appKey = 'email';
+            break;
+        case 'uid':
+            # FIXME Probably a better app key to map here
+            # There is no value that maps uid to LDAP so we can choose to use
+            # either extension or name, or anything really.  I want to
+            # support it since it's a very common DN attribute.
+            # Since it's entirely administrator's preference, I'll
+            # set it to name for now
+            $this->_ldapKey = 'uid';
+            $this->_appKey = 'name';
+            break;
+        case 'voiceMailbox':
+            $this->_ldapKey = 'voiceMailbox';
+            $this->_appKey = 'extension';
+            break;
+        }
     }
     // }}}
 
@@ -155,16 +192,16 @@ class Shout_Driver_ldap extends Shout_Driver
     function checkContextType($context, $type) {
         switch ($type) {
             case "users":
-                $searchfilter = "(objectClass=vofficeCustomer)";
+                $searchfilter = '(objectClass='.SHOUT_CONTEXT_VOICEMAIL_OBJECTCLASS.')';
                 break;
             case "dialplan":
-                $searchfilter = "(objectClass=asteriskExtensions)";
+                $searchfilter = '(objectClass='.SHOUT_CONTEXT_EXTENSIONS_OBJECTCLASS.')';
                 break;
             case "moh":
-                $searchfilter="(objectClass=asteriskMusicOnHold)";
+                $searchfilter='(objectClass='.SHOUT_CONTEXT_MOH_OBJECTCLASS.')';
                 break;
             case "conference":
-                $searchfilter="(objectClass=asteriskMeetMe)";
+                $searchfilter='(objectClass='.SHOUT_CONTEXT_CONFERENCE_OBJECTCLASS.')';
                 break;
             case "all":
             default:
@@ -674,7 +711,7 @@ for $context"));
         $appKey = &$this->_appKey;
 
         $contexts = &$this->getContexts();
-        $domain = $contexts[$context]['domain'];
+//         $domain = $contexts[$context]['domain'];
 
         # Check to ensure the extension is unique within this context
         $filter = '(&(objectClass=asteriskVoiceMailbox)(context='.$context.'))';
@@ -691,18 +728,6 @@ for $context"));
             !in_array($res[0][$ldapKey], $userdetails[$appKey]))) {
             return PEAR::raiseError('Duplicate extension found.  Not saving changes.');
         }
-
-        $validusers = &$this->getUsers($context);
-        $userId = $validusers[$extension][$appKey];
-
-        $registry = &Registry::singleton();
-        require_once $registry->applicationFilePath('%application%/lib/defines.php', 'congregation');
-        $userModes = $registry->callByPackage('congregation', 'getUserModes',
-            array($domain, $userId));
-        # FIXME Handle error here
-
-        $registry->callByPackage('congregation', 'saveUser',
-            array($domain, $userId, $userModes | CONGREGATION_USER_PHONE, ));
 
         $entry = array(
             'cn' => $userdetails['name'],
@@ -784,7 +809,6 @@ for $context"));
                     return $limits;
                 }
                 if (count($validusers) >= $limits['asteriskusers']) {
-                    print count($validusers).$limits['asteriskusers'];
                     return PEAR::raiseError('Maximum number of users reached.');
                 }
 

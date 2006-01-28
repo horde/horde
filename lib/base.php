@@ -7,7 +7,7 @@
  * This file brings in all of the dependencies that every Shout
  * script will need and sets up objects that all scripts use.
  */
- 
+
 
 // Check for a prior definition of HORDE_BASE (perhaps by an
 // auto_prepend_file definition for site customization).
@@ -33,12 +33,15 @@ $conf = &$GLOBALS['conf'];
 @define('SHOUT_BASE', dirname(__FILE__) . '/..');
 
 // Ensure Shout is properly configured before use
-$shout_configured = (@is_readable(SHOUT_BASE . '/config/conf.php') /* &&
-    * @is_readable(SHOUT_BASE . '/config/prefs.php') */);
+$shout_configured = (@is_readable(SHOUT_BASE . '/config/conf.php') &&
+                     @is_readable(SHOUT_BASE . '/config/defines.php') &&
+                     @is_readable(SHOUT_BASE . '/config/applist.xml'));# &&
+                     #@is_readable(SHOUT_BASE . '/config/prefs.php'));
 if (!$shout_configured) {
     require SHOUT_BASE . '/../lib/Test.php';
     Horde_Test::configFilesMissing('Shout', SHOUT_BASE,
-    array('conf.php' /*, 'prefs.php' */));
+        array('conf.php', 'defines.php', 'applist.xml'));
+        #, 'prefs.php'));
 }
 
 // Notification system.
@@ -61,7 +64,6 @@ require_once SHOUT_BASE . '/lib/Driver.php';
 require_once 'Horde/UI/Tabs.php';
 
 $GLOBALS['shout'] = &Shout_Driver::singleton();
-// $shout = $GLOBALS['shout'];
 
 // Horde libraries.
 require_once 'Horde/Help.php';
