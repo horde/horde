@@ -31,6 +31,7 @@ class UserDetailsForm extends Horde_Form {
                 $notification->push($limits);
             }
             $formtitle = "Edit User";
+            $this->addHidden('', 'uid', 'text,' true);
         } else {
             $limits = &$shout->getLimits($context);
             if (is_a($limits, 'PEAR_Error')) {
@@ -93,8 +94,9 @@ class UserDetailsForm extends Horde_Form {
     #) [mailboxpin] => 1234 [name] => Ricardo Paul [phonenumbers] => Array ( )
     #[dialtimeout] => 30 [email] => ricardo.paul@v-office.biz [pageremail] => )
         $vars->set('name', $userdetails['name']);
-        $vars->set('email', @$userdetails['email']);
+        $vars->set('email', $userdetails['email']);
         $vars->set('pin', $userdetails['mailboxpin']);
+        $vars->set('uid', $userdetails['uid']);
         $vars->set('newextension', $vars->get('extension'));
 
         $i = 1;

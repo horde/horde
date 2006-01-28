@@ -34,11 +34,13 @@ if (!$FormValid || !$Form->isSubmitted()) {
 
     $limits = $shout->getLimits($context, $extension);
 
+    # FIXME: Input Validation (Text::??)
     $userdetails = array(
         "newextension" => $vars->get('newextension'),
         "name" => $vars->get('name'),
         "pin" => $vars->get('pin'),
         "email" => $vars->get('email'),
+        "uid" => $vars->get('uid'),
     );
 
     $i = 1;
@@ -61,7 +63,6 @@ if (!$FormValid || !$Form->isSubmitted()) {
     if ($vars->get('eca')) {
         $userdetails['dialopts'][] = 'e';
     }
-    $res = $shout->saveUser($context, $extension, $userdetails);
     $res = $shout->saveUser($context, $extension, $userdetails);
     if (is_a($res, 'PEAR_Error')) {
         $notification->push($res);

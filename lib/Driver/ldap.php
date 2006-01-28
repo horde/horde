@@ -282,7 +282,10 @@ type");
         $i = 0;
         while ($i < $res['count']) {
             $extension = $res[$i]['voicemailbox'][0];
+            $uid = md5($res['dn']);
+            $entries[$context][$uid] = $extension;
             $entries[$context][$extension] = array();
+            $entries[$context][$extension]['uid'] = $uid;
 
             $j = 0;
             $entries[$context][$extension]['dialopts'] = array();
@@ -714,7 +717,7 @@ for $context"));
 //         $domain = $contexts[$context]['domain'];
 
         # Check to ensure the extension is unique within this context
-        $filter = '(&(objectClass=asteriskVoiceMailbox)(context='.$context.'))';
+        $filter = "(&(objectClass=asteriskVoiceMailbox)(context=$context))";
         $reqattrs = array('dn', $ldapKey);
         $res = @ldap_search($this->_LDAP,
             SHOUT_USERS_BRANCH . ',' . $this->_params['basedn'],
@@ -743,10 +746,10 @@ for $context"));
         }
 
         $validusers = &$this->getUsers($context);
-        if (!isset($validusers[$extension])) {
+        if (!isset($validusers[$userdetails['uid']])) {
             # Test to see if we're modifying an existing user that has
             # no telephone system objectClasses and update that object/user
-            $rdn = "$ldapKey=".$userdetails[$appKey].',';
+            $rdn = $ldapKey.'='.$userdetails[$appKey].',';
             $branch = SHOUT_USERS_BRANCH.','.$this->_params['basedn'];
 
             # This test is something of a hack.  I want a cheap way to check
@@ -808,7 +811,7 @@ for $context"));
                 if (is_a($limits, "PEAR_Error")) {
                     return $limits;
                 }
-                if (count($validusers) >= $limits['asteriskusers']) {
+                if (count($validusers) >= $limits['asteriskmaxusers']) {
                     return PEAR::raiseError('Maximum number of users reached.');
                 }
 
@@ -819,6 +822,10 @@ for $context"));
                 }
 
                 return true;
+            } elseif (is_a($res, 'PEAR_Error')) {
+                # Some kind of internal error; not even sure if this is a
+                # possible outcome or not but I'll play it safe.
+                return $res;
             }
         }
 
