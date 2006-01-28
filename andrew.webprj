@@ -1,6 +1,6 @@
 <!DOCTYPE webproject>
 <webproject>
-  <project usePreviewPrefix="0" previewPrefix="" type="Local" usePersistentBookmarks="0" name="Shout" encoding="iso 8859-1" enableEvents="true" >
+  <project usePreviewPrefix="0" type="Local" previewPrefix="" usePersistentBookmarks="0" name="Shout" encoding="iso 8859-1" enableEvents="true" >
     <upload/>
     <defaultDTD>-//w3c//dtd xhtml 1.0 strict//en</defaultDTD>
     <item url="config/" uploadstatus="1" />
@@ -14,10 +14,7 @@
     <item modified_time="1134075506" url="lib/Dialplan.php" uploadstatus="1" />
     <item modified_time="1138318792" url="lib/Driver.php" uploadstatus="1" />
     <item modified_time="1138318792" url="lib/Shout.php" uploadstatus="1" />
-    <item modified_time="1134075507" url="lib/System.php" uploadstatus="1" />
-    <item modified_time="1138390832" url="lib/User.php" uploadstatus="1" />
-    <item url="main/" uploadstatus="1" />
-    <item modified_time="1134075507" url="main/system.php" uploadstatus="1" />
+    <item modified_time="1138394180" url="lib/User.php" uploadstatus="1" />
     <item url="templates/" uploadstatus="1" />
     <item url="templates/context/" uploadstatus="1" />
     <item modified_time="1134075418" url="templates/context/contextline.inc" uploadstatus="1" />
@@ -38,7 +35,7 @@
     <item modified_time="1134075418" url="themes/graphics/add-extension.gif" uploadstatus="1" />
     <item modified_time="1134075418" url="themes/graphics/add-user.gif" uploadstatus="1" />
     <item modified_time="1134075418" url="themes/screen.css" uploadstatus="1" />
-    <item modified_time="1138318792" url="dialplan.php" uploadstatus="1" />
+    <item modified_time="1138396077" url="dialplan.php" uploadstatus="1" />
     <item modified_time="1138380566" url="index.php" uploadstatus="1" />
     <item url="" uploadstatus="1" />
     <uploadprofiles showtreeviews="true" defaultProfile="Shout" >
@@ -134,9 +131,10 @@
     <item modified_time="1138342874" url="usermgr.php" uploadstatus="1" />
     <item modified_time="1138318792" url="config/defines.php.dist" uploadstatus="1" />
     <item url="usermgr/" uploadstatus="1" />
-    <item modified_time="1138390620" url="usermgr/edit.php" uploadstatus="1" />
+    <item modified_time="1138394180" url="usermgr/edit.php" uploadstatus="1" />
     <item modified_time="1138317269" url="usermgr/list.php" uploadstatus="1" />
-    <item modified_time="1138387578" url="usermgr/save.php" uploadstatus="1" />
+    <item modified_time="1138394180" url="usermgr/save.php" uploadstatus="1" />
     <item modified_time="1138317269" url="usermgr/delete.php" uploadstatus="1" />
+    <item modified_time="1138396403" url="config/applist.xml.dist" uploadstatus="1" />
   </project>
 </webproject>

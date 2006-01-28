@@ -21,13 +21,8 @@ $dialplan = &$shout->getDialplan($context);
 // Set up the tree.
 $dpgui = Shout_Dialplan::singleton('x', $dialplan);
 
-$action = Util::getFormData("action");
-
-switch($action) {
-case "do":
-    echo "stuff\n";
-    break;
-}
+//$action = Util::getFormData("action");
+// $action = 'manager';
 
 $title = _("Dialplan Manager");
 
@@ -38,7 +33,7 @@ $notification->notify();
 
 echo $tabs->render($section);
 
-require SHOUT_BASE . "/dialplan/$action.php";
+// require SHOUT_BASE . "/dialplan/$action.php";
 
 require SHOUT_TEMPLATES . '/dialplan/manager.inc';
 
