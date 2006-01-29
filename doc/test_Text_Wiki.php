@@ -90,7 +90,7 @@ function bldHtml($result, $plist, $rlist, $elist) {
     $optparser = bldOpt('parser', $plist);
     $optrender = bldOpt('render', $rlist);
     $optexample = bldOpt('exchoice', $elist);
-    $hresult = PEAR::isError($result) ? '' : nl2br(htmlentities($result));
+    $hresult = nl2br(htmlentities($result));
     if ($_REQUEST['render'] != 'Xhtml') {
         $result = '';
     }
