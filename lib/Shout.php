@@ -36,30 +36,31 @@ class Shout
         require_once 'Horde/Menu.php';
 
         $menu = &new Menu(HORDE_MENU_MASK_ALL);
+        $permprefix = "shout:contexts:$context";
 
-        if (isset($context) && $section == "users" &&
-            Shout::checkRights("shout:contexts:$context:users",
+        if (isset($context) && $section == "usermgr" &&
+            Shout::checkRights("$permprefix:users",
                 PERMS_EDIT, 1)) {
-            $url = Horde::applicationUrl("users.php");
+            $url = Horde::applicationUrl("index.php");
             $url = Util::addParameter($url, array('context' => $context,
                                                   'section' => $section,
                                                   'action' => 'add'));
 
             # Goofy hack to make the icon make a little more sense
             # when editing/deleting users
-            if (!isset($action)) {
+//             if (!isset($action)) {
                 $icontitle = "Add";
-            } else {
-                $icontitle = $action;
-                $icontitle[0] = strtoupper($action[0]);
-            }
+//             } else {
+//                 $icontitle = $action;
+//                 $icontitle[0] = strtoupper($action[0]);
+//             }
             # End goofy hack
 
             $menu->add($url, _("$icontitle User"), "add-user.gif");
         }
 
         if (isset($context) && isset($section) && $section == "dialplan" &&
-            Shout::checkRights("shout:contexts:$context:dialplan",
+            Shout::checkRights("$permprefix:dialplan",
                 PERMS_EDIT, 1)) {
             $url = Horde::applicationUrl("dialplan.php");
             $url = Util::addParameter($url, array('context' => $context,
@@ -157,6 +158,7 @@ class Shout
      */
     function checkRights($permname, $permmask = null, $numparents = 0)
     {
+        $perms = Perms::singleton();
         if ($permmask === null) {
             $permmask = PERMS_SHOW|PERMS_READ;
         }
@@ -165,10 +167,13 @@ class Shout
         $user = 0;
         $superadmin = 0;
 
-        $superadmin = Auth::isAdmin("shout:superadmin", $permmask);
+        $superadmin = $perms->hasPermission("shout:superadmin",
+            Auth::getAuth(), $permmask);
 
         while ($numparents >= 0) {
-            $tmpuser = Auth::isAdmin($permname, $permmask);
+            $tmpuser = $perms->hasPermission($permname,
+                Auth::getAuth(), $permmask);
+
             $user = $user | $tmpuser;
             if ($numparents > 0) {
                 $pos = strrpos($permname, ':');
@@ -180,7 +185,7 @@ class Shout
         }
 
         $test = $superadmin | $user;
-        return $test;
+        return ($test & $permmask) == $permmask;
     }
     // }}}
 

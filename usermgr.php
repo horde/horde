@@ -24,8 +24,10 @@ $title = _("User Manager: ");
 switch ($action) {
     case "add":
         $title .= _("Add User");
+
         # Treat adds just like an empty edit
-        unset($extension);
+        $action = "edit";
+        $extension = 0;
         break;
     case "edit":
         $title .= _("Edit User (Extension ") . "$extension)";

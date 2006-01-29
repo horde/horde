@@ -93,7 +93,7 @@ class Shout_Driver_ldap extends Shout_Driver
             return $entries[$searchfilters];
         }
 
-        if ($filterperms == null) {
+        if ($filterperms === null) {
             $filterperms = PERMS_SHOW|PERMS_READ;
         }
 
@@ -282,8 +282,7 @@ type");
         $i = 0;
         while ($i < $res['count']) {
             $extension = $res[$i]['voicemailbox'][0];
-            $uid = md5($res['dn']);
-            $entries[$context][$uid] = $extension;
+            $uid = md5($res[$i]['dn']);
             $entries[$context][$extension] = array();
             $entries[$context][$extension]['uid'] = $uid;
 
@@ -577,7 +576,7 @@ for $context"));
 
         $limits = array('telephonenumbersmax',
                         'voicemailboxesmax',
-                        'asteriskusers');
+                        'asteriskusersmax');
 
         if(!is_null($extension) && is_null($context)) {
             return PEAR::raiseError("Extension specified but no context " .
@@ -704,14 +703,17 @@ for $context"));
      */
     function saveUser($context, $extension, $userdetails)
     {
+        $ldapKey = &$this->_ldapKey;
+        $appKey = &$this->_appKey;
         # FIXME Access Control/Authorization
-        if (!Shout::checkRights("shout:contexts:$context:users",
-            PERMS_DELETE, 1)) {
+        if (
+            !(Shout::checkRights("shout:contexts:$context:users", PERMS_EDIT, 1))
+            &&
+            !($userdetails[$appKey] == Auth::getAuth())
+            ) {
             return PEAR::raiseError("No permission to modify users in this " .
                 "context.");
         }
-        $ldapKey = &$this->_ldapKey;
-        $appKey = &$this->_appKey;
 
         $contexts = &$this->getContexts();
 //         $domain = $contexts[$context]['domain'];
@@ -734,9 +736,11 @@ for $context"));
 
         $entry = array(
             'cn' => $userdetails['name'],
+            'sn' => $userdetails['name'],
             'mail' => $userdetails['email'],
+            'uid' => $userdetails['email'],
             'voiceMailbox' => $userdetails['newextension'],
-            'voiceMailboxPin' => $userdetails['pin'],
+            'voiceMailboxPin' => $userdetails['mailboxpin'],
             'context' => $context,
             'asteriskUserDialOptions' => $userdetails['dialopts'],
         );
@@ -746,7 +750,7 @@ for $context"));
         }
 
         $validusers = &$this->getUsers($context);
-        if (!isset($validusers[$userdetails['uid']])) {
+        if (!isset($validusers[$extension])) {
             # Test to see if we're modifying an existing user that has
             # no telephone system objectClasses and update that object/user
             $rdn = $ldapKey.'='.$userdetails[$appKey].',';
@@ -779,7 +783,7 @@ for $context"));
                 );
                 $tmp['voiceMailbox'] = $extension;
                 $tmp['context'] = $context;
-                $res = @ldap_mod_add($this->_LDAP, $rdn.$branch, $tmp);
+                $res = @ldap_mod_replace($this->_LDAP, $rdn.$branch, $tmp);
                 if (!$res) {
                     return PEAR::raiseError("Unable to modify the user: " .
                         ldap_error($this->_LDAP));
@@ -811,7 +815,7 @@ for $context"));
                 if (is_a($limits, "PEAR_Error")) {
                     return $limits;
                 }
-                if (count($validusers) >= $limits['asteriskmaxusers']) {
+                if (count($validusers) >= $limits['asteriskusersmax']) {
                     return PEAR::raiseError('Maximum number of users reached.');
                 }
 

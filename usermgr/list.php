@@ -17,4 +17,5 @@ if (!isset($SHOUT_RUNNING) || !$SHOUT_RUNNING) {
 
 $users = &$shout->getUsers($context);
 ksort($users);
+$notification->notify();
 require SHOUT_TEMPLATES . "/users/userlist.inc";

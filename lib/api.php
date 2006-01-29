@@ -43,6 +43,18 @@ function _shout_perms()
     foreach ($contexts as $context => $contextInfo) {
         $perms['tree']['shout']['contexts'][$context] = false;
         $perms['title']['shout:contexts:' . $context] = $context;
+
+        foreach(
+            array(
+                'users' => 'Users',
+                'dialplan' => 'Dialplan',
+                'moh' => 'Music on Hold',
+                'conferences' => 'Conferencing',
+            )
+            as $module => $modname) {
+            $perms['tree']['shout']['contexts'][$context][$module] = false;
+            $perms['title']["shout:contexts:$context:$module"] = $modname;
+        }
     }
 
 

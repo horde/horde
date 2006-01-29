@@ -33,15 +33,20 @@ if (is_a($Form, 'PEAR_Error')) {
     $FormValid = $Form->validate($vars, true);
     if (is_a($FormValid, 'PEAR_Error')) {
         $notification->push($FormValid);
+    } else {
+        $Form->fillUserForm(&$vars, $extension);
     }
 }
+
 
 $notification->notify();
 
 if (!$FormValid || !$Form->isSubmitted()) {
     # Display the form for editing
     $Form->open($RENDERER, $vars, 'index.php', 'post');
-    $Form->preserve($vars);
+    $Form->preserveVarByPost(&$vars, 'extension');
+    $Form->preserveVarByPost(&$vars, 'context');
+    $Form->preserveVarByPost(&$vars, 'section');
     $RENDERER->beginActive($Form->getTitle());
     $RENDERER->renderFormActive($Form, $vars);
     $RENDERER->submit();

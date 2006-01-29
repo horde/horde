@@ -13,6 +13,8 @@
 // {{{
 class UserDetailsForm extends Horde_Form {
 
+    var $_userdetails = false; // Store the user's details for fillUserForm
+
     function UserDetailsForm(&$vars)
     {
         global $shout, $notification;
@@ -25,13 +27,14 @@ class UserDetailsForm extends Horde_Form {
         }
         if (array_key_exists($extension, $users)) {
             # We must be editing an existing user
-            $this->fillUserForm(&$vars, $users[$extension]);
+//             $this->fillUserForm(&$vars, $users[$extension]);
+            $this->_userdetails = $users[$extension];
             $limits = &$shout->getLimits($context, $extension);
             if (is_a($limits, 'PEAR_Error')) {
                 $notification->push($limits);
             }
             $formtitle = "Edit User";
-            $this->addHidden('', 'uid', 'text,' true);
+            $this->addHidden('', 'uid', 'text', true);
         } else {
             $limits = &$shout->getLimits($context);
             if (is_a($limits, 'PEAR_Error')) {
@@ -50,7 +53,7 @@ class UserDetailsForm extends Horde_Form {
         $this->addVariable(_("Pager E-Mail Address"), 'pageremail', 'email', false);
         # TODO: Integrate with To-Be-Written user manager and possibly make this
         # TODO: new user also an email account.
-        $this->addVariable(_("PIN"), 'pin', 'int', true);
+        $this->addVariable(_("PIN"), 'mailboxpin', 'int', true);
 
         # FIXME: Make this work if limits don't exist.
         $t = 1;
@@ -88,19 +91,28 @@ class UserDetailsForm extends Horde_Form {
      *
      * @return boolean True if successful, Pear::raiseError object on failure
      */
-    function fillUserForm(&$vars, $userdetails)
+    function fillUserForm(&$vars)
     {
     #Array ( [dialopts] => Array ( [0] => m [1] => t ) [mailboxopts] => Array (
     #) [mailboxpin] => 1234 [name] => Ricardo Paul [phonenumbers] => Array ( )
     #[dialtimeout] => 30 [email] => ricardo.paul@v-office.biz [pageremail] => )
-        $vars->set('name', $userdetails['name']);
-        $vars->set('email', $userdetails['email']);
-        $vars->set('pin', $userdetails['mailboxpin']);
-        $vars->set('uid', $userdetails['uid']);
+        if (!$this->_userdetails) {
+            return true;
+        }
+        foreach(array('name', 'email', 'pageremail', 'mailboxpin', 'uid')
+            as $var) {
+            # FIXME This will be done the Right Way in Shout 0.7
+            $vars->set($var, $this->_userdetails[$var]);
+        }
+//         $vars->set('name', $this->_userdetails['name']);
+//         $vars->set('email', $this->_userdetails['email']);
+//         $vars->set('pager', $this->_userdetails['pager']);
+//         $vars->set('mailboxpin', $this->_userdetails['mailboxpin']);
+//         $vars->set('uid', $this->_userdetails['uid']);
         $vars->set('newextension', $vars->get('extension'));
 
         $i = 1;
-        foreach($userdetails['phonenumbers'] as $number) {
+        foreach($this->_userdetails['phonenumbers'] as $number) {
             $vars->set("telephone$i", $number);
             $i++;
         }
@@ -111,7 +123,7 @@ class UserDetailsForm extends Horde_Form {
 //         $vars->set('callappearance', 'caller');
 
 
-        foreach ($userdetails['dialopts'] as $opt) {
+        foreach ($this->_userdetails['dialopts'] as $opt) {
             if ($opt == 'm') {
                 $vars->set('moh', true);
             }

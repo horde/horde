@@ -38,7 +38,7 @@ if (!$FormValid || !$Form->isSubmitted()) {
     $userdetails = array(
         "newextension" => $vars->get('newextension'),
         "name" => $vars->get('name'),
-        "pin" => $vars->get('pin'),
+        "mailboxpin" => $vars->get('mailboxpin'),
         "email" => $vars->get('email'),
         "uid" => $vars->get('uid'),
     );
@@ -54,6 +54,7 @@ if (!$FormValid || !$Form->isSubmitted()) {
     }
 
     $userdetails['dialopts'] = array();
+
     if ($vars->get('moh')) {
         $userdetails['dialopts'][] = 'm';
     }
@@ -67,9 +68,10 @@ if (!$FormValid || !$Form->isSubmitted()) {
     if (is_a($res, 'PEAR_Error')) {
         $notification->push($res);
     } else {
-        $notification->push('User information updated.', 'horde.success');
+        $notification->push('User information updated.  '.
+            'Changes will take effect within 10 minutes',
+            'horde.success');
     }
-    $notification->notify();
 
-    require SHOUT_BASE . '/usermgr/edit.php';
+    $notification->notify();
 }
