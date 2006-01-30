@@ -52,7 +52,7 @@ class Text_Wiki_Parse_Heading extends Text_Wiki_Parse {
     * 
     */
     
-    var $regex = '/^(={2,6}) (.*?) \1$/m';
+    var $regex = '/^(={2,6})(.*?)\1$/m';
     
     var $conf = array(
         'id_prefix' => 'toc'
@@ -90,7 +90,7 @@ class Text_Wiki_Parse_Heading extends Text_Wiki_Parse {
             array(
                 'type' => 'start',
                 'level' => strlen($matches[1]),
-                'text' => $matches[2],
+                'text' => trim($matches[2]),
                 'id' => $prefix . $id ++
             )
         );
@@ -103,7 +103,7 @@ class Text_Wiki_Parse_Heading extends Text_Wiki_Parse {
             )
         );
         
-        return $start . $matches[2] . $end . "\n";
+        return $start . trim($matches[2]) . $end . "\n";
     }
 }
 ?>
