@@ -63,7 +63,7 @@ class Text_Wiki_Mediawiki extends Text_Wiki {
         'Url',
 //        'Freelink',
 //        'Colortext',
-//        'Wikilink',
+        'Wikilink',
 //        'Strong',
         'Bold',
         'Emphasis',
