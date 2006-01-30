@@ -183,7 +183,6 @@ class Shout
             }
             $numparents--;
         }
-
         $test = $superadmin | $user;
         return ($test & $permmask) == $permmask;
     }

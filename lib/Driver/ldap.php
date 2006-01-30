@@ -176,7 +176,7 @@ class Shout_Driver_ldap extends Shout_Driver
     }
     // }}}
 
-    // {{{ _checkContextType method
+    // {{{ checkContextType method
     /**
      * For the given context and type, make sure the context has the
      * appropriate properties, that it is effectively of that "type"
@@ -344,9 +344,7 @@ type");
      */
     function getHomeContext()
     {
-        # FIXME Probably should key this off the domain part of the user's
-        # FIXME Auth::getAuth() and match context with associatedDomain
-        # FIXME Also, cache this lookup
+        # FIXME Cache this lookup?
 
         $basedn = SHOUT_USERS_BRANCH.','.$this->_params['basedn'];
         $filter  = '(&';
