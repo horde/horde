@@ -158,6 +158,8 @@ class Shout
      */
     function checkRights($permname, $permmask = null, $numparents = 0)
     {
+        if (Auth::isAdmin()) { return true; }
+
         $perms = Perms::singleton();
         if ($permmask === null) {
             $permmask = PERMS_SHOW|PERMS_READ;
