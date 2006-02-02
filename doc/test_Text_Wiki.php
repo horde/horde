@@ -1,11 +1,13 @@
 <?php
+// needed for error checking
+require_once 'PEAR.php';
 /**
  * Eventually set an include path if all parsers/renderers not installed
  * $Id$
  */
 $parser = $render = $source = '';
 $plist = array('Default', 'BBCode', 'Cowiki', 'Doku', 'Mediawiki', 'Tiki');
-$rlist = array('Xhtml', 'Plain', 'Latex', 'Cowiki', 'Doku', 'Tiki', 'Ooo', 'Pdf', 'Docbook');
+$rlist = array('Xhtml', 'Plain', 'Latex', 'Cowiki', 'Doku', 'Tiki', 'Ooosxw', 'Pdf', 'Docbook');
 
 /**
  * Here we need to know if we are running from command line or from web
@@ -75,7 +77,11 @@ $result = $wiki->transform($source, $render);
 if ($html) {
     echo bldHtml($result, $plist, $rlist, $elist);
 } else {
-    echo $result;
+    if (PEAR::isError($result)) {
+        var_dump($result);
+    } else {
+        echo $result;
+    }
 }
 function bldOpt($name, $list) {
     $ret = '';
@@ -90,7 +96,13 @@ function bldHtml($result, $plist, $rlist, $elist) {
     $optparser = bldOpt('parser', $plist);
     $optrender = bldOpt('render', $rlist);
     $optexample = bldOpt('exchoice', $elist);
-    $hresult = nl2br(htmlentities($result));
+    if (PEAR::isError($result)) {
+        $hresult = '<span class="error">' .
+            nl2br(htmlentities($result->toString ())) . '</span>';
+        $result = '';
+    } else {
+        $hresult = nl2br(htmlentities($result));
+    }
     if ($_REQUEST['render'] != 'Xhtml') {
         $result = '';
     }
@@ -112,6 +124,9 @@ function bldHtml($result, $plist, $rlist, $elist) {
         color: blue;
         background-color:orange;
         text-decoration: underline;
+    }
+    .error {
+        color: red;
     }
   </style>
 </head>
