@@ -1,4 +1,6 @@
 <?php
+ini_set('display_errors', true);
+error_reporting(E_ALL);
 // needed for error checking
 require_once 'PEAR.php';
 /**
