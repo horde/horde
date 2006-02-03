@@ -82,8 +82,8 @@ class Text_Wiki_Render_Xhtml_Wikilink extends Text_Wiki_Render {
 
         // convert *after* checking against page names so as not to mess
         // up what the user typed and what we're checking.
-        $page = htmlspecialchars($page);
-        $anchor = htmlspecialchars($anchor);
+        $page = urlencode($page);
+        $anchor = urlencode($anchor);
         $text = htmlspecialchars($text);
 
         // does the page exist?
