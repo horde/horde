@@ -45,7 +45,7 @@ class Text_Wiki_Parse_Wikilink extends Text_Wiki_Parse {
      * @var string
      * @see Text_Wiki_Parse::parse()
      */
-    var $regex = '/\[\[(.+?)(?:#(.*?))?(?:\|(.*?))]]/ms';
+    var $regex = '/\[\[(.+?)(?:#(.*?))?(?:\|(.*?))?]]/ms';
 
     /**
      * Generates a replacement for the matched text.  Token options are:
@@ -64,7 +64,7 @@ class Text_Wiki_Parse_Wikilink extends Text_Wiki_Parse {
         $options = array(
             'page'   => $matches[1],
             'anchor' => (empty($matches[2]) ? '' : $matches[2]),
-            'text'   => (empty($matches[3]) ? '' : $matches[3])
+            'text'   => (empty($matches[3]) ? $matches[1] : $matches[3])
         );
 
         // create and return the replacement token and preceding text
