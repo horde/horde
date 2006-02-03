@@ -52,7 +52,7 @@ class Text_Wiki_Parse_Heading extends Text_Wiki_Parse {
     * 
     */
     
-    var $regex = '/^(={2,6})(.*?)\1$/m';
+    var $regex = '/^(={2,6})(.*?)\1(?:\s|$)/m';
     
     var $conf = array(
         'id_prefix' => 'toc'
