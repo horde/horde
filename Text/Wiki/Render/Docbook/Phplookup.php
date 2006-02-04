@@ -25,12 +25,6 @@
  */
 class Text_Wiki_Render_Docbook_Phplookup extends Text_Wiki_Render {
 
-    var $conf = array(
-        'target' => '_blank',
-        'css' => null
-    );
-
-
     /**
     *
     * Renders a token into text matching the requested format.
@@ -47,20 +41,6 @@ class Text_Wiki_Render_Docbook_Phplookup extends Text_Wiki_Render {
     function token($options)
     {
         $text = trim($options['text']);
-        $css = $this->formatConf(' class="%s"', 'css');
-
-        // start the html
-        $output = "<a$css";
-
-        // are we targeting another window?
-        $target = $this->getConf('target', '');
-        if ($target) {
-            // use a "popup" window.  this is DocBook compliant, suggested by
-            // Aaron Kalin.  uses the $target as the new window name.
-            $target = htmlspecialchars($target);
-            $output .= " onclick=\"window.open(this.href, '$target');";
-            $output .= " return false;\"";
-        }
 
         // take off the final parens for functions
         if (substr($text, -2) == '()') {
@@ -69,12 +49,11 @@ class Text_Wiki_Render_Docbook_Phplookup extends Text_Wiki_Render {
             $q = $text;
         }
 
-        $q = htmlspecialchars($q);
+        $q = urlencode($q);
         $text = htmlspecialchars($text);
 
         // finish and return
-        $output .= " href=\"http://php.net/$q\">$text</a>";
-        return $output;
+        return '<link xlink:href="http://php.net/' . $q . '">' . $text . '</link>';
     }
 }
 ?>
