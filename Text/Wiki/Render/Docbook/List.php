@@ -26,10 +26,15 @@
 class Text_Wiki_Render_Docbook_List extends Text_Wiki_Render {
 
     var $conf = array(
-        'css_ol' => null,
-        'css_ol_li' => null,
-        'css_ul' => null,
-        'css_ul_li' => null
+        'mark' => null
+    );
+
+    var $numeration = array(
+        '1' => 'arabic',
+        'i' => 'lowerroman',
+        'I' => 'upperroman',
+        'a' => 'loweralpha',
+        'A' => 'upperalpha',
     );
 
     /**
@@ -37,7 +42,7 @@ class Text_Wiki_Render_Docbook_List extends Text_Wiki_Render {
     * Renders a token into text matching the requested format.
     *
     * This rendering method is syntactically and semantically compliant
-    * with DocBook 1.1 in that sub-lists are part of the previous list item.
+    * with DocBook in that sub-lists are part of the previous list item.
     *
     * @access public
     *
@@ -53,117 +58,35 @@ class Text_Wiki_Render_Docbook_List extends Text_Wiki_Render {
         // make nice variables (type, level, count)
         extract($options);
 
-        // set up indenting so that the results look nice; we do this
-        // in two steps to avoid str_pad mathematics.  ;-)
-        $pad = str_pad('', $level, "\t");
-        $pad = str_replace("\t", '    ', $pad);
-
-        switch ($type) {
+        switch ($options['type']) {
 
         case 'bullet_list_start':
-
-            // build the base HTML
-            $css = $this->formatConf(' class="%s"', 'css_ul');
-            $html = "<ul$css>";
-
-            /*
-            // if this is the opening block for the list,
-            // put an extra newline in front of it so the
-            // output looks nice.
-            if ($level == 0) {
-                $html = "\n$html";
-            }
-            */
-
-            // done!
-            return $html;
-            break;
+            return '<itemizedlist' . (($mark = $this->getConf('mark', null)) ?
+                ' mark="' . $mark . '"' : '') . ">\n";
 
         case 'bullet_list_end':
-
-            // build the base HTML
-            $html = "</li>\n$pad</ul>";
-
-            // if this is the closing block for the list,
-            // put extra newlines after it so the output
-            // looks nice.
-            if ($level == 0) {
-                $html .= "\n\n";
-            }
-
-            // done!
-            return $html;
-            break;
+            return "</itemizedlist>\n";
 
         case 'number_list_start':
-            if (isset($format)) {
-                $format = ' type="' . $format . '"';
-            } else  {
+            if (empty($format) || !isset($this->numeration[$format])) {
                 $format = '';
+            } else  {
+                $format = ' numeration="' . $this->numeration[$format] . '"';
             }
-            // build the base HTML
-            $css = $this->formatConf(' class="%s"', 'css_ol');
-            $html = "<ol{$format}{$css}>";
-
-            /*
-            // if this is the opening block for the list,
-            // put an extra newline in front of it so the
-            // output looks nice.
-            if ($level == 0) {
-                $html = "\n$html";
-            }
-            */
-
-            // done!
-            return $html;
-            break;
+            return '<orderedlist' . $format . ">\n";
 
         case 'number_list_end':
-
-            // build the base HTML
-            $html = "</li>\n$pad</ol>";
-
-            // if this is the closing block for the list,
-            // put extra newlines after it so the output
-            // looks nice.
-            if ($level == 0) {
-                $html .= "\n\n";
-            }
-
-            // done!
-            return $html;
-            break;
+            return "</orderedlist>\n";
 
         case 'bullet_item_start':
         case 'number_item_start':
-
-            // pick the proper CSS class
-            if ($type == 'bullet_item_start') {
-                $css = $this->formatConf(' class="%s"', 'css_ul_li');
-            } else {
-                $css = $this->formatConf(' class="%s"', 'css_ol_li');
-            }
-
-            // build the base HTML
-            $html = "\n$pad<li$css>";
-
-            // for the very first item in the list, do nothing.
-            // but for additional items, be sure to close the
-            // previous item.
-            if ($count > 0) {
-                $html = "</li>$html";
-            }
-
-            // done!
-            return $html;
-            break;
+            return "<listitem>\n";
 
         case 'bullet_item_end':
         case 'number_item_end':
+            return "</listitem>\n";
+
         default:
-            // ignore item endings and all other types.
-            // item endings are taken care of by the other types
-            // depending on their place in the list.
             return '';
             break;
         }

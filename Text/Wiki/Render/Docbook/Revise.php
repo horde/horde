@@ -46,11 +46,11 @@ class Text_Wiki_Render_Docbook_Revise extends Text_Wiki_Render {
     function token($options)
     {
         switch ($options['type']) {
-            'del_start':
+            case 'del_start':
                 return '<emphasis' . 
                     (($role = $this->getConf('role_del', 'deleted')) ?
                     ' role="' . $role . '"' : '') . '>';
-            'ins_start':
+            case 'ins_start':
                 return '<emphasis' . 
                     (($role = $this->getConf('role_ins', 'inserted')) ?
                     ' role="' . $role . '"' : '') . '>';
