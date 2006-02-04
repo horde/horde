@@ -26,7 +26,7 @@
 class Text_Wiki_Render_Docbook_Underline extends Text_Wiki_Render {
 
     var $conf = array(
-        'css' => null
+        'role' => 'underline'
     );
 
     /**
@@ -44,14 +44,11 @@ class Text_Wiki_Render_Docbook_Underline extends Text_Wiki_Render {
 
     function token($options)
     {
-        if ($options['type'] == 'start') {
-            $css = $this->formatConf(' class="%s"', 'css');
-            return "<u$css>";
-        }
-
         if ($options['type'] == 'end') {
-            return '</u>';
+            return '</emphasis>';
         }
+        return '<emphasis' . (($role = $this->getConf('role', 'underline')) ?
+            ' role="' . $role . '"' : '') . '>';
     }
 }
 ?>

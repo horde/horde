@@ -25,10 +25,6 @@
  */
 class Text_Wiki_Render_Docbook_Paragraph extends Text_Wiki_Render {
 
-    var $conf = array(
-        'css' => null
-    );
-
     /**
     *
     * Renders a token into text matching the requested format.
@@ -44,16 +40,10 @@ class Text_Wiki_Render_Docbook_Paragraph extends Text_Wiki_Render {
 
     function token($options)
     {
-        extract($options); //type
-
-        if ($type == 'start') {
-            $css = $this->formatConf(' class="%s"', 'css');
-            return "<p$css>";
+        if ($options['type'] == 'start') {
+            return "<para>";
         }
-
-        if ($type == 'end') {
-            return "</p>\n\n";
-        }
+        return '</para>';
     }
 }
 ?>

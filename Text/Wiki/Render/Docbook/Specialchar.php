@@ -25,19 +25,19 @@
  */
 class Text_Wiki_Render_Docbook_SpecialChar extends Text_Wiki_Render {
 
-    var $types = array('~bs~' => '&#92;',
-                       '~hs~' => '&nbsp;',
-                       '~amp~' => '&amp;',
-                       '~ldq~' => '&ldquo;',
-                       '~rdq~' => '&rdquo;',
-                       '~lsq~' => '&lsquo;',
-                       '~rsq~' => '&rsquo;',
-                       '~c~' => '&copy;',
-                       '~--~' => '&mdash;',
-                       '" -- "' => '&mdash;',
-                       '&quot; -- &quot;' => '&mdash;',
-                       '~lt~' => '&lt;',
-                       '~gt~' => '&gt;');
+    var $types = array('~bs~' => '&#092;',
+                       '~hs~' => '&#160;', // &nbsp;
+                       '~amp~' => '&#038;', // &amp;
+                       '~ldq~' => '&#8220;', // &ldquo;
+                       '~rdq~' => '&#8221;', // &rdquo;
+                       '~lsq~' => '&#8216;', // &lsquo;
+                       '~rsq~' => '&#8217;', // &rsquo;
+                       '~c~' => '&#169;', // &copy;
+                       '~--~' => '&#8212;', // &mdash;
+                       '" -- "' => '&#8212;', // &mdash;
+                       '&quot; -- &quot;' => '&#8212;', // &mdash;
+                       '~lt~' => '&#060;', // &lt;
+                       '~gt~' => '&#062'); // &gt;
 
     function token($options)
     {

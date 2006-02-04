@@ -26,10 +26,9 @@
 class Text_Wiki_Render_Docbook_Revise extends Text_Wiki_Render {
 
     var $conf = array(
-        'css_ins' => null,
-        'css_del' => null
+        'role_ins' => 'inserted',
+        'role_del' => 'deleted'
     );
-
 
     /**
     *
@@ -46,23 +45,17 @@ class Text_Wiki_Render_Docbook_Revise extends Text_Wiki_Render {
 
     function token($options)
     {
-        if ($options['type'] == 'del_start') {
-            $css = $this->formatConf(' class="%s"', 'css_del');
-            return "<del$css>";
+        switch ($options['type']) {
+            'del_start':
+                return '<emphasis' . 
+                    (($role = $this->getConf('role_del', 'deleted')) ?
+                    ' role="' . $role . '"' : '') . '>';
+            'ins_start':
+                return '<emphasis' . 
+                    (($role = $this->getConf('role_ins', 'inserted')) ?
+                    ' role="' . $role . '"' : '') . '>';
         }
-
-        if ($options['type'] == 'del_end') {
-            return "</del>";
-        }
-
-        if ($options['type'] == 'ins_start') {
-            $css = $this->formatConf(' class="%s"', 'css_ins');
-            return "<ins$css>";
-        }
-
-        if ($options['type'] == 'ins_end') {
-            return "</ins>";
-        }
+        return '</emphasis>';
     }
 }
 ?>

@@ -40,7 +40,7 @@ class Text_Wiki_Render_Docbook_Preformatted extends Text_Wiki_Render {
 
     function token($options)
     {
-        return '<pre>'.$options['text'].'</pre>';
+        return "<para>\n<![CDATA[\n" . $options['text'] . "\n]]>\n</para>\n";
     }
 }
 ?>

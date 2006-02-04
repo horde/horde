@@ -25,10 +25,9 @@
  */
 class Text_Wiki_Render_Docbook_Newline extends Text_Wiki_Render {
 
-
     function token($options)
     {
-        return "<br />\n";
+        return "<literallayout>\n</literallayout>";
     }
 }
 

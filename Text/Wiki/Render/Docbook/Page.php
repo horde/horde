@@ -40,7 +40,7 @@ class Text_Wiki_Render_Docbook_Page extends Text_Wiki_Render {
 
     function token($options)
     {
-        return 'PAGE MARKER HERE*&^%$#^$%*PAGEMARKERHERE';
+        return '<phrase role="pagebreak"></phrase>' . "\n";
     }
 }
 ?>

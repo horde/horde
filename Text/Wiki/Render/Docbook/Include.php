@@ -14,7 +14,7 @@
  */
 
 /**
- * This class renders included maekup in DocBook. (empty)
+ * This class renders included markup in DocBook. (empty)
  *
  * @category   Text
  * @package    Text_Wiki_Docbook

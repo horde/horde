@@ -40,7 +40,8 @@ class Text_Wiki_Render_Docbook_Embed extends Text_Wiki_Render {
 
     function token($options)
     {
-        return $options['text'];
+        return "<para>\n<![CDATA[\n" . strip_tags($options['text']) .
+            "\n]]>\n</para>\n";
     }
 }
 ?>
