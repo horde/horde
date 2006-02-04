@@ -31,8 +31,7 @@ class Text_Wiki_Render_Docbook_Raw extends Text_Wiki_Render {
     *
     * @access public
     *
-    * @param array $options The "options" portion of the token (second
-    * element).
+    * @param array $options The "options" portion of the token (second element).
     *
     * @return string The text rendered from the token options.
     *
