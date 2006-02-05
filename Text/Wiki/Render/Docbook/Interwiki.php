@@ -31,8 +31,6 @@ class Text_Wiki_Render_Docbook_Interwiki extends Text_Wiki_Render {
             'Advogato' => 'http://advogato.org/%s',
             'Wiki'       => 'http://c2.com/cgi/wiki?%s'
         ),
-        'target' => '_blank',
-        'css' => null
     );
 
 
@@ -52,9 +50,8 @@ class Text_Wiki_Render_Docbook_Interwiki extends Text_Wiki_Render {
     function token($options)
     {
         $site = $options['site'];
-        $page = $options['page'];
+        $page = urlencode($options['page']);
         $text = $options['text'];
-        $css = $this->formatConf(' class="%s"', 'css');
 
         if (isset($this->conf['sites'][$site])) {
             $href = $this->conf['sites'][$site];
@@ -71,27 +68,7 @@ class Text_Wiki_Render_Docbook_Interwiki extends Text_Wiki_Render {
             // use the new form
             $href = sprintf($href, $page);
         }
-
-        // allow for alternative targets
-        $target = $this->getConf('target');
-
-        // build base link
-        $text = htmlspecialchars($text);
-        $output = "<a$css href=\"$href\"";
-
-        // are we targeting a specific window?
-        if ($target) {
-            // this is DocBook compliant, suggested by Aaron Kalin.
-            // code tip is actually from youngpup.net, and it
-            // uses the $target as the new window name.
-            $target = htmlspecialchars($target);
-            $output .= " onclick=\"window.open(this.href, '$target');";
-            $output .= " return false;\"";
-        }
-
-        $output .= ">$text</a>";
-
-        return $output;
+        return '<link xlink:href="' . $href . '">' . $text . '</link>';
     }
 }
 ?>
