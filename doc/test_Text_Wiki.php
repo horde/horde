@@ -30,9 +30,9 @@ if (in_array(php_sapi_name(), array('cli', 'cgi'))) {
     if (isset($_REQUEST['example'])
         && in_array($_REQUEST['exchoice'], $elist)) {
         $_REQUEST['source'] = file_get_contents ($_REQUEST['exchoice']);
-        if (preg_match('#(\b'.implode('\b|\b', $plist).'\b)#i',
+        if (preg_match('#(\b'.implode('\b|\b', $plist).'\b)#',
                          $_REQUEST['source'], $match)) {
-            $_REQUEST['parser'] = ucwords(strtolower($match[1]));
+            $_REQUEST['parser'] = $match[1];
         }
         $_REQUEST['translate'] = true;
     }
