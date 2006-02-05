@@ -42,7 +42,7 @@ class Text_Wiki_Parse_List extends Text_Wiki_Parse {
      * @var string
      * @see parse()
      */
-    var $regex =  "#\[list(?:=(.+?))?]((?:((?R))|.)*?)\[/list]#msi";
+    var $regex =  "#\[list(?:=(.+?))?]\n?((?:((?R))|.)*?)\[/list]\n?#msi";
 
     /**
      * The regular expression used in second stage to find list's elements
@@ -53,7 +53,7 @@ class Text_Wiki_Parse_List extends Text_Wiki_Parse {
      * @see process()
      * @see processElement()
      */
-    var $regexElement =  '#\[\*](.*?)(?=\[\*]|$)#msi';
+    var $regexElement =  '#\[\*](.*?)(?=\[\*]|$)\n?#msi';
 
     /**
      * The current list nesting depth, starts by zero
@@ -134,7 +134,7 @@ class Text_Wiki_Parse_List extends Text_Wiki_Parse {
         } else {
             $this->_type[$this->_level] = 'bullet';
         }
-        $this->_count[$this->_level] = 0;
+        $this->_count[$this->_level] = -1;
         $sub = preg_replace_callback(
             $this->regexElement,
             array(&$this, 'processElement'),
@@ -178,7 +178,7 @@ class Text_Wiki_Parse_List extends Text_Wiki_Parse {
                     'type' => $this->_type[$this->_level] . '_item_start',
                     'level' => $this->_level,
                     'count' =>  ++$this->_count[$this->_level]) ) .
-               $matches[1] .
+               rtrim($matches[1]) .
                $this->wiki->addToken($this->rule, array(
                     'type' => $this->_type[$this->_level] . '_item_end',
                     'level' => $this->_level,
