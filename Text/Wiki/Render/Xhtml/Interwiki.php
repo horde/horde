@@ -52,7 +52,8 @@ class Text_Wiki_Render_Xhtml_Interwiki extends Text_Wiki_Render {
     function token($options)
     {
         $site = $options['site'];
-        $page = $options['page'];
+        // toggg 2006/02/05 page name must be url encoded (e.g. may contain spaces)
+        $page = urlencode($options['page']);
         $text = $options['text'];
         $css = $this->formatConf(' class="%s"', 'css');
 

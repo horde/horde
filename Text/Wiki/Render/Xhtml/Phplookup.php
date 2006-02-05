@@ -69,7 +69,8 @@ class Text_Wiki_Render_Xhtml_Phplookup extends Text_Wiki_Render {
             $q = $text;
         }
 
-        $q = htmlspecialchars($q);
+        // toggg 2006/02/05 page name must be url encoded (e.g. may contain spaces)
+        $q = urlencode($q);
         $text = htmlspecialchars($text);
 
         // finish and return
