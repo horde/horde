@@ -29,6 +29,7 @@ class Text_Wiki_Render_Docbook_Heading extends Text_Wiki_Render {
      * Configuration keys for this rule
      * 'sections' => array of strings, ordered list of sectioning tags,
      *               the first (mandatory) one will apply to the whole doc
+     *               empty string '' means no section for this level
      * 'section_after' => string, the section optionnaly used for next, non terminal levels
      * 'section_end' => string, the section optionnaly used for the terminal level
      *
