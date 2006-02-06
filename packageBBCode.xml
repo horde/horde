@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<!-- $Id: packageBBCode.xml,v 1.4 2005-11-06 11:44:11 toggg Exp $ -->
+<!-- $Id: packageBBCode.xml,v 1.5 2006-02-06 08:45:47 toggg Exp $ -->
 <package version="1.0">
     <name>Text_Wiki_BBCode</name>
     <summary>BBCode parser for Text_Wiki</summary>
@@ -20,19 +20,14 @@
         </maintainer>
      </maintainers>
     <release>
-        <version>0.0.2</version>
-        <date>2005-11-06</date>
+        <version>0.0.3</version>
+        <date>2006-02-06</date>
         <license>LGPL</license>
         <state>alpha</state>
         <notes>
-* Firman is now co-lead of the package
-* Added a test file to use with doc/Text_Wiki/doc/test_Text_Wiki.php
-* Added examples showing how to replace deprecated HTML_BBCodeParser by Text_Wiki_BBCode
-* # is optional for hexadecimal colours
-* Add superscript and subscript extension
-* Option relative_enable default false for relative urls, e.g., [url=/contact.php] (Request #5767)
-* Refuse ] , [ and ' in path part of the url, should be urlencoded
-* Fixed enumeration type [list=A] (as html type: a,A,i or I)
+* List: Swallow away line breaks within the lists which produced unwanted line breaks
+* List: Starting count by zero as Xhtml render relies on it (erroneous &lt;/li&gt; at begin)
+* Really add superscript and subscript extensions (forgoten in package file list)
         </notes>
         <filelist>
 
@@ -46,6 +41,8 @@
             <file role="php" name="Text/Wiki/Parse/BBCode/Image.php" />
             <file role="php" name="Text/Wiki/Parse/BBCode/Italic.php" />
             <file role="php" name="Text/Wiki/Parse/BBCode/List.php" />
+            <file role="php" name="Text/Wiki/Parse/BBCode/Subscript.php" />
+            <file role="php" name="Text/Wiki/Parse/BBCode/Superscript.php" />
             <file role="php" name="Text/Wiki/Parse/BBCode/Underline.php" />
             <file role="php" name="Text/Wiki/Parse/BBCode/Url.php" />
 
@@ -61,6 +58,22 @@
         </deps>
     </release>
   <changelog>
+    <release>
+        <version>0.0.2</version>
+        <date>2005-11-06</date>
+        <license>LGPL</license>
+        <state>alpha</state>
+        <notes>
+* Firman is now co-lead of the package
+* Added a test file to use with doc/Text_Wiki/doc/test_Text_Wiki.php
+* Added examples showing how to replace deprecated HTML_BBCodeParser by Text_Wiki_BBCode
+* # is optional for hexadecimal colours
+* Add superscript and subscript extension
+* Option relative_enable default false for relative urls, e.g., [url=/contact.php] (Request #5767)
+* Refuse ] , [ and ' in path part of the url, should be urlencoded
+* Fixed enumeration type [list=A] (as html type: a,A,i or I)
+        </notes>
+    </release>
     <release>
         <version>0.0.1</version>
         <date>2005-09-13</date>
