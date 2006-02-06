@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<!-- $Id: packageBBCode.xml,v 1.5 2006-02-06 08:45:47 toggg Exp $ -->
+<!-- $Id: packageBBCode.xml,v 1.6 2006-02-06 08:49:22 toggg Exp $ -->
 <package version="1.0">
     <name>Text_Wiki_BBCode</name>
     <summary>BBCode parser for Text_Wiki</summary>
@@ -25,7 +25,7 @@
         <license>LGPL</license>
         <state>alpha</state>
         <notes>
-* List: Swallow away line breaks within the lists which produced unwanted line breaks
+* List: Swallow away line breaks within the lists which produced unwanted &lt;br /&gt;
 * List: Starting count by zero as Xhtml render relies on it (erroneous &lt;/li&gt; at begin)
 * Really add superscript and subscript extensions (forgoten in package file list)
         </notes>
