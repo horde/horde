@@ -50,7 +50,7 @@ class Text_Wiki_Render_Docbook_Interwiki extends Text_Wiki_Render {
     function token($options)
     {
         $site = $options['site'];
-        $page = urlencode($options['page']);
+        $page = $this->urlEncode($options['page']);
         $text = $options['text'];
 
         if (isset($this->conf['sites'][$site])) {

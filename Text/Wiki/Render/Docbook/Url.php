@@ -25,9 +25,7 @@
  */
 class Text_Wiki_Render_Docbook_Url extends Text_Wiki_Render {
 
-
     var $conf = array(
-        'target' => '_blank',
         'images' => true,
         'img_ext' => array('jpg', 'jpeg', 'gif', 'png'),
         'css_inline' => null,

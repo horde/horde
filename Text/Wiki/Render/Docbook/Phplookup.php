@@ -49,7 +49,7 @@ class Text_Wiki_Render_Docbook_Phplookup extends Text_Wiki_Render {
             $q = $text;
         }
 
-        $q = urlencode($q);
+        $q = $this->urlEncode($q);
         $text = htmlspecialchars($text);
 
         // finish and return
