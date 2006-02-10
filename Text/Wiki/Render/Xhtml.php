@@ -33,6 +33,26 @@ class Text_Wiki_Render_Xhtml extends Text_Wiki_Render {
 
     function pre()
     {
+        $this->wiki->source = $this->textEncode($this->wiki->source);
+    }
+
+    function post()
+    {
+        return;
+    }
+
+
+    /**
+    * Method to render text
+    *
+    * @access public
+    * @param string $text the text to render
+    * @return rendered text
+    *
+    */
+
+    function textEncode($text)
+    {
         // attempt to translate HTML entities in the source.
         // get the config options.
         $type = $this->getConf('translate', HTML_ENTITIES);
@@ -49,15 +69,15 @@ class Text_Wiki_Render_Xhtml extends Text_Wiki_Render {
 			// convert the entities.  we silence the call here so that
 			// errors about charsets don't pop up, per counsel from
 			// Jan at Horde.  (http://pear.php.net/bugs/bug.php?id=4474)
-			$this->wiki->source = @htmlentities(
-				$this->wiki->source,
+			$text = @htmlentities(
+				$text,
 				$quotes,
 				$charset
 			);
 
 			// re-convert the delimiter
-			$this->wiki->source = str_replace(
-				$new_delim, $this->wiki->delim, $this->wiki->source
+			$text = str_replace(
+				$new_delim, $this->wiki->delim, $text
 			);
 
 		} elseif ($type === HTML_SPECIALCHARS) {
@@ -70,23 +90,18 @@ class Text_Wiki_Render_Xhtml extends Text_Wiki_Render {
 			// convert the entities.  we silence the call here so that
 			// errors about charsets don't pop up, per counsel from
 			// Jan at Horde.  (http://pear.php.net/bugs/bug.php?id=4474)
-			$this->wiki->source = @htmlspecialchars(
-				$this->wiki->source,
+			$text = @htmlspecialchars(
+				$text,
 				$quotes,
 				$charset
 			);
 
 			// re-convert the delimiter
-			$this->wiki->source = str_replace(
-				$new_delim, $this->wiki->delim, $this->wiki->source
+			$text = str_replace(
+				$new_delim, $this->wiki->delim, $text
 			);
 		}
+        return $text;
     }
-
-    function post()
-    {
-        return;
-    }
-
 }
 ?>
