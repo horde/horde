@@ -57,7 +57,7 @@ class Text_Wiki_Render_Xhtml_Phplookup extends Text_Wiki_Render {
         if ($target) {
             // use a "popup" window.  this is XHTML compliant, suggested by
             // Aaron Kalin.  uses the $target as the new window name.
-            $target = htmlspecialchars($target);
+            $target = $this->textEncode($target);
             $output .= " onclick=\"window.open(this.href, '$target');";
             $output .= " return false;\"";
         }
@@ -71,7 +71,7 @@ class Text_Wiki_Render_Xhtml_Phplookup extends Text_Wiki_Render {
 
         // toggg 2006/02/05 page name must be url encoded (e.g. may contain spaces)
         $q = $this->urlEncode($q);
-        $text = htmlspecialchars($text);
+        $text = $this->textEncode($text);
 
         // finish and return
         $output .= " href=\"http://php.net/$q\">$text</a>";

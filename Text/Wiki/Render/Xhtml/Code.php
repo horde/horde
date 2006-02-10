@@ -110,7 +110,7 @@ class Text_Wiki_Render_Xhtml_Code extends Text_Wiki_Render {
             // convert entities.
             $text = str_replace("\t", "    ", $text);
             $text = "<html>\n$text\n</html>";
-            $text = htmlentities($text);
+            $text = $this->textEncode($text);
             $text = "<pre$css><code$css_html>$text</code></pre>";
 
         } else {
@@ -118,7 +118,7 @@ class Text_Wiki_Render_Xhtml_Code extends Text_Wiki_Render {
             // convert tabs to four spaces,
             // convert entities.
             $text = str_replace("\t", "    ", $text);
-            $text = htmlentities($text);
+            $text = $this->textEncode($text);
             $text = "<pre$css><code$css_code>$text</code></pre>";
         }
 

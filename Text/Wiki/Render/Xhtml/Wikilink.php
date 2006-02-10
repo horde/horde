@@ -84,7 +84,7 @@ class Text_Wiki_Render_Xhtml_Wikilink extends Text_Wiki_Render {
         // up what the user typed and what we're checking.
         $page = $this->urlEncode($page);
         $anchor = $this->urlEncode($anchor);
-        $text = htmlspecialchars($text);
+        $text = $this->textEncode($text);
 
         // does the page exist?
         if ($exists) {

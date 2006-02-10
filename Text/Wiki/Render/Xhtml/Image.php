@@ -132,7 +132,7 @@ class Text_Wiki_Render_Xhtml_Image extends Text_Wiki_Render {
         }
 
         // start the HTML output
-        $output = '<img src="' . htmlspecialchars($src) . '"';
+        $output = '<img src="' . $this->textEncode($src) . '"';
 
         // get the CSS class but don't add it yet
         $css = $this->formatConf(' class="%s"', 'css');
@@ -152,14 +152,14 @@ class Text_Wiki_Render_Xhtml_Image extends Text_Wiki_Render {
                 $css = null;
             }
 
-            $key = htmlspecialchars($key);
-            $val = htmlspecialchars($val);
+            $key = $this->textEncode($key);
+            $val = $this->textEncode($val);
             $output .= " $key=\"$val\"";
         }
 
         // always add an "alt" attribute per Stephane Solliec
         if (! $alt) {
-            $alt = htmlspecialchars(basename($options['src']));
+            $alt = $this->textEncode(basename($options['src']));
             $output .= " alt=\"$alt\"";
         }
 
@@ -169,7 +169,7 @@ class Text_Wiki_Render_Xhtml_Image extends Text_Wiki_Render {
         // was the image clickable?
         if ($href) {
             // yes, add the href and return
-            $href = htmlspecialchars($href);
+            $href = $this->textEncode($href);
             $css = $this->formatConf(' class="%s"', 'css_link');
             $output = "<a$css href=\"$href\">$output</a>";
         }

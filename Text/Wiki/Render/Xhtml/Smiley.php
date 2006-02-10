@@ -64,7 +64,7 @@ class Text_Wiki_Render_Xhtml_Smiley extends Text_Wiki_Render {
         $imageSize = @getimagesize($imageFile);
 
         // return the HTML output
-        return '<img src="' . htmlspecialchars($imageFile) . '"' .
+        return '<img src="' . $this->textEncode($imageFile) . '"' .
             (is_array($imageSize) ?
                 ' width="' . $imageSize[0] . '" height="' . $imageSize[1] .'"' : '') .
             ' alt="' . $options['desc'] . '"' .
