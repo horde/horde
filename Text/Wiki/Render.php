@@ -186,5 +186,32 @@ class Text_Wiki_Render {
         }
     }
 
+    /**
+    * Abstract method to render url
+    *
+    * @access public
+    * @param string $urlChunk the url or a part of it to render
+    * @return rendered url
+    *
+    */
+
+    function urlEncode($urlChunk)
+    {
+        return urlencode($urlChunk);
+    }
+
+    /**
+    * Abstract method to render text
+    *
+    * @access public
+    * @param string $text the text to render
+    * @return rendered text
+    *
+    */
+
+    function textEncode($text)
+    {
+        return $text;
+    }
 }
 ?>
