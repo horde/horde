@@ -354,6 +354,42 @@ class Text_Wiki {
 
     }
 
+    /**
+    * Singleton
+    * $single = & singleton();
+    * or
+    * $single = & singleton( 'parser',
+    *                       array('Prefilter', 'Delimiter', 'Code', 'Function',
+    *   'Html', 'Raw', 'Include', 'Embed', 'Anchor', 'Heading', 'Toc', 'Horiz',
+    *   'Break', 'Blockquote', 'List', 'Deflist', 'Table', 'Image', 'Phplookup',
+    *   'Center', 'Newline', 'Paragraph', 'Url', 'Freelink', 'Interwiki', 'Wikilink',
+    *   'Colortext', 'Strong', 'Bold', 'Emphasis', 'Italic', 'Underline', 'Tt',
+    *   'Superscript', 'Subscript', 'Revise', 'Tighten'));
+    * a subset of this list, order is important !
+    * static method indicated for cms needing several parsing in a session
+    * then $single->setParseConf(), setRenderConf() or setFormatConf() as usual
+    * no dependency on rules only on parser name
+    *
+    * @access public
+    * @static
+    * @since Method available since Release 1.1.0
+    * @param array $rules The set of rules to instanciate the object.
+    * @return &object a reference to the Text_Wiki unique instanciation
+    */
+    function &singleton($parser = 'Default', $rules = null)
+    {
+        static $only = array();
+        if (!isset($only[$parser])) {
+            $class = 'Text_Wiki';
+            // load the class file if not this one
+            if ($parser != 'Default') {
+                require_once 'Text/Wiki/'.$parser.'.php';
+                $class = 'Text_Wiki_'.$parser;
+            }
+            $only[$parser] = & new $class($rules);
+        }
+        return $only[$parser];
+    }
 
     /**
     *

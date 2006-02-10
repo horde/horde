@@ -3,6 +3,8 @@ ini_set('display_errors', true);
 error_reporting(E_ALL);
 // needed for error checking
 require_once 'PEAR.php';
+// base class
+require_once 'Text/Wiki.php';
 /**
  * Eventually set an include path if all parsers/renderers not installed
  * $Id$
@@ -49,17 +51,9 @@ if (in_array(php_sapi_name(), array('cli', 'cgi'))) {
         die();
     }
 }
-// load the class file
-if ($parser != 'Default') {
-    require_once 'Text/Wiki/'.$parser.'.php';
-    $class = 'Text_Wiki_'.$parser;
-} else  {
-    require_once 'Text/Wiki.php';
-    $class = 'Text_Wiki';
-}
 
 // instantiate a Text_Wiki object from the given class
-$wiki =& new $class();
+$wiki = & Text_Wiki::singleton($parser);
 
 // when rendering XHTML, make sure wiki links point to a
 // specific base URL
