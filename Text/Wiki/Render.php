@@ -187,7 +187,7 @@ class Text_Wiki_Render {
     }
 
     /**
-    * Abstract method to render url
+    * Default method to render url
     *
     * @access public
     * @param string $urlChunk the url or a part of it to render
@@ -201,7 +201,7 @@ class Text_Wiki_Render {
     }
 
     /**
-    * Abstract method to render text
+    * Default method to render text (htmlspecialchars)
     *
     * @access public
     * @param string $text the text to render
@@ -211,7 +211,7 @@ class Text_Wiki_Render {
 
     function textEncode($text)
     {
-        return $text;
+        return htmlspecialchars($text);
     }
 }
 ?>
