@@ -50,7 +50,7 @@ class Text_Wiki_Render_Docbook_Phplookup extends Text_Wiki_Render {
         }
 
         $q = $this->urlEncode($q);
-        $text = htmlspecialchars($text);
+        $text = $this->textEncode($text);
 
         // finish and return
         return '<link xlink:href="http://php.net/' . $q . '">' . $text . '</link>';

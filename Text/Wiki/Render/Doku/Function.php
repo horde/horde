@@ -23,9 +23,9 @@ class Text_Wiki_Render_Doku_Function extends Text_Wiki_Render {
         
         // build the baseline output
         $output = $this->conf['format_main'];
-        $output = str_replace('%access', htmlspecialchars($access), $output);
-        $output = str_replace('%return', htmlspecialchars($return), $output);
-        $output = str_replace('%name', htmlspecialchars($name), $output);
+        $output = str_replace('%access', $this->textEncode($access), $output);
+        $output = str_replace('%return', $this->textEncode($return), $output);
+        $output = str_replace('%name', $this->textEncode($name), $output);
         
         // build the set of params
         $list = array();
@@ -39,9 +39,9 @@ class Text_Wiki_Render_Doku_Function extends Text_Wiki_Render {
             }
             
             // add the param elements
-            $tmp = str_replace('%type', htmlspecialchars($val['type']), $tmp);
-            $tmp = str_replace('%descr', htmlspecialchars($val['descr']), $tmp);
-            $tmp = str_replace('%default', htmlspecialchars($val['default']), $tmp);
+            $tmp = str_replace('%type', $this->textEncode($val['type']), $tmp);
+            $tmp = str_replace('%descr', $this->textEncode($val['descr']), $tmp);
+            $tmp = str_replace('%default', $this->textEncode($val['default']), $tmp);
             $list[] = $tmp;
         }
         
@@ -53,8 +53,8 @@ class Text_Wiki_Render_Doku_Function extends Text_Wiki_Render {
         $list = array();
         foreach ($throws as $key => $val) {
                $tmp = $this->conf['format_throws'];
-            $tmp = str_replace('%type', htmlspecialchars($val['type']), $tmp);
-            $tmp = str_replace('%descr', htmlspecialchars($val['descr']), $tmp);
+            $tmp = str_replace('%type', $this->textEncode($val['type']), $tmp);
+            $tmp = str_replace('%descr', $this->textEncode($val['descr']), $tmp);
             $list[] = $tmp;
         }
         

@@ -38,9 +38,9 @@ class Text_Wiki_Render_Latex_Wikilink extends Text_Wiki_Render {
 
         // convert *after* checking against page names so as not to mess
         // up what the user typed and what we're checking.
-        $page = htmlspecialchars($page);
-        $anchor = htmlspecialchars($anchor);
-        $text = htmlspecialchars($text);
+        $page = $this->textEncode($page);
+        $anchor = $this->textEncode($anchor);
+        $text = $this->textEncode($text);
 
         $href = $this->getConf('view_url');
 
