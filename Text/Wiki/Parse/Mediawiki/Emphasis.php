@@ -61,6 +61,8 @@ class Text_Wiki_Parse_Emphasis extends Text_Wiki_Parse {
      */
     function process(&$matches)
     {
+        static $strongDisabled = true;
+        $strongNeeded = false;
         $embeded = $matches[2];
         switch (strlen($matches[1])) {
             case 1:
@@ -72,15 +74,22 @@ class Text_Wiki_Parse_Emphasis extends Text_Wiki_Parse {
             case 2:
                 $start = $this->wiki->addToken('Strong',    array('type' => 'start'));
                 $end   = $this->wiki->addToken('Strong',    array('type' => 'end'));
+                $strongNeeded = true;
             break;
             case 4:
                 $start = $this->wiki->addToken($this->rule, array('type' => 'start'))
                        . $this->wiki->addToken('Strong',    array('type' => 'start'));
                 $end   = $this->wiki->addToken('Strong',    array('type' => 'end'))
                        . $this->wiki->addToken($this->rule, array('type' => 'end'));
+                $strongNeeded = true;
             break;
         }
 
+        // insert a fake Strong if needed (only for rendering)
+        if ($strongDisabled && $strongNeeded) {
+            $this->wiki->parseObj['Strong'] = null;
+            $strongDisabled = false;
+        }
         return $start . $embeded . $end;
     }
 }

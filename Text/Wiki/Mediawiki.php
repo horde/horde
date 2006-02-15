@@ -64,8 +64,8 @@ class Text_Wiki_Mediawiki extends Text_Wiki {
 //        'Freelink',
 //        'Colortext',
         'Wikilink',
-//        'Strong',
-        'Bold',
+//        'Strong',  ** will be only fake inserted by Emphasis if needed for render
+//        'Bold',
         'Emphasis',
 //        'Italic',
 //        'Underline',
