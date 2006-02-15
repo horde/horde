@@ -46,7 +46,7 @@ class Text_Wiki_Parse_Raw extends Text_Wiki_Parse {
     * 
     */
     
-    var $regex = "/<nowiki>(.*)<\/nowiki>/U";
+    var $regex = "/<nowiki>(.*)<\/nowiki>/Ums";
     
     
     /**
