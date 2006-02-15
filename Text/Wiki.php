@@ -741,7 +741,9 @@ class Text_Wiki {
         $new = ucwords(strtolower($new));
         $key = array_search($old, $this->rules);
         if ($key !== false) {
-            $this->rules[$old] = $new;
+            // delete the new name , case it was already there
+            $this->deleteRule($new);
+            $this->rules[$key] = $new;
         }
     }
 
