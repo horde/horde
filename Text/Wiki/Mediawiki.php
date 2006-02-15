@@ -88,26 +88,6 @@ class Text_Wiki_Mediawiki extends Text_Wiki {
         parent::Text_Wiki($rules);
         $this->addPath('parse', $this->fixPath(dirname(__FILE__)).'Parse/Mediawiki');
     }
-
-    function getTokens($rules = null, $originalIndex = false)
-    {
-        if (is_null($rules)) {
-            return $this->tokens;
-        } else {
-            settype($rules, 'array');
-            $result = array();
-            foreach ($this->tokens as $key => $val) {
-                if (in_array($val[0], $rules)) {
-                    if ($originalIndex) {
-                        $result[$key] = $val;
-                    } else {
-                        $result[] = $val;
-                    }
-                }
-            }
-            return $result;
-        }
-    }
 }
 
 ?>
