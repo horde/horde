@@ -84,27 +84,7 @@ class Text_Wiki_Tiki extends Text_Wiki {
     function Text_Wiki_Tiki($rules = null) {
         parent::Text_Wiki($rules);
         $this->addPath('parse', $this->fixPath(dirname(__FILE__)).'Parse/Tiki');
-        $this->addPath('render', $this->fixPath(dirname(__FILE__)).'Render');
-    }
-
-    function getTokens($rules = null, $originalIndex = false)
-    {
-        if (is_null($rules)) {
-            return $this->tokens;
-        } else {
-            settype($rules, 'array');
-            $result = array();
-            foreach ($this->tokens as $key => $val) {
-                if (in_array($val[0], $rules)) {
-                    if ($originalIndex) {
-                        $result[$key] = $val;
-                    } else {
-                        $result[] = $val;
-                    }
-                }
-            }
-            return $result;
-        }
+//        $this->addPath('render', $this->fixPath(dirname(__FILE__)).'Render');
     }
 }
 
