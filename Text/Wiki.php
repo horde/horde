@@ -230,6 +230,16 @@ class Text_Wiki {
 
     var $tokens = array();
 
+    /**
+    * How many tokens generated pro rules.
+    *
+    * Intended to load only necessary render objects
+    *
+    * @access private
+    * @var array
+    */
+    var $_countRulesTokens = array();
+
 
     /**
     *
@@ -849,6 +859,7 @@ class Text_Wiki {
 
         // reset the tokens.
         $this->tokens = array();
+        $this->_countRulesTokens = array();
 
         // apply the parse() method of each requested rule to the source
         // text.
@@ -910,7 +921,7 @@ class Text_Wiki {
         }
 
         // load the render objects
-        foreach (array_keys($this->parseObj) as $rule) {
+        foreach (array_keys($this->_countRulesTokens) as $rule) {
             $this->loadRenderObj($format, $rule);
         }
 
@@ -1057,6 +1068,11 @@ class Text_Wiki {
             0 => $rule,
             1 => $options
         );
+        if (!isset($this->_countRulesTokens[$rule])) {
+            $this->_countRulesTokens[$rule] = 1;
+        } else {
+            ++$this->_countRulesTokens[$rule];
+        }
 
         // return a value
         if ($id_only) {
@@ -1091,11 +1107,22 @@ class Text_Wiki {
 
     function setToken($id, $rule, $options = array())
     {
+        $oldRule = $this->tokens[$id][0];
         // reset the token
         $this->tokens[$id] = array(
             0 => $rule,
             1 => $options
         );
+        if ($rule != $oldRule) {
+            if (!($this->_countRulesTokens[$oldRule]--)) {
+                unset($this->_countRulesTokens[$oldRule]);
+            }
+            if (!isset($this->_countRulesTokens[$rule])) {
+                $this->_countRulesTokens[$rule] = 1;
+            } else {
+                ++$this->_countRulesTokens[$rule];
+            }
+        }
     }
 
 
