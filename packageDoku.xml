@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<!-- $Id: packageDoku.xml,v 1.2 2005-10-15 17:13:34 justinpatrin Exp $ -->
+<!-- $Id: packageDoku.xml,v 1.3 2006-02-15 12:04:50 toggg Exp $ -->
 <package version="1.0">
     <name>Text_Wiki_Doku</name>
     <summary>Doku parser and renderer for Text_Wiki</summary>
@@ -28,6 +28,7 @@
 First released version of Text_Wiki_Doku.
         </notes>
         <filelist>
+            <file role="php" name="Text/Wiki/Doku.php" />
             <file role="php" name="Text/Wiki/Render/Doku.php" />
             <file role="php" name="Text/Wiki/Parse/Doku/Wikilink.php" />
             <file role="php" name="Text/Wiki/Parse/Doku/Embed.php" />
