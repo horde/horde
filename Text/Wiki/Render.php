@@ -190,14 +190,14 @@ class Text_Wiki_Render {
     * Default method to render url
     *
     * @access public
-    * @param string $urlChunk the url or a part of it to render
+    * @param string $urlChunk a part of an url to render
     * @return rendered url
     *
     */
 
     function urlEncode($urlChunk)
     {
-        return urlencode($urlChunk);
+        return rawurlencode($urlChunk);
     }
 
     /**
