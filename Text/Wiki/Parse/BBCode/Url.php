@@ -171,4 +171,3 @@ class Text_Wiki_Parse_Url extends Text_Wiki_Parse {
         return $pre . $this->wiki->addToken($this->rule, $options);
     }
 }
-?>

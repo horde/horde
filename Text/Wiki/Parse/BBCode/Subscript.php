@@ -83,4 +83,3 @@ class Text_Wiki_Parse_Subscript extends Text_Wiki_Parse
  * c-hanging-comment-ender-p: nil
  * End:
  */
-?>

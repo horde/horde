@@ -61,4 +61,3 @@ class Text_Wiki_Parse_Bold extends Text_Wiki_Parse {
         return $start . $matches[1] . $end;
     }
 }
-?>

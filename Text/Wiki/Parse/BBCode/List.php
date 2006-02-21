@@ -185,4 +185,3 @@ class Text_Wiki_Parse_List extends Text_Wiki_Parse {
                     'count' =>  $this->_count[$this->_level]) );
     }
 }
-?>

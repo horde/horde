@@ -90,4 +90,3 @@ class Text_Wiki_Parse_Colortext extends Text_Wiki_Parse {
         return $statok . $expsub . $this->wiki->addToken($this->rule, $options);
     }
 }
-?>

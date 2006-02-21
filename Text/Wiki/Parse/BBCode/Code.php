@@ -61,4 +61,3 @@ class Text_Wiki_Parse_Code extends Text_Wiki_Parse {
                     'attr' => array('type' => '') ) );
     }
 }
-?>
