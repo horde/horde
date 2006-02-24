@@ -1,9 +1,12 @@
 <?php
 // vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4:
 /**
- * Mediawiki: Parses for links to wiki pages.
+ * Mediawiki: Parses for links to (inter)wiki pages or images.
  *
- * Text_Wiki rule parser to find Wikilinks: links to Wiki pages
+ * Text_Wiki rule parser to find links, it groups the 3 rules:
+ * # Wikilink: links to internal Wiki pages
+ * # Interwiki: links to external Wiki pages (sister projects, interlangage)
+ * # Image: Images
  * as defined by text surrounded by double brackets [[]]
  * Translated are the link itself, the section (anchor) and alternate text
  *
@@ -20,8 +23,8 @@
  */
 
 /**
- * Wikilinks rule parser class for Mediawiki.
- * This class implements a Text_Wiki_Parse to find links to wiki pages marked
+ * Wikilink, Interwiki and Image rules parser class for Mediawiki.
+ * This class implements a Text_Wiki_Parse to find links marked
  * in source by text surrounded by 2 opening/closing brackets as 
  * [[Wiki page name#Section|Alternate text]]
  * On parsing, the link is replaced with a token.
@@ -38,6 +41,43 @@
 class Text_Wiki_Parse_Wikilink extends Text_Wiki_Parse {
 
     /**
+     * Configuration for this rule (Wikilink)
+     *
+     * @access public
+     * @var array
+    */
+    var $conf = array(
+        'spaceUnderscore' => true,
+        'project' => array('demo', 'd'),
+        'lang' => 'en'
+    );
+
+    /**
+     * Configuration for the Image rule
+     *
+     * @access public
+     * @var array
+    */
+    var $imageConf = array(
+        'prefix' => array('Image', 'image')
+    );
+
+    /**
+     * Configuration for the Interwiki rule
+     *
+     * @access public
+     * @var array
+    */
+    var $interwikiConf = array(
+        'sites' => array(
+            'manual' => 'http://www.php.net/manual/en/%s',
+            'pear'   => 'http://pear.php.net/package/%s',
+            'bugs'   => 'http://pear.php.net/package/%s/bugs'
+        ),
+        'interlangage' => array('de', 'fr')
+    );
+
+    /**
      * The regular expression used to parse the source text and find
      * matches conforming to this rule.  Used by the parse() method.
      *
@@ -45,7 +85,57 @@ class Text_Wiki_Parse_Wikilink extends Text_Wiki_Parse {
      * @var string
      * @see Text_Wiki_Parse::parse()
      */
-    var $regex = '/\[\[(.+?)(?:#(.*?))?(?:\|(.*?))?]]/ms';
+    var $regex = '/(?<!\[)\[\[\s*(:?)((?:[^:]+:)+)?(.+)(?:#(.*))?\s*(?:\|(((?R))|.*))?]]/msU';
+
+     /**
+     * Constructor.
+     * We override the constructor to get Image and Interwiki config
+     *
+     * @param object &$obj the base conversion handler
+     * @return The parser object
+     * @access public
+     */
+    function Text_Wiki_Parse_Wikilink(&$obj)
+    {
+        $default = $this->conf;
+        parent::Text_Wiki_Parse($obj);
+
+        // override config options for image if specified
+        if (in_array('Image', $this->wiki->disable)) {
+            $this->imageConf['prefix'] = array();
+        } else {
+            if (isset($this->wiki->parseConf['Image']) &&
+                is_array($this->wiki->parseConf['Image'])) {
+                $this->imageConf = array_merge(
+                    $this->imageConf,
+                    $this->wiki->parseConf['Image']
+                );
+            }
+        }
+
+        // override config options for interwiki if specified
+        if (in_array('Interwiki', $this->wiki->disable)) {
+            $this->interwikiConf['sites'] = array();
+            $this->interwikiConf['interlangage'] = array();
+        } else {
+            if (isset($this->wiki->parseConf['Interwiki']) &&
+                is_array($this->wiki->parseConf['Interwiki'])) {
+                $this->interwikiConf = array_merge(
+                    $this->interwikiConf,
+                    $this->wiki->parseConf['Interwiki']
+                );
+            }
+            if (empty($this->conf['langage'])) {
+                $this->interwikiConf['interlangage'] = array();
+            }
+        }
+        // convert the list of recognized schemes to a regex OR,
+/*        $schemes = $this->getConf('schemes', $default['schemes']);
+        $this->url = str_replace( '#delim#', $this->wiki->delim,
+           '#(?:' . (is_array($schemes) ? implode('|', $schemes) : $schemes) . ')://'
+           . $this->getConf('host_regexp', $default['host_regexp'])
+           . $this->getConf('path_regexp', $default['path_regexp']) .'#'); */
+    }
 
     /**
      * Generates a replacement for the matched text.  Token options are:
@@ -55,20 +145,101 @@ class Text_Wiki_Parse_Wikilink extends Text_Wiki_Parse {
      *
      * @access public
      * @param array &$matches The array of matches from parse().
-     * @return string Delimited by start/end tokens to be used as
-     * placeholder in the source text surrounding the text to be emphasized.
+     * @return string token to be used as replacement 
      */
     function process(&$matches)
-    {
+    {//var_dump($matches);
+        // Starting colon ?
+        $colon = !empty($matches[1]);
+        $auto = $interlang = $interwiki = $image = '';
+        // Prefix ?
+        if (!empty($matches[2])) {
+            $prefix = explode(':', substr($matches[2], 0, -1));
+            $i = -1;
+            // Autolink
+            if (in_array(trim($prefix[0]), $this->conf['project'])) {
+                $auto = trim($prefix[0]);
+                $i = 0;
+            }
+            while (++$i < count($prefix)) {
+                $prefix[$i] = trim($prefix[$i]);
+                // interlangage
+                if (!$interlang &&
+                    in_array($prefix[$i], $this->interwikiConf['interlangage'])) {
+                    $interlang = $prefix[$i];
+                    unset($prefix[$i]);
+                    continue;
+                }
+                // image
+                if (!$image && in_array($prefix[$i], $this->imageConf['prefix'])) {
+                    $image = $prefix[$i];
+                    unset($prefix[$i]);
+                    break;
+                }
+                // interwiki
+                if (isset($this->interwikiConf['sites'][$prefix[$i]])) {
+                    $interwiki = $this->interwikiConf['sites'][$prefix[$i]];
+                    unset($prefix[$i]);
+                }
+                break;
+            }
+            $matches[3] = implode(':', $prefix) . $matches[3];
+        }
+        $text = empty($matches[5]) ? $matches[3] : $matches[5];
+        $matches[3] = trim($matches[3]);
+        $matches[4] = empty($matches[4]) ? '' : trim($matches[4]);
+        if ($this->conf['spaceUnderscore']) {
+            $matches[3] = preg_replace('/\s+/', '_', $matches[3]);
+            $matches[4] = preg_replace('/\s+/', '_', $matches[4]);
+        }
+        if ($image) {
+            return $this->image($matches[3] . (empty($matches[4]) ? '' : '#' . $matches[4]),
+                                $text, $interlang, $colon);
+        }
+        if ($interwiki) {
+            return $this->interwiki($interwiki,
+                $matches[3] . (empty($matches[4]) ? '' : '#' . $matches[4]),
+                $text, $interlang, $colon);
+        }
         // set the options
         $options = array(
-            'page'   => $matches[1],
-            'anchor' => (empty($matches[2]) ? '' : $matches[2]),
-            'text'   => (empty($matches[3]) ? $matches[1] : $matches[3])
+            'page'   => $matches[3],
+            'anchor' => (empty($matches[4]) ? '' : $matches[4]),
+            'text'   => $text
         );
 
-        // create and return the replacement token and preceding text
-        return $this->wiki->addToken($this->rule, $options); // . $matches[7];
+        // create and return the replacement token
+        return $this->wiki->addToken($this->rule, $options);
+    }
+
+    /**
+     * Generates an image token.  Token options are:
+     * - 'page' => the name of the target wiki page
+     * -'anchor' => the optional section in it
+     * - 'text' => the optional alternate link text
+     *
+     * @access public
+     * @param array &$matches The array of matches from parse().
+     * @return string token to be used as replacement 
+     */
+    function image($name, $text, $interlang, $colon)
+    {
+        return '';
+    }
+
+    /**
+     * Generates an interwiki token.  Token options are:
+     * - 'page' => the name of the target wiki page
+     * -'anchor' => the optional section in it
+     * - 'text' => the optional alternate link text
+     *
+     * @access public
+     * @param array &$matches The array of matches from parse().
+     * @return string token to be used as replacement 
+     */
+    function interwiki($name, $text, $interlang, $colon)
+    {
+        return '';
     }
 }
 ?>
