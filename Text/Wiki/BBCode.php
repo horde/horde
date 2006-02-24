@@ -98,4 +98,3 @@ class Text_Wiki_BBCode extends Text_Wiki {
         $this->addPath('parse', $this->fixPath(dirname(__FILE__)).'Parse/BBCode');
     }
 }
-?>
