@@ -234,7 +234,9 @@ class Text_Wiki_Parse_Wikilink extends Text_Wiki_Parse {
     /**
      * Generates an image token.  Token options are:
      * - 'src' => the name of the image file
-     * - 'alt' => the optional alternate image text
+     * - 'attr' => an array of attributes for the image:
+     * | - 'alt' => the optional alternate image text
+     * | - 'align => 'left', 'center' or 'right'
      *
      * @access public
      * @param array &$matches The array of matches from parse().
@@ -242,9 +244,27 @@ class Text_Wiki_Parse_Wikilink extends Text_Wiki_Parse {
      */
     function image($name, $text, $interlang, $colon)
     {
+        $attr = array('alt' => '');
+        // scan text for supplementary attibutes
+        if (strpos($text, '|') !== false) {
+            $splits = explode('|', $text);
+            $sep = '';
+            foreach ($splits as $split) {
+                switch (strtolower($split)) {
+                    case 'left': case 'center': case 'right':
+                        $attr['align'] = strtolower($split);
+                        break;
+                    default:
+                        $attr['alt'] .= $sep . $split;
+                        $sep = '|';
+                }
+            }
+        } else {
+            $attr['alt'] = $text;
+        }
         $options = array(
             'src' => ($interlang ? $interlang . ':' : '') . $name,
-            'attr' => array('alt' => $text));
+            'attr' => $attr);
 
         // create and return the replacement token
         return $this->wiki->addToken('Image', $options);
