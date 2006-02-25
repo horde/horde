@@ -49,24 +49,30 @@ class Text_Wiki_Render_Docbook_Interwiki extends Text_Wiki_Render {
 
     function token($options)
     {
-        $site = $options['site'];
-        $page = $this->urlEncode($options['page']);
         $text = $options['text'];
-
-        if (isset($this->conf['sites'][$site])) {
-            $href = $this->conf['sites'][$site];
+        if (isset($options['url'])) {
+            // calculated by the parser (e.g. Mediawiki)
+            $href = $options['url'];
         } else {
-            return $text;
-        }
+            $site = $options['site'];
+            // toggg 2006/02/05 page name must be url encoded (e.g. may contain spaces)
+            $page = $this->urlEncode($options['page']);
 
-        // old form where page is at end,
-        // or new form with %s placeholder for sprintf()?
-        if (strpos($href, '%s') === false) {
-            // use the old form
-            $href = $href . $page;
-        } else {
-            // use the new form
-            $href = sprintf($href, $page);
+            if (isset($this->conf['sites'][$site])) {
+                $href = $this->conf['sites'][$site];
+            } else {
+                return $text;
+            }
+
+            // old form where page is at end,
+            // or new form with %s placeholder for sprintf()?
+            if (strpos($href, '%s') === false) {
+                // use the old form
+                $href = $href . $page;
+            } else {
+                // use the new form
+                $href = sprintf($href, $page);
+            }
         }
         return '<link xlink:href="' . $href . '">' . $text . '</link>';
     }
