@@ -155,13 +155,15 @@ class Text_Wiki_Parse_Wikilink extends Text_Wiki_Parse {
         // Prefix ?
         if (!empty($matches[2])) {
             $prefix = explode(':', substr($matches[2], 0, -1));
+            $count = count($prefix);
             $i = -1;
             // Autolink
             if (in_array(trim($prefix[0]), $this->conf['project'])) {
                 $auto = trim($prefix[0]);
+                unset($prefix[0]);
                 $i = 0;
             }
-            while (++$i < count($prefix)) {
+            while (++$i < $count) {
                 $prefix[$i] = trim($prefix[$i]);
                 // interlangage
                 if (!$interlang &&
@@ -183,7 +185,9 @@ class Text_Wiki_Parse_Wikilink extends Text_Wiki_Parse {
                 }
                 break;
             }
-            $matches[3] = implode(':', $prefix) . $matches[3];
+            if ($prefix) {
+                $matches[3] = implode(':', $prefix) . ':' . $matches[3];
+            }
         }
         $text = empty($matches[5]) ? $matches[3] : $matches[5];
         $matches[3] = trim($matches[3]);
@@ -237,7 +241,7 @@ class Text_Wiki_Parse_Wikilink extends Text_Wiki_Parse {
      * @param array &$matches The array of matches from parse().
      * @return string token to be used as replacement 
      */
-    function interwiki($name, $text, $interlang, $colon)
+    function interwiki($interwiki, $page, $text, $interlang, $colon)
     {
         return '';
     }
