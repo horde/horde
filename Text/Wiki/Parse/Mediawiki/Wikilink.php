@@ -49,6 +49,7 @@ class Text_Wiki_Parse_Wikilink extends Text_Wiki_Parse {
     var $conf = array(
         'spaceUnderscore' => true,
         'project' => array('demo', 'd'),
+        'url' => 'http://example.com/en/page=%s'
         'lang' => 'en'
     );
 
@@ -158,7 +159,8 @@ class Text_Wiki_Parse_Wikilink extends Text_Wiki_Parse {
             $count = count($prefix);
             $i = -1;
             // Autolink
-            if (in_array(trim($prefix[0]), $this->conf['project'])) {
+            if (isset($this->conf['project']) &&
+                    in_array(trim($prefix[0]), $this->conf['project'])) {
                 $auto = trim($prefix[0]);
                 unset($prefix[0]);
                 $i = 0;
@@ -200,10 +202,21 @@ class Text_Wiki_Parse_Wikilink extends Text_Wiki_Parse {
             return $this->image($matches[3] . (empty($matches[4]) ? '' : '#' . $matches[4]),
                                 $text, $interlang, $colon);
         }
+        if (!$interwiki && $interlang && isset($this->conf['url'])) {
+            if ($interlang == $this->conf['langage']) {
+                $interlang = '';
+            } else {
+                $interwiki = $this->conf['url'];
+            }
+        }
         if ($interwiki) {
             return $this->interwiki($interwiki,
                 $matches[3] . (empty($matches[4]) ? '' : '#' . $matches[4]),
                 $text, $interlang, $colon);
+        }
+        if ($interlang) {
+            $matches[3] = $interlang . ':' . $matches[3];
+            $text = (empty($matches[5]) ? $interlang . ':' : '') . $text;
         }
         // set the options
         $options = array(
