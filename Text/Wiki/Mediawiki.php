@@ -55,7 +55,7 @@ class Text_Wiki_Mediawiki extends Text_Wiki {
 //        'Deflist',
         'Table',
 //        'Box',
-        'Image',
+//        'Image', // done by Wikilink but still possible to disable/configure
 //        'Phplookup',
 //        'Center',
         'Newline',
@@ -74,7 +74,7 @@ class Text_Wiki_Mediawiki extends Text_Wiki {
 //        'Subscript',
 //        'Specialchar',
 //        'Revise',
-        'Interwiki',
+//        'Interwiki', // done by Wikilink but still possible to disable/configure
         'Tighten'
     );
 

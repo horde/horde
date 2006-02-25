@@ -49,8 +49,8 @@ class Text_Wiki_Parse_Wikilink extends Text_Wiki_Parse {
     var $conf = array(
         'spaceUnderscore' => true,
         'project' => array('demo', 'd'),
-        'url' => 'http://example.com/en/page=%s'
-        'lang' => 'en'
+        'url' => 'http://example.com/en/page=%s',
+        'langage' => 'en'
     );
 
     /**
@@ -75,7 +75,7 @@ class Text_Wiki_Parse_Wikilink extends Text_Wiki_Parse {
             'pear'   => 'http://pear.php.net/package/%s',
             'bugs'   => 'http://pear.php.net/package/%s/bugs'
         ),
-        'interlangage' => array('de', 'fr')
+        'interlangage' => array('en', 'de', 'fr')
     );
 
     /**
@@ -86,7 +86,7 @@ class Text_Wiki_Parse_Wikilink extends Text_Wiki_Parse {
      * @var string
      * @see Text_Wiki_Parse::parse()
      */
-    var $regex = '/(?<!\[)\[\[\s*(:?)((?:[^:]+:)+)?(.+)(?:#(.*))?\s*(?:\|(((?R))|.*))?]]/msU';
+    var $regex = '/(?<!\[)\[\[(?!\[)\s*(:?)((?:[^:]+:)+)?([^:]+)(?:#(.*))?\s*(?:\|(((?R))|.*))?]]/msU';
 
      /**
      * Constructor.
@@ -149,10 +149,10 @@ class Text_Wiki_Parse_Wikilink extends Text_Wiki_Parse {
      * @return string token to be used as replacement 
      */
     function process(&$matches)
-    {//var_dump($matches);
+    {
         // Starting colon ?
         $colon = !empty($matches[1]);
-        $auto = $interlang = $interwiki = $image = '';
+        $auto = $interlang = $interwiki = $image = $site = '';
         // Prefix ?
         if (!empty($matches[2])) {
             $prefix = explode(':', substr($matches[2], 0, -1));
@@ -183,6 +183,7 @@ class Text_Wiki_Parse_Wikilink extends Text_Wiki_Parse {
                 // interwiki
                 if (isset($this->interwikiConf['sites'][$prefix[$i]])) {
                     $interwiki = $this->interwikiConf['sites'][$prefix[$i]];
+                    $site = $prefix[$i];
                     unset($prefix[$i]);
                 }
                 break;
@@ -207,10 +208,11 @@ class Text_Wiki_Parse_Wikilink extends Text_Wiki_Parse {
                 $interlang = '';
             } else {
                 $interwiki = $this->conf['url'];
+                $site = isset($this->conf['project']) ? $this->conf['project'][0] : '';
             }
         }
         if ($interwiki) {
-            return $this->interwiki($interwiki,
+            return $this->interwiki($site, $interwiki,
                 $matches[3] . (empty($matches[4]) ? '' : '#' . $matches[4]),
                 $text, $interlang, $colon);
         }
@@ -231,9 +233,8 @@ class Text_Wiki_Parse_Wikilink extends Text_Wiki_Parse {
 
     /**
      * Generates an image token.  Token options are:
-     * - 'page' => the name of the target wiki page
-     * -'anchor' => the optional section in it
-     * - 'text' => the optional alternate link text
+     * - 'src' => the name of the image file
+     * - 'alt' => the optional alternate image text
      *
      * @access public
      * @param array &$matches The array of matches from parse().
@@ -241,22 +242,41 @@ class Text_Wiki_Parse_Wikilink extends Text_Wiki_Parse {
      */
     function image($name, $text, $interlang, $colon)
     {
-        return '';
+        $options = array(
+            'src' => ($interlang ? $interlang . ':' : '') . $name,
+            'attr' => array('alt' => $text));
+
+        // create and return the replacement token
+        return $this->wiki->addToken('Image', $options);
     }
 
     /**
      * Generates an interwiki token.  Token options are:
      * - 'page' => the name of the target wiki page
-     * -'anchor' => the optional section in it
+     * - 'site' => the key for external site
+     * - 'url'  => the full target url
      * - 'text' => the optional alternate link text
      *
      * @access public
      * @param array &$matches The array of matches from parse().
      * @return string token to be used as replacement 
      */
-    function interwiki($interwiki, $page, $text, $interlang, $colon)
+    function interwiki($site, $interwiki, $page, $text, $interlang, $colon)
     {
-        return '';
+        if ($interlang) {
+            $interwiki = preg_replace('/\b' . $this->conf['langage'] . '\b/i',
+                            $interlang, $interwiki);
+        }
+        // set the options
+        $options = array(
+            'page' => $page,
+            'site' => $site,
+            'url'  => sprintf($interwiki, $page),
+            'text' => $text
+        );
+
+        // create and return the replacement token
+        return $this->wiki->addToken('Interwiki', $options);
     }
 }
 ?>
