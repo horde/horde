@@ -68,9 +68,11 @@ class Text_Wiki_Parse_Wikilink extends Text_Wiki_Parse {
 		}
 		
         // described wiki links
-        $tmp_regex = '/\[\[(['.$either.'\s:\.]*?)'. //beginning and page name
+        $tmp_regex = '/\[\['. //start
+            '(['.$either.'\s:\.]*?)'. //page name
             '(\#['.$either.'\s:\.]+?)?'. //anchor
-            '(\|([^'.$this->wiki->delim.'\]]+?))?\]\]/'; //description
+            '(\|([^'.$this->wiki->delim.'\]]+?))?'. //description
+            '\]\]/'; //end
         $this->wiki->source = preg_replace_callback(
             $tmp_regex,
             array(&$this, 'processDescr'),
@@ -98,18 +100,19 @@ class Text_Wiki_Parse_Wikilink extends Text_Wiki_Parse {
         $options = array(
             'page'   => $matches[1],
             'text'   => isset($matches[4]) && strlen($matches[4]) ? $matches[4] : $matches[1],
-            'anchor' => isset($matches[2]) && strlen($matches[2]) ? $matches[2] : $matches[1]
+            'anchor' => isset($matches[2]) && strlen($matches[2]) ? $matches[2] : ''
         );
-        if ($options['text'] == $options['page']) {
+        /*if ($options['text'] == $options['page']) {
             $options['text'] = '';
-        }
+        }*/
         
         // create and return the replacement token and preceding text
-        return $this->wiki->addToken($this->rule,
+        $this->wiki->addToken($this->rule, $options);
+        /*return $this->wiki->addToken($this->rule,
                                      array_merge(array('type' => 'start'), $options)).
             $options['text'].
             $this->wiki->addToken($this->rule,
-                                  array_merge(array('type' => 'end'), $options));
+                                  array_merge(array('type' => 'end'), $options));*/
                                         
     }
 }
