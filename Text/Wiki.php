@@ -343,10 +343,11 @@ class Text_Wiki {
     * @access public
     *
     * @param array $rules The set of rules to load for this object.
+    * @param string $parser The parser to be used (defaults to 'Default').
     *
     */
 
-    function Text_Wiki($rules = null)
+    function Text_Wiki($rules = null, $parser = 'Default')
     {
         if (is_array($rules)) {
             $this->rules = $rules;
@@ -354,7 +355,7 @@ class Text_Wiki {
 
         $this->addPath(
             'parse',
-            $this->fixPath(dirname(__FILE__)) . 'Wiki/Parse/Default/'
+            $this->fixPath(dirname(__FILE__)) . 'Wiki/Parse/' . $parser . '/'
         );
 
         $this->addPath(
@@ -365,36 +366,51 @@ class Text_Wiki {
     }
 
     /**
-    * Singleton
+    * Singleton.
+    *
+    * This avoids instantiating multiple Text_Wiki instances where a number
+    * of objects are required in one call, e.g. to save memory in a
+    * CMS invironment where several parsers are required in a single page.
+    *
     * $single = & singleton();
+    *
     * or
-    * $single = & singleton( 'parser',
-    *                       array('Prefilter', 'Delimiter', 'Code', 'Function',
+    *
+    * $single = & singleton( array('Prefilter', 'Delimiter', 'Code', 'Function',
     *   'Html', 'Raw', 'Include', 'Embed', 'Anchor', 'Heading', 'Toc', 'Horiz',
     *   'Break', 'Blockquote', 'List', 'Deflist', 'Table', 'Image', 'Phplookup',
     *   'Center', 'Newline', 'Paragraph', 'Url', 'Freelink', 'Interwiki', 'Wikilink',
     *   'Colortext', 'Strong', 'Bold', 'Emphasis', 'Italic', 'Underline', 'Tt',
-    *   'Superscript', 'Subscript', 'Revise', 'Tighten'));
-    * a subset of this list, order is important !
-    * static method indicated for cms needing several parsing in a session
-    * then $single->setParseConf(), setRenderConf() or setFormatConf() as usual
-    * no dependency on rules only on parser name
+    *   'Superscript', 'Subscript', 'Revise', 'Tighten'),
+    *   'parser' );
+    *
+    * Call using a subset of this list.  The order of passing rulesets in the
+    * $rules array is important!
+    *
+    * After calling this, call $single->setParseConf(), setRenderConf() or setFormatConf()
+    * as usual for a constructed object of this class.
+    *
+    * The internal static array of singleton objects has no index on the parser
+    * rules, the only index is on the parser name.  So if you call this multiple
+    * times with different rules but the same parser name, you will get the same
+    * static parser object each time.
     *
     * @access public
     * @static
     * @since Method available since Release 1.1.0
-    * @param array $rules The set of rules to instanciate the object.
-    * @return &object a reference to the Text_Wiki unique instanciation
+    * @param array $rules   The set of rules to instantiate the object.
+    * @param string $parser The parser to be used (defaults to 'Default').
+    * @return &object a reference to the Text_Wiki unique instantiation.
     */
-    function &singleton($parser = 'Default', $rules = null)
+    function &singleton($rules = null, $parser = 'Default')
     {
         static $only = array();
         if (!isset($only[$parser])) {
             $class = 'Text_Wiki';
             // load the class file if not this one
             if ($parser != 'Default') {
-                require_once 'Text/Wiki/'.$parser.'.php';
-                $class = 'Text_Wiki_'.$parser;
+                include_once 'Text/Wiki/' . $parser . '.php';
+                $class = 'Text_Wiki_' . $parser;
             }
             $only[$parser] = & new $class($rules);
         }
@@ -912,7 +928,7 @@ class Text_Wiki {
         // load the format object, or crap out if we can't find it
         $result = $this->loadFormatObj($format);
         if ($this->isError($result)) {
-        	return $result;
+            return $result;
         }
 
         // pre-rendering activity
@@ -1152,7 +1168,7 @@ class Text_Wiki {
                 $this->parseObj[$rule] = null;
                 // can't find the class
                 return $this->error(
-                	"Parse rule '$rule' not found"
+                    "Parse rule '$rule' not found"
                 );
             }
         }
@@ -1188,7 +1204,7 @@ class Text_Wiki {
             } else {
                 // can't find the class
                 return $this->error(
-                	"Render rule '$rule' in format '$format' not found"
+                    "Render rule '$rule' in format '$format' not found"
                 );
             }
         }
@@ -1221,7 +1237,7 @@ class Text_Wiki {
             } else {
                 // can't find the class
                 return $this->error(
-                	"Rendering format class '$class' not found"
+                    "Rendering format class '$class' not found"
                 );
             }
         }
@@ -1351,10 +1367,10 @@ class Text_Wiki {
 
     function &error($message)
     {
-    	if (! class_exists('PEAR_Error')) {
-    		include_once 'PEAR.php';
-    	}
-    	return PEAR::throwError($message);
+        if (! class_exists('PEAR_Error')) {
+            include_once 'PEAR.php';
+        }
+        return PEAR::throwError($message);
     }
 
 
@@ -1372,7 +1388,7 @@ class Text_Wiki {
 
     function isError(&$obj)
     {
-    	return is_a($obj, 'PEAR_Error');
+        return is_a($obj, 'PEAR_Error');
     }
 }
 
