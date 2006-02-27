@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<!-- $Id: package.xml,v 1.47 2005-11-08 19:15:02 toggg Exp $ -->
+<!-- $Id: package.xml,v 1.48 2006-02-27 19:10:27 toggg Exp $ -->
 <package version="1.0">
     <name>Text_Wiki</name>
     <summary>Abstracts parsing and rendering rules for any markup as Wiki or BBCode in structured plain text.</summary>
@@ -20,6 +20,12 @@ Used for versatile transformers as well as converters.</description>
             <role>developer</role>
         </maintainer>
         <maintainer>
+            <user>delatbabel</user>
+            <name>Del Elson</name>
+            <email>delatbabel@php.net</email>
+            <role>developer</role>
+        </maintainer>
+        <maintainer>
             <user>toggg</user>
             <name>bertrand Gugger</name>
             <email>bertrand@toggg.com</email>
@@ -27,12 +33,11 @@ Used for versatile transformers as well as converters.</description>
         </maintainer>
      </maintainers>
     <release>
-        <version>1.0.3</version>
-        <date>2005-11-08</date>
+        <version>1.1.0</version>
+        <date>2006-03-01</date>
         <license>LGPL</license>
         <state>stable</state>
         <notes>
-This is a bug fix release, the Bug #5863: mixed &lt;ul&gt; &lt;ol&gt; when using * and # fix introduced a potential BBC: Bug #5879 Nested lists to do not parse properly in Text_Wiki
         </notes>
         <filelist>
 
@@ -229,6 +234,15 @@ This is a bug fix release, the Bug #5863: mixed &lt;ul&gt; &lt;ol&gt; when using
         </filelist>
     </release>
   <changelog>
+    <release>
+        <version>1.0.3</version>
+        <date>2005-11-08</date>
+        <license>LGPL</license>
+        <state>stable</state>
+        <notes>
+This is a bug fix release, the Bug #5863: mixed &lt;ul&gt; &lt;ol&gt; when using * and # fix introduced a potential BBC: Bug #5879 Nested lists to do not parse properly in Text_Wiki
+        </notes>
+    </release>
     <release>
         <version>1.0.2</version>
         <date>2005-11-06</date>
