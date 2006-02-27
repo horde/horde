@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<!-- $Id: package.xml,v 1.49 2006-02-27 19:42:36 toggg Exp $ -->
+<!-- $Id: package.xml,v 1.50 2006-02-27 20:40:49 toggg Exp $ -->
 <package version="1.0">
     <name>Text_Wiki</name>
     <summary>Abstracts parsing and rendering rules for any markup as Wiki or BBCode in structured plain text.</summary>
@@ -40,11 +40,22 @@ Used for versatile transformers as well as converters.</description>
         <notes>
 This is a major release as we reduce globaly resource usage
 # instanciate renders only as needed
-# singleton() static method to get a single object instanciated pro parser
+# singleton() static method to get a single object instanciated pro parser (merci davidc for advices)
 Renders now have their own methods for:
 # text: textEncode() defaulted to php htmlspecialchars()
   for Xhtml render to the text encoding choosed in conf (#5953, thanks jocke at selincite dot com)
-# url:  urlEncode() defaulted to the php rawurlencode()
+# url: urlEncode() defaulted to the php rawurlencode()
+Wiki general:
+Correct the key used in changeRule(), ensure no double new rule.
+Page names and anchors Urlencode() as render required (e.g. may contain spaces)
+Interwiki: parser may now give the full url instead of site+page (Mediawiki need)
+Improved test.
+Latex render:
+Only variables should be assigned by reference (#6010, thanks twells at smarterliving dot com)
+Plain render:
+# Interwiki: Complete the rendering with indication of (url) or (site:page)
+Xhtml render:
+# Rendering Fix for Tables (Missing Whitespace) (thanks ritzmo)
         </notes>
         <filelist>
 
