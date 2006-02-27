@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<!-- $Id: package.xml,v 1.48 2006-02-27 19:10:27 toggg Exp $ -->
+<!-- $Id: package.xml,v 1.49 2006-02-27 19:42:36 toggg Exp $ -->
 <package version="1.0">
     <name>Text_Wiki</name>
     <summary>Abstracts parsing and rendering rules for any markup as Wiki or BBCode in structured plain text.</summary>
@@ -38,6 +38,13 @@ Used for versatile transformers as well as converters.</description>
         <license>LGPL</license>
         <state>stable</state>
         <notes>
+This is a major release as we reduce globaly resource usage
+# instanciate renders only as needed
+# singleton() static method to get a single object instanciated pro parser
+Renders now have their own methods for:
+# text: textEncode() defaulted to php htmlspecialchars()
+  for Xhtml render to the text encoding choosed in conf (#5953, thanks jocke at selincite dot com)
+# url:  urlEncode() defaulted to the php rawurlencode()
         </notes>
         <filelist>
 
