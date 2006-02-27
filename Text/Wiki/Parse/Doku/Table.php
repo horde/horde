@@ -1,88 +1,88 @@
 <?php
 
 /**
-* 
-* Parses for table markup.
-* 
-* @category Text
-* 
-* @package Text_Wiki
-* 
-* @author Paul M. Jones <pmjones@php.net>
-* 
-* @license LGPL
-* 
-* @version $Id$
-* 
-*/
+ * 
+ * Parses for table markup.
+ * 
+ * @category Text
+ * 
+ * @package Text_Wiki
+ * 
+ * @author Paul M. Jones <pmjones@php.net>
+ * 
+ * @license LGPL
+ * 
+ * @version $Id$
+ * 
+ */
 
 /**
-* 
-* Parses for table markup.
-* 
-* This class implements a Text_Wiki_Parse to find source text marked as a
-* set of table rows, where a line start and ends with double-pipes (||)
-* and uses double-pipes to separate table cells.  The rows must be on
-* sequential lines (no blank lines between them) -- a blank line
-* indicates the beginning of a new table.
-*
-* @category Text
-* 
-* @package Text_Wiki
-* 
-* @author Paul M. Jones <pmjones@php.net>
-* 
-*/
+ * 
+ * Parses for table markup.
+ * 
+ * This class implements a Text_Wiki_Parse to find source text marked as a
+ * set of table rows, where a line start and ends with double-pipes (||)
+ * and uses double-pipes to separate table cells.  The rows must be on
+ * sequential lines (no blank lines between them) -- a blank line
+ * indicates the beginning of a new table.
+ *
+ * @category Text
+ * 
+ * @package Text_Wiki
+ * 
+ * @author Paul M. Jones <pmjones@php.net>
+ * 
+ */
 
 class Text_Wiki_Parse_Table extends Text_Wiki_Parse {
     
     
     /**
-    * 
-    * The regular expression used to parse the source text and find
-    * matches conforming to this rule.  Used by the parse() method.
-    * 
-    * @access public
-    * 
-    * @var string
-    * 
-    * @see parse()
-    * 
-    */
+     * 
+     * The regular expression used to parse the source text and find
+     * matches conforming to this rule.  Used by the parse() method.
+     * 
+     * @access public
+     * 
+     * @var string
+     * 
+     * @see parse()
+     * 
+     */
     
     var $regex = '/((\n|^)[\|\^][^\n]+[\|\^]\n([\|\^][^\n]+[\|\^](\n|$))*)/s';
     
     
     /**
-    * 
-    * Generates a replacement for the matched text.
-    * 
-    * Token options are:
-    * 
-    * 'type' =>
-    *     'table_start' : the start of a bullet list
-    *     'table_end'   : the end of a bullet list
-    *     'row_start' : the start of a number list
-    *     'row_end'   : the end of a number list
-    *     'cell_start'   : the start of item text (bullet or number)
-    *     'cell_end'     : the end of item text (bullet or number)
-    * 
-    * 'cols' => the number of columns in the table (for 'table_start')
-    * 
-    * 'rows' => the number of rows in the table (for 'table_start')
-    * 
-    * 'span' => column span (for 'cell_start')
-    * 
-    * 'attr' => column attribute flag (for 'cell_start')
-    * 
-    * @access public
-    *
-    * @param array &$matches The array of matches from parse().
-    *
-    * @return A series of text and delimited tokens marking the different
-    * table elements and cell text.
-    *
-    */
+     * 
+     * Generates a replacement for the matched text.
+     * 
+     * Token options are:
+     * 
+     * 'type' =>
+     *     'table_start' : the start of a bullet list
+     *     'table_end'   : the end of a bullet list
+     *     'row_start' : the start of a number list
+     *     'row_end'   : the end of a number list
+     *     'cell_start'   : the start of item text (bullet or number)
+     *     'cell_end'     : the end of item text (bullet or number)
+     * 
+     * 'cols' => the number of columns in the table (for 'table_start')
+     * 
+     * 'rows' => the number of rows in the table (for 'table_start')
+     * 
+     * 'span' => column span (for 'cell_start')
+     * 
+     * 'attr' => column attribute flag (for 'cell_start')
+     * 
+     * @access public
+     *
+     * @param array &$matches The array of matches from parse().
+     *
+     * @return A series of text and delimited tokens marking the different
+     * table elements and cell text.
+     *
+     */
     
     function process(&$matches)
     {
@@ -197,6 +197,7 @@ class Text_Wiki_Parse_Table extends Text_Wiki_Parse {
 
     function cellToken($row, $cell, $span) {
         $return = '';
+        $attr = '';
         if ($row[$cell[1] - 1] == '^') {
             $attr = 'header';
         } else {
