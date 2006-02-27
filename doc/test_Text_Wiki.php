@@ -23,7 +23,7 @@ if (in_array(php_sapi_name(), array('cli', 'cgi'))) {
     $parser = isset($_SERVER['argv'][1]) ? $_SERVER['argv'][1] : 'BBCode';
     $render = isset($_SERVER['argv'][2]) ? $_SERVER['argv'][2] : 'Xhtml';
     if (!isset($_SERVER['argv'][3]) or !is_readable($sou = $_SERVER['argv'][3])) {
-    	die("Enter a text file to be processed as 3d argument\n First and second are parser and renderer\n");
+        die("Enter a text file to be processed as 3d argument\n First and second are parser and renderer\n");
     }
     $source = file_get_contents ($sou);
 } else {
@@ -53,7 +53,7 @@ if (in_array(php_sapi_name(), array('cli', 'cgi'))) {
 }
 
 // instantiate a Text_Wiki object from the given class
-$wiki = & Text_Wiki::singleton($parser);
+$wiki = & Text_Wiki::singleton(null, $parser);
 
 // when rendering XHTML, make sure wiki links point to a
 // specific base URL
@@ -161,7 +161,7 @@ function findExamples($dir=null) {
     while ($subfil = readdir($dh)) {
         if (!is_dir($subfil) && is_readable($subfil)
             && (substr($subfil, -4) == '.txt')) {
-        	$ret[] = $subfil;
+            $ret[] = $subfil;
         }
     }
     closedir($dh);
