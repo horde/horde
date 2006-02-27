@@ -1,46 +1,46 @@
 <?php
 
 /**
-* 
-* Parse for links to wiki pages.
-* 
-* @category Text
-* 
-* @package Text_Wiki
-* 
-* @author Paul M. Jones <pmjones@php.net>
-* 
-* @license LGPL
-* 
-* @version $Id$
-* 
-*/
+ * 
+ * Parse for links to wiki pages.
+ * 
+ * @category Text
+ * 
+ * @package Text_Wiki
+ * 
+ * @author Paul M. Jones <pmjones@php.net>
+ * 
+ * @license LGPL
+ * 
+ * @version $Id$
+ * 
+ */
 
 /**
-* 
-* Parse for links to wiki pages.
-*
-* Wiki page names are typically in StudlyCapsStyle made of
-* WordsSmashedTogether.
-*
-* You can also create described links to pages in this style:
-* [WikiPageName nice text link to use for display]
-*
-* The token options for this rule are:
-*
-* 'page' => the wiki page name.
-* 
-* 'text' => the displayed link text.
-* 
-* 'anchor' => a named anchor on the target wiki page.
-* 
-* @category Text
-* 
-* @package Text_Wiki
-* 
-* @author Paul M. Jones <pmjones@php.net>
-* 
-*/
+ * 
+ * Parse for links to wiki pages.
+ *
+ * Wiki page names are typically in StudlyCapsStyle made of
+ * WordsSmashedTogether.
+ *
+ * You can also create described links to pages in this style:
+ * [WikiPageName nice text link to use for display]
+ *
+ * The token options for this rule are:
+ *
+ * 'page' => the wiki page name.
+ * 
+ * 'text' => the displayed link text.
+ * 
+ * 'anchor' => a named anchor on the target wiki page.
+ * 
+ * @category Text
+ * 
+ * @package Text_Wiki
+ * 
+ * @author Paul M. Jones <pmjones@php.net>
+ * 
+ */
 
 class Text_Wiki_Parse_Wikilink extends Text_Wiki_Parse {
     
@@ -50,21 +50,21 @@ class Text_Wiki_Parse_Wikilink extends Text_Wiki_Parse {
     
     
     /**
-    * 
-    * First parses for described links, then for standalone links.
-    * 
-    * @access public
-    * 
-    * @return void
-    * 
-    */
+     * 
+     * First parses for described links, then for standalone links.
+     * 
+     * @access public
+     * 
+     * @return void
+     * 
+     */
     
     function parse()
     {
         if ($this->getConf('ext_chars')) {
 			$either = "A-Za-z0-9\xc0-\xfe";
 		} else {
-			$either = "A-Za-z0-9";
+			$either = 'A-Za-z0-9';
 		}
 		
         // described wiki links
@@ -80,25 +80,25 @@ class Text_Wiki_Parse_Wikilink extends Text_Wiki_Parse {
     
     
     /**
-    * 
-    * Generate a replacement for described links.
-    * 
-    * @access public
-    *
-    * @param array &$matches The array of matches from parse().
-    *
-    * @return A delimited token to be used as a placeholder in
-    * the source text, plus any text priot to the match.
-    *
-    */
+     * 
+     * Generate a replacement for described links.
+     * 
+     * @access public
+     *
+     * @param array &$matches The array of matches from parse().
+     *
+     * @return A delimited token to be used as a placeholder in
+     * the source text, plus any text priot to the match.
+     *
+     */
     
     function processDescr(&$matches)
     {
         // set the options
         $options = array(
             'page'   => $matches[1],
-            'text'   => strlen($matches[4]) ? $matches[4] : $matches[1],
-            'anchor' => $matches[2]
+            'text'   => isset($matches[4]) && strlen($matches[4]) ? $matches[4] : $matches[1],
+            'anchor' => isset($matches[2]) && strlen($matches[2]) ? $matches[2] : $matches[1]
         );
         if ($options['text'] == $options['page']) {
             $options['text'] = '';
