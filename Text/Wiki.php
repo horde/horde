@@ -342,9 +342,12 @@ class Text_Wiki {
     *
     * @access public
     *
-    * @param array $rules The set of rules to load for this object.
+    * @param array $rules The set of rules to load for this object.  Defaults
+    *   to null, which will load the default ruleset for this parser.
     * @param string $parser The parser to be used (defaults to 'Default').
-    *
+    *   For non-Default parsers, consider using the singleton() method instead
+    *   as the fetching of the rulesets from non-Default parsers causes an
+    *   extra object instantiation, which is slower.
     */
 
     function Text_Wiki($rules = null, $parser = 'Default')
@@ -355,8 +358,27 @@ class Text_Wiki {
 
         $this->addPath(
             'parse',
-            $this->fixPath(dirname(__FILE__)) . 'Wiki/Parse/' . $parser . '/'
+            $this->fixPath(dirname(__FILE__)) . 'Wiki/Parse/Default/'
         );
+        if ($parser != 'Default') {
+            $this->addPath(
+                'parse',
+                $this->fixPath(dirname(__FILE__)) . 'Wiki/Parse/' . $parser . '/'
+            );
+
+            //
+            // Get ruleset from class by creating a throw-away object.  It
+            // would be good to be able to return the object, but this would
+            // (a) risk causing recursion and (b) break PHP 4 < 4.3 that can't
+            // return an object from a constructor of the wrong type.
+            //
+            if (empty($rules)) {
+                include_once 'Text/Wiki/' . $parser . '.php';
+                $class = 'Text_Wiki_' . $parser;
+                $testobject =& new $class;
+                $this->rules = $testobject->rules;
+            }
+        }
 
         $this->addPath(
             'render',
