@@ -162,6 +162,9 @@ class Text_Wiki_Render_Xhtml_Wikilink extends Text_Wiki_Render {
                 $end = '<a'.$css.' href="'.$href.'">'.$new.'</a>';
             }
         }
+        if (!strlen($text)) {
+            $start .= $page;
+        }
         if (isset($type)) {
             switch ($type) {
             case 'start':
