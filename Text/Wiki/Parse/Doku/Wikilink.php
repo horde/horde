@@ -99,12 +99,9 @@ class Text_Wiki_Parse_Wikilink extends Text_Wiki_Parse {
         // set the options
         $options = array(
             'page'   => $matches[1],
-            'text'   => isset($matches[4]) && strlen($matches[4]) ? $matches[4] : $matches[1],
+            'text'   => isset($matches[4]) && strlen($matches[4]) ? $matches[4] : '',
             'anchor' => isset($matches[2]) && strlen($matches[2]) ? $matches[2] : ''
         );
-        /*if ($options['text'] == $options['page']) {
-            $options['text'] = '';
-        }*/
         
         // create and return the replacement token and preceding text
         
