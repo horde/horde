@@ -163,7 +163,7 @@ class Text_Wiki_Render_Xhtml_Wikilink extends Text_Wiki_Render {
             }
         }
         if (!strlen($text)) {
-            $start .= $page;
+            $start .= $this->textEncode($options['page']);
         }
         if (isset($type)) {
             switch ($type) {
