@@ -107,12 +107,16 @@ class Text_Wiki_Parse_Wikilink extends Text_Wiki_Parse {
         }*/
         
         // create and return the replacement token and preceding text
-        return $this->wiki->addToken($this->rule, $options);
-        /*return $this->wiki->addToken($this->rule,
+        
+        //old style, return a single token
+        //return $this->wiki->addToken($this->rule, $options);
+
+        //new style, return start and end tokens around the link text
+        return $this->wiki->addToken($this->rule,
                                      array_merge(array('type' => 'start'), $options)).
             $options['text'].
             $this->wiki->addToken($this->rule,
-                                  array_merge(array('type' => 'end'), $options));*/
+                                  array_merge(array('type' => 'end'), $options));
                                         
     }
 }
