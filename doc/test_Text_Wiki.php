@@ -53,13 +53,13 @@ if (in_array(php_sapi_name(), array('cli', 'cgi'))) {
 }
 
 // instantiate a Text_Wiki object from the given class
-$wiki = & Text_Wiki::singleton(null, $parser);
+$wiki = & Text_Wiki::mill(null, $parser);
 
 // Wiki.php 1.37 and prior, use this:
-#$wiki = & Text_Wiki::singleton($parser);
+#$wiki = & Text_Wiki::mill($parser);
 
 // include this line of code instead to test creating an object
-// using the constructor rather than the singleton method.
+// using the constructor rather than the mill method.
 #$wiki = new Text_Wiki(null, $parser);
 
 #print "<pre>\n";
