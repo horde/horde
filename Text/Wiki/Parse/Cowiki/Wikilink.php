@@ -153,8 +153,8 @@ class Text_Wiki_Parse_Wikilink extends Text_Wiki_Parse {
         // set the options
         $options = array(
             'page'   => $matches[1],
-            'text'   => strlen($matches[6]) ? $matches[6] : $matches[1],
-            'anchor' => $matches[3]
+            'text'   => isset($matches[6]) && strlen($matches[6]) ? $matches[6] : $matches[1],
+            'anchor' => isset($matches[3]) && strlen($matches[3]) ? $matches[3] : ''
         );
         if ($options['text'] == $options['page']) {
             $options['text'] = '';
@@ -191,6 +191,9 @@ class Text_Wiki_Parse_Wikilink extends Text_Wiki_Parse {
         /*if ($matches[3]{0} == '!') {
             return $matches[1] . substr($matches[3], 1) . $matches[4] . $matches[7];
         }*/
+        if (!isset($matches[4])) {
+            $matches[4] = '';
+        }
         if ($matches[2] == '))' && $matches[7] == '((') {
             return $matches[1] . $matches[3] . $matches[4];
         }

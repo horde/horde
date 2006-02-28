@@ -95,8 +95,8 @@ class Text_Wiki_Parse_Interwiki extends Text_Wiki_Parse {
     {
         $options = array(
             'site' => $matches[1],
-            'page' => $matches[2],
-            'text' => strlen($matches[2]) ? $matches[2] : $matches[1]
+            'page' => isset($matches[2]) ? $matches[2] : '',
+            'text' => isset($matches[2]) && strlen($matches[2]) ? $matches[2] : $matches[1]
         );
         
         return $this->wiki->addToken($this->rule, $options);
@@ -129,7 +129,11 @@ class Text_Wiki_Parse_Interwiki extends Text_Wiki_Parse {
         $options = array(
             'site' => $matches[1],
             'page' => $matches[2],
-            'text' => strlen($matches[4]) ? $matches[4] : (strlen($matches[2]) ? $matches[2] : $matches[1])
+            'text' => (isset($matches[4]) && strlen($matches[4])
+                       ? $matches[4]
+                       : (isset($matches[2]) && strlen($matches[2])
+                          ? $matches[2]
+                          : $matches[1]))
         );
         
         return $this->wiki->addToken($this->rule, $options);
