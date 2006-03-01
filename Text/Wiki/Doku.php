@@ -37,7 +37,7 @@ class Text_Wiki_Doku extends Text_Wiki {
 
     function Text_Wiki_Doku($rules = null) {
         parent::Text_Wiki($rules);
-        $pathes = $this->getPath('parse');
-        $this->addPath('parse', preg_replace('#Default#', 'Doku', $pathes[0]));
+        $paths = $this->getPath('parse');
+        $this->addPath('parse', str_replace('Default', 'Doku', $paths[0]));
     }
 }

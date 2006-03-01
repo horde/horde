@@ -37,7 +37,7 @@ class Text_Wiki_Cowiki extends Text_Wiki {
 
     function Text_Wiki_Cowiki() {
         parent::Text_Wiki();
-        $pathes = $this->getPath('parse');
-        $this->addPath('parse', preg_replace('#Default#', 'Cowiki', $pathes[0]));
+        $paths = $this->getPath('parse');
+        $this->addPath('parse', str_replace('Default', 'Cowiki', $paths[0]));
     }
 }
