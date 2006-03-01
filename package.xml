@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<!-- $Id: package.xml,v 1.51 2006-03-01 16:58:17 justinpatrin Exp $ -->
+<!-- $Id: package.xml,v 1.52 2006-03-01 18:48:45 toggg Exp $ -->
 <package version="1.0">
     <name>Text_Wiki</name>
     <summary>Abstracts parsing and rendering rules for any markup as Wiki or BBCode in structured plain text.</summary>
@@ -17,7 +17,7 @@ Used for versatile transformers as well as converters.</description>
             <user>justinpatrin</user>
             <name>Justin Patrin</name>
             <email>justinpatrin@php.net</email>
-            <role>developer</role>
+            <role>lead</role>
         </maintainer>
         <maintainer>
             <user>delatbabel</user>
@@ -40,13 +40,13 @@ Used for versatile transformers as well as converters.</description>
         <notes><![CDATA[
 This is a major release as we reduce global resource usage
 # instantiate renderers only as needed
+# factory() method introduced for instantiating Text_Wiki objects
 # singleton() static method to get a single object instanciated pro parser (merci davidc for advices)
 
-A factory() method has been introduced for instantiating Renderer objects
-
 The constructor is now deprecated in favor of the new singleton() or factory() methods
+Default also have its own class now, wich means Text_Wiki is a pure abstract class
 
-Renders now have their own methods for:
+Renderers now have their own methods for:
 # text: textEncode() defaulted to php htmlspecialchars()
   for Xhtml render to the text encoding choosed in conf (#5953, thanks jocke at selincite dot com)
 # url: urlEncode() defaulted to the php rawurlencode()
@@ -67,6 +67,10 @@ Xhtml render:
 # Rendering Fix for Tables (Missing Whitespace) (thanks ritzmo)
 # Added support for two-token URLs
 ## This allows formatting within URL text and proper rendering into other Wiki dialects (assuming that your parser supports the new feature. The Default parser does not yet support this.)
+
+Maintainers:
+# Del , one of the funders of the original code fully as pear developer
+# JustinP is now lead
         ]]></notes>
         <filelist>
 
@@ -75,6 +79,8 @@ Xhtml render:
             </file>
 
             <file role="php" name="Text/Wiki/Parse.php" />
+
+            <file role="php" name="Text/Wiki/Default.php" />
 
             <file role="php" name="Text/Wiki/Parse/Default/Anchor.php" />
             <file role="php" name="Text/Wiki/Parse/Default/Blockquote.php" />
