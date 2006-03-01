@@ -345,7 +345,7 @@ class Text_Wiki {
     * @param array $rules The set of rules to load for this object.  Defaults
     *   to null, which will load the default ruleset for this parser.
     * @param string $parser The parser to be used (defaults to 'Default').
-    *   For non-Default parsers, consider using the mill() method instead
+    *   For non-Default parsers, consider using the singleton() method instead
     *   as the fetching of the rulesets from non-Default parsers causes an
     *   extra object instantiation, which is slower.
     */
@@ -388,17 +388,17 @@ class Text_Wiki {
     }
 
     /**
-    * mill.
+    * Singleton.
     *
     * This avoids instantiating multiple Text_Wiki instances where a number
     * of objects are required in one call, e.g. to save memory in a
     * CMS invironment where several parsers are required in a single page.
     *
-    * $single = & mill();
+    * $single = & singleton();
     *
     * or
     *
-    * $single = & mill( array('Prefilter', 'Delimiter', 'Code', 'Function',
+    * $single = & singleton( array('Prefilter', 'Delimiter', 'Code', 'Function',
     *   'Html', 'Raw', 'Include', 'Embed', 'Anchor', 'Heading', 'Toc', 'Horiz',
     *   'Break', 'Blockquote', 'List', 'Deflist', 'Table', 'Image', 'Phplookup',
     *   'Center', 'Newline', 'Paragraph', 'Url', 'Freelink', 'Interwiki', 'Wikilink',
@@ -412,7 +412,7 @@ class Text_Wiki {
     * After calling this, call $single->setParseConf(), setRenderConf() or setFormatConf()
     * as usual for a constructed object of this class.
     *
-    * The internal static array of mill objects has no index on the parser
+    * The internal static array of singleton objects has no index on the parser
     * rules, the only index is on the parser name.  So if you call this multiple
     * times with different rules but the same parser name, you will get the same
     * static parser object each time.
@@ -424,7 +424,7 @@ class Text_Wiki {
     * @param string $parser The parser to be used (defaults to 'Default').
     * @return &object a reference to the Text_Wiki unique instantiation.
     */
-    function &mill($rules = null, $parser = 'Default')
+    function &singleton($rules = null, $parser = 'Default')
     {
         static $only = array();
         if (!isset($only[$parser])) {
