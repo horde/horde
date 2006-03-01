@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<!-- $Id: package.xml,v 1.52 2006-03-01 18:48:45 toggg Exp $ -->
+<!-- $Id: package.xml,v 1.53 2006-03-01 23:06:34 toggg Exp $ -->
 <package version="1.0">
     <name>Text_Wiki</name>
     <summary>Abstracts parsing and rendering rules for any markup as Wiki or BBCode in structured plain text.</summary>
@@ -34,7 +34,7 @@ Used for versatile transformers as well as converters.</description>
      </maintainers>
     <release>
         <version>1.1.0</version>
-        <date>2006-03-01</date>
+        <date>2006-03-02</date>
         <license>LGPL</license>
         <state>stable</state>
         <notes><![CDATA[
