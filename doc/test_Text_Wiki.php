@@ -53,18 +53,17 @@ if (in_array(php_sapi_name(), array('cli', 'cgi'))) {
 }
 
 // instantiate a Text_Wiki object from the given class
-$wiki = & Text_Wiki::singleton(null, $parser);
+$wiki = & Text_Wiki::singleton($parser);
 
-// Wiki.php 1.37 and prior, use this:
-#$wiki = & Text_Wiki::singleton($parser);
+// If you want to include rules, use
+//$wiki = & Text_Wiki::singleton($parser, $rules);
 
-// include this line of code instead to test creating an object
-// using the constructor rather than the singleton method.
-#$wiki = new Text_Wiki(null, $parser);
+// If you want to get a new copy of the class use factory
+//$wiki =& Text_Wiki::factory($parser);
 
-#print "<pre>\n";
-#print_r($wiki);
-#print "</pre>\n";
+//print "<pre>\n";
+//print_r($wiki);
+//print "</pre>\n";
 
 // when rendering XHTML, make sure wiki links point to a
 // specific base URL

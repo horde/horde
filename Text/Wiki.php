@@ -340,17 +340,16 @@ class Text_Wiki {
     *
     * Constructor.
     *
+    * **DEPRECATED**
+    * Please use the singleton() or factory() methods.
+    *
     * @access public
     *
     * @param array $rules The set of rules to load for this object.  Defaults
     *   to null, which will load the default ruleset for this parser.
-    * @param string $parser The parser to be used (defaults to 'Default').
-    *   For non-Default parsers, consider using the singleton() method instead
-    *   as the fetching of the rulesets from non-Default parsers causes an
-    *   extra object instantiation, which is slower.
     */
 
-    function Text_Wiki($rules = null, $parser = 'Default')
+    function Text_Wiki($rules = null)
     {
         if (is_array($rules)) {
             $this->rules = $rules;
@@ -360,26 +359,6 @@ class Text_Wiki {
             'parse',
             $this->fixPath(dirname(__FILE__)) . 'Wiki/Parse/Default/'
         );
-        if ($parser != 'Default') {
-            $this->addPath(
-                'parse',
-                $this->fixPath(dirname(__FILE__)) . 'Wiki/Parse/' . $parser . '/'
-            );
-
-            //
-            // Get ruleset from class by creating a throw-away object.  It
-            // would be good to be able to return the object, but this would
-            // (a) risk causing recursion and (b) break PHP 4 < 4.3 that can't
-            // return an object from a constructor of the wrong type.
-            //
-            if (empty($rules)) {
-                include_once 'Text/Wiki/' . $parser . '.php';
-                $class = 'Text_Wiki_' . $parser;
-                $testobject =& new $class;
-                $this->rules = $testobject->rules;
-            }
-        }
-
         $this->addPath(
             'render',
             $this->fixPath(dirname(__FILE__)) . 'Wiki/Render/'
@@ -398,13 +377,12 @@ class Text_Wiki {
     *
     * or
     *
-    * $single = & singleton( array('Prefilter', 'Delimiter', 'Code', 'Function',
+    * $single = & singleton('Parser', array('Prefilter', 'Delimiter', 'Code', 'Function',
     *   'Html', 'Raw', 'Include', 'Embed', 'Anchor', 'Heading', 'Toc', 'Horiz',
     *   'Break', 'Blockquote', 'List', 'Deflist', 'Table', 'Image', 'Phplookup',
     *   'Center', 'Newline', 'Paragraph', 'Url', 'Freelink', 'Interwiki', 'Wikilink',
     *   'Colortext', 'Strong', 'Bold', 'Emphasis', 'Italic', 'Underline', 'Tt',
-    *   'Superscript', 'Subscript', 'Revise', 'Tighten'),
-    *   'parser' );
+    *   'Superscript', 'Subscript', 'Revise', 'Tighten'));
     *
     * Call using a subset of this list.  The order of passing rulesets in the
     * $rules array is important!
@@ -420,23 +398,53 @@ class Text_Wiki {
     * @access public
     * @static
     * @since Method available since Release 1.1.0
-    * @param array $rules   The set of rules to instantiate the object.
     * @param string $parser The parser to be used (defaults to 'Default').
+    * @param array $rules   The set of rules to instantiate the object. This
+    *    will only be used when the first call to singleton is made, if included
+    *    in further calls it will be effectively ignored.
     * @return &object a reference to the Text_Wiki unique instantiation.
     */
-    function &singleton($rules = null, $parser = 'Default')
+    function &singleton($parser = 'Default', $rules = null)
     {
         static $only = array();
         if (!isset($only[$parser])) {
-            $class = 'Text_Wiki';
-            // load the class file if not this one
-            if ($parser != 'Default') {
-                include_once 'Text/Wiki/' . $parser . '.php';
-                $class = 'Text_Wiki_' . $parser;
+            $ret =& Text_Wiki::factory($parser, $rules);
+            if (PEAR::isError($ret)) {
+                return $ret;
             }
-            $only[$parser] = & new $class($rules);
+            $only[$parser] =& $ret;
         }
         return $only[$parser];
+    }
+
+    /**
+     * Returns a Text_Wiki Parser class for the specified parser.
+     *
+     * @access public
+     * @static
+     * @param string $parser The name of the parse to instantiate
+     * @param array $rules The rules to pass into the constructor
+     *    {@see Text_Wiki::singleton} for a list of rules
+     * @return Text_Wiki a Parser object extended from Text_Wiki
+     */
+    function &factory($parser = 'Default', $rules = null)
+    {
+        $class = 'Text_Wiki_' . $parser;
+        $file = str_replace('_', '/', $class) . '.php';
+        if (class_exists($class)) {
+            $obj =& new $class($rules);
+            return $obj;
+        }
+        if (include_once $file) {
+            if (class_exists($class)) {
+                $obj =& new $class($rules);
+                return $obj;
+            } else {
+                return PEAR::raiseError('Class '.$class.' does not exist after including '.$file);
+            }
+        } else {
+            return PEAR::raiseError('Could not include '.$file);
+        }
     }
 
     /**
