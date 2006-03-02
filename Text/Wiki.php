@@ -430,21 +430,27 @@ class Text_Wiki {
     function &factory($parser = 'Default', $rules = null)
     {
         $class = 'Text_Wiki_' . $parser;
-        $file = str_replace('_', '/', $class) . '.php';
-        if (class_exists($class)) {
-            $obj =& new $class($rules);
-            return $obj;
-        }
-        if (include_once $file) {
-            if (class_exists($class)) {
-                $obj =& new $class($rules);
-                return $obj;
-            } else {
+        $file = str_replace('_', '/', $class).'.php';
+        if (!class_exists($class)) {
+            $exists = false;
+            foreach (split(PATH_SEPARATOR, get_include_path()) as $path) {
+                if (file_exists($path.'/'.$file)
+                    && is_readable($path.'/'.$file)) {
+                    $exists = true;
+                    break;
+                }
+            }
+            if (!$exists) {
+                return PEAR::raiseError('Could not find file '.$file.' in include_path');
+            }
+            include_once($file);
+            if (!class_exists($class)) {
                 return PEAR::raiseError('Class '.$class.' does not exist after including '.$file);
             }
-        } else {
-            return PEAR::raiseError('Could not include '.$file);
         }
+
+        $obj =& new $class($rules);
+        return $obj;
     }
 
     /**
