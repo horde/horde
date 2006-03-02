@@ -409,7 +409,7 @@ class Text_Wiki {
         static $only = array();
         if (!isset($only[$parser])) {
             $ret =& Text_Wiki::factory($parser, $rules);
-            if (PEAR::isError($ret)) {
+            if (Text_Wiki::isError($ret)) {
                 return $ret;
             }
             $only[$parser] =& $ret;
@@ -442,12 +442,12 @@ class Text_Wiki {
             }*/
             $fp = @fopen($file, 'r', true);
             if ($fp === false) {
-                return PEAR::raiseError('Could not find file '.$file.' in include_path');
+                return Text_Wiki::error('Could not find file '.$file.' in include_path');
             }
             fclose($fp);
             include_once($file);
             if (!class_exists($class)) {
-                return PEAR::raiseError('Class '.$class.' does not exist after including '.$file);
+                return Text_Wiki::error('Class '.$class.' does not exist after including '.$file);
             }
         }
 
