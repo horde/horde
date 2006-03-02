@@ -432,17 +432,19 @@ class Text_Wiki {
         $class = 'Text_Wiki_' . $parser;
         $file = str_replace('_', '/', $class).'.php';
         if (!class_exists($class)) {
-            $exists = false;
+            /*$exists = false;
             foreach (split(PATH_SEPARATOR, get_include_path()) as $path) {
                 if (file_exists($path.'/'.$file)
                     && is_readable($path.'/'.$file)) {
                     $exists = true;
                     break;
                 }
-            }
-            if (!$exists) {
+            }*/
+            $fp = @fopen($file, 'r', true);
+            if ($fp === false) {
                 return PEAR::raiseError('Could not find file '.$file.' in include_path');
             }
+            fclose($fp);
             include_once($file);
             if (!class_exists($class)) {
                 return PEAR::raiseError('Class '.$class.' does not exist after including '.$file);
