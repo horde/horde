@@ -10,7 +10,7 @@ require_once 'Text/Wiki.php';
  * $Id$
  */
 $parser = $render = $source = '';
-$plist = array('Default', 'BBCode', 'Cowiki', 'Doku', 'Mediawiki', 'Tiki');
+$plist = array('Default', 'BBCode', 'Cowiki', 'Doku', 'Mediawiki', 'Tiki', 'X-choice');
 $rlist = array('Xhtml', 'Plain', 'Latex', 'Cowiki', 'Doku', 'Tiki', 'Ooosxw', 'Pdf', 'Docbook');
 
 /**

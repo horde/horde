@@ -408,7 +408,7 @@ class Text_Wiki {
     {
         static $only = array();
         if (!isset($only[$parser])) {
-            $ret =& Text_Wiki::factory($parser, $rules);
+            $ret = & Text_Wiki::factory($parser, $rules);
             if (Text_Wiki::isError($ret)) {
                 return $ret;
             }
@@ -423,6 +423,7 @@ class Text_Wiki {
      * @access public
      * @static
      * @param string $parser The name of the parse to instantiate
+     * you need to have Text_Wiki_XXX installed to use $parser = 'XXX', it's E_FATAL
      * @param array $rules The rules to pass into the constructor
      *    {@see Text_Wiki::singleton} for a list of rules
      * @return Text_Wiki a Parser object extended from Text_Wiki
@@ -432,22 +433,11 @@ class Text_Wiki {
         $class = 'Text_Wiki_' . $parser;
         $file = str_replace('_', '/', $class).'.php';
         if (!class_exists($class)) {
-            /*$exists = false;
-            foreach (split(PATH_SEPARATOR, get_include_path()) as $path) {
-                if (file_exists($path.'/'.$file)
-                    && is_readable($path.'/'.$file)) {
-                    $exists = true;
-                    break;
-                }
-            }*/
-            $fp = @fopen($file, 'r', true);
-            if ($fp === false) {
-                return Text_Wiki::error('Could not find file '.$file.' in include_path');
-            }
-            fclose($fp);
-            include_once($file);
+            require_once $file;
             if (!class_exists($class)) {
-                return Text_Wiki::error('Class '.$class.' does not exist after including '.$file);
+                return Text_Wiki::error(
+                    'Class ' . $class . ' does not exist after requiring '. $file .
+                        ', install package ' . $class . "\n");
             }
         }
 
