@@ -969,46 +969,52 @@ class Text_Wiki {
             $this->loadRenderObj($format, $rule);
         }
 
-        // pass through the parsed source text character by character
-        $k = strlen($this->source);
-        for ($i = 0; $i < $k; $i++) {
+        if (isset($this->newRendering)) {
+            $output = preg_replace_callback('/'.$this->delim.'(\d+)'.$this->delim.'/',
+                                            array(&$this, '_renderToken'),
+                                            $this->source);
+        } else {
+            // pass through the parsed source text character by character
+            $k = strlen($this->source);
+            for ($i = 0; $i < $k; $i++) {
 
-            // the current character
-            $char = $this->source{$i};
+                // the current character
+                $char = $this->source{$i};
 
-            // are alredy in a delimited section?
-            if ($in_delim) {
+                // are alredy in a delimited section?
+                if ($in_delim) {
 
-                // yes; are we ending the section?
-                if ($char == $this->delim) {
+                    // yes; are we ending the section?
+                    if ($char == $this->delim) {
 
-                    // yes, get the replacement text for the delimited
-                    // token number and unset the flag.
-                    $key = (int)$key;
-                    $rule = $this->tokens[$key][0];
-                    $opts = $this->tokens[$key][1];
-                    $output .= $this->renderObj[$rule]->token($opts);
-                    $in_delim = false;
+                        // yes, get the replacement text for the delimited
+                        // token number and unset the flag.
+                        $key = (int)$key;
+                        $rule = $this->tokens[$key][0];
+                        $opts = $this->tokens[$key][1];
+                        $output .= $this->renderObj[$rule]->token($opts);
+                        $in_delim = false;
+
+                    } else {
+
+                        // no, add to the dlimited token key number
+                        $key .= $char;
+
+                    }
 
                 } else {
 
-                    // no, add to the dlimited token key number
-                    $key .= $char;
-
-                }
-
-            } else {
-
-                // not currently in a delimited section.
-                // are we starting into a delimited section?
-                if ($char == $this->delim) {
-                    // yes, reset the previous key and
-                    // set the flag.
-                    $key = '';
-                    $in_delim = true;
-                } else {
-                    // no, add to the output as-is
-                    $output .= $char;
+                    // not currently in a delimited section.
+                    // are we starting into a delimited section?
+                    if ($char == $this->delim) {
+                        // yes, reset the previous key and
+                        // set the flag.
+                        $key = '';
+                        $in_delim = true;
+                    } else {
+                        // no, add to the output as-is
+                        $output .= $char;
+                    }
                 }
             }
         }
@@ -1020,6 +1026,17 @@ class Text_Wiki {
 
         // return the rendered source text.
         return $output;
+    }
+
+    /**
+     * Renders a token, for use only as an internal callback
+     *
+     * @param array Matches from preg_rpelace_callback, [1] is the token number
+     * @return string The rendered text for the token
+     * @access private
+     */
+    function _renderToken($matches) {
+        return $this->renderObj[$this->tokens[$matches[1]][0]]->token($this->tokens[$matches[1]][1]);
     }
 
 
