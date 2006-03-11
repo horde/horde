@@ -80,6 +80,8 @@ class Text_Wiki_Render_Xhtml_Wikilink extends Text_Wiki_Render {
             }
         }
 
+        $anchor = '#'.$this->urlEncode(substr($anchor, 1));
+
         // does the page exist?
         if ($exists) {
 
@@ -155,7 +157,7 @@ class Text_Wiki_Render_Xhtml_Wikilink extends Text_Wiki_Render {
             }
         }
         if (!strlen($text)) {
-            $start .= $this->textEncode($options['page']);
+            $start .= $this->textEncode($page);
         }
         if (isset($type)) {
             switch ($type) {
