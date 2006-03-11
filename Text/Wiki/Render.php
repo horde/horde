@@ -180,6 +180,7 @@ class Text_Wiki_Render {
     function formatConf($format, $key)
     {
         if (isset($this->conf[$key])) {
+            //$this->conf[$key] needs a textEncode....at least for Xhtml output...
             return sprintf($format, $this->conf[$key]);
         } else {
             return null;
