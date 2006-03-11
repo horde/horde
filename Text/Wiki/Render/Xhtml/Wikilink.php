@@ -80,12 +80,6 @@ class Text_Wiki_Render_Xhtml_Wikilink extends Text_Wiki_Render {
             }
         }
 
-        // convert *after* checking against page names so as not to mess
-        // up what the user typed and what we're checking.
-        $page = $this->urlEncode($page);
-        $anchor = $this->urlEncode($anchor);
-        $text = $this->textEncode($text);
-
         // does the page exist?
         if ($exists) {
 
@@ -99,16 +93,16 @@ class Text_Wiki_Render_Xhtml_Wikilink extends Text_Wiki_Render {
 
             if (strpos($href, '%s') === false) {
                 // use the old form (page-at-end)
-                $href = $href . $page . $anchor;
+                $href = $href . $this->urlEncode($page) . $anchor;
             } else {
                 // use the new form (sprintf format string)
-                $href = sprintf($href, $page . $anchor);
+                $href = sprintf($href, $this->urlEncode($page) . $anchor);
             }
 
             // get the CSS class and generate output
             $css = $this->formatConf(' class="%s"', 'css');
 
-            $start = '<a'.$css.' href="'.$href.'">';
+            $start = '<a'.$css.' href="'.$this->textEncode($href).'">';
             $end = '</a>';
         } else {
 
@@ -121,6 +115,7 @@ class Text_Wiki_Render_Xhtml_Wikilink extends Text_Wiki_Render {
             if (! $href || trim($href) == '') {
 
                 // no useful href, return the text as it is
+                //TODO: This is no longer used, need to look closer into this branch
                 $output = $text;
 
             } else {
@@ -131,10 +126,10 @@ class Text_Wiki_Render_Xhtml_Wikilink extends Text_Wiki_Render {
                 // form that uses sprintf()
                 if (strpos($href, '%s') === false) {
                     // use the old form
-                    $href = $href . $page;
+                    $href = $href . $this->urlEncode($page);
                 } else {
                     // use the new form
-                    $href = sprintf($href, $page);
+                    $href = sprintf($href, $this->urlEncode($page));
                 }
             }
 
@@ -147,19 +142,16 @@ class Text_Wiki_Render_Xhtml_Wikilink extends Text_Wiki_Render {
             if (! $pos || ! $new) {
                 // no position (or no new_text), use css only on the page name
 
-                //do we really want this? it breaks the text output of the output
-                //  if the page does not exist and the link text != page name
-                $text = $page;
-                $start = '<a'.$css.' href="'.$href.'">';
+                $start = '<a'.$css.' href="'.$this->textEncode($href).'">';
                 $end = '</a>';
             } elseif ($pos == 'before') {
                 // use the new_text BEFORE the page name
-                $start = '<a'.$css.' href="'.$href.'">'.$new.'</a>';
+                $start = '<a'.$css.' href="'.$this->textEncode($href).'">'.$this->textEncode($new).'</a>';
                 $end = '';
             } else {
                 // default, use the new_text link AFTER the page name
                 $start = '';
-                $end = '<a'.$css.' href="'.$href.'">'.$new.'</a>';
+                $end = '<a'.$css.' href="'.$this->textEncode($href).'">'.$this->textEncode($new).'</a>';
             }
         }
         if (!strlen($text)) {
@@ -175,7 +167,7 @@ class Text_Wiki_Render_Xhtml_Wikilink extends Text_Wiki_Render {
                 break;
             }
         } else {
-            $output = $start.$text.$end;
+            $output = $start.$this->textEncode($text).$end;
         }
         return $output;
     }
