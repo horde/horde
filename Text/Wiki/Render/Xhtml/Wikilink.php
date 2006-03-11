@@ -102,7 +102,7 @@ class Text_Wiki_Render_Xhtml_Wikilink extends Text_Wiki_Render {
             }
 
             // get the CSS class and generate output
-            $css = $this->formatConf(' class="%s"', 'css');
+            $css = sprintf(' class="%s"', $this->textEncode($this->getConf('css')));
 
             $start = '<a'.$css.' href="'.$this->textEncode($href).'">';
             $end = '</a>';
@@ -136,7 +136,7 @@ class Text_Wiki_Render_Xhtml_Wikilink extends Text_Wiki_Render {
             }
 
             // get the appropriate CSS class and new-link text
-            $css = $this->formatConf(' class="%s"', 'css_new');
+            $css = sprintf(' class="%s"', $this->textEncode($this->getConf('css_new')));
             $new = $this->getConf('new_text');
 
             // what kind of linking are we doing?
