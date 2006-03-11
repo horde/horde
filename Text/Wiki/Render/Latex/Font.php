@@ -62,7 +62,7 @@ class Text_Wiki_Render_Latex_Font extends Text_Wiki_Render {
                     break;
                 }
             }
-            return "\\{$key}{";
+            return '\{' . $key . '}{';
         }
         
         if ($options['type'] == 'end') {

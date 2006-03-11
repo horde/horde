@@ -50,14 +50,15 @@ class Text_Wiki_Render_Latex_List extends Text_Wiki_Render {
                             break;
                     }
                 }
-                return "\\renewcommand{\labelenumi}{{$enum}{{$depth}}}\n\\begin{enumerate}\n";
+                return '\renewcommand{\labelenumi}{' . $enum . '{' . $depth .
+                             "}}\n\\begin{enumerate}\n";
 
             case 'number_list_end':
                 return "\\end{enumerate}\n";
 
             case 'bullet_item_start':
             case 'number_item_start':
-                return "\\item{";
+                return '\item{';
 
             case 'bullet_item_end':
             case 'number_item_end':

@@ -52,7 +52,7 @@ class Text_Wiki_Render_Latex_Interwiki extends Text_Wiki_Render {
             }
         }
         
-        return "$text\\footnote\{$href}";
+        return $text . '\footnote{' . $href . '}';
     }
 }
 ?>

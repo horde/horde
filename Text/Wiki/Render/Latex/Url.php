@@ -29,7 +29,7 @@ class Text_Wiki_Render_Latex_Url extends Text_Wiki_Render {
         // href, type)
         extract($options);
 
-        return " $text\\footnote\{$href}";
+        return $text . '\footnote{' . $href . '}';
     }
 }
 ?>

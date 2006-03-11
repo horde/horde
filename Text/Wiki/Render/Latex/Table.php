@@ -71,7 +71,7 @@ class Text_Wiki_Render_Latex_Table extends Text_Wiki_Render {
                     $this->cell_id += $span;
                     $this->is_spanning = true;
 
-                    return "\\multicolumn\{$span}\{$col_spec}{";
+                    return '\multicolumn{' . $span . '}{' . $col_spec . '}{';
                 }
 
                 $this->cell_id += 1;

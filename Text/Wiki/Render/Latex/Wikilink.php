@@ -54,7 +54,7 @@ class Text_Wiki_Render_Latex_Wikilink extends Text_Wiki_Render {
 
         // get the CSS class and generate output
         $css = $this->formatConf(' class="%s"', 'css');
-        return "$text\\footnote\{$href}";
+        return $text . '\footnote{' . $href . '}';
     }
 }
 ?>
