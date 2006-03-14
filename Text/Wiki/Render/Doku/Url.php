@@ -18,7 +18,8 @@ class Text_Wiki_Render_Doku_Url extends Text_Wiki_Render {
     
     function token($options)
     {
-        if (!strlen($options['text']) || $options['page'] == $options['text']) {
+        if (!strlen($options['text'])
+            || (isset($options['page']) && $options['page'] == $options['text'])) {
             return $options['href'];
         } else {
             return '[['.$options['href'].'|'.$options['text'].']]';
