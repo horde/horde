@@ -17,7 +17,7 @@ class Text_Wiki_Render_Doku_Paragraph extends Text_Wiki_Render {
     
     function token($options)
     {
-        return '';
+        return "\n";
     }
 }
 ?>
