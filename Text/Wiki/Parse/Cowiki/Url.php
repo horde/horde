@@ -114,9 +114,9 @@ class Text_Wiki_Parse_Url extends Text_Wiki_Parse {
         $this->regex =
             "($schemes)" . // allowed schemes
             "(" . // start pattern
-            "[^ \\/\"\'{$this->wiki->delim}]*\\/" . // no spaces, backslashes, slashes, double-quotes, single quotes, or delimiters;
+            "[^ \\/\"\'\(\)".$this->wiki->delim."]*\\/" . // no spaces, backslashes, slashes, double-quotes, single quotes, or delimiters;
             ")*" . // end pattern
-            "[^ \\t\\n\\/\"\'{$this->wiki->delim}]*" .
+            "[^ \\t\\n\\/\"\'\(\)".$this->wiki->delim."]*" .
             "[A-Za-z0-9\\/?=&~_]";
     }
     
@@ -137,8 +137,8 @@ class Text_Wiki_Parse_Url extends Text_Wiki_Parse {
         // 
         
         // the regular expression for this kind of URL
-        $tmp_regex = '/\(\((' . $this->regex . ')(\)\(([^\]]+))?\)\)/';
-        
+        $tmp_regex = '/\(\((' . $this->regex . ')(\)\(([^\)\(]+))?\)\)/';
+
         // use a custom callback processing method to generate
         // the replacement text for matches.
         $this->wiki->source = preg_replace_callback(
@@ -271,9 +271,9 @@ class Text_Wiki_Parse_Url extends Text_Wiki_Parse {
         $options = array(
             'type' => 'descr',
             'href' => $matches[1],
-            'text' => strlen($matches[5]) ? $matches[5] : $matches[1],
+            'text' => isset($matches[5]) && strlen($matches[5]) ? $matches[5] : $matches[1],
         );
-        
+
         // tokenize
         return $this->wiki->addToken($this->rule, $options);
     }
