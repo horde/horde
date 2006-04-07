@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<!-- $Id: packageMediawiki.xml,v 1.2 2006-01-07 04:49:37 toggg Exp $ -->
+<!-- $Id: packageMediawiki.xml,v 1.3 2006-04-07 05:21:49 toggg Exp $ -->
 <package version="1.0">
     <name>Text_Wiki_Mediawiki</name>
     <summary>Mediawiki parser for Text_Wiki</summary>
@@ -20,6 +20,65 @@
         </maintainer>
      </maintainers>
     <release>
+        <version>0.1.0</version>
+        <date>2006-04-??</date>
+        <license>LGPL</license>
+        <state>alpha</state>
+        <notes>
+Major release of Text_Wiki_Mediawiki : several rules have been added or revamped
+It also takes advantage of the new Text_Wiki engine (1.1.0)
+
+* Add the Wilink rule (#6623)
+  Configuration:
+  - 'spaceUnderscore' : boolean (true) replace spaces in page name by underscore,
+  - 'project' : optional array of prefixes for the local project (array('demo', 'd')),
+  - 'url' : base url of the project for interlanguage ('http://example.com/en/page=%s'),
+  - 'langage' : language of the project, will be replaced case interlanguage ('en').
+  
+* Unify all links parsing: Image and Interwiki are now done by the Wikilink rule
+ These 2 rules don't exist anymore as independant classes
+ but are still configurable/switchable as normal rules
+
+* Interwiki's configuration for urls is now done parser side
+  Configuration:
+  - 'sites' : associative array of url patterns indexed by site prefixes,
+  - 'interlangage' : array of accepted interlanguages codes.
+
+* Image corrected to be complient with Mediawiki syntax
+  Take align attribute (left, center, or right) as piped after the | in image tag
+  Configuration:
+  - 'prefix' : array of accepted image prefixes (array('Image', 'image')).
+
+* List rule added , it's no more using the Text_Wiki default but a complient proper class
+
+* Deflist rule added (definitions list)
+
+* Heading corrected : it does not more require extra spaces and line feed (#6623)
+
+* Emphasis corrected to produce also Strong and not Bold (Strong exists only by rendering)
+
+* Raw : &lt;nowiki&gt; ... &lt;/nowiki&gt; may be multiline
+
+* Overwrite of getTokens() removed, was not needed and even dangerous ...
+
+        </notes>
+	<filelist>
+	    <file role="php" name="Text/Wiki/Mediawiki.php" />
+	    <file role="php" name="Text/Wiki/Parse/Mediawiki/Deflist.php" />
+	    <file role="php" name="Text/Wiki/Parse/Mediawiki/Emphasis.php" />
+	    <file role="php" name="Text/Wiki/Parse/Mediawiki/Heading.php" />
+	    <file role="php" name="Text/Wiki/Parse/Mediawiki/List.php" />
+	    <file role="php" name="Text/Wiki/Parse/Mediawiki/Raw.php" />
+	    <file role="php" name="Text/Wiki/Parse/Mediawiki/Table.php" />
+	    <file role="php" name="Text/Wiki/Parse/Mediawiki/Url.php" />
+	    <file role="php" name="Text/Wiki/Parse/Mediawiki/Wikilink.php" />
+        </filelist>
+        <deps>
+            <dep type="pkg" rel="ge" version="1.1.0">Text_Wiki</dep>
+        </deps>
+    </release>
+  <changelog>
+    <release>
         <version>0.0.1</version>
         <date>2006-01-07</date>
         <license>LGPL</license>
@@ -27,20 +86,6 @@
         <notes>
 First released version of Text_Wiki_Mediawiki.
         </notes>
-	<filelist>
-	    <file role="php" name="Text/Wiki/Mediawiki.php" />
-	    <file role="php" name="Text/Wiki/Parse/Mediawiki/Emphasis.php" />
-	    <file role="php" name="Text/Wiki/Parse/Mediawiki/Heading.php" />
-	    <file role="php" name="Text/Wiki/Parse/Mediawiki/Image.php" />
-	    <file role="php" name="Text/Wiki/Parse/Mediawiki/Interwiki.php" />
-	    <file role="php" name="Text/Wiki/Parse/Mediawiki/Raw.php" />
-	    <file role="php" name="Text/Wiki/Parse/Mediawiki/Table.php" />
-	    <file role="php" name="Text/Wiki/Parse/Mediawiki/Url.php" />
-        </filelist>
-        <deps>
-            <dep type="pkg" rel="ge" version="1.0.1">Text_Wiki</dep>
-        </deps>
     </release>
-  <changelog>
   </changelog>
 </package>
