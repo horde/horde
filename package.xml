@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<!-- $Id: package.xml,v 1.53 2006-03-01 23:06:34 toggg Exp $ -->
+<!-- $Id: package.xml,v 1.54 2006-04-10 12:36:59 toggg Exp $ -->
 <package version="1.0">
     <name>Text_Wiki</name>
-    <summary>Abstracts parsing and rendering rules for any markup as Wiki or BBCode in structured plain text.</summary>
-    <description>The text transformation is done in 2 steps, the parsers use rules to tokenize the content, renderers ouput the tokens and left text in the requested format.
-Used for versatile transformers as well as converters.</description>
+    <summary>Parses any markup as Wikis or BBCode to render Xhtml, Latex , plain or markups. This is the base engine for all Text_Wiki extensions.</summary>
+    <description>The text transformation is done in 2 steps.
+The choosed parser uses rules representing the markup to tokenize the tags along with the content.
+Renderers output the tokens and left text in the requested format.
+The tokenized form replaces the tags by a protected byte value associated to an index in an options table. This form shares up to 50 rules by all parsers and renderers.
+The package is intented for versatile transformers as well as converters.
+Text_Wiki is delivered with an own parser as used by Yawiki or Horde's wicked and 3 basic renders: Xhtml , Latex and plain text.
+Strong sanitizing of Xhtml is default.
+Parsers (* and Renderers) exist for BBCode, Cowiki (*), Dokuwiki (*), Mediawiki and Tikiwiki (*).
+It is highly configurable and can be easily extended.</description>
     <maintainers>
         <maintainer>
             <user>pmjones</user>
