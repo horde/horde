@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<!-- $Id: packageMediawiki.xml,v 1.3 2006-04-07 05:21:49 toggg Exp $ -->
+<!-- $Id: packageMediawiki.xml,v 1.4 2006-04-10 13:40:11 toggg Exp $ -->
 <package version="1.0">
     <name>Text_Wiki_Mediawiki</name>
     <summary>Mediawiki parser for Text_Wiki</summary>
@@ -21,16 +21,16 @@
      </maintainers>
     <release>
         <version>0.1.0</version>
-        <date>2006-04-??</date>
+        <date>2006-04-10</date>
         <license>LGPL</license>
         <state>alpha</state>
         <notes>
 Major release of Text_Wiki_Mediawiki : several rules have been added or revamped
-It also takes advantage of the new Text_Wiki engine (1.1.0)
+It also takes advantage of the new Text_Wiki-1.1.0 engine.
 
 * Add the Wilink rule (#6623)
   Configuration:
-  - 'spaceUnderscore' : boolean (true) replace spaces in page name by underscore,
+  - 'spaceUnderscore' : boolean (true) replace spaces in page name by underscores,
   - 'project' : optional array of prefixes for the local project (array('demo', 'd')),
   - 'url' : base url of the project for interlanguage ('http://example.com/en/page=%s'),
   - 'langage' : language of the project, will be replaced case interlanguage ('en').
