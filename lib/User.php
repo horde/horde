@@ -58,7 +58,7 @@ class UserDetailsForm extends Horde_Form {
         # FIXME: Make this work if limits don't exist.
         $t = 1;
         while ($t <= $limits['telephonenumbersmax']) {
-            $this->addVariable(_("Telephone Number $t:"), "telephone$t",
+            $this->addVariable(_("Telephone Number $t:"), "telephonenumber[$t]",
             'cellphone', false);
             $t++;
         }
@@ -99,8 +99,7 @@ class UserDetailsForm extends Horde_Form {
         if (!$this->_userdetails) {
             return true;
         }
-        foreach(array('name', 'email', 'pageremail', 'mailboxpin', 'uid')
-            as $var) {
+        foreach(array('name', 'email', 'pageremail', 'mailboxpin', 'uid', 'telephonenumber') as $var) {
             # FIXME This will be done the Right Way in Shout 0.7
             $vars->set($var, $this->_userdetails[$var]);
         }
@@ -110,12 +109,6 @@ class UserDetailsForm extends Horde_Form {
 //         $vars->set('mailboxpin', $this->_userdetails['mailboxpin']);
 //         $vars->set('uid', $this->_userdetails['uid']);
         $vars->set('newextension', $vars->get('extension'));
-
-        $i = 1;
-        foreach($this->_userdetails['phonenumbers'] as $number) {
-            $vars->set("telephone$i", $number);
-            $i++;
-        }
 
         $vars->set('moh', false);
         $vars->set('eca', false);

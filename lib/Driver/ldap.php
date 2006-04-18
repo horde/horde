@@ -274,7 +274,6 @@ type");
         }
 
         $res = ldap_get_entries($this->_LDAP, $search);
-
         #
         # ATTRIBUTES RETURNED FROM ldap_get_entries ARE ALL LOWER CASE!!
         #
@@ -309,9 +308,10 @@ type");
                 $res[$i]['cn'][0];
 
             $j = 0;
-            $entries[$context][$extension]['phonenumbers'] = array();
+            $entries[$context][$extension]['telephonenumber'] = array();
             while ($j < @$res[$i]['telephonenumber']['count']) {
-                $entries[$context][$extension]['phonenumbers'][] =
+                // Start with 1 for telephone numbers for user convenience
+                $entries[$context][$extension]['telephonenumber'][$j+1] =
                     $res[$i]['telephonenumber'][$j];
                 $j++;
             }
