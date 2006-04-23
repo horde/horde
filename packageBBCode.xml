@@ -1,17 +1,11 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<!-- $Id: packageBBCode.xml,v 1.6 2006-02-06 08:49:22 toggg Exp $ -->
+<!-- $Id: packageBBCode.xml,v 1.7 2006-04-23 10:31:54 toggg Exp $ -->
 <package version="1.0">
     <name>Text_Wiki_BBCode</name>
     <summary>BBCode parser for Text_Wiki</summary>
     <description>Parses BBCode mark-up to tokenize the text for Text_Wiki rendering (Xhtml, plain, Latex) or for conversions using the existing renderers (wiki).</description>
     <maintainers>
-        <maintainer>
-            <user>toggg</user>
-            <name>bertrand Gugger</name>
-            <email>bertrand@toggg.com</email>
-            <role>lead</role>
-        </maintainer>
         <maintainer>
             <user>firman</user>
             <name>Firman Wandayandi</name>

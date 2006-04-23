@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<!-- $Id: package.xml,v 1.55 2006-04-10 14:49:29 toggg Exp $ -->
+<!-- $Id: package.xml,v 1.56 2006-04-23 10:31:54 toggg Exp $ -->
 <package version="1.0">
     <name>Text_Wiki</name>
     <summary>Transforms Wiki and BBCode markup into XHTML, LaTeX or plain text markup.
@@ -32,12 +32,6 @@ It is highly configurable and can be easily extended.</description>
             <name>Del Elson</name>
             <email>delatbabel@php.net</email>
             <role>developer</role>
-        </maintainer>
-        <maintainer>
-            <user>toggg</user>
-            <name>bertrand Gugger</name>
-            <email>bertrand@toggg.com</email>
-            <role>lead</role>
         </maintainer>
      </maintainers>
     <release>
