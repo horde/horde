@@ -43,14 +43,17 @@ if (!$FormValid || !$Form->isSubmitted()) {
         "uid" => $vars->get('uid'),
     );
 
-    $i = 1;
-    $userdetails['telephonenumbers'] = array();
-    while ($i <= $limits['telephonenumbersmax']) {
-        $tmp = $vars->get("telephone$i");
-        if (!empty($tmp)) {
-            $userdetails['telephonenumbers'][] = $tmp;
+    $userdetails['telephonenumber'] = array();
+    $telephonenumber = $vars->get("telephonenumber");
+    if (!empty($telephonenumber) && is_array($telephonenumber)) {
+        $i = 1;
+        while ($i <= $limits['telephonenumbersmax']) {
+            if (!empty($telephonenumber[$i])) {
+                $userdetails['telephonenumber'][] = $telephonenumber[$i++];
+            } else {
+                $i++;
+            }
         }
-        $i++;
     }
 
     $userdetails['dialopts'] = array();

@@ -743,8 +743,8 @@ for $context"));
             'asteriskUserDialOptions' => $userdetails['dialopts'],
         );
 
-        if (!empty ($userdetails['telephonenumbers'])) {
-            $entry['telephoneNumber'] = $userdetails['telephonenumbers'];
+        if (!empty ($userdetails['telephonenumber'])) {
+            $entry['telephoneNumber'] = $userdetails['telephonenumber'];
         }
 
         $validusers = &$this->getUsers($context);
