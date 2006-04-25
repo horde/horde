@@ -19,7 +19,7 @@
                     array(
                         'context' => $context,
                         'extension' => $extension,
-                        'section' => 'users',
+                        'section' => $section,
                     )
                 );
                 $editurl = Util::addParameter($url, "action=edit");
