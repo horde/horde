@@ -223,7 +223,7 @@ class Text_Wiki_Parse_Wikilink extends Text_Wiki_Parse {
         // set the options
         $options = array(
             'page'   => $matches[3],
-            'anchor' => (empty($matches[4]) ? '' : $matches[4]),
+            'anchor' => (empty($matches[4]) ? '' : '#'.$matches[4]),
             'text'   => $text
         );
 
