@@ -70,8 +70,8 @@ class Text_Wiki_Mediawiki extends Text_Wiki {
 //        'Italic',
 //        'Underline',
         'Tt',
-//        'Superscript',
-//        'Subscript',
+        'Superscript',
+        'Subscript',
 //        'Specialchar',
 //        'Revise',
 //        'Interwiki', // done by Wikilink but still possible to disable/configure
