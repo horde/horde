@@ -35,7 +35,7 @@ class Text_Wiki_Mediawiki extends Text_Wiki {
     var $rules = array(
         'Prefilter',
         'Delimiter',
-//        'Code',
+        'Code',
 //        'Plugin',
 //        'Function',
 //        'Html',
@@ -69,7 +69,7 @@ class Text_Wiki_Mediawiki extends Text_Wiki {
         'Emphasis',
 //        'Italic',
 //        'Underline',
-//        'Tt',
+        'Tt',
 //        'Superscript',
 //        'Subscript',
 //        'Specialchar',
