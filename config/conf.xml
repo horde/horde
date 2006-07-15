@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!-- $Id$ -->
 <configuration>
-<!--   <configtab name="storage" desc="Storage Backend"> -->
+  <configtab name="storage" desc="Storage Backend">
     <configsection name="storage">
       <configheader>Shout Storage</configheader>
       <configswitch name="driver" desc="What backend should we use for
@@ -37,6 +37,6 @@
         </case>
       </configswitch>
     </configsection>
-<!--   </configtab> -->
+  </configtab>
 </configuration>
 

@@ -163,7 +163,8 @@ class Shout_Driver {
         require_once dirname(__FILE__) . '/Driver/' . $driver . '.php';
         $class = 'Shout_Driver_' . $driver;
         if (class_exists($class)) {
-            return $shout = &new $class($params);
+            $shout = new $class($params);
+            return $shout;
         } else {
             return false;
         }

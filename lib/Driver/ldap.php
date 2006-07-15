@@ -367,11 +367,12 @@ type");
         # FIXME: Handle cases where the managing user isn't a valid telephone
         # system user
         # FIXME: Handle cases where no attribute is found?
+        if ($res['count'] != 1) {
+            return PEAR::raiseError(_("Unable to determine default context"));
+        }
         return $res[0]['context'][0];
     }
-    // }}}
 
-    // {{{
     /**
      * Get a context's properties
      *

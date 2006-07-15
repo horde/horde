@@ -32,6 +32,10 @@ if (is_a($contexts, 'PEAR_Error')) {
 } elseif (!$context) {
     # Attempt to locate the user's "home" context
     $context = $shout->getHomeContext();
+    if (is_a($context, 'PEAR_Error')) {
+        $notification->push($context);
+    }
+    $context = '';
 }
 
 $vars = &Variables::getDefaultVariables();
