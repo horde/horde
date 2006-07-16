@@ -34,7 +34,7 @@ function _shout_perms()
     $perms['tree']['shout']['superadmin'] = false;
     $perms['title']['shout:superadmin'] = _("Super Administrator");
 
-    $contexts = $GLOBALS['shout']->getContexts();
+    $contexts = $shout->getContexts();
 
     $perms['tree']['shout']['contexts'] = false;
     $perms['title']['shout:contexts'] = _("Contexts");
@@ -57,11 +57,10 @@ function _shout_perms()
         }
     }
 
-
 //     function _shout_getContexts($searchfilters = SHOUT_CONTEXT_ALL,
 //                          $filterperms = null)
 
-
+    return $perms;
 }
 
 function _shout_attributes()

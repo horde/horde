@@ -16,14 +16,12 @@
  */
 require_once SHOUT_BASE . "/config/defines.php";
 
-// {{{ Class Shout
 class Shout
 {
     var $applist = array();
     var $_applist_curapp = '';
     var $_applist_curfield = '';
 
-    // {{{ getMenu method
     /**
      * Build Shout's list of menu items.
      *
@@ -86,9 +84,7 @@ class Shout
             return $menu->render();
         }
     }
-    // }}}
 
-    // {{{
     /**
      * Generate the tabs at the top of each Shout pages
      *
@@ -96,52 +92,55 @@ class Shout
      *
      * @return object Horde_UI_Tabs
      */
-    function &getTabs($context, &$vars)
+    function getTabs($context, &$vars)
     {
         global $shout;
-        # FIXME Is this right?
-        if (!Auth::isAdmin("shout", PERMS_SHOW|PERMS_READ)) {
-            return false;
-        }
 
-        $permprefix = "shout:contexts:$context";
+        $permprefix = 'shout:contexts:' . $context;
 
         $tabs = &new Horde_UI_Tabs('section', $vars);
 
-        if (Shout::checkRights("$permprefix:users", null, 1) &&
-            $shout->checkContextType($context, "users")) {
-             $tabs->addTab(_("User Manager"),
-                    Horde::applicationUrl("index.php?context=$context"),
-                    'usermgr');
+        if (Shout::checkRights($permprefix . ':users', null, 1) &&
+            $shout->checkContextType($context, 'users')) {
+
+            $url = Horde::applicationUrl('usermgr.php');
+            $url = Util::addParameter($url, 'context', $context);
+            $tabs->addTab(_("_User Manager"), $url, 'usermgr');
         }
 
-        if (Shout::checkRights("$permprefix:dialplan", null, 1) &&
-            $shout->checkContextType($context, "dialplan")) {
-            $tabs->addTab(_("Dial Plan"),
-                Horde::applicationUrl('index.php'), 'dialplan');
+        if (Shout::checkRights($permprefix . ':dialplan', null, 1) &&
+            $shout->checkContextType($context, 'dialplan')) {
+
+            $url = Horde::applicationUrl('dialplan.php');
+            $url = Util::addParameter($url, 'context', $context);
+            $tabs->addTab(_("_Dial Plan"), $url, 'dialplan');
         }
 
-        if (Shout::checkRights("$permprefix:conference", null, 1) &&
-            $shout->checkContextType($context, "conference")) {
-            $tabs->addTab(_("Conference Rooms"),
-                Horde::applicationUrl('index.php'), 'conference');
+        if (Shout::checkRights($permprefix . ':conference', null, 1) &&
+            $shout->checkContextType($context, 'conference')) {
+
+            $url = Horde::applicationUrl('conference.php');
+            $url = Util::addParameter($url, 'context', $context);
+            $tabs->addTab(_("_Conference Rooms"), $url, 'conference');
         }
 
-       if (Shout::checkRights("$permprefix:moh", null, 1) &&
+       if (Shout::checkRights($permprefix . ':moh', null, 1) &&
             $shout->checkContextType($context, "moh")) {
-            $tabs->addTab(_("Music on Hold"),
-                Horde::applicationUrl('index.php'), 'moh');
+
+            $url = Horde::applicationUrl('moh.php');
+            $url = Util::addParameter($url, 'context', $context);
+            $tabs->addTab(_("_Music on Hold"), $url, 'moh');
         }
 
-        if (Auth::isAdmin("shout:superadmin", PERMS_SHOW|PERMS_READ)) {
-            $tabs->addTab(_("Security"),
-                Horde::applicationUrl('index.php'), 'security');
+        if (Perms::hasPermission('shout:superadmin', Auth::getAuth(), PERMS_SHOW|PERMS_READ)) {
+            $url = Horde::applicationUrl('security.php');
+            $url = Util::addParameter($url, 'context', $context);
+            $tabs->addTab(_("_Security"), $url, 'security');
         }
 
         return $tabs;
     }
 
-    // {{{
     /**
      * Checks for the given permissions for the current user on the given
      * permission.  Optionally check for higher-level permissions and ultimately
@@ -169,7 +168,7 @@ class Shout
         $user = 0;
         $superadmin = 0;
 
-        $superadmin = $perms->hasPermission("shout:superadmin",
+        $superadmin = $perms->hasPermission('shout:superadmin',
             Auth::getAuth(), $permmask);
 
         while ($numparents >= 0) {
@@ -186,9 +185,10 @@ class Shout
             $numparents--;
         }
         $test = $superadmin | $user;
+$ret = ($test & $permmask) == $permmask;
+print "Shout::checkRights() returning $ret";
         return ($test & $permmask) == $permmask;
     }
-    // }}}
 
     function getContextTypes()
     {
@@ -400,4 +400,3 @@ class Shout
         }
     }
 }
-// }}}

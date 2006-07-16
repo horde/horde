@@ -53,17 +53,41 @@ require_once SHOUT_BASE . '/lib/Shout.php';
 require_once SHOUT_BASE . '/lib/Driver.php';
 
 // Form libraries.
-// require_once 'Horde/Form.php';
-// require_once 'Horde/Form/Renderer.php';
+require_once 'Horde/Form.php';
+require_once 'Horde/Form/Renderer.php';
 
 // Variable handling libraries
-// require_once 'Horde/Variables.php';
-// require_once 'Horde/Text/Filter.php';
+require_once 'Horde/Variables.php';
+require_once 'Horde/Text/Filter.php';
 
 // UI classes.
 require_once 'Horde/UI/Tabs.php';
 
-$GLOBALS['shout'] = &Shout_Driver::singleton();
+$shout = Shout_Driver::singleton();
 
 // Horde libraries.
 require_once 'Horde/Help.php';
+
+$context = Util::getFormData('context');
+$section = Util::getFormData('section');
+
+$contexts = $shout->getContexts();
+
+// Check that we are properly initialized
+if (is_a($contexts, 'PEAR_Error')) {
+    $notification->push($contexts);
+    $contexts = false;
+} elseif (count($contexts) == 1) {
+    // Default to the user's only context
+    $context = $contexts[0];
+} elseif (!$context) {
+    // Attempt to locate the user's "home" context
+    $context = $shout->getHomeContext();
+    if (is_a($context, 'PEAR_Error')) {
+        $notification->push($context);
+    }
+    $context = '';
+}
+
+// We've passed the initialization tests.  This flag allows other pages to run.
+$SHOUT_RUNNING = true;

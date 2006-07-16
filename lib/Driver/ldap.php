@@ -3,13 +3,11 @@
 # Make Shout methods available
 require_once SHOUT_BASE . '/lib/Shout.php';
 
-// {{{ Shout_Driver_ldap class
 class Shout_Driver_ldap extends Shout_Driver
 {
     var $_ldapKey;  // Index used for storing objects
     var $_appKey;   // Index used for moving info to/from the app
 
-    // {{{ Class local variables
     /**
      * Handle for the current database connection.
      * @var object LDAP $_LDAP
@@ -23,9 +21,7 @@ class Shout_Driver_ldap extends Shout_Driver
      */
     var $_connected = false;
 
-    // }}}
 
-    // {{{ Shout_Driver_ldap constructor
     /**
     * Constructs a new Shout LDAP driver object.
     *
@@ -73,9 +69,7 @@ class Shout_Driver_ldap extends Shout_Driver
             break;
         }
     }
-    // }}}
 
-    // {{{ getContexts method
     /**
     * Get a list of contexts from the backend
     *
@@ -174,9 +168,7 @@ class Shout_Driver_ldap extends Shout_Driver
         # return the array
         return $entries[$searchfilters];
     }
-    // }}}
 
-    // {{{ checkContextType method
     /**
      * For the given context and type, make sure the context has the
      * appropriate properties, that it is effectively of that "type"
@@ -229,9 +221,7 @@ type");
             return false;
         }
     }
-    // }}}
 
-    // {{{ getUsers method
     /**
      * Get a list of users valid for the contexts
      *
@@ -239,7 +229,7 @@ type");
      *
      * @return array User information indexed by voice mailbox number
      */
-    function &getUsers($context)
+    function getUsers($context)
     {
 
         static $entries = array();
@@ -334,9 +324,7 @@ type");
 
         return($entries[$context]);
     }
-    // }}}
 
-    // {{{ getHomeContext method
     /**
      * Returns the name of the user's default context
      *
@@ -366,9 +354,11 @@ type");
         # Assume the user only has one context.  The schema enforces this
         # FIXME: Handle cases where the managing user isn't a valid telephone
         # system user
-        # FIXME: Handle cases where no attribute is found?
+        # FIXME: Do we want to warn?  If so, how?  This PEAR::Error shows up
+        # in unfavorable places (ie. perms screen)
         if ($res['count'] != 1) {
-            return PEAR::raiseError(_("Unable to determine default context"));
+            //return PEAR::raiseError(_("Unable to determine default context"));
+            return '';
         }
         return $res[0]['context'][0];
     }
@@ -421,9 +411,7 @@ for $context"));
         }
         return $properties;
     }
-    // }}}
 
-    // {{{ getDialplan method
     /**
      * Get a context's dialplan and return as a multi-dimensional associative
      * array
@@ -554,9 +542,7 @@ for $context"));
         }
         return $dialplans[$context];
     }
-    // }}}
 
-    // {{{
     /**
      * Get the limits for the current user, the user's context, and global
      * Return the most specific values in every case.  Return default values
@@ -686,9 +672,7 @@ for $context"));
             return $cachedlimits[$context];
         }
     }
-    // }}}
 
-    // {{{
     /**
      * Save a user to the LDAP tree
      *
@@ -859,9 +843,7 @@ for $context"));
         # We must have been successful
         return true;
     }
-    // }}}
 
-    // {{{ deleteUser method
     /**
      * Deletes a user from the LDAP tree
      *
@@ -896,7 +878,6 @@ for $context"));
         }
         return true;
     }
-    // }}}
 
 
     /* Needed because uksort can't take a classed function as its callback arg */
@@ -908,7 +889,6 @@ for $context"));
         return $ret;
     }
 
-    // {{{ connect method
     /**
      * Attempts to open a connection to the LDAP server.
      *
@@ -949,5 +929,4 @@ Check authentication credentials.");
         }
         return true;
     }
-    // }}}
 }
