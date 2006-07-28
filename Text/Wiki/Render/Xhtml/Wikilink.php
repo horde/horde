@@ -98,7 +98,7 @@ class Text_Wiki_Render_Xhtml_Wikilink extends Text_Wiki_Render {
                 $href = $href . $this->urlEncode($page) . $anchor;
             } else {
                 // use the new form (sprintf format string)
-                $href = sprintf($href, $this->urlEncode($page) . $anchor);
+                $href = sprintf($href, $this->urlEncode($page)) . $anchor;
             }
 
             // get the CSS class and generate output
