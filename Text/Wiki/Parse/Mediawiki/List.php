@@ -139,27 +139,42 @@ class Text_Wiki_Parse_List extends Text_Wiki_Parse {
             $text = $val[3];
 
             // add a level to the list?
-            if ($level > count($stack)) {
-                
+            $tmp = count($stack);
+            while ($level > $tmp) {
                 // the current indent level is greater than the
                 // number of stack elements, so we must be starting
                 // a new list.  push the new list type onto the
                 // stack...
-                array_push($stack, $type);
-                
+                $tmp = array_push($stack, $type);
+
                 // ...and add a list-start token to the return.
                 $return .= $this->wiki->addToken(
                     $this->rule, 
                     array(
                         'type' => $type . '_list_start',
-                        'level' => $level - 1
+                        'level' => $tmp
                     )
                 );
+
+                // Insert fake items as long as we did not reach our
+                // destination level
+                if ($tmp != $level) {
+                    // itemcount cannot be set before so its save to set this
+                    $itemcount[$tmp] = 0;
+    
+                    $return .= $this->wiki->addToken(
+                        $this->rule,
+                        array(
+                            'type' => $type . '_item_start',
+                            'count' => 0,
+                            'level' => $tmp
+                        )
+                    );
+                }
             }
             
             // remove a level from the list?
             while (count($stack) > $level) {
-                
                 // so we don't keep counting the stack, we set up a temp
                 // var for the count.  -1 becuase we're going to pop the
                 // stack in the next command.  $tmp will then equal the
@@ -177,7 +192,7 @@ class Text_Wiki_Parse_List extends Text_Wiki_Parse {
                         'level' => $tmp
                     )
                 );
-                
+
                 // reset to the current (previous) list type so that
                 // the new list item matches the proper list type.
                 $type = $stack[$tmp - 1];
@@ -242,7 +257,7 @@ class Text_Wiki_Parse_List extends Text_Wiki_Parse {
                 )
             );
         }
-        
+
         // we're done!  send back the replacement text.
         return "\n" . $return . "\n\n";
     }
