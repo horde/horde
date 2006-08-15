@@ -53,9 +53,11 @@ class Text_Wiki_Mediawiki extends Text_Wiki {
 //        'Blockquote',
         'List',
         'Deflist',
-        'Table',
 //        'Box',
+        'Wikilink',
 //        'Image', // done by Wikilink but still possible to disable/configure
+//        'Interwiki', // done by Wikilink but still possible to disable/configure
+        'Table',
 //        'Phplookup',
 //        'Center',
         'Newline',
@@ -63,7 +65,6 @@ class Text_Wiki_Mediawiki extends Text_Wiki {
         'Url',
 //        'Freelink',
 //        'Colortext',
-        'Wikilink',
 //        'Strong',  ** will be only fake inserted by Emphasis if needed for render
 //        'Bold',
         'Emphasis',
@@ -74,7 +75,6 @@ class Text_Wiki_Mediawiki extends Text_Wiki {
         'Subscript',
 //        'Specialchar',
 //        'Revise',
-//        'Interwiki', // done by Wikilink but still possible to disable/configure
         'Tighten'
     );
 
