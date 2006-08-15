@@ -35,12 +35,12 @@ class Text_Wiki_Mediawiki extends Text_Wiki {
     var $rules = array(
         'Prefilter',
         'Delimiter',
+        'Preformatted',
         'Code',
 //        'Plugin',
 //        'Function',
 //        'Html',
         'Raw',
-//        'Preformatted',
 //        'Include',
 //        'Embed',
 //        'Page',

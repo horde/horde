@@ -1,7 +1,6 @@
 <?php
 // vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4:
 /**
-* 
 * Mediawiki: Parse for definition lists.
 * 
 * @category Text
@@ -15,7 +14,6 @@
 */
 
 /**
-* 
 * Parses for definition lists.
 *
 * This class implements a Text_Wiki_Parse to find source text marked as a
@@ -33,29 +31,20 @@
 * @author Moritz Venn <ritzmo@php.net>
 * 
 */
-
 class Text_Wiki_Parse_Deflist extends Text_Wiki_Parse {
     
-    
     /**
-    * 
     * The regular expression used to parse the source text and find
     * matches conforming to this rule.  Used by the parse() method.
     * 
     * @access public
-    * 
     * @var string
-    * 
     * @see parse()
-    * 
     */
-
     var $regex = '/\n((?:\;|\:)+.*?\n(?!(?:\;|\:)+))/s';
  
    /**
-    *
     * Generates a replacement for the matched text.  Token options are:
-    *
     * 'type' =>
     *     'list_start'    : the start of a definition list
     *     'list_end'      : the end of a definition list
@@ -64,20 +53,15 @@ class Text_Wiki_Parse_Deflist extends Text_Wiki_Parse {
     *     'narr_start'    : the start of definition narrative
     *     'narr_end'      : the end of definition narrative
     *     'unknown'       : unknown type of definition portion
-    *
     * 'level' => the indent level (0 for the first level, 1 for the
     * second, etc)
-    *
     * 'count' => the list item number at this level. not needed for
     * xhtml, but very useful for PDF and RTF.
     *
     * @access public
-    *
     * @param array &$matches The array of matches from parse().
-    *
     * @return A series of text and delimited tokens marking the different
     * list text and list elements.
-    *
     */ 
     function process(&$matches)
     {

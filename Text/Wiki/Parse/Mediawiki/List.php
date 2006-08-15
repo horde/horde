@@ -1,67 +1,56 @@
 <?php
+// vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4:
+/**
+ * Mediawiki: Parses for bulleted and numbered lists.
+ *
+ * PHP versions 4 and 5
+ *
+ * @category   Text
+ * @package    Text_Wiki
+ * @author     Justin Patrin <papercrane@reversefold.com>
+ * @author     Paul M. Jones <pmjones@php.net>
+ * @author     Moritz Venn <ritzmo@php.net>
+ * @license    http://www.gnu.org/copyleft/lesser.html  LGPL License 2.1
+ * @version    CVS: $Id$
+ * @link       http://pear.php.net/package/Text_Wiki
+ */
 
 /**
-* 
-* Parses for bulleted and numbered lists.
-* 
-* @category Text
-* 
-* @package Text_Wiki
-* 
-* @author Justin Patrin <papercrane@reversefold.com>
-* @author Paul M. Jones <pmjones@php.net>
-* 
-* @license LGPL
-* 
-* @version $Id$
-* 
-*/
-
-/**
-* 
-* Parses for bulleted and numbered lists.
-* 
-* This class implements a Text_Wiki_Parse to find source text marked as
-* a bulleted or numbered list.  In short, if a line starts with '* ' then
-* it is a bullet list item; if a line starts with '# ' then it is a 
-* number list item.  Spaces in front of the * or # indicate an indented
-* sub-list.  The list items must be on sequential lines, and may be 
-* separated by blank lines to improve readability.  Using a non-* non-#
-* non-whitespace character at the beginning of a line ends the list.
-*
-* @category Text
-* 
-* @package Text_Wiki
-* 
-* @author Justin Patrin <papercrane@reversefold.com>
-* @author Paul M. Jones <pmjones@php.net>
-* 
-*/
-
+ * Parses for bulleted and numbered lists.
+ * 
+ * This class implements a Text_Wiki_Parse to find source text marked as
+ * a bulleted or numbered list.  In short, if a line starts with '* ' then
+ * it is a bullet list item; if a line starts with '# ' then it is a 
+ * number list item.  Spaces in front of the * or # indicate an indented
+ * sub-list.  The list items must be on sequential lines, and may be 
+ * separated by blank lines to improve readability.  Using a non-* non-#
+ * non-whitespace character at the beginning of a line ends the list.
+ *
+ * @category   Text
+ * @package    Text_Wiki
+ * @author     Justin Patrin <papercrane@reversefold.com>
+ * @author     Paul M. Jones <pmjones@php.net>
+ * @author     Moritz Venn <ritzmo@php.net>
+ * @license    http://www.gnu.org/copyleft/lesser.html  LGPL License 2.1
+ * @version    Release: @package_version@
+ * @link       http://pear.php.net/package/Text_Wiki
+ * @see        Text_Wiki_Parse::Text_Wiki_Parse()
+ */
 class Text_Wiki_Parse_List extends Text_Wiki_Parse {
     
-    
     /**
-    * 
     * The regular expression used to parse the source text and find
     * matches conforming to this rule.  Used by the parse() method.
     * 
     * @access public
-    * 
     * @var string
-    * 
     * @see parse()
-    * 
     */
-
     //TODO: add text continuations (any number of + signs) and expandable areas (- after *s ot #s)
-    
     var $regex = '/\n((?:\*|#)+.*?\n(?!(?:\*|#)+))/s';
 
     /**
-    * 
     * Generates a replacement for the matched text.  Token options are:
-    * 
     * 'type' =>
     *     'bullet_start' : the start of a bullet list
     *     'bullet_end'   : the end of a bullet list
@@ -70,22 +59,16 @@ class Text_Wiki_Parse_List extends Text_Wiki_Parse {
     *     'item_start'   : the start of item text (bullet or number)
     *     'item_end'     : the end of item text (bullet or number)
     *     'unknown'      : unknown type of list or item
-    *
     * 'level' => the indent level (0 for the first level, 1 for the
     * second, etc)
-    *
     * 'count' => the list item number at this level. not needed for
     * xhtml, but very useful for PDF and RTF.
     * 
     * @access public
-    *
     * @param array &$matches The array of matches from parse().
-    *
     * @return A series of text and delimited tokens marking the different
     * list text and list elements.
-    *
     */
-    
     function process(&$matches)
     {
         // the replacement text we will return
