@@ -67,32 +67,62 @@ class Text_Wiki_Parse_Deflist extends Text_Wiki_Parse {
     {
         // the replacement text we will return
         $return = '';
-        
+
         // the list of post-processing matches
         $list = array();
-        
+
         // a stack of list-start and list-end types; we keep this
         // so that we know what kind of list we're working with
         // (bullet or number) and what indent level we're at.
         $stack = array();
-        
+
         // the item count is the number of list items for any
         // given list-type on the stack
         $itemcount = array();
-        
+
         // have we processed the very first list item?
         $pastFirst = false;
-        
+
         // populate $list with this set of matches. $matches[1] is the
         // text matched as a list set by parse().
         preg_match_all(
-            '/^((;|:)+)(.*?)$/ms',
+            '/^((;|:)+)\s?(.*?)$/ms',
             $matches[1],
             $list,
             PREG_SET_ORDER
         );
 
-	// loop through each list-item element.
+        // look for same-line definitions and split them
+        // foreach() cannot be used because we are modifying the array directly
+        for ($i = 0; $i < count($list); $i++) {
+            $val = $list[$i];
+
+            // only check definition term lines
+            if ($val[2] != ';') {
+                continue;
+            }
+
+            // spot inline definitions
+            $p = strpos($val[3], ' : ');
+            if ($p === false) {
+                continue;
+            }
+
+            $term = substr($val[3], 0, $p);
+            $narr = substr($val[3], $p + 3);
+
+            $prefix = substr($val[1], 0, -1); // everthing but the last char
+
+            $pair = array(
+                array($prefix . ';' . $term, $prefix . ';', ';', $term),
+                array($prefix . ':' . $narr, $prefix . ':', ':', $narr),
+            );
+
+            array_splice($list, $i, 1, $pair);
+            $i++; // skip the newly-added definition
+        }
+
+        // loop through each list-item element.
         foreach ($list as $key => $val) {
             // $val[0] is the full matched list-item line
             // $val[1] is the type (* or #)
