@@ -35,7 +35,6 @@
  */
 class Text_Wiki_Parse_Code extends Text_Wiki_Parse {
     
-    
     /**
     * The regular expression used to find source text matching this
     * rule.
@@ -43,8 +42,7 @@ class Text_Wiki_Parse_Code extends Text_Wiki_Parse {
     * @access public
     * @var string
     */
-/*    var $regex = '/^(\<code( .+)?\>)\n(.+)\n(\<\/code\>)(\s|$)/Umsi';*/
-    var $regex = ';^<code(\s[^>]*)?>\n?((?:(?R)|.)*?)\n?</code>(\s|$);msi';
+    var $regex = ';<code(\s[^>]*)?>\n?((?:(?R)|.)*?)\n?</code>;msi';
     
     /**
     * Generates a token entry for the matched text.  Token options are:
