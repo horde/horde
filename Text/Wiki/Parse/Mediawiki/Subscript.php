@@ -36,7 +36,7 @@ class Text_Wiki_Parse_Subscript extends Text_Wiki_Parse {
     * @var string
     * @see parse()
     */
-    var $regex =  "/<sub>(.*)<\/sub>/s";
+    var $regex =  "/<sub>(.*?)<\/sub>/s";
     
     
     /**

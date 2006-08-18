@@ -44,7 +44,7 @@ class Text_Wiki_Parse_Tt extends Text_Wiki_Parse {
     * @var string
     * @see parse()
     */
-    var $regex = "/<tt>(.*)<\/tt>/s";
+    var $regex = "/<tt>(.*?)<\/tt>/s";
     
     
     /**

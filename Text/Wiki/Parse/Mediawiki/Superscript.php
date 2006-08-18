@@ -36,7 +36,7 @@ class Text_Wiki_Parse_Superscript extends Text_Wiki_Parse {
     * @var string
     * @see parse()
     */
-    var $regex =  "/<sup>(.*)<\/sup>/s";
+    var $regex =  "/<sup>(.*?)<\/sup>/s";
     
     
     /**
