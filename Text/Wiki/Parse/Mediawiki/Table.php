@@ -52,7 +52,7 @@ class Text_Wiki_Parse_Table extends Text_Wiki_Parse {
      * @see process()
      * @see processRows()
      */
-    var $regexRows = '#(?:^(\||!)-|\G)(.*?)^(.*?)(?=^(?:\|-|!-|\z))#msi';
+    var $regexRows = '#(?:^(\||!)-|\G)(.*?)^(.+?)(?=^(?:\|-|!-|\z))#msi';
 
     /**
      * The regular expression used in third stage to find rows's cells
