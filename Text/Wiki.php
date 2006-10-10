@@ -335,6 +335,10 @@ class Text_Wiki {
 
     var $_dirSep = DIRECTORY_SEPARATOR;
 
+    /**
+     * Temporary configuration variable
+     */
+    var $renderingType = 'preg';
 
     /**
     *
@@ -969,7 +973,7 @@ class Text_Wiki {
             $this->loadRenderObj($format, $rule);
         }
 
-        if (isset($this->newRendering)) {
+        if ($this->renderingType == 'preg') {
             $output = preg_replace_callback('/'.$this->delim.'(\d+)'.$this->delim.'/',
                                             array(&$this, '_renderToken'),
                                             $this->source);
