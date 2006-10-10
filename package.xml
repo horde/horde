@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<!-- $Id: package.xml,v 1.57 2006-10-10 19:36:17 justinpatrin Exp $ -->
+<!-- $Id: package.xml,v 1.58 2006-10-10 19:38:44 justinpatrin Exp $ -->
 <package version="1.0">
     <name>Text_Wiki</name>
-    <summary>Transforms Wiki and BBCode markup into XHTML, LaTeX or plain text markup.
-This is the base engine for all of the Text_Wiki sub-classes.</summary>
+    <summary>Transforms Wiki and BBCode markup into XHTML, LaTeX or plain text markup. This is the base engine for all of the Text_Wiki sub-classes.</summary>
     <description>The text transformation is done in 2 steps.
 The chosen parser uses markup rules to tokenize the tags and content.
 Renderers output the tokens and text into the requested format.
