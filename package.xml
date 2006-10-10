@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<!-- $Id: package.xml,v 1.56 2006-04-23 10:31:54 toggg Exp $ -->
+<!-- $Id: package.xml,v 1.57 2006-10-10 19:36:17 justinpatrin Exp $ -->
 <package version="1.0">
     <name>Text_Wiki</name>
     <summary>Transforms Wiki and BBCode markup into XHTML, LaTeX or plain text markup.
@@ -35,45 +35,25 @@ It is highly configurable and can be easily extended.</description>
         </maintainer>
      </maintainers>
     <release>
-        <version>1.1.0</version>
-        <date>2006-03-02</date>
+        <version>1.2.0RC1</version>
+        <date>2006-10-10</date>
         <license>LGPL</license>
-        <state>stable</state>
+        <state>beta</state>
         <notes><![CDATA[
-This is a major release as we reduce global resource usage
-# instantiate renderers only as needed
-# factory() method introduced for instantiating Text_Wiki objects
-# singleton() static method to get a single object instanciated pro parser (merci davidc for advices)
+New Features:
+# Experimental new rendering method introduced that uses preg instead of char-by-char parsing
+## Please test for both speed and memory usage
 
-The constructor is now deprecated in favor of the new singleton() or factory() methods
-Default also have its own class now, wich means Text_Wiki is a pure abstract class
+Changes:
+# Internal Text_Wiki error handling used in factory and singleton
+# Needed files are now required
+# bertrand Gugger has left development of Text_Wiki
 
-Renderers now have their own methods for:
-# text: textEncode() defaulted to php htmlspecialchars()
-  for Xhtml render to the text encoding choosed in conf (#5953, thanks jocke at selincite dot com)
-# url: urlEncode() defaulted to the php rawurlencode()
-
-Wiki general:
-# Correct the key used in changeRule(), ensure no double new rule.
-# Page names and anchors Urlencode() as render required (e.g. may contain spaces)
-# Interwiki: parser may now give the full url instead of site+page (Mediawiki need)
-# Improved test.
-
-Latex render:
-# Only variables should be assigned by reference (#6010, thanks twells at smarterliving dot com)
-
-Plain render:
-# Interwiki: Complete the rendering with indication of (url) or (site:page)
-
-Xhtml render:
-# Rendering Fix for Tables (Missing Whitespace) (thanks ritzmo)
-# Added support for two-token URLs
-## This allows formatting within URL text and proper rendering into other Wiki dialects (assuming that your parser supports the new feature. The Default parser does not yet support this.)
-
-Maintainers:
-# Del , one of the funders of the original code fully as pear developer
-# JustinP is now lead
-        ]]></notes>
+Bugs fixed:
+# Raw output is now encoded in Xhtml renderer to avoid XSS attacks
+# Bug 8313 fix anchor output in Xhtml/Wikilink when used in conjuction with sprintf (thanks to bjs5075 at rit dot edu)
+# Fixed various encoding issues with Xhtml/Wikilink URLs
+# Bug #7091 fixed variable substitution in Latex renderer (thanks randlem at bgsu dot edu)]]></notes>
         <filelist>
 
             <file role="php" name="Text/Wiki.php">
@@ -271,6 +251,46 @@ Maintainers:
         </filelist>
     </release>
   <changelog>
+    <release>
+      <version>1.1.0</version>
+      <date>2006-03-02</date>
+      <license>LGPL</license>
+      <state>stable</state>
+      <notes><![CDATA[
+This is a major release as we reduce global resource usage
+# instantiate renderers only as needed
+# factory() method introduced for instantiating Text_Wiki objects
+# singleton() static method to get a single object instanciated pro parser (merci davidc for advices)
+
+The constructor is now deprecated in favor of the new singleton() or factory() methods
+Default also have its own class now, wich means Text_Wiki is a pure abstract class
+
+Renderers now have their own methods for:
+# text: textEncode() defaulted to php htmlspecialchars()
+for Xhtml render to the text encoding choosed in conf (#5953, thanks jocke at selincite dot com)
+# url: urlEncode() defaulted to the php rawurlencode()
+
+Wiki general:
+# Correct the key used in changeRule(), ensure no double new rule.
+# Page names and anchors Urlencode() as render required (e.g. may contain spaces)
+# Interwiki: parser may now give the full url instead of site+page (Mediawiki need)
+# Improved test.
+
+Latex render:
+# Only variables should be assigned by reference (#6010, thanks twells at smarterliving dot com)
+
+Plain render:
+# Interwiki: Complete the rendering with indication of (url) or (site:page)
+
+Xhtml render:
+# Rendering Fix for Tables (Missing Whitespace) (thanks ritzmo)
+# Added support for two-token URLs
+## This allows formatting within URL text and proper rendering into other Wiki dialects (assuming that your parser supports the new feature. The Default parser does not yet support this.)
+
+Maintainers:
+# Del , one of the funders of the original code fully as pear developer
+# JustinP is now lead]]></notes>
+  </release>
     <release>
         <version>1.0.3</version>
         <date>2005-11-08</date>
