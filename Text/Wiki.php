@@ -256,6 +256,13 @@ class Text_Wiki {
 
     var $source = '';
 
+    /**
+     * The output text
+     *
+     * @var string
+     */
+    var $output = '';
+
 
     /**
     *
@@ -337,8 +344,31 @@ class Text_Wiki {
 
     /**
      * Temporary configuration variable
+     *
+     * @var string
      */
     var $renderingType = 'preg';
+
+    /**
+     * Stack of rendering callbacks
+     *
+     * @var Array
+     */
+    var $_renderCallbacks = array();
+
+    /**
+     * Current output block
+     *
+     * @var string
+     */
+    var $_block;
+
+    /**
+     * A stack of blocks
+     *
+     * @param Array
+     */
+    var $_blocks;
 
     /**
     *
@@ -948,7 +978,7 @@ class Text_Wiki {
         $format = ucwords(strtolower($format));
 
         // the eventual output text
-        $output = '';
+        $this->output = '';
 
         // when passing through the parsed source text, keep track of when
         // we are in a delimited section
@@ -965,7 +995,7 @@ class Text_Wiki {
 
         // pre-rendering activity
         if (is_object($this->formatObj[$format])) {
-            $output .= $this->formatObj[$format]->pre();
+            $this->output .= $this->formatObj[$format]->pre();
         }
 
         // load the render objects
@@ -974,11 +1004,31 @@ class Text_Wiki {
         }
 
         if ($this->renderingType == 'preg') {
-            $output = preg_replace_callback('/'.$this->delim.'(\d+)'.$this->delim.'/',
+            $this->output = preg_replace_callback('/'.$this->delim.'(\d+)'.$this->delim.'/',
                                             array(&$this, '_renderToken'),
                                             $this->source);
+            /*
+//Damn strtok()! Why does it "skip" empty parts of the string. It's useless now!
+        } elseif ($this->renderingType == 'strtok') {
+            echo '<pre>'.htmlentities($this->source).'</pre>';
+            $t = strtok($this->source, $this->delim);
+            $inToken = true;
+            $i = 0;
+            while ($t !== false) {
+                echo 'Token: '.$i.'<pre>"'.htmlentities($t).'"</pre><br/><br/>';
+                if ($inToken) {
+                    //$this->output .= $this->renderObj[$this->tokens[$t][0]]->token($this->tokens[$t][1]);
+                } else {
+                    $this->output .= $t;
+                }
+                $inToken = !$inToken;
+                $t = strtok($this->delim);
+                ++$i;
+            }
+            */
         } else {
             // pass through the parsed source text character by character
+            $this->_block = '';
             $k = strlen($this->source);
             for ($i = 0; $i < $k; $i++) {
 
@@ -991,17 +1041,22 @@ class Text_Wiki {
                     // yes; are we ending the section?
                     if ($char == $this->delim) {
 
+                        if (count($this->_renderCallbacks) == 0) {
+                            $this->output .= $this->_block;
+                            $this->_block = '';
+                        }
+
                         // yes, get the replacement text for the delimited
                         // token number and unset the flag.
                         $key = (int)$key;
                         $rule = $this->tokens[$key][0];
                         $opts = $this->tokens[$key][1];
-                        $output .= $this->renderObj[$rule]->token($opts);
+                        $this->_block .= $this->renderObj[$rule]->token($opts);
                         $in_delim = false;
 
                     } else {
 
-                        // no, add to the dlimited token key number
+                        // no, add to the delimited token key number
                         $key .= $char;
 
                     }
@@ -1015,21 +1070,35 @@ class Text_Wiki {
                         // set the flag.
                         $key = '';
                         $in_delim = true;
+
                     } else {
                         // no, add to the output as-is
-                        $output .= $char;
+                        $this->_block .= $char;
                     }
                 }
             }
         }
 
+        if (count($this->_renderCallbacks)) {
+            return $this->error('Render callbacks left over after processing finished');
+        }
+        /*
+        while (count($this->_renderCallbacks)) {
+            $this->popRenderCallback();
+        }
+        */
+        if (strlen($this->_block)) {
+            $this->output .= $this->_block;
+            $this->_block = '';
+        }
+
         // post-rendering activity
         if (is_object($this->formatObj[$format])) {
-            $output .= $this->formatObj[$format]->post();
+            $this->output .= $this->formatObj[$format]->post();
         }
 
         // return the rendered source text.
-        return $output;
+        return $this->output;
     }
 
     /**
@@ -1043,6 +1112,28 @@ class Text_Wiki {
         return $this->renderObj[$this->tokens[$matches[1]][0]]->token($this->tokens[$matches[1]][1]);
     }
 
+    function registerRenderCallback($callback) {
+        $this->_blocks[] = $this->_block;
+        $this->_block = '';
+        $this->_renderCallbacks[] = $callback;
+    }
+
+    function popRenderCallback() {
+        if (count($this->_renderCallbacks) == 0) {
+            return Text_Wiki::error('Render callback popped when no render callbacks in stack');
+        } else {
+            $callback = array_pop($this->_renderCallbacks);
+            $this->_block = call_user_func($callback, $this->_block);
+            if (count($this->_blocks)) {
+                $parentBlock = array_pop($this->_blocks);
+                $this->_block = $parentBlock.$this->_block;
+            }
+            if (count($this->_renderCallbacks) == 0) {
+                $this->output .= $this->_block;
+                $this->_block = '';
+            }
+        }
+    }
 
     /**
     *

@@ -17,19 +17,21 @@ class Text_Wiki_Render_Doku_Blockquote extends Text_Wiki_Render {
     
     function token($options)
     {
-        // set up indenting so that the results look nice; we do this
-        // in two steps to avoid str_pad mathematics.  ;-)
-        $pad = str_pad('', $options['level'], '>');
-        
         // starting
         if ($options['type'] == 'start') {
-            return $pad.' ';
-        }
-        
-        // ending
-        if ($options['type'] == 'end') {
+            $this->wiki->registerRenderCallback(array(&$this, 'renderInsideText'));
             return '';
         }
+        // ending
+        if ($options['type'] == 'end') {
+            $this->wiki->popRenderCallback();
+            return '';
+        }
+    }
+
+    function renderInsideText($text) {
+        $text = preg_replace('/(^|\n)(?!$)/', '\1>', $text);
+        return $text;
     }
 }
 ?>
