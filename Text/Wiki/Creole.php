@@ -92,14 +92,14 @@ class Text_Wiki_Creole extends Text_Wiki {
             $rule = strtolower($this->tokens[$t][0]);
             $type = $this->tokens[$t][1]['type'];
 
-            if ($type == 'end' && ! $started[$rule]) {
-                return false;
-            }
-            else if ($type == 'start') {
-                $started[$rule] = true;
+            if ($type == 'start') {
+                $started[$rule] += 1;
             }
             else if ($type == 'end') {
-                unset($started[$rule]);
+                if (! $started[$rule]) return false;
+
+                $started[$rule] -= 1;
+                if (! $started[$rule]) unset($started[$rule]);
             }
         }
         return ! (count($started) > 0);
