@@ -72,30 +72,31 @@ class Text_Wiki_Parse_Url extends Text_Wiki_Parse {
         if (! $href) $href = $rawurl;
         if (! $text) $text = $href;
 
-        return $this->wiki->addToken(
-            $this->rule,
-            array(
-                'href' => $href,
-                'text' => $text
-            )
-        );
-
-        /*return $this->wiki->addToken(
-            $this->rule,
-            array(
-                'type' => 'start',
-                'href' => $href,
-                'text' => $text
-            )
-        ) . $text .
-        $this->wiki->addToken(
-            $this->rule,
-            array(
-                'type' => 'end',
-                'href' => $href,
-                'text' => $text
-            )
-        );*/
+        if (! strlen($text) || $text == $href) {
+            return $this->wiki->addToken(
+                $this->rule,
+                array(
+                    'href' => $href
+                )
+            );
+        } else {
+            return $this->wiki->addToken(
+                $this->rule,
+                array(
+                    'type' => 'start',
+                    'href' => $href,
+                    'text' => $text
+                )
+            ) . $text .
+            $this->wiki->addToken(
+                $this->rule,
+                array(
+                    'type' => 'end',
+                    'href' => $href,
+                    'text' => $text
+                )
+            );
+        }
     }
 
 }

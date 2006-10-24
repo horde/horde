@@ -17,21 +17,22 @@ class Text_Wiki_Render_Creole_Url extends Text_Wiki_Render {
 
     function token($options)
     {
-        if ($options['type'] == 'start') {
-            if (! strlen($options['text']) || $options['page'] == $options['text']) {
-                return '[['.$options['href'];
+        extract($options);
+        if ($type == 'start') {
+            if (! strlen($text) || $href == $text) {
+                return '[['.$href;
             } else {
-                return '[['.$options['href'].'|';
+                return '[['.$href.'|';
             }
         }
-        else if ($options['type'] == 'end') {
+        else if ($type == 'end') {
             return ']]';
         }
         else {
-            if (! strlen($options['text']) || $options['page'] == $options['text']) {
-                return '[['.$options['href'].']]';
+            if (! strlen($text) || $href == $text) {
+                return '[['.$href.']]';
             } else {
-                return '[['.$options['href'].'|'.$options['text'].']]';
+                return '[['.$href.'|'.$text.']]';
             }
         }
     }

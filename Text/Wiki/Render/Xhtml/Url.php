@@ -114,18 +114,10 @@ class Text_Wiki_Render_Xhtml_Url extends Text_Wiki_Render {
             }
         }
 
-        if (isset($type)) {
-            switch ($type) {
-            case 'footnote':
-                $output = $start . $text . $end;
-                break;
-            case 'start':
-                $output = $start;
-                break;
-            case 'end':
-                $output = $end;
-                break;
-            }
+        if ($options['type'] == 'start') {
+            $output = $start;
+        } else if ($options['type'] == 'end') {
+            $output = $end;
         } else {
             $output = $start . $text . $end;
         }
