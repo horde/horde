@@ -1029,6 +1029,7 @@ class Text_Wiki {
         } else {
             // pass through the parsed source text character by character
             $this->_block = '';
+            $tokenStack = array();
             $k = strlen($this->source);
             for ($i = 0; $i < $k; $i++) {
 
@@ -1044,6 +1045,18 @@ class Text_Wiki {
                         if (count($this->_renderCallbacks) == 0) {
                             $this->output .= $this->_block;
                             $this->_block = '';
+                        }
+
+                        if (isset($opts['type'])) {
+                            if ($opts['type'] == 'start') {
+                                array_push($tokenStack, $rule);
+                            } elseif ($opts['type'] == 'end') {
+                                if ($tokenStack[count($tokenStack) - 1] != $rule) {
+                                    return Text_Wiki::error('Unbalanced tokens, check your syntax');
+                                } else {
+                                    array_pop($tokenStack);
+                                }
+                            }
                         }
 
                         // yes, get the replacement text for the delimited
