@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<!-- $Id: packageCreole.xml,v 1.1 2006-10-23 13:11:27 mic Exp $ -->
+<!-- $Id: packageCreole.xml,v 1.2 2006-11-02 13:08:16 mic Exp $ -->
 <package version="1.0">
     <name>Text_Wiki_Creole</name>
     <summary>Creole parser and renderer for Text_Wiki</summary>
@@ -12,7 +12,7 @@
             <email>tomamic@yahoo.it</email>
             <role>lead</role>
         </maintainer>
-     </maintainers>
+    </maintainers>
     <release>
         <version>0.0.1</version>
         <date>2006-10-23</date>
@@ -24,24 +24,24 @@ First released version of Text_Wiki_Creole.
         <filelist>
             <file role="php" name="Text/Wiki/Creole.php" />
             <file role="php" name="Text/Wiki/Parse/Creole/Address.php" />
-			<file role="php" name="Text/Wiki/Parse/Creole/Blockquote.php" />
-			<file role="php" name="Text/Wiki/Parse/Creole/Delimiter.php" />
-			<file role="php" name="Text/Wiki/Parse/Creole/Emphasis.php" />
-			<file role="php" name="Text/Wiki/Parse/Creole/Heading.php" />
-			<file role="php" name="Text/Wiki/Parse/Creole/Horiz.php" />
-			<file role="php" name="Text/Wiki/Parse/Creole/Image.php" />
-			<file role="php" name="Text/Wiki/Parse/Creole/List.php" />
-			<file role="php" name="Text/Wiki/Parse/Creole/Newline.php" />
-			<file role="php" name="Text/Wiki/Parse/Creole/Paragraph.php" />
-			<file role="php" name="Text/Wiki/Parse/Creole/Prefilter.php" />
-			<file role="php" name="Text/Wiki/Parse/Creole/Preformatted.php" />
-			<file role="php" name="Text/Wiki/Parse/Creole/Strong.php" />
-			<file role="php" name="Text/Wiki/Parse/Creole/Table.php" />
-			<file role="php" name="Text/Wiki/Parse/Creole/Tighten.php" />
-			<file role="php" name="Text/Wiki/Parse/Creole/Trim.php" />
-			<file role="php" name="Text/Wiki/Parse/Creole/Tt.php" />
-			<file role="php" name="Text/Wiki/Parse/Creole/Url.php" />
-			<file role="php" name="Text/Wiki/Parse/Creole/Wikilink.php" />
+            <file role="php" name="Text/Wiki/Parse/Creole/Blockquote.php" />
+            <file role="php" name="Text/Wiki/Parse/Creole/Delimiter.php" />
+            <file role="php" name="Text/Wiki/Parse/Creole/Emphasis.php" />
+            <file role="php" name="Text/Wiki/Parse/Creole/Heading.php" />
+            <file role="php" name="Text/Wiki/Parse/Creole/Horiz.php" />
+            <file role="php" name="Text/Wiki/Parse/Creole/Image.php" />
+            <file role="php" name="Text/Wiki/Parse/Creole/List.php" />
+            <file role="php" name="Text/Wiki/Parse/Creole/Newline.php" />
+            <file role="php" name="Text/Wiki/Parse/Creole/Paragraph.php" />
+            <file role="php" name="Text/Wiki/Parse/Creole/Prefilter.php" />
+            <file role="php" name="Text/Wiki/Parse/Creole/Preformatted.php" />
+            <file role="php" name="Text/Wiki/Parse/Creole/Strong.php" />
+            <file role="php" name="Text/Wiki/Parse/Creole/Table.php" />
+            <file role="php" name="Text/Wiki/Parse/Creole/Tighten.php" />
+            <file role="php" name="Text/Wiki/Parse/Creole/Trim.php" />
+            <file role="php" name="Text/Wiki/Parse/Creole/Tt.php" />
+            <file role="php" name="Text/Wiki/Parse/Creole/Url.php" />
+            <file role="php" name="Text/Wiki/Parse/Creole/Wikilink.php" />
             <file role="php" name="Text/Wiki/Render/Creole.php" />
             <file role="php" name="Text/Wiki/Render/Creole/Address.php" />
             <file role="php" name="Text/Wiki/Render/Creole/Anchor.php" />
@@ -88,6 +88,6 @@ First released version of Text_Wiki_Creole.
             <dep type="pkg" rel="ge" version="1.0.1">Text_Wiki</dep>
         </deps>
     </release>
-  <changelog>
-  </changelog>
+    <changelog>
+    </changelog>
 </package>
