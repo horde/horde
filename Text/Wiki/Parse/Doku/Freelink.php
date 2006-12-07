@@ -63,11 +63,11 @@ class Text_Wiki_Parse_Freelink extends Text_Wiki_Parse {
             '/' .                                                   // START regex
             "\\[\\[" .                                               // double open-parens
             "(" .                                                   // START freelink page patter
-            "[-A-Za-z0-9 _+\\/.,;:!?'\"\\[\\]\\{\\}&\xc0-\xff]+" . // 1 or more of just about any character
+            "[-A-Za-z0-9 _+\\/.,;:!?'\"\\[\\]\\{\\}&\p{L}]+" . // 1 or more of just about any character \xc0-\xff
             ")" .                                                   // END  freelink page pattern
             "(" .                                                   // START display-name
             "\|" .                                                   // a pipe to start the display name
-            "[-A-Za-z0-9 _+\\/.,;:!?'\"\\[\\]\\{\\}&\xc0-\xff]+" . // 1 or more of just about any character
+            "[-A-Za-z0-9 _+\\/.,;:!?'\"\\[\\]\\{\\}&\p{L}]+" . // 1 or more of just about any character \xc0-\xff
             ")?" .                                                   // END display-name pattern 0 or 1
             "(" .                                                   // START pattern for named anchors
             "\#" .                                                   // a hash mark

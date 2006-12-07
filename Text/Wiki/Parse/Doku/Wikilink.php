@@ -62,7 +62,8 @@ class Text_Wiki_Parse_Wikilink extends Text_Wiki_Parse {
     function parse()
     {
         if ($this->getConf('ext_chars')) {
-			$either = "A-Za-z0-9\xc0-\xfe";
+			$either = 'A-Za-z0-9\p{L}';
+			//$either = "A-Za-z0-9\xc0-\xfe";
 		} else {
 			$either = 'A-Za-z0-9';
 		}

@@ -69,9 +69,14 @@ class Text_Wiki_Parse_Wikilink extends Text_Wiki_Parse {
         	// use an extended character set; this should
         	// allow for umlauts and so on.  taken from the
         	// Tavi project defaults.php file.
+            /*
 			$upper = "A-Z\xc0-\xde";
 			$lower = "a-z0-9\xdf-\xfe";
 			$either = "A-Za-z0-9\xc0-\xfe";
+            */
+			$upper = 'A-Z\p{Lu}';
+			$lower = 'a-z0-9\p{Ll}';
+			$either = 'A-Za-z0-9\p{L}';
 		} else {
 			// the default character set, should be fine
 			// for most purposes.
