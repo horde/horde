@@ -56,16 +56,20 @@ class Text_Wiki_Parse_Freelink extends Text_Wiki_Parse {
     function Text_Wiki_Parse_Freelink(&$obj)
     {
         parent::Text_Wiki_Parse($obj);
-        
+        if ($this->getConf('ext_chars')) {
+            $any = '\p{L}';
+        } else {
+            $any = '';
+        }
         $this->regex =
             '/' .                                                   // START regex
             "\\(\\(" .                                               // double open-parens
             "(" .                                                   // START freelink page patter
-            "[-A-Za-z0-9 _+\\/.,;:!?'\"\\[\\]\\{\\}&\p{L}\xc0-\xff]+" . // 1 or more of just about any character
+            "[-A-Za-z0-9 _+\\/.,;:!?'\"\\[\\]\\{\\}&".$any."\xc0-\xff]+" . // 1 or more of just about any character
             ")" .                                                   // END  freelink page pattern
             "(" .                                                   // START display-name
             "\|" .                                                   // a pipe to start the display name
-            "[-A-Za-z0-9 _+\\/.,;:!?'\"\\[\\]\\{\\}&\p{L}\xc0-\xff]+" . // 1 or more of just about any character
+            "[-A-Za-z0-9 _+\\/.,;:!?'\"\\[\\]\\{\\}&".$any."\xc0-\xff]+" . // 1 or more of just about any character
             ")?" .                                                   // END display-name pattern 0 or 1
             "(" .                                                   // START pattern for named anchors
             "\#" .                                                   // a hash mark
