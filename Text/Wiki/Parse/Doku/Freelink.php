@@ -41,43 +41,10 @@
 
 class Text_Wiki_Parse_Freelink extends Text_Wiki_Parse {
 
-    var $regex = '/lkdhgliuLKJlyheglihleh/';    
+    var $regex = '/lkdhgliuLKJlyheglihleh/';
     
-    /**
-    * 
-    * Constructor.  We override the Text_Wiki_Parse constructor so we can
-    * explicitly comment each part of the $regex property.
-    * 
-    * @access public
-    * 
-    * @param object &$obj The calling "parent" Text_Wiki object.
-    * 
-    */
-    
-    function Text_Wiki_Parse_Freelink(&$obj)
-    {
-        parent::Text_Wiki_Parse($obj);
-        return;
-        
-        $this->regex =
-            '/' .                                                   // START regex
-            "\\[\\[" .                                               // double open-parens
-            "(" .                                                   // START freelink page patter
-            "[-A-Za-z0-9 _+\\/.,;:!?'\"\\[\\]\\{\\}&\p{L}\xc0-\xff]+" . // 1 or more of just about any character
-            ")" .                                                   // END  freelink page pattern
-            "(" .                                                   // START display-name
-            "\|" .                                                   // a pipe to start the display name
-            "[-A-Za-z0-9 _+\\/.,;:!?'\"\\[\\]\\{\\}&\p{L}\xc0-\xff]+" . // 1 or more of just about any character
-            ")?" .                                                   // END display-name pattern 0 or 1
-            "(" .                                                   // START pattern for named anchors
-            "\#" .                                                   // a hash mark
-            "[A-Za-z]" .                                           // 1 alpha
-            "[-A-Za-z0-9_:.]*" .                                   // 0 or more alpha, digit, underscore
-            ")?" .                                                   // END named anchors pattern 0 or 1
-            "()\\]\\]" .                                           // double close-parens
-            '/';                                                   // END regex
-    }
-    
+    function parse() {
+    }    
     
     /**
     * 

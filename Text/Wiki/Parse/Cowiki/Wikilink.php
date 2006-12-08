@@ -45,7 +45,8 @@
 class Text_Wiki_Parse_Wikilink extends Text_Wiki_Parse {
     
     var $conf = array (
-    	'ext_chars' => false
+                       'ext_chars' => false,
+                       'utf-8' => false
     );
     
     /**
@@ -64,13 +65,17 @@ class Text_Wiki_Parse_Wikilink extends Text_Wiki_Parse {
     function Text_Wiki_Parse_Wikilink(&$obj)
     {
         parent::Text_Wiki_Parse($obj);
-        if ($this->getConf('ext_chars')) {
+        if ($this->getConf('utf-8')) {
+			$upper = 'A-Z\p{Lu}';
+			$lower = 'a-z0-9\p{Ll}';
+			$either = 'A-Za-z0-9\p{L}';
+        } else if ($this->getConf('ext_chars')) {
         	// use an extended character set; this should
         	// allow for umlauts and so on.  taken from the
         	// Tavi project defaults.php file.
-			$upper = 'A-Z\p{Lu}\xc0-\xde';
-			$lower = 'a-z0-9\p{Ll}\xdf-\xfe';
-			$either = 'A-Za-z0-9\p{L}\xc0-\xfe';
+			$upper = 'A-Z\xc0-\xde';
+			$lower = 'a-z0-9\xdf-\xfe';
+			$either = 'A-Za-z0-9\xc0-\xfe';
 		} else {
 			// the default character set, should be fine
 			// for most purposes.
@@ -109,14 +114,16 @@ class Text_Wiki_Parse_Wikilink extends Text_Wiki_Parse {
     
     function parse()
     {
-        if ($this->getConf('ext_chars')) {
+        if ($this->getConf('utf-8')) {
+			$either = 'A-Za-z0-9\p{L}';
+        } else if ($this->getConf('ext_chars')) {
 			$either = "A-Za-z0-9\xc0-\xfe";
 		} else {
 			$either = "A-Za-z0-9";
 		}
 		
         // described wiki links
-        $tmp_regex = '/\(\(' . /*$this->regex*/ '(['.$either.'\s:\.]*?)((\#['.$either.'\s:\.](['.$either.'\s:\.]*?)?)?)' . '(\)\((.+?))?\)\)/';
+        $tmp_regex = '/\(\(' . /*$this->regex*/ '(['.$either.'\s:\.]*?)((\#['.$either.'\s:\.](['.$either.'\s:\.]*?)?)?)' . '(\)\((.+?))?\)\)/'.($this->getConf('utf-8') ? 'u' : '');
         $this->wiki->source = preg_replace_callback(
             $tmp_regex,
             array(&$this, 'processDescr'),
@@ -125,7 +132,7 @@ class Text_Wiki_Parse_Wikilink extends Text_Wiki_Parse {
         
         if ($this->getConf('camel_case')) {
             // standalone wiki links
-            $tmp_regex = '/(^|[^$either\-_])(\)\))?' . $this->regex . '(\(\()?/';
+            $tmp_regex = '/(^|[^$either\-_])(\)\))?' . $this->regex . '(\(\()?/'.($this->getConf('utf-8') ? 'u' : '');
             $this->wiki->source = preg_replace_callback(
                                                         $tmp_regex,
                                                         array(&$this, 'process'),

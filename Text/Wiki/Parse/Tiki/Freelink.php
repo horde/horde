@@ -43,6 +43,9 @@
 
 class Text_Wiki_Parse_Freelink extends Text_Wiki_Parse {
     
+    var $conf = array (
+                       'utf-8' => false
+    );
     
     /**
     * 
@@ -58,7 +61,7 @@ class Text_Wiki_Parse_Freelink extends Text_Wiki_Parse {
     function Text_Wiki_Parse_Freelink(&$obj)
     {
         parent::Text_Wiki_Parse($obj);
-        if ($this->getConf('ext_chars')) {
+        if ($this->getConf('utf-8')) {
             $any = '\p{L}';
         } else {
             $any = '';
@@ -79,7 +82,7 @@ class Text_Wiki_Parse_Freelink extends Text_Wiki_Parse {
             '[-A-Za-z0-9_:.]*' .                                   // 0 or more alpha, digit, underscore
             ')?' .                                                   // END named anchors pattern 0 or 1
             '\\]\\]' .                                           // double close-parens
-            '/';                                                   // END regex
+            '/'.($this->getConf('utf-8') ? 'u' : '');            // END regex
     }
     
     

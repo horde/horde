@@ -47,7 +47,8 @@
 class Text_Wiki_Parse_Wikilink extends Text_Wiki_Parse {
     
     var $conf = array (
-    	'ext_chars' => false
+                       'ext_chars' => false,
+                       'utf-8' => false
     );
     
     /**
@@ -66,7 +67,11 @@ class Text_Wiki_Parse_Wikilink extends Text_Wiki_Parse {
     function Text_Wiki_Parse_Wikilink(&$obj)
     {
         parent::Text_Wiki_Parse($obj);
-        if ($this->getConf('ext_chars')) {
+        if ($this->getConf('utf-8')) {
+			$upper = 'A-Z\p{Lu}';
+			$lower = 'a-z0-9\p{Ll}';
+			$either = 'A-Za-z0-9\p{L}';
+        } else if ($this->getConf('ext_chars')) {
         	// use an extended character set; this should
         	// allow for umlauts and so on.  taken from the
         	// Tavi project defaults.php file.
@@ -111,14 +116,16 @@ class Text_Wiki_Parse_Wikilink extends Text_Wiki_Parse {
     
     function parse()
     {
-        if ($this->getConf('ext_chars')) {
+        if ($this->getConf('utf-8')) {
+			$either = 'A-Za-z0-9\p{L}';
+        } else if ($this->getConf('ext_chars')) {
 			$either = "A-Za-z0-9\xc0-\xfe";
 		} else {
 			$either = "A-Za-z0-9";
 		}
 		
         // described wiki links
-        $tmp_regex = '/\(\(' . /*$this->regex*/ '(['.$either.'\s\.\-]*?)(?:(\#['.$either.'\s\.\-](?:['.$either.'\s\.\-]*?)?)?)(?:\|(.+?))?\)\)/';
+        $tmp_regex = '/\(\(' . /*$this->regex*/ '(['.$either.'\s\.\-]*?)(?:(\#['.$either.'\s\.\-](?:['.$either.'\s\.\-]*?)?)?)(?:\|(.+?))?\)\)/'.($this->getConf('utf-8') ? 'u' : '');
         $this->wiki->source = preg_replace_callback(
             $tmp_regex,
             array(&$this, 'processDescr'),
@@ -126,7 +133,7 @@ class Text_Wiki_Parse_Wikilink extends Text_Wiki_Parse {
         );
         
         // standalone wiki links
-        $tmp_regex = '/(^|[^$either\-_])(\)\))?' . $this->regex . '(\(\()?/';
+        $tmp_regex = '/(^|[^$either\-_])(\)\))?' . $this->regex . '(\(\()?/'.($this->getConf('utf-8') ? 'u' : '');
         $this->wiki->source = preg_replace_callback(
             $tmp_regex,
             array(&$this, 'process'),

@@ -45,7 +45,8 @@
 class Text_Wiki_Parse_Wikilink extends Text_Wiki_Parse {
     
     var $conf = array (
-    	'ext_chars' => false
+                       'ext_chars' => false,
+                       'utf-8' => false
     );
     
     
@@ -61,8 +62,10 @@ class Text_Wiki_Parse_Wikilink extends Text_Wiki_Parse {
     
     function parse()
     {
-        if ($this->getConf('ext_chars')) {
-			$either = 'A-Za-z0-9\p{L}\xc0-\xfe';
+        if ($this->getConf('utf-8')) {
+			$either = 'A-Za-z0-9\p{L}';
+        } else if ($this->getConf('ext_chars')) {
+			$either = 'A-Za-z0-9\xc0-\xfe';
 		} else {
 			$either = 'A-Za-z0-9';
 		}
@@ -72,7 +75,7 @@ class Text_Wiki_Parse_Wikilink extends Text_Wiki_Parse {
             '(['.$either.'\s:\.]*?)'. //page name
             '(\#['.$either.'\s:\.]+?)?'. //anchor
             '(\|([^'.$this->wiki->delim.'\]]+?))?'. //description
-            '\]\]/'; //end
+            '\]\]/'.($this->getConf('utf-8') ? 'u' : ''); //end
         $this->wiki->source = preg_replace_callback(
             $tmp_regex,
             array(&$this, 'processDescr'),
