@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<!-- $Id: packageMediawiki.xml,v 1.6 2006-04-23 10:31:54 toggg Exp $ -->
+<!-- $Id: packageMediawiki.xml,v 1.7 2006-12-20 22:29:59 toggg Exp $ -->
 <package version="1.0">
     <name>Text_Wiki_Mediawiki</name>
     <summary>Mediawiki parser for Text_Wiki</summary>
@@ -10,6 +10,12 @@
             <user>ritzmo</user>
             <name>Moritz Venn</name>
             <email>moritz.venn@freaque.net</email>
+            <role>lead</role>
+        </maintainer>
+        <maintainer>
+            <user>toggg</user>
+            <name>bertrand Gugger</name>
+            <email>toggg at php dot net</email>
             <role>lead</role>
         </maintainer>
      </maintainers>
