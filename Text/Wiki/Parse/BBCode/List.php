@@ -108,7 +108,7 @@ class Text_Wiki_Parse_List extends Text_Wiki_Parse {
      */
     function process(&$matches)
     {
-        if (array_key_exists(3, $matches)) {
+        if (!empty($matches[3])) {
             $this->_level++;
             $expsub = preg_replace_callback(
                 $this->regex,
