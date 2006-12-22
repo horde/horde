@@ -161,13 +161,25 @@ class Text_Wiki_Parse_Url extends Text_Wiki_Parse {
             }
         }
         // set options
-        $options = array(
-            'type' => $type,
-            'href' => (isset($matches[3]) ? '' : 'http://') . $matches[2],
-            'text' => isset($matches[4]) ? $matches[4] : $matches[2]
-        );
+        $href = (isset($matches[3]) ? '' : 'http://') . $matches[2];
+        $text = isset($matches[4]) ? $matches[4] : $matches[2];
 
         // tokenize
-        return $pre . $this->wiki->addToken($this->rule, $options);
+        if ($type == 'inline') {
+            return $pre . $this->wiki->addToken($this->rule, array(
+                'type' => $type,
+                'href' => $href,
+                'text' => $text));
+        }
+        return $pre .
+            $this->wiki->addToken($this->rule, array(
+                'type' => 'start',
+                'href' => $href,
+                'text' => '')) .
+            $text .
+            $this->wiki->addToken($this->rule, array(
+                'type' => 'end',
+                'href' => $href,
+                'text' => ''));
     }
 }

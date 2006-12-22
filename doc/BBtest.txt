@@ -19,6 +19,7 @@ or
 [size=18][color=red][b]LOOK AT ME![/b][/color][/size]
 
 url:
+[url=http://pear.php.net][img]http://pear.php.net/gifs/pearsmall.gif[/img][/url]
 [url=http://www.totalgeek.org]totalgeek.org[/url]
 [url=/some/relative/url.php]relative url[/url]
 [url]www.totalgeek.org[/url]
