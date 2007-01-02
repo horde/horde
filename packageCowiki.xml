@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<!-- $Id: packageCowiki.xml,v 1.4 2006-04-23 10:31:54 toggg Exp $ -->
+<!-- $Id: packageCowiki.xml,v 1.5 2007-01-02 18:53:43 justinpatrin Exp $ -->
 <package version="1.0">
     <name>Text_Wiki_Cowiki</name>
     <summary>Cowiki parser and renderer for Text_Wiki</summary>
-    <description>Parses Cowiki mark-up to tokenize the text for Text_Wiki rendering and also renders for wiki conversion. You can see a reference for this syntax here: http://cowiki.org/131.html</description>
+    <description>Note: coWiki has been offically discontinued. This package is being kept to allow conversion of coWiki syntax to other wiki markups.
+
+Parses coWiki mark-up to tokenize the text for Text_Wiki rendering and also renders for wiki conversion.
+
+See: http://cowiki.org/</description>
     <maintainers>
         <maintainer>
             <user>justinpatrin</user>
@@ -14,12 +18,12 @@
         </maintainer>
     </maintainers>
     <release>
-        <version>0.0.1</version>
-        <date>2005-10-14</date>
+        <version>0.0.2</version>
+        <date>2007-01-02</date>
         <license>LGPL</license>
         <state>alpha</state>
         <notes>
-First released version of Text_Wiki_Cowiki.
+coWiki is no longer maintained. Please use this package only for conversion of coWiki syntax to other markups.
         </notes>
         <filelist>
             <file role="php" name="Text/Wiki/Cowiki.php" />
