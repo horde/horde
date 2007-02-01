@@ -76,7 +76,8 @@ class Text_Wiki_Parse_Url extends Text_Wiki_Parse {
             return $this->wiki->addToken(
                 $this->rule,
                 array(
-                    'href' => $href
+                    'href' => $href,
+                    'text' => $text
                 )
             );
         } else {
