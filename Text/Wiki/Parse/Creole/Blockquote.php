@@ -139,7 +139,7 @@ class Text_Wiki_Parse_Blockquote extends Text_Wiki_Parse {
                     )
                 );
 
-                //$return .= "\n";
+                $return .= "\n";
             }
 
             // add the line text.
