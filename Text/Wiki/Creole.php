@@ -49,6 +49,9 @@ require_once 'Text/Wiki.php';
 
 class Text_Wiki_Creole extends Text_Wiki {
 
+    // *single newlines* are handled as in most wikis (ignored)
+    // if Newline is removed from rules, they will be handled as in word-processors (meaning a paragraph break)
+
     var $rules = array(
         'Prefilter',
         'Delimiter',
