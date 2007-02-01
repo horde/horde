@@ -34,8 +34,8 @@ class Text_Wiki_Parse_Trim extends Text_Wiki_Parse {
             $this->wiki->source);
 
         // make ordinal numbers superscripted
-        /*$this->wiki->source = preg_replace("/(?<![\w])([\d]+)([a-zA-Z]+)/", "$1^^$2^^",
-            $this->wiki->source);*/
+        $this->wiki->source = preg_replace("/(?<![\w])([\d]+)([^\W\d_]+)/", "$1^^$2^^",
+            $this->wiki->source);
 
         // finally, compress all instances of 3 or more newlines
         // down to two newlines.
