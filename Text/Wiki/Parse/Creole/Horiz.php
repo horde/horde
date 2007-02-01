@@ -52,7 +52,7 @@ class Text_Wiki_Parse_Horiz extends Text_Wiki_Parse {
 
     function process(&$matches)
     {
-        return $this->wiki->addToken($this->rule);
+        return "\n" . $this->wiki->addToken($this->rule) . "\n";
     }
 }
 ?>
