@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<!-- $Id: package.xml,v 1.58 2006-10-10 19:38:44 justinpatrin Exp $ -->
+<!-- $Id: package.xml,v 1.59 2007-02-01 09:57:36 mic Exp $ -->
 <package version="1.0">
     <name>Text_Wiki</name>
     <summary>Transforms Wiki and BBCode markup into XHTML, LaTeX or plain text markup. This is the base engine for all of the Text_Wiki sub-classes.</summary>
@@ -105,6 +105,7 @@ Bugs fixed:
             <file role="php" name="Text/Wiki/Render.php" />
 
             <file role="php" name="Text/Wiki/Render/Xhtml.php" />
+            <file role="php" name="Text/Wiki/Render/Xhtml/Address.php" />
             <file role="php" name="Text/Wiki/Render/Xhtml/Anchor.php" />
             <file role="php" name="Text/Wiki/Render/Xhtml/Blockquote.php" />
             <file role="php" name="Text/Wiki/Render/Xhtml/Bold.php" />

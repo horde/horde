@@ -205,6 +205,7 @@ Bugs fixed:
        <file name="Wikilink.php" role="php" />
       </dir> <!-- /Text/Wiki/Render/Plain -->
       <dir name="Xhtml">
+       <file name="Address.php" role="php" />
        <file name="Anchor.php" role="php" />
        <file name="Blockquote.php" role="php" />
        <file name="Bold.php" role="php" />

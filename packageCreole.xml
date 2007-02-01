@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<!-- $Id: packageCreole.xml,v 1.2 2006-11-02 13:08:16 mic Exp $ -->
+<!-- $Id: packageCreole.xml,v 1.3 2007-02-01 09:57:36 mic Exp $ -->
 <package version="1.0">
     <name>Text_Wiki_Creole</name>
     <summary>Creole parser and renderer for Text_Wiki</summary>
@@ -14,12 +14,12 @@
         </maintainer>
     </maintainers>
     <release>
-        <version>0.0.1</version>
-        <date>2006-10-23</date>
+        <version>0.4</version>
+        <date>2007-02-01</date>
         <license>LGPL</license>
         <state>alpha</state>
         <notes>
-First released version of Text_Wiki_Creole.
+Text_Wiki_Creole is now compliant with version 0.4 of Creole specs. See http://www.wikicreole.org/wiki/Creole0.4
         </notes>
         <filelist>
             <file role="php" name="Text/Wiki/Creole.php" />
@@ -87,6 +87,15 @@ First released version of Text_Wiki_Creole.
         <deps>
             <dep type="pkg" rel="ge" version="1.0.1">Text_Wiki</dep>
         </deps>
+    </release>
+    <release>
+        <version>0.0.1</version>
+        <date>2006-10-23</date>
+        <license>LGPL</license>
+        <state>alpha</state>
+        <notes>
+First released version of Text_Wiki_Creole.
+        </notes>
     </release>
     <changelog>
     </changelog>
