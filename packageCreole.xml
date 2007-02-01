@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<!-- $Id: packageCreole.xml,v 1.3 2007-02-01 09:57:36 mic Exp $ -->
+<!-- $Id: packageCreole.xml,v 1.4 2007-02-01 10:09:45 mic Exp $ -->
 <package version="1.0">
     <name>Text_Wiki_Creole</name>
     <summary>Creole parser and renderer for Text_Wiki</summary>
@@ -24,6 +24,7 @@ Text_Wiki_Creole is now compliant with version 0.4 of Creole specs. See http://w
         <filelist>
             <file role="php" name="Text/Wiki/Creole.php" />
             <file role="php" name="Text/Wiki/Parse/Creole/Address.php" />
+            <file role="php" name="Text/Wiki/Parse/Creole/Break.php" />
             <file role="php" name="Text/Wiki/Parse/Creole/Blockquote.php" />
             <file role="php" name="Text/Wiki/Parse/Creole/Delimiter.php" />
             <file role="php" name="Text/Wiki/Parse/Creole/Emphasis.php" />
@@ -36,6 +37,7 @@ Text_Wiki_Creole is now compliant with version 0.4 of Creole specs. See http://w
             <file role="php" name="Text/Wiki/Parse/Creole/Prefilter.php" />
             <file role="php" name="Text/Wiki/Parse/Creole/Preformatted.php" />
             <file role="php" name="Text/Wiki/Parse/Creole/Strong.php" />
+            <file role="php" name="Text/Wiki/Parse/Creole/Superscript.php" />
             <file role="php" name="Text/Wiki/Parse/Creole/Table.php" />
             <file role="php" name="Text/Wiki/Parse/Creole/Tighten.php" />
             <file role="php" name="Text/Wiki/Parse/Creole/Trim.php" />
