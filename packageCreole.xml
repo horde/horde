@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<!-- $Id: packageCreole.xml,v 1.4 2007-02-01 10:09:45 mic Exp $ -->
+<!-- $Id: packageCreole.xml,v 1.5 2007-02-01 10:11:19 mic Exp $ -->
 <package version="1.0">
     <name>Text_Wiki_Creole</name>
     <summary>Creole parser and renderer for Text_Wiki</summary>
@@ -14,7 +14,7 @@
         </maintainer>
     </maintainers>
     <release>
-        <version>0.4</version>
+        <version>0.4.0</version>
         <date>2007-02-01</date>
         <license>LGPL</license>
         <state>alpha</state>
