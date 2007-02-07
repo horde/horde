@@ -51,9 +51,16 @@ class Text_Wiki_Parse_Preformatted extends Text_Wiki_Parse {
 
     function process(&$matches)
     {
+        // > any line consisting of only indented three closing curly braces
+        // > will have one space removed from the indentation
+        // > -- http://www.wikicreole.org/wiki/AddNoWikiEscapeProposal
+        /*$find = "/\n( *) }}}/";
+        $replace = "\n$1}}}";
+        $matches[1] = preg_replace($find, $replace, $matches[1]);*/
+    
         $token = $this->wiki->addToken(
             $this->rule,
-            array('text' => htmlentities($matches[1]))
+            array('text' => $matches[1])
         );
         return "\n\n" . $token . "\n\n";
     }
