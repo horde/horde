@@ -19,7 +19,7 @@ class Text_Wiki_Render_Creole_Url extends Text_Wiki_Render {
     {
         extract($options);
         if ($type == 'start') {
-            if (! strlen($text) || $href == $text) {
+            if (! strlen($text) || $text == str_replace('http://', '', str_replace('mailto:', '', $href))) {
                 return '[['.$href;
             } else {
                 return '[['.$href.'|';
@@ -29,7 +29,7 @@ class Text_Wiki_Render_Creole_Url extends Text_Wiki_Render {
             return ']]';
         }
         else {
-            if (! strlen($text) || $href == $text) {
+            if (! strlen($text) || $text == str_replace('http://', '', str_replace('mailto:', '', $href))) {
                 return '[['.$href.']]';
             } else {
                 return '[['.$href.'|'.$text.']]';
