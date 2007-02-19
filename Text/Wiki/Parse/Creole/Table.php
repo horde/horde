@@ -94,38 +94,60 @@ class Text_Wiki_Parse_Table extends Text_Wiki_Parse {
             // increase the row count
             $num_rows ++;
 
-            // start a new row
-            $return .= $this->wiki->addToken(
-                $this->rule,
-                array('type' => 'row_start')
-            );
-
-            // cells are separated by pipes
-            $cell = explode("|", $row);
-
-            // get the number of cells (columns) in this row
-            $last = count($cell) - 1;
-
-            // is this more than the current column count?
-            // (we decrease by 1 because we never use cell zero)
-            if ($last - 1 > $num_cols) {
-                // increase the column count
-                $num_cols = $last - 1;
+            // remove first and last (optional) pipe
+            $row = substr($row, 1);
+            if ($row[strlen($row) - 1] == '|') {
+                $row = substr($row, 0, -1);
             }
 
-            // by default, cells span only one column (their own)
-            $span = 1;
-            $attr = '';
+            // cells are separated by pipes
+            $cells = explode("|", $row);
+            
+            if (count($cells) == 1 && $cells[0][0] == '=') {
+                // start the caption...
+                $return .= $this->wiki->addToken(
+                    $this->rule,
+                    array ('type' => 'caption_start')
+                );
 
-            // ignore cell zero, and ignore the "last" cell; cell zero
-            // is before the first pipe, and the "last" cell is
-            // after the last pipe. the last one can have content.
-            for ($i = 1; $i < $last || ($i == $last && strlen(trim($cell[$i])) > 0); $i ++) {
+                // ...add the content...
+                $return .= trim(trim($cells[0], '='));
 
-                if (strlen($cell[$i]) == 0) {
-                    $attr = 'header';
+                // ...and end the caption.
+                $return .= $this->wiki->addToken(
+                    $this->rule,
+                    array ('type' => 'caption_end')
+                );
+            }
+            else {
+
+                // update the column count
+                if (count($cells) > $num_cols) {
+                    $num_cols = count($cells);
                 }
-                else {
+
+                // start a new row
+                $return .= $this->wiki->addToken(
+                    $this->rule,
+                    array('type' => 'row_start')
+                );
+
+                for ($i = 0; $i < count($cells); $i++) {
+                    $cell = $cells[$i];
+
+                    // by default, cells span only one column (their own)
+                    $span = 1;
+                    $attr = '';
+                    
+                    while ($i + 1 < count($cells) && ! strlen($cells[$i + 1])) {
+                        $i++;
+                        $span++;
+                    }
+
+                    if ($cell[0] == '=') {
+                        $attr = 'header';
+                        $cell = trim($cell, '=');
+                    }
 
                     // start a new cell...
                     $return .= $this->wiki->addToken(
@@ -138,7 +160,7 @@ class Text_Wiki_Parse_Table extends Text_Wiki_Parse {
                     );
 
                     // ...add the content...
-                    $return .= trim($cell[$i]);
+                    $return .= trim($cell);
 
                     // ...and end the cell.
                     $return .= $this->wiki->addToken(
@@ -149,23 +171,19 @@ class Text_Wiki_Parse_Table extends Text_Wiki_Parse {
                             'span' => $span
                         )
                     );
-
-                    // reset the span.
-                    $span = 1;
-                    $attr = '';
                 }
+
+                // end the row
+                $return .= $this->wiki->addToken(
+                    $this->rule,
+                    array('type' => 'row_end')
+                );
             }
-
-            // end the row
-            $return .= $this->wiki->addToken(
-                $this->rule,
-                array('type' => 'row_end')
-            );
-
         }
 
-        // wrap the return value in start and end tokens
-        $return =
+        // we're done!
+        return
+            "\n\n".
             $this->wiki->addToken(
                 $this->rule,
                 array(
@@ -173,17 +191,15 @@ class Text_Wiki_Parse_Table extends Text_Wiki_Parse {
                     'rows' => $num_rows,
                     'cols' => $num_cols
                 )
-            )
-            . $return .
+            ).
+            $return.
             $this->wiki->addToken(
                 $this->rule,
                 array(
                     'type' => 'table_end'
                 )
-            );
-
-        // we're done!
-        return "\n\n$return\n\n";
+            ).
+            "\n\n";
     }
 }
 ?>

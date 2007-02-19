@@ -37,7 +37,7 @@ class Text_Wiki_Parse_Blockquote extends Text_Wiki_Parse {
     *
     */
 
-    var $regex = '/\n((\>).*\n)(?!(\>))/Us';
+    var $regex = '/\n(([>:]).*\n)(?!([>:]))/Us';
 
 
     /**
@@ -74,7 +74,7 @@ class Text_Wiki_Parse_Blockquote extends Text_Wiki_Parse {
         // create an array called $list that contains a new set of
         // matches for the various list-item elements.
         preg_match_all(
-            '=^(\>+)(.*?\n)=ms',
+            '=^([>:]+)(.*?\n)=ms',
             $matches[1],
             $list,
             PREG_SET_ORDER
@@ -99,25 +99,28 @@ class Text_Wiki_Parse_Blockquote extends Text_Wiki_Parse {
 
             // add a level to the list?
             while ($level > count($stack)) {
-
+                
+                $css = ($val[1][count($stack)] == ':') ? 'remark' : '';
+                
                 // the current indent level is greater than the number
                 // of stack elements, so we must be starting a new
                 // level.  push the new level onto the stack with a
                 // dummy value (boolean true)...
                 array_push($stack, true);
 
-                //$return .= "\n";
+                $return .= "\n\n";
 
                 // ...and add a start token to the return.
                 $return .= $this->wiki->addToken(
                     $this->rule,
                     array(
                         'type' => 'start',
-                        'level' => $level - 1
+                        'level' => $level - 1,
+                        'css' => $css
                     )
                 );
 
-                //$return .= "\n\n";
+                $return .= "\n\n";
             }
 
             // remove a level?
@@ -129,7 +132,7 @@ class Text_Wiki_Parse_Blockquote extends Text_Wiki_Parse {
                 // and the indent level are the same.
                 array_pop($stack);
 
-                //$return .= "\n";
+                $return .= "\n\n";
 
                 $return .= $this->wiki->addToken(
                     $this->rule,
@@ -139,7 +142,7 @@ class Text_Wiki_Parse_Blockquote extends Text_Wiki_Parse {
                     )
                 );
 
-                $return .= "\n";
+                $return .= "\n\n";
             }
 
             // add the line text.
@@ -148,7 +151,7 @@ class Text_Wiki_Parse_Blockquote extends Text_Wiki_Parse {
 
         // the last line may have been indented.  go through the stack
         // and create end-tokens until the stack is empty.
-        $return .= "\n";
+        $return .= "\n\n";
 
         while (count($stack) > 0) {
             array_pop($stack);
@@ -163,11 +166,11 @@ class Text_Wiki_Parse_Blockquote extends Text_Wiki_Parse {
                 )
             );
 
-            $return .= "\n";
+            $return .= "\n\n";
         }
 
         // we're done!  send back the replacement text.
-        return "\n$return\n\n";
+        return "\n\n$return\n\n";
     }
 }
 ?>

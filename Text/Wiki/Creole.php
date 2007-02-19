@@ -59,16 +59,20 @@ class Text_Wiki_Creole extends Text_Wiki {
         'Tt',
         'Trim',
         'Break',
+        'Raw',
+        'Footnote',
+        'Newline',
         'Blockquote',
+        'Newline',
+        'Wikilink',
+        'Image',
+        'Url',
         'Heading',
+        'Center',
         'Horiz',
         'List',
         'Table',
-        'Url',
-        'Wikilink',
-        'Image',
-        //'Address',
-        'Newline',
+        'Address',
         'Paragraph',
         'Superscript',
         'Emphasis',
@@ -86,6 +90,8 @@ class Text_Wiki_Creole extends Text_Wiki {
     function Text_Wiki_Creole($rules = null) {
         parent::Text_Wiki($rules);
         $this->addPath('parse', $this->fixPath(dirname(__FILE__)).'Parse/Creole');
+        unset($this->renderingType);
+        $this->setRenderConf('xhtml', 'center', 'css', 'center');
     }
 
     function checkInnerTags(&$text) {

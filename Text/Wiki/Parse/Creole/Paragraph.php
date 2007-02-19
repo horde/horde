@@ -38,9 +38,11 @@ class Text_Wiki_Parse_Paragraph extends Text_Wiki_Parse {
     var $conf = array(
         'skip' => array(
             'address',
-            'blockquote', // are we sure about this one?
+            'box',
+            'blockquote',
             'code',
             'heading',
+            'center',
             'horiz',
             'deflist',
             'table',

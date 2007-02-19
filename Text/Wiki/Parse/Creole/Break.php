@@ -47,7 +47,7 @@ class Text_Wiki_Parse_Break extends Text_Wiki_Parse {
     * 
     */
     
-    var $regex = '/[ \n]*[\\\][\\\][ \n]*/';
+    var $regex = "/[ \n]*[\\\][\\\][ \n]*/";
     
     
     /**

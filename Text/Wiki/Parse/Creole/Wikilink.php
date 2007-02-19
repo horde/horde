@@ -91,7 +91,7 @@ class Text_Wiki_Parse_Wikilink extends Text_Wiki_Parse {
      * @see Text_Wiki_Parse::parse()
      */
 
-    var $regex = '/(?<!\[)\[\[(?!\[) *(:?)((?:[^:\n]+:)+)?([^:\n]+)(?:#([^\n]*))? *(?:\|(((?R))|[^\n]*))?]]/msU';
+    var $regex = '/(?<!\[)\[\[(?!\[) *(:?)((?:[^:\n]+:)+)?([^:\n]+)(#(?:[^\n]*))? *(?:\|(((?R))|[^\n]*))?]]/msU';
 
      /**
      * Constructor.
