@@ -55,6 +55,9 @@ class Text_Wiki_Render_Xhtml_Blockquote extends Text_Wiki_Render {
         // pick the css type
         $css = $this->formatConf(' class="%s"', 'css');
 
+        if ($options['css']) {
+            $css = ' class="' . $options['css']. '"';
+        }
         // starting
         if ($type == 'start') {
             return "$pad<blockquote$css>";
