@@ -29,6 +29,14 @@ class Text_Wiki_Render_Creole_Table extends Text_Wiki_Render {
             return "\n";
             break;
 
+        case 'caption_start':
+            return '|= ';
+            break;
+
+        case 'caption_end':
+            return "\n";
+            break;
+
         case 'row_start':
             return '';
             break;
@@ -41,16 +49,16 @@ class Text_Wiki_Render_Creole_Table extends Text_Wiki_Render {
             // is this a TH or TD cell?
             if ($options['attr'] == 'header') {
                 // start a header cell
-                $output = '||';
+                $output = '|= ';
             } else {
                 // start a normal cell
-                $output = '|';
+                $output = '| ';
             }
             return $output;
             break;
 
         case 'cell_end':
-            return '';
+            return ' ';
             break;
 
         default:

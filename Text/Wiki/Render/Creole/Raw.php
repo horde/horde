@@ -17,7 +17,10 @@ class Text_Wiki_Render_Creole_Raw extends Text_Wiki_Render {
 
     function token($options)
     {
-        return $options['text'];
+        $text = $options['text'];
+        if ($text == '\\') $text = ' ';
+        if (strlen($text) == 1) $text = '\\' . $text;
+        return $text;
     }
 }
 ?>
