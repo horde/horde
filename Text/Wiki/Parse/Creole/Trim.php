@@ -32,6 +32,11 @@ class Text_Wiki_Parse_Trim extends Text_Wiki_Parse {
         $replace = "\n";
         $this->wiki->source = preg_replace($find, $replace, $this->wiki->source);
 
+        // trim lines with only one dash
+        $find = "/\n\-\n/";
+        $replace = "\n\n";
+        $this->wiki->source = preg_replace($find, $replace, $this->wiki->source);
+
         // finally, compress all instances of 3 or more newlines
         // down to two newlines.
         $find = "/\n{3,}/m";

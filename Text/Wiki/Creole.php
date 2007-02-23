@@ -75,6 +75,8 @@ class Text_Wiki_Creole extends Text_Wiki {
         'Address',
         'Paragraph',
         'Superscript',
+        'Subscript',
+        'Underline',
         'Emphasis',
         'Strong',
         'Tighten'

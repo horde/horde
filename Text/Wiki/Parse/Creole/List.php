@@ -42,7 +42,7 @@ class Text_Wiki_Parse_List extends Text_Wiki_Parse {
      *
      */
 
-    var $regex = '/\n((\*|#)[^\*#].*?)\n(?!(\*|#))/s';
+    var $regex = '/\n([\*\-#][^\*\-#].*?)\n(?![\*\-#])/s';
 
     /**
      *
@@ -95,7 +95,7 @@ class Text_Wiki_Parse_List extends Text_Wiki_Parse {
         // populate $list with this set of matches. $matches[1] is the
         // text matched as a list set by parse().
         preg_match_all(
-            '/^((\*|#)+) *(.*?)$/ms',
+            '/^((\*|\-|#)+) *(.*?)$/ms',
             $matches[1],
             $list,
             PREG_SET_ORDER
@@ -115,7 +115,7 @@ class Text_Wiki_Parse_List extends Text_Wiki_Parse {
             $last = $stars[strlen($stars) - 1];
 
             // get the list item type
-            if ($last == '*') {
+            if ($last == '*' || $last == '-') {
                 $type = 'bullet';
             } elseif ($last == '#') {
                 $type = 'number';

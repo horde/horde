@@ -17,7 +17,7 @@ class Text_Wiki_Render_Creole_Break extends Text_Wiki_Render {
 
     function token($options)
     {
-        return "\n";
+        return "\\\\";
     }
 }
 

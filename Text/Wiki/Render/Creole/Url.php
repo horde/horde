@@ -19,17 +19,16 @@ class Text_Wiki_Render_Creole_Url extends Text_Wiki_Render {
     {
         extract($options);
         if ($type == 'start') {
-            if (! strlen($text) || $text == str_replace('http://', '', str_replace('mailto:', '', $href))) {
-                return '[['.$href;
-            } else {
-                return '[['.$href.'|';
-            }
+            return '[['.$href.'|';
         }
         else if ($type == 'end') {
             return ']]';
         }
         else {
-            if (! strlen($text) || $text == str_replace('http://', '', str_replace('mailto:', '', $href))) {
+            if (strpos($href, "#ref") === 0 || strpos($href, "#fn") === 0) {
+                return $text;
+            }
+            else if (! strlen($text) || $text == str_replace('http://', '', str_replace('mailto:', '', $href))) {
                 return '[['.$href.']]';
             } else {
                 return '[['.$href.'|'.$text.']]';

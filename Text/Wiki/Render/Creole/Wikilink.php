@@ -23,7 +23,7 @@ class Text_Wiki_Render_Creole_Wikilink extends Text_Wiki_Render {
             if ($dup) return '[[';
             else return '[['.$options['page'].
                 (strlen($options['anchor']) ? $options['anchor'] : '').
-                (strlen($options['text']) && strlen($options['page']) && strlen($options['anchor']) ? '|' : '');
+                (strlen($options['text']) && (strlen($options['page']) || strlen($options['anchor'])) ? '|' : '');
         } else if ($options['type'] == 'end') {
             if ($dup && strlen($options['anchor'])) return $options['anchor'].']]';
             else return ']]';

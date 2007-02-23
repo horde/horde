@@ -72,25 +72,12 @@ class Text_Wiki_Parse_Footnote extends Text_Wiki_Parse {
             $href = "#fn$id";
         }
         
-        $start = $this->wiki->addToken(
-            'Anchor',
-            array('type' => 'start', 'name' => $name)
-        );
-        $start .= $this->wiki->addToken(
-            'Anchor',
-            array('type' => 'end', 'name' => $name)
-        );
-        $start .= $this->wiki->addToken(
+        $token = $this->wiki->addToken(
             'Url',
-            array('type' => 'start', 'href' => $href)
+            array('text' => "[$id]", 'href' => $href, 'name' => $name)
         );
 
-        $end = $this->wiki->addToken(
-            'Url',
-            array('type' => 'end', 'href' => $href)
-        );
-
-        return $matches[1] . $start . "[" . $id . "]" . $end;
+        return $matches[1] . $token;
     }
 }
 ?>
