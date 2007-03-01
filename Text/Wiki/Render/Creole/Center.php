@@ -19,7 +19,7 @@ class Text_Wiki_Render_Creole_Center extends Text_Wiki_Render {
     function token($options)
     {
         if ($options['type'] == 'start') {
-            return "! ";
+            return "| ";
         }
 
         if ($options['type'] == 'end') {

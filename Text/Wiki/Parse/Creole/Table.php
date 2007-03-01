@@ -103,7 +103,9 @@ class Text_Wiki_Parse_Table extends Text_Wiki_Parse {
             // cells are separated by pipes
             $cells = explode("|", $row);
             
-            if (count($cells) == 1 && $cells[0][0] == '=') {
+            if (count($cells) == 1 && $cells[0][0] == '=' && ($num_rows == 1 || $num_rows == count($rows)) && ! $caption) {
+                $caption = trim(trim($cells[0], '='));
+            
                 // start the caption...
                 $return .= $this->wiki->addToken(
                     $this->rule,
@@ -111,7 +113,7 @@ class Text_Wiki_Parse_Table extends Text_Wiki_Parse {
                 );
 
                 // ...add the content...
-                $return .= trim(trim($cells[0], '='));
+                $return .= $caption;
 
                 // ...and end the caption.
                 $return .= $this->wiki->addToken(

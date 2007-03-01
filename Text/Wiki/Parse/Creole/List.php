@@ -42,7 +42,7 @@ class Text_Wiki_Parse_List extends Text_Wiki_Parse {
      *
      */
 
-    var $regex = '/\n([\*\-#][^\*\-#].*?)\n(?![\*\-#])/s';
+    var $regex = '/\n((\*[^\*]|\-[^\-\d]|\#[^\#]).*?)\n(?![\*\-#])/s';
 
     /**
      *
@@ -126,27 +126,8 @@ class Text_Wiki_Parse_List extends Text_Wiki_Parse {
             // get the text of the list item
             $text = $val[3];
 
-            // add a level to the list?
-            if ($level > count($stack)) {
-
-                // the current indent level is greater than the
-                // number of stack elements, so we must be starting
-                // a new list.  push the new list type onto the
-                // stack...
-                array_push($stack, $type);
-
-                // ...and add a list-start token to the return.
-                $return .= $this->wiki->addToken(
-                    $this->rule,
-                    array(
-                        'type' => $type . '_list_start',
-                        'level' => $level - 1
-                    )
-                );
-            }
-
             // remove a level from the list?
-            while (count($stack) > $level) {
+            while (count($stack) > $level || (count($stack) == $level && $type != $stack[$level - 1])) {
 
                 // so we don't keep counting the stack, we set up a temp
                 // var for the count.  -1 becuase we're going to pop the
@@ -168,10 +149,29 @@ class Text_Wiki_Parse_List extends Text_Wiki_Parse {
 
                 // reset to the current (previous) list type so that
                 // the new list item matches the proper list type.
-                $type = $stack[$tmp - 1];
+                $oldtype = $stack[$tmp - 1];
 
                 // reset the item count for the popped indent level
                 unset($itemcount[$tmp + 1]);
+            }
+
+            // add a level to the list?
+            if ($level > count($stack)) {
+
+                // the current indent level is greater than the
+                // number of stack elements, so we must be starting
+                // a new list.  push the new list type onto the
+                // stack...
+                array_push($stack, $type);
+
+                // ...and add a list-start token to the return.
+                $return .= $this->wiki->addToken(
+                    $this->rule,
+                    array(
+                        'type' => $type . '_list_start',
+                        'level' => $level - 1
+                    )
+                );
             }
 
             // add to the item count for this list (taking into account
@@ -215,7 +215,7 @@ class Text_Wiki_Parse_List extends Text_Wiki_Parse {
 
             // add the starting token, list-item text, and ending token
             // to the return.
-            $return .= $start . $text . $end;
+            $return .= "\n" . $start . $text . $end;
         }
 
         // the last list-item may have been indented.  go through the

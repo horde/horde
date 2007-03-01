@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<!-- $Id: packageCreole.xml,v 1.7 2007-02-01 21:27:32 mic Exp $ -->
+<!-- $Id: packageCreole.xml,v 1.8 2007-03-01 22:00:30 mic Exp $ -->
 <package version="1.0">
     <name>Text_Wiki_Creole</name>
     <summary>Creole parser and renderer for Text_Wiki</summary>
@@ -14,20 +14,22 @@
         </maintainer>
     </maintainers>
     <release>
-        <version>0.4.2</version>
-        <date>2007-02-01</date>
+        <version>0.5.0</version>
+        <date>2007-03-01</date>
         <license>LGPL</license>
         <state>alpha</state>
         <notes>
-Text_Wiki_Creole is now compliant with version 0.4 of Creole specs. See http://www.wikicreole.org/wiki/Creole0.4
+Text_Wiki_Creole is now compliant with version 0.5 of Creole specs. See http://www.wikicreole.org/wiki/Creole0.5
         </notes>
         <filelist>
             <file role="php" name="Text/Wiki/Creole.php" />
             <file role="php" name="Text/Wiki/Parse/Creole/Address.php" />
-            <file role="php" name="Text/Wiki/Parse/Creole/Break.php" />
             <file role="php" name="Text/Wiki/Parse/Creole/Blockquote.php" />
+            <file role="php" name="Text/Wiki/Parse/Creole/Break.php" />
+            <file role="php" name="Text/Wiki/Parse/Creole/Center.php" />
             <file role="php" name="Text/Wiki/Parse/Creole/Delimiter.php" />
             <file role="php" name="Text/Wiki/Parse/Creole/Emphasis.php" />
+            <file role="php" name="Text/Wiki/Parse/Creole/Footnote.php" />
             <file role="php" name="Text/Wiki/Parse/Creole/Heading.php" />
             <file role="php" name="Text/Wiki/Parse/Creole/Horiz.php" />
             <file role="php" name="Text/Wiki/Parse/Creole/Image.php" />
@@ -36,12 +38,14 @@ Text_Wiki_Creole is now compliant with version 0.4 of Creole specs. See http://w
             <file role="php" name="Text/Wiki/Parse/Creole/Paragraph.php" />
             <file role="php" name="Text/Wiki/Parse/Creole/Prefilter.php" />
             <file role="php" name="Text/Wiki/Parse/Creole/Preformatted.php" />
+            <file role="php" name="Text/Wiki/Parse/Creole/Raw.php" />
             <file role="php" name="Text/Wiki/Parse/Creole/Strong.php" />
             <file role="php" name="Text/Wiki/Parse/Creole/Superscript.php" />
             <file role="php" name="Text/Wiki/Parse/Creole/Table.php" />
             <file role="php" name="Text/Wiki/Parse/Creole/Tighten.php" />
             <file role="php" name="Text/Wiki/Parse/Creole/Trim.php" />
             <file role="php" name="Text/Wiki/Parse/Creole/Tt.php" />
+            <file role="php" name="Text/Wiki/Parse/Creole/Underline.php" />
             <file role="php" name="Text/Wiki/Parse/Creole/Url.php" />
             <file role="php" name="Text/Wiki/Parse/Creole/Wikilink.php" />
             <file role="php" name="Text/Wiki/Render/Creole.php" />

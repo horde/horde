@@ -39,7 +39,8 @@ class Text_Wiki_Parse_Strong extends Text_Wiki_Parse {
      *
      */
 
-    var $regex =  "/\*\*(.*?)\*\*/";
+    //var $regex =  "/\*\*(.*?)\*\*/";
+    var $regex =  "/(?:\*\*(.+?)\*\*|(?:(?<=[\W_\xFF])\*(?! ))(.+?)(?:(?<! )\*(?=[\W_\xFF])))/";
 
 
     /**
@@ -60,7 +61,9 @@ class Text_Wiki_Parse_Strong extends Text_Wiki_Parse {
 
     function process(&$matches)
     {
-        if (! $this->wiki->checkInnerTags($matches[1])) {
+        $text = $matches[1] ? $matches[1] : $matches[2];
+        
+        if (! $this->wiki->checkInnerTags($text)) {
             return $matches[0];
         }
 
@@ -74,7 +77,7 @@ class Text_Wiki_Parse_Strong extends Text_Wiki_Parse {
             array('type' => 'end')
         );
 
-        return $start . $matches[1] . $end;
+        return $start . $text . $end;
     }
 }
 ?>

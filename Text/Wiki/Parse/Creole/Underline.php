@@ -34,7 +34,8 @@ class Text_Wiki_Parse_Underline extends Text_Wiki_Parse {
      *
      */
 
-    var $regex =  "/__(.*?)__/";
+    //var $regex =  "/__(.*?)__/";
+    var $regex =  "/(?:\_\_(.+?)\_\_|(?:(?<=[\W_\xFF])\_(?! ))(.+?)(?:(?<! )\_(?=[\W_\xFF])))/";
 
     /**
      *
@@ -55,21 +56,23 @@ class Text_Wiki_Parse_Underline extends Text_Wiki_Parse {
 
     function process(&$matches)
     {
-        if (! $this->wiki->checkInnerTags($matches[1])) {
+        $text = $matches[1] ? $matches[1] : $matches[2];
+        
+        if (! $this->wiki->checkInnerTags($text)) {
             return $matches[0];
         }
 
         $start = $this->wiki->addToken(
-            $this->rule,
+            'Emphasis', // $this->rule,
             array('type' => 'start')
         );
 
         $end = $this->wiki->addToken(
-            $this->rule,
+            'Emphasis', // $this->rule,
             array('type' => 'end')
         );
 
-        return $start . $matches[1] . $end;
+        return $start . $text . $end;
     }
 }
 ?>

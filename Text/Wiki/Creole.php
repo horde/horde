@@ -94,6 +94,7 @@ class Text_Wiki_Creole extends Text_Wiki {
         $this->addPath('parse', $this->fixPath(dirname(__FILE__)).'Parse/Creole');
         unset($this->renderingType);
         $this->setRenderConf('xhtml', 'center', 'css', 'center');
+        $this->setRenderConf('xhtml', 'url', 'target', null);
     }
 
     function checkInnerTags(&$text) {
