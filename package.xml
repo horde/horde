@@ -1,45 +1,296 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
-<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<!-- $Id: package.xml,v 1.59 2007-02-01 09:57:36 mic Exp $ -->
-<package version="1.0">
-    <name>Text_Wiki</name>
-    <summary>Transforms Wiki and BBCode markup into XHTML, LaTeX or plain text markup. This is the base engine for all of the Text_Wiki sub-classes.</summary>
-    <description>The text transformation is done in 2 steps.
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.5.0" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+http://pear.php.net/dtd/tasks-1.0.xsd
+http://pear.php.net/dtd/package-2.0
+http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Text_Wiki</name>
+ <channel>pear.php.net</channel>
+ <summary>Transforms Wiki and BBCode markup into XHTML, LaTeX or plain text markup. This is the base engine for all of the Text_Wiki sub-classes.</summary>
+ <description>The text transformation is done in 2 steps.
 The chosen parser uses markup rules to tokenize the tags and content.
 Renderers output the tokens and text into the requested format.
 The tokenized form replaces the tags by a protected byte value associated to an index in an options table. This form shares up to 50 rules by all parsers and renderers.
 The package is intented for versatile transformers as well as converters.
-Text_Wiki is delivered with its own parser, which is used by Yawiki or Horde's Wicked and three basic renderers: XHTML , LaTeX and plain text.
+Text_Wiki is delivered with its own parser, which is used by Yawiki or Horde&apos;s Wicked and three basic renderers: XHTML , LaTeX and plain text.
 Strong sanitizing of XHTML is default.
 Parsers (* and Renderers) exist for BBCode, Cowiki (*), Dokuwiki (*), Mediawiki and Tikiwiki (*).
-It is highly configurable and can be easily extended.</description>
-    <maintainers>
-        <maintainer>
-            <user>pmjones</user>
-            <name>Paul M. Jones</name>
-            <email>pmjones@php.net</email>
-            <role>lead</role>
-        </maintainer>
-        <maintainer>
-            <user>justinpatrin</user>
-            <name>Justin Patrin</name>
-            <email>justinpatrin@php.net</email>
-            <role>lead</role>
-        </maintainer>
-        <maintainer>
-            <user>delatbabel</user>
-            <name>Del Elson</name>
-            <email>delatbabel@php.net</email>
-            <role>developer</role>
-        </maintainer>
-     </maintainers>
-    <release>
-        <version>1.2.0RC1</version>
-        <date>2006-10-10</date>
-        <license>LGPL</license>
-        <state>beta</state>
-        <notes><![CDATA[
-New Features:
+It is highly configurable and can be easily extended.
+ </description>
+ <lead>
+  <name>Paul M. Jones</name>
+  <user>pmjones</user>
+  <email>pmjones@php.net</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Justin Patrin</name>
+  <user>justinpatrin</user>
+  <email>justinpatrin@php.net</email>
+  <active>yes</active>
+ </lead>
+ <developer>
+  <name>Del Elson</name>
+  <user>delatbabel</user>
+  <email>delatbabel@php.net</email>
+  <active>yes</active>
+ </developer>
+ <date>2007-03-11</date>
+ <time>18:22:00</time>
+ <version>
+  <release>1.2.0RC1</release>
+  <api>1.2.0RC1</api>
+ </version>
+ <stability>
+  <release>beta</release>
+  <api>beta</api>
+ </stability>
+ <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <notes>New Features:
+# Added an Address Xhtml renderer
+# Balanced token checking has been added (this means that output such as &lt;b&gt;&lt;i&gt;italic&lt;/b&gt;&lt;/i&gt; is caught)
+# A new stack-based callback system for renderers has been added to allow for more flexible output handling (see BlockQuote)
+# The Url Xhtml renderer now allows a name to be passed in
+# The Url Xhtml, Plain, Latex renderers now allow start/end tokens
+
+Changes:
+# Experimental preg rendering method deprecated as it had problems
+# Package.xml 2.0 is now used exclusively
+
+Bugs fixed:
+# Bug #7320 fix UTF-8 rendering in WikiLink and Freelink
+# Various UTF-8 fixes
+# Bug #6292 remove paragraph tags from around headings and hrs in Xhtml renderer
+# Preformatted Xhtml renderer now correctly escapes output
+ </notes>
+ <contents>
+  <dir name="/">
+   <dir name="doc">
+    <file name="test_Text_Wiki.php" role="doc" />
+   </dir> <!-- /doc -->
+   <dir name="Text">
+    <dir name="Wiki">
+     <dir name="Parse">
+      <dir name="Default">
+       <file name="Anchor.php" role="php" />
+       <file name="Blockquote.php" role="php" />
+       <file name="Bold.php" role="php" />
+       <file name="Break.php" role="php" />
+       <file name="Center.php" role="php" />
+       <file name="Code.php" role="php" />
+       <file name="Colortext.php" role="php" />
+       <file name="Deflist.php" role="php" />
+       <file name="Delimiter.php" role="php" />
+       <file name="Embed.php" role="php" />
+       <file name="Emphasis.php" role="php" />
+       <file name="Freelink.php" role="php" />
+       <file name="Function.php" role="php" />
+       <file name="Heading.php" role="php" />
+       <file name="Horiz.php" role="php" />
+       <file name="Html.php" role="php" />
+       <file name="Image.php" role="php" />
+       <file name="Include.php" role="php" />
+       <file name="Interwiki.php" role="php" />
+       <file name="Italic.php" role="php" />
+       <file name="List.php" role="php" />
+       <file name="Newline.php" role="php" />
+       <file name="Paragraph.php" role="php" />
+       <file name="Phplookup.php" role="php" />
+       <file name="Prefilter.php" role="php" />
+       <file name="Raw.php" role="php" />
+       <file name="Revise.php" role="php" />
+       <file name="Smiley.php" role="php" />
+       <file name="Strong.php" role="php" />
+       <file name="Subscript.php" role="php" />
+       <file name="Superscript.php" role="php" />
+       <file name="Table.php" role="php" />
+       <file name="Tighten.php" role="php" />
+       <file name="Toc.php" role="php" />
+       <file name="Tt.php" role="php" />
+       <file name="Underline.php" role="php" />
+       <file name="Url.php" role="php" />
+       <file name="Wikilink.php" role="php" />
+      </dir> <!-- /Text/Wiki/Parse/Default -->
+     </dir> <!-- /Text/Wiki/Parse -->
+     <dir name="Render">
+      <dir name="Latex">
+       <file name="Anchor.php" role="php" />
+       <file name="Blockquote.php" role="php" />
+       <file name="Bold.php" role="php" />
+       <file name="Box.php" role="php" />
+       <file name="Break.php" role="php" />
+       <file name="Center.php" role="php" />
+       <file name="Code.php" role="php" />
+       <file name="Colortext.php" role="php" />
+       <file name="Deflist.php" role="php" />
+       <file name="Delimiter.php" role="php" />
+       <file name="Embed.php" role="php" />
+       <file name="Emphasis.php" role="php" />
+       <file name="Font.php" role="php" />
+       <file name="Freelink.php" role="php" />
+       <file name="Function.php" role="php" />
+       <file name="Heading.php" role="php" />
+       <file name="Horiz.php" role="php" />
+       <file name="Html.php" role="php" />
+       <file name="Image.php" role="php" />
+       <file name="Include.php" role="php" />
+       <file name="Interwiki.php" role="php" />
+       <file name="Italic.php" role="php" />
+       <file name="List.php" role="php" />
+       <file name="Newline.php" role="php" />
+       <file name="Page.php" role="php" />
+       <file name="Paragraph.php" role="php" />
+       <file name="Phplookup.php" role="php" />
+       <file name="Plugin.php" role="php" />
+       <file name="Prefilter.php" role="php" />
+       <file name="Preformatted.php" role="php" />
+       <file name="Raw.php" role="php" />
+       <file name="Revise.php" role="php" />
+       <file name="Smiley.php" role="php" />
+       <file name="Specialchar.php" role="php" />
+       <file name="Strong.php" role="php" />
+       <file name="Subscript.php" role="php" />
+       <file name="Superscript.php" role="php" />
+       <file name="Table.php" role="php" />
+       <file name="Tighten.php" role="php" />
+       <file name="Titlebar.php" role="php" />
+       <file name="Toc.php" role="php" />
+       <file name="Tt.php" role="php" />
+       <file name="Underline.php" role="php" />
+       <file name="Url.php" role="php" />
+       <file name="Wikilink.php" role="php" />
+      </dir> <!-- /Text/Wiki/Render/Latex -->
+      <dir name="Plain">
+       <file name="Anchor.php" role="php" />
+       <file name="Blockquote.php" role="php" />
+       <file name="Bold.php" role="php" />
+       <file name="Box.php" role="php" />
+       <file name="Break.php" role="php" />
+       <file name="Center.php" role="php" />
+       <file name="Code.php" role="php" />
+       <file name="Colortext.php" role="php" />
+       <file name="Deflist.php" role="php" />
+       <file name="Delimiter.php" role="php" />
+       <file name="Embed.php" role="php" />
+       <file name="Emphasis.php" role="php" />
+       <file name="Font.php" role="php" />
+       <file name="Freelink.php" role="php" />
+       <file name="Function.php" role="php" />
+       <file name="Heading.php" role="php" />
+       <file name="Horiz.php" role="php" />
+       <file name="Html.php" role="php" />
+       <file name="Image.php" role="php" />
+       <file name="Include.php" role="php" />
+       <file name="Interwiki.php" role="php" />
+       <file name="Italic.php" role="php" />
+       <file name="List.php" role="php" />
+       <file name="Newline.php" role="php" />
+       <file name="Page.php" role="php" />
+       <file name="Paragraph.php" role="php" />
+       <file name="Phplookup.php" role="php" />
+       <file name="Plugin.php" role="php" />
+       <file name="Prefilter.php" role="php" />
+       <file name="Preformatted.php" role="php" />
+       <file name="Raw.php" role="php" />
+       <file name="Revise.php" role="php" />
+       <file name="Smiley.php" role="php" />
+       <file name="Specialchar.php" role="php" />
+       <file name="Strong.php" role="php" />
+       <file name="Subscript.php" role="php" />
+       <file name="Superscript.php" role="php" />
+       <file name="Table.php" role="php" />
+       <file name="Tighten.php" role="php" />
+       <file name="Titlebar.php" role="php" />
+       <file name="Toc.php" role="php" />
+       <file name="Tt.php" role="php" />
+       <file name="Underline.php" role="php" />
+       <file name="Url.php" role="php" />
+       <file name="Wikilink.php" role="php" />
+      </dir> <!-- /Text/Wiki/Render/Plain -->
+      <dir name="Xhtml">
+       <file name="Address.php" role="php" />
+       <file name="Anchor.php" role="php" />
+       <file name="Blockquote.php" role="php" />
+       <file name="Bold.php" role="php" />
+       <file name="Box.php" role="php" />
+       <file name="Break.php" role="php" />
+       <file name="Center.php" role="php" />
+       <file name="Code.php" role="php" />
+       <file name="Colortext.php" role="php" />
+       <file name="Deflist.php" role="php" />
+       <file name="Delimiter.php" role="php" />
+       <file name="Embed.php" role="php" />
+       <file name="Emphasis.php" role="php" />
+       <file name="Font.php" role="php" />
+       <file name="Freelink.php" role="php" />
+       <file name="Function.php" role="php" />
+       <file name="Heading.php" role="php" />
+       <file name="Horiz.php" role="php" />
+       <file name="Html.php" role="php" />
+       <file name="Image.php" role="php" />
+       <file name="Include.php" role="php" />
+       <file name="Interwiki.php" role="php" />
+       <file name="Italic.php" role="php" />
+       <file name="List.php" role="php" />
+       <file name="Newline.php" role="php" />
+       <file name="Page.php" role="php" />
+       <file name="Paragraph.php" role="php" />
+       <file name="Phplookup.php" role="php" />
+       <file name="Plugin.php" role="php" />
+       <file name="Prefilter.php" role="php" />
+       <file name="Preformatted.php" role="php" />
+       <file name="Raw.php" role="php" />
+       <file name="Revise.php" role="php" />
+       <file name="Smiley.php" role="php" />
+       <file name="Specialchar.php" role="php" />
+       <file name="Strong.php" role="php" />
+       <file name="Subscript.php" role="php" />
+       <file name="Superscript.php" role="php" />
+       <file name="Table.php" role="php" />
+       <file name="Tighten.php" role="php" />
+       <file name="Titlebar.php" role="php" />
+       <file name="Toc.php" role="php" />
+       <file name="Tt.php" role="php" />
+       <file name="Underline.php" role="php" />
+       <file name="Url.php" role="php" />
+       <file name="Wikilink.php" role="php" />
+      </dir> <!-- /Text/Wiki/Render/Xhtml -->
+      <file name="Latex.php" role="php" />
+      <file name="Plain.php" role="php" />
+      <file name="Xhtml.php" role="php" />
+     </dir> <!-- /Text/Wiki/Render -->
+     <file name="Default.php" role="php" />
+     <file name="Parse.php" role="php" />
+     <file name="Render.php" role="php" />
+    </dir> <!-- /Text/Wiki -->
+    <file name="Wiki.php" role="php">
+     <tasks:replace from="@package_version@" to="version" type="package-info" />
+    </file>
+   </dir> <!-- /Text -->
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>4.0.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.4</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <phprelease />
+ <changelog>
+   <release>
+ <version>
+  <release>1.2.0RC1</release>
+  <api>1.2.0RC1</api>
+ </version>
+ <stability>
+  <release>beta</release>
+  <api>beta</api>
+ </stability>
+ <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <notes>New Features:
 # Experimental new rendering method introduced that uses preg instead of char-by-char parsing
 ## Please test for both speed and memory usage
 
@@ -52,212 +303,21 @@ Bugs fixed:
 # Raw output is now encoded in Xhtml renderer to avoid XSS attacks
 # Bug 8313 fix anchor output in Xhtml/Wikilink when used in conjuction with sprintf (thanks to bjs5075 at rit dot edu)
 # Fixed various encoding issues with Xhtml/Wikilink URLs
-# Bug #7091 fixed variable substitution in Latex renderer (thanks randlem at bgsu dot edu)]]></notes>
-        <filelist>
-
-            <file role="php" name="Text/Wiki.php">
-				<replace from="@package_version@" to="version" type="package-info" />
-            </file>
-
-            <file role="php" name="Text/Wiki/Parse.php" />
-
-            <file role="php" name="Text/Wiki/Default.php" />
-
-            <file role="php" name="Text/Wiki/Parse/Default/Anchor.php" />
-            <file role="php" name="Text/Wiki/Parse/Default/Blockquote.php" />
-            <file role="php" name="Text/Wiki/Parse/Default/Bold.php" />
-            <file role="php" name="Text/Wiki/Parse/Default/Break.php" />
-            <file role="php" name="Text/Wiki/Parse/Default/Center.php" />
-            <file role="php" name="Text/Wiki/Parse/Default/Code.php" />
-            <file role="php" name="Text/Wiki/Parse/Default/Colortext.php" />
-            <file role="php" name="Text/Wiki/Parse/Default/Deflist.php" />
-            <file role="php" name="Text/Wiki/Parse/Default/Delimiter.php" />
-            <file role="php" name="Text/Wiki/Parse/Default/Embed.php" />
-            <file role="php" name="Text/Wiki/Parse/Default/Emphasis.php" />
-            <file role="php" name="Text/Wiki/Parse/Default/Freelink.php" />
-            <file role="php" name="Text/Wiki/Parse/Default/Function.php" />
-            <file role="php" name="Text/Wiki/Parse/Default/Heading.php" />
-            <file role="php" name="Text/Wiki/Parse/Default/Horiz.php" />
-            <file role="php" name="Text/Wiki/Parse/Default/Html.php" />
-            <file role="php" name="Text/Wiki/Parse/Default/Image.php" />
-            <file role="php" name="Text/Wiki/Parse/Default/Include.php" />
-            <file role="php" name="Text/Wiki/Parse/Default/Interwiki.php" />
-            <file role="php" name="Text/Wiki/Parse/Default/Italic.php" />
-            <file role="php" name="Text/Wiki/Parse/Default/List.php" />
-            <file role="php" name="Text/Wiki/Parse/Default/Newline.php" />
-            <file role="php" name="Text/Wiki/Parse/Default/Paragraph.php" />
-            <file role="php" name="Text/Wiki/Parse/Default/Phplookup.php" />
-            <file role="php" name="Text/Wiki/Parse/Default/Prefilter.php" />
-            <file role="php" name="Text/Wiki/Parse/Default/Raw.php" />
-            <file role="php" name="Text/Wiki/Parse/Default/Revise.php" />
-            <file role="php" name="Text/Wiki/Parse/Default/Smiley.php" />
-            <file role="php" name="Text/Wiki/Parse/Default/Strong.php" />
-            <file role="php" name="Text/Wiki/Parse/Default/Subscript.php" />
-            <file role="php" name="Text/Wiki/Parse/Default/Superscript.php" />
-            <file role="php" name="Text/Wiki/Parse/Default/Table.php" />
-            <file role="php" name="Text/Wiki/Parse/Default/Tighten.php" />
-            <file role="php" name="Text/Wiki/Parse/Default/Toc.php" />
-            <file role="php" name="Text/Wiki/Parse/Default/Tt.php" />
-            <file role="php" name="Text/Wiki/Parse/Default/Underline.php" />
-            <file role="php" name="Text/Wiki/Parse/Default/Url.php" />
-            <file role="php" name="Text/Wiki/Parse/Default/Wikilink.php" />
-
-            <file role="php" name="Text/Wiki/Render.php" />
-
-            <file role="php" name="Text/Wiki/Render/Xhtml.php" />
-            <file role="php" name="Text/Wiki/Render/Xhtml/Address.php" />
-            <file role="php" name="Text/Wiki/Render/Xhtml/Anchor.php" />
-            <file role="php" name="Text/Wiki/Render/Xhtml/Blockquote.php" />
-            <file role="php" name="Text/Wiki/Render/Xhtml/Bold.php" />
-            <file role="php" name="Text/Wiki/Render/Xhtml/Box.php" />
-            <file role="php" name="Text/Wiki/Render/Xhtml/Break.php" />
-            <file role="php" name="Text/Wiki/Render/Xhtml/Center.php" />
-            <file role="php" name="Text/Wiki/Render/Xhtml/Code.php" />
-            <file role="php" name="Text/Wiki/Render/Xhtml/Colortext.php" />
-            <file role="php" name="Text/Wiki/Render/Xhtml/Deflist.php" />
-            <file role="php" name="Text/Wiki/Render/Xhtml/Delimiter.php" />
-            <file role="php" name="Text/Wiki/Render/Xhtml/Embed.php" />
-            <file role="php" name="Text/Wiki/Render/Xhtml/Emphasis.php" />
-            <file role="php" name="Text/Wiki/Render/Xhtml/Font.php" />
-            <file role="php" name="Text/Wiki/Render/Xhtml/Freelink.php" />
-            <file role="php" name="Text/Wiki/Render/Xhtml/Function.php" />
-            <file role="php" name="Text/Wiki/Render/Xhtml/Heading.php" />
-            <file role="php" name="Text/Wiki/Render/Xhtml/Horiz.php" />
-            <file role="php" name="Text/Wiki/Render/Xhtml/Html.php" />
-            <file role="php" name="Text/Wiki/Render/Xhtml/Image.php" />
-            <file role="php" name="Text/Wiki/Render/Xhtml/Include.php" />
-            <file role="php" name="Text/Wiki/Render/Xhtml/Interwiki.php" />
-            <file role="php" name="Text/Wiki/Render/Xhtml/Italic.php" />
-            <file role="php" name="Text/Wiki/Render/Xhtml/List.php" />
-            <file role="php" name="Text/Wiki/Render/Xhtml/Newline.php" />
-            <file role="php" name="Text/Wiki/Render/Xhtml/Page.php" />
-            <file role="php" name="Text/Wiki/Render/Xhtml/Paragraph.php" />
-            <file role="php" name="Text/Wiki/Render/Xhtml/Phplookup.php" />
-            <file role="php" name="Text/Wiki/Render/Xhtml/Plugin.php" />
-            <file role="php" name="Text/Wiki/Render/Xhtml/Prefilter.php" />
-            <file role="php" name="Text/Wiki/Render/Xhtml/Preformatted.php" />
-            <file role="php" name="Text/Wiki/Render/Xhtml/Raw.php" />
-            <file role="php" name="Text/Wiki/Render/Xhtml/Revise.php" />
-            <file role="php" name="Text/Wiki/Render/Xhtml/Smiley.php" />
-            <file role="php" name="Text/Wiki/Render/Xhtml/Specialchar.php" />
-            <file role="php" name="Text/Wiki/Render/Xhtml/Strong.php" />
-            <file role="php" name="Text/Wiki/Render/Xhtml/Subscript.php" />
-            <file role="php" name="Text/Wiki/Render/Xhtml/Superscript.php" />
-            <file role="php" name="Text/Wiki/Render/Xhtml/Table.php" />
-            <file role="php" name="Text/Wiki/Render/Xhtml/Tighten.php" />
-            <file role="php" name="Text/Wiki/Render/Xhtml/Titlebar.php" />
-            <file role="php" name="Text/Wiki/Render/Xhtml/Toc.php" />
-            <file role="php" name="Text/Wiki/Render/Xhtml/Tt.php" />
-            <file role="php" name="Text/Wiki/Render/Xhtml/Underline.php" />
-            <file role="php" name="Text/Wiki/Render/Xhtml/Url.php" />
-            <file role="php" name="Text/Wiki/Render/Xhtml/Wikilink.php" />
-
-            <file role="php" name="Text/Wiki/Render/Latex.php" />
-            <file role="php" name="Text/Wiki/Render/Latex/Anchor.php" />
-            <file role="php" name="Text/Wiki/Render/Latex/Blockquote.php" />
-            <file role="php" name="Text/Wiki/Render/Latex/Bold.php" />
-            <file role="php" name="Text/Wiki/Render/Latex/Box.php" />
-            <file role="php" name="Text/Wiki/Render/Latex/Break.php" />
-            <file role="php" name="Text/Wiki/Render/Latex/Center.php" />
-            <file role="php" name="Text/Wiki/Render/Latex/Code.php" />
-            <file role="php" name="Text/Wiki/Render/Latex/Colortext.php" />
-            <file role="php" name="Text/Wiki/Render/Latex/Deflist.php" />
-            <file role="php" name="Text/Wiki/Render/Latex/Delimiter.php" />
-            <file role="php" name="Text/Wiki/Render/Latex/Embed.php" />
-            <file role="php" name="Text/Wiki/Render/Latex/Emphasis.php" />
-            <file role="php" name="Text/Wiki/Render/Latex/Font.php" />
-            <file role="php" name="Text/Wiki/Render/Latex/Freelink.php" />
-            <file role="php" name="Text/Wiki/Render/Latex/Function.php" />
-            <file role="php" name="Text/Wiki/Render/Latex/Heading.php" />
-            <file role="php" name="Text/Wiki/Render/Latex/Horiz.php" />
-            <file role="php" name="Text/Wiki/Render/Latex/Html.php" />
-            <file role="php" name="Text/Wiki/Render/Latex/Image.php" />
-            <file role="php" name="Text/Wiki/Render/Latex/Include.php" />
-            <file role="php" name="Text/Wiki/Render/Latex/Interwiki.php" />
-            <file role="php" name="Text/Wiki/Render/Latex/Italic.php" />
-            <file role="php" name="Text/Wiki/Render/Latex/List.php" />
-            <file role="php" name="Text/Wiki/Render/Latex/Newline.php" />
-            <file role="php" name="Text/Wiki/Render/Latex/Page.php" />
-            <file role="php" name="Text/Wiki/Render/Latex/Paragraph.php" />
-            <file role="php" name="Text/Wiki/Render/Latex/Phplookup.php" />
-            <file role="php" name="Text/Wiki/Render/Latex/Plugin.php" />
-            <file role="php" name="Text/Wiki/Render/Latex/Prefilter.php" />
-            <file role="php" name="Text/Wiki/Render/Latex/Preformatted.php" />
-            <file role="php" name="Text/Wiki/Render/Latex/Raw.php" />
-            <file role="php" name="Text/Wiki/Render/Latex/Revise.php" />
-            <file role="php" name="Text/Wiki/Render/Latex/Smiley.php" />
-            <file role="php" name="Text/Wiki/Render/Latex/Specialchar.php" />
-            <file role="php" name="Text/Wiki/Render/Latex/Strong.php" />
-            <file role="php" name="Text/Wiki/Render/Latex/Subscript.php" />
-            <file role="php" name="Text/Wiki/Render/Latex/Superscript.php" />
-            <file role="php" name="Text/Wiki/Render/Latex/Table.php" />
-            <file role="php" name="Text/Wiki/Render/Latex/Tighten.php" />
-            <file role="php" name="Text/Wiki/Render/Latex/Titlebar.php" />
-            <file role="php" name="Text/Wiki/Render/Latex/Toc.php" />
-            <file role="php" name="Text/Wiki/Render/Latex/Tt.php" />
-            <file role="php" name="Text/Wiki/Render/Latex/Underline.php" />
-            <file role="php" name="Text/Wiki/Render/Latex/Url.php" />
-            <file role="php" name="Text/Wiki/Render/Latex/Wikilink.php" />
-
-            <file role="php" name="Text/Wiki/Render/Plain.php" />
-            <file role="php" name="Text/Wiki/Render/Plain/Anchor.php" />
-            <file role="php" name="Text/Wiki/Render/Plain/Blockquote.php" />
-            <file role="php" name="Text/Wiki/Render/Plain/Bold.php" />
-            <file role="php" name="Text/Wiki/Render/Plain/Box.php" />
-            <file role="php" name="Text/Wiki/Render/Plain/Break.php" />
-            <file role="php" name="Text/Wiki/Render/Plain/Center.php" />
-            <file role="php" name="Text/Wiki/Render/Plain/Code.php" />
-            <file role="php" name="Text/Wiki/Render/Plain/Colortext.php" />
-            <file role="php" name="Text/Wiki/Render/Plain/Deflist.php" />
-            <file role="php" name="Text/Wiki/Render/Plain/Delimiter.php" />
-            <file role="php" name="Text/Wiki/Render/Plain/Embed.php" />
-            <file role="php" name="Text/Wiki/Render/Plain/Emphasis.php" />
-            <file role="php" name="Text/Wiki/Render/Plain/Font.php" />
-            <file role="php" name="Text/Wiki/Render/Plain/Freelink.php" />
-            <file role="php" name="Text/Wiki/Render/Plain/Function.php" />
-            <file role="php" name="Text/Wiki/Render/Plain/Heading.php" />
-            <file role="php" name="Text/Wiki/Render/Plain/Horiz.php" />
-            <file role="php" name="Text/Wiki/Render/Plain/Html.php" />
-            <file role="php" name="Text/Wiki/Render/Plain/Image.php" />
-            <file role="php" name="Text/Wiki/Render/Plain/Include.php" />
-            <file role="php" name="Text/Wiki/Render/Plain/Interwiki.php" />
-            <file role="php" name="Text/Wiki/Render/Plain/Italic.php" />
-            <file role="php" name="Text/Wiki/Render/Plain/List.php" />
-            <file role="php" name="Text/Wiki/Render/Plain/Newline.php" />
-            <file role="php" name="Text/Wiki/Render/Plain/Page.php" />
-            <file role="php" name="Text/Wiki/Render/Plain/Paragraph.php" />
-            <file role="php" name="Text/Wiki/Render/Plain/Phplookup.php" />
-            <file role="php" name="Text/Wiki/Render/Plain/Plugin.php" />
-            <file role="php" name="Text/Wiki/Render/Plain/Prefilter.php" />
-            <file role="php" name="Text/Wiki/Render/Plain/Preformatted.php" />
-            <file role="php" name="Text/Wiki/Render/Plain/Raw.php" />
-            <file role="php" name="Text/Wiki/Render/Plain/Revise.php" />
-            <file role="php" name="Text/Wiki/Render/Plain/Smiley.php" />
-            <file role="php" name="Text/Wiki/Render/Plain/Specialchar.php" />
-            <file role="php" name="Text/Wiki/Render/Plain/Strong.php" />
-            <file role="php" name="Text/Wiki/Render/Plain/Subscript.php" />
-            <file role="php" name="Text/Wiki/Render/Plain/Superscript.php" />
-            <file role="php" name="Text/Wiki/Render/Plain/Table.php" />
-            <file role="php" name="Text/Wiki/Render/Plain/Tighten.php" />
-            <file role="php" name="Text/Wiki/Render/Plain/Titlebar.php" />
-            <file role="php" name="Text/Wiki/Render/Plain/Toc.php" />
-            <file role="php" name="Text/Wiki/Render/Plain/Tt.php" />
-            <file role="php" name="Text/Wiki/Render/Plain/Underline.php" />
-            <file role="php" name="Text/Wiki/Render/Plain/Url.php" />
-            <file role="php" name="Text/Wiki/Render/Plain/Wikilink.php" />
-
-            <file role="doc" name="doc/test_Text_Wiki.php" />
-
-        </filelist>
-    </release>
-  <changelog>
-    <release>
-      <version>1.1.0</version>
-      <date>2006-03-02</date>
-      <license>LGPL</license>
-      <state>stable</state>
-      <notes><![CDATA[
-This is a major release as we reduce global resource usage
+# Bug #7091 fixed variable substitution in Latex renderer (thanks randlem at bgsu dot edu)
+ </notes>
+   </release>
+  <release>
+   <version>
+    <release>1.1.0</release>
+    <api>1.1.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2006-03-02</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>This is a major release as we reduce global resource usage
 # instantiate renderers only as needed
 # factory() method introduced for instantiating Text_Wiki objects
 # singleton() static method to get a single object instanciated pro parser (merci davidc for advices)
@@ -289,67 +349,86 @@ Xhtml render:
 
 Maintainers:
 # Del , one of the funders of the original code fully as pear developer
-# JustinP is now lead]]></notes>
+# JustinP is now lead
+   </notes>
   </release>
-    <release>
-        <version>1.0.3</version>
-        <date>2005-11-08</date>
-        <license>LGPL</license>
-        <state>stable</state>
-        <notes>
-This is a bug fix release, the Bug #5863: mixed &lt;ul&gt; &lt;ol&gt; when using * and # fix introduced a potential BBC: Bug #5879 Nested lists to do not parse properly in Text_Wiki
-        </notes>
-    </release>
-    <release>
-        <version>1.0.2</version>
-        <date>2005-11-06</date>
-        <license>LGPL</license>
-        <state>stable</state>
-        <notes>
-This is a bug fix release, also with a few enhancements
+  <release>
+   <version>
+    <release>1.0.3</release>
+    <api>1.0.3</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2005-11-08</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>This is a bug fix release, the Bug #5863: mixed &lt;ul&gt; &lt;ol&gt; when using * and # fix introduced a potential BBC: Bug #5879 Nested lists to do not parse properly in Text_Wiki
+        
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.2</release>
+    <api>1.0.2</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2005-11-06</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>This is a bug fix release, also with a few enhancements
 Default parser:
 * Bug #5660: The # is to be kept in the anchor option, (jeremy Lecour)
-* Bug #5863: Don't mix bullet and numbered lists when following each other, (stefan dot kilp at gmx dot net)
+* Bug #5863: Don&apos;t mix bullet and numbered lists when following each other, (stefan dot kilp at gmx dot net)
 * Bug #5397: variable used inside single quotes bugs WikiLinks (kristof dot coomans at sckcen dot be)
 Xhtml renderer:
 * Bug #5447: Preset $collapse to null (martin at mein-horde dot de)
 * Bug #5847: onclick in lowercase for Xhtml compliance (meisteg at msoe dot edu)
-* Unitiliazed row and column 's spans when coming from not mediawiki parser
+* Unitiliazed row and column &apos;s spans when coming from not mediawiki parser
 Xhtml and Latex renderers:
 * Render enumeration type a, A, i, or I in lists
-        </notes>
-    </release>
-    <release>
-        <version>1.0.1</version>
-        <date>2005-09-12</date>
-        <license>LGPL</license>
-        <state>stable</state>
-        <notes>
-This is a bug fix and security release, also preparing the introduction of new parsers/renderers
-* Fixed bug 3881 and 4442, UTF-8 encoding problems.  There are new config options for Render_Xhtml, 'charset' and 'quotes', that allow you to specify the charset for translation.
-* Fixed bug 3959, "XHTML lists not rendered according W3C Standards" (where a line of text before a list leaves an open paragraph tag and closes it after the list)
+        
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.1</release>
+    <api>1.0.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2005-09-12</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>This is a bug fix and security release, also preparing the introduction of new parsers/renderers
+* Fixed bug 3881 and 4442, UTF-8 encoding problems.  There are new config options for Render_Xhtml, &apos;charset&apos; and &apos;quotes&apos;, that allow you to specify the charset for translation.
+* Fixed bug 3959, &quot;XHTML lists not rendered according W3C Standards&quot; (where a line of text before a list leaves an open paragraph tag and closes it after the list)
 * In Parse_Xhtml_Toc, returns an extra newline before the parsed replacement text to comply with the matching regex.
-* In Render_Xhtml_Toc, added a 'collapse' config key to collapse the div horizontally within a table; this is for aesthetics, nothing else.  The 'collapse' option is true by default.
-* Added general rules Smiley, Subscript ",,text,," and Underline "__text__"
+* In Render_Xhtml_Toc, added a &apos;collapse&apos; config key to collapse the div horizontally within a table; this is for aesthetics, nothing else.  The &apos;collapse&apos; option is true by default.
+* Added general rules Smiley, Subscript &quot;,,text,,&quot; and Underline &quot;__text__&quot;
 * Added rendering rules Box, Font, Page, Plugin, Preformatted, Specialchar and Titelbar
               for the optional extra parsers (BBCode, Cowiki, Doku, Mediawiki and Tiki)
-* Fixed bug 4175 "Wrong transform method" by generating PEAR_Error objects when a parse, format, or render rule cannot be found.
-* applied feature request 4436 "Add option to getTokens to get original token indices" -- now the return array from getTokens() is keyed to the original token index number.
+* Fixed bug 4175 &quot;Wrong transform method&quot; by generating PEAR_Error objects when a parse, format, or render rule cannot be found.
+* applied feature request 4436 &quot;Add option to getTokens to get original token indices&quot; -- now the return array from getTokens() is keyed to the original token index number.
 * Fixed Bug #4473 Undefined variables in error()
-* Fixed bug 4474 to silence calls to htmlentities and htmlspecialchars so that errors about charsets don't pop up, per counsel from Jan at Horde.
+* Fixed bug 4474 to silence calls to htmlentities and htmlspecialchars so that errors about charsets don&apos;t pop up, per counsel from Jan at Horde.
 * Fixed Code potential nesting
-* Fixed bug #4719, "In Latex, newline rule does not produce a new line"
+* Fixed bug #4719, &quot;In Latex, newline rule does not produce a new line&quot;
 * Request #4520  	Additional space confuses image tag, adapted regexp
 * Request #4634  	Code block title/filename, uses conf css_filename
 * Code Xhtml: add php tags only if not there
 * Heading: collapsing in headers
-* Colortext Xhtml: don't add # if allready present
+* Colortext Xhtml: don&apos;t add # if allready present
 * Anchor Xhtml htlmentify the link
 * Cleaned Xhtml renderers documentation headers
 * Added an example in doc
 * Rowspan and space before free format in Table renderer
 * Secured url linked on images
-        </notes>
-    </release>
-  </changelog>
+        
+   </notes>
+  </release>
+ </changelog>
 </package>
