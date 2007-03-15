@@ -42,7 +42,7 @@ class Text_Wiki_Parse_Image extends Text_Wiki_Parse {
     * 
     */
     
-    var $regex = '/({{)(wiki:|https?:\/\/|ftp:\/\/)(.+?)(}})/i';
+    var $regex = '/({{)(\s*)(wiki:|https?:\/\/|ftp:\/\/)(.+?)(\s*)(}})/i';
     
     
     /**
@@ -64,18 +64,18 @@ class Text_Wiki_Parse_Image extends Text_Wiki_Parse {
     
     function process(&$matches)
     {
-        if ($matches[2] != 'wiki:') {
-            $matches[3] = $matches[2].$matches[3];
+        if ($matches[3] != 'wiki:') {
+            $matches[4] = $matches[3].$matches[4];
         }
 
-        $pos = strpos($matches[3], '?');
+        $pos = strpos($matches[4], '?');
         if ($pos === false) {
             $options = array(
-                'src' => $matches[3],
+                'src' => $matches[4],
                 'attr' => array());
         } else {
-            $options = array('src' => substr($matches[3], 0, $pos));
-            $attr = substr($matches[3], $pos + 1);
+            $options = array('src' => substr($matches[4], 0, $pos));
+            $attr = substr($matches[4], $pos + 1);
             $parts = explode('x', $attr);
             if (isset($parts[0]) && $parts[0] != '') {
                 $options['attr']['width'] = $parts[0];
@@ -83,6 +83,14 @@ class Text_Wiki_Parse_Image extends Text_Wiki_Parse {
             if (isset($parts[1]) && $parts[1] != '') {
                 $options['attr']['height'] = $parts[1];
             }
+        }
+
+        if (strlen($matches[2]) && strlen($matches[5])) {
+            $options['attr']['align'] = 'center';
+        } elseif (strlen($matches[2])) {
+            $options['attr']['align'] = 'right';
+        } elseif (strlen($matches[5])) {
+            $options['attr']['align'] = 'left';
         }
         
         return $this->wiki->addToken($this->rule, $options);
