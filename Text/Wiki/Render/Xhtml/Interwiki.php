@@ -86,7 +86,7 @@ class Text_Wiki_Render_Xhtml_Interwiki extends Text_Wiki_Render {
         $output = "<a$css href=\"$href\"";
 
         // are we targeting a specific window?
-        if ($target) {
+        if ($target && $target != '_self') {
             // this is XHTML compliant, suggested by Aaron Kalin.
             // code tip is actually from youngpup.net, and it
             // uses the $target as the new window name.
