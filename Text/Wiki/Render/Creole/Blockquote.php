@@ -21,6 +21,7 @@ class Text_Wiki_Render_Creole_Blockquote extends Text_Wiki_Render {
     {
         // starting
         if ($options['type'] == 'start') {
+			if (empty($options['css'])) $options['css'] = '';
             array_push($this->css_stack, $options['css']);
             $this->wiki->registerRenderCallback(array(&$this, 'renderInsideText'));
             return '';
@@ -40,7 +41,6 @@ class Text_Wiki_Render_Creole_Blockquote extends Text_Wiki_Render {
         else {
             $text = preg_replace('/(^|\n)([\>\:]*) */', '\1>\2 ', $text);
         }
-        //$bq_css = '';
         return $text . "\n\n";
     }
 }
