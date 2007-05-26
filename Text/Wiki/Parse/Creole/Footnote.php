@@ -74,7 +74,7 @@ class Text_Wiki_Parse_Footnote extends Text_Wiki_Parse {
         
         $token = $this->wiki->addToken(
             'Url',
-            array('text' => "[$id]", 'href' => $href, 'name' => $name)
+            array('text' => "[$id]", 'href' => $href, 'name' => $name, 'type' => 'inline')
         );
 
         return $matches[1] . $token;
