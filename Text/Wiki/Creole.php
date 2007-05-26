@@ -61,6 +61,7 @@ class Text_Wiki_Creole extends Text_Wiki {
         'Break',
         'Raw',
         'Footnote',
+        'Table',
         'Newline',
         'Blockquote',
         'Newline',
@@ -71,7 +72,7 @@ class Text_Wiki_Creole extends Text_Wiki {
         'Center',
         'Horiz',
         'List',
-        'Table',
+        //'Table',
         'Address',
         'Paragraph',
         'Superscript',
@@ -99,6 +100,7 @@ class Text_Wiki_Creole extends Text_Wiki {
 
     function checkInnerTags(&$text) {
         $started = array();
+		$i = false;
         while (($i = strpos($text, $this->delim, $i)) !== false) {
             $j = strpos($text, $this->delim, $i + 1);
             $t = substr($text, $i + 1, $j - $i - 1);
@@ -107,6 +109,9 @@ class Text_Wiki_Creole extends Text_Wiki {
             $type = $this->tokens[$t][1]['type'];
 
             if ($type == 'start') {
+				if (empty($started[$rule])) {
+					$started[$rule] = 0;
+				}
                 $started[$rule] += 1;
             }
             else if ($type == 'end') {
@@ -117,6 +122,22 @@ class Text_Wiki_Creole extends Text_Wiki {
             }
         }
         return ! (count($started) > 0);
+    }
+    
+    function restoreRaw($text) {
+        while (($i = strpos($text, $this->delim, $i)) !== false) {
+            $j = strpos($text, $this->delim, $i + 1);
+            $t = substr($text, $i + 1, $j - $i - 1);
+            $rule = strtolower($this->tokens[$t][0]);
+
+            if ($rule == 'raw') {
+                $text = str_replace($this->delim. $t. $this->delim, $this->tokens[$t][1]['text'], $text);
+            }
+            else {
+                $i = $j + 1;
+            }
+        }
+        return $text;
     }
 }
 
