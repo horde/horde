@@ -17,7 +17,13 @@ class Text_Wiki_Render_Creole_Preformatted extends Text_Wiki_Render {
 
     function token($options)
     {
-        return "{{{\n" . $options['text'] . "\n}}}\n\n";
+        $text = $options['text'];
+        
+        $text = preg_replace("/\n(~*)}}}/s", "\n$1~}}}", $text);
+        $text = preg_replace("/\n([\\\]+)}}}/s", "\n$1\\}}}", $text);
+        $text = preg_replace("/\n( +)}}}/s", "\n$1 }}}", $text);
+        
+        return "{{{\n" . $text . "\n}}}\n\n";
     }
 }
 ?>
