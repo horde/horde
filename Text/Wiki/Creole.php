@@ -93,7 +93,7 @@ class Text_Wiki_Creole extends Text_Wiki {
     function Text_Wiki_Creole($rules = null) {
         parent::Text_Wiki($rules);
         $this->addPath('parse', $this->fixPath(dirname(__FILE__)).'Parse/Creole');
-        unset($this->renderingType);
+        $this->renderingType = '';
         $this->setRenderConf('xhtml', 'center', 'css', 'center');
         $this->setRenderConf('xhtml', 'url', 'target', null);
     }
@@ -125,6 +125,7 @@ class Text_Wiki_Creole extends Text_Wiki {
     }
     
     function restoreRaw($text) {
+		$i = false;
         while (($i = strpos($text, $this->delim, $i)) !== false) {
             $j = strpos($text, $this->delim, $i + 1);
             $t = substr($text, $i + 1, $j - $i - 1);
