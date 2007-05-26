@@ -42,7 +42,7 @@ class Text_Wiki_Parse_List extends Text_Wiki_Parse {
      *
      */
 
-    var $regex = '/\n((\*[^\*]|\-[^\-\d]|\#[^\#]).*?)\n(?![\*\-#])/s';
+    var $regex = '/\n((\* |\-[^\-\d\*\#]|\#[^\#\-\*]).*?)\n(?![\*\-#])/s';
 
     /**
      *
@@ -100,6 +100,10 @@ class Text_Wiki_Parse_List extends Text_Wiki_Parse {
             $list,
             PREG_SET_ORDER
         );
+        
+        if (count($list) === 1 && $matches[0][0] === '*' && $matches[0][1] !== ' ' && strpos($matches[0], '*', 1)) {
+            return $matches[0];
+        }
 
         // loop through each list-item element.
         foreach ($list as $key => $val) {
@@ -149,7 +153,9 @@ class Text_Wiki_Parse_List extends Text_Wiki_Parse {
 
                 // reset to the current (previous) list type so that
                 // the new list item matches the proper list type.
-                $oldtype = $stack[$tmp - 1];
+                if ($tmp) {
+					$oldtype = $stack[$tmp - 1];
+				}
 
                 // reset the item count for the popped indent level
                 unset($itemcount[$tmp + 1]);
