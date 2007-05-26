@@ -102,7 +102,7 @@ class Text_Wiki_Render_Xhtml_Url extends Text_Wiki_Render {
                 $start .= " return false;\"";
             }
             
-            if ($name) {
+            if (isset($name)) {
                 $start .= " id=\"$name\"";
             }
 
