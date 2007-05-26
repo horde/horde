@@ -19,7 +19,18 @@ class Text_Wiki_Render_Creole_Raw extends Text_Wiki_Render {
     {
         $text = $options['text'];
         if ($text == '\\') $text = ' ';
-        if (strlen($text) == 1) $text = '\\' . $text;
+        if (strlen($text) == 1 || (isset($options['type']) && $options['type'] == 'escape')) {
+            $text = '~' . $text;
+        }
+        else {
+            $find = "/}}}/";
+            $replace = "~}}}";
+            $text = preg_replace($find, $replace, $text);
+        
+            $find = "/~( *)$/";
+            $replace = "~ $1";
+            $text = preg_replace($find, $replace, $text);
+        }
         return $text;
     }
 }
