@@ -66,12 +66,12 @@ class Text_Wiki_Parse_Url extends Text_Wiki_Parse {
 
     function process(&$matches)
     {
-        $href = trim($matches[2]);
-        $text = trim($matches[4]);
-        $rawurl = $matches[5];
-        if (! $href) $href = $rawurl;
+        if (isset($matches[2])) $href = trim($matches[2]);
+        if (isset($matches[4])) $text = trim($matches[4]);
+        if (isset($matches[5])) $rawurl = $matches[5];
+        if (empty($href)) $href = $rawurl;
 
-        if (! $text) {
+        if (empty($text)) {
             $text = $href;
             $text = str_replace('http://', '', $text);
             $text = str_replace('mailto:', '', $text);
