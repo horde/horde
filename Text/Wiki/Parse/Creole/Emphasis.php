@@ -35,7 +35,7 @@ class Text_Wiki_Parse_Emphasis extends Text_Wiki_Parse {
      */
 
     //var $regex =  "/\/\/(.*?)\/\//";
-    var $regex =  "/(?:\/\/(.+?)\/\/|(?:(?<=[\W_\xFF])\/(?! ))(.+?)(?:(?<! )\/(?=[\W_\xFF])))/";
+    var $regex =  "/(?:\/\/(.+?)\/\/|(?:(?<=[\W_\xFF])\/(?![ \/]))(.+?)(?:(?<![ \/])\/(?=[\W_\xFF])))/";
 
     /**
      *
