@@ -43,15 +43,31 @@ class Text_Wiki_Parse_Trim extends Text_Wiki_Parse {
         $replace = "\n\n";
         $this->wiki->source = preg_replace($find, $replace, $this->wiki->source);
             
+        // numbered lists
+        $find = "/(\n[\*\#]*)([\d]+[\.\)]|[\w]\))/s";
+        $replace = "$1#";
+        $this->wiki->source = preg_replace($find, $replace, $this->wiki->source);
+
         // make ordinal numbers superscripted
-        $find = "/(?<![\w])([\d]+)([^\W\d_]+)/";
+        $find = "/(?<=[\s])([\d]+)([^\W\d_]+)/";
         $replace = "$1^^$2^^";
         $this->wiki->source = preg_replace($find, $replace, $this->wiki->source);
 
         // numbers in parentesis are footnotes and references
-        /*$find = "/\(([\d]+)\)/";
+        $find = "/\(([\d][\d]?)\)/";
         $replace = "[$1]";
-        $this->wiki->source = preg_replace($find, $replace, $this->wiki->source);*/
+        $this->wiki->source = preg_replace($find, $replace, $this->wiki->source);
+
+        // add hr before footnotes
+        $find = "/(\n+\-\-\-\-+\n*)?(\n\[[\d]+\].*)/s";
+        $replace = "\n\n----\n\n$2";
+        $this->wiki->source = preg_replace($find, $replace, $this->wiki->source);
+
+        // change dash for ndash
+        $find = "/ \- /";
+        $replace = " – ";
+        $this->wiki->source = preg_replace($find, $replace, $this->wiki->source);
+
     }
 
 }
