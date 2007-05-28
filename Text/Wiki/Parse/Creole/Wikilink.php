@@ -158,6 +158,8 @@ class Text_Wiki_Parse_Wikilink extends Text_Wiki_Parse {
 
     function process(&$matches)
     {
+        $matches[3] = $this->wiki->restoreRaw($matches[3]);
+                                        
         // Starting colon ?
         $colon = !empty($matches[1]);
         $auto = $interlang = $interwiki = $image = $site = '';
