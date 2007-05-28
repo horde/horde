@@ -35,7 +35,7 @@ class Text_Wiki_Parse_Underline extends Text_Wiki_Parse {
      */
 
     //var $regex =  "/__(.*?)__/";
-    var $regex =  "/(?:\_\_(.+?)\_\_|(?:(?<=[\W_\xFF])\_(?! ))(.+?)(?:(?<! )\_(?=[\W_\xFF])))/";
+    var $regex =  "/(?:\_\_(.+?)\_\_|(?:(?<=[\W_\xFF])\_(?![ \_]))(.+?)(?:(?<![ \_])\_(?=[\W_\xFF])))/";
 
     /**
      *
