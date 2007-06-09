@@ -386,7 +386,10 @@ class Text_Wiki {
     function Text_Wiki($rules = null)
     {
         if (is_array($rules)) {
-            $this->rules = $rules;
+            $this->rules = array();
+            foreach ($rules as $rule) {
+                $this->rules[] = ucfirst($rule);
+            }
         }
 
         $this->addPath(
