@@ -38,7 +38,7 @@ It is highly configurable and can be easily extended.</description>
  </version>
  <stability>
   <release>stable</release>
-  <api>beta</api>
+  <api>stable</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
