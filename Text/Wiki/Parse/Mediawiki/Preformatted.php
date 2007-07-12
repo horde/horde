@@ -42,7 +42,7 @@ class Text_Wiki_Parse_Preformatted extends Text_Wiki_Parse {
     * @access public
     * @var string
     */
-    var $regex = '!<pre(?:[^>]*)>\n?(.*?)\n?</pre>!s';
+    var $regex ='!<pre(?:[^>]*)>\n?(.*?)\n?</pre>|(?<=\n)((?:[ ]+.*?)+)(?=\n\S)!s';
     
     /**
     * Generates a token entry for the matched text.  Token options are:
@@ -55,8 +55,18 @@ class Text_Wiki_Parse_Preformatted extends Text_Wiki_Parse {
     */
     function process(&$matches)
     {
-        $options = array('text' => $matches[1]);
-        return $this->wiki->addToken($this->rule, $options);
+        if(isset($matches[2])){
+            return $this->wiki->addToken(
+                $this->rule,
+                array('text' => $matches[2])
+            );
+        }
+        else{
+            return $this->wiki->addToken(
+                $this->rule,
+                array('text' => $matches[1])
+            );
+        }
     }
 }
 ?>
