@@ -64,7 +64,7 @@ class Text_Wiki_Parse_Table extends Text_Wiki_Parse {
      * @see processCells()
      */
     var $regexCells =
-    '#((?:^\||^!|\|\||!!|\G))(?:([^|\n]*?)\|(?!\|))?(.+?)(?=^\||^!|\|\||!!|\z)#msi';
+    '#((?:^\||^!|\|\||!!|\G))(?:([^|\n]*?)\|(?!\|))?(?:\n*)(.+?)(?:\n*)(?=^\||^!|\|\||!!|\z)#msi';
 
     /**
      * The current table nesting depth, starts by zero
