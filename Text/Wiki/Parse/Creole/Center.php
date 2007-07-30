@@ -38,7 +38,7 @@ class Text_Wiki_Parse_Center extends Text_Wiki_Parse {
      *
      */
 
-    var $regex = '/\n\n\|(.*?)\n\n/';
+    var $regex = '/^! *(.*?)$/m';
 
     /**
      *

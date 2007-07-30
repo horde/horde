@@ -32,7 +32,7 @@ class Text_Wiki_Parse_Image extends Text_Wiki_Parse {
      *
      */
 
-    var $regex = '/{{ *(.*)(\ *| *(.*))? *}}/U';
+    var $regex = '/{{(.*)(\|(.*))?}}/U';
 
 
     /**
@@ -50,6 +50,7 @@ class Text_Wiki_Parse_Image extends Text_Wiki_Parse {
     function process(&$matches)
     {
         $src = trim($matches[1]);
+		$src = ltrim($src, '/');
         $alt = trim($matches[3]);
         if (! $alt) $alt = $src;
 

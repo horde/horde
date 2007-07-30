@@ -63,11 +63,6 @@ class Text_Wiki_Parse_Trim extends Text_Wiki_Parse {
         $replace = "\n\n----\n\n$2";
         $this->wiki->source = preg_replace($find, $replace, $this->wiki->source);
 
-        // change dash for ndash
-        $find = "/ \- /";
-        $replace = " -- ";
-        $this->wiki->source = preg_replace($find, $replace, $this->wiki->source);
-
     }
 
 }
