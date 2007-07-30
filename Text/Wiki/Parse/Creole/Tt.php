@@ -32,7 +32,7 @@ class Text_Wiki_Parse_Tt extends Text_Wiki_Parse {
      *
      */
 
-    var $regex = '/{{{(.*?)((?<!~)}}}(?!}|{{{))/';
+    var $regex = '/{{{(.*?)}}}(?!}|{{{)/';
 
     /**
      *
@@ -56,21 +56,7 @@ class Text_Wiki_Parse_Tt extends Text_Wiki_Parse {
         $find = "/}}}{{{/";
         $replace = "";
         $matches[1] = preg_replace($find, $replace, $matches[1]);
-    
-        // any sequence of closing curly braces separated
-        // by some spaces, will have one space removed
-        $find = "/} ( *)(?=})/";
-        $replace = "}$1";
-        $matches[1] = preg_replace($find, $replace, $matches[1]);
-    
-        $find = "/~}}}/";
-        $replace = "}}}";
-        $matches[1] = preg_replace($find, $replace, $matches[1]);
-    
-        $find = "/~ ( *)$/";
-        $replace = "~$1";
-        $matches[1] = preg_replace($find, $replace, $matches[1]);
-    
+        
         $start = $this->wiki->addToken(
             $this->rule,
             array('type' => 'start')

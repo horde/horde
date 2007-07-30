@@ -25,10 +25,11 @@ class Text_Wiki_Render_Creole_Url extends Text_Wiki_Render {
             return ']]';
         }
         else {
+			$noprot = str_replace('http://', '', str_replace('mailto:', '', $href));
             if (strpos($href, "#ref") === 0 || strpos($href, "#fn") === 0) {
                 return $text;
             }
-            else if (! strlen($text) || $text == str_replace('http://', '', str_replace('mailto:', '', $href))) {
+            else if (! strlen($text) || $text == $href || $text == $noprot) {
                 return '[['.$href.']]';
             } else {
                 return '[['.$href.'|'.$text.']]';

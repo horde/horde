@@ -41,7 +41,7 @@ class Text_Wiki_Parse_Url extends Text_Wiki_Parse {
     function Text_Wiki_Parse_Url(&$obj)
     {
         parent::Text_Wiki_Parse($obj);
-        $this->regex = '/((?:\[\[((?:http:\/\/|https:\/\/|ftp:\/\/|mailto:|\/)[^\|\]\n ]*)(\|([^\]\n]*))?\]\])|((http:\/\/|https:\/\/|ftp:\/\/|mailto:)[^\'\"\n ' . $this->wiki->delim . ']*[A-Za-z0-9\/\?\=\&\~\_]))/';
+        $this->regex = '/((?:\[\[ *((?:http:\/\/|https:\/\/|ftp:\/\/|mailto:|\/)[^\|\]\n ]*)( *\| *([^\]\n]*))? *\]\])|((http:\/\/|https:\/\/|ftp:\/\/|mailto:)[^\'\"\n ' . $this->wiki->delim . ']*[A-Za-z0-9\/\?\=\&\~\_]))/';
     }
 
 
@@ -73,8 +73,10 @@ class Text_Wiki_Parse_Url extends Text_Wiki_Parse {
 
         if (empty($text)) {
             $text = $href;
-            $text = str_replace('http://', '', $text);
-            $text = str_replace('mailto:', '', $text);
+            if (strpos($text, '/') === FALSE) {
+				$text = str_replace('http://', '', $text);
+				$text = str_replace('mailto:', '', $text);
+			}
             return $this->wiki->addToken(
                 $this->rule,
                 array(

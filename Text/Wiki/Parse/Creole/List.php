@@ -42,7 +42,7 @@ class Text_Wiki_Parse_List extends Text_Wiki_Parse {
      *
      */
 
-    var $regex = '/\n((\* |\-[^\-\d\*\#]|\#[^\#\-\*]).*?)\n(?![\*\-#])/s';
+    var $regex = '/\n((\*[^\#\-\*]|\-[^\-\d\*\#]|\#[^\#\-\*]).*?)\n(?![\*\-#\n])/s';
 
     /**
      *

@@ -32,7 +32,7 @@ class Text_Wiki_Parse_Raw extends Text_Wiki_Parse {
      *
      */
 
-    var $regex = '/[~\\\](([\W_])\2*)/';
+    var $regex = '/~([^ \n])/';
 
     /**
      *
@@ -52,8 +52,6 @@ class Text_Wiki_Parse_Raw extends Text_Wiki_Parse {
 
     function process(&$matches)
     {
-        if ($matches[1] == ' ') $matches[1] = '\\';
-        
         return $this->wiki->addToken(
             $this->rule,
             array('text' => $matches[1], 'type' => 'escape')

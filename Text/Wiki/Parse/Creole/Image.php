@@ -32,7 +32,7 @@ class Text_Wiki_Parse_Image extends Text_Wiki_Parse {
      *
      */
 
-    var $regex = '/{{(.*)(\|(.*))?}}/U';
+    var $regex = '/{{ *(.*)(\ *| *(.*))? *}}/U';
 
 
     /**
