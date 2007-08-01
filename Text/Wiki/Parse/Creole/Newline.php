@@ -35,7 +35,7 @@ class Text_Wiki_Parse_Newline extends Text_Wiki_Parse {
      */
 
     //var $regex = '/(?<!\n)\n(?![\n\#\=\|\-\>\:]|\*[^\*\#]|\*+ )/m';
-    var $regex = '/(?<!\n)\n(?!\n|\#|\*|\=|\||\>|\:|\!|\-\D)/m';
+    var $regex = '/(?<!\n)\n(?!\n|\#|\*|\=|\||\>|\:|\;|\!|\-\D)/m';
 
 
     /**
