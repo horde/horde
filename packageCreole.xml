@@ -1,99 +1,132 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
-<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<!-- $Id: packageCreole.xml,v 1.8 2007-03-01 22:00:30 mic Exp $ -->
-<package version="1.0">
-    <name>Text_Wiki_Creole</name>
-    <summary>Creole parser and renderer for Text_Wiki</summary>
-    <description>Parses Creole mark-up to tokenize the text for Text_Wiki rendering and also renders for wiki conversion. You can see a reference for this syntax here: http://www.wikicreole.org/</description>
-    <maintainers>
-        <maintainer>
-            <user>mic</user>
-            <name>Michele Tomaiuolo</name>
-            <email>tomamic@yahoo.it</email>
-            <role>lead</role>
-        </maintainer>
-    </maintainers>
-    <release>
-        <version>0.5.0</version>
-        <date>2007-03-01</date>
-        <license>LGPL</license>
-        <state>alpha</state>
-        <notes>
-Text_Wiki_Creole is now compliant with version 0.5 of Creole specs. See http://www.wikicreole.org/wiki/Creole0.5
-        </notes>
-        <filelist>
-            <file role="php" name="Text/Wiki/Creole.php" />
-            <file role="php" name="Text/Wiki/Parse/Creole/Address.php" />
-            <file role="php" name="Text/Wiki/Parse/Creole/Blockquote.php" />
-            <file role="php" name="Text/Wiki/Parse/Creole/Break.php" />
-            <file role="php" name="Text/Wiki/Parse/Creole/Center.php" />
-            <file role="php" name="Text/Wiki/Parse/Creole/Delimiter.php" />
-            <file role="php" name="Text/Wiki/Parse/Creole/Emphasis.php" />
-            <file role="php" name="Text/Wiki/Parse/Creole/Footnote.php" />
-            <file role="php" name="Text/Wiki/Parse/Creole/Heading.php" />
-            <file role="php" name="Text/Wiki/Parse/Creole/Horiz.php" />
-            <file role="php" name="Text/Wiki/Parse/Creole/Image.php" />
-            <file role="php" name="Text/Wiki/Parse/Creole/List.php" />
-            <file role="php" name="Text/Wiki/Parse/Creole/Newline.php" />
-            <file role="php" name="Text/Wiki/Parse/Creole/Paragraph.php" />
-            <file role="php" name="Text/Wiki/Parse/Creole/Prefilter.php" />
-            <file role="php" name="Text/Wiki/Parse/Creole/Preformatted.php" />
-            <file role="php" name="Text/Wiki/Parse/Creole/Raw.php" />
-            <file role="php" name="Text/Wiki/Parse/Creole/Strong.php" />
-            <file role="php" name="Text/Wiki/Parse/Creole/Superscript.php" />
-            <file role="php" name="Text/Wiki/Parse/Creole/Table.php" />
-            <file role="php" name="Text/Wiki/Parse/Creole/Tighten.php" />
-            <file role="php" name="Text/Wiki/Parse/Creole/Trim.php" />
-            <file role="php" name="Text/Wiki/Parse/Creole/Tt.php" />
-            <file role="php" name="Text/Wiki/Parse/Creole/Underline.php" />
-            <file role="php" name="Text/Wiki/Parse/Creole/Url.php" />
-            <file role="php" name="Text/Wiki/Parse/Creole/Wikilink.php" />
-            <file role="php" name="Text/Wiki/Render/Creole.php" />
-            <file role="php" name="Text/Wiki/Render/Creole/Address.php" />
-            <file role="php" name="Text/Wiki/Render/Creole/Anchor.php" />
-            <file role="php" name="Text/Wiki/Render/Creole/Blockquote.php" />
-            <file role="php" name="Text/Wiki/Render/Creole/Bold.php" />
-            <file role="php" name="Text/Wiki/Render/Creole/Box.php" />
-            <file role="php" name="Text/Wiki/Render/Creole/Break.php" />
-            <file role="php" name="Text/Wiki/Render/Creole/Center.php" />
-            <file role="php" name="Text/Wiki/Render/Creole/Code.php" />
-            <file role="php" name="Text/Wiki/Render/Creole/Colortext.php" />
-            <file role="php" name="Text/Wiki/Render/Creole/Deflist.php" />
-            <file role="php" name="Text/Wiki/Render/Creole/Delimiter.php" />
-            <file role="php" name="Text/Wiki/Render/Creole/Embed.php" />
-            <file role="php" name="Text/Wiki/Render/Creole/Emphasis.php" />
-            <file role="php" name="Text/Wiki/Render/Creole/Freelink.php" />
-            <file role="php" name="Text/Wiki/Render/Creole/Function.php" />
-            <file role="php" name="Text/Wiki/Render/Creole/Heading.php" />
-            <file role="php" name="Text/Wiki/Render/Creole/Horiz.php" />
-            <file role="php" name="Text/Wiki/Render/Creole/Html.php" />
-            <file role="php" name="Text/Wiki/Render/Creole/Image.php" />
-            <file role="php" name="Text/Wiki/Render/Creole/Include.php" />
-            <file role="php" name="Text/Wiki/Render/Creole/Interwiki.php" />
-            <file role="php" name="Text/Wiki/Render/Creole/Italic.php" />
-            <file role="php" name="Text/Wiki/Render/Creole/List.php" />
-            <file role="php" name="Text/Wiki/Render/Creole/Newline.php" />
-            <file role="php" name="Text/Wiki/Render/Creole/Paragraph.php" />
-            <file role="php" name="Text/Wiki/Render/Creole/Phplookup.php" />
-            <file role="php" name="Text/Wiki/Render/Creole/Prefilter.php" />
-            <file role="php" name="Text/Wiki/Render/Creole/Preformatted.php" />
-            <file role="php" name="Text/Wiki/Render/Creole/Raw.php" />
-            <file role="php" name="Text/Wiki/Render/Creole/Revise.php" />
-            <file role="php" name="Text/Wiki/Render/Creole/Strong.php" />
-            <file role="php" name="Text/Wiki/Render/Creole/Subscript.php" />
-            <file role="php" name="Text/Wiki/Render/Creole/Superscript.php" />
-            <file role="php" name="Text/Wiki/Render/Creole/Table.php" />
-            <file role="php" name="Text/Wiki/Render/Creole/Tighten.php" />
-            <file role="php" name="Text/Wiki/Render/Creole/Toc.php" />
-            <file role="php" name="Text/Wiki/Render/Creole/Tt.php" />
-            <file role="php" name="Text/Wiki/Render/Creole/Underline.php" />
-            <file role="php" name="Text/Wiki/Render/Creole/Url.php" />
-            <file role="php" name="Text/Wiki/Render/Creole/Wikilink.php" />
-        </filelist>
-        <deps>
-            <dep type="pkg" rel="ge" version="1.0.1">Text_Wiki</dep>
-        </deps>
-    </release>
-    <changelog>
-    </changelog>
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.4.5" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+http://pear.php.net/dtd/tasks-1.0.xsd
+http://pear.php.net/dtd/package-2.0
+http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Text_Wiki_Creole</name>
+ <channel>pear.php.net</channel>
+ <summary>Creole parser and renderer for Text_Wiki</summary>
+ <description>Parses Creole mark-up to tokenize the text for Text_Wiki rendering and also renders for wiki conversion. You can see a reference for this syntax here: http://www.wikicreole.org/
+ </description>
+ <lead>
+  <name>Michele Tomaiuolo</name>
+  <user>mic</user>
+  <email>tomamic@yahoo.it</email>
+  <active>yes</active>
+ </lead>
+ <date>2007-08-01</date>
+ <time>12:00:00</time>
+ <version>
+  <release>1.0.0</release>
+  <api>1.0.0</api>
+ </version>
+ <stability>
+  <release>stable</release>
+  <api>stable</api>
+ </stability>
+ <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <notes>Text_Wiki_Creole is now compliant with version 1.0 of Creole specs. See http://www.wikicreole.org/wiki/Creole1.0
+        
+ </notes>
+ <contents>
+  <dir name="/">
+   <dir name="Text">
+    <dir name="Wiki">
+     <dir name="Parse">
+      <dir name="Creole">
+       <file name="Address.php" role="php" />
+       <file name="Blockquote.php" role="php" />
+       <file name="Box.php" role="php" />
+       <file name="Break.php" role="php" />
+       <file name="Center.php" role="php" />
+       <file name="Delimiter.php" role="php" />
+       <file name="Emphasis.php" role="php" />
+       <file name="Footnote.php" role="php" />
+       <file name="Heading.php" role="php" />
+       <file name="Horiz.php" role="php" />
+       <file name="Image.php" role="php" />
+       <file name="List.php" role="php" />
+       <file name="Newline.php" role="php" />
+       <file name="Paragraph.php" role="php" />
+       <file name="Prefilter.php" role="php" />
+       <file name="Preformatted.php" role="php" />
+       <file name="Raw.php" role="php" />
+       <file name="Strong.php" role="php" />
+       <file name="Subscript.php" role="php" />
+       <file name="Superscript.php" role="php" />
+       <file name="Table.php" role="php" />
+       <file name="Tighten.php" role="php" />
+       <file name="Trim.php" role="php" />
+       <file name="Tt.php" role="php" />
+       <file name="Underline.php" role="php" />
+       <file name="Url.php" role="php" />
+       <file name="Wikilink.php" role="php" />
+      </dir> <!-- //Text/Wiki/Parse/Creole -->
+     </dir> <!-- //Text/Wiki/Parse -->
+     <dir name="Render">
+      <dir name="Creole">
+       <file name="Address.php" role="php" />
+       <file name="Anchor.php" role="php" />
+       <file name="Blockquote.php" role="php" />
+       <file name="Bold.php" role="php" />
+       <file name="Box.php" role="php" />
+       <file name="Break.php" role="php" />
+       <file name="Center.php" role="php" />
+       <file name="Code.php" role="php" />
+       <file name="Colortext.php" role="php" />
+       <file name="Deflist.php" role="php" />
+       <file name="Delimiter.php" role="php" />
+       <file name="Embed.php" role="php" />
+       <file name="Emphasis.php" role="php" />
+       <file name="Freelink.php" role="php" />
+       <file name="Function.php" role="php" />
+       <file name="Heading.php" role="php" />
+       <file name="Horiz.php" role="php" />
+       <file name="Html.php" role="php" />
+       <file name="Image.php" role="php" />
+       <file name="Include.php" role="php" />
+       <file name="Interwiki.php" role="php" />
+       <file name="Italic.php" role="php" />
+       <file name="List.php" role="php" />
+       <file name="Newline.php" role="php" />
+       <file name="Paragraph.php" role="php" />
+       <file name="Phplookup.php" role="php" />
+       <file name="Prefilter.php" role="php" />
+       <file name="Preformatted.php" role="php" />
+       <file name="Raw.php" role="php" />
+       <file name="Revise.php" role="php" />
+       <file name="Strong.php" role="php" />
+       <file name="Subscript.php" role="php" />
+       <file name="Superscript.php" role="php" />
+       <file name="Table.php" role="php" />
+       <file name="Tighten.php" role="php" />
+       <file name="Toc.php" role="php" />
+       <file name="Tt.php" role="php" />
+       <file name="Underline.php" role="php" />
+       <file name="Url.php" role="php" />
+       <file name="Wikilink.php" role="php" />
+      </dir> <!-- //Text/Wiki/Render/Creole -->
+      <file name="Creole.php" role="php" />
+     </dir> <!-- //Text/Wiki/Render -->
+     <file name="Creole.php" role="php" />
+    </dir> <!-- //Text/Wiki -->
+   </dir> <!-- //Text -->
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>4.0.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0b1</min>
+   </pearinstaller>
+   <package>
+    <name>Text_Wiki</name>
+    <channel>pear.php.net</channel>
+    <min>1.0.1</min>
+   </package>
+  </required>
+ </dependencies>
+ <phprelease />
 </package>
