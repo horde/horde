@@ -16,6 +16,10 @@
  * @author Paul M. Jones <pmjones@php.net>
  * @author Michele Tomaiuolo <tomamic@yahoo.it>
  *
+ * @license LGPL
+ *
+ * @version $Id$
+ *
  */
 
 class Text_Wiki_Parse_Underline extends Text_Wiki_Parse {
@@ -34,8 +38,8 @@ class Text_Wiki_Parse_Underline extends Text_Wiki_Parse {
      *
      */
 
-    //var $regex =  "/__(.*?)__/";
-    var $regex =  "/(?:\_\_(.+?)\_\_|(?:(?<=[\W_\xFF])\_(?![ \_]))(.+?)(?:(?<![ \_])\_(?=[\W_\xFF])))/";
+    var $regex =  "/__(.+?)__/";
+    //var $regex =  "/(?:\_\_(.+?)\_\_|(?:(?<=[\W_\xFF])\_(?![ \_]))(.+?)(?:(?<![ \_])\_(?=[\W_\xFF])))/";
 
     /**
      *
@@ -56,19 +60,20 @@ class Text_Wiki_Parse_Underline extends Text_Wiki_Parse {
 
     function process(&$matches)
     {
-        $text = $matches[1] ? $matches[1] : $matches[2];
+        $text = $matches[1];
+        //$text = $matches[1] ? $matches[1] : $matches[2];
         
         if (! $this->wiki->checkInnerTags($text)) {
             return $matches[0];
         }
 
         $start = $this->wiki->addToken(
-            'Emphasis', // $this->rule,
+            $this->rule,
             array('type' => 'start')
         );
 
         $end = $this->wiki->addToken(
-            'Emphasis', // $this->rule,
+            $this->rule,
             array('type' => 'end')
         );
 
