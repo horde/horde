@@ -69,7 +69,7 @@ class Text_Wiki_Parse_Trim extends Text_Wiki_Parse {
         $this->wiki->source = preg_replace($find, $replace, $this->wiki->source);
 		
         // wrap images in tables
-        $find = "/(?<=\n\n){{([^\|}]*)}}(?=\n\n)";
+        $find = "/(?<=\n\n){{([^\|}]*)}}(?=\n\n)/";
         $replace = "| {{ $1 }}";
         $this->wiki->source = preg_replace($find, $replace, $this->wiki->source);
     }
