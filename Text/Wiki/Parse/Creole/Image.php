@@ -51,8 +51,7 @@ class Text_Wiki_Parse_Image extends Text_Wiki_Parse {
     {
         $src = trim($matches[1]);
 		$src = ltrim($src, '/');
-        $alt = trim($matches[3]);
-        if (! $alt) $alt = $src;
+        $alt = isset($matches[3]) ? trim($matches[3]) : $src;
 
         return $this->wiki->addToken(
             $this->rule,
