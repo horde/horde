@@ -22,7 +22,7 @@
  *
  */
 
-class Text_Wiki_Parse_Emphasis extends Text_Wiki_Parse {
+class Text_Wiki_Parse_Italic extends Text_Wiki_Parse {
 
 
     /**
@@ -38,8 +38,7 @@ class Text_Wiki_Parse_Emphasis extends Text_Wiki_Parse {
      *
      */
 
-    var $regex =  "/\/\/(.+?)\/\//";
-    //var $regex =  "/(?:\/\/(.+?)\/\/|(?:(?<=[\W_\xFF])\/(?![ \/]))(.+?)(?:(?<![ \/])\/(?=[\W_\xFF])))/";
+    var $regex =  "/(?:(?<=[\W_\xFF])\/(?![ \/]))(.+?)(?:(?<![ \/])\/(?=[\W_\xFF]))/";
 
     /**
      *
@@ -61,7 +60,6 @@ class Text_Wiki_Parse_Emphasis extends Text_Wiki_Parse {
     function process(&$matches)
     {
         $text = $matches[1];
-        //$text = $matches[1]/* ? $matches[1] : $matches[2]*/;
         
         if (! $this->wiki->checkInnerTags($text)) {
             return $matches[0];
