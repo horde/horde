@@ -59,6 +59,7 @@ class Text_Wiki_Creole extends Text_Wiki {
         'Tt',
         'Trim',
         'Break',
+        'Url',
         'Raw',
 		'Box',
         'Footnote',
@@ -67,7 +68,6 @@ class Text_Wiki_Creole extends Text_Wiki {
         'Deflist',
         'Blockquote',
         'Newline',
-        'Url',
         'Wikilink',
         'Image',
         'Heading',
@@ -82,6 +82,8 @@ class Text_Wiki_Creole extends Text_Wiki {
         'Underline',
         'Emphasis',
         'Strong',
+        //'Italic',
+        //'Bold',
         'Tighten'
     );
 

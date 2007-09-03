@@ -41,7 +41,7 @@ class Text_Wiki_Parse_Url extends Text_Wiki_Parse {
     function Text_Wiki_Parse_Url(&$obj)
     {
         parent::Text_Wiki_Parse($obj);
-        $this->regex = '/((?:\[\[ *((?:http:\/\/|https:\/\/|ftp:\/\/|mailto:|\/)[^\|\]\n ]*)( *\| *([^\]\n]*))? *\]\])|((http:\/\/|https:\/\/|ftp:\/\/|mailto:)[^\'\"\n ' . $this->wiki->delim . ']*[A-Za-z0-9\/\?\=\&\~\_]))/';
+        $this->regex = '/((?:\[\[ *((?:\w+:\/\/|mailto:|\/)[^\|\]\n ]*)( *\| *([^\]\n]*))? *\]\])|((?<=[^\~\w])(https?:\/\/|ftps?:\/\/|mailto:)[^\'\"\n ' . $this->wiki->delim . ']*[A-Za-z0-9\/\?\=\&\~\_]))/';
     }
 
 
