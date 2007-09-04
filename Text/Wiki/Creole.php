@@ -59,8 +59,6 @@ class Text_Wiki_Creole extends Text_Wiki {
         'Tt',
         'Trim',
         'Break',
-        'Url',
-        'Image',
         'Raw',
 		'Box',
         'Footnote',

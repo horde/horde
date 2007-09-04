@@ -32,7 +32,7 @@ class Text_Wiki_Parse_Raw extends Text_Wiki_Parse {
      *
      */
 
-    var $regex = '/~([^ \n])/';
+    var $regex = '/~(_|[^ \w\n])/';
 
     /**
      *
