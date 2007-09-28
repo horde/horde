@@ -21,18 +21,21 @@ class Text_Wiki_Parse_Image extends Text_Wiki_Parse {
 
     /**
      *
-     * The regular expression used to parse the source text and find
-     * matches conforming to this rule.  Used by the parse() method.
+     * Constructor.  Overrides the Text_Wiki_Parse constructor so that we
+     * can set the $regex property dynamically (we need to include the
+     * Text_Wiki $delim character).
      *
-     * @access public
+     * @param object &$obj The calling "parent" Text_Wiki object.
      *
-     * @var string
-     *
-     * @see parse()
+     * @param string $name The token name to use for this rule.
      *
      */
 
-    var $regex = '/{{(.*)(\|(.*))?}}/U';
+    function Text_Wiki_Parse_Image(&$obj)
+    {
+        parent::Text_Wiki_Parse($obj);
+        $this->regex = '/{{([^' . $this->wiki->delim . ']*)(\|([^' . $this->wiki->delim . ']*))?}}/U';
+    }
 
 
     /**
