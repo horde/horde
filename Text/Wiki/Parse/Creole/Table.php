@@ -146,7 +146,7 @@ class Text_Wiki_Parse_Table extends Text_Wiki_Parse {
                         $span++;
                     }
 
-                    if ($cell[0] == '=') {
+                    if (strlen($cell) > 0 && $cell[0] == '=') {
                         $attr = 'header';
                         $cell = trim($cell, '=');
                     }
