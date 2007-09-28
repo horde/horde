@@ -119,7 +119,7 @@ class Text_Wiki_Creole extends Text_Wiki {
                 $started[$rule] += 1;
             }
             else if ($type == 'end') {
-                if (! $started[$rule]) return false;
+                if (empty($started[$rule])) return false;
 
                 $started[$rule] -= 1;
                 if (! $started[$rule]) unset($started[$rule]);
