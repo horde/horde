@@ -52,7 +52,7 @@ class Text_Wiki_Parse_List extends Text_Wiki_Parse {
     *
     */
 
-    var $regex = '/^((\*|#) .*\n)(?!\2 |(?: {1,}((?:\*|#) |\n)))/Usm';
+    var $regex = '/^((\*|#)\s.*\n)(?!\2\s|(?:\s+((?:\*|#) |\n)))/Usm';
 
 
     /**
@@ -106,11 +106,13 @@ class Text_Wiki_Parse_List extends Text_Wiki_Parse {
         // populate $list with this set of matches. $matches[1] is the
         // text matched as a list set by parse().
         preg_match_all(
-            '=^( {0,})(\*|#) (.*)$=Ums',
+            '=^(\s*)(\*|#)\s(.*)$=Ums',
             $matches[1],
             $list,
             PREG_SET_ORDER
         );
+
+        $numSpaces = 0;
 
         // loop through each list-item element.
         foreach ($list as $key => $val) {
@@ -139,21 +141,33 @@ class Text_Wiki_Parse_List extends Text_Wiki_Parse {
             // add a level to the list?
             if ($level > count($stack)) {
 
-                // the current indent level is greater than the
-                // number of stack elements, so we must be starting
-                // a new list.  push the new list type onto the
-                // stack...
-                array_push($stack, $type);
+                //watch for the same # of spaces and reset level
+                if ($level == $numSpaces) {
+                    $level = count($stack);
+                } else {
 
-                // ...and add a list-start token to the return.
-                $return .= $this->wiki->addToken(
-                    $this->rule,
-                    array(
-                        'type' => $type . '_list_start',
-                        'level' => $level - 1
-                    )
-                );
+                    $numSpaces = $level;
+
+                    // reset level as sometimes people use too many spaces
+                    $level = count($stack) + 1;
+
+                    // the current indent level is greater than the
+                    // number of stack elements, so we must be starting
+                    // a new list.  push the new list type onto the
+                    // stack...
+                    array_push($stack, $type);
+
+                    // ...and add a list-start token to the return.
+                    $return .= $this->wiki->addToken(
+                                                     $this->rule,
+                                                     array(
+                                                           'type' => $type . '_list_start',
+                                                           'level' => $level - 1
+                                                           )
+                                                     );
+                }
             }
+
 
             // remove a level from the list?
             while (count($stack) > $level) {
