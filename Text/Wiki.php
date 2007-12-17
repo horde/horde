@@ -205,7 +205,7 @@ class Text_Wiki {
     *
     */
 
-    var $delim = "\xFF";
+    var $delim = "\31";
 
 
     /**
@@ -347,7 +347,7 @@ class Text_Wiki {
      *
      * @var string
      */
-    var $renderingType = 'preg';
+    var $renderingType = 'normal';
 
     /**
      * Stack of rendering callbacks
@@ -1049,7 +1049,6 @@ class Text_Wiki {
                             $this->output .= $this->_block;
                             $this->_block = '';
                         }
-
                         if (isset($opts['type'])) {
                             if ($opts['type'] == 'start') {
                                 array_push($tokenStack, $rule);
