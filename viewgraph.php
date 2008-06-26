@@ -1,6 +1,6 @@
 <?php
 /**
- * $Horde: incubator/operator/viewgraph.php,v 1.1 2008/06/26 17:31:47 bklang Exp $
+ * $Horde: incubator/operator/viewgraph.php,v 1.2 2008/06/26 18:30:03 bklang Exp $
  *
  * Copyright 2008 Alkaloid Networks LLC <http://projects.alkaloid.net>
  *
@@ -19,34 +19,11 @@ require_once 'Horde/Form/Renderer.php';
 require_once 'Horde/Variables.php';
 require_once OPERATOR_BASE . '/lib/Form/SearchCDR.php';
 
+// Load PEAR's Image_Graph library
+require_once 'Image/Graph.php';
+
 $renderer = new Horde_Form_Renderer();
 $vars = Variables::getDefaultVariables();
-
-$form = new SearchCDRForm($vars);
-if ($form->isSubmitted() && $form->validate($vars, true)) {
-    if ($vars->exists('accountcode')) {
-        $accountcode = $vars->get('accountcode');
-    } else {
-        $accountcode = '';
-    }
-    $start = new Horde_Date($vars->get('startdate'));
-    $end = new Horde_Date($vars->get('enddate'));
-    $data = $operator_driver->getData($accountcode, $start, $end);
-    $_SESSION['operator']['lastsearch']['params'] = array(
-        'accountcode' => $vars->get('accountcode'),
-        'startdate' => $vars->get('startdate'),
-        'enddate' => $vars->get('enddate'));
-    $_SESSION['operator']['lastsearch']['data'] = $data;
-} else {
-    if (isset($_SESSION['operator']['lastsearch']['params'])) {
-        foreach($_SESSION['operator']['lastsearch']['params'] as $var => $val) {
-            $vars->set($var, $val);
-        }
-    }
-    if (isset($_SESSION['operator']['lastsearch']['data'])) {
-        $data = $_SESSION['operator']['lastsearch']['data'];
-    }
-}
 
 $startdate = array('year' => 2007,
                    'month' => 1,
@@ -62,11 +39,12 @@ $dcontext = null;
 
 $stats = $operator_driver->getCallStats($startdate, $enddate, $accountcode, $dcontext);
 
-$title = _("Call Statistics");
-Horde::addScriptFile('stripe.js', 'horde', true);
+$graph = Image_Graph::factory('graph', array(600, 400));
+$plotarea = $graph->addNew('plotarea');
+$dataset = Image_Graph::factory('dataset');
+foreach ($stats as $month => $stats) {
+    $dataset->addPoint($month, $stats['numcalls']);
+}
+$plot = $plotarea->addNew('bar', $dataset);
+$graph->done();
 
-require OPERATOR_TEMPLATES . '/common-header.inc';
-require OPERATOR_TEMPLATES . '/menu.inc';
-
-print_r($stats);
-require $registry->get('templates', 'horde') . '/common-footer.inc';
