@@ -20,7 +20,7 @@
  * The table structure can be created by the scripts/sql/operator_foo.sql
  * script.
  *
- * $Horde: incubator/operator/lib/Driver/asterisksql.php,v 1.2 2008/06/26 17:31:28 bklang Exp $
+ * $Horde: incubator/operator/lib/Driver/asterisksql.php,v 1.3 2008/06/26 19:23:17 bklang Exp $
  *
  * Copyright 2007-2008 The Horde Project (http://www.horde.org/)
  *
@@ -87,12 +87,6 @@ class Operator_Driver_asterisksql extends Operator_Driver {
                 ' FROM ' . $this->_params['table'];
         $values = array();
 
-        // Filter by account code
-        if ($accountcode !== null) {
-            $sql .= ' WHERE accountcode = ? ';
-            $values[] = $accountcode;
-        }
-
         // Start Date
         if (!is_a($start, 'Horde_Date')) {
             $start = new Horde_Date($start);
@@ -112,6 +106,12 @@ class Operator_Driver_asterisksql extends Operator_Driver {
         }
         $sql .= ' AND calldate < ? ';
         $values[] =  $end->strftime('%Y-%m-%d %T');
+
+        // Filter by account code
+        if ($accountcode !== null) {
+            $sql .= ' WHERE accountcode = ? ';
+            $values[] = $accountcode;
+        }
 
         /* Make sure we have a valid database connection. */
         $this->_connect();
@@ -157,13 +157,31 @@ class Operator_Driver_asterisksql extends Operator_Driver {
         $end->mday = Horde_Date::daysInMonth($end->month, $end->year);
 
         $sql = 'SELECT COUNT(*) AS count FROM ' . $this->_params['table'] .
-               ' WHERE calldate >= ? AND calldate < ?';
+               ' WHERE 1=1';
+        // Use 1=1 to make constructing the string easier
+        $values = array();
+
+        // Filter by account code
+        if ($accountcode !== null) {
+            $sql .= ' AND accountcode = ?';
+            $values[] = $accountcode;
+        }
+
+        // Filter by destination context
+        if ($dcontext !== null) {
+            $sql .= ' AND dcontext = ?';
+            $values[] = $dcontext;
+        }
+
+        $sql .= ' AND calldate >= ? AND calldate < ?';
+
         $stats = array();
 
         // FIXME: Is there a more efficient way to do this?  Perhaps
         //        lean more on the SQL engine?
         while($start->compareDate($end) <= 0) {
-            $values = array($start->strftime('%Y-%m-%d %T'));
+            $curvalues = $values;
+            $curvalues[] = $start->strftime('%Y-%m-%d %T');
 
             // Index for the results array
             $index = $start->strftime('%Y-%m');
@@ -171,14 +189,14 @@ class Operator_Driver_asterisksql extends Operator_Driver {
             // Find the first day of the next month
             $start->month++;
             $start->correct();
-            $values[] = $start->strftime('%Y-%m-%d %T');
+            $curvalues[] = $start->strftime('%Y-%m-%d %T');
 
             /* Log the query at a DEBUG log level. */
             Horde::logMessage(sprintf('Operator_Driver_asterisksql::getCallStats(): %s', $sql), __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
-            $res = $this->_db->getOne($sql, $values);
+            $res = $this->_db->getOne($sql, $curvalues);
             if (is_a($res, 'PEAR_Error')) {
-                Horde::logMessage($res);
+                Horde::logMessage($res, __FILE__, __LINE__, PEAR_LOG_ERR);
                 return PEAR::raiseError(_("Internal error.  Details have been logged for the administrator."));
             }
  
