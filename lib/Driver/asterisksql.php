@@ -20,7 +20,7 @@
  * The table structure can be created by the scripts/sql/operator_foo.sql
  * script.
  *
- * $Horde: incubator/operator/lib/Driver/asterisksql.php,v 1.1 2008/04/19 01:26:06 bklang Exp $
+ * $Horde: incubator/operator/lib/Driver/asterisksql.php,v 1.2 2008/06/26 17:31:28 bklang Exp $
  *
  * Copyright 2007-2008 The Horde Project (http://www.horde.org/)
  *
@@ -76,7 +76,7 @@ class Operator_Driver_asterisksql extends Operator_Driver {
      *
      * @return boolean|PEAR_Error  True on success, PEAR_Error on failure.
      */
-    function getData($accountcode = '', $start, $end)
+    function getData($start, $end, $accountcode = null)
     {
 
         // Use the query to make the MySQL driver look like the CDR-CSV driver
@@ -85,9 +85,15 @@ class Operator_Driver_asterisksql extends Operator_Driver {
                 'calldate AS answer, calldate AS end, duration, ' .
                 'billsec, disposition, amaflags, userfield, uniqueid ' .
                 ' FROM ' . $this->_params['table'];
+        $values = array();
 
         // Filter by account code
-        $sql .= ' WHERE accountcode = ? ';
+        if ($accountcode !== null) {
+            $sql .= ' WHERE accountcode = ? ';
+            $values[] = $accountcode;
+        }
+
+        // Start Date
         if (!is_a($start, 'Horde_Date')) {
             $start = new Horde_Date($start);
             if (is_a($start, 'PEAR_Error')) {
@@ -95,7 +101,9 @@ class Operator_Driver_asterisksql extends Operator_Driver {
             }
         }
         $sql .= ' AND calldate > ? ';
+        $values[] = $start->strftime('%Y-%m-%d %T');
 
+        // End Date
         if (!is_a($end, 'Horde_Date')) {
             $end = new Horde_Date($end);
             if (is_a($end, 'PEAR_Error')) {
@@ -103,15 +111,13 @@ class Operator_Driver_asterisksql extends Operator_Driver {
             }
         }
         $sql .= ' AND calldate < ? ';
-        $values = array($accountcode,
-                        $start->strftime('%Y-%m-%d %T'),
-                        $end->strftime('%Y-%m-%d %T'));
+        $values[] =  $end->strftime('%Y-%m-%d %T');
 
         /* Make sure we have a valid database connection. */
         $this->_connect();
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Operator_Driver_asterisksql::retrieve(): %s', $sql),
+        Horde::logMessage(sprintf('Operator_Driver_asterisksql::getData(): %s', $sql),
                           __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
         /* Execute the query. */
@@ -119,7 +125,73 @@ class Operator_Driver_asterisksql extends Operator_Driver {
     }
 
     /**
-     * Attempts to open a persistent connection to the SQL server.
+     * Get summary call statistics per-month for a given time range, account and
+     * destination.
+     *
+     * @param Horde_Date startdate  Start of the statistics window
+     * @param Horde_Date enddate    End of the statistics window
+     * @param string accountcode    Name of the accont for statistics.  Defaults
+     *                              to null meaning all accounts.
+     * @param string dcontext       Destination of calls.  Defaults to null.
+     *
+     *
+     * @return array|PEAR_Error     Array of call statistics.  The key of each
+     *                              element is the month name in date('Y-m')
+     *                              format and the value being an array of
+     *                              statistics for calls placed that month. This
+     *                              method will additionall return PEAR_Error
+     *                              on failure.
+     */
+    function getCallStats($start, $end, $accountcode = null, $dcontext = null)
+    {
+        if (!is_a($start, 'Horde_Date') || !is_a($end, 'Horde_Date')) {
+            Horde::logMessage('Start ane end date must be Horde_Date objects.', __FILE__, __LINE__, PEAR_LOG_ERR);
+            return PEAR::raiseError(_("Internal error.  Details have been logged for the administrator."));
+        }
+
+        /* Make sure we have a valid database connection. */
+        $this->_connect();
+
+        // We always compare entire months.
+        $start->mday = 1;
+        $end->mday = Horde_Date::daysInMonth($end->month, $end->year);
+
+        $sql = 'SELECT COUNT(*) AS count FROM ' . $this->_params['table'] .
+               ' WHERE calldate >= ? AND calldate < ?';
+        $stats = array();
+
+        // FIXME: Is there a more efficient way to do this?  Perhaps
+        //        lean more on the SQL engine?
+        while($start->compareDate($end) <= 0) {
+            $values = array($start->strftime('%Y-%m-%d %T'));
+
+            // Index for the results array
+            $index = $start->strftime('%Y-%m');
+             
+            // Find the first day of the next month
+            $start->month++;
+            $start->correct();
+            $values[] = $start->strftime('%Y-%m-%d %T');
+
+            /* Log the query at a DEBUG log level. */
+            Horde::logMessage(sprintf('Operator_Driver_asterisksql::getCallStats(): %s', $sql), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+
+            $res = $this->_db->getOne($sql, $values);
+            if (is_a($res, 'PEAR_Error')) {
+                Horde::logMessage($res);
+                return PEAR::raiseError(_("Internal error.  Details have been logged for the administrator."));
+            }
+ 
+            $stats[$index]['numcalls'] = $res;
+            // TODO: Add more monthly statistics
+
+       }
+             
+       return $stats;
+    }
+
+    /**
+     * Attempts to open a connection to the SQL server.
      *
      * @return boolean  True on success; exits (Horde::fatal()) on error.
      */

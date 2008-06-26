@@ -1,6 +1,6 @@
 <?php
 /**
- * $Horde: incubator/operator/search.php,v 1.1 2008/04/19 01:26:06 bklang Exp $
+ * $Horde: incubator/operator/search.php,v 1.2 2008/06/26 17:31:27 bklang Exp $
  *
  * Copyright 2008 Alkaloid Networks LLC <http://projects.alkaloid.net>
  *
@@ -27,11 +27,12 @@ if ($form->isSubmitted() && $form->validate($vars, true)) {
     if ($vars->exists('accountcode')) {
         $accountcode = $vars->get('accountcode');
     } else {
-        $accountcode = '';
+        // Search all accounts.
+        $accountcode = null;
     }
     $start = new Horde_Date($vars->get('startdate'));
     $end = new Horde_Date($vars->get('enddate'));
-    $data = $operator_driver->getData($accountcode, $start, $end);
+    $data = $operator_driver->getData($start, $end, $accountcode);
     $_SESSION['operator']['lastsearch']['params'] = array(
         'accountcode' => $vars->get('accountcode'),
         'startdate' => $vars->get('startdate'),
