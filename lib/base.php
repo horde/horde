@@ -2,7 +2,7 @@
 /**
  * Operator base application file.
  *
- * $Horde: incubator/operator/lib/base.php,v 1.2 2008/06/27 04:03:51 bklang Exp $
+ * $Horde: incubator/operator/lib/base.php,v 1.3 2008/06/27 17:17:11 bklang Exp $
  *
  * This file brings in all of the dependencies that every Operator script will
  * need, and sets up objects that all scripts use.
@@ -41,6 +41,10 @@ require_once OPERATOR_BASE . '/lib/Operator.php';
 // Operator backend.
 require_once OPERATOR_BASE . '/lib/Driver.php';
 $GLOBALS['operator_driver'] = Operator_Driver::factory();
+
+// Caching system for storing DB results
+$cache = &Horde_Cache::singleton($GLOBALS['conf']['cache']['driver'],
+    Horde::getDriverConfig('cache', $GLOBALS['conf']['cache']['driver']));
 
 // Start output compression.
 Horde::compressOutput();

@@ -1,6 +1,6 @@
 <?php
 /**
- * $Horde: incubator/operator/viewgraph.php,v 1.2 2008/06/26 18:30:03 bklang Exp $
+ * $Horde: incubator/operator/viewgraph.php,v 1.3 2008/06/27 17:17:10 bklang Exp $
  *
  * Copyright 2008 Alkaloid Networks LLC <http://projects.alkaloid.net>
  *
@@ -19,32 +19,87 @@ require_once 'Horde/Form/Renderer.php';
 require_once 'Horde/Variables.php';
 require_once OPERATOR_BASE . '/lib/Form/SearchCDR.php';
 
-// Load PEAR's Image_Graph library
-require_once 'Image/Graph.php';
-
 $renderer = new Horde_Form_Renderer();
 $vars = Variables::getDefaultVariables();
 
-$startdate = array('year' => 2007,
-                   'month' => 1,
-                   'mday' => 1);
-$enddate = array('year' => date('Y'),
-                 'month' => date('n'),
-                 'mday' => date('j'));
+$form = new SearchCDRForm($vars);
+if ($form->isSubmitted() && $form->validate($vars, true)) {
+    if ($vars->exists('accountcode')) {
+        $accountcode = $vars->get('accountcode');
+    } else {
+        // Search all accounts.
+        $accountcode = null;
+    }
+    if ($vars->exists('dcontext')) {
+        $dcontext = $vars->get('dcontext');
+    } else {
+        // Search all contexts.
+        $dcontext = null;
+    }
+    $start = new Horde_Date($vars->get('startdate'));
+    $end = new Horde_Date($vars->get('enddate'));
 
-$startdate = new Horde_Date($startdate);
-$enddate = new Horde_Date($enddate);
-$accountcode = null;
-$dcontext = null;
-
-$stats = $operator_driver->getCallStats($startdate, $enddate, $accountcode, $dcontext);
-
-$graph = Image_Graph::factory('graph', array(600, 400));
-$plotarea = $graph->addNew('plotarea');
-$dataset = Image_Graph::factory('dataset');
-foreach ($stats as $month => $stats) {
-    $dataset->addPoint($month, $stats['numcalls']);
+    // See if we have cached data
+    $cachekey = md5(serialize(array('getCallStatsByMonth', $start, $end,
+                                    $accountcode, $dcontext)));
+    // Use 0 lifetime to allow cache lifetime to be set when storing the object
+    $stats = $cache->get($cachekey, 0);
+    if ($stats === false) {
+        $stats = $operator_driver->getCallStatsByMonth($start, $end,
+                                                       $accountcode, $dcontext);
+        $res = $cache->set($cachekey, serialize($stats), 600);
+        if ($res === false) {
+            Horde::logMessage('The cache system has experienced an error.  Unable to continue.', __FILE__, __LINE__, PEAR_LOG_ERR);
+            $notification->push(_("Internal error.  Details have been logged for the administrator."));
+            unset($stats);
+        }
+    } else {
+        // Cached data is stored serialized
+        $stats = unserialize($stats);
+    }
+    $_SESSION['operator']['lastsearch']['params'] = array(
+        'accountcode' => $vars->get('accountcode'),
+        'startdate' => $vars->get('startdate'),
+        'enddate' => $vars->get('enddate'));
+} else {
+    if (isset($_SESSION['operator']['lastsearch']['params'])) {
+        foreach($_SESSION['operator']['lastsearch']['params'] as $var => $val) {
+            $vars->set($var, $val);
+        }
+    }
+    if (isset($_SESSION['operator']['lastsearch']['data'])) {
+        $data = $_SESSION['operator']['lastsearch']['data'];
+    }
 }
-$plot = $plotarea->addNew('bar', $dataset);
-$graph->done();
 
+if (!empty($stats)) {
+    $numcalls_graph = $minutes_graph = $failed_graph =
+                      Horde::applicationUrl('graphgen.php');
+    
+    $numcalls_graph = Util::addParameter($numcalls_graph, array(
+        'graph' => 'numcalls', 'key' => $cachekey));
+    $minutes_graph = Util::addParameter($minutes_graph, array(
+        'graph' => 'minutes', 'key' => $cachekey));
+    $failed_graph = Util::addParameter($failed_graph, array(
+        'graph' => 'failed', 'key' => $cachekey));
+}
+
+
+$title = _("Call Detail Records Graph");
+
+require OPERATOR_TEMPLATES . '/common-header.inc';
+require OPERATOR_TEMPLATES . '/menu.inc';
+
+$form->renderActive($renderer, $vars);
+
+if (!empty($stats)) {
+    echo '<br />';
+    echo '<img src="' . $numcalls_graph . '"/><br />';
+    echo '<img src="' . $minutes_graph . '"/><br />';
+    echo '<img src="' . $failed_graph . '"/><br />';
+}
+
+require $registry->get('templates', 'horde') . '/common-footer.inc';
+
+// Don't leave stale stats lying about
+unset($_SESSION['operator']['stats']);

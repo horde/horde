@@ -2,7 +2,7 @@
 /**
  * SearchCDRForm Class
  *
- * $Horde: incubator/operator/lib/Form/SearchCDR.php,v 1.1 2008/04/19 01:26:06 bklang Exp $
+ * $Horde: incubator/operator/lib/Form/SearchCDR.php,v 1.2 2008/06/27 17:17:11 bklang Exp $
  *
  * Copyright 2008 Alkaloid Networks LLC <http://projects.alkaloid.net>
  *
@@ -61,7 +61,8 @@ class SearchCDRForm extends Horde_Form {
         $params = array($start_year, $end_year, $picker, $format_in,
                         $format_out, $show_seconds);
 
-        $this->addVariable(_("Account Code"), 'accountcode', 'text', false, false, _("An empty account code will only match records with no account."));
+        $this->addVariable(_("Account Code"), 'accountcode', 'text', false, false, _("An empty account code will select records with an empty account code.  To search for all records account codes use %"));
+        $this->addVariable(_("Destination Context"), 'dcontext', 'text', false, false, _("An empty destination context will select records with an empty destination context.  To search for all destination contexts use %"));
         $this->addVariable(_("Start Date/Time"), 'startdate', 'datetime', true, false, null, $params);
         $this->addVariable(_("End Date/Time"), 'enddate', 'datetime', true, false, null, $params);
     }
