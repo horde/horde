@@ -3,7 +3,7 @@
  * Operator_Driver:: defines an API for implementing storage backends for
  * Operator.
  *
- * $Horde: incubator/operator/lib/Driver.php,v 1.1 2008/04/19 01:26:06 bklang Exp $
+ * $Horde: incubator/operator/lib/Driver.php,v 1.2 2008/06/27 04:03:51 bklang Exp $
  *
  * Copyright 2007-2008 The Horde Project (http://www.horde.org/)
  *
@@ -54,8 +54,15 @@ class Operator_Driver {
         }
         $driver = basename($driver);
 
-        if ($params === null) {
-            $params = Horde::getDriverConfig('storage', $driver);
+        if (is_null($params)) {
+            // Since we have more than one backend that uses SQL make sure
+            // all of them have a chance to inherit the site-wide config.
+            $sqldrivers = array('sql', 'asterisksql');
+            if (in_array($driver, $sqldrivers)) {
+                $params = Horde::getDriverConfig('storage', 'sql');
+            } else {
+                $params = Horde::getDriverConfig('storage', $driver);
+            }
         }
 
         $class = 'Operator_Driver_' . $driver;
