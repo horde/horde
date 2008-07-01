@@ -20,7 +20,7 @@
  * The table structure can be created by the scripts/sql/operator_foo.sql
  * script.
  *
- * $Horde: incubator/operator/lib/Driver/asterisksql.php,v 1.5 2008/07/01 17:44:29 bklang Exp $
+ * $Horde: incubator/operator/lib/Driver/asterisksql.php,v 1.6 2008/07/01 20:29:11 bklang Exp $
  *
  * Copyright 2007-2008 The Horde Project (http://www.horde.org/)
  *
@@ -76,7 +76,7 @@ class Operator_Driver_asterisksql extends Operator_Driver {
      *
      * @return boolean|PEAR_Error  True on success, PEAR_Error on failure.
      */
-    function getData($start, $end, $accountcode = null)
+    function getData($start, $end, $accountcode = null, $dcontext = null)
     {
 
         // Use the query to make the MySQL driver look like the CDR-CSV driver
@@ -84,7 +84,8 @@ class Operator_Driver_asterisksql extends Operator_Driver {
                 'dstchannel, lastapp, lastdata, calldate AS start, ' .
                 'calldate AS answer, calldate AS end, duration, ' .
                 'billsec, disposition, amaflags, userfield, uniqueid ' .
-                ' FROM ' . $this->_params['table'];
+                ' FROM ' . $this->_params['table'] . ' WHERE %s';
+        $filter = array();
         $values = array();
 
         // Start Date
@@ -94,7 +95,7 @@ class Operator_Driver_asterisksql extends Operator_Driver {
                 return $start;
             }
         }
-        $sql .= ' AND calldate > ? ';
+        $filter[] = 'calldate >= ?';
         $values[] = $start->strftime('%Y-%m-%d %T');
 
         // End Date
@@ -104,24 +105,30 @@ class Operator_Driver_asterisksql extends Operator_Driver {
                 return $end;
             }
         }
-        $sql .= ' AND calldate < ? ';
+        $filter[] = 'calldate < ?';
         $values[] =  $end->strftime('%Y-%m-%d %T');
 
         // Filter by account code
         if ($accountcode !== null) {
-            $sql .= ' WHERE accountcode LIKE ? ';
+            $filter[] = 'accountcode LIKE ?';
             $values[] = $accountcode;
+        } else {
+            $filter[] = 'accountcode = ""';
         }
 
         // Filter by destination context
         if ($dcontext !== null) {
-            $sql .= ' WHERE dcontext LIKE ? ';
+            $filter[] = 'dcontext LIKE ?';
             $values[] = $dcontext;
+        } else {
+            $filter[] = 'dcontext = ""';
         }
 
         /* Make sure we have a valid database connection. */
         $this->_connect();
 
+        $filterstring = implode(' AND ', $filter);
+        $sql = sprintf($sql, $filterstring);
         /* Log the query at a DEBUG log level. */
         Horde::logMessage(sprintf('Operator_Driver_asterisksql::getData(): %s', $sql),
                           __FILE__, __LINE__, PEAR_LOG_DEBUG);
