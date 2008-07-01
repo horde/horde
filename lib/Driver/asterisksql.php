@@ -20,7 +20,7 @@
  * The table structure can be created by the scripts/sql/operator_foo.sql
  * script.
  *
- * $Horde: incubator/operator/lib/Driver/asterisksql.php,v 1.4 2008/06/27 17:17:11 bklang Exp $
+ * $Horde: incubator/operator/lib/Driver/asterisksql.php,v 1.5 2008/07/01 17:44:29 bklang Exp $
  *
  * Copyright 2007-2008 The Horde Project (http://www.horde.org/)
  *
@@ -159,92 +159,132 @@ class Operator_Driver_asterisksql extends Operator_Driver {
         /* Make sure we have a valid database connection. */
         $this->_connect();
 
-        // We always compare entire months.
-        $start->mday = 1;
-        $end->mday = Horde_Date::daysInMonth($end->month, $end->year);
-
-
         // Construct the queries we will be running below
         // Use 1=1 to make constructing the filter string easier
-        $numcalls_query = 'SELECT COUNT(*) AS count FROM ' .
-                          $this->_params['table'] . ' WHERE 1=1';
+        $numcalls_query = 'SELECT MONTH(calldate) AS month, ' .
+                          'YEAR(calldate) AS year, ' .
+                          'COUNT(*) AS numcalls FROM ' .
+                          $this->_params['table'] . ' WHERE %s ' .
+                          'GROUP BY year, month';
 
-        $minutes_query = 'SELECT SUM(duration)/60 AS minutes FROM ' .
-                         $this->_params['table'] . ' WHERE 1=1';
+        $minutes_query = 'SELECT MONTH(calldate) AS month, ' .
+                         'YEAR(calldate) AS year, ' .
+                         'SUM(duration)/60 AS minutes FROM ' .
+                         $this->_params['table'] . ' WHERE %s ' .
+                         'GROUP BY year, month';
 
-        $failed_query = 'SELECT COUNT(disposition) AS failed FROM ' .
-                         $this->_params['table'] . ' WHERE ' .
-                         'disposition="failed"';
-        $values = array();
+        $failed_query = 'SELECT MONTH(calldate) AS month, ' .
+                        'YEAR(calldate) AS year, ' .
+                        'COUNT(disposition) AS failed FROM ' .
+                        $this->_params['table'] . ' ' .
+                        'WHERE disposition="failed" AND %s ' .
+                        'GROUP BY year, month';
 
         // Shared SQL filter
-        $filter = '';
+        $filter = array();
+        $values = array();
 
         // Filter by account code
         if ($accountcode !== null) {
-            $filter .= ' AND accountcode LIKE ?';
+            $filter[] = 'accountcode LIKE ?';
             $values[] = $accountcode;
+        } else {
+            $filter[] = 'accountcode = ""';
         }
 
         // Filter by destination context
         if ($dcontext !== null) {
-            $filter .= ' AND dcontext LIKE ?';
+            $filter[] = 'dcontext LIKE ?';
             $values[] = $dcontext;
+        } else {
+            $filter[] =  'dcontext = ""';
         }
 
         // Filter by the date range (filled in below)
-        $filter .= ' AND calldate >= ? AND calldate < ?';
+        $filter[] = 'calldate >= ?';
+        $values[] = $start->strftime('%Y-%m-%d %T');
+        $filter[] = 'calldate < ?';
+        $values[] = $end->strftime('%Y-%m-%d %T');
+
+        $filterstring = implode(' AND ', $filter);
 
         $stats = array();
 
-        // Copy the object so we can reuse the start date below
-        $curdate = new Horde_Date($start);
+        /* Log the query at a DEBUG log level. */
+        $sql = sprintf($numcalls_query, $filterstring);
+        Horde::logMessage(sprintf('Operator_Driver_asterisksql::getCallStats(): Values: %s', print_r($values, true)), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('Operator_Driver_asterisksql::getCallStats(): %s', $sql), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        $numcalls_res = $this->_db->getAll($sql, $values, DB_FETCHMODE_ASSOC);
+        if (is_a($numcalls_res, 'PEAR_Error')) {
+            Horde::logMessage($numcalls_res, __FILE__, __LINE__, PEAR_LOG_ERR);
+            return PEAR::raiseError(_("Internal error.  Details have been logged for the administrator."));
+        }
 
-        // FIXME: Is there a more efficient way to do this?  Perhaps
-        //        lean more on the SQL engine?
-        while($curdate->compareDate($end) <= 0) {
-            $curvalues = $values;
-            $curvalues[] = $curdate->strftime('%Y-%m-%d %T');
+        $sql = sprintf($minutes_query, $filterstring);
+        Horde::logMessage(sprintf('Operator_Driver_asterisksql::getCallStats(): %s', $sql), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        $minutes_res = $this->_db->getAll($sql, $values, DB_FETCHMODE_ASSOC);
+        if (is_a($minutes_res, 'PEAR_Error')) {
+            Horde::logMessage($minutes_res, __FILE__, __LINE__, PEAR_LOG_ERR);
+            return PEAR::raiseError(_("Internal error.  Details have been logged for the administrator."));
+        }
 
-            // Index for the results array
-            $index = $curdate->strftime('%Y-%m');
-             
+        $sql = sprintf($failed_query, $filterstring);
+        Horde::logMessage(sprintf('Operator_Driver_asterisksql::getCallStats(): %s', $sql), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        $failed_res = $this->_db->getAll($sql, $values, DB_FETCHMODE_ASSOC);
+        if (is_a($failed_res, 'PEAR_Error')) {
+            Horde::logMessage($failed_res, __FILE__, __LINE__, PEAR_LOG_ERR);
+            return PEAR::raiseError(_("Internal error.  Details have been logged for the administrator."));
+        }
+
+        // Normalize the results from the database.  This is done because
+        // the database will not return values if there are no data that match
+        // the query.  For example if there were no calls in the month of June
+        // the results will not have any rows with data for June.  Instead of
+        // searching through the results for each month we stuff the values we
+        // have into a temporary array and then create the return value below
+        // using 0 values where necessary.
+        $numcalls = array();
+        foreach ($numcalls_res as $row) {
+            $numcalls[$row['year']][$row['month']] = $row['numcalls'];
+        }
+        $minutes = array();
+        foreach ($minutes_res as $row) {
+            $minutes[$row['year']][$row['month']] = $row['minutes'];
+        }
+        $failed = array();
+        foreach ($failed_res as $row) {
+            $failed[$row['year']][$row['month']] = $row['failed'];
+        }
+
+        while($start->compareDate($end) <= 0) {
+            $index = $start->strftime('%Y-%m');
+            $year = $start->year;
+            $month = $start->month;
+
+            if (empty($numcalls[$year]) || empty($numcalls[$year][$month])) {
+                $stats[$index]['numcalls'] = 0;
+            } else {
+                $stats[$index]['numcalls'] = $numcalls[$year][$month];
+            }
+
+            if (empty($minutes[$year]) || empty($minutes[$year][$month])) {
+                $stats[$index]['minutes'] = 0;
+            } else {
+                $stats[$index]['minutes'] = $minutes[$year][$month];
+            }
+
+            if (empty($failed[$year]) || empty($failed[$year][$month])) {
+                $stats[$index]['failed'] = 0;
+            } else {
+                $stats[$index]['failed'] = $failed[$year][$month];
+            }
+
             // Find the first day of the next month
-            $curdate->month++;
-            $curdate->correct();
-            $curvalues[] = $curdate->strftime('%Y-%m-%d %T');
+            $start->month++;
+            $start->correct();
+        }
 
-            $sql = $numcalls_query . $filter;
-            /* Log the query at a DEBUG log level. */
-            Horde::logMessage(sprintf('Operator_Driver_asterisksql::getCallStats(): %s', $sql), __FILE__, __LINE__, PEAR_LOG_DEBUG);
-
-            $res = $this->_db->getOne($sql, $curvalues);
-            if (is_a($res, 'PEAR_Error')) {
-                Horde::logMessage($res, __FILE__, __LINE__, PEAR_LOG_ERR);
-                return PEAR::raiseError(_("Internal error.  Details have been logged for the administrator."));
-            }
-            $stats[$index]['numcalls'] = $res;
-
-            $sql = $minutes_query . $filter;
-            Horde::logMessage(sprintf('Operator_Driver_asterisksql::getCallStats(): %s', $sql), __FILE__, __LINE__, PEAR_LOG_DEBUG);
-            $res = $this->_db->getOne($minutes_query . $filter, $curvalues);
-            if (is_a($res, 'PEAR_Error')) {
-                Horde::logMessage($res, __FILE__, __LINE__, PEAR_LOG_ERR);
-                return PEAR::raiseError(_("Internal error.  Details have been logged for the administrator."));
-            }
-            $stats[$index]['minutes'] = $res;
-
-            $sql = $failed_query . $filter;
-            Horde::logMessage(sprintf('Operator_Driver_asterisksql::getCallStats(): %s', $sql), __FILE__, __LINE__, PEAR_LOG_DEBUG);
-            $res = $this->_db->getOne($sql, $curvalues);
-            if (is_a($res, 'PEAR_Error')) {
-                Horde::logMessage($res, __FILE__, __LINE__, PEAR_LOG_ERR);
-                return PEAR::raiseError(_("Internal error.  Details have been logged for the administrator."));
-            }
-            $stats[$index]['failed'] = $res;
-       }
-             
-       return $stats;
+        return $stats;
     }
 
     /**
