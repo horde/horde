@@ -20,7 +20,7 @@
  * The table structure can be created by the scripts/sql/operator_foo.sql
  * script.
  *
- * $Horde: incubator/operator/lib/Driver/asterisksql.php,v 1.6 2008/07/01 20:29:11 bklang Exp $
+ * $Horde: incubator/operator/lib/Driver/asterisksql.php,v 1.7 2008/07/01 22:25:01 bklang Exp $
  *
  * Copyright 2007-2008 The Horde Project (http://www.horde.org/)
  *
@@ -155,7 +155,7 @@ class Operator_Driver_asterisksql extends Operator_Driver {
      *                              method will additionall return PEAR_Error
      *                              on failure.
      */
-    function getCallStatsByMonth($start, $end, $accountcode = null,
+    function getMonthlyCallStats($start, $end, $accountcode = null,
                                  $dcontext = null)
     {
         if (!is_a($start, 'Horde_Date') || !is_a($end, 'Horde_Date')) {
@@ -292,6 +292,23 @@ class Operator_Driver_asterisksql extends Operator_Driver {
         }
 
         return $stats;
+    }
+
+    function getAccountCodes()
+    {
+        /* Make sure we have a valid database connection. */
+        $this->_connect();
+
+        $sql = 'SELECT DISTINCT(accountcode) FROM ' . $this->_params['table'] .
+               ' ORDER BY accountcode';
+        Horde::logMessage(sprintf('Operator_Driver_asterisksql::getAccountCodes(): %s', $sql), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        $res = $this->_db->getCol($sql, 'accountcode');
+        if (is_a($res, 'PEAR_Error')) {
+            Horde::logMessage($res, __FILE__, __LINE__, PEAR_LOG_ERR);
+            return PEAR::raiseError(_("Internal error.  Details have been logged for the administrator."));
+        }
+
+        return $res;
     }
 
     /**

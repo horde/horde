@@ -1,6 +1,6 @@
 <?php
 /**
- * $Horde: incubator/operator/viewgraph.php,v 1.3 2008/06/27 17:17:10 bklang Exp $
+ * $Horde: incubator/operator/viewgraph.php,v 1.4 2008/07/01 22:25:00 bklang Exp $
  *
  * Copyright 2008 Alkaloid Networks LLC <http://projects.alkaloid.net>
  *
@@ -24,28 +24,18 @@ $vars = Variables::getDefaultVariables();
 
 $form = new SearchCDRForm($vars);
 if ($form->isSubmitted() && $form->validate($vars, true)) {
-    if ($vars->exists('accountcode')) {
-        $accountcode = $vars->get('accountcode');
-    } else {
-        // Search all accounts.
-        $accountcode = null;
-    }
-    if ($vars->exists('dcontext')) {
-        $dcontext = $vars->get('dcontext');
-    } else {
-        // Search all contexts.
-        $dcontext = null;
-    }
+    $accountcode = $vars->get('accountcode');
+    $dcontext = $vars->get('dcontext');
     $start = new Horde_Date($vars->get('startdate'));
     $end = new Horde_Date($vars->get('enddate'));
 
     // See if we have cached data
-    $cachekey = md5(serialize(array('getCallStatsByMonth', $start, $end,
+    $cachekey = md5(serialize(array('getMonthlyCallStats', $start, $end,
                                     $accountcode, $dcontext)));
     // Use 0 lifetime to allow cache lifetime to be set when storing the object
     $stats = $cache->get($cachekey, 0);
     if ($stats === false) {
-        $stats = $operator_driver->getCallStatsByMonth($start, $end,
+        $stats = $operator_driver->getMonthlyCallStats($start, $end,
                                                        $accountcode, $dcontext);
         $res = $cache->set($cachekey, serialize($stats), 600);
         if ($res === false) {
@@ -59,6 +49,7 @@ if ($form->isSubmitted() && $form->validate($vars, true)) {
     }
     $_SESSION['operator']['lastsearch']['params'] = array(
         'accountcode' => $vars->get('accountcode'),
+        'dcontext' => $vars->get('dcontext'),
         'startdate' => $vars->get('startdate'),
         'enddate' => $vars->get('enddate'));
 } else {

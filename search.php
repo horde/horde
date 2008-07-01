@@ -1,6 +1,6 @@
 <?php
 /**
- * $Horde: incubator/operator/search.php,v 1.2 2008/06/26 17:31:27 bklang Exp $
+ * $Horde: incubator/operator/search.php,v 1.3 2008/07/01 22:25:00 bklang Exp $
  *
  * Copyright 2008 Alkaloid Networks LLC <http://projects.alkaloid.net>
  *
@@ -24,17 +24,14 @@ $vars = Variables::getDefaultVariables();
 
 $form = new SearchCDRForm($vars);
 if ($form->isSubmitted() && $form->validate($vars, true)) {
-    if ($vars->exists('accountcode')) {
-        $accountcode = $vars->get('accountcode');
-    } else {
-        // Search all accounts.
-        $accountcode = null;
-    }
+    $accountcode = $vars->get('accountcode');
+    $dcontext = $vars->get('dcontext');
     $start = new Horde_Date($vars->get('startdate'));
     $end = new Horde_Date($vars->get('enddate'));
-    $data = $operator_driver->getData($start, $end, $accountcode);
+    $data = $operator_driver->getData($start, $end, $accountcode, $dcontext);
     $_SESSION['operator']['lastsearch']['params'] = array(
         'accountcode' => $vars->get('accountcode'),
+        'dcontext' => $vars->get('dcontext'),
         'startdate' => $vars->get('startdate'),
         'enddate' => $vars->get('enddate'));
     $_SESSION['operator']['lastsearch']['data'] = $data;

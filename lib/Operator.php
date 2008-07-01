@@ -2,7 +2,7 @@
 /**
  * Operator Base Class.
  *
- * $Horde: incubator/operator/lib/Operator.php,v 1.2 2008/07/01 20:29:29 bklang Exp $
+ * $Horde: incubator/operator/lib/Operator.php,v 1.3 2008/07/01 22:25:00 bklang Exp $
  *
  * Copyright 2008 Alkaloid Networks LLC <http://projects.alkaloid.net>
  *
@@ -81,5 +81,47 @@ class Operator {
             return _("DOCUMENTATION");
             break;
         }
+    }
+
+    /**
+     * Get a list of valid account codes from the database
+     *
+     * @return array  List of valid account codes.
+     */
+    function getAccountCodes()
+    {
+        global $cache, $operator_driver;
+
+        // Use 0 lifetime to allow cache lifetime to be set when storing the
+        // object.
+        $accountcodes = $cache->get('operator-accountcodes', 0);
+        if ($accountcodes === false) {
+            $accountcodes = $operator_driver->getAccountCodes();
+
+            // Add an option to select all accounts
+            $keys = $accountcodes;
+            array_unshift($keys, '%');
+            $values = $accountcodes;
+            array_unshift($values, _("-- All Accounts --"));
+
+            if ($index = array_search('', $values)) {
+               $values[$index] = _("-- Empty Accountcode --");
+            }
+
+            // Make the index of each array entry the same as its value
+            $accountcodes = array_combine($keys, $values);
+
+            $res = $cache->set('operator-accountcodes',
+                               serialize($accountcodes), 600);
+            if ($res === false) {
+                Horde::logMessage('The cache system has experienced an error.  Unable to continue.', __FILE__, __LINE__, PEAR_LOG_ERR);
+                $notification->push(_("Internal error.  Details have been logged for the administrator."));
+                $accountcodes = array();
+            }
+        } else {
+            $accountcodes = unserialize($accountcodes);
+        }
+
+        return $accountcodes;
     }
 }
