@@ -2,7 +2,7 @@
 /**
  * Operator Base Class.
  *
- * $Horde: incubator/operator/lib/Operator.php,v 1.3 2008/07/01 22:25:00 bklang Exp $
+ * $Horde: incubator/operator/lib/Operator.php,v 1.4 2008/07/03 14:29:16 bklang Exp $
  *
  * Copyright 2008 Alkaloid Networks LLC <http://projects.alkaloid.net>
  *
@@ -24,8 +24,8 @@ class Operator {
         require_once 'Horde/Menu.php';
 
         $menu = new Menu(HORDE_MENU_MASK_ALL);
-        $menu->add(Horde::applicationUrl('search.php'), _("Search"), 'user.png', $registry->getImageDir('horde'));
-        $menu->add(Horde::applicationUrl('viewgraph.php'), _("View Graphs"), 'user.png', $registry->getImageDir('horde'));
+        $menu->add(Horde::applicationUrl('viewgraph.php'), _("View Graphs"), 'graphs.png');
+        $menu->add(Horde::applicationUrl('search.php'), _("Search"), 'search.png', $registry->getImageDir('horde'));
 
         if ($returnType == 'object') {
             return $menu;

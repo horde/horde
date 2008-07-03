@@ -1,6 +1,6 @@
 <?php
 /**
- * $Horde: incubator/operator/index.php,v 1.1 2008/04/19 01:26:06 bklang Exp $
+ * $Horde: incubator/operator/index.php,v 1.2 2008/07/03 14:29:15 bklang Exp $
  *
  * Copyright 2008 Alkaloid Networks LLC <http://projects.alkaloid.net>
  *
@@ -19,4 +19,4 @@ if (!$operator_configured) {
                                    array('conf.php'));
 }
 
-require OPERATOR_BASE . '/search.php';
+require OPERATOR_BASE . '/viewgraph.php';

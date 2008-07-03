@@ -1,6 +1,6 @@
 <?php
 /**
- * $Horde: incubator/operator/viewgraph.php,v 1.4 2008/07/01 22:25:00 bklang Exp $
+ * $Horde: incubator/operator/viewgraph.php,v 1.5 2008/07/03 14:29:15 bklang Exp $
  *
  * Copyright 2008 Alkaloid Networks LLC <http://projects.alkaloid.net>
  *
@@ -22,7 +22,7 @@ require_once OPERATOR_BASE . '/lib/Form/SearchCDR.php';
 $renderer = new Horde_Form_Renderer();
 $vars = Variables::getDefaultVariables();
 
-$form = new SearchCDRForm($vars);
+$form = new SearchCDRForm(_("Graph CDR Data"), $vars);
 if ($form->isSubmitted() && $form->validate($vars, true)) {
     $accountcode = $vars->get('accountcode');
     $dcontext = $vars->get('dcontext');
@@ -37,11 +37,16 @@ if ($form->isSubmitted() && $form->validate($vars, true)) {
     if ($stats === false) {
         $stats = $operator_driver->getMonthlyCallStats($start, $end,
                                                        $accountcode, $dcontext);
-        $res = $cache->set($cachekey, serialize($stats), 600);
-        if ($res === false) {
-            Horde::logMessage('The cache system has experienced an error.  Unable to continue.', __FILE__, __LINE__, PEAR_LOG_ERR);
-            $notification->push(_("Internal error.  Details have been logged for the administrator."));
-            unset($stats);
+        if (is_a($stats, 'PEAR_Error')) {
+            $notification->push($stats);
+            $stats = array();
+        } else {
+            $res = $cache->set($cachekey, serialize($stats), 600);
+            if ($res === false) {
+                Horde::logMessage('The cache system has experienced an error.  Unable to continue.', __FILE__, __LINE__, PEAR_LOG_ERR);
+                $notification->push(_("Internal error.  Details have been logged for the administrator."));
+                unset($stats);
+            }
         }
     } else {
         // Cached data is stored serialized
@@ -74,7 +79,6 @@ if (!empty($stats)) {
     $failed_graph = Util::addParameter($failed_graph, array(
         'graph' => 'failed', 'key' => $cachekey));
 }
-
 
 $title = _("Call Detail Records Graph");
 

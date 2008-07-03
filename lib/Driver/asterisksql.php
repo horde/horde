@@ -20,7 +20,7 @@
  * The table structure can be created by the scripts/sql/operator_foo.sql
  * script.
  *
- * $Horde: incubator/operator/lib/Driver/asterisksql.php,v 1.7 2008/07/01 22:25:01 bklang Exp $
+ * $Horde: incubator/operator/lib/Driver/asterisksql.php,v 1.8 2008/07/03 14:29:17 bklang Exp $
  *
  * Copyright 2007-2008 The Horde Project (http://www.horde.org/)
  *
@@ -76,7 +76,8 @@ class Operator_Driver_asterisksql extends Operator_Driver {
      *
      * @return boolean|PEAR_Error  True on success, PEAR_Error on failure.
      */
-    function getData($start, $end, $accountcode = null, $dcontext = null)
+    function getData($start, $end, $accountcode = null, $dcontext = null,
+                     $rowstart = 0, $rowlimit = 100)
     {
 
         // Use the query to make the MySQL driver look like the CDR-CSV driver
@@ -87,6 +88,16 @@ class Operator_Driver_asterisksql extends Operator_Driver {
                 ' FROM ' . $this->_params['table'] . ' WHERE %s';
         $filter = array();
         $values = array();
+
+        if (!is_numeric($rowstart)) {
+            Horde::logMessage('Invalid start row requested.', __FILE__, __LINE__, PEAR_LOG_ERR);
+            return PEAR::raiseError(_("Internal error.  Details have been logged for the administrator."));
+        }
+        if (!is_numeric($rowlimit)) {
+            Horde::logMessage('Invalid row limit requested.', __FILE__, __LINE__, PEAR_LOG_ERR);
+            return PEAR::raiseError(_("Internal error.  Details have been logged for the administrator."));
+        }
+
 
         // Start Date
         if (!is_a($start, 'Horde_Date')) {
@@ -130,11 +141,35 @@ class Operator_Driver_asterisksql extends Operator_Driver {
         $filterstring = implode(' AND ', $filter);
         $sql = sprintf($sql, $filterstring);
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Operator_Driver_asterisksql::getData(): %s', $sql),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('Operator_Driver_asterisksql::getData(): %s', $sql), __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
         /* Execute the query. */
-        return $this->_db->getAll($sql, $values, DB_FETCHMODE_ASSOC);
+        $res = $this->_db->limitQuery($sql, $rowstart, $rowlimit, $values);
+        if (is_a($res, 'PEAR_Error')) {
+            Horde::logMessage($res, __FILE__, __LINE__, PEAR_LOG_ERR);
+            return PEAR::raiseError(_("Internal error.  Details have been logged for the administrator."));
+        }
+        
+        $data = array();
+        while ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
+            $data[] = $row;
+        }
+
+        // Get summary statistics on the requested criteria
+        $sql = 'SELECT COUNT(*) AS numcalls, SUM(duration)/60 AS minutes, ' .
+               'SUM(CASE disposition WHEN "FAILED" THEN 1 ELSE 0 END) AS ' .
+               'failed FROM ' . $this->_params['table'] . ' WHERE %s';
+        $sql = sprintf($sql, $filterstring);
+        Horde::logMessage(sprintf('Operator_Driver_asterisksql::getData(): %s', $sql), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+
+        /* Execute the query. */
+        $res = $this->_db->getRow($sql, $values, DB_FETCHMODE_ASSOC);
+        if (is_a($res, 'PEAR_Error')) {
+            Horde::logMessage($res, __FILE__, __LINE__, PEAR_LOG_ERR);
+            return PEAR::raiseError(_("Internal error.  Details have been logged for the administrator."));
+        }
+
+        return array_merge($data, $res);
     }
 
     /**

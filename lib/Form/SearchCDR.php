@@ -2,7 +2,7 @@
 /**
  * SearchCDRForm Class
  *
- * $Horde: incubator/operator/lib/Form/SearchCDR.php,v 1.3 2008/07/01 22:25:01 bklang Exp $
+ * $Horde: incubator/operator/lib/Form/SearchCDR.php,v 1.4 2008/07/03 14:29:18 bklang Exp $
  *
  * Copyright 2008 Alkaloid Networks LLC <http://projects.alkaloid.net>
  *
@@ -15,11 +15,11 @@
 
 class SearchCDRForm extends Horde_Form {
 
-    function SearchCDRForm(&$vars)
+    function SearchCDRForm($title, &$vars)
     {
         global $operator_driver;
 
-        parent::Horde_Form($vars, _("Search CDR Data"));
+        parent::Horde_Form($vars, $title);
 
         // FIXME: Generate a list of clients from Turba?
         //$clients = 

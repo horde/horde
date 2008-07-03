@@ -1,6 +1,6 @@
 <?php
 /**
- * $Horde: incubator/operator/search.php,v 1.3 2008/07/01 22:25:00 bklang Exp $
+ * $Horde: incubator/operator/search.php,v 1.4 2008/07/03 14:29:15 bklang Exp $
  *
  * Copyright 2008 Alkaloid Networks LLC <http://projects.alkaloid.net>
  *
@@ -22,27 +22,37 @@ require_once OPERATOR_BASE . '/lib/Form/SearchCDR.php';
 $renderer = new Horde_Form_Renderer();
 $vars = Variables::getDefaultVariables();
 
-$form = new SearchCDRForm($vars);
+if (!$vars->exists('rowstart')) {
+    $rowstart = 0;
+} elseif (!is_numeric($rowstart = $vars->get('rowstart'))) {
+    $notification->push(_("Invalid number for row start.  Using 0."));
+    $rowstart = 0;
+}
+
+$numrows = $prefs->getValue('resultlimit');
+if (!is_numeric($numrows)) {
+    $notification->push(_("Invalid number for rows for search limit.  Using 100."));
+    $numrows = 100;
+}
+
+$form = new SearchCDRForm(_("Search CDR Data"), $vars);
 if ($form->isSubmitted() && $form->validate($vars, true)) {
     $accountcode = $vars->get('accountcode');
     $dcontext = $vars->get('dcontext');
     $start = new Horde_Date($vars->get('startdate'));
     $end = new Horde_Date($vars->get('enddate'));
-    $data = $operator_driver->getData($start, $end, $accountcode, $dcontext);
+    $data = $operator_driver->getData($start, $end, $accountcode, $dcontext,
+                                      $rowstart, $numrows);
     $_SESSION['operator']['lastsearch']['params'] = array(
         'accountcode' => $vars->get('accountcode'),
         'dcontext' => $vars->get('dcontext'),
         'startdate' => $vars->get('startdate'),
         'enddate' => $vars->get('enddate'));
-    $_SESSION['operator']['lastsearch']['data'] = $data;
 } else {
     if (isset($_SESSION['operator']['lastsearch']['params'])) {
         foreach($_SESSION['operator']['lastsearch']['params'] as $var => $val) {
             $vars->set($var, $val);
         }
-    }
-    if (isset($_SESSION['operator']['lastsearch']['data'])) {
-        $data = $_SESSION['operator']['lastsearch']['data'];
     }
 }
 
@@ -57,6 +67,7 @@ $form->renderActive($renderer, $vars);
 $columns = unserialize($prefs->getValue('columns'));
 if (!empty($data)) {
     require OPERATOR_TEMPLATES . '/search/header.inc';
+    unset($data['count'], $data['minutes'], $data['failed']);
     foreach ($data as $record) {
         require OPERATOR_TEMPLATES . '/search/row.inc';
     }
