@@ -2,7 +2,7 @@
 /**
  * Operator Base Class.
  *
- * $Horde: incubator/operator/lib/Operator.php,v 1.4 2008/07/03 14:29:16 bklang Exp $
+ * $Horde: incubator/operator/lib/Operator.php,v 1.5 2008/07/04 04:23:16 bklang Exp $
  *
  * Copyright 2008 Alkaloid Networks LLC <http://projects.alkaloid.net>
  *
@@ -124,4 +124,20 @@ class Operator {
 
         return $accountcodes;
     }
+
+    function getGraphName($graphid)
+    {
+        switch($graphid) {
+        case 'numcalls':
+            return _("Number of Calls");
+            break;
+         case 'minutes':
+            return _("Total Minutes Used");
+            break;
+         case 'failed':
+            return _("Number of Failed Calls");
+            break;
+         }
+    }
+
 }

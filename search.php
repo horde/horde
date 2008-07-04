@@ -1,6 +1,6 @@
 <?php
 /**
- * $Horde: incubator/operator/search.php,v 1.4 2008/07/03 14:29:15 bklang Exp $
+ * $Horde: incubator/operator/search.php,v 1.5 2008/07/04 04:23:16 bklang Exp $
  *
  * Copyright 2008 Alkaloid Networks LLC <http://projects.alkaloid.net>
  *
@@ -39,6 +39,9 @@ $form = new SearchCDRForm(_("Search CDR Data"), $vars);
 if ($form->isSubmitted() && $form->validate($vars, true)) {
     $accountcode = $vars->get('accountcode');
     $dcontext = $vars->get('dcontext');
+    if (empty($dcontext)) {
+        $dcontext = '%';
+    }
     $start = new Horde_Date($vars->get('startdate'));
     $end = new Horde_Date($vars->get('enddate'));
     $data = $operator_driver->getData($start, $end, $accountcode, $dcontext,
