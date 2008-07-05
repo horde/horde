@@ -1,6 +1,6 @@
 <?php
 /**
- * $Horde: incubator/operator/search.php,v 1.5 2008/07/04 04:23:16 bklang Exp $
+ * $Horde: incubator/operator/search.php,v 1.6 2008/07/05 14:55:32 bklang Exp $
  *
  * Copyright 2008 Alkaloid Networks LLC <http://projects.alkaloid.net>
  *
@@ -43,14 +43,19 @@ if ($form->isSubmitted() && $form->validate($vars, true)) {
         $dcontext = '%';
     }
     $start = new Horde_Date($vars->get('startdate'));
+
     $end = new Horde_Date($vars->get('enddate'));
-    $data = $operator_driver->getData($start, $end, $accountcode, $dcontext,
-                                      $rowstart, $numrows);
-    $_SESSION['operator']['lastsearch']['params'] = array(
-        'accountcode' => $vars->get('accountcode'),
-        'dcontext' => $vars->get('dcontext'),
-        'startdate' => $vars->get('startdate'),
-        'enddate' => $vars->get('enddate'));
+    if (is_a($start, 'PEAR_Error') || is_a($end, 'PEAR_Error')) {
+        $notification->push(_("Invalid date requested."));
+    } else {
+        $data = $operator_driver->getData($start, $end, $accountcode, $dcontext,
+                                          $rowstart, $numrows);
+        $_SESSION['operator']['lastsearch']['params'] = array(
+            'accountcode' => $vars->get('accountcode'),
+            'dcontext' => $vars->get('dcontext'),
+            'startdate' => $vars->get('startdate'),
+            'enddate' => $vars->get('enddate'));
+    }
 } else {
     if (isset($_SESSION['operator']['lastsearch']['params'])) {
         foreach($_SESSION['operator']['lastsearch']['params'] as $var => $val) {
