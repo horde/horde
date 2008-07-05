@@ -1,6 +1,6 @@
 <?php
 /**
- * $Horde: incubator/operator/viewgraph.php,v 1.6 2008/07/04 04:23:16 bklang Exp $
+ * $Horde: incubator/operator/viewgraph.php,v 1.7 2008/07/05 14:53:54 bklang Exp $
  *
  * Copyright 2008 Alkaloid Networks LLC <http://projects.alkaloid.net>
  *
@@ -32,34 +32,44 @@ if ($form->isSubmitted() && $form->validate($vars, true)) {
     $start = new Horde_Date($vars->get('startdate'));
     $end = new Horde_Date($vars->get('enddate'));
 
-    // See if we have cached data
-    $cachekey = md5(serialize(array('getMonthlyCallStats', $start, $end,
-                                    $accountcode, $dcontext)));
-    // Use 0 lifetime to allow cache lifetime to be set when storing the object
-    $stats = $cache->get($cachekey, 0);
-    if ($stats === false) {
-        $stats = $operator_driver->getMonthlyCallStats($start, $end,
-                                                       $accountcode, $dcontext);
-        if (is_a($stats, 'PEAR_Error')) {
-            $notification->push($stats);
-            $stats = array();
-        } else {
-            $res = $cache->set($cachekey, serialize($stats), 600);
-            if ($res === false) {
-                Horde::logMessage('The cache system has experienced an error.  Unable to continue.', __FILE__, __LINE__, PEAR_LOG_ERR);
-                $notification->push(_("Internal error.  Details have been logged for the administrator."));
-                unset($stats);
-            }
-        }
+    if (is_a($start, 'PEAR_Error') || is_a($end, 'PEAR_Error')) {
+        $notification->push(_("Invalid date requested."));
+    } elseif (($end->month - $start->month) == 0 &&
+        ($end->year - $start->year) == 0) {
+        $notification->push(_("You must select a range that includes more than one month to view these graphs."));
     } else {
-        // Cached data is stored serialized
-        $stats = unserialize($stats);
+        // See if we have cached data
+        $cachekey = md5(serialize(array('getMonthlyCallStats', $start, $end,
+                                        $accountcode, $dcontext)));
+        // Use 0 lifetime to allow cache lifetime to be set when storing
+        // the object.
+        $stats = $cache->get($cachekey, 0);
+        if ($stats === false) {
+            $stats = $operator_driver->getMonthlyCallStats($start,
+                                                           $end,
+                                                           $accountcode,
+                                                           $dcontext);
+            if (is_a($stats, 'PEAR_Error')) {
+                $notification->push($stats);
+                $stats = array();
+            } else {
+                $res = $cache->set($cachekey, serialize($stats), 600);
+                if ($res === false) {
+                    Horde::logMessage('The cache system has experienced an error.  Unable to continue.', __FILE__, __LINE__, PEAR_LOG_ERR);
+                    $notification->push(_("Internal error.  Details have been logged for the administrator."));
+                    unset($stats);
+                }
+            }
+        } else {
+            // Cached data is stored serialized
+            $stats = unserialize($stats);
+        }
+        $_SESSION['operator']['lastsearch']['params'] = array(
+            'accountcode' => $vars->get('accountcode'),
+            'dcontext' => $vars->get('dcontext'),
+            'startdate' => $vars->get('startdate'),
+            'enddate' => $vars->get('enddate'));
     }
-    $_SESSION['operator']['lastsearch']['params'] = array(
-        'accountcode' => $vars->get('accountcode'),
-        'dcontext' => $vars->get('dcontext'),
-        'startdate' => $vars->get('startdate'),
-        'enddate' => $vars->get('enddate'));
 } else {
     if (isset($_SESSION['operator']['lastsearch']['params'])) {
         foreach($_SESSION['operator']['lastsearch']['params'] as $var => $val) {
