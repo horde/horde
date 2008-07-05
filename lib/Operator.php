@@ -2,9 +2,9 @@
 /**
  * Operator Base Class.
  *
- * $Horde: incubator/operator/lib/Operator.php,v 1.7 2008/07/05 15:53:39 bklang Exp $
+ * $Horde: incubator/operator/lib/Operator.php,v 1.8 2008/07/05 17:20:00 bklang Exp $
  *
- * Copyright 2008 Alkaloid Networks LLC <http://projects.alkaloid.net>
+ * Copyright 2008 The Horde Project <http://www.horde.org/>
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.

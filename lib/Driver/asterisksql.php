@@ -20,9 +20,9 @@
  * The table structure can be created by the scripts/sql/operator_foo.sql
  * script.
  *
- * $Horde: incubator/operator/lib/Driver/asterisksql.php,v 1.8 2008/07/03 14:29:17 bklang Exp $
+ * $Horde: incubator/operator/lib/Driver/asterisksql.php,v 1.9 2008/07/05 17:20:00 bklang Exp $
  *
- * Copyright 2007-2008 The Horde Project (http://www.horde.org/)
+ * Copyright 2008 The Horde Project <http://www.horde.org/>
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
