@@ -2,7 +2,7 @@
 /**
  * Operator Base Class.
  *
- * $Horde: incubator/operator/lib/Operator.php,v 1.6 2008/07/05 14:38:23 bklang Exp $
+ * $Horde: incubator/operator/lib/Operator.php,v 1.7 2008/07/05 15:53:39 bklang Exp $
  *
  * Copyright 2008 Alkaloid Networks LLC <http://projects.alkaloid.net>
  *
@@ -90,7 +90,13 @@ class Operator {
      */
     function getAccountCodes()
     {
-        global $cache, $operator_driver;
+        global $operator_driver;
+
+        if (!isset($GLOBALS['cache'])) {
+            $cache = &Horde_Cache::singleton($GLOBALS['conf']['cache']['driver'], Horde::getDriverConfig('cache', $GLOBALS['conf']['cache']['driver']));
+        } else {
+            $cache =& $GLOBALS['cache'];
+        }
 
         // Use 0 lifetime to allow cache lifetime to be set when storing the
         // object.
