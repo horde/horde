@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!-- $Horde: incubator/operator/config/conf.xml,v 1.1 2008/04/19 01:26:06 bklang Exp $ -->
+<!-- $Horde: incubator/operator/config/conf.xml,v 1.2 2008/07/05 14:38:23 bklang Exp $ -->
 <configuration>
  <configsection name="storage">
   <configheader>Storage System Settings</configheader>
@@ -13,6 +13,8 @@
    </case>
   </configswitch>
  </configsection>
+
+ <configstring name="ttf_font" desc="Full path to a True-Type font to use when rendering the graph" required="false" />
 
  <configsection name="menu">
   <configheader>Menu Settings</configheader>
