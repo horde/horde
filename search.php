@@ -1,6 +1,6 @@
 <?php
 /**
- * $Horde: incubator/operator/search.php,v 1.7 2008/07/05 17:19:59 bklang Exp $
+ * $Horde: incubator/operator/search.php,v 1.8 2008/07/06 18:21:49 bklang Exp $
  *
  * Copyright 2008 The Horde Project <http://www.horde.org/>
  *
@@ -48,8 +48,12 @@ if ($form->isSubmitted() && $form->validate($vars, true)) {
     if (is_a($start, 'PEAR_Error') || is_a($end, 'PEAR_Error')) {
         $notification->push(_("Invalid date requested."));
     } else {
-        $data = $operator_driver->getData($start, $end, $accountcode, $dcontext,
-                                          $rowstart, $numrows);
+        $data = $operator_driver->getRecords($start, $end, $accountcode,
+                                             $dcontext, $rowstart, $numrows);
+        if (is_a($data, 'PEAR_Error')) {
+            $notification->push($data);
+            $data = array();
+        }
         $_SESSION['operator']['lastsearch']['params'] = array(
             'accountcode' => $vars->get('accountcode'),
             'dcontext' => $vars->get('dcontext'),

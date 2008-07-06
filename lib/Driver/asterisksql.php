@@ -20,7 +20,7 @@
  * The table structure can be created by the scripts/sql/operator_foo.sql
  * script.
  *
- * $Horde: incubator/operator/lib/Driver/asterisksql.php,v 1.9 2008/07/05 17:20:00 bklang Exp $
+ * $Horde: incubator/operator/lib/Driver/asterisksql.php,v 1.10 2008/07/06 18:21:50 bklang Exp $
  *
  * Copyright 2008 The Horde Project <http://www.horde.org/>
  *
@@ -72,12 +72,12 @@ class Operator_Driver_asterisksql extends Operator_Driver {
     }
 
     /**
-     * Get CDR data from the database
+     * Get call detail records from the database
      *
      * @return boolean|PEAR_Error  True on success, PEAR_Error on failure.
      */
-    function getData($start, $end, $accountcode = null, $dcontext = null,
-                     $rowstart = 0, $rowlimit = 100)
+    function _getRecords($start, $end, $accountcode = null, $dcontext = null,
+                         $rowstart = 0, $rowlimit = 100)
     {
 
         // Use the query to make the MySQL driver look like the CDR-CSV driver
@@ -190,7 +190,7 @@ class Operator_Driver_asterisksql extends Operator_Driver {
      *                              method will additionall return PEAR_Error
      *                              on failure.
      */
-    function getMonthlyCallStats($start, $end, $accountcode = null,
+    function _getMonthlyCallStats($start, $end, $accountcode = null,
                                  $dcontext = null)
     {
         if (!is_a($start, 'Horde_Date') || !is_a($end, 'Horde_Date')) {

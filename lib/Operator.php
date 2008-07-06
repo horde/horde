@@ -2,7 +2,7 @@
 /**
  * Operator Base Class.
  *
- * $Horde: incubator/operator/lib/Operator.php,v 1.8 2008/07/05 17:20:00 bklang Exp $
+ * $Horde: incubator/operator/lib/Operator.php,v 1.9 2008/07/06 18:21:50 bklang Exp $
  *
  * Copyright 2008 The Horde Project <http://www.horde.org/>
  *
@@ -88,46 +88,47 @@ class Operator {
      *
      * @return array  List of valid account codes.
      */
-    function getAccountCodes()
+    function getAccountCodes($permfilter = false)
     {
         global $operator_driver;
 
-        if (!isset($GLOBALS['cache'])) {
-            $cache = &Horde_Cache::singleton($GLOBALS['conf']['cache']['driver'], Horde::getDriverConfig('cache', $GLOBALS['conf']['cache']['driver']));
-        } else {
-            $cache =& $GLOBALS['cache'];
+        $accountcodes = $operator_driver->getAccountCodes();
+
+        // Add an option to select all accounts
+        $keys = $accountcodes;
+        array_unshift($keys, '%');
+        $values = $accountcodes;
+        array_unshift($values, _("-- All Accounts --"));
+
+        if ($index = array_search('', $values)) {
+           $values[$index] = _("-- Empty Accountcode --");
         }
 
-        // Use 0 lifetime to allow cache lifetime to be set when storing the
-        // object.
-        $accountcodes = $cache->get('operator-accountcodes', 0);
-        if ($accountcodes === false) {
-            $accountcodes = $operator_driver->getAccountCodes();
+        // Make the index of each array entry the same as its value
+        // array_combine() is PHP5-only
+        //$accountcodes = array_combine($keys, $values);
+        $accountcodes = array();
 
-            // Add an option to select all accounts
-            $keys = $accountcodes;
-            array_unshift($keys, '%');
-            $values = $accountcodes;
-            array_unshift($values, _("-- All Accounts --"));
+        // Filter the returned list of account codes through Permissions
+        // if requested.
+        foreach ($keys as $index => $accountcode) {
+            if ($permfilter) {
+                if (empty($accountcode) || $accountcode == '%') {
+                    $permitem = 'operator:accountcodes';
+                } else {
+                    $permitem = 'operator:accountcodes:' . $accountcode;
+                }
 
-            if ($index = array_search('', $values)) {
-               $values[$index] = _("-- Empty Accountcode --");
+                if (Auth::isAdmin() ||
+                    $GLOBALS['perms']->hasPermission($permitem,
+                                                     Auth::getAuth(),
+                                                     PERMS_SHOW)) {
+                    $accountcodes[$accountcode] = $values[$index];
+                }
+            } else {
+                $accountcodes[$accountcode] = $values[$index];
             }
-
-            // Make the index of each array entry the same as its value
-            $accountcodes = array_combine($keys, $values);
-
-            $res = $cache->set('operator-accountcodes',
-                               serialize($accountcodes), 600);
-            if ($res === false) {
-                Horde::logMessage('The cache system has experienced an error.  Unable to continue.', __FILE__, __LINE__, PEAR_LOG_ERR);
-                $notification->push(_("Internal error.  Details have been logged for the administrator."));
-                $accountcodes = array();
-            }
-        } else {
-            $accountcodes = unserialize($accountcodes);
         }
-
         return $accountcodes;
     }
 

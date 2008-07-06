@@ -3,7 +3,7 @@
  * Operator_Driver:: defines an API for implementing storage backends for
  * Operator.
  *
- * $Horde: incubator/operator/lib/Driver.php,v 1.3 2008/07/05 17:20:00 bklang Exp $
+ * $Horde: incubator/operator/lib/Driver.php,v 1.4 2008/07/06 18:21:50 bklang Exp $
  *
  * Copyright 2007-2008 The Horde Project <http://www.horde.org/>
  *
@@ -16,21 +16,62 @@
 class Operator_Driver {
 
     /**
-     * Array holding the current foo list. Each array entry is a hash
-     * describing a foo. The array is indexed by the IDs.
+     * Search the database for call detail records, taking permissions into
+     * consideration.
      *
-     * @var array
+     * @return boolean|PEAR_Error  True on success, PEAR_Error on failure.
      */
-    var $_foos = array();
+    function getRecords($start, $end, $accountcode = null, $dcontext = null,
+                         $rowstart = 0, $rowlimit = 100)
+    {
+        if (empty($accountcode) || $accountcode == '%') {
+            $permentry = 'operator:accountcodes';
+        } else {
+            $permentry = 'operator:accountcodes:' . $accountcode;
+        }
+        if (!Auth::isAdmin() &&
+            !$GLOBALS['perms']->hasPermission($permentry, Auth::getAuth(),
+                                              PERMS_READ)) {
+            return PEAR::raiseError(_("You do not have permission to view call detail records for that account code."));
+        }
+
+        return $this->_getRecords($start, $end, $accountcode, $dcontext,
+                                  $rowstart, $rowlimit);
+    }
 
     /**
-     * Lists all foos.
+     * Get summary call statistics per-month for a given time range, account and
+     * destination.
      *
-     * @return array  Returns a list of all foos.
+     * @param Horde_Date startdate  Start of the statistics window
+     * @param Horde_Date enddate    End of the statistics window
+     * @param string accountcode    Name of the accont for statistics.  Defaults
+     *                              to null meaning all accounts.
+     * @param string dcontext       Destination of calls.  Defaults to null.
+     *
+     *
+     * @return array|PEAR_Error     Array of call statistics.  The key of each
+     *                              element is the month name in date('Y-m')
+     *                              format and the value being an array of
+     *                              statistics for calls placed that month. This
+     *                              method will additionall return PEAR_Error
+     *                              on failure.
      */
-    function listFoos()
-    {
-        return $this->_foos;
+    function getMonthlyCallStats($start, $end, $accountcode = null,
+                                 $dcontext = null){
+        if (empty($accountcode) || $accountcode == '%') {
+            $permentry = 'operator:accountcodes';
+        } else {
+            $permentry = 'operator:accountcodes:' . $accountcode;
+        }
+        if (!Auth::isAdmin() &&
+            !$GLOBALS['perms']->hasPermission($permentry, Auth::getAuth(), 
+                                              PERMS_READ)) {
+            return PEAR::raiseError(_("You do not have permission to view call detail records for that account code."));
+        }
+
+        return $this->_getMonthlyCallStats($start, $end, $accountcode,
+                                           $dcontext);
     }
 
     /**
