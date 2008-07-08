@@ -1,6 +1,6 @@
 <?php
 /**
- * $Horde: incubator/operator/graphgen.php,v 1.4 2008/07/05 17:19:59 bklang Exp $
+ * $Horde: incubator/operator/graphgen.php,v 1.5 2008/07/08 14:19:11 bklang Exp $
  *
  * Copyright 2008 The Horde Project <http://www.horde.org>
  *
@@ -51,13 +51,15 @@ $graph->add(
         5
     )
 );         
+
+$plotarea->setAxisPadding(array('top' => 20));
  
 // make the legend use the plotarea (or implicitly it's plots)
 #$legend->setPlotarea($plotarea);   
  
 // create a grid and assign it to the secondary Y axis
 $gridY2 =& $plotarea->addNew('line_grid', IMAGE_GRAPH_AXIS_Y_SECONDARY);  
-$gridY2->setLineColor('black');
+#$gridY2->setLineColor('black');
 #$gridY2->setFillStyle(
 #    Image_Graph::factory(
 #        'gradient', 
@@ -73,6 +75,19 @@ $plot1 =& $plotarea->addNew('bar', $dataset1);
 $plot1->setLineColor('black@0.5');
 $plot1->setFillColor('blue@0.2');
 $plot1->setTitle('Primary Axis');
+
+
+$marker =& $plot1->addNew('Image_Graph_Marker_Value', IMAGE_GRAPH_VALUE_Y);
+// create a pin-point marker type
+$PointingMarker =& $plot1->addNew('Image_Graph_Marker_Pointing', array(0, -7, $marker));
+$PointingMarker->setLineColor(false);
+$marker->setBorderColor(false);
+$marker->setFillColor(false);
+// and use the marker on the 1st plot
+$plot1->setMarker($PointingMarker); 
+
+$marker->setDataPreProcessor(Image_Graph::factory('Image_Graph_DataPreProcessor_Formatted', '%0.1f'));
+$marker->setFontSize(6.5);
  
 // create an area plot using a random dataset
 #$dataset2 =& Image_Graph::factory('random', array(8, 1, 10, true)); 
