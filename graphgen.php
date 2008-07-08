@@ -1,6 +1,6 @@
 <?php
 /**
- * $Horde: incubator/operator/graphgen.php,v 1.6 2008/07/08 14:26:12 bklang Exp $
+ * $Horde: incubator/operator/graphgen.php,v 1.7 2008/07/08 15:16:22 bklang Exp $
  *
  * Copyright 2008 The Horde Project <http://www.horde.org>
  *
@@ -87,7 +87,7 @@ $marker->setFillColor(false);
 $plot1->setMarker($PointingMarker); 
 
 if (!empty($graphinfo['numberformat'])) {
-    $marker->setDataPreProcessor(Image_Graph::factory('Image_Graph_DataPreProcessor_Formatted', $graphinfo['numberformat']));
+    $marker->setDataPreprocessor(Image_Graph::factory('Image_Graph_DataPreprocessor_Formatted', $graphinfo['numberformat']));
 }
 $marker->setFontSize(6.5);
  
