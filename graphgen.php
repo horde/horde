@@ -1,6 +1,6 @@
 <?php
 /**
- * $Horde: incubator/operator/graphgen.php,v 1.5 2008/07/08 14:19:11 bklang Exp $
+ * $Horde: incubator/operator/graphgen.php,v 1.6 2008/07/08 14:26:12 bklang Exp $
  *
  * Copyright 2008 The Horde Project <http://www.horde.org>
  *
@@ -17,7 +17,7 @@ require_once OPERATOR_BASE . '/lib/base.php';
 require_once 'Image/Graph.php';
 
 $graphtype = Util::getFormData('graph');
-$graphInfo = Operator::getGraphInfo($graphtype);
+$graphinfo = Operator::getGraphInfo($graphtype);
 $cachekey = Util::getFormData('key');
 
 $stats = unserialize($cache->get($cachekey, 0));
@@ -42,7 +42,7 @@ if (!empty($conf['ttf_font'])) {
 // create the plotarea layout
 $graph->add(
     Image_Graph::vertical(
-        Image_Graph::factory('title', array($graphInfo['title'], 11)),
+        Image_Graph::factory('title', array($graphinfo['title'], 11)),
         #Image_Graph::vertical(
             $plotarea = Image_Graph::factory('plotarea'),
         #    $legend = Image_Graph::factory('legend'),
@@ -86,7 +86,9 @@ $marker->setFillColor(false);
 // and use the marker on the 1st plot
 $plot1->setMarker($PointingMarker); 
 
-$marker->setDataPreProcessor(Image_Graph::factory('Image_Graph_DataPreProcessor_Formatted', '%0.1f'));
+if (!empty($graphinfo['numberformat'])) {
+    $marker->setDataPreProcessor(Image_Graph::factory('Image_Graph_DataPreProcessor_Formatted', $graphinfo['numberformat']));
+}
 $marker->setFontSize(6.5);
  
 // create an area plot using a random dataset
@@ -102,9 +104,9 @@ $marker->setFontSize(6.5);
 #$plot2->setTitle('Secondary Axis');
  
 $axisX =& $plotarea->getAxis(IMAGE_GRAPH_AXIS_X);
-$axisX->setTitle($graphInfo['axisX']);
+$axisX->setTitle($graphinfo['axisX']);
 $axisY =& $plotarea->getAxis(IMAGE_GRAPH_AXIS_Y);
-$axisY->setTitle($graphInfo['axisY'], 'vertical'); 
+$axisY->setTitle($graphinfo['axisY'], 'vertical'); 
 #$axisYsecondary =& $plotarea->getAxis(IMAGE_GRAPH_AXIS_Y_SECONDARY);
 #$axisYsecondary->setTitle('Pears', 'vertical2'); 
  

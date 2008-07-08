@@ -2,7 +2,7 @@
 /**
  * Operator Base Class.
  *
- * $Horde: incubator/operator/lib/Operator.php,v 1.9 2008/07/06 18:21:50 bklang Exp $
+ * $Horde: incubator/operator/lib/Operator.php,v 1.10 2008/07/08 14:26:12 bklang Exp $
  *
  * Copyright 2008 The Horde Project <http://www.horde.org/>
  *
@@ -147,6 +147,7 @@ class Operator {
                 'title' => _("Total Minutes Used by Month"),
                 'axisX' => _("Month"),
                 'axisY' => _("Minute"),
+                'numberformat' => '%0.1f',
             );
             break;
          case 'failed':
