@@ -1,6 +1,6 @@
 <?php
 /**
- * $Horde: incubator/operator/search.php,v 1.8 2008/07/06 18:21:49 bklang Exp $
+ * $Horde: incubator/operator/search.php,v 1.9 2008/07/08 15:13:42 bklang Exp $
  *
  * Copyright 2008 The Horde Project <http://www.horde.org/>
  *
@@ -35,7 +35,7 @@ if (!is_numeric($numrows)) {
     $numrows = 100;
 }
 
-$form = new SearchCDRForm(_("Search CDR Data"), $vars);
+$form = new SearchCDRForm(_("Search Call Detail Records"), $vars);
 if ($form->isSubmitted() && $form->validate($vars, true)) {
     $accountcode = $vars->get('accountcode');
     $dcontext = $vars->get('dcontext');

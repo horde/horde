@@ -2,7 +2,7 @@
 /**
  * Operator Base Class.
  *
- * $Horde: incubator/operator/lib/Operator.php,v 1.10 2008/07/08 14:26:12 bklang Exp $
+ * $Horde: incubator/operator/lib/Operator.php,v 1.11 2008/07/08 15:13:43 bklang Exp $
  *
  * Copyright 2008 The Horde Project <http://www.horde.org/>
  *
@@ -50,8 +50,8 @@ class Operator {
             'start' => _("Call Start Time"),
             'answer' => _("Call Answer Time"),
             'end' => _("Call End Time"),
-            'duration' => _("Call Duration"),
-            'billsec' => _("Billing Time (seconds)"),
+            'duration' => _("Call Duration (seconds)"),
+            'billsec' => _("Billable Call Duration (seconds)"),
             'disposition' => _("Call Disposition"),
             'amaflags' => _("AMA Flag"),
             'userfield' => _("User Defined Field"),
