@@ -60,7 +60,7 @@ class Text_Wiki_Creole extends Text_Wiki {
         'Trim',
         'Break',
         'Raw',
-		'Box',
+        'Box',
         'Footnote',
         'Newline',
         'Deflist',
