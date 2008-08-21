@@ -44,8 +44,8 @@ class Text_Wiki_Parse_Trim extends Text_Wiki_Parse {
         $this->wiki->source = preg_replace($find, $replace, $this->wiki->source);
             
         // numbered lists
-        $find = "/(\n[\*\#]*)([\d]+[\.\)]|[\w]\))/s";
-        $replace = "$1#";
+        $find = "/(\n[\*\#]*)([\d]+[\.\)]|[\w]\)) /s";
+        $replace = "$1# ";
         $this->wiki->source = preg_replace($find, $replace, $this->wiki->source);
 
         // make ordinal numbers superscripted
