@@ -1,0 +1,14 @@
+<?xml version='1.0'?>
+<!-- $Horde: skeleton/locale/en_US/help.xml,v 1.1 2003/11/03 03:01:38 jwm Exp $ -->
+<help>
+
+<entry id="skeleton-overview">
+    <title>Skeleton Overview</title>
+
+    <heading>What is Skeleton?</heading>
+    <para>Use this module as a blank base for Horde appliations. All of the
+    files in this module are to be used as examples. Please customize them
+    for your own application's requirements.</para>
+</entry>
+
+</help>

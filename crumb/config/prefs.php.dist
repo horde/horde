@@ -1,0 +1,21 @@
+<?php
+/**
+ * $Horde: skeleton/config/prefs.php.dist,v 1.3 2003/12/03 20:09:14 chuck Exp $
+ *
+ * See horde/config/prefs.php for documentation on the structure of this file.
+ */
+
+$prefGroups['Sample'] = array(
+    'column' => _("Sample Prefs"),
+    'label' => _("Sample Pref"),
+    'desc' => _("Set your sample preference."),
+    'members' => array('sample')
+);
+
+$_prefs['sample'] = array(
+    'value' => '',
+    'locked' => false,
+    'shared' => false,
+    'type' => 'text',
+    'desc' => _("This is your sample preference.")
+);

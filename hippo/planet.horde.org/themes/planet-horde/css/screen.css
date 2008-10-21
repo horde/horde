@@ -1,0 +1,318 @@
+/* =ORDER
+ 1. display
+ 2. float and position
+ 3. width and height
+ 4. Specific element properties
+ 5. margin
+ 6. border
+ 7. padding
+ 8. background
+ 9. color
+10. font related properties
+----------------------------------------------- */
+
+/* =MAIN
+----------------------------------------------- */
+body, td, input, select, textarea, a {
+  font: 100%/1.45 'lucida grande', verdana, arial, sans-serif;
+}
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #1B1B1B;
+  color: #333;
+}
+img, table {
+  border-width: 0;
+}
+table {
+  padding: 0;
+}
+td {
+  vertical-align: top;
+  margin: 0;
+  padding: 0;
+}
+a {
+  text-decoration: underline;
+}
+a:link, a:visited {
+  color: #4e5043;
+}
+a:hover {
+  color: #fff;
+  background-color: #3e4037;
+}
+h1 {
+  margin: 0 25px;
+  color: #4e5043;
+}
+h2 {
+  margin-top: 15px;
+}
+#main h4 {
+  margin: 7px 0 3px 0;
+}
+
+/* =COMMON
+----------------------------------------------- */
+/* clear float */
+.clr:after {
+  content: "."; 
+  display: block; 
+  height: 0; 
+  clear: both; 
+  visibility: hidden;
+}
+.clr {display: inline-block;}
+/* Hides from IE-mac \*/
+* html .clr {height: 1%;}
+.clr {display: block;}
+/* End hide from IE-mac */
+
+.none {
+  display: none;
+}
+.vtop {
+  vertical-align: top;
+}
+.vmid {
+  vertical-align: middle;
+}
+.vbot {
+  vertical-align: bottom;
+}
+.left {
+  float: left;
+}
+.right {
+  float: right;
+  text-align: right;
+}
+.center {
+  text-align: center;
+}
+.top {
+  margin-top: 5px;
+}
+code, .path {
+  background-color: #efefef;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 90%;
+}
+
+/* =ERROR PAGES 404/500
+----------------------------------------------- */
+#error {
+  width: 318px;
+  margin: 70px auto;
+  padding: 5px 30px 15px 30px;
+  background-color: #f9f9f9;
+  border: 1px solid #14507F;
+}
+#error #logo {
+  margin-bottom: 5px;
+}
+#error p {
+  margin: 10px 5px 0 5px;
+}
+
+/* =LAYOUT
+----------------------------------------------- */
+#wrapper {
+  width: 790px;
+  margin: 0 auto;
+}
+#header, #footer, #nav, #sub_nav, #content {
+  width: 790px;
+}
+#main {
+  float: left;
+  width: 470px;
+  margin: 0 25px;
+  display: inline;
+}
+#sidebar {
+  float: right;
+  width: 239px;
+  margin-right: 25px;
+  display: inline;
+}
+
+/* =HEADER
+----------------------------------------------- */
+#header {
+  padding: 5px 0;
+}
+#logo {
+  width: 300px;
+}
+#logo span, #logo a {
+  display: block;
+  width: 400px;
+  height: 88px;
+  background: url("../img/logo.gif") no-repeat;
+}
+#logo img {
+  display: block;
+  width: 0;
+}
+
+#nav {
+  padding: 65px 0 0 0;
+  margin: 0;
+  width: 300px;
+  list-style: none;
+}
+#nav li {
+  float: left;
+  padding: 0 10px;
+  color: #fff;
+  font-size: 90%;
+}
+#nav li a {
+  color: #969696;
+}
+#nav li a:hover {
+  color: #fff;
+}
+
+/* =SIDEBAR
+----------------------------------------------- */
+.side_item {
+  background-color: #e1e2da;
+  margin-bottom: 15px;
+}
+.side_item h4 {
+  margin: 0;
+  padding: 4px 0 5px 0;
+  text-align: center;
+  background: url("../img/sidebar_head.gif") left top no-repeat;
+  font-size: 90%;
+}
+.side_item p, 
+.side_item dl,
+.side_item form {
+  padding: 2px 12px 4px 12px;
+  margin: 0;
+  border-color: #4e5043;
+  border-width: 0 2px;
+  border-style: solid;
+  font-size: 85%;
+}
+.side_item dd {
+  margin: 0 0 0 10px;
+  padding: 0 0 5px 0;
+}
+.side_item .side_bottom {
+  font-size: 5px;
+  background: #f3f3f3 url("../img/sidebar_bottom.gif") 0 0 no-repeat;
+}
+
+/* =CONTENT
+----------------------------------------------- */
+#content {
+  padding: 10px 0 25px 0;
+  background: #f3f3f3 url("../img/content_corners.gif") top no-repeat;
+}
+
+/* =FOOTER
+----------------------------------------------- */
+#footer {
+  width: 740px;
+  background-color: #f8f8f8;
+  padding: 15px 25px 10px 25px;
+  border-top: 1px solid #c0c0c0;
+  border-bottom: 1px solid #c0c0c0;
+  font-size: 80%;
+}
+
+/* =SYNTAX
+----------------------------------------------- */
+.syntax {
+  padding: 5px;
+  background-color: #f8f8f8;
+  border: 1px solid #c0c0c0;
+  margin: 10px 0;
+  width: 460px;
+  overflow: auto;
+  line-height: 100%;
+}
+.syntax pre {
+  font-size: 90%;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  font-family: monospace;
+}
+
+/* ruby */
+.syntax .normal {
+}
+.syntax .comment {
+  color: #808080; 
+  font-style: italic; 
+}
+.syntax .keyword {
+  color: #008800; 
+  font-weight: bold;
+}
+.syntax .method { 
+  color: #0066BB; 
+  font-weight: bold;
+}
+.syntax .class { 
+  color: #C40066; 
+}
+.syntax .module { 
+  color: #C40066; 
+}
+.syntax .punct { 
+  color: #333; 
+}
+.syntax .symbol { 
+  color: #AA6600; 
+}
+.syntax .string { 
+  color: #E6374B;
+  background-color: #FFF0F0;
+}
+.syntax .char { 
+  color: #FFFBC7; 
+}
+.syntax .ident { 
+  color: #333; 
+}
+.syntax .constant { 
+  color: #003366; 
+  font-weight: bold;
+}
+.syntax .regex { 
+  color: #98AEC2; 
+}
+.syntax .number { 
+  color: #0000DF; 
+}
+.syntax .attribute { 
+  color: #3333BB; 
+}
+.syntax .global { 
+  color: #FFCE90; 
+}
+.syntax .expr { 
+  color: #333; 
+}
+.syntax .escape { 
+  color: #333; 
+}
+.syntax .access {
+  color: #AA6600;
+}
+
+/* yaml */
+.syntax .key {
+  color: #0066BB;
+}
+.syntax_yaml .punct {
+  color: #666;
+}
