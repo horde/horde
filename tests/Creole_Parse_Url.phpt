@@ -1,5 +1,11 @@
 --TEST--
 Text_Wiki_Creole_Parse_Url
+--SKIPIF--
+<?php
+if (!file_exists('config.php')) {
+   print "Skip missing configuration file, see config.dist.php";
+}
+?>
 --FILE--
 <?php
 error_reporting(E_ALL ^ E_NOTICE);
