@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>English</string>
+	<key>CFBundleDisplayName</key>
+	<string>Horde Block</string>
+	<key>CFBundleIdentifier</key>
+	<string>org.horde.dashboard.Block</string>
+	<key>CFBundleName</key>
+	<string>Horde Block</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0</string>
+	<key>CFBundleVersion</key>
+	<string>1.0</string>
+	<key>CloseBoxInsetX</key>
+	<integer>15</integer>
+	<key>CloseBoxInsetY</key>
+	<integer>15</integer>
+	<key>Height</key>
+	<integer>346</integer>
+	<key>MainHTML</key>
+	<string>Horde Block.html</string>
+	<key>Plugin</key>
+	<string>KeychainPlugIn.widgetplugin</string>
+	<key>Width</key>
+	<integer>374</integer>
+</dict>
+</plist>
