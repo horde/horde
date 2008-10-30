@@ -6,6 +6,9 @@ when you last flagged something from it
 Great keyboard nav idea:
 http://parand.com/say/index.php/2008/09/15/readerscroll-google-reader-style-image-navigation-with-j-k-keys-bookmarklet/
 
+More keyboard nav/UI touches:
+http://blogs.newsgator.com/newsgator_widget_blog/2008/10/five-things-you.html
+
 Nice (but dojo-based) UI:
 http://ajaxian.com/archives/dojo-sensei
 
