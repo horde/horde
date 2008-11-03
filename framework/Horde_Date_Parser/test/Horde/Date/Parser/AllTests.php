@@ -1,20 +1,20 @@
 <?php
 /**
  * @category   Horde
- * @package    Support
+ * @package    Date_Parser
  * @subpackage UnitTests
  * @copyright  2008 The Horde Project (http://www.horde.org/)
  * @license    http://opensource.org/licenses/bsd-license.php
  */
 
 if (!defined('PHPUnit_MAIN_METHOD')) {
-    define('PHPUnit_MAIN_METHOD', 'Horde_Support_AllTests::main');
+    define('PHPUnit_MAIN_METHOD', 'Horde_Date_Parser_AllTests::main');
 }
 
 require_once 'PHPUnit/Framework/TestSuite.php';
 require_once 'PHPUnit/TextUI/TestRunner.php';
 
-class Horde_Support_AllTests {
+class Horde_Date_Parser_AllTests {
 
     public static function main()
     {
@@ -28,7 +28,7 @@ class Horde_Support_AllTests {
             spl_autoload_register(create_function('$class', '$filename = str_replace(array(\'::\', \'_\'), \'/\', $class); include "$filename.php";'));
         }
 
-        $suite = new PHPUnit_Framework_TestSuite('Horde Framework - Horde_Support');
+        $suite = new PHPUnit_Framework_TestSuite('Horde Framework - Horde_Date_Parser');
 
         $basedir = dirname(__FILE__);
         $baseregexp = preg_quote($basedir . DIRECTORY_SEPARATOR, '/');
@@ -40,7 +40,7 @@ class Horde_Support_AllTests {
 
                 $class = str_replace(DIRECTORY_SEPARATOR, '_',
                                      preg_replace("/^$baseregexp(.*)\.php/", '\\1', $pathname));
-                $suite->addTestSuite('Horde_Support_' . $class);
+                $suite->addTestSuite('Horde_Date_Parser_' . $class);
             }
         }
 
@@ -49,6 +49,6 @@ class Horde_Support_AllTests {
 
 }
 
-if (PHPUnit_MAIN_METHOD == 'Horde_Support_AllTests::main') {
-    Horde_Support_AllTests::main();
+if (PHPUnit_MAIN_METHOD == 'Horde_Date_Parser_AllTests::main') {
+    Horde_Date_Parser_AllTests::main();
 }
