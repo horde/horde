@@ -191,7 +191,8 @@ if ($form->isSubmitted()) {
     $auth = &Auth::singleton('auto', array('username' => $username));
     $auth->setAuth($username, array('transparent' => 1, 'password' => $info['password']));
 
-    // Save user last login info, we don't use last_login prefs as it can be turned off by user
+    // Save user last login info.
+    // We ignore last_login pref as it can be turned off by user
     $params = array('last_login_on' => date('Y-m-d H:i:s'),
                     'last_login_by' => $_SERVER['REMOTE_ADDR']);
     if ($profile['user_status'] == 'deleted') {
