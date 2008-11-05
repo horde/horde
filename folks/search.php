@@ -1,0 +1,101 @@
+<?php
+/**
+ * $Id: search.php 940 2008-09-28 09:11:22Z duck $
+ *
+ * Copyright Obala d.o.o. (www.obala.si)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ *
+ * @author Duck <duck@obala.net>
+ * @package Folks
+ */
+
+require_once dirname(__FILE__) . '/lib/base.php';
+require_once FOLKS_BASE . '/lib/Forms/Search.php';
+require_once 'Horde/Variables.php';
+
+$title = _("Search");
+$vars = Variables::getDefaultVariables();
+$form = new Folks_Search_Form($vars, $title, 'search');
+
+if (isset($_SESSION['folks']['last_search']) && !$form->isSubmitted()) {
+    $criteria = unserialize($_SESSION['folks']['last_search']);
+}
+if (Util::getGet('query') && !$form->isSubmitted()) {
+    $criteria = $folks_driver->getSearchCriteria(Util::getGet('query'));
+    if ($criteria instanceof PEAR_Error) {
+        $notification->push($criteria);
+        $criteria = array();
+    }
+} else {
+    $form->getInfo(null, $criteria);
+    $_SESSION['folks']['last_search'] = serialize($criteria);
+}
+
+if (!empty($criteria)) {
+    $count = $folks_driver->countUsers($criteria);
+    if ($count instanceof PEAR_Error) {
+        $notification->push($count);
+        $count = 0;
+    }
+
+    if (($sort_by = Util::getFormData('sort_by')) !== null) {
+        $criteria['sort_by'] = $sort_by;
+    } else {
+        $criteria['sort_by'] = $prefs->getValue('sort_by');
+    }
+
+    if (($sort_dir = Util::getFormData('sort_dir')) !== null) {
+        $criteria['sort_dir'] = $sort_dir;
+    } else {
+        $criteria['sort_dir'] = $prefs->getValue('sort_dir');
+    }
+
+    $page = Util::getGet('page', 0);
+    $perpage = $prefs->getValue('per_page');
+    $users = $folks_driver->getUsers($criteria, $page * $perpage, $perpage);
+    if ($users instanceof PEAR_Error) {
+        $notification->push($users);
+        $users = array();
+    }
+
+    $vars = Variables::getDefaultVariables();
+    $pager = new Horde_UI_Pager('page',
+                                $vars, array('num' => $count,
+                                            'url' => 'search.php',
+                                            'perpage' => $perpage));
+
+    $pager->preserve($criteria);
+    $list_url = Horde::applicationUrl('search.php');
+
+} else {
+    $count = 0;
+    $users = array();
+}
+
+if (Auth::isAuthenticated()) {
+    $queries = $folks_driver->getSavedSearch();
+    if ($queries instanceof PEAR_Error) {
+        $notification->push($queries);
+        $queries = array();
+    }
+}
+
+Horde::addScriptFile('stripe.js', 'horde', true);
+Horde::addScriptFile('prototype.js', 'horde', true);
+Horde::addScriptFile('effects.js', 'horde', true);
+Horde::addScriptFile('redbox.js', 'horde', true);
+Horde::addScriptFile('search.js', 'folks', true);
+
+require FOLKS_TEMPLATES . '/common-header.inc';
+require FOLKS_TEMPLATES . '/menu.inc';
+require FOLKS_TEMPLATES . '/list/list.php';
+
+echo '<br />';
+$form->renderActive(null, null, null, 'post');
+if (Auth::isAuthenticated()) {
+    require FOLKS_TEMPLATES . '/list/search.php';
+}
+
+require $registry->get('templates', 'horde') . '/common-footer.inc';

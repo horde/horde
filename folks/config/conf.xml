@@ -1,0 +1,169 @@
+<?xml version="1.0"?>
+<!-- $Horde: folks/config/conf.xml,v 1.3 2005/02/23 17:28:43 jan Exp $ -->
+<configuration>
+  <configtab name="storage" desc="Storage">
+ <configsection name="storage">
+  <configswitch name="driver" desc="What storage driver should we use?">sql
+   <case name="sql" desc="SQL">
+    <configsection name="params">
+     <configsql switchname="driverconfig">
+      <configstring name="table" desc="Database
+      table">folks_users</configstring>
+      <configstring name="friends" desc="Database
+        friends table">folks_friends</configstring>
+      <configstring name="online" desc="Database
+        online table">folks_online</configstring>
+      <configstring name="search" desc="Database
+        search table">folks_search</configstring>
+      <configstring name="search" desc="Database
+        search table">folks_search</configstring>
+      <configstring name="activity" desc="Database
+        activity table">folks_activity</configstring>
+     </configsql>
+    </configsection>
+   </case>
+  </configswitch>
+ </configsection>
+</configtab>
+
+<configtab name="general" desc="General">
+   <configstring name="support" desc="Email from which support messages will be sent">support@example.com</configstring>
+   <configenum name="friends" desc="Driver for friends storage">sql
+     <values>
+       <value desc="Internal - friends and blacklist only">sql</value>
+       <value desc="Internal - shared lists">shared</value>
+       <value desc="Letter app">letter</value>
+     </values>
+   </configenum>
+
+ <configsection name="images">
+   <configheader>Images</configheader>
+   <configvfs switchname="type">horde
+   </configvfs>
+   <configstring name="direct" desc="If should images be viewed directly out of
+                 the VFS, specify the alias pointing to the right place on your filesystem
+                 defined in your webserver. Example: /folks-images">/folks-images</configstring>
+   <configenum name="image_type" desc="What format should images be generated in? Make
+               sure that your server supports whichever format you choose!">png
+     <values>
+       <value desc="JPEG">jpeg</value>
+       <value desc="PNG">png</value>
+     </values>
+   </configenum>
+   <configinteger name="thumbnail_width" desc="Thumbnail width">80</configinteger>
+   <configinteger name="thumbnail_height" desc="Thumbnail height">80</configinteger>
+   <configinteger name="screen_width" desc="Screen width">300</configinteger>
+   <configinteger name="screen_height" desc="Screen height">300</configinteger>
+   </configsection>
+ </configtab>
+
+ <configsection name="online">
+   <configheader>Online users</configheader>
+   <configinteger name="ttl" desc="How long (in seconds) should we cache the user list?">300</configinteger>
+   <configboolean name="autoupdate" desc="Auto update users' last-click time?">false</configboolean>
+   <configboolean name="autodelete" desc="Use the application internally (rather than Cron) to delete users?">true</configboolean>
+ </configsection>
+
+   <configsection name="services">
+     <configheader>Services</configheader>
+     <configboolean name="countcron" desc="Is Cron set to update user counts?
+       Content will not be counted during page loads.">false</configboolean>
+     <configmultienum name="ignore" desc="Select applications that should be
+                      ignored in services">
+       <values>
+         <configspecial name="list-horde-apps" />
+       </values>
+     </configmultienum>
+ </configsection>
+
+ <configtab name="comments" desc="Comments">
+ <configsection name="comments">
+   <configenum name="allow" desc="Can users comment on news stories?">authenticated
+     <values>
+       <value desc="Authenticated users">authenticated</value>
+       <value desc="No one">never</value>
+       <value desc="All">all</value>
+     </values>
+   </configenum>
+   <configstring name="comment_template" desc="Template file to use for rendering comments." required="false"></configstring>
+    </configsection>
+  </configtab>
+
+ <configtab name="login" desc="Login">
+ <configsection name="login">
+   <configheader>Login System</configheader>
+     <configinteger name="tries" desc="Login tries after which show CAPTCHA?" required="false">3</configinteger>
+     <configinteger name="diff" desc="Minumum number of seconds between logins attempts?" required="false">2</configinteger>
+     <configboolean name="prelogin" desc="Pass the app submitted information
+     through the prelogin function in hooks.php before
+     processing the login?">false</configboolean>
+   </configsection>
+ </configtab>
+
+ <configtab name="report_content" desc="Content Reporting">
+  <configsection name="report_content">
+   <configheader>Content Reporting Settings</configheader>
+   <configswitch name="driver" desc="Driver to use">false
+    <case name="false" desc="Disable">
+    </case>
+    <case name="tickets" desc="Tickets (Whups)">
+     <configphp name="ticket_params" desc="Enter as a PHP array any
+     additional arguments for the created ticket (queue, state, priority,
+     etc). Example for Whups: array('queue' => 2, 'state' => 1, 'priority' => 1,
+     'type' => 1). You will need to look up the appropriate IDs in Whups's
+     database, or whatever is appropriate for the ticket system you are
+     using.">array()</configphp>
+     <configenum name="allow" desc="Who should be allowed to report
+     inappropriate content?">all
+      <values>
+       <value desc="All users">all</value>
+       <value desc="Authenticated users">authenticated</value>
+       <value desc="Never">never</value>
+      </values>
+     </configenum>
+    </case>
+    <case name="mail" desc="Email">
+     <configstring name="email" desc="Where should problem report emails be
+     sent?">webmaster@example.com</configstring>
+     <configstring name="maildomain" desc="If Horde cannot determine a user's
+     email address, this domain will be appended to their
+     username.">example.com</configstring>
+     <configstring name="username" required="false" desc="If requiring SMTP
+     authentication without a global SMTP user (in section &quot;Mailer&quot;
+     and allowing problem reporting for not authenticated users (in section
+     &quot;Menu Settings&quot;), what username should be use for SMTP
+     authentication?"/>
+     <configstring name="password" required="false" desc="The password to use"/>
+     <configenum name="allow" desc="Who should be allowed to report problems?">all
+      <values>
+       <value desc="All users">all</value>
+       <value desc="Authenticated users">authenticated</value>
+       <value desc="Never">never</value>
+      </values>
+     </configenum>
+    </case>
+    <case name="letter" desc="Send internal messages (Letter)">
+     <configlist name="users" desc="Username to receive these messages. If none, Folks admins will be used." />
+     <configenum name="allow" desc="Who should be allowed to report problems?">all
+      <values>
+       <value desc="All users">all</value>
+       <value desc="Authenticated users">authenticated</value>
+       <value desc="Never">never</value>
+      </values>
+     </configenum>
+    </case>
+   </configswitch>
+  </configsection>
+ </configtab>
+
+ <configtab name="menu" desc="Menu">
+   <configsection name="menu">
+     <configmultienum name="apps" desc="Select any applications that should be linked in Folks's menu">
+       <values>
+         <configspecial name="list-horde-apps" />
+       </values>
+     </configmultienum>
+   </configsection>
+ </configtab>
+
+</configuration>

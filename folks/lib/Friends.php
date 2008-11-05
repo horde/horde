@@ -1,0 +1,436 @@
+<?php
+/**
+ * Folks_Friends:: defines an API for implementing storage backends for
+ * Friends.
+ *
+ * $Id: Friends.php 910 2008-09-24 19:02:50Z duck $
+ *
+ * Copyright Obala d.o.o. (www.obala.si)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ *
+ * @author Duck <duck@obala.net>
+ * @package Folks
+ */
+
+class Folks_Friends {
+
+    /**
+     */
+    static private $instance;
+
+    /**
+     * Hash containing connection parameters.
+     *
+     * @var array
+     */
+    protected $_params = array();
+
+    /**
+     * String containing user
+     *
+     * @var string
+     */
+    protected $_user;
+
+    /**
+     * Attempts to return a concrete Folks_Friends instance based on $friends.
+     *
+     * @param string $friends  The type of the concrete Folks_Friends subclass
+     *                        to return.  The class name is based on the
+     *                        storage Friends ($friends).  The code is
+     *                        dynamically included.
+     *
+     * @param array $params   A hash containing any additional configuration
+     *                        or connection parameters a subclass might need.
+     *
+     * @return Folks_Friends  The newly created concrete Folks_Friends
+     *                          instance, or false on an error.
+     */
+    public function factory($driver = null, $params = null)
+    {
+        if ($driver === null) {
+            $driver = $GLOBALS['conf']['friends'];
+        }
+
+        $driver = basename($driver);
+
+        $class = 'Folks_Friends_' . $driver;
+        if (!class_exists($class)) {
+            include dirname(__FILE__) . '/Friends/' . $driver . '.php';
+        }
+        if (class_exists($class)) {
+            return new $class($params);
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Singleton for driver object
+     *
+     * @param string $friends  The type of the concrete Folks_Friends subclass
+     *                        to return.  The class name is based on the
+     *                        storage Friends ($friends).  The code is
+     *                        dynamically included.
+     *
+     * @param array $params   A hash containing any additional configuration
+     *                        or connection parameters a subclass might need.
+     */
+    static function singleton($driver = null, $params = null)
+    {
+        if (!self::$instance) {
+            self::$instance = Folks_Friends::factory($driver, $params);
+        }
+
+        return self::$instance;
+    }
+
+    /**
+     * Construct object
+     *
+     * @param array $params   A hash containing any additional configuration
+     *                        or connection parameters a subclass might need.
+     */
+    public function __construct($params)
+    {
+        $this->_user = empty($params['user']) ? Auth::getAuth() : $params['user'];
+    }
+
+    /**
+     * Check if a users requies his approval to be added as a friend
+     *
+     * @param string $user   Usersame
+     *
+     * @return boolean
+     */
+    public function needsApproval($user)
+    {
+        if ($GLOBALS['prefs']->isLocked('friends_approval')) {
+            return (boolean)$GLOBALS['prefs']->getValue('friends_approval');
+        }
+
+        $prefs = Prefs::singleton($GLOBALS['conf']['prefs']['driver'], 'folks', Auth::addHook($user), '', null, false);
+        $prefs->retrieve();
+
+        return (boolean)$prefs->getValue('friends_approval');
+    }
+
+    /**
+     * Send user a nofication or approve request
+     *
+     * @param string $user   Usersame
+     * @param string $title   Title of notification
+     * @param string $body   Content of notification
+     *
+     * @return boolean
+     */
+    public function sendNotification($user, $title, $body)
+    {
+        $to = Folks::getUserEmail($user);
+        if ($to instanceof PEAR_Error) {
+            return $to;
+        }
+
+        $result = Folks::sendMail($to, $title, $body);
+        if ($result instanceof PEAR_Error) {
+            return $result;
+        }
+
+        if (!$GLOBALS['registry']->hasInterface('letter')) {
+            return true;
+        }
+
+        return $GLOBALS['registry']->callByPackage(
+            'letter', 'sendMessage', array($user,
+                                           array('title' => $title,
+                                                 'content' => $body)));
+    }
+
+    /**
+     * Get user blacklist
+     *
+     * @return array of users blacklist
+     */
+    public function getBlacklist()
+    {
+        $blacklist = $GLOBALS['cache']->get('folksBlacklist' . $this->_user, $GLOBALS['conf']['cache']['default_lifetime']);
+        if ($blacklist) {
+            return unserialize($blacklist);
+        } else {
+            $blacklist = $this->_getBlacklist();
+            if ($blacklist instanceof PEAR_Error) {
+                return $blacklist;
+            }
+            $GLOBALS['cache']->set('folksBlacklist' . $this->_user, serialize($blacklist));
+            return $blacklist;
+        }
+    }
+
+    /**
+     * Add user to a blacklist list
+     *
+     * @param string $user   Usersame
+     */
+    public function addBlacklisted($user)
+    {
+        if ($this->_user == $user) {
+            return PEAR::raiseError(_("You cannot add yourself to your blacklist."));
+        }
+
+        // Check if users exits
+        $auth = Auth::singleton($GLOBALS['conf']['auth']['driver']);
+        if (!$auth->exists($user)) {
+            return PEAR::raiseError(sprintf(_("User \"%s\" does not exits"), $user));
+        }
+
+        // Do not allow to blacklist adminstrators
+        if (in_array($user, $this->_getAdmins())) {
+            return PEAR::raiseError(sprintf(_("You cannot add \"%s\" to your blacklist."), $user));
+        }
+
+        $result = $this->_addBlacklisted($user);
+        if ($result instanceof PEAR_Error) {
+            return $result;
+        }
+
+        $GLOBALS['cache']->expire('folksBlacklist' . $this->_user);
+
+        return true;
+    }
+
+    /**
+     * Remove user from blacklist list
+     *
+     * @param string $user   Usersame
+     */
+    public function removeBlacklisted($user)
+    {
+        $result = $this->_removeBlacklisted($user);
+        if ($result instanceof PEAR_Error) {
+            return $result;
+        }
+
+        $GLOBALS['cache']->expire('folksBlacklist' . $this->_user);
+
+        return true;
+    }
+
+    /**
+     * Check if user is on blacklist
+     *
+     * @param string $user User to check
+     *
+     * @return boolean
+     */
+    public function isBlacklisted($user)
+    {
+        $blacklist = $this->getBlacklist();
+        if ($blacklist instanceof PEAR_Error) {
+            return $blacklist;
+        }
+
+        return in_array($user, $blacklist);
+    }
+
+    /**
+     * Add user to a friend list
+     *
+     * @param string $friend   Friend's usersame
+     * @param string $group   Group to add friend to
+     */
+    public function addFriend($friend, $group = null)
+    {
+        $friend = strtolower($friend);
+
+        if ($this->_user == $friend) {
+            return PEAR::raiseError(_("You cannot add yourself as your own friend."));
+        }
+
+        // Check if users exits
+        $auth = Auth::singleton($GLOBALS['conf']['auth']['driver']);
+        if (!$auth->exists($friend)) {
+            return PEAR::raiseError(sprintf(_("User \"%s\" does not exits"), $friend));
+        }
+
+        // Check if user exists in group
+        $friends = $this->getFriends();
+        if ($friends instanceof PEAR_Error) {
+            return $friends;
+        }  elseif (in_array($friend, $friends)) {
+            return PEAR::raiseError(sprintf(_("User \"%s\" is already in fiend list"), $friend));
+        }
+
+        // Check if user is frend but has not confmed us yet
+        $friends = $this->waitingApprovalFrom();
+        if ($friends instanceof PEAR_Error) {
+            return $friends;
+        }  elseif (in_array($friend, $friends)) {
+            return PEAR::raiseError(sprintf(_("User \"%s\" is already in fiend list, but we are waiting his/her approval."), $friend));
+        }
+
+        // Add friend to backend
+        $result = $this->_addFriend($friend, $group);
+        if ($friends instanceof PEAR_Error) {
+            return $friends;
+        }
+
+        // If we do not need an approval just expire cache
+        if (!$this->needsApproval($friend)) {
+            $GLOBALS['cache']->expire('folksFriends' . $this->_user . $group);
+        }
+
+        return true;
+    }
+
+    /**
+     * Remove user from a fiend list
+     *
+     * @param string $friend   Friend's usersame
+     * @param string $group   Group to remove friend from
+     */
+    public function removeFriend($friend, $group = null)
+    {
+        $GLOBALS['cache']->expire('folksFriends' . $this->_user . $group);
+
+        return $this->_removeFriend($friend, $group);
+    }
+
+    /**
+     * Get user friends
+     *
+     * @param string $user   Username
+     * @param string $group  Get friens only from this group
+     *
+     * @return array of users (in group)
+     */
+    public function getFriends($group = null)
+    {
+        $friends = $GLOBALS['cache']->get('folksFriends' . $this->_user . $group, $GLOBALS['conf']['cache']['default_lifetime']);
+        if ($friends) {
+            return unserialize($friends);
+        } else {
+            $friends = $this->_getFriends($group);
+            if ($friends instanceof PEAR_Error) {
+                return $friends;
+            }
+            $GLOBALS['cache']->set('folksFriends' . $this->_user . $group, serialize($friends));
+            return $friends;
+        }
+    }
+
+    /**
+     * Get friends that does not confirm the current user yet
+     */
+    public function waitingApprovalFrom()
+    {
+        return array();
+    }
+
+    /**
+     * User that we do not confirm them user yet
+     */
+    public function waitingApprovalFor()
+    {
+        return array();
+    }
+
+    /**
+     * Approve our friend to add us to his userlist
+     *
+     * @param string $friend  Friend username
+     */
+    public function approveFriend($friend)
+    {
+        $result = $this->_approveFriend($friend);
+        if ($result instanceof PEAR_Error) {
+            return $result;
+        }
+
+        $GLOBALS['cache']->expire('folksFriends' . $friend);
+        $GLOBALS['cache']->expire('folksFriends' . $this->_user);
+
+        return true;
+    }
+
+    /**
+     * Approve our friend to add us to his userlist
+     *
+     * @param string $friend  Friedn username
+     */
+    protected function _approveFriend($friend)
+    {
+        return true;
+    }
+
+    /**
+     * Check if user is on blacklist
+     *
+     * @param string $user User to check
+     *
+     * @return boolean
+     */
+    public function isFriend($user)
+    {
+        $friends = $this->getFriends();
+        if ($friends instanceof PEAR_Error) {
+            return $friends;
+        }
+
+        return in_array($user, $friends);
+    }
+
+    /**
+     * Get users who have you on friendlist
+     *
+     * @return array users
+     */
+    public function getPossibleFriends()
+    {
+        return false;
+    }
+
+    /**
+     * Get user groups
+     */
+    public function getGroups()
+    {
+        return array();
+    }
+
+    /**
+     * Delete user friend group
+     *
+     * @param string $group   Group to delete
+     */
+    public function removeGroup($group)
+    {
+        return false;
+    }
+
+    /**
+     * Add group
+     *
+     * @param string $group   Group name
+     */
+    public function addGroup($name)
+    {
+        return false;
+    }
+
+    /**
+     * Get administartor usernames
+     */
+    private function _getAdmins()
+    {
+        if (!$GLOBALS['perms']->exists('folks:admin')) {
+            return array();
+        }
+
+        $permission = $GLOBALS['perms']->getPermission('folks:admin');
+
+        return array_merge($permission->getUserPermissions(PERM_DELETE),
+                            $GLOBALS['conf']['auth']['admins']);
+    }
+}

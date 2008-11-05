@@ -1,0 +1,1305 @@
+# translation of folks_sl_SI.po to Slovene
+# FIRST AUTHOR <duck@obala.net>, 2007.
+# Marko Milost <marko.milost@obala.si>, 2008.
+# Usms translation.
+# Copyright (C) 2007 Horde Project
+# This file is distributed under the same license as the FOlks package.
+msgid ""
+msgstr ""
+"Project-Id-Version: folks_sl_SI\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2008-09-27 19:37+0200\n"
+"PO-Revision-Date: 2008-02-05 13:07+0100\n"
+"Last-Translator: Marko Milost <marko.milost@obala.si>\n"
+"Language-Team: Slovene <sl@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms:  nplurals=3\n"
+
+#: edit/friends.php:49
+#, php-format
+msgid "%s added you as a friend on %s"
+msgstr "%s vas je dodal kot prijetelja na %s"
+
+#: edit/approve.php:40
+#, php-format
+msgid "%s approved you as a friend on %s"
+msgstr "%s vas je potrdil kot prijetelja na %s"
+
+#: edit/reject.php:39
+#, php-format
+msgid "%s rejected you as a friend on %s"
+msgstr "%s vas je zavrnil kot prijetelja na %s"
+
+#: user.php:29
+#, php-format
+msgid "%s's profile"
+msgstr "%s se predstavlja"
+
+#: edit/edit.php:43 edit/edit.php:59
+msgid "--- Select ---"
+msgstr "--- Izeberi ---"
+
+#: edit/friends.php:48
+#, php-format
+msgid "A confirmation was send to \"%s\"."
+msgstr "Potrditev je bila poslana na \"%s\"."
+
+#: templates/edit/blacklist.php:13 templates/edit/friends.php:13
+msgid "Action"
+msgstr "Ukaz"
+
+#: activity.php:17 templates/user/user.php:95 templates/list/list.php:6
+msgid "Activity"
+msgstr "Aktivnost"
+
+#: templates/user/actions.php:17 templates/user/user.php:116
+#, php-format
+msgid "Add %s as a friend?"
+msgstr "Dodamo %s kot prijatelja?"
+
+#: templates/user/actions.php:20
+#, php-format
+msgid "Add %s to you blacklist?"
+msgstr "Dodamo %s na črno listo?"
+
+#: lib/Forms/AddFriend.php:19
+msgid "Add / Remove"
+msgstr "Dodaj / Odstrani"
+
+#: templates/user/actions.php:14 templates/user/actions.php:15
+msgid "Add a comment"
+msgstr "Dodaj komentar"
+
+#: edit/blacklist.php:53 edit/friends.php:96
+msgid "Add or remove user"
+msgstr "Dodaj ali odstrani u porabnika"
+
+#: templates/user/user.php:141 templates/user/user.php:166
+#: templates/user/user.php:191 templates/user/user.php:218
+#: templates/user/user.php:244 templates/user/user.php:272
+#: templates/user/user.php:298
+msgid "Add your content"
+msgstr "Dodaj svojo vsebino"
+
+#: account/signup.php:38
+#, php-format
+msgid "Added \"%s\" to the system. You can log in now."
+msgstr "Uporabnik \"%s\" je bil oddan v sistem. Lahko se prijavite."
+
+#: report.php:36
+msgid "Advertisement content"
+msgstr "Reklama vsebina"
+
+#: templates/user/user.php:82 templates/list/list.php:27
+msgid "Age"
+msgstr "Starost"
+
+#: lib/Forms/Search.php:22
+msgid "Age from"
+msgstr "Starost od"
+
+#: lib/Forms/Search.php:23
+msgid "Age to"
+msgstr "Starost do"
+
+#: templates/list/list.php:37
+msgid "Albums"
+msgstr "Albumi"
+
+#: lib/Block/friends.php:36
+msgid "All"
+msgstr "Vsi"
+
+#: templates/list/list.php:9
+msgid "All users"
+msgstr "Vsi uporabniki"
+
+#: edit/edit.php:33
+msgid "All visitors can see when I was last time online"
+msgstr "Vsi lahko vidijo, kdaj sem bil nazadnje online"
+
+#: edit/comments.php:28
+msgid "Any one"
+msgstr "Vsi"
+
+#: templates/edit/friends.php:53
+msgid "Approve"
+msgstr "Potrdi"
+
+#: lib/Folks.php:131 lib/Folks.php:135
+msgid "Aquarius"
+msgstr "Vodnar"
+
+#: lib/Folks.php:139 lib/Folks.php:143
+msgid "Aries"
+msgstr "Oven"
+
+#: config/prefs.php.dist:43
+msgid "Ascesending"
+msgstr "Naraščajoče"
+
+#: edit/comments.php:29
+msgid "Authenticated users"
+msgstr "Prijavljeni uporabniki"
+
+#: services.php:16
+msgid "Available services"
+msgstr "Dostopne storitve"
+
+#: birthday.php:17 templates/list/list.php:8 edit/edit.php:42
+msgid "Birthday"
+msgstr "Rojstni dan"
+
+#: templates/user/actions.php:21 edit/tabs.php:23 edit/blacklist.php:19
+#: lib/Friends/sql.php:205 lib/Friends/letter.php:88
+msgid "Blacklist"
+msgstr "Črna lista"
+
+#: report.php:34
+msgid "Cancel"
+msgstr "Prekliči"
+
+#: lib/Folks.php:151 lib/Folks.php:155
+msgid "Cancer"
+msgstr "Rak"
+
+#: account/resetpassword.php:19
+msgid "Cannot reset password automatically, contact your administrator."
+msgstr "Ne moremo resetirati gesla, kontaktirajte podporo uporabnikom."
+
+#: lib/Folks.php:272
+msgid "Cannot retrieve user email."
+msgstr "Ne morem prebrati email uporabnika"
+
+#: edit/password.php:20
+msgid "Cannot update password, contact your administrator."
+msgstr "Ne moremo nastaviti geslo, obrnite se na podporo."
+
+#: lib/Folks.php:131 lib/Folks.php:175
+msgid "Capricorn"
+msgstr "Kozorog"
+
+#: edit/password.php:25
+msgid "Change Your Password"
+msgstr "Spremeni geslo"
+
+#: edit/password.php:30 config/hooks.php.dist:240
+msgid "Choose a password"
+msgstr "Izberite geslo"
+
+#: config/hooks.php.dist:233
+msgid "Choose a username"
+msgstr "Izberite uporabniško ime"
+
+#: config/hooks.php.dist:236
+#, php-format
+msgid ""
+"Choose a username to be used as your nickname on %s. It can be up to %d long."
+msgstr "Izberite uporabniško ime za %s. Dolgo je lahko največ %d znakov."
+
+#: templates/user/user.php:90 templates/list/list.php:29 edit/edit.php:44
+#: lib/Forms/Search.php:19 lib/Forms/Search.php:21
+msgid "City"
+msgstr "Mesto"
+
+#: templates/user/private.php:9 templates/user/friends.php:9
+msgid "Click here"
+msgstr "Klikni tukaj"
+
+#: templates/user/authenticated.php:7 templates/user/authenticated.php:8
+msgid "Click here to login."
+msgstr "Klikni tukaj za prijavo"
+
+#: save_search.php:18 save_search.php:51
+msgid "Close"
+msgstr "Zapri"
+
+#: edit/tabs.php:29 edit/comments.php:18
+msgid "Comments"
+msgstr "Komentarji"
+
+#: edit/comments.php:53
+msgid "Comments deleted successfuly"
+msgstr "Komentarji so bili uspešno izbrisani"
+
+#: account/approve.php:15
+msgid "Confirm email"
+msgstr "Potridtev poštnega predela"
+
+#: config/hooks.php.dist:224
+msgid "Confirmation code"
+msgstr "Potrditvena koda"
+
+#: lib/Report.php:98
+#, php-format
+msgid "Content abuse report in %s"
+msgstr "Prijava zlorabe vsebina v %s"
+
+#: account/resetpassword.php:28 edit/password.php:28 edit/password.php:190
+msgid "Continue"
+msgstr "Nadaljuj"
+
+#: report.php:39
+msgid "Copyright infringement"
+msgstr "Kršitev avtorskih pravic"
+
+#: account/username.php:30
+msgid "Could not find any username with this email."
+msgstr "Ne najdem uporabniškega imena s tem emailom."
+
+#: account/resetpassword.php:90
+msgid ""
+"Could not reset the password for the requested user. Some or all of the "
+"details are not correct. Try again or contact your administrator if you need "
+"further help."
+msgstr ""
+"Ne morem resetirati gesla za tega uporabnika. Nekateri ali vsi podatki niso "
+"pravilni. Poskusite ponovno ali kontaktirajte podporo uporabnikom za dodatno "
+"pomoč."
+
+#: edit/edit.php:45
+msgid "Country"
+msgstr "Država"
+
+#: edit/password.php:29
+msgid "Current password"
+msgstr "Trenutno geslo"
+
+#: templates/list/search.php:14
+msgid "Delete"
+msgstr "Izbriši"
+
+#: edit/comments.php:40 edit/comments.php:47
+msgid "Delete all current comments"
+msgstr "Izbriši vse trenutne komentarje"
+
+#: edit/edit.php:65 edit/edit.php:85
+msgid "Delete picture"
+msgstr "Izbriši sliko"
+
+#: config/prefs.php.dist:42
+msgid "Descesending"
+msgstr "Padajoče"
+
+#: templates/user/user.php:318 templates/list/list.php:33 edit/edit.php:63
+#: lib/Forms/Search.php:19
+msgid "Description"
+msgstr "Opis"
+
+#: report.php:30
+msgid "Do you really want to report this user?"
+msgstr "Res želite prijavit tega uporabnika?"
+
+#: lib/Block/random.php:40
+msgid "Does not metter"
+msgstr "Ni pomembno"
+
+#: account/tabs.php:25
+msgid "Don't have an account? Sign up."
+msgstr "Niste še prijavljeni?"
+
+#: templates/user/user.php:115
+msgid "Edit my firends"
+msgstr "Uredi prijatelje"
+
+#: edit/edit.php:18 edit/tabs.php:22
+msgid "Edit my profile"
+msgstr "Uredi moj profil"
+
+#: lib/Folks.php:288
+msgid "Edit profile"
+msgstr "Uredi profil"
+
+#: edit/edit.php:39 config/hooks.php.dist:246
+msgid "Email"
+msgstr "Email"
+
+#: config/hooks.php.dist:250
+msgid ""
+"Email will be used only for admistration reasons and it won't be published "
+"or passed to third parties."
+msgstr ""
+"Vnesite naslov vaše elektronske pošte. Naslov ne bo nikoli posredovan "
+"tretjim osebam."
+
+#: lib/Forms/Login.php:22
+#, php-format
+msgid "Enter the username you registered to %s"
+msgstr "Unesite uporabnško ime s katerega se se prijavili na %s"
+
+#: lib/Forms/Login.php:25
+msgid "Enter your password. Please be aware that password is case sensitive."
+msgstr "Vnesite vaše geslo. Gelo loči med velikimi in malimi črkami."
+
+#: templates/user/user.php:248
+msgid "Faces"
+msgstr "Obrazi"
+
+#: templates/user/user.php:248
+msgid "Faces in user galleries"
+msgstr "Orazi v galerijah uporabnika"
+
+#: templates/user/user.php:87 templates/list/list.php:66 edit/edit.php:43
+#: lib/Forms/Search.php:20
+msgid "Female"
+msgstr "Ženski"
+
+#: account/tabs.php:29
+msgid "Forgot your password?"
+msgstr "Ste pozabili geslo?"
+
+#: account/username.php:17 account/tabs.php:32
+msgid "Forgot your username?"
+msgstr "Ste pozabili uporabniško ime?"
+
+#: templates/user/actions.php:10
+msgid "Forward"
+msgstr "Posreduj"
+
+#: templates/user/actions.php:18
+msgid "Friend"
+msgstr "Prijatelj"
+
+#: templates/user/user.php:118 edit/tabs.php:24 edit/friends.php:19
+#: lib/Block/friends.php:3 lib/Block/friends.php:23
+msgid "Friends"
+msgstr "Prijatelji"
+
+#: lib/api.php:275
+msgid "Friends Birthdays"
+msgstr "Rojstni dnevi prijateljev"
+
+#: lib/Folks.php:147 lib/Folks.php:151
+msgid "Gemini"
+msgstr "Dvojčka"
+
+#: templates/user/user.php:86 templates/list/list.php:25 edit/edit.php:43
+#: lib/Forms/Search.php:20
+msgid "Gender"
+msgstr "Spol"
+
+#: templates/user/user.php:50
+msgid "Has no picture"
+msgstr "Ima sliko"
+
+#: templates/user/user.php:104 templates/list/list.php:31 edit/edit.php:47
+msgid "Homepage"
+msgstr "Domača stran"
+
+#: config/prefs.php.dist:16
+msgid "How to preview users"
+msgstr "Kako naj pregledujem uporabnike"
+
+#: templates/user/user.php:105
+msgid "I don't have it"
+msgstr "Je nimam"
+
+#: lib/Forms/Search.php:25
+msgid "Is online"
+msgstr "Je online"
+
+#: lib/Block/my_comments.php:3 lib/Block/my_comments.php:32
+msgid "Last comments on my profile"
+msgstr "Zadnji komentarji na moj profil"
+
+#: templates/user/user.php:75 edit/edit.php:41
+msgid "Last time online"
+msgstr "Zadnjič online"
+
+#: lib/Folks.php:155 lib/Folks.php:159
+msgid "Leo"
+msgstr "lev"
+
+#: lib/Folks.php:163 lib/Folks.php:167
+msgid "Libra"
+msgstr "Tehtnica"
+
+#: lib/Block/random.php:33 lib/Block/new.php:33 lib/Block/recent.php:33
+msgid "Limit"
+msgstr "Omeji"
+
+#: list.php:17 templates/list/list.php:9 lib/Folks.php:291
+msgid "List"
+msgstr "Spisek"
+
+#: account/tabs.php:22 lib/Forms/Login.php:19
+msgid "Login"
+msgstr "Prijava"
+
+#: login.php:54
+msgid "Login remainder"
+msgstr "Opozorilo o prijavi prijatela"
+
+#: login.php:124
+#, php-format
+msgid "Login to %s"
+msgstr "Prijava v %s"
+
+#: templates/user/actions.php:9
+msgid "Look at this profile"
+msgstr "Poglej ta profil"
+
+#: templates/user/user.php:87 templates/list/list.php:66 edit/edit.php:43
+#: lib/Forms/Search.php:20
+msgid "Male"
+msgstr "Moški"
+
+#: lib/Forms/Search.php:24
+msgid "Mast have"
+msgstr "Mora imeti"
+
+#: edit/comments.php:30
+msgid "Moderate comments - I will approve every single comment"
+msgstr "Moderiranje komentarjev - potrdil bom vsak kometar"
+
+#: config/prefs.php.dist:23
+msgid "Modify account preferences"
+msgstr "Popravi nastavitve"
+
+#: templates/list/list.php:6
+msgid "Most active users"
+msgstr "Najbolj aktvni uporabniki"
+
+#: templates/list/list.php:5
+msgid "Most popular users"
+msgstr "Najbolj priljubljeni uporabniki"
+
+#: lib/Folks.php:287
+msgid "My profile"
+msgstr "Moj profil"
+
+#: templates/list/search.php:11
+msgid "My queries"
+msgstr "Moja iskanja"
+
+#: save_search.php:49 lib/Forms/Search.php:19
+msgid "Name"
+msgstr "Ime"
+
+#: lib/Block/new.php:3 lib/Block/new.php:23
+msgid "New users"
+msgstr "Novi uporabniki"
+
+#: templates/list/list.php:74 templates/list/list.php:75
+#: templates/list/list.php:76 templates/list/list.php:77
+#: templates/list/list.php:78 config/prefs.php.dist:60
+#: config/prefs.php.dist:70
+msgid "No"
+msgstr "Ne"
+
+#: edit/comments.php:27
+msgid "No one"
+msgstr "Nihče"
+
+#: edit/edit.php:36
+msgid "No one can see when I was last time online"
+msgstr "Nihče ne sme videti kdaj sem bil zadnjič online"
+
+#: templates/list/list.php:15
+msgid "No users found under selected criteria"
+msgstr "Ni uporabnikov pod izbranimi kriteriji"
+
+#: lib/Forms/Login.php:28
+msgid "No, only for this view"
+msgstr "Samo za to prijavo."
+
+#: config/prefs.php.dist:62
+msgid "Notify friends that I loged in"
+msgstr "Javi prijateljem, da sem se prijavil"
+
+#: lib/Block/my_comments.php:20
+msgid "Number of comments to display"
+msgstr "Število komentarjev za prikaz"
+
+#: config/prefs.php.dist:52
+msgid "Number of users perpage"
+msgstr "Število uporabnikov na stran"
+
+#: report.php:38
+msgid "Offensive content"
+msgstr "Neprimerna ali žaljiva vsebina"
+
+#: templates/user/user.php:71 lib/Block/friends.php:38
+msgid "Offline"
+msgstr "Offline"
+
+#: online.php:17 templates/user/user.php:69 templates/list/list.php:3
+#: lib/Block/random.php:39 lib/Block/friends.php:37
+msgid "Online"
+msgstr "Online"
+
+#: templates/user/user.php:359 templates/user/user.php:368
+msgid "Only authenticated users can post comments."
+msgstr "Samo prijavljeni uporabniki lahko vpisujejo komentarje."
+
+#: edit/edit.php:34
+msgid "Only authenticated users can see when I as last time online"
+msgstr "Samo prijavljeni uporabniki lahko vidiijo kdaj sem bil zanjič online"
+
+#: edit/edit.php:35
+msgid "Only my friedns can see when I as last time online"
+msgstr "Samo prijatelji lahko vidijo kdaj sem bil zadnjič online"
+
+#: templates/user/user.php:144 templates/user/user.php:169
+#: templates/user/user.php:194 templates/user/user.php:221
+#: templates/user/user.php:247 templates/user/user.php:275
+#: templates/user/user.php:301
+msgid "Others user content"
+msgstr "Ostala uporabniška vsebina"
+
+#: edit/tabs.php:25 lib/Forms/Login.php:25
+msgid "Password"
+msgstr "Geslo"
+
+#: edit/password.php:159
+msgid "Password changed."
+msgstr "Geslo je bilo spremenjeno."
+
+#: templates/list/list.php:35 edit/edit.php:64 lib/Forms/Search.php:24
+msgid "Picture"
+msgstr "Slika"
+
+#: lib/Folks.php:135 lib/Folks.php:139
+msgid "Pisces"
+msgstr "Riba"
+
+#: lib/Forms/Login.php:38
+msgid "Please enter the text above"
+msgstr "Prosimo vnesite zgodnji tekst."
+
+#: account/resetpassword.php:47
+msgid "Please respond to your security question: "
+msgstr "Prosimo odgovorite na varnostno vprašanje: "
+
+#: popularity.php:17 templates/user/user.php:99 templates/list/list.php:5
+msgid "Popularity"
+msgstr "Priljubljenost"
+
+#: templates/user/user.php:142 templates/user/user.php:167
+#: templates/user/user.php:192 templates/user/user.php:219
+#: templates/user/user.php:245 templates/user/user.php:273
+#: templates/user/user.php:299 config/prefs.php.dist:15
+msgid "Preview"
+msgstr "Pregled"
+
+#: edit/edit.php:31
+msgid "Private"
+msgstr "Osebno"
+
+#: edit/edit.php:27
+msgid "Public"
+msgstr "Javno"
+
+#: edit/edit.php:28
+msgid "Public - only authenticated users can see my personal data"
+msgstr "javno - samo registrirani uporabniki lahko vidijo moje osebne podatke"
+
+#: edit/edit.php:30
+msgid "Public - only my friends can see my presonal data"
+msgstr "javno - samo moji prijatelji lahko vidijo moje osebne podatke"
+
+#: lib/Block/random.php:3 lib/Block/random.php:23
+msgid "Random users"
+msgstr "Nakjučni uporabniki"
+
+#: lib/Block/recent.php:3 lib/Block/recent.php:23
+msgid "Recent visitors"
+msgstr "Zadnji obiskovalci"
+
+#: lib/Forms/Login.php:27
+msgid "Remember login?"
+msgstr "Si zapomnim prijavo?"
+
+#: templates/edit/blacklist.php:20 templates/edit/friends.php:21
+msgid "Remove"
+msgstr "Odstrani"
+
+#: account/renew.php:15
+msgid "Renew account"
+msgstr "Obnovi uporabniški račun."
+
+#: report.php:34 report.php:51 templates/user/actions.php:25
+msgid "Report"
+msgstr "Prijavi"
+
+#: lib/Report.php:109
+msgid "Report by user"
+msgstr "Prjava s strani uporabnika"
+
+#: lib/Report.php:40
+msgid "Report driver does not exist."
+msgstr "Gonilnike za prijavo ne bostaja."
+
+#: report.php:46 report.php:57
+msgid "Report reason"
+msgstr "Razlog prijave"
+
+#: report.php:45 report.php:56
+msgid "Report type"
+msgstr "Tip prijave"
+
+#: templates/user/actions.php:24
+msgid "Report user"
+msgstr "Prijavi uporabnika"
+
+#: config/prefs.php.dist:72
+msgid ""
+"Require my confirmation if someone would like to add me to his freidn list."
+msgstr "Zahtevja mojo potrditev če me želi kdo dodati kot prijatelja."
+
+#: edit/password.php:190
+msgid "Reset"
+msgstr "Ponastavi"
+
+#: account/resetpassword.php:26
+msgid "Reset Your Password"
+msgstr "Ponastavi svoje geslo"
+
+#: lib/Folks.php:171 lib/Folks.php:175
+msgid "Sagittarius"
+msgstr "Strelec"
+
+#: save_search.php:51 edit/edit.php:65 edit/edit.php:70 edit/comments.php:40
+msgid "Save"
+msgstr "Shrani"
+
+#: templates/list/search.php:3
+msgid "Save search criteria"
+msgstr "Shrani rezultate iskanja"
+
+#: lib/Folks.php:167 lib/Folks.php:171
+msgid "Scorpio"
+msgstr "Škorpijon"
+
+#: search.php:18 lib/Folks.php:290 lib/Forms/Search.php:26
+msgid "Search"
+msgstr "Najdi"
+
+#: lib/Forms/Search.php:19
+msgid "Search by"
+msgstr "Išči po"
+
+#: save_search.php:39
+msgid "Search criteria deleted."
+msgstr "Stranjeno iskanje je bilo zbrisano"
+
+#: save_search.php:28
+msgid "Search criteria saved successfuly"
+msgstr "Stranjeno iskanje je bilo uspešno shranjeno"
+
+#: account/resetpassword.php:49 edit/password.php:195
+msgid "Security answer"
+msgstr "Varnostni odgovor"
+
+#: edit/password.php:192
+msgid "Security question"
+msgstr "Varnostno vprašanje"
+
+#: edit/password.php:189
+msgid "Security question used when reseting password"
+msgstr "Varnostno vprašanje, ki ga bomo uporabili pri resetiranju gesla"
+
+#: account/username.php:19
+msgid "Send me my username"
+msgstr "Pošlji mi uporabniško ime"
+
+#: templates/user/actions.php:7 templates/edit/friends.php:24
+msgid "Send message"
+msgstr "Pošlji sporočilo"
+
+#: templates/user/actions.php:6
+msgid "Send private message"
+msgstr "Pošlji osebno sporočilo"
+
+#: templates/user/actions.php:9
+msgid "Send this profile to a friend"
+msgstr "Povej prijatelju za ta profil"
+
+#: lib/Folks.php:289
+msgid "Services"
+msgstr "Servisi"
+
+#: config/prefs.php.dist:24
+msgid "Set account action details"
+msgstr "Nastavite ukazne parametre"
+
+#: config/prefs.php.dist:17
+msgid "Set users preview paramaters"
+msgstr "Nastavitev pregledovanja uporabnikov"
+
+#: config/prefs.php.dist:22
+msgid "Settings"
+msgstr "Nastavitve"
+
+#: lib/Block/friends.php:33
+msgid "Show friends that are"
+msgstr "Prikaži prijatelje, ki so"
+
+#: account/signup.php:61
+msgid "Sign up"
+msgstr "Prijava novega uporabnika"
+
+#: templates/list/list.php:19 templates/list/list.php:42
+msgid "Sort Direction"
+msgstr "Smer razvrščanja"
+
+#: config/prefs.php.dist:34 config/prefs.php.dist:44
+msgid "Sort by"
+msgstr "Razvrsti po"
+
+#: templates/list/list.php:26
+msgid "Sort by Age"
+msgstr "Razvrsti po starost"
+
+#: templates/list/list.php:36
+msgid "Sort by Albums"
+msgstr "Razvrsti po šptevilu albumov"
+
+#: templates/list/list.php:28
+msgid "Sort by City"
+msgstr "Razvrsti po mestu"
+
+#: templates/list/list.php:32
+msgid "Sort by Description"
+msgstr "Razvrsti po opisu"
+
+#: templates/list/list.php:24
+msgid "Sort by Gender"
+msgstr "Razvrsti po spolu"
+
+#: templates/list/list.php:30
+msgid "Sort by Homepage"
+msgstr "Razvrsti po domačio strani"
+
+#: templates/list/list.php:34
+msgid "Sort by Picture"
+msgstr "Razvrsti po sliki"
+
+#: templates/list/list.php:22
+msgid "Sort by Username"
+msgstr "Ste po uporabniškem imenu"
+
+#: templates/list/list.php:38
+msgid "Sort by Video"
+msgstr "Razvrsti po posnetkih"
+
+#: templates/user/user.php:65 edit/edit.php:40
+msgid "Status"
+msgstr "Status"
+
+#: account/signup.php:44
+#, php-format
+msgid ""
+"Submitted request to add \"%s\" to the system. You cannot log in until your "
+"request has been approved."
+msgstr ""
+"Poslana je bila zahteva za prijavo \"%s\" v sistem. Ne morete se prijaviti, "
+"dokler vaša zahteva ne bo potrjena."
+
+#: lib/Folks.php:143 lib/Folks.php:147
+msgid "Taurus"
+msgstr "Bik"
+
+#: report.php:37
+msgid "Terms and conditions infringement"
+msgstr "Kršenje pravil obnašanja"
+
+#: account/approve.php:65 account/renew.php:65
+msgid ""
+"The code is not right. If you copy and paste the link from your email, "
+"please check if you copied the whole string."
+msgstr ""
+"Koda ni pravilna. Morda ste jo narobe prenesli s vašega poštnega predala."
+
+#: templates/edit/blacklist.php:4
+msgid "There are no users in your blacklist."
+msgstr "V vaši črni listi ni nikogar."
+
+#: templates/edit/friends.php:4
+msgid "There are no users listed as your friend."
+msgstr "Nimate nobenega uporabnika označenega kot prijatelja."
+
+#: config/hooks.php.dist:176
+msgid "There is already an user registered with this email"
+msgstr "Elektronska pošta je že v uporabi."
+
+#: config/hooks.php.dist:174
+msgid "There is already an user registered with this username"
+msgstr "Uporabniško ime je že zasedno."
+
+#: account/signup.php:50 account/signup.php:52
+#, php-format
+msgid "There was a problem adding \"%s\" to the system: %s"
+msgstr "Prišlo je do napake pri dodaju uporabnika \"%s\": %s"
+
+#: config/hooks.php.dist:138
+msgid "There was an error login into your mail account."
+msgstr "Prišlo je do napake pri praijavi v vaš poštni predal."
+
+#: login.php:184
+msgid "This account was deleted or is expired."
+msgstr "Vaše uporabnško ime je preteklo ali je v postopku izbrisa."
+
+#: login.php:178
+msgid ""
+"This account was still not activated. Check your inbox, we sendy you the "
+"activation code there."
+msgstr ""
+"Vaše uporabniško ime ni še aktivno. Preglejte vašo elektronsko pošto. Nanjo "
+"smo poslali aktivacijsko kodo."
+
+#: lib/Block/my_comments.php:57
+msgid "Title"
+msgstr "Naslov"
+
+#: lib/Report.php:122
+msgid "Unsupported"
+msgstr "Nepodprto."
+
+#: edit/edit.php:58
+msgid "Upload a new video"
+msgstr "Naloži nov posnetek"
+
+#: report.php:55 lib/Block/my_comments.php:58
+msgid "User"
+msgstr "Uporabnik"
+
+#: lib/Driver.php:372 lib/Driver/sql.php:303
+#, php-format
+msgid "User \"%s\" does not exists."
+msgstr "Uporabnik \"%s\" ne obstaja."
+
+#: lib/Friends.php:185 lib/Friends.php:254
+#, php-format
+msgid "User \"%s\" does not exits"
+msgstr "Uporabnik \"%s\" ne obstaja."
+
+#: lib/Friends.php:262
+#, php-format
+msgid "User \"%s\" is already in fiend list"
+msgstr "Uporabnik \"%s\" je že med bašimi prijatelji."
+
+#: lib/Friends.php:270
+#, php-format
+msgid ""
+"User \"%s\" is already in fiend list, but we are waiting his/her approval."
+msgstr ""
+"Uporabnik \"%s\" je že na spisku vaših prijateljev vendar čakamo da vas "
+"potrdi."
+
+#: account/renew.php:43
+#, php-format
+msgid "User \"%s\" is not market to be in the removal process."
+msgstr "Uporabnik \"%s\" ni v postopku izbisa."
+
+#: edit/friends.php:60
+#, php-format
+msgid "User \"%s\" was added as your friend."
+msgstr "Uporabnik \"%s\" je bil dodan kot vaš prijatelj."
+
+#: edit/blacklist.php:41
+#, php-format
+msgid "User \"%s\" was added to your blacklist."
+msgstr "Uporabnik \"%s\" je bil dodan v vašo črno listo."
+
+#: account/approve.php:43
+#, php-format
+msgid "User \"%s\" was already activated."
+msgstr "Uporabnik \"%s\" je že potrjen."
+
+#: edit/approve.php:38
+#, php-format
+msgid "User \"%s\" was confirmed as a friend."
+msgstr "Uporabnik \"%s\" je bil potrjen kot vaš prijatelj."
+
+#: edit/reject.php:37
+#, php-format
+msgid "User \"%s\" was rejected as a friend."
+msgstr "Uporabnik \"%s\" je bil zavrnjen kot vaš prijatelj."
+
+#: edit/blacklist.php:34
+#, php-format
+msgid "User \"%s\" was removed from your blacklist."
+msgstr "Uporabnik \"%s\" je bil odstranjen z vaše črne liste."
+
+#: edit/friends.php:41
+#, php-format
+msgid "User \"%s\" was removed from your friend list."
+msgstr "Uporabnik \"%s\" je bil odstranjen z vaše liste uporabnikov."
+
+#: edit/friends.php:52
+#, php-format
+msgid ""
+"User %s added you to his firends list on %s. \n"
+"To approve, go to: %s \n"
+"To reject, go to: %s \n"
+"To see to his profile, go to: %s \n"
+msgstr ""
+"Uporabnik %s vas je izbral za prijatelja na %s. \n"
+"Za potditev: %s \n"
+"Za zavrnitev: %s \n"
+"Njegov profil: %s \n"
+
+#: edit/approve.php:44
+#, php-format
+msgid ""
+"User %s confirmed you as a friend on %s.. \n"
+"To see to his profile, go to: %s \n"
+msgstr ""
+"Uporabnik %s vas je potrdil za prijatelja na %s. \n"
+"Njegov profil: %s \n"
+
+#: templates/user/user.php:348
+#, php-format
+msgid "User %s does not wish to be commented."
+msgstr "Uporabnik %s ne želi biti kometiran."
+
+#: templates/user/deleted.php:4
+#, php-format
+msgid "User %s has been disabled."
+msgstr "Uporabnik %s je bil izklopljen."
+
+#: templates/user/inactive.php:4
+#, php-format
+msgid "User %s is inactive."
+msgstr "Uporabnik %s ni aktiven."
+
+#: login.php:52
+#, php-format
+msgid ""
+"User %s just logged in.\n"
+"%s"
+msgstr ""
+"Uporabnik %s se je pravkar prijavil.\n"
+"%s"
+
+#: edit/reject.php:43
+#, php-format
+msgid ""
+"User %s rejected you as a friend on %s.. \n"
+"To see to his profile, go to: %s \n"
+msgstr ""
+"Uporabnik %s vas je zavrnil kot prijatelja na %s. \n"
+"Njegov profil: %s \n"
+
+#: templates/user/authenticated.php:4
+#, php-format
+msgid ""
+"User %s would like to his profile remains visible only to authenticated "
+"users."
+msgstr ""
+"Uporabnik %s želi da njegov profil ogledujejo le prijavljeni uporabniki."
+
+#: templates/user/friends.php:4
+#, php-format
+msgid "User %s would like to his profile remains visible only to his friends."
+msgstr "Uporabnik %s želi da njegov profil ogledujejo le njegovi prijatelji."
+
+#: templates/user/private.php:4
+#, php-format
+msgid "User %s would like to remain private."
+msgstr "Uporabnik %s želi ostati anonimen"
+
+#: account/signup.php:21
+msgid "User Registration has been disabled for this site."
+msgstr "Registracija novih uporabnikv je začasno izklopljena."
+
+#: lib/Block/random.php:36
+msgid "User is currently online?"
+msgstr "Je uporabnik trenutno online?."
+
+#: report.php:25
+msgid "User is not selected"
+msgstr "Uporabnik ni izbran"
+
+#: templates/user/actions.php:28
+msgid "User list"
+msgstr "Spiske uporabnikov"
+
+#: report.php:62 report.php:68
+msgid "User was not reported."
+msgstr "Uporabnik ni bil prijavljen."
+
+#: report.php:65
+msgid "User was reported."
+msgstr "Uporabnik ni bil prijavljen."
+
+#: templates/list/list.php:23 templates/edit/blacklist.php:12
+#: templates/edit/friends.php:12 account/resetpassword.php:43
+#: lib/Forms/AddFriend.php:18 lib/Forms/Login.php:21 config/prefs.php.dist:33
+msgid "Username"
+msgstr "Uporabniško ime"
+
+#: templates/user/actions.php:29
+msgid "Users"
+msgstr "Uporabniki"
+
+#: lib/api.php:276
+msgid "Users Birthdays"
+msgstr "Rojstni dnevi uporabnikov"
+
+#: templates/list/list.php:8
+msgid "Users celebrating birthday today"
+msgstr "Uporabniki, ki danes praznujejo rojstni dan"
+
+#: templates/list/list.php:3
+msgid "Users currently online"
+msgstr "Uporabniki trenutno na strani."
+
+#: templates/edit/friends.php:59
+msgid "Users that has you listed as a friend"
+msgstr "Uporabniki, ki nas imajo mene za prijatelje."
+
+#: templates/edit/friends.php:48
+msgid "Users winting us to approve their friendship"
+msgstr "Uporabnki ki čakajo na našo potditev."
+
+#: templates/list/list.php:39 edit/edit.php:59 lib/Forms/Search.php:24
+msgid "Video"
+msgstr "Video"
+
+#: templates/edit/friends.php:22
+msgid "View profile"
+msgstr "Preglej profil"
+
+#: lib/Folks.php:159 lib/Folks.php:163
+msgid "Virgo"
+msgstr "Devica"
+
+#: templates/user/user.php:105
+msgid "Visit my homepage"
+msgstr "Obišči mojo domačo stran"
+
+#: templates/edit/friends.php:39
+msgid "We are waiting this users to approve our friendship"
+msgstr "Uporabnke na katere čakamo da nas potrdijo kot uporabniki."
+
+#: lib/Friends/sql.php:204 lib/Friends/letter.php:87
+msgid "Whitelist"
+msgstr "Želje"
+
+#: edit/comments.php:38
+msgid "Who can post comments to your profile"
+msgstr "Kdo lahko kometira vaš profil"
+
+#: lib/Forms/Search.php:18
+msgid "Word"
+msgstr "Beseda"
+
+#: templates/list/list.php:74 templates/list/list.php:75
+#: templates/list/list.php:76 templates/list/list.php:77
+#: templates/list/list.php:78 config/prefs.php.dist:61
+#: config/prefs.php.dist:71
+msgid "Yes"
+msgstr "Da"
+
+#: lib/Forms/Login.php:29
+msgid "Yes, remember me so the next time I don't neet to login"
+msgstr "Da, želim da si zapomnim prijavo za naslednji obisk."
+
+#: account/approve.php:62 account/renew.php:62
+msgid "You account is activated, you can login now."
+msgstr "Vaše uporabniško ime je bilo potrjeno. Sedaj se lahko prijavite."
+
+#: login.php:135
+msgid "You are entering your data too fast!"
+msgstr "Podatke vnašate prehitro."
+
+#: templates/user/user.php:356 templates/user/user.php:376
+#, php-format
+msgid "You are on %s blacklist."
+msgstr "Ste na črni listi uporabnika %s."
+
+#: templates/user/private.php:8 templates/user/friends.php:8
+#, php-format
+msgid "You can still send a private message to user %s."
+msgstr "Še vedno mu lahko pošljete osebno sporočilo %s."
+
+#: lib/Friends.php:190
+#, php-format
+msgid "You cannot add \"%s\" to your blacklist."
+msgstr "Ne morete dodati \"%s\" na črno listo."
+
+#: lib/Friends.php:248
+msgid "You cannot add yourself as your own friend."
+msgstr "Sami sebe ne morete dati kot prijatelja"
+
+#: lib/Friends.php:179
+msgid "You cannot add yourself to your blacklist."
+msgstr "Ne morete dodati samega sebe na črno listo."
+
+#: account/approve.php:20 account/renew.php:20
+msgid "You must supply a confirmation code."
+msgstr "Podati morate kodo za potrditev računa."
+
+#: account/approve.php:28 account/renew.php:28 edit/approve.php:24
+#: edit/reject.php:24
+msgid "You must supply a username."
+msgstr "Podati morate uporabiško ime"
+
+#: edit/comments.php:76
+msgid "Your comments preference was sucessfuly saved."
+msgstr "Vaše nastaviteve komentarjev so bile uspešno shranjene."
+
+#: edit/edit.php:79
+msgid "Your data were successfully updated."
+msgstr "Vaši podatki so bili uspešno ažurirani."
+
+#: account/username.php:20
+msgid "Your email"
+msgstr "Vaš email"
+
+#: edit/edit.php:90
+msgid "Your image was deleted successfully."
+msgstr "Vaša slika je bila uspešno izbrisana."
+
+#: account/resetpassword.php:76
+#, php-format
+msgid ""
+"Your new password for %s is: %s. \n"
+"\n"
+" It was requested by %s on %s"
+msgstr ""
+"Vaše novo geslo za %s je %s. \n"
+"\n"
+"Zahtevano je bilo s strani %s ob %s"
+
+#: edit/password.php:66
+#, php-format
+msgid ""
+"Your new password is too long; passwords may not be more than %d characters "
+"long!"
+msgstr "Vaše geslo je predlogo. Gesla ne morejo biti daljša od %d znakov!"
+
+#: edit/password.php:145
+msgid "Your new password is too simple to guess!  Not changed!"
+msgstr "Geslo je preveč preposto. Ni bilo spremenjeno!"
+
+#: edit/password.php:136
+msgid "Your new password is too simple to guess. Not changed!"
+msgstr "Geslo je preveč preposto. Ni spremenjeno!"
+
+#: edit/password.php:61
+#, php-format
+msgid "Your new password must be at least %d characters long!"
+msgstr "Geslo mora biti vsaj %d znakov dolgo!"
+
+#: edit/password.php:44
+msgid "Your new password must be different from your current password"
+msgstr "Novo geslo mora biti drugaćno od starega"
+
+#: edit/password.php:106
+#, php-format
+msgid "Your new password must contain at least %d alphabetic characters."
+msgstr "Geslo mora vsebovati vsaj %d črk."
+
+#: edit/password.php:111
+#, php-format
+msgid "Your new password must contain at least %d alphanumeric characters."
+msgstr "Geslo mora vsebovati vsaj %d števil."
+
+#: edit/password.php:116
+#, php-format
+msgid ""
+"Your new password must contain at least %d different types of characters. "
+"The types are: lower, upper, numeric, and symbols."
+msgstr ""
+"Gelo mora vsebovati vsaj %d različnih tipov znakov. Tipi znakov: majhne "
+"črke, velike črke, številke in simboli."
+
+#: edit/password.php:96
+#, php-format
+msgid "Your new password must contain at least %d lowercase characters."
+msgstr "Geslo mora vsebovati vsaj %d majhnih črk."
+
+#: edit/password.php:101
+#, php-format
+msgid "Your new password must contain at least %d numeric characters."
+msgstr "Geslo mora vsebovati vsaj %d številk."
+
+#: edit/password.php:91
+#, php-format
+msgid "Your new password must contain at least %d uppercase characters."
+msgstr "Geslo mora vsebovati vsaj %d velikih črk."
+
+#: edit/password.php:122
+#, php-format
+msgid "Your new password must contain less than %d whitespace characters."
+msgstr "Geslo mora vsebovati manj kot %d presledkov."
+
+#: edit/password.php:124
+msgid "Your new password must not contain whitespace characters."
+msgstr "Geslo ne sme vsebovati presledkov."
+
+#: edit/password.php:50
+msgid "Your old password didn't match"
+msgstr "Vaše staro gelso se ne ujema"
+
+#: account/resetpassword.php:82
+msgid "Your password has been reset"
+msgstr "Vaše geslo je bilo resetirano"
+
+#: account/resetpassword.php:84
+#, php-format
+msgid ""
+"Your password has been reset, check your email (%s) and log in with your new "
+"password."
+msgstr ""
+"Vaše geslo je bilo resetirano, novo geslo smo poslali na vaš email (%s)."
+
+#: edit/password.php:185
+msgid "Your securiy questions was updated."
+msgstr "Vaše varnostno vprašanje je bilo ažurirano."
+
+#: account/username.php:34
+#, php-format
+msgid ""
+"Your username on %s %s is: %s. \n"
+"\n"
+" It was requested by %s on %s"
+msgstr ""
+"Vaše uporabniško ime na %s %s je: %s. \n"
+"\n"
+" Zahteval ga je %s ob %s"
+
+#: config/hooks.php.dist:218
+#, php-format
+msgid ""
+"Your username on %s %s is: %s. \n"
+"\n"
+" Please confirm the registration by going to this link \n"
+" %s"
+msgstr ""
+"Vaše uporabniško ime na %s %s je: %s. \n"
+"\n"
+" Prosimo potrdite prijevo na spodnji povezavu\n"
+" %s"
+
+#: login.php:156
+msgid "Your username or password is incorrect."
+msgstr "Vaše uporabniško ime ali geslo je napačno."
+
+#: account/username.php:41
+msgid "Your username was requested"
+msgstr "Zahtevano je bilo vaše uporabniško ime"
+
+#: account/username.php:43
+#, php-format
+msgid "Your username was sent, check your email (%s)."
+msgstr "Vaše uporabniško ime je bilo poslano na vaš emali (%s)."
+
+#: login.php:172
+#, php-format
+msgid ""
+"Your username was temporary deacirvated. For any additional information "
+"please write to %s, and don't forgot to incluide your username."
+msgstr ""
+"Vaše uporabniško ime je bilo začasno deaktivirano. Za dodatne informacije se "
+"obrnite na %s. Ne pozabite navesti vašega uporabniškega imena."
+
+#: edit/password.php:30 config/hooks.php.dist:243
+msgid "type the password twice to confirm"
+msgstr "Prosim, vnesite geslo dvakrat za potrditev"
