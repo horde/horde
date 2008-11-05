@@ -51,8 +51,8 @@ function _loginNotice($user)
 
     $body = _("User %s just logged in.\n%s");
     $params = array($notify,
-                    array('title' => _("Login remainder"),
-                            'content' => sprintf($body, $user, Folks::getUrlFor('user', $user, true))));
+                    array('title' => _("Login reminder"),
+                          'content' => sprintf($body, $user, Folks::getUrlFor('user', $user, true))));
     $GLOBALS['registry']->callByPackage('letter', 'sendMessage', $params);
 }
 
