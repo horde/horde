@@ -175,7 +175,7 @@ if ($form->isSubmitted()) {
         break;
 
     case 'unconfirmed':
-        $notification->push(_("This account was still not activated. Check your inbox, we sendy you the activation code there."), 'horde.warning');
+        $notification->push(_("This account was still not activated. Check your inbox, we send you the activation code there."), 'horde.warning');
         header('Location: ' . Horde::selfUrl(true));
         exit;
         break;
