@@ -166,8 +166,8 @@ if ($form->isSubmitted()) {
         header('Location: ' . $login_url);
         exit;
     }
-    switch ($profile['user_status']) {
 
+    switch ($profile['user_status']) {
     case 'deactivated':
         $notification->push(sprintf(_("Your username was temporary deacirvated. For any additional information please write to %s, and don't forgot to incluide your username."), $conf['folks']['support']), 'horde.warning');
         header('Location: ' . Horde::selfUrl(true));
