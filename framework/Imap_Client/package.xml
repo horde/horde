@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+http://pear.php.net/dtd/tasks-1.0.xsd
+http://pear.php.net/dtd/package-2.0
+http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Horde_Imap_Client</name>
+ <channel>pear.horde.org</channel>
+ <summary>Horde IMAP abstraction interface</summary>
+ <description>This package provides an abstracted API interface to various
+ IMAP4rev1 (RFC 3501) backend drivers.
+ </description>
+ <lead>
+  <name>Michael Slusarz</name>
+  <user>slusarz</user>
+  <email>slusarz@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2008-02-25</date>
+ <version>
+  <release>0.0.1</release>
+  <api>0.0.1</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <notes>
+   * Initial release
+ </notes>
+ <contents>
+  <dir name="/">
+   <dir name="lib">
+    <dir name="Horde">
+     <dir name="Imap">
+      <dir name="Client">
+       <file name="Base.php" role="php" />
+       <file name="Cache.php" role="php" />
+       <file name="Cclient.php" role="php" />
+       <file name="Cclient-pop3.php" role="php" />
+       <file name="Exception.php" role="php" />
+       <file name="Socket.php" role="php" />
+       <file name="Sort.php" role="php" />
+       <file name="Utf7imap.php" role="php" />
+      </dir> <!-- /lib/Horde/Imap/Client -->
+      <file name="Client.php" role="php" />
+     </dir> <!-- /lib/Horde/Imap -->
+    </dir> <!-- /lib/Horde -->
+   </dir> <!-- /lib -->
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.5.0</min>
+   </pearinstaller>
+  </required>
+  <optional>
+   <package>
+    <name>Auth_SASL</name>
+    <channel>pear.php.net</channel>
+   </package>
+   <package>
+   <name>Horde_Cache</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+   <name>Horde_Serialize</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>MIME</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Secret</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <extension>
+    <name>imap</name>
+   </extension>
+   <extension>
+    <name>mbstring</name>
+   </extension>
+  </optional>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install name="lib/Horde/Imap/Client/Base.php" as="Horde/Imap/Client/Base.php" />
+   <install name="lib/Horde/Imap/Client/Cache.php" as="Horde/Imap/Client/Cache.php" />
+   <install name="lib/Horde/Imap/Client/Cclient.php" as="Horde/Imap/Client/Cclient.php" />
+   <install name="lib/Horde/Imap/Client/Cclient-pop3.php" as="Horde/Imap/Client/Cclient-pop3.php" />
+   <install name="lib/Horde/Imap/Client/Exception.php" as="Horde/Imap/Client/Exception.php" />
+   <install name="lib/Horde/Imap/Client/Socket.php" as="Horde/Imap/Client/Socket.php" />
+   <install name="lib/Horde/Imap/Client/Sort.php" as="Horde/Imap/Client/Sort.php" />
+   <install name="lib/Horde/Imap/Client/Utf7imap.php" as="Horde/Imap/Client/Utf7imap.php" />
+   <install name="lib/Horde/Imap/Client.php" as="Horde/Imap/Client.php" />
+  </filelist>
+ </phprelease>
+</package>
