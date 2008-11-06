@@ -15,7 +15,7 @@
 class Horde_MIME_Viewer_Driver
 {
     /**
-     * Viewer configuration parameters.
+     * Viewer configuration.
      *
      * @var array
      */
@@ -29,11 +29,11 @@ class Horde_MIME_Viewer_Driver
     protected $_mimepart = null;
 
     /**
-     * The MIME display type for this part.
+     * Viewer parameters.
      *
-     * @var string
+     * @var array
      */
-    protected $_type = null;
+    protected $_params = array();
 
     /**
      * Can this driver render various views?
@@ -68,34 +68,25 @@ class Horde_MIME_Viewer_Driver
     }
 
     /**
-     * Return the MIME type of the rendered content.  This can be
-     * overridden by the individual drivers, depending on what format
-     * they output in. By default, it passes through the MIME type of
-     * the object, or replaces custom extension types with
-     * 'text/plain' to let the browser do a best-guess render.
+     * Set parameters for use with this object.
      *
-     * @return string  MIME type of the output content.
+     * @param array $params  An array of params to add to the internal
+     *                       params list.
      */
-    public function getType()
+    public function setParams($params = array())
     {
-        if (is_null($this->_type)) {
-            return is_null(is_null($this->_mimepart) || ($this->_mimepart->getPrimaryType() == 'x-extension'))
-                ? 'text/plain'
-                : $this->_mimepart->getType(true);
-        }
-
-        return $this->_type;
+        $this->_params = array_merge($this->_params, $params);
     }
 
     /**
      * Return the rendered version of the Horde_MIME_Part object.
      *
-     * @return string  Rendered version of the Horde_MIME_Part object.
+     * @return array  TODO
      */
     public function render()
     {
         return (is_null($this->_mimepart) || !$this->canDisplay())
-            ? ''
+            ? array('data' => '', 'type' => 'text/plain')
             : $this->_render();
     }
 

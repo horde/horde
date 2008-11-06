@@ -15,26 +15,25 @@
 class Horde_MIME_Viewer_plain extends Horde_MIME_Viewer_Driver
 {
     /**
-     * Constructor.
+     * Can this driver render various views?
      *
-     * @param array $conf  Configuration specific to the driver.
+     * @var boolean
      */
-    function __construct($conf = array())
-    {
-        $this->_canrender['full'] = true;
-        $this->_canrender['inline'] = true;
-        $this->_type = 'text/html; charset=' . NLS::getCharset();
-        parent::__construct($conf);
-    }
+    protected $_canrender = array(
+        'full' => true,
+        'info' => false,
+        'inline' => true,
+    );
 
     /**
-     * Render out the contents.
+     * Render the contents.
      *
-     * @return string  The rendered contents.
+     * @return array  TODO
      */
     protected function _render()
     {
         $text = $this->_mimepart->getContents();
+        $charset = $this->_mimepart->getCharset();
 
         /* Check for 'flowed' text data. */
         if ($this->_mimepart->getContentTypeParameter('format') == 'flowed') {
@@ -42,17 +41,20 @@ class Horde_MIME_Viewer_plain extends Horde_MIME_Viewer_Driver
         }
 
         require_once 'Horde/Text/Filter.php';
-        return '<html><body><tt>' . Text_Filter::filter($text, 'text2html', array('parselevel' => TEXT_HTML_MICRO, 'charset' => NLS::getCharset(), 'class' => null)) . '</tt></body></html>';
+        return array(
+            'data' => '<html><body><tt>' . Text_Filter::filter($text, 'text2html', array('parselevel' => TEXT_HTML_MICRO, 'charset' => $charset, 'class' => null)) . '</tt></body></html>',
+            'type' => 'text/html; charset=' . $charset;
+        );
     }
 
     /**
-     * Render out the contents.
+     * Render the contents for inline viewing.
      *
      * @return string  The rendered contents.
      */
     protected function _renderInline()
     {
-        $text = $this->_mimepart->getContents();
+        $text = String::convertCharset($this->_mimepart->getContents(), $this->_mimepart->getCharset());
 
         /* Check for 'flowed' text data. */
         return ($this->_mimepart->getContentTypeParameter('format') == 'flowed')
