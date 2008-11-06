@@ -1,0 +1,13 @@
+/**
+ * $Horde: imp/themes/simplex/screen.css,v 1.2 2007/02/16 19:12:06 slusarz Exp $
+ */
+
+.important, .flagged {
+    background-color: #EBC2C2;
+}
+.unseen {
+    background-color: #D3D3D3;
+}
+.answered {
+    background-color: #CEDFEC;
+}

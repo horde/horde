@@ -1,0 +1,12 @@
+/**
+ * $Horde: imp/themes/tango-blue/screen.css,v 1.2 2007/05/30 21:08:40 mrubinsk Exp $
+ */
+
+.mboxcontrol form {
+    background: #cccccc;
+}
+
+.text {
+    color: #000;
+    background: #fff;
+}

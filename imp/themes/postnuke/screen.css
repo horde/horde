@@ -1,0 +1,19 @@
+/**
+ * $Horde: imp/themes/postnuke/screen.css,v 1.2 2007/02/16 19:12:05 slusarz Exp $
+ */
+
+.deleted {
+    background-color: #999999;
+}
+.important, .flagged {
+    background-color: #ffcccc;
+}
+.unseen {
+    background-color: #eeeeff;
+}
+.answered {
+    background-color: #D9DCC2;
+}
+.quoted {
+    color: #330066;
+}

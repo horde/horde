@@ -1,0 +1,15 @@
+/**
+ * $Horde: imp/themes/luc/screen.css,v 1.4 2007/02/01 00:17:56 jan Exp $
+ */
+
+.folders {
+    font-size: 90%;
+}
+
+form#search div.smallheader {
+    font-family: Verdana,Helvetica,sans-serif;
+}
+
+.answered {
+    background: #c1dac1;
+}
