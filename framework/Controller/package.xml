@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+http://pear.php.net/dtd/tasks-1.0.xsd
+http://pear.php.net/dtd/package-2.0
+http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Controller</name>
+ <channel>pear.horde.org</channel>
+ <summary>Horde Controller libraries</summary>
+ <description>This package provides the controller part of an MVC system for Horde.
+ </description>
+ <lead>
+  <name>Mike Naberezny</name>
+  <user>mnaberez</user>
+  <email>mike@naberezny.com</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2008-09-24</date>
+ <version>
+  <release>0.1.0</release>
+  <api>0.1.0</api>
+ </version>
+ <stability>
+  <release>beta</release>
+  <api>beta</api>
+ </stability>
+ <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+ <notes>* Initial release.</notes>
+ <contents>
+  <dir name="/">
+   <dir name="lib">
+    <dir name="Horde">
+     <dir name="Controller">
+      <dir name="Request">
+       <file name="Base.php" role="php" />
+       <file name="Http.php" role="php" />
+       <file name="Mock.php" role="php" />
+      </dir> <!-- /lib/Horde/Controller/Requeset -->
+      <dir name="Response">
+       <file name="Base.php" role="php" />
+       <file name="Http.php" role="php" />
+       <file name="Mock.php" role="php" />
+      </dir> <!-- /lib/Horde/Controller/Response -->
+      <file name="Base.php" role="php" />
+      <file name="Dispatcher.php" role="php" />
+      <file name="Exception.php" role="php" />
+     </dir> <!-- /lib/Horde/Controller -->
+    </dir> <!-- /lib/Horde -->
+   </dir> <!-- /lib -->
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.5.0</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install name="lib/Horde/Controller/Base.php" as="Horde/Controller/Base.php" />
+   <install name="lib/Horde/Controller/Dispatcher.php" as="Horde/Controller/Dispatcher.php" />
+   <install name="lib/Horde/Controller/Exception.php" as="Horde/Controller/Exception.php" />
+   <install name="lib/Horde/Controller/Request/Base.php" as="Horde/Controller/Request/Base.php" />
+   <install name="lib/Horde/Controller/Request/Http.php" as="Horde/Controller/Request/Http.php" />
+   <install name="lib/Horde/Controller/Request/Mock.php" as="Horde/Controller/Request/Mock.php" />
+   <install name="lib/Horde/Controller/Response/Base.php" as="Horde/Controller/Response/Base.php" />
+   <install name="lib/Horde/Controller/Response/Http.php" as="Horde/Controller/Response/Http.php" />
+   <install name="lib/Horde/Controller/Response/Mock.php" as="Horde/Controller/Response/Mock.php" />
+  </filelist>
+ </phprelease>
+</package>
