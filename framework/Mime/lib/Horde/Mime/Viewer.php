@@ -1,8 +1,8 @@
 <?php
 /**
- * The Horde_MIME_Viewer:: class provides an abstracted interface to render
+ * The Horde_Mime_Viewer:: class provides an abstracted interface to render
  * MIME data into various formats.  It depends on both a set of
- * Horde_MIME_Viewer_* drivers which handle the actual rendering, and a
+ * Horde_Mime_Viewer_* drivers which handle the actual rendering, and a
  * configuration file to map MIME types to drivers.
  *
  * Copyright 1999-2008 The Horde Project (http://www.horde.org/)
@@ -12,13 +12,13 @@
  *
  * @author  Anil Madhavapeddy <anil@recoil.org>
  * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_MIME
+ * @package Horde_Mime
  */
-class Horde_MIME_Viewer
+class Horde_Mime_Viewer
 {
     /**
      * The config array. This array is shared between all instances of
-     * Horde_MIME_Viewer.
+     * Horde_Mime_Viewer.
      *
      * @var array
      */
@@ -32,12 +32,12 @@ class Horde_MIME_Viewer
     static protected $_drivercache = array();
 
     /**
-     * Attempts to return a concrete Horde_MIME_Viewer_* object based on the
+     * Attempts to return a concrete Horde_Mime_Viewer_* object based on the
      * MIME type.
      *
      * @param string $mime_type  The MIME type.
      *
-     * @return Horde_MIME_Viewer  The Horde_MIME_Viewer object, or false on
+     * @return Horde_Mime_Viewer  The Horde_Mime_Viewer object, or false on
      *                            error.
      */
     static final public function factory($mime_type)
@@ -158,7 +158,7 @@ class Horde_MIME_Viewer
 
         self::$_drivercache[$sig] = array(
             'app' => $app,
-            'class' => (($app == 'horde') ? '' : $app . '_') . 'Horde_MIME_Viewer_' . $driver,
+            'class' => (($app == 'horde') ? '' : $app . '_') . 'Horde_Mime_Viewer_' . $driver,
             'driver' => $driver,
             'exact' => $exact,
         );
@@ -179,7 +179,7 @@ class Horde_MIME_Viewer
     {
         $file = ($app == 'horde')
             ? dirname(__FILE__) . '/Viewer/' . $driver . '.php'
-            : $GLOBALS['registry']->applications[$app]['fileroot'] . '/lib/MIME/Viewer/' . $driver . '.php';
+            : $GLOBALS['registry']->applications[$app]['fileroot'] . '/lib/Mime/Viewer/' . $driver . '.php';
 
         require_once dirname(__FILE__) . '/Viewer/Driver.php';
 

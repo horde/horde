@@ -1,13 +1,9 @@
 <?php
 
 require_once 'Horde/String.php';
-require_once dirname(__FILE__) . '/../MIME.php';
-require_once dirname(__FILE__) . '/Headers.php';
-require_once dirname(__FILE__) . '/Message.php';
-require_once 'Mail.php';
 
 /**
- * The Horde_MIME_Mail:: class wraps around the various MIME library classes
+ * The Horde_Mime_Mail:: class wraps around the various MIME library classes
  * to provide a simple interface for creating and sending MIME messages.
  *
  * Copyright 2007-2008 The Horde Project (http://www.horde.org/)
@@ -16,28 +12,28 @@ require_once 'Mail.php';
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Jan Schneider <jan@horde.org>
- * @package Horde_MIME
+ * @package Horde_Mime
  */
-class Horde_MIME_Mail
+class Horde_Mime_Mail
 {
     /**
      * The message headers.
      *
-     * @var Horde_MIME_Headers
+     * @var Horde_Mime_Headers
      */
     protected $_headers;
 
     /**
      * The main body part.
      *
-     * @var Horde_MIME_Part
+     * @var Horde_Mime_Part
      */
     protected $_body;
 
     /**
      * The main HTML body part.
      *
-     * @var Horde_MIME_Part
+     * @var Horde_Mime_Part
      */
     protected $_htmlBody;
 
@@ -88,7 +84,7 @@ class Horde_MIME_Mail
             $_SERVER['SERVER_NAME'] = php_uname('n');
         }
 
-        $this->_headers = new Horde_MIME_Headers();
+        $this->_headers = new Horde_Mime_Headers();
 
         if ($subject) {
             $this->addHeader('Subject', $subject, $charset);
@@ -141,9 +137,9 @@ class Horde_MIME_Mail
          * the message's charset will be used when building the message. */
         if (!empty($charset)) {
             if (in_array($lc_header, $this->_headers->addressFields())) {
-                $value = Horde_MIME::encodeAddress($value, $charset);
+                $value = Horde_Mime::encodeAddress($value, $charset);
             } else {
-                $value = Horde_MIME::encode($value, $charset);
+                $value = Horde_Mime::encode($value, $charset);
             }
         }
 
@@ -195,7 +191,7 @@ class Horde_MIME_Mail
         if ($wrap) {
             $body = String::wrap($body, $wrap === true ? 76 : $wrap, "\n");
         }
-        $this->_body = new Horde_MIME_Part('text/plain', $body, $charset);
+        $this->_body = new Horde_Mime_Part('text/plain', $body, $charset);
     }
 
     /**
@@ -211,11 +207,11 @@ class Horde_MIME_Mail
     public function setHTMLBody($body, $charset = 'iso-8859-1',
                                 $alternative = true)
     {
-        $this->_htmlBody = new Horde_MIME_Part('text/html', $body, $charset);
+        $this->_htmlBody = new Horde_Mime_Part('text/html', $body, $charset);
         if ($alternative) {
             require_once 'Horde/Text/Filter.php';
             $body = Text_Filter::filter($body, 'html2text', array('wrap' => false));
-            $this->_body = new Horde_MIME_Part('text/plain', $body, $charset);
+            $this->_body = new Horde_Mime_Part('text/plain', $body, $charset);
         }
     }
 
@@ -232,7 +228,7 @@ class Horde_MIME_Mail
     public function addPart($mime_type, $content, $charset = 'us-ascii',
                             $disposition = null)
     {
-        $part = new Horde_MIME_Part($mime_type, $content, $charset, $disposition);
+        $part = new Horde_Mime_Part($mime_type, $content, $charset, $disposition);
         $part->transferEncodeContents();
         $this->_parts[] = $part;
         return count($this->_parts) - 1;
@@ -241,11 +237,11 @@ class Horde_MIME_Mail
     /**
      * Adds a MIME message part.
      *
-     * @param Horde_MIME_Part $part  A Horde_MIME_Part object.
+     * @param Horde_Mime_Part $part  A Horde_Mime_Part object.
      *
      * @return integer  The part number.
      */
-    public function addMIMEPart($part)
+    public function addMimePart($part)
     {
         $part->transferEncodeContents();
         $this->_parts[] = $part;
@@ -271,10 +267,10 @@ class Horde_MIME_Mail
         }
         if (empty($type)) {
             require_once dirname(__FILE__) . '/Magic.php';
-            $type = Horde_MIME_Magic::filenameToMIME($file, false);
+            $type = Horde_Mime_Magic::filenameToMime($file, false);
         }
 
-        $part = new Horde_MIME_Part($type, file_get_contents($file), $charset, 'attachment');
+        $part = new Horde_Mime_Part($type, file_get_contents($file), $charset, 'attachment');
         $part->setName($name);
         $part->transferEncodeContents();
         $this->_parts[] = $part;
@@ -346,14 +342,14 @@ class Horde_MIME_Mail
     protected function _buildRecipients($recipients)
     {
         if (is_string($recipients)) {
-            $recipients = Horde_MIME::explode($recipients, ',');
+            $recipients = Horde_Mime::explode($recipients, ',');
         }
         $recipients = array_filter(array_map('trim', $recipients));
 
         $addrlist = array();
         foreach ($recipients as $email) {
             if (!empty($email)) {
-                $unique = Horde_MIME::bareAddress($email);
+                $unique = Horde_Mime::bareAddress($email);
                 if ($unique) {
                     $addrlist[$unique] = $email;
                 } else {
@@ -362,8 +358,8 @@ class Horde_MIME_Mail
             }
         }
 
-        foreach (Horde_MIME::bareAddress(implode(', ', $addrlist), null, true) as $val) {
-            if (Horde_MIME::is8bit($val)) {
+        foreach (Horde_Mime::bareAddress(implode(', ', $addrlist), null, true) as $val) {
+            if (Horde_Mime::is8bit($val)) {
                 return PEAR::raiseError(sprintf(_("Invalid character in e-mail address: %s."), $val));
             }
         }
@@ -413,9 +409,9 @@ class Horde_MIME_Mail
         }
 
         /* Build mime message. */
-        $mime = new Horde_MIME_Message();
+        $mime = new Horde_Mime_Message();
         if (!empty($this->_body) && !empty($this->_htmlBody)) {
-            $basepart = new Horde_MIME_Part('multipart/alternative');
+            $basepart = new Horde_Mime_Part('multipart/alternative');
             $this->_body->setDescription(_("Plaintext Version of Message"));
             $basepart->addPart($this->_body);
             $this->_htmlBody->setDescription(_("HTML Version of Message"));

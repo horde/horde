@@ -4,7 +4,7 @@ require_once 'Horde/String.php';
 require_once dirname(__FILE__) . '/../MIME.php';
 
 /**
- * The Horde_MIME_Part:: class provides a wrapper around MIME parts and
+ * The Horde_Mime_Part:: class provides a wrapper around MIME parts and
  * methods for dealing with them.
  *
  * Copyright 1999-2008 The Horde Project (http://www.horde.org/)
@@ -14,9 +14,9 @@ require_once dirname(__FILE__) . '/../MIME.php';
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_MIME
+ * @package Horde_Mime
  */
-class Horde_MIME_Part
+class Horde_Mime_Part
 {
     /* The character(s) used internally for EOLs. */
     const EOL = "\n";
@@ -148,7 +148,7 @@ class Horde_MIME_Part
     protected $_flags = array();
 
     /**
-     * Unique Horde_MIME_Part boundary string.
+     * Unique Horde_Mime_Part boundary string.
      *
      * @var string
      */
@@ -213,7 +213,7 @@ class Horde_MIME_Part
      */
     public function setDispositionParameter($label, $data)
     {
-        $this->_dispParams[$label] = Horde_MIME::decode($data);
+        $this->_dispParams[$label] = Horde_Mime::decode($data);
     }
 
     /**
@@ -505,7 +505,7 @@ class Horde_MIME_Part
      */
     public function setDescription($description)
     {
-        $this->_description = Horde_MIME::decode($description);
+        $this->_description = Horde_Mime::decode($description);
     }
 
     /**
@@ -552,7 +552,7 @@ class Horde_MIME_Part
     /**
      * Add a MIME subpart.
      *
-     * @param Horde_MIME_Part $mime_part  Add a subpart to the current object.
+     * @param Horde_Mime_Part $mime_part  Add a subpart to the current object.
      */
     public function addPart($mime_part)
     {
@@ -563,7 +563,7 @@ class Horde_MIME_Part
     /**
      * Get a list of all MIME subparts.
      *
-     * @return array  An array of the Horde_MIME_Part subparts.
+     * @return array  An array of the Horde_Mime_Part subparts.
      */
     public function getParts()
     {
@@ -575,18 +575,18 @@ class Horde_MIME_Part
      *
      * @param string $id  The MIME ID.
      *
-     * @return Horde_MIME_Part  A pointer to the part requested, or null if
+     * @return Horde_Mime_Part  A pointer to the part requested, or null if
      *                          the part doesn't exist.
      */
     public function &getPart($id)
     {
-        $this_id = $this->getMIMEId();
+        $this_id = $this->getMimeId();
         if ($id == $this_id) {
             return $this;
         }
 
         if ($this->_reindex) {
-            $this->buildMIMEIds(is_null($this_id) ? '1' : $this_id);
+            $this->buildMimeIds(is_null($this_id) ? '1' : $this_id);
         }
 
         return $this->_partFind($id, $this->_parts);
@@ -609,7 +609,7 @@ class Horde_MIME_Part
      * Alter a current MIME subpart.
      *
      * @param string $id                  The MIME part ID to alter.
-     * @param Horde_MIME_Part $mime_part  The MIME part to store.
+     * @param Horde_Mime_Part $mime_part  The MIME part to store.
      */
     public function alterPart($id, $mime_part)
     {
@@ -623,7 +623,7 @@ class Horde_MIME_Part
      * Function used to find a specific MIME part by ID.
      *
      * @param string $id     The MIME ID.
-     * @param array &$parts  A list of Horde_MIME_Part objects.
+     * @param array &$parts  A list of Horde_Mime_Part objects.
      */
     protected function &_partFind($id, &$parts)
     {
@@ -707,20 +707,20 @@ class Horde_MIME_Part
     }
 
     /**
-     * Returns a Horde_MIME_Header object containing all MIME headers needed
+     * Returns a Horde_Mime_Header object containing all MIME headers needed
      * for the part.
      *
-     * @param Horde_MIME_Headers $headers  The Horde_MIME_Headers object to
+     * @param Horde_Mime_Headers $headers  The Horde_Mime_Headers object to
      *                                     add the MIME headers to. If not
      *                                     specified, adds the headers to a
      *                                     new object.
      *
-     * @return Horde_MIME_Headers  A Horde_MIME_Headers object.
+     * @return Horde_Mime_Headers  A Horde_Mime_Headers object.
      */
-    public function addMIMEHeaders($headers = null)
+    public function addMimeHeaders($headers = null)
     {
         if (is_null($headers)) {
-            $headers = new Horde_MIME_Headers();
+            $headers = new Horde_Mime_Headers();
         }
 
         foreach ($this->getHeaderArray() as $key => $val) {
@@ -747,7 +747,7 @@ class Horde_MIME_Part
         $ctype = $this->getType(true);
 
         /* Manually encode Content-Type and Disposition parameters in here,
-         * rather than in Horde_MIME_Headers, since it is easier to do when
+         * rather than in Horde_Mime_Headers, since it is easier to do when
          * the paramters are broken down. Encoding in the headers object will
          * ignore these headers Since they will already be in 7bit. */
         foreach ($this->getAllContentTypeParameters() as $key => $value) {
@@ -757,14 +757,14 @@ class Horde_MIME_Part
                 continue;
             }
 
-            $encode_2231 = Horde_MIME::encodeParamString($key, $value, $charset);
+            $encode_2231 = Horde_Mime::encodeParamString($key, $value, $charset);
             /* Try to work around non RFC 2231-compliant MUAs by sending both
              * a RFC 2047-like parameter name and then the correct RFC 2231
              * parameter.  See:
              * http://lists.horde.org/archives/dev/Week-of-Mon-20040426/014240.html */
             if (!empty($GLOBALS['conf']['mailformat']['brokenrfc2231']) &&
                 (strpos($encode_2231, '*=') !== false)) {
-                $ctype .= '; ' . $key . '="' . Horde_MIME::encode($value, $charset) . '"';
+                $ctype .= '; ' . $key . '="' . Horde_Mime::encode($value, $charset) . '"';
             }
             $ctype .= '; ' . $encode_2231;
         }
@@ -797,11 +797,11 @@ class Horde_MIME_Part
 
             /* Add any disposition parameter information, if available. */
             if (!empty($name)) {
-                $encode_2231 = Horde_MIME::encodeParamString('filename', $name, $charset);
+                $encode_2231 = Horde_Mime::encodeParamString('filename', $name, $charset);
                 /* Same broken RFC 2231 workaround as above. */
                 if (!empty($GLOBALS['conf']['mailformat']['brokenrfc2231']) &&
                     (strpos($encode_2231, '*=') !== false)) {
-                    $disp .= '; filename="' . Horde_MIME::encode($name, $charset) . '"';
+                    $disp .= '; filename="' . Horde_Mime::encode($name, $charset) . '"';
                 }
                 $disp .= '; ' . $encode_2231;
             }
@@ -834,7 +834,7 @@ class Horde_MIME_Part
         $text = '';
 
         if ($headers) {
-            $hdr_ob = $this->addMIMEHeaders();
+            $hdr_ob = $this->addMimeHeaders();
             $hdr_ob->setEOL($eol);
             $text = $hdr_ob->toString(array('charset' => $this->getCharset()));
         }
@@ -922,7 +922,7 @@ class Horde_MIME_Part
             break;
 
         case 'text':
-            if (Horde_MIME::is8bit($this->_contents)) {
+            if (Horde_Mime::is8bit($this->_contents)) {
                 $encoding = ($this->_encode7bit) ? 'quoted-printable' : '8bit';
             } elseif (preg_match("/(?:\n|^)[^\n]{999,}(?:\n|$)/", $this->_contents)) {
                 /* If the text is longer than 998 characters between
@@ -934,7 +934,7 @@ class Horde_MIME_Part
             break;
 
         default:
-            if (Horde_MIME::is8bit($this->_contents)) {
+            if (Horde_Mime::is8bit($this->_contents)) {
                 $encoding = ($this->_encode7bit) ? 'base64' : '8bit';
             }
             break;
@@ -995,7 +995,7 @@ class Horde_MIME_Part
 
         /* Quoted-Printable Encoding: See RFC 2045, section 6.7 */
         case 'quoted-printable':
-            $output = Horde_MIME::quotedPrintableEncode($this->_contents, $eol);
+            $output = Horde_Mime::quotedPrintableEncode($this->_contents, $eol);
             if (($eollength = String::length($eol)) &&
                 (substr($output, $eollength * -1) == $eol)) {
                 return substr($output, 0, $eollength * -1);
@@ -1031,7 +1031,7 @@ class Horde_MIME_Part
         case 'quoted-printable':
             $message = preg_replace("/=\r?\n/", '', $this->_contents);
             $message = quoted_printable_decode($this->replaceEOL($message));
-            $this->_flags['lastTransferDecode'] = (Horde_MIME::is8bit($message)) ? '8bit' : '7bit';
+            $this->_flags['lastTransferDecode'] = (Horde_Mime::is8bit($message)) ? '8bit' : '7bit';
             return $message;
 
         /* Support for uuencoded encoding - although not required by RFCs,
@@ -1164,7 +1164,7 @@ class Horde_MIME_Part
      * be returned (via getBytes()) if there are no contents currently set.
      * This function is useful for setting the size of the part when the
      * contents of the part are not fully loaded (i.e. creating a
-     * Horde_MIME_Part object from IMAP header information without loading the
+     * Horde_Mime_Part object from IMAP header information without loading the
      * data of the part).
      *
      * @param integer $bytes  The size of this part in bytes.
@@ -1197,7 +1197,7 @@ class Horde_MIME_Part
      *                     Key - MIME ID
      *                     Value - CID for the part
      */
-    public function addCID($cids = array())
+    public function addCid($cids = array())
     {
         $this->_cids += $cids;
         asort($this->_cids, SORT_STRING);
@@ -1219,10 +1219,10 @@ class Horde_MIME_Part
      * @param string $cid  Use this CID (if not already set).  Else, generate
      *                     a random CID.
      */
-    public function setContentID($cid = null)
+    public function setContentId($cid = null)
     {
         if (is_null($this->_contentid)) {
-            $this->_contentid = (is_null($cid)) ? (Horde_MIME::generateRandomID() . '@' . $_SERVER['SERVER_NAME']) : $cid;
+            $this->_contentid = (is_null($cid)) ? (Horde_Mime::generateRandomId() . '@' . $_SERVER['SERVER_NAME']) : $cid;
         }
         return $this->_contentid;
     }
@@ -1232,7 +1232,7 @@ class Horde_MIME_Part
      *
      * @return string  The Content-ID for this part.
      */
-    public function getContentID()
+    public function getContentId()
     {
         return $this->_contentid;
     }
@@ -1242,7 +1242,7 @@ class Horde_MIME_Part
      *
      * @param string $mimeid  The MIME ID.
      */
-    public function setMIMEId($mimeid)
+    public function setMimeId($mimeid)
     {
         $this->_mimeid = $mimeid;
     }
@@ -1252,7 +1252,7 @@ class Horde_MIME_Part
      *
      * @return string  The MIME ID.
      */
-    public function getMIMEId()
+    public function getMimeId()
     {
         return $this->_mimeid;
     }
@@ -1262,25 +1262,25 @@ class Horde_MIME_Part
      *
      * @param string $id  The ID of this part.
      */
-    public function buildMIMEIds($id = null)
+    public function buildMimeIds($id = null)
     {
         if (is_null($id)) {
             if (empty($this->_parts)) {
-                $this->setMIMEId('1');
+                $this->setMimeId('1');
             } else {
-                $this->setMIMEId('0');
+                $this->setMimeId('0');
                 $i = 1;
                 foreach (array_keys($this->_parts) as $val) {
-                    $this->_parts[$val]->buildMIMEIds($i++);
+                    $this->_parts[$val]->buildMimeIds($i++);
                 }
             }
         } else {
-            $this->setMIMEId($id . (($this->getType() == 'message/rfc822') ? '.0' : ''));
+            $this->setMimeId($id . (($this->getType() == 'message/rfc822') ? '.0' : ''));
 
             if (!empty($this->_parts)) {
                 $i = 1;
                 foreach (array_keys($this->_parts) as $val) {
-                    $this->_parts[$val]->buildMIMEIds($id . '.' . $i++);
+                    $this->_parts[$val]->buildMimeIds($id . '.' . $i++);
                 }
             }
         }
@@ -1296,7 +1296,7 @@ class Horde_MIME_Part
     protected function _generateBoundary()
     {
         if (is_null($this->_boundary)) {
-            $this->_boundary = '=_' . Horde_MIME::generateRandomID();
+            $this->_boundary = '=_' . Horde_Mime::generateRandomId();
         }
         return $this->_boundary;
     }
@@ -1310,7 +1310,7 @@ class Horde_MIME_Part
      */
     public function contentTypeMap($sort = true)
     {
-        $map = array($this->getMIMEId() => $this->getType());
+        $map = array($this->getMimeId() => $this->getType());
         foreach ($this->_parts as $val) {
             $map += $val->contentTypeMap(false);
         }
@@ -1321,4 +1321,5 @@ class Horde_MIME_Part
 
         return $map;
     }
+
 }

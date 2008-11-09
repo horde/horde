@@ -3,7 +3,7 @@
 require_once 'Horde/Util.php';
 
 /**
- * The Horde_MIME_Magic:: class provides an interface to determine a MIME type
+ * The Horde_Mime_Magic:: class provides an interface to determine a MIME type
  * for various content, if it provided with different levels of information.
  *
  * Copyright 1999-2008 The Horde Project (http://www.horde.org/)
@@ -13,9 +13,9 @@ require_once 'Horde/Util.php';
  *
  * @author  Anil Madhavapeddy <anil@recoil.org>
  * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_MIME
+ * @package Horde_Mime
  */
-class Horde_MIME_Magic
+class Horde_Mime_Magic
 {
     /**
      * Returns a copy of the MIME extension map.
@@ -61,7 +61,7 @@ class Horde_MIME_Magic
      *
      * @return string  The MIME type of the file extension.
      */
-    static public function extToMIME($ext)
+    static public function extToMime($ext)
     {
         if (empty($ext)) {
            return 'application/octet-stream';
@@ -94,7 +94,7 @@ class Horde_MIME_Magic
      *
      * @return string  The MIME type of the filename.
      */
-    static public function filenameToMIME($filename, $unknown = true)
+    static public function filenameToMime($filename, $unknown = true)
     {
         $pos = strlen($filename) + 1;
         $type = '';
@@ -106,7 +106,7 @@ class Horde_MIME_Magic
                 break;
             }
         }
-        $type = self::extToMIME(substr($filename, $pos));
+        $type = self::extToMime(substr($filename, $pos));
 
         return (empty($type) || (!$unknown && (strpos($type, 'x-extension') !== false)))
             ? 'application/octet-stream'
@@ -123,7 +123,7 @@ class Horde_MIME_Magic
      *
      * @return string  The file extension of the MIME type.
      */
-    static public function MIMEToExt($type)
+    static public function mimeToExt($type)
     {
         if (empty($type)) {
             return false;

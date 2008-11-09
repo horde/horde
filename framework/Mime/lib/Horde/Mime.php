@@ -1,6 +1,6 @@
 <?php
 /**
- * The MIME:: class provides methods for dealing with various MIME (see, e.g.,
+ * The Horde_Mime:: class provides methods for dealing with various MIME (see, e.g.,
  * RFC 2045) standards.
  *
  * Copyright 1999-2008 The Horde Project (http://www.horde.org/)
@@ -10,9 +10,9 @@
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @author  Michael Slusarz <slusarz@curecanti.org>
- * @package Horde_MIME
+ * @package Horde_Mime
  */
-class Horde_MIME
+class Horde_Mime
 {
     /**
      * Determines if a string contains 8-bit (non US-ASCII) characters.
@@ -190,7 +190,7 @@ class Horde_MIME
                 return $addresses;
             }
 
-            $addresses = Horde_MIME_Address::parseAddressList($addresses, array('defserver' => $defserver, 'nestgroups' => true));
+            $addresses = Horde_Mime_Address::parseAddressList($addresses, array('defserver' => $defserver, 'nestgroups' => true));
             if (is_a($addresses, 'PEAR_Error')) {
                 return $addresses;
             }
@@ -209,9 +209,9 @@ class Horde_MIME
                     }
                     $personal = self::encode($addr['personal'], $charset);
                 }
-                $text .= Horde_MIME_Address::writeAddress($addr['mailbox'], $addr['host'], $personal) . ', ';
+                $text .= Horde_Mime_Address::writeAddress($addr['mailbox'], $addr['host'], $personal) . ', ';
             } else {
-                $text .= Horde_MIME_Address::writeGroupAddress($addr['groupname'], $addr['addresses']) . ' ';
+                $text .= Horde_Mime_Address::writeGroupAddress($addr['groupname'], $addr['addresses']) . ' ';
             }
         }
 
@@ -301,14 +301,14 @@ class Horde_MIME
     static public function decodeAddrString($string, $to_charset = null)
     {
         $addr_list = array();
-        foreach (Horde_MIME_Address::parseAddressList($string) as $ob) {
+        foreach (Horde_Mime_Address::parseAddressList($string) as $ob) {
             $ob['personal'] = isset($ob['personal'])
                 ? self::decode($ob['personal'], $to_charset)
                 : '';
             $addr_list[] = $ob;
         }
 
-        return Horde_MIME_Address::addrArray2String($addr_list);
+        return Horde_Mime_Address::addrArray2String($addr_list);
     }
 
     /**
@@ -425,9 +425,9 @@ class Horde_MIME
      *
      * @param string  A message ID string.
      */
-    static public function generateMessageID()
+    static public function generateMessageId()
     {
-        return '<' . date('YmdHis') . '.' . self::generateRandomID() . '@' . $_SERVER['SERVER_NAME'] . '>';
+        return '<' . date('YmdHis') . '.' . self::generateRandomId() . '@' . $_SERVER['SERVER_NAME'] . '>';
     }
 
     /**
@@ -436,8 +436,9 @@ class Horde_MIME
      *
      * @return string  A random string.
      */
-    static public function generateRandomID()
+    static public function generateRandomId()
     {
         return base_convert(dechex(strtr(microtime(), array('0.' => '', ' ' => ''))) . uniqid(), 16, 36);
     }
+
 }

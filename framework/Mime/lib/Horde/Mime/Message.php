@@ -1,12 +1,7 @@
 <?php
-
-require_once dirname(__FILE__) . '/Part.php';
-
 /**
- * The Horde_MIME_Message:: class provides methods for creating and
+ * The Horde_Mime_Message:: class provides methods for creating and
  * manipulating MIME email messages.
- *
- * $Horde: framework/MIME/MIME/Message.php,v 1.107 2008/10/17 05:41:59 slusarz Exp $
  *
  * Copyright 1999-2008 The Horde Project (http://www.horde.org/)
  *
@@ -15,28 +10,28 @@ require_once dirname(__FILE__) . '/Part.php';
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_MIME
+ * @package Horde_Mime
  */
-class Horde_MIME_Message extends Horde_MIME_Part
+class Horde_Mime_Message extends Horde_Mime_Part
 {
     /**
-     * Create a Horde_MIME_Message object from a Horde_MIME_Part object.
+     * Create a Horde_Mime_Message object from a Horde_Mime_Part object.
      * This function can be called statically via:
-     *    $mime_message = Horde_MIME_Message::convertMIMEPart();
+     *    $mime_message = Horde_Mime_Message::convertMimePart();
      *
      * @todo Is this needed?
      *
-     * @param Horde_MIME_Part $mime_part  The Horde_MIME_Part object.
+     * @param Horde_Mime_Part $mime_part  The Horde_Mime_Part object.
      *
-     * @return Horde_MIME_Message  The new Horde_MIME_Message object.
+     * @return Horde_Mime_Message  The new Horde_Mime_Message object.
      */
-    static public function convertMIMEPart($mime_part)
+    static public function convertMimePart($mime_part)
     {
-        if (!$mime_part->getMIMEId()) {
-            $mime_part->setMIMEId(1);
+        if (!$mime_part->getMimeId()) {
+            $mime_part->setMimeId(1);
         }
 
-        $mime_message = new Horde_MIME_Message();
+        $mime_message = new Horde_Mime_Message();
         $mime_message->addPart($mime_part);
 
         return $mime_message;
@@ -46,7 +41,7 @@ class Horde_MIME_Message extends Horde_MIME_Part
      * Sends this message.
      *
      * @param string $email                 The address list to send to.
-     * @param Horde_MIME_Headers $headers   The Horde_MIME_Headers object
+     * @param Horde_Mime_Headers $headers   The Horde_Mime_Headers object
      *                                      holding this message's headers.
      * @param string $driver                The Mail:: driver to use.
      * @param array $params                 Any parameters necessary for the
@@ -66,7 +61,7 @@ class Horde_MIME_Message extends Horde_MIME_Part
 
         /* Add MIME Headers if they don't already exist. */
         if (!$headers->getValue('MIME-Version')) {
-            $headers = $this->addMIMEHeaders($headers);
+            $headers = $this->addMimeHeaders($headers);
         }
         $headerArray = $headers->toArray($this->getCharset());
 
@@ -100,10 +95,10 @@ class Horde_MIME_Message extends Horde_MIME_Part
             $msg .= "\n";
         }
 
-        $result = $mailer->send(Horde_MIME::encodeAddress($email), $headerArray, $msg);
+        $result = $mailer->send(Horde_Mime::encodeAddress($email), $headerArray, $msg);
 
         if (is_a($result, 'PEAR_Error') && ($driver == 'sendmail')) {
-            $error = Horde_MIME_Mail::sendmailError($result->getCode());
+            $error = Horde_Mime_Mail::sendmailError($result->getCode());
             if (is_null($error)) {
                 $error = $result;
                 $userinfo = null;
@@ -128,10 +123,10 @@ class Horde_MIME_Message extends Horde_MIME_Part
     }
 
     /**
-     * Parse an array of MIME structure information into a Horde_MIME_Message
+     * Parse an array of MIME structure information into a Horde_Mime_Message
      * object.
      * This function can be called statically via:
-     *    $mime_message = Horde_MIME_Message::parseStructure();
+     *    $mime_message = Horde_Mime_Message::parseStructure();
      *
      * @param array $structure  An array of structure information in the
      *                          following format:
@@ -177,25 +172,25 @@ class Horde_MIME_Message extends Horde_MIME_Part
      * 'md5' - [OPTIONAL] (string) The part's MD5 value.
      * </pre>
      *
-     * @return object  A Horde_MIME_Message object.
+     * @return object  A Horde_Mime_Message object.
      */
     static public function parseStructure($structure)
     {
         $ob = self::_parseStructure($structure, true);
-        $ob->buildMIMEIds();
+        $ob->buildMimeIds();
         return $ob;
     }
 
     /**
      * Parse a subpart of a MIME message into a
-     * Horde_MIME_Message/Horde_MIME_Part object.
+     * Horde_Mime_Message/Horde_Mime_Part object.
      *
      * @param array $data      Structure information in the format described
      *                         in parseStructure().
      * @param boolean $rfc822  Force the part to be treated as a
      *                         message/rfc822 part.
      *
-     * @return mixed  Returns either a Horde_MIME_Message or a Horde_MIME_Part
+     * @return mixed  Returns either a Horde_Mime_Message or a Horde_Mime_Part
      *                object, depending on the part's MIME type.
      */
     static protected function _parseStructure($data, $rfc822 = false)
@@ -203,9 +198,9 @@ class Horde_MIME_Message extends Horde_MIME_Part
         $type = $data['type'] . '/' . $data['subtype'];
 
         if ($rfc822 || ($type == 'message/rfc822')) {
-            $ob = new Horde_MIME_Message();
+            $ob = new Horde_Mime_Message();
         } else {
-            $ob = new Horde_MIME_Part();
+            $ob = new Horde_Mime_Part();
         }
 
         $ob->setType($type);
@@ -228,7 +223,7 @@ class Horde_MIME_Message extends Horde_MIME_Part
         }
 
         if (isset($data['id'])) {
-            $ob->setContentID($data['id']);
+            $ob->setContentId($data['id']);
         }
 
         if (!empty($data['parameters'])) {
@@ -270,13 +265,13 @@ class Horde_MIME_Message extends Horde_MIME_Part
     }
 
     /**
-     * Attempts to build a Horde_MIME_Message object from message text.
+     * Attempts to build a Horde_Mime_Message object from message text.
      * This function can be called statically via:
-     *    $mime_message = Horde_MIME_Message::parseMessage();
+     *    $mime_message = Horde_Mime_Message::parseMessage();
      *
      * @param string $text  The text of the MIME message.
      *
-     * @return Horde_MIME_Message  A Horde_MIME_Message object, or false on
+     * @return Horde_Mime_Message  A Horde_Mime_Message object, or false on
      *                             error.
      */
     static public function parseMessage($text)
@@ -289,7 +284,7 @@ class Horde_MIME_Message extends Horde_MIME_Part
         );
 
         require_once 'Mail/mimeDecode.php';
-        $mimeDecode = new Mail_mimeDecode($text, Horde_MIME_Part::EOL);
+        $mimeDecode = new Mail_mimeDecode($text, Horde_Mime_Part::EOL);
         if (!($ob = $mimeDecode->decode($decode_args))) {
             return false;
         }
@@ -381,4 +376,5 @@ class Horde_MIME_Message extends Horde_MIME_Part
 
         return $part;
     }
+
 }

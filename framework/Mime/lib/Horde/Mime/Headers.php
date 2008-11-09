@@ -1,6 +1,6 @@
 <?php
 /**
- * The Horde_MIME_Headers:: class contains generic functions related to
+ * The Horde_Mime_Headers:: class contains generic functions related to
  * handling the headers of mail messages.
  *
  * Copyright 2002-2008 The Horde Project (http://www.horde.org/)
@@ -9,9 +9,9 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_MIME
+ * @package Horde_Mime
  */
-class Horde_MIME_Headers
+class Horde_Mime_Headers
 {
     /**
      * The internal headers array.
@@ -66,12 +66,12 @@ class Horde_MIME_Headers
             foreach (array_keys($val) as $key) {
                 if (!empty($address_keys)) {
                     if (in_array($header, $address_keys)) {
-                        $text = Horde_MIME::encodeAddress($val[$key], $charset, empty($options['defserver']) ? null : $options['defserver']);
+                        $text = Horde_Mime::encodeAddress($val[$key], $charset, empty($options['defserver']) ? null : $options['defserver']);
                                                                                                         if (is_a($text, 'PEAR_Error')) {
                             $text = $val[$key];
                         }
                     } else {
-                        $text = Horde_MIME::encode($val[$key], $options['charset']);
+                        $text = Horde_Mime::encode($val[$key], $options['charset']);
                     }
                 } else {
                     $text = $val[$key];
@@ -172,8 +172,7 @@ class Horde_MIME_Headers
      */
     public function addMessageIdHeader()
     {
-        require_once dirname(__FILE__) . '/../MIME.php';
-        $this->addHeader('Message-ID', Horde_MIME::generateMessageID());
+        $this->addHeader('Message-ID', Horde_Mime::generateMessageId());
     }
 
     /**
@@ -185,13 +184,11 @@ class Horde_MIME_Headers
      */
     public function addResentHeaders($from, $to)
     {
-        require_once dirname(__FILE__) . '/../MIME.php';
-
         /* We don't set Resent-Sender, Resent-Cc, or Resent-Bcc. */
         $this->addHeader('Resent-Date', date('r'));
         $this->addHeader('Resent-From', $from);
         $this->addHeader('Resent-To', $to);
-        $this->addHeader('Resent-Message-ID', Horde_MIME::generateMessageID());
+        $this->addHeader('Resent-Message-ID', Horde_Mime::generateMessageId());
     }
 
     /**
@@ -246,13 +243,11 @@ class Horde_MIME_Headers
         $ptr = &$this->_headers[$lcHeader];
 
         if ($decode) {
-            require_once dirname(__FILE__) . '/../MIME.php';
-
             // Fields defined in RFC 2822 that contain address information
             if (in_array($lcHeader, $this->addressFields())) {
-                $value = Horde_MIME::decodeAddrString($value);
+                $value = Horde_Mime::decodeAddrString($value);
             } else {
-                $value = Horde_MIME::decode($value);
+                $value = Horde_Mime::decode($value);
             }
         }
 
@@ -442,7 +437,7 @@ class Horde_MIME_Headers
         $val = $this->getValue($field);
         return is_null($val)
             ? array()
-            : Horde_MIME_Address::parseAddressList($val);
+            : Horde_Mime_Address::parseAddressList($val);
     }
 
     /**
@@ -506,17 +501,17 @@ class Horde_MIME_Headers
     }
 
     /**
-     * Builds a Horde_MIME_Headers object from header text.
+     * Builds a Horde_Mime_Headers object from header text.
      * This function can be called statically:
-     *   $headers = Horde_MIME_Headers::parseHeaders().
+     *   $headers = Horde_Mime_Headers::parseHeaders().
      *
      * @param string $text  A text string containing the headers.
      *
-     * @return Horde_MIME_Headers  A new Horde_MIME_Headers object.
+     * @return Horde_Mime_Headers  A new Horde_Mime_Headers object.
      */
     static public function parseHeaders($text)
     {
-        $headers = new Horde_MIME_Headers();
+        $headers = new Horde_Mime_Headers();
         $currheader = $currtext = null;
 
         foreach (explode("\n", $text) as $val) {

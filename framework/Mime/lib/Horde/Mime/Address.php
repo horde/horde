@@ -1,6 +1,6 @@
 <?php
 /**
- * The Horde_MIME_Address:: class provides methods for dealing with email
+ * The Horde_Mime_Address:: class provides methods for dealing with email
  * address standards (RFC 822/2822/5322).
  *
  * Copyright 2008 The Horde Project (http://www.horde.org/)
@@ -10,9 +10,9 @@
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_MIME
+ * @package Horde_Mime
  */
-class Horde_MIME_Address
+class Horde_Mime_Address
 {
     /**
      * Builds an RFC compliant email address.
@@ -150,7 +150,7 @@ class Horde_MIME_Address
     {
         /* If the personal name is set, decode it. */
         $ob['personal'] = isset($ob['personal'])
-            ? Horde_MIME::decode($ob['personal'])
+            ? Horde_Mime::decode($ob['personal'])
             : '';
 
         /* If both the mailbox and the host are empty, return an empty string.
@@ -256,7 +256,7 @@ class Horde_MIME_Address
 
             /* Ensure we're working with initialized values. */
             if (!empty($ob['personal'])) {
-                $ob['personal'] = stripslashes(trim(Horde_MIME::decode($ob['personal']), '"'));
+                $ob['personal'] = stripslashes(trim(Horde_Mime::decode($ob['personal']), '"'));
             }
 
             $inner = self::writeAddress($ob['mailbox'], $ob['host']);
