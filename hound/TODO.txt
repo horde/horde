@@ -12,6 +12,10 @@ http://blogs.newsgator.com/newsgator_widget_blog/2008/10/five-things-you.html
 Nice (but dojo-based) UI:
 http://ajaxian.com/archives/dojo-sensei
 
+A simpler and jQuery based UI:
+http://jx.myofiz.com/
+http://jx.myofiz.com/feedreader.html
+
 Resources:
 http://www.readwriteweb.com/archives/opera_96_launches_now_includes_magazine_style_rss.php
 http://www.readwriteweb.com/archives/will_gmail_get_google_reader-like_trends.php
