@@ -974,7 +974,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
                         break 2;
                     }
                     $structure = $this->_parseStructure($structure);
-                    $ret[$id]['structure'] = empty($c_val['parse']) ? $structure : Horde_MIME_Message::parseStructure($structure);
+                    $ret[$id]['structure'] = empty($c_val['parse']) ? $structure : Horde_Mime_Message::parseStructure($structure);
                 }
                 break;
 
@@ -1023,7 +1023,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
                         }
 
                         if (!empty($val['parse'])) {
-                            $tmp = Horde_MIME_Headers::parseHeaders($tmp);
+                            $tmp = Horde_Mime_Headers::parseHeaders($tmp);
                         }
 
                         $ret[$id][$label][$val['id']] = $tmp;

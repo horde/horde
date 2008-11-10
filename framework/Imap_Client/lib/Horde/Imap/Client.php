@@ -161,16 +161,16 @@ class Horde_Imap_Client
 
         $old_error = error_reporting(0);
         switch ($classname) {
-        case 'Horde_MIME':
-            $res = require_once 'Horde/MIME.php';
+        case 'Horde_Mime':
+            $res = require_once 'Horde/Mime.php';
             break;
 
-        case 'Horde_MIME_Headers':
-            $res = require_once 'Horde/MIME/Headers.php';
+        case 'Horde_Mime_Headers':
+            $res = require_once 'Horde/Mime/Headers.php';
             break;
 
-        case 'Horde_MIME_Message':
-            $res = require_once 'Horde/MIME/Message.php';
+        case 'Horde_Mime_Message':
+            $res = require_once 'Horde/Mime/Message.php';
             break;
 
         case 'Secret':
@@ -322,7 +322,7 @@ class Horde_Imap_Client
     static final public function getBaseSubject($str, $options = array())
     {
         // Rule 1a: MIME decode to UTF-8 (if possible).
-        $str = Horde_MIME::decode($str, 'UTF-8');
+        $str = Horde_Mime::decode($str, 'UTF-8');
 
         // Rule 1b: Remove superfluous whitespace.
         $str = preg_replace("/\s{2,}/", '', $str);

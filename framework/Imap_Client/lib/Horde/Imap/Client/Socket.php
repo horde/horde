@@ -2229,7 +2229,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 // Only care about these if doing a FETCH command.
                 $tmp['structure'] = empty($this->_temp['fetchparams']['parsestructure'])
                     ? $this->_parseBodystructure($data[++$i])
-                    : Horde_MIME_Message::parseStructure($this->_parseBodystructure($data[++$i]));
+                    : Horde_Mime_Message::parseStructure($this->_parseBodystructure($data[++$i]));
                 break;
 
             case 'ENVELOPE':
@@ -2284,7 +2284,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
                         $tmp['headers'][$this->_temp['fetchparams']['hdrfields'][$sig]] = empty($this->_temp['fetchparams']['parseheaders'])
                             ? $data[++$i]
-                            : Horde_MIME_Headers::parseHeaders($data[++$i]);
+                            : Horde_Mime_Headers::parseHeaders($data[++$i]);
                     } else {
                         // Remove trailing bracket and octet start info
                         $tag = substr($tag, 0, strrpos($tag, ']'));
@@ -2314,7 +2314,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                             }
                             $tmp[$label][$mime_id] = empty($this->_temp['fetchparams']['parseheadertext'])
                                 ? $data[++$i]
-                                : Horde_MIME_Headers::parseHeaders($data[++$i]);
+                                : Horde_Mime_Headers::parseHeaders($data[++$i]);
                         }
                     }
                 } elseif (strpos($tag, 'BINARY[') === 0) {
