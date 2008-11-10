@@ -43,7 +43,8 @@ class Horde_MIME_Viewer_plain extends Horde_MIME_Viewer_Driver
         require_once 'Horde/Text/Filter.php';
         return array(
             'data' => '<html><body><tt>' . Text_Filter::filter($text, 'text2html', array('parselevel' => TEXT_HTML_MICRO, 'charset' => $charset, 'class' => null)) . '</tt></body></html>',
-            'type' => 'text/html; charset=' . $charset;
+            'status' => array(),
+            'type' => 'text/html; charset=' . $charset
         );
     }
 
@@ -57,9 +58,14 @@ class Horde_MIME_Viewer_plain extends Horde_MIME_Viewer_Driver
         $text = String::convertCharset($this->_mimepart->getContents(), $this->_mimepart->getCharset());
 
         /* Check for 'flowed' text data. */
-        return ($this->_mimepart->getContentTypeParameter('format') == 'flowed')
+        $data = ($this->_mimepart->getContentTypeParameter('format') == 'flowed')
             ? $this->_formatFlowed($text, $this->_mimepart->getContentTypeParameter('delsp'))
             : $text;
+
+        return array(
+            'data' => $data,
+            'status' => array()
+        );
     }
 
     /**

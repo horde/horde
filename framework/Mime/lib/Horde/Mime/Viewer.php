@@ -25,7 +25,8 @@ class Horde_Mime_Viewer
     static protected $_config = array();
 
     /**
-     * The driver cache array.
+     * The driver cache array. This array is shared between all instances of
+     * Horde_MIME_Viewer.
      *
      * @var array
      */
@@ -50,6 +51,36 @@ class Horde_Mime_Viewer
         }
 
         return false;
+    }
+
+    /**
+     * Given a MIME type, this function will return an appropriate icon.
+     *
+     * @param string $mime_type  The MIME type that we need an icon for.
+     *
+     * @return string  The URL to the appropriate icon.
+     */
+    static final public function getIcon($mime_type)
+    {
+        $app = $GLOBALS['registry']->getApp();
+        $ob = self::_getIcon($mime_type, $app);
+
+        if (is_null($ob)) {
+            if ($app == 'horde') {
+                return null;
+            }
+
+            $obHorde = self::_getIcon($mime_type, 'horde');
+            return is_null($obHorde) ? null : $obHorde['url'];
+        } elseif (($ob['match'] !== 0) && ($app != 'horde')) {
+            $obHorde = self::_getIcon($mime_type, 'horde');
+            if (!is_null($ob['match']) &&
+                ($obHorde['match'] <= $ob['match'])) {
+                return $obHorde['url'];
+            }
+        }
+
+        return $ob['url'];
     }
 
     /**
@@ -188,88 +219,6 @@ class Horde_Mime_Viewer
         error_reporting($old_error);
 
         return $ret;
-    }
-
-    /**
-     * Prints out the status message for a given MIME Part.
-     *
-     * @param string $msg     The message to output.
-     * @param string $img     An image link to add to the beginning of the
-     *                        message.
-     * @param string $class   An optional style for the status box.
-     *
-     * @return string  The formatted status message string.
-     */
-    static public function formatStatusMsg($msg, $img = null, $class = null)
-    {
-        if (empty($msg)) {
-            return '';
-        }
-
-        if (!is_array($msg)) {
-            $msg = array($msg);
-        }
-
-        /* If we are viewing as an attachment, don't print HTML code. */
-        if (self::viewAsAttachment()) {
-            return implode("\n", $msg);
-        }
-
-        if (is_null($class)) {
-            $class = 'mimeStatusMessage';
-        }
-        $text = '<table class="' . $class . '">';
-
-        /* If no image, simply print out the message. */
-        if (is_null($img)) {
-            foreach ($msg as $val) {
-                $text .= '<tr><td>' . $val . '</td></tr>' . "\n";
-            }
-        } else {
-            $text .= '<tr><td class="mimeStatusIcon">' . $img . '</td><td>';
-            if (count($msg) == 1) {
-                $text .= $msg[0];
-            } else {
-                $text .= '<table>';
-                foreach ($msg as $val) {
-                    $text .= '<tr><td>' . $val . '</td></tr>' . "\n";
-                }
-                $text .= '</table>';
-            }
-            $text .= '</td></tr>' . "\n";
-        }
-
-        return $text . '</table>';
-    }
-
-    /**
-     * Given a MIME type, this function will return an appropriate icon.
-     *
-     * @param string $mime_type  The MIME type that we need an icon for.
-     *
-     * @return string  The URL to the appropriate icon.
-     */
-    static final public function getIcon($mime_type)
-    {
-        $app = $GLOBALS['registry']->getApp();
-        $ob = self::_getIcon($mime_type, $app);
-
-        if (is_null($ob)) {
-            if ($app == 'horde') {
-                return null;
-            }
-
-            $obHorde = self::_getIcon($mime_type, 'horde');
-            return is_null($obHorde) ? null : $obHorde['url'];
-        } elseif (($ob['match'] !== 0) && ($app != 'horde')) {
-            $obHorde = self::_getIcon($mime_type, 'horde');
-            if (!is_null($ob['match']) &&
-                ($obHorde['match'] <= $ob['match'])) {
-                return $obHorde['url'];
-            }
-        }
-
-        return $ob['url'];
     }
 
     /**

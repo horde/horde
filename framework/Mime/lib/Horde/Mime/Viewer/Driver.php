@@ -14,6 +14,10 @@
  */
 class Horde_MIME_Viewer_Driver
 {
+    /* 'type' constants for status info. */
+    const WARNING = 1;
+    const INFO = 2;
+
     /**
      * Viewer configuration.
      *
@@ -86,7 +90,7 @@ class Horde_MIME_Viewer_Driver
     public function render()
     {
         return (is_null($this->_mimepart) || !$this->canDisplay())
-            ? array('data' => '', 'type' => 'text/plain')
+            ? array('data' => '', 'status' => array(), 'type' => 'text/plain')
             : $this->_render();
     }
 
@@ -107,7 +111,7 @@ class Horde_MIME_Viewer_Driver
     public function renderInline()
     {
         return (is_null($this->_mimepart) || !$this->canDisplayInline())
-            ? ''
+            ? array('data' => '', 'status' => array()),
             : $this->_renderInline();
     }
 
@@ -128,7 +132,7 @@ class Horde_MIME_Viewer_Driver
     public function renderInfo()
     {
         return (is_null($this->_mimepart) || !$this->canDisplayInfo())
-            ? ''
+            ? array('data' => '', 'status' => array()),
             : $this->_renderInfo();
     }
 

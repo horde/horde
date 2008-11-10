@@ -33,7 +33,13 @@ class Horde_MIME_Viewer_html extends Horde_MIME_Viewer_Driver
      */
     public function _render()
     {
-        return array('data' => $this->_cleanHTML($this->_mimepart->getContents(), false), 'type' => $this->_mimepart->getType(true));
+        $html = $this->_cleanHTML($this->_mimepart->getContents(), false);
+
+        return array(
+            'data' => $html['data'],
+            'status' => $html['status'],
+            'type' => $this->_mimepart->getType(true)
+        );
     }
 
     /**
@@ -41,7 +47,12 @@ class Horde_MIME_Viewer_html extends Horde_MIME_Viewer_Driver
      */
     public function _renderInline()
     {
-        return String::convertCharset($this->_cleanHTML($this->_mimepart->getContents(), true), $this->_mimepart->getCharset());
+        $html = $this->_cleanHTML($this->_mimepart->getContents(), true);
+
+        return array(
+            'data' => String::convertCharset($html['data'], $this->_mimepart->getCharset()),
+            'status' => $html['status']
+        );
     }
 
     /**
@@ -54,7 +65,7 @@ class Horde_MIME_Viewer_html extends Horde_MIME_Viewer_Driver
      * @param string $data     The HTML data.
      * @param boolean $inline  Are we viewing inline?
      *
-     * @return string  The cleaned HTML data.
+     * @return array  Two elements: 'html' and 'status'.
      */
     protected function _cleanHTML($data, $inline)
     {
@@ -136,30 +147,33 @@ class Horde_MIME_Viewer_html extends Horde_MIME_Viewer_Driver
         }
 
         /* Try to derefer all external references. */
-        $data = preg_replace_callback('/href\s*=\s*(["\'])?((?(1)[^\1]*?|[^\s>]+))(?(1)\1|)/i',
-                                      array($this, '_dereferExternalReferencesCallback'),
-                                      $data);
+        $data = preg_replace_callback('/href\s*=\s*(["\'])?((?(1)[^\1]*?|[^\s>]+))(?(1)\1|)/i', array($this, '_dereferCallback'), $data);
 
-        /* Prepend phishing warning. */
+        /* Get phishing warning. */
+        $status = array();
         if ($phish_warn) {
             $phish_warning = sprintf(_("%s: This message may not be from whom it claims to be. Beware of following any links in it or of providing the sender with any personal information.") . ' ' . _("The links that caused this warning have the same background color as this message."), _("Warning"));
             if (!$inline) {
-                $phish_warning = '<span style="background-color:#ffd0af;color:black">' . String::convertCharset($phish_warning, NLS::getCharset(), $this->_mimepart->getCharset()) . '</span><br />';
+                $phish_warning = String::convertCharset($phish_warning, NLS::getCharset(), $this->_mimepart->getCharset());
             }
-            $phish_warning = $this->formatStatusMsg($phish_warning, null, 'mimeStatusWarning');
 
-            $data = (stristr($data, '<body') === false)
-                ? $phish_warning . $data
-                : preg_replace('/(.*<body.*?>)(.*)/i', '$1' . $phish_warning . '$2', $data);
+            $status[] = array(
+                'text' => $phish_warning,
+                'type' => self::WARNING
+            );
         }
 
-        return $data;
+        return array('html' => $data, 'status' => $status);
     }
 
     /**
      * TODO
+     *
+     * @param string $m  TODO
+     *
+     * @return string  TODO
      */
-    protected function _dereferExternalReferencesCallback($m)
+    protected function _dereferCallback($m)
     {
         return 'href="' . Horde::externalUrl($m[2]) . '"';
     }
