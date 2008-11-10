@@ -89,7 +89,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
       <file name="Headers.php" role="php" />
       <file name="Magic.php" role="php" />
       <file name="Mail.php" role="php" />
-      <file name="MDN.php" role="php" />
+      <file name="Mdn.php" role="php" />
       <file name="Message.php" role="php" />
       <file name="Part.php" role="php" />
       <file name="Viewer.php" role="php" />
@@ -209,7 +209,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Mime/Viewer/zip.php" as="Horde/Mime/Viewer/zip.php" />
    <install name="lib/Horde/Mime/Address.php" as="Horde/Mime/Address.php" />
    <install name="lib/Horde/Mime/Headers.php" as="Horde/Mime/Headers.php" />
-   <install name="lib/Horde/Mime/MDN.php" as="Horde/Mime/MDN.php" />
+   <install name="lib/Horde/Mime/Mdn.php" as="Horde/Mime/Mdn.php" />
    <install name="lib/Horde/Mime/Magic.php" as="Horde/Mime/Magic.php" />
    <install name="lib/Horde/Mime/Mail.php" as="Horde/Mime/Mail.php" />
    <install name="lib/Horde/Mime/Message.php" as="Horde/Mime/Message.php" />
