@@ -254,7 +254,7 @@ class IMP_Spam {
         $mime->setType('multipart/digest');
         $mime->addPart(new Horde_Mime_Part('message/rfc822', $data));
 
-        $spam_headers = new IMP_Headers();
+        $spam_headers = new Horde_Mime_Headers();
         $spam_headers->addMessageIdHeader();
         $spam_headers->addHeader('Date', date('r'));
         $spam_headers->addHeader('To', $GLOBALS['conf'][$action]['email']);

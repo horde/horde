@@ -63,9 +63,8 @@ class IMP_UI_Compose {
         require_once IMP_BASE . '/lib/MIME/Headers.php';
         $imp_imap = &IMP_IMAP::singleton();
         $imp_imap->changeMbox($contents->getMessageMailbox(), IMP_IMAP_AUTO);
-        $headers = new IMP_Headers($contents->getMessageIndex());
-        $headers->buildHeaders(false);
 
+        $headers = $contents->getHeaderOb();
         $headers->addResentHeaders($from_addr, $recip['header']['to']);
 
         $mime_message = $contents->getMIMEMessage();

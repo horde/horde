@@ -843,13 +843,14 @@ class IMP_Compose
     /**
      * Sends a message.
      *
-     * @param string $email          The e-mail list to send to.
-     * @param IMP_Headers &$headers  The IMP_Headers object holding this
-     *                               message's headers.
-     * @param mixed &$message        Either the message text (string) or a
-     *                               Horde_Mime_Message object that contains
-     *                               the text to send.
-     * @param string $charset        The charset that was used for the headers.
+     * @param string $email                 The e-mail list to send to.
+     * @param Horde_Mime_Headers &$headers  The object holding this
+     *                                      message's headers.
+     * @param mixed &$message               Either the message text (string)
+     *                                      or a Horde_Mime_Message object
+     *                                      that contains the text to send.
+     * @param string $charset               The charset that was used for the
+     *                                      headers.
      *
      * @return mixed  True on success, PEAR_Error on error.
      */
@@ -1647,7 +1648,7 @@ class IMP_Compose
     /**
      * Get "tieto" identity information.
      *
-     * @param IMP_Headers $h  The headers object for the message.
+     * @param Horde_Mime_Headers $h  The headers object for the message.
      *
      * @return mixed  See Identity_imp::getMatchingIdentity().
      */
@@ -1744,7 +1745,7 @@ class IMP_Compose
     /**
      * Determine the header information to display in the forward/reply.
      *
-     * @param IMP_Headers &$h  The IMP_Headers object for the message.
+     * @param Horde_Mime_Headers &$h  The headers object for the message.
      *
      * @return string  The header information for the original message.
      */
@@ -2098,10 +2099,10 @@ class IMP_Compose
     /**
      * Expand macros in attribution text when replying to messages.
      *
-     * @param string $line     The line of attribution text.
-     * @param string $from     The email address of the original
-     *                         sender.
-     * @param IMP_Headers &$h  The IMP_Headers object for the message.
+     * @param string $line            The line of attribution text.
+     * @param string $from            The email address of the original
+     *                                sender.
+     * @param Horde_Mime_Headers &$h  The headers object for the message.
      *
      * @return string  The attribution text.
      */
