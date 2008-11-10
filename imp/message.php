@@ -240,19 +240,32 @@ $flags = $flags_ret[$index]['flags'];
 $mime_headers = $fetch_ret[$index]['headertext'][0];
 $use_pop = ($_SESSION['imp']['protocol'] == 'pop');
 
-/* Parse MIME info and create the body of the message. */
+/* Parse the message. */
 $imp_contents = &IMP_Contents::singleton($index . IMP::IDX_SEP . $mailbox_name);
 if (is_a($imp_contents, 'PEAR_Error')) {
     _returnToMailbox(null, 'message_missing');
     require IMP_BASE . '/mailbox.php';
     exit;
 }
-$summary = $imp_contents->getSummary(array(
-    'message_token' => $message_token,
-    'show_links' => !$printer_friendly,
-    'strip' => !$readonly && $prefs->getValue('strip_attachments')
-));
-$inline_parts = $imp_contents->getInlineParts();
+
+$contents_mask = IMP_Contents::SUMMARY_RENDER |
+    IMP_Contents::SUMMARY_BYTES |
+    IMP_Contents::SUMMARY_SIZE |
+    IMP_Contents::SUMMARY_ICON;
+if ($printer_friendly) {
+    $contents_mask |= IMP_Contents::SUMMARY_DESCRIP_NOLINK;
+} else {
+    $contents_mask |= IMP_Contents::SUMMARY_DESCRIP_LINK |
+        IMP_Contents::SUMMARY_DOWNLOAD |
+        IMP_Contents::SUMMARY_DOWNLOAD_ZIP |
+        IMP_Contents::SUMMARY_IMAGE_SAVE |
+        IMP_Contents::SUMMARY_DOWNLOAD_ALL;
+    if (!$readonly && $prefs->getValue('strip_attachments')) {
+        $contents_mask |= IMP_Contents::SUMMARY_STRIP_LINK;
+    }
+}
+
+$summary = $imp_contents->getSummary($contents_mask);
 
 /* Get the title/mailbox label of the mailbox page. */
 $page_label = IMP::getLabel($imp_mbox['mailbox']);

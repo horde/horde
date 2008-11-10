@@ -13,6 +13,19 @@
  */
 class IMP_Contents
 {
+    /* Mask entries for getSummary(). */
+    const SUMMARY_RENDER = 1;
+    const SUMMARY_BYTES = 2;
+    const SUMMARY_SIZE = 4;
+    const SUMMARY_ICON = 8;
+    const SUMMARY_DESCRIP_LINK = 16;
+    const SUMMARY_DESCRIP_NOLINK = 32;
+    const SUMMARY_DOWNLOAD = 64;
+    const SUMMARY_DOWNLOAD_ZIP = 128;
+    const SUMMARY_IMAGE_SAVE = 256;
+    const SUMMARY_STRIP_LINK = 512;
+    const SUMMARY_DOWNLOAD_ALL = 1024;
+
     /**
      * The IMAP index of the message.
      *
@@ -349,10 +362,9 @@ class IMP_Contents
     /**
      * Get message summary info.
      *
-     * @param array $options  Additional options:
+     * @param integer $mask  A mask of information to return:
      * <pre>
-     * 'show_links' - (boolean)
-     * 'strip' - (boolean)
+     * IMP_Contents::SUMMARY_ICON
      * </pre>
      *
      * @return array  The following fields:
@@ -362,160 +374,165 @@ class IMP_Contents
      * 'type' - (string) The MIME type.
      * </pre>
      */
-    public function getSummary($options = array())
+    public function getSummary($mask = 0)
     {
-        $msg = array(
+        $last_id = null;
+        $info = array(
             'download_all' => array(),
-            'has_download_link' => false,
-            'has_img_save' => false,
-            'has_strip' => false,
-            'has_zip' => false,
+            'has' => array(),
+            'render' => array()
         );
-        $ret = array();
-        $slinks = !empty($options['show_links']);
+        $parts = array();
 
-        foreach ($this->_message->contentTypeMap() as $mime_id => $mime_type) {
-            if ($slinks &&
-                in_array($mime_type, array('application/octet-stream', 'application/base64'))) {
-                $mime_type = Horde_Mime_Magic::filenameToMIME($mime_part->getName());
-                $param_array['ctype'] = $mime_type;
-            } else {
-                $param_array = array();
-            }
+        // TODO: build message (any embedded message added to structure)
+        $mime_message = $this->_message;
+
+        // Cache some settings before we enter the loop.
+        $download_zip = (($mask & self::SUMMARY_DOWNLOAD_ZIP) && Util::extensionExists('zlib'));
+        if ($download_zip) {
+            $zip_img = Horde::img('compressed.png', _("Download in .zip Format"), null, $GLOBALS['registry']->getImageDir('horde') . '/mime');
+        }
+
+        if (($mask && self::SUMMARY_IMAGE_SAVE) &&
+            $GLOBALS['registry']->hasMethod('images/selectGalleries') &&
+            ($image_app = $GLOBALS['registry']->hasMethod('images/saveImage'))) {
+            $image_img = '<img src="' . $GLOBALS['registry']->get('icon', $image_app) . '" alt="' . _("Save Image in Gallery") . '" title="' . _("Save Image in Gallery") . '" />';
+        } else {
+            $image_img = null;
+        }
+
+        if ($mask && self::SUMMARY_STRIP_LINK) {
+            $message_token = IMP::getRequestToken('imp.impcontents');
+        }
+
+        foreach ($mime_message->contentTypeMap() as $mime_id => $mime_type) {
+            $parts[$mime_id] = array(
+                'bytes' => null,
+                'download' => null,
+                'download_zip' => null,
+                'id' => $mime_id,
+                'img_save' => null,
+                'render_info' => false,
+                'render_inline' => false,
+                'size' => null,
+                'strip' => null
+            );
+            $part = &$parts[$mime_id];
 
             $mime_part = $this->getMIMEPart($mime_id, array('nocontents' => true, 'nodecode' => true));
 
-            $bytes = $mime_part->getBytes();
-            $icon = Horde::img(Horde_Mime_Viewer::getIcon($mime_type), '', array('title' => $mime_type));
+            /* If this is an attachment that has no specific MIME type info,
+             * see if we can guess a rendering type. */
+            $param_array = array();
+            if (in_array($mime_type, array('application/octet-stream', 'application/base64'))) {
+                $mime_type = Horde_Mime_Magic::filenameToMIME($mime_part->getName());
+                $param_array['ctype'] = $mime_type;
+            }
+            $part['type'] = $mime_type;
 
+            /* Determine if part can be viewed inline or has viewable info. */
+            if (($mask & self::SUMMARY_RENDER) &&
+                (is_null($last_id) ||
+                 (($last_id !== 0) &&
+                  (strpos($mime_id, $last_id) !== 0)))) {
+                $last_id = null;
+                $viewer = Horde_Mime_Viewer::factory($mime_type);
+
+                if ($viewer->canDisplayInline() &&
+                    ($mime_part->getDisposition() == 'inline')) {
+                    $part['render_inline'] = true;
+                    $info['render'][$mime_id] = 'inline';
+                    $last_id = $mime_id;
+                } elseif (is_null($last_id) && $viewer->canDisplayInfo()) {
+                    // TODO - Need way to show info while allowing display of
+                    // subparts.
+                    $part['render_info'] = true;
+                    $info['render'][$mime_id] = 'info';
+                    $last_id = $mime_id;
+                }
+            }
+
+            /* Get bytes/size information. */
+            if (($mask & self::SUMMARY_BYTES) ||
+                $download_zip ||
+                ($mask & self::SUMMARY_SIZE)) {
+                $part['bytes'] = $mime_part->getBytes();
+
+                if ($part['bytes'] &&
+                    ($mime_part->getCurrentEncoding() == 'base64')) {
+                    /* From RFC 2045 [6.8]: "...the encoded data are
+                     * consistently only about 33 percent larger than the
+                     * unencoded data." Thus, adding 33% to the byte size is
+                     * a good estimate for our purposes. */
+                    $size = number_format(max((($part['bytes'] * 0.75) / 1024), 1));
+                } else {
+                    $size = $mime_part->getSize(true);
+                }
+                $part['size'] = ($size > 1024)
+                    ? sprintf(_("%s MB"), number_format(max(($size / 1024), 1)))
+                    : sprintf(_("%s KB"), $size);
+            }
+
+            /* Get part's icon. */
+            $part['icon'] = ($mask & self::SUMMARY_ICON) ? Horde::img(Horde_Mime_Viewer::getIcon($mime_type), '', array('title' => $mime_type)) : null;
+
+            /* Get part's description. */
             $description = $mime_part->getDescription(true);
             if (empty($description)) {
                 $description = _("unnamed");
             }
 
-            if ($slinks) {
-                $descrip = $this->linkViewJS($mime_part, 'view_attach', htmlspecialchars($description), array('jstext' => sprintf(_("View %s [%s]"), $description, $mime_type), 'params' => $param_array));
-            } else {
-                $descrip = htmlspecialchars($description);
+            if ($mask & self::SUMMARY_DESCRIP_LINK) {
+                $part['description'] = $this->linkViewJS($mime_part, 'view_attach', htmlspecialchars($description), array('jstext' => sprintf(_("View %s [%s]"), $description, $mime_type), 'params' => $param_array));
+            } elseif ($mask & self::SUMMARY_DESCRIP_NOLINK) {
+                $part['description'] = htmlspecialchars($description);
             }
-
-            if (!empty($bytes) &&
-                ($mime_part->getCurrentEncoding() == 'base64')) {
-                /* From RFC 2045 [6.8]: "...the encoded data are consistently
-                 * only about 33 percent larger than the unencoded data." */
-                $size = number_format(max((($bytes * 0.75) / 1024), 1));
-            } else {
-                $size = $mime_part->getSize(true);
-            }
-            $size = ($size > 1024)
-                ? sprintf(_("%s MB"), number_format(max(($size / 1024), 1)))
-                : sprintf(_("%s KB"), $size);
 
             /* Download column. */
-            if ($slinks && $bytes) {
-                $download_link = $this->linkView($mime_part, 'download_attach', '', array('class' => 'download', 'dload' => true, 'jstext' => sprintf(_("Download %s"), $description)));
-                $msg['has_download_link'] = true;
-            } else {
-                $download_link = null;
+            if (($mask & self::SUMMARY_DOWNLOAD) &&
+                (is_null($part['bytes']) || $part['bytes'])) {
+                $part['download'] = $this->linkView($mime_part, 'download_attach', '', array('class' => 'download', 'dload' => true, 'jstext' => sprintf(_("Download %s"), $description)));
+                $info['has']['download'] = true;
             }
 
             /* Display the compressed download link only if size is greater
              * than 200 KB. */
-            if ($slinks &&
-                ($mime_part->getBytes() > 204800) &&
-                Util::extensionExists('zlib') &&
+            if ($download_zip &&
+                ($part['bytes'] > 204800) &&
                 !in_array($mime_type, array('application/zip', 'application/x-zip-compressed'))) {
-                $zip = $this->linkView($mime_part, 'download_attach', Horde::img('compressed.png', _("Download in .zip Format"), null, $GLOBALS['registry']->getImageDir('horde') . '/mime'), array('dload' => true, 'jstext' => sprintf(_("Download %s in .zip Format"), $mime_part->getDescription(true)), 'params' => array('zip' => 1)));
-                $msg['has_zip'] = true;
-            } else {
-                $zip = null;
+                $part['download_zip'] = $this->linkView($mime_part, 'download_attach', $zip_img, array('dload' => true, 'jstext' => sprintf(_("Download %s in .zip Format"), $mime_part->getDescription(true)), 'params' => array('zip' => 1)));
+                $info['has']['download_zip'] = true;
             }
 
             /* Display the image save link if the required registry calls are
              * present. */
-            if ($slinks &&
-                ($mime_part->getPrimaryType() == 'image') &&
-                $GLOBALS['registry']->hasMethod('images/selectGalleries') &&
-                ($image_app = $GLOBALS['registry']->hasMethod('images/saveImage'))) {
-                if (!$msg['has_img_save']) {
+            if (!is_null($image_img) &&
+                ($mime_part->getPrimaryType() == 'image')) {
+                if (empty($info['has']['img_save'])) {
                     Horde::addScriptFile('prototype.js', 'horde', true);
                     Horde::addScriptFile('popup.js', 'imp', true);
-                    $msg['has_img_save'] = true;
+                    $info['has']['img_save'] = true;
                 }
-                $img_save = Horde::link('#', _("Save Image in Gallery"), null, null, IMP::popupIMPString('saveimage.php', array('index' => ($this->_index . IMP::IDX_SEP . $this->_mailbox), 'id' => $mime_id), 450, 200) . "return false;") . '<img src="' . $GLOBALS['registry']->get('icon', $image_app) . '" alt="' . _("Save Image in Gallery") . '" title="' . _("Save Image in Gallery") . '" /></a>';
-            } else {
-                $img_save = null;
+                $part['img_save'] = Horde::link('#', _("Save Image in Gallery"), null, null, IMP::popupIMPString('saveimage.php', array('index' => ($this->_index . IMP::IDX_SEP . $this->_mailbox), 'id' => $mime_id), 450, 200) . "return false;") . $image_img . '</a>';
             }
 
             /* Strip the Attachment? */
-            if ($slinks && !empty($options['strip'])) {
-                // TODO: No stripping of RFC822 part.
+            if ($mask && self::SUMMARY_STRIP_LINK) {
+                // TODO: No stripping of RFC 822 parts.
                 $url = Util::removeParameter(Horde::selfUrl(true), array('actionID', 'imapid', 'index'));
-                $url = Util::addParameter($url, array('actionID' => 'strip_attachment', 'imapid' => $mime_id, 'index' => $this->_index, 'message_token' => $options['message_token']));
-                $strip = Horde::link($url, _("Strip Attachment"), null, null, "return window.confirm('" . addslashes(_("Are you sure you wish to PERMANENTLY delete this attachment?")) . "');") . Horde::img('delete.png', _("Strip Attachment"), null, $GLOBALS['registry']->getImageDir('horde')) . '</a>';
-                $msg['has_strip'] = true;
-            } else {
-                $strip = null;
+                $url = Util::addParameter($url, array('actionID' => 'strip_attachment', 'imapid' => $mime_id, 'index' => $this->_index, 'message_token' => $message_token));
+                $part['strip'] = Horde::link($url, _("Strip Attachment"), null, null, "return window.confirm('" . addslashes(_("Are you sure you wish to PERMANENTLY delete this attachment?")) . "');") . Horde::img('delete.png', _("Strip Attachment"), null, $GLOBALS['registry']->getImageDir('horde')) . '</a>';
+                $info['has']['strip'] = true;
             }
 
-            if ($download = $this->isDownloadable($mime_part)) {
-                $msg['download_all'][] = $mime_id;
-            }
-
-            $ret[$mime_id] = array(
-                'description' => $descrip,
-                'download' => $download,
-                'download_link' => $download_link,
-                'icon' => $icon,
-                'id' => $mime_id,
-                'img_save' => $img_save,
-                'size' => $size,
-                'strip' => $strip,
-                'type' => $mime_type,
-                'zip' => $zip
-            );
-        }
-
-        return array('message' => $msg, 'parts' => $ret);
-    }
-
-    /**
-     * Get the viewable inline parts.
-     *
-     * @return array  TODO
-     */
-    public function getInlineParts()
-    {
-        $ret = array();
-        $last_id = null;
-
-        foreach ($this->_message->contentTypeMap() as $mime_id => $mime_type) {
-            if (!is_null($last_id) &&
-                (($last_id === 0) ||
-                 (strpos($mime_id, $last_id) === 0))) {
-                continue;
-            }
-
-            $last_id = null;
-            $viewer = Horde_Mime_Viewer::factory($mime_type);
-
-            if ($viewer->canDisplayInline()) {
-                $mime_part = $this->getMIMEPart($mime_id, array('nocontents' => true, 'nodecode' => true));
-                if ($mime_part->getDisposition() == 'inline') {
-                    $res = $this->renderMIMEPart($mime_id, array('format' => 'inline'));
-                    $ret[$mime_id] = $res['data'];
-                    $last_id = $mime_id;
+            if ($mask && self::SUMMARY_DOWNLOAD_ALL) {
+                if ($download = $this->isDownloadable($mime_part)) {
+                    $info['download_all'][] = $mime_id;
                 }
             }
-
-            if (is_null($last_id) && $viewer->canDisplayInfo()) {
-                $res = $this->renderMIMEPart($mime_id, array('format' => 'info'));
-                $ret[$mime_id] = $res['data'];
-                $last_id = $mime_id;
-            }
         }
 
-        return $ret;
+        return array('info' => $info, 'parts' => $parts);
     }
 
     /**
