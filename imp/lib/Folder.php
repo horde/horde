@@ -5,7 +5,7 @@
  *
  * @todo Don't use notification.
  *
- * $Horde: imp/lib/Folder.php,v 1.226 2008/10/13 20:51:51 slusarz Exp $
+ * $Horde: imp/lib/Folder.php,v 1.227 2008/11/09 07:38:45 slusarz Exp $
  *
  * Copyright 2000-2008 The Horde Project (http://www.horde.org/)
  *

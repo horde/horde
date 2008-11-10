@@ -469,10 +469,10 @@ class IMP_Message
         }
         foreach ($partids as $partid) {
             $oldPart = $message->getPart($partid);
-            if (!is_a($oldPart, 'Horde_MIME_Part')) {
+            if (!is_a($oldPart, 'Horde_Mime_Part')) {
                 continue;
             }
-            $newPart = new Horde_MIME_Part('text/plain');
+            $newPart = new Horde_Mime_Part('text/plain');
 
             /* We need to make sure all text is in the correct charset. */
             $newPart->setCharset(NLS::getCharset());

@@ -1,6 +1,6 @@
 <?php
 /**
- * The IMP_Horde_MIME_Viewer_appledouble class handles multipart/appledouble
+ * The IMP_Horde_Mime_Viewer_appledouble class handles multipart/appledouble
  * messages conforming to RFC 1740.
  *
  * $Horde: imp/lib/MIME/Viewer/appledouble.php,v 1.27 2008/10/06 21:19:49 slusarz Exp $
@@ -11,9 +11,9 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_MIME
+ * @package Horde_Mime
  */
-class IMP_Horde_MIME_Viewer_appledouble extends Horde_MIME_Viewer_Driver
+class IMP_Horde_Mime_Viewer_appledouble extends Horde_Mime_Viewer_Driver
 {
     /**
      * Force viewing of a part inline, regardless of the Content-Disposition
@@ -54,7 +54,7 @@ class IMP_Horde_MIME_Viewer_appledouble extends Horde_MIME_Viewer_Driver
         /* Display the content of the file. */
         $part = $contents->getDecodedMIMEPart($this->mime_part->getRelativeMIMEId(2));
         if ($part) {
-            $mime_message = Horde_MIME_Message::convertMIMEPart($part);
+            $mime_message = Horde_Mime_Message::convertMIMEPart($part);
             $mc = new IMP_Contents($mime_message, array('download' => 'download_attach', 'view' => 'view_attach'), array(&$contents));
             $mc->buildMessage();
             $text .= '<table cellspacing="0">' . $mc->getMessage(true) . '</table>';

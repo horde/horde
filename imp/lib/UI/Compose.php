@@ -169,7 +169,7 @@ class IMP_UI_Compose {
             // convert to RFC-compliant ',' delimiter for processing.
             require_once 'Horde/String.php';
             $clean_to = '';
-            foreach (Horde_MIME_Address::explode($to, ',;') as $val) {
+            foreach (Horde_Mime_Address::explode($to, ',;') as $val) {
                 $val = trim($val);
                 $clean_to .= $val . (($val[String::length($val) - 1] == ';') ? ' ' : ', ');
             }

@@ -414,7 +414,7 @@ require IMP_TEMPLATES . '/common-header.inc';
 /* Determine if we need to show the Reply to All link. */
 $addresses = array_keys($user_identity->getAllFromAddresses(true));
 $show_reply_all = true;
-if (!Horde_MIME_Address::addrArray2String(array_merge($envelope['to'], $envelope['cc']), $addresses)) {
+if (!Horde_Mime_Address::addrArray2String(array_merge($envelope['to'], $envelope['cc']), $addresses)) {
     $show_reply_all = false;
 }
 

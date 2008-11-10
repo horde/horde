@@ -3,7 +3,7 @@
 require_once IMP_BASE . '/lib/Crypt/SMIME.php';
 
 /**
- * The IMP_Horde_MIME_Viewer_pkcs7 class allows viewing/decrypting of S/MIME
+ * The IMP_Horde_Mime_Viewer_pkcs7 class allows viewing/decrypting of S/MIME
  * messages.
  * This class implements parts of RFC 2630, RFC 2632, and RFC 2633.
  *
@@ -25,9 +25,9 @@ require_once IMP_BASE . '/lib/Crypt/SMIME.php';
  *
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
  * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_MIME_Viewer
+ * @package Horde_Mime_Viewer
  */
-class IMP_Horde_MIME_Viewer_pkcs7 extends Horde_MIME_Viewer_Driver
+class IMP_Horde_Mime_Viewer_pkcs7 extends Horde_Mime_Viewer_Driver
 {
     /**
      * IMP_SMIME object.
@@ -68,7 +68,7 @@ class IMP_Horde_MIME_Viewer_pkcs7 extends Horde_MIME_Viewer_Driver
      * Some mailers set S/MIME messages to always be attachments.  However,
      * most of the time S/MIME is used to secure the contents of the message,
      * so displaying as an attachment makes no sense.  Therefore, force
-     * viewing inline (or at least let Horde_MIME_Viewer/IMP_Contents make the
+     * viewing inline (or at least let Horde_Mime_Viewer/IMP_Contents make the
      * determination on whether the data can be viewed inline or not).
      *
      * @var boolean
@@ -187,7 +187,7 @@ class IMP_Horde_MIME_Viewer_pkcs7 extends Horde_MIME_Viewer_Driver
             /* Data that is signed appears in the first MIME subpart. */
             $signed_part = $mime->getPart($mime->getRelativeMIMEId(1));
             $signed_data = rtrim($signed_part->getCanonicalContents(), "\r");
-            $mime_message = Horde_MIME_Message::parseMessage($signed_data);
+            $mime_message = Horde_Mime_Message::parseMessage($signed_data);
 
             /* The S/MIME signature appears in the second MIME subpart. */
             $subpart = $mime->getPart($mime->getRelativeMIMEId(2));
@@ -221,7 +221,7 @@ class IMP_Horde_MIME_Viewer_pkcs7 extends Horde_MIME_Viewer_Driver
                     $this->_status[] = $msg_data->getMessage();
                     $mime_message = $mime;
                 } else {
-                    $mime_message = Horde_MIME_Message::parseMessage($msg_data);
+                    $mime_message = Horde_Mime_Message::parseMessage($msg_data);
                 }
             }
 
@@ -319,7 +319,7 @@ class IMP_Horde_MIME_Viewer_pkcs7 extends Horde_MIME_Viewer_Driver
         }
 
         /* We need to check if this is a signed/encrypted message. */
-        $mime_message = Horde_MIME_Message::parseMessage($decrypted_data);
+        $mime_message = Horde_Mime_Message::parseMessage($decrypted_data);
         if ($mime_message) {
             /* Check for signed and encoded data. */
             if (in_array($mime_message->getType(), array('multipart/signed', 'application/pkcs7-mime', 'application/x-pkcs7-mime'))) {

@@ -1,6 +1,6 @@
 <?php
 /**
- * The IMP_Horde_MIME_Viewer_enriched class renders out plain text from
+ * The IMP_Horde_Mime_Viewer_enriched class renders out plain text from
  * enriched content tags, ala RFC 1896
  *
  * $Horde: imp/lib/MIME/Viewer/enriched.php,v 1.42 2008/01/02 11:12:45 jan Exp $
@@ -11,9 +11,9 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author  Eric Rostetter <eric.rostetter@physics.utexas.edu>
- * @package Horde_MIME
+ * @package Horde_Mime
  */
-class IMP_Horde_MIME_Viewer_enriched extends Horde_MIME_Viewer_enriched
+class IMP_Horde_Mime_Viewer_enriched extends Horde_Mime_Viewer_enriched
 {
     /**
      * Render out the currently set contents.

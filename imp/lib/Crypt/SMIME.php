@@ -153,7 +153,7 @@ class IMP_SMIME extends Horde_Crypt_smime {
     function _encryptParameters($address)
     {
         /* We can only encrypt if we are sending to a single person. */
-        $addrOb = Horde_MIME_Address::bareAddress($address, $_SESSION['imp']['maildomain'], true);
+        $addrOb = Horde_Mime_Address::bareAddress($address, $_SESSION['imp']['maildomain'], true);
         $key_addr = array_pop($addrOb);
 
         $public_key = $this->getPublicKey($key_addr);

@@ -30,9 +30,9 @@ class IMP_Contents
     protected $_mailbox = null;
 
     /**
-     * The Horde_MIME_Message object for the message.
+     * The Horde_Mime_Message object for the message.
      *
-     * @var Horde_MIME_Message
+     * @var Horde_Mime_Message
      */
     protected $_message;
 
@@ -47,7 +47,7 @@ class IMP_Contents
      *   $imp_contents = &IMP_Contents::singleton($in);
      *
      * @param mixed $in  Either an index string (see IMP_Contents::singleton()
-     *                   for the format) or a Horde_MIME_Message object.
+     *                   for the format) or a Horde_Mime_Message object.
      *
      * @return IMP_Contents  The IMP_Contents object or null.
      */
@@ -55,7 +55,7 @@ class IMP_Contents
     {
         static $instance = array();
 
-        if (is_a($in, 'Horde_MIME_Message')) {
+        if (is_a($in, 'Horde_Mime_Message')) {
             $sig = md5(serialize($in));
         } else {
             $sig = $in;
@@ -72,16 +72,16 @@ class IMP_Contents
      * Constructor.
      *
      * @param mixed $in  Either an index string (see IMP_Contents::singleton()
-     *                   for the format) or a Horde_MIME_Message object.
+     *                   for the format) or a Horde_Mime_Message object.
      */
     function __construct($in)
     {
-        if (is_a($in, 'Horde_MIME_Message')) {
+        if (is_a($in, 'Horde_Mime_Message')) {
             $this->_message = $in;
         } else {
             list($this->_index, $this->_mailbox) = explode(IMP::IDX_SEP, $in);
 
-            /* Get the Horde_MIME_Message object for the given index. */
+            /* Get the Horde_Mime_Message object for the given index. */
             try {
                 $ret = $GLOBALS['imp_imap']->ob->fetch($this->_mailbox, array(
                     Horde_Imap_Client::FETCH_STRUCTURE => array('parse' => true)
@@ -189,7 +189,7 @@ class IMP_Contents
     /**
      * Returns the header object.
      *
-     * @return Horde_MIME_Headers  The Horde_MIME_Headers object.
+     * @return Horde_Mime_Headers  The Horde_Mime_Headers object.
      */
     public function getHeaderOb()
     {
@@ -204,14 +204,14 @@ class IMP_Contents
             return $res[$this->_index]['headertext'][0];
         } catch (Horde_Imap_Client_Exception $e) {
             $GLOBALS['imp_imap']->logException($e);
-            return new Horde_MIME_Headers();
+            return new Horde_Mime_Headers();
         }
     }
 
     /**
-     * Returns the Horde_MIME_Message object.
+     * Returns the Horde_Mime_Message object.
      *
-     * @return Horde_MIME_Message  A Horde_MIME_Message object.
+     * @return Horde_Mime_Message  A Horde_Mime_Message object.
      */
     public function getMIMEMessage()
     {
@@ -230,7 +230,7 @@ class IMP_Contents
      *            DEFAULT: TODO
      * </pre>
      *
-     * @return Horde_MIME_Part  The raw MIME part asked for (reference).
+     * @return Horde_Mime_Part  The raw MIME part asked for (reference).
      */
     public function &getMIMEPart($id, $options = array())
     {
@@ -243,7 +243,7 @@ class IMP_Contents
                 $contents = $this->getBodyPart($id);
                 if (($part->getPrimaryType() == 'text') &&
                     (String::upper($part->getCharset()) == 'US-ASCII') &&
-                    Horde_MIME::is8bit($contents)) {
+                    Horde_Mime::is8bit($contents)) {
                     $contents = String::convertCharset($contents, 'US-ASCII');
                 }
                 $part->setContents($contents);
@@ -267,7 +267,7 @@ class IMP_Contents
     public function renderMIMEPart($mime_id, $options = array())
     {
         $mime_part = $this->getMIMEPart($mime_id);
-        $viewer = Horde_MIME_Viewer::factory(empty($options['type']) ? $mime_part->getType() : $options['type']);
+        $viewer = Horde_Mime_Viewer::factory(empty($options['type']) ? $mime_part->getType() : $options['type']);
         $viewer->setMIMEPart($mime_part);
         $viewer->setParams(array('contents' => &$this));
 
@@ -379,7 +379,7 @@ class IMP_Contents
         foreach ($this->_message->contentTypeMap() as $mime_id => $mime_type) {
             if ($slinks &&
                 in_array($mime_type, array('application/octet-stream', 'application/base64'))) {
-                $mime_type = Horde_MIME_Magic::filenameToMIME($mime_part->getName());
+                $mime_type = Horde_Mime_Magic::filenameToMIME($mime_part->getName());
                 $param_array['ctype'] = $mime_type;
             } else {
                 $param_array = array();
@@ -388,7 +388,7 @@ class IMP_Contents
             $mime_part = $this->getMIMEPart($mime_id, array('nocontents' => true, 'nodecode' => true));
 
             $bytes = $mime_part->getBytes();
-            $icon = Horde::img(Horde_MIME_Viewer::getIcon($mime_type), '', array('title' => $mime_type));
+            $icon = Horde::img(Horde_Mime_Viewer::getIcon($mime_type), '', array('title' => $mime_type));
 
             $description = $mime_part->getDescription(true);
             if (empty($description)) {
@@ -499,7 +499,7 @@ class IMP_Contents
             }
 
             $last_id = null;
-            $viewer = Horde_MIME_Viewer::factory($mime_type);
+            $viewer = Horde_Mime_Viewer::factory($mime_type);
 
             if ($viewer->canDisplayInline()) {
                 $mime_part = $this->getMIMEPart($mime_id, array('nocontents' => true, 'nodecode' => true));
@@ -523,7 +523,7 @@ class IMP_Contents
     /**
      * Return the URL to the view.php page.
      *
-     * @param Horde_MIME_Part $mime_part  The MIME part to view.
+     * @param Horde_Mime_Part $mime_part  The MIME part to view.
      * @param integer $actionID           The actionID to perform.
      * @param array $options              Additional options:
      * <pre>
@@ -555,7 +555,7 @@ class IMP_Contents
     /**
      * Generate a link to the view.php page.
      *
-     * @param Horde_MIME_Part $mime_part  The MIME part to view.
+     * @param Horde_Mime_Part $mime_part  The MIME part to view.
      * @param integer $actionID           The actionID value.
      * @param string $text                The ESCAPED (!) link text.
      * @param array $options              Additional parameters:
@@ -583,7 +583,7 @@ class IMP_Contents
     /**
      * Generate a javascript link to the view.php page.
      *
-     * @param Horde_MIME_Part $mime_part  The MIME part to view.
+     * @param Horde_Mime_Part $mime_part  The MIME part to view.
      * @param string $actionID            The actionID to perform.
      * @param string $text                The ESCAPED (!) link text.
      * @param array $options              Additional options:
@@ -619,7 +619,7 @@ class IMP_Contents
     /**
      * Determines if a MIME part is downloadable.
      *
-     * @param Horde_MIME_Part $mime_part  The MIME part object.
+     * @param Horde_Mime_Part $mime_part  The MIME part object.
      *
      * @return boolean  True if downloadable.
      */

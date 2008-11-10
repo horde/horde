@@ -1,6 +1,6 @@
 <?php
 /**
- * This script displays a rendered Horde_MIME_Part object.
+ * This script displays a rendered Horde_Mime_Part object.
  * The following are potential URL parameters that we should honor:
  *   'actionID' -- The action ID to perform
  *     -> 'compose_attach_preview'
@@ -11,7 +11,7 @@
  *     -> 'view_attach'
  *     -> 'view_source'
  *   'ctype'    -- The content-type to use instead of the content-type
- *                 found in the original Horde_MIME_Part object.
+ *                 found in the original Horde_Mime_Part object.
  *   'download_ids' -- For 'download_all', the list of IDs to download.
  *   'id'       -- The MIME part to display.
  *   'index     -- The index of the message.
@@ -52,7 +52,7 @@ $ctype = Util::getFormData('ctype');
 
 /* 'compose_attach_preview' doesn't use IMP_Contents since there is no
  * IMAP message data - rather, we must use the IMP_Compose object to
- * get the necessary Horde_MIME_Part. */
+ * get the necessary Horde_Mime_Part. */
 if ($actionID == 'compose_attach_preview') {
     /* Initialize the IMP_Compose:: object. */
     $imp_compose = &IMP_Compose::singleton(Util::getFormData('messageCache'));
@@ -153,7 +153,7 @@ case 'save_message':
         $name = 'saved_message';
     }
 
-    if (!($from = Horde_MIME_Address::bareAddress($mime_headers->getValue('from')))) {
+    if (!($from = Horde_Mime_Address::bareAddress($mime_headers->getValue('from')))) {
         $from = '<>';
     }
 

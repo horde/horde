@@ -3,7 +3,7 @@
  * The IMP_Compose:: class contains functions related to generating
  * outgoing mail messages.
  *
- * $Horde: imp/lib/Compose.php,v 1.401 2008/11/05 22:09:49 slusarz Exp $
+ * $Horde: imp/lib/Compose.php,v 1.402 2008/11/09 07:38:45 slusarz Exp $
  *
  * Copyright 2002-2008 The Horde Project (http://www.horde.org/)
  *
@@ -164,7 +164,7 @@ class IMP_Compose
      *
      * @param array $header    List of message headers.
      * @param mixed $message   Either the message text (string) or a
-     *                         Horde_MIME_Message object that contains the
+     *                         Horde_Mime_Message object that contains the
      *                         text to send.
      * @param string $charset  The charset that was used for the headers.
      * @param boolean $html    Whether this is an HTML message.
@@ -191,7 +191,7 @@ class IMP_Compose
      *
      * @param array $headers    List of message headers.
      * @param mixed $message    Either the message text (string) or a
-     *                          Horde_MIME_Message object that contains the
+     *                          Horde_Mime_Message object that contains the
      *                          text to send.
      * @param string $charset   The charset that was used for the headers.
      * @param boolean $html     Whether this is an HTML message.
@@ -202,7 +202,7 @@ class IMP_Compose
     protected function _saveDraftMsg($headers, $message, $charset, $html,
                                      $session)
     {
-        $mime = new Horde_MIME_Message();
+        $mime = new Horde_Mime_Message();
 
         /* Set up the base message now. */
         $body = $this->getMessageBody($message, $charset, $html, false, !$session);
@@ -214,17 +214,17 @@ class IMP_Compose
         $body = $mime->toString();
 
         /* Initalize a header object for the draft. */
-        $draft_headers = new Horde_MIME_Headers();
+        $draft_headers = new Horde_Mime_Headers();
 
         $draft_headers->addHeader('Date', date('r'));
         if (!empty($headers['from'])) {
-            $draft_headers->addHeader('From', Horde_MIME::encode($headers['from'], $charset));
+            $draft_headers->addHeader('From', Horde_Mime::encode($headers['from'], $charset));
         }
         foreach (array('to' => 'To', 'cc' => 'Cc', 'bcc' => 'Bcc') as $k => $v) {
             if (!empty($headers[$k])) {
                 $addr = $headers[$k];
                 if ($session) {
-                    $addr = Horde_MIME::encodeAddress($this->formatAddr($addr), $charset, $_SESSION['imp']['maildomain']);
+                    $addr = Horde_Mime::encodeAddress($this->formatAddr($addr), $charset, $_SESSION['imp']['maildomain']);
                     if (is_a($addr, 'PEAR_Error')) {
                         return PEAR::raiseError(sprintf(_("Saving the draft failed. The %s header contains an invalid e-mail address: %s."), $k, $addr->getMessage()));
                     }
@@ -234,7 +234,7 @@ class IMP_Compose
         }
 
         if (!empty($headers['subject'])) {
-            $draft_headers->addHeader('Subject', Horde_MIME::encode($headers['subject'], $charset));
+            $draft_headers->addHeader('Subject', Horde_Mime::encode($headers['subject'], $charset));
         }
 
         if (isset($mime)) {
@@ -271,7 +271,7 @@ class IMP_Compose
         }
 
         /* Get the message ID. */
-        $headers = Horde_MIME_Headers::parseHeaders($data);
+        $headers = Horde_Mime_Headers::parseHeaders($data);
 
         /* Add the message to the mailbox. */
         try {
@@ -381,9 +381,9 @@ class IMP_Compose
         }
 
         $header = array(
-            'to' => Horde_MIME_Address::addrArray2String($imp_headers->getOb('to')),
-            'cc' => Horde_MIME_Address::addrArray2String($imp_headers->getOb('cc')),
-            'bcc' => Horde_MIME_Address::addrArray2String($imp_headers->getOb('bcc')),
+            'to' => Horde_Mime_Address::addrArray2String($imp_headers->getOb('to')),
+            'cc' => Horde_Mime_Address::addrArray2String($imp_headers->getOb('cc')),
+            'bcc' => Horde_Mime_Address::addrArray2String($imp_headers->getOb('bcc')),
             'subject' => $imp_headers->getValue('subject')
         );
 
@@ -404,7 +404,7 @@ class IMP_Compose
      *                           sent out.
      * @param boolean $noattach  Don't add attachment information.
      *
-     * @return Horde_MIME_Part  The body as a MIME object, or PEAR_Error on
+     * @return Horde_Mime_Part  The body as a MIME object, or PEAR_Error on
      *                          error.
      */
     public function getMessageBody($message, $charset, $html,
@@ -446,7 +446,7 @@ class IMP_Compose
         }
 
         /* Set up the body part now. */
-        $textBody = new Horde_MIME_Part('text/plain');
+        $textBody = new Horde_Mime_Part('text/plain');
         $textBody->setContents($textBody->replaceEOL($message));
         $textBody->setCharset($charset);
         if ($trailer !== null) {
@@ -456,7 +456,7 @@ class IMP_Compose
         /* Determine whether or not to send a multipart/alternative
          * message with an HTML part. */
         if ($html) {
-            $htmlBody = new Horde_MIME_Part('text/html', $message_html, null, 'inline');
+            $htmlBody = new Horde_Mime_Part('text/html', $message_html, null, 'inline');
             if ($trailer !== null) {
                 $htmlBody->appendContents($this->text2html($trailer));
             }
@@ -467,7 +467,7 @@ class IMP_Compose
                 $htmlBody->setContents(String::convertCharset(tidy_get_output($tidy), 'UTF-8', $charset));
             }
 
-            $basepart = new Horde_MIME_Part('multipart/alternative');
+            $basepart = new Horde_Mime_Part('multipart/alternative');
             $textBody->setDescription(String::convertCharset(_("Plaintext Version of Message"), NLS::getCharset(), $charset));
             $basepart->addPart($textBody);
             $htmlBody->setCharset($charset);
@@ -510,7 +510,7 @@ class IMP_Compose
                 }
 
                 if ($this->_pgpAttachPubkey || $this->_attachVCard) {
-                    $new_body = new Horde_MIME_Part('multipart/mixed');
+                    $new_body = new Horde_Mime_Part('multipart/mixed');
                     $new_body->addPart($body);
                     $new_body->addPart($imp_pgp->publicKeyMIMEPart());
                     if ($this->_pgpAttachPubkey) {
@@ -522,7 +522,7 @@ class IMP_Compose
                     $body = $new_body;
                 }
             } else {
-                $body = new Horde_MIME_Part('multipart/mixed');
+                $body = new Horde_Mime_Part('multipart/mixed');
                 $body->addPart($basepart);
                 foreach ($this->getAttachments() as $part) {
                     /* Store the data inside the current part. */
@@ -540,7 +540,7 @@ class IMP_Compose
                 }
             }
         } elseif ($this->_pgpAttachPubkey || $this->_attachVCard) {
-            $body = new Horde_MIME_Part('multipart/mixed');
+            $body = new Horde_Mime_Part('multipart/mixed');
             $body->addPart($basepart);
             if ($this->_pgpAttachPubkey) {
                 $body->addPart($imp_pgp->publicKeyMIMEPart());
@@ -649,7 +649,7 @@ class IMP_Compose
         }
 
         /* Initalize a header object for the outgoing message. */
-        $msg_headers = new Horde_MIME_Headers();
+        $msg_headers = new Horde_Mime_Headers();
         if (empty($opts['useragent'])) {
             require_once IMP_BASE . '/lib/version.php';
             $msg_headers->setUserAgent('Internet Messaging Program (IMP) ' . IMP_VERSION);
@@ -695,7 +695,7 @@ class IMP_Compose
         /* Add Return Receipt Headers. */
         if (!empty($opts['readreceipt']) &&
             $conf['compose']['allow_receipts']) {
-            $mdn = new Horde_MIME_MDN();
+            $mdn = new Horde_Mime_MDN();
             $mdn->addMDNRequestHeaders($msg_headers, $barefrom);
         }
 
@@ -798,7 +798,7 @@ class IMP_Compose
                     $i++;
                     $oldPart = $mime_message->getPart($i);
                     if ($oldPart !== false) {
-                        $replace_part = new Horde_MIME_Part('text/plain');
+                        $replace_part = new Horde_Mime_Part('text/plain');
                         $replace_part->setCharset($charset);
                         $replace_part->setContents('[' . _("Attachment stripped: Original attachment type") . ': "' . $oldPart->getType() . '", ' . _("name") . ': "' . $oldPart->getName(true, true) . '"]', '8bit');
                         $mime_message->alterPart($i, $replace_part);
@@ -847,7 +847,7 @@ class IMP_Compose
      * @param IMP_Headers &$headers  The IMP_Headers object holding this
      *                               message's headers.
      * @param mixed &$message        Either the message text (string) or a
-     *                               Horde_MIME_Message object that contains
+     *                               Horde_Mime_Message object that contains
      *                               the text to send.
      * @param string $charset        The charset that was used for the headers.
      *
@@ -858,13 +858,13 @@ class IMP_Compose
         global $conf;
 
         /* Properly encode the addresses we're sending to. */
-        $email = Horde_MIME::encodeAddress($email, null, $_SESSION['imp']['maildomain']);
+        $email = Horde_Mime::encodeAddress($email, null, $_SESSION['imp']['maildomain']);
         if (is_a($email, 'PEAR_Error')) {
             return $email;
         }
 
         /* Validate the recipient addresses. */
-        $result = Horde_MIME_Address::parseAddressList($email, array('defserver' => $_SESSION['imp']['maildomain'], 'validate' => true));
+        $result = Horde_Mime_Address::parseAddressList($email, array('defserver' => $_SESSION['imp']['maildomain'], 'validate' => true));
         if (empty($result)) {
             return $result;
         }
@@ -896,10 +896,10 @@ class IMP_Compose
         /* Add the site headers. */
         $this->addSiteHeaders($headers);
 
-        /* If $message is a string, we need to get a Horde_MIME_Message object
+        /* If $message is a string, we need to get a Horde_Mime_Message object
          * to encode the headers. */
         if (is_string($message)) {
-            $mime_message = Horde_MIME_Message::parseMessage($message);
+            $mime_message = Horde_Mime_Message::parseMessage($message);
         }
 
         /* We don't actually want to alter the contents of the $conf['mailer']
@@ -931,7 +931,7 @@ class IMP_Compose
      * Adds any site-specific headers defined in config/header.php to the
      * header object.
      *
-     * @param Horde_MIME_Headers $headers  The Horde_MIME_Headers object.
+     * @param Horde_Mime_Headers $headers  The Horde_Mime_Headers object.
      */
     public function addSiteHeaders(&$headers)
     {
@@ -969,9 +969,9 @@ class IMP_Compose
             return;
         }
 
-        $r_array = Horde_MIME::encodeAddress($recipients, null, $_SESSION['imp']['maildomain']);
+        $r_array = Horde_Mime::encodeAddress($recipients, null, $_SESSION['imp']['maildomain']);
         if (!is_a($r_array, 'PEAR_Error')) {
-            $r_array = Horde_MIME_Address::parseAddressList($r_array, array('validate' => true));
+            $r_array = Horde_Mime_Address::parseAddressList($r_array, array('validate' => true));
         }
         if (empty($r_array)) {
             $notification->push(_("Could not save recipients."));
@@ -1005,7 +1005,7 @@ class IMP_Compose
             if (empty($name)) {
                 $name = $recipient->mailbox;
             }
-            $name = Horde_MIME::decode($name);
+            $name = Horde_Mime::decode($name);
 
             $result = $registry->call('contacts/import', array(array('name' => $name, 'email' => $recipient->mailbox . '@' . $recipient->host),
                                                                'array', $abook));
@@ -1046,7 +1046,7 @@ class IMP_Compose
                 continue;
             }
 
-            $arr = array_filter(array_map('trim', Horde_MIME_Address::explode($hdr[$key], ',;')));
+            $arr = array_filter(array_map('trim', Horde_Mime_Address::explode($hdr[$key], ',;')));
             $tmp = array();
 
             foreach ($arr as $email) {
@@ -1054,7 +1054,7 @@ class IMP_Compose
                     continue;
                 }
 
-                $obs = Horde_MIME_Address::parseAddressList($email);
+                $obs = Horde_Mime_Address::parseAddressList($email);
                 if (empty($obs)) {
                     return PEAR::raiseError(sprintf(_("Invalid e-mail address: %s."), $email));
                 }
@@ -1063,7 +1063,7 @@ class IMP_Compose
                     if (isset($ob['groupname'])) {
                         $group_addresses = array();
                         foreach ($ob['addresses'] as $ad) {
-                            if (Horde_MIME::is8bit($ad['mailbox'])) {
+                            if (Horde_Mime::is8bit($ad['mailbox'])) {
                                 return PEAR::raiseError(sprintf(_("Invalid character in e-mail address: %s."), $email));
                             }
 
@@ -1078,19 +1078,19 @@ class IMP_Compose
                                 return PEAR::raiseError(_("Invalid hostname."));
                             } elseif (Util::extensionExists('idn')) {
                                 $host = idn_to_ascii(String::convertCharset($host, NLS::getCharset(), 'UTF-8'));
-                            } elseif (Horde_MIME::is8bit($ad['mailbox'])) {
+                            } elseif (Horde_Mime::is8bit($ad['mailbox'])) {
                                 return PEAR::raiseError(sprintf(_("Invalid character in e-mail address: %s."), $email));
                             }
 
-                            $group_addresses[] = Horde_MIME_Address::writeAddress($ad['mailbox'], $host, isset($ad['personal']) ? $ad['personal'] : '');
+                            $group_addresses[] = Horde_Mime_Address::writeAddress($ad['mailbox'], $host, isset($ad['personal']) ? $ad['personal'] : '');
                         }
 
                         // Add individual addresses to the recipient list.
                         $addrlist = array_merge($addrlist, $group_addresses);
 
-                        $tmp[] = Horde_MIME_Address::writeGroupAddress($ob['groupname'], $group_addresses) . ' ';
+                        $tmp[] = Horde_Mime_Address::writeGroupAddress($ob['groupname'], $group_addresses) . ' ';
                     } else {
-                        if (Horde_MIME::is8bit($ob['mailbox'])) {
+                        if (Horde_Mime::is8bit($ob['mailbox'])) {
                             return PEAR::raiseError(sprintf(_("Invalid character in e-mail address: %s."), $email));
                         }
 
@@ -1105,11 +1105,11 @@ class IMP_Compose
                             return PEAR::raiseError(_("Invalid hostname."));
                         } elseif (Util::extensionExists('idn')) {
                             $host = idn_to_ascii(String::convertCharset($host, NLS::getCharset(), 'UTF-8'));
-                        } elseif (Horde_MIME::is8bit($ob['mailbox'])) {
+                        } elseif (Horde_Mime::is8bit($ob['mailbox'])) {
                             return PEAR::raiseError(sprintf(_("Invalid character in e-mail address: %s."), $email));
                         }
 
-                        $addrlist[] = Horde_MIME::writeAddress($ob['mailbox'], $host, isset($ob['personal']) ? $ob['personal'] : '');
+                        $addrlist[] = Horde_Mime::writeAddress($ob['mailbox'], $host, isset($ob['personal']) ? $ob['personal'] : '');
                         $tmp[] = end($addrlist) . ', ';
                     }
                 }
@@ -1145,7 +1145,7 @@ class IMP_Compose
     }
 
     /**
-     * Create the base Horde_MIME_Message for sending.
+     * Create the base Horde_Mime_Message for sending.
      *
      * @param array $to         The recipient list.
      * @param string $body      Message body.
@@ -1158,7 +1158,7 @@ class IMP_Compose
      */
     protected function _createMimeMessage($to, $body, $encrypt, $from = null)
     {
-        $mime_message = new Horde_MIME_Message();
+        $mime_message = new Horde_Mime_Message();
 
         $usePGP = ($GLOBALS['prefs']->getValue('use_pgp') &&
                    !empty($GLOBALS['conf']['utils']['gnupg']));
@@ -1252,7 +1252,7 @@ class IMP_Compose
             }
         }
 
-        /* Add data to Horde_MIME_Message object. */
+        /* Add data to Horde_Mime_Message object. */
         $body->setMIMEId(0);
         $mime_message->addPart($body);
 
@@ -1438,8 +1438,8 @@ class IMP_Compose
 
         if ($actionID == 'reply' || $actionID == '*') {
             ($header['to'] = $to) ||
-            ($header['to'] = Horde_MIME_Address::addrArray2String($h->getOb('reply-to'))) ||
-            ($header['to'] = Horde_MIME_Address::addrArray2String($h->getOb('from')));
+            ($header['to'] = Horde_Mime_Address::addrArray2String($h->getOb('reply-to'))) ||
+            ($header['to'] = Horde_Mime_Address::addrArray2String($h->getOb('from')));
             if ($actionID == '*') {
                 $all_headers['reply'] = $header;
             }
@@ -1455,25 +1455,25 @@ class IMP_Compose
             $to_arr = $h->getOb('reply-to');
             $reply = '';
             if (!empty($to_arr)) {
-                $reply = Horde_MIME_Address::addrArray2String($to_arr);
+                $reply = Horde_Mime_Address::addrArray2String($to_arr);
             } elseif (!empty($from_arr)) {
-                $reply = Horde_MIME_Address::addrArray2String($from_arr);
+                $reply = Horde_Mime_Address::addrArray2String($from_arr);
             }
-            $header['to'] = Horde_MIME_Address::addrArray2String(array_merge($to_arr, $from_arr));
-            $me[] = Horde_MIME_Address::bareAddress($header['to'], $_SESSION['imp']['maildomain']);
+            $header['to'] = Horde_Mime_Address::addrArray2String(array_merge($to_arr, $from_arr));
+            $me[] = Horde_Mime_Address::bareAddress($header['to'], $_SESSION['imp']['maildomain']);
 
             /* Build the Cc: header. */
             $cc_arr = $h->getOb('to');
             if (!empty($cc_arr) &&
-                ($reply != Horde_MIME_Address::addrArray2String($cc_arr))) {
+                ($reply != Horde_Mime_Address::addrArray2String($cc_arr))) {
                 $cc_arr = array_merge($cc_arr, $h->getOb('cc'));
             } else {
                 $cc_arr = $h->getOb('cc');
             }
-            $header['cc'] = Horde_MIME_Address::addrArray2String($cc_arr, $me);
+            $header['cc'] = Horde_Mime_Address::addrArray2String($cc_arr, $me);
 
             /* Build the Bcc: header. */
-            $header['bcc'] = Horde_MIME_Address::addrArray2String($h->getOb('bcc') + $identity->getBccAddresses(), $me);
+            $header['bcc'] = Horde_Mime_Address::addrArray2String($h->getOb('bcc') + $identity->getBccAddresses(), $me);
             if ($actionID == '*') {
                 $all_headers['reply_all'] = $header;
             }
@@ -1491,7 +1491,7 @@ class IMP_Compose
             $header = $all_headers;
         }
 
-        $from = Horde_MIME_Address::addrArray2String($h->getOb('from'));
+        $from = Horde_Mime_Address::addrArray2String($h->getOb('from'));
         if (empty($from)) {
             $from = '&lt;&gt;';
         }
@@ -1679,7 +1679,7 @@ class IMP_Compose
         foreach ($msgList as $folder => $indicesList) {
             foreach ($indicesList as $val) {
                 ++$attached;
-                $part = new Horde_MIME_Part('message/rfc822');
+                $part = new Horde_Mime_Part('message/rfc822');
                 $contents = &IMP_Contents::singleton($val . IMP::IDX_SEP . $folder);
                 $digest_headers = $contents->getHeaderOb();
                 if (!($name = $digest_headers->getValue('subject'))) {
@@ -1712,7 +1712,7 @@ class IMP_Compose
      * to or forwarding) the given MIME message and the user's default
      * settings.
      *
-     * @param Horde_MIME_Message $mime_message  A MIME message object.
+     * @param Horde_Mime_Message $mime_message  A MIME message object.
      *
      * @return string  The charset to use.
      */
@@ -1755,19 +1755,19 @@ class IMP_Compose
         if (($date_ob = $h->getValue('date'))) {
             $text .= _("    Date: ") . $date_ob . "\n";
         }
-        if (($from_ob = Horde_MIME_Address::addrArray2String($h->getOb('from')))) {
+        if (($from_ob = Horde_Mime_Address::addrArray2String($h->getOb('from')))) {
             $text .= _("    From: ") . $from_ob . "\n";
         }
-        if (($rep_ob = Horde_MIME_Address::addrArray2String($h->getOb('reply-to')))) {
+        if (($rep_ob = Horde_Mime_Address::addrArray2String($h->getOb('reply-to')))) {
             $text .= _("Reply-To: ") . $rep_ob . "\n";
         }
         if (($sub_ob = $h->getValue('subject'))) {
             $text .= _(" Subject: ") . $sub_ob . "\n";
         }
-        if (($to_ob = Horde_MIME_Address::addrArray2String($h->getOb('to')))) {
+        if (($to_ob = Horde_Mime_Address::addrArray2String($h->getOb('to')))) {
             $text .= _("      To: ") . $to_ob . "\n";
         }
-        if (($cc_ob = Horde_MIME_Address::addrArray2String($h->getOb('cc')))) {
+        if (($cc_ob = Horde_Mime_Address::addrArray2String($h->getOb('cc')))) {
             $text .= _("      Cc: ") . $cc_ob . "\n";
         }
 
@@ -1775,9 +1775,9 @@ class IMP_Compose
     }
 
     /**
-     * Adds an attachment to a Horde_MIME_Part from an uploaded file.
+     * Adds an attachment to a Horde_Mime_Part from an uploaded file.
      * The actual attachment data is stored in a separate file - the
-     * Horde_MIME_Part information entries 'temp_filename' and 'temp_filetype'
+     * Horde_Mime_Part information entries 'temp_filename' and 'temp_filetype'
      * are set with this information.
      *
      * @param string $name         The input field name from the form.
@@ -1804,9 +1804,9 @@ class IMP_Compose
             return PEAR::raiseError(sprintf(_("Attached file \"%s\" exceeds the attachment size limits. File NOT attached."), $filename), 'horde.error');
         }
 
-        /* Store the data in a Horde_MIME_Part. Some browsers do not send the
+        /* Store the data in a Horde_Mime_Part. Some browsers do not send the
          * MIME type so try an educated guess. */
-        $part = new Horde_MIME_Part();
+        $part = new Horde_Mime_Part();
         if (!empty($_FILES[$name]['type']) &&
             ($_FILES[$name]['type'] != 'application/octet-stream')) {
             $type = $_FILES[$name]['type'];
@@ -1816,8 +1816,8 @@ class IMP_Compose
              * do it in this order here because, most likely, if a browser
              * can't identify the type of a file, it is because the file
              * extension isn't available and/or recognized. */
-            if (!($type = Horde_MIME_Magic::analyzeFile($tempfile, !empty($conf['mime']['magic_db']) ? $conf['mime']['magic_db'] : null))) {
-                $type = Horde_MIME_Magic::filenameToMIME($filename, false);
+            if (!($type = Horde_Mime_Magic::analyzeFile($tempfile, !empty($conf['mime']['magic_db']) ? $conf['mime']['magic_db'] : null))) {
+                $type = Horde_Mime_Magic::filenameToMIME($filename, false);
             }
         }
         $part->setType($type);
@@ -1847,9 +1847,9 @@ class IMP_Compose
     }
 
     /**
-     * Adds an attachment to a Horde_MIME_Part from data existing in the part.
+     * Adds an attachment to a Horde_Mime_Part from data existing in the part.
      *
-     * @param Horde_MIME_Part &$part  The object that contains the attachment
+     * @param Horde_Mime_Part &$part  The object that contains the attachment
      *                                data.
      *
      * @return PEAR_Error  Returns a PEAR_Error object on error.
@@ -1867,10 +1867,10 @@ class IMP_Compose
         /* Try to determine the MIME type from 1) the extension and
          * then 2) analysis of the file (if available). */
         if ($type == 'application/octet-stream') {
-            $type = Horde_MIME_Magic::filenameToMIME($part->getName(true), false);
+            $type = Horde_Mime_Magic::filenameToMIME($part->getName(true), false);
         }
 
-        /* Extract the data from the currently existing Horde_MIME_Part and
+        /* Extract the data from the currently existing Horde_Mime_Part and
            then delete it. If this is an unknown MIME part, we must save to a
            temporary file to run the file analysis on it. */
         if (!$vfs) {
@@ -1883,13 +1883,13 @@ class IMP_Compose
             }
 
             if (($type == 'application/octet-stream') &&
-                ($analyzetype = Horde_MIME_Magic::analyzeFile($attachment, !empty($conf['mime']['magic_db']) ? $conf['mime']['magic_db'] : null))) {
+                ($analyzetype = Horde_Mime_Magic::analyzeFile($attachment, !empty($conf['mime']['magic_db']) ? $conf['mime']['magic_db'] : null))) {
                 $type = $analyzetype;
             }
         } else {
             $vfs_data = $part->getContents();
             if (($type == 'application/octet-stream') &&
-                ($analyzetype = Horde_MIME_Magic::analyzeData($vfs_data, !empty($conf['mime']['magic_db']) ? $conf['mime']['magic_db'] : null))) {
+                ($analyzetype = Horde_Mime_Magic::analyzeData($vfs_data, !empty($conf['mime']['magic_db']) ? $conf['mime']['magic_db'] : null))) {
                 $type = $analyzetype;
             }
         }
@@ -1918,7 +1918,7 @@ class IMP_Compose
     /**
      * Stores the attachment data in its correct location.
      *
-     * @param Horde_MIME_Part &$part   The Horde_MIME_Part of the attachment.
+     * @param Horde_Mime_Part &$part   The Horde_Mime_Part of the attachment.
      * @param string $data       Either the filename of the attachment or, if
      *                           $vfs_file is false, the attachment data.
      * @param boolean $vfs_file  If using VFS, is $data a filename?
@@ -1976,7 +1976,7 @@ class IMP_Compose
 
         foreach ($number as $val) {
             $part = &$this->_cache[$val];
-            if (!is_a($part, 'Horde_MIME_Part')) {
+            if (!is_a($part, 'Horde_Mime_Part')) {
                 continue;
             }
             $filename = $part->getInformation('temp_filename');
@@ -2063,7 +2063,7 @@ class IMP_Compose
      *
      * @param integer $id  The ID of the part to rebuild.
      *
-     * @return Horde_MIME_Part  The Horde_MIME_Part with its contents.
+     * @return Horde_Mime_Part  The Horde_Mime_Part with its contents.
      */
     public function buildAttachment($id)
     {
@@ -2076,7 +2076,7 @@ class IMP_Compose
      * Takes the temporary data for a single part and puts it into the
      * contents of that part.
      *
-     * @param Horde_MIME_Part &$part  The part to rebuild data into.
+     * @param Horde_Mime_Part &$part  The part to rebuild data into.
      */
     protected function _buildPartData(&$part)
     {
@@ -2113,7 +2113,7 @@ class IMP_Compose
         /* First we'll get a comma seperated list of email addresses
            and a comma seperated list of personal names out of $from
            (there just might be more than one of each). */
-        $addr_list = Horde_MIME_Address::parseAddressList($from);
+        $addr_list = Horde_Mime_Address::parseAddressList($from);
         if (empty($addr_list)) {
             $addr_list = array();
         }
@@ -2273,13 +2273,13 @@ class IMP_Compose
     }
 
     /**
-     * Convert a text/html Horde_MIME_Part message with embedded image links
+     * Convert a text/html Horde_Mime_Part message with embedded image links
      * to a multipart/related MIME_Part with the image data embedded in the
      * part.
      *
-     * @param Horde_MIME_Part $mime_part  The text/html object.
+     * @param Horde_Mime_Part $mime_part  The text/html object.
      *
-     * @return Horde_MIME_Part  The modified Horde_MIME_Part.
+     * @return Horde_Mime_Part  The modified Horde_Mime_Part.
      */
     public function convertToMultipartRelated($mime_part)
     {
@@ -2297,13 +2297,13 @@ class IMP_Compose
         }
 
         /* Scan for 'img' tags - specifically the 'src' parameter. If
-         * none, return the original Horde_MIME_Part. */
+         * none, return the original Horde_Mime_Part. */
         if (!preg_match_all('/<img[^>]+src\s*\=\s*([^\s]+)\s+/iU', $mime_part->getContents(), $results)) {
             return $mime_part;
         }
 
         /* Go through list of results, download the image, and create
-         * Horde_MIME_Part objects with the data. */
+         * Horde_Mime_Part objects with the data. */
         $img_data = array();
         $img_parts = array();
         $img_request_options = array('timeout' => 5);
@@ -2322,16 +2322,16 @@ class IMP_Compose
             if ($request->getResponseCode() == '200') {
                 /* We need to determine the image type.  Try getting
                  * that information from the returned HTTP
-                 * content-type header.  TODO: Use Horde_MIME_Magic if this
+                 * content-type header.  TODO: Use Horde_Mime_Magic if this
                  * fails (?) */
-                $part = new Horde_MIME_Part($request->getResponseHeader('content-type'), $request->getResponseBody(), null, 'attachment', '8bit');
+                $part = new Horde_Mime_Part($request->getResponseHeader('content-type'), $request->getResponseBody(), null, 'attachment', '8bit');
                 $img_data[$url] = '"cid:' . $part->setContentID() . '"';
                 $img_parts[] = $part;
             }
         }
 
         /* If we could not successfully download any data, return the
-         * original Horde_MIME_Part now. */
+         * original Horde_Mime_Part now. */
         if (empty($img_data)) {
             return $mime_part;
         }
@@ -2342,7 +2342,7 @@ class IMP_Compose
         $mime_part->setContents($text);
 
         /* Create new multipart/related part. */
-        $related = new Horde_MIME_Part('multipart/related');
+        $related = new Horde_Mime_Part('multipart/related');
 
         /* Get the CID for the 'root' part. Although by default the
          * first part is the root part (RFC 2387 [3.2]), we may as
@@ -2363,15 +2363,15 @@ class IMP_Compose
     /**
      * Remove all attachments from an email message and replace with
      * urls to downloadable links. Should properly save all
-     * attachments to a new folder and remove the Horde_MIME_Parts for the
+     * attachments to a new folder and remove the Horde_Mime_Parts for the
      * attachments.
      *
      * @param string $baseurl             The base URL for creating the links.
-     * @param Horde_MIME_Part $base_part  The body of the message.
+     * @param Horde_Mime_Part $base_part  The body of the message.
      * @param string $auth                The authorized user who owns the
      *                                    attachments.
      *
-     * @return Horde_MIME_Part  Modified part with links to attachments.
+     * @return Horde_Mime_Part  Modified part with links to attachments.
      *                          Returns PEAR_Error on error.
      */
     public function linkAttachments($baseurl, $base_part, $auth)
@@ -2418,9 +2418,9 @@ class IMP_Compose
         $this->deleteAllAttachments();
 
         if ($base_part->getPrimaryType() == 'multipart') {
-            $mixed_part = new Horde_MIME_Part('multipart/mixed');
+            $mixed_part = new Horde_Mime_Part('multipart/mixed');
             $mixed_part->addPart($base_part);
-            $link_part = new Horde_MIME_Part('text/plain', $trailer, $base_part->getCharset(), 'inline', $base_part->getCurrentEncoding());
+            $link_part = new Horde_Mime_Part('text/plain', $trailer, $base_part->getCharset(), 'inline', $base_part->getCurrentEncoding());
             $link_part->setDescription(_("Attachment Information"));
             $mixed_part->addPart($link_part);
             return $mixed_part;
@@ -2504,7 +2504,7 @@ class IMP_Compose
         if (is_a($vcard, 'PEAR_Error')) {
             $this->_attachVCard = $vcard;
         } else {
-            $part = new Horde_MIME_Part('text/x-vcard', $vcard, NLS::getCharset());
+            $part = new Horde_Mime_Part('text/x-vcard', $vcard, NLS::getCharset());
             $part->setName((strlen($name) ? $name : 'vcard') . '.vcf');
             $this->_attachVCard = $part;
         }
@@ -2595,7 +2595,7 @@ class IMP_Compose
      *
      * @param string $body                The body text.
      * @param IMP_Contents $imp_contents  An IMP_Contents object.
-     * @param Horde_MIME_Message $mime_message  A Horde_MIME_Message object.
+     * @param Horde_Mime_Message $mime_message  A Horde_Mime_Message object.
      *
      * @return string  The body text.
      */
@@ -2733,7 +2733,7 @@ class IMP_Compose
             return '';
         }
 
-        return IMP_Compose::getAddressList(reset(array_filter(array_map('trim', Horde_MIME_Address::explode($addrString, ',;')))));
+        return IMP_Compose::getAddressList(reset(array_filter(array_map('trim', Horde_Mime_Address::explode($addrString, ',;')))));
     }
 
     /**
@@ -2765,11 +2765,11 @@ class IMP_Compose
         foreach (reset($res) as $val) {
             if (!empty($val['email'])) {
                 if (strpos($val['email'], ',') !== false) {
-                    $search[] = Horde_MIME_Address::encode($val['name'], 'personal') . ': ' . $val['email'] . ';';
+                    $search[] = Horde_Mime_Address::encode($val['name'], 'personal') . ': ' . $val['email'] . ';';
                 } else {
                     $mbox_host = explode('@', $val['email']);
                     if (isset($mbox_host[1])) {
-                        $search[] = Horde_MIME_Address::writeAddress($mbox_host[0], $mbox_host[1], $val['name']);
+                        $search[] = Horde_Mime_Address::writeAddress($mbox_host[0], $mbox_host[1], $val['name']);
                     }
                 }
             }

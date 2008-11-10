@@ -261,7 +261,7 @@ class IMP_PGP extends Horde_Crypt_pgp {
      *
      * @param string $text  See Horde_Crypt_pgp::parsePGPData()
      *
-     * @return array  Returns an array of Horde_MIME_Part objects.
+     * @return array  Returns an array of Horde_Mime_Part objects.
      *                If there was no PGP data, returns false.
      */
     function &parseMessage($text)
@@ -278,7 +278,7 @@ class IMP_PGP extends Horde_Crypt_pgp {
         reset($result);
         do {
             $block = current($result);
-            $temp_part = new Horde_MIME_Part();
+            $temp_part = new Horde_Mime_Part();
             $temp_part->setContents(implode("\n", $block['data']));
 
             /* Since private keys should NEVER be sent across email (in fact,
@@ -311,7 +311,7 @@ class IMP_PGP extends Horde_Crypt_pgp {
     /**
      * Renders a text message with PGP components.
      *
-     * @param Horde_MIME_Part &$part    The part containing the data to
+     * @param Horde_Mime_Part &$part    The part containing the data to
      *                                  render.
      * @param IMP_Contents &$contents  The IMP_Contents:: module to use to
      *                                  output the text.
@@ -330,7 +330,7 @@ class IMP_PGP extends Horde_Crypt_pgp {
         $base_ob = &$contents->getBaseObjectPtr();
         $addr = $base_ob->getFromAddress();
 
-        $message = new Horde_MIME_Message();
+        $message = new Horde_Mime_Message();
         foreach ($parts as $val) {
             $message->addPart($val);
         }
@@ -346,7 +346,7 @@ class IMP_PGP extends Horde_Crypt_pgp {
                 continue;
             }
             $v = &$mc->getMIMEViewer($val);
-            if (!is_a($v, 'IMP_Horde_MIME_Viewer_pgp')) {
+            if (!is_a($v, 'IMP_Horde_Mime_Viewer_pgp')) {
                 $text .= $mc->formatStatusMsg(_("The message below has not been digitally signed or encrypted with PGP."), Horde::img('alerts/warning.png', _("Warning"), '', $GLOBALS['registry']->getImageDir('horde')));
             }
             $text .= $mc->renderMIMEPart($val);
@@ -356,9 +356,9 @@ class IMP_PGP extends Horde_Crypt_pgp {
     }
 
     /**
-     * Returns the signed data only for a plaintext signed Horde_MIME_Part.
+     * Returns the signed data only for a plaintext signed Horde_Mime_Part.
      *
-     * @param Horde_MIME_Part $mime_part  The object with a plaintext PGP
+     * @param Horde_Mime_Part $mime_part  The object with a plaintext PGP
      *                                    signed message in the contents.
      *
      * @return string  The contents of the signed message.
@@ -603,7 +603,7 @@ class IMP_PGP extends Horde_Crypt_pgp {
     /**
      * Generates the javascript code for saving public keys.
      *
-     * @param Horde_MIME_Part &$mime_part  The part containing the public key.
+     * @param Horde_Mime_Part &$mime_part  The part containing the public key.
      * @param string $cache                The part identifier.
      *
      * @return string  The URL for saving public keys.
@@ -681,7 +681,7 @@ class IMP_PGP extends Horde_Crypt_pgp {
         $addr_list = array();
 
         foreach ($addresses as $val) {
-            $addrOb = Horde_MIME_Address::bareAddress($val, $_SESSION['imp']['maildomain'], true);
+            $addrOb = Horde_Mime_Address::bareAddress($val, $_SESSION['imp']['maildomain'], true);
             $key_addr = array_pop($addrOb);
 
             /* Get the public key for the address. */
@@ -696,11 +696,11 @@ class IMP_PGP extends Horde_Crypt_pgp {
     }
 
     /**
-     * Sign a Horde_MIME_Part using PGP using IMP default parameters.
+     * Sign a Horde_Mime_Part using PGP using IMP default parameters.
      *
-     * @param Horde_MIME_Part $mime_part  The object to sign.
+     * @param Horde_Mime_Part $mime_part  The object to sign.
      *
-     * @return Horde_MIME_Part  See Horde_Crypt_pgp::signMIMEPart(). Returns
+     * @return Horde_Mime_Part  See Horde_Crypt_pgp::signMIMEPart(). Returns
      *                          PEAR_Error object on error.
      */
     function IMPsignMIMEPart($mime_part)
@@ -709,14 +709,14 @@ class IMP_PGP extends Horde_Crypt_pgp {
     }
 
     /**
-     * Encrypt a Horde_MIME_Part using PGP using IMP default parameters.
+     * Encrypt a Horde_Mime_Part using PGP using IMP default parameters.
      *
-     * @param Horde_MIME_Part $mime_part  The object to encrypt.
+     * @param Horde_Mime_Part $mime_part  The object to encrypt.
      * @param array $addresses      The e-mail address of the keys to use for
      *                              encryption.
      * @param boolean $symmetric    Whether to encrypt symmetrically.
      *
-     * @return Horde_MIME_Part  See Horde_Crypt_pgp::encryptMIMEPart(). Returns
+     * @return Horde_Mime_Part  See Horde_Crypt_pgp::encryptMIMEPart(). Returns
      *                    PEAR_Error object on error.
      */
     function IMPencryptMIMEPart($mime_part, $addresses, $symmetric = false)
@@ -729,14 +729,14 @@ class IMP_PGP extends Horde_Crypt_pgp {
     }
 
     /**
-     * Sign and Encrypt a Horde_MIME_Part using PGP using IMP default parameters.
+     * Sign and Encrypt a Horde_Mime_Part using PGP using IMP default parameters.
      *
-     * @param Horde_MIME_Part $mime_part  The object to sign and encrypt.
+     * @param Horde_Mime_Part $mime_part  The object to sign and encrypt.
      * @param array $addresses      The e-mail address of the keys to use for
      *                              encryption.
      * @param boolean $symmetric    Whether to encrypt symmetrically.
      *
-     * @return Horde_MIME_Part  See Horde_Crypt_pgp::signAndencryptMIMEPart().
+     * @return Horde_Mime_Part  See Horde_Crypt_pgp::signAndencryptMIMEPart().
      *                    Returns PEAR_Error object on error.
      */
     function IMPsignAndEncryptMIMEPart($mime_part, $addresses,
@@ -750,10 +750,10 @@ class IMP_PGP extends Horde_Crypt_pgp {
     }
 
     /**
-     * Generate a Horde_MIME_Part object, in accordance with RFC 2015/3156, that
+     * Generate a Horde_Mime_Part object, in accordance with RFC 2015/3156, that
      * contains the user's public key.
      *
-     * @return Horde_MIME_Part  See Horde_Crypt_pgp::publicKeyMIMEPart().
+     * @return Horde_Mime_Part  See Horde_Crypt_pgp::publicKeyMIMEPart().
      */
     function publicKeyMIMEPart()
     {

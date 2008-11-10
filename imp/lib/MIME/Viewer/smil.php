@@ -1,6 +1,6 @@
 <?php
 /**
- * The IMP_Horde_MIME_Viewer_smil renders SMIL documents to very basic HTML.
+ * The IMP_Horde_Mime_Viewer_smil renders SMIL documents to very basic HTML.
  *
  * $Horde: imp/lib/MIME/Viewer/smil.php,v 1.5 2008/01/02 11:12:45 jan Exp $
  *
@@ -11,9 +11,9 @@
  *
  * @author  Jan Schneider <jan@horde.org>
  * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_MIME
+ * @package Horde_Mime
  */
-class IMP_Horde_MIME_Viewer_smil extends Horde_MIME_Viewer_smil
+class IMP_Horde_Mime_Viewer_smil extends Horde_Mime_Viewer_smil
 {
     /**
      * The MIME_Contents object, needed for the _callback() function.

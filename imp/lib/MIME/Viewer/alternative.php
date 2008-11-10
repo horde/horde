@@ -1,6 +1,6 @@
 <?php
 /**
- * The IMP_Horde_MIME_Viewer_alternative class renders out messages from
+ * The IMP_Horde_Mime_Viewer_alternative class renders out messages from
  * multipart/alternative content types (RFC 2046 [5.1.4]).
  *
  * $Horde: imp/lib/MIME/Viewer/alternative.php,v 1.66 2008/01/02 11:12:45 jan Exp $
@@ -11,9 +11,9 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_MIME
+ * @package Horde_Mime
  */
-class IMP_Horde_MIME_Viewer_alternative extends Horde_MIME_Viewer_Driver
+class IMP_Horde_Mime_Viewer_alternative extends Horde_Mime_Viewer_Driver
 {
     /**
      * The content-type of the preferred part.

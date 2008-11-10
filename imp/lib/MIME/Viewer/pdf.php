@@ -1,6 +1,6 @@
 <?php
 /**
- * The IMP_Horde_MIME_Viewer_pdf class enables generation of thumbnails for
+ * The IMP_Horde_Mime_Viewer_pdf class enables generation of thumbnails for
  * PDF attachments.
  *
  * $Horde: imp/lib/MIME/Viewer/pdf.php,v 1.4 2008/10/20 00:38:06 slusarz Exp $
@@ -11,9 +11,9 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_MIME_Viewer
+ * @package Horde_Mime_Viewer
  */
-class IMP_Horde_MIME_Viewer_pdf extends Horde_MIME_Viewer_Driver
+class IMP_Horde_Mime_Viewer_pdf extends Horde_Mime_Viewer_Driver
 {
     /**
      * The content-type of the generated data.

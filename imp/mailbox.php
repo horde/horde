@@ -738,7 +738,7 @@ while (list(,$ob) = each($mbox_info['overview'])) {
     $flagbits = 0;
 
     if ($_SESSION['imp']['protocol'] != 'pop') {
-        $to_ob = Horde_MIME_Address::getAddressesFromObject($ob['envelope']['to']);
+        $to_ob = Horde_Mime_Address::getAddressesFromObject($ob['envelope']['to']);
         if (!empty($to_ob) && $identity->hasAddress($to_ob[0]['inner'])) {
             $msg['status'] .= Horde::img('mail_personal.png', _("Personal"), array('title' => _("Personal")));
             $flagbits |= IMP::FLAG_PERSONAL;

@@ -3,7 +3,7 @@
  * The IMP_Fetchmail_imap driver implements the IMAP_Fetchmail class for use
  * with IMAP/POP3 servers.
  *
- * $Horde: imp/lib/Fetchmail/imap.php,v 1.23 2008/01/02 11:12:43 jan Exp $
+ * $Horde: imp/lib/Fetchmail/imap.php,v 1.24 2008/11/09 07:16:01 slusarz Exp $
  *
  * Copyright 2002-2008 The Horde Project (http://www.horde.org/)
  *
@@ -182,7 +182,7 @@ class IMP_Fetchmail_imap extends IMP_Fetchmail
         reset($fetch_res);
         while (list($id, $ob) = each($fetch_res)) {
             /* Check message size. */
-            if (!$this->_checkMessageSize($ob['size'], $ob['envelope']['subject'], Horde_MIME_Address::addrArray2String($ob['envelope']['from']))) {
+            if (!$this->_checkMessageSize($ob['size'], $ob['envelope']['subject'], Horde_Mime_Address::addrArray2String($ob['envelope']['from']))) {
                 continue;
             }
 

@@ -3,7 +3,7 @@
 require_once IMP_BASE . '/lib/Crypt/PGP.php';
 
 /**
- * The IMP_Horde_MIME_Viewer_pgp class allows viewing/decrypting of PGP
+ * The IMP_Horde_Mime_Viewer_pgp class allows viewing/decrypting of PGP
  * formatted messages.  This class implements RFC 3156.
  *
  * This class handles the following MIME types:
@@ -23,9 +23,9 @@ require_once IMP_BASE . '/lib/Crypt/PGP.php';
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_MIME
+ * @package Horde_Mime
  */
-class IMP_Horde_MIME_Viewer_pgp extends Horde_MIME_Viewer_Driver
+class IMP_Horde_Mime_Viewer_pgp extends Horde_Mime_Viewer_Driver
 {
     /**
      * IMP_PGP object.
@@ -226,7 +226,7 @@ class IMP_Horde_MIME_Viewer_pgp extends Horde_MIME_Viewer_Driver
             $subpart = $mime->getPart($mime->getRelativeMIMEId(1));
             $signature_data = rtrim($subpart->getCanonicalContents(), "\r");
 
-            $mime_message = Horde_MIME_Message::parseMessage($signature_data);
+            $mime_message = Horde_Mime_Message::parseMessage($signature_data);
 
             /* The PGP signature appears in the second MIME subpart. */
             $subpart = $mime->getPart($mime->getRelativeMIMEId(2));
@@ -248,7 +248,7 @@ class IMP_Horde_MIME_Viewer_pgp extends Horde_MIME_Viewer_Driver
             }
         } elseif ($mimetype == 'application/pgp-signature') {
             /* Get the signed message to output. */
-            $mime_message = new Horde_MIME_Message();
+            $mime_message = new Horde_Mime_Message();
             $mime_message->setType('text/plain');
             $mime->transferDecodeContents();
 
@@ -368,7 +368,7 @@ class IMP_Horde_MIME_Viewer_pgp extends Horde_MIME_Viewer_Driver
                     } else {
                         /* We need to check if this is a signed/encrypted
                            message. */
-                        $mime_message = Horde_MIME_Message::parseMessage($decrypted_data->message);
+                        $mime_message = Horde_Mime_Message::parseMessage($decrypted_data->message);
                         if (!$mime_message) {
                             require_once 'Horde/Text/Filter.php';
                             $text .= $this->_signedOutput($decrypted_data->sig_result);

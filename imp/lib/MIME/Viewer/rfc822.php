@@ -1,6 +1,6 @@
 <?php
 /**
- * The IMP_Horde_MIME_Viewer_rfc822 class renders out messages from
+ * The IMP_Horde_Mime_Viewer_rfc822 class renders out messages from
  * message/rfc822 content types.
  *
  * $Horde: imp/lib/MIME/Viewer/rfc822.php,v 1.41 2008/01/02 11:12:45 jan Exp $
@@ -11,9 +11,9 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_MIME
+ * @package Horde_Mime
  */
-class IMP_Horde_MIME_Viewer_rfc822 extends Horde_MIME_Viewer_rfc822
+class IMP_Horde_Mime_Viewer_rfc822 extends Horde_Mime_Viewer_rfc822
 {
     /**
      * Render out the currently set contents.

@@ -96,7 +96,7 @@ if ($conf['compose']['link_attachments_notify']) {
                 String::setDefaultCharset(NLS::getCharset());
 
                 /* Set up the mail headers and read the log file. */
-                $msg_headers = new Horde_MIME_Headers();
+                $msg_headers = new Horde_Mime_Headers();
                 $msg_headers->addReceivedHeader();
                 $msg_headers->addMessageIdHeader();
                 $msg_headers->addUserAgentHeader();
@@ -105,7 +105,7 @@ if ($conf['compose']['link_attachments_notify']) {
                 $msg_headers->addHeader('To', $mail_address_full);
                 $msg_headers->addHeader('Subject', _("Notification: Linked attachment downloaded"));
 
-                $msg = new Horde_MIME_Message();
+                $msg = new Horde_Mime_Message();
                 $msg->setType('text/plain');
                 $msg->setCharset(NLS::getCharset());
                 $msg->setContents(String::wrap(sprintf(_("Your linked attachment has been downloaded by at least one user.\n\nAttachment name: %s\nAttachment date: %s\n\nClick on the following link to permanently delete the attachment:\n%s"), $file_name, date('r', $time_stamp), Util::addParameter(Horde::selfUrl(true, false, true), 'd', $id))));
@@ -122,9 +122,9 @@ if (is_a($file_data, 'PEAR_Error')) {
     Horde::logMessage($file_data, __FILE__, __LINE__, PEAR_LOG_ERR);
     Horde::fatal(_("The specified file cannot be read."), $_self_url, __LINE__);
 }
-$mime_type = Horde_MIME_Magic::analyzeData($file_data, isset($conf['mime']['magic_db']) ? $conf['mime']['magic_db'] : null);
+$mime_type = Horde_Mime_Magic::analyzeData($file_data, isset($conf['mime']['magic_db']) ? $conf['mime']['magic_db'] : null);
 if ($mime_type === false) {
-    $mime_type = Horde_MIME_Magic::filenameToMIME($file_name, false);
+    $mime_type = Horde_Mime_Magic::filenameToMIME($file_name, false);
 }
 
 // Prevent 'jar:' attacks on Firefox.  See Ticket #5892.

@@ -1,6 +1,6 @@
 <?php
 /**
- * The IMP_Horde_MIME_Viewer_plain class renders out text/plain MIME parts
+ * The IMP_Horde_Mime_Viewer_plain class renders out text/plain MIME parts
  * with URLs made into hyperlinks.
  *
  * $Horde: imp/lib/MIME/Viewer/plain.php,v 1.92 2008/10/06 21:19:49 slusarz Exp $
@@ -12,9 +12,9 @@
  *
  * @author  Anil Madhavapeddy <anil@recoil.org>
  * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_MIME_Viewer
+ * @package Horde_Mime_Viewer
  */
-class IMP_Horde_MIME_Viewer_plain extends Horde_MIME_Viewer_plain
+class IMP_Horde_Mime_Viewer_plain extends Horde_Mime_Viewer_plain
 {
     /**
      * TODO

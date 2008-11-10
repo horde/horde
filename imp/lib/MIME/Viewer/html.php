@@ -1,6 +1,6 @@
 <?php
 /**
- * The IMP_Horde_MIME_Viewer_html class renders out HTML text with an effort
+ * The IMP_Horde_Mime_Viewer_html class renders out HTML text with an effort
  * to remove potentially malicious code.
  *
  * $Horde: imp/lib/MIME/Viewer/html.php,v 1.150 2008/09/25 03:42:05 slusarz Exp $
@@ -13,9 +13,9 @@
  * @author  Anil Madhavapeddy <anil@recoil.org>
  * @author  Jon Parise <jon@horde.org>
  * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_MIME
+ * @package Horde_Mime
  */
-class IMP_Horde_MIME_Viewer_html extends Horde_MIME_Viewer_html
+class IMP_Horde_Mime_Viewer_html extends Horde_Mime_Viewer_html
 {
     /**
      * Cached block image.

@@ -3,7 +3,7 @@
  * The IMP_Fetchmail:: class provides an interface to download mail from
  * remote mail servers.
  *
- * $Horde: imp/lib/Fetchmail.php,v 1.68 2008/10/11 07:04:14 slusarz Exp $
+ * $Horde: imp/lib/Fetchmail.php,v 1.69 2008/11/09 07:38:45 slusarz Exp $
  *
  * Copyright 2002-2008 The Horde Project (http://www.horde.org/)
  *
@@ -247,7 +247,7 @@ abstract class IMP_Fetchmail
     {
         if (!empty($GLOBALS['conf']['fetchmail']['size_limit']) &&
             ($size > $GLOBALS['conf']['fetchmail']['size_limit'])) {
-            $GLOBALS['notification']->push(sprintf(_("The message \"%s\" from \"%s\" (%d bytes) exceeds fetch size limit."), Horde_MIME::decode($subject), Horde_MIME::decode($from), $size), 'horde.warning');
+            $GLOBALS['notification']->push(sprintf(_("The message \"%s\" from \"%s\" (%d bytes) exceeds fetch size limit."), Horde_Mime::decode($subject), Horde_Mime::decode($from), $size), 'horde.warning');
             return false;
         }
 

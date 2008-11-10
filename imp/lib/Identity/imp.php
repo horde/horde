@@ -146,7 +146,7 @@ class Identity_imp extends Identity {
         }
 
         if (!empty($address)) {
-            $ob = Horde_MIME_Address::parseAddressList($address, array('defserver' => $_SESSION['imp']['maildomain']));
+            $ob = Horde_Mime_Address::parseAddressList($address, array('defserver' => $_SESSION['imp']['maildomain']));
         }
         if (empty($ob)) {
             $ob['message'] .= ' ' . _("Your From address is not a valid email address. This can be fixed in your Personal Information options page.");
@@ -161,7 +161,7 @@ class Identity_imp extends Identity {
             }
         }
 
-        $from = Horde_MIME_Address::writeAddress($ob[0]['mailbox'], $ob[0]['host'], $name);
+        $from = Horde_Mime_Address::writeAddress($ob[0]['mailbox'], $ob[0]['host'], $name);
 
         $froms[$ident] = $from;
         return $from;
@@ -349,7 +349,7 @@ class Identity_imp extends Identity {
             if (!is_array($bcc)) {
                 $bcc = array($bcc);
             }
-            return Horde_MIME_Address::parseAddressList(implode(', ', $bcc));
+            return Horde_Mime_Address::parseAddressList(implode(', ', $bcc));
         }
     }
 
@@ -381,7 +381,7 @@ class Identity_imp extends Identity {
             $addresses = array($addresses);
         }
 
-        $addr_list = Horde_MIME_Address::parseAddressList(implode(', ', $addresses));
+        $addr_list = Horde_Mime_Address::parseAddressList(implode(', ', $addresses));
         if (empty($addr_list)) {
             return null;
         }

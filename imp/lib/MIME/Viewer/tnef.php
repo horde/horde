@@ -1,6 +1,6 @@
 <?php
 /**
- * The IMP_Horde_MIME_Viewer_tnef class allows MS-TNEF attachments to be
+ * The IMP_Horde_Mime_Viewer_tnef class allows MS-TNEF attachments to be
  * displayed.
  *
  * $Horde: imp/lib/MIME/Viewer/tnef.php,v 1.39 2008/09/04 12:01:14 jan Exp $
@@ -11,9 +11,9 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_MIME
+ * @package Horde_Mime
  */
-class IMP_Horde_MIME_Viewer_tnef extends Horde_MIME_Viewer_tnef
+class IMP_Horde_Mime_Viewer_tnef extends Horde_Mime_Viewer_tnef
 {
     /**
      * The contentType of the attachment.
@@ -99,7 +99,7 @@ class IMP_Horde_MIME_Viewer_tnef extends Horde_MIME_Viewer_tnef
                 $type = $data['type'] . '/' . $data['subtype'];
                 if (($type == 'application/octet-stream') ||
                     ($type == 'application/base64')) {
-                    $type = Horde_MIME_Magic::filenameToMIME($data['name']);
+                    $type = Horde_Mime_Magic::filenameToMIME($data['name']);
                 }
                 $temp_part->setType($type);
 

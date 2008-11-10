@@ -1,6 +1,6 @@
 <?php
 /**
- * The IMP_Horde_MIME_Viewer_status class handles multipart/report messages
+ * The IMP_Horde_Mime_Viewer_status class handles multipart/report messages
  * that refer to mail system administrative messages (RFC 3464).
  *
  * $Horde: imp/lib/MIME/Viewer/status.php,v 1.33 2008/01/02 11:12:45 jan Exp $
@@ -11,9 +11,9 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_MIME
+ * @package Horde_Mime
  */
-class IMP_Horde_MIME_Viewer_status extends Horde_MIME_Viewer_Driver
+class IMP_Horde_Mime_Viewer_status extends Horde_Mime_Viewer_Driver
 {
     /**
      * Render out the currently set contents.
@@ -30,7 +30,7 @@ class IMP_Horde_MIME_Viewer_status extends Horde_MIME_Viewer_Driver
         /* If this is a straight message/delivery-status part, just output
            the text. */
         if ($this->mime_part->getType() == 'message/delivery-status') {
-            $part = new Horde_MIME_Part('text/plain');
+            $part = new Horde_Mime_Part('text/plain');
             $part->setContents($this->mime_part->getContents());
             return '<pre>' . $contents->renderMIMEPart($part) . '</pre>';
         }

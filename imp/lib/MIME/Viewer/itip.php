@@ -13,9 +13,9 @@
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
- * @package Horde_MIME
+ * @package Horde_Mime
  */
-class IMP_Horde_MIME_Viewer_itip extends Horde_MIME_Viewer_Driver
+class IMP_Horde_Mime_Viewer_itip extends Horde_Mime_Viewer_Driver
 {
     /**
      * Force viewing of a part inline, regardless of the Content-Disposition
@@ -73,7 +73,7 @@ class IMP_Horde_MIME_Viewer_itip extends Horde_MIME_Viewer_Driver
         // Check if we got vcard data with the wrong vcalendar mime type.
         $c = $vCal->getComponentClasses();
         if (count($c) == 1 && !empty($c['horde_icalendar_vcard'])) {
-            $vcard_renderer = &Horde_MIME_Viewer::factory($this->mime_part, 'text/x-vcard');
+            $vcard_renderer = &Horde_Mime_Viewer::factory($this->mime_part, 'text/x-vcard');
             return $vcard_renderer->render($params);
         }
 
@@ -297,22 +297,22 @@ class IMP_Horde_MIME_Viewer_itip extends Horde_MIME_Viewer_Driver
                     $vEvent_reply->setAttribute('ATTENDEE', 'mailto:' . $email, $params);
                     $vCal->addComponent($vEvent_reply);
 
-                    $mime = new Horde_MIME_Part('multipart/alternative');
-                    $body = new Horde_MIME_Part('text/plain',
+                    $mime = new Horde_Mime_Part('multipart/alternative');
+                    $body = new Horde_Mime_Part('text/plain',
                                           String::wrap($message, 76, "\n"),
                                           NLS::getCharset());
 
-                    $ics = new Horde_MIME_Part('text/calendar', $vCal->exportvCalendar());
+                    $ics = new Horde_Mime_Part('text/calendar', $vCal->exportvCalendar());
                     $ics->setName('event-reply.ics');
                     $ics->setContentTypeParameter('METHOD', 'REPLY');
                     $ics->setCharset(NLS::getCharset());
 
                     $mime->addPart($body);
                     $mime->addPart($ics);
-                    $mime = &Horde_MIME_Message::convertMimePart($mime);
+                    $mime = &Horde_Mime_Message::convertMimePart($mime);
 
                     // Build the reply headers.
-                    $msg_headers = new Horde_MIME_Headers();
+                    $msg_headers = new Horde_Mime_Headers();
                     $msg_headers->addReceivedHeader();
                     $msg_headers->addMessageIdHeader();
                     $msg_headers->addHeader('Date', date('r'));
@@ -324,7 +324,7 @@ class IMP_Horde_MIME_Viewer_itip extends Horde_MIME_Viewer_Driver
                     if (!empty($replyto) && ($replyto != $email)) {
                         $msg_headers->addHeader('Reply-to', $replyto);
                     }
-                    $msg_headers->addHeader('Subject', Horde_MIME::encode($subject, NLS::getCharset()));
+                    $msg_headers->addHeader('Subject', Horde_Mime::encode($subject, NLS::getCharset()));
 
                     // Send the reply.
                     $status = $mime->send($organizerEmail, $msg_headers,
@@ -398,13 +398,13 @@ class IMP_Horde_MIME_Viewer_itip extends Horde_MIME_Viewer_Driver
                     $vCal->setAttribute('METHOD', 'REPLY');
                     $vCal->addComponent($vfb_reply);
 
-                    $mime = new Horde_MIME_Message();
+                    $mime = new Horde_Mime_Message();
                     $message = _("Attached is a reply to a calendar request you sent.");
-                    $body = new Horde_MIME_Part('text/plain',
+                    $body = new Horde_Mime_Part('text/plain',
                                           String::wrap($message, 76, "\n"),
                                           NLS::getCharset());
 
-                    $ics = new Horde_MIME_Part('text/calendar', $vCal->exportvCalendar());
+                    $ics = new Horde_Mime_Part('text/calendar', $vCal->exportvCalendar());
                     $ics->setName('icalendar.ics');
                     $ics->setContentTypeParameter('METHOD', 'REPLY');
                     $ics->setCharset(NLS::getCharset());
@@ -413,7 +413,7 @@ class IMP_Horde_MIME_Viewer_itip extends Horde_MIME_Viewer_Driver
                     $mime->addPart($ics);
 
                     // Build the reply headers.
-                    $msg_headers = new Horde_MIME_Headers();
+                    $msg_headers = new Horde_Mime_Headers();
                     $msg_headers->addReceivedHeader();
                     $msg_headers->addMessageIdHeader();
                     $msg_headers->addHeader('Date', date('r'));
@@ -425,7 +425,7 @@ class IMP_Horde_MIME_Viewer_itip extends Horde_MIME_Viewer_Driver
                     if (!empty($replyto) && ($replyto != $email)) {
                         $msg_headers->addHeader('Reply-to', $replyto);
                     }
-                    $msg_headers->addHeader('Subject', Horde_MIME::encode(_("Free/Busy Request Response"), NLS::getCharset()));
+                    $msg_headers->addHeader('Subject', Horde_Mime::encode(_("Free/Busy Request Response"), NLS::getCharset()));
 
                     // Send the reply.
                     $status = $mime->send($organizerEmail, $msg_headers,

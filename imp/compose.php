@@ -252,7 +252,7 @@ if ($_SESSION['imp']['file_upload']) {
         $filenames = $imp_compose->deleteAttachment($deleteList);
         if ($notify) {
             foreach ($filenames as $val) {
-                $notification->push(sprintf(_("Deleted the attachment \"%s\"."), Horde_MIME::decode($val)), 'horde.success');
+                $notification->push(sprintf(_("Deleted the attachment \"%s\"."), Horde_Mime::decode($val)), 'horde.success');
             }
         }
     }
@@ -276,8 +276,8 @@ case 'mailto':
         $header['to'] = $imp_headers->getValue('to');
     }
     if (empty($header['to'])) {
-        ($header['to'] = Horde_MIME_Address::addrArray2String($imp_headers->getOb('from'))) ||
-        ($header['to'] = Horde_MIME_Address::addrArray2String($imp_headers->getOb('reply-to')));
+        ($header['to'] = Horde_Mime_Address::addrArray2String($imp_headers->getOb('from'))) ||
+        ($header['to'] = Horde_Mime_Address::addrArray2String($imp_headers->getOb('reply-to')));
     }
     break;
 
@@ -556,7 +556,7 @@ case 'selectlist_process':
                 foreach ($filelist as $val) {
                     $data = $registry->call('files/returnFromSelectlist', array($select_id, $i++));
                     if ($data && !is_a($data, 'PEAR_Error')) {
-                        $part = new Horde_MIME_Part();
+                        $part = new Horde_Mime_Part();
                         $part->setContents($data);
                         $part->setName(reset($val));
                         $res = $imp_compose->addMIMEPartAttachment($part);
@@ -691,7 +691,7 @@ if (!is_null($oldrtemode) && ($oldrtemode != $rtemode)) {
 /* If this is the first page load for this compose item, add auto BCC
  * addresses. */
 if (!$reloaded && ($actionID != 'draft')) {
-    $header['bcc'] = Horde_MIME_Address::addrArray2String($identity->getBccAddresses());
+    $header['bcc'] = Horde_Mime_Address::addrArray2String($identity->getBccAddresses());
 }
 
 foreach (array('to', 'cc', 'bcc', 'subject') as $val) {
@@ -807,7 +807,7 @@ if (!$redirect) {
             $identity->getValue('sig_first', $ident),
             ($smf_check) ? $smf : IMP::displayFolder($smf),
             $identity->saveSentmail($ident),
-            Horde_MIME_Address::addrArray2String($identity->getBccAddresses($ident))
+            Horde_Mime_Address::addrArray2String($identity->getBccAddresses($ident))
         );
     }
     require_once 'Horde/Serialize.php';
@@ -1224,7 +1224,7 @@ if ($redirect) {
         $t->set('numberattach', $imp_compose->numberOfAttachments());
         if ($t->get('numberattach')) {
             require_once IMP_BASE . '/lib/MIME/Contents.php';
-            $imp_contents = new IMP_Contents(new Horde_MIME_Message());
+            $imp_contents = new IMP_Contents(new Horde_Mime_Message());
 
             $atc = array();
             $disp_num = 0;

@@ -113,11 +113,11 @@ foreach ($loop_array as $mbox => $idxlist) {
         if (IMP::isSpecialFolder($mbox)) {
             $curr_msg['addr_to'] = true;
             $curr_msg['addr'] = _("To:") . ' ' . $imp_ui->buildAddressLinks($envelope['to'], Horde::selfUrl(true), true);
-            $addr = _("To:") . ' ' . htmlspecialchars(Horde_MIME_Address::addrObject2String(reset($envelope['to'])), ENT_COMPAT, $charset);
+            $addr = _("To:") . ' ' . htmlspecialchars(Horde_Mime_Address::addrObject2String(reset($envelope['to'])), ENT_COMPAT, $charset);
         } else {
             $curr_msg['addr_to'] = false;
             $curr_msg['addr'] = $imp_ui->buildAddressLinks($envelope['from'], Horde::selfUrl(true), true);
-            $addr = htmlspecialchars(Horde_MIME_Address::addrObject2String(reset($envelope['from'])), ENT_COMPAT, $charset);
+            $addr = htmlspecialchars(Horde_Mime_Address::addrObject2String(reset($envelope['from'])), ENT_COMPAT, $charset);
         }
 
         $subject_header = htmlspecialchars($envelope['subject'], ENT_COMPAT, $charset);

@@ -65,7 +65,7 @@ class IMP_UI_Message
         }
 
         /* Check to see if an MDN has been requested. */
-        $mdn = new Horde_MIME_MDN($headers);
+        $mdn = new Horde_Mime_MDN($headers);
         if ($mdn->getMDNReturnAddr()) {
             require_once IMP_BASE . '/lib/Maillog.php';
             $msg_id = $headers->getValue('message-id');
@@ -133,7 +133,7 @@ class IMP_UI_Message
     /**
      * Parses all of the available mailing list headers.
      *
-     * @param Horde_MIME_Headers $headers  A Horde_MIME_Headers object.
+     * @param Horde_Mime_Headers $headers  A Horde_Mime_Headers object.
      *
      * @return array  TODO
      */
@@ -215,7 +215,7 @@ class IMP_UI_Message
     /**
      * Determines the X-Priority of the message based on the headers.
      *
-     * @param Horde_MIME_Headers $headers  Horde_MIME_Headers object.
+     * @param Horde_Mime_Headers $headers  Horde_Mime_Headers object.
      *
      * @return string  'high', 'low', or 'normal'.
      */
@@ -236,7 +236,7 @@ class IMP_UI_Message
     /**
      * Returns e-mail information for a mailing list.
      *
-     * @param Horde_MIME_Headers $headers  A Horde_MIME_Headers object.
+     * @param Horde_Mime_Headers $headers  A Horde_Mime_Headers object.
      *
      * @return array  An array with 2 elements: 'exists' and 'reply_list'.
      */
@@ -261,7 +261,7 @@ class IMP_UI_Message
      * Builds a string containing a list of addresses.
      *
      * @param array $addrlist  The list of addresses from
-     *                         Horde_MIME_Address::parseAddressList().
+     *                         Horde_Mime_Address::parseAddressList().
      * @param integer $addURL  The self URL.
      * @param boolean $link    Link each address to the compose screen?
      *
@@ -293,7 +293,7 @@ class IMP_UI_Message
 
         $addr_array = array();
 
-        foreach (Horde_MIME_Address::getAddressesFromObject($addrlist) as $ob) {
+        foreach (Horde_Mime_Address::getAddressesFromObject($addrlist) as $ob) {
             if (isset($ob['groupname'])) {
                 $group_array = array();
                 foreach ($ob['addresses'] as $ad) {

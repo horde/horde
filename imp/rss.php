@@ -75,7 +75,7 @@ if (!empty($ids)) {
             'description' => isset($ob['preview']) ? $ob['preview'] : '',
             'url' => Horde::applicationURL(IMP::generateIMPUrl('message.php', $mailbox, $ob['uid'], $mailbox), true, -1),
             'fromAddr' => $from_addr['fullfrom'],
-            'toAddr' => Horde_MIME_Address::addrArray2String(isset($ob['envelope']['to']) ? $ob['envelope']['to'] : array())
+            'toAddr' => Horde_Mime_Address::addrArray2String(isset($ob['envelope']['to']) ? $ob['envelope']['to'] : array())
         ));
     }
 }

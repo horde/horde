@@ -250,9 +250,9 @@ class IMP_Spam {
     function _sendSpamReportMessage($action, $data)
     {
         /* Build the MIME structure. */
-        $mime = new Horde_MIME_Message();
+        $mime = new Horde_Mime_Message();
         $mime->setType('multipart/digest');
-        $mime->addPart(new Horde_MIME_Part('message/rfc822', $data));
+        $mime->addPart(new Horde_Mime_Part('message/rfc822', $data));
 
         $spam_headers = new IMP_Headers();
         $spam_headers->addMessageIdHeader();

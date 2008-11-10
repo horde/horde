@@ -1,6 +1,6 @@
 <?php
 /**
- * The IMP_Horde_MIME_Viewer_partial class allows multipart/partial messages
+ * The IMP_Horde_Mime_Viewer_partial class allows multipart/partial messages
  * to be displayed (RFC 2046 [5.2.2]).
  *
  * $Horde: imp/lib/MIME/Viewer/partial.php,v 1.39 2008/09/17 05:02:40 slusarz Exp $
@@ -11,9 +11,9 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_MIME
+ * @package Horde_Mime
  */
-class IMP_Horde_MIME_Viewer_partial extends Horde_MIME_Viewer_Driver
+class IMP_Horde_Mime_Viewer_partial extends Horde_Mime_Viewer_Driver
 {
     /**
      * Render out the currently set contents.

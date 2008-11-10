@@ -1,6 +1,6 @@
 <?php
 /**
- * The IMP_Horde_MIME_Viewer_images class allows images to be displayed
+ * The IMP_Horde_Mime_Viewer_images class allows images to be displayed
  * inline in a message.
  *
  * $Horde: imp/lib/MIME/Viewer/images.php,v 1.81 2008/06/03 18:03:40 slusarz Exp $
@@ -11,9 +11,9 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_MIME
+ * @package Horde_Mime
  */
-class IMP_Horde_MIME_Viewer_images extends Horde_MIME_Viewer_images
+class IMP_Horde_Mime_Viewer_images extends Horde_Mime_Viewer_images
 {
     /**
      * The content-type of the generated data.

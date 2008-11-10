@@ -1,6 +1,6 @@
 <?php
 /**
- * The IMP_Horde_MIME_Viewer_related class handles multipart/related messages
+ * The IMP_Horde_Mime_Viewer_related class handles multipart/related messages
  * as defined by RFC 2387.
  *
  * $Horde: imp/lib/MIME/Viewer/related.php,v 1.38 2008/01/02 11:12:45 jan Exp $
@@ -11,9 +11,9 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_MIME
+ * @package Horde_Mime
  */
-class IMP_Horde_MIME_Viewer_related extends Horde_MIME_Viewer_Driver
+class IMP_Horde_Mime_Viewer_related extends Horde_Mime_Viewer_Driver
 {
     /**
      * The character set of the rendered HTML part.
