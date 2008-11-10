@@ -3,8 +3,6 @@
  * The IMP_Spam:: class contains functions related to reporting spam
  * messages in IMP.
  *
- * $Horde: imp/lib/Spam.php,v 1.41 2008/07/02 09:27:48 jan Exp $
- *
  * Copyright 2004-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -13,26 +11,26 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package IMP
  */
-class IMP_Spam {
-
+class IMP_Spam
+{
     /**
      * The IMP_Compose:: object used by the class.
      *
      * @var IMP_Compose
      */
-    var $_imp_compose;
+    protected $_imp_compose;
 
     /**
      * The IMP_Identity:: object used by the class.
      *
      * @var IMP_Identity
      */
-    var $_identity;
+    protected $_identity;
 
     /**
      * Constructor.
      */
-    function IMP_Spam()
+    function __construct()
     {
         require_once 'Horde/Identity.php';
         $this->_imp_compose = &IMP_Compose::singleton();
@@ -49,17 +47,14 @@ class IMP_Spam {
      * @return integer  1 if messages have been deleted, 2 if messages have
      *                  been moved.
      */
-    function reportSpam($indices, $action)
+    public function reportSpam($indices, $action)
     {
         global $notification;
 
-        /* Abort immediately if spam reporting has not been enabled. */
-        if (empty($GLOBALS['conf'][$action]['reporting'])) {
-            return;
-        }
-
-        /* Exit if there are no messages. */
-        if (!($msgList = IMP::parseIndicesList($indices))) {
+        /* Abort immediately if spam reporting has not been enabled, or if
+         * there are no messages. */
+        if (empty($GLOBALS['conf'][$action]['reporting']) ||
+            !($msgList = IMP::parseIndicesList($indices))) {
             return;
         }
 
@@ -68,38 +63,37 @@ class IMP_Spam {
          * to some program for analysis. */
         $email_msg_count = $report_msg_count = 0;
 
-        foreach ($msgList as $folder => $msgIndices) {
-            /* Switch folders, if necessary (only valid for IMAP). */
-            $imp_imap->changeMbox($folder, IMP_IMAP_AUTO);
-
-            foreach ($msgIndices as $msgnum) {
+        foreach ($msgList as $mbox => $msgIndices) {
+            foreach ($msgIndices as $idx) {
                 /* Fetch the raw message contents (headers and complete
                  * body). */
-                $imp_contents = &IMP_Contents::singleton($msgnum . IMP::IDX_SEP . $folder);
+                $imp_contents = &IMP_Contents::singleton($idx . IMP::IDX_SEP . $mbox);
                 if (is_a($imp_contents, 'PEAR_Error')) {
                     continue;
                 }
 
-                $to = null;
+                $raw_msg = $to = null;
                 $report_flag = false;
-                $raw_msg = null;
 
                 /* If a (not)spam reporting program has been provided, use
                  * it. */
                 if (!empty($GLOBALS['conf'][$action]['program'])) {
                     $raw_msg = $imp_contents->fullMessageText();
+
                     /* Use a pipe to write the message contents. This should
                      * be secure. */
                     $prog = str_replace(array('%u','%l', '%d'),
-					array(escapeshellarg(Auth::getAuth()),
-					      escapeshellarg(Auth::getBareAuth()),
-					      escapeshellarg(Auth::getAuthDomain())),
-					$GLOBALS['conf'][$action]['program']);
+                        array(
+                            escapeshellarg(Auth::getAuth()),
+					        escapeshellarg(Auth::getBareAuth()),
+                            escapeshellarg(Auth::getAuthDomain())
+                        ), $GLOBALS['conf'][$action]['program']);
                     $proc = proc_open($prog,
-                                      array(0 => array('pipe', 'r'),
-                                            1 => array('pipe', 'w'),
-                                            2 => array('pipe', 'w')),
-                                      $pipes);
+                        array(
+                            0 => array('pipe', 'r'),
+                            1 => array('pipe', 'w'),
+                            2 => array('pipe', 'w')
+                        ), $pipes);
                     if (!is_resource($proc)) {
                         Horde::logMessage('Cannot open process ' . $prog, __FILE__, __LINE__, PEAR_LOG_ERR);
                         return;
@@ -115,7 +109,7 @@ class IMP_Spam {
                         Horde::logMessage('Error reporting spam: ' . $stderr, __FILE__, __LINE__, PEAR_LOG_ERR);
                     }
                     proc_close($proc);
-                    $report_msg_count++;
+                    ++$report_msg_count;
                     $report_flag = true;
                 }
 
@@ -126,7 +120,7 @@ class IMP_Spam {
                         $raw_msg = $imp_contents->fullMessageText();
                     }
                     $this->_sendSpamReportMessage($action, $raw_msg);
-                    $email_msg_count++;
+                    ++$email_msg_count;
                }
 
                 /* If a (not)spam bounce email address has been provided, use
@@ -135,9 +129,7 @@ class IMP_Spam {
                     $to = $GLOBALS['conf'][$action]['bounce'];
                 } elseif (!empty($GLOBALS['conf']['hooks']['spam_bounce'])) {
                     /* Call the bounce email generation hook, if requested. */
-                    $to = Horde::callHook('_imp_hook_spam_bounce',
-                                          array($action),
-                                          'imp');
+                    $to = Horde::callHook('_imp_hook_spam_bounce', array($action), 'imp');
                 }
 
                 if ($to) {
@@ -242,17 +234,19 @@ class IMP_Spam {
     /**
      * Send a (not)spam message to the sysadmin.
      *
-     * @access private
-     *
      * @param string $action  The action type.
      * @param string $data    The message data.
      */
-    function _sendSpamReportMessage($action, $data)
+    protected function _sendSpamReportMessage($action, $data)
     {
         /* Build the MIME structure. */
         $mime = new Horde_Mime_Message();
         $mime->setType('multipart/digest');
-        $mime->addPart(new Horde_Mime_Part('message/rfc822', $data));
+
+        $rfc822 = new Horde_Mime_Part();
+        $rfc822->setType('message/rfc822');
+        $rfc822->setContents($data);
+        $mime->addPart($rfc822);
 
         $spam_headers = new Horde_Mime_Headers();
         $spam_headers->addMessageIdHeader();
@@ -268,5 +262,4 @@ class IMP_Spam {
                                          $spam_headers, $mime,
                                          NLS::getCharset());
     }
-
 }
