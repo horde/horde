@@ -695,7 +695,7 @@ class IMP_Compose
         /* Add Return Receipt Headers. */
         if (!empty($opts['readreceipt']) &&
             $conf['compose']['allow_receipts']) {
-            $mdn = new Horde_Mime_MDN();
+            $mdn = new Horde_Mime_Mdn();
             $mdn->addMDNRequestHeaders($msg_headers, $barefrom);
         }
 

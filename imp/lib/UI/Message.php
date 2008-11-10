@@ -65,9 +65,8 @@ class IMP_UI_Message
         }
 
         /* Check to see if an MDN has been requested. */
-        $mdn = new Horde_Mime_MDN($headers);
+        $mdn = new Horde_Mime_Mdn($headers);
         if ($mdn->getMDNReturnAddr()) {
-            require_once IMP_BASE . '/lib/Maillog.php';
             $msg_id = $headers->getValue('message-id');
 
             /* See if we have already processed this message. */
@@ -82,7 +81,6 @@ class IMP_UI_Message
                         IMP_Maillog::log('mdn', $msg_id, 'displayed');
                     }
                     if ($GLOBALS['conf']['sentmail']['driver'] != 'none') {
-                        require_once IMP_BASE . '/lib/Sentmail.php';
                         $sentmail = IMP_Sentmail::factory();
                         $sentmail->log('mdn', '', $mdn->getMDNReturnAddr(), !is_a($result, 'PEAR_Error'));
                     }
