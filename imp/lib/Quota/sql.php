@@ -28,8 +28,6 @@
  * ),
  * </code>
  *
- * $Horde: imp/lib/Quota/sql.php,v 1.9 2008/07/01 16:52:21 jan Exp $
- *
  * Copyright 2006-2007 Tomas Simonaitis <haden@homelan.lt>
  * Copyright 2006-2008 The Horde Project (http://www.horde.org/)
  *
@@ -38,7 +36,6 @@
  *
  * @author  Tomas Simonaitis <haden@homelan.lt>
  * @author  Jan Schneider <jan@horde.org>
- * @since   IMP 4.2
  * @package IMP_Quota
  */
 class IMP_Quota_sql extends IMP_Quota {

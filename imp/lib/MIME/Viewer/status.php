@@ -3,8 +3,6 @@
  * The IMP_Horde_Mime_Viewer_status class handles multipart/report messages
  * that refer to mail system administrative messages (RFC 3464).
  *
- * $Horde: imp/lib/MIME/Viewer/status.php,v 1.33 2008/01/02 11:12:45 jan Exp $
- *
  * Copyright 2002-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

@@ -3,8 +3,6 @@
  * The IMP_Horde_Mime_Viewer_tnef class allows MS-TNEF attachments to be
  * displayed.
  *
- * $Horde: imp/lib/MIME/Viewer/tnef.php,v 1.39 2008/09/04 12:01:14 jan Exp $
- *
  * Copyright 2002-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

@@ -3,8 +3,6 @@
  * The IMP_IMAP_Thread class provides functions to generate thread tree
  * images.
  *
- * $Horde: imp/lib/IMAP/Thread.php,v 1.19 2008/10/13 20:51:53 slusarz Exp $
- *
  * Copyright 2005-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

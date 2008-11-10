@@ -1,8 +1,6 @@
 /**
  * Provides the javascript for the compose.php script.
  *
- * $Horde: imp/js/src/compose.js,v 1.32 2008/10/20 03:54:40 slusarz Exp $
- *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  */

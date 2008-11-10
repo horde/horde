@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: imp/stationery.php,v 2.22 2008/10/20 03:54:39 slusarz Exp $
- *
  * Copyright 2005-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

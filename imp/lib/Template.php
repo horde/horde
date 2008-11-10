@@ -13,8 +13,6 @@
  *
  * Compilation code adapted from code written by Bruno Pedro <bpedro@ptm.pt>.
  *
- * $Horde: imp/lib/Template.php,v 1.12 2008/08/28 17:05:23 jan Exp $
- *
  * Copyright 2002-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
@@ -22,7 +20,6 @@
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @author  Michael Slusarz <slusarz@horde.org>
- * @since   Horde 3.0
  * @package Horde_Template
  */
 

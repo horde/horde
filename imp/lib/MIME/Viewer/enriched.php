@@ -3,8 +3,6 @@
  * The IMP_Horde_Mime_Viewer_enriched class renders out plain text from
  * enriched content tags, ala RFC 1896
  *
- * $Horde: imp/lib/MIME/Viewer/enriched.php,v 1.42 2008/01/02 11:12:45 jan Exp $
- *
  * Copyright 2001-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

@@ -19,8 +19,6 @@
  *         and the actual username will be substituted in that location.
  *         E.g., '/home/~U/Maildir/' or '/var/mail/~U/Maildir/'
  *
- * $Horde: imp/lib/Quota/maildir.php,v 1.6 2008/07/09 22:15:09 jan Exp $
- *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *

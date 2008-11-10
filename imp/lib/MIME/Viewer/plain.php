@@ -3,8 +3,6 @@
  * The IMP_Horde_Mime_Viewer_plain class renders out text/plain MIME parts
  * with URLs made into hyperlinks.
  *
- * $Horde: imp/lib/MIME/Viewer/plain.php,v 1.92 2008/10/06 21:19:49 slusarz Exp $
- *
  * Copyright 1999-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

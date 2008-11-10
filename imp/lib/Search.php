@@ -24,8 +24,6 @@
  *     'vinbox_id' => string (The Virtual Inbox query ID)
  * );
  *
- * $Horde: imp/lib/Search.php,v 1.120 2008/10/13 20:51:51 slusarz Exp $
- *
  * Copyright 2002-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

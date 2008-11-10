@@ -1,8 +1,6 @@
 <?php
 /**
  * @package IMP
- *
- * $Horde: imp/lib/Crypt/PGP.php,v 1.130 2008/09/29 20:54:21 slusarz Exp $
  */
 
 /** Horde_Crypt_pgp */

@@ -5,8 +5,6 @@
  * Parameters required:
  *   'app_location'  --  TODO
  *
- * $Horde: imp/lib/Quota/mdaemon.php,v 1.24 2008/01/02 11:12:46 jan Exp $
- *
  * Copyright 2002-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

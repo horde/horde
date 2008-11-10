@@ -1,6 +1,4 @@
 /**
- * $Horde: imp/js/src/unblockImages.js,v 1.8 2008/08/05 17:49:51 slusarz Exp $
- *
  * Use DOM manipulation to un-block images that had been redirected.
  */
 

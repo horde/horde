@@ -7,8 +7,6 @@ require_once 'Horde/Notification/Listener/status.php';
  * Notification_Listener_status:: class to display the messages for
  * IMP's special message types 'imp.forward' and 'imp.reply'.
  *
- * $Horde: imp/lib/Notification/Listener/status.php,v 1.11 2006/09/04 22:23:52 slusarz Exp $
- *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Horde_Notification
  */

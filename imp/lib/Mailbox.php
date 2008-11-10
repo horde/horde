@@ -5,8 +5,6 @@
  *
  * Copyright 2002-2008 The Horde Project (http://www.horde.org/)
  *
- * $Horde: imp/lib/Mailbox.php,v 1.272 2008/10/11 06:59:38 slusarz Exp $
- *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *

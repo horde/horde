@@ -1,7 +1,3 @@
-/**
- * $Horde: imp/themes/mozilla/screen.css,v 1.1 2006/06/16 14:10:19 chuck Exp $
- */
-
 /* Navbar action styling. */
 .msgactions li ul a:hover, .msgactions li ul a:active {
     color: #000;

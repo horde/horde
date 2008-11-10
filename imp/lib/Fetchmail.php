@@ -3,8 +3,6 @@
  * The IMP_Fetchmail:: class provides an interface to download mail from
  * remote mail servers.
  *
- * $Horde: imp/lib/Fetchmail.php,v 1.69 2008/11/09 07:38:45 slusarz Exp $
- *
  * Copyright 2002-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

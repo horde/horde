@@ -2,8 +2,6 @@
 /**
  * The IMP_Horde_Mime_Viewer_smil renders SMIL documents to very basic HTML.
  *
- * $Horde: imp/lib/MIME/Viewer/smil.php,v 1.5 2008/01/02 11:12:45 jan Exp $
- *
  * Copyright 2006-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

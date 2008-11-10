@@ -1,6 +1,4 @@
 <?php
-// $Horde: imp/scripts/custom_login.php,v 1.11 2008/08/05 19:22:16 slusarz Exp $
-
 // CUSTOMIZE THIS
 define('IMP_BASE', '..');
 

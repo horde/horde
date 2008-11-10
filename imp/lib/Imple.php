@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: imp/lib/Imple.php,v 1.11 2008/09/25 03:42:02 slusarz Exp $
- *
  * Copyright 2005-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

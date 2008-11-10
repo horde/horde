@@ -4,8 +4,6 @@
  * and provides an option to import the data into a calendar source,
  * if one is available.
  *
- * $Horde: imp/lib/MIME/Viewer/itip.php,v 1.97 2008/10/07 13:57:20 jan Exp $
- *
  * Copyright 2002-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

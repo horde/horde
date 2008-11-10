@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: imp/config/prefs.php.dist,v 1.300 2008/10/27 19:50:02 mrubinsk Exp $
- *
  * See horde/config/prefs.php for documentation on the structure of this file.
  */
 

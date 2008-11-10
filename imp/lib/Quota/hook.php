@@ -10,8 +10,6 @@
  * driver supports the following parameters:
  *   'params'       => Array of parameters to pass to the quota function.
  *
- * $Horde: imp/lib/Quota/hook.php,v 1.3 2008/07/01 13:47:24 jan Exp $
- *
  * Copyright 2002-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

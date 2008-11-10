@@ -3,8 +3,6 @@
  * The IMP_Contents:: class contains all functions related to handling the
  * content and output of mail messages in IMP.
  *
- * $Horde: imp/lib/MIME/Contents.php,v 1.281 2008/09/25 03:42:03 slusarz Exp $
- *
  * Copyright 2002-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

@@ -6,8 +6,6 @@
  * Required parameters: NONE
  * Optional parameters: NONE
  *
- * $Horde: imp/lib/Auth/imp.php,v 1.64 2008/10/13 20:51:53 slusarz Exp $
- *
  * Copyright 2003-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you

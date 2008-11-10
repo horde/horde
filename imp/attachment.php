@@ -1,16 +1,14 @@
 <?php
 /**
- * $Horde: imp/attachment.php,v 2.34 2008/10/23 16:09:11 slusarz Exp $
+ * This file should be the basis for serving hosted attachments.  It
+ * should fetch the file from the VFS and funnel it to the client
+ * wishing to download the attachment. This will allow for the
+ * exchange of massive attachments without causing mail server havoc.
  *
  * Copyright 2004-2007 Andrew Coleman <mercury@appisolutions.net>
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
- *
- * This file should be the basis for serving hosted attachments.  It
- * should fetch the file from the VFS and funnel it to the client
- * wishing to download the attachment. This will allow for the
- * exchange of massive attachments without causing mail server havoc.
  */
 
 // Set up initial includes.

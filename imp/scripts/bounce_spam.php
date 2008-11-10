@@ -8,8 +8,6 @@
  * message in the file imp/config/bounce.txt. Important: the bounce message
  * must be a complete message including headers!
  *
- * $Horde: imp/scripts/bounce_spam.php,v 1.5 2008/01/02 11:12:47 jan Exp $
- *
  * Copyright 2005-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

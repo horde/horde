@@ -2,8 +2,6 @@
  * Reuseable keyboard or mouse driven list component. Based on
  * Scriptaculous' AutoCompleter.
  *
- * $Horde: imp/js/src/KeyNavList.js,v 1.11 2008/05/08 06:46:52 slusarz Exp $
- *
  * Copyright 2005-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

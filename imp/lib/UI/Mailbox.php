@@ -3,8 +3,6 @@
  * The IMP_UI_Mailbox:: class is designed to provide a place to dump common
  * code shared among IMP's various UI views for the mailbox page.
  *
- * $Horde: imp/lib/UI/Mailbox.php,v 1.17 2008/08/26 06:59:58 slusarz Exp $
- *
  * Copyright 2006-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

@@ -3,8 +3,6 @@
  * IMP_Quota:: provides an API for retrieving Quota details from a mail
  * server.
  *
- * $Horde: imp/lib/Quota.php,v 1.39 2008/08/05 19:22:14 slusarz Exp $
- *
  * Copyright 2002-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

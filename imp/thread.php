@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: imp/thread.php,v 2.57 2008/08/28 09:09:50 jan Exp $
- *
  * Copyright 2004-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

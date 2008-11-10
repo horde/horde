@@ -3,8 +3,6 @@
  * The IMP_Horde_Mime_Viewer_partial class allows multipart/partial messages
  * to be displayed (RFC 2046 [5.2.2]).
  *
- * $Horde: imp/lib/MIME/Viewer/partial.php,v 1.39 2008/09/17 05:02:40 slusarz Exp $
- *
  * Copyright 2003-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

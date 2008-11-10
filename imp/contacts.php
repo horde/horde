@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: imp/contacts.php,v 2.97 2008/10/29 03:43:55 slusarz Exp $
- *
  * Copyright 2002-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

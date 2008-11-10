@@ -3,8 +3,6 @@
  * The IMP_Fetchmail_imap driver implements the IMAP_Fetchmail class for use
  * with IMAP/POP3 servers.
  *
- * $Horde: imp/lib/Fetchmail/imap.php,v 1.24 2008/11/09 07:16:01 slusarz Exp $
- *
  * Copyright 2002-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

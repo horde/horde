@@ -10,8 +10,6 @@
  * For any function below that requires an $indices parameter, see
  * IMP::parseIndicesList() for the list of allowable inputs.
  *
- * $Horde: imp/lib/Message.php,v 1.305 2008/10/14 21:40:58 slusarz Exp $
- *
  * Copyright 2000-2001 Chris Hyde <chris@jeks.net>
  * Copyright 2000-2008 The Horde Project (http://www.horde.org/)
  *

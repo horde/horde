@@ -3,8 +3,6 @@
 $block_name = _("Folder Summary");
 
 /**
- * $Horde: imp/lib/Block/summary.php,v 1.92 2008/10/11 05:45:16 slusarz Exp $
- *
  * @package Horde_Block
  */
 class Horde_Block_imp_summary extends Horde_Block {

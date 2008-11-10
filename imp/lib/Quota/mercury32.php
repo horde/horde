@@ -30,8 +30,6 @@
  * UNC path ("\\\\shareDrive\\shareDir").
  *****************************************************************************
  *
- * $Horde: imp/lib/Quota/mercury32.php,v 1.14 2008/07/01 13:47:24 jan Exp $
- *
  * Copyright 2002-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

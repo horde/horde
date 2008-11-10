@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: imp/mailbox.php,v 2.876 2008/10/16 06:04:11 slusarz Exp $
- *
  * Copyright 1999-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

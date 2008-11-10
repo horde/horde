@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: imp/lib/Maintenance/Task/purge_sentmail.php,v 1.10 2008/01/02 11:12:46 jan Exp $
- *
  * Maintenance module that purges old messages in the sent-mail folder.
  *
  * Copyright 2001-2008 The Horde Project (http://www.horde.org/)
@@ -11,7 +9,6 @@
  *
  * @author  Michael Slusarz <slusarz@horde.org>
  * @author  Jan Schneider <jan@horde.org>
- * @since   IMP 4.2
  * @package Horde_Maintenance
  */
 class Maintenance_Task_purge_sentmail extends Maintenance_Task {

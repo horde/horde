@@ -16,8 +16,6 @@ require_once IMP_BASE . '/lib/Crypt/SMIME.php';
  * This class may add the following parameters to the URL:
  *   'smime_verify_msg' -- Do verification of S/MIME signed data.
  *
- * $Horde: imp/lib/MIME/Viewer/pkcs7.php,v 1.114 2008/10/28 21:53:42 slusarz Exp $
- *
  * Copyright 2002-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

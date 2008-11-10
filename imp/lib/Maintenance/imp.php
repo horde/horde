@@ -4,8 +4,6 @@ require_once 'Horde/Maintenance.php';
 require_once $GLOBALS['registry']->get('fileroot', 'imp') . '/lib/base.php';
 
 /**
- * $Horde: imp/lib/Maintenance/imp.php,v 1.29 2008/01/02 11:12:46 jan Exp $
- *
  * The Maintenance_IMP class defines the maintenance operations run upon
  * login to IMP.
  *
@@ -15,7 +13,6 @@ require_once $GLOBALS['registry']->get('fileroot', 'imp') . '/lib/base.php';
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author  Michael Slusarz <slusarz@horde.org>
- * @since   IMP 3.0
  * @package Horde_Maintenance
  */
 class Maintenance_IMP extends Maintenance {

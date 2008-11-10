@@ -3,8 +3,6 @@
  * The IMP_Maillog:: class contains all functions related to handling
  * logging of responses to individual e-mail messages.
  *
- * $Horde: imp/lib/Maillog.php,v 1.32 2008/01/02 11:12:42 jan Exp $
- *
  * Copyright 2003-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

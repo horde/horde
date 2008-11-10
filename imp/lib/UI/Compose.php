@@ -3,8 +3,6 @@
  * The IMP_UI_Compose:: class is designed to provide a place to dump common
  * code shared among IMP's various UI views for the compose page.
  *
- * $Horde: imp/lib/UI/Compose.php,v 1.30 2008/10/20 03:54:40 slusarz Exp $
- *
  * Copyright 2006-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -12,7 +10,6 @@
  *
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package IMP
- * @since   IMP 4.2
  */
 class IMP_UI_Compose {
 

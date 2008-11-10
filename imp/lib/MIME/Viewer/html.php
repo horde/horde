@@ -3,8 +3,6 @@
  * The IMP_Horde_Mime_Viewer_html class renders out HTML text with an effort
  * to remove potentially malicious code.
  *
- * $Horde: imp/lib/MIME/Viewer/html.php,v 1.150 2008/09/25 03:42:05 slusarz Exp $
- *
  * Copyright 1999-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

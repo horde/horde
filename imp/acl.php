@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: imp/acl.php,v 1.62 2008/09/25 03:41:57 slusarz Exp $
- *
  * Copyright 2000-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

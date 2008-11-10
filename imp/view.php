@@ -18,8 +18,6 @@
  *   'mailbox'  -- The mailbox of the message.
  *   'zip'      -- Download in .zip format?
  *
- * $Horde: imp/view.php,v 2.231 2008/09/01 09:27:13 jan Exp $
- *
  * Copyright 1999-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

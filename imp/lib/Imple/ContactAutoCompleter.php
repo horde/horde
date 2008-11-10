@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: imp/lib/Imple/ContactAutoCompleter.php,v 1.35 2008/07/29 20:29:17 slusarz Exp $
- *
  * Copyright 2005-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

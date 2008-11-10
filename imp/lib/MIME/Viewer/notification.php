@@ -3,8 +3,6 @@
  * The IMP_Horde_Mime_Viewer_notification class handles multipart/report
  * messages that refer to mail notification messages (RFC 2298).
  *
- * $Horde: imp/lib/MIME/Viewer/notification.php,v 1.29 2008/05/26 05:36:51 slusarz Exp $
- *
  * Copyright 2003-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

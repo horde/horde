@@ -3,8 +3,6 @@
  * The IMP_Horde_Mime_Viewer_appledouble class handles multipart/appledouble
  * messages conforming to RFC 1740.
  *
- * $Horde: imp/lib/MIME/Viewer/appledouble.php,v 1.27 2008/10/06 21:19:49 slusarz Exp $
- *
  * Copyright 2003-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

@@ -3,8 +3,6 @@
 
 <?php
 /**
- * $Horde: imp/config/motd.php.dist,v 1.10 2006/05/01 20:15:03 karsten Exp $
- *
  * Example code for switching between HTTP and HTTPS.
  * Contributed by: James <james@james-web.net>
  * To use, unncomment and modify these variables:

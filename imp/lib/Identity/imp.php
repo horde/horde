@@ -4,8 +4,6 @@
  * user might have. Its methods take care of any site-specific
  * restrictions configured in prefs.php and conf.php.
  *
- * $Horde: imp/lib/Identity/imp.php,v 1.81 2008/10/11 06:23:11 slusarz Exp $
- *
  * Copyright 2001-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

@@ -2,8 +2,6 @@
 /**
  * View a message.
  *
- * $Horde: imp/message.php,v 2.721 2008/10/11 06:23:10 slusarz Exp $
- *
  * Copyright 1999-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

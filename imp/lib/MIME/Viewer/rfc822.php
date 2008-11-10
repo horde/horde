@@ -3,8 +3,6 @@
  * The IMP_Horde_Mime_Viewer_rfc822 class renders out messages from
  * message/rfc822 content types.
  *
- * $Horde: imp/lib/MIME/Viewer/rfc822.php,v 1.41 2008/01/02 11:12:45 jan Exp $
- *
  * Copyright 2002-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

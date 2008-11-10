@@ -3,8 +3,6 @@
  * The IMP_UI_Message:: class is designed to provide a place to dump common
  * code shared among IMP's various UI views for the message page.
  *
- * $Horde: imp/lib/UI/Message.php,v 1.16 2008/06/26 18:58:20 slusarz Exp $
- *
  * Copyright 2006-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -12,7 +10,6 @@
  *
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package IMP
- * @since   IMP 4.2
  */
 class IMP_UI_Message
 {

@@ -1,14 +1,11 @@
 <?php
 /**
- * $Horde: imp/rss.php,v 1.18 2008/09/17 17:55:38 slusarz Exp $
- *
  * Copyright 2007-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author Eric Garrido <ekg2002@columbia.edu>
- * @since  IMP 4.2
  */
 
 $authentication = 'none';

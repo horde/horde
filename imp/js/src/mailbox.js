@@ -1,8 +1,6 @@
 /**
  * Provides the javascript for the mailbox.php script
  *
- * $Horde: imp/js/src/mailbox.js,v 1.16 2008/10/24 21:50:14 jan Exp $
- *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  */

@@ -3,8 +3,6 @@
  * The IMP_Horde_Mime_Viewer_zip class renders out the contents of ZIP files
  * in HTML format and allows downloading of extractable files.
  *
- * $Horde: imp/lib/MIME/Viewer/zip.php,v 1.40 2008/03/17 14:11:18 jan Exp $
- *
  * Copyright 2002-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

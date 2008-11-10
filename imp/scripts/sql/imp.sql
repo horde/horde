@@ -1,5 +1,3 @@
--- $Horde: imp/scripts/sql/imp.sql,v 1.1 2007/09/27 23:15:59 jan Exp $
-
 CREATE TABLE imp_sentmail (
     sentmail_id        BIGINT NOT NULL,
     sentmail_who       VARCHAR(255) NOT NULL,

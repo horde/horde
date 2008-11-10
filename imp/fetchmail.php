@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: imp/fetchmail.php,v 1.61 2008/01/02 11:12:37 jan Exp $
- *
  * Copyright 2002-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

@@ -2,8 +2,6 @@
 /**
  * IMP base JS file.
  *
- * $Horde: imp/templates/javascript_defs.php,v 2.11 2008/10/20 03:54:41 slusarz Exp $
- *
  * Copyright 2005-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

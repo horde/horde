@@ -2,8 +2,6 @@
 /**
  * IMP Base Class.
  *
- * $Horde: imp/lib/IMP.php,v 1.732 2008/10/13 19:19:52 slusarz Exp $
- *
  * Copyright 1999-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

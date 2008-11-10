@@ -6,8 +6,6 @@
  *   1st parameter = The type of content to output ('css', 'fckeditor', 'js')
  *   2nd parameter = Cache ID
  *
- * $Horde: imp/cache.php,v 1.12 2008/09/23 20:43:35 slusarz Exp $
- *
  * Copyright 2007-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you

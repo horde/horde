@@ -3,8 +3,6 @@
  * The IMP_Horde_Mime_Viewer_images class allows images to be displayed
  * inline in a message.
  *
- * $Horde: imp/lib/MIME/Viewer/images.php,v 1.81 2008/06/03 18:03:40 slusarz Exp $
- *
  * Copyright 2002-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

@@ -2,8 +2,6 @@
 /**
  * Maintenance module that deletes old sent-mail folders.
  *
- * $Horde: imp/lib/Maintenance/Task/delete_sentmail_monthly.php,v 1.33 2008/10/11 05:39:52 slusarz Exp $
- *
  * Copyright 2001-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

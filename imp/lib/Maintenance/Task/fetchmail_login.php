@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: imp/lib/Maintenance/Task/fetchmail_login.php,v 1.20 2008/01/02 11:12:46 jan Exp $
- *
  * Copyright 2003-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

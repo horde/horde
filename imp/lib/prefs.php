@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: imp/lib/prefs.php,v 1.57 2008/10/20 03:54:40 slusarz Exp $
- *
  * Copyright 1999-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

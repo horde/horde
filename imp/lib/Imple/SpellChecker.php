@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: imp/lib/Imple/SpellChecker.php,v 1.35 2008/09/24 18:18:09 slusarz Exp $
- *
  * Copyright 2005-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

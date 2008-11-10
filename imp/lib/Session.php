@@ -2,8 +2,6 @@
 /**
  * Functions required to create/initialize an IMP session.
  *
- * $Horde: imp/lib/Session.php,v 1.178 2008/10/16 06:04:13 slusarz Exp $
- *
  * Copyright 1999-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

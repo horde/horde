@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: imp/fetchmailprefs.php,v 1.69 2008/09/25 03:41:57 slusarz Exp $
- *
  * Copyright 2002-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

@@ -4,8 +4,6 @@ $block_name = _("Menu Folder List");
 $block_type = 'tree';
 
 /**
- * $Horde: imp/lib/Block/tree_folders.php,v 1.71 2008/01/02 16:48:34 chuck Exp $
- *
  * @package Horde_Block
  */
 class Horde_Block_imp_tree_folders extends Horde_Block {

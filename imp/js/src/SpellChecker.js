@@ -3,8 +3,6 @@
  * was rewritten almost completely by Chuck Hagenbuch to use
  * Prototype/Scriptaculous.
  *
- * $Horde: imp/js/src/SpellChecker.js,v 1.46 2008/06/16 05:26:26 slusarz Exp $
- *
  * Copyright 2005-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

@@ -19,10 +19,7 @@
  * The table structure can be created by the scripts/sql/imp_sentmail.sql
  * script.
  *
- * $Horde: imp/lib/Sentmail/sql.php,v 1.12 2007/02/16 19:51:04 slusarz Exp $
- *
  * @author  Jan Schneider <jan@horde.org>
- * @since   IMP 4.2
  * @package IMP
  */
 class IMP_Sentmail_sql extends IMP_Sentmail {

@@ -1,8 +1,6 @@
 /**
  * Provides the javascript for the login.php script.
  *
- * $Horde: imp/js/src/login.js,v 1.8 2008/10/16 06:04:13 slusarz Exp $
- *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  */

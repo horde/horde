@@ -11,8 +11,6 @@ define('IMP_SMIME_PUBKEY_FIELD', 'smimePublicKey');
  * The IMP_SMIME:: class contains all functions related to handling
  * S/MIME messages within IMP.
  *
- * $Horde: imp/lib/Crypt/SMIME.php,v 1.77 2008/10/15 02:42:38 slusarz Exp $
- *
  * Copyright 2002-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

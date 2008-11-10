@@ -5,8 +5,6 @@
  * query information about individual mailboxes.
  * In IMP, folders = IMAP mailboxes so the two terms are used interchangably.
  *
- * $Horde: imp/lib/IMAP/Tree.php,v 1.210 2008/10/19 21:23:09 slusarz Exp $
- *
  * Copyright 2000-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

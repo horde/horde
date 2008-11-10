@@ -19,8 +19,6 @@
  *   $imp_mbox   - Current mailbox information
  *   $imp_search - An IMP_Search object
  *
- * $Horde: imp/lib/base.php,v 1.121 2008/07/22 06:03:47 slusarz Exp $
- *
  * Copyright 1999-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

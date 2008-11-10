@@ -2,8 +2,6 @@
 /**
  * Maintenance module that renames the sent-mail folder.
  *
- * $Horde: imp/lib/Maintenance/Task/rename_sentmail_monthly.php,v 1.44 2008/08/07 20:01:50 slusarz Exp $
- *
  * Copyright 2001-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

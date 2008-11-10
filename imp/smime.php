@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: imp/smime.php,v 2.86 2008/09/24 18:18:08 slusarz Exp $
- *
  * Copyright 2002-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

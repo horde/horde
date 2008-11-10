@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: imp/compose.php,v 2.1121 2008/09/25 03:52:43 slusarz Exp $
- *
  * Copyright 1999-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: imp/filterprefs.php,v 2.37 2008/09/24 18:18:08 slusarz Exp $
- *
  * Copyright 2003-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
