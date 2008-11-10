@@ -441,4 +441,53 @@ class Horde_Mime
         return base_convert(dechex(strtr(microtime(), array('0.' => '', ' ' => ''))) . uniqid(), 16, 36);
     }
 
+    /**
+     * Performs MIME ID "arithmetic" on a given ID.
+     *
+     * @param string $id      The MIME ID string.
+     * @param string $action  One of the following:
+     * <pre>
+     * 'down' - ID of child.
+     * 'next' - ID of next sibling.
+     * 'prev' - ID of previous sibling.
+     * 'up' - ID of parent.
+     * </pre>
+     * @param integer $count  How many levels to traverse.
+     *
+     * @return mixed  The resulting ID string, or null if that ID can not
+     *                exist.
+     */
+    static public function mimeIdArithmetic($id, $action, $count = 1)
+    {
+        $pos = strrpos($id, '.');
+
+        /* Check for moving beyond the top of the message. */
+        if (is_null($pos) &&
+            ($id == '0') &&
+            in_array($action, array('prev', 'up'))) {
+            return null;
+        }
+
+        switch ($action) {
+        case 'down':
+            $id .= '.1';
+            break;
+
+        case 'next':
+        case 'prev':
+            $id = is_null($pos)
+                ? intval($id) + (($action == 'next') ? 1 : -1)
+                : substr_replace($id, intval(substr($id, $pos + 1)) + (($action == 'next') ? 1 : -1), $pos + 1);
+            break;
+
+        case 'up':
+            $id = is_null($pos)
+                ? 0
+                : substr($id, 0, $pos);
+            break;
+        }
+
+        return (--$count) ? self::mimeIdArithmetic($id, $action, $count) : $id;
+    }
+
 }
