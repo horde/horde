@@ -69,8 +69,11 @@ class IMP_Horde_MIME_Viewer_html extends Horde_MIME_Viewer_html
      */
     protected function _render()
     {
+        $render = $this->_IMPrender(false);
+
         return array(
-            'data' => $this->_IMPrender(false),
+            'data' => $render['html'],
+            'status' => $render['status'],
             'type' => $this->_mimepart->getType(true)
         );
     }
@@ -80,7 +83,12 @@ class IMP_Horde_MIME_Viewer_html extends Horde_MIME_Viewer_html
      */
     protected function _renderInline()
     {
-        return $this->_IMPrender(true);
+        $render = $this->_IMPrender(true);
+
+        return array(
+            'data' => $render['html'],
+            'status' => $render['status']
+        );
     }
 
     /**
@@ -88,7 +96,7 @@ class IMP_Horde_MIME_Viewer_html extends Horde_MIME_Viewer_html
      *
      * @param boolean $inline  Are we viewing inline?
      *
-     * @return string  The rendered text in HTML.
+     * @return array  Two elements: html and status.
      */
     protected function _IMPrender($inline)
     {
@@ -116,7 +124,8 @@ class IMP_Horde_MIME_Viewer_html extends Horde_MIME_Viewer_html
         }
 
         /* Sanitize the HTML. */
-        $data = $this->_cleanHTML($data, $inline);
+        $cleanhtml = $this->_cleanHTML($data, $inline);
+        $data = $cleanhtml['html'];
 
         /* Reset absolutely positioned elements. */
         if ($inline) {
@@ -203,17 +212,16 @@ class IMP_Horde_MIME_Viewer_html extends Horde_MIME_Viewer_html
 
         /* If we are viewing inline, give option to view in separate window. */
         if ($inline && $this->getConfigParam('external')) {
-            if ($msg) {
-                $msg = str_replace('</span>', ' | </span>', $msg);
-            }
-            $msg .= $this->_params['contents']->linkViewJS($this->mime_part, 'view_attach', _("Show this HTML in a new window?"));
+            $cleanhtml['status'][] = array(
+                'data' => $this->_params['contents']->linkViewJS($this->mime_part, 'view_attach', _("Show this HTML in a new window?")),
+                'type' => 'info'
+            );
         }
 
-        $msg = $this->formatStatusMsg($msg, null, false);
-
-        return (stristr($data, '<body') === false)
-            ? $script . $msg . $data
-            : preg_replace('/(<body.*?>)/is', '$1' . $script . $msg, $data);
+        return array(
+            'html' => $data,
+            'status' => $cleanhtml['status']
+        );
     }
 
     /**
@@ -221,7 +229,7 @@ class IMP_Horde_MIME_Viewer_html extends Horde_MIME_Viewer_html
      */
     protected function _mailtoCallback($m)
     {
-        return 'href="' . $GLOBALS['registry']->call('mail/compose', array(String::convertCharset(html_entity_decode($m[2]), 'iso-8859-1', NLS::getCharset()))) . '"';
+        return 'href="' . $GLOBALS['registry']->call('mail/compose', array(String::convertCharset(html_entity_decode($m[2]), 'ISO-8859-1', NLS::getCharset()))) . '"';
     }
 
     /**

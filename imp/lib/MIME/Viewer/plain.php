@@ -26,7 +26,10 @@ class IMP_Horde_MIME_Viewer_plain extends Horde_MIME_Viewer_plain
         // Trim extra whitespace in the text.
         $text = rtrim($this->_mimepart->getContents());
         if ($text == '') {
-            return '';
+            return array(
+                'data' => '',
+                'status' => array()
+            );
         }
 
         // If requested, scan the message for PGP data.
@@ -36,16 +39,11 @@ class IMP_Horde_MIME_Viewer_plain extends Horde_MIME_Viewer_plain
             require_once IMP_BASE . '/lib/Crypt/PGP.php';
             $imp_pgp = new IMP_PGP();
             if (($out = $imp_pgp->parseMessageOutput($this->_mimepart, $this->_params['contents']))) {
-                return $out;
+                return array(
+                    'data' => $out,
+                    'status' => array()
+                );
             }
-        }
-
-        // If requested, scan the message for UUencoded data.
-        if ($this->getConfigParam('uuencode')) {
-            // Don't want to use convert_uudecode() here as there may be
-            // multiple files residing in the text.
-            require_once 'Mail/mimeDecode.php';
-            $files = &Mail_mimeDecode::uudecode($text);
         }
 
         // Check for 'flowed' text data.
@@ -61,6 +59,7 @@ class IMP_Horde_MIME_Viewer_plain extends Horde_MIME_Viewer_plain
         }
 
         // Build filter stack. Starts with HTML markup and tab expansion.
+        require_once 'Horde/Text/Filter.php';
         $filters = array(
             'text2html' => array(
                 'parselevel' => TEXT_HTML_MICRO,
@@ -102,7 +101,6 @@ class IMP_Horde_MIME_Viewer_plain extends Horde_MIME_Viewer_plain
         }
 
         // Run filters.
-        require_once 'Horde/Text/Filter.php';
         $text = Text_Filter::filter($text, array_keys($filters), array_values($filters));
 
         // Wordwrap.
@@ -110,21 +108,10 @@ class IMP_Horde_MIME_Viewer_plain extends Horde_MIME_Viewer_plain
         if (!strncmp($text, ' ', 1)) {
             $text = '&nbsp;' . substr($text, 1);
         }
-        $text = '<div class="fixed leftAlign">' . "\n" . $text . '</div>';
 
-        // Replace UUencoded data with links now.
-        if ($this->getConfigParam('uuencode') && !empty($files)) {
-            foreach ($files as $file) {
-                $uupart = new Horde_MIME_Part();
-                $uupart->setContents($file['filedata']);
-                $uupart->setName(strip_tags($file['filename']));
-
-                $uumessage = Horde_MIME_Message::convertMIMEPart($uupart);
-                $mc = new IMP_Contents($uumessage);
-                //$text = preg_replace("/begin ([0-7]{3}) (.+)\r?\n(.+)\r?\nend/Us", '<table>' . $mc->getMessage(true) . '</table>', $text, 1);
-            }
-        }
-
-        return $text;
+        return array(
+            'data' => '<div class="fixed leftAlign">' . "\n" . $text . '</div>',
+            'status' => array()
+        );
     }
 }

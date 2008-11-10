@@ -58,11 +58,6 @@ $mime_drivers_map['imp']['overrides'] = array();
 $mime_drivers['imp']['plain'] = array(
     'inline' => true,
     'handles' => array('text/plain', 'text/rfc822-headers', 'application/pgp'),
-    /* If you want to scan ALL incoming messages for UUencoded data, set the
-     * following to true. This is very performance intensive and can take a
-     * long time for large messages. It is not recommended and is disabled by
-     * default. */
-    'uuencode' => false,
     /* If you want to limit the display of message data inline for large
      * messages, set the maximum size of the displayed message here (in
      * bytes).  If exceeded, the user will only be able to download the part.
