@@ -108,7 +108,7 @@ case 'download_render':
         break;
 
     case 'download_render':
-        $render = $contents->renderMIMEPart($id, array('format' => 'full', 'type' => $ctype));
+        $render = $contents->renderMIMEPart($id, 'full', array('type' => $ctype));
         $body = $render['body'];
         $type = $render['type'];
         $name = $render['name'];
@@ -131,7 +131,7 @@ case 'download_render':
     exit;
 
 case 'view_attach':
-    $render = $contents->renderMIMEPart($id, array('format' => 'full', 'type' => $ctype));
+    $render = $contents->renderMIMEPart($id, 'full', array('type' => $ctype));
     $browser->downloadHeaders($render['name'], $render['type'], true, strlen($render['data']));
     echo $render['data'];
     exit;

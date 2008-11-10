@@ -63,7 +63,9 @@ class IMP_Horde_Mime_Viewer_html extends Horde_Mime_Viewer_html
         /isx';
 
     /**
-     * TODO
+     * Return the full rendered version of the Horde_Mime_Part object.
+     *
+     * @return array  See Horde_Mime_Viewer_Driver::render().
      */
     protected function _render()
     {
@@ -77,7 +79,9 @@ class IMP_Horde_Mime_Viewer_html extends Horde_Mime_Viewer_html
     }
 
     /**
-     * TODO
+     * Return the rendered inline version of the Horde_Mime_Part object.
+     *
+     * @return array  See Horde_Mime_Viewer_Driver::render().
      */
     protected function _renderInline()
     {

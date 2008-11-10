@@ -15,7 +15,9 @@
 class IMP_Horde_Mime_Viewer_plain extends Horde_Mime_Viewer_plain
 {
     /**
-     * TODO
+     * Return the rendered inline version of the Horde_Mime_Part object.
+     *
+     * @return array  See Horde_Mime_Viewer_Driver::render().
      */
     protected function _renderInline()
     {
@@ -24,10 +26,7 @@ class IMP_Horde_Mime_Viewer_plain extends Horde_Mime_Viewer_plain
         // Trim extra whitespace in the text.
         $text = rtrim($this->_mimepart->getContents());
         if ($text == '') {
-            return array(
-                'data' => '',
-                'status' => array()
-            );
+            return array();
         }
 
         // If requested, scan the message for PGP data.
@@ -37,10 +36,7 @@ class IMP_Horde_Mime_Viewer_plain extends Horde_Mime_Viewer_plain
             require_once IMP_BASE . '/lib/Crypt/PGP.php';
             $imp_pgp = new IMP_PGP();
             if (($out = $imp_pgp->parseMessageOutput($this->_mimepart, $this->_params['contents']))) {
-                return array(
-                    'data' => $out,
-                    'status' => array()
-                );
+                return array('data' => $out);
             }
         }
 
@@ -107,9 +103,6 @@ class IMP_Horde_Mime_Viewer_plain extends Horde_Mime_Viewer_plain
             $text = '&nbsp;' . substr($text, 1);
         }
 
-        return array(
-            'data' => '<div class="fixed leftAlign">' . "\n" . $text . '</div>',
-            'status' => array()
-        );
+        return array('data' => '<div class="fixed leftAlign">' . "\n" . $text . '</div>');
     }
 }

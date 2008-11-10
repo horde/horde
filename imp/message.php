@@ -633,9 +633,9 @@ if (!$printer_friendly) {
 
 $atc_display = $prefs->getValue('attachment_display');
 $show_parts = (($atc_display == 'list') || ($atc_display == 'both'));
-$downloadall_link = empty($summary['message']['download_all'])
+$downloadall_link = empty($summary['info']['download_all'])
     ? false
-    : $imp_contents->urlView($imp_contents->getMIMEMessage(), 'download_all', array('params' => array('download_ids' => serialize($summary['message']['download_all']))));
+    : $imp_contents->urlView($imp_contents->getMIMEMessage(), 'download_all', array('params' => array('download_ids' => serialize($summary['info']['download_all']))));
 $hdrs = array();
 $i = 1;
 
@@ -660,8 +660,8 @@ if (!empty($summary['parts']) &&
     $val = '';
     if ($show_parts) {
         $part_info = array('icon', 'id', 'description', 'type', 'size');
-        foreach (array('download_link', 'zip', 'img_save', 'strip') as $val) {
-            if ($summary['message']['has_' . $val]) {
+        foreach (array('download', 'download_zip', 'img_save', 'strip') as $val) {
+            if (isset($summary['info']['has'][$val])) {
                 $part_info[] = $val;
             }
         }
@@ -692,7 +692,7 @@ if ($printer_friendly && !empty($conf['print']['add_printedby'])) {
 
 $m_template->set('headers', $hdrs);
 // TODO
-$m_template->set('msgtext', reset($inline_parts));
+//$m_template->set('msgtext', reset($inline_parts));
 echo $m_template->fetch(IMP_TEMPLATES . '/message/message.html');
 
 if (!$printer_friendly) {

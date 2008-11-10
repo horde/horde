@@ -275,29 +275,16 @@ class IMP_Contents
      *
      * @return
      */
-    public function renderMIMEPart($mime_id, $options = array())
+    public function renderMIMEPart($mime_id, $format, $options = array())
     {
         $mime_part = $this->getMIMEPart($mime_id);
         $viewer = Horde_Mime_Viewer::factory(empty($options['type']) ? $mime_part->getType() : $options['type']);
         $viewer->setMIMEPart($mime_part);
         $viewer->setParams(array('contents' => &$this));
 
-        switch($options['format']) {
-        case 'inline':
-            $data = $viewer->renderInline();
-            break;
-
-        case 'info':
-            $data = $viewer->renderInfo();
-            break;
-
-        case 'full':
-            $data = $viewer->render();
-            return array('data' => $data['data'], 'name' => $mime_part->getName(true), 'type' => $data['type']);
-            break;
-        }
-
-        return array('data' => $data, 'name' => $mime_part->getName(true), 'type' => null);
+        $ret = $viewer->render($format);
+        $ret['name'] => $mime_part->getName(true);
+        return $ret;
     }
 
     /**
@@ -438,17 +425,14 @@ class IMP_Contents
                 $last_id = null;
                 $viewer = Horde_Mime_Viewer::factory($mime_type);
 
-                if ($viewer->canDisplayInline() &&
+                if ($viewer->canRender('inline') &&
                     ($mime_part->getDisposition() == 'inline')) {
                     $part['render_inline'] = true;
                     $info['render'][$mime_id] = 'inline';
                     $last_id = $mime_id;
-                } elseif (is_null($last_id) && $viewer->canDisplayInfo()) {
-                    // TODO - Need way to show info while allowing display of
-                    // subparts.
+                } elseif (is_null($last_id) && $viewer->canRender('info')) {
                     $part['render_info'] = true;
                     $info['render'][$mime_id] = 'info';
-                    $last_id = $mime_id;
                 }
             }
 
