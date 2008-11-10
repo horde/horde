@@ -111,7 +111,7 @@ class Horde_MIME_Viewer_Driver
     public function renderInline()
     {
         return (is_null($this->_mimepart) || !$this->canDisplayInline())
-            ? array('data' => '', 'status' => array()),
+            ? array('data' => '', 'status' => array())
             : $this->_renderInline();
     }
 
@@ -132,7 +132,7 @@ class Horde_MIME_Viewer_Driver
     public function renderInfo()
     {
         return (is_null($this->_mimepart) || !$this->canDisplayInfo())
-            ? array('data' => '', 'status' => array()),
+            ? array('data' => '', 'status' => array())
             : $this->_renderInfo();
     }
 
