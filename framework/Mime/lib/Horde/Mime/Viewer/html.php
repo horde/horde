@@ -20,16 +20,17 @@ class Horde_Mime_Viewer_html extends Horde_Mime_Viewer_Driver
      *
      * @var boolean
      */
-    protected $_canrender = array(
+    protected $_capability = array(
+        'embedded' => false,
         'full' => true,
         'info' => false,
         'inline' => true,
     );
 
     /**
-     * Render out the currently set contents.
+     * Return the full rendered version of the Horde_Mime_Part object.
      *
-     * @return string  The rendered text.
+     * @return array  See Horde_Mime_Viewer_Driver::render().
      */
     public function _render()
     {
@@ -43,7 +44,9 @@ class Horde_Mime_Viewer_html extends Horde_Mime_Viewer_Driver
     }
 
     /**
-     * TODO
+     * Return the rendered inline version of the Horde_Mime_Part object.
+     *
+     * @return array  See Horde_Mime_Viewer_Driver::render().
      */
     public function _renderInline()
     {

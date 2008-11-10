@@ -20,15 +20,16 @@ class Horde_Mime_Viewer_plain extends Horde_Mime_Viewer_Driver
      * @var boolean
      */
     protected $_canrender = array(
+        'embedded' => false,
         'full' => true,
         'info' => false,
         'inline' => true,
     );
 
     /**
-     * Render the contents.
+     * Return the full rendered version of the Horde_Mime_Part object.
      *
-     * @return array  TODO
+     * @return array  See Horde_Mime_Viewer_Driver::render().
      */
     protected function _render()
     {
@@ -43,15 +44,14 @@ class Horde_Mime_Viewer_plain extends Horde_Mime_Viewer_Driver
         require_once 'Horde/Text/Filter.php';
         return array(
             'data' => '<html><body><tt>' . Text_Filter::filter($text, 'text2html', array('parselevel' => TEXT_HTML_MICRO, 'charset' => $charset, 'class' => null)) . '</tt></body></html>',
-            'status' => array(),
             'type' => 'text/html; charset=' . $charset
         );
     }
 
     /**
-     * Render the contents for inline viewing.
+     * Return the rendered inline version of the Horde_Mime_Part object.
      *
-     * @return string  The rendered contents.
+     * @return array  See Horde_Mime_Viewer_Driver::render().
      */
     protected function _renderInline()
     {
@@ -62,10 +62,7 @@ class Horde_Mime_Viewer_plain extends Horde_Mime_Viewer_Driver
             ? $this->_formatFlowed($text, $this->_mimepart->getContentTypeParameter('delsp'))
             : $text;
 
-        return array(
-            'data' => $data,
-            'status' => array()
-        );
+        return array('data' => $data);
     }
 
     /**

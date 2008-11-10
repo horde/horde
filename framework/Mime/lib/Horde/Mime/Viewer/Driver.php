@@ -35,14 +35,15 @@ class Horde_Mime_Viewer_Driver
     protected $_params = array();
 
     /**
-     * Can this driver render various views?
+     * This driver's capabilities.
      *
      * @var boolean
      */
-    protected $_canrender = array(
+    protected $_capability = array(
+        'embedded' => false,
         'full' => false,
         'info' => false,
-        'inline' => false,
+        'inline' => false
     );
 
     /**
@@ -80,41 +81,65 @@ class Horde_Mime_Viewer_Driver
     /**
      * Return the rendered version of the Horde_Mime_Part object.
      *
-     * @param string $mode  The mode.  Either 'full', 'inline', or 'info'.
+     * @param string $mode  The mode:
+     * <pre>
+     * 'full' - A full representation of the MIME part, for use in a view
+     *          where the output to the browser can be set to the value
+     *          returned in 'type'.
+     * 'inline' - A representation of the MIME part that can be viewed inline
+     *            on a text/html page that may contain other HTML elements.
+     * 'info' - A representation of the MIME part that can be viewed inline
+     *          on an text/html page that may contain other HTML elements.
+     *          This view is not a full view, but rather a condensed view of
+     *          the contents of the MIME part. This view is intended to be
+     *          displayed to the user with the intention that this MIME part's
+     *          subparts may also independently be viewed inline.
+     * </pre>
      *
      * @return array  An array with the following elements:
      * <pre>
-     * 'data' - (string)
-     * 'status' - (array)
-     * 'type' - (string)
+     * 'data' - (string) The rendered data.
+     * 'status' - (array) An array of status information to be displayed to
+     *            the user.  Consists of arrays with the following keys:
+     *            'position' - (string) Either 'top' or 'bottom'
+     *            'text' - (string) The text to display
+     *            'type' - (string) Either 'info' or 'warning'
+     * 'type' - (string) The MIME type of the rendered data.
      * </pre>
      */
     public function render($mode)
     {
+        $charset = NLS::getCharset();
+        $default = array('data' => '', 'status' => array());
+        $default['type'] = ($mode == 'full')
+            ? 'text/plain; charset=' . $charset
+            : 'text/html; charset=' . $charset;
+
         if (is_null($this->_mimepart) || !$this->canDisplay($mode)) {
-            $default = array('data' => '', 'status' => array(), 'type' => null);
-            if ($mode == 'full') {
-                $default['type'] => 'text/plain';
-            }
             return $default;
         }
 
         switch ($mode) {
         case 'full':
-            return $this->_render();
+            $ret = $this->_render();
+            break;
 
         case 'inline':
-            return $this->_renderInline();
+            $ret = $this->_renderInline();
+            break;
 
         case 'info':
-            return $this->_renderInfo();
+            $ret = $this->_renderInfo();
+            break;
         }
+
+        return array_merge($default, $ret);
     }
 
     /**
-     * Return the rendered version of the Horde_Mime_Part object.
+     * Return the full rendered version of the Horde_Mime_Part object.
      *
-     * @return string  Rendered version of the Horde_Mime_Part object.
+     * @return array  See Horde_Mime_Viewer_Driver::render().
      */
     protected function _render()
     {
@@ -123,7 +148,7 @@ class Horde_Mime_Viewer_Driver
     /**
      * Return the rendered inline version of the Horde_Mime_Part object.
      *
-     * @return string  Rendered version of the Horde_Mime_Part object.
+     * @return array  See Horde_Mime_Viewer_Driver::render().
      */
     protected function _renderInline()
     {
@@ -132,7 +157,7 @@ class Horde_Mime_Viewer_Driver
     /**
      * Return the rendered information about the Horde_Mime_Part object.
      *
-     * @return string  Rendered information on the Horde_Mime_Part object.
+     * @return array  See Horde_Mime_Viewer_Driver::render().
      */
     protected function _renderInfo()
     {
@@ -151,14 +176,52 @@ class Horde_Mime_Viewer_Driver
         switch ($mode) {
         case 'full':
         case 'info':
-            return $this->_canrender[$mode];
+            return $this->_capability[$mode];
 
         case 'inline':
-            return $this->getConfigParam('inline') && $this->_canrender['inline'];
+            return $this->getConfigParam('inline') && $this->_capability['inline'];
 
         default:
             return false;
         }
+    }
+
+    /**
+     * Does this MIME part possibly contain embedded MIME parts?
+     *
+     * @return boolean  True if this driver supports parsing embedded MIME
+     *                  parts.
+     */
+    public function embeddedMimeParts()
+    {
+        return $this->_capability['embedded'];
+    }
+
+    /**
+     * If this MIME part can contain embedded MIME parts, and those embedded
+     * MIME parts exist, return an altered version of the Horde_Mime_Part that
+     * contains the embedded MIME part information.
+     *
+     * @return mixed  A Horde_Mime_Part with the embedded MIME part information
+     *                or null if no embedded MIME parts exist.
+     */
+    public function getEmbeddedMimeParts()
+    {
+        return (!is_null($this->_mimepart) || $this->_embeddedMimeParts())
+            ? $this->_getEmbeddedMimeParts()
+            : null;
+    }
+
+    /**
+     * If this MIME part can contain embedded MIME parts, and those embedded
+     * MIME parts exist, return an altered version of the Horde_Mime_Part that
+     * contains the embedded MIME part information.
+     *
+     * @return mixed  A Horde_Mime_Part with the embedded MIME part information
+     *                or null if no embedded MIME parts exist.
+     */
+    protected function _getEmbeddedMimeParts()
+    {
     }
 
     /**
