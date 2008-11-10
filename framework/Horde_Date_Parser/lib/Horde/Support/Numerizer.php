@@ -13,9 +13,9 @@ class Horde_Support_Numerizer
                 return new $class($args);
             }
 
-            $country = array_shift(explode('_', $locale));
-            if ($country != $locale) {
-                $class = 'Horde_Support_Numerizer_Locale_' . $country;
+            $language = array_shift(explode('_', $locale));
+            if ($language != $locale) {
+                $class = 'Horde_Support_Numerizer_Locale_' . $language;
                 if (class_exists($class)) {
                     return new $class($args);
                 }
