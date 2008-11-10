@@ -1,6 +1,6 @@
 <?php
 /**
- * The Horde_MIME_Viewer_rfc822 class renders out messages from the
+ * The Horde_Mime_Viewer_rfc822 class renders out messages from the
  * message/rfc822 content type.
  *
  * Copyright 2002-2008 The Horde Project (http://www.horde.org/)
@@ -9,9 +9,9 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_MIME_Viewer
+ * @package Horde_Mime_Viewer
  */
-class Horde_MIME_Viewer_rfc822 extends Horde_MIME_Viewer_Driver
+class Horde_Mime_Viewer_rfc822 extends Horde_Mime_Viewer_Driver
 {
     /**
      * Render out the currently set contents.
@@ -62,7 +62,7 @@ class Horde_MIME_Viewer_rfc822 extends Horde_MIME_Viewer_Driver
 
         /* Get the list of headers now. */
         require_once 'Horde/MIME/Headers.php';
-        $headers = Horde_MIME_Headers::parseHeaders($text);
+        $headers = Horde_Mime_Headers::parseHeaders($text);
 
         $header_array = array(
             'date' => _("Date"),

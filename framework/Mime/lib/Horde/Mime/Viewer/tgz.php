@@ -4,7 +4,7 @@ require_once 'Horde/Compress.php';
 require_once 'Horde/Text.php';
 
 /**
- * The Horde_MIME_Viewer_tgz class renders out plain or gzipped tarballs in
+ * The Horde_Mime_Viewer_tgz class renders out plain or gzipped tarballs in
  * HTML.
  *
  * See the enclosed file COPYING for license information (LGPL). If you
@@ -12,9 +12,9 @@ require_once 'Horde/Text.php';
  *
  * @author  Anil Madhavapeddy <anil@recoil.org>
  * @author  Michael Cochrane <mike@graftonhall.co.nz>
- * @package Horde_MIME_Viewer
+ * @package Horde_Mime_Viewer
  */
-class Horde_MIME_Viewer_tgz extends Horde_MIME_Viewer_Driver
+class Horde_Mime_Viewer_tgz extends Horde_Mime_Viewer_Driver
 {
     /**
      * Render out the currently set tar file contents.

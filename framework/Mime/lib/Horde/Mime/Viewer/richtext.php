@@ -1,6 +1,6 @@
 <?php
 /**
- * The Horde_MIME_Viewer_richtext class renders out HTML text from
+ * The Horde_Mime_Viewer_richtext class renders out HTML text from
  * text/richtext content tags, (RFC 1896 [7.1.3]).
  *
  * A minimal richtext implementation is one that simply converts "<lt>" to
@@ -30,9 +30,9 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_MIME_Viewer
+ * @package Horde_Mime_Viewer
  */
-class Horde_MIME_Viewer_richtext extends Horde_MIME_Viewer_Driver
+class Horde_Mime_Viewer_richtext extends Horde_Mime_Viewer_Driver
 {
     /**
      * Render out the currently set contents in HTML format.

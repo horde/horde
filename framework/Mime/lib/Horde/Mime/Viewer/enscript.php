@@ -3,7 +3,7 @@
 require_once dirname(__FILE__) . '/source.php';
 
 /**
- * The Horde_MIME_Viewer_enscript class renders out various content in HTML
+ * The Horde_Mime_Viewer_enscript class renders out various content in HTML
  * format by using GNU Enscript.
  *
  * Copyright 1999-2008 The Horde Project (http://www.horde.org/)
@@ -12,9 +12,9 @@ require_once dirname(__FILE__) . '/source.php';
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Anil Madhavapeddy <anil@recoil.org>
- * @package Horde_MIME_Viewer
+ * @package Horde_Mime_Viewer
  */
-class Horde_MIME_Viewer_enscript extends Horde_MIME_Viewer_source
+class Horde_Mime_Viewer_enscript extends Horde_Mime_Viewer_source
 {
     /**
      * Render out the data using Enscript.
@@ -74,7 +74,7 @@ class Horde_MIME_Viewer_enscript extends Horde_MIME_Viewer_source
     {
         include_once dirname(__FILE__) . '/../Magic.php';
 
-        $ext = Horde_MIME_Magic::MIMEToExt($type);
+        $ext = Horde_Mime_Magic::MIMEToExt($type);
 
         switch ($ext) {
         case 'cs':

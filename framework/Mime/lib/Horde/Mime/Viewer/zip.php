@@ -1,6 +1,6 @@
 <?php
 /**
- * The Horde_MIME_Viewer_zip class renders out the contents of ZIP files in
+ * The Horde_Mime_Viewer_zip class renders out the contents of ZIP files in
  * HTML format.
  *
  * Copyright 2000-2008 The Horde Project (http://www.horde.org/)
@@ -10,9 +10,9 @@
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @author  Michael Cochrane <mike@graftonhall.co.nz>
- * @package Horde_MIME_Viewer
+ * @package Horde_Mime_Viewer
  */
-class Horde_MIME_Viewer_zip extends Horde_MIME_Viewer_Driver
+class Horde_Mime_Viewer_zip extends Horde_Mime_Viewer_Driver
 {
     /**
      * Render out the current zip contents.

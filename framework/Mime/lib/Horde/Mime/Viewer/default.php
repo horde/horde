@@ -1,6 +1,6 @@
 <?php
 /**
- * The Horde_MIME_Viewer_default class simply prints out the encapsulated
+ * The Horde_Mime_Viewer_default class simply prints out the encapsulated
  * content.  It exists as a fallback if no other intelligent rendering
  * mechanism could be used.
  *
@@ -10,8 +10,8 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Anil Madhavapeddy <anil@recoil.org>
- * @package Horde_MIME_Viewer
+ * @package Horde_Mime_Viewer
  */
-class Horde_MIME_Viewer_default extends Horde_MIME_Viewer_Driver
+class Horde_Mime_Viewer_default extends Horde_Mime_Viewer_Driver
 {
 }

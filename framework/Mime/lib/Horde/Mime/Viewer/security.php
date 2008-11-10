@@ -1,7 +1,7 @@
 <?php
 /**
- * The Horde_MIME_Viewer_security class is a wrapper used to load the
- * appropriate Horde_MIME_Viewer for secure multipart messages (defined by RFC
+ * The Horde_Mime_Viewer_security class is a wrapper used to load the
+ * appropriate Horde_Mime_Viewer for secure multipart messages (defined by RFC
  * 1847). This class handles multipart/signed and multipart/encrypted data.
  *
  * Copyright 2002-2008 The Horde Project (http://www.horde.org/)
@@ -10,34 +10,34 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_MIME_Viewer
+ * @package Horde_Mime_Viewer
  */
-class Horde_MIME_Viewer_security extends Horde_MIME_Viewer_Driver
+class Horde_Mime_Viewer_security extends Horde_Mime_Viewer_Driver
 {
     /**
-     * Stores the Horde_MIME_Viewer of the specified security protocol.
+     * Stores the Horde_Mime_Viewer of the specified security protocol.
      *
-     * @var Horde_MIME_Viewer
+     * @var Horde_Mime_Viewer
      */
     protected $_viewer;
 
     /**
      * The $mime_part class variable has the information to render
-     * out, encapsulated in a Horde_MIME_Part object.
+     * out, encapsulated in a Horde_Mime_Part object.
      *
      * @param $params mixed  The parameters (if any) to pass to the underlying
-     *                       Horde_MIME_Viewer.
+     *                       Horde_Mime_Viewer.
      *
      * @return string  Rendering of the content.
      */
     public function render($params = array())
     {
-        /* Get the appropriate Horde_MIME_Viewer for the protocol specified. */
+        /* Get the appropriate Horde_Mime_Viewer for the protocol specified. */
         if (!($this->_resolveViewer())) {
             return;
         }
 
-        /* Render using the loaded Horde_MIME_Viewer object. */
+        /* Render using the loaded Horde_Mime_Viewer object. */
         return $this->_viewer->render($params);
     }
 
@@ -48,7 +48,7 @@ class Horde_MIME_Viewer_security extends Horde_MIME_Viewer_Driver
      */
     public function getType()
     {
-        /* Get the appropriate Horde_MIME_Viewer for the protocol specified. */
+        /* Get the appropriate Horde_Mime_Viewer for the protocol specified. */
         if (!($this->_resolveViewer())) {
             return 'application/octet-stream';
         } else {
@@ -57,9 +57,9 @@ class Horde_MIME_Viewer_security extends Horde_MIME_Viewer_Driver
     }
 
     /**
-     * Load a Horde_MIME_Viewer according to the protocol parameter stored
-     * in the Horde_MIME_Part to render. If unsuccessful, try to load a generic
-     * multipart Horde_MIME_Viewer.
+     * Load a Horde_Mime_Viewer according to the protocol parameter stored
+     * in the Horde_Mime_Part to render. If unsuccessful, try to load a generic
+     * multipart Horde_Mime_Viewer.
      *
      * @return boolean  True on success, false on failure.
      */
@@ -72,10 +72,10 @@ class Horde_MIME_Viewer_security extends Horde_MIME_Viewer_Driver
             if (empty($protocol)) {
                 return false;
             }
-            $viewer = &Horde_MIME_Viewer::factory($this->mime_part, $protocol);
+            $viewer = &Horde_Mime_Viewer::factory($this->mime_part, $protocol);
             if (empty($viewer) ||
                 (String::lower(get_class($viewer)) == 'mime_viewer_default')) {
-                $viewer = &Horde_MIME_Viewer::factory($this->mime_part, $this->mime_part->getPrimaryType() . '/*');
+                $viewer = &Horde_Mime_Viewer::factory($this->mime_part, $this->mime_part->getPrimaryType() . '/*');
                 if (empty($viewer)) {
                     return false;
                 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * The Horde_MIME_Viewer_msword class renders out Microsoft Word documents
+ * The Horde_Mime_Viewer_msword class renders out Microsoft Word documents
  * in HTML format by using the wvWare package.
  *
  * Copyright 1999-2008 The Horde Project (http://www.horde.org/)
@@ -9,9 +9,9 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Anil Madhavapeddy <anil@recoil.org>
- * @package Horde_MIME_Viewer
+ * @package Horde_Mime_Viewer
  */
-class Horde_MIME_Viewer_msword extends Horde_MIME_Viewer_Driver
+class Horde_Mime_Viewer_msword extends Horde_Mime_Viewer_Driver
 {
     /**
      * Render out the current data using wvWare.

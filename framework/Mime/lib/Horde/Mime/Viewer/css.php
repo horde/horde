@@ -3,7 +3,7 @@
 require_once dirname(__FILE__) . '/source.php';
 
 /**
- * The Horde_MIME_Viewer_css class renders CSS source as HTML with an effort
+ * The Horde_Mime_Viewer_css class renders CSS source as HTML with an effort
  * to remove potentially malicious code.
  *
  * Copyright 2004-2008 The Horde Project (http://www.horde.org/)
@@ -12,9 +12,9 @@ require_once dirname(__FILE__) . '/source.php';
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
- * @package Horde_MIME_Viewer
+ * @package Horde_Mime_Viewer
  */
-class Horde_MIME_Viewer_css extends Horde_MIME_Viewer_source
+class Horde_Mime_Viewer_css extends Horde_Mime_Viewer_source
 {
     /**
      * Render out the currently set contents.

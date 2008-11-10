@@ -1,6 +1,6 @@
 <?php
 /**
- * The Horde_MIME_Viewer_source class is a class for any viewer that wants
+ * The Horde_Mime_Viewer_source class is a class for any viewer that wants
  * to provide line numbers to extend.
  *
  * Copyright 1999-2008 The Horde Project (http://www.horde.org/)
@@ -9,9 +9,9 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
- * @package Horde_MIME_Viewer
+ * @package Horde_Mime_Viewer
  */
-class Horde_MIME_Viewer_source extends Horde_MIME_Viewer_Driver
+class Horde_Mime_Viewer_source extends Horde_Mime_Viewer_Driver
 {
     /**
      * Add line numbers to a block of code.

@@ -1,6 +1,6 @@
 <?php
 /**
- * The Horde_MIME_Viewer_pdf class simply outputs the PDF file with the
+ * The Horde_Mime_Viewer_pdf class simply outputs the PDF file with the
  * content-type 'application/pdf' enabling web browsers with a PDF viewer
  * plugin to view the PDF file inside the browser.
  *
@@ -10,9 +10,9 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_MIME_Viewer
+ * @package Horde_Mime_Viewer
  */
-class Horde_MIME_Viewer_pdf extends Horde_MIME_Viewer_Driver
+class Horde_Mime_Viewer_pdf extends Horde_Mime_Viewer_Driver
 {
     /**
      * Return the content-type.

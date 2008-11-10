@@ -1,6 +1,6 @@
 <?php
 /**
- * The Horde_MIME_Viewer_msexcel class renders out Microsoft Excel
+ * The Horde_Mime_Viewer_msexcel class renders out Microsoft Excel
  * documents in HTML format by using the xlHtml package.
  *
  * Copyright 1999-2008 The Horde Project (http://www.horde.org/)
@@ -9,9 +9,9 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Anil Madhavapeddy <anil@recoil.org>
- * @package Horde_MIME_Viewer
+ * @package Horde_Mime_Viewer
  */
-class Horde_MIME_Viewer_msexcel extends Horde_MIME_Viewer_Driver
+class Horde_Mime_Viewer_msexcel extends Horde_Mime_Viewer_Driver
 {
     /**
      * Render out the currently data using xlhtml.

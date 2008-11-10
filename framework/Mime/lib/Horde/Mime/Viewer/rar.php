@@ -1,6 +1,6 @@
 <?php
 /**
- * The Horde_MIME_Viewer_rar class renders out the contents of .rar archives
+ * The Horde_Mime_Viewer_rar class renders out the contents of .rar archives
  * in HTML format.
  *
  * Copyright 1999-2008 The Horde Project (http://www.horde.org/)
@@ -10,9 +10,9 @@
  *
  * @author  Anil Madhavapeddy <anil@recoil.org>
  * @author  Michael Cochrane <mike@graftonhall.co.nz>
- * @package Horde_MIME_Viewer
+ * @package Horde_Mime_Viewer
  */
-class Horde_MIME_Viewer_rar extends Horde_MIME_Viewer_Driver
+class Horde_Mime_Viewer_rar extends Horde_Mime_Viewer_Driver
 {
     /**
      * Rar compression methods.

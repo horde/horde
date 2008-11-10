@@ -10,9 +10,7 @@
  * Any unknown file extensions will automatically be mapped to
  * 'x-extension/<ext>' where <ext> is the unknown file extension.
  *
- * @package Horde_MIME
- *
- * $Horde: framework/MIME/MIME/mime.mapping.php,v 1.18 2008/11/06 04:33:47 chuck Exp $
+ * @package Horde_Mime
  *
  * Generated: 11/05/08 23:30:23 by chuck on technest.org
  */

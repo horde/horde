@@ -3,7 +3,7 @@
 require_once dirname(__FILE__) . '/source.php';
 
 /**
- * The Horde_MIME_Viewer_srchighlite class renders out various content in HTML
+ * The Horde_Mime_Viewer_srchighlite class renders out various content in HTML
  * format by using Source-highlight.
  *
  * Source-highlight: http://www.gnu.org/software/src-highlite/
@@ -14,9 +14,9 @@ require_once dirname(__FILE__) . '/source.php';
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
- * @package Horde_MIME_Viewer
+ * @package Horde_Mime_Viewer
  */
-class Horde_MIME_Viewer_srchighlite extends Horde_MIME_Viewer_source
+class Horde_Mime_Viewer_srchighlite extends Horde_Mime_Viewer_source
 {
     /**
      * Render out the currently set contents using Source-highlight

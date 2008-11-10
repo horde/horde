@@ -1,6 +1,6 @@
 <?php
 /**
- * The Horde_MIME_Viewer_ooo class renders out OpenOffice.org documents in
+ * The Horde_Mime_Viewer_ooo class renders out OpenOffice.org documents in
  * HTML format.
  *
  * Copyright 2003-2008 The Horde Project (http://www.horde.org/)
@@ -10,9 +10,9 @@
  *
  * @author  Marko Djukic <marko@oblo.com>
  * @author  Jan Schneider <jan@horde.org>
- * @package Horde_MIME_Viewer
+ * @package Horde_Mime_Viewer
  */
-class Horde_MIME_Viewer_ooo extends Horde_MIME_Viewer_Driver
+class Horde_Mime_Viewer_ooo extends Horde_Mime_Viewer_Driver
 {
     /**
      * Render out the current data.

@@ -26,7 +26,7 @@ class Horde_Mime_Viewer
 
     /**
      * The driver cache array. This array is shared between all instances of
-     * Horde_MIME_Viewer.
+     * Horde_Mime_Viewer.
      *
      * @var array
      */

@@ -1,6 +1,6 @@
 <?php
 /**
- * The Horde_MIME_Viewer_html class renders out HTML text with an effort to
+ * The Horde_Mime_Viewer_html class renders out HTML text with an effort to
  * remove potentially malicious code.
  *
  * Copyright 1999-2008 The Horde Project (http://www.horde.org/)
@@ -11,9 +11,9 @@
  * @author  Anil Madhavapeddy <anil@recoil.org>
  * @author  Jon Parise <jon@horde.org>
  * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_MIME_Viewer
+ * @package Horde_Mime_Viewer
  */
-class Horde_MIME_Viewer_html extends Horde_MIME_Viewer_Driver
+class Horde_Mime_Viewer_html extends Horde_Mime_Viewer_Driver
 {
     /**
      * Can this driver render various views?
@@ -159,7 +159,7 @@ class Horde_MIME_Viewer_html extends Horde_MIME_Viewer_Driver
 
             $status[] = array(
                 'text' => $phish_warning,
-                'type' => self::WARNING
+                'type' => 'warning'
             );
         }
 

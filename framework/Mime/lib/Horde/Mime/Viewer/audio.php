@@ -1,6 +1,6 @@
 <?php
 /**
- * The Horde_MIME_Viewer_audio class sends audio parts to the browser for
+ * The Horde_Mime_Viewer_audio class sends audio parts to the browser for
  * handling by the browser, a plugin, or a helper application.
  *
  * Copyright 2004-2008 The Horde Project (http://www.horde.org/)
@@ -9,9 +9,9 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_MIME_Viewer
+ * @package Horde_Mime_Viewer
  */
-class Horde_MIME_Viewer_audio extends Horde_MIME_Viewer_Driver
+class Horde_Mime_Viewer_audio extends Horde_Mime_Viewer_Driver
 {
     /**
      * Return the content-type.

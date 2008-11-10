@@ -1,6 +1,6 @@
 <?php
 /**
- * The Horde_MIME_Viewer_plain class renders out plain text with URLs made
+ * The Horde_Mime_Viewer_plain class renders out plain text with URLs made
  * into hyperlinks (if viewing inline).
  *
  * Copyright 1999-2008 The Horde Project (http://www.horde.org/)
@@ -10,9 +10,9 @@
  *
  * @author  Anil Madhavapeddy <anil@recoil.org>
  * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_MIME_Viewer
+ * @package Horde_Mime_Viewer
  */
-class Horde_MIME_Viewer_plain extends Horde_MIME_Viewer_Driver
+class Horde_Mime_Viewer_plain extends Horde_Mime_Viewer_Driver
 {
     /**
      * Can this driver render various views?

@@ -1,6 +1,6 @@
 <?php
 /**
- * The Horde_MIME_Viewer_webcpp class renders out various content in HTML
+ * The Horde_Mime_Viewer_webcpp class renders out various content in HTML
  * format by using Web C Plus Plus.
  *
  * Web C Plus plus: http://webcpp.sourceforge.net/
@@ -11,9 +11,9 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
- * @package Horde_MIME_Viewer
+ * @package Horde_Mime_Viewer
  */
-class Horde_MIME_Viewer_webcpp extends Horde_MIME_Viewer_Driver
+class Horde_Mime_Viewer_webcpp extends Horde_Mime_Viewer_Driver
 {
     /**
      * Render out the currently set contents using Web C Plus Plus.

@@ -1,6 +1,6 @@
 <?php
 /**
- * The Horde_MIME_Viewer_tnef class allows MS-TNEF attachments to be
+ * The Horde_Mime_Viewer_tnef class allows MS-TNEF attachments to be
  * displayed.
  *
  * Copyright 2002-2008 The Horde Project (http://www.horde.org/)
@@ -10,9 +10,9 @@
  *
  * @author  Jan Schneider <jan@horde.org>
  * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_MIME_Viewer
+ * @package Horde_Mime_Viewer
  */
-class Horde_MIME_Viewer_tnef extends Horde_MIME_Viewer_Driver
+class Horde_Mime_Viewer_tnef extends Horde_Mime_Viewer_Driver
 {
     /**
      * Render out the current tnef data.

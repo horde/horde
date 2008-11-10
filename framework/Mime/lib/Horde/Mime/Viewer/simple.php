@@ -1,6 +1,6 @@
 <?php
 /**
- * The Horde_MIME_Viewer_simple class renders out plain text without any
+ * The Horde_Mime_Viewer_simple class renders out plain text without any
  * modifications.
  *
  * Copyright 2004-2008 The Horde Project (http://www.horde.org/)
@@ -9,9 +9,9 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_MIME_Viewer
+ * @package Horde_Mime_Viewer
  */
-class Horde_MIME_Viewer_simple extends Horde_MIME_Viewer_Driver
+class Horde_Mime_Viewer_simple extends Horde_Mime_Viewer_Driver
 {
     /**
      * Return the MIME type of the rendered content.

@@ -1,6 +1,6 @@
 <?php
 /**
- * The Horde_MIME_Viewer_smil renders SMIL documents to very basic HTML.
+ * The Horde_Mime_Viewer_smil renders SMIL documents to very basic HTML.
  *
  * Copyright 2006-2008 The Horde Project (http://www.horde.org/)
  *
@@ -8,9 +8,9 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Jan Schneider <jan@horde.org>
- * @package Horde_MIME_Viewer
+ * @package Horde_Mime_Viewer
  */
-class Horde_MIME_Viewer_smil extends Horde_MIME_Viewer_Driver
+class Horde_Mime_Viewer_smil extends Horde_Mime_Viewer_Driver
 {
     /**
      * Handle for the XML parser object.

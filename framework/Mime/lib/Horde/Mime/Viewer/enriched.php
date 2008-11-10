@@ -1,6 +1,6 @@
 <?php
 /**
- * The Horde_MIME_Viewer_enriched class renders out plain text from enriched
+ * The Horde_Mime_Viewer_enriched class renders out plain text from enriched
  * content tags, ala RFC 1896.
  *
  * By RFC, we must do the minimal conformance measures of: A minimal
@@ -21,9 +21,9 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Eric Rostetter <eric.rostetter@physics.utexas.edu>
- * @package Horde_MIME_Viewer
+ * @package Horde_Mime_Viewer
  */
-class Horde_MIME_Viewer_enriched extends Horde_MIME_Viewer_Driver
+class Horde_Mime_Viewer_enriched extends Horde_Mime_Viewer_Driver
 {
     /**
      * Render out the currently set contents in HTML format. The

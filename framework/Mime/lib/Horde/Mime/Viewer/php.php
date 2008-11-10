@@ -3,7 +3,7 @@
 require_once dirname(__FILE__) . '/source.php';
 
 /**
- * The Horde_MIME_Viewer_php class renders out syntax-highlighted PHP code in
+ * The Horde_Mime_Viewer_php class renders out syntax-highlighted PHP code in
  * HTML format.
  *
  * Copyright 1999-2008 The Horde Project (http://www.horde.org/)
@@ -12,9 +12,9 @@ require_once dirname(__FILE__) . '/source.php';
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
- * @package Horde_MIME_Viewer
+ * @package Horde_Mime_Viewer
  */
-class Horde_MIME_Viewer_php extends Horde_MIME_Viewer_source
+class Horde_Mime_Viewer_php extends Horde_Mime_Viewer_source
 {
     /**
      * Renders out the contents.

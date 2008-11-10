@@ -1,6 +1,6 @@
 <?php
 /**
- * The Horde_MIME_Viewer_vcard class renders out vCards in HTML format.
+ * The Horde_Mime_Viewer_vcard class renders out vCards in HTML format.
  *
  * Copyright 2002-2008 The Horde Project (http://www.horde.org/)
  *
@@ -8,9 +8,9 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Jan Schneider <jan@horde.org>
- * @package Horde_MIME_Viewer
+ * @package Horde_Mime_Viewer
  */
-class Horde_MIME_Viewer_vcard extends Horde_MIME_Viewer_Driver
+class Horde_Mime_Viewer_vcard extends Horde_Mime_Viewer_Driver
 {
     /**
      * Render out the vcard contents.

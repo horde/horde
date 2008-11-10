@@ -1,6 +1,6 @@
 <?php
 /**
- * The Horde_MIME_Viewer_wordperfect class renders out WordPerfect documents
+ * The Horde_Mime_Viewer_wordperfect class renders out WordPerfect documents
  * in HTML format by using the libwpd package.
  *
  * libpwd website: http://libwpd.sourceforge.net/
@@ -11,9 +11,9 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Matt Selsky <selsky@columbia.edu>
- * @package Horde_MIME_Viewer
+ * @package Horde_Mime_Viewer
  */
-class Horde_MIME_Viewer_wordperfect extends Horde_MIME_Viewer_Driver
+class Horde_Mime_Viewer_wordperfect extends Horde_Mime_Viewer_Driver
 {
     /**
      * Render out the current data using wpd2html.

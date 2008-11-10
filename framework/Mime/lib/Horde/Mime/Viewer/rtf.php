@@ -1,6 +1,6 @@
 <?php
 /**
- * The Horde_MIME_Viewer_rtf class renders out Rich Text Format documents in
+ * The Horde_Mime_Viewer_rtf class renders out Rich Text Format documents in
  * HTML format by using the UnRTF package
  * (http://www.gnu.org/software/unrtf/unrtf.html).
  *
@@ -10,9 +10,9 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Duck <duck@obala.net>
- * @package Horde_MIME_Viewer
+ * @package Horde_Mime_Viewer
  */
-class Horde_MIME_Viewer_rtf extends Horde_MIME_Viewer_Driver
+class Horde_Mime_Viewer_rtf extends Horde_Mime_Viewer_Driver
 {
     /**
      * Render out the current data using UnRTF.

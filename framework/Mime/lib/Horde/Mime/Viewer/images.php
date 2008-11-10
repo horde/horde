@@ -1,6 +1,6 @@
 <?php
 /**
- * The Horde_MIME_Viewer_images class allows images to be displayed.
+ * The Horde_Mime_Viewer_images class allows images to be displayed.
  *
  * Copyright 2002-2008 The Horde Project (http://www.horde.org/)
  *
@@ -8,9 +8,9 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_MIME_Viewer
+ * @package Horde_Mime_Viewer
  */
-class Horde_MIME_Viewer_images extends Horde_MIME_Viewer_Driver
+class Horde_Mime_Viewer_images extends Horde_Mime_Viewer_Driver
 {
     /**
      * Return the content-type.
