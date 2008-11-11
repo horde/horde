@@ -25,6 +25,7 @@ class IMP_Contents
     const SUMMARY_IMAGE_SAVE = 256;
     const SUMMARY_STRIP_LINK = 512;
     const SUMMARY_DOWNLOAD_ALL = 1024;
+    const SUMMARY_TEXTBODY = 2048;
 
     /**
      * The IMAP index of the message.
@@ -321,11 +322,11 @@ class IMP_Contents
      */
     public function findBody($subtype = null)
     {
-        foreach ($this->_message->contentTypeMap() as $key => $val) {
-            if ((strpos($val, 'text/') === 0) &&
-                (intval($key) == 1) &&
-                (is_null($subtype) || (substr($val, 5) == $subtype))) {
-                return $key;
+        foreach ($this->_message->contentTypeMap() as $mime_id => $mime_type) {
+            if ((strpos($mime_type, 'text/') === 0) &&
+                (intval($mime_id) == 1) &&
+                (is_null($subtype) || (substr($mime_type, 5) == $subtype))) {
+                return $mime_id;
             }
         }
 
@@ -410,6 +411,9 @@ class IMP_Contents
      *
      * IMP_Contents::SUMMARY_DOWNLOAD_ALL
      *   Output: info = 'download_all'
+     *
+     * IMP_Contents::SUMMARY_TEXTBODY
+     *   Output: info = 'textbody'
      * </pre>
      *
      * @return array  An array with two keys: 'info' and 'parts'. See above
@@ -421,24 +425,15 @@ class IMP_Contents
         $info = array(
             'download_all' => array(),
             'has' => array(),
-            'render' => array()
+            'render' => array(),
+            'textbody' => null
         );
         $parts = array();
 
         // Cache some settings before we enter the loop.
         $download_zip = (($mask & self::SUMMARY_DOWNLOAD_ZIP) && Util::extensionExists('zlib'));
-        if ($download_zip) {
-            $zip_img = Horde::img('compressed.png', _("Download in .zip Format"), null, $GLOBALS['registry']->getImageDir('horde') . '/mime');
-        }
-
-        if (($mask && self::SUMMARY_IMAGE_SAVE) &&
-            $GLOBALS['registry']->hasMethod('images/selectGalleries') &&
-            ($image_app = $GLOBALS['registry']->hasMethod('images/saveImage'))) {
-            $image_img = '<img src="' . $GLOBALS['registry']->get('icon', $image_app) . '" alt="' . _("Save Image in Gallery") . '" title="' . _("Save Image in Gallery") . '" />';
-        } else {
-            $image_img = null;
-        }
-
+        $img_save = (($mask && self::SUMMARY_IMAGE_SAVE) &&
+            $GLOBALS['registry']->hasMethod('images/selectGalleries'));
         if ($mask && self::SUMMARY_STRIP_LINK) {
             $message_token = IMP::getRequestToken('imp.impcontents');
         }
@@ -454,9 +449,17 @@ class IMP_Contents
                 'render_info' => false,
                 'render_inline' => false,
                 'size' => null,
-                'strip' => null
+                'strip' => null,
+                'textbody' => null
             );
             $part = &$parts[$mime_id];
+
+            if (($mask & self::SUMMARY_TEXTBODY) &&
+                is_null($info['textbody']) &&
+                (strpos($mime_type, 'text/') === 0) &&
+                (intval($mime_id) == 1)) {
+                $info['textbody'] = $mime_id;
+            }
 
             $mime_part = $this->getMIMEPart($mime_id, array('nocontents' => true, 'nodecode' => true));
 
@@ -510,7 +513,7 @@ class IMP_Contents
             }
 
             /* Get part's icon. */
-            $part['icon'] = ($mask & self::SUMMARY_ICON) ? Horde::img(Horde_Mime_Viewer::getIcon($mime_type), '', array('title' => $mime_type)) : null;
+            $part['icon'] = ($mask & self::SUMMARY_ICON) ? Horde::img(Horde_Mime_Viewer::getIcon($mime_type), '', array('title' => $mime_type), '') : null;
 
             /* Get part's description. */
             $description = $mime_part->getDescription(true);
@@ -527,7 +530,7 @@ class IMP_Contents
             /* Download column. */
             if (($mask & self::SUMMARY_DOWNLOAD) &&
                 (is_null($part['bytes']) || $part['bytes'])) {
-                $part['download'] = $this->linkView($mime_part, 'download_attach', '', array('class' => 'download', 'dload' => true, 'jstext' => sprintf(_("Download %s"), $description)));
+                $part['download'] = $this->linkView($mime_part, 'download_attach', '', array('class' => 'downloadAtc', 'dload' => true, 'jstext' => sprintf(_("Download %s"), $description)));
                 $info['has']['download'] = true;
             }
 
@@ -536,20 +539,19 @@ class IMP_Contents
             if ($download_zip &&
                 ($part['bytes'] > 204800) &&
                 !in_array($mime_type, array('application/zip', 'application/x-zip-compressed'))) {
-                $part['download_zip'] = $this->linkView($mime_part, 'download_attach', $zip_img, array('dload' => true, 'jstext' => sprintf(_("Download %s in .zip Format"), $mime_part->getDescription(true)), 'params' => array('zip' => 1)));
+                $part['download_zip'] = $this->linkView($mime_part, 'download_attach', null, array('class' => 'downloadZipAtc', 'dload' => true, 'jstext' => sprintf(_("Download %s in .zip Format"), $mime_part->getDescription(true)), 'params' => array('zip' => 1)));
                 $info['has']['download_zip'] = true;
             }
 
             /* Display the image save link if the required registry calls are
              * present. */
-            if (!is_null($image_img) &&
-                ($mime_part->getPrimaryType() == 'image')) {
+            if ($img_save && ($mime_part->getPrimaryType() == 'image')) {
                 if (empty($info['has']['img_save'])) {
                     Horde::addScriptFile('prototype.js', 'horde', true);
                     Horde::addScriptFile('popup.js', 'imp', true);
                     $info['has']['img_save'] = true;
                 }
-                $part['img_save'] = Horde::link('#', _("Save Image in Gallery"), null, null, IMP::popupIMPString('saveimage.php', array('index' => ($this->_index . IMP::IDX_SEP . $this->_mailbox), 'id' => $mime_id), 450, 200) . "return false;") . $image_img . '</a>';
+                $part['img_save'] = Horde::link('#', _("Save Image in Gallery"), 'saveImgAtc', null, IMP::popupIMPString('saveimage.php', array('index' => ($this->_index . IMP::IDX_SEP . $this->_mailbox), 'id' => $mime_id), 450, 200) . "return false;") . '</a>';
             }
 
             /* Strip the Attachment? */
@@ -557,12 +559,12 @@ class IMP_Contents
                 // TODO: No stripping of RFC 822 parts.
                 $url = Util::removeParameter(Horde::selfUrl(true), array('actionID', 'imapid', 'index'));
                 $url = Util::addParameter($url, array('actionID' => 'strip_attachment', 'imapid' => $mime_id, 'index' => $this->_index, 'message_token' => $message_token));
-                $part['strip'] = Horde::link($url, _("Strip Attachment"), null, null, "return window.confirm('" . addslashes(_("Are you sure you wish to PERMANENTLY delete this attachment?")) . "');") . Horde::img('delete.png', _("Strip Attachment"), null, $GLOBALS['registry']->getImageDir('horde')) . '</a>';
+                $part['strip'] = Horde::link($url, _("Strip Attachment"), 'stripAtc', null, "return window.confirm('" . addslashes(_("Are you sure you wish to PERMANENTLY delete this attachment?")) . "');") . '</a>';
                 $info['has']['strip'] = true;
             }
 
             if ($mask && self::SUMMARY_DOWNLOAD_ALL) {
-                if ($download = $this->isDownloadable($mime_part)) {
+                if ($download = $this->isAttachment($mime_part)) {
                     $info['download_all'][] = $mime_id;
                 }
             }
@@ -668,27 +670,31 @@ class IMP_Contents
     }
 
     /**
-     * Determines if a MIME part is downloadable.
+     * Determines if a MIME part is an attachment.
+     * For IMP's purposes, an attachment is any MIME part that can be
+     * downloaded by itself (i.e. all the data needed to view the part is
+     * contained within the download data).
      *
      * @param Horde_Mime_Part $mime_part  The MIME part object.
      *
-     * @return boolean  True if downloadable.
+     * @return boolean  True if an attachment.
      */
-    public function isDownloadable($mime_part)
+    public function isAttachment($mime_part)
     {
         $type = $mime_part->getType();
-        $ptype = $mime_part->getPrimaryType();
 
-        if ($ptype == 'message') {
+        switch ($mime_part->getPrimaryType()) {
+        case 'message':
             return ($type == 'message/rfc822');
-        }
 
-        return ((($mime_part->getDisposition() == 'attachment') ||
-                 $mime_part->getContentTypeParameter('name')) &&
-                ($ptype != 'multipart') &&
-                ($type != 'application/applefile') &&
+        case 'multipart':
+            return false;
+
+        default:
+            return (($type != 'application/applefile') &&
                 ($type != 'application/x-pkcs7-signature') &&
                 ($type != 'application/pkcs7-signature'));
+        }
     }
 
     /**

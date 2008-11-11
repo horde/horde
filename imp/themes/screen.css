@@ -129,6 +129,9 @@ ul.msgactions, ul.msgactions ul {
     background: #fff;
     padding: 8px;
 }
+.messageBody div.fixed {
+    padding-top: 8px;
+}
 
 /* Search page styling. */
 form#search div {
@@ -381,4 +384,54 @@ ul.nav-audio {
 }
 .largeaddrlist:hover {
     text-decoration: underline;
+}
+
+/* MIME styles. */
+.mimeStatusMessage, .mimeStatusWarning, .mimeHeaders, .mimePartInfo {
+    padding: 1px;
+    margin-bottom: 2px;
+    font-size: 90%;
+}
+.mimeStatusMessage {
+    color: #000;
+    background: #ffc;
+    border: 1px solid #fff760;
+    width: 100%;
+}
+.mimeStatusWarning {
+    border: 1px solid #800;
+    background: #e81222;
+    color: #fff;
+    width: 100%;
+}
+.mimeHeaders {
+    border: 1px solid #ccc;
+    background: #f9f9f9;
+    width: 100%;
+    font-family: "Lucida Console",Courier,"Courier New";
+}
+.mimePartInfo {
+    border: 1px solid #ccc;
+    background: #f9f9f9;
+    padding-top: 4px;
+    padding-bottom: 3px;
+}
+.mimePartInfo img {
+    vertical-align: bottom;
+}
+.downloadAtc {
+    padding: 2px 20px 2px 0;
+    background: transparent url("graphics/download.png") center right no-repeat;
+}
+.downloadZipAtc {
+    padding: 2px 20px 2px 0;
+    background: transparent url("graphics/mime/compressed.png") center right no-repeat;
+}
+.saveImgAtc {
+    padding: 2px 20px 2px 0;
+    background: transparent url("graphics/gallery.png") center right no-repeat;
+}
+.stripAtc {
+    padding: 2px 20px 2px 0;
+    background: transparent url("graphics/delete.png") center right no-repeat;
 }
