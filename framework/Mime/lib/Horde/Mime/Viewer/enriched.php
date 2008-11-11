@@ -26,18 +26,53 @@
 class Horde_Mime_Viewer_enriched extends Horde_Mime_Viewer_Driver
 {
     /**
-     * Render out the currently set contents in HTML format. The
-     * $mime_part class variable has the information to render out,
-     * encapsulated in a MIME_Part object.
+     * This driver's capabilities.
+     *
+     * @var boolean
      */
-    public function render()
-    {
-        if (($text = $this->mime_part->getContents()) === false) {
-            return false;
-        }
+    protected $_capability = array(
+        'embedded' => false,
+        'full' => true,
+        'info' => false,
+        'inline' => true
+    );
 
-        if (trim($text) == '') {
-            return $text;
+    /**
+     * Return the full rendered version of the Horde_Mime_Part object.
+     *
+     * @return array  See Horde_Mime_Viewer_Driver::render().
+     */
+    protected function _render()
+    {
+        return array(
+            'data' => '<html><body>' . $this->_toHTML() . '</body></html>',
+            'type' => 'text/html; charset=' . $this->_mimepart->getCharset()
+        );
+    }
+
+    /**
+     * Return the rendered inline version of the Horde_Mime_Part object.
+     *
+     * @return array  See Horde_Mime_Viewer_Driver::render().
+     */
+    protected function _renderInline()
+    {
+        return array(
+            'data' => String::convertCharset($this->_toHTML(), $this->_mimepart->getCharset()),
+            'type' => 'text/html; charset=' . NLS::getCharset()
+        );
+    }
+
+    /**
+     * Convert the enriched text to HTML.
+     *
+     * @return string  The HTML-ified version of the MIME part contents.
+     */
+    protected function _toHTML()
+    {
+        $text = trim($this->_mimepart->getContents());
+        if (!strlen($text)) {
+            return array();
         }
 
         // We add space at the beginning and end of the string as it will
@@ -65,50 +100,61 @@ class Horde_Mime_Viewer_enriched extends Horde_Mime_Viewer_Driver
         $text = str_replace(chr(1), '<<', $text);
         // $text = str_replace(chr(255), '<', $text);
 
-        // Get color parameters into a more useable format.
-        $text = preg_replace('/<color><param>([\da-fA-F]+),([\da-fA-F]+),([\da-fA-F]+)<\/param>/Uis', '<color r=\1 g=\2 b=\3>', $text);
-        $text = preg_replace('/<color><param>(red|blue|green|yellow|cyan|magenta|black|white)<\/param>/Uis', '<color n=\1>', $text);
+        $replace = array(
+            // Get color parameters into a more useable format.
+            '/<color><param>([\da-fA-F]+),([\da-fA-F]+),([\da-fA-F]+)<\/param>/Uis' => '<color r=\1 g=\2 b=\3>',
+            '/<color><param>(red|blue|green|yellow|cyan|magenta|black|white)<\/param>/Uis' => '<color n=\1>',
 
-        // Get font family parameters into a more useable format.
-        $text = preg_replace('/<fontfamily><param>(\w+)<\/param>/Uis', '<fontfamily f=\1>', $text);
+            // Get font family parameters into a more useable format.
+            '/<fontfamily><param>(\w+)<\/param>/Uis' => '<fontfamily f=\1>',
 
-        // Just remove any remaining parameters -- we won't use
-        // them. Any tags with parameters that we want to implement
-        // will have to come before this Someday we hope to use these
-        // tags (e.g. for <color><param> tags)
-        $text = preg_replace('/<param>.*<\/param>/Uis', '', $text);
+            /* Just remove any remaining parameters -- we won't use them.
+             * Any tags with parameters that we want to implement will have
+             * come before this. Someday we hope to use these tags (e.g. for
+             * <color><param> tags). */
+            '/<param>.*<\/param>/Uis' => '',
 
-        // Single line breaks become spaces, double line breaks are a
-        // real break. This needs to do <nofill> tracking to be
-        // compliant but we don't want to deal with state at this
-        // time, so we fake it some day we should rewrite this to
-        // handle <nofill> correctly.
-        $text = preg_replace('/([^\n])\r\n([^\r])/', '\1 \2', $text);
-        $text = preg_replace('/(\r\n)\r\n/', '\1', $text);
+            /* Single line breaks become spaces, double line breaks are a
+             * real break. This needs to do <nofill> tracking to be compliant
+             * but we don't want to deal with state at this time, so we fake
+             * it some day we should rewrite this to handle <nofill>
+             * correctly. */
+            '/([^\n])\r\n([^\r])/' => '\1 \2',
+            '/(\r\n)\r\n/' => '\1'
+        );
+        $text = preg_replace(array_keys($replace), array_values($replace), $text);
 
         // We try to protect against bad stuff here.
-        $text = @htmlspecialchars($text, ENT_QUOTES, $this->mime_part->getCharset());
+        $text = @htmlspecialchars($text, ENT_QUOTES, $this->_mimepart->getCharset());
 
         // Now convert the known tags to html. Try to remove any tag
         // parameters to stop people from trying to pull a fast one
-        $text = preg_replace('/(?<!&lt;)&lt;bold.*&gt;(.*)&lt;\/bold&gt;/Uis', '<span style="font-weight: bold">\1</span>', $text);
-        $text = preg_replace('/(?<!&lt;)&lt;italic.*&gt;(.*)&lt;\/italic&gt;/Uis', '<span style="font-style: italic">\1</span>', $text);
-        $text = preg_replace('/(?<!&lt;)&lt;underline.*&gt;(.*)&lt;\/underline&gt;/Uis', '<span style="text-decoration: underline">\1</span>', $text);
+        $replace = array(
+            '/(?<!&lt;)&lt;bold.*&gt;(.*)&lt;\/bold&gt;/Uis' => '<span style="font-weight: bold">\1</span>',
+            '/(?<!&lt;)&lt;italic.*&gt;(.*)&lt;\/italic&gt;/Uis' => '<span style="font-style: italic">\1</span>',
+            '/(?<!&lt;)&lt;underline.*&gt;(.*)&lt;\/underline&gt;/Uis' => '<span style="text-decoration: underline">\1</span>'
+        );
+        $text = preg_replace(array_keys($replace), array_values($replace), $text);
+
         $text = preg_replace_callback('/(?<!&lt;)&lt;color r=([\da-fA-F]+) g=([\da-fA-F]+) b=([\da-fA-F]+)&gt;(.*)&lt;\/color&gt;/Uis', array($this, 'colorize'), $text);
-        $text = preg_replace('/(?<!&lt;)&lt;color n=(red|blue|green|yellow|cyan|magenta|black|white)&gt;(.*)&lt;\/color&gt;/Uis', '<span style="color: \1">\2</span>', $text);
-        $text = preg_replace('/(?<!&lt;)&lt;fontfamily&gt;(.*)&lt;\/fontfamily&gt;/Uis', '\1', $text);
-        $text = preg_replace('/(?<!&lt;)&lt;fontfamily f=(\w+)&gt;(.*)&lt;\/fontfamily&gt;/Uis', '<span style="font-family: \1">\2</span>', $text);
-        $text = preg_replace('/(?<!&lt;)&lt;smaller.*&gt;/Uis', '<span style="font-size: smaller">', $text);
-        $text = preg_replace('/(?<!&lt;)&lt;\/smaller&gt;/Uis', '</span>', $text);
-        $text = preg_replace('/(?<!&lt;)&lt;bigger.*&gt;/Uis', '<span style="font-size: larger">', $text);
-        $text = preg_replace('/(?<!&lt;)&lt;\/bigger&gt;/Uis', '</span>', $text);
-        $text = preg_replace('/(?<!&lt;)&lt;fixed.*&gt;(.*)&lt;\/fixed&gt;/Uis', '<font face="fixed">\1</font>', $text);
-        $text = preg_replace('/(?<!&lt;)&lt;center.*&gt;(.*)&lt;\/center&gt;/Uis', '<div align="center">\1</div>', $text);
-        $text = preg_replace('/(?<!&lt;)&lt;flushleft.*&gt;(.*)&lt;\/flushleft&gt;/Uis', '<div align="left">\1</div>', $text);
-        $text = preg_replace('/(?<!&lt;)&lt;flushright.*&gt;(.*)&lt;\/flushright&gt;/Uis', '<div align="right">\1</div>', $text);
-        $text = preg_replace('/(?<!&lt;)&lt;flushboth.*&gt;(.*)&lt;\/flushboth&gt;/Uis', '<div align="justify">\1</div>', $text);
-        $text = preg_replace('/(?<!&lt;)&lt;paraindent.*&gt;(.*)&lt;\/paraindent&gt;/Uis', '<blockquote>\1</blockquote>', $text);
-        $text = preg_replace('/(?<!&lt;)&lt;excerpt.*&gt;(.*)&lt;\/excerpt&gt;/Uis', '<blockquote>\1</blockquote>', $text);
+
+        $replace = array(
+            '/(?<!&lt;)&lt;color n=(red|blue|green|yellow|cyan|magenta|black|white)&gt;(.*)&lt;\/color&gt;/Uis' => '<span style="color: \1">\2</span>',
+            '/(?<!&lt;)&lt;fontfamily&gt;(.*)&lt;\/fontfamily&gt;/Uis' => '\1',
+            '/(?<!&lt;)&lt;fontfamily f=(\w+)&gt;(.*)&lt;\/fontfamily&gt;/Uis' => '<span style="font-family: \1">\2</span>',
+            '/(?<!&lt;)&lt;smaller.*&gt;/Uis' => '<span style="font-size: smaller">',
+            '/(?<!&lt;)&lt;\/smaller&gt;/Uis' => '</span>',
+            '/(?<!&lt;)&lt;bigger.*&gt;/Uis' => '<span style="font-size: larger">',
+            '/(?<!&lt;)&lt;\/bigger&gt;/Uis' => '</span>',
+            '/(?<!&lt;)&lt;fixed.*&gt;(.*)&lt;\/fixed&gt;/Uis' => '<font face="fixed">\1</font>',
+            '/(?<!&lt;)&lt;center.*&gt;(.*)&lt;\/center&gt;/Uis' => '<div align="center">\1</div>',
+            '/(?<!&lt;)&lt;flushleft.*&gt;(.*)&lt;\/flushleft&gt;/Uis' => '<div align="left">\1</div>',
+            '/(?<!&lt;)&lt;flushright.*&gt;(.*)&lt;\/flushright&gt;/Uis' => '<div align="right">\1</div>',
+            '/(?<!&lt;)&lt;flushboth.*&gt;(.*)&lt;\/flushboth&gt;/Uis' => '<div align="justify">\1</div>',
+            '/(?<!&lt;)&lt;paraindent.*&gt;(.*)&lt;\/paraindent&gt;/Uis' => '<blockquote>\1</blockquote>',
+            '/(?<!&lt;)&lt;excerpt.*&gt;(.*)&lt;\/excerpt&gt;/Uis' => '<blockquote>\1</blockquote>'
+        );
+        $text = preg_replace(array_keys($replace), array_values($replace), $text);
 
         // Replace << with < now (from translated HTML form).
         $text = str_replace('&lt;&lt;', '&lt;', $text);
@@ -121,22 +167,19 @@ class Horde_Mime_Viewer_enriched extends Horde_Mime_Viewer_Driver
         require_once 'Horde/Text/Filter.php';
         $text = Text_Filter::filter($text, 'linkurls', array('callback' => 'Horde::externalUrl'));
 
-        // Wordwrap -- note this could impact on our above RFC
-        // compliance *IF* we honored nofill tags (which we don't
-        // yet).
-        $text = str_replace("\t", '        ', $text);
-        $text = str_replace('  ', ' &nbsp;', $text);
-        $text = str_replace("\n ", "\n&nbsp;", $text);
+        /* Wordwrap -- note this could impact on our above RFC compliance *IF*
+         * we honored nofill tags (which we don't yet). */
+        $text = str_replace(array("\t", '  ', "\n "), array('        ', ' &nbsp;', "\n&nbsp;"), $text);
+
         if ($text[0] == ' ') {
             $text = '&nbsp;' . substr($text, 1);
         }
-        $text = nl2br($text);
-        $text = '<p class="fixed">' . $text . '</p>';
 
-        return $text;
+        return '<p class="fixed">' . nl2br($text) . '</p>';
     }
 
     /**
+     * TODO
      */
     public function colorize($colors)
     {
@@ -144,15 +187,5 @@ class Horde_Mime_Viewer_enriched extends Horde_Mime_Viewer_Driver
             $colors[$i] = sprintf('%02X', round(hexdec($colors[$i]) / 255));
         }
         return '<span style="color: #' . $colors[1] . $colors[2] . $colors[3] . '">' . $colors[4] . '</span>';
-    }
-
-    /**
-     * Return the MIME content type of the rendered content.
-     *
-     * @return string  The content type of the output.
-     */
-    public function getType()
-    {
-        return 'text/html; charset=' . NLS::getCharset();
     }
 }
