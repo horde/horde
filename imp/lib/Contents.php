@@ -283,6 +283,7 @@ class IMP_Contents
      * @param string $mode     Either 'full', 'inline', or 'info'.
      * @param array $options   Additional options:
      * <pre>
+     * 'params' - (array) Additional params to set.
      * 'type' - (string) Use this MIME type instead of the MIME type
      *          identified in the MIME part.
      * </pre>
@@ -290,6 +291,7 @@ class IMP_Contents
      * @return array  An array of information:
      * <pre>
      * 'data' - (string) The rendered data.
+     * 'ids' - (array) TODO
      * 'name' - (string) The name of the part.
      * 'status' - (array) An array of status information to be displayed to
      *            the user.  Consists of arrays with the following keys:
@@ -305,6 +307,9 @@ class IMP_Contents
         $viewer = Horde_Mime_Viewer::factory(empty($options['type']) ? $mime_part->getType() : $options['type']);
         $viewer->setMIMEPart($mime_part);
         $viewer->setParams(array('contents' => &$this));
+        if (!empty($options['params'])) {
+            $viewer->setParams($options['params']);
+        }
 
         $ret = $viewer->render($mode);
         $ret['name'] = $mime_part->getName(true);
@@ -506,7 +511,7 @@ class IMP_Contents
             }
 
             if ($mask & self::SUMMARY_DESCRIP_LINK) {
-                $part['description'] = $is_atc
+                $part['description'] = (!$viewer || $viewer->canRender('full'))
                     ? $this->linkViewJS($mime_part, 'view_attach', htmlspecialchars($description), array('jstext' => sprintf(_("View %s [%s]"), $description, $mime_type), 'params' => $param_array))
                     : htmlspecialchars($description);
             } elseif ($mask & self::SUMMARY_DESCRIP_NOLINK) {
