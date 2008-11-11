@@ -1,7 +1,7 @@
 <?php
 /**
- * The IMP_Horde_Mime_Viewer_related class handles multipart/related messages
- * as defined by RFC 2387.
+ * The IMP_Horde_Mime_Viewer_related class handles multipart/related
+ * (RFC 2387) messages.
  *
  * Copyright 2002-2008 The Horde Project (http://www.horde.org/)
  *
@@ -14,93 +14,101 @@
 class IMP_Horde_Mime_Viewer_related extends Horde_Mime_Viewer_Driver
 {
     /**
-     * The character set of the rendered HTML part.
+     * Can this driver render various views?
      *
-     * @var string
+     * @var boolean
      */
-    protected $_charset = null;
+    protected $_capability = array(
+        'embedded' => false,
+        'full' => true,
+        'info' => true,
+        'inline' => true,
+    );
 
     /**
-     * The mime type of the message part that has been chosen to be displayed.
+     * Return the full rendered version of the Horde_Mime_Part object.
      *
-     * @var string
+     * @return array  See Horde_Mime_Viewer_Driver::render().
      */
-    protected $_viewerType = 'text/html';
+    protected function _render()
+    {
+        return $this->_IMPrender(false);
+    }
+
+    /**
+     * Return the rendered inline version of the Horde_Mime_Part object.
+     *
+     * @return array  See Horde_Mime_Viewer_Driver::render().
+     */
+    protected function _renderInline()
+    {
+        $ret = $this->_IMPrender(true);
+        return empty($ret['ids']) ? $this->_renderInfo() : $ret;
+    }
+
+    /**
+     * Return the rendered information about the Horde_Mime_Part object.
+     *
+     * @return array  See Horde_Mime_Viewer_Driver::render().
+     */
+    protected function _renderInfo()
+    {
+        return array(
+            'status' => array(
+                'text' => sprintf(_("Click %s to view this multipart/related part in a separate window."), $contents->linkViewJS($this->mime_part, 'view_attach', _("HERE"), _("View content in a separate window"))),
+                'icon' => Horde::img('mime/html.png', _("HTML"))
+            )
+        );
+    }
 
     /**
      * Render out the currently set contents.
      *
-     * @param array $params  An array with a reference to a MIME_Contents
-     *                       object.
+     * @param boolean $inline  Are we viewing inline?
      *
-     * @return string  The rendered text in HTML.
+     * @return array  Two elements: html and status.
      */
-    public function render($params)
+    protected function _IMPrender($inline)
     {
-        $contents = &$params[0];
+        $can_display = !$inline;
+        $text = '';
+
+        $subparts = $this->_mimepart->contentTypeMap();
+        unset($subparts[key($subparts)]);
 
         /* Look at the 'start' parameter to determine which part to start
-           with. If no 'start' parameter, use the first part.
-           RFC 2387 [3.1] */
-        if ($this->mime_part->getContentTypeParameter('start') &&
-            ($key = array_search($this->mime_part->getContentTypeParameter('start'), $this->mime_part->getCIDList()))) {
-            if (($pos = strrpos($key, '.'))) {
-                $id = substr($key, $pos + 1);
-            } else {
-                $id = $key;
+         * with. If no 'start' parameter, use the first part. RFC 2387
+         * [3.1] */
+        $id = $this->_mimepart->getContentTypeParameter('start');
+        if (is_null($id)) {
+            reset($subparts);
+            $id = key($subparts);
+        }
+
+        /* Only display if the start part (normally text/html) can be
+         * displayed inline -OR- we are viewing this part as an attachment. */
+        if (!$can_display) {
+            $viewer = Horde_Mime_Viewer::factory($subparts[$id]);
+            if ($viewer->canRender('inline')) {
+                $mime_part = $this->_mimepart->getPart($id);
+                $can_display = ($mime_part->getDisposition() == 'inline');
             }
-        } else {
-            $id = 1;
-        }
-        $start = $this->mime_part->getPart($this->mime_part->getRelativeMimeID($id));
-
-        /* Only display if the start part (normally text/html) can be displayed
-           inline -OR- we are viewing this part as an attachment. */
-        if ($contents->canDisplayInline($start) ||
-            $this->viewAsAttachment()) {
-            $text = $contents->renderMIMEPart($start);
-            $this->_viewerType = $contents->getMIMEViewerType($start);
-            $this->_charset = $start->getCharset();
-        } else {
-            $text = '';
         }
 
-        return $text;
-     }
+        if ($can_display) {
+            /* Build a list of parts -> CIDs. */
+            $cids = array();
+            foreach (array_keys($subparts) as $val) {
+                $part = $this->_mimepart->getPart($val);
+                $cids[$val] = $part->getContentId();
+            }
 
-    /**
-     * Render out attachment information.
-     *
-     * @param array $params  An array with a reference to a MIME_Contents
-     *                       object.
-     *
-     * @return string  The rendered text in HTML.
-     */
-    public function renderAttachmentInfo($params)
-    {
-        $contents = &$params[0];
+            $ret = $this->_params['contents']->renderMIMEPart($id, $inline ? 'inline' : 'full', array('params' => array('related_id' => $id, 'related_cids' => $cids)));
+            $ret['ids'] = array_merge($ret['ids'], array_keys($subparts));
+            unset($ret['summary_id']);
+            return $ret;
+        }
 
-        $msg = sprintf(_("Click %s to view this multipart/related part in a separate window."), $contents->linkViewJS($this->mime_part, 'view_attach', _("HERE"), _("View content in a separate window")));
-        return $this->formatStatusMsg($msg, Horde::img('mime/html.png', _("HTML")), false);
-    }
-
-    /**
-     * Return the content-type.
-     *
-     * @return string  The content-type of the message.
-     */
-    public function getType()
-    {
-        return $this->_viewerType . '; charset=' . $this->getCharset();
-    }
-
-    /**
-     * Returns the character set used for the Viewer.
-     *
-     * @return string  The character set used by this Viewer.
-     */
-    public function getCharset()
-    {
-        return ($this->_charset === null) ? NLS::getCharset() : $this->_charset;
+        return array();
     }
 }

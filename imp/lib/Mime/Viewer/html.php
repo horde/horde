@@ -134,14 +134,21 @@ class IMP_Horde_Mime_Viewer_html extends Horde_Mime_Viewer_html
             $data = preg_replace('/(style\s*=\s*)(["\'])?([^>"\']*)position\s*:\s*absolute([^>"\']*)\2/i', '$1"$3$4"', $data);
         }
 
-        /* Search for inlined images that we can display. */
-        // TODO
-        if (false) {
-            $relatedPart = $this->_params['contents']->getMIMEPart($related);
-            foreach ($relatedPart->getCIDList() as $ref => $id) {
-                $id = trim($id, '<>');
-                $cid_part = $this->_params['contents']->getDecodedMIMEPart($ref);
-                $data = str_replace("cid:$id", $this->_params['contents']->urlView($cid_part, 'view_attach'), $data);
+        /* Search for inlined links that we can display (multipart/related
+         * parts). */
+        if (!empty($this->_params['related_id'])) {
+            $cid_replace = array();
+
+            foreach ($this->_params['related_cids'] as $mime_id => $cid) {
+                $cid = trim($cid, '<>');
+                if ($cid) {
+                    $cid_part = $this->_params['contents']->getMIMEPart($mime_id);
+                    $cid_replace['cid:' . $cid] = $this->_params['contents']->urlView($cid_part, 'view_attach', array('params' => array('img_data' => 1)));
+                }
+            }
+
+            if (!empty($cid_replace)) {
+                $data = str_replace(array_keys($cid_replace), array_values($cid_replace), $data);
             }
         }
 
@@ -214,7 +221,7 @@ class IMP_Horde_Mime_Viewer_html extends Horde_Mime_Viewer_html
         /* If we are viewing inline, give option to view in separate window. */
         if ($inline && $this->getConfigParam('external')) {
             $cleanhtml['status'][] = array(
-                'data' => $this->_params['contents']->linkViewJS($this->mime_part, 'view_attach', _("Show this HTML in a new window?")),
+                'data' => $this->_params['contents']->linkViewJS($this->_mimepart, 'view_attach', _("Show this HTML in a new window?")),
                 'type' => 'info'
             );
         }
