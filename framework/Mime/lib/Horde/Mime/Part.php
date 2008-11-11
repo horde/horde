@@ -574,7 +574,8 @@ class Horde_Mime_Part
     public function &getPart($id)
     {
         $this_id = $this->getMimeId();
-        if ($id == $this_id) {
+        /* Need strcmp() because, e.g., '2.0' == '2'. */
+        if (strcmp($id, $this_id) === 0) {
             return $this;
         }
 
