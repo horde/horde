@@ -686,14 +686,13 @@ foreach ($summary['info']['render'] as $mime_id => $type) {
     }
 
     foreach ($render_part['status'] as $val) {
-        // TODO: status msgs.
-        //$tmp_status[] = $render_part['status']['text'];
+        $tmp_status[] = $imp_ui->formatStatusMsg($val);
     }
 
     $msgtext .= '<span class="mimePartInfo">' .
         implode(' ', $tmp_part) .
         '</span>' .
-        //implode(' ', $tmp_status) .
+        implode("\n", $tmp_status) .
         $render_part['data'];
 }
 

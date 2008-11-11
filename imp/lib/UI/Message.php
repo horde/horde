@@ -15,7 +15,7 @@ class IMP_UI_Message
 {
     /**
      */
-    function basicHeaders()
+    public function basicHeaders()
     {
         return array(
             'date'      =>  _("Date"),
@@ -33,7 +33,7 @@ class IMP_UI_Message
      *
      * @return array  TODO
      */
-    function getUserHeaders()
+    public function getUserHeaders()
     {
         $user_hdrs = $GLOBALS['prefs']->getValue('mail_hdr');
 
@@ -55,7 +55,7 @@ class IMP_UI_Message
 
     /**
      */
-    function MDNCheck($headers, $confirmed = false)
+    public function MDNCheck($headers, $confirmed = false)
     {
         if (!$GLOBALS['prefs']->getValue('disposition_send_mdn')) {
             return;
@@ -96,7 +96,7 @@ class IMP_UI_Message
      * @return string  The date string with the local time added on. The
      *                 output has been run through htmlspecialchars().
      */
-    function addLocalTime($date)
+    public function addLocalTime($date)
     {
         if (empty($date)) {
             $ltime = false;
@@ -132,7 +132,7 @@ class IMP_UI_Message
      *
      * @return array  TODO
      */
-    function parseAllListHeaders($headers)
+    public function parseAllListHeaders($headers)
     {
         $ret = array();
 
@@ -154,7 +154,7 @@ class IMP_UI_Message
      *
      * @return string  The header value.
      */
-    function parseListHeaders($data, $raw = false)
+    public function parseListHeaders($data, $raw = false)
     {
         $output = '';
 
@@ -214,7 +214,7 @@ class IMP_UI_Message
      *
      * @return string  'high', 'low', or 'normal'.
      */
-    function getXpriority($headers)
+    public function getXpriority($headers)
     {
         if (($priority = $headers->getValue('x-priority')) &&
             preg_match('/\s*(\d+)\s*/', $priority, $matches)) {
@@ -235,7 +235,7 @@ class IMP_UI_Message
      *
      * @return array  An array with 2 elements: 'exists' and 'reply_list'.
      */
-    function getListInformation($headers)
+    public function getListInformation($headers)
     {
         $ret = array('exists' => false, 'reply_list' => null);
 
@@ -262,7 +262,7 @@ class IMP_UI_Message
      *
      * @return string  String containing the formatted address list.
      */
-    function buildAddressLinks($addrlist, $addURL, $link = true)
+    public function buildAddressLinks($addrlist, $addURL, $link = true)
     {
         global $prefs, $registry;
 
@@ -361,6 +361,47 @@ class IMP_UI_Message
         }
 
         return $ret;
+    }
+
+    /**
+     * Prints out a MIME status message.
+     *
+     * @param array $data  An array of information (as returned from
+                           Horde_Mime_Viewer::render()).
+     *
+     * @return string  The formatted status message string.
+     */
+    public function formatStatusMsg($data)
+    {
+        if (empty($data)) {
+            return '';
+        }
+
+        // TODO - $data['type']
+        $class = 'mimeStatusMessage';
+
+        $out = array('<table class="' . $class . '">');
+
+        /* If no image, simply print out the message. */
+        if (empty($data['icon'])) {
+            foreach ($data['text'] as $val) {
+                $out[] = '<tr><td>' . $val . '</td></tr>';
+            }
+        } else {
+            $out[] = '<tr><td class="mimeStatusIcon">' . $data['icon'] . '</td><td>';
+            if (count($data['text']) == 1) {
+                $out[] = $msg[0];
+            } else {
+                $out[] = '<table>';
+                foreach ($data['text'] as $val) {
+                    $out[] = '<tr><td>' . $val . '</td></tr>';
+                }
+                $out[] = '</table>';
+            }
+            $out[] = '</td></tr>';
+        }
+
+        return implode("\n", $out) . "\n</table>\n";
     }
 
 }
