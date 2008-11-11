@@ -13,83 +13,51 @@
 class Horde_Mime_Viewer_images extends Horde_Mime_Viewer_Driver
 {
     /**
-     * Return the content-type.
+     * Can this driver render various views?
      *
-     * @return string  The content-type of the output.
+     * @var boolean
      */
-    public function getType()
+    protected $_capability = array(
+        'embedded' => false,
+        'full' => true,
+        'info' => false,
+        'inline' => false
+    );
+
+    /**
+     * Return the full rendered version of the Horde_Mime_Part object.
+     *
+     * @return array  See Horde_Mime_Viewer_Driver::render().
+     */
+    protected function _render()
     {
-        $type = $this->mime_part->getType();
-        if ($GLOBALS['browser']->isBrowser('mozilla') &&
-            ($type == 'image/pjpeg')) {
-            /* image/jpeg and image/pjpeg *appear* to be the same
-             * entity, but Mozilla don't seem to want to accept the
-             * latter.  For our purposes, we will treat them the
-             * same. */
-            return 'image/jpeg';
-        } elseif ($type == 'image/x-png') {
-            /* image/x-png is equivalent to image/png. */
-            return 'image/png';
-        } else {
-            return $type;
-        }
+        return array(
+            'data' => $this->_mimepart->getContents(),
+            'type' => $this->_getType()
+        );
     }
 
     /**
-     * Generate HTML output for a javascript auto-resize view window.
+     * Return the content-type to use for the image.
      *
-     * @param string $url    The URL which contains the actual image data.
-     * @param string $title  The title to use for the page.
-     *
-     * @return string  The HTML output.
+     * @return string  The content-type of the image.
      */
-    protected function _popupImageWindow($url, $title)
+    protected function _getType()
     {
-        global $browser;
+        $type = $this->_mimepart->getType();
 
-        $str = <<<EOD
-<html>
-<head>
-<title>$title</title>
-<style type="text/css"><!-- body { margin:0px; padding:0px; } --></style>
-EOD;
+        switch ($type) {
+        case 'image/pjpeg':
+            /* image/jpeg and image/pjpeg *appear* to be the same entity, but
+             * Mozilla (for one) don't seem to want to accept the latter. */
+            return 'image/jpeg';
 
-        /* Only use javascript if we are using a DOM capable browser. */
-        if ($browser->getFeature('dom')) {
-            /* Translate '&amp' entities to '&' for JS URL links. */
-            $url = str_replace('&amp;', '&', $url);
+        case 'image/x-png':
+            /* image/x-png == image/png. */
+            return 'image/png';
 
-            /* Javascript display. */
-            $loading = _("Loading...");
-            $str .= <<<EOD
-<script type="text/javascript">
-function resizeWindow()
-{
-
-    var h, img = document.getElementById('disp_image'), w;
-    document.getElementById('splash').style.display = 'none';
-    img.style.display = 'block';
-    window.moveTo(0, 0);
-    h = img.height - (window.innerHeight ? window.innerHeight : (document.documentElement.clientHeight ? document.documentElement.clientHeight : document.body.clientHeight));
-    w = img.width - (window.innerWidth ? window.innerWidth : (document.documentElement.clientWidth ? document.documentElement.clientWidth : document.body.clientWidth));
-    window.resizeBy(w, h);
-    self.focus();
-}
-</script></head>
-<body onload="resizeWindow();"><span id="splash" style="color:gray;font-family:sans-serif;padding:2px;">$loading</span><img id="disp_image" style="display:none;" src="$url" /></body></html>
-EOD;
-        } else {
-            /* Non-javascript display. */
-            $img_txt = _("Image");
-            $str .= <<<EOD
-</head>
-<body bgcolor="#ffffff" topmargin="0" marginheight="0" leftmargin="0" marginwidth="0">
-<img border="0" src="$url" alt="$img_txt" />
-</body>
-</html>
-EOD;
+        default:
+            return $type;
         }
-
-        return $str;
     }
 }
