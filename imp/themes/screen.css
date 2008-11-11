@@ -436,3 +436,6 @@ ul.nav-audio {
     padding: 2px 20px 2px 0;
     background: transparent url("graphics/delete.png") center right no-repeat;
 }
+.mimeStatusIcon {
+    width: 22px;
+}
