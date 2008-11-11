@@ -29,6 +29,9 @@ class IMP_Horde_Mime_Viewer_plain extends Horde_Mime_Viewer_plain
             return array();
         }
 
+        // Convert to the local charset.
+        $text = String::convertCharset($text, $this->_mimepart->getCharset());
+
         // If requested, scan the message for PGP data.
         if (!empty($conf['utils']['gnupg']) &&
             $prefs->getValue('pgp_scan_body') &&
@@ -57,7 +60,7 @@ class IMP_Horde_Mime_Viewer_plain extends Horde_Mime_Viewer_plain
         $filters = array(
             'text2html' => array(
                 'parselevel' => TEXT_HTML_MICRO,
-                'charset' => $this->_mimepart->getCharset()
+                'charset' => NLS::getCharset()
             ),
             'tabs2spaces' => array()
         );
