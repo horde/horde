@@ -11,93 +11,86 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package Horde_Mime_Viewer
  */
-class IMP_Horde_Mime_Viewer_pdf extends Horde_Mime_Viewer_Driver
+class IMP_Horde_Mime_Viewer_pdf extends Horde_Mime_Viewer_pdf
 {
     /**
-     * The content-type of the generated data.
+     * Can this driver render various views?
      *
-     * @var string
+     * @var boolean
      */
-    protected $_contentType;
+    protected $_capability = array(
+        'embedded' => false,
+        'full' => true,
+        'info' => true,
+        'inline' => false
+    );
 
     /**
-     * Render out the currently set contents.
+     * Return the full rendered version of the Horde_Mime_Part object.
      *
-     * @param array $params  An array with a reference to a MIME_Contents
-     *                       object.
+     * URL parameters used by this function:
+     * <pre>
+     * 'pdf_view_thumbnail' - (boolean) Output the thumbnail info.
+     * </pre>
      *
-     * @return string  The rendered information.
+     * @return array  See Horde_Mime_Viewer_Driver::render().
      */
-    public function render($params)
+    protected function _render()
     {
         /* Create the thumbnail and display. */
-        if (Util::getFormData('images_view_thumbnail')) {
-            $mime = $this->mime_part;
-            $img = $this->_getHordeImageOb();
-
-            if ($img) {
-                $img->resize(96, 96, true);
-                $type = $img->getContentType();
-                $data = $img->raw(true);
-            }
-
-            if (!$img || !$data) {
-                $type = 'image/png';
-                $data = file_get_contents(IMP_BASE . '/themes/graphics/mini-error.png');
-            }
-
-            $mime->setType($type);
-            $this->_contentType = $type;
-            $mime->setContents($data);
-
-            return $mime->getContents();
+        if (!Util::getFormData('pdf_view_thumbnail')) {
+            return parent::_render();
         }
 
-        return parent::render($params);
+        $img = $this->_getHordeImageOb(true);
+
+        if ($img) {
+            $img->resize(96, 96, true);
+            $type = $img->getContentType();
+            $data = $img->raw(true);
+        }
+
+        if (!$img || !$data) {
+            $type = 'image/png';
+            $data = file_get_contents(IMP_BASE . '/themes/graphics/mini-error.png');
+        }
+
+        return array(
+            'data' => $data,
+            'type' => $type
+        );
     }
 
     /**
-     * Render out attachment information.
+     * Return the rendered information about the Horde_Mime_Part object.
      *
-     * @param array $params  An array with a reference to a MIME_Contents
-     *                       object.
-     *
-     * @return string  The rendered text in HTML.
+     * @return array  See Horde_Mime_Viewer_Driver::render().
      */
-    public function renderAttachmentInfo($params)
+    public function _renderInfo()
     {
-        $contents = &$params[0];
-
-        if (is_a($contents, 'IMP_Contents')) {
-            $this->mime_part = &$contents->getDecodedMIMEPart($this->mime_part->getMIMEId(), true);
-        }
-
         /* Check to see if convert utility is available. */
         if (!$this->_getHordeImageOb(false)) {
-            return '';
+            return array();
         }
 
         $status = array(
-            sprintf(_("A PDF file named %s is attached to this message. A thumbnail is below."),
-                    $this->mime_part->getName(true)),
+            sprintf(_("A PDF file named %s is attached to this message. A thumbnail is below."), $this->_mimepart->getName(true)),
         );
 
-        if (!$GLOBALS['browser']->hasFeature('javascript')) {
-            $status[] = Horde::link($contents->urlView($this->mime_part,
-                            'view_attach')) .
-                        Horde::img($contents->urlView($this->mime_part,
-                            'view_attach', array('images_view_thumbnail' => 1), false),
-                            _("View Attachment"), null, '') . '</a>';
+        if ($GLOBALS['browser']->hasFeature('javascript')) {
+            $status[] = $this->_params['contents']->linkViewJS($this->_mimepart, 'view_attach', Horde::img($this->_params['contents']->urlView($this->_mimepart, 'view_attach', array('params' => array('pdf_view_thumbnail' => 1)), false), _("View Attachment"), null, ''), null, null, null);
         } else {
-            $status[] = $contents->linkViewJS($this->mime_part, 'view_attach',
-                        Horde::img($contents->urlView($this->mime_part,
-                            'view_attach', array('images_view_thumbnail' => 1),
-                            false), _("View Attachment"), null, ''), null, null,
-                            null);
+            $status[] = Horde::link($this->_params['contents']->urlView($this->_mimepart, 'view_attach')) . Horde::img($this->_params['contents']->urlView($this->_mimepart, 'view_attach', array('params' => array('pdf_view_thumbnail' => 1)), false), _("View Attachment"), null, '') . '</a>';
         }
 
-        return $this->formatStatusMsg($status, Horde::img('mime/image.png',
-                    _("Thumbnail of attached PDF file"), null, $GLOBALS['registry']->getImageDir('horde')), false);
+        return array(
+            'status' => array(
+                array(
+                    'icon' => Horde::img('mime/image.png', _("Thumbnail of attached PDF file")),
+                    'text' => $status
+                )
+            )
+        );
     }
 
     /**
@@ -105,37 +98,26 @@ class IMP_Horde_Mime_Viewer_pdf extends Horde_Mime_Viewer_Driver
      *
      * @param boolean $load  Whether to load the image data.
      *
-     * @return Horde_Image  The requested object.
+     * @return mixed  The Hore_Image object, or false on error.
      */
-    protected function _getHordeImageOb($load = true)
+    protected function _getHordeImageOb($load)
     {
         if (empty($GLOBALS['conf']['image']['convert'])) {
             return false;
         }
 
-        include_once 'Horde/Image.php';
         $img = &Horde_Image::singleton('im', array('temp' => Horde::getTempdir()));
         if (is_a($img, 'PEAR_Error')) {
             return false;
         }
 
         if ($load) {
-            $ret = $img->loadString(1, $this->mime_part->getContents());
+            $ret = $img->loadString(1, $this->_mimepart->getContents());
             if (is_a($ret, 'PEAR_Error')) {
                 return false;
             }
         }
 
         return $img;
-    }
-
-    /**
-     * Return the content-type
-     *
-     * @return string  The content-type of the output.
-     */
-    public function getType()
-    {
-        return ($this->_contentType) ? $this->_contentType : parent::getType();
     }
 }
