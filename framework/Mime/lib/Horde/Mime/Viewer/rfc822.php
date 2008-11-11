@@ -14,54 +14,50 @@
 class Horde_Mime_Viewer_rfc822 extends Horde_Mime_Viewer_Driver
 {
     /**
-     * Render out the currently set contents.
+     * Can this driver render various views?
      *
-     * @param array $params  An array with any parameters needed.
-     *
-     * @return string  The rendered text.
+     * @var boolean
      */
-    public function render($params = array())
+    protected $_capability = array(
+        'embedded' => false,
+        'full' => true,
+        'info' => true,
+        'inline' => false
+    );
+
+    /**
+     * Return the full rendered version of the Horde_Mime_Part object.
+     *
+     * @return array  See Horde_Mime_Viewer_Driver::render().
+     */
+    protected function _render()
     {
-        if (!$this->mime_part) {
-            return $this->formatStatusMsg(_("There was an error displaying this message part"));
-        }
-
-        $part = &Util::cloneObject($this->mime_part);
-        $part->transferDecodeContents();
-        $text = $part->getContents();
-
-        return $text
-            ? $text
-            : $this->formatStatusMsg(_("There was an error displaying this message part"));
+        return array(
+            'data' => $this->_mimepart->getContents(),
+            'type' => 'text/plain; charset=' . NLS::getCharset()
+        );
     }
 
     /**
-     * Render out attachment information.
+     * Return the rendered information about the Horde_Mime_Part object.
      *
-     * @param array $params  An array with any parameters needed.
-     *
-     * @return string  The rendered text in HTML.
+     * @return array  See Horde_Mime_Viewer_Driver::render().
      */
-    public function renderAttachmentInfo($params = array())
+    protected function _renderInfo()
     {
-        if (!$this->mime_part) {
-            return '';
-        }
-
         /* Get the text of the part.  Since we need to look for the end of
          * the headers by searching for the CRLFCRLF sequence, use
          * getCanonicalContents() to make sure we are getting the text with
          * CRLF's. */
-        $text = $this->mime_part->getCanonicalContents();
+        $text = $this->_mimepart->getCanonicalContents();
         if (empty($text)) {
-            return '';
+            return array();
         }
 
         /* Search for the end of the header text (CRLFCRLF). */
         $text = substr($text, 0, strpos($text, "\r\n\r\n"));
 
         /* Get the list of headers now. */
-        require_once 'Horde/MIME/Headers.php';
         $headers = Horde_Mime_Headers::parseHeaders($text);
 
         $header_array = array(
@@ -83,16 +79,8 @@ class Horde_Mime_Viewer_rfc822 extends Horde_Mime_Viewer_Driver
         }
 
         require_once 'Horde/Text/Filter.php';
-        return '<div class="mimeHeaders">' . Text_Filter::filter(implode("<br />\n", $header_output), 'emails') . '</div>';
-    }
-
-    /**
-     * Return the MIME content type for the rendered data.
-     *
-     * @return string  The content type of the data.
-     */
-    public function getType()
-    {
-        return 'text/plain; charset=' . NLS::getCharset();
+        return array(
+            'data' => '<div class="mimeHeaders">' . Text_Filter::filter(implode("<br />\n", $header_output), 'emails') . '</div>'
+        );
     }
 }
