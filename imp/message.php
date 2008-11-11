@@ -668,7 +668,7 @@ foreach ($summary['info']['render'] as $mime_id => $type) {
     }
 
     $render_part = $imp_contents->renderMIMEPart($mime_id, $type);
-    if (empty($render_part['ids'])) {
+    if (($type == 'inline') && empty($render_part['ids'])) {
         /* This meant that nothing was rendered - allow this part to appear
          * in the attachment list instead. */
         continue;
@@ -687,7 +687,7 @@ foreach ($summary['info']['render'] as $mime_id => $type) {
 
     foreach ($render_part['status'] as $val) {
         // TODO: status msgs.
-        $tmp_status[] = $render_part['status']['text'];
+        //$tmp_status[] = $render_part['status']['text'];
     }
 
     $msgtext .= '<span class="mimePartInfo">' .
