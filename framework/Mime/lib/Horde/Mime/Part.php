@@ -114,13 +114,6 @@ class Horde_Mime_Part
     protected $_information = array();
 
     /**
-     * The list of CIDs for this part.
-     *
-     * @var array
-     */
-    protected $_cids = array();
-
-    /**
      * The MIME ID of this part.
      *
      * @var string
@@ -1192,29 +1185,6 @@ class Horde_Mime_Part
         $localeinfo = NLS::getLocaleInfo();
         return number_format($bytes / 1024, 2, $localeinfo['decimal_point'], $localeinfo['thousands_sep']);
      }
-
-    /**
-     * Add to the list of CIDs for this part.
-     *
-     * @param array $cids  A list of MIME IDs of the part.
-     *                     Key - MIME ID
-     *                     Value - CID for the part
-     */
-    public function addCid($cids = array())
-    {
-        $this->_cids += $cids;
-        asort($this->_cids, SORT_STRING);
-    }
-
-    /**
-     * Returns the list of CIDs for this part.
-     *
-     * @return array  The list of CIDs for this part.
-     */
-    public function getCIDList()
-    {
-        return $this->_cids;
-    }
 
     /**
      * Sets the Content-ID header for this part.
