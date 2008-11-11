@@ -104,7 +104,7 @@ class IMP_Horde_Mime_Viewer_images extends Horde_Mime_Viewer_images
                 array(
                     'text' => $status
                 )
-            }
+            )
         );
     }
 
