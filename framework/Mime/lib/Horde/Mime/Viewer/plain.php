@@ -19,7 +19,7 @@ class Horde_Mime_Viewer_plain extends Horde_Mime_Viewer_Driver
      *
      * @var boolean
      */
-    protected $_canrender = array(
+    protected $_capability = array(
         'embedded' => false,
         'full' => true,
         'info' => false,

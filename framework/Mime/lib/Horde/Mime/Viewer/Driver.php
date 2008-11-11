@@ -115,7 +115,7 @@ class Horde_Mime_Viewer_Driver
             ? 'text/plain; charset=' . $charset
             : 'text/html; charset=' . $charset;
 
-        if (is_null($this->_mimepart) || !$this->canDisplay($mode)) {
+        if (is_null($this->_mimepart) || !$this->canRender($mode)) {
             return $default;
         }
 
