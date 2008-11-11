@@ -48,6 +48,13 @@ class IMP_Contents
     protected $_message;
 
     /**
+     * Have we scanned for embedded parts?
+     *
+     * @var boolean
+     */
+    protected $_build = false;
+
+    /**
      * Attempts to return a reference to a concrete IMP_Contents instance.
      * If an IMP_Contents object is currently stored in the local cache,
      * recreate that object.  Else, create a new instance.
@@ -247,6 +254,8 @@ class IMP_Contents
     {
         $part = $this->_message->getPart($id);
 
+        // TODO: Do _buildMessage() here?
+
         if (!is_null($part)) {
             if (empty($options['nocontents']) &&
                 !is_null($this->_mailbox) &&
@@ -270,20 +279,35 @@ class IMP_Contents
     /**
      * Render a MIME Part.
      *
-     * @param string $mime_id
-     * @param array $options
+     * @param string $mime_id  The MIME ID to render.
+     * @param string $mode     Either 'full', 'inline', or 'info'.
+     * @param array $options   Additional options:
+     * <pre>
+     * 'type' - (string) Use this MIME type instead of the MIME type
+     *          identified in the MIME part.
+     * </pre>
      *
-     * @return
+     * @return array  An array of information:
+     * <pre>
+     * 'data' - (string) The rendered data.
+     * 'name' - (string) The name of the part.
+     * 'status' - (array) An array of status information to be displayed to
+     *            the user.  Consists of arrays with the following keys:
+     *            'position' - (string) Either 'top' or 'bottom'
+     *            'text' - (string) The text to display
+     *            'type' - (string) Either 'info' or 'warning'
+     * 'type' - (string) The MIME type of the rendered data.
+     * </pre>
      */
-    public function renderMIMEPart($mime_id, $format, $options = array())
+    public function renderMIMEPart($mime_id, $mode, $options = array())
     {
         $mime_part = $this->getMIMEPart($mime_id);
         $viewer = Horde_Mime_Viewer::factory(empty($options['type']) ? $mime_part->getType() : $options['type']);
         $viewer->setMIMEPart($mime_part);
         $viewer->setParams(array('contents' => &$this));
 
-        $ret = $viewer->render($format);
-        $ret['name'] => $mime_part->getName(true);
+        $ret = $viewer->render($mode);
+        $ret['name'] = $mime_part->getName(true);
         return $ret;
     }
 
@@ -349,17 +373,47 @@ class IMP_Contents
     /**
      * Get message summary info.
      *
-     * @param integer $mask  A mask of information to return:
+     * @param integer $mask  A bitmask indicating what information to return:
      * <pre>
+     * IMP_Contents::SUMMARY_RENDER
+     *   Output: parts = 'render_info', 'render_inline'
+     *           info = 'render'
+     *
+     * IMP_Contents::SUMMARY_BYTES
+     *   Output: parts = 'bytes'
+     *
+     * IMP_Contents::SUMMARY_SIZE
+     *   Output: parts = 'size'
+     *
      * IMP_Contents::SUMMARY_ICON
+     *   Output: parts = 'icon'
+     *
+     * IMP_Contents::SUMMARY_DESCRIP_LINK
+     * IMP_Contents::SUMMARY_DESCRIP_NOLINK
+     *   Output: parts = 'description'
+     *
+     * IMP_Contents::SUMMARY_DOWNLOAD
+     *   Output: parts = 'download'
+     *           info = 'has' => 'download
+     *
+     * IMP_Contents::SUMMARY_DOWNLOAD_ZIP
+     *   Output: parts = 'download_zip'
+     *           info = 'has' => 'download
+     *
+     * IMP_Contents::SUMMARY_IMAGE_SAVE
+     *   Output: parts = 'img_save'
+     *           info = 'has' => 'img_save
+     *
+     * IMP_Contents::SUMMARY_STRIP_LINK
+     *   Output: parts = 'strip'
+     *           info = 'has' => 'strip'
+     *
+     * IMP_Contents::SUMMARY_DOWNLOAD_ALL
+     *   Output: info = 'download_all'
      * </pre>
      *
-     * @return array  The following fields:
-     * <pre>
-     * 'description' - (string) The part description.
-     * 'icon' - (string) The icon.
-     * 'type' - (string) The MIME type.
-     * </pre>
+     * @return array  An array with two keys: 'info' and 'parts'. See above
+     *                for the information returned in each key.
      */
     public function getSummary($mask = 0)
     {
@@ -370,9 +424,6 @@ class IMP_Contents
             'render' => array()
         );
         $parts = array();
-
-        // TODO: build message (any embedded message added to structure)
-        $mime_message = $this->_message;
 
         // Cache some settings before we enter the loop.
         $download_zip = (($mask & self::SUMMARY_DOWNLOAD_ZIP) && Util::extensionExists('zlib'));
@@ -392,7 +443,8 @@ class IMP_Contents
             $message_token = IMP::getRequestToken('imp.impcontents');
         }
 
-        foreach ($mime_message->contentTypeMap() as $mime_id => $mime_type) {
+        $this->_buildMessage();
+        foreach ($this->_message->contentTypeMap() as $mime_id => $mime_type) {
             $parts[$mime_id] = array(
                 'bytes' => null,
                 'download' => null,
@@ -638,4 +690,53 @@ class IMP_Contents
                 ($type != 'application/x-pkcs7-signature') &&
                 ($type != 'application/pkcs7-signature'));
     }
+
+    /**
+     * Builds the "virtual" Horde_Mime_Message object by checking for embedded
+     * parts.
+     *
+     * @param array $parts  The parts list to process.
+     */
+    protected function _buildMessage($parts = null)
+    {
+        if (is_null($parts)) {
+            if ($this->_build) {
+                return;
+            }
+            $this->_build = true;
+            $parts = $this->_message->contentTypeMap();
+        }
+
+        $last_id = null;
+        $to_process = array();
+
+        foreach ($parts as $id => $type) {
+            if (!is_null($last_id) &&
+                (strpos($id, $last_id) === 0)) {
+                continue;
+            }
+
+            $last_id = null;
+
+            $viewer = Horde_Mime_Viewer::factory($type);
+            if ($viewer->embeddedMimeParts()) {
+                $mime_part = $this->getMIMEPart($mime_id);
+                $viewer->setMIMEPart($mime_part);
+                $new_part = $viewer->getEmbeddedMimeParts();
+                if (!is_null($new_part)) {
+                    $this->_message->alterPart($id, $new_part);
+                    $to_process = array_merge($to_process, array_slice($new_part->contentTypeMap(), 1));
+                    if ($id == 0) {
+                        break;
+                    }
+                    $last_id = $id;
+                }
+            }
+        }
+
+        if (!empty($to_process)) {
+            $this->_buildMessage($to_process);
+        }
+    }
+
 }
