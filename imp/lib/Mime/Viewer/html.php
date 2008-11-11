@@ -136,8 +136,7 @@ class IMP_Horde_Mime_Viewer_html extends Horde_Mime_Viewer_html
 
         /* Search for inlined images that we can display. */
         // TODO
-        $related = $this->_mimepart->getInformation('related_part');
-        if ($related !== false) {
+        if (false) {
             $relatedPart = $this->_params['contents']->getMIMEPart($related);
             foreach ($relatedPart->getCIDList() as $ref => $id) {
                 $id = trim($id, '<>');
