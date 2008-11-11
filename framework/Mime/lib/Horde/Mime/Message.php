@@ -213,7 +213,11 @@ class Horde_Mime_Message extends Horde_Mime_Part
             $ob->setDisposition($data['disposition']);
             if (!empty($data['dparameters'])) {
                 foreach ($data['dparameters'] as $key => $val) {
-                    $ob->setDispositionParameter($key, $val);
+                    /* Disposition parameters are supposed to be encoded via
+                     * RFC 2231, but many mailers do RFC 2045 encoding
+                     * instead. */
+                    // @todo: RFC 2231 decoding
+                    $ob->setDispositionParameter($key, Horde_Mime::decode($val));
                 }
             }
         }
@@ -228,7 +232,10 @@ class Horde_Mime_Message extends Horde_Mime_Part
 
         if (!empty($data['parameters'])) {
             foreach ($data['parameters'] as $key => $val) {
-                $ob->setContentTypeParameter($key, $val);
+                /* Content-type parameters are supposed to be encoded via RFC
+                 * 2231, but many mailers do RFC 2045 encoding instead. */
+                // @todo: RFC 2231 decoding
+                $ob->setContentTypeParameter($key, Horde_Mime::decode($val));
             }
         }
 
@@ -241,7 +248,7 @@ class Horde_Mime_Message extends Horde_Mime_Part
         }
 
         if (isset($data['description'])) {
-            $ob->setDescription($data['description']);
+            $ob->setDescription(Horde_Mime::decode($data['description']));
         }
 
         /* Set the name. */
