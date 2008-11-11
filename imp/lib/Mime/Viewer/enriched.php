@@ -14,41 +14,50 @@
 class IMP_Horde_Mime_Viewer_enriched extends Horde_Mime_Viewer_enriched
 {
     /**
-     * Render out the currently set contents.
+     * Return the full rendered version of the Horde_Mime_Part object.
      *
-     * @param array $params  An array with a reference to a MIME_Contents
-     *                       object.
-     *
-     * @return string  The rendered text in HTML.
+     * @return array  See Horde_Mime_Viewer_Driver::render().
      */
-    public function render($params)
+    protected function _render()
     {
-        $contents = &$params[0];
+        $ret = parent::_render();
+        $ret['data'] = $this->_IMPformat($ret['data']);
+        return $ret;
+    }
 
-        global $prefs;
+    /**
+     * Return the rendered inline version of the Horde_Mime_Part object.
+     *
+     * @return array  See Horde_Mime_Viewer_Driver::render().
+     */
+    protected function _renderInline()
+    {
+        $ret = parent::_renderInline();
+        $ret['data'] = $this->_IMPformat($ret['data']);
+        return $ret;
+    }
 
-        if (($text = $this->mime_part->getContents()) === false) {
-            return $this->formatPartError(_("There was an error displaying this message part"));
-        }
-
-        if (trim($text) == '') {
-            return $text;
-        }
-
-        $text = parent::render();
-
+    /**
+     * Format output text with IMP additions.
+     *
+     * @param string $text  The HTML text.
+     *
+     * @return string  The text with extra IMP formatting applied.
+     */
+    protected function _IMPformat($text)
+    {
         // Highlight quoted parts of an email.
-        if ($prefs->getValue('highlight_text')) {
+        if ($GLOBALS['prefs']->getValue('highlight_text')) {
             $text = implode("\n", preg_replace('|^(\s*&gt;.+)$|', '<span class="quoted1">\1</span>', explode("\n", $text)));
             $indent = 1;
             while (preg_match('|&gt;(\s?&gt;){' . $indent . '}|', $text)) {
                 $text = implode("\n", preg_replace('|^<span class="quoted' . ((($indent - 1) % 5) + 1) . '">(\s*&gt;(\s?&gt;){' . $indent . '}.+)$|', '<span class="quoted' . (($indent % 5) + 1) . '">\1', explode("\n", $text)));
-                $indent++;
+                ++$indent;
             }
         }
 
         // Dim signatures.
-        if ($prefs->getValue('dim_signature')) {
+        if ($GLOBALS['prefs']->getValue('dim_signature')) {
             $parts = preg_split('|(\n--\s*\n)|', $text, 2, PREG_SPLIT_DELIM_CAPTURE);
             $text = array_shift($parts);
             if (count($parts)) {
@@ -59,8 +68,6 @@ class IMP_Horde_Mime_Viewer_enriched extends Horde_Mime_Viewer_enriched
         }
 
         // Filter bad language.
-        $text = IMP::filterText($text);
-
-        return $text;
+        return IMP::filterText($text);
     }
 }
