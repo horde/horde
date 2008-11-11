@@ -99,6 +99,9 @@ class Horde_Mime_Viewer_Driver
      * @return array  An array with the following elements:
      * <pre>
      * 'data' - (string) The rendered data.
+     * 'ids' - (array) The list of MIME IDs that the rendered data covers
+     *         (e.g. for multipart parts, the base multipart object may
+     *         render all the data needed to display all the subparts)
      * 'status' - (array) An array of status information to be displayed to
      *            the user.  Consists of arrays with the following keys:
      *            'position' - (string) Either 'top' or 'bottom'
@@ -118,6 +121,8 @@ class Horde_Mime_Viewer_Driver
         if (is_null($this->_mimepart) || !$this->canRender($mode)) {
             return $default;
         }
+
+        $default['ids'] = array($this->_mimepart->getMIMEId());
 
         switch ($mode) {
         case 'full':
