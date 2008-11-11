@@ -17,7 +17,7 @@
  * appledouble    multipart/appledouble parts
  * enriched       Enriched text messages
  * html           HTML messages
- * images         Attached images inline
+ * images         Images
  * itip           iCalendar Transport-Independent Interoperability Protocol
  * notification   Notification messages
  * partial        message/partial parts
@@ -235,9 +235,9 @@ $mime_drivers['imp']['itip'] = array(
 
 /**
  * multipart/alternative settings
- * YOU SHOULD NOT NORMALLY ALTER THIS SETTING.
  */
 $mime_drivers['imp']['alternative'] = array(
+    /* The 'inline' setting should normally not be changed. */
     'inline' => true,
     'handles' => array(
         'multipart/alternative'
