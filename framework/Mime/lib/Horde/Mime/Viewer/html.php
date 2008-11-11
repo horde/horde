@@ -161,7 +161,7 @@ class Horde_Mime_Viewer_html extends Horde_Mime_Viewer_Driver
             }
 
             $status[] = array(
-                'text' => $phish_warning,
+                'text' => array($phish_warning),
                 'type' => 'warning'
             );
         }
