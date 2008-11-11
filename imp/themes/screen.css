@@ -415,6 +415,7 @@ ul.nav-audio {
     background: #f9f9f9;
     padding-top: 4px;
     padding-bottom: 3px;
+    display: table;
 }
 .mimePartInfo img {
     vertical-align: bottom;
