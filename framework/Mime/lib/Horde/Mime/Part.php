@@ -624,12 +624,15 @@ class Horde_Mime_Part
      *
      * @param string $id     The MIME ID.
      * @param array &$parts  A list of Horde_Mime_Part objects.
+     *
+     * @return mixed  A pointer to the Horde_Mime_Part object, or null if the
+     *                object is not found.
      */
     protected function &_partFind($id, &$parts)
     {
         foreach (array_keys($parts) as $val) {
             $ret = $parts[$val]->getPart($id);
-            if ($ret !== null) {
+            if (!is_null($ret)) {
                 return $ret;
             }
         }
