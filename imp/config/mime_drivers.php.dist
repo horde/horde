@@ -26,7 +26,6 @@
  * pkcs7          S/MIME signed/encrypted messages
  * plain          URL syntax highlighting for text/plain parts
  * related        multipart/related parts
- * rfc822         Digested messages
  * status         Mail delivery status messages
  * tnef           MS-TNEF attachments
  * zip            ZIP attachments
@@ -34,7 +33,7 @@
 $mime_drivers_map['imp']['registered'] = array(
     'alternative', 'appledouble', 'enriched', 'html', 'images', 'itip',
     'notification', 'partial', 'pdf', 'pgp', 'pkcs7', 'plain', 'related',
-    'rfc822', 'smil', 'status', 'tnef', 'zip'
+    'smil', 'status', 'tnef', 'zip'
 );
 
 /**
@@ -160,19 +159,6 @@ $mime_drivers['imp']['pkcs7'] = array(
     ),
     'icons' => array(
         'default' => 'encryption.png'
-    )
-);
-
-/**
- * Digest message (message/rfc822) settings
- */
-$mime_drivers['imp']['rfc822'] = array(
-    'inline' => false,
-    'handles' => array(
-        'message/rfc822'
-    ),
-    'icons' => array(
-        'default' => 'mail.png'
     )
 );
 
