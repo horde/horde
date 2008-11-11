@@ -388,17 +388,11 @@ class IMP_UI_Message
                 $out[] = '<tr><td>' . $val . '</td></tr>';
             }
         } else {
-            $out[] = '<tr><td class="mimeStatusIcon">' . $data['icon'] . '</td><td>';
-            if (count($data['text']) == 1) {
-                $out[] = $msg[0];
-            } else {
-                $out[] = '<table>';
-                foreach ($data['text'] as $val) {
-                    $out[] = '<tr><td>' . $val . '</td></tr>';
-                }
-                $out[] = '</table>';
+            $out[] = '<tr><td class="mimeStatusIcon">' . $data['icon'] . '</td><td><table>';
+            foreach ($data['text'] as $val) {
+                $out[] = '<tr><td>' . $val . '</td></tr>';
             }
-            $out[] = '</td></tr>';
+            $out[] = '</table></td></tr>';
         }
 
         return implode("\n", $out) . "\n</table>\n";
