@@ -206,7 +206,7 @@ class Horde_Mime_Part
      */
     public function setDispositionParameter($label, $data)
     {
-        $this->_dispParams[$label] = Horde_Mime::decode($data);
+        $this->_dispParams[$label] = $data;
     }
 
     /**
@@ -498,7 +498,7 @@ class Horde_Mime_Part
      */
     public function setDescription($description)
     {
-        $this->_description = Horde_Mime::decode($description);
+        $this->_description = $description;
     }
 
     /**
@@ -1235,25 +1235,34 @@ class Horde_Mime_Part
      *
      * @param string $id  The ID of this part.
      */
-    public function buildMimeIds($id = null)
+    public function buildMimeIds($id = null, $rfc822 = false)
     {
         if (is_null($id)) {
+            $rfc822 = true;
+            $id = '';
+        }
+
+        if ($rfc822) {
             if (empty($this->_parts)) {
-                $this->setMimeId('1');
+                $this->setMimeId($id . '1');
             } else {
-                $this->setMimeId('0');
+                $this->setMimeId($id . '0');
                 $i = 1;
                 foreach (array_keys($this->_parts) as $val) {
-                    $this->_parts[$val]->buildMimeIds($i++);
+                    $this->_parts[$val]->buildMimeIds($id . $i++);
                 }
             }
         } else {
-            $this->setMimeId($id . (($this->getType() == 'message/rfc822') ? '.0' : ''));
+            $this->setMimeId($id);
+            $id .= '.';
 
-            if (!empty($this->_parts)) {
+            if ($this->getType() == 'message/rfc822') {
+                reset($this->_parts);
+                $this->_parts[key($this->_parts)]->buildMimeIds($id, true);
+            } elseif (!empty($this->_parts)) {
                 $i = 1;
                 foreach (array_keys($this->_parts) as $val) {
-                    $this->_parts[$val]->buildMimeIds($id . '.' . $i++);
+                    $this->_parts[$val]->buildMimeIds($id . $i++);
                 }
             }
         }
