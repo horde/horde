@@ -660,21 +660,24 @@ foreach (array('download', 'download_zip', 'img_save', 'strip') as $val) {
 
 /* Build body text. This needs to be done before we build the attachment list
  * that lives in the header. */
-$display_ids = $inline_ids = array();
+$display_ids = array();
 $msgtext = '';
 foreach ($summary['info']['render'] as $mime_id => $type) {
-    if (in_array($mime_id, $inline_ids)) {
+    if (in_array($mime_id, $display_ids)) {
         continue;
     }
 
     $render_part = $imp_contents->renderMIMEPart($mime_id, $type);
-    $inline_ids = array_merge($inline_ids, $render_part['ids']);
+    if (empty($render_part['ids'])) {
+        /* This meant that nothing was rendered - allow this part to appear
+         * in the attachment list instead. */
+        continue;
+    }
+    $display_ids = array_merge($display_ids, $render_part['ids']);
 
     $summary_id = isset($render_part['summary_id'])
         ? $render_part['summary_id']
         : $mime_id;
-    $display_ids[] = $summary_id;
-
     $ptr = $summary['parts'][$summary_id];
     $tmp_part = $tmp_status = array();
 
@@ -690,7 +693,7 @@ foreach ($summary['info']['render'] as $mime_id => $type) {
     $msgtext .= '<span class="mimePartInfo">' .
         implode(' ', $tmp_part) .
         '</span>' .
-        implode(' ', $tmp_status) .
+        //implode(' ', $tmp_status) .
         $render_part['data'];
 }
 
