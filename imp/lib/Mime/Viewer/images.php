@@ -90,17 +90,21 @@ class IMP_Horde_Mime_Viewer_images extends Horde_Mime_Viewer_images
 
         /* The browser cannot view this image. Inform the user of this and
          * ask user if we should convert to another image type. */
-        $msg = _("Your browser does not support inline display of this image type.");
+        $status = array(_("Your browser does not support inline display of this image type."));
 
         /* See if we can convert to an inline browser viewable form. */
         $img = $this->_getHordeImageOb(false);
         if ($img && $GLOBALS['browser']->isViewable($img->getContentType())) {
             $convert_link = $contents->linkViewJS($this->_mimepart, 'view_attach', _("HERE"), null, null, array('img_load_convert' => 1));
-            $msg .= '<br />' . sprintf(_("Click %s to convert the image file into a format your browser can view."), $convert_link);
+            $status[] = sprintf(_("Click %s to convert the image file into a format your browser can view."), $convert_link);
         }
 
         return array(
-            'status' => array('text' => $msg)
+            'status' => array(
+                array(
+                    'text' => $status
+                )
+            }
         );
     }
 
@@ -120,18 +124,21 @@ class IMP_Horde_Mime_Viewer_images extends Horde_Mime_Viewer_images
             return array();
         }
 
-        $status = array(
-            sprintf(_("An image named %s is attached to this message. A thumbnail is below."), $this->_mimepart->getName(true)),
-        );
+        $status = array(sprintf(_("An image named %s is attached to this message. A thumbnail is below."), $this->_mimepart->getName(true)));
 
         if ($GLOBALS['browser']->hasFeature('javascript')) {
-            $status[] = $this->_params['contents']->linkViewJS($this->_mimepart, 'view_attach', Horde::img($this->_params['contents']->urlView($this->_mimepart, 'view_attach', array('img_view_thumbnail' => 1), false), _("View Attachment"), null, ''), null, null, null);
+            $status[] = $this->_params['contents']->linkViewJS($this->_mimepart, 'view_attach', Horde::img($this->_params['contents']->urlView($this->_mimepart, 'view_attach', array('params' => array('img_view_thumbnail' => 1)), false), _("View Attachment"), null, ''), null, null, null);
         } else {
-            $status[] = Horde::link($this->_params['contents']->urlView($this->_mimepart, 'view_attach')) . Horde::img($this->_params['contents']->urlView($this->_mimepart, 'view_attach', array('img_view_thumbnail' => 1), false), _("View Attachment"), null, '') . '</a>';
+            $status[] = Horde::link($this->_params['contents']->urlView($this->_mimepart, 'view_attach')) . Horde::img($this->_params['contents']->urlView($this->_mimepart, 'view_attach', array('params' => array('img_view_thumbnail' => 1)), false), _("View Attachment"), null, '') . '</a>';
         }
 
         return array(
-            'status' => array('text' => implode('<br />', $status))
+            'status' => array(
+                array(
+                    'icon' => Horde::img('mime/image.png', _("Thumbnail of attached image")),
+                    'text' => $status
+                )
+            )
         );
     }
 

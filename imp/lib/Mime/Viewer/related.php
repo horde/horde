@@ -55,8 +55,10 @@ class IMP_Horde_Mime_Viewer_related extends Horde_Mime_Viewer_Driver
     {
         return array(
             'status' => array(
-                'text' => sprintf(_("Click %s to view this multipart/related part in a separate window."), $contents->linkViewJS($this->mime_part, 'view_attach', _("HERE"), _("View content in a separate window"))),
-                'icon' => Horde::img('mime/html.png', _("HTML"))
+                array (
+                    'text' => array(sprintf(_("Click %s to view this multipart/related part in a separate window."), $contents->linkViewJS($this->mime_part, 'view_attach', _("HERE"), _("View content in a separate window")))),
+                    'icon' => Horde::img('mime/html.png', _("HTML"))
+                )
             )
         );
     }
@@ -66,7 +68,7 @@ class IMP_Horde_Mime_Viewer_related extends Horde_Mime_Viewer_Driver
      *
      * @param boolean $inline  Are we viewing inline?
      *
-     * @return array  Two elements: html and status.
+     * @return array  See self::render().
      */
     protected function _IMPrender($inline)
     {

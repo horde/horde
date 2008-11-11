@@ -59,8 +59,10 @@ class IMP_Horde_Mime_Viewer_alternative extends Horde_Mime_Viewer_Driver
         if (is_null($display_id)) {
             return array(
                 'status' => array(
-                    'text' => _("There are no alternative parts that can be displayed inline."),
-                    'type' => 'info'
+                    array(
+                        'text' => array(_("There are no alternative parts that can be displayed inline.")),
+                        'type' => 'info'
+                    )
                 )
             );
         }
