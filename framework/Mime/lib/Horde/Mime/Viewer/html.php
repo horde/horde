@@ -32,7 +32,7 @@ class Horde_Mime_Viewer_html extends Horde_Mime_Viewer_Driver
      *
      * @return array  See Horde_Mime_Viewer_Driver::render().
      */
-    public function _render()
+    protected function _render()
     {
         $html = $this->_cleanHTML($this->_mimepart->getContents(), false);
 
@@ -48,7 +48,7 @@ class Horde_Mime_Viewer_html extends Horde_Mime_Viewer_Driver
      *
      * @return array  See Horde_Mime_Viewer_Driver::render().
      */
-    public function _renderInline()
+    protected function _renderInline()
     {
         $html = $this->_cleanHTML($this->_mimepart->getContents(), true);
 
