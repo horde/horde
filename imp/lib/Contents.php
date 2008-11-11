@@ -25,7 +25,6 @@ class IMP_Contents
     const SUMMARY_IMAGE_SAVE = 256;
     const SUMMARY_STRIP_LINK = 512;
     const SUMMARY_DOWNLOAD_ALL = 1024;
-    const SUMMARY_TEXTBODY = 2048;
 
     /**
      * The IMAP index of the message.
@@ -411,9 +410,6 @@ class IMP_Contents
      *
      * IMP_Contents::SUMMARY_DOWNLOAD_ALL
      *   Output: info = 'download_all'
-     *
-     * IMP_Contents::SUMMARY_TEXTBODY
-     *   Output: info = 'textbody'
      * </pre>
      *
      * @return array  An array with two keys: 'info' and 'parts'. See above
@@ -421,12 +417,10 @@ class IMP_Contents
      */
     public function getSummary($mask = 0)
     {
-        $last_id = null;
         $info = array(
             'download_all' => array(),
             'has' => array(),
-            'render' => array(),
-            'textbody' => null
+            'render' => array()
         );
         $parts = array();
 
@@ -449,17 +443,9 @@ class IMP_Contents
                 'render_info' => false,
                 'render_inline' => false,
                 'size' => null,
-                'strip' => null,
-                'textbody' => null
+                'strip' => null
             );
             $part = &$parts[$mime_id];
-
-            if (($mask & self::SUMMARY_TEXTBODY) &&
-                is_null($info['textbody']) &&
-                (strpos($mime_type, 'text/') === 0) &&
-                (intval($mime_id) == 1)) {
-                $info['textbody'] = $mime_id;
-            }
 
             $mime_part = $this->getMIMEPart($mime_id, array('nocontents' => true, 'nodecode' => true));
 
@@ -473,23 +459,21 @@ class IMP_Contents
             $part['type'] = $mime_type;
 
             /* Determine if part can be viewed inline or has viewable info. */
-            if (($mask & self::SUMMARY_RENDER) &&
-                (is_null($last_id) ||
-                 (($last_id !== 0) &&
-                  (strpos($mime_id, $last_id) !== 0)))) {
-                $last_id = null;
+            if ($mask & self::SUMMARY_RENDER) {
                 $viewer = Horde_Mime_Viewer::factory($mime_type);
 
                 if ($viewer->canRender('inline') &&
                     ($mime_part->getDisposition() == 'inline')) {
                     $part['render_inline'] = true;
                     $info['render'][$mime_id] = 'inline';
-                    $last_id = $mime_id;
-                } elseif (is_null($last_id) && $viewer->canRender('info')) {
+                } elseif ($viewer->canRender('info')) {
                     $part['render_info'] = true;
                     $info['render'][$mime_id] = 'info';
                 }
             }
+
+            /* Is this part an attachment? */
+            $is_atc = $this->isAttachment($mime_part);
 
             /* Get bytes/size information. */
             if (($mask & self::SUMMARY_BYTES) ||
@@ -522,13 +506,16 @@ class IMP_Contents
             }
 
             if ($mask & self::SUMMARY_DESCRIP_LINK) {
-                $part['description'] = $this->linkViewJS($mime_part, 'view_attach', htmlspecialchars($description), array('jstext' => sprintf(_("View %s [%s]"), $description, $mime_type), 'params' => $param_array));
+                $part['description'] = $is_atc
+                    ? $this->linkViewJS($mime_part, 'view_attach', htmlspecialchars($description), array('jstext' => sprintf(_("View %s [%s]"), $description, $mime_type), 'params' => $param_array))
+                    : htmlspecialchars($description);
             } elseif ($mask & self::SUMMARY_DESCRIP_NOLINK) {
                 $part['description'] = htmlspecialchars($description);
             }
 
             /* Download column. */
-            if (($mask & self::SUMMARY_DOWNLOAD) &&
+            if ($is_atc &&
+                ($mask & self::SUMMARY_DOWNLOAD) &&
                 (is_null($part['bytes']) || $part['bytes'])) {
                 $part['download'] = $this->linkView($mime_part, 'download_attach', '', array('class' => 'downloadAtc', 'dload' => true, 'jstext' => sprintf(_("Download %s"), $description)));
                 $info['has']['download'] = true;
@@ -536,7 +523,8 @@ class IMP_Contents
 
             /* Display the compressed download link only if size is greater
              * than 200 KB. */
-            if ($download_zip &&
+            if ($is_atc &&
+                $download_zip &&
                 ($part['bytes'] > 204800) &&
                 !in_array($mime_type, array('application/zip', 'application/x-zip-compressed'))) {
                 $part['download_zip'] = $this->linkView($mime_part, 'download_attach', null, array('class' => 'downloadZipAtc', 'dload' => true, 'jstext' => sprintf(_("Download %s in .zip Format"), $mime_part->getDescription(true)), 'params' => array('zip' => 1)));
@@ -563,10 +551,8 @@ class IMP_Contents
                 $info['has']['strip'] = true;
             }
 
-            if ($mask && self::SUMMARY_DOWNLOAD_ALL) {
-                if ($download = $this->isAttachment($mime_part)) {
-                    $info['download_all'][] = $mime_id;
-                }
+            if ($is_atc && ($mask && self::SUMMARY_DOWNLOAD_ALL)) {
+                $info['download_all'][] = $mime_id;
             }
         }
 
@@ -681,19 +667,15 @@ class IMP_Contents
      */
     public function isAttachment($mime_part)
     {
-        $type = $mime_part->getType();
-
         switch ($mime_part->getPrimaryType()) {
         case 'message':
-            return ($type == 'message/rfc822');
+            return ($mime_part->getType() == 'message/rfc822');
 
         case 'multipart':
             return false;
 
         default:
-            return (($type != 'application/applefile') &&
-                ($type != 'application/x-pkcs7-signature') &&
-                ($type != 'application/pkcs7-signature'));
+            return true;
         }
     }
 

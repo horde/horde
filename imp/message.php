@@ -251,8 +251,7 @@ if (is_a($imp_contents, 'PEAR_Error')) {
 $contents_mask = IMP_Contents::SUMMARY_RENDER |
     IMP_Contents::SUMMARY_BYTES |
     IMP_Contents::SUMMARY_SIZE |
-    IMP_Contents::SUMMARY_ICON |
-    IMP_Contents::SUMMARY_TEXTBODY;
+    IMP_Contents::SUMMARY_ICON;
 if ($printer_friendly) {
     $contents_mask |= IMP_Contents::SUMMARY_DESCRIP_NOLINK;
 } else {
@@ -651,19 +650,7 @@ foreach ($all_list_headers as $head => $val) {
     $hdrs[] = array('name' => $list_headers_lookup[$head], 'val' => $val, 'i' => (++$i % 2));
 }
 
-/* Show attachment information in headers? */
-$download_all = $show_atc = false;
-reset($summary['parts']);
-if (!empty($summary['parts']) &&
-    ((count($summary['parts']) > 1) ||
-     (key($summary['parts']) != $summary['info']['textbody']))) {
-    $atc_display = $prefs->getValue('attachment_display');
-    $show_atc = (($atc_display == 'list') || ($atc_display == 'both'));
-    $download_all = (empty($summary['info']['download_all']) || !$printer_friendly)
-        ? false
-        : $imp_contents->urlView($imp_contents->getMIMEMessage(), 'download_all', array('params' => array('download_ids' => serialize($summary['info']['download_all']))));
-}
-
+/* Determine the fields that will appear in the MIME info entries. */
 $part_info = array('icon', 'description', 'type', 'size');
 foreach (array('download', 'download_zip', 'img_save', 'strip') as $val) {
     if (isset($summary['info']['has'][$val])) {
@@ -671,19 +658,67 @@ foreach (array('download', 'download_zip', 'img_save', 'strip') as $val) {
     }
 }
 
+/* Build body text. This needs to be done before we build the attachment list
+ * that lives in the header. */
+$display_ids = $inline_ids = array();
+$msgtext = '';
+foreach ($summary['info']['render'] as $mime_id => $type) {
+    if (in_array($mime_id, $inline_ids)) {
+        continue;
+    }
+
+    $render_part = $imp_contents->renderMIMEPart($mime_id, $type);
+    $inline_ids = array_merge($inline_ids, $render_part['ids']);
+
+    $summary_id = isset($render_part['summary_id'])
+        ? $render_part['summary_id']
+        : $mime_id;
+    $display_ids[] = $summary_id;
+
+    $ptr = $summary['parts'][$summary_id];
+    $tmp_part = $tmp_status = array();
+
+    foreach ($part_info as $val) {
+        $tmp_part[] = $ptr[$val];
+    }
+
+    foreach ($render_part['status'] as $val) {
+        // TODO: status msgs.
+        $tmp_status[] = $render_part['status']['text'];
+    }
+
+    $msgtext .= '<span class="mimePartInfo">' .
+        implode(' ', $tmp_part) .
+        '</span>' .
+        implode(' ', $tmp_status) .
+        $render_part['data'];
+}
+
+/* Show attachment information in headers? */
+$show_atc = false;
+$atc_parts = array_diff($summary['info']['download_all'], $display_ids);
+if (!empty($atc_parts)) {
+    $atc_display = $prefs->getValue('attachment_display');
+    $show_atc = (($atc_display == 'list') || ($atc_display == 'both'));
+}
+
+/* Show the download all link? */
+$download_all = (!$printer_friendly && (count($atc_parts) || (count($display_ids) > 2)))
+    ? $imp_contents->urlView($imp_contents->getMIMEMessage(), 'download_all', array('params' => array('download_ids' => serialize($summary['info']['download_all']))))
+    : false;
+
 if ($show_atc || $download_all) {
     $val = '';
 
     if ($show_atc) {
         $tmp = array();
-        foreach ($summary['parts'] as $key => $val) {
-            if ($key != $summary['info']['textbody']) {
-                $tmp[] = '<tr>';
-                foreach ($part_info as $val2) {
-                    $tmp[] = '<td>' . $val[$val2] . '</td>';
-                }
-                $tmp[] = '</tr>';
+        foreach ($atc_parts as $id) {
+            $tmp[] = '<tr>';
+            $ptr = $summary['parts'][$id];
+            foreach ($part_info as $val) {
+                $tmp[] = '<td>' . $ptr[$val] . '</td>';
             }
+            $tmp[] = '</tr>';
         }
         $val = '<table>' . implode('', $tmp) . '</table>';
     }
@@ -704,31 +739,7 @@ if ($printer_friendly && !empty($conf['print']['add_printedby'])) {
 }
 
 $m_template->set('headers', $hdrs);
-
-/* Build body text. */
-$msgtext = '';
-foreach ($summary['info']['render'] as $mime_id => $type) {
-    $render_part = $imp_contents->renderMIMEPart($mime_id, $type);
-    $ptr = $summary['parts'][$mime_id];
-    $tmp_part = $tmp_status = array();
-
-    foreach ($part_info as $val) {
-        $tmp[] = $ptr[$val];
-    }
-
-    foreach ($render_part['status'] as $val) {
-        // TODO: status msgs.
-        $tmp_status[] = $render_part['status']['text'];
-    }
-
-    $msgtext .= '<span class="mimePartInfo">' .
-        implode(' ', $tmp) .
-        '</span>' .
-        implode(' ', $tmp_status) .
-        $render_part['data'];
-}
 $m_template->set('msgtext', $msgtext);
-
 echo $m_template->fetch(IMP_TEMPLATES . '/message/message.html');
 
 if (!$printer_friendly) {
