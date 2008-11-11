@@ -24,7 +24,7 @@ class Horde_Mime_Viewer_html extends Horde_Mime_Viewer_Driver
         'embedded' => false,
         'full' => true,
         'info' => false,
-        'inline' => true,
+        'inline' => true
     );
 
     /**
