@@ -14,60 +14,94 @@
 class IMP_Horde_Mime_Viewer_appledouble extends Horde_Mime_Viewer_Driver
 {
     /**
-     * Force viewing of a part inline, regardless of the Content-Disposition
-     * of the MIME Part.
+     * This driver's capabilities.
      *
      * @var boolean
      */
-    protected $_forceinline = true;
+    protected $_capability = array(
+        'embedded' => false,
+        'full' => false,
+        'info' => true,
+        'inline' => true
+    );
 
     /**
-     * Render out the currently set contents.
+     * Return the rendered inline version of the Horde_Mime_Part object.
      *
-     * @param array $params  An array with a reference to a MIME_Contents
-     *                       object.
-     *
-     * @return string  The rendered text in HTML.
+     * @return array  See Horde_Mime_Viewer_Driver::render().
      */
-    public function render($params)
+    protected function _renderInline()
     {
-        $contents = &$params[0];
-        $text = '';
-
-        /* RFC 1740 [4]: There are two parts to an appledouble message:
-             (1) application/applefile
-             (2) Data embedded in the Mac file */
-
-        /* Display the macintosh download link. */
-        $part = $contents->getDecodedMIMEPart($this->mime_part->getRelativeMIMEId(1));
-        if ($part) {
-            $status = array(
-                _("This message contains a Macintosh file."),
-                sprintf(_("The Macintosh resource fork can be downloaded %s."), $contents->linkViewJS($part, 'download_attach', _("HERE"), _("The Macintosh resource fork"))),
-                _("The contents of the Macintosh file are below.")
-            );
-            $text .= $this->formatStatusMsg($status, Horde::img('apple.png', _("Macintosh File")), false);
-        }
-
-        /* Display the content of the file. */
-        $part = $contents->getDecodedMIMEPart($this->mime_part->getRelativeMIMEId(2));
-        if ($part) {
-            $mime_message = Horde_Mime_Message::convertMIMEPart($part);
-            $mc = new IMP_Contents($mime_message, array('download' => 'download_attach', 'view' => 'view_attach'), array(&$contents));
-            $mc->buildMessage();
-            $text .= '<table cellspacing="0">' . $mc->getMessage(true) . '</table>';
-        }
-
-        return $text;
+        return $this->_IMPrender(true);
     }
 
     /**
-     * Return the content-type.
+     * Return the rendered information about the Horde_Mime_Part object.
      *
-     * @return string  The content-type of the message.
+     * @return array  See Horde_Mime_Viewer_Driver::render().
      */
-    public function getType()
+    protected function _renderInfo()
     {
-        return 'text/html; charset=' . NLS::getCharset();
+        return $this->_IMPrender(false);
+    }
+
+    /**
+     * Render the part based on the view mode.
+     *
+     * @param boolean $inline  True if viewing inline.
+     *
+     * @return array  See Horde_Mime_Viewer_Driver::render().
+     */
+    protected function _IMPrender($inline)
+    {
+        /* RFC 1740 [4]: There are two parts to an appledouble message:
+         *   (1) application/applefile
+         *   (2) Data embedded in the Mac file
+         * Since the resource fork is not very useful to us, only provide a
+         * means to download. */
+
+        /* Display the resource fork download link. */
+        $mime_id = $this->_mimepart->getMimeId();
+        $applefile_id = Horde_Mime::mimeIdArithmetic($mime_id, 'down');
+        $data_id = Horde_Mime::mimeIdArithmetic($applefile_id, 'next');
+
+        $applefile_part = $this->_mimepart->getPart($applefile_id);
+        $data_part = $this->_mimepart->getPart($data_id);
+
+        $data_name = $data_part->getName(true);
+        if (empty($data_name)) {
+            $data_name = _("unnamed");
+        }
+
+        $status = array(
+            'icon' => Horde::img('apple.png', _("Macintosh File")),
+            'text' => array(
+                sprintf(_("This message contains a Macintosh file (named \"%s\")."), $data_name),
+                sprintf(_("The Macintosh resource fork can be downloaded %s."), $this->_params['contents']->linkViewJS($applefile_part, 'download_attach', _("HERE"), array('jstext' => _("The Macintosh resource fork"))))
+            )
+        );
+
+        $can_display = false;
+        $ids = array($mime_id, $applefile_id);
+
+        /* For inline viewing, attempt to display the data inline. */
+        if ($inline) {
+            $viewer = Horde_Mime_Viewer::factory($data_part->getType());
+            if (($viewer->canRender('inline') &&
+                 ($data_part->getDisposition() == 'inline')) ||
+                $viewer->canRender('info')) {
+                $can_display = true;
+                $status['text'][] = _("The contents of the Macintosh file are below.");
+            }
+        }
+
+        if (!$can_display) {
+            $ids[] = $data_id;
+        }
+
+        return array(
+            'ids' => $ids,
+            'status' => array($status)
+        );
     }
 }
