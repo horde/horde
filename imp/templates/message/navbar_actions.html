@@ -35,13 +35,22 @@
     <if:spam><li><tag:spam /></li></if:spam>
     <if:notspam><li><tag:notspam /></li></if:notspam>
 </else:readonly></if:readonly>
-    <li class="lastnavbar"><tag:headers />
+    <li<if:atc><else:atc> class="lastnavbar"</else:atc></if:atc>><tag:headers />
      <ul>
       <if:common_headers><li><tag:common_headers /></li></if:common_headers>
       <if:all_headers><li><tag:all_headers /></li></if:all_headers>
       <if:list_headers><li><tag:list_headers /></li></if:list_headers>
      </ul>
     </li>
+<if:atc>
+    <li class="lastnavbar"><tag:atc />
+     <ul>
+      <li><tag:switch_atc_view /></li>
+      <if:download_all><li><tag:download_all /></li></if:download_all>
+      <if:strip_all><li><tag:strip_all /></li></if:strip_all>
+     </ul>
+    </li>
+</if:atc>
    </ul>
   </td>
  </tr>

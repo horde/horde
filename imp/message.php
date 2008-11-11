@@ -627,8 +627,6 @@ if (!$printer_friendly) {
     if ($list_info['exists'] && !$list_headers) {
         $a_template->set('list_headers', Horde::widget(Util::addParameter($headersURL, 'show_list_headers', 1), _("Show Mailing List Information"), 'widget', '', '', _("Show Mailing List Information"), true));
     }
-
-    echo $a_template->fetch(IMP_TEMPLATES . '/message/navbar_actions.html');
 }
 
 $hdrs = array();
@@ -660,6 +658,7 @@ foreach (array('download', 'download_zip', 'img_save', 'strip') as $val) {
 
 /* Build body text. This needs to be done before we build the attachment list
  * that lives in the header. */
+$show_all_parts = Util::getFormData('show_all_parts');
 $display_ids = array();
 $msgtext = '';
 foreach ($summary['info']['render'] as $mime_id => $type) {
@@ -696,44 +695,52 @@ foreach ($summary['info']['render'] as $mime_id => $type) {
         $render_part['data'];
 }
 
-/* Show attachment information in headers? */
-$show_atc = false;
+/* Build the Attachments menu. */
 $atc_parts = array_diff($summary['info']['download_all'], $display_ids);
-if (!empty($atc_parts)) {
-    $atc_display = $prefs->getValue('attachment_display');
-    $show_atc = (($atc_display == 'list') || ($atc_display == 'both'));
+if (!$printer_friendly) {
+    $a_template->set('atc', Horde::widget('#', _("Attachments"), 'widget hasmenu', '', '', _("Attachments"), true));
+    if ($show_all_parts) {
+        $a_template->set('switch_atc_view', Horde::widget(Util::removeParameter($headersURL, array('show_all_parts')), _("Show Attachments Only"), 'widget', '', '', _("Show Attachments Only"), true));
+    } else {
+        $a_template->set('switch_atc_view', Horde::widget(Util::addParameter($headersURL, array('show_all_parts' => 1)), _("Show All Message Parts"), 'widget', '', '', _("Show All Message Parts"), true));
+    }
+    if (count($atc_parts) || (count($display_ids) > 2)) {
+        $a_template->set('download_all', Horde::widget($imp_contents->urlView($imp_contents->getMIMEMessage(), 'download_all', array('params' => array('download_ids' => serialize($summary['info']['download_all'])))), _("Download All Attachments (in .zip file)"), 'widget', '', '', _("Download All Attachments (in .zip file)"), true));
+        if ($prefs->getValue('strip_attachments')) {
+            $a_template->set('strip_all', Horde::widget(Util::addParameter(Util::removeParameter(Horde::selfUrl(true), array('actionID')), array('actionID' => 'strip_all', 'message_token' => $message_token)), _("Strip All Attachments"), 'widget', '', "return window.confirm('" . addslashes(_("Are you sure you wish to PERMANENTLY delete all attachments?")) . "');", _("Strip All Attachments"), true));
+        }
+    }
 }
 
-/* Show the download all link? */
-$download_all = (!$printer_friendly && (count($atc_parts) || (count($display_ids) > 2)))
-    ? $imp_contents->urlView($imp_contents->getMIMEMessage(), 'download_all', array('params' => array('download_ids' => serialize($summary['info']['download_all']))))
-    : false;
+/* Show attachment information in headers? */
+if ($show_all_parts) {
+    $show_atc = true;
+} else {
+    $show_atc = false;
+    if (!empty($atc_parts)) {
+        $atc_display = $prefs->getValue('attachment_display');
+        $show_atc = (($atc_display == 'list') || ($atc_display == 'both'));
+    }
+}
 
-if ($show_atc || $download_all) {
-    $val = '';
+if ($show_atc) {
+    $tmp = array();
 
-    if ($show_atc) {
-        $tmp = array();
-        foreach ($atc_parts as $id) {
-            $tmp[] = '<tr>';
-            $ptr = $summary['parts'][$id];
-            foreach ($part_info as $val) {
-                $tmp[] = '<td>' . $ptr[$val] . '</td>';
-            }
-            $tmp[] = '</tr>';
-        }
-        $val = '<table>' . implode('', $tmp) . '</table>';
+    if ($show_all_parts) {
+        $atc_parts = array_keys($summary['parts']);
+        array_unshift($part_info, 'id');
     }
 
-    if ($download_all) {
-        $val .= Horde::link($download_all, _("Download All Attachments (in .zip file)")) . _("Download All Attachments (in .zip file)") . ' ' . Horde::img('compressed.png', _("Download All Attachments (in .zip file)"), '', $registry->getImageDir('horde') . '/mime') . '</a>';
-        if ($prefs->getValue('strip_attachments')) {
-            $url = Util::addParameter(Util::removeParameter(Horde::selfUrl(true), array('actionID')), array('actionID' => 'strip_all', 'message_token' => $message_token));
-            $val .= '<br />' . Horde::link($url, _("Strip All Attachments"), null, null, "return window.confirm('" . addslashes(_("Are you sure you wish to PERMANENTLY delete all attachments?")) . "');") . _("Strip All Attachments") . ' ' . Horde::img('delete.png', _("Strip Attachments"), null, $registry->getImageDir('horde')) . '</a>';
+    foreach ($atc_parts as $id) {
+        $tmp[] = '<tr>';
+        $ptr = $summary['parts'][$id];
+        foreach ($part_info as $val) {
+            $tmp[] = '<td>' . $ptr[$val] . '</td>';
         }
+        $tmp[] = '</tr>';
     }
 
-    $hdrs[] = array('name' => _("Attachment(s)"), 'val' => $val, 'i' => (++$i % 2));
+    $hdrs[] = array('name' => $show_all_parts ? _("Parts") : _("Attachments"), 'val' => '<table>' . implode('', $tmp) . '</table>', 'i' => (++$i % 2));
 }
 
 if ($printer_friendly && !empty($conf['print']['add_printedby'])) {
@@ -742,6 +749,11 @@ if ($printer_friendly && !empty($conf['print']['add_printedby'])) {
 
 $m_template->set('headers', $hdrs);
 $m_template->set('msgtext', $msgtext);
+
+if (!$printer_friendly) {
+    echo $a_template->fetch(IMP_TEMPLATES . '/message/navbar_actions.html');
+}
+
 echo $m_template->fetch(IMP_TEMPLATES . '/message/message.html');
 
 if (!$printer_friendly) {
