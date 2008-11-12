@@ -14,123 +14,104 @@
 class IMP_Horde_Mime_Viewer_tnef extends Horde_Mime_Viewer_tnef
 {
     /**
-     * The contentType of the attachment.
+     * Can this driver render various views?
      *
-     * @var string
+     * @var boolean
      */
-    protected $_contentType = 'application/octet-stream';
+    protected $_capability = array(
+        'embedded' => false,
+        'full' => true,
+        'info' => true,
+        'inline' => false
+    );
 
     /**
-     * Render out the currently set contents.
+     * Return the full rendered version of the Horde_Mime_Part object.
      *
-     * @param array $params  An array with a reference to a MIME_Contents
-     *                       object.
+     * URL parameters used by this function:
+     * <pre>
+     * 'tnef_attachment' - (integer) The TNEF attachment to download.
+     * </pre>
      *
-     * @return string  Either the list of tnef files or the data of an
-     *                 individual tnef file.
+     * @return array  See Horde_Mime_Viewer_Driver::render().
      */
-    public function render($params)
+    protected function _render()
     {
-        $contents = &$params[0];
-
-        $text = '';
-
-        /* Get the data from the attachment. */
-        $tnefData = $this->_getSubparts();
-
-        /* Display the requested file. Its position in the $tnefData
-           array can be found in 'tnef_attachment'. */
-        if (Util::getFormData('tnef_attachment')) {
-            $tnefKey = Util::getFormData('tnef_attachment') - 1;
-            /* Verify that the requested file exists. */
-            if (isset($tnefData[$tnefKey])) {
-                $text = $tnefData[$tnefKey]['stream'];
-                if (empty($text)) {
-                    $text = $this->formatStatusMsg(_("Could not extract the requested file from the MS-TNEF attachment."));
-                } else {
-                    $this->mime_part->setName($tnefData[$tnefKey]['name']);
-                    $this->mime_part->setType($tnefData[$tnefKey]['type'] . '/' . $tnefData[$tnefKey]['subtype']);
-                }
-            } else {
-                $text = $this->formatStatusMsg(_("The requested file does not exist in the MS-TNEF attachment."));
-            }
-        } else {
-            $text = $this->renderAttachmentInfo(array($params[0]));
+        if (!Util::getFormData('tnef_attachment')) {
+            $ret = $this->_renderInfo();
+            $ret['data'] = '<html><body>' . $ret['data'] . '</body></html>';
+            return $ret;
         }
 
-        return $text;
+        /* Get the data from the attachment. */
+        $tnef = &Horde_Compress::singleton('tnef');
+        $tnefData = $tnef->decompress($this->_mimepart->getContents());
+
+        /* Display the requested file. Its position in the $tnefData
+         * array can be found in 'tnef_attachment'. */
+        $tnefKey = Util::getFormData('tnef_attachment') - 1;
+
+        /* Verify that the requested file exists. */
+        if (isset($tnefData[$tnefKey])) {
+            $text = $tnefData[$tnefKey]['stream'];
+            if (!empty($text)) {
+                return array(
+                    'data' => $text,
+                    'name' => $tnefData[$tnefKey]['name'],
+                    'type' => $tnefData[$tnefKey]['type'] . '/' . $tnefData[$tnefKey]['subtype']
+                );
+            }
+        }
+
+        // TODO: Error reporting
+        return array();
     }
 
     /**
-     * Render out TNEF attachment information.
+     * Return the rendered information about the Horde_Mime_Part object.
      *
-     * @param array $params  An array with a reference to a MIME_Contents
-     *                       object.
-     *
-     * @return string  The rendered text in HTML.
+     * @return array  See Horde_Mime_Viewer_Driver::render().
      */
-    public function renderAttachmentInfo($params)
+    protected function _renderInfo()
     {
-        $contents = &$params[0];
-
-        $text = '';
-
-        /* Make sure the contents are in the MIME_Part object. */
-        if (!$this->mime_part->getContents()) {
-            $this->mime_part->setContents($contents->getBodyPart($this->mime_part->getMIMEId()));
-        }
-
         /* Get the data from the attachment. */
-        $tnefData = $this->_getSubparts();
+        $tnef = &Horde_Compress::singleton('tnef');
+        $tnefData = $tnef->decompress($this->_mimepart->getContents());
+
+        $data = '';
 
         if (!count($tnefData)) {
-            $text = $this->formatStatusMsg(_("No attachments found."));
+            $status = array(
+                'text' => array(_("No attachments found."))
+            );
         } else {
-            $text = $this->formatStatusMsg(_("The following files were attached to this part:")) . '<br />';
-            foreach ($tnefData as $key => $data) {
-                $temp_part = $this->mime_part;
+            $status = array(
+                'text' => array(_("The following files were attached to this part:"))
+            );
+
+            reset($tnefData);
+            while (list($key, $data) = $tnefData) {
+                $temp_part = $this->_mimepart;
                 $temp_part->setName($data['name']);
                 $temp_part->setDescription($data['name']);
 
                 /* Short-circuit MIME-type guessing for winmail.dat parts;
-                   we're showing enough entries for them already. */
+                 * we're showing enough entries for them already. */
                 $type = $data['type'] . '/' . $data['subtype'];
-                if (($type == 'application/octet-stream') ||
-                    ($type == 'application/base64')) {
+                if (in_array($type, array('application/octet-stream', 'application/base64'))) {
                     $type = Horde_Mime_Magic::filenameToMIME($data['name']);
                 }
                 $temp_part->setType($type);
 
-                $link = $contents->linkView($temp_part, 'view_attach', htmlspecialchars($data['name']), array('jstext' => sprintf(_("View %s"), $data['name']), 'viewparams' => array('tnef_attachment' => ($key + 1))));
-                $text .= _("Attached File:") . '&nbsp;&nbsp;' . $link . '&nbsp;&nbsp;(' . $data['type'] . '/' . $data['subtype'] . ")<br />\n";
+                $link = $this->_params['contents']->linkView($temp_part, 'view_attach', htmlspecialchars($data['name']), array('jstext' => sprintf(_("View %s"), $data['name']), 'params' => array('tnef_attachment' => $key + 1)));
+                $data .= _("Attached File:") . '&nbsp;&nbsp;' . $link . '&nbsp;&nbsp;(' . $data['type'] . '/' . $data['subtype'] . ")<br />\n";
             }
         }
 
-        return $text;
-    }
-
-    /**
-     * List any embedded attachments in the TNEF part.
-     *
-     * @return array  An array of any embedded attachments.
-     */
-    protected function _getSubparts()
-    {
-        $tnef = &Horde_Compress::singleton('tnef');
-        return $tnef->decompress($this->mime_part->transferDecode());
-    }
-
-    /**
-     * Return the content-type.
-     *
-     * @return string  The content-type of the output.
-     */
-    public function getType()
-    {
-        if (Util::getFormData('tnef_attachment')) {
-            return $this->_contentType;
-        } else {
-            return 'text/html; charset=' . NLS::getCharset();
-        }
+        return array(
+            'data' => $data,
+            'status' => array($status),
+            'type' => 'text/html; charset=' . NLS::getCharset()
+        );
     }
 }

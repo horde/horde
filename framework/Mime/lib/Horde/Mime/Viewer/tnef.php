@@ -15,20 +15,43 @@
 class Horde_Mime_Viewer_tnef extends Horde_Mime_Viewer_Driver
 {
     /**
-     * Render out the current tnef data.
+     * Can this driver render various views?
      *
-     * @param array $params  Any parameters the viewer may need.
-     *
-     * @return string  The rendered contents.
+     * @var boolean
      */
-    public function render($params = array())
+    protected $_capability = array(
+        'embedded' => false,
+        'full' => true,
+        'info' => false,
+        'inline' => true
+    );
+
+    /**
+     * Return the full rendered version of the Horde_Mime_Part object.
+     *
+     * @return array  See Horde_Mime_Viewer_Driver::render().
+     */
+    protected function _render()
+    {
+        $ret = $this->_renderInline();
+        if (!empty($ret)) {
+            $ret['data'] = '<html><body>' . $ret['data'] . '</body></html>';
+        }
+        return $ret;
+    }
+
+    /**
+     * Return the rendered inline version of the Horde_Mime_Part object.
+     *
+     * @return array  See Horde_Mime_Viewer_Driver::render().
+     */
+    protected function _renderInline()
     {
         require_once 'Horde/Compress.php';
-
         $tnef = &Horde_Compress::singleton('tnef');
 
         $data = '<table border="1">';
-        $info = $tnef->decompress($this->mime_part->getContents());
+        $info = $tnef->decompress($this->_mimepart->getContents());
         if (empty($info) || is_a($info, 'PEAR_Error')) {
             $data .= '<tr><td>' . _("MS-TNEF Attachment contained no data.") . '</td></tr>';
         } else {
@@ -39,16 +62,9 @@ class Horde_Mime_Viewer_tnef extends Horde_Mime_Viewer_Driver
         }
         $data .= '</table>';
 
-        return $data;
-    }
-
-    /**
-     * Return the MIME content type of the rendered content.
-     *
-     * @return string  The content type of the output.
-     */
-    public function getType()
-    {
-        return 'text/html; charset=' . NLS::getCharset();
+        return array(
+            'data' => $data,
+            'type' => 'text/html; charset=' . NLS::getCharset()
+        );
     }
 }
