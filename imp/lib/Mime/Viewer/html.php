@@ -188,7 +188,6 @@ class IMP_Horde_Mime_Viewer_html extends Horde_Mime_Viewer_html
         }
 
         /* Only display images if specifically allowed by user. */
-        $msg = $script = '';
         if (!IMP::printMode() &&
             $GLOBALS['prefs']->getValue('html_image_replacement') &&
             preg_match($this->_img_regex, $data)) {
@@ -204,17 +203,22 @@ class IMP_Horde_Mime_Viewer_html extends Horde_Mime_Viewer_html
             $addr_check = ($GLOBALS['prefs']->getValue('html_image_addrbook') && $this->_inAddressBook());
 
             if (!$view_img && !$addr_check) {
-                $script = Util::bufferOutput(array('Horde', 'addScriptFile'), 'prototype.js', 'horde', true) .
-                          Util::bufferOutput(array('Horde', 'addScriptFile'), 'unblockImages.js', 'imp', true);
+                $data .= Util::bufferOutput(array('Horde', 'addScriptFile'), 'prototype.js', 'horde', true) .
+                    Util::bufferOutput(array('Horde', 'addScriptFile'), 'unblockImages.js', 'imp', true);
 
-                $url = Util::addParameter($url, 'view_html_images', 1);
-                $attributes = $inline ? array() : array('style' => 'color:blue');
-                $msg = Horde::img('mime/image.png') . ' ' . String::convertCharset(_("Images have been blocked to protect your privacy."), $charset, $msg_charset) . ' ' . Horde::link($url, '', '', '', 'return IMP.unblockImages(' . (!$inline ? 'document.body' : '$(\'html-message\')') . ', \'block-images\');', '', '', $attributes) . String::convertCharset(_("Show Images?"), $charset, $msg_charset) . '</a>';
+                $cleanhtml['status'][] = array(
+                    'icon' => Horde::img('mime/image.png'),
+                    'text' => array(
+                        String::convertCharset(_("Images have been blocked to protect your privacy."), $charset, $msg_charset),
+                        Horde::link(Util::addParameter($url, 'view_html_images', 1), '', '', '', 'return IMP.unblockImages(' . (!$inline ? 'document.body' : '$(\'html-message\')') . ', \'block-images\');', '', '', $inline ? array() : array('style' => 'color:blue')) . String::convertCharset(_("Show Images?"), $charset, $msg_charset) . '</a>'
+                    )
+                );
+
                 $data = preg_replace_callback($this->_img_regex, array($this, '_blockImages'), $data);
-                if (!$inline) {
-                    $msg = '<span style="background:#fff;color:#000">' . nl2br($msg) . '</span><br />';
-                }
-                $msg = '<span id="block-images">' . $msg . '</span>';
+
+                // TODO
+                //$msg = '<span style="background:#fff;color:#000">' . nl2br($msg) . '</span><br />';
+                //$msg = '<span id="block-images">' . $msg . '</span>';
             }
         }
 
@@ -263,15 +267,10 @@ class IMP_Horde_Mime_Viewer_html extends Horde_Mime_Viewer_html
         }
 
         $params = IMP_Compose::getAddressSearchParams();
-
-        // TODO
-        // get mime_message.
+        $headers = $this->_params['contents']->getHeaderOb();
 
         /* Try to get back a result from the search. */
-        $result = $GLOBALS['registry']->call('contacts/getField', array($base_ob->getFromAddress(), '__key', $params['sources'], false, true));
-
-        return is_a($result, 'PEAR_Error')
-            ? false
-            : (count($result) > 0);
+        $rest = $GLOBALS['registry']->call('contacts/getField', array(Horde_Mime_Address::bareAddress($headers->getValue('from')), '__key', $params['sources'], false, true));
+        return is_a($res, 'PEAR_Error') ? false : count($res);
     }
 }
