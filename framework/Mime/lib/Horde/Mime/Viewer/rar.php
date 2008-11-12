@@ -60,9 +60,15 @@ class Horde_Mime_Viewer_rar extends Horde_Mime_Viewer_Driver
 
         require_once 'Horde/Text.php';
 
-        $text = '<strong>' . htmlspecialchars(sprintf(_("Contents of \"%s\""), $this->_mimepart->getName(true))) . ':</strong>' . "\n" .
+        $name = $this->_mimepart->getName(true);
+        if (empty($name)) {
+            $name = _("unnamed");
+        }
+
+
+        $text = '<strong>' . htmlspecialchars(sprintf(_("Contents of \"%s\""), $name)) . ':</strong>' . "\n" .
             '<table><tr><td align="left"><tt><span class="fixed">' .
-            Text::htmlAllSpaces(_("Archive Name") . ':  ' . $this->_mimepart->getName(true)) . "\n" .
+            Text::htmlAllSpaces(_("Archive Name") . ':  ' . $name) . "\n" .
             Text::htmlAllSpaces(_("Archive File Size") . ': ' . strlen($contents) . ' bytes') . "\n" .
             Text::htmlAllSpaces(sprintf(ngettext("File Count: %d file", "File Count: %d files", $fileCount), $fileCount)) .
             "\n\n" .
