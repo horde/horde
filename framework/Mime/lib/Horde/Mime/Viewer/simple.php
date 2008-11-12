@@ -14,12 +14,40 @@
 class Horde_Mime_Viewer_simple extends Horde_Mime_Viewer_Driver
 {
     /**
-     * Return the MIME type of the rendered content.
+     * Can this driver render various views?
      *
-     * @return string  MIME-type of the output content.
+     * @var boolean
      */
-    public function getType()
+    protected $_capability = array(
+        'embedded' => false,
+        'full' => true,
+        'info' => false,
+        'inline' => true
+    );
+
+    /**
+     * Return the full rendered version of the Horde_Mime_Part object.
+     *
+     * @return array  See Horde_Mime_Viewer_Driver::render().
+     */
+    protected function _render()
     {
-        return 'text/plain';
+        return array(
+            'data' => $this->_mimepart->getContents(),
+            'type' => 'text/plain; charset=' . $this->_mimepart->getCharset()
+        );
+    }
+
+    /**
+     * Return the rendered inline version of the Horde_Mime_Part object.
+     *
+     * @return array  See Horde_Mime_Viewer_Driver::render().
+     */
+    protected function _renderInline()
+    {
+        return array(
+            'data' => String::convertCharset($this->_mimepart->getContents(), $this->_mimepart->getCharset()),
+            'type' => 'text/plain; charset=' . NLS::getCharset()
+        );
     }
 }
