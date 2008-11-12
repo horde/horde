@@ -280,7 +280,9 @@ class IMP_Contents
      * Render a MIME Part.
      *
      * @param string $mime_id  The MIME ID to render.
-     * @param string $mode     Either 'full', 'inline', or 'info'.
+     * @param string $mode     Either 'full', 'inline', 'info', or
+     *                         'inlineauto' ('inline' and, if not available,
+     *                         then 'info').
      * @param array $options   Additional options:
      * <pre>
      * 'params' - (array) Additional params to set.
@@ -304,14 +306,20 @@ class IMP_Contents
     public function renderMIMEPart($mime_id, $mode, $options = array())
     {
         $mime_part = $this->getMIMEPart($mime_id);
-        $viewer = Horde_Mime_Viewer::factory(empty($options['type']) ? $mime_part->getType() : $options['type']);
-        $viewer->setMIMEPart($mime_part);
+        $viewer = Horde_Mime_Viewer::factory($mime_part, empty($options['type']) ? null : $options['type']);
         $viewer->setParams(array('contents' => &$this));
         if (!empty($options['params'])) {
             $viewer->setParams($options['params']);
         }
 
-        $ret = $viewer->render($mode);
+        $ret = $viewer->render(($mode == 'inlineauto') ? 'inline' : $mode);
+
+        if (empty($ret)) {
+            return ($mode == 'inlineauto')
+                ? $this->renderMIMEPart($mime_id, 'info', $options)
+                : array();
+        }
+
         if (!isset($ret['name'])) {
             $ret['name'] = $mime_part->getName(true);
         }
@@ -488,7 +496,7 @@ class IMP_Contents
 
             /* Determine if part can be viewed inline or has viewable info. */
             if ($mask & self::SUMMARY_RENDER) {
-                $viewer = Horde_Mime_Viewer::factory($mime_type);
+                $viewer = Horde_Mime_Viewer::factory($mime_part, $mime_type);
 
                 if ($viewer->canRender('inline') &&
                     ($mime_part->getDisposition() == 'inline')) {
@@ -728,7 +736,7 @@ class IMP_Contents
         $last_id = null;
         $to_process = array();
 
-        foreach ($parts as $id => $type) {
+        foreach (array_keys($parts) as $id) {
             if (!is_null($last_id) &&
                 (strpos($id, $last_id) === 0)) {
                 continue;
@@ -736,7 +744,8 @@ class IMP_Contents
 
             $last_id = null;
 
-            $viewer = Horde_Mime_Viewer::factory($type);
+            $mime_part = $this->getMIMEPart($id, array('nocontents' => true, 'nodecode' => true));
+            $viewer = Horde_Mime_Viewer::factory($mime_part);
             if ($viewer->embeddedMimeParts()) {
                 $mime_part = $this->getMIMEPart($mime_id);
                 $viewer->setMIMEPart($mime_part);
@@ -757,4 +766,19 @@ class IMP_Contents
         }
     }
 
+    /**
+     * Can this MIME part be displayed inline?
+     *
+     * @param string $id     The MIME ID string.
+     * @param boolean $info  Check 'info' if 'inline' is unavailable?
+     *
+     * @return boolean  True if the part can be displayed.
+     */
+    public function canDisplayInline($id, $info = false)
+    {
+        $mime_part = $this->getMIMEPart($id, array('nocontents' => true, 'nodecode' => true));
+        $viewer = Horde_Mime_Viewer::factory($mime_part);
+        return ($viewer->canRender('inline') && $mime_part->getDisposition() == 'inline') ||
+               ($info && $viewer->canRender('info'));
+    }
 }
