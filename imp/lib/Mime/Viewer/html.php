@@ -136,7 +136,7 @@ class IMP_Horde_Mime_Viewer_html extends Horde_Mime_Viewer_html
 
         /* Search for inlined links that we can display (multipart/related
          * parts). */
-        if (!empty($this->_params['related_id'])) {
+        if (isset($this->_params['related_id'])) {
             $cid_replace = array();
 
             foreach ($this->_params['related_cids'] as $mime_id => $cid) {
