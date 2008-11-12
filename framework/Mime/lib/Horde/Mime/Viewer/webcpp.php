@@ -16,17 +16,69 @@
 class Horde_Mime_Viewer_webcpp extends Horde_Mime_Viewer_Driver
 {
     /**
-     * Render out the currently set contents using Web C Plus Plus.
+     * Can this driver render various views?
      *
-     * @param array $params  Any parameters the Viewer may need.
-     *
-     * @return string  The rendered contents.
+     * @var boolean
      */
-    protected function render($params = array())
+    protected $_capability = array(
+        'embedded' => false,
+        'full' => true,
+        'info' => false,
+        'inline' => true
+    );
+
+    /**
+     * Return the full rendered version of the Horde_Mime_Part object.
+     *
+     * @return array  See Horde_Mime_Viewer_Driver::render().
+     */
+    protected function _render()
     {
-        /* Check to make sure the program actually exists. */
-        if (!file_exists($GLOBALS['mime_drivers']['horde']['webcpp']['location'])) {
-            return '<pre>' . sprintf(_("The program used to view this data type (%s) was not found on the system."), $GLOBALS['mime_drivers']['horde']['webcpp']['location']) . '</pre>';
+        $ret = $this->_toHTML();
+
+        /* The first 2 lines are the Content-Type line and a blank line so
+         * remove them before outputting. */
+        $ret['data'] = preg_replace("/.*\n.*\n/", '', $ret['data'], 1);
+
+        return $ret;
+    }
+
+    /**
+     * Return the rendered inline version of the Horde_Mime_Part object.
+     *
+     * @return array  See Horde_Mime_Viewer_Driver::render().
+     */
+    protected function _renderInline()
+    {
+        $ret = $this->_toHTML();
+        $data = $ret['data'];
+
+        /* Extract the style sheet, removing any global body formatting
+         * if we're displaying inline. */
+        $res = preg_split(';(</style>)|(<style type="text/css">);', $data);
+        $style = $res[1];
+        $style = preg_replace('/\nbody\s+?{.*?}/s', '', $style);
+
+        /* Extract the content. */
+        $res = preg_split('/\<\/?pre\>/', $data);
+        $body = $res[1];
+
+        $ret['data'] = '<style>' . $style . '</style><div class="webcpp" style="white-space:pre;font-family:Lucida Console,Courier,monospace;">' . $body . '</div>';
+
+        return $ret;
+    }
+
+    /**
+     * Converts the code to HTML.
+     *
+     * @return string  The HTML-ified version of the MIME part contents.
+     */
+    protected function _toHTML()
+    {
+        /* Check to make sure the viewer program exists. */
+        if (!isset($this->_conf['location']) ||
+            !file_exists($this->_conf['location'])) {
+            return array();
         }
 
         /* Create temporary files for Webcpp. */
@@ -34,48 +86,20 @@ class Horde_Mime_Viewer_webcpp extends Horde_Mime_Viewer_Driver
         $tmpout = Horde::getTempFile('WebcppOut');
 
         /* Write the contents of our buffer to the temporary input file. */
-        $contents = $this->mime_part->getContents();
-        $fh = fopen($tmpin, 'wb');
-        fwrite($fh, $contents, strlen($contents));
-        fclose($fh);
+        file_put_contents($tmpin, $this->_mimepart->getContents());
 
         /* Get the extension for the mime type. */
-        include_once 'Horde/MIME/Magic.php';
-        $ext = MIME_Magic::MIMEToExt($this->mime_part->getType());
+        include_once dirname(__FILE__) . '/../Magic.php';
+        $ext = Horde_Mime_Magic::MIMEToExt($this->_mimepart->getType());
 
         /* Execute Web C Plus Plus. Specifying the in and out files didn't
-           work for me but pipes did. */
-        exec($GLOBALS['mime_drivers']['horde']['webcpp']['location'] . " --pipe --pipe -x=$ext -l -a -t < $tmpin > $tmpout");
+         * work for me but pipes did. */
+        exec($this->_conf['location'] . " --pipe --pipe -x=$ext -l -a -t < $tmpin > $tmpout");
         $results = file_get_contents($tmpout);
 
-        /* If we are not displaying inline, all the formatting is already
-         * done for us. */
-        if (!$this->viewInline()) {
-            /* The first 2 lines are the Content-Type line and a blank line
-             * so we should remove them before outputting. */
-            return preg_replace("/.*\n.*\n/", '', $results, 1);
-        }
-
-        /* Extract the style sheet, removing any global body formatting
-         * if we're displaying inline. */
-        $res = preg_split(';(</style>)|(<style type="text/css">);', $results);
-        $style = $res[1];
-        $style = preg_replace('/\nbody\s+?{.*?}/s', '', $style);
-
-        /* Extract the content. */
-        $res = preg_split('/\<\/?pre\>/', $results);
-        $body = $res[1];
-
-        return '<style>' . $style . '</style><div class="webcpp" style="white-space:pre;font-family:Lucida Console,Courier,monospace;">' . $body . '</div>';
-    }
-
-    /**
-     * Return the MIME content type of the rendered content.
-     *
-     * @return string  The content type of the output.
-     */
-    protected function getType()
-    {
-        return 'text/html; charset=' . NLS::getCharset();
+        return array(
+            'data' => $results,
+            'type' => 'text/html; charset=' . NLS::getCharset()
+        );
     }
 }
