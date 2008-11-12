@@ -49,10 +49,14 @@ class Horde_Mime_Viewer_Driver
     /**
      * Constructor.
      *
-     * @param array $conf  Configuration specific to the driver.
+     * @param Horde_Mime_Part &$mime_part  Reference to an object with the
+     *                                     information to be rendered.
+     * @param array $conf                  Configuration specific to the
+     *                                     driver.
      */
-    function __construct($conf = array())
+    function __construct(&$mime_part, $conf = array())
     {
+        $this->_mimepart = $mime_part;
         $this->_conf = $conf;
     }
 

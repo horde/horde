@@ -36,18 +36,25 @@ class Horde_Mime_Viewer
      * Attempts to return a concrete Horde_Mime_Viewer_* object based on the
      * MIME type.
      *
-     * @param string $mime_type  The MIME type.
+     * @param Horde_Mime_Part &$mime_part  Reference to an object with the
+     *                                     information to be rendered.
+     * @param string $mime_type            The MIME type (overrides the value
+     *                                     in the MIME part).
      *
      * @return Horde_Mime_Viewer  The Horde_Mime_Viewer object, or false on
      *                            error.
      */
-    static final public function factory($mime_type)
+    static final public function factory(&$mime_part, $mime_type = null)
     {
+        if (is_null($mime_type)) {
+            $mime_type = $mime_part->getType();
+        }
+
         /* Spawn the relevant driver, and return it (or false on failure). */
         if (($ob = self::_getDriver($mime_type, $GLOBALS['registry']->getApp())) &&
             self::_resolveDriver($ob['driver'], $ob['app']) &&
             class_exists($ob['class'])) {
-            return new $ob['class'](self::$_config['mime_drivers'][$ob['app']][$ob['driver']]);
+            return new $ob['class']($mime_part, self::$_config['mime_drivers'][$ob['app']][$ob['driver']]);
         }
 
         return false;

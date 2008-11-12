@@ -14,16 +14,30 @@
 class Horde_Mime_Viewer_report extends Horde_Mime_Viewer_Driver
 {
     /**
-     * Can this driver render various views?
+     * Can this driver render the the data?
      *
-     * @var boolean
+     * @param string $mode  The mode.  Either 'full', 'inline', or 'info'.
+     *
+     * @return boolean  True if the driver can render the data for the given
+     *                  view.
      */
-    protected $_capability = array(
-        'embedded' => false,
-        'full' => true,
-        'info' => false,
-        'inline' => true,
-    );
+    public function canRender($mode)
+    {
+        $viewer = $this->_getViewer();
+        return $viewer ? $viewer->canRender($mode) : false;
+    }
+
+    /**
+     * Does this MIME part possibly contain embedded MIME parts?
+     *
+     * @return boolean  True if this driver supports parsing embedded MIME
+     *                  parts.
+     */
+    public function embeddedMimeParts()
+    {
+        $viewer = $this->_getViewer();
+        return $viewer ? $viewer->embeddedMimeParts() : false;
+    }
 
     /**
      * Return the full rendered version of the Horde_Mime_Part object.
@@ -48,24 +62,31 @@ class Horde_Mime_Viewer_report extends Horde_Mime_Viewer_Driver
     /**
      * Return an HTML rendered version of the part.
      *
-     * @param boolean
+     * @param boolean  Viewing inline?
      *
      * @return array  See Horde_Mime_Viewer_Driver::render().
      */
     protected function _toHTML($inline)
     {
+        $viewer = $this->_getViewer();
+        return $viewer
+            ? $viewer->render($inline ? 'inline' : 'full')
+            : false;
+    }
+
+    /**
+     * Return the underlying MIME Viewer for this part.
+     *
+     * @return mixed  A Horde_Mime_Viewer object, or false if not found.
+     */
+    protected function _getViewer()
+    {
         if (!($type = $this->_mimepart->getContentTypeParameter('report-type'))) {
-            return array();
+            return false;
         }
 
-        $viewer = Horde_Mime_Viewer::factory('message/' . String::lower($type));
-        if (!$viewer) {
-            return array();
-        }
-        $viewer->setMIMEPart($this->_mimepart);
+        $viewer = Horde_Mime_Viewer::factory($this->_mimepart, 'message/' . String::lower($type));
         $viewer->setParams($this->_params);
-
-        /* Render using the loaded Horde_Mime_Viewer object. */
-        return $viewer->render($inline ? 'inline' : 'full');
+        return $viewer;
     }
 }
