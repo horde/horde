@@ -67,7 +67,7 @@ class IMP_Horde_Mime_Viewer_alternative extends Horde_Mime_Viewer_Driver
             );
         }
 
-        $render_data = $this->_params['contents']->renderMIMEPart($display_id, 'inline');
+        $render_data = $this->_params['contents']->renderMIMEPart($display_id, 'inline', array('params' => $this->_params));
 
         return array(
             'data' => $render_data['data'],
