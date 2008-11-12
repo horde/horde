@@ -34,7 +34,8 @@ class Horde_Mime_Viewer_deb extends Horde_Mime_Viewer_Driver
     {
         $ret = $this->_renderInline();
         if (!empty($ret)) {
-            $ret['data'] = '<html><body>' . $ret['data'] . '</body></html>';
+            reset($ret);
+            $ret[key($ret)]['data'] = '<html><body>' . $ret[key($ret)]['data'] . '</body></html>';
         }
         return $ret;
     }
@@ -63,8 +64,11 @@ class Horde_Mime_Viewer_deb extends Horde_Mime_Viewer_Driver
         pclose($fh);
 
         return array(
-            'data' => '<pre>' . htmlspecialchars($data) . '</pre>',
-            'type' => 'text/html; charset=' . NLS::getCharset()
+            $this->_mimepart->getMimeId() => array(
+                'data' => '<pre>' . htmlspecialchars($data) . '</pre>',
+                'status' => array(),
+                'type' => 'text/html; charset=' . NLS::getCharset()
+            )
         );
     }
 }

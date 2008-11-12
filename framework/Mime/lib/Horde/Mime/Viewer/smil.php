@@ -56,8 +56,11 @@ class Horde_Mime_Viewer_smil extends Horde_Mime_Viewer_Driver
         xml_parser_free($this->_parser);
 
         return array(
-            'data' => $this->_content,
-            'type' => 'text/html; charset=' . NLS::getCharset()
+            $this->_mimepart->getMimeId() => array(
+                'data' => $this->_content,
+                'status' => array(),
+                'type' => 'text/html; charset=' . NLS::getCharset()
+            )
         );
     }
 

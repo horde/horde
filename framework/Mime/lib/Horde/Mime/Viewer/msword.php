@@ -59,16 +59,22 @@ class Horde_Mime_Viewer_msword extends Horde_Mime_Viewer_Driver
 
         exec($this->_conf['location'] . $args);
 
-        if (!file_exists($tmp_output)) {
+        if (file_exists($tmp_output)) {
             return array(
-                'data' => _("Unable to translate this Word document"),
-                'type' => 'text/plain; charset=' . $charset
+                $this->_mimepart->getMimeId() => array(
+                    'data' => file_get_contents($tmp_output),
+                    'status' => array(),
+                    'type' => 'text/html; charset=' . $charset
+                )
             );
         }
 
         return array(
-            'data' => file_get_contents($tmp_output),
-            'type' => 'text/html; charset=' . $charset
+            $this->_mimepart->getMimeId() => array(
+                'data' => _("Unable to translate this Word document"),
+                'status' => array(),
+                'type' => 'text/plain; charset=' . $charset
+            )
         );
     }
 }

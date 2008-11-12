@@ -36,8 +36,11 @@ class Horde_Mime_Viewer_enscript extends Horde_Mime_Viewer_source
     protected function _render()
     {
         return array(
-            'data' => $this->_toHTML(false),
-            'type' => 'text/html; charset=' . NLS::getCharset()
+            $this->_mimepart->getMimeId() => array(
+                'data' => $this->_toHTML(false),
+                'status' => array(),
+                'type' => 'text/html; charset=' . NLS::getCharset()
+            )
         );
     }
 
@@ -49,8 +52,11 @@ class Horde_Mime_Viewer_enscript extends Horde_Mime_Viewer_source
     protected function _renderInline()
     {
         return array(
-            'data' => $this->_toHTML(true),
-            'type' => 'text/html; charset=' . NLS::getCharset()
+            $this->_mimepart->getMimeId() => array(
+                'data' => $this->_toHTML(true),
+                'status' => array(),
+                'type' => 'text/html; charset=' . NLS::getCharset()
+            )
         );
     }
 

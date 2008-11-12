@@ -50,8 +50,11 @@ class Horde_Mime_Viewer_mspowerpoint extends Horde_Mime_Viewer_Driver
         pclose($fh);
 
         return array(
-            'data' => $data,
-            'type' => 'text/html; charset=' . NLS::getCharset()
+            $this->_mimepart->getMimeId() => array(
+                'data' => $data,
+                'status' => array(),
+                'type' => 'text/html; charset=' . NLS::getCharset()
+            )
         );
     }
 }

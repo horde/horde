@@ -43,7 +43,8 @@ class Horde_Mime_Viewer_tgz extends Horde_Mime_Viewer_Driver
     {
         $ret = $this->_renderInline();
         if (!empty($ret)) {
-            $ret['data'] = '<html><body>' . $ret['data'] . '</body></html>';
+            reset($ret);
+            $ret[key($ret)]['data'] = '<html><body>' . $ret[key($ret)]['data'] . '</body></html>';
         }
         return $ret;
     }
@@ -107,8 +108,11 @@ class Horde_Mime_Viewer_tgz extends Horde_Mime_Viewer_Driver
         }
 
         return array(
-            'data' => nl2br($text . str_repeat('-', 106) . "\n" . '</span></tt></td></tr></table>'),
-            'type' => 'text/html; charset=' . NLS::getCharset()
+            $this->_mimepart->getMimeId() => array(
+                'data' => nl2br($text . str_repeat('-', 106) . "\n" . '</span></tt></td></tr></table>'),
+                'status' => array(),
+                'type' => 'text/html; charset=' . NLS::getCharset()
+            )
         );
     }
 }

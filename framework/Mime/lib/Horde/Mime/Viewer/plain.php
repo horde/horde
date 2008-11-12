@@ -43,8 +43,11 @@ class Horde_Mime_Viewer_plain extends Horde_Mime_Viewer_Driver
 
         require_once 'Horde/Text/Filter.php';
         return array(
-            'data' => '<html><body><tt>' . Text_Filter::filter($text, 'text2html', array('parselevel' => TEXT_HTML_MICRO, 'charset' => $charset, 'class' => null)) . '</tt></body></html>',
-            'type' => 'text/html; charset=' . $charset
+            $this->_mimepart->getMimeId() => array(
+                'data' => '<html><body><tt>' . Text_Filter::filter($text, 'text2html', array('parselevel' => TEXT_HTML_MICRO, 'charset' => $charset, 'class' => null)) . '</tt></body></html>',
+                'status' => array(),
+                'type' => 'text/html; charset=' . $charset
+            )
         );
     }
 
@@ -62,7 +65,13 @@ class Horde_Mime_Viewer_plain extends Horde_Mime_Viewer_Driver
             ? $this->_formatFlowed($text, $this->_mimepart->getContentTypeParameter('delsp'))
             : $text;
 
-        return array('data' => $data);
+        return array(
+            $this->_mimepart->getMimeId() => array(
+                'data' => $data,
+                'status' => array(),
+                'type' => 'text/html; charset=' . NLS::getCharset()
+            )
+        );
     }
 
     /**

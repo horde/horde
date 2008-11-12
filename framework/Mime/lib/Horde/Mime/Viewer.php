@@ -54,7 +54,8 @@ class Horde_Mime_Viewer
         if (($ob = self::_getDriver($mime_type, $GLOBALS['registry']->getApp())) &&
             self::_resolveDriver($ob['driver'], $ob['app']) &&
             class_exists($ob['class'])) {
-            return new $ob['class']($mime_part, self::$_config['mime_drivers'][$ob['app']][$ob['driver']]);
+            $conf = array_merge(self::$_config['mime_drivers'][$ob['app']][$ob['driver']], array('_driver' => $ob['driver']));
+            return new $ob['class']($mime_part, $conf);
         }
 
         return false;

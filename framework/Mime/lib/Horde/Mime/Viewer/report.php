@@ -71,7 +71,7 @@ class Horde_Mime_Viewer_report extends Horde_Mime_Viewer_Driver
         $viewer = $this->_getViewer();
         return $viewer
             ? $viewer->render($inline ? 'inline' : 'full')
-            : false;
+            : array();
     }
 
     /**

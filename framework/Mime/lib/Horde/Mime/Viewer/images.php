@@ -32,8 +32,11 @@ class Horde_Mime_Viewer_images extends Horde_Mime_Viewer_Driver
     protected function _render()
     {
         return array(
-            'data' => $this->_mimepart->getContents(),
-            'type' => $this->_getType()
+            $this->_mimepart->getMimeId() => array(
+                'data' => $this->_mimepart->getContents(),
+                'status' => array(),
+                'type' => $this->_getType()
+            )
         );
     }
 

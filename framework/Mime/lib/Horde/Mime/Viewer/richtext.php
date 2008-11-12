@@ -53,7 +53,13 @@ class Horde_Mime_Viewer_richtext extends Horde_Mime_Viewer_Driver
      */
     protected function _render()
     {
-        return $this->_toHTML(false);
+        return array(
+            $this->_mimepart->getMimeId() => array(
+                'data' => $this->_toHTML(),
+                'status' => array(),
+                'type' => 'text/html; charset=' . $this->_mimepart->getCharset()
+            )
+        );
     }
 
     /**
@@ -63,24 +69,26 @@ class Horde_Mime_Viewer_richtext extends Horde_Mime_Viewer_Driver
      */
     protected function _renderInline()
     {
-        return $this->_toHTML(true);
+        return array(
+            $this->_mimepart->getMimeId() => array(
+                'data' => String::convertCharset($this->_toHTML(), $this->_mimepart->getCharset()),
+                'status' => array(),
+                'type' => 'text/html; charset=' . NLS::getCharset()
+            )
+        );
     }
 
     /**
      * Convert richtext to HTML.
      *
-     * @param boolean  View inline?
-     *
      * @return string  The converted HTML string.
      */
-    protected function _toHTML($inline)
+    protected function _toHTML()
     {
         $text = trim($this->_mimepart->getContents());
         if ($text == '') {
-            return $text;
+            return array();
         }
-
-        $charset = $this->_mimepart->_getCharset();
 
         /* We add space at the beginning and end of the string as it will
          * make some regular expression checks later much easier (so we
@@ -100,7 +108,7 @@ class Horde_Mime_Viewer_richtext extends Horde_Mime_Viewer_Driver
         $text = str_ireplace(array('<lt>', "\r\n"), array('&lt;', ' '), $text);
 
         /* We try to protect against bad stuff here. */
-        $text = @htmlspecialchars($text, ENT_QUOTES, $charset);
+        $text = @htmlspecialchars($text, ENT_QUOTES, $this->_mimepart->getCharset());
 
         /* <nl> becomes a newline (<br />);
          * <np> becomes a paragraph break (<p />). */
@@ -138,18 +146,6 @@ class Horde_Mime_Viewer_richtext extends Horde_Mime_Viewer_Driver
             $text = '&nbsp;' . substr($text, 1);
         }
 
-        $text = '<p style="font-size:100%;font-family:Lucida Console,Courier,Courier New;">' . nl2br($text) . '</p>';
-
-        if ($inline) {
-            return array(
-                'data' => String::convertCharset($text, $charset),
-                'type' => 'text/html; charset=' . NLS::getCharset()
-            );
-        } else {
-            return array(
-                'data' => $text,
-                'type' => 'text/html; charset=' . $charset
-            );
-        }
+        return '<p style="font-size:100%;font-family:Lucida Console,Courier,Courier New;">' . nl2br($text) . '</p>';
     }
 }

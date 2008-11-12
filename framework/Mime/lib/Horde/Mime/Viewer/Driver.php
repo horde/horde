@@ -100,12 +100,13 @@ class Horde_Mime_Viewer_Driver
      *          subparts may also independently be viewed inline.
      * </pre>
      *
-     * @return array  An array with the following elements:
+     * @return array  An array. The keys are the MIME parts that were handled
+     *                by the driver. The values are either null (which
+     *                indicates the driver is recommending that this
+     *                particular MIME ID should not be displayed) or an array
+     *                with the following keys:
      * <pre>
      * 'data' - (string) The rendered data.
-     * 'ids' - (array) The list of MIME IDs that the rendered data covers
-     *         (e.g. for multipart parts, the base multipart object may
-     *         render all the data needed to display all the subparts)
      * 'status' - (array) An array of status information to be displayed to
      *            the user.  Consists of arrays with the following keys:
      *            'img' - (string) An image to display.
@@ -116,33 +117,20 @@ class Horde_Mime_Viewer_Driver
      */
     public function render($mode)
     {
-        $charset = NLS::getCharset();
-        $default = array('data' => '', 'status' => array());
-        $default['type'] = ($mode == 'full')
-            ? 'text/plain; charset=' . $charset
-            : 'text/html; charset=' . $charset;
-
-        if (is_null($this->_mimepart) || !$this->canRender($mode)) {
-            return $default;
+        if (!$this->canRender($mode)) {
+            return array();
         }
-
-        $default['ids'] = array($this->_mimepart->getMIMEId());
 
         switch ($mode) {
         case 'full':
-            $ret = $this->_render();
-            break;
+            return $this->_render();
 
         case 'inline':
-            $ret = $this->_renderInline();
-            break;
+            return $this->_renderInline();
 
         case 'info':
-            $ret = $this->_renderInfo();
-            break;
+            return $this->_renderInfo();
         }
-
-        return array_merge($default, $ret);
     }
 
     /**
@@ -216,7 +204,7 @@ class Horde_Mime_Viewer_Driver
      */
     public function getEmbeddedMimeParts()
     {
-        return (!is_null($this->_mimepart) || $this->_embeddedMimeParts())
+        return $this->_embeddedMimeParts()
             ? $this->_getEmbeddedMimeParts()
             : null;
     }
@@ -244,5 +232,15 @@ class Horde_Mime_Viewer_Driver
     public function getConfigParam($param)
     {
         return isset($this->_conf[$param]) ? $this->_conf[$param] : null;
+    }
+
+    /**
+     * Returns the driver name for the current object.
+     *
+     * @return string  The driver name.
+     */
+    public function getDriver()
+    {
+        return $this->_conf['_driver'];
     }
 }

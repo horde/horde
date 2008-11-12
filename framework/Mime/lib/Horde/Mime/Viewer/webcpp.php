@@ -38,7 +38,8 @@ class Horde_Mime_Viewer_webcpp extends Horde_Mime_Viewer_Driver
 
         /* The first 2 lines are the Content-Type line and a blank line so
          * remove them before outputting. */
-        $ret['data'] = preg_replace("/.*\n.*\n/", '', $ret['data'], 1);
+        reset($ret);
+        $ret[key($ret)]['data'] = preg_replace("/.*\n.*\n/", '', $ret[key($ret)]['data'], 1);
 
         return $ret;
     }
@@ -51,7 +52,8 @@ class Horde_Mime_Viewer_webcpp extends Horde_Mime_Viewer_Driver
     protected function _renderInline()
     {
         $ret = $this->_toHTML();
-        $data = $ret['data'];
+        reset($ret);
+        $data = $ret[key($ret)]['data'];
 
         /* Extract the style sheet, removing any global body formatting
          * if we're displaying inline. */
@@ -63,7 +65,7 @@ class Horde_Mime_Viewer_webcpp extends Horde_Mime_Viewer_Driver
         $res = preg_split('/\<\/?pre\>/', $data);
         $body = $res[1];
 
-        $ret['data'] = '<style>' . $style . '</style><div class="webcpp" style="white-space:pre;font-family:Lucida Console,Courier,monospace;">' . $body . '</div>';
+        $ret[key($ret)]['data'] = '<style>' . $style . '</style><div class="webcpp" style="white-space:pre;font-family:Lucida Console,Courier,monospace;">' . $body . '</div>';
 
         return $ret;
     }
@@ -98,8 +100,11 @@ class Horde_Mime_Viewer_webcpp extends Horde_Mime_Viewer_Driver
         $results = file_get_contents($tmpout);
 
         return array(
-            'data' => $results,
-            'type' => 'text/html; charset=' . NLS::getCharset()
+            $this->_mimepart->getMimeId() => array(
+                'data' => $results,
+                'status' => array(),
+                'type' => 'text/html; charset=' . NLS::getCharset()
+            )
         );
     }
 }

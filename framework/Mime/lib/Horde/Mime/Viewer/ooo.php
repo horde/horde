@@ -63,13 +63,19 @@ class Horde_Mime_Viewer_ooo extends Horde_Mime_Viewer_Driver
                 if ($use_xslt) {
                     file_put_contents($tmpdir . $file['name'], $content);
                 } elseif ($file['name'] == 'content.xml') {
-                    return str_replace(array_keys($tags), array_values($tags), $content);
+                    return array(
+                        $this->_mimepart->getMimeId() => array(
+                            'data' => str_replace(array_keys($tags), array_values($tags), $content),
+                            'status' => array(),
+                            'type' => 'text/html; charset=UTF-8'
+                        )
+                    );
                 }
             }
         }
 
         if (!Util::extensionExists('xslt')) {
-            return;
+            return array();
         }
 
         $xsl_file = dirname(__FILE__) . '/ooo/main_html.xsl';
@@ -99,8 +105,11 @@ class Horde_Mime_Viewer_ooo extends Horde_Mime_Viewer_Driver
         }
 
         return array(
-            'data' => $result,
-            'type' => 'text/html; charset=UTF-8'
+            $this->_mimepart->getMimeId() => array(
+                'data' => $result,
+                'status' => array(),
+                'type' => 'text/html; charset=UTF-8'
+            )
         );
     }
 }

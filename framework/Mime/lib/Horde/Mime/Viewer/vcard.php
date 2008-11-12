@@ -33,8 +33,9 @@ class Horde_Mime_Viewer_vcard extends Horde_Mime_Viewer_Driver
     {
         $ret = $this->_renderInline();
         if (!empty($ret)) {
-            $ret['data'] = Util::bufferOutput('include', $GLOBALS['registry']->get('templates', 'horde') . '/common-header.inc') .
-                $ret['data'] .
+            reset($ret);
+            $ret[key($ret)]['data'] = Util::bufferOutput('include', $GLOBALS['registry']->get('templates', 'horde') . '/common-header.inc') .
+                $ret[key($ret)]['data'] .
                 Util::bufferOutput('include', $GLOBALS['registry']->get('templates', 'horde') . '/common-footer.inc');
         }
         return $ret;
@@ -374,8 +375,11 @@ class Horde_Mime_Viewer_vcard extends Horde_Mime_Viewer_Driver
         $html .=  '</table>';
 
         return array(
-            'data' => Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status')) . $html,
-            'type' => 'text/html; charset=' . NLS::getCharset()
+            $this->_mimepart->getMimeId() => array(
+                'data' => Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status')) . $html,
+                'status' => array(),
+                'type' => 'text/html; charset=' . NLS::getCharset()
+            )
         );
     }
 

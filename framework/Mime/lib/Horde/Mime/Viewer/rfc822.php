@@ -33,8 +33,11 @@ class Horde_Mime_Viewer_rfc822 extends Horde_Mime_Viewer_Driver
     protected function _render()
     {
         return array(
-            'data' => $this->_mimepart->getContents(),
-            'type' => 'text/plain; charset=' . NLS::getCharset()
+            $this->_mimepart->getMimeId() => array(
+                'data' => $this->_mimepart->getContents(),
+                'status' => array(),
+                'type' => 'text/plain; charset=' . NLS::getCharset()
+            )
         );
     }
 
@@ -80,7 +83,11 @@ class Horde_Mime_Viewer_rfc822 extends Horde_Mime_Viewer_Driver
 
         require_once 'Horde/Text/Filter.php';
         return array(
-            'data' => '<div class="mimeHeaders">' . Text_Filter::filter(implode("<br />\n", $header_output), 'emails') . '</div>'
+            $this->_mimepart->getMimeId() => array(
+                'data' => '<div class="mimeHeaders">' . Text_Filter::filter(implode("<br />\n", $header_output), 'emails') . '</div>',
+                'status' => array(),
+                'type' => 'text/html; charset=' . NLS::getCharset()
+            )
         );
     }
 }

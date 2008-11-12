@@ -74,8 +74,9 @@ class Horde_Mime_Viewer_css extends Horde_Mime_Viewer_source
         $ret = $this->_renderInline();
 
         // Need Horde headers for CSS tags.
-        $ret['data'] =  Util::bufferOutput('require', $GLOBALS['registry']->get('templates', 'horde') . '/common-header.inc') .
-            $ret['data'] .
+        reset($ret);
+        $ret[key($ret)]['data'] =  Util::bufferOutput('require', $GLOBALS['registry']->get('templates', 'horde') . '/common-header.inc') .
+            $ret[key($ret)]['data'] .
             Util::bufferOutput('require', $GLOBALS['registry']->get('templates', 'horde') . '/common-footer.inc');
 
         return $ret;
@@ -92,8 +93,11 @@ class Horde_Mime_Viewer_css extends Horde_Mime_Viewer_source
         $css = preg_replace_callback('!{[^}]*}!s', array($this, '_attributes'), $css);
         $css = preg_replace_callback('!/\*.*?\*/!s', array($this, '_comments'), $css);
         return array(
-            'data' => $this->_lineNumber(trim($css)),
-            'type' => 'text/html; charset=' . NLS::getCharset()
+            $this->_mimepart->getMimeId() => array(
+                'data' => $this->_lineNumber(trim($css)),
+                'status' => array(),
+                'type' => 'text/html; charset=' . NLS::getCharset()
+            )
         );
     }
 

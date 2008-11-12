@@ -34,8 +34,11 @@ class Horde_Mime_Viewer_pdf extends Horde_Mime_Viewer_Driver
     protected function _render()
     {
         return array(
-            'data' => $this->_mimepart->getContents(),
-            'type' => 'application/pdf'
+            $this->_mimepart->getMimeId() => array(
+                'data' => $this->_mimepart->getContents(),
+                'status' => array(),
+                'type' => 'application/pdf'
+            )
         );
     }
 }
