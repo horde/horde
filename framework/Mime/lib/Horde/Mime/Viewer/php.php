@@ -33,6 +33,8 @@ class Horde_Mime_Viewer_php extends Horde_Mime_Viewer_Driver
     protected function _render()
     {
         $ret = $this->_renderInline();
+
+        // Need Horde headers for CSS tags.
         $ret['data'] =  Util::bufferOutput('require', $GLOBALS['registry']->get('templates', 'horde') . '/common-header.inc') .
             $ret['data'] .
             Util::bufferOutput('require', $GLOBALS['registry']->get('templates', 'horde') . '/common-footer.inc');
