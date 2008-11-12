@@ -14,42 +14,44 @@
 class Horde_Mime_Viewer_mspowerpoint extends Horde_Mime_Viewer_Driver
 {
     /**
-     * Render out the current data using ppthtml.
+     * Can this driver render various views?
      *
-     * @param array $params  Any parameters the Viewer may need.
-     *
-     * @return string  The rendered contents.
+     * @var boolean
      */
-    public function render($params = array())
+    protected $_capability = array(
+        'embedded' => false,
+        'full' => true,
+        'info' => false,
+        'inline' => false
+    );
+
+    /**
+     * Return the full rendered version of the Horde_Mime_Part object.
+     *
+     * @return array  See Horde_Mime_Viewer_Driver::render().
+     */
+    protected function _render()
     {
-        /* Check to make sure the program actually exists. */
-        if (!file_exists($GLOBALS['mime_drivers']['horde']['mspowerpoint']['location'])) {
-            return '<pre>' . sprintf(_("The program used to view this data type (%s) was not found on the system."), $GLOBALS['mime_drivers']['horde']['mspowerpoint']['location']) . '</pre>';
+        /* Check to make sure the viewer program exists. */
+        if (!isset($this->_conf['location']) ||
+            !file_exists($this->_conf['location'])) {
+            return array();
         }
 
         $data = '';
         $tmp_ppt = Horde::getTempFile('horde_mspowerpoint');
 
-        $fh = fopen($tmp_ppt, 'w');
-        fwrite($fh, $this->mime_part->getContents());
-        fclose($fh);
+        file_put_contents($tmp_ppt, $this->_mimepart->getContents());
 
-        $fh = popen($GLOBALS['mime_drivers']['horde']['mspowerpoint']['location'] . " $tmp_ppt 2>&1", 'r');
+        $fh = popen($this->_conf['location'] . " $tmp_ppt 2>&1", 'r');
         while (($rc = fgets($fh, 8192))) {
             $data .= $rc;
         }
         pclose($fh);
 
-        return $data;
-    }
-
-    /**
-     * Return the MIME content type of the rendered content.
-     *
-     * @return string  The content type of the output.
-     */
-    public function getType()
-    {
-        return 'text/html; charset=' . NLS::getCharset();
+        return array(
+            'data' => $data,
+            'type' => 'text/html; charset=' . NLS::getCharset()
+        );
     }
 }
