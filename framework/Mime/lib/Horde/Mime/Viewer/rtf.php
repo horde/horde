@@ -15,43 +15,46 @@
 class Horde_Mime_Viewer_rtf extends Horde_Mime_Viewer_Driver
 {
     /**
-     * Render out the current data using UnRTF.
+     * Can this driver render various views?
      *
-     * @param array $params  Any parameters the viewer may need.
-     *
-     * @return string  The rendered contents.
+     * @var boolean
      */
-    public function render($params = array())
+    protected $_capability = array(
+        'embedded' => false,
+        'full' => true,
+        'info' => false,
+        'inline' => false
+    );
+
+    /**
+     * Return the full rendered version of the Horde_Mime_Part object.
+     *
+     * @return array  See Horde_Mime_Viewer_Driver::render().
+     */
+    protected function _render()
     {
-        /* Check to make sure the program actually exists. */
-        if (!file_exists($GLOBALS['mime_drivers']['horde']['rtf']['location'])) {
-            return '<pre>' . sprintf(_("The program used to view this data type (%s) was not found on the system."), $GLOBALS['mime_drivers']['horde']['rtf']['location']) . '</pre>';
+        /* Check to make sure the viewer program exists. */
+        if (!isset($this->_conf['location']) ||
+            !file_exists($this->_conf['location'])) {
+            return array();
         }
 
         $tmp_rtf = Horde::getTempFile('rtf');
         $tmp_output = Horde::getTempFile('rtf');
-        $args = " $tmp_rtf > $tmp_output";
 
-        $fh = fopen($tmp_rtf, 'w');
-        fwrite($fh, $this->mime_part->getContents());
-        fclose($fh);
+        file_put_contents($tmp_rtf, $this->_mimepart->getContents());
 
-        exec($GLOBALS['mime_drivers']['horde']['rtf']['location'] . $args);
+        exec($GLOBALS['mime_drivers']['horde']['rtf']['location'] . " $tmp_rtf > $tmp_output");
 
-        if (!file_exists($tmp_output)) {
-            return _("Unable to translate this RTF document");
+        if (file_exists($tmp_output)) {
+            $data = file_get_contents($tmp_output);
+        } else {
+            $data = _("Unable to translate this RTF document");
         }
 
-        return file_get_contents($tmp_output);
-    }
-
-    /**
-     * Return the MIME content type of the rendered content.
-     *
-     * @return string  The content type of the output.
-     */
-    public function getType()
-    {
-        return 'text/html; charset=' . NLS::getCharset();
+        return array(
+            'data' => $data,
+            'type' => 'text/html; charset=' . NLS::getCharset()
+        );
     }
 }
