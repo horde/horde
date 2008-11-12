@@ -463,8 +463,19 @@ class IMP_Message
         if (is_null($partid)) {
             $partids = $contents->getDownloadAllList();
         } else {
+            /* Sanity checking: make sure part does not live under a
+             * message/rfc822 part. */
+            $content_map = $message->contentTypeMap();
+            $id = $partid;
+            while (($id = Horde_Mime::mimeIdArithmetic($id)) !== null) {
+                if ($content_map[$id] == 'message/rfc822') {
+                    return PEAR::raiseError(_("Cannot strip a MIME part contained within a message/rfc822 part."));
+                }
+            }
+
             $partids = array($partid);
         }
+
         foreach ($partids as $partid) {
             $oldPart = $message->getPart($partid);
             if (!is_a($oldPart, 'Horde_Mime_Part')) {
