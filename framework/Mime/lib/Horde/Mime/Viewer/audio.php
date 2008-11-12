@@ -14,12 +14,27 @@
 class Horde_Mime_Viewer_audio extends Horde_Mime_Viewer_Driver
 {
     /**
-     * Return the content-type.
+     * Can this driver render various views?
      *
-     * @return string  The content-type of the output.
+     * @var boolean
      */
-    public function getType()
+    protected $_capability = array(
+        'embedded' => false,
+        'full' => true,
+        'info' => false,
+        'inline' => false
+    );
+
+    /**
+     * Return the full rendered version of the Horde_Mime_Part object.
+     *
+     * @return array  See Horde_Mime_Viewer_Driver::render().
+     */
+    protected function _render()
     {
-        return $this->mime_part->getType();
+        return array(
+            'data' => $this->_mimepart->getContents(),
+            'type' => $this->_mimepart->getType()
+        );
     }
 }
