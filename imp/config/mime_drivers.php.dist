@@ -21,7 +21,7 @@
  * html           HTML messages
  * images         Images
  * itip           iCalendar Transport-Independent Interoperability Protocol
- * notification   Notification messages
+ * mdn            Message disposition notification messages
  * partial        message/partial parts
  * pdf            Portable Document Format (PDF) files
  * pgp            PGP signed/encrypted messages
@@ -35,7 +35,7 @@
  */
 $mime_drivers_map['imp']['registered'] = array(
     'alternative', 'appledouble', 'enriched', 'html', 'images', 'itip',
-    'notification', 'partial', 'pdf', 'pgp', 'pkcs7', 'plain', 'related',
+    'mdn', 'partial', 'pdf', 'pgp', 'pkcs7', 'plain', 'related',
     'smil', 'status', 'tnef', 'zip'
 );
 
@@ -191,7 +191,7 @@ $mime_drivers['imp']['status'] = array(
 /**
  * Disposition Notification message settings
  */
-$mime_drivers['imp']['notification'] = array(
+$mime_drivers['imp']['mdn'] = array(
     'inline' => true,
     'handles' => array(
         'message/disposition-notification'
