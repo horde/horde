@@ -461,11 +461,9 @@ class Horde_Mime
     {
         $pos = strrpos($id, '.');
 
-        /* Check for moving beyond the top of the message. */
-        if (is_null($pos) &&
-            ($id == '0') &&
-            in_array($action, array('prev', 'up'))) {
-            return null;
+        /* Check the boundary case (ID = 0). */
+        if (($pos === false) && ($id == '0')) {
+            return in_array($action, array('prev', 'up')) ? null : 1;
         }
 
         switch ($action) {
@@ -475,13 +473,13 @@ class Horde_Mime
 
         case 'next':
         case 'prev':
-            $id = is_null($pos)
+            $id = ($pos === false)
                 ? intval($id) + (($action == 'next') ? 1 : -1)
                 : substr_replace($id, intval(substr($id, $pos + 1)) + (($action == 'next') ? 1 : -1), $pos + 1);
             break;
 
         case 'up':
-            $id = is_null($pos)
+            $id = ($pos === false)
                 ? 0
                 : substr($id, 0, $pos);
             break;
