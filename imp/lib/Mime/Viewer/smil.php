@@ -14,33 +14,6 @@
 class IMP_Horde_Mime_Viewer_smil extends Horde_Mime_Viewer_smil
 {
     /**
-     * The MIME_Contents object, needed for the _callback() function.
-     *
-     * @var MIME_Contents
-     */
-    protected $_contents;
-
-    /**
-     * The list of related parts to the current part.
-     *
-     * @var array
-     */
-    protected  $_related = null;
-
-    /**
-     * Renders out the contents.
-     *
-     * @param array $params  Any parameters the Viewer may need.
-     *
-     * @return string  The rendered contents.
-     */
-    public function render($params)
-    {
-        $this->_contents = &$params[0];
-        return parent::render($params);
-    }
-
-    /**
      * User-defined function callback for start elements.
      *
      * @param object $parser  Handle to the parser instance.
@@ -51,20 +24,16 @@ class IMP_Horde_Mime_Viewer_smil extends Horde_Mime_Viewer_smil
     {
         switch ($name) {
         case 'IMG':
-            if (isset($attrs['SRC'])) {
-                $rp = $this->_getRelatedLink($attrs['SRC']);
-                if ($rp !== false) {
-                    $this->_content .= '<img src="' . $this->_contents->urlView($rp, 'view_attach') . '" alt="" /><br />';
-                }
+            if (isset($attrs['SRC']) &&
+                (($rp = $this->_getRelatedLink($attrs['SRC'])) !== false)) {
+                $this->_content .= '<img src="' . $this->_params['contents']->urlView($rp, 'view_attach') . '" alt="" /><br />';
             }
             break;
 
         case 'TEXT':
-            if (isset($attrs['SRC'])) {
-                $rp = $this->_getRelatedLink($attrs['SRC']);
-                if ($rp !== false) {
-                    $this->_content .= htmlspecialchars($rp->getContents()) . '<br />';
-                }
+            if (isset($attrs['SRC']) &&
+                (($rp = $this->_getRelatedLink($attrs['SRC'])) !== false)) {
+                $this->_content .= htmlspecialchars($rp->getContents()) . '<br />';
             }
             break;
         }
@@ -79,21 +48,9 @@ class IMP_Horde_Mime_Viewer_smil extends Horde_Mime_Viewer_smil
      */
     protected function _getRelatedLink($cid)
     {
-        if ($this->_related === null) {
-            $this->_related = false;
-            $related = $this->mime_part->getInformation('related_part');
-            if ($related !== false) {
-                $relatedPart = $this->_contents->getMIMEPart($related);
-                $this->_related = $relatedPart->getCIDList();
-            }
-        }
-
-        if ($this->_related) {
-            $key = array_search('<' . $cid . '>', $this->_related);
-            if ($key !== false) {
-                $cid_part = $this->_contents->getDecodedMIMEPart($key);
-                return $cid_part;
-            }
+        if (isset($this->_params['related_id']) &&
+            (($key = array_search(trim($cid, '<>', $this->_params['related_cids']))) !== false)) {
+            return $this->_param['contents']->getMIMEPart($key);
         }
 
         return false;

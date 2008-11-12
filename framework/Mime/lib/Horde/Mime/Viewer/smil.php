@@ -24,24 +24,41 @@ class Horde_Mime_Viewer_smil extends Horde_Mime_Viewer_Driver
      *
      * @var string
      */
-    protected $_content = '';
+    protected $_content;
 
     /**
-     * Renders out the contents.
+     * Can this driver render various views?
      *
-     * @param array $params  Any parameters the Viewer may need.
-     *
-     * @return string  The rendered contents.
+     * @var boolean
      */
-    public function render($params = array())
+    protected $_capability = array(
+        'embedded' => false,
+        'full' => true,
+        'info' => false,
+        'inline' => false
+    );
+
+    /**
+     * Return the full rendered version of the Horde_Mime_Part object.
+     *
+     * @return array  See Horde_Mime_Viewer_Driver::render().
+     */
+    protected function _render()
     {
+        $this->_content = '';
+
         /* Create a new parser and set its default properties. */
         $this->_parser = xml_parser_create();
         xml_set_object($this->_parser, $this);
         xml_set_element_handler($this->_parser, '_startElement', '_endElement');
         xml_set_character_data_handler($this->_parser, '_defaultHandler');
-        xml_parse($this->_parser, $this->mime_part->getContents(), true);
-        return $this->_content;
+        xml_parse($this->_parser, $this->_mimepart->getContents(), true);
+        xml_parser_free($this->_parser);
+
+        return array(
+            'data' => $this->_content,
+            'type' => 'text/html; charset=' . NLS::getCharset()
+        );
     }
 
     /**
@@ -84,15 +101,5 @@ class Horde_Mime_Viewer_smil extends Horde_Mime_Viewer_Driver
         if (!empty($data)) {
             $this->_content .= ' ' . htmlspecialchars($data);
         }
-    }
-
-    /**
-     * Return the MIME content type of the rendered content.
-     *
-     * @return string  The content type of the output.
-     */
-    public function getType()
-    {
-        return 'text/html; charset=' . NLS::getCharset();
     }
 }
