@@ -50,7 +50,7 @@ class Horde_Mime_Viewer_rar extends Horde_Mime_Viewer_Driver
         $contents = $this->_mimepart->getContents();
 
         require_once 'Horde/Compress.php';
-        $rar = &Horde_Compress::factory('rar');
+        $rar = &Horde_Compress::singleton('rar');
 
         $rarData = $rar->decompress($contents);
         if (is_a($rarData, 'PEAR_Error')) {

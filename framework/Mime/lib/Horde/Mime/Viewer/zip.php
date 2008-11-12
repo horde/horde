@@ -39,7 +39,7 @@ class Horde_Mime_Viewer_zip extends Horde_Mime_Viewer_Driver
     {
         require_once 'Horde/Compress.php';
 
-        $zip = &Horde_Compress::factory('zip');
+        $zip = &Horde_Compress::singleton('zip');
 
         /* Make sure this is a valid zip file. */
         if ($zip->checkZipData($contents) === false) {

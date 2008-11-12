@@ -72,10 +72,10 @@ class Horde_Mime_Viewer_security extends Horde_Mime_Viewer_Driver
             if (empty($protocol)) {
                 return false;
             }
-            $viewer = &Horde_Mime_Viewer::factory($this->mime_part, $protocol);
+            $viewer = Horde_Mime_Viewer::factory($this->mime_part, $protocol);
             if (empty($viewer) ||
                 (String::lower(get_class($viewer)) == 'mime_viewer_default')) {
-                $viewer = &Horde_Mime_Viewer::factory($this->mime_part, $this->mime_part->getPrimaryType() . '/*');
+                $viewer = Horde_Mime_Viewer::factory($this->mime_part, $this->mime_part->getPrimaryType() . '/*');
                 if (empty($viewer)) {
                     return false;
                 }
