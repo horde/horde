@@ -76,6 +76,7 @@ class IMP_Horde_Mime_Viewer_related extends Horde_Mime_Viewer_Driver
         $text = '';
 
         $subparts = $this->_mimepart->contentTypeMap();
+        $ids = array_keys($subparts);
         unset($subparts[key($subparts)]);
 
         /* Look at the 'start' parameter to determine which part to start
@@ -106,7 +107,7 @@ class IMP_Horde_Mime_Viewer_related extends Horde_Mime_Viewer_Driver
             }
 
             $ret = $this->_params['contents']->renderMIMEPart($id, $inline ? 'inline' : 'full', array('params' => array('related_id' => $id, 'related_cids' => $cids)));
-            $ret['ids'] = array_merge($ret['ids'], array_keys($subparts));
+            $ret['ids'] = array_keys(array_flip(array_merge($ret['ids'], $ids)));
             unset($ret['summary_id']);
             return $ret;
         }
