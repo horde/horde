@@ -33,12 +33,26 @@ class Horde_Mime_Viewer_rar extends Horde_Mime_Viewer_Driver
      */
     protected function _render()
     {
+        $ret = $this->_renderInline();
+        if (!empty($ret)) {
+            $ret['data'] = '<html><body>' . $ret['data'] . '</body></html>';
+        }
+        return $ret;
+    }
+
+    /**
+     * Return the rendered inline version of the Horde_Mime_Part object.
+     *
+     * @return array  See Horde_Mime_Viewer_Driver::render().
+     */
+    protected function _renderInline()
+    {
         $contents = $this->_mimepart->getContents();
 
         require_once 'Horde/Compress.php';
         $rar = &Horde_Compress::factory('rar');
 
-        $rarData = $this->decompress($contents);
+        $rarData = $rar->decompress($contents);
         if (is_a($rarData, 'PEAR_Error')) {
             return array();
         }
@@ -77,6 +91,9 @@ class Horde_Mime_Viewer_rar extends Horde_Mime_Viewer_Driver
             ) . "\n";
         }
 
-        return nl2br($text . str_repeat('-', 106) . "\n" . '</span></tt></td></tr></table>');
+        return array(
+            'data' => nl2br($text . str_repeat('-', 106) . "\n" . '</span></tt></td></tr></table>'),
+            'type' => 'text/html; charset=' . NLS::getCharset()
+        );
     }
 }
