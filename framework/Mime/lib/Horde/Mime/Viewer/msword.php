@@ -14,56 +14,61 @@
 class Horde_Mime_Viewer_msword extends Horde_Mime_Viewer_Driver
 {
     /**
-     * Render out the current data using wvWare.
+     * Can this driver render various views?
      *
-     * @param array $params  Any parameters the Viewer may need.
-     *
-     * @return string  The rendered contents.
+     * @var boolean
      */
-    public function render($params = array())
+    protected $_capability = array(
+        'embedded' => false,
+        'full' => true,
+        'info' => false,
+        'inline' => false
+    );
+
+    /**
+     * Return the full rendered version of the Horde_Mime_Part object.
+     *
+     * @return array  See Horde_Mime_Viewer_Driver::render().
+     */
+    protected function _render()
     {
-        /* Check to make sure the program actually exists. */
-        if (!file_exists($GLOBALS['mime_drivers']['horde']['msword']['location'])) {
-            return '<pre>' . sprintf(_("The program used to view this data type (%s) was not found on the system."), $GLOBALS['mime_drivers']['horde']['msword']['location']) . '</pre>';
+        /* Check to make sure the viewer program exists. */
+        if (!isset($this->_conf['location']) ||
+            !file_exists($this->_conf['location'])) {
+            return array();
         }
 
-        $data = '';
-        $tmp_word   = Horde::getTempFile('msword');
+        $charset = NLS::getCharset();
+        $tmp_word = Horde::getTempFile('msword');
         $tmp_output = Horde::getTempFile('msword');
-        $tmp_dir    = Horde::getTempDir();
-        $tmp_file   = str_replace($tmp_dir . '/', '', $tmp_output);
+        $tmp_dir = Horde::getTempDir();
+        $tmp_file = str_replace($tmp_dir . '/', '', $tmp_output);
 
         if (OS_WINDOWS) {
-            $args = ' -x ' . dirname($GLOBALS['mime_drivers']['horde']['msword']['location']) . "\\wvHtml.xml -d $tmp_dir -1 $tmp_word > $tmp_output";
+            $args = ' -x ' . dirname($this->_conf['location']) . "\\wvHtml.xml -d $tmp_dir -1 $tmp_word > $tmp_output";
         } else {
-            $version = exec($GLOBALS['mime_drivers']['horde']['msword']['location'] . ' --version');
-            if (version_compare($version, '0.7.0') >= 0) {
-                $args = " --charset=" . NLS::getCharset() . " --targetdir=$tmp_dir $tmp_word $tmp_file";
-            } else {
-                $args = " $tmp_word $tmp_output";
-            }
+            $version = exec($this->_conf['location'] . ' --version');
+            $args = (version_compare($version, '0.7.0') >= 0)
+                ? " --charset=$charset --targetdir=$tmp_dir $tmp_word $tmp_file"
+                : " $tmp_word $tmp_output";
         }
 
         $fh = fopen($tmp_word, 'w');
-        fwrite($fh, $this->mime_part->getContents());
+        fwrite($fh, $this->_mimepart->getContents());
         fclose($fh);
 
-        exec($GLOBALS['mime_drivers']['horde']['msword']['location'] . $args);
+        exec($this->_conf['location'] . $args);
 
         if (!file_exists($tmp_output)) {
-            return _("Unable to translate this Word document");
+            return array(
+                'data' => _("Unable to translate this Word document"),
+                'type' => 'text/plain; charset=' . $charset
+            );
         }
 
-        return file_get_contents($tmp_output);
-    }
-
-    /**
-     * Return the MIME content type of the rendered content.
-     *
-     * @return string  The content type of the output.
-     */
-    public function getType()
-    {
-        return 'text/html; charset=' . NLS::getCharset();
+        return array(
+            'data' => file_get_contents($tmp_output),
+            'type' => 'text/html; charset=' . $charset
+        );
     }
 }
