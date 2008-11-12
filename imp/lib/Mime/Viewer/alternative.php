@@ -42,16 +42,11 @@ class IMP_Horde_Mime_Viewer_alternative extends Horde_Mime_Viewer_Driver
 
         /* Look for a displayable part. RFC 2046: show the LAST choice that
          * can be displayed inline. */
-        foreach ($subparts as $mime_id => $mime_type) {
+        foreach (array_keys($subparts) as $mime_id) {
             if (is_null($last_id) || (strpos($mime_id, $last_id) !== 0)) {
                 $last_id = null;
-                $viewer = Horde_Mime_Viewer::factory($mime_type);
-
-                if ($viewer->canRender('inline')) {
-                    $mime_part = $this->_params['contents']->getMIMEPart($mime_id, array('nocontents' => true, 'nodecode' => true));
-                    if ($mime_part->getDisposition() == 'inline') {
-                        $display_id = $last_id = $mime_id;
-                    }
+                if ($this->_params['contents']->canDisplayInline($mime_id)) {
+                    $display_id = $last_id = $mime_id;
                 }
             }
         }

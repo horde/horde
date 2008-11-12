@@ -85,14 +85,10 @@ class IMP_Horde_Mime_Viewer_appledouble extends Horde_Mime_Viewer_Driver
         $ids = array($mime_id, $applefile_id);
 
         /* For inline viewing, attempt to display the data inline. */
-        if ($inline) {
-            $viewer = Horde_Mime_Viewer::factory($data_part->getType());
-            if (($viewer->canRender('inline') &&
-                 ($data_part->getDisposition() == 'inline')) ||
-                $viewer->canRender('info')) {
-                $can_display = true;
-                $status['text'][] = _("The contents of the Macintosh file are below.");
-            }
+        if ($inline &&
+            $this->_params['contents']->canDisplayInline($data_part, true)) {
+            $can_display = true;
+            $status['text'][] = _("The contents of the Macintosh file are below.");
         }
 
         if (!$can_display) {

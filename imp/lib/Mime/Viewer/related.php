@@ -91,11 +91,7 @@ class IMP_Horde_Mime_Viewer_related extends Horde_Mime_Viewer_Driver
         /* Only display if the start part (normally text/html) can be
          * displayed inline -OR- we are viewing this part as an attachment. */
         if (!$can_display) {
-            $viewer = Horde_Mime_Viewer::factory($subparts[$id]);
-            if ($viewer->canRender('inline')) {
-                $mime_part = $this->_mimepart->getPart($id);
-                $can_display = ($mime_part->getDisposition() == 'inline');
-            }
+            $can_display = $this->_params['contents']->canDisplayInline($id);
         }
 
         if ($can_display) {
