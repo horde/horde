@@ -448,6 +448,7 @@ class IMP_Contents
             'render' => array()
         );
         $parts = array();
+        $rfc822 = null;
 
         // Cache some settings before we enter the loop.
         $download_zip = (($mask & self::SUMMARY_DOWNLOAD_ZIP) && Util::extensionExists('zlib'));
@@ -569,11 +570,13 @@ class IMP_Contents
 
             /* Strip the Attachment? */
             if ($mask && self::SUMMARY_STRIP_LINK) {
-                // TODO: No stripping of RFC 822 parts.
-                $url = Util::removeParameter(Horde::selfUrl(true), array('actionID', 'imapid', 'index'));
-                $url = Util::addParameter($url, array('actionID' => 'strip_attachment', 'imapid' => $mime_id, 'index' => $this->_index, 'message_token' => $message_token));
-                $part['strip'] = Horde::link($url, _("Strip Attachment"), 'stripAtc', null, "return window.confirm('" . addslashes(_("Are you sure you wish to PERMANENTLY delete this attachment?")) . "');") . '</a>';
-                $info['has']['strip'] = true;
+                if (is_null($rfc822) || (strpos($mime_id, $rfc822) !== 0)) {
+                    $rfc822 = ($mime_type == 'message/rfc822') ? $mime_id . '.' : null;
+                    $url = Util::removeParameter(Horde::selfUrl(true), array('actionID', 'imapid', 'index'));
+                    $url = Util::addParameter($url, array('actionID' => 'strip_attachment', 'imapid' => $mime_id, 'index' => $this->_index, 'message_token' => $message_token));
+                    $part['strip'] = Horde::link($url, _("Strip Attachment"), 'stripAtc', null, "return window.confirm('" . addslashes(_("Are you sure you wish to PERMANENTLY delete this attachment?")) . "');") . '</a>';
+                    $info['has']['strip'] = true;
+                }
             }
 
             if ($is_atc && ($mask && self::SUMMARY_DOWNLOAD_ALL)) {
