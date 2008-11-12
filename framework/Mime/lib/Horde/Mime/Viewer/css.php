@@ -91,7 +91,10 @@ class Horde_Mime_Viewer_css extends Horde_Mime_Viewer_source
         $css = preg_replace_callback('!(}|\*/).*?({|/\*)!s', array($this, '_handles'), htmlspecialchars($this->_mimepart->getContents(), ENT_NOQUOTES));
         $css = preg_replace_callback('!{[^}]*}!s', array($this, '_attributes'), $css);
         $css = preg_replace_callback('!/\*.*?\*/!s', array($this, '_comments'), $css);
-        return $this->_lineNumber(trim($css));
+        return array(
+            'data' => $this->_lineNumber(trim($css)),
+            'type' => 'text/html; charset=' . NLS::getCharset()
+        );
     }
 
     /**
