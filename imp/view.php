@@ -1,22 +1,26 @@
 <?php
 /**
  * This script displays a rendered Horde_Mime_Part object.
- * The following are potential URL parameters that we should honor:
- *   'actionID' -- The action ID to perform
- *     -> 'compose_attach_preview'
- *     -> 'download_all'
- *     -> 'download_attach'
- *     -> 'download_render'
- *     -> 'save_message'
- *     -> 'view_attach'
- *     -> 'view_source'
- *   'ctype'    -- The content-type to use instead of the content-type
- *                 found in the original Horde_Mime_Part object.
- *   'download_ids' -- For 'download_all', the list of IDs to download.
- *   'id'       -- The MIME part to display.
- *   'index     -- The index of the message.
- *   'mailbox'  -- The mailbox of the message.
- *   'zip'      -- Download in .zip format?
+ * The following are potential URL parameters that are honored:
+ * <pre>
+ * 'actionID' - (string) The action ID to perform
+ *   'compose_attach_preview'
+ *   'download_all'
+ *   'download_attach'
+ *   'download_render'
+ *   'save_message'
+ *   'view_attach'
+ *   'view_source'
+ * 'ctype' - (string) The content-type to use instead of the content-type
+ *           found in the original Horde_Mime_Part object.
+ * 'download_ids' - (string) For 'download_all', the serialized list of IDs to
+ *                  download.
+ * 'id' - (string) The MIME part ID to display.
+ * 'index - (integer) The index of the message.
+ * 'mailbox' - (string) The mailbox of the message.
+ * 'mode' - (string) The view mode to use (DEFAULT: 'full').
+ * 'zip' - (boolean) Download in .zip format?
+ * </pre>
  *
  * Copyright 1999-2008 The Horde Project (http://www.horde.org/)
  *
@@ -108,7 +112,7 @@ case 'download_render':
         break;
 
     case 'download_render':
-        $render = $contents->renderMIMEPart($id, 'full', array('type' => $ctype));
+        $render = $contents->renderMIMEPart($id, Util::getFormData('mode', 'full'), array('type' => $ctype));
         $body = $render['data'];
         $type = $render['type'];
         $name = $render['name'];
@@ -131,7 +135,7 @@ case 'download_render':
     exit;
 
 case 'view_attach':
-    $render = $contents->renderMIMEPart($id, 'full', array('type' => $ctype));
+    $render = $contents->renderMIMEPart($id, Util::getFormData('mode', 'full'), array('type' => $ctype));
     $browser->downloadHeaders($render['name'], $render['type'], true, strlen($render['data']));
     echo $render['data'];
     exit;
