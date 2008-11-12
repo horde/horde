@@ -72,7 +72,7 @@ class IMP_Horde_Mime_Viewer_alternative extends Horde_Mime_Viewer_Driver
         return array(
             'data' => $render_data['data'],
             'ids' => array_keys($subparts),
-            'status' => array(),
+            'status' => $render_data['status'],
             'summary_id' => isset($render_data['summary_id']) ? $render_data['summary_id'] : $display_id
         );
     }
