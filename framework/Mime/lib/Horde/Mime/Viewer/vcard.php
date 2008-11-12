@@ -13,30 +13,52 @@
 class Horde_Mime_Viewer_vcard extends Horde_Mime_Viewer_Driver
 {
     /**
-     * Render out the vcard contents.
+     * Can this driver render various views?
      *
-     * @param array $params  Any parameters the Viewer may need.
-     *
-     * @return string  The rendered contents.
+     * @var boolean
      */
-    public function render($params = null)
+    protected $_capability = array(
+        'embedded' => false,
+        'full' => true,
+        'info' => false,
+        'inline' => true
+    );
+
+    /**
+     * Return the full rendered version of the Horde_Mime_Part object.
+     *
+     * @return array  See Horde_Mime_Viewer_Driver::render().
+     */
+    protected function _render()
+    {
+        $ret = $this->_renderInline();
+        if (!empty($ret)) {
+            $ret['data'] = Util::bufferOutput('include', $GLOBALS['registry']->get('templates', 'horde') . '/common-header.inc') .
+                $ret['data'] .
+                Util::bufferOutput('include', $GLOBALS['registry']->get('templates', 'horde') . '/common-footer.inc');
+        }
+        return $ret;
+    }
+
+    /**
+     * Return the rendered inline version of the Horde_Mime_Part object.
+     *
+     * @return array  See Horde_Mime_Viewer_Driver::render().
+     */
+    protected function _renderInline()
     {
         global $registry, $prefs, $notification;
 
-        require_once 'Horde/iCalendar.php';
-
         $app = false;
-        $data = $this->mime_part->getContents();
+        $data = $this->_mimepart->getContents();
         $html = '';
         $import_msg = null;
         $title = _("vCard");
 
+        require_once 'Horde/iCalendar.php';
         $iCal = new Horde_iCalendar();
-        if (!$iCal->parsevCalendar($data, 'VCALENDAR',
-                                   $this->mime_part->getCharset())) {
-            $notification->push(
-                _("There was an error reading the contact data."),
-                'horde.error');
+        if (!$iCal->parsevCalendar($data, 'VCALENDAR', $this->_mimepart->getCharset())) {
+            $notification->push(_("There was an error reading the contact data."), 'horde.error');
         }
 
         if (Util::getFormData('import') &&
@@ -119,24 +141,31 @@ class Horde_Mime_Viewer_vcard extends Horde_Mime_Viewer_Driver
                     case 'HOME':
                         $types[] = _("Home Address");
                         break;
+
                     case 'WORK':
                         $types[] = _("Work Address");
                         break;
+
                     case 'DOM':
                         $types[] = _("Domestic Address");
                         break;
+
                     case 'INTL':
                         $types[] = _("International Address");
                         break;
+
                     case 'POSTAL':
                         $types[] = _("Postal Address");
                         break;
+
                     case 'PARCEL':
                         $types[] = _("Parcel Address");
                         break;
+
                     case 'PREF':
                         $types[] = _("Preferred Address");
                         break;
+
                     default:
                         $types[] = _("Address");
                         break;
@@ -177,24 +206,31 @@ class Horde_Mime_Viewer_vcard extends Horde_Mime_Viewer_Driver
                     case 'HOME':
                         $types[] = _("Home Address");
                         break;
+
                     case 'WORK':
                         $types[] = _("Work Address");
                         break;
+
                     case 'DOM':
                         $types[] = _("Domestic Address");
                         break;
+
                     case 'INTL':
                         $types[] = _("International Address");
                         break;
+
                     case 'POSTAL':
                         $types[] = _("Postal Address");
                         break;
+
                     case 'PARCEL':
                         $types[] = _("Parcel Address");
                         break;
+
                     case 'PREF':
                         $types[] = _("Preferred Address");
                         break;
+
                     default:
                         $types[] = _("Address");
                         break;
@@ -337,36 +373,23 @@ class Horde_Mime_Viewer_vcard extends Horde_Mime_Viewer_Driver
 
         $html .=  '</table>';
 
-        return
-            Util::bufferOutput(
-                'include',
-                $registry->get('templates', 'horde') . '/common-header.inc')
-            . Util::bufferOutput(array($notification, 'notify'),
-                                 array('listeners' => 'status'))
-            . $html
-            . Util::bufferOutput(
-                'include',
-                $registry->get('templates', 'horde') . '/common-footer.inc');
+        return array(
+            'data' => Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status')) . $html,
+            'type' => 'text/html; charset=' . NLS::getCharset()
+        );
     }
 
-    function _row($label, $value, $encode = true)
+    /**
+     * TODO
+     */
+    protected function _row($label, $value, $encode = true)
     {
         if ($encode) {
             $label = htmlspecialchars($label);
             $value = htmlspecialchars($value);
         }
-        return '<tr><td class="item" valign="top">' . $label
-            . '</td><td class="item" valign="top">' . nl2br($value)
-            . "</td></tr>\n";
-    }
-
-    /**
-     * Return the MIME content type of the rendered content.
-     *
-     * @return string  The content type of the output.
-     */
-    public function getType()
-    {
-        return 'text/html; charset=' . NLS::getCharset();
+        return '<tr><td class="item" valign="top">' . $label .
+            '</td><td class="item" valign="top">' . nl2br($value) .
+            "</td></tr>\n";
     }
 }
