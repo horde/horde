@@ -14,41 +14,57 @@
 class Horde_Mime_Viewer_deb extends Horde_Mime_Viewer_Driver
 {
     /**
-     * Render the data.
+     * Can this driver render various views?
      *
-     * @param array $params  Any parameters the viewer may need.
-     *
-     * @return string  The rendered data.
+     * @var boolean
      */
-    public function render($params = array())
+    protected $_capability = array(
+        'embedded' => false,
+        'full' => true,
+        'info' => false,
+        'inline' => true
+    );
+
+    /**
+     * Return the full rendered version of the Horde_Mime_Part object.
+     *
+     * @return array  See Horde_Mime_Viewer_Driver::render().
+     */
+    protected function _render()
     {
-        /* Check to make sure the program actually exists. */
-        if (!file_exists($GLOBALS['mime_drivers']['horde']['deb']['location'])) {
-            return '<pre>' . sprintf(_("The program used to view this data type (%s) was not found on the system."), $GLOBALS['mime_drivers']['horde']['deb']['location']) . '</pre>';
+        $ret = $this->_renderInline();
+        if (!empty($ret)) {
+            $ret['data'] = '<html><body>' . $ret['data'] . '</body></html>';
+        }
+        return $ret;
+    }
+
+    /**
+     * Return the rendered inline version of the Horde_Mime_Part object.
+     *
+     * @return array  See Horde_Mime_Viewer_Driver::render().
+     */
+    protected function _renderInline()
+    {
+        /* Check to make sure the viewer program exists. */
+        if (!isset($this->_conf['location']) ||
+            !file_exists($this->_conf['location'])) {
+            return array();
         }
 
         $tmp_deb = Horde::getTempFile('horde_deb');
 
-        $fh = fopen($tmp_deb, 'w');
-        fwrite($fh, $this->mime_part->getContents());
-        fclose($fh);
+        file_put_contents($tmp_deb, $this->_mimepart->getContents());
 
-        $fh = popen($GLOBALS['mime_drivers']['horde']['deb']['location'] . " -f $tmp_deb 2>&1", 'r');
+        $fh = popen($this->_conf['location'] . " -f $tmp_deb 2>&1", 'r');
         while (($rc = fgets($fh, 8192))) {
             $data .= $rc;
         }
         pclose($fh);
 
-        return '<pre>' . htmlspecialchars($data) . '</pre>';
-    }
-
-    /**
-     * Return the MIME content type of the rendered content.
-     *
-     * @return string  The content type of the output.
-     */
-    public function getType()
-    {
-        return 'text/html; charset=' . NLS::getCharset();
+        return array(
+            'data' => '<pre>' . htmlspecialchars($data) . '</pre>',
+            'type' => 'text/html; charset=' . NLS::getCharset()
+        );
     }
 }
