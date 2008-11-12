@@ -2,6 +2,8 @@
 /**
  * Decide which output drivers you want to activate for the IMP application.
  * Settings in this file override settings in horde/config/mime_drivers.php.
+ * All drivers configured in that file, but not configured here, will also
+ * be used to display MIME content.
  *
  * Additional settings for IMP:
  * + If you want to limit the display of message data inline for large
@@ -26,6 +28,7 @@
  * pkcs7          S/MIME signed/encrypted messages
  * plain          URL syntax highlighting for text/plain parts
  * related        multipart/related parts
+ * smil           SMIL documents
  * status         Mail delivery status messages
  * tnef           MS-TNEF attachments
  * zip            ZIP attachments
