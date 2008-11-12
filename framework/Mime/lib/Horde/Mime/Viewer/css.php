@@ -17,93 +17,106 @@ require_once dirname(__FILE__) . '/source.php';
 class Horde_Mime_Viewer_css extends Horde_Mime_Viewer_source
 {
     /**
-     * Render out the currently set contents.
+     * Can this driver render various views?
      *
-     * @param array $params  Any parameters the viewer may need.
-     *
-     * @return string  The rendered text.
+     * @var boolean
      */
-    public function render($params = null)
-    {
-        $css = htmlspecialchars($this->mime_part->getContents(), ENT_NOQUOTES);
-        $css = preg_replace_callback('!(}|\*/).*?({|/\*)!s', array($this, '_handles'), $css);
-        $css = preg_replace_callback('!{[^}]*}!s', array($this, '_attributes'), $css);
-        $css = preg_replace_callback('!/\*.*?\*/!s', array($this, '_comments'), $css);
-        $css = trim($css);
+    protected $_capability = array(
+        'embedded' => false,
+        'full' => true,
+        'info' => false,
+        'inline' => true
+    );
 
-        // Educated Guess at whether we are inline or not.
-        if (headers_sent() || ob_get_length()) {
-            return $this->lineNumber($css);
-        } else {
-            return Util::bufferOutput('require', $GLOBALS['registry']->get('templates', 'horde') . '/common-header.inc') .
-                $this->lineNumber($css) .
-                Util::bufferOutput('require', $GLOBALS['registry']->get('templates', 'horde') . '/common-footer.inc');
-        }
+    /**
+     * Attribute preg patterns.
+     *
+     * @var array
+     */
+    protected $_attrPatterns = array(
+        // Attributes
+        '!([-\w]+\s*):!s' => '<span class="attr"">\\1</span>:',
+        // Values
+        '!:(\s*)(.+?)(\s*;)!s' => ':\\1<span class="value">\\2</span><span class="eol">\\3</span>',
+        // URLs
+        '!(url\([\'"]?)(.*?)([\'"]?\))!s' => '<span class="url">\\1<span class="file">\\2</span>\\3</span>',
+        // Colors
+        '!(#[[:xdigit:]]{3,6})!s' => '<span class="color">\\1</span>',
+        // Parentheses
+        '!({|})!s' => '<span class="parentheses">\\1</span>',
+        // Unity
+        '!(em|px|%)\b!s' => '<em>\\1</em>'
+    );
+
+    /**
+     * Handles preg patterns.
+     *
+     * @var array
+     */
+    protected $_handlesPatterns = array(
+        // HTML Tags
+        '!\b(body|h\d|a|span|div|acronym|small|strong|em|pre|ul|ol|li|p)\b!s' => '<span class="htag">\\1</span>\\2',
+        // IDs
+        '!(#[-\w]+)!s' => '<span class="id">\\1</span>',
+        // Class
+        '!(\.[-\w]+)\b!s' => '<span class="class">\\1</span>',
+        // METAs
+        '!(:link|:visited|:hover|:active|:first-letter)!s' => '<span class="metac">\\1</span>'
+    );
+
+    /**
+     * Return the full rendered version of the Horde_Mime_Part object.
+     *
+     * @return array  See Horde_Mime_Viewer_Driver::render().
+     */
+    protected function _render()
+    {
+        $ret = $this->_renderInline();
+
+        // Need Horde headers for CSS tags.
+        $ret['data'] =  Util::bufferOutput('require', $GLOBALS['registry']->get('templates', 'horde') . '/common-header.inc') .
+            $ret['data'] .
+            Util::bufferOutput('require', $GLOBALS['registry']->get('templates', 'horde') . '/common-footer.inc');
+
+        return $ret;
     }
 
     /**
+     * Return the rendered inline version of the Horde_Mime_Part object.
+     *
+     * @return array  See Horde_Mime_Viewer_Driver::render().
+     */
+    protected function _renderInline()
+    {
+        $css = preg_replace_callback('!(}|\*/).*?({|/\*)!s', array($this, '_handles'), htmlspecialchars($this->_mimepart->getContents(), ENT_NOQUOTES));
+        $css = preg_replace_callback('!{[^}]*}!s', array($this, '_attributes'), $css);
+        $css = preg_replace_callback('!/\*.*?\*/!s', array($this, '_comments'), $css);
+        return $this->_lineNumber(trim($css));
+    }
+
+    /**
+     * TODO
      */
     protected function _comments($matches)
     {
-        $patterns[] = '!(http://[/\w-.]+)!s';
-        $replaces[] = '<a href="\\1">\\1</a>';
-
-        $comments = preg_replace($patterns, $replaces, $matches[0]);
-
-        return '<span class="comment">' . $comments . '</span>';
+        return '<span class="comment">' .
+            preg_replace('!(http://[/\w-.]+)!s', '<a href="\\1">\\1</a>', $matches[0]) .
+            '</span>';
     }
 
     /**
+     * TODO
      */
     protected function _attributes($matches)
     {
-        // Attributes.
-        $patterns[] = '!([-\w]+\s*):!s';
-        $replaces[] = '<span class="attr"">\\1</span>:';
-
-        // Values.
-        $patterns[] = '!:(\s*)(.+?)(\s*;)!s';
-        $replaces[] = ':\\1<span class="value">\\2</span><span class="eol">\\3</span>';
-
-        // URLs.
-        $patterns[] = '!(url\([\'"]?)(.*?)([\'"]?\))!s';
-        $replaces[] = '<span class="url">\\1<span class="file">\\2</span>\\3</span>';
-
-        // Colors.
-        $patterns[] = '!(#[[:xdigit:]]{3,6})!s';
-        $replaces[] = '<span class="color">\\1</span>';
-
-        // Parentheses.
-        $patterns[] = '!({|})!s';
-        $replaces[] = '<span class="parentheses">\\1</span>';
-
-        // Unity.
-        $patterns[] = '!(em|px|%)\b!s';
-        $replaces[] = '<em>\\1</em>';
-
-        return preg_replace($patterns, $replaces, $matches[0]);
+        return preg_replace(array_keys($this->_attrPatterns), array_values($this->_attrPatterns), $matches[0]);
     }
 
     /**
+     * TODO
      */
     protected function _handles($matches)
     {
-        // HTML Tags.
-        $patterns[] = '!\b(body|h\d|a|span|div|acronym|small|strong|em|pre|ul|ol|li|p)\b!s';
-        $replaces[] = '<span class="htag">\\1</span>\\2';
-
-        // IDs.
-        $patterns[] = '!(#[-\w]+)!s';
-        $replaces[] = '<span class="id">\\1</span>';
-
-        // Class.
-        $patterns[] = '!(\.[-\w]+)\b!s';
-        $replaces[] = '<span class="class">\\1</span>';
-
-        // METAs.
-        $patterns[] = '!(:link|:visited|:hover|:active|:first-letter)!s';
-        $replaces[] = '<span class="metac">\\1</span>';
-
-        return preg_replace($patterns, $replaces, $matches[0]);
+        return preg_replace(array_keys($this->_handlesPatterns), array_values($this->_handlesPatterns), $matches[0]);
     }
 }
