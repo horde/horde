@@ -14,42 +14,46 @@
 class Horde_Mime_Viewer_msexcel extends Horde_Mime_Viewer_Driver
 {
     /**
-     * Render out the currently data using xlhtml.
+     * Can this driver render various views?
      *
-     * @param array $params  Any params this Viewer may need.
-     *
-     * @return string  The rendered data.
+     * @var boolean
      */
-    public function render($params = array())
+    protected $_capability = array(
+        'embedded' => false,
+        'full' => true,
+        'info' => false,
+        'inline' => false
+    );
+
+    /**
+     * Return the full rendered version of the Horde_Mime_Part object.
+     *
+     * @return array  See Horde_Mime_Viewer_Driver::render().
+     */
+    protected function _render()
     {
-        /* Check to make sure the program actually exists. */
-        if (!file_exists($GLOBALS['mime_drivers']['horde']['msexcel']['location'])) {
-            return '<pre>' . sprintf(_("The program used to view this data type (%s) was not found on the system."), $GLOBALS['mime_drivers']['horde']['msexcel']['location']) . '</pre>';
+        /* Check to make sure the viewer program exists. */
+        if (!isset($this->_conf['location']) ||
+            !file_exists($this->_conf['location'])) {
+            return array();
         }
 
         $data = '';
         $tmp_xls = Horde::getTempFile('horde_msexcel');
 
         $fh = fopen($tmp_xls, 'w');
-        fwrite($fh, $this->mime_part->getContents());
+        fwrite($fh, $this->_mimepart->getContents());
         fclose($fh);
 
-        $fh = popen($GLOBALS['mime_drivers']['horde']['msexcel']['location'] . " -nh $tmp_xls 2>&1", 'r');
+        $fh = popen($this->_conf['location'] . " -nh $tmp_xls 2>&1", 'r');
         while (($rc = fgets($fh, 8192))) {
             $data .= $rc;
         }
         pclose($fh);
 
-        return $data;
-    }
-
-    /**
-     * Return the MIME content type of the rendered content.
-     *
-     * @return string  The content type of the output.
-     */
-    public function getType()
-    {
-        return 'text/html; charset=' . NLS::getCharset();
+        return array(
+            'data' => $data,
+            'type' => 'text/html; charset=' . NLS::getCharset()
+        );
     }
 }
