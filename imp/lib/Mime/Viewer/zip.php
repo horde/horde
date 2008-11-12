@@ -15,87 +15,74 @@
 class IMP_Horde_Mime_Viewer_zip extends Horde_Mime_Viewer_zip
 {
     /**
-     * The IMP_Contents object, needed for the _callback() function.
+     * Return the full rendered version of the Horde_Mime_Part object.
      *
-     * @var IMP_Contents
+     * URL parameters used by this function:
+     * <pre>
+     * 'zip_attachment' - (integer) The ZIP attachment to download.
+     * </pre>
+     *
+     * @return array  See Horde_Mime_Viewer_Driver::render().
      */
-    protected $_contents;
-
-    /**
-     * Render out the currently set contents.
-     *
-     * @param array $params  An array with a reference to a  MIME_Contents
-     *                       object.
-     *
-     * @return string  Either the list of zip files or the data of an
-     *                 individual zip file.
-     */
-    public function render($params)
+    protected function _render()
     {
-        $contents = &$params[0];
-
-        $data = $this->mime_part->getContents();
-        $text = '';
+        if (!Util::getFormData('zip_attachment')) {
+            $this->_callback = array(&$this, '_IMPcallback');
+            return parent::_render();
+        }
 
         /* Send the requested file. Its position in the zip archive is located
          * in 'zip_attachment'. */
-        if (Util::getFormData('zip_attachment')) {
-            $zip = &Horde_Compress::singleton('zip');
-            $fileKey = Util::getFormData('zip_attachment') - 1;
-            $zipInfo = $zip->decompress(
-                $data, array('action' => HORDE_COMPRESS_ZIP_LIST));
-            /* Verify that the requested file exists. */
-            if (isset($zipInfo[$fileKey])) {
-                $text = $zip->decompress(
-                    $data,
-                    array('action' => HORDE_COMPRESS_ZIP_DATA,
-                          'info' => &$zipInfo,
-                          'key' => $fileKey));
-                if (empty($text)) {
-                    $text = '<pre>' . _("Could not extract the requested file from the Zip archive.") . '</pre>';
-                } else {
-                    $this->mime_part->setType('application/octet-stream');
-                    $this->mime_part->setName(basename($zipInfo[$fileKey]['name']));
-                }
-            } else {
-                $text = '<pre>' . _("The requested file does not exist in the Zip attachment.") . '</pre>';
+        $data = $this->_mimepart->getContents();
+        $zip = &Horde_Compress::singleton('zip');
+        $fileKey = Util::getFormData('zip_attachment') - 1;
+        $zipInfo = $zip->decompress($data, array('action' => HORDE_COMPRESS_ZIP_LIST));
+
+        /* Verify that the requested file exists. */
+        if (isset($zipInfo[$fileKey])) {
+            $text = $zip->decompress($data, array('action' => HORDE_COMPRESS_ZIP_DATA, 'info' => &$zipInfo, 'key' => $fileKey));
+            if (!empty($text)) {
+                return array(
+                    'data' => $text,
+                    'name' => basename($zipInfo[$fileKey]['name']),
+                    'type' => 'application/octet-stream'
+                );
             }
-        } else {
-            $this->_contents = $contents;
-            $text = parent::_render($data, array($this, '_callback'));
         }
 
-        return $text;
+        // TODO: Error reporting
+        return array();
     }
 
     /**
-     * The function to use as a callback to parent::_render().
+     * Return the rendered inline version of the Horde_Mime_Part object.
+     *
+     * @return array  See Horde_Mime_Viewer_Driver::render().
+     */
+    protected function _renderInline()
+    {
+        $this->_callback = array(&$this, '_IMPcallback');
+        return parent::_renderInline();
+    }
+
+    /**
+     * The function to use as a callback to _toHTML().
      *
      * @param integer $key  The position of the file in the zip archive.
      * @param array $val    The information array for the archived file.
      *
      * @return string  The content-type of the output.
      */
-    protected function _callback($key, $val)
+    protected function _IMPcallback($key, $val)
     {
         $name = preg_replace('/(&nbsp;)+$/', '', $val['name']);
+
         if (!empty($val['size']) && (strstr($val['attr'], 'D') === false) &&
             ((($val['method'] == 0x8) && Util::extensionExists('zlib')) ||
              ($val['method'] == 0x0))) {
-            $old_name = $this->mime_part->getName();
-            $this->mime_part->setName(basename($name));
-            $val['name'] = str_replace(
-                $name,
-                $this->_contents->linkView(
-                    $this->mime_part, 'download_render', $name,
-                    array('jstext' => sprintf(_("View %s"),
-                                              str_replace('&nbsp;', ' ', $name)),
-                          'class' => 'fixed',
-                          'viewparams' => array(
-                              'ctype' => 'application/zip',
-                              'zip_attachment' => (urlencode($key) + 1)))),
-                $val['name']);
-            $this->mime_part->setName($old_name);
+            $mime_part = $this->_mimepart;
+            $mime_part->setName(basename($name));
+            $val['name'] = str_replace($name, $this->_params['contents']->linkView($mime_part, 'download_render', $name, array('jstext' => sprintf(_("View %s"), str_replace('&nbsp;', ' ', $name)), 'class' => 'fixed', 'params' => array('zip_attachment' => urlencode($key) + 1))), $val['name']);
         }
 
         return $val;
