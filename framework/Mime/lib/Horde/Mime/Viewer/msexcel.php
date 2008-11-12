@@ -41,9 +41,7 @@ class Horde_Mime_Viewer_msexcel extends Horde_Mime_Viewer_Driver
         $data = '';
         $tmp_xls = Horde::getTempFile('horde_msexcel');
 
-        $fh = fopen($tmp_xls, 'w');
-        fwrite($fh, $this->_mimepart->getContents());
-        fclose($fh);
+        file_put_contents($tmp_xls, $this->_mimepart->getContents());
 
         $fh = popen($this->_conf['location'] . " -nh $tmp_xls 2>&1", 'r');
         while (($rc = fgets($fh, 8192))) {

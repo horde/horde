@@ -75,9 +75,7 @@ class Horde_Mime_Viewer_enscript extends Horde_Mime_Viewer_source
         $tmpin = Horde::getTempFile('enscriptin');
 
         /* Write the contents of our buffer to the temporary input file. */
-        $fh = fopen($tmpin, 'wb');
-        fwrite($fh, $this->_mimepart->getContents());
-        fclose($fh);
+        file_put_contents($tmpin, $this->_mimepart->getContents());
 
         /* Execute the enscript command. */
         $lang = escapeshellarg($this->_typeToLang($this->_mimepart->getType()));
