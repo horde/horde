@@ -312,7 +312,9 @@ class IMP_Contents
         }
 
         $ret = $viewer->render($mode);
-        $ret['name'] = $mime_part->getName(true);
+        if (!isset($ret['name'])) {
+            $ret['name'] = $mime_part->getName(true);
+        }
 
         /* If this is a text/* part, AND the browser does not support UTF-8,
          * give the user a link to open the part in a new window with the
