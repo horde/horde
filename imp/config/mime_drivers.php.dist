@@ -105,7 +105,9 @@ $mime_drivers['imp']['images'] = array(
         'default' => 'image.png'
     ),
     /* Display thumbnails for all images, not just large images? */
-    'allthumbs' => true
+    'allthumbs' => true,
+    /* Display images inline that are less than this size. */
+    'inlinesize' => 262144
 );
 
 /**

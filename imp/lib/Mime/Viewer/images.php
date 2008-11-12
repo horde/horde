@@ -75,9 +75,10 @@ class IMP_Horde_Mime_Viewer_images extends Horde_Mime_Viewer_images
     protected function _renderInline()
     {
         /* Only display the image inline if the browser can display it and the
-         * size of the image is small. */
+         * size of the image is below the config value. */
         if ($GLOBALS['browser']->isViewable($this->_getType())) {
-            if ($this->_mimepart->getBytes() < 51200) {
+            if (isset($this->_conf['inlinesize']) &&
+                ($this->_mimepart->getBytes() < $this->_conf['inlinesize'])) {
                 /* Viewing inline, and the browser can handle the image type
                  * directly. So output an <img> tag to load the image. */
                 return array(
