@@ -14,76 +14,58 @@
 class Horde_Mime_Viewer_report extends Horde_Mime_Viewer_Driver
 {
     /**
-     * Stores the Horde_Mime_Viewer of the specified protocol.
+     * Can this driver render various views?
      *
-     * @var Horde_Mime_Viewer
+     * @var boolean
      */
-    protected $_viewer;
+    protected $_capability = array(
+        'embedded' => false,
+        'full' => true,
+        'info' => false,
+        'inline' => true,
+    );
 
     /**
-     * Render the multipart/report data.
+     * Return the full rendered version of the Horde_Mime_Part object.
      *
-     * @param array $params  An array of parameters needed.
-     *
-     * @return string  The rendered data.
+     * @return array  See Horde_Mime_Viewer_Driver::render().
      */
-    public function render($params = array())
+    protected function _render()
     {
-        /* Get the appropriate Horde_Mime_Viewer for the protocol specified. */
-        if (!($this->_resolveViewer())) {
-            return;
+        return $this->_toHTML(false);
+    }
+
+    /**
+     * Return the rendered inline version of the Horde_Mime_Part object.
+     *
+     * @return array  See Horde_Mime_Viewer_Driver::render().
+     */
+    protected function _renderInline()
+    {
+        return $this->_toHTML(true);
+    }
+
+    /**
+     * Return an HTML rendered version of the part.
+     *
+     * @param boolean
+     *
+     * @return array  See Horde_Mime_Viewer_Driver::render().
+     */
+    protected function _toHTML($inline)
+    {
+        if (!($type = $this->_mimepart->getContentTypeParameter('report-type'))) {
+            return array();
         }
+
+        $viewer = Horde_Mime_Viewer::factory('message/' . String::lower($type));
+        if (!$viewer) {
+            return array();
+        }
+        $viewer->setMIMEPart($this->_mimepart);
+        $viewer->setParams($this->_params);
 
         /* Render using the loaded Horde_Mime_Viewer object. */
-        return $this->_viewer->render($params);
-    }
-
-    /**
-     * Returns the content-type of the Viewer used to view the part.
-     *
-     * @return string  A content-type string.
-     */
-    public function getType()
-    {
-        /* Get the appropriate Horde_Mime_Viewer for the protocol specified. */
-        if (!($this->_resolveViewer())) {
-            return 'application/octet-stream';
-        } else {
-            return $this->_viewer->getType();
-        }
-    }
-
-    /**
-     * Load a Horde_Mime_Viewer according to the report-type parameter stored
-     * in the MIME_Part to render. If unsuccessful, try to load a generic
-     * multipart Horde_Mime_Viewer.
-     *
-     * @return boolean  True on success, false on failure.
-     */
-    protected function _resolveViewer()
-    {
-        $type = $viewer = null;
-
-        if (empty($this->_viewer)) {
-            if (($type = $this->mime_part->getContentTypeParameter('report-type'))) {
-                $viewer = &Horde_Mime_Viewer::factory($this->mime_part, 'message/' . String::lower($type));
-                $type = $this->mime_part->getPrimaryType();
-            } else {
-                /* If report-type is missing, the message is an improper
-                 * multipart/report message.  Attempt to fall back to a
-                 * multipart/mixed viewer instead. */
-                $type = 'multipart';
-            }
-
-            if (empty($viewer) ||
-                (String::lower(get_class($viewer)) == 'mime_viewer_default')) {
-                if (!($viewer = &Horde_Mime_Viewer::factory($this->mime_part, $type . '/*'))) {
-                    return false;
-                }
-            }
-            $this->_viewer = $viewer;
-        }
-
-        return true;
+        return $viewer->render($inline ? 'inline' : 'full');
     }
 }
