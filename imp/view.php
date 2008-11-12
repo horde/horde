@@ -109,7 +109,7 @@ case 'download_render':
 
     case 'download_render':
         $render = $contents->renderMIMEPart($id, 'full', array('type' => $ctype));
-        $body = $render['body'];
+        $body = $render['data'];
         $type = $render['type'];
         $name = $render['name'];
         break;
