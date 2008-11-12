@@ -19,17 +19,45 @@ require_once dirname(__FILE__) . '/source.php';
 class Horde_Mime_Viewer_srchighlite extends Horde_Mime_Viewer_source
 {
     /**
-     * Render out the currently set contents using Source-highlight
+     * Can this driver render various views?
      *
-     * @param array $params  Any parameters the viewer may need.
-     *
-     * @return string  The rendered contents.
+     * @var boolean
      */
-    public function render($params = array())
+    protected $_capability = array(
+        'embedded' => false,
+        'full' => true,
+        'info' => false,
+        'inline' => true
+    );
+
+    /**
+     * Return the full rendered version of the Horde_Mime_Part object.
+     *
+     * @return array  See Horde_Mime_Viewer_Driver::render().
+     */
+    protected function _render()
     {
-        /* Check to make sure the program actually exists. */
-        if (!file_exists($GLOBALS['mime_drivers']['horde']['srchighlite']['location'])) {
-            return '<pre>' . sprintf(_("The program used to view this data type (%s) was not found on the system."), $GLOBALS['mime_drivers']['horde']['srchighlite']['location']) . '</pre>';
+        $ret = $this->_renderInline();
+
+        // Need Horde headers for CSS tags.
+        $ret['data'] =  Util::bufferOutput('require', $GLOBALS['registry']->get('templates', 'horde') . '/common-header.inc') .
+            $ret['data'] .
+            Util::bufferOutput('require', $GLOBALS['registry']->get('templates', 'horde') . '/common-footer.inc');
+
+        return $ret;
+    }
+
+    /**
+     * Return the rendered inline version of the Horde_Mime_Part object.
+     *
+     * @return array  See Horde_Mime_Viewer_Driver::render().
+     */
+    protected function _renderInline()
+    {
+        /* Check to make sure the viewer program exists. */
+        if (!isset($this->_conf['location']) ||
+            !file_exists($this->_conf['location'])) {
+            return array();
         }
 
         /* Create temporary files for Webcpp. */
@@ -37,27 +65,43 @@ class Horde_Mime_Viewer_srchighlite extends Horde_Mime_Viewer_source
         $tmpout = Horde::getTempFile('SrcOut', false);
 
         /* Write the contents of our buffer to the temporary input file. */
-        $contents = $this->mime_part->getContents();
-        $fh = fopen($tmpin, 'wb');
-        fwrite($fh, $contents, strlen($contents));
-        fclose($fh);
+        file_put_contents($tmpin, $this->_mimepart->getContents());
 
         /* Determine the language from the mime type. */
-        $lang = '';
-        switch ($this->mime_part->getType()) {
+        $lang = $this->_typeToLang($this->_mimepart->getType());
+
+        /* Execute Source-Highlite. */
+        exec($this->_conf['location'] . " --src-lang $lang --out-format xhtml --input $tmpin --output $tmpout");
+        $results = file_get_contents($tmpout);
+        unlink($tmpout);
+
+        return array(
+            'data' => $this->_lineNumber($results),
+            'type' => 'text/html; charset=' . NLS::getCharset()
+        );
+    }
+
+    /**
+     * Attempts to determine what mode to use for the source-highlight
+     * program from a MIME type.
+     *
+     * @param string $type  The MIME type.
+     *
+     * @return string  The mode to use.
+     */
+    protected function _typeToLang($type)
+    {
+        switch ($type) {
         case 'text/x-java':
-            $lang = 'java';
-            break;
+            return 'java';
 
         case 'text/x-csrc':
         case 'text/x-c++src':
         case 'text/cpp':
-            $lang = 'cpp';
-            break;
+            return 'cpp';
 
         case 'application/x-perl':
-            $lang = 'perl';
-            break;
+            return 'perl';
 
         case 'application/x-php':
         case 'x-extension/phps':
@@ -65,38 +109,12 @@ class Horde_Mime_Viewer_srchighlite extends Horde_Mime_Viewer_source
         case 'application/x-httpd-php':
         case 'application/x-httpd-php3':
         case 'application/x-httpd-phps':
-            $lang = 'php3';
-            break;
+            return 'php3';
 
         case 'application/x-python':
-            $lang = 'python';
-            break;
+            return 'python';
 
-            // $lang = 'prolog';
-            // break;
-
-            // $lang = 'flex';
-            // break;
-
-            // $lang = 'changelog';
-            // break;
-
-            // $lang = 'ruby';
-            // break;
-        }
-
-        /* Execute Source-Highlite. */
-        exec($GLOBALS['mime_drivers']['horde']['srchighlite']['location'] . " --src-lang $lang --out-format xhtml --input $tmpin --output $tmpout");
-        $results = file_get_contents($tmpout);
-        unlink($tmpout);
-
-        /* Educated Guess at whether we are inline or not. */
-        if (headers_sent() || ob_get_length()) {
-            return $this->lineNumber($results);
-        } else {
-            return Util::bufferOutput('require', $GLOBALS['registry']->get('templates', 'horde') . '/common-header.inc') .
-                $this->lineNumber($results) .
-                Util::bufferOutput('require', $GLOBALS['registry']->get('templates', 'horde') . '/common-footer.inc');
+        // TODO: 'prolog', 'flex', 'changelog', 'ruby'
         }
     }
 }
