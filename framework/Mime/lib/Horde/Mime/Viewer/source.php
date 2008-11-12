@@ -17,24 +17,15 @@ class Horde_Mime_Viewer_source extends Horde_Mime_Viewer_Driver
      * Add line numbers to a block of code.
      *
      * @param string $code  The code to number.
-     */
-    public function lineNumber($code, $linebreak = "\n")
-    {
-        $lines = substr_count($code, $linebreak) + 1;
-        $html = '<table class="lineNumbered" cellspacing="0"><tr><th>';
-        for ($l = 1; $l <= $lines; $l++) {
-            $html .= sprintf('<a id="l%s" href="#l%s">%s</a><br />', $l, $l, $l) . "\n";
-        }
-        return $html . '</th><td><div>' . $code . '</div></td></tr></table>';
-    }
-
-    /**
-     * Return the MIME content type of the rendered content.
      *
-     * @return string  The content type of the output.
+     * @return string  The code with line numbers added.
      */
-    public function getType()
+    protected function _lineNumber($code, $linebreak = "\n")
     {
-        return 'text/html; charset=' . NLS::getCharset();
+        $html = array('<table class="lineNumbered" cellspacing="0"><tr><th>');
+        for ($l = 1,  $lines = substr_count($code, $linebreak) + 1; $l <= $lines; ++$l) {
+            $html[] = sprintf('<a id="l%s" href="#l%s">%s</a><br />', $l, $l, $l);
+        }
+        return implode("\n", $html) . '</th><td><div>' . $code . '</div></td></tr></table>';
     }
 }
