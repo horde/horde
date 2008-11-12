@@ -81,7 +81,7 @@ class IMP_Horde_Mime_Viewer_images extends Horde_Mime_Viewer_images
                 /* Viewing inline, and the browser can handle the image type
                  * directly. So output an <img> tag to load the image. */
                 return array(
-                    'data' => Horde::img($this->_params['contents']->urlView($this->_mimepart, 'view_attach'), $this->_mimepart->getName(true), null, '')
+                    'data' => Horde::img($this->_params['contents']->urlView($this->_mimepart, 'view_attach', array('params' => array('img_data' => 1))), $this->_mimepart->getName(true), null, '')
                 );
             } else {
                 return $this->_renderInfo();
