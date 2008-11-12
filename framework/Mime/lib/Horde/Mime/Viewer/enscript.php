@@ -17,49 +17,81 @@ require_once dirname(__FILE__) . '/source.php';
 class Horde_Mime_Viewer_enscript extends Horde_Mime_Viewer_source
 {
     /**
-     * Render out the data using Enscript.
+     * Can this driver render various views?
      *
-     * @param array $params  Any parameters the Viewer may need.
-     *
-     * @return string  The rendered data.
+     * @var boolean
      */
-    public function render($params = array())
+    protected $_capability = array(
+        'embedded' => false,
+        'full' => true,
+        'info' => false,
+        'inline' => true
+    );
+
+    /**
+     * Return the full rendered version of the Horde_Mime_Part object.
+     *
+     * @return array  See Horde_Mime_Viewer_Driver::render().
+     */
+    protected function _render()
     {
-        /* Check to make sure the program actually exists. */
-        if (!file_exists($GLOBALS['mime_drivers']['horde']['enscript']['location'])) {
-            return '<pre>' . sprintf(_("The program used to view this data type (%s) was not found on the system."), $GLOBALS['mime_drivers']['horde']['enscript']['location']) . '</pre>';
+        return array(
+            'data' => $this->_toHTML(false),
+            'type' => 'text/html; charset=' . NLS::getCharset()
+        );
+    }
+
+    /**
+     * Return the rendered inline version of the Horde_Mime_Part object.
+     *
+     * @return array  See Horde_Mime_Viewer_Driver::render().
+     */
+    protected function _renderInline()
+    {
+        return array(
+            'data' => $this->_toHTML(true),
+            'type' => 'text/html; charset=' . NLS::getCharset()
+        );
+    }
+
+    /**
+     * Converts the code to HTML.
+     *
+     * @param boolean $inline  Is this an inline display?
+     *
+     * @return string  The HTML-ified version of the MIME part contents.
+     */
+    protected function _toHTML($inline)
+    {
+        /* Check to make sure the viewer program exists. */
+        if (!isset($this->_conf['location']) ||
+            !file_exists($this->_conf['location'])) {
+            return array();
         }
 
-        /* Create temporary files for input to Enscript. Note that we
-           cannot use a pipe, since enscript must have access to the
-           whole file to determine its type for coloured syntax
-           highlighting. */
-        $tmpin = Horde::getTempFile('EnscriptIn');
+        /* Create temporary files for input to Enscript. Note that we can't
+         * use a pipe, since enscript must have access to the whole file to
+         * determine its type for coloured syntax highlighting. */
+        $tmpin = Horde::getTempFile('enscriptin');
 
         /* Write the contents of our buffer to the temporary input file. */
-        $contents = $this->mime_part->getContents();
         $fh = fopen($tmpin, 'wb');
-        fwrite($fh, $contents, strlen($contents));
+        fwrite($fh, $this->_mimepart->getContents());
         fclose($fh);
 
         /* Execute the enscript command. */
-        $lang = escapeshellarg($this->_typeToLang($this->mime_part->getType()));
-        $results = shell_exec($GLOBALS['mime_drivers']['horde']['enscript']['location'] . " -E$lang --language=html --color --output=- < $tmpin");
+        $lang = escapeshellarg($this->_typeToLang($this->_mimepart->getType()));
+        $results = shell_exec($this->_conf['location'] . " -E$lang --language=html --color --output=- < $tmpin");
 
-        /* Strip out the extraneous HTML from Enscript, and output it. */
-        $res_arr = preg_split('/\<\/?pre\>/i', $results);
-        if (count($res_arr) == 3) {
-            $results = trim($res_arr[1]);
+        /* Strip out the extraneous HTML from enscript. */
+        if ($inline) {
+            $res_arr = preg_split('/\<\/?pre\>/i', $results);
+            if (count($res_arr) == 3) {
+                $results = trim($res_arr[1]);
+            }
         }
 
-        /* Educated Guess at whether we are inline or not. */
-        if (headers_sent() || ob_get_length()) {
-            return $this->lineNumber($results);
-        } else {
-            return Util::bufferOutput('require', $GLOBALS['registry']->get('templates', 'horde') . '/common-header.inc') .
-                $this->lineNumber($results) .
-                Util::bufferOutput('require', $GLOBALS['registry']->get('templates', 'horde') . '/common-footer.inc');
-        }
+        return $this->_lineNumber($results);
     }
 
     /**
@@ -73,7 +105,6 @@ class Horde_Mime_Viewer_enscript extends Horde_Mime_Viewer_source
     protected function _typeToLang($type)
     {
         include_once dirname(__FILE__) . '/../Magic.php';
-
         $ext = Horde_Mime_Magic::MIMEToExt($type);
 
         switch ($ext) {
