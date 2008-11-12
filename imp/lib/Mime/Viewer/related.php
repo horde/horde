@@ -106,7 +106,7 @@ class IMP_Horde_Mime_Viewer_related extends Horde_Mime_Viewer_Driver
                 $cids[$val] = $part->getContentId();
             }
 
-            $ret = $this->_params['contents']->renderMIMEPart($id, $inline ? 'inline' : 'full', array('params' => array('related_id' => $id, 'related_cids' => $cids)));
+            $ret = $this->_params['contents']->renderMIMEPart($id, $inline ? 'inline' : 'full', array('params' => array_merge($this->_params, array('related_id' => $id, 'related_cids' => $cids))));
             $ret['ids'] = array_keys(array_flip(array_merge($ret['ids'], $ids)));
             unset($ret['summary_id']);
             return $ret;
