@@ -25,6 +25,7 @@ supported.
 
 * servers.php has changed
 * imp_hook_vinfo has changed
+* alternative_display pref is gone.
 
 
 Upgrading IMP From 4.1.x To 4.2.x

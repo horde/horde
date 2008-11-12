@@ -97,8 +97,7 @@ $prefGroups['viewing'] = array(
                        'html_image_replacement', 'html_image_addrbook',
                        'highlight_text', 'highlight_simple_markup',
                        'show_quoteblocks', 'dim_signature', 'emoticons',
-                       'attachment_display', 'mail_hdr', 'default_msg_charset',
-                       'alternative_display')
+                       'attachment_display', 'mail_hdr', 'default_msg_charset')
 );
 if (!empty($GLOBALS['conf']['maillog']['use_maillog'])) {
     $prefGroups['viewing']['members'] = array_merge($prefGroups['viewing']['members'], array('disposition_send_mdn'));
@@ -906,17 +905,6 @@ $_prefs['default_msg_charset'] = array(
                           $GLOBALS['nls']['encodings']),
     'desc' => _("The default charset for messages with no charset information:"),
     'help' => 'prefs-default_msg_charset');
-
-// how do we display alternative mime parts?
-$_prefs['alternative_display'] = array(
-    'value' => 'none',
-    'locked' => false,
-    'shared' => false,
-    'type' => 'enum',
-    'enum' => array('above'   => _("Above the message text"),
-                    'below' => _("Below the message text"),
-                    'none'   => _("Not at all")),
-    'desc' => _("Where do you want to display links to alternative formats of a message?"));
 
 $_prefs['disposition_send_mdn'] = array(
     'value' => 0,

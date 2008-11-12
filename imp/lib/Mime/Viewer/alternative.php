@@ -69,23 +69,6 @@ class IMP_Horde_Mime_Viewer_alternative extends Horde_Mime_Viewer_Driver
 
         $render_data = $this->_params['contents']->renderMIMEPart($display_id, 'inline');
 
-        /* Make sure there is at least one summary before showing the
-         * alternative parts. */
-        $alt_display = $GLOBALS['prefs']->getValue('alternative_display');
-        if ($alt_display != 'none') {
-            // TODO
-            //$icon = Horde::img('mime/binary.png', _("Multipart/alternative"), null, $GLOBALS['registry']->getImageDir('horde'));
-            switch ($alt_display) {
-            case 'above':
-                //$text = $status_msg . $text;
-                break;
-
-            case 'below':
-                //$text .= $status_msg;
-                break;
-            }
-        }
-
         return array(
             'data' => $render_data['data'],
             'ids' => array_keys($subparts),
