@@ -15,74 +15,92 @@
 class Horde_Mime_Viewer_ooo extends Horde_Mime_Viewer_Driver
 {
     /**
-     * Render out the current data.
+     * Can this driver render various views?
      *
-     * @param array $params  Any parameters the Viewer may need.
-     *
-     * @return string  The rendered contents.
+     * @var boolean
      */
-    public function render($params = array())
+    protected $_capability = array(
+        'embedded' => false,
+        'full' => true,
+        'info' => false,
+        'inline' => false
+    );
+
+    /**
+     * Return the full rendered version of the Horde_Mime_Part object.
+     *
+     * @return array  See Horde_Mime_Viewer_Driver::render().
+     */
+    protected function _render()
     {
-        $use_xslt = Util::extensionExists('xslt') || function_exists('domxml_xslt_stylesheet_file');
-        if ($use_xslt) {
+        $has_xslt = Util::extensionExists('xslt');
+        $has_ssfile = function_exists('domxml_xslt_stylesheet_file');
+        if (($use_xslt = $has_xslt || $has_ssfile)) {
             $tmpdir = Util::createTempDir(true);
         }
 
+        $fnames = array('content.xml', 'styles.xml', 'meta.xml');
+        $tags = array(
+            'text:p' => 'p',
+            'table:table' => 'table border="0" cellspacing="1" cellpadding="0" ',
+            'table:table-row' => 'tr bgcolor="#cccccc"',
+            'table:table-cell' => 'td',
+            'table:number-columns-spanned=' => 'colspan='
+        );
+
         require_once 'Horde/Compress.php';
-        $xml_tags  = array('text:p', 'table:table ', 'table:table-row', 'table:table-cell', 'table:number-columns-spanned=');
-        $html_tags = array('p', 'table border="0" cellspacing="1" cellpadding="0" ', 'tr bgcolor="#cccccc"', 'td', 'colspan=');
         $zip = &Horde_Compress::singleton('zip');
-        $list = $zip->decompress($this->mime_part->getContents(),
-            array('action' => HORDE_COMPRESS_ZIP_LIST));
+        $list = $zip->decompress($this->_mimepart->getContents(), array('action' => HORDE_COMPRESS_ZIP_LIST));
+
         foreach ($list as $key => $file) {
-            if ($file['name'] == 'content.xml' ||
-                $file['name'] == 'styles.xml' ||
-                $file['name'] == 'meta.xml') {
-                $content = $zip->decompress($this->mime_part->getContents(),
-                    array('action' => HORDE_COMPRESS_ZIP_DATA,
-                          'info'   => $list,
-                          'key'    => $key));
+            if (in_array($file['name'], $fnames)) {
+                $content = $zip->decompress($this->_mimepart->getContents(), array(
+                    'action' => HORDE_COMPRESS_ZIP_DATA,
+                    'info' => $list,
+                    'key' => $key
+                ));
+
                 if ($use_xslt) {
-                    $fp = fopen($tmpdir . $file['name'], 'w');
-                    fwrite($fp, $content);
-                    fclose($fp);
+                    file_put_contents($tmpdir . $file['name'], $content);
                 } elseif ($file['name'] == 'content.xml') {
-                    $content = str_replace($xml_tags, $html_tags, $content);
-                    return $content;
+                    return str_replace(array_keys($tags), array_values($tags), $content);
                 }
             }
         }
+
         if (!Util::extensionExists('xslt')) {
             return;
         }
 
-        if (function_exists('domxml_xslt_stylesheet_file')) {
-            // Use DOMXML
-            $xslt = domxml_xslt_stylesheet_file(dirname(__FILE__) . '/ooo/main_html.xsl');
+        $xsl_file = dirname(__FILE__) . '/ooo/main_html.xsl';
+
+        if ($has_ssfile) {
+            /* Use DOMXML */
+            $xslt = domxml_xslt_stylesheet_file($xsl_file);
             $dom  = domxml_open_file($tmpdir . 'content.xml');
-            $result = @$xslt->process($dom, array('metaFileURL' => $tmpdir . 'meta.xml', 'stylesFileURL' => $tmpdir . 'styles.xml', 'disableJava' => true));
-            return String::convertCharset($xslt->result_dump_mem($result), 'UTF-8', NLS::getCharset());
+            $result = @$xslt->process($dom, array(
+                'metaFileURL' => $tmpdir . 'meta.xml',
+                'stylesFileURL' => $tmpdir . 'styles.xml',
+                'disableJava' => true)
+            );
+            $result = $xslt->result_dump_mem($result);
         } else {
             // Use XSLT
             $xslt = xslt_create();
-            $result = @xslt_process($xslt, $tmpdir . 'content.xml',
-                                    dirname(__FILE__) . '/ooo/main_html.xsl', null, null,
-                                    array('metaFileURL' => $tmpdir . 'meta.xml', 'stylesFileURL' => $tmpdir . 'styles.xml', 'disableJava' => true));
+            $result = @xslt_process($xslt, $tmpdir . 'content.xml', $xsl_file, null, null, array(
+                'metaFileURL' => $tmpdir . 'meta.xml',
+                'stylesFileURL' => $tmpdir . 'styles.xml',
+                'disableJava' => true)
+            );
             if (!$result) {
                 $result = xslt_error($xslt);
             }
             xslt_free($xslt);
-            return String::convertCharset($result, 'UTF-8', NLS::getCharset());
         }
-    }
 
-    /**
-     * Return the MIME content type of the rendered content.
-     *
-     * @return string  The content type of the output.
-     */
-    public function getType()
-    {
-        return 'text/html; charset=' . NLS::getCharset();
+        return array(
+            'data' => $result,
+            'type' => 'text/html; charset=UTF-8'
+        );
     }
 }
