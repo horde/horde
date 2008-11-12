@@ -21,7 +21,10 @@ class IMP_Horde_Mime_Viewer_enriched extends Horde_Mime_Viewer_enriched
     protected function _render()
     {
         $ret = parent::_render();
-        $ret['data'] = $this->_IMPformat($ret['data']);
+        if (!empty($ret)) {
+            reset($ret);
+            $ret[key($ret)]['data'] = $this->_IMPformat($ret[key($ret)]['data']);
+        }
         return $ret;
     }
 
@@ -33,7 +36,10 @@ class IMP_Horde_Mime_Viewer_enriched extends Horde_Mime_Viewer_enriched
     protected function _renderInline()
     {
         $ret = parent::_renderInline();
-        $ret['data'] = $this->_IMPformat($ret['data']);
+        if (!empty($ret)) {
+            reset($ret);
+            $ret[key($ret)]['data'] = $this->_IMPformat($ret[key($ret)]['data']);
+        }
         return $ret;
     }
 

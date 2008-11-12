@@ -82,7 +82,11 @@ class IMP_Horde_Mime_Viewer_images extends Horde_Mime_Viewer_images
                 /* Viewing inline, and the browser can handle the image type
                  * directly. So output an <img> tag to load the image. */
                 return array(
-                    'data' => Horde::img($this->_params['contents']->urlView($this->_mimepart, 'view_attach', array('params' => array('img_data' => 1))), $this->_mimepart->getName(true), null, '')
+                    $this->_mimepart->getMimeId() => array(
+                        'data' => Horde::img($this->_params['contents']->urlView($this->_mimepart, 'view_attach', array('params' => array('img_data' => 1))), $this->_mimepart->getName(true), null, ''),
+                        'status' => array(),
+                        'type' => 'text/html; charset=' . NLS::getCharset()
+                    )
                 );
             } else {
                 return $this->_renderInfo();
@@ -101,10 +105,14 @@ class IMP_Horde_Mime_Viewer_images extends Horde_Mime_Viewer_images
         }
 
         return array(
-            'status' => array(
-                array(
-                    'text' => $status
-                )
+            $this->_mimepart->getMimeId() => array(
+                'data' => '',
+                'status' => array(
+                    array(
+                        'text' => $status
+                    )
+                ),
+                'type' => 'text/html; charset=' . NLS::getCharset()
             )
         );
     }
@@ -134,11 +142,15 @@ class IMP_Horde_Mime_Viewer_images extends Horde_Mime_Viewer_images
         }
 
         return array(
-            'status' => array(
-                array(
-                    'icon' => Horde::img('mime/image.png', _("Thumbnail of attached image")),
-                    'text' => $status
-                )
+            $this->_mimepart->getMimeId() => array(
+                'data' => '',
+                'status' => array(
+                    array(
+                        'icon' => Horde::img('mime/image.png', _("Thumbnail of attached image")),
+                        'text' => $status
+                    )
+                ),
+                'type' => 'text/html; charset=' . NLS::getCharset()
             )
         );
     }
@@ -203,8 +215,11 @@ EOD;
         }
 
         return array(
-            'data' => $str,
-            'type' => 'text/html; charset=' . NLS::getCharset()
+            $this->_mimepart->getMimeId() => array(
+                'data' => $str,
+                'status' => array(),
+                'type' => 'text/html; charset=' . NLS::getCharset()
+            )
         );
     }
 
@@ -233,8 +248,11 @@ EOD;
         }
 
         return array(
-            'data' => $data,
-            'type' => $type
+            $this->_mimepart->getMimeId() => array(
+                'data' => $data,
+                'status' => array(),
+                'type' => $type
+            )
         );
     }
 

@@ -39,7 +39,13 @@ class IMP_Horde_Mime_Viewer_plain extends Horde_Mime_Viewer_plain
             require_once IMP_BASE . '/lib/Crypt/PGP.php';
             $imp_pgp = new IMP_PGP();
             if (($out = $imp_pgp->parseMessageOutput($this->_mimepart, $this->_params['contents']))) {
-                return array('data' => $out);
+                return array(
+                    $this->_mimepart->getMimeId() => array(
+                        'data' => $out,
+                        'status' => array(),
+                        'type' => 'text/html; charset=' . NLS::getCharset()
+                    )
+                );
             }
         }
 
@@ -106,6 +112,12 @@ class IMP_Horde_Mime_Viewer_plain extends Horde_Mime_Viewer_plain
             $text = '&nbsp;' . substr($text, 1);
         }
 
-        return array('data' => '<div class="fixed leftAlign">' . "\n" . $text . '</div>');
+        return array(
+            $this->_mimepart->getMimeId() => array(
+                'data' => '<div class="fixed leftAlign">' . "\n" . $text . '</div>',
+                'status' => array(),
+                'type' => 'text/html; charset=' . NLS::getCharset()
+            )
+        );
     }
 }

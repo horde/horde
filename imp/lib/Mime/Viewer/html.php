@@ -72,9 +72,11 @@ class IMP_Horde_Mime_Viewer_html extends Horde_Mime_Viewer_html
         $render = $this->_IMPrender(false);
 
         return array(
-            'data' => $render['html'],
-            'status' => $render['status'],
-            'type' => $this->_mimepart->getType(true)
+            $this->_mimepart->getMimeId() => array(
+                'data' => $render['html'],
+                'status' => $render['status'],
+                'type' => $this->_mimepart->getType(true)
+            )
         );
     }
 
@@ -88,8 +90,11 @@ class IMP_Horde_Mime_Viewer_html extends Horde_Mime_Viewer_html
         $render = $this->_IMPrender(true);
 
         return array(
-            'data' => $render['html'],
-            'status' => $render['status']
+            $this->_mimepart->getMimeId() => array(
+                'data' => $render['html'],
+                'status' => $render['status'],
+                'type' => 'text/html; charset=' . NLS::getCharset()
+            )
         );
     }
 

@@ -43,9 +43,12 @@ class IMP_Horde_Mime_Viewer_zip extends Horde_Mime_Viewer_zip
             $text = $zip->decompress($data, array('action' => HORDE_COMPRESS_ZIP_DATA, 'info' => &$zipInfo, 'key' => $fileKey));
             if (!empty($text)) {
                 return array(
-                    'data' => $text,
-                    'name' => basename($zipInfo[$fileKey]['name']),
-                    'type' => 'application/octet-stream'
+                    $this->_mimepart->getMimeId() => array(
+                        'data' => $text,
+                        'name' => basename($zipInfo[$fileKey]['name']),
+                        'status' => array(),
+                        'type' => 'application/octet-stream'
+                    )
                 );
             }
         }

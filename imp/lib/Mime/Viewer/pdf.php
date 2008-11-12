@@ -56,8 +56,11 @@ class IMP_Horde_Mime_Viewer_pdf extends Horde_Mime_Viewer_pdf
         }
 
         return array(
-            'data' => $data,
-            'type' => $type
+            $this->_mimepart->getMimeId() => array(
+                'data' => $data,
+                'status' => array(),
+                'type' => $type
+            )
         );
     }
 

@@ -39,7 +39,8 @@ class IMP_Horde_Mime_Viewer_tnef extends Horde_Mime_Viewer_tnef
     {
         if (!Util::getFormData('tnef_attachment')) {
             $ret = $this->_renderInfo();
-            $ret['data'] = '<html><body>' . $ret['data'] . '</body></html>';
+            reset($ret);
+            $ret[key($ret)]['data'] = '<html><body>' . $ret[key($ret)]['data'] . '</body></html>';
             return $ret;
         }
 
@@ -56,9 +57,12 @@ class IMP_Horde_Mime_Viewer_tnef extends Horde_Mime_Viewer_tnef
             $text = $tnefData[$tnefKey]['stream'];
             if (!empty($text)) {
                 return array(
-                    'data' => $text,
-                    'name' => $tnefData[$tnefKey]['name'],
-                    'type' => $tnefData[$tnefKey]['type'] . '/' . $tnefData[$tnefKey]['subtype']
+                    $this->_mimepart->getMimeId() => array(
+                        'data' => $text,
+                        'name' => $tnefData[$tnefKey]['name'],
+                        'status' => array(),
+                        'type' => $tnefData[$tnefKey]['type'] . '/' . $tnefData[$tnefKey]['subtype']
+                    )
                 );
             }
         }
@@ -109,9 +113,11 @@ class IMP_Horde_Mime_Viewer_tnef extends Horde_Mime_Viewer_tnef
         }
 
         return array(
-            'data' => $data,
-            'status' => array($status),
-            'type' => 'text/html; charset=' . NLS::getCharset()
+            $this->_mimepart->getMimeId() => array(
+                'data' => $data,
+                'status' => array($status),
+                'type' => 'text/html; charset=' . NLS::getCharset()
+            )
         );
     }
 }
