@@ -218,14 +218,6 @@ class IMP_Horde_Mime_Viewer_html extends Horde_Mime_Viewer_html
             }
         }
 
-        /* If we are viewing inline, give option to view in separate window. */
-        if ($inline && $this->getConfigParam('external')) {
-            $cleanhtml['status'][] = array(
-                'text' => array($this->_params['contents']->linkViewJS($this->_mimepart, 'view_attach', _("Show this HTML in a new window?"))),
-                'type' => 'info'
-            );
-        }
-
         return array(
             'html' => $data,
             'status' => $cleanhtml['status']
