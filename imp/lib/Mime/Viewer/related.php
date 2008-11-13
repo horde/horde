@@ -21,7 +21,7 @@ class IMP_Horde_Mime_Viewer_related extends Horde_Mime_Viewer_Driver
     protected $_capability = array(
         'embedded' => false,
         'full' => true,
-        'info' => true,
+        'info' => false,
         'inline' => true,
     );
 
@@ -42,25 +42,7 @@ class IMP_Horde_Mime_Viewer_related extends Horde_Mime_Viewer_Driver
      */
     protected function _renderInline()
     {
-        $ret = $this->_IMPrender(true);
-        return empty($ret['ids']) ? $this->_renderInfo() : $ret;
-    }
-
-    /**
-     * Return the rendered information about the Horde_Mime_Part object.
-     *
-     * @return array  See Horde_Mime_Viewer_Driver::render().
-     */
-    protected function _renderInfo()
-    {
-        return array(
-            'status' => array(
-                array (
-                    'text' => array(sprintf(_("Click %s to view this multipart/related part in a separate window."), $contents->linkViewJS($this->mime_part, 'view_attach', _("HERE"), _("View content in a separate window")))),
-                    'icon' => Horde::img('mime/html.png', _("HTML"))
-                )
-            )
-        );
+        return $this->_IMPrender(true);
     }
 
     /**
@@ -72,42 +54,41 @@ class IMP_Horde_Mime_Viewer_related extends Horde_Mime_Viewer_Driver
      */
     protected function _IMPrender($inline)
     {
-        $can_display = !$inline;
-        $text = '';
-
-        $subparts = $this->_mimepart->contentTypeMap();
-        $ids = array_keys($subparts);
-        unset($subparts[key($subparts)]);
+        $related_id = $this->_mimepart->getMimeId();
 
         /* Look at the 'start' parameter to determine which part to start
          * with. If no 'start' parameter, use the first part. RFC 2387
          * [3.1] */
         $id = $this->_mimepart->getContentTypeParameter('start');
         if (is_null($id)) {
-            reset($subparts);
-            $id = key($subparts);
+            $id = Horde_Mime::mimeidArithmetic($related_id, 'down');
         }
 
         /* Only display if the start part (normally text/html) can be
          * displayed inline -OR- we are viewing this part as an attachment. */
-        if (!$can_display) {
-            $can_display = $this->_params['contents']->canDisplayInline($id);
+        if ($inline &&
+            !$this->_params['contents']->canDisplay($id, IMP_Contents::RENDER_INLINE)) {
+            return array();
         }
 
-        if ($can_display) {
-            /* Build a list of parts -> CIDs. */
-            $cids = array();
-            foreach (array_keys($subparts) as $val) {
+        $cids = $ret = array();
+        $ids = array_keys($this->_mimepart->contentTypeMap());
+
+        /* Build a list of parts -> CIDs. */
+        foreach ($ids as $val) {
+            $ret[$val] = null
+            if (strcmp($related_id, $val) !== 0) {
                 $part = $this->_mimepart->getPart($val);
                 $cids[$val] = $part->getContentId();
             }
-
-            $ret = $this->_params['contents']->renderMIMEPart($id, $inline ? 'inline' : 'full', array('params' => array_merge($this->_params, array('related_id' => $id, 'related_cids' => $cids))));
-            $ret['ids'] = array_keys(array_flip(array_merge($ret['ids'], $ids)));
-            unset($ret['summary_id']);
-            return $ret;
         }
 
-        return array();
+        $render = $this->_params['contents']->renderMIMEPart($id, $inline ? 'inline' : 'full', array('params' => array_merge($this->_params, array('related_id' => $id, 'related_cids' => $cids))));
+
+        foreach (array_keys($render_res) as $val) {
+            $ret[$val] = $render[$val];
+        }
+
+        return $ret;
     }
 }
