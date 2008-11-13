@@ -489,8 +489,9 @@ class Horde_Mime
                 $id = 0;
             } else {
                 $id = (substr($id, $pos + 1) == '0')
-                    ? substr($id, 0, $pos);
+                    ? substr($id, 0, $pos)
                     : substr_replace($id, '0', $pos + 1);
+            }
             break;
         }
 
