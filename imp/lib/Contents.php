@@ -650,7 +650,7 @@ class IMP_Contents
 
         switch ($ptype) {
         case 'message':
-            return ($mime_type == 'message/rfc822');
+            return in_array($mime_type, array('message/rfc822', 'message/disposition-notification'));
 
         case 'multipart':
             return false;
