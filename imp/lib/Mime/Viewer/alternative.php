@@ -50,7 +50,7 @@ class IMP_Horde_Mime_Viewer_alternative extends Horde_Mime_Viewer_Driver
             $ret[$mime_id] = null;
             if ((strcmp($base_id, $mime_id) !== 0) &&
                 $this->_params['contents']->canDisplay($mime_id, IMP_Contents::RENDER_INLINE)) {
-                $display_ids[] = $mime_id;
+                $display_ids[strval($mime_id)] = true;
             }
         }
 
@@ -74,20 +74,20 @@ class IMP_Horde_Mime_Viewer_alternative extends Horde_Mime_Viewer_Driver
         next($subparts);
         $id = key($subparts);
         do {
-            $base_ids[] = $id;
+            $base_ids[strval($id)] = true;
             $id = Horde_Mime::mimeIdArithmetic($id, 'next');
         } while (isset($subparts[$id]));
 
         /* If the last viewable message exists in a subpart, back up to the
          * base multipart and display all viewable parts in that multipart.
          * Else, display the single part. */
-        $disp_id = end($display_ids);
-        while (!is_null($disp_id) && !in_array($disp_id, $base_ids, true)) {
+        end($display_ids);
+        $disp_id = key($display_ids);
+        while (!is_null($disp_id) && !isset($base_ids[$disp_id])) {
             $disp_id = Horde_Mime::mimeIdArithmetic($disp_id, 'up');
         }
 
         /* Now grab all keys under this ID. */
-        $display_ids = array_flip($display_ids);
         $render_part = $this->_mimepart->getPart($disp_id);
         foreach (array_keys($render_part->contentTypeMap()) as $val) {
             if (isset($display_ids[$val])) {
