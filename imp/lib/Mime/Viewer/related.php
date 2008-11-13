@@ -63,8 +63,7 @@ class IMP_Horde_Mime_Viewer_related extends Horde_Mime_Viewer_Driver
         $id = $this->_mimepart->getContentTypeParameter('start');
         if (is_null($id)) {
             reset($ids);
-            next($ids);
-            $id = key($ids);
+            $id = next($ids);
         }
 
         /* Only display if the start part (normally text/html) can be
