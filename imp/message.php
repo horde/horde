@@ -663,20 +663,15 @@ foreach ($parts_list as $mime_id => $mime_type) {
         continue;
     }
 
-    $render_mode = $imp_contents->canDisplay($mime_id, IMP_Contents::RENDER_INLINE | IMP_Contents::RENDER_INFO);
-    if ($render_mode & IMP_Contents::RENDER_INLINE) {
-        $type = 'inline';
-    } elseif ($render_mode & IMP_Contents::RENDER_INFO) {
-        $type = 'info';
-    } else {
+    if (!($render_mode = $imp_contents->canDisplay($mime_id, IMP_Contents::RENDER_INLINE | IMP_Contents::RENDER_INFO))) {
         if (!$show_all_parts && $imp_contents->isAttachment($mime_type)) {
             $atc_parts[] = $mime_id;
         }
         continue;
     }
 
-    $render_part = $imp_contents->renderMIMEPart($mime_id, $type);
-    if (($type == 'inline') && empty($render_part)) {
+    $render_part = $imp_contents->renderMIMEPart($mime_id, $render_mode);
+    if (($render_mode & IMP_Contents::RENDER_INLINE) && empty($render_part)) {
         /* This meant that nothing was rendered - allow this part to appear
          * in the attachment list instead. */
         if (!$show_all_parts) {

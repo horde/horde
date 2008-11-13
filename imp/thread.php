@@ -98,7 +98,7 @@ foreach ($loop_array as $mbox => $idxlist) {
         $contents = &IMP_Contents::singleton($idx . IMP::IDX_SEP . $mbox);
         $mime_id = $contents->findBody();
         if ($contents->canDisplay($mime_id, IMP_Contents::RENDER_INLINE)) {
-            $curr_msg['body'] = $contents->renderMIMEPart($mime_id);
+            $curr_msg['body'] = $contents->renderMIMEPart($mime_id, IMP_Contents::RENDER_INLINE);
         } else {
             $curr_msg['body'] = '<em>' . _("There is no text that can be displayed inline.") . '</em>';
         }

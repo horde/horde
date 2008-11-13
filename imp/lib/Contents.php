@@ -29,6 +29,7 @@ class IMP_Contents
     const RENDER_INLINE = 2;
     const RENDER_INLINE_DISP_NO = 4;
     const RENDER_INFO = 8;
+    const RENDER_INLINE_AUTO = 16;
 
     /**
      * The IMAP index of the message.
@@ -284,9 +285,7 @@ class IMP_Contents
      * Render a MIME Part.
      *
      * @param string $mime_id  The MIME ID to render.
-     * @param string $mode     Either 'full', 'inline', 'info', or
-     *                         'inlineauto' ('inline' and, if not available,
-     *                         then 'info').
+     * @param integer $mode    One of the RENDER_ constants.
      * @param array $options   Additional options:
      * <pre>
      * 'params' - (array) Additional params to set.
@@ -307,11 +306,27 @@ class IMP_Contents
             $viewer->setParams($options['params']);
         }
 
-        $ret = $viewer->render(($mode == 'inlineauto') ? 'inline' : $mode);
+        switch ($mode) {
+        case self::RENDER_FULL:
+            $textmode = 'full';
+            break;
+
+        case self::RENDER_INLINE:
+        case self::RENDER_INLINE_AUTO:
+        case self::RENDER_INLINE_DISP_NO:
+            $textmode = 'inline';
+            break;
+
+        case self::RENDER_INFO:
+            $textmode = 'info';
+            break;
+        }
+
+        $ret = $viewer->render($textmode);
 
         if (empty($ret)) {
-            return ($mode == 'inlineauto')
-                ? $this->renderMIMEPart($mime_id, 'info', $options)
+            return ($mode == self::RENDER_INLINE_AUTO)
+                ? $this->renderMIMEPart($mime_id, self::RENDER_INLINE_INFO, $options)
                 : array();
         }
 
@@ -713,7 +728,7 @@ class IMP_Contents
      * Can this MIME part be displayed in the given mode?
      *
      * @param mixed $id      The MIME part or a MIME ID string.
-     * @param integer $mask  The masks to search for.
+     * @param integer $mask  One of the RENDER_ constants.
      * @param string $type   The type to use (overrides the MIME Id if $id is
      *                       a MIME part).
      *
@@ -725,6 +740,10 @@ class IMP_Contents
             $part = $this->getMIMEPart($part, array('nocontents' => true));
         }
         $viewer = Horde_Mime_Viewer::factory($part, $type);
+
+        if ($mask & self::RENDER_INLINE_AUTO) {
+            $mask |= self::RENDER_INLINE | self::RENDER_INFO;
+        }
 
         if (($mask & self::RENDER_FULL) && $viewer->canRender('full')) {
             return self::RENDER_FULL;

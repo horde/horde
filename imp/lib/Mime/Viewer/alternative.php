@@ -90,7 +90,7 @@ class IMP_Horde_Mime_Viewer_alternative extends Horde_Mime_Viewer_Driver
         $render_part = $this->_mimepart->getPart($disp_id);
         foreach (array_keys($render_part->contentTypeMap()) as $val) {
             if (isset($display_ids[$val])) {
-                $render = $this->_params['contents']->renderMIMEPart($val, 'inline', array('params' => $this->_params));
+                $render = $this->_params['contents']->renderMIMEPart($val, IMP_Contents::RENDER_INLINE, array('params' => $this->_params));
                 foreach (array_keys($render) as $id) {
                     $ret[$id] = $render[$id];
                     unset($display_ids[$id]);
