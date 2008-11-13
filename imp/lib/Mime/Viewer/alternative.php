@@ -71,7 +71,8 @@ class IMP_Horde_Mime_Viewer_alternative extends Horde_Mime_Viewer_Driver
 
         /* Get the list of IDs directly under the subpart. */
         reset($subparts);
-        list($id,) = each($subparts);
+        next($subparts);
+        $id = key($subparts);
         do {
             $base_ids[] = $id;
             $id = Horde_Mime::mimeIdArithmetic($id, 'next');

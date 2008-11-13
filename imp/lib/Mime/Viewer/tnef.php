@@ -82,7 +82,7 @@ class IMP_Horde_Mime_Viewer_tnef extends Horde_Mime_Viewer_tnef
         $tnef = &Horde_Compress::singleton('tnef');
         $tnefData = $tnef->decompress($this->_mimepart->getContents());
 
-        $data = '';
+        $text = '';
 
         if (!count($tnefData)) {
             $status = array(
@@ -94,7 +94,7 @@ class IMP_Horde_Mime_Viewer_tnef extends Horde_Mime_Viewer_tnef
             );
 
             reset($tnefData);
-            while (list($key, $data) = $tnefData) {
+            while (list($key, $data) = each($tnefData)) {
                 $temp_part = $this->_mimepart;
                 $temp_part->setName($data['name']);
                 $temp_part->setDescription($data['name']);
@@ -108,13 +108,13 @@ class IMP_Horde_Mime_Viewer_tnef extends Horde_Mime_Viewer_tnef
                 $temp_part->setType($type);
 
                 $link = $this->_params['contents']->linkView($temp_part, 'view_attach', htmlspecialchars($data['name']), array('jstext' => sprintf(_("View %s"), $data['name']), 'params' => array('tnef_attachment' => $key + 1)));
-                $data .= _("Attached File:") . '&nbsp;&nbsp;' . $link . '&nbsp;&nbsp;(' . $data['type'] . '/' . $data['subtype'] . ")<br />\n";
+                $text .= _("Attached File:") . '&nbsp;&nbsp;' . $link . '&nbsp;&nbsp;(' . $data['type'] . '/' . $data['subtype'] . ")<br />\n";
             }
         }
 
         return array(
             $this->_mimepart->getMimeId() => array(
-                'data' => $data,
+                'data' => $text,
                 'status' => array($status),
                 'type' => 'text/html; charset=' . NLS::getCharset()
             )
