@@ -70,7 +70,8 @@ class IMP_Horde_Mime_Viewer_alternative extends Horde_Mime_Viewer_Driver
         }
 
         /* Get the list of IDs directly under the subpart. */
-        $id = Horde_Mime::mimeIdArithmetic($base_id, 'down');
+        reset($subparts);
+        list($id,) = each($subparts);
         do {
             $base_ids[] = $id;
             $id = Horde_Mime::mimeIdArithmetic($id, 'next');
@@ -80,7 +81,7 @@ class IMP_Horde_Mime_Viewer_alternative extends Horde_Mime_Viewer_Driver
          * base multipart and display all viewable parts in that multipart.
          * Else, display the single part. */
         $disp_id = end($display_ids);
-        while (!is_null($disp_id) && !in_array($disp_id, $base_ids)) {
+        while (!is_null($disp_id) && !in_array($disp_id, $base_ids, true)) {
             $disp_id = Horde_Mime::mimeIdArithmetic($disp_id, 'up');
         }
 

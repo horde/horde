@@ -51,6 +51,10 @@ class IMP_Horde_Mime_Viewer_mdn extends Horde_Mime_Viewer_Driver
         $mdn_id = $this->_mimepart->getMimeId();
         $parts = $this->_mimepart->contentTypeMap();
 
+        /* Set the pointer to the 2nd item. */
+        reset($parts);
+        next($parts);
+
         $status = array(
             array(
                 'icon' => Horde::img('info_icon.png', _("Info"), null, $GLOBALS['registry']->getImageDir('horde')),
@@ -65,7 +69,7 @@ class IMP_Horde_Mime_Viewer_mdn extends Horde_Mime_Viewer_Driver
          *   (3) Original message (optional) */
 
         /* Print the human readable message. */
-        $curr_id = $first_id = Horde_Mime::mimeIdArithmetic($this->_mimepart->getMIMEId(), 'down');
+        $curr_id = $first_id = key($parts);
         $first_part = $this->_params['contents']->renderMIMEPart($curr_id, 'inlineauto', array('params' => $this->_params));
 
         /* Display a link to more detailed message. */
