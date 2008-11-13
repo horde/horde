@@ -49,11 +49,7 @@ class IMP_Horde_Mime_Viewer_mdn extends Horde_Mime_Viewer_Driver
     protected function _renderInfo()
     {
         $mdn_id = $this->_mimepart->getMimeId();
-        $parts = $this->_mimepart->contentTypeMap();
-
-        /* Set the pointer to the 2nd item. */
-        reset($parts);
-        next($parts);
+        $parts = array_keys($this->_mimepart->contentTypeMap());
 
         $status = array(
             array(
@@ -69,7 +65,8 @@ class IMP_Horde_Mime_Viewer_mdn extends Horde_Mime_Viewer_Driver
          *   (3) Original message (optional) */
 
         /* Print the human readable message. */
-        $curr_id = $first_id = key($parts);
+        reset($parts);
+        $curr_id = $first_id = next($parts);
         $first_part = $this->_params['contents']->renderMIMEPart($curr_id, IMP_Contents::RENDER_INLINE_AUTO, array('params' => $this->_params));
 
         /* Display a link to more detailed message. */
