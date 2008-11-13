@@ -54,6 +54,7 @@ class IMP_Horde_Mime_Viewer_related extends Horde_Mime_Viewer_Driver
      */
     protected function _IMPrender($inline)
     {
+        $ids = array_keys($this->_mimepart->contentTypeMap());
         $related_id = $this->_mimepart->getMimeId();
 
         /* Look at the 'start' parameter to determine which part to start
@@ -61,7 +62,9 @@ class IMP_Horde_Mime_Viewer_related extends Horde_Mime_Viewer_Driver
          * [3.1] */
         $id = $this->_mimepart->getContentTypeParameter('start');
         if (is_null($id)) {
-            $id = Horde_Mime::mimeidArithmetic($related_id, 'down');
+            reset($ids);
+            next($ids);
+            $id = key($ids);
         }
 
         /* Only display if the start part (normally text/html) can be
@@ -72,7 +75,6 @@ class IMP_Horde_Mime_Viewer_related extends Horde_Mime_Viewer_Driver
         }
 
         $cids = $ret = array();
-        $ids = array_keys($this->_mimepart->contentTypeMap());
 
         /* Build a list of parts -> CIDs. */
         foreach ($ids as $val) {

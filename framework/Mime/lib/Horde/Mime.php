@@ -466,13 +466,13 @@ class Horde_Mime
         $pos = strrpos($id, '.');
 
         /* Check the boundary case (ID = 0). */
-        if (($pos === false) && ($id == '0')) {
+        if (($pos === false) && ($id === '0')) {
             return in_array($action, array('prev', 'up')) ? null : 1;
         }
 
         switch ($action) {
         case 'down':
-            $id = (substr($id, $pos + 1) == '0')
+            $id = (substr($id, $pos + 1) === '0')
                 ? substr_replace($id, '1', $pos + 1)
                 : $id . '.0';
             break;
@@ -488,7 +488,7 @@ class Horde_Mime
             if ($pos === false) {
                 $id = 0;
             } else {
-                $id = (substr($id, $pos + 1) == '0')
+                $id = (substr($id, $pos + 1) === '0')
                     ? substr($id, 0, $pos)
                     : substr_replace($id, '0', $pos + 1);
             }
