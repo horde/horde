@@ -87,11 +87,15 @@ class IMP_Horde_Mime_Viewer_pdf extends Horde_Mime_Viewer_pdf
         }
 
         return array(
-            'status' => array(
-                array(
-                    'icon' => Horde::img('mime/image.png', _("Thumbnail of attached PDF file")),
-                    'text' => $status
-                )
+            $this->_mimepart->getMimeId() => array(
+                'data' => '',
+                'status' => array(
+                    array(
+                        'icon' => Horde::img('mime/image.png', _("Thumbnail of attached PDF file")),
+                        'text' => $status
+                    )
+                ),
+                'type' => 'text/html; charset=' . NLS::getCharset()
             )
         );
     }
