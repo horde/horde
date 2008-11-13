@@ -48,7 +48,9 @@ class IMP_Horde_Mime_Viewer_mdn extends Horde_Mime_Viewer_Driver
      */
     protected function _renderInfo()
     {
+        $mdn_id = $this->_mimepart->getMimeId();
         $parts = $this->_mimepart->contentTypeMap();
+
         $status = array(
             array(
                 'icon' => Horde::img('info_icon.png', _("Info"), null, $GLOBALS['registry']->getImageDir('horde')),
@@ -63,7 +65,7 @@ class IMP_Horde_Mime_Viewer_mdn extends Horde_Mime_Viewer_Driver
          *   (3) Original message (optional) */
 
         /* Print the human readable message. */
-        $curr_id = Horde_Mime::mimeIdArithmetic($this->_mimepart->getMIMEId(), 'down');
+        $curr_id = $first_id = Horde_Mime::mimeIdArithmetic($this->_mimepart->getMIMEId(), 'down');
         $first_part = $this->_params['contents']->renderMIMEPart($curr_id, 'inlineauto', array('params' => $this->_params));
 
         /* Display a link to more detailed message. */
@@ -85,15 +87,17 @@ class IMP_Horde_Mime_Viewer_mdn extends Horde_Mime_Viewer_Driver
             $data = '';
         } else {
             $status[0]['text'][] = _("The mail server generated the following informational message:");
-            $status = array_merge($status, $first_part['status']);
-            $data = $first_part['data'];
+            $status = array_merge($status, $first_part[$first_id]['status']);
+            $data = $first_part[$first_id]['data'];
         }
 
-        return array(
+        $ret = array_combine(array_keys($parts), array_fill(0, count($parts), null));
+        $ret[$mdn_id] = array(
             'data' => $data,
-            'ids' => array_keys($parts),
             'status' => $status,
             'type' => 'text/html; charset=' . NLS::getCharset()
         );
+
+        return $ret;
     }
 }
