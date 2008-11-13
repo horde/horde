@@ -659,7 +659,7 @@ if ($show_all_parts) {
 /* Build body text. This needs to be done before we build the attachment list
  * that lives in the header. */
 foreach ($parts_list as $mime_id => $mime_type) {
-    if (in_array($mime_id, $display_ids)) {
+    if (in_array($mime_id, $display_ids, true)) {
         continue;
     }
 
