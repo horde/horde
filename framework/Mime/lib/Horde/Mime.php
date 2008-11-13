@@ -447,10 +447,14 @@ class Horde_Mime
      * @param string $id      The MIME ID string.
      * @param string $action  One of the following:
      * <pre>
-     * 'down' - ID of child.
+     * 'down' - ID of child. Note: down will first traverse to "$id.0" if
+     *          given an ID *NOT* of the form "$id.0". If given an ID of the
+     *          form "$id.0", down will traverse to "$id.1".
      * 'next' - ID of next sibling.
      * 'prev' - ID of previous sibling.
-     * 'up' - ID of parent.
+     * 'up' - ID of parent. Note: up will first traverse to "$id.0" if
+     *        given an ID *NOT* of the form "$id.0". If given an ID of the
+     *        form "$id.0", down will traverse to "$id".
      * </pre>
      * @param integer $count  How many levels to traverse.
      *
@@ -468,7 +472,9 @@ class Horde_Mime
 
         switch ($action) {
         case 'down':
-            $id .= '.1';
+            $id = (substr($id, $pos + 1) == '0')
+                ? substr_replace($id, '1', $pos + 1)
+                : $id . '.0';
             break;
 
         case 'next':
@@ -479,9 +485,12 @@ class Horde_Mime
             break;
 
         case 'up':
-            $id = ($pos === false)
-                ? 0
-                : substr($id, 0, $pos);
+            if ($pos === false) {
+                $id = 0;
+            } else {
+                $id = (substr($id, $pos + 1) == '0')
+                    ? substr($id, 0, $pos);
+                    : substr_replace($id, '0', $pos + 1);
             break;
         }
 
