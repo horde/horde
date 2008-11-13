@@ -59,13 +59,6 @@ class IMP_Contents
     protected $_build = false;
 
     /**
-     * Cached rendering info.
-     *
-     * @param array
-     */
-    protected $_rendercache = array();
-
-    /**
      * Attempts to return a reference to a concrete IMP_Contents instance.
      * If an IMP_Contents object is currently stored in the local cache,
      * recreate that object.  Else, create a new instance.
@@ -175,7 +168,7 @@ class IMP_Contents
     public function getBodyPart($id)
     {
         if (is_null($this->_mailbox)) {
-            $ob = $this->getMIMEPart($id, array('nocontents' => true, 'nodecode' => true));
+            $ob = $this->getMIMEPart($id, array('nocontents' => true));
             return is_null($ob)
                 ? ''
                 : $ob->getContents();
@@ -267,18 +260,18 @@ class IMP_Contents
 
         // TODO: Do _buildMessage() here?
 
-        if (!is_null($part)) {
-            if (empty($options['nocontents']) &&
-                !is_null($this->_mailbox) &&
-                !$part->getContents()) {
-                $contents = $this->getBodyPart($id);
-                if (($part->getPrimaryType() == 'text') &&
-                    (String::upper($part->getCharset()) == 'US-ASCII') &&
-                    Horde_Mime::is8bit($contents)) {
-                    $contents = String::convertCharset($contents, 'US-ASCII');
-                }
-                $part->setContents($contents);
+        if (!is_null($part) &&
+            empty($options['nocontents']) &&
+            !is_null($this->_mailbox) &&
+            !$part->getContents()) {
+            $contents = $this->getBodyPart($id);
+            if (($part->getPrimaryType() == 'text') &&
+                (String::upper($part->getCharset()) == 'US-ASCII') &&
+                Horde_Mime::is8bit($contents)) {
+                $contents = String::convertCharset($contents, 'US-ASCII');
             }
+            $part->setContents($contents);
+
             if (empty($options['nodecode'])) {
                 $part->transferDecodeContents();
             }
@@ -458,7 +451,7 @@ class IMP_Contents
             'strip' => null
         );
 
-        $mime_part = $this->getMIMEPart($id, array('nocontents' => true, 'nodecode' => true));
+        $mime_part = $this->getMIMEPart($id, array('nocontents' => true));
         $mime_type = $mime_part->getType();
 
         /* If this is an attachment that has no specific MIME type info, see
@@ -503,8 +496,7 @@ class IMP_Contents
         }
 
         if ($mask & self::SUMMARY_DESCRIP_LINK) {
-            $render_info = $this->getRenderInfo($id);
-            $part['description'] = ($render_info['mode'] & self::RENDER_FULL)
+            $part['description'] = $this->canDisplay($id, self::RENDER_FULL)
                 ? $this->linkViewJS($mime_part, 'view_attach', htmlspecialchars($description), array('jstext' => sprintf(_("View %s [%s]"), $description, $mime_type), 'params' => $param_array))
                 : htmlspecialchars($description);
         } elseif ($mask & self::SUMMARY_DESCRIP_NOLINK) {
@@ -695,7 +687,7 @@ class IMP_Contents
 
             $last_id = null;
 
-            $mime_part = $this->getMIMEPart($id, array('nocontents' => true, 'nodecode' => true));
+            $mime_part = $this->getMIMEPart($id, array('nocontents' => true));
             $viewer = Horde_Mime_Viewer::factory($mime_part);
             if ($viewer->embeddedMimeParts()) {
                 $mime_part = $this->getMIMEPart($mime_id);
@@ -718,47 +710,44 @@ class IMP_Contents
     }
 
     /**
-     * Can this MIME part be displayed inline?
+     * Can this MIME part be displayed in the given mode?
      *
-     * @param string $id     The MIME ID string.
-     * @param boolean $info  Check 'info' if 'inline' is unavailable?
+     * @param mixed $id      The MIME part or a MIME ID string.
+     * @param integer $mask  The masks to search for.
+     * @param string $type   The type to use (overrides the MIME Id if $id is
+     *                       a MIME part).
      *
      * @return boolean  True if the part can be displayed.
      */
-    public function getRenderInfo($part, $mime_type = null)
+    public function canDisplay($part, $mask, $type = null)
     {
-        $id = is_object($part) ? $part->getMimeId() : $part;
-        $sig = $part . '|' . $mime_type;
-
-        if (isset($this->_rendercache[$sig])) {
-            return $this->_rendercache[$sig];
-        }
-
         if (!is_object($part)) {
-            $part = $this->getMIMEPart($part, array('nocontents' => true, 'nodecode' => true));
+            $part = $this->getMIMEPart($part, array('nocontents' => true));
         }
-        $viewer = Horde_Mime_Viewer::factory($part, $mime_type);
+        $viewer = Horde_Mime_Viewer::factory($part, $type);
 
-        $mode = 0;
-        if ($viewer->canRender('full')) {
-            $mode |= self::RENDER_FULL;
-        }
-        if ($viewer->canRender('inline')) {
-            $mode |= self::RENDER_INLINE_DISP_NO;
-            if ($part->getDisposition() == 'inline') {
-                $mode |= self::RENDER_INLINE;
-            }
-        }
-        if ($viewer->canRender('info')) {
-            $mode |= self::RENDER_INFO;
+        if (($mask & self::RENDER_FULL) && $viewer->canRender('full')) {
+            return self::RENDER_FULL;
         }
 
-        $this->_rendercache[$sig] = array(
-            'driver' => $viewer->getDriver(),
-            'mode' => $mode
-        );
+        $inline = null;
+        if (($mask & self::RENDER_INLINE) &&
+            ($inline = $viewer->canRender('inline')) &&
+            ($part->getDisposition() == 'inline')) {
+            return self::RENDER_INLINE;
+        }
 
-        return $this->_rendercache[$sig];
+        if (($mask & self::RENDER_INLINE_DISP_NO) &&
+            (($inline === true) ||
+             (is_null($inline) && $viewer->canRender('inline')))) {
+            return self::RENDER_INLINE_DISP_NO;
+        }
+
+        if (($mask & self::RENDER_INFO) && $viewer->canRender('info')) {
+            return self::RENDER_INFO;
+        }
+
+        return 0;
     }
 
     /**
@@ -771,7 +760,7 @@ class IMP_Contents
      */
     public function isParent($id, $type)
     {
-        $cmap = $this->_message->contentTypeMap();
+        $cmap = $this->getContentTypeMap();
         while (($id = Horde_Mime::mimeIdArithmetic($id, 'up')) !== null) {
             return isset($cmap[$id]) && ($cmap[$id] == $type);
         }

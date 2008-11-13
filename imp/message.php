@@ -663,10 +663,10 @@ foreach ($parts_list as $mime_id => $mime_type) {
         continue;
     }
 
-    $render_info = $imp_contents->getRenderInfo($mime_id);
-    if ($render_info['mode'] & IMP_Contents::RENDER_INLINE) {
+    $render_mode = $imp_contents->canDisplay($mime_id, IMP_Contents::RENDER_INLINE | IMP_Contents::RENDER_INFO);
+    if ($render_mode & IMP_Contents::RENDER_INLINE) {
         $type = 'inline';
-    } elseif ($render_info['mode'] & IMP_Contents::RENDER_INFO) {
+    } elseif ($render_mode & IMP_Contents::RENDER_INFO) {
         $type = 'info';
     } else {
         if (!$show_all_parts && $imp_contents->isAttachment($mime_type)) {
