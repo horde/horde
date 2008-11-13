@@ -248,25 +248,6 @@ if (is_a($imp_contents, 'PEAR_Error')) {
     exit;
 }
 
-$contents_mask = IMP_Contents::SUMMARY_RENDER |
-    IMP_Contents::SUMMARY_BYTES |
-    IMP_Contents::SUMMARY_SIZE |
-    IMP_Contents::SUMMARY_ICON;
-if ($printer_friendly) {
-    $contents_mask |= IMP_Contents::SUMMARY_DESCRIP_NOLINK;
-} else {
-    $contents_mask |= IMP_Contents::SUMMARY_DESCRIP_LINK |
-        IMP_Contents::SUMMARY_DOWNLOAD |
-        IMP_Contents::SUMMARY_DOWNLOAD_ZIP |
-        IMP_Contents::SUMMARY_IMAGE_SAVE |
-        IMP_Contents::SUMMARY_DOWNLOAD_ALL;
-    if (!$readonly && $prefs->getValue('strip_attachments')) {
-        $contents_mask |= IMP_Contents::SUMMARY_STRIP_LINK;
-    }
-}
-
-$summary = $imp_contents->getSummary($contents_mask);
-
 /* Get the title/mailbox label of the mailbox page. */
 $page_label = IMP::getLabel($imp_mbox['mailbox']);
 
@@ -648,55 +629,88 @@ foreach ($all_list_headers as $head => $val) {
     $hdrs[] = array('name' => $list_headers_lookup[$head], 'val' => $val, 'i' => (++$i % 2));
 }
 
-/* Determine the fields that will appear in the MIME info entries. */
-$part_info = array('icon', 'description', 'type', 'size');
-foreach (array('download', 'download_zip', 'img_save', 'strip') as $val) {
-    if (isset($summary['info']['has'][$val])) {
-        $part_info[] = $val;
+$contents_mask = IMP_Contents::SUMMARY_BYTES |
+    IMP_Contents::SUMMARY_SIZE |
+    IMP_Contents::SUMMARY_ICON;
+if ($printer_friendly) {
+    $contents_mask |= IMP_Contents::SUMMARY_DESCRIP_NOLINK;
+} else {
+    $contents_mask |= IMP_Contents::SUMMARY_DESCRIP_LINK |
+        IMP_Contents::SUMMARY_DOWNLOAD |
+        IMP_Contents::SUMMARY_DOWNLOAD_ZIP |
+        IMP_Contents::SUMMARY_IMAGE_SAVE;
+    if (!$readonly && $prefs->getValue('strip_attachments')) {
+        $contents_mask |= IMP_Contents::SUMMARY_STRIP_LINK;
     }
+}
+
+/* Determine the fields that will appear in the MIME info entries. */
+$part_info = array('icon', 'description', 'type', 'size', 'download', 'download_zip', 'img_save', 'strip');
+
+$show_all_parts = Util::getFormData('show_all_parts');
+$parts_list = $imp_contents->getContentTypeMap();
+$atc_parts = $display_ids = array();
+$msgtext = '';
+
+if ($show_all_parts) {
+    $atc_parts = array_keys($parts_list);
 }
 
 /* Build body text. This needs to be done before we build the attachment list
  * that lives in the header. */
-$show_all_parts = Util::getFormData('show_all_parts');
-$display_ids = array();
-$msgtext = '';
-foreach ($summary['info']['render'] as $mime_id => $type) {
+foreach ($parts_list as $mime_id => $mime_type) {
     if (in_array($mime_id, $display_ids)) {
         continue;
     }
 
-    $render_part = $imp_contents->renderMIMEPart($mime_id, $type);
-    if (($type == 'inline') && empty($render_part['ids'])) {
-        /* This meant that nothing was rendered - allow this part to appear
-         * in the attachment list instead. */
+    $render_info = $imp_contents->getRenderInfo($mime_id);
+    if ($render_info['mode'] & IMP_Contents::RENDER_INLINE) {
+        $type = 'inline';
+    } elseif ($render_info['mode'] & IMP_Contents::RENDER_INFO) {
+        $type = 'info';
+    } else {
+        if (!$show_all_parts && $imp_contents->isAttachment($mime_type)) {
+            $atc_parts[] = $mime_id;
+        }
         continue;
     }
-    $display_ids = array_merge($display_ids, $render_part['ids']);
 
-    $summary_id = isset($render_part['summary_id'])
-        ? $render_part['summary_id']
-        : $mime_id;
-    $ptr = $summary['parts'][$summary_id];
-    $tmp_part = $tmp_status = array();
-
-    foreach ($part_info as $val) {
-        $tmp_part[] = $ptr[$val];
+    $render_part = $imp_contents->renderMIMEPart($mime_id, $type);
+    if (($type == 'inline') && empty($render_part)) {
+        /* This meant that nothing was rendered - allow this part to appear
+         * in the attachment list instead. */
+        if (!$show_all_parts) {
+            $atc_parts[] = $mime_id;
+        }
+        continue;
     }
 
-    foreach ($render_part['status'] as $val) {
-        $tmp_status[] = $imp_ui->formatStatusMsg($val);
-    }
+    reset($render_part);
+    while (list($id, $info) = each($render_part)) {
+        $display_ids[] = $id;
 
-    $msgtext .= '<span class="mimePartInfo">' .
-        implode(' ', $tmp_part) .
-        '</span>' .
-        implode("\n", $tmp_status) .
-        $render_part['data'];
+        if (empty($info)) {
+            continue;
+        }
+
+        $tmp_summary = $tmp_status = array();
+
+        $summary = $imp_contents->getSummary($id, $contents_mask);
+        foreach ($part_info as $val) {
+            $tmp_summary[] = $summary[$val];
+        }
+
+        foreach ($info['status'] as $val) {
+            $tmp_status[] = $imp_ui->formatStatusMsg($val);
+        }
+
+        $msgtext .= '<span class="mimePartInfo">' . implode(' ', $tmp_summary) . '</span>' .
+            implode("\n", $tmp_status) .
+            $info['data'];
+    }
 }
 
 /* Build the Attachments menu. */
-$atc_parts = array_diff($summary['info']['download_all'], $display_ids);
 if (!$printer_friendly) {
     $a_template->set('atc', Horde::widget('#', _("Attachments"), 'widget hasmenu', '', '', _("Attachments"), true));
     if ($show_all_parts) {
@@ -705,7 +719,7 @@ if (!$printer_friendly) {
         $a_template->set('switch_atc_view', Horde::widget(Util::addParameter($headersURL, array('show_all_parts' => 1)), _("Show All Message Parts"), 'widget', '', '', _("Show All Message Parts"), true));
     }
     if (count($atc_parts) || (count($display_ids) > 2)) {
-        $a_template->set('download_all', Horde::widget($imp_contents->urlView($imp_contents->getMIMEMessage(), 'download_all', array('params' => array('download_ids' => serialize($summary['info']['download_all'])))), _("Download All Attachments (in .zip file)"), 'widget', '', '', _("Download All Attachments (in .zip file)"), true));
+        $a_template->set('download_all', Horde::widget($imp_contents->urlView($imp_contents->getMIMEMessage(), 'download_all', array('params' => array('download_ids' => serialize($atc_parts)))), _("Download All Attachments (in .zip file)"), 'widget', '', '', _("Download All Attachments (in .zip file)"), true));
         if ($prefs->getValue('strip_attachments')) {
             $a_template->set('strip_all', Horde::widget(Util::addParameter(Util::removeParameter(Horde::selfUrl(true), array('actionID')), array('actionID' => 'strip_all', 'message_token' => $message_token)), _("Strip All Attachments"), 'widget', '', "return window.confirm('" . addslashes(_("Are you sure you wish to PERMANENTLY delete all attachments?")) . "');", _("Strip All Attachments"), true));
         }
@@ -713,11 +727,11 @@ if (!$printer_friendly) {
 }
 
 /* Show attachment information in headers? */
-if ($show_all_parts) {
-    $show_atc = true;
-} else {
-    $show_atc = false;
-    if (!empty($atc_parts)) {
+$show_atc = false;
+if (!empty($atc_parts)) {
+    if ($show_all_parts) {
+        $show_atc = true;
+    } else {
         $atc_display = $prefs->getValue('attachment_display');
         $show_atc = (($atc_display == 'list') || ($atc_display == 'both'));
     }
@@ -727,15 +741,14 @@ if ($show_atc) {
     $tmp = array();
 
     if ($show_all_parts) {
-        $atc_parts = array_keys($summary['parts']);
         array_unshift($part_info, 'id');
     }
 
     foreach ($atc_parts as $id) {
+        $summary = $imp_contents->getSummary($id, $contents_mask);
         $tmp[] = '<tr>';
-        $ptr = $summary['parts'][$id];
         foreach ($part_info as $val) {
-            $tmp[] = '<td>' . $ptr[$val] . '</td>';
+            $tmp[] = '<td>' . $summary[$val] . '</td>';
         }
         $tmp[] = '</tr>';
     }

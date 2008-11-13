@@ -465,14 +465,9 @@ class IMP_Message
         } else {
             /* Sanity checking: make sure part does not live under a
              * message/rfc822 part. */
-            $content_map = $message->contentTypeMap();
-            $id = $partid;
-            while (($id = Horde_Mime::mimeIdArithmetic($id)) !== null) {
-                if ($content_map[$id] == 'message/rfc822') {
-                    return PEAR::raiseError(_("Cannot strip a MIME part contained within a message/rfc822 part."));
-                }
+            if ($contents->isParent($partid, 'message/rfc822')) {
+                return PEAR::raiseError(_("Cannot strip a MIME part contained within a message/rfc822 part."));
             }
-
             $partids = array($partid);
         }
 
