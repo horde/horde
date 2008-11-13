@@ -449,53 +449,70 @@ class Horde_Mime
      * <pre>
      * 'down' - ID of child. Note: down will first traverse to "$id.0" if
      *          given an ID *NOT* of the form "$id.0". If given an ID of the
-     *          form "$id.0", down will traverse to "$id.1".
+     *          form "$id.0", down will traverse to "$id.1". This behavior
+     *          can be avoided if 'norfc822' option is set.
      * 'next' - ID of next sibling.
      * 'prev' - ID of previous sibling.
      * 'up' - ID of parent. Note: up will first traverse to "$id.0" if
      *        given an ID *NOT* of the form "$id.0". If given an ID of the
-     *        form "$id.0", down will traverse to "$id".
+     *        form "$id.0", down will traverse to "$id". This behavior can be
+     *        avoided if 'norfc822' option is set.
      * </pre>
-     * @param integer $count  How many levels to traverse.
+     * @param array $options  Additional options:
+     * <pre>
+     * 'count' - (integer) How many levels to traverse.
+     *           DEFAULT: 1
+     * 'norfc822' - (boolean) Don't traverse rfc822 sub-levels
+     *              DEFAULT: false
+     * </pre>
      *
      * @return mixed  The resulting ID string, or null if that ID can not
      *                exist.
      */
-    static public function mimeIdArithmetic($id, $action, $count = 1)
+    static public function mimeIdArithmetic($id, $action, $options = array())
     {
         $pos = strrpos($id, '.');
-
-        /* Check the boundary case (ID = 0). */
-        if (($pos === false) && ($id === '0')) {
-            return in_array($action, array('prev', 'up')) ? null : 1;
-        }
+        $end = ($pos === false) ? $id : substr($id, $pos + 1);
 
         switch ($action) {
         case 'down':
-            $id = (substr($id, $pos + 1) === '0')
-                ? substr_replace($id, '1', $pos + 1)
-                : $id . '.0';
+            if ($end == '0') {
+                $id = ($pos === false) ? 1 : substr_replace($id, '1', $pos + 1);
+            } else {
+                $id .= empty($options['norfc822']) ? '.0' : '.1';
+            }
             break;
 
         case 'next':
+            ++$end;
+            $id = ($pos === false) ? $end : substr_replace($id, $end, $pos + 1);
+            break;
+
         case 'prev':
-            $id = ($pos === false)
-                ? intval($id) + (($action == 'next') ? 1 : -1)
-                : substr_replace($id, intval(substr($id, $pos + 1)) + (($action == 'next') ? 1 : -1), $pos + 1);
+            if (($end == '0') ||
+                (empty($options['norfc822']) && ($end == '1'))) {
+                $id = null;
+            } elseif ($pos === false) {
+                $id = --$end;
+            } else {
+                $id = substr_replace($id, --$end, $pos + 1);
+            }
             break;
 
         case 'up':
             if ($pos === false) {
-                $id = 0;
+                $id = ($end == '0') ? null : '0';
+            } elseif (!empty($options['norfc822']) || ($end == '0')) {
+                $id = substr($id, 0, $pos);
             } else {
-                $id = (substr($id, $pos + 1) === '0')
-                    ? substr($id, 0, $pos)
-                    : substr_replace($id, '0', $pos + 1);
+                $id = substr_replace($id, '0', $pos + 1);
             }
             break;
         }
 
-        return (--$count) ? self::mimeIdArithmetic($id, $action, $count) : $id;
+        return (!is_null($id) && !empty($options['count']) && --$options['count'])
+            ? self::mimeIdArithmetic($id, $action, $options)
+            : $id;
     }
 
 }
