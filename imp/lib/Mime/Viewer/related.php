@@ -76,7 +76,7 @@ class IMP_Horde_Mime_Viewer_related extends Horde_Mime_Viewer_Driver
 
         /* Build a list of parts -> CIDs. */
         foreach ($ids as $val) {
-            $ret[$val] = null
+            $ret[$val] = null;
             if (strcmp($related_id, $val) !== 0) {
                 $part = $this->_mimepart->getPart($val);
                 $cids[$val] = $part->getContentId();
@@ -85,7 +85,7 @@ class IMP_Horde_Mime_Viewer_related extends Horde_Mime_Viewer_Driver
 
         $render = $this->_params['contents']->renderMIMEPart($id, $inline ? 'inline' : 'full', array('params' => array_merge($this->_params, array('related_id' => $id, 'related_cids' => $cids))));
 
-        foreach (array_keys($render_res) as $val) {
+        foreach (array_keys($render) as $val) {
             $ret[$val] = $render[$val];
         }
 
