@@ -62,7 +62,10 @@ class IMP_Horde_Mime_Viewer_appledouble extends Horde_Mime_Viewer_Driver
 
         /* Display the resource fork download link. */
         $mime_id = $this->_mimepart->getMimeId();
-        $applefile_id = Horde_Mime::mimeIdArithmetic($mime_id, 'down');
+        $parts_list = $this->_mimepart->contentTypeMap();
+        reset($parts_list);
+        next($parts_list);
+        $applefile_id = key($parts_list);
         $data_id = Horde_Mime::mimeIdArithmetic($applefile_id, 'next');
 
         $applefile_part = $this->_mimepart->getPart($applefile_id);
@@ -81,23 +84,27 @@ class IMP_Horde_Mime_Viewer_appledouble extends Horde_Mime_Viewer_Driver
             )
         );
 
-        $can_display = false;
-        $ids = array($mime_id, $applefile_id);
-
         /* For inline viewing, attempt to display the data inline. */
-        if ($inline &&
-            $this->_params['contents']->canDisplayInline($data_part, true)) {
-            $can_display = true;
+        $ret = array();
+        if ($inline && (($disp = $this->_params['contents']->canDisplay($data_part, IMP_Contents::RENDER_INLINE | IMP_Contents::RENDER_INFO)))) {
+            $ret = $this->_params['contents']->renderMIMEPart($data_id, $disp, array('params' => $this->_params));
             $status['text'][] = _("The contents of the Macintosh file are below.");
         }
 
-        if (!$can_display) {
-            $ids[] = $data_id;
+        foreach (array_keys($parts_list) as $val) {
+            if (!isset($ret[$val])) {
+                $ret[$val] = (strcmp($val, $mime_id) === 0)
+                    ? array(
+                          'data' => '',
+                          'status' => array($status),
+                          'type' => 'text/html; charset=' . NLS::getCharset()
+                      )
+                    : null;
+            }
         }
 
-        return array(
-            'ids' => $ids,
-            'status' => array($status)
-        );
+        ksort($ret);
+
+        return $ret;
     }
 }
