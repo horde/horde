@@ -85,7 +85,7 @@ class IMP_Horde_Mime_Viewer_alternative extends Horde_Mime_Viewer_Driver
         }
 
         /* Now grab all keys under this ID. */
-        $render_part = $this->_params['contents']->getMIMEPart($disp_id, array('nocontents' => true));
+        $render_part = $this->_mimepart->getPart($disp_id);
         foreach (array_keys($render_part->contentTypeMap()) as $val) {
             if (in_array($val, $display_ids) && !isset($ret[$val])) {
                 $render = $this->_params['contents']->renderMIMEPart($val, 'inline', array('params' => $this->_params));
