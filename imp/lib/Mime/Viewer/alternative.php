@@ -69,22 +69,14 @@ class IMP_Horde_Mime_Viewer_alternative extends Horde_Mime_Viewer_Driver
             return $ret;
         }
 
-        /* Get the list of IDs directly under the subpart. */
-        reset($subparts);
-        next($subparts);
-        $id = key($subparts);
-        do {
-            $base_ids[strval($id)] = true;
-            $id = Horde_Mime::mimeIdArithmetic($id, 'next');
-        } while (isset($subparts[$id]));
-
         /* If the last viewable message exists in a subpart, back up to the
          * base multipart and display all viewable parts in that multipart.
          * Else, display the single part. */
         end($display_ids);
-        $disp_id = key($display_ids);
-        while (!is_null($disp_id) && !isset($base_ids[$disp_id])) {
-            $disp_id = Horde_Mime::mimeIdArithmetic($disp_id, 'up');
+        $curr_id = key($display_ids);
+        while (strcmp($base_id, $curr_id) !== 0) {
+            $disp_id = $curr_id;
+            $curr_id = Horde_Mime::mimeIdArithmetic($curr_id, 'up', array('norfc822' => true));
         }
 
         /* Now grab all keys under this ID. */
