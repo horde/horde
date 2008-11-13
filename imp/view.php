@@ -115,7 +115,7 @@ case 'download_render':
         $render = $contents->renderMIMEPart($id, Util::getFormData('mode', 'full'), array('type' => $ctype));
         $body = $render[$id]['data'];
         $type = $render[$id]['type'];
-        $name = $render['name'];
+        $name = $render[$id]['name'];
         break;
     }
 
@@ -136,7 +136,7 @@ case 'download_render':
 
 case 'view_attach':
     $render = $contents->renderMIMEPart($id, Util::getFormData('mode', 'full'), array('type' => $ctype));
-    $browser->downloadHeaders($render['name'], $render[$id]['type'], true, strlen($render[$id]['data']));
+    $browser->downloadHeaders($render[$id]['name'], $render[$id]['type'], true, strlen($render[$id]['data']));
     echo $render[$id]['data'];
     exit;
 

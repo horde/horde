@@ -322,8 +322,8 @@ class IMP_Contents
                 : array();
         }
 
-        if (!isset($ret['name'])) {
-            $ret['name'] = $mime_part->getName(true);
+        if (!empty($ret[$mime_id]) && !isset($ret[$mime_id]['name'])) {
+            $ret[$mime_id]['name'] = $mime_part->getName(true);
         }
 
         /* If this is a text/* part, AND the browser does not support UTF-8,
