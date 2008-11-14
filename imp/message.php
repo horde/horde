@@ -260,7 +260,10 @@ $self_link = Util::addParameter(IMP::generateIMPUrl('message.php', $imp_mbox['ma
 $basic_headers = $imp_ui->basicHeaders();
 $display_headers = $msgAddresses = array();
 
-$display_headers['date'] = $imp_ui->addLocalTime(nl2br($envelope['date']));
+$format_date = $imp_ui->addLocalTime(nl2br($envelope['date']));
+if (!empty($format_date)) {
+    $display_headers['date'] = $format_date;
+}
 
 /* Build From address links. */
 $display_headers['from'] = $imp_ui->buildAddressLinks($envelope['from'], $self_link, !$printer_friendly);
@@ -632,12 +635,12 @@ if ($printer_friendly) {
 /* Determine the fields that will appear in the MIME info entries. */
 $part_info = array('icon', 'description', 'type', 'size', 'download', 'download_zip', 'img_save', 'strip');
 
-$show_all_parts = Util::getFormData('show_all_parts');
 $parts_list = $imp_contents->getContentTypeMap();
 $atc_parts = $display_ids = array();
 $msgtext = '';
 
-if ($show_all_parts) {
+$show_parts = Util::getFormData('show_parts', $prefs->getValue('parts_display'));
+if ($show_parts == 'all') {
     $atc_parts = array_keys($parts_list);
 }
 
@@ -649,7 +652,7 @@ foreach ($parts_list as $mime_id => $mime_type) {
     }
 
     if (!($render_mode = $imp_contents->canDisplay($mime_id, IMP_Contents::RENDER_INLINE | IMP_Contents::RENDER_INFO))) {
-        if (!$show_all_parts && $imp_contents->isAttachment($mime_type)) {
+        if (($show_parts == 'atc') && $imp_contents->isAttachment($mime_type)) {
             $atc_parts[] = $mime_id;
         }
         continue;
@@ -659,7 +662,7 @@ foreach ($parts_list as $mime_id => $mime_type) {
     if (($render_mode & IMP_Contents::RENDER_INLINE) && empty($render_part)) {
         /* This meant that nothing was rendered - allow this part to appear
          * in the attachment list instead. */
-        if (!$show_all_parts) {
+        if ($show_parts == 'atc') {
             $atc_parts[] = $mime_id;
         }
         continue;
@@ -693,10 +696,11 @@ foreach ($parts_list as $mime_id => $mime_type) {
 /* Build the Attachments menu. */
 if (!$printer_friendly) {
     $a_template->set('atc', Horde::widget('#', _("Attachments"), 'widget hasmenu', '', '', _("Attachments"), true));
-    if ($show_all_parts) {
-        $a_template->set('switch_atc_view', Horde::widget(Util::removeParameter($headersURL, array('show_all_parts')), _("Show Attachments Only"), 'widget', '', '', _("Show Attachments Only"), true));
-    } else {
-        $a_template->set('switch_atc_view', Horde::widget(Util::addParameter($headersURL, array('show_all_parts' => 1)), _("Show All Message Parts"), 'widget', '', '', _("Show All Message Parts"), true));
+    if ($show_parts != 'all') {
+        $a_template->set('show_parts_all', Horde::widget(Util::addParameter($headersURL, array('show_parts' => 'all')), _("Show All Message Parts"), 'widget', '', '', _("Show All Message Parts"), true));
+    }
+    if ($show_parts != 'atc') {
+        $a_template->set('show_parts_atc', Horde::widget(Util::addParameter($headersURL, array('show_parts' => 'atc')), _("Show Attachments Only"), 'widget', '', '', _("Show Attachments Only"), true));
     }
     if (count($atc_parts) || (count($display_ids) > 2)) {
         $a_template->set('download_all', Horde::widget($imp_contents->urlView($imp_contents->getMIMEMessage(), 'download_all', array('params' => array('download_ids' => serialize($atc_parts)))), _("Download All Attachments (in .zip file)"), 'widget', '', '', _("Download All Attachments (in .zip file)"), true));
@@ -707,20 +711,10 @@ if (!$printer_friendly) {
 }
 
 /* Show attachment information in headers? */
-$show_atc = false;
-if (!empty($atc_parts)) {
-    if ($show_all_parts) {
-        $show_atc = true;
-    } else {
-        $atc_display = $prefs->getValue('attachment_display');
-        $show_atc = (($atc_display == 'list') || ($atc_display == 'both'));
-    }
-}
-
-if ($show_atc) {
+if ($show_parts != 'none') {
     $tmp = array();
 
-    if ($show_all_parts) {
+    if ($show_parts == 'all') {
         array_unshift($part_info, 'id');
     }
 
@@ -733,7 +727,7 @@ if ($show_atc) {
         $tmp[] = '</tr>';
     }
 
-    $hdrs[] = array('name' => $show_all_parts ? _("Parts") : _("Attachments"), 'val' => '<table>' . implode('', $tmp) . '</table>', 'i' => (++$i % 2));
+    $hdrs[] = array('name' => ($show_parts == 'all') ? _("Parts") : _("Attachments"), 'val' => '<table>' . implode('', $tmp) . '</table>', 'i' => (++$i % 2));
 }
 
 if ($printer_friendly && !empty($conf['print']['add_printedby'])) {
