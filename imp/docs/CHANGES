@@ -2,6 +2,7 @@
 v5.0-cvs
 --------
 
+[mms] Allow all parts in a message to be displayed (Bug #1866).
 [mms] Only support FCKeditor as GUI HTML editor.
 [mms] Strip extra 'Fwd' and 'Re' cruft from subject line when replying to or
       forwarding a message.
@@ -16,6 +17,7 @@ v5.0-cvs
 v4.3.1-cvs
 ----------
 
+[mms] Marked stripped parts as 'attachment', not 'inline' (Request #4664).
 [mms] Fix linking from addresses in mailbox to compose screen (Bug #7432).
 [jan] Use mailer configuration when sending iTip replies (Bug #7388).
 [jan] Always display multipart/appledouble attachments.

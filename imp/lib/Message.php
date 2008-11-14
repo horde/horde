@@ -476,11 +476,13 @@ class IMP_Message
             if (!is_a($oldPart, 'Horde_Mime_Part')) {
                 continue;
             }
-            $newPart = new Horde_Mime_Part('text/plain');
+            $newPart = new Horde_Mime_Part();
+            $newPart->setType('text/plain');
+            $newPart->setDisposition('attachment');
 
             /* We need to make sure all text is in the correct charset. */
             $newPart->setCharset(NLS::getCharset());
-            $newPart->setContents(sprintf(_("[Attachment stripped: Original attachment type: %s, name: %s]"), $oldPart->getType(), $oldPart->getName(true, true)), '8bit');
+            $newPart->setContents(sprintf(_("[Attachment stripped: Original attachment type: %s, name: %s]"), $oldPart->getType(), $oldPart->getName(true)), '8bit');
             $message->alterPart($partid, $newPart);
         }
 
