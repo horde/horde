@@ -899,13 +899,14 @@ class Horde_Mime_Part
      */
     public function getTransferEncoding()
     {
+        $encoding = $this->_transferEncoding;
+
         /* If there are no contents, return whatever the current value of
            $_transferEncoding is. */
         if (empty($this->_contents)) {
             return $encoding;
         }
 
-        $encoding = $this->_transferEncoding;
         $ptype = $this->getPrimaryType();
 
         switch ($ptype) {
