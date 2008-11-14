@@ -86,6 +86,10 @@ class IMP_Horde_Mime_Viewer_related extends Horde_Mime_Viewer_Driver
 
         $render = $this->_params['contents']->renderMIMEPart($id, $inline ? IMP_Contents::RENDER_INLINE : IMP_Contents::RENDER_FULL, array('params' => array_merge($this->_params, array('related_id' => $id, 'related_cids' => $cids))));
 
+        if (!$inline) {
+            return $render;
+        }
+
         foreach (array_keys($render) as $val) {
             $ret[$val] = $render[$val];
         }
