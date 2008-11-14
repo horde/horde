@@ -617,6 +617,19 @@ foreach ($all_list_headers as $head => $val) {
     $hdrs[] = array('name' => $list_headers_lookup[$head], 'val' => $val, 'i' => (++$i % 2));
 }
 
+/* Determine the fields that will appear in the MIME info entries. */
+$part_info = array('icon', 'description', 'type', 'size', 'download', 'download_zip', 'img_save', 'strip');
+
+$parts_list = $imp_contents->getContentTypeMap();
+$strip_atc = $prefs->getValue('strip_attachments');
+$atc_parts = $display_ids = array();
+$msgtext = '';
+
+$show_parts = Util::getFormData('show_parts', $prefs->getValue('parts_display'));
+if ($show_parts == 'all') {
+    $atc_parts = array_keys($parts_list);
+}
+
 $contents_mask = IMP_Contents::SUMMARY_BYTES |
     IMP_Contents::SUMMARY_SIZE |
     IMP_Contents::SUMMARY_ICON;
@@ -627,21 +640,9 @@ if ($printer_friendly) {
         IMP_Contents::SUMMARY_DOWNLOAD |
         IMP_Contents::SUMMARY_DOWNLOAD_ZIP |
         IMP_Contents::SUMMARY_IMAGE_SAVE;
-    if (!$readonly && $prefs->getValue('strip_attachments')) {
+    if (!$readonly && $strip_atc) {
         $contents_mask |= IMP_Contents::SUMMARY_STRIP_LINK;
     }
-}
-
-/* Determine the fields that will appear in the MIME info entries. */
-$part_info = array('icon', 'description', 'type', 'size', 'download', 'download_zip', 'img_save', 'strip');
-
-$parts_list = $imp_contents->getContentTypeMap();
-$atc_parts = $display_ids = array();
-$msgtext = '';
-
-$show_parts = Util::getFormData('show_parts', $prefs->getValue('parts_display'));
-if ($show_parts == 'all') {
-    $atc_parts = array_keys($parts_list);
 }
 
 /* Build body text. This needs to be done before we build the attachment list
@@ -693,6 +694,10 @@ foreach ($parts_list as $mime_id => $mime_type) {
     }
 }
 
+if (!strlen($msgtext)) {
+    $msgtext = $imp_ui->formatStatusMsg(array('text' => array(_("There are no parts that can be shown inline."))));
+}
+
 /* Build the Attachments menu. */
 if (!$printer_friendly) {
     $a_template->set('atc', Horde::widget('#', _("Attachments"), 'widget hasmenu', '', '', _("Attachments"), true));
@@ -704,7 +709,7 @@ if (!$printer_friendly) {
     }
     if (count($atc_parts) || (count($display_ids) > 2)) {
         $a_template->set('download_all', Horde::widget($imp_contents->urlView($imp_contents->getMIMEMessage(), 'download_all', array('params' => array('download_ids' => serialize($atc_parts)))), _("Download All Attachments (in .zip file)"), 'widget', '', '', _("Download All Attachments (in .zip file)"), true));
-        if ($prefs->getValue('strip_attachments')) {
+        if ($strip_atc) {
             $a_template->set('strip_all', Horde::widget(Util::addParameter(Util::removeParameter(Horde::selfUrl(true), array('actionID')), array('actionID' => 'strip_all', 'message_token' => $message_token)), _("Strip All Attachments"), 'widget', '', "return window.confirm('" . addslashes(_("Are you sure you wish to PERMANENTLY delete all attachments?")) . "');", _("Strip All Attachments"), true));
         }
     }
