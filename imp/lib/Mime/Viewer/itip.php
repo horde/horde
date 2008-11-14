@@ -16,14 +16,6 @@
 class IMP_Horde_Mime_Viewer_itip extends Horde_Mime_Viewer_Driver
 {
     /**
-     * Force viewing of a part inline, regardless of the Content-Disposition
-     * of the MIME Part.
-     *
-     * @var boolean
-     */
-    protected $_forceinline = true;
-
-    /**
      * The messages to output to the user.
      *
      * @var array
