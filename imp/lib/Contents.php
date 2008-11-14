@@ -122,7 +122,7 @@ class IMP_Contents
      *
      * @return integer  The message index.
      */
-    public function getMessageIndex()
+    public function getIndex()
     {
         return $this->_index;
     }
@@ -132,7 +132,7 @@ class IMP_Contents
      *
      * @return string  The message mailbox.
      */
-    public function getMessageMailbox()
+    public function getMailbox()
     {
         return $this->_mailbox;
     }
@@ -288,6 +288,7 @@ class IMP_Contents
      * @param integer $mode    One of the RENDER_ constants.
      * @param array $options   Additional options:
      * <pre>
+     * 'mime_part' - (Horde_Mime_Part) The MIME part to render.
      * 'params' - (array) Additional params to set.
      * 'type' - (string) Use this MIME type instead of the MIME type
      *          identified in the MIME part.
@@ -299,7 +300,11 @@ class IMP_Contents
      */
     public function renderMIMEPart($mime_id, $mode, $options = array())
     {
-        $mime_part = $this->getMIMEPart($mime_id);
+        $this->_buildMessage();
+
+        $mime_part = empty($options['mime_part'])
+            ? $this->getMIMEPart($mime_id)
+            : $options['mime_part'];
         $viewer = Horde_Mime_Viewer::factory($mime_part, empty($options['type']) ? null : $options['type']);
         $viewer->setParams(array('contents' => &$this));
         if (!empty($options['params'])) {
@@ -705,10 +710,15 @@ class IMP_Contents
             $mime_part = $this->getMIMEPart($id, array('nocontents' => true));
             $viewer = Horde_Mime_Viewer::factory($mime_part);
             if ($viewer->embeddedMimeParts()) {
-                $mime_part = $this->getMIMEPart($mime_id);
+                $mime_part = $this->getMIMEPart($id);
                 $viewer->setMIMEPart($mime_part);
+                $viewer->setParams(array('contents' => &$this));
                 $new_part = $viewer->getEmbeddedMimeParts();
                 if (!is_null($new_part)) {
+                    if (is_a($new_part, 'Horde_Mime_Message')) {
+                        $this->_message = $new_part;
+                        break;
+                    }
                     $this->_message->alterPart($id, $new_part);
                     $to_process = array_merge($to_process, array_slice($new_part->contentTypeMap(), 1));
                     if ($id == 0) {

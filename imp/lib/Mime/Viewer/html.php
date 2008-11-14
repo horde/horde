@@ -203,7 +203,7 @@ class IMP_Horde_Mime_Viewer_html extends Horde_Mime_Viewer_html
             if ($inline) {
                 $url = Util::removeParameter($url, array('actionID'));
             }
-            $url = Util::addParameter($url, 'index', $this->_params['contents']->getMessageIndex());
+            $url = Util::addParameter($url, 'index', $this->_params['contents']->getIndex());
 
             $view_img = Util::getFormData('view_html_images');
             $addr_check = ($GLOBALS['prefs']->getValue('html_image_addrbook') && $this->_inAddressBook());

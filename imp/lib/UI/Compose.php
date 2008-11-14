@@ -59,7 +59,7 @@ class IMP_UI_Compose {
          * decoding stays as-is. */
         require_once IMP_BASE . '/lib/MIME/Headers.php';
         $imp_imap = &IMP_IMAP::singleton();
-        $imp_imap->changeMbox($contents->getMessageMailbox(), IMP_IMAP_AUTO);
+        $imp_imap->changeMbox($contents->getMailbox(), IMP_IMAP_AUTO);
 
         $headers = $contents->getHeaderOb();
         $headers->addResentHeaders($from_addr, $recip['header']['to']);
