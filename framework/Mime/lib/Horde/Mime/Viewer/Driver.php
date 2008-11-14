@@ -89,7 +89,9 @@ class Horde_Mime_Viewer_Driver
      * <pre>
      * 'full' - A full representation of the MIME part, for use in a view
      *          where the output to the browser can be set to the value
-     *          returned in 'type'.
+     *          returned in 'type'. This mode should only return a single
+     *          MIME ID entry for viewing and should not return any status
+     *          information.
      * 'inline' - A representation of the MIME part that can be viewed inline
      *            on a text/html page that may contain other HTML elements.
      * 'info' - A representation of the MIME part that can be viewed inline
