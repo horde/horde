@@ -693,13 +693,13 @@ class IMP_Contents
                 return;
             }
             $this->_build = true;
-            $parts = $this->_message->contentTypeMap();
+            $parts = array_keys($this->_message->contentTypeMap());
         }
 
         $last_id = null;
         $to_process = array();
 
-        foreach (array_keys($parts) as $id) {
+        foreach ($parts as $id) {
             if (!is_null($last_id) &&
                 (strpos($id, $last_id) === 0)) {
                 continue;
@@ -717,13 +717,11 @@ class IMP_Contents
                 if (!is_null($new_part)) {
                     if (is_a($new_part, 'Horde_Mime_Message')) {
                         $this->_message = $new_part;
-                        break;
+                        $this->_build = false;
+                        return $this->_buildMessage();
                     }
                     $this->_message->alterPart($id, $new_part);
-                    $to_process = array_merge($to_process, array_slice($new_part->contentTypeMap(), 1));
-                    if ($id == 0) {
-                        break;
-                    }
+                    $to_process = array_merge($to_process, array_keys($new_part->contentTypeMap()));
                     $last_id = $id;
                 }
             }
