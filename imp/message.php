@@ -398,11 +398,6 @@ $mailbox_url = Util::addParameter(IMP::generateIMPUrl('mailbox.php', $imp_mbox['
 /* Generate the view link. */
 $view_link = IMP::generateIMPUrl('view.php', $imp_mbox['mailbox'], $index, $mailbox_name);
 
-Horde::addScriptFile('prototype.js', 'horde', true);
-Horde::addScriptFile('popup.js', 'imp', true);
-Horde::addScriptFile('message.js', 'imp', true);
-require IMP_TEMPLATES . '/common-header.inc';
-
 /* Determine if we need to show the Reply to All link. */
 $addresses = array_keys($user_identity->getAllFromAddresses(true));
 $show_reply_all = true;
@@ -412,8 +407,6 @@ if (!Horde_Mime_Address::addrArray2String(array_merge($envelope['to'], $envelope
 
 /* Retrieve any history information for this message. */
 if (!$printer_friendly && !empty($conf['maillog']['use_maillog'])) {
-    IMP_Maillog::displayLog($envelope['message-id']);
-
     /* Do MDN processing now. */
     if ($imp_ui->MDNCheck($mime_headers, Util::getFormData('mdn_confirm'))) {
         $confirm_link = Horde::link(Util::addParameter($selfURL, 'mdn_confirm', 1)) . _("HERE") . '</a>';
@@ -423,10 +416,6 @@ if (!$printer_friendly && !empty($conf['maillog']['use_maillog'])) {
 
 /* Everything below here is related to preparing the output. */
 if (!$printer_friendly) {
-    IMP::menu();
-    IMP::status();
-    IMP::quota();
-
     /* Set the status information of the message. */
     $identity = $status = null;
     if (!$use_pop) {
@@ -478,8 +467,6 @@ if (!$printer_friendly) {
     $t_template->set('status', $status);
     $t_template->set('message_token', $message_token);
 
-    echo $t_template->fetch(IMP_TEMPLATES . '/message/navbar_top.html');
-
     /* Prepare the navbar navigate template. */
     $n_template = new IMP_Template();
     $n_template->setOption('gettext', true);
@@ -509,8 +496,6 @@ if (!$printer_friendly) {
     } else {
         $n_template->set('next_img', Horde::img($rtl ? 'nav/left-grey.png' : 'nav/right-grey.png', '', '', $registry->getImageDir('horde')));
     }
-
-    echo $n_template->fetch(IMP_TEMPLATES . '/message/navbar_navigate.html');
 
     /* Prepare the navbar actions template. */
     $a_template = new IMP_Template();
@@ -758,7 +743,23 @@ if ($printer_friendly && !empty($conf['print']['add_printedby'])) {
 $m_template->set('headers', $hdrs);
 $m_template->set('msgtext', $msgtext);
 
+/* Output message page now. */
+Horde::addScriptFile('prototype.js', 'horde', true);
+Horde::addScriptFile('popup.js', 'imp', true);
+Horde::addScriptFile('message.js', 'imp', true);
+require IMP_TEMPLATES . '/common-header.inc';
 if (!$printer_friendly) {
+    if (!empty($conf['maillog']['use_maillog'])) {
+        IMP_Maillog::displayLog($envelope['message-id']);
+    }
+    IMP::menu();
+    IMP::status();
+    IMP::quota();
+}
+
+if (!$printer_friendly) {
+    echo $t_template->fetch(IMP_TEMPLATES . '/message/navbar_top.html');
+    echo $n_template->fetch(IMP_TEMPLATES . '/message/navbar_navigate.html');
     echo $a_template->fetch(IMP_TEMPLATES . '/message/navbar_actions.html');
 }
 
