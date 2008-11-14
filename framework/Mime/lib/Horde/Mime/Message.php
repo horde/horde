@@ -136,6 +136,7 @@ class Horde_Mime_Message extends Horde_Mime_Part
      *   'subtype' - (string) The MIME subtype
      *
      * The array MAY contain the following information:
+     *   'contents' - (string) The contents of the part.
      *   'disposition' - (string) The disposition type of the part (e.g.
      *                   'attachment', 'inline').
      *   'dparameters' - (array) Attribute/value pairs from the part's
@@ -207,6 +208,11 @@ class Horde_Mime_Message extends Horde_Mime_Part
 
         if (isset($data['encoding'])) {
             $ob->setTransferEncoding($data['encoding']);
+        }
+
+        if (isset($data['contents'])) {
+            $ob->setContents($data['contents'], $ob->getTransferEncoding());
+            $ob->transferDecodeContents();
         }
 
         if (isset($data['disposition'])) {
@@ -363,13 +369,15 @@ class Horde_Mime_Message extends Horde_Mime_Part
         }
 
         /* Get file size (if 'body' text is set). */
-        if (isset($ob->body) &&
-            ($part['type'] != 'message') &&
-            ($part['subtype'] != 'rfc822')) {
-            /* Mail_mimeDecode puts an extra linebreak at the end of body
-             * text. */
-            $size = strlen(str_replace(array("\r\n", "\n"), array("\n", "\r\n"), $ob->body)) - 2;
-            $part['size'] = ($size < 0) ? 0 : $size;
+        if (isset($ob->body)) {
+            $part['contents'] = $ob->body;
+            if (($part['type'] != 'message') &&
+                ($part['subtype'] != 'rfc822')) {
+                /* Mail_mimeDecode puts an extra linebreak at the end of body
+                 * text. */
+                $size = strlen(str_replace(array("\r\n", "\n"), array("\n", "\r\n"), $ob->body)) - 2;
+                $part['size'] = ($size < 0) ? 0 : $size;
+            }
         }
 
         /* Process parts also. */
