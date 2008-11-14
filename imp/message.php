@@ -716,7 +716,7 @@ if (!$printer_friendly) {
 }
 
 /* Show attachment information in headers? */
-if ($show_parts != 'none') {
+if (!empty($atc_parts) && ($show_parts != 'none')) {
     $tmp = array();
 
     if ($show_parts == 'all') {
