@@ -74,9 +74,11 @@ class IMP_Horde_Mime_Viewer_alternative extends Horde_Mime_Viewer_Driver
          * Else, display the single part. */
         end($display_ids);
         $curr_id = key($display_ids);
-        while (strcmp($base_id, $curr_id) !== 0) {
-            $disp_id = $curr_id;
-            $curr_id = Horde_Mime::mimeIdArithmetic($curr_id, 'up', array('norfc822' => true));
+        while (!is_null($curr_id) && (strcmp($base_id, $curr_id) !== 0)) {
+            if (isset($subparts[$curr_id])) {
+                $disp_id = $curr_id;
+            }
+            $curr_id = Horde_Mime::mimeIdArithmetic($curr_id, 'up');
         }
 
         /* Now grab all keys under this ID. */
