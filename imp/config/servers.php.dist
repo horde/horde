@@ -82,7 +82,9 @@
  *        IMP pages. Set 'driver' equal to the mailserver and 'params'
  *        equal to any extra parameters needed by the driver (see the
  *        comments located at the top of imp/lib/Quota/[quotadriver].php
- *        for the parameters needed for each driver).
+ *        for the parameters needed for each driver). Set
+ *        'hide_when_unlimited' to true if you want to hide quota output
+ *        when the server reports an unlimited quota.
  *
  *        The optional 'format' parameter is supported by all drivers and
  *        specifies the formats of the quota messages in the user
@@ -223,7 +225,8 @@ $servers['cyrus'] = array(
     ),
     'quota' => array(
         'driver' => 'imap',
-        'params' => array('hide_quota_when_unlimited' => true),
+        'hide_when_unlimited' => true,
+        'params' => array()
     ),
     'acl' => true,
     'cache' => false,

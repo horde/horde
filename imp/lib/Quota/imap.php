@@ -1,6 +1,6 @@
 <?php
 /**
- * Implementation of the Quota API for IMAP servers.
+ * Implementation of the IMP_Quota API for IMAP servers.
  *
  * Copyright 2002-2008 The Horde Project (http://www.horde.org/)
  *
@@ -10,34 +10,26 @@
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
  * @package IMP_Quota
  */
-class IMP_Quota_imap extends IMP_Quota {
-
+class IMP_Quota_imap extends IMP_Quota
+{
     /**
      * Get quota information (used/allocated), in bytes.
      *
-     * @return mixed  An associative array.
+     * @return mixed  Returns PEAR_Error on failure. Otherwise, returns an
+     *                array with the following keys:
      *                'limit' = Maximum quota allowed
      *                'usage' = Currently used portion of quota (in bytes)
-     *                Returns PEAR_Error on failure.
      */
-    function getQuota()
+    public function getQuota()
     {
-        $imp_imap = &IMP_IMAP::singleton();
-        $quota = @imap_get_quotaroot($imp_imap->stream(),
-                                     $GLOBALS['imp_search']->isSearchMbox($GLOBALS['imp_mbox']['mailbox']) ? 'INBOX' : $GLOBALS['imp_mbox']['mailbox']);
-
-        if (is_array($quota)) {
-            if (count($quota)) {
-                if (isset($quota['limit'])) {
-                    return array('usage' => $quota['usage'] * 1024, 'limit' => $quota['limit'] * 1024);
-                } elseif (isset($quota['STORAGE']['limit'])) {
-                    return array('usage' => $quota['STORAGE']['usage'] * 1024, 'limit' => $quota['STORAGE']['limit'] * 1024);
-                }
-            }
-            return array('usage' => 0, 'limit' => 0);
+        try {
+            $quota = $GLOBALS['imp_imap']->ob->getQuotaRoot($GLOBALS['imp_search']->isSearchMbox($GLOBALS['imp_mbox']['mailbox']) ? 'INBOX' : $GLOBALS['imp_mbox']['mailbox']);
+            $quota_val = reset($quota);
+            return array('usage' => $quota['storage']['usage'] * 1024, 'limit' => $quota['storage']['limit'] * 1024);
+        } catch (Horde_Imap_Client_Exception $e) {
+            $GLOBALS['imp_imap']->logException($e);
+            return PEAR::raiseError(_("Unable to retrieve quota"), 'horde.error');
         }
-
-        return PEAR::raiseError(_("Unable to retrieve quota"), 'horde.error');
     }
 
 }

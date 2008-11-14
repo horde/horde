@@ -1,6 +1,6 @@
 <?php
 /**
- * Implementation of the Quota API for a generic hook function.  This
+ * Implementation of IMP_Quota API for a generic hook function.  This
  * requires hook_get_quota to be set in config/hooks.php .  The
  * function takes an array as argument and returns an array where the
  * first item is the disk space used in bytes and the second the
@@ -8,7 +8,7 @@
  *
  * You must configure this driver in horde/imp/config/servers.php.  The
  * driver supports the following parameters:
- *   'params'       => Array of parameters to pass to the quota function.
+ *   'params' => Array of parameters to pass to the quota function.
  *
  * Copyright 2002-2008 The Horde Project (http://www.horde.org/)
  *
@@ -18,17 +18,18 @@
  * @author  Michael Redinger <Michael.Redinger@uibk.ac.at>
  * @package IMP_Quota
  */
-class IMP_Quota_hook extends IMP_Quota {
-
+class IMP_Quota_hook extends IMP_Quota
+{
     /**
      * Get quota information (used/allocated), in bytes.
      *
-     * @return mixed  An associative array.
+     * @return mixed  Returns PEAR_Error on failure. Otherwise, returns an
+     *                array with the following keys:
      *                'limit' = Maximum quota allowed
      *                'usage' = Currently used portion of quota (in bytes)
-     *                Returns PEAR_Error on failure.
      */
-    function getQuota()
+     */
+    public function getQuota()
     {
         $quota = Horde::callHook('_imp_hook_quota', $this->_params, 'imp');
         if (is_a($quota, 'PEAR_Error')) {

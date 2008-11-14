@@ -38,28 +38,28 @@
  * @author  Jan Schneider <jan@horde.org>
  * @package IMP_Quota
  */
-class IMP_Quota_sql extends IMP_Quota {
-
+class IMP_Quota_sql extends IMP_Quota
+{
     /**
      * SQL connection object.
      *
      * @var DB
      */
-    var $_db;
+    protected $_db;
 
     /**
      * State of SQL connection.
      *
      * @var boolean
      */
-    var $_connected = false;
+    protected $_connected = false;
 
     /**
      * Connects to the database
      *
      * @return boolean  True on success, PEAR_Error on failure.
      */
-    function _connect()
+    protected function _connect()
     {
         if (!$this->_connected) {
             require_once 'DB.php';
@@ -77,10 +77,10 @@ class IMP_Quota_sql extends IMP_Quota {
     /**
      * Returns quota information.
      *
-     * @return mixed  An associative array: 
-     *		  'limit' => Maximum quota allowed (in bytes),
-     *		  'usage' => Currently used space (in bytes).
-     *		  PEAR_Error on failure.
+     * @return mixed  Returns PEAR_Error on failure. Otherwise, returns an
+     *                array with the following keys:
+     *                'limit' = Maximum quota allowed
+     *                'usage' = Currently used portion of quota (in bytes)
      */
     function getQuota()
     {

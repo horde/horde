@@ -38,17 +38,17 @@
  * @author  Frank Lupo <frank_lupo@email.it>
  * @package IMP_Quota
  */
-class IMP_Quota_mercury32 extends IMP_Quota {
-
+class IMP_Quota_mercury32 extends IMP_Quota
+{
     /**
      * Get quota information (used/allocated), in bytes.
      *
-     * @return mixed  An associative array.
+     * @return mixed  Returns PEAR_Error on failure. Otherwise, returns an
+     *                array with the following keys:
      *                'limit' = Maximum quota allowed
      *                'usage' = Currently used portion of quota (in bytes)
-     *                Returns PEAR_Error on failure.
      */
-    function getQuota()
+    public function getQuota()
     {
         $quota = null;
 
@@ -59,7 +59,7 @@ class IMP_Quota_mercury32 extends IMP_Quota {
             }
             closedir($dir);
 
-            if ($quota !== null) {
+            if (!is_null($quota)) {
                 return array('usage' => $quota, 'limit' => 0);
             }
         }

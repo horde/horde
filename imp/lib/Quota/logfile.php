@@ -34,53 +34,53 @@
  * @author  Tim Gorter <email@teletechnics.co.nz>
  * @package IMP_Quota
  */
-class IMP_Quota_logfile extends IMP_Quota {
-
+class IMP_Quota_logfile extends IMP_Quota
+{
     /**
      * Constructor
      *
      * @param array $params  Hash containing connection parameters.
      */
-    function IMP_Quota_logfile($params = array())
+    function __construct($params = array())
     {
-        $params = array_merge(array('logfile'   => '',
-                                    'taillines' => 10,
-                                    'FTPmail'   => 'FTP',
-                                    'beginocc'  => 'usage = ',
-                                    'midocc'    => ' of ',
-                                    'endocc'    => ' bytes'),
-                              $params);
-        parent::IMP_Quota($params);
+        $params = array_merge(array(
+            'logfile' => '',
+            'taillines' => 10,
+            'FTPmail' => 'FTP',
+            'beginocc' => 'usage = ',
+            'midocc' => ' of ',
+            'endocc' => ' bytes'
+        ), $params);
+        parent::__construct($params);
     }
 
     /**
      * Get quota information (used/allocated), in bytes.
      *
-     * @return mixed  An associative array.
+     * @return mixed  Returns PEAR_Error on failure. Otherwise, returns an
+     *                array with the following keys:
      *                'limit' = Maximum quota allowed
      *                'usage' = Currently used portion of quota (in bytes)
-     *                Returns PEAR_Error on failure.
      */
-    function getQuota()
+    public function getQuota()
     {
-        if (is_file($this->_params['logfile'])) {
-            $full = file($this->_params['logfile']);
-            for (; $this->_params['taillines'] > 0; $this->_params['taillines']--) {
-                $tail[] = $full[count($full) - $this->_params['taillines']];
-            }
-            $uname    = $_SESSION['imp']['user'];
-            $FTPmail  = $this->_params['FTPmail'];
-            $virtline = preg_grep("[$uname: $FTPmail]", $tail);
-            $virtline = array_values($virtline);
-            $usage    = substr($virtline[0],
-                               strpos($virtline[0], $this->_params['beginocc']) + strlen($this->_params['beginocc']),
-                               strpos($virtline[0], $this->_params['midocc']));
-            $storage  = substr($virtline[0],
-                               strpos($virtline[0], $this->_params['midocc']) + strlen($this->_params['midocc']),
-                               strpos($virtline[0], $this->_params['endocc']));
-            return array('usage' => $usage, 'limit' => $storage);
+        if (!is_file($this->_params['logfile'])) {
+            return PEAR::raiseError(_("Unable to retrieve quota"), 'horde.error');
         }
-        return PEAR::raiseError(_("Unable to retrieve quota"), 'horde.error');
+
+        $full = file($this->_params['logfile']);
+        for (; $this->_params['taillines'] > 0; --$this->_params['taillines']) {
+            $tail[] = $full[count($full) - $this->_params['taillines']];
+        }
+
+        $uname = $_SESSION['imp']['user'];
+        $FTPmail = $this->_params['FTPmail'];
+        $virtline = preg_grep("[$uname: $FTPmail]", $tail);
+        $virtline = array_values($virtline);
+        $usage = substr($virtline[0], strpos($virtline[0], $this->_params['beginocc']) + strlen($this->_params['beginocc']), strpos($virtline[0], $this->_params['midocc']));
+        $storage  = substr($virtline[0], strpos($virtline[0], $this->_params['midocc']) + strlen($this->_params['midocc']), strpos($virtline[0], $this->_params['endocc']));
+
+        return array('usage' => $usage, 'limit' => $storage);
     }
 
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * Implementation of the Quota API for IMAP servers with a unix quota command.
+ * Implementation of IMP_Quota API for IMAP servers with a *nix quota command.
  * This requires a modified "quota" command that allows the httpd server
  * account to get quotas for other users. It also requires that your
  * web server and imap server be the same server or at least have shared
@@ -23,20 +23,20 @@
  * @author  Eric Rostetter <eric.rostetter@physics.utexas.edu>
  * @package IMP_Quota
  */
-class IMP_Quota_command extends IMP_Quota {
-
+class IMP_Quota_command extends IMP_Quota
+{
     /**
      * Constructor
      *
      * @param array $params  Hash containing connection parameters.
      */
-    function IMP_Quota_command($params = array())
+    function __construct($params = array())
     {
         $params = array_merge(array('quota_path' => 'quota',
                                     'grep_path'  => 'grep',
                                     'partition'  => null),
                               $params);
-        parent::IMP_Quota($params);
+        parent::__construct($params);
     }
 
     /**
@@ -49,40 +49,36 @@ class IMP_Quota_command extends IMP_Quota {
      * SELinux interference, the file being > 2 GB in size, the file
      * we're referring to not being readable, etc.
      */
-    function blockSize()
+    protected function _blockSize()
     {
         $results = stat(__FILE__);
-        if ($results['blksize'] > 1) {
-            $blocksize = $results['blksize'];
-        } else {
-            $blocksize = 1024;
-        }
-        return $blocksize;
+        return ($results['blksize'] > 1)
+            ? $results['blksize']
+            : 1024;
     }
 
     /**
      * Get quota information (used/allocated), in bytes.
      *
-     * @return mixed  An associative array.
+     * @return mixed  Returns PEAR_Error on failure. Otherwise, returns an
+     *                array with the following keys:
      *                'limit' = Maximum quota allowed
      *                'usage' = Currently used portion of quota (in bytes)
-     *                Returns PEAR_Error on failure.
      */
-    function getQuota()
+     */
+    public function getQuota()
     {
-        $imap_user = $_SESSION['imp']['user'];
         if (empty($this->_params['partition'])) {
-            $passwd_array = posix_getpwnam($imap_user);
+            $passwd_array = posix_getpwnam($_SESSION['imp']['user']);
             list($junk, $search_string, $junk) = explode('/', $passwd_array['dir']);
         } else {
             $search_string = $this->_params['partition'];
         }
-        $cmdline = $this->_params['quota_path'] . ' -u ' . $imap_user . ' | ' .
-                   $this->_params['grep_path'] . ' ' . $search_string;
+        $cmdline = $this->_params['quota_path'] . ' -u ' . $_SESSION['imp']['user'] . ' | ' . $this->_params['grep_path'] . ' ' . $search_string;
         exec($cmdline, $quota_data, $return_code);
         if (($return_code == 0) && (count($quota_data) == 1)) {
            $quota = split("[[:blank:]]+", trim($quota_data[0]));
-           $blocksize = $this->blockSize();
+           $blocksize = $this->_blockSize();
            return array('usage' => $quota[1] * $blocksize,
                         'limit' => $quota[2] * $blocksize);
         }
