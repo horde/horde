@@ -69,6 +69,7 @@ $mime_drivers['imp']['plain'] = array(
  * HTML driver settings
  */
 $mime_drivers['imp']['html'] = array(
+    /* NOTE: Inline HTML display is turned OFF by default. */
     'inline' => false,
     'handles' => array(
         'text/html'
