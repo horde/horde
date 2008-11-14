@@ -28,10 +28,7 @@ class IMP_Horde_Mime_Viewer_alternative extends Horde_Mime_Viewer_Driver
     /**
      * Return the rendered inline version of the Horde_Mime_Part object.
      *
-     * @return array  See Horde_Mime_Viewer_Driver::render(). This driver
-     *                returns an extra parameter: 'summary_id', which
-     *                identifies the MIME ID that should be used for the
-     *                summary information.
+     * @return array  See Horde_Mime_Viewer_Driver::render().
      */
     protected function _renderInline()
     {
