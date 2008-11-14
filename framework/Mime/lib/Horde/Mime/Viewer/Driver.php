@@ -207,7 +207,7 @@ class Horde_Mime_Viewer_Driver
      */
     public function getEmbeddedMimeParts()
     {
-        return $this->_embeddedMimeParts()
+        return $this->embeddedMimeParts()
             ? $this->_getEmbeddedMimeParts()
             : null;
     }
