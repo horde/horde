@@ -92,7 +92,7 @@ class IMP_Horde_Mime_Viewer_mdn extends Horde_Mime_Viewer_Driver
             $data = $first_part[$first_id]['data'];
         }
 
-        $ret = array_combine(array_keys($parts), array_fill(0, count($parts), null));
+        $ret = array_combine($parts, array_fill(0, count($parts), null));
         $ret[$mdn_id] = array(
             'data' => $data,
             'status' => $status,
