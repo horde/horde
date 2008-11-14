@@ -62,10 +62,9 @@ class IMP_Horde_Mime_Viewer_appledouble extends Horde_Mime_Viewer_Driver
 
         /* Display the resource fork download link. */
         $mime_id = $this->_mimepart->getMimeId();
-        $parts_list = $this->_mimepart->contentTypeMap();
+        $parts_list = array_keys($this->_mimepart->contentTypeMap());
         reset($parts_list);
-        next($parts_list);
-        $applefile_id = key($parts_list);
+        $applefile_id = next($parts_list);
         $data_id = Horde_Mime::mimeIdArithmetic($applefile_id, 'next');
 
         $applefile_part = $this->_mimepart->getPart($applefile_id);
@@ -89,10 +88,12 @@ class IMP_Horde_Mime_Viewer_appledouble extends Horde_Mime_Viewer_Driver
         if ($inline && (($disp = $this->_params['contents']->canDisplay($data_part, IMP_Contents::RENDER_INLINE | IMP_Contents::RENDER_INFO)))) {
             $ret = $this->_params['contents']->renderMIMEPart($data_id, $disp, array('params' => $this->_params));
             $status['text'][] = _("The contents of the Macintosh file are below.");
+        } else {
+            $status['text'][] = sprintf(_("The contents of the Macintosh file can be downloaded %s."), $this->_params['contents']->linkViewJS($data_part, 'download_attach', _("HERE"), array('jstext' => _("The Macintosh file"))));
         }
 
-        foreach (array_keys($parts_list) as $val) {
-            if (!isset($ret[$val])) {
+        foreach ($parts_list as $val) {
+            if (!isset($ret[$val]) && (strcmp($val, $data_id) !== 0)) {
                 $ret[$val] = (strcmp($val, $mime_id) === 0)
                     ? array(
                           'data' => '',
