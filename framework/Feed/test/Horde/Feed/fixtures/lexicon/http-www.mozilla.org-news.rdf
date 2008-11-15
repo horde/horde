@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:dc="http://purl.org/dc/elements/1.1/"
+         xmlns="http://purl.org/rss/1.0/">
+  <channel rdf:about="http://www.mozilla.org/">
+    <title>Mozilla Dot Org</title>
+    <description>the mozilla.org website</description>
+    <link>http://www.mozilla.org/news.html</link>
+    <items>
+      <rdf:Seq>
+        <rdf:li rdf:resource="http://www.mozilla.org/news.html#p435"/>
+        <rdf:li rdf:resource="http://www.mozilla.org/news.html#p434"/>
+        <rdf:li rdf:resource="http://www.mozilla.org/news.html#p433"/>
+        <rdf:li rdf:resource="http://www.mozilla.org/news.html#p432"/>
+        <rdf:li rdf:resource="http://www.mozilla.org/news.html#p431"/>
+        <rdf:li rdf:resource="http://www.mozilla.org/news.html#p430"/>
+        <rdf:li rdf:resource="http://www.mozilla.org/news.html#p429"/>
+        <rdf:li rdf:resource="http://www.mozilla.org/news.html#p428"/>
+        <rdf:li rdf:resource="http://www.mozilla.org/news.html#p427"/>
+        <rdf:li rdf:resource="http://www.mozilla.org/news.html#p426"/>
+        <rdf:li rdf:resource="http://www.mozilla.org/news.html#p425"/>
+        <rdf:li rdf:resource="http://www.mozilla.org/news.html#p424"/>
+        <rdf:li rdf:resource="http://www.mozilla.org/news.html#p423"/>
+        <rdf:li rdf:resource="http://www.mozilla.org/news.html#p422"/>
+        <rdf:li rdf:resource="http://www.mozilla.org/news.html#p421"/>
+      </rdf:Seq>
+    </items>
+  </channel>
+  <item rdf:about="http://www.mozilla.org/news.html#p435">
+    <title>Mozilla Project Celebrates Ten Years</title>
+    <link>http://www.mozilla.org/news.html#p435</link>
+    <dc:date>2008-03-31</dc:date>
+  </item>
+  <item rdf:about="http://www.mozilla.org/news.html#p434">
+    <title>Mozilla Foundation announces Directed Giving program</title>
+    <link>http://www.mozilla.org/news.html#p434</link>
+    <dc:date>2007-11-26</dc:date>
+  </item>
+  <item rdf:about="http://www.mozilla.org/news.html#p433">
+    <title>Mozilla Launches Internet Mail and Communications Initiative</title>
+    <link>http://www.mozilla.org/news.html#p433</link>
+    <dc:date>2007-09-17</dc:date>
+  </item>
+  <item rdf:about="http://www.mozilla.org/news.html#p432">
+    <title>Calendar Project Releases Lightning and Sunbird 0.5</title>
+    <link>http://www.mozilla.org/news.html#p432</link>
+    <dc:date>2007-06-27</dc:date>
+  </item>
+  <item rdf:about="http://www.mozilla.org/news.html#p431">
+    <title>Mozilla Foundation initiates search for Executive Director</title>
+    <link>http://www.mozilla.org/news.html#p431</link>
+    <dc:date>2007-05-23</dc:date>
+  </item>
+  <item rdf:about="http://www.mozilla.org/news.html#p430">
+    <title>Mozilla Releases Thunderbird 2</title>
+    <link>http://www.mozilla.org/news.html#p430</link>
+    <dc:date>2007-04-18</dc:date>
+  </item>
+  <item rdf:about="http://www.mozilla.org/news.html#p429">
+    <title>Thunderbird 2 Release Candidate 1 Released</title>
+    <link>http://www.mozilla.org/news.html#p429</link>
+    <dc:date>2007-04-06</dc:date>
+  </item>
+  <item rdf:about="http://www.mozilla.org/news.html#p428">
+    <title>Mozilla and eBay Working Together to Make the Auction Experience Easier for Firefox Users in France, Germany and the UK</title>
+    <link>http://www.mozilla.org/news.html#p428</link>
+    <dc:date>2007-03-28</dc:date>
+  </item>
+  <item rdf:about="http://www.mozilla.org/news.html#p427">
+    <title>Firefox 2.0.0.3 and Firefox 1.5.0.11 Security and Stability Update</title>
+    <link>http://www.mozilla.org/news.html#p427</link>
+    <dc:date>2007-03-20</dc:date>
+  </item>
+  <item rdf:about="http://www.mozilla.org/news.html#p426">
+    <title>Firefox Community Beta Program</title>
+    <link>http://www.mozilla.org/news.html#p426</link>
+    <dc:date>2007-03-15</dc:date>
+  </item>
+  <item rdf:about="http://www.mozilla.org/news.html#p425">
+    <title>Firefox 2.0.0.2 and Firefox 1.5.0.10 Security and Stability Update</title>
+    <link>http://www.mozilla.org/news.html#p425</link>
+    <dc:date>2007-02-23</dc:date>
+  </item>
+  <item rdf:about="http://www.mozilla.org/news.html#p424">
+    <title>Thunderbird 2 Beta 2 Released</title>
+    <link>http://www.mozilla.org/news.html#p424</link>
+    <dc:date>2007-01-23</dc:date>
+  </item>
+  <item rdf:about="http://www.mozilla.org/news.html#p423">
+    <title>Firefox 1.5.0.9, Firefox 2.0.0.1, and Thunderbird 1.5.0.9 Updates Available</title>
+    <link>http://www.mozilla.org/news.html#p423</link>
+    <dc:date>2006-12-19</dc:date>
+  </item>
+  <item rdf:about="http://www.mozilla.org/news.html#p422">
+    <title>Thunderbird 2 Beta 1 Released</title>
+    <link>http://www.mozilla.org/news.html#p422</link>
+    <dc:date>2006-12-12</dc:date>
+  </item>
+  <item rdf:about="http://www.mozilla.org/news.html#p421">
+    <title>SeaMonkey 1.0.6 and SeaMonkey 1.1 Beta Released</title>
+    <link>http://www.mozilla.org/news.html#p421</link>
+    <dc:date>2006-11-08</dc:date>
+  </item>
+</rdf:RDF>
