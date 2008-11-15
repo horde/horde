@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+http://pear.php.net/dtd/tasks-1.0.xsd
+http://pear.php.net/dtd/package-2.0
+http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Argv</name>
+ <channel>pear.horde.org</channel>
+ <summary>Horde command-line argument parsing package</summary>
+ <description>This package provides classes for parsing command line
+ arguments with various actions, providing help, grouping options, and
+ more.
+ </description>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Mike Naberezny</name>
+  <user>mnaberez</user>
+  <email>mike@maintainable.com</email>
+  <active>yes</active>
+ </lead>
+ <date>2008-01-31</date>
+ <version>
+  <release>0.1.0</release>
+  <api>0.1.0</api>
+ </version>
+ <stability>
+  <release>beta</release>
+  <api>beta</api>
+ </stability>
+ <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+ <notes>
+   * Initial release, ported from Optik (http://optik.sourceforge.net/)
+ </notes>
+ <contents>
+  <dir name="/">
+   <dir name="lib">
+    <dir name="Horde">
+     <dir name="Argv">
+      <file name="AmbiguousOptionException.php" role="php" />
+      <file name="BadOptionException.php" role="php" />
+      <file name="Exception.php" role="php" />
+      <file name="HelpFormatter.php" role="php" />
+      <file name="IndentedHelpFormatter.php" role="php" />
+      <file name="Option.php" role="php" />
+      <file name="OptionConflictException.php" role="php" />
+      <file name="OptionContainer.php" role="php" />
+      <file name="OptionException.php" role="php" />
+      <file name="OptionGroup.php" role="php" />
+      <file name="OptionValueException.php" role="php" />
+      <file name="Parser.php" role="php" />
+      <file name="TitledHelpFormatter.php" role="php" />
+      <file name="Values.php" role="php" />
+     </dir> <!-- /lib/Horde/Argv -->
+    </dir> <!-- /lib/Horde -->
+   </dir> <!-- /lib -->
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.1.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.5.0</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install name="lib/Horde/Argv/AmbiguousOptionException.php" as="Horde/Argv/AmbiguousOptionException.php" />
+   <install name="lib/Horde/Argv/BadOptionException.php" as="Horde/Argv/BadOptionException.php" />
+   <install name="lib/Horde/Argv/Exception.php" as="Horde/Argv/Exception.php" />
+   <install name="lib/Horde/Argv/HelpFormatter.php" as="Horde/Argv/HelpFormatter.php" />
+   <install name="lib/Horde/Argv/IndentedHelpFormatter.php" as="Horde/Argv/IndentedHelpFormatter.php" />
+   <install name="lib/Horde/Argv/Option.php" as="Horde/Argv/Option.php" />
+   <install name="lib/Horde/Argv/OptionConflictException.php" as="Horde/Argv/OptionConflictException.php" />
+   <install name="lib/Horde/Argv/OptionContainer.php" as="Horde/Argv/OptionContainer.php" />
+   <install name="lib/Horde/Argv/OptionException.php" as="Horde/Argv/OptionException.php" />
+   <install name="lib/Horde/Argv/OptionGroup.php" as="Horde/Argv/OptionGroup.php" />
+   <install name="lib/Horde/Argv/OptionValueException.php" as="Horde/Argv/OptionValueException.php" />
+   <install name="lib/Horde/Argv/Parser.php" as="Horde/Argv/Parser.php" />
+   <install name="lib/Horde/Argv/TitledHelpFormatter.php" as="Horde/Argv/TitledHelpFormatter.php" />
+   <install name="lib/Horde/Argv/Values.php" as="Horde/Argv/Values.php" />
+  </filelist>
+ </phprelease>
+</package>
