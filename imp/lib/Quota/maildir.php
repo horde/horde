@@ -25,33 +25,30 @@
  * @author  Eric Rostetter
  * @package IMP_Quota
  */
-class IMP_Quota_Maildir extends IMP_Quota {
-
+class IMP_Quota_Maildir extends IMP_Quota
+{
     /**
      * Constructor.
      *
      * @param array $params  Hash containing connection parameters.
      */
-    function IMP_Quota_Maildir( $params = array() )
+    function __construct($params = array())
     {
         $params = array_merge(array('path' => ''), $params);
-        parent::IMP_Quota($params);
+        parent::__construct($params);
     }
 
     /**
      * Returns quota information (used/allocated), in bytes.
      *
-     * @return mixed  An associative array.
+     * @return mixed  Returns PEAR_Error on failure. Otherwise, returns an
+     *                array with the following keys:
      *                'limit' = Maximum quota allowed
      *                'usage' = Currently used portion of quota (in bytes)
-     *                Returns PEAR_Error on failure.
      */
-    function getQuota()
+    public function getQuota()
     {
-        $storage_limit = 0;
-        $message_limit = 0;
-        $storage_used  = 0;
-        $message_used  = 0;
+        $storage_limit = $message_limit = $storage_used = $message_used = 0;
 
         // Get the full path to the quota file.
         $full = $this->_params['path'] . '/maildirsize';
@@ -61,52 +58,52 @@ class IMP_Quota_Maildir extends IMP_Quota {
         $full = str_replace('~U', $uname, $full);
 
         // Read in the quota file and parse it, if possible.
-        if (is_file($full)) {
-            // Read in maildir quota file.
-            $lines = file($full);
-
-            // Parse the lines.
-            foreach ($lines as $line_number => $line) {
-                if ($line_number == 0) {
-                    // First line, quota header.
-                    $line = preg_replace('/[ \t\n\r\0\x0B]/', '', $line);
-                    list($v1, $t1, $v2, $t2) = sscanf($line, '%ld%[CS],%ld%[CS]');
-                    if ($v1 == null || $t1 == null) {
-                        $v1 = 0;
-                    }
-                    if ($v2 == null || $t2 == null) {
-                        $v2 = 0;
-                    }
-
-                    if ($t1 == 'S') {
-                        $storage_limit = $v1;
-                    }
-                    if ($t1 == 'C') {
-                        $message_limit = $v1;
-                    }
-                    if ($t2 == 'S') {
-                        $storage_limit = $v2;
-                    }
-                    if ($t2 == 'C') {
-                        $message_limit = $v2;
-                    }
-                } else {
-                    // Any line other than the first line.
-                    // The quota used is the sum of all lines found.
-                    list($storage, $message) = sscanf(trim($line), '%ld %d');
-                    if ($storage != null) {
-                        $storage_used += $storage;
-                    }
-                    if ($message != null) {
-                        $message_used += $message;
-                    }
-                }
-            }
-
-            return array('usage' => $storage_used, 'limit' => $storage_limit);
+        if (!is_file($full)) {
+            return PEAR::raiseError(_("Unable to retrieve quota"));
         }
 
-        return PEAR::raiseError(_("Unable to retrieve quota"));
+        // Read in maildir quota file.
+        $lines = file($full);
+
+        // Parse the lines.
+        foreach ($lines as $line_number => $line) {
+            if ($line_number == 0) {
+                // First line, quota header.
+                $line = preg_replace('/[ \t\n\r\0\x0B]/', '', $line);
+                list($v1, $t1, $v2, $t2) = sscanf($line, '%ld%[CS],%ld%[CS]');
+                if (is_null($v1) || is_null($t1)) {
+                    $v1 = 0;
+                }
+                if (is_null($v2) || is_null($t2)) {
+                    $v2 = 0;
+                }
+
+                if ($t1 == 'S') {
+                    $storage_limit = $v1;
+                }
+                if ($t1 == 'C') {
+                    $message_limit = $v1;
+                }
+                if ($t2 == 'S') {
+                    $storage_limit = $v2;
+                }
+                if ($t2 == 'C') {
+                    $message_limit = $v2;
+                }
+            } else {
+                // Any line other than the first line.
+                // The quota used is the sum of all lines found.
+                list($storage, $message) = sscanf(trim($line), '%ld %d');
+                if (!is_null($storage)) {
+                    $storage_used += $storage;
+                }
+                if (!is_null($message)) {
+                    $message_used += $message;
+                }
+            }
+        }
+
+        return array('usage' => $storage_used, 'limit' => $storage_limit);
     }
 
 }

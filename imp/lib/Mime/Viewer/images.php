@@ -30,37 +30,34 @@ class IMP_Horde_Mime_Viewer_images extends Horde_Mime_Viewer_images
      *
      * URL parameters used by this function:
      * <pre>
-     * 'img_data' - (boolean) If true, output the image directly.
-     * 'img_load_convert' - (boolean) TODO
-     * 'img_view_convert' - (boolean) TODO
-     * 'img_view_thumbnail' - (boolean) TODO
+     * 'imp_img_view' - (string) One of the following:
+     *   'data' - Output the image directly.
+     *   'load_convert' - TODO
+     *   'view_convert' - TODO
+     *   'view_thumbnail' - TODO
      * </pre>
      *
      * @return array  See Horde_Mime_Viewer_Driver::render().
      */
     protected function _render()
     {
-        /* If calling page is asking us to output data, do that without any
-         * further delay and exit. */
-        if (Util::getFormData('img_data')) {
+        switch (Util::getFormData('imp_img_view')) {
+        case 'data':
+            /* If calling page is asking us to output data, do that without
+             * any further delay and exit. */
             return parent::_render();
-        }
 
-        /* Convert the image to browser-viewable format and display. */
-        if (Util::getFormData('img_view_convert')) {
+        case 'view_convert':
+            /* Convert the image to browser-viewable format and display. */
             return $this->_viewConvert(false);
-        }
 
-        /* Create the thumbnail and display. */
-        if (Util::getFormData('img_view_thumbnail')) {
+        case 'view_thumbnail':
+            /* Create the thumbnail and display. */
             return $this->_viewConvert(true);
-        }
 
-        /* The browser can display the image type directly - output the JS
-         * code to render the auto resize popup image window. */
-        if (Util::getFormData('img_load_convert') ||
-            ($GLOBALS['browser']->hasFeature('javascript') &&
-             $GLOBALS['browser']->isViewable($this->_getType()))) {
+        case 'load_convert':
+            /* The browser can display the image type directly - output the JS
+             * code to render the auto resize popup image window. */
             return $this->_popupImageWindow();
         }
 
@@ -83,7 +80,7 @@ class IMP_Horde_Mime_Viewer_images extends Horde_Mime_Viewer_images
                  * directly. So output an <img> tag to load the image. */
                 return array(
                     $this->_mimepart->getMimeId() => array(
-                        'data' => Horde::img($this->_params['contents']->urlView($this->_mimepart, 'view_attach', array('params' => array('img_data' => 1))), $this->_mimepart->getName(true), null, ''),
+                        'data' => Horde::img($this->_params['contents']->urlView($this->_mimepart, 'view_attach', array('params' => array('imp_img_view' => 'data'))), $this->_mimepart->getName(true), null, ''),
                         'status' => array(),
                         'type' => 'text/html; charset=' . NLS::getCharset()
                     )
@@ -98,10 +95,13 @@ class IMP_Horde_Mime_Viewer_images extends Horde_Mime_Viewer_images
         $status = array(_("Your browser does not support inline display of this image type."));
 
         /* See if we can convert to an inline browser viewable form. */
-        $img = $this->_getHordeImageOb(false);
-        if ($img && $GLOBALS['browser']->isViewable($img->getContentType())) {
-            $convert_link = $contents->linkViewJS($this->_mimepart, 'view_attach', _("HERE"), null, null, array('img_load_convert' => 1));
-            $status[] = sprintf(_("Click %s to convert the image file into a format your browser can view."), $convert_link);
+        if ($GLOBALS['browser']->hasFeature('javascript')) {
+            $img = $this->_getHordeImageOb(false);
+            if ($img &&
+                $GLOBALS['browser']->isViewable($img->getContentType())) {
+                $convert_link = $this->_params['contents']->linkViewJS($this->_mimepart, 'view_attach', _("HERE"), array('params' => array('imp_img_view' => 'load_convert')));
+                $status[] = sprintf(_("Click %s to convert the image file into a format your browser can attempt to view."), $convert_link);
+            }
         }
 
         return array(
@@ -136,9 +136,9 @@ class IMP_Horde_Mime_Viewer_images extends Horde_Mime_Viewer_images
         $status = array(sprintf(_("An image named %s is attached to this message. A thumbnail is below."), $this->_mimepart->getName(true)));
 
         if ($GLOBALS['browser']->hasFeature('javascript')) {
-            $status[] = $this->_params['contents']->linkViewJS($this->_mimepart, 'view_attach', Horde::img($this->_params['contents']->urlView($this->_mimepart, 'view_attach', array('params' => array('img_view_thumbnail' => 1)), false), _("View Attachment"), null, ''), null, null, null);
+            $status[] = $this->_params['contents']->linkViewJS($this->_mimepart, 'view_attach', Horde::img($this->_params['contents']->urlView($this->_mimepart, 'view_attach', array('params' => array('imp_img_view' => 'view_thumbnail')), false), _("View Attachment"), null, ''), null, null, null);
         } else {
-            $status[] = Horde::link($this->_params['contents']->urlView($this->_mimepart, 'view_attach')) . Horde::img($this->_params['contents']->urlView($this->_mimepart, 'view_attach', array('params' => array('img_view_thumbnail' => 1)), false), _("View Attachment"), null, '') . '</a>';
+            $status[] = Horde::link($this->_params['contents']->urlView($this->_mimepart, 'view_attach')) . Horde::img($this->_params['contents']->urlView($this->_mimepart, 'view_attach', array('params' => array('imp_img_view' => 'view_thumbnail')), false), _("View Attachment"), null, '') . '</a>';
         }
 
         return array(
@@ -162,16 +162,7 @@ class IMP_Horde_Mime_Viewer_images extends Horde_Mime_Viewer_images
      */
     protected function _popupImageWindow()
     {
-        $params = $remove_params = array();
-
-        if (Util::getFormData('img_load_convert')) {
-            $params['img_view_convert'] = 1;
-            $remove_params[] = 'img_load_convert';
-        } else {
-            $params['img_data'] = 1;
-        }
-
-        $self_url = Util::addParameter(Util::removeParameter(Horde::selfUrl(true), $remove_params), $params);
+        $self_url = Util::addParameter(Horde::selfUrl(true), array('imp_img_view' => ((Util::getFormData('imp_img_view') == 'load_convert') ? 'view_convert' : 'data')));
         $title = $this->_mimepart->getName(true);
 
         $str = <<<EOD

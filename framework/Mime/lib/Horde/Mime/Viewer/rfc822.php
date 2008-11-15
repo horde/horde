@@ -84,7 +84,7 @@ class Horde_Mime_Viewer_rfc822 extends Horde_Mime_Viewer_Driver
         require_once 'Horde/Text/Filter.php';
         return array(
             $this->_mimepart->getMimeId() => array(
-                'data' => '<div class="mimeHeaders">' . Text_Filter::filter(implode("<br />\n", $header_output), 'emails') . '</div>',
+                'data' => empty($header_output) ? '' : ('<div class="mimeHeaders">' . Text_Filter::filter(implode("<br />\n", $header_output), 'emails') . '</div>'),
                 'status' => array(),
                 'type' => 'text/html; charset=' . NLS::getCharset()
             )

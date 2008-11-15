@@ -39,7 +39,7 @@ class Horde_Mime_Viewer_html extends Horde_Mime_Viewer_Driver
         return array(
             $this->_mimepart->getMimeId() => array(
                 'data' => $html['data'],
-                'status' => $html['status'],
+                'status' => array(),
                 'type' => $this->_mimepart->getType(true)
             )
         );
@@ -159,15 +159,15 @@ class Horde_Mime_Viewer_html extends Horde_Mime_Viewer_Driver
 
         /* Get phishing warning. */
         $status = array();
-        if ($phish_warn) {
+        if ($inline && $phish_warn) {
             $phish_warning = sprintf(_("%s: This message may not be from whom it claims to be. Beware of following any links in it or of providing the sender with any personal information.") . ' ' . _("The links that caused this warning have the same background color as this message."), _("Warning"));
             if (!$inline) {
                 $phish_warning = String::convertCharset($phish_warning, NLS::getCharset(), $this->_mimepart->getCharset());
             }
 
             $status[] = array(
-                'text' => array($phish_warning),
-                'type' => 'warning'
+                'class' => 'mimestatuswarning',
+                'text' => array($phish_warning)
             );
         }
 

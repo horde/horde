@@ -28,10 +28,7 @@ class IMP_Horde_Mime_Viewer_alternative extends Horde_Mime_Viewer_Driver
     /**
      * Return the rendered inline version of the Horde_Mime_Part object.
      *
-     * @return array  See Horde_Mime_Viewer_Driver::render(). This driver
-     *                returns an extra parameter: 'summary_id', which
-     *                identifies the MIME ID that should be used for the
-     *                summary information.
+     * @return array  See Horde_Mime_Viewer_Driver::render().
      */
     protected function _renderInline()
     {
@@ -69,22 +66,16 @@ class IMP_Horde_Mime_Viewer_alternative extends Horde_Mime_Viewer_Driver
             return $ret;
         }
 
-        /* Get the list of IDs directly under the subpart. */
-        reset($subparts);
-        next($subparts);
-        $id = key($subparts);
-        do {
-            $base_ids[strval($id)] = true;
-            $id = Horde_Mime::mimeIdArithmetic($id, 'next');
-        } while (isset($subparts[$id]));
-
         /* If the last viewable message exists in a subpart, back up to the
          * base multipart and display all viewable parts in that multipart.
          * Else, display the single part. */
         end($display_ids);
-        $disp_id = key($display_ids);
-        while (!is_null($disp_id) && !isset($base_ids[$disp_id])) {
-            $disp_id = Horde_Mime::mimeIdArithmetic($disp_id, 'up');
+        $curr_id = key($display_ids);
+        while (!is_null($curr_id) && (strcmp($base_id, $curr_id) !== 0)) {
+            if (isset($subparts[$curr_id])) {
+                $disp_id = $curr_id;
+            }
+            $curr_id = Horde_Mime::mimeIdArithmetic($curr_id, 'up');
         }
 
         /* Now grab all keys under this ID. */

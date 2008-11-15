@@ -642,7 +642,7 @@ class IMP_Contents
             $options['jstext'] = sprintf(_("View %s"), $mime_part->getDescription(true));
         }
 
-        $url = IMP::popupIMPString($this->urlView($mime_part, $actionID, $options));
+        $url = IMP::popupIMPString($this->urlView($mime_part, $actionID, $options)) . 'return false;';
 
         return empty($options['widget'])
             ? Horde::link('#', $options['jstext'], empty($options['css']) ? null : $options['css'], null, $url) . $text . '</a>'

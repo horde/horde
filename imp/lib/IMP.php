@@ -738,7 +738,7 @@ class IMP
             }
         } else {
             // Hide unlimited quota message?
-            if (!empty($_SESSION['imp']['quota']['params']['hide_quota_when_unlimited'])) {
+            if (!empty($_SESSION['imp']['quota']['hide_when_unlimited'])) {
                 return false;
             }
 

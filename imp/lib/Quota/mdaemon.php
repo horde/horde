@@ -13,17 +13,17 @@
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
  * @package IMP_Quota
  */
-class IMP_Quota_mdaemon extends IMP_Quota {
-
+class IMP_Quota_mdaemon extends IMP_Quota
+{
     /**
      * Get quota information (used/allocated), in bytes.
      *
-     * @return mixed  An associative array.
+     * @return mixed  Returns PEAR_Error on failure. Otherwise, returns an
+     *                array with the following keys:
      *                'limit' = Maximum quota allowed
      *                'usage' = Currently used portion of quota (in bytes)
-     *                Returns PEAR_Error on failure.
      */
-    function getQuota()
+    public function getQuota()
     {
         $userDetails = $this->_getUserDetails($_SESSION['imp']['user'], $_SESSION['imp']['maildomain']);
 
@@ -46,15 +46,13 @@ class IMP_Quota_mdaemon extends IMP_Quota {
     /**
      * Get the size of a mailbox
      *
-     * @access private
-     *
      * @param string $path  The full path of the mailbox to fetch the quota
      *                     for including trailing backslash.
      *
      * @return mixed  The number of bytes in the mailbox (integer) or false
      *                (boolean) on error.
      */
-    function _mailboxSize($path)
+    protected function _mailboxSize($path)
     {
         $contents = file_get_contents($path . '\imap.mrk');
 
@@ -88,7 +86,7 @@ class IMP_Quota_mdaemon extends IMP_Quota {
      *
      * @return mixed  Line from userlist.dat (string) or false (boolean).
      */
-    function _getUserDetails($user, $realm)
+    protected function _getUserDetails($user, $realm)
     {
         $searchString = str_pad($realm, 45) . str_pad($user, 30);
 
