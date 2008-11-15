@@ -1,0 +1,14 @@
+foo: bar
+
+# A folded block as a mapped value
+no time: >
+  There isn't any time
+  for your tricks!
+
+  Do you understand?
+
+# A literal block as a mapped value
+some time: |
+  There is nothing but time
+  for your tricks.
+
