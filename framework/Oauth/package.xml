@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+http://pear.php.net/dtd/tasks-1.0.xsd
+http://pear.php.net/dtd/package-2.0
+http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Oauth</name>
+ <channel>pear.horde.org</channel>
+ <summary>Horde OAuth client/server</summary>
+ <description>This package provides an OAuth consumer (http://oauth.net) and OAuth infrastruture, and in the future will provide an OAuth server.
+ </description>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2008-07-28</date>
+ <version>
+  <release>0.1.0</release>
+  <api>0.1.0</api>
+ </version>
+ <stability>
+  <release>beta</release>
+  <api>beta</api>
+ </stability>
+ <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+ <notes>
+* Initial release
+ </notes>
+ <contents>
+  <dir name="/">
+   <dir name="lib">
+    <dir name="Horde">
+     <dir name="Oauth">
+      <dir name="SignatureMethod">
+       <file name="Base.php" role="php" />
+       <file name="HmacSha1.php" role="php" />
+       <file name="Plaintext.php" role="php" />
+       <file name="RsaSha1.php" role="php" />
+      </dir> <!-- /lib/Horde/Oauth/SignatureMethod -->
+      <file name="Consumer.php" role="php" />
+      <file name="Exception.php" role="php" />
+      <file name="Request.php" role="php" />
+      <file name="Token.php" role="php" />
+      <file name="Utils.php" role="php" />
+     </dir> <!-- /lib/Horde/Oauth -->
+    </dir> <!-- /lib/Horde -->
+   </dir> <!-- /lib -->
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.5.0</min>
+   </pearinstaller>
+   <package>
+    <name>Http_Client</name>
+    <channel>pear.horde.org</channel>
+   </package>
+  </required>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install name="lib/Horde/Oauth/Consumer.php" as="Horde/Oauth/Consumer.php" />
+   <install name="lib/Horde/Oauth/Exception.php" as="Horde/Oauth/Exception.php" />
+   <install name="lib/Horde/Oauth/Request.php" as="Horde/Oauth/Request.php" />
+   <install name="lib/Horde/Oauth/SignatureMethod/Base.php" as="Horde/Oauth/SignatureMethod/Base.php" />
+   <install name="lib/Horde/Oauth/SignatureMethod/HmacSha1.php" as="Horde/Oauth/SignatureMethod/HmacSha1.php" />
+   <install name="lib/Horde/Oauth/SignatureMethod/Plaintext.php" as="Horde/Oauth/SignatureMethod/Plaintext.php" />
+   <install name="lib/Horde/Oauth/SignatureMethod/RsaSha1.php" as="Horde/Oauth/SignatureMethod/RsaSha1.php" />
+   <install name="lib/Horde/Oauth/Token.php" as="Horde/Oauth/Token.php" />
+   <install name="lib/Horde/Oauth/Utils.php" as="Horde/Oauth/Utils.php" />
+  </filelist>
+ </phprelease>
+</package>
