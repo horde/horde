@@ -1,0 +1,44 @@
+- port Rdo to run on Horde_Db
+
+- document running the test suite
+
+- port updates in schema_definitions.rb and schema_statements.rb
+
+- allow adding multiple indexes (and columns) at once, in an aggregate
+  operation. at the abstract level this will just execute the changes one at a
+  time; for databases like mysql that can run multiple changes at once, it will,
+  achieving much better efficiency.
+
+- replace backend-specific structuredump with a YAML/JSON dump of schema and
+  data, including a corresponding importer. should look at what it would take to
+  support MDB2_Schema XML instead, and at what Doctrine does, but a simple
+  YAML/JSON structure that represents the PHP objects (TableDefinition,
+  ColumnDefinition, IndexDefinition) would make it easiest to reconstruct
+  identical tables between multiple machines and multiple database types, and a
+  simple JSON encoding of data (a single header row, followed by one JSON array
+  per database row per line) would take care of most special characters and
+  serialization issues, and allow for fast line-by-line reading.
+
+- Handle Horde_Date objects in both input/output from Horde_Db.
+
+- write a make task to generate .sql scripts (for a specific db backend) from
+  the schema/data files. might want to automatically generate these for release
+  tarballs too.
+
+- migrations. either rails-style, or MDB2 diff between one parsed structure and
+  another, or both.
+
+- rdo: add the ability to load a table once, then use it repeatedly in a
+  relationship (or to have it be a static array), instead of joining.
+
+- port any updates to mysql adapter
+
+- port any updates to pgsql adapter
+
+- composite primary key support: http://compositekeys.rubyforge.org/
+
+- port disable_referential_integrity?
+
+- port query_cache.rb
+
+- what to do about '0000-00-00' with PostgreSQL?

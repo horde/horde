@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+http://pear.php.net/dtd/tasks-1.0.xsd
+http://pear.php.net/dtd/package-2.0
+http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Db</name>
+ <channel>pear.horde.org</channel>
+ <summary>Horde Database Libraries</summary>
+ <description>Horde Database/SQL abstraction layer
+ </description>
+ <lead>
+  <name>Mike Naberezny</name>
+  <user>mnaberez</user>
+  <email>mike@naberezny.com</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2008-09-19</date>
+ <version>
+  <release>0.1.0</release>
+  <api>0.1.0</api>
+ </version>
+ <stability>
+  <release>beta</release>
+  <api>beta</api>
+ </stability>
+ <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+ <notes>* Initial release
+ </notes>
+ <contents>
+  <dir name="/">
+   <dir name="lib">
+    <dir name="Horde">
+     <dir name="Db">
+      <dir name="Adapter">
+       <dir name="Abstract">
+        <file name="Column.php" role="php" />
+        <file name="ColumnDefinition.php" role="php" />
+        <file name="Schema.php" role="php" />
+        <file name="TableDefinition.php" role="php" />
+       </dir> <!-- /lib/Horde/Db/Adapter/Abstract -->
+       <dir name="Mssql">
+        <file name="Schema.php" role="php" />
+       </dir> <!-- /lib/Horde/Db/Adapter/Mssql -->
+       <dir name="Mysql">
+        <file name="Column.php" role="php" />
+        <file name="Schema.php" role="php" />
+        <file name="TableDefinition.php" role="php" />
+       </dir> <!-- /lib/Horde/Db/Adapter/Mysql -->
+       <dir name="Mysqli">
+        <file name="Result.php" role="php" />
+       </dir> <!-- /lib/Horde/Db/Adapter/Mysqli -->
+       <dir name="Pdo">
+        <file name="Abstract.php" role="php" />
+        <file name="Mysql.php" role="php" />
+        <file name="Oci.php" role="php" />
+        <file name="Pgsql.php" role="php" />
+        <file name="Sqlite.php" role="php" />
+       </dir> <!-- /lib/Horde/Db/Adapter/Pdo -->
+       <dir name="Oracle">
+        <file name="Schema.php" role="php" />
+       </dir> <!-- /lib/Horde/Db/Adapter/Oracle -->
+       <dir name="Postgresql">
+        <file name="Column.php" role="php" />
+        <file name="Schema.php" role="php" />
+       </dir> <!-- /lib/Horde/Db/Adapter/Postgresql -->
+       <dir name="Sqlite">
+        <file name="Column.php" role="php" />
+        <file name="Schema.php" role="php" />
+       </dir> <!-- /lib/Horde/Db/Adapter/Sqlite -->
+       <file name="Abstract.php" role="php" />
+       <file name="Oci8.php" role="php" />
+       <file name="Mysqli.php" role="php" />
+      </dir> <!-- /lib/Horde/Db/Adapter -->
+      <file name="Adapter.php" role="php" />
+      <file name="Exception.php" role="php" />
+     </dir> <!-- /lib/Horde/Db -->
+     <file name="Db.php" role="php" />
+    </dir> <!-- /lib/Horde -->
+   </dir> <!-- /lib -->
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.5.0</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install name="lib/Horde/Db/Adapter/Abstract/Column.php" as="Horde/Db/Adapter/Abstract/Column.php" />
+   <install name="lib/Horde/Db/Adapter/Abstract/ColumnDefinition.php" as="Horde/Db/Adapter/Abstract/ColumnDefinition.php" />
+   <install name="lib/Horde/Db/Adapter/Abstract/Schema.php" as="Horde/Db/Adapter/Abstract/Schema.php" />
+   <install name="lib/Horde/Db/Adapter/Abstract/TableDefinition.php" as="Horde/Db/Adapter/Abstract/TableDefinition.php" />
+   <install name="lib/Horde/Db/Adapter/Abstract.php" as="Horde/Db/Adapter/Abstract.php" />
+
+   <install name="lib/Horde/Db/Adapter/Mssql/Schema.php" as="Horde/Db/Adapter/Mssql/Schema.php" />
+
+   <install name="lib/Horde/Db/Adapter/Mysql/Column.php" as="Horde/Db/Adapter/Mysql/Column.php" />
+   <install name="lib/Horde/Db/Adapter/Mysql/Schema.php" as="Horde/Db/Adapter/Mysql/Schema.php" />
+   <install name="lib/Horde/Db/Adapter/Mysql/TableDefinition.php" as="Horde/Db/Adapter/Mysql/TableDefinition.php" />
+
+   <install name="lib/Horde/Db/Adapter/Mysqli/Result.php" as="Horde/Db/Adapter/Mysqli/Statement.php" />
+   <install name="lib/Horde/Db/Adapter/Mysqli.php" as="Horde/Db/Adapter/Mysqli.php" />
+
+   <install name="lib/Horde/Db/Adapter/Oci8.php" as="Horde/Db/Adapter/Oci8.php" />
+
+   <install name="lib/Horde/Db/Adapter/Oracle/Schema.php" as="Horde/Db/Adapter/Oracle/Schema.php" />
+
+   <install name="lib/Horde/Db/Adapter/Pdo/Abstract.php" as="Horde/Db/Adapter/Pdo/Abstract.php" />
+   <install name="lib/Horde/Db/Adapter/Pdo/Mysql.php" as="Horde/Db/Adapter/Pdo/Mysql.php" />
+   <install name="lib/Horde/Db/Adapter/Pdo/Oci.php" as="Horde/Db/Adapter/Pdo/Oci.php" />
+   <install name="lib/Horde/Db/Adapter/Pdo/Pgsql.php" as="Horde/Db/Adapter/Pdo/Pgsql.php" />
+   <install name="lib/Horde/Db/Adapter/Pdo/Sqlite.php" as="Horde/Db/Adapter/Pdo/Sqlite.php" />
+
+   <install name="lib/Horde/Db/Adapter/Postgresql/Column.php" as="Horde/Db/Adapter/Postgresql/Column.php" />
+   <install name="lib/Horde/Db/Adapter/Postgresql/Schema.php" as="Horde/Db/Adapter/Postgresql/Schema.php" />
+
+   <install name="lib/Horde/Db/Adapter/Sqlite/Column.php" as="Horde/Db/Adapter/Sqlite/Column.php" />
+   <install name="lib/Horde/Db/Adapter/Sqlite/Schema.php" as="Horde/Db/Adapter/Sqlite/Schema.php" />
+
+   <install name="lib/Horde/Db/Adapter.php" as="Horde/Db/Adapter.php" />
+   <install name="lib/Horde/Db/Exception.php" as="Horde/Db/Exception.php" />
+
+   <install name="lib/Horde/Db.php" as="Horde/Db.php" />
+  </filelist>
+ </phprelease>
+</package>
