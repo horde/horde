@@ -1,0 +1,40 @@
+<?php
+/**
+ * @author     Chuck Hagenbuch <chuck@horde.org>
+ * @license    http://opensource.org/licenses/bsd-license.php BSD
+ * @category   Horde
+ * @package    Horde_Xml_Element
+ * @subpackage UnitTests
+ */
+
+require_once dirname(dirname(dirname(dirname(dirname(__FILE__))))) . '/lib/Horde/Xml/Element.php';
+require_once dirname(dirname(dirname(dirname(dirname(__FILE__))))) . '/lib/Horde/Xml/Element/Exception.php';
+require_once dirname(dirname(dirname(dirname(dirname(__FILE__))))) . '/lib/Horde/Xml/Element/List.php';
+
+class Horde_Xml_Element_CountTest extends PHPUnit_Framework_TestCase
+{
+    public function testCount()
+    {
+        $l = new Horde_Xml_Element_CountTest_List(
+            '<?xml version="1.0" encoding="utf-8"?><list><item>1</item><item>2</item></list>'
+        );
+        $this->assertEquals(2, $l->count(), 'List count should be 2');
+    }
+
+}
+
+class Horde_Xml_Element_CountTest_List extends Horde_Xml_Element_List
+{
+    protected function _buildListItemCache()
+    {
+        $results = array();
+        foreach ($this->_element->childNodes as $child) {
+            if ($child->localName == 'item') {
+                $results[] = $child;
+            }
+        }
+
+        return $results;
+    }
+
+}

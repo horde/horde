@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+http://pear.php.net/dtd/tasks-1.0.xsd
+http://pear.php.net/dtd/package-2.0
+http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Xml_Element</name>
+ <channel>pear.horde.org</channel>
+ <summary>Horde Xml Element object</summary>
+ <description>This package provides an element object that can be used
+ to provide SimpleXML-like functionality over a DOM object. The main
+ advantage over using SimpleXML is the ability to add multiple levels
+ of new elements in a single call, without introducing &quot;ghost&quot; objects.
+ </description>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Jan Schneider</name>
+  <user>jan</user>
+  <email>jan@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2008-09-25</date>
+ <version>
+  <release>0.4.2</release>
+  <api>0.4.0</api>
+ </version>
+ <stability>
+  <release>beta</release>
+  <api>beta</api>
+ </stability>
+ <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+ <notes>
+* Avoid errors when a child node doesn't exist.
+</notes>
+ <contents>
+  <dir name="/">
+   <dir name="lib">
+    <dir name="Horde">
+     <dir name="Xml">
+      <dir name="Element">
+       <file name="Exception.php" role="php" />
+       <file name="List.php" role="php" />
+      </dir> <!-- /lib/Horde/Xml/Element -->
+      <file name="Element.php" role="php" />
+     </dir> <!-- /lib/Horde/Xml -->
+    </dir> <!-- /lib/Horde -->
+   </dir> <!-- /lib -->
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.5.0</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install name="lib/Horde/Xml/Element/Exception.php" as="Horde/Xml/Element/Exception.php" />
+   <install name="lib/Horde/Xml/Element/List.php" as="Horde/Xml/Element/List.php" />
+   <install name="lib/Horde/Xml/Element.php" as="Horde/Xml/Element.php" />
+  </filelist>
+ </phprelease>
+</package>
