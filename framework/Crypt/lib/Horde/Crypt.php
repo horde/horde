@@ -36,11 +36,13 @@ class Horde_Crypt
     static public function factory($driver, $params = array())
     {
         if (is_array($driver)) {
-            list($app, $driver) = $driver;
+            list($app, $driv_name) = $driver;
+            $driver = basename($driv_name);
+        } else {
+            $driver = basename($driver);
         }
 
         /* Return a base Horde_Crypt object if no driver is specified. */
-        $driver = basename($driver);
         if (empty($driver) || (strcmp($driver, 'none') == 0)) {
             return new Horde_Crypt();
         }
