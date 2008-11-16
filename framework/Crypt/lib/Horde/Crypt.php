@@ -18,7 +18,7 @@ class Horde_Crypt
      *
      * @var string
      */
-    protected var $_tempdir;
+    protected $_tempdir;
 
     /**
      * Attempts to return a concrete Horde_Crypt instance based on $driver.
@@ -46,17 +46,21 @@ class Horde_Crypt
         }
 
         $class = 'Horde_Crypt_' . $driver;
+        if (!empty($app)) {
+            $class = $app . '_' . $class;
+        }
+
         if (!class_exists($class)) {
-            if (!empty($app)) {
-                include_once $GLOBALS['registry']->get('fileroot', $app) . '/lib/Crypt/' . $driver . '.php';
-            } else {
+            if (empty($app)) {
                 include_once dirname(__FILE__) . '/Crypt/' . $driver . '.php';
+            } else {
+                include_once $GLOBALS['registry']->get('fileroot', $app) . '/lib/Crypt/' . $driver . '.php';
             }
         }
 
         return class_exists($class)
-            ? new $class($params);
-            PEAR::raiseError('Class definition of ' . $class . ' not found.');
+            ? new $class($params)
+            : PEAR::raiseError('Class definition of ' . $class . ' not found.');
     }
 
     /**
