@@ -3,16 +3,20 @@
  * @package Horde_Crypt
  */
 
+$filedir = dirname(__FILE__);
+
 require 'PEAR.php';
 require 'Horde/Util.php';
 require 'Horde/Browser.php';
-require dirname(__FILE__) . '/../Crypt/pgp.php';
+require $filedir . '/../../../lib/Horde/Crypt.php';
 
 $_SERVER['HTTPS'] = 'on';
 $browser = &Browser::singleton();
 
-$pgp = new Horde_Crypt_pgp(array('program' => '/usr/bin/gpg',
-                                 'temp' => Util::getTempDir()));
+$pgp = Horde_Crypt::factory('pgp', array(
+    'program' => '/usr/bin/gpg',
+    'temp' => Util::getTempDir()
+));
 
-$pubkey = file_get_contents(dirname(__FILE__) . '/fixtures/pgp_public.asc');
-$privkey = file_get_contents(dirname(__FILE__) . '/fixtures/pgp_private.asc');
+$pubkey = file_get_contents($filedir . '/fixtures/pgp_public.asc');
+$privkey = file_get_contents($filedir . '/fixtures/pgp_private.asc');

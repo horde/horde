@@ -6,6 +6,6 @@
 require 'PEAR.php';
 require 'Horde/String.php';
 require 'Horde/Util.php';
-require dirname(__FILE__) . '/../Crypt/smime.php';
+require dirname(__FILE__) . '/../../../lib/Horde/Crypt.php';
 
-$smime = new Horde_Crypt_smime(array('temp' => Util::getTempDir()));
+$smime = Horde_Crypt::factory('smime', array('temp' => Util::getTempDir()));
