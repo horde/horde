@@ -7,7 +7,7 @@ class Horde_Support_Numerizer
     public static function factory($locale = null, $args = array())
     {
         if ($locale) {
-            $locale = ucfirst($locale);
+            $locale = str_replace(' ', '_', ucwords(str_replace('_', ' ', strtolower($locale))));
             $class = 'Horde_Support_Numerizer_Locale_' . $locale;
             if (class_exists($class)) {
                 return new $class($args);
