@@ -143,6 +143,10 @@ class Horde_Mime_Viewer_Driver
      */
     protected function _render()
     {
+        $viewer = $this->_getViewer();
+        return $viewer
+            ? $viewer->render('full')
+            : array();
     }
 
     /**
@@ -152,6 +156,10 @@ class Horde_Mime_Viewer_Driver
      */
     protected function _renderInline()
     {
+        $viewer = $this->_getViewer();
+        return $viewer
+            ? $viewer->render('inline')
+            : array();
     }
 
     /**
@@ -161,6 +169,10 @@ class Horde_Mime_Viewer_Driver
      */
     protected function _renderInfo()
     {
+        $viewer = $this->_getViewer();
+        return $viewer
+            ? $viewer->render('info')
+            : array();
     }
 
     /**
@@ -173,6 +185,11 @@ class Horde_Mime_Viewer_Driver
      */
     public function canRender($mode)
     {
+        $viewer = $this->_getViewer();
+        if ($viewer) {
+            return $viewer->canRender($mode);
+        }
+
         switch ($mode) {
         case 'full':
         case 'info':
@@ -194,7 +211,8 @@ class Horde_Mime_Viewer_Driver
      */
     public function embeddedMimeParts()
     {
-        return $this->_capability['embedded'];
+        $viewer = $this->_getViewer();
+        return ($viewer) ? $viewer->embeddedMimeParts() : $this->_capability['embedded'];
     }
 
     /**
@@ -246,4 +264,15 @@ class Horde_Mime_Viewer_Driver
     {
         return $this->_conf['_driver'];
     }
+
+    /**
+     * Return the underlying MIME Viewer for this part.
+     *
+     * @return mixed  A Horde_Mime_Viewer object, or false if not found.
+     */
+    protected function _getViewer()
+    {
+        return false;
+    }
+
 }

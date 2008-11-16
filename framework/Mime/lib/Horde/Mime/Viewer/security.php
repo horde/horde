@@ -15,74 +15,20 @@
 class Horde_Mime_Viewer_security extends Horde_Mime_Viewer_Driver
 {
     /**
-     * Stores the Horde_Mime_Viewer of the specified security protocol.
+     * Return the underlying MIME Viewer for this part.
      *
-     * @var Horde_Mime_Viewer
+     * @return mixed  A Horde_Mime_Viewer object, or false if not found.
      */
-    protected $_viewer;
-
-    /**
-     * The $mime_part class variable has the information to render
-     * out, encapsulated in a Horde_Mime_Part object.
-     *
-     * @param $params mixed  The parameters (if any) to pass to the underlying
-     *                       Horde_Mime_Viewer.
-     *
-     * @return string  Rendering of the content.
-     */
-    public function render($params = array())
+    protected function _getViewer()
     {
-        /* Get the appropriate Horde_Mime_Viewer for the protocol specified. */
-        if (!($this->_resolveViewer())) {
-            return;
+        if (!($protocol = $this->_mimepart->getContentTypeParameter('protocol'))) {
+            return false;
         }
 
-        /* Render using the loaded Horde_Mime_Viewer object. */
-        return $this->_viewer->render($params);
-    }
-
-    /**
-     * Returns the content-type of the Viewer used to view the part.
-     *
-     * @return string  A content-type string.
-     */
-    public function getType()
-    {
-        /* Get the appropriate Horde_Mime_Viewer for the protocol specified. */
-        if (!($this->_resolveViewer())) {
-            return 'application/octet-stream';
-        } else {
-            return $this->_viewer->getType();
+        $viewer = Horde_Mime_Viewer::factory($this->_mimepart, $protocol);
+        if ($viewer) {
+            $viewer->setParams($this->_params);
         }
-    }
-
-    /**
-     * Load a Horde_Mime_Viewer according to the protocol parameter stored
-     * in the Horde_Mime_Part to render. If unsuccessful, try to load a generic
-     * multipart Horde_Mime_Viewer.
-     *
-     * @return boolean  True on success, false on failure.
-     */
-    protected function _resolveViewer()
-    {
-        $viewer = null;
-
-        if (empty($this->_viewer)) {
-            $protocol = $this->mime_part->getContentTypeParameter('protocol');
-            if (empty($protocol)) {
-                return false;
-            }
-            $viewer = Horde_Mime_Viewer::factory($this->mime_part, $protocol);
-            if (empty($viewer) ||
-                (String::lower(get_class($viewer)) == 'mime_viewer_default')) {
-                $viewer = Horde_Mime_Viewer::factory($this->mime_part, $this->mime_part->getPrimaryType() . '/*');
-                if (empty($viewer)) {
-                    return false;
-                }
-            }
-            $this->_viewer = $viewer;
-        }
-
-        return true;
+        return $viewer;
     }
 }
