@@ -1453,10 +1453,10 @@ class Horde_Crypt_pgp extends Horde_Crypt
 
         /* Add the PGP signature. */
         $charset = NLS::getEmailCharset();
-        $pgp_sign = new Horde_Mime_Part()
+        $pgp_sign = new Horde_Mime_Part();
         $pgp_sign->setType('application/pgp-signature');
         $pgp_sign->setCharset($charset);
-        $pgp_sign->setDisposition('inline')
+        $pgp_sign->setDisposition('inline');
         $pgp_sign->setDescription(String::convertCharset(_("PGP Digital Signature"), NLS::getCharset(), $charset));
         $pgp_sign->setContents($msg_sign);
 
