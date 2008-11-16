@@ -18,7 +18,8 @@
  * 'id' - (string) The MIME part ID to display.
  * 'index - (integer) The index of the message.
  * 'mailbox' - (string) The mailbox of the message.
- * 'mode' - (string) The view mode to use (DEFAULT: 'full').
+ * 'mode' - (integer) The view mode to use.
+ *          DEFAULT: IMP_Contents::RENDER_FULL
  * 'zip' - (boolean) Download in .zip format?
  * </pre>
  *
