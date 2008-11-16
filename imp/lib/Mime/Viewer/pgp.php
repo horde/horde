@@ -26,6 +26,18 @@ require_once IMP_BASE . '/lib/Crypt/PGP.php';
 class IMP_Horde_Mime_Viewer_pgp extends Horde_Mime_Viewer_Driver
 {
     /**
+     * Can this driver render various views?
+     *
+     * @var boolean
+     */
+    protected $_capability = array(
+        'embedded' => false,
+        'full' => false,
+        'info' => false,
+        'inline' => false,
+    );
+
+    /**
      * IMP_PGP object.
      *
      * @var IMP_PGP
