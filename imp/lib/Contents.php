@@ -111,7 +111,6 @@ class IMP_Contents
                 ), array('ids' => array($this->_index)));
                 $this->_message = $ret[$this->_index]['structure'];
             } catch (Horde_Imap_Client_Exception $e) {
-                $GLOBALS['imp_imap']->logException($e);
                 return PEAR::raiseError('Error displaying message.');
             }
         }
@@ -154,7 +153,6 @@ class IMP_Contents
             ), array('ids' => array($this->_index)));
             return $res[$this->_index]['bodytext'][0];
         } catch (Horde_Imap_Client_Exception $e) {
-            $GLOBALS['imp_imap']->logException($e);
             return '';
         }
     }
@@ -194,7 +192,6 @@ class IMP_Contents
                 ? $res[$this->_index]['bodypart'][$id]
                 : $res[$this->_index]['mimeheader'][$id] . $res[$this->_index]['bodypart'][$id];
         } catch (Horde_Imap_Client_Exception $e) {
-            $GLOBALS['imp_imap']->logException($e);
             return '';
         }
     }
@@ -217,7 +214,6 @@ class IMP_Contents
             ), array('ids' => array($this->_index)));
             return $res[$this->_index]['headertext'][0] . $res[$this->_index]['bodytext'][0];
         } catch (Horde_Imap_Client_Exception $e) {
-            $GLOBALS['imp_imap']->logException($e);
             return '';
         }
     }
@@ -239,7 +235,6 @@ class IMP_Contents
             ), array('ids' => array($this->_index)));
             return $res[$this->_index]['headertext'][0];
         } catch (Horde_Imap_Client_Exception $e) {
-            $GLOBALS['imp_imap']->logException($e);
             return new Horde_Mime_Headers();
         }
     }
@@ -384,15 +379,8 @@ class IMP_Contents
      */
     public function findBody($subtype = null)
     {
-        foreach ($this->getContentTypeMap() as $mime_id => $mime_type) {
-            if ((strpos($mime_type, 'text/') === 0) &&
-                (intval($mime_id) == 1) &&
-                (is_null($subtype) || (substr($mime_type, 5) == $subtype))) {
-                return $mime_id;
-            }
-        }
-
-        return null;
+        $this->_buildMessage();
+        return $this->_message->findBody($subtype);
     }
 
     /**
