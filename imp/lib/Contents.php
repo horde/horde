@@ -192,7 +192,7 @@ class IMP_Contents
             $res = $GLOBALS['imp_imap']->ob->fetch($this->_mailbox, $query, array('ids' => array($this->_index)));
             return empty($options['mimeheaders'])
                 ? $res[$this->_index]['bodypart'][$id]
-                : $res[$this->_index]['mimeheader'][$id] . "\r\n\r\n" . $res[$this->_index]['bodypart'][$id];
+                : $res[$this->_index]['mimeheader'][$id] . $res[$this->_index]['bodypart'][$id];
         } catch (Horde_Imap_Client_Exception $e) {
             $GLOBALS['imp_imap']->logException($e);
             return '';
@@ -215,7 +215,7 @@ class IMP_Contents
                 Horde_Imap_Client::FETCH_HEADERTEXT => array(array('peek' => true)),
                 Horde_Imap_Client::FETCH_BODYTEXT => array(array('peek' => true))
             ), array('ids' => array($this->_index)));
-            return $res[$this->_index]['headertext'][0] . "\r\n\r\n" . $res[$this->_index]['bodytext'][0];
+            return $res[$this->_index]['headertext'][0] . $res[$this->_index]['bodytext'][0];
         } catch (Horde_Imap_Client_Exception $e) {
             $GLOBALS['imp_imap']->logException($e);
             return '';
