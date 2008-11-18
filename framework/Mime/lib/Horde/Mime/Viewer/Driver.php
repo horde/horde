@@ -120,10 +120,6 @@ class Horde_Mime_Viewer_Driver
      */
     public function render($mode)
     {
-        if (!$this->canRender($mode)) {
-            return array();
-        }
-
         switch ($mode) {
         case 'full':
             return $this->_render();
@@ -225,9 +221,10 @@ class Horde_Mime_Viewer_Driver
      */
     public function getEmbeddedMimeParts()
     {
-        return $this->embeddedMimeParts()
-            ? $this->_getEmbeddedMimeParts()
-            : null;
+        $viewer = $this->_getViewer();
+        return ($viewer)
+            ? $viewer->getEmbeddedMimeParts()
+            : $this->_getEmbeddedMimeParts();
     }
 
     /**
@@ -240,6 +237,7 @@ class Horde_Mime_Viewer_Driver
      */
     protected function _getEmbeddedMimeParts()
     {
+        return null;
     }
 
     /**
