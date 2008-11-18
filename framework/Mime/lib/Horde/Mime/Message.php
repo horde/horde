@@ -172,12 +172,17 @@ class Horde_Mime_Message extends Horde_Mime_Part
      *           the body in text lines.
      * 'md5' - [OPTIONAL] (string) The part's MD5 value.
      * </pre>
+     * @param array $options    Additional options:
+     * <pre>
+     * 'mimepart' - (boolean) Return a Horde_Mime_Part object instead of a
+     *              Horde_Mime_Message object?
+     * </pre>
      *
      * @return object  A Horde_Mime_Message object.
      */
-    static public function parseStructure($structure)
+    static public function parseStructure($structure, $options = array())
     {
-        $ob = self::_parseStructure($structure, true);
+        $ob = self::_parseStructure($structure, empty($options['mimepart']));
         $ob->buildMimeIds();
         return $ob;
     }
@@ -282,12 +287,17 @@ class Horde_Mime_Message extends Horde_Mime_Part
      * This function can be called statically via:
      *    $mime_message = Horde_Mime_Message::parseMessage();
      *
-     * @param string $text  The text of the MIME message.
+     * @param string $text    The text of the MIME message.
+     * @param array $options  Additional options:
+     * <pre>
+     * 'mimepart' - (boolean) Return a Horde_Mime_Part object instead of a
+     *              Horde_Mime_Message object?
+     * </pre>
      *
      * @return Horde_Mime_Message  A Horde_Mime_Message object, or false on
      *                             error.
      */
-    static public function parseMessage($text)
+    static public function parseMessage($text, $options = array())
     {
         /* Set up the options for the mimeDecode class. */
         $decode_args = array(
@@ -302,7 +312,7 @@ class Horde_Mime_Message extends Horde_Mime_Part
             return false;
         }
 
-        return self::parseStructure(self::_convertMimeDecodeData($ob));
+        return self::parseStructure(self::_convertMimeDecodeData($ob), $options);
     }
 
     /**
