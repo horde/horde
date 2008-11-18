@@ -27,11 +27,11 @@ class IMP_Horde_Mime_Viewer_partial extends Horde_Mime_Viewer_Driver
 
     /**
      * If this MIME part can contain embedded MIME parts, and those embedded
-     * MIME parts exist, return an altered version of the Horde_Mime_Part that
-     * contains the embedded MIME part information.
+     * MIME parts exist, return a list of MIME parts that contain the embedded
+     * MIME part information.
      *
-     * @return mixed  A Horde_Mime_Part with the embedded MIME part information
-     *                or null if no embedded MIME parts exist.
+     * @return array  An array of Horde_Mime_Part objects, with the key as
+     *                the ID, or null if no embedded MIME parts exist.
      */
     protected function _getEmbeddedMimeParts()
     {
@@ -76,6 +76,8 @@ class IMP_Horde_Mime_Viewer_partial extends Horde_Mime_Viewer_Driver
 
         /* Combine the parts. */
         $mime_message = Horde_Mime_Message::parseMessage(implode('', $parts));
-        return ($mime_message === false) ? null : $mime_message;
+        return ($mime_message === false)
+            ? null
+            : array($id => $mime_message);
     }
 }

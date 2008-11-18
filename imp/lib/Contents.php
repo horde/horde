@@ -726,15 +726,18 @@ class IMP_Contents
                 $mime_part = $this->getMIMEPart($id);
                 $viewer->setMIMEPart($mime_part);
                 $viewer->setParams(array('contents' => &$this));
-                $new_part = $viewer->getEmbeddedMimeParts();
-                if (!is_null($new_part)) {
-                    if (is_a($new_part, 'Horde_Mime_Message')) {
-                        $this->_message = $new_part;
-                        $this->_build = false;
-                        return $this->_buildMessage();
+                $new_parts = $viewer->getEmbeddedMimeParts();
+                if (!is_null($new_parts)) {
+                    foreach (array_keys($new_parts) as $val) {
+                        if (is_a($new_parts[$val], 'Horde_Mime_Message')) {
+                            $this->_message = $new_parts[$val];
+                            $this->_build = false;
+                            return $this->_buildMessage();
+                        }
+
+                        $this->_message->alterPart($val, $new_parts[$val]);
+                        $to_process = array_merge($to_process, array_keys($new_parts[$val]->contentTypeMap()));
                     }
-                    $this->_message->alterPart($id, $new_part);
-                    $to_process = array_merge($to_process, array_keys($new_part->contentTypeMap()));
                     $last_id = $id;
                 }
             }
@@ -750,7 +753,7 @@ class IMP_Contents
      *
      * @param mixed $id      The MIME part or a MIME ID string.
      * @param integer $mask  One of the RENDER_ constants.
-     * @param string $type   The type to use (overrides the MIME Id if $id is
+     * @param string $type   The type to use (overrides the MIME ID if $id is
      *                       a MIME part).
      *
      * @return boolean  True if the part can be displayed.
