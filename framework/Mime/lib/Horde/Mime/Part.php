@@ -566,16 +566,55 @@ class Horde_Mime_Part
     /**
      * Retrieve a specific MIME part.
      *
-     * @param string $id  The MIME ID.
+     * @param string $id  The MIME ID to get.
      *
-     * @return Horde_Mime_Part  A pointer to the part requested, or null if
-     *                          the part doesn't exist.
+     * @return Horde_Mime_Part  The part requested or null if the part doesn't
+     *                          exist.
      */
-    public function &getPart($id)
+    public function getPart($id)
+    {
+        return $this->_partAction($id, 'get');
+    }
+
+    /**
+     * Remove a subpart.
+     *
+     * @param string $id  The MIME ID to delete.
+     */
+    public function removePart($id)
+    {
+        $this->_partAction($id, 'remove');
+    }
+
+    /**
+     * Alter a current MIME subpart.
+     *
+     * @param string $id                  The MIME ID to alter.
+     * @param Horde_Mime_Part $mime_part  The MIME part to store.
+     */
+    public function alterPart($id, $mime_part)
+    {
+        $this->_partAction($id, 'alter', $mime_part);
+    }
+
+    /**
+     * Function used to find a specific MIME part by ID and perform an action
+     * on it.
+     *
+     * @param string $id                  The MIME ID.
+     * @param string $action              The action to perform ('get',
+     *                                    'remove', or 'alter').
+     * @param Horde_Mime_Part $mime_part  The object to use for 'alter'.
+     *
+     * @return mixed  For 'get', a pointer to the Horde_Mime_Part object, or
+     *                null if the object is not found.
+     */
+    protected function _partAction($id, $action, $mime_part = null)
     {
         $this_id = $this->getMimeId();
+
         /* Need strcmp() because, e.g., '2.0' == '2'. */
-        if (strcmp($id, $this_id) === 0) {
+        if (($action == 'get') && (strcmp($id, $this_id) === 0)) {
             return $this;
         }
 
@@ -583,56 +622,29 @@ class Horde_Mime_Part
             $this->buildMimeIds(is_null($this_id) ? '1' : $this_id);
         }
 
-        return $this->_partFind($id, $this->_parts);
-    }
+        foreach (array_keys($this->_parts) as $val) {
+            $partid = $this->_parts[$val]->getMimeId();
+            if (strcmp($id, $partid) === 0) {
+                switch ($action) {
+                case 'alter':
+                    $mime_part->setMimeId($this->_parts[$val]->getMimeId());
+                    $this->_parts[$val] = $mime_part;
+                    return;
 
-    /**
-     * Remove a subpart.
-     *
-     * @param string $id  The MIME part to delete.
-     */
-    public function removePart($id)
-    {
-        $ob = &$this->getPart($id);
-        if ($ob !== null) {
-            unset($ob);
-        }
-    }
+                case 'get':
+                    return $this->_parts[$val];
 
-    /**
-     * Alter a current MIME subpart.
-     *
-     * @param string $id                  The MIME part ID to alter.
-     * @param Horde_Mime_Part $mime_part  The MIME part to store.
-     */
-    public function alterPart($id, $mime_part)
-    {
-        $ob = &$this->getPart($id);
-        if ($ob !== null) {
-            $ob = $mime_part;
-        }
-    }
-
-    /**
-     * Function used to find a specific MIME part by ID.
-     *
-     * @param string $id     The MIME ID.
-     * @param array &$parts  A list of Horde_Mime_Part objects.
-     *
-     * @return mixed  A pointer to the Horde_Mime_Part object, or null if the
-     *                object is not found.
-     */
-    protected function &_partFind($id, &$parts)
-    {
-        foreach (array_keys($parts) as $val) {
-            $ret = $parts[$val]->getPart($id);
-            if (!is_null($ret)) {
-                return $ret;
+                case 'remove':
+                    unset($this->_parts[$val]);
+                    $this->_reindex = true;
+                    return;
+                }
+            } elseif (strpos($id, $partid) === 0) {
+                return $this->_parts[$val]->_partAction($id, $action, $mime_part);
             }
         }
 
-        $ret = null;
-        return $ret;
+        return null;
     }
 
     /**
