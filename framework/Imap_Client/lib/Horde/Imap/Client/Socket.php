@@ -3096,7 +3096,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                         while ($literal_len) {
                             $data_read = fread($this->_stream, min($literal_len, 8192));
                             $literal_len -= strlen($data_read);
-                            $line .= rtrim($data_read);
+                            $line .= $data_read;
                         }
                     }
 
