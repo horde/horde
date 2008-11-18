@@ -265,7 +265,6 @@ abstract class IMP_Fetchmail
             $GLOBALS['imp_imap']->ob->append($this->_params['lmailbox'], array(array('data' => $msg)));
             return true;
         } catch (Horde_Imap_Client_Exception $e) {
-            $GLOBALS['imp_imap']->logException($e);
             return false;
         }
     }

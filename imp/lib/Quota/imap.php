@@ -27,7 +27,6 @@ class IMP_Quota_imap extends IMP_Quota
             $quota_val = reset($quota);
             return array('usage' => $quota['storage']['usage'] * 1024, 'limit' => $quota['storage']['limit'] * 1024);
         } catch (Horde_Imap_Client_Exception $e) {
-            $GLOBALS['imp_imap']->logException($e);
             return PEAR::raiseError(_("Unable to retrieve quota"), 'horde.error');
         }
     }

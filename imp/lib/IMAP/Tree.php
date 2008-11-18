@@ -294,9 +294,7 @@ class IMP_Tree
                 } else {
                     $this->_subscribed = $names;
                 }
-            } catch (Horde_Imap_Client_Exception $e) {
-                $GLOBALS['imp_imap']->logException($e);
-            }
+            } catch (Horde_Imap_Client_Exception $e) {}
         }
 
         return $names;
@@ -1328,7 +1326,6 @@ class IMP_Tree
         try {
             return $GLOBALS['imp_imap']->ob->status($name, Horde_Imap_Client::STATUS_MESSAGES | Horde_Imap_Client::STATUS_RECENT | Horde_Imap_Client::STATUS_UNSEEN);
         } catch (Horde_Imap_Client_Exception $e) {
-            $GLOBALS['imp_imap']->logException($e);
             return array();
         }
     }

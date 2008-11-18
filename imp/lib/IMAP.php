@@ -42,6 +42,15 @@ class IMP_IMAP
     protected $_nsdefault;
 
     /**
+     * Constructor.
+     */
+    function __construct()
+    {
+        /* Register the logging callback. */
+        Horde_Imap_Client_Exception::$logCallback = array($this, 'logException');
+    }
+
+    /**
      * Save the Horde_Imap_Client object on session shutdown.
      */
     function __destruct()
@@ -170,7 +179,6 @@ class IMP_IMAP
         try {
             $ob = Horde_Imap_Client::getInstance(($protocol == 'imap') ? 'Socket' : 'Cclient-pop3', $imap_config);
         } catch (Horde_Imap_Client_Exception $e) {
-            $this->logException($e);
             return false;
         }
 
@@ -229,7 +237,8 @@ class IMP_IMAP
      */
     public function logException($e)
     {
-        // @todo
+        // TODO - Clean this up a bit.
+        Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
     }
 
     /**
@@ -243,7 +252,6 @@ class IMP_IMAP
             $this->loadImapObject();
             return $GLOBALS['imp_imap']->ob->getNamespaces(!empty($_SESSION['imp']['imap_ext']['namespace']) ? $_SESSION['imp']['imap_ext']['namespace'] : array());
         } catch (Horde_Imap_Client_Exception $e) {
-            $GLOBALS['imp_imap']->logException($e);
             // @todo Error handling
             return array();
         }

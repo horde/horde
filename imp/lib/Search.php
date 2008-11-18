@@ -142,9 +142,7 @@ class IMP_Search
                 foreach ($results['sort'] as $val2) {
                     $sorted[] = $val2 . IMP::IDX_SEP . $val;
                 }
-            } catch (Horde_Imap_Client_Exception $e) {
-                $GLOBALS['imp_imap']->logException($e);
-            }
+            } catch (Horde_Imap_Client_Exception $e) {}
         }
 
         return $sorted;
@@ -169,7 +167,6 @@ class IMP_Search
             $results = $GLOBALS['imp_imap']->ob->search($mailbox, $query, array('reverse' => $sortdir, 'sort' => array($sortby)));
             return $results['sort'];
         } catch (Horde_Imap_Client_Exception $e) {
-            $GLOBALS['imp_imap']->logException($e);
             return array();
         }
     }

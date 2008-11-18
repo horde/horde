@@ -1,7 +1,4 @@
 <?php
-
-require_once IMP_BASE . '/lib/Crypt/SMIME.php';
-
 /**
  * The IMP_Horde_Mime_Viewer_pkcs7 class allows viewing/decrypting of S/MIME
  * messages.

@@ -230,7 +230,6 @@ try {
         Horde_Imap_Client::FETCH_HEADERTEXT => array(array('parse' => true, 'peek' => $readonly))
     ), array('ids' => array($index)));
 } catch (Horde_Imap_Client_Exception $e) {
-    $imp_imap->logException($e);
     require IMP_BASE . '/mailbox.php';
     exit;
 }

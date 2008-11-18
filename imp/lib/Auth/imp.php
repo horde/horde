@@ -63,7 +63,6 @@ class Auth_imp extends Auth
             $imp_imap->ob->login();
             return true;
         } catch (Horde_Imap_Client_Exception $e) {
-            $imp_imap->logException($e);
             IMP::loginLogMessage('failed', __FILE__, __LINE__);
             $this->_setAuthError(AUTH_REASON_BADLOGIN);
             return false;

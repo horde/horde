@@ -195,7 +195,6 @@ class IMP_Folder
                 $notification->push(sprintf(_("The folder \"%s\" was successfully deleted."), IMP::displayFolder($folder)), 'horde.success');
                 $deleted[] = $folder;
             } catch (Horde_Imap_Client_Exception $e) {
-                $GLOBALS['imp_imap']->logException($e);
                 //$notification->push(sprintf(_("The folder \"%s\" was not deleted. This is what the server said"), IMP::displayFolder($folder)) . ': ' . imap_last_error(), 'horde.error');
             }
         }
@@ -274,7 +273,6 @@ class IMP_Folder
         try {
             $GLOBALS['imp_imap']->ob->createMailbox($folder);
         } catch (Horde_Imap_Client_Exception $e) {
-            $GLOBALS['imp_imap']->logException($e);
             //$notification->push(sprintf(_("The folder \"%s\" was not created. This is what the server said"), $display_folder) . ': ' . imap_last_error(), 'horde.error');
             return false;
         }
@@ -315,7 +313,6 @@ class IMP_Folder
             $ret = $GLOBALS['imp_imap']->ob->listMailboxes($folder, array('flat' => true));
             return !empty($ret);
         } catch (Horde_Imap_Client_Exception $e) {
-            $GLOBALS['imp_imap']->logException($e);
             return false;
         }
     }
@@ -357,7 +354,6 @@ class IMP_Folder
         try {
             $GLOBALS['imp_imap']->ob->renameMailbox($old, $new);
         } catch (Horde_Imap_Client_Exception $e) {
-            $GLOBALS['imp_imap']->logException($e);
             //$GLOBALS['notification']->push(sprintf(_("Renaming \"%s\" to \"%s\" failed. This is what the server said"), IMP::displayFolder($old), IMP::displayFolder($new)) . ': ' . imap_last_error(), 'horde.error');
             return false;
         }
@@ -404,7 +400,6 @@ class IMP_Folder
                 $notification->push(sprintf(_("You were successfully subscribed to \"%s\""), IMP::displayFolder($folder)), 'horde.success');
                 $subscribed[] = $folder;
             } catch (Horde_Imap_Client_Exception $e) {
-                $GLOBALS['imp_imap']->logException($e);
                 //$notification->push(sprintf(_("You were not subscribed to \"%s\". Here is what the server said"), IMP::displayFolder($folder)) . ': ' . imap_last_error(), 'horde.error');
                 $return_value = false;
             }
@@ -451,7 +446,6 @@ class IMP_Folder
                     $notification->push(sprintf(_("You were successfully unsubscribed from \"%s\""), IMP::displayFolder($folder)), 'horde.success');
                     $unsubscribed[] = $folder;
                 } catch (Horde_Imap_Client_Exception $e) {
-                    $GLOBALS['imp_imap']->logException($e);
                     //$notification->push(sprintf(_("You were not unsubscribed from \"%s\". Here is what the server said"), IMP::displayFolder($folder)) . ': ' . imap_last_error(), 'horde.error');
                     $return_value = false;
                 }
@@ -496,7 +490,6 @@ class IMP_Folder
             try {
                 $status = $GLOBALS['imp_imap']->status($folder, Horde_Imap_Client::STATUS_MESSAGES);
             } catch (Horde_Imap_Client_Exception $e) {
-                $GLOBALS['imp_imap']->logException($e);
                 continue;
             }
             for ($i = 1; $i <= $status['messages']; ++$i) {
@@ -510,7 +503,6 @@ class IMP_Folder
                         ), array('ids' => array($i), 'sequence' => true));
                     $ptr = reset($res);
                 } catch (Horde_Imap_Client_Exception $e) {
-                    $GLOBALS['imp_imap']->logException($e);
                     continue;
                 }
 
@@ -556,9 +548,7 @@ class IMP_Folder
                     try {
                         $GLOBALS['imp_imap']->ob->append($mbox, array(array('data' => $message)));
                         ++$msgcount;
-                    } catch (Horde_Imap_Client_Exception $e) {
-                        $GLOBALS['imp_imap']->logException($e);
-                    }
+                    } catch (Horde_Imap_Client_Exception $e) {}
                 }
                 $message = '';
             } else {
@@ -571,9 +561,7 @@ class IMP_Folder
             try {
                 $GLOBALS['imp_imap']->ob->append($mbox, array(array('data' => $message)));
                 ++$msgcount;
-            } catch (Horde_Imap_Client_Exception $e) {
-                $GLOBALS['imp_imap']->logException($e);
-            }
+            } catch (Horde_Imap_Client_Exception $e) {}
         }
 
         return $msgcount ? $msgcount : false;

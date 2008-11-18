@@ -1119,9 +1119,7 @@ class IMP
                     $ob['limit'] = true;
                     $ob['by'] = Horde_Imap_Client::SORT_ARRIVAL;
                 }
-            } catch (Horde_Imap_Client_Exception $e) {
-                $GLOBALS['imp_imap']->logException($e);
-            }
+            } catch (Horde_Imap_Client_Exception $e) {}
         }
 
         if (!$ob['limit'] &&

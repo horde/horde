@@ -99,7 +99,6 @@ class IMP_Fetchmail_imap extends IMP_Fetchmail
             $res = $this->_ob->listMailboxes($mbox, array('flat' => true));
             return (bool)count($res);
         } catch (Horde_Imap_Client_Exception $e) {
-            $GLOBALS['imp_imap']->logException($e);
             return false;
         }
     }
@@ -130,7 +129,6 @@ class IMP_Fetchmail_imap extends IMP_Fetchmail
             $this->_ob = Horde_Imap_Client::getInstance(($protocol == 'imap') ? 'Socket' : 'Cclient-pop3', $imap_config);
             return true;
         } catch (Horde_Imap_Client_Exception $e) {
-            $GLOBALS['imp_imap']->logException($e);
             return PEAR::raiseError(_("Cannot connect to the remote mail server: ") . $e->getMessage());
         }
     }
@@ -173,7 +171,6 @@ class IMP_Fetchmail_imap extends IMP_Fetchmail
 
             ), array('ids' => $search_res['match']));
         } catch (Horde_Imap_Client_Exception $e) {
-            $GLOBALS['imp_imap']->logException($e);
             return 0;
         }
 
@@ -191,7 +188,6 @@ class IMP_Fetchmail_imap extends IMP_Fetchmail
                 ), array('ids' => array($this->_index)));
                 $mail_source = $this->_processMailMessage($res[$this->_index]['headertext'][0], $res[$this->_index]['bodytext'][0]);
             } catch (Horde_Imap_Client_Exception $e) {
-                $GLOBALS['imp_imap']->logException($e);
                 continue;
             }
 
@@ -218,9 +214,7 @@ class IMP_Fetchmail_imap extends IMP_Fetchmail
                 if ($this->_params['del']) {
                     $imp_imap->ob->expunge($mbox, array('ids' => $to_store));
                 }
-            } catch (Horde_Imap_Client_Exception $e) {
-                $GLOBALS['imp_imap']->logException($e);
-            }
+            } catch (Horde_Imap_Client_Exception $e) {}
         }
 
         return $numMsgs;

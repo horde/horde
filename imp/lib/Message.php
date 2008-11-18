@@ -137,7 +137,6 @@ class IMP_Message
             try {
                 $imp_imap->ob->copy($folder, $targetMbox, array('ids' => $msgIndices, 'move' => $imap_move));
             } catch (Horde_Imap_Client_Exception $e) {
-                $imp_imap->logException($e);
                 //$notification->push(sprintf($message, IMP::displayFolder($folder), IMP::displayFolder($targetMbox)) . ': ' . imap_last_error(), 'horde.error');
                 $return_value = false;
             }
@@ -206,7 +205,6 @@ class IMP_Message
                 try {
                     $imp_imap->ob->copy($mbox, $trash, array('ids' => $msgIndices, 'move' => true));
                 } catch (Horde_Imap_Client_Exception $e) {
-                    $imp_imap->logException($e);
                     // @todo Check for overquota error.
                     return false;
                 }
@@ -217,9 +215,7 @@ class IMP_Message
                 if ($maillog_update) {
                     try {
                         $fetch = $imp_imap->ob->fetch($mbox, array(Horde_Imap_Client::FETCH_ENVELOPE => true), array('ids' => $msgIndices));
-                    } catch (Horde_Imap_Client_Exception $e) {
-                        $imp_imap->logException($e);
-                    }
+                    } catch (Horde_Imap_Client_Exception $e) {}
                 }
 
                 /* Delete the messages. */
@@ -246,9 +242,7 @@ class IMP_Message
                     if ($expunge_now) {
                         $this->expungeMailbox($indices_array);
                     }
-                } catch (Horde_Imap_Client_Exception $e) {
-                    $imp_imap->logException($e);
-                }
+                } catch (Horde_Imap_Client_Exception $e) {}
 
                 /* Get the list of Message-IDs deleted, and remove
                  * the information from the mail log. */
@@ -505,7 +499,6 @@ class IMP_Message
             $uid = $GLOBALS['imp_imap']->ob->append($folder, array(array('data' => $res['headertext'][0] . $contents->toString($message, true), 'flags' => $res['flags'], 'messageid' => $res['envelope']['message-id'])));
 
         } catch (Horde_Imap_Client_Exception $e) {
-            $GLOBALS['imp_imap']->logException($e);
             return PEAR::raiseError(_("An error occured while attempting to strip the attachment."));
         }
 
@@ -555,7 +548,6 @@ class IMP_Message
             try {
                 $imp_imap->ob->store($mbox, array_merge($action_array, array('ids' => $msgIndices)));
             } catch (Horde_Imap_Client_Exception $e) {
-                $imp_imap->logException($e);
                 $notification->push(sprintf(_("There was an error flagging messages in the folder \"%s\". This is what the server said"), IMP::displayFolder($mbox)) . ': ' . imap_last_error(), 'horde.error');
                 return false;
             }
@@ -593,7 +585,6 @@ class IMP_Message
             try {
                 $imp_imap->ob->store($val, $action_array);
             } catch (Horde_Imap_Client_Exception $e) {
-                $imp_imap->logException($e);
                 return false;
             }
         }
@@ -639,9 +630,7 @@ class IMP_Message
             try {
                 $imp_imap->ob->expunge($key, array('ids' => is_array($val) ? $val : array()));
                 $update_list[$key] = $val;
-            } catch (Horde_Imap_Client_Exception $e) {
-                $imp_imap->logException($e);
-            }
+            } catch (Horde_Imap_Client_Exception $e) {}
         }
 
         return $update_list;
@@ -691,9 +680,7 @@ class IMP_Message
                 }
 
                 $notification->push(sprintf(_("Emptied all messages from %s."), $display_mbox), 'horde.success');
-            } catch (Horde_Imap_Client_Exception $e) {
-                $imp_imap->logException($e);
-            }
+            } catch (Horde_Imap_Client_Exception $e) {}
         }
     }
 
@@ -720,7 +707,6 @@ class IMP_Message
                 ? sprintf(_("%.2fMB"), $size / (1024 * 1024))
                 : $size;
         } catch (Horde_Imap_Client_Exception $e) {
-            $GLOBALS['imp_imap']->logException($e);
             return 0;
         }
     }
