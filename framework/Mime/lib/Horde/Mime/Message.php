@@ -123,6 +123,28 @@ class Horde_Mime_Message extends Horde_Mime_Part
     }
 
     /**
+     * Finds the main "body" text part (if any) in a message.
+     * "Body" data is the first text part in the base MIME part.
+     *
+     * @param string $subtype  Specifically search for this subtype.
+     *
+     * @return mixed  The MIME ID of the main body part, or null if a body
+                      part is not found.
+     */
+    public function findBody($subtype = null)
+    {
+        foreach ($this->contentTypeMap() as $mime_id => $mime_type) {
+            if ((strpos($mime_type, 'text/') === 0) &&
+                (intval($mime_id) == 1) &&
+                (is_null($subtype) || (substr($mime_type, 5) == $subtype))) {
+                return $mime_id;
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * Parse an array of MIME structure information into a Horde_Mime_Message
      * object.
      * This function can be called statically via:
