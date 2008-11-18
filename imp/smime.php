@@ -99,10 +99,8 @@ function _printKeyInfo($cert)
 
 @define('IMP_BASE', dirname(__FILE__));
 require_once IMP_BASE . '/lib/base.php';
-require_once IMP_BASE . '/lib/Crypt/SMIME.php';
 
-
-$imp_smime = new IMP_SMIME();
+$imp_smime = &Horde_Crypt::singleton(array('imp', 'smime'));
 $secure_check = $imp_smime->requireSecureConnection();
 
 /* Run through the action handlers */

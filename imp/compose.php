@@ -719,13 +719,11 @@ if ($get_sig && isset($msg) && !empty($sig)) {
 
 /* Open the passphrase window here. */
 if ($pgp_passphrase_dialog || $pgp_symmetric_passphrase_dialog) {
-    require_once IMP_BASE .'/lib/Crypt/PGP.php';
-    $imp_pgp = new IMP_PGP();
+    $imp_pgp = &Horde_Crypt::singleton(array('imp', 'pgp'));
     Horde::addScriptFile('popup.js', 'imp', true);
     $notification->push($imp_pgp->getJSOpenWinCode($pgp_symmetric_passphrase_dialog ? 'open_symmetric_passphrase_dialog' : 'open_passphrase_dialog', "opener.focus();opener.uniqSubmit('send_message');"), 'javascript');
 } elseif ($smime_passphrase_dialog) {
-    require_once IMP_BASE .'/lib/Crypt/SMIME.php';
-    $imp_smime = new IMP_SMIME();
+    $imp_smime = &Horde_Crypt::singleton(array('imp', 'smime'));
     Horde::addScriptFile('popup.js', 'imp', true);
     $notification->push($imp_smime->getJSOpenWinCode('open_passphrase_dialog', "opener.focus();opener.uniqSubmit('send_message');"), 'javascript');
 }
@@ -740,8 +738,7 @@ if ($use_pgp) {
         in_array($default_encrypt, array(IMP::PGP_ENCRYPT, IMP::PGP_SIGNENC))) {
         $addrs = $imp_compose->recipientList($header);
         if (!is_a($addrs, 'PEAR_Error') && !empty($addrs['list'])) {
-            require_once IMP_BASE .'/lib/Crypt/PGP.php';
-            $imp_pgp = new IMP_PGP();
+            $imp_pgp = &Horde_Crypt::singleton(array('imp', 'pgp'));
             foreach ($addrs['list'] as $val) {
                 $res = $imp_pgp->getPublicKey($val);
                 if (is_a($res, 'PEAR_Error')) {

@@ -42,8 +42,9 @@ class IMP_Horde_Mime_Viewer_plain extends Horde_Mime_Viewer_plain
         if (!empty($conf['utils']['gnupg']) &&
             $prefs->getValue('pgp_scan_body') &&
             preg_match('/-----BEGIN PGP ([^-]+)-----/', $text)) {
-            require_once IMP_BASE . '/lib/Crypt/PGP.php';
-            $imp_pgp = new IMP_PGP();
+            // TODO: Convert this to embedded scanning.
+            $imp_pgp = &Horde_Crypt::singleton(array('imp', 'pgp'));
+
             if (($out = $imp_pgp->parseMessageOutput($this->_mimepart, $this->_params['contents']))) {
                 return array(
                     $this->_mimepart->getMimeId() => array(

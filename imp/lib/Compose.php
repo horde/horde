@@ -1216,8 +1216,7 @@ class IMP_Compose
             }
         } elseif ($useSMIME &&
                   in_array($encrypt, array(IMP::SMIME_ENCRYPT, IMP::SMIME_SIGN, IMP::SMIME_SIGNENC))) {
-            require_once IMP_BASE. '/lib/Crypt/SMIME.php';
-            $imp_smime = new IMP_SMIME();
+            $imp_smime = &Horde_Crypt::singleton(array('imp', 'smime'));
 
             /* Check to see if we have the user's passphrase yet. */
             if (in_array($encrypt, array(IMP::SMIME_SIGN, IMP::SMIME_SIGNENC))) {
