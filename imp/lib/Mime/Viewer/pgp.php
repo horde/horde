@@ -49,18 +49,11 @@ class IMP_Horde_Mime_Viewer_pgp extends Horde_Mime_Viewer_Driver
     protected $_address = null;
 
     /**
-     * Classwide cache for icons for status messages.
-     *
-     * @var string
-     */
-    protected $_icon = null;
-
-    /**
-     * Classwide cache for status messages.
+     * Cache for inline data.
      *
      * @var array
      */
-    protected $_status = array();
+    static protected $_inlinecache = array();
 
     /**
      * Return the rendered inline version of the Horde_Mime_Part object.
@@ -103,9 +96,11 @@ class IMP_Horde_Mime_Viewer_pgp extends Horde_Mime_Viewer_Driver
         case 'multipart/signed':
             return $this->_outputPGPSigned();
 
+        case 'multipart/encrypted':
+            return $this->_outputPGPEncrypted();
+
         case 'application/pgp-encrypted':
         case 'application/pgp-signature':
-        case 'multipart/encrypted':
         default:
             return array();
         }
@@ -121,11 +116,95 @@ class IMP_Horde_Mime_Viewer_pgp extends Horde_Mime_Viewer_Driver
      */
     protected function _getEmbeddedMimeParts()
     {
-        if ($this->_mimepart->getType() != 'application/pgp-encrypted') {
+        if ($this->_mimepart->getType() != 'multipart/encrypted') {
             return null;
         }
 
-        return null;
+        $partlist = array_keys($this->_mimepart->contentTypeMap());
+        $base_id = reset($partlist);
+        $version_id = next($partlist);
+        $data_id = Horde_Mime::mimeIdArithmetic($version_id, 'next');
+
+        /* Initialize inline data. */
+        self::$_inlinecache[$base_id] = array(
+            $base_id => array(
+                'data' => '',
+                'status' => array(
+                    array(
+                        'icon' => Horde::img('mime/encryption.png', _("PGP")),
+                        'text' => array()
+                    )
+                ),
+                'type' => 'text/html; charset=' . NLS::getCharset()
+            ),
+            $version_id => null,
+            $data_id => null
+        );
+        $status = &self::$_inlinecache[$base_id][$base_id]['status'][0]['text'];
+
+        /* Is PGP active? */
+        if (empty($GLOBALS['conf']['utils']['gnupg']) ||
+            !$GLOBALS['prefs']->getValue('use_pgp')) {
+            $status[] = _("The message below has been encrypted with PGP, however, PGP support is disabled so the message cannot be decrypted.");
+            return null;
+        }
+
+        if (empty($this->_imppgp)) {
+            $this->_imppgp = &Horde_Crypt::singleton(array('imp', 'pgp'));
+        }
+
+        /* PGP version information appears in the first MIME subpart. We
+         * don't currently need to do anything with this information. The
+         * encrypted data appears in the second MIME subpart. */
+        $encrypted_part = $this->_params['contents']->getMIMEPart($data_id);
+        $encrypted_data = $encrypted_part->getContents();
+
+        /* Check if this a symmetrically encrypted message. */
+        $symmetric = $this->_imppgp->encryptedSymmetrically($encrypted_data);
+        if ($symmetric && !$this->_imppgp->getSymmetricPassphrase()) {
+            if (isset($_SESSION['imp']['viewmode']) &&
+                ($_SESSION['imp']['viewmode'] == 'imp')) {
+                // TODO: Fix to work with DIMP
+                /* Ask for the correct passphrase if this is encrypted
+                 * symmetrically. */
+                $status[] = Horde::link('#', _("The message below has been encrypted with PGP. You must enter the passphrase that was used to encrypt this message."), null, null, $this->_imppgp->getJSOpenWinCode('open_symmetric_passphrase_dialog') . ' return false;') . _("You must enter the passphrase that was used to encrypt this message.") . '</a>';
+            }
+            return null;
+        }
+
+        /* Check if this is a literal compressed message. */
+        $info = $this->_imppgp->pgpPacketInformation($encrypted_data);
+        $literal = !empty($info['literal']);
+
+        if (!$literal && !$symmetric) {
+            if (!$this->_imppgp->getPersonalPrivateKey()) {
+                /* Output if there is no personal private key to decrypt
+                 * with. */
+                $status[] = _("The message below has been encrypted with PGP, however, no personal private key exists so the message cannot be decrypted.");
+                return null;
+            } elseif (!$this->_imppgp->getPassphrase() &&
+                      ($_SESSION['imp']['viewmode']) &&
+                      ($_SESSION['imp']['viewmode'] == 'imp')) {
+                // TODO: Fix to work with DIMP
+                /* Ask for the private key's passphrase if this is encrypted
+                 * asymmetrically. */
+                $status[] = Horde::link('#', _("The message below has been encrypted with PGP. You must enter the passphrase for your PGP private key before it can be decrypted."), null, null, $this->_imppgp->getJSOpenWinCode('open_passphrase_dialog') . ' return false;') . _("You must enter the passphrase for your PGP private key to view this message.") . '</a>';
+                return null;
+            }
+        }
+
+        $status[] = $literal ? _("The message below has been compressed with PGP.") : _("The message below has been encrypted with PGP.");
+
+        $decrypted_data = $this->_imppgp->decryptMessage($encrypted_data, $symmetric, !$literal);
+        if (is_a($decrypted_data, 'PEAR_Error')) {
+            $status[] = _("The message below does not appear to be a valid PGP encrypted message. Error: ") . $decrypted_data->getMessage();
+            return null;
+        }
+
+        unset(self::$_inlinecache[$base_id][$data_id]);
+        $this->_imppgp->unsetSymmetricPassphrase();
+
+        return array($data_id => Horde_Mime_Message::parseMessage($decrypted_data->message, array('mimepart' => true)));
     }
 
     /**
@@ -160,7 +239,7 @@ class IMP_Horde_Mime_Viewer_pgp extends Horde_Mime_Viewer_Driver
     }
 
     /**
-     * Generates HTML output for 'application/pgp-signature' MIME parts.
+     * Generates HTML output for 'multipart/signed' MIME parts.
      *
      * @return string  The HTML output.
      */
@@ -178,7 +257,7 @@ class IMP_Horde_Mime_Viewer_pgp extends Horde_Mime_Viewer_Driver
                     array(
                         'icon' => Horde::img('mime/encryption.png', _("PGP")),
                         'text' => array()
-                    ),
+                    )
                 ),
                 'type' => 'text/html; charset=' . NLS::getCharset()
             ),
@@ -231,140 +310,15 @@ class IMP_Horde_Mime_Viewer_pgp extends Horde_Mime_Viewer_Driver
     }
 
     /**
-     * Generates HTML output for 'multipart/encrypted' and
-     * 'application/pgp-encrypted' MIME_Parts.
+     * Generates HTML output for 'multipart/encrypted' MIME parts.
      *
      * @return string  The HTML output.
      */
     protected function _outputPGPEncrypted()
     {
-        global $conf, $prefs;
-
-        $mime = &$this->mime_part;
-        $mimetype = $mime->getType();
-        $text = '';
-
-        $this->_initStatus($this->getIcon($mimetype), _("PGP"));
-            //$this->_icon = Horde::img($src, $alt);
-
-        /* Print out message now if PGP is not active. */
-        if (empty($conf['utils']['gnupg']) || !$prefs->getValue('use_pgp')) {
-            $this->_status[] = _("The message below has been encrypted with PGP, however, PGP support is disabled so the message cannot be decrypted.");
-        }
-
-        if ($mimetype == 'multipart/encrypted') {
-            /* PGP control information appears in the first MIME subpart. We
-               don't currently need to do anything with this information. The
-               encrypted data appears in the second MIME subpart. */
-            $subpart = $mime->getPart($mime->getRelativeMIMEId(2));
-            if (!$subpart) {
-                return $text;
-            }
-            $encrypted_data = $this->_contents->getBodyPart($subpart->getMIMEId());
-        } elseif ($mimetype == 'application/pgp-encrypted') {
-            $encrypted_data = $mime->getContents();
-        } else {
-            return $text;
-        }
-
-        /* Check if this is a literal compressed message. */
-        $info = $this->_imp_pgp->pgpPacketInformation($encrypted_data);
-        $literal = !empty($info['literal']);
-
-        /* Check if this a symmetrically encrypted message. */
-        $symmetric = $this->_imp_pgp->encryptedSymmetrically($encrypted_data);
-
-        if ($symmetric && !$this->_imp_pgp->getSymmetricPassphrase()) {
-            if (isset($_SESSION['imp']['viewmode']) &&
-                ($_SESSION['imp']['viewmode'] == 'imp')) {
-                // TODO: Fix to work with DIMP
-                /* Ask for the correct passphrase if this is encrypted
-                 * symmetrically. */
-                $url = $this->_imp_pgp->getJSOpenWinCode('open_symmetric_passphrase_dialog');
-                $this->_status[] = Horde::link('#', _("The message below has been encrypted with PGP. You must enter the passphrase that was used to encrypt this message."), null, null, $url . ' return false;') . _("You must enter the passphrase that was used to encrypt this message.") . '</a>';
-                $text .= Util::bufferOutput(array('IMP', 'addInlineScript'), $url);
-            }
-        } elseif (!$literal && !$symmetric &&
-                  !$this->_imp_pgp->getPersonalPrivateKey()) {
-            /* Output if there is no personal private key to decrypt with. */
-            $this->_status[] = _("The message below has been encrypted with PGP, however, no personal private key exists so the message cannot be decrypted.");
-        } elseif (!$literal && !$symmetric &&
-                  !$this->_imp_pgp->getPassphrase()) {
-            if (isset($_SESSION['imp']['viewmode']) &&
-                ($_SESSION['imp']['viewmode'] == 'imp')) {
-                // TODO: Fix to work with DIMP
-                /* Ask for the private key's passphrase if this is encrypted
-                 * asymmetrically. */
-                $url = $this->_imp_pgp->getJSOpenWinCode('open_passphrase_dialog');
-                $this->_status[] = Horde::link('#', _("The message below has been encrypted with PGP. You must enter the passphrase for your PGP private key before it can be decrypted."), null, null, $url . ' return false;') . _("You must enter the passphrase for your PGP private key to view this message.") . '</a>';
-                $text .= Util::bufferOutput(array('IMP', 'addInlineScript'), $url);
-            }
-        } else {
-            /* Decrypt this message. */
-            $this->_status[] = $literal ? _("The message below has been compressed with PGP.") : _("The message below has been encrypted with PGP.");
-            if ($mimetype == 'multipart/encrypted') {
-                if ($subpart->getType() == 'application/octet-stream') {
-                    $decrypted_data = $this->_imp_pgp->decryptMessage($encrypted_data, $symmetric, !$literal);
-                    if (is_a($decrypted_data, 'PEAR_Error')) {
-                        $this->_status[] = _("The message below does not appear to be a valid PGP encrypted message. Error: ") . $decrypted_data->getMessage();
-                    } else {
-                        /* We need to check if this is a signed/encrypted
-                           message. */
-                        $mime_message = Horde_Mime_Message::parseMessage($decrypted_data->message);
-                        if (!$mime_message) {
-                            require_once 'Horde/Text/Filter.php';
-        return !empty($result)
-            ? $this->_outputPGPSignatureTest($result)
-            : $this->_outputStatus();
-                            $text .= $this->_signedOutput($decrypted_data->sig_result);
-                            $decrypted_message = String::convertCharset($decrypted_data->message, $subpart->getCharset());
-                            $text .= '<span class="fixed">' . Text_Filter::filter($decrypted_message, 'text2html', array('parselevel' => TEXT_HTML_SYNTAX)) . '</span>';
-                        } else {
-                            $mimetype = $mime_message->getType();
-                            if (($mimetype == 'multipart/signed') ||
-                                ($mimetype == 'application/pgp-signature')) {
-                                $mime_message->setInformation('pgp_signenc', true);
-                                $mime_message->setContents($decrypted_data->message);
-                                $mime_message->splitContents();
-                            } else {
-        return !empty($result)
-            ? $this->_outputPGPSignatureTest($result)
-            : $this->_outputStatus();
-                                $text .= $this->_signedOutput($decrypted_data->sig_result);
-                            }
-
-                            /* We need to stick the output into a
-                               MIME_Contents object. */
-                            $mc = new IMP_Contents($mime_message, array('download' => 'download_attach', 'view' => 'view_attach'), array(&$this->_contents));
-                            $mc->buildMessage();
-                            if ($mime_message->getInformation('pgp_signenc')) {
-                                $text .= $mc->getMessage(true);
-                            } else {
-                                $text .= '<table cellspacing="0">' . $mc->getMessage(true) . '</table>';
-                            }
-                        }
-                    }
-                } else {
-                    $this->_status[] = _("The message below does not appear to be in the correct PGP format (according to RFC 2015).");
-                }
-            } elseif ($mimetype == 'application/pgp-encrypted') {
-                $decrypted_data = $this->_imp_pgp->decryptMessage($encrypted_data, $symmetric, !$literal);
-                if (is_a($decrypted_data, 'PEAR_Error')) {
-                    $decrypted_message = $decrypted_data->getMessage();
-                } else {
-        return !empty($result)
-            ? $this->_outputPGPSignatureTest($result)
-            : $this->_outputStatus();
-                    $text .= $this->_signedOutput($decrypted_data->sig_result);
-                    $decrypted_message = String::convertCharset($decrypted_data->message, $mime->getCharset());
-                }
-
-                require_once 'Horde/Text/Filter.php';
-                $text .= '<span class="fixed">' . Text_Filter::filter($decrypted_message, 'text2html', array('parselevel' => TEXT_HTML_SYNTAX)) . '</span>';
-            }
-        }
-        $this->_imp_pgp->unsetSymmetricPassphrase();
-
-        return $text;
+        $id = $this->_mimepart->getMimeId();
+        return isset(self::$_inlinecache[$id])
+            ? self::$_inlinecache[$id]
+            : array();
     }
 }
