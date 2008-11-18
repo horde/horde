@@ -580,10 +580,12 @@ class Horde_Mime_Part
      * Remove a subpart.
      *
      * @param string $id  The MIME ID to delete.
+     *
+     * @param boolean  Success status.
      */
     public function removePart($id)
     {
-        $this->_partAction($id, 'remove');
+        return $this->_partAction($id, 'remove');
     }
 
     /**
@@ -591,10 +593,12 @@ class Horde_Mime_Part
      *
      * @param string $id                  The MIME ID to alter.
      * @param Horde_Mime_Part $mime_part  The MIME part to store.
+     *
+     * @param boolean  Success status.
      */
     public function alterPart($id, $mime_part)
     {
-        $this->_partAction($id, 'alter', $mime_part);
+        return $this->_partAction($id, 'alter', $mime_part);
     }
 
     /**
@@ -606,8 +610,7 @@ class Horde_Mime_Part
      *                                    'remove', or 'alter').
      * @param Horde_Mime_Part $mime_part  The object to use for 'alter'.
      *
-     * @return mixed  For 'get', a pointer to the Horde_Mime_Part object, or
-     *                null if the object is not found.
+     * @return mixed  See calling functions.
      */
     protected function _partAction($id, $action, $mime_part = null)
     {
@@ -629,7 +632,7 @@ class Horde_Mime_Part
                 case 'alter':
                     $mime_part->setMimeId($this->_parts[$val]->getMimeId());
                     $this->_parts[$val] = $mime_part;
-                    return;
+                    return true;
 
                 case 'get':
                     return $this->_parts[$val];
@@ -637,14 +640,14 @@ class Horde_Mime_Part
                 case 'remove':
                     unset($this->_parts[$val]);
                     $this->_reindex = true;
-                    return;
+                    return true;
                 }
             } elseif (strpos($id, $partid) === 0) {
                 return $this->_parts[$val]->_partAction($id, $action, $mime_part);
             }
         }
 
-        return null;
+        return ($action == 'get') ? null : false;
     }
 
     /**
