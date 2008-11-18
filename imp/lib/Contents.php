@@ -162,24 +162,37 @@ class IMP_Contents
     /**
      * Gets the raw text for one section of the message.
      *
-     * @param integer $id  The ID of the MIME part.
+     * @param integer $id     The ID of the MIME part.
+     * @param array $options  Additional options:
+     * <pre>
+     * 'mimeheaders' - (boolean) Include the MIME headers also?
+     *                 DEFAULT: No
+     * </pre>
      *
      * @return string  The text of the part.
      */
-    public function getBodyPart($id)
+    public function getBodyPart($id, $options = array())
     {
         if (is_null($this->_mailbox)) {
+            // TODO: Include MIME headers?
             $ob = $this->getMIMEPart($id, array('nocontents' => true));
             return is_null($ob)
                 ? ''
                 : $ob->getContents();
         }
 
+        $query = array(
+            Horde_Imap_Client::FETCH_BODYPART => array(array('id' => $id, 'peek' => true))
+        );
+        if (!empty($options['mimeheaders'])) {
+            $query[Horde_Imap_Client::FETCH_MIMEHEADER] = array(array('id' => $id, 'peek' => true));
+        }
+
         try {
-            $res = $GLOBALS['imp_imap']->ob->fetch($this->_mailbox, array(
-                Horde_Imap_Client::FETCH_BODYPART => array(array('id' => $id, 'peek' => true))
-            ), array('ids' => array($this->_index)));
-            return $res[$this->_index]['bodypart'][$id];
+            $res = $GLOBALS['imp_imap']->ob->fetch($this->_mailbox, $query, array('ids' => array($this->_index)));
+            return empty($options['mimeheaders'])
+                ? $res[$this->_index]['bodypart'][$id]
+                : $res[$this->_index]['mimeheader'][$id] . "\r\n\r\n" . $res[$this->_index]['bodypart'][$id];
         } catch (Horde_Imap_Client_Exception $e) {
             $GLOBALS['imp_imap']->logException($e);
             return '';
