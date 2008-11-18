@@ -90,9 +90,8 @@ function _textWindowOutput($filename, $msg)
 }
 
 require_once dirname(__FILE__) . '/lib/base.php';
-require_once IMP_BASE . '/lib/Crypt/PGP.php';
 
-$imp_pgp = new IMP_PGP();
+$imp_pgp = &Horde_Crypt::singleton(array('imp', 'pgp'));
 $secure_check = $imp_pgp->requireSecureConnection();
 
 /* Run through the action handlers */
