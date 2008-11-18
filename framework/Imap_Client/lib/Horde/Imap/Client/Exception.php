@@ -54,4 +54,25 @@ class Horde_Imap_Client_Exception extends Exception
 
     // Thrown if the cache has become invalid.
     const CACHEUIDINVALID = 11;
+
+    /**
+     * Define a callback function used to log the exception. Will be passed
+     * a single parameter - a copy of this object.
+     *
+     * @var callback
+     */
+    static public $logCallback = null;
+
+    /**
+     * Constructor.
+     */
+    function __construct($message = null, $code = 0)
+    {
+        parent::__construct($message, $code);
+
+        /* Call log function. */
+        if (!is_null(self::$logCallback)) {
+            call_user_func(self::$logCallback, $this);
+        }
+    }
 }
