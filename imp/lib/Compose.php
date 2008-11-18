@@ -490,8 +490,7 @@ class IMP_Compose
 
         /* Instantiate IMP_PGP object if we're appending a PGP signature. */
         if ($this->_pgpAttachPubkey) {
-            require_once IMP_BASE . '/lib/Crypt/PGP.php';
-            $imp_pgp = new IMP_PGP();
+            $imp_pgp = &Horde_Crypt::singleton(array('imp', 'pgp'));
         }
 
         /* Add attachments now. */
@@ -614,8 +613,7 @@ class IMP_Compose
             $prefs->getValue('use_pgp') &&
             !empty($conf['utils']['gnupg']) &&
             in_array($encrypt, array(IMP::PGP_ENCRYPT, IMP::PGP_SIGNENC, IMP::PGP_SYM_ENCRYPT, IMP::PGP_SYM_SIGNENC))) {
-            require_once IMP_BASE .'/lib/Crypt/PGP.php';
-            $imp_pgp = new IMP_PGP();
+            $imp_pgp = &Horde_Crypt::singleton(array('imp', 'pgp'));
         }
 
         if (!empty($encrypt) &&
@@ -1166,8 +1164,7 @@ class IMP_Compose
         /* Set up the base message now. */
         if ($usePGP &&
             in_array($encrypt, array(IMP::PGP_ENCRYPT, IMP::PGP_SIGN, IMP::PGP_SIGNENC, IMP::PGP_SYM_ENCRYPT, IMP::PGP_SYM_SIGNENC))) {
-            require_once IMP_BASE .'/lib/Crypt/PGP.php';
-            $imp_pgp = new IMP_PGP();
+            $imp_pgp = &Horde_Crypt::singleton(array('imp', 'pgp'));
 
             /* Get the user's passphrases, if we need it. */
             $passphrase = '';
@@ -1286,12 +1283,6 @@ class IMP_Compose
         $mime_part = $imp_contents->getMIMEPart($mimeid);
         $body = $mime_part->getContents();
         $this->_bodyCharset = $mime_part->getCharset();
-
-        //if ($mime_message->getType() == 'multipart/encrypted') {
-            /* TODO: Maybe someday I can figure out how to show embedded
-             * text parts here.  But for now, just output this message. */
-        //    return '[' . _("Original message was encrypted") . ']';
-        //}
 
         if (!$this->_findhtml && ($mime_part->getSubType() == 'html')) {
             require_once 'Horde/Text/Filter.php';
