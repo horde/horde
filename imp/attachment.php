@@ -21,30 +21,29 @@ if (!defined('HORDE_BASE')) {
 @define('IMP_BASE', dirname(__FILE__));
 require_once HORDE_BASE . '/lib/core.php';
 require_once 'VFS.php';
+
 $registry = &Registry::singleton();
 $registry->importConfig('imp');
 
-$_self_url = Horde::selfUrl(false, true, true);
+$self_url = Horde::selfUrl(false, true, true);
 
 // Lets see if we are even able to send the user an attachment.
 if (!$conf['compose']['link_attachments']) {
-    Horde::fatal(_("Linked attachments are forbidden."), $_self_url, __LINE__);
+    Horde::fatal(_("Linked attachments are forbidden."), $self_url, __LINE__);
 }
 
 // Gather required form variables.
-$mail_user = Util::getFormData('u');
-$time_stamp = Util::getFormData('t');
-$file_name = Util::getFormData('f');
-if (!isset($mail_user) || !isset($time_stamp) || !isset($file_name) ||
-    $mail_user == '' || $time_stamp == '' || $file_name == '') {
-    Horde::fatal(_("The attachment was not found."),
-        $_self_url, __LINE__);
+$mail_user = Util::getFormData('u', null);
+$time_stamp = Util::getFormData('t', null);
+$file_name = Util::getFormData('f', null);
+if (is_null($mail_user) || is_null($time_stamp) || is_null($file_name)) {
+    Horde::fatal(_("The attachment was not found."), $self_url, __LINE__);
 }
 
 // Initialize the VFS.
 $vfsroot = &VFS::singleton($conf['vfs']['type'], Horde::getDriverConfig('vfs', $conf['vfs']['type']));
 if (is_a($vfsroot, 'PEAR_Error')) {
-    Horde::fatal(sprintf(_("Could not create the VFS backend: %s"), $vfsroot->getMessage()), $_self_url, __LINE__);
+    Horde::fatal(sprintf(_("Could not create the VFS backend: %s"), $vfsroot->getMessage()), $self_url, __LINE__);
 }
 
 // Check if the file exists.
@@ -53,7 +52,7 @@ $time_stamp = basename($time_stamp);
 $file_name = escapeshellcmd(basename($file_name));
 $full_path = sprintf(IMP_Compose::VFS_LINK_ATTACH_PATH . '/%s/%d', $mail_user, $time_stamp);
 if (!$vfsroot->exists($full_path, $file_name)) {
-    Horde::fatal(_("The specified attachment does not exist. It may have been deleted by the original sender."), $_self_url, __LINE__);
+    Horde::fatal(_("The specified attachment does not exist. It may have been deleted by the original sender."), $self_url, __LINE__);
 }
 
 // Check to see if we need to send a verification message.
@@ -79,12 +78,13 @@ if ($conf['compose']['link_attachments_notify']) {
             /* Load $mail_user's preferences so that we can use their
              * locale information for the notification message. */
             include_once 'Horde/Prefs.php';
-            $prefs = &Prefs::singleton($conf['prefs']['driver'],
-                                       'horde', $mail_user);
+            $prefs = &Prefs::singleton($conf['prefs']['driver'], 'horde', $mail_user);
             $prefs->retrieve();
+
             include_once 'Horde/Identity.php';
             $mail_identity = &Identity::singleton('none', $mail_user);
             $mail_address = $mail_identity->getDefaultFromAddress();
+
             /* Ignore missing addresses, which are returned as <>. */
             if (strlen($mail_address) > 2) {
                 $mail_address_full = $mail_identity->getDefaultFromAddress(true);
@@ -118,7 +118,7 @@ if ($conf['compose']['link_attachments_notify']) {
 $file_data = $vfsroot->read($full_path, $file_name);
 if (is_a($file_data, 'PEAR_Error')) {
     Horde::logMessage($file_data, __FILE__, __LINE__, PEAR_LOG_ERR);
-    Horde::fatal(_("The specified file cannot be read."), $_self_url, __LINE__);
+    Horde::fatal(_("The specified file cannot be read."), $self_url, __LINE__);
 }
 $mime_type = Horde_Mime_Magic::analyzeData($file_data, isset($conf['mime']['magic_db']) ? $conf['mime']['magic_db'] : null);
 if ($mime_type === false) {
