@@ -1,7 +1,7 @@
 # IMP Ukrainian win-1251 translation.
 # Copyright (C)
 # Andriy Kopystyansky <anri@polynet.lviv.ua>, 2006
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: IMP H3 (4.1.2)\n"
@@ -113,11 +113,6 @@ msgstr "%s байт"
 #, php-format
 msgid "%s folder being renamed at the start of the month."
 msgstr "Папка %s перейменовується на початку кожного місяця."
-
-#: lib/MIME/Viewer/itip.php:260
-#, php-format
-msgid "%s has accepted."
-msgstr ""
 
 #: lib/MIME/Viewer/itip.php:666
 #, php-format
@@ -243,12 +238,6 @@ msgid ""
 "recipient."
 msgstr "На відісланий Вами лист отримано підтвердження від адресата."
 
-#: imp.js.php:88
-msgid ""
-"A popup window could not be opened. Perhaps you have set your browser to "
-"block popup windows?"
-msgstr ""
-
 #: templates/search/search.html:61
 msgid "AND"
 msgstr "І"
@@ -321,28 +310,6 @@ msgstr ""
 msgid "Additional information can be viewed %s."
 msgstr "Додаткову інформацію можна переглянути %s."
 
-#: lib/MIME/Viewer/notification.php:60
-msgid "Additional information details"
-msgstr ""
-
-#: lib/MIME/Viewer/status.php:92
-msgid "Additional message details"
-msgstr ""
-
-#: lib/MIME/Viewer/status.php:91
-#, php-format
-msgid "Additional message details can be viewed %s."
-msgstr ""
-
-#: lib/MIME/Viewer/status.php:77
-msgid "Additional message error details"
-msgstr ""
-
-#: lib/MIME/Viewer/status.php:76
-#, php-format
-msgid "Additional message error details can be viewed %s."
-msgstr ""
-
 #: contacts.php:118 compose.php:756 compose.php:991
 #: templates/contacts/contacts.html:8
 msgid "Address Book"
@@ -355,22 +322,6 @@ msgstr "Адресники"
 #: templates/prefs/sourceselect.inc:345
 msgid "Address book to add addresses to"
 msgstr "Адресник для внесення адрес"
-
-#: config/prefs.php.dist:197
-msgid ""
-"Addresses to BCC all messages: <em>(optional, enter each address on a new "
-"line)</em>"
-msgstr ""
-
-#: config/prefs.php.dist:189
-msgid ""
-"Addresses to explicitly tie to this identity: <em>(optional, enter each "
-"address on a new line)</em>"
-msgstr ""
-
-#: lib/IMAP/ACL/rfc2086.php:57 lib/IMAP/ACL/rfc4314.php:59
-msgid "Administer"
-msgstr ""
 
 #: templates/mailbox/navbar.html:10
 msgid "All"
@@ -720,10 +671,6 @@ msgstr "Кодування"
 msgid "Calendar"
 msgstr "Календар"
 
-#: lib/IMAP/Tree.php:2426
-msgid "Can not directly create mailbox in this folder."
-msgstr ""
-
 #: lib/Message.php:196
 msgid "Can not move messages to Trash - no Trash mailbox set in preferences."
 msgstr ""
@@ -747,18 +694,6 @@ msgstr "Відмінити лист"
 msgid "Cancelling this message will permanently discard its contents."
 msgstr "Відміна цього листа знищить його вміст."
 
-#: lib/prefs.php:150
-msgid ""
-"Cannot activate both a Trash folder and Virtual Trash. A Trash folder will "
-"be used."
-msgstr ""
-
-#: lib/prefs.php:153
-msgid ""
-"Cannot activate both a Trash folder and Virtual Trash. A Virtual Trash "
-"folder will be used."
-msgstr ""
-
 #: lib/Fetchmail/imap.php:153
 msgid "Cannot connect to the remote mail server."
 msgstr "Не можу з'єднатися з віддаленим поштовим сервером."
@@ -766,10 +701,6 @@ msgstr "Не можу з'єднатися з віддаленим поштовим сервером."
 #: lib/Fetchmail/imap.php:151
 msgid "Cannot connect to the remote mail server: "
 msgstr "Не можу з'єднатися з віддаленим поштовим сервером: "
-
-#: lib/prefs.php:164
-msgid "Cannot delete to trash unless a Trash folder is defined."
-msgstr ""
 
 #: lib/MIME/Viewer/partial.php:47
 #, php-format
@@ -950,14 +881,6 @@ msgstr "Згорнути всі папки"
 msgid "Collapse Folder"
 msgstr "Згорнути папку"
 
-#: templates/fetchmail/fetchmailprefs.html:94
-msgid "Color Indicator:"
-msgstr ""
-
-#: config/prefs.php.dist:1143
-msgid "Combine all namespaces"
-msgstr ""
-
 #: templates/pgp/pgp.html:100
 msgid "Comment:"
 msgstr "Коментар:"
@@ -1051,12 +974,6 @@ msgstr "Не можу видобути вказаний файл з додатку MS-TNEF."
 msgid "Could not extract the requested file from the Zip archive."
 msgstr "Не можу добути вказаний файл з Zip-архіву."
 
-#: lib/Spam.php:226
-msgid ""
-"Could not move message to spam mailbox - no spam mailbox defined in "
-"preferences."
-msgstr ""
-
 #: lib/IMAP/Client.php:318
 msgid "Could not open secure connection to the IMAP server."
 msgstr "Не можу відкрити захищений зв'язок з IMAP сервером."
@@ -1122,14 +1039,6 @@ msgid ""
 msgstr ""
 "Створити правила фільтрування для організації Вашої вхідної пошти, "
 "сортування її по папках і видалення спаму."
-
-#: templates/stationery/stationery.html:14
-msgid "Create new stationery"
-msgstr ""
-
-#: config/prefs.php.dist:537
-msgid "Create stationery and form responses."
-msgstr ""
 
 #: templates/compose/compose.html:307
 msgid "Current Attachments"
@@ -1246,10 +1155,6 @@ msgstr "Витерти папки"
 msgid "Delete Selected Folders"
 msgstr "Знищити вибрані папки"
 
-#: templates/stationery/stationery.html:44
-msgid "Delete Stationery"
-msgstr ""
-
 #: folders.php:389
 msgid "Delete Virtual Folder"
 msgstr "Витерти псевдо-папку"
@@ -1347,13 +1252,6 @@ msgid ""
 "Did not attach \"%s\" as the maximum allowed upload size has been exceeded."
 msgstr "Не додано \"%s\", бо досягнуто максимального об'єму підвантаження."
 
-#: lib/Compose.php:2690
-#, php-format
-msgid ""
-"Did not attach \"%s\" as the server configuration did not allow the file to "
-"be uploaded."
-msgstr ""
-
 #: config/prefs.php.dist:784
 msgid "Dim signatures?"
 msgstr "Затемняти підписи?"
@@ -1445,10 +1343,6 @@ msgstr "Папка чернеток"
 msgid "Drafts folder:"
 msgstr "Папка чернеток:"
 
-#: login.php:283
-msgid "Dynamic"
-msgstr ""
-
 #: templates/pgp/pgp.html:105
 msgid "E-mail Address:"
 msgstr "Адреса е-пошти:"
@@ -1506,10 +1400,6 @@ msgstr "Витерто всі листи з %s"
 #: lib/Message.php:761
 msgid "Emptied all messages from Virtual Trash Folder."
 msgstr "Витерто всі листи з псевдо-смітника."
-
-#: templates/folders/actions.html:18
-msgid "Empty"
-msgstr ""
 
 #: templates/folders/folders_confirm.html:22
 msgid "Empty Selected Folders"
@@ -1678,10 +1568,6 @@ msgstr "Стягування пошти"
 msgid "Fetch Mail in a separate window?"
 msgstr "Стягнути пошту в окреме вікно?"
 
-#: templates/fetchmail/fetchmailprefs.html:89
-msgid "Fetch messages upon logging on?"
-msgstr ""
-
 #: lib/Fetchmail.php:286
 #, php-format
 msgid "Fetched %d messages from %s"
@@ -1752,11 +1638,6 @@ msgstr "Перша сторінка скриньки"
 #: mailbox.php:266
 msgid "First Page"
 msgstr "Перша сторінка"
-
-#: mailbox.php:768 message.php:479 templates/message/navbar_navigate.html:10
-#: templates/mailbox/navbar.html:32
-msgid "Flagged For Followup"
-msgstr ""
 
 #: search.php:338
 msgid "Flagged messages"
@@ -1859,10 +1740,6 @@ msgstr "Галерея"
 msgid "General Options"
 msgstr "Загальні опції"
 
-#: templates/fetchmail/fetchmailprefs.html:80
-msgid "Get only new messages? (IMAP only)"
-msgstr ""
-
 #: folders.php:344 lib/MIME/Viewer/itip.php:568 lib/MIME/Viewer/itip.php:772
 #: lib/MIME/Viewer/itip.php:899
 msgid "Go"
@@ -1945,10 +1822,6 @@ msgstr "Найвищий"
 #: config/prefs.php.dist:803
 msgid "How do you want to display attachments?"
 msgstr "Як слід відображати додатки?"
-
-#: config/prefs.php.dist:1145
-msgid "How should namespaces be displayed in the folder tree view?"
-msgstr ""
 
 #: config/prefs.php.dist:612
 msgid "How to attribute quoted lines in a reply"
@@ -2150,10 +2023,6 @@ msgstr "Некоректна назва хоста."
 msgid "Invalid key"
 msgstr "Неправильний ключ"
 
-#: lib/Compose.php:272
-msgid "Invalid message, cannot resume draft."
-msgstr ""
-
 #: pgp.php:201
 msgid "Invalid personal PGP private key."
 msgstr "Неправильний персональний приватний PGP ключ"
@@ -2209,14 +2078,6 @@ msgstr "Остання сторінка скриньки"
 msgid "Last Page"
 msgstr "Остання сторінка"
 
-#: compose.php:1086
-msgid "Link Attachments?"
-msgstr ""
-
-#: attachment.php:34 lib/Compose.php:2379
-msgid "Linked attachments are forbidden."
-msgstr ""
-
 #: lib/Compose.php:2395
 #, php-format
 msgid "Links will expire on %s"
@@ -2233,10 +2094,6 @@ msgid ""
 msgstr ""
 "Показати всі контакти при завантаженні вікна контактів?(Якщо вимкнуто, Ви "
 "побачите тільки ті, які шукаюте явно)"
-
-#: config/prefs.php.dist:800
-msgid "Listing in the Header"
-msgstr ""
 
 #: compose.php:744
 msgid "Loading..."
@@ -2287,29 +2144,13 @@ msgstr "Файл Macintosh"
 msgid "Mail Previews"
 msgstr "Огляд пошти"
 
-#: templates/fetchmail/fetchmailprefs.html:31
-msgid "Mail server type to connect to:"
-msgstr ""
-
 #: lib/IMAP/Tree.php:2314 lib/IMAP/Tree.php:2341
 msgid "Mailbox"
 msgstr "Скринька"
 
-#: lib/Block/mailbox.php:3
-msgid "Mailbox View"
-msgstr ""
-
 #: config/prefs.php.dist:119
 msgid "Mailbox and Folder Display Options"
 msgstr "Опції відображення папок і поштової скриньки"
-
-#: lib/IMAP/ACL/rfc2086.php:52 lib/IMAP/ACL/rfc4314.php:52
-msgid "Mark (Other)"
-msgstr ""
-
-#: lib/IMAP/ACL/rfc2086.php:51 lib/IMAP/ACL/rfc4314.php:51
-msgid "Mark (Seen)"
-msgstr ""
 
 #: templates/folders/actions.html:30
 msgid "Mark All Messages as Seen"
@@ -2332,18 +2173,6 @@ msgstr "Помітити різні рівні цитування різнимим кольорами?"
 #: templates/fetchmail/fetchmailprefs.html:83
 msgid "Mark messages as seen? (IMAP only)"
 msgstr "Помітити всі листи як нечитані"
-
-#: config/prefs.php.dist:765
-msgid "Mark simple markup?"
-msgstr ""
-
-#: search.php:218
-msgid "Match All Queries"
-msgstr ""
-
-#: search.php:216
-msgid "Match Any Query"
-msgstr ""
 
 #: templates/compose/compose.html:273
 msgid "Maximum Attachment Size"
@@ -2368,10 +2197,6 @@ msgstr "Максимальну кількість додатків досягнуто."
 #: templates/compose/compose.html:252
 msgid "Maximum total attachment size reached."
 msgstr "Максимальний об'єм додатків досягнуто."
-
-#: lib/Block/tree_folders.php:3
-msgid "Menu Folder List"
-msgstr ""
 
 #: lib/Compose.php:1514
 msgid "Message"
@@ -2445,10 +2270,6 @@ msgstr "Листів на сторінку при огляді скриньки."
 msgid "Messages to"
 msgstr "Листи до"
 
-#: login.php:286
-msgid "Minimalist"
-msgstr ""
-
 #: templates/login/login.html:129
 msgid "Mode"
 msgstr "Режим"
@@ -2489,11 +2310,6 @@ msgstr "Огляд списку листiв"
 msgid "NONE"
 msgstr "ЖОДЕН"
 
-#: templates/fetchmail/fetchmailprefs.html:91 templates/smime/smime.html:4
-#: templates/pgp/pgp.html:4
-msgid "NOTE:"
-msgstr ""
-
 #: lib/MIME/Viewer/itip.php:726 lib/MIME/Viewer/itip.php:854
 #: templates/contacts/contacts.html:60
 msgid "Name"
@@ -2502,10 +2318,6 @@ msgstr "Ім'я"
 #: pgp.php:115
 msgid "Name and/or email cannot be empty"
 msgstr "Ім'я і/або е-пошта не можуть бути порожніми"
-
-#: lib/MIME/Viewer/itip.php:942
-msgid "Needs Action"
-msgstr ""
 
 #: config/prefs.php.dist:689 config/prefs.php.dist:921
 msgid "Never"
@@ -2569,10 +2381,6 @@ msgstr "Жодного листа"
 #: pgp.php:142
 msgid "No PGP public key imported."
 msgstr "Жодного публічного PGP ключа не імпортовано."
-
-#: mailbox.php:788 lib/Block/mailbox.php:330
-msgid "No Preview Text"
-msgstr ""
 
 #: smime.php:164
 msgid "No S/MIME public key imported."
@@ -2688,10 +2496,6 @@ msgstr "Не приватні"
 msgid "Not a valid public key."
 msgstr "Не дійсний публічний ключ."
 
-#: config/prefs.php.dist:838
-msgid "Not at all"
-msgstr ""
-
 #: lib/Maintenance/Task/fetchmail_login.php:71
 msgid "Note that this can take some time"
 msgstr "Зауважте, це може зайняти певний час"
@@ -2788,14 +2592,6 @@ msgstr "Зовнішній сервер"
 msgid "PGP"
 msgstr "PGP"
 
-#: lib/IMP.php:1326
-msgid "PGP Encrypt Message"
-msgstr ""
-
-#: lib/IMP.php:1331
-msgid "PGP Encrypt Message with passphrase"
-msgstr ""
-
 #: lib/Compose.php:1292
 msgid "PGP Error: "
 msgstr "Помилка PGP: "
@@ -2821,28 +2617,6 @@ msgstr "Публічний ключ PGP для \"%s (%s)\" успішно додано."
 #, php-format
 msgid "PGP Public Key for \"%s\" was successfully deleted."
 msgstr "Публічний ключ PGP для \"%s\" успішно знищено."
-
-#: templates/pgp/pgp.html:24
-msgid "PGP Public Keyring"
-msgstr ""
-
-#: lib/IMP.php:1327
-msgid "PGP Sign Message"
-msgstr ""
-
-#: lib/IMP.php:1328
-msgid "PGP Sign/Encrypt Message"
-msgstr ""
-
-#: lib/IMP.php:1332
-msgid "PGP Sign/Encrypt Message with passphrase"
-msgstr ""
-
-#: compose.php:664
-msgid ""
-"PGP encryption cannot be used by default as public keys cannot be found for "
-"all recipients."
-msgstr ""
 
 #: pgp.php:207
 msgid "PGP private key successfully added."
@@ -2958,21 +2732,9 @@ msgstr "Приватні"
 msgid "Personal Information"
 msgstr "Особисті дані"
 
-#: pgp.php:125
-msgid "Personal PGP keypair generated successfully."
-msgstr ""
-
-#: pgp.php:132
-msgid "Personal PGP keys deleted successfully."
-msgstr ""
-
 #: smime.php:220
 msgid "Personal S/MIME certificates NOT imported: "
 msgstr "Персональний S/MIME сертифікат не імпортовано: "
-
-#: smime.php:145
-msgid "Personal S/MIME keys deleted successfully."
-msgstr ""
 
 #: config/prefs.php.dist:221
 msgid "Place your signature before replies and forwards?"
@@ -3057,10 +2819,6 @@ msgstr "Виберіть папку перед тим, як виконувати якісь дії."
 msgid "Please select at least one folder to search."
 msgstr "Вкажіть хоча б одну папку для пошуку."
 
-#: templates/compose/redirect.html:39
-msgid "Please select or edit in the box to the right:"
-msgstr ""
-
 #: config/prefs.php.dist:1165
 msgid "Poll all folders for new mail?"
 msgstr "Перевірити всі папки за свіжою поштою?"
@@ -3068,10 +2826,6 @@ msgstr "Перевірити всі папки за свіжою поштою?"
 #: templates/login/login.html:67
 msgid "Port"
 msgstr "Порт"
-
-#: lib/IMAP/ACL/rfc2086.php:54 lib/IMAP/ACL/rfc4314.php:54
-msgid "Post"
-msgstr ""
 
 #: config/motd.php.dist:41
 msgid "Powered by Horde"
@@ -3234,10 +2988,6 @@ msgstr "Цитую %f:"
 msgid "Read"
 msgstr "Читати"
 
-#: templates/folders/actions.html:38
-msgid "Rebuild Folder Tree"
-msgstr ""
-
 #: templates/search/search.html:31
 msgid "Recent Searches"
 msgstr "Недавні пошуки"
@@ -3290,11 +3040,6 @@ msgstr "Пам'ятати останній вигляд"
 msgid "Remote Mailbox:"
 msgstr "Віддалена скринька:"
 
-#: lib/MIME/Viewer/html.php:123
-#, php-format
-msgid "Remote images are blocked to protect your privacy. %s"
-msgstr ""
-
 #: search.php:324
 msgid "Remove Field From Search"
 msgstr "Видалити поле з пошуку"
@@ -3331,31 +3076,6 @@ msgstr "Відповідь до Всіх:"
 #: compose.php:304
 msgid "Reply to List:"
 msgstr "Відповісти Списку:"
-
-#: lib/MIME/Viewer/itip.php:544 lib/MIME/Viewer/itip.php:553
-#: lib/MIME/Viewer/itip.php:563
-msgid "Reply with Not Supported Message"
-msgstr ""
-
-#: lib/MIME/Viewer/itip.php:551
-msgid "Reply with free/busy for next 2 months."
-msgstr ""
-
-#: lib/MIME/Viewer/itip.php:550
-msgid "Reply with requested free/busy information."
-msgstr ""
-
-#: lib/UI/Message.php:29
-msgid "Reply-To"
-msgstr ""
-
-#: lib/Compose.php:1765
-msgid "Reply-To: "
-msgstr ""
-
-#: compose.php:300
-msgid "Reply:"
-msgstr ""
 
 #: mailbox.php:534 message.php:608
 msgid "Report as Innocent"
@@ -3401,10 +3121,6 @@ msgstr "Поновити редагування"
 #: login.php:182
 msgid "Resume your session"
 msgstr "Поновити Вашу сесію"
-
-#: templates/fetchmail/fetchmailprefs.html:125
-msgid "Return to Fetch Mail"
-msgstr ""
 
 #: templates/folders/folders_size.html:14
 msgid "Return to Folders View"
@@ -3462,10 +3178,6 @@ msgstr "Опції S/MIME"
 msgid "S/MIME Passphrase Input"
 msgstr "Ввід S/MIME пароля"
 
-#: templates/smime/smime.html:61
-msgid "S/MIME Personal Keypair support requires a secure web connection."
-msgstr ""
-
 #: smime.php:153
 #, php-format
 msgid "S/MIME Public Key for \"%s\" was successfully deleted."
@@ -3474,22 +3186,6 @@ msgstr "Публічний ключ S/MIME для \"%s\" успішно знищено."
 #: smime.php:175
 msgid "S/MIME Public Key successfully added."
 msgstr "Публічний S/MIME ключ успішно додано."
-
-#: templates/smime/smime.html:17
-msgid "S/MIME Public Keyring"
-msgstr ""
-
-#: smime.php:224
-msgid "S/MIME Public/Private Keypair successfully added."
-msgstr ""
-
-#: lib/IMP.php:1337
-msgid "S/MIME Sign Message"
-msgstr ""
-
-#: lib/IMP.php:1338
-msgid "S/MIME Sign/Encrypt Message"
-msgstr ""
 
 #: templates/smime/smime.html:91
 msgid "S/MIME support is disabled on this system."
@@ -3575,10 +3271,6 @@ msgstr "Зберегти зображення в галереї"
 msgid "Save Options"
 msgstr "Зберегти опції"
 
-#: templates/stationery/stationery.html:42
-msgid "Save Stationery"
-msgstr ""
-
 #: compose.php:857
 msgid "Save _Draft"
 msgstr "Зберегти чернетку"
@@ -3611,10 +3303,6 @@ msgstr "Зберегти пошук як псевдо-папку?"
 msgid "Save sent mail?"
 msgstr "Зберігати відіслану пошту?"
 
-#: lib/Compose.php:222
-msgid "Saving the draft failed. Could not create a drafts folder."
-msgstr ""
-
 #: lib/Compose.php:165
 msgid "Saving the draft failed. No draft folder specified."
 msgstr "Збереження чернетки невдале. Не вказано папки чернеток."
@@ -3638,14 +3326,6 @@ msgstr "Пошук %s"
 msgid "Search Criteria"
 msgstr "Критерій пошуку"
 
-#: templates/search/search.html:130
-msgid "Search Flags"
-msgstr ""
-
-#: templates/search/search.html:155
-msgid "Search Folders"
-msgstr ""
-
 #: config/prefs.php.dist:128
 msgid "Search Options"
 msgstr "Опції пошуку"
@@ -3653,10 +3333,6 @@ msgstr "Опції пошуку"
 #: search.php:158 templates/contacts/contacts.html:31
 msgid "Search Results"
 msgstr "Результати пошуку"
-
-#: templates/search/search.html:80
-msgid "Search Text"
-msgstr ""
 
 #: templates/mailbox/navbar.html:14 templates/mailbox/navbar.html:30
 msgid "Seen"
@@ -3674,10 +3350,6 @@ msgstr "Виберіть дату"
 msgid "Select a field"
 msgstr "Виберіть поле"
 
-#: templates/fetchmail/fetchmail.html:11
-msgid "Select accounts to fetch mail from:"
-msgstr ""
-
 #: config/prefs.php.dist:143
 msgid "Select address book sources for adding and searching for addresses."
 msgstr "Вкажіть джерела адресника для пошуку і додавання адрес."
@@ -3694,17 +3366,9 @@ msgstr "Виберіть всі поля для пошуку при розкритті адрес."
 msgid "Select an account:"
 msgstr "Виберіть аккаунт:"
 
-#: templates/folders/folders.html:3
-msgid "Select mailbox"
-msgstr ""
-
 #: templates/search/search.html:160
 msgid "Select none"
 msgstr "Не вибрати жодного"
-
-#: templates/compose/compose.html:134
-msgid "Select stationery:"
-msgstr ""
 
 #: templates/saveimage/saveimage.html:8
 msgid "Select the gallery to save the image in."
@@ -3713,10 +3377,6 @@ msgstr "Вкажіть галерею для запису зображення."
 #: templates/fetchmail/fetchmailprefs.html:34
 msgid "Select the mail server type:"
 msgstr "Виберіть тип сервера:"
-
-#: templates/mailbox/navbar.html:7 templates/mailbox/navbar.html:9
-msgid "Select:"
-msgstr ""
 
 #: templates/prefs/sourceselect.inc:305 templates/prefs/sourceselect.inc:307
 msgid "Selected Address books:"
@@ -3787,18 +3447,6 @@ msgstr "Роздати поштові папки"
 msgid "Share your mail folders with other users."
 msgstr "Роздати Ваші поштові папки іншим користувачам."
 
-#: lib/IMAP/Tree.php:94
-msgid "Shared Folders"
-msgstr ""
-
-#: templates/pgp/pgp.html:15
-msgid "Should PGP signed messages automatically be verified when viewed?"
-msgstr ""
-
-#: templates/smime/smime.html:7
-msgid "Should S/MIME signed messages automatically be verified when viewed?"
-msgstr ""
-
 #: config/prefs.php.dist:776
 msgid ""
 "Should large blocks of quoted text be shown or hidden by default? It can be "
@@ -3832,10 +3480,6 @@ msgstr "Показати всі папки"
 msgid "Show All Headers"
 msgstr "Показати всі заголовки"
 
-#: message.php:615
-msgid "Show Common Headers"
-msgstr ""
-
 #: mailbox.php:245
 msgid "Show Deleted"
 msgstr "Показати витерті"
@@ -3843,10 +3487,6 @@ msgstr "Показати витерті"
 #: lib/MIME/Viewer/html.php:124
 msgid "Show Images?"
 msgstr "Показувати зображення?"
-
-#: message.php:621
-msgid "Show Mailing List Information"
-msgstr ""
 
 #: templates/search/search.html:162
 msgid "Show Only Subscribed Folders"
@@ -3864,17 +3504,9 @@ msgstr "Показати незамовлені"
 msgid "Show an icon to allow stripping of attachments from messages?"
 msgstr "Показати іконку, щоб дозволити вирізання додатків з листів?"
 
-#: config/prefs.php.dist:1144
-msgid "Show non-private mailboxes in separate folders"
-msgstr ""
-
 #: config/prefs.php.dist:988
 msgid "Show previews for unread messages only?"
 msgstr "Показувати попередній огляд тільки для непрочитаних листів?"
-
-#: config/prefs.php.dist:996
-msgid "Show previews in tooltips?"
-msgstr ""
 
 #: config/prefs.php.dist:530
 msgid "Show the Bcc: header field when composing mail?"
@@ -3968,23 +3600,6 @@ msgstr "Перевірка правопису невдала"
 #: lib/MIME/Viewer/itip.php:691 lib/MIME/Viewer/itip.php:693
 msgid "Start"
 msgstr "Старт"
-
-#: compose.php:980 templates/stationery/stationery.html:8
-#: templates/stationery/stationery.html:12
-msgid "Stationery"
-msgstr ""
-
-#: stationery.php:138
-msgid "Stationery name:"
-msgstr ""
-
-#: stationery.php:140
-msgid "Stationery type:"
-msgstr ""
-
-#: stationery.php:143
-msgid "Stationery:"
-msgstr ""
 
 #: lib/MIME/Viewer/itip.php:726 lib/MIME/Viewer/itip.php:854
 msgid "Status"
@@ -4094,15 +3709,6 @@ msgid ""
 msgstr ""
 "ІМАР сервер не підтримує вибраний метод аутентифікації. Сконтактуйтесь з "
 "адміністратором."
-
-#: lib/MIME/Viewer/appledouble.php:40
-msgid "The Macintosh resource fork"
-msgstr ""
-
-#: lib/MIME/Viewer/appledouble.php:40
-#, php-format
-msgid "The Macintosh resource fork can be downloaded %s."
-msgstr ""
 
 #: lib/MIME/Viewer/pkcs7.php:243
 #, php-format
@@ -4232,16 +3838,6 @@ msgid ""
 "to RFC 2015)."
 msgstr "Лист не схожий на коректний формат PGP (відповідно до RFC 2015)."
 
-#: lib/MIME/Viewer/pgp.php:359
-msgid "The message below has been compressed with PGP."
-msgstr ""
-
-#: lib/MIME/Viewer/pgp.php:201
-msgid ""
-"The message below has been digitally signed and encrypted with PGP, but the "
-"signature cannot be verified."
-msgstr ""
-
 #: lib/MIME/Viewer/pgp.php:207
 msgid "The message below has been digitally signed and encrypted with PGP."
 msgstr "Цей лист закриптований і містить цифровий підпис PGP."
@@ -4257,33 +3853,9 @@ msgstr ""
 msgid "The message below has been digitally signed with PGP."
 msgstr "Цей лист містить цифровий підпис PGP."
 
-#: lib/MIME/Viewer/pgp.php:309
-msgid ""
-"The message below has been encrypted with PGP, however, PGP support is "
-"disabled so the message cannot be decrypted."
-msgstr ""
-
-#: lib/MIME/Viewer/pgp.php:347
-msgid ""
-"The message below has been encrypted with PGP, however, no personal private "
-"key exists so the message cannot be decrypted."
-msgstr ""
-
 #: lib/MIME/Viewer/pgp.php:359
 msgid "The message below has been encrypted with PGP."
 msgstr "Цей лист закриптовано PGP."
-
-#: lib/MIME/Viewer/pgp.php:354
-msgid ""
-"The message below has been encrypted with PGP. You must enter the passphrase "
-"for your PGP private key before it can be decrypted."
-msgstr ""
-
-#: lib/MIME/Viewer/pgp.php:341
-msgid ""
-"The message below has been encrypted with PGP. You must enter the passphrase "
-"that was used to encrypt this message."
-msgstr ""
 
 #: lib/MIME/Viewer/pgp.php:443
 msgid "The message below has been verified."
@@ -4359,21 +3931,6 @@ msgstr "Не можу прочитати вказаний файл."
 #: attachment.php:59
 msgid "The specified file does not exist."
 msgstr "Вказаний файл не існує."
-
-#: stationery.php:86
-#, php-format
-msgid "The stationery \"%s\" has been added."
-msgstr ""
-
-#: stationery.php:62
-#, php-format
-msgid "The stationery \"%s\" has been deleted."
-msgstr ""
-
-#: stationery.php:89
-#, php-format
-msgid "The stationery \"%s\" has been updated."
-msgstr ""
 
 #: lib/MIME/Viewer/itip.php:172
 msgid "The task has been added to your tasklist."
@@ -4588,25 +4145,9 @@ msgstr "До Адреси"
 msgid "To All"
 msgstr "До всіх"
 
-#: message.php:556
-msgid "To List"
-msgstr ""
-
 #: message.php:553
 msgid "To Sender"
 msgstr "До відправника"
-
-#: message.php:560
-msgid "To _All"
-msgstr ""
-
-#: message.php:556
-msgid "To _List"
-msgstr ""
-
-#: templates/compose/redirect.html:46
-msgid "To field"
-msgstr ""
 
 #: templates/prefs/sourceselect.inc:324
 msgid ""
@@ -4747,10 +4288,6 @@ msgstr "Оновити статус респондента"
 #: lib/MIME/Viewer/itip.php:640
 msgid "Update this event on my calendar"
 msgstr "Внести це в мій календар"
-
-#: templates/smime/import_key.html:40 templates/pgp/import_key.html:38
-msgid "Upload:"
-msgstr ""
 
 #: templates/prefs/sentmailselect.inc:39
 msgid "Use Default Value"
@@ -4939,10 +4476,6 @@ msgstr ""
 msgid "Where do you want to display links to alternative formats of a message?"
 msgstr "Де розміщувати лінки до альтернативних форматів листа?"
 
-#: config/prefs.php.dist:512
-msgid "Where should the cursor be located in the compose text area by default?"
-msgstr ""
-
 #: mailbox.php:520 message.php:579
 msgid "Whitelist"
 msgstr "Білий список"
@@ -5008,12 +4541,6 @@ msgstr "Вам не дозволено слати листи до більш ніж %d адресатів."
 msgid "You are renaming the folder:"
 msgstr "Ви перейменовуєте папку: "
 
-#: templates/stationery/stationery.html:39
-msgid ""
-"You can use the following placeholders in the stationery text: %c for the "
-"current message content; %s for the signature."
-msgstr ""
-
 #: lib/Folder.php:511
 #, php-format
 msgid "You cannot unsubscribe from \"%s\"."
@@ -5052,10 +4579,6 @@ msgstr "Ви вже подали цю сторінку."
 #: templates/newmsg/alert.html:3
 msgid "You have new mail in:"
 msgstr "У Вас свіжа пошта в:"
-
-#: templates/fetchmail/fetchmail.html:22
-msgid "You have not configured any external mail accounts."
-msgstr ""
 
 #: lib/Compose.php:1192
 msgid "You must enter at least one recipient."
@@ -5105,12 +4628,6 @@ msgstr "Вам слід розділяти адреси е-пошти комами(,), а не крапкою з комою (;)."
 #: imp.js.php:53
 msgid "You must specify a recipient."
 msgstr "Ви повинні вказати адресата."
-
-#: templates/fetchmail/fetchmailprefs.html:91
-msgid ""
-"You need to have \"Perform maintenance operations on login?\" enabled in "
-"your maintenance options."
-msgstr ""
 
 #: lib/Maillog.php:138
 #, php-format
@@ -5166,18 +4683,9 @@ msgstr "Ваша Reply-to: адреса: <em>(опціонально)</em>"
 msgid "Your S/MIME Public/Private Certificates"
 msgstr "Ваші S/MIME публічний/приватний сертифікати"
 
-#: fetchmail.php:21
-msgid "Your account does not support fetching external mail."
-msgstr ""
-
 #: templates/fetchmail/fetchmailprefs.html:18
 msgid "Your accounts:"
 msgstr "Ваші аккаунти:"
-
-#: config/prefs.php.dist:181
-msgid ""
-"Your alias addresses: <em>(optional, enter each address on a new line)</em>"
-msgstr ""
 
 #: lib/MIME/Viewer/images.php:89
 msgid "Your browser does not support inline display of this image type."
@@ -5228,10 +4736,6 @@ msgstr "[Додаток врізаний: Оригінальний тип додатку: %s, назва: %s]"
 msgid "[No Subject]"
 msgstr "[Без теми]"
 
-#: lib/MIME/Viewer/pgp.php:170
-msgid "[Save the key to your Address book]"
-msgstr ""
-
 #: lib/MIME/Headers.php:224
 #, php-format
 msgid "[Show addresses - %s recipients]"
@@ -5240,10 +4744,6 @@ msgstr "[Показати адреси - %s отримувачів]"
 #: lib/Compose.php:2764
 msgid "[Truncated Text]"
 msgstr "[Врізаний текст]"
-
-#: lib/MIME/Viewer/pgp.php:172
-msgid "[View the raw key]"
-msgstr ""
 
 #: compose.php:892
 msgid "_Bcc"
@@ -5405,10 +4905,6 @@ msgstr "в папку"
 #: smime.php:39 pgp.php:79
 msgid "key"
 msgstr "ключ"
-
-#: folders.php:136
-msgid "mailbox file"
-msgstr ""
 
 #: lib/Compose.php:732
 msgid "name"

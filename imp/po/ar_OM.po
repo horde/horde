@@ -15,7 +15,6 @@ msgstr ""
 "Content-Type: text/html; charset=CP1256\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-
 #: compose.php:647
 msgid "      To: "
 msgstr "      Çáì : "
@@ -96,8 +95,8 @@ msgid ""
 "(Return to the compose screen after applying all changes made thus far.  "
 "Changes on the current screen will NOT be applied.)"
 msgstr ""
-"(ÚÏ Çáì ÔÇÔÉ ÇáÇÑÓÇá ÈÚÏ ÊØÈíŞ ÌãíÚ ÇáÊÛííÑÇÊ ÇáãÏÑÌÉ ÍÊì ÇáÂä. "
-"áä íÊã ÊØÈíŞ ÇáÊÛííÑÇÊ Úáì ÇáÔÇÔÉ ÇáÍÇáíÉ.)"
+"(ÚÏ Çáì ÔÇÔÉ ÇáÇÑÓÇá ÈÚÏ ÊØÈíŞ ÌãíÚ ÇáÊÛííÑÇÊ ÇáãÏÑÌÉ ÍÊì ÇáÂä. áä íÊã ÊØÈíŞ "
+"ÇáÊÛííÑÇÊ Úáì ÇáÔÇÔÉ ÇáÍÇáíÉ.)"
 
 #: templates/contacts/contacts.inc:56
 msgid "* Add these by clicking OK *"
@@ -114,9 +113,8 @@ msgid ""
 "is not displayed correctly, %sclick here</a> to open it in a new window.</"
 "i></p>\n"
 msgstr ""
-"<p><i>ßÊÈÊ åĞå ÇáÑÓÇáÉ ÈÊÑãíÒ ãÎÊáİ Úä áÛÊß ÇáÍÇáíÉ .ÇĞÇ áã . "
-"íÊã ÚÑÖåÇ ÈÔßá ÌíÏ ÇÖÛØ, %såäÇ</a> áßí íÊã İÊÍ ÇáÑÓÇáÉ "
-"İí ÕİÍÉ ÌÏíÏÉ.</i></p>\n"
+"<p><i>ßÊÈÊ åĞå ÇáÑÓÇáÉ ÈÊÑãíÒ ãÎÊáİ Úä áÛÊß ÇáÍÇáíÉ .ÇĞÇ áã . íÊã ÚÑÖåÇ ÈÔßá "
+"ÌíÏ ÇÖÛØ, %såäÇ</a> áßí íÊã İÊÍ ÇáÑÓÇáÉ İí ÕİÍÉ ÌÏíÏÉ.</i></p>\n"
 
 #: templates/filters/manage.inc:50
 msgid "Action"
@@ -152,24 +150,20 @@ msgid ""
 "All messages in the following folder(s) will be downloaded into one MBOX "
 "file:"
 msgstr ""
-"ÌãíÚ ÇáÑÓÇÆá ÇáãæÌæÏÉ İí ÇáãÌáÏ (ÇáãÌáÏÇÊ) ÇáÊÇáíÉ Óæİ íÊã ÊÍãíáåÇ İí ÕäÏæŞ æÇÍÏ "
-"ÇáÕäÏæŞ :"
+"ÌãíÚ ÇáÑÓÇÆá ÇáãæÌæÏÉ İí ÇáãÌáÏ (ÇáãÌáÏÇÊ) ÇáÊÇáíÉ Óæİ íÊã ÊÍãíáåÇ İí ÕäÏæŞ "
+"æÇÍÏ ÇáÕäÏæŞ :"
 
 #: lib/Maintenance/Task/purge_trash.php:96
 #, c-format
 msgid ""
 "All messages in your \"%s\" folder older than %s days will be permanently "
 "deleted."
-msgstr ""
-"ßá ÇáÑÓÇÆá İí ãÌáÏ \"%s\" ÇáÇŞÏã ãä %s íæã Óæİ íÊã ÈÔßá ÏÇÆã"
-"ÇáÛÇÄåÇ."
+msgstr "ßá ÇáÑÓÇÆá İí ãÌáÏ \"%s\" ÇáÇŞÏã ãä %s íæã Óæİ íÊã ÈÔßá ÏÇÆãÇáÛÇÄåÇ."
 
 #: lib/Maintenance/Task/delete_sentmail_monthly.php:78
 #, c-format
 msgid "All old sent-mail folders more than %s months old will be deleted."
-msgstr ""
-"ßá ãÌáÏÇÊ ÇáÑÓÇÆá ÇáãÑÓáÉ ÇáÇŞÏã ãä  %s ÔåÑÇ Óæİ ÊáÛì "
-
+msgstr "ßá ãÌáÏÇÊ ÇáÑÓÇÆá ÇáãÑÓáÉ ÇáÇŞÏã ãä  %s ÔåÑÇ Óæİ ÊáÛì "
 
 #: prefs.php:96
 msgid "An illegal value was specified."
@@ -288,8 +282,7 @@ msgid "Both"
 msgstr "ÇáÇËäÇä"
 
 #: templates/compose/spelling.inc:106 templates/filters/manage.inc:77
-#: templates/contacts/contacts.inc:92
-#: templates/identities/manage.inc:113
+#: templates/contacts/contacts.inc:92 templates/identities/manage.inc:113
 msgid "Cancel"
 msgstr "ÇáÛÇÁ"
 
@@ -300,8 +293,7 @@ msgstr "ÇáÛÇÁ ÇáÑÓÇáÉ"
 
 #: templates/compose/javascript.inc:46
 msgid "Cancelling this message will permanently discard its contents."
-msgstr ""
-"ÇáÛÇÁ åĞå ÇáÑÓÇáÉ Óæİ íÄÏí ÊáŞÇÆíÇ Çáì ÊÏãíÑ ãÍÊæíÇÊåÇ."
+msgstr "ÇáÛÇÁ åĞå ÇáÑÓÇáÉ Óæİ íÄÏí ÊáŞÇÆíÇ Çáì ÊÏãíÑ ãÍÊæíÇÊåÇ."
 
 #: templates/search/main.inc:46 templates/compose/compose.inc:162
 #: templates/message/headers.inc:16
@@ -325,8 +317,8 @@ msgid ""
 "Change display options such as how many messages you see on each page and "
 "how messages are sorted."
 msgstr ""
-"ÊÛííÑ ÎíÇÑÇÊ ÇáÚÑÖ ãËá ÚÏÏ ÇáÑÓÇÆá ÇáãÚÑæÖÉ İí ßá ÕİÍÉ æ  "
-"ßíİíÉ İåÑÓÉ ÇáÑÓÇÆá."
+"ÊÛííÑ ÎíÇÑÇÊ ÇáÚÑÖ ãËá ÚÏÏ ÇáÑÓÇÆá ÇáãÚÑæÖÉ İí ßá ÕİÍÉ æ  ßíİíÉ İåÑÓÉ "
+"ÇáÑÓÇÆá."
 
 #: config/prefs.php.dist:32
 msgid "Change mail server settings."
@@ -337,8 +329,8 @@ msgid ""
 "Change the name, address, and signature that people see when they read and "
 "reply to your email."
 msgstr ""
-"ÊÛííÑ ÇáÇÓã¡ ÇáÚäæÇä ¡ æ ÇáÊæŞíÚ ÇáĞí íÑÇå ÇáÇÔÎÇÕ ÚäÏãÇ íŞÑÇæä æ "
-" íÑÏæä Úáì ÑÓÇÆáß."
+"ÊÛííÑ ÇáÇÓã¡ ÇáÚäæÇä ¡ æ ÇáÊæŞíÚ ÇáĞí íÑÇå ÇáÇÔÎÇÕ ÚäÏãÇ íŞÑÇæä æ  íÑÏæä Úáì "
+"ÑÓÇÆáß."
 
 #: templates/folders/actions.inc:13
 msgid "Check Folder(s) for New Mail"
@@ -358,14 +350,11 @@ msgstr "ÇÎÊÑ ãÒæÏ ÇáÈÑíÏ :"
 
 #: templates/prefs/sourceselect.inc:304
 msgid "Choose the addressbook to use when adding addresses."
-msgstr ""
-"ÇÎÊÑ ÓÌá ÇáÚäÇæíä ."
+msgstr "ÇÎÊÑ ÓÌá ÇáÚäÇæíä ."
 
 #: templates/prefs/sourceselect.inc:258
 msgid "Choose the order of addressbooks to search when expanding addresses."
-msgstr ""
-"ÇÎÊÑ ÇáÊÑÊíÈ ÇáĞí ÊÑíÏ Çä íÊã ÇáÈÍË Èå ÚäÏ İÊÍ ÓÌáÇÊ ÇáÚäÇæíä. "
-""
+msgstr "ÇÎÊÑ ÇáÊÑÊíÈ ÇáĞí ÊÑíÏ Çä íÊã ÇáÈÍË Èå ÚäÏ İÊÍ ÓÌáÇÊ ÇáÚäÇæíä. "
 
 #: mailbox.php:335 folders.php:265
 #, c-format
@@ -376,9 +365,7 @@ msgstr "Êã ÍĞİ ÌãíÚ ÇáÑÓÇÆá ãä %s."
 msgid ""
 "Click on one of your selected addressbooks and then select all fields to "
 "search."
-msgstr ""
-"ÇäŞÑ Úáì æÇÍÏÇ ãä ÓÌáÇÊ ÒæÇÑß ÇáãÎÊÇÑÉ Ëã ÇÎÊÑ ÌãíÚ ÇáÍŞæá  "
-"ááÈÍË."
+msgstr "ÇäŞÑ Úáì æÇÍÏÇ ãä ÓÌáÇÊ ÒæÇÑß ÇáãÎÊÇÑÉ Ëã ÇÎÊÑ ÌãíÚ ÇáÍŞæá  ááÈÍË."
 
 #: folders.php:367
 msgid "Closed Folder"
@@ -422,8 +409,8 @@ msgid ""
 "Control when new mail will be checked for, and whether or not to notify you "
 "when it arrives."
 msgstr ""
-"ÇáÊÍßã İí æŞÊ ÇáÈÍË Úä ÑÓÇÆá ÌÏíÏÉ ¡ æåá íÊã ÊäÈíåß Çã áÇ  "
-"ÚäÏ æÕá ÑÓÇÆá ÌÏíÏÉ."
+"ÇáÊÍßã İí æŞÊ ÇáÈÍË Úä ÑÓÇÆá ÌÏíÏÉ ¡ æåá íÊã ÊäÈíåß Çã áÇ  ÚäÏ æÕá ÑÓÇÆá "
+"ÌÏíÏÉ."
 
 #: templates/mailbox/navbar.inc:62 templates/message/navbar_aux_top.inc:20
 #: templates/message/navbar_aux_bottom.inc:6
@@ -444,8 +431,7 @@ msgid "Could not delete messages from %s: %s"
 msgstr "ÊÚĞÑ ÇáÛÇÁ ÇáÑÓÇÆá ãä %s : %s"
 
 #: templates/filters/manage.inc:75 templates/filters/javascript.inc:75
-#: templates/identities/manage.inc:105
-#: templates/identities/manage.inc:112
+#: templates/identities/manage.inc:105 templates/identities/manage.inc:112
 #: templates/identities/javascript.inc:32
 msgid "Create"
 msgstr "ÅäÔÇÁ"
@@ -471,20 +457,17 @@ msgid ""
 "Create filtering rules to organize your incoming mail, sort it into folders, "
 "and delete spam."
 msgstr ""
-"ÅäÔÇÁ ŞæÇÚÏ İáÊÑÉ áÊÑÊíÈ ÇáÈÑíÏ ÇáæÇÑÏ ¡ ÊÕäíİåÇ İí ÇáãÌáÏÇÊ  "
-"æÇáÛÇÁ ÇáÈÑíÏ ÇáÛíÑ ãÑÛæÈ."
+"ÅäÔÇÁ ŞæÇÚÏ İáÊÑÉ áÊÑÊíÈ ÇáÈÑíÏ ÇáæÇÑÏ ¡ ÊÕäíİåÇ İí ÇáãÌáÏÇÊ  æÇáÛÇÁ ÇáÈÑíÏ "
+"ÇáÛíÑ ãÑÛæÈ."
 
 #: config/prefs.php.dist:95
 msgid "Customize how you send mail and where drafts are saved."
-msgstr ""
-"ÖÈØ ßíİíÉ ÇÑÓÇáß ÇáÑÓÇÆá æÇíä íÊã ÍİÙ ÇáãÓæÏÇÊ . "
-""
+msgstr "ÖÈØ ßíİíÉ ÇÑÓÇáß ÇáÑÓÇÆá æÇíä íÊã ÍİÙ ÇáãÓæÏÇÊ . "
 
 #: config/prefs.php.dist:75
 #, c-format
 msgid "Customize maintenance operations run upon login to %s."
-msgstr ""
-"ÖÈØ ÚãáíÇÊ ÇáÕíÇäÉ ÇáÊí ÊÚãá ÚäÏ ÇáÏÎæá Çáì %s."
+msgstr "ÖÈØ ÚãáíÇÊ ÇáÕíÇäÉ ÇáÊí ÊÚãá ÚäÏ ÇáÏÎæá Çáì %s."
 
 #: config/prefs.php.dist:103
 #, c-format
@@ -568,8 +551,9 @@ msgstr "ÚÑÖ ÇáÎíÇÑÇÊ"
 msgid ""
 "Display confirmation after sending a message? (only when not using a pop-up "
 "compose window)"
-msgstr "ÚÑÖ ÑÓÇáÉ ÊÇßíÏ ÈÚÏ ÇÑÓÇá ÑÓÇáÉ ¿ ( İŞØ ÚäÏ ÚÏã ÇÓÊÎÏÇã äÇİĞÉ ãäÈËŞÉ "
-"áÇÑÓÇá ÇáÑÓÇáÉ )"
+msgstr ""
+"ÚÑÖ ÑÓÇáÉ ÊÇßíÏ ÈÚÏ ÇÑÓÇá ÑÓÇáÉ ¿ ( İŞØ ÚäÏ ÚÏã ÇÓÊÎÏÇã äÇİĞÉ ãäÈËŞÉ áÇÑÓÇá "
+"ÇáÑÓÇáÉ )"
 
 #: config/prefs.php.dist:340
 msgid "Display message when filters have been applied?"
@@ -577,8 +561,7 @@ msgstr "ÚÑÖ ÑÓÇáÉ ÚäÏ ÊØÈíŞ ÇáİáÇÊÑ ¿"
 
 #: config/prefs.php.dist:733
 msgid "Display pop-up notification of new mail?"
-msgstr ""
-"ÚÑÖ ÑÓÇáÉ ãäÈËŞÉ ááÇÚáÇã Úä æÕæá ÑÓÇáÉ ÌÏíÏÉ ¿"
+msgstr "ÚÑÖ ÑÓÇáÉ ãäÈËŞÉ ááÇÚáÇã Úä æÕæá ÑÓÇáÉ ÌÏíÏÉ ¿"
 
 #: templates/folders/actions.inc:14
 msgid "Do Not Check Folder(s) for New Mail"
@@ -729,9 +712,7 @@ msgstr "İÇÚáíÉ ÇáÊÑÔíÍ : Êã ÇáÛÇÁ ÇáÑÓÇáÉ \"%s\" ãä \"%s\" ."
 msgid ""
 "Filter Activity: The message \"%s\" from \"%s\" has been moved to the folder "
 "\"%s\"."
-msgstr ""
-"İÇÚáíÉ ÇáÊÑÔíÍ : Êã ÊÍæíá ÇáÑÓÇáÉ \"%s\" ãä \"%s\" Çáì ÇáãÌáÏ "
-"\"%s\"."
+msgstr "İÇÚáíÉ ÇáÊÑÔíÍ : Êã ÊÍæíá ÇáÑÓÇáÉ \"%s\" ãä \"%s\" Çáì ÇáãÌáÏ \"%s\"."
 
 #: lib/IMP.php:1190
 #, c-format
@@ -739,8 +720,7 @@ msgid ""
 "Filter Activity: The message \"%s\" from \"%s\" has been moved to your Trash "
 "folder."
 msgstr ""
-"İÇÚáíÉ ÇáÊÑÔíÍ : Êã ÊÍæíá ÇáÑÓÇáÉ \"%s\" ãä \"%s\" Çáì ãÌáÏ  "
-"ÓáÉ ÇáãåãáÇÊ."
+"İÇÚáíÉ ÇáÊÑÔíÍ : Êã ÊÍæíá ÇáÑÓÇáÉ \"%s\" ãä \"%s\" Çáì ãÌáÏ  ÓáÉ ÇáãåãáÇÊ."
 
 #: templates/filters/list.inc:10
 msgid "Filter Rules"
@@ -922,8 +902,7 @@ msgid ""
 "Login failed for some reason. Most likely your username or password was "
 "entered incorrectly."
 msgstr ""
-"İÔá ÇáÏÎæá áÓÈÈ ãÇ . ÛÇáÈÇ ãÇ íßæä ÎØÃ İí ÇÏÎÇá ÇÓã ÇáãÓÊÎÏã Ãæ  "
-"ßáãÉ ÇáãÑæÑ."
+"İÔá ÇáÏÎæá áÓÈÈ ãÇ . ÛÇáÈÇ ãÇ íßæä ÎØÃ İí ÇÏÎÇá ÇÓã ÇáãÓÊÎÏã Ãæ  ßáãÉ ÇáãÑæÑ."
 
 #: templates/menu/menu.inc:54 templates/menu/menu.inc:56
 msgid "Logout"
@@ -960,8 +939,7 @@ msgstr "Úáãå ßÜ :"
 
 #: config/prefs.php.dist:589
 msgid "Mark different levels of quoting with different colors?"
-msgstr ""
-"Úáã ÇáãÓÊæíÇÊ ÇáãÎÊáİÉ ãä ÇáÇŞÊÈÇÓÇÊ ÈÇáæÇä ãÎÊáİÉ ¿"
+msgstr "Úáã ÇáãÓÊæíÇÊ ÇáãÎÊáİÉ ãä ÇáÇŞÊÈÇÓÇÊ ÈÇáæÇä ãÎÊáİÉ ¿"
 
 #: search.php:59
 msgid "May"
@@ -1023,8 +1001,7 @@ msgstr "ÑÓÇÆá Çáì"
 msgid "Mime Type"
 msgstr "äæÚ ãÇíã"
 
-#: templates/filters/javascript.inc:67
-#: templates/filters/javascript.inc:108
+#: templates/filters/javascript.inc:67 templates/filters/javascript.inc:108
 msgid "Modify"
 msgstr "ÊÚÏíá"
 
@@ -1146,8 +1123,7 @@ msgstr "äæİãÈÑ"
 #: config/prefs.php.dist:457
 msgid "Number of old sent-mail folders to keep if deleting monthly."
 msgstr ""
-"ÚÏÏ ãÌáÏÇÊ ÇáÑÓÇÆá ÇáãÑÓáÉ ÇáŞÏíãÉ ÇáÊí íÌÈ ÇÈŞÇÄåÇ İí ÍÇá ÇáÇáÛÇÁ   "
-"ÇáÔåÑí."
+"ÚÏÏ ãÌáÏÇÊ ÇáÑÓÇÆá ÇáãÑÓáÉ ÇáŞÏíãÉ ÇáÊí íÌÈ ÇÈŞÇÄåÇ İí ÍÇá ÇáÇáÛÇÁ   ÇáÔåÑí."
 
 #: templates/contacts/contacts.inc:91
 msgid "OK"
@@ -1207,13 +1183,11 @@ msgstr "ãÚáæãÇÊ ÔÎÕíÉ"
 msgid "Place your signature before replies and forwards?"
 msgstr "æÖÚ ÊæŞíÚß ŞÈá ÇáÑÏæÏ æ ÇáÊÍæíáÇÊ ¿"
 
-#: templates/mailbox/javascript.inc:81
-#: templates/message/javascript.inc:14
+#: templates/mailbox/javascript.inc:81 templates/message/javascript.inc:14
 msgid "Please enter a name for the new folder:"
 msgstr "íÑÌì ÇÏÎÇá ÇÓã ááãÌáÏ ÇáÌÏíÏ :"
 
-#: templates/folders/javascript.inc:98
-#: templates/folders/javascript.inc:100
+#: templates/folders/javascript.inc:98 templates/folders/javascript.inc:100
 msgid "Please enter the name of the new folder:"
 msgstr "íÑÌì ÇÏÎÇá ÇÓã ÇáãÌáÏ ÇáÌÏíÏ :"
 
@@ -1376,6 +1350,7 @@ msgstr "ÇáÑÏ Úáì Çáßá"
 #: compose.php:610
 msgid "Reply to All:"
 msgstr "ÇáÑÏ Úáì Çáßá :"
+
 #: compose.php:638
 msgid "Reply-To: "
 msgstr "ÇáÑÏ Úáì :"
@@ -1409,9 +1384,7 @@ msgstr "ÇÓÊÃäİ"
 #: config/prefs.php.dist:378
 msgid ""
 "Return to the mailbox listing after deleting, moving, or copying a message?"
-msgstr ""
-"ÇÑÌÚ Çáì ÚÑÖ ÕäÇÏíŞ ÇáÈÑíÏ ÈÚÏ ÇáÛÇÁ ÊÍæíá Çæ äÓÎ  "
-"ÑÓÇáÉ ¿"
+msgstr "ÇÑÌÚ Çáì ÚÑÖ ÕäÇÏíŞ ÇáÈÑíÏ ÈÚÏ ÇáÛÇÁ ÊÍæíá Çæ äÓÎ  ÑÓÇáÉ ¿"
 
 #: templates/filters/manage.inc:4
 msgid "Rule Definition"
@@ -1457,9 +1430,7 @@ msgstr "ÇÎÊÑ"
 
 #: config/prefs.php.dist:117
 msgid "Select addressbook sources for adding and searching for addresses."
-msgstr ""
-"ÇÎÊÄ ãÕÏÑ ÓÌá ÇáÚäÇæíä áÇÖÇİÉ æÇáÈÍË  "
-"İí ÇáÚäÇæíä."
+msgstr "ÇÎÊÄ ãÕÏÑ ÓÌá ÇáÚäÇæíä áÇÖÇİÉ æÇáÈÍË  İí ÇáÚäÇæíä."
 
 #: templates/search/main.inc:202
 msgid "Select all"
@@ -1511,9 +1482,7 @@ msgstr "ÖÈØ ÇáÃİÖáíÉ áÑÓÇÆá ÇáÊÑÔíÍ ÇáÎÇÕÉ ÈÇáãÍÊæíÇÊ ÛíÑ ÇáãÑÛæÈÉ."
 
 #: config/prefs.php.dist:68
 msgid "Set preferences for what happens when you move and delete messages."
-msgstr ""
-"ÖÈØ ÇáÇÏÇÁ áãÇ ÓíÍÏË ÚäÏãÇ ÊŞæã ÈäŞá Çæ ÇáÛÇÁ  "
-"ÇáÑÓÇÆá."
+msgstr "ÖÈØ ÇáÇÏÇÁ áãÇ ÓíÍÏË ÚäÏãÇ ÊŞæã ÈäŞá Çæ ÇáÛÇÁ  ÇáÑÓÇÆá."
 
 #: config/prefs.php.dist:46
 msgid "Set the current time zone."
@@ -1631,8 +1600,7 @@ msgid ""
 "problems. Please see your system administrator."
 msgstr ""
 "ÇáãÌáÏ \"%s\" íÌÊæí Úáì ÑãæÒ ÛíÑ ãŞÈæáÉ İí ÇÓãå. ŞÏ íÄÏí Ğáß Çáì ãÔÇßá "
-"ÇáÑÌÇÁ ãÑÇÌÚÉ ãÏíÑ ÇáäÙÇã"
-"."
+"ÇáÑÌÇÁ ãÑÇÌÚÉ ãÏíÑ ÇáäÙÇã."
 
 #: lib/Folder.php:320
 #, c-format
@@ -1716,48 +1684,40 @@ msgid ""
 "There was a problem with the file upload. The file may have been larger than "
 "the maximum allowed size (%d MB)."
 msgstr ""
-"åäÇáß ãÔßáÉ ãÊÚáŞÉ ÈÊÍãíá Çáãáİ. ŞÏ íßæä ÍÌã Çáãáİ ÇßÈÑ ãä  "
-"ÇáÍÏ ÇáÇÚáì ÇáãÓãæÍ Èå æåæ (%d ãíÌÇÈÇíÊ)."
+"åäÇáß ãÔßáÉ ãÊÚáŞÉ ÈÊÍãíá Çáãáİ. ŞÏ íßæä ÍÌã Çáãáİ ÇßÈÑ ãä  ÇáÍÏ ÇáÇÚáì "
+"ÇáãÓãæÍ Èå æåæ (%d ãíÌÇÈÇíÊ)."
 
 #: compose.php:998
 msgid ""
 "There was a problem with the file upload. The file may have been larger than "
 "the maximum allowed size."
 msgstr ""
-"åäÇáß ãÔßáÉ ãÊÚáŞÉ ÈÊÍãíá Çáãáİ. ŞÏ íßæä ÍÌã Çáãáİ ÇßÈÑ ãä  "
-"ÇáÍÏ ÇáÇÚáì ÇáãÓãæÍ Èå."
+"åäÇáß ãÔßáÉ ãÊÚáŞÉ ÈÊÍãíá Çáãáİ. ŞÏ íßæä ÍÌã Çáãáİ ÇßÈÑ ãä  ÇáÍÏ ÇáÇÚáì "
+"ÇáãÓãæÍ Èå."
 
 #: lib/Message.php:123
 #, c-format
 msgid ""
 "There was an error copying messages to \"%s\". This is what the server said"
-msgstr ""
-"åäÇáß ÎØÇ İí äÓÎ ÇáÑÓÇÆá Çáì  \"%s\". åĞÇ ãÇ ÇİÇÏ Èå ÇáãÒæÏ"
-""
+msgstr "åäÇáß ÎØÇ İí äÓÎ ÇáÑÓÇÆá Çáì  \"%s\". åĞÇ ãÇ ÇİÇÏ Èå ÇáãÒæÏ"
 
 #: lib/Message.php:225
 #, c-format
 msgid ""
 "There was an error deleting messages from the folder \"%s\". This is what "
 "the server said"
-msgstr ""
-"åäÇáß ÎØÃ İí ÇáÛÇÁ ÇáÑÓÇÆá ãä ÇáãÌáÏ  \"%s\". åĞÇ ãÇ ÇİÇÏ "
-"Èå ÇáãÒæÏ"
+msgstr "åäÇáß ÎØÃ İí ÇáÛÇÁ ÇáÑÓÇÆá ãä ÇáãÌáÏ  \"%s\". åĞÇ ãÇ ÇİÇÏ Èå ÇáãÒæÏ"
 
 #: lib/Message.php:300
 #, c-format
 msgid ""
 "There was an error deleting messages in the folder \"%s\". This is what the "
 "server said"
-msgstr ""
-"åäÇáß ÎØÃ İí ÇáÛÇÁ ÇáÑÓÇÆá İí ÇáãÌáÏ  \"%s\". åĞÇ ãÇ ÇİÇÏ  "
-"Èå ÇáãÒæÏ"
+msgstr "åäÇáß ÎØÃ İí ÇáÛÇÁ ÇáÑÓÇÆá İí ÇáãÌáÏ  \"%s\". åĞÇ ãÇ ÇİÇÏ  Èå ÇáãÒæÏ"
 
 #: lib/Message.php:255 lib/Message.php:263
 msgid "There was an error deleting messages. This is what the server said"
-msgstr ""
-"åäÇáß ÎØÃ İí ÇáÛÇÁ ÇáÑÓÇÆá. åĞÇ ãÇ ÇİÇÏ "
-"Èå ÇáãÒæÏ "
+msgstr "åäÇáß ÎØÃ İí ÇáÛÇÁ ÇáÑÓÇÆá. åĞÇ ãÇ ÇİÇÏ Èå ÇáãÒæÏ "
 
 #: lib/MIME/Viewer/text.php:29 lib/MIME/Viewer/enriched.php:48
 msgid "There was an error displaying this message part"
@@ -1768,30 +1728,22 @@ msgstr "åäÇáß ÎØÃ İí ÚÑÖ åĞÇ ÇáÌÒÁ ãä ÇáÑÓÇáÉ"
 msgid ""
 "There was an error flagging messages in the folder \"%s\". This is what the "
 "server said"
-msgstr ""
-"åäÇáß ÎØÃ İí ÊÚáíã ÇáÑÓÇÆá İí ÇáãÌáÏ \"%s\". åĞÇ ãÇ ÇİÇÏ  "
-"Èå ÇáãÒæÏ "
+msgstr "åäÇáß ÎØÃ İí ÊÚáíã ÇáÑÓÇÆá İí ÇáãÌáÏ \"%s\". åĞÇ ãÇ ÇİÇÏ  Èå ÇáãÒæÏ "
 
 #: lib/Message.php:385
 msgid "There was an error flagging messages. This is what the server said"
-msgstr ""
-"åäÇáß ÎØÃ İí ÊÚáíã ÇáÑÓÇÆá. åĞÇ ãÇ ÇİÇÏ  "
-"Èå ÇáãÒæÏ "
+msgstr "åäÇáß ÎØÃ İí ÊÚáíã ÇáÑÓÇÆá. åĞÇ ãÇ ÇİÇÏ  Èå ÇáãÒæÏ "
 
 #: lib/Message.php:119
 #, c-format
 msgid ""
 "There was an error moving messages to \"%s\". This is what the server said"
-msgstr ""
-"åäÇáß ÎØÃ İí äŞá ÇáÑÓÇÆá Çáì  \"%s\". åĞÇ ãÇ ÇİÇÏ "
-"Èå ÇáãÒæÏ "
+msgstr "åäÇáß ÎØÃ İí äŞá ÇáÑÓÇÆá Çáì  \"%s\". åĞÇ ãÇ ÇİÇÏ Èå ÇáãÒæÏ "
 
 #: lib/Message.php:219 lib/Message.php:249
 msgid ""
 "There was an error moving messages to the trash. This is what the server said"
-msgstr ""
-"åäÇáß ÎØÃ İí äŞá ÇáÑÓÇÆá Çáì ÓáÉ ÇáãåãáÇÊ. "
-"åĞÇ ãÇ ÇİÇÏ Èå ÇáãÒæÏ "
+msgstr "åäÇáß ÎØÃ İí äŞá ÇáÑÓÇÆá Çáì ÓáÉ ÇáãåãáÇÊ. åĞÇ ãÇ ÇİÇÏ Èå ÇáãÒæÏ "
 
 #: compose.php:966
 msgid "There was an error saving a draft."
@@ -1804,9 +1756,7 @@ msgstr "åäÇáß ÎØÃ İí ÇÑÓÇá ÑÓÇáÊß : %s"
 
 #: lib/Message.php:313
 msgid "There was an error undeleting messages. This is what the server said"
-msgstr ""
-"åäÇáß ÎØÃ- ÇáÊÑÇÌÚ Úä ÇáÛÇÁ ÇáÑÓÇÆá.   "
-"åĞÇ ãÇ ÇİÇÏ Èå ÇáãÒæÏ"
+msgstr "åäÇáß ÎØÃ- ÇáÊÑÇÌÚ Úä ÇáÛÇÁ ÇáÑÓÇÆá.   åĞÇ ãÇ ÇİÇÏ Èå ÇáãÒæÏ"
 
 #: mailbox.php:151
 msgid "There was an error viewing the requested message."
@@ -1825,8 +1775,8 @@ msgid ""
 "This file controls the default preferences for IMP, and also controls which "
 "preferences users can alter."
 msgstr ""
-"åĞÇ Çáãáİ íÊÍßã İí ÇáÎíÇÑÇÊ ÇáÇİÊÑÇÖíÉ ááÂí Çã Èí ¡ æíÊÍßã ÇíÖÇ ÈÇí ÎíÇÑÇÊ íãßä ááãÓÊÎÏã ÊÚÏíáåÇ "
-""
+"åĞÇ Çáãáİ íÊÍßã İí ÇáÎíÇÑÇÊ ÇáÇİÊÑÇÖíÉ ááÂí Çã Èí ¡ æíÊÍßã ÇíÖÇ ÈÇí ÎíÇÑÇÊ "
+"íãßä ááãÓÊÎÏã ÊÚÏíáåÇ "
 
 #: templates/index/notconfigured.inc:46
 msgid ""
@@ -1841,27 +1791,24 @@ msgid ""
 "This file controls the stylesheet that is used to set colors and fonts in "
 "addition to or overriding Horde defaults."
 msgstr ""
-"íÊÍßã åĞÇ Çáãáİ İí ÔÑÍÉ ÇáÓãÇÊ ÇáÊí ÊÓÊÎÏã áÖÈØ ÇáÇáæÇä æÇáÎØæØ ÈÇáÇÖÇİÉ Çáì"
-" Çæ ÊÌÇåá ÇáÎíÇÑÇÊ ÇáÇÓÇÓíÉ áåæÑÏ."
+"íÊÍßã åĞÇ Çáãáİ İí ÔÑÍÉ ÇáÓãÇÊ ÇáÊí ÊÓÊÎÏã áÖÈØ ÇáÇáæÇä æÇáÎØæØ ÈÇáÇÖÇİÉ Çáì "
+"Çæ ÊÌÇåá ÇáÎíÇÑÇÊ ÇáÇÓÇÓíÉ áåæÑÏ."
 
 #: templates/index/notconfigured.inc:18
 msgid ""
 "This is the main IMP configuration file. It contains paths and options for "
 "the IMP scripts."
 msgstr ""
-"åĞÇ åæ Çáãáİ ÇáÑÆíÓí áÖæÇÈØ ÇáÂí Çãæ Èí .ÇäåÇ ÊÍæí ÇáãÓÇÑÇÊ  "
-"æÇáÎíÇÑÇÊ áÇßæÇÏ ÇáÂí Çã Èí."
+"åĞÇ åæ Çáãáİ ÇáÑÆíÓí áÖæÇÈØ ÇáÂí Çãæ Èí .ÇäåÇ ÊÍæí ÇáãÓÇÑÇÊ  æÇáÎíÇÑÇÊ "
+"áÇßæÇÏ ÇáÂí Çã Èí."
 
 #: templates/folders/javascript.inc:7
 msgid "This may take some time. Are you sure you want to continue?"
-msgstr ""
-"ŞÏ íÓÊÛÑŞ åĞÇ ÈÚÖ ÇáæŞÊ.  "
-"åá ÇäÊ ãÊÇßÏ ãä ÑÛÈÊß İí ÇáÇÓÊãÑÇÑ¿"
+msgstr "ŞÏ íÓÊÛÑŞ åĞÇ ÈÚÖ ÇáæŞÊ.  åá ÇäÊ ãÊÇßÏ ãä ÑÛÈÊß İí ÇáÇÓÊãÑÇÑ¿"
 
 #: message.php:435
 msgid "This message has been reported as spam to your system administrator."
-msgstr ""
-"Êã ÊŞÏíã ÊŞÑíÑ ÈåĞå ÇáÑÓÇáÉ ßÑÓÇáÉ ÛíÑ ãÑÛæÈ ÈåÇ Çáì ãÏíÑ ÇáäÙÇã."
+msgstr "Êã ÊŞÏíã ÊŞÑíÑ ÈåĞå ÇáÑÓÇáÉ ßÑÓÇáÉ ÛíÑ ãÑÛæÈ ÈåÇ Çáì ãÏíÑ ÇáäÙÇã."
 
 #: message.php:457
 msgid "This message to"
@@ -2014,8 +1961,7 @@ msgstr "äÚã"
 msgid "You are attempting to delete the following folders:"
 msgstr "Çäß ÊÍÇæá ÇáÛÇÁ ÇáãÌáÏÇÊ ÇáÊÇáíÉ :"
 
-#: templates/mailbox/javascript.inc:81
-#: templates/message/javascript.inc:14
+#: templates/mailbox/javascript.inc:81 templates/message/javascript.inc:14
 msgid "You are copying/moving to a new folder."
 msgstr "Çäß ÊäÓÎ/ÊäŞá Çáì ãÌáÏ ÌÏíÏ."
 
@@ -2068,8 +2014,7 @@ msgstr "íÌÈ ÇæáÇ ÊÍÏíÏ Çáãáİ ÇáãÑÇÏ ÇáÑİÇŞå."
 msgid "You must have at least one recipient."
 msgstr "íÌÈ Çä íßæä áÏíß ãÓÊŞÈá æÇÍÏ Úáì  ÇáÇŞá."
 
-#: templates/mailbox/javascript.inc:90
-#: templates/message/javascript.inc:23
+#: templates/mailbox/javascript.inc:90 templates/message/javascript.inc:23
 msgid "You must select a target mailbox first."
 msgstr "íÌÈ Çä ÊÎÊÇÑ ÕäÏæŞ ÇáÈÑíÏ ÇáåÏİ ÇæáÇ."
 
@@ -2081,10 +2026,8 @@ msgstr "íÌÈ Çä ÊÎÊÇÑ ÚäæÇä ÇæáÇ."
 msgid "You must select an identity to be deleted."
 msgstr "íÌÈ Çä ÊÎÊÇÑ åæíÉ áíÊã ÇáÛÇÄåÇ."
 
-#: templates/mailbox/javascript.inc:21
-#: templates/mailbox/javascript.inc:97
-#: templates/mailbox/javascript.inc:108
-#: templates/mailbox/javascript.inc:155
+#: templates/mailbox/javascript.inc:21 templates/mailbox/javascript.inc:97
+#: templates/mailbox/javascript.inc:108 templates/mailbox/javascript.inc:155
 msgid "You must select at least one message first."
 msgstr "íÌÈ Çä ÊÎÊÇÑ ÑÓÇáÉ æÇÍÏÉ Úáì ÇáÇŞá."
 
@@ -2139,8 +2082,7 @@ msgid ""
 "Your browser does not support this print option. Press Control/Option + P to "
 "print."
 msgstr ""
-"áÇ íÏÚã ãÊÕİÍß ÎíÇÑ ÇáØÈÇÚÉ åĞÇ ÇÖÛØ ÒÑ  ÊÍßã + ÇáÍÑİ Èí áßí  "
-"ÊŞæã ÈÇáØÈÇÚÉ."
+"áÇ íÏÚã ãÊÕİÍß ÎíÇÑ ÇáØÈÇÚÉ åĞÇ ÇÖÛØ ÒÑ  ÊÍßã + ÇáÍÑİ Èí áßí  ÊŞæã ÈÇáØÈÇÚÉ."
 
 #: config/prefs.php.dist:297
 msgid "Your current time zone:"
@@ -2166,15 +2108,17 @@ msgstr "Êã ÊÚÏíá ÎíÇÑÇÊß."
 msgid ""
 "Your session will expire in 1 minute. Do you want to reload the page to "
 "prevent losing your work?"
-msgstr "ÌáÓÊ Úãáß Óæİ ÊäÊåí ÎáÇá ÏŞíŞÉ æÇÍÏÉ. åá ÊÑíÏ ÇÚÇÏÉ ÊÍãíá ÇáÕİÍÉ áÊÊÌäÈ  "
+msgstr ""
+"ÌáÓÊ Úãáß Óæİ ÊäÊåí ÎáÇá ÏŞíŞÉ æÇÍÏÉ. åá ÊÑíÏ ÇÚÇÏÉ ÊÍãíá ÇáÕİÍÉ áÊÊÌäÈ  "
 "İŞÏÇä Úãáß ÇáÍÇáí ¿"
 
 #: templates/compose/javascript.inc:168
 msgid ""
 "Your session will expire in 5 minutes. Do you want to reload the page to "
 "prevent losing your work?"
-msgstr "ÌáÓÊ Úãáß Óæİ ÊäÊåí ÎáÇá 5 ÏŞÇÆŞ. åá ÊÑíÏ ÇÚÇÏÉ ÊÍãíá ÇáÕİÍÉ áÊÊÌäÈ  "
-"İŞÏÇä Úãáß ÇáÍÇáí ¿"
+msgstr ""
+"ÌáÓÊ Úãáß Óæİ ÊäÊåí ÎáÇá 5 ÏŞÇÆŞ. åá ÊÑíÏ ÇÚÇÏÉ ÊÍãíá ÇáÕİÍÉ áÊÊÌäÈ  İŞÏÇä "
+"Úãáß ÇáÍÇáí ¿"
 
 #: templates/identities/manage.inc:69
 msgid "Your signature:"

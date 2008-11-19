@@ -428,8 +428,8 @@ msgid ""
 "All messages in your \"%s\" folder older than %s days will be permanently "
 "deleted."
 msgstr ""
-"Tous les messages de votre dossier « %s » qui ont plus de « %s » jours "
-"seront supprimés."
+"Tous les messages de votre dossier « %s » qui ont plus de « %s » jours seront "
+"supprimés."
 
 #: lib/Maintenance/Task/delete_attachments_monthly.php:59
 #, php-format
@@ -449,8 +449,8 @@ msgstr ""
 #, php-format
 msgid "All rights on folder \"%s\" successfully removed for user \"%s\"."
 msgstr ""
-"Tous les droits sur le dossier « %s » ont bien été retirés pour "
-"l'utilisateur « %s »."
+"Tous les droits sur le dossier « %s » ont bien été retirés pour l'utilisateur "
+"« %s »."
 
 #: lib/api.php:95
 msgid "Allow Folder Creation?"
@@ -665,10 +665,6 @@ msgstr "Attention"
 #: lib/Auth/imp.php:33
 msgid "Auth_imp: Required IMAP extension not found."
 msgstr "Auth_imp : extension requise IMAP non trouvée."
-
-#: config/hooks.php.dist:510
-msgid "Authentication failed."
-msgstr ""
 
 #: config/prefs.php.dist:816
 msgid ""
@@ -1080,10 +1076,6 @@ msgstr "Configurer l'affichage des messages."
 #: config/prefs.php.dist:105
 msgid "Configure mail preview options."
 msgstr "Configurer les options de pré-visualisation du courrier."
-
-#: config/hooks.php.dist:506
-msgid "Connection to server failed."
-msgstr ""
 
 #: config/hooks.php.dist:476
 msgid "Contacts"
@@ -1805,10 +1797,6 @@ msgid "Expand the entire folder tree by default in the sidebar?"
 msgstr ""
 "Développer par défaut la liste entière des dossiers dans la barre de coté ?"
 
-#: config/prefs.php.dist:503
-msgid "FCKeditor"
-msgstr ""
-
 #: lib/IMP.php:846 lib/IMP.php:848
 msgid "F_etch Mail"
 msgstr "Relev_er"
@@ -2235,10 +2223,6 @@ msgstr "Inclure le corps du message par défaut lors des transferts ?"
 msgid "Include original message in a reply?"
 msgstr "Inclure le message d'origine dans les réponses ?"
 
-#: lib/Quota/hook.php:51
-msgid "Incorrect number of return values from quota hook."
-msgstr ""
-
 #: config/prefs.php.dist:544
 msgid "Increase Indent"
 msgstr "Augmenter l'indentation"
@@ -2329,12 +2313,6 @@ msgstr "Clef publique PGP personnelle invalide."
 #: templates/mailbox/navbar.html:12
 msgid "Invert"
 msgstr "Inverser"
-
-#: lib/IMP.php:314
-msgid ""
-"It cannot be verified that this request was really sent by you. It could be "
-"a potentially malicious request."
-msgstr ""
 
 #: config/prefs.php.dist:529
 msgid "Italic"
@@ -3539,8 +3517,7 @@ msgstr "Renommer le dossier des messages envoyés au début du mois ?"
 #: lib/Folder.php:385
 #, php-format
 msgid "Renaming \"%s\" to \"%s\" failed. This is what the server said"
-msgstr ""
-"Le changement de nom de « %s » en « %s » a échoué. Le serveur a répondu"
+msgstr "Le changement de nom de « %s » en « %s » a échoué. Le serveur a répondu"
 
 #: message.php:557
 msgid "Reply"
@@ -4206,10 +4183,6 @@ msgstr "Tri par fil de discussion"
 msgid "Sort by To Address"
 msgstr "Tri selon l'adresse du destinataire"
 
-#: config/prefs.php.dist:288
-msgid "Spam"
-msgstr ""
-
 #: lib/IMAP/Tree.php:2338
 msgid "Spam folder"
 msgstr "Dossier de pourriels"
@@ -4259,10 +4232,6 @@ msgstr "Papeterie :"
 #: lib/MIME/Viewer/itip.php:726 lib/MIME/Viewer/itip.php:858
 msgid "Status"
 msgstr "Statut"
-
-#: config/prefs.php.dist:531
-msgid "Strikethrough"
-msgstr ""
 
 #: message.php:684
 msgid "Strip All Attachments"
@@ -4939,12 +4908,6 @@ msgstr "Cette partie du message est trop grande pour être visualisée."
 msgid "This message to"
 msgstr "Ce message à"
 
-#: lib/IMP.php:318
-msgid ""
-"This request cannot completed because the link you followed or the form you "
-"submitted was only valid for half an hour."
-msgstr ""
-
 #: acl.php:47
 msgid "This server does not support sharing folders."
 msgstr "Ce serveur ne supporte pas le partage des dossiers."
@@ -5559,8 +5522,7 @@ msgstr "Vous avez répondu à ce message le %s."
 #, php-format
 msgid "You were not subscribed to \"%s\". Here is what the server said"
 msgstr ""
-"Une erreur est survenue lors de la souscription à « %s ». Le serveur a "
-"répondu"
+"Une erreur est survenue lors de la souscription à « %s ». Le serveur a répondu"
 
 #: lib/Folder.php:490
 #, php-format

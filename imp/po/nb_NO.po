@@ -1662,22 +1662,6 @@ msgstr "IMAP"
 msgid "IMAP (Auto Detect Protocols)"
 msgstr "IMAP (Detekter protokoll automatisk)"
 
-#: templates/login/login.inc:174 lib/Fetchmail/imap.php:149
-msgid "IMAP over SSL"
-msgstr ""
-
-#: lib/Fetchmail/imap.php:155
-msgid "IMAP over SSL (self-signed certificate)"
-msgstr ""
-
-#: templates/login/login.inc:175
-msgid "IMAP over SSL (self-signed)"
-msgstr ""
-
-#: templates/login/login.inc:173 lib/Fetchmail/imap.php:143
-msgid "IMAP, no TLS"
-msgstr ""
-
 #: lib/Fetchmail/imap.php:50
 msgid "IMAP/POP3 Mail Servers"
 msgstr "IMAP/POP3 e-post tjenere"
@@ -2501,30 +2485,6 @@ msgstr ""
 "for å blokkere popup-vinduer må du endre på dette for at PGP-støtte skal "
 "fungere."
 
-#: lib/Fetchmail/imap.php:108
-msgid "POP3"
-msgstr ""
-
-#: lib/Fetchmail/imap.php:103
-msgid "POP3 (Auto Detect Protocols)"
-msgstr ""
-
-#: lib/Fetchmail/imap.php:120
-msgid "POP3 over SSL"
-msgstr ""
-
-#: lib/Fetchmail/imap.php:126
-msgid "POP3 over SSL (self-signed certificate)"
-msgstr ""
-
-#: templates/login/login.inc:177
-msgid "POP3 over SSL (self-signed)"
-msgstr ""
-
-#: lib/Fetchmail/imap.php:114
-msgid "POP3, no TLS"
-msgstr ""
-
 #: templates/mailbox/header.inc:19
 #, php-format
 msgid "Page %d of %d"
@@ -3025,11 +2985,6 @@ msgstr ""
 #: lib/MIME/Viewer/itip.php:640
 msgid "Role"
 msgstr "Rolle"
-
-#: lib/MIME/Viewer/pkcs7.php:134 lib/MIME/Viewer/pkcs7.php:229
-#: lib/MIME/Viewer/pkcs7.php:415
-msgid "S/MIME"
-msgstr ""
 
 #: templates/compose/encrypt_list.inc:12
 msgid "S/MIME Encrypt Message"

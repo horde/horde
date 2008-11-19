@@ -39,15 +39,6 @@ msgstr "제목: "
 msgid " in "
 msgstr " : "
 
-#: templates/mailbox/message_headers.inc:7
-msgid "#"
-msgstr ""
-
-#: lib/Block/summary.php:71
-#, php-format
-msgid "%.2fMB / %.2fMB  (%.2f%%)"
-msgstr ""
-
 #: mailbox.php:190
 msgid "%d message(s) have been deleted."
 msgstr "%d개 편지 지워짐. "
@@ -78,21 +69,6 @@ msgstr "이 편지는 시스템 관리자에게 스팸으로 보고되었습니다."
 msgid "%d to %d of %d Messages"
 msgstr "%d / %d (편지: %d)"
 
-#: mailbox.php:607
-#, php-format
-msgid "%s KB"
-msgstr ""
-
-#: pgp.php:332
-#, php-format
-msgid "%s PGP Administration"
-msgstr ""
-
-#: smime.php:254
-#, php-format
-msgid "%s S/MIME Administration"
-msgstr ""
-
 #: lib/Maintenance/Task/rename_sentmail_monthly.php:49
 msgid "%s already exists. Your %s folder was not renamed."
 msgstr "%s 가 이미 존재합니다. %s 편지함의 이름을 변경할 수 없습니다."
@@ -105,74 +81,14 @@ msgstr "%s 는 정상적인 편지함으로 보이지 않습니다."
 msgid "%s folder being renamed at the start of the month."
 msgstr "%s 편지함의 이름을 매월초 변경합니다."
 
-#: lib/MIME/Viewer/itip.php:226
-#, php-format
-msgid "%s has accepted."
-msgstr ""
-
-#: lib/MIME/Viewer/itip.php:581
-#, php-format
-msgid "%s has cancelled %s."
-msgstr ""
-
-#: lib/MIME/Viewer/itip.php:232
-#, php-format
-msgid "%s has declined."
-msgstr ""
-
-#: lib/MIME/Viewer/itip.php:452
-#, php-format
-msgid "%s has replied to a free/busy request."
-msgstr ""
-
 #: lib/MIME/Viewer/itip.php:572
 #, fuzzy, php-format
 msgid "%s has replied to the invitation to %s."
 msgstr "%s 정의를 읽을 수 없습니다."
 
-#: lib/MIME/Viewer/itip.php:441
-#, php-format
-msgid "%s has sent you free/busy information."
-msgstr ""
-
-#: lib/MIME/Viewer/itip.php:238
-#, php-format
-msgid "%s has tentatively accepted."
-msgstr ""
-
-#: lib/MIME/Viewer/itip.php:446
-#, php-format
-msgid "%s requests your free/busy information."
-msgstr ""
-
-#: lib/MIME/Viewer/itip.php:541
-#, php-format
-msgid "%s requests your presence at %s."
-msgstr ""
-
 #: lib/Message.php:388
 msgid "%s was successfully added to %s."
 msgstr "편지함 \"%s\"이 \"%s\"에 성공적으로 추가되었습니다."
-
-#: lib/MIME/Viewer/itip.php:553
-#, php-format
-msgid "%s wishes to ammend %s."
-msgstr ""
-
-#: lib/MIME/Viewer/itip.php:531
-#, php-format
-msgid "%s wishes to make you aware of %s."
-msgstr ""
-
-#: lib/MIME/Viewer/itip.php:558
-#, php-format
-msgid "%s wishes to receive the latest information about %s."
-msgstr ""
-
-#: message.php:276 message.php:281
-#, php-format
-msgid "%s: %s"
-msgstr ""
 
 #: templates/message/navbar_top.inc:13
 #, php-format
@@ -250,27 +166,9 @@ msgstr "500자"
 msgid "A large image named %s is attached to this message."
 msgstr "%s라는 큰 그림이 편지에 첨부되었습니다."
 
-#: lib/MIME/Viewer/notification.php:53
-msgid ""
-"A message you have sent has resulted in a return notification from the "
-"recipient."
-msgstr ""
-
 #: templates/search/fields.inc:5
 msgid "AND"
 msgstr "그리고"
-
-#: lib/MIME/Viewer/itip.php:546
-msgid "Accept request"
-msgstr ""
-
-#: lib/MIME/Viewer/itip.php:705
-msgid "Accepted"
-msgstr ""
-
-#: lib/MIME/Viewer/itip.php:227
-msgid "Accepted: "
-msgstr ""
 
 #: lib/IMP.php:910 lib/IMP.php:912
 msgid "Acco_unts"
@@ -289,10 +187,6 @@ msgstr "실행"
 msgid "Add source"
 msgstr "소스 추가"
 
-#: lib/MIME/Viewer/itip.php:534 lib/MIME/Viewer/itip.php:544
-msgid "Add this to my calendar"
-msgstr ""
-
 #: lib/MIME/Headers.php:206 lib/MIME/Headers.php:207
 msgid "Add to Address book (%s)"
 msgstr "\"%s\"를 주소록에 추가"
@@ -310,32 +204,9 @@ msgstr ""
 "나씩 쓰세요.)</i>"
 
 #: lib/MIME/Viewer/notification.php:65
-#, php-format
-msgid "Additional information can be viewed %s."
-msgstr ""
-
-#: lib/MIME/Viewer/notification.php:65
 #, fuzzy
 msgid "Additional information details"
 msgstr "개인 정보"
-
-#: lib/MIME/Viewer/status.php:96
-msgid "Additional message details"
-msgstr ""
-
-#: lib/MIME/Viewer/status.php:95
-#, php-format
-msgid "Additional message details can be viewed %s."
-msgstr ""
-
-#: lib/MIME/Viewer/status.php:81
-msgid "Additional message error details"
-msgstr ""
-
-#: lib/MIME/Viewer/status.php:80
-#, php-format
-msgid "Additional message error details can be viewed %s."
-msgstr ""
 
 #: contacts.php:90 templates/contacts/contacts.inc:175
 #: templates/compose/compose.inc:330 templates/compose/redirect.inc:55
@@ -353,12 +224,6 @@ msgid ""
 msgstr ""
 "모든 편지에 추가할 숨은참조 주소: <i>(선택사항이며, 한 줄에 주소 하나씩 쓰세"
 "요.)</i>"
-
-#: config/prefs.php.dist:173
-msgid ""
-"Addresses to explicitly tie to this identity: <i>(optional, enter each "
-"address on a new line)</i>"
-msgstr ""
 
 #: templates/mailbox/navbar.inc:10 config/prefs.php.dist:792
 msgid "All"
@@ -409,12 +274,6 @@ msgstr "항상"
 msgid "Always save attachments"
 msgstr "항상 첨부파일 저장하기"
 
-#: lib/Message.php:481
-msgid ""
-"An error occured while attempting to strip the attachment. The IMAP server "
-"said: "
-msgstr ""
-
 #: lib/Message.php:375
 #, fuzzy
 msgid "An unknown error occured while creating the new task."
@@ -458,11 +317,6 @@ msgstr "계속 진행하시겠습니까?"
 #, fuzzy
 msgid "Are you sure you want to delete this public key?"
 msgstr "이 편지를 영원히 지우겠습니까?"
-
-#: templates/smime/smime.inc:128 templates/pgp/pgp.inc:169
-msgid ""
-"Are you sure you want to delete your keypair? (This is NOT recommended!)"
-msgstr ""
 
 #: templates/compose/redirect.inc:5 templates/compose/compose.js:6
 msgid "Are you sure you want to do this?"
@@ -519,10 +373,6 @@ msgstr "파일 첨부"
 msgid "Attach Files"
 msgstr "파일 첨부"
 
-#: templates/compose/compose.inc:447
-msgid "Attach a copy of your PGP public key to your message?"
-msgstr ""
-
 #: lib/MIME/Viewer/tnef.php:113
 msgid "Attached File:"
 msgstr "첨부된 파일:"
@@ -532,19 +382,11 @@ msgid ""
 "Attached file \"%s\" exceeds the attachment size limits. File NOT attached."
 msgstr "%s는 파일첨부 크기 한계를 초과하여 첨부되지 않았습니다."
 
-#: lib/MIME/Viewer/itip.php:341
-msgid "Attached is a reply to a calendar request you sent."
-msgstr ""
-
 #: mailbox.php:711 templates/mailbox/legend.inc:16
 #: templates/compose/attachments.inc:14 templates/compose/compose.inc:496
 #: templates/compose/attachments.js:98
 msgid "Attachment"
 msgstr "파일첨부"
-
-#: compose.php:987 lib/Message.php:442
-msgid "Attachment stripped: Original attachment type"
-msgstr ""
 
 #: templates/compose/compose.inc:340 templates/compose/compose.inc:464
 #: lib/Compose.php:1009
@@ -560,10 +402,6 @@ msgstr "파일 첨부"
 msgid "Attention"
 msgstr "알림"
 
-#: lib/Auth/imp.php:49
-msgid "Auth_imp: Required IMAP extension not found."
-msgstr ""
-
 #: config/prefs.php.dist:643
 msgid ""
 "Automatically show images in HTML messages when the sender is in my "
@@ -574,10 +412,6 @@ msgstr ""
 #: templates/prefs/sourceselect.inc:298
 msgid "Available Address books:"
 msgstr "이용가능한 주소록:"
-
-#: lib/MIME/Viewer/itip.php:671
-msgid "Awaiting Response"
-msgstr ""
 
 #: templates/message/navbar_navigate.inc:26
 msgid "Bac_k to %s"
@@ -591,10 +425,6 @@ msgstr "%s로 돌아가기"
 #: templates/compose/recompose.inc:20
 msgid "Bcc"
 msgstr "숨은참조"
-
-#: lib/MIME/Viewer/status.php:168
-msgid "Below is the raw text of the status information message."
-msgstr ""
 
 #: templates/message/navbar_actions.inc:19 templates/mailbox/actions.inc:16
 msgid "Blacklist"
@@ -632,13 +462,6 @@ msgstr "외부 메일서버에 접속할 수 없습니다."
 #: lib/Fetchmail/imap.php:202
 msgid "Can not connect to the remote mail server: "
 msgstr "외부 메일서버에 접속할 수 없습니다: "
-
-#: lib/MIME/Viewer/partial.php:53
-#, php-format
-msgid ""
-"Can not display - found only %s of %s parts of this message in the current "
-"mailbox."
-msgstr ""
 
 #: templates/contacts/contacts.inc:253 templates/folders/import.inc:21
 #: templates/smime/passphrase.inc:22 templates/smime/import_key.inc:85
@@ -694,21 +517,9 @@ msgid ""
 "reply to your email."
 msgstr "편지를 보낼 때 사용할 이름, 주소, 서명을 변경합니다."
 
-#: config/prefs.php.dist:793
-msgid "Characters to display:"
-msgstr ""
-
 #: templates/folders/actions.inc:13
 msgid "Check Folder(s) for New Mail"
 msgstr "편지함에서 새 메일 검사"
-
-#: templates/folders/actions.inc:2 templates/mailbox/message_headers.inc:65
-msgid "Check _All/None"
-msgstr ""
-
-#: templates/fetchmail/fetchmail.inc:14
-msgid "Check all mail servers you want to fetch mail from:"
-msgstr ""
 
 #: config/prefs.php.dist:454
 msgid "Check spelling before sending a message?"
@@ -717,10 +528,6 @@ msgstr "편지 보내기 전 철자 검사하기"
 #: templates/folders/actions.inc:4
 msgid "Choose Action:"
 msgstr "선택사항:"
-
-#: config/servers.php.dist:194
-msgid "Choose a mail server:"
-msgstr ""
 
 #: lib/MIME/Viewer/itip.php:478 lib/MIME/Viewer/itip.php:683
 #, fuzzy
@@ -780,15 +587,6 @@ msgid ""
 "search."
 msgstr "선택된 주소록중 하나를 선택한후 검색 항목을 선택하세요."
 
-#: lib/MIME/Viewer/pgp.php:176
-msgid "Click to Save PGP Public Key in your Address book"
-msgstr ""
-
-#: lib/MIME/Viewer/pkcs7.php:194
-#, php-format
-msgid "Click to Save S/MIME certificate of %s in your Address Book"
-msgstr ""
-
 #: config/prefs.php.dist:921
 msgid "Clicking on the address will compose a new message to the sender"
 msgstr "주소를 클릭하면 보낸이에게 새 편지를 씁니다."
@@ -826,14 +624,6 @@ msgstr "모든 편지함 닫기"
 msgid "Collapse Folder"
 msgstr "편지함 닫기"
 
-#: templates/fetchmail/manage.inc:51
-msgid "Color Indicator: "
-msgstr ""
-
-#: templates/pgp/pgp.inc:191
-msgid "Comment"
-msgstr ""
-
 #: lib/MIME/Viewer/itip.php:721
 #, fuzzy
 msgid "Completed"
@@ -866,23 +656,9 @@ msgstr ""
 msgid "Configure how messages are displayed."
 msgstr "편지 보는 방법을 설정합니다."
 
-#: config/prefs.php.dist:96
-msgid "Configure mail preview options."
-msgstr ""
-
 #: lib/Fetchmail/imap.php:237
 msgid "Connection to server failed"
 msgstr "서버 연결 실패"
-
-#: config/prefs.php.dist:135
-#, php-format
-msgid "Control PGP support for %s."
-msgstr ""
-
-#: config/prefs.php.dist:144
-#, php-format
-msgid "Control S/MIME support for %s."
-msgstr ""
 
 #: config/prefs.php.dist:88
 msgid ""
@@ -910,11 +686,6 @@ msgstr "교정"
 msgid "Corrected Text"
 msgstr "교정된 본문"
 
-#: attachment.php:50
-#, php-format
-msgid "Could not create the VFS backend: %s"
-msgstr ""
-
 #: lib/Message.php:624
 msgid "Could not delete messages from %s. The server said: %s"
 msgstr "\"%s\"로부터 편지 지우기 실패. 서버의 오류: "
@@ -923,14 +694,6 @@ msgstr "\"%s\"로부터 편지 지우기 실패. 서버의 오류: "
 #, fuzzy
 msgid "Could not execute maintenance operations."
 msgstr "편지함 운용 "
-
-#: lib/MIME/Viewer/tnef.php:56
-msgid "Could not extract the requested file from the MS-TNEF attachment."
-msgstr ""
-
-#: lib/MIME/Viewer/zip.php:61
-msgid "Could not extract the requested file from the Zip archive."
-msgstr ""
 
 #: search.php:356 templates/fetchmail/manage.inc:67
 #: templates/fetchmail/account_select.inc:26 templates/acl/acl.inc:39
@@ -969,11 +732,6 @@ msgid ""
 "and delete spam."
 msgstr "필터 규칙 만들기, 편지함 정렬순서, 스팸 지우기"
 
-#: templates/acl/acl.inc:95
-#, php-format
-msgid "Current access to %s"
-msgstr ""
-
 #: config/prefs.php.dist:104
 msgid "Customize accounts for fetching mail from other accounts."
 msgstr "다른 계정으로부터 메일을 가져오도록 설정합니다."
@@ -994,14 +752,6 @@ msgstr "날짜"
 msgid "Date"
 msgstr "날짜"
 
-#: lib/MIME/Viewer/itip.php:709
-msgid "Declined"
-msgstr ""
-
-#: lib/MIME/Viewer/itip.php:233
-msgid "Declined: "
-msgstr ""
-
 #: config/prefs.php.dist:894
 msgid "Default sorting criteria:"
 msgstr "기본 정렬 항목:"
@@ -1010,10 +760,6 @@ msgstr "기본 정렬 항목:"
 msgid "Default sorting direction:"
 msgstr "기본 정렬 방법"
 
-#: lib/MIME/Viewer/itip.php:717
-msgid "Delegated"
-msgstr ""
-
 #: folders.php:374 templates/fetchmail/manage.inc:68
 #: templates/contacts/contacts.inc:244 templates/message/navbar_actions.inc:6
 #: templates/mailbox/actions.inc:8 templates/mailbox/actions.inc:10
@@ -1021,15 +767,6 @@ msgstr ""
 #: templates/pgp/pgp.inc:93
 msgid "Delete"
 msgstr "지우기"
-
-#: templates/smime/smime.inc:65 templates/pgp/pgp.inc:93
-#, php-format
-msgid "Delete %s Public Key"
-msgstr ""
-
-#: templates/smime/smime.inc:128 templates/pgp/pgp.inc:169
-msgid "Delete Current Keys"
-msgstr ""
 
 #: templates/folders/actions.inc:7
 msgid "Delete Folder(s)"
@@ -1043,10 +780,6 @@ msgstr "가상 편지함 지우기"
 msgid "Delete fetched messages from remote server?"
 msgstr "외부서버에서 가져온 편지를 지울까요?"
 
-#: lib/MIME/Viewer/itip.php:584
-msgid "Delete from my calendar"
-msgstr ""
-
 #: config/prefs.php.dist:362
 msgid "Delete old linked attachments at beginning of month?"
 msgstr "매월초 오래된 링크 첨부파일 지우기"
@@ -1054,10 +787,6 @@ msgstr "매월초 오래된 링크 첨부파일 지우기"
 #: config/prefs.php.dist:344
 msgid "Delete old sent-mail folders at beginning of month?"
 msgstr "매월초 오래된 보낸편지함 지우기"
-
-#: config/prefs.php.dist:621
-msgid "Delete spam messages after they have been reported as spam?"
-msgstr ""
 
 #: message.php:493 mailbox.php:701 templates/mailbox/navbar.inc:20
 #: templates/mailbox/navbar.inc:38 templates/mailbox/legend.inc:8
@@ -1075,14 +804,6 @@ msgstr "첨부파일 \"%s\" 지워짐"
 #: config/prefs.php.dist:79
 msgid "Deleting and Moving Messages"
 msgstr "편지 지우기 및 이동"
-
-#: lib/MIME/Viewer/itip.php:548
-msgid "Deny request"
-msgstr ""
-
-#: lib/MIME/Viewer/itip.php:497
-msgid "Deny request for free/busy information"
-msgstr ""
 
 #: config/prefs.php.dist:903
 msgid "Descending"
@@ -1185,10 +906,6 @@ msgstr "임시보관함:"
 msgid "E-mail Address"
 msgstr "이메일 주소:"
 
-#: lib/MIME/Viewer/status.php:77
-msgid "ERROR: Your message could not be delivered."
-msgstr ""
-
 #: folders.php:375
 msgid "Edit"
 msgstr "편집"
@@ -1200,11 +917,6 @@ msgstr "수신거부 목록 수정"
 #: templates/filters/prefs.inc:16
 msgid "Edit Filters"
 msgstr "필터 수정"
-
-#: folders.php:375 templates/search/header.inc:16
-#: templates/mailbox/header.inc:13
-msgid "Edit Virtual Folder"
-msgstr ""
 
 #: templates/mailbox/header.inc:13
 #, fuzzy, php-format
@@ -1252,25 +964,9 @@ msgstr "지운편지함 비움"
 msgid "Empty _Trash"
 msgstr "_t지운편지함 비움"
 
-#: templates/pgp/pgp.inc:20 templates/pgp/notactive.inc:16
-msgid "Enable PGP functionality?"
-msgstr ""
-
-#: templates/smime/smime.inc:20 templates/smime/notactive.inc:16
-msgid "Enable S/MIME functionality?"
-msgstr ""
-
-#: config/prefs.php.dist:780
-msgid "Enable message previews?"
-msgstr ""
-
 #: templates/compose/compose.inc:433
 msgid "Encr_yption Options"
 msgstr "_y암호화 옵션"
-
-#: lib/MIME/Viewer/itip.php:474 lib/MIME/Viewer/itip.php:611
-msgid "End"
-msgstr ""
 
 #: lib/Compose.php:331
 msgid "End forwarded message"
@@ -1285,10 +981,6 @@ msgstr "옛날 편지"
 #, fuzzy, php-format
 msgid "End message from %s"
 msgstr "%s로부터 전달된 편지"
-
-#: templates/smime/smime.inc:117 templates/pgp/pgp.inc:151
-msgid "Enter Passphrase"
-msgstr ""
 
 #: templates/prefs/folderselect.inc:9
 msgid "Enter the name for your new drafts folder"
@@ -1311,15 +1003,6 @@ msgstr "\"%s\"가 주소록에 추가되었습니다."
 #: lib/MIME/Viewer/status.php:75 lib/MIME/Viewer/status.php:170
 msgid "Error"
 msgstr "오류"
-
-#: lib/MIME/Viewer/itip.php:277 lib/MIME/Viewer/itip.php:370
-#, php-format
-msgid "Error sending reply: %s."
-msgstr ""
-
-#: lib/MIME/Viewer/itip.php:92
-msgid "Event successfully deleted."
-msgstr ""
 
 #: config/prefs.php.dist:758
 msgid "Every 15 minutes"
@@ -1390,10 +1073,6 @@ msgstr "로그인할 때 외부 편지 가져오기"
 msgid "Fetched %d message(s) from %s"
 msgstr "%d의 편지를 %s로부터 가져옴"
 
-#: lib/Fetchmail.php:304 lib/Fetchmail.php:306
-msgid "Fetchmail: "
-msgstr ""
-
 #: lib/Fetchmail.php:308
 msgid "Fetchmail: no new messages."
 msgstr "편지가져오기: 새 편지 없음."
@@ -1419,17 +1098,9 @@ msgstr "필터 설정"
 msgid "Filter message content for profanity?"
 msgstr "비속어가 든 내용의 편지 필터링"
 
-#: templates/filters/notactive.inc:8
-msgid "Filter support is disabled on this system."
-msgstr ""
-
 #: config/prefs.php.dist:119
 msgid "Filters"
 msgstr "필터"
-
-#: templates/filters/notactive.inc:2
-msgid "Filters NOT Active"
-msgstr ""
 
 #: lib/Filter.php:112
 msgid "Filters: %s management page"
@@ -1465,14 +1136,6 @@ msgstr "편지함 시작위치"
 msgid "Folder Summary"
 msgstr "편지함 요약"
 
-#: acl.php:24
-msgid "Folder sharing is not enabled."
-msgstr ""
-
-#: folders.php:52
-msgid "Folder use is not enabled."
-msgstr ""
-
 #: config/prefs.php.dist:940
 msgid "Format of message dates in the mailbox view for messages dated today"
 msgstr "오늘 날짜 편지에 대한 날짜 표시 형식"
@@ -1498,18 +1161,6 @@ msgstr "%s로부터 전달된 편지"
 #, fuzzy
 msgid "Free/Busy Information"
 msgstr "편지 서버 정보사항"
-
-#: lib/MIME/Viewer/itip.php:453
-msgid "Free/Busy Reply"
-msgstr ""
-
-#: lib/MIME/Viewer/itip.php:447
-msgid "Free/Busy Request"
-msgstr ""
-
-#: lib/MIME/Viewer/itip.php:364
-msgid "Free/Busy Request Response"
-msgstr ""
 
 #: templates/mailbox/message_headers.inc:22
 msgid "Fro_m"
@@ -1549,10 +1200,6 @@ msgstr "새로운 메일만 가져올까요? (IMAP 전용)"
 msgid "Go to Message"
 msgstr "편지로 가기"
 
-#: templates/acl/acl.inc:135
-msgid "Grant access"
-msgstr ""
-
 #: message.php:546 lib/Filter.php:112 lib/MIME/Viewer/images.php:98
 #: lib/MIME/Viewer/images.php:105 lib/MIME/Viewer/images.php:107
 #: lib/MIME/Viewer/images.php:160 lib/MIME/Viewer/html.php:116
@@ -1563,10 +1210,6 @@ msgstr ""
 msgid "HERE"
 msgstr "여기"
 
-#: lib/MIME/Viewer/html.php:117 lib/MIME/Viewer/related.php:65
-msgid "HTML"
-msgstr ""
-
 #: compose.php:243
 msgid "HTML Version of Message"
 msgstr "HTML 형식"
@@ -1574,10 +1217,6 @@ msgstr "HTML 형식"
 #: templates/message/headers.inc:58
 msgid "Headers"
 msgstr "머릿글"
-
-#: templates/compose/recompose.inc:5
-msgid "Here is the message you were composing:"
-msgstr ""
 
 #: config/prefs.php.dist:671
 msgid "Hidden"
@@ -1599,18 +1238,6 @@ msgstr "사용하지 않는 편지함 숨김"
 msgid "Hide the Images"
 msgstr "그림 감추기"
 
-#: templates/compose/compose.inc:305
-msgid "High"
-msgstr ""
-
-#: message.php:288 mailbox.php:687 templates/mailbox/legend.inc:12
-msgid "High Priority"
-msgstr ""
-
-#: templates/compose/compose.inc:304
-msgid "Highest"
-msgstr ""
-
 #: config/prefs.php.dist:691
 msgid "How do you want to display attachments?"
 msgstr "첨부파일을 어떻게 표시하기를 원하십니까?"
@@ -1619,29 +1246,9 @@ msgstr "첨부파일을 어떻게 표시하기를 원하십니까?"
 msgid "How to attribute quoted lines in a reply"
 msgstr "답장에 사용할 인용문:"
 
-#: lib/Fetchmail/imap.php:137
-msgid "IMAP"
-msgstr ""
-
 #: lib/Fetchmail/imap.php:132
 msgid "IMAP (Auto Detect Protocols)"
 msgstr "IMAP (Protocols 자동 감지)"
-
-#: templates/login/login.inc:174 lib/Fetchmail/imap.php:149
-msgid "IMAP over SSL"
-msgstr ""
-
-#: lib/Fetchmail/imap.php:155
-msgid "IMAP over SSL (self-signed certificate)"
-msgstr ""
-
-#: templates/login/login.inc:175
-msgid "IMAP over SSL (self-signed)"
-msgstr ""
-
-#: templates/login/login.inc:173 lib/Fetchmail/imap.php:143
-msgid "IMAP, no TLS"
-msgstr ""
 
 #: lib/Fetchmail/imap.php:50
 msgid "IMAP/POP3 Mail Servers"
@@ -1682,38 +1289,6 @@ msgstr "편지 가져오기"
 msgid "Import PGP Key"
 msgstr "읽어오기(임포트)"
 
-#: templates/smime/smime.inc:148
-msgid "Import Personal Certificates"
-msgstr ""
-
-#: templates/pgp/import_key.inc:14
-msgid "Import Personal Private PGP Key"
-msgstr ""
-
-#: templates/pgp/import_key.inc:9
-msgid "Import Personal Public PGP Key"
-msgstr ""
-
-#: templates/smime/import_key.inc:4
-msgid "Import Personal S/MIME Certificates"
-msgstr ""
-
-#: templates/smime/smime.inc:79 templates/pgp/pgp.inc:107
-msgid "Import Public Key"
-msgstr ""
-
-#: templates/pgp/import_key.inc:4
-msgid "Import Public PGP Key"
-msgstr ""
-
-#: templates/smime/import_key.inc:8
-msgid "Import Public S/MIME Key"
-msgstr ""
-
-#: smime.php:16
-msgid "Import S/MIME Key"
-msgstr ""
-
 #: templates/folders/import.inc:9
 msgid "Import mbox File"
 msgstr "mbox 파일 가져오기 "
@@ -1736,10 +1311,6 @@ msgstr "중요한 편지"
 msgid "Imported %d messages from %s."
 msgstr "%s에서 %d개 편지 가져옴"
 
-#: lib/MIME/Viewer/itip.php:725
-msgid "In Process"
-msgstr ""
-
 #: lib/Folder.php:248 lib/IMP.php:368
 msgid "Inbox"
 msgstr "받은편지함"
@@ -1756,52 +1327,15 @@ msgstr "답장에 기존 편지를 포함할까요?"
 msgid "Info"
 msgstr "정보"
 
-#: templates/smime/smime.inc:65 templates/pgp/pgp.inc:93
-#, php-format
-msgid "Information on %s Public Key"
-msgstr ""
-
-#: templates/pgp/pgp.inc:151
-msgid "Information on Personal Private Key"
-msgstr ""
-
-#: templates/smime/smime.inc:113 templates/pgp/pgp.inc:147
-msgid "Information on Personal Public Key"
-msgstr ""
-
 #: templates/compose/attachments.inc:15 templates/compose/compose.inc:497
 #: templates/compose/attachments.js:99
 #, fuzzy
 msgid "Inline"
 msgstr "잘못된 이름."
 
-#: templates/smime/import_key.inc:9
-msgid "Insert Certificate Here"
-msgstr ""
-
-#: templates/pgp/import_key.inc:15
-msgid "Insert Personal Private PGP Key Here"
-msgstr ""
-
-#: templates/pgp/import_key.inc:10
-msgid "Insert Personal Public PGP Key Here"
-msgstr ""
-
-#: templates/pgp/import_key.inc:5
-msgid "Insert Public PGP Key Here"
-msgstr ""
-
-#: lib/MIME/Viewer/itip.php:375
-msgid "Invalid Action selected for this component."
-msgstr ""
-
 #: mailbox.php:555 mailbox.php:596
 msgid "Invalid Address"
 msgstr "잘못된 주소"
-
-#: lib/Fetchmail/imap.php:312
-msgid "Invalid Remote Mailbox"
-msgstr ""
 
 #: compose.php:132
 msgid "Invalid character in e-mail address: %s."
@@ -1812,29 +1346,9 @@ msgstr "잘못된 이메일 주소: %s"
 msgid "Invalid key"
 msgstr "잘못된 이름."
 
-#: pgp.php:196
-msgid "Invalid personal PGP private key."
-msgstr ""
-
-#: pgp.php:171
-msgid "Invalid personal PGP public key."
-msgstr ""
-
 #: templates/mailbox/navbar.inc:12
 msgid "Invert"
 msgstr "선택 반전"
-
-#: templates/compose/compose.inc:567
-msgid "KB"
-msgstr ""
-
-#: templates/pgp/pgp.inc:201
-msgid "Key Length"
-msgstr ""
-
-#: pgp.php:318
-msgid "Key successfully sent to the public keyserver."
-msgstr ""
 
 #: templates/login/login.inc:227
 msgid "Language"
@@ -1851,15 +1365,6 @@ msgstr "마지막 페이지"
 #: templates/compose/compose.inc:380
 msgid "Li_nk Attachments"
 msgstr "_n첨부파일 링크하기"
-
-#: attachment.php:34 lib/Compose.php:999
-msgid "Linked attachments are forbidden."
-msgstr ""
-
-#: lib/Compose.php:1016
-#, php-format
-msgid "Links will expire on %s"
-msgstr ""
 
 #: config/prefs.php.dist:1040
 msgid ""
@@ -1897,18 +1402,6 @@ msgstr "로그인"
 #: config/prefs.php.dist:39
 msgid "Login Tasks"
 msgstr "로그인 시작작업"
-
-#: templates/compose/compose.inc:307
-msgid "Low"
-msgstr ""
-
-#: message.php:290 mailbox.php:690 templates/mailbox/legend.inc:13
-msgid "Low Priority"
-msgstr ""
-
-#: templates/compose/compose.inc:308
-msgid "Lowest"
-msgstr ""
 
 #: lib/MIME/Viewer/appledouble.php:46
 #, fuzzy
@@ -1972,38 +1465,10 @@ msgstr "검색어 하나 이상 일치"
 msgid "Maximum Attachment Size"
 msgstr "첨부파일 최대 크기"
 
-#: templates/compose/compose.inc:484
-msgid "Maximum number of attachments reached."
-msgstr ""
-
-#: templates/compose/compose.inc:479
-msgid "Maximum total attachment size reached."
-msgstr ""
-
-#: lib/MIME/Viewer/itip.php:582
-msgid "Meeting Cancellation"
-msgstr ""
-
-#: lib/MIME/Viewer/itip.php:532
-msgid "Meeting Information"
-msgstr ""
-
-#: lib/MIME/Viewer/itip.php:542
-msgid "Meeting Proposal"
-msgstr ""
-
-#: lib/MIME/Viewer/itip.php:573
-msgid "Meeting Reply"
-msgstr ""
-
 #: lib/MIME/Viewer/itip.php:554
 #, fuzzy
 msgid "Meeting Update"
 msgstr "시작하기"
-
-#: lib/MIME/Viewer/itip.php:559
-msgid "Meeting Update Request"
-msgstr ""
 
 #: lib/Block/tree_folders.php:3
 #, fuzzy
@@ -2107,10 +1572,6 @@ msgstr "편지함으로 이동"
 msgid "Move up"
 msgstr "위로 이동"
 
-#: lib/MIME/Viewer/alternative.php:130
-msgid "Multipart/alternative"
-msgstr ""
-
 #: templates/fetchmail/manage.inc:48 templates/smime/smime.inc:24
 #: templates/pgp/pgp.inc:24
 msgid "NOTE"
@@ -2119,10 +1580,6 @@ msgstr "주의"
 #: templates/contacts/contacts.inc:239 lib/MIME/Viewer/itip.php:640
 msgid "Name"
 msgstr "이름"
-
-#: pgp.php:110
-msgid "Name and/or email can not be empty"
-msgstr ""
 
 #: lib/MIME/Viewer/itip.php:730
 #, fuzzy
@@ -2170,37 +1627,9 @@ msgstr "다음 페이지"
 msgid "No"
 msgstr "아니오"
 
-#: smime.php:226
-msgid "No Certificate found"
-msgstr ""
-
-#: templates/compose/encrypt_list.inc:5
-msgid "No Encryption"
-msgstr ""
-
-#: templates/pgp/pgp.inc:80
-msgid "No Keys in Keyring"
-msgstr ""
-
 #: mailbox.php:364
 msgid "No Messages"
 msgstr "편지 없음"
-
-#: pgp.php:137
-msgid "No PGP public key imported."
-msgstr ""
-
-#: templates/smime/smime.inc:140
-msgid "No Personal Certificate Present"
-msgstr ""
-
-#: templates/smime/smime.inc:54
-msgid "No Public Keys Found"
-msgstr ""
-
-#: smime.php:151
-msgid "No S/MIME public key imported."
-msgstr ""
 
 #: lib/MIME/Viewer/tnef.php:94
 #, fuzzy
@@ -2211,10 +1640,6 @@ msgstr "파일 첨부"
 #, fuzzy
 msgid "No folder selected."
 msgstr "편지함 선택 오류"
-
-#: lib/Block/summary.php:130
-msgid "No folders are being checked for new mail."
-msgstr ""
 
 #: folders.php:207 lib/Folder.php:583 lib/Folder.php:634
 msgid "No folders were specified"
@@ -2236,22 +1661,6 @@ msgstr "편지 본문 없음"
 msgid "No messages matched your search."
 msgstr "찾는 편지가 없습니다."
 
-#: pgp.php:189
-msgid "No personal PGP private key imported."
-msgstr ""
-
-#: pgp.php:165
-msgid "No personal PGP public key imported."
-msgstr ""
-
-#: smime.php:201
-msgid "No personal S/MIME certificates imported."
-msgstr ""
-
-#: spelling.php:213
-msgid "No spellchecking program configured."
-msgstr ""
-
 #: templates/compose/spelling.inc:50
 msgid "No spelling errors"
 msgstr "철자 오류 없음"
@@ -2266,19 +1675,11 @@ msgstr "제안"
 msgid "No user specified."
 msgstr "편지함을 선택하세요"
 
-#: lib/MIME/Viewer/itip.php:661
-msgid "Non Participant"
-msgstr ""
-
 #: templates/mailbox/navbar.inc:11 templates/prefs/sentmailselect.inc:41
 #: templates/prefs/sourceselect.inc:35 templates/prefs/spamselect.inc:5
 #: lib/MIME/Viewer/itip.php:618
 msgid "None"
 msgstr "모두 선택 안함"
-
-#: templates/compose/compose.inc:306
-msgid "Normal"
-msgstr ""
 
 #: templates/mailbox/navbar.inc:21 templates/mailbox/navbar.inc:39
 msgid "Not Deleted"
@@ -2298,11 +1699,6 @@ msgstr "중요하지 않음"
 msgid "Not Personal"
 msgstr "개인편지 아님"
 
-#: lib/Crypt/PGP.php:154 lib/Crypt/SMIME.php:152 lib/Crypt/SMIME.php:158
-#: lib/Crypt/SMIME.php:167
-msgid "Not a valid public key."
-msgstr ""
-
 #: templates/search/main.inc:67
 msgid "Not deleted messages"
 msgstr "지워지지 않은 편지"
@@ -2311,22 +1707,9 @@ msgstr "지워지지 않은 편지"
 msgid "Not important messages"
 msgstr "중요하지 않은 편지"
 
-#: lib/Maintenance/Task/fetchmail_login.php:76
-msgid "Note that this can take some time"
-msgstr ""
-
-#: config/prefs.php.dist:371
-msgid "Number of months to keep old linked attachments if deleting monthly."
-msgstr ""
-
 #: config/prefs.php.dist:353
 msgid "Number of old sent-mail folders to keep if deleting monthly."
 msgstr "매월 편지함을 지울 경우 보관할 예전 보낸 편지함의 갯수"
-
-#: templates/contacts/contacts.inc:252 lib/MIME/Viewer/itip.php:509
-#: lib/MIME/Viewer/itip.php:685
-msgid "OK"
-msgstr ""
 
 #: templates/search/fields.inc:5 templates/smime/import_key.inc:47
 #: templates/pgp/import_key.inc:48
@@ -2340,10 +1723,6 @@ msgstr "옛날 편지"
 #: lib/Maintenance/Task/delete_sentmail_monthly.php:55
 msgid "Old sent-mail folders being purged."
 msgstr "보낸편지함(Sent)의 오래된 편지를 지우고 있습니다."
-
-#: lib/Block/summary.php:27
-msgid "Only display folders with unread messages in them?"
-msgstr ""
 
 #: templates/folders/javascript.inc:78
 #, fuzzy
@@ -2362,10 +1741,6 @@ msgstr "편지함 열기"
 msgid "Opened Folder"
 msgstr "열린 편지함"
 
-#: lib/MIME/Viewer/itip.php:657
-msgid "Optional Participant"
-msgstr ""
-
 #: fetchmail.php:33 templates/fetchmail/top.inc:2
 #: templates/fetchmail/fetchmail.inc:6
 msgid "Other Mail Accounts"
@@ -2377,66 +1752,15 @@ msgstr "다른 메일 계정"
 msgid "Other Options"
 msgstr "기타 설정"
 
-#: templates/pgp/passphrase.inc:16 lib/MIME/Viewer/pgp.php:170
-#: lib/MIME/Viewer/pgp.php:210 lib/MIME/Viewer/pgp.php:296
-msgid "PGP"
-msgstr ""
-
-#: templates/compose/encrypt_list.inc:7
-msgid "PGP Encrypt Message"
-msgstr ""
-
 #: compose.php:343
 #, fuzzy
 msgid "PGP Error: "
 msgstr "읽어오기(임포트) 오류: "
 
-#: compose.php:322
-msgid "PGP Error: Need passphrase for personal private key."
-msgstr ""
-
-#: templates/pgp/notactive.inc:6
-msgid "PGP NOT Active"
-msgstr ""
-
 #: templates/pgp/pgp.inc:6 config/prefs.php.dist:134
 #, fuzzy
 msgid "PGP Options"
 msgstr "환경 설정"
-
-#: pgp.php:30
-msgid "PGP Passphrase Input"
-msgstr ""
-
-#: templates/pgp/pgp.inc:128
-msgid "PGP Personal Keypair support requires a secure web connection."
-msgstr ""
-
-#: lib/MIME/Viewer/pgp.php:178
-msgid "PGP Public Key Text"
-msgstr ""
-
-#: pgp.php:149
-#, php-format
-msgid "PGP Public Key for \"%s (%s)\" was successfully added."
-msgstr ""
-
-#: pgp.php:245
-#, php-format
-msgid "PGP Public Key for \"%s\" was successfully deleted."
-msgstr ""
-
-#: templates/pgp/pgp.inc:72
-msgid "PGP Public Keyring"
-msgstr ""
-
-#: templates/compose/encrypt_list.inc:8
-msgid "PGP Sign Message"
-msgstr ""
-
-#: templates/compose/encrypt_list.inc:9
-msgid "PGP Sign/Encrypt Message"
-msgstr ""
 
 #: pgp.php:202
 #, fuzzy
@@ -2448,51 +1772,9 @@ msgstr "서명이 변경되었습니다."
 msgid "PGP public key successfully added."
 msgstr "%s 파일이 임포트되었습니다."
 
-#: templates/pgp/notactive.inc:11
-msgid "PGP support is disabled on this system."
-msgstr ""
-
-#: lib/MIME/Viewer/pgp.php:214
-msgid ""
-"PGP support is not currently active so the digital signature is unable to be "
-"verified."
-msgstr ""
-
-#: lib/MIME/Viewer/pgp.php:301
-msgid ""
-"PGP support is not currently active so the message is unable to be decrypted."
-msgstr ""
-
-#: templates/pgp/pgp.inc:24
-msgid ""
-"PGP support requires popup windows to be used.  If your browser is currently "
-"set to disable popup windows, you must change this setting or else the PGP "
-"features will not work correctly"
-msgstr ""
-
-#: lib/Fetchmail/imap.php:108
-msgid "POP3"
-msgstr ""
-
 #: lib/Fetchmail/imap.php:103
 msgid "POP3 (Auto Detect Protocols)"
 msgstr "POP3 (Protocols 자동 감지)"
-
-#: lib/Fetchmail/imap.php:120
-msgid "POP3 over SSL"
-msgstr ""
-
-#: lib/Fetchmail/imap.php:126
-msgid "POP3 over SSL (self-signed certificate)"
-msgstr ""
-
-#: templates/login/login.inc:177
-msgid "POP3 over SSL (self-signed)"
-msgstr ""
-
-#: lib/Fetchmail/imap.php:114
-msgid "POP3, no TLS"
-msgstr ""
 
 #: templates/mailbox/header.inc:19
 msgid "Page %d of %d"
@@ -2510,30 +1792,10 @@ msgstr "읽지 않은 마지막 편지가 있는 페이지"
 msgid "Part(s)"
 msgstr "부분"
 
-#: templates/pgp/pgp.inc:211
-msgid "Passphrase"
-msgstr ""
-
-#: templates/pgp/pgp.inc:216
-msgid "Passphrase (Again)"
-msgstr ""
-
 #: smime.php:235 pgp.php:310
 #, fuzzy
 msgid "Passphrase successfully unloaded."
 msgstr "편지가 발송되었지만, 저장되지 않았습니다."
-
-#: templates/smime/passphrase.inc:19 templates/pgp/passphrase.inc:29
-msgid "Passphrase:"
-msgstr ""
-
-#: pgp.php:112
-msgid "Passphrases can not be empty"
-msgstr ""
-
-#: pgp.php:114
-msgid "Passphrases do not match"
-msgstr ""
 
 #: templates/fetchmail/manage.inc:20 templates/smime/import_key.inc:69
 #: templates/login/login.inc:221
@@ -2544,10 +1806,6 @@ msgstr "암호"
 msgid "Perform maintenance operations on login?"
 msgstr "로그인 시 유지관리 작업 실행"
 
-#: acl.php:76 acl.php:102
-msgid "Permissions for this user can not be changed."
-msgstr ""
-
 #: message.php:483 mailbox.php:666 templates/mailbox/navbar.inc:24
 #: templates/mailbox/legend.inc:10
 msgid "Personal"
@@ -2556,22 +1814,6 @@ msgstr "개인편지"
 #: config/prefs.php.dist:14
 msgid "Personal Information"
 msgstr "개인 정보"
-
-#: pgp.php:120
-msgid "Personal PGP keypair generated successfully."
-msgstr ""
-
-#: pgp.php:127
-msgid "Personal PGP keys deleted successfully."
-msgstr ""
-
-#: smime.php:207
-msgid "Personal S/MIME certificates NOT imported: "
-msgstr ""
-
-#: smime.php:132
-msgid "Personal S/MIME keys deleted successfully."
-msgstr ""
 
 #: config/prefs.php.dist:214
 msgid "Place your signature before replies and forwards?"
@@ -2593,28 +1835,6 @@ msgstr "새 편지함의 이름을 입력하세요:"
 msgid "Please enter the new name:"
 msgstr "새 이름을 입력하세요:"
 
-#: templates/pgp/passphrase.inc:19
-#, php-format
-msgid ""
-"Please enter the passphrase for your PGP private key. You will only need to "
-"enter this passphrase once per %s session."
-msgstr ""
-
-#: templates/smime/passphrase.inc:13
-#, php-format
-msgid ""
-"Please enter the passphrase for your S/MIME private key. You will only need "
-"to enter this passphrase once per %s session."
-msgstr ""
-
-#: recompose.php:88
-msgid ""
-"Please log in again to resume composing your message. If you are NOT using "
-"cookies AND you are composing messages in popup windows, you will have to "
-"log in again in your main window as well. This is to keep attackers from "
-"hijacking your session ID. We apologize for any inconvenience."
-msgstr ""
-
 #: templates/login/login.inc:81
 #, fuzzy
 msgid "Please provide your password."
@@ -2628,12 +1848,6 @@ msgstr "사용자 이름과 암호를 입력하세요."
 #: compose.php:80 lib/IMP.php:519
 msgid "Please resolve ambiguous or invalid addresses."
 msgstr "메일 주소가 모호하거나 잘못되었습니다."
-
-#: lib/MIME/Viewer/itip.php:598
-msgid ""
-"Please review the following information, and then select an action from the "
-"menu below."
-msgstr ""
 
 #: templates/folders/javascript.inc:56
 msgid "Please select a folder before you perform any actions."
@@ -2661,10 +1875,6 @@ msgstr "선택하거나 오른쪽 다음항목을 수정하세요:"
 #: templates/compose/compose.inc:228
 msgid "Please select or edit right next:"
 msgstr "선택하거나 오른쪽 다음항목을 수정하세요:"
-
-#: config/motd.php.dist:41
-msgid "Powered by Horde"
-msgstr ""
 
 #: config/prefs.php.dist:206
 msgid "Precede your signature with dashes ('-- ')?"
@@ -2694,10 +1904,6 @@ msgstr "인쇄"
 msgid "Priority"
 msgstr "우선순위"
 
-#: templates/smime/import_key.inc:74
-msgid "Private Key Password"
-msgstr ""
-
 #: config/prefs.php.dist:552
 msgid "Prompt every time an attachment is sent; default to NO"
 msgstr "첨부할 때마다 물어보기(기본값: 아니오)"
@@ -2709,10 +1915,6 @@ msgstr "첨부할 때마다 물어보기(기본값: 예)"
 #: templates/fetchmail/manage.inc:10
 msgid "Protocol:"
 msgstr "프로토콜:"
-
-#: lib/Crypt/PGP.php:461
-msgid "Public PGP keyserver support has been disabled."
-msgstr ""
 
 #: templates/mailbox/actions.inc:36 templates/mailbox/actions_deleted.inc:8
 msgid "Pur_ge Deleted"
@@ -2741,25 +1943,6 @@ msgstr "지운편지함에서 오래된 편지 지울까요?"
 #: lib/Maintenance/Task/purge_trash.php:67
 msgid "Purging %d message(s) from Trash folder."
 msgstr "지운편지함에서 %d개 편지를 지움"
-
-#: config/prefs.php.dist:421
-msgid "Put this after @ when sending mail and default address expansion:"
-msgstr ""
-
-#: templates/quota/quota.inc:17
-#, php-format
-msgid "Quota status: %.2fMB / %.2fMB  (%.2f%%)"
-msgstr ""
-
-#: templates/quota/quota.inc:21
-#, php-format
-msgid "Quota status: %.2fMB / NO LIMIT"
-msgstr ""
-
-#: templates/quota/quota.inc:24
-#, php-format
-msgid "Quota status: NO LIMIT"
-msgstr ""
 
 #: config/prefs.php.dist:492
 msgid "Quoting %f:"
@@ -2817,10 +2000,6 @@ msgstr "새로 고침"
 msgid "Reload View"
 msgstr "새로 고침"
 
-#: lib/MIME/Viewer/itip.php:483 lib/MIME/Viewer/itip.php:502
-msgid "Remember the free/busy information."
-msgstr ""
-
 #: config/prefs.php.dist:950
 msgid "Remember the last view"
 msgstr "마지막 화면 기억"
@@ -2828,10 +2007,6 @@ msgstr "마지막 화면 기억"
 #: templates/fetchmail/manage.inc:27
 msgid "Remote Mailbox:"
 msgstr "외부 편지함:"
-
-#: templates/search/fields.inc:40
-msgid "Remove Field From Search"
-msgstr ""
 
 #: templates/prefs/sourceselect.inc:305
 msgid "Remove source"
@@ -2886,19 +2061,6 @@ msgstr "리스트 회신:"
 msgid "Reply to _All"
 msgstr "_A전체 회신"
 
-#: lib/MIME/Viewer/itip.php:485 lib/MIME/Viewer/itip.php:494
-#: lib/MIME/Viewer/itip.php:504
-msgid "Reply with Not Supported Message"
-msgstr ""
-
-#: lib/MIME/Viewer/itip.php:492
-msgid "Reply with free/busy for next 2 months."
-msgstr ""
-
-#: lib/MIME/Viewer/itip.php:491
-msgid "Reply with requested free/busy information."
-msgstr ""
-
 #: message.php:258
 msgid "Reply-To"
 msgstr "회신:"
@@ -2932,30 +2094,14 @@ msgstr "수신 확인 요청"
 msgid "Request read receipts?"
 msgstr "답장 요청"
 
-#: mailbox.php:197
-msgid "Requested message not found."
-msgstr ""
-
-#: lib/MIME/Viewer/itip.php:649
-msgid "Required Participant"
-msgstr ""
-
 #: templates/search/main.inc:143 templates/search/header.inc:26
 #: templates/acl/acl.inc:158
 msgid "Reset"
 msgstr "새로작성"
 
-#: lib/MIME/Viewer/itip.php:106
-msgid "Respondent Status Updated."
-msgstr ""
-
 #: templates/message/navbar_actions.inc:28
 msgid "Resume"
 msgstr "재작성"
-
-#: recompose.php:89
-msgid "Resume your session"
-msgstr ""
 
 #: templates/fetchmail/driver_select.inc:31 templates/fetchmail/manage.inc:69
 #: templates/fetchmail/account_select.inc:32
@@ -2984,95 +2130,25 @@ msgstr "편지의 삭제, 이동, 복사후에는 편지함으로 돌아가기?"
 msgid "Role"
 msgstr "역할"
 
-#: lib/MIME/Viewer/pkcs7.php:134 lib/MIME/Viewer/pkcs7.php:229
-#: lib/MIME/Viewer/pkcs7.php:415
-msgid "S/MIME"
-msgstr ""
-
-#: templates/compose/encrypt_list.inc:12
-msgid "S/MIME Encrypt Message"
-msgstr ""
-
 #: compose.php:379
 #, fuzzy
 msgid "S/MIME Error: "
 msgstr "읽어오기(임포트) 오류: "
-
-#: compose.php:358
-msgid "S/MIME Error: Need passphrase for personal private key."
-msgstr ""
-
-#: templates/smime/notactive.inc:6
-msgid "S/MIME NOT Active"
-msgstr ""
 
 #: templates/smime/smime.inc:6 config/prefs.php.dist:143
 #, fuzzy
 msgid "S/MIME Options"
 msgstr "옵션 저장"
 
-#: smime.php:49
-msgid "S/MIME Passphrase Input"
-msgstr ""
-
-#: templates/smime/smime.inc:100
-msgid "S/MIME Personal Keypair support requires a secure web connection."
-msgstr ""
-
 #: smime.php:140
 #, fuzzy, php-format
 msgid "S/MIME Public Key for \"%s\" was successfully deleted."
 msgstr "편지함 \"%s\"이 삭제되었습니다."
 
-#: smime.php:162
-msgid "S/MIME Public Key successfully added."
-msgstr ""
-
-#: templates/smime/smime.inc:45
-msgid "S/MIME Public Keyring"
-msgstr ""
-
-#: smime.php:211
-msgid "S/MIME Public/Private Keypair successfully added."
-msgstr ""
-
 #: templates/compose/encrypt_list.inc:13
 #, fuzzy
 msgid "S/MIME Sign Message"
 msgstr "편지 전송"
-
-#: templates/compose/encrypt_list.inc:14
-msgid "S/MIME Sign/Encrypt Message"
-msgstr ""
-
-#: templates/smime/notactive.inc:11
-msgid "S/MIME support is disabled on this system."
-msgstr ""
-
-#: lib/MIME/Viewer/pkcs7.php:233
-msgid ""
-"S/MIME support is not currently enabled so the message is unable to be "
-"decrypted."
-msgstr ""
-
-#: lib/MIME/Viewer/pkcs7.php:165
-msgid ""
-"S/MIME support is not enabled so the contents of this signed message can not "
-"be displayed."
-msgstr ""
-
-#: lib/MIME/Viewer/pkcs7.php:138
-msgid ""
-"S/MIME support is not enabled so the digital signature is unable to be "
-"verified."
-msgstr ""
-
-#: templates/smime/smime.inc:24
-msgid ""
-"S/MIME support requires popup windows to be used.  If your browser is "
-"currently set to disable popup windows, you must change this setting or else "
-"the S/MIME features will not work correctly"
-msgstr ""
 
 #: templates/compose/compose.inc:266
 msgid "S_ubject"
@@ -3196,10 +2272,6 @@ msgstr "메일서버 종류 선택:"
 msgid "Selected Address books:"
 msgstr "선택된 주소록:"
 
-#: templates/pgp/pgp.inc:147
-msgid "Send Key to Public Keyserver"
-msgstr ""
-
 #: lib/MIME/Viewer/itip.php:560
 #, fuzzy
 msgid "Send Latest Information"
@@ -3238,10 +2310,6 @@ msgstr "서버:"
 msgid "Set preferences for what happens when you move and delete messages."
 msgstr "편지 삭제 및 이동시 환경 설정"
 
-#: config/prefs.php.dist:522
-msgid "Set the X-Priority header when composing messages?"
-msgstr ""
-
 #: config/prefs.php.dist:31
 msgid "Share Folders"
 msgstr "공유 편지함"
@@ -3251,10 +2319,6 @@ msgstr "공유 편지함"
 msgid "Share mail folders"
 msgstr "보낸 편지함:"
 
-#: config/prefs.php.dist:32
-msgid "Share your mail folders with other users."
-msgstr ""
-
 #: config/prefs.php.dist:672
 msgid ""
 "Should large blocks of quoted text be shown or hidden by default? It can be "
@@ -3263,17 +2327,9 @@ msgstr ""
 "긴 인용글의 경우 기본으로 보여줄까요, 아니면 감출까요? 어떤 것을 선택하더라"
 "도, 간단히 전환할 수 있습니다."
 
-#: templates/pgp/pgp.inc:52
-msgid "Should the body of text/plain messages be scanned for PGP data?"
-msgstr ""
-
 #: config/prefs.php.dist:505
 msgid "Should the compose window be closed after saving a draft?"
 msgstr "임시보관함에 저장 후 작성창을 닫을까요?"
-
-#: templates/pgp/pgp.inc:40
-msgid "Should your PGP public key to be attached to your messages by default?"
-msgstr ""
 
 #: templates/search/main.inc:92
 msgid "Show All Folders"
@@ -3311,21 +2367,9 @@ msgstr "편지에서 첨부파일 삭제 아이콘을 보여줄까요?"
 msgid "Show legend in the mailbox view?"
 msgstr "편지함 보기에서 범주 보기"
 
-#: config/prefs.php.dist:809
-msgid "Show previews for unread messages only?"
-msgstr ""
-
-#: config/prefs.php.dist:817
-msgid "Show previews in tooltips?"
-msgstr ""
-
 #: config/prefs.php.dist:848
 msgid "Show the Fetch Mail icon on the menubar?"
 msgstr "가져오기 아이콘을 메뉴바에 보여줄까요?"
-
-#: lib/MIME/Viewer/html.php:106
-msgid "Show the Images"
-msgstr ""
 
 #: templates/filters/prefs.inc:61
 msgid "Show the filter icon on the menubar?"
@@ -3343,10 +2387,6 @@ msgstr "보여주기"
 msgid "Si_ze"
 msgstr "_z크기"
 
-#: templates/login/login.inc:241
-msgid "Sign up if not registered"
-msgstr ""
-
 #: templates/mailbox/legend.inc:17
 msgid "Signed"
 msgstr "암호화됨"
@@ -3358,14 +2398,6 @@ msgstr "크기"
 #: templates/mailbox/message_headers.inc:71
 msgid "Sort Direction"
 msgstr "정렬 방법"
-
-#: templates/mailbox/message_headers.inc:6
-msgid "Sort by Arrival"
-msgstr ""
-
-#: templates/mailbox/message_headers.inc:11
-msgid "Sort by Date"
-msgstr ""
 
 #: templates/mailbox/message_headers.inc:21
 msgid "Sort by From Address"
@@ -3411,21 +2443,9 @@ msgstr "철자 검사 완료"
 msgid "Spelling errors per screen when spell checking."
 msgstr "철자 검사시 한 화면에 표시할 오류갯수"
 
-#: lib/MIME/Viewer/itip.php:469 lib/MIME/Viewer/itip.php:606
-msgid "Start"
-msgstr ""
-
-#: lib/MIME/Viewer/itip.php:640
-msgid "Status"
-msgstr ""
-
 #: lib/MIME/Contents.php:215
 msgid "Strip Attachment"
 msgstr "첨부파일 제거"
-
-#: config/prefs.php.dist:801
-msgid "Strip linebreaks?"
-msgstr ""
 
 #: templates/mailbox/message_headers.inc:32
 msgid "Sub_ject"
@@ -3462,10 +2482,6 @@ msgstr "제안"
 msgid "Summary"
 msgstr "나의 요약:"
 
-#: templates/compose/compose.inc:391 templates/compose/compose.inc:394
-msgid "Switch Composition Method"
-msgstr ""
-
 #: templates/compose/compose.inc:395
 msgid "Switch to HTML composition"
 msgstr "HTML 작성모드로 전환"
@@ -3478,35 +2494,9 @@ msgstr "텍스트 작성모드로 전환"
 msgid "Te_xt"
 msgstr "_x본문"
 
-#: lib/MIME/Viewer/itip.php:239
-msgid "Tentative: "
-msgstr ""
-
-#: lib/MIME/Viewer/itip.php:547
-msgid "Tentatively Accept request"
-msgstr ""
-
-#: lib/MIME/Viewer/itip.php:713
-msgid "Tentatively Accepted"
-msgstr ""
-
-#: lib/Maintenance/Task/tos_agreement.php:54
-#, php-format
-msgid "Terms of Service file not specified in conf.php"
-msgstr ""
-
 #: config/prefs.php.dist:925
 msgid "The From: column of the message should be linked:"
 msgstr "받는사람 항목이 연결될 곳 선택하기"
-
-#: lib/MIME/Viewer/appledouble.php:43
-msgid "The Macintosh resource fork"
-msgstr ""
-
-#: lib/MIME/Viewer/appledouble.php:43
-#, php-format
-msgid "The Macintosh resource fork can be downloaded %s."
-msgstr ""
 
 #: fetchmailprefs.php:81
 msgid "The account \"%s\" has been deleted."
@@ -3520,40 +2510,13 @@ msgstr "계정 \"%s\" 가 저장되었습니다."
 msgid "The address \"%s\" has been added to %s."
 msgstr "주소 \"%s\"는 %s에 추가되었습니다."
 
-#: attachment.php:43
-msgid "The attachment was not found."
-msgstr ""
-
-#: lib/MIME/Viewer/itip.php:61
-msgid "The calendar data is invalid"
-msgstr ""
-
-#: templates/javascript/open_compose_win.js:37
-msgid ""
-"The compose window can't be opened. Perhaps you have set your browser to "
-"block popup windows?"
-msgstr ""
-
-#: lib/MIME/Viewer/appledouble.php:44
-msgid "The contents of the Macintosh file are below."
-msgstr ""
-
 #: lib/Maintenance/Task/rename_sentmail_monthly.php:96
 msgid "The current folder(s) \"%s\" will be renamed to \"%s\"."
 msgstr "현재 편지함 \"%s\"를 \"%s\"로 변경합니다."
 
-#: templates/acl/acl.inc:112
-msgid ""
-"The current list of users with access to this folder could not be retrieved"
-msgstr ""
-
 #: compose.php:1157
 msgid "The draft has been saved to the \"%s\" folder."
 msgstr "작성 중인 편지가 '%s' 편지함에 저장되었습니다."
-
-#: lib/MIME/Viewer/itip.php:129
-msgid "The event was added to your calendar."
-msgstr ""
 
 #: templates/compose/expand.inc:9
 msgid "The field '%s' can't be expanded."
@@ -3602,41 +2565,14 @@ msgstr "편지함 \"%s\"가 지워졌습니다."
 msgid "The folder \"%s\" was successfully renamed to \"%s\"."
 msgstr "편지함 \"%s\"가 \"%s\"로 바뀌었습니다."
 
-#: lib/MIME/Viewer/tnef.php:96
-msgid "The following files were attached to this part:"
-msgstr ""
-
-#: lib/MIME/Viewer/html.php:95
-msgid ""
-"The images will be displayed because the sender is present in your "
-"addressbook."
-msgstr ""
-
-#: lib/MIME/Viewer/status.php:78
-msgid "The mail server generated the following error message:"
-msgstr ""
-
 #: lib/MIME/Viewer/notification.php:54
 #, fuzzy
 msgid "The mail server generated the following informational message:"
 msgstr "메일 서버와 편지함 정보 변경"
 
-#: lib/MIME/Viewer/status.php:93
-msgid "The mail server generated the following message:"
-msgstr ""
-
 #: lib/Message.php:635
 msgid "The mailbox %s is already empty."
 msgstr "편지함 \"%s\"는 이미 비어있음."
-
-#: lib/Fetchmail.php:262
-#, php-format
-msgid "The message \"%s\" from \"%s\" (%d bytes) exceeds fetch size limit."
-msgstr ""
-
-#: templates/contacts/contacts.inc:103
-msgid "The message being composed has been closed. Exiting."
-msgstr ""
 
 #: message.php:142
 msgid "The message has been deleted."
@@ -3647,42 +2583,6 @@ msgstr "편지 지워짐"
 msgid "The message has been verified."
 msgstr "식별자 \"%s\" 가 저장되었습니다."
 
-#: lib/MIME/Viewer/pkcs7.php:378
-#, php-format
-msgid "The message has been verified. Sender: %s."
-msgstr ""
-
-#: templates/smime/open_smime_win.js:10 templates/pgp/open_pgp_win.js:10
-msgid ""
-"The passphrase window can't be opened. Perhaps you have set your browser to "
-"block popup windows?"
-msgstr ""
-
-#: lib/MIME/Viewer/pgp.php:178
-#, php-format
-msgid "The raw text of the PGP Public Key can be viewed %s."
-msgstr ""
-
-#: lib/MIME/Viewer/tnef.php:62
-msgid "The requested file does not exist in the MS-TNEF attachment."
-msgstr ""
-
-#: lib/MIME/Viewer/zip.php:67
-msgid "The requested file does not exist in the Zip attachment."
-msgstr ""
-
-#: message.php:547
-#, php-format
-msgid ""
-"The sender of this message is requesting a Message Disposition Notification "
-"from you when you have read this message. Please click %s to send the "
-"notification message."
-msgstr ""
-
-#: lib/MIME/Viewer/images.php:72
-msgid "The server was not able to create a thumbnail of this image."
-msgstr ""
-
 #: templates/compose/compose.js:104
 msgid "The signature could not be replaced."
 msgstr "서명을 변경할 수 없습니다."
@@ -3691,50 +2591,19 @@ msgstr "서명을 변경할 수 없습니다."
 msgid "The signature was successfully replaced."
 msgstr "서명이 변경되었습니다."
 
-#: attachment.php:59
-msgid "The specified file does not exist."
-msgstr ""
-
-#: lib/MIME/Viewer/itip.php:159
-msgid "The task has been added to your tasklist."
-msgstr ""
-
 #: lib/MIME/Viewer/status.php:98
 msgid "The text of the message"
 msgstr "편지 내용"
-
-#: lib/MIME/Viewer/status.php:97
-#, php-format
-msgid "The text of the message can be viewed %s."
-msgstr ""
-
-#: lib/MIME/Viewer/status.php:83
-msgid "The text of the returned message"
-msgstr ""
-
-#: lib/MIME/Viewer/status.php:82
-#, php-format
-msgid "The text of the returned message can be viewed %s."
-msgstr ""
 
 #: lib/MIME/Viewer/notification.php:71
 #, fuzzy
 msgid "The text of the sent message"
 msgstr "편지 전달"
 
-#: lib/MIME/Viewer/notification.php:71
-#, php-format
-msgid "The text of the sent message can be viewed %s."
-msgstr ""
-
 #: lib/MIME/Viewer/itip.php:144
 #, fuzzy
 msgid "The user's free/busy information was sucessfully stored."
 msgstr "서명이 변경되었습니다."
-
-#: lib/MIME/Viewer/alternative.php:89
-msgid "There are no alternative parts that can be displayed inline."
-msgstr ""
 
 #: templates/mailbox/empty_mailbox.inc:3
 msgid "There are no messages in this mailbox."
@@ -3848,86 +2717,13 @@ msgid ""
 msgstr ""
 "이 HTML 편지는 그림이 들어있습니다. 보안상 그림은 다음과 같이 표시됩니다:"
 
-#: lib/MIME/Viewer/pgp.php:171
-msgid "This PGP Public Key was attached to the message."
-msgstr ""
-
-#: lib/MIME/Viewer/itip.php:95 lib/MIME/Viewer/itip.php:109
-#: lib/MIME/Viewer/itip.php:133 lib/MIME/Viewer/itip.php:147
-#: lib/MIME/Viewer/itip.php:163 lib/MIME/Viewer/itip.php:282
-msgid "This action is not supported."
-msgstr ""
-
-#: lib/MIME/Viewer/itip.php:169 lib/MIME/Viewer/itip.php:382
-msgid "This action is not yet implemented."
-msgstr ""
-
 #: templates/folders/javascript.inc:7
 msgid "This may take some time. Are you sure you want to continue?"
 msgstr "이작업은 약간의 시간이 소요됩니다. 계속진행하시겠습니까?"
 
-#: lib/MIME/Viewer/appledouble.php:42
-msgid "This message contains a Macintosh file."
-msgstr ""
-
-#: lib/MIME/Viewer/pkcs7.php:406
-msgid ""
-"This message contains an attachment that has been digitally signed via S/"
-"MIME."
-msgstr ""
-
-#: lib/MIME/Viewer/pkcs7.php:410
-msgid "This message contains an attachment that has been encrypted via S/MIME."
-msgstr ""
-
-#: lib/MIME/Viewer/status.php:167
-msgid ""
-"This message contains mail delivery status information, but the format of "
-"this message is unknown."
-msgstr ""
-
-#: lib/MIME/Viewer/pgp.php:321
-msgid ""
-"This message does not appear to be a valid PGP encrypted message. Error: "
-msgstr ""
-
-#: lib/MIME/Viewer/pgp.php:246 lib/MIME/Viewer/pgp.php:356
-msgid ""
-"This message does not appear to be in the correct PGP format (according to "
-"RFC 2015)."
-msgstr ""
-
-#: lib/MIME/Viewer/pkcs7.php:162
-msgid "This message does not appear to be in the correct S/MIME format."
-msgstr ""
-
-#: lib/MIME/Viewer/pgp.php:211 lib/MIME/Viewer/pgp.php:422
-msgid "This message has been digitally signed via PGP."
-msgstr ""
-
-#: lib/MIME/Viewer/pkcs7.php:135
-msgid "This message has been digitally signed via S/MIME."
-msgstr ""
-
-#: lib/MIME/Viewer/pkcs7.php:131 lib/MIME/Viewer/pkcs7.php:230
-msgid "This message has been encrypted via S/MIME."
-msgstr ""
-
-#: lib/MIME/Viewer/pgp.php:207 lib/MIME/Viewer/pgp.php:297
-msgid "This message has been encrypted with PGP."
-msgstr ""
-
 #: message.php:202
 msgid "This message to"
 msgstr "편지 이동하기"
-
-#: acl.php:46
-msgid "This server does not support sharing folders."
-msgstr ""
-
-#: templates/contacts/contacts.inc:109
-msgid "This window must be called from a compose window."
-msgstr ""
 
 #: thread.php:31 templates/thread/top.inc:3 config/prefs.php.dist:893
 msgid "Thread View"
@@ -3944,12 +2740,6 @@ msgstr "받는사람"
 msgid "To Address"
 msgstr "받는사람 주소"
 
-#: templates/prefs/sourceselect.inc:326
-msgid ""
-"To select multiple fields, hold down the Control (PC) or Command (Mac) while "
-"clicking."
-msgstr ""
-
 #: templates/compose/compose.inc:567
 msgid "Total Attachments Size:"
 msgstr "전체 첨부파일 크기"
@@ -3961,11 +2751,6 @@ msgstr "지운편지함"
 #: templates/prefs/trashselect.inc:23
 msgid "Trash folder:"
 msgstr "지운편지함:"
-
-#: lib/Quota/cyrus.php:70 lib/Quota/mercury32.php:84 lib/Quota/command.php:77
-#: lib/Quota/logfile.php:93 lib/Quota/courier.php:54 lib/Quota/mdaemon.php:51
-msgid "Unable to retrieve quota"
-msgstr ""
 
 #: templates/message/navbar_navigate.inc:10 templates/mailbox/navbar.inc:19
 #: templates/mailbox/navbar.inc:36
@@ -3984,26 +2769,9 @@ msgstr "복구"
 msgid "Undisclosed Recipients"
 msgstr "알수 없는 수신인"
 
-#: lib/MIME/Viewer/itip.php:408
-#, php-format
-msgid "Unhandled component of type: %s"
-msgstr ""
-
-#: mailbox.php:537
-msgid "Unknown Date"
-msgstr ""
-
-#: lib/MIME/Viewer/itip.php:591
-msgid "Unknown Meeting"
-msgstr ""
-
 #: mailbox.php:588
 msgid "Unknown Recipient"
 msgstr "알 수 없는 수신인"
-
-#: templates/smime/smime.inc:117 templates/pgp/pgp.inc:151
-msgid "Unload Passphrase"
-msgstr ""
 
 #: fetchmailprefs.php:65
 msgid "Unnamed"
@@ -4023,14 +2791,6 @@ msgstr "편지함 사용하지 않음"
 msgid "Update Attachment Information"
 msgstr "첨부파일 정보 새로고침"
 
-#: lib/MIME/Viewer/itip.php:576
-msgid "Update respondent status"
-msgstr ""
-
-#: templates/smime/import_key.inc:56 templates/pgp/import_key.inc:56
-msgid "Upload"
-msgstr ""
-
 #: templates/prefs/sentmailselect.inc:42
 msgid "Use Default Value"
 msgstr "기본값 사용"
@@ -4043,11 +2803,6 @@ msgstr "IMAP 편지함 Subscription 사용"
 #, fuzzy
 msgid "User"
 msgstr "사용자명"
-
-#: acl.php:87
-#, php-format
-msgid "User '%s' successfully given the specified rights for the folder '%s'."
-msgstr ""
 
 #: templates/login/login.inc:209
 msgid "Username"
@@ -4067,30 +2822,9 @@ msgstr "보기"
 msgid "View %s"
 msgstr "%s 보기"
 
-#: templates/smime/smime.inc:65 templates/pgp/pgp.inc:93
-#, php-format
-msgid "View %s Public Key"
-msgstr ""
-
 #: lib/MIME/Viewer/html.php:116
 msgid "View HTML content in a separate window"
 msgstr "새 창에서 HTML 내용 보기"
-
-#: templates/smime/smime.inc:117 templates/pgp/pgp.inc:151
-msgid "View Personal Private Key"
-msgstr ""
-
-#: templates/smime/smime.inc:113 templates/pgp/pgp.inc:147
-msgid "View Personal Public Key"
-msgstr ""
-
-#: templates/message/navbar_actions.inc:17
-msgid "View Thread"
-msgstr ""
-
-#: lib/MIME/Viewer/images.php:160 lib/MIME/Viewer/images.php:162
-msgid "View Thumbnail"
-msgstr ""
 
 #: lib/MIME/Viewer/pkcs7.php:414
 msgid "View attachment in a separate window"
@@ -4099,10 +2833,6 @@ msgstr "새 창에서 첨부 보기"
 #: lib/MIME/Viewer/related.php:64
 msgid "View content in a separate window"
 msgstr "새 창에서 내용 보기"
-
-#: lib/MIME/Viewer/itip.php:130
-msgid "View event"
-msgstr ""
 
 #: folders.php:342 mailbox.php:506
 msgid "View messages in %s"
@@ -4198,21 +2928,6 @@ msgstr "상위 편지함을 만듭니다. "
 msgid "You are renaming the folder: "
 msgstr "편지함 이름 변경: "
 
-#: lib/Maintenance/Task/tos_agreement.php:37
-msgid ""
-"You did not agree to the Terms of Service agreement, so you were not allowed "
-"to login."
-msgstr ""
-
-#: templates/acl/acl.inc:165
-msgid "You do not have permission to change access to this folder"
-msgstr ""
-
-#: lib/Maillog.php:132
-#, php-format
-msgid "You forwarded this message on %%s to the following recipients: %s."
-msgstr ""
-
 #: templates/mailbox/alert.inc:3
 msgid "You have %s new messages."
 msgstr "%s개의 새 편지가 있습니다."
@@ -4220,12 +2935,6 @@ msgstr "%s개의 새 편지가 있습니다."
 #: templates/mailbox/alert.inc:3
 msgid "You have 1 new message."
 msgstr "1개의 새 편지가 있습니다."
-
-#: templates/compose/attachments.js:116
-msgid ""
-"You have at least one attachment selected that you didn't upload yet. Are "
-"you sure you want to send this message without these attachments?"
-msgstr ""
 
 #: lib/IMP.php:1002
 msgid "You have new mail in the following folder:"
@@ -4238,17 +2947,6 @@ msgstr "다음의 편지함에 새 편지가 있습니다:"
 #: compose.php:127
 msgid "You must enter at least one recipient."
 msgstr "받는사람을 입력하세요."
-
-#: lib/MIME/Viewer/pgp.php:308
-msgid ""
-"You must enter the passphrase for your PGP private key to view this message"
-msgstr ""
-
-#: lib/MIME/Viewer/pkcs7.php:241
-msgid ""
-"You must enter the passphrase for your S/MIME private key to view this "
-"message"
-msgstr ""
 
 #: templates/message/javascript.inc:64 templates/mailbox/javascript.inc:209
 msgid "You must select a target mailbox first."
@@ -4310,14 +3008,6 @@ msgstr "\"%s\" 편지함을 사용하지 않습니다."
 msgid "Your Name"
 msgstr "이름:"
 
-#: templates/pgp/pgp.inc:119
-msgid "Your PGP Public/Private Keys"
-msgstr ""
-
-#: templates/smime/smime.inc:116 templates/pgp/pgp.inc:150
-msgid "Your Private Key"
-msgstr ""
-
 #: templates/smime/smime.inc:112 templates/pgp/pgp.inc:146
 #, fuzzy
 msgid "Your Public Key"
@@ -4327,18 +3017,9 @@ msgstr "전체 이름:"
 msgid "Your Reply-to: address: <i>(optional)</i>"
 msgstr "회신 주소: <i>(선택사항)</i>"
 
-#: templates/smime/smime.inc:91
-msgid "Your S/MIME Public/Private Certificates"
-msgstr ""
-
 #: templates/fetchmail/account_select.inc:16
 msgid "Your accounts:"
 msgstr "계정:"
-
-#: config/prefs.php.dist:165
-msgid ""
-"Your alias addresses: <i>(optional, enter each address on a new line)</i>"
-msgstr ""
 
 #: lib/MIME/Viewer/images.php:95
 msgid "Your browser does not support inline display of this image type."
@@ -4355,10 +3036,6 @@ msgstr ""
 #: config/prefs.php.dist:532
 msgid "Your default charset for sending messages:"
 msgstr "편지 보낼 때 사용할 기본 문자셋:"
-
-#: templates/prefs/encryptselect.inc:1
-msgid "Your default encryption method for sending messages:"
-msgstr ""
 
 #: lib/MIME/Viewer/status.php:92
 msgid "Your message was successfully delivered."
@@ -4457,14 +3134,6 @@ msgstr "_V댓글보기"
 msgid "_Whitelist"
 msgstr "_W수신승인"
 
-#: lib/Compose.php:355
-msgid "attachment"
-msgstr ""
-
-#: view.php:102
-msgid "attachments.zip"
-msgstr ""
-
 #: templates/compose/compose.inc:503
 msgid "bytes"
 msgstr "바이트"
@@ -4472,10 +3141,6 @@ msgstr "바이트"
 #: templates/contacts/contacts.inc:187
 msgid "from"
 msgstr "위치"
-
-#: smime.php:29 pgp.php:69
-msgid "key"
-msgstr ""
 
 #: folders.php:151
 msgid "mailbox file"

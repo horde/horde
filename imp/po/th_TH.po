@@ -88,7 +88,8 @@ msgstr "(ยกเลิกการเปลี่ยนแปลงทั้งหมดและกลับสู่หน้าจอเขียนจดหมาย"
 msgid ""
 "(Return to the compose screen after applying all changes made thus far.  "
 "Changes on the current screen will NOT be applied.)"
-msgstr "(บันทึกเฉพาะการเปลี่ยนแปลงที่ผ่านมาแล้วและกลับสู่หน้าจอเขียนจดหมาย "
+msgstr ""
+"(บันทึกเฉพาะการเปลี่ยนแปลงที่ผ่านมาแล้วและกลับสู่หน้าจอเขียนจดหมาย "
 "ความเปลี่ยนแปลงที่เกิดขึ้นในหน้าจอนี้จะไม่ถูกบันทึก)"
 
 #: templates/contacts/contacts.inc:56
@@ -106,8 +107,8 @@ msgid ""
 "is not displayed correctly, %sclick here</a> to open it in a new window.</"
 "i></p>\n"
 msgstr ""
-"<p><i>ข้อความนี้ถูกเขียนขึ้นด้วยชุดอักขระที่แตกต่างจากที่คุณใช้ "
-"หากการแสดงผลในหน้าจอนี้ไม่ถูกต้อง ให้%sคลิกที่นี่</a> เพื่อแสดงผลในหน้าต่างใหม่</i></p>\n"
+"<p><i>ข้อความนี้ถูกเขียนขึ้นด้วยชุดอักขระที่แตกต่างจากที่คุณใช้ หากการแสดงผลในหน้าจอนี้ไม่ถูกต้อง ให้"
+"%sคลิกที่นี่</a> เพื่อแสดงผลในหน้าต่างใหม่</i></p>\n"
 
 #: templates/filters/manage.inc:50
 msgid "Action"
@@ -139,8 +140,7 @@ msgstr "ทั้งหมด"
 msgid ""
 "All messages in your \"%s\" folder older than %s days will be permanently "
 "deleted."
-msgstr ""
-"จดหมายที่ค้างอยู่ในโฟลเดอร์ \"%s\" นานกว่า %s วัน จะถูกลบอย่างถาวร"
+msgstr "จดหมายที่ค้างอยู่ในโฟลเดอร์ \"%s\" นานกว่า %s วัน จะถูกลบอย่างถาวร"
 
 #: lib/Maintenance/Task/delete_sentmail_monthly.php:72
 #, c-format
@@ -258,8 +258,7 @@ msgstr "เปลี่ยนแปลงทั้งหมด"
 msgid ""
 "Change display options such as how many messages you see on each page and "
 "how messages are sorted."
-msgstr ""
-"เปลี่ยนตัวเลือกในการแสดงผล เช่น จำนวนจดหมายต่อหน้าและการจัดเรียงจดหมาย"
+msgstr "เปลี่ยนตัวเลือกในการแสดงผล เช่น จำนวนจดหมายต่อหน้าและการจัดเรียงจดหมาย"
 
 #: config/prefs.php.dist:32
 msgid "Change mail server settings."
@@ -269,8 +268,7 @@ msgstr "เปลี่ยนการตั้งค่าเครื่องบริการเมล"
 msgid ""
 "Change the name, address, and signature that people see when they read and "
 "reply to your email."
-msgstr ""
-"เปลี่ยนชื่อ, ที่อยู่ และลายเซ็นที่ส่งไปพร้อมกับอีเมล"
+msgstr "เปลี่ยนชื่อ, ที่อยู่ และลายเซ็นที่ส่งไปพร้อมกับอีเมล"
 
 #: templates/folders/actions.inc:13
 msgid "Check Folder(s) for New Mail"
@@ -384,8 +382,7 @@ msgstr "สร้างโฟลเดอร์ถังขยะ"
 msgid ""
 "Create filtering rules to organize your incoming mail, sort it into folders, "
 "and delete spam."
-msgstr ""
-"สร้างตัวกรองเพื่อจัดการจดหมายขาเข้า, จัดเก็บลงโฟลเดอร์ และลบจดหมายขยะ"
+msgstr "สร้างตัวกรองเพื่อจัดการจดหมายขาเข้า, จัดเก็บลงโฟลเดอร์ และลบจดหมายขยะ"
 
 #: config/prefs.php.dist:93
 msgid "Customize how you send mail and where drafts are saved."
@@ -605,16 +602,14 @@ msgstr "ผลการกรอง: จดหมาย \"%s\" จาก \"%s\" ได้ถูกลบไปแล้ว"
 msgid ""
 "Filter Activity: The message \"%s\" from \"%s\" has been moved to the folder "
 "\"%s\"."
-msgstr ""
-"ผลการกรอง: จดหมาย \"%s\" จาก \"%s\" ได้ถูกเคลื่อนย้ายไปที่โฟลเดอร์ \"%s\" แล้ว"
+msgstr "ผลการกรอง: จดหมาย \"%s\" จาก \"%s\" ได้ถูกเคลื่อนย้ายไปที่โฟลเดอร์ \"%s\" แล้ว"
 
 #: mailbox.php:330
 #, c-format
 msgid ""
 "Filter Activity: The message \"%s\" from \"%s\" has been moved to your Trash "
 "folder."
-msgstr ""
-"ผลการกรอง: ข้อความ \"%s\" จาก \"%s\" ได้ถูกย้ายไปลงโฟลเดอร์ถังขยะแล้ว"
+msgstr "ผลการกรอง: ข้อความ \"%s\" จาก \"%s\" ได้ถูกย้ายไปลงโฟลเดอร์ถังขยะแล้ว"
 
 #: templates/filters/list.inc:10
 msgid "Filter Rules"
@@ -783,12 +778,12 @@ msgid ""
 "Login failed for some reason. Most likely your username or password was "
 "entered incorrectly."
 msgstr ""
-"เกิดความผิดพลาดบางประการในการลงบันทึกเข้า อาจเป็นไปได้ว่า"
-"ชื่อผู้ใช้หรือรหัสผ่านของคุณไม่ถูกต้อง"
+"เกิดความผิดพลาดบางประการในการลงบันทึกเข้า อาจเป็นไปได้ว่าชื่อผู้ใช้หรือรหัสผ่านของคุณไม่ถูกต้อง"
 
 #: templates/menu/menu.inc:54 templates/menu/menu.inc:56
 msgid "Logout"
-msgstr "ลงบันทึกออก" 
+msgstr "ลงบันทึกออก"
+
 #: filters.php:129
 msgid "Mail Filters"
 msgstr "ตัวกรองจดหมาย"
@@ -1190,8 +1185,7 @@ msgstr "ทำต่อ"
 #: config/prefs.php.dist:376
 msgid ""
 "Return to the mailbox listing after deleting, moving, or copying a message?"
-msgstr ""
-"ต้องการกลับสู่รายการตู้ไปรษณีย์หลังจากทำการลบ, ย้าย หรือสำเนาข้อความหรือไม่?"
+msgstr "ต้องการกลับสู่รายการตู้ไปรษณีย์หลังจากทำการลบ, ย้าย หรือสำเนาข้อความหรือไม่?"
 
 #: templates/filters/manage.inc:4
 msgid "Rule Definition"
@@ -1478,31 +1472,27 @@ msgstr ""
 msgid ""
 "There was a problem with the file upload. The file may have been larger than "
 "the maximum allowed size."
-msgstr ""
-"เกิดข้อผิดพลาดในการอัพโหลด แฟ้มข้อมูลอาจมีขนาดใหญ่เกินกว่าขนาดที่กำหนดไว้"
+msgstr "เกิดข้อผิดพลาดในการอัพโหลด แฟ้มข้อมูลอาจมีขนาดใหญ่เกินกว่าขนาดที่กำหนดไว้"
 
 #: lib/Message.php:115
 #, c-format
 msgid ""
 "There was an error copying messages to \"%s\". This is what the server said"
-msgstr ""
-"เกิดข้อผิดพลาดในการสำเนาข้อความไปยัง \"%s\" เครื่องบริการแจ้งว่า"
+msgstr "เกิดข้อผิดพลาดในการสำเนาข้อความไปยัง \"%s\" เครื่องบริการแจ้งว่า"
 
 #: lib/Message.php:217
 #, c-format
 msgid ""
 "There was an error deleting messages from the folder \"%s\". This is what "
 "the server said"
-msgstr ""
-"เกิดข้อผิดพลาดในการลบข้อความจากโฟลเดอร์ \"%s\" เครื่องบริการรายงานว่า"
+msgstr "เกิดข้อผิดพลาดในการลบข้อความจากโฟลเดอร์ \"%s\" เครื่องบริการรายงานว่า"
 
 #: lib/Message.php:292
 #, c-format
 msgid ""
 "There was an error deleting messages in the folder \"%s\". This is what the "
 "server said"
-msgstr ""
-"เกิดข้อผิดพลาดในการลบข้อความในโฟลเดอร์ \"%s\" เครื่องบริการรายงานว่า"
+msgstr "เกิดข้อผิดพลาดในการลบข้อความในโฟลเดอร์ \"%s\" เครื่องบริการรายงานว่า"
 
 #: lib/Message.php:247 lib/Message.php:255
 msgid "There was an error deleting messages. This is what the server said"
@@ -1550,36 +1540,6 @@ msgstr "เกิดข้อผิดพลาดในการกู้คืนข้อความ เครื่องบริการรายงานว่า"
 #: mailbox.php:145
 msgid "There was an error viewing the requested message."
 msgstr "เกิดข้อผิดพลาดในการแสดงข้อความที่ระบุ"
-
-#: templates/index/notconfigured.inc:32
-msgid ""
-"This file controls local MIME drivers for IMP, specifically what kinds of "
-"attachments are viewable and/or downloadable."
-msgstr ""
-
-#: templates/index/notconfigured.inc:39
-msgid ""
-"This file controls the default preferences for IMP, and also controls which "
-"preferences users can alter."
-msgstr ""
-
-#: templates/index/notconfigured.inc:46
-msgid ""
-"This file controls the default settings for IMP, and also defines the list "
-"of available servers if you are using the server list."
-msgstr ""
-
-#: templates/index/notconfigured.inc:25
-msgid ""
-"This file controls the stylesheet that is used to set colors and fonts in "
-"addition to or overriding Horde defaults."
-msgstr ""
-
-#: templates/index/notconfigured.inc:18
-msgid ""
-"This is the main IMP configuration file. It contains paths and options for "
-"the IMP scripts."
-msgstr ""
 
 #: message.php:377
 msgid "This message has been reported as spam to your system administrator."
@@ -1685,7 +1645,6 @@ msgstr "ตัวเลือกเกี่ยวกับผู้ใช้"
 msgid "Username"
 msgstr "ชื่อผู้ใช้"
 
-
 #: lib/IMP.php:936 lib/MIME/Viewer/enriched.php:177
 #: lib/MIME/Viewer/text.php:97
 #, c-format
@@ -1714,8 +1673,7 @@ msgid ""
 "When deleting messages, move them to your Trash folder instead of marking "
 "them as deleted."
 msgstr ""
-"เมื่อต้องการลบข้อความ ให้ย้ายข้อความนั้นๆ ไปยังโฟลเดอร์ถังขยะ "
-"แทนการกำหนดให้เป็นข้อความที่ถูกลบ"
+"เมื่อต้องการลบข้อความ ให้ย้ายข้อความนั้นๆ ไปยังโฟลเดอร์ถังขยะ แทนการกำหนดให้เป็นข้อความที่ถูกลบ"
 
 #: config/prefs.php.dist:611
 msgid "Wrap text at this many characters."

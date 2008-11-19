@@ -1,6 +1,6 @@
 # Persian translations for Imp package.
 # This file is distributed under the same license as the Horde package.
-# 
+#
 # Copyright (C) 2004 High Concil of Informatics (www.shci.ir)
 # Provided by  Amirkabir Metanetworking Ltd, 2004 <persian-horde@metanetworking.com>
 # Mohsen Nader-Badr       <naderi@metanetworking.com>
@@ -9,7 +9,7 @@
 # Hamed Gheybi            <gheybi@metanetworking.com>
 # Vahid Ghafarpour        <ghafarpour@metanetworking.com>
 # Zahra Ahmadi Firouzjaee <ahmadi@metanetworking.com>
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: IMP 4 ALPHA\n"
@@ -40,7 +40,7 @@ msgid "    From: "
 msgstr "از:     "
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: mailbox.php:415
 #, php-format
 msgid " (Accesskey %s)"
@@ -58,13 +58,13 @@ msgstr " در "
 msgid "#"
 msgstr "#"
 
-# 
+#
 #: lib/Block/summary.php:71
 #, php-format
 msgid "%.2fMB / %.2fMB  (%.2f%%)"
 msgstr "%.2fMB / %.2fMB  (%.2f%%)"
 
-# 
+#
 #: mailbox.php:176
 #, php-format
 msgid "%d messages have been deleted."
@@ -76,7 +76,7 @@ msgid ""
 "%d messages have been reported as not spam to your system administrator."
 msgstr "%d پیغام بعنوان هرزنامه به سرپرست سامانهٔ شما گزارش شده است"
 
-# 
+#
 #: lib/Spam.php:161
 #, php-format
 msgid "%d messages have been reported as not spam."
@@ -87,13 +87,13 @@ msgstr "%d پیغام بعنوان غیر هرزنامه گزارش شده اس�
 msgid "%d messages have been reported as spam to your system administrator."
 msgstr "%d پیغام بعنوان هرزنامه به سرپرست سامانهٔ شما گزارش شده است"
 
-# 
+#
 #: lib/Spam.php:153
 #, php-format
 msgid "%d messages have been reported as spam."
 msgstr "%d پیغام بعنوان هرزنامه گزارش شده است"
 
-# 
+#
 #: mailbox.php:366
 #, php-format
 msgid "%d to %d of %d Messages"
@@ -109,19 +109,19 @@ msgstr "کیلوبایت %s"
 msgid "%s Messages"
 msgstr "%s پیغام"
 
-# 
+#
 #: lib/Maintenance/Task/rename_sentmail_monthly.php:48
 #, php-format
 msgid "%s already exists. Your %s folder was not renamed."
 msgstr "%s در حال حاضر موجود می‌باشد.پوشه %s شما تفییر نام نیافته است"
 
-# 
+#
 #: lib/Message.php:630
 #, php-format
 msgid "%s does not appear to be a valid mailbox."
 msgstr "%s به نظر نمی‌رسد که نامه‌دان معتبری باشد"
 
-# 
+#
 #: lib/Maintenance/Task/rename_sentmail_monthly.php:46
 #, php-format
 msgid "%s folder being renamed at the start of the month."
@@ -157,7 +157,7 @@ msgstr "%s به دعوت %s پاسخ داده است"
 msgid "%s has sent you free/busy information."
 msgstr "%s اطلاعات آزاد/مشغول را به شما فرستاده است"
 
-# 
+#
 #: lib/MIME/Viewer/itip.php:240
 #, php-format
 msgid "%s has tentatively accepted."
@@ -198,7 +198,7 @@ msgstr "%s مایل است آخرین اطلاعات راجع به %s را در�
 msgid "%s: %s"
 msgstr "%s: %s"
 
-# 
+#
 #: templates/message/navbar_top.inc:13
 #, php-format
 msgid "%s: %s (%d&nbsp;of&nbsp;%d)"
@@ -280,7 +280,7 @@ msgstr "۲۵۰ نویسه"
 msgid "500 characters"
 msgstr "۵۰۰ نویسه"
 
-# 
+#
 #: lib/MIME/Viewer/images.php:168
 #, php-format
 msgid "A large image named %s is attached to this message."
@@ -333,7 +333,7 @@ msgstr "اضافه کردن این به تقویم من"
 msgid "Add to Address book (%s)"
 msgstr "اضافه کردن به کتابچهٔ آدرس (%s)"
 
-# 
+#
 #: compose.php:1190
 #, php-format
 msgid "Added \"%s\" as an attachment."
@@ -347,7 +347,7 @@ msgstr ""
 "سرآمدهای اضافی برای نمایش به هنگام مشاهده: <em> (هر سرآمد را در یک خط جدید "
 "وارد کنید، اختیاری) </em>"
 
-# 
+#
 #: lib/MIME/Viewer/notification.php:64
 #, php-format
 msgid "Additional information can be viewed %s."
@@ -361,7 +361,7 @@ msgstr "جزئیات اضافی اطلاعات"
 msgid "Additional message details"
 msgstr "جزئیات اضافی پیغام"
 
-# 
+#
 #: lib/MIME/Viewer/status.php:94
 #, php-format
 msgid "Additional message details can be viewed %s."
@@ -371,7 +371,7 @@ msgstr "جزئیات اضافی پیغام می‌توانند در %s دیده 
 msgid "Additional message error details"
 msgstr "جزئیات اضافی خطای پیغام"
 
-# 
+#
 #: lib/MIME/Viewer/status.php:79
 #, php-format
 msgid "Additional message error details can be viewed %s."
@@ -412,7 +412,7 @@ msgid ""
 "file:"
 msgstr "تمامی پیغامها در این پوشه(ها) در یک  نامه‌دان استقرار خواهد یافت"
 
-# 
+#
 #: lib/Maintenance/Task/purge_trash.php:85
 #, php-format
 msgid ""
@@ -422,19 +422,19 @@ msgstr ""
 " تمامی پیغامهای شما در پوشه  \"%s\"  که قدیمی‌تر‌ از  %s روز باشند به طور "
 "همیشگی حذف خواهند شد"
 
-# 
+#
 #: lib/Maintenance/Task/delete_attachments_monthly.php:63
 #, php-format
 msgid "All old linked attachments more than %s months old will be deleted."
 msgstr "تمامی ضمیمه‌های قدیمی‌تر‌ از  %s  ماه حذف خواهند شد"
 
-# 
+#
 #: lib/Maintenance/Task/delete_sentmail_monthly.php:77
 #, php-format
 msgid "All old sent-mail folders more than %s months old will be deleted."
 msgstr "تمامی نامه‌های ارسال شدهٔ قدیمی‌تر‌ از  %s  ماه حذف خواهند شد"
 
-# 
+#
 #: acl.php:85
 #, php-format
 msgid "All rights on folder '%s' successfully removed for user '%s'."
@@ -572,7 +572,7 @@ msgstr "آیا یک رونوشت از کلید عمومی PGP شما به پیغ
 msgid "Attached File:"
 msgstr "پرونده‌های پیوست شده:"
 
-# 
+#
 #: lib/Compose.php:448 lib/Compose.php:535
 #, php-format
 msgid ""
@@ -630,7 +630,7 @@ msgstr "منتظر پاسخ"
 msgid "Bac_k to %s"
 msgstr "بازگشت به %s"
 
-# 
+#
 #: thread.php:133 templates/message/navbar_navigate.inc:26
 #, php-format
 msgid "Back to %s"
@@ -692,7 +692,7 @@ msgstr "نمی‌توان به کارساز پست الکترونیک راه د�
 msgid "Can not connect to the remote mail server: "
 msgstr "نمی‌توان به کارساز پست الکترونیک راه دور وصل شد:"
 
-# 
+#
 #: lib/MIME/Viewer/partial.php:52
 #, php-format
 msgid ""
@@ -810,7 +810,7 @@ msgstr "انتخاب یک کتابچهٔ آدرس برای هنگامی که آ�
 msgid "Choose the order of address books to search when expanding addresses."
 msgstr "انتخاب ترتیبی برای کتابچه‌های آدرس در هنگام جستجو"
 
-# 
+#
 #: lib/MIME/Viewer/images.php:108
 #, php-format
 msgid "Click %s to convert the image file into a format your browser can view."
@@ -818,37 +818,37 @@ msgstr ""
 "برای تبدیل پروندهٔ‌ تصویر به قالبی که مرورگر شما بتواند آنرا ببیند %s را کلیک "
 "کنید "
 
-# 
+#
 #: lib/MIME/Viewer/images.php:97
 #, php-format
 msgid "Click %s to download the image."
 msgstr "برای گرفتن تصویر %s .را فشار دهید"
 
-# 
+#
 #: lib/Filter.php:112
 #, php-format
 msgid "Click %s to go to %s management page."
 msgstr "بر روی %s کلیک کنید تا به صفحه مدیریت %s بروید"
 
-# 
+#
 #: lib/MIME/Viewer/html.php:118
 #, php-format
 msgid "Click %s to view HTML content in a separate window."
 msgstr "برای دیدن محتوای HTML در یک پنجرهٔ جداگانه، %s را کلیک کنید"
 
-# 
+#
 #: lib/MIME/Viewer/images.php:169
 #, php-format
 msgid "Click %s to view a thumbnail of this image."
 msgstr " برای دیدن تصویر کوچک از این تصویر %s را کلیک کنید"
 
-# 
+#
 #: lib/MIME/Viewer/pkcs7.php:424
 #, php-format
 msgid "Click %s to view the attachment in a separate window."
 msgstr "برای دیدن محتوای HTML در یک پنجرهٔ جداگانه %s را کلیک کنید"
 
-# 
+#
 #: lib/MIME/Viewer/related.php:63
 #, php-format
 msgid "Click %s to view this multipart/related part in a separate window."
@@ -927,7 +927,7 @@ msgstr "کامل شده"
 msgid "Compose"
 msgstr "ایجاد پیغام"
 
-# 
+#
 #: mailbox.php:771 lib/MIME/Headers.php:198
 #, php-format
 msgid "Compose Message (%s)"
@@ -961,13 +961,13 @@ msgstr "پیکربندی گزینه‌‌های پیش‌نمایش  نامه"
 msgid "Connection to server failed"
 msgstr "اتصال به کارساز ناموفّق بود"
 
-# 
+#
 #: config/prefs.php.dist:136
 #, php-format
 msgid "Control PGP support for %s."
 msgstr "کنترل پشتیبانی PGP برای %s."
 
-# 
+#
 #: config/prefs.php.dist:145
 #, php-format
 msgid "Control S/MIME support for %s."
@@ -1000,13 +1000,13 @@ msgid "Corrected Text"
 msgstr "متنهای تصحیح شده"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: attachment.php:50
 #, php-format
 msgid "Could not create the VFS backend: %s"
 msgstr "نمی‌توان پشتیان VFS را ایجاد کرد: %s"
 
-# 
+#
 #: lib/Message.php:621
 #, php-format
 msgid "Could not delete messages from %s. The server said: %s"
@@ -1127,7 +1127,7 @@ msgstr "نماینده"
 msgid "Delete"
 msgstr "حذف"
 
-# 
+#
 #: templates/pgp/pgp.inc:27 templates/smime/smime.inc:25
 #, php-format
 msgid "Delete %s Public Key"
@@ -1182,7 +1182,7 @@ msgstr "حذف شده"
 msgid "Deleted messages"
 msgstr "پیغامهای حذف شده"
 
-# 
+#
 #: compose.php:278
 #, php-format
 msgid "Deleted the attachment \"%s\"."
@@ -1269,7 +1269,7 @@ msgstr "آیا حسابی ندارید؟ ثبت نام"
 msgid "Done"
 msgstr "انجام شده"
 
-# 
+#
 #: lib/MIME/Contents.php:205
 #, php-format
 msgid "Download %s in .zip Format"
@@ -1363,7 +1363,7 @@ msgstr "ویرایش فهرست سفید شما"
 msgid "Email Address"
 msgstr "آدرس نامهٔ الکترونیکی"
 
-# 
+#
 #: lib/Message.php:638
 #, php-format
 msgid "Emptied all messages from %s."
@@ -1417,7 +1417,7 @@ msgstr "انتهای پیغام‌ ارجاع شده"
 msgid "End message"
 msgstr "انتهای پیغام"
 
-# 
+#
 #: lib/Compose.php:334
 #, php-format
 msgid "End message from %s"
@@ -1443,7 +1443,7 @@ msgstr "نام پوشهٔ نامه‌های ارسال شده جدید خود ر
 msgid "Enter the name for your new trash folder"
 msgstr "نام پوشهٔ آشغال جدید خود را وارد کنید"
 
-# 
+#
 #: compose.php:1067 thread.php:71 message.php:189
 #, php-format
 msgid "Entry \"%s\" was successfully added to the address book"
@@ -1455,7 +1455,7 @@ msgstr "ورودی %s با موفّقیّت به کتابچهٔ آدرس اضا�
 msgid "Error"
 msgstr "خطا"
 
-# 
+#
 #: lib/MIME/Viewer/itip.php:279 lib/MIME/Viewer/itip.php:372
 #, php-format
 msgid "Error sending reply: %s."
@@ -1530,13 +1530,13 @@ msgstr "آیا نامه در پنجرهٔ جداگانه‌ایی واکشی ش�
 msgid "Fetch messages upon logging on?"
 msgstr "آیا پیغامها بمحض ورود واکشی شوند؟"
 
-# 
+#
 #: lib/Fetchmail.php:307
 #, php-format
 msgid "Fetched %d messages from %s"
 msgstr "%d پیغام از %s واکشی شدند"
 
-# 
+#
 #: lib/Fetchmail.php:305
 #, php-format
 msgid "Fetched 1 message from %s"
@@ -1546,7 +1546,7 @@ msgstr "یک پیغام از %s واکشی شد"
 msgid "Fetchmail: "
 msgstr "واکشی نامه:"
 
-# 
+#
 #: lib/Fetchmail.php:309
 msgid "Fetchmail: no new messages."
 msgstr "واکشی نامه: نامهٔ جدیدی وجود ندارد"
@@ -1583,7 +1583,7 @@ msgstr "فیلترها"
 msgid "Filters NOT Active"
 msgstr "فیلتر‌ها فعال نیستند"
 
-# 
+#
 #: lib/Filter.php:111
 #, php-format
 msgid "Filters: %s management page"
@@ -1648,7 +1648,7 @@ msgstr ":ارجاع"
 msgid "Forwarded message"
 msgstr "پیغام ارجاع شده"
 
-# 
+#
 #: lib/Compose.php:362
 #, php-format
 msgid "Forwarded message from %s"
@@ -1691,7 +1691,7 @@ msgstr "ارجاع:"
 msgid "Fwd: "
 msgstr "ارجاع:"
 
-# 
+#
 #: compose.php:1230
 #, php-format
 msgid "Fwd: %u Forwarded Messages"
@@ -1886,7 +1886,7 @@ msgstr "درون‌برد کلید S/MIME"
 msgid "Import mbox File"
 msgstr "درون‌برد پروندهٔ‌ mbox"
 
-# 
+#
 #: templates/folders/import.inc:16
 #, php-format
 msgid "Import mbox file %s into folder %s."
@@ -1902,7 +1902,7 @@ msgstr "مهم"
 msgid "Important messages"
 msgstr "پیغامهای مهم"
 
-# 
+#
 #: folders.php:157
 #, php-format
 msgid "Imported %d messages from %s."
@@ -1928,7 +1928,7 @@ msgstr "آیا پاسخ شامل پیغام اصلی باشد؟"
 msgid "Info"
 msgstr "اطلاعات"
 
-# 
+#
 #: templates/pgp/pgp.inc:27 templates/smime/smime.inc:25
 #, php-format
 msgid "Information on %s Public Key"
@@ -2263,7 +2263,7 @@ msgstr "تطبیقهای پیغام"
 msgid "Message redirected successfully."
 msgstr "پیغام با موفّقیّت تغییر مسیر داده شد"
 
-# 
+#
 #: compose.php:1017
 #, php-format
 msgid "Message sent successfully, but not saved to %s"
@@ -2285,7 +2285,7 @@ msgstr "پیغامها به"
 msgid "Modify"
 msgstr "تغییر"
 
-# 
+#
 #: templates/compose/expand.inc:12
 #, php-format
 msgid "More than one address found for field '%s'."
@@ -2341,7 +2341,7 @@ msgstr "نیاز به فعالیت"
 msgid "Never"
 msgstr "هرگز"
 
-# 
+#
 #: config/prefs.php.dist:558
 msgid "Never save attachments"
 msgstr "هرگز پیوستها حفظ نشوند"
@@ -2623,13 +2623,13 @@ msgstr "پشتیبانی جفت کلید شخصی PGP به یک اتصال ام�
 msgid "PGP Public Key Text"
 msgstr "متن کلید عمومی PGP"
 
-# 
+#
 #: pgp.php:149
 #, php-format
 msgid "PGP Public Key for \"%s (%s)\" was successfully added."
 msgstr "کلید عمومی PGP برای \"%s (%s)\" با موفّقیّت اضافه شد"
 
-# 
+#
 #: pgp.php:245
 #, php-format
 msgid "PGP Public Key for \"%s\" was successfully deleted."
@@ -2706,7 +2706,7 @@ msgstr "POP3 روی SSL (خودامضاء)"
 msgid "POP3, no TLS"
 msgstr "POP3، نه TLS"
 
-# 
+#
 #: templates/mailbox/header.inc:19
 #, php-format
 msgid "Page %d of %d"
@@ -2960,30 +2960,30 @@ msgstr "پاکسازی پیغامهای پوشهٔ سطل آشغال که از �
 msgid "Purge old messages in the Trash folder?"
 msgstr "آیا پیغامهای قدیمی در پوشهٔ سطل آشغال پاکسازی شوند؟"
 
-# 
+#
 #: lib/Maintenance/Task/purge_trash.php:68
 #, php-format
 msgid "Purging %d messages from Trash folder."
 msgstr "پاکسازی %d پیغام از پوشهٔ سطل آشغال"
 
-# 
+#
 #: lib/Maintenance/Task/purge_trash.php:66
 msgid "Purging 1 message from Trash folder."
 msgstr "پاکسازی یک پیغام از پوشهٔ سطل آشغال"
 
-# 
+#
 #: templates/quota/quota.inc:17
 #, php-format
 msgid "Quota status: %.2fMB / %.2fMB  (%.2f%%)"
 msgstr "وضعیت‌ سهمیه: %.2fMB / %.2fMB  (%.2f%%)"
 
-# 
+#
 #: templates/quota/quota.inc:21
 #, php-format
 msgid "Quota status: %.2fMB / NO LIMIT"
 msgstr "وضعیت سهمیه: %.2f مگابایت/بدون محدودیت"
 
-# 
+#
 #: templates/quota/quota.inc:24
 #, php-format
 msgid "Quota status: NO LIMIT"
@@ -3074,7 +3074,7 @@ msgstr "تغییر نام پوشه(ها)"
 msgid "Rename sent-mail folder at beginning of month?"
 msgstr "آیا پوشهٔ نامه‌های فرستاده شده در ابتدای ماه تغییر نام داده شود؟"
 
-# 
+#
 #: lib/Folder.php:554
 #, php-format
 msgid "Renaming \"%s\" to \"%s\" failed. This is what the server said"
@@ -3245,7 +3245,7 @@ msgstr "واردکردن S/MIME عبارت گذر"
 msgid "S/MIME Personal Keypair support requires a secure web connection."
 msgstr "پشتیبانی جفت کلید شخصی S/MIME به یک اتصال امن وب نیازمند است"
 
-# 
+#
 #: smime.php:140
 #, php-format
 msgid "S/MIME Public Key for \"%s\" was successfully deleted."
@@ -3369,7 +3369,7 @@ msgstr "آیا جستجو به عنوان یک پوشهٔ مجازی حفظ شو
 msgid "Save sent mail?"
 msgstr "آیا نامهٔ فرستاده شده حفظ شود؟"
 
-# 
+#
 #: compose.php:1161
 #, php-format
 msgid "Saving the draft failed. This is what the server said: %s"
@@ -3762,7 +3762,7 @@ msgstr "درخواست بطور آزمایشی پذیرفته شد"
 msgid "Tentatively Accepted"
 msgstr "پذیرفته شدهٔ آزمایشی"
 
-# 
+#
 #: lib/Maintenance/Task/tos_agreement.php:53
 #, php-format
 msgid "Terms of Service file not specified in conf.php"
@@ -3776,22 +3776,13 @@ msgstr "متن"
 msgid "The From: column of the message should be linked:"
 msgstr "ستون فرستندهٔ پیغام باید پیوند شود: "
 
-#: lib/MIME/Viewer/appledouble.php:43
-msgid "The Macintosh resource fork"
-msgstr ""
-
-#: lib/MIME/Viewer/appledouble.php:43
-#, php-format
-msgid "The Macintosh resource fork can be downloaded %s."
-msgstr ""
-
-# 
+#
 #: fetchmailprefs.php:81
 #, php-format
 msgid "The account \"%s\" has been deleted."
 msgstr "حساب \"%s\" حذف شده است"
 
-# 
+#
 #: fetchmailprefs.php:74
 #, php-format
 msgid "The account \"%s\" has been saved."
@@ -3817,7 +3808,7 @@ msgstr ""
 msgid "The contents of the Macintosh file are below."
 msgstr "محتویات پروندهٔ‌ Macintosh در ذیل آمده است."
 
-# 
+#
 #: lib/Maintenance/Task/rename_sentmail_monthly.php:95
 #, php-format
 msgid "The current folder(s) \"%s\" will be renamed to \"%s\"."
@@ -3828,7 +3819,7 @@ msgid ""
 "The current list of users with access to this folder could not be retrieved"
 msgstr "فهرست کنونی کاربران با اجازهٔ دسترسی به این پوشه قابل بازیابی نیست"
 
-# 
+#
 #: compose.php:1170
 #, php-format
 msgid "The draft has been saved to the \"%s\" folder."
@@ -3838,19 +3829,19 @@ msgstr "پیش نویس در پوشهٔ \"%s\" حفظ شده است"
 msgid "The event was added to your calendar."
 msgstr "رویداد به تقویم شما اضافه شده بود"
 
-# 
+#
 #: templates/compose/expand.inc:9
 #, php-format
 msgid "The field '%s' can't be expanded."
 msgstr "فیلد '%s' قابل باز شدن نیست"
 
-# 
+#
 #: lib/Folder.php:435
 #, php-format
 msgid "The folder \"%s\" already exists"
 msgstr "پوشهٔ \"%s\" از قبل موجود است"
 
-# 
+#
 #: lib/Folder.php:186
 #, php-format
 msgid ""
@@ -3860,7 +3851,7 @@ msgstr ""
 "نام پوشهٔ \"%s\" شامل نویسه‌های غیر مجاز می‌باشد که این مسئله می‌تواند مشکلاتی "
 "را ایجاد کند. لطفاً با سرپرست سامانهٔ خود تماس بگیرید"
 
-# 
+#
 #: lib/Folder.php:454
 #, php-format
 msgid "The folder \"%s\" was created but you were not subscribed to it."
@@ -3871,13 +3862,13 @@ msgstr "پوشهٔ \"%s\" ایجاد شده است اما شما در آن عض�
 msgid "The folder \"%s\" was deleted but you were not unsubscribed from it."
 msgstr "پوشهٔ \"%s\" حذف شده است اما شما عضویت خود را در آن لغو نکرده‌ید "
 
-# 
+#
 #: lib/Folder.php:441
 #, php-format
 msgid "The folder \"%s\" was not created. This is what the server said"
 msgstr "پوشهٔ \"%s\" ایجاد نشده بود. این چیزی است که کارساز گفته است"
 
-# 
+#
 #: lib/Folder.php:360
 #, php-format
 msgid "The folder \"%s\" was not deleted. This is what the server said"
@@ -3893,7 +3884,7 @@ msgstr "پوشهٔ \"%s\" با موفّقیّت ایجاد شد"
 msgid "The folder \"%s\" was successfully deleted."
 msgstr "پوشهٔ \"%s\" با موفّقیّت حذف شد"
 
-# 
+#
 #: lib/Folder.php:552
 #, php-format
 msgid "The folder \"%s\" was successfully renamed to \"%s\"."
@@ -3929,13 +3920,13 @@ msgstr "کارساز نامهٔ الکترونیکی پیغامهای اطلاع
 msgid "The mail server generated the following message:"
 msgstr "کارساز نامهٔ الکترونیکی پیغامهای زیر را تولید کرد:"
 
-# 
+#
 #: lib/Message.php:632
 #, php-format
 msgid "The mailbox %s is already empty."
 msgstr "نامه‌دان %s قبلاً خالی بوده است"
 
-# 
+#
 #: lib/Fetchmail.php:261
 #, php-format
 msgid "The message \"%s\" from \"%s\" (%d bytes) exceeds fetch size limit."
@@ -3989,7 +3980,7 @@ msgstr ""
 "فرستنده این پیغام تقاضا دارد که یک تأئیدیه برای خواندن پیغام دریافت کند لطفاً "
 "هنگامی که این پیغام را خواندید بر روی %s کلیک کنید تا این تأئیدیه ارسال شود"
 
-# 
+#
 #: lib/MIME/Viewer/images.php:71
 msgid "The server was not able to create a thumbnail of this image."
 msgstr " کارساز نمی‌تواند تصویر کوچکی از این تصویر را ایجاد کند"
@@ -4007,21 +3998,21 @@ msgid "The specified file does not exist."
 msgstr "پروندهٔ‌ مشخص شده وجود ندارد"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: stationery.php:84
 #, php-format
 msgid "The stationery \"%s\" has been added."
 msgstr "نوشت‌افزار \"%s\" اضافه شده است"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: stationery.php:63
 #, php-format
 msgid "The stationery \"%s\" has been deleted."
 msgstr "نوشت‌افزار \"%s\" حذف شده است"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: stationery.php:87
 #, php-format
 msgid "The stationery \"%s\" has been updated."
@@ -4070,25 +4061,25 @@ msgstr "بخش جایگزینی که بتواند درخط نمایش داده �
 msgid "There are no messages in this mailbox."
 msgstr "پیغامی در این نامه‌دان نیست"
 
-# 
+#
 #: lib/Message.php:591
 #, php-format
 msgid "There was a problem expunging %s. This is what the server said"
 msgstr "خطایی در پاک کردن %s رخ داده است. این چیزی است که کارساز گفته است: "
 
-# 
+#
 #: lib/Message.php:634
 #, php-format
 msgid "There was a problem expunging the mailbox. The server said: %s"
 msgstr "خطایی در پاک کردن نامه‌دان رخ داده است. کارساز گفت: %s"
 
-# 
+#
 #: lib/Message.php:600
 msgid "There was a problem expunging the mailbox. This is what the server said"
 msgstr ""
 "خطایی در پاک کردن نامه‌دان رخ داده است. این چیزی است که کارساز گفته است: %s"
 
-# 
+#
 #: lib/Message.php:96
 #, php-format
 msgid ""
@@ -4098,7 +4089,7 @@ msgstr ""
 "خطایی در تهیهٔ رونوشت پیغام از \"%s\" به \"%s\" رخ داده است. این چیزی است که "
 "کارساز گفته است"
 
-# 
+#
 #: lib/Message.php:206 lib/Message.php:221
 #, php-format
 msgid ""
@@ -4108,7 +4099,7 @@ msgstr ""
 "خطایی در حذف پیغامها از پوشهٔ \"%s\" رخ داده است. این چیزی است که کارساز گفته "
 "است"
 
-# 
+#
 #: lib/Message.php:285
 #, php-format
 msgid ""
@@ -4118,13 +4109,13 @@ msgstr ""
 "خطایی در حذف پیغامها در پوشهٔ \"%s\" رخ داده است. این چیزی است که کارساز گفته "
 "است"
 
-# 
+#
 #: lib/Message.php:219
 #, php-format
 msgid "There was an error deleting messages. This is what the server said: %s"
 msgstr "خطایی در حذف پیغامها رخ داده است. این چیزی است که کارساز گفته است: %s"
 
-# 
+#
 #: lib/MIME/Viewer/itip.php:92
 #, php-format
 msgid "There was an error deleting the event: %s."
@@ -4134,7 +4125,7 @@ msgstr "خطایی در حذف رویداد رخ داده است: %s"
 msgid "There was an error displaying this message part"
 msgstr "خطایی در نمایش این بخش پیغام رخ داده است"
 
-# 
+#
 #: lib/Message.php:520 lib/Message.php:562
 #, php-format
 msgid ""
@@ -4144,13 +4135,13 @@ msgstr ""
 "خطایی در پرچم‌گذاری پیغامها در پوشهٔ \"%s\" رخ داده است. این چیزی است که "
 "کارساز گفته است"
 
-# 
+#
 #: folders.php:155
 #, php-format
 msgid "There was an error importing %s."
 msgstr "خطایی در درون‌برد کردن %s رخ داده است"
 
-# 
+#
 #: lib/MIME/Viewer/itip.php:128
 #, php-format
 msgid "There was an error importing the event: %s."
@@ -4166,7 +4157,7 @@ msgstr "خطایی در درون‌برد کردن کار رخ داده است: 
 msgid "There was an error importing user's free/busy information: %s."
 msgstr "خطایی در درون‌برد کردن اطلاعات آزاد/مشغول کاربران رخ داده است: %s"
 
-# 
+#
 #: lib/Message.php:91
 #, php-format
 msgid ""
@@ -4180,13 +4171,13 @@ msgstr ""
 msgid "There was an error saving this message as a draft."
 msgstr "خطایی در حفظ پیغام بعنوان یک پیش نویس روی داده است"
 
-# 
+#
 #: compose.php:939
 #, php-format
 msgid "There was an error sending your message: %s"
 msgstr "خطایی در فرستادن پیغام شما رخ داده است: %s"
 
-# 
+#
 #: lib/MIME/Viewer/itip.php:106
 #, php-format
 msgid "There was an error updating the event: %s."
@@ -4412,7 +4403,7 @@ msgstr "آیا از پوشهٔ آشغال مجازی استفاده شود؟"
 msgid "User"
 msgstr "کاربر"
 
-# 
+#
 #: acl.php:87
 #, php-format
 msgid "User '%s' successfully given the specified rights for the folder '%s'."
@@ -4437,7 +4428,7 @@ msgstr "نما"
 msgid "View %s"
 msgstr "نمایش %s"
 
-# 
+#
 #: templates/pgp/pgp.inc:27 templates/smime/smime.inc:25
 #, php-format
 msgid "View %s Public Key"
@@ -4479,14 +4470,14 @@ msgstr "نمایش متن در یک پنجرهٔ جداگانه"
 msgid "View event"
 msgstr "نمایش رویداد"
 
-# 
+#
 #: folders.php:374 mailbox.php:528
 #, php-format
 msgid "View messages in %s"
 msgstr "نمایش پیغامها در %s"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: templates/prefs/initialpageselect.inc:26
 msgid "View or mailbox to display after login:"
 msgstr "مشاهده نامه و یا نامه‌دان برای نمایش بعد از ورود"
@@ -4645,13 +4636,13 @@ msgstr ""
 msgid "You do not have permission to change access to this folder"
 msgstr "شما مجوز تغییر دسترسی این پوشه را ندارید"
 
-# 
+#
 #: lib/Maillog.php:128
 #, php-format
 msgid "You forwarded this message on %%s to the following recipients: %s."
 msgstr "شما این پیغام را بر %%s به گیرندگان زیر ارجاع کردید: %s"
 
-# 
+#
 #: templates/mailbox/alert.inc:3
 #, php-format
 msgid "You have %s new messages."
@@ -4721,13 +4712,13 @@ msgstr "شما باید یک گیرنده مشخص کنید"
 msgid "You must specify at least one file to attach."
 msgstr "شما حداقل باید یک پرونده‌ برای پیوست کردن مشخص کنید"
 
-# 
+#
 #: templates/fetchmail/manage.inc:48
 #, php-format
 msgid "You need to have '%s' enabled in your maintenance options."
 msgstr "شما نیاز دارید که '%s' را در گزینه‌های نگهداری، فعال کنید"
 
-# 
+#
 #: lib/Maillog.php:136
 #, php-format
 msgid "You redirected this message to %s on %%s."
@@ -4738,13 +4729,13 @@ msgstr "شما این پیغام را به %s بر %%s تغییر مسیر دا�
 msgid "You replied to this message on %s."
 msgstr "شما به این پیغام در %s پاسخ داده‌اید"
 
-# 
+#
 #: lib/Folder.php:607
 #, php-format
 msgid "You were not subscribed to \"%s\". Here is what the server said"
 msgstr "کارساز گفت که شما عضو \"%s\" نبود‌ید"
 
-# 
+#
 #: lib/Folder.php:660
 #, php-format
 msgid "You were not unsubscribed from \"%s\". Here is what the server said"
@@ -4867,7 +4858,7 @@ msgstr "چاپ"
 msgid "_Priority"
 msgstr "اولویت"
 
-# 
+#
 #: mailbox.php:411
 #, php-format
 msgid "_Refresh %s"
@@ -4905,10 +4896,6 @@ msgstr "نمایش سلسله"
 msgid "_Whitelist"
 msgstr "فهرست سفید"
 
-#: lib/Compose.php:171
-msgid "addressee unknown"
-msgstr ""
-
 #: lib/Compose.php:437
 msgid "attachment"
 msgstr "پیوست"
@@ -4921,49 +4908,9 @@ msgstr "پیوستها.zip"
 msgid "bytes"
 msgstr "بایت‌"
 
-#: lib/Compose.php:195
-msgid "cannot create output file"
-msgstr ""
-
-#: lib/Compose.php:167
-msgid "cannot open input"
-msgstr ""
-
-#: lib/Compose.php:159
-msgid "command line usage error"
-msgstr ""
-
-#: lib/Compose.php:215
-msgid "configuration error"
-msgstr ""
-
-#: lib/Compose.php:191
-msgid "critical system file missing"
-msgstr ""
-
-#: lib/Compose.php:163
-msgid "data format error"
-msgstr ""
-
-#: lib/Compose.php:219
-msgid "entry not found"
-msgstr ""
-
 #: templates/contacts/contacts.inc:185
 msgid "from"
 msgstr "از"
-
-#: lib/Compose.php:175
-msgid "host name unknown"
-msgstr ""
-
-#: lib/Compose.php:199
-msgid "input/output error"
-msgstr ""
-
-#: lib/Compose.php:183
-msgid "internal software error"
-msgstr ""
 
 #: pgp.php:69 smime.php:29
 msgid "key"
@@ -4984,18 +4931,6 @@ msgstr "هیچ‌یک"
 #: templates/compose/spelling.inc:105
 msgid "or"
 msgstr "یا"
-
-#: lib/Compose.php:211
-msgid "permission denied"
-msgstr ""
-
-#: lib/Compose.php:207
-msgid "remote error in protocol"
-msgstr ""
-
-#: lib/Compose.php:179
-msgid "service unavailable"
-msgstr ""
 
 #: templates/compose/spelling.inc:46
 msgid "spelling error"

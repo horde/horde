@@ -34,13 +34,6 @@ msgstr " Subiect: "
 msgid " in "
 msgstr " in "
 
-msgid "#"
-msgstr ""
-
-#, c-format
-msgid "%c"
-msgstr ""
-
 #, c-format
 msgid "%d of %d Messages"
 msgstr "%d din %d Mesaje"
@@ -64,10 +57,6 @@ msgstr "Directorul %s va fi redenumit. Inceput de luna."
 #, c-format
 msgid "%s is already empty."
 msgstr "%s este deja gol."
-
-#, c-format
-msgid "%s: %s (%d&nbsp;of&nbsp;%d)"
-msgstr ""
 
 msgid "(Apply these changes and move to next screen.)"
 msgstr "(Aplica modificarile si mergi mai departe.)"
@@ -94,8 +83,9 @@ msgid ""
 "is not displayed correctly, %sclick here</a> to open it in a new window.</"
 "i></p>\n"
 msgstr ""
-"<p><i>Acest mesaj a fost scris cu alt set de caractere decit al tau. Daca nu e"
-"afisat corect, %sclick aici</a> pentru a-l deschide intr-o fereastra noua.</i></p>\n"
+"<p><i>Acest mesaj a fost scris cu alt set de caractere decit al tau. Daca nu "
+"eafisat corect, %sclick aici</a> pentru a-l deschide intr-o fereastra noua.</"
+"i></p>\n"
 
 msgid "Action"
 msgstr "Actiunea"
@@ -120,20 +110,21 @@ msgid ""
 "All messages in the following folder(s) will be downloaded into one MBOX "
 "file:"
 msgstr ""
-"Toate mesajele din directo(rul/arele) urmato(r/are) vor fi salvate intr-un"
-" fisier MBOX:"
+"Toate mesajele din directo(rul/arele) urmato(r/are) vor fi salvate intr-un "
+"fisier MBOX:"
 
 #, c-format
 msgid ""
 "All messages in your \"%s\" folder older than %s days will be permanently "
 "deleted."
 msgstr ""
-"Toate mesajele din directorul \"%s\", mai vechi de %s zile vor fi sterse"
-"definitiv."
+"Toate mesajele din directorul \"%s\", mai vechi de %s zile vor fi "
+"stersedefinitiv."
 
 #, c-format
 msgid "All old sent-mail folders more than %s months old will be deleted."
-msgstr "Toate directoarele cu mesaje-trimise mai vechi de %s luni vor fi sterse."
+msgstr ""
+"Toate directoarele cu mesaje-trimise mai vechi de %s luni vor fi sterse."
 
 msgid "All"
 msgstr "Toate"
@@ -241,9 +232,7 @@ msgstr "Schimba Tot"
 msgid ""
 "Change display options such as how many messages you see on each page and "
 "how messages are sorted."
-msgstr ""
-"Optiuni de genul cite mesaje vezi pe o pagina si cum sint ele"
-" sortate."
+msgstr "Optiuni de genul cite mesaje vezi pe o pagina si cum sint ele sortate."
 
 msgid "Change mail server settings."
 msgstr "Scimba optiunile referitoare la serverul de mail."
@@ -251,17 +240,13 @@ msgstr "Scimba optiunile referitoare la serverul de mail."
 msgid ""
 "Change the name, address, and signature that people see when they read and "
 "reply to your email."
-msgstr ""
-"Specifica numele, adresa si semnatura care vor aparea in Mesajul tau."
+msgstr "Specifica numele, adresa si semnatura care vor aparea in Mesajul tau."
 
 msgid "Change"
 msgstr "Schimba"
 
 msgid "Check Folder(s) for New Mail"
 msgstr "Verifica daca sint mesaje noi in Directo(r/are)"
-
-msgid "Checkbox"
-msgstr ""
 
 msgid "Choose Action:"
 msgstr "Alege Actiunea:"
@@ -280,8 +265,8 @@ msgid ""
 "Click on one of your selected addressbooks and then select all fields to "
 "search."
 msgstr ""
-"Fa Click pe una din agende si selecteaza toate cimpurile in care "
-"vrei sa cauti."
+"Fa Click pe una din agende si selecteaza toate cimpurile in care vrei sa "
+"cauti."
 
 msgid "Closed Folder"
 msgstr "Director Inchis"
@@ -315,8 +300,8 @@ msgid ""
 "Control when new mail will be checked for, and whether or not to notify you "
 "when it arrives."
 msgstr ""
-"Controleaza cind se verifica daca sint mesaje noi si daca vei fi sau nu anuntat"
-" la sosirea lor."
+"Controleaza cind se verifica daca sint mesaje noi si daca vei fi sau nu "
+"anuntat la sosirea lor."
 
 msgid "Copy"
 msgstr "Copiaza"
@@ -347,8 +332,8 @@ msgid ""
 "Create filtering rules to organize your incoming mail, sort it into folders, "
 "and delete spam."
 msgstr ""
-"Creaza filtre pentru organizarea mesajelor primite, sortarea lor in directoare"
-" si stergerea celor nedorite."
+"Creaza filtre pentru organizarea mesajelor primite, sortarea lor in "
+"directoare si stergerea celor nedorite."
 
 msgid "Create"
 msgstr "Creaza"
@@ -452,9 +437,6 @@ msgstr "Schimba Regulile de Filtrare"
 msgid "Edit your identities"
 msgstr "Schimba Datele Personale"
 
-msgid "Edit"
-msgstr ""
-
 msgid "Email Address"
 msgstr "Adresa de Email"
 
@@ -466,9 +448,6 @@ msgstr "Goleste Gunoiul"
 
 msgid "Empty Trash"
 msgstr "Goleste Gunoiul"
-
-msgid "End forwarded message"
-msgstr ""
 
 msgid "Enter the name for your new drafts folder"
 msgstr "Introdu numele noului director cu Ciorne"
@@ -559,9 +538,6 @@ msgstr "Prima Pagina"
 msgid "Folder Navigator"
 msgstr "Directoare"
 
-msgid "Folder Prefix"
-msgstr ""
-
 msgid "Folders"
 msgstr "Directoare"
 
@@ -584,26 +560,17 @@ msgstr "De la"
 msgid "From:"
 msgstr "De la:"
 
-msgid "Fwd:"
-msgstr ""
-
 msgid "Help"
 msgstr "Ajutor"
 
 msgid "Hide Deleted"
 msgstr "Ascunde Mesaje-Sterse"
 
-msgid "Hide Unsubscribed"
-msgstr ""
-
 msgid "How to prefix quoted lines in a reply:"
 msgstr "Citatele din Mesajul-Raspun vor fi marcate cu:"
 
 msgid "IMP is not properly configured"
 msgstr "IMP nu este configurat corect"
-
-msgid "INBOX"
-msgstr ""
 
 msgid "Identities"
 msgstr "Identitati"
@@ -665,8 +632,8 @@ msgid ""
 "Login failed for some reason. Most likely your username or password was "
 "entered incorrectly."
 msgstr ""
-"Conectare imposibila. Nume de Utilizator sau/si Parola gresita."
-"Incearca din nou."
+"Conectare imposibila. Nume de Utilizator sau/si Parola gresita.Incearca din "
+"nou."
 
 msgid "Logout"
 msgstr "Deconectare"
@@ -733,9 +700,6 @@ msgstr "mesaje pe o pagina."
 
 msgid "Messages to"
 msgstr "Mesaj(ul/ele) in"
-
-msgid "Mime Type"
-msgstr ""
 
 msgid "Modify"
 msgstr "Modifica"
@@ -822,9 +786,6 @@ msgstr "Noiembrie"
 msgid "Number of old sent-mail folders to keep if deleting monthly"
 msgstr "directoare cu Mesaje-Trimise se vor pastra la inceputul lunii."
 
-msgid "OK"
-msgstr ""
-
 msgid "October"
 msgstr "Octombrie"
 
@@ -859,9 +820,6 @@ msgstr "Executa operatiuni de mentenanta la Conectare."
 msgid "Personal Information"
 msgstr "Date Personale"
 
-msgid "Personal"
-msgstr ""
-
 msgid "Place your signature before replies and forwards?"
 msgstr "Plaseaza semnatura inaintea raspunsurilor."
 
@@ -870,9 +828,6 @@ msgstr "Introdu numele noului director:"
 
 msgid "Please enter the new name:"
 msgstr "Te rog introdu noul nume:"
-
-msgid "Please enter valid search criteria."
-msgstr ""
 
 msgid "Please provide your username and password"
 msgstr "Te rog introdu numele de Utilizator si Parola."
@@ -888,9 +843,6 @@ msgstr "Te rog alege cel putin un director de cautare."
 
 msgid "Please select only one folder for this operation."
 msgstr "Te rog alege un singur director pentru aceasta actiune."
-
-msgid "Please select or edit right next:"
-msgstr ""
 
 msgid "Precede your signature with dashes ('-- ')"
 msgstr "Desparte semnatura prin ('-- ')"
@@ -1006,13 +958,11 @@ msgstr "Cere Confirmare de Primire"
 msgid "Reset"
 msgstr "Sterge Tot"
 
-msgid "Resume"
-msgstr ""
-
 msgid ""
 "Return to the mailbox listing after deleting, moving, or copying a message?"
 msgstr ""
-"Intoarce-te la lista de mesaje dupa stergerea, mutarea sau copierea unui mesaj."
+"Intoarce-te la lista de mesaje dupa stergerea, mutarea sau copierea unui "
+"mesaj."
 
 msgid "Rule Definition"
 msgstr "Defineste Regula"
@@ -1078,11 +1028,10 @@ msgstr "Septembrie"
 msgid "Server Information"
 msgstr "Optiuni Server"
 
-msgid "Server"
-msgstr ""
-
 msgid "Set preferences for filtering messages for unwanted content."
-msgstr "Filtrare Mesaje primite impotriva continutului nedorit.<br />Cuvinte cenzurate."
+msgstr ""
+"Filtrare Mesaje primite impotriva continutului nedorit.<br />Cuvinte "
+"cenzurate."
 
 msgid "Set preferences for what happens when you move and delete messages."
 msgstr "Alege ce se intimpla atunci cind muti, copiezi sau stergi mesaje."
@@ -1098,9 +1047,6 @@ msgstr "Inchidem fereastra de compunere Mesaj Nou la salvarea ciornei."
 
 msgid "Show Deleted"
 msgstr "Arata Mesaje Sterse"
-
-msgid "Show Unsubscribed"
-msgstr ""
 
 msgid "Show last login time when logging in"
 msgstr "Afiseaza data si ora ultimei conectari."
@@ -1123,15 +1069,6 @@ msgstr "Mesaj nedorit raportat de"
 msgid "Special Characters"
 msgstr "Caractere Speciale"
 
-msgid "Spell Check"
-msgstr ""
-
-msgid "Spell Checker"
-msgstr ""
-
-msgid "Spell check complete"
-msgstr ""
-
 msgid "Spelling errors per screen when spell checking."
 msgstr "greseli de ortografie pe pagina."
 
@@ -1146,9 +1083,6 @@ msgstr "Subiect:"
 
 msgid "Subscribe to Folder(s)"
 msgstr "Subscrie la Directo(r/are)"
-
-msgid "Success"
-msgstr ""
 
 msgid "Suggestions"
 msgstr "Sugestii"
@@ -1169,8 +1103,8 @@ msgid ""
 "The folder \"%s\" contains illegal characters in its name. It may cause "
 "problems. Please see your system administrator."
 msgstr ""
-"Directorul \"%s\" contine caractere nepermise in numele sau."
-" Ar putea crea probleme. Contacteaza-l pe Administrator"
+"Directorul \"%s\" contine caractere nepermise in numele sau. Ar putea crea "
+"probleme. Contacteaza-l pe Administrator"
 
 #, c-format
 msgid "The folder \"%s\" was created but you were not subscribed to it."
@@ -1208,119 +1142,8 @@ msgstr "Identitatea \"%s\" a fost stearsa."
 msgid "The identity \"%s\" has been saved."
 msgstr "Identitatea \"%s\" a fost salvata."
 
-msgid "The message being composed has been closed.  Exiting."
-msgstr ""
-
-msgid "The signature couldn't be replaced."
-msgstr ""
-
-msgid "The signature was successfully replaced."
-msgstr ""
-
 msgid "There are no messages in this mailbox."
 msgstr "Nu exista Mesaje in aceasta casuta postala."
-
-#, c-format
-msgid "There was a problem expunging %s. This is what the server said"
-msgstr ""
-
-msgid "There was a problem expunging the mailbox. This is what the server said"
-msgstr ""
-
-#, c-format
-msgid ""
-"There was a problem expunging the mailbox. This is what the server said: %s"
-msgstr ""
-
-#, c-format
-msgid ""
-"There was a problem with the file upload. The file may have been larger than "
-"the maximum allowed size (%d MB)."
-msgstr ""
-
-msgid ""
-"There was a problem with the file upload. The file may have been larger than "
-"the maximum allowed size."
-msgstr ""
-
-#, c-format
-msgid ""
-"There was an error copying messages to \"%s\". This is what the server said"
-msgstr ""
-
-#, c-format
-msgid ""
-"There was an error deleting messages from the folder \"%s\". This is what "
-"the server said"
-msgstr ""
-
-#, c-format
-msgid ""
-"There was an error deleting messages in the folder \"%s\". This is what the "
-"server said"
-msgstr ""
-
-msgid "There was an error deleting messages. This is what the server said"
-msgstr ""
-
-msgid "There was an error displaying this message part"
-msgstr ""
-
-#, c-format
-msgid ""
-"There was an error flagging messages in the folder \"%s\". This is what the "
-"server said"
-msgstr ""
-
-msgid "There was an error flagging messages. This is what the server said"
-msgstr ""
-
-#, c-format
-msgid ""
-"There was an error moving messages to \"%s\". This is what the server said"
-msgstr ""
-
-msgid ""
-"There was an error moving messages to the trash. This is what the server said"
-msgstr ""
-
-msgid "There was an error saving a draft."
-msgstr ""
-
-#, c-format
-msgid "There was an error sending your message: %s"
-msgstr ""
-
-msgid "There was an error undeleting messages. This is what the server said"
-msgstr ""
-
-msgid "There was an error viewing the requested message."
-msgstr ""
-
-msgid ""
-"This file controls local MIME drivers for IMP, specifically what kinds of "
-"attachments are viewable and/or downloadable."
-msgstr ""
-
-msgid ""
-"This file controls the default preferences for IMP, and also controls which "
-"preferences users can alter."
-msgstr ""
-
-msgid ""
-"This file controls the default settings for IMP, and also defines the list "
-"of available servers if you are using the server list."
-msgstr ""
-
-msgid ""
-"This file controls the stylesheet that is used to set colors and fonts in "
-"addition to or overriding Horde defaults."
-msgstr ""
-
-msgid ""
-"This is the main IMP configuration file. It contains paths and options for "
-"the IMP scripts."
-msgstr ""
 
 msgid "This may take some time. Are you sure you want to continue?"
 msgstr "Aceasta operatiune este de durata. Esti sigur ca vrei sa continui ?"
@@ -1331,21 +1154,6 @@ msgstr "Acest mesaj a fost raportat Administratorului ca fiind Nedorit."
 msgid "This message to"
 msgstr "Mesajul in"
 
-msgid "This number must be at least one."
-msgstr ""
-
-msgid "This value must be a number."
-msgstr ""
-
-msgid "This window must be called from compose window"
-msgstr ""
-
-msgid "Thread View"
-msgstr ""
-
-msgid "Thread"
-msgstr ""
-
 msgid "Time Zone"
 msgstr "Zona "
 
@@ -1354,10 +1162,6 @@ msgstr "Catre"
 
 msgid "To:"
 msgstr "Catre:"
-
-#, c-format
-msgid "Total Size: %s KB"
-msgstr ""
 
 msgid "Trash folder:"
 msgstr "Gunoi:"
@@ -1371,23 +1175,11 @@ msgstr "Fara Raspuns"
 msgid "Undelete"
 msgstr "Recupereaza"
 
-msgid "Undisclosed Recipients"
-msgstr ""
-
-msgid "Unnamed"
-msgstr ""
-
 msgid "Unread"
 msgstr "Necitite"
 
-msgid "Unseen Messages"
-msgstr ""
-
 msgid "Unseen"
 msgstr "Necitite"
-
-msgid "Unsubscribe from Folder(s)"
-msgstr ""
 
 msgid "Use Ctrl/Option+Click to select multiple fields"
 msgstr "Foloseste Ctrl/Option+Click pentru selestie multipla."
@@ -1398,18 +1190,8 @@ msgstr "Foloseste Valoarea Implicita"
 msgid "Use IMAP folder subscriptions?"
 msgstr "Subscrie la directoare IMAP."
 
-msgid "User Options"
-msgstr ""
-
 msgid "Username"
 msgstr "Utilizator"
-
-#, c-format
-msgid "View %s"
-msgstr ""
-
-msgid "View messages in "
-msgstr ""
 
 msgid "View or mailbox to display after login:"
 msgstr "La conectare afiseaza:"
@@ -1445,65 +1227,8 @@ msgstr "Creare director in radacina."
 msgid "You are renaming the folder: "
 msgstr "Redenumeste directorul: "
 
-#, c-format
-msgid "You have %s new messages."
-msgstr ""
-
-msgid "You have 1 new message."
-msgstr ""
-
 msgid "You have been logged out.<br />Thank you for using the system."
 msgstr "Ai fost deconectat.<br />Iti multumim ca folosesti sistemul."
-
-msgid "You have new mail in the following folder:"
-msgstr ""
-
-msgid "You have new mail in the following folders:"
-msgstr ""
-
-msgid "You must first select the attachment(s) to delete."
-msgstr ""
-
-msgid "You must first specify the file to attach."
-msgstr ""
-
-msgid "You must have at least one recipient."
-msgstr ""
-
-msgid "You must select a target mailbox first."
-msgstr ""
-
-msgid "You must select an address first."
-msgstr ""
-
-msgid "You must select an identity to be deleted."
-msgstr ""
-
-msgid "You must select at least one message first."
-msgstr ""
-
-msgid "You must specify a recipient."
-msgstr ""
-
-#, c-format
-msgid "You were not subscribed to \"%s\". Here is what the server said"
-msgstr ""
-
-#, c-format
-msgid "You were not unsubscribed from \"%s\". Here is what the server said"
-msgstr ""
-
-#, c-format
-msgid "You were successfully subscribed to \"%s\""
-msgstr ""
-
-#, c-format
-msgid "You were successfully unsubscribed from \"%s\""
-msgstr ""
-
-#, c-format
-msgid "Your %s session has expired. Please login again."
-msgstr ""
 
 msgid "Your From: address:"
 msgstr "Adresa de Expeditor:"
@@ -1513,14 +1238,6 @@ msgstr "Informatii Personale"
 
 msgid "Your Reply-to: address: <i>(optional)</i>"
 msgstr "Raspunde la: <i>(optional)</i>"
-
-msgid "Your browser does not support inline display of this image type"
-msgstr ""
-
-msgid ""
-"Your browser does not support this print option. Press Control/Option + P to "
-"print."
-msgstr ""
 
 msgid "Your current time zone:"
 msgstr "Zona geografica:"
@@ -1543,59 +1260,17 @@ msgstr "Semnatura:"
 msgid "[No Subject]"
 msgstr "[Fara Subiect]"
 
-msgid "add source"
-msgstr ""
-
-msgid "cannot move past the beginning"
-msgstr ""
-
-msgid "cannot move past the end"
-msgstr ""
-
 msgid "delete message"
 msgstr "sterge mesajul"
 
 msgid "from"
 msgstr "de la"
 
-msgid "move down"
-msgstr ""
-
 msgid "move message to"
 msgstr "muta mesajul in"
 
-msgid "move up"
-msgstr ""
-
-msgid "no folder selected"
-msgstr ""
-
-msgid "no rule selected"
-msgstr ""
-
-msgid "no text specified"
-msgstr ""
-
-msgid "none"
-msgstr ""
-
-msgid "or"
-msgstr ""
-
-msgid "please fill in the text and choose a field and an action"
-msgstr ""
-
-msgid "remove source"
-msgstr ""
-
 msgid "select folder"
 msgstr "alege unde"
-
-msgid "spelling error"
-msgstr ""
-
-msgid "spelling errors"
-msgstr ""
 
 #, c-format
 msgid "where the %s field contains <b>%s</b>"
