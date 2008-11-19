@@ -1610,14 +1610,13 @@ class IMP_Compose
     /**
      * Adds an attachment to a Horde_Mime_Part from data existing in the part.
      *
-     * @param Horde_Mime_Part &$part  The object that contains the attachment
-     *                                data.
+     * @param Horde_Mime_Part $part  The object that contains the attachment
+     *                               data.
      *
      * @return PEAR_Error  Returns a PEAR_Error object on error.
      */
-    public function addMIMEPartAttachment(&$part)
+    public function addMIMEPartAttachment($part)
     {
-// TODO
         global $conf;
 
         $type = $part->getType();
@@ -1633,13 +1632,17 @@ class IMP_Compose
         }
 
         /* Extract the data from the currently existing Horde_Mime_Part and
-           then delete it. If this is an unknown MIME part, we must save to a
-           temporary file to run the file analysis on it. */
-        if (!$vfs) {
+         * then delete it. If this is an unknown MIME part, we must save to a
+         * temporary file to run the file analysis on it. */
+        if ($vfs) {
+            $vfs_data = $part->getContents();
+            if (($type == 'application/octet-stream') &&
+                ($analyzetype = Horde_Mime_Magic::analyzeData($vfs_data, !empty($conf['mime']['magic_db']) ? $conf['mime']['magic_db'] : null))) {
+                $type = $analyzetype;
+            }
+        } else {
             $attachment = Horde::getTempFile('impatt', false);
-            $fp = fopen($attachment, 'w');
-            $res = fwrite($fp, $part->getContents());
-            fclose($fp);
+            $res = file_put_contents($attachment, $part->getContents());
             if ($res === false) {
                 return PEAR::raiseError(sprintf(_("Could not attach %s to the message."), $part->getName()), 'horde.error');
             }
@@ -1648,24 +1651,19 @@ class IMP_Compose
                 ($analyzetype = Horde_Mime_Magic::analyzeFile($attachment, !empty($conf['mime']['magic_db']) ? $conf['mime']['magic_db'] : null))) {
                 $type = $analyzetype;
             }
-        } else {
-            $vfs_data = $part->getContents();
-            if (($type == 'application/octet-stream') &&
-                ($analyzetype = Horde_Mime_Magic::analyzeData($vfs_data, !empty($conf['mime']['magic_db']) ? $conf['mime']['magic_db'] : null))) {
-                $type = $analyzetype;
-            }
         }
 
         $part->setType($type);
 
         /* Set the size of the Part explicitly since we delete the contents
            later on in this function. */
-        $part->setBytes($part->getBytes());
+        $bytes = $part->getBytes();
+        $part->setBytes($bytes);
         $part->clearContents();
 
         /* Check for filesize limitations. */
         if (!empty($conf['compose']['attach_size_limit']) &&
-            (($conf['compose']['attach_size_limit'] - $this->sizeOfAttachments() - $part->getBytes()) < 0)) {
+            (($conf['compose']['attach_size_limit'] - $this->sizeOfAttachments() - $bytes) < 0)) {
             return PEAR::raiseError(sprintf(_("Attached file \"%s\" exceeds the attachment size limits. File NOT attached."), $part->getName()), 'horde.error');
         }
 
@@ -2001,6 +1999,7 @@ class IMP_Compose
      */
     public function attachFilesFromMessage(&$contents, $options = array())
     {
+// TODO
         $errors = array();
 
         $contents->rebuildMessage();
@@ -2118,15 +2117,15 @@ class IMP_Compose
      * attachments to a new folder and remove the Horde_Mime_Parts for the
      * attachments.
      *
-     * @param string $baseurl             The base URL for creating the links.
-     * @param Horde_Mime_Part $base_part  The body of the message.
-     * @param string $auth                The authorized user who owns the
-     *                                    attachments.
+     * @param string $baseurl        The base URL for creating the links.
+     * @param Horde_Mime_Part $part  The body of the message.
+     * @param string $auth           The authorized user who owns the
+     *                               attachments.
      *
-     * @return Horde_Mime_Part  Modified part with links to attachments.
+     * @return Horde_Mime_Part  Modified MIME part with links to attachments.
      *                          Returns PEAR_Error on error.
      */
-    public function linkAttachments($baseurl, $base_part, $auth)
+    public function linkAttachments($baseurl, $part, $auth)
     {
         global $conf, $prefs;
 
@@ -2139,22 +2138,20 @@ class IMP_Compose
 
         $ts = time();
         $fullpath = sprintf('%s/%s/%d', self::VFS_LINK_ATTACH_PATH, $auth, $ts);
+        $charset = $part->getCharset();
 
-        $trailer = String::convertCharset(_("Attachments"), NLS::getCharset(), $base_part->getCharset());
+        $trailer = String::convertCharset(_("Attachments"), NLS::getCharset(), $charset);
 
         if ($prefs->getValue('delete_attachments_monthly')) {
             /* Determine the first day of the month in which the current
              * attachments will be ripe for deletion, then subtract 1 second
              * to obtain the last day of the previous month. */
             $del_time = mktime(0, 0, 0, date('n') + $prefs->getValue('delete_attachments_monthly_keep') + 1, 1, date('Y')) - 1;
-            $trailer .= String::convertCharset(' (' . sprintf(_("Links will expire on %s"), strftime('%x', $del_time)) . ')', NLS::getCharset(), $base_part->getCharset());
+            $trailer .= String::convertCharset(' (' . sprintf(_("Links will expire on %s"), strftime('%x', $del_time)) . ')', NLS::getCharset(), $charset);
         }
 
         foreach ($this->getAttachments() as $att) {
-            $trailer .= "\n" . Util::addParameter($baseurl, array('u' => $auth,
-                                                                  't' => $ts,
-                                                                  'f' => $att->getName()),
-                                                  null, false);
+            $trailer .= "\n" . Util::addParameter($baseurl, array('u' => $auth, 't' => $ts, 'f' => $att->getName()), null, false);
             if ($conf['compose']['use_vfs']) {
                 $res = $vfs->rename(self::VFS_ATTACH_PATH, $att->getInformation('temp_filename'), $fullpath, escapeshellcmd($att->getName()));
             } else {
@@ -2169,17 +2166,24 @@ class IMP_Compose
 
         $this->deleteAllAttachments();
 
-        if ($base_part->getPrimaryType() == 'multipart') {
-            $mixed_part = new Horde_Mime_Part('multipart/mixed');
-            $mixed_part->addPart($base_part);
-            $link_part = new Horde_Mime_Part('text/plain', $trailer, $base_part->getCharset(), 'inline', $base_part->getCurrentEncoding());
+        if ($part->getPrimaryType() == 'multipart') {
+            $mixed_part = new Horde_Mime_Part();
+            $mixed_part->setType('multipart/mixed');
+            $mixed_part->addPart(part);
+
+            $link_part = new Horde_Mime_Part();
+            $link_part->setType('text/plain');
+            $link_part->setCharset($charset);
+            $link_part->setDisposition('inline');
+            $link_part->setContents($trailer, $part->getCurrentEncoding());
             $link_part->setDescription(_("Attachment Information"));
+
             $mixed_part->addPart($link_part);
             return $mixed_part;
-        } else {
-            $base_part->appendContents("\n-----\n" . $trailer, $base_part->getCurrentEncoding());
-            return $base_part;
         }
+
+        $part->appendContents("\n-----\n" . $trailer, $part->getCurrentEncoding());
+        return $part;
     }
 
     /**
@@ -2196,6 +2200,7 @@ class IMP_Compose
      */
     public function getMessageText($contents, $options = array())
     {
+// TODO
         $body_id = null;
         $mode = 'text';
 
@@ -2366,10 +2371,9 @@ class IMP_Compose
         $success = true;
 
         /* Add new attachments. */
-        for ($i = 1; $i <= count($_FILES); $i++) {
+        for ($i = 1, $fcount = count($_FILES); $i <= $fcount; ++$i) {
             $key = $field . $i;
-            if (isset($_FILES[$key]) &&
-                ($_FILES[$key]['error'] != 4)) {
+            if (isset($_FILES[$key]) && ($_FILES[$key]['error'] != 4)) {
                 $filename = Util::dispelMagicQuotes($_FILES[$key]['name']);
                 if (!empty($_FILES[$key]['error'])) {
                     switch ($_FILES[$key]['error']) {
@@ -2391,7 +2395,7 @@ class IMP_Compose
                     $GLOBALS['notification']->push(sprintf(_("Did not attach \"%s\" as the file was empty."), $filename), 'horde.warning');
                     $success = false;
                 } else {
-                    $disposition = ($disp === null) ? 'attachment' : Util::getFormData($disp . $i);
+                    $disposition = is_null($disp) ? 'attachment' : Util::getFormData($disp . $i);
                     $result = $this->addUploadAttachment($key, $disposition);
                     if (is_a($result, 'PEAR_Error')) {
                         $GLOBALS['notification']->push($result, 'horde.error');
@@ -2495,14 +2499,9 @@ class IMP_Compose
     {
         /* If there are angle brackets (<>), or a colon (group name
          * delimiter), assume the user knew what they were doing. */
-        if (!empty($addr) &&
-            (strpos($addr, '>') === false) &&
-            (strpos($addr, ':') === false)) {
-            $addr = trim(strtr($addr, ';,', '  '));
-            $addr = preg_replace('|\s+|', ', ', $addr);
-        }
-
-        return $addr;
+        return (!empty($addr) && (strpos($addr, '>') === false) && (strpos($addr, ':') === false))
+            ? preg_replace('|\s+|', ', ', trim(strtr($addr, ';,', '  ')))
+            : $addr;
     }
 
     /**
@@ -2519,11 +2518,9 @@ class IMP_Compose
      */
     static public function expandAddresses($addrString)
     {
-        if (!preg_match('|[^\s]|', $addrString)) {
-            return '';
-        }
-
-        return IMP_Compose::getAddressList(reset(array_filter(array_map('trim', Horde_Mime_Address::explode($addrString, ',;')))));
+        return preg_match('|[^\s]|', $addrString)
+            ? IMP_Compose::getAddressList(reset(array_filter(array_map('trim', Horde_Mime_Address::explode($addrString, ',;')))))
+            : '';
     }
 
     /**
@@ -2537,15 +2534,12 @@ class IMP_Compose
      *
      * @return array  All matching addresses.
      */
-    public static function getAddressList($search = '')
+    static public function getAddressList($search = '')
     {
         $sparams = IMP_Compose::getAddressSearchParams();
         $res = $GLOBALS['registry']->call('contacts/search', array($search, $sparams['sources'], $sparams['fields'], true));
-        if (is_a($res, 'PEAR_Error')) {
+        if (is_a($res, 'PEAR_Error') || !count($res)) {
             Horde::logMessage($res, __FILE__, __LINE__, PEAR_LOG_ERR);
-            return array();
-        }
-        if (!count($res)) {
             return array();
         }
 
@@ -2576,7 +2570,7 @@ class IMP_Compose
      *
      * @return array  An array with two keys: 'sources' and 'fields'.
      */
-    public static function getAddressSearchParams()
+    static public function getAddressSearchParams()
     {
         $src = explode("\t", $GLOBALS['prefs']->getValue('search_sources'));
         if ((count($src) == 1) && empty($src[0])) {
