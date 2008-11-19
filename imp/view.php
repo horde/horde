@@ -139,10 +139,12 @@ case 'download_render':
 
 case 'view_attach':
     $render = $contents->renderMIMEPart($id, Util::getFormData('mode', IMP_Contents::RENDER_FULL), array('type' => $ctype));
-    reset($render);
-    $key = key($render);
-    $browser->downloadHeaders($render[$key]['name'], $render[$key]['type'], true, strlen($render[$key]['data']));
-    echo $render[$key]['data'];
+    if (!empty($render)) {
+        reset($render);
+        $key = key($render);
+        $browser->downloadHeaders($render[$key]['name'], $render[$key]['type'], true, strlen($render[$key]['data']));
+        echo $render[$key]['data'];
+    }
     exit;
 
 case 'view_source':
