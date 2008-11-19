@@ -676,7 +676,8 @@ class Horde_Crypt_pgp extends Horde_Crypt
      * 'type' -  (integer) The type of data contained in block.
      *           Valid types are defined at the top of this class
      *           (the ARMOR_* constants).
-     * 'data' - (array) The data for each section.
+     * 'data' - (array) The data for each section. Each line has been stripped
+     *          of EOL characters.
      * </pre>
      */
     public function parsePGPData($text)
@@ -688,6 +689,7 @@ class Horde_Crypt_pgp extends Horde_Crypt
 
         $buffer = explode("\n", $text);
         while (list(,$val) = each($buffer)) {
+            $val = rtrim($val, "\r");
             if (preg_match('/^-----(BEGIN|END) PGP ([^-]+)-----\s*$/', $val, $matches)) {
                 if (isset($temp_array['data'])) {
                     $data[] = $temp_array;
