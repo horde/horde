@@ -35,9 +35,9 @@ class IMP_Horde_Mime_Viewer_pgp extends Horde_Mime_Viewer_Driver
     );
 
     /**
-     * IMP_Crypt_PGP object.
+     * IMP_Horde_Crypt_PGP object.
      *
-     * @var IMP_Crypt_PGP
+     * @var IMP_Horde_Crypt_PGP
      */
     protected $_imppgp;
 
