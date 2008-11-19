@@ -109,9 +109,14 @@ class IMP_UI_Compose {
     {
         $fwd_msg = $imp_compose->forwardMessage($imp_contents, ($type == 'forward_body'));
         if ($type == 'forward_all') {
-            $imp_compose->attachIMAPMessage(array($index), $fwd_msg['headers']);
+            $subject_header = $imp_compose->attachIMAPMessage(array($index), $fwd_msg['headers']);
+            if ($subject_header === false) {
+                // TODO: notification
+            } else {
+                $fwd_msg['headers']['subject'] = $subject_header;
+            }
         } elseif ($type == 'forward_attachments') {
-            $err = $imp_compose->attachFilesFromMessage($imp_contents, true);
+            $err = $imp_compose->attachFilesFromMessage($imp_contents, array('downloadall' => true));
             if (!empty($err)) {
                 foreach ($err as $val) {
                     $GLOBALS['notification']->push($val, 'horde.warning');

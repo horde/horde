@@ -172,7 +172,11 @@ if ($readonly_sentmail) {
 $imp_compose = &IMP_Compose::singleton(Util::getFormData('messageCache'));
 $imp_compose->pgpAttachPubkey((bool) Util::getFormData('pgp_attach_pubkey'));
 $imp_compose->userLinkAttachments((bool) Util::getFormData('link_attachments'));
-$imp_compose->attachVCard((bool) Util::getFormData('vcard'), $identity->getValue('fullname'));
+
+$vcard = $imp_compose->attachVCard((bool) Util::getFormData('vcard'), $identity->getValue('fullname'));
+if (is_a($vcard, 'PEAR_Error')) {
+    // TODO: notification
+}
 
 /* Init IMP_UI_Compose:: object. */
 require_once IMP_BASE . '/lib/UI/Compose.php';
@@ -530,7 +534,12 @@ case 'fwd_digest':
     $indices = Util::getFormData('fwddigest');
     if (!empty($indices)) {
         $msglist = unserialize(urldecode($indices));
-        $imp_compose->attachIMAPMessage($msglist, $header);
+        $subject_header = $imp_compose->attachIMAPMessage($msglist);
+        if ($subject_header === false) {
+            // TODO: notification
+        } else {
+            $header['subject'] = $subject_header;
+        }
     }
     break;
 
