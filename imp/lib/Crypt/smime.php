@@ -428,7 +428,7 @@ class IMP_Horde_Crypt_smime extends Horde_Crypt_smime
      */
     public function addFromPKCS12($pkcs12, $password, $pkpass = null)
     {
-        $openssl = IMP_SMIME::checkForOpenSSL();
+        $openssl = $this->checkForOpenSSL();
         if (is_a($openssl, 'PEAR_Error')) {
             return $openssl;
         }
