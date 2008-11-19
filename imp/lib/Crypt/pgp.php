@@ -333,10 +333,10 @@ class IMP_Horde_Crypt_pgp extends Horde_Crypt_pgp
             return $public_key;
         }
 
-        if (!empty($signature)) {
-            $options = array('type' => 'detached-signature', 'signature' => $signature);
-        } else {
+        if (empty($signature)) {
             $options = array('type' => 'signature');
+        } else {
+            $options = array('type' => 'detached-signature', 'signature' => $signature);
         }
         $options['pubkey'] = $public_key;
 
