@@ -642,7 +642,10 @@ class Horde_Mime_Part
                     $this->_reindex = true;
                     return true;
                 }
-            } elseif (strpos($id, $partid) === 0) {
+            }
+
+            if ((strpos($id, $partid . '.') === 0) ||
+                (strrchr($partid, '.') === '.0')) {
                 return $this->_parts[$val]->_partAction($id, $action, $mime_part);
             }
         }
