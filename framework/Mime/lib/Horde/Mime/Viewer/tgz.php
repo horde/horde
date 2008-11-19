@@ -19,8 +19,8 @@ class Horde_Mime_Viewer_tgz extends Horde_Mime_Viewer_Driver
      */
     protected $_capability = array(
         'embedded' => false,
-        'full' => true,
-        'info' => false,
+        'full' => false,
+        'info' => true,
         'inline' => true
     );
 
@@ -35,36 +35,25 @@ class Horde_Mime_Viewer_tgz extends Horde_Mime_Viewer_Driver
     );
 
     /**
-     * Return the full rendered version of the Horde_Mime_Part object.
-     *
-     * @return array  See Horde_Mime_Viewer_Driver::render().
-     */
-    protected function _render()
-    {
-        $ret = $this->_renderInline();
-        if (!empty($ret)) {
-            reset($ret);
-            $ret[key($ret)]['data'] = '<html><body>' . $ret[key($ret)]['data'] . '</body></html>';
-        }
-        return $ret;
-    }
-
-    /**
      * Return the rendered inline version of the Horde_Mime_Part object.
      *
      * @return array  See Horde_Mime_Viewer_Driver::render().
      */
     protected function _renderInline()
     {
+        /* Currently, can't do anything without tar file. */
+        $subtype = $this->_mimepart->getSubType();
+        if (in_array($subtype, array('gzip', 'x-gzip', 'x-gzip-compressed'))) {
+            return array();
+        }
+
         $contents = $this->_mimepart->getContents();
 
-        /* Only decompress gzipped files. */
-        $subtype = $this->_mimepart->getSubType();
+        /* Decompress gzipped files. */
         if (in_array($subtype, $this->_gzipSubtypes)) {
             $gzip = &Horde_Compress::singleton('gzip');
             $contents = $gzip->decompress($contents);
-            if (is_a($contents, 'PEAR_Error') ||
-                empty($contents)) {
+            if (is_a($contents, 'PEAR_Error') || empty($contents)) {
                 return array();
             }
         }
@@ -114,5 +103,15 @@ class Horde_Mime_Viewer_tgz extends Horde_Mime_Viewer_Driver
                 'type' => 'text/html; charset=' . NLS::getCharset()
             )
         );
+    }
+
+    /**
+     * Return the rendered information about the Horde_Mime_Part object.
+     *
+     * @return array  See Horde_Mime_Viewer_Driver::render().
+     */
+    protected function _renderInfo()
+    {
+        return $this->_renderInline();
     }
 }
