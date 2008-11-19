@@ -1250,7 +1250,8 @@ class Horde_Mime_Part
     /**
      * Build the MIME IDs for this part and all subparts.
      *
-     * @param string $id  The ID of this part.
+     * @param string $id       The ID of this part.
+     * @param boolean $rfc822  Is this a message/rfc822 part?
      */
     public function buildMimeIds($id = null, $rfc822 = false)
     {
