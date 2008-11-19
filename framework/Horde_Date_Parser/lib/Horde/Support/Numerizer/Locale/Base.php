@@ -48,17 +48,49 @@ class Horde_Support_Numerizer_Locale_Base
     public function numerize($string)
     {
         // preprocess
-        // will mutilate hyphenated-words but shouldn't matter for date extraction
-        $string = preg_replace('/ +|([^\d])-([^d])/', '$1 $2', $string);
-        // take the 'a' out so it doesn't turn into a 1, save the half for the end
-        $string = str_replace('a half', 'haAlf', $string);
+        $string = $this->_splitHyphenatedWords($string);
+        $string = $this->_hideAHalf($string);
 
-        // easy/direct replacements
+        $string = $this->_directReplacements($string);
+        $string = $this->_replaceTenPrefixes($string);
+        $string = $this->_replaceBigPrefixes($string);
+        $string = $this->_fractionalAddition($string);
+
+        return $string;
+    }
+
+    /**
+     * will mutilate hyphenated-words but shouldn't matter for date extraction
+     */
+    protected function _splitHyphenatedWords($string)
+    {
+        return preg_replace('/ +|([^\d])-([^d])/', '$1 $2', $string);
+    }
+
+    /**
+     * take the 'a' out so it doesn't turn into a 1, save the half for the end
+     */
+    protected function _hideAHalf($string)
+    {
+        return str_replace('a half', 'haAlf', $string);
+    }
+
+    /**
+     * easy/direct replacements
+     */
+    protected function _directReplacements($string)
+    {
         foreach ($this->DIRECT_NUMS as $dn => $dn_replacement) {
             $string = preg_replace("/$dn/i", $dn_replacement, $string);
         }
+        return $string;
+    }
 
-        // ten, twenty, etc.
+    /**
+     * ten, twenty, etc.
+     */
+    protected function _replaceTenPrefixes($string)
+    {
         foreach ($this->TEN_PREFIXES as $tp => $tp_replacement) {
             $string = preg_replace_callback(
                 "/(?:$tp)( *\d(?=[^\d]|\$))*/i",
@@ -68,8 +100,14 @@ class Horde_Support_Numerizer_Locale_Base
                 ),
                 $string);
         }
+        return $string;
+    }
 
-        // hundreds, thousands, millions, etc.
+    /**
+     * hundreds, thousands, millions, etc.
+     */
+    protected function _replaceBigPrefixes($string)
+    {
         foreach ($this->BIG_PREFIXES as $bp => $bp_replacement) {
             $string = preg_replace_callback(
                 '/(\d*) *' . $bp . '/i',
@@ -80,18 +118,6 @@ class Horde_Support_Numerizer_Locale_Base
                 $string);
             $string = $this->_andition($string);
         }
-
-        // fractional addition
-        // I'm not combining this with the previous block as using float addition complicates the strings
-        // (with extraneous .0's and such )
-        $string = preg_replace_callback(
-            '/(\d+)(?: | and |-)*haAlf/i',
-            create_function(
-                '$m',
-                'return (string)((float)$m[1] + 0.5);'
-            ),
-            $string);
-
         return $string;
     }
 
@@ -107,6 +133,17 @@ class Horde_Support_Numerizer_Locale_Base
             break;
         }
         return $string;
+    }
+
+    protected function _fractionalAddition($string)
+    {
+        return preg_replace_callback(
+            '/(\d+)(?: | and |-)*haAlf/i',
+            create_function(
+                '$m',
+                'return (string)((float)$m[1] + 0.5);'
+            ),
+            $string);
     }
 
 }

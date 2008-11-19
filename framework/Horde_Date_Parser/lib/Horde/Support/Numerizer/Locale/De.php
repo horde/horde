@@ -1,7 +1,6 @@
 <?php
 class Horde_Support_Numerizer_Locale_De extends Horde_Support_Numerizer_Locale_Base
 {
-
     public $DIRECT_NUMS = array(
         'dreizehn' => 13,
         'vierzehn' => 14,
@@ -44,5 +43,34 @@ class Horde_Support_Numerizer_Locale_De extends Horde_Support_Numerizer_Locale_B
         'milliarde' => 1000000000,
         'billion' => 1000000000000,
     );
+
+    public function numerize($string)
+    {
+        // preprocess?
+
+        $string = $this->_directReplacements($string);
+        $string = $this->_replaceTenPrefixes($string);
+        $string = $this->_replaceBigPrefixes($string);
+        $string = $this->_fractionalAddition($string);
+
+        return $string;
+    }
+
+    /**
+     * ten, twenty, etc.
+     */
+    protected function _replaceTenPrefixes($string)
+    {
+        foreach ($this->TEN_PREFIXES as $tp => $tp_replacement) {
+            $string = preg_replace_callback(
+                "/(?:$tp)( *\d(?=[^\d]|\$))*/i",
+                create_function(
+                    '$m',
+                    'return ' . $tp_replacement . ' + (isset($m[1]) ? (int)$m[1] : 0);'
+                ),
+                $string);
+        }
+        return $string;
+    }
 
 }
