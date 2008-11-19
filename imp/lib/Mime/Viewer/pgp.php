@@ -131,7 +131,7 @@ class IMP_Horde_Mime_Viewer_pgp extends Horde_Mime_Viewer_Driver
                 'data' => '',
                 'status' => array(
                     array(
-                        'icon' => Horde::img('mime/encryption.png', _("PGP")),
+                        'icon' => Horde::img('mime/encryption.png', 'PGP'),
                         'text' => array()
                     )
                 ),
@@ -216,7 +216,7 @@ class IMP_Horde_Mime_Viewer_pgp extends Horde_Mime_Viewer_Driver
     {
         /* Initialize status message. */
         $status = array(
-            'icon' => Horde::img('mime/encryption.png', _("PGP")),
+            'icon' => Horde::img('mime/encryption.png', 'PGP'),
             'text' => array(
                 _("A PGP Public Key was attached to the message.")
             )
@@ -255,7 +255,7 @@ class IMP_Horde_Mime_Viewer_pgp extends Horde_Mime_Viewer_Driver
                 'data' => '',
                 'status' => array(
                     array(
-                        'icon' => Horde::img('mime/encryption.png', _("PGP")),
+                        'icon' => Horde::img('mime/encryption.png', 'PGP'),
                         'text' => array()
                     )
                 ),
