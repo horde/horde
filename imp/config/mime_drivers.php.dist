@@ -107,7 +107,7 @@ $mime_drivers['imp']['images'] = array(
     ),
     /* Display thumbnails for all images, not just large images? */
     'allthumbs' => true,
-    /* Display images inline that are less than this size. */
+    /* Display images inline that are less than this size (in bytes). */
     'inlinesize' => 262144
 );
 
@@ -252,7 +252,6 @@ $mime_drivers['imp']['related'] = array(
  * YOU SHOULD NOT NORMALLY ALTER THIS SETTING.
  */
 $mime_drivers['imp']['partial'] = array(
-    'inline' => true,
     'handles' => array(
         'message/partial'
     )
