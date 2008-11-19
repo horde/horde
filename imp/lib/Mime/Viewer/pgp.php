@@ -279,7 +279,14 @@ class IMP_Horde_Mime_Viewer_pgp extends Horde_Mime_Viewer_Driver
             Util::getFormData('pgp_verify_msg')) {
             $signed_data = Horde_Imap_Client::removeBareNewlines($this->_params['contents']->getBodyPart($signed_id, array('mimeheaders' => true)));
             $sig_part = $this->_params['contents']->getMIMEPart($sig_id);
-            $sig_result = $this->_imppgp->verifySignature($signed_data, $this->_address, $sig_part->getContents());
+
+            /* Check for the 'x-imp-pgp-signature' param. This is set by the
+             * plain driver when parsing PGP armor text. */
+            if ($sig_part->getContentTypeParameter('x-imp-pgp-signature')) {
+                $sig_result = $this->_imppgp->verifySignature($signed_data, $this->_address);
+            } else {
+                $sig_result = $this->_imppgp->verifySignature($signed_data, $this->_address, $sig_part->getContents());
+            }
 
             $graphicsdir = $GLOBALS['registry']->getImageDir('horde');
 

@@ -38,23 +38,6 @@ class IMP_Horde_Mime_Viewer_plain extends Horde_Mime_Viewer_plain
         // Convert to the local charset.
         $text = String::convertCharset($text, $this->_mimepart->getCharset());
 
-        // If requested, scan the message for PGP data.
-        if (!empty($conf['utils']['gnupg']) &&
-            $prefs->getValue('pgp_scan_body') &&
-            preg_match('/-----BEGIN PGP ([^-]+)-----/', $text)) {
-            // TODO: Convert this to embedded scanning.
-            $imp_pgp = &Horde_Crypt::singleton(array('imp', 'pgp'));
-
-            if (($out = $imp_pgp->parseMessageOutput($this->_mimepart, $this->_params['contents']))) {
-                return array(
-                    $this->_mimepart->getMimeId() => array(
-                        'data' => $out,
-                        'status' => array(),
-                        'type' => 'text/html; charset=' . NLS::getCharset()
-                    )
-                );
-            }
-        }
 
         // Check for 'flowed' text data.
         if ($this->_mimepart->getContentTypeParameter('format') == 'flowed') {
@@ -126,5 +109,113 @@ class IMP_Horde_Mime_Viewer_plain extends Horde_Mime_Viewer_plain
                 'type' => 'text/html; charset=' . NLS::getCharset()
             )
         );
+    }
+
+    /**
+     * Does this MIME part possibly contain embedded MIME parts?
+     *
+     * @return boolean  True if this driver supports parsing embedded MIME
+     *                  parts.
+     */
+    public function embeddedMimeParts()
+    {
+        return !empty($GLOBALS['conf']['utils']['gnupg']) && $GLOBALS['prefs']->getValue('pgp_scan_body');
+    }
+
+    /**
+     * If this MIME part can contain embedded MIME parts, and those embedded
+     * MIME parts exist, return a list of MIME parts that contain the embedded
+     * MIME part information.
+     *
+     * @return mixed  An array of Horde_Mime_Part objects, with the key as
+     *                the ID, or null if no embedded MIME parts exist.
+     */
+    public function getEmbeddedMimeParts()
+    {
+        /* Avoid infinite loop. */
+        $imp_pgp = &Horde_Crypt::singleton(array('imp', 'pgp'));
+        $parts = $imp_pgp->parsePGPData($this->_mimepart->getContents());
+        if (empty($parts) ||
+            ((count($parts) == 1) &&
+             ($parts[0]['type'] == Horde_Crypt_pgp::ARMOR_TEXT))) {
+            return null;
+        }
+
+        $new_part = is_a($this->_mimepart, 'Horde_Mime_Message')
+            ? new Horde_Mime_Message()
+            : new Horde_Mime_Part();
+        $new_part->setType('multipart/mixed');
+        $charset = $this->_mimepart->getCharset();
+        $mime_id = $this->_mimepart->getMimeId();
+
+        while (list(,$val) = each($parts)) {
+            switch ($val['type']) {
+            case Horde_Crypt_pgp::ARMOR_TEXT:
+                $part = new Horde_Mime_Part();
+                $part->setType('text/plain');
+                $part->setCharset($charset);
+                $part->setContents(implode("\n", $val['data']));
+                $new_part->addPart($part);
+                break;
+
+            case Horde_Crypt_pgp::ARMOR_PUBLIC_KEY:
+                $part = new Horde_Mime_Part();
+                $part->setType('application/pgp-keys');
+                $part->setContents(implode("\n", $val['data']));
+                $new_part->addPart($part);
+                break;
+
+            case Horde_Crypt_pgp::ARMOR_MESSAGE:
+                $part = new Horde_Mime_Part();
+                $part->setType('multipart/signed');
+                // TODO: add micalg parameter
+                $part->setContentTypeParameter('protocol', 'application/pgp-encrypted');
+
+                $part1 = new Horde_Mime_Part();
+                $part1->setType('application/pgp-encrypted');
+                $part1->setContents("Version: 1\n");
+
+                $part2 = new Horde_Mime_Part();
+                $part2->setType('application/octet-stream');
+                $part2->setContents($message_encrypt);
+                $part2->setDisposition('inline');
+
+                $part->addPart($part1);
+                $part->addPart($part2);
+
+                $new_part->addPart($part);
+                break;
+
+            case Horde_Crypt_pgp::ARMOR_SIGNED_MESSAGE:
+                if (($sig = current($parts)) &&
+                    ($sig['type'] == Horde_Crypt_pgp::ARMOR_SIGNATURE)) {
+                    $part = new Horde_Mime_Part();
+                    $part->setType('multipart/signed');
+                    // TODO: add micalg parameter
+                    $part->setContentTypeParameter('protocol', 'application/pgp-signature');
+
+                    $part1 = new Horde_Mime_Part();
+                    $part1->setType('text/plain');
+                    $part1->setCharset($charset);
+
+                    $part1_data = implode("\n", $val['data']);
+                    $part1->setContents(substr($part1_data, strpos($part1_data, "\n\n") + 2));
+
+                    $part2 = new Horde_Mime_Part();
+                    $part2->setType('application/x-imp-pgp-signature');
+                    $part2->setContents(String::convertCharset(implode("\n", $val['data']) . "\n" . implode("\n", $sig['data']), $charset));
+
+                    $part->addPart($part1);
+                    $part->addPart($part2);
+                    $new_part->addPart($part);
+
+                    next($parts);
+                }
+            }
+        }
+
+        $new_part->buildMimeIds(is_a($new_part, 'Horde_Mime_Message') ? null : $mime_id);
+
+        return array($mime_id => $new_part);
     }
 }
