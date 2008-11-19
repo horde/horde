@@ -60,11 +60,11 @@ class Horde_Crypt_pgp extends Horde_Crypt
      * @var array
      */
     protected $_armor = array(
-        'MESSAGE'            =>  self::ARMOR_MESSAGE,
-        'SIGNED MESSAGE'     =>  self::ARMOR_SIGNED_MESSAGE,
-        'PUBLIC KEY BLOCK'   =>  self::ARMOR_PUBLIC_KEY,
-        'PRIVATE KEY BLOCK'  =>  self::ARMOR_PRIVATE_KEY,
-        'SIGNATURE'          =>  self::ARMOR_SIGNATURE
+        'MESSAGE' => self::ARMOR_MESSAGE,
+        'SIGNED MESSAGE' => self::ARMOR_SIGNED_MESSAGE,
+        'PUBLIC KEY BLOCK' => self::ARMOR_PUBLIC_KEY,
+        'PRIVATE KEY BLOCK' => self::ARMOR_PRIVATE_KEY,
+        'SIGNATURE' => self::ARMOR_SIGNATURE
     );
 
     /* The default public PGP keyserver to use. */
@@ -84,16 +84,16 @@ class Horde_Crypt_pgp extends Horde_Crypt
      * @var array
      */
     protected $_hashAlg = array(
-        1  =>  'pgp-md5',
-        2  =>  'pgp-sha1',
-        3  =>  'pgp-ripemd160',
-        5  =>  'pgp-md2',
-        6  =>  'pgp-tiger192',
-        7  =>  'pgp-haval-5-160',
-        8  =>  'pgp-sha256',
-        9  =>  'pgp-sha384',
-        10 =>  'pgp-sha512',
-        11 =>  'pgp-sha224',
+        1 => 'pgp-md5',
+        2 => 'pgp-sha1',
+        3 => 'pgp-ripemd160',
+        5 => 'pgp-md2',
+        6 => 'pgp-tiger192',
+        7 => 'pgp-haval-5-160',
+        8 => 'pgp-sha256',
+        9 => 'pgp-sha384',
+        10 => 'pgp-sha512',
+        11 => 'pgp-sha224',
     );
 
     /**
@@ -671,44 +671,38 @@ class Horde_Crypt_pgp extends Horde_Crypt
      * @param string $text  The text to parse.
      *
      * @return array  An array with the parsed text, returned in blocks of
-     *                text corresponding to their actual order.
+     *                text corresponding to their actual order. Keys:
      * <pre>
-     * Return array:
-     * Key         Value
-     * -------------------------------------------------
-     * 'type'  =>  The type of data contained in block.
-     *             Valid types are defined at the top of this class
-     *             (the ARMOR_* constants).
-     * 'data'  =>  The actual data for each section.
+     * 'type' -  (integer) The type of data contained in block.
+     *           Valid types are defined at the top of this class
+     *           (the ARMOR_* constants).
+     * 'data' - (array) The data for each section.
      * </pre>
      */
     public function parsePGPData($text)
     {
         $data = array();
+        $temp_array = array(
+            'type' => self::ARMOR_TEXT
+        );
 
         $buffer = explode("\n", $text);
-
-        /* Set $temp_array to be of type ARMOR_TEXT. */
-        $temp_array = array();
-        $temp_array['type'] = self::ARMOR_TEXT;
-
-        foreach ($buffer as $value) {
-            if (preg_match('/^-----(BEGIN|END) PGP ([^-]+)-----\s*$/', $value, $matches)) {
+        while (list(,$val) = each($buffer)) {
+            if (preg_match('/^-----(BEGIN|END) PGP ([^-]+)-----\s*$/', $val, $matches)) {
                 if (isset($temp_array['data'])) {
                     $data[] = $temp_array;
                 }
-                unset($temp_array);
                 $temp_array = array();
 
-                if ($matches[1] === 'BEGIN') {
+                if ($matches[1] == 'BEGIN') {
                     $temp_array['type'] = $this->_armor[$matches[2]];
-                    $temp_array['data'][] = $value;
-                } elseif ($matches[1] === 'END') {
+                    $temp_array['data'][] = $val;
+                } elseif ($matches[1] == 'END') {
                     $temp_array['type'] = self::ARMOR_TEXT;
-                    $data[count($data) - 1]['data'][] = $value;
+                    $data[count($data) - 1]['data'][] = $val;
                 }
             } else {
-                $temp_array['data'][] = $value;
+                $temp_array['data'][] = $val;
             }
         }
 
