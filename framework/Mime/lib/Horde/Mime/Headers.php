@@ -474,12 +474,12 @@ class Horde_Mime_Headers
         $line = '';
         $eollength = strlen($eol);
         $length = 1000 - $eollength;
-        $paramcount = count($params);
+        $paramcount = count($params) - 1;
 
         reset($params);
         while (list($count, $val) = each($params)) {
             /* If longer than RFC allows, then simply chop off the excess. */
-            $moreparams = (($count + 1) != $paramcount);
+            $moreparams = ($count != $paramcount);
             $maxlength = $length - (!empty($line) ? 1 : 0) - (($moreparams) ? 1 : 0);
             if (strlen($val) > $maxlength) {
                 $val = substr($val, 0, $maxlength);
