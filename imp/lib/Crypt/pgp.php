@@ -454,7 +454,7 @@ class IMP_Horde_Crypt_pgp extends Horde_Crypt_pgp
      *
      * @return string  The URL for saving public keys.
      */
-    public function savePublicKeyURL($mailbox, $uid, $id);
+    public function savePublicKeyURL($mailbox, $uid, $id)
     {
         return $this->getJSOpenWinCode('save_attachment_public_key', false, array('mailbox' => $mailbox, 'uid' => $uid, 'mime_id' => $id));
     }
