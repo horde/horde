@@ -23,7 +23,14 @@ class IMP_Folder
      *
      * @var array
      */
-    protected $_listCache = array();
+    protected $_listCache = null;
+
+    /**
+     * The cache ID used to store mailbox info.
+     *
+     * @var string
+     */
+    protected $_cacheid = null;
 
     /**
      * Returns a reference to the global IMP_Folder object, only creating it
@@ -48,6 +55,16 @@ class IMP_Folder
     }
 
     /**
+     * Constructor.
+     */
+    function __construct()
+    {
+        if (!empty($GLOBALS['conf']['server']['cache_folders'])) {
+            $this->_cacheid = 'imp_folder_cache|' . Auth::getAuth();
+        }
+    }
+
+    /**
      * Lists folders.
      *
      * @param boolean $sub   Should we list only subscribed folders?
@@ -64,8 +81,6 @@ class IMP_Folder
      */
     public function flist($sub = false, $filter = array())
     {
-        global $conf, $notification;
-
         $inbox_entry = array(
             'INBOX' => array(
                 'val' => 'INBOX',
@@ -78,40 +93,40 @@ class IMP_Folder
             return $inbox_entry;
         }
 
-        $list = array();
-        $subidx = intval($sub);
-
         /* Compute values that will uniquely identify this list. */
-        $full_signature = md5(serialize(array($subidx, $filter)));
+        $sig = md5(serialize(array(intval($sub), $filter)));
 
         /* Either get the list from the cache, or go to the IMAP server to
            obtain it. */
-        if ($conf['server']['cache_folders']) {
-            $sessionOb = &Horde_SessionObjects::singleton();
-            if (!isset($_SESSION['imp']['cache']['folder_cache'])) {
-                $_SESSION['imp']['cache']['folder_cache'] = array();
-            }
-            $folder_cache = &$_SESSION['imp']['cache']['folder_cache'];
-            if (isset($folder_cache[$full_signature])) {
-                $data = $sessionOb->query($folder_cache[$full_signature]);
-                if ($data) {
-                    return $data;
+        $cache = null;
+        if (is_null($this->_listCache)) {
+            if (!is_null($this->_cacheid) && ($cache = &IMP::getCacheOb())) {
+                $ret = $cache->get($this->_cacheid, 3600);
+                if (!empty($ret)) {
+                    $this->_listCache = unserialize($ret);
                 }
             }
+
+            if (empty($this->_listCache)) {
+                $this->_listCache = array();
+            }
+        }
+
+        if (isset($this->_listCache[$sig])) {
+            return $this->_listCache[$sig];
         }
 
         require_once IMP_BASE . '/lib/IMAP/Tree.php';
         $imaptree = &IMP_Tree::singleton();
 
-        if (!isset($this->_listCache[$subidx])) {
-            $list_mask = IMPTREE_FLIST_CONTAINER | IMPTREE_FLIST_OB;
-            if (!$sub) {
-                $list_mask |= IMPTREE_FLIST_UNSUB;
-            }
-            $this->_listCache[$subidx] = $imaptree->folderList($list_mask);
+        $list_mask = IMPTREE_FLIST_CONTAINER | IMPTREE_FLIST_OB;
+        if (!$sub) {
+            $list_mask |= IMPTREE_FLIST_UNSUB;
         }
+        $flist = $imaptree->folderList($list_mask);
 
-        foreach ($this->_listCache[$subidx] as $ob) {
+        reset($flist);
+        while (list(,$ob) = each($flist)) {
             if (in_array($ob['v'], $filter)) {
                 continue;
             }
@@ -128,9 +143,11 @@ class IMP_Folder
             $list = $inbox_entry + $list;
         }
 
+        $this->_listCache[$sig] = $list;
+
         /* Save in cache, if needed. */
-        if ($conf['server']['cache_folders']) {
-            $folder_cache[$full_signature] = $sessionOb->storeOid($list, false);
+        if (!is_null($cache)) {
+            $cache->set($this->_cacheid, serialize($this->_listCache), 3600);
         }
 
         return $list;
@@ -157,12 +174,8 @@ class IMP_Folder
      */
     public function clearFlistCache()
     {
-        if (!empty($_SESSION['imp']['cache']['folder_cache'])) {
-            $sessionOb = &Horde_SessionObjects::singleton();
-            foreach ($_SESSION['imp']['cache']['folder_cache'] as $val) {
-                $sessionOb->setPruneFlag($val, true);
-            }
-            $_SESSION['imp']['cache']['folder_cache'] = array();
+        if (!is_null($this->_cacheid) && ($cache = &IMP::getCacheOb())) {
+            $cache->expire($this->_cacheid);
         }
         $this->_listCache = array();
     }
@@ -218,7 +231,7 @@ class IMP_Folder
     protected function _onDelete($deleted)
     {
         /* Reset the folder cache. */
-        unset($_SESSION['imp']['cache']['folder_cache']);
+        $this->clearFlistCache();
 
         /* Recreate Virtual Folders. */
         $GLOBALS['imp_search']->sessionSetup(true);
@@ -278,9 +291,7 @@ class IMP_Folder
         }
 
         /* Reset the folder cache. */
-        if ($conf['server']['cache_folders']) {
-            unset($_SESSION['imp']['cache']['folder_cache']);
-        }
+        $this->clearFlistCache();
 
         /* Update the IMAP_Tree object. */
         require_once IMP_BASE . '/lib/IMAP/Tree.php';
@@ -412,7 +423,7 @@ class IMP_Folder
             $imaptree->subscribe($subscribed);
 
             /* Reset the folder cache. */
-            unset($_SESSION['imp']['cache']['folder_cache']);
+            $this->clearFlistCache();
         }
 
         return $return_value;
@@ -459,7 +470,7 @@ class IMP_Folder
             $imaptree->unsubscribe($unsubscribed);
 
             /* Reset the folder cache. */
-            unset($_SESSION['imp']['cache']['folder_cache']);
+            $this->clearFlistCache();
         }
 
         return $return_value;
