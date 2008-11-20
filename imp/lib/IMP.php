@@ -857,16 +857,15 @@ class IMP
      */
     static public function parseIndicesList($indices)
     {
-        $msgList = array();
-
         if (!is_array($indices) || empty($indices)) {
             return array();
         }
 
+        $msgList = array();
+
         reset($indices);
         if (!is_array(current($indices))) {
-            /* Build the list of indices/mailboxes to delete if input
-               is of format #1. */
+            /* Build the list of indices/mailboxes if input is format #1. */
             foreach ($indices as $msgIndex) {
                 if (strpos($msgIndex, IMP::IDX_SEP) === false) {
                     return false;
