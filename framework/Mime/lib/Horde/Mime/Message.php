@@ -49,13 +49,8 @@ class Horde_Mime_Message extends Horde_Mime_Part
      *
      * @return mixed  True on success, PEAR_Error on error.
      */
-    public function send($email, $headers, $driver = null, $params = array())
+    public function send($email, $headers, $driver, $params = array())
     {
-        if (!isset($driver)) {
-            $driver = $GLOBALS['conf']['mailer']['type'];
-            $params = $GLOBALS['conf']['mailer']['params'];
-        }
-
         require_once 'Mail.php';
         $mailer = Mail::factory($driver, $params);
 
@@ -63,7 +58,7 @@ class Horde_Mime_Message extends Horde_Mime_Part
         if (!$headers->getValue('MIME-Version')) {
             $headers = $this->addMimeHeaders($headers);
         }
-        $headerArray = $headers->toArray($this->getCharset());
+        $headerArray = $headers->toArray(array('charset' => $this->getCharset()));
 
         /* Does the SMTP backend support 8BITMIME (RFC 1652) or
          * BINARYMIME (RFC 3030) extensions? Requires PEAR's Mail package
