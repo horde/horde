@@ -172,7 +172,31 @@ class Horde_Xml_Element implements ArrayAccess
                     $this->{$element}[$attribute] = $value;
                 } else {
                     if (is_array($value)) {
-                        $this->$element->fromArray($value);
+                        // Detect numeric arrays and treat them as multiple
+                        // instances of the same key.
+                        $firstKey = key($value);
+                        if ($firstKey === 0) {
+                            if (strpos($element, ':') !== false) {
+                                list($ns, $elt) = explode(':', $var, 2);
+                                $baseNode = $this->_element->ownerDocument->createElementNS(Horde_Xml_Element::lookupNamespace($ns), $elt);
+                            } else {
+                                $baseNode = $this->_element->ownerDocument->createElement($element);
+                            }
+
+                            foreach ($value as $v) {
+                                $node = $baseNode->cloneNode();
+                                if (is_array($v)) {
+                                    $e = new Horde_Xml_Element($node);
+                                    $e->fromArray($v);
+                                } else {
+                                    $node->nodeValue = $v;
+                                    $e = new Horde_Xml_Element($node);
+                                }
+                                $this->appendChild($e);
+                            }
+                        } else {
+                            $this->$element->fromArray($value);
+                        }
                     } else {
                         $this->$element = $value;
                     }
