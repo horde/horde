@@ -27,15 +27,8 @@ if ($mode == 'thread') {
     }
 } else {
     /* MSGVIEW MODE: Make sure we have a valid list of messages. */
-    $cacheID = Util::getFormData('msglist');
-    if (!$cacheID) {
-        $error = true;
-    }
-    $cacheSess = &Horde_SessionObjects::singleton();
-    $msglist = $cacheSess->query($cacheID);
-    if ($msglist) {
-        $cacheSess->setPruneFlag($cacheID, true);
-    } else {
+    $msglist = IMP::parseRangeString(Util::getFormData('msglist', array()));
+    if (empty($msglist)) {
         $error = true;
     }
 }
@@ -98,7 +91,9 @@ foreach ($loop_array as $mbox => $idxlist) {
         $contents = &IMP_Contents::singleton($idx . IMP::IDX_SEP . $mbox);
         $mime_id = $contents->findBody();
         if ($contents->canDisplay($mime_id, IMP_Contents::RENDER_INLINE)) {
-            $curr_msg['body'] = $contents->renderMIMEPart($mime_id, IMP_Contents::RENDER_INLINE);
+            $ret = $contents->renderMIMEPart($mime_id, IMP_Contents::RENDER_INLINE);
+            $ret = reset($ret);
+            $curr_msg['body'] = $ret['data'];
         } else {
             $curr_msg['body'] = '<em>' . _("There is no text that can be displayed inline.") . '</em>';
         }

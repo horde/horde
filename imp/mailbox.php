@@ -188,8 +188,7 @@ case 'empty_mailbox':
     break;
 
 case 'view_messages':
-    $cacheSess = &Horde_SessionObjects::singleton();
-    $redirect = Util::addParameter(IMP::generateIMPUrl('thread.php', $imp_mbox['mailbox'], null, null, false), array('mode' => 'msgview', 'msglist' => $cacheSess->storeOid($indices)), null, false);
+    $redirect = Util::addParameter(IMP::generateIMPUrl('thread.php', $imp_mbox['mailbox'], null, null, false), array('mode' => 'msgview', 'msglist' => IMP::toRangeString(IMP::parseIndicesList($indices))), null, false);
     header('Location: ' . $redirect);
     exit;
 
