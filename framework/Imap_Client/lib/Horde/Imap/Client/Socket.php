@@ -767,6 +767,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         /* If QRESYNC is available, synchronize the mailbox. */
         if ($qresync) {
+            $this->_initCacheOb();
             $metadata = $this->_cacheOb->getMetaData($mailbox, array('HICmodseq', 'uidvalid'));
             if (isset($metadata['HICmodseq'])) {
                 $uids = $this->_cacheOb->get($mailbox);
