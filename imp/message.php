@@ -44,8 +44,6 @@ if (!$imp_mailbox->isValidIndex()) {
     exit;
 }
 
-$printer_friendly = false;
-
 /* Set the current time zone. */
 NLS::setTimeZone();
 
@@ -88,8 +86,7 @@ case 'whitelist':
     break;
 
 case 'print_message':
-    $printer_friendly = true;
-    IMP::printMode(true);
+    IMP::$printMode = true;
     break;
 
 case 'delete_message':
@@ -265,11 +262,11 @@ if (!empty($format_date)) {
 }
 
 /* Build From address links. */
-$display_headers['from'] = $imp_ui->buildAddressLinks($envelope['from'], $self_link, !$printer_friendly);
+$display_headers['from'] = $imp_ui->buildAddressLinks($envelope['from'], $self_link, !IMP::$printMode);
 
 /* Add country/flag image. Try X-Originating-IP first, then fall back to the
  * sender's domain name. */
-if (!$printer_friendly) {
+if (!IMP::$printMode) {
     $from_img = '';
     $origin_host = str_replace(array('[', ']'), '', $mime_headers->getValue('X-Originating-IP'));
     if ($origin_host) {
@@ -295,7 +292,7 @@ if (!$printer_friendly) {
 /* Build To/Cc/Bcc links. */
 foreach (array('to', 'cc', 'bcc') as $val) {
     $msgAddresses[] = $mime_headers->getValue($val);
-    $addr_val = $imp_ui->buildAddressLinks($envelope[$val], $self_link, !$printer_friendly);
+    $addr_val = $imp_ui->buildAddressLinks($envelope[$val], $self_link, !IMP::$printMode);
     if (!empty($addr_val)) {
         $display_headers[$val] = $addr_val;
     }
@@ -329,7 +326,7 @@ case 'low':
 }
 
 /* Build Reply-To address links. */
-$reply_to = $imp_ui->buildAddressLinks($envelope['reply-to'], $self_link, !$printer_friendly);
+$reply_to = $imp_ui->buildAddressLinks($envelope['reply-to'], $self_link, !IMP::$printMode);
 if (!empty($reply_to) &&
     (!($from = $display_headers['from']) || ($from != $reply_to))) {
     $display_headers['reply-to'] = $reply_to;
@@ -408,7 +405,7 @@ if (!Horde_Mime_Address::addrArray2String(array_merge($envelope['to'], $envelope
 }
 
 /* Retrieve any history information for this message. */
-if (!$printer_friendly && !empty($conf['maillog']['use_maillog'])) {
+if (!IMP::$printMode && !empty($conf['maillog']['use_maillog'])) {
     /* Do MDN processing now. */
     if ($imp_ui->MDNCheck($mime_headers, Util::getFormData('mdn_confirm'))) {
         $confirm_link = Horde::link(Util::addParameter($selfURL, 'mdn_confirm', 1)) . _("HERE") . '</a>';
@@ -417,7 +414,7 @@ if (!$printer_friendly && !empty($conf['maillog']['use_maillog'])) {
 }
 
 /* Everything below here is related to preparing the output. */
-if (!$printer_friendly) {
+if (!IMP::$printMode) {
     /* Set the status information of the message. */
     $identity = $status = null;
     if (!$use_pop) {
@@ -617,7 +614,8 @@ foreach ($all_list_headers as $head => $val) {
 }
 
 /* Determine the fields that will appear in the MIME info entries. */
-$part_info = array('icon', 'description', 'type', 'size', 'download', 'download_zip', 'img_save', 'strip');
+$part_info = $part_info_display = array('icon', 'description', 'type', 'size');
+$part_info_action = array('download', 'download_zip', 'img_save', 'strip');
 
 $parts_list = $imp_contents->getContentTypeMap();
 $strip_atc = $prefs->getValue('strip_attachments');
@@ -632,9 +630,10 @@ if ($show_parts == 'all') {
 $contents_mask = IMP_Contents::SUMMARY_BYTES |
     IMP_Contents::SUMMARY_SIZE |
     IMP_Contents::SUMMARY_ICON;
-if ($printer_friendly) {
+if (IMP::$printMode) {
     $contents_mask |= IMP_Contents::SUMMARY_DESCRIP_NOLINK;
 } else {
+    $part_info_display = array_merge($part_info_display, $part_info_action);
     $contents_mask |= IMP_Contents::SUMMARY_DESCRIP_LINK |
         IMP_Contents::SUMMARY_DOWNLOAD |
         IMP_Contents::SUMMARY_DOWNLOAD_ZIP |
@@ -679,7 +678,7 @@ foreach ($parts_list as $mime_id => $mime_type) {
         $tmp_summary = $tmp_status = array();
 
         $summary = $imp_contents->getSummary($id, $contents_mask);
-        foreach ($part_info as $val) {
+        foreach ($part_info_display as $val) {
             $tmp_summary[] = $summary[$val];
         }
 
@@ -698,7 +697,7 @@ if (!strlen($msgtext)) {
 }
 
 /* Build the Attachments menu. */
-if (!$printer_friendly) {
+if (!IMP::$printMode) {
     $a_template->set('atc', Horde::widget('#', _("Attachments"), 'widget hasmenu', '', '', _("Attachments"), true));
     if ($show_parts != 'all') {
         $a_template->set('show_parts_all', Horde::widget(Util::addParameter($headersURL, array('show_parts' => 'all')), _("Show All Message Parts"), 'widget', '', '', _("Show All Message Parts"), true));
@@ -728,13 +727,20 @@ if (!empty($atc_parts) && ($show_parts != 'none')) {
         foreach ($part_info as $val) {
             $tmp[] = '<td>' . $summary[$val] . '</td>';
         }
+        if (!IMP::$printMode) {
+            $tmp[] = '<td>';
+            foreach ($part_info_action as $val) {
+                $tmp[] = $summary[$val];
+            }
+            $tmp[] = '</td>';
+        }
         $tmp[] = '</tr>';
     }
 
     $hdrs[] = array('name' => ($show_parts == 'all') ? _("Parts") : _("Attachments"), 'val' => '<table>' . implode('', $tmp) . '</table>', 'i' => (++$i % 2));
 }
 
-if ($printer_friendly && !empty($conf['print']['add_printedby'])) {
+if (IMP::$printMode && !empty($conf['print']['add_printedby'])) {
     $hdrs[] = array('name' => _("Printed By"), 'val' => $user_identity->getFullname() ? $user_identity->getFullname() : Auth::getAuth(), 'i' => (++$i % 2));
 }
 
@@ -746,16 +752,14 @@ Horde::addScriptFile('prototype.js', 'horde', true);
 Horde::addScriptFile('popup.js', 'imp', true);
 Horde::addScriptFile('message.js', 'imp', true);
 require IMP_TEMPLATES . '/common-header.inc';
-if (!$printer_friendly) {
+if (!IMP::$printMode) {
     if (!empty($conf['maillog']['use_maillog'])) {
         IMP_Maillog::displayLog($envelope['message-id']);
     }
     IMP::menu();
     IMP::status();
     IMP::quota();
-}
 
-if (!$printer_friendly) {
     echo $t_template->fetch(IMP_TEMPLATES . '/message/navbar_top.html');
     echo $n_template->fetch(IMP_TEMPLATES . '/message/navbar_navigate.html');
     echo $a_template->fetch(IMP_TEMPLATES . '/message/navbar_actions.html');
@@ -763,7 +767,7 @@ if (!$printer_friendly) {
 
 echo $m_template->fetch(IMP_TEMPLATES . '/message/message.html');
 
-if (!$printer_friendly) {
+if (!IMP::$printMode) {
     echo '<input type="hidden" name="flag" id="flag" value="" />';
     $a_template->set('isbottom', true);
     echo $a_template->fetch(IMP_TEMPLATES . '/message/navbar_actions.html');
@@ -777,7 +781,7 @@ if (!$printer_friendly) {
     echo $n_template->fetch(IMP_TEMPLATES . '/message/navbar_navigate.html');
 }
 
-if ($browser->hasFeature('javascript') && $printer_friendly) {
+if ($browser->hasFeature('javascript') && IMP::$printMode) {
     require $registry->get('templates', 'horde') . '/javascript/print.js';
 }
 

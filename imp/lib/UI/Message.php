@@ -373,11 +373,10 @@ class IMP_UI_Message
      */
     public function formatStatusMsg($data)
     {
-        if (empty($data)) {
+        if (empty($data) || IMP::$printMode) {
             return '';
         }
 
-        // TODO - $data['type']
         $class = 'mimeStatusMessage';
 
         $out = array('<table ' . (isset($data['id']) ? ('id="' . $data['id'] . '" ') : '') . 'class="' . $class . '">');

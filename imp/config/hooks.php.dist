@@ -51,7 +51,7 @@
 //         require_once IMP_BASE . '/lib/MIME/Contents.php';
 //         require_once IMP_BASE . '/lib/UI/Message.php';
 //
-//         IMP::printMode(true);
+//         IMP::$printMode = true;
 //         $contents = new IMP_Contents($message);
 //         $contents->showSummaryLinks(false);
 //         $contents->buildMessage();

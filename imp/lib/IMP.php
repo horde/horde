@@ -49,6 +49,21 @@ class IMP
     // String used to separate indexes.
     const IDX_SEP = "\1";
 
+    /* Are we currently in "print" mode? */
+    static public $printMode = false;
+
+    /* displayFolder() cache. */
+    static protected $_displaycache = array();
+
+    /* hideDeletedMsgs() cache. */
+    static protected $_delhide = null;
+
+    /* getAuthKey() cache. */
+    static protected $_authkey = null;
+
+    /* _filesystemGC() cache. */
+    static protected $_dirlist = array();
+
     /**
      * Makes sure the user has been authenticated to view the page.
      *
@@ -458,7 +473,7 @@ class IMP
      */
     static public function displayFolder($folder)
     {
-        static $cache = array();
+        $cache = self::$_displaycache;
 
         if (isset($cache[$folder])) {
             return $cache[$folder];
@@ -822,22 +837,6 @@ class IMP
     }
 
     /**
-     * Are we currently in "print" mode?
-     *
-     * @param boolean $mode  True if in print mode, false if not.
-     *
-     * @return boolean  Returns true if in "print" mode.
-     */
-    static public function printMode($mode = null)
-    {
-        static $print = false;
-        if (($mode !== null)) {
-            $print = $mode;
-        }
-        return $print;
-    }
-
-    /**
      * Get message indices list.
      *
      * @param mixed $indices  The following inputs are allowed:
@@ -1022,9 +1021,9 @@ class IMP
      */
     static public function hideDeletedMsgs($force = false)
     {
-        static $delhide;
+        $delhide = &self::$_delhide;
 
-        if (!isset($delhide) || $force) {
+        if (is_null($delhide) || $force) {
             if ($GLOBALS['prefs']->getValue('use_vtrash')) {
                 $delhide = !$GLOBALS['imp_search']->isVTrashFolder();
             } else {
@@ -1688,7 +1687,7 @@ class IMP
      */
     static protected function _filesystemGC($type)
     {
-        static $dir_list = array();
+        $dir_list = &self::$_dirlist;
 
         $ptr = $GLOBALS['conf']['server'][(($type == 'css') ? 'cachecssparams' : 'cachejsparams')];
         $dir = $ptr['file_location'];
@@ -1722,7 +1721,7 @@ class IMP
      */
     static public function getAuthKey()
     {
-        static $key = null;
+        $key = &IMP::$_authkey;
 
         if (is_null($key)) {
             $key = Secret::getKey(Auth::getProvider() == 'imp' ? 'auth' : 'imp');
