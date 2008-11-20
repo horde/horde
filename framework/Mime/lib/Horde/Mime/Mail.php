@@ -496,8 +496,9 @@ class Horde_Mime_Mail
 
         case 79: // EX_NOTFOUND
             return 'sendmail: ' . _("entry not found") . ' (79)';
-        }
 
-        return null;
+        default:
+            return null;
+        }
     }
 }
