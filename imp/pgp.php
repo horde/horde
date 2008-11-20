@@ -263,13 +263,15 @@ case 'save_options':
     break;
 
 case 'save_attachment_public_key':
-    /* Retrieve the key from the cache. */
-    $cache = &Horde_SessionObjects::singleton();
-    $mime_part = $cache->query(Util::getFormData('mimecache'));
-    if (empty($mime_part)) {
-        Horde::fatal(_("Cannot retrieve public key from cache."), __FILE__, __LINE__);
+    /* Retrieve the key from the message. */
+    $contents = &IMP_Contents::singleton(Util::getFormData('uid') . IMP::IDX_SEP . Util::getFormData('mailbox'));
+    if (is_a($contents, 'PEAR_Error')) {
+        Horde::fatal($contents, __FILE__, __LINE__);
     }
-    $mime_part->transferDecodeContents();
+    $mime_part = $contents->getMIMEPart(Util::getFormData('mime_id'));
+    if (empty($mime_part)) {
+        Horde::fatal('Cannot retrieve public key from message.', __FILE__, __LINE__);
+    }
 
     /* Add the public key to the storage system. */
     $key_info = $imp_pgp->addPublicKey($mime_part->getContents());

@@ -448,20 +448,15 @@ class IMP_Horde_Crypt_pgp extends Horde_Crypt_pgp
     /**
      * Generates the javascript code for saving public keys.
      *
-     * @param Horde_Mime_Part &$mime_part  The part containing the public key.
-     * @param string $cache                The part identifier.
+     * @param string $mailbox  The mailbox of the message.
+     * @param integer $uid     The UID of the message.
+     * @param string $id       The MIME ID of the message.
      *
      * @return string  The URL for saving public keys.
      */
-    public function savePublicKeyURL(&$mime_part, $cache = null)
+    public function savePublicKeyURL($mailbox, $uid, $id);
     {
-        if (empty($cache)) {
-            require_once 'Horde/SessionObjects.php';
-            $cacheSess = &Horde_SessionObjects::singleton();
-            $oid = $cacheSess->storeOid($mime_part);
-        }
-
-        return $this->getJSOpenWinCode('save_attachment_public_key', false, array('mimecache' => $oid));
+        return $this->getJSOpenWinCode('save_attachment_public_key', false, array('mailbox' => $mailbox, 'uid' => $uid, 'mime_id' => $id));
     }
 
     /**
