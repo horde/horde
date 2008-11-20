@@ -258,8 +258,6 @@ class IMP_Spam
                                          $action, $_SESSION['imp']['user']));
 
         /* Send the message. */
-        $this->_imp_compose->sendMessage($GLOBALS['conf'][$action]['email'],
-                                         $spam_headers, $mime,
-                                         NLS::getCharset());
+        $this->_imp_compose->sendMessage($GLOBALS['conf'][$action]['email'], $spam_headers, $mime, NLS::getCharset());
     }
 }
