@@ -265,9 +265,9 @@ class IMP_Contents
      */
     public function &getMIMEPart($id, $options = array())
     {
-        $part = $this->_message->getPart($id);
+        $this->_buildMessage();
 
-        // TODO: Do _buildMessage() here?
+        $part = $this->_message->getPart($id);
 
         if (!is_null($part) &&
             empty($options['nocontents']) &&
