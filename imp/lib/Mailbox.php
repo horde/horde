@@ -452,8 +452,8 @@ class IMP_Mailbox
                     $page = ceil($start / $page_size);
                 } else {
                     /* Search for the last visited page first. */
-                    if (isset($_SESSION['cache']['mbox_page'][$this->_mailbox])) {
-                        $page = $_SESSION['cache']['mbox_page'][$this->_mailbox];
+                    if (isset($_SESSION['imp']['cache']['mbox_page'][$this->_mailbox])) {
+                        $page = $_SESSION['imp']['cache']['mbox_page'][$this->_mailbox];
                     } else {
                         $startpage = $GLOBALS['prefs']->getValue('mailbox_start');
                         switch ($startpage) {
@@ -528,7 +528,7 @@ class IMP_Mailbox
         }
 
         /* Store the page value now. */
-        $_SESSION['cache']['mbox_page'][$this->_mailbox] = $ret['page'];
+        $_SESSION['imp']['cache']['mbox_page'][$this->_mailbox] = $ret['page'];
 
         return $ret;
     }
