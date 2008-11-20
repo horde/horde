@@ -162,22 +162,14 @@ class IMP_Horde_Crypt_pgp extends Horde_Crypt_pgp
      */
     public function getPublicKey($address, $fingerprint = null, $server = true)
     {
-        $result = false;
-
         /* If there is a cache driver configured, try to get the public key
          * from the cache. */
-        if (!empty($GLOBALS['conf']['cache']['driver'])) {
-            $cache = &Horde_Cache::singleton($GLOBALS['conf']['cache']['driver'], Horde::getDriverConfig('cache', $GLOBALS['conf']['cache']['driver']));
-            if (is_a($cache, 'PEAR_Error')) {
-                Horde::fatal($cache, __FILE__, __LINE__);
-            } else {
-                $result = $cache->get("PGPpublicKey_" . $address . $fingerprint, 3600);
+        if (($cache = &IMP::getCacheOb())) {
+            $result = $cache->get("PGPpublicKey_" . $address . $fingerprint, 3600);
+            if ($result) {
+                Horde::logMessage('PGPpublicKey: ' . serialize($result), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                return $result;
             }
-        }
-
-        if ($result) {
-            Horde::logMessage('PGPpublicKey: ' . serialize($result), __FILE__, __LINE__, PEAR_LOG_DEBUG);
-            return $result;
         }
 
         /* Try retrieving by e-mail only first. */

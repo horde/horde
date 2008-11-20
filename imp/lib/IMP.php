@@ -1467,8 +1467,8 @@ class IMP
 
         if (empty($cache_type) ||
             $cache_type == 'none' ||
-            ($cache_type == 'horde_cache' &&
-             $conf['cache']['driver'] == 'none')) {
+            (($cache_type == 'horde_cache') &&
+             !($cache = &self::getCacheOb()))) {
             Horde::includeScriptFiles();
             return;
         }
@@ -1511,7 +1511,6 @@ class IMP
             break;
 
         case 'horde_cache':
-            $cache = &Horde_Cache::singleton($conf['cache']['driver'], Horde::getDriverConfig('cache', $conf['cache']['driver']));
             $exists = $cache->exists($sig, empty($conf['server']['cachejsparams']['lifetime']) ? 0 : $conf['server']['cachejsparams']['lifetime']);
             $js_url = IMP::getCacheURL('js', $sig);
             break;
@@ -1622,8 +1621,8 @@ class IMP
 
         if (empty($cache_type) ||
             $cache_type == 'none' ||
-            ($cache_type == 'horde_cache' &&
-             $conf['cache']['driver'] == 'none')) {
+            (($cache_type == 'horde_cache') &&
+             !($cache = &self::getCacheOb()))) {
             $css_out = array_merge($css, $css_out);
         } else {
             $mtime = array(0);
@@ -1645,7 +1644,6 @@ class IMP
                 break;
 
             case 'horde_cache':
-                $cache = &Horde_Cache::singleton($GLOBALS['conf']['cache']['driver'], Horde::getDriverConfig('cache', $GLOBALS['conf']['cache']['driver']));
                 $exists = $cache->exists($sig, empty($GLOBALS['conf']['server']['cachecssparams']['lifetime']) ? 0 : $GLOBALS['conf']['server']['cachecssparams']['lifetime']);
                 $css_url = IMP::getCacheURL('css', $sig);
                 break;
@@ -1817,5 +1815,27 @@ class IMP
         }
 
         return $msglist;
+    }
+
+    /**
+     * Returns a Horde_Cache object (if configured) and handles any errors
+     * associated with creating the object.
+     *
+     * @return Horde_Cache  A pointer to a Horde_Cache object.
+     */
+    static public function &getCacheOb()
+    {
+        global $conf;
+
+        if ($conf['cache']['driver'] == 'none') {
+            return false;
+        }
+
+        $cache = &Horde_Cache::singleton($conf['cache']['driver'], Horde::getDriverConfig('cache', $conf['cache']['driver']));
+        if (is_a($cache, 'PEAR_Error')) {
+            Horde::fatal($cache, __FILE__, __LINE__);
+        }
+
+        return $cache;
     }
 }

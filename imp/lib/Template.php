@@ -109,7 +109,8 @@ class IMP_Template {
             $this->_basepath = $basepath;
         }
 
-        $this->_cache = &Horde_Cache::singleton($GLOBALS['conf']['cache']['driver'], Horde::getDriverConfig('cache', $GLOBALS['conf']['cache']['driver']));
+
+        $this->_cache = &IMP::getCacheOb();
     }
 
     /**
@@ -211,7 +212,7 @@ class IMP_Template {
         /* First, check for a cached compiled version. */
         $cacheid = 'horde_template|' . filemtime($file) . '|' . $file . '|'
             . $this->getOption('gettext');
-        if (!$force && is_null($this->_template) && isset($this->_cache)) {
+        if (!$force && is_null($this->_template) && $this->_cache) {
             $this->_template = $this->_cache->get($cacheid, 0);
             if ($this->_template === false) {
                 $this->_template = null;
