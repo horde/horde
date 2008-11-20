@@ -549,7 +549,7 @@ class IMP_Contents
         }
 
         /* Strip the Attachment? */
-        if ($mask && self::SUMMARY_STRIP_LINK &&
+        if (($mask & self::SUMMARY_STRIP_LINK) &&
             !$this->isParent($id, 'message/rfc822')) {
             $url = Util::removeParameter(Horde::selfUrl(true), array('actionID', 'imapid', 'index'));
             $url = Util::addParameter($url, array('actionID' => 'strip_attachment', 'imapid' => $id, 'index' => $this->_index, 'message_token' => IMP::getRequestToken('imp.impcontents')));
