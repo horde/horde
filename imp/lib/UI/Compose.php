@@ -116,12 +116,7 @@ class IMP_UI_Compose {
                 $fwd_msg['headers']['subject'] = $subject_header;
             }
         } elseif ($type == 'forward_attachments') {
-            $err = $imp_compose->attachFilesFromMessage($imp_contents, array('downloadall' => true));
-            if (!empty($err)) {
-                foreach ($err as $val) {
-                    $GLOBALS['notification']->push($val, 'horde.warning');
-                }
-            }
+            $imp_compose->attachFilesFromMessage($imp_contents, array('downloadall' => true, 'notify' => true));
         }
 
         return $fwd_msg;

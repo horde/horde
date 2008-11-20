@@ -297,12 +297,7 @@ class IMP_Compose
             $skip = (intval($text_id) == 1)
                 ? array('skip' => array(1))
                 : array();
-            $result = $this->attachFilesFromMessage($contents, (intval($text_id) === 1) ? array('skip' => array($alt_key)) : array());
-            if (!empty($result)) {
-                foreach ($result as $val) {
-                    $GLOBALS['notification']->push($val, 'horde.error');
-                }
-            }
+            $this->attachFilesFromMessage($contents, (intval($text_id) === 1) ? array('notify' => true, 'skip' => array($alt_key)) : array());
         }
 
         $identity_id = null;
@@ -510,9 +505,8 @@ class IMP_Compose
      *                  sent-mail folder, or a PEAR_Error on failure.
      */
     public function buildAndSendMessage($message, $header, $charset, $html,
-                                 $opts = array())
+                                        $opts = array())
     {
-// TODO
         global $conf, $notification, $prefs, $registry;
 
         /* We need at least one recipient & RFC 2822 requires that no 8-bit
@@ -537,56 +531,39 @@ class IMP_Compose
         /* Prepare the array of messages to send out.  May be more
          * than one if we are encrypting for multiple recipients or
          * are storing an encrypted message locally. */
-        $messagesToSend = array();
+        $send_msgs = array();
 
-        /* Do encryption. */
-        if (!empty($encrypt) &&
-            $prefs->getValue('use_pgp') &&
-            !empty($conf['utils']['gnupg']) &&
-            in_array($encrypt, array(IMP::PGP_ENCRYPT, IMP::PGP_SIGNENC, IMP::PGP_SYM_ENCRYPT, IMP::PGP_SYM_SIGNENC))) {
-            $imp_pgp = &Horde_Crypt::singleton(array('imp', 'pgp'));
-        }
-
+        /* Must encrypt & send the message one recipient at a time. */
         if (!empty($encrypt) &&
             $prefs->getValue('use_smime') &&
             in_array($encrypt, array(IMP::SMIME_ENCRYPT, IMP::SMIME_SIGNENC))) {
-            /* Must encrypt & send the message one recipient at a time. */
             foreach ($recip['list'] as $val) {
                 $res = $this->_createMimeMessage(array($val), $body, $encrypt);
                 if (is_a($res, 'PEAR_Error')) {
                     return $res;
                 }
-                $messagesToSend[] = $res;
+                $send_msgs[] = $res;
             }
 
             /* Must target the encryption for the sender before saving message
              * in sent-mail. */
-            $messageToSave = $this->_createMimeMessage(array($header['from']), $body, $encrypt);
-            if (is_a($messageToSave, 'PEAR_Error')) {
-                return $messageToSave;
-            }
+            $save_msg = $this->_createMimeMessage(array($header['from']), $body, $encrypt);
         } else {
             /* Can send in clear-text all at once, or PGP can encrypt
              * multiple addresses in the same message. */
-            $res = $this->_createMimeMessage($recip['list'], $body, $encrypt, $barefrom);
-            if (is_a($res, 'PEAR_Error')) {
-                return $res;
-            }
-            $messagesToSend[] = $messageToSave = $res;
+            $send_msgs[] = $save_msg = $this->_createMimeMessage($recip['list'], $body, $encrypt, $barefrom);
+        }
+
+        if (is_a($save_msg, 'PEAR_Error')) {
+            return $save_msg;
         }
 
         /* Initalize a header object for the outgoing message. */
-        $msg_headers = new Horde_Mime_Headers();
-        if (empty($opts['useragent'])) {
-            require_once IMP_BASE . '/lib/version.php';
-            $msg_headers->setUserAgent('Internet Messaging Program (IMP) ' . IMP_VERSION);
-        } else {
-            $msg_headers->setUserAgent($opts['useragent']);
-        }
+        $headers = new Horde_Mime_Headers();
 
         /* Add a Received header for the hop from browser to server. */
-        $msg_headers->addReceivedHeader();
-        $msg_headers->addMessageIdHeader();
+        $headers->addReceivedHeader();
+        $headers->addMessageIdHeader();
 
         /* Add the X-Priority header, if requested. */
         if (!empty($opts['priority'])) {
@@ -612,51 +589,65 @@ class IMP_Compose
                 $priority .= ' (Lowest)';
                 break;
             }
-            $msg_headers->addHeader('X-Priority', $priority);
+            $headers->addHeader('X-Priority', $priority);
         }
 
-        $msg_headers->addHeader('Date', date('r'));
+        $headers->addHeader('Date', date('r'));
 
         /* Add Return Receipt Headers. */
         if (!empty($opts['readreceipt']) &&
             $conf['compose']['allow_receipts']) {
             $mdn = new Horde_Mime_Mdn();
-            $mdn->addMDNRequestHeaders($msg_headers, $barefrom);
+            $mdn->addMDNRequestHeaders($headers, $barefrom);
         }
 
         $browser_charset = NLS::getCharset();
 
-        $msg_headers->addHeader('From', String::convertCharset($header['from'], $browser_charset, $charset));
+        $headers->addHeader('From', String::convertCharset($header['from'], $browser_charset, $charset));
 
         if (!empty($header['replyto']) &&
             ($header['replyto'] != $barefrom)) {
-            $msg_headers->addHeader('Reply-to', String::convertCharset($header['replyto'], $browser_charset, $charset));
+            $headers->addHeader('Reply-to', String::convertCharset($header['replyto'], $browser_charset, $charset));
         }
         if (!empty($header['to'])) {
-            $msg_headers->addHeader('To', String::convertCharset($header['to'], $browser_charset, $charset));
+            $headers->addHeader('To', String::convertCharset($header['to'], $browser_charset, $charset));
         } elseif (empty($header['to']) && empty($header['cc'])) {
-            $msg_headers->addHeader('To', 'undisclosed-recipients:;');
+            $headers->addHeader('To', 'undisclosed-recipients:;');
         }
         if (!empty($header['cc'])) {
-            $msg_headers->addHeader('Cc', String::convertCharset($header['cc'], $browser_charset, $charset));
+            $headers->addHeader('Cc', String::convertCharset($header['cc'], $browser_charset, $charset));
         }
-        $msg_headers->addHeader('Subject', String::convertCharset($header['subject'], $browser_charset, $charset));
+        $headers->addHeader('Subject', String::convertCharset($header['subject'], $browser_charset, $charset));
 
         /* Add necessary headers for replies. */
         if (!empty($opts['reply_type']) && ($opts['reply_type'] == 'reply')) {
             if (!empty($header['references'])) {
-                $msg_headers->addHeader('References', implode(' ', preg_split('|\s+|', trim($header['references']))));
+                $headers->addHeader('References', implode(' ', preg_split('|\s+|', trim($header['references']))));
             }
             if (!empty($header['in_reply_to'])) {
-                $msg_headers->addHeader('In-Reply-To', $header['in_reply_to']);
+                $headers->addHeader('In-Reply-To', $header['in_reply_to']);
             }
         }
 
-// TODO - need Horde_Mime_Message object
+        /* Add the 'User-Agent' header. */
+        if (empty($opts['useragent'])) {
+            require_once IMP_BASE . '/lib/version.php';
+            $headers->setUserAgent('Internet Messaging Program (IMP) ' . IMP_VERSION);
+        } else {
+            $headers->setUserAgent($opts['useragent']);
+        }
+        $headers->addUserAgentHeader();
+
+        /* Tack on any site-specific headers. */
+        $headers_result = Horde::loadConfiguration('header.php', '_header');
+        if (!is_a($headers_result, 'PEAR_Error')) {
+            foreach ($result as $key => $val) {
+                $headers->addHeader(trim($key), String::convertCharset(trim($val), NLS::getCharset(), $charset));
+            }
+        }
+
         /* Send the messages out now. */
         foreach ($messagesToSend as $val) {
-            $headers = &Util::cloneObject($msg_headers);
-            $headers->addMIMEHeaders($val['msg']);
             $res = $this->sendMessage($val['to'], $headers, $val['msg'], $charset);
             if (is_a($res, 'PEAR_Error')) {
                 /* Unsuccessful send. */
@@ -674,10 +665,10 @@ class IMP_Compose
         $sent_saved = true;
 
         /* Log the reply. */
-        if (!empty($opts['reply_type']) && !empty($header['in_reply_to'])) {
-            if (!empty($conf['maillog']['use_maillog'])) {
-                IMP_Maillog::log($opts['reply_type'], $header['in_reply_to'], $recipients);
-            }
+        if (!empty($opts['reply_type']) &&
+            !empty($header['in_reply_to']) &&
+            !empty($conf['maillog']['use_maillog'])) {
+            IMP_Maillog::log($opts['reply_type'], $header['in_reply_to'], $recipients);
         }
 
         if (!empty($opts['reply_index']) &&
@@ -700,32 +691,27 @@ class IMP_Compose
               $prefs->getValue('save_sent_mail')))) {
 
             $mime_message = $messageToSave['msg'];
-            $msg_headers = $mime_message->addMIMEHeaders($msg_headers);
+            $headers = $mime_message->addMimeHeaders($headers);
 
             /* Keep Bcc: headers on saved messages. */
             if (!empty($header['bcc'])) {
-                $msg_headers->addHeader('Bcc', $header['bcc']);
+                $headers->addHeader('Bcc', $header['bcc']);
             }
 
-            /* Loop through the envelope and add headers. */
-            $headerArray = $mime_message->encode($msg_headers->toArray(), $charset);
-            foreach ($headerArray as $key => $value) {
-                $msg_headers->addHeader($key, $value);
-            }
-            $fcc = $msg_headers->toString();
+            $fcc = $headers->toString(array('charset' => $charset, 'defserver' => $_SESSION['imp']['maildomain']));
 
             /* Strip attachments if requested. */
             $save_attach = $prefs->getValue('save_attachments');
-            if ($save_attach == 'never' ||
-                (strpos($save_attach, 'prompt') === 0 &&
+            if (($save_attach == 'never') ||
+                ((strpos($save_attach, 'prompt') === 0) &&
                  empty($opts['save_attachments']))) {
                 foreach (array_keys($this->getAttachments()) as $i) {
-                    $i++;
-                    $oldPart = $mime_message->getPart($i);
+                    $oldPart = $mime_message->getPart(++$i);
                     if ($oldPart !== false) {
-                        $replace_part = new Horde_Mime_Part('text/plain');
+                        $replace_part = new Horde_Mime_Part();
+                        $replace_part->setType('text/plain');
                         $replace_part->setCharset($charset);
-                        $replace_part->setContents('[' . _("Attachment stripped: Original attachment type") . ': "' . $oldPart->getType() . '", ' . _("name") . ': "' . $oldPart->getName(true, true) . '"]', '8bit');
+                        $replace_part->setContents('[' . _("Attachment stripped: Original attachment type") . ': "' . $oldPart->getType() . '", ' . _("name") . ': "' . $oldPart->getName(true) . '"]', '8bit');
                         $mime_message->alterPart($i, $replace_part);
                     }
                 }
@@ -756,9 +742,7 @@ class IMP_Compose
 
         /* Call post-sent hook. */
         if (!empty($conf['hooks']['postsent'])) {
-            Horde::callHook('_imp_hook_postsent',
-                            array($messageToSave['msg'], $msg_headers),
-                            'imp', null);
+            Horde::callHook('_imp_hook_postsent', array($messageToSave['msg'], $msg_headers), 'imp', null);
         }
 
         return $sent_saved;
@@ -767,20 +751,19 @@ class IMP_Compose
     /**
      * Sends a message.
      *
-     * @param string $email                 The e-mail list to send to.
-     * @param Horde_Mime_Headers &$headers  The object holding this
-     *                                      message's headers.
-     * @param mixed &$message               Either the message text (string)
-     *                                      or a Horde_Mime_Message object
-     *                                      that contains the text to send.
-     * @param string $charset               The charset that was used for the
-     *                                      headers.
+     * @param string $email                The e-mail list to send to.
+     * @param Horde_Mime_Headers $headers  The object holding this message's
+     *                                     headers.
+     * @param mixed $message               Either the message text (string) or
+     *                                     a Horde_Mime_Message object that
+     *                                     contains the text to send.
+     * @param string $charset              The charset that was used for the
+     *                                     headers.
      *
      * @return mixed  True on success, PEAR_Error on error.
      */
-    public function sendMessage($email, &$headers, &$message, $charset)
+    public function sendMessage($email, $headers, $message, $charset)
     {
-// TODO
         global $conf;
 
         /* Properly encode the addresses we're sending to. */
@@ -804,11 +787,7 @@ class IMP_Compose
             $sentmail = IMP_Sentmail::factory();
             $recipients = $sentmail->numberOfRecipients($conf['sentmail']['params']['limit_period'], true);
             foreach ($result as $address) {
-                if (isset($address['groupname'])) {
-                    $recipients += count($address['addresses']);
-                } else {
-                    ++$recipients;
-                }
+                $recipients += isset($address['grounpname']) ? count($address['addresses']) : 1;
             }
             if ($recipients > $timelimit) {
                 $message = @htmlspecialchars(sprintf(_("You are not allowed to send messages to more than %d recipients within %d hours."), $timelimit, $conf['sentmail']['params']['limit_period']), ENT_COMPAT, NLS::getCharset());
@@ -817,23 +796,6 @@ class IMP_Compose
                 }
                 return PEAR::raiseError($message);
             }
-        }
-
-        /* Add the 'User-Agent' header. */
-        $headers->addUserAgentHeader();
-
-        /* Tack on any site-specific headers. */
-        $headers_result = Horde::loadConfiguration('header.php', '_header');
-        if (!is_a($headers_result, 'PEAR_Error')) {
-            foreach ($result as $key => $val) {
-                $headers->addHeader(trim($key), trim($val));
-            }
-        }
-
-        /* If $message is a string, we need to get a Horde_Mime_Message object
-         * to encode the headers. */
-        if (is_string($message)) {
-            $mime_message = Horde_Mime_Message::parseMessage($message);
         }
 
         /* We don't actually want to alter the contents of the $conf['mailer']
@@ -858,7 +820,12 @@ class IMP_Compose
             $params['password'] = Secret::read(IMP::getAuthKey(), $_SESSION['imp']['pass']);
         }
 
-        return $mailer->send($email, $headerArray, $conf['mailer']['type'], $params);
+        /* If $message is a string, create a Horde_Mime_Message object. */
+        if (is_string($message)) {
+            $mime_message = Horde_Mime_Message::parseMessage($message);
+        }
+
+        return $mime_message->send($email, $headerArray, $conf['mailer']['type'], $params);
     }
 
     /**
@@ -1023,7 +990,7 @@ class IMP_Compose
     }
 
     /**
-     * TODO
+     * Helper function for recipientList().
      */
     protected function _parseAddress($ob, $email)
     {
@@ -1304,44 +1271,32 @@ class IMP_Compose
             $msg_post = '';
         }
 
-        $format = 'text';
-        $msg = '';
-        $rte = $GLOBALS['browser']->hasFeature('rte');
 
-        if ($rte && $GLOBALS['prefs']->getValue('reply_format')) {
-// TODO
-            $body = $this->getHTMLBody($contents);
-            $body = $this->_getHtmlText($body, $contents, $mime_message);
-            if ($body) {
-                $msg_pre = '<p>' . $this->text2html(trim($msg_pre)) . '</p>';
-                if ($msg_post) {
-                    $msg_post = $this->text2html($msg_post);
-                }
-                $msg = $msg_pre . '<blockquote type="cite">' . $body .
-                    '</blockquote>' . $msg_post;
-                $format = 'html';
-            }
-        }
+        $compose_html = $GLOBALS['prefs']->getValue('compose_html');
 
-        if (empty($msg)) {
-// TODO
-            $msg = $this->getMessageText($contents, array('replylimit' => true, 'toflowed' => true));
+        $msg_text = $this->getMessageText($contents, array(
+            'html' => ($GLOBALS['prefs']->getValue('reply_format') || $compose_html),
+            'replylimit' => true,
+            'toflowed' => true
+        ));
 
-            $msg = empty($msg)
+        if (!empty($msg_text) &&
+            ($compose_html || ($msg_text['mode'] == 'html'))) {
+            $msg = '<p>' . $this->text2html(trim($msg_pre)) . '</p>' .
+                   '<blockquote type="cite">' .
+                   (($msg_text['mode'] == 'text') ? $this->text2html($msg_text['text']) : $msg_text['text']) .
+                   '</blockquote>' .
+                   ($msg_post ? $this->text2html($msg_post) : '');
+        } else {
+            $msg = empty($msg_text['text'])
                 ? '[' . _("No message body text") . ']'
-                : $msg_pre . $msg . $msg_post;
-
-            if ($rte && $GLOBALS['prefs']->getValue('compose_html')) {
-                $msg = $this->text2html($msg);
-                $format = 'html';
-            }
+                : $msg_pre . $msg_text['text'] . $msg_post;
         }
 
-        // TODO: encoding?
         return array(
             'body' => $msg . "\n",
             'headers' => $header,
-            'format' => $format,
+            'format' => $msg_text['mode'],
             'identity' => $match_identity
         );
     }
@@ -1399,25 +1354,20 @@ class IMP_Compose
                 " -----\n" . $this->_getMsgHeaders($h) . "\n";
             $msg_post = "\n\n----- " . _("End forwarded message") . " -----\n";
 
-            $rte = $GLOBALS['browser']->hasFeature('rte');
+            $compose_html = $GLOBALS['prefs']->getValue('compose_html');
 
-            if ($rte && $GLOBALS['prefs']->getValue('reply_format')) {
-// TODO
-                $body = $this->getHTMLBody($contents);
-                $body = $this->_getHtmlText($body, $contents, $mime_message);
-                if ($body) {
-                    $msg = $this->text2html($msg_pre) . $body . $this->text2html($msg_post);
-                    $format = 'html';
-                }
-            }
+            $msg_text = $this->getMessageText($contents, array(
+                'html' => ($GLOBALS['prefs']->getValue('reply_format') || $compose_html)
+            ));
 
-            if (empty($msg)) {
-// TODO
-                $msg = $msg_pre . $this->getMessageText($contents) . $msg_post;
-                if ($rte && $GLOBALS['prefs']->getValue('compose_html')) {
-                    $msg = $this->text2html($msg);
-                    $format = 'html';
-                }
+            if (!empty($msg_text) &&
+                ($compose_html || ($msg_text['mode'] == 'html'))) {
+                $msg = $this->text2html($msg_pre) .
+                    (($msg_text['mode'] == 'text') ? $this->text2html($msg_text['text']) : $msg_text) .
+                    $this->text2html($msg_post);
+                $format = 'html';
+            } else {
+                $msg = $msg_pre . $msg_text['text'] . $msg_post;
             }
         }
 
@@ -1991,6 +1941,7 @@ class IMP_Compose
      * 'downloadall' - (array) Use the algorithm in
      *                 IMP_Contents::getDownloadAllList() to determine the
      *                 list of attachments?
+     * 'notify' - (boolean) Add notification message on errors?
      * 'skip' - (array) Skip these MIME IDs.
      * </pre>
      *
@@ -1999,30 +1950,26 @@ class IMP_Compose
      */
     public function attachFilesFromMessage(&$contents, $options = array())
     {
-// TODO
-        $errors = array();
-
-        $contents->rebuildMessage();
-        $this->findBody($contents);
         $mime_message = $contents->getMIMEMessage();
         $dl_list = empty($options['downloadall'])
             ? array_slice(array_keys($mime_message->contentTypeMap()), 1)
             : $contents->getDownloadAllList();
+        if (!empty($options['skip'])) {
+            $dl_list = array_diff($dl_list, $options['skip']);
+        }
 
         foreach ($dl_list as $key) {
-            if ((is_null($this->_mimeid) || ($key != $this->_mimeid))) {
-                $mime = $mime_message->getPart($key);
-                if (!empty($mime) &&
-                    (!$this->_resume || !$mime->getInformation('rfc822_part'))) {
+            if (strpos($key, '.', 1) === false) {
+                $mime = $contents->getMIMEPart($key);
+                if (!empty($mime)) {
                     $res = $this->addMIMEPartAttachment($mime);
-                    if (is_a($res, 'PEAR_Error')) {
-                        $errors[] = $res;
+                    if (is_a($res, 'PEAR_Error') &&
+                        !empty($options['notify'])) {
+                        $GLOBALS['notification']->push($res, 'horde.warning');
                     }
                 }
             }
         }
-
-        return $errors;
     }
 
     /**
@@ -2192,19 +2139,26 @@ class IMP_Compose
      * @param IMP_Contents $contents  An IMP_Contents object.
      * @param array $options          Additional options:
      * <pre>
+     * 'html' - (boolean) Return text/html part, if available.
      * 'replylimit' - (boolean) Enforce length limits?
      * 'toflowed' - (boolean) Convert to flowed?
      * </pre>
      *
-     * @return array  TODO
+     * @return mixed  Null if bodypart not found, or array with the following
+     *                keys:
+     * <pre>
+     * 'id' - (string) The MIME ID of the bodypart.
+     * 'mode' - (string)
+     * 'text' - (string)
+     * </pre>
      */
     public function getMessageText($contents, $options = array())
     {
-// TODO
         $body_id = null;
         $mode = 'text';
 
-        if ($GLOBALS['browser']->hasFeature('rte')) {
+        if (!empty($options['html']) &&
+            $GLOBALS['browser']->hasFeature('rte')) {
             $body_id = $contents->findBody('html');
             if (!is_null($body_id)) {
                 $mode = 'html';
@@ -2231,77 +2185,51 @@ class IMP_Compose
             }
         }
 
-        $this->_findhtml = true;
-        $body = $this->findBody($imp_contents);
-        $this->_findhtml = false;
-        if (!$body) {
-            return $body;
-        }
-
         /* Run tidy on the HTML. */
-        if ($tidy_config = IMP::getTidyConfig(String::length($body))) {
+        if (($mode == 'html)' &&
+            ($tidy_config = IMP::getTidyConfig($part->getBytes())))) {
             $tidy_config['show-body-only'] = true;
-            if ($this->getBodyCharset($imp_contents) == 'us-ascii') {
-                $tidy = tidy_parse_string($body, $tidy_config, 'ascii');
-                $tidy->cleanRepair();
-                $body = tidy_get_output($tidy);
-            } else {
-                $tidy = tidy_parse_string(
-                    String::convertCharset(
-                        $body, $this->getBodyCharset($imp_contents), 'UTF-8'),
-                    $tidy_config, 'UTF8');
-                $tidy->cleanRepair();
-                $body = String::convertCharset(
-                    tidy_get_output($tidy), 'UTF-8',
-                    $this->getBodyCharset($imp_contents));
-            }
+            $tidy = tidy_parse_string(String::convertCharset($msg, NLS::getCharset(), 'UTF-8'), $tidy_config, 'UTF8');
+            $tidy->cleanRepair();
+            $msg = String::convertCharset(tidy_get_output($tidy), 'UTF-8', NLS::getCharset());
         }
 
-        require_once 'Horde/Text/Filter.php';
-        $body = Text_Filter::filter($body, 'xss',
-                                    array('body_only' => true,
-                                          'strip_styles' => true,
-                                          'strip_style_attributes' => false));
-
-        return $body;
-        /*
-        if (!$this->_findhtml && ($mime_part->getSubType() == 'html')) {
+        if ($mode == 'html') {
             require_once 'Horde/Text/Filter.php';
-            return Text_Filter::filter(
-                $body, 'html2text',
-                array('charset' => $this->_bodyCharset));
-         */
+            $msg = Text_Filter::filter($msg, 'xss', array('body_only' => true, 'strip_styles' => true, 'strip_style_attributes' => false));
+        } elseif ($type == 'text/html') {
+            require_once 'Horde/Text/Filter.php';
+            $msg = Text_Filter::filter($msg, 'html2text', array('charset' => NLS::getCharset()));
+            $type = 'text/plain';
+        }
 
-        $this->_findhtml = true;
-        $body = String::convertCharset(
-            $this->_applyReplyLimit($body,
-                                    $this->getBodyCharset($imp_contents)),
-            $this->getBodyCharset($imp_contents));
-        $this->_findhtml = false;
-        return $body;
-
-        if (($type == 'text/plain') &&
-            ($part->getContentTypeParameter('format') == 'flowed')) {
-            require_once 'Text/Flowed.php';
-            $flowed = new Text_Flowed($msg);
-            if (String::lower($part->getContentTypeParameter('delsp')) == 'yes') {
-                $flowed->setDelSp(true);
+        if ($type == 'text/plain') {
+            if ($part->getContentTypeParameter('format') == 'flowed') {
+                require_once 'Text/Flowed.php';
+                $flowed = new Text_Flowed($msg);
+                if (String::lower($part->getContentTypeParameter('delsp')) == 'yes') {
+                    $flowed->setDelSp(true);
+                }
+                $flowed->setMaxLength(0);
+                $msg = $flowed->toFixed(false);
+            } else {
+                /* If the input is *not* in flowed format, make sure there is
+                 * no padding at the end of lines. */
+                $msg = preg_replace("/\s*\n/U", "\n", $msg);
             }
-            $flowed->setMaxLength(0);
-            $msg = $flowed->toFixed(false);
-        } else {
-            /* If the input is *not* in flowed format, make sure there is
-             * no padding at the end of lines. */
-            $msg = preg_replace("/\s*\n/U", "\n", $msg);
+
+            if (!empty($options['toflowed'])) {
+                require_once 'Text/Flowed.php';
+                $flowed = new Text_Flowed($msg);
+                $msg = $flowed->toFlowed(true);
+            }
         }
 
-        if (!empty($options['toflowed']) && ($type == 'text/plain')) {
-            require_once 'Text/Flowed.php';
-            $flowed = new Text_Flowed($msg);
-            $msg = $flowed->toFlowed(true);
-        }
-
-        return $msg;
+        return array(
+            'id' => $body_id,
+            'mode' => $mode,
+            'text' => $msg
+        );
     }
 
     /**
