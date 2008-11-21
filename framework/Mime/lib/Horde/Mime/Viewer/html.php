@@ -160,14 +160,22 @@ class Horde_Mime_Viewer_html extends Horde_Mime_Viewer_Driver
         /* Get phishing warning. */
         $status = array();
         if ($inline && $phish_warn) {
-            $phish_warning = sprintf(_("%s: This message may not be from whom it claims to be. Beware of following any links in it or of providing the sender with any personal information.") . ' ' . _("The links that caused this warning have the same background color as this message."), _("Warning"));
+            $warning = array(
+                sprintf(_("%s: This message may not be from whom it claims to be. Beware of following any links in it or of providing the sender with any personal information."), _("Warning")),
+                _("The links that caused this warning have this background color:") . ' <span class="mimeStatusWarning">' . _("EXAMPLE") . '.</span>'
+            );
+
             if (!$inline) {
-                $phish_warning = String::convertCharset($phish_warning, NLS::getCharset(), $this->_mimepart->getCharset());
+                $temp = array();
+                foreach ($phish_warning as $val) {
+                    $temp[] = String::convertCharset($val, NLS::getCharset(), $this->_mimepart->getCharset());
+                }
+                $warning = $temp;
             }
 
             $status[] = array(
                 'class' => 'mimestatuswarning',
-                'text' => array($phish_warning)
+                'text' => $warning
             );
         }
 
