@@ -222,11 +222,12 @@ class IMP_Horde_Mime_Viewer_html extends Horde_Mime_Viewer_html
                 );
 
                 $data = preg_replace_callback($this->_img_regex, array($this, '_blockImages'), $data);
-
-                // TODO
-                //$msg = '<span style="background:#fff;color:#000">' . nl2br($msg) . '</span><br />';
-                //$msg = '<span id="block-images">' . $msg . '</span>';
             }
+        }
+
+        require_once 'Horde/Text/Filter.php';
+        if ($GLOBALS['prefs']->getValue('emoticons')) {
+            $data = Text_Filter::filter($data, array('emoticons'), array(array('emoticons' => true)));
         }
 
         return array(

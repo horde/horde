@@ -93,6 +93,10 @@ class IMP_Horde_Mime_Viewer_plain extends Horde_Mime_Viewer_plain
             );
         }
 
+        if ($prefs->getValue('emoticons')) {
+            $filters['emoticons'] = array('entities' => true);
+        }
+
         // Run filters.
         $text = Text_Filter::filter($text, array_keys($filters), array_values($filters));
 
