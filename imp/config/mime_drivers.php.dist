@@ -57,7 +57,9 @@ $mime_drivers_map['imp']['overrides'] = array();
  */
 $mime_drivers['imp']['plain'] = array(
     'inline' => true,
-    'handles' => array('text/plain', 'text/rfc822-headers', 'application/pgp'),
+    'handles' => array(
+        'text/plain', 'text/rfc822-headers', 'application/pgp'
+    ),
     /* If you want to limit the display of message data inline for large
      * messages, set the maximum size of the displayed message here (in
      * bytes).  If exceeded, the user will only be able to download the part.
@@ -82,6 +84,11 @@ $mime_drivers['imp']['html'] = array(
     'icons' => array(
         'default' => 'html.png'
     ),
+    /* If you want to limit the display of message data inline for large
+     * messages, set the maximum size of the displayed message here (in
+     * bytes).  If exceeded, the user will only be able to download the part.
+     * Set to 0 to disable this check. */
+    'limit_inline_size' => 1048576,
     /* Run 'tidy' on all HTML output? This requires at least version 2.0 of the
      * PECL 'tidy' extension to be installed on your system. */
     'tidy' => false,

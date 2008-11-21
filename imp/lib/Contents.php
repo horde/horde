@@ -326,6 +326,24 @@ class IMP_Contents
         case self::RENDER_INLINE_AUTO:
         case self::RENDER_INLINE_DISP_NO:
             $textmode = 'inline';
+            $limit = $viewer->getConfigParam('limit_inline_size');
+            if ($limit && ($mime_part->getBytes() > $limit)) {
+                return array(
+                    $mime_id => array(
+                        'data' => '',
+                        'name' => '',
+                        'status' => array(
+                            array(
+                                'text' => array(
+                                    _("This message part cannot be viewed because it is too large."),
+                                    sprintf(_("Click %s to download the data."), $this->linkView($mime_part, 'download_attach', _("HERE")))
+                                )
+                            )
+                        ),
+                        'type' => 'text/html; charset=' . NLS::getCharset()
+                    )
+                );
+            }
             break;
 
         case self::RENDER_INFO:
