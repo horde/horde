@@ -1267,7 +1267,12 @@ class Horde_Mime_Part
             if (empty($this->_parts)) {
                 $this->setMimeId($id . '1');
             } else {
-                $this->setMimeId($id . '0');
+                if (empty($id) && ($this->getType() == 'message/rfc822')) {
+                    $this->setMimeId('1');
+                    $id = '1.';
+                } else {
+                    $this->setMimeId($id . '0');
+                }
                 $i = 1;
                 foreach (array_keys($this->_parts) as $val) {
                     $this->_parts[$val]->buildMimeIds($id . $i++);
