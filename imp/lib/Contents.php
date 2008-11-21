@@ -24,7 +24,7 @@ class IMP_Contents
     const SUMMARY_IMAGE_SAVE = 128;
     const SUMMARY_STRIP_LINK = 256;
 
-    /* TODO */
+    /* Rendering mask entries. */
     const RENDER_FULL = 1;
     const RENDER_INLINE = 2;
     const RENDER_INLINE_DISP_NO = 4;
@@ -78,11 +78,9 @@ class IMP_Contents
     {
         static $instance = array();
 
-        if (is_a($in, 'Horde_Mime_Message')) {
-            $sig = md5(serialize($in));
-        } else {
-            $sig = $in;
-        }
+        $sig = is_a($in, 'Horde_Mime_Message')
+            ? md5(serialize($in))
+            : $in;
 
         if (empty($instance[$sig])) {
             $instance[$sig] = new IMP_Contents($in);
