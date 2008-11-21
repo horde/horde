@@ -57,11 +57,27 @@ class IMP_Horde_Mime_Viewer_related extends Horde_Mime_Viewer_Driver
         $ids = array_keys($this->_mimepart->contentTypeMap());
         $related_id = $this->_mimepart->getMimeId();
 
+        $cids = $ret = array();
+        $id = null;
+
+        /* Build a list of parts -> CIDs. */
+        foreach ($ids as $val) {
+            $ret[$val] = null;
+            if (strcmp($related_id, $val) !== 0) {
+                $part = $this->_mimepart->getPart($val);
+                $cids[$val] = $part->getContentId();
+            }
+        }
+
         /* Look at the 'start' parameter to determine which part to start
          * with. If no 'start' parameter, use the first part. RFC 2387
          * [3.1] */
-        $id = $this->_mimepart->getContentTypeParameter('start');
-        if (is_null($id)) {
+        $start = $this->_mimepart->getContentTypeParameter('start');
+        if (!empty($start)) {
+            $id = array_search($id, $cids);
+        }
+
+        if (empty($id)) {
             reset($ids);
             $id = next($ids);
         }
@@ -73,16 +89,6 @@ class IMP_Horde_Mime_Viewer_related extends Horde_Mime_Viewer_Driver
             return array();
         }
 
-        $cids = $ret = array();
-
-        /* Build a list of parts -> CIDs. */
-        foreach ($ids as $val) {
-            $ret[$val] = null;
-            if (strcmp($related_id, $val) !== 0) {
-                $part = $this->_mimepart->getPart($val);
-                $cids[$val] = $part->getContentId();
-            }
-        }
 
         $render = $this->_params['contents']->renderMIMEPart($id, $inline ? IMP_Contents::RENDER_INLINE : IMP_Contents::RENDER_FULL, array('params' => array_merge($this->_params, array('related_id' => $id, 'related_cids' => $cids))));
 
