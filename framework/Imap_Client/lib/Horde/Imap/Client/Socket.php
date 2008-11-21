@@ -97,7 +97,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      */
     public function __destruct()
     {
-        $this->_temp['logout'] = 2;
         $this->logout();
         parent::__destruct();
     }
@@ -108,7 +107,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      */
     function __sleep()
     {
-        $this->_temp['logout'] = 2;
         $this->logout();
         $this->_temp = array();
         $this->_tag = 0;
@@ -144,6 +142,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      */
     protected function _parseCapability($data)
     {
+        if (!empty($this->_temp['no_cap'])) {
+            return;
+        }
+
         $c = &$this->_init['capability'];
         $c = array();
 
@@ -434,6 +436,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         stream_set_timeout($this->_stream, $this->_params['timeout']);
 
+        // If we already have capability information, don't re-set with
+        // (possibly) limited information sent in the inital banner.
+        if (isset($this->_init['capability'])) {
+            $this->_temp['no_cap'] = true;
+        }
+
         // Get greeting information.  This is untagged so we need to specially
         // deal with it here.  A BYE response will be caught and thrown in
         // _getLine().
@@ -577,11 +585,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     protected function _logout()
     {
         if (!is_null($this->_stream)) {
-            /* $_temp['logout'] = 1 -- do explicit LOGOUT
-             * $_temp['logout'] = 2 -- immediately close connection. */
-            if (empty($this->_temp['logout']) ||
-                ($this->_temp['logout'] != 2)) {
-                $this->_temp['logout'] = 1;
+            if (empty($this->_temp['logout'])) {
+                $this->_temp['logout'] = true;
                 try {
                     $this->_sendLine('LOGOUT');
                 } catch (Horde_Imap_Client_Exception $e) {}
@@ -3004,7 +3009,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $ob = array('line' => '', 'response' => '', 'tag' => '', 'token' => '');
 
         if (feof($this->_stream)) {
-            $this->_temp['logout'] = 2;
+            $this->_temp['logout'] = true;
             $this->logout();
             throw new Horde_Imap_Client_Exception('IMAP Server closed the connection unexpectedly.', Horde_Imap_Client_Exception::IMAP_DISCONNECT);
         }
@@ -3033,8 +3038,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
             $read[1] = strtoupper($read[1]);
             if ($read[1] == 'BYE') {
-                if (!empty($this->_temp['logout']) &&
-                    ($this->_temp['logout'] == 1)) {
+                if (!empty($this->_temp['logout'])) {
                     /* A BYE response received as part of a logout cmd should
                      * be treated like a regular command. A client MUST
                      * process the entire command until logging out. RFC 3501
@@ -3042,7 +3046,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                     $ob['response'] = $read[1];
                     $ob['line'] = implode(' ', array_slice($read, 2));
                 } else {
-                    $this->_temp['logout'] = 2;
+                    $this->_temp['logout'] = true;
                     $this->logout();
                     throw new Horde_Imap_Client_Exception('IMAP Server closed the connection: ' . implode(' ', array_slice($read, 1)), Horde_Imap_Client_Exception::IMAP_DISCONNECT);
                 }
