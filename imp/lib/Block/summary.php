@@ -50,9 +50,8 @@ class Horde_Block_imp_summary extends Horde_Block {
         }
 
         /* Get list of mailboxes to poll. */
-        require_once IMP_BASE . '/lib/IMAP/Tree.php';
-        $imptree = &IMP_Tree::singleton();
-        $folders = $imptree->getPollList(true, true);
+        $imaptree = &IMP_IMAP_Tree::singleton();
+        $folders = $imaptree->getPollList(true, true);
 
         /* Quota info, if available. */
         $quota_msg = Util::bufferOutput(array('IMP', 'quota'));
@@ -66,7 +65,7 @@ class Horde_Block_imp_summary extends Horde_Block {
         foreach ($folders as $folder) {
             if (($folder == 'INBOX') ||
                 ($_SESSION['imp']['protocol'] != 'pop')) {
-                $info = $imptree->getElementInfo($folder);
+                $info = $imaptree->getElementInfo($folder);
                 if (!empty($info)) {
                     if (empty($this->_params['show_unread']) ||
                         !empty($info['unseen'])) {

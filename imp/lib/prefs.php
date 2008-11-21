@@ -177,11 +177,10 @@ function prefs_callback()
     }
 
     if ($prefs->isDirty('subscribe') || $prefs->isDirty('tree_view')) {
-        require_once IMP_BASE . '/lib/IMAP/Tree.php';
         $imp_folder = &IMP_Folder::singleton();
         $imp_folder->clearFlistCache();
-        $imptree = &IMP_Tree::singleton();
-        $imptree->init();
+        $imaptree = &IMP_IMAP_Tree::singleton();
+        $imaptree->init();
     }
 
     /* If a maintenance option has been activated, we need to make sure the

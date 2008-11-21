@@ -116,12 +116,11 @@ class IMP_Folder
             return $this->_listCache[$sig];
         }
 
-        require_once IMP_BASE . '/lib/IMAP/Tree.php';
-        $imaptree = &IMP_Tree::singleton();
+        $imaptree = &IMP_IMAP_Tree::singleton();
 
-        $list_mask = IMPTREE_FLIST_CONTAINER | IMPTREE_FLIST_OB;
+        $list_mask = IMP_IMAP_Tree::FLIST_CONTAINER | IMP_IMAP_Tree::FLIST_OB;
         if (!$sub) {
-            $list_mask |= IMPTREE_FLIST_UNSUB;
+            $list_mask |= IMP_IMAP_Tree::FLIST_UNSUB;
         }
         $flist = $imaptree->folderList($list_mask);
 
@@ -214,7 +213,7 @@ class IMP_Folder
 
         if (!empty($deleted)) {
             /* Update the IMAP_Tree cache. */
-            $imaptree = &IMP_Tree::singleton();
+            $imaptree = &IMP_IMAP_Tree::singleton();
             $imaptree->delete($deleted);
 
             $this->_onDelete($deleted);
@@ -294,8 +293,7 @@ class IMP_Folder
         $this->clearFlistCache();
 
         /* Update the IMAP_Tree object. */
-        require_once IMP_BASE . '/lib/IMAP/Tree.php';
-        $imaptree = &IMP_Tree::singleton();
+        $imaptree = &IMP_IMAP_Tree::singleton();
         $imaptree->insert($folder);
 
         /* Recreate Virtual Folders. */
@@ -313,8 +311,7 @@ class IMP_Folder
      */
     public function exists($folder)
     {
-        require_once IMP_BASE . '/lib/IMAP/Tree.php';
-        $imaptree = &IMP_Tree::singleton();
+        $imaptree = &IMP_IMAP_Tree::singleton();
         $elt = $imaptree->get($folder);
         if ($elt) {
             return !$imaptree->isContainer($elt);
@@ -355,11 +352,10 @@ class IMP_Folder
         $deleted = array($old);
         $inserted = array($new);
 
-        require_once IMP_BASE . '/lib/IMAP/Tree.php';
-        $imaptree = &IMP_Tree::singleton();
+        $imaptree = &IMP_IMAP_Tree::singleton();
 
         /* Get list of any folders that are underneath this one. */
-        $all_folders = array_merge(array($old), $imaptree->folderList(IMPTREE_FLIST_UNSUB, $old));
+        $all_folders = array_merge(array($old), $imaptree->folderList(IMP_IMAP_Tree::FLIST_UNSUB, $old));
         $sub_folders = $imaptree->folderList();
 
         try {
@@ -418,8 +414,7 @@ class IMP_Folder
 
         if (!empty($subscribed)) {
             /* Initialize the IMAP_Tree object. */
-            require_once IMP_BASE . '/lib/IMAP/Tree.php';
-            $imaptree = &IMP_Tree::singleton();
+            $imaptree = &IMP_IMAP_Tree::singleton();
             $imaptree->subscribe($subscribed);
 
             /* Reset the folder cache. */
@@ -465,8 +460,7 @@ class IMP_Folder
 
         if (!empty($unsubscribed)) {
             /* Initialize the IMAP_Tree object. */
-            require_once IMP_BASE . '/lib/IMAP/Tree.php';
-            $imaptree = &IMP_Tree::singleton();
+            $imaptree = &IMP_IMAP_Tree::singleton();
             $imaptree->unsubscribe($unsubscribed);
 
             /* Reset the folder cache. */

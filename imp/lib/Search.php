@@ -374,9 +374,8 @@ class IMP_Search
      */
     public function createVINBOXFolder()
     {
-        /* Initialize IMP_Tree. */
-        require_once IMP_BASE . '/lib/IMAP/Tree.php';
-        $imptree = &IMP_Tree::singleton();
+        /* Initialize IMP_IMAP_Tree. */
+        $imaptree = &IMP_IMAP_Tree::singleton();
 
         /* Delete the current Virtual Inbox folder, if it exists. */
         $vinbox_id = $GLOBALS['prefs']->getValue('vinbox_id');
@@ -390,7 +389,7 @@ class IMP_Search
 
         /* Create Virtual INBOX with nav_poll list. Filter out any nav_poll
          * entries that don't exist. Sort the list also. */
-        $flist = $imptree->getPollList(true, true);
+        $flist = $imaptree->getPollList(true, true);
 
         $query = new Horde_Imap_Client_Search_Query();
         $query->flag('\\seen', false);
@@ -782,16 +781,15 @@ class IMP_Search
      */
     protected function _updateIMPTree($action, $id, $label = null)
     {
-        require_once IMP_BASE . '/lib/IMAP/Tree.php';
-        $imptree = &IMP_Tree::singleton();
+        $imaptree = &IMP_IMAP_Tree::singleton();
 
         switch ($action) {
         case 'delete':
-            $imptree->delete($id);
+            $imaptree->delete($id);
             break;
 
         case 'add':
-            $imptree->insertVFolders(array($id => $label));
+            $imaptree->insertVFolders(array($id => $label));
             break;
         }
     }

@@ -300,11 +300,10 @@ function _imp_changeLanguage()
     require_once dirname(__FILE__) . '/base.php';
 
     if (IMP::checkAuthentication(true)) {
-        require_once IMP_BASE . '/lib/IMAP/Tree.php';
         $imp_folder = &IMP_Folder::singleton();
         $imp_folder->clearFlistCache();
-        $imptree = &IMP_Tree::singleton();
-        $imptree->init();
+        $imaptree = &IMP_IMAP_Tree::singleton();
+        $imaptree->init();
         $imp_search = new IMP_Search();
         $imp_search->sessionSetup(true);
     }

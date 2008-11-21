@@ -51,16 +51,15 @@ class Horde_Block_imp_tree_folders extends Horde_Block {
         $name_url = Util::addParameter(Horde::applicationUrl('mailbox.php'), 'no_newmail_popup', 1);
 
         /* Initialize the IMP_Tree object. */
-        require_once IMP_BASE . '/lib/IMAP/Tree.php';
-        $imptree = &IMP_Tree::singleton();
-        $mask = IMPTREE_NEXT_SHOWCLOSED;
+        $imaptree = &IMP_IMAP_Tree::singleton();
+        $mask = IMP_IMAP_Tree::NEXT_SHOWCLOSED;
         if ($GLOBALS['prefs']->getValue('subscribe')) {
-            $mask |= IMPTREE_NEXT_SHOWSUB;
+            $mask |= IMP_IMAP_Tree::NEXT_SHOWSUB;
         }
 
         $unseen = 0;
         $inbox = null;
-        $tree_ob = $imptree->build($mask, null, null, false);
+        $tree_ob = $imaptree->build($mask, null, null, false);
 
         foreach ($tree_ob[0] as $val) {
             $label = $val['name'];
@@ -83,7 +82,7 @@ class Horde_Block_imp_tree_folders extends Horde_Block {
             );
             $tree->addNode($parent . $val['value'],
                            ($val['level']) ? $parent . $val['parent'] : $parent,
-                           $label, $indent + $val['level'], $imptree->isOpenSidebar($val['value']), $node_params);
+                           $label, $indent + $val['level'], $imaptree->isOpenSidebar($val['value']), $node_params);
         }
 
         /* We want to rewrite the parent node of the INBOX to include new mail
@@ -109,7 +108,7 @@ class Horde_Block_imp_tree_folders extends Horde_Block {
                 $node_params['icondir'] = $image_dir;
                 $name = sprintf('<strong>%s</strong> (%s)', $name, $unseen);
             }
-            $tree->addNode($parent, $menu_parent, $name, $indent - 1, $imptree->isOpenSidebar($parent), $node_params);
+            $tree->addNode($parent, $menu_parent, $name, $indent - 1, $imaptree->isOpenSidebar($parent), $node_params);
         }
     }
 

@@ -1,8 +1,8 @@
 <?php
 /**
- * The IMP_tree class provides a tree view of the mailboxes in an IMAP/POP3
- * repository.  It provides access functions to iterate through this tree and
- * query information about individual mailboxes.
+ * The IMP_IMAP_Tree class provides a tree view of the mailboxes in an
+ * IMAP/POP3 repository.  It provides access functions to iterate through this
+ * tree and query information about individual mailboxes.
  * In IMP, folders = IMAP mailboxes so the two terms are used interchangably.
  *
  * Copyright 2000-2008 The Horde Project (http://www.horde.org/)
@@ -16,58 +16,56 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package IMP
  */
-
-/* Constants for mailboxElt attributes. */
-define('IMPTREE_ELT_NOSELECT', 1);
-define('IMPTREE_ELT_NAMESPACE', 2);
-define('IMPTREE_ELT_IS_OPEN', 4);
-define('IMPTREE_ELT_IS_SUBSCRIBED', 8);
-define('IMPTREE_ELT_NOSHOW', 16);
-define('IMPTREE_ELT_IS_POLLED', 32);
-define('IMPTREE_ELT_NEED_SORT', 64);
-define('IMPTREE_ELT_VFOLDER', 128);
-define('IMPTREE_ELT_NONIMAP', 256);
-
-/* The isOpen() expanded mode constants. */
-define('IMPTREE_OPEN_NONE', 0);
-define('IMPTREE_OPEN_ALL', 1);
-define('IMPTREE_OPEN_USER', 2);
-
-/* The manner to which to traverse the tree when calling next(). */
-define('IMPTREE_NEXT_SHOWCLOSED', 1);
-define('IMPTREE_NEXT_SHOWSUB', 2);
-
-/* The string used to indicate the base of the tree. */
-define('IMPTREE_BASE_ELT', '%');
-
-/** Defines used with the output from the build() function. */
-define('IMPTREE_SPECIAL_INBOX', 1);
-define('IMPTREE_SPECIAL_TRASH', 2);
-define('IMPTREE_SPECIAL_DRAFT', 3);
-define('IMPTREE_SPECIAL_SPAM', 4);
-define('IMPTREE_SPECIAL_SENT', 5);
-
-/** Defines used with folderList(). */
-define('IMPTREE_FLIST_CONTAINER', 1);
-define('IMPTREE_FLIST_UNSUB', 2);
-define('IMPTREE_FLIST_OB', 4);
-define('IMPTREE_FLIST_VFOLDER', 8);
-
-/* Add a percent to folder key since it allows us to sort by name but never
- * conflict with an IMAP mailbox of the same name (since '%' is an invalid
- * character in an IMAP mailbox string). */
-/** Defines used with virtual folders. */
-define('IMPTREE_VFOLDER_LABEL', _("Virtual Folders"));
-define('IMPTREE_VFOLDER_KEY', IMPTREE_VFOLDER_LABEL . '%');
-
-/** Defines used with namespace display. */
-define('IMPTREE_SHARED_LABEL', _("Shared Folders"));
-define('IMPTREE_SHARED_KEY', IMPTREE_SHARED_LABEL . '%');
-define('IMPTREE_OTHER_LABEL', _("Other Users' Folders"));
-define('IMPTREE_OTHER_KEY', IMPTREE_OTHER_LABEL . '%');
-
-class IMP_Tree
+class IMP_IMAP_Tree
 {
+    /* Constants for mailboxElt attributes. */
+    const ELT_NOSELECT = 1;
+    const ELT_NAMESPACE = 2;
+    const ELT_IS_OPEN = 4;
+    const ELT_IS_SUBSCRIBED = 8;
+    const ELT_NOSHOW = 16;
+    const ELT_IS_POLLED = 32;
+    const ELT_NEED_SORT = 64;
+    const ELT_VFOLDER = 128;
+    const ELT_NONIMAP = 256;
+
+    /* The isOpen() expanded mode constants. */
+    const OPEN_NONE = 0;
+    const OPEN_ALL = 1;
+    const OPEN_USER = 2;
+
+    /* The manner to which to traverse the tree when calling next(). */
+    const NEXT_SHOWCLOSED = 1;
+    const NEXT_SHOWSUB = 2;
+
+    /* The string used to indicate the base of the tree. */
+    const BASE_ELT = '%';
+
+    /* Defines used with the output from the build() function. */
+    const SPECIAL_INBOX = 1;
+    const SPECIAL_TRASH = 2;
+    const SPECIAL_DRAFT = 3;
+    const SPECIAL_SPAM = 4;
+    const SPECIAL_SENT = 5;
+
+    /* Defines used with folderList(). */
+    const FLIST_CONTAINER = 1;
+    const FLIST_UNSUB = 2;
+    const FLIST_OB = 4;
+    const FLIST_VFOLDER = 8;
+
+    /* Add a percent to folder key since it allows us to sort by name but
+     * never conflict with an IMAP mailbox of the same name (since '%' is an
+     * invalid character in an IMAP mailbox string). */
+    public $VFOLDER_LABEL;
+    public $VFOLDER_KEY;
+
+    /* Defines used with namespace display. */
+    public $SHARED_LABEL;
+    public $SHARED_KEY;
+    public $OTHER_LABEL;
+    public $OTHER_KEY;
+
     /**
      * Array containing the mailbox tree.
      *
@@ -181,17 +179,17 @@ class IMP_Tree
     protected $_forceopen = false;
 
     /**
-     * Attempts to return a reference to a concrete IMP_Tree instance.
+     * Attempts to return a reference to a concrete IMP_IMAP_Tree instance.
      *
-     * If an IMP_Tree object is currently stored in the local session,
+     * If an IMP_IMAP_Tree object is currently stored in the local session,
      * recreate that object.  Else, create a new instance.  Ensures that only
-     * one IMP_Tree instance is available at any time.
+     * one instance is available at any time.
      *
      * This method must be invoked as:<pre>
-     *   $imp_tree = &IMP_Tree::singleton();
+     *   $imp_tree = &IMP_IMAP_Tree::singleton();
      * </pre>
      *
-     * @return IMP_Tree  The IMP_Tree object or null.
+     * @return IMP_IMAP_Tree  The object or null.
      */
     static public function &singleton()
     {
@@ -203,7 +201,7 @@ class IMP_Tree
                 $instance = Horde_Serialize::unserialize($ptr['ob'], $ptr['s']);
             }
             if (empty($instance) || is_a($instance, 'PEAR_Error')) {
-                $instance = new IMP_Tree();
+                $instance = new IMP_IMAP_Tree();
             }
             register_shutdown_function(array(&$instance, 'store'));
         }
@@ -265,6 +263,14 @@ class IMP_Tree
             $this->_namespaces = (empty($GLOBALS['conf']['user']['allow_folders'])) ? array() : $ns;
         }
 
+        /* Must set these values here because PHP 5 does not allow assignment
+         * of const's to gettext strings. */
+        $this->VFOLDER_LABEL = _("Virtual Folders");
+        $this->VFOLDER_KEY = $this->VFOLDER_LABEL . '%';
+        $this->SHARED_LABEL = _("Shared Folders");
+        $this->SHARED_KEY = $this->SHARED_LABEL . '%';
+        $this->OTHER_LABEL = _("Other Users' Folders");
+        $this->OTHER_KEY = $this->OTHER_LABEL . '%';
         $this->init();
     }
 
@@ -320,7 +326,7 @@ class IMP_Tree
         $elt = array(
             'a' => $attributes,
             'c' => 0,
-            'p' => IMPTREE_BASE_ELT,
+            'p' => self::BASE_ELT,
             'v' => $name
         );
 
@@ -346,15 +352,15 @@ class IMP_Tree
 
         /* Check for open status. */
         switch ($GLOBALS['prefs']->getValue('nav_expanded')) {
-        case IMPTREE_OPEN_NONE:
+        case self::OPEN_NONE:
             $open = false;
             break;
 
-        case IMPTREE_OPEN_ALL:
+        case self::OPEN_ALL:
             $open = true;
             break;
 
-        case IMPTREE_OPEN_USER:
+        case self::OPEN_USER:
             $this->_initExpandedList();
             $open = !empty($this->_expanded[$elt['v']]);
             break;
@@ -382,7 +388,7 @@ class IMP_Tree
                     if (!empty($ns_info['name']) && ($elt['c'] != 0)) {
                         --$elt['c'];
                         if (strpos($elt['p'], $ns_info['delimiter']) === false) {
-                            $elt['p'] = IMPTREE_BASE_ELT;
+                            $elt['p'] = self::BASE_ELT;
                         } elseif (strpos($elt['v'], $ns_info['name'] . 'INBOX' . $ns_info['delimiter']) === 0) {
                             $elt['p'] = 'INBOX';
                         }
@@ -392,15 +398,15 @@ class IMP_Tree
                 case 'other':
                 case 'shared':
                     if (substr($ns_info['name'], 0, -1 * strlen($ns_info['delimiter'])) == $elt['v']) {
-                        $elt['a'] = IMPTREE_ELT_NOSELECT | IMPTREE_ELT_NAMESPACE;
+                        $elt['a'] = self::ELT_NOSELECT | self::ELT_NAMESPACE;
                     }
 
                     if ($GLOBALS['prefs']->getValue('tree_view')) {
-                        $name = ($ns_info['type'] == 'other') ? IMPTREE_OTHER_KEY : IMPTREE_SHARED_KEY;
+                        $name = ($ns_info['type'] == 'other') ? $this->OTHER_KEY : $this->SHARED_KEY;
                         if ($elt['c'] == 0) {
                             $elt['p'] = $name;
                             ++$elt['c'];
-                        } elseif ($this->_tree[$name] && IMPTREE_ELT_NOSHOW) {
+                        } elseif ($this->_tree[$name] && self::ELT_NOSHOW) {
                             if ($elt['c'] == 1) {
                                 $elt['p'] = $name;
                             }
@@ -434,14 +440,14 @@ class IMP_Tree
 
         /* Create a placeholder element to the base of the tree list so we can
          * keep track of whether the base level needs to be sorted. */
-        $this->_tree[IMPTREE_BASE_ELT] = array(
-            'a' => IMPTREE_ELT_NEED_SORT,
-            'v' => IMPTREE_BASE_ELT
+        $this->_tree[self::BASE_ELT] = array(
+            'a' => self::ELT_NEED_SORT,
+            'v' => self::BASE_ELT
         );
 
         if (empty($GLOBALS['conf']['user']['allow_folders']) ||
             ($_SESSION['imp']['protocol'] == 'pop')) {
-            $this->_insertElt($this->_makeElt('INBOX', IMPTREE_ELT_IS_SUBSCRIBED));
+            $this->_insertElt($this->_makeElt('INBOX', self::ELT_IS_SUBSCRIBED));
             return;
         }
 
@@ -450,16 +456,16 @@ class IMP_Tree
             if ($val['type'] != 'personal' &&
                 $GLOBALS['prefs']->getValue('tree_view')) {
                 $elt = $this->_makeElt(
-                    ($val['type'] == 'other') ? IMPTREE_OTHER_KEY : IMPTREE_SHARED_KEY,
-                    IMPTREE_ELT_NOSELECT | IMPTREE_ELT_NAMESPACE | IMPTREE_ELT_NONIMAP | IMPTREE_ELT_NOSHOW
+                    ($val['type'] == 'other') ? $this->OTHER_KEY : $this->SHARED_KEY,
+                    self::ELT_NOSELECT | self::ELT_NAMESPACE | self::ELT_NONIMAP | self::ELT_NOSHOW
                 );
                 $elt['l'] = ($val['type'] == 'other')
-                    ? IMPTREE_OTHER_LABEL : IMPTREE_SHARED_LABEL;
+                    ? $this->OTHER_LABEL : $this->SHARED_LABEL;
 
                 foreach ($this->_namespaces as $val2) {
                     if (($val2['type'] == $val['type']) &&
                         ($val2['name'] != $val['name'])) {
-                        $elt['a'] &= ~IMPTREE_ELT_NOSHOW;
+                        $elt['a'] &= ~self::ELT_NOSHOW;
                         break;
                     }
                 }
@@ -530,8 +536,8 @@ class IMP_Tree
      *
      * @param integer $mask  A mask with the following elements:
      * <pre>
-     * IMPTREE_NEXT_SHOWCLOSED - Don't ignore closed elements.
-     * IMPTREE_NEXT_SHOWSUB - Only show subscribed elements.
+     * IMP_IMAP_Tree::NEXT_SHOWCLOSED - Don't ignore closed elements.
+     * IMP_IMAP_Tree::NEXT_SHOWSUB - Only show subscribed elements.
      * </pre>
      *
      * @return mixed  Returns the next element or false if the element doesn't
@@ -546,12 +552,12 @@ class IMP_Tree
         $curr = $this->current();
 
         $old_showunsub = $this->_showunsub;
-        if ($mask & IMPTREE_NEXT_SHOWSUB) {
+        if ($mask & self::NEXT_SHOWSUB) {
             $this->_showunsub = false;
         }
 
         if ($this->_activeElt($curr) &&
-            (($mask & IMPTREE_NEXT_SHOWCLOSED) || $this->isOpen($curr)) &&
+            (($mask & self::NEXT_SHOWCLOSED) || $this->isOpen($curr)) &&
             ($this->_currparent != $curr['v'])) {
             /* If the current element is open, and children exist, move into
              * it. */
@@ -564,7 +570,7 @@ class IMP_Tree
             if ($GLOBALS['prefs']->getValue('tree_view') &&
                 $this->isNamespace($curr) &&
                 !$this->_isNonIMAPElt($curr) &&
-                ($this->_tree[$curr['p']] && IMPTREE_ELT_NOSHOW)) {
+                ($this->_tree[$curr['p']] && self::ELT_NOSHOW)) {
                 $this->next($mask);
             }
         } else {
@@ -603,7 +609,7 @@ class IMP_Tree
     public function reset()
     {
         $this->_currkey = 0;
-        $this->_currparent = IMPTREE_BASE_ELT;
+        $this->_currparent = self::BASE_ELT;
         $this->_currstack = array();
         $this->_sortLevel($this->_currparent);
         return $this->current();
@@ -677,14 +683,14 @@ class IMP_Tree
 
             $ns_info = $this->_getNamespace($val);
             if (is_null($ns_info)) {
-                if (strpos($val, IMPTREE_VFOLDER_KEY . $this->_delimiter) === 0) {
-                    $elt = $this->_makeElt(IMPTREE_VFOLDER_KEY, IMPTREE_ELT_VFOLDER | IMPTREE_ELT_NOSELECT | IMPTREE_ELT_NONIMAP);
-                    $elt['l'] = IMPTREE_VFOLDER_LABEL;
+                if (strpos($val, $this->VFOLDER_KEY . $this->_delimiter) === 0) {
+                    $elt = $this->_makeElt($this->VFOLDER_KEY, self::ELT_VFOLDER | self::ELT_NOSELECT | self::ELT_NONIMAP);
+                    $elt['l'] = $this->VFOLDER_LABEL;
                     $this->_insertElt($elt);
                 }
 
-                $elt = $this->_makeElt($val, IMPTREE_ELT_VFOLDER | IMPTREE_ELT_IS_SUBSCRIBED);
-                $elt['l'] = $elt['v'] = String::substr($val, String::length(IMPTREE_VFOLDER_KEY) + String::length($this->_delimiter));
+                $elt = $this->_makeElt($val, self::ELT_VFOLDER | self::ELT_IS_SUBSCRIBED);
+                $elt['l'] = $elt['v'] = String::substr($val, String::length($this->VFOLDER_KEY) + String::length($this->_delimiter));
                 $this->_insertElt($elt);
             } else {
                 /* Break apart the name via the delimiter and go step by
@@ -702,7 +708,7 @@ class IMP_Tree
                             $this->_setContainer($this->_tree[$part], false);
                         }
                     } else {
-                        $this->_insertElt(($part == $val) ? $this->_makeElt($part) : $this->_makeElt($part, IMPTREE_ELT_NOSELECT));
+                        $this->_insertElt(($part == $val) ? $this->_makeElt($part) : $this->_makeElt($part, self::ELT_NOSELECT));
                     }
                 }
             }
@@ -777,7 +783,7 @@ class IMP_Tree
             $id = $this->_convertName($id, true);
         }
 
-        $vfolder_base = ($id == IMPTREE_VFOLDER_LABEL);
+        $vfolder_base = ($id == $this->VFOLDER_LABEL);
         $search_id = $GLOBALS['imp_search']->createSearchID($id);
 
         if ($vfolder_base ||
@@ -978,7 +984,7 @@ class IMP_Tree
      */
     public function isOpen($elt)
     {
-        return (($elt['a'] & IMPTREE_ELT_IS_OPEN) && $this->hasChildren($elt));
+        return (($elt['a'] & self::ELT_IS_OPEN) && $this->hasChildren($elt));
     }
 
     /**
@@ -989,7 +995,7 @@ class IMP_Tree
      */
     protected function _setOpen(&$elt, $bool)
     {
-        $this->_setAttribute($elt, IMPTREE_ELT_IS_OPEN, $bool);
+        $this->_setAttribute($elt, self::ELT_IS_OPEN, $bool);
         $this->_modifyExpandedList($elt['v'], $bool ? 'add' : 'remove');
     }
 
@@ -1003,7 +1009,7 @@ class IMP_Tree
      */
     public function isContainer($elt)
     {
-        return (($elt['a'] & IMPTREE_ELT_NOSELECT) ||
+        return (($elt['a'] & self::ELT_NOSELECT) ||
                 (!$this->_showunsub &&
                  !$this->isSubscribed($elt) &&
                  $this->hasChildren($elt)));
@@ -1017,7 +1023,7 @@ class IMP_Tree
      */
     protected function _setContainer(&$elt, $bool)
     {
-        $this->_setAttribute($elt, IMPTREE_ELT_NOSELECT, $bool);
+        $this->_setAttribute($elt, self::ELT_NOSELECT, $bool);
     }
 
     /**
@@ -1029,7 +1035,7 @@ class IMP_Tree
      */
     public function isSubscribed($elt)
     {
-        return $elt['a'] & IMPTREE_ELT_IS_SUBSCRIBED;
+        return $elt['a'] & self::ELT_IS_SUBSCRIBED;
     }
 
     /**
@@ -1040,7 +1046,7 @@ class IMP_Tree
      */
     protected function _setSubscribed(&$elt, $bool)
     {
-        $this->_setAttribute($elt, IMPTREE_ELT_IS_SUBSCRIBED, $bool);
+        $this->_setAttribute($elt, self::ELT_IS_SUBSCRIBED, $bool);
         if (!is_null($this->_subscribed)) {
             if ($bool) {
                 $this->_subscribed[$elt['v']] = 1;
@@ -1059,7 +1065,7 @@ class IMP_Tree
      */
     public function isNamespace($elt)
     {
-        return $elt['a'] & IMPTREE_ELT_NAMESPACE;
+        return $elt['a'] & self::ELT_NAMESPACE;
     }
 
     /**
@@ -1071,7 +1077,7 @@ class IMP_Tree
      */
     protected function _isNonIMAPElt($elt)
     {
-        return $elt['a'] & IMPTREE_ELT_NONIMAP;
+        return $elt['a'] & self::ELT_NONIMAP;
     }
 
     /**
@@ -1213,7 +1219,7 @@ class IMP_Tree
      */
     public function isPolled($elt)
     {
-        return ($GLOBALS['prefs']->getValue('nav_poll_all')) ? true : ($elt['a'] & IMPTREE_ELT_IS_POLLED);
+        return ($GLOBALS['prefs']->getValue('nav_poll_all')) ? true : ($elt['a'] & self::ELT_IS_POLLED);
     }
 
     /**
@@ -1224,7 +1230,7 @@ class IMP_Tree
      */
     protected function _setPolled(&$elt, $bool)
     {
-        $this->_setAttribute($elt, IMPTREE_ELT_IS_POLLED, $bool);
+        $this->_setAttribute($elt, self::ELT_IS_POLLED, $bool);
     }
 
     /**
@@ -1235,7 +1241,7 @@ class IMP_Tree
      */
     protected function _setNeedSort(&$elt, $bool)
     {
-        $this->_setAttribute($elt, IMPTREE_ELT_NEED_SORT, $bool);
+        $this->_setAttribute($elt, self::ELT_NEED_SORT, $bool);
     }
 
     /**
@@ -1247,7 +1253,7 @@ class IMP_Tree
      */
     protected function _needSort($elt)
     {
-        return (($elt['a'] & IMPTREE_ELT_NEED_SORT) && (count($this->_parent[$elt['v']]) > 1));
+        return (($elt['a'] & self::ELT_NEED_SORT) && (count($this->_parent[$elt['v']]) > 1));
     }
 
     /**
@@ -1265,7 +1271,7 @@ class IMP_Tree
      */
     public function expandAll()
     {
-        foreach ($this->_parent[IMPTREE_BASE_ELT] as $val) {
+        foreach ($this->_parent[self::BASE_ELT] as $val) {
             $this->expand($val, true);
         }
     }
@@ -1276,7 +1282,7 @@ class IMP_Tree
     public function collapseAll()
     {
         foreach ($this->_tree as $key => $val) {
-            if ($key !== IMPTREE_BASE_ELT) {
+            if ($key !== self::BASE_ELT) {
                 $this->collapse($val['v']);
             }
         }
@@ -1407,8 +1413,8 @@ class IMP_Tree
      */
     protected function _getNamespace($mailbox)
     {
-        if (!in_array($mailbox, array(IMPTREE_OTHER_KEY, IMPTREE_SHARED_KEY, IMPTREE_VFOLDER_KEY)) &&
-            (strpos($mailbox, IMPTREE_VFOLDER_KEY . $this->_delimiter) !== 0)) {
+        if (!in_array($mailbox, array($this->OTHER_KEY, $this->SHARED_KEY, $this->VFOLDER_KEY)) &&
+            (strpos($mailbox, $this->VFOLDER_KEY . $this->_delimiter) !== 0)) {
             return $GLOBALS['imp_imap']->getNamespace($mailbox);
         }
         return null;
@@ -1480,7 +1486,7 @@ class IMP_Tree
         }
 
         foreach (array_keys($id) as $key) {
-            $adds[] = IMPTREE_VFOLDER_KEY . $this->_delimiter . $key;
+            $adds[] = $this->VFOLDER_KEY . $this->_delimiter . $key;
         }
 
         $this->insert($adds);
@@ -1490,14 +1496,14 @@ class IMP_Tree
         }
 
         /* Sort the Virtual Folder list in the object, if necessary. */
-        if ($this->_needSort($this->_tree[IMPTREE_VFOLDER_KEY])) {
+        if ($this->_needSort($this->_tree[$this->VFOLDER_KEY])) {
             $vsort = array();
-            foreach ($this->_parent[IMPTREE_VFOLDER_KEY] as $val) {
+            foreach ($this->_parent[$this->VFOLDER_KEY] as $val) {
                 $vsort[$val] = $this->_tree[$val]['l'];
             }
             natcasesort($vsort);
-            $this->_parent[IMPTREE_VFOLDER_KEY] = array_keys($vsort);
-            $this->_setNeedSort($this->_tree[IMPTREE_VFOLDER_KEY], false);
+            $this->_parent[$this->VFOLDER_KEY] = array_keys($vsort);
+            $this->_setNeedSort($this->_tree[$this->VFOLDER_KEY], false);
             $this->_changed = true;
         }
     }
@@ -1596,7 +1602,7 @@ class IMP_Tree
      */
     public function isVFolder($elt)
     {
-        return $elt['a'] & IMPTREE_ELT_VFOLDER;
+        return $elt['a'] & self::ELT_VFOLDER;
     }
 
     /**
@@ -1623,10 +1629,10 @@ class IMP_Tree
      *
      * @param integer $mask  A mask with the following elements:
      * <pre>
-     * IMPTREE_FLIST_CONTAINER - Show container elements.
-     * IMPTREE_FLIST_UNSUB - Show unsubscribed elements.
-     * IMPTREE_FLIST_OB - Return full tree object.
-     * IMPTREE_FLIST_VFOLDER - Show Virtual Folders.
+     * IMP_IMAP_Tree::FLIST_CONTAINER - Show container elements.
+     * IMP_IMAP_Tree::FLIST_UNSUB - Show unsubscribed elements.
+     * IMP_IMAP_Tree::FLIST_OB - Return full tree object.
+     * IMP_IMAP_Tree::FLIST_VFOLDER - Show Virtual Folders.
      * </pre>
      * @param string $base  Return all mailboxes below this element.
      *
@@ -1637,21 +1643,21 @@ class IMP_Tree
         $baseindex = null;
         $ret_array = array();
 
-        $diff_unsub = (($mask & IMPTREE_FLIST_UNSUB) != $this->_showunsub) ? $this->_showunsub : null;
-        $this->showUnsubscribed($mask & IMPTREE_FLIST_UNSUB);
+        $diff_unsub = (($mask & self::FLIST_UNSUB) != $this->_showunsub) ? $this->_showunsub : null;
+        $this->showUnsubscribed($mask & self::FLIST_UNSUB);
 
         $mailbox = $this->reset();
 
         // Search to base element.
         if (!is_null($base)) {
             while ($mailbox && $mailbox['v'] != $base) {
-                $mailbox = $this->next(IMPTREE_NEXT_SHOWCLOSED);
+                $mailbox = $this->next(self::NEXT_SHOWCLOSED);
             }
             if ($mailbox) {
                 $baseindex = count($this->_currstack);
                 $baseparent = $this->_currparent;
                 $basekey = $this->_currkey;
-                $mailbox = $this->next(IMPTREE_NEXT_SHOWCLOSED);
+                $mailbox = $this->next(self::NEXT_SHOWCLOSED);
             }
         }
 
@@ -1664,13 +1670,13 @@ class IMP_Tree
                     break;
                 }
 
-                if ((($mask & IMPTREE_FLIST_CONTAINER) ||
+                if ((($mask & self::FLIST_CONTAINER) ||
                      !$this->isContainer($mailbox)) &&
-                    (($mask & IMPTREE_FLIST_VFOLDER) ||
+                    (($mask & self::FLIST_VFOLDER) ||
                      !$this->isVFolder($mailbox))) {
-                    $ret_array[] = ($mask & IMPTREE_FLIST_OB) ? $mailbox : $mailbox['v'];
+                    $ret_array[] = ($mask & self::FLIST_OB) ? $mailbox : $mailbox['v'];
                 }
-            } while (($mailbox = $this->next(IMPTREE_NEXT_SHOWCLOSED)));
+            } while (($mailbox = $this->next(self::NEXT_SHOWCLOSED)));
         }
 
         if (!is_null($diff_unsub)) {
@@ -1690,16 +1696,16 @@ class IMP_Tree
     public function isOpenSidebar($mbox)
     {
         switch ($GLOBALS['prefs']->getValue('nav_expanded_sidebar')) {
-        case IMPTREE_OPEN_USER:
+        case self::OPEN_USER:
             $this->_initExpandedList();
             return !empty($this->_expanded[$mbox]);
             break;
 
-        case IMPTREE_OPEN_ALL:
+        case self::OPEN_ALL:
             return true;
             break;
 
-        case IMPTREE_OPEN_NONE:
+        case self::OPEN_NONE:
         default:
             return false;
             break;
@@ -1813,7 +1819,7 @@ class IMP_Tree
             case 'INBOX':
                 $row['icon'] = 'folders/inbox.png';
                 $row['alt'] = _("Inbox");
-                $row['special'] = IMPTREE_SPECIAL_INBOX;
+                $row['special'] = self::SPECIAL_INBOX;
                 break;
 
             case $elt['trash']:
@@ -1823,27 +1829,27 @@ class IMP_Tree
                 } else {
                     $row['icon'] = 'folders/trash.png';
                     $row['alt'] = _("Trash folder");
-                    $row['special'] = IMPTREE_SPECIAL_TRASH;
+                    $row['special'] = self::SPECIAL_TRASH;
                 }
                 break;
 
             case $elt['draft']:
                 $row['icon'] = 'folders/drafts.png';
                 $row['alt'] = _("Draft folder");
-                $row['special'] = IMPTREE_SPECIAL_DRAFT;
+                $row['special'] = self::SPECIAL_DRAFT;
                 break;
 
             case $elt['spam']:
                 $row['icon'] = 'folders/spam.png';
                 $row['alt'] = _("Spam folder");
-                $row['special'] = IMPTREE_SPECIAL_SPAM;
+                $row['special'] = self::SPECIAL_SPAM;
                 break;
 
             default:
                 if (in_array($mailbox['v'], $elt['sent'])) {
                     $row['icon'] = 'folders/sent.png';
                     $row['alt'] = _("Sent mail folder");
-                    $row['special'] = IMPTREE_SPECIAL_SENT;
+                    $row['special'] = self::SPECIAL_SENT;
                 } else {
                     $row['icon'] = ($this->isOpen($mailbox)) ? 'folders/folder_open.png' : 'folders/folder.png';
                     $row['alt'] = _("Mailbox");
@@ -1903,7 +1909,7 @@ class IMP_Tree
     protected function _sortLevel($id)
     {
         if ($this->_needSort($this->_tree[$id])) {
-            $this->_sortList($this->_parent[$id], ($id === IMPTREE_BASE_ELT));
+            $this->_sortList($this->_parent[$id], ($id === self::BASE_ELT));
             $this->_setNeedSort($this->_tree[$id], false);
             $this->_changed = true;
         }

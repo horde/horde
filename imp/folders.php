@@ -32,7 +32,6 @@ function _image($name, $alt, $type)
 }
 
 require_once dirname(__FILE__) . '/lib/base.php';
-require_once IMP_BASE . '/lib/IMAP/Tree.php';
 require_once 'Horde/Help.php';
 Horde::addScriptFile('prototype.js', 'horde', true);
 Horde::addScriptFile('folders.js', 'imp', true);
@@ -54,8 +53,8 @@ $folders_url = Horde::selfUrl();
 /* Initialize the IMP_Folder object. */
 $imp_folder = &IMP_Folder::singleton();
 
-/* Initialize the IMP_Tree object. */
-$imptree = &IMP_Tree::singleton();
+/* Initialize the IMP_IMAP_Tree object. */
+$imaptree = &IMP_IMAP_Tree::singleton();
 
 /* $folder_list is already encoded in UTF7-IMAP. */
 $charset = NLS::getCharset();
@@ -80,21 +79,21 @@ case 'collapse_folder':
 case 'expand_folder':
     $folder = Util::getFormData('folder');
     if (!empty($folder)) {
-        ($actionID == 'expand_folder') ? $imptree->expand($folder) : $imptree->collapse($folder);
+        ($actionID == 'expand_folder') ? $imaptree->expand($folder) : $imaptree->collapse($folder);
     }
     break;
 
 case 'expand_all_folders':
-    $imptree->expandAll();
+    $imaptree->expandAll();
     break;
 
 case 'collapse_all_folders':
-    $imptree->collapseAll();
+    $imaptree->collapseAll();
     break;
 
 case 'rebuild_tree':
     $imp_folder->clearFlistCache();
-    $imptree->init();
+    $imaptree->init();
     break;
 
 case 'expunge_folder':
@@ -157,7 +156,7 @@ case 'import_mbox':
 case 'create_folder':
     $new_mailbox = Util::getFormData('new_mailbox');
     if (!empty($new_mailbox)) {
-        $new_mailbox = $imptree->createMailboxName(array_shift($folder_list), String::convertCharset($new_mailbox, $charset, 'UTF7-IMAP'));
+        $new_mailbox = $imaptree->createMailboxName(array_shift($folder_list), String::convertCharset($new_mailbox, $charset, 'UTF7-IMAP'));
         if (is_a($new_mailbox, 'PEAR_Error')) {
             $notification->push($new_mailbox);
         } else {
@@ -198,14 +197,14 @@ case 'toggle_subscribed_view':
     if ($subscribe) {
         $showAll = !$showAll;
         $_SESSION['imp']['showunsub'] = $showAll;
-        $imptree->showUnsubscribed($showAll);
+        $imaptree->showUnsubscribed($showAll);
     }
     break;
 
 case 'poll_folder':
 case 'nopoll_folder':
     if (!empty($folder_list)) {
-        ($actionID == 'poll_folder') ? $imptree->addPollList($folder_list) : $imptree->removePollList($folder_list);
+        ($actionID == 'poll_folder') ? $imaptree->addPollList($folder_list) : $imaptree->removePollList($folder_list);
         $imp_search->createVINBOXFolder();
     }
     break;
@@ -335,7 +334,7 @@ if ($_SESSION['imp']['file_upload'] && ($actionID == 'import_mbox')) {
 }
 
 /* Build the folder tree. */
-list($raw_rows, $newmsgs, $displayNames) = $imptree->build();
+list($raw_rows, $newmsgs, $displayNames) = $imaptree->build();
 
 IMP::addInlineScript('var displayNames = ' . Horde_Serialize::serialize($displayNames, SERIALIZE_JSON, $charset) . ';');
 
@@ -404,7 +403,7 @@ $rowct = 0;
 $morembox = $rows = array();
 foreach ($raw_rows as $val) {
     $val['nocheckbox'] = !empty($val['vfolder']);
-    if (!empty($val['vfolder']) && ($val['value'] != IMPTREE_VFOLDER_KEY)) {
+    if (!empty($val['vfolder']) && ($val['value'] != $imaptree->VFOLDER_KEY)) {
         $val['delvfolder'] = Horde::link($imp_search->deleteURL($val['value']), _("Delete Virtual Folder")) . _("Delete") . '</a>';
         $val['editvfolder'] = Horde::link($imp_search->editURL($val['value']), _("Edit Virtual Folder")) . _("Edit") . '</a>';
     }
@@ -415,7 +414,7 @@ foreach ($raw_rows as $val) {
     if ($showAll &&
         $subscribe &&
         !$val['container'] &&
-        !$imptree->isSubscribed($val['base_elt'])) {
+        !$imaptree->isSubscribed($val['base_elt'])) {
         $val['class'] .= ' folderunsub';
     }
 
@@ -430,7 +429,7 @@ foreach ($raw_rows as $val) {
 
     if ($val['children']) {
         $dir = Util::addParameter($folders_url, 'folder', $val['value']);
-        if ($imptree->isOpen($val['base_elt'])) {
+        if ($imaptree->isOpen($val['base_elt'])) {
             $dir = Util::addParameter($dir, 'actionID', 'collapse_folder');
             if ($val['value'] == 'INBOX') {
                 $minus_img = 'minustop.png';
