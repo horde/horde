@@ -62,7 +62,12 @@ $mime_drivers['imp']['plain'] = array(
      * messages, set the maximum size of the displayed message here (in
      * bytes).  If exceeded, the user will only be able to download the part.
      * Set to 0 to disable this check. */
-    'limit_inline_size' => 1048576
+    'limit_inline_size' => 1048576,
+    /* If you want to scan ALL incoming text/plain messages for UUencoded
+     * data, set the following to true. This is very performance intensive and
+     * can take a long time for large messages. It is not recommended (as
+     * UUencoded data is very rare anymore) and is disabled by default. */
+    'uudecode' => false
 );
 
 /**

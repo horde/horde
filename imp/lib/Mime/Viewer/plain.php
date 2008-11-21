@@ -119,7 +119,7 @@ class IMP_Horde_Mime_Viewer_plain extends Horde_Mime_Viewer_plain
      */
     public function embeddedMimeParts()
     {
-        return !empty($GLOBALS['conf']['utils']['gnupg']) && $GLOBALS['prefs']->getValue('pgp_scan_body');
+        return (!empty($GLOBALS['conf']['utils']['gnupg']) && $GLOBALS['prefs']->getValue('pgp_scan_body')) || $this->getConfigParam('uudecode');
     }
 
     /**
@@ -131,6 +131,24 @@ class IMP_Horde_Mime_Viewer_plain extends Horde_Mime_Viewer_plain
      *                the ID, or null if no embedded MIME parts exist.
      */
     public function getEmbeddedMimeParts()
+    {
+        $ret = null;
+
+        if (!empty($GLOBALS['conf']['utils']['gnupg']) &&
+            $GLOBALS['prefs']->getValue('pgp_scan_body')) {
+            $ret = $this->_parsePGP();
+        }
+
+        if (is_null($ret) && $this->getConfigParam('uudecode')) {
+            $ret = $this->_parseUUencode();
+        }
+
+        return $ret;
+    }
+
+    /*
+     */
+    protected function _parsePGP()
     {
         /* Avoid infinite loop. */
         $imp_pgp = &Horde_Crypt::singleton(array('imp', 'pgp'));
@@ -212,6 +230,44 @@ class IMP_Horde_Mime_Viewer_plain extends Horde_Mime_Viewer_plain
                     next($parts);
                 }
             }
+        }
+
+        $new_part->buildMimeIds(is_a($new_part, 'Horde_Mime_Message') ? null : $mime_id);
+
+        return array($mime_id => $new_part);
+    }
+
+    protected function _parseUUencode()
+    {
+        $text = String::convertCharset($this->_mimepart->getContents(), $this->_mimepart->getCharset());
+
+        /* Don't want to use convert_uudecode() here as there may be multiple
+         * files residing in the text. */
+        require_once 'Mail/mimeDecode.php';
+        $files = &Mail_mimeDecode::uudecode($text);
+        if (empty($files)) {
+            return null;
+        }
+
+        $new_part = is_a($this->_mimepart, 'Horde_Mime_Message')
+            ? new Horde_Mime_Message()
+            : new Horde_Mime_Part();
+        $new_part->setType('multipart/mixed');
+        $mime_id = $this->_mimepart->getMimeId();
+
+        $text_part = new Horde_Mime_Part();
+        $text_part->setType('text/plain');
+        $text_part->setCharset(NLS::getCharset());
+        $text_part->setContents(preg_replace("/begin ([0-7]{3}) (.+)\r?\n(.+)\r?\nend/Us", "\n", $text));
+        $new_part->addPart($text_part);
+
+        reset($files);
+        while (list(,$file) = each($files)) {
+            $uupart = new Horde_Mime_Part();
+            $uupart->setType('application/octet-stream');
+            $uupart->setContents($file['filedata']);
+            $uupart->setName(strip_tags($file['filename']));
+            $new_part->addPart($uupart);
         }
 
         $new_part->buildMimeIds(is_a($new_part, 'Horde_Mime_Message') ? null : $mime_id);
