@@ -15,29 +15,6 @@
 class Horde_Mime_Message extends Horde_Mime_Part
 {
     /**
-     * Create a Horde_Mime_Message object from a Horde_Mime_Part object.
-     * This function can be called statically via:
-     *    $mime_message = Horde_Mime_Message::convertMimePart();
-     *
-     * @todo Is this needed?
-     *
-     * @param Horde_Mime_Part $mime_part  The Horde_Mime_Part object.
-     *
-     * @return Horde_Mime_Message  The new Horde_Mime_Message object.
-     */
-    static public function convertMimePart($mime_part)
-    {
-        if (!$mime_part->getMimeId()) {
-            $mime_part->setMimeId(1);
-        }
-
-        $mime_message = new Horde_Mime_Message();
-        $mime_message->addPart($mime_part);
-
-        return $mime_message;
-    }
-
-    /**
      * Sends this message.
      *
      * @param string $email                 The address list to send to.
