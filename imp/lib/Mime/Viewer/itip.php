@@ -287,19 +287,23 @@ class IMP_Horde_Mime_Viewer_itip extends Horde_Mime_Viewer_Driver
                     $vEvent_reply->setAttribute('ATTENDEE', 'mailto:' . $email, $params);
                     $vCal->addComponent($vEvent_reply);
 
-                    $mime = new Horde_Mime_Part('multipart/alternative');
-                    $body = new Horde_Mime_Part('text/plain',
-                                          String::wrap($message, 76, "\n"),
-                                          NLS::getCharset());
+                    $mime = new Horde_Mime_Message();
+                    $mime->setType('multipart/alternative');
 
-                    $ics = new Horde_Mime_Part('text/calendar', $vCal->exportvCalendar());
+                    $body = new Horde_Mime_Part();
+                    $body->setType('text/plain');
+                    $body->setCharset(NLS::getCharset());
+                    $body->setContents(String::wrap($message, 76, "\n"));
+
+                    $ics = new Horde_Mime_Part();
+                    $ics->setType('text/calendar');
+                    $ics->setCharset(NLS::getCharset());
+                    $ics->setContents($vCal->exportvCalendar());
                     $ics->setName('event-reply.ics');
                     $ics->setContentTypeParameter('METHOD', 'REPLY');
-                    $ics->setCharset(NLS::getCharset());
 
                     $mime->addPart($body);
                     $mime->addPart($ics);
-                    $mime = &Horde_Mime_Message::convertMimePart($mime);
 
                     // Build the reply headers.
                     $msg_headers = new Horde_Mime_Headers();
