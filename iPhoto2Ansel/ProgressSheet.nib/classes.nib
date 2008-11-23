@@ -1,0 +1,13 @@
+{
+    IBClasses = (
+        {
+            ACTIONS = {cancel = id; }; 
+            CLASS = FBProgressController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {progressIndicator = id; progressPanel = id; statusField = id; }; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }
+    ); 
+    IBVersion = 1; 
+}

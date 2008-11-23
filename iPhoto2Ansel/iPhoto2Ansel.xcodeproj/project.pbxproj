@@ -1,0 +1,610 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 44;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8D5B49B0048680CD000E48DA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C167DFE841241C02AAC07 /* InfoPlist.strings */; };
+		8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
+		B06C1E030EB1644600BFAFCB /* AnselExportPluginBox.m in Sources */ = {isa = PBXBuildFile; fileRef = B06C1E020EB1644600BFAFCB /* AnselExportPluginBox.m */; };
+		B06C1E060EB164D900BFAFCB /* AnselExportController.m in Sources */ = {isa = PBXBuildFile; fileRef = B06C1E050EB164D900BFAFCB /* AnselExportController.m */; };
+		B06C1E3D0EB17E3700BFAFCB /* Panel.nib in Resources */ = {isa = PBXBuildFile; fileRef = B06C1E3C0EB17E3700BFAFCB /* Panel.nib */; };
+		B07D42700EC230B100B59765 /* TURAnsel.m in Sources */ = {isa = PBXBuildFile; fileRef = B07D426D0EC230B100B59765 /* TURAnsel.m */; };
+		B07D42710EC230B100B59765 /* TURAnselGallery.m in Sources */ = {isa = PBXBuildFile; fileRef = B07D426F0EC230B100B59765 /* TURAnselGallery.m */; };
+		B07D44F70EC2AEC700B59765 /* TURXMLConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = B07D44F60EC2AEC700B59765 /* TURXMLConnection.m */; };
+		B0BFBC780ED5B2AB006581A5 /* XMLRPC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0BFBC700ED5B221006581A5 /* XMLRPC.framework */; };
+		B0BFBC7B0ED5B2B2006581A5 /* XMLRPC.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = B0BFBC700ED5B221006581A5 /* XMLRPC.framework */; };
+		B0BFBC970ED5B32B006581A5 /* NSDataAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = B0BFBC810ED5B32B006581A5 /* NSDataAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B0BFBC980ED5B32B006581A5 /* NSDataAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = B0BFBC820ED5B32B006581A5 /* NSDataAdditions.m */; };
+		B0BFBC990ED5B32B006581A5 /* NSStringAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = B0BFBC830ED5B32B006581A5 /* NSStringAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B0BFBC9A0ED5B32B006581A5 /* NSStringAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = B0BFBC840ED5B32B006581A5 /* NSStringAdditions.m */; };
+		B0BFBC9C0ED5B32B006581A5 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B0BFBC870ED5B32B006581A5 /* Localizable.strings */; };
+		B0BFBC9D0ED5B32B006581A5 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = B0BFBC890ED5B32B006581A5 /* LICENSE */; };
+		B0BFBC9E0ED5B32B006581A5 /* README in Resources */ = {isa = PBXBuildFile; fileRef = B0BFBC8A0ED5B32B006581A5 /* README */; };
+		B0BFBC9F0ED5B32B006581A5 /* XMLRPC.h in Headers */ = {isa = PBXBuildFile; fileRef = B0BFBC8B0ED5B32B006581A5 /* XMLRPC.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B0BFBCA00ED5B32B006581A5 /* XMLRPC.pch in Headers */ = {isa = PBXBuildFile; fileRef = B0BFBC8C0ED5B32B006581A5 /* XMLRPC.pch */; settings = {ATTRIBUTES = (Public, ); }; };
+		B0BFBCA10ED5B32B006581A5 /* XMLRPCConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = B0BFBC8D0ED5B32B006581A5 /* XMLRPCConnection.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B0BFBCA20ED5B32B006581A5 /* XMLRPCConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = B0BFBC8E0ED5B32B006581A5 /* XMLRPCConnection.m */; };
+		B0BFBCA30ED5B32B006581A5 /* XMLRPCDecoder.h in Headers */ = {isa = PBXBuildFile; fileRef = B0BFBC8F0ED5B32B006581A5 /* XMLRPCDecoder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B0BFBCA40ED5B32B006581A5 /* XMLRPCDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = B0BFBC900ED5B32B006581A5 /* XMLRPCDecoder.m */; };
+		B0BFBCA50ED5B32B006581A5 /* XMLRPCEncoder.h in Headers */ = {isa = PBXBuildFile; fileRef = B0BFBC910ED5B32B006581A5 /* XMLRPCEncoder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B0BFBCA60ED5B32B006581A5 /* XMLRPCEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = B0BFBC920ED5B32B006581A5 /* XMLRPCEncoder.m */; };
+		B0BFBCA70ED5B32B006581A5 /* XMLRPCRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = B0BFBC930ED5B32B006581A5 /* XMLRPCRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B0BFBCA80ED5B32B006581A5 /* XMLRPCRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B0BFBC940ED5B32B006581A5 /* XMLRPCRequest.m */; };
+		B0BFBCA90ED5B32B006581A5 /* XMLRPCResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = B0BFBC950ED5B32B006581A5 /* XMLRPCResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B0BFBCAA0ED5B32B006581A5 /* XMLRPCResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = B0BFBC960ED5B32B006581A5 /* XMLRPCResponse.m */; };
+		B0C888490ED85DEA000E19FB /* ProgressSheet.nib in Resources */ = {isa = PBXBuildFile; fileRef = B0C888480ED85DEA000E19FB /* ProgressSheet.nib */; };
+		B0C8884E0ED85E02000E19FB /* FBProgressController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0C8884D0ED85E02000E19FB /* FBProgressController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B0BFBCBF0ED5B440006581A5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 089C1669FE841209C02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B0BFBC6F0ED5B221006581A5;
+			remoteInfo = XMLRPC;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		B0BFBC7E0ED5B2D3006581A5 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				B0BFBC7B0ED5B2B2006581A5 /* XMLRPC.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		089C1672FE841209C02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		089C167EFE841241C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		089C167FFE841241C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
+		1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		32DBCF630370AF2F00C91783 /* iPhoto2Ansel_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iPhoto2Ansel_Prefix.pch; sourceTree = "<group>"; };
+		8D5B49B6048680CD000E48DA /* iPhoto2Ansel.iPhotoExporter */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iPhoto2Ansel.iPhotoExporter; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D5B49B7048680CD000E48DA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B03D3B590ED5BB3800CF5B92 /* XMLRPC-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "XMLRPC-Info.plist"; sourceTree = SOURCE_ROOT; };
+		B06C1E010EB1644600BFAFCB /* AnselExportPluginBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnselExportPluginBox.h; sourceTree = "<group>"; };
+		B06C1E020EB1644600BFAFCB /* AnselExportPluginBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnselExportPluginBox.m; sourceTree = "<group>"; };
+		B06C1E040EB164D900BFAFCB /* AnselExportController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnselExportController.h; sourceTree = "<group>"; };
+		B06C1E050EB164D900BFAFCB /* AnselExportController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnselExportController.m; sourceTree = "<group>"; };
+		B06C1E070EB1652100BFAFCB /* ExportPluginProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExportPluginProtocol.h; sourceTree = "<group>"; };
+		B06C1E080EB1652100BFAFCB /* ExportPluginBoxProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExportPluginBoxProtocol.h; sourceTree = "<group>"; };
+		B06C1E090EB1652100BFAFCB /* ExportImageProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExportImageProtocol.h; sourceTree = "<group>"; };
+		B06C1E3C0EB17E3700BFAFCB /* Panel.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Panel.nib; path = English.lproj/Panel.nib; sourceTree = "<group>"; };
+		B07D426C0EC230B100B59765 /* TURAnsel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TURAnsel.h; sourceTree = "<group>"; };
+		B07D426D0EC230B100B59765 /* TURAnsel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TURAnsel.m; sourceTree = "<group>"; };
+		B07D426E0EC230B100B59765 /* TURAnselGallery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TURAnselGallery.h; sourceTree = "<group>"; };
+		B07D426F0EC230B100B59765 /* TURAnselGallery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TURAnselGallery.m; sourceTree = "<group>"; };
+		B07D44F50EC2AEC700B59765 /* TURXMLConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TURXMLConnection.h; sourceTree = "<group>"; };
+		B07D44F60EC2AEC700B59765 /* TURXMLConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TURXMLConnection.m; sourceTree = "<group>"; };
+		B0BFBC700ED5B221006581A5 /* XMLRPC.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = XMLRPC.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B0BFBC810ED5B32B006581A5 /* NSDataAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDataAdditions.h; sourceTree = "<group>"; };
+		B0BFBC820ED5B32B006581A5 /* NSDataAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDataAdditions.m; sourceTree = "<group>"; };
+		B0BFBC830ED5B32B006581A5 /* NSStringAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSStringAdditions.h; sourceTree = "<group>"; };
+		B0BFBC840ED5B32B006581A5 /* NSStringAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSStringAdditions.m; sourceTree = "<group>"; };
+		B0BFBC880ED5B32B006581A5 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
+		B0BFBC890ED5B32B006581A5 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		B0BFBC8A0ED5B32B006581A5 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+		B0BFBC8B0ED5B32B006581A5 /* XMLRPC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLRPC.h; sourceTree = "<group>"; };
+		B0BFBC8C0ED5B32B006581A5 /* XMLRPC.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLRPC.pch; sourceTree = "<group>"; };
+		B0BFBC8D0ED5B32B006581A5 /* XMLRPCConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLRPCConnection.h; sourceTree = "<group>"; };
+		B0BFBC8E0ED5B32B006581A5 /* XMLRPCConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLRPCConnection.m; sourceTree = "<group>"; };
+		B0BFBC8F0ED5B32B006581A5 /* XMLRPCDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLRPCDecoder.h; sourceTree = "<group>"; };
+		B0BFBC900ED5B32B006581A5 /* XMLRPCDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLRPCDecoder.m; sourceTree = "<group>"; };
+		B0BFBC910ED5B32B006581A5 /* XMLRPCEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLRPCEncoder.h; sourceTree = "<group>"; };
+		B0BFBC920ED5B32B006581A5 /* XMLRPCEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLRPCEncoder.m; sourceTree = "<group>"; };
+		B0BFBC930ED5B32B006581A5 /* XMLRPCRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLRPCRequest.h; sourceTree = "<group>"; };
+		B0BFBC940ED5B32B006581A5 /* XMLRPCRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLRPCRequest.m; sourceTree = "<group>"; };
+		B0BFBC950ED5B32B006581A5 /* XMLRPCResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLRPCResponse.h; sourceTree = "<group>"; };
+		B0BFBC960ED5B32B006581A5 /* XMLRPCResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLRPCResponse.m; sourceTree = "<group>"; };
+		B0C888480ED85DEA000E19FB /* ProgressSheet.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = ProgressSheet.nib; sourceTree = "<group>"; };
+		B0C8884C0ED85E02000E19FB /* FBProgressController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBProgressController.h; sourceTree = "<group>"; };
+		B0C8884D0ED85E02000E19FB /* FBProgressController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBProgressController.m; sourceTree = "<group>"; };
+		D2F7E65807B2D6F200F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8D5B49B3048680CD000E48DA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B0BFBC780ED5B2AB006581A5 /* XMLRPC.framework in Frameworks */,
+				8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B0BFBC6E0ED5B221006581A5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		089C166AFE841209C02AAC07 /* iPhoto2Ansel */ = {
+			isa = PBXGroup;
+			children = (
+				B00076DE0EBA573900A95FC0 /* AnselToolkit */,
+				B00076D20EBA568800A95FC0 /* SDK Headers */,
+				08FB77AFFE84173DC02AAC07 /* ExportPlugin */,
+				32C88E010371C26100C91783 /* Other Sources */,
+				089C167CFE841241C02AAC07 /* Resources */,
+				089C1671FE841209C02AAC07 /* Frameworks and Libraries */,
+				19C28FB8FE9D52D311CA2CBB /* Products */,
+			);
+			name = iPhoto2Ansel;
+			sourceTree = "<group>";
+		};
+		089C1671FE841209C02AAC07 /* Frameworks and Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				B0BFBC7F0ED5B32B006581A5 /* xmlrpc-1.5.1 */,
+				1058C7ACFEA557BF11CA2CBB /* Linked Frameworks */,
+				1058C7AEFEA557BF11CA2CBB /* Other Frameworks */,
+			);
+			name = "Frameworks and Libraries";
+			sourceTree = "<group>";
+		};
+		089C167CFE841241C02AAC07 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				B0C888480ED85DEA000E19FB /* ProgressSheet.nib */,
+				B06C1E3C0EB17E3700BFAFCB /* Panel.nib */,
+				8D5B49B7048680CD000E48DA /* Info.plist */,
+				089C167DFE841241C02AAC07 /* InfoPlist.strings */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		08FB77AFFE84173DC02AAC07 /* ExportPlugin */ = {
+			isa = PBXGroup;
+			children = (
+				B06C1E020EB1644600BFAFCB /* AnselExportPluginBox.m */,
+				B06C1E010EB1644600BFAFCB /* AnselExportPluginBox.h */,
+				B06C1E040EB164D900BFAFCB /* AnselExportController.h */,
+				B06C1E050EB164D900BFAFCB /* AnselExportController.m */,
+			);
+			name = ExportPlugin;
+			sourceTree = "<group>";
+		};
+		1058C7ACFEA557BF11CA2CBB /* Linked Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */,
+			);
+			name = "Linked Frameworks";
+			sourceTree = "<group>";
+		};
+		1058C7AEFEA557BF11CA2CBB /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				089C167FFE841241C02AAC07 /* AppKit.framework */,
+				D2F7E65807B2D6F200F64583 /* CoreData.framework */,
+				089C1672FE841209C02AAC07 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		19C28FB8FE9D52D311CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8D5B49B6048680CD000E48DA /* iPhoto2Ansel.iPhotoExporter */,
+				B0BFBC700ED5B221006581A5 /* XMLRPC.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		32C88E010371C26100C91783 /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				B0C8884D0ED85E02000E19FB /* FBProgressController.m */,
+				B0C8884C0ED85E02000E19FB /* FBProgressController.h */,
+				B07D44F50EC2AEC700B59765 /* TURXMLConnection.h */,
+				B07D44F60EC2AEC700B59765 /* TURXMLConnection.m */,
+				32DBCF630370AF2F00C91783 /* iPhoto2Ansel_Prefix.pch */,
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		B00076D20EBA568800A95FC0 /* SDK Headers */ = {
+			isa = PBXGroup;
+			children = (
+				B06C1E070EB1652100BFAFCB /* ExportPluginProtocol.h */,
+				B06C1E080EB1652100BFAFCB /* ExportPluginBoxProtocol.h */,
+				B06C1E090EB1652100BFAFCB /* ExportImageProtocol.h */,
+			);
+			name = "SDK Headers";
+			sourceTree = "<group>";
+		};
+		B00076DE0EBA573900A95FC0 /* AnselToolkit */ = {
+			isa = PBXGroup;
+			children = (
+				B07D426C0EC230B100B59765 /* TURAnsel.h */,
+				B07D426D0EC230B100B59765 /* TURAnsel.m */,
+				B07D426E0EC230B100B59765 /* TURAnselGallery.h */,
+				B07D426F0EC230B100B59765 /* TURAnselGallery.m */,
+			);
+			name = AnselToolkit;
+			sourceTree = "<group>";
+		};
+		B0BFBC7F0ED5B32B006581A5 /* xmlrpc-1.5.1 */ = {
+			isa = PBXGroup;
+			children = (
+				B03D3B590ED5BB3800CF5B92 /* XMLRPC-Info.plist */,
+				B0BFBC800ED5B32B006581A5 /* Additions */,
+				B0BFBC860ED5B32B006581A5 /* Languages */,
+				B0BFBC890ED5B32B006581A5 /* LICENSE */,
+				B0BFBC8A0ED5B32B006581A5 /* README */,
+				B0BFBC8B0ED5B32B006581A5 /* XMLRPC.h */,
+				B0BFBC8C0ED5B32B006581A5 /* XMLRPC.pch */,
+				B0BFBC8D0ED5B32B006581A5 /* XMLRPCConnection.h */,
+				B0BFBC8E0ED5B32B006581A5 /* XMLRPCConnection.m */,
+				B0BFBC8F0ED5B32B006581A5 /* XMLRPCDecoder.h */,
+				B0BFBC900ED5B32B006581A5 /* XMLRPCDecoder.m */,
+				B0BFBC910ED5B32B006581A5 /* XMLRPCEncoder.h */,
+				B0BFBC920ED5B32B006581A5 /* XMLRPCEncoder.m */,
+				B0BFBC930ED5B32B006581A5 /* XMLRPCRequest.h */,
+				B0BFBC940ED5B32B006581A5 /* XMLRPCRequest.m */,
+				B0BFBC950ED5B32B006581A5 /* XMLRPCResponse.h */,
+				B0BFBC960ED5B32B006581A5 /* XMLRPCResponse.m */,
+			);
+			path = "xmlrpc-1.5.1";
+			sourceTree = "<group>";
+		};
+		B0BFBC800ED5B32B006581A5 /* Additions */ = {
+			isa = PBXGroup;
+			children = (
+				B0BFBC810ED5B32B006581A5 /* NSDataAdditions.h */,
+				B0BFBC820ED5B32B006581A5 /* NSDataAdditions.m */,
+				B0BFBC830ED5B32B006581A5 /* NSStringAdditions.h */,
+				B0BFBC840ED5B32B006581A5 /* NSStringAdditions.m */,
+			);
+			path = Additions;
+			sourceTree = "<group>";
+		};
+		B0BFBC860ED5B32B006581A5 /* Languages */ = {
+			isa = PBXGroup;
+			children = (
+				B0BFBC870ED5B32B006581A5 /* Localizable.strings */,
+			);
+			path = Languages;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		B0BFBC6B0ED5B221006581A5 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B0BFBC970ED5B32B006581A5 /* NSDataAdditions.h in Headers */,
+				B0BFBC990ED5B32B006581A5 /* NSStringAdditions.h in Headers */,
+				B0BFBC9F0ED5B32B006581A5 /* XMLRPC.h in Headers */,
+				B0BFBCA00ED5B32B006581A5 /* XMLRPC.pch in Headers */,
+				B0BFBCA10ED5B32B006581A5 /* XMLRPCConnection.h in Headers */,
+				B0BFBCA30ED5B32B006581A5 /* XMLRPCDecoder.h in Headers */,
+				B0BFBCA50ED5B32B006581A5 /* XMLRPCEncoder.h in Headers */,
+				B0BFBCA70ED5B32B006581A5 /* XMLRPCRequest.h in Headers */,
+				B0BFBCA90ED5B32B006581A5 /* XMLRPCResponse.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		8D5B49AC048680CD000E48DA /* iPhoto2Ansel */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1DEB913A08733D840010E9CD /* Build configuration list for PBXNativeTarget "iPhoto2Ansel" */;
+			buildPhases = (
+				8D5B49AF048680CD000E48DA /* Resources */,
+				8D5B49B1048680CD000E48DA /* Sources */,
+				8D5B49B3048680CD000E48DA /* Frameworks */,
+				B0BFBC7E0ED5B2D3006581A5 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B0BFBCC00ED5B440006581A5 /* PBXTargetDependency */,
+			);
+			name = iPhoto2Ansel;
+			productInstallPath = "$(HOME)/Library/Bundles";
+			productName = iPhoto2Ansel;
+			productReference = 8D5B49B6048680CD000E48DA /* iPhoto2Ansel.iPhotoExporter */;
+			productType = "com.apple.product-type.bundle";
+		};
+		B0BFBC6F0ED5B221006581A5 /* XMLRPC */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B0BFBC750ED5B221006581A5 /* Build configuration list for PBXNativeTarget "XMLRPC" */;
+			buildPhases = (
+				B0BFBC6B0ED5B221006581A5 /* Headers */,
+				B0BFBC6C0ED5B221006581A5 /* Resources */,
+				B0BFBC6D0ED5B221006581A5 /* Sources */,
+				B0BFBC6E0ED5B221006581A5 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = XMLRPC;
+			productName = XMLRPC;
+			productReference = B0BFBC700ED5B221006581A5 /* XMLRPC.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		089C1669FE841209C02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "iPhoto2Ansel" */;
+			compatibilityVersion = "Xcode 3.0";
+			hasScannedForEncodings = 1;
+			mainGroup = 089C166AFE841209C02AAC07 /* iPhoto2Ansel */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8D5B49AC048680CD000E48DA /* iPhoto2Ansel */,
+				B0BFBC6F0ED5B221006581A5 /* XMLRPC */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8D5B49AF048680CD000E48DA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D5B49B0048680CD000E48DA /* InfoPlist.strings in Resources */,
+				B06C1E3D0EB17E3700BFAFCB /* Panel.nib in Resources */,
+				B0C888490ED85DEA000E19FB /* ProgressSheet.nib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B0BFBC6C0ED5B221006581A5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B0BFBC9C0ED5B32B006581A5 /* Localizable.strings in Resources */,
+				B0BFBC9D0ED5B32B006581A5 /* LICENSE in Resources */,
+				B0BFBC9E0ED5B32B006581A5 /* README in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8D5B49B1048680CD000E48DA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B06C1E030EB1644600BFAFCB /* AnselExportPluginBox.m in Sources */,
+				B06C1E060EB164D900BFAFCB /* AnselExportController.m in Sources */,
+				B07D42700EC230B100B59765 /* TURAnsel.m in Sources */,
+				B07D42710EC230B100B59765 /* TURAnselGallery.m in Sources */,
+				B07D44F70EC2AEC700B59765 /* TURXMLConnection.m in Sources */,
+				B0C8884E0ED85E02000E19FB /* FBProgressController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B0BFBC6D0ED5B221006581A5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B0BFBC980ED5B32B006581A5 /* NSDataAdditions.m in Sources */,
+				B0BFBC9A0ED5B32B006581A5 /* NSStringAdditions.m in Sources */,
+				B0BFBCA20ED5B32B006581A5 /* XMLRPCConnection.m in Sources */,
+				B0BFBCA40ED5B32B006581A5 /* XMLRPCDecoder.m in Sources */,
+				B0BFBCA60ED5B32B006581A5 /* XMLRPCEncoder.m in Sources */,
+				B0BFBCA80ED5B32B006581A5 /* XMLRPCRequest.m in Sources */,
+				B0BFBCAA0ED5B32B006581A5 /* XMLRPCResponse.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B0BFBCC00ED5B440006581A5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B0BFBC6F0ED5B221006581A5 /* XMLRPC */;
+			targetProxy = B0BFBCBF0ED5B440006581A5 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		089C167DFE841241C02AAC07 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				089C167EFE841241C02AAC07 /* English */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		B0BFBC870ED5B32B006581A5 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B0BFBC880ED5B32B006581A5 /* English */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1DEB913B08733D840010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEPLOYMENT_LOCATION = YES;
+				DSTROOT = /;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+					"$(INSTALL_PATH)/$(PRODUCT_NAME).iPhotoExporter",
+				);
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = iPhoto2Ansel_Prefix.pch;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Library/Application Support/iPhoto/Plugins";
+				PRODUCT_NAME = iPhoto2Ansel;
+				WRAPPER_EXTENSION = iPhotoExporter;
+				ZERO_LINK = YES;
+			};
+			name = Debug;
+		};
+		1DEB913C08733D840010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEPLOYMENT_LOCATION = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SRCROOT)/XMLRPC\"",
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = iPhoto2Ansel_Prefix.pch;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Library/Application Support/iPhoto/Plugins";
+				PRODUCT_NAME = iPhoto2Ansel;
+				WRAPPER_EXTENSION = iPhotoExporter;
+			};
+			name = Release;
+		};
+		1DEB913F08733D840010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEPLOYMENT_LOCATION = NO;
+				DSTROOT = "/tmp/$(PROJECT_NAME).dst";
+				GCC_ENABLE_OBJC_GC = supported;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INSTALL_PATH = "";
+				PREBINDING = NO;
+				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
+			};
+			name = Debug;
+		};
+		1DEB914008733D840010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = (
+					ppc,
+					i386,
+				);
+				DEPLOYMENT_LOCATION = NO;
+				DSTROOT = /;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INSTALL_PATH = "";
+				PREBINDING = NO;
+				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
+			};
+			name = Release;
+		};
+		B0BFBC730ED5B221006581A5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEPLOYMENT_LOCATION = NO;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = "XMLRPC-Info.plist";
+				INSTALL_PATH = "@loader_path/../Frameworks";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = XMLRPC;
+				ZERO_LINK = YES;
+			};
+			name = Debug;
+		};
+		B0BFBC740ED5B221006581A5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEPLOYMENT_LOCATION = NO;
+				DSTROOT = "/tmp/$(PROJECT_NAME).dst";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = "XMLRPC-Info.plist";
+				INSTALL_PATH = "@loader_path/../Frameworks";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = XMLRPC;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1DEB913A08733D840010E9CD /* Build configuration list for PBXNativeTarget "iPhoto2Ansel" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB913B08733D840010E9CD /* Debug */,
+				1DEB913C08733D840010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "iPhoto2Ansel" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB913F08733D840010E9CD /* Debug */,
+				1DEB914008733D840010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B0BFBC750ED5B221006581A5 /* Build configuration list for PBXNativeTarget "XMLRPC" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B0BFBC730ED5B221006581A5 /* Debug */,
+				B0BFBC740ED5B221006581A5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 089C1669FE841209C02AAC07 /* Project object */;
+}
