@@ -1898,7 +1898,7 @@ class IMP_Compose
      *
      * @return string  The message cache ID.
      */
-    public function getMessageCacheId()
+    public function getCacheId()
     {
         return $this->_cacheid;
     }
