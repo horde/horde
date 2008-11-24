@@ -169,7 +169,7 @@ if ($readonly_sentmail) {
 }
 
 /* Initialize the IMP_Compose:: object. */
-$imp_compose = &IMP_Compose::singleton(Util::getFormData('messageCache'));
+$imp_compose = &IMP_Compose::singleton(Util::getFormData('composeCache'));
 $imp_compose->pgpAttachPubkey((bool) Util::getFormData('pgp_attach_pubkey'));
 $imp_compose->userLinkAttachments((bool) Util::getFormData('link_attachments'));
 
@@ -610,7 +610,7 @@ case 'add_attachment':
 }
 
 /* Get the message cache ID. */
-$messageCacheID = $imp_compose->getMessageCacheId();
+$composeCacheID = $imp_compose->getCacheId();
 
 /* Has this page been reloaded? */
 $reloaded = Util::getFormData('reloaded');
@@ -652,13 +652,13 @@ if ($isPopup) {
     /* If the attachments cache is not empty, we must reload this page
      * and delete the attachments. */
     if ($imp_compose->numberOfAttachments()) {
-        $cancel_url = Util::addParameter(Horde::selfUrl(), array('actionID' => 'cancel_compose', 'messageCache' => $messageCacheID, 'popup' => 1), null, false);
+        $cancel_url = Util::addParameter(Horde::selfUrl(), array('actionID' => 'cancel_compose', 'composeCache' => $composeCacheID, 'popup' => 1), null, false);
     }
 } else {
     /* If the attachments cache is not empty, we must reload this page and
        delete the attachments. */
     if ($imp_compose->numberOfAttachments()) {
-        $cancel_url = Util::addParameter(_mailboxReturnURL(true, Horde::selfUrl()), array('actionID' => 'cancel_compose', 'messageCache' => $messageCacheID), null, false);
+        $cancel_url = Util::addParameter(_mailboxReturnURL(true, Horde::selfUrl()), array('actionID' => 'cancel_compose', 'composeCache' => $composeCacheID), null, false);
     } else {
         $cancel_url = _mailboxReturnURL(true);
     }
@@ -915,40 +915,48 @@ if ($redirect) {
     $t->set('file_upload', $_SESSION['imp']['file_upload']);
     $t->set('forminput', Util::formInput());
 
-    $hidden = array();
+    $hidden = array(
+        'actionID' => '',
+        'user' => $_SESSION['imp']['uniquser'],
+        'compose_requestToken' => IMP::getRequestToken('imp.compose'),
+        'compose_formToken' => Horde_Token::generateId('compose'),
+        'composeCache' => $composeCacheID,
+        'mailbox' => htmlspecialchars($imp_mbox['mailbox']),
+        'thismailbox' => $thismailbox,
+        'attachmentAction' => '',
+        'reloaded' => 1,
+        'oldrtemode' => $rtemode,
+        'rtemode' => $rtemode,
+        'index' => $index
+    );
+
     if ($_SESSION['imp']['file_upload']) {
-        if ($browser->hasQuirk('broken_multipart_form')) {
-            $hidden[] = array('n' => 'msie_formdata_is_broken', 'v' => '');
-        }
-        $hidden[] = array('n' => 'MAX_FILE_SIZE', 'v' => $_SESSION['imp']['file_upload']);
+        $hidden['MAX_FILE_SIZE'] = $_SESSION['imp']['file_upload'];
     }
-    $hidden[] = array('n' => 'actionID', 'v' => '');
-    $hidden[] = array('n' => 'user', 'v' => $_SESSION['imp']['uniquser']);
-    $hidden[] = array('n' => 'compose_requestToken', 'v' => IMP::getRequestToken('imp.compose'));
-    $hidden[] = array('n' => 'compose_formToken', 'v' => Horde_Token::generateId('compose'));
-    $hidden[] = array('n' => 'messageCache', 'v' => $messageCacheID);
-    $hidden[] = array('n' => 'mailbox', 'v' => htmlspecialchars($imp_mbox['mailbox']));
-    $hidden[] = array('n' => 'thismailbox', 'v' => $thismailbox);
     foreach (array('page', 'start', 'popup') as $val) {
-        $hidden[] = array('n' => $val, 'v' => htmlspecialchars(Util::getFormData($val)));
+        $hidden[$val] = htmlspecialchars(Util::getFormData($val));
     }
-    $hidden[] = array('n' => 'attachmentAction', 'v' => '');
-    $hidden[] = array('n' => 'reloaded', 'v' => 1);
-    $hidden[] = array('n' => 'oldrtemode', 'v' => $rtemode);
-    $hidden[] = array('n' => 'rtemode', 'v' => $rtemode);
-    $hidden[] = array('n' => 'index', 'v' => $index);
     if ($reply_type) {
-        $hidden[] = array('n' => 'reply_type', 'v' => $reply_type);
-        $hidden[] = array('n' => 'reply_index', 'v' => $reply_index);
-        $hidden[] = array('n' => 'in_reply_to', 'v' => htmlspecialchars($header['in_reply_to']));
+        $hidden['reply_type'] = $reply_type;
+        $hidden['reply_index'] = $reply_index;
+        $hidden['in_reply_to'] = htmlspecialchars($header['in_reply_to']);
         if ($reply_type == 'reply') {
-            $hidden[] = array('n' => 'references', 'v' => htmlspecialchars($header['references']));
+            $hidden['references'] = htmlspecialchars($header['references']);
         }
     }
     if (!empty($resume_draft)) {
-        $hidden[] = array('n' => 'resume_draft', 'v' => 1);
+        $hidden['resume_draft'] = 1;
     }
-    $t->set('hidden', $hidden);
+
+    if ($browser->hasQuirk('broken_multipart_form')) {
+        $hidden['msie_formdata_is_broken'] = '';
+    }
+
+    $hidden_val = array();
+    foreach ($hidden as $key => $val) {
+        $hidden_val[] = array('n' => $key, 'v' => $val);
+    }
+    $t->set('hidden', $hidden_val);
 
     $t->set('title', htmlspecialchars($title));
     $t->set('status', IMP::status());
@@ -1239,7 +1247,7 @@ if ($redirect) {
                 $linked = Util::getFormData (sprintf('file_linked_%d', $atc_num));
                 $entry['name'] = $mime->getName(true, true);
                 if ($mime->getType() != 'application/octet-stream') {
-                    $preview_url = Util::addParameter(Horde::applicationUrl('view.php'), array('actionID' => 'compose_attach_preview', 'id' => $atc_num, 'messageCache' => $imp_compose->getMessageCacheId()));
+                    $preview_url = Util::addParameter(Horde::applicationUrl('view.php'), array('actionID' => 'compose_attach_preview', 'id' => $atc_num, 'composeCache' => $imp_compose->getCacheId()));
                     $entry['name'] = Horde::link($preview_url, _("Preview") . ' ' . $entry['name'], 'link', 'compose_preview_window') . $entry['name'] . '</a>';
                 }
                 $entry['icon'] = $viewer->getIcon($mime->getType());

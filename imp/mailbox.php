@@ -345,7 +345,7 @@ if ($search_mbox) {
         $vtrash = $imp_search->createSearchID($search_mbox);
     }
 } else {
-    $unread = $imp_mailbox->unseenMessages(true);
+    $unread = $imp_mailbox->unseenMessages(Horde_Imap_Client::SORT_RESULTS_COUNT);
 }
 if ($browser->isBrowser('konqueror')) {
     $notification->push('if (window.fluid) window.fluid.setDockBadge("' . ($unread ? $unread : '') . '");', 'javascript');
@@ -354,7 +354,7 @@ if ($browser->isBrowser('konqueror')) {
 /* Get the recent message count. */
 $newmsgs = 0;
 if ($prefs->getValue('nav_popup') || $prefs->getValue('nav_audio')) {
-    $newmsgs = $imp_mailbox->newMessages(true);
+    $newmsgs = $imp_mailbox->newMessages(Horde_Imap_Client::SORT_RESULTS_COUNT);
 }
 
 $pagetitle = $rawtitle = $title = IMP::getLabel($imp_mbox['mailbox']);

@@ -11,12 +11,7 @@
 function _printKeyInfo($key = '')
 {
     $key_info = $GLOBALS['imp_pgp']->pgpPrettyKey($key);
-
-    if (empty($key_info)) {
-        _textWindowOutput('PGP Key Information', _("Invalid key"));
-    } else {
-        _textWindowOutput('PGP Key Information', $key_info);
-    }
+    _textWindowOutput('PGP Key Information', empty($key_info) ? _("Invalid key") : $key_info);
 }
 
 function _outputPassphraseDialog($secure_check, $symmetric = false)
@@ -60,11 +55,6 @@ function _importKeyDialog($target)
     $t->set('import_personal_public_key', $target == 'process_import_personal_public_key');
     $t->set('import_personal_private_key', $target == 'process_import_personal_private_key');
     echo $t->fetch(IMP_TEMPLATES . '/pgp/import_key.html');
-}
-
-function _reloadWindow()
-{
-    Util::closeWindowJS('opener.focus();opener.location.href="' . Util::getFormData('reload') . '";');
 }
 
 function _getImportKey()
@@ -149,7 +139,7 @@ case 'process_import_public_key':
             foreach ($key_info['signature'] as $sig) {
                 $notification->push(sprintf(_("PGP Public Key for \"%s (%s)\" was successfully added."), $sig['name'], $sig['email']), 'horde.success');
             }
-            _reloadWindow();
+            Util::closeWindowJS('opener.focus();opener.location.href="' . Util::getFormData('reload') . '";');
         }
     }
     exit;
@@ -199,7 +189,7 @@ case 'process_import_personal_private_key':
              * successfully - close the import popup window. */
             $imp_pgp->addPersonalPrivateKey($privateKey);
             $notification->push(_("PGP private key successfully added."), 'horde.success');
-            _reloadWindow();
+            Util::closeWindowJS('opener.focus();opener.location.href="' . Util::getFormData('reload') . '";');
         } else {
             /* Invalid private key imported - Redo private key import
              * screen. */
@@ -317,7 +307,7 @@ case 'process_symmetric_passphrase_dialog':
                 $cacheSess->setPruneFlag($oid, true);
                 Util::closeWindowJS($cacheSess->query($oid));
             } elseif (Util::getFormData('reload')) {
-                _reloadWindow();
+                Util::closeWindowJS('opener.focus();opener.location.href="' . Util::getFormData('reload') . '";');
             } else {
                 Util::closeWindowJS();
             }

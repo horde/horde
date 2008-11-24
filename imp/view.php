@@ -38,7 +38,6 @@ function _sanitizeName($name)
     return String::convertCharset(trim(preg_replace('/[^\pL\pN-+_. ]/u', '_', $name), ' _'), 'UTF-8');
 }
 
-
 /* Don't compress if we are already sending in compressed format. */
 if ((isset($_GET['actionID']) && ($_GET['actionID'] == 'download_all')) ||
     !empty($_GET['zip'])) {
@@ -58,7 +57,7 @@ $ctype = Util::getFormData('ctype');
  * get the necessary Horde_Mime_Part. */
 if ($actionID == 'compose_attach_preview') {
     /* Initialize the IMP_Compose:: object. */
-    $imp_compose = &IMP_Compose::singleton(Util::getFormData('messageCache'));
+    $imp_compose = &IMP_Compose::singleton(Util::getFormData('composeCache'));
     $mime = $imp_compose->buildAttachment($id);
 
     /* Create a dummy IMP_Contents() object so we can use the view

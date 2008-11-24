@@ -277,42 +277,43 @@ class IMP_Mailbox
      * Get the list of new messages in the mailbox (IMAP RECENT flag, with
      * UNDELETED if we're hiding deleted messages).
      *
-     * @param boolean $count  Return a count of new messages, rather than
-     *                        the entire message list?
+     * @param integer $results  A Horde_Imap_Client::SORT_* constant that
+     *                          indicates the desired return type.
      *
-     * @return integer  The number of new messages in the mailbox.
+     * @return mixed  Whatever is requested in $results.
      */
-    public function newMessages($count = false)
+    public function newMessages($results)
     {
-        return $this->_msgFlagSearch('recent', $count);
+        return $this->_msgFlagSearch('recent', $results);
     }
 
     /**
      * Get the list of unseen messages in the mailbox (IMAP UNSEEN flag, with
      * UNDELETED if we're hiding deleted messages).
      *
-     * @param boolean $count  Return a count of unseen messages, rather than
-     *                        the entire message list?
+     * @param integer $results  A Horde_Imap_Client::SORT_RESULTS_* constant
+     *                          that indicates the desired return type.
      *
-     * @return array  The list of unseen messages.
+     * @return mixed  Whatever is requested in $results.
      */
-    public function unseenMessages($count = false)
+    public function unseenMessages($results)
     {
-        return $this->_msgFlagSearch('unseen', $count);
+        return $this->_msgFlagSearch('unseen', $results);
     }
 
     /**
      * Do a search on a mailbox in the most efficient way available.
      *
-     * @param string $type    The search type - either 'recent' or 'unseen'.
-     * @param boolean $count  Return a count of unseen messages, rather than
-     *                        the entire message list?
+     * @param string $type      The search type - either 'recent' or 'unseen'.
+     * @param integer $results  A Horde_Imap_Client::SORT_RESULTS_* constant
+     *                          that indicates the desired return type.
      *
-     * @return mixed  If $count is true, the number of messages.  If $count is
-     *                false, a list of message UIDs.
+     * @return mixed  Whatever is requested in $results.
      */
-    protected function _msgFlagSearch($type, $count)
+    protected function _msgFlagSearch($type, $results)
     {
+        $count = $results == Horde_Imap_Client::SORT_RESULTS_COUNT;
+
         if ($this->_searchmbox || empty($this->_sorted)) {
             return $count ? 0 : array();
         }
@@ -331,18 +332,14 @@ class IMP_Mailbox
         }
 
         if ($type == 'recent') {
-            $criteria->flag('\\recent');
+            $criteria->flag('\\recent', true);
         } else {
             $criteria->flag('\\seen', false);
         }
 
-        $results = $count
-            ? array(Horde_Imap_Client::SORT_RESULTS_COUNT)
-            : array(Horde_Imap_Client::SORT_RESULTS_MATCH);
-
         try {
-            $res = $GLOBALS['imp_imap']->ob->search($this->_mailbox, $criteria, array('results' => $results));
-            return $count ? $res['count'] : $res['match'];
+            $res = $GLOBALS['imp_imap']->ob->search($this->_mailbox, $criteria, array('results' => array($results)));
+            return $count ? $res['count'] : $res;
         } catch (Horde_Imap_Client_Exception $e) {
             return $count ? 0 : array();
         }
@@ -398,15 +395,12 @@ class IMP_Mailbox
     {
         $index = $this->_arrayIndex + $offset;
 
-        /* If the offset would put us out of array index, return now. */
-        if (!isset($this->_sorted[$index])) {
-            return array();
-        }
-
-        return array(
-            'index' => $this->_sorted[$index],
-            'mailbox' => ($this->_searchmbox) ? $this->_sortedInfo[$index]['m'] : $this->_mailbox
-        );
+        return isset($this->_sorted[$index])
+            ? array(
+                  'index' => $this->_sorted[$index],
+                  'mailbox' => ($this->_searchmbox) ? $this->_sortedInfo[$index]['m'] : $this->_mailbox
+              )
+            : array();
     }
 
     /**
@@ -435,7 +429,7 @@ class IMP_Mailbox
     {
         $this->_buildMailbox();
 
-        $ret = array('msgcount' => $this->getMessageCount());
+        $ret = array('msgcount' => count($this->_sorted));
 
         if (is_null($page_size) &&
             ($page_size != $GLOBALS['prefs']->getValue('max_msgs'))) {
@@ -454,9 +448,13 @@ class IMP_Mailbox
                     /* Search for the last visited page first. */
                     if (isset($_SESSION['imp']['cache']['mbox_page'][$this->_mailbox])) {
                         $page = $_SESSION['imp']['cache']['mbox_page'][$this->_mailbox];
+                    } elseif ($this->_searchmbox) {
+                        $page = 1;
                     } else {
+                        $page_uid = null;
                         $startpage = $GLOBALS['prefs']->getValue('mailbox_start');
-                        switch ($startpage) {
+
+                        switch ($GLOBALS['prefs']->getValue('mailbox_start')) {
                         case IMP::MAILBOX_START_FIRSTPAGE:
                             $page = 1;
                             break;
@@ -466,29 +464,35 @@ class IMP_Mailbox
                             break;
 
                         case IMP::MAILBOX_START_FIRSTUNSEEN:
-                            // TODO - Use status()
+                            $sortpref = IMP::getSort($this->_mailbox);
+
+                            /* Optimization: if sorting by arrival then first
+                             * unseen information is returned via a
+                             * SELECT/EXAMINE call. */
+                            if ($sortpref['by'] == Horde_Imap_Client::SORT_ARRIVAL) {
+                                try {
+                                    $res = $GLOBALS['imp_imap']->ob->status($this->_mailbox, Horde_Imap_Client::STATUS_FIRSTUNSEEN);
+                                    $page_uid = $this->_sorted[$res['firstunseen'] - 1];
+                                } catch (Horde_Imap_Client_Exception $e) {}
+                            } else {
+                                $unseen_msgs = $this->unseenMessages(Horde_Imap_Client::SORT_RESULTS_MIN);
+                                $page_uid = $unseen_msgs['min'];
+                            }
+                            break;
 
                         case IMP::MAILBOX_START_LASTUNSEEN:
-                            $sortpref = IMP::getSort($this->_mailbox);
-                            if (!$sortpref['limit'] &&
-                                !$this->_searchmbox &&
-                                ($query = $this->unseenMessages())) {
-                                $sortednew = array_keys(array_intersect($this->_sorted, $query));
-                                $first_new = ($startpage == IMP::MAILBOX_START_FIRSTUNSEEN) ?
-                                    array_shift($sortednew) :
-                                    array_pop($sortednew);
-                                $page = ceil(($first_new + 1) / $page_size);
-                            }
+                            $unseen_msgs = $this->unseenMessages(Horde_Imap_Client::SORT_RESULTS_MAX);
+                            $page_uid = $unseen_msgs['max'];
                             break;
                         }
                     }
                 }
 
+                print_r($page_uid);
                 if (empty($page)) {
-                    if (!isset($sortpref)) {
-                        $sortpref = IMP::getSort($this->_mailbox);
-                    }
-                    $page = $sortpref['dir'] ? 1 : $ret['pagecount'];
+                    $page = is_null($page_uid)
+                        ? 1
+                        : ceil((array_search($page_uid, $this->_sorted) + 1) / $page_size);
                 }
             }
 
