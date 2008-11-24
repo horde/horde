@@ -66,7 +66,7 @@ class Horde_Mime_Headers
             foreach (array_keys($val) as $key) {
                 if (!empty($address_keys)) {
                     if (in_array($header, $address_keys)) {
-                        $text = Horde_Mime::encodeAddress($val[$key], $charset, empty($options['defserver']) ? null : $options['defserver']);
+                        $text = Horde_Mime::encodeAddress($val[$key], empty($options['charset']) ? null : $options['charset'], empty($options['defserver']) ? null : $options['defserver']);
                                                                                                         if (is_a($text, 'PEAR_Error')) {
                             $text = $val[$key];
                         }
