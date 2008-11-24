@@ -46,9 +46,9 @@ class IMP_Contents
     protected $_mailbox = null;
 
     /**
-     * The Horde_Mime_Message object for the message.
+     * The Horde_Mime_Part object for the message.
      *
-     * @var Horde_Mime_Message
+     * @var Horde_Mime_Part
      */
     protected $_message;
 
@@ -70,7 +70,7 @@ class IMP_Contents
      *   $imp_contents = &IMP_Contents::singleton($in);
      *
      * @param mixed $in  Either an index string (see IMP_Contents::singleton()
-     *                   for the format) or a Horde_Mime_Message object.
+     *                   for the format) or a Horde_Mime_Part object.
      *
      * @return IMP_Contents  The IMP_Contents object or null.
      */
@@ -78,7 +78,7 @@ class IMP_Contents
     {
         static $instance = array();
 
-        $sig = is_a($in, 'Horde_Mime_Message')
+        $sig = is_a($in, 'Horde_Mime_Part')
             ? md5(serialize($in))
             : $in;
 
@@ -93,16 +93,16 @@ class IMP_Contents
      * Constructor.
      *
      * @param mixed $in  Either an index string (see IMP_Contents::singleton()
-     *                   for the format) or a Horde_Mime_Message object.
+     *                   for the format) or a Horde_Mime_Part object.
      */
     function __construct($in)
     {
-        if (is_a($in, 'Horde_Mime_Message')) {
+        if (is_a($in, 'Horde_Mime_Part')) {
             $this->_message = $in;
         } else {
             list($this->_index, $this->_mailbox) = explode(IMP::IDX_SEP, $in);
 
-            /* Get the Horde_Mime_Message object for the given index. */
+            /* Get the Horde_Mime_Part object for the given index. */
             try {
                 $ret = $GLOBALS['imp_imap']->ob->fetch($this->_mailbox, array(
                     Horde_Imap_Client::FETCH_STRUCTURE => array('parse' => true)
@@ -238,9 +238,9 @@ class IMP_Contents
     }
 
     /**
-     * Returns the Horde_Mime_Message object.
+     * Returns the Horde_Mime_Part object.
      *
-     * @return Horde_Mime_Message  A Horde_Mime_Message object.
+     * @return Horde_Mime_Part  A Horde_Mime_Part object.
      */
     public function getMIMEMessage()
     {
@@ -698,7 +698,7 @@ class IMP_Contents
     }
 
     /**
-     * Builds the "virtual" Horde_Mime_Message object by checking for embedded
+     * Builds the "virtual" Horde_Mime_Part object by checking for embedded
      * parts.
      *
      * @param array $parts  The parts list to process.
@@ -711,6 +711,9 @@ class IMP_Contents
             }
             $this->_build = true;
             $parts = array_keys($this->_message->contentTypeMap());
+            $first_id = reset($parts);
+        } else {
+            $first_id = null;
         }
 
         $last_id = null;
@@ -732,8 +735,8 @@ class IMP_Contents
                 $viewer->setParams(array('contents' => &$this));
                 $new_parts = $viewer->getEmbeddedMimeParts();
                 if (!is_null($new_parts)) {
-                    foreach (array_keys($new_parts) as $val) {
-                        if (is_a($new_parts[$val], 'Horde_Mime_Message')) {
+                    foreach (array_keys($new_parts) as $key => $val) {
+                        if ($first_id === $key) {
                             $this->_message = $new_parts[$val];
                             $this->_build = false;
                             return $this->_buildMessage();

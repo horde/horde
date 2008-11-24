@@ -204,7 +204,7 @@ class IMP_Horde_Mime_Viewer_pgp extends Horde_Mime_Viewer_Driver
         unset(self::$_inlinecache[$base_id][$data_id]);
         $this->_imppgp->unsetSymmetricPassphrase();
 
-        return array($data_id => Horde_Mime_Message::parseMessage($decrypted_data->message, array('mimepart' => true)));
+        return array($data_id => Horde_Mime_Part::parseMessage($decrypted_data->message));
     }
 
     /**

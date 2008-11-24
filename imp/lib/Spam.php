@@ -240,7 +240,7 @@ class IMP_Spam
     protected function _sendSpamReportMessage($action, $data)
     {
         /* Build the MIME structure. */
-        $mime = new Horde_Mime_Message();
+        $mime = new Horde_Mime_Part();
         $mime->setType('multipart/digest');
 
         $rfc822 = new Horde_Mime_Part();

@@ -287,7 +287,7 @@ class IMP_Horde_Mime_Viewer_itip extends Horde_Mime_Viewer_Driver
                     $vEvent_reply->setAttribute('ATTENDEE', 'mailto:' . $email, $params);
                     $vCal->addComponent($vEvent_reply);
 
-                    $mime = new Horde_Mime_Message();
+                    $mime = new Horde_Mime_Part();
                     $mime->setType('multipart/alternative');
 
                     $body = new Horde_Mime_Part();
@@ -392,7 +392,7 @@ class IMP_Horde_Mime_Viewer_itip extends Horde_Mime_Viewer_Driver
                     $vCal->setAttribute('METHOD', 'REPLY');
                     $vCal->addComponent($vfb_reply);
 
-                    $mime = new Horde_Mime_Message();
+                    $mime = new Horde_Mime_Part();
                     $message = _("Attached is a reply to a calendar request you sent.");
                     $body = new Horde_Mime_Part('text/plain',
                                           String::wrap($message, 76, "\n"),

@@ -133,7 +133,7 @@ class IMP_Compose
      *
      * @param array $header    List of message headers.
      * @param mixed $message   Either the message text (string) or a
-     *                         Horde_Mime_Message object that contains the
+     *                         Horde_Mime_Part object that contains the
      *                         text to send.
      * @param string $charset  The charset that was used for the headers.
      * @param boolean $html    Whether this is an HTML message.
@@ -158,7 +158,7 @@ class IMP_Compose
      *
      * @param array $headers    List of message headers.
      * @param mixed $message    Either the message text (string) or a
-     *                          Horde_Mime_Message object that contains the
+     *                          Horde_Mime_Part object that contains the
      *                          text to send.
      * @param string $charset   The charset that was used for the headers.
      * @param boolean $html     Whether this is an HTML message.
@@ -170,14 +170,12 @@ class IMP_Compose
                                      $session)
     {
         /* Set up the base message now. */
-        $mime = new Horde_Mime_Message();
-        $body = $this->getMessageBody($message, $charset, $html, array('nofinal' => true, 'noattach' => !$session));
-        if (is_a($body, 'PEAR_Error')) {
-            return $body;
+        $mime = $this->_createMimeMessage(array(null), $message, $charset, array('html' => $html, 'nofinal' => true, 'noattach' => !$session));
+        if (is_a($mime, 'PEAR_Error')) {
+            return $mime;
         }
-
-        $mime->addPart($body);
-        $body = $mime->toString();
+        $base = $mime['msg'];
+        $base->isBasePart(true);
 
         /* Initalize a header object for the draft. */
         $draft_headers = new Horde_Mime_Headers();
@@ -207,7 +205,7 @@ class IMP_Compose
         $draft_headers->addMessageIdHeader();
         $draft_headers = $mime->addMimeHeaders($draft_headers);
 
-        return $draft_headers->toString(array('charset' => $charset, 'defserver' => $session ? $_SESSION['imp']['maildomain'] : null)) . $body;
+        return $draft_headers->toString(array('charset' => $charset, 'defserver' => $session ? $_SESSION['imp']['maildomain'] : null)) . $base->toString(false);
     }
 
     /**
@@ -325,162 +323,11 @@ class IMP_Compose
         );
     }
 
-    /**
-     * Gets the message body and sets up the MIME parts.
-     *
-     * @param string $message    The raw message body.
-     * @param string $charset    The charset to use.
-     * @param boolean $html      Whether this is an HTML message.
-     * @param array $options     Additional options:
-     * <pre>
-     * 'nofinal' - (boolean) This is not a message which will be sent out.
-     * 'noattach' - (boolean) Don't add attachment information.
-     * </pre>
-     *
-     * @return Horde_Mime_Part  The body as a MIME object, or PEAR_Error on
-     *                          error.
-     */
-    public function getMessageBody($message, $charset, $html,
-                                   $options = array())
-    {
-        $message = String::convertCharset($message, NLS::getCharset(), $charset);
-
-        if ($html) {
-            $message_html = $message;
-            require_once 'Horde/Text/Filter.php';
-            $message = Text_Filter::filter($message, 'html2text', array('wrap' => false, 'charset' => $charset));
-        }
-
-        /* Get trailer message (if any). */
-        $trailer = $trailer_file = null;
-        if (empty($options['nofinal']) &&
-            $GLOBALS['conf']['msg']['append_trailer']) {
-            if (empty($GLOBALS['conf']['vhosts'])) {
-                if (is_readable(IMP_BASE . '/config/trailer.txt')) {
-                    $trailer_file = IMP_BASE . '/config/trailer.txt';
-                }
-            } elseif (is_readable(IMP_BASE . '/config/trailer-' . $GLOBALS['conf']['server']['name'] . '.txt')) {
-                $trailer_file = IMP_BASE . '/config/trailer-' . $GLOBALS['conf']['server']['name'] . '.txt';
-            }
-
-            if (!empty($trailer_file)) {
-                require_once 'Horde/Text/Filter.php';
-                $trailer = Text_Filter::filter("\n" . file_get_contents($trailer_file), 'environment');
-                /* If there is a user defined function, call it with the
-                 * current trailer as an argument. */
-                if (!empty($GLOBALS['conf']['hooks']['trailer'])) {
-                    $trailer = Horde::callHook('_imp_hook_trailer', array($trailer), 'imp');
-                }
-
-                $message .= $trailer;
-                if ($html) {
-                    $message .= $this->text2html($trailer);
-                }
-            }
-        }
-
-        /* Set up the body part now. */
-        $textBody = new Horde_Mime_Part();
-        $textBody->setType('text/plain');
-        $textBody->setCharset($charset);
-        $htmlBody->setDisposition('inline');
-
-        /* Send in flowed format. */
-        require_once 'Text/Flowed.php';
-        $flowed = new Text_Flowed($message, $charset);
-        $flowed->setDelSp(true);
-        $textBody->setContentTypeParameter('format', 'flowed');
-        $textBody->setContentTypeParameter('DelSp', 'Yes');
-        $textBody->setContents($flowed->toFlowed());
-
-        /* Determine whether or not to send a multipart/alternative
-         * message with an HTML part. */
-        if ($html) {
-            $htmlBody = new Horde_Mime_Part();
-            $htmlBody->setType('text/html');
-            $htmlBody->setCharset($charset);
-            $htmlBody->setDisposition('inline');
-            $htmlBody->setDescription(String::convertCharset(_("HTML Version of Message"), NLS::getCharset(), $charset));
-
-            /* Run tidy on the HTML, if available. */
-            if ($tidy_config = IMP::getTidyConfig(strlen($message_html))) {
-                $tidy = tidy_parse_string(String::convertCharset($message_html, $charset, 'UTF-8'), $tidy_config, 'utf8');
-                $tidy->cleanRepair();
-                $htmlBody->setContents(String::convertCharset(tidy_get_output($tidy), 'UTF-8', $charset));
-            } else {
-                $htmlBody->setContents($message_html);
-            }
-
-            $textBody->setDescription(String::convertCharset(_("Plaintext Version of Message"), NLS::getCharset(), $charset));
-
-            $basepart = new Horde_Mime_Part();
-            $basepart->setType('multipart/alternative');
-            $basepart->addPart($textBody);
-
-            if (empty($options['nofinal'])) {
-                /* Any image links will be downloaded and appended to the
-                 * message body. */
-                $basepart->addPart($this->_convertToMultipartRelated($htmlBody));
-            } else {
-                $basepart->addPart($htmlBody);
-            }
-        } else {
-            $basepart = $textBody;
-        }
-
-        /* Add attachments now. */
-        $attach_flag = true;
-        if (empty($options['noattach']) && $this->numberOfAttachments()) {
-            if (($this->_linkAttach &&
-                 $GLOBALS['conf']['compose']['link_attachments']) ||
-                !empty($GLOBALS['conf']['compose']['link_all_attachments'])) {
-                $body = $this->linkAttachments(Horde::applicationUrl('attachment.php', true), $basepart, Auth::getAuth());
-                if (is_a($body, 'PEAR_Error')) {
-                    return $body;
-                }
-
-                if ($this->_pgpAttachPubkey || $this->_attachVCard) {
-                    $new_body = new Horde_Mime_Part();
-                    $new_body->setType('multipart/mixed');
-                    $new_body->addPart($body);
-                    $body = $new_body;
-                } else {
-                    $attach_flag = false;
-                }
-            } else {
-                $body = new Horde_Mime_Part();
-                $body->setType('multipart/mixed');
-                $body->addPart($basepart);
-                foreach (array_keys($this->_cache) as $id) {
-                    $body->addPart($this->buildAttachment($id));
-                }
-            }
-        } elseif ($this->_pgpAttachPubkey || $this->_attachVCard) {
-            $body = new Horde_Mime_Part('multipart/mixed');
-            $body->addPart($basepart);
-        } else {
-            $body = $basepart;
-            $attach_flag = false;
-        }
-
-        if ($attach_flag) {
-            if ($this->_pgpAttachPubkey) {
-                $imp_pgp = &Horde_Crypt::singleton(array('imp', 'pgp'));
-                $body->addPart($imp_pgp->publicKeyMIMEPart());
-            }
-
-            if ($this->_attachVCard) {
-                $body->addPart($this->_attachVCard);
-            }
-        }
-
-        return $body;
-    }
 
     /**
      * Builds and sends a MIME message.
      *
-     * @param string $message  The message body.
+     * @param string $body     The message body.
      * @param array $header    List of message headers.
      * @param string $charset  The sending charset.
      * @param boolean $html    Whether this is an HTML message.
@@ -504,7 +351,7 @@ class IMP_Compose
      * @return boolean  Whether the sent message has been saved in the
      *                  sent-mail folder, or a PEAR_Error on failure.
      */
-    public function buildAndSendMessage($message, $header, $charset, $html,
+    public function buildAndSendMessage($body, $header, $charset, $html,
                                         $opts = array())
     {
         global $conf, $notification, $prefs, $registry;
@@ -517,28 +364,24 @@ class IMP_Compose
         }
         $header = array_merge($header, $recip['header']);
 
-        $barefrom = Horde_IMAP_Address::bareAddress($header['from'], $_SESSION['imp']['maildomain']);
-        $recipients = implode(', ', $recip['list']);
-
-        /* Set up the base message now. */
-        $body = $this->getMessageBody($message, $charset, $html);
-        if (is_a($body, 'PEAR_Error')) {
-            return $body;
-        }
-
+        $barefrom = Horde_Mime_Address::bareAddress($header['from'], $_SESSION['imp']['maildomain']);
         $encrypt = empty($opts['encrypt']) ? 0 : $opts['encrypt'];
+        $recipients = implode(', ', $recip['list']);
 
         /* Prepare the array of messages to send out.  May be more
          * than one if we are encrypting for multiple recipients or
          * are storing an encrypted message locally. */
         $send_msgs = array();
+        $msg_options = array(
+            'encrypt' => $encrypt,
+            'html' => $html
+        );
 
         /* Must encrypt & send the message one recipient at a time. */
-        if (!empty($encrypt) &&
-            $prefs->getValue('use_smime') &&
+        if ($prefs->getValue('use_smime') &&
             in_array($encrypt, array(IMP::SMIME_ENCRYPT, IMP::SMIME_SIGNENC))) {
             foreach ($recip['list'] as $val) {
-                $res = $this->_createMimeMessage(array($val), $body, $encrypt);
+                $res = $this->_createMimeMessage(array($val), $body, $charset, $msg_options);
                 if (is_a($res, 'PEAR_Error')) {
                     return $res;
                 }
@@ -547,11 +390,12 @@ class IMP_Compose
 
             /* Must target the encryption for the sender before saving message
              * in sent-mail. */
-            $save_msg = $this->_createMimeMessage(array($header['from']), $body, $encrypt);
+            $save_msg = $this->_createMimeMessage(array($header['from']), $body, $charset, $msg_options);
         } else {
             /* Can send in clear-text all at once, or PGP can encrypt
              * multiple addresses in the same message. */
-            $send_msgs[] = $save_msg = $this->_createMimeMessage($recip['list'], $body, $encrypt, $barefrom);
+            $msg_options['from'] = $barefrom;
+            $send_msgs[] = $save_msg = $this->_createMimeMessage($recip['list'], $body, $charset, $msg_options);
         }
 
         if (is_a($save_msg, 'PEAR_Error')) {
@@ -641,13 +485,13 @@ class IMP_Compose
         /* Tack on any site-specific headers. */
         $headers_result = Horde::loadConfiguration('header.php', '_header');
         if (!is_a($headers_result, 'PEAR_Error')) {
-            foreach ($result as $key => $val) {
+            foreach ($headers_result as $key => $val) {
                 $headers->addHeader(trim($key), String::convertCharset(trim($val), NLS::getCharset(), $charset));
             }
         }
 
         /* Send the messages out now. */
-        foreach ($messagesToSend as $val) {
+        foreach ($send_msgs as $val) {
             $res = $this->sendMessage($val['to'], $headers, $val['msg'], $charset);
             if (is_a($res, 'PEAR_Error')) {
                 /* Unsuccessful send. */
@@ -690,8 +534,7 @@ class IMP_Compose
              ($prefs->isLocked('save_sent_mail') &&
               $prefs->getValue('save_sent_mail')))) {
 
-            $mime_message = $messageToSave['msg'];
-            $headers = $mime_message->addMimeHeaders($headers);
+            $mime_message = $save_msg['msg'];
 
             /* Keep Bcc: headers on saved messages. */
             if (!empty($header['bcc'])) {
@@ -718,7 +561,7 @@ class IMP_Compose
             }
 
             /* Add the body text to the message string. */
-            $fcc .= $mime_message->toString();
+            $fcc .= $mime_message->toString(false);
 
             $imp_folder = &IMP_Folder::singleton();
 
@@ -742,7 +585,7 @@ class IMP_Compose
 
         /* Call post-sent hook. */
         if (!empty($conf['hooks']['postsent'])) {
-            Horde::callHook('_imp_hook_postsent', array($messageToSave['msg'], $msg_headers), 'imp', null);
+            Horde::callHook('_imp_hook_postsent', array($save_msg['msg'], $msg_headers), 'imp', null);
         }
 
         return $sent_saved;
@@ -754,8 +597,7 @@ class IMP_Compose
      * @param string $email                The e-mail list to send to.
      * @param Horde_Mime_Headers $headers  The object holding this message's
      *                                     headers.
-     * @param mixed $message               Either the message text (string) or
-     *                                     a Horde_Mime_Message object that
+     * @param Horde_Mime_Part $message     The Horde_Mime_Part object that
      *                                     contains the text to send.
      * @param string $charset              The charset that was used for the
      *                                     headers.
@@ -790,11 +632,11 @@ class IMP_Compose
                 $recipients += isset($address['grounpname']) ? count($address['addresses']) : 1;
             }
             if ($recipients > $timelimit) {
-                $message = @htmlspecialchars(sprintf(_("You are not allowed to send messages to more than %d recipients within %d hours."), $timelimit, $conf['sentmail']['params']['limit_period']), ENT_COMPAT, NLS::getCharset());
+                $error = @htmlspecialchars(sprintf(_("You are not allowed to send messages to more than %d recipients within %d hours."), $timelimit, $conf['sentmail']['params']['limit_period']), ENT_COMPAT, NLS::getCharset());
                 if (!empty($conf['hooks']['permsdenied'])) {
-                    $message = Horde::callHook('_perms_hook_denied', array('imp:max_timelimit'), 'horde', $message);
+                    $error = Horde::callHook('_perms_hook_denied', array('imp:max_timelimit'), 'horde', $error);
                 }
-                return PEAR::raiseError($message);
+                return PEAR::raiseError($error);
             }
         }
 
@@ -820,12 +662,7 @@ class IMP_Compose
             $params['password'] = Secret::read(IMP::getAuthKey(), $_SESSION['imp']['pass']);
         }
 
-        /* If $message is a string, create a Horde_Mime_Message object. */
-        if (is_string($message)) {
-            $mime_message = Horde_Mime_Message::parseMessage($message);
-        }
-
-        return $mime_message->send($email, $headerArray, $conf['mailer']['type'], $params);
+        return $message->send($email, $headers, $conf['mailer']['type'], $params);
     }
 
     /**
@@ -1015,20 +852,160 @@ class IMP_Compose
     }
 
     /**
-     * Create the base Horde_Mime_Message for sending.
+     * Create the base Horde_Mime_Part for sending.
      *
-     * @param array $to         The recipient list.
-     * @param string $body      Message body.
-     * @param integer $encrypt  The encryption flag.
-     * @param string $from      The outgoing from address - only define if
-     *                          using multiple PGP encryption.
+     * @param array $to        The recipient list.
+     * @param string $body     Message body.
+     * @param string $charset  The charset of the message body.
+     * @param array $options   Additional options:
+     * <pre>
+     * 'encrypt' - (integer) The encryption flag.
+     * 'from' - (string) The outgoing from address - only needed for multiple
+     *          PGP encryption.
+     * 'html' - (boolean) Is this a HTML message?
+     * 'nofinal' - (boolean) This is not a message which will be sent out.
+     * 'noattach' - (boolean) Don't add attachment information.
+     * </pre>
      *
-     * @return mixed  Array containing MIME message and recipients or
-     *                PEAR_Error on error.
+     * @return mixed  PEAR_Error on error or TODO.
      */
-    protected function _createMimeMessage($to, $body, $encrypt, $from = null)
+    protected function _createMimeMessage($to, $body, $charset,
+                                          $options = array())
     {
+        $nls_charset = NLS::getCharset();
+        $body = String::convertCharset($body, $nls_charset, $charset);
+
+        if (!empty($options['html'])) {
+            $body_html = $body;
+            require_once 'Horde/Text/Filter.php';
+            $body = Text_Filter::filter($body, 'html2text', array('wrap' => false, 'charset' => $charset));
+        }
+
+        /* Get trailer message (if any). */
+        $trailer = $trailer_file = null;
+        if (empty($options['nofinal']) &&
+            $GLOBALS['conf']['msg']['append_trailer']) {
+            if (empty($GLOBALS['conf']['vhosts'])) {
+                if (is_readable(IMP_BASE . '/config/trailer.txt')) {
+                    $trailer_file = IMP_BASE . '/config/trailer.txt';
+                }
+            } elseif (is_readable(IMP_BASE . '/config/trailer-' . $GLOBALS['conf']['server']['name'] . '.txt')) {
+                $trailer_file = IMP_BASE . '/config/trailer-' . $GLOBALS['conf']['server']['name'] . '.txt';
+            }
+
+            if (!empty($trailer_file)) {
+                require_once 'Horde/Text/Filter.php';
+                $trailer = Text_Filter::filter("\n" . file_get_contents($trailer_file), 'environment');
+                /* If there is a user defined function, call it with the
+                 * current trailer as an argument. */
+                if (!empty($GLOBALS['conf']['hooks']['trailer'])) {
+                    $trailer = Horde::callHook('_imp_hook_trailer', array($trailer), 'imp');
+                }
+
+                $body .= $trailer;
+                if (!empty($options['html'])) {
+                    $body_html .= $this->text2html($trailer);
+                }
+            }
+        }
+
+        /* Set up the body part now. */
+        $textBody = new Horde_Mime_Part();
+        $textBody->setType('text/plain');
+        $textBody->setCharset($charset);
+        $textBody->setDisposition('inline');
+
+        /* Send in flowed format. */
+        require_once 'Text/Flowed.php';
+        $flowed = new Text_Flowed($body, $charset);
+        $flowed->setDelSp(true);
+        $textBody->setContentTypeParameter('format', 'flowed');
+        $textBody->setContentTypeParameter('DelSp', 'Yes');
+        $textBody->setContents($flowed->toFlowed());
+
+        /* Determine whether or not to send a multipart/alternative
+         * message with an HTML part. */
+        if (!empty($options['html'])) {
+            $htmlBody = new Horde_Mime_Part();
+            $htmlBody->setType('text/html');
+            $htmlBody->setCharset($charset);
+            $htmlBody->setDisposition('inline');
+            $htmlBody->setDescription(String::convertCharset(_("HTML Version of Message"), $nls_charset, $charset));
+
+            /* Run tidy on the HTML, if available. */
+            if ($tidy_config = IMP::getTidyConfig(strlen($body_html))) {
+                $tidy = tidy_parse_string(String::convertCharset($body_html, $charset, 'UTF-8'), $tidy_config, 'utf8');
+                $tidy->cleanRepair();
+                $htmlBody->setContents(String::convertCharset(tidy_get_output($tidy), 'UTF-8', $charset));
+            } else {
+                $htmlBody->setContents($body_html);
+            }
+
+            $textBody->setDescription(String::convertCharset(_("Plaintext Version of Message"), $nls_charset, $charset));
+
+            $textpart = new Horde_Mime_Part();
+            $textpart->setType('multipart/alternative');
+            $textpart->addPart($textBody);
+
+            if (empty($options['nofinal'])) {
+                /* Any image links will be downloaded and appended to the
+                 * message body. */
+                $textpart->addPart($this->_convertToMultipartRelated($htmlBody));
+            } else {
+                $textpart->addPart($htmlBody);
+            }
+        } else {
+            $textpart = $textBody;
+        }
+
+        /* Add attachments now. */
+        $attach_flag = true;
+        if (empty($options['noattach']) && $this->numberOfAttachments()) {
+            if (($this->_linkAttach &&
+                 $GLOBALS['conf']['compose']['link_attachments']) ||
+                !empty($GLOBALS['conf']['compose']['link_all_attachments'])) {
+                $base = $this->linkAttachments(Horde::applicationUrl('attachment.php', true), $textpart, Auth::getAuth());
+                if (is_a($base, 'PEAR_Error')) {
+                    return $base;
+                }
+
+                if ($this->_pgpAttachPubkey || $this->_attachVCard) {
+                    $new_body = new Horde_Mime_Part();
+                    $new_body->setType('multipart/mixed');
+                    $new_body->addPart($base);
+                    $base = $new_body;
+                } else {
+                    $attach_flag = false;
+                }
+            } else {
+                $base = new Horde_Mime_Part();
+                $base->setType('multipart/mixed');
+                $base->addPart($textpart);
+                foreach (array_keys($this->_cache) as $id) {
+                    $base->addPart($this->buildAttachment($id));
+                }
+            }
+        } elseif ($this->_pgpAttachPubkey || $this->_attachVCard) {
+            $base = new Horde_Mime_Part('multipart/mixed');
+            $base->addPart($textpart);
+        } else {
+            $base = $textpart;
+            $attach_flag = false;
+        }
+
+        if ($attach_flag) {
+            if ($this->_pgpAttachPubkey) {
+                $imp_pgp = &Horde_Crypt::singleton(array('imp', 'pgp'));
+                $base->addPart($imp_pgp->publicKeyMIMEPart());
+            }
+
+            if ($this->_attachVCard) {
+                $base->addPart($this->_attachVCard);
+            }
+        }
+
         /* Set up the base message now. */
+        $encrypt = empty($options['encrypt']) ? 0 : $options['encrypt'];
         if ($GLOBALS['prefs']->getValue('use_pgp') &&
             !empty($GLOBALS['conf']['utils']['gnupg']) &&
             in_array($encrypt, array(IMP::PGP_ENCRYPT, IMP::PGP_SIGN, IMP::PGP_SIGNENC, IMP::PGP_SYM_ENCRYPT, IMP::PGP_SYM_SIGNENC))) {
@@ -1059,15 +1036,15 @@ class IMP_Compose
             /* Do the encryption/signing requested. */
             switch ($encrypt) {
             case IMP::PGP_SIGN:
-                $body = $imp_pgp->IMPsignMIMEPart($body);
+                $base = $imp_pgp->IMPsignMIMEPart($base);
                 break;
 
             case IMP::PGP_ENCRYPT:
             case IMP::PGP_SYM_ENCRYPT:
-                $to_list = is_null($from)
+                $to_list = empty($options['from'])
                     ? $to
-                    : array_keys(array_flip(array_merge($to, array($from))));
-                $body = $imp_pgp->IMPencryptMIMEPart($body, $to_list, $encrypt == IMP::PGP_SYM_ENCRYPT);
+                    : array_keys(array_flip(array_merge($to, array($options['from']))));
+                $base = $imp_pgp->IMPencryptMIMEPart($base, $to_list, $encrypt == IMP::PGP_SYM_ENCRYPT);
                 if ($encrypt == IMP::PGP_SYM_ENCRYPT) {
                     $imp_pgp->unsetSymmetricPassphrase();
                 }
@@ -1075,10 +1052,10 @@ class IMP_Compose
 
             case IMP::PGP_SIGNENC:
             case IMP::PGP_SYM_SIGNENC:
-                $to_list = is_null($from)
+                $to_list = empty($options['from'])
                     ? $to
-                    : array_keys(array_flip(array_merge($to, array($from))));
-                $body = $imp_pgp->IMPsignAndEncryptMIMEPart($body, $to_list, $encrypt == IMP::PGP_SYM_SIGNENC);
+                    : array_keys(array_flip(array_merge($to, array($options['from']))));
+                $base = $imp_pgp->IMPsignAndEncryptMIMEPart($base, $to_list, $encrypt == IMP::PGP_SYM_SIGNENC);
                 if ($encrypt == IMP::PGP_SYM_SIGNENC) {
                     $imp_pgp->unsetSymmetricPassphrase();
                 }
@@ -1086,8 +1063,8 @@ class IMP_Compose
             }
 
             /* Check for errors. */
-            if (is_a($body, 'PEAR_Error')) {
-                return PEAR::raiseError(_("PGP Error: ") . $body->getMessage());
+            if (is_a($base, 'PEAR_Error')) {
+                return PEAR::raiseError(_("PGP Error: ") . $base->getMessage());
             }
         } elseif ($GLOBALS['prefs']->getValue('use_smime') &&
                   in_array($encrypt, array(IMP::SMIME_ENCRYPT, IMP::SMIME_SIGN, IMP::SMIME_SIGNENC))) {
@@ -1104,31 +1081,29 @@ class IMP_Compose
             /* Do the encryption/signing requested. */
             switch ($encrypt) {
             case IMP::SMIME_SIGN:
-                $body = $imp_smime->IMPsignMIMEPart($body);
+                $base = $imp_smime->IMPsignMIMEPart($base);
                 break;
 
             case IMP::SMIME_ENCRYPT:
-                $body = $imp_smime->IMPencryptMIMEPart($body, $to[0]);
+                $base = $imp_smime->IMPencryptMIMEPart($base, $to[0]);
                 break;
 
             case IMP::SMIME_SIGNENC:
-                $body = $imp_smime->IMPsignAndEncryptMIMEPart($body, $to[0]);
+                $base = $imp_smime->IMPsignAndEncryptMIMEPart($base, $to[0]);
                 break;
             }
 
             /* Check for errors. */
-            if (is_a($body, 'PEAR_Error')) {
-                return PEAR::raiseError(_("S/MIME Error: ") . $body->getMessage());
+            if (is_a($base, 'PEAR_Error')) {
+                return PEAR::raiseError(_("S/MIME Error: ") . $base->getMessage());
             }
         }
 
-        /* Add data to Horde_Mime_Message object. */
-        $mime_message = new Horde_Mime_Message();
-        $body->setMIMEId(0);
-        $mime_message->addPart($body);
+        /* Flag this as the base part. */
+        $base->isBasePart(true);
 
         return array(
-            'msg' => $mime_message,
+            'msg' => $base,
             'recipients' => $to,
             'to' => implode(', ', $to)
         );

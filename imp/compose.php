@@ -1236,7 +1236,7 @@ if ($redirect) {
         $t->set('numberattach', $imp_compose->numberOfAttachments());
         if ($t->get('numberattach')) {
             require_once IMP_BASE . '/lib/MIME/Contents.php';
-            $imp_contents = new IMP_Contents(new Horde_Mime_Message());
+            $imp_contents = new IMP_Contents(new Horde_Mime_Part());
 
             $atc = array();
             $disp_num = 0;

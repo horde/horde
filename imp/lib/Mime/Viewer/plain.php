@@ -163,9 +163,7 @@ class IMP_Horde_Mime_Viewer_plain extends Horde_Mime_Viewer_plain
             return null;
         }
 
-        $new_part = is_a($this->_mimepart, 'Horde_Mime_Message')
-            ? new Horde_Mime_Message()
-            : new Horde_Mime_Part();
+        $new_part = new Horde_Mime_Part();
         $new_part->setType('multipart/mixed');
         $charset = $this->_mimepart->getCharset();
         $mime_id = $this->_mimepart->getMimeId();
@@ -236,7 +234,7 @@ class IMP_Horde_Mime_Viewer_plain extends Horde_Mime_Viewer_plain
             }
         }
 
-        $new_part->buildMimeIds(is_a($new_part, 'Horde_Mime_Message') ? null : $mime_id);
+        $new_part->setMimeId($mime_id);
 
         return array($mime_id => $new_part);
     }
@@ -253,9 +251,7 @@ class IMP_Horde_Mime_Viewer_plain extends Horde_Mime_Viewer_plain
             return null;
         }
 
-        $new_part = is_a($this->_mimepart, 'Horde_Mime_Message')
-            ? new Horde_Mime_Message()
-            : new Horde_Mime_Part();
+        $new_part = new Horde_Mime_Part();
         $new_part->setType('multipart/mixed');
         $mime_id = $this->_mimepart->getMimeId();
 
@@ -274,7 +270,7 @@ class IMP_Horde_Mime_Viewer_plain extends Horde_Mime_Viewer_plain
             $new_part->addPart($uupart);
         }
 
-        $new_part->buildMimeIds(is_a($new_part, 'Horde_Mime_Message') ? null : $mime_id);
+        $new_part->setMimeId($mime_id);
 
         return array($mime_id => $new_part);
     }
