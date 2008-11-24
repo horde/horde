@@ -273,6 +273,19 @@ class Horde_Mime_Headers
     }
 
     /**
+     * Replace a value of a header.
+     *
+     * @param string $header   The header name.
+     * @param string $value    The header value.
+     * @param boolean $decode  MIME decode the value?
+     */
+    public function replaceHeader($header, $value, $decode = false)
+    {
+        $this->removeHeader($header);
+        $this->addHeader($header, $value, $decode);
+    }
+
+    /**
      * Set a value for a particular header ONLY if that header is set.
      *
      * @param string $header   The header name.

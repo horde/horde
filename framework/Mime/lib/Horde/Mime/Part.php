@@ -741,7 +741,7 @@ class Horde_Mime_Part
         }
 
         foreach ($this->getHeaderArray() as $key => $val) {
-            $headers->addHeader($key, $val);
+            $headers->replaceHeader($key, $val);
         }
 
         return $headers;
@@ -1395,7 +1395,7 @@ class Horde_Mime_Part
                     $this->strict7bit(true);
                     $encoding = $this->getTransferEncoding();
                 }
-                $headers->addHeader('Content-Transfer-Encoding', $encoding);
+                $headers->replaceHeader('Content-Transfer-Encoding', $encoding);
             }
         }
 
