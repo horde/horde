@@ -205,11 +205,16 @@
 // See if we have everything we need to export...
 - (void)canExport
 {
-    if ([anselController state] == TURAnselStateConnected &&
-        currentGallery != nil) {
-        [mExportMgr enableControls];
+    if ([anselController state] == TURAnselStateConnected) {
+        [newGalleryButton setEnabled: YES];
+        [galleryCombo setEnabled: YES];
+        if (currentGallery != nil) {
+            [mExportMgr enableControls];
+        }
     } else {
-        [mExportMgr disableControls];        
+        [newGalleryButton setEnabled: NO];
+        [mExportMgr disableControls];   
+        [galleryCombo setEnabled: YES];
     }
 }
 // Runs in a new thread.
@@ -246,8 +251,15 @@
     NSDictionary *results = [[anselController createNewGallery: [NSDictionary dictionaryWithObjectsAndKeys: galleryName, @"name", nil]] retain];
     
     if ([anselController state] != TURAnselStateError) {
-        NSLog(@"Added %@", results);
+        NSAlert *alert = [[NSAlert alloc] init];
+        [alert setMessageText: @"Gallery successfully created."];
+        [alert beginSheetModalForWindow: [self window]
+                          modalDelegate: nil
+                         didEndSelector: nil
+                            contextInfo: nil];
         [galleryCombo reloadData];
+        [galleryCombo selectItemAtIndex: [galleryCombo numberOfItems] - 1];
+        [alert release];
     }
     [results release];
 }
@@ -387,7 +399,7 @@
     [currentGallery setDelegate:nil];
     [currentGallery autorelease];
     currentGallery = [[anselController getGalleryByIndex:row] retain];
-    NSLog(@"THe selected gallery: %@", currentGallery);
+    NSLog(@"The selected gallery: %@", currentGallery);
     [currentGallery setDelegate: self];
     [self canExport];
 }
