@@ -51,7 +51,7 @@ $imp_mailbox = &IMP_Mailbox::singleton($mailbox);
 $total_num = $imp_mailbox->getMessageCount();
 $unseen_num = ($imp_search->isVINBOXFolder($mailbox))
     ? $imp_mailbox->getMessageCount()
-    : $imp_mailbox->unseenMessages(true);
+    : $imp_mailbox->unseenMessages(Horde_Imap_Client::SORT_RESULTS_COUNT);
 
 $query = new Horde_Imap_Client_Search_Query();
 if ($new_mail) {
