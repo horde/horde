@@ -29,7 +29,7 @@ class Horde_Db_Adapter
      * Handle Horde-style configuration arrays, PEAR DB/MDB2 arrays or DSNs, or
      * PDO DSNS.
      */
-    public static function getInstance($config)
+    public static function factory($config)
     {
         $adapter = str_replace(' ', '_' , ucwords(str_replace('_', ' ', basename($config['adapter']))));
         $class = 'Horde_Db_Adapter_' . $adapter;
