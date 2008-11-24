@@ -1400,7 +1400,7 @@ class Horde_Mime_Part
         }
 
         /* Make sure the message has a trailing newline. */
-        $msg = $this->toString();
+        $msg = $this->toString(false);
         if (substr($msg, -1) != "\n") {
             $msg .= "\n";
         }
