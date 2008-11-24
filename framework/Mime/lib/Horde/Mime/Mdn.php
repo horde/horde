@@ -133,7 +133,7 @@ class Horde_Mime_Mdn
                              $err = array())
     {
         require_once dirname(__FILE__) . '/Headers.php';
-        require_once dirname(__FILE__) . '/Message.php';
+        require_once dirname(__FILE__) . '/Part.php';
         require_once 'Horde/Identity.php';
         require_once 'Horde/Text.php';
 
@@ -172,7 +172,7 @@ class Horde_Mime_Mdn
         $msg_headers->addHeader('Subject', _("Disposition Notification"));
 
         /* MDNs are a subtype of 'multipart/report'. */
-        $msg = new Horde_Mime_Message();
+        $msg = new Horde_Mime_Part();
         $msg->setType('multipart/report');
         $msg->setContentTypeParameter('report-type', 'disposition-notification');
 

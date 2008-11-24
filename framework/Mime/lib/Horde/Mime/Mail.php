@@ -409,7 +409,7 @@ class Horde_Mime_Mail
         }
 
         /* Build mime message. */
-        $mime = new Horde_Mime_Message();
+        $mime = new Horde_Mime_Part();
         if (!empty($this->_body) && !empty($this->_htmlBody)) {
             $basepart = new Horde_Mime_Part('multipart/alternative');
             $this->_body->setDescription(_("Plaintext Version of Message"));
