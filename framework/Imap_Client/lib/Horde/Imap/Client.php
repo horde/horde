@@ -169,8 +169,8 @@ class Horde_Imap_Client
             $res = require_once 'Horde/Mime/Headers.php';
             break;
 
-        case 'Horde_Mime_Message':
-            $res = require_once 'Horde/Mime/Message.php';
+        case 'Horde_Mime_Part':
+            $res = require_once 'Horde/Mime/Part.php';
             break;
 
         case 'Secret':

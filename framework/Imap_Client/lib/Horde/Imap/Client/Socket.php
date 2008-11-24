@@ -2235,7 +2235,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 // Only care about these if doing a FETCH command.
                 $tmp['structure'] = empty($this->_temp['fetchparams']['parsestructure'])
                     ? $this->_parseBodystructure($data[++$i])
-                    : Horde_Mime_Message::parseStructure($this->_parseBodystructure($data[++$i]));
+                    : Horde_Mime_Part::parseStructure($this->_parseBodystructure($data[++$i]));
                 break;
 
             case 'ENVELOPE':

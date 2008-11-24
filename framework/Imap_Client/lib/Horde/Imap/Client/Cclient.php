@@ -974,7 +974,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
                         break 2;
                     }
                     $structure = $this->_parseStructure($structure);
-                    $ret[$id]['structure'] = empty($c_val['parse']) ? $structure : Horde_Mime_Message::parseStructure($structure);
+                    $ret[$id]['structure'] = empty($c_val['parse']) ? $structure : Horde_Mime_Part::parseStructure($structure);
                 }
                 break;
 
