@@ -185,9 +185,10 @@ function _imp_compose($args = array(), $extra = array())
  */
 function _imp_batchCompose($args = array(), $extra = array())
 {
-    if (isset($_SESSION['imp']['viewmode']) &&
-        $_SESSION['imp']['viewmode'] != 'imp') {
-        return $GLOBALS['registry']->callByPackage($_SESSION['imp']['viewmode'], 'batchCompose', array($args, $extra));
+    // TODO: Fix
+    if (isset($_SESSION['imp']['view']) &&
+        $_SESSION['imp']['view'] != 'imp') {
+        return $GLOBALS['registry']->callByPackage($_SESSION['imp']['view'], 'batchCompose', array($args, $extra));
     }
 
     $GLOBALS['authentication'] = 'none';

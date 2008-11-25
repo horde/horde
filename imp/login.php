@@ -13,6 +13,7 @@
 
 @define('AUTH_HANDLER', true);
 $authentication = 'none';
+$login_page = true;
 require_once dirname(__FILE__) . '/lib/base.php';
 
 /* Set the 'preferred' server. */
@@ -218,7 +219,6 @@ if (!empty($conf['user']['select_view'])) {
 /* Mobile login page. */
 if ($browser->isMobile()) {
     require_once 'Horde/Mobile.php';
-    require_once 'Horde/Notification/Listener/mobile.php';
 
     /* Build the <select> widget for the servers list. */
     if ($show_list) {

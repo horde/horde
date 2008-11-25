@@ -4,9 +4,7 @@ $m = new Horde_Mobile(_("Log in"));
 
 $c = &$m->add(new Horde_Mobile_card());
 
-$notification = &new Notification();
-$l = &$notification->attach('status', null, 'Notification_Listener_mobile');
-$l->setMobileObject($c);
+$mimp_notify->setMobileObject($c);
 
 $c->add(new Horde_Mobile_text(sprintf(_("Welcome to %s"), ($imp_auth) ? $registry->get('name',' horde') : $registry->get('name'))));
 

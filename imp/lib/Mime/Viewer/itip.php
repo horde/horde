@@ -462,7 +462,7 @@ class IMP_Horde_Mime_Viewer_itip extends Horde_Mime_Viewer_Driver
         if ($this->viewAsAttachment()) {
             $html .= Util::bufferOutput('require', $registry->get('templates', 'horde') . '/common-header.inc');
         }
-        if ($_SESSION['imp']['viewmode'] == 'imp') {
+        if ($_SESSION['imp']['view'] == 'imp') {
             $html .= '<form method="post" name="iCal" action="' . Horde::selfUrl(true) . '">';
         }
 
@@ -491,7 +491,7 @@ class IMP_Horde_Mime_Viewer_itip extends Horde_Mime_Viewer_Driver
         }
 
         // Need to work out if we are inline and actually need this.
-        if ($_SESSION['imp']['viewmode'] == 'imp') {
+        if ($_SESSION['imp']['view'] == 'imp') {
             $html .= '</form>';
         }
         if ($this->viewAsAttachment()) {
@@ -562,7 +562,7 @@ class IMP_Horde_Mime_Viewer_itip extends Horde_Mime_Viewer_Driver
             }
         }
 
-        if ($_SESSION['imp']['viewmode'] != 'imp') {
+        if ($_SESSION['imp']['view'] != 'imp') {
             return $html;
         }
 
@@ -799,7 +799,7 @@ class IMP_Horde_Mime_Viewer_itip extends Horde_Mime_Viewer_Driver
             $html .= '</tbody></table>';
         }
 
-        if ($_SESSION['imp']['viewmode'] != 'imp') {
+        if ($_SESSION['imp']['view'] != 'imp') {
             return $html;
         }
 
@@ -931,7 +931,7 @@ class IMP_Horde_Mime_Viewer_itip extends Horde_Mime_Viewer_Driver
             $html .= '</tbody></table>';
         }
 
-        if ($_SESSION['imp']['viewmode'] != 'imp') {
+        if ($_SESSION['imp']['view'] != 'imp') {
             return $html;
         }
 

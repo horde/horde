@@ -115,7 +115,7 @@ class IMP_Horde_Mime_Viewer_smime extends Horde_Mime_Viewer_Driver
                 'status' => array(
                     array(
                         'icon' => Horde::img('mime/encryption.png', 'S/MIME'),
-                        'text' => array()
+                        'text' => array(_("This message has been encrypted via S/MIME."))
                     )
                 ),
                 'type' => 'text/html; charset=' . NLS::getCharset()
@@ -138,8 +138,7 @@ class IMP_Horde_Mime_Viewer_smime extends Horde_Mime_Viewer_Driver
         /* Make sure we have a passphrase. */
         $passphrase = $this->_impsmime->getPassphrase();
         if ($passphrase === false) {
-            if (isset($_SESSION['imp']['viewmode']) &&
-                ($_SESSION['imp']['viewmode'] == 'imp')) {
+            if ($_SESSION['imp']['view'] == 'imp') {
                 // TODO: Fix to work with DIMP
                 $status[] = Horde::link('#', _("You must enter the passphrase for your S/MIME private key to view this message"), null, null, $this->_impsmime->getJSOpenWinCode('open_passphrase_dialog') . 'return false;') . _("You must enter the passphrase for your S/MIME private key to view this message.") . '</a>';
             }
@@ -233,8 +232,7 @@ class IMP_Horde_Mime_Viewer_smime extends Horde_Mime_Viewer_Driver
         if ($GLOBALS['prefs']->getValue('smime_verify') ||
             Util::getFormData('smime_verify_msg')) {
             $sig_result = $this->_impsmime->verifySignature($raw_text);
-        } elseif (isset($_SESSION['imp']['viewmode']) &&
-                  ($_SESSION['imp']['viewmode'] == 'imp')) {
+        } elseif ($_SESSION['imp']['view'] == 'imp') {
             // TODO: Fix to work with DIMP
             $status[] = Horde::link(Util::addParameter(Horde::selfUrl(true), 'smime_verify_msg', 1)) . _("Click HERE to verify the message.") . '</a>';
             return $ret;

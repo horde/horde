@@ -163,8 +163,7 @@ class IMP_Horde_Mime_Viewer_pgp extends Horde_Mime_Viewer_Driver
         /* Check if this a symmetrically encrypted message. */
         $symmetric = $this->_imppgp->encryptedSymmetrically($encrypted_data);
         if ($symmetric && !$this->_imppgp->getSymmetricPassphrase()) {
-            if (isset($_SESSION['imp']['viewmode']) &&
-                ($_SESSION['imp']['viewmode'] == 'imp')) {
+            if ($_SESSION['imp']['view'] == 'imp') {
                 // TODO: Fix to work with DIMP
                 /* Ask for the correct passphrase if this is encrypted
                  * symmetrically. */
@@ -184,8 +183,7 @@ class IMP_Horde_Mime_Viewer_pgp extends Horde_Mime_Viewer_Driver
                 $status[] = _("The message below has been encrypted with PGP, however, no personal private key exists so the message cannot be decrypted.");
                 return null;
             } elseif (!$this->_imppgp->getPassphrase() &&
-                      ($_SESSION['imp']['viewmode']) &&
-                      ($_SESSION['imp']['viewmode'] == 'imp')) {
+                      ($_SESSION['imp']['view'] == 'imp')) {
                 // TODO: Fix to work with DIMP
                 /* Ask for the private key's passphrase if this is encrypted
                  * asymmetrically. */
@@ -310,8 +308,7 @@ class IMP_Horde_Mime_Viewer_pgp extends Horde_Mime_Viewer_Driver
                     Text_Filter::filter($sig_result, 'text2html', array('parselevel' => TEXT_HTML_NOHTML))
                 )
             );
-        } elseif (isset($_SESSION['imp']['viewmode']) &&
-                  ($_SESSION['imp']['viewmode'] == 'imp')) {
+        } elseif ($_SESSION['imp']['view'] == 'imp') {
             // TODO: Fix to work with DIMP
             $status[] = Horde::link(Util::addParameter(Horde::selfUrl(true), array('pgp_verify_msg' => 1))) . _("Click HERE to verify the message.") . '</a>';
         }

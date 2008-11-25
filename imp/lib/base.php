@@ -10,6 +10,7 @@
  *                      'none'  - Do not authenticate
  *                      Default - Authenticate to IMAP/POP server
  *   $compose_page    - If true, we are on IMP's compose page
+ *   $login_page      - If true, we are on IMP's login page
  *   $mimp_debug      - If true, output text/plain version of page.
  *   $no_compress     - Controls whether the page should be compressed
  *   $session_control - Sets special session control limitations
@@ -136,7 +137,8 @@ if ($authentication !== 'none') {
 
 // Notification system.
 $notification = &Notification::singleton();
-if ($_SESSION['imp']['view'] == 'mimp') {
+if ((Util::nonInputVar('login_page') && $GLOBALS['browser']->isMobile()) ||
+    (isset($_SESSION['imp']['view']) && ($_SESSION['imp']['view'] == 'mimp'))) {
     require_once 'Horde/Notification/Listener/mobile.php';
     $GLOBALS['mimp_notify'] = &$notification->attach('status', null, 'Notification_Listener_mobile');
 } else {
@@ -165,7 +167,7 @@ if ((IMP::loginTasksFlag() === 2) &&
     IMP_Session::loginTasks();
 }
 
-if ($_SESSION['imp']['view'] == 'mimp') {
+if (isset($_SESSION['imp']['view']) && ($_SESSION['imp']['view'] == 'mimp')) {
     // Need to explicitly load MIMP.php
     require_once IMP_BASE . '/lib/MIMP.php';
 
