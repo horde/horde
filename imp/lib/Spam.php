@@ -18,7 +18,7 @@ class IMP_Spam
      *
      * @var IMP_Compose
      */
-    protected $_imp_compose;
+    protected $_impCompose;
 
     /**
      * The IMP_Identity:: object used by the class.
@@ -33,7 +33,7 @@ class IMP_Spam
     function __construct()
     {
         require_once 'Horde/Identity.php';
-        $this->_imp_compose = &IMP_Compose::singleton();
+        $this->_impCompose = &IMP_Compose::singleton();
         $this->_identity = &Identity::singleton(array('imp', 'imp'));
     }
 
@@ -121,7 +121,7 @@ class IMP_Spam
                     }
                     $this->_sendSpamReportMessage($action, $raw_msg);
                     ++$email_msg_count;
-               }
+                }
 
                 /* If a (not)spam bounce email address has been provided, use
                  * it. */
@@ -133,7 +133,7 @@ class IMP_Spam
                 }
 
                 if ($to) {
-                    $imp_headers = &$imp_contents->getHeaderOb();
+                    $imp_headers = $imp_contents->getHeaderOb();
 
                     $from_addr = $this->_identity->getFromAddress();
                     $imp_headers->addResentHeaders($from_addr, $to);
@@ -145,7 +145,7 @@ class IMP_Spam
 
                     $bodytext = $imp_contents->getBody();
 
-                    $this->_imp_compose->sendMessage($to, $imp_headers, $bodytext, NLS::getCharset());
+                    $this->_impCompose->sendMessage($to, $imp_headers, $bodytext, NLS::getCharset());
                     if (!$report_flag) {
                         $report_msg_count++;
                     }
@@ -258,6 +258,6 @@ class IMP_Spam
                                          $action, $_SESSION['imp']['user']));
 
         /* Send the message. */
-        $this->_imp_compose->sendMessage($GLOBALS['conf'][$action]['email'], $spam_headers, $mime, NLS::getCharset());
+        $this->_impCompose->sendMessage($GLOBALS['conf'][$action]['email'], $spam_headers, $mime, NLS::getCharset());
     }
 }
