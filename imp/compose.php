@@ -128,7 +128,6 @@ $reply_index = Util::getFormData('reply_index');
 $thismailbox = Util::getFormData('thismailbox');
 
 /* Check for duplicate submits. */
-require_once 'Horde/Token.php';
 if (isset($conf['token'])) {
     /* If there is a configured token system, set it up. */
     $tokenSource = Horde_Token::factory(
@@ -179,7 +178,6 @@ if (is_a($vcard, 'PEAR_Error')) {
 }
 
 /* Init IMP_UI_Compose:: object. */
-require_once IMP_BASE . '/lib/UI/Compose.php';
 $imp_ui = new IMP_UI_Compose();
 
 /* Set the default charset & encoding.
@@ -464,7 +462,6 @@ case 'send_message':
     if (Util::getFormData('resume_draft') &&
         $prefs->getValue('auto_delete_drafts') &&
         ($thismailbox == IMP::folderPref($prefs->getValue('drafts_folder'), true)))  {
-        require_once IMP_BASE . '/lib/Message.php';
         $imp_message = &IMP_Message::singleton();
         $idx_array = array($index . IMP::IDX_SEP . $thismailbox);
         if ($imp_message->delete($idx_array)) {
@@ -620,9 +617,8 @@ $redirect = in_array($actionID, array('redirect_compose', 'redirect_expand_addr'
 /* Attach autocompleters to the compose form elements. */
 $spellcheck = false;
 if ($has_js) {
-    require_once IMP_BASE . '/lib/Imple.php';
     if ($redirect) {
-        $imp_ui->attachAutoCompleter('Imple', array('to'));
+        $imp_ui->attachAutoCompleter('IMP_Imple', array('to'));
     } else {
         $auto_complete = array('to');
         foreach (array('cc', 'bcc') as $val) {
@@ -630,9 +626,8 @@ if ($has_js) {
                 $auto_complete[] = $val;
             }
         }
-        $imp_ui->attachAutoCompleter('Imple', $auto_complete);
+        $imp_ui->attachAutoCompleter('IMP_Imple', $auto_complete);
         if (!empty($conf['spell']['driver'])) {
-            require_once 'Horde/SpellChecker.php';
             if (Horde_SpellChecker::factory($conf['spell']['driver'], array()) !== false) {
                 $spellcheck = true;
                 $imp_ui->attachSpellChecker('imp', true);
@@ -813,7 +808,6 @@ if (!$redirect) {
             Horde_Mime_Address::addrArray2String($identity->getBccAddresses($ident))
         );
     }
-    require_once 'Horde/Serialize.php';
     $js_code[] = 'var identities = ' . Horde_Serialize::serialize($js_ident, SERIALIZE_JSON, NLS::getCharset());
 }
 
