@@ -20,6 +20,7 @@ class IMP_Horde_Mime_Viewer_tnef extends Horde_Mime_Viewer_tnef
      */
     protected $_capability = array(
         'embedded' => false,
+        'forceinline' => true,
         'full' => true,
         'info' => true,
         'inline' => false

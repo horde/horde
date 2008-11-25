@@ -20,6 +20,7 @@ class IMP_Horde_Mime_Viewer_pdf extends Horde_Mime_Viewer_pdf
      */
     protected $_capability = array(
         'embedded' => false,
+        'forceinline' => false,
         'full' => true,
         'info' => true,
         'inline' => false

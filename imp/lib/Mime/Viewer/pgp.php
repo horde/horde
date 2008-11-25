@@ -29,6 +29,7 @@ class IMP_Horde_Mime_Viewer_pgp extends Horde_Mime_Viewer_Driver
      */
     protected $_capability = array(
         'embedded' => true,
+        'forceinline' => true,
         'full' => false,
         'info' => false,
         'inline' => true

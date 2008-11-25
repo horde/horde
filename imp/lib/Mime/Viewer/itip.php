@@ -23,6 +23,7 @@ class IMP_Horde_Mime_Viewer_itip extends Horde_Mime_Viewer_Driver
      */
     protected $_capability = array(
         'embedded' => false,
+        'forceinline' => false,
         'full' => false,
         'info' => false,
         'inline' => false
