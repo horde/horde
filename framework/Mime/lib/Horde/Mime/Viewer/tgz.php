@@ -19,6 +19,7 @@ class Horde_Mime_Viewer_tgz extends Horde_Mime_Viewer_Driver
      */
     protected $_capability = array(
         'embedded' => false,
+        'forceinline' => true,
         'full' => false,
         'info' => true,
         'inline' => true

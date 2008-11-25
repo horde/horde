@@ -22,6 +22,7 @@ class Horde_Mime_Viewer_html extends Horde_Mime_Viewer_Driver
      */
     protected $_capability = array(
         'embedded' => false,
+        'forceinline' => false,
         'full' => true,
         'info' => false,
         'inline' => true

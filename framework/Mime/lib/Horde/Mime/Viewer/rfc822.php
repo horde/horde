@@ -20,6 +20,7 @@ class Horde_Mime_Viewer_rfc822 extends Horde_Mime_Viewer_Driver
      */
     protected $_capability = array(
         'embedded' => false,
+        'forceinline' => false,
         'full' => true,
         'info' => true,
         'inline' => false
