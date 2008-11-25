@@ -134,6 +134,15 @@ class IMP_Horde_Mime_Viewer_html extends Horde_Mime_Viewer_html
         $cleanhtml = $this->_cleanHTML($data, $inline);
         $data = $cleanhtml['html'];
 
+        /* We are done processing if in mimp mode. */
+        if ($_SESSION['imp']['view'] == 'mimp') {
+            require_once 'Horde/Text/Filter.php';
+            $data = Text_Filter::filter($data, 'html2text');
+
+            // Filter bad language.
+            return IMP::filterText($data);
+        }
+
         /* Reset absolutely positioned elements. */
         if ($inline) {
             $data = preg_replace('/(style\s*=\s*)(["\'])?([^>"\']*)position\s*:\s*absolute([^>"\']*)\2/i', '$1"$3$4"', $data);

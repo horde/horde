@@ -17,19 +17,13 @@ function _framesetUrl($url)
     return $url;
 }
 
-function _newSessionUrl($actionID, $isLogin, $view)
+function _newSessionUrl($actionID, $isLogin)
 {
     $url = '';
     $addActionID = true;
 
-    $apps = $GLOBALS['registry']->listApps(null, true);
-    $default_view = ($GLOBALS['browser']->isMobile() && isset($apps['mimp'])) ? 'mimp' : 'imp';
-
     if ($GLOBALS['url_in']) {
         $url = Horde::url(Util::removeParameter($GLOBALS['url_in'], session_name()), true);
-    } elseif ($view != $default_view || $view != 'imp') {
-        $GLOBALS['noframeset'] = true;
-        return Horde::url($GLOBALS['registry']->get('webroot', $view) . '/', true);
     } elseif (Auth::getProvider() == 'imp') {
         $url = Horde::applicationUrl($GLOBALS['registry']->get('webroot', 'horde') . '/', true);
         /* Force the initial page to IMP if we're logging in to compose a
@@ -111,7 +105,7 @@ if (Util::getFormData(MAINTENANCE_DONE_PARAM)) {
     /* Finish up any login tasks we haven't completed yet. */
     IMP_Session::loginTasks();
 
-    _redirect(_framesetUrl(_newSessionUrl($actionID, $isLogin, isset($_SESSION['imp']['default_view']) ? $_SESSION['imp']['default_view'] : 'imp')));
+    _redirect(_framesetUrl(_newSessionUrl($actionID, $isLogin)));
 }
 
 /* If we already have a session: */
@@ -162,23 +156,22 @@ if (!is_null($imapuser) && !is_null($pass)) {
             $_SESSION['horde_language'] = $horde_language;
         }
 
+        $view = empty($conf['user']['select_view'])
+            ? (empty($conf['user']['force_view']) ? 'imp' : $conf['user']['force_view'])
+            : Util::getFormData('select_view', 'imp');
+
+        setcookie('default_imp_view', $view, time() + 30 * 86400,
+                  $conf['cookie']['path'],
+                  $conf['cookie']['domain']);
+        $_SESSION['imp']['view'] = $view;
+
         if (!empty($conf['hooks']['postlogin'])) {
             Horde::callHook('_imp_hook_postlogin', array($actionID, $isLogin), 'imp');
         }
 
-        if (empty($conf['user']['select_view'])) {
-            $view = empty($conf['user']['force_view']) ? 'imp' : $conf['user']['force_view'];
-        } else {
-            $view = Util::getFormData('select_view', 'imp');
-        }
-        setcookie('default_imp_view', $view, time() + 30 * 86400,
-                  $conf['cookie']['path'],
-                  $conf['cookie']['domain']);
-        $_SESSION['imp']['default_view'] = $view;
-
         IMP_Session::loginTasks();
 
-        _redirect(_framesetUrl(_newSessionUrl($actionID, $isLogin, $view)));
+        _redirect(_framesetUrl(_newSessionUrl($actionID, $isLogin)));
     }
 
     _redirect(Auth::addLogoutParameters(IMP::logoutUrl()));

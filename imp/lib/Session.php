@@ -32,7 +32,6 @@ class IMP_Session
      * 'autologin'     -- Is autologin available?
      * 'cache'         -- Various IMP libraries can use this variable to cache
      *                    data.
-     * 'default_view'  -- The default view (dimp, imp, or mimp).
      * 'file_upload'   -- If file uploads are allowed, the max size.
      * 'filteravail'   -- Can we apply filters manually?
      * 'imap'          -- Config for various IMAP resources (acl, admin,
@@ -48,7 +47,7 @@ class IMP_Session
      * 'showunsub'     -- Show unsusubscribed mailboxes on the folders screen.
      * 'tasklistavail' -- Is listing of tasklists available?
      * 'uniquser'      -- The unique user name.
-     * 'viewmode'      -- The imp view mode (currently dimp, imp, or mimp)
+     * 'view'          -- The imp view mode (currently dimp, imp, or mimp)
      *
      * @param string $imapuser  The username of the user.
      * @param string $password  The password of the user.
@@ -321,7 +320,18 @@ class IMP_Session
      */
     static public function getInitialUrl($actionID = null, $encode = true)
     {
-        $init_url = ($_SESSION['imp']['protocol'] == 'pop') ? 'INBOX' : $GLOBALS['prefs']->getValue('initial_page');
+        /* TODO: For now, redirect MIMP to mailbox page. */
+        if ($_SESSION['imp']['view'] == 'mimp') {
+            $url = Util::addParameter(Horde::applicationUrl('mailbox-mimp.php', true), array('mailbox' => 'INBOX'));
+            if (!empty($actionID)) {
+                $url = Util::addParameter($url, array('actionID' => $actionID), null, false);
+            }
+            return $url;
+        }
+
+        $init_url = ($_SESSION['imp']['protocol'] == 'pop')
+            ? 'INBOX'
+            : $GLOBALS['prefs']->getValue('initial_page');
 
         $imp_search = new IMP_Search();
 

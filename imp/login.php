@@ -193,22 +193,26 @@ if ($choose_language) {
 /* If DIMP/MIMP are available, show selection of alternate views. */
 $views = array();
 if (!empty($conf['user']['select_view'])) {
-    $apps = $registry->listApps(null, true);
     $view_cookie = isset($_COOKIE['default_imp_view'])
         ? $_COOKIE['default_imp_view']
-        : ($browser->isMobile() && isset($apps['mimp']) ? 'mimp' : 'imp');
-    if (isset($apps['dimp']) || isset($apps['mimp'])) {
-        $views[] = array('sel' => $view_cookie == 'imp',
-                         'val' => 'imp', 'name' => _("Traditional"));
-        if (isset($apps['dimp'])) {
-            $views[] = array('sel' => $view_cookie == 'dimp',
-                             'val' => 'dimp', 'name' => _("Dynamic"));
-        }
-        if (isset($apps['mimp'])) {
-            $views[] = array('sel' => $view_cookie == 'mimp',
-                             'val' => 'mimp', 'name' => _("Minimalist"));
-        }
-    }
+        : ($browser->isMobile() ? 'mimp' : 'imp');
+    $views = array(
+        array(
+            'sel' => $view_cookie == 'imp',
+            'val' => 'imp',
+            'name' => _("Traditional")
+        ),
+        array(
+            'sel' => $view_cookie == 'dimp',
+            'val' => 'dimp',
+            'name' => _("Dynamic")
+        ),
+        array(
+            'sel' => $view_cookie == 'mimp',
+            'val' => 'mimp',
+            'name' => _("Minimalist")
+        )
+    );
 }
 
 /* Mobile login page. */

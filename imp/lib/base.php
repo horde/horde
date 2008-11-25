@@ -10,14 +10,16 @@
  *                      'none'  - Do not authenticate
  *                      Default - Authenticate to IMAP/POP server
  *   $compose_page    - If true, we are on IMP's compose page
+ *   $mimp_debug      - If true, output text/plain version of page.
  *   $no_compress     - Controls whether the page should be compressed
- *   $noset_impview   - Don't set viewmode variable.
  *   $session_control - Sets special session control limitations
  *
  * Global variables defined:
- *   $imp_imap   - An IMP_IMAP object
- *   $imp_mbox   - Current mailbox information
- *   $imp_search - An IMP_Search object
+ *   $imp_imap    - An IMP_IMAP object
+ *   $imp_mbox    - Current mailbox information
+ *   $imp_search  - An IMP_Search object
+ *   $mimp_notify - (MIMP view only) A Notification_Listener_Mobile object
+ *   $mimp_render - (MIMP view only) A Horde_Mobile object
  *
  * Copyright 1999-2008 The Horde Project (http://www.horde.org/)
  *
@@ -60,6 +62,9 @@ if ($session_control == 'none') {
     $registry = &Registry::singleton();
 }
 
+// Need to explicitly load IMP.php
+require_once IMP_BASE . '/lib/IMP.php';
+
 // We explicitly do not check application permissions for the compose
 // and login pages, since those are handled below and need to fall through
 // to IMP-specific code.
@@ -74,16 +79,6 @@ $conf = &$GLOBALS['conf'];
 if (!defined('IMP_TEMPLATES')) {
     define('IMP_TEMPLATES', $registry->get('templates'));
 }
-
-// Notification system.
-require_once IMP_BASE . '/lib/Notification/Listener/status.php';
-$notification = &Notification::singleton();
-$notification->attach('status', null, 'Notification_Listener_status_imp');
-require_once 'Horde/Notification/Listener/audio.php';
-$notification->attach('audio');
-
-// Horde libraries.
-require_once 'Horde/Secret.php';
 
 // Initialize global $imp_imap object.
 if (!isset($GLOBALS['imp_imap'])) {
@@ -137,12 +132,22 @@ if ($authentication !== 'none') {
     } else {
         IMP::checkAuthentication(false, ($authentication === 'horde'));
     }
-
-    // Set viewmode.
-    if (!Util::nonInputVar('noset_impview')) {
-        $_SESSION['imp']['viewmode'] = 'imp';
-    }
 }
+
+// Notification system.
+$notification = &Notification::singleton();
+if ($_SESSION['imp']['view'] == 'mimp') {
+    require_once 'Horde/Notification/Listener/mobile.php';
+    $GLOBALS['mimp_notify'] = &$notification->attach('status', null, 'Notification_Listener_mobile');
+} else {
+    require_once IMP_BASE . '/lib/Notification/Listener/status.php';
+    require_once 'Horde/Notification/Listener/audio.php';
+    $notification->attach('status', null, 'Notification_Listener_status_imp');
+    $notification->attach('audio');
+}
+
+// Horde libraries.
+require_once 'Horde/Secret.php';
 
 // Initialize global $imp_mbox array.
 $GLOBALS['imp_mbox'] = IMP::getCurrentMailboxInfo();
@@ -158,4 +163,14 @@ if ((IMP::loginTasksFlag() === 2) &&
     !defined('AUTH_HANDLER') &&
     !strstr($_SERVER['PHP_SELF'], 'maintenance.php')) {
     IMP_Session::loginTasks();
+}
+
+if ($_SESSION['imp']['view'] == 'mimp') {
+    // Need to explicitly load MIMP.php
+    require_once IMP_BASE . '/lib/MIMP.php';
+
+    // Mobile markup renderer.
+    $debug = Util::nonInputVar('mimp_debug');
+    $GLOBALS['mimp_render'] = new Horde_Mobile(null, $debug);
+    $GLOBALS['mimp_render']->set('debug', !empty($debug));
 }
