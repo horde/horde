@@ -82,9 +82,6 @@ $notification->attach('status', null, 'Notification_Listener_status_imp');
 require_once 'Horde/Notification/Listener/audio.php';
 $notification->attach('audio');
 
-// IMP libraries.
-require_once IMP_BASE . '/lib/IMP.php';
-
 // Horde libraries.
 require_once 'Horde/Secret.php';
 
