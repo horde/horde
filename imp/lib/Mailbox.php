@@ -353,8 +353,8 @@ class IMP_Mailbox
      */
     public function getMessageIndex()
     {
-        return is_null($this->_arrayIndex)
-            ? (is_null($this->_lastArrayIndex) ? 1 : $this->_lastArrayIndex + 1)
+        return (is_null($this->_arrayIndex) && is_null($this->_lastArrayIndex))
+            ? 1
             : $this->_arrayIndex + 1;
     }
 
@@ -365,9 +365,7 @@ class IMP_Mailbox
      */
     public function getMessageCount()
     {
-        if (!$GLOBALS['imp_search']->isVFolder($this->_mailbox)) {
-            $this->_buildMailbox();
-        }
+        $this->_buildMailbox();
         return count($this->_sorted);
     }
 
@@ -379,7 +377,7 @@ class IMP_Mailbox
      */
     public function isValidIndex()
     {
-        $this->_sortIfNeeded();
+        $this->_rebuild();
         return !is_null($this->_arrayIndex);
     }
 
@@ -488,7 +486,6 @@ class IMP_Mailbox
                     }
                 }
 
-                print_r($page_uid);
                 if (empty($page)) {
                     $page = is_null($page_uid)
                         ? 1
@@ -556,7 +553,7 @@ class IMP_Mailbox
                 if (empty($this->_sorted[$this->_arrayIndex])) {
                     $this->_arrayIndex = null;
                 }
-                $this->_sortIfNeeded();
+                $this->_rebuild();
             }
             break;
 
@@ -586,75 +583,20 @@ class IMP_Mailbox
     }
 
     /**
-     * Determines if a resort is needed, and, if necessary, performs
-     * the resort.
+     * Determines if a rebuild is needed, and, if necessary, performs
+     * the rebuild.
+     *
+     * @param boolean $force  Force a rebuild?
      */
-    protected function _sortIfNeeded()
+    protected function _rebuild($force = false)
     {
-        if (!is_null($this->_arrayIndex) &&
-            !$this->_searchmbox &&
-            !$this->getIMAPIndex(1)) {
+        if ($force ||
+            (!is_null($this->_arrayIndex) &&
+             !$this->_searchmbox &&
+             !$this->getIMAPIndex(1))) {
             $this->_build = false;
             $this->_buildMailbox();
         }
-    }
-
-    /**
-     * Returns the current sorted array without the given messages.
-     *
-     * @param array $msgs  The indices to remove.
-     *
-     * @return boolean  True if sorted array was updated without a call to
-     *                  _buildMailbox().
-     */
-    protected function _removeMsgs($msgs)
-    {
-        if (empty($msgs)) {
-            return;
-        }
-
-        if (!($msgList = IMP::parseIndicesList($msgs))) {
-            $msgList = array($this->_mailbox => $msgs);
-        }
-
-        $msgcount = 0;
-        $sortcount = count($this->_sorted);
-
-        /* Remove the current entry and recalculate the range. */
-        foreach ($msgList as $key => $val) {
-            // @todo $arrival is false here
-            foreach ($val as $index) {
-                $val = $this->getArrayIndex($index, $key);
-                if ($arrival !== false && isset($this->_sorted[$val])) {
-                    unset($arrival[$this->_sorted[$val]]);
-                }
-                unset($this->_sorted[$val]);
-                if ($this->_searchmbox) {
-                    unset($this->_sortedInfo[$val]);
-                }
-                ++$msgcount;
-            }
-        }
-
-        $this->_sorted = array_values($this->_sorted);
-        if ($this->_searchmbox) {
-            $this->_sortedInfo = array_values($this->_sortedInfo);
-        }
-
-        /* Update the current array index to its new position in the message
-         * array. */
-        $this->setIndex(0, 'offset');
-
-        /* If we have a sortlimit, it is possible the sort prefs will have
-         * changed after messages are expunged. */
-        if (!empty($GLOBALS['conf']['server']['sort_limit']) &&
-            ($sortcount > $GLOBALS['conf']['server']['sort_limit']) &&
-            (($sortcount - $msgcount) <= $GLOBALS['conf']['server']['sort_limit'])) {
-            $this->updateMailbox(self::UPDATE);
-            return false;
-        }
-
-        return true;
     }
 
     /**
@@ -718,19 +660,54 @@ class IMP_Mailbox
     }
 
     /**
-     * Returns a unique identifier for the current mailbox status.
+     * Returns the current sorted array without the given messages.
      *
-     * @return string  The cache ID string, which will change when the status
-     *                 of the mailbox changes.
+     * @param mixed $msgs  The list of indices to remove (see
+     *                     IMP::parseIndicesList()) or true to remove all
+     *                     messages in the mailbox.
      */
-    public function getCacheID()
+    public function removeMsgs($msgs)
     {
-        try {
-            $sortpref = IMP::getSort($this->_mailbox);
-            $ret = $GLOBALS['imp_imap']->ob->status($this->_mailbox, Horde_Imap_Client::STATUS_MESSAGES | Horde_Imap_Client::STATUS_UIDNEXT | Horde_Imap_Client::STATUS_UIDVALIDITY);
-            return implode('|', array($ret['messages'], $ret['uidnext'], $ret['uidvalidity'], $sortpref['by'], $sortpref['dir']));
-        } catch (Horde_Imap_Client_Exception $e) {
-            return '';
+        if ($msgs === true) {
+            $this->_rebuild(true);
+            return;
+        }
+
+        if (empty($msgs)) {
+            return;
+        }
+
+        $msgcount = 0;
+        $sortcount = count($this->_sorted);
+
+        /* Remove the current entry and recalculate the range. */
+        foreach (IMP::parseIndicesList($msgs) as $key => $val) {
+            foreach ($val as $index) {
+                $val = $this->getArrayIndex($index, $key);
+                unset($this->_sorted[$val]);
+                if ($this->_searchmbox) {
+                    unset($this->_sortedInfo[$val]);
+                }
+                ++$msgcount;
+            }
+        }
+
+        $this->_sorted = array_values($this->_sorted);
+        if ($this->_searchmbox) {
+            $this->_sortedInfo = array_values($this->_sortedInfo);
+        }
+
+        /* Update the current array index to its new position in the message
+         * array. */
+        $this->setIndex(0, 'offset');
+
+        /* If we have a sortlimit, it is possible the sort prefs will have
+         * changed after messages are expunged. */
+        if (!empty($GLOBALS['conf']['server']['sort_limit']) &&
+            ($sortcount > $GLOBALS['conf']['server']['sort_limit']) &&
+            (($sortcount - $msgcount) <= $GLOBALS['conf']['server']['sort_limit'])) {
+            $this->_rebuild(true);
         }
     }
+
 }

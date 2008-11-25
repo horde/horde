@@ -44,6 +44,10 @@ if (!$imp_mailbox->isValidIndex()) {
     exit;
 }
 
+/* Update IMP_Mailbox on message actions. */
+$imp_message = &IMP_Message::singleton();
+$imp_message->updateMailboxOb($imp_mailbox);
+
 /* Set the current time zone. */
 NLS::setTimeZone();
 
