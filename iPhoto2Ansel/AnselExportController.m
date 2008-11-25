@@ -158,12 +158,14 @@
     return NO;
 }
 
-// Export was clicked in the UI
+// Export was clicked in the UI.
+// noop for us.
 - (void)clickExport
 {
 }
 
 
+// Export was clicked in the UI
 // Do any preperations/validations and call our own privatePerformExport
 // (We don't want the iPhoto progress controller).
 - (void)startExport:(NSString *)path
@@ -228,7 +230,8 @@
     [progressController performSelectorOnMainThread: @selector(setStatus:) withObject: status waitUntilDone: NO];
 }
 
-// This gets called when the ExportManager is sent the startExport message
+// This is our own version of performExport. We aren't using iPhoto's progress
+// indicator, so we can't tell it we are running...
 - (void)privatePerformExport
 {
     cancelExport = NO;
@@ -241,7 +244,9 @@
     [progressController setStatus: @"Starting export"];    
     
     // Detach to a new thread for the export.
-    [NSApplication detachDrawingThread: @selector(runExport) toTarget: self withObject: nil];
+    [NSApplication detachDrawingThread: @selector(runExport) 
+                              toTarget: self
+                            withObject: nil];
 }
 
 // Create a new gallery on the Horde server
@@ -257,10 +262,13 @@
                           modalDelegate: nil
                          didEndSelector: nil
                             contextInfo: nil];
+        
+        // Reload the NSComboBox and autoselect the last item.
         [galleryCombo reloadData];
         [galleryCombo selectItemAtIndex: [galleryCombo numberOfItems] - 1];
         [alert release];
     }
+    
     [results release];
 }
         
@@ -271,22 +279,22 @@
     int count = [mExportMgr imageCount];
     currentImageCount = 0;   
     int i = 0;
-    while (i < count) {
+    while (i < count && !cancelExport == YES) {
         // Don't hog memory...
         NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-        
-        // Check for cancel?
         
         // use 99% max so the last photo upload doesn't make the progress bar look finished
         // (Thanks to Facebook exporter for this tip and code)
         double progressPercent = (double) 99. * (i+1) / count;
         [self postProgressStatus: [NSString stringWithFormat: @"Uploading photo %d out of %d", (i+1), count]];
-        [progressController performSelectorOnMainThread: @selector(setPercent:) withObject: [NSNumber numberWithDouble: progressPercent] waitUntilDone: NO];
+        [progressController performSelectorOnMainThread: @selector(setPercent:) 
+                                             withObject: [NSNumber numberWithDouble: progressPercent]
+                                          waitUntilDone: NO];
         
         // Prepare the image data
         NSData *theImage = [[NSData alloc] initWithContentsOfFile: [mExportMgr imagePathAtIndex:i]];
-        NSString *base64ImageData = [NSString base64StringFromData:theImage 
-                                                            length:[theImage length]];
+        NSString *base64ImageData = [NSString base64StringFromData: theImage 
+                                                            length: [theImage length]];
         
         // Get the filename/path for this image. This returns either the most
         // recent version of the image, the original, or (if RAW) the jpeg 
@@ -334,6 +342,9 @@
                                          withObject: nil 
                                       waitUntilDone: YES];
     
+    [progressController release];
+    progressController = nil;
+    
     // Need to do this ourselves since we aren't using iPhoto's progress bar.
     // Not really cancelling the export, but all this method does is close
     // the export interface and notify iPhoto that we are done.
@@ -380,10 +391,8 @@
 
 #pragma mark TURAnselGalleryDelegate
 - (void)TURAnselGalleryDidUploadImage: (TURAnselGallery *)gallery {
-    NSLog(@"TURAnselGalleryDidUploadImage in thread: %@", [NSThread currentThread]);
-    if (++currentImageCount < [mExportMgr imageCount] && cancelExport == NO) {
-
-    } else {
+    NSLog(@"TURAnselGalleryDidUploadImage");
+    if (++currentImageCount = [mExportMgr imageCount] || cancelExport == YES) {
         [currentGallery setDelegate:nil];
         [currentGallery release];
         [anselController setDelegate:nil];

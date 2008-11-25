@@ -113,7 +113,7 @@ NSString *XMLRPCReceivedResponseNotification = @"XML-RPC Successfully Received R
 - (void)dealloc {
 	[currentXMLRPCMethod release];
 	[incomingXMLData release];
-	
+	NSLog(@"XMLRPCConnection being released");
 	[super dealloc];
 }
 
