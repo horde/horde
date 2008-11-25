@@ -16,6 +16,19 @@
 class IMP_Horde_Mime_Viewer_itip extends Horde_Mime_Viewer_Driver
 {
     /**
+     * Can this driver render various views?
+     * TODO: For right now, everything is disabled.
+     *
+     * @var boolean
+     */
+    protected $_capability = array(
+        'embedded' => false,
+        'full' => false,
+        'info' => false,
+        'inline' => false
+    );
+
+    /**
      * The messages to output to the user.
      *
      * @var array
