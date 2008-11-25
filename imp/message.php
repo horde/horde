@@ -216,9 +216,6 @@ $index_array = $imp_mailbox->getIMAPIndex();
 $index = $index_array['index'];
 $mailbox_name = $index_array['mailbox'];
 
-/* Create the IMP_UI_Message:: object. */
-$imp_ui = new IMP_UI_Message();
-
 /* Get envelope/flag/header information. */
 try {
     /* Need to fetch flags before HEADERTEXT, because SEEN flag might be set
@@ -255,6 +252,9 @@ $page_label = IMP::getLabel($imp_mbox['mailbox']);
 $msgindex = $imp_mailbox->getMessageIndex();
 $message_url = Horde::applicationUrl('message.php');
 $self_link = Util::addParameter(IMP::generateIMPUrl('message.php', $imp_mbox['mailbox'], $index, $mailbox_name), array('start' => $msgindex, 'message_token' => $message_token));
+
+/* Create the IMP_UI_Message:: object. */
+$imp_ui = new IMP_UI_Message();
 
 /* Develop the list of headers to display. */
 $basic_headers = $imp_ui->basicHeaders();
@@ -401,13 +401,6 @@ $mailbox_url = Util::addParameter(IMP::generateIMPUrl('mailbox.php', $imp_mbox['
 /* Generate the view link. */
 $view_link = IMP::generateIMPUrl('view.php', $imp_mbox['mailbox'], $index, $mailbox_name);
 
-/* Determine if we need to show the Reply to All link. */
-$addresses = array_keys($user_identity->getAllFromAddresses(true));
-$show_reply_all = true;
-if (!Horde_Mime_Address::addrArray2String(array_merge($envelope['to'], $envelope['cc']), $addresses)) {
-    $show_reply_all = false;
-}
-
 /* Retrieve any history information for this message. */
 if (!IMP::$printMode && !empty($conf['maillog']['use_maillog'])) {
     /* Do MDN processing now. */
@@ -422,7 +415,7 @@ if (!IMP::$printMode) {
     /* Set the status information of the message. */
     $identity = $status = null;
     if (!$use_pop) {
-        if ($msgAddresses) {
+        if (!empty($msgAddresses)) {
             $identity = $user_identity->getMatchingIdentity($msgAddresses);
             if (($identity !== null) ||
                 $user_identity->getMatchingIdentity($msgAddresses, false) !== null) {
@@ -528,7 +521,7 @@ if (!IMP::$printMode) {
             $a_template->set('reply_list', Horde::widget(IMP::composeLink(array(), array('actionID' => 'reply_list') + $compose_params), _("To List"), 'widget', '', '', _("To _List"), true));
         }
 
-        if ($show_reply_all) {
+        if (Horde_Mime_Address::addrArray2String(array_merge($envelope['to'], $envelope['cc']), array_keys($user_identity->getAllFromAddresses(true)))) {
             $a_template->set('show_reply_all', Horde::widget(IMP::composeLink(array(), array('actionID' => 'reply_all') + $compose_params), _("To All"), 'widget', '', '', _("To _All"), true));
         }
 
