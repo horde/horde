@@ -28,8 +28,8 @@ class Auth_imp extends Auth
      *
      * @return boolean  Whether or not the credentials are valid.
      */
-    public function authenticate($userID = null, $credentials = array(),
-                                 $login = false)
+    function authenticate($userID = null, $credentials = array(),
+                          $login = false)
     {
         return parent::authenticate($userID, $credentials, $login && ($this->getProvider() == 'imp'));
     }
@@ -42,7 +42,7 @@ class Auth_imp extends Auth
      *
      * @return boolean  Whether or not the credentials are valid.
      */
-    protected function _authenticate($userID, $credentials)
+    function _authenticate($userID, $credentials)
     {
         // Check for valid IMAP Client object.
         if (!$GLOBALS['imp_imap']->loadImapObject()) {
