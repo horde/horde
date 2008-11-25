@@ -994,7 +994,8 @@ class IMP_Compose
                 }
             }
         } elseif ($this->_pgpAttachPubkey || $this->_attachVCard) {
-            $base = new Horde_Mime_Part('multipart/mixed');
+            $base = new Horde_Mime_Part();
+            $base->setType('multipart/mixed');
             $base->addPart($textpart);
         } else {
             $base = $textpart;
