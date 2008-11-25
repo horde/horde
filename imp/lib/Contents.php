@@ -735,9 +735,9 @@ class IMP_Contents
                 $viewer->setParams(array('contents' => &$this));
                 $new_parts = $viewer->getEmbeddedMimeParts();
                 if (!is_null($new_parts)) {
-                    foreach (array_keys($new_parts) as $key => $val) {
+                    foreach ($new_parts as $key => $val) {
                         if ($first_id === $key) {
-                            $this->_message = $new_parts[$val];
+                            $this->_message = $new_parts[$key];
                             $this->_build = false;
                             return $this->_buildMessage();
                         }
@@ -782,8 +782,7 @@ class IMP_Contents
 
         $inline = null;
         if (($mask & self::RENDER_INLINE) &&
-            ($inline = $viewer->canRender('inline')) &&
-            ($part->getDisposition() == 'inline')) {
+            ($inline = $viewer->canRender('inline'))) {
             return self::RENDER_INLINE;
         }
 
