@@ -22,28 +22,28 @@
  * @author  Jan Schneider <jan@horde.org>
  * @package IMP
  */
-class IMP_Sentmail_sql extends IMP_Sentmail {
-
+class IMP_Sentmail_sql extends IMP_Sentmail
+{
     /**
      * Hash containing connection parameters.
      *
      * @var array
      */
-    var $_params = array();
+    protected $_params = array();
 
     /**
      * Handle for the current database connection.
      *
      * @var DB
      */
-    var $_db;
+    protected $_db;
 
     /**
      * Constructor.
      *
      * @param array $params  A hash containing connection parameters.
      */
-    function IMP_Sentmail_sql($params = array())
+    function __construct($params = array())
     {
         $this->_params = $params;
     }
@@ -57,7 +57,7 @@ class IMP_Sentmail_sql extends IMP_Sentmail {
      * @param string $recipients  A message recipient.
      * @param boolean $success    Whether the attempt was successful.
      */
-    function _log($action, $message_id, $recipient, $success)
+    protected function _log($action, $message_id, $recipient, $success)
     {
         /* Build the SQL query. */
         $query = sprintf('INSERT INTO %s (sentmail_id, sentmail_who, sentmail_ts, sentmail_messageid, sentmail_action, sentmail_recipient, sentmail_success) VALUES (?, ?, ?, ?, ?, ?, ?)',
@@ -92,7 +92,8 @@ class IMP_Sentmail_sql extends IMP_Sentmail {
      *
      * @return array  A list with the $limit most favourite recipients.
      */
-    function favouriteRecipients($limit, $filter = array('new', 'forward', 'reply', 'redirect'))
+    public function favouriteRecipients($limit,
+                                        $filter = array('new', 'forward', 'reply', 'redirect'))
     {
         /* Build the SQL query. */
         $where = '';
@@ -136,7 +137,7 @@ class IMP_Sentmail_sql extends IMP_Sentmail {
      *
      * @return integer  The number of recipients in the given time period.
      */
-    function numberOfRecipients($hours, $user = false)
+    public function numberOfRecipients($hours, $user = false)
     {
         /* Build the SQL query. */
         $query = sprintf('SELECT COUNT(*) FROM %s WHERE sentmail_ts > ?',
@@ -164,7 +165,7 @@ class IMP_Sentmail_sql extends IMP_Sentmail {
      * @param integer $before  Unix timestamp before that all log entries
      *                         should be deleted.
      */
-    function _deleteOldEntries($before)
+    protected function _deleteOldEntries($before)
     {
         /* Build the SQL query. */
         $query = sprintf('DELETE FROM %s WHERE sentmail_ts < ?',
@@ -187,7 +188,7 @@ class IMP_Sentmail_sql extends IMP_Sentmail {
      *
      * @return boolean  True on success, PEAR_Error on failure.
      */
-    function initialize()
+    public function initialize()
     {
         Horde::assertDriverConfig($this->_params, 'storage',
                                   array('phptype', 'table'));

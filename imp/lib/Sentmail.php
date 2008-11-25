@@ -11,7 +11,47 @@
  * @author  Jan Schneider <jan@horde.org>
  * @package IMP
  */
-class IMP_Sentmail {
+class IMP_Sentmail
+{
+    /**
+     * Attempts to return a concrete IMP_Sentmail instance based on $driver.
+     *
+     * @param string $driver  The type of the concrete IMP_Sentmail subclass
+     *                        to return.  The class name is based on the
+     *                        storage driver ($driver).  The code is
+     *                        dynamically included.
+     *
+     * @param array $params   A hash containing any additional configuration
+     *                        or connection parameters a subclass might need.
+     *
+     * @return IMP_Sentmail  The newly created concrete IMP_Sentmail instance.
+     */
+    static public function factory($driver = null, $params = null)
+    {
+        if (is_null($driver)) {
+            $driver = $GLOBALS['conf']['sentmail']['driver'];
+        }
+
+        if (is_null($params)) {
+            $params = Horde::getDriverConfig('sentmail', $driver);
+        }
+
+        $driver = basename($driver);
+        $class = 'IMP_Sentmail_' . $driver;
+        if (!class_exists($class)) {
+            @include dirname(__FILE__) . '/Sentmail/' . $driver . '.php';
+        }
+
+        if (class_exists($class)) {
+            $sentmail = new $class($params);
+            $result = $sentmail->initialize();
+            if (!is_a($result, 'PEAR_Error')) {
+                return $sentmail;
+            }
+        }
+
+        return new IMP_Sentmail();
+    }
 
     /**
      * Logs an attempt to send a message.
@@ -22,17 +62,19 @@ class IMP_Sentmail {
      * @param string|array $recipients  The list of message recipients.
      * @param boolean $success          Whether the attempt was successful.
      */
-    function log($action, $message_id, $recipients, $success = true)
+    public function log($action, $message_id, $recipients, $success = true)
     {
         if (!is_array($recipients)) {
             $recipients = array($recipients);
         }
+
         foreach ($recipients as $addresses) {
             $addresses = Horde_Mime_Address::bareAddress($addresses, $_SESSION['imp']['maildomain'], true);
             foreach ($addresses as $recipient) {
                 $this->_log($action, $message_id, $recipient, $success);
             }
         }
+
         $this->gc();
     }
 
@@ -45,12 +87,12 @@ class IMP_Sentmail {
      * @param string $recipients  A message recipient.
      * @param boolean $success    Whether the attempt was successful.
      */
-    function _log($action, $message_id, $recipient, $success)
+    protected function _log($action, $message_id, $recipient, $success)
     {
     }
 
     /**
-     * Returns the most favourite recipients.
+     * Returns the favourite recipients.
      *
      * @param integer $limit  Return this number of recipients.
      * @param array $filter   A list of messages types that should be returned.
@@ -58,7 +100,8 @@ class IMP_Sentmail {
      *
      * @return array  A list with the $limit most favourite recipients.
      */
-    function favouriteRecipients($limit, $filter = array('new', 'forward', 'reply', 'redirect'))
+    public function favouriteRecipients($limit,
+                                        $filter = array('new', 'forward', 'reply', 'redirect'))
     {
         return array();
     }
@@ -72,7 +115,7 @@ class IMP_Sentmail {
      *
      * @return integer  The number of recipients in the given time period.
      */
-    function numberOfRecipients($hours, $user = false)
+    public function numberOfRecipients($hours, $user = false)
     {
         return 0;
     }
@@ -80,7 +123,7 @@ class IMP_Sentmail {
     /**
      * Garbage collect log entries with a probability of 1%.
      */
-    function gc()
+    public function gc()
     {
         /* A 1% chance we will run garbage collection during a call. */
         if (rand(0, 99) == 0) {
@@ -94,47 +137,8 @@ class IMP_Sentmail {
      * @param integer $before  Unix timestamp before that all log entries
      *                         should be deleted.
      */
-    function _deleteOldEntries($before)
+    protected function _deleteOldEntries($before)
     {
-    }
-
-    /**
-     * Attempts to return a concrete IMP_Sentmail instance based on $driver.
-     *
-     * @param string $driver  The type of the concrete IMP_Sentmail subclass
-     *                        to return.  The class name is based on the
-     *                        storage driver ($driver).  The code is
-     *                        dynamically included.
-     *
-     * @param array $params   A hash containing any additional configuration
-     *                        or connection parameters a subclass might need.
-     *
-     * @return mixed  The newly created concrete IMP_Sentmail instance, or
-     *                false on an error.
-     */
-    function factory($driver = null, $params = null)
-    {
-        if ($driver === null) {
-            $driver = $GLOBALS['conf']['sentmail']['driver'];
-        }
-        if ($params === null) {
-            $params = Horde::getDriverConfig('sentmail', $driver);
-        }
-
-        $driver = basename($driver);
-        $class = 'IMP_Sentmail_' . $driver;
-        if (!class_exists($class)) {
-            @include dirname(__FILE__) . '/Sentmail/' . $driver . '.php';
-        }
-        if (class_exists($class)) {
-            $sentmail = new $class($params);
-            $result = $sentmail->initialize();
-            if (!is_a($result, 'PEAR_Error')) {
-                return $sentmail;
-            }
-        }
-
-        return new IMP_Sentmail();
     }
 
 }

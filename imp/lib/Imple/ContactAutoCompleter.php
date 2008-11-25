@@ -8,14 +8,14 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package IMP
  */
-class Imple_ContactAutoCompleter extends Imple {
-
+class Imple_ContactAutoCompleter extends Imple
+{
     /**
      * The URL to use in attach().
      *
      * @var string
      */
-    var $_url;
+    protected $_url;
 
     /**
      * Constructor.
@@ -26,7 +26,7 @@ class Imple_ContactAutoCompleter extends Imple {
      * 'resultsId' => TODO (optional)
      * </pre>
      */
-    function Imple_ContactAutoCompleter($params)
+    function __construct($params)
     {
         if (empty($params['triggerId'])) {
             $params['triggerId'] = $this->_randomid();
@@ -35,13 +35,13 @@ class Imple_ContactAutoCompleter extends Imple {
             $params['resultsId'] = $params['triggerId'] . '_results';
         }
 
-        parent::Imple($params);
+        parent::__construct($params);
     }
 
     /**
      * Attach the Imple object to a javascript event.
      */
-    function attach()
+    public function attach()
     {
         static $list_output = false;
 
@@ -61,7 +61,6 @@ class Imple_ContactAutoCompleter extends Imple {
 
         if (!isset($_SESSION['imp']['cache']['ac_ajax'])) {
             $success = $use_ajax = true;
-            require_once IMP_BASE . '/lib/Compose.php';
             $sparams = IMP_Compose::getAddressSearchParams();
             foreach ($sparams['fields'] as $val) {
                 array_map('strtolower', $val);
@@ -87,10 +86,8 @@ class Imple_ContactAutoCompleter extends Imple {
         } else {
             if (!$list_output) {
                 if (!isset($addrlist)) {
-                    require_once IMP_BASE . '/lib/Compose.php';
                     $addrlist = IMP_Compose::getAddressList();
                 }
-                require_once 'Horde/Serialize.php';
                 IMP::addInlineScript('if (!IMP) { var IMP = {}; } IMP.ac_list = '. Horde_Serialize::serialize(array_map('htmlspecialchars', $addrlist), SERIALIZE_JSON, NLS::getCharset()));
                 $list_output = true;
             }
@@ -111,7 +108,7 @@ class Imple_ContactAutoCompleter extends Imple {
      *
      * @return array  The data to send to the autocompleter JS code.
      */
-    function handle($args)
+    public function handle($args)
     {
         // Avoid errors if 'input' isn't set and short-circuit empty searches.
         if (empty($args['input']) ||
@@ -119,7 +116,6 @@ class Imple_ContactAutoCompleter extends Imple {
             return array();
         }
 
-        require_once IMP_BASE . '/lib/Compose.php';
         return array_map('htmlspecialchars', IMP_Compose::expandAddresses($input));
     }
 

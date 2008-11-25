@@ -1,5 +1,7 @@
 <?php
 /**
+ * TODO
+ *
  * Copyright 2005-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -8,14 +10,14 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package IMP
  */
-class Imple {
-
+class Imple
+{
     /**
      * Parameters needed by the subclasses.
      *
      * @var array
      */
-    var $_params = array();
+    protected $_params = array();
 
     /**
      * Attempts to return a concrete Imple instance based on $imple.
@@ -28,7 +30,7 @@ class Imple {
      * @return mixed  The newly created concrete Imple instance, or false on
      *                error.
      */
-    function factory($imple, $params = array())
+    static public function factory($imple, $params = array())
     {
         $imple = basename($imple);
         if (!$imple) {
@@ -51,7 +53,7 @@ class Imple {
      *
      * @param array $params  Any parameters needed by the class.
      */
-    function Imple($params)
+    function __construct($params)
     {
         $this->_params = $params;
         $this->attach();
@@ -60,7 +62,7 @@ class Imple {
     /**
      * Attach the Imple object to a javascript event.
      */
-    function attach()
+    public function attach()
     {
         Horde::addScriptFile('prototype.js', 'horde', true);
         Horde::addScriptFile('effects.js', 'horde', true);
@@ -71,7 +73,7 @@ class Imple {
      *
      * @param TODO
      */
-    function handle($args)
+    public function handle($args)
     {
     }
 
@@ -80,18 +82,16 @@ class Imple {
      *
      * @return string  The HTML code.
      */
-    function html()
+    public function html()
     {
     }
 
     /**
      * Generate a random ID string.
      *
-     * @access private
-     *
      * @return string  The random ID string.
      */
-    function _randomid()
+    protected function _randomid()
     {
         return 'imple_' . uniqid(mt_rand());
     }

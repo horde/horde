@@ -8,8 +8,8 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package IMP
  */
-class Imple_SpellChecker extends Imple {
-
+class Imple_SpellChecker extends Imple
+{
     /**
      * Constructor.
      *
@@ -22,9 +22,8 @@ class Imple_SpellChecker extends Imple {
      * 'triggerId' => TODO (optional)
      * </pre>
      */
-    function Imple_SpellChecker($params = array())
+    function __construct($params = array())
     {
-        require_once 'Horde/Serialize.php';
         if (empty($params['id'])) {
             $params['id'] = $this->_randomid();
         }
@@ -48,12 +47,12 @@ class Imple_SpellChecker extends Imple {
         asort($params['locales'], SORT_LOCALE_STRING);
         $params['locales'] = Horde_Serialize::serialize($params['locales'], SERIALIZE_JSON, NLS::getCharset());
 
-        parent::Imple($params);
+        parent::__construct($params);
     }
 
     /**
      */
-    function attach()
+    public function attach()
     {
         parent::attach();
         Horde::addScriptFile('KeyNavList.js', 'imp', true);
@@ -64,7 +63,7 @@ class Imple_SpellChecker extends Imple {
 
     /**
      */
-    function handle($args)
+    public function handle($args)
     {
         $spellArgs = array();
 
@@ -88,7 +87,6 @@ class Imple_SpellChecker extends Imple {
             $spellArgs['html'] = true;
         }
 
-        require_once 'Horde/SpellChecker.php';
         $speller = Horde_SpellChecker::factory(
             $GLOBALS['conf']['spell']['driver'], $spellArgs);
         if ($speller === false) {

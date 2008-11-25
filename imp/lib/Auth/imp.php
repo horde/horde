@@ -28,8 +28,8 @@ class Auth_imp extends Auth
      *
      * @return boolean  Whether or not the credentials are valid.
      */
-    function authenticate($userID = null, $credentials = array(),
-                          $login = false)
+    public function authenticate($userID = null, $credentials = array(),
+                                 $login = false)
     {
         return parent::authenticate($userID, $credentials, $login && ($this->getProvider() == 'imp'));
     }
@@ -42,17 +42,15 @@ class Auth_imp extends Auth
      *
      * @return boolean  Whether or not the credentials are valid.
      */
-    function _authenticate($userID, $credentials)
+    protected function _authenticate($userID, $credentials)
     {
-        global $imp_imap;
-
         // Check for valid IMAP Client object.
-        if (!$imp_imap->loadImapObject()) {
+        if (!$GLOBALS['imp_imap']->loadImapObject()) {
             // Attempt to create IMAP Client object
             $key = isset($credentials['server']) ? $credentials['server'] : IMP_Session::getAutoLoginServer();
             if (is_null($key) ||
                 !isset($credentials['password']) ||
-                !$imp_imap->createImapObject($userID, $credentials['password'], $key)) {
+                !$GLOBALS['imp_imap']->createImapObject($userID, $credentials['password'], $key)) {
                 IMP::loginLogMessage('failed', __FILE__, __LINE__);
                 $this->_setAuthError(AUTH_REASON_FAILED);
                 return false;
@@ -60,10 +58,10 @@ class Auth_imp extends Auth
         }
 
         try {
-            $imp_imap->ob->login();
+            $GLOBALS['imp_imap']->ob->login();
             return true;
         } catch (Horde_Imap_Client_Exception $e) {
-            IMP::loginLogMessage('failed', __FILE__, __LINE__);
+            IMP::loginLogMessage($e->getMessage(), __FILE__, __LINE__);
             $this->_setAuthError(AUTH_REASON_BADLOGIN);
             return false;
         }
