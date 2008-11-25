@@ -59,9 +59,6 @@ if ($actionID == 'compose_attach_preview') {
     /* Initialize the IMP_Compose:: object. */
     $imp_compose = &IMP_Compose::singleton(Util::getFormData('composeCache'));
     $mime = $imp_compose->buildAttachment($id);
-    if (empty($mime, 'PEAR_Error')) {
-        Horde::fatal('Could not load attachment', __FILE__, __LINE__);
-    }
 
     /* Create a dummy IMP_Contents() object so we can use the view code below.
      * Then use the 'view_attach' handler to output. */
