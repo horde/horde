@@ -73,6 +73,13 @@ class IMP_Compose
     protected $_cacheid;
 
     /**
+     * Has the attachment list been modified.
+     *
+     * @var boolean
+     */
+    protected $_modified = false;
+
+    /**
      * Attempts to return a reference to a concrete IMP_Compose instance.
      *
      * If a IMP_Cacheid object exists with the given cacheid, recreate that
@@ -122,7 +129,8 @@ class IMP_Compose
      */
     function __destruct()
     {
-        if (!empty($this->_cache)) {
+        if ($this->_modified) {
+            $this->_modified = false;
             $cacheSess = &Horde_SessionObjects::singleton();
             $cacheSess->overwrite($this->_cacheid, $this, false);
         }
@@ -1469,12 +1477,11 @@ class IMP_Compose
      * Horde_Mime_Part information entries 'temp_filename' and 'temp_filetype'
      * are set with this information.
      *
-     * @param string $name         The input field name from the form.
-     * @param string $disposition  The disposition to use for the file.
+     * @param string $name  The input field name from the form.
      *
      * @return mixed  Returns the filename on success; PEAR_Error on error.
      */
-    public function addUploadAttachment($name, $disposition)
+    public function addUploadAttachment($name)
     {
         global $conf;
 
@@ -1512,7 +1519,7 @@ class IMP_Compose
         $part->setCharset(NLS::getCharset());
         $part->setName($filename);
         $part->setBytes($_FILES[$name]['size']);
-        $part->setDisposition($disposition);
+        $part->setDisposition('attachment');
 
         if ($conf['compose']['use_vfs']) {
             $attachment = $tempfile;
@@ -1642,6 +1649,8 @@ class IMP_Compose
             );
         }
 
+        $this->_modified = true;
+
         /* Add the size information to the counter. */
         $this->_size += $part->getBytes();
     }
@@ -1689,6 +1698,8 @@ class IMP_Compose
             $this->_size -= $atc['part']->getBytes();
 
             unset($this->_cache[$val]);
+
+            $this->_modified = true;
         }
 
         return $names;
@@ -1708,15 +1719,14 @@ class IMP_Compose
      * @param integer $number  The attachment to update.
      * @param array $params    An array of update information.
      * <pre>
-     * 'disposition'  --  The Content-Disposition value.
      * 'description'  --  The Content-Description value.
      * </pre>
      */
     public function updateAttachment($number, $params)
     {
         if (isset($this->_cache[$number])) {
-            $this->_cache[$number]['part']->setDisposition($params['disposition']);
             $this->_cache[$number]['part']->setDescription($params['description']);
+            $this->_modified = true;
         }
     }
 
@@ -2262,14 +2272,12 @@ class IMP_Compose
      * Add uploaded files from form data.
      *
      * @param string $field    The field prefix (numbering starts at 1).
-     * @param string $disp     The prefix for a file disposition input
-     *                         (numbering starts at 1).
      * @param boolean $notify  Add a notification message for each successful
      *                         attachment?
      *
      * @return boolean  Returns false if any file was unsuccessfully added.
      */
-    public function addFilesFromUpload($field, $disp = null, $notify = false)
+    public function addFilesFromUpload($field, $notify = false)
     {
         $success = true;
 
@@ -2298,8 +2306,7 @@ class IMP_Compose
                     $GLOBALS['notification']->push(sprintf(_("Did not attach \"%s\" as the file was empty."), $filename), 'horde.warning');
                     $success = false;
                 } else {
-                    $disposition = is_null($disp) ? 'attachment' : Util::getFormData($disp . $i);
-                    $result = $this->addUploadAttachment($key, $disposition);
+                    $result = $this->addUploadAttachment($key);
                     if (is_a($result, 'PEAR_Error')) {
                         $GLOBALS['notification']->push($result, 'horde.error');
                         $success = false;

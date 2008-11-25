@@ -237,10 +237,6 @@ function attachmentChanged()
             file.observe('change', attachmentChanged);
             td.insert(file);
 
-            var select = new Element('SELECT', { name: 'upload_disposition_' + (usedFields + 1) });
-            select.options[0] = new Option(IMP.text.compose_attachment, 'attachment', true);
-            select.options[1] = new Option(IMP.text.compose_inline, 'inline');
-
             var newRow = new Element('TR', { id: 'attachment_row_' + (usedFields + 1) }).insert(td).insert(new Element('TD', { align: 'left' }).insert(select));
 
             lastRow.parentNode.insertBefore(newRow, lastRow.nextSibling);

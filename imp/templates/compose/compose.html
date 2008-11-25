@@ -274,13 +274,6 @@
      <td>
       <strong><label for="upload_1"><gettext>File</gettext> 1:</label></strong> <input id="upload_1" name="upload_1" tabindex="<tag:file_tabindex />" type="file" onchange="attachmentChanged()" size="25" />
      </td>
-     <td>
-      <label for="upload_disposition_1" class="hidden">Disposition</label>
-      <select id="upload_disposition_1" name="upload_disposition_1">
-       <option value="attachment" selected="selected"><gettext>Attachment</gettext></option>
-       <option value="inline"><gettext>Inline</gettext></option>
-      </select>
-     </td>
     </tr>
     <tr>
      <td colspan="2">
@@ -326,21 +319,12 @@
   <tr class="item">
    <td>
     <img style="padding-right:5px" src="<tag:atc.icon />" alt="[Icon]" />
-    <strong><tag:atc.disp_number />. <tag:atc.name /></strong> &nbsp;(<tag:atc.type />) &nbsp;&nbsp;<strong><gettext>Size:</gettext></strong> <tag:atc.size /> <gettext>KB</gettext>
+    <strong><tag:atc.name /></strong> &nbsp;(<tag:atc.type />) &nbsp;&nbsp;<strong><gettext>Size:</gettext></strong> <tag:atc.size /> <gettext>KB</gettext>
    </td>
   </tr>
   <tr class="item">
    <td style="padding-left:30px">
     <table>
-     <tr>
-      <td class="rightAlign" valign="middle"><strong><label for="file_disposition_<tag:atc.number />"><gettext>Disposition:</gettext></label></strong></td>
-      <td>
-       <select id="file_disposition_<tag:atc.number />" name="file_disposition_<tag:atc.number />">
-        <option value="attachment"<if:atc.disp_atc> selected="selected"</if:atc.disp_atc>><gettext>Attachment</gettext></option>
-        <option value="inline"<if:atc.disp_inline> selected="selected"</if:atc.disp_inline>><gettext>Inline</gettext></option>
-       </select>
-      </td>
-     </tr>
      <tr>
       <td class="rightAlign" valign="middle"><strong><label for="file_description_<tag:atc.number />"><gettext>Description:</gettext></label></strong>&nbsp;</td>
       <td><input type="text" size="40" id="file_description_<tag:atc.number />" name="file_description_<tag:atc.number />" value="<tag:atc.description />" /></td>
