@@ -10,7 +10,7 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package IMP
  */
-class Imple
+class IMP_Imple
 {
     /**
      * Parameters needed by the subclasses.
@@ -20,15 +20,14 @@ class Imple
     protected $_params = array();
 
     /**
-     * Attempts to return a concrete Imple instance based on $imple.
+     * Attempts to return a concrete IMP_Imple instance based on $imple.
      *
-     * @param string $imple  The type of concrete Imple subclass to return based
+     * @param string $imple  The type of concrete subclass to return based
      *                       on the imple type indicated. The code is
      *                       dynamically included.
      * @param array $params  The configuration parameter array.
      *
-     * @return mixed  The newly created concrete Imple instance, or false on
-     *                error.
+     * @return mixed  The newly created concrete instance, or false on error.
      */
     static public function factory($imple, $params = array())
     {
@@ -37,7 +36,7 @@ class Imple
             return false;
         }
 
-        $class = 'Imple_' . $imple;
+        $class = 'IMP_Imple_' . $imple;
         if (!class_exists($class)) {
             include_once dirname(__FILE__) . '/Imple/' . $imple . '.php';
             if (!class_exists($class)) {
@@ -60,7 +59,7 @@ class Imple
     }
 
     /**
-     * Attach the Imple object to a javascript event.
+     * Attach the object to a javascript event.
      */
     public function attach()
     {

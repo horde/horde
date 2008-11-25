@@ -151,7 +151,7 @@ class IMP_UI_Compose {
                 'Error' => $spell_img . $br . _("Spell Check Failed")
             )
         );
-        call_user_func_array(array($mode == 'dimp' ? 'Dimple' : 'Imple', 'factory'), array('SpellChecker', $args));
+        call_user_func_array(array($mode == 'dimp' ? 'Dimple' : 'IMP_Imple', 'factory'), array('SpellChecker', $args));
     }
 
     /**

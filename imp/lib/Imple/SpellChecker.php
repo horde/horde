@@ -8,7 +8,7 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package IMP
  */
-class Imple_SpellChecker extends Imple
+class IMP_Imple_SpellChecker extends IMP_Imple
 {
     /**
      * Constructor.

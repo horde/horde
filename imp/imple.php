@@ -11,7 +11,6 @@
 @define('IMP_BASE', dirname(__FILE__));
 $authentication = 'horde';
 require_once IMP_BASE . '/lib/base.php';
-require_once IMP_BASE . '/lib/Imple.php';
 
 if (!($path = Util::getFormData('imple'))) {
     exit;
@@ -22,7 +21,7 @@ if ($path[0] == '/') {
 $path = explode('/', $path);
 $impleName = array_shift($path);
 
-if (!($imple = Imple::factory($impleName))) {
+if (!($imple = IMP_Imple::factory($impleName))) {
     exit;
 }
 

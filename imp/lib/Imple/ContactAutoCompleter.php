@@ -8,7 +8,7 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package IMP
  */
-class Imple_ContactAutoCompleter extends Imple
+class IMP_Imple_ContactAutoCompleter extends IMP_Imple
 {
     /**
      * The URL to use in attach().
@@ -39,7 +39,7 @@ class Imple_ContactAutoCompleter extends Imple
     }
 
     /**
-     * Attach the Imple object to a javascript event.
+     * Attach the object to a javascript event.
      */
     public function attach()
     {
