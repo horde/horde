@@ -224,11 +224,18 @@ case 'process_import_personal_certs':
     exit;
 
 case 'save_attachment_public_key':
-    $cacheSess = &Horde_SessionObjects::singleton();
-    $cert = $cacheSess->query(Util::getFormData('cert'));
+    /* Retrieve the key from the message. */
+    $contents = &IMP_Contents::singleton(Util::getFormData('uid') . IMP::IDX_SEP . Util::getFormData('mailbox'));
+    if (is_a($contents, 'PEAR_Error')) {
+        Horde::fatal($contents, __FILE__, __LINE__);
+    }
+    $mime_part = $contents->getMIMEPart(Util::getFormData('mime_id'));
+    if (empty($mime_part)) {
+        Horde::fatal('Cannot retrieve public key from message.', __FILE__, __LINE__);
+    }
 
     /* Add the public key to the storage system. */
-    $cert = $imp_smime->addPublicKey($cert);
+    $cert = $imp_smime->addPublicKey($mime_part);
     if ($cert == false) {
         $notification->push(_("No Certificate found"), 'horde.error');
     } else {

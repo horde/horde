@@ -262,7 +262,7 @@ class IMP_UI_Message
      *
      * @return string  String containing the formatted address list.
      */
-    public function buildAddressLinks($addrlist, $addURL, $link = true)
+    public function buildAddressLinks($addrlist, $addURL = null, $link = false)
     {
         global $prefs, $registry;
 
@@ -275,7 +275,7 @@ class IMP_UI_Message
 
         /* Set up the add address icon link if contact manager is
          * available. */
-        if ($link && $prefs->getValue('add_source')) {
+        if (!is_null($addURL) && $link && $prefs->getValue('add_source')) {
             $add_link = $registry->link('contacts/add', array('source' => $prefs->getValue('add_source')));
             if (is_a($add_link, 'PEAR_Error')) {
                 if ($registry->hasMethod('contacts/import')) {

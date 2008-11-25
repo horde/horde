@@ -322,19 +322,15 @@ class IMP_Horde_Crypt_smime extends Horde_Crypt_smime
     /**
      * Generates the javascript code for saving public keys.
      *
-     * @param MIME_Part $mime_part  The MIME_Part containing the public key.
+     * @param string $mailbox  The mailbox of the message.
+     * @param integer $uid     The UID of the message.
+     * @param string $id       The MIME ID of the message.
      *
      * @return string  The URL for saving public keys.
      */
-    public function savePublicKeyURL($mime_part)
+    public function savePublicKeyURL($mailbox, $uid, $id)
     {
-        if (empty($cache)) {
-            require_once 'Horde/SessionObjects.php';
-            $cacheSess = &Horde_SessionObjects::singleton();
-            $oid = $cacheSess->storeOid($mime_part);
-        }
-
-        return $this->getJSOpenWinCode('save_attachment_public_key', false, array('cert' => $oid));
+        return $this->getJSOpenWinCode('save_attachment_public_key', false, array('mailbox' => $mailbox, 'uid' => $uid, 'mime_id' => $id));
     }
 
     /**

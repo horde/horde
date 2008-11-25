@@ -411,9 +411,11 @@ class IMP
     static public function composeLink($args = array(), $extra = array())
     {
         $args = IMP::composeLinkArgs($args, $extra);
+        $is_mimp = ($_SESSION['imp']['view'] == 'mimp');
 
-        if ($GLOBALS['prefs']->getValue('compose_popup')
-            && $GLOBALS['browser']->hasFeature('javascript')) {
+        if (!$is_mimp &&
+            $GLOBALS['prefs']->getValue('compose_popup') &&
+            $GLOBALS['browser']->hasFeature('javascript')) {
             Horde::addScriptFile('prototype.js', 'horde', true);
             Horde::addScriptFile('popup.js', 'imp', true);
             if (isset($args['to'])) {
@@ -421,7 +423,7 @@ class IMP
             }
             return "javascript:" . IMP::popupIMPString('compose.php', $args);
         } else {
-            return Util::addParameter(Horde::applicationUrl('compose.php'), $args);
+            return Util::addParameter(Horde::applicationUrl($is_mimp ? 'compose-mimp.php' : 'compose.php'), $args);
         }
     }
 

@@ -5,11 +5,6 @@
  * handled in here so that code need not be repeated between mailbox, message,
  * and other pages.
  *
- * Indices format:
- * ===============
- * For any function below that requires an $indices parameter, see
- * IMP::parseIndicesList() for the list of allowable inputs.
- *
  * Copyright 2000-2001 Chris Hyde <chris@jeks.net>
  * Copyright 2000-2008 The Horde Project (http://www.horde.org/)
  *
@@ -33,6 +28,13 @@ class IMP_Message
      * @var boolean
      */
     protected $_usepop = false;
+
+    /**
+     * An IMP_Mailbox object to update on message actions.
+     *
+     * @var IMP_Mailbox
+     */
+    protected $_mailboxOb = null;
 
     /**
      * Returns a reference to the global IMP_Message object, only creating it
@@ -67,14 +69,24 @@ class IMP_Message
     }
 
     /**
-     * Copies or moves a list of messages to a new folder.
-     * Handles use of the IMP::SEARCH_MBOX mailbox and the Trash folder.
+     * Set the IMP_Mailbox object to update on message actions.
+     *
+     * @param IMP_Mailbox &$ob  An IMP_Mailbox object.
+     */
+    public function updateMailboxOb(&$ob)
+    {
+        $this->_mailboxOb = $ob;
+    }
+
+    /**
+     * Copies or moves a list of messages to a new mailbox.
+     * Handles use of the IMP::SEARCH_MBOX mailbox and the Trash mailbox.
      *
      * @param string $targetMbox  The mailbox to move/copy messages to
      *                            (UTF7-IMAP).
      * @param integer $action     Either IMP_Message::MOVE or
      *                            IMP_Message::COPY.
-     * @param mixed $indices      See above.
+     * @param mixed $indices      See IMP::parseIndicesList().
      * @param boolean $new        Whether the target mailbox has to be created.
      *
      * @return boolean  True if successful, false if not.
@@ -126,18 +138,21 @@ class IMP_Message
             break;
         }
 
-        foreach ($msgList as $folder => $msgIndices) {
-            if (($action == self::MOVE) && $imp_imap->isReadOnly($folder)) {
-                $notification->push(sprintf($message, IMP::displayFolder($folder), IMP::displayFolder($targetMbox)) . ': ' . _("The target directory is read-only."), 'horde.error');
+        foreach ($msgList as $mbox => $msgIndices) {
+            if (($action == self::MOVE) && $imp_imap->isReadOnly($mbox)) {
+                $notification->push(sprintf($message, IMP::displayFolder($mbox), IMP::displayFolder($targetMbox)) . ': ' . _("The target directory is read-only."), 'horde.error');
                 $return_value = false;
                 continue;
             }
 
             /* Attempt to copy/move messages to new mailbox. */
             try {
-                $imp_imap->ob->copy($folder, $targetMbox, array('ids' => $msgIndices, 'move' => $imap_move));
+                $imp_imap->ob->copy($mbox, $targetMbox, array('ids' => $msgIndices, 'move' => $imap_move));
+                if (!is_null($this->_mailboxOb)) {
+                    $this->_mailboxOb->removeMsgs(array($mbox => $msgIndices));
+                }
             } catch (Horde_Imap_Client_Exception $e) {
-                //$notification->push(sprintf($message, IMP::displayFolder($folder), IMP::displayFolder($targetMbox)) . ': ' . imap_last_error(), 'horde.error');
+                $notification->push(sprintf($message, IMP::displayFolder($mbox), IMP::displayFolder($targetMbox)) . ': ' . imap_last_error(), 'horde.error');
                 $return_value = false;
             }
         }
@@ -150,7 +165,7 @@ class IMP_Message
      * Trash folder is being used.
      * Handles use of the IMP::SEARCH_MBOX mailbox and the Trash folder.
      *
-     * @param mixed $indices    See above.
+     * @param mixed $indices    See IMP::parseIndicesList().
      * @param boolean $nuke     Override user preferences and nuke (i.e.
      *                          permanently delete) the messages instead?
      * @param boolean $keeplog  Should any history information of the
@@ -204,6 +219,9 @@ class IMP_Message
             if ($use_trash_folder && ($mbox != $trash)) {
                 try {
                     $imp_imap->ob->copy($mbox, $trash, array('ids' => $msgIndices, 'move' => true));
+                    if (!is_null($this->_mailboxOb)) {
+                        $this->_mailboxOb->removeMsgs(array($mbox => $msgIndices));
+                    }
                 } catch (Horde_Imap_Client_Exception $e) {
                     // @todo Check for overquota error.
                     return false;
@@ -268,7 +286,7 @@ class IMP_Message
      * Handles the IMP::SEARCH_MBOX mailbox.
      * This function works with IMAP only, not POP3.
      *
-     * @param mixed $indices  See above.
+     * @param mixed $indices  See IMP::parseIndicesList().
      *
      * @return boolean  True if successful, false if not.
      */
@@ -284,7 +302,7 @@ class IMP_Message
      * @param string $list      The list in which the task or note will be
      *                          created.
      * @param integer $action   Either IMP_Message::MOVE or IMP_Message::COPY.
-     * @param mixed $indices    See above.
+     * @param mixed $indices    See IMP::parseIndicesList().
      * @param string $type      The object type to create, defaults to task.
      *
      * @return boolean  True if successful, false if not.
@@ -518,7 +536,7 @@ class IMP_Message
      * This function works with IMAP only, not POP3.
      *
      * @param array $flags     The IMAP flag(s) to set or clear.
-     * @param mixed $indices   See above.
+     * @param mixed $indices   See IMP::parseIndicesList().
      * @param boolean $action  If true, set the flag(s), otherwise clear the
      *                         flag(s).
      *
@@ -629,6 +647,9 @@ class IMP_Message
         foreach ($process_list as $key => $val) {
             try {
                 $imp_imap->ob->expunge($key, array('ids' => is_array($val) ? $val : array()));
+                if (!is_null($this->_mailboxOb)) {
+                    $this->_mailboxOb->removeMsgs(is_array($val) ? array($key => $val) : true);
+                }
                 $update_list[$key] = $val;
             } catch (Horde_Imap_Client_Exception $e) {}
         }

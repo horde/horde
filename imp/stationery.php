@@ -23,11 +23,9 @@ if ($prefs->isLocked('stationery')) {
 
 /* Retrieve stationery. */
 $stationery_list = @unserialize($prefs->getValue('stationery', false));
-if (is_array($stationery_list)) {
-    $stationery_list = String::convertCharset($stationery_list, $prefs->getCharset());
-} else {
-    $stationery_list = array();
-}
+$stationery_list = is_array($stationery_list)
+    ? String::convertCharset($stationery_list, $prefs->getCharset())
+    : array(();
 
 /* Get form data. */
 $selected = Util::getFormData('stationery');

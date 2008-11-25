@@ -25,6 +25,7 @@ class Horde_Mime_Viewer_srchighlite extends Horde_Mime_Viewer_source
      */
     protected $_capability = array(
         'embedded' => false,
+        'forceinline' => false,
         'full' => true,
         'info' => false,
         'inline' => true

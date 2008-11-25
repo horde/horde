@@ -13,48 +13,49 @@
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Horde_Identity
  */
-class Identity_imp extends Identity {
-
+class Identity_imp extends Identity
+{
     /**
      * Cached alias list.
      *
      * @var array
      */
-    var $_aliases = array();
+    protected $_aliases = array();
 
     /**
      * Cached from address list.
      *
      * @var array
      */
-    var $_fromList = array();
+    protected $_fromList = array();
 
     /**
      * Cached names list.
      *
      * @var array
      */
-    var $_names = array();
+    protected $_names = array();
 
     /**
      * Cached signature list.
      *
      * @var array
      */
-    var $_signatures = array();
+    protected $_signatures = array();
 
     /**
      * Reads all the user's identities from the prefs object or builds
      * a new identity from the standard values given in prefs.php.
      */
-    function Identity_imp()
+    function __construct()
     {
         parent::Identity();
         $this->_properties = array_merge(
             $this->_properties,
             array('replyto_addr', 'alias_addr', 'tieto_addr', 'bcc_addr',
                   'signature', 'sig_first', 'sig_dashes', 'save_sent_mail',
-                  'sent_mail_folder'));
+                  'sent_mail_folder')
+        );
     }
 
     /**
@@ -65,7 +66,7 @@ class Identity_imp extends Identity {
      * @return boolean|object  True if the properties are valid or a PEAR_Error
      *                         with an error description otherwise.
      */
-    function verify($identity = null)
+    public function verify($identity = null)
     {
         if (is_a($result = parent::verify($identity), 'PEAR_Error')) {
             return $result;
@@ -126,7 +127,7 @@ class Identity_imp extends Identity {
      * @return string  A full From: header in the format
      *                 'Fullname <user@example.com>'.
      */
-    function getFromLine($ident = null, $from_address = '')
+    public function getFromLine($ident = null, $from_address = '')
     {
         static $froms = array();
 
@@ -170,7 +171,7 @@ class Identity_imp extends Identity {
      *
      * @return array  The From: headers from all identities
      */
-    function getAllFromLines()
+    public function getAllFromLines()
     {
         foreach (array_keys($this->_identities) as $ident) {
             $list[$ident] = $this->getFromAddress($ident);
@@ -184,7 +185,7 @@ class Identity_imp extends Identity {
      *
      * @return array  The array with the necessary strings
      */
-    function getSelectList()
+    public function getSelectList()
     {
         $ids = $this->getAll('id');
         foreach ($ids as $key => $id) {
@@ -201,7 +202,7 @@ class Identity_imp extends Identity {
      *
      * @return boolean  True if the address was found.
      */
-    function hasAddress($address)
+    public function hasAddress($address)
     {
         static $list;
 
@@ -222,7 +223,7 @@ class Identity_imp extends Identity {
      *
      * @return string  A valid from address.
      */
-    function getFromAddress($ident = null)
+    public function getFromAddress($ident = null)
     {
         if (!empty($this->_fromList[$ident])) {
             return $this->_fromList[$ident];
@@ -249,7 +250,7 @@ class Identity_imp extends Identity {
      *
      * @return array  Aliases for the identity.
      */
-    function getAliasAddress($ident)
+    public function getAliasAddress($ident)
     {
         if (empty($this->_aliases[$ident])) {
             $this->_aliases[$ident] = @array_merge($this->getValue('alias_addr', $ident),
@@ -268,7 +269,7 @@ class Identity_imp extends Identity {
      *                KEY - address
      *                VAL - identity number
      */
-    function getAllFromAddresses($alias = false)
+    public function getAllFromAddresses($alias = false)
     {
         $list = array();
 
@@ -297,7 +298,7 @@ class Identity_imp extends Identity {
      *                KEY - address
      *                VAL - identity number
      */
-    function getAllTieAddresses()
+    public function getAllTieAddresses()
     {
         $list = array();
 
@@ -317,11 +318,9 @@ class Identity_imp extends Identity {
      * Returns the list of identities with the default identity positioned
      * last.
      *
-     * @access private
-     *
      * @return array  The identities list with the default identity last.
      */
-    function _identitiesWithDefaultLast()
+    protected function _identitiesWithDefaultLast()
     {
         $ids = $this->_identities;
         $default = $this->getDefault();
@@ -338,7 +337,7 @@ class Identity_imp extends Identity {
      *
      * @return array  The array of objects (IMAP addresses).
      */
-    function getBccAddresses($ident = null)
+    public function getBccAddresses($ident = null)
     {
         $bcc = $this->getValue('bcc_addr', $ident);
         if (empty($bcc)) {
@@ -363,7 +362,7 @@ class Identity_imp extends Identity {
      *                  addresses match (one of) the passed addresses or
      *                  null if none matches.
      */
-    function getMatchingIdentity($addresses, $search_ties = true)
+    public function getMatchingIdentity($addresses, $search_ties = true)
     {
         static $tie_addresses, $own_addresses;
 
@@ -426,7 +425,7 @@ class Identity_imp extends Identity {
      *
      * @return string  The user's full name.
      */
-    function getFullname($ident = null)
+    public function getFullname($ident = null)
     {
         if (isset($this->_names[$ident])) {
             return $this->_names[$ident];
@@ -445,7 +444,7 @@ class Identity_imp extends Identity {
      *
      * @return string  The full signature.
      */
-    function getSignature($ident = null)
+    public function getSignature($ident = null)
     {
         if (isset($this->_signatures[$ident])) {
             return $this->_signatures[$ident];
@@ -481,7 +480,7 @@ class Identity_imp extends Identity {
      *
      * @return array  The array with all the signatures.
      */
-    function getAllSignatures()
+    public function getAllSignatures()
     {
         static $list;
 
@@ -499,7 +498,7 @@ class Identity_imp extends Identity {
     /**
      * @see Identity::getValue()
      */
-    function getValue($key, $identity = null)
+    public function getValue($key, $identity = null)
     {
         if ($key == 'sent_mail_folder') {
             $folder = parent::getValue('sent_mail_folder', $identity);
@@ -514,7 +513,7 @@ class Identity_imp extends Identity {
      *
      * @return array  The array with the folder names.
      */
-    function getAllSentmailFolders()
+    public function getAllSentmailFolders()
     {
         $list = array();
         foreach ($this->_identities as $key => $identity) {
@@ -534,7 +533,7 @@ class Identity_imp extends Identity {
      *
      * @return boolean  True if the sent mail should be saved.
      */
-    function saveSentmail($ident = null)
+    public function saveSentmail($ident = null)
     {
         if (!$GLOBALS['conf']['user']['allow_folders']) {
             return false;

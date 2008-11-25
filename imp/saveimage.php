@@ -19,9 +19,9 @@ $actionID = Util::getFormData('actionID');
 switch ($actionID) {
 case 'save_image':
     $contents = &IMP_Contents::singleton($index);
-    $mime_part = $contents->getDecodedMIMEPart($id);
+    $mime_part = $contents->getMIMEPart($id);
     $image_data = array(
-        'filename' => $mime_part->getName(true, true),
+        'filename' => $mime_part->getName(true),
         'description' => $mime_part->getDescription(true),
         'data' => $mime_part->getContents(),
         'type' => $mime_part->getType()

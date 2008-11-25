@@ -41,6 +41,7 @@ class Horde_Mime_Viewer_Driver
      */
     protected $_capability = array(
         'embedded' => false,
+        'forceinline' => false,
         'full' => false,
         'info' => false,
         'inline' => false
@@ -192,7 +193,10 @@ class Horde_Mime_Viewer_Driver
             return $this->_capability[$mode];
 
         case 'inline':
-            return $this->getConfigParam('inline') && $this->_capability['inline'];
+            return $this->getConfigParam('inline') &&
+                ($this->_capability['forceinline'] ||
+                 ($this->_capability['inline'] &&
+                  ($this->_mimepart->getDisposition() == 'inline')));
 
         default:
             return false;

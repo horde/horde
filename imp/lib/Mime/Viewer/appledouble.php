@@ -20,6 +20,7 @@ class IMP_Horde_Mime_Viewer_appledouble extends Horde_Mime_Viewer_Driver
      */
     protected $_capability = array(
         'embedded' => false,
+        'forceinline' => true,
         'full' => false,
         'info' => true,
         'inline' => true

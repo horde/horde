@@ -66,7 +66,7 @@ class Horde_Mime_Headers
             foreach (array_keys($val) as $key) {
                 if (!empty($address_keys)) {
                     if (in_array($header, $address_keys)) {
-                        $text = Horde_Mime::encodeAddress($val[$key], $charset, empty($options['defserver']) ? null : $options['defserver']);
+                        $text = Horde_Mime::encodeAddress($val[$key], empty($options['charset']) ? null : $options['charset'], empty($options['defserver']) ? null : $options['defserver']);
                                                                                                         if (is_a($text, 'PEAR_Error')) {
                             $text = $val[$key];
                         }
@@ -270,6 +270,19 @@ class Horde_Mime_Headers
     {
         require_once 'Horde/String.php';
         unset($this->_headers[String::lower(trim($header))]);
+    }
+
+    /**
+     * Replace a value of a header.
+     *
+     * @param string $header   The header name.
+     * @param string $value    The header value.
+     * @param boolean $decode  MIME decode the value?
+     */
+    public function replaceHeader($header, $value, $decode = false)
+    {
+        $this->removeHeader($header);
+        $this->addHeader($header, $value, $decode);
     }
 
     /**

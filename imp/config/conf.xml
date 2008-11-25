@@ -445,4 +445,16 @@
    prefs.php (set the value of 'tos_agreement' to 1)."/>
   </configsection>
  </configtab>
+
+ <configtab name="mimp" desc="Mobile View (mimp) Options">
+  <configsection name="mailbox">
+   <configheader>Mailbox Settings</configheader>
+   <configinteger name="max_from_chars" desc="In the mailbox view, how many
+   characters of From: addresses should we show before truncating
+   them?">10</configinteger>
+   <configinteger name="max_subj_chars" desc="In the mailbox view, how many
+   characters of Subject: lines should we show before truncating
+   them?">20</configinteger>
+  </configsection>
+ </configtab>
 </configuration>

@@ -21,6 +21,7 @@ class Horde_Mime_Viewer_tnef extends Horde_Mime_Viewer_Driver
      */
     protected $_capability = array(
         'embedded' => false,
+        'forceinline' => true,
         'full' => true,
         'info' => false,
         'inline' => true

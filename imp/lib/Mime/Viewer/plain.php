@@ -23,21 +23,23 @@ class IMP_Horde_Mime_Viewer_plain extends Horde_Mime_Viewer_plain
     {
         global $conf, $prefs;
 
+        $mime_id = $this->_mimepart->getMimeId();
+        $type = 'text/html; charset=' . NLS::getCharset();
+
         // Trim extra whitespace in the text.
         $text = rtrim($this->_mimepart->getContents());
         if ($text == '') {
             return array(
-                $this->_mimepart->getMimeId() => array(
+                $mime_id => array(
                     'data' => '',
                     'status' => array(),
-                    'type' => 'text/html; charset=' . NLS::getCharset()
+                    'type' => $type
                 )
             );
         }
 
         // Convert to the local charset.
         $text = String::convertCharset($text, $this->_mimepart->getCharset());
-
 
         // Check for 'flowed' text data.
         if ($this->_mimepart->getContentTypeParameter('format') == 'flowed') {
@@ -49,6 +51,17 @@ class IMP_Horde_Mime_Viewer_plain extends Horde_Mime_Viewer_plain
              * quoted. Flowed conversion would have already taken care of this
              * for us. */
             $text = preg_replace('/(\n+)> ?From(\s+)/', "$1From$2", $text);
+        }
+
+        /* Done processing if in mimp mode. */
+        if ($_SESSION['imp']['view'] == 'mimp') {
+            return array(
+                $mime_id => array(
+                    'data' => IMP::filterText($text),
+                    'status' => array(),
+                    'type' => $type
+                )
+            );
         }
 
         // Build filter stack. Starts with HTML markup and tab expansion.
@@ -107,10 +120,10 @@ class IMP_Horde_Mime_Viewer_plain extends Horde_Mime_Viewer_plain
         }
 
         return array(
-            $this->_mimepart->getMimeId() => array(
+            $mime_id => array(
                 'data' => '<div class="fixed leftAlign">' . "\n" . $text . '</div>',
                 'status' => array(),
-                'type' => 'text/html; charset=' . NLS::getCharset()
+                'type' => $type
             )
         );
     }
@@ -163,9 +176,7 @@ class IMP_Horde_Mime_Viewer_plain extends Horde_Mime_Viewer_plain
             return null;
         }
 
-        $new_part = is_a($this->_mimepart, 'Horde_Mime_Message')
-            ? new Horde_Mime_Message()
-            : new Horde_Mime_Part();
+        $new_part = new Horde_Mime_Part();
         $new_part->setType('multipart/mixed');
         $charset = $this->_mimepart->getCharset();
         $mime_id = $this->_mimepart->getMimeId();
@@ -236,7 +247,7 @@ class IMP_Horde_Mime_Viewer_plain extends Horde_Mime_Viewer_plain
             }
         }
 
-        $new_part->buildMimeIds(is_a($new_part, 'Horde_Mime_Message') ? null : $mime_id);
+        $new_part->setMimeId($mime_id);
 
         return array($mime_id => $new_part);
     }
@@ -253,9 +264,7 @@ class IMP_Horde_Mime_Viewer_plain extends Horde_Mime_Viewer_plain
             return null;
         }
 
-        $new_part = is_a($this->_mimepart, 'Horde_Mime_Message')
-            ? new Horde_Mime_Message()
-            : new Horde_Mime_Part();
+        $new_part = new Horde_Mime_Part();
         $new_part->setType('multipart/mixed');
         $mime_id = $this->_mimepart->getMimeId();
 
@@ -274,7 +283,7 @@ class IMP_Horde_Mime_Viewer_plain extends Horde_Mime_Viewer_plain
             $new_part->addPart($uupart);
         }
 
-        $new_part->buildMimeIds(is_a($new_part, 'Horde_Mime_Message') ? null : $mime_id);
+        $new_part->setMimeId($mime_id);
 
         return array($mime_id => $new_part);
     }

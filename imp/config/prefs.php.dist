@@ -187,6 +187,14 @@ if (Util::extensionExists('openssl') && isset($GLOBALS['conf']['utils']['openssl
     );
 }
 
+$prefGroups['mimp'] = array(
+    'column' => _("Other Options"),
+    'label' => _("MIMP Options"),
+    'desc' => _("Configure MIMP Options."),
+    'members' => array('mimp_preview_msg')
+);
+
+
 // Personal Information preferences
 
 // user preferred email address for Reply-To:, if different from From:
@@ -1428,6 +1436,15 @@ $_prefs['smime_additional_cert'] = array(
     'type' => 'implicit');
 
 // End S/MIME Options
+
+// display only the first 250 characters of a message on first message view?
+$_prefs['mimp_preview_msg'] = array(
+    'value' => 0,
+    'locked' => true,
+    'shared' => false,
+    'type' => 'checkbox',
+    'desc' => _("Display only the first 250 characters of a message initially?")
+);
 
 // Other entries (used internally in IMP)
 

@@ -170,7 +170,6 @@ case 'flag_messages':
 case 'hide_deleted':
     $prefs->setValue('delhide', !$prefs->getValue('delhide'));
     IMP::hideDeletedMsgs(true);
-    $imp_mailbox = &IMP_Mailbox::singleton($imp_mbox['mailbox']);
     break;
 
 case 'expunge_mailbox':

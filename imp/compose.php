@@ -128,7 +128,6 @@ $reply_index = Util::getFormData('reply_index');
 $thismailbox = Util::getFormData('thismailbox');
 
 /* Check for duplicate submits. */
-require_once 'Horde/Token.php';
 if (isset($conf['token'])) {
     /* If there is a configured token system, set it up. */
     $tokenSource = Horde_Token::factory(
@@ -179,7 +178,6 @@ if (is_a($vcard, 'PEAR_Error')) {
 }
 
 /* Init IMP_UI_Compose:: object. */
-require_once IMP_BASE . '/lib/UI/Compose.php';
 $imp_ui = new IMP_UI_Compose();
 
 /* Set the default charset & encoding.
@@ -243,9 +241,8 @@ if ($_SESSION['imp']['file_upload']) {
     /* Update the attachment information. */
     foreach (array_keys($imp_compose->getAttachments()) as $i) {
         if (!in_array($i, $deleteList)) {
-            $disposition = Util::getFormData('file_disposition_' . $i);
             $description = Util::getFormData('file_description_' . $i);
-            $imp_compose->updateAttachment($i, array('disposition' => $disposition, 'description' => $description));
+            $imp_compose->updateAttachment($i, array('description' => $description));
         }
     }
 
@@ -260,7 +257,7 @@ if ($_SESSION['imp']['file_upload']) {
     }
 
     /* Add new attachments. */
-    if (!$imp_compose->addFilesFromUpload('upload_', 'upload_disposition_', $notify)) {
+    if (!$imp_compose->addFilesFromUpload('upload_', $notify)) {
         $actionID = null;
     }
 }
@@ -465,7 +462,6 @@ case 'send_message':
     if (Util::getFormData('resume_draft') &&
         $prefs->getValue('auto_delete_drafts') &&
         ($thismailbox == IMP::folderPref($prefs->getValue('drafts_folder'), true)))  {
-        require_once IMP_BASE . '/lib/Message.php';
         $imp_message = &IMP_Message::singleton();
         $idx_array = array($index . IMP::IDX_SEP . $thismailbox);
         if ($imp_message->delete($idx_array)) {
@@ -621,9 +617,8 @@ $redirect = in_array($actionID, array('redirect_compose', 'redirect_expand_addr'
 /* Attach autocompleters to the compose form elements. */
 $spellcheck = false;
 if ($has_js) {
-    require_once IMP_BASE . '/lib/Imple.php';
     if ($redirect) {
-        $imp_ui->attachAutoCompleter('Imple', array('to'));
+        $imp_ui->attachAutoCompleter('IMP_Imple', array('to'));
     } else {
         $auto_complete = array('to');
         foreach (array('cc', 'bcc') as $val) {
@@ -631,9 +626,8 @@ if ($has_js) {
                 $auto_complete[] = $val;
             }
         }
-        $imp_ui->attachAutoCompleter('Imple', $auto_complete);
+        $imp_ui->attachAutoCompleter('IMP_Imple', $auto_complete);
         if (!empty($conf['spell']['driver'])) {
-            require_once 'Horde/SpellChecker.php';
             if (Horde_SpellChecker::factory($conf['spell']['driver'], array()) !== false) {
                 $spellcheck = true;
                 $imp_ui->attachSpellChecker('imp', true);
@@ -814,7 +808,6 @@ if (!$redirect) {
             Horde_Mime_Address::addrArray2String($identity->getBccAddresses($ident))
         );
     }
-    require_once 'Horde/Serialize.php';
     $js_code[] = 'var identities = ' . Horde_Serialize::serialize($js_ident, SERIALIZE_JSON, NLS::getCharset());
 }
 
@@ -1235,29 +1228,25 @@ if ($redirect) {
 
         $t->set('numberattach', $imp_compose->numberOfAttachments());
         if ($t->get('numberattach')) {
-            require_once IMP_BASE . '/lib/MIME/Contents.php';
-            $imp_contents = new IMP_Contents(new Horde_Mime_Message());
-
             $atc = array();
-            $disp_num = 0;
-            foreach ($imp_compose->getAttachments() as $atc_num => $mime) {
-                $entry = array();
-                $disposition = $mime->getDisposition();
-                $viewer = &$imp_contents->getMIMEViewer($mime);
-                $linked = Util::getFormData (sprintf('file_linked_%d', $atc_num));
-                $entry['name'] = $mime->getName(true, true);
-                if ($mime->getType() != 'application/octet-stream') {
+            foreach ($imp_compose->getAttachments() as $atc_num => $data) {
+                $mime = $data['part'];
+                $type = $mime->getType();
+
+                $entry = array(
+                    'name' => $mime->getName(true),
+                    'icon' => Horde_Mime_Viewer::getIcon($type),
+                    'number' => $atc_num,
+                    'type' => $type,
+                    'size' => $mime->getSize(),
+                    'description' => $mime->getDescription(true)
+                );
+
+                if ($type != 'application/octet-stream') {
                     $preview_url = Util::addParameter(Horde::applicationUrl('view.php'), array('actionID' => 'compose_attach_preview', 'id' => $atc_num, 'composeCache' => $imp_compose->getCacheId()));
                     $entry['name'] = Horde::link($preview_url, _("Preview") . ' ' . $entry['name'], 'link', 'compose_preview_window') . $entry['name'] . '</a>';
                 }
-                $entry['icon'] = $viewer->getIcon($mime->getType());
-                $entry['disp_number'] = ++$disp_num;
-                $entry['number'] = $atc_num;
-                $entry['type'] = $mime->getType();
-                $entry['size'] = $mime->getSize();
-                $entry['disp_atc'] = ($disposition == 'attachment');
-                $entry['disp_inline'] = ($disposition == 'inline');
-                $entry['description'] = $mime->getDescription(true);
+
                 $atc[] = $entry;
             }
             $t->set('atc', $atc);

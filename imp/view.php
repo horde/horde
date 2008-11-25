@@ -49,8 +49,8 @@ $session_control = 'readonly';
 require_once IMP_BASE . '/lib/base.php';
 
 $actionID = Util::getFormData('actionID');
-$id = Util::getFormData('id');
 $ctype = Util::getFormData('ctype');
+$id = Util::getFormData('id');
 
 /* 'compose_attach_preview' doesn't use IMP_Contents since there is no
  * IMAP message data - rather, we must use the IMP_Compose object to
@@ -60,11 +60,11 @@ if ($actionID == 'compose_attach_preview') {
     $imp_compose = &IMP_Compose::singleton(Util::getFormData('composeCache'));
     $mime = $imp_compose->buildAttachment($id);
 
-    /* Create a dummy IMP_Contents() object so we can use the view
-     * code below.  Then use the 'view_attach' handler to output to
-     * the user. */
+    /* Create a dummy IMP_Contents() object so we can use the view code below.
+     * Then use the 'view_attach' handler to output. */
     $contents = new IMP_Contents($mime);
     $actionID = 'view_attach';
+    $id = $mime->getMimeId();
 } else {
     $index = Util::getFormData('index');
     $mailbox = Util::getFormData('mailbox');

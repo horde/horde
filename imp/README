@@ -1,8 +1,6 @@
 What is IMP?
 ============
 
-:Last update:   $Date: 2007/04/18 17:20:33 $
-:Revision:      $Revision: 2.23 $
 :Contact:       imp@lists.horde.org
 
 .. contents:: Contents
@@ -26,7 +24,7 @@ certification mark of the `Open Source Initiative`_.
 Obtaining IMP
 -------------
 
-Further information on IMP and the latest version can be obtained at: 
+Further information on IMP and the latest version can be obtained at:
 
   http://www.horde.org/imp/
 
