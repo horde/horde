@@ -42,14 +42,14 @@ if ($actionID === null) {
 switch ($actionID) {
 case 'fetchmail_create':
     if ($driver) {
-        $fetchmail = &IMP_Fetchmail::factory($driver, array());
+        $fetchmail = IMP_Fetchmail::factory($driver, array());
     }
     break;
 
 case 'fetchmail_prefs_edit':
     $to_edit = Util::getFormData('account');
     $driver = $fm_account->getValue('driver', $to_edit);
-    $fetchmail = &IMP_Fetchmail::factory($driver, array());
+    $fetchmail = IMP_Fetchmail::factory($driver, array());
     break;
 
 case 'fetchmail_prefs_save':
@@ -58,7 +58,7 @@ case 'fetchmail_prefs_save':
         $to_edit = $fm_account->add();
     }
 
-    $fetchmail = &IMP_Fetchmail::factory($driver, array());
+    $fetchmail = IMP_Fetchmail::factory($driver, array());
 
     $id = Util::getFormData('fm_id');
     if (empty($id)) {
