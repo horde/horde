@@ -271,6 +271,7 @@ class IMP_IMAP_Tree
         $this->SHARED_KEY = $this->SHARED_LABEL . '%';
         $this->OTHER_LABEL = _("Other Users' Folders");
         $this->OTHER_KEY = $this->OTHER_LABEL . '%';
+
         $this->init();
     }
 
