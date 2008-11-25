@@ -470,7 +470,7 @@ class IMP_Mailbox
                             if ($sortpref['by'] == Horde_Imap_Client::SORT_ARRIVAL) {
                                 try {
                                     $res = $GLOBALS['imp_imap']->ob->status($this->_mailbox, Horde_Imap_Client::STATUS_FIRSTUNSEEN);
-                                    $page_uid = $this->_sorted[$res['firstunseen'] - 1];
+                                    $page_uid = is_null($res['firstunseen']) ? null : $this->_sorted[$res['firstunseen'] - 1];
                                 } catch (Horde_Imap_Client_Exception $e) {}
                             } else {
                                 $unseen_msgs = $this->unseenMessages(Horde_Imap_Client::SORT_RESULTS_MIN);
