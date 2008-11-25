@@ -25,18 +25,18 @@
  * partial        message/partial parts
  * pdf            Portable Document Format (PDF) files
  * pgp            PGP signed/encrypted messages
- * pkcs7          S/MIME signed/encrypted messages
  * plain          URL syntax highlighting for text/plain parts
  * related        multipart/related parts
  * smil           SMIL documents
+ * smime          S/MIME signed/encrypted messages
  * status         Mail delivery status messages
  * tnef           MS-TNEF attachments
  * zip            ZIP attachments
  */
 $mime_drivers_map['imp']['registered'] = array(
     'alternative', 'appledouble', 'enriched', 'html', 'images', 'itip',
-    'mdn', 'partial', 'pdf', 'pgp', 'pkcs7', 'plain', 'related',
-    'smil', 'status', 'tnef', 'zip'
+    'mdn', 'partial', 'pdf', 'pgp', 'plain', 'related', 'smil', 'smime',
+    'status', 'tnef', 'zip'
 );
 
 /**
@@ -164,9 +164,9 @@ $mime_drivers['imp']['pgp'] = array(
 );
 
 /**
- * PKCS7 settings (S/MIME)
+ * S/MIME settings
  */
-$mime_drivers['imp']['pkcs7'] = array(
+$mime_drivers['imp']['smime'] = array(
     'inline' => true,
     'handles' => array(
         'application/x-pkcs7-signature', 'application/x-pkcs7-mime',

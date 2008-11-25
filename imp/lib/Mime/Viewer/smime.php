@@ -1,6 +1,6 @@
 <?php
 /**
- * The IMP_Horde_Mime_Viewer_pkcs7 class allows viewing/decrypting of S/MIME
+ * The IMP_Horde_Mime_Viewer_smime class allows viewing/decrypting of S/MIME
  * messages.
  * This class implements parts of RFC 2630, RFC 2632, and RFC 2633.
  *
@@ -22,7 +22,7 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package Horde_Mime_Viewer
  */
-class IMP_Horde_Mime_Viewer_pkcs7 extends Horde_Mime_Viewer_Driver
+class IMP_Horde_Mime_Viewer_smime extends Horde_Mime_Viewer_Driver
 {
     /**
      * Can this driver render various views?
@@ -62,7 +62,7 @@ class IMP_Horde_Mime_Viewer_pkcs7 extends Horde_Mime_Viewer_Driver
             $GLOBALS['prefs']->getValue('use_smime')) {
             $this->_impsmime = &Horde_Crypt::singleton(array('imp', 'smime'));
             $openssl_check = $this->_impsmime->checkForOpenSSL();
-            if (!is_a($openssl_check, 'PEAR_Error')) {
+            if (is_a($openssl_check, 'PEAR_Error')) {
                 $this->_impsmime = null;
             }
         }
@@ -111,7 +111,8 @@ class IMP_Horde_Mime_Viewer_pkcs7 extends Horde_Mime_Viewer_Driver
         } else {
             $mime = &$this->mime_part;
             $signenc = $mime->getInformation('smime_signenc');
-            $raw_text = $this->_getRawSMIMEText();
+// TODO
+            $raw_text = Horde_Imap_Client::removeBareNewlines($this->_params['contents']->getBodyPart($signed_id, array('mimeheaders' => true)));
             if ($signenc && $mime->getInformation('smime_from')) {
                 $smime_from = $mime->getInformation('smime_from');
                 $raw_text = "From: $smime_from\n" . $raw_text;
@@ -159,8 +160,8 @@ class IMP_Horde_Mime_Viewer_pkcs7 extends Horde_Mime_Viewer_Driver
 
         $status[] = _("This message has been digitally signed via S/MIME.");
 
-        /* Store S/MIME results in $sig_result. */
-        $raw_text = $this->_getRawSMIMEText();
+        $raw_text = Horde_Imap_Client::removeBareNewlines($this->_params['contents']->getBodyPart($signed_id, array('mimeheaders' => true)));
+        $sig_result = null;
 
         if ($GLOBALS['prefs']->getValue('smime_verify') ||
             Util::getFormData('smime_verify_msg')) {
@@ -169,21 +170,39 @@ class IMP_Horde_Mime_Viewer_pkcs7 extends Horde_Mime_Viewer_Driver
                   ($_SESSION['imp']['viewmode'] == 'imp')) {
             // TODO: Fix to work with DIMP
             $status[] = Horde::link(Util::addParameter(Horde::selfUrl(true), 'smime_verify_msg', 1)) . _("Click HERE to verify the message.") . '</a>';
+            return $ret;
         }
 
+        $subpart = $this->_params['contents']->getBodyPart($sig_id);
         if (!isset($subpart)) {
             $msg_data = $this->_impsmime->extractSignedContents($raw_text);
             if (is_a($msg_data, 'PEAR_Error')) {
                 $this->_status[] = $msg_data->getMessage();
-                $mime_message = $mime;
+                $mime_message = $this->_mimepart;
             } else {
-                $mime_message = Horde_Mime_Message::parseMessage($msg_data);
+                $mime_message = Horde_Mime_Part::parseMessage($msg_data);
             }
         }
 
-        $text = $this->_outputStatus();
-        if (!is_null($sig_result)) {
-            $text .= $this->_outputSMIMESignatureTest($sig_result->result, $sig_result->email);
+        $graphicsdir = $GLOBALS['registry']->getImageDir('horde');
+
+        if (is_a($sig_result->result, 'PEAR_Error')) {
+            $ret[$base_id]['status'][0]['icon'] = ($sig_result->result->getCode() == 'horde.warning')
+                ? Horde::img('alerts/warning.png', _("Warning"), null, $graphicsdir)
+                : Horde::img('alerts/error.png', _("Error"), null, $graphicsdir);
+            $status[] = $sig_result->result->getMessage();
+        } else {
+            $ret[$base_id]['status'][0]['icon'] = Horde::img('alerts/success.png', _("Success"), null, $graphicsdir);
+
+            /* This message has been verified but there was no output
+             * from the PGP program. */
+            if (empty($sig_result->result) || ($sig_result->result === true)) {
+                $email = (is_array($sig_result->email))
+                    ? implode(', ', $sig_result->email)
+                    : $sig_result->email;
+                $status[] = sprintf(_("The message has been verified. Sender: %s."), htmlspecialchars($email));
+            }
+
             if (!empty($sig_result->cert)) {
                 $cert_details = $this->_impsmime->parseCert($sig_result->cert);
                 if (isset($cert_details['certificate']['subject']['CommonName'])) {
@@ -194,24 +213,20 @@ class IMP_Horde_Mime_Viewer_pkcs7 extends Horde_Mime_Viewer_Driver
                     $subject = $sig_result->email;
                 } elseif (isset($smime_from)) {
                     $subject = $smime_from;
-                } elseif (($from = $this->_headers->getValue('from'))) {
-                    $subject = $from;
                 } else {
                     $subject = null;
                 }
+
                 if (isset($subpart) &&
                     !empty($subject) &&
                     $GLOBALS['registry']->hasMethod('contacts/addField') &&
                     $GLOBALS['prefs']->getValue('add_source')) {
-                    $this->_status[] = sprintf(_("The S/MIME certificate of %s: "), @htmlspecialchars($subject, ENT_COMPAT, NLS::getCharset())) .
-                        $this->_contents->linkViewJS($subpart, 'view_attach', _("View"), '', null, array('viewkey' => 1)) . '/' .
-                        Horde::link('#', '', null, null, $this->_impsmime->savePublicKeyURL($sig_result->cert) . ' return false;') . _("Save in your Address Book") . '</a>';
-                    $text .= $this->_outputStatus();
+                    $status[] = sprintf(_("The S/MIME certificate of %s: "), @htmlspecialchars($subject, ENT_COMPAT, NLS::getCharset())) . $this->_params['contents']->linkViewJS($subpart, 'view_attach', _("View"), array('params' => array('viewkey' => 1))) . '/' . Horde::link('#', '', null, null, $this->_impsmime->savePublicKeyURL($sig_result->cert) . ' return false;') . _("Save in your Address Book") . '</a>';
                 }
             }
         }
 
-        return array();
+        return $ret;
     }
 
     /**
@@ -292,44 +307,6 @@ class IMP_Horde_Mime_Viewer_pkcs7 extends Horde_Mime_Viewer_Driver
     }
 
     /**
-     * Return text/html as the content-type.
-     *
-     * @return string  "text/html" constant.
-     */
-    public function getType()
-    {
-        return 'text/html; charset=' . NLS::getCharset();
-    }
-
-    /**
-     * Get the headers of the S/MIME message.
-     */
-    protected function _getRawSMIMEText()
-    {
-        $mime->setContents($this->_contents->getBody());
-        if (is_a($this->_contents, 'IMP_Contents') &&
-            (($mime->getMIMEId() == 0) ||
-             ($mime->splitContents() == false))) {
-            $this->_headers = $this->_contents->getHeaderOb();
-            return $this->_contents->fullMessageText();
-        } else {
-            $header_text = $mime->getCanonicalContents();
-            $header_text = substr($header_text, 0, strpos($header_text, "\r\n\r\n"));
-            $this->_headers = MIME_Headers::parseHeaders($header_text);
-
-            $mime_headers = new MIME_Headers();
-            foreach (array('Content-Type', 'From', 'To') as $val) {
-                $tmp = $this->_headers->getValue($val);
-                if (!empty($tmp)) {
-                    $mime_headers->addHeader($val, $tmp);
-                }
-            }
-
-            return $mime_headers->toString() . $mime->toCanonicalString();
-        }
-    }
-
-    /**
      * Generates HTML output for the S/MIME signature test.
      *
      * @param string $result  Result string of the S/MIME output concerning
@@ -340,30 +317,6 @@ class IMP_Horde_Mime_Viewer_pkcs7 extends Horde_Mime_Viewer_Driver
      */
     protected function _outputSMIMESignatureTest($result, $email)
     {
-        $text = '';
-
-        if (is_a($result, 'PEAR_Error')) {
-            if ($result->getCode() == 'horde.warning') {
-                $this->_initStatus($GLOBALS['registry']->getImageDir('horde') . '/alerts/warning.png', _("Warning"));
-            } else {
-                $this->_initStatus($GLOBALS['registry']->getImageDir('horde') . '/alerts/error.png', _("Error"));
-            }
-            $result = $result->getMessage();
-        } else {
-            $this->_initStatus($GLOBALS['registry']->getImageDir('horde') . '/alerts/success.png', _("Success"));
-            /* This message has been verified but there was no output
-               from the PGP program. */
-            if (empty($result) || ($result === true)) {
-               $email = (is_array($email)) ? implode(', ', $email): $email;
-               $result = sprintf(_("The message has been verified. Sender: %s."), htmlspecialchars($email));
-            }
-        }
-
-        require_once 'Horde/Text/Filter.php';
-
-        $this->_status[] = Text_Filter::filter($result, 'text2html', array('parselevel' => TEXT_HTML_NOHTML));
-
-        return $this->_outputStatus();
     }
 
     /**
