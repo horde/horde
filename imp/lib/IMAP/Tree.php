@@ -181,12 +181,12 @@ class IMP_IMAP_Tree
     /**
      * Attempts to return a reference to a concrete IMP_IMAP_Tree instance.
      *
-     * If an IMP_IMAP_Tree object is currently stored in the local session,
-     * recreate that object.  Else, create a new instance.  Ensures that only
-     * one instance is available at any time.
+     * If an IMP_IMAP_Tree object is currently stored in the cache, re-create
+     * that object.  Else, create a new instance.  Ensures that only one
+     * instance is available at any time.
      *
      * This method must be invoked as:<pre>
-     *   $imp_tree = &IMP_IMAP_Tree::singleton();
+     *   $imp_imap_tree = &IMP_IMAP_Tree::singleton();
      * </pre>
      *
      * @return IMP_IMAP_Tree  The object or null.
@@ -196,37 +196,47 @@ class IMP_IMAP_Tree
         static $instance;
 
         if (!isset($instance)) {
-            if (!empty($_SESSION['imp']['cache']['imp_tree'])) {
-                $ptr = &$_SESSION['imp']['cache']['imp_tree'];
-                $instance = Horde_Serialize::unserialize($ptr['ob'], $ptr['s']);
+            if (!empty($_SESSION['imp']['cache']['tree'])) {
+                $imp_cache = &IMP::getCacheOb();
+                $instance = unserialize($imp_cache->get($_SESSION['imp']['cache']['tree'], 86400));
             }
-            if (empty($instance) || is_a($instance, 'PEAR_Error')) {
+            if (empty($instance)) {
                 $instance = new IMP_IMAP_Tree();
             }
-            register_shutdown_function(array(&$instance, 'store'));
         }
 
         return $instance;
     }
 
     /**
-     * Store a serialized version of ourself in the current session.
+     * Constructor.
      */
-    public function store()
+    function __construct()
     {
-        /* We only need to store the object if the tree has changed. */
-        if (empty($this->_changed)) {
-            return;
+        if ($_SESSION['imp']['protocol'] == 'imap') {
+            $ns = $GLOBALS['imp_imap']->getNamespaceList();
+            $ptr = reset($ns);
+            $this->_delimiter = $ptr['delimiter'];
+            $this->_namespaces = (empty($GLOBALS['conf']['user']['allow_folders'])) ? array() : $ns;
         }
 
-        if (!isset($_SESSION['imp']['cache']['imp_tree'])) {
-            $_SESSION['imp']['cache']['imp_tree'] = array(
-                's' => Horde_Serialize::hasCapability(SERIALIZE_LZF) ? array(SERIALIZE_LZF, SERIALIZE_BASIC) : array(SERIALIZE_BASIC)
-            );
+        if (!isset($_SESSION['imp']['cache']['tree'])) {
+            $imp_cache = &IMP::getCacheOb();
+            $_SESSION['imp']['cache']['tree'] = $imp_cache
+                ? uniqid(mt_rand() . Auth::getAuth())
+                : null;
         }
 
-        $ptr = &$_SESSION['imp']['cache']['imp_tree'];
-        $ptr['ob'] = Horde_Serialize::serialize($this, array_reverse($ptr['s']));
+        /* Must set these values here because PHP 5 does not allow assignment
+         * of const's to gettext strings. */
+        $this->VFOLDER_LABEL = _("Virtual Folders");
+        $this->VFOLDER_KEY = $this->VFOLDER_LABEL . '%';
+        $this->SHARED_LABEL = _("Shared Folders");
+        $this->SHARED_KEY = $this->SHARED_LABEL . '%';
+        $this->OTHER_LABEL = _("Other Users' Folders");
+        $this->OTHER_KEY = $this->OTHER_LABEL . '%';
+
+        $this->init();
     }
 
     /**
@@ -252,27 +262,19 @@ class IMP_IMAP_Tree
     }
 
     /**
-     * Constructor.
+     * Store a serialized version of ourself in the current session.
      */
-    function __construct()
+    function __destruct()
     {
-        if ($_SESSION['imp']['protocol'] == 'imap') {
-            $ns = $GLOBALS['imp_imap']->getNamespaceList();
-            $ptr = reset($ns);
-            $this->_delimiter = $ptr['delimiter'];
-            $this->_namespaces = (empty($GLOBALS['conf']['user']['allow_folders'])) ? array() : $ns;
+        /* We only need to store the object if using Horde_Cache and the tree
+         * has changed. */
+        if (empty($this->_changed) ||
+            is_null($_SESSION['imp']['cache']['tree'])) {
+            return;
         }
 
-        /* Must set these values here because PHP 5 does not allow assignment
-         * of const's to gettext strings. */
-        $this->VFOLDER_LABEL = _("Virtual Folders");
-        $this->VFOLDER_KEY = $this->VFOLDER_LABEL . '%';
-        $this->SHARED_LABEL = _("Shared Folders");
-        $this->SHARED_KEY = $this->SHARED_LABEL . '%';
-        $this->OTHER_LABEL = _("Other Users' Folders");
-        $this->OTHER_KEY = $this->OTHER_LABEL . '%';
-
-        $this->init();
+        $imp_cache = &IMP::getCacheOb();
+        $imp_cache->set($_SESSION['imp']['cache']['tree'], serialize($this), 86400);
     }
 
     /**
