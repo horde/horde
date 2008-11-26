@@ -5,14 +5,17 @@
 <if:action>
 <input type="hidden" name="passphrase_action" value="<tag:action />" />
 </if:action>
+<if:symmetricid>
+<input type="hidden" name="symmetricid" value="<tag:symmetricid />" />
+</if:symmetricid>
 
 <div class="header">
  <tag:locked_img />
- <if:symmetric>
- <gettext>Please enter the passphrase for this message.</gettext>
- <else:symmetric>
+ <if:symmetricid>
+ <gettext>Please enter the passphrase for this message. You will only need to enter this passphrase once per session.</gettext>
+ <else:symmetricid>
  <gettext>Please enter the passphrase for your PGP private key. You will only need to enter this passphrase once per session.</gettext>
- </else:symmetric></if:symmetric>
+ </else:symmetricid></if:symmetricid>
 </div>
 
 <div class="nowrap padded">

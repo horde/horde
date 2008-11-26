@@ -106,7 +106,7 @@ class IMP_Compose
         }
 
         if (is_null($cacheid) || empty($instance[$cacheid])) {
-            $cacheid = uniqid(mt_rand());
+            $cacheid = is_null($cacheid) ? uniqid(mt_rand()) : $cacheid;
             $instance[$cacheid] = new IMP_Compose($cacheid);
         }
 
@@ -1025,7 +1025,7 @@ class IMP_Compose
             case IMP::PGP_SIGNENC:
             case IMP::PGP_SYM_SIGNENC:
                 /* Check to see if we have the user's passphrase yet. */
-                $passphrase = $imp_pgp->getPassphrase();
+                $passphrase = $imp_pgp->getPassphrase('personal');
                 if (empty($passphrase)) {
                     return PEAR::raiseError(_("PGP: Need passphrase for personal private key."), 'horde.message', null, null, 'pgp_passphrase_dialog');
                 }
@@ -1035,7 +1035,7 @@ class IMP_Compose
             case IMP::PGP_SYM_SIGNENC:
                 /* Check to see if we have the user's symmetric passphrase
                  * yet. */
-                $symmetric_passphrase = $imp_pgp->getSymmetricPassphrase();
+                $symmetric_passphrase = $imp_pgp->getPassphrase('symmetric', 'imp_compose_' . $this->_cacheid);
                 if (empty($symmetric_passphrase)) {
                     return PEAR::raiseError(_("PGP: Need passphrase to encrypt your message with."), 'horde.message', null, null, 'pgp_symmetric_passphrase_dialog');
                 }
@@ -1053,10 +1053,7 @@ class IMP_Compose
                 $to_list = empty($options['from'])
                     ? $to
                     : array_keys(array_flip(array_merge($to, array($options['from']))));
-                $base = $imp_pgp->IMPencryptMIMEPart($base, $to_list, $encrypt == IMP::PGP_SYM_ENCRYPT);
-                if ($encrypt == IMP::PGP_SYM_ENCRYPT) {
-                    $imp_pgp->unsetSymmetricPassphrase();
-                }
+                $base = $imp_pgp->IMPencryptMIMEPart($base, $to_list, ($encrypt == IMP::PGP_SYM_ENCRYPT) ? $symmetric_passphrase : null);
                 break;
 
             case IMP::PGP_SIGNENC:
@@ -1064,10 +1061,7 @@ class IMP_Compose
                 $to_list = empty($options['from'])
                     ? $to
                     : array_keys(array_flip(array_merge($to, array($options['from']))));
-                $base = $imp_pgp->IMPsignAndEncryptMIMEPart($base, $to_list, $encrypt == IMP::PGP_SYM_SIGNENC);
-                if ($encrypt == IMP::PGP_SYM_SIGNENC) {
-                    $imp_pgp->unsetSymmetricPassphrase();
-                }
+                $base = $imp_pgp->IMPsignAndEncryptMIMEPart($base, $to_list, ($encrypt == IMP::PGP_SYM_SIGNENC) ? $symmetric_passphrase : null);
                 break;
             }
 

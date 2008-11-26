@@ -1,6 +1,6 @@
 <?php
 /**
- * The IMP_PGP:: class contains all functions related to handling
+ * The IMP_Horde_Crypt_pgp:: class contains all functions related to handling
  * PGP messages within IMP.
  *
  * Copyright 2002-2008 The Horde Project (http://www.horde.org/)
@@ -101,7 +101,7 @@ class IMP_Horde_Crypt_pgp extends Horde_Crypt_pgp
         $GLOBALS['prefs']->setValue('pgp_public_key', '');
         $GLOBALS['prefs']->setValue('pgp_private_key', '');
 
-        $this->unsetPassphrase();
+        $this->unsetPassphrase('personal');
     }
 
     /**
@@ -339,102 +339,95 @@ class IMP_Horde_Crypt_pgp extends Horde_Crypt_pgp
     /**
      * Decrypt a message with user's public/private keypair or a passphrase.
      *
-     * @param string $text             The text to decrypt.
-     * @param boolean $symmetric_hint  Whether the text has been encrypted
-     *                                 symmetrically. If null, we try to find
-     *                                 out.
-     * @param boolean $passphrase      Whether a passphrase has to be used.
+     * @param string $text         The text to decrypt.
+     * @param string $type         Either 'literal', 'personal', or
+     *                             'symmetric'.
+     * @param boolean $passphrase  If $type is 'personal' or 'symmetrical',
+     *                             the passphrase to use.
      *
      * @return string  The decrypted message. Returns PEAR_Error object on
      *                 error.
      */
-    public function decryptMessage($text, $symmetric_hint = null,
-                                   $passphrase = true)
+    public function decryptMessage($text, $type, $passphrase = null)
     {
-        if (is_null($symmetric_hint)) {
-            $symmetric_hint = $this->encryptedSymmetrically($text);
-        }
-
         /* decrypt() returns a PEAR_Error object on error. */
-        if (!$passphrase) {
+        switch ($type) {
+        case 'literal':
             return $this->decrypt($text, array('type' => 'message', 'no_passphrase' => true));
-        } elseif ($symmetric_hint) {
-            return $this->decrypt($text, array('type' => 'message', 'passphrase' => $this->getSymmetricPassphrase()));
-        } else {
-            return $this->decrypt($text, array('type' => 'message', 'pubkey' => $this->getPersonalPublicKey(), 'privkey' => $this->getPersonalPrivateKey(), 'passphrase' => $this->getPassphrase()));
+
+        case 'symmetric':
+            return $this->decrypt($text, array('type' => 'message', 'passphrase' => $passphrase));
+
+        case 'personal':
+            return $this->decrypt($text, array('type' => 'message', 'pubkey' => $this->getPersonalPublicKey(), 'privkey' => $this->getPersonalPrivateKey(), 'passphrase' => $passphrase));
         }
     }
 
     /**
-     * Gets the user's passphrase from the session cache.
+     * Gets a passphrase from the session cache.
      *
-     * @return string  The passphrase, if set.
+     * @param integer $type  The type of passphrase. Either 'personal' or
+     *                       'symmetric'.
+     * @param string $id     If $type is 'symmetric', the ID of the stored
+     *                       passphrase.
+     *
+     * @return mixed  The passphrase, if set, or null.
      */
-    public function getPassphrase()
+    public function getPassphrase($type, $id)
     {
-        if (isset($_SESSION['imp']['pgp_passphrase'])) {
-            return Secret::read(IMP::getAuthKey(), $_SESSION['imp']['pgp_passphrase']);
+        if ($type == 'personal') {
+            $id = 'personal';
         }
-    }
 
-    /**
-     * Gets the user's passphrase for symmetric encryption from the session
-     * cache.
-     *
-     * @return string  The passphrase, if set.
-     */
-    public function getSymmetricPassphrase()
-    {
-        if (isset($_SESSION['imp']['pgp_sym_passphrase'])) {
-            return Secret::read(IMP::getAuthKey(), $_SESSION['imp']['pgp_sym_passphrase']);
-        }
+        return isset($_SESSION['imp']['cache']['pgp'][$type][$id])
+            ? Secret::read(IMP::getAuthKey(), $_SESSION['imp']['cache']['pgp'][$type][$id])
+            : null;
     }
 
     /**
      * Store's the user's passphrase in the session cache.
      *
+     * @param integer $type       The type of passphrase. Either 'personal' or
+     *                            'symmetric'.
      * @param string $passphrase  The user's passphrase.
+     * @param string $id          If $type is 'symmetric', the ID of the
+     *                            stored passphrase.
      *
      * @return boolean  Returns true if correct passphrase, false if incorrect.
      */
-    public function storePassphrase($passphrase)
+    public function storePassphrase($type, $passphrase, $id)
     {
-        if ($this->verifyPassphrase($this->getPersonalPublicKey(), $this->getPersonalPrivateKey(), $passphrase) === false) {
-            return false;
+        if ($type == 'personal') {
+            if ($this->verifyPassphrase($this->getPersonalPublicKey(), $this->getPersonalPrivateKey(), $passphrase) === false) {
+                return false;
+            }
+            $id = 'personal';
         }
 
-        $_SESSION['imp']['pgp_passphrase'] = Secret::write(IMP::getAuthKey(), $passphrase);
-        return true;
-    }
-
-    /**
-     * Store's the user's passphrase for symmetric encryption in the session
-     * cache.
-     *
-     * @param string $passphrase  The user's passphrase.
-     *
-     * @return boolean  True
-     */
-    public function storeSymmetricPassphrase($passphrase)
-    {
-        $_SESSION['imp']['pgp_sym_passphrase'] = Secret::write(IMP::getAuthKey(), $passphrase);
+        $_SESSION['imp']['cache']['pgp'][$type][$id] = Secret::write(IMP::getAuthKey(), $passphrase);
         return true;
     }
 
     /**
      * Clear the passphrase from the session cache.
      */
-    public function unsetPassphrase()
+    public function unsetPassphrase($type)
     {
-        unset($_SESSION['imp']['pgp_passphrase']);
+        unset($_SESSION['imp']['cache']['pgp'][$type]);
     }
 
     /**
-     * Clear the passphrase for symmetric encryption from the session cache.
+     * Generates a cache ID for symmetric message data.
+     *
+     * @param string $mailbox  The mailbox of the message.
+     * @param integer $uid     The UID of the message.
+     * @param string $id       The MIME ID of the message.
+     *
+     * @return string  A unique symmetric cache ID.
      */
-    public function unsetSymmetricPassphrase()
+    public function getSymmetricID($mailbox, $uid, $id)
     {
-        unset($_SESSION['imp']['pgp_sym_passphrase']);
+        return implode('|', array($mailbox, $uid, $id));
     }
 
     /**
@@ -458,12 +451,13 @@ class IMP_Horde_Crypt_pgp extends Horde_Crypt_pgp
      * @param mixed $reload     If true, reload base window on close. If text,
      *                          run this JS on close. If false, don't do
      *                          anything on close.
-     * @param array $params     Additional parameters needed for the reload
+     * @param array $params     Additional parameters needed for the popup
      *                          page.
      *
      * @return string  The javascript link.
      */
-    public function getJSOpenWinCode($actionid, $reload = true, $params = array())
+    public function getJSOpenWinCode($actionid, $reload = true,
+                                     $params = array())
     {
         $params['actionID'] = $actionid;
         if (!empty($reload)) {
@@ -486,24 +480,31 @@ class IMP_Horde_Crypt_pgp extends Horde_Crypt_pgp
      */
     protected function _signParameters()
     {
-        return array('pubkey' => $this->getPersonalPublicKey(), 'privkey' => $this->getPersonalPrivateKey(), 'passphrase' => $this->getPassphrase());
+        return array(
+            'pubkey' => $this->getPersonalPublicKey(),
+            'privkey' => $this->getPersonalPrivateKey(),
+            'passphrase' => $this->getPassphrase('personal')
+        );
     }
 
     /**
      * Provide the list of parameters needed for encrypting a message.
      *
-     * @param array $addresses    The e-mail address of the keys to use for
-     *                            encryption.
-     * @param boolean $symmetric  Whether to encrypt symmetrically.
+     * @param array $addresses   The e-mail address of the keys to use for
+     *                           encryption.
+     * @param string $symmetric  If true, the symmetric password to use for
+     *                           encrypting. If null, uses the personal key.
      *
      * @return array  The list of parameters needed by encrypt().
      *                Returns PEAR_Error on error.
      */
-    protected function _encryptParameters($addresses, $symmetric = false)
+    protected function _encryptParameters($addresses, $symmetric)
     {
-        if ($symmetric) {
-            return array('symmetric' => true,
-                         'passphrase' => $this->getSymmetricPassphrase());
+        if (!is_null($symmetric)) {
+            return array(
+                'symmetric' => true,
+                'passphrase' => $symmetric
+            );
         }
 
         $addr_list = array();
@@ -540,15 +541,17 @@ class IMP_Horde_Crypt_pgp extends Horde_Crypt_pgp
      * Encrypt a Horde_Mime_Part using PGP using IMP default parameters.
      *
      * @param Horde_Mime_Part $mime_part  The object to encrypt.
-     * @param array $addresses      The e-mail address of the keys to use for
-     *                              encryption.
-     * @param boolean $symmetric    Whether to encrypt symmetrically.
+     * @param array $addresses            The e-mail address of the keys to
+     *                                    use for encryption.
+     * @param string $symmetric           If true, the symmetric password to
+     *                                    use for encrypting. If null, uses
+     *                                    the personal key.
      *
      * @return Horde_Mime_Part  See Horde_Crypt_pgp::encryptMIMEPart(). Returns
      *                    PEAR_Error object on error.
      */
     public function IMPencryptMIMEPart($mime_part, $addresses,
-                                       $symmetric = false)
+                                       $symmetric = null)
     {
         $params = $this->_encryptParameters($addresses, $symmetric);
         if (is_a($params, 'PEAR_Error')) {
@@ -561,15 +564,17 @@ class IMP_Horde_Crypt_pgp extends Horde_Crypt_pgp
      * Sign and Encrypt a Horde_Mime_Part using PGP using IMP default parameters.
      *
      * @param Horde_Mime_Part $mime_part  The object to sign and encrypt.
-     * @param array $addresses      The e-mail address of the keys to use for
-     *                              encryption.
-     * @param boolean $symmetric    Whether to encrypt symmetrically.
+     * @param array $addresses            The e-mail address of the keys to
+     *                                    use for encryption.
+     * @param string $symmetric           If true, the symmetric password to
+     *                                    use for encrypting. If null, uses
+     *                                    the personal key.
      *
      * @return Horde_Mime_Part  See Horde_Crypt_pgp::signAndencryptMIMEPart().
-     *                    Returns PEAR_Error object on error.
+     *                          Returns PEAR_Error object on error.
      */
     public function IMPsignAndEncryptMIMEPart($mime_part, $addresses,
-                                              $symmetric = false)
+                                              $symmetric = null)
     {
         $encrypt_params = $this->_encryptParameters($addresses, $symmetric);
         if (is_a($encrypt_params, 'PEAR_Error')) {
@@ -579,8 +584,8 @@ class IMP_Horde_Crypt_pgp extends Horde_Crypt_pgp
     }
 
     /**
-     * Generate a Horde_Mime_Part object, in accordance with RFC 2015/3156, that
-     * contains the user's public key.
+     * Generate a Horde_Mime_Part object, in accordance with RFC 2015/3156,
+     * that contains the user's public key.
      *
      * @return Horde_Mime_Part  See Horde_Crypt_pgp::publicKeyMIMEPart().
      */

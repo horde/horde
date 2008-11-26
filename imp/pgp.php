@@ -14,7 +14,7 @@ function _printKeyInfo($key = '')
     _textWindowOutput('PGP Key Information', empty($key_info) ? _("Invalid key") : $key_info);
 }
 
-function _outputPassphraseDialog($secure_check, $symmetric = false)
+function _outputPassphraseDialog($secure_check, $symmetricid = null)
 {
     if (is_a($secure_check, 'PEAR_Error')) {
         $GLOBALS['notification']->push($secure_check, 'horde.warning');
@@ -30,8 +30,8 @@ function _outputPassphraseDialog($secure_check, $symmetric = false)
 
     $t = new IMP_Template();
     $t->setOption('gettext', true);
-    $t->set('symmetric', $symmetric);
-    $t->set('submit_url', Util::addParameter(Horde::applicationUrl('pgp.php'), 'actionID', $symmetric ? 'process_symmetric_passphrase_dialog' : 'process_passphrase_dialog'));
+    $t->set('symmetricid', $symmetricid);
+    $t->set('submit_url', Util::addParameter(Horde::applicationUrl('pgp.php'), 'actionID', $symmetricid ? 'process_symmetric_passphrase_dialog' : 'process_passphrase_dialog'));
     $t->set('reload', htmlspecialchars(Util::getFormData('reload')));
     $t->set('action', Util::getFormData('passphrase_action'));
     $t->set('locked_img', Horde::img('locked.png', _("PGP"), null, $GLOBALS['registry']->getImageDir('horde')));
@@ -273,7 +273,7 @@ case 'save_attachment_public_key':
     exit;
 
 case 'open_passphrase_dialog':
-    if ($imp_pgp->getPassphrase()) {
+    if ($imp_pgp->getPassphrase('personal')) {
         Util::closeWindowJS();
     } else {
         _outputPassphraseDialog($secure_check);
@@ -281,25 +281,24 @@ case 'open_passphrase_dialog':
     exit;
 
 case 'open_symmetric_passphrase_dialog':
-    if ($imp_pgp->getSymmetricPassphrase()) {
+    $symmetricid = Util::getFormData('symmetricid');
+    if ($imp_pgp->getPassphrase('symmetric', $symmetricid)) {
         Util::closeWindowJS();
     } else {
-        _outputPassphraseDialog($secure_check, true);
+        _outputPassphraseDialog($secure_check, $symmetricid);
     }
     exit;
 
 case 'process_passphrase_dialog':
 case 'process_symmetric_passphrase_dialog':
     $symmetric = $actionID == 'process_symmetric_passphrase_dialog';
+    $symmetricid = Util::getFormData('symmetricid');
     $passphrase = Util::getFormData('passphrase');
     if (is_a($secure_check, 'PEAR_Error')) {
-        _outputPassphraseDialog($secure_check, $symmetric);
+        _outputPassphraseDialog($secure_check, $symmetricid);
     } elseif ($passphrase) {
-        if ($symmetric) {
-            $success = $imp_pgp->storeSymmetricPassphrase($passphrase);
-        } else {
-            $success = $imp_pgp->storePassphrase($passphrase);
-        }
+        $success = $imp_pgp->storePassphrase($symmetric ? 'symmetric' : 'personal', $passphrase, $symmetricid);
+
         if ($success) {
             if (Util::getFormData('passphrase_action')) {
                 $oid = Util::getFormData('passphrase_action');
@@ -313,16 +312,16 @@ case 'process_symmetric_passphrase_dialog':
             }
         } else {
             $notification->push("Invalid passphrase entered.", 'horde.error');
-            _outputPassphraseDialog($secure_check, $symmetric);
+            _outputPassphraseDialog($secure_check, $symmetricid);
         }
     } else {
         $notification->push("No passphrase entered.", 'horde.error');
-        _outputPassphraseDialog($secure_check, $symmetric);
+        _outputPassphraseDialog($secure_check, $symmetricid);
     }
     exit;
 
 case 'unset_passphrase':
-    $imp_pgp->unsetPassphrase();
+    $imp_pgp->unsetPassphrase('personal');
     $notification->push(_("Passphrase successfully unloaded."), 'horde.success');
     break;
 

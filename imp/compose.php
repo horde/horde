@@ -724,7 +724,11 @@ if ($get_sig && isset($msg) && !empty($sig)) {
 if ($pgp_passphrase_dialog || $pgp_symmetric_passphrase_dialog) {
     $imp_pgp = &Horde_Crypt::singleton(array('imp', 'pgp'));
     Horde::addScriptFile('popup.js', 'imp', true);
-    $notification->push($imp_pgp->getJSOpenWinCode($pgp_symmetric_passphrase_dialog ? 'open_symmetric_passphrase_dialog' : 'open_passphrase_dialog', "opener.focus();opener.uniqSubmit('send_message');"), 'javascript');
+    if ($pgp_passphrase_dialog) {
+        $notification->push($imp_pgp->getJSOpenWinCode('open_passphrase_dialog', "opener.focus();opener.uniqSubmit('send_message');"), 'javascript');
+    } else {
+        $notification->push($imp_pgp->getJSOpenWinCode('open_symmetric_passphrase_dialog', "opener.focus();opener.uniqSubmit('send_message');", array('symmetricid' => 'imp_compose_' . $composeCacheID)), 'javascript');
+    }
 } elseif ($smime_passphrase_dialog) {
     $imp_smime = &Horde_Crypt::singleton(array('imp', 'smime'));
     Horde::addScriptFile('popup.js', 'imp', true);
@@ -1243,7 +1247,7 @@ if ($redirect) {
                 );
 
                 if ($type != 'application/octet-stream') {
-                    $preview_url = Util::addParameter(Horde::applicationUrl('view.php'), array('actionID' => 'compose_attach_preview', 'id' => $atc_num, 'composeCache' => $imp_compose->getCacheId()));
+                    $preview_url = Util::addParameter(Horde::applicationUrl('view.php'), array('actionID' => 'compose_attach_preview', 'id' => $atc_num, 'composeCache' => $composeCacheID));
                     $entry['name'] = Horde::link($preview_url, _("Preview") . ' ' . $entry['name'], 'link', 'compose_preview_window') . $entry['name'] . '</a>';
                 }
 

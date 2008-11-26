@@ -160,50 +160,74 @@ class IMP_Horde_Mime_Viewer_pgp extends Horde_Mime_Viewer_Driver
         $encrypted_part = $this->_params['contents']->getMIMEPart($data_id);
         $encrypted_data = $encrypted_part->getContents();
 
+        $symmetric_pass = $personal_pass = null;
+
         /* Check if this a symmetrically encrypted message. */
         $symmetric = $this->_imppgp->encryptedSymmetrically($encrypted_data);
-        if ($symmetric && !$this->_imppgp->getSymmetricPassphrase()) {
-            if ($_SESSION['imp']['view'] == 'imp') {
-                // TODO: Fix to work with DIMP
-                /* Ask for the correct passphrase if this is encrypted
-                 * symmetrically. */
-                $status[] = Horde::link('#', _("The message below has been encrypted with PGP. You must enter the passphrase that was used to encrypt this message."), null, null, $this->_imppgp->getJSOpenWinCode('open_symmetric_passphrase_dialog') . ' return false;') . _("You must enter the passphrase that was used to encrypt this message.") . '</a>';
+        if ($symmetric) {
+            $symmetric_id = $this->_imppgp->getSymmetricID($this->_params['contents']->getMailbox(), $this->_params['contents']->getIndex(), $this->_mimepart->getMimeId());
+            $symmetric_pass = $this->_imppgp->getPassphrase('symmetric', $symmetric_id);
+
+            if (is_null($symmetric_pass)) {
+                if ($_SESSION['imp']['view'] == 'imp') {
+                    // TODO: Fix to work with DIMP
+                    /* Ask for the correct passphrase if this is encrypted
+                     * symmetrically. */
+                    $status[] = Horde::link('#', _("The message below has been encrypted with PGP. You must enter the passphrase that was used to encrypt this message."), null, null, $this->_imppgp->getJSOpenWinCode('open_symmetric_passphrase_dialog', true, array('symmetricid' => $symmetric_id)) . ' return false;') . _("You must enter the passphrase that was used to encrypt this message.") . '</a>';
+                }
+                return null;
             }
-            return null;
         }
 
         /* Check if this is a literal compressed message. */
         $info = $this->_imppgp->pgpPacketInformation($encrypted_data);
         $literal = !empty($info['literal']);
 
-        if (!$literal && !$symmetric) {
-            if (!$this->_imppgp->getPersonalPrivateKey()) {
-                /* Output if there is no personal private key to decrypt
-                 * with. */
-                $status[] = _("The message below has been encrypted with PGP, however, no personal private key exists so the message cannot be decrypted.");
-                return null;
-            } elseif (!$this->_imppgp->getPassphrase() &&
-                      ($_SESSION['imp']['view'] == 'imp')) {
-                // TODO: Fix to work with DIMP
-                /* Ask for the private key's passphrase if this is encrypted
-                 * asymmetrically. */
-                $status[] = Horde::link('#', _("The message below has been encrypted with PGP. You must enter the passphrase for your PGP private key before it can be decrypted."), null, null, $this->_imppgp->getJSOpenWinCode('open_passphrase_dialog') . ' return false;') . _("You must enter the passphrase for your PGP private key to view this message.") . '</a>';
-                return null;
+        if ($literal) {
+            $status[] = _("The message below has been compressed with PGP.");
+        } else {
+            $status[] = _("The message below has been encrypted with PGP.");
+            if (!$symmetric) {
+                if (!$this->_imppgp->getPersonalPrivateKey()) {
+                    /* Output if there is no personal private key to decrypt
+                     * with. */
+                    $status[] = _("The message below has been encrypted with PGP, however, no personal private key exists so the message cannot be decrypted.");
+                    return null;
+                } else {
+                    $personal_pass = $this->_imppgp->getPassphrase('personal');
+
+                    if (is_null($personal_pass)) {
+                        if ($_SESSION['imp']['view'] == 'imp') {
+                            // TODO: Fix to work with DIMP
+                            /* Ask for the private key's passphrase if this is
+                             * encrypted asymmetrically. */
+                            $status[] = Horde::link('#', _("The message below has been encrypted with PGP. You must enter the passphrase for your PGP private key before it can be decrypted."), null, null, $this->_imppgp->getJSOpenWinCode('open_passphrase_dialog') . ' return false;') . _("You must enter the passphrase for your PGP private key to view this message.") . '</a>';
+                        }
+                        return null;
+                    }
+                }
             }
         }
 
-        $status[] = $literal ? _("The message below has been compressed with PGP.") : _("The message below has been encrypted with PGP.");
+        if (!is_null($symmetric_pass)) {
+            $decrypted_data = $this->_imppgp->decryptMessage($encrypted_data, 'symmetric', $symmetric_pass);
+        } elseif (!is_null($personal_pass)) {
+            $decrypted_data = $this->_imppgp->decryptMessage($encrypted_data, 'personal', $personal_pass);
+        } else {
+            $decrypted_data = $this->_imppgp->decryptMessage($encrypted_data, 'literal');
+        }
 
-        $decrypted_data = $this->_imppgp->decryptMessage($encrypted_data, $symmetric, !$literal);
         if (is_a($decrypted_data, 'PEAR_Error')) {
             $status[] = _("The message below does not appear to be a valid PGP encrypted message. Error: ") . $decrypted_data->getMessage();
             return null;
         }
 
         unset(self::$_inlinecache[$base_id][$data_id]);
-        $this->_imppgp->unsetSymmetricPassphrase();
 
-        return array($data_id => Horde_Mime_Part::parseMessage($decrypted_data->message));
+        $msg = Horde_Mime_Part::parseMessage($decrypted_data->message);
+        $msg->buildMimeIds($data_id);
+
+        return array($data_id => $msg);
     }
 
     /**
