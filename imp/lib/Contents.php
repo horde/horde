@@ -19,10 +19,11 @@ class IMP_Contents
     const SUMMARY_ICON = 4;
     const SUMMARY_DESCRIP_LINK = 8;
     const SUMMARY_DESCRIP_NOLINK = 16;
-    const SUMMARY_DOWNLOAD = 32;
-    const SUMMARY_DOWNLOAD_ZIP = 64;
-    const SUMMARY_IMAGE_SAVE = 128;
-    const SUMMARY_STRIP_LINK = 256;
+    const SUMMARY_DESCRIP_NOLINK_NOHTMLSPECCHARS = 32;
+    const SUMMARY_DOWNLOAD = 64;
+    const SUMMARY_DOWNLOAD_ZIP = 128;
+    const SUMMARY_IMAGE_SAVE = 256;
+    const SUMMARY_STRIP_LINK = 512;
 
     /* Rendering mask entries. */
     const RENDER_FULL = 1;
@@ -465,6 +466,7 @@ class IMP_Contents
      *
      * IMP_Contents::SUMMARY_DESCRIP_LINK
      * IMP_Contents::SUMMARY_DESCRIP_NOLINK
+     * IMP_Contents::SUMMARY_DESCRIP_NOLINK_NOHTMLSPECCHARS
      *   Output: parts = 'description'
      *
      * IMP_Contents::SUMMARY_DOWNLOAD
@@ -548,6 +550,8 @@ class IMP_Contents
                 ? $this->linkViewJS($mime_part, 'view_attach', htmlspecialchars($description), array('jstext' => sprintf(_("View %s [%s]"), $description, $mime_type), 'params' => $param_array))
                 : htmlspecialchars($description);
         } elseif ($mask & self::SUMMARY_DESCRIP_NOLINK) {
+            $part['description'] = htmlspecialchars($description);
+        } elseif ($mask & self::SUMMARY_DESCRIP_NOLINK_NOHTMLSPECCHARS) {
             $part['description'] = $description;
         }
 
