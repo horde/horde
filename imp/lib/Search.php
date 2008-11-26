@@ -11,7 +11,9 @@
  *         'id_1' => array(
  *             'query' => Horde_Imap_Client_Search_Query object (serialized),
  *             'folders' => array (List of folders to search),
- *             'uiinfo' => array (Info used by search.php to render page),
+ *             'uiinfo' => array (Info used by search.php to render page.
+ *                                For virtual folders, this data is stored
+ *                                in the preferences),
  *             'label' => string (Description of search),
  *             'vfolder' => boolean (True if this is a Virtual Folder)
  *         ),
@@ -95,6 +97,7 @@ class IMP_Search
                     !$this->isVTrashFolder($key) &&
                     !$this->isVINBOXFolder($key)) {
                     $this->_updateIMPTree('add', $key, $val['label']);
+                    unset($val['uiinfo']);
                     $_SESSION['imp']['search']['q'][$key] = $val;
                 }
             }
@@ -232,9 +235,16 @@ class IMP_Search
     public function retrieveUIQuery($id = null)
     {
         $id = $this->_strip($id);
-        return (isset($_SESSION['imp']['search']['q'][$id]['uiinfo']))
-            ? $_SESSION['imp']['search']['q'][$id]['uiinfo']
-            : array();
+        if (isset($_SESSION['imp']['search']['q'][$id]['uiinfo'])) {
+            return $_SESSION['imp']['search']['q'][$id]['uiinfo'];
+        }
+
+        if ($this->isVFolder($id)) {
+            $vlist = $this->_getVFolderList();
+            return $vlist[$id]['uiinfo'];
+        }
+
+        return array();
     }
 
     /**
@@ -260,6 +270,12 @@ class IMP_Search
      */
     protected function _getVFolderList()
     {
+        static $vfolder;
+
+        if (isset($vfolder)) {
+            return $vfolder;
+        }
+
         $vfolder = $GLOBALS['prefs']->getValue('vfolder');
         if (empty($vfolder)) {
             return array();
@@ -510,46 +526,44 @@ class IMP_Search
     public function searchQueryText($id = null)
     {
         $id = $this->_strip($id);
+
         if (empty($_SESSION['imp']['search']['q'][$id])) {
             return '';
         } elseif ($this->isVINBOXFolder($id) || $this->isVTrashFolder($id)) {
             return $_SESSION['imp']['search']['q'][$id]['label'];
-        } elseif (empty($_SESSION['imp']['search']['q'][$id]['uiinfo'])) {
-            unset($_SESSION['imp']['search']['q'][$id]);
-            return '';
         }
 
         $flagfields = $this->flagFields();
         $searchfields = $this->searchFields();
-        $val = $_SESSION['imp']['search']['q'][$id];
-
         $text = '';
-        if (!empty($val['uiinfo']['field'])) {
+        $uiinfo = $this->retrieveUIQuery($id);
+
+        if (!empty($uiinfo['field'])) {
             $text = _("Search") . ' ';
             $text_array = array();
-            foreach ($val['uiinfo']['field'] as $key2 => $val2) {
+            foreach ($uiinfo['field'] as $key2 => $val2) {
                 if (isset($flagfields[$val2])) {
                     $text_array[] = $flagfields[$val2]['label'];
                 } else {
                     switch ($searchfields[$val2]['type']) {
                     case self::DATE:
-                        $text_array[] = sprintf("%s '%s'", $searchfields[$val2]['label'], strftime("%x", mktime(0, 0, 0, $val['uiinfo']['date'][$key2]['month'], $val['uiinfo']['date'][$key2]['day'], $val['uiinfo']['date'][$key2]['year'])));
+                        $text_array[] = sprintf("%s '%s'", $searchfields[$val2]['label'], strftime("%x", mktime(0, 0, 0, $uiinfo['date'][$key2]['month'], $uiinfo['date'][$key2]['day'], $uiinfo['date'][$key2]['year'])));
                         break;
 
                     case self::SIZE:
-                        $text_array[] = $searchfields[$val2]['label'] . ' ' . ($val['uiinfo']['text'][$key2] / 1024);
+                        $text_array[] = $searchfields[$val2]['label'] . ' ' . ($uiinfo['text'][$key2] / 1024);
                         break;
 
                     default:
-                        $text_array[] = sprintf("%s for '%s'", $searchfields[$val2]['label'], ((!empty($val['uiinfo']['text_not'][$key2])) ? _("not") . ' ' : '') . $val['uiinfo']['text'][$key2]);
+                        $text_array[] = sprintf("%s for '%s'", $searchfields[$val2]['label'], ((!empty($uiinfo['text_not'][$key2])) ? _("not") . ' ' : '') . $uiinfo['text'][$key2]);
                         break;
                     }
                 }
             }
-            $text .= implode(' ' . (($val['uiinfo']['match'] == 'and') ? _("and") : _("or")) . ' ', $text_array);
+            $text .= implode(' ' . (($uiinfo['match'] == 'and') ? _("and") : _("or")) . ' ', $text_array);
         }
 
-        return $text . ' ' . _("in") . ' ' . implode(', ', $val['uiinfo']['folders']);
+        return $text . ' ' . _("in") . ' ' . implode(', ', $uiinfo['folders']);
     }
 
     /**
