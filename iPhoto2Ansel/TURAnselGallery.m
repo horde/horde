@@ -11,6 +11,10 @@
 #import "TURAnsel.h"
 #import "TURAnselGallery.h"
 
+@interface TURAnselGallery (PrivateAPI)
+- (void)doUpload: (NSDictionary *)imageParams;
+@end
+
 @implementation TURAnselGallery
 
 @synthesize galleryDescription;
@@ -27,7 +31,6 @@
 - (id)initWithObject: (id)galleryData
 {
     [super init];
-    // KVC automatically type coerces
     [self setValue: [galleryData valueForKey:@"share_id"]
             forKey: @"galleryId"];
     [self setValue:[galleryData valueForKey:@"attribute_desc"]
@@ -67,21 +70,11 @@
 }
 
 /**
- * Forks off a new thread for the upload
+ * Upload the provided image to this gallery.
  */
 - (void)uploadImageObject: (NSDictionary *)imageParameters
-{
-    //[NSThread prepareForInterThreadMessages];
-    NSDictionary *threadDispatchInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-                                        [NSThread currentThread], @"CallingThread",
-                                        nil];
-    NSDictionary *arguments = [NSDictionary dictionaryWithObjectsAndKeys:
-                               imageParameters, @"imageParameters",
-                               threadDispatchInfo, @"threadDispatchInfo",
-                               nil];
-    
-    
-    [self uploadThread: arguments];
+{    
+    [self doUpload: imageParameters];
 }
 
 - (bool) isBusy
@@ -175,31 +168,28 @@
 }
 
 #pragma mark PrivateAPI
-- (void)uploadThread:(NSDictionary *)parameters
-{
-        //For now, assume success stil need to do error checking/handling
-        [self doUplod:[[parameters objectForKey:@"imageParameters"] retain]];
-        if ([delegate respondsToSelector:@selector(TURAnselGalleryDidUploadImage:)]) {
-            [delegate performSelectorOnMainThread:@selector(TURAnselGalleryDidUploadImage:)
-                                       withObject:self 
-                                    waitUntilDone:NO];
-        }
-}
-- (void)doUplod:(NSDictionary *)imageParameters
+- (void)doUpload:(NSDictionary *)imageParameters
 {
         // Need to build the XMLRPC params array now.
         NSArray *params = [[NSArray alloc] initWithObjects:
                            @"ansel",                                 // app
                            [NSNumber numberWithInt: galleryId],      // gallery_id
                            [imageParameters valueForKey: @"data"],   // image data array   
-                           [imageParameters valueForKey:@"default"], // set as default?
+                           [imageParameters valueForKey: @"default"], // set as default?
                            @"",                                      // Additional gallery data to set?      
                            @"base64",                                // Image data encoding      
                            nil];
         
         // Send the request up to the controller
-         [anselController callRPCMethod:@"images.saveImage"
+         [anselController callRPCMethod: @"images.saveImage"
                            withParams: params];
+    
+        if ([delegate respondsToSelector:@selector(TURAnselGalleryDidUploadImage:)]) {
+            [delegate performSelectorOnMainThread: @selector(TURAnselGalleryDidUploadImage:)
+                                       withObject: self 
+                                    waitUntilDone: NO];
+        }
+    
         [params release];
 }
 @end

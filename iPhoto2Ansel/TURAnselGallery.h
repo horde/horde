@@ -50,8 +50,3 @@ typedef enum {
 - (bool)isBusy;
 - (void)setAnselController:(TURAnsel *)newController;
 @end
-
-@interface TURAnselGallery (PrivateAPI)
-- (void)uploadThread:(NSDictionary *)threadDispatchInfo;
-- (void)doUplod: (NSDictionary *)imageParams;
-@end

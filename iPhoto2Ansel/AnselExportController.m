@@ -392,7 +392,7 @@
 #pragma mark TURAnselGalleryDelegate
 - (void)TURAnselGalleryDidUploadImage: (TURAnselGallery *)gallery {
     NSLog(@"TURAnselGalleryDidUploadImage");
-    if (++currentImageCount = [mExportMgr imageCount] || cancelExport == YES) {
+    if (++currentImageCount == [mExportMgr imageCount] || cancelExport == YES) {
         [currentGallery setDelegate:nil];
         [currentGallery release];
         [anselController setDelegate:nil];
