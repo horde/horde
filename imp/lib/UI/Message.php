@@ -111,15 +111,20 @@ class IMP_UI_Message
             $date_str = strftime($GLOBALS['prefs']->getValue('date_format'), $ltime);
             $time_str = strftime($GLOBALS['prefs']->getValue('time_format'), $ltime);
             $tz = strftime('%Z');
+
             if ((date('Y') != @date('Y', $ltime)) ||
                 (date('M') != @date('M', $ltime)) ||
                 (date('d') != @date('d', $ltime))) {
                 /* Not today, use the date. */
-                $date .= ' <small>' . htmlspecialchars(sprintf('[%s %s %s]', $date_str, $time_str, $tz)) . '</small>';
+                $local_date = sprintf('[%s %s %s]', $date_str, $time_str, $tz);
             } else {
                 /* Else, it's today, use the time only. */
-                $date .= ' <small>' . htmlspecialchars(sprintf('[%s %s]', $time_str, $tz)) . '</small>';
+                $local_date = sprintf('[%s %s]', $time_str, $tz);
             }
+
+            $date .= ($_SESSION['imp']['view'] == 'mimp')
+                ? ' ' . $local_date
+                : ' <small>' . htmlspecialchars($local_date) . '</small>';
         }
 
         return $date;
@@ -266,27 +271,25 @@ class IMP_UI_Message
     {
         global $prefs, $registry;
 
-        $add_link = null;
-
         /* Make sure this is a valid object address field. */
         if (empty($addrlist) || !is_array($addrlist)) {
             return null;
         }
+
+        $add_link = null;
+        $addr_array = array();
+        $mimp_view = ($_SESSION['imp']['view'] == 'mimp');
 
         /* Set up the add address icon link if contact manager is
          * available. */
         if (!is_null($addURL) && $link && $prefs->getValue('add_source')) {
             $add_link = $registry->link('contacts/add', array('source' => $prefs->getValue('add_source')));
             if (is_a($add_link, 'PEAR_Error')) {
-                if ($registry->hasMethod('contacts/import')) {
-                    $add_link = Util::addParameter($addURL, 'actionID', 'add_address');
-                } else {
-                    $add_link = null;
-                }
+                $add_link = $registry->hasMethod('contacts/import')
+                    ? Util::addParameter($addURL, 'actionID', 'add_address')
+                    : null;
             }
         }
-
-        $addr_array = array();
 
         foreach (Horde_Mime_Address::getAddressesFromObject($addrlist) as $ob) {
             if (isset($ob['groupname'])) {
@@ -296,7 +299,9 @@ class IMP_UI_Message
                         continue;
                     }
 
-                    $ret = htmlspecialchars($ad->display);
+                    $ret = $mimp_view
+                        ? $ad->display
+                        : htmlspecialchars($ad->display);
 
                     /* If this is an incomplete e-mail address, don't link to
                      * anything. */
@@ -317,9 +322,15 @@ class IMP_UI_Message
                     $group_array[] = $ret;
                 }
 
-                $addr_array[] = htmlspecialchars($ob['groupname']) . ':' . (count($group_array) ? ' ' . implode(', ', $group_array) : '');
+                if (!$mimp_view) {
+                    $ob['groupname'] = htmlspecialchars($ob['groupname']);
+                }
+
+                $addr_array[] = $ob['groupname'] . ':' . (count($group_array) ? ' ' . implode(', ', $group_array) : '');
             } elseif (!empty($ob['address']) && !empty($ob['inner'])) {
-                $ret = htmlspecialchars($ob['display']);
+                $ret = $mimp_view
+                    ? $ob['display']
+                    : htmlspecialchars($ob['display']);
 
                 /* If this is an incomplete e-mail address, don't link to
                  * anything. */
@@ -339,6 +350,10 @@ class IMP_UI_Message
 
                 $addr_array[] = $ret;
             }
+        }
+
+        if ($_SESSION['imp']['view'] == 'mimp') {
+            return implode(', ', $addr_array);
         }
 
         /* If left with an empty address list ($ret), inform the user that the

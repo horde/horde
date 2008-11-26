@@ -53,11 +53,13 @@ class IMP_Horde_Mime_Viewer_plain extends Horde_Mime_Viewer_plain
             $text = preg_replace('/(\n+)> ?From(\s+)/', "$1From$2", $text);
         }
 
+        $text = IMP::filterText($text);
+
         /* Done processing if in mimp mode. */
         if ($_SESSION['imp']['view'] == 'mimp') {
             return array(
                 $mime_id => array(
-                    'data' => IMP::filterText($text),
+                    'data' => $text,
                     'status' => array(),
                     'type' => $type
                 )
@@ -96,14 +98,6 @@ class IMP_Horde_Mime_Viewer_plain extends Horde_Mime_Viewer_plain
         // Dim signatures.
         if ($prefs->getValue('dim_signature')) {
             $filters['dimsignature'] = array();
-        }
-
-        // Filter bad language.
-        if ($prefs->getValue('filtering')) {
-            $filters['words'] = array(
-                'words_file' => $conf['msgsettings']['filtering']['words'],
-                'replacement' => $conf['msgsettings']['filtering']['replacement']
-            );
         }
 
         if ($prefs->getValue('emoticons')) {

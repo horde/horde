@@ -548,7 +548,7 @@ class IMP_Contents
                 ? $this->linkViewJS($mime_part, 'view_attach', htmlspecialchars($description), array('jstext' => sprintf(_("View %s [%s]"), $description, $mime_type), 'params' => $param_array))
                 : htmlspecialchars($description);
         } elseif ($mask & self::SUMMARY_DESCRIP_NOLINK) {
-            $part['description'] = htmlspecialchars($description);
+            $part['description'] = $description;
         }
 
         /* Download column. */

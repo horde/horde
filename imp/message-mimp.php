@@ -180,7 +180,6 @@ case 'low':
 /* Set the status information of the message. */
 $status = '';
 $identity = null;
-$addresses = array();
 if (!$use_pop) {
     if (!empty($msgAddresses)) {
         $identity = $user_identity->getMatchingIdentity($msgAddresses);
@@ -217,17 +216,54 @@ if ($prev_msg) {
 }
 $next_msg = $imp_mailbox->getIMAPIndex(1);
 if ($next_msg) {
-    $next_link = IMP::generateIMPUrl('message.php', $imp_mbox['mailbox'], $next_msg['index'], $next_msg['mailbox']);
+    $next_link = IMP::generateIMPUrl('message-mimp.php', $imp_mbox['mailbox'], $next_msg['index'], $next_msg['mailbox']);
 }
 
 /* Create the body of the message. */
-// TODO
-//$msgText = $mimp_contents->getMessage();
-$msgText = 'TODO';
+$parts_list = $imp_contents->getContentTypeMap();
+$atc_parts = $display_ids = array();
+$body_shown = false;
+$msg_text = '';
+
+foreach ($parts_list as $mime_id => $mime_type) {
+    if (in_array($mime_id, $display_ids, true)) {
+        continue;
+    }
+
+    if ($body_shown ||
+        !($render_mode = $imp_contents->canDisplay($mime_id, IMP_Contents::RENDER_INLINE | IMP_Contents::RENDER_INFO))) {
+        if ($imp_contents->isAttachment($mime_type)) {
+            $atc_parts[] = $mime_id;
+        }
+        continue;
+    }
+
+    $render_part = $imp_contents->renderMIMEPart($mime_id, $render_mode);
+    if (($render_mode & IMP_Contents::RENDER_INLINE) && empty($render_part)) {
+        /* This meant that nothing was rendered - allow this part to appear
+         * in the attachment list instead. */
+        $atc_parts[] = $mime_id;
+        continue;
+    }
+
+    while (list($id, $info) = each($render_part)) {
+        if ($body_shown) {
+            $atc_parts[] = $id;
+            continue;
+        }
+
+        if (empty($info)) {
+            continue;
+        }
+
+        $body_shown = true;
+        $msg_text = $info['data'];
+    }
+}
 
 /* Display the first 250 characters, or display the entire message? */
 if ($prefs->getValue('mimp_preview_msg') && !Util::getFormData('fullmsg')) {
-    $msgText = String::substr($msgText, 0, 250) . " [...]\n";
+    $msg_text = String::substr($msg_text, 0, 250) . " [...]\n";
     $fullmsg_link = new Horde_Mobile_link(_("View Full Message"), Util::addParameter($self_link, array('fullmsg' => 1)));
 } else {
     $fullmsg_link = null;
@@ -313,18 +349,14 @@ foreach ($display_headers as $head => $val) {
     $t->set('linebreaks', true);
 }
 
-/* TODO
-foreach (array_keys($this->_atc) as $key) {
-$part = $this->_message->getPart($key);
-if ($part !== false) {
-$hb->add(new Horde_Mobile_text(_("Attachment") . ': ', array('b')));
-$t = &$hb->add(new Horde_Mobile_text(sprintf('%s (%s KB)', $part->getName(true, true), $part->getSize()) . "\n"));
-$t->set('linebreaks', true);
+foreach ($atc_parts as $key) {
+    $summary = $imp_contents->getSummary($key, IMP_Contents::SUMMARY_SIZE | IMP_Contents::SUMMARY_DESCRIP_NOLINK);
+    $hb->add(new Horde_Mobile_text(_("Attachment") . ': ', array('b')));
+    $t = &$hb->add(new Horde_Mobile_text(sprintf('%s %s', $summary['description'], $summary['size']) . "\n"));
+    $t->set('linebreaks', true);
 }
-}
- */
 
-$t = &$c->add(new Horde_Mobile_text($msgText));
+$t = &$c->add(new Horde_Mobile_text($msg_text));
 $t->set('linebreaks', true);
 
 if (!is_null($fullmsg_link)) {

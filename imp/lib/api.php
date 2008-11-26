@@ -185,12 +185,6 @@ function _imp_compose($args = array(), $extra = array())
  */
 function _imp_batchCompose($args = array(), $extra = array())
 {
-    // TODO: Fix
-    if (isset($_SESSION['imp']['view']) &&
-        $_SESSION['imp']['view'] != 'imp') {
-        return $GLOBALS['registry']->callByPackage($_SESSION['imp']['view'], 'batchCompose', array($args, $extra));
-    }
-
     $GLOBALS['authentication'] = 'none';
     $GLOBALS['noset_view'] = true;
     require_once dirname(__FILE__) . '/base.php';
