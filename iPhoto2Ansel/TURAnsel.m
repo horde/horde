@@ -96,6 +96,7 @@
                                     [NSNumber numberWithInt:0], @"attribute_images",
                                     [NSNumber numberWithInt:0], @"attribute_default", nil];
         TURAnselGallery *newGallery = [[TURAnselGallery alloc] initWithObject:results];
+        [newGallery setAnselController: self];
         [galleryList addObject:newGallery];
         return results;
     }
