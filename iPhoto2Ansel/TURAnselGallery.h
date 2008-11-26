@@ -38,7 +38,7 @@ typedef enum {
 @property (readwrite) int galleryDefaultImage;
 @property (readonly, retain) NSURL *galleryDefaultImageURL;
 
-- (id)initWithObject:(id)galleryData;
+- (id)initWithObject:(id)galleryData controller:(TURAnsel *)controller;
 - (int)galleryId;
 - (void)requestDefaultImageURL;
 - (void)parseImageUrlRequest:(XMLRPCResponse *)response;

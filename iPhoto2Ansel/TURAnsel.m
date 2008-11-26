@@ -83,21 +83,21 @@
 - (NSDictionary *)createNewGallery: (NSDictionary *)params
 {
     NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                [params valueForKey:@"name"], @"name", nil];
+                                [params valueForKey: @"name"], @"name", nil];
     NSArray *apiparams = [NSArray arrayWithObjects:
                              @"ansel", attributes, nil]; 
-    XMLRPCResponse *response = [self callRPCMethod:@"images.createGallery"
-                                        withParams:apiparams];
+    XMLRPCResponse *response = [self callRPCMethod: @"images.createGallery"
+                                        withParams: apiparams];
     if (state != TURAnselStateError) {
         NSDictionary *results = [NSDictionary dictionaryWithObjectsAndKeys:
                                     response, @"share_id",
-                                    [params valueForKey:@"name"], @"attribute_name",
+                                    [params valueForKey: @"name"], @"attribute_name",
                                     @"", @"attribute_desc",
-                                    [NSNumber numberWithInt:0], @"attribute_images",
-                                    [NSNumber numberWithInt:0], @"attribute_default", nil];
-        TURAnselGallery *newGallery = [[TURAnselGallery alloc] initWithObject:results];
-        [newGallery setAnselController: self];
-        [galleryList addObject:newGallery];
+                                    [NSNumber numberWithInt: 0], @"attribute_images",
+                                    [NSNumber numberWithInt: 0], @"attribute_default", nil];
+        TURAnselGallery *newGallery = [[TURAnselGallery alloc] initWithObject: results
+                                                                   controller: self];
+        [galleryList addObject: newGallery];
         return results;
     }
     
@@ -247,7 +247,8 @@ objectValueForTableColumn:(NSTableColumn *)tc
     if (state != TURAnselStateError) {
         state = TURAnselStateConnected;
         for (NSString *gal in galleries) {
-            TURAnselGallery *theGallery = [[TURAnselGallery alloc] initWithObject:gal];
+            TURAnselGallery *theGallery = [[TURAnselGallery alloc] initWithObject: gal
+                                                                       controller: self];
             [theGallery setAnselController: self];
             [galleryList addObject: theGallery];
             [theGallery release];

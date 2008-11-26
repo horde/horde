@@ -28,7 +28,7 @@
 /**
  * Init a gallery object
  */
-- (id)initWithObject: (id)galleryData
+- (id)initWithObject:(id)galleryData controller:(TURAnsel *)controller
 {
     [super init];
     [self setValue: [galleryData valueForKey:@"share_id"]
@@ -41,7 +41,7 @@
             forKey:@"galleryImageCount"];    
     [self setValue: [galleryData valueForKey:@"attribute_default"]
             forKey:@"galleryDefaultImage"];
-
+    [self setAnselController: controller];
     return self;
 }
 
