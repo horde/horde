@@ -14,13 +14,13 @@
 static NSString *ERR_DOMAIN = @"com.theupstairsroom.XMLConnection";
 
 - (TURXMLConnection *)initWithXMLRPCRequest: (XMLRPCRequest *)request 
-                            withCredentials:(NSDictionary *)credentials
+                            withCredentials: (NSDictionary *)credentials
 {
     username = [[credentials objectForKey:@"username"] retain];
     password = [[credentials objectForKey:@"password"] retain];
     running = YES;
-    connection = [[XMLRPCConnection alloc] initWithXMLRPCRequest:request
-                                                        delegate:self];
+    connection = [[XMLRPCConnection alloc] initWithXMLRPCRequest: request
+                                                        delegate: self];
     return self;
 }
 

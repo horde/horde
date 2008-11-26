@@ -70,7 +70,9 @@
     [galleryCombo setDelegate:self];
     [spinner startAnimation:self];
     // Detach to a new thread and do the actual login/retrieval of gallery list
-    [NSApplication detachDrawingThread: @selector(connect) toTarget: self withObject: nil];
+    [NSApplication detachDrawingThread: @selector(connect)
+                              toTarget: self 
+                            withObject: nil];
     [p release];
     [pool release];
 }
@@ -82,14 +84,13 @@
     // Make sure we're not doing this for nothing
     if ([anselController state] == TURAnselStateConnected &&
         [[newGalleryName stringValue] length] > 0) {
-        [NSApplication detachDrawingThread:@selector(newGallery:)
-                                  toTarget:self 
-                                withObject:[newGalleryName stringValue]];
+        [NSApplication detachDrawingThread: @selector(newGallery:)
+                                  toTarget: self 
+                                withObject: [newGalleryName stringValue]];
     }
 }
 
 #pragma mark ExportPluginProtocol
-
 // Initialize
 - (id)initWithExportImageObj:(id <ExportImageProtocol>)obj
 {
