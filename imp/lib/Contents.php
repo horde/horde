@@ -60,6 +60,13 @@ class IMP_Contents
     protected $_build = false;
 
     /**
+     * The status cache.
+     *
+     * @var array
+     */
+    protected $_statuscache = array();
+
+    /**
      * Attempts to return a reference to a concrete IMP_Contents instance.
      * If an IMP_Contents object is currently stored in the local cache,
      * recreate that object.  Else, create a new instance.
@@ -361,6 +368,10 @@ class IMP_Contents
 
         if (!empty($ret[$mime_id]) && !isset($ret[$mime_id]['name'])) {
             $ret[$mime_id]['name'] = $mime_part->getName(true);
+        }
+
+        if (isset($this->_statuscache[$mime_id])) {
+            $ret[$mime_id]['status'] = array_merge($this->_statuscache[$mime_id], $ret[$mime_id]['status']);
         }
 
         /* If this is a text/* part, AND the browser does not support UTF-8,
@@ -735,15 +746,15 @@ class IMP_Contents
                 $viewer->setParams(array('contents' => &$this));
                 $new_parts = $viewer->getEmbeddedMimeParts();
                 if (!is_null($new_parts)) {
-                    foreach ($new_parts as $key => $val) {
+                    foreach (array_keys($new_parts) as $key) {
                         if ($first_id === $key) {
                             $this->_message = $new_parts[$key];
                             $this->_build = false;
                             return $this->_buildMessage();
                         }
 
-                        $this->_message->alterPart($val, $new_parts[$val]);
-                        $to_process = array_merge($to_process, array_keys($new_parts[$val]->contentTypeMap()));
+                        $this->_message->alterPart($key, $new_parts[$key]);
+                        $to_process = array_merge($to_process, array_keys($new_parts[$key]->contentTypeMap()));
                     }
                     $last_id = $id;
                 }
@@ -826,5 +837,16 @@ class IMP_Contents
     {
         $this->_buildMessage();
         return $this->_message->contentTypeMap();
+    }
+
+    /**
+     * Sets additional status information for a part.
+     *
+     * @param string $id    The MIME ID
+     * @param array $entry  The status entry.
+     */
+    public function setStatusCache($id, $entry)
+    {
+        $this->_statuscache[$id][] = $entry;
     }
 }
