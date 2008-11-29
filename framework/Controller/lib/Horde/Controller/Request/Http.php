@@ -74,34 +74,42 @@ class Horde_Controller_Request_Http extends Horde_Controller_Request_Base
      */
     public function __construct($options = array())
     {
-        $this->_initSessionData();
+        try {
+            $this->_initSessionData();
 
-        // superglobal data if not passed in thru constructor
-        $this->_get     = isset($options['get'])     ? $options['get']     : $_GET;
-        $this->_post    = isset($options['post'])    ? $options['post']    : $_POST;
-        $this->_cookie  = isset($options['cookie'])  ? $options['cookie']  : $_COOKIE;
-        $this->_request = isset($options['request']) ? $options['request'] : $_REQUEST;
+            // register default mime types
+            Horde_Controller_Mime_Type::registerTypes();
 
-        parent::__construct($options);
+            // superglobal data if not passed in thru constructor
+            $this->_get     = isset($options['get'])     ? $options['get']     : $_GET;
+            $this->_post    = isset($options['post'])    ? $options['post']    : $_POST;
+            $this->_cookie  = isset($options['cookie'])  ? $options['cookie']  : $_COOKIE;
+            $this->_request = isset($options['request']) ? $options['request'] : $_REQUEST;
 
-        $this->_pathParams = array();
-        // $this->_formattedRequestParams = $this->_parseFormattedRequestParameters();
+            parent::__construct($options);
 
-        // use FileUpload object to store files
-        $this->_setFilesSuperglobals();
+            $this->_pathParams = array();
+            //$this->_formattedRequestParams = $this->_parseFormattedRequestParameters();
 
-        // disable all superglobal data to force us to use correct way
-        //@TODO
-        //$_GET = $_POST = $_FILES = $_COOKIE = $_REQUEST = $_SERVER = array();
+            // use FileUpload object to store files
+            $this->_setFilesSuperglobals();
 
-        $this->_domain   = $this->getServer('SERVER_NAME');
-        $this->_uri      = trim($this->getServer('REQUEST_URI'), '/');
-        $this->_method   = $this->getServer('REQUEST_METHOD');
-        // @TODO look at HTTP_X_FORWARDED_FOR, handling multiple addresses: http://weblogs.asp.net/james_crowley/archive/2007/06/19/gotcha-http-x-forwarded-for-returns-multiple-ip-addresses.aspx
-        $this->_remoteIp = $this->getServer('REMOTE_ADDR');
-        $this->_port     = $this->getServer('SERVER_PORT');
-        $this->_https    = $this->getServer('HTTPS');
-        $this->_isAjax   = $this->getServer('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest';
+            // disable all superglobal data to force us to use correct way
+            //@TODO
+            //$_GET = $_POST = $_FILES = $_COOKIE = $_REQUEST = $_SERVER = array();
+
+            $this->_domain   = $this->getServer('SERVER_NAME');
+            $this->_uri      = trim($this->getServer('REQUEST_URI'), '/');
+            $this->_method   = $this->getServer('REQUEST_METHOD');
+            // @TODO look at HTTP_X_FORWARDED_FOR, handling multiple addresses: http://weblogs.asp.net/james_crowley/archive/2007/06/19/gotcha-http-x-forwarded-for-returns-multiple-ip-addresses.aspx
+            $this->_remoteIp = $this->getServer('REMOTE_ADDR');
+            $this->_port     = $this->getServer('SERVER_PORT');
+            $this->_https    = $this->getServer('HTTPS') || $this->getServer('SSL_PROTOCOL') || $this->getServer('HTTP_X_CLUSTER_SSL');
+            $this->_isAjax   = $this->getServer('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest';
+        } catch (Exception $e) {
+            $this->_malformed = true;
+            $this->_exception = $e;
+        }
     }
 
 
@@ -223,7 +231,7 @@ class Horde_Controller_Request_Http extends Horde_Controller_Request_Base
                 }
             }
 
-            // $this->_contentType = Horde_Controller_Mime_Type::lookup($type);
+            $this->_contentType = Horde_Controller_Mime_Type::lookup($type);
         }
         return $this->_contentType;
     }
