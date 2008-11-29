@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+http://pear.php.net/dtd/tasks-1.0.xsd
+http://pear.php.net/dtd/package-2.0
+http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Pdf</name>
+ <channel>pear.horde.org</channel>
+ <summary>Horde PDF library</summary>
+ <description>Horde PDF package
+ </description>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Mike Naberezny</name>
+  <user>mnaberez</user>
+  <email>mike@maintainable.com</email>
+  <active>yes</active>
+ </lead>
+ <date>2007-10-21</date>
+ <time>23:26:00</time>
+ <version>
+  <release>0.1.0</release>
+  <api>0.1.0</api>
+ </version>
+ <stability>
+  <release>beta</release>
+  <api>beta</api>
+ </stability>
+ <license uri="http://opensource.org/licenses/lgpl-license.php">LGPL</license>
+ <notes>Initial Horde/Pdf release
+ </notes>
+ <contents>
+  <dir name="/">
+   <dir name="lib">
+    <dir name="Horde">
+     <dir name="Pdf">
+      <dir name="Font">
+       <file name="Courier.php" role="php" />
+       <file name="Helvetica.php" role="php" />
+       <file name="Helveticab.php" role="php" />
+       <file name="Helveticabi.php" role="php" />
+       <file name="Helveticai.php" role="php" />
+       <file name="Symbol.php" role="php" />
+       <file name="Times.php" role="php" />
+       <file name="Timesb.php" role="php" />
+       <file name="Timesbi.php" role="php" />
+       <file name="Timesi.php" role="php" />
+       <file name="Zapfdingbats.php" role="php" />
+      </dir> <!-- /lib/Horde/Pdf/Font -->
+      <file name="Exception.php" role="php" />
+      <file name="Writer.php" role="php" />
+     </dir> <!-- /lib/Horde/Pdf -->
+    </dir> <!-- /lib/Horde -->
+   </dir> <!-- /lib -->
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2</min>
+   </php>
+   <pearinstaller>
+    <min>1.5.0</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install name="lib/Horde/Pdf/Exception.php" as="Horde/Pdf/Exception.php" />
+   <install name="lib/Horde/Pdf/Writer.php" as="Horde/Pdf/Writer.php" />
+   <install name="lib/Horde/Pdf/Font/Courier.php" as="Horde/Pdf/Font/Courier.php" />
+   <install name="lib/Horde/Pdf/Font/Helvetica.php" as="Horde/Pdf/Font/Helvetica.php" />
+   <install name="lib/Horde/Pdf/Font/Helveticab.php" as="Horde/Pdf/Font/Helveticab.php" />
+   <install name="lib/Horde/Pdf/Font/Helveticabi.php" as="Horde/Pdf/Font/Helveticabi.php" />
+   <install name="lib/Horde/Pdf/Font/Helveticai.php" as="Horde/Pdf/Font/Helveticai.php" />
+   <install name="lib/Horde/Pdf/Font/Symbol.php" as="Horde/Pdf/Font/Symbol.php" />
+   <install name="lib/Horde/Pdf/Font/Times.php" as="Horde/Pdf/Font/Times.php" />
+   <install name="lib/Horde/Pdf/Font/Timesb.php" as="Horde/Pdf/Font/Timesb.php" />
+   <install name="lib/Horde/Pdf/Font/Timesbi.php" as="Horde/Pdf/Font/Timesbi.php" />
+   <install name="lib/Horde/Pdf/Font/Timesi.php" as="Horde/Pdf/Font/Timesi.php" />
+   <install name="lib/Horde/Pdf/Font/Zapfdingbats.php" as="Horde/Pdf/Font/Zapfdingbats.php" />
+  </filelist>
+ </phprelease>
+</package>
