@@ -1,0 +1,114 @@
+Horde_Routes Integration Guide
+
+This document is based on the manual for the Python version available at:
+http://routes.groovie.org/integration.html
+
+
+Integrating Horde_Routes
+
+Horde_Routes is built to function with any PHP 5 web framework that utilizes a
+MVC style approach to design.  However, it can be used completely outside of a
+MVC context as well.
+
+For full integration with a web framework, several steps should be done during
+different phases of the request cycle. The web framework developer should also
+have a way to add routes to the mapper, and accessing utility functions.
+
+Terminology:
+
+Framework Integrator
+    Typically the person who is working to integrate routes into a web framework
+Web/Framework Developer
+    The web application developer using the web framework
+
+
+Route Setup
+
+Horde_Routes requires PHP 5.1 or above.  It does not require() its own files, so
+an autoloader must be registered that will load the Horde_Routes files from its
+PEAR directory.  Alternatively, the files can be loaded explicitly:
+
+  require_once 'Horde/Routes/Mapper.php';
+  require_once 'Horde/Routes/Exception.php';
+  require_once 'Horde/Routes/Route.php';
+  require_once 'Horde/Routes/Utils.php';
+
+The web framework developer will need a place to add routes that will be used
+during the URL resolution phase. Commonly, the mapper object will be directly
+exposed in a configuration file:
+
+$m = new Horde_Routes_Mapper();
+$m->connect(':controller/:action/:id');
+
+The developer can then add additional routes as they see fit. The Framework
+Integrator should make sure that their code takes care of using the Mapper
+instance and preserving it somewhere for use by the framework.
+
+
+Pre-Loading the Controllers
+
+Due to the way Horde_Routes makes use of regular expressions for URL
+recognition, Horde_Routes_Mapper requires a valid list of Controllers before
+it can match URLs. Controller names can contain any character including /.
+Once the controller list is created, the Mapper method createRegs() should be
+called:
+
+$m->createRegs(array('content', 'admin/comments', 'blog'))
+
+After this step, the Mapper object is now ready to match URLs.
+
+Instead of calling Horde_Routes_Mapper->createRegs() directly, a PHP callback
+can also be passed to the Horde_Routes_Mapper constructor.  See the inline
+source documentation.
+
+
+URL Resolution
+
+When the URL is looked up, it should be matched against the Mapper. When
+matching an incoming URL, it is assumed that the URL path is the only string
+being matched. All query args should be stripped before matching:
+
+  $m->connect('articles/:year/:month',
+    array('controller'=>'blog', 'action'=>'view', 'year'=>null));
+
+  $m->match('/articles/2003/10');
+  // Returns:
+  // array('controller'=>'blog', 'action'=>'view',
+           'year'=>'2003', 'month'=>'10')
+
+Matching a URL will return an associative array of the match results.  If
+you'd like to differentiate between where the argument came from you can use
+routematch() which will return the Route object that has all these details:
+
+  $m->connect('articles/:year/:month',
+    array('controller'=>'blog', 'action'=>'view', 'year'=>null));
+
+  $result = $m->routematch('/articles/2003/10');
+  // result is array(matchdata, Horde_Routes_Route)
+
+  // result[0] - array('controller'=>'blog', 'action'=>'view',
+  //                   'year'=>'2003', 'month'=>'10')
+  //
+  // result[1] - Horde_Routes_Route instance
+  // result[1]->defaults  - array('controller'=>'blog', 'action'=>'view',
+  //                              'year'=>null);
+  // result[1]->hardcoded - array('controller', 'action')
+
+Your integration code is then expected to dispatch to a controller and action
+in the associative array. How it does this is entirely up to the framework
+integrator. Your integration should also typically provide the web developer a
+mechanism to access the additional associative array values.
+
+
+Providing Utilities
+
+In addition to allowing the web developer to define routes on the Mapper instance,
+access to a Horde_Routes_Utils instance should be provided:
+
+  $utils = $m->utils;
+
+The $utils instance provides the web developer with the utility functions urlFor() and
+redirectTo(), which will be used to generate URLs from the route mapping.
+
+  $url = $utils->urlFor(array('controller' => 'articles', 'action' => 'view',
+                              'id' => $article->id));

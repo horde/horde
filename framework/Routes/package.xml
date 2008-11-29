@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+http://pear.php.net/dtd/tasks-1.0.xsd
+http://pear.php.net/dtd/package-2.0
+http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Routes</name>
+ <channel>pear.horde.org</channel>
+ <summary>Horde Routes URL mapping system</summary>
+ <description>This package provides classes for mapping URLs into
+ the controllers and actions of an MVC system.  It is a port of a
+ Python library, Routes, by Ben Bangert (http://routes.groovie.org).
+ </description>
+ <lead>
+  <name>Mike Naberezny</name>
+  <user>mnaberez</user>
+  <email>mike@maintainable.com</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2008-09-19</date>
+ <version>
+  <release>0.3.1</release>
+  <api>0.3.0</api>
+ </version>
+ <stability>
+  <release>beta</release>
+  <api>beta</api>
+ </stability>
+ <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+ <notes>* Fixed callbacks for PHP versions prior to PHP 5.2.</notes>
+ <contents>
+  <dir name="/">
+   <dir name="lib">
+    <dir name="Horde">
+     <dir name="Routes">
+      <file name="Exception.php" role="php" />
+      <file name="Mapper.php" role="php" />
+      <file name="Route.php" role="php" />
+      <file name="Utils.php" role="php" />
+     </dir> <!-- /lib/Horde/Routes -->
+    </dir> <!-- /lib/Horde -->
+   </dir> <!-- /lib -->
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.1.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0b1</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install name="lib/Horde/Routes/Exception.php" as="Horde/Routes/Exception.php" />
+   <install name="lib/Horde/Routes/Mapper.php" as="Horde/Routes/Mapper.php" />
+   <install name="lib/Horde/Routes/Route.php" as="Horde/Routes/Route.php" />
+   <install name="lib/Horde/Routes/Utils.php" as="Horde/Routes/Utils.php" />
+  </filelist>
+ </phprelease>
+</package>
