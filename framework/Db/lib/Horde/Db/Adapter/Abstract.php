@@ -313,7 +313,7 @@ abstract class Horde_Db_Adapter_Abstract
     public function selectOne($sql, $arg1=null, $arg2=null)
     {
         $result = $this->selectAll($sql, $arg1, $arg2);
-        return $result ? current($result) : array();
+        return $result ? next($result) : array();
     }
 
     /**
@@ -327,12 +327,12 @@ abstract class Horde_Db_Adapter_Abstract
     public function selectValue($sql, $arg1=null, $arg2=null)
     {
         $result = $this->selectOne($sql, $arg1, $arg2);
-        return $result ? current($result) : null;
+        return $result ? next($result) : null;
     }
 
     /**
      * Returns an array of the values of the first column in a select:
-     *   select_values("SELECT id FROM companies LIMIT 3") => [1,2,3]
+     *   selectValues("SELECT id FROM companies LIMIT 3") => [1,2,3]
      *
      * @param   string  $sql
      * @param   mixed   $arg1  Either an array of bound parameters or a query name.
@@ -341,10 +341,31 @@ abstract class Horde_Db_Adapter_Abstract
     public function selectValues($sql, $arg1=null, $arg2=null)
     {
         $result = $this->selectAll($sql, $arg1, $arg2);
+        $values = array();
         foreach ($result as $row) {
-            $values[] = current($row);
+            $values[] = next($row);
         }
-        return isset($values) ? $values : array();
+        return $values;
+    }
+
+    /**
+     * Returns an array where the keys are the first column of a select, and the
+     * values are the second column:
+     *
+     *   selectAssoc("SELECT id, name FROM companies LIMIT 3") => [1 => 'Ford', 2 => 'GM', 3 => 'Chrysler']
+     *
+     * @param   string  $sql
+     * @param   mixed   $arg1  Either an array of bound parameters or a query name.
+     * @param   string  $arg2  If $arg1 contains bound parameters, the query name.
+     */
+    public function selectAssoc($sql, $arg1=null, $arg2=null)
+    {
+        $result = $this->selectAll($sql, $arg1, $arg2);
+        $values = array();
+        foreach ($result as $row) {
+            $values[next($row)] = next($row);
+        }
+        return $values;
     }
 
     /**
