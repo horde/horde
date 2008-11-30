@@ -112,7 +112,7 @@ abstract class Horde_Db_Adapter_Pdo_Abstract extends Horde_Db_Adapter_Abstract
 
     /**
      * Returns an array of the values of the first column in a select:
-     *   select_values("SELECT id FROM companies LIMIT 3") => [1,2,3]
+     *   selectValues("SELECT id FROM companies LIMIT 3") => [1,2,3]
      *
      * @param   string  $sql
      * @param   mixed   $arg1  Either an array of bound parameters or a query name.
@@ -122,6 +122,22 @@ abstract class Horde_Db_Adapter_Pdo_Abstract extends Horde_Db_Adapter_Abstract
     {
         $result = $this->execute($sql, $arg1, $arg2);
         return $result ? $result->fetchAll(PDO::FETCH_COLUMN, 0) : array();
+    }
+
+    /**
+     * Returns an array where the keys are the first column of a select, and the
+     * values are the second column:
+     *
+     *   selectAssoc("SELECT id, name FROM companies LIMIT 3") => [1 => 'Ford', 2 => 'GM', 3 => 'Chrysler']
+     *
+     * @param   string  $sql
+     * @param   mixed   $arg1  Either an array of bound parameters or a query name.
+     * @param   string  $arg2  If $arg1 contains bound parameters, the query name.
+     */
+    public function selectAssoc($sql, $arg1=null, $arg2=null)
+    {
+        $result = $this->execute($sql, $arg1, $arg2);
+        return $result ? $result->fetchAll(PDO::FETCH_KEY_PAIR) : array();
     }
 
 
