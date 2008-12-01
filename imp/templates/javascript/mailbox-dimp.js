@@ -1,5 +1,6 @@
 /**
- * mailbox.js - Template used to format the rows in the message list display.
+ * mailbox-dimp.js - Template used to format the rows in the message list
+ * display.
  *
  * See the documentation of prototypejs - Template for the template format:
  *   http://www.prototypejs.org/api/template

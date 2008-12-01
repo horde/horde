@@ -329,6 +329,11 @@ class IMP_Session
             return $url;
         }
 
+        /* Redirect DIMP to index page. */
+        if ($_SESSION['imp']['view'] == 'dimp') {
+            return Horde::applicationUrl('index-dimp.php', true);
+        }
+
         $init_url = ($_SESSION['imp']['protocol'] == 'pop')
             ? 'INBOX'
             : $GLOBALS['prefs']->getValue('initial_page');

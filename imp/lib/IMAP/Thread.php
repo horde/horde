@@ -25,7 +25,7 @@ class IMP_IMAP_Thread
      *
      * @var array
      */
-    protected $_imglist = array(
+    static protected $_imglist = array(
         '0' => 'blank.png',
         '1' => 'line.png',
         '2' => 'join.png',
@@ -118,7 +118,7 @@ class IMP_IMAP_Thread
     public function getThreadImageTree($indices, $sortdir)
     {
         $tree = array();
-        $imgs = $this->getImageUrls(false);
+        $imgs = self::getImageUrls(false);
         foreach ($this->getThreadTreeOb($indices, $sortdir) as $k => $v) {
             $tree[$k] = '';
             for ($i = 0, $length = strlen($v); $i < $length; ++$i) {
@@ -136,12 +136,12 @@ class IMP_IMAP_Thread
      * @return array  An array with the image code as a key and the image url
      *                as the value.
      */
-    public function getImageUrls($ids = true)
+    static public function getImageUrls($ids = true)
     {
         $graphicsdir = $GLOBALS['registry']->getImageDir('horde');
         $args = array();
 
-        foreach ($this->_imglist as $key => $val) {
+        foreach (self::$_imglist as $key => $val) {
             if ($ids) {
                 $args['id'] = 'thread_img_' . $key;
             }

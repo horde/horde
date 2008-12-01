@@ -15,7 +15,7 @@ $newwin = Horde::img('newwin.png', _("Open in new window"));
 $attachment = Horde::img('attachment.png', '', array('class' => 'attachmentImage'));
 
 // Thread images
-$thread_imgs = IMP_Thread::getImageUrls();
+$thread_imgs = IMP_IMAP_Thread::getImageUrls();
 
 // Attachment images
 $imp_ui = new IMP_UI_Mailbox();
@@ -430,7 +430,7 @@ function _simpleButton($id, $text, $image, $imagedir = null)
 </div>
 
 <div class="context" id="ctx_otheractions" style="display:none">
- <a id="previewtoggle"><?php echo $preview; echo ($dimp_prefs->getValue('show_preview') ? _("Hide Preview") : _("Show Preview")); ?></a>
+ <a id="previewtoggle"><?php echo $preview; echo ($prefs->getValue('show_preview') ? _("Hide Preview") : _("Show Preview")); ?></a>
  <div class="sep"></div>
  <a id="oa_seen"><?php echo $mailseen . _("Mark as Read") ?></a>
  <a id="oa_unseen"><?php echo $mailunseen . _("Mark as New") ?></a>

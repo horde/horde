@@ -295,7 +295,7 @@ class IMP_Views_ListMessages
             }
 
             $attachment = '';
-            if (!empty($GLOBALS['dimp_conf']['hooks']['msglist_format'])) {
+            if (!empty($GLOBALS['conf']['hooks']['msglist_format'])) {
                 $ob_f = Horde::callHook('_dimp_hook_msglist_format', array($ob['mailbox'], $ob['uid']), 'dimp');
                 if (is_a($ob_f, 'PEAR_Error')) {
                     Horde::logMessage($ob_f, __FILE__, __LINE__, PEAR_LOG_ERR);

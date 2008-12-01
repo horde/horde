@@ -53,16 +53,16 @@ class IMP
     static public $printMode = false;
 
     /* displayFolder() cache. */
-    static protected $_displaycache = array();
+    static private $_displaycache = array();
 
     /* hideDeletedMsgs() cache. */
-    static protected $_delhide = null;
+    static private $_delhide = null;
 
     /* getAuthKey() cache. */
-    static protected $_authkey = null;
+    static private $_authkey = null;
 
     /* _filesystemGC() cache. */
-    static protected $_dirlist = array();
+    static private $_dirlist = array();
 
     /**
      * Makes sure the user has been authenticated to view the page.
@@ -93,7 +93,7 @@ class IMP
         if (Util::getFormData('popup')) {
             Util::closeWindowJS();
         } else {
-            $url = Util::addParameter(Auth::addLogoutParameters(IMP::logoutUrl()), 'url', Horde::selfUrl(true));
+            $url = Util::addParameter(Auth::addLogoutParameters(self::logoutUrl()), 'url', Horde::selfUrl(true));
             header('Location: ' . $url);
         }
         exit;
@@ -147,7 +147,7 @@ class IMP
     {
         return ($GLOBALS['imp_search']->isSearchMbox($mbox))
             ? $GLOBALS['imp_search']->getLabel($mbox)
-            : IMP::displayFolder($mbox);
+            : self::displayFolder($mbox);
     }
 
     /**
@@ -234,8 +234,8 @@ class IMP
 
         if (!empty($options['new_folder']) &&
             (!empty($GLOBALS['conf']['hooks']['permsdenied']) ||
-             (IMP::hasPermission('create_folders') &&
-              IMP::hasPermission('max_folders')))) {
+             (self::hasPermission('create_folders') &&
+              self::hasPermission('max_folders')))) {
             $text .= '<option value="" disabled="disabled">- - - - - - - - -</option>' . "\n";
             $text .= '<option value="*new*">' . _("New Folder") . "</option>\n";
             $text .= '<option value="" disabled="disabled">- - - - - - - - -</option>' . "\n";
@@ -330,7 +330,7 @@ class IMP
         if (isset($args['to']) && (strpos($args['to'], 'mailto:') === 0)) {
             $mailto = @parse_url($args['to']);
             if (is_array($mailto)) {
-                $args['to'] = $mailto['path'];
+                $args['to'] = isset($mailto['path']) ? $mailto['path'] : '';
                 if (!empty($mailto['query'])) {
                     parse_str($mailto['query'], $vals);
                     foreach ($fields as $val) {
@@ -355,7 +355,7 @@ class IMP
         if ($prefs->getValue('compose_popup')) {
             return true;
         } else {
-            $options += IMP::getComposeArgs();
+            $options += self::getComposeArgs();
             $url = Util::addParameter(Horde::applicationUrl('compose.php', true),
                                       $options, null, false);
             header('Location: ' . $url);
@@ -410,7 +410,7 @@ class IMP
      */
     static public function composeLink($args = array(), $extra = array())
     {
-        $args = IMP::composeLinkArgs($args, $extra);
+        $args = self::composeLinkArgs($args, $extra);
         $is_mimp = ($_SESSION['imp']['view'] == 'mimp');
 
         if (!$is_mimp &&
@@ -421,7 +421,7 @@ class IMP
             if (isset($args['to'])) {
                 $args['to'] = addcslashes($args['to'], '\\"');
             }
-            return "javascript:" . IMP::popupIMPString('compose.php', $args);
+            return "javascript:" . self::popupIMPString('compose.php', $args);
         } else {
             return Util::addParameter(Horde::applicationUrl($is_mimp ? 'compose-mimp.php' : 'compose.php'), $args);
         }
@@ -573,11 +573,11 @@ class IMP
         $menu_search_url = Horde::applicationUrl('search.php');
         $menu_mailbox_url = Horde::applicationUrl('mailbox.php');
 
-        $spam_folder = IMP::folderPref($prefs->getValue('spam_folder'), true);
+        $spam_folder = self::folderPref($prefs->getValue('spam_folder'), true);
 
         $menu = new Menu(HORDE_MENU_MASK_ALL & ~HORDE_MENU_MASK_LOGIN);
 
-        $menu->add(IMP::generateIMPUrl($menu_mailbox_url, 'INBOX'), _("_Inbox"), 'folders/inbox.png');
+        $menu->add(self::generateIMPUrl($menu_mailbox_url, 'INBOX'), _("_Inbox"), 'folders/inbox.png');
 
         if (($_SESSION['imp']['protocol'] != 'pop') &&
             $prefs->getValue('use_trash') &&
@@ -586,14 +586,14 @@ class IMP
             if ($prefs->getValue('use_vtrash')) {
                 $mailbox = $GLOBALS['imp_search']->createSearchID($prefs->getValue('vtrash_id'));
             } else {
-                $trash_folder = IMP::folderPref($prefs->getValue('trash_folder'), true);
+                $trash_folder = self::folderPref($prefs->getValue('trash_folder'), true);
                 if (($trash_folder !== null)) {
                     $mailbox = $trash_folder;
                 }
             }
 
             if (!empty($mailbox) && !$imp_imap->isReadOnly($mailbox)) {
-                $menu_trash_url = Util::addParameter(IMP::generateIMPUrl($menu_mailbox_url, $mailbox), array('actionID' => 'empty_mailbox', 'mailbox_token' => IMP::getRequestToken('imp.mailbox')));
+                $menu_trash_url = Util::addParameter(self::generateIMPUrl($menu_mailbox_url, $mailbox), array('actionID' => 'empty_mailbox', 'mailbox_token' => self::getRequestToken('imp.mailbox')));
                 $menu->add($menu_trash_url, _("Empty _Trash"), 'empty_trash.png', null, null, "return window.confirm('" . addslashes(_("Are you sure you wish to empty your trash folder?")) . "');", '__noselection');
             }
         }
@@ -601,13 +601,13 @@ class IMP
         if (($_SESSION['imp']['protocol'] != 'pop') &&
             !empty($spam_folder) &&
             $prefs->getValue('empty_spam_menu')) {
-            $menu_spam_url = Util::addParameter(IMP::generateIMPUrl($menu_mailbox_url, $spam_folder), array('actionID' => 'empty_mailbox', 'mailbox_token' => IMP::getRequestToken('imp.mailbox')));
+            $menu_spam_url = Util::addParameter(self::generateIMPUrl($menu_mailbox_url, $spam_folder), array('actionID' => 'empty_mailbox', 'mailbox_token' => self::getRequestToken('imp.mailbox')));
             $menu->add($menu_spam_url, _("Empty _Spam"), 'empty_spam.png', null, null, "return window.confirm('" . addslashes(_("Are you sure you wish to empty your spam folder?")) . "');", '__noselection');
         }
 
         if (empty($GLOBALS['conf']['hooks']['disable_compose']) ||
             !Horde::callHook('_imp_hook_disable_compose', array(false), 'imp')) {
-            $menu->add(IMP::composeLink(array('mailbox' => $GLOBALS['imp_mbox']['mailbox'])), _("_New Message"), 'compose.png');
+            $menu->add(self::composeLink(array('mailbox' => $GLOBALS['imp_mbox']['mailbox'])), _("_New Message"), 'compose.png');
         }
 
         if ($conf['user']['allow_folders']) {
@@ -642,7 +642,7 @@ class IMP
             /* If IMP doesn't provide Horde authentication then we need to use
              * IMP's logout screen since logging out should *not* end a Horde
              * session. */
-            $logout_url = IMP::getLogoutUrl();
+            $logout_url = self::getLogoutUrl();
 
             $id = $menu->add($logout_url, _("_Log out"), 'logout.png', $registry->getImageDir('horde'), $logout_target);
             $menu->setPosition($id, HORDE_MENU_POS_LAST);
@@ -667,13 +667,13 @@ class IMP
                                $GLOBALS['conf']['user']['allow_folders'], true);
         if ($t->get('use_folders')) {
             $t->set('accesskey', $GLOBALS['prefs']->getValue('widget_accesskey') ? Horde::getAccessKey(_("Open Fo_lder")) : '', true);
-            $t->set('flist', IMP::flistSelect(array('selected' => $GLOBALS['imp_mbox']['mailbox'], 'inc_vfolder' => true)));
+            $t->set('flist', self::flistSelect(array('selected' => $GLOBALS['imp_mbox']['mailbox'], 'inc_vfolder' => true)));
 
             $menu_view = $GLOBALS['prefs']->getValue('menu_view');
             $link = Horde::link('#', '', '', '', 'folderSubmit(true); return false;');
             $t->set('flink', sprintf('<ul><li class="rightFloat">%s%s<br />%s</a></li></ul>', $link, ($menu_view != 'text') ? Horde::img('folders/folder_open.png', _("Open Folder"), ($menu_view == 'icon') ? array('title' => _("Open Folder")) : array()) : '', ($menu_view != 'icon') ? Horde::highlightAccessKey(_("Open Fo_lder"), $t->get('accesskey')) : ''));
         }
-        $t->set('menu_string', IMP::getMenu('string'));
+        $t->set('menu_string', self::getMenu('string'));
 
         echo $t->fetch(IMP_TEMPLATES . '/menu.html');
     }
@@ -698,7 +698,7 @@ class IMP
      */
     static public function quota()
     {
-        $quotadata = IMP::quotaData(true);
+        $quotadata = self::quotaData(true);
         if (!empty($quotadata)) {
             $t = new IMP_Template();
             $t->set('class', $quotadata['class']);
@@ -803,8 +803,8 @@ class IMP
             $folders = array();
             foreach ($var as $mb => $nm) {
                 $folders[] = array(
-                    'url' => Util::addParameter(IMP::generateIMPUrl('mailbox.php', $mb), 'no_newmail_popup', 1),
-                    'name' => htmlspecialchars(IMP::displayFolder($mb)),
+                    'url' => Util::addParameter(self::generateIMPUrl('mailbox.php', $mb), 'no_newmail_popup', 1),
+                    'name' => htmlspecialchars(self::displayFolder($mb)),
                     'new' => (int)$nm,
                 );
             }
@@ -813,7 +813,7 @@ class IMP
             if ($_SESSION['imp']['protocol'] != 'pop' &&
                 $GLOBALS['prefs']->getValue('use_vinbox') &&
                 ($vinbox_id = $GLOBALS['prefs']->getValue('vinbox_id'))) {
-                $t->set('vinbox', Horde::link(Util::addParameter(IMP::generateIMPUrl('mailbox.php', $GLOBALS['imp_search']->createSearchID($vinbox_id)), 'no_newmail_popup', 1)));
+                $t->set('vinbox', Horde::link(Util::addParameter(self::generateIMPUrl('mailbox.php', $GLOBALS['imp_search']->createSearchID($vinbox_id)), 'no_newmail_popup', 1)));
             }
         } else {
             $t->set('msg', ($var == 1) ? _("You have 1 new message.") : sprintf(_("You have %s new messages."), $var));
@@ -868,10 +868,10 @@ class IMP
         if (!is_array(current($indices))) {
             /* Build the list of indices/mailboxes if input is format #1. */
             foreach ($indices as $msgIndex) {
-                if (strpos($msgIndex, IMP::IDX_SEP) === false) {
+                if (strpos($msgIndex, self::IDX_SEP) === false) {
                     return false;
                 } else {
-                    list($val, $key) = explode(IMP::IDX_SEP, $msgIndex);
+                    list($val, $key) = explode(self::IDX_SEP, $msgIndex);
                     $msgList[$key][] = $val;
                 }
             }
@@ -879,7 +879,7 @@ class IMP
             /* We are dealing with format #2. */
             foreach ($indices as $key => $val) {
                 if ($GLOBALS['imp_search']->isSearchMbox($key)) {
-                    $msgList += IMP::parseIndicesList($val);
+                    $msgList += self::parseIndicesList($val);
                 } else {
                     /* Make sure we don't have any duplicate keys. */
                     $msgList[$key] = is_array($val) ? array_keys(array_flip($val)) : array($val);
@@ -984,7 +984,7 @@ class IMP
     static public function generateIMPUrl($page, $mailbox, $index = null,
                                           $tmailbox = null, $encode = true)
     {
-        return Util::addParameter(Horde::applicationUrl($page), IMP::getIMPMboxParameters($mailbox, $index, $tmailbox), null, $encode);
+        return Util::addParameter(Horde::applicationUrl($page), self::getIMPMboxParameters($mailbox, $index, $tmailbox), null, $encode);
     }
 
     /**
@@ -1029,7 +1029,7 @@ class IMP
             if ($GLOBALS['prefs']->getValue('use_vtrash')) {
                 $delhide = !$GLOBALS['imp_search']->isVTrashFolder();
             } else {
-                $sortpref = IMP::getSort();
+                $sortpref = self::getSort();
                 $delhide = ($GLOBALS['prefs']->getValue('delhide') &&
                             !$GLOBALS['prefs']->getValue('use_trash') &&
                             ($GLOBALS['imp_search']->isSearchMbox() ||
@@ -1093,7 +1093,7 @@ class IMP
         }
 
         $search_mbox = $GLOBALS['imp_search']->isSearchMbox($mbox);
-        $prefmbox = $search_mbox ? $mbox : IMP::folderPref($mbox, false);
+        $prefmbox = $search_mbox ? $mbox : self::folderPref($mbox, false);
 
         $sortpref = @unserialize($GLOBALS['prefs']->getValue('sortpref'));
         $entry = (isset($sortpref[$prefmbox])) ? $sortpref[$prefmbox] : array();
@@ -1105,7 +1105,7 @@ class IMP
         );
 
         /* Can't do threaded searches in search mailboxes. */
-        if (!IMP::threadSortAvailable($mbox)) {
+        if (!self::threadSortAvailable($mbox)) {
             if ($ob['by'] == Horde_Imap_Client::SORT_THREAD) {
                 $ob['by'] = Horde_Imap_Client::SORT_DATE;
             }
@@ -1125,7 +1125,7 @@ class IMP
         if (!$ob['limit'] &&
             (($ob['by'] == Horde_Imap_Client::SORT_TO) ||
              ($ob['by'] == Horde_Imap_Client::SORT_FROM))) {
-            if (IMP::isSpecialFolder($mbox)) {
+            if (self::isSpecialFolder($mbox)) {
                 /* If the preference is to sort by From Address, when we are
                    in the Drafts or Sent folders, sort by To Address. */
                 if ($ob['by'] == Horde_Imap_Client::SORT_FROM) {
@@ -1174,7 +1174,7 @@ class IMP
             $mbox = $GLOBALS['imp_mbox']['mailbox'];
         }
 
-        $prefmbox = ($GLOBALS['imp_search']->isSearchMbox()) ? $mbox : IMP::folderPref($mbox, false);
+        $prefmbox = ($GLOBALS['imp_search']->isSearchMbox()) ? $mbox : self::folderPref($mbox, false);
 
         if ($delete) {
             unset($sortpref[$prefmbox]);
@@ -1237,7 +1237,7 @@ class IMP
         // If headers have already been sent, we need to output a
         // <script> tag directly.
         if (ob_get_length() || headers_sent()) {
-            IMP::outputInlineScript();
+            self::outputInlineScript();
         }
     }
 
@@ -1247,7 +1247,7 @@ class IMP
     static public function outputInlineScript()
     {
         if (!empty($GLOBALS['__imp_inline_script'])) {
-            echo IMP::wrapInlineScript($GLOBALS['__imp_inline_script']);
+            echo self::wrapInlineScript($GLOBALS['__imp_inline_script']);
         }
 
         $GLOBALS['__imp_inline_script'] = array();
@@ -1280,7 +1280,7 @@ class IMP
         require_once 'Horde/Identity.php';
         $identity = &Identity::singleton(array('imp', 'imp'));
 
-        return (($mbox == IMP::folderPref($GLOBALS['prefs']->getValue('drafts_folder'), true)) || (in_array($mbox, $identity->getAllSentmailFolders())));
+        return (($mbox == self::folderPref($GLOBALS['prefs']->getValue('drafts_folder'), true)) || (in_array($mbox, $identity->getAllSentmailFolders())));
     }
 
     /**
@@ -1514,7 +1514,7 @@ class IMP
 
         case 'horde_cache':
             $exists = $cache->exists($sig, empty($conf['server']['cachejsparams']['lifetime']) ? 0 : $conf['server']['cachejsparams']['lifetime']);
-            $js_url = IMP::getCacheURL('js', $sig);
+            $js_url = self::getCacheURL('js', $sig);
             break;
         }
 
@@ -1580,9 +1580,13 @@ class IMP
         global $conf, $prefs, $registry;
 
         $theme = $prefs->getValue('theme');
-        $themesfs = $registry->get('themesfs', $app);
-        $themesuri = $registry->get('themesuri', $app);
-        $css = Horde::getStylesheets($app, $theme);
+        $themesfs = $registry->get('themesfs');
+        $themesuri = $registry->get('themesuri');
+        if ($app == 'imp') {
+            $css = Horde::getStylesheets('imp', $theme);
+        } else {
+            $css = self::_getDIMPStylesheets($theme);
+        }
         $css_out = array();
 
         // Add print specific stylesheets.
@@ -1593,8 +1597,8 @@ class IMP
             if ($app == 'dimp') {
                 $tmp['m'] = 'print';
                 $css_out[] = $tmp;
-                $css_out[] = array('u' => $themesuri . '/print.css',
-                                   'f' => $themesfs . '/print.css',
+                $css_out[] = array('u' => $themesuri . '/print-dimp.css',
+                                   'f' => $themesfs . '/print-dimp.css',
                                    'm' => 'print');
             } else {
                 $css_out[] = $tmp;
@@ -1647,7 +1651,7 @@ class IMP
 
             case 'horde_cache':
                 $exists = $cache->exists($sig, empty($GLOBALS['conf']['server']['cachecssparams']['lifetime']) ? 0 : $GLOBALS['conf']['server']['cachecssparams']['lifetime']);
-                $css_url = IMP::getCacheURL('css', $sig);
+                $css_url = self::getCacheURL('css', $sig);
                 break;
             }
 
@@ -1681,11 +1685,83 @@ class IMP
     }
 
     /**
+     * TODO - Temporary DIMP fix.
+     */
+    private function _getDIMPStylesheets($theme = '')
+    {
+        if ($theme === '' && isset($GLOBALS['prefs'])) {
+            $theme = $GLOBALS['prefs']->getValue('theme');
+        }
+
+        $css = array();
+        $rtl = isset($GLOBALS['nls']['rtl'][$GLOBALS['language']]);
+
+        /* Collect browser specific stylesheets if needed. */
+        $browser_css = array();
+        if ($GLOBALS['browser']->isBrowser('msie')) {
+            $ie_major = $GLOBALS['browser']->getMajor();
+            if ($ie_major == 7) {
+                $browser_css[] = 'ie7.css';
+                $browser_css[] = 'ie7-dimp.css';
+            } elseif ($ie_major < 7) {
+                $browser_css[] = 'ie6_or_less.css';
+                $browser_css[] = 'ie6_or_less-dimp.css';
+                if ($GLOBALS['browser']->getPlatform() == 'mac') {
+                    $browser_css[] = 'ie5mac.css';
+                }
+            }
+        }
+        if ($GLOBALS['browser']->isBrowser('opera')) {
+            $browser_css[] = 'opera.css';
+        }
+        if ($GLOBALS['browser']->isBrowser('mozilla') &&
+            $GLOBALS['browser']->getMajor() >= 5 &&
+            preg_match('/rv:(.*)\)/', $GLOBALS['browser']->getAgentString(), $revision) &&
+            $revision[1] <= 1.4) {
+            $browser_css[] = 'moz14.css';
+        }
+        if (strpos(strtolower($GLOBALS['browser']->getAgentString()), 'safari') !== false) {
+            $browser_css[] = 'safari.css';
+        }
+
+        foreach (array('horde', 'imp') as $app) {
+            $themes_fs = $GLOBALS['registry']->get('themesfs', $app);
+            $themes_uri = Horde::url($GLOBALS['registry']->get('themesuri', $app), false, -1);
+            $css[] = array('u' => $themes_uri . '/screen.css', 'f' => $themes_fs . '/screen.css');
+            $css[] = array('u' => $themes_uri . '/screen-dimp.css', 'f' => $themes_fs . '/screen-dimp.css');
+            if (!empty($theme) &&
+                file_exists($themes_fs . '/' . $theme . '/screen-dimp.css')) {
+                $css[] = array('u' => $themes_uri . '/' . $theme . '/screen.css', 'f' => $themes_fs . '/' . $theme . '/screen.css');
+                $css[] = array('u' => $themes_uri . '/' . $theme . '/screen-dimp.css', 'f' => $themes_fs . '/' . $theme . '/screen-dimp.css');
+            }
+
+            if ($rtl) {
+                $css[] = array('u' => $themes_uri . '/rtl.css', 'f' => $themes_fs . '/rtl.css');
+                if (!empty($theme) &&
+                    file_exists($themes_fs . '/' . $theme . '/rtl.css')) {
+                    $css[] = array('u' => $themes_uri . '/' . $theme . '/rtl.css', 'f' => $themes_fs . '/' . $theme . '/rtl.css');
+                }
+            }
+            foreach ($browser_css as $browser) {
+                if (file_exists($themes_fs . '/' . $browser)) {
+                    $css[] = array('u' => $themes_uri . '/' . $browser, 'f' => $themes_fs . '/' . $browser);
+                }
+                if (!empty($theme) &&
+                    file_exists($themes_fs . '/' . $theme . '/' . $browser)) {
+                    $css[] = array('u' => $themes_uri . '/' . $theme . '/' . $browser, 'f' => $themes_fs . '/' . $theme . '/' . $browser);
+                }
+            }
+        }
+
+        return $css;
+    }
+
+    /**
      * Do garbage collection in the statically served file directory.
      *
      * @param string $type  Either 'css' or 'js'.
      */
-    static protected function _filesystemGC($type)
+    static private function _filesystemGC($type)
     {
         $dir_list = &self::$_dirlist;
 
@@ -1721,7 +1797,7 @@ class IMP
      */
     static public function getAuthKey()
     {
-        $key = &IMP::$_authkey;
+        $key = &self::$_authkey;
 
         if (is_null($key)) {
             $key = Secret::getKey(Auth::getProvider() == 'imp' ? 'auth' : 'imp');

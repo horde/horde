@@ -124,7 +124,7 @@ class DIMP
      */
     protected function _includeDIMPJSVars()
     {
-        global $browser, $conf, $dimp_conf, $dimp_prefs, $prefs, $registry;
+        global $browser, $conf, $prefs, $registry;
 
         $compose_mode = (strstr($_SERVER['PHP_SELF'], 'compose-dimp.php') || strstr($_SERVER['PHP_SELF'], 'message-dimp.php'));
         $horde_webroot = $registry->get('webroot', 'horde');
@@ -171,18 +171,18 @@ class DIMP
 
             'name' => $registry->get('name', 'dimp'),
 
-            'preview_pref' => (bool)$dimp_prefs->getValue('show_preview'),
+            'preview_pref' => (bool)$prefs->getValue('show_preview'),
 
             'is_ie6' => ($browser->isBrowser('msie') && ($browser->getMajor() < 7)),
 
-            'buffer_pages' => intval($dimp_conf['viewport']['buffer_pages']),
-            'limit_factor' => intval($dimp_conf['viewport']['limit_factor']),
-            'viewport_wait' => intval($dimp_conf['viewport']['viewport_wait']),
-            'login_view' => $dimp_prefs->getValue('login_view'),
-            'background_inbox' => !empty($dimp_conf['viewport']['background_inbox']),
+            'buffer_pages' => intval($conf['viewport']['buffer_pages']),
+            'limit_factor' => intval($conf['viewport']['limit_factor']),
+            'viewport_wait' => intval($conf['viewport']['viewport_wait']),
+            'login_view' => $prefs->getValue('login_view'),
+            'background_inbox' => !empty($conf['viewport']['background_inbox']),
 
             // Turn debugging on?
-            'debug' => !empty($dimp_conf['js']['debug']),
+            'debug' => !empty($conf['js']['debug']),
         );
 
         /* Gettext strings used in core javascript files. */
@@ -236,7 +236,7 @@ class DIMP
                 'close_draft' => $prefs->getValue('close_draft'),
                 'compose_cursor' => ($compose_cursor ? $compose_cursor : 'top'),
 
-                'abook_url' => Horde::url($imp_webroot . '/contacts.php'),
+                'abook_url' => Horde::applicationUrl('contacts.php'),
                 'specialchars_url' => Horde::url($horde_webroot . '/services/keyboard.php'),
             );
 
@@ -272,7 +272,7 @@ class DIMP
     function notify()
     {
         $GLOBALS['notification']->notify(array('listeners' => 'status'));
-        $msgs = $GLOBALS['dimp_listener']->getStack(true);
+        $msgs = $GLOBALS['imp_notify']->getStack(true);
         if (!count($msgs)) {
             return '';
         }
@@ -442,9 +442,9 @@ class DIMP
         $response->response = $data;
         if ($notify) {
             $GLOBALS['notification']->notify(array('listeners' => 'status'));
-            $stack = $GLOBALS['dimp_listener']->getStack();
+            $stack = $GLOBALS['imp_notify']->getStack();
             if (!empty($stack)) {
-                $response->msgs = $GLOBALS['dimp_listener']->getStack();
+                $response->msgs = $GLOBALS['imp_notify']->getStack();
                 if (!(bool)$auto) {
                     $response->msgs_noauto = true;
                 }
@@ -491,8 +491,8 @@ class DIMP
      */
     function menuList()
     {
-        if (isset($GLOBALS['dimp_conf']['menu']['apps'])) {
-            $apps = $GLOBALS['dimp_conf']['menu']['apps'];
+        if (isset($GLOBALS['conf']['menu']['apps'])) {
+            $apps = $GLOBALS['conf']['menu']['apps'];
             if (is_array($apps) && count($apps)) {
                 return $apps;
             }

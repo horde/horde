@@ -20,14 +20,14 @@ $collection = new Horde_Block_Collection();
 $dimp_block_list = array();
 
 // Show a folder summary of the mailbox.  All polled folders are displayed.
-require_once DIMP_BASE . '/lib/Block/foldersummary.php';
+require_once IMP_BASE . '/lib/Block/foldersummary.php';
 $dimp_block_list[_("Folder Summary")] = array(
     'ob' => new Horde_Block_dimp_foldersummary(array())
 );
 
 // Alternate DIMP block - shows details of 'msgs_shown' number of the most
 // recent unseen messages.
-//require_once DIMP_BASE . '/lib/Block/newmail.php';
+//require_once IMP_BASE . '/lib/Block/newmail.php';
 //$dimp_block_list[_("Newest Unseen Messages")] = array(
 //    'ob' => new Horde_Block_dimp_newmail(array('msgs_shown' => 3))
 //);

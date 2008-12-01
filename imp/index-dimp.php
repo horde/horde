@@ -18,7 +18,7 @@ $scripts = array(
     array('dragdrop.js', 'imp', true),
     array('dhtmlHistory.js', 'horde', true),
     array('redbox.js', 'horde', true),
-    array('mailbox-dimp.js', 'imp'),
+    array('mailbox-dimp.js', 'imp', false),
     array('DimpSlider.js', 'imp', true),
     array('unblockImages.js', 'imp', true)
 );

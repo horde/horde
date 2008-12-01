@@ -34,8 +34,9 @@ function _generateDeleteResult($folder, $indices, $change)
 
 function _cacheID($folder)
 {
-    $imp_mailbox = &IMP_Mailbox::singleton($folder);
-    return $imp_mailbox->getCacheId();
+//    $imp_mailbox = &IMP_Mailbox::singleton($folder);
+//    return $imp_mailbox->getCacheId();
+    return false;
 }
 
 function _changed($folder, $compare, $indices = array(), $nothread = false)

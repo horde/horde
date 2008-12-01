@@ -19,8 +19,8 @@
  * Global variables defined:
  *   $imp_imap    - An IMP_IMAP object
  *   $imp_mbox    - Current mailbox information
+ *   $imp_notify  - A Notification_Listener_Mobile object
  *   $imp_search  - An IMP_Search object
- *   $mimp_notify - (MIMP view only) A Notification_Listener_Mobile object
  *   $mimp_render - (MIMP view only) A Horde_Mobile object
  *
  * Copyright 1999-2008 The Horde Project (http://www.horde.org/)
@@ -109,10 +109,7 @@ $viewmode = isset($_SESSION['imp']['view'])
     ? $_SESSION['imp']['view']
     : 'imp';
 
-$authentication = Util::nonInputVar('authentication');
-if ($authentication === null) {
-    $authentication = 0;
-}
+$authentication = Util::nonInputVar('authentication', 0);
 if ($authentication !== 'none') {
     // If we've gotten to this point and have valid login credentials
     // but don't actually have an IMP session, then we need to go
@@ -162,14 +159,14 @@ $notification = &Notification::singleton();
 if (($viewmode == 'mimp') ||
     (Util::nonInputVar('login_page') && $GLOBALS['browser']->isMobile())) {
     require_once 'Horde/Notification/Listener/mobile.php';
-    $GLOBALS['mimp_notify'] = &$notification->attach('status', null, 'Notification_Listener_mobile');
+    $GLOBALS['imp_notify'] = &$notification->attach('status', null, 'Notification_Listener_mobile');
 } elseif ($viewmode == 'dimp') {
     require_once IMP_BASE . '/lib/Notification/Listener/status-dimp.php';
-    $GLOBALS['dimp_notify'] = &$notification->attach('status', null, 'Notification_Listener_status_dimp');
+    $GLOBALS['imp_notify'] = &$notification->attach('status', null, 'Notification_Listener_status_dimp');
 } else {
     require_once IMP_BASE . '/lib/Notification/Listener/status.php';
     require_once 'Horde/Notification/Listener/audio.php';
-    $notification->attach('status', null, 'Notification_Listener_status_imp');
+    $GLOBALS['imp_notify'] = &$notification->attach('status', null, 'Notification_Listener_status_imp');
     $notification->attach('audio');
 }
 
@@ -185,8 +182,8 @@ require_once 'Horde/Secret.php';
 $GLOBALS['imp_mbox'] = IMP::getCurrentMailboxInfo();
 
 // Initialize IMP_Search object.
-$GLOBALS['imp_search'] = ((isset($_SESSION['imp']) && strpos($GLOBALS['imp_mbox']['mailbox'], IMP::SEARCH_MBOX) === 0)
-    ? new IMP_Search(array('id' => $GLOBALS['imp_mbox']['mailbox'])
+$GLOBALS['imp_search'] = (isset($_SESSION['imp']) && strpos($GLOBALS['imp_mbox']['mailbox'], IMP::SEARCH_MBOX) === 0)
+    ? new IMP_Search(array('id' => $GLOBALS['imp_mbox']['mailbox']))
     : new IMP_Search();
 
 if ((IMP::loginTasksFlag() === 2) &&
@@ -203,4 +200,7 @@ if ($viewmode == 'mimp') {
     $debug = Util::nonInputVar('mimp_debug');
     $GLOBALS['mimp_render'] = new Horde_Mobile(null, $debug);
     $GLOBALS['mimp_render']->set('debug', !empty($debug));
+} elseif ($viewmode == 'dimp') {
+    // Need to explicitly load DIMP.php
+    require_once IMP_BASE . '/lib/DIMP.php';
 }
