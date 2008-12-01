@@ -8,21 +8,42 @@
  * @author Michael Slusarz <slusarz@horde.org>
  */
 
+// As of right now, imples don't need read/write session access.
+$session_control = 'readonly';
+$session_timeout = 'none';
+
 @define('IMP_BASE', dirname(__FILE__));
 $authentication = 'horde';
 require_once IMP_BASE . '/lib/base.php';
 
-if (!($path = Util::getFormData('imple'))) {
-    exit;
-}
-if ($path[0] == '/') {
-    $path = substr($path, 1);
-}
-$path = explode('/', $path);
-$impleName = array_shift($path);
+if ($_SESSION['imp']['view'] == 'dimp') {
+    $path_info = Util::getPathInfo();
+    if (empty($path_info)) {
+        IMP::sendHTTPResponse(new stdClass(), 'json');
+    }
 
-if (!($imple = IMP_Imple::factory($impleName))) {
-    exit;
+    if ($path_info[0] == '/') {
+        $path_info = substr($path_info, 1);
+    }
+    $path = explode('/', $path_info);
+    $impleName = array_shift($path);
+
+    if (!($imple = IMP_Imple::factory($impleName))) {
+        IMP::sendHTTPResponse(new stdClass(), 'json');
+    }
+} else {
+    if (!($path = Util::getFormData('imple'))) {
+        exit;
+    }
+    if ($path[0] == '/') {
+        $path = substr($path, 1);
+    }
+    $path = explode('/', $path);
+    $impleName = array_shift($path);
+
+    if (!($imple = IMP_Imple::factory($impleName))) {
+        exit;
+    }
 }
 
 $args = array();

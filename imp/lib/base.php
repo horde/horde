@@ -10,6 +10,7 @@
  *                      'none'  - Do not authenticate
  *                      Default - Authenticate to IMAP/POP server
  *   $compose_page    - If true, we are on IMP's compose page
+ *   $dimp_logout      - Logout and redirect to the login page.
  *   $login_page      - If true, we are on IMP's login page
  *   $mimp_debug      - If true, output text/plain version of page.
  *   $no_compress     - Controls whether the page should be compressed
@@ -45,23 +46,24 @@ require_once HORDE_BASE . '/lib/core.php';
 require_once 'Horde/Autoloader.php';
 Horde_Autoloader::addClassPattern('/^IMP_/', IMP_BASE . '/lib/');
 
-$session_control = Util::nonInputVar('session_control');
-switch ($session_control) {
+// Registry.
+$s_ctrl = null;
+switch (Util::nonInputVar('session_control')) {
 case 'netscape':
     if ($browser->isBrowser('mozilla')) {
         session_cache_limiter('private, must-revalidate');
     }
     break;
-}
 
-// Registry.
-if ($session_control == 'none') {
-    $registry = &Registry::singleton(HORDE_SESSION_NONE);
-} elseif ($session_control == 'readonly') {
-    $registry = &Registry::singleton(HORDE_SESSION_READONLY);
-} else {
-    $registry = &Registry::singleton();
+case 'none':
+    $s_ctrl = HORDE_SESSION_NONE;
+    break;
+
+case 'readonly':
+    $s_ctrl = HORDE_SESSION_READONLY;
+    break;
 }
+$registry = &Registry::singleton();
 
 // Need to explicitly load IMP.php
 require_once IMP_BASE . '/lib/IMP.php';
@@ -102,6 +104,11 @@ if (!(Auth::isAuthenticated() || (Auth::getProvider() == 'imp'))) {
     Horde::authenticationFailureRedirect();
 }
 
+// Determine view mode.
+$viewmode = isset($_SESSION['imp']['view'])
+    ? $_SESSION['imp']['view']
+    : 'imp';
+
 $authentication = Util::nonInputVar('authentication');
 if ($authentication === null) {
     $authentication = 0;
@@ -130,6 +137,21 @@ if ($authentication !== 'none') {
             require IMP_BASE . '/login.php';
             exit;
         }
+    } elseif ($viewmode == 'dimp') {
+        // Handle session timeouts
+        if (!IMP::checkAuthentication(true)) {
+            switch (Util::nonInputVar('session_timeout')) {
+            case 'json':
+                $notification->push(null, 'dimp.timeout');
+                IMP::sendHTTPResponse(DIMP::prepareResponse(), 'json');
+
+            case 'none':
+                exit;
+
+            default:
+                Horde::redirect(Util::addParameter(Horde::url($GLOBALS['registry']->get('webroot', 'imp') . '/redirect.php'), 'url', Horde::selfUrl(true)));
+            }
+        }
     } else {
         IMP::checkAuthentication(false, ($authentication === 'horde'));
     }
@@ -137,15 +159,23 @@ if ($authentication !== 'none') {
 
 // Notification system.
 $notification = &Notification::singleton();
-if ((Util::nonInputVar('login_page') && $GLOBALS['browser']->isMobile()) ||
-    (isset($_SESSION['imp']['view']) && ($_SESSION['imp']['view'] == 'mimp'))) {
+if (($viewmode == 'mimp') ||
+    (Util::nonInputVar('login_page') && $GLOBALS['browser']->isMobile())) {
     require_once 'Horde/Notification/Listener/mobile.php';
     $GLOBALS['mimp_notify'] = &$notification->attach('status', null, 'Notification_Listener_mobile');
+} elseif ($viewmode == 'dimp') {
+    require_once IMP_BASE . '/lib/Notification/Listener/status-dimp.php';
+    $GLOBALS['dimp_notify'] = &$notification->attach('status', null, 'Notification_Listener_status_dimp');
 } else {
     require_once IMP_BASE . '/lib/Notification/Listener/status.php';
     require_once 'Horde/Notification/Listener/audio.php';
     $notification->attach('status', null, 'Notification_Listener_status_imp');
     $notification->attach('audio');
+}
+
+// Handle logout requests
+if (($viewmode == 'dimp') && Util::nonInputVar('dimp_logout')) {
+    Horde::redirect(str_replace('&amp;', '&', IMP::getLogoutUrl()));
 }
 
 // Horde libraries.
@@ -155,11 +185,9 @@ require_once 'Horde/Secret.php';
 $GLOBALS['imp_mbox'] = IMP::getCurrentMailboxInfo();
 
 // Initialize IMP_Search object.
-if (isset($_SESSION['imp']) && strpos($GLOBALS['imp_mbox']['mailbox'], IMP::SEARCH_MBOX) === 0) {
-    $GLOBALS['imp_search'] = new IMP_Search(array('id' => $GLOBALS['imp_mbox']['mailbox']));
-} else {
-    $GLOBALS['imp_search'] = new IMP_Search();
-}
+$GLOBALS['imp_search'] = ((isset($_SESSION['imp']) && strpos($GLOBALS['imp_mbox']['mailbox'], IMP::SEARCH_MBOX) === 0)
+    ? new IMP_Search(array('id' => $GLOBALS['imp_mbox']['mailbox'])
+    : new IMP_Search();
 
 if ((IMP::loginTasksFlag() === 2) &&
     !defined('AUTH_HANDLER') &&
@@ -167,7 +195,7 @@ if ((IMP::loginTasksFlag() === 2) &&
     IMP_Session::loginTasks();
 }
 
-if (isset($_SESSION['imp']['view']) && ($_SESSION['imp']['view'] == 'mimp')) {
+if ($viewmode == 'mimp') {
     // Need to explicitly load MIMP.php
     require_once IMP_BASE . '/lib/MIMP.php';
 

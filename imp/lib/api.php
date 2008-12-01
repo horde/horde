@@ -186,11 +186,14 @@ function _imp_compose($args = array(), $extra = array())
 function _imp_batchCompose($args = array(), $extra = array())
 {
     $GLOBALS['authentication'] = 'none';
-    $GLOBALS['noset_view'] = true;
     require_once dirname(__FILE__) . '/base.php';
 
     $links = array();
     foreach ($args as $i => $arg) {
+        // @todo - for DIMP
+        // $extra[$i]['type'] = 'new';
+        // $extra[$i]['popup'] = true;
+        // $links[$i] = DIMP::composeLink($arg, $extra[$i]);
         $links[$i] = IMP::composeLink($arg, !empty($extra[$i]) ? $extra[$i] : array());
     }
 
@@ -205,7 +208,6 @@ function _imp_batchCompose($args = array(), $extra = array())
 function _imp_folderlist()
 {
     $GLOBALS['authentication'] = 'none';
-    $GLOBALS['noset_view'] = true;
     require_once dirname(__FILE__) . '/base.php';
 
     $result = false;
@@ -234,7 +236,6 @@ function _imp_folderlist()
 function _imp_createFolder($folder)
 {
     $GLOBALS['authentication'] = 'none';
-    $GLOBALS['noset_view'] = true;
     require_once dirname(__FILE__) . '/base.php';
 
     $result = false;
@@ -256,7 +257,6 @@ function _imp_createFolder($folder)
 function _imp_server()
 {
     $GLOBALS['authentication'] = 'none';
-    $GLOBALS['noset_view'] = true;
     require_once dirname(__FILE__) . '/base.php';
     return (IMP::checkAuthentication(true)) ? $_SESSION['imp']['server'] : null;
 }
@@ -274,7 +274,6 @@ function _imp_favouriteRecipients($limit,
                                   $filter = array('new', 'forward', 'reply', 'redirect'))
 {
     $GLOBALS['authentication'] = 'none';
-    $GLOBALS['noset_view'] = true;
     require_once dirname(__FILE__) . '/base.php';
 
     if ($GLOBALS['conf']['sentmail']['driver'] != 'none') {
@@ -291,7 +290,6 @@ function _imp_favouriteRecipients($limit,
 function _imp_changeLanguage()
 {
     $GLOBALS['authentication'] = 'none';
-    $GLOBALS['noset_view'] = true;
     require_once dirname(__FILE__) . '/base.php';
 
     if (IMP::checkAuthentication(true)) {

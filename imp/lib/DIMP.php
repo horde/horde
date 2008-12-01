@@ -1,0 +1,530 @@
+<?php
+/**
+ * DIMP Base Class - provides dynamic view functions.
+ *
+ * Copyright 2005-2008 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ *
+ * @author  Michael Slusarz <slusarz@horde.org>
+ * @package IMP
+ */
+class DIMP
+{
+    /**
+     * Output a dimp-style action (menubar) link.
+     *
+     * @param array $params  A list of parameters.
+     * <pre>
+     * 'app' - The application to load the icon from.
+     * 'class' - The CSS classname to use for the link.
+     * 'icon' - The icon filename to display.
+     * 'id' - The DOM ID of the link.
+     * 'title' - The title string.
+     * 'tooltip' - Tooltip text to use.
+     * </pre>
+     *
+     * @return string  An HTML link to $url.
+     */
+    public function actionButton($params = array())
+    {
+        $tooltip = (empty($params['tooltip'])) ? '' : $params['tooltip'];
+
+        if (empty($params['title'])) {
+            static $charset;
+            if (!isset($charset)) {
+                $charset = NLS::getCharset();
+            }
+            $old_error = error_reporting(0);
+            $tooltip = nl2br(htmlspecialchars($tooltip, ENT_QUOTES, $charset));
+            $title = $ak = '';
+        } else {
+            $title = $params['title'];
+            $ak = Horde::getAccessKey($title);
+        }
+
+        return Horde::link('', $tooltip,
+                           empty($params['class']) ? '' : $params['class'],
+                           '', '', '', $ak,
+                           empty($params['id']) ? array() : array('id' => $params['id']),
+                           !empty($title))
+            . (!empty($params['icon'])
+               ? Horde::img($params['icon'], $title, '',
+                            $GLOBALS['registry']->getImageDir(empty($params['app']) ? 'imp' : $params['app']))
+               : '')
+            . $title . '</a>';
+    }
+
+    /**
+     * Output everything up to but not including the <body> tag.
+     *
+     * @param string $title   The title of the page.
+     * @param array $scripts  Any additional scripts that need to be loaded.
+     *                        Each entry contains the three elements necessary
+     *                        for a Horde::addScriptFile() call.
+     */
+    public function header($title, $scripts = array())
+    {
+        // Don't autoload any javascript files.
+        Horde::disableAutoloadHordeJS();
+
+        // Need to include script files before we start output
+        Horde::addScriptFile('prototype.js', 'horde', true);
+        Horde::addScriptFile('effects.js', 'horde', true);
+
+        // ContextSensitive must be loaded before DimpCore.
+        while (list($key, $val) = each($scripts)) {
+            if (($val[0] == 'ContextSensitive.js') &&
+                ($val[1] == 'imp')) {
+                Horde::addScriptFile($val[0], $val[1], $val[2]);
+                unset($scripts[$key]);
+                break;
+            }
+        }
+        Horde::addScriptFile('DimpCore.js', 'imp', true);
+
+        // Add other scripts now
+        foreach ($scripts as $val) {
+            call_user_func_array(array('Horde', 'addScriptFile'), $val);
+        }
+
+        $page_title = $GLOBALS['registry']->get('name');
+        if (!empty($title)) {
+            $page_title .= ' :: ' . $title;
+        }
+
+        if (isset($GLOBALS['language'])) {
+            header('Content-type: text/html; charset=' . NLS::getCharset());
+            header('Vary: Accept-Language');
+        }
+
+        echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">' . "\n" .
+             (!empty($GLOBALS['language']) ? '<html lang="' . strtr($GLOBALS['language'], '_', '-') . '"' : '<html') . ">\n".
+             "<head>\n" .
+             '<title>' . htmlspecialchars($page_title) . "</title>\n" .
+             '<link href="' . $GLOBALS['registry']->getImageDir() . "/favicon.ico\" rel=\"SHORTCUT ICON\" />\n".
+             IMP::wrapInlineScript(DIMP::_includeDIMPJSVars());
+
+        IMP::includeStylesheetFiles(true, 'dimp');
+
+        echo "</head>\n";
+
+        // Send what we have currently output so the browser can start
+        // loading CSS/JS. See:
+        // http://developer.yahoo.com/performance/rules.html#flush
+        flush();
+    }
+
+    /**
+     * Outputs the javascript code which defines all javascript variables
+     * that are dependent on the local user's account.
+     *
+     * @return string  TODO
+     */
+    protected function _includeDIMPJSVars()
+    {
+        global $browser, $conf, $dimp_conf, $dimp_prefs, $prefs, $registry;
+
+        $compose_mode = (strstr($_SERVER['PHP_SELF'], 'compose-dimp.php') || strstr($_SERVER['PHP_SELF'], 'message-dimp.php'));
+        $horde_webroot = $registry->get('webroot', 'horde');
+
+        $app_urls = $code = array();
+
+        foreach (DIMP::menuList() as $app) {
+            $app_urls[$app] = Horde::url($registry->getInitialPage($app), true);
+        }
+
+        /* Variables used in core javascript files. */
+        $code['conf'] = array(
+            'URI_DIMP_INBOX' => Horde::applicationUrl('index-dimp.php', true, -1),
+            'URI_IMP' => Horde::applicationUrl('imp-dimp.php', true, -1),
+            'URI_PREFS' => Horde::url($horde_webroot . '/services/prefs/', true, -1),
+            'URI_VIEW' => Util::addParameter(Horde::applicationUrl('view.php', true, -1), array('actionID' => 'view_source', 'id' => 0), null, false),
+
+            'SESSION_ID' => defined('SID') ? SID : '',
+
+            'app_urls' => $app_urls,
+            'timeout_url' => Auth::addLogoutParameters($horde_webroot . '/login.php', AUTH_REASON_SESSION),
+            'message_url' => Horde::applicationUrl('message-dimp.php'),
+            'compose_url' => Horde::applicationUrl('compose-dimp.php'),
+            'prefs_url' => str_replace('&amp;', '&', Horde::getServiceLink('options', 'imp')),
+
+            'sortthread' => Horde_Imap_Client::SORT_THREAD,
+            'sortdate' => Horde_Imap_Client::SORT_DATE,
+
+            'popup_width' => 820,
+            'popup_height' => 610,
+
+            'forward_default' => $prefs->getValue('forward_default'),
+            'spam_folder' => IMP::folderPref($prefs->getValue('spam_folder'), true),
+            'spam_reporting' => (int) !empty($conf['spam']['reporting']),
+            'spam_spamfolder' => (int) !empty($conf['spam']['spamfolder']),
+            'ham_reporting' => (int) !empty($conf['notspam']['reporting']),
+            'ham_spamfolder' => (int) !empty($conf['notspam']['spamfolder']),
+            'refresh_time' => (int) $prefs->getValue('refresh_time'),
+            'search_all' => (int) !empty($conf['search']['search_all']),
+
+            'fixed_folders' => empty($conf['server']['fixed_folders'])
+                ? array()
+                : array_map(array('DIMP', '_appendedFolderPref'), $conf['server']['fixed_folders']),
+
+            'name' => $registry->get('name', 'dimp'),
+
+            'preview_pref' => (bool)$dimp_prefs->getValue('show_preview'),
+
+            'is_ie6' => ($browser->isBrowser('msie') && ($browser->getMajor() < 7)),
+
+            'buffer_pages' => intval($dimp_conf['viewport']['buffer_pages']),
+            'limit_factor' => intval($dimp_conf['viewport']['limit_factor']),
+            'viewport_wait' => intval($dimp_conf['viewport']['viewport_wait']),
+            'login_view' => $dimp_prefs->getValue('login_view'),
+            'background_inbox' => !empty($dimp_conf['viewport']['background_inbox']),
+
+            // Turn debugging on?
+            'debug' => !empty($dimp_conf['js']['debug']),
+        );
+
+        /* Gettext strings used in core javascript files. */
+        $code['text'] = array_map('addslashes', array(
+            'portal' => ("Portal"),
+            'prefs' => _("User Options"),
+            'search' => _("Search"),
+            'resfound' => _("results found"),
+            'message' => _("Message"),
+            'messages' => _("Messages"),
+            'of' => _("of"),
+            'nomessages' => _("No Messages"),
+            'ok' => _("Ok"),
+            'copyto' => _("Copy %s to %s"),
+            'moveto' => _("Move %s to %s"),
+            'baselevel' => _("base level of the folder tree"),
+            'cancel' => _("Cancel"),
+            'loading' => _("Loading..."),
+            'check' => _("Checking..."),
+            'ajax_timeout' => _("There has been no contact with the remote server for several minutes. The server may be temporarily unavailable or network problems may be interrupting your session. You will not see any updates until the connection is restored."),
+            'ajax_recover' => _("The connection to the remote server has been restored."),
+            'listmsg_wait' => _("The server is still generating the message list."),
+            'listmsg_timeout' => _("The server was unable to generate the message list. Please try again later."),
+            'popup_block' => _("A popup window could not be opened. Your browser may be blocking popups."),
+            'hide_preview' => _("Hide Preview"),
+            'show_preview' => _("Show Preview"),
+            'rename_prompt' => _("Rename folder to:"),
+            'create_prompt' => _("Create folder:"),
+            'createsub_prompt' => _("Create subfolder:"),
+            'empty_folder' => _("Permanently delete all messages?"),
+            'delete_folder' => _("Permanently delete this folder?"),
+            'hidealog' => _("Hide Alerts Log"),
+            'alog_error' => _("Error"),
+            'alog_message' => _("Message"),
+            'alog_success' => _("Success"),
+            'alog_warning' => _("Warning"),
+        ));
+
+        /* Gettext strings with individual escaping. */
+        $code['text']['getmail'] = Horde::highlightAccessKey(addslashes(_("_Get Mail")), Horde::getAccessKey(_("_Get Mail"), true));
+        $code['text']['showalog'] = Horde::highlightAccessKey(addslashes(_("_Alerts Log")), Horde::getAccessKey(_("_Alerts Log"), true));
+
+        if ($compose_mode) {
+            /* Variables used in compose page. */
+            $compose_cursor = $GLOBALS['prefs']->getValue('compose_cursor');
+            $code['conf_compose'] = array(
+                'rte_avail' => $browser->hasFeature('rte'),
+                'cc' => (bool) $prefs->getValue('compose_cc'),
+                'bcc' => (bool) $prefs->getValue('compose_bcc'),
+                'attach_limit' => ($conf['compose']['attach_count_limit'] ? intval($conf['compose']['attach_count_limit']) : -1),
+                'close_draft' => $prefs->getValue('close_draft'),
+                'compose_cursor' => ($compose_cursor ? $compose_cursor : 'top'),
+
+                'abook_url' => Horde::url($imp_webroot . '/contacts.php'),
+                'specialchars_url' => Horde::url($horde_webroot . '/services/keyboard.php'),
+            );
+
+            /* Gettext strings used in compose page. */
+            $code['text_compose'] = array_map('addslashes', array(
+                'cancel' => _("Cancelling this message will permanently discard its contents and will delete auto-saved drafts.\nAre you sure you want to do this?"),
+                'fillform' => _("You have already changed the message body, are you sure you want to drop the changes?"),
+                'remove' => _("remove"),
+                'uploading' => _("Uploading..."),
+                'attachment_limit' => _("The attachment limit has been reached."),
+                'sending' => _("Sending..."),
+                'saving' => _("Saving..."),
+                'toggle_html' => _("Really discard all formatting information? This operation cannot be undone."),
+            ));
+        }
+
+        return array('var DIMP = ' . Horde_Serialize::serialize($code, SERIALIZE_JSON, NLS::getCharset()) . ';');
+    }
+
+    /**
+     * Return an appended IMP folder string
+     */
+    function _appendedFolderPref($folder)
+    {
+        return IMP::folderPref($folder, true);
+    }
+
+    /**
+     * Return the javascript code necessary to display notification popups.
+     *
+     * @return string  The notification JS code.
+     */
+    function notify()
+    {
+        $GLOBALS['notification']->notify(array('listeners' => 'status'));
+        $msgs = $GLOBALS['dimp_listener']->getStack(true);
+        if (!count($msgs)) {
+            return '';
+        }
+
+        return 'DimpCore.showNotifications(' . Horde_Serialize::serialize($msgs, SERIALIZE_JSON) . ')';
+    }
+
+    /**
+     * Formats the response to send to javascript code when dealing with
+     * folder operations.
+     *
+     * @param IMP_Tree $imptree  An IMP_Tree object.
+     * @param array $changes     An array with three sub arrays - to be used
+     *                           instead of the return from
+     *                           $imptree->eltDiff():
+     *                           'a' - a list of folders to add
+     *                           'c' - a list of changed folders
+     *                           'd' - a list of folders to delete
+     *
+     * @return array  The object used by the JS code to update the folder tree.
+     */
+    function getFolderResponse($imptree, $changes = null)
+    {
+        if ($changes === null) {
+            $changes = $imptree->eltDiff();
+        }
+        if (empty($changes)) {
+            return false;
+        }
+
+        $result = array();
+
+        if (!empty($changes['a'])) {
+            $result['a'] = array();
+            foreach ($changes['a'] as $val) {
+                $result['a'][] = DIMP::_createFolderElt($imptree->element($val));
+            }
+        }
+
+        if (!empty($changes['c'])) {
+            $result['c'] = array();
+            foreach ($changes['c'] as $val) {
+                // Skip the base element, since any change there won't ever be
+                // updated on-screen.
+                if ($val != IMPTREE_BASE_ELT) {
+                    $result['c'][] = DIMP::_createFolderElt($imptree->element($val));
+                }
+            }
+        }
+
+        if (!empty($changes['d'])) {
+            $result['d'] = array_map('rawurlencode', array_reverse($changes['d']));
+        }
+
+        return $result;
+    }
+
+    /**
+     * Create an object used by DimpCore to generate the folder tree.
+     *
+     * @access private
+     *
+     * @param array $elt  The output from IMP_Tree::element().
+     *
+     * @return stdClass  The element object. Contains the following items:
+     * <pre>
+     * 'ch' (children) = Does the folder contain children? [boolean]
+     *                   [DEFAULT: no]
+     * 'cl' (class) = The CSS class. [string] [DEFAULT: 'base']
+     * 'co' (container) = Is this folder a container element? [boolean]
+     *                    [DEFAULT: no]
+     * 'i' (icon) = A user defined icon to use. [string] [DEFAULT: none]
+     * 'l' (label) = The folder display label. [string]
+     * 'm' (mbox) = The mailbox value. [string]
+     * 'pa' (parent) = The parent element. [string]
+     * 'po' (polled) = Is the element polled? [boolean] [DEFAULT: no]
+     * 's' (special) = Is this a "special" element? [boolean] [DEFAULT: no]
+     * 'u' (unseen) = The number of unseen messages. [integer]
+     * 'v' (virtual) = Is this a virtual folder? [boolean] [DEFAULT: no]
+     * </pre>
+     */
+    function _createFolderElt($elt)
+    {
+        $ob = new stdClass;
+        if ($elt['children']) {
+           $ob->ch = 1;
+        }
+        $ob->l = $elt['base_elt']['l'];
+        $ob->m = rawurlencode($elt['value']);
+        $ob->pa = rawurlencode($elt['parent']);
+        if ($elt['polled']) {
+            $ob->po = 1;
+        }
+        if ($elt['vfolder']) {
+            $ob->v = 1;
+        }
+
+        if ($elt['container']) {
+            $ob->co = 1;
+            $ob->cl = 'exp';
+        } else {
+            if ($elt['polled']) {
+                $ob->u = $elt['unseen'];
+            }
+
+            switch ($elt['special']) {
+            case IMPTREE_SPECIAL_INBOX:
+                $ob->cl = 'inbox';
+                $ob->s = 1;
+                break;
+
+            case IMPTREE_SPECIAL_TRASH:
+                $ob->cl = 'trash';
+                $ob->s = 1;
+                break;
+
+            case IMPTREE_SPECIAL_SPAM:
+                $ob->cl = 'spam';
+                $ob->s = 1;
+                break;
+
+            case IMPTREE_SPECIAL_DRAFT:
+                $ob->cl = 'drafts';
+                $ob->s = 1;
+                break;
+
+            case IMPTREE_SPECIAL_SENT:
+                $ob->cl = 'sent';
+                $ob->s = 1;
+                break;
+
+            default:
+                if ($elt['vfolder']) {
+                    if ($GLOBALS['imp_search']->isVTrashFolder($elt['value'])) {
+                        $ob->cl = 'trash';
+                    } elseif ($GLOBALS['imp_search']->isVINBOXFolder($elt['value'])) {
+                        $ob->cl = 'inbox';
+                    }
+                } elseif ($elt['children']) {
+                    $ob->cl = 'exp';
+                }
+                break;
+            }
+        }
+
+        if ($elt['user_icon']) {
+            $ob->cl = 'custom';
+            $ob->i = Horde::img($elt['icon'], $elt['alt'], '', $elt['icondir']);
+        }
+
+        return $ob;
+    }
+
+    /**
+     * Returns a stdClass response object with added notification information.
+     *
+     * @param string $data     The 'response' data.
+     * @param boolean $notify  If true, adds notification information to
+     *                         object.
+     * @param boolean $auto    If true, DimpCore will automatically display the
+     *                         notification.  If false, the callback handler
+     *                         is responsible for displaying the notification.
+     */
+    function prepareResponse($data = null, $notify = true, $auto = true)
+    {
+        $response = new stdClass();
+        $response->response = $data;
+        if ($notify) {
+            $GLOBALS['notification']->notify(array('listeners' => 'status'));
+            $stack = $GLOBALS['dimp_listener']->getStack();
+            if (!empty($stack)) {
+                $response->msgs = $GLOBALS['dimp_listener']->getStack();
+                if (!(bool)$auto) {
+                    $response->msgs_noauto = true;
+                }
+            }
+        }
+        return $response;
+    }
+
+    /**
+     * Return information about the current attachments for a message
+     *
+     * @var object IMP_Compose $imp_compose  An IMP_Compose object.
+     *
+     * @return array  An array of arrays with the following keys:
+     * <pre>
+     * 'number' - The current attachment number
+     * 'name' - The HTML encoded attachment name
+     * 'type' - The MIME type of the attachment
+     * 'size' - The size of the attachment in KB (string)
+     * </pre>
+     */
+    function getAttachmentInfo($imp_compose)
+    {
+        $fwd_list = array();
+
+        if ($imp_compose->numberOfAttachments()) {
+            foreach ($imp_compose->getAttachments() as $file_num => $mime) {
+                $fwd_list[] = array(
+                    'number' => $file_num,
+                    'name' => htmlspecialchars($mime->getName(true, true)),
+                    'type' => $mime->getType(),
+                    'size' => $mime->getSize()
+                );
+            }
+        }
+
+        return $fwd_list;
+    }
+
+    /**
+     * Return a list of DIMP specific menu items.
+     *
+     * @return array  The array of menu items.
+     */
+    function menuList()
+    {
+        if (isset($GLOBALS['dimp_conf']['menu']['apps'])) {
+            $apps = $GLOBALS['dimp_conf']['menu']['apps'];
+            if (is_array($apps) && count($apps)) {
+                return $apps;
+            }
+        }
+        return array();
+    }
+
+    /**
+     * Returns the appropriate link to call the message composition screen.
+     *
+     * @param mixed $args   List of arguments to pass to compose.php. If this
+     *                      is passed in as a string, it will be parsed as a
+     *                      toaddress?subject=foo&cc=ccaddress (mailto-style)
+     *                      string.
+     * @param array $extra  Hash of extra, non-standard arguments to pass to
+     *                      compose.php.
+     *
+     * @return string  The link to the message composition screen.
+     */
+    function composeLink($args = array(), $extra = array())
+    {
+        // IE 6 & 7 handles window.open() URL param strings differently if
+        // triggered via an href or an onclick.  Since we have no hint
+        // at this point where this link will be used, we have to always
+        // encode the params and explicitly call rawurlencode() in
+        // compose.php.
+        $args = IMP::composeLinkArgs($args, $extra);
+        $encode_args = array();
+        foreach ($args as $k => $v) {
+            $encode_args[$k] = rawurlencode($v);
+        }
+        return 'javascript:void(window.open(\'' . Util::addParameter(Horde::applicationUrl('compose.php'), $encode_args, null, false) . '\', \'\', \'width=820,height=610,status=1,scrollbars=yes,resizable=yes\'));';
+    }
+
+}

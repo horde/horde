@@ -7,7 +7,7 @@
 require_once dirname(__FILE__) . '/../lib/IMP.php';
 require_once dirname(__FILE__) . '/../lib/IMAP.php';
 require_once 'Horde/Imap/Client.php';
-$is_pop3 = isset($_SESSION['imp']) && $_SESSION['imp']['protocol'] == 'pop';
+$is_pop3 = isset($_SESSION['imp']) && ($_SESSION['imp']['protocol'] == 'pop');
 
 $prefGroups['identities'] = array(
     'column' => _("General Options"),
@@ -192,6 +192,13 @@ $prefGroups['mimp'] = array(
     'label' => _("MIMP Options"),
     'desc' => _("Configure MIMP Options."),
     'members' => array('mimp_preview_msg')
+);
+
+$prefGroups['dimp'] = array(
+    'column' => _("Other Options"),
+    'label' => _("DIMP Options"),
+    'desc' => _("Configure DIMP Options."),
+    'members' => array('login_view', 'show_preview')
 );
 
 
@@ -1444,6 +1451,25 @@ $_prefs['mimp_preview_msg'] = array(
     'shared' => false,
     'type' => 'checkbox',
     'desc' => _("Display only the first 250 characters of a message initially?")
+);
+
+// Login preferences (dimp)
+$_prefs['login_view'] = array(
+    'value' => 'portal',
+    'locked' => false,
+    'shared' => false,
+    'type' => 'enum',
+    'enum' => array('portal' => _("Portal"),
+                    'inbox' => _("Inbox")),
+    'desc' => _("The page to view immediately after login in DIMP.")
+);
+
+// Other Implicit DIMP preferences
+$_prefs['show_preview'] = array(
+    'value' => true,
+    'locked' => false,
+    'shared' => false,
+    'type' => 'implicit',
 );
 
 // Other entries (used internally in IMP)

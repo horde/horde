@@ -10,6 +10,7 @@
  *
  * These attributes are optional:
  *
+ *  'action'    The javascript code for the menu item (dimp only).
  *  'icon'      The filename of an icon to use for the menu item.
  *  'icon_path' The path to the icon if it doesn't exist in the graphics/
  *              directory.
@@ -24,7 +25,8 @@
  *      'icon' =>       'example.png',
  *      'icon_path' =>  'http://www.example.com/images/',
  *      'target' =>     '_blank',
- *      'onclick' =>    ''
+ *      'onclick' =>    '',
+ *      'action' =>     ''
  *  );
  *
  * You can also add a "separator" (a spacer) between menu items.  To add a
