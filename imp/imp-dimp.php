@@ -7,6 +7,8 @@
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ *
+ * @author Michael Slusarz <slusarz@horde.org>
  */
 
 function _generateDeleteResult($folder, $indices, $change)
@@ -50,7 +52,7 @@ function _changed($folder, $compare, $indices = array(), $nothread = false)
 function _threadUidChanged($folder, $indices)
 {
     $sort = IMP::getSort($folder);
-    if ($sort['by'] == SORTTHREAD) {
+    if ($sort['by'] == Horde_Imap_Client::SORT_THREAD) {
         foreach ($indices as $mbox => $mbox_array) {
             $imp_mailbox = &IMP_Mailbox::singleton($mbox);
             $threadob = $imp_mailbox->getThreadOb();
@@ -105,7 +107,7 @@ function _getListMessages($folder, $change)
 function _getIdxString($indices)
 {
     $i = each($indices);
-    return reset($i['value']) . IMP_IDX_SEP . $i['key'];
+    return reset($i['value']) . IMP::IDX_SEP . $i['key'];
 }
 
 function _getPollInformation($mbox)
@@ -523,7 +525,7 @@ case 'DeleteDraft':
         break;
     }
     $imp_message = &IMP_Message::singleton();
-    $idx_array = array($index . IMP_IDX_SEP . IMP::folderPref($prefs->getValue('drafts_folder'), true));
+    $idx_array = array($index . IMP::IDX_SEP . IMP::folderPref($prefs->getValue('drafts_folder'), true));
     $imp_message->delete($idx_array, true);
     break;
 
@@ -656,16 +658,16 @@ case 'SendMDN':
     }
 
     /* Get the IMP_Headers:: object. */
-    // TODO
-    $msg_cache = &IMP_MessageCache::singleton();
-    $cache_entry = $msg_cache->retrieve($folder, array($index), 32);
-    $ob = reset($cache_entry);
-    if ($ob === false) {
+    try {
+        $fetch_ret = $imp_imap->ob->fetch($folder, array(
+            Horde_Imap_Client::FETCH_HEADERTEXT => array(array('parse' => true, 'peek' => false))
+        ), array('ids' => array($index)));
+    } catch (Horde_Imap_Client_Exception $e) {
         break;
     }
 
     $imp_ui = new IMP_UI_Message();
-    $imp_ui->MDNCheck($ob->header, true);
+    $imp_ui->MDNCheck(reset($fetch_ret[$index]['headertext']), true);
     break;
 }
 

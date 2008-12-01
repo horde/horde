@@ -125,10 +125,12 @@ class IMP_Views_ShowMessage
 
         /* Get envelope/flag/header information. */
         try {
+            $flags_ret = $GLOBALS['imp_imap']->ob->fetch($folder, array(
+                Horde_Imap_Client::FETCH_FLAGS => true,
+            ), array('ids' => array($index)));
             $fetch_ret = $GLOBALS['imp_imap']->ob->fetch($folder, array(
                 Horde_Imap_Client::FETCH_ENVELOPE => true,
-                Horde_Imap_Client::FETCH_FLAGS => true,
-                Horde_Imap_Client::FETCH_HEADERTEXT => array(array('parse' => true, 'peek' => true))
+                Horde_Imap_Client::FETCH_HEADERTEXT => array(array('parse' => true, 'peek' => false))
             ), array('ids' => array($index)));
             $ob = $fetch_ret[$index];
         } catch (Horde_Imap_Client_Exception $e) {
@@ -138,9 +140,8 @@ class IMP_Views_ShowMessage
         }
 
         /* Parse MIME info and create the body of the message. */
-        $imp_contents = &IMP_Contents::singleton($index . IMP_IDX_SEP . $folder);
-        if (is_a($imp_contents, 'PEAR_Error') ||
-            !$imp_contents->buildMessage()) {
+        $imp_contents = &IMP_Contents::singleton($index . IMP::IDX_SEP . $folder);
+        if (is_a($imp_contents, 'PEAR_Error')) {
             $result['error'] = $error_msg;
             $result['errortype'] = 'horde.error';
             return $result;
@@ -149,25 +150,8 @@ class IMP_Views_ShowMessage
         /* Get the IMP_UI_Message:: object. */
         $imp_ui = new IMP_UI_Message();
 
-        /* Update the message flag, if necessary. */
-        if (($_SESSION['imp']['protocol'] == 'imap') &&
-            !in_array('\\seen', $ob['flags'])) {
-            $imp_mailbox = &IMP_Mailbox::singleton($folder, $index);
-            $imp_message = &IMP_Message::singleton();
-            $imp_message->flag(array('\\seen'), array($folder => array($index)), true);
-        }
-
-        /* Determine if we should generate the attachment strip links or
-         * not. */
-        if ($GLOBALS['prefs']->getValue('strip_attachments')) {
-            $imp_contents->setStripLink(true);
-        }
-
-        /* Show summary links. */
-        $imp_contents->showSummaryLinks(true);
-
-        $attachments = $imp_contents->getAttachments();
-        $result['msgtext'] = $imp_contents->getMessage();
+        // TODO - Create message text and attachments.
+        //$result['msgtext'] = $imp_contents->getMessage();
 
         /* Develop the list of Headers to display now. Deal with the 'basic'
          * header information first since there are various manipulations
@@ -253,7 +237,6 @@ class IMP_Views_ShowMessage
 
         /* Get X-Priority/ */
         $result['priority'] = $imp_headers->getXpriority();
-
 
         /* Add attachment info. */
         $atc_display = $GLOBALS['prefs']->getValue('attachment_display');

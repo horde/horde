@@ -18,12 +18,10 @@
 
 function _removeAutoSaveDraft($index)
 {
-    if (empty($index)) {
-        return;
+    if (!empty($index)) {
+        $imp_message = &IMP_Message::singleton();
+        $imp_message->delete(array($index . IMP::IDX_SEP . IMP::folderPref($GLOBALS['prefs']->getValue('drafts_folder'), true)), true);
     }
-    $imp_message = &IMP_Message::singleton();
-    $idx_array = array($index . IMP_IDX_SEP . IMP::folderPref($GLOBALS['prefs']->getValue('drafts_folder'), true));
-    $imp_message->delete($idx_array, true);
 }
 
 require_once dirname(__FILE__) . '/lib/base.php';
@@ -42,7 +40,7 @@ require_once 'Horde/Identity.php';
 $identity = &Identity::singleton(array('imp', 'imp'));
 if (!$prefs->isLocked('default_identity')) {
     $identity_id = Util::getFormData('identity');
-    if ($identity_id !== null) {
+    if (!is_null($identity_id)) {
         $identity->setDefault($identity_id);
     }
 }
@@ -147,7 +145,7 @@ if (count($_POST)) {
             'sent_folder' => $identity->getValue('sent_mail_folder'),
             'save_attachments' => Util::getFormData('save_attachments_select'),
             'reply_type' => $result->reply_type,
-            'reply_index' => $result->index . IMP_IDX_SEP . $result->reply_folder,
+            'reply_index' => $result->index . IMP::IDX_SEP . $result->reply_folder,
             'readreceipt' => Util::getFormData('request_read_receipt')
         );
         $sent = $imp_compose->buildAndSendMessage($message, $header, $charset, $html, $options);
@@ -194,7 +192,7 @@ if (in_array($type, array('reply', 'reply_all', 'reply_list', 'forward_all', 'fo
         $type = 'new';
     }
 
-    $imp_contents = &IMP_Contents::singleton($index . IMP_IDX_SEP . $folder);
+    $imp_contents = &IMP_Contents::singleton($index . IMP::IDX_SEP . $folder);
     if (is_a($imp_contents, 'PEAR_Error')) {
         $notification->push(_("Requested message not found."), 'horde.error');
         $index = $folder = null;
@@ -232,7 +230,7 @@ case 'reply_list':
 case 'forward_all':
 case 'forward_body':
 case 'forward_attachments':
-    $fwd_msg = $imp_ui->getForwardData($imp_compose, $imp_contents, $type, $index . IMP_IDX_SEP . $folder);
+    $fwd_msg = $imp_ui->getForwardData($imp_compose, $imp_contents, $type, $index . IMP::IDX_SEP . $folder);
     if ($type == 'forward_all') {
         $msg = '';
     } else {
@@ -252,7 +250,7 @@ case 'forward_attachments':
     break;
 
 case 'resume':
-    $result = $imp_compose->resumeDraft($index . IMP_IDX_SEP . $folder);
+    $result = $imp_compose->resumeDraft($index . IMP::IDX_SEP . $folder);
     if (is_a($result, 'PEAR_Error')) {
         $notification->push($result->getMessage(), 'horde.error');
     } else {
@@ -319,7 +317,7 @@ $compose_result['js_onload'][] = 'DimpCompose.fillForm(' . Horde_Serialize::seri
 IMP::addInlineScript($compose_result['js_onload'], 'load');
 
 $scripts = array(
-    array('compose.js', 'dimp', true)
+    array('compose-dimp.js', 'imp', true)
 );
 
 DIMP::header(_("Message Composition"), $scripts);

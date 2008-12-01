@@ -188,9 +188,10 @@ class IMP_Views_ListMessages
                 $md->unseen = $info['unseen'];
             }
 
-            if ($sortpref['by'] == SORTTHREAD) {
+            if ($sortpref['by'] == Horde_Imap_Client::SORT_THREAD) {
                 $threadob = $imp_mailbox->getThreadOb();
-                $md->thread = array_filter($threadob->getThreadTreeOb($msglist, $sortpref['dir']));
+                $imp_thread = new IMP_IMAP_Thread($threadob);
+                $md->thread = array_filter($imp_thread->getThreadTreeOb($msglist, $sortpref['dir']));
             }
         } else {
             $result->search = true;
@@ -236,10 +237,10 @@ class IMP_Views_ListMessages
     /**
      * Obtains IMAP overview data for a given set of message UIDs.
      *
-     * @var object IMP_Mailbox $imp_mailbox  An IMP_Mailbox:: object.
-     * @var string $folder                   The current folder.
-     * @var array $msglist                   The list of message sequence
-     *                                       numbers to process.
+     * @param object IMP_Mailbox $imp_mailbox  An IMP_Mailbox:: object.
+     * @param string $folder                   The current folder.
+     * @param array $msglist                   The list of message sequence
+     *                                         numbers to process.
      *
      * @return array TODO
      */
@@ -252,7 +253,6 @@ class IMP_Views_ListMessages
         }
 
         require_once 'Horde/Identity.php';
-        require_once 'Horde/Text.php';
 
         /* Get mailbox information. */
         $overview = $imp_mailbox->getMailboxArray($msglist, false, array('list-post'));
@@ -325,7 +325,7 @@ class IMP_Views_ListMessages
             $msg['from'] = htmlspecialchars($getfrom['from'], ENT_QUOTES, $charset);
 
             /* Format the Subject: Header. */
-            $msg['subject'] = str_replace('&nbsp;', '&#160;', Text::htmlSpaces($imp_ui->getSubject($ob['envelope']['subject'])));
+            $msg['subject'] = $imp_ui->getSubject($ob['envelope']['subject']);
 
             if (!empty($GLOBALS['conf']['hooks']['mailboxarray'])) {
                 $result = Horde::callHook('_dimp_hook_mailboxarray', array($msg, $ob), 'dimp');

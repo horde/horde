@@ -234,7 +234,7 @@ try {
 
 $envelope = $fetch_ret[$index]['envelope'];
 $flags = $flags_ret[$index]['flags'];
-$mime_headers = $fetch_ret[$index]['headertext'][0];
+$mime_headers = reset($fetch_ret[$index]['headertext']);
 $use_pop = ($_SESSION['imp']['protocol'] == 'pop');
 
 /* Parse the message. */

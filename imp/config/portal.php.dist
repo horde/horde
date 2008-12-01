@@ -14,12 +14,8 @@
  *                'domid' => A DOM ID to assign to the containing block
  *                'tag' => A tag name to add to the template array. Allows
  *                         the use of <if:block.tag> in custom template files.
- *
- * $Horde: dimp/config/portal.php.dist,v 1.7 2008/08/22 04:19:29 slusarz Exp $
  */
 
-require_once 'Horde/Block.php';
-require_once 'Horde/Block/Collection.php';
 $collection = new Horde_Block_Collection();
 $dimp_block_list = array();
 

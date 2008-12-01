@@ -202,9 +202,14 @@ class IMP_UI_Mailbox {
     function getSubject($subject)
     {
         $subject = Horde_Mime::decode($subject, $this->_charset);
-        return empty($subject)
+        $subject = empty($subject)
             ? _("[No Subject]")
             : IMP::filterText(preg_replace("/\s+/", ' ', $subject));
+        if ($_SESSION['imp']['view'] == 'dimp') {
+            require_once 'Horde/Text.php';
+            $subject = str_replace('&nbsp;', '&#160;', Text::htmlSpaces($subject));
+        }
+        return $subject;
     }
 
 }

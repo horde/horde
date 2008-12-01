@@ -15,7 +15,7 @@
 $d_read = $GLOBALS['prefs']->getValue('disposition_request_read');
 $save_attach = $GLOBALS['prefs']->getValue('save_attachments');
 
-$loading_img = Horde::img('loading.gif', _("Loading..."), array(), $GLOBALS['registry']->getImageDir('dimp'));
+$loading_img = Horde::img('loading.gif', _("Loading..."));
 
 // Small utility function to simplify creating dimpactions buttons.
 // As of right now, we don't show text only links.
@@ -132,7 +132,7 @@ function _createDAcompose($text, $image, $id)
   <table cellspacing="0">
    <thead>
     <tr class="atcrow">
-     <td class="label"><?php echo Horde::img('attachment.png', '', '', $GLOBALS['registry']->getImageDir('imp')) . ': ' ?></td>
+     <td class="label"><?php echo Horde::img('attachment.png') . ': ' ?></td>
      <td id="attach_cell">
       <input type="file" id="upload" name="file_1" />
 <?php if (strpos($save_attach, 'prompt') !== false): ?>

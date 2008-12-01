@@ -36,7 +36,6 @@ class Horde_Block_dimp_newmail extends Horde_Block
             $html .= '<tr><td><em>' . _("No unread messages") . '</em></td></tr>';
         } else {
             require_once 'Horde/Identity.php';
-            require_once 'Horde/Text.php';
 
             $charset = NLS::getCharset();
             $identity = &Identity::singleton(array('imp', 'imp'));
@@ -53,7 +52,7 @@ class Horde_Block_dimp_newmail extends Horde_Block
 
                 $html .= '<tr style="cursor:pointer" class="text" onclick="DimpBase.go(\'msg:INBOX:' . $ob->uid . '\');return false;"><td>' .
                     '<strong>' . htmlspecialchars($from_res['from'], ENT_QUOTES, $charset) . '</strong><br />' .
-                    str_replace('&nbsp;', '&#160;', Text::htmlSpaces($subject)) . '</td>' .
+                    $subject . '</td>' .
                     '<td>' . htmlspecialchars($date, ENT_QUOTES, $charset) . '</td></tr>';
             }
 

@@ -1,19 +1,16 @@
 <?php
 /**
- * $Horde: dimp/templates/chunks/message.php,v 1.12 2008/10/22 22:59:38 slusarz Exp $
- *
  * Copyright 2005-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  */
 
-$dimp_img = $registry->getImageDir('dimp');
 $horde_img = $registry->getImageDir('horde');
 $menu_view = $prefs->getValue('menu_view');
 $show_text = ($menu_view == 'text' || $menu_view == 'both');
 
-$attachment = Horde::img('attachment.png', '', array('class' => 'attachmentImage'), $dimp_img);
+$attachment = Horde::img('attachment.png', '', array('class' => 'attachmentImage'));
 
 // Small utility function to simplify creating dimpactions buttons.
 // As of right now, we don't show text only links.
@@ -56,7 +53,7 @@ function _createDAfmsg($text, $image, $id, $class = '', $show_text = true)
      <div class="dimpOptions noprint">
       <div id="msg_print"><?php echo Horde::img('print.png', '', '', $horde_img) ?><a><?php echo _("Print") ?></a></div>
 <?php if (!empty($conf['user']['allow_view_source'])): ?>
-      <div id="msg_view_source"><?php echo Horde::img('message_source.png', '', '', $dimp_img) ?><a><?php echo _("View Message Source") ?></a></div>
+      <div id="msg_view_source"><?php echo Horde::img('message_source.png') ?><a><?php echo _("View Message Source") ?></a></div>
 <?php endif; ?>
      </div>
      <div id="msgHeadersContent">
@@ -74,7 +71,7 @@ function _createDAfmsg($text, $image, $id, $class = '', $show_text = true)
 <?php endforeach; ?>
 <?php if (isset($show_msg_result['atc_label'])): ?>
         <tr id="msgAtc">
-         <td class="label"><?php if ($show_msg_result['atc_list']): ?><?php echo Horde::link('') . Horde::img('arrow_collapsed.png', '', array('id' => 'partlist_col'), $dimp_img) . Horde::img('arrow_expanded.png', '', array('id' => 'partlist_exp', 'style' => 'display:none'), $dimp_img) . ' ' . $attachment ?></a><?php else: echo $attachment; endif; ?></td>
+         <td class="label"><?php if ($show_msg_result['atc_list']): ?><?php echo Horde::link('') . Horde::img('arrow_collapsed.png', '', array('id' => 'partlist_col')) . Horde::img('arrow_expanded.png', '', array('id' => 'partlist_exp', 'style' => 'display:none')) . ' ' . $attachment ?></a><?php else: echo $attachment; endif; ?></td>
          <td>
           <?php echo $show_msg_result['atc_label'] . ' ' . $show_msg_result['atc_download'] ?>
 <?php if (isset($show_msg_result['atc_list'])): ?>
@@ -126,4 +123,4 @@ function _createDAfmsg($text, $image, $id, $class = '', $show_text = true)
  <div><?php _createDAfmsg(_("Add to Address Book"), 'add_contact.png', 'ctx_contacts_add') ?></div>
 </div>
 
-<?php echo Horde::img('popdown.png', 'v', array('class' => 'popdown', 'id' => 'popdown_img', 'style' => 'display:none'), $dimp_img) ?>
+<?php echo Horde::img('popdown.png', 'v', array('class' => 'popdown', 'id' => 'popdown_img', 'style' => 'display:none')) ?>
