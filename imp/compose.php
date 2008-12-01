@@ -65,10 +65,6 @@ $msg = '';
 
 /* The headers of the message. */
 $header = array(
-    'to' => '',
-    'cc' => '',
-    'bcc' => '',
-    'subject' => '',
     'in_reply_to' => Util::getFormData('in_reply_to'),
     'references' => Util::getFormData('references')
 );
@@ -696,7 +692,7 @@ if (!$reloaded && ($actionID != 'draft')) {
 }
 
 foreach (array('to', 'cc', 'bcc', 'subject') as $val) {
-    if (empty($header[$val])) {
+    if (!isset($header[$val])) {
         $header[$val] = Util::getFormData($val, $imp_ui->getAddressList(Util::getFormData($val), Util::getFormData($val . '_list'), Util::getFormData($val . '_field'), Util::getFormData($val . '_new')));
     }
 }
