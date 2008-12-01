@@ -191,7 +191,7 @@ class IMP_Search
     public function createSearchQuery($query, $folders, $search, $label,
                                       $id = null)
     {
-        $id = (empty($id)) ? base_convert(microtime() . mt_rand(), 16, 36) : $this->_strip($id);
+        $id = is_null($id) ? uniqid(mt_rand()) : $this->_strip($id);
         $_SESSION['imp']['search']['q'][$id] = array(
             'query' => serialize($query),
             'folders' => $folders,
