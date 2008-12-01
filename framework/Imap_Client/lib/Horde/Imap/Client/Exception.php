@@ -4,8 +4,6 @@
  *
  * Copyright 2008 The Horde Project (http://www.horde.org/)
  *
- * $Horde: framework/Imap_Client/lib/Horde/Imap/Client/Exception.php,v 1.16 2008/10/23 04:53:13 slusarz Exp $
- *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *

@@ -16,8 +16,6 @@
  *   + setComparator()
  *   + RFC 4551 (CONDSTORE) related functions
  *
- * $Horde: framework/Imap_Client/test/Horde/Imap/test_client.php,v 1.47 2008/10/23 04:53:14 slusarz Exp $
- *
  * @author     Michael Slusarz <slusarz@horde.org>
  * @category   Horde
  * @package    Horde_Imap_Client

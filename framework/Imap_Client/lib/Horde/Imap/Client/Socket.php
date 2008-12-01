@@ -60,8 +60,6 @@
  *
  * Copyright 2005-2008 The Horde Project (http://www.horde.org/)
  *
- * $Horde: framework/Imap_Client/lib/Horde/Imap/Client/Socket.php,v 1.99 2008/10/29 05:13:00 slusarz Exp $
- *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *

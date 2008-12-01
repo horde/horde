@@ -21,8 +21,6 @@
  *
  * Copyright 2008 The Horde Project (http://www.horde.org/)
  *
- * $Horde: framework/Imap_Client/lib/Horde/Imap/Client/Cclient.php,v 1.58 2008/10/28 21:54:40 slusarz Exp $
- *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *

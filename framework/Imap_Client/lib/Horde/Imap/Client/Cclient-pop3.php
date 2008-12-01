@@ -13,8 +13,6 @@ require_once dirname(__FILE__) . '/Cclient.php';
  *
  * Copyright 2008 The Horde Project (http://www.horde.org/)
  *
- * $Horde: framework/Imap_Client/lib/Horde/Imap/Client/Cclient-pop3.php,v 1.6 2008/10/09 21:06:22 slusarz Exp $
- *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *

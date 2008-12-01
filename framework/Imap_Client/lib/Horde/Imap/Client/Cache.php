@@ -29,8 +29,6 @@ require_once 'Horde/Serialize.php';
  * 'slicesize' - (integer) The slicesize to use.
  *               DEFAULT: 50
  *
- * $Horde: framework/Imap_Client/lib/Horde/Imap/Client/Cache.php,v 1.19 2008/10/28 21:54:40 slusarz Exp $
- *
  * Copyright 2005-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

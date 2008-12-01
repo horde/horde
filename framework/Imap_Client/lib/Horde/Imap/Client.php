@@ -68,8 +68,6 @@ require_once dirname(__FILE__) . '/Client/Utf7imap.php';
  *   Original code released under the LGPL v2.1
  *   Copyright (c) 2002-2008 Timo Sirainen <tss@iki.fi>
  *
- * $Horde: framework/Imap_Client/lib/Horde/Imap/Client.php,v 1.40 2008/10/27 21:02:55 slusarz Exp $
- *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *

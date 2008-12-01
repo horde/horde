@@ -14,8 +14,6 @@
  *
  * Copyright 2008 The Horde Project (http://www.horde.org/)
  *
- * $Horde: framework/Imap_Client/lib/Horde/Imap/Client/Utf7imap.php,v 1.4 2008/10/09 04:43:26 slusarz Exp $
- *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *

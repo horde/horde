@@ -3,8 +3,6 @@
  * Horde_Imap_Client_Sort:: provides a function to sort a list of IMAP
  * mailboxes.
  *
- * $Horde: framework/Imap_Client/lib/Horde/Imap/Client/Sort.php,v 1.5 2008/10/17 05:56:16 slusarz Exp $
- *
  * Copyright 2004-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
