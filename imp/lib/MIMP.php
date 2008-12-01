@@ -34,7 +34,7 @@ class MIMP
             (empty($GLOBALS['conf']['hooks']['disable_compose']) ||
              Horde::callHook('_imp_hook_disable_compose', array(true), 'imp'))) {
 
-            $items[Util::addParameter(Horde::applicationUrl('compose-mimp.php'), 'u', base_convert(microtime() . mt_rand(), 10, 36))] = _("New Message");
+            $items[Util::addParameter(Horde::applicationUrl('compose-mimp.php'), 'u', uniqid(mt_rand()))] = _("New Message");
         }
 
         if ($page != 'folders') {

@@ -826,7 +826,7 @@ if ($showmenu) {
 /* Set up the base template now. */
 $t = new IMP_Template();
 $t->setOption('gettext', true);
-$t->set('post_action', Util::addParameter(Horde::applicationUrl('compose.php'), 'uniq', base_convert(microtime(), 10, 36)));
+$t->set('post_action', Util::addParameter(Horde::applicationUrl('compose.php'), 'uniq', uniqid(mt_rand())));
 $t->set('allow_compose', !$compose_disable);
 if ($has_js) {
     $t->set('loading_img', Horde::img('loading.gif', _("Loading...")));
