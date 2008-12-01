@@ -618,7 +618,7 @@ $redirect = in_array($actionID, array('redirect_compose', 'redirect_expand_addr'
 $spellcheck = false;
 if ($has_js) {
     if ($redirect) {
-        $imp_ui->attachAutoCompleter('IMP_Imple', array('to'));
+        $imp_ui->attachAutoCompleter(array('to'));
     } else {
         $auto_complete = array('to');
         foreach (array('cc', 'bcc') as $val) {
@@ -626,7 +626,7 @@ if ($has_js) {
                 $auto_complete[] = $val;
             }
         }
-        $imp_ui->attachAutoCompleter('IMP_Imple', $auto_complete);
+        $imp_ui->attachAutoCompleter($auto_complete);
         if (!empty($conf['spell']['driver'])) {
             if (Horde_SpellChecker::factory($conf['spell']['driver'], array()) !== false) {
                 $spellcheck = true;

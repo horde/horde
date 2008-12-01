@@ -1,46 +1,32 @@
 <?php
 /**
- * $Horde: dimp/index.php,v 1.72 2008/09/29 17:30:19 chuck Exp $
- *
  * Copyright 2005-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author Jan Schneider <jan@horde.org>
+ * @author Michael Slusarz <slusarz@horde.org>
  */
 
-@define('DIMP_BASE', dirname(__FILE__));
-$dimp_configured = (is_readable(DIMP_BASE . '/config/conf.php') &&
-                    is_readable(DIMP_BASE . '/config/portal.php') &&
-                    is_readable(DIMP_BASE . '/config/prefs.php'));
-
-if (!$dimp_configured) {
-    require DIMP_BASE . '/../lib/Test.php';
-    Horde_Test::configFilesMissing('DIMP', DIMP_BASE,
-                                   array('conf.php', 'prefs.php'),
-                                   array('portal.php' => 'This file controls the blocks that appear in DIMP\'s portal'));
-}
-
-$load_imp = true;
-require_once DIMP_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/base.php';
 
 $scripts = array(
-    array('DimpBase.js', 'dimp', true),
-    array('ContextSensitive.js', 'dimp', true),
-    array('ViewPort.js', 'dimp', true),
-    array('dragdrop.js', 'dimp', true),
+    array('DimpBase.js', 'imp', true),
+    array('ContextSensitive.js', 'imp', true),
+    array('ViewPort.js', 'imp', true),
+    array('dragdrop.js', 'imp', true),
     array('dhtmlHistory.js', 'horde', true),
     array('redbox.js', 'horde', true),
-    array('mailbox.js', 'dimp'),
-    array('DimpSlider.js', 'dimp', true),
+    array('mailbox-dimp.js', 'imp'),
+    array('DimpSlider.js', 'imp', true),
     array('unblockImages.js', 'imp', true)
 );
 
 /* Get site specific menu items. */
 $js_code = $site_menu = array();
-if (is_readable(DIMP_BASE . '/config/menu.php')) {
-    include DIMP_BASE . '/config/menu.php';
+if (is_readable(IMP_BASE . '/config/menu.php')) {
+    include IMP_BASE . '/config/menu.php';
 }
 
 /* Add the site specific javascript now. */
@@ -71,7 +57,7 @@ foreach (DIMP::menuList() as $app) {
 }
 
 echo "<body>\n";
-require DIMP_TEMPLATES . '/index/index.inc';
+require IMP_TEMPLATES . '/index/index.inc';
 IMP::includeScriptFiles();
 IMP::outputInlineScript();
 $notification->notify(array('listeners' => array('javascript')));

@@ -7,8 +7,6 @@
  *             opened from a page other than the base DIMP page.
  *   TODO
  *
- * $Horde: dimp/compose.php,v 1.118 2008/08/05 05:48:48 slusarz Exp $
- *
  * Copyright 2005-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -23,16 +21,12 @@ function _removeAutoSaveDraft($index)
     if (empty($index)) {
         return;
     }
-    require_once IMP_BASE . '/lib/Message.php';
     $imp_message = &IMP_Message::singleton();
     $idx_array = array($index . IMP_IDX_SEP . IMP::folderPref($GLOBALS['prefs']->getValue('drafts_folder'), true));
     $imp_message->delete($idx_array, true);
 }
 
-$load_imp = true;
-@define('DIMP_BASE', dirname(__FILE__));
-require_once DIMP_BASE . '/lib/base.php';
-require_once 'Horde/Identity.php';
+require_once dirname(__FILE__) . '/lib/base.php';
 
 /* The headers of the message. */
 $header = array();
@@ -44,6 +38,7 @@ $action = Util::getFormData('action');
 $get_sig = true;
 $msg = '';
 
+require_once 'Horde/Identity.php';
 $identity = &Identity::singleton(array('imp', 'imp'));
 if (!$prefs->isLocked('default_identity')) {
     $identity_id = Util::getFormData('identity');
@@ -56,11 +51,9 @@ if (!$prefs->isLocked('default_identity')) {
 NLS::setTimeZone();
 
 /* Initialize the IMP_Compose:: object. */
-require_once IMP_BASE . '/lib/Compose.php';
 $imp_compose = &IMP_Compose::singleton(Util::getFormData('composeCache'));
 
 /* Init IMP_UI_Compose:: object. */
-require_once IMP_BASE . '/lib/UI/Compose.php';
 $imp_ui = new IMP_UI_Compose();
 
 if (count($_POST)) {
@@ -75,7 +68,7 @@ if (count($_POST)) {
             $info = DIMP::getAttachmentInfo($imp_compose);
             $result->success = true;
             $result->info = end($info);
-            $result->imp_compose = $imp_compose->getMessageCacheId();
+            $result->imp_compose = $imp_compose->getCacheId();
         }
         IMP::sendHTTPResponse(DIMP::prepareResponse($result, true, false), 'js-json');
         exit;
@@ -144,13 +137,8 @@ if (count($_POST)) {
 
         /* Use IMP_Tree to determine whether the sent mail folder was
          * created. */
-        require_once IMP_BASE . '/lib/IMAP/Tree.php';
-        $imptree = &IMP_Tree::singleton();
+        $imptree = &IMP_IMAP_Tree::singleton();
         $imptree->eltDiffStart();
-
-        /* Create the DIMP User-Agent string. */
-        require_once DIMP_BASE . '/lib/version.php';
-        $useragent = 'Dynamic Internet Messaging Program (DIMP) ' . DIMP_VERSION;
 
         $options = array(
             'save_sent' => (($prefs->isLocked('save_sent_mail'))
@@ -160,8 +148,7 @@ if (count($_POST)) {
             'save_attachments' => Util::getFormData('save_attachments_select'),
             'reply_type' => $result->reply_type,
             'reply_index' => $result->index . IMP_IDX_SEP . $result->reply_folder,
-            'readreceipt' => Util::getFormData('request_read_receipt'),
-            'useragent' => $useragent
+            'readreceipt' => Util::getFormData('request_read_receipt')
         );
         $sent = $imp_compose->buildAndSendMessage($message, $header, $charset, $html, $options);
 
@@ -193,8 +180,7 @@ if (count($_POST)) {
 }
 
 /* Attach spellchecker & auto completer. */
-require_once DIMP_BASE . '/lib/Dimple.php';
-$imp_ui->attachAutoCompleter('Dimple', array('to', 'cc', 'bcc'));
+$imp_ui->attachAutoCompleter(array('to', 'cc', 'bcc'));
 $imp_ui->attachSpellChecker('dimp');
 
 $type = Util::getFormData('type');
@@ -208,7 +194,6 @@ if (in_array($type, array('reply', 'reply_all', 'reply_list', 'forward_all', 'fo
         $type = 'new';
     }
 
-    require_once IMP_BASE . '/lib/MIME/Contents.php';
     $imp_contents = &IMP_Contents::singleton($index . IMP_IDX_SEP . $folder);
     if (is_a($imp_contents, 'PEAR_Error')) {
         $notification->push(_("Requested message not found."), 'horde.error');
@@ -310,13 +295,12 @@ $args = array(
     'qreply' => false,
 );
 
-require_once IMP_BASE . '/lib/Template.php';
-$t = new IMP_Template(DIMP_TEMPLATES . '/imp/');
+$t = new IMP_Template(IMP_TEMPLATES . '/imp/');
 $t->setOption('gettext', true);
 $t->set('title', $title);
 $t->set('closelink', Horde::img('close.png', 'X', array('id' => 'compose_close'), $registry->getImageDir('horde')));
 
-$compose_result = DIMP_Views_Compose::showCompose($args);
+$compose_result = IMP_Views_Compose::showCompose($args);
 $t->set('compose_html', $compose_result['html']);
 
 /* Javscript variables to be set immediately. */
@@ -331,7 +315,6 @@ IMP::addInlineScript($compose_result['js']);
 IMP::addInlineScript(array(DIMP::notify()), 'dom');
 
 /* Javascript to be run on window load. */
-require_once 'Horde/Serialize.php';
 $compose_result['js_onload'][] = 'DimpCompose.fillForm(' . Horde_Serialize::serialize($msg, SERIALIZE_JSON) . ', ' . Horde_Serialize::serialize($header, SERIALIZE_JSON) . ', "' . (($type == 'new' || $type == 'forward') ? 'to' : 'message') . '", true)';
 IMP::addInlineScript($compose_result['js_onload'], 'load');
 

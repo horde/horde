@@ -1,18 +1,15 @@
 <?php
 /**
- * $Horde: dimp/message.php,v 1.73 2008/09/05 06:38:48 slusarz Exp $
- *
  * Copyright 2005-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author Jan Schneider <jan@horde.org>
+ * @author Michael Slusarz <slusarz@horde.org>
  */
 
-$load_imp = true;
-@define('DIMP_BASE', dirname(__FILE__));
-require_once DIMP_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/base.php';
 
 $folder = Util::getFormData('folder');
 $index = Util::getFormData('uid');
@@ -20,7 +17,6 @@ if (!$index || !$folder) {
     exit;
 }
 
-require_once IMP_BASE . '/lib/UI/Message.php';
 $imp_ui = new IMP_UI_Message();
 
 $args = array(
@@ -30,8 +26,7 @@ $args = array(
     'preview' => false,
 );
 
-require_once DIMP_BASE . '/lib/Views/ShowMessage.php';
-$show_msg = new DIMP_Views_ShowMessage();
+$show_msg = new IMP_Views_ShowMessage();
 $show_msg_result = $show_msg->ShowMessage($args);
 if (isset($show_msg_result['error'])) {
     echo IMP::wrapInlineScript(array(
@@ -48,7 +43,7 @@ $compose_args = array(
     'popup' => false,
     'qreply' => true,
 );
-$compose_result = DIMP_Views_Compose::showCompose($compose_args);
+$compose_result = IMP_Views_Compose::showCompose($compose_args);
 
 /* Need the Header object to check for list information. */
 $msg_cache = &IMP_MessageCache::singleton();
@@ -56,12 +51,10 @@ $cache_entry = $msg_cache->retrieve($folder, array($index), 32);
 $ob = reset($cache_entry);
 
 /* Init IMP_UI_Compose:: object. */
-require_once IMP_BASE . '/lib/UI/Compose.php';
 $imp_ui = new IMP_UI_Compose();
 
 /* Attach spellchecker & auto completer. */
-require_once DIMP_BASE . '/lib/Dimple.php';
-$imp_ui->attachAutoCompleter('Dimple', array('to', 'cc', 'bcc'));
+$imp_ui->attachAutoCompleter(array('to', 'cc', 'bcc'));
 $imp_ui->attachSpellChecker('dimp');
 
 $compose_result['js'] = array_merge($compose_result['js'], array(
@@ -69,7 +62,6 @@ $compose_result['js'] = array_merge($compose_result['js'], array(
     'DIMP.conf.msg_folder = "' . $show_msg_result['folder'] . '"'
 ));
 
-require_once 'Horde/Serialize.php';
 foreach (array('from', 'to', 'cc', 'bcc', 'replyTo') as $val) {
     if (!empty($show_msg_result[$val])) {
         $compose_result['js'][] = 'DimpFullmessage.' . $val . ' = ' . Horde_Serialize::serialize($show_msg_result[$val], SERIALIZE_JSON);
@@ -80,15 +72,15 @@ IMP::addInlineScript($compose_result['jsonload'], 'load');
 IMP::addInlineScript(array(DIMP::notify()), 'dom');
 
 $scripts = array(
-    array('ContextSensitive.js', 'dimp', true),
-    array('fullmessage.js', 'dimp', true),
-    array('compose.js', 'dimp', true),
+    array('ContextSensitive.js', 'imp', true),
+    array('fullmessage-dimp.js', 'imp', true),
+    array('compose-dimp.js', 'imp', true),
     array('unblockImages.js', 'imp', true)
 );
 
 DIMP::header($show_msg_result['subject'], $scripts);
 echo "<body>\n";
-require DIMP_TEMPLATES . '/chunks/message.php';
+require IMP_TEMPLATES . '/chunks/message.php';
 IMP::includeScriptFiles();
 IMP::outputInlineScript();
 echo $compose_result['jsappend'];

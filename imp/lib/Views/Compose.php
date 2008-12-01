@@ -9,7 +9,7 @@
  *
  * @package IMP
  */
-class DIMP_Views_Compose
+class IMP_Views_Compose
 {
     /**
      * Create content needed to output the compose screen.

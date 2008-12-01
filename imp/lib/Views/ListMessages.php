@@ -10,7 +10,7 @@
  *
  * @package IMP
  */
-class DIMP_Views_ListMessages
+class IMP_Views_ListMessages
 {
     /**
      * Returns a list of messages for use with ViewPort.

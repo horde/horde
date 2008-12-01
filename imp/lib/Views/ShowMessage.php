@@ -9,7 +9,7 @@
  *
  * @package IMP
  */
-class DIMP_Views_ShowMessage
+class IMP_Views_ShowMessage
 {
     /**
      * Builds a list of addresses from header information.

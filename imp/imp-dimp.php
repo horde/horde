@@ -3,8 +3,6 @@
  * imp.php - performs an AJAX-requested action and returns the DIMP-specific
  * JSON object
  *
- * $Horde: dimp/imp.php,v 1.234 2008/09/05 17:42:13 slusarz Exp $
- *
  * Copyright 2005-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -34,7 +32,6 @@ function _generateDeleteResult($folder, $indices, $change)
 
 function _cacheID($folder)
 {
-    require_once IMP_BASE . '/lib/Mailbox.php';
     $imp_mailbox = &IMP_Mailbox::singleton($folder);
     return $imp_mailbox->getCacheId();
 }
@@ -54,7 +51,6 @@ function _threadUidChanged($folder, $indices)
 {
     $sort = IMP::getSort($folder);
     if ($sort['by'] == SORTTHREAD) {
-        require_once IMP_BASE . '/lib/Mailbox.php';
         foreach ($indices as $mbox => $mbox_array) {
             $imp_mailbox = &IMP_Mailbox::singleton($mbox);
             $threadob = $imp_mailbox->getThreadOb();
@@ -81,7 +77,6 @@ function _getListMessages($folder, $change)
 
     $search = Util::getPost('search');
     if (!empty($search)) {
-        require_once 'Horde/Serialize.php';
         $search = Horde_Serialize::unserialize($search, SERIALIZE_JSON);
         $args += array(
             'search_uid' => $search->imapuid,
@@ -96,8 +91,7 @@ function _getListMessages($folder, $change)
         );
     }
 
-    require_once DIMP_BASE . '/lib/Views/ListMessages.php';
-    $list_msg = new DIMP_Views_ListMessages();
+    $list_msg = new IMP_Views_ListMessages();
     $res = $list_msg->ListMessages($args);
     // TODO: This can potentially be optimized for arrival time sort - if the
     // cache ID changes, we know the changes must occur at end of mailbox.
@@ -116,8 +110,7 @@ function _getIdxString($indices)
 
 function _getPollInformation($mbox)
 {
-    require_once IMP_BASE . '/lib/IMAP/Tree.php';
-    $imptree = &IMP_Tree::singleton();
+    $imptree = &IMP_IMAP_Tree::singleton();
     $elt = $imptree->get($mbox);
     if ($imptree->isPolled($elt)) {
         $info = $imptree->getElementInfo($mbox);
@@ -147,11 +140,9 @@ if (in_array($action, array('chunkContent', 'Html2Text', 'Text2Html', 'GetReplyD
 
 $authentication = 'none';
 $dimp_logout = ($action == 'LogOut');
-$load_imp = true;
 $session_timeout = 'json';
 @define('AUTH_HANDLER', true);
-@define('DIMP_BASE', dirname(__FILE__));
-require_once DIMP_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/base.php';
 
 // Process common request variables.
 $folder = Util::getPost('folder');
@@ -176,11 +167,9 @@ case 'CreateSubfolder':
         break;
     }
 
-    require_once IMP_BASE . '/lib/IMAP/Tree.php';
-    $imptree = &IMP_Tree::singleton();
+    $imptree = &IMP_IMAP_Tree::singleton();
     $imptree->eltDiffStart();
 
-    require_once IMP_BASE . '/lib/Folder.php';
     $imp_folder = &IMP_Folder::singleton();
 
     $new = String::convertCharset($folder, NLS::getCharset(), 'UTF7-IMAP');
@@ -201,11 +190,9 @@ case 'DeleteFolder':
         break;
     }
 
-    require_once IMP_BASE . '/lib/IMAP/Tree.php';
-    $imptree = &IMP_Tree::singleton();
+    $imptree = &IMP_IMAP_Tree::singleton();
     $imptree->eltDiffStart();
 
-    require_once IMP_BASE . '/lib/Folder.php';
     $imp_folder = &IMP_Folder::singleton();
     $result = $imp_folder->delete(array($folder));
     if ($result) {
@@ -221,11 +208,9 @@ case 'RenameFolder':
         break;
     }
 
-    require_once IMP_BASE . '/lib/IMAP/Tree.php';
-    $imptree = &IMP_Tree::singleton();
+    $imptree = &IMP_IMAP_Tree::singleton();
     $imptree->eltDiffStart();
 
-    require_once IMP_BASE . '/lib/Folder.php';
     $imp_folder = &IMP_Folder::singleton();
 
     $new = $imptree->createMailboxName($new_parent, $new);
@@ -249,7 +234,6 @@ case 'EmptyFolder':
         break;
     }
 
-    require_once IMP_BASE . '/lib/Message.php';
     $imp_message = &IMP_Message::singleton();
     $imp_message->emptyMailbox(array($folder));
     $result = new stdClass;
@@ -262,7 +246,6 @@ case 'MarkFolderUnseen':
         break;
     }
 
-    require_once IMP_BASE . '/lib/Message.php';
     $imp_message = &IMP_Message::singleton();
     $result = $imp_message->flagAllInMailbox(array('seen'),
                                              array($folder),
@@ -279,23 +262,20 @@ case 'MarkFolderUnseen':
     break;
 
 case 'ListFolders':
-    require_once IMP_BASE . '/lib/IMAP/Tree.php';
-    $imptree = &IMP_Tree::singleton();
-    $result = DIMP::getFolderResponse($imptree, array('a' => $imptree->folderList(IMPTREE_FLIST_CONTAINER | IMPTREE_FLIST_VFOLDER), 'c' => array(), 'd' => array()));
+    $imptree = &IMP_IMAP_Tree::singleton();
+    $result = DIMP::getFolderResponse($imptree, array('a' => $imptree->folderList(IMP_IMAP_TREE::FLIST_CONTAINER | IMP_IMAP_TREE::FLIST_VFOLDER), 'c' => array(), 'd' => array()));
     break;
 
 case 'PollFolders':
     $result = new stdClass;
 
-    require_once IMP_BASE . '/lib/Fetchmail.php';
     $fm_account = new IMP_Fetchmail_Account();
     $fm_count = $fm_account->count();
     if (!empty($fm_count)) {
         IMP_Fetchmail::fetchMail(range(0, $fm_count - 1));
     }
 
-    require_once IMP_BASE . '/lib/IMAP/Tree.php';
-    $imptree = &IMP_Tree::singleton();
+    $imptree = &IMP_IMAP_Tree::singleton();
 
     $result->poll = array();
     foreach ($imptree->getPollList(true) as $val) {
@@ -332,8 +312,7 @@ case 'ListMessages':
     $result = new stdClass;
 
     if (Util::getPost('rangeslice')) {
-        require_once DIMP_BASE . '/lib/Views/ListMessages.php';
-        $list_msg = new DIMP_Views_ListMessages();
+        $list_msg = new IMP_Views_ListMessages();
         $result->viewport = $list_msg->getSlice($folder, intval(Util::getPost('start')) - 1, intval(Util::getPost('length')));
         $result->viewport->request_id = Util::getPost('request_id');
         $result->viewport->type = 'slice';
@@ -356,12 +335,11 @@ case 'CopyMessage':
         $change = _changed($folder, $cacheid, $indices);
     }
 
-    require_once IMP_BASE . '/lib/Message.php';
     $imp_message = &IMP_Message::singleton();
     $result = $imp_message->copy($to,
                                  $action == 'MoveMessage'
-                                     ? IMP_MESSAGE_MOVE
-                                     : IMP_MESSAGE_COPY,
+                                     ? IMP_MESSAGE::MOVE
+                                     : IMP_MESSAGE::COPY,
                                  $indices);
     if ($result) {
         if ($action == 'MoveMessage') {
@@ -396,7 +374,6 @@ case 'MarkMessage':
         $set = true;
     }
 
-    require_once IMP_BASE . '/lib/Message.php';
     $imp_message = &IMP_Message::singleton();
     $result = $imp_message->flag(array($flag), $indices, $set);
     if ($result) {
@@ -410,7 +387,6 @@ case 'UndeleteMessage':
         break;
     }
 
-    require_once IMP_BASE . '/lib/Message.php';
     $imp_message = &IMP_Message::singleton();
     if ($action == 'DeleteMessage') {
         $change = _changed($folder, $cacheid, $indices, !$prefs->getValue('hide_deleted') && !$prefs->getValue('use_trash'));
@@ -447,7 +423,6 @@ case 'AddContact':
 case 'ReportSpam':
 case 'ReportHam':
     $change = _changed($folder, $cacheid, $indices);
-    require_once IMP_BASE . '/lib/Spam.php';
     $spam = new IMP_Spam();
     $result = $spam->reportSpam($indices,
                                 $action == 'ReportSpam' ? 'spam' : 'notspam');
@@ -465,7 +440,6 @@ case 'Whitelist':
         break;
     }
 
-    require_once IMP_BASE . '/lib/Filter.php';
     $imp_filter = new IMP_Filter();
     if ($action == 'Whitelist') {
         $imp_filter->whitelistMessage($indices, false);
@@ -489,8 +463,7 @@ case 'ShowPreview':
         'preview' => true,
     );
 
-    require_once DIMP_BASE . '/lib/Views/ShowMessage.php';
-    $show_msg = new DIMP_Views_ShowMessage();
+    $show_msg = new IMP_Views_ShowMessage();
     $result = (object) $show_msg->showMessage($args);
     break;
 
@@ -509,10 +482,6 @@ case 'Text2Html':
     break;
 
 case 'GetForwardData':
-    require_once IMP_BASE . '/lib/Compose.php';
-    require_once IMP_BASE . '/lib/MIME/Contents.php';
-    require_once IMP_BASE . '/lib/UI/Compose.php';
-    require_once 'Horde/MIME/Message.php';
     $header = array();
     $msg = $header = null;
     $idx_string = _getIdxString($indices);
@@ -526,7 +495,7 @@ case 'GetForwardData':
 
     $result = new stdClass;
     // Can't open read-only since we need to store the message cache id.
-    $result->imp_compose = $imp_compose->getMessageCacheId();
+    $result->imp_compose = $imp_compose->getCacheId();
     $result->fwd_list = DIMP::getAttachmentInfo($imp_compose);
     $result->body = $fwd_msg['body'];
     $result->header = $header;
@@ -535,8 +504,6 @@ case 'GetForwardData':
     break;
 
 case 'GetReplyData':
-    require_once IMP_BASE . '/lib/Compose.php';
-    require_once IMP_BASE . '/lib/MIME/Contents.php';
     $imp_compose = &IMP_Compose::singleton(Util::getPost('imp_compose'));
     $imp_contents = &IMP_Contents::singleton(_getIdxString($indices));
     $reply_msg = $imp_compose->replyMessage(Util::getPost('type'), $imp_contents);
@@ -555,7 +522,6 @@ case 'DeleteDraft':
     if (empty($indices)) {
         break;
     }
-    require_once IMP_BASE . '/lib/Message.php';
     $imp_message = &IMP_Message::singleton();
     $idx_array = array($index . IMP_IDX_SEP . IMP::folderPref($prefs->getValue('drafts_folder'), true));
     $imp_message->delete($idx_array, true);
@@ -564,7 +530,6 @@ case 'DeleteDraft':
 case 'DeleteAttach':
     $atc = Util::getPost('atc_indices');
     if (!is_null($atc)) {
-        require_once IMP_BASE . '/lib/Compose.php';
         $imp_compose = &IMP_Compose::singleton(Util::getPost('imp_compose'));
         $imp_compose->deleteAttachment($atc);
     }
@@ -573,7 +538,7 @@ case 'DeleteAttach':
 case 'ShowPortal':
     // Load the block list. Blocks are located in $dimp_block_list.
     // KEY: Block label  VALUE: Horde_Block object
-    require DIMP_BASE . '/config/portal.php';
+    require IMP_BASE . '/config/portal.php';
 
     $blocks = $linkTags = array();
     $css_load = array('dimp' => true);
@@ -623,8 +588,7 @@ case 'ShowPortal':
     $result = new stdClass;
     $result->portal = '';
     if (!empty($blocks)) {
-        require_once IMP_BASE . '/lib/Template.php';
-        $t = new IMP_Template(DIMP_TEMPLATES . '/imp/');
+        $t = new IMP_Template(IMP_TEMPLATES . '/imp/');
         $t->set('block', $blocks);
         $result->portal = $t->fetch('portal.html');
     }
@@ -635,7 +599,7 @@ case 'chunkContent':
     $chunk = basename(Util::getPost('chunk'));
     if (!empty($chunk)) {
         $result = new stdClass;
-        $result->chunk = Util::bufferOutput('include', DIMP_TEMPLATES . '/chunks/' . $chunk . '.php');
+        $result->chunk = Util::bufferOutput('include', IMP_TEMPLATES . '/chunks/' . $chunk . '.php');
     }
     break;
 
@@ -645,7 +609,6 @@ case 'PurgeDeleted':
         $sort = IMP::getSort($folder);
         $change = ($sort['by'] == SORTTHREAD);
     }
-    require_once IMP_BASE . '/lib/Message.php';
     $imp_message = &IMP_Message::singleton();
     $expunged = $imp_message->expungeMailbox(array($folder => 1));
     if (!empty($expunged[$folder])) {
@@ -670,8 +633,7 @@ case 'ModifyPollFolder':
 
     $add = Util::getPost('add');
 
-    require_once IMP_BASE . '/lib/IMAP/Tree.php';
-    $imptree = &IMP_Tree::singleton();
+    $imptree = &IMP_IMAP_Tree::singleton();
 
     $result = new stdClass;
     $result->add = (bool) $add;
@@ -694,7 +656,7 @@ case 'SendMDN':
     }
 
     /* Get the IMP_Headers:: object. */
-    require_once IMP_BASE . '/lib/IMAP/MessageCache.php';
+    // TODO
     $msg_cache = &IMP_MessageCache::singleton();
     $cache_entry = $msg_cache->retrieve($folder, array($index), 32);
     $ob = reset($cache_entry);
@@ -702,7 +664,6 @@ case 'SendMDN':
         break;
     }
 
-    require_once IMP_BASE . '/lib/UI/Message.php';
     $imp_ui = new IMP_UI_Message();
     $imp_ui->MDNCheck($ob->header, true);
     break;

@@ -1,6 +1,6 @@
 <?php
 /**
- * The IMP_UI_Compose:: class is designed to provide a place to dump common
+ * The IMP_UI_Compose:: class is designed to provide a place to store common
  * code shared among IMP's various UI views for the compose page.
  *
  * Copyright 2006-2008 The Horde Project (http://www.horde.org/)
@@ -11,8 +11,8 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package IMP
  */
-class IMP_UI_Compose {
-
+class IMP_UI_Compose
+{
     /**
      */
     function expandAddresses($input, &$imp_compose)
@@ -28,11 +28,9 @@ class IMP_UI_Compose {
             $list = $error->getUserInfo();
             if (is_array($list)) {
                 foreach ($list as $entry) {
-                    if (is_object($entry)) {
-                        $result[] = $entry->getUserInfo();
-                    } else {
-                        $result[] = $entry;
-                    }
+                    $result[] = is_object($entry)
+                        ? $entry->getUserInfo()
+                        : $entry;
                 }
             }
             $GLOBALS['notification']->push($error, 'horde.warning');
@@ -55,12 +53,6 @@ class IMP_UI_Compose {
         $identity = &Identity::singleton(array('imp', 'imp'));
         $from_addr = $identity->getFromAddress();
 
-        /* We need to rebuild the headers ourselves to ensure that all MIME
-         * decoding stays as-is. */
-        require_once IMP_BASE . '/lib/MIME/Headers.php';
-        $imp_imap = &IMP_IMAP::singleton();
-        $imp_imap->changeMbox($contents->getMailbox(), IMP_IMAP_AUTO);
-
         $headers = $contents->getHeaderOb();
         $headers->addResentHeaders($from_addr, $recip['header']['to']);
 
@@ -81,7 +73,6 @@ class IMP_UI_Compose {
 
         /* Store history information. */
         if (!empty($GLOBALS['conf']['maillog']['use_maillog'])) {
-            require_once IMP_BASE . '/lib/Maillog.php';
             IMP_Maillog::log('redirect', $headers->getValue('message-id'), $recipients);
         }
 
@@ -95,7 +86,6 @@ class IMP_UI_Compose {
         Horde::logMessage($entry, __FILE__, __LINE__, PEAR_LOG_INFO);
 
         if ($GLOBALS['conf']['sentmail']['driver'] != 'none') {
-            require_once IMP_BASE . '/lib/Sentmail.php';
             $sentmail = IMP_Sentmail::factory();
             $sentmail->log('redirect', $headers->getValue('message-id'), $recipients);
         }
@@ -124,11 +114,11 @@ class IMP_UI_Compose {
 
     /**
      */
-    function attachAutoCompleter($lib, $fields)
+    function attachAutoCompleter($fields)
     {
         /* Attach autocompleters to the compose form elements. */
         foreach ($fields as $val) {
-            call_user_func_array(array($lib, 'factory'), array('ContactAutoCompleter', array('triggerId' => $val)));
+            call_user_func_array(array('IMP_Imple', 'factory'), array('ContactAutoCompleter', array('triggerId' => $val)));
         }
     }
 
@@ -151,7 +141,7 @@ class IMP_UI_Compose {
                 'Error' => $spell_img . $br . _("Spell Check Failed")
             )
         );
-        call_user_func_array(array($mode == 'dimp' ? 'Dimple' : 'IMP_Imple', 'factory'), array('SpellChecker', $args));
+        call_user_func_array(array('IMP_Imple', 'factory'), array('SpellChecker', $args));
     }
 
     /**
@@ -163,7 +153,6 @@ class IMP_UI_Compose {
         if (!empty($to)) {
             // Although we allow ';' to delimit addresses in the UI, need to
             // convert to RFC-compliant ',' delimiter for processing.
-            require_once 'Horde/String.php';
             $clean_to = '';
             foreach (Horde_Mime_Address::explode($to, ',;') as $val) {
                 $val = trim($val);
@@ -172,7 +161,6 @@ class IMP_UI_Compose {
             if ($expand) {
                return $clean_to;
             } else {
-               require_once IMP_BASE . '/lib/Compose.php';
                return IMP_Compose::formatAddr($clean_to);
             }
         }
@@ -202,7 +190,6 @@ class IMP_UI_Compose {
      */
     function initRTE($mode = 'imp')
     {
-        require_once 'Horde/Editor.php';
         $editor = &Horde_Editor::singleton('fckeditor', array('id' => 'message', 'no_notify' => true));
 
         $fck_buttons = $GLOBALS['prefs']->getValue('fckeditor_buttons');
