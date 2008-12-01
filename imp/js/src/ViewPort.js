@@ -4,8 +4,6 @@
  * Requires prototypejs 1.6+, DimpSlider.js, scriptaculous 1.8+ (effects.js
  * only), and DIMP's dragdrop.js.
  *
- * $Horde: dimp/js/src/ViewPort.js,v 1.274 2008/10/20 00:57:59 slusarz Exp $
- *
  * Copyright 2005-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

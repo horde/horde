@@ -7,8 +7,6 @@
  * TO MATCH YOUR SPECIFIC NEEDS AND SYSTEM ENVIRONMENT.
  *
  * For more information please see the horde/config/hooks.php.dist file.
- *
- * $Horde: imp/config/hooks.php.dist,v 1.11 2008/07/01 07:03:30 slusarz Exp $
  */
 
 // Here is an example signature hook function to set the signature from the

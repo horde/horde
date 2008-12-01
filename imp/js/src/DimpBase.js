@@ -1,8 +1,6 @@
 /**
  * DimpBase.js - Javascript used in the base DIMP page.
  *
- * $Horde: dimp/js/src/DimpBase.js,v 1.174 2008/11/24 21:53:41 slusarz Exp $
- *
  * Copyright 2005-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

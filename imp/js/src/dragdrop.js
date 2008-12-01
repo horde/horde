@@ -61,8 +61,6 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  *
- * $Horde: dimp/js/src/dragdrop.js,v 1.31 2008/08/20 20:18:59 slusarz Exp $
- *
  * Copyright 2008 The Horde Project (http://www.horde.org/)
  *
  * @author Michael Slusarz <slusarz@curecanti.org>

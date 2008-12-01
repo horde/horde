@@ -25,8 +25,6 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  *
- * $Horde: dimp/js/src/DimpSlider.js,v 1.21 2008/08/20 20:18:56 slusarz Exp $
- *
  * Copyright 2007-2008 The Horde Project (http://www.horde.org/)
  *
  * @author Michael Slusarz <slusarz@curecanti.org>

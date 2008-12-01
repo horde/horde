@@ -24,8 +24,6 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  *
- * $Horde: dimp/js/src/ContextSensitive.js,v 1.66 2008/08/25 19:56:23 slusarz Exp $
- *
  * @author Chuck Hagenbuch <chuck@horde.org>
  * @author Michael Slusarz <slusarz@horde.org>
  */

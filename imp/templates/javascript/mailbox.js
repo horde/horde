@@ -4,8 +4,6 @@
  * See the documentation of prototypejs - Template for the template format:
  *   http://www.prototypejs.org/api/template
  *
- * $Horde: dimp/templates/javascript/mailbox.js,v 1.8 2008/09/04 17:55:59 slusarz Exp $
- *
  * Copyright 2005-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

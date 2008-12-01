@@ -1,6 +1,4 @@
 /**
- * $Horde: dimp/js/src/fullmessage.js,v 1.42 2008/09/04 05:00:53 slusarz Exp $
- *
  * Copyright 2005-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

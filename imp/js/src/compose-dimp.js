@@ -1,8 +1,6 @@
 /**
  * compose.js - Javascript code used in the DIMP compose view.
  *
- * $Horde: dimp/js/src/compose.js,v 1.123 2008/10/20 03:54:51 slusarz Exp $
- *
  * Copyright 2005-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
