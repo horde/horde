@@ -256,10 +256,8 @@ class IMP_Views_ListMessages
 
         /* Get mailbox information. */
         $overview = $imp_mailbox->getMailboxArray($msglist, false, array('list-post'));
-
         $charset = NLS::getCharset();
-        $identity = &Identity::singleton(array('imp', 'imp'));
-        $imp_ui = new IMP_UI_Mailbox($folder, $charset, $identity);
+        $imp_ui = new IMP_UI_Mailbox($folder);
 
         /* Display message information. */
         reset($overview['overview']);

@@ -73,9 +73,6 @@ if (!is_array(($indices = Util::getFormData('indices')))) {
 /* Set the current time zone. */
 NLS::setTimeZone();
 
-/* Cache the charset. */
-$charset = NLS::getCharset();
-
 /* Initialize the user's identities. */
 require_once 'Horde/Identity.php';
 $identity = &Identity::singleton(array('imp', 'imp'));
@@ -678,8 +675,7 @@ if ($pageOb['msgcount']) {
 
 /* Cache some repetitively used variables. */
 $fromlinkstyle = $prefs->getValue('from_link');
-
-$imp_ui = new IMP_UI_Mailbox($imp_mbox['mailbox'], $charset, $identity);
+$imp_ui = new IMP_UI_Mailbox($imp_mbox['mailbox']);
 
 /* Display message information. */
 require_once 'Horde/Text.php';

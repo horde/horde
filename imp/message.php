@@ -19,10 +19,10 @@ function _returnToMailbox($startIndex = null, $actID = null)
     $from_message_page = true;
     $start = null;
 
-    if ($startIndex !== null) {
+    if (!is_null($startIndex)) {
         $start = $startIndex;
     }
-    if ($actID !== null) {
+    if (!is_null($actID)) {
         $actionID = $actID;
     }
 }

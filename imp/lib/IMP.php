@@ -1729,10 +1729,13 @@ class IMP
             $themes_uri = Horde::url($GLOBALS['registry']->get('themesuri', $app), false, -1);
             $css[] = array('u' => $themes_uri . '/screen.css', 'f' => $themes_fs . '/screen.css');
             $css[] = array('u' => $themes_uri . '/screen-dimp.css', 'f' => $themes_fs . '/screen-dimp.css');
-            if (!empty($theme) &&
-                file_exists($themes_fs . '/' . $theme . '/screen-dimp.css')) {
-                $css[] = array('u' => $themes_uri . '/' . $theme . '/screen.css', 'f' => $themes_fs . '/' . $theme . '/screen.css');
-                $css[] = array('u' => $themes_uri . '/' . $theme . '/screen-dimp.css', 'f' => $themes_fs . '/' . $theme . '/screen-dimp.css');
+            if (!empty($theme)) {
+                if (file_exists($themes_fs . '/' . $theme . '/screen.css')) {
+                    $css[] = array('u' => $themes_uri . '/' . $theme . '/screen.css', 'f' => $themes_fs . '/' . $theme . '/screen.css');
+                }
+                if (file_exists($themes_fs . '/' . $theme . '/screen-dimp.css')) {
+                    $css[] = array('u' => $themes_uri . '/' . $theme . '/screen-dimp.css', 'f' => $themes_fs . '/' . $theme . '/screen-dimp.css');
+                }
             }
 
             if ($rtl) {

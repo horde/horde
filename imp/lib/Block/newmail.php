@@ -1,5 +1,6 @@
 <?php
 /**
+ * Re
  * Copyright 2007-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -8,14 +9,14 @@
  * @package Horde_Block
  * @author  Michael Slusarz <slusarz@curecanti.org>
  */
-class Horde_Block_dimp_newmail extends Horde_Block
+class Horde_Block_imp_newmail extends Horde_Block
 {
     var $_app = 'imp';
 
     function _content()
     {
         $GLOBALS['authentication'] = 'none';
-        require_once $GLOBALS['registry']->get('fileroot', 'imp') . '/lib/base.php';
+        require_once dirname(__FILE__) . '/../base.php';
 
         if (!IMP::checkAuthentication(true)) {
             return '';
@@ -26,10 +27,9 @@ class Horde_Block_dimp_newmail extends Horde_Block
             IMP_Filter::filter('INBOX');
         }
 
-        // @todo
-        $query = new IMAP_Search_Query();
-        $query->seen(false);
-        $ids = $GLOBALS['imp_search']->runSearchQuery($query, IMP::serverString('INBOX'), SORTARRIVAL, 1);
+        $query = new Horde_Imap_Client_Search_Query();
+        $query->flag('\\seen', false);
+        $ids = $GLOBALS['imp_search']->runSearchQuery($query, 'INBOX', Horde_Imap_Client::SORT_ARRIVAL, 1);
 
         $html = '<table cellspacing="0" width="100%">';
         if (empty($ids)) {
@@ -38,30 +38,33 @@ class Horde_Block_dimp_newmail extends Horde_Block
             require_once 'Horde/Identity.php';
 
             $charset = NLS::getCharset();
-            $identity = &Identity::singleton(array('imp', 'imp'));
-            $imp_ui = new IMP_UI_Mailbox('INBOX', $charset, $identity);
+            $imp_ui = new IMP_UI_Mailbox('INBOX');
             $shown = empty($this->_params['msgs_shown']) ? 3 : $this->_params['msgs_shown'];
 
-            // @todo
-            $msg_cache = &IMP_MessageCache::singleton();
-            $overview = $msg_cache->retrieve('INBOX', array_slice($ids, 0, $shown), 1 | 128);
-            foreach ($overview as $ob) {
-                $date = $imp_ui->getDate((isset($ob->date)) ? $ob->date : null);
-                $from_res = $imp_ui->getFrom($ob);
-                $subject = (empty($ob->subject)) ? _("[No Subject]") : $imp_ui->getSubject($ob->subject);
+            try {
+                $fetch_ret = $GLOBALS['imp_imap']->ob->fetch('INBOX', array(
+                    Horde_Imap_Client::FETCH_ENVELOPE => true
+                ), array('ids' => array_slice($ids, 0, $shown)));
+                reset($fetch_ret);
+            } catch (Horde_Imap_Client_Exception $e) {
+                $fetch_ret = array();
+            }
 
-                $html .= '<tr style="cursor:pointer" class="text" onclick="DimpBase.go(\'msg:INBOX:' . $ob->uid . '\');return false;"><td>' .
-                    '<strong>' . htmlspecialchars($from_res['from'], ENT_QUOTES, $charset) . '</strong><br />' .
+            while (list($uid, $ob) = each($fetch_ret)) {
+                $date = $imp_ui->getDate($ob['envelope']['date']);
+                $from = $imp_ui->getFrom($ob, false);
+                $subject = $imp_ui->getSubject($ob['envelope']['subject']);
+
+                $html .= '<tr style="cursor:pointer" class="text" onclick="DimpBase.go(\'msg:INBOX:' . $uid . '\');return false;"><td>' .
+                    '<strong>' . htmlspecialchars($from['from'], ENT_QUOTES, $charset) . '</strong><br />' .
                     $subject . '</td>' .
                     '<td>' . htmlspecialchars($date, ENT_QUOTES, $charset) . '</td></tr>';
             }
 
             $more_msgs = count($ids) - $shown;
-            if ($more_msgs) {
-                $text = sprintf(ngettext("%d more unseen message...", "%d more unseen messages...", $more_msgs), $more_msgs);
-            } else {
-                $text = _("Go to your Inbox...");
-            }
+            $text = $more_msgs
+                ? sprintf(ngettext("%d more unseen message...", "%d more unseen messages...", $more_msgs), $more_msgs)
+                : _("Go to your Inbox...");
             $html .= '<tr><td colspan="2" style="cursor:pointer" align="right" onclick="DimpBase.go(\'folder:INBOX\');return false;">' . $text . '</td></tr>';
         }
 

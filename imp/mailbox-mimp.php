@@ -78,13 +78,12 @@ if ($pageOb['msgcount']) {
     $unseen = $imp_mailbox->unseenMessages(true);
 }
 
-$charset = NLS::getCharset();
 $curr_time = time();
 $curr_time -= $curr_time % 60;
 $msgs = array();
 $sortpref = IMP::getSort($imp_mbox['mailbox']);
 
-$imp_ui = new IMP_UI_Mailbox($imp_mbox['mailbox'], $charset, $identity);
+$imp_ui = new IMP_UI_Mailbox($imp_mbox['mailbox']);
 
 /* Build the array of message information. */
 $mbox_info = $imp_mailbox->getMailboxArray(range($pageOb['begin'], $pageOb['end']));

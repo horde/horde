@@ -251,10 +251,11 @@
 //         $ob = reset($cache_entry);
 //
 //         // Add attachment information
-//         require_once IMP_BASE . '/lib/UI/Mailbox.php';
-//         $imp_ui = new IMP_UI_Mailbox();
+//         $imp_ui = new IMP_UI_Mailbox($mailbox);
 //         if (($attachment = $imp_ui->getAttachmentType($ob->structure))) {
-//             $ret['status'] = Horde::img($attachment . '.png', $imp_ui->getAttachmentAlt($attachment), array('title' => $imp_ui->getAttachmentAlt($attachment)));
+//             $alt_list = IMP_UI_Mailbox::getAttachmentAltList();
+//             $alt_text = (isset($list[$attachment])) ? $list[$attachment] : $list['attachment'];
+//             $ret['status'] = Horde::img($attachment . '.png', $alt_text, array('title' => $alt_text));
 //         }
 //
 //         // Add xpriority information
@@ -653,8 +654,7 @@ if (!function_exists('_imp_hook_quota')) {
 //         $ob = reset($cache_entry);
 //
 //         // Add attachment information
-//         require_once IMP_BASE . '/lib/UI/Mailbox.php';
-//         $imp_ui = new IMP_UI_Mailbox();
+//         $imp_ui = new IMP_UI_Mailbox($mailbox);
 //         $ret['atc'] = $imp_ui->getAttachmentType($ob->structure);
 //
 //         // Add xpriority information

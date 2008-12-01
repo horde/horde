@@ -18,7 +18,7 @@ $attachment = Horde::img('attachment.png', '', array('class' => 'attachmentImage
 $thread_imgs = IMP_IMAP_Thread::getImageUrls();
 
 // Attachment images
-$imp_ui = new IMP_UI_Mailbox();
+$imp_ui = new IMP_UI_Mailbox('INBOX');
 $atc_imgs = array();
 foreach ($imp_ui->getAttachmentAltList() as $k => $v) {
     $atc_imgs[] = Horde::img($k . '.png', $v, array('id' => 'atc_img_' . $k));

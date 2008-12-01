@@ -1,6 +1,6 @@
 <?php
 /**
- * The IMP_UI_Message:: class is designed to provide a place to dump common
+ * The IMP_UI_Message:: class is designed to provide a place to store common
  * code shared among IMP's various UI views for the message page.
  *
  * Copyright 2006-2008 The Horde Project (http://www.horde.org/)
@@ -14,6 +14,9 @@
 class IMP_UI_Message
 {
     /**
+     * Return a list of "basic" headers w/gettext translations.
+     *
+     * @return array  Header name -> gettext translation mapping.
      */
     public function basicHeaders()
     {
@@ -31,7 +34,7 @@ class IMP_UI_Message
     /**
      * Get the list of user-defined headers to display.
      *
-     * @return array  TODO
+     * @return array  The list of user-defined headers.
      */
     public function getUserHeaders()
     {
@@ -54,33 +57,37 @@ class IMP_UI_Message
     }
 
     /**
+     * TODO
      */
     public function MDNCheck($headers, $confirmed = false)
     {
         if (!$GLOBALS['prefs']->getValue('disposition_send_mdn')) {
-            return;
+            return false;
         }
 
         /* Check to see if an MDN has been requested. */
         $mdn = new Horde_Mime_Mdn($headers);
-        if ($mdn->getMDNReturnAddr()) {
-            $msg_id = $headers->getValue('message-id');
+        $return_addr = $mdn->getMDNReturnAddr();
+        if (!$return_addr) {
+            return false;
+        }
 
-            /* See if we have already processed this message. */
-            if (!IMP_Maillog::sentMDN($msg_id, 'displayed')) {
-                /* See if we need to query the user. */
-                if ($mdn->userConfirmationNeeded() && !$confirmed) {
-                    return true;
-                } else {
-                    /* Send out the MDN now. */
-                    $result = $mdn->generate(false, $confirmed, 'displayed');
-                    if (!is_a($result, 'PEAR_Error')) {
-                        IMP_Maillog::log('mdn', $msg_id, 'displayed');
-                    }
-                    if ($GLOBALS['conf']['sentmail']['driver'] != 'none') {
-                        $sentmail = IMP_Sentmail::factory();
-                        $sentmail->log('mdn', '', $mdn->getMDNReturnAddr(), !is_a($result, 'PEAR_Error'));
-                    }
+        $msg_id = $headers->getValue('message-id');
+
+        /* See if we have already processed this message. */
+        if (!IMP_Maillog::sentMDN($msg_id, 'displayed')) {
+            /* See if we need to query the user. */
+            if ($mdn->userConfirmationNeeded() && !$confirmed) {
+                return true;
+            } else {
+                /* Send out the MDN now. */
+                $result = $mdn->generate(false, $confirmed, 'displayed');
+                if (!is_a($result, 'PEAR_Error')) {
+                    IMP_Maillog::log('mdn', $msg_id, 'displayed');
+                }
+                if ($GLOBALS['conf']['sentmail']['driver'] != 'none') {
+                    $sentmail = IMP_Sentmail::factory();
+                    $sentmail->log('mdn', '', $return_addr, !is_a($result, 'PEAR_Error'));
                 }
             }
         }
@@ -93,8 +100,9 @@ class IMP_UI_Message
      *
      * @param string $date  The date string.
      *
-     * @return string  The date string with the local time added on. The
-     *                 output has been run through htmlspecialchars().
+     * @return string  The date string with the local time added on. If not
+     *                 in MIMP mode, the output has been run through
+     *                 htmlspecialchars().
      */
     public function addLocalTime($date)
     {
@@ -105,29 +113,29 @@ class IMP_UI_Message
             $ltime = strtotime($date);
         }
 
-        $date = htmlspecialchars($date);
-
-        if ($ltime !== false && $ltime !== -1) {
-            $date_str = strftime($GLOBALS['prefs']->getValue('date_format'), $ltime);
-            $time_str = strftime($GLOBALS['prefs']->getValue('time_format'), $ltime);
-            $tz = strftime('%Z');
-
-            if ((date('Y') != @date('Y', $ltime)) ||
-                (date('M') != @date('M', $ltime)) ||
-                (date('d') != @date('d', $ltime))) {
-                /* Not today, use the date. */
-                $local_date = sprintf('[%s %s %s]', $date_str, $time_str, $tz);
-            } else {
-                /* Else, it's today, use the time only. */
-                $local_date = sprintf('[%s %s]', $time_str, $tz);
-            }
-
-            $date .= ($_SESSION['imp']['view'] == 'mimp')
-                ? ' ' . $local_date
-                : ' <small>' . htmlspecialchars($local_date) . '</small>';
+        if (($ltime === false) || ($ltime === -1)) {
+            return ($_SESSION['imp']['view'] == 'mimp')
+                ? $date
+                : htmlspecialchars($date);
         }
 
-        return $date;
+        $time_str = strftime($GLOBALS['prefs']->getValue('time_format'), $ltime);
+        $tz = strftime('%Z');
+
+        if ((date('Y') != @date('Y', $ltime)) ||
+            (date('M') != @date('M', $ltime)) ||
+            (date('d') != @date('d', $ltime))) {
+            /* Not today, use the date. */
+            $date_str = strftime($GLOBALS['prefs']->getValue('date_format'), $ltime);
+            $local_date = sprintf('[%s %s %s]', $date_str, $time_str, $tz);
+        } else {
+            /* Else, it's today, use the time only. */
+            $local_date = sprintf('[%s %s]', $time_str, $tz);
+        }
+
+        return ($_SESSION['imp']['view'] == 'mimp')
+            ? $date . ' ' . $local_date
+            : htmlspecialchars($date) . ' <small>' . htmlspecialchars($local_date) . '</small>';
     }
 
     /**
@@ -295,28 +303,24 @@ class IMP_UI_Message
             if (isset($ob['groupname'])) {
                 $group_array = array();
                 foreach ($ob['addresses'] as $ad) {
-                    if (empty($ad->address) || empty($ad->inner)) {
+                    if (empty($ad['address']) || empty($ad['inner'])) {
                         continue;
                     }
 
                     $ret = $mimp_view
-                        ? $ad->display
-                        : htmlspecialchars($ad->display);
+                        ? $ad['display']
+                        : htmlspecialchars($ad['display']);
 
-                    /* If this is an incomplete e-mail address, don't link to
-                     * anything. */
-                    if (stristr($ad->host, 'UNKNOWN') === false) {
-                        if ($link) {
-                            $ret = Horde::link(IMP::composeLink(array('to' => $ad->address)), sprintf(_("New Message to %s"), $ad->inner)) . htmlspecialchars($ad->display) . '</a>';
-                        }
+                    if ($link) {
+                        $ret = Horde::link(IMP::composeLink(array('to' => $ad['address'])), sprintf(_("New Message to %s"), $ad['inner'])) . htmlspecialchars($ad['display']) . '</a>';
+                    }
 
-                        /* Append the add address icon to every address if contact
-                         * manager is available. */
-                        if ($add_link) {
-                            $curr_link = Util::addParameter($add_link, array('name' => $ad->personal, 'address' => $ad->inner));
-                            $ret .= Horde::link($curr_link, sprintf(_("Add %s to my Address Book"), $ad->inner)) .
-                                Horde::img('addressbook_add.png', sprintf(_("Add %s to my Address Book"), $ad->inner)) . '</a>';
-                        }
+                    /* Append the add address icon to every address if contact
+                     * manager is available. */
+                    if ($add_link) {
+                        $curr_link = Util::addParameter($add_link, array('name' => $ad['personal'], 'address' => $ad['inner']));
+                        $ret .= Horde::link($curr_link, sprintf(_("Add %s to my Address Book"), $ad['inner'])) .
+                            Horde::img('addressbook_add.png', sprintf(_("Add %s to my Address Book"), $ad['inner'])) . '</a>';
                     }
 
                     $group_array[] = $ret;

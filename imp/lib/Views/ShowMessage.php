@@ -14,14 +14,13 @@ class IMP_Views_ShowMessage
     /**
      * Builds a list of addresses from header information.
      *
-     * @param IMP_Headers &$headers  The headers object.
-     * @param array $addrlist        The list of addresses from
-     *                               MIME::parseAddressList().
+     * @param array $addrlist  The list of addresses from
+     *                         Horde_Mime_Address::parseAddressList().
      *
      * @return array  Array with the following keys: address, display, inner,
      *                personal, raw.
      */
-    private function _buildAddressList(&$headers, $addrlist)
+    private function _buildAddressList($addrlist)
     {
         if (empty($addrlist) || !is_array($addrlist)) {
             return;
@@ -31,32 +30,30 @@ class IMP_Views_ShowMessage
         $call_hook = !empty($GLOBALS['conf']['hooks']['addressformatting']);
 
         foreach (Horde_Mime_Address::getAddressesFromObject($addrlist) as $ob) {
-            if (empty($ob->address) || empty($ob->inner)) {
+            if (empty($ob['address']) || empty($ob['inner'])) {
                 continue;
             }
 
             /* If this is an incomplete e-mail address, don't link to
              * anything. */
             if ($call_hook) {
-                $result = Horde::callHook('_dimp_hook_addressformatting', array($ob), 'dimp');
+                $result = Horde::callHook('_dimp_hook_addressformatting', array($ob), 'imp');
                 if (is_a($result, 'PEAR_Error')) {
                     Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
                 } else {
                     $addr_array[] = array('raw' => $result);
                 }
-            } elseif (stristr($ob->host, 'UNKNOWN') !== false) {
-                $addr_array[] = array('raw' => htmlspecialchars($ob->address));
             } else {
                 $tmp = array();
                 foreach (array('address', 'display', 'inner', 'personal') as $val) {
                     if ($val == 'display') {
-                        $ob->display = htmlspecialchars($ob->display);
-                        if ($ob->display == $ob->address) {
+                        $ob['display'] = htmlspecialchars($ob['display']);
+                        if ($ob['display'] == $ob['address']) {
                             continue;
                         }
                     }
-                    if (!empty($ob->$val)) {
-                        $tmp[$val] = $ob->$val;
+                    if (!empty($ob[$val])) {
+                        $tmp[$val] = $ob[$val];
                     }
                 }
                 $addr_array[] = $tmp;
@@ -147,6 +144,9 @@ class IMP_Views_ShowMessage
             return $result;
         }
 
+        $envelope = $fetch_ret[$index]['envelope'];
+        $mime_headers = reset($fetch_ret[$index]['headertext']);
+
         /* Get the IMP_UI_Message:: object. */
         $imp_ui = new IMP_UI_Message();
 
@@ -167,7 +167,7 @@ class IMP_Views_ShowMessage
         foreach (array('from', 'to', 'cc', 'bcc', 'reply-to') as $val) {
             if (isset($basic_headers[$val]) &&
                 (!$preview || !in_array($val, array('bcc', 'reply-to')))) {
-                $tmp = $this->_buildAddressList($imp_headers, $ob->addrlist[$val]);
+                $tmp = $this->_buildAddressList($envelope[$val]);
                 if (!empty($tmp)) {
                     $result[$val] = $tmp;
                 } elseif ($val == 'to') {
@@ -194,10 +194,10 @@ class IMP_Views_ShowMessage
                     unset($result['reply-to']);
                 }
                 $headers[] = array('id' => String::ucfirst($head), 'name' => $str, 'value' => '');
-            } elseif ($val = $imp_headers->getValue($head)) {
+            } elseif ($val = $mime_headers->getValue($head)) {
                 if ($head == 'date') {
                     /* Add local time to date header. */
-                    $val = nl2br($imp_headers->addLocalTime(htmlspecialchars($val)));
+                    $val = nl2br($imp_ui->addLocalTime($envelope['date']));
                     if ($preview) {
                         $result['fulldate'] = $val;
                     }
@@ -214,7 +214,7 @@ class IMP_Views_ShowMessage
         if (!$preview) {
             $user_hdrs = $imp_ui->getUserHeaders();
             if (!empty($user_hdrs)) {
-                $full_h = $imp_headers->getAllHeaders();
+                $full_h = $mime_headers->getAllHeaders();
                 foreach ($user_hdrs as $user_hdr) {
                     foreach ($full_h as $head => $val) {
                         if (stristr($head, $user_hdr) !== false) {
@@ -227,7 +227,7 @@ class IMP_Views_ShowMessage
         }
 
         /* Process the subject. */
-        if (($subject = $imp_headers->getValue('subject'))) {
+        if (($subject = $mime_headers->getValue('subject'))) {
             require_once 'Horde/Text.php';
             $subject = Text::htmlSpaces(IMP::filterText($subject));
         } else {
@@ -235,13 +235,13 @@ class IMP_Views_ShowMessage
         }
         $result['subject'] = $subject;
 
-        /* Get X-Priority/ */
-        $result['priority'] = $imp_headers->getXpriority();
+        /* Get X-Priority. */
+        $result['priority'] = $imp_ui->getXpriority($mime_headers);
 
         /* Add attachment info. */
         $atc_display = $GLOBALS['prefs']->getValue('attachment_display');
         $show_parts = (!empty($attachments) && (($atc_display == 'list') || ($atc_display == 'both')));
-        $downloadall_link = $imp_contents->getDownloadAllLink();
+//        $downloadall_link = $imp_contents->getDownloadAllLink();
 
         if ($attachments && ($show_parts || $downloadall_link)) {
             $result['atc_label'] = sprintf(ngettext("%d Attachment", "%d Attachments",
@@ -296,7 +296,7 @@ class IMP_Views_ShowMessage
         /* Retrieve any history information for this message. */
         if (!empty($GLOBALS['conf']['maillog']['use_maillog'])) {
             if (!$preview) {
-                IMP_Maillog::displayLog($imp_headers->getValue('message-id'));
+                IMP_Maillog::displayLog($mime_headers->getValue('message-id'));
             }
 
             /* Do MDN processing now. */

@@ -8,7 +8,7 @@
  * @package Horde_Block
  */
 
-class Horde_Block_dimp_foldersummary extends Horde_Block
+class Horde_Block_imp_foldersummary extends Horde_Block
 {
     var $_app = 'imp';
 
