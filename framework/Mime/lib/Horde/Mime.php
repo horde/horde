@@ -371,59 +371,81 @@ class Horde_Mime
             $output[$name . (($wrap) ? ('*' . $i++) : '') . (($encode) ? '*' : '')] = $line;
         }
 
-        if (self::$brokenRFC2231 && !isset($output[$name])) {
-            $output[$name] = self::encode($val, $charset);
-        }
-
-        return $output;
+        return (self::$brokenRFC2231 && !isset($output[$name]))
+            ? array_merge(array($name => self::encode($val, $charset)), $output)
+            : $output;
     }
 
     /**
-     * Decodes a header string encoded pursuant to RFC 2231.
+     * Decodes a MIME parameter string pursuant to RFC 2183 & 2231
+     * (Content-Type and Content-Disposition headers).
      *
-     * @param string $string      The string to decode.
-     * @param string $to_charset  The charset the text should be decoded to.
+     * @param string $string   The full header to decode (including the header
+     *                         name).
+     * @param string $charset  The charset the text should be decoded to.
+     *                         Defaults to system charset.
      *
      * @return array  An array with the following entries:
      * <pre>
+     * 'params' - (array) The header's parameter values.
+     * 'val' - (string) The header's "base" value.
      * </pre>
      */
-    static public function decodeParamString($string, $to_charset = null)
+    static public function decodeParam($string, $charset = null)
     {
-        if (($pos = strpos($string, '*')) === false) {
-            return false;
+        $convert = array();
+        $ret = array('params' => array(), 'val' => '');
+
+        /* Give $string a bogus body part or else decode() will complain. */
+        require 'Mail/mimeDecode.php';
+        $mime_decode = new Mail_mimeDecode($string . "\n\nA");
+        $res = $mime_decode->decode();
+
+        /* Are we dealing with content-type or content-disposition? */
+        if ($res->ctype_primary) {
+            $ret['val'] = $res->ctype_primary . '/' . $res->ctype_secondary;
+            $params = $res->ctype_parameters;
+        } elseif ($res->disposition) {
+            $ret['val'] = $res->disposition;
+            $params = $res->d_parameters;
+        } else {
+            return $ret;
         }
 
-        $attribute = substr($string, 0, $pos);
-        $charset = $lang = null;
-        $output = '';
+        /* Sort the params list. Prevents us from having to manually keep
+         * track of continuation values below. */
+        uksort($params, 'strnatcasecmp');
 
-        /* Get the character set and language used in the encoding, if
-         * any. */
-        if (preg_match("/^[^=]+\*\=([^']*)'([^']*)'/", $string, $matches)) {
-            $charset = $matches[1];
-            $lang = $matches[2];
-            $string = str_replace($charset . "'" . $lang . "'", '', $string);
-        }
+        foreach ($params as $name => $val) {
+            /* Asterisk at end indicates encoded value. */
+            if (($encode = substr($name, -1)) == '*') {
+                $name = substr($name, 0, -1);
+                $val = urldecode($val);
+            }
 
-        $lines = preg_split('/\s*' . preg_quote($attribute) . '(?:\*\d)*/', $string);
-        foreach ($lines as $line) {
-            if (strpos($line, '*=') === 0) {
-                $output .= urldecode(str_replace(array('_', '='), array('%20', '%'), substr($line, 2)));
+            /* This asterisk indicates continuation parameter. */
+            if (($pos = strrpos($name, '*')) === false) {
+                $ret['params'][$name] = $val;
             } else {
-                $output .= substr($line, 1);
+                $first_part = ($encode && (substr($name, -2) == '*0'));
+                $name = substr($name, 0, $pos);
+                if ($first_part) {
+                    $quote = strpos($val, "'");
+                    $convert[$name] = substr($val, 0, $quote);
+                    /* Ignore language. */
+                    $quote = strpos($val, "'", $quote + 1);
+                    $ret['params'][$name] = substr($val, $quote + 1);
+                } else {
+                    $ret['params'][$name] .= $val;
+                }
             }
         }
 
-        /* RFC 2231 uses quoted printable encoding. */
-        if (!is_null($charset)) {
-            $output = String::convertCharset($output, $charset, $to_charset);
+        foreach ($convert as $key => $val) {
+            $ret['params'][$key] = String::convertCharset($ret['params'][$key], $val, $charset);
         }
 
-        return array(
-            'attribute' => $attribute,
-            'value' => $output
-        );
+        return $ret;
     }
 
     /**

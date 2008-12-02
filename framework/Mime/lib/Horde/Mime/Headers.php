@@ -57,6 +57,7 @@ class Horde_Mime_Headers
     {
         $charset = empty($options['charset']) ? null : $options['charset'];
         $address_keys = $charset ? array() : $this->addressFields();
+        $mime = $this->mimeParamFields();
         $ret = array();
 
         foreach ($this->_headers as $header => $ob) {
@@ -69,23 +70,21 @@ class Horde_Mime_Headers
                     if (is_a($text, 'PEAR_Error')) {
                         $text = $val[$key];
                     }
+                } elseif (in_array($header, $mime) && !empty($ob['params'])) {
+                    /* MIME encoded headers (RFC 2231). */
+                    $text = $val[$key];
+                    foreach ($ob['params'] as $name => $param) {
+                        foreach (Horde_Mime::encodeParam($name, $param, $charset) as $name2 => $param2) {
+                            /* MIME parameter quoting is identical to RFC 822
+                             * quoted-string encoding. See RFC 2045 [Appendix
+                             * A]. */
+                            $text .= '; ' . $name2 . '=' . Horde_Mime_Address::encode($param2, null);
+                        }
+                    }
                 } else {
                     $text = $charset
                         ? Horde_Mime::encode($val[$key], $charset)
                         : $val[$key];
-
-                    /* MIME encoded headers (RFC 2231). */
-                    if (in_array($header, array('content-type', 'content-disposition')) &&
-                        !empty($ob['params'])) {
-                        foreach ($ob['params'] as $name => $param) {
-                            foreach (Horde_Mime::encodeParam($name, $param, $charset) as $name2 => $param2) {
-                                /* MIME parameter quoting is identical to RFC
-                                 * 822 quoted-string encoding. See RFC 2045
-                                 * [Appendix A]. */
-                                $text .= '; ' . $name2 . '=' . Horde_Mime_Address::encode($param2, null);
-                            }
-                        }
-                    }
                 }
 
                 if (empty($options['nowrap'])) {
@@ -363,6 +362,7 @@ class Horde_Mime_Headers
      *   * To, From, Cc, Bcc, Date, Sender, Reply-to, Message-ID, In-Reply-To,
      *     References, Subject (RFC 2822 [3.6])
      *   * All List Headers (RFC 2369 [3])
+     * The values are not MIME encoded.
      *
      * @param string $header  The header to search for.
      *
@@ -373,15 +373,22 @@ class Horde_Mime_Headers
     {
         require_once 'Horde/String.php';
 
+        $entry = null;
         $header = String::lower($header);
 
         if (isset($this->_headers[$header])) {
-            return (is_array($this->_headers[$header]['value']) && in_array($header, $this->singleFields(true)))
-                ? $this->_headers[$header]['value'][0]
-                : $this->_headers[$header]['value'];
+            $ptr = &$this->_headers[$header];
+            $entry = (is_array($ptr['value']) && in_array($header, $this->singleFields(true)))
+                ? $ptr['value'][0]
+                : $ptr['value'];
+            if (isset($ptr['params'])) {
+                foreach ($ptr['params'] as $key => $val) {
+                    $entry .= '; ' . $key . '=' . $val;
+                }
+            }
         }
 
-        return null;
+        return $entry;
     }
 
     /**
@@ -418,6 +425,17 @@ class Horde_Mime_Headers
         }
 
         return $single;
+    }
+
+    /**
+     * Returns the list of RFC defined MIME header fields that may contain
+     * parameter info.
+     *
+     * @return array  The list of headers, in lowercase.
+     */
+    public function mimeParamFields()
+    {
+        return array('content-type', 'content-disposition');
     }
 
     /**
@@ -498,6 +516,9 @@ class Horde_Mime_Headers
     {
         $headers = new Horde_Mime_Headers();
         $currheader = $currtext = null;
+        $mime = $this->mimeParamFields();
+
+        require_once 'Horde/String.php';
 
         foreach (explode("\n", $text) as $val) {
             $val = rtrim($val);
@@ -509,8 +530,12 @@ class Horde_Mime_Headers
                 $currtext .= ' ' . ltrim($val);
             } else {
                 if (!is_null($currheader)) {
-                    // TODO: RFC 2231
-                    $headers->addHeader($currheader, $currtext, array('decode' => true));
+                    if (in_array(String::lower($currheader), $mime)) {
+                        $res = Horde_Mime::decodeParam($currtext);
+                        $headers->addHeader($currheader, $res['val'], array('decode' => true, 'params' => $res['params']));
+                    } else {
+                        $headers->addHeader($currheader, $currtext, array('decode' => true));
+                    }
                 }
                 $pos = strpos($val, ':');
                 $currheader = substr($val, 0, $pos);
