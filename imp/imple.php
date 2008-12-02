@@ -12,38 +12,30 @@
 $session_control = 'readonly';
 $session_timeout = 'none';
 
-@define('IMP_BASE', dirname(__FILE__));
 $authentication = 'horde';
-require_once IMP_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/base.php';
 
-if ($_SESSION['imp']['view'] == 'dimp') {
-    $path_info = Util::getPathInfo();
-    if (empty($path_info)) {
+$viewmode = $_SESSION['imp']['view'];
+
+if (!($path = Util::getFormData('imple'))) {
+    if ($viewmode == 'dimp') {
         IMP::sendHTTPResponse(new stdClass(), 'json');
     }
+    exit;
+}
 
-    if ($path_info[0] == '/') {
-        $path_info = substr($path_info, 1);
-    }
-    $path = explode('/', $path_info);
-    $impleName = array_shift($path);
+if ($path[0] == '/') {
+    $path = substr($path, 1);
+}
 
-    if (!($imple = IMP_Imple::factory($impleName))) {
+$path = explode('/', $path);
+$impleName = reset($path);
+
+if (!($imple = IMP_Imple::factory($impleName))) {
+    if ($viewmode == 'dimp') {
         IMP::sendHTTPResponse(new stdClass(), 'json');
     }
-} else {
-    if (!($path = Util::getFormData('imple'))) {
-        exit;
-    }
-    if ($path[0] == '/') {
-        $path = substr($path, 1);
-    }
-    $path = explode('/', $path);
-    $impleName = array_shift($path);
-
-    if (!($imple = IMP_Imple::factory($impleName))) {
-        exit;
-    }
+    exit;
 }
 
 $args = array();
@@ -58,10 +50,8 @@ foreach ($path as $pair) {
 
 $result = $imple->handle($args);
 
-if (!empty($_SERVER['Content-Type'])) {
-    $ct = $_SERVER['Content-Type'];
-} else {
-    $ct = is_string($result) ? 'plain' : 'json';
-}
+$ct = empty($_SERVER['Content-Type'])
+    ? (is_string($result) ? 'plain' : 'json')
+    : $_SERVER['Content-Type'];
 
 IMP::sendHTTPResponse($result, $ct);
