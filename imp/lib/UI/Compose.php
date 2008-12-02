@@ -15,9 +15,9 @@ class IMP_UI_Compose
 {
     /**
      */
-    function expandAddresses($input, &$imp_compose)
+    function expandAddresses($input, $imp_compose)
     {
-        $result = $imp_compose->expandAddresses($this->getAddressList($input, null, null, null, true));
+        $result = $imp_compose->expandAddresses($this->getAddressList($input));
 
         if (is_array($result)) {
             $GLOBALS['notification']->push(_("Please resolve ambiguous or invalid addresses."), 'horde.warning');
