@@ -740,9 +740,6 @@ class Horde_Mime_Part
             $headers = new Horde_Mime_Headers();
         }
 
-        $ptype = $this->getPrimaryType();
-        $stype = $this->getSubType();
-
         /* Get the Content-Type itself. */
         $headers->replaceHeader('Content-Type', $this->getType(), array('params' => $this->getAllContentTypeParameters()));
 
@@ -751,18 +748,13 @@ class Horde_Mime_Part
             $headers->replaceHeader('Content-Description', $descrip);
         }
 
-        /* RFC 2045 [4] - message/rfc822 and message/partial require the
-         * MIME-Version header only if they themselves claim to be MIME
-         * compliant.
-         * @TODO - Check for "MIME-Version" in message/rfc822 part.
-         * Per RFC 2046 [4], this MUST appear in the base message headers. */
-        if ($this->_basepart ||
-            (($ptype == 'message') &&
-             (($stype == 'rfc822') || ($stype == 'partial')))) {
+        /* Per RFC 2046 [4], this MUST appear in the base message headers. */
+        if ($this->_basepart) {
             $headers->replaceHeader('MIME-Version', '1.0');
         }
 
         /* message/* parts require no additional header information. */
+        $ptype = $this->getPrimaryType();
         if ($ptype == 'message') {
             return $headers;
         }
