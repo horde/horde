@@ -259,7 +259,7 @@ class DIMP
     /**
      * Return an appended IMP folder string
      */
-    function _appendedFolderPref($folder)
+    private function _appendedFolderPref($folder)
     {
         return IMP::folderPref($folder, true);
     }
@@ -269,7 +269,7 @@ class DIMP
      *
      * @return string  The notification JS code.
      */
-    function notify()
+    public function notify()
     {
         $GLOBALS['notification']->notify(array('listeners' => 'status'));
         $msgs = $GLOBALS['imp_notify']->getStack(true);
@@ -294,7 +294,7 @@ class DIMP
      *
      * @return array  The object used by the JS code to update the folder tree.
      */
-    function getFolderResponse($imptree, $changes = null)
+    public function getFolderResponse($imptree, $changes = null)
     {
         if ($changes === null) {
             $changes = $imptree->eltDiff();
@@ -333,8 +333,6 @@ class DIMP
     /**
      * Create an object used by DimpCore to generate the folder tree.
      *
-     * @access private
-     *
      * @param array $elt  The output from IMP_Tree::element().
      *
      * @return stdClass  The element object. Contains the following items:
@@ -354,7 +352,7 @@ class DIMP
      * 'v' (virtual) = Is this a virtual folder? [boolean] [DEFAULT: no]
      * </pre>
      */
-    function _createFolderElt($elt)
+    private function _createFolderElt($elt)
     {
         $ob = new stdClass;
         if ($elt['children']) {
@@ -436,7 +434,7 @@ class DIMP
      *                         notification.  If false, the callback handler
      *                         is responsible for displaying the notification.
      */
-    function prepareResponse($data = null, $notify = true, $auto = true)
+    public function prepareResponse($data = null, $notify = true, $auto = true)
     {
         $response = new stdClass();
         $response->response = $data;
@@ -456,7 +454,7 @@ class DIMP
     /**
      * Return information about the current attachments for a message
      *
-     * @var object IMP_Compose $imp_compose  An IMP_Compose object.
+     * @param IMP_Compose $imp_compose  An IMP_Compose object.
      *
      * @return array  An array of arrays with the following keys:
      * <pre>
@@ -466,15 +464,17 @@ class DIMP
      * 'size' - The size of the attachment in KB (string)
      * </pre>
      */
-    function getAttachmentInfo($imp_compose)
+    public function getAttachmentInfo($imp_compose)
     {
         $fwd_list = array();
 
         if ($imp_compose->numberOfAttachments()) {
-            foreach ($imp_compose->getAttachments() as $file_num => $mime) {
+            foreach ($imp_compose->getAttachments() as $atc_num => $data) {
+                $mime = $data['part'];
+
                 $fwd_list[] = array(
-                    'number' => $file_num,
-                    'name' => htmlspecialchars($mime->getName(true, true)),
+                    'number' => $atc_num,
+                    'name' => htmlspecialchars($mime->getName(true)),
                     'type' => $mime->getType(),
                     'size' => $mime->getSize()
                 );
@@ -489,7 +489,7 @@ class DIMP
      *
      * @return array  The array of menu items.
      */
-    function menuList()
+    public function menuList()
     {
         if (isset($GLOBALS['conf']['menu']['apps'])) {
             $apps = $GLOBALS['conf']['menu']['apps'];
@@ -512,7 +512,7 @@ class DIMP
      *
      * @return string  The link to the message composition screen.
      */
-    function composeLink($args = array(), $extra = array())
+    public function composeLink($args = array(), $extra = array())
     {
         // IE 6 & 7 handles window.open() URL param strings differently if
         // triggered via an href or an onclick.  Since we have no hint
@@ -524,7 +524,7 @@ class DIMP
         foreach ($args as $k => $v) {
             $encode_args[$k] = rawurlencode($v);
         }
-        return 'javascript:void(window.open(\'' . Util::addParameter(Horde::applicationUrl('compose.php'), $encode_args, null, false) . '\', \'\', \'width=820,height=610,status=1,scrollbars=yes,resizable=yes\'));';
+        return 'javascript:void(window.open(\'' . Util::addParameter(Horde::applicationUrl('compose-dimp.php'), $encode_args, null, false) . '\', \'\', \'width=820,height=610,status=1,scrollbars=yes,resizable=yes\'));';
     }
 
 }
