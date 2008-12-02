@@ -490,7 +490,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         switch ($method) {
         case 'CRAM-MD5':
         case 'DIGEST-MD5':
-            $this->_sendLine('AUTHENTICATE ' . $method);
+            $ob = $this->_sendLine('AUTHENTICATE ' . $method, array('noparse' => true));
 
             switch ($method) {
             case 'CRAM-MD5':
@@ -627,7 +627,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $d = reset($data);
         if (is_array($d)) {
             for ($i = 0, $cnt = count($d); $i < $cnt; $i += 2) {
-                $this->_temp['id'][$d[$i]] = $d[$i + 1];
+                if ($d[$i + 1] != 'NIL') {
+                    $this->_temp['id'][$d[$i]] = $d[$i + 1];
+                }
             }
         }
     }
