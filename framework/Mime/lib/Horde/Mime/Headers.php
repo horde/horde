@@ -75,10 +75,12 @@ class Horde_Mime_Headers
                     $text = $val[$key];
                     foreach ($ob['params'] as $name => $param) {
                         foreach (Horde_Mime::encodeParam($name, $param, $charset) as $name2 => $param2) {
-                            /* MIME parameter quoting is identical to RFC 822
-                             * quoted-string encoding. See RFC 2045 [Appendix
-                             * A]. */
-                            $text .= '; ' . $name2 . '=' . Horde_Mime_Address::encode($param2, null);
+                            /* Escape certain characters in params (See RFC
+                             * 2045 [Appendix A]. */
+                            if (strcspn($param2, "\11\40\"(),/:;<=>?@[\\]") != strlen($param2)) {
+                                $param2 = '"' . addcslashes($param2, '\\"') . '"';
+                            }
+                            $text .= '; ' . $name2 . '=' . $param2;
                         }
                     }
                 } else {
