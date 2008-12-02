@@ -11,8 +11,8 @@
  * @author  Jan Schneider <jan@horde.org>
  * @package Horde_Maintenance
  */
-class Maintenance_Task_purge_sentmail extends Maintenance_Task {
-
+class Maintenance_Task_purge_sentmail extends Maintenance_Task
+{
     /**
      * Purge old messages in the sent-mail folder.
      *
@@ -23,41 +23,41 @@ class Maintenance_Task_purge_sentmail extends Maintenance_Task {
     {
         global $prefs, $notification;
 
-        require_once IMP_BASE . '/lib/Folder.php';
-        require_once IMP_BASE . '/lib/Message.php';
         $imp_folder = &IMP_Folder::singleton();
-        $imp_imap = &IMP_IMAP::singleton();
         $imp_message = &IMP_Message::singleton();
 
-        $folder_list = Maintenance_Task_purge_sentmail::_getFolders();
+        $mbox_list = Maintenance_Task_purge_sentmail::_getFolders();
 
         /* Get the current UNIX timestamp minus the number of days specified
          * in 'purge_sentmail_keep'.  If a message has a timestamp prior to
          * this value, it will be deleted. */
-        $del_time = date('r', time() - ($prefs->getValue('purge_sentmail_keep') * 86400));
+        $del_time = new DateTime(time() - ($prefs->getValue('purge_sentmail_keep') * 86400));
+        $month = $del_time->format('n');
+        $day = $del_time->format('j');
+        $year = $del_time->format('Y');
 
-        foreach ($folder_list as $sentmail_folder) {
-            /* Make sure the sent-mail folder exists. */
-            if (!$imp_folder->exists($sentmail_folder)) {
+        foreach ($mbox_list as $mbox) {
+            /* Make sure the sent-mail mailbox exists. */
+            if (!$imp_folder->exists($mbox)) {
                 continue;
             }
 
             /* Open the sent-mail mailbox and get the list of messages older
              * than 'purge_sentmail_keep' days. */
-            $imp_imap->changeMbox($sentmail_folder, IMP_IMAP_AUTO);
-            $msg_ids = @imap_search($imp_imap->stream(), "BEFORE \"$del_time\"", SE_UID);
+            $query = new Horde_Imap_Client_Search_Query();
+            $query->dateSearch($month, $day, $year, Horde_Imap_Client_Search_Query::DATE_BEFORE);
+            $msg_ids = $GLOBALS['imp_search']->runSearchQuery($query, $mbox);
             if (empty($msg_ids)) {
                 continue;
             }
 
             /* Go through the message list and delete the messages. */
-            $indices = array($sentmail_folder => $msg_ids);
-            if ($imp_message->delete($indices, true)) {
+            if ($imp_message->delete(array($mbox => $msg_ids), true)) {
                 $msgcount = count($msg_ids);
                 if ($msgcount == 1) {
-                    $notification->push(sprintf(_("Purging 1 message from sent-mail folder %s."), IMP::displayFolder($sentmail_folder)), 'horde.message');
+                    $notification->push(sprintf(_("Purging 1 message from sent-mail folder %s."), IMP::displayFolder($mbox)), 'horde.message');
                 } else {
-                    $notification->push(sprintf(_("Purging %d messages from sent-mail folder."), $msgcount, IMP::displayFolder($sentmail_folder)), 'horde.message');
+                    $notification->push(sprintf(_("Purging %d messages from sent-mail folder."), $msgcount, IMP::displayFolder($mbox)), 'horde.message');
                 }
             }
         }
@@ -73,11 +73,10 @@ class Maintenance_Task_purge_sentmail extends Maintenance_Task {
      */
     function describeMaintenance()
     {
-        $folder_list = array_map(array('IMP', 'displayFolder'),
-                                 Maintenance_Task_purge_sentmail::_getFolders());
+        $mbox_list = array_map(array('IMP', 'displayFolder'), Maintenance_Task_purge_sentmail::_getFolders());
 
         return sprintf(_("All messages in the folder(s) \"%s\" older than %s days will be permanently deleted."),
-                       implode(', ', $folder_list),
+                       implode(', ', $mbox_list),
                        $GLOBALS['prefs']->getValue('purge_sentmail_keep'));
     }
 

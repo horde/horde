@@ -11,8 +11,8 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package Horde_Maintenance
  */
-class Maintenance_Task_tos_agreement extends Maintenance_Task {
-
+class Maintenance_Task_tos_agreement extends Maintenance_Task
+{
     /**
      * The style of the maintenance page output.
      *

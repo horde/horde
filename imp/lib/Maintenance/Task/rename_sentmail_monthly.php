@@ -10,8 +10,8 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package Horde_Maintenance
  */
-class Maintenance_Task_rename_sentmail_monthly extends Maintenance_Task {
-
+class Maintenance_Task_rename_sentmail_monthly extends Maintenance_Task
+{
     /**
      * Renames the old sent-mail folders.
      *
@@ -22,7 +22,6 @@ class Maintenance_Task_rename_sentmail_monthly extends Maintenance_Task {
         $success = true;
 
         include_once 'Horde/Identity.php';
-        include_once IMP_BASE . '/lib/Folder.php';
 
         $identity = &Identity::singleton(array('imp', 'imp'));
         $imp_folder = &IMP_Folder::singleton();

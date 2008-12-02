@@ -8,8 +8,8 @@
  * @author  Andrew Coleman <mercury@appisolutions.net>
  * @package Horde_Maintenance
  */
-class Maintenance_Task_delete_attachments_monthly extends Maintenance_Task {
-
+class Maintenance_Task_delete_attachments_monthly extends Maintenance_Task
+{
     /**
      * Purges the old linked attachment folders.
      *
@@ -17,17 +17,13 @@ class Maintenance_Task_delete_attachments_monthly extends Maintenance_Task {
      */
     function doMaintenance()
     {
-        global $conf, $prefs;
-
-        require_once IMP_BASE . '/lib/Compose.php';
-        require_once 'Horde/Auth.php';
         require_once 'VFS.php';
 
         /* Find the UNIX timestamp of the last second that we will not
          * purge. */
-        $del_time = gmmktime(0, 0, 0, date('n') - $prefs->getValue('delete_attachments_monthly_keep'), 1, date('Y'));
+        $del_time = gmmktime(0, 0, 0, date('n') - $GLOBALS['prefs']->getValue('delete_attachments_monthly_keep'), 1, date('Y'));
 
-        $vfs = &VFS::singleton($conf['vfs']['type'], Horde::getDriverConfig('vfs', $conf['vfs']['type']));
+        $vfs = &VFS::singleton($GLOBALS['conf']['vfs']['type'], Horde::getDriverConfig('vfs', $GLOBALS['conf']['vfs']['type']));
         $path = IMP_Compose::VFS_LINK_ATTACH_PATH . '/' . Auth::getAuth();
 
         /* Make sure cleaning is done recursively. */

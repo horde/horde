@@ -1,7 +1,7 @@
 <?php
 
 require_once 'Horde/Maintenance.php';
-require_once $GLOBALS['registry']->get('fileroot', 'imp') . '/lib/base.php';
+require_once dirname(__FILE__) . '/../base.php';
 
 /**
  * The Maintenance_IMP class defines the maintenance operations run upon

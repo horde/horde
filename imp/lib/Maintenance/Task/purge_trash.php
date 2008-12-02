@@ -10,8 +10,8 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package Horde_Maintenance
  */
-class Maintenance_Task_purge_trash extends Maintenance_Task {
-
+class Maintenance_Task_purge_trash extends Maintenance_Task
+{
     /**
      * Purge old messages in the Trash folder.
      *
@@ -29,7 +29,6 @@ class Maintenance_Task_purge_trash extends Maintenance_Task {
         }
 
         /* Make sure the Trash folder exists. */
-        require_once IMP_BASE . '/lib/Folder.php';
         $imp_folder = &IMP_Folder::singleton();
         if (!$imp_folder->exists($trash_folder)) {
             return false;
@@ -38,22 +37,22 @@ class Maintenance_Task_purge_trash extends Maintenance_Task {
         /* Get the current UNIX timestamp minus the number of days
            specified in 'purge_trash_keep'.  If a message has a
            timestamp prior to this value, it will be deleted. */
-        $del_time = date("r", time() - ($prefs->getValue('purge_trash_keep') * 86400));
+        $del_time = new DateTime(time() - ($prefs->getValue('purge_trash_keep') * 86400));
+        $month = $del_time->format('n');
+        $day = $del_time->format('j');
+        $year = $del_time->format('Y');
 
-        /* Open the Trash mailbox and get the list of messages older
-           than 'purge_trash_keep' days. */
-        require_once IMP_BASE . '/lib/Message.php';
-        $imp_imap = &IMP_IMAP::singleton();
-        $imp_message = &IMP_Message::singleton();
-        $imp_imap->changeMbox($trash_folder, IMP_IMAP_AUTO);
-        $msg_ids = @imap_search($imp_imap->stream(), "BEFORE \"$del_time\"", SE_UID);
+        /* Get the list of messages older than 'purge_trash_keep' days. */
+        $query = new Horde_Imap_Client_Search_Query();
+        $query->dateSearch($month, $day, $year, Horde_Imap_Client_Search_Query::DATE_BEFORE);
+        $msg_ids = $GLOBALS['imp_search']->runSearchQuery($query, $mbox);
         if (empty($msg_ids)) {
             return false;
         }
 
         /* Go through the message list and delete the messages. */
-        $indices = array($trash_folder => $msg_ids);
-        if ($imp_message->delete($indices, true)) {
+        $imp_message = &IMP_Message::singleton();
+        if ($imp_message->delete(array($trash_folder => $msg_ids), true)) {
             $msgcount = count($msg_ids);
             if ($msgcount == 1) {
                 $notification->push(_("Purging 1 message from Trash folder."), 'horde.message');
