@@ -335,22 +335,31 @@ class Horde_Mime
     static public function encodeParam($name, $val, $charset, $lang = null)
     {
         $encode = $wrap = false;
-        $i = 0;
         $output = array();
+        $curr = 0;
+
+        // 2 = '=', ';'
+        $pre_len = strlen($name) + 2;
 
         if (self::is8bit($val, $charset)) {
             $string = String::lower($charset) . '\'' . (is_null($lang) ? '' : String::lower($lang)) . '\'' . rawurlencode($val);
             $encode = true;
+            /* Account for trailing '*'. */
+            ++$pre_len;
         } else {
             $string = $val;
         }
 
-        // 4 = '*', 2x '"', ';'
-        $pre_len = strlen($name) + 4 + (($encode) ? 1 : 0);
         if (($pre_len + strlen($string)) > 75) {
+            /* Account for continuation '*'. */
+            ++$pre_len;
+            $wrap = true;
+
             while ($string) {
-                $chunk = 75 - $pre_len;
+                $chunk = 75 - $pre_len - strlen($curr);
                 $pos = min($chunk, strlen($string) - 1);
+
+                /* Don't split in the middle of an encoded char. */
                 if (($chunk == $pos) && ($pos > 2)) {
                     for ($i = 0; $i <= 2; ++$i) {
                         if ($string[$pos - $i] == '%') {
@@ -359,16 +368,17 @@ class Horde_Mime
                         }
                     }
                 }
+
                 $lines[] = substr($string, 0, $pos + 1);
                 $string = substr($string, $pos + 1);
+                ++$curr;
             }
-            $wrap = true;
         } else {
             $lines = array($string);
         }
 
-        foreach ($lines as $line) {
-            $output[$name . (($wrap) ? ('*' . $i++) : '') . (($encode) ? '*' : '')] = $line;
+        foreach ($lines as $i => $line) {
+            $output[$name . (($wrap) ? ('*' . $i) : '') . (($encode) ? '*' : '')] = $line;
         }
 
         return (self::$brokenRFC2231 && !isset($output[$name]))
@@ -420,29 +430,31 @@ class Horde_Mime
             /* Asterisk at end indicates encoded value. */
             if (($encode = substr($name, -1)) == '*') {
                 $name = substr($name, 0, -1);
-                $val = urldecode($val);
             }
 
             /* This asterisk indicates continuation parameter. */
             if (($pos = strrpos($name, '*')) === false) {
-                $ret['params'][$name] = $val;
-            } else {
-                $first_part = ($encode && (substr($name, -2) == '*0'));
                 $name = substr($name, 0, $pos);
-                if ($first_part) {
-                    $quote = strpos($val, "'");
-                    $convert[$name] = substr($val, 0, $quote);
-                    /* Ignore language. */
-                    $quote = strpos($val, "'", $quote + 1);
-                    $ret['params'][$name] = substr($val, $quote + 1);
-                } else {
-                    $ret['params'][$name] .= $val;
-                }
+            }
+
+            if (!isset($ret['params'][$name])) {
+                $ret['params'][$name] = '';
+            }
+            $ret['params'][$name] .= $val;
+
+            if ($encode) {
+                $convert[$name] = true;
             }
         }
 
-        foreach ($convert as $key => $val) {
-            $ret['params'][$key] = String::convertCharset($ret['params'][$key], $val, $charset);
+        foreach ($convert as $name) {
+            $val = $ret['params'][$name];
+            $quote = strpos($val, "'");
+            $orig_charset = substr($val, 0, $quote);
+            /* Ignore language. */
+            $quote = strpos($val, "'", $quote + 1);
+            substr($val, $quote + 1);
+            $ret['params'][$name] = String::convertCharset(urldecode(substr($val, $quote + 1)), $orig_charset, $charset);
         }
 
         return $ret;

@@ -433,7 +433,7 @@ class Horde_Mime_Headers
      *
      * @return array  The list of headers, in lowercase.
      */
-    public function mimeParamFields()
+    static public function mimeParamFields()
     {
         return array('content-type', 'content-disposition');
     }
@@ -443,7 +443,7 @@ class Horde_Mime_Headers
      *
      * @return array  The list of valid mailing list headers.
      */
-    public function listHeaders()
+    static public function listHeaders()
     {
         return array(
             /* RFC 2369 */
@@ -516,7 +516,7 @@ class Horde_Mime_Headers
     {
         $headers = new Horde_Mime_Headers();
         $currheader = $currtext = null;
-        $mime = $this->mimeParamFields();
+        $mime = self::mimeParamFields();
 
         require_once 'Horde/String.php';
 
@@ -531,7 +531,7 @@ class Horde_Mime_Headers
             } else {
                 if (!is_null($currheader)) {
                     if (in_array(String::lower($currheader), $mime)) {
-                        $res = Horde_Mime::decodeParam($currtext);
+                        $res = Horde_Mime::decodeParam($currheader . ': ' . $currtext);
                         $headers->addHeader($currheader, $res['val'], array('decode' => true, 'params' => $res['params']));
                     } else {
                         $headers->addHeader($currheader, $currtext, array('decode' => true));
