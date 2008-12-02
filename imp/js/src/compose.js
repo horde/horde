@@ -237,7 +237,7 @@ function attachmentChanged()
             file.observe('change', attachmentChanged);
             td.insert(file);
 
-            var newRow = new Element('TR', { id: 'attachment_row_' + (usedFields + 1) }).insert(td).insert(new Element('TD', { align: 'left' }).insert(select));
+            var newRow = new Element('TR', { id: 'attachment_row_' + (usedFields + 1) }).insert(td);
 
             lastRow.parentNode.insertBefore(newRow, lastRow.nextSibling);
         }
