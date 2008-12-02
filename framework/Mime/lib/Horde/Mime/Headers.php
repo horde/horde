@@ -45,8 +45,8 @@ class Horde_Mime_Headers
      * <pre>
      * 'charset' => (string) Encodes the headers using this charset.
      *              DEFAULT: No encoding.
-     * 'defserver' => (string) TODO
-     *              DEFAULT: NO
+     * 'defserver' => (string) The default domain to append to mailboxes.
+     *              DEFAULT: No default name.
      * 'nowrap' => (integer) Don't wrap the headers.
      *             DEFAULT: Headers are wrapped.
      * </pre>
@@ -55,30 +55,43 @@ class Horde_Mime_Headers
      */
     public function toArray($options = array())
     {
+        $charset = empty($options['charset']) ? null : $options['charset'];
+        $address_keys = $charset ? array() : $this->addressFields();
         $ret = array();
-        $address_keys = empty($options['charset'])
-            ? array()
-            : $this->addressFields();
 
         foreach ($this->_headers as $header => $ob) {
             $val = is_array($ob['value']) ? $ob['value'] : array($ob['value']);
 
             foreach (array_keys($val) as $key) {
-                if (!empty($address_keys)) {
-                    if (in_array($header, $address_keys)) {
-                        $text = Horde_Mime::encodeAddress($val[$key], empty($options['charset']) ? null : $options['charset'], empty($options['defserver']) ? null : $options['defserver']);
-                                                                                                        if (is_a($text, 'PEAR_Error')) {
-                            $text = $val[$key];
-                        }
-                    } else {
-                        $text = Horde_Mime::encode($val[$key], $options['charset']);
+                if (in_array($header, $address_keys) ) {
+                    /* Address encoded headers. */
+                    $text = Horde_Mime::encodeAddress($val[$key], $charset, empty($options['defserver']) ? null : $options['defserver']);
+                    if (is_a($text, 'PEAR_Error')) {
+                        $text = $val[$key];
                     }
                 } else {
-                    $text = $val[$key];
+                    $text = $charset
+                        ? Horde_Mime::encode($val[$key], $charset)
+                        : $val[$key];
+
+                    /* MIME encoded headers (RFC 2231). */
+                    if (in_array($header, array('content-type', 'content-disposition')) &&
+                        !empty($ob['params'])) {
+                        foreach ($ob['params'] as $name => $param) {
+                            foreach (Horde_Mime::encodeParam($name, $param, $charset) as $name2 => $param2) {
+                                /* MIME parameter quoting is identical to RFC
+                                 * 822 quoted-string encoding. See RFC 2045
+                                 * [Appendix A]. */
+                                $text .= '; ' . $name2 . '=' . Horde_Mime_Address::encode($param2, null);
+                            }
+                        }
+                    }
                 }
 
                 if (empty($options['nowrap'])) {
-                    $text = $this->wrapHeaders($header, $text);
+                    /* Remove any existing linebreaks and wrap the line. */
+                    $header_text = $ob['header'] . ': ';
+                    $text = substr(wordwrap($header_text . strtr(trim($text), array("\r" => '', "\n" => '')), 76, $this->_eol . ' '), strlen($header_text));
                 }
 
                 $val[$key] = $text;
@@ -97,8 +110,8 @@ class Horde_Mime_Headers
      * <pre>
      * 'charset' => (string) Encodes the headers using this charset.
      *              DEFAULT: No encoding.
-     * 'defserver' => (string) TODO
-     *              DEFAULT: NO
+     * 'defserver' => (string) The default domain to append to mailboxes.
+     *              DEFAULT: No default name.
      * 'nowrap' => (integer) Don't wrap the headers.
      *             DEFAULT: Headers are wrapped.
      * </pre>
@@ -225,11 +238,16 @@ class Horde_Mime_Headers
     /**
      * Add a header to the header array.
      *
-     * @param string $header   The header name.
-     * @param string $value    The header value.
-     * @param boolean $decode  MIME decode the value?
+     * @param string $header  The header name.
+     * @param string $value   The header value.
+     * @param array $options  Additional options:
+     * <pre>
+     * 'decode' - (boolean) MIME decode the value?
+     * 'params' - (array) MIME parameters for Content-Type or
+     *            Content-Disposition
+     * </pre>
      */
-    public function addHeader($header, $value, $decode = false)
+    public function addHeader($header, $value, $options = array())
     {
         require_once 'Horde/String.php';
 
@@ -242,7 +260,7 @@ class Horde_Mime_Headers
         }
         $ptr = &$this->_headers[$lcHeader];
 
-        if ($decode) {
+        if (!empty($options['decode'])) {
             // Fields defined in RFC 2822 that contain address information
             if (in_array($lcHeader, $this->addressFields())) {
                 $value = Horde_Mime::decodeAddrString($value);
@@ -258,6 +276,10 @@ class Horde_Mime_Headers
             $ptr['value'][] = $value;
         } else {
             $ptr['value'] = $value;
+        }
+
+        if (!empty($options['params'])) {
+            $ptr['params'] = $options['params'];
         }
     }
 
@@ -275,26 +297,36 @@ class Horde_Mime_Headers
     /**
      * Replace a value of a header.
      *
-     * @param string $header   The header name.
-     * @param string $value    The header value.
-     * @param boolean $decode  MIME decode the value?
+     * @param string $header  The header name.
+     * @param string $value   The header value.
+     * @param array $options  Additional options:
+     * <pre>
+     * 'decode' - (boolean) MIME decode the value?
+     * 'params' - (array) MIME parameters for Content-Type or
+     *            Content-Disposition
+     * </pre>
      */
-    public function replaceHeader($header, $value, $decode = false)
+    public function replaceHeader($header, $value, $options = array())
     {
         $this->removeHeader($header);
-        $this->addHeader($header, $value, $decode);
+        $this->addHeader($header, $value, $options);
     }
 
     /**
      * Set a value for a particular header ONLY if that header is set.
      *
-     * @param string $header   The header name.
-     * @param string $value    The header value.
-     * @param boolean $decode  MIME decode the value?
+     * @param string $header  The header name.
+     * @param string $value   The header value.
+     * @param array $options  Additional options:
+     * <pre>
+     * 'decode' - (boolean) MIME decode the value?
+     * 'params' - (array) MIME parameters for Content-Type or
+     *            Content-Disposition
+     * </pre>
      *
      * @return boolean  True if value was set.
      */
-    public function setValue($header, $value, $decode = false)
+    public function setValue($header, $value, $options = array())
     {
         require_once 'Horde/String.php';
 
@@ -454,66 +486,6 @@ class Horde_Mime_Headers
     }
 
     /**
-     * Adds proper linebreaks to a header string.
-     * RFC 2822 says headers SHOULD only be 78 characters a line, but also
-     * says that a header line MUST not be more than 998 characters.
-     *
-     * @param string $header  The header name.
-     * @param string $text    The text of the header field.
-     *
-     * @return string  The header value, with linebreaks inserted.
-     */
-    public function wrapHeaders($header, $text)
-    {
-        $eol = $this->_eol;
-        $header_text = rtrim($header) . ': ';
-
-        /* Remove any existing linebreaks. */
-        $text = $header_text . preg_replace("/\r?\n\s?/", ' ', rtrim($text));
-
-        if (!in_array(strtolower($header), array('content-type', 'content-disposition'))) {
-            /* Wrap the line. */
-            $line = wordwrap($text, 75, $eol . ' ');
-
-            /* Make sure there are no empty lines. */
-            $line = preg_replace('/' . $eol . ' ' . $eol . ' /', '/' . $eol . ' /', $line);
-
-            return substr($line, strlen($header_text));
-        }
-
-        /* Split the line by the RFC parameter separator ';'. */
-        $params = preg_split("/\s*;\s*/", $text);
-
-        $line = '';
-        $eollength = strlen($eol);
-        $length = 1000 - $eollength;
-        $paramcount = count($params) - 1;
-
-        reset($params);
-        while (list($count, $val) = each($params)) {
-            /* If longer than RFC allows, then simply chop off the excess. */
-            $moreparams = ($count != $paramcount);
-            $maxlength = $length - (!empty($line) ? 1 : 0) - (($moreparams) ? 1 : 0);
-            if (strlen($val) > $maxlength) {
-                $val = substr($val, 0, $maxlength);
-
-                /* If we have an opening quote, add a closing quote after
-                 * chopping the rest of the text. */
-                if (strpos($val, '"') !== false) {
-                    $val = substr($val, 0, -1) . '"';
-                }
-            }
-
-            if (!empty($line)) {
-                $line .= ' ';
-            }
-            $line .= $val . (($moreparams) ? ';' : '') . $eol;
-        }
-
-        return substr($line, strlen($header_text), ($eollength * -1));
-    }
-
-    /**
      * Builds a Horde_Mime_Headers object from header text.
      * This function can be called statically:
      *   $headers = Horde_Mime_Headers::parseHeaders().
@@ -537,14 +509,15 @@ class Horde_Mime_Headers
                 $currtext .= ' ' . ltrim($val);
             } else {
                 if (!is_null($currheader)) {
-                    $headers->addHeader($currheader, $currtext, true);
+                    // TODO: RFC 2231
+                    $headers->addHeader($currheader, $currtext, array('decode' => true));
                 }
                 $pos = strpos($val, ':');
                 $currheader = substr($val, 0, $pos);
                 $currtext = ltrim(substr($val, $pos + 1));
             }
         }
-        $headers->addHeader($currheader, $currtext, true);
+        $headers->addHeader($currheader, $currtext, array('decode' => true));
 
         return $headers;
     }

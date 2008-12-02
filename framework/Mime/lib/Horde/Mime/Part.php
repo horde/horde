@@ -740,72 +740,26 @@ class Horde_Mime_Part
             $headers = new Horde_Mime_Headers();
         }
 
-        foreach ($this->getHeaderArray() as $key => $val) {
-            $headers->replaceHeader($key, $val);
-        }
-
-        return $headers;
-    }
-
-    /**
-     * Get the list of MIME headers for this part in an array.
-     *
-     * @return array  The full set of MIME headers.
-     */
-    public function getHeaderArray()
-    {
-        $headers = array();
-
-        if ($this->_basepart) {
-            /* Per RFC 2046 [4], this MUST appear in the message headers. */
-            $headers['MIME-Version'] = '1.0';
-        }
-
         $ptype = $this->getPrimaryType();
         $stype = $this->getSubType();
 
-        /* Get the character set for this part. */
-        $charset = $this->getCharset();
-
-        /* Get the Content-Type - this is ALWAYS required. */
-        $ctype = $this->getType(true);
-
-        /* Manually encode Content-Type and Disposition parameters in here,
-         * rather than in Horde_Mime_Headers, since it is easier to do when
-         * the paramters are broken down. Encoding in the headers object will
-         * ignore these headers Since they will already be in 7bit. */
-        foreach ($this->getAllContentTypeParameters() as $key => $value) {
-            /* Skip the charset key since that would have already been
-             * added to $ctype by getType(). */
-            if ($key == 'charset') {
-                continue;
-            }
-
-            $encode_2231 = Horde_Mime::encodeParamString($key, $value, $charset);
-            /* Try to work around non RFC 2231-compliant MUAs by sending both
-             * a RFC 2047-like parameter name and then the correct RFC 2231
-             * parameter.  See:
-             * http://lists.horde.org/archives/dev/Week-of-Mon-20040426/014240.html */
-            if (!empty($GLOBALS['conf']['mailformat']['brokenrfc2231']) &&
-                (strpos($encode_2231, '*=') !== false)) {
-                $ctype .= '; ' . $key . '="' . Horde_Mime::encode($value, $charset) . '"';
-            }
-            $ctype .= '; ' . $encode_2231;
-        }
-        $headers['Content-Type'] = $ctype;
+        /* Get the Content-Type itself. */
+        $headers->replaceHeader('Content-Type', $this->getType(), array('params' => $this->getAllContentTypeParameters()));
 
         /* Get the description, if any. */
         if (($descrip = $this->getDescription())) {
-            $headers['Content-Description'] = $descrip;
+            $headers->replaceHeader('Content-Description', $descrip);
         }
 
         /* RFC 2045 [4] - message/rfc822 and message/partial require the
-           MIME-Version header only if they themselves claim to be MIME
-           compliant. */
-        if (($ptype == 'message') &&
-            (($stype == 'rfc822') || ($stype == 'partial'))) {
-            // TODO - Check for "MIME-Version" in message/rfc822 part.
-            $headers['MIME-Version'] = '1.0';
+         * MIME-Version header only if they themselves claim to be MIME
+         * compliant.
+         * @TODO - Check for "MIME-Version" in message/rfc822 part.
+         * Per RFC 2046 [4], this MUST appear in the base message headers. */
+        if ($this->_basepart ||
+            (($ptype == 'message') &&
+             (($stype == 'rfc822') || ($stype == 'partial')))) {
+            $headers->replaceHeader('MIME-Version', '1.0');
         }
 
         /* message/* parts require no additional header information. */
@@ -817,28 +771,15 @@ class Horde_Mime_Part
            there is a name parameter. */
         $name = $this->getName();
         if (($ptype != 'multipart') || !empty($name)) {
-            $disp = $this->getDisposition();
-
-            /* Add any disposition parameter information, if available. */
-            if (!empty($name)) {
-                $encode_2231 = Horde_Mime::encodeParamString('filename', $name, $charset);
-                /* Same broken RFC 2231 workaround as above. */
-                if (!empty($GLOBALS['conf']['mailformat']['brokenrfc2231']) &&
-                    (strpos($encode_2231, '*=') !== false)) {
-                    $disp .= '; filename="' . Horde_Mime::encode($name, $charset) . '"';
-                }
-                $disp .= '; ' . $encode_2231;
-            }
-
-            $headers['Content-Disposition'] = $disp;
+            $headers->replaceHeader('Content-Disposition', $this->getDisposition(), array('params' => (!empty($name) ? array('filename' => $name) : array())));
         }
 
         /* Add transfer encoding information. */
-        $headers['Content-Transfer-Encoding'] = $this->getTransferEncoding();
+        $headers->replaceHeader('Content-Transfer-Encoding', $this->getTransferEncoding());
 
         /* Add content ID information. */
         if (!is_null($this->_contentid)) {
-            $headers['Content-ID'] = $this->_contentid;
+            $headers->replaceHeader('Content-ID', $this->_contentid);
         }
 
         return $headers;

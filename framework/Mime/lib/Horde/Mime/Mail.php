@@ -60,6 +60,13 @@ class Horde_Mime_Mail
     protected $_mailer_driver = 'smtp';
 
     /**
+     * The charset to use for the message.
+     *
+     * @var string
+     */
+    protected $_charset;
+
+    /**
      * The Mail driver parameters.
      *
      * @link http://pear.php.net/Mail
@@ -85,15 +92,16 @@ class Horde_Mime_Mail
         }
 
         $this->_headers = new Horde_Mime_Headers();
+        $this->_charset = $charset;
 
         if ($subject) {
-            $this->addHeader('Subject', $subject, $charset);
+            $this->addHeader('Subject', $subject);
         }
         if ($to) {
-            $this->addHeader('To', $to, $charset);
+            $this->addHeader('To', $to);
         }
         if ($from) {
-            $this->addHeader('From', $from, $charset);
+            $this->addHeader('From', $from);
         }
         if ($body) {
             $this->setBody($body, $charset);

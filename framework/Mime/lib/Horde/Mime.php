@@ -1,7 +1,7 @@
 <?php
 /**
- * The Horde_Mime:: class provides methods for dealing with various MIME (see, e.g.,
- * RFC 2045) standards.
+ * The Horde_Mime:: class provides methods for dealing with various MIME (see,
+ * e.g., RFC 2045-2049; 2183; 2231) standards.
  *
  * Copyright 1999-2008 The Horde Project (http://www.horde.org/)
  *
@@ -14,6 +14,16 @@
  */
 class Horde_Mime
 {
+    /**
+     * Attempt to work around non RFC 2231-compliant MUAs by generating both
+     * a RFC 2047-like parameter name and  also the correct RFC 2231
+     * parameter.  See:
+     * http://lists.horde.org/archives/dev/Week-of-Mon-20040426/014240.html
+     *
+     * @var boolean
+     */
+    static public $brokenRFC2231 = false;
+
     /**
      * Determines if a string contains 8-bit (non US-ASCII) characters.
      *
@@ -312,35 +322,38 @@ class Horde_Mime
     }
 
     /**
-     * Encodes a parameter string pursuant to RFC 2231.
+     * Encodes a MIME parameter string pursuant to RFC 2183 & 2231
+     * (Content-Type and Content-Disposition headers).
      *
      * @param string $name     The parameter name.
-     * @param string $string   The string to encode.
+     * @param string $val      The parameter value.
      * @param string $charset  The charset the text should be encoded with.
      * @param string $lang     The language to use when encoding.
      *
      * @return array  The encoded parameter string.
      */
-    static public function encodeParamString($name, $string, $charset,
-                                             $lang = null)
+    static public function encodeParam($name, $val, $charset, $lang = null)
     {
         $encode = $wrap = false;
+        $i = 0;
         $output = array();
 
-        if (self::is8bit($string, $charset)) {
-            $string = String::lower($charset) . '\'' . (is_null($lang) ? '' : String::lower($lang)) . '\'' . rawurlencode($string);
+        if (self::is8bit($val, $charset)) {
+            $string = String::lower($charset) . '\'' . (is_null($lang) ? '' : String::lower($lang)) . '\'' . rawurlencode($val);
             $encode = true;
+        } else {
+            $string = $val;
         }
 
         // 4 = '*', 2x '"', ';'
         $pre_len = strlen($name) + 4 + (($encode) ? 1 : 0);
-        if (($pre_len + strlen($string)) > 76) {
+        if (($pre_len + strlen($string)) > 75) {
             while ($string) {
-                $chunk = 76 - $pre_len;
+                $chunk = 75 - $pre_len;
                 $pos = min($chunk, strlen($string) - 1);
                 if (($chunk == $pos) && ($pos > 2)) {
-                    for ($i = 0; $i <= 2; $i++) {
-                        if ($string[$pos-$i] == '%') {
+                    for ($i = 0; $i <= 2; ++$i) {
+                        if ($string[$pos - $i] == '%') {
                             $pos -= $i + 1;
                             break;
                         }
@@ -354,37 +367,31 @@ class Horde_Mime
             $lines = array($string);
         }
 
-        $i = 0;
-        foreach ($lines as $val) {
-            $output[] =
-                $name .
-                (($wrap) ? ('*' . $i++) : '') .
-                (($encode) ? '*' : '') .
-                '="' . $val . '"';
+        foreach ($lines as $line) {
+            $output[$name . (($wrap) ? ('*' . $i++) : '') . (($encode) ? '*' : '')] = $line;
         }
 
-        return implode('; ', $output);
+        if (self::$brokenRFC2231 && !isset($output[$name])) {
+            $output[$name] = self::encode($val, $charset);
+        }
+
+        return $output;
     }
 
     /**
-     * Decodes a parameter string encoded pursuant to RFC 2231.
+     * Decodes a header string encoded pursuant to RFC 2231.
      *
-     * @param string $string      The entire string to decode, including the
-     *                            parameter name.
+     * @param string $string      The string to decode.
      * @param string $to_charset  The charset the text should be decoded to.
      *
-     * @return array  The decoded text, or the original string if it was not
-     *                encoded.
+     * @return array  An array with the following entries:
+     * <pre>
+     * </pre>
      */
     static public function decodeParamString($string, $to_charset = null)
     {
         if (($pos = strpos($string, '*')) === false) {
             return false;
-        }
-
-        if (!isset($to_charset)) {
-            require_once 'Horde/NLS.php';
-            $to_charset = NLS::getCharset();
         }
 
         $attribute = substr($string, 0, $pos);

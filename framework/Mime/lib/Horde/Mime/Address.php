@@ -364,7 +364,7 @@ class Horde_Mime_Address
      * in RFC 2822 [3.2.5].
      *
      * @param string $str   The string to be quoted and escaped.
-     * @param string $type  Either 'address' or 'personal'.
+     * @param string $type  Either 'address', 'personal', or null.
      *
      * @return string  The correctly quoted and escaped string.
      */
