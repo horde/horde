@@ -1,9 +1,6 @@
 <?php
 /**
- * Minimalist compose display page.
- *
- * URL Parameters:
- * 'a'
+ * Minimalist (mimp) compose display page.
  *
  * Copyright 2002-2008 The Horde Project (http://www.horde.org/)
  *
@@ -30,24 +27,18 @@ function &_getIMPContents($index, $mailbox)
 require_once dirname(__FILE__) . '/lib/base.php';
 require_once 'Horde/Identity.php';
 
-/* The message text. */
+/* The message text and headers. */
 $msg = '';
-
-/* The headers of the message. */
 $header = array(
-    'bcc' => '',
-    'cc' => '',
     'in_reply_to' => Util::getFormData('in_reply_to'),
-    'references' => Util::getFormData('references'),
-    'subject' => '',
-    'to' => '',
+    'references' => Util::getFormData('references')
 );
 
 /* Set the current identity. */
 $identity = &Identity::singleton(array('imp', 'imp'));
 if (!$prefs->isLocked('default_identity')) {
     $identity_id = Util::getFormData('identity');
-    if ($identity_id !== null) {
+    if (!is_null($identity_id)) {
         $identity->setDefault($identity_id);
     }
 }
@@ -73,8 +64,7 @@ $compose_disable = !empty($conf['hooks']['disable_compose']) &&
 NLS::setTimeZone();
 
 /* Initialize the IMP_Compose:: object. */
-$oldCacheID = Util::getFormData('composeCache');
-$imp_compose = &IMP_Compose::singleton($oldCacheID);
+$imp_compose = &IMP_Compose::singleton(Util::getFormData('composeCache'));
 
 /* Run through the action handlers. */
 $actionID = Util::getFormData('a');
@@ -109,7 +99,7 @@ case _("Expand Names"):
             $header['bcc'] = $imp_ui->expandAddresses(Util::getFormData('bcc'), $imp_compose);
         }
     }
-    if ($action !== null) {
+    if (!is_null($action)) {
         $actionID = $action;
     }
     break;
