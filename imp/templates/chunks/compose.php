@@ -32,7 +32,7 @@ function _createDAcompose($text, $image, $id)
 
 ?>
 <div id="composeloading"></div>
-<form id="compose" name="compose" enctype="multipart/form-data" action="compose.php" method="post" target="submit_frame">
+<form id="compose" name="compose" enctype="multipart/form-data" action="compose-dimp.php" method="post" target="submit_frame">
 <?php echo Util::formInput() ?>
 <input type="hidden" id="action" name="action" />
 <input type="hidden" id="last_identity" name="last_identity" value="<?php echo (int)$selected_identity ?>" />
