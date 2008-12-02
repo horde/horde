@@ -364,7 +364,7 @@ class Horde_Mime_Address
      * in RFC 2822 [3.2.5].
      *
      * @param string $str   The string to be quoted and escaped.
-     * @param string $type  Either 'address', 'personal', or null.
+     * @param string $type  Either 'address', or 'personal';
      *
      * @return string  The correctly quoted and escaped string.
      */
@@ -375,14 +375,15 @@ class Horde_Mime_Address
         $filter = "\0\1\2\3\4\5\6\7\10\12\13\14\15\16\17\20\21\22\23\24\25\26\27\30\31\32\33\34\35\36\37\"(),:;<>@[\\]\177";
 
         switch ($type) {
-        case 'address':
-            // RFC 2822 [3.4.1]: (HTAB, SPACE) not allowed in address
-            $filter .= "\11\40";
-            break;
-
         case 'personal':
             // RFC 2822 [3.4]: Period not allowed in display name
             $filter .= '.';
+            break;
+
+        case 'address':
+        default:
+            // RFC 2822 [3.4.1]: (HTAB, SPACE) not allowed in address
+            $filter .= "\11\40";
             break;
         }
 
