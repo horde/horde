@@ -52,10 +52,9 @@ function &_getIMPContents($index, $mailbox)
 }
 
 
-@define('IMP_BASE', dirname(__FILE__));
 $compose_page = true;
 $session_control = 'netscape';
-require_once IMP_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/base.php';
 require_once 'Horde/Help.php';
 require_once 'Horde/Identity.php';
 require_once 'Horde/Text/Filter.php';
@@ -124,16 +123,11 @@ $reply_index = Util::getFormData('reply_index');
 $thismailbox = Util::getFormData('thismailbox');
 
 /* Check for duplicate submits. */
-if (isset($conf['token'])) {
-    /* If there is a configured token system, set it up. */
-    $tokenSource = Horde_Token::factory(
-        $conf['token']['driver'],
-        Horde::getDriverConfig('token', $conf['token']['driver']));
-} else {
-    /* Default to the file system if no config. */
-    $tokenSource = Horde_Token::factory('file');
-}
 if ($token = Util::getFormData('compose_formToken')) {
+    $tokenSource = isset($conf['token'])
+        ? Horde_Token::factory($conf['token']['driver'], Horde::getDriverConfig('token', $conf['token']['driver']))
+        : Horde_Token::factory('file');
+
     $verified = $tokenSource->verify($token);
     /* Notify and reset the actionID. */
     if (is_a($verified, 'PEAR_Error')) {
@@ -170,7 +164,7 @@ $imp_compose->userLinkAttachments((bool) Util::getFormData('link_attachments'));
 
 $vcard = $imp_compose->attachVCard((bool) Util::getFormData('vcard'), $identity->getValue('fullname'));
 if (is_a($vcard, 'PEAR_Error')) {
-    // TODO: notification
+    $notification->push($vcard);
 }
 
 /* Init IMP_UI_Compose:: object. */
@@ -445,12 +439,18 @@ case 'send_message':
         $get_sig = false;
         $code = $sent->getCode();
         $notification->push($sent, strpos($code, 'horde.') === 0 ? $code : 'horde.error');
-        if ($sent->getUserInfo() == 'pgp_symmetric_passphrase_dialog') {
+        switch ($sent->getUserInfo()) {
+        case 'pgp_symmetric_passphrase_dialog':
             $pgp_symmetric_passphrase_dialog = true;
-        } elseif ($sent->getUserInfo() == 'pgp_passphrase_dialog') {
+            break;
+
+        case 'pgp_passphrase_dialog':
             $pgp_passphrase_dialog = true;
-        } elseif ($sent->getUserInfo() == 'smime_passphrase_dialog') {
+            break;
+
+        case 'smime_passphrase_dialog':
             $smime_passphrase_dialog = true;
+            break;
         }
         break;
     }
@@ -546,22 +546,21 @@ case 'cancel_compose':
 
 case 'selectlist_process':
     $select_id = Util::getFormData('selectlist_selectid');
-    if (!empty($select_id)) {
-        if ($registry->hasMethod('files/selectlistResults') &&
-            $registry->hasMethod('files/returnFromSelectlist')) {
-            $filelist = $registry->call('files/selectlistResults', array($select_id));
-            if ($filelist && !is_a($filelist, 'PEAR_Error')) {
-                $i = 0;
-                foreach ($filelist as $val) {
-                    $data = $registry->call('files/returnFromSelectlist', array($select_id, $i++));
-                    if ($data && !is_a($data, 'PEAR_Error')) {
-                        $part = new Horde_Mime_Part();
-                        $part->setContents($data);
-                        $part->setName(reset($val));
-                        $res = $imp_compose->addMIMEPartAttachment($part);
-                        if (is_a($res, 'PEAR_Error')) {
-                            $notification->push($res, 'horde.error');
-                        }
+    if (!empty($select_id) &&
+        $registry->hasMethod('files/selectlistResults') &&
+        $registry->hasMethod('files/returnFromSelectlist')) {
+        $filelist = $registry->call('files/selectlistResults', array($select_id));
+        if ($filelist && !is_a($filelist, 'PEAR_Error')) {
+            $i = 0;
+            foreach ($filelist as $val) {
+                $data = $registry->call('files/returnFromSelectlist', array($select_id, $i++));
+                if ($data && !is_a($data, 'PEAR_Error')) {
+                    $part = new Horde_Mime_Part();
+                    $part->setContents($data);
+                    $part->setName(reset($val));
+                    $res = $imp_compose->addMIMEPartAttachment($part);
+                    if (is_a($res, 'PEAR_Error')) {
+                        $notification->push($res, 'horde.error');
                     }
                 }
             }
@@ -603,9 +602,6 @@ case 'add_attachment':
 
 /* Get the message cache ID. */
 $composeCacheID = $imp_compose->getCacheId();
-
-/* Has this page been reloaded? */
-$reloaded = Util::getFormData('reloaded');
 
 /* Are we in redirect mode? */
 $redirect = in_array($actionID, array('redirect_compose', 'redirect_expand_addr'));
@@ -687,7 +683,7 @@ if (!is_null($oldrtemode) && ($oldrtemode != $rtemode)) {
 
 /* If this is the first page load for this compose item, add auto BCC
  * addresses. */
-if (!$reloaded && ($actionID != 'draft')) {
+if (!$token && ($actionID != 'draft')) {
     $header['bcc'] = Horde_Mime_Address::addrArray2String($identity->getBccAddresses());
 }
 
@@ -734,10 +730,9 @@ if ($pgp_passphrase_dialog || $pgp_symmetric_passphrase_dialog) {
 /* If PGP encryption is set by default, and we have a recipient list on first
  * load, make sure we have public keys for all recipients. */
 $encrypt_options = Util::getFormData('encrypt_options');
-$use_pgp = $prefs->getValue('use_pgp');
-if ($use_pgp) {
+if ($prefs->getValue('use_pgp')) {
     $default_encrypt = $prefs->getValue('default_encrypt');
-    if (!$reloaded &&
+    if (!$token &&
         in_array($default_encrypt, array(IMP::PGP_ENCRYPT, IMP::PGP_SIGNENC))) {
         $addrs = $imp_compose->recipientList($header);
         if (!is_a($addrs, 'PEAR_Error') && !empty($addrs['list'])) {
@@ -792,7 +787,7 @@ $js_code = array(
     'var redirect = ' . intval($redirect),
     'var rtemode = ' . intval($rtemode),
     'var smf_check = ' . intval($smf_check),
-    'var reloaded = ' . intval($reloaded),
+    'var reloaded = ' . intval($token)
 );
 
 /* Create javascript identities array. */
@@ -811,13 +806,6 @@ if (!$redirect) {
     $js_code[] = 'var identities = ' . Horde_Serialize::serialize($js_ident, SERIALIZE_JSON, NLS::getCharset());
 }
 
-Horde::addScriptFile('prototype.js', 'horde', true);
-Horde::addScriptFile('compose.js', 'imp', true);
-require IMP_TEMPLATES . '/common-header.inc';
-IMP::addInlineScript($js_code);
-if ($showmenu) {
-    IMP::menu();
-}
 
 /* Set up the base template now. */
 $t = new IMP_Template();
@@ -883,7 +871,7 @@ if ($redirect) {
         $t->set('help', Help::link('imp', 'compose-to'));
     }
 
-    echo $t->fetch(IMP_TEMPLATES . '/compose/redirect.html');
+    $template_output = $t->fetch(IMP_TEMPLATES . '/compose/redirect.html');
 } else {
     if (!($reply_type = Util::getFormData('reply_type'))) {
         switch ($actionID) {
@@ -917,7 +905,6 @@ if ($redirect) {
         'mailbox' => htmlspecialchars($imp_mbox['mailbox']),
         'thismailbox' => $thismailbox,
         'attachmentAction' => '',
-        'reloaded' => 1,
         'oldrtemode' => $rtemode,
         'rtemode' => $rtemode,
         'index' => $index
@@ -1140,7 +1127,7 @@ if ($redirect) {
         if ($readonly_sentmail) {
             $notification->push(sprintf(_("Cannot save sent-mail message to \"%s\" as that mailbox is read-only.", $sent_mail_folder), 'horde.warning'));
         }
-        $t->set('ssm_selected', ($reloaded) ? ($save_sent_mail == 'on') : $identity->saveSentmail());
+        $t->set('ssm_selected', $token ? ($save_sent_mail == 'on') : $identity->saveSentmail());
         $t->set('ssm_label', Horde::label('ssm', _("Sa_ve a copy in ")));
         if ($smf = Util::getFormData('sent_mail_folder')) {
             $sent_mail_folder = $smf;
@@ -1259,12 +1246,18 @@ if ($redirect) {
         }
     }
 
-    echo $t->fetch(IMP_TEMPLATES . '/compose/compose.html');
+    $template_output = $t->fetch(IMP_TEMPLATES . '/compose/compose.html');
 }
 
-/* Load RTE. */
+Horde::addScriptFile('prototype.js', 'horde', true);
+Horde::addScriptFile('compose.js', 'imp', true);
+require IMP_TEMPLATES . '/common-header.inc';
+IMP::addInlineScript($js_code);
+if ($showmenu) {
+    IMP::menu();
+}
+echo $template_output;
 if ($rtemode && !$redirect) {
     echo $imp_ui->initRTE();
 }
-
 require $registry->get('templates', 'horde') . '/common-footer.inc';

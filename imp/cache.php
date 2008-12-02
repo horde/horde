@@ -77,10 +77,8 @@ if (empty($cid)) {
     exit;
 }
 
-$cache = &Horde_Cache::singleton($GLOBALS['conf']['cache']['driver'], Horde::getDriverConfig('cache', $GLOBALS['conf']['cache']['driver']));
-if (is_a($cache, 'PEAR_Error')) {
-   Horde::logMessage('No cache backend available.', __FILE__, __LINE__, PEAR_LOG_ERR);
-    exit;
+if (!($cache = &IMP::getCacheOb())) {
+    Horde::fatal('No cache backend available.', __FILE__, __LINE__);
 }
 
 // If cache info doesn't exist, just output an empty body.
