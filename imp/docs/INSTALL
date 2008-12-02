@@ -211,10 +211,14 @@ To function properly, IMP **requires** the following:
    Freely available IMAP servers (for \*nix systems) that have been verified
    to work with IMP include:
 
+   - Archiveopteryx (http://www.archiveopteryx.org/)
    - Courier-IMAP (http://www.inter7.com/courierimap.html)
    - Cyrus (http://asg.web.cmu.edu/cyrus/)
    - Dovecot (http://www.dovecot.org/)
    - UW-IMAP (ftp://ftp.cac.washington.edu/imap/)
+
+   The selected IMAP server MUST support IMAP4rev1 (RFC 3501).
+   The selected POP server MUST support POP3 (RFC 1939/STD 53).
 
 The following items are not required, but are strongly **RECOMMENDED**:
 
@@ -545,14 +549,13 @@ Configuring IMP
 
    See `horde/docs/PERFORMANCE`_.
 
-   IMP Specific Performance Information
+   IMP Specific Performance Information::
 
-   As of IMP 4.2, IMP can now use persistent caching on the server side to
-   store information about user's messages.  This results in much reduced
-   IMAP server traffic and requires the server to parse the structure of every
-   message only once.  The tradeoff is your cache backend must be able to
-   handle the potentially large amounts of cached data this option will
-   produce.
+   IMP can use persistent caching on the server side to store information about
+   user's messages.  This results in much reduced mail server traffic and
+   requires the server to parse the structure of every message only once.  The
+   tradeoff is your cache backend must be able to handle the potentially large
+   amounts of cached data this option will produce.
 
    To use this caching, you must have a ``Cache System`` configured in Horde's
    ``Administration/Setup`` screen and have the relevant settings enabled in
