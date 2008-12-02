@@ -1,8 +1,8 @@
 <?php
 /**
- * DIMP Compose page.
+ * Dynamic (dimp) compose display page.
  *
- * List of potential parameters:
+ * List of URL parameters:
  *   'popup' - Explicitly mark window as popup. Needed if compose page is
  *             opened from a page other than the base DIMP page.
  *   TODO
