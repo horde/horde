@@ -70,7 +70,7 @@ class IMP_Horde_Mime_Viewer_pdf extends Horde_Mime_Viewer_pdf
      *
      * @return array  See Horde_Mime_Viewer_Driver::render().
      */
-    public function _renderInfo()
+    protected function _renderInfo()
     {
         /* Check to see if convert utility is available. */
         if (!$this->_getHordeImageOb(false)) {
