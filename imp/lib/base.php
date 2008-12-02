@@ -204,3 +204,8 @@ if ($viewmode == 'mimp') {
     // Need to explicitly load DIMP.php
     require_once IMP_BASE . '/lib/DIMP.php';
 }
+
+// TODO - Move somewhere else?
+if (!empty($GLOBALS['conf']['mailformat']['brokenrfc2231'])) {
+    Horde_Mime::$brokenRFC2231 = true;
+}
