@@ -22,7 +22,7 @@
  */
 
 /** Configuration **/
-$driver = 'Socket'; // 'Socket', 'Cclient', or 'Cclient-pop3'
+$driver = 'Socket'; // 'Socket', 'Cclient', or 'Cclient_Pop3'
 $params = array(
     'username' => '',
     'password' => '',
@@ -104,7 +104,7 @@ if (@require_once 'Benchmark/Timer.php') {
 $params['id'] = array('name' => 'Horde_Imap_Client test program');
 
 $imap_client = Horde_Imap_Client::getInstance($driver, $params);
-if ($driver == 'Cclient-pop3') {
+if ($driver == 'Cclient_Pop3') {
     $test_mbox = $test_mbox_utf8 = 'INBOX';
 }
 
@@ -711,7 +711,7 @@ try {
     print "Fetch: FAILED\n";
 
     // If POP3, try easier fetch criteria
-    if ($driver == 'Cclient-pop3') {
+    if ($driver == 'Cclient_Pop3') {
         try {
             print_r($imap_client->fetch('INBOX', array(
                 Horde_Imap_Client::FETCH_FULLMSG => array(

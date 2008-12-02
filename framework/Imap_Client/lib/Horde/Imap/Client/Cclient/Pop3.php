@@ -1,9 +1,6 @@
 <?php
-
-require_once dirname(__FILE__) . '/Cclient.php';
-
 /**
- * Horde_Imap_Client_Cclient_pop3 provides an interface to a POP3 server (RFC
+ * Horde_Imap_Client_Cclient_Pop3 provides an interface to a POP3 server (RFC
  * 1939) via the PHP imap (c-client) module.  This driver is an abstraction
  * layer allowing POP3 commands to be used based on its IMAP equivalents.
  *
@@ -20,7 +17,7 @@ require_once dirname(__FILE__) . '/Cclient.php';
  * @category Horde
  * @package  Horde_Imap_Client
  */
-class Horde_Imap_Client_Cclient_pop3 extends Horde_Imap_Client_Cclient
+class Horde_Imap_Client_Cclient_Pop3 extends Horde_Imap_Client_Cclient
 {
     /**
      * Constructs a new Horde_Imap_Client_Cclient object.

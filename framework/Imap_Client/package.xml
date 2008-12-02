@@ -40,10 +40,12 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <dir name="Horde">
      <dir name="Imap">
       <dir name="Client">
+       <dir name="Cclient">
+        <file name="Pop3.php" role="php" />
+       </dir>
        <file name="Base.php" role="php" />
        <file name="Cache.php" role="php" />
        <file name="Cclient.php" role="php" />
-       <file name="Cclient-pop3.php" role="php" />
        <file name="Exception.php" role="php" />
        <file name="Socket.php" role="php" />
        <file name="Sort.php" role="php" />
@@ -97,8 +99,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <filelist>
    <install name="lib/Horde/Imap/Client/Base.php" as="Horde/Imap/Client/Base.php" />
    <install name="lib/Horde/Imap/Client/Cache.php" as="Horde/Imap/Client/Cache.php" />
+   <install name="lib/Horde/Imap/Client/Cclient/Pop3.php" as="Horde/Imap/Client/Cclient/Pop3.php" />
    <install name="lib/Horde/Imap/Client/Cclient.php" as="Horde/Imap/Client/Cclient.php" />
-   <install name="lib/Horde/Imap/Client/Cclient-pop3.php" as="Horde/Imap/Client/Cclient-pop3.php" />
    <install name="lib/Horde/Imap/Client/Exception.php" as="Horde/Imap/Client/Exception.php" />
    <install name="lib/Horde/Imap/Client/Socket.php" as="Horde/Imap/Client/Socket.php" />
    <install name="lib/Horde/Imap/Client/Sort.php" as="Horde/Imap/Client/Sort.php" />
