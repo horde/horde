@@ -141,10 +141,8 @@ if (in_array($action, array('chunkContent', 'Html2Text', 'Text2Html', 'GetReplyD
     $session_control = 'readonly';
 }
 
-$authentication = 'none';
 $dimp_logout = ($action == 'LogOut');
 $session_timeout = 'json';
-@define('AUTH_HANDLER', true);
 require_once dirname(__FILE__) . '/lib/base.php';
 
 // Process common request variables.
