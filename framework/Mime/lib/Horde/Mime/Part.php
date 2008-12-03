@@ -741,7 +741,12 @@ class Horde_Mime_Part
         }
 
         /* Get the Content-Type itself. */
-        $headers->replaceHeader('Content-Type', $this->getType(), array('params' => $this->getAllContentTypeParameters()));
+        $ptype = $this->getPrimaryType();
+        $c_params = $this->getAllContentTypeParameters();
+        if ($ptype != 'text') {
+            unset($c_params['charset']);
+        }
+        $headers->replaceHeader('Content-Type', $this->getType(), array('params' => $c_params));
 
         /* Get the description, if any. */
         if (($descrip = $this->getDescription())) {
@@ -754,7 +759,6 @@ class Horde_Mime_Part
         }
 
         /* message/* parts require no additional header information. */
-        $ptype = $this->getPrimaryType();
         if ($ptype == 'message') {
             return $headers;
         }
