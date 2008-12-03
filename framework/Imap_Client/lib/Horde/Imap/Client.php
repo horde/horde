@@ -325,6 +325,10 @@ class Horde_Imap_Client
         // Rule 1b: Remove superfluous whitespace.
         $str = preg_replace("/\s{2,}/", '', $str);
 
+        if (!$str) {
+            return '';
+        }
+
         do {
             /* (2) Remove all trailing text of the subject that matches the
              * the subj-trailer ABNF, repeat until no more matches are
@@ -364,6 +368,10 @@ class Horde_Imap_Client
     static final protected function _removeSubjLeader(&$str, $keepblob = false)
     {
         $ret = false;
+
+        if (!$str) {
+            return $ret;
+        }
 
         if ($str[0] == ' ') {
             $str = substr($str, 1);
@@ -460,7 +468,8 @@ class Horde_Imap_Client
      */
     static final protected function _removeBlobWhenNonempty(&$str)
     {
-        if (($str[0] == '[') &&
+        if ($str &&
+            ($str[0] == '[') &&
             (($i = self::_removeBlob($str, 0)) !== false) &&
             ($i != strlen($str))) {
             $str = substr($str, $i);

@@ -2732,7 +2732,7 @@ class Horde_Imap_Client_Search_Query
      * @param boolean $not     If true, do a 'NOT' search of the range.
      */
     public function dateSearch($month, $day, $year, $range, $header = true,
-                        $not = false)
+                               $not = false)
     {
         $type = $header ? 'header' : 'internal';
         if (!isset($this->_search['date'])) {
