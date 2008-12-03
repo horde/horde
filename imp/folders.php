@@ -244,14 +244,17 @@ case 'folders_empty_mailbox_confirm':
         $loop = array();
         $rowct = 0;
         foreach ($folder_list as $val) {
-            if (!empty($conf['server']['fixed_folders']) &&
+            if (($actionID == 'delete_folder_confirm') &&
+                !empty($conf['server']['fixed_folders']) &&
                 in_array(IMP::folderPref($val, false), $conf['server']['fixed_folders'])) {
                 $notification->push(sprintf(_("The folder \"%s\" may not be deleted."), IMP::displayFolder($val)), 'horde.error');
                 continue;
             }
+            $elt_info = $imaptree->getElementInfo($val);
             $data = array(
                 'class' => (++$rowct % 2) ? 'item0' : 'item1',
                 'name' => htmlspecialchars(IMP::displayFolder($val)),
+                'msgs' => $elt_info['messages'],
                 'val' => htmlspecialchars($val)
             );
             $loop[] = $data;

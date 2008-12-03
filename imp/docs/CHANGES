@@ -2,6 +2,9 @@
 v5.0-cvs
 --------
 
+[mms] Encrypted bodytext now appears when replying/forwarding a message
+      (Request #1345).
+[mms] When deleting/emptying a folder, display message count (Request #7424).
 [mms] No longer need HTTP_Request - use Horde_Http_Client instead.
 [mms] Use Horde_Imap_Client as the IMAP library in IMP.
 [mms] DIMP and MIMP have been moved into IMP.
