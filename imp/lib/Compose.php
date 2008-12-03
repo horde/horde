@@ -286,7 +286,7 @@ class IMP_Compose
             return $contents;
         }
 
-        $msg_text = $this->getMessageText($contents);
+        $msg_text = $this->_getMessageText($contents);
         if (empty($msg_text)) {
             $message = '';
             $mode = 'text';
@@ -1124,6 +1124,7 @@ class IMP_Compose
      * @return array  An array with the following keys:
      * <pre>
      * 'body'     - The text of the body part
+     * 'encoding' - The guessed charset to use for the reply
      * 'headers'  - The headers of the message to use for the reply
      * 'format'   - The format of the body message
      * 'identity' - The identity to use for the reply based on the original
@@ -1251,7 +1252,7 @@ class IMP_Compose
 
         $compose_html = $GLOBALS['prefs']->getValue('compose_html');
 
-        $msg_text = $this->getMessageText($contents, array(
+        $msg_text = $this->_getMessageText($contents, array(
             'html' => ($GLOBALS['prefs']->getValue('reply_format') || $compose_html),
             'replylimit' => true,
             'toflowed' => true
@@ -1272,6 +1273,7 @@ class IMP_Compose
 
         return array(
             'body' => $msg . "\n",
+            'encoding' => $msg_text['encoding'],
             'headers' => $header,
             'format' => $msg_text['mode'],
             'identity' => $match_identity
@@ -1288,6 +1290,7 @@ class IMP_Compose
      * @return array  An array with the following keys:
      * <pre>
      * 'body'     - The text of the body part
+     * 'encoding' - The guessed charset to use for the reply
      * 'headers'  - The headers of the message to use for the reply
      * 'format'   - The format of the body message
      * 'identity' - The identity to use for the reply based on the original
@@ -1333,7 +1336,7 @@ class IMP_Compose
 
             $compose_html = $GLOBALS['prefs']->getValue('compose_html');
 
-            $msg_text = $this->getMessageText($contents, array(
+            $msg_text = $this->_getMessageText($contents, array(
                 'html' => ($GLOBALS['prefs']->getValue('reply_format') || $compose_html)
             ));
 
@@ -1350,6 +1353,7 @@ class IMP_Compose
 
         return array(
             'body' => $msg,
+            'encoding' => $msg_text['encoding'],
             'format' => $format,
             'headers' => $header,
             'identity' => $this->_getMatchingIdentity($h)
@@ -2116,12 +2120,13 @@ class IMP_Compose
      * @return mixed  Null if bodypart not found, or array with the following
      *                keys:
      * <pre>
+     * 'encoding' - (string) The guessed encoding to use.
      * 'id' - (string) The MIME ID of the bodypart.
      * 'mode' - (string)
      * 'text' - (string)
      * </pre>
      */
-    public function getMessageText($contents, $options = array())
+    protected function _getMessageText($contents, $options = array())
     {
         $body_id = null;
         $mode = 'text';
@@ -2143,7 +2148,9 @@ class IMP_Compose
 
         $part = $contents->getMIMEPart($body_id);
         $type = $part->getType();
-        $msg = String::convertCharset($part->getContents(), $part->getCharset());
+        $part_charset = $part->getCharset();
+        $charset = NLS::getCharset();
+        $msg = String::convertCharset($part->getContents(), $part_charset);
 
         /* Enforce reply limits. */
         if (!empty($options['replylimit']) &&
@@ -2158,9 +2165,9 @@ class IMP_Compose
         if (($mode == 'html)' &&
             ($tidy_config = IMP::getTidyConfig($part->getBytes())))) {
             $tidy_config['show-body-only'] = true;
-            $tidy = tidy_parse_string(String::convertCharset($msg, NLS::getCharset(), 'UTF-8'), $tidy_config, 'UTF8');
+            $tidy = tidy_parse_string(String::convertCharset($msg, $charset, 'UTF-8'), $tidy_config, 'UTF8');
             $tidy->cleanRepair();
-            $msg = String::convertCharset(tidy_get_output($tidy), 'UTF-8', NLS::getCharset());
+            $msg = String::convertCharset(tidy_get_output($tidy), 'UTF-8', $charset);
         }
 
         if ($mode == 'html') {
@@ -2168,7 +2175,7 @@ class IMP_Compose
             $msg = Text_Filter::filter($msg, 'xss', array('body_only' => true, 'strip_styles' => true, 'strip_style_attributes' => false));
         } elseif ($type == 'text/html') {
             require_once 'Horde/Text/Filter.php';
-            $msg = Text_Filter::filter($msg, 'html2text', array('charset' => NLS::getCharset()));
+            $msg = Text_Filter::filter($msg, 'html2text', array('charset' => $charset));
             $type = 'text/plain';
         }
 
@@ -2194,7 +2201,16 @@ class IMP_Compose
             }
         }
 
+        /* Determine default encoding. */
+        $encoding = NLS::getEmailCharset();
+        if (($charset == 'UTF-8') &&
+            (strcasecmp($part_charset, 'US-ASCII') !== 0) &&
+            (strcasecmp($part_charset, $encoding) !== 0)) {
+            $encoding = 'UTF-8';
+        }
+
         return array(
+            'encoding' => $encoding,
             'id' => $body_id,
             'mode' => $mode,
             'text' => $msg

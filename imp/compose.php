@@ -172,13 +172,9 @@ $imp_ui = new IMP_UI_Compose();
 
 /* Set the default charset & encoding.
  * $charset - charset to use when sending messages
- * $encoding - best guessed charset offered to the user as the default value in
- *             the charset dropdown list. */
-if ($prefs->isLocked('sending_charset')) {
-    $charset = NLS::getEmailCharset();
-} else {
-    $charset = Util::getFormData('charset');
-}
+ * $encoding - best guessed charset offered to the user as the default value
+ *             in the charset dropdown list. */
+$charset = $prefs->isLocked('sending_charset') ? NLS::getEmailCharset() : Util::getFormData('charset');
 $encoding = empty($charset) ? NLS::getEmailCharset() : $charset;
 
 /* Is this a popup window? */
@@ -338,7 +334,7 @@ case 'reply_list':
     }
     $title .= ' ' . $header['subject'];
 
-    $encoding = empty($charset) ? $header['encoding'] : $charset;
+    $encoding = empty($charset) ? $reply_msg['encoding'] : $charset;
     $reply_index = $index;
     break;
 
@@ -359,7 +355,7 @@ case 'forward_attachments':
     $format = $fwd_msg['format'];
     $rtemode = ($rtemode || (!is_null($rtemode) && ($format == 'html')));
     $title = $header['title'];
-    $encoding = empty($charset) ? $header['encoding'] : $charset;
+    $encoding = empty($charset) ? $reply_msg['encoding'] : $charset;
     break;
 
 case 'redirect_compose':
