@@ -1,5 +1,7 @@
 <?php
 /**
+ * Standard (imp) mailbox display page.
+ *
  * Copyright 1999-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
