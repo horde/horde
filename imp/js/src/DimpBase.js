@@ -224,7 +224,7 @@ var DimpBase = {
 
         if (loc.startsWith('app:')) {
             app = loc.substr(4);
-            if (app == 'imp' || app == 'dimp') {
+            if (app == 'imp') {
                 this.go('folder:INBOX');
                 return;
             }
@@ -760,7 +760,7 @@ var DimpBase = {
         this.showPreview = !this.showPreview;
         $('previewtoggle').setText(this.showPreview ? DIMP.text.hide_preview : DIMP.text.show_preview);
         [ $('msgList') ].invoke(this.showPreview ? 'removeClassName' : 'addClassName', 'msglistNoPreview');
-        new Ajax.Request(DimpCore.addSID(DIMP.conf.URI_PREFS), { parameters: { app: 'dimp', pref: 'show_preview', value: this.showPreview ? 1 : 0 } });
+        new Ajax.Request(DimpCore.addSID(DIMP.conf.URI_PREFS), { parameters: { app: 'imp', pref: 'show_preview', value: this.showPreview ? 1 : 0 } });
         this.viewport.showSplitPane(this.showPreview);
         if (this.showPreview) {
             this.initPreviewPane();
