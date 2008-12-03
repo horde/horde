@@ -199,7 +199,10 @@ class Horde_Mime_Mail
         if ($wrap) {
             $body = String::wrap($body, $wrap === true ? 76 : $wrap, "\n");
         }
-        $this->_body = new Horde_Mime_Part('text/plain', $body, $charset);
+        $this->_body = new Horde_Mime_Part();
+        $this->_body->setType('text/plain');
+        $this->_body->setCharset($charset);
+        $this->_body->setContents($body);
     }
 
     /**
@@ -215,11 +218,13 @@ class Horde_Mime_Mail
     public function setHTMLBody($body, $charset = 'iso-8859-1',
                                 $alternative = true)
     {
-        $this->_htmlBody = new Horde_Mime_Part('text/html', $body, $charset);
+        $this->_htmlBody = new Horde_Mime_Part();
+        $this->_htmlBody->setType('text/html');
+        $this->_htmlBody->setCharset($charset);
+        $this->_htmlBody->setContents($body);
         if ($alternative) {
             require_once 'Horde/Text/Filter.php';
-            $body = Text_Filter::filter($body, 'html2text', array('wrap' => false));
-            $this->_body = new Horde_Mime_Part('text/plain', $body, $charset);
+            $this->setBody(Text_Filter::filter($body, 'html2text', array('wrap' => false), $charset));
         }
     }
 
@@ -236,10 +241,12 @@ class Horde_Mime_Mail
     public function addPart($mime_type, $content, $charset = 'us-ascii',
                             $disposition = null)
     {
-        $part = new Horde_Mime_Part($mime_type, $content, $charset, $disposition);
-        $part->transferEncodeContents();
-        $this->_parts[] = $part;
-        return count($this->_parts) - 1;
+        $part = new Horde_Mime_Part();
+        $part->setType($mime_type);
+        $part->setCharset($charset);
+        $part->setDisposition($disposition);
+        $part->setContents($content);
+        return $this->addMimePart($part);
     }
 
     /**
@@ -273,17 +280,15 @@ class Horde_Mime_Mail
         if (empty($name)) {
             $name = basename($file);
         }
+
         if (empty($type)) {
             require_once dirname(__FILE__) . '/Magic.php';
             $type = Horde_Mime_Magic::filenameToMime($file, false);
         }
 
-        $part = new Horde_Mime_Part($type, file_get_contents($file), $charset, 'attachment');
-        $part->setName($name);
-        $part->transferEncodeContents();
-        $this->_parts[] = $part;
-
-        return count($this->_parts) - 1;
+        $num = $this->addPart($type, file_get_contents($file), $charset, 'attachment');
+        $this->_parts[$num]->setName($name);
+        return $num;
     }
 
     /**
@@ -395,13 +400,13 @@ class Horde_Mime_Mail
                          $flowed = true)
     {
         /* Add mandatory headers if missing. */
-        if (!$resend || !$this->_headers->getString('Message-ID')) {
+        if (!$resend || !$this->_headers->getValue('Message-ID')) {
             $this->_headers->addMessageIdHeader();
         }
-        if (!$this->_headers->getString('User-Agent')) {
+        if (!$this->_headers->getValue('User-Agent')) {
             $this->_headers->addAgentHeader();
         }
-        if (!$resend || !$this->_headers->getString('Date')) {
+        if (!$resend || !$this->_headers->getValue('Date')) {
             $this->_headers->addHeader('Date', date('r'));
         }
 
@@ -411,15 +416,16 @@ class Horde_Mime_Mail
             $flowed = new Text_Flowed($this->_body->getContents(),
                                       $this->_body->getCharset());
             $flowed->setDelSp(true);
+            $this->_body->setContentTypeParameter('format', 'flowed');
             $this->_body->setContentTypeParameter('DelSp', 'Yes');
             $this->_body->setContents($flowed->toFlowed());
-            $this->_body->setContentTypeParameter('format', 'flowed');
         }
 
         /* Build mime message. */
         $mime = new Horde_Mime_Part();
         if (!empty($this->_body) && !empty($this->_htmlBody)) {
-            $basepart = new Horde_Mime_Part('multipart/alternative');
+            $basepart = new Horde_Mime_Part();
+            $basepart->setType('multipart/alternative');
             $this->_body->setDescription(_("Plaintext Version of Message"));
             $basepart->addPart($this->_body);
             $this->_htmlBody->setDescription(_("HTML Version of Message"));
