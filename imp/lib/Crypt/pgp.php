@@ -373,7 +373,7 @@ class IMP_Horde_Crypt_pgp extends Horde_Crypt_pgp
      *
      * @return mixed  The passphrase, if set, or null.
      */
-    public function getPassphrase($type, $id)
+    public function getPassphrase($type, $id = null)
     {
         if ($type == 'personal') {
             $id = 'personal';
