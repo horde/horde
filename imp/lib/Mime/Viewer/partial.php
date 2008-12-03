@@ -57,7 +57,7 @@ class IMP_Horde_Mime_Viewer_partial extends Horde_Mime_Viewer_Driver
             $mime_part->setType('text/plain');
             $mime_part->setCharset(NLS::getCharset());
             $mime_part->setContents(sprintf(_("[Cannot display message - found only %s of %s parts of this message in the current mailbox.]"), count($indices), $total));
-            return $mime_part;
+            return array($this->_mimepart->getMimeId() => $mime_part);
         }
 
         /* Get the contents of each of the parts. */
