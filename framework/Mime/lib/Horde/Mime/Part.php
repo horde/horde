@@ -880,9 +880,10 @@ class Horde_Mime_Part
             break;
 
         case 'text':
+            $eol = $this->getEOL();
             if (Horde_Mime::is8bit($this->_contents)) {
                 $encoding = ($this->_encode7bit) ? 'quoted-printable' : '8bit';
-            } elseif (preg_match("/(?:\n|^)[^\n]{999,}(?:\n|$)/", $this->_contents)) {
+            } elseif (preg_match("/(?:" . $eol . "|^)[^" . $eol . "]{999,}(?:" . $eol . "|$)/", $this->_contents)) {
                 /* If the text is longer than 998 characters between
                  * linebreaks, use quoted-printable encoding to ensure the
                  * text will not be chopped (i.e. by sendmail if being sent
