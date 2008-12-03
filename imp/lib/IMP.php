@@ -61,7 +61,7 @@ class IMP
     /* getAuthKey() cache. */
     static private $_authkey = null;
 
-    /* _filesystemGC() cache. */
+    /* filesystemGC() cache. */
     static private $_dirlist = array();
 
     /**
@@ -1534,7 +1534,7 @@ class IMP
 
             switch ($cache_type) {
             case 'filesystem':
-                register_shutdown_function(array('IMP', '_filesystemGC'), 'js');
+                register_shutdown_function(array('IMP', 'filesystemGC'), 'js');
                 file_put_contents($js_path, $out);
                 break;
 
@@ -1666,7 +1666,7 @@ class IMP
 
                 switch ($cache_type) {
                 case 'filesystem':
-                    register_shutdown_function(array('IMP', '_filesystemGC'), 'css');
+                    register_shutdown_function(array('IMP', 'filesystemGC'), 'css');
                     file_put_contents($css_path, $out);
                     break;
 
@@ -1728,12 +1728,15 @@ class IMP
             $themes_fs = $GLOBALS['registry']->get('themesfs', $app);
             $themes_uri = Horde::url($GLOBALS['registry']->get('themesuri', $app), false, -1);
             $css[] = array('u' => $themes_uri . '/screen.css', 'f' => $themes_fs . '/screen.css');
-            $css[] = array('u' => $themes_uri . '/screen-dimp.css', 'f' => $themes_fs . '/screen-dimp.css');
+            if ($app == 'imp') {
+                $css[] = array('u' => $themes_uri . '/screen-dimp.css', 'f' => $themes_fs . '/screen-dimp.css');
+            }
             if (!empty($theme)) {
                 if (file_exists($themes_fs . '/' . $theme . '/screen.css')) {
                     $css[] = array('u' => $themes_uri . '/' . $theme . '/screen.css', 'f' => $themes_fs . '/' . $theme . '/screen.css');
                 }
-                if (file_exists($themes_fs . '/' . $theme . '/screen-dimp.css')) {
+                if (($app == 'imp') &&
+                    file_exists($themes_fs . '/' . $theme . '/screen-dimp.css')) {
                     $css[] = array('u' => $themes_uri . '/' . $theme . '/screen-dimp.css', 'f' => $themes_fs . '/' . $theme . '/screen-dimp.css');
                 }
             }
@@ -1764,7 +1767,7 @@ class IMP
      *
      * @param string $type  Either 'css' or 'js'.
      */
-    static private function _filesystemGC($type)
+    static public function filesystemGC($type)
     {
         $dir_list = &self::$_dirlist;
 
