@@ -473,7 +473,8 @@ class IMP_Message
 
         /* Loop through all to-be-stripped mime parts. */
         if (is_null($partid)) {
-            $partids = $contents->getDownloadAllList();
+            // TODO
+            $partids = array_slice(array_keys($message->contentTypeMap()), 1);
         } else {
             /* Sanity checking: make sure part does not live under a
              * message/rfc822 part. */

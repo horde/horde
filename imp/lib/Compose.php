@@ -1919,9 +1919,6 @@ class IMP_Compose
      * @param IMP_Contents &$contents  An IMP_Contents object.
      * @param array $options           Additional options:
      * <pre>
-     * 'downloadall' - (array) Use the algorithm in
-     *                 IMP_Contents::getDownloadAllList() to determine the
-     *                 list of attachments?
      * 'notify' - (boolean) Add notification message on errors?
      * 'skip' - (array) Skip these MIME IDs.
      * </pre>
@@ -1932,9 +1929,7 @@ class IMP_Compose
     public function attachFilesFromMessage(&$contents, $options = array())
     {
         $mime_message = $contents->getMIMEMessage();
-        $dl_list = empty($options['downloadall'])
-            ? array_slice(array_keys($mime_message->contentTypeMap()), 1)
-            : $contents->getDownloadAllList();
+        $dl_list = array_slice(array_keys($mime_message->contentTypeMap()), 1);
         if (!empty($options['skip'])) {
             $dl_list = array_diff($dl_list, $options['skip']);
         }

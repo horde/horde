@@ -106,7 +106,7 @@ class IMP_UI_Compose
                 $fwd_msg['headers']['subject'] = $subject_header;
             }
         } elseif ($type == 'forward_attachments') {
-            $imp_compose->attachFilesFromMessage($imp_contents, array('downloadall' => true, 'notify' => true));
+            $imp_compose->attachFilesFromMessage($imp_contents, array('notify' => true));
         }
 
         return $fwd_msg;
