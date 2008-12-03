@@ -233,14 +233,17 @@ div.msgSize {
 .msglist div.unseen {
     font-weight: bold;
 }
-.msglist div.important, .msglist div.flagged {
+.msglist div.important {
+    background: #fcc;
+}
+.msglist div.answered {
+    background: #cfc;
+}
+.msglist div.flagged {
     background: #fcc;
 }
 .msglist div.unimportant {
     font-weight: normal;
-}
-.msglist div.answered {
-    background: #cfc;
 }
 .msglist div.deletedmsg {
     background: #999;
