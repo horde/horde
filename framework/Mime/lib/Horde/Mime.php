@@ -407,17 +407,17 @@ class Horde_Mime
         $ret = array('params' => array(), 'val' => '');
 
         /* Give $string a bogus body part or else decode() will complain. */
-        require 'Mail/mimeDecode.php';
+        require_once 'Mail/mimeDecode.php';
         $mime_decode = new Mail_mimeDecode($string . "\n\nA");
         $res = $mime_decode->decode();
 
         /* Are we dealing with content-type or content-disposition? */
-        if ($res->ctype_primary) {
-            $ret['val'] = $res->ctype_primary . '/' . $res->ctype_secondary;
-            $params = $res->ctype_parameters;
-        } elseif ($res->disposition) {
+        if (isset($res->disposition)) {
             $ret['val'] = $res->disposition;
-            $params = $res->d_parameters;
+            $params = isset($res->d_parameters) ? $res->d_parameters : array();
+        } elseif (isset($res->ctype_primary)) {
+            $ret['val'] = $res->ctype_primary . '/' . $res->ctype_secondary;
+            $params = isset($res->ctype_parameters) ? $res->ctype_parameters : array();
         } else {
             return $ret;
         }
@@ -447,7 +447,7 @@ class Horde_Mime
             }
         }
 
-        foreach ($convert as $name) {
+        foreach (array_keys($convert) as $name) {
             $val = $ret['params'][$name];
             $quote = strpos($val, "'");
             $orig_charset = substr($val, 0, $quote);
