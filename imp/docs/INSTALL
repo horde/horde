@@ -340,6 +340,12 @@ The following items are not required, but are strongly **RECOMMENDED**:
    If you still see this problem after upgrading PHP, your server may have
    incorrect locale information.  See `Bug #5955`_ for further information.
 
+9. A configured VFS backend.
+
+   During composition of messages, it is possible that the PHP session may
+   timeout. If VFS is enabled in Horde, IMP can store the draft message and
+   allow the user to recover the message when they next login.
+
 .. _`Bug #5955`: http://bugs.horde.org/ticket/?id=5955#c13
 
 
