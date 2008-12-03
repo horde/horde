@@ -20,7 +20,8 @@ $scripts = array(
     array('redbox.js', 'horde', true),
     array('mailbox-dimp.js', 'imp', false),
     array('DimpSlider.js', 'imp', true),
-    array('unblockImages.js', 'imp', true)
+    array('unblockImages.js', 'imp', true),
+    array('popup.js', 'imp', true)
 );
 
 /* Get site specific menu items. */

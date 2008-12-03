@@ -1,6 +1,6 @@
 <?php
 /**
- * Dimp show message view logic.
+ * Dynamic (dimp) message display logic.
  *
  * Copyright 2005-2008 The Horde Project (http://www.horde.org/)
  *
@@ -150,22 +150,19 @@ class IMP_Views_ShowMessage
         /* Get the IMP_UI_Message:: object. */
         $imp_ui = new IMP_UI_Message();
 
-        // TODO - Create message text and attachments.
-        //$result['msgtext'] = $imp_contents->getMessage();
-
         /* Develop the list of Headers to display now. Deal with the 'basic'
          * header information first since there are various manipulations
          * done to them. */
-        $headers_list = $imp_ui->basicHeaders();
+        $basic_headers = $imp_ui->basicHeaders();
         if (empty($args['headers'])) {
             $args['headers'] = array('from', 'date', 'to', 'cc');
         }
 
-        $basic_headers = array_intersect_key($headers_list, array_flip($args['headers']));
+        $headers_list = array_intersect_key($basic_headers, array_flip($args['headers']));
 
         /* Build From/To/Cc/Bcc/Reply-To links. */
         foreach (array('from', 'to', 'cc', 'bcc', 'reply-to') as $val) {
-            if (isset($basic_headers[$val]) &&
+            if (isset($headers_list[$val]) &&
                 (!$preview || !in_array($val, array('bcc', 'reply-to')))) {
                 $tmp = $this->_buildAddressList($envelope[$val]);
                 if (!empty($tmp)) {
@@ -174,7 +171,7 @@ class IMP_Views_ShowMessage
                     $result[$val] = array(array('raw' => _("Undisclosed Recipients")));
                 }
                 if ($preview) {
-                    unset($basic_headers[$val]);
+                    unset($headers_list[$val]);
                 }
             }
         }
@@ -185,7 +182,7 @@ class IMP_Views_ShowMessage
         }
 
         /* Build the rest of the headers. */
-        foreach ($basic_headers as $head => $str) {
+        foreach ($headers_list as $head => $str) {
             if (!$preview && isset($result[$head])) {
                 /* JS requires camelized name for reply-to. */
                 if ($head == 'reply-to') {
@@ -210,17 +207,23 @@ class IMP_Views_ShowMessage
             }
         }
 
+        /* Get minidate. */
+        if ($preview) {
+            $imp_mailbox_ui = new IMP_UI_Mailbox();
+            $minidate = $imp_mailbox_ui->getDate($ob['envelope']['date']);
+            if (empty($minidate)) {
+                $minidate = _("Unknown Date");
+            }
+            $result['minidate'] = htmlspecialchars($minidate);
+        }
+
         /* Display the user-specified headers for the current identity. */
         if (!$preview) {
             $user_hdrs = $imp_ui->getUserHeaders();
-            if (!empty($user_hdrs)) {
-                $full_h = $mime_headers->getAllHeaders();
-                foreach ($user_hdrs as $user_hdr) {
-                    foreach ($full_h as $head => $val) {
-                        if (stristr($head, $user_hdr) !== false) {
-                            $headers[] = array('name' => $head, 'value' => htmlspecialchars($val));
-                        }
-                    }
+            foreach ($user_hdrs as $user_hdr) {
+                $user_val = $mime_headers->getValue($user_hdr);
+                if (!empty($user_val)) {
+                    $headers[] = array('name' => $user_hdr, 'value' => htmlspecialchars($user_val));
                 }
             }
             $result['headers'] = $headers;
@@ -229,53 +232,118 @@ class IMP_Views_ShowMessage
         /* Process the subject. */
         if (($subject = $mime_headers->getValue('subject'))) {
             require_once 'Horde/Text.php';
-            $subject = Text::htmlSpaces(IMP::filterText($subject));
+            $result['subject'] = Text::htmlSpaces(IMP::filterText($subject));
         } else {
-            $subject = htmlspecialchars(_("[No Subject]"));
+            $result['subject'] = htmlspecialchars(_("[No Subject]"));
         }
-        $result['subject'] = $subject;
 
         /* Get X-Priority. */
         $result['priority'] = $imp_ui->getXpriority($mime_headers);
 
-        /* Add attachment info. */
-        $atc_display = $GLOBALS['prefs']->getValue('attachment_display');
-        $show_parts = (!empty($attachments) && (($atc_display == 'list') || ($atc_display == 'both')));
-//        $downloadall_link = $imp_contents->getDownloadAllLink();
+        // Create message text and attachment list.
+        $parts_list = $imp_contents->getContentTypeMap();
+        $atc_parts = $display_ids = array();
+        $result['msgtext'] = '';
 
-        if ($attachments && ($show_parts || $downloadall_link)) {
-            $result['atc_label'] = sprintf(ngettext("%d Attachment", "%d Attachments",
-                                         $imp_contents->attachmentCount()),
-                                         $imp_contents->attachmentCount());
+        $show_parts = $GLOBALS['prefs']->getValue('parts_display');
+        if ($show_parts == 'all') {
+            $atc_parts = array_keys($parts_list);
+        }
+
+        $contents_mask = IMP_Contents::SUMMARY_BYTES |
+            IMP_Contents::SUMMARY_SIZE |
+            IMP_Contents::SUMMARY_ICON |
+            IMP_Contents::SUMMARY_DESCRIP_LINK |
+            IMP_Contents::SUMMARY_DOWNLOAD |
+            IMP_Contents::SUMMARY_DOWNLOAD_ZIP;
+
+        $part_info = $part_info_display = array('icon', 'description', 'type', 'size', 'download', 'download_zip');
+        if ($show_parts != 'all') {
+            array_unshift($part_info, 'id');
+        }
+
+        /* Build body text. This needs to be done before we build the
+         * attachment list that lives in the header. */
+        foreach ($parts_list as $mime_id => $mime_type) {
+            if (in_array($mime_id, $display_ids, true)) {
+                continue;
+            }
+
+            if (!($render_mode = $imp_contents->canDisplay($mime_id, IMP_Contents::RENDER_INLINE | IMP_Contents::RENDER_INFO))) {
+                if (($show_parts == 'atc') && $imp_contents->isAttachment($mime_type)) {
+                    $atc_parts[] = $mime_id;
+                }
+                continue;
+            }
+
+            $render_part = $imp_contents->renderMIMEPart($mime_id, $render_mode);
+            if (($render_mode & IMP_Contents::RENDER_INLINE) && empty($render_part)) {
+                /* This meant that nothing was rendered - allow this part to
+                 * appear in the attachment list instead. */
+                if ($show_parts == 'atc') {
+                    $atc_parts[] = $mime_id;
+                }
+                continue;
+            }
+
+            reset($render_part);
+            while (list($id, $info) = each($render_part)) {
+                $display_ids[] = $id;
+
+                if (empty($info)) {
+                    continue;
+                }
+
+                $tmp_summary = $tmp_status = array();
+
+                $summary = $imp_contents->getSummary($id, $contents_mask);
+                foreach ($part_info_display as $val) {
+                    $tmp_summary[] = $summary[$val];
+                }
+
+                foreach ($info['status'] as $val) {
+                    $tmp_status[] = $imp_ui->formatStatusMsg($val);
+                }
+
+                $result['msgtext'] .= '<span class="mimePartInfo">' . implode(' ', $tmp_summary) . '</span>' . implode("\n", $tmp_status) . $info['data'];
+            }
+        }
+
+        if (!strlen($result['msgtext'])) {
+            $result['msgtext'] = $imp_ui->formatStatusMsg(array('text' => array(_("There are no parts that can be shown inline."))));
+        }
+
+        // TODO
+        $downloadall_link = null;
+
+        if (count($atc_parts) || (count($display_ids) > 2)) {
+            $result['atc_label'] = ($show_parts == 'all')
+                ? _("Parts")
+                : sprintf(ngettext("%d Attachment", "%d Attachments", $atc_parts), $atc_parts);
             $result['atc_download'] = ($downloadall_link) ? Horde::link($downloadall_link) . _("Save All") . '</a>' : '';
         }
-        if ($show_parts) {
-            $result['atc_list'] = $attachments;
+
+        /* Show attachment information in headers? */
+        if (!empty($atc_parts) && ($show_parts != 'none')) {
+            $tmp = '';
+
+            if ($show_parts == 'all') {
+                array_unshift($part_info, 'id');
+            }
+
+            foreach ($atc_parts as $id) {
+                $summary = $imp_contents->getSummary($id, $contents_mask);
+                $tmp .= '<tr>';
+                foreach ($part_info as $val) {
+                    $tmp .= '<td>' . $summary[$val] . '</td>';
+                }
+                $tmp .= '</tr>';
+            }
+
+            $result['atc_list'] = '<table>' . $tmp . '</table>';
         }
 
-        if ($preview) {
-            $curr_time = time();
-            $curr_time -= $curr_time % 60;
-            $ltime_val = localtime();
-            $today_start = mktime(0, 0, 0, $ltime_val[4] + 1, $ltime_val[3], 1900 + $ltime_val[5]);
-            $today_end = $today_start + 86400;
-            if (empty($ob->date)) {
-                $udate = false;
-            } else {
-                $ob->date = preg_replace('/\s+\(\w+\)$/', '', $ob->date);
-                $udate = strtotime($ob->date, $curr_time);
-            }
-            if ($udate === false || $udate === -1) {
-                $result['minidate'] = _("Unknown Date");
-            } elseif (($udate < $today_start) || ($udate > $today_end)) {
-                /* Not today, use the date. */
-                $result['minidate'] = strftime($GLOBALS['prefs']->getValue('date_format'), $udate);
-            } else {
-                /* Else, it's today, use the time. */
-                $result['minidate'] = strftime($GLOBALS['prefs']->getValue('time_format'), $udate);
-            }
-        }
-
+        // TODO: Hooks
         if ($preview && !empty($GLOBALS['conf']['hooks']['previewview'])) {
             $res = Horde::callHook('_dimp_hook_previewview', array($result), 'dimp');
             if (is_a($res, 'PEAR_Error')) {
@@ -300,7 +368,7 @@ class IMP_Views_ShowMessage
             }
 
             /* Do MDN processing now. */
-            if ($imp_ui->MDNCheck($ob->header)) {
+            if ($imp_ui->MDNCheck($mime_headers)) {
                 $confirm_link = Horde::link('', '', '', '', 'DimpCore.doAction(\'SendMDN\',{folder:\'' . $folder . '\',index:' . $index . '}); return false;', '', '') . _("HERE") . '</a>';
                 $GLOBALS['notification']->push(sprintf(_("The sender of this message is requesting a Message Disposition Notification from you when you have read this message. Click %s to send the notification message."), $confirm_link), 'dimp.request', array('content.raw'));
             }

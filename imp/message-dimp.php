@@ -27,7 +27,7 @@ $args = array(
 );
 
 $show_msg = new IMP_Views_ShowMessage();
-$show_msg_result = $show_msg->ShowMessage($args);
+$show_msg_result = $show_msg->showMessage($args);
 if (isset($show_msg_result['error'])) {
     echo IMP::wrapInlineScript(array(
         DIMP::notify(false, 'parent.opener.document', 'parent.opener.DimpCore'),
@@ -44,11 +44,6 @@ $compose_args = array(
     'qreply' => true,
 );
 $compose_result = IMP_Views_Compose::showCompose($compose_args);
-
-/* Need the Header object to check for list information. */
-$msg_cache = &IMP_MessageCache::singleton();
-$cache_entry = $msg_cache->retrieve($folder, array($index), 32);
-$ob = reset($cache_entry);
 
 /* Init IMP_UI_Compose:: object. */
 $imp_ui = new IMP_UI_Compose();
@@ -75,7 +70,8 @@ $scripts = array(
     array('ContextSensitive.js', 'imp', true),
     array('fullmessage-dimp.js', 'imp', true),
     array('compose-dimp.js', 'imp', true),
-    array('unblockImages.js', 'imp', true)
+    array('unblockImages.js', 'imp', true),
+    array('popup.js', 'imp', true)
 );
 
 DIMP::header($show_msg_result['subject'], $scripts);
