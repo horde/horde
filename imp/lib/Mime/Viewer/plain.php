@@ -157,7 +157,11 @@ class IMP_Horde_Mime_Viewer_plain extends Horde_Mime_Viewer_plain
         return $ret;
     }
 
-    /*
+    /**
+     * Scan text for armored PGP blocks and, if they exist, convert the part
+     * to the embedded MIME representation.
+     *
+     * @return mixed  See self::_getEmbeddedMimeParts().
      */
     protected function _parsePGP()
     {
@@ -241,11 +245,17 @@ class IMP_Horde_Mime_Viewer_plain extends Horde_Mime_Viewer_plain
             }
         }
 
-        $new_part->setMimeId($mime_id);
+        $new_part->buildMimeIds($mime_id);
 
         return array($mime_id => $new_part);
     }
 
+    /**
+     * Scan text for UUencode data an, if it exists, convert the part to the
+     * embedded MIME representation.
+     *
+     * @return mixed  See self::_getEmbeddedMimeParts().
+     */
     protected function _parseUUencode()
     {
         $text = String::convertCharset($this->_mimepart->getContents(), $this->_mimepart->getCharset());
@@ -277,7 +287,7 @@ class IMP_Horde_Mime_Viewer_plain extends Horde_Mime_Viewer_plain
             $new_part->addPart($uupart);
         }
 
-        $new_part->setMimeId($mime_id);
+        $new_part->buildMimeIds($mime_id);
 
         return array($mime_id => $new_part);
     }
