@@ -31,6 +31,14 @@ function _image($name, $alt, $type)
     return $cache[$type][$val];
 }
 
+function _outputPage()
+{
+    require IMP_TEMPLATES . '/common-header.inc';
+    IMP::menu();
+    IMP::status();
+    IMP::quota();
+}
+
 require_once dirname(__FILE__) . '/lib/base.php';
 require_once 'Horde/Help.php';
 Horde::addScriptFile('prototype.js', 'horde', true);
@@ -272,12 +280,8 @@ case 'folders_empty_mailbox_confirm':
 
 case 'mbox_size':
     if (!empty($folder_list)) {
-        $title = _("Folder Sizes");
         Horde::addScriptFile('tables.js', 'horde', true);
-        require IMP_TEMPLATES . '/common-header.inc';
-        IMP::menu();
-        IMP::status();
-        IMP::quota();
+        _outputPage(_("Folder Sizes"));
 
         $loop = array();
         $rowct = $sum = 0;
@@ -314,13 +318,9 @@ $folders_token = IMP::getRequestToken('imp.folders');
 
 $folders_url = Util::addParameter($folders_url, 'folders_token', $folders_token);
 
-$title = _("Folder Navigator");
-require IMP_TEMPLATES . '/common-header.inc';
-IMP::menu();
-IMP::status();
-IMP::quota();
-
 if ($_SESSION['imp']['file_upload'] && ($actionID == 'import_mbox')) {
+    _outputPage(_("Folder Navigator"));
+
     /* Prepare import template. */
     $i_template = new IMP_Template();
     $i_template->setOption('gettext', true);
@@ -351,7 +351,6 @@ if (!empty($refresh_ak)) {
 }
 $head_template->set('refresh', Horde::link($folders_url, $refresh_title, '', '', '', $refresh_title, $refresh_ak) . Horde::img('reload.png', _("Refresh"), null, $registry->getImageDir('horde')) . '</a>');
 $head_template->set('folders_token', $folders_token);
-echo $head_template->fetch(IMP_TEMPLATES . '/folders/head.html');
 
 /* Prepare the actions template. */
 $a_template = new IMP_Template();
@@ -377,8 +376,6 @@ $a_template->set('file_upload', $_SESSION['imp']['file_upload']);
 $a_template->set('help', Help::link('imp', 'folder-options'));
 $a_template->set('expand_all', Horde::widget(Util::addParameter($folders_url, array('actionID' => 'expand_all_folders', 'folders_token' => $folders_token)), _("Expand All Folders"), 'widget', '', '', _("Expand All"), true));
 $a_template->set('collapse_all', Horde::widget(Util::addParameter($folders_url, array('actionID' => 'collapse_all_folders', 'folders_token' => $folders_token)), _("Collapse All Folders"), 'widget', '', '', _("Collapse All"), true));
-
-echo $a_template->fetch(IMP_TEMPLATES . '/folders/actions.html');
 
 /* Check to see if user wants new mail notification */
 if (!empty($newmsgs)) {
@@ -479,8 +476,11 @@ foreach ($raw_rows as $val) {
 $template = new IMP_Template();
 $template->setOption('gettext', true);
 $template->set('rows', $rows);
-echo $template->fetch(IMP_TEMPLATES . '/folders/folders.html');
 
+_outputPage(_("Folder Navigator"));
+echo $head_template->fetch(IMP_TEMPLATES . '/folders/head.html');
+echo $a_template->fetch(IMP_TEMPLATES . '/folders/actions.html');
+echo $template->fetch(IMP_TEMPLATES . '/folders/folders.html');
 if (count($rows) > 10) {
     $a_template->set('id', 1);
     echo $a_template->fetch(IMP_TEMPLATES . '/folders/actions.html');
