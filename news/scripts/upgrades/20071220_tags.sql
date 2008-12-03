@@ -1,0 +1,1 @@
+ALTER TABLE `news_body` ADD `tags` VARCHAR( 255 ) AFTER `picture_comment` ;

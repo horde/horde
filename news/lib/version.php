@@ -1,0 +1,1 @@
+<?php define('NEWS_VERSION', '0.2-cvs') ?>

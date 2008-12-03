@@ -1,0 +1,870 @@
+# translation of sl_SI.po to Slovene
+# Marko Milost <marko.milost@obala.si>, 2007, 2008.
+msgid ""
+msgstr ""
+"Project-Id-Version: sl_SI\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2008-01-15 13:59+0100\n"
+"PO-Revision-Date: 2008-01-15 14:13+0100\n"
+"Last-Translator: Marko Milost <marko.milost@obala.si>\n"
+"Language-Team: Slovene <sl@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms:  nplurals=3;\n"
+
+#: templates/edit/info.inc:86 templates/edit/info.php:91
+msgid " at "
+msgstr " ob "
+
+#: templates/edit/info.inc:86 templates/edit/info.php:91
+msgid " by "
+msgstr " od "
+
+#: content_edit.php:28
+#, php-format
+msgid "%s :: Add Content"
+msgstr "%s :: Dodaj vsebino"
+
+#: mail.php:51
+#, php-format
+msgid ""
+"%s would you like to invite you to read the news\n"
+" Title: %s\n"
+"\n"
+" Published: %s \n"
+"Link: %s"
+msgstr ""
+"%s vas vabi, da si preberete to novico\n"
+"\n"
+" Naslov: %s\n"
+" Objavljeno: %s\n"
+" Povezava: %s"
+
+#: templates/news/news.inc:18 templates/news/news.php:18
+msgid "* Sponsored news"
+msgstr "* Komercialna objava"
+
+#: add.php:87 add.php:94 add.php:142
+msgid "-- select --"
+msgstr "-- izberi --"
+
+#: templates/edit/header.inc:5
+msgid "Action"
+msgstr "Ukaz"
+
+#: templates/edit/row.inc:20 templates/edit/row.php:20
+msgid "Activate"
+msgstr "Aktiviraj"
+
+#: lib/News.php:451
+msgid "Add"
+msgstr "Vpis"
+
+#: content.php:23
+msgid "Add Content"
+msgstr "Dodaj vsebino"
+
+#: admin/categories/index.php:40 admin/sources/index.php:42
+msgid "Add New"
+msgstr "Dodaj novo"
+
+#: admin/sources/edit.php:19
+msgid "Add Source"
+msgstr "Dodaj vir"
+
+#: admin/categories/edit.php:18
+msgid "Add category"
+msgstr "Dodaj kategorije"
+
+#: add.php:69
+msgid "Add news"
+msgstr "Dodaj novice"
+
+#: templates/news/tools.inc:16 templates/news/tools.php:16
+msgid "Add to bookmarks."
+msgstr "Dodaj med priljubljene"
+
+#: templates/news/tools.inc:22 templates/news/tools.php:22
+msgid "Add to notes."
+msgstr "Dodaj med zapiske"
+
+#: add.php:141
+msgid "Additional news attributes"
+msgstr "Dodatne lastnosti novice"
+
+#: lib/api.php:52
+msgid "Admin"
+msgstr "Administracija"
+
+#: lib/News.php:459
+msgid "Administration"
+msgstr "Administracija"
+
+#: templates/edit/info.inc:21 templates/edit/info.php:21
+msgid "Allow comments"
+msgstr "Dovoli komentarje"
+
+#: lib/News.php:449
+msgid "Archive"
+msgstr "Arhiv"
+
+#: delete.php:25
+msgid "Are you sure you want to delete this news?"
+msgstr "Resnično želite izbrisati to novico?"
+
+#: lib/Forms/Search.php:40
+msgid "Ascending"
+msgstr "Naraščajoče"
+
+#: config/prefs.php.dist:40
+msgid "Ascesending"
+msgstr "Naraščajoče"
+
+#: lib/News.php:175
+msgid "Attached files: "
+msgstr "Pripete datoteke: "
+
+#: edit.php:51
+msgid "Attachment deleted"
+msgstr "Pripeta datoteka je bila izbrisana"
+
+#: add.php:214 lib/Forms/Search.php:37
+msgid "Attachments"
+msgstr "Pripete datoteke"
+
+#: add.php:140
+msgid "Attributes"
+msgstr "Lastnosti"
+
+#: templates/news/info.inc:10 templates/news/info.php:10
+msgid "Besed"
+msgstr "Besed"
+
+#: trackback.php:67
+#, php-format
+msgid "Blog entry %s does not exist."
+msgstr "Blog vpis %s ne obstaja."
+
+#: templates/news/blog.inc:3 templates/news/blog.php:3
+msgid "Blogs"
+msgstr "Blogi"
+
+#: browse.php:20 search.php:21
+msgid "Browse"
+msgstr "Prebrskaj"
+
+#: templates/news/info.inc:4 templates/news/info.php:4
+msgid "By"
+msgstr "Od"
+
+#: delete.php:26 admin/categories/delete.php:18 admin/sources/delete.php:19
+msgid "Cancel"
+msgstr "Prekliči"
+
+#: add.php:387
+#, php-format
+msgid "Cannot access file %s"
+msgstr "Ne morem odpreti datoteke %s"
+
+#: admin/tabs.php:27 lib/api.php:60 lib/Block/categories.php:3
+#: lib/Block/categories.php:21 templates/categories/edit.html:5
+#: templates/categories/index.html:4 templates/categories/delete.html:5
+msgid "Categories"
+msgstr "Kategorije"
+
+#: lib/Forms/Search.php:30 lib/Block/category.php:35 templates/menu.inc:4
+#: templates/news/info.inc:6 templates/news/info.php:6
+msgid "Category"
+msgstr "Kategorija"
+
+#: admin/categories/index.php:25
+msgid "Category Administration"
+msgstr "Urejanje kategorij"
+
+#: admin/categories/delete.php:29
+msgid "Category deleted."
+msgstr "Kategorija je bila izbrisana."
+
+#: admin/categories/edit.php:44
+#, php-format
+msgid "Category succesfully saved."
+msgstr "Kategorija je bila uspešno shranjena."
+
+#: admin/categories/delete.php:27 admin/categories/delete.php:32
+msgid "Category was not deleted."
+msgstr "Kategorija ni bila izbrisana."
+
+#: templates/browse/row.inc:9 templates/news/info.inc:9
+#: templates/news/info.php:9
+msgid "Chars"
+msgstr "Znakov"
+
+#: lib/Forms/Search.php:35 templates/browse/row.inc:10
+#: templates/edit/header.inc:13
+msgid "Comments"
+msgstr "Komentarjev"
+
+#: lib/News.php:411
+msgid "Comments are not supported."
+msgstr "Komentarji niso podprti."
+
+#: lib/News.php:185
+#, php-format
+msgid "Compress and dowload %s"
+msgstr "Kompresiraj in prenesi datoteko %s"
+
+#: lib/News.php:174
+msgid "Compress and dowload all files at once"
+msgstr "Kompresiraj in prenesi vse datoteke naenkrat"
+
+#: lib/Forms/Search.php:25 templates/edit/row.inc:43 templates/edit/row.php:43
+msgid "Confirmed"
+msgstr "Potrjena"
+
+#: add.php:82 add.php:112
+msgid "Content"
+msgstr "Vsebina"
+
+#: templates/reads/header.inc:8
+msgid "Date"
+msgstr "Datum"
+
+#: templates/edit/row.inc:17 templates/edit/row.php:17
+msgid "Deactivate"
+msgstr "Deaktiviraj"
+
+#: admin/categories/index.php:29 admin/categories/index.php:32
+#: admin/sources/index.php:27 admin/sources/index.php:34
+#: templates/edit/row.inc:23 templates/edit/row.php:23
+msgid "Delete"
+msgstr "Izbriši"
+
+#: add.php:101
+msgid "Delete existing picture"
+msgstr "Zbriši obstoječo sliko"
+
+#: lib/Forms/Search.php:39
+msgid "Descending"
+msgstr "Padajoče"
+
+#: config/prefs.php.dist:39
+msgid "Descesending"
+msgstr "Padajoče"
+
+#: admin/categories/edit.php:31 templates/categories/index.php:8
+msgid "Description"
+msgstr "Opis"
+
+#: diff.php:18 templates/edit/info.inc:95 templates/edit/info.php:100
+msgid "Diff"
+msgstr "Razlike"
+
+#: add.php:175
+msgid "Disallow comments"
+msgstr "Ne dovoli komentarjev"
+
+#: admin/categories/delete.php:17
+msgid "Do you really wont to delete this category?"
+msgstr "Resnično želite izbrisati izbrano kategorijo?"
+
+#: admin/sources/delete.php:18
+msgid "Do you really wont to delete this source?"
+msgstr "Resnično želite izbrisati ta vir?"
+
+#: lib/News.php:169
+msgid "Dowload"
+msgstr "Prenesi"
+
+#: lib/News.php:186
+#, php-format
+msgid "Dowload %s"
+msgstr "Prenesi datoteko %s"
+
+#: lib/News.php:170
+msgid "Dowload Zip Compressed"
+msgstr "Presnemi Zip kompresirano datoteko"
+
+#: edit.php:123 admin/categories/index.php:27 admin/categories/index.php:34
+#: admin/sources/index.php:25 admin/sources/index.php:36
+#: templates/edit/row.inc:6 templates/edit/row.inc:7 templates/edit/row.php:6
+#: templates/edit/row.php:7
+msgid "Edit"
+msgstr "Uredi"
+
+#: admin/sources/edit.php:19
+msgid "Edit Source"
+msgstr "Uredi vir"
+
+#: admin/categories/edit.php:18
+msgid "Edit category"
+msgstr "Uredi kategoijo"
+
+#: templates/edit/info.inc:75 templates/edit/info.php:80
+msgid "Edit history: "
+msgstr "Zgodovina urejanja:"
+
+#: add.php:434
+msgid "Edit news"
+msgstr "Uredi novico"
+
+#: lib/Forms/Search.php:47 templates/edit/info.inc:25
+#: templates/edit/info.php:25
+msgid "Editor"
+msgstr "Urednik"
+
+#: lib/api.php:55
+msgid "Editors"
+msgstr "Uredniki"
+
+#: lib/News.php:458
+msgid "Editorship"
+msgstr "Uredništvo"
+
+#: add.php:144
+msgid "Enter news ids separated by commas."
+msgstr "Vnesi id-je novic ločene z vejico."
+
+#: add.php:110
+msgid "Enter one or more keywords that describe your news. Separate them by spaces."
+msgstr ""
+
+#: add.php:147
+msgid "Enter threads separated by commas."
+msgstr "Vnesi id-je debat ločene z vejico."
+
+#: templates/news/today.inc:11 templates/news/today.php:11
+msgid "Events on this day."
+msgstr "Dogodki tega dne"
+
+#: files.php:56
+#, php-format
+msgid "FilesOfNews-%s"
+msgstr "DatotekeNovice-%s"
+
+#: add.php:206
+msgid "Form ID"
+msgstr "Formular"
+
+#: add.php:207
+msgid "Form to"
+msgstr "Veljavnost formularja "
+
+#: templates/news/blog.inc:10 templates/news/blog.php:10
+msgid "From: "
+msgstr "Od: "
+
+#: add.php:156 add.php:163
+msgid "Gallery"
+msgstr "Galerija"
+
+#: lib/Block/most_commented.php:26 lib/Block/most_read.php:26
+msgid "How many days back to check?"
+msgstr "Koliko dni stare novice naj pregledam?"
+
+#: lib/Block/last_blogs.php:23 lib/Block/most_commented.php:23
+#: lib/Block/most_read.php:23 lib/Block/last.php:25 lib/Block/category.php:32
+msgid "How many news to display?"
+msgstr "Koliko novic naj pikažem?"
+
+#: config/prefs.php.dist:20
+msgid "How many news to show per page"
+msgstr "Koliko novic naj pikažem na stran?"
+
+#: config/prefs.php.dist:10
+msgid "How to preview news"
+msgstr "Kako naj prikažem novice"
+
+#: templates/reads/header.inc:7
+msgid "IP"
+msgstr "ID"
+
+#: lib/Forms/Search.php:33 templates/categories/index.php:5
+#: templates/sources/index.php:5 config/prefs.php.dist:29
+msgid "Id"
+msgstr "Id"
+
+#: admin/categories/edit.php:36 admin/sources/edit.php:37
+msgid "Image"
+msgstr "Slika"
+
+#: templates/edit/row.inc:9 templates/edit/row.inc:10 templates/edit/row.php:9
+#: templates/edit/row.php:10
+msgid "Info"
+msgstr "Info"
+
+#: templates/edit/info.inc:83 templates/edit/info.php:88
+msgid "Insert"
+msgstr "Dodana"
+
+#: lib/Block/last_comments.php:3 lib/Block/last_comments.php:31
+#: templates/common-header.inc:27
+msgid "Last comments"
+msgstr "Zadnji komentarji"
+
+#: lib/Block/most_commented.php:3 lib/Block/most_commented.php:17
+msgid "Last most commented news"
+msgstr "Zadnje najbolj komentirane"
+
+#: lib/Block/most_read.php:3 lib/Block/most_read.php:17
+msgid "Last most read news"
+msgstr "Zadnje najbolj brane"
+
+#: lib/Block/last.php:3 lib/Block/last.php:17 templates/common-header.inc:26
+msgid "Last news"
+msgstr "Zadnje novice"
+
+#: lib/Block/last_blogs.php:17
+msgid "Last news blog"
+msgstr "Zadnje novice z blogi"
+
+#: lib/Block/last_blogs.php:3
+msgid "Last news blogged"
+msgstr "Zadnje novice z blogi"
+
+#: lib/Block/category.php:21 lib/Block/category.php:22
+#, php-format
+msgid "Last news in %s"
+msgstr "Zadnje novice v %s"
+
+#: lib/Block/category.php:3
+msgid "Last news in category"
+msgstr "Zadnje novice v kategoriji"
+
+#: note.php:29 pdf.php:51
+msgid "Link"
+msgstr "Povezava"
+
+#: templates/edit/row.inc:30 templates/edit/row.php:30
+msgid "Lock"
+msgstr "Zakleni"
+
+#: lib/Forms/Search.php:26 templates/edit/row.inc:44 templates/edit/row.php:44
+msgid "Locked"
+msgstr "Zaklenjena"
+
+#: admin/categories/edit.php:30 admin/sources/edit.php:32
+#: templates/categories/index.php:6 templates/sources/index.php:6
+msgid "Name"
+msgstr "Ime"
+
+#: templates/reads/header.inc:5
+msgid "News"
+msgstr "Novica"
+
+#: reads.php:33
+#, php-format
+msgid "News %s"
+msgstr "Novica %s"
+
+#: edit.php:51 edit.php:59 edit.php:67 edit.php:75 edit.php:83 edit.php:116
+#: delete.php:55 delete.php:57
+#, php-format
+msgid "News %s: %s"
+msgstr "Novica %s: %s"
+
+#: add.php:422
+msgid ""
+"News added. The editors will check the entry and confirm it if they find it "
+"suitable."
+msgstr ""
+"Novica je bila vpisana. Uredniki bodo pregledali vaš vpis in ga potrdili, če "
+"je le-ta primeren za objavo pri nas."
+
+#: add.php:83
+msgid "News content"
+msgstr "Vsebina novice"
+
+#: templates/news/info.inc:3 templates/news/info.php:3
+msgid "News data"
+msgstr "O novici"
+
+#: templates/news/today.inc:5 templates/news/today.php:5
+msgid "News of this day."
+msgstr "Novice tega dne"
+
+#: add.php:424
+msgid "News published."
+msgstr "Novica objavljena."
+
+#: mail.php:63
+#, php-format
+msgid "News succesfully send to %s"
+msgstr "Novice je bila uspešno poslana na %s."
+
+#: note.php:45
+msgid "News sucessfuly added to you notes."
+msgstr "Novica je bila uspešno dodana med vaše zapiske"
+
+#: add.php:426
+msgid "News updated."
+msgstr "Novica osvežena."
+
+#: templates/edit/info.inc:21 templates/edit/info.php:21
+msgid "No"
+msgstr "Št."
+
+#: diff.php:59
+msgid "No change."
+msgstr "Ni spremembe."
+
+#: mail.php:41
+msgid "No mail entered."
+msgstr "Pozabili ste vnesti email."
+
+#: lib/Block/last_comments.php:19
+msgid "Number of comments to display"
+msgstr "Število komentarjev"
+
+#: note.php:28 pdf.php:50 templates/news/info.inc:5 templates/news/info.php:5
+msgid "On"
+msgstr "Objavljena"
+
+#: templates/news/today.inc:3 templates/news/today.php:3
+msgid "On this day"
+msgstr "Na današnji dan"
+
+#: delete.php:16
+msgid "Only admin can delete a news."
+msgstr "Samo administratorji lahko brišejo novice."
+
+#: add.php:64
+msgid "Only authenticated users can post news."
+msgstr "Samo ragistrirani uporabniki lahko vpisujejo novice."
+
+#: mail.php:36
+msgid "Only authenticated users can send mails."
+msgstr "Samo ragistrirani uporabniki lahko pošiljajo novice."
+
+#: lib/Forms/Search.php:32
+msgid "Order by"
+msgstr "Razvrsti po"
+
+#: lib/News.php:447
+msgid "Overview"
+msgstr "Pregled"
+
+#: templates/news/tools.inc:9 templates/news/tools.php:9
+msgid "PDF"
+msgstr "PDF"
+
+#: admin/categories/edit.php:32 templates/categories/index.php:7
+msgid "Parent"
+msgstr "Sorodne"
+
+#: add.php:144 templates/news/parents.inc:5 templates/news/parents.php:5
+#: templates/edit/info.inc:33 templates/edit/info.php:33
+msgid "Parents"
+msgstr "Sorodne novice"
+
+#: add.php:99
+msgid "Picture"
+msgstr "Slika"
+
+#: add.php:108
+msgid "Picture comment"
+msgstr "Komentar k sliki"
+
+#: add.php:101
+msgid "Picture delete"
+msgstr "Izbriši sliko"
+
+#: lib/Block/jonah.php:4 lib/Block/jonah.php:24
+msgid "Press overview"
+msgstr "Pregled tiska"
+
+#: config/prefs.php.dist:9
+msgid "Preview"
+msgstr "Pregled %s"
+
+#: lib/News.php:187
+#, php-format
+msgid "Preview %s"
+msgstr "Pregled %s"
+
+#: add.php:87 templates/edit/info.inc:10 templates/edit/info.php:10
+msgid "Primary category"
+msgstr "Primarna kategorija"
+
+#: templates/news/tools.inc:6 templates/news/tools.php:6
+msgid "Printer firendly"
+msgstr "Tiskanju prijazen izpis"
+
+#: add.php:85 lib/Forms/Search.php:42
+msgid "Publish"
+msgstr "Objavi ob"
+
+#: templates/edit/header.inc:8
+msgid "Publish at"
+msgstr "Objavi ob"
+
+#: lib/Forms/Search.php:32 config/prefs.php.dist:28
+msgid "Publish date"
+msgstr "Objavi ob"
+
+#: templates/news/parents.inc:8 templates/news/parents.php:8
+#: templates/edit/row.inc:48 templates/edit/row.php:48
+msgid "Read"
+msgstr "Preberi"
+
+#: lib/Forms/Search.php:36 templates/edit/header.inc:10
+msgid "Reads"
+msgstr "Branj"
+
+#: delete.php:26 delete.php:33 admin/categories/delete.php:18
+#: admin/categories/delete.php:24 admin/sources/delete.php:19
+#: admin/sources/delete.php:25
+msgid "Remove"
+msgstr "Odstrani"
+
+#: templates/edit/info.inc:92 templates/edit/info.php:97
+msgid "Renew"
+msgstr "Obnovi"
+
+#: add.php:482
+msgid "Reset"
+msgstr "Povrni"
+
+#: admin/categories/edit.php:34 admin/sources/edit.php:35
+msgid "Resize Image"
+msgstr "Spremeni velikost slike"
+
+#: add.php:77
+msgid "Save"
+msgstr "Shrani"
+
+#: lib/News.php:450 lib/Forms/Search.php:18 lib/Forms/Search.php:20
+msgid "Search"
+msgstr "Najdi"
+
+#: lib/Forms/Search.php:22
+msgid "Search world"
+msgstr "Iskana beseda"
+
+#: add.php:142 templates/edit/info.inc:13 templates/edit/info.php:13
+msgid "Secondary category"
+msgstr "Pomožna kategorija"
+
+#: lib/Block/jonah.php:35
+msgid "Select a feed."
+msgstr "Izberite vir."
+
+#: add.php:214
+msgid "Select files"
+msgstr "Izberi datoteke"
+
+#: add.php:195 templates/edit/info.inc:47 templates/edit/info.php:47
+msgid "Selling item"
+msgstr "Prodajani artikel"
+
+#: templates/news/mail.inc:2 templates/news/mail.php:2
+msgid "Send by mail"
+msgstr "Pošlji po emailu"
+
+#: lib/News.php:101
+msgid "Services/Trackback is not installed."
+msgstr "Services/Trackback ni nameščen."
+
+#: config/prefs.php.dist:11
+msgid "Set news previerw paramaters"
+msgstr "Nastavitve prikazovanja novic"
+
+#: lib/Block/last.php:28
+msgid "Skip category"
+msgstr "Preskoči kategorijo"
+
+#: config/prefs.php.dist:31 config/prefs.php.dist:41
+msgid "Sort news by"
+msgstr "Razvrsti novice po"
+
+#: add.php:143 lib/Forms/Search.php:39 templates/edit/info.inc:29
+#: templates/edit/info.php:29
+msgid "Sort order"
+msgstr "Vrstni red"
+
+#: add.php:94 templates/edit/info.inc:37 templates/edit/info.php:37
+msgid "Source"
+msgstr "Vir"
+
+#: admin/sources/delete.php:30
+msgid "Source deleted."
+msgstr "Vir je bil izbrisan."
+
+#: add.php:96 templates/edit/info.inc:41 templates/edit/info.php:41
+msgid "Source link"
+msgstr "Izvirna novica"
+
+#: templates/news/info.inc:18 templates/news/info.php:18
+msgid "Source media"
+msgstr "Vir novice"
+
+#: templates/news/info.inc:13 templates/news/info.php:13
+msgid "Source news"
+msgstr "Izvirna novica"
+
+#: admin/sources/edit.php:45
+msgid "Source saved succesfully."
+msgstr "Vir je bil uspešno osvežen."
+
+#: admin/sources/delete.php:28 admin/sources/delete.php:33
+msgid "Source was not deleted."
+msgstr "Vir ni bil izbrisan."
+
+#: admin/tabs.php:26 lib/Block/sources.php:3 lib/Block/sources.php:21
+msgid "Sources"
+msgstr "Viri"
+
+#: admin/sources/index.php:17
+msgid "Sources Administration"
+msgstr "Urejanje virov"
+
+#: add.php:170
+msgid "Sponsored"
+msgstr "Komercialna"
+
+#: lib/Forms/Search.php:27 templates/edit/header.inc:6
+msgid "Status"
+msgstr "Status"
+
+#: lib/News.php:454
+msgid "Tag cloud"
+msgstr "Tagi novic"
+
+#: add.php:110 lib/Block/tags_cloud.php:3 lib/Block/tags_cloud.php:24
+msgid "Tags"
+msgstr "Tagi"
+
+#: templates/news/blog.inc:7 templates/news/blog.php:7
+msgid "Talkbacks to this article:"
+msgstr "Talkback na to novico:"
+
+#: templates/news/ulaform.php:13
+msgid "Thanks"
+msgstr "Hvala"
+
+#: templates/block/news.php:18 templates/block/titles.php:20
+msgid "There are no news to display."
+msgstr "Ni novic za prikaz."
+
+#: lib/News.php:508
+#, php-format
+msgid "There requested news %s don't exist."
+msgstr "Izbrana novica ne %s obstaja."
+
+#: news.php:34
+msgid "There requested version don't exist."
+msgstr "Izbrana verzja ne obstaja."
+
+#: add.php:147 templates/news/threads.inc:6 templates/news/threads.php:6
+#, php-format
+msgid "Threads in %s"
+msgstr "Debate v %s"
+
+#: add.php:107 lib/Forms/Search.php:34 templates/edit/header.inc:7
+#: config/prefs.php.dist:30
+msgid "Title"
+msgstr "Naslov"
+
+#: templates/news/tools.inc:3 templates/news/tools.php:3
+msgid "Tools"
+msgstr "Orodja"
+
+#: templates/news/blog.inc:22 templates/news/blog.php:22
+msgid "Trackback this blog on this site."
+msgstr "Vpišite blog na to novico."
+
+#: lib/News.php:652
+#, php-format
+msgid "URL already trackbacked: %s"
+msgstr "URL je bil že zapisan: %s"
+
+#: lib/Forms/Search.php:24 templates/edit/row.inc:42 templates/edit/row.php:42
+msgid "Unconfirmed"
+msgstr "Nepotrjena"
+
+#: templates/edit/row.inc:27 templates/edit/row.php:27
+msgid "Unlock"
+msgstr "Odkleni"
+
+#: lib/Forms/Search.php:43
+msgid "Unpublish"
+msgstr "Odstrani ob"
+
+#: templates/edit/info.inc:17 templates/edit/info.php:17
+msgid "Unpublish date"
+msgstr "Odstrani dne"
+
+#: add.php:481 templates/edit/info.inc:81 templates/edit/info.php:86
+msgid "Update"
+msgstr "Ažuriraj"
+
+#: admin/sources/edit.php:33 templates/sources/index.php:7
+msgid "Url"
+msgstr "Url"
+
+#: templates/news/blog.inc:16 templates/news/blog.php:16
+msgid "Use the following link to trackback from your own site: "
+msgstr "Uporabite sledeči naslov za trakback z vaše strani: "
+
+#: lib/Forms/Search.php:44 templates/reads/header.inc:6
+#: templates/edit/header.inc:9
+msgid "User"
+msgstr "Uporabnik"
+
+#: templates/edit/info.inc:89 templates/edit/info.php:94
+msgid "View"
+msgstr "Preglej"
+
+#: admin/sources/index.php:32
+msgid "View articles"
+msgstr "Preglej novice"
+
+#: admin/sources/index.php:29
+msgid "View items"
+msgstr "Preglej novice"
+
+#: templates/edit/info.inc:21 templates/edit/info.php:21
+msgid "Yes"
+msgstr "Da"
+
+#: admin/tabs.php:15
+msgid "You are not authorised for this action."
+msgstr "Niste avtorizirani za ta ukaz."
+
+#: mail.php:47
+msgid "You have no email set."
+msgstr "Nimate nastavljenega email naslova."
+
+#: edit.php:24
+msgid "You have not editor permission on any category."
+msgstr "Nimate uredniških pravic do nobene kategorije."
+
+#: edit.php:67
+msgid "activated"
+msgstr "aktivirana"
+
+#: edit.php:59
+msgid "deactivated"
+msgstr "deaktivirana"
+
+#: delete.php:55
+msgid "deleted"
+msgstr "izbrisana"
+
+#: edit.php:75
+msgid "locked"
+msgstr "zaklenjena"
+
+#: delete.php:57
+msgid "not deleted"
+msgstr "ni zbrisana"
+
+#: edit.php:116
+msgid "renewed"
+msgstr "povrnjena"
+
+#: edit.php:83
+msgid "unlocked"
+msgstr "odklenjena"
+
