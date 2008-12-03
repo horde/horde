@@ -1160,7 +1160,7 @@ class IMP_Compose
         $subject = $h->getValue('subject');
         $header['subject'] = empty($subject)
             ? 'Re: '
-            : 'Re: ' . Horde_Imap_Client::getBaseSubject($header['subject'], array('keepblob' => true));
+            : 'Re: ' . Horde_Imap_Client::getBaseSubject($subject, array('keepblob' => true));
 
         if (in_array($actionID, array('reply', '*'))) {
             ($header['to'] = $to) ||
@@ -1327,7 +1327,7 @@ class IMP_Compose
         if ($forcebodytxt || $GLOBALS['prefs']->getValue('forward_bodytext')) {
             $from = Horde_Mime_Address::addrArray2String($h->getOb('from'));
 
-            $msg_pre = "\n\n\n----- " .
+            $msg_pre = "\n----- " .
                 ($from ? sprintf(_("Forwarded message from %s"), $from) : _("Forwarded message")) .
                 " -----\n" . $this->_getMsgHeaders($h) . "\n";
             $msg_post = "\n\n----- " . _("End forwarded message") . " -----\n";
@@ -1456,11 +1456,11 @@ class IMP_Compose
             $tmp[_("Cc")] = $ob;
         }
 
-        $max = max(array_map(array('String', 'length'), $tmp)) + 2;
+        $max = max(array_map(array('String', 'length'), array_keys($tmp))) + 2;
         $text = '';
 
         foreach ($tmp as $key => $val) {
-            $text .= String::pad($key . ': ', $max, ' ', STR_PAD_LEFT);
+            $text .= String::pad($key . ': ', $max, ' ', STR_PAD_LEFT) . $val . "\n";
         }
 
         return $text;
