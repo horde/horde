@@ -74,7 +74,8 @@ class IMP_Views_Compose
             $composeCache = $args['composeCache'];
 
             if ($imp_compose->numberOfAttachments()) {
-                foreach ($imp_compose->getAttachments() as $num => $mime) {
+                foreach ($imp_compose->getAttachments() as $num => $atc) {
+                    $mime = $atc['part'];
                     $result['js_onload'][] = 'DimpCompose.addAttach(' . $num . ', \'' . addslashes($mime->getName(true)) . '\', \'' . addslashes($mime->getType()) . '\', \'' . addslashes($mime->getSize()) . "')";
                 }
             }

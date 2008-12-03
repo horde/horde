@@ -1188,8 +1188,7 @@ class IMP_Compose
                 $reply = Horde_Mime_Address::addrArray2String($from_arr);
             }
 
-            $header['to'] = Horde_Mime_Address::addrArray2String(array_merge($to_arr, $from_arr));
-            $me[] = Horde_Mime_Address::bareAddress($header['to'], $_SESSION['imp']['maildomain']);
+            $header['to'] = Horde_Mime_Address::addrArray2String(array_merge($to_arr, $from_arr), $me);
 
             /* Build the Cc: header. */
             $cc_arr = $h->getOb('to');
@@ -1209,7 +1208,7 @@ class IMP_Compose
         }
 
         if (in_array($actionID, array('reply_list', '*'))) {
-            $imp_ui = new IMP_UI_Compose();
+            $imp_ui = new IMP_UI_Message();
             $list_info = $imp_ui->getListInformation($h);
             if ($list_info['exists']) {
                 $header['to'] = $list_info['reply_list'];
@@ -1400,13 +1399,9 @@ class IMP_Compose
                 $part = new Horde_Mime_Part();
                 $part->setCharset(NLS::getCharset());
                 $part->setType('message/rfc822');
-                if (!($name = $headerob->getValue('subject'))) {
-                    $name = _("[No Subject]");
-                } else {
-                    // Strip periods from name - see Ticket #4977
-                    $part->setName(_("Forwarded Message:") . ' ' . rtrim($name, '.'));
-                }
-                $part->setContents(preg_replace("/\r\n?/", "\n", $contents->fullMessageText()));
+                $part->setName(_("Forwarded Message"));
+                $part->setContents($contents->fullMessageText());
+
                 $result = $this->addMIMEPartAttachment($part);
                 if (is_a($result, 'PEAR_Error')) {
                     $GLOBALS['notification']->push($result);
@@ -1415,10 +1410,16 @@ class IMP_Compose
             }
         }
 
-        return ($attached == 1)
-            // $name is set inside the loop above.
-            ? 'Fwd: ' . Horde_Imap_Client::getBaseSubject($name, array('keepblob' => true))
-            : 'Fwd: ' . sprintf(_("%u Forwarded Messages"), $attached);
+        if ($attached == 1) {
+            if (!($name = $headerob->getValue('subject'))) {
+                $name = _("[No Subject]");
+            } elseif (String::length($name) > 80) {
+                $name = String::substr($name, 0, 80) . '...';
+            }
+            return 'Fwd: ' . Horde_Imap_Client::getBaseSubject($name, array('keepblob' => true));
+        } else {
+            return 'Fwd: ' . sprintf(_("%u Forwarded Messages"), $attached);
+        }
     }
 
     /**
@@ -1496,7 +1497,6 @@ class IMP_Compose
 
         /* Store the data in a Horde_Mime_Part. Some browsers do not send the
          * MIME type so try an educated guess. */
-        $part = new Horde_Mime_Part();
         if (!empty($_FILES[$name]['type']) &&
             ($_FILES[$name]['type'] != 'application/octet-stream')) {
             $type = $_FILES[$name]['type'];
@@ -1510,6 +1510,7 @@ class IMP_Compose
                 $type = Horde_Mime_Magic::filenameToMIME($filename, false);
             }
         }
+        $part = new Horde_Mime_Part();
         $part->setType($type);
         $part->setCharset(NLS::getCharset());
         $part->setName($filename);
@@ -1965,42 +1966,37 @@ class IMP_Compose
     {
         global $conf;
 
-        /* Return immediately if HTTP_Request is not available, if this is
-         * not a HTML part, or no 'img' tags are found (specifically searching
-         * for the 'src' parameter). */
-        if (!(include_once 'HTTP/Request.php') ||
-            ($mime_part->getType() != 'text/html') ||
+        /* Return immediately if this is not a HTML part, or no 'img' tags are
+         * found (specifically searching for the 'src' parameter). */
+        if (($mime_part->getType() != 'text/html') ||
             !preg_match_all('/<img[^>]+src\s*\=\s*([^\s]+)\s+/iU', $mime_part->getContents(), $results)) {
             return $mime_part;
         }
 
-        $img_data = $img_parts = array();
+        $client_opts = $img_data = $img_parts = array();
 
         /* Go through list of results, download the image, and create
          * Horde_Mime_Part objects with the data. */
-        $img_request_options = array('timeout' => 5);
-        if (isset($conf['http']['proxy']) &&
-            !empty($conf['http']['proxy']['proxy_host'])) {
-            $img_request_options = array_merge($img_request_options, $conf['http']['proxy']);
+        if (!empty($conf['http']['proxy']['proxy_host'])) {
+            $client_opts['proxyServer'] = $conf['http']['proxy']['proxy_host'] . ':' . $conf['http']['proxy']['proxy_port'];
+            if (!empty($conf['http']['proxy']['proxy_user'])) {
+                $client_opts['proxyUser'] = $conf['http']['proxy']['proxy_user'];
+                $client_opts['proxyPass'] = empty($conf['http']['proxy']['proxy_pass']) ? $conf['http']['proxy']['proxy_pass'] : '';
+            }
         }
+        $client = new Horde_Http_Client($client_opts);
 
         foreach ($results[1] as $url) {
-            /* Strip any quotation marks and convert '&amp;' to '&' (since
-             * HTTP_Request doesn't handle the former correctly). */
-            $img_url = str_replace('&amp;', '&', trim($url, '"\''));
-
             /* Attempt to download the image data. */
-            $request = new HTTP_Request($img_url, $img_request_options);
-            $request->sendRequest();
-
-            if ($request->getResponseCode() == '200') {
+            $response = $client->get(str_replace('&amp;', '&', trim($url, '"\'')));
+            if ($response->code == 200) {
                 /* We need to determine the image type.  Try getting
                  * that information from the returned HTTP
                  * content-type header.  TODO: Use Horde_Mime_Magic if this
                  * fails (?) */
                 $part = new Horde_Mime_Part();
-                $part->setType($request->getResponseHeader('content-type'));
-                $part->setContents($request->getResponseBody(), '8bit');
+                $part->setType($response->getHeader('content-type'));
+                $part->setContents($response->getBody(), '8bit');
                 $part->setDisposition('attachment');
                 $img_data[$url] = '"cid:' . $part->setContentID() . '"';
                 $img_parts[] = $part;
@@ -2014,9 +2010,7 @@ class IMP_Compose
         }
 
         /* Replace the URLs with with CID tags. */
-        $text = $mime_part->getContents();
-        $text = str_replace(array_keys($img_data), array_values($img_data), $text);
-        $mime_part->setContents($text);
+        $mime_part->setContents(str_replace(array_keys($img_data), array_values($img_data), $mime_part->getContents()));
 
         /* Create new multipart/related part. */
         $related = new Horde_Mime_Part();

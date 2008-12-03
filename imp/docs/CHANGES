@@ -2,7 +2,9 @@
 v5.0-cvs
 --------
 
-[mms] MIMP has been absorbed into IMP.
+[mms] No longer need HTTP_Request - use Horde_Http_Client instead.
+[mms] Use Horde_Imap_Client as the IMAP library in IMP.
+[mms] DIMP and MIMP have been moved into IMP.
 [mms] Allow all parts in a message to be displayed (Bug #1866).
 [mms] Only support FCKeditor as GUI HTML editor.
 [mms] Strip extra 'Fwd' and 'Re' cruft from subject line when replying to or

@@ -195,10 +195,6 @@ $pear_list = array(
     'Auth_SASL' => array(
         'path' => 'Auth/SASL.php',
         'error' => 'If your IMAP server uses CRAM-MD5 or DIGEST-MD5 authentication, this module is required.'
-    ),
-    'HTTP_Request' => array(
-        'path' => 'HTTP/Request.php',
-        'error' => 'The HTML composition mode requires HTTP_Request.'
     )
 );
 

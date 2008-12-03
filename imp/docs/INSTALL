@@ -181,15 +181,6 @@ To function properly, IMP **requires** the following:
       Auth_SASL is required if your IMAP server uses CRAM-MD5 or DIGEST-MD5
       authentication.
 
-   b. HTTP_Request [OPTIONAL]
-
-      HTTP_Request is used in the HTML composition mode to download remote
-      images contained in the message and store them in the body of the
-      outgoing messages.  Without HTTP_Request, the message will be sent
-      with the images linked to the remote images, with no guarantee that
-      the remote images will still be accessible when the recipient of the
-      message views that message.
-
 4. The following PECL modules:
    (See `horde/docs/INSTALL`_ for instructions on installing PECL modules)
 
