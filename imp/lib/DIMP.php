@@ -317,7 +317,7 @@ class DIMP
             foreach ($changes['c'] as $val) {
                 // Skip the base element, since any change there won't ever be
                 // updated on-screen.
-                if ($val != IMPTREE_BASE_ELT) {
+                if ($val != IMP_IMAP_TREE::BASE_ELT) {
                     $result['c'][] = DIMP::_createFolderElt($imptree->element($val));
                 }
             }
@@ -377,27 +377,27 @@ class DIMP
             }
 
             switch ($elt['special']) {
-            case IMPTREE_SPECIAL_INBOX:
+            case IMP_IMAP_TREE::SPECIAL_INBOX:
                 $ob->cl = 'inbox';
                 $ob->s = 1;
                 break;
 
-            case IMPTREE_SPECIAL_TRASH:
+            case IMP_IMAP_TREE::SPECIAL_TRASH:
                 $ob->cl = 'trash';
                 $ob->s = 1;
                 break;
 
-            case IMPTREE_SPECIAL_SPAM:
+            case IMP_IMAP_TREE::SPECIAL_SPAM:
                 $ob->cl = 'spam';
                 $ob->s = 1;
                 break;
 
-            case IMPTREE_SPECIAL_DRAFT:
+            case IMP_IMAP_TREE::SPECIAL_DRAFT:
                 $ob->cl = 'drafts';
                 $ob->s = 1;
                 break;
 
-            case IMPTREE_SPECIAL_SENT:
+            case IMP_IMAP_TREE::SPECIAL_SENT:
                 $ob->cl = 'sent';
                 $ob->s = 1;
                 break;
