@@ -79,6 +79,6 @@ class IMP_Horde_Mime_Viewer_partial extends Horde_Mime_Viewer_Driver
         $mime_part = Horde_Mime_Part::parseMessage(implode('', $parts));
         return ($mime_part === false)
             ? null
-            : array($id => $mime_part);
+            : array($this->_mimepart->getMimeId() => $mime_part);
     }
 }
