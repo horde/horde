@@ -651,6 +651,10 @@ div.dimpActionsCompose {
 #msgAtc td {
     padding-bottom: 0;
 }
+.atcLabel {
+    font-weight: bold;
+    padding-right: 5px;
+}
 #partlist td {
     padding-bottom: 3px;
 }

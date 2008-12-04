@@ -73,9 +73,9 @@ function _createDAfmsg($text, $image, $id, $class = '', $show_text = true)
         <tr id="msgAtc">
          <td class="label"><?php if ($show_msg_result['atc_list']): ?><?php echo Horde::link('') . Horde::img('arrow_collapsed.png', '', array('id' => 'partlist_col')) . Horde::img('arrow_expanded.png', '', array('id' => 'partlist_exp', 'style' => 'display:none')) . ' ' . $attachment ?></a><?php else: echo $attachment; endif; ?></td>
          <td>
-          <?php echo $show_msg_result['atc_label'] . ' ' . $show_msg_result['atc_download'] ?>
+          <span class="atcLabel"><?php echo $show_msg_result['atc_label'] ?></span><?php echo $show_msg_result['atc_download'] ?>
 <?php if (isset($show_msg_result['atc_list'])): ?>
-          <table id="partlist" cellspacing="2">
+          <table id="partlist" cellspacing="2" style="display:none">
            <?php echo $show_msg_result['atc_list'] ?>
           </table>
 <?php endif; ?>
@@ -107,7 +107,7 @@ function _createDAfmsg($text, $image, $id, $class = '', $show_text = true)
 <div class="context" id="ctx_replypopdown" style="display:none">
  <div><?php _createDAfmsg(_("To Sender"), 'reply.png', 'ctx_replypopdown_reply') ?></div>
  <div><?php _createDAfmsg(_("To All"), 'replyall.png', 'ctx_replypopdown_reply_all') ?></div>
-<?php if ($ob->header->listHeadersExist()): ?>
+<?php if ($show_msg_result['list_info']['exists']): ?>
  <div><?php _createDAfmsg(_("To List"), 'replyall.png', 'ctx_replypopdown_reply_list') ?></div>
 <?php endif; ?>
 </div>

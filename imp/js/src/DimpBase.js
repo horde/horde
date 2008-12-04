@@ -860,7 +860,7 @@ var DimpBase = {
         if (r.atc_label) {
             tmp = $('msgAtc').show().down('.label');
             tmp2 = $('partlist');
-            tmp2.hide().previous().update(r.atc_label + ' ' + r.atc_download);
+            tmp2.hide().previous().update(new Element('SPAN', { className: 'atcLabel'}).insert(r.atc_label)).insert(r.atc_download);
             if (r.atc_list) {
                 $('partlist_col').show();
                 $('partlist_exp').hide();

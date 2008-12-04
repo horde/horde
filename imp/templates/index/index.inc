@@ -12,7 +12,6 @@ $clearflag = Horde::img('mail_clearflag.png');
 $preview = Horde::img('preview.png');
 $tick = Horde::img('tick.png');
 $newwin = Horde::img('newwin.png', _("Open in new window"));
-$attachment = Horde::img('attachment.png', '', array('class' => 'attachmentImage'));
 
 // Thread images
 $thread_imgs = IMP_IMAP_Thread::getImageUrls();
@@ -331,7 +330,7 @@ function _simpleButton($id, $text, $image, $imagedir = null)
              <td class="cc"></td>
             </tr>
             <tr id="msgAtc" style="display:none">
-             <td class="label"><?php echo $attachment ?><?php echo Horde::link('') . Horde::img('arrow_collapsed.png', '', array('id' => 'partlist_col')) . Horde::img('arrow_expanded.png', '', array('id' => 'partlist_exp', 'style' => 'display:none')) . ' ' . $attachment ?></a></td>
+             <td class="label"><?php echo Horde::img('attachment.png', '', array('class' => 'attachmentImage')) . Horde::link('') . Horde::img('arrow_collapsed.png', '', array('id' => 'partlist_col')) . Horde::img('arrow_expanded.png', '', array('id' => 'partlist_exp', 'style' => 'display:none')) ?></a></td>
              <td>
               <div></div>
               <table id="partlist" style="display:none" cellspacing="2">

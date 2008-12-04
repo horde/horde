@@ -101,6 +101,7 @@ class IMP_Views_ShowMessage
      * FOR NON-PREVIEW MODE:
      * 'bcc' - The Bcc addresses
      * 'headers' - An array of headers (not including basic headers)
+     * 'list_info' - List information.
      * 'replyTo' - The Reply-to addresses
      * </pre>
      */
@@ -317,14 +318,13 @@ class IMP_Views_ShowMessage
             $result['msgtext'] = $imp_ui->formatStatusMsg(array('text' => array(_("There are no parts that can be shown inline."))));
         }
 
-        // TODO
-        $downloadall_link = null;
-
         if (count($atc_parts) || (count($display_ids) > 2)) {
             $result['atc_label'] = ($show_parts == 'all')
                 ? _("Parts")
                 : sprintf(ngettext("%d Attachment", "%d Attachments", $atc_parts), $atc_parts);
-            $result['atc_download'] = ($downloadall_link) ? Horde::link($downloadall_link) . _("Save All") . '</a>' : '';
+            $result['atc_download'] = (count($display_ids) > 2)
+                ? Horde::link($imp_contents->urlView($imp_contents->getMIMEMessage(), 'download_all', array('params' => array('download_ids' => serialize($atc_parts))))) . '[' . _("Save All") . ']</a>'
+                : null;
         }
 
         /* Show attachment information in headers? */
@@ -376,6 +376,10 @@ class IMP_Views_ShowMessage
                 $confirm_link = Horde::link('', '', '', '', 'DimpCore.doAction(\'SendMDN\',{folder:\'' . $folder . '\',index:' . $index . '}); return false;', '', '') . _("HERE") . '</a>';
                 $GLOBALS['notification']->push(sprintf(_("The sender of this message is requesting a Message Disposition Notification from you when you have read this message. Click %s to send the notification message."), $confirm_link), 'dimp.request', array('content.raw'));
             }
+        }
+
+        if (!$preview) {
+            $result['list_info'] = $imp_ui->getListInformation($mime_headers);
         }
 
         return $result;
