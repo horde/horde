@@ -155,6 +155,12 @@ ob_start();
 
 $result = false;
 
+/* We know we are going to be exclusively dealing with this mailbox, so
+ * select it on the IMAP server (saves some STATUS calls). */
+if ($folder && !$imp_search->isSearchMbox($folder)) {
+    $imp_imap->ob->openMailbox($folder);
+}
+
 switch ($action) {
 case 'CreateFolder':
 case 'CreateSubfolder':
