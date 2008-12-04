@@ -125,11 +125,15 @@ class IMP_Views_ShowMessage
             $flags_ret = $GLOBALS['imp_imap']->ob->fetch($folder, array(
                 Horde_Imap_Client::FETCH_FLAGS => true,
             ), array('ids' => array($index)));
+            if (!isset($flags_ret[$index])) {
+                $result['error'] = $error_msg;
+                $result['errortype'] = 'horde.error';
+                return $result;
+            }
             $fetch_ret = $GLOBALS['imp_imap']->ob->fetch($folder, array(
                 Horde_Imap_Client::FETCH_ENVELOPE => true,
                 Horde_Imap_Client::FETCH_HEADERTEXT => array(array('parse' => true, 'peek' => false))
             ), array('ids' => array($index)));
-            $ob = $fetch_ret[$index];
         } catch (Horde_Imap_Client_Exception $e) {
             $result['error'] = $error_msg;
             $result['errortype'] = 'horde.error';
@@ -210,7 +214,7 @@ class IMP_Views_ShowMessage
         /* Get minidate. */
         if ($preview) {
             $imp_mailbox_ui = new IMP_UI_Mailbox();
-            $minidate = $imp_mailbox_ui->getDate($ob['envelope']['date']);
+            $minidate = $imp_mailbox_ui->getDate($envelope['date']);
             if (empty($minidate)) {
                 $minidate = _("Unknown Date");
             }
