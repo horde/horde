@@ -1359,7 +1359,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 $expunged = array();
                 $i = 0;
                 $t = $s_res['sort'];
-
                 foreach ($tmp['expunge'] as $val) {
                     $expunged[] = $t[$val - 1 + $i++];
                 }
@@ -1373,6 +1372,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             if (isset($this->_init['enabled']['QRESYNC'])) {
                 $this->_cacheOb->setMetaData($mailbox, array('HICmodseq' => $this->_temp['mailbox']['highestmodseq']));
             }
+        } elseif (!empty($tmp['expunge'])) {
+            /* Updates status message count if not using cache. */
+            $tmp['mailbox']['messages'] -= count($tmp['expunge']);
         }
     }
 
