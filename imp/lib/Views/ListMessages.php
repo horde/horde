@@ -95,8 +95,7 @@ class IMP_Views_ListMessages
         $result->id = $folder;
         $result->totalrows = $msgcount;
         $result->label = $label;
-        // @todo
-        $result->cacheid = time();
+        $result->cacheid = $imp_mailbox->getCacheID();
 
         /* Determine the row slice to process. */
         if (isset($args['slice_rownum'])) {

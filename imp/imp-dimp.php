@@ -32,11 +32,10 @@ function _generateDeleteResult($folder, $indices, $change)
     return $result;
 }
 
-function _cacheID($folder)
+function _cacheID($mbox)
 {
-//    $imp_mailbox = &IMP_Mailbox::singleton($folder);
-//    return $imp_mailbox->getCacheId();
-    return false;
+    $imp_mailbox = &IMP_Mailbox::singleton($mbox);
+    return $imp_mailbox->getCacheID();
 }
 
 function _changed($folder, $compare, $indices = array(), $nothread = false)

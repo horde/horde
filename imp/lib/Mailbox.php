@@ -710,4 +710,25 @@ class IMP_Mailbox
         }
     }
 
+    /**
+     * Returns a unique identifier for the current mailbox status.
+     *
+     * @return string  The cache ID string, which will change when the
+     *                 composition of the mailbox changes.
+     */
+    public function getCacheID()
+    {
+        if (!$this->_searchmbox) {
+            $sortpref = IMP::getSort($this->_mailbox);
+
+            try {
+                $status = $GLOBALS['imp_imap']->ob->status($this->_mailbox, Horde_Imap_Client::STATUS_MESSAGES | Horde_Imap_Client::STATUS_UIDNEXT | Horde_Imap_Client::STATUS_UIDVALIDITY);
+                return implode('|', array($status['messages'], $status['uidnext'], $status['uidvalidity'], $sortpref['by'], $sortpref['dir']));
+            } catch (Horde_Imap_Client_Exception $e) {}
+        }
+
+        /* This should generate a sufficiently random #. */
+        return time() . mt_rand();
+    }
+
 }
