@@ -201,6 +201,18 @@ abstract class Horde_Imap_Client_Base extends Horde_Imap_Client
     }
 
     /**
+     * Returns a value from the internal params array.
+     *
+     * @param string $key  The param key.
+     *
+     * @return mixed  The param value, or null if not found.
+     */
+    public function getParam($key)
+    {
+        return isset($this->_params[$key]) ? $this->_params[$key] : null;
+    }
+
+    /**
      * Returns the Horde_Imap_Client_Cache object used, if available.
      *
      * @return mixed  Either the object or null.
