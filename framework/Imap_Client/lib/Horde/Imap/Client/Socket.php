@@ -2123,14 +2123,14 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                         $fp['hdrfields'][$cmd] = $val['label'];
                     }
 
-                    if (empty($c_val['peek'])) {
+                    if (empty($val['peek'])) {
                         $this->openMailbox($this->_selected, self::OPEN_READWRITE);
                     }
 
                     $fetch[] = $main_cmd .
-                        (!empty($c_val['peek']) ? '.PEEK' : '') .
+                        (!empty($val['peek']) ? '.PEEK' : '') .
                         '[' . $cmd . ']' .
-                        (isset($c_val['start']) && !empty($c_val['length']) ? ('<' . $c_val['start'] . '.' . $c_val['length'] . '>') : '');
+                        (isset($val['start']) && !empty($val['length']) ? ('<' . $val['start'] . '.' . $val['length'] . '>') : '');
                 }
                 break;
 
