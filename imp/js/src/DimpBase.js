@@ -1777,10 +1777,10 @@ var DimpBase = {
             if (!vs.size()) {
                 break;
             }
-            args = { folder: this.folder, messageFlag: '-seen' };
+            args = { folder: this.folder, messageFlag: '-\\seen' };
             if (action == 'seen') {
                 unseenstatus = 0;
-                args.messageFlag = 'seen';
+                args.messageFlag = '\\seen';
             }
             obs = vs.get('dataob');
             if (obs.size()) {
@@ -1798,7 +1798,7 @@ var DimpBase = {
             }
             args = {
                 folder: this.folder,
-                messageFlag: ((action == 'flagged') ? 'flagged' : '-flagged')
+                messageFlag: ((action == 'flagged') ? '\\flagged' : '-\\flagged')
             };
             this.viewport.updateFlag(vs, 'flagged', action == 'flagged');
             DimpCore.doAction('MarkMessage', args, vs);
