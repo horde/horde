@@ -8,3 +8,4 @@ Hippo will be a new Horde 4, PHP 5 application that aggregates content. It will 
     * There will be the ability to run filters on Hippo_Input plugins. For instance, if a certain feed has the same junk in every entry, a filter could be attached to the Hippo_Input for that feed that would strip it out. Generic (regex-type) filters should be configurable via the UI; it should be possible to configure any kind of filter in a config file or separate input plugin class.
     * This application should eventually be able to replace Klutz
     * Additional possible content types include podcasts, content from other Horde applications (iCalendar data from Kronolith), "friend information (http://hasin.wordpress.com/2008/05/31/building-friendfeed-using-php-part-1/, http://hasin.wordpress.com/2008/06/03/building-services-like-friendfeed-using-php-part2/), etc.
+    * http://www.dapper.net/

@@ -17,6 +17,7 @@ http://jx.myofiz.com/
 http://jx.myofiz.com/feedreader.html
 
 Resources:
+http://www.protocolostomy.com/2008/11/21/help-me-pick-a-new-feed-reader/
 http://www.readwriteweb.com/archives/opera_96_launches_now_includes_magazine_style_rss.php
 http://www.readwriteweb.com/archives/will_gmail_get_google_reader-like_trends.php
 http://www.readwriteweb.com/archives/google_reader_now_lets_you_sha.php
