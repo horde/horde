@@ -853,4 +853,22 @@ class IMP_Contents
     {
         $this->_statuscache[$id][] = $entry;
     }
+
+    /**
+     * Get download all list.
+     *
+     * @return array  An array of downloadable parts.
+     */
+    public function downloadAllList()
+    {
+        $ret = array();
+
+        foreach ($this->getContentTypeMap() as $key => $val) {
+            if ($this->isAttachment($val)) {
+                $ret[] = $key;
+            }
+        }
+
+        return $ret;
+    }
 }
