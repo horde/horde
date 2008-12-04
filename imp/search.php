@@ -299,7 +299,7 @@ if (empty($search['mbox'])) {
     $newcol = $numcolumns = 1;
 
     $imp_folder = &IMP_Folder::singleton();
-    $mailboxes = $imp_folder->flist_IMP(array(), ($shown !== null) ? $shown : null);
+    $mailboxes = $imp_folder->flist(array(), !is_null($shown) ? $shown : null);
     $total = ceil(count($mailboxes) / 3);
 
     if (empty($search['folders']) && ($actionID != 'update_search')) {

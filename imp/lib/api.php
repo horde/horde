@@ -218,7 +218,7 @@ function _imp_folderlist()
             $result = array('INBOX' => array('val' => 'INBOX', 'label' => _("Inbox"), 'abbrev' => 'INBOX'));
         } else {
             $imp_folder = &IMP_Folder::singleton();
-            $result = $imp_folder->flist_IMP();
+            $result = $imp_folder->flist();
         }
     }
 

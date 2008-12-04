@@ -79,7 +79,7 @@ class IMP_Folder
      * 'abbrev' - (string) Short (26 char) label (system charset)
      * </pre>
      */
-    public function flist($sub = false, $filter = array())
+    public function flist($filter = array(), $sub = null)
     {
         $inbox_entry = array(
             'INBOX' => array(
@@ -91,6 +91,10 @@ class IMP_Folder
 
         if ($_SESSION['imp']['protocol'] == 'pop') {
             return $inbox_entry;
+        }
+
+        if (is_null($sub)) {
+            $sub = $GLOBALS['prefs']->getValue('subscribe');
         }
 
         /* Compute values that will uniquely identify this list. */
@@ -150,22 +154,6 @@ class IMP_Folder
         }
 
         return $list;
-    }
-
-    /**
-     * Returns an array of folders. This is a wrapper around the flist()
-     * function which reduces the number of arguments needed if we can assume
-     * that IMP's full environment is present.
-     *
-     * @param array $filter  An array of mailboxes to ignore (UTF7-IMAP).
-     * @param boolean $sub   If set, will be used to determine if we should
-     *                       list only subscribed folders.
-     *
-     * @return array  The array of mailboxes returned by flist().
-     */
-    public function flist_IMP($filter = array(), $sub = null)
-    {
-        return $this->flist(is_null($sub) ? $GLOBALS['prefs']->getValue('subscribe') : $sub, $filter);
     }
 
     /**

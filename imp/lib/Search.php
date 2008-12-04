@@ -345,7 +345,7 @@ class IMP_Search
 
         /* Create Virtual Trash with new folder list. */
         $imp_folder = &IMP_Folder::singleton();
-        $fl = $imp_folder->flist_IMP();
+        $fl = $imp_folder->flist();
         $flist = array();
         foreach ($fl as $mbox) {
             if (!empty($mbox['val'])) {

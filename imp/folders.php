@@ -72,6 +72,9 @@ $folder_list = Util::getFormData('folder_list', array());
 $refresh_url = Horde::applicationUrl('folders.php', true);
 $refresh_time = $prefs->getValue('refresh_time');
 
+/* Other variables. */
+$open_compose_window = null;
+
 /* Run through the action handlers. */
 $actionID = Util::getFormData('actionID');
 if ($actionID) {
@@ -492,7 +495,7 @@ if (count($rows) > 10) {
 /* No need for extra template - close out the tags here. */
 echo '</form></div>';
 
-if (!empty($open_compose_window)) {
+if ($open_compose_window === false) {
     if (!isset($options)) {
         $options = array();
     }

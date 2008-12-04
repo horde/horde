@@ -50,7 +50,7 @@ $search_mbox = $imp_search->isSearchMbox();
 $vfolder = $imp_search->isVFolder();
 
 /* We know we are going to be exclusively dealing with this mailbox, so
- * select the folder on the IMAP server. */
+ * select it on the IMAP server (saves some STATUS calls). */
 if (!$search_mbox) {
     $imp_imap->ob->openMailbox($imp_mbox['mailbox']);
 }
@@ -79,7 +79,8 @@ NLS::setTimeZone();
 require_once 'Horde/Identity.php';
 $identity = &Identity::singleton(array('imp', 'imp'));
 
-$do_filter = $open_compose_window = false;
+$do_filter = false;
+$open_compose_window = null;
 
 /* Run through the action handlers */
 if ($actionID && $actionID != 'message_missing') {
@@ -384,7 +385,7 @@ Horde::addScriptFile('redbox.js', 'horde', true);
 Horde::addScriptFile('mailbox.js', 'imp', true);
 
 /* Handle compose_popup. */
-if (!empty($open_compose_window)) {
+if ($open_compose_window === false) {
     if (!isset($options)) {
         $options = array();
     }
