@@ -1311,24 +1311,26 @@ ViewPort_Buffer = Class.create({
     // rownums = (array) Array of row numbers to remove.
     remove: function(rownums)
     {
-        var newsize,
+        var minrow = rownums.min(),
+            newsize,
             rowsize = this.rowlist.size(),
             rowsubtract = 0;
         newsize = rowsize - rownums.size();
 
-        return $A($R(rownums.min(), rowsize)).each(function(n) {
-            var id = this.rowlist.get(n), r;
-            if (rownums.include(n)) {
-                this.data.unset(id);
-                this.uidlist.unset(id);
-                rowsubtract++;
-            } else {
-                r = n - rowsubtract;
-                this.rowlist.set(r, id);
-                this.uidlist.set(id, r);
-            }
-            if (n > newsize) {
-                this.rowlist.unset(n);
+        return this.rowlist.keys().each(function(n) {
+            if (n >= minrow) {
+                if (rownums.include(n)) {
+                    this.data.unset(id);
+                    this.uidlist.unset(id);
+                    rowsubtract++;
+                } else if (rowsubtract) {
+                    var r = n - rowsubtract;
+                    this.rowlist.set(r, id);
+                    this.uidlist.set(id, r);
+                }
+                if (n > newsize) {
+                    this.rowlist.unset(n);
+                }
             }
         }, this);
     },

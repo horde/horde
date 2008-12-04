@@ -103,11 +103,10 @@ class IMP_Views_ListMessages
             $slice_start = $args['slice_start'];
             $slice_end = $args['slice_end'];
         } else {
-            list($u_uid, $u_mbox) = explode(IMP_IDX_SEP, $args['search_uid']);
             $result->rownum = $rownum = 1;
-            foreach (array_keys($sorted_list['s'], $u_uid) as $val) {
+            foreach (array_keys($sorted_list['s'], $args['search_uid']) as $val) {
                 if (empty($sorted_list['m'][$val]) ||
-                    ($sorted_list['m'][$val] == $u_mbox)) {
+                    ($sorted_list['m'][$val] == $args['search_mbox'])) {
                     $rownum = $val;
                     break;
                 }

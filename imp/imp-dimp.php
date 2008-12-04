@@ -82,8 +82,9 @@ function _getListMessages($folder, $change)
         $search = Horde_Serialize::unserialize($search, SERIALIZE_JSON);
         $args += array(
             'search_uid' => $search->imapuid,
+            'search_view' => $search->view,
             'search_before' => intval(Util::getPost('search_before')),
-            'search_after' => intval(Util::getPost('search_size'))
+            'search_after' => intval(Util::getPost('search_after'))
         );
     } else {
         $args += array(
