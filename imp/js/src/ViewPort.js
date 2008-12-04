@@ -1319,12 +1319,13 @@ ViewPort_Buffer = Class.create({
 
         return this.rowlist.keys().each(function(n) {
             if (n >= minrow) {
+                var id = this.rowlist.get(n), r;
                 if (rownums.include(n)) {
                     this.data.unset(id);
                     this.uidlist.unset(id);
                     rowsubtract++;
                 } else if (rowsubtract) {
-                    var r = n - rowsubtract;
+                    r = n - rowsubtract;
                     this.rowlist.set(r, id);
                     this.uidlist.set(id, r);
                 }
