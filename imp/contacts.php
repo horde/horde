@@ -1,5 +1,7 @@
 <?php
 /**
+ * Standard (imp) contacts display page.
+ *
  * Copyright 2002-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

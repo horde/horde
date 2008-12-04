@@ -563,8 +563,7 @@ if ($pageOb['msgcount']) {
 /* Define some variables now so we don't have to keep redefining in the
    foreach () loop or the templates. */
 $lastMbox = '';
-$messages = array();
-$threadlevel = array();
+$messages = $threadlevel = array();
 
 /* Get thread object, if necessary. */
 if ($sortpref['by'] == Horde_Imap_Client::SORT_THREAD) {
