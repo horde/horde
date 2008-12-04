@@ -48,6 +48,9 @@ class IMP_IMAP
     {
         /* Register the logging callback. */
         Horde_Imap_Client_Exception::$logCallback = array($this, 'logException');
+
+        /* Rebuild the Horde_Imap_Client object. */
+        $this->_loadImapObject();
     }
 
     /**
@@ -100,7 +103,7 @@ class IMP_IMAP
      *
      * @return boolean  True on success, false on error.
      */
-    public function loadImapObject()
+    protected function _loadImapObject()
     {
         if (!is_null($this->ob)) {
             return true;
@@ -249,7 +252,6 @@ class IMP_IMAP
     public function getNamespaceList()
     {
         try {
-            $this->loadImapObject();
             return $GLOBALS['imp_imap']->ob->getNamespaces(!empty($_SESSION['imp']['imap_ext']['namespace']) ? $_SESSION['imp']['imap_ext']['namespace'] : array());
         } catch (Horde_Imap_Client_Exception $e) {
             // @todo Error handling

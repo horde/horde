@@ -45,7 +45,7 @@ class Auth_imp extends Auth
     function _authenticate($userID, $credentials)
     {
         // Check for valid IMAP Client object.
-        if (!$GLOBALS['imp_imap']->loadImapObject()) {
+        if (!$GLOBALS['imp_imap']->ob) {
             // Attempt to create IMAP Client object
             $key = isset($credentials['server']) ? $credentials['server'] : IMP_Session::getAutoLoginServer();
             if (is_null($key) ||
