@@ -751,7 +751,11 @@ var DimpBase = {
         }
 
         m.childElements().invoke('removeClassName', 'sortup').invoke('removeClassName', 'sortdown');
-        m.down('div a[sortby=' + sortby + ']').up().addClassName(this.viewport.getMetaData('sortdir') ? 'sortup' : 'sortdown');
+
+        tmp = m.down('div a[sortby=' + sortby + ']');
+        if (tmp) {
+            tmp.up().addClassName(this.viewport.getMetaData('sortdir') ? 'sortup' : 'sortdown');
+        }
     },
 
     // Preview pane functions
