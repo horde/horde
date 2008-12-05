@@ -16,6 +16,10 @@
  * http://www.spiteful.com/2008/03/17/programmers-toolbox-part-3-consistent-hashing/,
  * and also the original paper:
  * http://www8.org/w8-papers/2a-webserver/caching/paper2.html
+ *
+ * @TODO Ideas for future enhancement:
+ *   - provide a callback when a point is moved on the circle, so that the calling
+ *     code can take an action (say, tranferring data).
  */
 class Horde_Support_ConsistentHash
 {
