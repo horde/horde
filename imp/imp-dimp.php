@@ -430,9 +430,7 @@ case 'AddContact':
 case 'ReportSpam':
 case 'ReportHam':
     $change = _changed($folder, $cacheid, $indices);
-    $spam = new IMP_Spam();
-    $result = $spam->reportSpam($indices,
-                                $action == 'ReportSpam' ? 'spam' : 'notspam');
+    $result = IMP_Spam::reportSpam($indices, ($action == 'ReportSpam') ? 'spam' : 'notspam');
     if ($result) {
         $result = _generateDeleteResult($folder, $indices, $change);
         // If $result is non-zero, then we know the message has been removed

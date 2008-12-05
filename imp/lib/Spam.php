@@ -14,30 +14,6 @@
 class IMP_Spam
 {
     /**
-     * The IMP_Compose:: object used by the class.
-     *
-     * @var IMP_Compose
-     */
-    protected $_impCompose;
-
-    /**
-     * The IMP_Identity:: object used by the class.
-     *
-     * @var IMP_Identity
-     */
-    protected $_identity;
-
-    /**
-     * Constructor.
-     */
-    function __construct()
-    {
-        require_once 'Horde/Identity.php';
-        $this->_impCompose = &IMP_Compose::singleton();
-        $this->_identity = &Identity::singleton(array('imp', 'imp'));
-    }
-
-    /**
      * Reports a list of messages as spam, based on the local configuration
      * parameters.
      *
@@ -47,7 +23,7 @@ class IMP_Spam
      * @return integer  1 if messages have been deleted, 2 if messages have
      *                  been moved.
      */
-    public function reportSpam($indices, $action)
+    static public function reportSpam($indices, $action)
     {
         global $notification;
 
@@ -55,13 +31,10 @@ class IMP_Spam
          * there are no messages. */
         if (empty($GLOBALS['conf'][$action]['reporting']) ||
             !($msgList = IMP::parseIndicesList($indices))) {
-            return;
+            return 0;
         }
 
-        /* We can report 'program' and 'bounce' messages as the same since
-         * they are both meant to indicate that the message has been reported
-         * to some program for analysis. */
-        $email_msg_count = $report_msg_count = 0;
+        $report_count = 0;
 
         foreach ($msgList as $mbox => $msgIndices) {
             foreach ($msgIndices as $idx) {
@@ -109,86 +82,73 @@ class IMP_Spam
                         Horde::logMessage('Error reporting spam: ' . $stderr, __FILE__, __LINE__, PEAR_LOG_ERR);
                     }
                     proc_close($proc);
-                    ++$report_msg_count;
                     $report_flag = true;
                 }
 
                 /* If a (not)spam reporting email address has been provided,
                  * use it. */
                 if (!empty($GLOBALS['conf'][$action]['email'])) {
-                    if (!isset($raw_msg)) {
-                        $raw_msg = $imp_contents->fullMessageText();
-                    }
-                    $this->_sendSpamReportMessage($action, $raw_msg);
-                    ++$email_msg_count;
-                }
-
-                /* If a (not)spam bounce email address has been provided, use
-                 * it. */
-                if (!empty($GLOBALS['conf'][$action]['bounce'])) {
-                    $to = $GLOBALS['conf'][$action]['bounce'];
-                } elseif (!empty($GLOBALS['conf']['hooks']['spam_bounce'])) {
-                    /* Call the bounce email generation hook, if requested. */
-                    $to = Horde::callHook('_imp_hook_spam_bounce', array($action), 'imp');
+                    $to = $GLOBALS['conf'][$action]['email'];
+                } elseif (!empty($GLOBALS['conf']['hooks']['spam_email'])) {
+                    /* Call the email generation hook, if requested. */
+                    $to = Horde::callHook('_imp_hook_spam_email', array($action), 'imp');
                 }
 
                 if ($to) {
-                    $imp_headers = $imp_contents->getHeaderOb();
-
-                    $from_addr = $this->_identity->getFromAddress();
-                    $imp_headers->addResentHeaders($from_addr, $to);
-
-                    /* We need to set the Return-Path header to the current
-                     * user - see RFC 2821 [4.4]. */
-                    $imp_headers->removeHeader('return-path');
-                    $imp_headers->addHeader('Return-Path', $from_addr);
-
-                    $bodytext = $imp_contents->getBody();
-
-                    $this->_impCompose->sendMessage($to, $imp_headers, $bodytext, NLS::getCharset());
-                    if (!$report_flag) {
-                        $report_msg_count++;
+                    if (!isset($raw_msg)) {
+                        $raw_msg = $imp_contents->fullMessageText();
                     }
+
+                    if (!isset($imp_compose)) {
+                        require_once 'Horde/Identity.php';
+                        $imp_compose = &IMP_Compose::singleton();
+                        $identity = &Identity::singleton(array('imp', 'imp'));
+                        $from_line = $identity->getFromLine();
+                    }
+
+                    /* Build the MIME structure. */
+                    $mime = new Horde_Mime_Part();
+                    $mime->setType('multipart/digest');
+
+                    $rfc822 = new Horde_Mime_Part();
+                    $rfc822->setType('message/rfc822');
+                    $rfc822->setContents($raw_msg);
+                    $mime->addPart($rfc822);
+
+                    $spam_headers = new Horde_Mime_Headers();
+                    $spam_headers->addMessageIdHeader();
+                    $spam_headers->addHeader('Date', date('r'));
+                    $spam_headers->addHeader('To', $to);
+                    $spam_headers->addHeader('From', $from_line);
+                    $spam_headers->addHeader('Subject', sprintf(_("%s report from %s"), $action, $_SESSION['imp']['uniquser']));
+
+                    /* Send the message. */
+                    $imp_compose->sendMessage($to, $spam_headers, $mime, NLS::getCharset());
+                    $report_flag = true;
+                }
+
+                if ($report_flag) {
+                    ++$report_count;
                 }
             }
         }
 
         /* Report what we've done. */
-        if ($report_msg_count) {
+        if ($report_count) {
             switch ($action) {
             case 'spam':
-                if ($report_msg_count > 1) {
-                    $notification->push(sprintf(_("%d messages have been reported as spam."), $report_msg_count), 'horde.message');
+                if ($report_count > 1) {
+                    $notification->push(sprintf(_("%d messages have been reported as spam."), $report_count), 'horde.message');
                 } else {
                     $notification->push(_("The message has been reported as spam."), 'horde.message');
                 }
                 break;
 
             case 'notspam':
-                if ($report_msg_count > 1) {
-                    $notification->push(sprintf(_("%d messages have been reported as not spam."), $report_msg_count), 'horde.message');
+                if ($report_count > 1) {
+                    $notification->push(sprintf(_("%d messages have been reported as not spam."), $report_count), 'horde.message');
                 } else {
                     $notification->push(_("The message has been reported as not spam."), 'horde.message');
-                }
-                break;
-            }
-        }
-
-        if ($email_msg_count) {
-            switch ($action) {
-            case 'spam':
-                if ($email_msg_count > 1) {
-                    $notification->push(sprintf(_("%d messages have been reported as spam to your system administrator."), $email_msg_count), 'horde.message');
-                } else {
-                    $notification->push(_("The message has been reported as spam to your system administrator."), 'horde.message');
-                }
-                break;
-
-            case 'notspam':
-                if ($email_msg_count > 1) {
-                    $notification->push(sprintf(_("%d messages have been reported as not spam to your system administrator."), $email_msg_count), 'horde.message');
-                } else {
-                    $notification->push(_("The message has been reported as not spam to your system administrator."), 'horde.message');
                 }
                 break;
             }
@@ -229,35 +189,5 @@ class IMP_Spam
         }
 
         return $delete_spam;
-    }
-
-    /**
-     * Send a (not)spam message to the sysadmin.
-     *
-     * @param string $action  The action type.
-     * @param string $data    The message data.
-     */
-    protected function _sendSpamReportMessage($action, $data)
-    {
-        /* Build the MIME structure. */
-        $mime = new Horde_Mime_Part();
-        $mime->setType('multipart/digest');
-
-        $rfc822 = new Horde_Mime_Part();
-        $rfc822->setType('message/rfc822');
-        $rfc822->setContents($data);
-        $mime->addPart($rfc822);
-
-        $spam_headers = new Horde_Mime_Headers();
-        $spam_headers->addMessageIdHeader();
-        $spam_headers->addHeader('Date', date('r'));
-        $spam_headers->addHeader('To', $GLOBALS['conf'][$action]['email']);
-        $spam_headers->addHeader('From', $this->_identity->getFromLine());
-        $spam_headers->addHeader('Subject',
-                                 sprintf(_("%s report from %s"),
-                                         $action, $_SESSION['imp']['user']));
-
-        /* Send the message. */
-        $this->_impCompose->sendMessage($GLOBALS['conf'][$action]['email'], $spam_headers, $mime, NLS::getCharset());
     }
 }

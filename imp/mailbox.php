@@ -114,8 +114,7 @@ case 'whitelist':
 case 'spam_report':
 case 'notspam_report':
     $action = str_replace('_report', '', $actionID);
-    $imp_spam = new IMP_Spam();
-    $imp_spam->reportSpam($indices, $action);
+    IMP_Spam::reportSpam($indices, $action);
     break;
 
 case 'message_missing':

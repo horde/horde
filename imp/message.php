@@ -136,8 +136,7 @@ case 'copy_message':
 case 'spam_report':
 case 'notspam_report':
     $action = str_replace('_report', '', $actionID);
-    $imp_spam = new IMP_Spam();
-    switch ($imp_spam->reportSpam($indices_array, $action)) {
+    switch (IMP_Spam::reportSpam($indices_array, $action)) {
     case 1:
         if (_moveAfterAction()) {
             $imp_mailbox->setIndex(1, 'offset');

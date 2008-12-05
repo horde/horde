@@ -419,14 +419,14 @@
 //     }
 // }
 
-// This is an example hook function for the IMP spam reporting bounce option.
-// This function is called when the message is about to be bounced - it
-// will return the email address to bounce to.  This is handy for spam
+// This is an example hook function for the IMP spam reporting email option.
+// This function is called when the message is about to be forwarded - it
+// will return the email address to forward to.  This is handy for spam
 // reporting software (e.g. DSPAM) which has different e-mail aliases for
 // spam reporting for each user.
 
-// if (!function_exists('_imp_hook_spam_bounce')) {
-//     function _imp_hook_spam_bounce($action)
+// if (!function_exists('_imp_hook_spam_email')) {
+//     function _imp_hook_spam_email($action)
 //     {
 //         $prefix = ($action == 'spam') ? 'spam-' : 'fp-';
 //         return $prefix . Auth::getBareAuth() . '@example.com';
