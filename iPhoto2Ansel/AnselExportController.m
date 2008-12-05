@@ -5,8 +5,6 @@
 //  Created by Michael Rubinsky on 10/23/08.
 //  Copyright 2008 __MyCompanyName__. All rights reserved.
 //
-#import <QuickTime/QuickTime.h>
-#import <QuickTime/ImageCompression.h>
 #import "TURAnsel.h"
 #import "TURAnselGallery.h"
 #import "AnselExportController.h"
@@ -36,7 +34,6 @@
 {
     // UI Defaults
     [mSizePopUp selectItemWithTag:2];
-    [mQualityPopUp selectItemWithTag:2];
     [connectedLabel setStringValue:@"Not Connected"];
     [connectedLabel setTextColor: [NSColor redColor]];
     [spinner stopAnimation:self];
@@ -58,10 +55,10 @@
 -(void)doConnect: (id)sender
 {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    NSDictionary *p = [[NSDictionary alloc] initWithObjects:[NSArray arrayWithObjects:[anselHostURL stringValue],
+    NSDictionary *p = [[NSDictionary alloc] initWithObjects: [NSArray arrayWithObjects:[anselHostURL stringValue],
                                                              [username stringValue],
                                                              [password stringValue], nil]
-                                                    forKeys:[NSArray arrayWithObjects:@"endpoint", @"username", @"password", nil]];
+                                                    forKeys: [NSArray arrayWithObjects:@"endpoint", @"username", @"password", nil]];
     // Create our controller
     anselController = [[TURAnsel alloc] initWithConnectionParameters:p];
     [anselController setDelegate:self];
@@ -297,8 +294,28 @@
         // Prepare the image data
         NSData *theImage = [[NSData alloc] initWithContentsOfFile: [mExportMgr imagePathAtIndex:i]];
         
+        CGFloat imageSize;
+        switch([mSizePopUp selectedTag])
+        {
+            case 0:
+                imageSize = 320;
+                break;
+            case 1:
+                imageSize = 640;
+                break;
+            case 2:
+                imageSize = 1280;
+                break;
+            case 3:
+                imageSize = 99999;
+                break;
+            default:
+                imageSize = 1280;
+                break;
+        }
+        
         NSData *scaledData = [ImageResizer getScaledImageFromData: theImage
-                                                           toSize: NSMakeSize(400, 400)];
+                                                           toSize: NSMakeSize(imageSize, imageSize)];
 
         
         NSString *base64ImageData = [NSString base64StringFromData: scaledData  
