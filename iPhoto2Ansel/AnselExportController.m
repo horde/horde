@@ -6,10 +6,12 @@
 //  Copyright 2008 __MyCompanyName__. All rights reserved.
 //
 #import <QuickTime/QuickTime.h>
+#import <QuickTime/ImageCompression.h>
 #import "TURAnsel.h"
 #import "TURAnselGallery.h"
 #import "AnselExportController.h"
 #import "FBProgressController.h";
+#import "ImageResizer.h";
 
 @interface AnselExportController (PrivateAPI)
 - (void)connect;
@@ -294,8 +296,13 @@
         
         // Prepare the image data
         NSData *theImage = [[NSData alloc] initWithContentsOfFile: [mExportMgr imagePathAtIndex:i]];
-        NSString *base64ImageData = [NSString base64StringFromData: theImage 
-                                                            length: [theImage length]];
+        
+        NSData *scaledData = [ImageResizer getScaledImageFromData: theImage
+                                                           toSize: NSMakeSize(400, 400)];
+
+        
+        NSString *base64ImageData = [NSString base64StringFromData: scaledData  
+                                                            length: [scaledData length]];
         
         // Get the filename/path for this image. This returns either the most
         // recent version of the image, the original, or (if RAW) the jpeg 

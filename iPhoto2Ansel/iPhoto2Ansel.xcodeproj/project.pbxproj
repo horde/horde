@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8D5B49B0048680CD000E48DA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C167DFE841241C02AAC07 /* InfoPlist.strings */; };
 		8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
+		B05C4A060EE9E001005B4B28 /* ImageResizer.m in Sources */ = {isa = PBXBuildFile; fileRef = B05C4A050EE9E001005B4B28 /* ImageResizer.m */; };
 		B06C1E030EB1644600BFAFCB /* AnselExportPluginBox.m in Sources */ = {isa = PBXBuildFile; fileRef = B06C1E020EB1644600BFAFCB /* AnselExportPluginBox.m */; };
 		B06C1E060EB164D900BFAFCB /* AnselExportController.m in Sources */ = {isa = PBXBuildFile; fileRef = B06C1E050EB164D900BFAFCB /* AnselExportController.m */; };
 		B06C1E3D0EB17E3700BFAFCB /* Panel.nib in Resources */ = {isa = PBXBuildFile; fileRef = B06C1E3C0EB17E3700BFAFCB /* Panel.nib */; };
@@ -38,6 +39,7 @@
 		B0BFBCAA0ED5B32B006581A5 /* XMLRPCResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = B0BFBC960ED5B32B006581A5 /* XMLRPCResponse.m */; };
 		B0C888490ED85DEA000E19FB /* ProgressSheet.nib in Resources */ = {isa = PBXBuildFile; fileRef = B0C888480ED85DEA000E19FB /* ProgressSheet.nib */; };
 		B0C8884E0ED85E02000E19FB /* FBProgressController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0C8884D0ED85E02000E19FB /* FBProgressController.m */; };
+		B0DF843C0EE9E6EB000DAA9E /* QuickTime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0DF843B0EE9E6EB000DAA9E /* QuickTime.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,12 +68,13 @@
 /* Begin PBXFileReference section */
 		089C1672FE841209C02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		089C167EFE841241C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		089C167FFE841241C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		32DBCF630370AF2F00C91783 /* iPhoto2Ansel_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iPhoto2Ansel_Prefix.pch; sourceTree = "<group>"; };
 		8D5B49B6048680CD000E48DA /* iPhoto2Ansel.iPhotoExporter */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iPhoto2Ansel.iPhotoExporter; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D5B49B7048680CD000E48DA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B03D3B590ED5BB3800CF5B92 /* XMLRPC-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "XMLRPC-Info.plist"; sourceTree = SOURCE_ROOT; };
+		B05C4A040EE9E001005B4B28 /* ImageResizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageResizer.h; sourceTree = "<group>"; };
+		B05C4A050EE9E001005B4B28 /* ImageResizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageResizer.m; sourceTree = "<group>"; };
 		B06C1E010EB1644600BFAFCB /* AnselExportPluginBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnselExportPluginBox.h; sourceTree = "<group>"; };
 		B06C1E020EB1644600BFAFCB /* AnselExportPluginBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnselExportPluginBox.m; sourceTree = "<group>"; };
 		B06C1E040EB164D900BFAFCB /* AnselExportController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnselExportController.h; sourceTree = "<group>"; };
@@ -109,7 +112,7 @@
 		B0C888480ED85DEA000E19FB /* ProgressSheet.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = ProgressSheet.nib; sourceTree = "<group>"; };
 		B0C8884C0ED85E02000E19FB /* FBProgressController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBProgressController.h; sourceTree = "<group>"; };
 		B0C8884D0ED85E02000E19FB /* FBProgressController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBProgressController.m; sourceTree = "<group>"; };
-		D2F7E65807B2D6F200F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
+		B0DF843B0EE9E6EB000DAA9E /* QuickTime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickTime.framework; path = /System/Library/Frameworks/QuickTime.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +122,7 @@
 			files = (
 				B0BFBC780ED5B2AB006581A5 /* XMLRPC.framework in Frameworks */,
 				8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */,
+				B0DF843C0EE9E6EB000DAA9E /* QuickTime.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -181,6 +185,8 @@
 		1058C7ACFEA557BF11CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B0DF843B0EE9E6EB000DAA9E /* QuickTime.framework */,
+				089C1672FE841209C02AAC07 /* Foundation.framework */,
 				1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */,
 			);
 			name = "Linked Frameworks";
@@ -189,9 +195,6 @@
 		1058C7AEFEA557BF11CA2CBB /* Other Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				089C167FFE841241C02AAC07 /* AppKit.framework */,
-				D2F7E65807B2D6F200F64583 /* CoreData.framework */,
-				089C1672FE841209C02AAC07 /* Foundation.framework */,
 			);
 			name = "Other Frameworks";
 			sourceTree = "<group>";
@@ -208,6 +211,8 @@
 		32C88E010371C26100C91783 /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				B05C4A040EE9E001005B4B28 /* ImageResizer.h */,
+				B05C4A050EE9E001005B4B28 /* ImageResizer.m */,
 				B0C8884D0ED85E02000E19FB /* FBProgressController.m */,
 				B0C8884C0ED85E02000E19FB /* FBProgressController.h */,
 				B07D44F50EC2AEC700B59765 /* TURXMLConnection.h */,
@@ -393,6 +398,7 @@
 				B07D42710EC230B100B59765 /* TURAnselGallery.m in Sources */,
 				B07D44F70EC2AEC700B59765 /* TURXMLConnection.m in Sources */,
 				B0C8884E0ED85E02000E19FB /* FBProgressController.m in Sources */,
+				B05C4A060EE9E001005B4B28 /* ImageResizer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
