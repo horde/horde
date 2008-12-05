@@ -416,7 +416,7 @@ if ($prefs->getValue('use_pgp')) {
             $t->set('infopublic', Horde::link(Util::addParameter($selfURL, 'actionID', 'info_personal_public_key'), _("Information on Personal Public Key"), null, 'info_key'));
             $t->set('sendkey', Horde::link(Util::addParameter($selfURL, 'actionID', 'send_public_key'), _("Send Key to Public Keyserver")));
             $t->set('personalkey-public-help', Help::link('imp', 'pgp-personalkey-public'));
-            $passphrase = $imp_pgp->getPassphrase();
+            $passphrase = $imp_pgp->getPassphrase('personal');
             $t->set('passphrase', (empty($passphrase)) ? Horde::link('#', _("Enter Passphrase"), null, null, htmlspecialchars($imp_pgp->getJSOpenWinCode('open_passphrase_dialog')) . ' return false;') . _("Enter Passphrase") : Horde::link(Util::addParameter($selfURL, 'actionID', 'unset_passphrase'), _("Unload Passphrase")) . _("Unload Passphrase"));
             $t->set('viewprivate', Horde::link(Util::addParameter($selfURL, 'actionID', 'view_personal_private_key'), _("View Personal Private Key"), null, 'view_key'));
             $t->set('infoprivate', Horde::link(Util::addParameter($selfURL, 'actionID', 'info_personal_private_key'), _("Information on Personal Private Key"), null, 'info_key'));
