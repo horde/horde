@@ -63,7 +63,7 @@ var DimpBase = {
         if (opts.right || !count) {
             this.clearPreviewPane();
         } else if ((count == 1) && $('previewPane').visible()) {
-            this._loadPreview(sel.get('dataob').first());
+            this.loadPreview(sel.get('dataob').first());
         }
     },
 
@@ -771,26 +771,28 @@ var DimpBase = {
         }
     },
 
-    _loadPreview: function(data)
+    loadPreview: function(data, params)
     {
         var pp = $('previewPane'), pp_offset;
         if (!pp.visible()) {
             return;
         }
-        if (this.pp &&
-            this.pp == data) {
-            return;
-        }
-        this.pp = data;
 
-        if (this.ppfifo.indexOf(data.vp_id) != -1) {
-            return this._loadPreviewCallback(this.ppcache[data.vp_id]);
+        if (!params) {
+            if (this.pp && this.pp == data) {
+                return;
+            }
+            this.pp = data;
+
+            if (this.ppfifo.indexOf(this.pp.vp_id) != -1) {
+                return this._loadPreviewCallback(this.ppcache[this.pp.vp_id]);
+            }
         }
 
         pp_offset = pp.positionedOffset();
         $('msgLoading').setStyle({ position: 'absolute', top: (pp_offset.top + 10) + 'px', left: (pp_offset.left + 10) + 'px' }).show();
 
-        DimpCore.doAction('ShowPreview', {}, this.viewport.createSelection('dataob', data), this.bcache.get('loadPC') || this.bcache.set('loadPC', this._loadPreviewCallback.bind(this)));
+        DimpCore.doAction('ShowPreview', params || {}, this.viewport.createSelection('dataob', this.pp), this.bcache.get('loadPC') || this.bcache.set('loadPC', this._loadPreviewCallback.bind(this)));
     },
 
     _loadPreviewCallback: function(resp)
@@ -890,7 +892,7 @@ var DimpBase = {
         if (sel.size() != 1) {
             this.clearPreviewPane();
         } else {
-            this._loadPreview(sel.get('dataob').first());
+            this.loadPreview(sel.get('dataob').first());
         }
     },
 

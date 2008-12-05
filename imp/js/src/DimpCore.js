@@ -518,6 +518,15 @@ DimpCore = {
             url = url.substring(0, q);
         }
         return url + '?' + Object.toQueryString(params);
+    },
+
+    reloadMessage: function(params)
+    {
+        if (typeof DimpFullmessage != 'undefined') {
+            window.location = this.addURLParam(document.location.href, params);
+        } else {
+            DimpBase.loadPreview(null, params);
+        }
     }
 };
 

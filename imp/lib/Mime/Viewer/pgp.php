@@ -332,9 +332,16 @@ class IMP_Horde_Mime_Viewer_pgp extends Horde_Mime_Viewer_Driver
                     Text_Filter::filter($sig_result, 'text2html', array('parselevel' => TEXT_HTML_NOHTML))
                 )
             );
-        } elseif ($_SESSION['imp']['view'] == 'imp') {
-            // TODO: Fix to work with DIMP
-            $status[] = Horde::link(Util::addParameter(Horde::selfUrl(true), array('pgp_verify_msg' => 1))) . _("Click HERE to verify the message.") . '</a>';
+        } else {
+            switch ($_SESSION['imp']['view']) {
+            case 'imp':
+                $status[] = Horde::link(Util::addParameter(Horde::selfUrl(true), array('pgp_verify_msg' => 1))) . _("Click HERE to verify the message.") . '</a>';
+                break;
+
+            case 'dimp':
+                $status[] = Horde::link('#', '', '', '', 'DimpCore.reloadMessage({ pgp_verify_msg: 1 });return false;') . _("Click HERE to verify the message.") . '</a>';
+                break;
+            }
         }
 
         return $ret;
