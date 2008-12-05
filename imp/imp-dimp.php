@@ -154,6 +154,7 @@ $cacheid = Util::getPost('cacheid');
 // encoding.
 ob_start();
 
+$notify = true;
 $result = false;
 
 /* We know we are going to be exclusively dealing with this mailbox, so
@@ -672,6 +673,37 @@ case 'SendMDN':
     $imp_ui = new IMP_UI_Message();
     $imp_ui->MDNCheck(reset($fetch_ret[$index]['headertext']), true);
     break;
+
+case 'PGPSymmetric':
+case 'PGPPersonal':
+    $imp_pgp = &Horde_Crypt::singleton(array('imp', 'pgp'));
+    $secure_check = $imp_pgp->requireSecureConnection();
+
+    $symmetricid = Util::getFormData('symmetricid');
+    $passphrase = Util::getFormData('passphrase');
+
+    $result = new stdClass;
+    $result->success = false;
+
+    if (is_a($secure_check, 'PEAR_Error')) {
+        $result->error = $secure_check->getMessage();
+    } elseif ($passphrase) {
+        if ($imp_pgp->storePassphrase(($action == 'PGPSymmetric') ? 'symmetric' : 'personal', $passphrase, $symmetricid)) {
+            $result->success = true;
+        } else {
+            $result->error = _("Invalid passphrase entered.");
+        }
+    } else {
+        $result->error = _("No passphrase entered.");
+    }
+
+    /* TODO - This code will eventually be moved to the API. But this function
+     * may be called by IMP so explicitly include DIMP.php. */
+    require_once IMP_BASE . '/lib/DIMP.php';
+    $notify = false;
+
+    print_r($_SESSION['imp']['cache']);
+    break;
 }
 
 // Clear the output buffer that we started above, and log any unexpected
@@ -683,4 +715,4 @@ if ($errors) {
 }
 
 // Send the final result.
-IMP::sendHTTPResponse(DIMP::prepareResponse($result), 'json');
+IMP::sendHTTPResponse(DIMP::prepareResponse($result, $notify), 'json');

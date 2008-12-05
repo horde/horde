@@ -410,10 +410,20 @@ class IMP_Horde_Crypt_pgp extends Horde_Crypt_pgp
 
     /**
      * Clear the passphrase from the session cache.
+     *
+     * @param integer $type       The type of passphrase. Either 'personal' or
+     *                            'symmetric'.
+     * @param string $id          If $type is 'symmetric', the ID of the
+     *                            stored passphrase. Else, all passphrases
+     *                            are deleted.
      */
-    public function unsetPassphrase($type)
+    public function unsetPassphrase($type, $id = null)
     {
-        unset($_SESSION['imp']['cache']['pgp'][$type]);
+        if (($type == 'symmetric') && !is_null($id)) {
+            unset($_SESSION['imp']['cache']['pgp']['symmetric'][$id]);
+        } else {
+            unset($_SESSION['imp']['cache']['pgp'][$type]);
+        }
     }
 
     /**
@@ -441,35 +451,11 @@ class IMP_Horde_Crypt_pgp extends Horde_Crypt_pgp
      */
     public function savePublicKeyURL($mailbox, $uid, $id)
     {
-        return $this->getJSOpenWinCode('save_attachment_public_key', false, array('mailbox' => $mailbox, 'uid' => $uid, 'mime_id' => $id));
-    }
-
-    /**
-     * Print out the link for the javascript PGP popup.
-     *
-     * @param string $actionid  The ActionID to perform.
-     * @param mixed $reload     If true, reload base window on close. If text,
-     *                          run this JS on close. If false, don't do
-     *                          anything on close.
-     * @param array $params     Additional parameters needed for the popup
-     *                          page.
-     *
-     * @return string  The javascript link.
-     */
-    public function getJSOpenWinCode($actionid, $reload = true,
-                                     $params = array())
-    {
-        $params['actionID'] = $actionid;
-        if (!empty($reload)) {
-            if (is_bool($reload)) {
-                $params['reload'] = html_entity_decode(Util::removeParameter(Horde::selfUrl(true), array('actionID')));
-            } else {
-                require_once 'Horde/SessionObjects.php';
-                $cacheSess = &Horde_SessionObjects::singleton();
-                $params['passphrase_action'] = $cacheSess->storeOid($reload, false);
-            }
-        }
-
+        $params = array(
+            'actionID' => 'save_attachment_public_key',
+            'uid' => $uid,
+            'mime_id' => $id
+        );
         return IMP::popupIMPString('pgp.php', $params, 450, 200);
     }
 

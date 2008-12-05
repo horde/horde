@@ -84,12 +84,6 @@ class IMP_Horde_Mime_Viewer_pgp extends Horde_Mime_Viewer_Driver
             $this->_address = Horde_Mime_Address::bareAddress($headers->getValue('from'));
         }
 
-        /* We need to insert JS code if PGP support is active. */
-        if (!empty($this->_imppgp) && $GLOBALS['prefs']->getValue('use_pgp')) {
-            Horde::addScriptFile('prototype.js', 'horde', true);
-            Horde::addScriptFile('popup.js', 'imp', true);
-        }
-
         switch ($this->_mimepart->getType()) {
         case 'application/pgp-keys':
             return $this->_outputPGPKey();
@@ -127,13 +121,14 @@ class IMP_Horde_Mime_Viewer_pgp extends Horde_Mime_Viewer_Driver
         $data_id = Horde_Mime::mimeIdArithmetic($version_id, 'next');
 
         /* Initialize inline data. */
+        $resymmetric = isset(self::$_inlinecache[$base_id]);
         self::$_inlinecache[$base_id] = array(
             $base_id => array(
                 'data' => '',
                 'status' => array(
                     array(
                         'icon' => Horde::img('mime/encryption.png', 'PGP'),
-                        'text' => array()
+                        'text' => $resymmetric ? self::$_inlinecache[$base_id][$base_id]['status'][0]['text'] : array()
                     )
                 ),
                 'type' => 'text/html; charset=' . NLS::getCharset()
@@ -165,15 +160,29 @@ class IMP_Horde_Mime_Viewer_pgp extends Horde_Mime_Viewer_Driver
         /* Check if this a symmetrically encrypted message. */
         $symmetric = $this->_imppgp->encryptedSymmetrically($encrypted_data);
         if ($symmetric) {
-            $symmetric_id = $this->_imppgp->getSymmetricID($this->_params['contents']->getMailbox(), $this->_params['contents']->getIndex(), $this->_mimepart->getMimeId());
+            $symmetric_id = $this->_getSymmetricID();
             $symmetric_pass = $this->_imppgp->getPassphrase('symmetric', $symmetric_id);
 
             if (is_null($symmetric_pass)) {
-                if ($_SESSION['imp']['view'] == 'imp') {
-                    // TODO: Fix to work with DIMP
+                $js_action = '';
+
+                switch ($_SESSION['imp']['view']) {
+                case 'dimp':
+                    $js_action = 'DimpCore.reloadMessage({});';
+                    // Fall through
+
+                case 'imp':
                     /* Ask for the correct passphrase if this is encrypted
                      * symmetrically. */
-                    $status[] = Horde::link('#', _("The message below has been encrypted with PGP. You must enter the passphrase that was used to encrypt this message."), null, null, $this->_imppgp->getJSOpenWinCode('open_symmetric_passphrase_dialog', true, array('symmetricid' => $symmetric_id)) . ' return false;') . _("You must enter the passphrase that was used to encrypt this message.") . '</a>';
+                    if (!$resymmetric) {
+                        $status[] = _("The message below has been encrypted with PGP.");
+                    }
+                    $status[] = Horde::link('#', '', null, null, IMP::passphraseDialogJS('PGPSymmetric', $js_action, array('symmetricid' => $symmetric_id)) . ';return false;') . _("You must enter the passphrase used to encrypt this message to view it.") . '</a>';
+                    break;
+
+                case 'mimp':
+                    $status[] = _("The message has been encrypted with PGP.");
+                    break;
                 }
                 return null;
             }
@@ -197,11 +206,23 @@ class IMP_Horde_Mime_Viewer_pgp extends Horde_Mime_Viewer_Driver
                     $personal_pass = $this->_imppgp->getPassphrase('personal');
 
                     if (is_null($personal_pass)) {
-                        if ($_SESSION['imp']['view'] == 'imp') {
-                            // TODO: Fix to work with DIMP
+                        $js_action = '';
+
+                        switch ($_SESSION['imp']['view']) {
+                        case 'dimp':
+                            $js_action = 'DimpCore.reloadMessage({});';
+                            // Fall through
+
+                        case 'imp':
                             /* Ask for the private key's passphrase if this is
                              * encrypted asymmetrically. */
-                            $status[] = Horde::link('#', _("The message below has been encrypted with PGP. You must enter the passphrase for your PGP private key before it can be decrypted."), null, null, $this->_imppgp->getJSOpenWinCode('open_passphrase_dialog') . ' return false;') . _("You must enter the passphrase for your PGP private key to view this message.") . '</a>';
+                            $status[] = _("The message below has been encrypted with PGP.");
+                            $status[] = Horde::link('#', '', null, null, IMP::passphraseDialogJS('PGPPersonal', $js_action) . ';return false;') . _("You must enter the passphrase for your PGP private key to view this message.") . '</a>';
+                            break;
+
+                        case 'mimp':
+                            $status[] = _("The message has been encrypted with PGP.");
+                            break;
                         }
                         return null;
                     }
@@ -219,6 +240,10 @@ class IMP_Horde_Mime_Viewer_pgp extends Horde_Mime_Viewer_Driver
 
         if (is_a($decrypted_data, 'PEAR_Error')) {
             $status[] = _("The message below does not appear to be a valid PGP encrypted message. Error: ") . $decrypted_data->getMessage();
+            if (!is_null($symmetric_pass)) {
+                $this->_imppgp->unsetPassphrase('symmetric', $this->_getSymmetricID());
+                return $this->_getEmbeddedMimeParts();
+            }
             return null;
         }
 
@@ -358,5 +383,15 @@ class IMP_Horde_Mime_Viewer_pgp extends Horde_Mime_Viewer_Driver
         return isset(self::$_inlinecache[$id])
             ? self::$_inlinecache[$id]
             : array();
+    }
+
+    /**
+     * Generates the symmetric ID for this message.
+     *
+     * @return string  Symmetric ID.
+     */
+    protected function _getSymmetricID()
+    {
+        return $this->_imppgp->getSymmetricID($this->_params['contents']->getMailbox(), $this->_params['contents']->getIndex(), $this->_mimepart->getMimeId());
     }
 }

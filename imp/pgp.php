@@ -14,30 +14,6 @@ function _printKeyInfo($key = '')
     _textWindowOutput('PGP Key Information', empty($key_info) ? _("Invalid key") : $key_info);
 }
 
-function _outputPassphraseDialog($secure_check, $symmetricid = null)
-{
-    if (is_a($secure_check, 'PEAR_Error')) {
-        $GLOBALS['notification']->push($secure_check, 'horde.warning');
-    }
-
-    $title = _("PGP Passphrase Input");
-    require IMP_TEMPLATES . '/common-header.inc';
-    IMP::status();
-
-    if (is_a($secure_check, 'PEAR_Error')) {
-        return;
-    }
-
-    $t = new IMP_Template();
-    $t->setOption('gettext', true);
-    $t->set('symmetricid', $symmetricid);
-    $t->set('submit_url', Util::addParameter(Horde::applicationUrl('pgp.php'), 'actionID', $symmetricid ? 'process_symmetric_passphrase_dialog' : 'process_passphrase_dialog'));
-    $t->set('reload', htmlspecialchars(Util::getFormData('reload')));
-    $t->set('action', Util::getFormData('passphrase_action'));
-    $t->set('locked_img', Horde::img('locked.png', _("PGP"), null, $GLOBALS['registry']->getImageDir('horde')));
-    echo $t->fetch(IMP_TEMPLATES . '/pgp/passphrase.html');
-}
-
 function _importKeyDialog($target)
 {
     $title = _("Import PGP Key");
@@ -272,54 +248,6 @@ case 'save_attachment_public_key':
     }
     exit;
 
-case 'open_passphrase_dialog':
-    if ($imp_pgp->getPassphrase('personal')) {
-        Util::closeWindowJS();
-    } else {
-        _outputPassphraseDialog($secure_check);
-    }
-    exit;
-
-case 'open_symmetric_passphrase_dialog':
-    $symmetricid = Util::getFormData('symmetricid');
-    if ($imp_pgp->getPassphrase('symmetric', $symmetricid)) {
-        Util::closeWindowJS();
-    } else {
-        _outputPassphraseDialog($secure_check, $symmetricid);
-    }
-    exit;
-
-case 'process_passphrase_dialog':
-case 'process_symmetric_passphrase_dialog':
-    $symmetric = $actionID == 'process_symmetric_passphrase_dialog';
-    $symmetricid = Util::getFormData('symmetricid');
-    $passphrase = Util::getFormData('passphrase');
-    if (is_a($secure_check, 'PEAR_Error')) {
-        _outputPassphraseDialog($secure_check, $symmetricid);
-    } elseif ($passphrase) {
-        $success = $imp_pgp->storePassphrase($symmetric ? 'symmetric' : 'personal', $passphrase, $symmetricid);
-
-        if ($success) {
-            if (Util::getFormData('passphrase_action')) {
-                $oid = Util::getFormData('passphrase_action');
-                $cacheSess = &Horde_SessionObjects::singleton();
-                $cacheSess->setPruneFlag($oid, true);
-                Util::closeWindowJS($cacheSess->query($oid));
-            } elseif (Util::getFormData('reload')) {
-                Util::closeWindowJS('opener.focus();opener.location.href="' . Util::getFormData('reload') . '";');
-            } else {
-                Util::closeWindowJS();
-            }
-        } else {
-            $notification->push("Invalid passphrase entered.", 'horde.error');
-            _outputPassphraseDialog($secure_check, $symmetricid);
-        }
-    } else {
-        $notification->push("No passphrase entered.", 'horde.error');
-        _outputPassphraseDialog($secure_check, $symmetricid);
-    }
-    exit;
-
 case 'unset_passphrase':
     $imp_pgp->unsetPassphrase('personal');
     $notification->push(_("Passphrase successfully unloaded."), 'horde.success');
@@ -417,7 +345,7 @@ if ($prefs->getValue('use_pgp')) {
             $t->set('sendkey', Horde::link(Util::addParameter($selfURL, 'actionID', 'send_public_key'), _("Send Key to Public Keyserver")));
             $t->set('personalkey-public-help', Help::link('imp', 'pgp-personalkey-public'));
             $passphrase = $imp_pgp->getPassphrase('personal');
-            $t->set('passphrase', (empty($passphrase)) ? Horde::link('#', _("Enter Passphrase"), null, null, htmlspecialchars($imp_pgp->getJSOpenWinCode('open_passphrase_dialog')) . ' return false;') . _("Enter Passphrase") : Horde::link(Util::addParameter($selfURL, 'actionID', 'unset_passphrase'), _("Unload Passphrase")) . _("Unload Passphrase"));
+            $t->set('passphrase', (empty($passphrase)) ? Horde::link('#', _("Enter Passphrase"), null, null, IMP::passphraseDialogJS('PGPPersonal') . ';return false;') . _("Enter Passphrase") : Horde::link(Util::addParameter($selfURL, 'actionID', 'unset_passphrase'), _("Unload Passphrase")) . _("Unload Passphrase"));
             $t->set('viewprivate', Horde::link(Util::addParameter($selfURL, 'actionID', 'view_personal_private_key'), _("View Personal Private Key"), null, 'view_key'));
             $t->set('infoprivate', Horde::link(Util::addParameter($selfURL, 'actionID', 'info_personal_private_key'), _("Information on Personal Private Key"), null, 'info_key'));
             $t->set('personalkey-private-help', Help::link('imp', 'pgp-personalkey-private'));

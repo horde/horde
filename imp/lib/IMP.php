@@ -1337,6 +1337,18 @@ class IMP
     }
 
     /**
+     * Do necessary escaping to output JSON in a HTML parameter.
+     *
+     * @param mixed $json  The data to JSON-ify.
+     *
+     * @return string  The escaped string.
+     */
+    static public function escapeJSON($json)
+    {
+        return '/*-secure-' . rawurlencode(Horde_Serialize::serialize($json, SERIALIZE_JSON, NLS::getCharset())) . '*/';
+    }
+
+    /**
      * Log login related message.
      *
      * @param string $status  Either 'login', 'logout', or 'failed'.
@@ -1918,5 +1930,46 @@ class IMP
         }
 
         return $cache;
+    }
+
+   /**
+     * Generate the JS code necessary to open a passphrase dialog. Adds the
+     * necessary JS files to open the dialog.
+     *
+     * @param string $type    The dialog type.
+     * @param string $action  The JS code to run after success. Defaults to
+     *                        reloading the current window.
+     * @param array $params   Any additiona parameters to pass.
+     *
+     * @return string  The generated JS code.
+     */
+    static public function passphraseDialogJS($type, $action = null,
+                                              $params = array())
+    {
+        Horde::addScriptFile('prototype.js', 'horde', true);
+        Horde::addScriptFile('effects.js', 'horde', true);
+        Horde::addScriptFile('encrypt.js', 'imp', true);
+        Horde::addScriptFile('redbox.js', 'imp', true);
+
+        switch ($type) {
+        case 'PGPPersonal':
+            $text = _("Enter your personal PGP passphrase.");
+            break;
+
+        case 'PGPSymmetric':
+            $text = _("Enter the passphrase used to encrypt this message.");
+            break;
+        }
+
+        $js_params = array(
+            'action' => $action ? 'function() {' . $action . '}' : '',
+            'uri' => Horde::applicationUrl('imp-dimp.php', true, -1) . '/' . $type,
+            'params' => $params,
+            'text' => $text,
+            'ok_text' => _("OK"),
+            'cancel_text' => _("Cancel")
+        );
+
+        return 'IMPEncrypt.display(\'' . IMP::escapeJSON($js_params) . '\')';
     }
 }

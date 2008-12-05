@@ -713,9 +713,9 @@ if ($pgp_passphrase_dialog || $pgp_symmetric_passphrase_dialog) {
     $imp_pgp = &Horde_Crypt::singleton(array('imp', 'pgp'));
     Horde::addScriptFile('popup.js', 'imp', true);
     if ($pgp_passphrase_dialog) {
-        $notification->push($imp_pgp->getJSOpenWinCode('open_passphrase_dialog', "opener.focus();opener.uniqSubmit('send_message');"), 'javascript');
+        $notification->push(IMP::passphraseDialogJS('PGPPersonal', 'uniqSubmit(\'send_message\')'), 'javascript');
     } else {
-        $notification->push($imp_pgp->getJSOpenWinCode('open_symmetric_passphrase_dialog', "opener.focus();opener.uniqSubmit('send_message');", array('symmetricid' => 'imp_compose_' . $composeCacheID)), 'javascript');
+        $notification->push(IMP::passphraseDialogJS('PGPSymmetric', 'uniqSubmit(\'send_message\')', array('symmetricid' => 'imp_compose_' . $composeCacheID)), 'javascript');
     }
 } elseif ($smime_passphrase_dialog) {
     $imp_smime = &Horde_Crypt::singleton(array('imp', 'smime'));
