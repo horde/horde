@@ -47,7 +47,7 @@ require_once 'Horde/Autoloader.php';
 Horde_Autoloader::addClassPattern('/^IMP_/', IMP_BASE . '/lib/');
 
 // Registry.
-$s_ctrl = null;
+$s_ctrl = 0;
 switch (Util::nonInputVar('session_control')) {
 case 'netscape':
     if ($browser->isBrowser('mozilla')) {
@@ -63,7 +63,7 @@ case 'readonly':
     $s_ctrl = HORDE_SESSION_READONLY;
     break;
 }
-$registry = &Registry::singleton();
+$registry = &Registry::singleton($s_ctrl);
 
 // Need to explicitly load IMP.php
 require_once IMP_BASE . '/lib/IMP.php';
