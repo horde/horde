@@ -1898,44 +1898,44 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $search = $search_query['query'];
         }
 
-        $this->_temp['threadresp'] = array();
+        $this->_temp['threadparse'] = array('base' => null, 'resp' => array());
         $this->_sendLine((empty($options['sequence']) ? 'UID ' : '') . 'THREAD ' . $tsort . ' ' . $charset . ' ' . $search);
 
-        return $this->_temp['threadresp'];
+        return $this->_temp['threadparse']['resp'];
     }
 
     /**
      * Parse a THREAD response (RFC 5256 [4]).
      *
      * @param array $data      An array of thread token data.
-     * @param boolean $islast  Is this the last item in the level?
      * @param integer $level   The current tree level.
+     * @param boolean $islast  Is this the last item in the level?
      */
     protected function _parseThread($data, $level = 0, $islast = true)
     {
-        $tb = &$this->_temp['threadbase'];
-        $tr = &$this->_temp['threadresp'];
+        $tp = &$this->_temp['threadparse'];
 
         if (!$level) {
-            $tb = null;
+            $tp['base'] = null;
         }
         $cnt = count($data) - 1;
 
         reset($data);
         while (list($key, $val) = each($data)) {
             if (is_array($val)) {
-                $this->_parseThread($val, $level, $cnt == $key);
+                $this->_parseThread($val, $level + 1, ($key == $cnt));
             } else {
-                if (is_null($tb) && ($level || $cnt)) {
-                    $tb = $val;
+                if (is_null($tp['base']) && ($level || $cnt)) {
+                    $tp['base'] = $val;
                 }
-                $tr[$val] = array(
-                    'base' => $tb,
+                $tp['resp'][$val] = array(
+                    'base' => $tp['base'],
                     'last' => $islast,
                     'level' => $level++,
                     'id' => $val
                 );
             }
+            $islast = true;
         }
     }
 
@@ -1952,7 +1952,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     {
         $dates = $this->_getSentDates($data, array_keys($data));
         $level = $sorted = $tsort = array();
-        $this->_temp['threadresp'] = array();
+        $this->_temp['threadparse'] = array('base' => null, 'resp' => array());
 
         reset($data);
         while(list($k, $v) = each($data)) {
@@ -1987,7 +1987,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $this->_parseThread($tmp);
         }
 
-        return $this->_temp['threadresp'];
+        return $this->_temp['threadparse']['resp'];
     }
 
     /**
