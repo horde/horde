@@ -61,7 +61,9 @@ class IMP_IMAP
         /* Only need to serialize object once a second. When we do serialize,
          * make sure we login in order to ensure we have done the necessary
          * initialization. */
-        if (!isset($_SESSION['imp']['imap_ob']) && $this->ob) {
+        if ($this->ob &&
+            isset($_SESSION['imp']) &&
+            !isset($_SESSION['imp']['imap_ob'])) {
             $this->ob->login();
             $_SESSION['imp']['imap_ob'] = serialize($this->ob);
         }
