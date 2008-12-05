@@ -1069,16 +1069,16 @@ class IMP
             );
         }
         if ($GLOBALS['prefs']->getValue('use_smime')) {
-            $enc_opts = array(
+            $enc_opts = array_merge($enc_opts, array(
                 self::SMIME_ENCRYPT => _("S/MIME Encrypt Message"),
                 self::SMIME_SIGN => _("S/MIME Sign Message"),
                 self::SMIME_SIGNENC => _("S/MIME Sign/Encrypt Message")
-            );
+            ));
         }
 
         $enc_opts = array_merge(array(self::ENCRYPT_NONE => _("No Encryption")), $enc_opts);
 
-        foreach ($enc_options as $key => $val) {
+        foreach ($enc_opts as $key => $val) {
              $output .= '<option value="' . $key . '"' . (($default == $key) ? ' selected="selected"' : '') . '>' . $val . '</option>' . "\n";
         }
 
