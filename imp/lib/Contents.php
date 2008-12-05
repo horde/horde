@@ -547,7 +547,7 @@ class IMP_Contents
 
         if ($mask & self::SUMMARY_DESCRIP_LINK) {
             $part['description'] = $this->canDisplay($id, self::RENDER_FULL)
-                ? $this->linkViewJS($mime_part, 'view_attach', htmlspecialchars($description), array('jstext' => sprintf(_("View %s [%s]"), $description, $mime_type), 'params' => $param_array))
+                ? $this->linkViewJS($mime_part, 'view_attach', htmlspecialchars($description), array('jstext' => sprintf(_("View %s"), $description), 'params' => $param_array))
                 : htmlspecialchars($description);
         } elseif ($mask & self::SUMMARY_DESCRIP_NOLINK) {
             $part['description'] = htmlspecialchars($description);
@@ -559,7 +559,7 @@ class IMP_Contents
         if ($is_atc &&
             ($mask & self::SUMMARY_DOWNLOAD) &&
             (is_null($part['bytes']) || $part['bytes'])) {
-            $part['download'] = $this->linkView($mime_part, 'download_attach', '', array('class' => 'downloadAtc', 'dload' => true, 'jstext' => sprintf(_("Download %s"), $description)));
+            $part['download'] = $this->linkView($mime_part, 'download_attach', '', array('class' => 'downloadAtc', 'dload' => true, 'jstext' => _("Download")));
         }
 
         /* Display the compressed download link only if size is greater
