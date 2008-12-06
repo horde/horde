@@ -286,7 +286,7 @@
         // use 99% max so the last photo upload doesn't make the progress bar look finished
         // (Thanks to Facebook exporter for this tip and code)
         double progressPercent = (double) 99. * (i+1) / count;
-        [self postProgressStatus: [NSString stringWithFormat: @"Uploading photo %d out of %d", (i+1), count]];
+
         [progressController performSelectorOnMainThread: @selector(setPercent:) 
                                              withObject: [NSNumber numberWithDouble: progressPercent]
                                           waitUntilDone: NO];
@@ -314,10 +314,12 @@
                 break;
         }
         
+        
+        [self postProgressStatus: [NSString stringWithFormat: @"Resizing image %d out of %d", (i+1), count]];
         NSData *scaledData = [ImageResizer getScaledImageFromData: theImage
                                                            toSize: NSMakeSize(imageSize, imageSize)];
 
-        
+        [self postProgressStatus: [NSString stringWithFormat: @"Encoding image %d out of %d", (i+1), count]];
         NSString *base64ImageData = [NSString base64StringFromData: scaledData  
                                                             length: [scaledData length]];
         
@@ -347,6 +349,7 @@
                                 nil];
         
         //Start upload with current gallery.
+        [self postProgressStatus: [NSString stringWithFormat: @"Uploading photo %d out of %d", (i+1), count]];
         [currentGallery uploadImageObject: params];
         [keys release];
         [values release];
