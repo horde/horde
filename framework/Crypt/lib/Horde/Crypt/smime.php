@@ -176,9 +176,8 @@ class Horde_Crypt_smime extends Horde_Crypt
         $output = $this->_createTempFile('horde-smime');
 
         /* Write text to file */
-        $fp = fopen($input, 'w+');
-        fwrite($fp, $text);
-        fclose($fp);
+        file_put_contents($input, $text);
+        unset($text);
 
         $root_certs = array();
         if (!is_array($certs)) {
@@ -231,30 +230,26 @@ class Horde_Crypt_smime extends Horde_Crypt
      */
     public function extractSignedContents($data, $sslpath)
     {
-        $pipes_desc = array(
-            0 => array('pipe', 'r'),
-            1 => array('pipe', 'w')
-        );
-
-        $fp = proc_open($sslpath . ' smime -verify -noverify -nochain', $pipes_desc, $pipes);
-        if (!is_resource($fp)) {
-            return PEAR::raiseError(_("OpenSSL error: Could not extract data from signed S/MIME part."), 'horde.error');
+        /* Check for availability of OpenSSL PHP extension. */
+        $openssl = $this->checkForOpenSSL();
+        if (is_a($openssl, 'PEAR_Error')) {
+            return $openssl;
         }
 
-        $output = '';
+        /* Create temp files for input/output. */
+        $input = $this->_createTempFile('horde-smime');
+        $output = $this->_createTempFile('horde-smime');
 
-        /* $pipes[0] => writeable handle connected to child stdin
-           $pipes[1] => readable handle connected to child stdout */
-        fwrite($pipes[0], $data);
-        fclose($pipes[0]);
+        /* Write text to file. */
+        file_put_contents($input, $data);
+        unset($data);
 
-        while (!feof($pipes[1])) {
-            $output .= fgets($pipes[1], 1024);
-        }
-        fclose($pipes[1]);
-        proc_close($fp);
+        exec($sslpath . ' smime -verify -noverify -nochain -in ' . $input . ' -out ' . $output);
 
-        return $output;
+        $ret = file_get_contents($output);
+        return $ret
+            ? $ret
+            : PEAR::raiseError(_("OpenSSL error: Could not extract data from signed S/MIME part."), 'horde.error');
     }
 
     /**
@@ -366,9 +361,8 @@ class Horde_Crypt_smime extends Horde_Crypt
         $output = $this->_createTempFile('horde-smime');
 
         /* Store message in file. */
-        $fp1 = fopen($input, 'w+');
-        fputs($fp1, $text);
-        fclose($fp1);
+        file_put_contents($input, $text);
+        unset($text);
 
         if (isset($params['email'])) {
             $email = $params['email'];
@@ -432,15 +426,12 @@ class Horde_Crypt_smime extends Horde_Crypt
         $certs = $this->_createTempFile('horde-smime');
 
         /* Store message in temporary file. */
-        $fp = fopen($input, 'w+');
-        fputs($fp, $text);
-        fclose($fp);
+        file_put_contents($input, $text);
+        unset($text);
 
         /* Store additional certs in temporary file. */
         if (!empty($params['certs'])) {
-            $fp = fopen($certs, 'w+');
-            fputs($fp, $params['certs']);
-            fclose($fp);
+            file_put_contents($certs, $params['certs']);
         }
 
         /* Determine the signature type to use. */
@@ -504,9 +495,8 @@ class Horde_Crypt_smime extends Horde_Crypt
         $output = $this->_createTempFile('horde-smime');
 
         /* Store message in file. */
-        $fp = fopen($input, 'w+');
-        fputs($fp, trim($text));
-        fclose($fp);
+        file_put_contents($input, $text);
+        unset($text);
 
         $privkey = (is_null($params['passphrase'])) ? $params['privkey'] : array($params['privkey'], $params['passphrase']);
         if (openssl_pkcs7_decrypt($input, $output, $params['pubkey'], $privkey)) {
@@ -1298,9 +1288,8 @@ class Horde_Crypt_smime extends Horde_Crypt
         $ob = new stdClass;
 
         /* Write text to file */
-        $fp = fopen($input, 'w+');
-        fwrite($fp, $pkcs12);
-        fclose($fp);
+        file_put_contents($input, $pkcs12);
+        unset($pkcs12);
 
         /* Extract the private key from the file first. */
         $cmdline = $sslpath . ' pkcs12 -in ' . $input . ' -out ' . $output . ' -nocerts';
