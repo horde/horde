@@ -122,6 +122,19 @@ function _getPollInformation($mbox)
     return array();
 }
 
+function _getQuota()
+{
+    if (isset($_SESSION['imp']['quota']) &&
+        is_array($_SESSION['imp']['quota'])) {
+        $quotadata = IMP::quotaData(false);
+        if (!empty($quotadata)) {
+            return array('p' => round($quotadata['percent']), 'm' => $quotadata['message']);
+        }
+    }
+
+    return null;
+}
+
 // Need to load Util:: to give us access to Util::getPathInfo().
 if (!defined('HORDE_BASE')) {
     define('HORDE_BASE', dirname(__FILE__) . '/..');
@@ -272,6 +285,11 @@ case 'MarkFolderUnseen':
 case 'ListFolders':
     $imptree = &IMP_IMAP_Tree::singleton();
     $result = DIMP::getFolderResponse($imptree, array('a' => $imptree->folderList(IMP_IMAP_TREE::FLIST_CONTAINER | IMP_IMAP_TREE::FLIST_VFOLDER), 'c' => array(), 'd' => array()));
+
+    $quota = _getQuota();
+    if (!is_null($quota)) {
+        $result['quota'] = $quota;
+    }
     break;
 
 case 'PollFolders':
@@ -296,12 +314,9 @@ case 'PollFolders':
         $result->viewport = _getListMessages($folder, true);
     }
 
-    if (isset($_SESSION['imp']['quota']) &&
-        is_array($_SESSION['imp']['quota'])) {
-        $quotadata = IMP::quotaData(false);
-        if (!empty($quotadata)) {
-            $result->quota = array('p' => round($quotadata['percent']), 'm' => $quotadata['message']);
-        }
+    $quota = _getQuota();
+    if (!is_null($quota)) {
+        $result->quota = $quota;
     }
     break;
 

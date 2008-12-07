@@ -35,12 +35,10 @@ $has_whitelist = $registry->hasMethod('mail/whitelistFrom');
 // Sidebar width
 $sidebar_width = max((int)$prefs->getValue('sidebar_width') - 50, 150) . 'px';
 
-if (isset($_SESSION['imp']['quota']) && is_array($_SESSION['imp']['quota'])) {
-    $quotadata = IMP::quotaData(false);
-    if (!empty($quotadata)) {
-        $quota_img = Horde::img('quotauncover.gif', '', array('width' => round(99 - $quotadata['percent']), 'height' => 10));
-    }
-}
+// Quota information
+$quota_img = (isset($_SESSION['imp']['quota']) && is_array($_SESSION['imp']['quota']))
+    ? Horde::img('quotauncover.gif', '', array('width' => 0, 'height' => 10))
+    : null;
 
 // Small utility functions to simplify creating dimpactions buttons.
 // As of right now, we don't show text only links.
@@ -163,18 +161,16 @@ function _simpleButton($id, $text, $image, $imagedir = null)
          <a id="tab<?php echo $key ?>"><img src="<?php echo $menu_item['icon'] ?>" alt="<?php echo $menu_item['text'] ?>" /><?php echo $menu_item['text'] ?></a>
         </li>
 <?php endforeach; ?>
-<?php if (!empty($quotadata)): ?>
+<?php if (!empty($quota_img)): ?>
         <li id="quota">
          <span class="used"><?php echo $quota_img ?></span>
-         <?php echo $quotadata['message'] ?>
         </li>
 <?php endif; ?>
        </ul>
       </div>
-<?php elseif (!empty($quotadata)): ?>
+<?php elseif (!empty($quota_img)): ?>
       <div id="quota">
        <span class="used"><?php echo $quota_img ?></span>
-       <?php echo $quotadata['message'] ?>
       </div>
 <?php endif; ?>
      </div>

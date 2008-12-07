@@ -1021,11 +1021,16 @@ var DimpBase = {
             });
         }
         if (r.quota) {
-            q = $('quota').cleanWhitespace();
-            q.setText(r.quota.m);
-            q.down('SPAN.used IMG').writeAttribute({ width: 99 - r.quota.p });
+            this._displayQuota(r.quota);
         }
         $('checkmaillink').down('A').update(DIMP.text.getmail);
+    },
+
+    _displayQuota: function(r)
+    {
+        q = $('quota').cleanWhitespace();
+        q.setText(r.m);
+        q.down('SPAN.used IMG').writeAttribute({ width: 99 - r.p });
     },
 
     setPollFolders: function()
@@ -1497,6 +1502,10 @@ var DimpBase = {
              (nf.getStyle('height') == '0px'))) {
             this._sizeFolderlist();
             Event.observe(window, 'resize', this._sizeFolderlist.bind(this));
+        }
+
+        if (r.response.quota) {
+            this._displayQuota(r.response.quota);
         }
     },
 
