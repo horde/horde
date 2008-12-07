@@ -36,14 +36,10 @@
     IBOutlet NSWindow *newGallerySheet;
     IBOutlet NSImageView *defaultImageView;
 
-
     // New Gallery Panel
     IBOutlet NSTextField *galleryNameTextField;
     IBOutlet NSTextField *gallerySlugTextField;
     IBOutlet NSTextField *galleryDescTextField;
-    
-    // User choosen settings
-    int size;
         
     // Progress struct (This one is part of the protocol, but we don't use it)
     ExportPluginProgress progress;
@@ -64,8 +60,8 @@
     TURAnselGallery *currentGallery;
     int currentImageCount;
 }
+
 @property (readwrite, retain) TURAnselGallery *currentGallery;
-@property (readwrite) int size;
 
 // Getter/setter
 - (NSWindow *)window;

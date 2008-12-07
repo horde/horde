@@ -92,21 +92,6 @@
     }
 }
 
-#pragma mark Response parsers called from the delegate method ------------------
-//- (void)parseImageUrlRequest: (XMLRPCResponse *)response
-//{
-//    [self setState:TURAnselGalleryStateReady];
-//    NSLog(@"Image URL For Gallery Preview: %@",[response responseObject]);
-//    NSString *url = [NSString stringWithFormat:@"%@", [response responseObject]];
-//    NSURL *imageURL = [NSURL URLWithString:url];
-//    galleryDefaultImageURL = [imageURL retain]; 
-//    
-//    if ([delegate respondsToSelector:@selector(TURAnselGalleryDidReceiveDefaultURL:)]) {
-//        [delegate TURAnselGalleryDidReceiveDefaultURL: self];
-//    }
-//    
-//}
-
 #pragma mark Getter/Setter------------------------------------------------------
 - (int)galleryId
 {

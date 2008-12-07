@@ -22,7 +22,6 @@
 
 @implementation AnselExportController
 
-@synthesize size;
 @synthesize currentGallery;
 
 #pragma mark Overrides
@@ -441,7 +440,6 @@
 - (void)TURAnselHadError: (NSError *)error
 {
     NSAlert *alert;
-    
     // For some reason, this method doesn't pick up our userInfo dictionary...
     if ([[error userInfo] valueForKey:@"NSLocalizedDescriptionKey"] == nil) {
         alert = [[NSAlert alertWithError: error] retain];
@@ -465,7 +463,6 @@
 
 #pragma mark TURAnselGalleryDelegate
 - (void)TURAnselGalleryDidUploadImage: (TURAnselGallery *)gallery {
-    NSLog(@"TURAnselGalleryDidUploadImage");
     if (++currentImageCount == [mExportMgr imageCount] || cancelExport == YES) {
         [currentGallery setDelegate:nil];
         [currentGallery release];
@@ -487,10 +484,5 @@
     [defaultImageView setImage: theImage];
     [theImage release];
     [self canExport];
-}
-
-- (void)sheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo;
-{
-    NSLog(@"sheetDidEnd");
 }
 @end
