@@ -67,6 +67,7 @@ case 'do_search':
     /* Need to convert size from KB to bytes. */
     for ($i = 0; $i <= $search['field_end']; $i++) {
         if (isset($search['field'][$i]) &&
+            isset($imp_search_fields[$search['field'][$i]) &&
             ($imp_search_fields[$search['field'][$i]]['type'] == IMP_Search::SIZE)) {
             $search['text'][$i] *= 1024;
         }
