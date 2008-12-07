@@ -48,9 +48,9 @@ function _doConnectionTest()
         try {
             $namespaces = $imap_client->getNamespaces();
             foreach ($namespaces as $val) {
-                echo "NAMESPACE: \"" . $val['name'] . "\"\n";
-                echo "DELIMITER: " . $val['delimiter'] . "\n";
-                echo "TYPE: " . $val['type'] . "\n\n";
+                echo "NAMESPACE: \"" . htmlspecialchars($val['name']) . "\"\n";
+                echo "DELIMITER: " . htmlspecialchars($val['delimiter']) . "\n";
+                echo "TYPE: " . htmlspecialchars($val['type']) . "\n\n";
             }
         } catch (Horde_Imap_Client_Exception $e) {
             _errorMsg($e);
@@ -60,7 +60,7 @@ function _doConnectionTest()
             "<blockquote><em>IMAP server capabilities:</em><blockquote><pre>";
 
         try {
-            print_r($capability = $imap_client->capability());
+            echo htmlspecialchars(print_r($imap_client->capability(), true));
         } catch (Horde_Imap_Client_Exception $e) {
             _errorMsg($e);
         }
@@ -72,7 +72,7 @@ function _doConnectionTest()
             if (!empty($id_info)) {
                 echo "<blockquote><em>IMAP server information:</em><blockquote><pre>";
                 foreach ($id_info as $key => $val) {
-                    echo "$key:  $val\n";
+                    echo htmlspecialchars("$key:  $val") . "\n";
                 }
                 echo "</pre></blockquote></blockquote>\n";
             }
