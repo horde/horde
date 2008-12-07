@@ -48,9 +48,6 @@
  * Requests the gallery's default image url to be fetched from the server
  * (This information is not present in the gallery definition array returned
  *  from the images.listGalleries call). 
- *  
- * This tells the anselController to send the request and sets this object up
- * as the delegate to receive the results. 
  */
 - (NSURL *)galleryDefaultImageURL
 {
