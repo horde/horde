@@ -100,9 +100,9 @@
         
         [NSApp beginSheet: newGallerySheet
            modalForWindow: [self window]
-            modalDelegate: self
-           didEndSelector: @selector(sheetDidEnd:returnCode:contextInfo:)
-              contextInfo: self];
+            modalDelegate: nil
+           didEndSelector: nil
+              contextInfo: nil];
     }
 }
 
