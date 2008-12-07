@@ -626,7 +626,7 @@ var DimpBase = {
             break;
 
         case 'ctx_otheractions':
-            $('oa_seen', 'oa_unseen', 'oa_flagged', 'oa_clear', 'oa_sep1', 'oa_blacklist', 'oa_whitelist', 'oa_sep2').compact().invoke(this.viewport.getSelected().size() ? 'show' : 'hide');
+            $('oa_seen', 'oa_unseen', 'oa_flagged', 'oa_clear', 'oa_sep1', 'oa_blacklist', 'oa_whitelist', 'oa_sep2', 'oa_undeleted').compact().invoke(this.viewport.getSelected().size() ? 'show' : 'hide');
             break;
         }
         return true;
@@ -2004,7 +2004,7 @@ var DimpBase = {
             C({ d: $('ctx_forward_' + a), f: this.composeMailbox.bind(this, a), ns: true });
         }, this);
         C({ d: $('previewtoggle'), f: this.togglePreviewPane.bind(this), ns: true });
-        [ 'seen', 'unseen', 'flagged', 'clear', 'blacklist', 'whitelist' ].each(function(a) {
+        [ 'seen', 'unseen', 'flagged', 'clear', 'blacklist', 'whitelist', 'undeleted' ].each(function(a) {
             var d = $('oa_' + a);
             if (d) {
                 C({ d: d, f: this.flag.bind(this, a), ns: true });

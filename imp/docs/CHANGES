@@ -2,6 +2,7 @@
 v5.0-cvs
 --------
 
+[mms] Add 'undelete' to Other Actions menu (Bug #7496) (DIMP).
 [mms] PGP functions now work in DIMP (Bug #5388).
 [mms] Encrypted bodytext now appears when replying/forwarding a message
       (Request #1345).

@@ -442,9 +442,10 @@ function _simpleButton($id, $text, $image, $imagedir = null)
  <div class="sep" id="oa_sep2"></div>
 <?php endif; ?>
  <a id="oa_selectall"><?php echo $tick . _("Select All") ?></a>
-<?php if (!$prefs->getValue('use_trash')): ?>
+<?php if (!$usetrash): ?>
  <div class="sep"></div>
  <a id="oa_purge_deleted"><?php echo $delete . _("Purge Deleted") ?></a>
+ <a id="oa_undeleted"><?php echo $delete . _("Undelete") ?></a>
 <?php endif; ?>
 </div>
 
