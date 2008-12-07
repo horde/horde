@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8D5B49B0048680CD000E48DA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C167DFE841241C02AAC07 /* InfoPlist.strings */; };
 		8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
+		B04FC1A90EEB4A2B008EEB0E /* AnselGalleryPanel.nib in Resources */ = {isa = PBXBuildFile; fileRef = B04FC1A70EEB4A2B008EEB0E /* AnselGalleryPanel.nib */; };
 		B05C4A060EE9E001005B4B28 /* ImageResizer.m in Sources */ = {isa = PBXBuildFile; fileRef = B05C4A050EE9E001005B4B28 /* ImageResizer.m */; };
 		B06C1E030EB1644600BFAFCB /* AnselExportPluginBox.m in Sources */ = {isa = PBXBuildFile; fileRef = B06C1E020EB1644600BFAFCB /* AnselExportPluginBox.m */; };
 		B06C1E060EB164D900BFAFCB /* AnselExportController.m in Sources */ = {isa = PBXBuildFile; fileRef = B06C1E050EB164D900BFAFCB /* AnselExportController.m */; };
@@ -73,6 +74,7 @@
 		8D5B49B6048680CD000E48DA /* iPhoto2Ansel.iPhotoExporter */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iPhoto2Ansel.iPhotoExporter; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D5B49B7048680CD000E48DA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B03D3B590ED5BB3800CF5B92 /* XMLRPC-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "XMLRPC-Info.plist"; sourceTree = SOURCE_ROOT; };
+		B04FC1A80EEB4A2B008EEB0E /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/AnselGalleryPanel.nib; sourceTree = "<group>"; };
 		B05C4A040EE9E001005B4B28 /* ImageResizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageResizer.h; sourceTree = "<group>"; };
 		B05C4A050EE9E001005B4B28 /* ImageResizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageResizer.m; sourceTree = "<group>"; };
 		B06C1E010EB1644600BFAFCB /* AnselExportPluginBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnselExportPluginBox.h; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 				089C167CFE841241C02AAC07 /* Resources */,
 				089C1671FE841209C02AAC07 /* Frameworks and Libraries */,
 				19C28FB8FE9D52D311CA2CBB /* Products */,
+				B04FC1A70EEB4A2B008EEB0E /* AnselGalleryPanel.nib */,
 			);
 			name = iPhoto2Ansel;
 			sourceTree = "<group>";
@@ -372,6 +375,7 @@
 				8D5B49B0048680CD000E48DA /* InfoPlist.strings in Resources */,
 				B06C1E3D0EB17E3700BFAFCB /* Panel.nib in Resources */,
 				B0C888490ED85DEA000E19FB /* ProgressSheet.nib in Resources */,
+				B04FC1A90EEB4A2B008EEB0E /* AnselGalleryPanel.nib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -433,6 +437,14 @@
 				089C167EFE841241C02AAC07 /* English */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		B04FC1A70EEB4A2B008EEB0E /* AnselGalleryPanel.nib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B04FC1A80EEB4A2B008EEB0E /* English */,
+			);
+			name = AnselGalleryPanel.nib;
 			sourceTree = "<group>";
 		};
 		B0BFBC870ED5B32B006581A5 /* Localizable.strings */ = {

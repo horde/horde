@@ -11,6 +11,7 @@
 
 @class TURAnsel, TURAnselGallery;
 @class FBProgressController;
+@class TURNewGalleryController;
 
 @interface AnselExportController : NSObject <ExportPluginProtocol> {
 
@@ -29,19 +30,28 @@
     IBOutlet NSSecureTextField *password;
     IBOutlet NSComboBox *galleryCombo;
     IBOutlet NSTextField *connectedLabel;
-    IBOutlet NSTextField *newGalleryName;
     IBOutlet NSButton *beginButton;
     IBOutlet NSButton *newGalleryButton;
     IBOutlet NSProgressIndicator *spinner;
+    IBOutlet NSWindow *newGallerySheet;
+
+    // New Gallery Panel
+    IBOutlet NSTextField *galleryNameTextField;
+    IBOutlet NSTextField *gallerySlugTextField;
+    IBOutlet NSTextField *galleryDescTextField;
+    
     // User choosen settings
     int size;
-    int quality;
-    
+        
     // Progress struct (This one is part of the protocol, but we don't use it)
     ExportPluginProgress progress;
     
     // This is our real progress controller (stolen from Facebook exporter).
     FBProgressController *progressController;
+    
+    // New Gallery dialog controller (Can't get this to work with the modal
+    // iPhoto plugin interface??)
+    //TURNewGalleryController *newGalleryController;
     
     // Mutex lock (required for the protocol, but not used)
     NSRecursiveLock *progressLock;
@@ -54,11 +64,15 @@
 }
 @property (readwrite, retain) TURAnselGallery *currentGallery;
 @property (readwrite) int size;
-@property (readwrite) int quality;
 
+// Getter/setter
 - (NSWindow *)window;
+
+// Actions
 - (IBAction) doConnect: (id)sender;
 - (IBAction) doNewGallery: (id)sender;
+- (IBAction) showNewGallery: (id)sender;
+- (IBAction) cancelNewGallery: (id)sender;
 
 // overrides
 - (void)awakeFromNib;

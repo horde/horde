@@ -5,9 +5,10 @@
 //  Created by Michael Rubinsky on 10/23/08.
 //  Copyright 2008 __MyCompanyName__. All rights reserved.
 //
-#import "TURAnsel.h"
-#import "TURAnselGallery.h"
-#import "AnselExportController.h"
+#import "TURAnsel.h";
+#import "TURAnselGallery.h";
+#import "TURNewGalleryController.h";
+#import "AnselExportController.h";
 #import "FBProgressController.h";
 #import "ImageResizer.h";
 
@@ -23,7 +24,6 @@
 @implementation AnselExportController
 
 @synthesize size;
-@synthesize quality;
 @synthesize currentGallery;
 
 #pragma mark Overrides
@@ -77,16 +77,41 @@
 }
 
 
-//TODO
--(void)doNewGallery: (id)sender
+// Start the process of creating a new gallery. This is called from an action
+// from the newGallerySheet NSPanel.
+- (void)doNewGallery: (id)sender
+{
+    [NSApplication detachDrawingThread: @selector(newGallery)
+                              toTarget: self 
+                            withObject:nil]; 
+}
+
+// Put up the newGallerySheet NSPanel
+- (IBAction)showNewGallery: (id)sender
 {
     // Make sure we're not doing this for nothing
-    if ([anselController state] == TURAnselStateConnected &&
-        [[newGalleryName stringValue] length] > 0) {
-        [NSApplication detachDrawingThread: @selector(newGallery:)
-                                  toTarget: self 
-                                withObject: [newGalleryName stringValue]];
+    if ([anselController state] == TURAnselStateConnected) {
+        
+        if (!newGallerySheet) {
+            
+            [NSBundle loadNibNamed: @"AnselGalleryPanel"
+                             owner: self];
+        
+            [galleryNameTextField setStringValue:@"Untitled"];
+        }
+        
+        [NSApp beginSheet: newGallerySheet
+           modalForWindow: [self window]
+            modalDelegate: self
+           didEndSelector: @selector(sheetDidEnd:returnCode:contextInfo:)
+              contextInfo: self];
     }
+}
+
+- (IBAction)cancelNewGallery: (id)sender
+{
+    [NSApp endSheet: newGallerySheet];
+    [newGallerySheet orderOut: nil];
 }
 
 #pragma mark ExportPluginProtocol
@@ -204,6 +229,51 @@
 
 #pragma mark PrivateAPI
 
+- (void)newGallery
+{
+    // Get Gallery Properties from the panel.
+    NSString *galleryName = [galleryNameTextField stringValue];
+    NSString *gallerySlug = [gallerySlugTextField stringValue];
+    NSString *galleryDescription = [galleryDescTextField stringValue];
+    
+    if (!galleryName) {
+        NSAlert *alert = [[NSAlert alloc] init];
+        [alert setMessageText:@"Gallery names cannot be empty"];
+        [alert setAlertStyle: NSCriticalAlertStyle];
+        [alert beginSheetModalForWindow: [self window]
+                          modalDelegate: nil 
+                         didEndSelector: nil
+                            contextInfo: nil];
+        [alert release];
+        return;
+    }
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                            galleryName, @"name",
+                            gallerySlug, @"slug",
+                            galleryDescription, @"desc", nil];
+    
+    NSDictionary *results = [[anselController createNewGallery: params] retain];
+    
+    [NSApp endSheet: newGallerySheet];
+    [newGallerySheet orderOut: nil];
+    
+    if ([anselController state] != TURAnselStateError) {
+        NSAlert *alert = [[NSAlert alloc] init];
+        [alert setMessageText: @"Gallery successfully created."];
+        [alert beginSheetModalForWindow: [self window]
+                          modalDelegate: nil
+                         didEndSelector: nil
+                            contextInfo: nil];
+        
+        // Reload the NSComboBox and autoselect the last item.
+        [galleryCombo reloadData];
+        [galleryCombo selectItemAtIndex: [galleryCombo numberOfItems] - 1];
+        [alert release];
+    }
+    
+    [results release];
+}
+
 // See if we have everything we need to export...
 - (void)canExport
 {
@@ -247,29 +317,6 @@
     [NSApplication detachDrawingThread: @selector(runExport) 
                               toTarget: self
                             withObject: nil];
-}
-
-// Create a new gallery on the Horde server
-// TODO
-- (void)newGallery: (NSString *)galleryName
-{    
-    NSDictionary *results = [[anselController createNewGallery: [NSDictionary dictionaryWithObjectsAndKeys: galleryName, @"name", nil]] retain];
-    
-    if ([anselController state] != TURAnselStateError) {
-        NSAlert *alert = [[NSAlert alloc] init];
-        [alert setMessageText: @"Gallery successfully created."];
-        [alert beginSheetModalForWindow: [self window]
-                          modalDelegate: nil
-                         didEndSelector: nil
-                            contextInfo: nil];
-        
-        // Reload the NSComboBox and autoselect the last item.
-        [galleryCombo reloadData];
-        [galleryCombo selectItemAtIndex: [galleryCombo numberOfItems] - 1];
-        [alert release];
-    }
-    
-    [results release];
 }
         
 // Runs the actual export (This is run in it's own thread)
@@ -439,5 +486,10 @@
     NSLog(@"The selected gallery: %@", currentGallery);
     [currentGallery setDelegate: self];
     [self canExport];
+}
+
+- (void)sheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo;
+{
+    NSLog(@"sheetDidEnd");
 }
 @end

@@ -20,9 +20,13 @@
 		<dict>
 			<key>ACTIONS</key>
 			<dict>
+				<key>cancelNewGallery</key>
+				<string>id</string>
 				<key>doConnect</key>
 				<string>id</string>
 				<key>doNewGallery</key>
+				<string>id</string>
+				<key>showNewGallery</key>
 				<string>id</string>
 			</dict>
 			<key>CLASS</key>
@@ -41,6 +45,12 @@
 				<string>NSControl</string>
 				<key>galleryCombo</key>
 				<string>NSComboBox</string>
+				<key>galleryDescTextField</key>
+				<string>NSTextField</string>
+				<key>galleryNameTextField</key>
+				<string>NSTextField</string>
+				<key>gallerySlugTextField</key>
+				<string>NSTextField</string>
 				<key>galleryTableView</key>
 				<string>NSTableView</string>
 				<key>mExportMgr</key>
@@ -51,10 +61,12 @@
 				<string>NSBox</string>
 				<key>mSizePopUp</key>
 				<string>NSPopUpButton</string>
+				<key>newGallery</key>
+				<string>NSPanel</string>
 				<key>newGalleryButton</key>
 				<string>NSButton</string>
-				<key>newGalleryName</key>
-				<string>NSTextField</string>
+				<key>newGallerySheet</key>
+				<string>NSWindow</string>
 				<key>password</key>
 				<string>NSSecureTextField</string>
 				<key>spinner</key>
