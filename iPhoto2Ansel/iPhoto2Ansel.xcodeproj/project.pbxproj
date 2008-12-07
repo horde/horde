@@ -40,6 +40,7 @@
 		B0BFBCAA0ED5B32B006581A5 /* XMLRPCResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = B0BFBC960ED5B32B006581A5 /* XMLRPCResponse.m */; };
 		B0C888490ED85DEA000E19FB /* ProgressSheet.nib in Resources */ = {isa = PBXBuildFile; fileRef = B0C888480ED85DEA000E19FB /* ProgressSheet.nib */; };
 		B0C8884E0ED85E02000E19FB /* FBProgressController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0C8884D0ED85E02000E19FB /* FBProgressController.m */; };
+		B0CCED420EEC6E810012D3D3 /* TURAnselGalleryPanelController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0CCED410EEC6E810012D3D3 /* TURAnselGalleryPanelController.m */; };
 		B0DF843C0EE9E6EB000DAA9E /* QuickTime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0DF843B0EE9E6EB000DAA9E /* QuickTime.framework */; };
 /* End PBXBuildFile section */
 
@@ -114,6 +115,8 @@
 		B0C888480ED85DEA000E19FB /* ProgressSheet.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = ProgressSheet.nib; sourceTree = "<group>"; };
 		B0C8884C0ED85E02000E19FB /* FBProgressController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBProgressController.h; sourceTree = "<group>"; };
 		B0C8884D0ED85E02000E19FB /* FBProgressController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBProgressController.m; sourceTree = "<group>"; };
+		B0CCED400EEC6E810012D3D3 /* TURAnselGalleryPanelController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TURAnselGalleryPanelController.h; sourceTree = "<group>"; };
+		B0CCED410EEC6E810012D3D3 /* TURAnselGalleryPanelController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TURAnselGalleryPanelController.m; sourceTree = "<group>"; };
 		B0DF843B0EE9E6EB000DAA9E /* QuickTime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickTime.framework; path = /System/Library/Frameworks/QuickTime.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
@@ -238,6 +241,8 @@
 		B00076DE0EBA573900A95FC0 /* AnselToolkit */ = {
 			isa = PBXGroup;
 			children = (
+				B0CCED400EEC6E810012D3D3 /* TURAnselGalleryPanelController.h */,
+				B0CCED410EEC6E810012D3D3 /* TURAnselGalleryPanelController.m */,
 				B07D426C0EC230B100B59765 /* TURAnsel.h */,
 				B07D426D0EC230B100B59765 /* TURAnsel.m */,
 				B07D426E0EC230B100B59765 /* TURAnselGallery.h */,
@@ -403,6 +408,7 @@
 				B07D44F70EC2AEC700B59765 /* TURXMLConnection.m in Sources */,
 				B0C8884E0ED85E02000E19FB /* FBProgressController.m in Sources */,
 				B05C4A060EE9E001005B4B28 /* ImageResizer.m in Sources */,
+				B0CCED420EEC6E810012D3D3 /* TURAnselGalleryPanelController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
