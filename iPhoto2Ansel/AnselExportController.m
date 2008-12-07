@@ -7,7 +7,6 @@
 //
 #import "TURAnsel.h";
 #import "TURAnselGallery.h";
-#import "TURNewGalleryController.h";
 #import "AnselExportController.h";
 #import "FBProgressController.h";
 #import "ImageResizer.h";
@@ -483,8 +482,10 @@
     [currentGallery setDelegate:nil];
     [currentGallery autorelease];
     currentGallery = [[anselController getGalleryByIndex:row] retain];
-    NSLog(@"The selected gallery: %@", currentGallery);
     [currentGallery setDelegate: self];
+    NSImage *theImage = [[NSImage alloc] initWithContentsOfURL: [currentGallery galleryDefaultImageURL]];
+    [defaultImageView setImage: theImage];
+    [theImage release];
     [self canExport];
 }
 

@@ -34,6 +34,8 @@
     IBOutlet NSButton *newGalleryButton;
     IBOutlet NSProgressIndicator *spinner;
     IBOutlet NSWindow *newGallerySheet;
+    IBOutlet NSImageView *defaultImageView;
+
 
     // New Gallery Panel
     IBOutlet NSTextField *galleryNameTextField;

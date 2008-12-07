@@ -18,7 +18,6 @@ typedef enum {
 @interface NSObject (TURAnselGalleryDelegate)
 - (void)TURAnselGalleryDidReceiveRPCResponse: (XMLRPCResponse *)response;
 - (void)TURAnselGalleryDidUploadImage: (TURAnselGallery *)gallery;
-- (void)TURAnselGalleryDidReceiveDefaultURL: (TURAnselGallery *)gallery;
 @end
 
 @interface TURAnselGallery : NSObject {
@@ -36,17 +35,17 @@ typedef enum {
 @property (readonly) NSString *galleryDescription;
 @property (readonly) int galleryImageCount;
 @property (readwrite) int galleryDefaultImage;
-@property (readonly, retain) NSURL *galleryDefaultImageURL;
 
 - (id)initWithObject:(id)galleryData controller:(TURAnsel * )controller;
-- (int)galleryId;
-- (void)requestDefaultImageURL;
-- (void)parseImageUrlRequest:(XMLRPCResponse *)response;
 - (void)uploadImageObject: (NSDictionary *)imageParameters;
+- (bool)isBusy;
+
+// Getter / Setter
 - (void)setDelegate: (id)newDelegate;
 - (id)delegate;
+- (NSURL *)galleryDefaultImageURL;
+- (int)galleryId;
 - (TURAnselGalleryState) state;
 - (void)setState: (TURAnselGalleryState)theState;
-- (bool)isBusy;
 - (void)setAnselController:(TURAnsel *)newController;
 @end

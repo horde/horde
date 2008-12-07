@@ -41,6 +41,8 @@
 				<string>NSButton</string>
 				<key>connectedLabel</key>
 				<string>NSTextField</string>
+				<key>defaultImageView</key>
+				<string>NSImageView</string>
 				<key>firstView</key>
 				<string>NSControl</string>
 				<key>galleryCombo</key>

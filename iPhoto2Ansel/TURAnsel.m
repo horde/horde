@@ -86,13 +86,6 @@ static NSString *ERR_DOMAIN = @"com.theupstairsroom.TURAnsel";
 // and default perms etc...
 - (NSDictionary *)createNewGallery: (NSDictionary *)params
 {
-    NSLog(@"Calling createNewGallery");
-    NSMutableDictionary *attributes = [[NSMutableDictionary alloc] init];
-//    [attributes setValue: [params valueForKey: @"name"] forKey: @"name"];
-//    [attributes setValue: [params valueForKey: @"desc"] forKey: @"desc"];
-//    [attributes setValue: [params valueForKey: @"slug"] forKey: @"slug"];
-//    [attributes setValue: [params valueForKey
-    
     NSArray *apiparams = [NSArray arrayWithObjects:
                              @"ansel", params, nil]; 
     XMLRPCResponse *response = [self callRPCMethod: @"images.createGallery"

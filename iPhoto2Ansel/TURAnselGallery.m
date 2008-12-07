@@ -21,7 +21,6 @@
 @synthesize galleryName;
 @synthesize galleryImageCount;
 @synthesize galleryDefaultImage;
-@synthesize galleryDefaultImageURL;
 
 #pragma mark Instance Methods --------------------------------------------------
 
@@ -53,20 +52,27 @@
  * This tells the anselController to send the request and sets this object up
  * as the delegate to receive the results. 
  */
-- (void)requestDefaultImageURL
+- (NSURL *)galleryDefaultImageURL
 {
+    if (!galleryDefaultImageURL) {
 
-//    NSArray *params = [[NSArray alloc] initWithObjects:
-//                       @"ansel",                                         // Scope
-//                       [NSNumber numberWithInt: galleryDefaultImage],    // Image Id
-//                       @"thumb",                                         // Thumbnail type
-//                       [NSNumber numberWithBool:YES],                    // Full path
-//                       nil];
-//    [self setState:TURAnselGalleryStateBusy];
-//    [anselController callRPCMethod:@"images.getImageUrl"
-//                        withParams: params
-//                      withDelegate: self];
+        NSArray *params = [[NSArray alloc] initWithObjects:
+                           @"ansel",                                         // Scope
+                           [NSNumber numberWithInt: galleryDefaultImage],    // Image Id
+                           @"thumb",                                         // Thumbnail type
+                           [NSNumber numberWithBool:YES],                    // Full path
+                           nil];
+        
+        [self setState:TURAnselGalleryStateBusy];
+        XMLRPCResponse *response = [anselController callRPCMethod: @"images.getImageUrl"
+                                                       withParams: params];
+        
+        if (response) {
+            galleryDefaultImageURL = [[NSURL URLWithString: [NSString stringWithFormat:@"%@", response]] retain];
+        }
+    }
     
+    return galleryDefaultImageURL;
 }
 
 /**
@@ -87,22 +93,19 @@
 }
 
 #pragma mark Response parsers called from the delegate method ------------------
-/**
- * Called by the XMLRPCConnection delegate to parse the resposne
- */
-- (void)parseImageUrlRequest: (XMLRPCResponse *)response
-{
-    [self setState:TURAnselGalleryStateReady];
-    NSLog(@"Image URL For Gallery Preview: %@",[response responseObject]);
-    NSString *url = [NSString stringWithFormat:@"%@", [response responseObject]];
-    NSURL *imageURL = [NSURL URLWithString:url];
-    galleryDefaultImageURL = [imageURL retain]; 
-    
-    if ([delegate respondsToSelector:@selector(TURAnselGalleryDidReceiveDefaultURL:)]) {
-        [delegate TURAnselGalleryDidReceiveDefaultURL: self];
-    }
-    
-}
+//- (void)parseImageUrlRequest: (XMLRPCResponse *)response
+//{
+//    [self setState:TURAnselGalleryStateReady];
+//    NSLog(@"Image URL For Gallery Preview: %@",[response responseObject]);
+//    NSString *url = [NSString stringWithFormat:@"%@", [response responseObject]];
+//    NSURL *imageURL = [NSURL URLWithString:url];
+//    galleryDefaultImageURL = [imageURL retain]; 
+//    
+//    if ([delegate respondsToSelector:@selector(TURAnselGalleryDidReceiveDefaultURL:)]) {
+//        [delegate TURAnselGalleryDidReceiveDefaultURL: self];
+//    }
+//    
+//}
 
 #pragma mark Getter/Setter------------------------------------------------------
 - (int)galleryId
