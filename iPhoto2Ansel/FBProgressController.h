@@ -50,7 +50,6 @@
 extern NSString* const CompleteStatus;
 
 @interface FBProgressController : NSObject {
-    //FBExport *fbExport;
     AnselExportController *fbExport;
     IBOutlet NSPanel *progressPanel;
     IBOutlet NSProgressIndicator *progressIndicator;
