@@ -1960,6 +1960,10 @@ class IMP
         case 'PGPSymmetric':
             $text = _("Enter the passphrase used to encrypt this message.");
             break;
+
+        case 'SMIMEPersonal':
+            $text = _("Enter your personal S/MIME passphrase.");
+            break;
         }
 
         $js_params = array(

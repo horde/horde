@@ -330,35 +330,11 @@ class IMP_Horde_Crypt_smime extends Horde_Crypt_smime
      */
     public function savePublicKeyURL($mailbox, $uid, $id)
     {
-        return $this->getJSOpenWinCode('save_attachment_public_key', false, array('mailbox' => $mailbox, 'uid' => $uid, 'mime_id' => $id));
-    }
-
-    /**
-     * Print out the link for the javascript S/MIME popup.
-     *
-     * @param integer $actionid  The actionID to perform.
-     * @param mixed $reload      If true, reload base window on close. If text,
-     *                           run this JS on close. If false, don't do
-     *                           anything on close.
-     * @param array $params      Additional parameters needed for the reload
-     *                           page.
-     *
-     * @return string  The javascript link.
-     */
-    public function getJSOpenWinCode($actionid, $reload = true,
-                                     $params = array())
-    {
-        $params['actionID'] = $actionid;
-        if (!empty($reload)) {
-            if (is_bool($reload)) {
-                $params['reload'] = html_entity_decode(Util::removeParameter(Horde::selfUrl(true), array('actionID')));
-            } else {
-                require_once 'Horde/SessionObjects.php';
-                $cacheSess = &Horde_SessionObjects::singleton();
-                $params['passphrase_action'] = $cacheSess->storeOid($reload, false);
-            }
-        }
-
+        $params = array(
+            'actionID' => 'save_attachment_public_key',
+            'uid' => $uid,
+            'mime_id' => $id
+        );
         return IMP::popupIMPString('smime.php', $params, 450, 200);
     }
 

@@ -138,9 +138,18 @@ class IMP_Horde_Mime_Viewer_smime extends Horde_Mime_Viewer_Driver
         /* Make sure we have a passphrase. */
         $passphrase = $this->_impsmime->getPassphrase();
         if ($passphrase === false) {
-            if ($_SESSION['imp']['view'] == 'imp') {
-                // TODO: Fix to work with DIMP
-                $status[] = Horde::link('#', _("You must enter the passphrase for your S/MIME private key to view this message"), null, null, $this->_impsmime->getJSOpenWinCode('open_passphrase_dialog') . 'return false;') . _("You must enter the passphrase for your S/MIME private key to view this message.") . '</a>';
+            $js_action = '';
+            $status[] = _("The message has been encrypted via S/MIME.");
+
+            switch ($_SESSION['imp']['view'] == 'imp') {
+            case 'dimp':
+                $js_action = 'DimpCore.reloadMessage({});';
+                // Fall through
+
+            case 'imp':
+                $status[] = _("The message below has been encrypted via S/MIME.");
+                $status[] = Horde::link('#', '', null, null, IMP::passphraseDialogJS('SMIMEPersonal', $js_action) . ';return false;') . _("You must enter the passphrase for your S/MIME private key to view this message.") . '</a>';
+                break;
             }
             return null;
         }

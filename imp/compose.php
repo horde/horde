@@ -710,17 +710,13 @@ if ($get_sig && isset($msg) && !empty($sig)) {
 
 /* Open the passphrase window here. */
 if ($pgp_passphrase_dialog || $pgp_symmetric_passphrase_dialog) {
-    $imp_pgp = &Horde_Crypt::singleton(array('imp', 'pgp'));
-    Horde::addScriptFile('popup.js', 'imp', true);
     if ($pgp_passphrase_dialog) {
         $notification->push(IMP::passphraseDialogJS('PGPPersonal', 'uniqSubmit(\'send_message\')'), 'javascript');
     } else {
         $notification->push(IMP::passphraseDialogJS('PGPSymmetric', 'uniqSubmit(\'send_message\')', array('symmetricid' => 'imp_compose_' . $composeCacheID)), 'javascript');
     }
 } elseif ($smime_passphrase_dialog) {
-    $imp_smime = &Horde_Crypt::singleton(array('imp', 'smime'));
-    Horde::addScriptFile('popup.js', 'imp', true);
-    $notification->push($imp_smime->getJSOpenWinCode('open_passphrase_dialog', "opener.focus();opener.uniqSubmit('send_message');"), 'javascript');
+    $notification->push(IMP::passphraseDialogJS('SMIMEPersonal', 'uniqSubmit(\'send_message\')'), 'javascript');
 }
 
 /* If PGP encryption is set by default, and we have a recipient list on first

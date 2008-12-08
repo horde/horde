@@ -688,25 +688,34 @@ case 'SendMDN':
 
 case 'PGPSymmetric':
 case 'PGPPersonal':
-    $imp_pgp = &Horde_Crypt::singleton(array('imp', 'pgp'));
-    $secure_check = $imp_pgp->requireSecureConnection();
-
-    $symmetricid = Util::getFormData('symmetricid');
-    $passphrase = Util::getFormData('passphrase');
-
+case 'SMIMEPersonal':
     $result = new stdClass;
     $result->success = false;
 
-    if (is_a($secure_check, 'PEAR_Error')) {
-        $result->error = $secure_check->getMessage();
-    } elseif ($passphrase) {
-        if ($imp_pgp->storePassphrase(($action == 'PGPSymmetric') ? 'symmetric' : 'personal', $passphrase, $symmetricid)) {
-            $result->success = true;
-        } else {
-            $result->error = _("Invalid passphrase entered.");
+    $passphrase = Util::getFormData('passphrase');
+
+    if ($action == 'SMIMEPersonal') {
+        $imp_smime = &Horde_Crypt::singleton(array('imp', 'smime'));
+        $secure_check = $imp_smime->requireSecureConnection();
+        if (!is_a($secure_check, 'PEAR_Error') && $passphrase) {
+            $res = $imp_smime->storePassphrase($passphrase);
         }
     } else {
+        $imp_pgp = &Horde_Crypt::singleton(array('imp', 'pgp'));
+        $secure_check = $imp_pgp->requireSecureConnection();
+        if (is_a($secure_check, 'PEAR_Error') && $passphrase) {
+            $res = $imp_pgp->storePassphrase(($action == 'PGPSymmetric') ? 'symmetric' : 'personal', $passphrase, Util::getFormData('symmetricid'));
+        }
+    }
+
+    if (is_a($secure_check, 'PEAR_Error')) {
+        $result->error = $secure_check->getMessage();
+    } elseif (!$passphrase) {
         $result->error = _("No passphrase entered.");
+    } elseif ($res) {
+        $result->success = true;
+    } else {
+        $result->error = _("Invalid passphrase entered.");
     }
 
     /* TODO - This code will eventually be moved to the API. But this function
@@ -714,7 +723,6 @@ case 'PGPPersonal':
     require_once IMP_BASE . '/lib/DIMP.php';
     $notify = false;
 
-    print_r($_SESSION['imp']['cache']);
     break;
 }
 

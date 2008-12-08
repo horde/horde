@@ -43,29 +43,6 @@ function _getImportKey()
     }
 }
 
-function _outputPassphraseDialog($secure_check)
-{
-    if (is_a($secure_check, 'PEAR_Error')) {
-        $GLOBALS['notification']->push($secure_check, 'horde.warning');
-    }
-
-    $title = _("S/MIME Passphrase Input");
-    require IMP_TEMPLATES . '/common-header.inc';
-    IMP::status();
-
-    if (is_a($secure_check, 'PEAR_Error')) {
-        return;
-    }
-
-    $t = new IMP_Template();
-    $t->setOption('gettext', true);
-    $t->set('submit_url', Util::addParameter(Horde::applicationUrl('smime.php'), 'actionID', 'process_passphrase_dialog'));
-    $t->set('reload', htmlspecialchars(html_entity_decode(Util::getFormData('reload'))));
-    $t->set('action', Util::getFormData('passphrase_action'));
-    $t->set('locked_img', Horde::img('locked.png', _("S/MIME"), null, $GLOBALS['registry']->getImageDir('horde')));
-    echo $t->fetch(IMP_TEMPLATES . '/smime/passphrase.html');
-}
-
 function _actionWindow()
 {
     $oid = Util::getFormData('passphrase_action');
@@ -106,36 +83,6 @@ $secure_check = $imp_smime->requireSecureConnection();
 /* Run through the action handlers */
 $actionID = Util::getFormData('actionID');
 switch ($actionID) {
-case 'open_passphrase_dialog':
-    if ($imp_smime->getPassphrase() !== false) {
-        Util::closeWindowJS();
-    } else {
-        _outputPassphraseDialog($secure_check);
-    }
-    exit;
-
-case 'process_passphrase_dialog':
-    if (is_a($secure_check, 'PEAR_Error')) {
-        _outputPassphraseDialog($secure_check);
-    } elseif (Util::getFormData('passphrase')) {
-        if ($imp_smime->storePassphrase(Util::getFormData('passphrase'))) {
-            if (Util::getFormData('passphrase_action')) {
-                _actionWindow();
-            } elseif (Util::getFormData('reload')) {
-                _reloadWindow();
-            } else {
-                Util::closeWindowJS();
-            }
-        } else {
-            $notification->push("Invalid passphrase entered.", 'horde.error');
-            _outputPassphraseDialog($secure_check);
-        }
-    } else {
-        $notification->push("No passphrase entered.", 'horde.error');
-        _outputPassphraseDialog($secure_check);
-    }
-    exit;
-
 case 'delete_key':
     $imp_smime->deletePersonalKeys();
     $notification->push(_("Personal S/MIME keys deleted successfully."), 'horde.success');
@@ -287,7 +234,6 @@ $t->set('use_smime_help', Help::link('imp', 'smime-overview'));
 if (!is_a($openssl_check, 'PEAR_Error') && $prefs->getValue('use_smime')) {
     Horde::addScriptFile('popup.js', 'imp', true);
     $t->set('smimeactive', true);
-    $opensmimewin = $imp_smime->getJSOpenWinCode('open_passphrase_dialog');
     $t->set('manage_pubkey-help', Help::link('imp', 'smime-manage-pubkey'));
 
     $t->set('verify_notlocked', !$prefs->isLocked('smime_verify'));
@@ -332,7 +278,7 @@ if (!is_a($openssl_check, 'PEAR_Error') && $prefs->getValue('use_smime')) {
             $t->set('viewpublic', Horde::link(Util::addParameter($selfURL, 'actionID', 'view_personal_public_key'), _("View Personal Public Key"), null, 'view_key'));
             $t->set('infopublic', Horde::link(Util::addParameter($selfURL, 'actionID', 'info_personal_public_key'), _("Information on Personal Public Key"), null, 'info_key'));
             $passphrase = $imp_smime->getPassphrase();
-            $t->set('passphrase', (empty($passphrase)) ? Horde::link('#', _("Enter Passphrase"), null, null, htmlspecialchars($imp_smime->getJSOpenWinCode('open_passphrase_dialog')) . ' return false;') . _("Enter Passphrase") : Horde::link(Util::addParameter($selfURL, 'actionID', 'unset_passphrase'), _("Unload Passphrase")) . _("Unload Passphrase"));
+            $t->set('passphrase', (empty($passphrase)) ? Horde::link('#', _("Enter Passphrase"), null, null, IMP::passphraseDialogJS('SMIMEPersonal') . ';return false;') . ' return false;') . _("Enter Passphrase") : Horde::link(Util::addParameter($selfURL, 'actionID', 'unset_passphrase'), _("Unload Passphrase")) . _("Unload Passphrase"));
             $t->set('viewprivate', Horde::link(Util::addParameter($selfURL, 'actionID', 'view_personal_private_key'), _("View Personal Private Key"), null, 'view_key'));
             $t->set('deletekeypair', addslashes(_("Are you sure you want to delete your keypair? (This is NOT recommended!)")));
             $t->set('personalkey-delete-help', Help::link('imp', 'smime-delete-personal-certs'));
