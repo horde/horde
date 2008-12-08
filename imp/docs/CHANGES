@@ -2,6 +2,8 @@
 v5.0-cvs
 --------
 
+[mms] Fix stripping attachments when saving to sent-mail folder when attaching
+      the PGP public key (Bug #4221).
 [mms] Removed Special Characters menu.
 [mms] Add 'undelete' to Other Actions menu (Bug #7496) (DIMP).
 [mms] PGP functions now work in DIMP (Bug #5388).

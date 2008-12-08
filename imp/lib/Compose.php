@@ -556,15 +556,17 @@ class IMP_Compose
             if (($save_attach == 'never') ||
                 ((strpos($save_attach, 'prompt') === 0) &&
                  empty($opts['save_attachments']))) {
-                foreach (array_keys($this->getAttachments()) as $i) {
-                    $oldPart = $mime_message->getPart(++$i);
-                    if ($oldPart !== false) {
-                        $replace_part = new Horde_Mime_Part();
-                        $replace_part->setType('text/plain');
-                        $replace_part->setCharset($charset);
-                        $replace_part->setContents('[' . _("Attachment stripped: Original attachment type") . ': "' . $oldPart->getType() . '", ' . _("name") . ': "' . $oldPart->getName(true) . '"]', '8bit');
-                        $mime_message->alterPart($i, $replace_part);
+                $mime_message->buildMimeIds();
+                for ($i = 2; ; ++$i) {
+                    if (!($oldPart = $mime_message->getPart($i))) {
+                        break;
                     }
+
+                    $replace_part = new Horde_Mime_Part();
+                    $replace_part->setType('text/plain');
+                    $replace_part->setCharset($charset);
+                    $replace_part->setContents('[' . _("Attachment stripped: Original attachment type") . ': "' . $oldPart->getType() . '", ' . _("name") . ': "' . $oldPart->getName(true) . '"]', '8bit');
+                    $mime_message->alterPart($i, $replace_part);
                 }
             }
 
