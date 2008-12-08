@@ -142,7 +142,7 @@ $mime_drivers['imp']['enriched'] = array(
 $mime_drivers['imp']['pdf'] = array(
     'inline' => false,
     'handles' => array(
-        'application/pdf', 'image/pdf'
+        'application/pdf', 'application/x-pdf', 'image/pdf'
     ),
     'icons' => array(
         'default' => 'pdf.png'
