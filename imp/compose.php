@@ -1096,18 +1096,6 @@ if ($redirect) {
                                  array('id' => 'spellcheck')),
             'img' => '', 'label' => '');
     }
-    if ($has_js && $conf['compose']['special_characters']) {
-        $compose_options[] = array(
-            'url' => Horde::link(
-                '#', '', 'widget', null,
-                'window.open(\''
-                . Horde::url($registry->get('webroot', 'horde')
-                             . '/services/keyboard.php')
-                . '\', \'chars\', \'height=220,width=400\'); return false;'),
-            'img' => Horde::img('keyboard.png', null, null,
-                                $registry->getImageDir('horde')),
-            'label' => $show_text ? _("Special Characters") : '');
-    }
     if ($_SESSION['imp']['file_upload']) {
         $compose_options[] = array(
             'url' => Horde::link('#attachments', '', 'widget', null,

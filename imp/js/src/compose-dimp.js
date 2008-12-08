@@ -694,9 +694,6 @@ document.observe('dom:loaded', function() {
     if (tmp = $('htmlcheckbox')) {
         C({ d: tmp, f: DC.toggleHtmlCheckbox.bind(DC), ns: true });
     }
-    if (tmp = $('compose_specialchars')) {
-        C({ d: tmp, f: function() { window.open(DIMP.conf_compose.specialchars_url, 'chars', 'height=220,width=400'); } });
-    }
 
     $('writemsg').select('.composeAddrbook').each(function(a) {
         C({ d: a, f: DC.openAddressbook.bind(DC) });

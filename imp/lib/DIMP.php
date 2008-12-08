@@ -237,7 +237,6 @@ class DIMP
                 'compose_cursor' => ($compose_cursor ? $compose_cursor : 'top'),
 
                 'abook_url' => Horde::applicationUrl('contacts.php'),
-                'specialchars_url' => Horde::url($horde_webroot . '/services/keyboard.php'),
             );
 
             /* Gettext strings used in compose page. */

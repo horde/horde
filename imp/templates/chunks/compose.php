@@ -65,9 +65,6 @@ function _createDAcompose($text, $image, $id)
 <?php if ($rte): ?>
    <label><input id="htmlcheckbox" type="checkbox" class="checkbox" <?php if ($compose_html) echo 'checked="checked"' ?> /> <?php echo _("HTML composition") ?></label>
 <?php endif; ?>
-<?php if (!empty($GLOBALS['conf']['compose']['special_characters'])): ?>
-   <div id="compose_specialchars"><?php echo Horde::img('keyboard.png', _("Special Characters"), array(), $GLOBALS['registry']->getImageDir('horde')) ?><a><?php echo _("Special Characters") ?></a></div>
-<?php endif; ?>
   </div>
   <table cellspacing="0">
    <thead>
