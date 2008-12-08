@@ -45,20 +45,16 @@ function _changed($folder, $compare, $indices = array(), $nothread = false)
         return true;
     }
 
-    return (!empty($indices) &&
-            (!$nothread && _threadUidChanged($folder, $indices)));
-}
-
-function _threadUidChanged($folder, $indices)
-{
-    $sort = IMP::getSort($folder);
-    if ($sort['by'] == Horde_Imap_Client::SORT_THREAD) {
-        foreach ($indices as $mbox => $mbox_array) {
-            $imp_mailbox = &IMP_Mailbox::singleton($mbox);
-            $threadob = $imp_mailbox->getThreadOb();
-            foreach ($mbox_array as $val) {
-                if ($threadob->getThreadBase($val) !== false) {
-                    return true;
+    if (!empty($indices) && !$nothread) {
+        $sort = IMP::getSort($folder);
+        if ($sort['by'] == Horde_Imap_Client::SORT_THREAD) {
+            foreach ($indices as $mbox => $mbox_array) {
+                $imp_mailbox = &IMP_Mailbox::singleton($mbox);
+                $threadob = $imp_mailbox->getThreadOb();
+                foreach ($mbox_array as $val) {
+                    if ($threadob->getThreadBase($val) !== false) {
+                        return true;
+                    }
                 }
             }
         }
@@ -70,6 +66,7 @@ function _threadUidChanged($folder, $indices)
 function _getListMessages($folder, $change)
 {
     $args = array(
+        'cached' => Util::getPost('cached'),
         'cacheid' => Util::getPost('cacheid'),
         'filter' => Util::getPost('filter'),
         'folder' => $folder,

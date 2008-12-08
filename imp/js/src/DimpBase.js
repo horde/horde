@@ -525,6 +525,17 @@ var DimpBase = {
                     this.viewport.scrollTo(this.viewport.getSelected().get('rownum').first());
                 }
             }.bind(this),
+            onCachedList: function(vs) {
+                var out = {};
+                vs.get('dataob').each(function(d) {
+                    if (!out[d.view]) {
+                        out[d.view] = [ parseInt(d.imapuid, 10) ];
+                    } else {
+                        out[d.view].push(parseInt(d.imapuid, 10));
+                    }
+                });
+                return DimpCore.toRangeString(out);
+            },
             selectCallback: this._select.bind(this),
             deselectCallback: this._deselect.bind(this)
         });
@@ -1012,7 +1023,7 @@ var DimpBase = {
 
     _pollFoldersCallback: function(r)
     {
-        var q, that;
+        var that;
         r = r.response;
         if (r.poll) {
             that = this;

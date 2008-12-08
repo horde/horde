@@ -21,7 +21,6 @@ class IMP_Views_ListMessages
      */
     public function ListMessages($args)
     {
-        $c_ptr = &$_SESSION['imp']['cache'];
         $folder = $args['folder'];
         $search_id = null;
 
@@ -66,6 +65,7 @@ class IMP_Views_ListMessages
             }
 
             /* Set the search in the IMP session. */
+            $c_ptr = &$_SESSION['imp']['cache'];
             $search_id = $GLOBALS['imp_search']->createSearchQuery($query, $folder_list, array(), _("Search Results"), isset($c_ptr['dimp_searchquery']) ? $c_ptr['dimp_searchquery'] : null);
 
             /* Folder is now the search folder. */
@@ -159,24 +159,8 @@ class IMP_Views_ListMessages
         }
         $result->rowlist = $rowlist;
 
-        /* Determine the list of UIDs that are currently cached on the
-         * browser. Not technically necessary for ViewPort to work, but saves
-         * a bunch of duplicative info being sent to browser. */
-        $cached = array();
-        if (is_null($search_id)) {
-            if (!isset($c_ptr['dimp_msglist'])) {
-                $c_ptr['dimp_msglist'] = array();
-            }
-            if (!empty($args['cacheid']) &&
-                isset($c_ptr['dimp_msglist'][$folder])) {
-                $cachestr = IMP::parseRangeString($c_ptr['dimp_msglist'][$folder]);
-                $cached = reset($cachestr);
-            }
-            $c_ptr['dimp_msglist'][$folder] = IMP::toRangeString(array($folder => array_keys(array_flip(array_merge($cached, array_values($msglist))))));
-        }
-
         /* Build the overview list. */
-        $result->data = $this->_getOverviewData($imp_mailbox, $folder, array_keys(array_diff($msglist, $cached)));
+        $result->data = $this->_getOverviewData($imp_mailbox, $folder, array_keys(array_diff($msglist, IMP::parseRangeString($args['cached']))));
 
         /* Get unseen/thread information. */
         if (is_null($search_id)) {

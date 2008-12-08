@@ -18,7 +18,7 @@ var ViewPort = Class.create({
     // Required: content_container, lines, fetch_action, template,
     //           cachecheck_action, ajaxRequest, buffer_pages,
     //           limit_factor, content_class, row_class, selected_class
-    // Optional: norows, show_split_pane
+    // Optional: show_split_pane
     initialize: function(opts)
     {
         opts.content = $(opts.content_container);
@@ -448,10 +448,8 @@ var ViewPort = Class.create({
             // accept the entire slice back from the server.
         }
 
-        // We don't need to send row information to the server if the server
-        // is keeping track of what has been sent to the browser.
-        if (!this.opts.norows && rlist) {
-            params.set('rows', rlist.toJSON());
+        if (rlist) {
+            params.set('cached', this.opts.onCachedList ? this.opts.onCachedList(this.getViewportSelection()) : b.getAllUIDs().toJSON());
         }
 
         if (!request_id) {

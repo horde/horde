@@ -73,7 +73,7 @@ DimpCore = {
                 break;
             }
             i = str.indexOf('}');
-            count = parseInt(str.substr(1, i - 1));
+            count = parseInt(str.substr(1, i - 1), 10);
             mbox = str.substr(i + 1, count);
             i += count + 1;
             end = str.indexOf('{', i);
