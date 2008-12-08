@@ -402,7 +402,7 @@ Ajax.Autocompleter = Class.create(Autocompleter.Base, {
 
     _onComplete: function(request)
     {
-        this.updateChoices(this.cache.set(this.getToken(), request.responseText.evalJSON(true)));
+        this.updateChoices(this.cache.set(this.getToken(), request.responseJSON));
     }
 });
 

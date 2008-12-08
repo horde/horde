@@ -1424,8 +1424,9 @@ class IMP
      */
     static public function sendHTTPResponse($data, $ct)
     {
+        $charset = NLS::getCharset();
+
         // Output headers and encoded response.
-        $charset = '; charset=' . NLS::getCharset();
         switch ($ct) {
         case 'json':
         case 'js-json':
@@ -1433,7 +1434,7 @@ class IMP
             // includes the response in a member named 'response', and an
             // additional array of messages in 'msgs' which may be updates
             // for the server or notification messages.
-            $s_data = Horde_Serialize::serialize($data, SERIALIZE_JSON, NLS::getCharset());
+            $s_data = Horde_Serialize::serialize($data, SERIALIZE_JSON, $charset);
 
             // Make sure no null bytes sneak into the JSON output stream.
             // Null bytes cause IE to stop reading from the input stream,
@@ -1443,11 +1444,11 @@ class IMP
             $s_data = str_replace("\00", '', $s_data);
 
             if ($ct == 'json') {
-                header('Content-Type: text/x-json' . $charset);
+                header('Content-Type: application/json');
                 // Add prototype security delimiters to returned JSON.
-                echo '/*-secure-' . $s_data . '*/';
+                echo '/*-secure-' . String::convertCharset($s_data, $charset, 'UTF-8') . '*/';
             } else {
-                header('Content-Type: text/html' . $charset);
+                header('Content-Type: text/html; charset=' . $charset);
                 echo htmlspecialchars($s_data);
             }
             break;
@@ -1455,7 +1456,7 @@ class IMP
         case 'html':
         case 'plain':
         case 'xml':
-            header('Content-Type: text/' . $ct . $charset);
+            header('Content-Type: text/' . $ct . '; charset=' . $charset);
             echo $data;
             break;
 

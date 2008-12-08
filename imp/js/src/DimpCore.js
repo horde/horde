@@ -113,7 +113,9 @@ DimpCore = {
                 }.bind(this),
                 onFailure: function(t, o) {
                     this.debug('onFailure', t);
-                }.bind(this)
+                }.bind(this),
+                evalJS: false,
+                evalJSON: true
             };
         };
 
@@ -145,29 +147,20 @@ DimpCore = {
     doActionComplete: function(request, callback)
     {
         this.inAjaxCallback = true;
-        var error = false, r = {};
+        var r;
 
-        if (!request.responseText || !request.responseText.length) {
-            error = true;
-        } else {
-            try {
-                r = request.responseText.evalJSON(true);
-            } catch (e) {
-                this.debug('doActionComplete', e);
-                error = true;
-            }
-        }
-
-        if (!r.msgs) {
-            r.msgs = [];
-        }
-
-        if (error) {
+        if (!request.responseJSON) {
             if (++this.server_error == 3) {
                 this.showNotifications([ { type: 'horde.error', message: DIMP.text.ajax_timeout } ]);
             }
             this.inAjaxCallback = false;
             return;
+        }
+
+        r = request.responseJSON;
+
+        if (!r.msgs) {
+            r.msgs = [];
         }
 
         if (r.response && Object.isFunction(callback)) {

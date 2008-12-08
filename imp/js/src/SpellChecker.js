@@ -155,7 +155,7 @@ var SpellChecker = Class.create({
         var bad, content, d, re, re_text,
             i = 0,
             input = $(this.target),
-            result = request.responseText.evalJSON(true);
+            result = request.responseJSON;
 
         this.removeChoices();
 
