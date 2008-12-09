@@ -11,20 +11,22 @@
  * @author Michael Slusarz <slusarz@horde.org>
  */
 
-function _generateDeleteResult($folder, $indices, $change)
+function _generateDeleteResult($mbox, $indices, $change)
 {
+    $imp_mailbox = &IMP_Mailbox::singleton($mbox);
+
     $result = new stdClass;
-    $result->folder = $folder;
+    $result->folder = $mbox;
     $result->uids = IMP::toRangeString($indices);
     $result->remove = ($GLOBALS['prefs']->getValue('hide_deleted') ||
                        $GLOBALS['prefs']->getValue('use_trash'));
-    $result->cacheid = _cacheID($folder);
+    $result->cacheid = $imp_mailbox->getCacheID($mbox);
 
     if ($change) {
-        $result->viewport = _getListMessages($folder, true);
+        $result->viewport = _getListMessages($mbox, true);
     }
 
-    $poll = _getPollInformation($folder);
+    $poll = _getPollInformation($mbox);
     if (!empty($poll)) {
         $result->poll = $poll;
     }
@@ -32,21 +34,19 @@ function _generateDeleteResult($folder, $indices, $change)
     return $result;
 }
 
-function _cacheID($mbox)
+function _changed($mbox, $compare, $indices = array(), $nothread = false)
 {
-    $imp_mailbox = &IMP_Mailbox::singleton($mbox);
-    return $imp_mailbox->getCacheID();
-}
+    if ($GLOBALS['imp_search']->isVFolder($mbox)) {
+        return true;
+    }
 
-function _changed($folder, $compare, $indices = array(), $nothread = false)
-{
-    if ($GLOBALS['imp_search']->isVFolder($folder) ||
-        (_cacheID($folder) != $compare)) {
+    $imp_mailbox = &IMP_Mailbox::singleton($mbox);
+    if ($imp_mailbox->getCacheID($mbox) != $compare) {
         return true;
     }
 
     if (!empty($indices) && !$nothread) {
-        $sort = IMP::getSort($folder);
+        $sort = IMP::getSort($mbox);
         if ($sort['by'] == Horde_Imap_Client::SORT_THREAD) {
             foreach ($indices as $mbox => $mbox_array) {
                 $imp_mailbox = &IMP_Mailbox::singleton($mbox);
@@ -75,19 +75,19 @@ function _getListMessages($folder, $change)
     );
 
     $search = Util::getPost('search');
-    if (!empty($search)) {
+    if (empty($search)) {
+        $args += array(
+            'slice_rownum' => intval(Util::getPost('rownum')),
+            'slice_start' => intval(Util::getPost('slice_start')),
+            'slice_end' => intval(Util::getPost('slice_end'))
+        );
+    } else {
         $search = Horde_Serialize::unserialize($search, SERIALIZE_JSON);
         $args += array(
             'search_uid' => $search->imapuid,
             'search_view' => $search->view,
             'search_before' => intval(Util::getPost('search_before')),
             'search_after' => intval(Util::getPost('search_after'))
-        );
-    } else {
-        $args += array(
-            'slice_rownum' => intval(Util::getPost('rownum')),
-            'slice_start' => intval(Util::getPost('slice_start')),
-            'slice_end' => intval(Util::getPost('slice_end'))
         );
     }
 
@@ -356,11 +356,9 @@ case 'CopyMessage':
     }
 
     $imp_message = &IMP_Message::singleton();
-    $result = $imp_message->copy($to,
-                                 $action == 'MoveMessage'
-                                     ? IMP_MESSAGE::MOVE
-                                     : IMP_MESSAGE::COPY,
-                                 $indices);
+
+    $result = $imp_message->copy($to, ($action == 'MoveMessage') ? IMP_MESSAGE::MOVE : IMP_MESSAGE::COPY, $indices);
+
     if ($result) {
         if ($action == 'MoveMessage') {
             $result = _generateDeleteResult($folder, $indices, $change);
