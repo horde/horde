@@ -191,23 +191,23 @@ abstract class Horde_Controller_Base
         // validate options
 
         // set response status
-        if ($status = $options['status']) {
+        if ($status = !empty($options['status']) ? $options['status'] : null) {
             $header = $this->interpretStatus($status);
             $this->_response->setStatus($header);
         }
 
         // set response location
-        if ($location = $options['location']) {
+        if ($location = !empty($options['location']) ? $options['location'] : null) {
             $url = $this->urlFor($location);
-            $this->_response->setHeader("Location: $url", $replace=true);
+            $this->_response->setHeader("Location: $url", $replace = true);
         }
 
         // render text
-        if ($text = $options['text']) {
+        if ($text = !empty($options['text']) ? $options['text'] : null) {
             $this->renderText($text);
 
         // render xml
-        } elseif ($xml = $options['xml']) {
+        } elseif ($xml = !empty($options['xml']) ? $options['xml'] : null) {
             $this->_response->setContentType('application/xml');
 
             if (is_object($xml) && method_exists($xml, 'toXml')) {
