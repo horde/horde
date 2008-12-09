@@ -1430,23 +1430,26 @@ class IMP
         switch ($ct) {
         case 'json':
         case 'js-json':
-            // JSON responses are a structured object which always
-            // includes the response in a member named 'response', and an
-            // additional array of messages in 'msgs' which may be updates
-            // for the server or notification messages.
-            $s_data = Horde_Serialize::serialize($data, SERIALIZE_JSON, $charset);
-
-            // Make sure no null bytes sneak into the JSON output stream.
-            // Null bytes cause IE to stop reading from the input stream,
-            // causing malformed JSON data and a failed request.  These
-            // bytes don't seem to break any other browser, but might as
-            // well remove them anyway.
-            $s_data = str_replace("\00", '', $s_data);
+            /* JSON responses are a structured object which always
+             * includes the response in a member named 'response', and an
+             * additional array of messages in 'msgs' which may be updates
+             * for the server or notification messages.
+             *
+             * Make sure no null bytes sneak into the JSON output stream.
+             * Null bytes cause IE to stop reading from the input stream,
+             * causing malformed JSON data and a failed request.  These
+             * bytes don't seem to break any other browser, but might as
+             * well remove them anyway.
+             *
+             * Finally, add prototypejs security delimiters to returned
+             * JSON. */
+            $s_data = '/*-secure-' .
+                String::convertCharset(str_replace("\00", '', Horde_Serialize::serialize($data, SERIALIZE_JSON, $charset)), 'UTF-8') .
+                '*/';
 
             if ($ct == 'json') {
                 header('Content-Type: application/json');
-                // Add prototype security delimiters to returned JSON.
-                echo '/*-secure-' . String::convertCharset($s_data, $charset, 'UTF-8') . '*/';
+                echo $s_data;
             } else {
                 header('Content-Type: text/html; charset=' . $charset);
                 echo htmlspecialchars($s_data);
