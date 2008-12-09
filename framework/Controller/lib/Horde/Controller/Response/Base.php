@@ -23,6 +23,8 @@
  */
 class Horde_Controller_Response_Base
 {
+    protected $_body = '';
+
     /**
      */
     public function send()
