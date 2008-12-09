@@ -85,7 +85,7 @@ var ViewPort = Class.create({
         }
 
         if (curr) {
-            this.setMetaData('additional_params', $H(params), view);
+            this.setMetaData({ additional_params: $H(params) }, view);
             this._updateContent(curr.offset, opts);
             if (!background) {
                 if (this.opts.onComplete) {
