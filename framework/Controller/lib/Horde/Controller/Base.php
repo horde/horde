@@ -66,7 +66,9 @@ abstract class Horde_Controller_Base
      */
     protected $_actionMethods = array();
 
-    /** @var string */
+    /**
+     * @var string
+     */
     protected $_viewsDir = '';
 
     /**
@@ -191,25 +193,26 @@ abstract class Horde_Controller_Base
         // validate options
 
         // set response status
-        if ($status = !empty($options['status']) ? $options['status'] : null) {
-            $header = $this->interpretStatus($status);
+        if (!empty($options['status'])) {
+            $header = $this->interpretStatus($options['status']);
             $this->_response->setStatus($header);
         }
 
         // set response location
-        if ($location = !empty($options['location']) ? $options['location'] : null) {
-            $url = $this->urlFor($location);
+        if (!empty($options['location'])) {
+            $url = $this->urlFor($options['location']);
             $this->_response->setHeader("Location: $url", $replace = true);
         }
 
         // render text
-        if ($text = !empty($options['text']) ? $options['text'] : null) {
-            $this->renderText($text);
+        if (!empty($options['text'])) {
+            $this->renderText($options['text']);
 
         // render xml
-        } elseif ($xml = !empty($options['xml']) ? $options['xml'] : null) {
+        } elseif (!empty($options['xml'])) {
             $this->_response->setContentType('application/xml');
 
+            $xml = $options['xml'];
             if (is_object($xml) && method_exists($xml, 'toXml')) {
                 $xml = $xml->toXml();
             }
