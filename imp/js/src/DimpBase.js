@@ -13,6 +13,7 @@ var DimpBase = {
     //   message_list_template, offset, pollPE, pp, searchobserve, uid,
     //   viewport
     bcache: $H(),
+    cacheids: {},
     lastrow: -1,
     mo_sidebar: {},
     pivotrow: -1,
@@ -489,6 +490,9 @@ var DimpBase = {
                 this.updateTitle();
             }.bind(this),
             onFetch: this.msgListLoading.bind(this, true),
+            onFetchUpdate: function(id) {
+                delete this.cacheids[id];
+            }.bind(this),
             onEndFetch: this.msgListLoading.bind(this, false),
             onWait: function() {
                 if ($('dimpmain_folder').visible()) {
@@ -525,17 +529,20 @@ var DimpBase = {
                     this.viewport.scrollTo(this.viewport.getSelected().get('rownum').first());
                 }
             }.bind(this),
-            onCachedList: function(vs) {
-                var out = {};
-                vs.get('dataob').each(function(d) {
-                    if (!out[d.view]) {
-                        out[d.view] = [ parseInt(d.imapuid, 10) ];
-                    } else {
-                        out[d.view].push(parseInt(d.imapuid, 10));
-                    }
-                });
-                return DimpCore.toRangeString(out);
-            },
+            onCachedList: function(id) {
+                if (!this.cacheids[id]) {
+                    var out = {};
+                    this.viewport.getViewportSelection(id).get('dataob').each(function(d) {
+                        if (!out[d.view]) {
+                            out[d.view] = [ parseInt(d.imapuid, 10) ];
+                        } else {
+                            out[d.view].push(parseInt(d.imapuid, 10));
+                        }
+                    });
+                    this.cacheids[id] = DimpCore.toRangeString(out);
+                }
+                return this.cacheids[id];
+            }.bind(this),
             selectCallback: this._select.bind(this),
             deselectCallback: this._deselect.bind(this)
         });

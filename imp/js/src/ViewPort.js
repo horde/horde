@@ -448,10 +448,6 @@ var ViewPort = Class.create({
             // accept the entire slice back from the server.
         }
 
-        if (rlist) {
-            params.set('cached', this.opts.onCachedList ? this.opts.onCachedList(this.getViewportSelection()) : b.getAllUIDs().toJSON());
-        }
-
         if (!request_id) {
             request_id = this.fetch_hash.set(request_string, this.request_num++);
         }
@@ -503,8 +499,9 @@ var ViewPort = Class.create({
     addRequestParams: function(args, opts)
     {
         opts = opts || {};
-        var cid = this.getMetaData('cacheid', opts.view),
-            params = this.getMetaData('additional_params', opts.view),
+        var cached = (this.opts.onCachedList ? this.opts.onCachedList(opts.view || this.view) : this._getBuffer(opts.view).getAllUIDs().toJSON()),
+            cid = this.getMetaData('cacheid', opts.view),
+            params = this.getMetaData('additional_params', opts.view).clone(),
             rowlist;
         if (cid) {
             params.update({ cacheid: cid });
@@ -513,6 +510,10 @@ var ViewPort = Class.create({
             rowlist = this._getSliceBounds(this.currentOffset(), null, opts.view);
             params.update({ slice_start: rowlist.start, slice_end: rowlist.end });
         }
+        if (cached.length) {
+            params.update({ cached: cached });
+        }
+
         return params.merge(args);
     },
 
@@ -556,15 +557,22 @@ var ViewPort = Class.create({
             });
             buffer = this._getBuffer(r.id);
             buffer.update(data, rowlist, { slice: true });
-            if (this.opts.onEndFetch) {
-                this.opts.onEndFetch();
+
+            if (this.opts.onFetchUpdate) {
+                this.opts.onFetchUpdate(r.id);
             }
+
             cr = this.slice_hash.get(r.request_id);
             if (cr) {
                 cr(new ViewPort_Selection(buffer, 'uid', datakeys));
                 this.slice_hash.unset(r.request_id);
             }
             this.isbusy = false;
+
+            if (this.opts.onEndFetch) {
+                this.opts.onEndFetch();
+            }
+
             return;
         }
 
@@ -585,6 +593,10 @@ var ViewPort = Class.create({
             label: r.label,
             total_rows: r.totalrows
         }));
+
+        if (this.opts.onFetchUpdate) {
+            this.opts.onFetchUpdate(id);
+        }
 
         if (r.request_id) {
             this._removeRequest(id, r.request_id);
