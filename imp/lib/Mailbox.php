@@ -265,6 +265,7 @@ class IMP_Mailbox
             $sortpref = IMP::getSort($this->_mailbox);
 
             if ($sortpref['by'] == Horde_Imap_Client::SORT_THREAD) {
+                $this->_threadob = null;
                 $threadob = $this->getThreadOb();
                 $this->_sorted = $threadob->messageList((bool)$sortpref['dir']);
             } else {
@@ -706,6 +707,8 @@ class IMP_Mailbox
         if ($this->_searchmbox) {
             $this->_sortedInfo = array_values($this->_sortedInfo);
         }
+
+        $this->_threadob = null;
 
         /* Update the current array index to its new position in the message
          * array. */
