@@ -69,7 +69,7 @@ class IMP_Spam
                         ), $pipes);
                     if (!is_resource($proc)) {
                         Horde::logMessage('Cannot open process ' . $prog, __FILE__, __LINE__, PEAR_LOG_ERR);
-                        return;
+                        return 0;
                     }
                     fwrite($pipes[0], $raw_msg);
                     fclose($pipes[0]);
@@ -133,25 +133,27 @@ class IMP_Spam
             }
         }
 
-        /* Report what we've done. */
-        if ($report_count) {
-            switch ($action) {
-            case 'spam':
-                if ($report_count > 1) {
-                    $notification->push(sprintf(_("%d messages have been reported as spam."), $report_count), 'horde.message');
-                } else {
-                    $notification->push(_("The message has been reported as spam."), 'horde.message');
-                }
-                break;
+        if (!$report_count) {
+            return 0;
+        }
 
-            case 'notspam':
-                if ($report_count > 1) {
-                    $notification->push(sprintf(_("%d messages have been reported as not spam."), $report_count), 'horde.message');
-                } else {
-                    $notification->push(_("The message has been reported as not spam."), 'horde.message');
-                }
-                break;
+        /* Report what we've done. */
+        switch ($action) {
+        case 'spam':
+            if ($report_count > 1) {
+                $notification->push(sprintf(_("%d messages have been reported as spam."), $report_count), 'horde.message');
+            } else {
+                $notification->push(_("The message has been reported as spam."), 'horde.message');
             }
+            break;
+
+        case 'notspam':
+            if ($report_count > 1) {
+                    $notification->push(sprintf(_("%d messages have been reported as not spam."), $report_count), 'horde.message');
+            } else {
+                    $notification->push(_("The message has been reported as not spam."), 'horde.message');
+            }
+            break;
         }
 
         /* Delete spam after report. */
