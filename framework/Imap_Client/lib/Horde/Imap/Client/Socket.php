@@ -1923,7 +1923,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         reset($data);
         while (list($key, $val) = each($data)) {
             if (is_array($val)) {
-                $this->_parseThread($val, $level + 1, ($key == $cnt));
+                $this->_parseThread($val, $level ? $level : 1, ($key == $cnt));
             } else {
                 if (is_null($tp['base']) && ($level || $cnt)) {
                     $tp['base'] = $val;
