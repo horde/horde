@@ -139,7 +139,6 @@ class IMP_Horde_Mime_Viewer_smime extends Horde_Mime_Viewer_Driver
         $passphrase = $this->_impsmime->getPassphrase();
         if ($passphrase === false) {
             $js_action = '';
-            $status[] = _("The message has been encrypted via S/MIME.");
 
             switch ($_SESSION['imp']['view'] == 'imp') {
             case 'dimp':
@@ -147,7 +146,6 @@ class IMP_Horde_Mime_Viewer_smime extends Horde_Mime_Viewer_Driver
                 // Fall through
 
             case 'imp':
-                $status[] = _("The message below has been encrypted via S/MIME.");
                 $status[] = Horde::link('#', '', null, null, IMP::passphraseDialogJS('SMIMEPersonal', $js_action) . ';return false;') . _("You must enter the passphrase for your S/MIME private key to view this message.") . '</a>';
                 break;
             }
@@ -219,7 +217,7 @@ class IMP_Horde_Mime_Viewer_smime extends Horde_Mime_Viewer_Driver
                 'status' => array(
                     array(
                         'icon' => Horde::img('mime/encryption.png', 'S/MIME'),
-                        'text' => array()
+                        'text' => array(_("This message has been digitally signed via S/MIME."))
                     )
                 ),
                 'type' => 'text/html; charset=' . NLS::getCharset()
@@ -233,7 +231,6 @@ class IMP_Horde_Mime_Viewer_smime extends Horde_Mime_Viewer_Driver
             return $ret;
         }
 
-        $status[] = _("This message has been digitally signed via S/MIME.");
 
         $raw_text = Horde_Imap_Client::removeBareNewlines($this->_params['contents']->getBodyPart($signed_id, array('mimeheaders' => true)));
         $sig_result = null;
