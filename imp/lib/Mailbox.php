@@ -229,11 +229,21 @@ class IMP_Mailbox
     }
 
     /**
+     * Returns true if the mailbox data has been built.
+     *
+     * @return boolean  True if the mailbox has been built.
+     */
+    public function isBuilt()
+    {
+        return !is_null($this->_sorted);
+    }
+
+    /**
      * Builds the sorted list of messages in the mailbox.
      */
     protected function _buildMailbox()
     {
-        if (!is_null($this->_sorted)) {
+        if ($this->isBuilt()) {
             return;
         }
 

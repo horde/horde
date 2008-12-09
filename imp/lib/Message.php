@@ -30,13 +30,6 @@ class IMP_Message
     protected $_usepop = false;
 
     /**
-     * An IMP_Mailbox object to update on message actions.
-     *
-     * @var IMP_Mailbox
-     */
-    protected $_mailboxOb = null;
-
-    /**
      * Returns a reference to the global IMP_Message object, only creating it
      * if it doesn't already exist. This ensures that only one IMP_Message
      * instance is instantiated for any given session.
@@ -66,16 +59,6 @@ class IMP_Message
         if ($_SESSION['imp']['protocol'] == 'pop') {
             $this->_usepop = true;
         }
-    }
-
-    /**
-     * Set the IMP_Mailbox object to update on message actions.
-     *
-     * @param IMP_Mailbox &$ob  An IMP_Mailbox object.
-     */
-    public function updateMailboxOb(&$ob)
-    {
-        $this->_mailboxOb = $ob;
     }
 
     /**
@@ -148,8 +131,10 @@ class IMP_Message
             /* Attempt to copy/move messages to new mailbox. */
             try {
                 $imp_imap->ob->copy($mbox, $targetMbox, array('ids' => $msgIndices, 'move' => $imap_move));
-                if (!is_null($this->_mailboxOb)) {
-                    $this->_mailboxOb->removeMsgs(array($mbox => $msgIndices));
+
+                $imp_mailbox = &IMP_Mailbox::singleton($mbox);
+                if ($imp_mailbox->isBuilt()) {
+                    $imp_mailbox->removeMsgs(array($mbox => $msgIndices));
                 }
             } catch (Horde_Imap_Client_Exception $e) {
                 $notification->push(sprintf($message, IMP::displayFolder($mbox), IMP::displayFolder($targetMbox)) . ': ' . imap_last_error(), 'horde.error');
@@ -219,8 +204,10 @@ class IMP_Message
             if ($use_trash_folder && ($mbox != $trash)) {
                 try {
                     $imp_imap->ob->copy($mbox, $trash, array('ids' => $msgIndices, 'move' => true));
-                    if (!is_null($this->_mailboxOb)) {
-                        $this->_mailboxOb->removeMsgs(array($mbox => $msgIndices));
+
+                    $imp_mailbox = &IMP_Mailbox::singleton($mbox);
+                    if ($imp_mailbox->isBuilt()) {
+                        $imp_mailbox->removeMsgs(array($mbox => $msgIndices));
                     }
                 } catch (Horde_Imap_Client_Exception $e) {
                     // @todo Check for overquota error.
@@ -648,8 +635,10 @@ class IMP_Message
         foreach ($process_list as $key => $val) {
             try {
                 $imp_imap->ob->expunge($key, array('ids' => is_array($val) ? $val : array()));
-                if (!is_null($this->_mailboxOb)) {
-                    $this->_mailboxOb->removeMsgs(is_array($val) ? array($key => $val) : true);
+
+                $imp_mailbox = &IMP_Mailbox::singleton($mbox);
+                if ($imp_mailbox->isBuilt()) {
+                    $imp_mailbox->removeMsgs(is_array($val) ? array($key => $val) : true);
                 }
                 $update_list[$key] = $val;
             } catch (Horde_Imap_Client_Exception $e) {}

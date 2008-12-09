@@ -26,9 +26,8 @@ if (!$imp_mailbox->isValidIndex()) {
     exit;
 }
 
-/* Update IMP_Mailbox on message actions. */
+/* Initialize IMP_Message object. */
 $imp_message = &IMP_Message::singleton();
-$imp_message->updateMailboxOb($imp_mailbox);
 
 /* Determine if mailbox is readonly. */
 $readonly = $imp_imap->isReadOnly($imp_mbox['mailbox']);
