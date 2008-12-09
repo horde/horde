@@ -440,9 +440,8 @@ class IMP_Mailbox
 
         $ret = array('msgcount' => count($this->_sorted));
 
-        if (is_null($page_size) &&
-            ($page_size != $GLOBALS['prefs']->getValue('max_msgs'))) {
-            $page_size = 20;
+        if (is_null($page_size)) {
+            $page_size = $GLOBALS['prefs']->getValue('max_msgs');
         }
 
         if ($ret['msgcount'] > $page_size) {
