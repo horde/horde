@@ -1479,11 +1479,12 @@ ViewPort_Filter = Class.create({
     clear: function(reset)
     {
         if (this.filtering) {
+            var fname = this.filtering;
             this.filtering = null;
             if (!reset) {
                 this.vp.loadView(this.last_folder, this.last_folder_params);
             }
-            this.vp.deleteView(this.filtering);
+            this.vp.deleteView(fname);
             this.last_filter = this.last_folder = null;
         }
     }
