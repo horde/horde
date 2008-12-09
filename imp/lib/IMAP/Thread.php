@@ -64,7 +64,11 @@ class IMP_IMAP_Thread
 
         /* If starting in the middle of a thread, the threadLevel tree needs
          * to be built from the base of the current thread. */
+        $first = reset($indices);
         foreach ($t->getThread(reset($indices)) as $val) {
+            if ($first == $val) {
+                break;
+            }
             $thread_level[$t->getThreadIndent($val)] = $t->lastInLevel($val);
         }
 
