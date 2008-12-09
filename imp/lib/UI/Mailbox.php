@@ -201,7 +201,11 @@ class IMP_UI_Mailbox
             $this->_cache['today_end'] = strtotime('today + 1 day');
         }
 
-        $d = new DateTime($date);
+        try {
+            $d = new DateTime($date);
+        } catch (Exception $e) {
+            return _("Unknown Date");
+        }
         $udate = $d->format('U');
 
         if (($udate < $this->_cache['today_start']) ||
