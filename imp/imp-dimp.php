@@ -96,9 +96,14 @@ function _getListMessages($folder, $change)
     // TODO: This can potentially be optimized for arrival time sort - if the
     // cache ID changes, we know the changes must occur at end of mailbox.
     if (Util::getPost('purge') || $change) {
-        $res->update = true;
+        $res->update = 1;
     }
-    $res->request_id = Util::getPost('request_id');
+
+    $req_id = Util::getPost('request_id');
+    if (!is_null($req_id)) {
+        $res->request_id = $req_id;
+    }
+
     return $res;
 }
 
@@ -362,9 +367,9 @@ case 'CopyMessage':
     if ($result) {
         if ($action == 'MoveMessage') {
             $result = _generateDeleteResult($folder, $indices, $change);
-            // Need to manually set remove to 'true' since we want to remove
+            // Need to manually set remove to true since we want to remove
             // message from the list no matter the current pref settings.
-            $result->remove = true;
+            $result->remove = 1;
         }
 
         // Update poll information for destination folder if necessary.
@@ -446,7 +451,7 @@ case 'ReportHam':
         $result = _generateDeleteResult($folder, $indices, $change);
         // If $result is non-zero, then we know the message has been removed
         // from the current mailbox.
-        $result->remove = true;
+        $result->remove = 1;
     }
     break;
 
@@ -636,9 +641,9 @@ case 'PurgeDeleted':
             $notification->push(sprintf(_("%s messages were purged from \"%s\"."), $expunge_count, $display_folder), 'horde.success');
         }
         $result = _generateDeleteResult($folder, $expunged, $change);
-        // Need to manually set remove to 'true' since we want to remove
+        // Need to manually set remove to true since we want to remove
         // message from the list no matter the current pref settings.
-        $result->remove = true;
+        $result->remove = 1;
     }
     break;
 
@@ -711,7 +716,7 @@ case 'SMIMEPersonal':
     } elseif (!$passphrase) {
         $result->error = _("No passphrase entered.");
     } elseif ($res) {
-        $result->success = true;
+        $result->success = 1;
     } else {
         $result->error = _("Invalid passphrase entered.");
     }
