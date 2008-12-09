@@ -137,7 +137,9 @@ class IMP_Views_ListMessages
         if (IMP::isSpecialFolder($folder)) {
             $md->special = 1;
         }
-        $md->search = $GLOBALS['imp_search']->isSearchMbox($folder);
+        if ($GLOBALS['imp_search']->isSearchMbox($folder)) {
+            $md->search = 1;
+        }
 
         /* Check for mailbox existence now. If there are no messages, there
          * is a chance that the mailbox doesn't exist. If there is at least
@@ -156,31 +158,32 @@ class IMP_Views_ListMessages
         if (empty($args['cached'])) {
             $cached = array();
         } else {
-            if ($md->search) {
+            if (isset($md->search)) {
                 $cached = Horde_Serialize::unserialize($args['cached'], SERIALIZE_JSON);
             } else {
-                $cached = IMP::toRangeString($args['cached']);
+                $cached = IMP::parseRangeString($args['cached']);
                 $cached = reset($cached);
             }
             $cached = array_flip($cached);
         }
 
         /* Generate the message list and the UID -> rownumber list. */
-        $msglist = $rowlist = array();
+        $data = $msglist = $rowlist = array();
         foreach (range($slice_start, $slice_end) as $key) {
             $uid = $sorted_list['s'][$key] .
                 (isset($sorted_list['m'][$key]['m'])
                     ? $sorted_list['m'][$key]['m']
                     : '');
+            $msglist[$key] = $sorted_list['s'][$key];
+            $rowlist[$uid] = $key;
             if (!isset($cached[$uid])) {
-                $msglist[$key] = $sorted_list['s'][$key];
-                $rowlist[$uid] = $key;
+                $data[] = $key;
             }
         }
         $result->rowlist = $rowlist;
 
         /* Build the overview list. */
-        $result->data = $this->_getOverviewData($imp_mailbox, $folder, array_keys($msglist), $md->search);
+        $result->data = $this->_getOverviewData($imp_mailbox, $folder, $data, isset($md->search));
 
         /* Get unseen/thread information. */
         if (is_null($search_id)) {
@@ -196,7 +199,7 @@ class IMP_Views_ListMessages
                 $md->thread = array_filter($imp_thread->getThreadTreeOb($msglist, $sortpref['dir']));
             }
         } else {
-            $result->search = true;
+            $result->search = 1;
         }
 
         return $result;

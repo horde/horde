@@ -530,22 +530,20 @@ var DimpBase = {
                 }
             }.bind(this),
             onCachedList: function(id) {
-                var tmp, tmp2;
+                var tmp, vs;
                 if (!this.cacheids[id]) {
-                    tmp = this.viewport.getViewportSelection(id).get('uid');
-                    if (tmp.size()) {
-                        if (this.viewport.getMetaData('search', id)) {
-                            tmp = tmp.toJSON();
-                        } else {
-                            tmp2 = {};
-                            tmp2[id] = tmp;
-                            tmp = DimpCore.toRangeString(tmp2);
-                        }
-                    } else {
-                        tmp = '';
+                    vs = this.viewport.getViewportSelection(id);
+                    if (!vs.size()) {
+                        return '';
                     }
 
-                    this.cacheids[id] = tmp;
+                    if (vs.getBuffer().getMetaData('search')) {
+                        this.cacheids[id] = vs.get('uid').toJSON();
+                    } else {
+                        tmp = {};
+                        tmp[id] = vs.get('uid').clone();
+                        this.cacheids[id] = DimpCore.toRangeString(tmp);
+                    }
                 }
                 return this.cacheids[id];
             }.bind(this),
