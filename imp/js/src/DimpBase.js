@@ -530,16 +530,22 @@ var DimpBase = {
                 }
             }.bind(this),
             onCachedList: function(id) {
+                var tmp, tmp2;
                 if (!this.cacheids[id]) {
-                    var out = {};
-                    this.viewport.getViewportSelection(id).get('dataob').each(function(d) {
-                        if (!out[d.view]) {
-                            out[d.view] = [ parseInt(d.imapuid, 10) ];
+                    tmp = this.viewport.getViewportSelection(id).get('uid');
+                    if (tmp.size()) {
+                        if (this.viewport.getMetaData('search', id)) {
+                            tmp = tmp.toJSON();
                         } else {
-                            out[d.view].push(parseInt(d.imapuid, 10));
+                            tmp2 = {};
+                            tmp2[id] = tmp;
+                            tmp = DimpCore.toRangeString(tmp2);
                         }
-                    });
-                    this.cacheids[id] = DimpCore.toRangeString(out);
+                    } else {
+                        tmp = '';
+                    }
+
+                    this.cacheids[id] = tmp;
                 }
                 return this.cacheids[id];
             }.bind(this),
@@ -791,19 +797,22 @@ var DimpBase = {
 
     loadPreview: function(data, params)
     {
-        var pp = $('previewPane'), pp_offset;
+        var pp = $('previewPane'), pp_offset, pp_uid;
         if (!pp.visible()) {
             return;
         }
 
         if (!params) {
-            if (this.pp && this.pp == data) {
+            if (this.pp &&
+                this.pp.imapuid == data.imapuid &&
+                this.pp.view == data.view) {
                 return;
             }
             this.pp = data;
+            pp_uid = data.imapuid + data.view;
 
-            if (this.ppfifo.indexOf(this.pp.vp_id) != -1) {
-                return this._loadPreviewCallback(this.ppcache[this.pp.vp_id]);
+            if (this.ppfifo.indexOf(pp_uid) != -1) {
+                return this._loadPreviewCallback(this.ppcache[pp_uid]);
             }
         }
 
@@ -815,13 +824,13 @@ var DimpBase = {
 
     _loadPreviewCallback: function(resp)
     {
-        var row, search, tmp, tmp2,
+        var ppuid, row, search, tmp, tmp2,
             pm = $('previewMsg'),
             r = resp.response,
             t = $('msgHeadersContent').down('THEAD');
 
         if (!r.error) {
-            search = this.viewport.getViewportSelection(r.view).search({ vp_id: { equal: [ r.uid ] } });
+            search = this.viewport.getViewportSelection().search({ imapuid: { equal: [ r.index ] }, view: { equal: [ r.folder ] } });
             if (search.size()) {
                 row = search.get('dataob').first();
                 this.updateUnseenUID(row, 0);
@@ -829,7 +838,8 @@ var DimpBase = {
         }
 
         if (this.pp &&
-            this.pp.vp_id != r.uid) {
+            (this.pp.imapuid != r.index ||
+             this.pp.view != r.folder)) {
             return;
         }
 
@@ -842,9 +852,10 @@ var DimpBase = {
         }
 
         // Store in cache.
-        this._expirePPCache([ r.uid ]);
-        this.ppcache[r.uid] = resp;
-        this.ppfifo.push(r.uid);
+        ppuid = r.index + r.folder;
+        this._expirePPCache([ ppuid ]);
+        this.ppcache[ppuid] = resp;
+        this.ppfifo.push(ppuid);
 
         DimpCore.removeAddressLinks(pm);
 
@@ -1446,7 +1457,7 @@ var DimpBase = {
 
     _deleteCallback: function(r)
     {
-        var search, uids = [];
+        var search = null, uids = [], vs;
 
         this.msgListLoading(false);
         this._pollFoldersCallback(r);
@@ -1455,20 +1466,31 @@ var DimpBase = {
         if (!r.uids || r.folder != this.folder) {
             return;
         }
+        r.uids = DimpCore.parseRangeString(r.uids);
 
         // Need to convert uid list to listing of unique viewport IDs since
         // we may be dealing with multiple mailboxes (i.e. virtual folders)
-        $H(DimpCore.parseRangeString(r.uids)).each(function(pair) {
-            pair.value.each(function(v) {
-                uids.push(v + pair.key);
+        vs = this.viewport.getViewportSelection(this.folder);
+        if (vs.getBuffer().getMetaData('search')) {
+            $H(r.uids).each(function(pair) {
+                pair.value.each(function(v) {
+                    uids.push(v + pair.key);
+                });
             });
-        });
 
-        search = this.viewport.getViewportSelection().search({ vp_id: { equal: uids } });
+            search = this.viewport.getViewportSelection().search({ vp_id: { equal: uids } });
+        } else {
+            r.uids = r.uids[this.folder];
+            r.uids.each(function(f, u) {
+                uids.push(u + f);
+            }.curry(this.folder));
+            search = this.viewport.createSelection('uid', r.uids);
+        }
+
         if (search.size()) {
             if (r.remove) {
                 this.viewport.remove(search, { cacheid: r.cacheid, noupdate: r.viewport });
-                this._expirePPCache(search.get('uid'));
+                this._expirePPCache(uids);
             } else {
                 // Need this to catch spam deletions.
                 this.viewport.updateFlag(search, 'deletedmsg', true);

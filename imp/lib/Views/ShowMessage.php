@@ -90,7 +90,6 @@ class IMP_Views_ShowMessage
      * 'msgtext' - The text of the message
      * 'priority' - The X-Priority of the message ('low', 'high', 'normal')
      * 'to' - The To addresses
-     * 'uid' - The unique UID of this message
      *
      * FOR PREVIEW MODE:
      * 'fulldate' - The fully formatted date
@@ -114,8 +113,7 @@ class IMP_Views_ShowMessage
 
         $result = array(
             'folder' => $folder,
-            'index' => $index,
-            'uid' => $index . $folder,
+            'index' => $index
         );
 
         /* Set the current time zone. */

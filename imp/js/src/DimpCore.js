@@ -104,7 +104,7 @@ DimpCore = {
      *  instead of sending the action to the IMP handler. */
     doAction: function(action, params, uids, callback, opts)
     {
-        var tmp = {};
+        var b, tmp = {};
 
         if (!this.doActionOpts) {
             this.doActionOpts = {
@@ -126,12 +126,17 @@ DimpCore = {
             : DIMP.conf.URI_IMP + '/' + action;
         if (uids) {
             if (uids.viewport_selection) {
-                uids.get('dataob').each(function(r) {
-                    if (!tmp[r.view]) {
-                        tmp[r.view] = [];
-                    }
-                    tmp[r.view].push(r.imapuid);
-                });
+                b = uids.getBuffer();
+                if (b.getMetaData('search')) {
+                    uids.get('dataob').each(function(r) {
+                        if (!tmp[r.view]) {
+                            tmp[r.view] = [];
+                        }
+                        tmp[r.view].push(r.imapuid);
+                    });
+                } else {
+                    tmp[b.getView()] = uids.get('uid');
+                }
                 uids = tmp;
             }
             params.set('uid', DimpCore.toRangeString(uids));

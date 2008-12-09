@@ -1,13 +1,13 @@
 <?php
 /**
- * DIMP ListMessages view logic.  Abstracted out here to prevent imp.php from
- * becoming too cluttered.
+ * Dynamic (dimp) message list logic.
  *
  * Copyright 2005-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
+ * @author  Michael Slusarz <slusarz@horde.org>
  * @package IMP
  */
 class IMP_Views_ListMessages
@@ -137,6 +137,7 @@ class IMP_Views_ListMessages
         if (IMP::isSpecialFolder($folder)) {
             $md->special = 1;
         }
+        $md->search = $GLOBALS['imp_search']->isSearchMbox($folder);
 
         /* Check for mailbox existence now. If there are no messages, there
          * is a chance that the mailbox doesn't exist. If there is at least
@@ -151,16 +152,35 @@ class IMP_Views_ListMessages
             return $result;
         }
 
+        /* Get the cached list. */
+        if (empty($args['cached'])) {
+            $cached = array();
+        } else {
+            if ($md->search) {
+                $cached = Horde_Serialize::unserialize($args['cached'], SERIALIZE_JSON);
+            } else {
+                $cached = IMP::toRangeString($args['cached']);
+                $cached = reset($cached);
+            }
+            $cached = array_flip($cached);
+        }
+
         /* Generate the message list and the UID -> rownumber list. */
         $msglist = $rowlist = array();
         foreach (range($slice_start, $slice_end) as $key) {
-            $msglist[$key] = $sorted_list['s'][$key];
-            $rowlist[$msglist[$key] . ((isset($sorted_list['m'][$key]['m'])) ? $sorted_list['m'][$key]['m'] : $folder)] = $key;
+            $uid = $sorted_list['s'][$key] .
+                (isset($sorted_list['m'][$key]['m'])
+                    ? $sorted_list['m'][$key]['m']
+                    : '');
+            if (!isset($cached[$uid])) {
+                $msglist[$key] = $sorted_list['s'][$key];
+                $rowlist[$uid] = $key;
+            }
         }
         $result->rowlist = $rowlist;
 
         /* Build the overview list. */
-        $result->data = $this->_getOverviewData($imp_mailbox, $folder, array_keys(array_diff($msglist, IMP::parseRangeString($args['cached']))));
+        $result->data = $this->_getOverviewData($imp_mailbox, $folder, array_keys($msglist), $md->search);
 
         /* Get unseen/thread information. */
         if (is_null($search_id)) {
@@ -187,9 +207,9 @@ class IMP_Views_ListMessages
      * ID/Rownum/UID/Mailbox mapping.  Used to select slices without needing
      * to obtain IMAP information for all messages in the slice.
      *
-     * @var string $folder   The current folder.
-     * @var integer $start   Starting row number.
-     * @var integer $length  Slice length.
+     * @param string $folder   The current folder.
+     * @param integer $start   Starting row number.
+     * @param integer $length  Slice length.
      *
      * @return array  The minimal message list.
      */
@@ -202,9 +222,8 @@ class IMP_Views_ListMessages
         $sorted_list = $imp_mailbox->getSortedList();
         $data = array();
         for ($i = $start; $i < $end; ++$i) {
-            $mbox = (empty($sorted_list['m'][$i])) ? $folder : $sorted_list['m'][$i];
             $id = $sorted_list['s'][$i];
-            $data[$id . $mbox] = array(
+            $data[$id . (empty($sorted_list['m'][$i]) ? '': $sorted_list['m'][$i])] = array(
                 'imapuid' => $id,
                 'rownum' => $i
             );
@@ -219,14 +238,15 @@ class IMP_Views_ListMessages
     /**
      * Obtains IMAP overview data for a given set of message UIDs.
      *
-     * @param object IMP_Mailbox $imp_mailbox  An IMP_Mailbox:: object.
-     * @param string $folder                   The current folder.
-     * @param array $msglist                   The list of message sequence
-     *                                         numbers to process.
+     * @param IMP_Mailbox $imp_mailbox  An IMP_Mailbox:: object.
+     * @param string $folder            The current folder.
+     * @param array $msglist            The list of message sequence numbers
+     *                                  to process.
+     * @param boolean $search           Is this a search mbox?
      *
      * @return array TODO
      */
-    private function _getOverviewData($imp_mailbox, $folder, $msglist)
+    private function _getOverviewData($imp_mailbox, $folder, $msglist, $search)
     {
         $msgs = array();
 
@@ -324,8 +344,13 @@ class IMP_Views_ListMessages
                 $msg['listmsg'] = 1;
             }
 
-            /* Need both UID and mailbox to create a unique ID string. */
-            $msgs[$ob['uid'] . $ob['mailbox']] = $msg;
+            /* Need both UID and mailbox to create a unique ID string if
+             * using a search mailbox.  Otherwise, use only the UID. */
+            if ($search) {
+                $msgs[$ob['uid'] . $ob['mailbox']] = $msg;
+            } else {
+                $msgs[$ob['uid']] = $msg;
+            }
         }
 
         return $msgs;

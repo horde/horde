@@ -63,7 +63,7 @@ var ViewPort = Class.create({
             this.page_size = ps;
         }
 
-        buffer = this._getBuffer();
+        buffer = this._getBuffer(view);
         if (buffer) {
             if (!background && this.view) {
                 // Need to store current buffer to save current offset
@@ -102,7 +102,7 @@ var ViewPort = Class.create({
             this.scroller.clear();
         }
 
-        buffer = this._getBuffer(null, true);
+        buffer = this._getBuffer(view, true);
         this.views.set(view, { buffer: buffer, offset: 0 });
         this.setMetaData({ additional_params: $H(params) }, view);
         if (search) {
@@ -499,16 +499,26 @@ var ViewPort = Class.create({
     addRequestParams: function(args, opts)
     {
         opts = opts || {};
-        var cached = (this.opts.onCachedList ? this.opts.onCachedList(opts.view || this.view) : this._getBuffer(opts.view).getAllUIDs().toJSON()),
-            cid = this.getMetaData('cacheid', opts.view),
+        var cid = this.getMetaData('cacheid', opts.view),
             params = this.getMetaData('additional_params', opts.view).clone(),
-            rowlist;
+            cached, rowlist;
+
         if (cid) {
             params.update({ cacheid: cid });
         }
+
         if (!opts.noslice) {
             rowlist = this._getSliceBounds(this.currentOffset(), null, opts.view);
             params.update({ slice_start: rowlist.start, slice_end: rowlist.end });
+        }
+
+        if (this.opts.onCachedList) {
+            cached = this.opts.onCachedList(opts.view || this.view);
+        } else {
+            cached = this._getBuffer(opts.view).getAllUIDs();
+            cached = cached.size()
+                ? cached.toJSON()
+                : '';
         }
         if (cached.length) {
             params.update({ cached: cached });
@@ -805,13 +815,14 @@ var ViewPort = Class.create({
 
     _getBuffer: function(view, create)
     {
+        view = view || this.view;
         if (!create) {
-            var b = this.views.get(view || this.view);
+            var b = this.views.get(view);
             if (b) {
                 return b.buffer;
             }
         }
-        return new ViewPort_Buffer(this, this.opts.buffer_pages, this.opts.limit_factor);
+        return new ViewPort_Buffer(this, this.opts.buffer_pages, this.opts.limit_factor, view);
     },
 
     currentOffset: function()
@@ -1171,12 +1182,18 @@ ViewPort_Scroller = Class.create({
  */
 ViewPort_Buffer = Class.create({
 
-    initialize: function(vp, b_pages, l_factor)
+    initialize: function(vp, b_pages, l_factor, view)
     {
         this.bufferPages = b_pages;
         this.limitFactor = l_factor;
         this.vp = vp;
+        this.view = view;
         this.clear();
+    },
+
+    getView: function()
+    {
+        return this.view;
     },
 
     _limitTolerance: function()
@@ -1599,6 +1616,11 @@ ViewPort_Selection = Class.create({
                 d[v.key] = v.value;
             });
         });
+    },
+
+    getBuffer: function()
+    {
+        return this.buffer;
     }
 
 });
