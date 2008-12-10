@@ -221,21 +221,28 @@ class IMP_UI_Mailbox
     /**
      * Formats the subject header.
      *
-     * @param string $subject  The MIME encoded subject header.
+     * @param string $subject     The MIME encoded subject header.
+     * @param string $htmlspaces  Run through Text::htmlSpaces()?
      *
      * @return string  The formatted subject header.
      */
-    public function getSubject($subject)
+    public function getSubject($subject, $htmlspaces = false)
     {
         $subject = Horde_Mime::decode($subject);
-        $subject = empty($subject)
-            ? _("[No Subject]")
-            : IMP::filterText(preg_replace("/\s+/", ' ', $subject));
+        if (empty($subject)) {
+            return _("[No Subject]");
+        }
+
+        $new_subject = $subject = IMP::filterText(preg_replace("/\s+/", ' ', $subject));
         if ($_SESSION['imp']['view'] == 'dimp') {
             require_once 'Horde/Text.php';
-            $subject = str_replace('&nbsp;', '&#160;', Text::htmlSpaces($subject));
+            $new_subject = str_replace('&nbsp;', '&#160;', Text::htmlSpaces($subject));
+        } elseif ($htmlspaces) {
+            require_once 'Horde/Text.php';
+            $new_subject = Text::htmlSpaces($subject);
         }
-        return $subject;
+
+        return empty($new_subject) ? $subject : $new_subject;
     }
 
 }

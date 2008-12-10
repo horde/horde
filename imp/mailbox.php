@@ -679,7 +679,6 @@ $fromlinkstyle = $prefs->getValue('from_link');
 $imp_ui = new IMP_UI_Mailbox($imp_mbox['mailbox']);
 
 /* Display message information. */
-require_once 'Horde/Text.php';
 $ids = $msgs = array();
 $search_template = null;
 while (list($seq, $ob) = each($mbox_info['overview'])) {
@@ -818,7 +817,7 @@ while (list($seq, $ob) = each($mbox_info['overview'])) {
     }
 
     /* Format the Subject: Header. */
-    $msg['subject'] = Text::htmlSpaces($imp_ui->getSubject($ob['envelope']['subject']));
+    $msg['subject'] = $imp_ui->getSubject($ob['envelope']['subject'], true);
     if ($preview_tooltip) {
         $msg['subject'] = substr(Horde::linkTooltip($target, $msg['preview'], '', '', '', $msg['preview']), 0, -1) . ' id="subject' . $msg['id'] . '">' . $msg['subject'] . '</a>';
     } else {
