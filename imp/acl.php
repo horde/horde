@@ -1,5 +1,7 @@
 <?php
 /**
+ * ACL (Access Control List) administration page.
+ *
  * Copyright 2000-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -9,42 +11,20 @@
  * @author Eric Garrido <ekg2002@columbia.edu>
  */
 
-@define('IMP_BASE', dirname(__FILE__));
-require_once IMP_BASE . '/lib/base.php';
-require_once 'Horde/IMAP/ACL.php';
-
-$prefs_url = IMP::prefsURL(true);
+require_once dirname(__FILE__) . '/lib/base.php';
 
 /* Redirect back to the options screen if ACL is not enabled. */
-if ($prefs->isLocked('acl') ||
-    !(isset($_SESSION['imp']['acl']) && is_array($_SESSION['imp']['acl']))) {
+$prefs_url = IMP::prefsURL(true);
+if ($prefs->isLocked('acl') || empty($_SESSION['imp']['acl'])) {
     $notification->push(_("Folder sharing is not enabled."), 'horde.error');
     header('Location: ' . $prefs_url);
     exit;
 }
 
-$params = array(
-    'hostspec' => $_SESSION['imp']['server'],
-    'password' => Secret::read(IMP::getAuthKey(), $_SESSION['imp']['pass']),
-    'port' => $_SESSION['imp']['port'],
-    'protocol' => $_SESSION['imp']['protocol'],
-    'username' => $_SESSION['imp']['user'],
-);
-
-if (isset($_SESSION['imp']['acl']['params'])) {
-    $params = array_merge($params, $_SESSION['imp']['acl']['params']);
-}
-
-$ACLDriver = &IMAP_ACL::singleton($_SESSION['imp']['acl']['driver'], $params);
-
-/* Check selected driver is supported. Redirect to options screen with
- * error message if not. */
-$error = (!$ACLDriver->isSupported())
-    ? _("This server does not support sharing folders.")
-    : $ACLDriver->getError();
-
-if ($error) {
-    $notification->push($error, 'horde.error');
+try {
+    $ACLDriver = &IMP_IMAP_ACL::singleton();
+} catch (Exception $e) {
+    $notification->push($error, _("This server does not support sharing folders."));
     header('Location: ' . $prefs_url);
     exit;
 }
@@ -64,9 +44,8 @@ if ($new_user) {
 $protected = $ACLDriver->getProtected();
 
 /* Run through the action handlers. */
-$actionID = Util::getFormData('actionID');
 $ok_form = true;
-switch ($actionID) {
+switch (Util::getFormData('actionID')) {
 case 'imp_acl_set':
     if (!$folder) {
         $notification->push(_("No folder selected."), 'horde.error');
@@ -75,9 +54,9 @@ case 'imp_acl_set':
 
     if ($new_user) {
         /* Each ACL is submitted with the acl as the value. Reverse the hash
-           mapping for createACL(). */
+           mapping for editACL(). */
         $new_acl = array_flip($new_acl);
-        $result = $ACLDriver->createACL($folder, $new_user, $new_acl);
+        $result = $ACLDriver->editACL($folder, $new_user, $new_acl);
         if (is_a($result, 'PEAR_Error')) {
             $notification->push($result);
         } elseif (!count($new_acl)) {
@@ -133,19 +112,13 @@ case 'imp_acl_set':
 
 $imp_folder = &IMP_Folder::singleton();
 $rights = $ACLDriver->getRights();
-$rightsTitles = $ACLDriver->getRightsTitles();
 
 if (empty($folder)) {
     $folder = 'INBOX';
 }
 
 $curr_acl = $ACLDriver->getACL($folder);
-$canEdit = $ACLDriver->canEdit($folder, $_SESSION['imp']['user']);
-
-if (is_a($curr_acl, 'PEAR_Error')) {
-    $notification->push($curr_acl, 'horde_error');
-    $curr_acl = array();
-}
+$canEdit = $ACLDriver->canEdit($folder, $_SESSION['imp']['uniquser']);
 
 require_once 'Horde/Prefs/UI.php';
 $result = Horde::loadConfiguration('prefs.php', array('prefGroups', '_prefs'), 'imp');
@@ -165,7 +138,7 @@ $t->set('forminput', Util::formInput());
 $t->set('aclnavcell', Util::bufferOutput(array('Prefs_UI', 'generateNavigationCell'), 'acl'));
 $t->set('changefolder', Horde::link('#', _("Change Folder"), 'smallheader', '', 'ACLFolderChange(true); return false;'));
 $t->set('sharedimg', Horde::img('shared.png', _("Change Folder")));
-$t->set('options', IMP::flistSelect(array('selected' => $folder));
+$t->set('options', IMP::flistSelect(array('selected' => $folder)));
 $t->set('current', sprintf(_("Current access to %s"), IMP::displayFolder($folder)));
 $t->set('folder', $folder);
 $t->set('noacl', !count($curr_acl));
@@ -183,7 +156,7 @@ if (!$t->get('noacl')) {
         /* Create table of each ACL option for each user granted permissions,
          * enabled indicates the right has been given to the user */
         foreach (array_keys($rights) as $val) {
-            $entry['rule'][] = array('val' => $val, 'enabled'=> isset($rule{$val}));
+            $entry['rule'][] = array('val' => $val, 'enabled' => isset($rule[$val]));
         }
         $cval[] = $entry;
     }
@@ -209,13 +182,15 @@ if (empty($_SESSION['imp']['admin'])) {
     $new_user_field .= "\n</select>";
 }
 $t->set('new_user', $new_user_field);
+
 $rightsTitlesval = array();
-foreach ($rightsTitles as $right => $desc) {
+foreach ($rights as $right => $val) {
     $rightsval[] = array(
         'right' => $right,
-        'desc' => $desc
+        'desc' => $val['desc']
     );
 }
+
 $t->set('rights', $rightsval);
 $t->set('width', round(100 / (count($rightsval) + 1)) . '%');
 $t->set('prefsurl', $prefs_url);
