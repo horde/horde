@@ -595,7 +595,7 @@ class IMP_Compose
 
         /* Call post-sent hook. */
         if (!empty($conf['hooks']['postsent'])) {
-            Horde::callHook('_imp_hook_postsent', array($save_msg['msg'], $msg_headers), 'imp', null);
+            Horde::callHook('_imp_hook_postsent', array($save_msg['msg'], $headers), 'imp', null);
         }
 
         return $sent_saved;

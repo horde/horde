@@ -1584,8 +1584,7 @@ class IMP_IMAP_Tree
         }
 
         if (!isset($mbox_icons)) {
-            $mbox_icons = Horde::callHook('_imp_hook_mbox_icons', array(),
-                                          'imp', false);
+            $mbox_icons = Horde::callHook('_imp_hook_mbox_icons', array(), 'imp', false);
             if (!$mbox_icons) {
                 return false;
             }

@@ -315,15 +315,16 @@ if (($subject = $mime_headers->getValue('subject'))) {
 }
 
 /* See if the 'X-Priority' header has been set. */
-switch ($imp_ui->getXpriority($mime_headers)) {
+$xpriority = $mime_headers->getValue('x-priority');
+switch ($imp_ui->getXpriority($xpriority)) {
 case 'high':
     $basic_headers['priority'] = _("Priority");
-    $display_headers['priority'] = Horde::img('mail_priority_high.png', _("High Priority")) . '&nbsp;' . $mime_headers->getValue('x-priority');
+    $display_headers['priority'] = Horde::img('mail_priority_high.png', _("High Priority")) . '&nbsp;' . $xpriority;
     break;
 
 case 'low':
     $basic_headers['priority'] = _("Priority");
-    $display_headers['priority'] = Horde::img('mail_priority_low.png', _("Low Priority")) . '&nbsp;' . $mime_headers->getValue('x-priority');
+    $display_headers['priority'] = Horde::img('mail_priority_low.png', _("Low Priority")) . '&nbsp;' . $xpriority;
     break;
 }
 

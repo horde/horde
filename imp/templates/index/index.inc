@@ -221,7 +221,7 @@ function _simpleButton($id, $text, $image, $imagedir = null)
       <div id="qoptions">
        <span class="qclose"><a>x</a></span>
        <span class="qlabel"><?php echo _("Folders: ") ?></span>
-<?php if (!empty($conf['search']['search_all'])): ?>
+<?php if (!empty($conf['dimp']['search']['search_all'])): ?>
        <a id="sf_all"><?php echo _("All") ?></a>
 <?php endif; ?>
        <a id="sf_current"></a>

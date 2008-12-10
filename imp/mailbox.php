@@ -568,7 +568,7 @@ $messages = $threadlevel = array();
 /* Get thread object, if necessary. */
 if ($sortpref['by'] == Horde_Imap_Client::SORT_THREAD) {
     $imp_thread = new IMP_IMAP_Thread($imp_mailbox->getThreadOb());
-    $threadtree = $imp_thread->getThreadImageTree($mbox_info['uids'], $sortpref['dir']);
+    $threadtree = $imp_thread->getThreadImageTree(reset($mbox_info['uids']), $sortpref['dir']);
 }
 
 /* Don't show header row if this is a search mailbox or if no messages in the
@@ -682,7 +682,7 @@ $imp_ui = new IMP_UI_Mailbox($imp_mbox['mailbox']);
 require_once 'Horde/Text.php';
 $ids = $msgs = array();
 $search_template = null;
-while (list(,$ob) = each($mbox_info['overview'])) {
+while (list($seq, $ob) = each($mbox_info['overview'])) {
     if ($search_mbox) {
         if (empty($lastMbox) || ($ob['mailbox'] != $lastMbox)) {
             if (!empty($lastMbox)) {
@@ -691,7 +691,7 @@ while (list(,$ob) = each($mbox_info['overview'])) {
             }
             $folder_link = Horde::url(Util::addParameter('mailbox.php', 'mailbox', $ob['mailbox']));
             $folder_link = Horde::link($folder_link, sprintf(_("View messages in %s"), IMP::displayFolder($ob['mailbox'])), 'smallheader') . IMP::displayFolder($ob['mailbox']) . '</a>';
-            if ($search_template === null) {
+            if (is_null($search_template)) {
                 $search_template = new IMP_Template();
             }
             $search_template->set('lastMbox', $lastMbox);
@@ -712,6 +712,7 @@ while (list(,$ob) = each($mbox_info['overview'])) {
         'bg' => '',
         'color' => '',
         'date' => htmlspecialchars($imp_ui->getDate($ob['envelope']['date'])),
+        'number' => $seq,
         'preview' => '',
         'size' => htmlspecialchars($imp_ui->getSize($ob['size'])),
         'status' => '',
@@ -765,19 +766,6 @@ while (list(,$ob) = each($mbox_info['overview'])) {
         }
     }
 
-    if (!empty($conf['hooks']['msglist_format'])) {
-        $ob_f = Horde::callHook('_imp_hook_msglist_format', array($ob['mailbox'], $ob['uid']), 'imp');
-        if (!empty($ob_f['class'])) {
-            $bg = array_merge($bg, $ob_f['class']);
-        }
-        if (!empty($ob_f['flagbits'])) {
-            $flagbits |= $ob_f['flagbits'];
-        }
-        if (!empty($ob_f['status'])) {
-            $msg['status'] .= $ob_f['status'];
-        }
-    }
-
     $ids[$msg['id']] = $flagbits;
     $msg['bg'] = implode(' ', $bg);
 
@@ -812,9 +800,6 @@ while (list(,$ob) = each($mbox_info['overview'])) {
         $msg['preview'] = $ptext;
     }
 
-    /* Set the message number. */
-    $msg['number'] = $ob['seq'];
-
     /* Format the From: Header. */
     $getfrom = $imp_ui->getFrom($ob['envelope']);
     $msg['from'] = htmlspecialchars($getfrom['from']);
@@ -847,7 +832,30 @@ while (list(,$ob) = each($mbox_info['overview'])) {
         }
     }
 
-    $msgs[] = $msg;
+    $msgs[$ob['uid'] . $ob['mailbox']] = $msg;
+}
+
+/* Add user supplied information from hook. */
+if (!empty($conf['hooks']['msglist_format'])) {
+    $ob_f = Horde::callHook('_imp_hook_msglist_format', array($mbox_info['uids'], $imp_mbox['mailbox'], 'imp'), 'imp');
+
+    foreach ($ob_f as $mbox => $uids) {
+        foreach ($uids as $uid => $val) {
+            $ptr = &$msgs[$uid . $mbox];
+
+            if (!empty($val['class'])) {
+                $ptr['bg'] = array_merge($ptr['bg'], $val['class']);
+            }
+
+            if (!empty($val['flagbits'])) {
+                $ids[$ptr['id']] |= $val['flagbits'];
+            }
+
+            if (!empty($val['status'])) {
+                $ptr['status'] .= $val['status'];
+            }
+        }
+    }
 }
 
 _outputSummaries($msgs);

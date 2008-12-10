@@ -168,11 +168,12 @@ $display_headers['subject'] = $subject;
 $list_info = $imp_ui->getListInformation($mime_headers);
 
 /* See if the 'X-Priority' header has been set. */
-switch ($imp_ui->getXpriority($mime_headers)) {
+$xpriority = $mime_headers->getValue('x-priority');
+switch ($imp_ui->getXpriority($xpriority)) {
 case 'high':
 case 'low':
     $basic_headers['priority'] = _("Priority");
-    $display_headers['priority'] = $mime_headers->getValue('x-priority');
+    $display_headers['priority'] = $xpriority;
     break;
 }
 

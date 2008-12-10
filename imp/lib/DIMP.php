@@ -163,7 +163,7 @@ class DIMP
             'ham_reporting' => (int) !empty($conf['notspam']['reporting']),
             'ham_spamfolder' => (int) !empty($conf['notspam']['spamfolder']),
             'refresh_time' => (int) $prefs->getValue('refresh_time'),
-            'search_all' => (int) !empty($conf['search']['search_all']),
+            'search_all' => (int) !empty($conf['dimp']['search']['search_all']),
 
             'fixed_folders' => empty($conf['server']['fixed_folders'])
                 ? array()
@@ -175,14 +175,14 @@ class DIMP
 
             'is_ie6' => ($browser->isBrowser('msie') && ($browser->getMajor() < 7)),
 
-            'buffer_pages' => intval($conf['viewport']['buffer_pages']),
-            'limit_factor' => intval($conf['viewport']['limit_factor']),
-            'viewport_wait' => intval($conf['viewport']['viewport_wait']),
+            'buffer_pages' => intval($conf['dimp']['viewport']['buffer_pages']),
+            'limit_factor' => intval($conf['dimp']['viewport']['limit_factor']),
+            'viewport_wait' => intval($conf['dimp']['viewport']['viewport_wait']),
             'login_view' => $prefs->getValue('login_view'),
-            'background_inbox' => !empty($conf['viewport']['background_inbox']),
+            'background_inbox' => !empty($conf['dimp']['viewport']['background_inbox']),
 
             // Turn debugging on?
-            'debug' => !empty($conf['js']['debug']),
+            'debug' => !empty($conf['dimp']['js']['debug']),
         );
 
         /* Gettext strings used in core javascript files. */
@@ -490,8 +490,8 @@ class DIMP
      */
     public function menuList()
     {
-        if (isset($GLOBALS['conf']['menu']['apps'])) {
-            $apps = $GLOBALS['conf']['menu']['apps'];
+        if (isset($GLOBALS['conf']['dimp']['menu']['apps'])) {
+            $apps = $GLOBALS['conf']['dimp']['menu']['apps'];
             if (is_array($apps) && count($apps)) {
                 return $apps;
             }

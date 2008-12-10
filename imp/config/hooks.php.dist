@@ -40,67 +40,15 @@
 //     }
 // }
 
-// This is an example for a post-sending hook that automatically prints all
-// messages that have been sent successfully.
+// This is an example for a post-sending hook that performs an action after
+// a message has been sent successfully.
+// $message = Base Horde_Mime_part object.
+// $headers = Horde_Mime_Headers object.
 
 // if (!function_exists('_imp_hook_postsent')) {
 //     function _imp_hook_postsent($message, $headers)
 //     {
-//         require_once IMP_BASE . '/lib/MIME/Contents.php';
-//         require_once IMP_BASE . '/lib/UI/Message.php';
-//
-//         IMP::$printMode = true;
-//         $contents = new IMP_Contents($message);
-//         $contents->showSummaryLinks(false);
-//         $contents->buildMessage();
-//         $attachments = $contents->getAttachments();
-//         $msgText = $contents->getMessage();
-//
-//         // @todo this is no longer good code.
-//         $imp_ui = new IMP_UI_Message();
-//         $basic_headers = $imp_ui->basicHeaders();
-//         $headers->setValueByFunction('date', array('nl2br', array($headers, 'addLocalTime'), 'htmlspecialchars'));
-//         if (($subject = $headers->getValue('subject'))) {
-//             $subject = IMP::filterText($subject);
-//             require_once 'Horde/Text.php';
-//             $headers->setValue('subject', Text::htmlSpaces($subject));
-//         } else {
-//             $headers->addHeader('Subject', _("[No Subject]"));
-//         }
-//         $headers->buildAddressLinks('from', null, true, false);
-//         foreach (array('to', 'cc', 'bcc') as $val) {
-//             $headers->buildAddressLinks($val, null, true, false);
-//         }
-//         if ($reply_to = $headers->buildAddressLinks('reply-to', null, false, false)) {
-//             if (!($from = $headers->getValue('from')) || ($from != $reply_to)) {
-//                 $headers->setValue('Reply-to', $reply_to);
-//             } else {
-//                 $headers->removeHeader('reply-to');
-//             }
-//         }
-//         $hdrs = array();
-//         foreach ($basic_headers as $head => $str) {
-//             if ($val = $headers->getValue($head)) {
-//                 $hdrs[] = array('name' => $str, 'val' => $val, 'i' => 0);
-//             }
-//         }
-//         if ($val = $headers->getValue('priority')) {
-//             $hdrs[] = array('name' => _("Priority"), 'val' => $val, 'i' => 0);
-//         }
-//         if (!empty($attachments)) {
-//             $hdrs[] = array('name' => _("Part(s)"), 'val' => '<table cellspacing="2">' . $attachments . '</table>', 'i' => 0);
-//         }
-//
-//         require_once IMP_BASE . '/lib/Template.php';
-//         $template = new IMP_Template();
-//         $template->set('headers', $hdrs);
-//         $template->set('msgtext', $msgText);
-//         $printer_friendly = true;
-//         require IMP_TEMPLATES . '/common-header.inc';
-//         echo $template->fetch(IMP_TEMPLATES . '/message/message.html');
-//         require $GLOBALS['registry']->get('templates', 'horde') . '/javascript/print.js';
-//         require $GLOBALS['registry']->get('templates', 'horde') . '/common-footer.inc';
-//         exit;
+//          // Do entire action here -- no return value from this hook.
 //     }
 // }
 
@@ -127,18 +75,18 @@
 // if (!function_exists('_imp_hook_trailer')) {
 //     function _imp_hook_trailer($trailer)
 //     {
-//         $vdomain = getenv('HTTP_HOST');
-//         $vdomain = preg_replace('|^.*?\.|i', '', $vdomain);
-//         $vdomain = String::lower($vdomain);
+//         $vdomain = String::lower(preg_replace('|^.*?\.|i', '', getenv('HTTP_HOST')));
 //         $ldapServer = 'localhost';
 //         $ldapPort = '389';
 //         $searchBase = 'ispmanDomain=' . $vdomain  . ",o=ispman";
 //
-//         $ds = @ldap_connect($ldapServer, $ldapPort);
-//         $searchResult = @ldap_search($ds, $searchBase, 'uid=' . $vdomain);
-//         $information = @ldap_get_entries($ds, $searchResult);
+//         $old_error = error_reporting(0);
+//         $ds = ldap_connect($ldapServer, $ldapPort);
+//         $searchResult = ldap_search($ds, $searchBase, 'uid=' . $vdomain);
+//         $information = ldap_get_entries($ds, $searchResult);
 //         $trailer= $information[0]['ispmandomainsignature'][0];
 //         ldap_close($ds);
+//         error_reporting($old_error);
 //
 //         return $trailer;
 //     }
@@ -159,9 +107,7 @@
 // if (!function_exists('_imp_hook_vinfo')) {
 //     function _imp_hook_vinfo($type = 'username', $data = null)
 //     {
-//         $vdomain = getenv('HTTP_HOST');
-//         $vdomain = preg_replace('|^mail\.|i', '', $vdomain);
-//         $vdomain = String::lower($vdomain);
+//         $vdomain = String::lower(preg_replace('|^mail\.|i', '', getenv('HTTP_HOST')));
 //
 //         switch ($type) {
 //         case 'username':
@@ -190,6 +136,7 @@
 //         // for preferences?
 //         $cmd = '/usr/local/bin/spamc';
 //         $username = Auth::getAuth();
+//
 //         // If you use the _sam_hook_username() hook, uncomment the next line
 //         //$username = _sam_hook_username($username);
 //         $username = escapeshellarg($username);
@@ -206,6 +153,7 @@
 //         // Read the new message from the temporary file
 //         $message = file_get_contents($file);
 //         unlink($file);
+//
 //         return $message;
 //     }
 // }
@@ -231,45 +179,90 @@
 // information in the message listing screen for a mailbox.  This example hook
 // will add a icon if the message contains attachments and will change the
 // display of the message entry based on the X-Priority header.
+//
+// INPUT:
+// $uids - (array) A list of UIDs/mailboxes.  Mailboxes are the keys; values
+//         are the list of UIDs in the mailbox.
+// $mbox - (string) The current mailbox string (may be a search mailbox
+//         string).
+// $mode - (string) Either 'imp' or 'dimp'.
+//
+// OUTPUT:
+// An array with Mailboxes as the keys, and an array of arrays as the value.
+// Each array consists of the UID (key) and the following array values:
+//
+// For IMP:
+// 'class' - (array) CSS classnames that will be added to the row.
+// 'flagbits' - (integer) Flag mask which will be OR'd with the current flags
+//              set for the row.  The flag constants used in IMP can be
+//              found at the top of lib/IMP.php.
+// 'status' - (string) HTML code to add to the status column for the row.
+//
+// For DIMP:
+// 'atc' - (string) Attachment type (either 'signed', 'encrypted', or
+//         'attachment').
+// 'class' - (array) CSS classnames that will be added to the row.
 
 // if (!function_exists('_imp_hook_msglist_format')) {
-//     function _imp_hook_msglist_format($mailbox, $uid)
+//     function _imp_hook_msglist_format($uids, $mbox, $mode)
 //     {
-//         // Required return (array):
-//         //   'class' - An array of CSS classnames that will be added to
-//         //             the row.
-//         //   'flagbits' - An integer value which will be OR'd with the
-//         //                current flags set for the row.  The IMAP flag
-//         //                constants used in IMP can be found at the top
-//         //                of lib/IMP.php.
-//         //   'status' - HTML code to add to the status column for the row.
-//         $ret = array('class' => array(), 'flagbits' => 0, 'status' => '');
+//         $ret = array();
 //
-//         require_once IMP_BASE . '/lib/IMAP/MessageCache.php';
-//         $cache = &IMP_MessageCache::singleton();
-//         $cache_entry = $cache->retrieve($mailbox, array($uid), 8 | 32);
-//         $ob = reset($cache_entry);
+//         $alt_list = IMP_UI_Mailbox::getAttachmentAltList();
+//         $imp_ui = new IMP_UI_Mailbox($mbox);
+//         $imp_msg_ui = new IMP_UI_Messsage();
 //
-//         // Add attachment information
-//         $imp_ui = new IMP_UI_Mailbox($mailbox);
-//         if (($attachment = $imp_ui->getAttachmentType($MIMETYPE))) {
-//             $alt_list = IMP_UI_Mailbox::getAttachmentAltList();
-//             $alt_text = (isset($list[$attachment])) ? $list[$attachment] : $list['attachment'];
-//             $ret['status'] = Horde::img($attachment . '.png', $alt_text, array('title' => $alt_text));
-//         }
+//         foreach ($uids as $mailbox => $uid_list) {
+//             try {
+//                 $imap_res = $GLOBALS['imp_imap']->ob->fetch($mailbox, array(
+//                     Horde_Imap_Client::FETCH_HEADERS => array('headers' => array('x-priority'), 'label' => 'hdr_search', 'parse' => true, 'peek' => false),
+//                     Horde_Imap_Client::FETCH_STRUCTURE => array('parse' => true)
+//                 ), array('ids' => array_values($uid_list)));
+//             } catch (Horde_Imap_Client_Exception $e) {
+//                 continue;
+//             }
 //
-//         // Add xpriority information
-//         switch ($ob->header->getXpriority()) {
-//         case 'high':
-//             $ret['flagbits'] = IMP_FLAGGED;
-//             $ret['status'] .= Horde::img('mail_priority_high.png', _("High Priority"), array('title' => _("High Priority")));
-//             $ret['class'][] = 'important';
-//             break;
+//             $ret[$mailbox] = array();
 //
-//         case 'low':
-//             $ret['status'] .= Horde::img('mail_priority_low.png', _("Low Priority"), array('title' => _("Low Priority")));
-//             $ret['class'][] = 'unimportant';
-//             break;
+//             foreach ($uid_list as $uid) {
+//                 $ret[$mailbox][$uid] = array();
+//                 $ptr = &$ret[$mailbox][$uid];
+//                 $res_ptr = &$imap_res[$uid];
+//
+//                 // Add attachment information
+//                 if (($attachment = $imp_ui->getAttachmentType($res_ptr['structure']->getType()))) {
+//                     switch ($mode) {
+//                     case 'imp':
+//                         $alt_text = (isset($list[$attachment]))
+//                             ? $list[$attachment]
+//                             : $list['attachment'];
+//                         $ptr['status'] = Horde::img($attachment . '.png', $alt_text, array('title' => $alt_text));
+//                         break;
+//
+//                     case 'dimp':
+//                         $ptr['atc'] = $attachment;
+//                         break;
+//                     }
+//                 }
+//
+//                 // Add X-Priority information
+//                 switch ($imp_msg_ui->getXpriority($res_ptr['headers']['hdr_search']->getValue('x-priority'))) {
+//                 case 'high':
+//                     if ($mode == 'imp') {
+//                         $ptr['flagbits'] = IMP::FLAG_FLAGGED;
+//                         $ptr['status'] .= Horde::img('mail_priority_high.png', _("High Priority"), array('title' => _("High Priority")));
+//                     }
+//                     $ptr['class'][] = 'important';
+//                     break;
+//
+//                 case 'low':
+//                     if ($mode == 'imp') {
+//                         $ptr['status'] .= Horde::img('mail_priority_low.png', _("Low Priority"), array('title' => _("Low Priority")));
+//                     }
+//                     $ptr['class'][] = 'unimportant';
+//                     break;
+//                 }
+//             }
 //         }
 //
 //         return $ret;
@@ -287,19 +280,17 @@
 // if (!function_exists('_imp_hook_mbox_redirect')) {
 //     function _imp_hook_mbox_redirect($mailbox)
 //     {
-//         require_once 'Horde/Kolab.php';
-//
-//         if (strpos($mailbox, "INBOX/Calendar") !== false
-//             || preg_match("!^user/[^/]+/Calendar!", $mailbox)) {
+//         if ((strpos($mailbox, "INBOX/Calendar") !== false) ||
+//             preg_match("!^user/[^/]+/Calendar!", $mailbox)) {
 //             return $GLOBALS['registry']->get('webroot', 'kronolith');
-//         } elseif (strpos($mailbox, "INBOX/Tasks") !== false
-//             || preg_match("!^user/[^/]+/Tasks!", $mailbox)) {
+//         } elseif ((strpos($mailbox, "INBOX/Tasks") !== false) ||
+//                   preg_match("!^user/[^/]+/Tasks!", $mailbox)) {
 //             return $GLOBALS['registry']->get('webroot', 'nag');
-//         } elseif (strpos($mailbox, "INBOX/Notes") !== false
-//             || preg_match("!^user/[^/]+/Notes!", $mailbox)) {
+//         } elseif ((strpos($mailbox, "INBOX/Notes") !== false) ||
+//                   preg_match("!^user/[^/]+/Notes!", $mailbox)) {
 //             return $GLOBALS['registry']->get('webroot', 'mnemo');
-//         } elseif (strpos($mailbox, "INBOX/Contacts") !== false
-//             || preg_match("!^user/[^/]+/Contacts!", $mailbox)) {
+//         } elseif ((strpos($mailbox, "INBOX/Contacts") !== false) ||
+//                   preg_match("!^user/[^/]+/Contacts!", $mailbox)) {
 //             return $GLOBALS['registry']->get('webroot', 'turba');
 //         }
 //
@@ -314,8 +305,6 @@
 // trash folders.)
 // If a mailbox name doesn't appear in the below list, the default mailbox
 // icon is displayed.
-// Note that in IMP 4.2.x, the expected return value from this hook has
-// changed. See the below examples for more information.
 
 // if (!function_exists('_imp_hook_mbox_icons')) {
 //     function _imp_hook_mbox_icons()
@@ -334,62 +323,38 @@
 //
 //         foreach ($mailboxes as $box) {
 //             $box = preg_replace("/^{[^}]+}/", "", $box);
-//             if (strpos($box, "INBOX/Calendar") !== false
-//                 || preg_match("!^user/[^/]+/Calendar!", $box)) {
-//                 $newmailboxes[$box] = Horde::img(
-//                     $GLOBALS['registry']->get('icon', 'kronolith'),
-//                     _("Calendar"),
-//                     'width="16" height="16" style="vertical-align:middle"',
-//                     ''
-//                 );
+//             if ((strpos($box, "INBOX/Calendar") !== false) ||
+//                 preg_match("!^user/[^/]+/Calendar!", $box)) {
 //                 // Use this example for IMP 4.2.x+.
-//                 // $newmailboxes[$box] = array(
-//                 //     'icon' => 'kronolith.png',
-//                 //     'icondir' => $GLOBALS['registry']->getImageDir('kronolith')
-//                 //     'alt' => _("Calendar")
-//                 // );
-//             } elseif (strpos($box, "INBOX/Tasks") !== false
-//                 || preg_match("!^user/[^/]+/Tasks!", $box)) {
-//                 $newmailboxes[$box] = Horde::img(
-//                     $GLOBALS['registry']->get('icon', 'nag'),
-//                     _("Tasks"),
-//                     'width="16" height="16" style="vertical-align:middle"',
-//                     ''
+//                 $newmailboxes[$box] = array(
+//                     'icon' => 'kronolith.png',
+//                     'icondir' => $GLOBALS['registry']->getImageDir('kronolith')
+//                     'alt' => _("Calendar")
 //                 );
+//             } elseif ((strpos($box, "INBOX/Tasks") !== false) ||
+//                       preg_match("!^user/[^/]+/Tasks!", $box)) {
 //                 // Use this example for IMP 4.2.x+.
-//                 // $newmailboxes[$box] = array(
-//                 //     'icon' => 'nag.png',
-//                 //     'icondir' => $GLOBALS['registry']->getImageDir('nag')
-//                 //     'alt' => _("Tasks")
-//                 // );
-//             } elseif (strpos($box, "INBOX/Notes") !== false
-//                 || preg_match("!^user/[^/]+/Notes!", $box)) {
-//                 $newmailboxes[$box] = Horde::img(
-//                     $GLOBALS['registry']->get('icon', 'mnemo'),
-//                     _("Notes"),
-//                     'width="16" height="16" style="vertical-align:middle"',
-//                     ''
+//                 $newmailboxes[$box] = array(
+//                     'icon' => 'nag.png',
+//                     'icondir' => $GLOBALS['registry']->getImageDir('nag')
+//                     'alt' => _("Tasks")
 //                 );
+//             } elseif ((strpos($box, "INBOX/Notes") !== false) ||
+//                       preg_match("!^user/[^/]+/Notes!", $box)) {
 //                 // Use this example for IMP 4.2.x+.
-//                 // $newmailboxes[$box] = array(
-//                 //     'icon' => 'mnemo.png',
-//                 //     'icondir' => $GLOBALS['registry']->getImageDir('mnemo')
-//                 //     'alt' => _("Notes")
-//                 // );
-//             } elseif (strpos($box, "INBOX/Contacts") !== false
-//                 || preg_match("!^user/[^/]+/Contacts!", $box)) {
-//                 $newmailboxes[$box] = Horde::img(
-//                     $GLOBALS['registry']->get('icon', 'turba'),
-//                     _("Contacts"),
-//                     'width="16" height="16" style="vertical-align:middle"',
-//                     ''
+//                 $newmailboxes[$box] = array(
+//                     'icon' => 'mnemo.png',
+//                     'icondir' => $GLOBALS['registry']->getImageDir('mnemo')
+//                     'alt' => _("Notes")
 //                 );
+//             } elseif ((strpos($box, "INBOX/Contacts") !== false) ||
+//                       preg_match("!^user/[^/]+/Contacts!", $box)) {
 //                 // Use this example for IMP 4.2.x+.
-//                 // $newmailboxes[$box] = array(
-//                 //     'icon' => 'turba.png',
-//                 //     'icondir' => $GLOBALS['registry']->getImageDir('turba')
-//                 //     'alt' => _("Contacts")
-//                 // );
+//                 $newmailboxes[$box] = array(
+//                     'icon' => 'turba.png',
+//                     'icondir' => $GLOBALS['registry']->getImageDir('turba')
+//                     'alt' => _("Contacts")
+//                 );
 //             }
 //         }
 //
@@ -436,6 +401,7 @@
 // Default Kolab hooks:
 if (!empty($GLOBALS['conf']['kolab']['enabled'])) {
     require_once 'Horde/Kolab.php';
+
     if (!function_exists('_imp_hook_mbox_redirect')) {
         function _imp_hook_mbox_redirect($mailbox)
         {
@@ -556,52 +522,54 @@ if (!function_exists('_imp_hook_quota')) {
 }
 
 
-
-// This is an example hook function for the DIMP mailbox view. This function
-// is called for every message and allows additional information to be added
-// to the array that is passed to the mailbox display template -
+// This is an example hook function for the dynamic (dimp) mailbox view. This
+// function is allows additional information to be added to the array that is
+// is passed to the mailbox display template -
 // dimp/templates/javascript/mailbox.js.  The current entry array is passed
 // in, the value returned should be the altered array to use in the
 // template. If you are going to add new columns, you also have to update
 // dimp/templates/index/index.inc to contain the new field in the header and
 // dimp/themes/screen.css to specify the column width.
 
-// if (!function_exists('_dimp_hook_mailboxarray')) {
-//     function _dimp_hook_mailboxarray($msg, $ob) {
-//         $msg['foo'] = true;
+// if (!function_exists('_imp_hook_dimp_mailboxarray')) {
+//     function _imp_hook_dimp_mailboxarray($msgs) {
+//         foreach (array_keys($msgs) as $key) {
+//             $msgs[$key]['foo'] = true;
+//         }
+//
 //         return $msg;
 //     }
 // }
 
-// This is an example hook function for the DIMP message view.  This function
-// allows additional information to be added to the array that is passed to
-// the message text display template - dimp/templates/chunks/message.html.
-// The current entry array is passed in (see the showMessage() function in
-// dimp/lib/Views/ShowMessage.php for the format). The value returned should
-// be the altered array to use in the template. See the showMessage() function
-// in dimp/lib/Views/ShowMessage for the base values contained in the original
-// passed-in array.
+// This is an example hook function for the dynamic (dimp) message view.  This
+// function allows additional information to be added to the array that is
+// passed to the message text display template -
+// dimp/templates/chunks/message.html. The current entry array is passed in
+// (see the showMessage() function in lib/Views/ShowMessage.php for the
+// format). The value returned should be the altered array to use in the
+// template.
 
-// if (!function_exists('_dimp_hook_messageview')) {
-//     function _dimp_hook_messageview($msg) {
+// if (!function_exists('_imp_hook_dimp_messageview')) {
+//     function _imp_hook_dimp_messageview($msg) {
 //         // Ex.: Add a new foo variable
 //         $msg['foo'] = '<div class="foo">BAR</div>';
 //         return $msg;
 //     }
 // }
-// This is an example hook function for the DIMP preview view.  This function
-// allows additional information to be added to the preview view and its
-// corresponding template - dimp/templates/index/index.inc. The current entry
-// array is passed in (see the showMessage() function in
-// dimp/lib/Views/ShowMessage.php for the format). Since the preview pane is
+
+// This is an example hook function for the dynamic (dimp) preview view.  This
+// function allows additional information to be added to the preview view and
+// its corresponding template - dimp/templates/index/index.inc. The current
+// entry array is passed in (see the showMessage() function in
+// lib/Views/ShowMessage.php for the format). Since the preview pane is
 // dynamically updated via javascript, all updates other than the base
 // entries must be provided in javascript code to be run at update time. The
 // expected return is a 2 element array - the first element is the original
 // array with any changes made to the initial data. The second element is an
 // array of javascript commands, one command per array value.
 
-// if (!function_exists('_dimp_hook_previewview')) {
-//     function _dimp_hook_previewview($msg) {
+// if (!function_exists('_imp_hook_dimp_previewview')) {
+//     function _imp_hook_dimp_previewview($msg) {
 //         // Ex.: Alter the subject
 //         $msg['subject'] .= 'test';
 //
@@ -618,56 +586,17 @@ if (!function_exists('_imp_hook_quota')) {
 // This is an example hook function for the address formatting in email
 // message headers. The argument passed to the function is an object with the
 // following possible properties:
-// 'address'   -  Full address
-// 'display'   -  Display address
-// 'host'      -  Host name
-// 'inner'     -  Trimmed, bare address
-// 'personal'  -  Personal string
+//   'address' - Full address
+//   'display' - Display address
+//   'host' - Host name
+//   'inner' - Trimmed, bare address
+//   'personal' - Personal string
 // The return value is the raw string to display for that address. This value
 // must be properly escaped (i.e. htmlspecialchars() used on the portions of
 // the string where appropriate).
 
-// if (!function_exists('_dimp_hook_addressformatting')) {
+// if (!function_exists('_imp_hook_dimp_addressformatting')) {
 //     function _dimp_hook_addressformatting($ob) {
-//         return empty($ob->personal) ? $ob->address : $ob->personal;
-//     }
-// }
-
-// This is an example hook function for displaying additional message
-// information in the message listing screen for a mailbox.  This example hook
-// will add a icon if the message contains attachments and will change the
-// display of the message entry based on the X-Priority header.
-
-// if (!function_exists('_dimp_hook_msglist_format')) {
-//     function _dimp_hook_msglist_format($mailbox, $uid)
-//     {
-//         // Required return (array):
-//         //   'atc'   - Attachment type (either 'signed', 'encrypted', or
-//         //             'attachment').
-//         //   'class' - An array of CSS classnames that will be added to
-//         //             the row.
-//         $ret = array('atc' => '', 'class' => array());
-//
-//         require_once IMP_BASE . '/lib/IMAP/MessageCache.php';
-//         $cache = &IMP_MessageCache::singleton();
-//         $cache_entry = $cache->retrieve($mailbox, array($uid), 8 | 32);
-//         $ob = reset($cache_entry);
-//
-//         // Add attachment information
-//         $imp_ui = new IMP_UI_Mailbox($mailbox);
-//         $ret['atc'] = $imp_ui->getAttachmentType($MIMETYPE);
-//
-//         // Add xpriority information
-//         switch ($ob->header->getXpriority()) {
-//         case 'high':
-//             $ret['class'][] = 'important';
-//             break;
-//
-//         case 'low':
-//             $ret['class'][] = 'unimportant';
-//             break;
-//         }
-//
-//         return $ret;
+//         return empty($ob['personal']) ? $ob['address'] : $ob['personal'];
 //     }
 // }

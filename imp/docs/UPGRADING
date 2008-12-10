@@ -27,6 +27,7 @@ supported.
 * imp_hook_vinfo has changed
 * alternative_display, attachment_display pref is gone.
 * imp_hook_spam_bounce -> imp_hook_spam_email
+* imp_hook_msglist_format input has changed.
 
 
 Upgrading IMP From 4.1.x To 4.2.x

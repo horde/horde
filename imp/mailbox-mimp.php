@@ -104,8 +104,8 @@ while (list(,$ob) = each($mbox_info['overview'])) {
     /* Format the from header. */
     $getfrom = $imp_ui->getFrom($ob['envelope'], false);
     $msg['from'] = $getfrom['from'];
-    if (String::length($msg['from']) > $conf['mimp']['max_from_chars']) {
-        $msg['from'] = String::substr($msg['from'], 0, $conf['mimp']['max_from_chars']) . '...';
+    if (String::length($msg['from']) > $conf['mimp']['mailbox']['max_from_chars']) {
+        $msg['from'] = String::substr($msg['from'], 0, $conf['mimp']['mailbox']['max_from_chars']) . '...';
     }
 
     $msg['subject'] = $imp_ui->getSubject($ob['envelope']['subject']);
@@ -114,8 +114,8 @@ while (list(,$ob) = each($mbox_info['overview'])) {
         $msg['subject'] = '>> ' . ltrim($msg['subject']);
     }
 
-    if (String::length($msg['subject']) > $conf['mimp']['max_subj_chars']) {
-        $msg['subject'] = String::substr($msg['subject'], 0, $conf['mimp']['max_subj_chars']) . '...';
+    if (String::length($msg['subject']) > $conf['mimp']['mailbox']['max_subj_chars']) {
+        $msg['subject'] = String::substr($msg['subject'], 0, $conf['mimp']['mailbox']['max_subj_chars']) . '...';
     }
 
     /* Generate the target link. */

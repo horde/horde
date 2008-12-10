@@ -27,7 +27,7 @@ class IMP_Views_ShowMessage
         }
 
         $addr_array = array();
-        $call_hook = !empty($GLOBALS['conf']['hooks']['addressformatting']);
+        $call_hook = !empty($GLOBALS['conf']['dimp']['hooks']['addressformatting']);
 
         foreach (Horde_Mime_Address::getAddressesFromObject($addrlist) as $ob) {
             if (empty($ob['address']) || empty($ob['inner'])) {
@@ -37,12 +37,7 @@ class IMP_Views_ShowMessage
             /* If this is an incomplete e-mail address, don't link to
              * anything. */
             if ($call_hook) {
-                $result = Horde::callHook('_dimp_hook_addressformatting', array($ob), 'imp');
-                if (is_a($result, 'PEAR_Error')) {
-                    Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-                } else {
-                    $addr_array[] = array('raw' => $result);
-                }
+                $addr_array[] = array('raw' => Horde::callHook('_imp_hook_dimp_addressformatting', array($ob), 'imp'));
             } else {
                 $tmp = array();
                 foreach (array('address', 'display', 'inner', 'personal') as $val) {
@@ -241,7 +236,7 @@ class IMP_Views_ShowMessage
         }
 
         /* Get X-Priority. */
-        $result['priority'] = $imp_ui->getXpriority($mime_headers);
+        $result['priority'] = $imp_ui->getXpriority($mime_headers->getValue('x-priority'));
 
         // Create message text and attachment list.
         $parts_list = $imp_contents->getContentTypeMap();
@@ -345,22 +340,14 @@ class IMP_Views_ShowMessage
             $result['atc_list'] = '<table>' . $tmp . '</table>';
         }
 
-        // TODO: Hooks
-        if ($preview && !empty($GLOBALS['conf']['hooks']['previewview'])) {
-            $res = Horde::callHook('_dimp_hook_previewview', array($result), 'dimp');
-            if (is_a($res, 'PEAR_Error')) {
-                Horde::logMessage($res, __FILE__, __LINE__, PEAR_LOG_ERR);
-            } else {
+        if ($preview && !empty($GLOBALS['conf']['dimp']['hooks']['previewview'])) {
+            $res = Horde::callHook('_imp_hook_dimp_previewview', array($result), 'imp');
+            if (!empty($res)) {
                 $result = $res[0];
                 $result['js'] = $res[1];
             }
-        } elseif (!$preview && !empty($GLOBALS['conf']['hooks']['messageview'])) {
-            $res = Horde::callHook('_dimp_hook_messageview', array($result), 'dimp');
-            if (is_a($res, 'PEAR_Error')) {
-                Horde::logMessage($res, __FILE__, __LINE__, PEAR_LOG_ERR);
-            } else {
-                $result = $res;
-            }
+        } elseif (!$preview && !empty($GLOBALS['conf']['dimp']['hooks']['messageview'])) {
+            $result = Horde::callHook('_imp_hook_dimp_messageview', array($result), 'imp');
         }
 
         /* Retrieve any history information for this message. */

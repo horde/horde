@@ -223,14 +223,13 @@ class IMP_UI_Message
     /**
      * Determines the X-Priority of the message based on the headers.
      *
-     * @param Horde_Mime_Headers $headers  Horde_Mime_Headers object.
+     * @param string $header  The X-Priority header.
      *
      * @return string  'high', 'low', or 'normal'.
      */
-    public function getXpriority($headers)
+    public function getXpriority($header)
     {
-        if (($priority = $headers->getValue('x-priority')) &&
-            preg_match('/\s*(\d+)\s*/', $priority, $matches)) {
+        if ($header && preg_match('/\s*(\d+)\s*/', $header, $matches)) {
             if (in_array($matches[1], array(1, 2))) {
                 return 'high';
             } elseif (in_array($matches[1], array(4, 5))) {

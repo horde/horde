@@ -297,25 +297,7 @@ class IMP_Views_ListMessages
                 }
             }
 
-            $attachment = '';
-            if (!empty($GLOBALS['conf']['hooks']['msglist_format'])) {
-                $ob_f = Horde::callHook('_dimp_hook_msglist_format', array($ob['mailbox'], $ob['uid']), 'dimp');
-                if (is_a($ob_f, 'PEAR_Error')) {
-                    Horde::logMessage($ob_f, __FILE__, __LINE__, PEAR_LOG_ERR);
-                } else {
-                    $attachment = empty($ob_f['atc']) ? '' : $ob_f['atc'];
-                    if (!empty($ob_f['class'])) {
-                        $bg = array_merge($bg, $ob_f['class']);
-                    }
-                }
-            }
-
             $msg['bg'] = $bg;
-
-            /* Format attachment information. */
-            if (!empty($attachment)) {
-                $msg['atc'] = $attachment;
-            }
 
             /* Format size information. */
             $msg['size'] = htmlspecialchars($imp_ui->getSize($ob['size']), ENT_QUOTES, $charset);
@@ -329,15 +311,6 @@ class IMP_Views_ListMessages
 
             /* Format the Subject: Header. */
             $msg['subject'] = $imp_ui->getSubject($ob['envelope']['subject']);
-
-            if (!empty($GLOBALS['conf']['hooks']['mailboxarray'])) {
-                $result = Horde::callHook('_dimp_hook_mailboxarray', array($msg, $ob), 'dimp');
-                if (is_a($result, 'PEAR_Error')) {
-                    Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-                } else {
-                    $msg = $result;
-                }
-            }
 
             /* Check to see if this is a list message. Namely, we want to
              * check for 'List-Post' information because that is the header
@@ -354,6 +327,30 @@ class IMP_Views_ListMessages
             } else {
                 $msgs[$ob['uid']] = $msg;
             }
+        }
+
+        /* Add user supplied information from hook. */
+        if (!empty($GLOBALS['conf']['dimp']['hooks']['msglist_format'])) {
+            $ob_f = Horde::callHook('_imp_hook_msglist_format', array($ob['mailbox'], $ob['uid']), 'dimp');
+
+            foreach ($ob_f as $mbox => $uids) {
+                foreach ($uids as $uid => $val) {
+                    $ptr =& $search ? ($uid . $mbox) : $uid;
+
+                    if (!empty($val['atc'])) {
+                        $ptr['atc'] = $val['atc'];
+                    }
+
+                    if (!empty($val['class'])) {
+                        $ptr['bg'] = array_merge($ptr['bg'], $val['class']);
+                    }
+                }
+            }
+        }
+
+        /* Allow user to alter template array. */
+        if (!empty($GLOBALS['conf']['dimp']['hooks']['mailboxarray'])) {
+            $msgs = Horde::callHook('_imp_hook_dimp_mailboxarray', array($msgs), 'imp');
         }
 
         return $msgs;

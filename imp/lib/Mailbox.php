@@ -130,7 +130,8 @@ class IMP_Mailbox
      * @return array  An array with the following keys:
      * <pre>
      * 'overview' - (array) The overview information.
-     * 'uids' - (array) The array of UIDs.
+     * 'uids' - (array) The array of UIDs. It is in the same format as used
+     *          for IMP::parseIndicesList().
      * </pre>
      */
     public function getMailboxArray($msgnum, $preview = false,
@@ -138,7 +139,7 @@ class IMP_Mailbox
     {
         $this->_buildMailbox();
 
-        $mboxes = $overview = $uids = array();
+        $overview = $to_process = $uids = array();
 
         /* Build the list of mailboxes and messages. */
         foreach ($msgnum as $i) {
@@ -147,11 +148,11 @@ class IMP_Mailbox
                example, there may be gaps here. */
             if (isset($this->_sorted[$i - 1])) {
                 $mboxname = ($this->_searchmbox) ? $this->_sortedInfo[$i - 1]['m'] : $this->_mailbox;
-                if (!isset($mboxes[$mboxname])) {
-                    $mboxes[$mboxname] = array();
+                if (!isset($to_process[$mboxname])) {
+                    $to_process[$mboxname] = array();
                 }
-                // $mboxes - KEY: UID, VALUE: sequence number
-                $mboxes[$mboxname][$this->_sorted[$i - 1]] = $i;
+                // $uids - KEY: UID, VALUE: sequence number
+                $to_process[$mboxname][$this->_sorted[$i - 1]] = $i;
             }
         }
 
@@ -170,7 +171,7 @@ class IMP_Mailbox
         $cacheob = $preview ? $GLOBALS['imp_imap']->ob->getCacheOb() : null;
 
         /* Retrieve information from each mailbox. */
-        foreach ($mboxes as $mbox => $ids) {
+        foreach ($to_process as $mbox => $ids) {
             try {
                 $fetch_res = $GLOBALS['imp_imap']->ob->fetch($mbox, $fetch_criteria, array('ids' => array_keys($ids)));
 
@@ -214,7 +215,7 @@ class IMP_Mailbox
                     $overview[$ids[$k]] = $v;
                 }
 
-                $uids = array_merge($uids, array_keys($fetch_res));
+                $uids[$mbox] = array_keys($fetch_res);
 
                 if (!is_null($cacheob) && !empty($tostore)) {
                     $cacheob->set($mbox, $tostore);

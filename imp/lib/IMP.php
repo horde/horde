@@ -1628,7 +1628,7 @@ class IMP
 
         if ($app == 'dimp') {
             // Load custom stylesheets.
-            if (!empty($conf['css_files'])) {
+            if (!empty($conf['dimp']['css_files'])) {
                 foreach ($conf['css_files'] as $css_file) {
                     $css[] = array('u' => $themesuri . '/' . $css_file,
                                    'f' => $themesfs .  '/' . $css_file);
