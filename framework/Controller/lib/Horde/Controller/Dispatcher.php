@@ -23,6 +23,9 @@
  */
 class Horde_Controller_Dispatcher
 {
+    /** @var Horde_Controller_Dispatcher */
+    private static $_instance;
+
     /** @var Horde_Routes_Mapper */
     protected $_mapper;
 
@@ -39,9 +42,24 @@ class Horde_Controller_Dispatcher
     protected $_viewsDir = '';
 
     /**
-     * Class constructor.
+     * Singleton method. This should be the only way of instantiating a
+     * Horde_Controller_Dispatcher object.
+     *
+     * @return Horde_Controller_Dispatcher
      */
-    public function __construct($context)
+    public static function singleton($context = array())
+    {
+        if (self::$_instance === null) {
+            self::$_instance = new self($context);
+        }
+        return self::$_instance;
+    }
+
+    /**
+     * Class constructor. Client code should use the singleton method to
+     * instantiate objects.
+     */
+    protected function __construct($context)
     {
         if (!isset($context['mapper']) || ! $context['mapper'] instanceof Horde_Routes_Mapper) {
             throw new Horde_Controller_Exception('Mapper object missing from Dispatcher constructor');

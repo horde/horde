@@ -72,6 +72,11 @@ abstract class Horde_Controller_Base
     protected $_viewsDir = '';
 
     /**
+     * @var
+     */
+    protected $_urlWriter;
+
+    /**
      * New controller instance
      */
     public function __construct($options)
@@ -159,6 +164,35 @@ abstract class Horde_Controller_Base
         }
 
         return $this->_response;
+    }
+
+    /**
+     * Get an instance of UrlWriter for this controller.
+     *
+     * @return Horde_Controller_UrlWriter
+     */
+    public function getUrlWriter()
+    {
+        // instantiate UrlWriter that will generate URLs for this controller
+        if (!$this->_urlWriter) {
+            $defaults = array('controller' => $this->getControllerName());
+            $this->_urlWriter = new Horde_Controller_UrlWriter($defaults);
+        }
+        return $this->_urlWriter;
+    }
+
+    /**
+     * Get the current controller's name.
+     *
+     * @return string
+     */
+    protected function getControllerName()
+    {
+        if (empty($this->params)) {
+            $this->_initParams();
+        }
+
+        return $this->params[':controller'];
     }
 
     /**
