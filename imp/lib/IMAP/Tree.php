@@ -746,12 +746,16 @@ class IMP_IMAP_Tree
             // This is a case where it is possible that the parent element has
             // changed (it now has children) but we can't catch it via the
             // bitflag (since hasChildren() is dynamically determined).
-            if (isset($this->_eltdiff[$elt['p']])) {
-                $this->_eltdiff[$elt['p']]['changed'] = true;
+            if (!is_null($this->_eltdiff)) {
+                $this->_eltdiff['c'][$elt['p']] = 1;
             }
         }
         $this->_parent[$elt['p']][] = $elt['v'];
         $this->_tree[$elt['v']] = $elt;
+
+        if (!is_null($this->_eltdiff)) {
+            $this->_eltdiff['a'][$elt['v']] = 1;
+        }
 
         /* Make sure we are sorted correctly. */
         if (count($this->_parent[$elt['p']]) > 1) {
@@ -842,6 +846,10 @@ class IMP_IMAP_Tree
         $key = array_search($id, $this->_parent[$parent]);
         unset($this->_parent[$parent][$key]);
 
+        if (!is_null($this->_eltdiff)) {
+            $this->_eltdiff['d'][$id] = 1;
+        }
+
         if (empty($this->_parent[$parent])) {
             /* This folder is now completely empty (no children).  If the
              * folder is a container only, we should delete the folder from
@@ -858,8 +866,8 @@ class IMP_IMAP_Tree
                      * element has changed (it no longer has children) but
                      * we can't catch it via the bitflag (since hasChildren()
                      * is dynamically determined). */
-                    if (isset($this->_eltdiff[$parent])) {
-                        $this->_eltdiff[$parent]['changed'] = true;
+                    if (!is_null($this->_eltdiff)) {
+                        $this->_eltdiff['c'][$parent] = 1;
                     }
                 }
             }
@@ -1428,7 +1436,7 @@ class IMP_IMAP_Tree
      */
     public function eltDiffStart()
     {
-        $this->_eltdiff = $this->_tree;
+        $this->_eltdiff = array('a' => array(), 'c' => array(), 'd' => array());
     }
 
     /**
@@ -1445,28 +1453,15 @@ class IMP_IMAP_Tree
      */
     public function eltDiff()
     {
-        if (!$this->_changed || !$this->_eltdiff) {
+        if (!$this->_changed) {
             return false;
         }
 
-        $added = $changed = $deleted = array();
-
-        /* Determine the deleted items. */
-        $deleted = array_values(array_diff(array_keys($this->_eltdiff), array_keys($this->_tree)));
-
-        foreach ($this->_tree as $key => $val) {
-            if (!isset($this->_eltdiff[$key])) {
-                $added[] = $key;
-            } elseif ($val != $this->_eltdiff[$key]) {
-                $changed[] = $key;
-            }
-        }
-
-        if (empty($added) && empty($changed) && empty($deleted)) {
-            return false;
-        } else {
-            return array('a' => $added, 'c' => $changed, 'd' => $deleted);
-        }
+        return array(
+            'a' => array_keys($this->_eltdiff['a']),
+            'c' => array_keys($this->_eltdiff['c']),
+            'd' => array_keys($this->_eltdiff['d'])
+        );
     }
 
     /**
@@ -1489,7 +1484,14 @@ class IMP_IMAP_Tree
         }
 
         foreach (array_keys($id) as $key) {
-            $adds[] = $this->VFOLDER_KEY . $this->_delimiter . $key;
+            $id_key = $this->VFOLDER_KEY . $this->_delimiter . $key;
+            if (!isset($this->_tree[$id_key])) {
+                $adds[] = $this->VFOLDER_KEY . $this->_delimiter . $key;
+            }
+        }
+
+        if (empty($adds)) {
+            return;
         }
 
         $this->insert($adds);

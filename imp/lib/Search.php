@@ -92,11 +92,12 @@ class IMP_Search
             $_SESSION['imp']['search'] = array('q' => array());
         }
         if (!$no_vf) {
+            $imaptree = &IMP_IMAP_Tree::singleton();
             foreach ($this->_getVFolderList() as $key => $val) {
                 if (!empty($val['vfolder']) &&
                     !$this->isVTrashFolder($key) &&
                     !$this->isVINBOXFolder($key)) {
-                    $this->_updateIMPTree('add', $key, $val['label']);
+                    $imaptree->insertVFolders(array($key => $val['label']));
                     unset($val['uiinfo']);
                     $_SESSION['imp']['search']['q'][$key] = $val;
                 }
@@ -205,12 +206,13 @@ class IMP_Search
     /**
      * Deletes an IMAP search query.
      *
-     * @param string $id  The search query id to use (by default, will use
-     *                    the current ID set in the object).
+     * @param string $id          The search query id to use (by default, will
+     *                            use the current ID set in the object).
+     * @param boolean $no_delete  Don't delete the entry in
      *
      * @return string  Returns the search query id.
      */
-    public function deleteSearchQuery($id = null)
+    public function deleteSearchQuery($id = null, $no_delete = false)
     {
         $id = $this->_strip($id);
         $is_vfolder = !empty($_SESSION['imp']['search']['q'][$id]['vfolder']);
@@ -220,7 +222,10 @@ class IMP_Search
             $vfolders = $this->_getVFolderList();
             unset($vfolders[$id]);
             $this->_saveVFolderList($vfolders);
-            $this->_updateIMPTree('delete', $id);
+            if (!$no_delete) {
+                $imaptree = &IMP_IMAP_Tree::singleton();
+                $imaptree->delete($id);
+            }
         }
     }
 
@@ -324,7 +329,10 @@ class IMP_Search
             $vfolders[$id] = $_SESSION['imp']['search']['q'][$id];
             $this->_saveVFolderList($vfolders);
         }
-        $this->_updateIMPTree('add', $id, $label);
+
+        $imaptree = &IMP_IMAP_Tree::singleton();
+        $imaptree->insertVFolders(array($id => $label));
+
         return $id;
     }
 
@@ -336,7 +344,7 @@ class IMP_Search
         /* Delete the current Virtual Trash folder, if it exists. */
         $vtrash_id = $GLOBALS['prefs']->getValue('vtrash_id');
         if (!empty($vtrash_id)) {
-            $this->deleteSearchQuery($vtrash_id);
+            $this->deleteSearchQuery($vtrash_id, true);
         }
 
         if (!$GLOBALS['prefs']->getValue('use_vtrash')) {
@@ -396,7 +404,7 @@ class IMP_Search
         /* Delete the current Virtual Inbox folder, if it exists. */
         $vinbox_id = $GLOBALS['prefs']->getValue('vinbox_id');
         if (!empty($vinbox_id)) {
-            $this->deleteSearchQuery($vinbox_id);
+            $this->deleteSearchQuery($vinbox_id, true);
         }
 
         if (!$GLOBALS['prefs']->getValue('use_vinbox')) {
@@ -783,29 +791,6 @@ class IMP_Search
                 'type' => self::FLAG_NOT
             ),
         );
-    }
-
-    /**
-     * Update IMAP_Tree object.
-     *
-     * @param string $action  Either 'delete' or 'add'.
-     * @param string $id      The query ID to update.
-     * @param string $label   If $action = 'add', the label to use for the
-     *                        query ID.
-     */
-    protected function _updateIMPTree($action, $id, $label = null)
-    {
-        $imaptree = &IMP_IMAP_Tree::singleton();
-
-        switch ($action) {
-        case 'delete':
-            $imaptree->delete($id);
-            break;
-
-        case 'add':
-            $imaptree->insertVFolders(array($id => $label));
-            break;
-        }
     }
 
     /**
