@@ -63,11 +63,10 @@ var ViewPort = Class.create({
             this.page_size = ps;
         }
 
-        buffer = this._getBuffer(view);
-        if (buffer) {
-            if (!background && this.view) {
+        if (this.view) {
+            if (!background) {
                 // Need to store current buffer to save current offset
-                this.views.set(this.view, { buffer: buffer, offset: this.currentOffset() });
+                this.views.set(this.view, { buffer: this._getBuffer(), offset: this.currentOffset() });
             }
             curr = this.views.get(view);
         } else {
