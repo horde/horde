@@ -62,6 +62,7 @@ class IMP_Contents
 
     /**
      * The status cache.
+     * NOT CURRENTLY USED
      *
      * @var array
      */
@@ -606,10 +607,28 @@ class IMP_Contents
      */
     public function urlView($mime_part, $actionID, $options = array())
     {
+        $params = $this->_urlViewParams($mime_part, $actionID, isset($options['params']) ? $options['params'] : array());
+
+        return empty($options['dload'])
+            ? Util::addParameter(Horde::applicationUrl('view.php'), $params)
+            : Horde::downloadUrl($mime_part->getName(true), $params);
+    }
+
+    /**
+     * Generates the necessary URL parameters for the view.php page.
+     *
+     * @param Horde_Mime_Part $mime_part  The MIME part to view.
+     * @param integer $actionID           The actionID to perform.
+     * @param array $params               Additional parameters to pass.
+     *
+     * @return array  The array of parameters.
+     */
+    protected function _urlViewParams($mime_part, $actionID, $params)
+    {
         /* Add the necessary local parameters. */
-        $params = array_merge(isset($options['params']) ? $options['params'] : array(), array(
+        $params = array_merge($params, array(
             'actionID' => $actionID,
-            'id' => isset($options['params']['id']) ? $options['params']['id'] : $mime_part->getMIMEId()
+            'id' => isset($params['id']) ? $params['id'] : $mime_part->getMIMEId()
         ));
 
         if (!is_null($this->_mailbox)) {
@@ -617,9 +636,7 @@ class IMP_Contents
             $params['mailbox'] = $this->_mailbox;
         }
 
-        return empty($options['dload'])
-            ? Util::addParameter(Horde::applicationUrl('view.php'), $params)
-            : Horde::downloadUrl($mime_part->getName(true), $params);
+        return $params;
     }
 
     /**
@@ -639,7 +656,7 @@ class IMP_Contents
      *
      * @return string  A HTML href link to view.php.
      */
-    function linkView($mime_part, $actionID, $text, $options = array())
+    public function linkView($mime_part, $actionID, $text, $options = array())
     {
         $options = array_merge(array(
             'class' => null,
@@ -679,7 +696,7 @@ class IMP_Contents
             $options['jstext'] = sprintf(_("View %s"), $mime_part->getDescription(true));
         }
 
-        $url = IMP::popupIMPString($this->urlView($mime_part, $actionID, $options)) . 'return false;';
+        $url = IMP::popupIMPString('view.php', $this->_urlViewParams($mime_part, $actionID, isset($options['params']) ? $options['params'] : array())) . 'return false;';
 
         return empty($options['widget'])
             ? Horde::link('#', $options['jstext'], empty($options['css']) ? null : $options['css'], null, $url) . $text . '</a>'
@@ -845,6 +862,7 @@ class IMP_Contents
 
     /**
      * Sets additional status information for a part.
+     * NOT CURRENTLY USED
      *
      * @param string $id    The MIME ID
      * @param array $entry  The status entry.
@@ -856,6 +874,7 @@ class IMP_Contents
 
     /**
      * Get download all list.
+     * NOT CURRENTLY USED
      *
      * @return array  An array of downloadable parts.
      */
