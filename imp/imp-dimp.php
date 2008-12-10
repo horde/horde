@@ -174,19 +174,15 @@ $result = false;
 
 /* We know we are going to be exclusively dealing with this mailbox, so
  * select it on the IMAP server (saves some STATUS calls). */
-if ($folder && !$imp_search->isSearchMbox($folder)) {
+if ($folder &&
+    ($action != 'CreateFolder') &&
+    !$imp_search->isSearchMbox($folder)) {
     $imp_imap->ob->openMailbox($folder);
 }
 
 switch ($action) {
 case 'CreateFolder':
-case 'CreateSubfolder':
     if (empty($folder)) {
-        break;
-    }
-
-    $parent = Util::getPost('parent');
-    if (($action == 'CreateSubfolder') && !$parent) {
         break;
     }
 
@@ -196,7 +192,7 @@ case 'CreateSubfolder':
     $imp_folder = &IMP_Folder::singleton();
 
     $new = String::convertCharset($folder, NLS::getCharset(), 'UTF7-IMAP');
-    $new = $imptree->createMailboxName($parent, $new);
+    $new = $imptree->createMailboxName(Util::getPost('parent'), $new);
     if (is_a($new, 'PEAR_Error')) {
         $notification->push($new, 'horde.error');
         $result = false;
