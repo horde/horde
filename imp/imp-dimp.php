@@ -93,9 +93,10 @@ function _getListMessages($folder, $change)
 
     $list_msg = new IMP_Views_ListMessages();
     $res = $list_msg->ListMessages($args);
+
     // TODO: This can potentially be optimized for arrival time sort - if the
     // cache ID changes, we know the changes must occur at end of mailbox.
-    if (Util::getPost('purge') || $change) {
+    if (!$res->reset && (Util::getPost('purge') || $change)) {
         $res->update = 1;
     }
 

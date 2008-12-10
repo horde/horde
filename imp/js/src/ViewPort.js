@@ -544,10 +544,12 @@ var ViewPort = Class.create({
     //         label
     //         total_rows
     //         other
+    //         reset (optional) - If set, purges all cached data
     //         rowlist
     //         rownum (optional)
     //         totalrows
-    //         update (optional)
+    //         update (optional) - If set, update the rowlist instead of
+    //                             overwriting it.
     //
     //     Properties needed for type 'slice':
     //         data (object) - rownum is the only required property
@@ -602,7 +604,7 @@ var ViewPort = Class.create({
         }
 
         buffer = this._getBuffer(id);
-        buffer.update(Object.isArray(r.data) ? {} : r.data, Object.isArray(r.rowlist) ? {} : r.rowlist, { update: r.update });
+        buffer.update(Object.isArray(r.data) ? {} : r.data, Object.isArray(r.rowlist) ? {} : r.rowlist, { reset: r.reset, update: r.update });
         buffer.setMetaData($H(r.other).merge({
             cacheid: r.cacheid,
             label: r.label,
@@ -1214,7 +1216,7 @@ ViewPort_Buffer = Class.create({
 
     // d = TODO
     // l = TODO
-    // opts = (object) TODO [slice, update]
+    // opts = (object) TODO [reset, slice, update]
     update: function(d, l, opts)
     {
         d = $H(d);
@@ -1229,7 +1231,7 @@ ViewPort_Buffer = Class.create({
                 }
             }, this);
         } else {
-            if (this.data.size()) {
+            if (!opts.reset && this.data.size()) {
                 this.data.update(d);
                 if (this.inc.size()) {
                     d.keys().each(function(k) {
@@ -1241,7 +1243,7 @@ ViewPort_Buffer = Class.create({
             }
         }
 
-        this.uidlist = (opts.update) ? l : (this.uidlist.size() ? this.uidlist.merge(l) : l);
+        this.uidlist = (opts.update || opts.reset) ? l : (this.uidlist.size() ? this.uidlist.merge(l) : l);
 
         if (opts.update) {
             this.rowlist = $H();

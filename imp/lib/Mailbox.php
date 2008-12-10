@@ -736,7 +736,7 @@ class IMP_Mailbox
 
             try {
                 $status = $GLOBALS['imp_imap']->ob->status($this->_mailbox, Horde_Imap_Client::STATUS_MESSAGES | Horde_Imap_Client::STATUS_UIDNEXT | Horde_Imap_Client::STATUS_UIDVALIDITY);
-                return implode('|', array($status['messages'], $status['uidnext'], $status['uidvalidity'], $sortpref['by'], $sortpref['dir']));
+                return implode('|', array($status['uidvalidity'], $status['uidnext'], $status['messages'], $sortpref['by'], $sortpref['dir']));
             } catch (Horde_Imap_Client_Exception $e) {}
         }
 

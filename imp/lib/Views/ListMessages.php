@@ -97,6 +97,26 @@ class IMP_Views_ListMessages
         $result->label = $label;
         $result->cacheid = $imp_mailbox->getCacheID();
 
+        /* Check for UIDVALIDITY expiration. It is the first element in the
+         * cacheid returned from the browser. If it has changed, we need to
+         * purge the cached items on the browser (send 'reset' param to
+         * ViewPort). */
+        if (!empty($args['cacheid']) && !empty($args['cached'])) {
+            $uid_expire = false;
+            try {
+                $status = $GLOBALS['imp_imap']->ob->status($folder, Horde_Imap_Client::STATUS_UIDVALIDITY);
+                list($old_uidvalid,) = explode('|', $args['cacheid']);
+                $uid_expire = ($old_uidvalid != $status['uidvalidity']);
+            } catch (Horde_Imap_Cache_Exception $e) {
+                $uid_expire = true;
+            }
+
+            if ($uid_expire) {
+                $args['cached'] = array();
+                $result->reset = 1;
+            }
+        }
+
         /* Determine the row slice to process. */
         if (isset($args['slice_rownum'])) {
             $rownum = max(1, $args['slice_rownum']);
