@@ -61,18 +61,12 @@ abstract class IMP_Fetchmail
      * @return mixed  The newly created concrete IMP_Fetchmail instance, or
      *                false on error.
      */
-    static public function &factory($driver, $params = array())
+    static public function factory($driver, $params = array())
     {
-        $driver = basename($driver);
-        require_once dirname(__FILE__) . '/Fetchmail/' . $driver . '.php';
-        $class = 'IMP_Fetchmail_' . $driver;
-        if (class_exists($class)) {
-            $fetchmail = new $class($params);
-        } else {
-            $fetchmail = false;
-        }
-
-        return $fetchmail;
+        $class = 'IMP_Fetchmail_' . basename($driver);
+        return class_exists($class)
+            ? new $class($params)
+            : false;
     }
 
     /**
@@ -92,7 +86,6 @@ abstract class IMP_Fetchmail
                 if (!is_dir($file)) {
                     $driver = basename($file, '.php');
                     $class = 'IMP_Fetchmail_' . $driver;
-                    require_once dirname(__FILE__) . '/Fetchmail/' . $file;
                     if (is_callable(array($class, 'description')) &&
                         ($descrip = call_user_func(array($class, 'description')))) {
                         $drivers[$driver] = $descrip;
@@ -143,7 +136,7 @@ abstract class IMP_Fetchmail
 
         foreach ($accounts as $val) {
             $params = $fm_account->getAllValues($val);
-            $driver = &IMP_Fetchmail::factory($params['driver'], $params);
+            $driver = IMP_Fetchmail::factory($params['driver'], $params);
             if ($driver === false) {
                 continue;
             }
