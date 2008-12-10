@@ -490,10 +490,10 @@ var DimpBase = {
                 this.updateTitle();
             }.bind(this),
             onFetch: this.msgListLoading.bind(this, true),
-            onFetchUpdate: function(id) {
+            onEndFetch: this.msgListLoading.bind(this, false),
+            onCacheUpdate: function(id) {
                 delete this.cacheids[id];
             }.bind(this),
-            onEndFetch: this.msgListLoading.bind(this, false),
             onWait: function() {
                 if ($('dimpmain_folder').visible()) {
                     DimpCore.showNotifications([ { type: 'horde.warning', message: DIMP.text.listmsg_wait } ]);
@@ -727,7 +727,7 @@ var DimpBase = {
                 return;
             }
         }
-        sortby = parseInt(elt.readAttribute('sortby'), 10);
+        sortby = Number(elt.readAttribute('sortby'));
 
         if (sortby == this.viewport.getMetaData('sortby')) {
             s = { sortdir: (this.viewport.getMetaData('sortdir') ? 0 : 1) };
@@ -958,7 +958,7 @@ var DimpBase = {
         }
 
         sel = this.viewport.createSelection('dataob', r);
-        unseen = parseInt($(this.getFolderId(r.view)).readAttribute('u'), 10);
+        unseen = Number($(this.getFolderId(r.view)).readAttribute('u'));
         if (setflag) {
             this.viewport.updateFlag(sel, 'unseen', true);
             ++unseen;
@@ -1002,7 +1002,7 @@ var DimpBase = {
             return;
         }
 
-        unseen = parseInt(unseen);
+        unseen = Number(unseen);
         elt.writeAttribute('u', unseen);
 
         if (f == 'INBOX' && window.fluid) {

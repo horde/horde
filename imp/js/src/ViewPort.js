@@ -218,9 +218,15 @@ var ViewPort = Class.create({
         }
 
         this._getBuffer().remove(vs.get('rownum'));
+
+        if (this.opts.onCacheUpdate) {
+            this.opts.onCacheUpdate(opts.view || this.view);
+        }
+
         if (!opts.noupdate) {
             this.requestContentRefresh(this.currentOffset());
         }
+
         this.isbusy = false;
     },
 
@@ -567,8 +573,8 @@ var ViewPort = Class.create({
             buffer = this._getBuffer(r.id);
             buffer.update(data, rowlist, { slice: true });
 
-            if (this.opts.onFetchUpdate) {
-                this.opts.onFetchUpdate(r.id);
+            if (this.opts.onCacheUpdate) {
+                this.opts.onCacheUpdate(r.id);
             }
 
             cr = this.slice_hash.get(r.request_id);
@@ -603,8 +609,8 @@ var ViewPort = Class.create({
             total_rows: r.totalrows
         }));
 
-        if (this.opts.onFetchUpdate) {
-            this.opts.onFetchUpdate(id);
+        if (this.opts.onCacheUpdate) {
+            this.opts.onCacheUpdate(id);
         }
 
         if (r.request_id) {

@@ -45,6 +45,7 @@ DimpCore = {
                 out = [];
 
             u.each(function(k) {
+                k = Number(k);
                 if (last + 1 == k) {
                     last = k;
                 } else {
@@ -73,7 +74,7 @@ DimpCore = {
                 break;
             }
             i = str.indexOf('}');
-            count = parseInt(str.substr(1, i - 1), 10);
+            count = Number(str.substr(1, i - 1));
             mbox = str.substr(i + 1, count);
             i += count + 1;
             end = str.indexOf('{', i);
@@ -88,9 +89,9 @@ DimpCore = {
             uidstr.split(',').each(function(e) {
                 var r = e.split(':');
                 if (r.size() == 1) {
-                    uids.push(parseInt(e, 10));
+                    uids.push(Number(e));
                 } else {
-                    uids = uids.concat($A($R(parseInt(r[0], 10), parseInt(r[1], 10))));
+                    uids = uids.concat($A($R(Number(r[0]), Number(r[1]))));
                 }
             });
 
