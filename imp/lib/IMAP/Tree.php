@@ -1486,7 +1486,7 @@ class IMP_IMAP_Tree
         foreach (array_keys($id) as $key) {
             $id_key = $this->VFOLDER_KEY . $this->_delimiter . $key;
             if (!isset($this->_tree[$id_key])) {
-                $adds[] = $this->VFOLDER_KEY . $this->_delimiter . $key;
+                $adds[] = $id_key;
             }
         }
 

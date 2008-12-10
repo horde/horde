@@ -208,7 +208,7 @@ class IMP_Search
      *
      * @param string $id          The search query id to use (by default, will
      *                            use the current ID set in the object).
-     * @param boolean $no_delete  Don't delete the entry in
+     * @param boolean $no_delete  Don't delete the entry in the tree object.
      *
      * @return string  Returns the search query id.
      */

@@ -33,6 +33,8 @@ v5.0-cvs
 v4.3.1-cvs
 ----------
 
+[mms] Don't include Virtual Folder information in when tracking folder
+      tree changes (Bug #7739).
 [mms] Marked stripped parts as 'attachment', not 'inline' (Request #4664).
 [mms] Fix linking from addresses in mailbox to compose screen (Bug #7432).
 [jan] Use mailer configuration when sending iTip replies (Bug #7388).
