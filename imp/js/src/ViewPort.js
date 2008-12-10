@@ -597,7 +597,7 @@ var ViewPort = Class.create({
         }
 
         buffer = this._getBuffer(id);
-        buffer.update(r.data, r.rowlist, { update: r.update });
+        buffer.update(Object.isArray(r.data) ? {} : r.data, Object.isArray(r.rowlist) ? {} : r.rowlist, { update: r.update });
         buffer.setMetaData($H(r.other).merge({
             cacheid: r.cacheid,
             label: r.label,
