@@ -167,6 +167,26 @@ abstract class Horde_Controller_Base
     }
 
     /**
+     */
+    protected function interpretStatus($status)
+    {
+        return Horde_Controller_StatusCodes::interpret($status);
+    }
+
+    /**
+     * Generate a URL
+     * @see Horde_Controller_UrlWriter
+     *
+     * @param  string|array  $first   named route, string, or options array
+     * @param  array         $second  options array (if not in $first)
+     * @return string                 generated url
+     */
+    protected function urlFor($first = array(), $second = array())
+    {
+        return $this->getUrlWriter()->urlFor($first, $second);
+    }
+
+    /**
      * Get an instance of UrlWriter for this controller.
      *
      * @return Horde_Controller_UrlWriter
