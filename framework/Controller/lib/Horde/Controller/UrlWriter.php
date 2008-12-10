@@ -30,7 +30,6 @@ class Horde_Controller_UrlWriter
     public function __construct($defaults = array(), $utils = null)
     {
         $this->_defaults = $defaults;
-        var_dump($defaults);
         if ($utils === null) {
             $utils = Horde_Controller_Dispatcher::singleton()->getRouteUtils();
         }
