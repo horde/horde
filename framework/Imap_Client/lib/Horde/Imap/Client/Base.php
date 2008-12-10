@@ -1384,7 +1384,7 @@ abstract class Horde_Imap_Client_Base extends Horde_Imap_Client
      *                substring to return.
      *                DEFAULT: The entire text is returned.
      *     'parse' - (boolean) If true, and the Horde MIME library is
-     *               available, parse the header text into a MIME_Headers
+     *               available, parse the header text into a Horde_Mime_Headers
      *               object.
      *               DEFAULT: The full header text is returned.
      *     'peek' - (boolean) If set, does not set the '\Seen' flag on the
@@ -1394,8 +1394,8 @@ abstract class Horde_Imap_Client_Base extends Horde_Imap_Client
      *               returned, the starting position is identified here.
      *               DEFAULT: The entire text is returned.
      *   Return key: 'headertext'
-     *   Return format: (mixed) If 'parse' is true, a MIME_Headers object.
-     *                  Else, an array of header text entries. Keys are the
+     *   Return format: (mixed) If 'parse' is true, a Horde_Mime_Headers
+     *                  object. Else, an array of header text entries. Keys are
      *                  the 'id', values are the message header text strings
      *                  (or the portion of the text delineated by the
      *                  'start'/'length' parameters).
@@ -1520,9 +1520,9 @@ abstract class Horde_Imap_Client_Base extends Horde_Imap_Client
      *                DEFAULT: The entire text is returned.
      *     'notsearch' - (boolean) Do a 'NOT' search on the headers.
      *                   DEFAULT: false
-     *     'parse' - (boolean) If true, and the Horde MIME library is
+     *     'parse' - (boolean) If true, and the Horde_Mime library is
      *               available, parse the returned headers into a
-     *               MIME_Headers object.
+     *               Horde_Mime_Headers object.
      *               DEFAULT: The full header text is returned.
      *     'peek' - (boolean) If set, does not set the '\Seen' flag on the
      *              message.
@@ -1531,15 +1531,11 @@ abstract class Horde_Imap_Client_Base extends Horde_Imap_Client
      *               returned, the starting position is identified here.
      *               DEFAULT: The entire text is returned.
      *   Return key: 'headers'
-     *   Return format: (mixed) If parse is true, a MIME_Headers object.
-     *                  Else, an array of header search entries. Keys are
-     *                  the 'label'. If 'parse' is false, values are the
-     *                  matched header text. If 'parse' is true,
-     *                  values are an array with the header names as keys
-     *                  (case-insensitive) and the header values as the
-     *                  values. Both returns are subject to the search result
-     *                  being truncated due to the 'start'/'length'
-     *                  parameters.
+     *   Return format: (array) Keys are the 'label'. If 'parse' is false,
+     *                  values are the matched header text. If 'parse' is true,
+     *                  values are Horde_Mime_Headers objects. Both returns
+     *                  are subject to the search result being truncated due
+     *                  to the 'start'/'length' parameters.
      *
      * Key: Horde_Imap_Client::FETCH_STRUCTURE
      *   Desc: Returns MIME structure information
@@ -1547,12 +1543,12 @@ abstract class Horde_Imap_Client_Base extends Horde_Imap_Client
      *   Value: (array) The following options are available:
      *     'noext' - (boolean) Don't return information on extensions
      *               DEFAULT: Will return information on extensions
-     *     'parse' - (boolean) If true, and the Horde MIME library is
+     *     'parse' - (boolean) If true, and the Horde_Mime library is
      *               available, parse the returned structure into a
-     *               MIME_Message object.
+     *               Horde_Mime_Part object.
      *               DEFAULT: The array representation is returned.
      *   Return key: 'structure' [CACHEABLE]
-     *   Return format: (mixed) If 'parse' is true, a MIME_Structure object.
+     *   Return format: (mixed) If 'parse' is true, a Horde_Mime_Part object.
      *                          Else, an array with the following information:
      *
      *     'type' - (string) The MIME type
@@ -1727,8 +1723,8 @@ abstract class Horde_Imap_Client_Base extends Horde_Imap_Client
                 /* Don't cache if 'noext' is present. It will probably be a
                  * rare event anyway. */
                 if (empty($v['noext']) && isset($cf[$k])) {
-                    /* Structure can be cached two ways - via MIME_Message or
-                     * by internal array format. */
+                    /* Structure can be cached two ways - via Horde_Mime_Part
+                     * or by internal array format. */
                     $cache_field = empty($v['parse']) ? 'HICstructa' : 'HICstructm';
                     $fetch_field = 'structure';
                 }
