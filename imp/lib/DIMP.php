@@ -138,7 +138,7 @@ class DIMP
         /* Variables used in core javascript files. */
         $code['conf'] = array(
             'URI_DIMP_INBOX' => Horde::applicationUrl('index-dimp.php', true, -1),
-            'URI_IMP' => Horde::applicationUrl('imp-dimp.php', true, -1),
+            'URI_IMP' => Horde::applicationUrl('ajax.php', true, -1),
             'URI_PREFS' => Horde::url($horde_webroot . '/services/prefs/', true, -1),
             'URI_VIEW' => Util::addParameter(Horde::applicationUrl('view.php', true, -1), array('actionID' => 'view_source', 'id' => 0), null, false),
 
