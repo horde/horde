@@ -52,7 +52,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
       <file name="Base.php" role="php" />
       <file name="Dispatcher.php" role="php" />
       <file name="Exception.php" role="php" />
-      <file name="Mime.php" role="php" />
       <file name="UrlWriter.php" role="php" />
       <file name="StatusCodes.php" role="php" />
      </dir> <!-- /lib/Horde/Controller -->
