@@ -107,48 +107,32 @@ function _imp_perms()
  */
 function _imp_authCredentials()
 {
-    require_once dirname(__FILE__) . '/IMAP.php';
-
-    $protocol_list = array();
-    foreach (IMP_IMAP::protocolList() as $val) {
-        $protocol_list[$val['string']] = $val['name'];
-    }
-    $params = array(
-        'server' => array(
-            'desc' => _("Server"),
-            'type' => 'text'),
-        'port' => array(
-            'desc' => _("Port"),
-            'type' => 'number',
-            'value' => 143),
-        'protocol' => array(
-            'desc' => _("Protocol"),
-            'type' => 'enum',
-            'enum' => $protocol_list,
-            'value' => 'imap/notls'),
-        'smtphost' => array(
-            'desc' => _("Outbound Server"),
-            'type' => 'text'),
-        'smtpport' => array(
-            'desc' => _("SMTP Port"),
-            'type' => 'number',
-            'value' => 25));
-
     $app_name = $GLOBALS['registry']->get('name');
+
+    require_once dirname(__FILE__) . '/IMAP.php';
+    $servers = IMP_IMAP::loadServerConfig();
+    $server_list = array();
+    foreach ($servers as $key => $val) {
+        $server_list[$key] = $val['name'];
+    }
+    reset($server_list);
+
     $credentials = array(
         'username' => array(
             'desc' => sprintf(_("%s for %s"), _("Username"), $app_name),
-            'type' => 'text'),
+            'type' => 'text'
+        ),
         'password' => array(
             'desc' => sprintf(_("%s for %s"), _("Password"), $app_name),
-            'type' => 'password'));
-
-    foreach ($params as $name => $param) {
-        if (!empty($GLOBALS['conf']['server']['change_' . $name])) {
-            $param['desc'] = sprintf(_("%s for %s"), $param['desc'], $app_name);
-            $credentials[$name] = $param;
-        }
-    }
+            'type' => 'password'
+        ),
+        'server' => array(
+            'desc' => sprintf(_("%s for %s"), _("Server"), $app_name),
+            'type' => 'enum',
+            'enum' => $server_list,
+            'value' => key($server_list)
+        )
+    );
 
     return $credentials;
 }
@@ -190,11 +174,9 @@ function _imp_batchCompose($args = array(), $extra = array())
 
     $links = array();
     foreach ($args as $i => $arg) {
-        // @todo - for DIMP
-        // $extra[$i]['type'] = 'new';
-        // $extra[$i]['popup'] = true;
-        // $links[$i] = DIMP::composeLink($arg, $extra[$i]);
-        $links[$i] = IMP::composeLink($arg, !empty($extra[$i]) ? $extra[$i] : array());
+        $links[$i] = ($_SESSION['imp']['view'] == 'dimp')
+            ? DIMP::composeLink($arg, !empty($extra[$i]) ? $extra[$i] : array())
+            : IMP::composeLink($arg, !empty($extra[$i]) ? $extra[$i] : array());
     }
 
     return $links;
@@ -210,19 +192,12 @@ function _imp_folderlist()
     $GLOBALS['authentication'] = 'none';
     require_once dirname(__FILE__) . '/base.php';
 
-    $result = false;
-
     if (IMP::checkAuthentication(true)) {
-        if ($_SESSION['imp']['protocol'] == 'pop') {
-
-            $result = array('INBOX' => array('val' => 'INBOX', 'label' => _("Inbox"), 'abbrev' => 'INBOX'));
-        } else {
-            $imp_folder = &IMP_Folder::singleton();
-            $result = $imp_folder->flist();
-        }
+        $imp_folder = &IMP_Folder::singleton();
+        return $imp_folder->flist();
     }
 
-    return $result;
+    return false;
 }
 
 /**
@@ -258,6 +233,7 @@ function _imp_server()
 {
     $GLOBALS['authentication'] = 'none';
     require_once dirname(__FILE__) . '/base.php';
+
     return (IMP::checkAuthentication(true)) ? $_SESSION['imp']['server'] : null;
 }
 
