@@ -30,9 +30,24 @@ v5.0-cvs
 
 
 ----------
-v4.3.1-cvs
+v4.3.3-cvs
 ----------
 
+[cjh] Suppress browser autocomplete when redirecting messages (Bug #7767).
+
+
+------
+v4.3.2
+------
+
+[mms] Fix prototypejs regression on IE (Bug #6590).
+
+
+------
+v4.3.1
+------
+
+[jan] SECURITY: Escape output in test.php.
 [mms] Don't include Virtual Folder information in when tracking folder
       tree changes (Bug #7739).
 [mms] Marked stripped parts as 'attachment', not 'inline' (Request #4664).
@@ -113,6 +128,12 @@ v4.3-RC1 (released as v4.2.1-RC1)
       tags being recognized as misspelled words.
 [jan] Fix parsing for Token System configuration parameters.
 [mms] Add ability to search by size.
+
+------
+v4.2.1
+------
+
+[jan] SECURITY: Escape output in test.php.
 
 
 ----
