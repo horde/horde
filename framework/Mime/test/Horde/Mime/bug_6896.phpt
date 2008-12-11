@@ -3,8 +3,8 @@ Bug #6896 MIME::rfc822Explode parsing broken
 --FILE--
 <?php
 
-require dirname(__FILE__) . '/../MIME.php';
-var_dump(MIME::rfc822Explode('addr1@example.com, addr2@example.com'));
+require dirname(__FILE__) . '/../../../lib/Horde/Mime/Address.php';
+var_dump(Horde_Mime_Address::explode('addr1@example.com, addr2@example.com'));
 
 ?>
 --EXPECT--

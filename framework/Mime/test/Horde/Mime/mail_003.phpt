@@ -1,14 +1,14 @@
 --TEST--
-MIME_Mail encoding test
+Horde_Mime_Mail encoding test
 --FILE--
 <?php
 
 require dirname(__FILE__) . '/mail_dummy.inc';
 require 'Horde/NLS.php';
 
-$mail = new MIME_Mail('Schöner Betreff', "Hübsche Umlaute \n und Leerzeichen.",
-                      'Empfänger <recipient@example.com>',
-                      'sender@example.com', 'iso-8859-1');
+$mail = new Horde_Mime_Mail('Schöner Betreff', "Hübsche Umlaute \n und Leerzeichen.",
+                            'Empfänger <recipient@example.com>',
+                            'sender@example.com', 'iso-8859-1');
 $mail->addHeader('Cc', 'Der schöne Peter <peter@example.com>', 'iso-8859-15');
 echo $mail->send('dummy');
 

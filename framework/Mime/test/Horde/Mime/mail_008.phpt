@@ -1,11 +1,11 @@
 --TEST--
-MIME_Mail flowed text test
+Horde_Mime_Mail flowed text test
 --FILE--
 <?php
 
 require dirname(__FILE__) . '/mail_dummy.inc';
 
-$mail = new MIME_Mail();
+$mail = new Horde_Mime_Mail();
 $mail->addHeader('Subject', 'My Subject');
 $mail->addHeader('To', 'recipient@example.com');
 $mail->setBody('Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo

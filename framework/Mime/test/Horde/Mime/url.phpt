@@ -1,11 +1,11 @@
 --TEST--
-MIME_Viewer_html: URL dereferer tests
+Horde_Mime_Viewer_html: URL dereferer tests
 --FILE--
 <?php
 
-define('HORDE_BASE', dirname(__FILE__) . '/../../..');
-require_once dirname(__FILE__) . '/../MIME/Viewer.php';
-require_once dirname(__FILE__) . '/../MIME/Viewer/html.php';
+$dirname = dirname(__FILE__);
+require_once $dirname . '/../../../lib/Horde/Mime/Part.php';
+require_once $dirname . '/../../../lib/Horde/Mime/Viewer.php';
 require_once 'Horde.php';
 
 class Registry {
@@ -25,16 +25,22 @@ class Browser {
     }
 }
 
-$conf['server']['name'] = 'www.example.com';
-$conf['server']['port'] = 80;
-$conf['use_ssl'] = 0;
+$conf = array(
+    'server' => array(
+        'name' => 'www.example.com',
+        'port' => 80
+        ),
+    'use_ssl' => 0
+);
 $registry = new Registry();
 $browser = new Browser();
-$viewer = new MIME_Viewer_html($null);
 
 for ($i = 1; $i <= 7; $i++) {
-    $data = file_get_contents(dirname(__FILE__) . '/url' . $i . '.html');
-    echo $viewer->_cleanHTML($data);
+    $part = new Horde_Mime_Part();
+    $part->setType('text/html');
+    $part->setContents(file_get_contents($dirname . '/url' . $i . '.html'));
+    $viewer = Horde_Mime_Viewer::factory($part, 'text/html');
+    echo $viewer->render();
 }
 
 ?>

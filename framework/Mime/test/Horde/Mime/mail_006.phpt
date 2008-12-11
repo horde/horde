@@ -1,13 +1,13 @@
 --TEST--
-MIME_Mail::addAttachment() test
+Horde_Mime_Mail::addAttachment() test
 --FILE--
 <?php
 
 require dirname(__FILE__) . '/mail_dummy.inc';
 
-$mail = new MIME_Mail('My Subject', "This is\nthe body",
-                      'recipient@example.com', 'sender@example.com',
-                      'iso-8859-15');
+$mail = new Horde_Mime_Mail('My Subject', "This is\nthe body",
+                            'recipient@example.com', 'sender@example.com',
+                            'iso-8859-15');
 $mail->addAttachment(dirname(__FILE__) . '/attachment.bin');
 $mail->addAttachment(dirname(__FILE__) . '/mail_dummy.inc', 'my_name.html', 'text/html', 'iso-8859-15');
 

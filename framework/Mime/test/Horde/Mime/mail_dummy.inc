@@ -3,7 +3,7 @@
  * @package Mail
  */
 
-require dirname(__FILE__) . '/../MIME/Mail.php';
+require dirname(__FILE__) . '/../../lib/Horde/Mime/Mail.php';
 $_SERVER['SERVER_NAME'] = 'mail.example.com';
 
 class Mail_dummy extends Mail {

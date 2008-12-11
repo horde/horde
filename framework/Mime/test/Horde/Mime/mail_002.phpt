@@ -1,11 +1,11 @@
 --TEST--
-MIME_Mail methods test
+Horde_Mime_Mail methods test
 --FILE--
 <?php
 
 require dirname(__FILE__) . '/mail_dummy.inc';
 
-$mail = new MIME_Mail();
+$mail = new Horde_Mime_Mail();
 $mail->addHeader('Subject', 'My Subject');
 $mail->setBody("This is\nthe body", 'iso-8859-15');
 $mail->addHeader('To', 'recipient@example.com');

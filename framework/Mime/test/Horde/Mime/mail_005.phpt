@@ -1,27 +1,27 @@
 --TEST--
-MIME_Mail HTML test
+Horde_Mime_Mail HTML test
 --FILE--
 <?php
 
 require dirname(__FILE__) . '/mail_dummy.inc';
 
-$mail = new MIME_Mail('My Subject', null, 'recipient@example.com',
-                      'sender@example.com');
+$mail = new Horde_Mime_Mail('My Subject', null, 'recipient@example.com',
+                            'sender@example.com');
 $mail->setBody("This is\nthe plain text body.");
 echo $mail->send('dummy');
 
 echo "====================================================================\n";
 
-$mail = new MIME_Mail('My Subject', null, 'recipient@example.com',
-                      'sender@example.com');
+$mail = new Horde_Mime_Mail('My Subject', null, 'recipient@example.com',
+                            'sender@example.com');
 $mail->setHTMLBody("<h1>Header Title</h1>\n<p>This is<br />the html text body.</p>",
                    'iso-8859-1', false);
 echo $mail->send('dummy');
 
 echo "====================================================================\n";
 
-$mail = new MIME_Mail('My Subject', null, 'recipient@example.com',
-                      'sender@example.com');
+$mail = new Horde_Mime_Mail('My Subject', null, 'recipient@example.com',
+                            'sender@example.com');
 $mail->setHTMLBody("<h1>Header Title</h1>\n<p>This is<br />the html text body.</p>");
 echo $mail->send('dummy');
 

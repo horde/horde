@@ -1,13 +1,13 @@
 --TEST--
-MIME_Mail::addPart() test
+Horde_Mime_Mail::addPart() test
 --FILE--
 <?php
 
 require dirname(__FILE__) . '/mail_dummy.inc';
 
-$mail = new MIME_Mail('My Subject', "This is\nthe body",
-                      'recipient@example.com', 'sender@example.com',
-                      'iso-8859-15');
+$mail = new Horde_Mime_Mail('My Subject', "This is\nthe body",
+                            'recipient@example.com', 'sender@example.com',
+                            'iso-8859-15');
 $mail->addPart('text/plain', 'This is a plain text', 'iso-8859-1', 'inline');
 $mail->addPart('application/octet-stream',
                file_get_contents(dirname(__FILE__) . '/attachment.bin'),
