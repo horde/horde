@@ -1819,7 +1819,7 @@ class IMP
         $key = &self::$_authkey;
 
         if (is_null($key)) {
-            $key = Secret::getKey(Auth::getProvider() == 'imp' ? 'auth' : 'imp');
+            $key = Horde_Secret::getKey(Auth::getProvider() == 'imp' ? 'auth' : 'imp');
         }
         return $key;
     }

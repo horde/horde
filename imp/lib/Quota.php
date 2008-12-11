@@ -79,7 +79,7 @@ class IMP_Quota
         /* If 'password' exists in params, it has been encrypted in the
          * session so we need to decrypt. */
         if (isset($this->_params['password'])) {
-            $this->_params['password'] = Secret::read(IMP::getAuthKey(), $this->_params['password']);
+            $this->_params['password'] = Horde_Secret::read(IMP::getAuthKey(), $this->_params['password']);
         }
     }
 

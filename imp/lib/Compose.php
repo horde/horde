@@ -669,7 +669,7 @@ class IMP_Compose
          * well. */
         if (!empty($params['auth']) && empty($params['username'])) {
             $params['username'] = $_SESSION['imp']['user'];
-            $params['password'] = Secret::read(IMP::getAuthKey(), $_SESSION['imp']['pass']);
+            $params['password'] = Horde_Secret::read(IMP::getAuthKey(), $_SESSION['imp']['pass']);
         }
 
         return $message->send($email, $headers, $conf['mailer']['type'], $params);

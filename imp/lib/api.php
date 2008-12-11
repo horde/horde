@@ -318,11 +318,10 @@ function _imp_userList()
 function _imp_adminDo($task, $params)
 {
     require_once 'Horde/IMAP/Admin.php';
-    require_once 'Horde/Secret.php';
 
     $admin_params = $_SESSION['imp']['admin']['params'];
     $admin_params['admin_user'] = $admin_params['login'];
-    $admin_params['admin_password'] = Secret::read(IMP::getAuthKey(), $admin_params['password']);
+    $admin_params['admin_password'] = Horde_Secret::read(IMP::getAuthKey(), $admin_params['password']);
     $imap = new IMAP_Admin($admin_params);
 
     switch ($task) {

@@ -117,7 +117,7 @@ if (!empty($conf['auth']['alternate_login'])) {
 
 /* Initialize the password key. If we are doing Horde auth as well,
  * make sure that the Horde auth key gets set instead. */
-Secret::setKey($imp_auth ? 'auth' : 'imp');
+Horde_Secret::setKey($imp_auth ? 'auth' : 'imp');
 
 $autologin = Util::getFormData('autologin', false);
 $server_key = Util::getFormData('server_key', IMP_Session::getAutoLoginServer());

@@ -113,7 +113,7 @@ if (isset($_SESSION['imp']) && is_array($_SESSION['imp'])) {
     /* Make sure that if a username was specified, it is the current
      * username. */
     if ((!is_null($imapuser) && ($imapuser != $_SESSION['imp']['user'])) ||
-        (!is_null($pass) && ($pass != Secret::read(IMP::getAuthKey(), $_SESSION['imp']['pass'])))) {
+        (!is_null($pass) && ($pass != Horde_Secret::read(IMP::getAuthKey(), $_SESSION['imp']['pass'])))) {
 
         /* Disable the old session. */
         unset($_SESSION['imp']);

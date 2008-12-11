@@ -175,9 +175,6 @@ if (($viewmode == 'dimp') && Util::nonInputVar('dimp_logout')) {
     Horde::redirect(str_replace('&amp;', '&', IMP::getLogoutUrl()));
 }
 
-// Horde libraries.
-require_once 'Horde/Secret.php';
-
 // Initialize global $imp_mbox array.
 $GLOBALS['imp_mbox'] = IMP::getCurrentMailboxInfo();
 

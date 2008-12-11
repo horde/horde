@@ -130,7 +130,7 @@ class IMP_Session
                     /* 'admin' and 'quota' have password entries - encrypt
                      * these entries in the session if they exist. */
                     if (isset($ptr[$val]['params']['password'])) {
-                        $sess['imap'][$val]['params']['password'] = Secret::write(IMP::getAuthKey(), $ptr[$val]['params']['password']);
+                        $sess['imap'][$val]['params']['password'] = Horde_Secret::write(IMP::getAuthKey(), $ptr[$val]['params']['password']);
                     }
                 }
             }
