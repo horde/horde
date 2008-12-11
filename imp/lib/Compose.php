@@ -529,8 +529,8 @@ class IMP_Compose
             /* Make sure to set the IMAP reply flag and unset any
              * 'flagged' flag. */
             $imp_message = &IMP_Message::singleton();
-            $imp_message->flag(array('answered'), array($opts['reply_index']));
-            $imp_message->flag(array('flagged'), array($opts['reply_index']), false);
+            $imp_message->flag(array('\\answered'), array($opts['reply_index']));
+            $imp_message->flag(array('\\flagged'), array($opts['reply_index']), false);
         }
 
         $entry = sprintf("%s Message sent to %s from %s", $_SERVER['REMOTE_ADDR'], $recipients, $_SESSION['imp']['uniquser']);
