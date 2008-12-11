@@ -431,11 +431,12 @@ DimpCore = {
         }
 
         alist.each(function(o, i) {
-            var a;
+            var a, t;
             if (o.raw) {
                 a = o.raw;
             } else {
-                a = new Element('A', { className: 'address', id: 'addr' + this.acount++, personal: o.personal, email: o.inner, address: o.address }).insert(o.display ? o.display : o.address);
+                t = o.personal ? (o.personal + ' <' + o.inner + '>') : o.inner;
+                a = new Element('A', { className: 'address', id: 'addr' + this.acount++, personal: o.personal, email: o.inner, address: t }).insert(t.escapeHTML());
                 a.observe('mouseover', function() { a.stopObserving('mouseover'); this.addMouseEvents({ id: a.id, type: 'contacts', offset: a, left: true }); }.bind(this));
             }
             base.insert(a);

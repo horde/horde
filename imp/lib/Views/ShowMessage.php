@@ -17,8 +17,7 @@ class IMP_Views_ShowMessage
      * @param array $addrlist  The list of addresses from
      *                         Horde_Mime_Address::parseAddressList().
      *
-     * @return array  Array with the following keys: address, display, inner,
-     *                personal, raw.
+     * @return array  Array with the following keys: inner, personal, raw.
      */
     private function _buildAddressList($addrlist)
     {
@@ -30,28 +29,16 @@ class IMP_Views_ShowMessage
         $call_hook = !empty($GLOBALS['conf']['dimp']['hooks']['addressformatting']);
 
         foreach (Horde_Mime_Address::getAddressesFromObject($addrlist) as $ob) {
-            if (empty($ob['address']) || empty($ob['inner'])) {
-                continue;
-            }
-
-            /* If this is an incomplete e-mail address, don't link to
-             * anything. */
-            if ($call_hook) {
-                $addr_array[] = array('raw' => Horde::callHook('_imp_hook_dimp_addressformatting', array($ob), 'imp'));
-            } else {
-                $tmp = array();
-                foreach (array('address', 'display', 'inner', 'personal') as $val) {
-                    if ($val == 'display') {
-                        $ob['display'] = htmlspecialchars($ob['display']);
-                        if ($ob['display'] == $ob['address']) {
-                            continue;
-                        }
+            if (!empty($ob['inner'])) {
+                if ($call_hook) {
+                    $addr_array[] = array('raw' => Horde::callHook('_imp_hook_dimp_addressformatting', array($ob), 'imp'));
+                } else {
+                    $tmp = array('inner' => $ob['inner']);
+                    if (!empty($ob['personal'])) {
+                        $tmp['personal'] = $ob['personal'];
                     }
-                    if (!empty($ob[$val])) {
-                        $tmp[$val] = $ob[$val];
-                    }
+                    $addr_array[] = $tmp;
                 }
-                $addr_array[] = $tmp;
             }
         }
 
@@ -337,7 +324,7 @@ class IMP_Views_ShowMessage
                 $tmp .= '</tr>';
             }
 
-            $result['atc_list'] = '<table>' . $tmp . '</table>';
+            $result['atc_list'] = $tmp;
         }
 
         if ($preview && !empty($GLOBALS['conf']['dimp']['hooks']['previewview'])) {
