@@ -8,8 +8,7 @@
  * @author Michael Slusarz <slusarz@horde.org>
  */
 
-@define('IMP_BASE', dirname(__FILE__));
-require_once IMP_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/base.php';
 
 $id = Util::getFormData('id');
 $index = Util::getFormData('index');

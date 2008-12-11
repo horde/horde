@@ -8,9 +8,8 @@
  * @author Jan Schneider <jan@horde.org>
  */
 
-@define('IMP_BASE', dirname(__FILE__));
 $authentication = 'horde';
-require_once IMP_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/base.php';
 require_once 'Horde/Prefs/UI.php';
 
 $compose_url = Util::addParameter(Horde::url($registry->get('webroot', 'horde') . '/services/prefs.php', true), 'app', 'imp', false);

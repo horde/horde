@@ -10,8 +10,7 @@
 
 $authentication = 'none';
 @define('AUTH_HANDLER', true);
-@define('IMP_BASE', dirname(__FILE__));
-require_once IMP_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/base.php';
 
 $auth = &Auth::singleton($conf['auth']['driver']);
 if ((!Auth::getAuth() || !IMP::checkAuthentication(true)) &&

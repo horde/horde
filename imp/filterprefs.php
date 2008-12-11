@@ -8,8 +8,7 @@
  * @author Michael Slusarz <slusarz@horde.org>
  */
 
-@define('IMP_BASE', dirname(__FILE__));
-require_once IMP_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/base.php';
 require_once 'Horde/Help.php';
 require_once 'Horde/Prefs/UI.php';
 $result = Horde::loadConfiguration('prefs.php', array('prefGroups', '_prefs'), 'imp');

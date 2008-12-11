@@ -8,9 +8,8 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  */
 
-@define('IMP_BASE', dirname(__FILE__));
 $authentication = 'horde';
-require_once IMP_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/base.php';
 
 /* Get the lists of address books through the API. */
 $source_list = $registry->call('contacts/sources');
