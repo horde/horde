@@ -31,14 +31,6 @@ function _image($name, $alt, $type)
     return $cache[$type][$val];
 }
 
-function _outputPage()
-{
-    require IMP_TEMPLATES . '/common-header.inc';
-    IMP::menu();
-    IMP::status();
-    IMP::quota();
-}
-
 require_once dirname(__FILE__) . '/lib/base.php';
 require_once 'Horde/Help.php';
 Horde::addScriptFile('prototype.js', 'horde', true);
@@ -287,7 +279,11 @@ case 'folders_empty_mailbox_confirm':
 case 'mbox_size':
     if (!empty($folder_list)) {
         Horde::addScriptFile('tables.js', 'horde', true);
-        _outputPage(_("Folder Sizes"));
+        $title = _("Folder Sizes");
+        require IMP_TEMPLATES . '/common-header.inc';
+        IMP::menu();
+        IMP::status();
+        IMP::quota();
 
         $loop = array();
         $rowct = $sum = 0;
@@ -325,7 +321,11 @@ $folders_token = IMP::getRequestToken('imp.folders');
 $folders_url = Util::addParameter($folders_url, 'folders_token', $folders_token);
 
 if ($_SESSION['imp']['file_upload'] && ($actionID == 'import_mbox')) {
-    _outputPage(_("Folder Navigator"));
+    $title = _("Folder Navigator");
+    require IMP_TEMPLATES . '/common-header.inc';
+    IMP::menu();
+    IMP::status();
+    IMP::quota();
 
     /* Prepare import template. */
     $i_template = new IMP_Template();
@@ -483,7 +483,12 @@ $template = new IMP_Template();
 $template->setOption('gettext', true);
 $template->set('rows', $rows);
 
-_outputPage(_("Folder Navigator"));
+$title = _("Folder Navigator");
+require IMP_TEMPLATES . '/common-header.inc';
+IMP::menu();
+IMP::status();
+IMP::quota();
+
 echo $head_template->fetch(IMP_TEMPLATES . '/folders/head.html');
 echo $a_template->fetch(IMP_TEMPLATES . '/folders/actions.html');
 echo $template->fetch(IMP_TEMPLATES . '/folders/folders.html');
