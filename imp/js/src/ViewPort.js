@@ -382,7 +382,7 @@ var ViewPort = Class.create({
                 return;
             }
 
-            params.update({ slice_start: rowlist.start, slice_end: rowlist.end });
+            params.update({ slice: rowlist.start + ':' + rowlist.end });
         }
         params.set(type, Object.toJSON(value));
         request_vals = [ view, type, value ];
@@ -514,7 +514,7 @@ var ViewPort = Class.create({
 
         if (!opts.noslice) {
             rowlist = this._getSliceBounds(this.currentOffset(), null, opts.view);
-            params.update({ slice_start: rowlist.start, slice_end: rowlist.end });
+            params.update({ slice: rowlist.start + ':' + rowlist.end });
         }
 
         if (this.opts.onCachedList) {
@@ -1643,6 +1643,8 @@ Object.extend(Array.prototype, {
         });
     },
     numericSort: function() {
-        return this.sort(function(a,b) { return (a > b) ? 1 : ((a < b) ? -1 : 0); });
+        return this.collect(Number).sort(function(a,b) {
+            return (a > b) ? 1 : ((a < b) ? -1 : 0);
+        });
     }
 });

@@ -83,10 +83,11 @@ function _getListMessages($folder, $change)
 
     $search = Util::getPost('search');
     if (empty($search)) {
+        list($slice_start, $slice_end) = explode(':', Util::getPost('slice'), 2);
         $args += array(
             'slice_rownum' => intval(Util::getPost('rownum')),
-            'slice_start' => intval(Util::getPost('slice_start')),
-            'slice_end' => intval(Util::getPost('slice_end'))
+            'slice_start' => intval($slice_start),
+            'slice_end' => intval($slice_end)
         );
     } else {
         $search = Horde_Serialize::unserialize($search, SERIALIZE_JSON);

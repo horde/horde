@@ -45,7 +45,6 @@ DimpCore = {
                 out = [];
 
             u.each(function(k) {
-                k = Number(k);
                 if (last + 1 == k) {
                     last = k;
                 } else {
@@ -611,7 +610,7 @@ Element.addMethods({
 Object.extend(Array.prototype, {
     numericSort: function()
     {
-        return this.sort(function(a, b) {
+        return this.collect(Number).sort(function(a, b) {
             if (a > b) {
                 return 1;
             } else if (a < b) {
