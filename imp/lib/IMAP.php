@@ -77,7 +77,7 @@ class IMP_IMAP
      * @return mixed  If $server is set, then return this entry, or return the
      *                entire servers array. Returns false on error.
      */
-    public function loadServerConfig($server = null)
+    static public function loadServerConfig($server = null)
     {
         $servers = Horde::loadConfiguration('servers.php', 'servers', 'imp');
         if (is_a($servers, 'PEAR_Error')) {
