@@ -3,7 +3,7 @@
 http://pear.php.net/dtd/tasks-1.0.xsd
 http://pear.php.net/dtd/package-2.0
 http://pear.php.net/dtd/package-2.0.xsd">
- <name>Horde_Imap_Client</name>
+ <name>Imap_Client</name>
  <channel>pear.horde.org</channel>
  <summary>Horde IMAP abstraction interface</summary>
  <description>This package provides an abstracted API interface to various
