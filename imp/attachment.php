@@ -11,18 +11,13 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  */
 
-// Set up initial includes.
-// This does *not* include IMP's base.php because we do not need to be
-// authenticated to get the file. Most users won't send linked
-// attachments just to other IMP users.
-if (!defined('HORDE_BASE')) {
-    @define('HORDE_BASE', dirname(__FILE__) . '/..');
-}
-require_once HORDE_BASE . '/lib/core.php';
+// We do not need to be authenticated to get the file. Most users won't send
+// linked attachments just to other IMP users.
+@define('AUTH_HANDLER', true);
+$authentication = 'none';
+$session_control = 'none';
+require_once dirname(__FILE__) . '/lib/base.php';
 require_once 'VFS.php';
-
-$registry = &Registry::singleton();
-$registry->importConfig('imp');
 
 $self_url = Horde::selfUrl(false, true, true);
 
