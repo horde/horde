@@ -5,9 +5,6 @@ if (isset($GLOBALS['language'])) {
 }
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">
-<!--   IMP: Copyright 2001-2008 The Horde Project.  IMP is under the GPL.  -->
-<!-- Horde Project: http://www.horde.org/ | IMP: http://www.horde.org/imp/ -->
-<!--        GNU Public License: http://www.fsf.org/copyleft/gpl.html       -->
 <?php
 echo (!empty($GLOBALS['language'])) ? '<html lang="' . strtr($GLOBALS['language'], '_', '-') . '"' : '<html';
 echo ((!empty($ie_clientcaps)) ? ' xmlns:IE>' : '>') . '<head>';
