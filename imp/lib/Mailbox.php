@@ -192,11 +192,11 @@ class IMP_Mailbox
                     }
 
                     if ($preview &&
-                        (($preview == 2) ||
+                        (($preview === 2) ||
                          !$GLOBALS['prefs']->getValue('preview_show_unread') ||
                          !in_array('\\seen', $v['flags']))) {
                         if (!isset($preview_info[$k])) {
-                            $imp_contents = &IMP_Contents::singleton($uid . IMP::IDX_SEP . $mailbox);
+                            $imp_contents = &IMP_Contents::singleton($k . IMP::IDX_SEP . $mbox);
                             if (is_a($imp_contents, 'PEAR_Error')) {
                                 $preview_info[$k] = array('IMPpreview' => '', 'IMPpreviewc' => false);
                             } else {
