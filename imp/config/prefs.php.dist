@@ -198,7 +198,7 @@ $prefGroups['dimp'] = array(
     'column' => _("Other Options"),
     'label' => _("DIMP Options"),
     'desc' => _("Configure DIMP Options."),
-    'members' => array('login_view', 'show_preview')
+    'members' => array('login_view')
 );
 
 
@@ -1469,8 +1469,7 @@ $_prefs['show_preview'] = array(
     'value' => true,
     'locked' => false,
     'shared' => false,
-    'type' => 'implicit',
-);
+    'type' => 'implicit');
 
 // Other entries (used internally in IMP)
 
