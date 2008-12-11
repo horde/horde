@@ -468,7 +468,8 @@ abstract class Horde_Controller_Base
      * This gets called before action is performed in a controller.
      * Override method in subclass to setup filters/helpers
      */
-    protected function _initializeApplication(){
+    protected function _initializeApplication()
+    {
     }
 
 }
