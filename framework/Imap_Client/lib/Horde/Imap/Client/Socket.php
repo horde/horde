@@ -3267,7 +3267,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     {
         if (!empty($ob['response'])) {
             $this->_parseStatusResponse($ob);
-        } else {
+        } elseif ($ob['token']) {
             // First, catch all untagged responses where the name appears
             // first on the line.
             switch (strtoupper($ob['token'][0])) {
