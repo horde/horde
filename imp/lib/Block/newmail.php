@@ -52,11 +52,11 @@ class Horde_Block_imp_newmail extends Horde_Block
 
             while (list($uid, $ob) = each($fetch_ret)) {
                 $date = $imp_ui->getDate($ob['envelope']['date']);
-                $from = $imp_ui->getFrom($ob, false);
-                $subject = $imp_ui->getSubject($ob['envelope']['subject']);
+                $from = $imp_ui->getFrom($ob, array('specialchars' => $charset));
+                $subject = $imp_ui->getSubject($ob['envelope']['subject'], true);
 
                 $html .= '<tr style="cursor:pointer" class="text" onclick="DimpBase.go(\'msg:INBOX:' . $uid . '\');return false;"><td>' .
-                    '<strong>' . htmlspecialchars($from['from'], ENT_QUOTES, $charset) . '</strong><br />' .
+                    '<strong>' . $from['from'] . '</strong><br />' .
                     $subject . '</td>' .
                     '<td>' . htmlspecialchars($date, ENT_QUOTES, $charset) . '</td></tr>';
             }

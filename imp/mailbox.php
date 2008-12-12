@@ -800,8 +800,8 @@ while (list($seq, $ob) = each($mbox_info['overview'])) {
     }
 
     /* Format the From: Header. */
-    $getfrom = $imp_ui->getFrom($ob['envelope']);
-    $msg['from'] = htmlspecialchars($getfrom['from']);
+    $getfrom = $imp_ui->getFrom($ob['envelope'], array('fullfrom' => true, 'specialchars' => NLS::getCharset()));
+    $msg['from'] = $getfrom['from'];
     $msg['fullfrom'] = $getfrom['fullfrom'];
     switch ($fromlinkstyle) {
     case 0:

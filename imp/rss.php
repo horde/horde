@@ -64,7 +64,7 @@ if (!empty($ids)) {
     $overview = $imp_mailbox->getMailboxArray(array_slice($ids, 0, 20), $conf['mailbox']['show_preview'] && $prefs->getValue('preview_enabled'));
 
     foreach ($overview['overview'] as $ob) {
-        $from_addr = $imp_ui->getFrom($ob['envelope']);
+        $from_addr = $imp_ui->getFrom($ob['envelope'], array('fullfrom' => true));
         $items[] = array_map('htmlspecialchars', array(
             'title' => $imp_ui->getSubject($ob['envelope']['subject']),
             'pubDate' => date('r', strtotime($ob['envelope']['date'])),

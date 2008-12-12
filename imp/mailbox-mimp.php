@@ -102,7 +102,7 @@ while (list(,$ob) = each($mbox_info['overview'])) {
     );
 
     /* Format the from header. */
-    $getfrom = $imp_ui->getFrom($ob['envelope'], false);
+    $getfrom = $imp_ui->getFrom($ob['envelope']);
     $msg['from'] = $getfrom['from'];
     if (String::length($msg['from']) > $conf['mimp']['mailbox']['max_from_chars']) {
         $msg['from'] = String::substr($msg['from'], 0, $conf['mimp']['mailbox']['max_from_chars']) . '...';

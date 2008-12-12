@@ -326,11 +326,11 @@ class IMP_Views_ListMessages
             $msg['date'] = htmlspecialchars($imp_ui->getDate($ob['envelope']['date']), ENT_QUOTES, $charset);
 
             /* Format the From: Header. */
-            $getfrom = $imp_ui->getFrom($ob['envelope'], false);
-            $msg['from'] = htmlspecialchars($getfrom['from'], ENT_QUOTES, $charset);
+            $getfrom = $imp_ui->getFrom($ob['envelope'], array('specialchars' => $charset));
+            $msg['from'] = $getfrom['from'];
 
             /* Format the Subject: Header. */
-            $msg['subject'] = $imp_ui->getSubject($ob['envelope']['subject']);
+            $msg['subject'] = $imp_ui->getSubject($ob['envelope']['subject'], true);
 
             /* Check to see if this is a list message. Namely, we want to
              * check for 'List-Post' information because that is the header

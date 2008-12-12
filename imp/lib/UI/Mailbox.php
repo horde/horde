@@ -40,8 +40,14 @@ class IMP_UI_Mailbox
     /**
      * Get From address information for display on mailbox page.
      *
-     * @param array $ob      An array of envelope information.
-     * @param boolean $full  If true, returns 'fullfrom' information.
+     * @param array $ob       An array of envelope information.
+     * @param array $options  Additional options:
+     * <pre>
+     * 'fullfrom' - (boolean) If true, returns 'fullfrom' information.
+     *              DEFAULT: false
+     * 'specialchars' - (string) If set, run 'from' return through
+     *                  htmlspecialchars() using the given charset.
+     * </pre>
      *
      * @return array  An array of information:
      * <pre>
@@ -51,7 +57,7 @@ class IMP_UI_Mailbox
      * 'to' - (boolean)
      * </pre>
      */
-    public function getFrom($ob, $full = true)
+    public function getFrom($ob, $options = array())
     {
         $ret = array('error' => false, 'to' => false);
 
@@ -89,7 +95,7 @@ class IMP_UI_Mailbox
                         $ret['from'] = empty($first_to['personal'])
                             ? $first_to['inner']
                             : $first_to['personal'];
-                        if ($full) {
+                        if (!empty($options['fullfrom'])) {
                             $ret['fullfrom'] = $first_to['display'];
                         }
                     }
@@ -105,7 +111,7 @@ class IMP_UI_Mailbox
                 if ($this->_cache['drafts_sm_folder']) {
                     $ret['from'] = _("From") . ': ' . $ret['from'];
                 }
-                if ($full) {
+                if (!empty($options['fullfrom'])) {
                     $ret['fullfrom'] = $from['display'];
                 }
             }
@@ -113,6 +119,16 @@ class IMP_UI_Mailbox
 
         if ($full && !isset($ret['fullfrom'])) {
             $ret['fullfrom'] = $ret['from'];
+        }
+
+        if (!empty($ret['from']) && !empty($options['specialchars'])) {
+            $old_error = error_reporting(0);
+            $res = htmlspecialchars($ret['from'], ENT_QUOTES, $options['specialchars']);
+            if (empty($res)) {
+                $res = htmlspecialchars($ret['from']);
+            }
+            $ret['from'] = $res;
+            error_reporting($old_error);
         }
 
         return $ret;
@@ -234,12 +250,13 @@ class IMP_UI_Mailbox
         }
 
         $new_subject = $subject = IMP::filterText(preg_replace("/\s+/", ' ', $subject));
-        if ($_SESSION['imp']['view'] == 'dimp') {
-            require_once 'Horde/Text.php';
-            $new_subject = str_replace('&nbsp;', '&#160;', Text::htmlSpaces($subject));
-        } elseif ($htmlspaces) {
+
+        if ($htmlspaces) {
             require_once 'Horde/Text.php';
             $new_subject = Text::htmlSpaces($subject);
+            if (empty($new_subject)) {
+                $new_subject = htmlspecialchars($subject);
+            }
         }
 
         return empty($new_subject) ? $subject : $new_subject;
