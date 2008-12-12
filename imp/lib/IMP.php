@@ -1952,7 +1952,7 @@ class IMP
     {
         Horde::addScriptFile('prototype.js', 'horde', true);
         Horde::addScriptFile('effects.js', 'horde', true);
-        Horde::addScriptFile('encrypt.js', 'imp', true);
+        Horde::addScriptFile('dialog.js', 'imp', true);
         Horde::addScriptFile('redbox.js', 'imp', true);
 
         switch ($type) {
@@ -1978,6 +1978,6 @@ class IMP
             'cancel_text' => _("Cancel")
         );
 
-        return 'IMPEncrypt.display(\'' . IMP::escapeJSON($js_params) . '\')';
+        return 'IMPDialog.display(\'' . IMP::escapeJSON($js_params) . '\')';
     }
 }

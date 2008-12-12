@@ -29,7 +29,7 @@ if ((!empty($GLOBALS['conf']['utils']['gnupg']) &&
      $GLOBALS['prefs']->getValue('use_pgp')) ||
     ($GLOBALS['prefs']->getValue('use_smime') &&
      Util::extensionExists('openssl'))) {
-    $scripts[] = array('encrypt.js', 'imp', true);
+    $scripts[] = array('dialog.js', 'imp', true);
 }
 
 /* Get site specific menu items. */

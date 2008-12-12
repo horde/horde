@@ -1,5 +1,5 @@
 /**
- * Javascript code used to display a RedBox pasphrase dialog.
+ * Javascript code used to display a RedBox dialog.
  *
  * Copyright 2008 The Horde Project (http://www.horde.org/)
  *
@@ -9,7 +9,7 @@
  * @author Michael Slusarz <slusarz@curecanti.org>
  */
 
-var IMPEncrypt = {
+var IMPDialog = {
 
     display: function(data)
     {

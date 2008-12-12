@@ -137,8 +137,7 @@ if (!$is_pop3) {
         'column' => _("Message Options"),
         'label' => _("Fetch Mail"),
         'desc' => _("Customize accounts for fetching mail from other accounts."),
-        'members' => array('fetchmail_link', 'fetchmail_popup',
-                           'fetchmail_menu')
+        'members' => array('fetchmail_link', 'fetchmail_menu')
     );
 }
 
@@ -1089,14 +1088,6 @@ $_prefs['fetchmail_link'] = array(
     'url' => 'fetchmailprefs.php',
     'img' => 'fetchmail.png',
     'desc' => _("Edit your preferences for accessing other mail accounts."));
-
-// Fetch mail on separate window?
-$_prefs['fetchmail_popup'] = array(
-    'value' => 0,
-    'locked' => false,
-    'shared' => false,
-    'type' => 'checkbox',
-    'desc' => _("Fetch Mail in a separate window?"));
 
 // Show the Fetch mail icon on the menubar?
 $_prefs['fetchmail_menu'] = array(
