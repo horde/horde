@@ -18,7 +18,7 @@ class IMP_Fetchmail_Account
     /**
      * Constructor.
      */
-    function __construct()
+    public function __construct()
     {
         /* Read all the user's accounts from the prefs object or build
          * a new account from the standard values given in prefs.php. */
@@ -85,7 +85,9 @@ class IMP_Fetchmail_Account
      */
     public function getValue($key, $account)
     {
-        return (isset($this->_accounts[$account][$key])) ? $this->_accounts[$account][$key] : false;
+        return isset($this->_accounts[$account][$key])
+            ? $this->_accounts[$account][$key]
+            : false;
     }
 
     /**
@@ -97,7 +99,9 @@ class IMP_Fetchmail_Account
      */
     public function getAllValues($account)
     {
-        return (isset($this->_accounts[$account])) ? $this->_accounts[$account] : false;
+        return isset($this->_accounts[$account])
+            ? $this->_accounts[$account]
+            : false;
     }
 
     /**
@@ -110,6 +114,7 @@ class IMP_Fetchmail_Account
     public function getAll($key)
     {
         $list = array();
+
         foreach (array_keys($this->_accounts) as $account) {
             $list[$account] = $this->getValue($key, $account);
         }
@@ -129,15 +134,11 @@ class IMP_Fetchmail_Account
         /* These parameters are checkbox items - make sure they are stored
          * as boolean values. */
         $list = array('del', 'onlynew', 'markseen', 'loginfetch');
-        if (in_array($key, $list) && !is_bool($val)) {
-            if (($val == 'yes') || (intval($val) != 0)) {
-                $val = true;
-            } else {
-                $val = false;
-            }
-        }
 
-        $this->_accounts[$account][$key] = $val;
+        $this->_accounts[$account][$key] =
+            (in_array($key, $list) && !is_bool($val) &&
+             (($val == 'yes') || (intval($val) != 0)));
+
         $this->_save();
     }
 

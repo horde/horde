@@ -60,47 +60,45 @@ class IMP_Fetchmail_imap extends IMP_Fetchmail
                 'name' => _("POP3"),
                 'string' => 'pop3',
                 'port' => 110,
-                'base' => 'POP3'
+                'base' => 'POP3',
+                'secure' => false
             ),
-            'pop3sslvalid' => array(
+            'pop3tls' => array(
+                'name' => _("POP3 over TLS"),
+                'string' => 'pop3',
+                'port' => 110,
+                'base' => 'POP3',
+                'secure' => 'tls'
+            ),
+            'pop3ssl' => array(
                 'name' => _("POP3 over SSL"),
                 'string' => 'pop3',
                 'port' => 995,
-                'base' => 'POP3'
+                'base' => 'POP3',
+                'secure' => 'ssl'
             ),
             'imap' => array(
                 'name' => _("IMAP"),
                 'string' => 'imap',
                 'port' => 143,
-                'base' => 'IMAP'
+                'base' => 'IMAP',
+                'secure' => false
+            ),
+            'imaptls' => array(
+                'name' => _("IMAP"),
+                'string' => 'imap over TLS',
+                'port' => 143,
+                'base' => 'IMAP',
+                'secure' => 'tls'
             ),
             'imapsslvalid' => array(
                 'name' => _("IMAP over SSL"),
                 'string' => 'imap',
                 'port' => 993,
-                'base' => 'IMAP'
+                'base' => 'IMAP',
+                'secure' => 'ssl'
             )
         );
-    }
-
-    /**
-     * Checks if the remote mailbox exists.
-     *
-     * @return boolean  Does the remote mailbox exist?
-     */
-    protected function _remoteMboxExists($mbox)
-    {
-        if (strcasecmp($mbox, 'INBOX') === 0) {
-            /* INBOX always exists and is a special case. */
-            return true;
-        }
-
-        try {
-            $res = $this->_ob->listMailboxes($mbox, array('flat' => true));
-            return (bool)count($res);
-        } catch (Horde_Imap_Client_Exception $e) {
-            return false;
-        }
     }
 
     /**
@@ -121,8 +119,8 @@ class IMP_Fetchmail_imap extends IMP_Fetchmail
             'hostspec' => $this->_params['server'],
             'password' => $this->_params['password'],
             'port' => $protocols[$this->_params['protocol']]['port'],
-            'username' => $this->_params['username']
-            // TODO: secure
+            'username' => $this->_params['username'],
+            'secure' => $protocols[$this->_params['protocol']]['secure']
         );
 
         try {
@@ -140,7 +138,7 @@ class IMP_Fetchmail_imap extends IMP_Fetchmail
      */
     public function getMail()
     {
-        $flags = $to_store = array();
+        $to_store = array();
         $numMsgs = 0;
 
         $stream = $this->_connect();
@@ -150,7 +148,20 @@ class IMP_Fetchmail_imap extends IMP_Fetchmail
 
         /* Check to see if remote mailbox exists. */
         $mbox = $this->_params['rmailbox'];
-        if (!$mbox || !$this->_remoteMboxExists($mbox)) {
+
+        /* INBOX always exists and is a special case. */
+        if ($mbox && strcasecmp($mbox, 'INBOX') !== 0) {
+            try {
+                $res = $this->_ob->listMailboxes($mbox, array('flat' => true));
+                if (!count($res)) {
+                    $mbox = false;
+                }
+            } catch (Horde_Imap_Client_Exception $e) {
+                $mbox = false;
+            }
+        }
+
+        if (!$mbox) {
             return PEAR::raiseError(_("Invalid Remote Mailbox"));
         }
 
@@ -161,11 +172,11 @@ class IMP_Fetchmail_imap extends IMP_Fetchmail
         }
 
         try {
-            $search_res = $GLOBALS['imp_imap']->ob->search($mbox, $query);
+            $search_res = $this->_ob->search($mbox, $query);
             if (empty($search_res['match'])) {
                 return 0;
             }
-            $fetch_res = $GLOBALS['imp_imap']->ob->fetch($mbox, array(
+            $fetch_res = $this->_ob->fetch($mbox, array(
                 Horde_Imap_Client::FETCH_ENVELOPE => true,
                 Horde_Imap_Client::FETCH_SIZE => true
 
@@ -173,6 +184,9 @@ class IMP_Fetchmail_imap extends IMP_Fetchmail
         } catch (Horde_Imap_Client_Exception $e) {
             return 0;
         }
+
+        /* Mark message seen if 'markseen' is set. */
+        $peek = !$this->_params['markseen'];
 
         reset($fetch_res);
         while (list($id, $ob) = each($fetch_res)) {
@@ -182,38 +196,26 @@ class IMP_Fetchmail_imap extends IMP_Fetchmail
             }
 
             try {
-                $res = $GLOBALS['imp_imap']->ob->fetch($this->_mailbox, array(
-                    Horde_Imap_Client::FETCH_HEADERTEXT => array(array('peek' => true)),
+                $res = $this->_ob->fetch($mbox, array(
+                    Horde_Imap_Client::FETCH_HEADERTEXT => array(array('peek' => $peek)),
                     Horde_Imap_Client::FETCH_BODYTEXT => array(array('peek' => true))
-                ), array('ids' => array($this->_index)));
-                $mail_source = $this->_processMailMessage($res[$this->_index]['headertext'][0], $res[$this->_index]['bodytext'][0]);
+                ), array('ids' => array($id)));
             } catch (Horde_Imap_Client_Exception $e) {
                 continue;
             }
 
             /* Append to the server. */
-            if ($this->_addMessage($mail_source)) {
+            if ($this->_addMessage($res[$id]['headertext'][0], $res[$id]['bodytext'][0])) {
                 ++$numMsgs;
                 $to_store[] = $id;
             }
         }
 
         /* Remove the mail if 'del' is set. */
-        if ($this->_params['del']) {
-            $flags[] = '\\deleted';
-        }
-
-        /* Mark message seen if 'markseen' is set. */
-        if ($this->_params['markseen']) {
-            $flags[] = '\\seen';
-        }
-
-        if (!empty($flags)) {
+        if ($numMsgs && $this->_params['del']) {
             try {
-                $imp_imap->ob->store($mbox, array('add' => $flags, 'ids' => $to_store));
-                if ($this->_params['del']) {
-                    $imp_imap->ob->expunge($mbox, array('ids' => $to_store));
-                }
+                $imp_imap->ob->store($mbox, array('add' => array('\\deleted'), 'ids' => $to_store));
+                $imp_imap->ob->expunge($mbox, array('ids' => $to_store));
             } catch (Horde_Imap_Client_Exception $e) {}
         }
 

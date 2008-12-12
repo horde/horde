@@ -159,7 +159,7 @@ abstract class IMP_Fetchmail
      *
      * @param array $params  The configuration parameter array.
      */
-    function __construct($params)
+    public function __construct($params)
     {
         /* Check for missing params. */
         $paramlist = $this->getParameterList();
@@ -198,33 +198,6 @@ abstract class IMP_Fetchmail
     abstract public function getMail();
 
     /**
-     * Processes a single mail message by calling any user defined functions,
-     * stripping bare newlines, and adding color information to the headers.
-     *
-     * @param string $header  The message header text.
-     * @param string $body    The message body text.
-     *
-     * @return string  The complete message.
-     */
-    protected function _processMailMessage($header, $body)
-    {
-        $msg = rtrim($header);
-
-        if (empty($this->_params['acctcolor'])) {
-            $msg .= "\nX-color: " . $this->_params['acctcolor'];
-        }
-        $msg .= "\n\n" . $body;
-
-        /* If there is a user defined function, call it with the current
-         * message as an argument. */
-        if ($GLOBALS['conf']['hooks']['fetchmail_filter']) {
-            $msg = Horde::callHook('_imp_hook_fetchmail_filter', array($msg), 'imp');
-        }
-
-        return $msg;
-    }
-
-    /**
      * Checks the message size to see if it exceeds the maximum value
      * allowable in the configuration file.
      *
@@ -246,14 +219,29 @@ abstract class IMP_Fetchmail
     }
 
     /**
-     * Add the message to the requested local mailbox.
+     * Add the message to the requested local mailbox, performing any
+     * necessary processing.
      *
-     * @param string $msg  The message text.
+     * @param string $header  The message header text.
+     * @param string $body    The message body text.
      *
      * @return boolean  True on success, false on failure.
      */
-    protected function _addMessage($msg)
+    protected function _addMessage($header, $body)
     {
+        $msg = rtrim($header);
+
+        if (empty($this->_params['acctcolor'])) {
+            $msg .= "\nX-color: " . $this->_params['acctcolor'];
+        }
+        $msg .= "\n\n" . $body;
+
+        /* If there is a user defined function, call it with the current
+         * message as an argument. */
+        if ($GLOBALS['conf']['hooks']['fetchmail_filter']) {
+            $msg = Horde::callHook('_imp_hook_fetchmail_filter', array($msg), 'imp');
+        }
+
         try {
             $GLOBALS['imp_imap']->ob->append($this->_params['lmailbox'], array(array('data' => $msg)));
             return true;
