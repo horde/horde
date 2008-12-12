@@ -775,7 +775,7 @@ class Horde_Mime_Part
 
         /* Add content ID information. */
         if (!is_null($this->_contentid)) {
-            $headers->replaceHeader('Content-ID', $this->_contentid);
+            $headers->replaceHeader('Content-ID', '<' . $this->_contentid . '>');
         }
 
         return $headers;
