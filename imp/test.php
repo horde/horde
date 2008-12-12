@@ -23,10 +23,10 @@ function _doConnectionTest()
         'secure' => ($_POST['port'] == 'yes')
     );
 
-    $driver = ($_POST['server_type'] == 'imap') ? 'Socket' : 'Cclient-pop3';
+    $driver = ($_POST['server_type'] == 'imap') ? 'Socket' : 'Cclient_pop3';
 
     try {
-        $imap_client = Horde_Imap_Client::getInstance(($_POST['server_type'] == 'imap') ? 'Socket' : 'Cclient-pop3', $imap_config);
+        $imap_client = Horde_Imap_Client::getInstance($driver, $imap_config);
     } catch (Horde_Imap_Client_Exception $e) {
         return _errorMsg($e);
     }
