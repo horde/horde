@@ -171,14 +171,15 @@ class DIMP
 
             'name' => $registry->get('name', 'dimp'),
 
-            'preview_pref' => (bool)$prefs->getValue('show_preview'),
+            'preview_pref' => (bool)$prefs->getValue('dimp_show_preview'),
+            'toggle_pref' => (bool)$prefs->getValue('dimp_toggleheaders'),
 
             'is_ie6' => ($browser->isBrowser('msie') && ($browser->getMajor() < 7)),
 
             'buffer_pages' => intval($conf['dimp']['viewport']['buffer_pages']),
             'limit_factor' => intval($conf['dimp']['viewport']['limit_factor']),
             'viewport_wait' => intval($conf['dimp']['viewport']['viewport_wait']),
-            'login_view' => $prefs->getValue('login_view'),
+            'login_view' => $prefs->getValue('dimp_login_view'),
             'background_inbox' => !empty($conf['dimp']['viewport']['background_inbox']),
 
             // Turn debugging on?

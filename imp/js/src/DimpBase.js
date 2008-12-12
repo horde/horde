@@ -19,7 +19,6 @@ var DimpBase = {
     pivotrow: -1,
     ppcache: {},
     ppfifo: [],
-    showPreview: DIMP.conf.preview_pref,
 
     sfiltersfolder: $H({ sf_all: 'all', sf_current: 'current' }),
     sfilters: $H({ sf_msgall: 'msgall', sf_from: 'from', sf_to: 'to', sf_subject: 'subject' }),
@@ -379,7 +378,7 @@ var DimpBase = {
             buffer_pages: DIMP.conf.buffer_pages,
             limit_factor: DIMP.conf.limit_factor,
             viewport_wait: DIMP.conf.viewport_wait,
-            show_split_pane: this.showPreview,
+            show_split_pane: DIMP.conf.preview_pref,
             split_pane: 'previewPane',
             splitbar: 'splitBar',
             content_class: 'msglist',
@@ -552,7 +551,7 @@ var DimpBase = {
         });
 
         // If starting in no preview mode, need to set the no preview class
-        if (!this.showPreview) {
+        if (!DIMP.conf.preview_pref) {
             $('msgList').addClassName('msglistNoPreview');
         }
 
@@ -783,12 +782,12 @@ var DimpBase = {
     // Preview pane functions
     togglePreviewPane: function()
     {
-        this.showPreview = !this.showPreview;
-        $('previewtoggle').setText(this.showPreview ? DIMP.text.hide_preview : DIMP.text.show_preview);
-        [ $('msgList') ].invoke(this.showPreview ? 'removeClassName' : 'addClassName', 'msglistNoPreview');
-        new Ajax.Request(DimpCore.addSID(DIMP.conf.URI_PREFS), { parameters: { app: 'imp', pref: 'show_preview', value: this.showPreview ? 1 : 0 } });
-        this.viewport.showSplitPane(this.showPreview);
-        if (this.showPreview) {
+        var p = DIMP.conf.preview_pref = !DIMP.conf.preview_pref;
+        $('previewtoggle').setText(p ? DIMP.text.hide_preview : DIMP.text.show_preview);
+        [ $('msgList') ].invoke(p ? 'removeClassName' : 'addClassName', 'msglistNoPreview');
+        this._updatePrefs('show_preview', p ? 1 : 0);
+        this.viewport.showSplitPane(p);
+        if (p) {
             this.initPreviewPane();
         }
     },
@@ -928,6 +927,15 @@ var DimpBase = {
         $('msgLoading', 'previewMsg').invoke('hide');
         $('previewInfo').show();
         this.pp = null;
+    },
+
+    _toggleHeaders: function(elt, update)
+    {
+        if (update) {
+            DIMP.conf.toggle_pref = !DIMP.conf.toggle_pref;
+            this._updatePrefs('dimp_toggle_headers', elt.id == 'th_expand' ? 1 : 0);
+        }
+        [ elt.up().select('A'), $('msgHeadersColl', 'msgHeaders') ].flatten().invoke('toggle');
     },
 
     _expirePPCache: function(ids)
@@ -1917,6 +1925,12 @@ var DimpBase = {
         return sf && c.descendantOf(sf);
     },
 
+    /* Pref updating function. */
+    _updatePrefs: function(pref, value)
+    {
+        new Ajax.Request(DimpCore.addSID(DIMP.conf.URI_PREFS), { parameters: { app: 'imp', pref: pref, value: value } });
+    },
+
     /* Onload function. */
     _onLoad: function() {
         var tmp,
@@ -2055,9 +2069,13 @@ var DimpBase = {
             C({ d: tmp, f: this.purgeDeleted.bind(this), ns: true });
         }
 
-        $('toggleHeaders').select('A').each(function(a) {
-            C({ d: a, f: function() { [ a.up().select('A'), $('msgHeadersColl', 'msgHeaders') ].flatten().invoke('toggle'); }, ns: true });
-        });
+        $('th_expand', 'th_collapse').each(function(a) {
+            C({ d: a, f: this._toggleHeaders.bind(this, a, true), ns: true });
+        }.bind(this));
+        if (DIMP.conf.toggle_pref) {
+            this._toggleHeaders($('th_expand'));
+        }
+
         $('msg_newwin', 'msg_newwin_options').compact().each(function(a) {
             C({ d: a, f: function() { this.msgWindow(this.viewport.getViewportSelection().search({ imapuid: { equal: [ DIMP.conf.msg_index ] } , view: { equal: [ DIMP.conf.msg_folder ] } }).get('dataob').first()); }.bind(this) });
         }, this);

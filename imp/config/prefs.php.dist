@@ -198,7 +198,7 @@ $prefGroups['dimp'] = array(
     'column' => _("Other Options"),
     'label' => _("DIMP Options"),
     'desc' => _("Configure DIMP Options."),
-    'members' => array('login_view')
+    'members' => array('dimp_login_view')
 );
 
 
@@ -1454,7 +1454,7 @@ $_prefs['mimp_preview_msg'] = array(
 );
 
 // Login preferences (dimp)
-$_prefs['login_view'] = array(
+$_prefs['dimp_login_view'] = array(
     'value' => 'portal',
     'locked' => false,
     'shared' => false,
@@ -1465,8 +1465,14 @@ $_prefs['login_view'] = array(
 );
 
 // Other Implicit DIMP preferences
-$_prefs['show_preview'] = array(
+$_prefs['dimp_show_preview'] = array(
     'value' => true,
+    'locked' => false,
+    'shared' => false,
+    'type' => 'implicit');
+
+$_prefs['dimp_toggle_headers'] = array(
+    'value' => 0,
     'locked' => false,
     'shared' => false,
     'type' => 'implicit');

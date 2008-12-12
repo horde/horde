@@ -284,8 +284,8 @@ function _simpleButton($id, $text, $image, $imagedir = null)
       <div id="previewMsg" style="display:none">
        <div class="msgHeaders">
         <div id="toggleHeaders" class="noprint">
-         <a><?php echo Horde::img('arrow_collapsed.png', '>', array('title' => _("Expand Headers"))) ?></a>
-         <a style="display:none"><?php echo Horde::img('arrow_expanded.png', 'v', array('title' => _("Collapse Headers"))) ?></a>
+         <a id="th_expand"><?php echo Horde::img('arrow_collapsed.png', '>', array('title' => _("Expand Headers"))) ?></a>
+         <a id="th_collapse" style="display:none"><?php echo Horde::img('arrow_expanded.png', 'v', array('title' => _("Collapse Headers"))) ?></a>
          <?php echo Horde::img('attachment.png', '', array('class' => 'attachmentImage', 'style' => 'display:none')) ?>
         </div>
         <div id="msgHeadersColl">
@@ -425,7 +425,7 @@ function _simpleButton($id, $text, $image, $imagedir = null)
 </div>
 
 <div class="context" id="ctx_otheractions" style="display:none">
- <a id="previewtoggle"><?php echo $preview; echo ($prefs->getValue('show_preview') ? _("Hide Preview") : _("Show Preview")); ?></a>
+ <a id="previewtoggle"><?php echo $preview; echo ($prefs->getValue('dimp_show_preview') ? _("Hide Preview") : _("Show Preview")); ?></a>
  <div class="sep"></div>
  <a id="oa_seen"><?php echo $mailseen . _("Mark as Read") ?></a>
  <a id="oa_unseen"><?php echo $mailunseen . _("Mark as New") ?></a>
