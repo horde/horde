@@ -355,7 +355,7 @@ case 'forward_attachments':
     $format = $fwd_msg['format'];
     $rtemode = ($rtemode || (!is_null($rtemode) && ($format == 'html')));
     $title = $header['title'];
-    $encoding = empty($charset) ? $reply_msg['encoding'] : $charset;
+    $encoding = empty($charset) ? $fwd_msg['encoding'] : $charset;
     break;
 
 case 'redirect_compose':
