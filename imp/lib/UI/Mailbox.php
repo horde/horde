@@ -117,7 +117,7 @@ class IMP_UI_Mailbox
             }
         }
 
-        if ($full && !isset($ret['fullfrom'])) {
+        if (!empty($options['fullfrom']) && !isset($ret['fullfrom'])) {
             $ret['fullfrom'] = $ret['from'];
         }
 
