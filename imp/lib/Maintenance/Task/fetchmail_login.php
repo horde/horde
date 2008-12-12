@@ -25,8 +25,7 @@ class Maintenance_Task_fetchmail_login extends Maintenance_Task
      */
     function doMaintenance()
     {
-        require_once IMP_BASE . '/lib/Fetchmail.php';
-        $fm_account = &new IMP_Fetchmail_Account();
+        $fm_account = new IMP_Fetchmail_Account();
 
         /* If the user wants to fetch emails from other accounts on login,
          * go get those messages now. */
@@ -40,7 +39,7 @@ class Maintenance_Task_fetchmail_login extends Maintenance_Task
             }
 
             if (!empty($fm_list)) {
-                IMP_Fetchmail::fetchMail($fm_list);
+                IMP_Fetchmail::fetchmail($fm_list);
             }
         }
     }
@@ -52,11 +51,9 @@ class Maintenance_Task_fetchmail_login extends Maintenance_Task
      */
     function describeMaintenance()
     {
-        $str  = _("You are about to fetch email from the following account(s):");
-        $str .= "\n<blockquote>\n";
+        $str  = _("You are about to fetch email from the following account(s):") . "\n<blockquote>\n";
 
-        require_once IMP_BASE . '/lib/Fetchmail.php';
-        $fm_account = &new IMP_Fetchmail_Account();
+        $fm_account = new IMP_Fetchmail_Account();
         if ($fm_account->count()) {
             foreach ($fm_account->getAll('loginfetch') as $id => $val) {
                 if ($val) {

@@ -619,11 +619,15 @@ class IMP
 
         if (($_SESSION['imp']['protocol'] != 'pop') &&
             $prefs->getValue('fetchmail_menu')) {
-            if ($prefs->getValue('fetchmail_popup')) {
-                $menu->add(Horde::applicationUrl('fetchmail.php'), _("F_etch Mail"), 'fetchmail.png', null, 'fetchmail', 'window.open(this.href, \'fetchmail\', \'toolbar=no,location=no,status=yes,scrollbars=yes,resizable=yes,width=300,height=450,left=100,top=100\'); return false;');
-            } else {
-                $menu->add(Horde::applicationUrl('fetchmail.php'), _("F_etch Mail"), 'fetchmail.png');
-            }
+            Horde::addScriptFile('prototype.js', 'horde', true);
+            Horde::addScriptFile('effects.js', 'horde', true);
+            Horde::addScriptFile('dialog.js', 'imp', true);
+            Horde::addScriptFile('redbox.js', 'imp', true);
+
+            $js_params = array(
+                'dialog_load' => Horde::applicationUrl('ajax.php', true, -1) . '/FetchmailDialog'
+            );
+            $menu->add('javascript:IMPDialog.display(\'' . IMP::escapeJSON($js_params) . '\')', _("Fetch Mail"), 'fetchmail.png');
         }
 
         if ($prefs->getValue('filter_menuitem')) {
@@ -1943,7 +1947,7 @@ class IMP
      * @param string $type    The dialog type.
      * @param string $action  The JS code to run after success. Defaults to
      *                        reloading the current window.
-     * @param array $params   Any additiona parameters to pass.
+     * @param array $params   Any additional parameters to pass.
      *
      * @return string  The generated JS code.
      */

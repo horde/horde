@@ -161,7 +161,7 @@ if (empty($action)) {
 
 // The following actions do not need write access to the session and
 // should be opened read-only for performance reasons.
-if (in_array($action, array('chunkContent', 'Html2Text', 'Text2Html', 'GetReplyData'))) {
+if (in_array($action, array('chunkContent', 'Html2Text', 'Text2Html', 'GetReplyData', 'FetchmailDialog'))) {
     $session_control = 'readonly';
 }
 
@@ -293,12 +293,6 @@ case 'ListFolders':
 
 case 'PollFolders':
     $result = new stdClass;
-
-    $fm_account = new IMP_Fetchmail_Account();
-    $fm_count = $fm_account->count();
-    if (!empty($fm_count)) {
-        IMP_Fetchmail::fetchMail(range(0, $fm_count - 1));
-    }
 
     $imptree = &IMP_IMAP_Tree::singleton();
 
@@ -692,7 +686,7 @@ case 'SMIMEPersonal':
     $result = new stdClass;
     $result->success = false;
 
-    $passphrase = Util::getFormData('passphrase');
+    $passphrase = Util::getFormData('dialog_input');
 
     if ($action == 'SMIMEPersonal') {
         $imp_smime = &Horde_Crypt::singleton(array('imp', 'smime'));
@@ -717,6 +711,39 @@ case 'SMIMEPersonal':
     } else {
         $result->error = _("Invalid passphrase entered.");
     }
+
+    /* TODO - This code will eventually be moved to the API. But this function
+     * may be called by IMP so explicitly include DIMP.php. */
+    if ($_SESSION['imp']['view'] != 'dimp') {
+        require_once IMP_BASE . '/lib/DIMP.php';
+        $notify = false;
+    }
+
+    break;
+
+case 'Fetchmail':
+    $fetch_list = Util::getFormData('accounts');
+    if (empty($fetch_list)) {
+        $result->error = _("No accounts selected.");
+    } else {
+        IMP_Fetchmail::fetchmail($fetch_list);
+        $result->success = 1;
+    }
+
+    /* TODO - This code will eventually be moved to the API. But this function
+     * may be called by IMP so explicitly include DIMP.php. */
+    require_once IMP_BASE . '/lib/DIMP.php';
+
+    /* Don't send dimp notifications via this response since the listener
+     * on the browser (dialog.js) doesn't know what to do with them. Instead,
+     * notifications will be picked up via the PollFolders() call that is
+     * done on success. */
+    $notify = false;
+
+    break;
+
+case 'FetchmailDialog':
+    $result = IMP_Fetchmail::fetchmailDialogForm();
 
     /* TODO - This code will eventually be moved to the API. But this function
      * may be called by IMP so explicitly include DIMP.php. */

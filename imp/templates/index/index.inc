@@ -75,6 +75,9 @@ function _simpleButton($id, $text, $image, $imagedir = null)
    <ul id="dimpbarActions">
     <?php echo _simpleButton('composelink', _("_New Message"), 'compose.png') ?>
     <?php echo _simpleButton('checkmaillink', _("_Get Mail"), 'checkmail.png') ?>
+<?php if (($_SESSION['imp']['protocol'] != 'pop') && $prefs->getValue('fetchmail_menu')): ?>
+    <?php echo _simpleButton('fetchmaillink', _("_Fetch Mail"), 'fetchmail.png') ?>
+<?php endif; ?>
 <?php if (!$is_ie6): ?>
     <?php echo _simpleButton('alertsloglink', _("Alerts _Log"), 'info_icon.png', $hordeimg) ?>
 <?php endif; ?>

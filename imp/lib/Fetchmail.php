@@ -130,7 +130,7 @@ abstract class IMP_Fetchmail
      * @param array $accounts  The list of account identifiers to fetch mail
      *                         for.
      */
-    static public function fetchMail($accounts)
+    static public function fetchmail($accounts)
     {
         $fm_account = new IMP_Fetchmail_Account();
 
@@ -152,6 +152,42 @@ abstract class IMP_Fetchmail
                 $GLOBALS['notification']->push(_("Fetchmail: no new messages."), 'horde.success');
             }
         }
+    }
+
+    /**
+     * Generate the form code necessary for the dialog screen.
+     *
+     * @return stdClass  The generated params to pass to the dialog.js script.
+     */
+    static public function fetchmailDialogForm()
+    {
+        $fm_account = new IMP_Fetchmail_Account();
+
+        $accounts = $fm_account->getAll('id');
+        if ($accounts) {
+            $form = '<ul>';
+            foreach (array_keys($accounts) as $key) {
+                $form .= '<li><label><input type="checkbox" name="accounts[]" checked="checked" value="' . $key . '" /> ' . htmlspecialchars($fm_account->getValue('id', $key)) . '</label></li>';
+            }
+            $form .= '</ul>';
+            $text = _("Select accounts to fetch mail from:");
+        } else {
+            $text = _("You have not configured any external mail accounts.");
+            $form = -1;
+        }
+
+        $is_dimp = ($_SESSION['imp']['view'] == 'dimp');
+
+        $res = new stdClass;
+        $res->action = $is_dimp ? 'DimpBase.pollFolders.bind(DimpBase)' : '';
+        $res->uri = Horde::applicationUrl('ajax.php', true, -1) . '/Fetchmail';
+        $res->params = array();
+        $res->text = $text;
+        $res->form = $form;
+        $res->ok_text = ($form == -1) ? '' : _("Fetch Mail");
+        $res->cancel_text = _("Cancel");
+
+        return $res;
     }
 
     /**

@@ -1972,6 +1972,7 @@ var DimpBase = {
 
         C({ d: $('composelink'), f: DimpCore.compose.bind(DimpCore, 'new') });
         C({ d: $('checkmaillink'), f: this.pollFolders.bind(this) });
+        C({ d: $('fetchmaillink'), f: IMPDialog.display.bind(IMPDialog, { dialog_load: DIMP.conf.URI_IMP + '/FetchmailDialog' }) });
 
         [ 'portal', 'options' ].each(function(a) {
             var d = $('app' + a);

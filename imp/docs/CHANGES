@@ -2,6 +2,8 @@
 v5.0-cvs
 --------
 
+[mms] Added separate Fetch Mail action to DIMP (Request #7370).
+[mms] Improved fetchmail dialog screen.
 [mms] Remember preview toggle header preference (Request #7264) (DIMP).
 [mms] Fix stripping attachments when saving to sent-mail folder when attaching
       the PGP public key (Bug #4221).
