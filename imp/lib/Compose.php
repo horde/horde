@@ -1178,33 +1178,49 @@ class IMP_Compose
             /* Filter out our own address from the addresses we reply to. */
             require_once 'Horde/Identity.php';
             $identity = &Identity::singleton(array('imp', 'imp'));
-            $me = array_keys($identity->getAllFromAddresses(true));
+            $all_addrs = array_keys($identity->getAllFromAddresses(true));
 
-            /* Build the To: header. */
-            $from_arr = $h->getOb('from');
-            $to_arr = $h->getOb('reply-to');
-            $reply = '';
-
-            if (!empty($to_arr)) {
-                $reply = Horde_Mime_Address::addrArray2String($to_arr);
-            } elseif (!empty($from_arr)) {
-                $reply = Horde_Mime_Address::addrArray2String($from_arr);
+            /* Build the To: header. It is either 1) the Reply-To address
+             * (if not a personal address), 2) the From address (if not a
+             * personal address), or 3) all remaining Cc addresses. */
+            $cc_addrs = array();
+            foreach (array('reply-to', 'from', 'to', 'cc') as $val) {
+                $ob = $h->getOb($val);
+                if (!empty($ob)) {
+                    $addr_obs = Horde_Mime_Address::getAddressesFromObject($ob, $all_addrs);
+                    if (!empty($addr_obs)) {
+                        if (isset($addr_obs[0]['groupname'])) {
+                            $cc_addrs = array_merge($cc_addrs, $addr_obs);
+                            foreach ($addr_obs[0]['addresses'] as $addr_ob) {
+                                $all_addrs[] = $addr_ob['inner'];
+                            }
+                        } else {
+                            if ($val == 'reply-to') {
+                                $header['to'] = $addr_obs[0]['address'];
+                            } else {
+                                $cc_addrs = array_merge($cc_addrs, $addr_obs);
+                            }
+                            foreach ($addr_obs as $addr_ob) {
+                                $all_addrs[] = $addr_ob['inner'];
+                            }
+                        }
+                    }
+                }
             }
 
-            $header['to'] = Horde_Mime_Address::addrArray2String(array_merge($to_arr, $from_arr), $me);
-
-            /* Build the Cc: header. */
-            $cc_arr = $h->getOb('to');
-            if (!empty($cc_arr) &&
-                ($reply != Horde_Mime_Address::addrArray2String($cc_arr))) {
-                $cc_arr = array_merge($cc_arr, $h->getOb('cc'));
-            } else {
-                $cc_arr = $h->getOb('cc');
+            /* Build the Cc: (or possibly the To:) header. */
+            $hdr_cc = array();
+            foreach ($cc_addrs as $ob) {
+                if (isset($ob['groupname'])) {
+                    $hdr_cc[] = Horde_Mime_Address::writeGroupAddress($ob['groupname'], $ob['addresses']) . ' ';
+                } else {
+                    $hdr_cc[] = $ob['address'] . ', ';
+                }
             }
-            $header['cc'] = Horde_Mime_Address::addrArray2String($cc_arr, $me);
+            $header[isset($header['to']) ? 'cc' : 'to'] = rtrim(implode('', $hdr_cc), ' ,');
 
             /* Build the Bcc: header. */
-            $header['bcc'] = Horde_Mime_Address::addrArray2String($h->getOb('bcc') + $identity->getBccAddresses(), $me);
+            $header['bcc'] = Horde_Mime_Address::addrArray2String($h->getOb('bcc') + $identity->getBccAddresses(), $all_addrs);
             if ($actionID == '*') {
                 $all_headers['reply_all'] = $header;
             }
