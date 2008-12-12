@@ -247,7 +247,7 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Abstract_Schema
     {
         $this->_clearTableCache($name);
 
-        return $this->execute('RENAME TABLE '.$this->quoteTableName($name).' TO '.$this->quoteTableName($newName));
+        return $this->execute('ALTER TABLE '.$this->quoteTableName($name).' RENAME '.$this->quoteTableName($newName));
     }
 
     /**
