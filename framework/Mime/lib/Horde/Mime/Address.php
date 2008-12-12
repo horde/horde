@@ -192,8 +192,8 @@ class Horde_Mime_Address
      *
      * @param array $addresses  The array of address objects.
      * @param mixed $filter     A user@example.com style bare address to
-     *                          ignore.  If any address matches $filter, it
-     *                          will not be included in the final string.
+     *                          ignore. Either single string or an array of
+     *                          strings.
      *
      * @return string  All of the addresses in a comma-delimited string.
      *                 Returns the empty string on error/no addresses found.
@@ -219,7 +219,9 @@ class Horde_Mime_Address
     /**
      * Return the list of addresses for a header object.
      *
-     * @param array $obs  An array of header objects.
+     * @param array $obs     An array of header objects.
+     * @param mixed $filter  A user@example.com style bare address to ignore.
+     *                       Either single string or an array of strings.
      *
      * @return array  An array of address information. Array elements:
      * <pre>
@@ -231,7 +233,7 @@ class Horde_Mime_Address
      * 'personal' - (string) Personal string
      * </pre>
      */
-    static public function getAddressesFromObject($obs)
+    static public function getAddressesFromObject($obs, $filter = '')
     {
         $ret = array();
 
@@ -261,14 +263,17 @@ class Horde_Mime_Address
 
             $inner = self::writeAddress($ob['mailbox'], $ob['host']);
 
-            /* Generate the new object. */
-            $ret[] = array(
-                'address' => self::addrObject2String($ob),
-                'display' => (empty($ob['personal']) ? '' : $ob['personal'] . ' <') . $inner . (empty($ob['personal']) ? '' : '>'),
-                'host' => $ob['host'],
-                'inner' => $inner,
-                'personal' => $ob['personal']
-            );
+            $addr_string = self::addrObject2String($ob, $filter);
+            if (!empty($addr_string)) {
+                /* Generate the new object. */
+                $ret[] = array(
+                    'address' => $addr_string,
+                    'display' => (empty($ob['personal']) ? '' : $ob['personal'] . ' <') . $inner . (empty($ob['personal']) ? '' : '>'),
+                    'host' => $ob['host'],
+                    'inner' => $inner,
+                    'personal' => $ob['personal']
+                );
+            }
         }
 
         return $ret;
