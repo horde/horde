@@ -75,6 +75,8 @@
 				<string>NSButton</string>
 				<key>newGallerySheet</key>
 				<string>NSWindow</string>
+				<key>newServerButton</key>
+				<string>NSButton</string>
 				<key>newServerSheet</key>
 				<string>NSWindow</string>
 				<key>password</key>

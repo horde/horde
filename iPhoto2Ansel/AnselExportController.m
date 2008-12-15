@@ -13,7 +13,9 @@
 #import "ImageResizer.h";
 
 @interface AnselExportController (PrivateAPI)
+- (void)doConnect;
 - (void)connect;
+- (void)disconnect;
 - (void)postProgressStatus:(NSString *)status;
 - (void)privatePerformExport;
 - (void)runExport;
@@ -89,31 +91,7 @@ NSString * const TURAnselServerPasswordKey = @"password";
 }
 
 #pragma mark Actions
-// Start the connection process.
--(void)doConnect: (id)sender
-{
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    NSDictionary *p = [[NSDictionary alloc] initWithObjects: [NSArray arrayWithObjects:
-                                                              [currentServer objectForKey:TURAnselServerEndpointKey],
-                                                              [currentServer objectForKey:TURAnselServerUsernameKey],
-                                                              [currentServer objectForKey:TURAnselServerPasswordKey]]
-                                                    forKeys: [NSArray arrayWithObjects:@"endpoint", @"username", @"password", nil]];
-    // Create our controller
-    anselController = [[TURAnsel alloc] initWithConnectionParameters:p];
-    [anselController setDelegate:self];
-    
-    // Set up the galleryCombo
-    [galleryCombo setUsesDataSource:YES];
-    [galleryCombo setDataSource:anselController];
-    [galleryCombo setDelegate:self];
-    [spinner startAnimation:self];
-    // Detach to a new thread and do the actual login/retrieval of gallery list
-    [NSApplication detachDrawingThread: @selector(connect)
-                              toTarget: self 
-                            withObject: nil];
-    [p release];
-    [pool release];
-}
+
 
 // Put up the newGallerySheet NSPanel
 - (IBAction)showNewGallery: (id)sender
@@ -153,6 +131,9 @@ NSString * const TURAnselServerPasswordKey = @"password";
     // Save it to the userdefaults
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     [prefs setObject:anselServers  forKey:TURAnselServersKey];
+    
+    // ...and try to connect.
+    [self doConnect];
 }
 
 - (IBAction)doCancelAddServer: (id)sender
@@ -290,6 +271,42 @@ NSString * const TURAnselServerPasswordKey = @"password";
         [galleryCombo setEnabled: YES];
     }
 }
+
+// Make sure we clean up from any previous connection
+-(void)disconnect
+{
+    [galleryCombo setDelegate: nil];
+    [anselController release];
+    
+    //TODO: update status/use notifications?
+}
+
+// Start the connection process.
+-(void)doConnect
+{
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    NSDictionary *p = [[NSDictionary alloc] initWithObjects: [NSArray arrayWithObjects:
+                                                              [currentServer objectForKey:TURAnselServerEndpointKey],
+                                                              [currentServer objectForKey:TURAnselServerUsernameKey],
+                                                              [currentServer objectForKey:TURAnselServerPasswordKey]]
+                                                    forKeys: [NSArray arrayWithObjects:@"endpoint", @"username", @"password", nil]];
+    // Create our controller
+    anselController = [[TURAnsel alloc] initWithConnectionParameters:p];
+    [anselController setDelegate:self];
+    
+    // Set up the galleryCombo
+    [galleryCombo setUsesDataSource:YES];
+    [galleryCombo setDataSource:anselController];
+    [galleryCombo setDelegate:self];
+    [spinner startAnimation:self];
+    // Detach to a new thread and do the actual login/retrieval of gallery list
+    [NSApplication detachDrawingThread: @selector(connect)
+                              toTarget: self 
+                            withObject: nil];
+    [p release];
+    [pool release];
+}
+
 // Runs in a new thread.
 - (void)connect
 {
@@ -492,9 +509,10 @@ NSString * const TURAnselServerPasswordKey = @"password";
         [theImage release];
         [self canExport];
     } else if ([notification object] == mServers) {
-        NSLog(@"Changed server selection");
+        [self disconnect];
         [currentServer release];
-        currentServer = [anselServers objectAtIndex: [mServers indexOfSelectedItem]];        
+        currentServer = [anselServers objectAtIndex: [mServers indexOfSelectedItem]];
+        [self doConnect];
     }
 }
 
@@ -511,7 +529,6 @@ NSString * const TURAnselServerPasswordKey = @"password";
 {
     // Make sure we have a server configured, or throw up the dialog.
     if (![anselServers count]) {
-        NSLog(@"No servers!!");
         [NSApp beginSheet: newServerSheet
            modalForWindow: [self window]
             modalDelegate: nil

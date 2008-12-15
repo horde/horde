@@ -39,7 +39,6 @@ extern NSString * const TURAnselServerPasswordKey;
     IBOutlet NSTextField *connectedLabel;
     IBOutlet NSProgressIndicator *spinner;
     IBOutlet NSImageView *defaultImageView;
-    IBOutlet NSButton *beginButton;
     IBOutlet NSButton *newGalleryButton;
     IBOutlet NSButton *newServerButton;
     
@@ -79,7 +78,6 @@ extern NSString * const TURAnselServerPasswordKey;
 - (NSWindow *)window;
 
 // Actions
-- (IBAction) doConnect: (id)sender;
 - (IBAction) showNewGallery: (id)sender;
 - (IBAction) doAddServer: (id)sender;
 - (IBAction) doCancelAddServer: (id)sender;
