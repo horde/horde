@@ -131,7 +131,7 @@ class Horde_Mime_Viewer_vcard extends Horde_Mime_Viewer_Driver
             $labels = $vc->getAllAttributes('LABEL');
             foreach ($labels as $label) {
                 if (isset($label['params']['TYPE'])) {
-                    if (!is_array($item['params']['TYPE'])) {
+                    if (!is_array($label['params']['TYPE'])) {
                         $label['params']['TYPE'] = array($label['params']['TYPE']);
                     }
                 } else {
