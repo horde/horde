@@ -11,7 +11,7 @@
  * @author Michael Slusarz <slusarz@horde.org>
  */
 
-function _generateDeleteResult($mbox, $indices, $change)
+function _generateDeleteResult($mbox, $indices, $change, $nothread = false)
 {
     $imp_mailbox = &IMP_Mailbox::singleton($mbox);
 
@@ -21,6 +21,12 @@ function _generateDeleteResult($mbox, $indices, $change)
     $result->remove = ($GLOBALS['prefs']->getValue('hide_deleted') ||
                        $GLOBALS['prefs']->getValue('use_trash'));
     $result->cacheid = $imp_mailbox->getCacheID($mbox);
+
+    /* Check if we need to update thread information. */
+    if (!$change && !$nothread) {
+        $sort = IMP::getSort($mbox);
+        $change = ($sort['by'] == Horde_Imap_Client::SORT_THREAD);
+    }
 
     if ($change) {
         $result->viewport = _getListMessages($mbox, true);
@@ -34,8 +40,7 @@ function _generateDeleteResult($mbox, $indices, $change)
     return $result;
 }
 
-function _changed($mbox, $compare, $indices = array(), $nothread = false,
-                  $rw = null)
+function _changed($mbox, $compare, $rw = null)
 {
     if ($GLOBALS['imp_search']->isVFolder($mbox)) {
         return true;
@@ -50,21 +55,6 @@ function _changed($mbox, $compare, $indices = array(), $nothread = false,
     $imp_mailbox = &IMP_Mailbox::singleton($mbox);
     if ($imp_mailbox->getCacheID($mbox) != $compare) {
         return true;
-    }
-
-    if (!empty($indices) && !$nothread) {
-        $sort = IMP::getSort($mbox);
-        if ($sort['by'] == Horde_Imap_Client::SORT_THREAD) {
-            foreach ($indices as $mbox => $mbox_array) {
-                $imp_mailbox = &IMP_Mailbox::singleton($mbox);
-                $threadob = $imp_mailbox->getThreadOb();
-                foreach ($mbox_array as $val) {
-                    if ($threadob->getThreadBase($val) !== false) {
-                        return true;
-                    }
-                }
-            }
-        }
     }
 
     return false;
@@ -333,7 +323,7 @@ case 'ListMessages':
         $result->viewport->request_id = Util::getPost('request_id');
         $result->viewport->type = 'slice';
     } else {
-        $changed = _changed($folder, $cacheid, array(), false, false);
+        $changed = _changed($folder, $cacheid, false);
         if (!Util::getPost('checkcache') || $changed) {
             $result->viewport = _getListMessages($folder, $changed);
         }
@@ -348,7 +338,7 @@ case 'CopyMessage':
     }
 
     if ($action == 'MoveMessage') {
-        $change = _changed($folder, $cacheid, $indices, false, true);
+        $change = _changed($folder, $cacheid, true);
     }
 
     $imp_message = &IMP_Message::singleton();
@@ -403,10 +393,10 @@ case 'UndeleteMessage':
 
     $imp_message = &IMP_Message::singleton();
     if ($action == 'DeleteMessage') {
-        $change = _changed($folder, $cacheid, $indices, !$prefs->getValue('hide_deleted') && !$prefs->getValue('use_trash'), true);
+        $change = _changed($folder, $cacheid, true);
         $result = $imp_message->delete($indices);
         if ($result) {
-            $result = _generateDeleteResult($folder, $indices, $change);
+            $result = _generateDeleteResult($folder, $indices, $change, !$prefs->getValue('hide_deleted') && !$prefs->getValue('use_trash'));
         }
     } else {
         $result = $imp_message->undelete($indices);
@@ -436,12 +426,12 @@ case 'AddContact':
 
 case 'ReportSpam':
 case 'ReportHam':
-    $change = _changed($folder, $cacheid, $indices, false, false);
-    $result = IMP_Spam::reportSpam($indices, ($action == 'ReportSpam') ? 'spam' : 'notspam');
-    if ($result) {
+    $change = _changed($folder, $cacheid, false);
+    $spam_result = IMP_Spam::reportSpam($indices, ($action == 'ReportSpam') ? 'spam' : 'notspam');
+    if ($spam_result) {
         $result = _generateDeleteResult($folder, $indices, $change);
-        // If $result is non-zero, then we know the message has been removed
-        // from the current mailbox.
+        // If $spam_result is non-zero, then we know the message has been
+        // removed from the current mailbox.
         $result->remove = 1;
     }
     break;
@@ -456,7 +446,7 @@ case 'Whitelist':
     if ($action == 'Whitelist') {
         $imp_filter->whitelistMessage($indices, false);
     } else {
-        $change = _changed($folder, $cacheid, $indices, false, false);
+        $change = _changed($folder, $cacheid, false);
         if ($imp_filter->blacklistMessage($indices, false)) {
             $result = _generateDeleteResult($folder, $indices, $change);
         }

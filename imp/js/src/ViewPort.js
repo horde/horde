@@ -542,9 +542,9 @@ var ViewPort = Class.create({
     //         cacheid
     //         data
     //         label
-    //         total_rows
-    //         other
+    //         metadata (optional)
     //         reset (optional) - If set, purges all cached data
+    //         resetmd (optional) - If set, purges all user metadata
     //         rowlist
     //         rownum (optional)
     //         totalrows
@@ -604,12 +604,12 @@ var ViewPort = Class.create({
         }
 
         buffer = this._getBuffer(id);
-        buffer.update(Object.isArray(r.data) ? {} : r.data, Object.isArray(r.rowlist) ? {} : r.rowlist, { reset: r.reset, update: r.update });
-        buffer.setMetaData($H(r.other).merge({
+        buffer.update(Object.isArray(r.data) ? {} : r.data, Object.isArray(r.rowlist) ? {} : r.rowlist, r.metadata || {}, { reset: r.reset, resetmd: r.resetmd, update: r.update });
+        buffer.setMetaData({
             cacheid: r.cacheid,
             label: r.label,
             total_rows: r.totalrows
-        }));
+        });
 
         if (this.opts.onCacheUpdate) {
             this.opts.onCacheUpdate(id);
@@ -1214,11 +1214,13 @@ ViewPort_Buffer = Class.create({
         return Math.round(Math.max(this.vp.getPageSize('max') + 1, this.bufferPages * this.vp.getPageSize()));
     },
 
-    // d = TODO
-    // l = TODO
-    // opts = (object) TODO [reset, slice, update]
-    update: function(d, l, opts)
+    // d = (object) Data
+    // l = (object) Rowlist
+    // md = (object) User defined metadata
+    // opts = (object) TODO [reset, resetmd, slice, update]
+    update: function(d, l, md, opts)
     {
+        var val;
         d = $H(d);
         l = $H(l);
         opts = opts || {};
@@ -1243,14 +1245,33 @@ ViewPort_Buffer = Class.create({
             }
         }
 
-        this.uidlist = (opts.update || opts.reset) ? l : (this.uidlist.size() ? this.uidlist.merge(l) : l);
-
-        if (opts.update) {
+        if (opts.update || opts.reset) {
+            this.uidlist = l;
             this.rowlist = $H();
+        } else {
+            this.uidlist = this.uidlist.size() ? this.uidlist.merge(l) : l;
         }
+
         l.each(function(o) {
             this.rowlist.set(o.value, o.key);
         }, this);
+
+        if (opts.resetmd) {
+            this.usermdata = $H(md);
+        } else {
+            $H(md).each(function(pair) {
+                if (Object.isString(pair.value) || Object.isNumber(pair.value)) {
+                    this.usermdata.set(pair.key, pair.value);
+                } else {
+                    val = this.usermdata.get(pair.key);
+                    if (val) {
+                        this.usermdata.get(pair.key).update($H(pair.value));
+                    } else {
+                        this.usermdata.set(pair.key, $H(pair.value));
+                    }
+                }
+            }, this);
+        }
     },
 
     // offset = (integer) Offset of the beginning of the slice.
@@ -1375,6 +1396,7 @@ ViewPort_Buffer = Class.create({
         this.data = $H();
         this.inc = $H();
         this.mdata = $H({ total_rows: 0 });
+        this.usermdata = $H();
         this.rowlist = $H();
         this.selected = new ViewPort_Selection(this);
         this.uidlist = $H();
@@ -1382,14 +1404,13 @@ ViewPort_Buffer = Class.create({
 
     getMetaData: function(id)
     {
-        return this.mdata.get(id);
+        return this.mdata.get(id) || this.usermdata.get(id);
     },
 
     setMetaData: function(vals)
     {
         this.mdata.update(vals);
     }
-
 }),
 
 /**

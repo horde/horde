@@ -124,8 +124,8 @@ class IMP_Views_ListMessages
         $slice_end = min($msgcount, $slice_end);
 
         /* Mail-specific viewport information. */
-        $result->other = new stdClass;
-        $md = &$result->other;
+        $result->metadata = new stdClass;
+        $md = &$result->metadata;
         if (!IMP::threadSortAvailable($folder)) {
             $md->nothread = 1;
         }
@@ -170,7 +170,7 @@ class IMP_Views_ListMessages
 
             if ($uid_expire) {
                 $args['cached'] = array();
-                $result->reset = 1;
+                $result->reset = $result->resetmd = 1;
             }
         }
 

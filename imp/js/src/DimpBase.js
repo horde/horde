@@ -402,10 +402,10 @@ var DimpBase = {
                     var elt, tmp, u,
                         r = $(row.domid);
                     // Add thread graphics
-                    if (thread && thread[row.imapuid]) {
+                    if (thread && thread.get(row.imapuid)) {
                         elt = r.down('.msgSubject');
                         tmp = elt.cloneNode(false);
-                        u = thread[row.imapuid];
+                        u = thread.get(row.imapuid);
                         $R(0, u.length, true).each(function(i) {
                             tmp.insert($($('thread_img_' + u.charAt(i)).cloneNode(false)).writeAttribute('id', ''));
                         });
