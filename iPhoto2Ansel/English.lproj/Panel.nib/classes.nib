@@ -26,10 +26,6 @@
 				<string>id</string>
 				<key>doCancelAddServer</key>
 				<string>id</string>
-				<key>doConnect</key>
-				<string>id</string>
-				<key>doNewGallery</key>
-				<string>id</string>
 				<key>showNewGallery</key>
 				<string>id</string>
 			</dict>
@@ -41,8 +37,6 @@
 			<dict>
 				<key>anselHostURL</key>
 				<string>NSTextField</string>
-				<key>beginButton</key>
-				<string>NSButton</string>
 				<key>connectedLabel</key>
 				<string>NSTextField</string>
 				<key>defaultImageView</key>
@@ -51,30 +45,16 @@
 				<string>NSControl</string>
 				<key>galleryCombo</key>
 				<string>NSComboBox</string>
-				<key>galleryDescTextField</key>
-				<string>NSTextField</string>
-				<key>galleryNameTextField</key>
-				<string>NSTextField</string>
-				<key>gallerySlugTextField</key>
-				<string>NSTextField</string>
-				<key>galleryTableView</key>
-				<string>NSTableView</string>
 				<key>mExportMgr</key>
 				<string>id</string>
-				<key>mQualityPopUp</key>
-				<string>NSPopUpButton</string>
 				<key>mServers</key>
 				<string>NSComboBox</string>
 				<key>mSettingsBox</key>
 				<string>NSBox</string>
 				<key>mSizePopUp</key>
 				<string>NSPopUpButton</string>
-				<key>newGallery</key>
-				<string>NSPanel</string>
 				<key>newGalleryButton</key>
 				<string>NSButton</string>
-				<key>newGallerySheet</key>
-				<string>NSWindow</string>
 				<key>newServerButton</key>
 				<string>NSButton</string>
 				<key>newServerSheet</key>

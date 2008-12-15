@@ -43,7 +43,7 @@ extern NSString * const TURAnselServerPasswordKey;
     IBOutlet NSButton *newServerButton;
     
     // New Gallery Sheet (uses it's own controller)
-    IBOutlet NSWindow *newGallerySheet;
+    //IBOutlet NSWindow *newGallerySheet;
     
     // New Server sheet
     IBOutlet NSWindow *newServerSheet;
