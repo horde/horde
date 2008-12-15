@@ -101,12 +101,14 @@ class Horde_Mime_Magic
 
         $map = self::_getMimeExtensionMap();
         for ($i = 0; $i <= $map['__MAXPERIOD__']; ++$i) {
-            $pos = strrpos(substr($filename, 0, $pos - 1), '.') + 1;
+            $pos = strrpos(substr($filename, 0, $pos - 1), '.');
             if ($pos === false) {
                 break;
             }
+            ++$pos;
         }
-        $type = self::extToMime(substr($filename, $pos));
+
+        $type = ($pos === false) ? '' : self::extToMime(substr($filename, $pos));
 
         return (empty($type) || (!$unknown && (strpos($type, 'x-extension') !== false)))
             ? 'application/octet-stream'
