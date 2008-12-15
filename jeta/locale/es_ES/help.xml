@@ -1,0 +1,11 @@
+<?xml version='1.0'?>
+<!-- $Horde: jeta/locale/es_ES/help.xml,v 1.1 2008/03/21 00:28:27 jan Exp $ -->
+<help>
+
+<entry id="Overview">
+    <title>Introducción</title>
+    <heading>Introducción</heading>
+    <para>La aplicación SSH proporciona un applet JAVA SSH que se puede utilizar para acceder a su cuenta de consola.</para>
+</entry>
+
+</help>

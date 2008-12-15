@@ -1,0 +1,13 @@
+<?xml version='1.0'?>
+<!-- $Horde: jeta/locale/en_US/help.xml,v 1.1 2002/10/02 20:55:46 chuck Exp $ -->
+<help>
+
+<entry id="Overview">
+    <title>Overview</title>
+    <heading>Introduction</heading>
+    <para>
+    The SSH app provides a Java SSH applet that you can use to access your shell account.
+    </para>
+</entry>
+
+</help>
