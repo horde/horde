@@ -245,7 +245,7 @@ class Horde_Mime_Magic
         /* Use a built-in magic file. */
         $mime_magic = self::_getMimeMagicFile();
         reset($mime_magic);
-        while (list($offset, $odate) = each($mime_magic)) {
+        while (list($offset, $odata) = each($mime_magic)) {
             reset($odata);
             while (list($length, $ldata) = each($odata)) {
                 $lookup = substr($data, $offset, $length);
