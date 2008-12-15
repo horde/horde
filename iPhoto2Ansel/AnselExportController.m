@@ -20,6 +20,16 @@
 - (void)canExport;
 @end
 
+// User default keys
+NSString * const TURAnselServersKey = @"AnselServers";
+NSString * const TURAnselExportSize = @"AnselExportSize";
+
+// Server property keys
+NSString * const TURAnselServerNickKey = @"nickname";
+NSString * const TURAnselServerEndpointKey = @"endpoint";
+NSString * const TURAnselServerUsernameKey = @"username";
+NSString * const TURAnselServerPasswordKey = @"password";
+
 @implementation AnselExportController
 
 @synthesize currentGallery;
@@ -30,16 +40,46 @@
  */
 - (void)awakeFromNib
 {
+    // Register Application Defaults
+    NSMutableDictionary *defaultValues = [NSMutableDictionary dictionary];
+    [defaultValues setObject: [NSNumber numberWithInt: 2]
+                      forKey: TURAnselExportSize];    
+    [defaultValues setObject: [[NSMutableArray alloc] init] forKey: TURAnselServersKey];
+    NSUserDefaults *userPrefs = [NSUserDefaults standardUserDefaults];
+    [userPrefs registerDefaults: defaultValues];
+    
+    // Get any saved server data
+    anselServers = [userPrefs objectForKey: TURAnselServersKey];
+    
     // UI Defaults
-    [mSizePopUp selectItemWithTag:2];
+    [mSizePopUp selectItemWithTag: [userPrefs integerForKey:TURAnselExportSize]];
     [connectedLabel setStringValue:@"Not Connected"];
     [connectedLabel setTextColor: [NSColor redColor]];
     [spinner stopAnimation:self];
+    
+    // For now, update the user pref for size every time it changes - will
+    // eventually put this in a pref sheet.
+    [[NSNotificationCenter defaultCenter] addObserver: self
+                                             selector: @selector(sizeChoiceWillChange:)
+                                               name: @"NSPopUpButtonWillPopUpNotification"
+                                             object: nil];
+    
+    // See if we have any configured servers
+    anselServers = [[NSMutableArray alloc] initWithArray: [userPrefs objectForKey:TURAnselServersKey]];
+    
+    // Need to wait until iPhoto's export window is fully loaded before attempting
+    // to show a sheet?
+    [[NSNotificationCenter defaultCenter] addObserver: self
+                                             selector: @selector(exportWindowDidBecomeKey:)
+                                                 name: NSWindowDidBecomeKeyNotification 
+                                               object :nil];
 }
 -(void)dealloc
 {
     //anselController is released from the AnselController delegate method.
     [progressController release];
+    [anselServers release];
+    [currentServer release];
     [super dealloc];
 }
 
@@ -53,9 +93,10 @@
 -(void)doConnect: (id)sender
 {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    NSDictionary *p = [[NSDictionary alloc] initWithObjects: [NSArray arrayWithObjects:[anselHostURL stringValue],
-                                                             [username stringValue],
-                                                             [password stringValue], nil]
+    NSDictionary *p = [[NSDictionary alloc] initWithObjects: [NSArray arrayWithObjects:
+                                                              [currentServer objectForKey:TURAnselServerEndpointKey],
+                                                              [currentServer objectForKey:TURAnselServerUsernameKey],
+                                                              [currentServer objectForKey:TURAnselServerPasswordKey]]
                                                     forKeys: [NSArray arrayWithObjects:@"endpoint", @"username", @"password", nil]];
     // Create our controller
     anselController = [[TURAnsel alloc] initWithConnectionParameters:p];
@@ -85,11 +126,40 @@
     }
 }
 
-//- (IBAction)cancelNewGallery: (id)sender
-//{
-//    [NSApp endSheet: newGallerySheet];
-//    [newGallerySheet orderOut: nil];
-//}
+
+// Server setup sheet
+-(IBAction)doAddServer: (id)sender
+{
+    // Sanity Checking
+    // TODO - make sure we don't have more than one gallery with the same
+    // nick??
+    if (![[serverNickName stringValue] length]) {
+        // TODO: Errors - for now, just silently fail, yea, I know....
+        return;
+    }
+
+    NSDictionary *newServer = [[NSDictionary alloc] initWithObjectsAndKeys:
+                               [serverNickName stringValue], TURAnselServerNickKey,
+                               [anselHostURL stringValue], TURAnselServerEndpointKey,
+                               [username stringValue], TURAnselServerUsernameKey,
+                               [password stringValue], TURAnselServerPasswordKey,
+                                nil];
+    [anselServers addObject: newServer];
+    NSLog(@"After adding it: %@", [anselServers objectAtIndex:0]);
+    [NSApp endSheet: newServerSheet];
+    [newServerSheet orderOut: nil];
+    [mServers reloadData];
+    
+    // Save it to the userdefaults
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    [prefs setObject:anselServers  forKey:TURAnselServersKey];
+}
+
+- (IBAction)doCancelAddServer: (id)sender
+{
+    [NSApp endSheet: newServerSheet];
+    [newServerSheet orderOut: nil];
+}
 
 #pragma mark ExportPluginProtocol
 // Initialize
@@ -406,24 +476,68 @@
 }
 
 #pragma mark comboBoxDelegate
+// Probably should have a seperate controller for each combobox, but this is
+// pretty small stuff...
 - (void)comboBoxSelectionDidChange:(NSNotification *)notification
-{
-    int row = [galleryCombo indexOfSelectedItem];
-    [currentGallery setDelegate:nil];
-    [currentGallery autorelease];
-    currentGallery = [[anselController getGalleryByIndex:row] retain];
-    [currentGallery setDelegate: self];
-    NSImage *theImage = [[NSImage alloc] initWithContentsOfURL: [currentGallery galleryDefaultImageURL]];
-    [defaultImageView setImage: theImage];
-    [theImage release];
-    [self canExport];
+{    
+    // Yes, I'm comparing the pointers here on purpose
+    if ([notification object] == galleryCombo) {
+        int row = [galleryCombo indexOfSelectedItem];
+        [currentGallery setDelegate:nil];
+        [currentGallery autorelease];
+        currentGallery = [[anselController getGalleryByIndex:row] retain];
+        [currentGallery setDelegate: self];
+        NSImage *theImage = [[NSImage alloc] initWithContentsOfURL: [currentGallery galleryDefaultImageURL]];
+        [defaultImageView setImage: theImage];
+        [theImage release];
+        [self canExport];
+    } else if ([notification object] == mServers) {
+        NSLog(@"Changed server selection");
+        [currentServer release];
+        currentServer = [anselServers objectAtIndex: [mServers indexOfSelectedItem]];        
+    }
 }
 
+#pragma mark TURAnselGalleryPanel Notifications
 - (void)TURAnselGalleryPanelDidAddGallery
 {
-    NSLog(@"Before reload");
     // Reload the NSComboBox and autoselect the last item.
     [galleryCombo reloadData];
     [galleryCombo selectItemAtIndex: [galleryCombo numberOfItems] - 1];
+}
+
+#pragma mark export notifications
+- (void)exportWindowDidBecomeKey: (NSNotification *)notification
+{
+    // Make sure we have a server configured, or throw up the dialog.
+    if (![anselServers count]) {
+        NSLog(@"No servers!!");
+        [NSApp beginSheet: newServerSheet
+           modalForWindow: [self window]
+            modalDelegate: nil
+           didEndSelector: nil
+              contextInfo: nil];
+    } else {
+        // We have servers, fill in the drop down
+
+    }
+}
+- (void)sizeChoiceWillChange: (NSNotification *)notification
+{
+    NSInteger newSize = [mSizePopUp selectedTag];
+    NSUserDefaults *userPrefs = [NSUserDefaults standardUserDefaults]; 
+    [userPrefs setInteger: newSize forKey:TURAnselExportSize];
+    [userPrefs synchronize];
+}
+
+#pragma mark NSComboBoxDatasource delegates (used for server list)
+- (id)comboBox: (NSComboBox *)aComboBox objectValueForItemAtIndex: (NSInteger)index
+{
+    NSDictionary *server = [anselServers objectAtIndex: index];
+    return [server objectForKey:TURAnselServerNickKey];
+}
+- (NSInteger)numberOfItemsInComboBox: (NSComboBox *)aComboBox
+{
+    return [anselServers count];
 }
 @end
