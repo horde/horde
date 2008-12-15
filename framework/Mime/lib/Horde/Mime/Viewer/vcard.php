@@ -132,13 +132,13 @@ class Horde_Mime_Viewer_vcard extends Horde_Mime_Viewer_Driver
             foreach ($labels as $label) {
                 if (isset($label['params']['TYPE'])) {
                     if (!is_array($item['params']['TYPE'])) {
-                        $item['params']['TYPE'] = array($item['params']['TYPE']);
+                        $label['params']['TYPE'] = array($label['params']['TYPE']);
                     }
                 } else {
-                    $item['params']['TYPE'] = array_keys($item['params']);
+                    $label['params']['TYPE'] = array_keys($label['params']);
                 }
                 $types = array();
-                foreach ($item['params']['TYPE'] as $type) {
+                foreach ($label['params']['TYPE'] as $type) {
                     switch(String::upper($type)) {
                     case 'HOME':
                         $types[] = _("Home Address");
@@ -167,11 +167,10 @@ class Horde_Mime_Viewer_vcard extends Horde_Mime_Viewer_Driver
                     case 'PREF':
                         $types[] = _("Preferred Address");
                         break;
-
-                    default:
-                        $types[] = _("Address");
-                        break;
                     }
+                }
+                if (!count($types)) {
+                    $types = array(_("Address"));
                 }
                 $html .= $this->_row(implode('/', $types), $label['value']);
             }
@@ -232,11 +231,10 @@ class Horde_Mime_Viewer_vcard extends Horde_Mime_Viewer_Driver
                     case 'PREF':
                         $types[] = _("Preferred Address");
                         break;
-
-                    default:
-                        $types[] = _("Address");
-                        break;
                     }
+                }
+                if (!count($types)) {
+                    $types = array(_("Address"));
                 }
                 $html .= $this->_row(implode('/', $types), implode("\n", $a));
             }
