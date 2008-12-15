@@ -1217,7 +1217,7 @@ class IMP_Compose
                     $hdr_cc[] = $ob['address'] . ', ';
                 }
             }
-            $header[isset($header['to']) ? 'cc' : 'to'] = rtrim(implode('', $hdr_cc), ' ,');
+            $header[empty($header['to']) ? 'to' : 'cc'] = rtrim(implode('', $hdr_cc), ' ,');
 
             /* Build the Bcc: header. */
             $header['bcc'] = Horde_Mime_Address::addrArray2String($h->getOb('bcc') + $identity->getBccAddresses(), $all_addrs);
