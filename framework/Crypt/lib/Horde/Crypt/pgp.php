@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Horde_Crypt_pgp:: provides a framework for Horde applications to interact
  * with the GNU Privacy Guard program ("GnuPG").  GnuPG implements the OpenPGP
@@ -124,7 +123,7 @@ class Horde_Crypt_pgp extends Horde_Crypt
      *                       binary (key = 'program') and to a temporary
      *                       directory.
      */
-    function __construct($params = array())
+    public function __construct($params = array())
     {
         $this->_tempdir = Util::createTempDir(true, $params['temp']);
 
@@ -683,7 +682,7 @@ class Horde_Crypt_pgp extends Horde_Crypt
     public function parsePGPData($text)
     {
         $data = array();
-        $temp_array = array(
+        $temp = array(
             'type' => self::ARMOR_TEXT
         );
 
@@ -691,25 +690,26 @@ class Horde_Crypt_pgp extends Horde_Crypt
         while (list(,$val) = each($buffer)) {
             $val = rtrim($val, "\r");
             if (preg_match('/^-----(BEGIN|END) PGP ([^-]+)-----\s*$/', $val, $matches)) {
-                if (isset($temp_array['data'])) {
-                    $data[] = $temp_array;
+                if (isset($temp['data'])) {
+                    $data[] = $temp;
                 }
-                $temp_array = array();
+                $temp= array();
 
                 if ($matches[1] == 'BEGIN') {
-                    $temp_array['type'] = $this->_armor[$matches[2]];
-                    $temp_array['data'][] = $val;
+                    $temp['type'] = $this->_armor[$matches[2]];
+                    $temp['data'][] = $val;
                 } elseif ($matches[1] == 'END') {
-                    $temp_array['type'] = self::ARMOR_TEXT;
+                    $temp['type'] = self::ARMOR_TEXT;
                     $data[count($data) - 1]['data'][] = $val;
                 }
             } else {
-                $temp_array['data'][] = $val;
+                $temp['data'][] = $val;
             }
         }
 
-        if (isset($temp_array['data'])) {
-            $data[] = $temp_array;
+        if (isset($temp['data']) &&
+            ((count($temp['data']) > 1) || !empty($temp['data'][0]))) {
+            $data[] = $temp;
         }
 
         return $data;
