@@ -152,6 +152,24 @@ if ($authentication !== 'none') {
     } else {
         IMP::checkAuthentication(false, ($authentication === 'horde'));
     }
+
+    /* Some stuff that only needs to be initialized if we are
+     * authenticated. */
+    // Initialize some message parsing variables.
+    if (!empty($GLOBALS['conf']['mailformat']['brokenrfc2231'])) {
+        Horde_Mime::$brokenRFC2231 = true;
+    }
+
+    // Set default message character set, if necessary
+    if ($def_charset = $prefs->getValue('default_msg_charset')) {
+        Horde_Mime_Part::$defaultCharset = $def_charset;
+        Horde_Mime_Headers::$defaultCharset = $def_charset;
+    }
+}
+
+// Handle logout requests
+if (($viewmode == 'dimp') && Util::nonInputVar('dimp_logout')) {
+    Horde::redirect(str_replace('&amp;', '&', IMP::getLogoutUrl()));
 }
 
 // Notification system.
@@ -170,9 +188,10 @@ if (($viewmode == 'mimp') ||
     $notification->attach('audio');
 }
 
-// Handle logout requests
-if (($viewmode == 'dimp') && Util::nonInputVar('dimp_logout')) {
-    Horde::redirect(str_replace('&amp;', '&', IMP::getLogoutUrl()));
+if ((IMP::loginTasksFlag() === 2) &&
+    !defined('AUTH_HANDLER') &&
+    !strstr($_SERVER['PHP_SELF'], 'maintenance.php')) {
+    IMP_Session::loginTasks();
 }
 
 // Initialize global $imp_mbox array.
@@ -182,12 +201,6 @@ $GLOBALS['imp_mbox'] = IMP::getCurrentMailboxInfo();
 $GLOBALS['imp_search'] = (isset($_SESSION['imp']) && strpos($GLOBALS['imp_mbox']['mailbox'], IMP::SEARCH_MBOX) === 0)
     ? new IMP_Search(array('id' => $GLOBALS['imp_mbox']['mailbox']))
     : new IMP_Search();
-
-if ((IMP::loginTasksFlag() === 2) &&
-    !defined('AUTH_HANDLER') &&
-    !strstr($_SERVER['PHP_SELF'], 'maintenance.php')) {
-    IMP_Session::loginTasks();
-}
 
 if ($viewmode == 'mimp') {
     // Need to explicitly load MIMP.php
@@ -200,9 +213,4 @@ if ($viewmode == 'mimp') {
 } elseif ($viewmode == 'dimp') {
     // Need to explicitly load DIMP.php
     require_once IMP_BASE . '/lib/DIMP.php';
-}
-
-// TODO - Move somewhere else?
-if (!empty($GLOBALS['conf']['mailformat']['brokenrfc2231'])) {
-    Horde_Mime::$brokenRFC2231 = true;
 }
