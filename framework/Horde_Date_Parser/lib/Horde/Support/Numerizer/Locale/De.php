@@ -44,6 +44,14 @@ class Horde_Support_Numerizer_Locale_De extends Horde_Support_Numerizer_Locale_B
         'billion' => 1000000000000,
     );
 
+    /**
+     * Rules:
+     *
+     * - there are irregular word for 11 and 12 like in English
+     * - numbers below one million are written together (1 M = "eine Million", 100 = "einhundert")
+     * - "a" is declinable (see above, "one" = "eins", "a" = "ein/eine")
+     * - numbers below 100 are flipped compared to english, and have an "and = "und" (21 = "twenty-one" = "einundzwanzig")
+     */
     public function numerize($string)
     {
         // preprocess?
