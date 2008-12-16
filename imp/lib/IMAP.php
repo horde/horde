@@ -242,8 +242,7 @@ class IMP_IMAP
      */
     public function logException($e)
     {
-        // TODO - Clean this up a bit.
-        Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+        Horde::logMessage($e, $e->getFile(), $e->getLine(), PEAR_LOG_ERR);
     }
 
     /**

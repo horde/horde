@@ -181,15 +181,12 @@
 // display of the message entry based on the X-Priority header.
 //
 // INPUT:
-// $uids - (array) A list of UIDs/mailboxes.  Mailboxes are the keys; values
-//         are the list of UIDs in the mailbox.
-// $mbox - (string) The current mailbox string (may be a search mailbox
-//         string).
+// $mbox - (string) The mailbox.
+// $uids - (array) A list of UIDs.
 // $mode - (string) Either 'imp' or 'dimp'.
 //
 // OUTPUT:
-// An array with Mailboxes as the keys, and an array of arrays as the value.
-// Each array consists of the UID (key) and the following array values:
+// An array of arrays, with UIDs as keys and the following array values:
 //
 // For IMP:
 // 'class' - (array) CSS classnames that will be added to the row.
@@ -204,64 +201,62 @@
 // 'class' - (array) CSS classnames that will be added to the row.
 
 // if (!function_exists('_imp_hook_msglist_format')) {
-//     function _imp_hook_msglist_format($uids, $mbox, $mode)
+//     function _imp_hook_msglist_format($mbox, $uids, $mode)
 //     {
-//         $ret = array();
+//         try {
+//             $imap_res = $GLOBALS['imp_imap']->ob->fetch($mbox, array(
+//                 Horde_Imap_Client::FETCH_HEADERS => array(array('headers' => array('x-priority'), 'label' => 'hdr_search', 'parse' => true, 'peek' => true)),
+//                 Horde_Imap_Client::FETCH_STRUCTURE => array('parse' => true)
+//             ), array('ids' => array_values($uids)));
+//         } catch (Horde_Imap_Client_Exception $e) {
+//             return array();
+//         }
 //
 //         $alt_list = IMP_UI_Mailbox::getAttachmentAltList();
 //         $imp_ui = new IMP_UI_Mailbox($mbox);
-//         $imp_msg_ui = new IMP_UI_Messsage();
+//         $imp_msg_ui = new IMP_UI_Message();
+//         $ret = array();
 //
-//         foreach ($uids as $mailbox => $uid_list) {
-//             try {
-//                 $imap_res = $GLOBALS['imp_imap']->ob->fetch($mailbox, array(
-//                     Horde_Imap_Client::FETCH_HEADERS => array('headers' => array('x-priority'), 'label' => 'hdr_search', 'parse' => true, 'peek' => false),
-//                     Horde_Imap_Client::FETCH_STRUCTURE => array('parse' => true)
-//                 ), array('ids' => array_values($uid_list)));
-//             } catch (Horde_Imap_Client_Exception $e) {
-//                 continue;
+//         foreach ($uids as $uid) {
+//             $tmp = array();
+//             $res_ptr = &$imap_res[$uid];
+//
+//             // Add attachment information
+//             if (($attachment = $imp_ui->getAttachmentType($res_ptr['structure']->getType()))) {
+//                 switch ($mode) {
+//                 case 'imp':
+//                     $alt_text = (isset($list[$attachment]))
+//                         ? $list[$attachment]
+//                         : $list['attachment'];
+//                     $tmp['status'] = Horde::img($attachment . '.png', $alt_text, array('title' => $alt_text));
+//                     break;
+//
+//                 case 'dimp':
+//                     $tmp['atc'] = $attachment;
+//                     break;
+//                 }
 //             }
 //
-//             $ret[$mailbox] = array();
-//
-//             foreach ($uid_list as $uid) {
-//                 $ret[$mailbox][$uid] = array();
-//                 $ptr = &$ret[$mailbox][$uid];
-//                 $res_ptr = &$imap_res[$uid];
-//
-//                 // Add attachment information
-//                 if (($attachment = $imp_ui->getAttachmentType($res_ptr['structure']->getType()))) {
-//                     switch ($mode) {
-//                     case 'imp':
-//                         $alt_text = (isset($list[$attachment]))
-//                             ? $list[$attachment]
-//                             : $list['attachment'];
-//                         $ptr['status'] = Horde::img($attachment . '.png', $alt_text, array('title' => $alt_text));
-//                         break;
-//
-//                     case 'dimp':
-//                         $ptr['atc'] = $attachment;
-//                         break;
-//                     }
+//             // Add X-Priority information
+//             switch ($imp_msg_ui->getXpriority($res_ptr['headers']['hdr_search']->getValue('x-priority'))) {
+//             case 'high':
+//                 if ($mode == 'imp') {
+//                     $tmp['flagbits'] = IMP::FLAG_FLAGGED;
+//                     $tmp['status'] .= Horde::img('mail_priority_high.png', _("High Priority"), array('title' => _("High Priority")));
 //                 }
+//                 $tmp['class'][] = 'important';
+//                 break;
 //
-//                 // Add X-Priority information
-//                 switch ($imp_msg_ui->getXpriority($res_ptr['headers']['hdr_search']->getValue('x-priority'))) {
-//                 case 'high':
-//                     if ($mode == 'imp') {
-//                         $ptr['flagbits'] = IMP::FLAG_FLAGGED;
-//                         $ptr['status'] .= Horde::img('mail_priority_high.png', _("High Priority"), array('title' => _("High Priority")));
-//                     }
-//                     $ptr['class'][] = 'important';
-//                     break;
-//
-//                 case 'low':
-//                     if ($mode == 'imp') {
-//                         $ptr['status'] .= Horde::img('mail_priority_low.png', _("Low Priority"), array('title' => _("Low Priority")));
-//                     }
-//                     $ptr['class'][] = 'unimportant';
-//                     break;
+//             case 'low':
+//                 if ($mode == 'imp') {
+//                     $tmp['status'] .= Horde::img('mail_priority_low.png', _("Low Priority"), array('title' => _("Low Priority")));
 //                 }
+//                 $tmp['class'][] = 'unimportant';
+//                 break;
+//             }
+//
+//             if (!empty($tmp)) {
+//                 $ret[$uid] = $tmp;
 //             }
 //         }
 //
@@ -325,7 +320,6 @@
 //             $box = preg_replace("/^{[^}]+}/", "", $box);
 //             if ((strpos($box, "INBOX/Calendar") !== false) ||
 //                 preg_match("!^user/[^/]+/Calendar!", $box)) {
-//                 // Use this example for IMP 4.2.x+.
 //                 $newmailboxes[$box] = array(
 //                     'icon' => 'kronolith.png',
 //                     'icondir' => $GLOBALS['registry']->getImageDir('kronolith')
@@ -333,7 +327,6 @@
 //                 );
 //             } elseif ((strpos($box, "INBOX/Tasks") !== false) ||
 //                       preg_match("!^user/[^/]+/Tasks!", $box)) {
-//                 // Use this example for IMP 4.2.x+.
 //                 $newmailboxes[$box] = array(
 //                     'icon' => 'nag.png',
 //                     'icondir' => $GLOBALS['registry']->getImageDir('nag')
@@ -341,7 +334,6 @@
 //                 );
 //             } elseif ((strpos($box, "INBOX/Notes") !== false) ||
 //                       preg_match("!^user/[^/]+/Notes!", $box)) {
-//                 // Use this example for IMP 4.2.x+.
 //                 $newmailboxes[$box] = array(
 //                     'icon' => 'mnemo.png',
 //                     'icondir' => $GLOBALS['registry']->getImageDir('mnemo')
@@ -349,7 +341,6 @@
 //                 );
 //             } elseif ((strpos($box, "INBOX/Contacts") !== false) ||
 //                       preg_match("!^user/[^/]+/Contacts!", $box)) {
-//                 // Use this example for IMP 4.2.x+.
 //                 $newmailboxes[$box] = array(
 //                     'icon' => 'turba.png',
 //                     'icondir' => $GLOBALS['registry']->getImageDir('turba')

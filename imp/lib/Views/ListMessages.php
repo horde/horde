@@ -271,7 +271,7 @@ class IMP_Views_ListMessages
      */
     private function _getOverviewData($imp_mailbox, $folder, $msglist, $search)
     {
-        $msgs = array();
+        $lookup = $msgs = array();
 
         if (empty($msglist)) {
             return $msgs;
@@ -347,15 +347,24 @@ class IMP_Views_ListMessages
             } else {
                 $msgs[$ob['uid']] = $msg;
             }
+
+            if (!isset($lookup[$ob['mailbox']])) {
+                $lookup[$ob['mailbox']] = array();
+            }
+            $lookup[$ob['mailbox']][] = $ob['uid'];
         }
 
         /* Add user supplied information from hook. */
-        if (!empty($GLOBALS['conf']['dimp']['hooks']['msglist_format'])) {
-            $ob_f = Horde::callHook('_imp_hook_msglist_format', array($ob['mailbox'], $ob['uid']), 'dimp');
+        if (!empty($GLOBALS['conf']['imp']['hooks']['msglist_format'])) {
+            foreach (array_keys($lookup) as $mbox) {
+                $ob_f = Horde::callHook('_imp_hook_msglist_format', array($mbox, $lookup[$mbox], 'dimp'), 'imp');
 
-            foreach ($ob_f as $mbox => $uids) {
-                foreach ($uids as $uid => $val) {
-                    $ptr =& $search ? ($uid . $mbox) : $uid;
+                foreach ($ob_f as $uid => $val) {
+                    if ($search) {
+                        $ptr = &$msgs[$uid . $mbox];
+                    } else {
+                        $ptr = &$msgs[$uid];
+                    }
 
                     if (!empty($val['atc'])) {
                         $ptr['atc'] = $val['atc'];
@@ -369,7 +378,7 @@ class IMP_Views_ListMessages
         }
 
         /* Allow user to alter template array. */
-        if (!empty($GLOBALS['conf']['dimp']['hooks']['mailboxarray'])) {
+        if (!empty($GLOBALS['conf']['imp']['dimp']['hooks']['mailboxarray'])) {
             $msgs = Horde::callHook('_imp_hook_dimp_mailboxarray', array($msgs), 'imp');
         }
 

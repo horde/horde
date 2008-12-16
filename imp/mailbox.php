@@ -9,11 +9,32 @@
  *
  * @package IMP
  * @author  Chuck Hagenbuch <chuck@horde.org>
+ * @author  Michael Slusarz <slusarz@horde.org>
  */
 
-function _outputSummaries($msgs)
+function _outputSummaries($msgs, $mbox, &$ids)
 {
     static $template;
+
+    if (!empty($GLOBALS['conf']['hooks']['msglist_format'])) {
+        $ob_f = Horde::callHook('_imp_hook_msglist_format', array($mbox, array_keys($msgs), 'imp'), 'imp');
+
+        foreach ($ob_f as $uid => $val) {
+            $ptr = &$msgs[$uid];
+
+            if (!empty($val['class'])) {
+                $ptr['bg'] = array_merge($ptr['bg'], $val['class']);
+            }
+
+            if (!empty($val['flagbits'])) {
+                $ids[$ptr['id']] |= $val['flagbits'];
+            }
+
+            if (!empty($val['status'])) {
+                $ptr['status'] .= $val['status'];
+            }
+        }
+    }
 
     if (!isset($template)) {
         $template = new IMP_Template();
@@ -685,7 +706,7 @@ while (list($seq, $ob) = each($mbox_info['overview'])) {
     if ($search_mbox) {
         if (empty($lastMbox) || ($ob['mailbox'] != $lastMbox)) {
             if (!empty($lastMbox)) {
-                _outputSummaries($msgs);
+                _outputSummaries($msgs, $lastMbox, $ids);
                 $msgs = array();
             }
             $folder_link = Horde::url(Util::addParameter('mailbox.php', 'mailbox', $ob['mailbox']));
@@ -703,8 +724,9 @@ while (list($seq, $ob) = each($mbox_info['overview'])) {
             $mh_template->set('mh_count', $mh_count++);
             echo $mh_template->fetch(IMP_TEMPLATES . '/mailbox/message_headers.html');
         }
-        $lastMbox = $ob['mailbox'];
     }
+
+    $lastMbox = $ob['mailbox'];
 
     /* Initialize the header fields. */
     $msg = array(
@@ -831,33 +853,10 @@ while (list($seq, $ob) = each($mbox_info['overview'])) {
         }
     }
 
-    $msgs[$ob['uid'] . $ob['mailbox']] = $msg;
+    $msgs[$ob['uid']] = $msg;
 }
 
-/* Add user supplied information from hook. */
-if (!empty($conf['hooks']['msglist_format'])) {
-    $ob_f = Horde::callHook('_imp_hook_msglist_format', array($mbox_info['uids'], $imp_mbox['mailbox'], 'imp'), 'imp');
-
-    foreach ($ob_f as $mbox => $uids) {
-        foreach ($uids as $uid => $val) {
-            $ptr = &$msgs[$uid . $mbox];
-
-            if (!empty($val['class'])) {
-                $ptr['bg'] = array_merge($ptr['bg'], $val['class']);
-            }
-
-            if (!empty($val['flagbits'])) {
-                $ids[$ptr['id']] |= $val['flagbits'];
-            }
-
-            if (!empty($val['status'])) {
-                $ptr['status'] .= $val['status'];
-            }
-        }
-    }
-}
-
-_outputSummaries($msgs);
+_outputSummaries($msgs, $lastMbox, $ids);
 
 /* Prepare the message footers template. */
 $mf_template = new IMP_Template();
