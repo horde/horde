@@ -2210,6 +2210,9 @@ OLD DIMP CHANGELOG
 v1.1.1-cvs
 ----------
 
+[mms] The UP key will start at the bottom of the mailbox, if no current
+      message is selected (Request #7532).
+[mms] Add 'undelete' to Other Actions menu (Bug #7496).
 [mms] Display quota on startup (Bug #7718).
 [jan] Fix portal link text in tab bar (Bug #7719).
 [mms] Fix portal display in IE (Bug #7398).

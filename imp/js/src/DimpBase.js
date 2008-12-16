@@ -155,7 +155,8 @@ var DimpBase = {
             sel = this.viewport.getSelected();
             switch (sel.size()) {
             case 0:
-                curr = this.viewport.currentOffset() + 1;
+                curr = this.viewport.currentOffset();
+                curr += (num > 0) ? 1 : this.viewport.getPageSize('current');
                 break;
 
             case 1:
