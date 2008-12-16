@@ -148,12 +148,12 @@ class Horde_Imap_Client
      *
      * @var string
      */
-    public static $encryptKey = null;
+    static public $encryptKey = null;
 
     /**
      * Autoload handler.
      */
-    public static function autoload($classname)
+    static public function autoload($classname)
     {
         $res = false;
 
