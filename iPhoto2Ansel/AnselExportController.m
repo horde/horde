@@ -21,6 +21,8 @@
 - (void)privatePerformExport;
 - (void)runExport;
 - (void)canExport;
+- (void)setStatusText: (NSString *)message withColor:(NSColor *)theColor;
+- (void)setStatusText: (NSString *)message;
 @end
 
 // User default keys
@@ -32,6 +34,7 @@ NSString * const TURAnselServerNickKey = @"nickname";
 NSString * const TURAnselServerEndpointKey = @"endpoint";
 NSString * const TURAnselServerUsernameKey = @"username";
 NSString * const TURAnselServerPasswordKey = @"password";
+
 
 @implementation AnselExportController
 
@@ -53,9 +56,8 @@ NSString * const TURAnselServerPasswordKey = @"password";
         
     // UI Defaults
     [mSizePopUp selectItemWithTag: [userPrefs integerForKey:TURAnselExportSize]];
-    [connectedLabel setStringValue:@"Not Connected"];
-    [connectedLabel setTextColor: [NSColor redColor]];
-    [spinner stopAnimation:self];
+    [self setStatusText: @"Not Connected" withColor: [NSColor redColor]];
+    [spinner stopAnimation: self];
     
     // For now, update the user pref for size every time it changes - will
     // eventually put this in a pref sheet.
@@ -109,11 +111,15 @@ NSString * const TURAnselServerPasswordKey = @"password";
     
     // Add new server
     if ([mServersPopUp indexOfSelectedItem] == [mServersPopUp numberOfItems] - 1) {
-        NSLog(@"Showing sheet?");
         [self showNewServerSheet];
     } else if (![[[mServersPopUp selectedItem] title] isEqual:@"(None)"]) {
-            currentServer = [[mServersPopUp selectedItem] representedObject];
-            [self doConnect];
+            
+        if (currentServer == [[mServersPopUp selectedItem] representedObject]) {
+            return;
+        }
+        [self disconnect];
+        currentServer = [[mServersPopUp selectedItem] representedObject];
+        [self doConnect];
     }
 }
 
@@ -122,10 +128,10 @@ NSString * const TURAnselServerPasswordKey = @"password";
 {
     // Sanity Checking
     // TODO - make sure we don't have more than one gallery with the same nick??
-    if (![[serverNickName stringValue] length]) {
-        // TODO: Errors - for now, just silently fail, yea, I know....
-        return;
-    }
+//    if (![[serverNickName stringValue] length]) {
+//        // TODO: Errors - for now, just silently fail, yea, I know....
+//        return;
+//    }
 
     NSDictionary *newServer = [[NSDictionary alloc] initWithObjectsAndKeys:
                                [serverNickName stringValue], TURAnselServerNickKey,
@@ -134,17 +140,18 @@ NSString * const TURAnselServerPasswordKey = @"password";
                                [password stringValue], TURAnselServerPasswordKey,
                                 nil];
     [anselServers addObject: newServer];
-    NSLog(@"After adding it: %@", [anselServers objectAtIndex:0]);
     [NSApp endSheet: newServerSheet];
     [newServerSheet orderOut: nil];
-    [mServers reloadData];
+    
+    [self disconnect];
+    currentServer = [newServer retain];
+    [self doConnect];
     
     // Save it to the userdefaults
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     [prefs setObject:anselServers  forKey:TURAnselServersKey];
-    
-    // ...and try to connect.
-    [self doConnect];
+    [mServers reloadData];
+    [newServer release];
 }
 
 - (IBAction)doCancelAddServer: (id)sender
@@ -322,12 +329,20 @@ NSString * const TURAnselServerPasswordKey = @"password";
 -(void)disconnect
 {
     [galleryCombo setDelegate: nil];
+    [galleryCombo setDataSource: nil];
+
+    [currentServer release];
+    currentServer = nil;
     [anselController release];
+    anselController = nil;
+    [self setStatusText:@"Not logged in" withColor: [NSColor redColor]];
 }
 
 // Start the connection process.
 -(void)doConnect
 {
+    [self setStatusText: @"Connecting..."];
+    [spinner startAnimation: self];
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     NSDictionary *p = [[NSDictionary alloc] initWithObjects: [NSArray arrayWithObjects:
                                                               [currentServer objectForKey:TURAnselServerEndpointKey],
@@ -438,9 +453,10 @@ NSString * const TURAnselServerPasswordKey = @"password";
         // the image size/quality etc... when not doing a file export.
         NSString *filename = [mExportMgr imageFileNameAtIndex:i];
         NSString *imageDescription = [mExportMgr imageTitleAtIndex:i];
+        NSArray *keywords = [mExportMgr imageKeywordsAtIndex: i];
         
         NSArray *keys = [[NSArray alloc] initWithObjects:
-                         @"filename", @"description", @"data", @"type", nil];
+                         @"filename", @"description", @"data", @"type", @"tags", nil];
         
         NSString *fileType = NSFileTypeForHFSTypeCode([mExportMgr imageFormatAtIndex:i]);
         NSArray *values = [[NSArray alloc] initWithObjects:
@@ -448,6 +464,7 @@ NSString * const TURAnselServerPasswordKey = @"password";
                            imageDescription,
                            base64ImageData,
                            fileType,
+                           keywords,
                            nil];
         
         NSDictionary *imageData = [[NSDictionary alloc] initWithObjects:values
@@ -486,6 +503,17 @@ NSString * const TURAnselServerPasswordKey = @"password";
     [mExportMgr cancelExportBeforeBeginning];
 }
 
+- (void)setStatusText: (NSString *)message withColor:(NSColor *)theColor
+{
+    [statusLabel setStringValue: message];
+    [statusLabel setTextColor: theColor];
+}
+- (void)setStatusText: (NSString *)message
+{
+    [statusLabel setStringValue: message];
+    [statusLabel setTextColor: [NSColor blackColor]];
+}
+
 #pragma mark TURAnselDelegate
 
 // The ansel controller is initialized, populate the gallery data
@@ -493,14 +521,17 @@ NSString * const TURAnselServerPasswordKey = @"password";
 - (void)TURAnselDidInitialize
 {   
     [galleryCombo reloadData];
-    [connectedLabel setStringValue:@"Connected"];
-    [connectedLabel setTextColor:[NSColor greenColor]];
+    [self setStatusText: @"Connected" withColor: [NSColor greenColor]];
     [self canExport];
     [spinner stopAnimation: self];
 }
 
 - (void)TURAnselHadError: (NSError *)error
 {
+    // Stop the spinner
+    [spinner stopAnimation: self];
+    [self disconnect];
+    
     NSAlert *alert;
     // For some reason, this method doesn't pick up our userInfo dictionary...
     if ([[error userInfo] valueForKey:@"NSLocalizedDescriptionKey"] == nil) {

@@ -36,7 +36,7 @@ extern NSString * const TURAnselServerPasswordKey;
     IBOutlet NSPopUpButton *mSizePopUp;
     IBOutlet NSComboBox *galleryCombo;
     IBOutlet NSComboBox *mServers; 
-    IBOutlet NSTextField *connectedLabel;
+    IBOutlet NSTextField *statusLabel;
     IBOutlet NSProgressIndicator *spinner;
     IBOutlet NSImageView *defaultImageView;
     IBOutlet NSButton *newGalleryButton;
