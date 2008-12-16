@@ -49,7 +49,11 @@ function _changed($mbox, $compare, $rw = null)
     /* We know we are going to be dealing with this mailbox, so select it on
      * the IMAP server (saves some STATUS calls). */
     if (!is_null($rw) && !$GLOBALS['imp_search']->isSearchMbox($mbox)) {
-        $GLOBALS['imp_imap']->ob->openMailbox($mbox, $rw ? Horde_Imap_Client::OPEN_READWRITE : Horde_Imap_Client::OPEN_AUTO);
+        try {
+            $GLOBALS['imp_imap']->ob->openMailbox($mbox, $rw ? Horde_Imap_Client::OPEN_READWRITE : Horde_Imap_Client::OPEN_AUTO);
+        } catch (Horde_Imap_Client_Exception $e) {
+            return false;
+        }
     }
 
     $imp_mailbox = &IMP_Mailbox::singleton($mbox);
