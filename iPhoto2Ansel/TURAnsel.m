@@ -63,8 +63,7 @@ static NSString *ERR_DOMAIN = @"com.theupstairsroom.TURAnsel";
 // Fetch a gallery by id
 - (TURAnselGallery *)getGalleryById: (NSString *)galleryId
 {
-    TURAnselGallery *g;
-    for (g in galleryList) {
+    for (TURAnselGallery *g in galleryList) {
         if ([galleryId isEqualTo: [NSNumber numberWithInt: [g galleryId]]]) {
             return g;
         }
@@ -127,8 +126,7 @@ static NSString *ERR_DOMAIN = @"com.theupstairsroom.TURAnsel";
     NSURL *url = [NSURL URLWithString: [self valueForKey: @"rpcEndPoint"]];
     XMLRPCRequest *request = [[XMLRPCRequest alloc]initWithHost: url];
     [request setUserAgent: [self valueForKey:@"userAgent"]];
-    [request setMethod: methodName
-        withParameters: params];
+    [request setMethod: methodName withParameters: params];
     
     NSDictionary *credentials = [[NSDictionary alloc] initWithObjectsAndKeys: 
                                  [self valueForKey:@"username"], @"username",
@@ -165,7 +163,7 @@ static NSString *ERR_DOMAIN = @"com.theupstairsroom.TURAnsel";
 
 }
 
-#pragma mark TableView datasource ----------------------------------------------
+#pragma mark TableView datasource
 - (int)numberOfRowsInTableView: (NSTableView *)tv
 {
     return [galleryList count];
@@ -196,7 +194,7 @@ objectValueForTableColumn:(NSTableColumn *)tc
     return stringValue;
 }
 
-#pragma mark Getter/Setters----------------------------------------------------
+#pragma mark Getter/Setters
 - (TURAnselState) state
 {
     return state;
@@ -217,8 +215,8 @@ objectValueForTableColumn:(NSTableColumn *)tc
 -(void) dealloc
 {
     NSLog(@"TURAnsel dealloc");   
+    [galleryList removeAllObjects];
     [galleryList release];
-    galleryList = nil;
     [rpcEndPoint release];
     [username release];
     [password release];
@@ -229,8 +227,6 @@ objectValueForTableColumn:(NSTableColumn *)tc
 #pragma mark PrivateAPI
 - (void)doLogin
 {
-    NSLog(@"Initiating the connection in [TURAnsel doLogin] in thread: %@", [NSThread currentThread]);
-    
     // Start out by building an array of parameters to pass to the api call.
     // We start by asking for a list of available galleries with PERMS_EDIT.
     // This has the side effect of authenticating for the session.
