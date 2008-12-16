@@ -455,6 +455,7 @@ NSString * const TURAnselServerPasswordKey = @"password";
         NSString *imageDescription = [mExportMgr imageTitleAtIndex:i];
         NSArray *keywords = [mExportMgr imageKeywordsAtIndex: i];
         
+        NSLog(@"Keywords: %@", keywords);
         NSArray *keys = [[NSArray alloc] initWithObjects:
                          @"filename", @"description", @"data", @"type", @"tags", nil];
         
