@@ -5,7 +5,7 @@ class Horde_Support_Numerizer_Locale_De extends Horde_Support_Numerizer_Locale_B
         'dreizehn' => 13,
         'vierzehn' => 14,
         'fünfzehn' => 15,
-        'sechszehn' => 16,
+        'sechzehn' => 16,
         'siebzehn' => 17,
         'achtzehn' => 18,
         'neunzehn' => 19,
@@ -56,10 +56,11 @@ class Horde_Support_Numerizer_Locale_De extends Horde_Support_Numerizer_Locale_B
     {
         // preprocess?
 
-        $string = $this->_directReplacements($string);
         $string = $this->_replaceTenPrefixes($string);
+        $string = $this->_directReplacements($string);
         $string = $this->_replaceBigPrefixes($string);
         $string = $this->_fractionalAddition($string);
+        $string = $this->_andition($string);
 
         return $string;
     }
@@ -77,6 +78,31 @@ class Horde_Support_Numerizer_Locale_De extends Horde_Support_Numerizer_Locale_B
                     'return ' . $tp_replacement . ' + (isset($m[1]) ? (int)$m[1] : 0);'
                 ),
                 $string);
+        }
+        return $string;
+    }
+
+    /**
+     * hundreds, thousands, millions, etc.
+     */
+    protected function _replaceBigPrefixes($string)
+    {
+        foreach ($this->BIG_PREFIXES as $bp => $bp_replacement) {
+            $string = preg_replace_callback(
+                '/(\d*) *' . $bp . '/i',
+                create_function(
+                    '$m',
+                    '$factor = (int)$m[1]; if (!$factor) $factor = 1; return (' . $bp_replacement . ' * $factor) . "und";'
+                ),
+                $string);
+        }
+        return $string;
+    }
+
+    protected function _andition($string)
+    {
+        while (preg_match('/(\d+)((?:und)+)(\d*)(?=[^\w]|$)/i', $string, $sc, PREG_OFFSET_CAPTURE)) {
+            $string = substr($string, 0, $sc[1][1]) . ((int)$sc[1][0] + (int)$sc[3][0]) . substr($string, $sc[3][1] + strlen($sc[3][0]));
         }
         return $string;
     }
