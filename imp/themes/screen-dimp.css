@@ -619,6 +619,7 @@ div.dimpActionsCompose {
 }
 .msgfullread .msgHeaders {
     border: 1px #b9b9b3 solid;
+    cursor: default;
 }
 
 .msgHeaders .dimpOptions {
@@ -905,6 +906,7 @@ div.spellcheck {
 .context a:hover {
     background: gray;
     color: #fff;
+    cursor: pointer;
 }
 .context a img {
     vertical-align: middle;
