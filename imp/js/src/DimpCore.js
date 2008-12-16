@@ -25,7 +25,7 @@ DimpCore = {
     debug: function(label, e)
     {
         if (!this.is_logout && DIMP.conf.debug) {
-            alert(label + ': ' + (e instanceof Error ? e.name + '-' + e.message : Object.inspect(e)));
+            alert(label + ': ' + (e instanceof Error ? e.name + '-' + e.message : Object.inspect(e)) + (e.lineNumber ? ' (Line #' + e.lineNumber + ')' : ''));
         }
     },
 
