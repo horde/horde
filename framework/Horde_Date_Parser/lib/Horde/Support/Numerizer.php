@@ -4,9 +4,10 @@
  */
 class Horde_Support_Numerizer
 {
-    public static function factory($locale = null, $args = array())
+    public static function factory($args = array())
     {
-        if ($locale) {
+        $locale = isset($args['locale']) ? $args['locale'] : null;
+        if ($locale && strtolower($locale) != 'base') {
             $locale = str_replace(' ', '_', ucwords(str_replace('_', ' ', strtolower($locale))));
             $class = 'Horde_Support_Numerizer_Locale_' . $locale;
             if (class_exists($class)) {
