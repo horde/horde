@@ -1708,14 +1708,6 @@ var DimpBase = {
 
         fid = this.getFolderId(folder);
         this.deleteFolderElt(fid, true);
-
-        Effect.Fade(fid, { afterFinish: function(effect) {
-            try {
-                DimpCore.addGC(effect.element.remove());
-            } catch (e) {
-                DimpCore.debug('deleteFolder', e);
-            }
-        } });
     },
 
     changeFolder: function(ob)
@@ -1727,7 +1719,6 @@ var DimpBase = {
         if (ob.co && this.folder == ob.m) {
             this.go('folder:INBOX');
         }
-        $(fid).remove();
         this.createFolder(ob);
         if (ob.ch && oldexpand) {
             fdiv.removeClassName('exp').addClassName('col');
@@ -1747,9 +1738,11 @@ var DimpBase = {
         [ DragDrop.Drags.get_drag(fid), DragDrop.Drops.get_drop(fid) ].compact().invoke('destroy');
         DimpCore.removeMouseEvents(f);
         delete this.mo_sidebar[fid];
+        DimpCore.addGC(f);
         if (this.viewport) {
             this.viewport.deleteView(fid);
         }
+        f.remove();
     },
 
     _sizeFolderlist: function()
