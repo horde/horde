@@ -753,6 +753,14 @@ table.mimeStatusMessage td table td, table.mimeStatusWarning td table td, table.
 }
 
 /* Message Composition. */
+.composeAddrbook {
+    cursor: pointer;
+    font-weight: bold;
+}
+.composeAddrbook:hover {
+    text-decoration: underline;
+}
+
 .msgwrite {
     cursor: default;
     background: #e2e2e2 url("graphics/backhead_r.png") repeat-x;

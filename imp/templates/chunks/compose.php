@@ -78,8 +78,12 @@ function _createDAcompose($text, $image, $id)
       </select>
      </td>
     </tr>
+   </thead>
+  </table>
+  <table cellspacing="0" id="sendto">
+   <thead>
     <tr>
-     <td class="label"><?php echo Horde::link('', '', 'composeAddrbook') . _("To: ") . '</a>' ?></td>
+     <td class="label"><span><?php echo _("To: ") ?></span></td>
      <td>
       <textarea id="to" name="to" rows="1" cols="75"></textarea>
       <div id="to_results" class="autocomplete" style="display:none"></div>
@@ -93,7 +97,7 @@ function _createDAcompose($text, $image, $id)
   <table cellspacing="0" id="sendcc" style="display:none">
    <thead>
     <tr>
-     <td class="label"><?php echo Horde::link('', '', 'composeAddrbook') . _("Cc: ") . '</a>' ?></td>
+     <td class="label"><span><?php echo _("Cc: ") ?></span></td>
      <td>
       <textarea id="cc" name="cc" rows="1" cols="75"></textarea>
       <div id="cc_results" class="autocomplete" style="display:none"></div>
@@ -107,7 +111,7 @@ function _createDAcompose($text, $image, $id)
   <table cellspacing="0" id="sendbcc" style="display:none">
    <thead>
     <tr>
-     <td class="label"><?php echo Horde::link('', '', 'composeAddrbook') . _("Bcc: ") . '</a>' ?></td>
+     <td class="label"><span><?php echo _("Bcc: ") ?></span></td>
      <td>
       <textarea id="bcc" name="bcc" rows="1" cols="75"></textarea>
       <div id="bcc_results" class="autocomplete" style="display:none"></div>

@@ -237,8 +237,11 @@ class DIMP
                 'close_draft' => $prefs->getValue('close_draft'),
                 'compose_cursor' => ($compose_cursor ? $compose_cursor : 'top'),
 
-                'abook_url' => Horde::applicationUrl('contacts.php'),
             );
+
+            if ($registry->hasMethod('contacts/search')) {
+                $code['conf_compose']['abook_url'] = Horde::applicationUrl('contacts.php');
+            }
 
             /* Gettext strings used in compose page. */
             $code['text_compose'] = array_map('addslashes', array(

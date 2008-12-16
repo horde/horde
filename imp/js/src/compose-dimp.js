@@ -695,9 +695,11 @@ document.observe('dom:loaded', function() {
         C({ d: tmp, f: DC.toggleHtmlCheckbox.bind(DC), ns: true });
     }
 
-    $('writemsg').select('.composeAddrbook').each(function(a) {
-        C({ d: a, f: DC.openAddressbook.bind(DC) });
-    });
+    if (DIMP.conf_compose.abook_url) {
+        $('sendto', 'sendcc', 'sendbcc').each(function(a) {
+            C({ d: a.down('TD.label SPAN').addClassName('composeAddrbook'), f: DC.openAddressbook.bind(DC) });
+        });
+    }
 
     /* Only allow submit through send button. */
     $('compose').observe('submit', Event.stop);
