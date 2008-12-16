@@ -1039,7 +1039,13 @@ var DimpBase = {
         // Reset poll folder counter.
         this.setPollFolders();
         var args = {};
-        if (this.folder && $('dimpmain_folder').visible()) {
+
+        // Check for label info - it is possible that the mailbox may be
+        // loading but not complete yet and sending this request will cause
+        // duplicate info to be returned.
+        if (this.folder &&
+            $('dimpmain_folder').visible() &&
+            this.viewport.getMetaData('label')) {
             args = this.viewport.addRequestParams({});
         }
         $('checkmaillink').down('A').update('[' + DIMP.text.check + ']');
