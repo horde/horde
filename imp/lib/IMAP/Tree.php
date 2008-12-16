@@ -1463,15 +1463,19 @@ class IMP_IMAP_Tree
      */
     public function eltDiff()
     {
-        if (!$this->_changed) {
+        if (is_null($this->_eltdiff) || !$this->_changed) {
             return false;
         }
 
-        return array(
+        $ret = array(
             'a' => array_keys($this->_eltdiff['a']),
             'c' => array_keys($this->_eltdiff['c']),
             'd' => array_keys($this->_eltdiff['d'])
         );
+
+        $this->_eltdiff = null;
+
+        return $ret;
     }
 
     /**
