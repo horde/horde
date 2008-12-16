@@ -361,7 +361,7 @@ var DimpBase = {
             this.folder = f;
         }
 
-        this.viewport.loadView(f, { folder: f }, this.uid ? { imapuid: this.uid, view: f } : null, background);
+        this.viewport.loadView(f, this.uid ? { imapuid: this.uid, view: f } : null, background);
     },
 
     _createViewPort: function()
@@ -387,6 +387,9 @@ var DimpBase = {
             selected_class: 'selectedRow',
             ajaxRequest: DimpCore.doAction.bind(DimpCore),
             norows: true,
+            additionalParams: function(view) {
+                return $H({ folder: this.folder });
+            }.bind(this),
             onScrollIdle: settitle,
             onSlide: settitle,
             onViewChange: function() {
@@ -1202,9 +1205,9 @@ var DimpBase = {
     _addSearchfilterParams: function()
     {
         var sf = this.sfiltersfolder.keys().find(function(s) {
-                return $(s).hasClassName('qselected');
-            });
-        return { searchfolder: this.sfiltersfolder.get(sf), searchmsg: this.sfilters.get(this._getSearchfilterField()) };
+            return $(s).hasClassName('qselected');
+        });
+        return $H({ folder: this.folder, searchfolder: this.sfiltersfolder.get(sf), searchmsg: this.sfilters.get(this._getSearchfilterField()) });
     },
 
     _getSearchfilterField: function()

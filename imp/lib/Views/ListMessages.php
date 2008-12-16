@@ -158,7 +158,9 @@ class IMP_Views_ListMessages
          * cacheid returned from the browser. If it has changed, we need to
          * purge the cached items on the browser (send 'reset' param to
          * ViewPort). */
-        if (!empty($args['cacheid']) && !empty($args['cached'])) {
+        if (!$md->search &&
+            !empty($args['cacheid']) &&
+            !empty($args['cached'])) {
             $uid_expire = false;
             try {
                 $status = $GLOBALS['imp_imap']->ob->status($folder, Horde_Imap_Client::STATUS_UIDVALIDITY);

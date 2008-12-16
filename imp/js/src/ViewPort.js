@@ -43,10 +43,9 @@ var ViewPort = Class.create({
     },
 
     // view = ID of view. Can not contain a '%' character.
-    // params = TODO
     // search = (object) Search parameters
     // background = Load view in background?
-    loadView: function(view, params, search, background)
+    loadView: function(view, search, background)
     {
         var buffer, curr, init, opts = {}, ps;
 
@@ -57,7 +56,7 @@ var ViewPort = Class.create({
         if (this.page_size === null) {
             ps = this.getPageSize(this.show_split_pane ? 'default' : 'max');
             if (isNaN(ps)) {
-                this.loadView.bind(this, view, params, search, background).defer();
+                this.loadView.bind(this, view, search, background).defer();
                 return;
             }
             this.page_size = ps;
@@ -84,7 +83,6 @@ var ViewPort = Class.create({
         }
 
         if (curr) {
-            this.setMetaData({ additional_params: $H(params) }, view);
             this._updateContent(curr.offset, opts);
             if (!background) {
                 if (this.opts.onComplete) {
@@ -103,7 +101,6 @@ var ViewPort = Class.create({
 
         buffer = this._getBuffer(view, true);
         this.views.set(view, { buffer: buffer, offset: 0 });
-        this.setMetaData({ additional_params: $H(params) }, view);
         if (search) {
             opts.search = search;
         } else {
@@ -349,7 +346,6 @@ var ViewPort = Class.create({
             request_id,
             request_string,
             request_old,
-            request_vals,
             rlist,
             rowlist,
             type,
@@ -385,20 +381,16 @@ var ViewPort = Class.create({
             params.update({ slice: rowlist.start + ':' + rowlist.end });
         }
         params.set(type, Object.toJSON(value));
-        request_vals = [ view, type, value ];
 
         // Are we currently filtering results?
         if (this.isFiltering()) {
             action = this.filter.getAction();
-            params = this.filter.addFilterParams(params);
-            // Need to capture filter params changes in the request ID
-            request_vals.push(params);
         }
 
         // Generate a unique request ID value based on the search params.
         // Since javascript does not have a native hashing function, use a
         // local lookup table instead.
-        request_string = request_vals.toJSON();
+        request_string = [ view, type, value ].toJSON();
         request_id = this.fetch_hash.get(request_string);
 
         // If we have a current request pending in the current view, figure
@@ -505,8 +497,13 @@ var ViewPort = Class.create({
     {
         opts = opts || {};
         var cid = this.getMetaData('cacheid', opts.view),
-            params = this.getMetaData('additional_params', opts.view).clone(),
-            cached, rowlist;
+            cached, params, rowlist;
+
+        if (this.isFiltering()) {
+            params = this.filter.addFilterParams();
+        } else {
+            params = this.opts.additionalParams ? this.opts.additionalParams(opts.view) : $H();
+        }
 
         if (cid) {
             params.update({ cacheid: cid });
@@ -1426,7 +1423,7 @@ ViewPort_Filter = Class.create({
 
         // Initialize other variables
         this.filterid = 0;
-        this.filtering = this.last_filter = this.last_folder = this.last_folder_params = null;
+        this.filtering = this.last_filter = this.last_folder = null;
     },
 
     // val = (string) The string to filter on. if null, will use the last
@@ -1458,7 +1455,6 @@ ViewPort_Filter = Class.create({
 
         this.filtering = ++this.filterid + '%search%';
         this.last_folder = this.vp.view;
-        this.last_folder_params = this.vp.getMetaData('additional_params').merge(params);
 
         // Filter visible rows immediately.
         var c = this.vp.opts.content, delrows;
@@ -1474,7 +1470,7 @@ ViewPort_Filter = Class.create({
             c.update(this.vp.opts.empty.innerHTML);
         }
 
-        this.vp.loadView(this.filtering, this.last_folder_params);
+        this.vp.loadView(this.filtering);
     },
 
     isFiltering: function()
@@ -1487,14 +1483,13 @@ ViewPort_Filter = Class.create({
         return this.action;
     },
 
-    // params is a Hash object
-    addFilterParams: function(params)
+    addFilterParams: function()
     {
         if (!this.filtering) {
-            return params;
+            return $H();
         }
 
-        params.update({ filter: this.last_filter });
+        var params = $H({ filter: this.last_filter });
 
         // Get parameters from a callback function, if defined.
         if (this.callback) {
@@ -1510,7 +1505,7 @@ ViewPort_Filter = Class.create({
             var fname = this.filtering;
             this.filtering = null;
             if (!reset) {
-                this.vp.loadView(this.last_folder, this.last_folder_params);
+                this.vp.loadView(this.last_folder);
             }
             this.vp.deleteView(fname);
             this.last_filter = this.last_folder = null;
