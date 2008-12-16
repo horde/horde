@@ -14,7 +14,7 @@ class Horde_Support_Numerizer_Locale_DeTest extends PHPUnit_Framework_TestCase
 {
     public function testStraightParsing()
     {
-        $numerizer = Horde_Support_Numerizer::factory();
+        $numerizer = Horde_Support_Numerizer::factory(array('locale' => 'de'));
         $strings = array(
             1 => 'eins',
             5 => 'fünf',
