@@ -13,6 +13,7 @@
 #import "ImageResizer.h";
 
 @interface AnselExportController (PrivateAPI)
+- (void)showNewServerSheet;
 - (void)doConnect;
 - (void)connect;
 - (void)disconnect;
@@ -49,10 +50,7 @@ NSString * const TURAnselServerPasswordKey = @"password";
     [defaultValues setObject: [[NSMutableArray alloc] init] forKey: TURAnselServersKey];
     NSUserDefaults *userPrefs = [NSUserDefaults standardUserDefaults];
     [userPrefs registerDefaults: defaultValues];
-    
-    // Get any saved server data
-    anselServers = [userPrefs objectForKey: TURAnselServersKey];
-    
+        
     // UI Defaults
     [mSizePopUp selectItemWithTag: [userPrefs integerForKey:TURAnselExportSize]];
     [connectedLabel setStringValue:@"Not Connected"];
@@ -66,11 +64,10 @@ NSString * const TURAnselServerPasswordKey = @"password";
                                                name: @"NSPopUpButtonWillPopUpNotification"
                                              object: nil];
     
-    // See if we have any configured servers
+    // See if we have any configured servers (need a mutable array, hence the extra step here)
     anselServers = [[NSMutableArray alloc] initWithArray: [userPrefs objectForKey:TURAnselServersKey]];
     
-    // Need to wait until iPhoto's export window is fully loaded before attempting
-    // to show a sheet?
+    // Wait until iPhoto's export window is fully loaded before attempting a sheet
     [[NSNotificationCenter defaultCenter] addObserver: self
                                              selector: @selector(exportWindowDidBecomeKey:)
                                                  name: NSWindowDidBecomeKeyNotification 
@@ -91,8 +88,6 @@ NSString * const TURAnselServerPasswordKey = @"password";
 }
 
 #pragma mark Actions
-
-
 // Put up the newGallerySheet NSPanel
 - (IBAction)showNewGallery: (id)sender
 {
@@ -104,13 +99,29 @@ NSString * const TURAnselServerPasswordKey = @"password";
     }
 }
 
+- (IBAction)clickServer: (id)sender
+{
+      // Servers list
+//    if ([mServersPopUp indexOfSelectedItem] == [mServersPopUp numberOfItems] - 1) {
+//        [galleryListTable reloadData];
+//        [NSApp beginSheet:galleryListPanel modalForWindow:[exportManager window] modalDelegate:self didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:) contextInfo:NULL];
+//    }
+    
+    // Add new server
+    if ([mServersPopUp indexOfSelectedItem] == [mServersPopUp numberOfItems] - 1) {
+        NSLog(@"Showing sheet?");
+        [self showNewServerSheet];
+    } else if (![[[mServersPopUp selectedItem] title] isEqual:@"(None)"]) {
+            currentServer = [[mServersPopUp selectedItem] representedObject];
+            [self doConnect];
+    }
+}
 
 // Server setup sheet
 -(IBAction)doAddServer: (id)sender
 {
     // Sanity Checking
-    // TODO - make sure we don't have more than one gallery with the same
-    // nick??
+    // TODO - make sure we don't have more than one gallery with the same nick??
     if (![[serverNickName stringValue] length]) {
         // TODO: Errors - for now, just silently fail, yea, I know....
         return;
@@ -256,6 +267,15 @@ NSString * const TURAnselServerPasswordKey = @"password";
 }
 
 #pragma mark PrivateAPI
+- (void) showNewServerSheet
+{
+    [NSApp beginSheet: newServerSheet
+       modalForWindow: [self window]
+        modalDelegate: nil
+       didEndSelector: nil
+          contextInfo: nil];
+}
+
 // See if we have everything we need to export...
 - (void)canExport
 {
@@ -272,13 +292,37 @@ NSString * const TURAnselServerPasswordKey = @"password";
     }
 }
 
+- (void)updateServersPopupMenu
+{
+    [mServersPopUp removeAllItems];
+    for (NSDictionary *server in anselServers) {
+        NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle: [server objectForKey: TURAnselServerNickKey]
+                                                          action: nil
+                                                   keyEquivalent: @""];
+        [menuItem setRepresentedObject: server];
+        [[mServersPopUp menu] addItem: menuItem];
+    }
+    if ([anselServers count] == 0) {
+        [mServersPopUp addItemWithTitle:@"(None)"];
+       //[mainStatusString setStringValue:@"No galleries configured"];
+    }
+    
+    // add separator
+    [[mServersPopUp menu] addItem:[NSMenuItem separatorItem]];
+    
+    // add Add Gallery... and Edit List... options
+    [mServersPopUp addItemWithTitle:@"Add Server..."];
+   //[mServersPopUp addItemWithTitle:@"Edit Server List..."];
+    
+    // fix selection
+    [mServersPopUp selectItemAtIndex:0];
+}
+
 // Make sure we clean up from any previous connection
 -(void)disconnect
 {
     [galleryCombo setDelegate: nil];
     [anselController release];
-    
-    //TODO: update status/use notifications?
 }
 
 // Start the connection process.
@@ -425,8 +469,6 @@ NSString * const TURAnselServerPasswordKey = @"password";
     }
     
     // We are done - kill the progress controller and close the export window.
-    // TODO: Put up some kind of alert, maybe add growl support, offer to open
-    // the browser window??
     [progressController performSelectorOnMainThread: @selector(setPercent:)
                                          withObject: nil 
                                       waitUntilDone: NO];
@@ -527,16 +569,17 @@ NSString * const TURAnselServerPasswordKey = @"password";
 #pragma mark export notifications
 - (void)exportWindowDidBecomeKey: (NSNotification *)notification
 {
-    // Make sure we have a server configured, or throw up the dialog.
-    if (![anselServers count]) {
-        [NSApp beginSheet: newServerSheet
-           modalForWindow: [self window]
-            modalDelegate: nil
-           didEndSelector: nil
-              contextInfo: nil];
+    // We only want to do this once...
+    [[NSNotificationCenter defaultCenter] removeObserver: self
+                                                    name: NSWindowDidBecomeKeyNotification 
+                                                  object: nil];
+    [self updateServersPopupMenu];
+    if ([anselServers count] == 0) {
+        [self showNewServerSheet];
     } else {
-        // We have servers, fill in the drop down
-
+        // Autoconnect to default server. For now, just make it the first one.
+        currentServer = [[mServersPopUp selectedItem] representedObject];
+        [self doConnect];
     }
 }
 - (void)sizeChoiceWillChange: (NSNotification *)notification

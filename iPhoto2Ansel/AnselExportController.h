@@ -40,10 +40,7 @@ extern NSString * const TURAnselServerPasswordKey;
     IBOutlet NSProgressIndicator *spinner;
     IBOutlet NSImageView *defaultImageView;
     IBOutlet NSButton *newGalleryButton;
-    IBOutlet NSButton *newServerButton;
-    
-    // New Gallery Sheet (uses it's own controller)
-    //IBOutlet NSWindow *newGallerySheet;
+    IBOutlet NSPopUpButton *mServersPopUp;
     
     // New Server sheet
     IBOutlet NSWindow *newServerSheet;
@@ -81,6 +78,7 @@ extern NSString * const TURAnselServerPasswordKey;
 - (IBAction) showNewGallery: (id)sender;
 - (IBAction) doAddServer: (id)sender;
 - (IBAction) doCancelAddServer: (id)sender;
+- (IBAction) clickServer: (id)sender;
 
 // overrides
 - (void)awakeFromNib;
