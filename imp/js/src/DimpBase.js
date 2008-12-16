@@ -1281,15 +1281,11 @@ var DimpBase = {
         switch (kc) {
         case Event.KEY_DELETE:
         case Event.KEY_BACKSPACE:
-            if (sel.size() == 1) {
-                r = sel.get('dataob').first();
-                if (e.shiftKey) {
-                    this.moveSelected(r.rownum + ((r.rownum == this.viewport.getMetaData('total_rows')) ? -1 : 1), true);
-                }
-                this.flag('deleted', r);
-            } else {
-                this.flag('deleted');
+            r = sel.get('dataob');
+            if (e.shiftKey) {
+                this.moveSelected((r.last().rownum == this.viewport.getMetaData('total_rows')) ? (r.first().rownum - 1) : (r.last().rownum + 1), true);
             }
+            this.flag('deleted', r);
             e.stop();
             break;
 

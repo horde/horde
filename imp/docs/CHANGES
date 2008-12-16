@@ -2210,6 +2210,8 @@ OLD DIMP CHANGELOG
 v1.1.1-cvs
 ----------
 
+[mms] Shift-Delete on multiple messages will move selection to next message
+      (Request #7533).
 [mms] Fix occasional buggy behavior when drag/drop folders (Bug #7414).
 [mms] The UP key will start at the bottom of the mailbox, if no current
       message is selected (Request #7532).
