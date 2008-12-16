@@ -66,7 +66,7 @@ abstract class Horde_Rdo_Query_Builder {
             if (count($parts) == 1) {
                 $fields[] = $field;
             } else {
-                $fields[] = str_replace('.@', '.', $field) . ' AS ' . $this->quoteColumnName($parts[0] . '@' . $parts[1]);
+                $fields[] = str_replace('.@', '.', $field) . ' AS ' . $query->mapper->adapter->quoteColumnName($parts[0] . '@' . $parts[1]);
             }
         }
 
@@ -112,7 +112,7 @@ abstract class Horde_Rdo_Query_Builder {
                 }
                 $clause = $query->relationships[$rel]['table'] . '.' . $field . ' ' . $this->getTest($test['test']);
             } else {
-                $clause = $query->mapper->model->table . '.' . $this->quoteColumnName($test['field']) . ' ' . $this->getTest($test['test']);
+                $clause = $query->mapper->model->table . '.' . $query->mapper->adapter->quoteColumnName($test['field']) . ' ' . $this->getTest($test['test']);
             }
 
             if ($test['value'] instanceof Horde_Rdo_Query_Literal) {

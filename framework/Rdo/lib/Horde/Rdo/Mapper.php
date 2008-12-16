@@ -16,8 +16,8 @@
  *   $inflector - The Horde_Support_Inflector this mapper uses to singularize
  *   and pluralize PHP class, database table, and database field/key names.
  *
- *   $model - The Horde_Rdo_Model object describing the main table of
- *   this entity.
+ *   $table - The Horde_Db_Adapter_Abstract_TableDefinition object describing
+ *   the main table of this entity.
  *
  * @category Horde
  * @package Horde_Rdo
@@ -96,17 +96,17 @@ abstract class Horde_Rdo_Mapper implements Countable {
      * inflector: The Horde_Support_Inflector this mapper uses to singularize
      * and pluralize PHP class, database table, and database field/key names.
      *
-     * model: The Horde_Rdo_Model object describing the table or view
-     * this Mapper manages.
+     * table: The Horde_Db_Adapter_Abstract_TableDefinition object describing
+     * the table or view this Mapper manages.
      *
      * fields: Array of all field names that are loaded up front
-     * (eager loading) from the Model.
+     * (eager loading) from the table.
      *
      * lazyFields: Array of fields that are only loaded when accessed.
      *
-     * relationships: Array of relationships to other Models.
+     * relationships: Array of relationships to other Mappers.
      *
-     * lazyRelationships: Array of relationships to other Models which
+     * lazyRelationships: Array of relationships to other Mappers which
      * are only loaded when accessed.
      *
      * @param string $key Property name to fetch
@@ -123,13 +123,8 @@ abstract class Horde_Rdo_Mapper implements Countable {
         case 'inflector':
             return Horde_Rdo::getInflector();
 
-        case 'model':
-            $this->model = new Horde_Rdo_Model;
-            if ($this->_table) {
-                $this->model->table = $this->_table;
-            } else {
-                $this->model->table = $this->mapperToTable();
-            }
+        case 'table':
+            $table = $this->_table ? $this->_table : $this->mapperToTable();
             $this->model->load($this);
             return $this->model;
 
