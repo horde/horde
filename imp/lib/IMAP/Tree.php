@@ -172,6 +172,13 @@ class IMP_IMAP_Tree
     protected $_eltdiff = null;
 
     /**
+     * If set, track element changes.
+     *
+     * @var boolean
+     */
+    protected $_trackdiff = true;
+
+    /**
      * See $open parameter in build().
      *
      * @var boolean
@@ -253,10 +260,11 @@ class IMP_IMAP_Tree
          * user MUST call reset() before cycling through the tree.
          * Don't store $_subscribed and $_fulllist - this information is
          * stored in the elements.
-         * Reset the $_changed flag. */
+         * Reset the $_changed and $_trackdiff flags. */
         $this->_currkey = $this->_currparent = $this->_eltdiff = $this->_expanded = $this->_fulllist = $this->_poll = $this->_subscribed = null;
         $this->_currstack = array();
         $this->_changed = false;
+        $this->_trackdiff = true;
 
         return array_keys(get_class_vars(__CLASS__));
     }
@@ -746,14 +754,14 @@ class IMP_IMAP_Tree
             // This is a case where it is possible that the parent element has
             // changed (it now has children) but we can't catch it via the
             // bitflag (since hasChildren() is dynamically determined).
-            if (!is_null($this->_eltdiff)) {
+            if ($this->_trackdiff && !is_null($this->_eltdiff)) {
                 $this->_eltdiff['c'][$elt['p']] = 1;
             }
         }
         $this->_parent[$elt['p']][] = $elt['v'];
         $this->_tree[$elt['v']] = $elt;
 
-        if (!is_null($this->_eltdiff)) {
+        if ($this->_trackdiff && !is_null($this->_eltdiff)) {
             $this->_eltdiff['a'][$elt['v']] = 1;
         }
 
@@ -1323,7 +1331,9 @@ class IMP_IMAP_Tree
          * to add all unsubscribed elements that live in currently
          * discovered items. */
         $this->_unsubview = true;
+        $this->_trackdiff = false;
         $this->insert($this->_getList(true));
+        $this->_trackdiff = true;
     }
 
     /**
@@ -1443,7 +1453,7 @@ class IMP_IMAP_Tree
      * Return the list of elements that have changed since eltDiffStart()
      * was last called.
      *
-     * @return array  Returns false if no changes have ocurred, or an array
+     * @return array  Returns false if no changes have occurred, or an array
      *                with the following keys:
      * <pre>
      * 'a' => A list of elements that have been added.
