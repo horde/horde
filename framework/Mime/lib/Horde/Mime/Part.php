@@ -25,14 +25,19 @@ class Horde_Mime_Part
      * messages. */
     const RFC_EOL = "\r\n";
 
-    /* The default MIME character set. */
-    const DEFAULT_CHARSET = 'us-ascii';
-
     /* The default MIME disposition. */
     const DEFAULT_DISPOSITION = 'inline';
 
     /* The default MIME encoding. */
     const DEFAULT_ENCODING = '7bit';
+
+    /**
+     * The default charset to use when parsing text parts with no charset
+     * information.
+     *
+     * @var string
+     */
+    static public $defaultCharset = 'us-ascii';
 
     /**
      * The type (ex.: text) of this part.
@@ -1499,10 +1504,9 @@ class Horde_Mime_Part
 
         /* Set the default character set. */
         if (($data['subtype'] == 'text') &&
-            (String::lower($ob->getCharset()) == 'us-ascii') &&
-            isset($GLOBALS['mime_structure']['default_charset'])) {
-            /* @todo - switch to using static variable for this. */
-            //$ob->setCharset($GLOBALS['mime_structure']['default_charset']);
+            (self::$defaultCharset != 'us-ascii') &&
+            (String::lower($ob->getCharset()) == 'us-ascii')) {
+            $ob->setCharset(self::$defaultCharset);
         }
 
         if (isset($data['description'])) {

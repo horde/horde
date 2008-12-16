@@ -14,6 +14,14 @@
 class Horde_Mime_Headers
 {
     /**
+     * The default charset to use when parsing text parts with no charset
+     * information.
+     *
+     * @var string
+     */
+    static public $defaultCharset = 'us-ascii';
+
+    /**
      * The internal headers array.
      *
      * @var array
@@ -516,9 +524,9 @@ class Horde_Mime_Headers
      */
     static public function parseHeaders($text)
     {
-        $headers = new Horde_Mime_Headers();
         $currheader = $currtext = null;
         $mime = self::mimeParamFields();
+        $to_process = array();
 
         require_once 'Horde/String.php';
 
@@ -534,9 +542,9 @@ class Horde_Mime_Headers
                 if (!is_null($currheader)) {
                     if (in_array(String::lower($currheader), $mime)) {
                         $res = Horde_Mime::decodeParam($currheader . ': ' . $currtext);
-                        $headers->addHeader($currheader, $res['val'], array('decode' => true, 'params' => $res['params']));
+                        $to_process[] = array($currheader, $res['val'], array('decode' => true, 'params' => $res['params']));
                     } else {
-                        $headers->addHeader($currheader, $currtext, array('decode' => true));
+                        $to_process[] = array($currheader, $currtext, array('decode' => true));
                     }
                 }
                 $pos = strpos($val, ':');
@@ -544,7 +552,18 @@ class Horde_Mime_Headers
                 $currtext = ltrim(substr($val, $pos + 1));
             }
         }
-        $headers->addHeader($currheader, $currtext, array('decode' => true));
+        $to_process[] = array($currheader, $currtext, array('decode' => true));
+
+        $headers = new Horde_Mime_Headers();
+        $eightbit_check = (self::$defaultCharset != 'us-ascii');
+
+        reset($to_process);
+        while (list(,$val) = each($to_process)) {
+            if ($eightbit_check && Horde_Mime::is8bit($val[1])) {
+                $val[1] = String::convertCharset($val[1], self::$defaultCharset);
+            }
+            $headers->addHeader($val[0], $val[1], $val[2]);
+        }
 
         return $headers;
     }
