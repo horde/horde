@@ -239,6 +239,9 @@ div.msgSize {
 .msglist div.answered {
     background: #cfc;
 }
+.msglist div.forwarded {
+    background: #add;
+}
 .msglist div.flagged {
     background: #fcc;
 }
@@ -285,6 +288,9 @@ div.msgSize {
 /* Status images and flags selectors: compose status column */
 .msglist div.answered .msCompose {
     background: transparent url("graphics/mail_answered.png") center center no-repeat;
+}
+.msglist div.forwarded .msCompose {
+    background: transparent url("graphics/mail_forwarded.png") center center no-repeat;
 }
 .msglist div.draft .msCompose {
     background: transparent url("graphics/mail_draft.png") center center no-repeat;

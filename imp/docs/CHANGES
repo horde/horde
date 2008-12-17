@@ -2,6 +2,7 @@
 v5.0-cvs
 --------
 
+[mms] Add support for '$Forwarded' IMAP keyword (Request #3402).
 [mms] Attachments in a signed message now can be downloaded via the
       download all attachments link (Bug #2939).
 [mms] Added separate Fetch Mail action to DIMP (Request #7370).

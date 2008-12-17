@@ -431,14 +431,16 @@ if (!IMP::$printMode) {
             $status .= Horde::img('mail_unseen.png', _("Unseen"), array('title' => _("Unseen")));
         }
         $flag_array = array(
-            'answered' => _("Answered"),
-            'draft'    => _("Draft"),
-            'flagged'  => _("Flagged For Followup"),
-            'deleted'  => _("Deleted")
+            '\\answered' => _("Answered"),
+            '\\draft'    => _("Draft"),
+            '\\flagged'  => _("Flagged For Followup"),
+            '\\deleted'  => _("Deleted"),
+            /* Support for the pseudo-standard '$Forwarded' flag. */
+            '$forwarded' => _("Forwarded")
         );
         foreach ($flag_array as $flag => $desc) {
-            if (in_array('\\' . $flag, $flags)) {
-                $status .= Horde::img('mail_' . $flag . '.png', $desc, array('title' => $desc));
+            if (in_array($flag, $flags)) {
+                $status .= Horde::img('mail_' . ltrim($flag, '\\$') . '.png', $desc, array('title' => $desc));
             }
         }
     }

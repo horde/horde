@@ -509,6 +509,7 @@ if ($pageOb['msgcount']) {
     $n_template->set('imp_deleted', IMP::FLAG_DELETED);
     $n_template->set('imp_draft', IMP::FLAG_DRAFT);
     $n_template->set('imp_personal', IMP::FLAG_PERSONAL);
+    $n_template->set('imp_forwarded', IMP::FLAG_FORWARDED);
     if ($n_template->get('use_folders')) {
         $n_template->set('move', Horde::widget('#', _("Move to folder"), 'widget', '', "transfer('move_messages', 1); return false;", _("Move"), true));
         $n_template->set('copy', Horde::widget('#', _("Copy to folder"), 'widget', '', "transfer('copy_messages', 1); return false;", _("Copy"), true));
@@ -784,6 +785,13 @@ while (list($seq, $ob) = each($mbox_info['overview'])) {
             $flagbits |= IMP::FLAG_DELETED;
             $msg['status'] .= Horde::img('mail_deleted.png', _("Deleted"), array('title' => _("Deleted")));
             $bg[] = 'deleted';
+        }
+
+        /* Support for the pseudo-standard '$Forwarded' flag. */
+        if (in_array('$forwarded', $ob['flags'])) {
+            $flagbits |= IMP::FLAG_FORWARDED;
+            $msg['status'] .= Horde::img('mail_forwarded.png', _("Forwarded"), array('title' => _("Forwarded")));
+            $bg[] = 'forwarded';
         }
     }
 

@@ -317,6 +317,9 @@ class IMP_Views_ListMessages
                 if (in_array('\\deleted', $ob['flags'])) {
                     $bg[] = 'deletedmsg';
                 }
+                if (in_array('$forwarded', $ob['flags'])) {
+                    $bg[] = 'forwarded';
+                }
             }
 
             $msg['bg'] = $bg;

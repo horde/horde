@@ -197,13 +197,15 @@ if (!$use_pop) {
         $status .= 'N';
     }
     $flag_array = array(
-        'answered' => 'r',
-        'draft' => 'D',
-        'flagged' => '!',
-        'deleted' => 'd'
+        '\\answered' => 'r',
+        '\\draft' => 'D',
+        '\\flagged' => '!',
+        '\\deleted' => 'd',
+        /* Support for the pseudo-standard '$Forwarded' flag. */
+        '$forwarded' => 'F'
     );
     foreach ($flag_array as $flag => $desc) {
-        if (in_array('\\' . $flag, $flags)) {
+        if (in_array($flag, $flags)) {
             $status .= $desc;
         }
     }

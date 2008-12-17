@@ -516,21 +516,32 @@ class IMP_Compose
 
         $sent_saved = true;
 
-        /* Log the reply. */
-        if (!empty($opts['reply_type']) &&
-            !empty($header['in_reply_to']) &&
-            !empty($conf['maillog']['use_maillog'])) {
-            IMP_Maillog::log($opts['reply_type'], $header['in_reply_to'], $recipients);
-        }
+        if (!empty($opts['reply_type'])) {
+            /* Log the reply. */
+            if (!empty($header['in_reply_to']) &&
+                !empty($conf['maillog']['use_maillog'])) {
+                IMP_Maillog::log($opts['reply_type'], $header['in_reply_to'], $recipients);
+            }
 
-        if (!empty($opts['reply_index']) &&
-            !empty($opts['reply_type']) &&
-            ($opts['reply_type'] == 'reply')) {
-            /* Make sure to set the IMAP reply flag and unset any
-             * 'flagged' flag. */
-            $imp_message = &IMP_Message::singleton();
-            $imp_message->flag(array('\\answered'), array($opts['reply_index']));
-            $imp_message->flag(array('\\flagged'), array($opts['reply_index']), false);
+            if (!empty($opts['reply_index'])) {
+                $imp_message = &IMP_Message::singleton();
+
+                switch ($opts['reply_type']) {
+                case 'reply':
+                    /* Make sure to set the IMAP reply flag and unset any
+                     * 'flagged' flag. */
+                    $imp_message->flag(array('\\answered'), array($opts['reply_index']));
+                    $imp_message->flag(array('\\flagged'), array($opts['reply_index']), false);
+                    break;
+
+                case 'forward':
+                    /* Set the '$Forwarded' flag, if possible, in the mailbox.
+                     * This flag is a pseudo-standard flag. See, e.g.:
+                     * http://tools.ietf.org/html/draft-melnikov-imap-keywords-03 */
+                    $imp_message->flag(array('$Forwarded'), array($opts['reply_index']));
+                    break;
+                }
+            }
         }
 
         $entry = sprintf("%s Message sent to %s from %s", $_SERVER['REMOTE_ADDR'], $recipients, $_SESSION['imp']['uniquser']);

@@ -33,6 +33,7 @@ class IMP
     const FLAG_FLAGGED = 8;
     const FLAG_DRAFT = 16;
     const FLAG_PERSONAL = 32;
+    const FLAG_FORWARDED = 64;
 
     /* IMP Mailbox view constants. */
     const MAILBOX_START_FIRSTUNSEEN = 1;

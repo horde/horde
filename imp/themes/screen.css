@@ -218,6 +218,12 @@ tr.unseen:hover, tr.unseen-over {
 tr.answered:hover, tr.answered-over {
     background: #9e9;
 }
+.forwarded {
+    background: #add;
+}
+tr.forwarded:hover, tr.forwarded-over {
+    background: #8bd;
+}
 .important, .flagged {
     background: #fcc;
 }

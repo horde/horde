@@ -142,6 +142,11 @@ while (list(,$ob) = each($mbox_info['overview'])) {
         if (in_array('\\deleted', $ob['flags'])) {
             $msg['status'] .= 'D';
         }
+
+        /* Support for the pseudo-standard '$Forwarded' flag. */
+        if (in_array('$forwarded', $ob['flags'])) {
+            $msg['status'] .= 'F';
+        }
     }
 
     $msg['target'] = $target;
