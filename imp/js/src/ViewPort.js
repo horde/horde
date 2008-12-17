@@ -183,7 +183,7 @@ var ViewPort = Class.create({
         this.deselect(vs);
 
         if (opts.cacheid) {
-            this.setMetaData({ cacheid: opts.cacheid }, opts.view);
+            this._getBuffer(opts.view).setMetaData({ cacheid: opts.cacheid }, true);
         }
 
         // If we have visible elements to remove, only call refresh after
@@ -208,7 +208,7 @@ var ViewPort = Class.create({
     // opts = (object) TODO [noupdate, view]
     _removeids: function(vs, opts)
     {
-        this.setMetaData({ total_rows: this.getMetaData('total_rows', opts.view) - vs.size() }, opts.view);
+        this._getBuffer(opts.view).setMetaData({ total_rows: this.getMetaData('total_rows', opts.view) - vs.size() }, true);
 
         if (this.opts.onRemoveRows) {
             this.opts.onRemoveRows(vs);
@@ -606,7 +606,7 @@ var ViewPort = Class.create({
             cacheid: r.cacheid,
             label: r.label,
             total_rows: r.totalrows
-        });
+        }, true);
 
         if (this.opts.onCacheUpdate) {
             this.opts.onCacheUpdate(id);
@@ -814,7 +814,7 @@ var ViewPort = Class.create({
 
     setMetaData: function(vals, view)
     {
-        this._getBuffer(view).setMetaData(vals);
+        this._getBuffer(view).setMetaData(vals, false);
     },
 
     _getBuffer: function(view, create)
@@ -1404,9 +1404,13 @@ ViewPort_Buffer = Class.create({
         return this.mdata.get(id) || this.usermdata.get(id);
     },
 
-    setMetaData: function(vals)
+    setMetaData: function(vals, priv)
     {
-        this.mdata.update(vals);
+        if (priv) {
+            this.mdata.update(vals);
+        } else {
+            this.usermdata.update(vals);
+        }
     }
 }),
 
