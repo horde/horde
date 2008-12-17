@@ -220,7 +220,15 @@ class IMP_UI_Mailbox
         try {
             $d = new DateTime($date);
         } catch (Exception $e) {
-            return _("Unknown Date");
+            /* Bug #5717 - Check for UT vs. UTC. */
+            if (substr(rtrim($date), -3) != ' UT') {
+                return _("Unknown Date");
+            }
+            try {
+                $d = new DateTime($date . 'C');
+            } catch (Exception $e) {
+                return _("Unknown Date");
+            }
         }
         $udate = $d->format('U');
 
