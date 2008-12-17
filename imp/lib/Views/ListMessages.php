@@ -158,7 +158,7 @@ class IMP_Views_ListMessages
          * cacheid returned from the browser. If it has changed, we need to
          * purge the cached items on the browser (send 'reset' param to
          * ViewPort). */
-        if (!$md->search &&
+        if (isset($md->search) &&
             !empty($args['cacheid']) &&
             !empty($args['cached'])) {
             $uid_expire = false;
