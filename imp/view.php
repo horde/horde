@@ -91,7 +91,11 @@ case 'download_all':
     $tosave = array();
     foreach (unserialize(Util::getFormData('download_ids')) as $val) {
         $mime = $contents->getMIMEPart($val);
-        $tosave[] = array('data' => $mime->getContents(), 'name' => $mime->getName(true));
+        $name = $mime->getName(true);
+        if (!$name) {
+            $name = sprintf(_("part %s"), $val);
+        }
+        $tosave[] = array('data' => $mime->getContents(), 'name' => $name);
     }
 
     $horde_compress = &Horde_Compress::singleton('zip');
