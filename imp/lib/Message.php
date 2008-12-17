@@ -137,7 +137,7 @@ class IMP_Message
                     $imp_mailbox->removeMsgs(array($mbox => $msgIndices));
                 }
             } catch (Horde_Imap_Client_Exception $e) {
-                $notification->push(sprintf($message, IMP::displayFolder($mbox), IMP::displayFolder($targetMbox)) . ': ' . imap_last_error(), 'horde.error');
+                $notification->push(sprintf($message, IMP::displayFolder($mbox), IMP::displayFolder($targetMbox)) . ': ' . $e->getMessage(), 'horde.error');
                 $return_value = false;
             }
         }
@@ -554,7 +554,7 @@ class IMP_Message
             try {
                 $imp_imap->ob->store($mbox, array_merge($action_array, array('ids' => $msgIndices)));
             } catch (Horde_Imap_Client_Exception $e) {
-                $notification->push(sprintf(_("There was an error flagging messages in the folder \"%s\". This is what the server said"), IMP::displayFolder($mbox)) . ': ' . imap_last_error(), 'horde.error');
+                $notification->push(sprintf(_("There was an error flagging messages in the folder \"%s\". This is what the server said"), IMP::displayFolder($mbox)) . ': ' . $e->getMessage(), 'horde.error');
                 return false;
             }
         }
