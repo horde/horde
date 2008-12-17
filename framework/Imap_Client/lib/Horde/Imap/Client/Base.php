@@ -900,6 +900,11 @@ abstract class Horde_Imap_Client_Base extends Horde_Imap_Client
             $flags |= self::STATUS_MESSAGES | self::STATUS_RECENT | self::STATUS_UNSEEN | self::STATUS_UIDNEXT | self::STATUS_UIDVALIDITY;
         }
 
+        /* STATUS_PERMFLAGS requires a read/write mailbox. */
+        if ($flags & self::STATUS_PERMFLAGS) {
+            $this->openMailbox($mailbox, self::OPEN_READWRITE);
+        }
+
         return $this->_status(Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($mailbox), $flags);
     }
 
