@@ -737,11 +737,12 @@ class IMP
         }
 
         $strings = $quotaDriver->getMessages();
+        list($calc, $unit) = $quotaDriver->getUnit();
         $ret = array('percent' => 0);
 
         if ($quota['limit'] != 0) {
-            $quota['usage'] = $quota['usage'] / (1024 * 1024.0);
-            $quota['limit'] = $quota['limit'] / (1024 * 1024.0);
+            $quota['usage'] = $quota['usage'] / $calc;
+            $quota['limit'] = $quota['limit'] / $calc;
             $ret['percent'] = ($quota['usage'] * 100) / $quota['limit'];
             if ($ret['percent'] >= 90) {
                 $ret['class'] = 'quotaalert';
@@ -750,13 +751,11 @@ class IMP
             } else {
                 $ret['class'] = 'control';
             }
-            if ($long) {
-                $ret['message'] = sprintf($strings['long'], $quota['usage'],
-                                          $quota['limit'], $ret['percent']);
-            } else {
-                $ret['message'] = sprintf($strings['short'], $ret['percent'],
-                                          $quota['limit']);
-            }
+
+            $ret['message'] = $long
+                ? sprintf($strings['long'], $quota['usage'], $unit, $quota['limit'], $unit, $ret['percent'])
+                : sprintf($strings['short'], $ret['percent'], $quota['limit'], $unit);
+            $ret['percent'] = sprintf("%.2f", $ret['percent']);
         } else {
             // Hide unlimited quota message?
             if (!empty($_SESSION['imp']['quota']['hide_when_unlimited'])) {
@@ -765,20 +764,15 @@ class IMP
 
             $ret['class'] = 'control';
             if ($quota['usage'] != 0) {
-                $quota['usage'] = $quota['usage'] / (1024 * 1024.0);
-                if ($long) {
-                    $ret['message'] = sprintf($strings['nolimit_long'],
-                                              $quota['usage']);
-                } else {
-                    $ret['message'] = sprintf($strings['nolimit_short'],
-                                              $quota['usage']);
-                }
+                $quota['usage'] = $quota['usage'] / $calc;
+
+                $ret['message'] = $long
+                    ? sprintf($strings['nolimit_long'], $quota['usage'], $unit)
+                    : sprintf($strings['nolimit_short'], $quota['usage'], $unit);
             } else {
-                if ($long) {
-                    $ret['message'] = sprintf(_("Quota status: NO LIMIT"));
-                } else {
-                    $ret['message'] = _("No limit");
-                }
+                $ret['message'] = $long
+                    ? sprintf(_("Quota status: NO LIMIT"))
+                    : _("No limit");
             }
         }
 

@@ -72,7 +72,7 @@ class IMP_Quota
      *
      * @param array $params  Hash containing connection parameters.
      */
-    function __construct($params = array())
+    public function __construct($params = array())
     {
         $this->_params = $params;
 
@@ -106,16 +106,44 @@ class IMP_Quota
         return array(
             'long' => isset($this->_params['format']['long'])
                 ? $this->_params['format']['long']
-                : _("Quota status: %.2f MB / %.2f MB  (%.2f%%)"),
+                : _("Quota status: %.2f %s / %.2f %s  (%.2f%%)"),
             'short' => isset($this->_params['format']['short'])
                 ? $this->_params['format']['short']
-                : _("%.0f%% of %.0f MB"),
+                : _("%.0f%% of %.0f %s"),
             'nolimit_long' => isset($this->_params['format']['nolimit_long'])
                 ? $this->_params['format']['nolimit_long']
-                : _("Quota status: %.2f MB / NO LIMIT"),
+                : _("Quota status: %.2f %s / NO LIMIT"),
             'nolimit_short' => isset($this->_params['format']['nolimit_short'])
                 ? $this->_params['format']['nolimit_short']
-                : _("%.0f MB")
+                : _("%.0f %s")
        );
+    }
+
+    /**
+     * Determine the units of storage to display in the quota message.
+     *
+     * @return array  An array of size and unit type.
+     */
+    public function getUnit()
+    {
+        $unit = isset($this->_params['unit']) ? $this->_params['unit'] : 'MB';
+
+        switch ($unit) {
+        case 'GB':
+            $calc = 1024 * 1024 * 1024.0;
+            break;
+
+        case 'KB':
+            $calc = 1024.0;
+            break;
+
+        case 'MB':
+        default:
+            $calc = 1024 * 1024.0;
+            $unit = 'MB';
+            break;
+        }
+
+        return array($calc, $unit);
     }
 }

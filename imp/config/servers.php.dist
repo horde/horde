@@ -93,19 +93,23 @@
  *
  *        Set this to an empty value to disable quota (the DEFAULT).
  *
+ *        The optional 'unit' parameter indicates what storage unit the quota
+ *        messages hould be displayed in. It can be one of three possible
+ *        values: 'GB', 'MB' (DEFAULT), or 'KB'.
+ *
  *        The optional 'format' parameter is supported by all drivers and
  *        specifies the formats of the quota messages in the user
  *        interface. The parameter must be specified as a hash with the four
  *        possible elements 'long', 'short', 'nolimit_long', and
  *        'nolimit_short' with according versions of the quota message. The
  *        strings will be passed through sprintf().
- *
  *        These are the built-in default values, though they may appear
- *        differently in some translations:
- *          'long'          -- Quota status: %.2f MB / %.2f MB  (%.2f%%)
- *          'short'         -- %.0f%% of %.0f MB
- *          'nolimit_long'  -- Quota status: %.2f MB / NO LIMIT
- *          'nolimit_short' -- %.0f MB
+ *        differently in some translations ([UNIT] will be replaced with the
+ *        value of the 'unit' parameter):
+ *          'long'          -- Quota status: %.2f [UNIT] / %.2f [UNIT] (%.2f%%)
+ *          'short'         -- %.0f%% of %.0f [UNIT]
+ *          'nolimit_long'  -- Quota status: %.2f [UNIT] / NO LIMIT
+ *          'nolimit_short' -- %.0f [UNIT]
  *
  *        Currently available drivers:
  *          'command'    --  Use the UNIX quota command to handle quotas.
@@ -233,8 +237,10 @@ $servers['cyrus'] = array(
     ),
     'quota' => array(
         'driver' => 'imap',
-        'hide_when_unlimited' => true,
-        'params' => array()
+        'params' => array(
+            'hide_when_unlimited' => true,
+            'unit' => 'MB'
+        )
     ),
     'acl' => true,
     'cache' => false,
@@ -285,7 +291,10 @@ if ($GLOBALS['conf']['kolab']['enabled']) {
         'preferred' => '',
         'quota' => array(
             'driver' => 'imap',
-            'params' => array('hide_quota_when_unlimited' => true),
+            'params' => array(
+                'hide_quota_when_unlimited' => true,
+                'unit' => 'MB'
+            )
         ),
         'acl' => true,
         'cache' => false,
