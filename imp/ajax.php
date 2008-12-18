@@ -347,7 +347,7 @@ case 'CopyMessage':
 
     $imp_message = &IMP_Message::singleton();
 
-    $result = $imp_message->copy($to, ($action == 'MoveMessage') ? IMP_MESSAGE::MOVE : IMP_MESSAGE::COPY, $indices);
+    $result = $imp_message->copy($to, ($action == 'MoveMessage') ? 'move' : 'copy', $indices);
 
     if ($result) {
         if ($action == 'MoveMessage') {

@@ -179,7 +179,7 @@ class IMP_Spam
             case 2:
                 $targetMbox = ($action == 'spam') ? IMP::folderPref($GLOBALS['prefs']->getValue('spam_folder'), true) : 'INBOX';
                 if ($targetMbox) {
-                    if ($imp_message->copy($targetMbox, IMP_Message::MOVE, $indices, true) === false) {
+                    if ($imp_message->copy($targetMbox, 'move', $indices, true) === false) {
                         $delete_spam = 0;
                     }
                 } else {

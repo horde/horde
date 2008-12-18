@@ -18,10 +18,6 @@
  */
 class IMP_Message
 {
-    /* Constants used in copy(). */
-    const MOVE = 1;
-    const COPY = 2;
-
     /**
      * Using POP to access mailboxes?
      *
@@ -67,8 +63,7 @@ class IMP_Message
      *
      * @param string $targetMbox  The mailbox to move/copy messages to
      *                            (UTF7-IMAP).
-     * @param integer $action     Either IMP_Message::MOVE or
-     *                            IMP_Message::COPY.
+     * @param string $action      Either 'copy' or 'move'.
      * @param mixed $indices      See IMP::parseIndicesList().
      * @param boolean $new        Whether the target mailbox has to be created.
      *
@@ -78,7 +73,7 @@ class IMP_Message
     {
         global $conf, $imp_imap, $notification, $prefs;
 
-        if (($action == self::MOVE) && $imp_imap->isReadOnly($targetMbox)) {
+        if (($action == 'move') && $imp_imap->isReadOnly($targetMbox)) {
             return false;
         }
 
@@ -111,18 +106,18 @@ class IMP_Message
         $return_value = true;
 
         switch ($action) {
-        case self::MOVE:
+        case 'move':
             $imap_move = true;
             $message = _("There was an error moving messages from \"%s\" to \"%s\". This is what the server said");
             break;
 
-        case self::COPY:
+        case 'copy':
             $message = _("There was an error copying messages from \"%s\" to \"%s\". This is what the server said");
             break;
         }
 
         foreach ($msgList as $mbox => $msgIndices) {
-            if (($action == self::MOVE) && $imp_imap->isReadOnly($mbox)) {
+            if (($action == 'move') && $imp_imap->isReadOnly($mbox)) {
                 $notification->push(sprintf($message, IMP::displayFolder($mbox), IMP::displayFolder($targetMbox)) . ': ' . _("The target directory is read-only."), 'horde.error');
                 $return_value = false;
                 continue;
@@ -286,11 +281,11 @@ class IMP_Message
      * Copies or moves a list of messages to a tasklist or notepad.
      * Handles use of the IMP::SEARCH_MBOX mailbox and the Trash folder.
      *
-     * @param string $list      The list in which the task or note will be
-     *                          created.
-     * @param integer $action   Either IMP_Message::MOVE or IMP_Message::COPY.
-     * @param mixed $indices    See IMP::parseIndicesList().
-     * @param string $type      The object type to create, defaults to task.
+     * @param string $list    The list in which the task or note will be
+     *                        created.
+     * @param string $action  Either 'copy' or 'move'.
+     * @param mixed $indices  See IMP::parseIndicesList().
+     * @param string $type    The object type to create, defaults to task.
      *
      * @return boolean  True if successful, false if not.
      */
@@ -413,7 +408,7 @@ class IMP_Message
         }
 
         /* Delete the original messages if this is a "move" operation. */
-        if ($action == self::MOVE) {
+        if ($action == 'move') {
             $this->delete($indices);
         }
 

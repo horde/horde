@@ -115,15 +115,13 @@ case 'copy_message':
     if (($targetMbox = Util::getFormData('targetMbox')) !== null) {
         $imp_message = &IMP_Message::singleton();
 
-        $action = ($actionID == 'move_message') ? IMP_Message::MOVE : IMP_Message::COPY;
-
         if (Util::getFormData('newMbox', 0) == 1) {
             $targetMbox = IMP::folderPref($targetMbox, true);
             $newMbox = true;
         } else {
             $newMbox = false;
         }
-        $imp_message->copy($targetMbox, $action, $indices_array, $newMbox);
+        $imp_message->copy($targetMbox, ($actionID == 'move_message') ? 'move' : 'copy', $indices_array, $newMbox);
         if ($prefs->getValue('mailbox_return')) {
             _returnToMailbox($imp_mailbox->getMessageIndex());
             require IMP_BASE . '/mailbox.php';

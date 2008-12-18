@@ -163,14 +163,13 @@ case 'move_messages':
 case 'copy_messages':
     if (!empty($indices) && !empty($targetMbox)) {
         $imp_message = &IMP_Message::singleton();
-        $action = ($actionID == 'move_messages') ? IMP_Message::MOVE : IMP_Message::COPY;
         if (!empty($newMbox) && ($newMbox == 1)) {
             $targetMbox = IMP::folderPref($targetMbox, true);
             $newMbox = true;
         } else {
             $newMbox = false;
         }
-        $imp_message->copy($targetMbox, $action, $indices, $newMbox);
+        $imp_message->copy($targetMbox, ($actionID == 'move_messages') ? 'move' : 'copy', $indices, $newMbox);
     }
     break;
 
