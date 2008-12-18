@@ -51,7 +51,7 @@ class IMP_IMAP_Thread
      * @param array $indices    The list of indices to create a tree for.
      * @param boolean $sortdir  True for newest first, false for oldest first.
      *
-     * @return array  An array with the index as the key and the interal
+     * @return array  An array with the index as the key and the internal
      *                thread representation as the value.
      */
     public function getThreadTreeOb($indices, $sortdir)
