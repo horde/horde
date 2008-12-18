@@ -1931,7 +1931,7 @@ var DimpBase = {
     /* Pref updating function. */
     _updatePrefs: function(pref, value)
     {
-        new Ajax.Request(DimpCore.addSID(DIMP.conf.URI_PREFS), { parameters: { app: 'imp', pref: pref, value: value } });
+        new Ajax.Request(DimpCore.addURLParam(DIMP.conf.URI_PREFS), { parameters: { app: 'imp', pref: pref, value: value } });
     },
 
     /* Onload function. */

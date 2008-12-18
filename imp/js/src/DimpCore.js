@@ -375,7 +375,7 @@ DimpCore = {
 
     redirect: function(url)
     {
-        url = this.addSID(url);
+        url = this.addURLParam(url);
         if (parent.frames.horde_main) {
             parent.location = url;
         } else {
@@ -466,7 +466,7 @@ DimpCore = {
             C({ d: tmp, f: function() { window.print(); } });
         }
         if (tmp = $('msg_view_source')) {
-            C({ d: tmp, f: function() { view(DimpCore.addSID(DIMP.conf.URI_VIEW) + '&index=' + DIMP.conf.msg_index + '&mailbox=' + DIMP.conf.msg_folder, DIMP.conf.msg_index + '|' + DIMP.conf.msg_folder) } });
+            C({ d: tmp, f: function() { view(DimpCore.addURLParam(DIMP.conf.URI_VIEW, { index: DIMP.conf.msg_index, mailbox: DIMP.conf.msg_folder, actionID: 'view_source', id: 0 }, true), DIMP.conf.msg_index + '|' + DIMP.conf.msg_folder) } });
         }
         C({ d: $('ctx_contacts_new'), f: function() { this.compose('new', { to: this.DMenu.element().readAttribute('address') }); }.bind(this), ns: true });
         C({ d: $('ctx_contacts_add'), f: function() { this.doAction('AddContact', { name: this.DMenu.element().readAttribute('personal'), email: this.DMenu.element().readAttribute('email') }, null, true); }.bind(this), ns: true });
@@ -500,23 +500,21 @@ DimpCore = {
         }
     },
 
-    addSID: function(url)
-    {
-        if (!DIMP.conf.SESSION_ID) {
-            return url;
-        }
-        return this.addURLParam(url, DIMP.conf.SESSION_ID.toQueryParams());
-    },
-
     addURLParam: function(url, params)
     {
         var q = url.indexOf('?');
+        params = $H(params);
+
+        if (DIMP.conf.SESSION_ID) {
+            params.update(DIMP.conf.SESSION_ID.toQueryParams());
+        }
 
         if (q != -1) {
-            params = $H(url.toQueryParams()).merge(params).toObject();
+            params.update(url.toQueryParams());
             url = url.substring(0, q);
         }
-        return url + '?' + Object.toQueryString(params);
+
+        return params.size() ? (url + '?' + params.toQueryString()) : url;
     },
 
     reloadMessage: function(params)
