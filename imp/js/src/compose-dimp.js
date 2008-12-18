@@ -220,9 +220,16 @@ var DimpCompose = {
             case 'send_message':
                 this.button_pressed = false;
                 if (DIMP.baseWindow) {
-                    if (d.reply_type == 'reply') {
+                    switch (d.reply_type) {
+                    case 'reply':
                         DIMP.baseWindow.DimpBase.flag('answered', d.index, d.reply_folder);
+                        break;
+
+                    case 'forward':
+                        DIMP.baseWindow.DimpBase.flag('forwarded', d.index, d.reply_folder);
+                        break;
                     }
+
 
                     if (d.folder) {
                         DIMP.baseWindow.DimpBase.createFolder(d.folder);

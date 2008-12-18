@@ -1864,6 +1864,10 @@ var DimpBase = {
             this.viewport.updateFlag(vs, 'answered', true);
             this.viewport.updateFlag(vs, 'flagged', false);
             break;
+
+        case 'forwarded':
+            this.viewport.updateFlag(vs, 'forwarded', true);
+            break;
         }
     },
 
