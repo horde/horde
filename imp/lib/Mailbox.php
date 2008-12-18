@@ -513,7 +513,7 @@ class IMP_Mailbox
                 $ret['page'] = 1;
             }
 
-            $ret['begin'] = (($page - 1) * $page_size) + 1;
+            $ret['begin'] = (($ret['page'] - 1) * $page_size) + 1;
             $ret['end'] = $ret['begin'] + $page_size - 1;
             if ($ret['end'] > $ret['msgcount']) {
                 $ret['end'] = $ret['msgcount'];
