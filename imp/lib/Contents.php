@@ -874,7 +874,6 @@ class IMP_Contents
 
     /**
      * Get download all list.
-     * NOT CURRENTLY USED
      *
      * @return array  An array of downloadable parts.
      */

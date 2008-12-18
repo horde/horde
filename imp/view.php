@@ -13,8 +13,6 @@
  *   'view_source'
  * 'ctype' - (string) The content-type to use instead of the content-type
  *           found in the original Horde_Mime_Part object.
- * 'download_ids' - (string) For 'download_all', the serialized list of IDs to
- *                  download.
  * 'id' - (string) The MIME part ID to display.
  * 'index - (integer) The index of the message.
  * 'mailbox' - (string) The mailbox of the message.
@@ -89,7 +87,7 @@ case 'download_all':
     }
 
     $tosave = array();
-    foreach (unserialize(Util::getFormData('download_ids')) as $val) {
+    foreach ($contents->downloadAllList() as $val) {
         $mime = $contents->getMIMEPart($val);
         $name = $mime->getName(true);
         if (!$name) {
@@ -98,10 +96,12 @@ case 'download_all':
         $tosave[] = array('data' => $mime->getContents(), 'name' => $name);
     }
 
-    $horde_compress = &Horde_Compress::singleton('zip');
-    $body = $horde_compress->compress($tosave);
-    $browser->downloadHeaders($zipfile, 'application/zip', false, strlen($body));
-    echo $body;
+    if (!empty($tosave)) {
+        $horde_compress = &Horde_Compress::singleton('zip');
+        $body = $horde_compress->compress($tosave);
+        $browser->downloadHeaders($zipfile, 'application/zip', false, strlen($body));
+        echo $body;
+    }
     exit;
 
 case 'download_attach':

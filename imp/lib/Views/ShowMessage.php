@@ -303,7 +303,7 @@ class IMP_Views_ShowMessage
                 ? _("Parts")
                 : sprintf(ngettext("%d Attachment", "%d Attachments", $atc_parts), $atc_parts);
             $result['atc_download'] = (count($display_ids) > 2)
-                ? Horde::link($imp_contents->urlView($imp_contents->getMIMEMessage(), 'download_all', array('params' => array('download_ids' => serialize($atc_parts))))) . '[' . _("Save All") . ']</a>'
+                ? Horde::link($imp_contents->urlView($imp_contents->getMIMEMessage(), 'download_all')) . '[' . _("Save All") . ']</a>'
                 : '';
         }
 
