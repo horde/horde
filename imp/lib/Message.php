@@ -424,52 +424,53 @@ class IMP_Message
      * Strips one or all MIME parts out of a message.
      * Handles the IMP::SEARCH_MBOX mailbox.
      *
-     * @param IMP_Mailbox $imp_mailbox  The IMP_Mailbox object with the
-     *                                  current index set to the message to be
-     *                                  processed.
-     * @param string $partid            The MIME ID of the part to strip. All
-     *                                  parts are stripped if null.
+     * @param mixed $indices  See IMP::parseIndicesList().
+     * @param string $partid  The MIME ID of the part to strip. All parts are
+     *                        stripped if null.
      *
      * @return mixed  Returns true on success, or PEAR_Error on error.
      */
-    public function stripPart(&$imp_mailbox, $partid = null)
+    public function stripPart($indices, $partid = null)
     {
         global $imp_imap;
 
         /* Return error if no index was provided. */
-        if (!($msgList = IMP::parseIndicesList($imp_mailbox))) {
-            return PEAR::raiseError('No index provided to IMP_Message::stripPart().');
+        if (!($msgList = IMP::parseIndicesList($indices))) {
+            return PEAR::raiseError(_("An error occured while attempting to strip the attachment."));
         }
 
         /* If more than one index provided, return error. */
         reset($msgList);
-        list($folder, $index) = each($msgList);
+        list($mbox, $index) = each($msgList);
         if (each($msgList) || (count($index) > 1)) {
-            return PEAR::raiseError('More than 1 index provided to IMP_Message::stripPart().');
+            return PEAR::raiseError(_("An error occured while attempting to strip the attachment."));
         }
         $index = implode('', $index);
 
-        if ($imp_imap->isReadOnly($folder)) {
-            return PEAR::raiseError(_("Cannot strip the MIME part as the folder is read-only"));
+        if ($imp_imap->isReadOnly($mbox)) {
+            return PEAR::raiseError(_("Cannot strip the MIME part as the mailbox is read-only"));
         }
 
         /* Get a local copy of the message. */
-        $contents = &IMP_Contents::singleton($index . IMP::IDX_SEP . $folder);
-        $contents->rebuildMessage();
-        $message = $contents->getMIMEMessage();
+        $contents = &IMP_Contents::singleton($index . IMP::IDX_SEP . $mbox);
 
         /* Loop through all to-be-stripped mime parts. */
         if (is_null($partid)) {
-            // TODO
-            $partids = array_slice(array_keys($message->contentTypeMap()), 1);
-        } else {
-            /* Sanity checking: make sure part does not live under a
-             * message/rfc822 part. */
-            if ($contents->isParent($partid, 'message/rfc822')) {
-                return PEAR::raiseError(_("Cannot strip a MIME part contained within a message/rfc822 part."));
+            /* For stripping all parts, it only makes sense to strip base
+             * parts. Stripping subparts may cause issues with display of the
+             * parent multipart type. */
+            for ($i = 2; ; ++$i) {
+                $part = $contents->getMIMEPart($i, array('nocontents' => true));
+                if (!$part) {
+                    break;
+                }
+                $partids[] = $i;
             }
+        } else {
             $partids = array($partid);
         }
+
+        $message = $contents->buildMessageContents($partids);
 
         foreach ($partids as $partid) {
             $oldPart = $message->getPart($partid);
@@ -488,7 +489,7 @@ class IMP_Message
 
         /* Get the headers for the message. */
         try {
-            $res = $GLOBALS['imp_imap']->ob->fetch($folder, array(
+            $res = $GLOBALS['imp_imap']->ob->fetch($mbox, array(
                 Horde_Imap_Client::FETCH_HEADERTEXT => array(array('peek' => true)),
                 Horde_Imap_Client::FETCH_ENVELOPE => true,
                 Horde_Imap_Client::FETCH_FLAGS => true
@@ -497,23 +498,24 @@ class IMP_Message
 
             /* If in Virtual Inbox, we need to reset flag to unseen so that it
              * appears again in the mailbox list. */
-            if ($GLOBALS['imp_search']->isVINBOXFolder($imp_mailbox->getMailboxName()) &&
+            if ($GLOBALS['imp_search']->isVINBOXFolder($mbox) &&
                 ($pos = array_search('\\seen', $res['flags']))) {
                 unset($res['flags'][$pos]);
             }
 
-            $uid = $GLOBALS['imp_imap']->ob->append($folder, array(array('data' => $res['headertext'][0] . $contents->toString($message, true), 'flags' => $res['flags'], 'messageid' => $res['envelope']['message-id'])));
-
+            $uid = $GLOBALS['imp_imap']->ob->append($mbox, array(array('data' => $res['headertext'][0] . $message->toString(false), 'flags' => $res['flags'], 'messageid' => $res['envelope']['message-id'])));
         } catch (Horde_Imap_Client_Exception $e) {
             return PEAR::raiseError(_("An error occured while attempting to strip the attachment."));
         }
 
-        $this->delete($imp_mailbox, true, true);
+        $this->delete($indices, true, true);
+
+        $imp_mailbox = &IMP_Mailbox::singleton($mbox);
         $imp_mailbox->setIndex(reset($uid));
 
         /* We need to replace the old index in the query string with the
          * new index. */
-        $_SERVER['QUERY_STRING'] = preg_replace('/' . $index . '/', $ids[0], $_SERVER['QUERY_STRING']);
+        $_SERVER['QUERY_STRING'] = preg_replace('/' . $index . '/', $reset($uid), $_SERVER['QUERY_STRING']);
 
         return true;
     }
@@ -538,11 +540,9 @@ class IMP_Message
             return false;
         }
 
-        if ($action) {
-            $action_array = array('add' => $flags);
-        } else {
-            $action_array = array('remove' => $flags);
-        }
+        $action_array = $action
+            ? array('add' => $flags)
+            : array('remove' => $flags);
 
         foreach ($msgList as $mbox => $msgIndices) {
             if ($imp_imap->isReadOnly($mbox)) {
@@ -575,21 +575,17 @@ class IMP_Message
      */
     public function flagAllInMailbox($flags, $mboxes, $action = true)
     {
-        global $imp_imap;
-
         if (empty($mboxes) || !is_array($mboxes)) {
             return false;
         }
 
-        if ($action) {
-            $action_array = array('add' => $flags);
-        } else {
-            $action_array = array('remove' => $flags);
-        }
+        $action_array = $action
+            ? array('add' => $flags)
+            : array('remove' => $flags);
 
         foreach ($mboxes as $val) {
             try {
-                $imp_imap->ob->store($val, $action_array);
+                $GLOBALS['imp_imap']->ob->store($val, $action_array);
             } catch (Horde_Imap_Client_Exception $e) {
                 return false;
             }
@@ -636,7 +632,7 @@ class IMP_Message
             try {
                 $imp_imap->ob->expunge($key, array('ids' => is_array($val) ? $val : array()));
 
-                $imp_mailbox = &IMP_Mailbox::singleton($mbox);
+                $imp_mailbox = &IMP_Mailbox::singleton($key);
                 if ($imp_mailbox->isBuilt()) {
                     $imp_mailbox->removeMsgs(is_array($val) ? array($key => $val) : true);
                 }

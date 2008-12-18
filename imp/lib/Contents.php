@@ -580,9 +580,12 @@ class IMP_Contents
             $part['img_save'] = Horde::link('#', _("Save Image in Gallery"), 'saveImgAtc', null, IMP::popupIMPString('saveimage.php', array('index' => ($this->_index . IMP::IDX_SEP . $this->_mailbox), 'id' => $id), 450, 200) . "return false;") . '</a>';
         }
 
-        /* Strip the Attachment? */
+        /* Strip Attachment? Allow stripping of base parts other than the
+         * base multipart and the base text (body) part. */
         if (($mask & self::SUMMARY_STRIP_LINK) &&
-            !$this->isParent($id, 'message/rfc822')) {
+            ($id != 0) &&
+            (intval($id) != 1) &&
+            (strpos($id, '.') === false)) {
             $url = Util::removeParameter(Horde::selfUrl(true), array('actionID', 'imapid', 'index'));
             $url = Util::addParameter($url, array('actionID' => 'strip_attachment', 'imapid' => $id, 'index' => $this->_index, 'message_token' => IMP::getRequestToken('imp.impcontents')));
             $part['strip'] = Horde::link($url, _("Strip Attachment"), 'stripAtc', null, "return window.confirm('" . addslashes(_("Are you sure you wish to PERMANENTLY delete this attachment?")) . "');") . '</a>';
@@ -832,23 +835,6 @@ class IMP_Contents
     }
 
     /**
-     * Given a MIME ID, determines if the given MIME type is a parent.
-     *
-     * @param string $id    The MIME ID string.
-     * @param string $type  The MIME type to search for.
-     *
-     * @return boolean  True if the MIME type is a parent.
-     */
-    public function isParent($id, $type)
-    {
-        $cmap = $this->getContentTypeMap();
-        while (($id = Horde_Mime::mimeIdArithmetic($id, 'up')) !== null) {
-            return isset($cmap[$id]) && ($cmap[$id] == $type);
-        }
-        return false;
-    }
-
-    /**
      * Returns the Content-Type map for the entire message, regenerating
      * embedded parts if needed.
      *
@@ -889,4 +875,37 @@ class IMP_Contents
 
         return $ret;
     }
+
+    /**
+     * Injects body contents into the base Horde_Mime_part object. If given
+     * a list of IDs, does not add body contents for that part or children
+     * of that part.
+     *
+     * @param array $ignore  A list of MIME IDs to ignore.
+     *
+     * @return Horde_Mime_Part  The part with body contents set.
+     */
+    public function buildMessageContents($ignore = array())
+    {
+        $message = $this->_message;
+        $curr_ignore = null;
+
+        foreach ($message->contentTypeMap() as $key => $val) {
+            if (is_null($curr_ignore) && in_array($key, $ignore)) {
+                $curr_ignore = $key . '.';
+            } elseif (is_null($curr_ignore) ||
+                      (strpos($key, $curr_ignore) === false)) {
+                $curr_ignore = null;
+                if (($key != 0) &&
+                    ($val != 'message/rfc822') &&
+                    (strpos($val, 'multipart/') === false)) {
+                    $part = $this->getMIMEPart($key, array('nodecode' => true));
+                    $message->alterPart($key, $part);
+                }
+            }
+        }
+
+        return $message;
+    }
+
 }

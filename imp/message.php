@@ -180,7 +180,7 @@ case 'add_address':
 case 'strip_all':
 case 'strip_attachment':
     $imp_message = &IMP_Message::singleton();
-    $result = $imp_message->stripPart($imp_mailbox, ($actionID == 'strip_all') ? null : Util::getFormData('imapid'));
+    $result = $imp_message->stripPart($indices_array, ($actionID == 'strip_all') ? null : Util::getFormData('imapid'));
     if (is_a($result, 'PEAR_Error')) {
         $notification->push($result, 'horde.error');
     }
