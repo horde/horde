@@ -491,13 +491,18 @@ var DimpCompose = {
         }
     },
 
-    addAttach: function(number, name, type, size)
+    addAttach: function(atc_num, name, type, size)
     {
-        var div = new Element('DIV').insert(name + ' [' + type + '] (' + size + ' KB) '),
-            input = new Element('INPUT', { type: 'button', atc_id: number, value: DIMP.text_compose.remove });
+        var span = new Element('SPAN').insert(name),
+            div = new Element('DIV').insert(span).insert(' [' + type + '] (' + size + ' KB) '),
+            input = new Element('INPUT', { type: 'button', atc_id: atc_num, value: DIMP.text_compose.remove }),
+            C = DimpCore.clickObserveHandler;
         div.insert(input);
         $('attach_list').insert(div);
-        input.observe('click', this.removeAttach.bind(this, [ input.up() ]));
+        C({ d: input, f: this.removeAttach.bind(this, [ input.up() ]) });
+        if (type != 'application/octet-stream') {
+            C({ d: span.addClassName('attachName'), f: function() { view(DimpCore.addURLParam(DIMP.conf.URI_VIEW, { composeCache: $F('composeCache'), actionID: 'compose_attach_preview', id: atc_num }), $F('composeCache') + '|' + atc_num) } });
+        }
         this.resizeMsgArea();
     },
 
@@ -506,7 +511,8 @@ var DimpCompose = {
         var ids = [];
         e.each(function(n) {
             n = $(n);
-            ids.push(n.firstDescendant().readAttribute('atc_id'));
+            ids.push(n.down('INPUT').readAttribute('atc_id'));
+            DimpCore.addGC(n.childElements());
             n.remove();
         });
         DimpCore.doAction('DeleteAttach', { atc_indices: ids, imp_compose: $F('composeCache') });

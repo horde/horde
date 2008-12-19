@@ -2,6 +2,7 @@
 v5.0-cvs
 --------
 
+[mms] Add compose attachment preview to DIMP.
 [mms] Add 'unit' parameter for quota display (Carlos Pires <acmpires@sapo.pt>,
       Request #7044).
 [mms] Add support for '$Forwarded' IMAP keyword (Request #3402).

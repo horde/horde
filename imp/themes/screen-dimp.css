@@ -889,6 +889,14 @@ div.spellcheck {
     padding-left: 20px;
 }
 
+#attachName span {
+    text-decoration: underline;
+    cursor: pointer;
+}
+#attachName span:hover {
+    font-weight: bold;
+}
+
 /* Context Menus */
 .context {
     min-width: 180px;
