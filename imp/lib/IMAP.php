@@ -172,11 +172,14 @@ class IMP_IMAP
             $driver = $GLOBALS['conf']['cache']['driver'];
             if ($driver != 'none') {
                 $imap_config['cache'] = array(
-                    'compress' => !empty($c['compress']) ? $c['compress'] : false,
+                    'comparator' => empty($c['comparator']) ? false : $c['comparator'],
+                    'compress' => empty($c['compress']) ? false : $c['compress'],
                     'driver' => $driver,
                     'driver_params' => Horde::getDriverConfig('cache', $driver),
-                    'lifetime' => !empty($c['lifetime']) ? $c['lifetime'] : false,
-                    'slicesize' => !empty($c['slicesize']) ? $c['slicesize'] : false
+                    'id' => empty($c['id']) ? false : $c['id'],
+                    'lang' => empty($c['lang']) ? false : $c['lang'],
+                    'lifetime' => empty($c['lifetime']) ? false : $c['lifetime'],
+                    'slicesize' => empty($c['slicesize']) ? false : $c['slicesize'],
                 );
             }
         }

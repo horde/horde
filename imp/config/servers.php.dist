@@ -180,6 +180,24 @@
  *            server.  This entry is only pertinent for IMAP servers.
  *
  * timeout: (integer) Set the server timeout (in seconds).
+ *
+ * comparator: (string) The search comparator to use instead of the default
+ *             IMAP server comparator. See RFC 4790 [3.1] - "collation-id" -
+ *             for the format. Your IMAP server must support the I18NLEVEL
+ *             extension for this setting to have an effect. By default,
+ *             the server default comparator is used.
+ *
+ * id: (array) Send ID information to the IMAP server. This must be a an array
+ *     with the keys being the fields to send and the values being the
+ *     associated values. Your IMAP server must support the ID extension for
+ *     this setting to have an effect. See RFC 2971 [3.3] for a list of
+ *     defined field values.
+ *
+ * lang: (array) A list of languages (in priority order) to be used to display
+ *       display human readable messages returned by the IMAP server. Your
+ *       IMAP server must support the LANGUAGE extensions for this setting to
+ *       have an effect. By default, IMAP messages are output in the IMAP
+ *       server default language.
  */
 
 /* Any entries whose key value ('foo' in $servers['foo']) begin with '_'
