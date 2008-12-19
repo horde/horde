@@ -58,8 +58,9 @@ class IMP_Imple_ContactAutoCompleter extends IMP_Imple
             'indicator: "' . $this->_params['triggerId'] . '_loading_img"',
             'afterUpdateElement: function(f, t) { if (!f.value.endsWith(";")) { f.value += ","; } f.value += " "; }'
         );
+        $ac_browser = empty($GLOBALS['conf']['compose']['ac_browser']) ? 0 : $GLOBALS['conf']['compose']['ac_browser'];
 
-        if (!isset($_SESSION['imp']['cache']['ac_ajax'])) {
+        if ($ac_browser && !isset($_SESSION['imp']['cache']['ac_ajax'])) {
             $success = $use_ajax = true;
             $sparams = IMP_Compose::getAddressSearchParams();
             foreach ($sparams['fields'] as $val) {
@@ -72,17 +73,19 @@ class IMP_Imple_ContactAutoCompleter extends IMP_Imple
             }
             if ($success) {
                 $addrlist = IMP_Compose::getAddressList();
-                $use_ajax = count($addrlist) > 200;
+                $use_ajax = count($addrlist) > $ac_browser;
             }
             $_SESSION['imp']['cache']['ac_ajax'] = $use_ajax;
         }
 
-        if ($_SESSION['imp']['cache']['ac_ajax']) {
+        if (!$ac_browser || $_SESSION['imp']['cache']['ac_ajax']) {
             $func = 'Ajax.Autocompleter';
             if (empty($this->_url)) {
                 $this->_url = Horde::url($GLOBALS['registry']->get('webroot', 'imp') . '/imple.php?imple=ContactAutoCompleter/input=' . rawurlencode($this->_params['triggerId']), true);
             }
             $params[] = '"' . $this->_url . '"';
+
+            $js_params[] = 'minChars: ' . intval($GLOBALS['conf']['compose']['ac_threshold'] ? $GLOBALS['conf']['compose']['ac_threshold'] : 1);
         } else {
             if (!$list_output) {
                 if (!isset($addrlist)) {

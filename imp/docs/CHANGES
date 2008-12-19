@@ -2,6 +2,7 @@
 v5.0-cvs
 --------
 
+[mms] Make autocompletion threshold parameters configurable (Request #7322).
 [mms] Add compose attachment preview to DIMP.
 [mms] Add 'unit' parameter for quota display (Carlos Pires <acmpires@sapo.pt>,
       Request #7044).
