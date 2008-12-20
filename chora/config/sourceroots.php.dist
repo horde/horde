@@ -1,0 +1,65 @@
+<?php
+/**
+ * This file contains all the configuration information for the
+ * various CVS repositories that you wish to display. You should have
+ * a minimum of one entry here!  The following fields are allowed in
+ * the description, and those with a [M] are Mandatory, and should not
+ * be left out.
+ *
+ * 'name'     [M] : Short name for the repository.
+ *
+ * 'location' [M] : Location on the filesystem of the repository.
+ *
+ * 'title'    [M] : Long title for the repository.
+ *
+ * 'type'     [M] : Indicates software used, either 'cvs' or 'svn'.
+ *
+ * 'default'      : To make that repository the default one to show.
+ *
+ * 'intro'        : File which contains some introductory text to show
+ *                  on the front page of this repository.  This file is
+ *                  located in the config/ directory.
+ *
+ * 'cvsusers'     : A list of all committers with real names and email
+ *                  addresses, that normally sits in the CVSROOT/cvsusers
+ *                  file.  If it is found, then more useful information
+ *                  will be shown.
+ *
+ * 'restrictions' : Array of perl-style regular expressions for those files
+ *                  whose contents should be protected and not displayed.
+ *
+ * 'username'     : Username to use for the repository (only for Subversion
+ *                  repositories that require authentication).
+ *
+ * 'password'     : Password to use for the repository (only for Subversion
+ *                  repositories that require authentication).
+ */
+
+$sourceroots['localcvs'] = array(
+    'name' => 'CVS',
+    'location' => '/home/cvs/root',
+    'title' => 'CVS Repository',
+    'cvsusers' => 'CVSROOT/cvsusers',
+    'type' => 'cvs',
+);
+
+$sourceroots['subversion'] = array(
+    'name' => 'Subversion',
+    'location' => 'http://svn.collab.net/repos/svn',
+    'title' => 'A Compelling Replacement for CVS',
+    'type' => 'svn'
+);
+
+$sourceroots['localsvn'] = array(
+    'name' => 'MySVNProj',
+    'location' => 'file:///svndata/subvn',
+    'title' => 'Main Subversion Repos',
+    'type' => 'svn',
+);
+
+$sourceroots['git'] = array(
+    'name' => 'Git',
+    'location' => '/path/to/git/repo
+    'title' => 'Git repository',
+    'type' => 'git',
+);

@@ -1,0 +1,1 @@
+<td<?php echo $bg ? " style=\"background:$bg\"":'' ?>>&nbsp;</td>
