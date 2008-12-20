@@ -1,0 +1,11 @@
+- Tagger todos:
+  - add missing tests
+  - finish similar objects method
+  - duplicate insert detection in tag()
+  - add routes and controllers for objects and users
+  - some sort of db_select object for more reliable sql generation
+
+- implement split read/write database support through Horde_Db, also allowing
+  for sharding, multi-master, backup connections, etc. Probably will take a
+  Horde_Db_ConnectionManager object or some such, that can implement logic for
+  which connection to use.

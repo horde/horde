@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<database>
+
+ <name><variable>name</variable></name>
+ <create>false</create>
+ <overwrite>false</overwrite>
+
+ <charset></charset>
+
+ <table>
+
+  <name>rampage_types</name>
+
+  <declaration>
+
+   <field>
+    <name>type_id</name>
+    <type>integer</type>
+    <default>0</default>
+    <notnull>true</notnull>
+    <autoincrement>1</autoincrement>
+    <unsigned>true</unsigned>
+    <length>4</length>
+   </field>
+
+   <field>
+    <name>type_name</name>
+    <type>text</type>
+    <default></default>
+    <notnull>true</notnull>
+    <length>255</length>
+   </field>
+
+   <index>
+    <name>rampage_types_pKey</name>
+    <primary>true</primary>
+    <field>
+     <name>type_id</name>
+     <sorting>ascending</sorting>
+    </field>
+   </index>
+
+   <index>
+    <name>rampage_types_type_name</name>
+    <unique>true</unique>
+    <field>
+     <name>type_name</name>
+     <sorting>ascending</sorting>
+    </field>
+   </index>
+
+  </declaration>
+
+ </table>
+
+ <table>
+
+  <name>rampage_objects</name>
+
+  <declaration>
+
+   <field>
+    <name>object_id</name>
+    <type>integer</type>
+    <default>0</default>
+    <notnull>true</notnull>
+    <autoincrement>1</autoincrement>
+    <unsigned>true</unsigned>
+    <length>4</length>
+   </field>
+
+   <field>
+    <name>object_name</name>
+    <type>text</type>
+    <default></default>
+    <notnull>true</notnull>
+    <length>255</length>
+   </field>
+
+   <field>
+    <name>type_id</name>
+    <type>integer</type>
+    <default></default>
+    <notnull>true</notnull>
+    <unsigned>true</unsigned>
+    <length>4</length>
+   </field>
+
+   <index>
+    <name>rampage_objects_pKey</name>
+    <primary>true</primary>
+    <field>
+     <name>object_id</name>
+     <sorting>ascending</sorting>
+    </field>
+   </index>
+
+   <index>
+    <name>rampage_objects_type_object_name</name>
+    <unique>true</unique>
+    <field>
+     <name>type_id</name>
+     <sorting>ascending</sorting>
+    </field>
+    <field>
+     <name>object_name</name>
+     <sorting>ascending</sorting>
+    </field>
+   </index>
+
+  </declaration>
+
+ </table>
+
+ <table>
+
+  <name>rampage_users</name>
+
+  <declaration>
+
+   <field>
+    <name>user_id</name>
+    <type>integer</type>
+    <default>0</default>
+    <notnull>true</notnull>
+    <autoincrement>1</autoincrement>
+    <unsigned>true</unsigned>
+    <length>4</length>
+   </field>
+
+   <field>
+    <name>user_name</name>
+    <type>text</type>
+    <default></default>
+    <notnull>true</notnull>
+    <length>255</length>
+   </field>
+
+   <index>
+    <name>rampage_users_pKey</name>
+    <primary>true</primary>
+    <field>
+     <name>user_id</name>
+     <sorting>ascending</sorting>
+    </field>
+   </index>
+
+   <index>
+    <name>rampage_users_user_name</name>
+    <unique>true</unique>
+    <field>
+     <name>user_name</name>
+     <sorting>ascending</sorting>
+    </field>
+   </index>
+
+  </declaration>
+
+ </table>
+
+</database>
