@@ -502,7 +502,7 @@ var ViewPort = Class.create({
         if (this.isFiltering()) {
             params = this.filter.addFilterParams();
         } else {
-            params = this.opts.additionalParams ? this.opts.additionalParams(opts.view) : $H();
+            params = this.opts.additionalParams ? this.opts.additionalParams(opts.view || this.view) : $H();
         }
 
         if (cid) {
