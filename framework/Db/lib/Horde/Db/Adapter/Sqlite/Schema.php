@@ -172,26 +172,10 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Abstract_Schema
         // create columns from rows
         $columns = array();
         foreach ($rows as $row) {
-            $columns[] = new Horde_Db_Adapter_Sqlite_Column(
-                $row[1], $row[4], $row[2], !(bool)$row[3]);
+            $columns[] = $this->componentFactory('Column', array(
+                $row[1], $row[4], $row[2], !(bool)$row[3]));
         }
         return $columns;
-    }
-
-    /**
-     * Override createTable to return a Sqlite Table Definition
-     * param    string  $name
-     * param    array   $options
-     */
-    public function createTable($name, $options=array())
-    {
-        $pk = isset($options['primaryKey']) && $options['primaryKey'] === false ? false : 'id';
-        $tableDefinition =
-            new Horde_Db_Adapter_Abstract_TableDefinition($name, $this, $options);
-        if ($pk != false) {
-            $tableDefinition->primaryKey($pk);
-        }
-        return $tableDefinition;
     }
 
     /**

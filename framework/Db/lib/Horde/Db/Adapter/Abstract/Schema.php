@@ -330,10 +330,9 @@ abstract class Horde_Db_Adapter_Abstract_Schema
      */
     public function createTable($name, $options=array())
     {
-        $pk = isset($options['primaryKey']) &&
-              $options['primaryKey'] === false ? false : 'id';
+        $pk = isset($options['primaryKey']) && $options['primaryKey'] === false ? false : 'id';
         $tableDefinition =
-            new Horde_Db_Adapter_Abstract_TableDefinition($name, $this, $options);
+            $this->componentFactory('TableDefinition', array($name, $this, $options));
         if ($pk != false) {
             $tableDefinition->primaryKey($pk);
         }
@@ -579,7 +578,7 @@ abstract class Horde_Db_Adapter_Abstract_Schema
      * @param   string  $table
      * @return  string
      */
-    abstract public function structureDump($table=null);
+    abstract public function structureDump($table = null);
 
     /**
      * Recreate the given db

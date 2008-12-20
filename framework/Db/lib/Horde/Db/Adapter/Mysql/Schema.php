@@ -207,26 +207,10 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Abstract_Schema
         // create columns from rows
         $columns = array();
         foreach ($rows as $row) {
-            $columns[] = new Horde_Db_Adapter_Mysql_Column(
-                $row[0], $row[4], $row[1], $row[2] == 'YES');
+            $columns[] = $this->componentFactory('Column', array(
+                $row[0], $row[4], $row[1], $row[2] == 'YES'));
         }
         return $columns;
-    }
-
-    /**
-     * Override createTable to return a Mysql Table Definition
-     * param    string  $name
-     * param    array   $options
-     */
-    public function createTable($name, $options=array())
-    {
-        $pk = isset($options['primaryKey']) && $options['primaryKey'] === false ? false : 'id';
-        $tableDefinition =
-            new Horde_Db_Adapter_Mysql_TableDefinition($name, $this, $options);
-        if ($pk != false) {
-            $tableDefinition->primaryKey($pk);
-        }
-        return $tableDefinition;
     }
 
     /**

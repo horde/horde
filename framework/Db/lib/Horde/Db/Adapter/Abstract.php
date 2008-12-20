@@ -134,6 +134,29 @@ abstract class Horde_Db_Adapter_Abstract
 
 
     /*##########################################################################
+    # Object factory
+    ##########################################################################*/
+
+    /**
+     * Delegate calls to the schema object.
+     *
+     * @param  string  $method
+     * @param  array   $args
+     */
+    public function componentFactory($component, $args)
+    {
+        $class = str_replace('_Schema', '', $this->_schemaClass) . '_' . $component;
+        if (class_exists($class)) {
+            $class = new ReflectionClass($class);
+        } else {
+            $class = new ReflectionClass('Horde_Db_Adapter_Abstract_' . $component);
+        }
+
+        return $class->newInstanceArgs($args);
+    }
+
+
+    /*##########################################################################
     # Object composition
     ##########################################################################*/
 

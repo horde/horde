@@ -108,8 +108,8 @@ class Horde_Db_Adapter_Abstract_TableDefinition implements ArrayAccess
         if ($this[$name]) {
             $column = $this[$name];
         } else {
-            $column = new Horde_Db_Adapter_Abstract_ColumnDefinition(
-                $this->_base, $name, $type);
+            $column = $this->_base->componentFactory('ColumnDefinition', array(
+                $this->_base, $name, $type));
         }
 
         $natives = $this->_native();
