@@ -1,1 +1,1 @@
-<?php define('NEWS_VERSION', '0.2-cvs') ?>
+<?php define('NEWS_VERSION', 'H4 (0.2-git)') ?>

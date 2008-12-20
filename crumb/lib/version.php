@@ -1,1 +1,1 @@
-<?php define('SKELETON_VERSION', '0.1-cvs') ?>
+<?php define('CRUMB_VERSION', 'H4 (0.1-git)') ?>
