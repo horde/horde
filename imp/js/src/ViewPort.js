@@ -526,7 +526,7 @@ var ViewPort = Class.create({
             params.update({ cached: cached });
         }
 
-        return params.merge(args);
+        return params.merge(args).merge({ view: opts.view || this.view });
     },
 
     // r = (Object) viewport response object.

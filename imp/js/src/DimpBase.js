@@ -387,9 +387,6 @@ var DimpBase = {
             selected_class: 'selectedRow',
             ajaxRequest: DimpCore.doAction.bind(DimpCore),
             norows: true,
-            additionalParams: function(view) {
-                return $H({ folder: view });
-            }.bind(this),
             onScrollIdle: settitle,
             onSlide: settitle,
             onViewChange: function() {

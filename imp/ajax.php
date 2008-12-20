@@ -64,13 +64,13 @@ function _changed($mbox, $compare, $rw = null)
     return false;
 }
 
-function _getListMessages($folder, $change)
+function _getListMessages($mbox, $change)
 {
     $args = array(
         'cached' => Util::getPost('cached'),
         'cacheid' => Util::getPost('cacheid'),
         'filter' => Util::getPost('filter'),
-        'folder' => $folder,
+        'folder' => $mbox,
         'searchfolder' => Util::getPost('searchfolder'),
         'searchmsg' => Util::getPost('searchmsg'),
     );
@@ -164,7 +164,7 @@ $session_timeout = 'json';
 require_once dirname(__FILE__) . '/lib/base.php';
 
 // Process common request variables.
-$folder = Util::getPost('folder');
+$mbox = Util::getPost('view');
 $indices = IMP::parseRangeString(Util::getPost('uid'));
 $cacheid = Util::getPost('cacheid');
 
@@ -177,7 +177,7 @@ $result = false;
 
 switch ($action) {
 case 'CreateFolder':
-    if (empty($folder)) {
+    if (empty($mbox)) {
         break;
     }
 
@@ -186,7 +186,7 @@ case 'CreateFolder':
 
     $imp_folder = &IMP_Folder::singleton();
 
-    $new = String::convertCharset($folder, NLS::getCharset(), 'UTF7-IMAP');
+    $new = String::convertCharset($mbox, NLS::getCharset(), 'UTF7-IMAP');
     $new = $imptree->createMailboxName(Util::getPost('parent'), $new);
     if (is_a($new, 'PEAR_Error')) {
         $notification->push($new, 'horde.error');
@@ -200,7 +200,7 @@ case 'CreateFolder':
     break;
 
 case 'DeleteFolder':
-    if (empty($folder)) {
+    if (empty($mbox)) {
         break;
     }
 
@@ -208,7 +208,7 @@ case 'DeleteFolder':
     $imptree->eltDiffStart();
 
     $imp_folder = &IMP_Folder::singleton();
-    $result = $imp_folder->delete(array($folder));
+    $result = $imp_folder->delete(array($mbox));
     if ($result) {
         $result = DIMP::getFolderResponse($imptree);
     }
@@ -244,33 +244,33 @@ case 'RenameFolder':
     break;
 
 case 'EmptyFolder':
-    if (empty($folder)) {
+    if (empty($mbox)) {
         break;
     }
 
     $imp_message = &IMP_Message::singleton();
-    $imp_message->emptyMailbox(array($folder));
+    $imp_message->emptyMailbox(array($mbox));
     $result = new stdClass;
-    $result->mbox = $folder;
+    $result->mbox = $mbox;
     break;
 
 case 'MarkFolderSeen':
 case 'MarkFolderUnseen':
-    if (empty($folder)) {
+    if (empty($mbox)) {
         break;
     }
 
     $imp_message = &IMP_Message::singleton();
     $result = $imp_message->flagAllInMailbox(array('seen'),
-                                             array($folder),
+                                             array($mbox),
                                              $action == 'MarkFolderSeen');
     if ($result) {
         $result = new stdClass;
-        $result->mbox = $folder;
+        $result->mbox = $mbox;
 
-        $poll = _getPollInformation($folder);
+        $poll = _getPollInformation($mbox);
         if (!empty($poll)) {
-            $result->poll = array($folder => $poll[$folder]['u']);
+            $result->poll = array($mbox => $poll[$mbox]['u']);
         }
     }
     break;
@@ -297,8 +297,8 @@ case 'PollFolders':
         }
     }
 
-    if (!empty($folder) && _changed($folder, $cacheid)) {
-        $result->viewport = _getListMessages($folder, true);
+    if (!empty($mbox) && _changed($mbox, $cacheid)) {
+        $result->viewport = _getListMessages($mbox, true);
     }
 
     $quota = _getQuota();
@@ -308,7 +308,7 @@ case 'PollFolders':
     break;
 
 case 'ListMessages':
-    if (empty($folder)) {
+    if (empty($mbox)) {
         break;
     }
 
@@ -316,20 +316,20 @@ case 'ListMessages':
     $sortby = Util::getPost('sortby');
     $sortdir = Util::getPost('sortdir');
     if (!is_null($sortby) || !is_null($sortdir)) {
-        IMP::setSort($sortby, $sortdir, $folder);
+        IMP::setSort($sortby, $sortdir, $mbox);
     }
 
     $result = new stdClass;
 
     if (Util::getPost('rangeslice')) {
         $list_msg = new IMP_Views_ListMessages();
-        $result->viewport = $list_msg->getSlice($folder, intval(Util::getPost('start')) - 1, intval(Util::getPost('length')));
+        $result->viewport = $list_msg->getSlice($mbox, intval(Util::getPost('start')) - 1, intval(Util::getPost('length')));
         $result->viewport->request_id = Util::getPost('request_id');
         $result->viewport->type = 'slice';
     } else {
-        $changed = _changed($folder, $cacheid, false);
+        $changed = _changed($mbox, $cacheid, false);
         if (!Util::getPost('checkcache') || $changed) {
-            $result->viewport = _getListMessages($folder, $changed);
+            $result->viewport = _getListMessages($mbox, $changed);
         }
     }
     break;
@@ -342,7 +342,7 @@ case 'CopyMessage':
     }
 
     if ($action == 'MoveMessage') {
-        $change = _changed($folder, $cacheid, true);
+        $change = _changed($mbox, $cacheid, true);
     }
 
     $imp_message = &IMP_Message::singleton();
@@ -351,7 +351,7 @@ case 'CopyMessage':
 
     if ($result) {
         if ($action == 'MoveMessage') {
-            $result = _generateDeleteResult($folder, $indices, $change);
+            $result = _generateDeleteResult($mbox, $indices, $change);
             // Need to manually set remove to true since we want to remove
             // message from the list no matter the current pref settings.
             $result->remove = 1;
@@ -397,10 +397,10 @@ case 'UndeleteMessage':
 
     $imp_message = &IMP_Message::singleton();
     if ($action == 'DeleteMessage') {
-        $change = _changed($folder, $cacheid, true);
+        $change = _changed($mbox, $cacheid, true);
         $result = $imp_message->delete($indices);
         if ($result) {
-            $result = _generateDeleteResult($folder, $indices, $change, !$prefs->getValue('hide_deleted') && !$prefs->getValue('use_trash'));
+            $result = _generateDeleteResult($mbox, $indices, $change, !$prefs->getValue('hide_deleted') && !$prefs->getValue('use_trash'));
         }
     } else {
         $result = $imp_message->undelete($indices);
@@ -430,10 +430,10 @@ case 'AddContact':
 
 case 'ReportSpam':
 case 'ReportHam':
-    $change = _changed($folder, $cacheid, false);
+    $change = _changed($mbox, $cacheid, false);
     $spam_result = IMP_Spam::reportSpam($indices, ($action == 'ReportSpam') ? 'spam' : 'notspam');
     if ($spam_result) {
-        $result = _generateDeleteResult($folder, $indices, $change);
+        $result = _generateDeleteResult($mbox, $indices, $change);
         // If $spam_result is non-zero, then we know the message has been
         // removed from the current mailbox.
         $result->remove = 1;
@@ -450,9 +450,9 @@ case 'Whitelist':
     if ($action == 'Whitelist') {
         $imp_filter->whitelistMessage($indices, false);
     } else {
-        $change = _changed($folder, $cacheid, false);
+        $change = _changed($mbox, $cacheid, false);
         if ($imp_filter->blacklistMessage($indices, false)) {
-            $result = _generateDeleteResult($folder, $indices, $change);
+            $result = _generateDeleteResult($mbox, $indices, $change);
         }
     }
     break;
@@ -610,22 +610,22 @@ case 'chunkContent':
     break;
 
 case 'PurgeDeleted':
-    $change = _changed($folder, $cacheid, $indices);
+    $change = _changed($mbox, $cacheid, $indices);
     if (!$change) {
-        $sort = IMP::getSort($folder);
+        $sort = IMP::getSort($mbox);
         $change = ($sort['by'] == SORTTHREAD);
     }
     $imp_message = &IMP_Message::singleton();
-    $expunged = $imp_message->expungeMailbox(array($folder => 1));
-    if (!empty($expunged[$folder])) {
-        $expunge_count = count($expunged[$folder]);
-        $display_folder = IMP::displayFolder($folder);
+    $expunged = $imp_message->expungeMailbox(array($mbox => 1));
+    if (!empty($expunged[$mbox])) {
+        $expunge_count = count($expunged[$mbox]);
+        $display_folder = IMP::displayFolder($mbox);
         if ($expunge_count == 1) {
             $notification->push(sprintf(_("1 message was purged from \"%s\"."),  $display_folder), 'horde.success');
         } else {
             $notification->push(sprintf(_("%s messages were purged from \"%s\"."), $expunge_count, $display_folder), 'horde.success');
         }
-        $result = _generateDeleteResult($folder, $expunged, $change);
+        $result = _generateDeleteResult($mbox, $expunged, $change);
         // Need to manually set remove to true since we want to remove
         // message from the list no matter the current pref settings.
         $result->remove = 1;
@@ -633,7 +633,7 @@ case 'PurgeDeleted':
     break;
 
 case 'ModifyPollFolder':
-    if (empty($folder)) {
+    if (empty($mbox)) {
         break;
     }
 
@@ -643,27 +643,27 @@ case 'ModifyPollFolder':
 
     $result = new stdClass;
     $result->add = (bool) $add;
-    $result->folder = $folder;
+    $result->folder = $mbox;
 
     if ($add) {
-        $imptree->addPollList($folder);
-        if ($info = $imptree->getElementInfo($folder)) {
-            $result->poll = array($folder => $info['unseen']);
+        $imptree->addPollList($mbox);
+        if ($info = $imptree->getElementInfo($mbox)) {
+            $result->poll = array($mbox => $info['unseen']);
         }
     } else {
-        $imptree->removePollList($folder);
+        $imptree->removePollList($mbox);
     }
     break;
 
 case 'SendMDN':
     $index = Util::getPost('index');
-    if (empty($folder) || empty($index)) {
+    if (empty($mbox) || empty($index)) {
         break;
     }
 
     /* Get the IMP_Headers:: object. */
     try {
-        $fetch_ret = $imp_imap->ob->fetch($folder, array(
+        $fetch_ret = $imp_imap->ob->fetch($mbox, array(
             Horde_Imap_Client::FETCH_HEADERTEXT => array(array('parse' => true, 'peek' => false))
         ), array('ids' => array($index)));
     } catch (Horde_Imap_Client_Exception $e) {
