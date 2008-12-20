@@ -320,6 +320,26 @@ class Horde_Controller_Request_Http extends Horde_Controller_Request_Base
     }
 
     /**
+     * Get entire list of $_COOKIE parameters
+     *
+     * @return  array
+     */
+    public function getCookieParams()
+    {
+        return $this->_cookie;
+    }
+
+    /**
+     * Get entire list of $_SERVER parameters
+     *
+     * @return  array
+     */
+    public function getServerParams()
+    {
+        return $this->_server;
+    }
+
+    /**
      * Get a combination of all parameters. We have to do
      * some wacky loops to make sure that nested values in one
      * param list don't overwrite other nested values
