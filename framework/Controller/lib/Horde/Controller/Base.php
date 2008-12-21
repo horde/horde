@@ -323,7 +323,7 @@ abstract class Horde_Controller_Base
     protected function renderAction($name)
     {
         // current url
-        $this->_view->currentUrl = $this->_request->getUri();
+        $this->_view->currentUrl = '/' . $this->_request->getUri();
 
         // copy instance variables
         foreach (get_object_vars($this) as $key => $value) {
