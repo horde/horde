@@ -44,12 +44,12 @@ abstract class Horde_Rdo_Mapper implements Countable {
     protected $_classname;
 
     /**
-     * The name of the database table (or view, etc.) that holds this
+     * The definition of the database table (or view, etc.) that holds this
      * Mapper's objects.
      *
-     * @var string
+     * @var Horde_Db_Adapter_Abstract_TableDefinition
      */
-    protected $_table;
+    protected $_tableDefinition;
 
     /**
      * Fields that should only be read from the database when they are
@@ -93,10 +93,12 @@ abstract class Horde_Rdo_Mapper implements Countable {
      * adapter: The Horde_Db_Adapter this mapper is using to talk to
      * the database.
      *
-     * inflector: The Horde_Support_Inflector this mapper uses to singularize
+     * inflector: The Horde_Support_Inflector this Mapper uses to singularize
      * and pluralize PHP class, database table, and database field/key names.
      *
-     * table: The Horde_Db_Adapter_Abstract_TableDefinition object describing
+     * table: The database table or view that this Mapper manages.
+     *
+     * tableDefinition: The Horde_Db_Adapter_Abstract_TableDefinition object describing
      * the table or view this Mapper manages.
      *
      * fields: Array of all field names that are loaded up front
@@ -124,9 +126,10 @@ abstract class Horde_Rdo_Mapper implements Countable {
             return Horde_Rdo::getInflector();
 
         case 'table':
-            $table = $this->_table ? $this->_table : $this->mapperToTable();
-            $this->model->load($this);
-            return $this->model;
+            $this->table = !empty($this->_table) ? $this->_table : $this->mapperToTable();
+            return $this->table;
+
+        case 'tableDefinition':
 
         case 'fields':
             $this->fields = array_diff($this->model->listFields(), $this->_lazyFields);
@@ -288,7 +291,7 @@ abstract class Horde_Rdo_Mapper implements Countable {
      * Check if at least one object matches $query.
      *
      * @param mixed $query Either a primary key, an array of keys
-     *                     => values, or an Horde_Rdo_Query object.
+     *                     => values, or a Horde_Rdo_Query object.
      *
      * @return boolean True or false.
      */
@@ -326,7 +329,7 @@ abstract class Horde_Rdo_Mapper implements Countable {
             throw new Horde_Rdo_Exception('create() requires at least one field value.');
         }
 
-        $sql = 'INSERT INTO ' . $this->adapter->quoteColumnName($this->model->table);
+        $sql = 'INSERT INTO ' . $this->adapter->quoteTableName($this->table);
         $keys = array();
         $placeholders = array();
         $bindParams = array();
@@ -384,7 +387,7 @@ abstract class Horde_Rdo_Mapper implements Countable {
             return true;
         }
 
-        $sql = 'UPDATE ' . $this->adapter->quoteColumnName($this->model->table) . ' SET';
+        $sql = 'UPDATE ' . $this->adapter->quoteTableName($this->table) . ' SET';
         $bindParams = array();
         foreach ($fields as $field => $value) {
             $sql .= ' ' . $this->adapter->quoteColumnName($field) . ' = ?,';
@@ -430,7 +433,7 @@ abstract class Horde_Rdo_Mapper implements Countable {
             throw new Horde_Rdo_Exception('Refusing to delete the entire table.');
         }
 
-        $sql = 'DELETE FROM ' . $this->adapter->quoteColumnName($this->model->table) .
+        $sql = 'DELETE FROM ' . $this->adapter->quoteTableName($this->table) .
                ' WHERE ' . implode(' ' . $query->conjunction . ' ', $clauses);
 
         return $this->adapter->delete($sql, $bindParams);
