@@ -404,7 +404,7 @@ class Horde_Mime_Mail
             $this->_headers->addMessageIdHeader();
         }
         if (!$this->_headers->getValue('User-Agent')) {
-            $this->_headers->addAgentHeader();
+            $this->_headers->addUserAgentHeader();
         }
         if (!$resend || !$this->_headers->getValue('Date')) {
             $this->_headers->addHeader('Date', date('r'));
