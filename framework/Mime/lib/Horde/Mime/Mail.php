@@ -355,14 +355,14 @@ class Horde_Mime_Mail
     protected function _buildRecipients($recipients)
     {
         if (is_string($recipients)) {
-            $recipients = Horde_Mime::explode($recipients, ',');
+            $recipients = Horde_Mime_Address::explode($recipients, ',');
         }
         $recipients = array_filter(array_map('trim', $recipients));
 
         $addrlist = array();
         foreach ($recipients as $email) {
             if (!empty($email)) {
-                $unique = Horde_Mime::bareAddress($email);
+                $unique = Horde_Mime_Address::bareAddress($email);
                 if ($unique) {
                     $addrlist[$unique] = $email;
                 } else {
@@ -371,7 +371,7 @@ class Horde_Mime_Mail
             }
         }
 
-        foreach (Horde_Mime::bareAddress(implode(', ', $addrlist), null, true) as $val) {
+        foreach (Horde_Mime_Address::bareAddress(implode(', ', $addrlist), null, true) as $val) {
             if (Horde_Mime::is8bit($val)) {
                 return PEAR::raiseError(sprintf(_("Invalid character in e-mail address: %s."), $val));
             }
