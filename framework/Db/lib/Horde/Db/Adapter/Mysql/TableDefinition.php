@@ -30,7 +30,7 @@ class Horde_Db_Adapter_Mysql_TableDefinition extends Horde_Db_Adapter_Abstract_T
     public function end()
     {
         if (empty($this->_options['temporary'])) {
-            $this->_options['options'] = 'ENGINE=InnoDB';
+            $this->_options['options'] = 'ENGINE=InnoDB DEFAULT CHARSET=utf8';
         }
         return parent::end();
     }
