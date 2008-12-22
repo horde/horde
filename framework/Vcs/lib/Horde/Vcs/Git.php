@@ -1,6 +1,6 @@
 <?php
 /**
- * Horde_VC_git implementation.
+ * Horde_Vcs_git implementation.
  *
  * Copyright 2008 The Horde Project (http://www.horde.org/)
  *
@@ -9,9 +9,9 @@
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_VC
+ * @package Horde_Vcs
  */
-class Horde_VC_git extends Horde_VC
+class Horde_Vcs_git extends Horde_Vcs
 {
     /**
      * Constructor.
@@ -30,19 +30,6 @@ class Horde_VC_git extends Horde_VC
         parent::__construct();
     }
 
-    /**
-     * Validation function to ensure that a revision number is of the right
-     * form.
-     *
-     * @param mixed $rev  The purported revision number.
-     *
-     * @return boolean  True if it is a revision number.
-     */
-    public function isValidRevision($rev)
-    {
-        return preg_match('/^[a-f0-9]+$/i', $rev);
-    }
-
     public function getCommand()
     {
         return $this->getPath('git') . ' --git-dir=' . $this->_sourceroot;
@@ -51,19 +38,19 @@ class Horde_VC_git extends Horde_VC
 }
 
 /**
- * Horde_VC_git annotate class.
+ * Horde_Vcs_git annotate class.
  *
  * Chuck Hagenbuch <chuck@horde.org>
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
- * @package Horde_VC
+ * @package Horde_Vcs
  */
-class Horde_VC_Annotate_git extends Horde_VC_Annotate
+class Horde_Vcs_Annotate_git extends Horde_Vcs_Annotate
 {
     public function __construct($rep, $file)
     {
         if (is_a($file, 'PEAR_Error')) {
-            throw new Horde_VC_Exception($file->getMessage());
+            throw new Horde_Vcs_Exception($file->getMessage());
         }
         parent::__construct($rep, $file);
     }
@@ -124,20 +111,20 @@ class Horde_VC_Annotate_git extends Horde_VC_Annotate
 }
 
 /**
- * Horde_VC_git checkout class.
+ * Horde_Vcs_git checkout class.
  *
  * Chuck Hagenbuch <chuck@horde.org>
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
- * @package Horde_VC
+ * @package Horde_Vcs
  */
-class Horde_VC_Checkout_git extends Horde_VC_Checkout
+class Horde_Vcs_Checkout_git extends Horde_Vcs_Checkout
 {
     /**
      * Function which returns a file pointing to the head of the requested
      * revision of an SVN file.
      *
-     * @param Horde_VC $rep     A repository object
+     * @param Horde_Vcs $rep     A repository object
      * @param string $fullname  Fully qualified pathname of the desired file
      *                          to checkout
      * @param string $rev       Revision number to check out
@@ -157,14 +144,14 @@ class Horde_VC_Checkout_git extends Horde_VC_Checkout
 }
 
 /**
- * Horde_VC_git diff class.
+ * Horde_Vcs_git diff class.
  *
  * Copyright Chuck Hagenbuch <chuck@horde.org>
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
- * @package Horde_VC
+ * @package Horde_Vcs
  */
-class Horde_VC_Diff_git extends Horde_VC_Diff
+class Horde_Vcs_Diff_git extends Horde_Vcs_Diff
 {
     /**
      * The available diff types.
@@ -176,8 +163,8 @@ class Horde_VC_Diff_git extends Horde_VC_Diff
     /**
      * Obtain the differences between two revisions of a file.
      *
-     * @param Horde_VC $rep        A repository object.
-     * @param Horde_VC_File $file  The desired file.
+     * @param Horde_Vcs $rep        A repository object.
+     * @param Horde_Vcs_File $file  The desired file.
      * @param string $rev1         Original revision number to compare from.
      * @param string $rev2         New revision number to compare against.
      * @param string $type         The type of diff (e.g. 'unified').
@@ -223,8 +210,8 @@ class Horde_VC_Diff_git extends Horde_VC_Diff
     /**
      * Create a range of revisions between two revision numbers.
      *
-     * @param Horde_VC $rep        A repository object.
-     * @param Horde_VC_File $file  The desired file.
+     * @param Horde_Vcs $rep        A repository object.
+     * @param Horde_Vcs_File $file  The desired file.
      * @param string $r1           The initial revision.
      * @param string $r2           The ending revision.
      *
@@ -236,7 +223,7 @@ class Horde_VC_Diff_git extends Horde_VC_Diff
         $cmd = $rep->getCommand() . ' rev-list ' . $r1 . '..' . $r2;
         $pipe = popen($cmd, 'r');
         if (!is_resource($pipe)) {
-            throw new Horde_VC_Exception('Unable to run ' . $cmd . ': ' . error_get_last());
+            throw new Horde_Vcs_Exception('Unable to run ' . $cmd . ': ' . error_get_last());
         }
 
         $revs = array();
@@ -255,14 +242,14 @@ class Horde_VC_Diff_git extends Horde_VC_Diff
 }
 
 /**
- * Horde_VC_git directory class.
+ * Horde_Vcs_git directory class.
  *
  * Copyright Chuck Hagenbuch <chuck@horde.org>
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
- * @package Horde_VC
+ * @package Horde_Vcs
  */
-class Horde_VC_Directory_git extends Horde_VC_Directory
+class Horde_Vcs_Directory_git extends Horde_Vcs_Directory
 {
     /**
      * Tell the object to open and browse its current directory, and
@@ -315,14 +302,14 @@ class Horde_VC_Directory_git extends Horde_VC_Directory
 }
 
 /**
- * Horde_VC_git file class.
+ * Horde_Vcs_git file class.
  *
  * Copyright Chuck Hagenbuch <chuck@horde.org>
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
- * @package Horde_VC
+ * @package Horde_Vcs
  */
-class Horde_VC_File_git extends Horde_VC_File
+class Horde_Vcs_File_git extends Horde_Vcs_File
 {
     /**
      * Create a repository file object, and give it information about
@@ -387,16 +374,16 @@ class Horde_VC_File_git extends Horde_VC_File
         $cmd = $this->rep->getCommand() . ' rev-list HEAD -- ' . $Q . str_replace($Q, '\\' . $Q, $this->fullname) . $Q . ' 2>&1';
         $revisions = shell_exec($cmd);
         if (substr($revisions, 5) == 'fatal') {
-            throw new Horde_VC_Exception($revisions);
+            throw new Horde_Vcs_Exception($revisions);
         }
 
         if (!strlen($revisions)) {
-            throw new Horde_VC_Exception('No revisions found');
+            throw new Horde_Vcs_Exception('No revisions found');
         }
 
         $this->revs = explode("\n", trim($revisions));
         foreach ($this->revs as $rev) {
-            $this->logs[$rev] = Horde_VC_Log_git::factory($this->rep, $this, $rev);
+            $this->logs[$rev] = Horde_Vcs_Log_git::factory($this->rep, $this, $rev);
             if ($this->quicklog) {
                 break;
             }
@@ -406,27 +393,17 @@ class Horde_VC_File_git extends Horde_VC_File
 }
 
 /**
- * Horde_VC_git log class.
+ * Horde_Vcs_git log class.
  *
  * Chuck Hagenbuch <chuck@horde.org>
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
- * @package Horde_VC
+ * @package Horde_Vcs
  */
-class Horde_VC_Log_git {
+class Horde_Vcs_Log_git {
 
-    var $rep;
-    var $err;
-    var $file;
-    var $files = array();
-    var $tags;
-    var $rev;
-    var $date;
-    var $log;
-    var $author;
-    var $state;
-    var $lines;
-    var $branches;
+    public $err;
+    public $files = array();
 
     public static function factory($rep, $file, $rev)
     {
@@ -442,7 +419,7 @@ class Horde_VC_Log_git {
             $logOb = unserialize($rep->cache->get($cacheId, 0));
             $logOb->setRepository($rep);
         } else {
-            $logOb = new Horde_VC_Log_git($rep, $file, $rev);
+            $logOb = new Horde_Vcs_Log_git($rep, $file, $rev);
 
             if ($rep->cache) {
                 $rep->cache->set($cacheId, serialize($logOb));
@@ -457,20 +434,19 @@ class Horde_VC_Log_git {
      */
     public function __construct($rep, $fl, $rev)
     {
-        $this->rep = $rep;
-        $this->file = $fl;
+        parent::__construct($rep, $fl);
+
         $this->rev = $rev;
-        $this->branches = array();
 
         $cmd = $this->rep->getCommand() . ' whatchanged --no-color --pretty=fuller --no-abbrev -n 1 ' . $this->rev;
         $pipe = popen($cmd, 'r');
         if (!is_resource($pipe)) {
-            throw new Horde_VC_Exception('Unable to run ' . $cmd . ': ' . error_get_last());
+            throw new Horde_Vcs_Exception('Unable to run ' . $cmd . ': ' . error_get_last());
         }
 
         $commit = trim(array_pop(explode(' ', fgets($pipe))));
         if ($commit != $rev) {
-            throw new Horde_VC_Exception('Expected ' . $rev . ', got ' . $commit);
+            throw new Horde_Vcs_Exception('Expected ' . $rev . ', got ' . $commit);
         }
 
         $properties = array();
@@ -513,7 +489,7 @@ class Horde_VC_Log_git {
         }
     }
 
-    function setRepository($rep)
+    public function setRepository($rep)
     {
         $this->rep = $rep;
     }
@@ -524,31 +500,6 @@ class Horde_VC_Log_git {
         return $this->files[$path]['dstSha1'];
     }
 
-    function queryDate()
-    {
-        return $this->date;
-    }
-
-    function queryRevision()
-    {
-        return $this->rev;
-    }
-
-    function queryAuthor()
-    {
-        return $this->author;
-    }
-
-    function queryLog()
-    {
-        return $this->log;
-    }
-
-    function queryChangedLines()
-    {
-        return isset($this->lines) ? ($this->lines) : '';
-    }
-
     /**
      * Given a branch revision number, this function remaps it
      * accordingly, and performs a lookup on the file object to
@@ -556,64 +507,23 @@ class Horde_VC_Log_git {
      *
      * @return hash of symbolic names => branch numbers
      */
-    function querySymbolicBranches()
+    public function querySymbolicBranches()
     {
-        $symBranches = array();
-        return $symBranches;
+        return array();
     }
 
 }
 
 /**
- * Horde_VC_git Patchset class.
+ * Horde_Vcs_git Patchset class.
  *
  * Copyright Chuck Hagenbuch <chuck@horde.org>
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
- * @package Horde_VC
+ * @package Horde_Vcs
  */
-class Horde_VC_Patchset_git extends Horde_VC_Patchset {
-
-    var $_file;
-
-    /**
-     * Create a patchset object.
-     *
-     * @param string $file  The filename to get patchsets for.
-     */
-    public function __construct($file)
-    {
-        $this->_file = $file;
-    }
-
-    function &getPatchsetObject($rep, $filename, $cache = null)
-    {
-        /* The version of the cached data. Increment this whenever the
-         * internal storage format changes, such that we must
-         * invalidate prior cached data. */
-        $cacheVersion = 1;
-        $cacheId = $rep->sourceroot() . '_n' . $filename . '_f_v' . $cacheVersion;
-
-        if ($cache &&
-            // ?
-            $cache->exists($cacheId, 3600)) {
-            $psOb = unserialize($cache->get($cacheId, 3600));
-            $psOb->setRepository($rep);
-        } else {
-            $psOb = new Horde_VC_Patchset_git($filename);
-            $psOb->setRepository($rep);
-            if (is_a(($result = $psOb->getPatchsets()), 'PEAR_Error')) {
-                return $result;
-            }
-
-            if ($cache) {
-                $cache->set($cacheId, serialize($psOb));
-            }
-        }
-
-        return $psOb;
-    }
-
+class Horde_Vcs_Patchset_git extends Horde_Vcs_Patchset
+{
     /**
      * Populate the object with information about the patchsets that
      * this file is involved in.
@@ -622,20 +532,22 @@ class Horde_VC_Patchset_git extends Horde_VC_Patchset {
      */
     function getPatchsets()
     {
-        $fileOb = new Horde_VC_File_git($this->_rep, $this->_file);
+        $fileOb = new Horde_Vcs_File_git($this->_rep, $this->_file);
         if (is_a(($result = $fileOb->getBrowseInfo()), 'PEAR_Error')) {
             return $result;
         }
 
         $this->_patchsets = array();
         foreach ($fileOb->logs as $rev => $log) {
-            $this->_patchsets[$rev] = array();
-            $this->_patchsets[$rev]['date'] = $log->queryDate();
-            $this->_patchsets[$rev]['author'] = $log->queryAuthor();
-            $this->_patchsets[$rev]['branch'] = '';
-            $this->_patchsets[$rev]['tag'] = '';
-            $this->_patchsets[$rev]['log'] = $log->queryLog();
-            $this->_patchsets[$rev]['members'] = array();
+            $this->_patchsets[$rev] = array(
+                'date' => $log->queryDate(),
+                'author' => $log->queryAuthor(),
+                'branch' => '',
+                'tag' => '',
+                'log' => $log->queryLog(),
+                'members' => array()
+            );
+
             foreach ($log->files as $file) {
                 $action = substr($file, 0, 1);
                 $file = preg_replace('/.*?\s(.*?)(\s|$).*/', '\\1', $file);
@@ -662,4 +574,18 @@ class Horde_VC_Patchset_git extends Horde_VC_Patchset {
 
 }
 
-class Horde_VC_Revision_git extends Horde_VC_Revision {}
+class Horde_Vcs_Revision_git extends Horde_Vcs_Revision
+{
+    /**
+     * Validation function to ensure that a revision number is of the right
+     * form.
+     *
+     * @param mixed $rev  The purported revision number.
+     *
+     * @return boolean  True if it is a revision number.
+     */
+    public function valid($rev)
+    {
+        return preg_match('/^[a-f0-9]+$/i', $rev);
+    }
+}

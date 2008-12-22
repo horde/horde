@@ -3,7 +3,7 @@
 require_once dirname(__FILE__) . '/rcs.php';
 
 /**
- * Horde_VC_cvs implementation.
+ * Horde_Vcs_cvs implementation.
  *
  * Copyright 2000-2008 The Horde Project (http://www.horde.org/)
  *
@@ -11,9 +11,9 @@ require_once dirname(__FILE__) . '/rcs.php';
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Anil Madhavapeddy <anil@recoil.org>
- * @package Horde_VC
+ * @package Horde_Vcs
  */
-class Horde_VC_cvs extends Horde_VC_rcs
+class Horde_Vcs_cvs extends Horde_Vcs_rcs
 {
     /**
      * Constructor.
@@ -68,7 +68,7 @@ class Horde_VC_cvs extends Horde_VC_rcs
      */
     public function getAnnotateObject($filename)
     {
-        return new Horde_VC_Annotate_cvs($this, $filename);
+        return new Horde_Vcs_Annotate_cvs($this, $filename);
     }
 
     /**
@@ -78,30 +78,17 @@ class Horde_VC_cvs extends Horde_VC_rcs
     {
         return parent::getPatchsetObject($this->sourceroot() . '/' . $filename, $cache);
     }
-
-    /**
-     * Validation function to ensure that a revision number is of the right
-     * form.
-     *
-     * @param mixed $rev  The purported revision number.
-     *
-     * @return boolean  True if it is a revision number.
-     */
-    public function isValidRevision($rev)
-    {
-	    return $rev && preg_match('/^[\d\.]+$/', $rev);
-    }
 }
 
 /**
- * Horde_VC_cvs annotate class.
+ * Horde_Vcs_cvs annotate class.
  *
  * Anil Madhavapeddy, <anil@recoil.org>
  *
  * @author  Anil Madhavapeddy <anil@recoil.org>
- * @package Horde_VC
+ * @package Horde_Vcs
  */
-class Horde_VC_Annotate_cvs extends Horde_VC_Annotate
+class Horde_Vcs_Annotate_cvs extends Horde_Vcs_Annotate
 {
     /**
      * Temporary filename.
@@ -202,20 +189,20 @@ class Horde_VC_Annotate_cvs extends Horde_VC_Annotate
 }
 
 /**
- * Horde_VC_cvs checkout class.
+ * Horde_Vcs_cvs checkout class.
  *
  * Anil Madhavapeddy, <anil@recoil.org>
  *
  * @author  Anil Madhavapeddy <anil@recoil.org>
- * @package Horde_VC
+ * @package Horde_Vcs
  */
-class Horde_VC_Checkout_cvs extends Horde_VC_Checkout
+class Horde_Vcs_Checkout_cvs extends Horde_Vcs_Checkout
 {
     /**
      * Static function which returns a file pointing to the head of the
      * requested revision of an RCS file.
      *
-     * @param Horde_VC_cvs $rep  A repository object
+     * @param Horde_Vcs_cvs $rep  A repository object
      * @param string $fullname   Fully qualified pathname of the desired file
      *                           to checkout
      * @param string $rev        Revision number to check out
@@ -264,20 +251,20 @@ class Horde_VC_Checkout_cvs extends Horde_VC_Checkout
 }
 
 /**
- * Horde_VC_cvs diff class.
+ * Horde_Vcs_cvs diff class.
  *
  * Copyright Anil Madhavapeddy, <anil@recoil.org>
  *
  * @author  Anil Madhavapeddy <anil@recoil.org>
- * @package Horde_VC
+ * @package Horde_Vcs
  */
-class Horde_VC_Diff_cvs extends Horde_VC_Diff
+class Horde_Vcs_Diff_cvs extends Horde_Vcs_Diff
 {
     /**
      * Obtain the differences between two revisions of a file.
      *
-     * @param Horde_VC $rep        A repository object.
-     * @param Horde_VC_File $file  The desired file.
+     * @param Horde_Vcs $rep        A repository object.
+     * @param Horde_Vcs_File $file  The desired file.
      * @param string $rev1         Original revision number to compare from.
      * @param string $rev2         New revision number to compare against.
      * @param string $type         The type of diff (e.g. 'unified').
@@ -347,22 +334,22 @@ class Horde_VC_Diff_cvs extends Horde_VC_Diff
 }
 
 /**
- * Horde_VC_cvs directory class.
+ * Horde_Vcs_cvs directory class.
  *
  * Copyright Anil Madhavapeddy, <anil@recoil.org>
  *
  * @author  Anil Madhavapeddy <anil@recoil.org>
- * @package Horde_VC
+ * @package Horde_Vcs
  */
-class Horde_VC_Directory_cvs extends Horde_VC_Directory
+class Horde_Vcs_Directory_cvs extends Horde_Vcs_Directory
 {
     /**
      * Creates a CVS Directory object to store information
      * about the files in a single directory in the repository.
      *
-     * @param Horde_VC $rep           A repository object
+     * @param Horde_Vcs $rep           A repository object
      * @param string $dn              Path to the directory.
-     * @param Horde_VC_Directory $pn  The parent Directory object to this one.
+     * @param Horde_Vcs_Directory $pn  The parent Directory object to this one.
      */
     public function __construct($rep, $dn, $pn = '')
     {
@@ -419,7 +406,7 @@ class Horde_VC_Directory_cvs extends Horde_VC_Directory
 
         /* If we want to merge the attic, add it in here. */
         if ($showattic) {
-            $atticDir = new Horde_VC_Directory_cvs($this->_rep, $this->_moduleName . '/Attic', $this);
+            $atticDir = new Horde_Vcs_Directory_cvs($this->_rep, $this->_moduleName . '/Attic', $this);
             if (!is_a($atticDir->browseDir($cache, $quicklog), 'PEAR_Error')) {
                 $this->_atticFiles = $atticDir->queryFileList();
                 $this->_mergedFiles = array_merge($this->_files, $this->_atticFiles);
@@ -432,14 +419,14 @@ class Horde_VC_Directory_cvs extends Horde_VC_Directory
 }
 
 /**
- * Horde_VC_cvs file class.
+ * Horde_Vcs_cvs file class.
  *
  * Copyright Anil Madhavapeddy, <anil@recoil.org>
  *
  * @author  Anil Madhavapeddy <anil@recoil.org>
- * @package Horde_VC
+ * @package Horde_Vcs
  */
-class Horde_VC_File_cvs extends Horde_VC_File
+class Horde_Vcs_File_cvs extends Horde_Vcs_File
 {
     /**
      * Create a repository file object, and give it information about
@@ -459,7 +446,7 @@ class Horde_VC_File_cvs extends Horde_VC_File
         $this->logs = $this->revs = $this->branches = array();
     }
 
-    function &getFileObject()
+    public function &getFileObject()
     {
         /* Assume file is in the Attic if it doesn't exist. */
         $filename = $this->filename;
@@ -479,12 +466,12 @@ class Horde_VC_File_cvs extends Horde_VC_File
             $fileOb = unserialize($this->cache->get($cacheId, $ctime));
             $fileOb->setRepository($this->rep);
         } else {
-            $fileOb = new Horde_VC_File_cvs($this->rep, $filename, $this->cache, $this->quicklog);
+            $fileOb = new Horde_Vcs_File_cvs($this->rep, $filename, $this->cache, $this->quicklog);
             $fileOb->setRepository($this->rep);
             if (is_a(($result = $fileOb->getBrowseInfo()), 'PEAR_Error')) {
                 return $result;
             }
-            $fileOb->applySort(Horde_VC::SORT_AGE);
+            $fileOb->applySort(Horde_Vcs::SORT_AGE);
 
             if ($this->cache) {
                 $this->cache->set($cacheId, serialize($fileOb));
@@ -599,9 +586,9 @@ class Horde_VC_File_cvs extends Horde_VC_File
                     strcmp('----------------------------', $line)) {
                     $accum[] = $line;
                 } elseif (count($accum)) {
-                    // spawn a new Horde_VC_log object and add it to the logs
+                    // spawn a new Horde_Vcs_log object and add it to the logs
                     // hash
-                    $log = new Horde_VC_Log_cvs($this);
+                    $log = new Horde_Vcs_Log_cvs($this);
                     $err = $log->processLog($accum);
                     // TODO: error checks - avsm
                     $this->logs[$log->queryRevision()] = $log;
@@ -666,34 +653,14 @@ class Horde_VC_File_cvs extends Horde_VC_File
 }
 
 /**
- * Horde_VC_cvs log class.
+ * Horde_Vcs_cvs log class.
  *
  * @author  Anil Madhavapeddy <anil@recoil.org>
- * @package Horde_VC
+ * @package Horde_Vcs
  */
-class Horde_VC_Log_cvs {
-
-    var $rep;
-    var $file;
-    var $tags;
-    var $rev;
-    var $date;
-    var $log;
-    var $author;
-    var $state;
-    var $lines;
-    var $branches;
-
-    /**
-     *
-     */
-    public function __construct($fl)
-    {
-        $this->file = $fl;
-        $this->branches = array();
-    }
-
-    function processLog($raw)
+class Horde_Vcs_Log_cvs extends Horde_Vcs_Log
+{
+    public function processLog($raw)
     {
         /* Initialise a simple state machine to parse the output of rlog */
         $state = 'init';
@@ -730,10 +697,9 @@ class Horde_VC_Log_cvs {
                      * push valid revisions into the branches array */
                     $brs = preg_split('/;\s*/', $br[1]);
                     foreach ($brs as $brpoint) {
-                        //@TODO
-                        //if (Horde_VC_Revision::valid($brpoint)) {
+                        if ($this->rep->isValidRevision($brpoint)) {
                             $this->branches[] = $brpoint;
-                        //}
+                        }
                     }
                     array_shift($raw);
                 }
@@ -750,106 +716,33 @@ class Horde_VC_Log_cvs {
             array();
     }
 
-    function queryDate()
-    {
-        return $this->date;
-    }
-
-    function queryRevision()
-    {
-        return $this->rev;
-    }
-
-    function queryAuthor()
-    {
-        return $this->author;
-    }
-
-    function queryLog()
-    {
-        return $this->log;
-    }
-
-    function queryChangedLines()
-    {
-        return isset($this->lines) ? ($this->lines) : '';
-    }
-
-    /**
-     * Given a branch revision number, this function remaps it
-     * accordingly, and performs a lookup on the file object to
-     * return the symbolic name(s) of that branch in the tree.
-     *
-     * @return array  Hash of symbolic names => branch numbers
-     */
-    function querySymbolicBranches()
-    {
-        $symBranches = array();
-        foreach ($this->branches as $branch) {
-            $parts = explode('.', $branch);
-            $last = array_pop($parts);
-            $parts[] = '0';
-            $parts[] = $last;
-            $rev = implode('.', $parts);
-            if (isset($this->file->branches[$branch])) {
-                $symBranches[$this->file->branches[$branch]] = $branch;
-            }
-        }
-        return $symBranches;
-    }
-
 }
 
 /**
- * Horde_VC_cvs Patchset class.
+ * Horde_Vcs_cvs Patchset class.
  *
  * Copyright Anil Madhavapeddy, <anil@recoil.org>
  *
  * @author  Anil Madhavapeddy <anil@recoil.org>
- * @package Horde_VC
+ * @package Horde_Vcs
  */
-class Horde_VC_Patchset_cvs extends Horde_VC_Patchset {
-
-    var $_dir;
-    var $_name;
+class Horde_Vcs_Patchset_cvs extends Horde_Vcs_Patchset
+{
+    protected $_dir;
+    protected $_name;
 
     /**
      * Create a patchset object.
      *
      * @param string $file  The filename to get patchsets for.
      */
-    public function __construct($file)
+    public function __construct($rep, $file, $cache = null)
     {
         $this->_name = basename($file);
         $this->_dir = dirname($file);
-    }
+        $this->_ctime = time() - filemtime($file . ',v');
 
-    function &getPatchsetObject($rep, $filename, $cache = null)
-    {
-        /* The version of the cached data. Increment this whenever the
-         * internal storage format changes, such that we must
-         * invalidate prior cached data. */
-        $cacheVersion = 1;
-        $cacheId = $rep->sourceroot() . '_n' . $filename . '_f_v' . $cacheVersion;
-
-        $ctime = time() - filemtime($filename . ',v');
-        if ($cache &&
-            $cache->exists($cacheId, $ctime)) {
-            $psOb = unserialize($cache->get($cacheId, $ctime));
-            $psOb->setRepository($rep);
-        } else {
-            $psOb = new Horde_VC_Patchset_cvs($filename);
-            $psOb->setRepository($rep);
-            if (is_a(($result = $psOb->getPatchsets()), 'PEAR_Error')) {
-                return $result;
-            }
-
-            if ($cache) {
-                $cache->set($cacheId, serialize($psOb));
-            }
-        }
-
-        return $psOb;
+        parent::__construct($rep, $file, $cache);
     }
 
     /**
@@ -858,7 +751,7 @@ class Horde_VC_Patchset_cvs extends Horde_VC_Patchset {
      *
      * @return boolean|object  PEAR_Error object on error, or true on success.
      */
-    function getPatchsets()
+    public function getPatchsets()
     {
         /* Check that we are actually in the filesystem. */
         if (!is_file($this->getFullPath() . ',v')) {
@@ -965,4 +858,4 @@ class Horde_VC_Patchset_cvs extends Horde_VC_Patchset {
 
 }
 
-class Horde_VC_Revision_cvs extends Horde_VC_Revision_rcs {}
+class Horde_Vcs_Revision_cvs extends Horde_Vcs_Revision_rcs {}

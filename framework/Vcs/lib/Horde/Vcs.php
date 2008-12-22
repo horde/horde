@@ -14,9 +14,9 @@ define('VC_WINDOWS', !strncasecmp(PHP_OS, 'WIN', 3));
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @package Horde_VC
+ * @package Horde_Vcs
  */
-class Horde_VC
+class Horde_Vcs
 {
     /* Sorting options */
     const SORT_NONE = 0;    // don't sort
@@ -57,19 +57,19 @@ class Horde_VC
     protected $_driver;
 
     /**
-     * Attempts to return a concrete Horde_VC instance based on $driver.
+     * Attempts to return a concrete Horde_Vcs instance based on $driver.
      *
-     * @param mixed $driver  The type of concrete Horde_VC subclass to return.
+     * @param mixed $driver  The type of concrete Horde_Vcs subclass to return.
      *                       The code is dynamically included.
      * @param array $params  A hash containing any additional configuration
      *                       or  parameters a subclass might need.
      *
-     * @return Horde_VC  The newly created concrete instance, or PEAR_Error on
+     * @return Horde_Vcs  The newly created concrete instance, or PEAR_Error on
      *                   failure.
      */
     static public function factory($driver, $params = array())
     {
-        $class = 'Horde_VC_' . $driver;
+        $class = 'Horde_Vcs_' . $driver;
         if (class_exists($class)) {
             return new $class($params);
         }
@@ -78,21 +78,21 @@ class Horde_VC
     }
 
     /**
-     * Attempts to return a reference to a concrete Horde_VC instance based
-     * on $driver. It will only create a new instance if no Horde_VC
+     * Attempts to return a reference to a concrete Horde_Vcs instance based
+     * on $driver. It will only create a new instance if no Horde_Vcs
      * instance with the same parameters currently exists.
      *
      * This should be used if multiple types of file backends (and,
-     * thus, multiple Horde_VC instances) are required.
+     * thus, multiple Horde_Vcs instances) are required.
      *
-     * This method must be invoked as: $var = &Horde_VC::singleton()
+     * This method must be invoked as: $var = &Horde_Vcs::singleton()
      *
-     * @param mixed $driver  The type of concrete Horde_VC subclass to return.
+     * @param mixed $driver  The type of concrete Horde_Vcs subclass to return.
      *                       The code is dynamically included.
      * @param array $params  A hash containing any additional configuration
      *                       or parameters a subclass might need.
      *
-     * @return Horde_VC  The concrete reference, or PEAR_Error on failure.
+     * @return Horde_Vcs  The concrete reference, or PEAR_Error on failure.
      */
     static public function &singleton($driver, $params = array())
     {
@@ -100,7 +100,7 @@ class Horde_VC
 
         $signature = serialize(array($driver, $params));
         if (!isset($instances[$signature])) {
-            $instances[$signature] = &Horde_VC::factory($driver, $params);
+            $instances[$signature] = &Horde_Vcs::factory($driver, $params);
         }
 
         return $instances[$signature];
@@ -135,7 +135,8 @@ class Horde_VC
      */
     public function isValidRevision($rev)
     {
-        return true;
+        $rev_ob = $this->getRevisionObject();
+        return $rev_ob->valid($rev);
     }
 
     /**
@@ -152,19 +153,19 @@ class Horde_VC
      * @param mixed $rev The revision number
      *
      * @return void
-     * @throws Horde_VC_Exception
+     * @throws Horde_Vcs_Exception
      */
     public function assertValidRevision($rev)
     {
         if (!$this->isValidRevision($rev)) {
-            throw new Horde_VC_Exception('Invalid revision number');
+            throw new Horde_Vcs_Exception('Invalid revision number');
         }
     }
 
     /**
      * Create a range of revisions between two revision numbers.
      *
-     * @param Horde_VC_File $file  The desired file.
+     * @param Horde_Vcs_File $file  The desired file.
      * @param string $r1           The initial revision.
      * @param string $r2           The ending revision.
      *
@@ -173,7 +174,7 @@ class Horde_VC
      */
     public function getRevisionRange($file, $r1, $r2)
     {
-        $class = 'Horde_VC_Diff_' . $this->_driver;
+        $class = 'Horde_Vcs_Diff_' . $this->_driver;
         $vc_diff = new $class();
         return $vc_diff->getRevisionRange($this, $file, $r1, $r2);
     }
@@ -239,13 +240,13 @@ class Horde_VC
 
     public function queryDir($where)
     {
-        $class = 'Horde_VC_Directory_' . $this->_driver;
+        $class = 'Horde_Vcs_Directory_' . $this->_driver;
         return new $class($this, $where);
     }
 
     public function getCheckout($file, $rev)
     {
-        $class = 'Horde_VC_Checkout_' . $this->_driver;
+        $class = 'Horde_Vcs_Checkout_' . $this->_driver;
         $vc_co = new $class();
         return $vc_co->get($this, $file->queryFullPath(), $rev);
     }
@@ -253,51 +254,51 @@ class Horde_VC
     public function getDiff($file, $rev1, $rev2, $type = 'unified', $num = 3,
                             $ws = true)
     {
-        $class = 'Horde_VC_Diff_' . $this->_driver;
+        $class = 'Horde_Vcs_Diff_' . $this->_driver;
         $vc_diff = new $class();
         return $vc_diff->get($this, $file, $rev1, $rev2, $type, $num, $ws);
     }
 
     public function availableDiffTypes()
     {
-        $class = 'Horde_VC_Diff_' . $this->_driver;
+        $class = 'Horde_Vcs_Diff_' . $this->_driver;
         $vc_diff = new $class();
         return $vc_diff->availableDiffTypes();
     }
 
     public function getFileObject($filename, $cache = null, $quicklog = false)
     {
-        $class = 'Horde_VC_File_' . $this->_driver;
+        $class = 'Horde_Vcs_File_' . $this->_driver;
         $vc_file = new $class($this, $filename, $cache, $quicklog);
         return $vc_file->getFileObject();
     }
 
     public function getAnnotateObject($filename)
     {
-        $class = 'Horde_VC_Annotate_' . $this->_driver;
+        $class = 'Horde_Vcs_Annotate_' . $this->_driver;
         return new $class($this, $filename);
     }
 
     public function getPatchsetObject($filename, $cache = null)
     {
-        $class = 'Horde_VC_Patchset_' . $this->_driver;
-        $vc_patchset = new $class();
-        return $vc_patchset->getPatchsetObject($this, $filename, $cache);
+        $class = 'Horde_Vcs_Patchset_' . $this->_driver;
+        $vc_patchset = new $class($this, $filename, $cache);
+        return $vc_patchset->getPatchsetObject();
     }
 
     public function getRevisionObject()
     {
-        $class = 'Horde_VC_Revision_' . $this->_driver;
+        $class = 'Horde_Vcs_Revision_' . $this->_driver;
         return new $class();
     }
 }
 
 /**
- * Horde_VC annotate class.
+ * Horde_Vcs annotate class.
  *
- * @package Horde_VC
+ * @package Horde_Vcs
  */
-abstract class Horde_VC_Annotate
+abstract class Horde_Vcs_Annotate
 {
     protected $_file;
     protected $_rep;
@@ -320,15 +321,15 @@ abstract class Horde_VC_Annotate
 }
 
 /**
- * @package Horde_VC
+ * @package Horde_Vcs
  */
-abstract class Horde_VC_Checkout
+abstract class Horde_Vcs_Checkout
 {
     /**
      * Function which returns a file pointing to the head of the requested
      * revision of an SVN file.
      *
-     * @param Horde_VC $rep     A repository object
+     * @param Horde_Vcs $rep     A repository object
      * @param string $fullname  Fully qualified pathname of the desired file
      *                          to checkout
      * @param string $rev       Revision number to check out
@@ -340,9 +341,9 @@ abstract class Horde_VC_Checkout
 }
 
 /**
- * @package Horde_VC
+ * @package Horde_Vcs
  */
-class Horde_VC_Diff
+class Horde_Vcs_Diff
 {
     /**
      * The available diff types.
@@ -356,7 +357,7 @@ class Horde_VC_Diff
      * two revisions.
      *
      * @param array $raw  An array of lines of the raw unified diff,
-     *                    normally obtained through Horde_VC_Diff::get().
+     *                    normally obtained through Horde_Vcs_Diff::get().
      *
      * @return array  @TODO
      */
@@ -466,8 +467,8 @@ class Horde_VC_Diff
     /**
      * Create a range of revisions between two revision numbers.
      *
-     * @param Horde_VC $rep        A repository object.
-     * @param Horde_VC_File $file  The desired file.
+     * @param Horde_Vcs $rep        A repository object.
+     * @param Horde_Vcs_File $file  The desired file.
      * @param string $r1           The initial revision.
      * @param string $r2           The ending revision.
      *
@@ -513,9 +514,9 @@ class Horde_VC_Diff
 }
 
 /**
- * @package Horde_VC
+ * @package Horde_Vcs
  */
-abstract class Horde_VC_Directory
+abstract class Horde_Vcs_Directory
 {
     protected $_rep;
     protected $_dirName;
@@ -530,17 +531,17 @@ abstract class Horde_VC_Directory
      * Create a Directory object to store information about the files in a
      * single directory in the repository
      *
-     * @param Horde_VC $rp            The Repository object this directory
+     * @param Horde_Vcs $rp            The Repository object this directory
      *                                is part of.
      * @param string $dn              Path to the directory.
-     * @param Horde_VC_Directory $pn  The parent Directory object to this one.
+     * @param Horde_Vcs_Directory $pn  The parent Directory object to this one.
      */
     public function __construct($rep, $dn, $pn = '')
     {
         $this->_rep = $rep;
         $this->_parent = $pn;
         $this->_moduleName = $dn;
-        $this->_dirName = "/$dn";
+        $this->_dirName = '/' . $dn;
         $this->_dirs = $this->_files = array();
     }
 
@@ -590,8 +591,8 @@ abstract class Horde_VC_Directory
      * @param integer $dir  Of the form SORT_* where * can be:
      *                      ASCENDING, DESCENDING for the order of the sort.
      */
-    public function applySort($how = Horde_VC::SORT_NONE,
-                              $dir = Horde_VC::SORT_ASCENDING)
+    public function applySort($how = Horde_Vcs::SORT_NONE,
+                              $dir = Horde_Vcs::SORT_ASCENDING)
     {
         // Always sort directories by name.
         natcasesort($this->_dirs);
@@ -606,7 +607,7 @@ abstract class Horde_VC_Directory
             $this->_doFileSort($this->_mergedFiles, $how);
         }
 
-        if ($dir == Horde_VC::SORT_DESCENDING) {
+        if ($dir == Horde_Vcs::SORT_DESCENDING) {
             $this->_dirs = array_reverse($this->_dirs);
             $this->_files = array_reverse($this->_files);
             if (isset($this->_mergedFiles)) {
@@ -618,27 +619,27 @@ abstract class Horde_VC_Directory
     /**
      * TODO
      */
-    protected function _doFileSort(&$fileList, $how = Horde_VC::SORT_NONE)
+    protected function _doFileSort(&$fileList, $how = Horde_Vcs::SORT_NONE)
     {
         switch ($how) {
-        case Horde_VC::SORT_AGE:
+        case Horde_Vcs::SORT_AGE:
             usort($fileList, array($this, 'fileAgeSort'));
             break;
 
-        case Horde_VC::SORT_NAME:
+        case Horde_Vcs::SORT_NAME:
             usort($fileList, array($this, 'fileNameSort'));
             break;
 
-        case Horde_VC::SORT_AUTHOR:
+        case Horde_Vcs::SORT_AUTHOR:
             usort($fileList, array($this, 'fileAuthorSort'));
             break;
 
-        case Horde_VC::SORT_REV:
+        case Horde_Vcs::SORT_REV:
             $this->_revob = $this->_rep->getRevisionObject();
             usort($fileList, array($this, 'fileRevSort'));
             break;
 
-        case Horde_VC::SORT_NONE:
+        case Horde_Vcs::SORT_NONE:
         default:
             break;
         }
@@ -686,9 +687,9 @@ abstract class Horde_VC_Directory
 }
 
 /**
- * @package Horde_VC
+ * @package Horde_Vcs
  */
-class Horde_VC_File
+class Horde_Vcs_File
 {
     public $rep;
     public $dir;
@@ -769,9 +770,9 @@ class Horde_VC_File
     }
 
    /**
-     * Return the last Horde_VC_Log object in the file.
+     * Return the last Horde_Vcs_Log object in the file.
      *
-     * @return Horde_VC_Log of the last entry in the file
+     * @return Horde_Vcs_Log of the last entry in the file
      */
     public function queryLastLog()
     {
@@ -782,24 +783,24 @@ class Horde_VC_File
     }
 
     /**
-     * Sort the list of Horde_VC_Log objects that this file contains.
+     * Sort the list of Horde_Vcs_Log objects that this file contains.
      *
-     * @param integer $how  Horde_VC::SORT_REV (sort by revision),
-     *                      Horde_VC::SORT_NAME (sort by author name), or
-     *                      Horde_VC::SORT_AGE (sort by commit date).
+     * @param integer $how  Horde_Vcs::SORT_REV (sort by revision),
+     *                      Horde_Vcs::SORT_NAME (sort by author name), or
+     *                      Horde_Vcs::SORT_AGE (sort by commit date).
      */
-    public function applySort($how = Horde_VC::SORT_REV)
+    public function applySort($how = Horde_Vcs::SORT_REV)
     {
         switch ($how) {
-        case Horde_VC::SORT_NAME:
+        case Horde_Vcs::SORT_NAME:
             $func = 'Name';
             break;
 
-        case Horde_VC::SORT_AGE:
+        case Horde_Vcs::SORT_AGE:
             $func = 'Age';
             break;
 
-        case Horde_VC::SORT_REV:
+        case Horde_Vcs::SORT_REV:
         default:
             $this->revob = $this->rep->getRevisionObject();
             $func = 'Revision';
@@ -851,14 +852,140 @@ class Horde_VC_File
 }
 
 /**
- * Horde_VC patchset class.
+ * Horde_Vcs log class.
  *
- * @package Horde_VC
+ * @package Horde_Vcs
  */
-class Horde_VC_Patchset
+class Horde_Vcs_Log
+{
+    public $rep;
+    public $file;
+    public $tags;
+    public $rev;
+    public $date;
+    public $log;
+    public $author;
+    public $state;
+    public $lines;
+    public $branches = array();
+
+    /**
+     * Constructor.
+     */
+    public function __construct($rep, $fl)
+    {
+        $this->rep = $rep;
+        $this->file = $fl;
+    }
+
+    public function queryDate()
+    {
+        return $this->date;
+    }
+
+    public function queryRevision()
+    {
+        return $this->rev;
+    }
+
+    public function queryAuthor()
+    {
+        return $this->author;
+    }
+
+    public function queryLog()
+    {
+        return $this->log;
+    }
+
+    public function queryChangedLines()
+    {
+        return isset($this->lines) ? $this->lines : '';
+    }
+
+    /**
+     * Given a branch revision number, this function remaps it
+     * accordingly, and performs a lookup on the file object to
+     * return the symbolic name(s) of that branch in the tree.
+     *
+     * @return hash of symbolic names => branch numbers
+     */
+    public function querySymbolicBranches()
+    {
+        $symBranches = array();
+
+        foreach ($this->branches as $branch) {
+            $parts = explode('.', $branch);
+            $last = array_pop($parts);
+            $parts[] = '0';
+            $parts[] = $last;
+            $rev = implode('.', $parts);
+            if (isset($this->file->branches[$branch])) {
+                $symBranches[$this->file->branches[$branch]] = $branch;
+            }
+        }
+
+        return $symBranches;
+    }
+
+}
+
+/**
+ * Horde_Vcs patchset class.
+ *
+ * @package Horde_Vcs
+ */
+abstract class Horde_Vcs_Patchset
 {
     protected $_rep;
     protected $_patchsets = array();
+    protected $_file;
+    protected $_cache;
+    protected $_ctime = 3600;
+
+    /**
+     * Create a patchset object.
+     *
+     * @param string $file  The filename to get patchsets for.
+     */
+    public function __construct($rep, $file, $cache = null)
+    {
+        $this->_rep = $rep;
+        $this->_file = $file;
+        $this->_cache = $cache;
+    }
+
+    public function &getPatchsetObject()
+    {
+        /* The version of the cached data. Increment this whenever the
+         * internal storage format changes, such that we must
+         * invalidate prior cached data. */
+        if ($this->_cache) {
+            $cacheVersion = 1;
+            $cacheId = $this->_rep->sourceroot() . '_n' . $this->_filename . '_f_v' . $cacheVersion;
+        }
+
+        if ($this->_cache &&
+            $this->_cache->exists($cacheId, $this->_ctime)) {
+            $psOb = unserialize($this->_cache->get($cacheId, $this->_ctime));
+            $psOb->setRepository($this->_rep);
+        } else {
+            $class_name = __CLASS__;
+            $psOb = new $class_name($this->_rep, $this->_filename, $this->_cache);
+            $psOb->setRepository($this->_rep);
+            if (is_a(($result = $psOb->getPatchsets()), 'PEAR_Error')) {
+                return $result;
+            }
+
+            if ($this->_cache) {
+                $this->_cache->set($cacheId, serialize($psOb));
+            }
+        }
+
+        return $psOb;
+    }
+
+    abstract public function getPatchsets();
 
     public function setRepository($rep)
     {
@@ -867,15 +994,25 @@ class Horde_VC_Patchset
 }
 
 /**
- * Horde_VC revisions class.
+ * Horde_Vcs revisions class.
  *
  * Copyright Anil Madhavapeddy, <anil@recoil.org>
  *
  * @author  Anil Madhavapeddy <anil@recoil.org>
  * @package Hored_VC
  */
-abstract class Horde_VC_Revision
+abstract class Horde_Vcs_Revision
 {
+    /**
+     * Validation function to ensure that a revision number is of the right
+     * form.
+     *
+     * @param mixed $rev  The purported revision number.
+     *
+     * @return boolean  True if it is a revision number.
+     */
+    abstract public function valid($rev);
+
     /**
      * Given a revision number, remove a given number of portions from
      * it. For example, if we remove 2 portions of 1.2.3.4, we are

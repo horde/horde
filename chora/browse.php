@@ -43,10 +43,10 @@ if ($atdir) {
     }
 
     $umap = array(
-        'age' => Horde_VC::SORT_AGE,
-        'rev' => Horde_VC::SORT_REV,
-        'name' => Horde_VC::SORT_NAME,
-        'author' => Horde_VC::SORT_AUTHOR
+        'age' => Horde_Vcs::SORT_AGE,
+        'rev' => Horde_Vcs::SORT_REV,
+        'name' => Horde_Vcs::SORT_NAME,
+        'author' => Horde_Vcs::SORT_AUTHOR
     );
 
     foreach (array('age', 'rev', 'name', 'author') as $u) {
@@ -137,11 +137,11 @@ $title = sprintf(_("Revisions for %s"), $where);
 $onb = Util::getFormData('onb', 0);
 if ($VC->isValidRevision($onb)) {
     $onb_len = strlen($onb);
-    $onb_base = Horde_VC_Revision::strip($onb, 1);
+    $onb_base = Horde_Vcs_Revision::strip($onb, 1);
     $onb_parents = array();
     while (substr_count($onb_base, '.')) {
         $onb_parents[$onb_base] = true;
-        $onb_base = Horde_VC_Revision::strip($onb_base, 1);
+        $onb_base = Horde_Vcs_Revision::strip($onb_base, 1);
     }
 } else {
     $onb = null;
@@ -183,7 +183,7 @@ foreach ($fl->logs as $lg) {
             /* If the revision is on one of the parent branches, and
              * is before the branch was made, let it through. */
             if ((!isset($onb_parents[$branchRev]) && substr_count($rev, '.') > 1) ||
-                Horde_VC_Revision::cmp($rev, $onb) > 0) {
+                Horde_Vcs_Revision::cmp($rev, $onb) > 0) {
                 continue;
             }
         }

@@ -3,7 +3,7 @@
 require_once dirname(__FILE__) . '/rcs.php';
 
 /**
- * Horde_VC_svn implementation.
+ * Horde_Vcs_svn implementation.
  *
  * Copyright 2000-2008 The Horde Project (http://www.horde.org/)
  *
@@ -11,9 +11,9 @@ require_once dirname(__FILE__) . '/rcs.php';
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Anil Madhavapeddy <anil@recoil.org>
- * @package Horde_VC
+ * @package Horde_Vcs
  */
-class Horde_VC_svn extends Horde_VC
+class Horde_Vcs_svn extends Horde_Vcs
 {
     /**
      * SVN username.
@@ -76,31 +76,17 @@ class Horde_VC_svn extends Horde_VC
 
         return $command;
     }
-
-    /**
-     * Validation function to ensure that a revision number is of the right
-     * form.
-     *
-     * @param mixed $rev  The purported revision number.
-     *
-     * @return boolean  True if it is a revision number.
-     */
-    public function isValidRevision($rev)
-    {
-        return is_numeric($rev);
-    }
-
 }
 
 /**
- * Horde_VC_svn annotate class.
+ * Horde_Vcs_svn annotate class.
  *
  * Anil Madhavapeddy, <anil@recoil.org>
  *
  * @author  Anil Madhavapeddy <anil@recoil.org>
- * @package Horde_VC
+ * @package Horde_Vcs
  */
-class Horde_VC_Annotate_svn extends Horde_VC_Annotate
+class Horde_Vcs_Annotate_svn extends Horde_Vcs_Annotate
 {
     /**
      * TODO
@@ -141,20 +127,20 @@ class Horde_VC_Annotate_svn extends Horde_VC_Annotate
 }
 
 /**
- * Horde_VC_svn checkout class.
+ * Horde_Vcs_svn checkout class.
  *
  * Anil Madhavapeddy, <anil@recoil.org>
  *
  * @author  Anil Madhavapeddy <anil@recoil.org>
- * @package Horde_VC
+ * @package Horde_Vcs
  */
-class Horde_VC_Checkout_svn extends Horde_VC_Checkout
+class Horde_Vcs_Checkout_svn extends Horde_Vcs_Checkout
 {
     /**
      * Function which returns a file pointing to the head of the requested
      * revision of a file.
      *
-     * @param Horde_VC $rep     A repository object
+     * @param Horde_Vcs $rep     A repository object
      * @param string $fullname  Fully qualified pathname of the desired file
      *                          to checkout
      * @param string $rev       Revision number to check out
@@ -176,20 +162,20 @@ class Horde_VC_Checkout_svn extends Horde_VC_Checkout
 }
 
 /**
- * Horde_VC_svn diff class.
+ * Horde_Vcs_svn diff class.
  *
  * Copyright Anil Madhavapeddy, <anil@recoil.org>
  *
  * @author  Anil Madhavapeddy <anil@recoil.org>
- * @package Horde_VC
+ * @package Horde_Vcs
  */
-class Horde_VC_Diff_svn extends Horde_VC_Diff
+class Horde_Vcs_Diff_svn extends Horde_Vcs_Diff
 {
     /**
      * Obtain the differences between two revisions of a file.
      *
-     * @param Horde_VC $rep        A repository object.
-     * @param Horde_VC_File $file  The desired file.
+     * @param Horde_Vcs $rep        A repository object.
+     * @param Horde_Vcs_File $file  The desired file.
      * @param string $rev1         Original revision number to compare from.
      * @param string $rev2         New revision number to compare against.
      * @param string $type         The type of diff (e.g. 'unified').
@@ -248,14 +234,14 @@ class Horde_VC_Diff_svn extends Horde_VC_Diff
 }
 
 /**
- * Horde_VC_svn directory class.
+ * Horde_Vcs_svn directory class.
  *
  * Copyright Anil Madhavapeddy, <anil@recoil.org>
  *
  * @author  Anil Madhavapeddy <anil@recoil.org>
- * @package Horde_VC
+ * @package Horde_Vcs
  */
-class Horde_VC_Directory_svn extends Horde_VC_Directory
+class Horde_Vcs_Directory_svn extends Horde_Vcs_Directory
 {
     /**
      * Tell the object to open and browse its current directory, and
@@ -307,14 +293,14 @@ class Horde_VC_Directory_svn extends Horde_VC_Directory
 }
 
 /**
- * Horde_VC_svn file class.
+ * Horde_Vcs_svn file class.
  *
  * Copyright Anil Madhavapeddy, <anil@recoil.org>
  *
  * @author  Anil Madhavapeddy <anil@recoil.org>
- * @package Horde_VC
+ * @package Horde_Vcs
  */
-class Horde_VC_File_svn extends Horde_VC_File {
+class Horde_Vcs_File_svn extends Horde_Vcs_File {
 
     /**
      * Create a repository file object, and give it information about
@@ -349,12 +335,12 @@ class Horde_VC_File_svn extends Horde_VC_File {
             $fileOb = unserialize($this->cache->get($cacheId, 3600));
             $fileOb->setRepository($rep);
         } else {
-            $fileOb = new Horde_VC_File_svn($rep, $this->filename, $this->cache, $this->quicklog);
+            $fileOb = new Horde_Vcs_File_svn($rep, $this->filename, $this->cache, $this->quicklog);
             $fileOb->setRepository($rep);
             if (is_a(($result = $fileOb->getBrowseInfo()), 'PEAR_Error')) {
                 return $result;
             }
-            $fileOb->applySort(Horde_VC::SORT_AGE);
+            $fileOb->applySort(Horde_Vcs::SORT_AGE);
 
             if ($this->cache) {
                 $this->cache->set($cacheId, serialize($fileOb));
@@ -402,7 +388,7 @@ class Horde_VC_File_svn extends Horde_VC_File {
         }
 
         while (!feof($pipe)) {
-            $log = new Horde_VC_Log_svn($this->rep, $this);
+            $log = new Horde_Vcs_Log_svn($this->rep, $this);
             $err = $log->processLog($pipe);
             if ($err) {
                 $rev = $log->queryRevision();
@@ -422,39 +408,19 @@ class Horde_VC_File_svn extends Horde_VC_File {
 }
 
 /**
- * Horde_VC_svn log class.
+ * Horde_Vcs_svn log class.
  *
  * Anil Madhavapeddy, <anil@recoil.org>
  *
  * @author  Anil Madhavapeddy <anil@recoil.org>
- * @package Horde_VC
+ * @package Horde_Vcs
  */
-class Horde_VC_Log_svn {
+class Horde_Vcs_Log_svn extends Horde_Vcs_Log
+{
+    public $err;
+    public $files;
 
-    var $rep;
-    var $err;
-    var $file;
-    var $files;
-    var $tags;
-    var $rev;
-    var $date;
-    var $log;
-    var $author;
-    var $state;
-    var $lines;
-    var $branches;
-
-    /**
-     * Constructor.
-     */
-    public function __construct($rep, $fl)
-    {
-        $this->rep = $rep;
-        $this->file = $fl;
-        $this->branches = array();
-    }
-
-    function processLog($pipe)
+    public function processLog($pipe)
     {
         $line = fgets($pipe);
 
@@ -489,108 +455,18 @@ class Horde_VC_Log_svn {
         return true;
     }
 
-    function queryDate()
-    {
-        return $this->date;
-    }
-
-    function queryRevision()
-    {
-        return $this->rev;
-    }
-
-    function queryAuthor()
-    {
-        return $this->author;
-    }
-
-    function queryLog()
-    {
-        return $this->log;
-    }
-
-    function queryChangedLines()
-    {
-        return isset($this->lines) ? ($this->lines) : '';
-    }
-
-    /**
-     * Given a branch revision number, this function remaps it
-     * accordingly, and performs a lookup on the file object to
-     * return the symbolic name(s) of that branch in the tree.
-     *
-     * @return hash of symbolic names => branch numbers
-     */
-    function querySymbolicBranches()
-    {
-        $symBranches = array();
-        foreach ($this->branches as $branch) {
-            $parts = explode('.', $branch);
-            $last = array_pop($parts);
-            $parts[] = '0';
-            $parts[] = $last;
-            $rev = implode('.', $parts);
-            if (isset($this->file->branches[$branch])) {
-                $symBranches[$this->file->branches[$branch]] = $branch;
-            }
-        }
-        return $symBranches;
-    }
-
 }
 
 /**
- * Horde_VC_svn Patchset class.
+ * Horde_Vcs_svn Patchset class.
  *
  * Copyright Anil Madhavapeddy, <anil@recoil.org>
  *
  * @author  Anil Madhavapeddy <anil@recoil.org>
- * @package Horde_VC
+ * @package Horde_Vcs
  */
-class Horde_VC_Patchset_svn extends Horde_VC_Patchset {
-
-    var $_file;
-
-    /**
-     * Create a patchset object.
-     *
-     * @param string $file  The filename to get patchsets for.
-     */
-    public function __construct($file)
-    {
-        $this->_file = $file;
-    }
-
-    function &getPatchsetObject($rep, $filename, $cache = null)
-    {
-        /* The version of the cached data. Increment this whenever the
-         * internal storage format changes, such that we must
-         * invalidate prior cached data. */
-        $cacheVersion = 1;
-        $cacheId = $rep->sourceroot() . '_n' . $filename . '_f_v' . $cacheVersion;
-
-        if ($cache &&
-            // The file is cached for one hour no matter what, because
-            // there is no way to determine with svn the time the file
-            // last changed.
-            $cache->exists($cacheId, 3600)) {
-            $psOb = unserialize($cache->get($cacheId, 3600));
-            $psOb->setRepository($rep);
-        } else {
-            $psOb = new Horde_VC_Patchset_svn($filename);
-            $psOb->setRepository($rep);
-            if (is_a(($result = $psOb->getPatchsets()), 'PEAR_Error')) {
-                return $result;
-            }
-
-            if ($cache) {
-                $cache->set($cacheId, serialize($psOb));
-            }
-        }
-
-        return $psOb;
-    }
-
+class Horde_Vcs_Patchset_svn extends Horde_Vcs_Patchset
+{
     /**
      * Populate the object with information about the patchsets that
      * this file is involved in.
@@ -599,7 +475,7 @@ class Horde_VC_Patchset_svn extends Horde_VC_Patchset {
      */
     function getPatchsets()
     {
-        $fileOb = new Horde_VC_File_svn($this->_rep, $this->_file);
+        $fileOb = new Horde_Vcs_File_svn($this->_rep, $this->_file);
         if (is_a(($result = $fileOb->getBrowseInfo()), 'PEAR_Error')) {
             return $result;
         }
@@ -639,4 +515,18 @@ class Horde_VC_Patchset_svn extends Horde_VC_Patchset {
 
 }
 
-class Horde_VC_Revision_svn extends Horde_VC_Revision_rcs {}
+class Horde_Vcs_Revision_svn extends Horde_Vcs_Revision_rcs
+{
+    /**
+     * Validation function to ensure that a revision number is of the right
+     * form.
+     *
+     * @param mixed $rev  The purported revision number.
+     *
+     * @return boolean  True if it is a revision number.
+     */
+    public function valid($rev)
+    {
+        return is_numeric($rev);
+    }
+}

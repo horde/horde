@@ -1,14 +1,14 @@
 <?php
 /**
- * Horde_VC_rcs implementation.
+ * Horde_Vcs_rcs implementation.
  *
  * Copyright 2004-2007 Jeff Schwentner <jeffrey.schwentner@lmco.com>
  *
  * @author  Jeff Schwentner <jeffrey.schwentner@lmco.com>
  * @author  Chuck Hagenbuch <chuck@horde.org>
- * @package Horde_VC
+ * @package Horde_Vcs
  */
-class Horde_VC_rcs extends Horde_VC
+class Horde_Vcs_rcs extends Horde_Vcs
 {
     /**
      * Checks an RCS file in with a specified change log.
@@ -232,8 +232,21 @@ class Horde_VC_rcs extends Horde_VC
 
 }
 
-class Horde_VC_Revision_rcs extends Horde_VC_Revision
+class Horde_Vcs_Revision_rcs extends Horde_Vcs_Revision
 {
+    /**
+     * Validation function to ensure that a revision number is of the right
+     * form.
+     *
+     * @param mixed $rev  The purported revision number.
+     *
+     * @return boolean  True if it is a revision number.
+     */
+    public function valid($rev)
+    {
+        return $rev && preg_match('/^[\d\.]+$/', $rev);
+    }
+
     /**
      * Given a revision number, remove a given number of portions from
      * it. For example, if we remove 2 portions of 1.2.3.4, we are
@@ -246,8 +259,7 @@ class Horde_VC_Revision_rcs extends Horde_VC_Revision
      */
     public function strip($val, $amount = 1)
     {
-        //@TODO This concept is broken beyond CVS
-        //if (!Horde_VC_Revision::valid($val)) {
+        //if (!Horde_Vcs_Revision::valid($val)) {
         //    return false;
         //}
         $pos = 0;
@@ -268,7 +280,7 @@ class Horde_VC_Revision_rcs extends Horde_VC_Revision
     public function sizeof($val)
     {
         //@TODO This concept is broken beyond CVS
-        //if (!Horde_VC_Revision::valid($val)) {
+        //if (!Horde_Vcs_Revision::valid($val)) {
         //    return false;
         //}
 

@@ -80,7 +80,7 @@ class Chora {
          */
         $defaultActs = array('sbt' => constant($conf['options']['defaultsort']),
                              'sa'  => 0,
-                             'ord' => Horde_VC::SORT_ASCENDING,
+                             'ord' => Horde_Vcs::SORT_ASCENDING,
                              'ws'  => 1);
 
         /* Use the last sourceroot used as the default value if the user
@@ -117,7 +117,7 @@ class Chora {
         $sourceroot = $acts['rt'];
 
         $conf['paths']['temp'] = Horde::getTempDir();
-        $GLOBALS['VC'] = Horde_VC::factory($sourcerootopts['type'],
+        $GLOBALS['VC'] = Horde_Vcs::factory($sourcerootopts['type'],
             array('sourceroot' => $sourcerootopts['location'],
                   'paths' => $conf['paths'],
                   'username' => isset($sourcerootopts['username']) ? $sourcerootopts['username'] : '',
@@ -238,10 +238,10 @@ class Chora {
     }
 
     /**
-     * Given a return object from a Horde_VC:: call, make sure
+     * Given a return object from a Horde_Vcs:: call, make sure
      * that it's not a PEAR_Error object.
      *
-     * @param mixed $e  Return object from a Horde_VC:: call.
+     * @param mixed $e  Return object from a Horde_Vcs:: call.
      */
     function checkError($e)
     {
@@ -542,7 +542,7 @@ class Chora {
     /**
      * Return a list of tags for a given log entry.
      *
-     * @param Horde_VC_Log $lg  The Horde_VC_Log object.
+     * @param Horde_Vcs_Log $lg  The Horde_Vcs_Log object.
      * @param string $where     The filename.
      *
      * @return array  An array of linked tags.
@@ -564,7 +564,7 @@ class Chora {
     /**
      * Return branch information for a given revision.
      *
-     * @param Horde_VC_File $fl  The Horde_VC_File object.
+     * @param Horde_Vcs_File $fl  The Horde_Vcs_File object.
      * @param string $rev        The filename.
      *
      * @return array  An 2-member array - branch name and branch revision.
@@ -572,7 +572,7 @@ class Chora {
     function getBranch($fl, $rev)
     {
         $branchName = '';
-        $branchRev = Horde_VC_Revision::strip($rev, 1);
+        $branchRev = Horde_Vcs_Revision::strip($rev, 1);
         if (isset($fl->branches[$rev])) {
             $branchName = $fl->branches[$rev];
         } elseif (isset($fl->branches[$branchRev])) {
