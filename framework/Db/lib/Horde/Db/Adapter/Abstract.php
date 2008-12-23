@@ -109,6 +109,11 @@ abstract class Horde_Db_Adapter_Abstract
             $this->_logger = new Horde_Support_Stub;
         }
 
+        // Default to UTF-8
+        if (!isset($config['charset'])) {
+            $config['charset'] = 'UTF-8';
+        }
+
         $this->_config  = $config;
         $this->_runtime = 0;
 
