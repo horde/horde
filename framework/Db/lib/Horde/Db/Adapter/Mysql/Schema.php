@@ -316,7 +316,12 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Abstract_Schema
      */
     public function showVariable($name)
     {
-        return $this->selectValue('SHOW VARIABLES LIKE '.$this->quoteString($name));
+        $value = $this->selectOne('SHOW VARIABLES LIKE '.$this->quoteString($name));
+        if ($value[0] == $name) {
+            return $value[1];
+        } else {
+            throw new Horde_Db_Exception($name . ' is not a recognized variable');
+        }
     }
 
     /**
