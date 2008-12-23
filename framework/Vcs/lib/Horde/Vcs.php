@@ -57,6 +57,13 @@ class Horde_Vcs
     protected $_driver;
 
     /**
+     * Cached objects.
+     *
+     * @var array
+     */
+    protected $_cached = array();
+
+    /**
      * Attempts to return a concrete Horde_Vcs instance based on $driver.
      *
      * @param mixed $driver  The type of concrete Horde_Vcs subclass to return.
@@ -174,9 +181,11 @@ class Horde_Vcs
      */
     public function getRevisionRange($file, $r1, $r2)
     {
-        $class = 'Horde_Vcs_Diff_' . $this->_driver;
-        $vc_diff = new $class();
-        return $vc_diff->getRevisionRange($this, $file, $r1, $r2);
+        if (!isset($this->_cache['diff'])) {
+            $class = 'Horde_Vcs_Diff_' . $this->_driver;
+            $this->_cache['diff'] = new $class();
+        }
+        return $this->_cache['diff']->getRevisionRange($this, $file, $r1, $r2);
     }
 
     /**
@@ -246,24 +255,30 @@ class Horde_Vcs
 
     public function getCheckout($file, $rev)
     {
-        $class = 'Horde_Vcs_Checkout_' . $this->_driver;
-        $vc_co = new $class();
-        return $vc_co->get($this, $file->queryFullPath(), $rev);
+        if (!isset($this->_cache['co'])) {
+            $class = 'Horde_Vcs_Checkout_' . $this->_driver;
+            $this->_cache['co'] = new $class();
+        }
+        return $this->_cache['co']->get($this, $file->queryFullPath(), $rev);
     }
 
     public function getDiff($file, $rev1, $rev2, $type = 'unified', $num = 3,
                             $ws = true)
     {
-        $class = 'Horde_Vcs_Diff_' . $this->_driver;
-        $vc_diff = new $class();
-        return $vc_diff->get($this, $file, $rev1, $rev2, $type, $num, $ws);
+        if (!isset($this->_cache['diff'])) {
+            $class = 'Horde_Vcs_Diff_' . $this->_driver;
+            $this->_cache['diff'] = new $class();
+        }
+        return $this->_cache['diff']->get($this, $file, $rev1, $rev2, $type, $num, $ws);
     }
 
     public function availableDiffTypes()
     {
-        $class = 'Horde_Vcs_Diff_' . $this->_driver;
-        $vc_diff = new $class();
-        return $vc_diff->availableDiffTypes();
+        if (!isset($this->_cache['diff'])) {
+            $class = 'Horde_Vcs_Diff_' . $this->_driver;
+            $this->_cache['diff'] = new $class();
+        }
+        return $this->_cache['diff']->availableDiffTypes();
     }
 
     public function getFileObject($filename, $cache = null, $quicklog = false)
@@ -288,8 +303,11 @@ class Horde_Vcs
 
     public function getRevisionObject()
     {
-        $class = 'Horde_Vcs_Revision_' . $this->_driver;
-        return new $class();
+        if (!isset($this->_cache['rev'])) {
+            $class = 'Horde_Vcs_Revision_' . $this->_driver;
+            $this->_cache['rev'] = new $class();
+        }
+        return $this->_cache['rev'];
     }
 }
 
