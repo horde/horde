@@ -565,14 +565,15 @@ class Chora {
      * Return branch information for a given revision.
      *
      * @param Horde_Vcs_File $fl  The Horde_Vcs_File object.
-     * @param string $rev        The filename.
+     * @param string $rev         The filename.
      *
      * @return array  An 2-member array - branch name and branch revision.
      */
     function getBranch($fl, $rev)
     {
         $branchName = '';
-        $branchRev = Horde_Vcs_Revision::strip($rev, 1);
+        $rev_ob = $fl->rev->getRevisionObject();
+        $branchRev = $rev_ob->strip($rev, 1);
         if (isset($fl->branches[$rev])) {
             $branchName = $fl->branches[$rev];
         } elseif (isset($fl->branches[$branchRev])) {

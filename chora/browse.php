@@ -26,11 +26,9 @@ if ($atdir) {
     Chora::checkError($fileList = $dir->queryFileList($atticFlags));
 
     /* Decide what title to display. */
-    if ($where == '') {
-        $title = $conf['options']['introTitle'];
-    } else {
-        $title = sprintf(_("Source Directory of /%s"), $where);
-    }
+    $title = ($where == '')
+        ? $conf['options']['introTitle']
+        : sprintf(_("Source Directory of /%s"), $where);
 
     $extraLink = '';
     if (is_a($VC, 'VC_cvs')) {
@@ -132,16 +130,17 @@ if ($atdir) {
 
 /* Showing a file. */
 $fl = $VC->getFileObject($where, $cache);
+$rev_ob = $VC->getRevisionObject();
 Chora::checkError($fl);
 $title = sprintf(_("Revisions for %s"), $where);
 $onb = Util::getFormData('onb', 0);
 if ($VC->isValidRevision($onb)) {
     $onb_len = strlen($onb);
-    $onb_base = Horde_Vcs_Revision::strip($onb, 1);
+    $onb_base = $rev_ob->strip($onb, 1);
     $onb_parents = array();
     while (substr_count($onb_base, '.')) {
         $onb_parents[$onb_base] = true;
-        $onb_base = Horde_Vcs_Revision::strip($onb_base, 1);
+        $onb_base = $rev_ob->strip($onb_base, 1);
     }
 } else {
     $onb = null;
@@ -183,7 +182,7 @@ foreach ($fl->logs as $lg) {
             /* If the revision is on one of the parent branches, and
              * is before the branch was made, let it through. */
             if ((!isset($onb_parents[$branchRev]) && substr_count($rev, '.') > 1) ||
-                Horde_Vcs_Revision::cmp($rev, $onb) > 0) {
+                $rev_ob->cmp($rev, $onb) > 0) {
                 continue;
             }
         }

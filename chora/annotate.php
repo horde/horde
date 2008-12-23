@@ -29,13 +29,9 @@ $title = sprintf(_("Source Annotation of %s (revision %s)"), Text::htmlAllSpaces
 $extraLink = sprintf('<a href="%s">%s</a> | <a href="%s">%s</a>',
                      Chora::url('co', $where, array('r' => $rev)), _("View"),
                      Chora::url('co', $where, array('r' => $rev, 'p' => 1)), _("Download"));
-require CHORA_TEMPLATES . '/common-header.inc';
-require CHORA_TEMPLATES . '/menu.inc';
-require CHORA_TEMPLATES . '/headerbar.inc';
-require CHORA_TEMPLATES . '/annotate/header.inc';
 
 $author = '';
-$style = 0;
+$i = $style = 0;
 
 /* Map of revisions for finding the previous revision to a change. */
 $revMap = $fl->revs;
@@ -45,9 +41,13 @@ $rrevMap = array_flip($revMap);
 /* Keep track of any revision we encounter in the following loop. */
 $revList = array();
 
+require CHORA_TEMPLATES . '/common-header.inc';
+require CHORA_TEMPLATES . '/menu.inc';
+require CHORA_TEMPLATES . '/headerbar.inc';
+require CHORA_TEMPLATES . '/annotate/header.inc';
+
 /* Use this counter so that we can give each tooltip object a unique
  * id attribute (which we use to set the tooltip text later). */
-$i = 0;
 foreach ($lines as $line) {
     $lineno = $line['lineno'];
     $prevAuthor = $author;
