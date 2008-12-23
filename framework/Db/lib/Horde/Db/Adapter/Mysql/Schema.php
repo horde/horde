@@ -247,8 +247,8 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Abstract_Schema
      */
     public function endTable($name, $options=array())
     {
-        $inno = array('options' => 'ENGINE=InnoDB');
-        return parent::endTable($name, array_merge($inno, $options));
+        $opts = array('options' => 'ENGINE=InnoDB DEFAULT CHARSET=' . $this->getCharset());
+        return parent::endTable($name, array_merge($opts, $options));
     }
 
     /**

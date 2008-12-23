@@ -50,7 +50,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
        <dir name="Mysql">
         <file name="Column.php" role="php" />
         <file name="Schema.php" role="php" />
-        <file name="TableDefinition.php" role="php" />
        </dir> <!-- /lib/Horde/Db/Adapter/Mysql -->
        <dir name="Mysqli">
         <file name="Result.php" role="php" />
@@ -107,7 +106,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
 
    <install name="lib/Horde/Db/Adapter/Mysql/Column.php" as="Horde/Db/Adapter/Mysql/Column.php" />
    <install name="lib/Horde/Db/Adapter/Mysql/Schema.php" as="Horde/Db/Adapter/Mysql/Schema.php" />
-   <install name="lib/Horde/Db/Adapter/Mysql/TableDefinition.php" as="Horde/Db/Adapter/Mysql/TableDefinition.php" />
 
    <install name="lib/Horde/Db/Adapter/Mysqli/Result.php" as="Horde/Db/Adapter/Mysqli/Statement.php" />
    <install name="lib/Horde/Db/Adapter/Mysqli.php" as="Horde/Db/Adapter/Mysqli.php" />
