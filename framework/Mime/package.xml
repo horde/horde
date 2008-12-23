@@ -98,15 +98,19 @@ http://pear.php.net/dtd/package-2.0.xsd">
      <file name="Mime.php" role="php" />
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
-   <dir name="tests">
-    <file name="bug_325.phpt" role="test" />
-    <file name="mail_001.phpt" role="test" />
-    <file name="mail_002.phpt" role="test" />
-    <file name="mail_003.phpt" role="test" />
-    <file name="mail_004.phpt" role="test" />
-    <file name="mail_005.phpt" role="test" />
-    <file name="mail_dummy.inc" role="test" />
-   </dir> <!-- /tests -->
+   <dir name="test">
+    <dir name="Horde">
+     <dir name="Mime">
+      <file name="bug_325.phpt" role="test" />
+      <file name="mail_001.phpt" role="test" />
+      <file name="mail_002.phpt" role="test" />
+      <file name="mail_003.phpt" role="test" />
+      <file name="mail_004.phpt" role="test" />
+      <file name="mail_005.phpt" role="test" />
+      <file name="mail_dummy.inc" role="test" />
+     </dir> <!-- /test/Horde/Mime -->
+    </dir> <!-- /test/Horde -->
+   </dir> <!-- /test -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
