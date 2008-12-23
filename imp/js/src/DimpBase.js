@@ -1204,7 +1204,7 @@ var DimpBase = {
         var sf = this.sfiltersfolder.keys().find(function(s) {
             return $(s).hasClassName('qselected');
         });
-        return $H({ folder: this.folder, searchfolder: this.sfiltersfolder.get(sf), searchmsg: this.sfilters.get(this._getSearchfilterField()) });
+        return $H({ searchfolder: this.sfiltersfolder.get(sf), searchmsg: this.sfilters.get(this._getSearchfilterField()) });
     },
 
     _getSearchfilterField: function()
@@ -1437,7 +1437,7 @@ var DimpBase = {
             case 'create':
             case 'createsub':
                 action = 'CreateFolder';
-                params = { folder: val };
+                params = { view: val };
                 if (mode == 'createsub') {
                     params.parent = folder.readAttribute('mbox');
                 }
@@ -1776,7 +1776,7 @@ var DimpBase = {
         switch (action) {
         case 'allUnseen':
         case 'allSeen':
-            DimpCore.doAction((action == 'allUnseen') ? 'MarkFolderUnseen' : 'MarkFolderSeen', { folder: folder }, null, this.bcache.get('flagAC') || this.bcache.set('flagAC', this._flagAllCallback.bind(this)));
+            DimpCore.doAction((action == 'allUnseen') ? 'MarkFolderUnseen' : 'MarkFolderSeen', { view: folder }, null, this.bcache.get('flagAC') || this.bcache.set('flagAC', this._flagAllCallback.bind(this)));
             if (folder == this.folder) {
                 this.viewport.updateFlag(this.createSelection('rownum', $A($R(1, this.viewport.getMetaData('total_rows')))), 'unseen', action == 'allUnseen');
             }
@@ -1830,7 +1830,7 @@ var DimpBase = {
             if (!vs.size()) {
                 break;
             }
-            args = { folder: this.folder, messageFlag: '-\\seen' };
+            args = { view: this.folder, messageFlag: '-\\seen' };
             if (action == 'seen') {
                 unseenstatus = 0;
                 args.messageFlag = '\\seen';
@@ -1850,7 +1850,7 @@ var DimpBase = {
                 break;
             }
             args = {
-                folder: this.folder,
+                view: this.folder,
                 messageFlag: ((action == 'flagged') ? '\\flagged' : '-\\flagged')
             };
             this.viewport.updateFlag(vs, 'flagged', action == 'flagged');
@@ -1876,7 +1876,7 @@ var DimpBase = {
 
     modifyPollFolder: function(folder, add)
     {
-        DimpCore.doAction('ModifyPollFolder', { folder: folder, add: (add) ? 1 : 0 }, null, this.bcache.get('modifyPFC') || this.bcache.set('modifyPFC', this._modifyPollFolderCallback.bind(this)));
+        DimpCore.doAction('ModifyPollFolder', { view: folder, add: (add) ? 1 : 0 }, null, this.bcache.get('modifyPFC') || this.bcache.set('modifyPFC', this._modifyPollFolderCallback.bind(this)));
     },
 
     _modifyPollFolderCallback: function(r)
@@ -2024,8 +2024,8 @@ var DimpBase = {
         C({ d: $('msglistHeader'), f: this.sort.bind(this), p: true });
         C({ d: $('ctx_folder_create'), f: function() { this.createSubFolder(dmenu.element()); }.bind(this), ns: true });
         C({ d: $('ctx_folder_rename'), f: function() { this.renameFolder(dmenu.element()); }.bind(this), ns: true });
-        C({ d: $('ctx_folder_empty'), f: function() { var mbox = dmenu.element().readAttribute('mbox'); dmenu.close(true); if (window.confirm(DIMP.text.empty_folder)) { DimpCore.doAction('EmptyFolder', { folder: mbox }, null, this._emptyFolderCallback.bind(this)); } }.bind(this), ns: true });
-        C({ d: $('ctx_folder_delete'), f: function() { var mbox = dmenu.element().readAttribute('mbox'); dmenu.close(true); if (window.confirm(DIMP.text.delete_folder)) { DimpCore.doAction('DeleteFolder', { folder: mbox }, null, this.bcache.get('folderC') || this.bcache.set('folderC', this._folderCallback.bind(this))); } }.bind(this), ns: true });
+        C({ d: $('ctx_folder_empty'), f: function() { var mbox = dmenu.element().readAttribute('mbox'); dmenu.close(true); if (window.confirm(DIMP.text.empty_folder)) { DimpCore.doAction('EmptyFolder', { view: mbox }, null, this._emptyFolderCallback.bind(this)); } }.bind(this), ns: true });
+        C({ d: $('ctx_folder_delete'), f: function() { var mbox = dmenu.element().readAttribute('mbox'); dmenu.close(true); if (window.confirm(DIMP.text.delete_folder)) { DimpCore.doAction('DeleteFolder', { view: mbox }, null, this.bcache.get('folderC') || this.bcache.set('folderC', this._folderCallback.bind(this))); } }.bind(this), ns: true });
         [ 'ctx_folder_seen', 'ctx_folder_unseen' ].each(function(a) {
             C({ d: $(a), f: function(type) { this.flag(type, null, dmenu.element().readAttribute('mbox')); }.bind(this, a == 'ctx_folder_seen' ? 'allSeen' : 'allUnseen'), ns: true });
         }, this);
