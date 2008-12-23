@@ -106,30 +106,33 @@ class Horde_Mime_Mdn
      * Generate the MDN according to the specifications listed in RFC
      * 3798 [3].
      *
-     * @param boolean $action   Was this MDN type a result of a manual action
-     *                          on part of the user?
-     * @param boolean $sending  Was this MDN sent as a result of a manual
-     *                          action on part of the user?
-     * @param string $type      The type of action performed by the user.
+     * @param boolean $action     Was this MDN type a result of a manual
+     *                            action on part of the user?
+     * @param boolean $sending    Was this MDN sent as a result of a manual
+     *                            action on part of the user?
+     * @param string $type        The type of action performed by the user.
      * <pre>
      * Per RFC 3798 [3.2.6.2] the following types are valid:
      * =====================================================
      * 'displayed'
      * 'deleted'
      * </pre>
-     * @param array $mod        The list of modifications.
+     * @param string $maildriver  The mail driver used to send the message.
+     * @param array $mailparams   Any parameters the mail driver may need.
+     * @param array $mod          The list of modifications.
      * <pre>
      * Per RFC 3798 [3.2.6.3] the following modifications are valid:
      * =============================================================
      * 'error'
      * </pre>
-     * @param array $err        If $mod is 'error', the additional information
-     *                          to provide.  Key is the type of modification,
-     *                          value is the text.
+     * @param array $err          If $mod is 'error', the additional
+     *                            information to provide.  Key is the type of
+     *                            modification, value is the text.
      *
      * @return mixed  True on success, PEAR_Error object on error.
      */
-    public function generate($action, $sending, $type, $mod = array(),
+    public function generate($action, $sending, $type, $maildriver,
+                             $mailparams = array(), $mod = array(),
                              $err = array())
     {
         require_once dirname(__FILE__) . '/Headers.php';
@@ -219,7 +222,7 @@ class Horde_Mime_Mdn
         }
         $msg->addPart($part_three);
 
-        return $msg->send($to, $msg_headers);
+        return $msg->send($to, $msg_headers, $maildriver, $mailparams);
     }
 
     /**
