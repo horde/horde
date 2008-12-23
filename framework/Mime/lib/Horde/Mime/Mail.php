@@ -431,10 +431,12 @@ class Horde_Mime_Mail
             $this->_htmlBody->setDescription(_("HTML Version of Message"));
             $basepart->addPart($this->_htmlBody);
             $mime->addPart($basepart);
+            $mime->setType('multipart/alternative');
         } elseif (!empty($this->_htmlBody)) {
             $mime->addPart($this->_htmlBody);
         } elseif (!empty($this->_body)) {
             $mime->addPart($this->_body);
+            $mime->setType('multipart/alternative');
         }
         foreach ($this->_parts as $mime_part) {
             $mime->addPart($mime_part);
