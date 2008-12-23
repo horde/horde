@@ -81,7 +81,8 @@ class IMP_UI_Message
                 return true;
             } else {
                 /* Send out the MDN now. */
-                $result = $mdn->generate(false, $confirmed, 'displayed');
+                $mail_driver = IMP_Compose::getMailDriver();
+                $result = $mdn->generate(false, $confirmed, 'displayed', $mail_driver['driver'], $mail_driver['params']);
                 if (!is_a($result, 'PEAR_Error')) {
                     IMP_Maillog::log('mdn', $msg_id, 'displayed');
                 }
