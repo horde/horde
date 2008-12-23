@@ -142,7 +142,7 @@ class Horde_Mime_Mdn
         $from_addr = $identity->getDefaultFromAddress();
 
         $to = $this->getMdnReturnAddr();
-        $ua = $this->_headers->getAgentHeader();
+        $ua = $this->_headers->getUserAgent();
 
         $orig_recip = $this->_headers->getValue('Original-Recipient');
         if (!empty($orig_recip) && is_array($orig_recip)) {
@@ -165,7 +165,7 @@ class Horde_Mime_Mdn
         /* Set up the mail headers. */
         $msg_headers = new Horde_Mime_Headers();
         $msg_headers->addMessageIdHeader();
-        $msg_headers->addAgentHeader($ua);
+        $msg_headers->addUserAgentHeader($ua);
         $msg_headers->addHeader('Date', date('r'));
         $msg_headers->addHeader('From', $from_addr);
         $msg_headers->addHeader('To', $this->getMdnReturnAddr());
