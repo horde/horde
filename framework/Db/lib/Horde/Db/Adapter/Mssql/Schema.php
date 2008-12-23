@@ -36,9 +36,38 @@ class Horde_Db_Adapter_Mssql_Schema extends Horde_Db_Adapter_Abstract_Schema
     }
 
 
+    /*##########################################################################
+    # Schema Statements
+    ##########################################################################*/
+
+    /**
+     * The db column types for this adapter
+     *
+     * @return  array
+     */
+    public function nativeDatabaseTypes()
+    {
+        return array(
+            /* TODO, just put in nchar for unicode strings */
+            'primaryKey' => 'int(11) DEFAULT NULL auto_increment PRIMARY KEY',
+            'string'     => array('name' => 'nchar',  'limit' => 255),
+            'text'       => array('name' => 'text',     'limit' => null),
+            'integer'    => array('name' => 'int',      'limit' => 11),
+            'float'      => array('name' => 'float',    'limit' => null),
+            'decimal'    => array('name' => 'decimal',  'limit' => null),
+            'datetime'   => array('name' => 'datetime', 'limit' => null),
+            'timestamp'  => array('name' => 'datetime', 'limit' => null),
+            'time'       => array('name' => 'time',     'limit' => null),
+            'date'       => array('name' => 'date',     'limit' => null),
+            'binary'     => array('name' => 'blob',     'limit' => null),
+            'boolean'    => array('name' => 'tinyint',  'limit' => 1),
+        );
+    }
+
+
     /**
      */
-    public function getTables()
+    public function tables()
     {
         return 'SELECT name FROM sysobjects WHERE type = \'U\' ORDER BY name';
     }
