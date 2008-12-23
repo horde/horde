@@ -661,10 +661,22 @@ class IMP_Compose
             }
         }
 
+        $mail_driver = $this->getMailDriver();
+
+        return $message->send($email, $headers, $mail_driver['driver'], $mail_driver['params']);
+    }
+
+    /**
+     * Return mail driver/params necessary to send a message.
+     *
+     * @return array  'driver' => mail dirver; 'params' => list of params.
+     */
+    static public function getMailDriver()
+    {
         /* We don't actually want to alter the contents of the $conf['mailer']
          * array, so we make a copy of the current settings. We will apply our
          * modifications (if any) to the copy, instead. */
-        $params = $conf['mailer']['params'];
+        $params = $GLOBALS['conf']['mailer']['params'];
 
         /* Force the SMTP host and port value to the current SMTP server if
          * one has been selected for this connection. */
@@ -683,7 +695,7 @@ class IMP_Compose
             $params['password'] = Horde_Secret::read(IMP::getAuthKey(), $_SESSION['imp']['pass']);
         }
 
-        return $message->send($email, $headers, $conf['mailer']['type'], $params);
+        return array('driver' => $GLOBALS['conf']['mailer']['type'], 'params' => $params);
     }
 
     /**
