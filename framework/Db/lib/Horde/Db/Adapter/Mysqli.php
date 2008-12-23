@@ -134,11 +134,17 @@ class Horde_Db_Adapter_Mysqli extends Horde_Db_Adapter_Abstract
 
         // If supported, request real datatypes from MySQL instead of returning
         // everything as a string.
-        if (defined('MYSQLI_OPT_INT_AND_FLOAT_NATIVE'))
+        if (defined('MYSQLI_OPT_INT_AND_FLOAT_NATIVE')) {
             $mysqli->options(MYSQLI_OPT_INT_AND_FLOAT_NATIVE, true);
+        }
 
         $this->_connection = $mysqli;
         $this->_active     = true;
+
+        // Set the default charset. http://dev.mysql.com/doc/refman/5.1/en/charset-connection.html
+        if (!empty($config['charset'])) {
+            $this->setCharset($config['charset']);
+        }
     }
 
     /**

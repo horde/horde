@@ -134,13 +134,41 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Abstract_Schema
     }
 
     /**
-     * Returns the database character set
+     * Returns the database character set that query results are in
      *
      * @return string
      */
     public function getCharset()
     {
-        return $this->showVariable('character_set_database');
+        return $this->showVariable('character_set_results');
+    }
+
+    /**
+     * Set the client and result charset.
+     *
+     * @param string $charset  The character set to use for client queries and results.
+     */
+    public function setCharset($charset)
+    {
+        $charset = $this->_mysqlCharsetName($charset);
+        $this->execute('SET NAMES ' . $this->quoteString($charset));
+    }
+
+    /**
+     * Get the MySQL name of a given character set.
+     *
+     * @param string $charset
+     * @return string MySQL-normalized charset.
+     */
+    public function _mysqlCharsetName($charset)
+    {
+        $charset = strtolower(preg_replace('/[^a-zA-Z0-9]/', '', $charset));
+        $validCharsets = $this->selectValues('SHOW CHARACTER SET');
+        if (!in_array($charset, $validCharsets)) {
+            throw new Horde_Db_Exception($charset . ' is not supported by MySQL');
+        }
+
+        return $charset;
     }
 
     /**

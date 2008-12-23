@@ -59,7 +59,11 @@ class Horde_Db_Adapter_Pdo_Mysql extends Horde_Db_Adapter_Pdo_Abstract
         parent::connect();
 
         // ? $this->_connection->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, true);
-        // SET NAMES ?
+
+        // Set the default charset. http://dev.mysql.com/doc/refman/5.1/en/charset-connection.html
+        if (!empty($this->_config['charset'])) {
+            $this->setCharset($this->_config['charset']);
+        }
     }
 
 

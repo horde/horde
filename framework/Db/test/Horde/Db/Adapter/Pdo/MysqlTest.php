@@ -128,6 +128,11 @@ class Horde_Db_Adapter_Pdo_MysqlTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($this->_conn->supportsCountDistinct());
     }
 
+    public function testGetCharset()
+    {
+        $this->assertEquals('utf8', strtolower($this->_conn->getCharset()));
+    }
+
 
     /*##########################################################################
     # Database Statements
@@ -653,6 +658,8 @@ class Horde_Db_Adapter_Pdo_MysqlTest extends PHPUnit_Framework_TestCase
     public function testStructureDump()
     {
         $this->_createTestTable('sports');
+        // Avoid AUTO_INCREMENT being a part of the dump
+        $this->_conn->execute('TRUNCATE TABLE sports');
 
         // single table
         $structure = $this->_conn->structureDump('sports');
@@ -662,7 +669,7 @@ class Horde_Db_Adapter_Pdo_MysqlTest extends PHPUnit_Framework_TestCase
         "  `name` varchar(255) DEFAULT NULL,\n".
         "  `is_college` tinyint(1) DEFAULT NULL,\n".
         "  PRIMARY KEY (`id`)\n".
-        ") ENGINE=InnoDB";
+        ") ENGINE=InnoDB DEFAULT CHARSET=utf8";
 
         // MySQL differs in how it dumps table structure between versions, so do
         // some normalization.
