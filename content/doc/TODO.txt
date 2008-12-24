@@ -9,3 +9,10 @@
   for sharding, multi-master, backup connections, etc. Probably will take a
   Horde_Db_ConnectionManager object or some such, that can implement logic for
   which connection to use.
+
+- interface for doing tag searches via technorati, google, etc. (take a tag in
+  the system, find things with the same tag on other systems).
+
+- linkbacks addition: instead of just tracking linkbacks we're directly notified
+  of, also provide a way to search for links to the resource in question (google
+  link: search, etc).
