@@ -1,17 +1,21 @@
 <?php
 /**
- * @package content
+ * @package Content
  */
-class TagController extends Horde_Controller_Base
+
+// @TODO Clean up
+require_once dirname(__FILE__) . '/ApplicationController.php';
+require_once dirname(__FILE__) . '/../../lib/Tags/Tagger.php';
+
+/**
+ * @package Content
+ */
+class TagController extends Content_ApplicationController
 {
     /**
      */
-    public function __construct($options)
+    protected function _initialize()
     {
-        parent::__construct($options);
-
-        // @TODO Figure out application class loading
-        require_once dirname(__FILE__) . '/../../lib/Tags/Tagger.php';
         $this->tagger = new Content_Tagger();
         $this->tagger->setDbAdapter(Horde_Db::getAdapter());
     }

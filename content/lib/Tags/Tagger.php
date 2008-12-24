@@ -43,8 +43,6 @@ class Content_Tagger
 
     /**
      * Tables
-     *
-     * @TODO: Should we actually build this array from our composed managers?
      * @var array
      */
     protected $_tables = array(
@@ -56,12 +54,23 @@ class Content_Tagger
         'users' => 'rampage_users',
     );
 
-    // Content managers...I guess these should be public, client code might
-    // have a use for them. Maybe use __get instead to make sure they can't
-    // be set though...
-    public $userManager;
-    public $typeManager;
-    public $objectManager;
+    /**
+     * User manager object
+     * @var Content_Users_Manager
+     */
+    protected $_userManager;
+
+    /**
+     * Type management object
+     * @var Content_Types_Manager
+     */
+    protected $_typeManager;
+
+    /**
+     * Object manager
+     * @var Content_Objects_Manager
+     */
+    protected $_objectManager;
 
     /**
      * Default radius for relationship queries.
@@ -73,45 +82,37 @@ class Content_Tagger
      * Constructor - can take an array of arguments that set the managers
      * and DbAdapter
      */
-    public function __construct($adapter, $params = array())
+    public function __construct($context = array())
     {
-        $this->_db = $adapter;
+        //$this->_db = $adapter;
 
-        if (!empty($params['user_manager'])) {
-            $this->userManager = $params['user_manager'];
-        } else {
-            $this->userManager = new Content_Users_Manager($this->_db);
+        if (!empty($context['userManager'])) {
+            $this->_userManager = $context['userManager'];
         }
 
-        if (!empty($params['type_manager'])) {
-            $this->typeManager = $params['type_manager'];
-        } else {
-            $this->typeManager = new Content_Types_Manager($this->_db);
+        if (!empty($context['typeManager'])) {
+            $this->_typeManager = $context['typeManager'];
         }
 
-        if (!empty($params['object_manager'])) {
-            $this->objectManager = $params['object_manager'];
-        } else {
-            $this->objectManager = new Content_Objects_Manager(
-                $this->_db, array('type_manager' => $this->typeManager));
+        if (!empty($context['objectManager'])) {
+            $this->_objectManager = $context['objectManager'];
         }
-
     }
 
-//    /**
-//     * Set the database connection for the tagger.
-//     * @TODO: Should we propogate this to any managers we may have??
-//     * @TODO: Do we even need this method now that it's in the constructor??
-//     * @param Horde_Db $db
-//     */
-//    public function setDbAdapter($db)
-//    {
-//        $this->_db = $db;
-//    }
+    /**
+     * Set the database connection for the tagger.
+     * @TODO: Should we propogate this to any managers we may have?
+     *
+     * @param Horde_Db $db
+     */
+    public function setDbAdapter($db)
+    {
+        $this->_db = $db;
+    }
 
     /**
      * Change the name of a database table.
-     * @TODO: Need to propagate these changes to our other managers...or not??
+     * @TODO: Need to propagate these changes to our other managers...or not?
      *
      * @param string $tableType
      * @param string $tableName
@@ -145,7 +146,7 @@ class Content_Tagger
         $objectId = $this->_ensureObject($objectId);
 
         // Validate/ensure the parameters
-        $userId = array_pop($this->userManager->ensureUsers($userId));
+        $userId = array_pop($this->_userManager->ensureUsers($userId));
 
         foreach ($this->ensureTags($tags) as $tagId) {
             try {
@@ -178,7 +179,7 @@ class Content_Tagger
     public function untag($userId, $objectId, $tags)
     {
         // Ensure parameters
-        $userId = array_pop($this->userManager->ensureUsers($userId));
+        $userId = array_pop($this->_userManager->ensureUsers($userId));
         $objectId = $this->_ensureObject($objectId);
 
         foreach ($this->ensureTags($tags) as $tagId) {
@@ -213,7 +214,7 @@ class Content_Tagger
             // objects's tags - just check if the object is there. Assume if we
             // have an integer, it's a valid object_id.
             if (is_array($args['objectId'])) {
-                $args['objectId'] = $this->objectManager->exists($args['objectId']['object'], $args['objectId']['type']);
+                $args['objectId'] = $this->_objectManager->exists($args['objectId']['object'], $args['objectId']['type']);
             }
             if (!$args['objectId']) {
                 return array();
@@ -221,14 +222,14 @@ class Content_Tagger
 
             $sql = 'SELECT DISTINCT t.tag_id AS tag_id, tag_name FROM ' . $this->_t('tags') . ' t INNER JOIN ' . $this->_t('tagged') . ' tagged ON t.tag_id = tagged.tag_id AND tagged.object_id = ' . (int)$args['objectId'];
         } elseif (isset($args['userId']) && isset($args['typeId'])) {
-            $args['userId'] = array_pop($this->userManager->ensureUsers($args['userId']));
-            $args['typeId'] = array_pop($this->typeManager->ensureTypes($arge['typeId']));
+            $args['userId'] = array_pop($this->_userManager->ensureUsers($args['userId']));
+            $args['typeId'] = array_pop($this->_typeManager->ensureTypes($arge['typeId']));
             $sql = 'SELECT DISTINCT t.tag_id AS tag_id, tag_name FROM ' . $this->_t('tags') . ' t INNER JOIN ' . $this->_t('tagged') . ' tagged ON t.tag_id = tagged.tag_id AND tagged.user_id = ' . (int)$args['userId'] . ' INNER JOIN ' . $this->_t('objects') . ' objects ON tagged.object_id = objects.object_id AND objects.type_id = ' . (int)$args['typeId'];
         } elseif (isset($args['userId'])) {
-            $args['userId'] = array_pop($this->userManager->ensureUsers($args['userId']));
+            $args['userId'] = array_pop($this->_userManager->ensureUsers($args['userId']));
             $sql = 'SELECT DISTINCT t.tag_id AS tag_id, tag_name FROM ' . $this->_t('tagged') . ' tagged INNER JOIN ' . $this->_t('tags') . ' t ON tagged.tag_id = t.tag_id WHERE tagged.user_id = ' . (int)$args['userId'];
         } elseif (isset($args['typeId'])) {
-            $args['typeId'] = array_pop($this->typeManager->ensureTypes($arge['typeId']));
+            $args['typeId'] = array_pop($this->_typeManager->ensureTypes($arge['typeId']));
             $sql = 'SELECT DISTINCT t.tag_id AS tag_id, tag_name FROM ' . $this->_t('tagged') . ' tagged INNER JOIN ' . $this->_t('objects') . ' objects ON tagged.object_id = objects.object_id AND objects.type_id = ' . (int)$args['typeId'] . ' INNER JOIN ' . $this->_t('tags') . ' t ON tagged.tag_id = t.tag_id';
         } elseif (isset($args['tagId'])) {
             $radius = isset($args['limit']) ? (int)$args['limit'] : $this->_defaultRadius;
@@ -272,15 +273,15 @@ class Content_Tagger
             $args['objectId'] = $this->_ensureObject($args['objectId']);
             $sql = 'SELECT t.tag_id AS tag_id, tag_name, COUNT(*) AS count FROM ' . $this->_t('tagged') . ' tagged INNER JOIN ' . $this->_t('tags') . ' t ON tagged.tag_id = t.tag_id WHERE tagged.object_id = ' . (int)$args['objectId'] . ' GROUP BY t.tag_id';
         } elseif (isset($args['userId']) && isset($args['typeId'])) {
-            $args['userId'] = array_pop($this->userManager->ensureUsers($args['userId']));
-            $args['typeId'] = array_pop($this->typeManager->ensureTypes($arge['typeId']));
+            $args['userId'] = array_pop($this->_userManager->ensureUsers($args['userId']));
+            $args['typeId'] = array_pop($this->_typeManager->ensureTypes($arge['typeId']));
             // This doesn't use a stat table, so may be slow.
             $sql = 'SELECT t.tag_id AS tag_id, tag_name, COUNT(*) AS count FROM ' . $this->_t('tagged') . ' tagged INNER JOIN ' . $this->_t('objects') . ' objects ON tagged.object_id = objects.object_id AND objects.type_id = ' . (int)$args['typeId'] . ' INNER JOIN ' . $this->_t('tags') . ' t ON tagged.tag_id = t.tag_id WHERE tagged.user_id = ' . (int)$args['user_id'] . ' GROUP BY t.tag_id';
         } elseif (isset($args['userId'])) {
-            $args['userId'] = array_pop($this->userManager->ensureUsers($args['userId']));
+            $args['userId'] = array_pop($this->_userManager->ensureUsers($args['userId']));
             $sql = 'SELECT t.tag_id AS tag_id, tag_name, count FROM ' . $this->_t('tagged') . ' tagged INNER JOIN ' . $this->_t('tags') . ' t ON tagged.tag_id = t.tag_id INNER JOIN ' . $this->_t('user_tag_stats') . ' uts ON t.tag_id = uts.tag_id AND uts.user_id = ' . (int)$args['userId'] . ' GROUP BY t.tag_id';
         } elseif (isset($args['typeId'])) {
-            $args['typeId'] = array_pop($this->typeManager->ensureTypes($arge['typeId']));
+            $args['typeId'] = array_pop($this->_typeManager->ensureTypes($arge['typeId']));
             // This doesn't use a stat table, so may be slow.
             $sql = 'SELECT t.tag_id AS tag_id, tag_name, COUNT(*) AS count FROM ' . $this->_t('tagged') . ' tagged INNER JOIN ' . $this->_t('objects') . ' objects ON tagged.object_id = objects.object_id AND objects.type_id = ' . (int)$args['typeId'] . ' INNER JOIN ' . $this->_t('tags') . ' t ON tagged.tag_id = t.tag_id GROUP BY t.tag_id';
         } else {
@@ -309,11 +310,11 @@ class Content_Tagger
     {
         $sql = 'SELECT tagged.tag_id AS tag_id, tag_name, MAX(created) AS created FROM ' . $this->_t('tagged') . ' tagged INNER JOIN ' . $this->_t('tags') . ' t ON tagged.tag_id = t.tag_id';
         if (isset($args['typeId'])) {
-            $args['typeId'] = array_pop($this->typeManager->ensureTypes($arge['typeId']));
+            $args['typeId'] = array_pop($this->_typeManager->ensureTypes($arge['typeId']));
             $sql .= ' INNER JOIN ' . $this->_t('objects') . ' objects ON tagged.object_id = objects.object_id AND objects.type_id = ' . (int)$args['typeId'];
         }
         if (isset($args['userId'])) {
-            $args['userId'] = array_pop($this->userManager->ensureUsers($args['userId']));
+            $args['userId'] = array_pop($this->_userManager->ensureUsers($args['userId']));
             $sql .= ' WHERE tagged.user_id = ' . (int)$args['userId'];
         }
         $sql .= ' GROUP BY tagged.tag_id ORDER BY created DESC';
@@ -340,7 +341,7 @@ class Content_Tagger
     public function getObjects($args)
     {
         if (isset($args['objectId'])) {
-            $args['objectId'] = array_pop($this->objectManager->ensureObject($args['objectId']));
+            $args['objectId'] = array_pop($this->_objectManager->ensureObject($args['objectId']));
             $radius = isset($args['radius']) ? (int)$args['radius'] : $this->_defaultRadius;
             $inner = $this->_db->addLimitOffset('SELECT tag_id FROM ' . $this->_t('tagged') . ' WHERE object_id = ' . (int)$objectId, array('limit' => $radius));
             $sql = $this->_db->addLimitOffset('SELECT tagged2.object_id FROM (' . $inner . ') AS t1 INNER JOIN ' . $this->_tagged . ' AS tagged2 ON t1.tag_id = t2.tag_id WHERE t2.object_id != ' . (int)$objectId . ' GROUP BY t2.object_id', array('limit' => $radius));
@@ -473,11 +474,11 @@ class Content_Tagger
     {
         $sql = 'SELECT tagged.object_id AS object_id, MAX(created) AS created FROM ' . $this->_t('tagged') . ' tagged';
         if (isset($args['typeId'])) {
-            $args['typeId'] = array_pop($this->typeManager->ensureTypes($args['typeId']));
+            $args['typeId'] = array_pop($this->_typeManager->ensureTypes($args['typeId']));
             $sql .= ' INNER JOIN ' . $this->_t('objects') . ' objects ON tagged.object_id = objects.object_id AND objects.type_id = ' . (int)$args['typeId'];
         }
         if (isset($args['userId'])) {
-            $args['userId'] = array_pop($this->userManager->ensureUsers($args['userId']));
+            $args['userId'] = array_pop($this->_userManager->ensureUsers($args['userId']));
             $sql .= ' WHERE tagged.user_id = ' . (int)$args['userId'];
         }
         $sql .= ' GROUP BY tagged.object_id ORDER BY created DESC';
@@ -498,7 +499,7 @@ class Content_Tagger
             $args['objectId'] = $this->_ensureObject($args['objectId']);
             $sql = 'SELECT t.user_id, user_name FROM ' . $this->_t('tagged') . ' as t INNER JOIN ' . $this->_t('users') . ' as u ON t.user_id = u.user_id WHERE object_id = ' . (int)$args['objectId'];
         } elseif (isset($args['userId'])) {
-            $args['userId'] = array_pop($this->userManager->ensureUsers($args['userId']));
+            $args['userId'] = array_pop($this->_userManager->ensureUsers($args['userId']));
             $radius = isset($args['radius']) ? (int)$args['radius'] : $this->_defaultRadius;
             $sql = 'SELECT others.user_id, user_name FROM ' . $this->_t('tagged') . ' others INNER JOIN ' . $this->_t('users') . ' u ON u.user_id = others.user_id INNER JOIN (SELECT tag_id FROM ' . $this->_t('tagged') . ' WHERE user_id = ' . (int)$args['userId'] . ' GROUP BY tag_id HAVING COUNT(tag_id) >= ' . $radius . ') AS self ON others.tag_id = self.tag_id GROUP BY others.user_id';
         } elseif (isset($args['tagId'])) {
@@ -560,7 +561,7 @@ class Content_Tagger
     {
         $sql = 'SELECT tagged.user_id AS user_id, MAX(created) AS created FROM ' . $this->_t('tagged') . ' tagged';
         if (isset($args['typeId'])) {
-            $args['typeId'] = array_pop($this->typeManager->ensureTypes($args['typeId']));
+            $args['typeId'] = array_pop($this->_typeManager->ensureTypes($args['typeId']));
             $sql .= ' INNER JOIN ' . $this->_t('objects') . ' objects ON tagged.object_id = objects.object_id AND objects.type_id = ' . (int)$args['typeId'];
         }
         $sql .= ' GROUP BY tagged.user_id ORDER BY created DESC';
@@ -577,7 +578,7 @@ class Content_Tagger
      */
     public function getSimilarUsers($args)
     {
-        $args['userId'] = array_pop($this->userManager->ensureUsers($args['userId']));
+        $args['userId'] = array_pop($this->_userManager->ensureUsers($args['userId']));
         $radius = isset($args['radius']) ? (int)$args['radius'] : $this->_defaultRadius;
         $sql = 'SELECT others.user_id, (others.count - self.count) AS rank FROM ' . $this->_t('user_tag_stats') . ' others INNER JOIN (SELECT tag_id, count FROM ' . $this->_t('user_tag_stats') . ' WHERE user_id = ' . (int)$args['userId'] . ' AND count >= ' . $radius . ') AS self ON others.tag_id = self.tag_id ORDER BY rank DESC';
 
@@ -662,15 +663,15 @@ class Content_Tagger
     }
 
     /**
-     * Convenience method - if $object is an array, it is taken as an array
-     * of 'object' and 'type' to pass to objectManager::ensureObjects() if
-     * it's a scalar value, it's taken as the object_id as simply returned.
+     * Convenience method - if $object is an array, it is taken as an array of
+     * 'object' and 'type' to pass to objectManager::ensureObjects() if it's a
+     * scalar value, it's taken as the object_id and simply returned.
      */
-    private function _ensureObject($object)
+    protected function _ensureObject($object)
     {
         if (is_array($object)) {
-            $object = array_pop($this->objectManager->ensureObjects(
-                $object['object'], array_pop($this->typeManager->ensureTypes($object['type']))));
+            $object = array_pop($this->_objectManager->ensureObjects(
+                $object['object'], array_pop($this->_typeManager->ensureTypes($object['type']))));
         }
 
         return (int)$object;

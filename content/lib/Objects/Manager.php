@@ -8,8 +8,20 @@
  * @category Horde
  * @package  Horde_Content
  */
-class Content_Objects_Manager {
 
+/**
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Michael Rubinsky <mrubinsk@horde.org>
+ * @license  http://opensource.org/licenses/bsd-license.php BSD
+ * @category Horde
+ * @package  Horde_Content
+ */
+class Content_Objects_Manager
+{
+    /**
+     * Database adapter
+     * @var Horde_Db_Adapter
+     */
     protected $_db;
 
     /**
@@ -22,27 +34,31 @@ class Content_Objects_Manager {
         'objects' => 'rampage_objects',
     );
 
+    /**
+     * Type manager
+     * @var Content_Types_Manager
+     */
     protected $_typeManager;
 
-    public function __construct($adapter, $params = array())
+    /**
+     * Constructor
+     */
+    public function __construct($context = array())
     {
-        $this->_db = $adapter;
-
-        if (!empty($params['type_manager'])) {
-            $this->_typeManager = $params['type_manager'];
-        } else {
-            $this->_typeManager = new Content_Types_Manager(array('db_adapter' => $this->_db));
+        if (!empty($params['typeManager'])) {
+            $this->_typeManager = $params['typeManager'];
         }
     }
 
-//    /**
-//     *
-//     * @param Horde_Db $db  The database connection
-//     */
-//    public function setDBAdapter($db)
-//    {
-//        $this->_db = $db;
-//    }
+    /**
+     *
+     *
+     * @param Horde_Db $db  The database connection
+     */
+    public function setDbAdapter($db)
+    {
+        $this->_db = $db;
+    }
 
     /**
      * Change the name of a database table.
@@ -59,7 +75,6 @@ class Content_Objects_Manager {
      * Check for object existence without causing the objects to be created.
      * Helps save queries for things like tags when we already know the object
      * doesn't yet exist in rampage tables.
-     *
      */
     public function exists($object, $type)
     {
@@ -121,19 +136,6 @@ class Content_Objects_Manager {
         }
 
         return $objectIds;
-
-    }
-
-    /**
-     * @TODO Hmmm, do we do this here, because we will have to remove all
-     * content linked to the object?
-     *
-     * @param array $object  An array of objects to remove. Values typed as an
-     *                       integer are taken to be object_ids, otherwise,
-     *                       the value is taken as an object_name.
-     */
-    public function removeObjects($object)
-    {
     }
 
     /**
@@ -149,4 +151,3 @@ class Content_Objects_Manager {
     }
 
 }
-?>

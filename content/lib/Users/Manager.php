@@ -8,8 +8,20 @@
  * @category Horde
  * @package  Horde_Content
  */
-class Content_Users_Manager {
 
+/**
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Michael Rubinsky <mrubinsk@horde.org>
+ * @license  http://opensource.org/licenses/bsd-license.php BSD
+ * @category Horde
+ * @package  Horde_Content
+ */
+class Content_Users_Manager
+{
+    /**
+     * Database adapter
+     * @var Horde_Db_Adapter
+     */
     protected $_db;
 
     /**
@@ -25,14 +37,15 @@ class Content_Users_Manager {
         $this->_db = $adapter;
     }
 
-//    /**
-//     *
-//     * @param Horde_Db $db  The database connection
-//     */
-//    public function setDBAdapter($db)
-//    {
-//        $this->_db = $db;
-//    }
+    /**
+     * Set the database connection.
+     *
+     * @param Horde_Db $db  The database connection
+     */
+    public function setDbAdapter($db)
+    {
+        $this->_db = $db;
+    }
 
     /**
      * Change the name of a database table.
@@ -87,19 +100,6 @@ class Content_Users_Manager {
         }
 
         return $userIds;
-
-    }
-
-    /**
-     * @TODO Hmmm, do we do this here, because we will have to remove all
-     * content linked to the user?
-     *
-     * @param array $user  An array of users to remove. Values typed as an
-     *                       integer are taken to be user_ids, otherwise,
-     *                       the value is taken as an user_name.
-     */
-    public function removeusers($user)
-    {
     }
 
     /**
@@ -115,4 +115,3 @@ class Content_Users_Manager {
     }
 
 }
-?>

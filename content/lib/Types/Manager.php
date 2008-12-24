@@ -8,8 +8,20 @@
  * @category Horde
  * @package  Horde_Content
  */
-class Content_Types_Manager {
 
+/**
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Michael Rubinsky <mrubinsk@horde.org>
+ * @license  http://opensource.org/licenses/bsd-license.php BSD
+ * @category Horde
+ * @package  Horde_Content
+ */
+class Content_Types_Manager
+{
+    /**
+     * Database adapter
+     * @var Horde_Db_Adapter
+     */
     protected $_db;
 
     /**
@@ -20,19 +32,20 @@ class Content_Types_Manager {
         'types' => 'rampage_types',
     );
 
-    public function __construct($adapter, $params = array())
+    public function __construct($context = array())
     {
         $this->_db = $adapter;
     }
 
-//    /**
-//     *
-//     * @param Horde_Db $db  The database connection
-//     */
-//    public function setDBAdapter($db)
-//    {
-//        $this->_db = $db;
-//    }
+    /**
+     * Set the database adapter.
+     *
+     * @param Horde_Db $db  The database connection
+     */
+    public function setDbAdapter($db)
+    {
+        $this->_db = $db;
+    }
 
     /**
      * Change the name of a database table.
@@ -87,19 +100,6 @@ class Content_Types_Manager {
         }
 
         return $typeIds;
-
-    }
-
-    /**
-     * @TODO Hmmm, do we do this here, because we will have to remove all
-     * content linked to the type?
-     *
-     * @param array $type  An array of types to remove. Values typed as an
-     *                       integer are taken to be type_ids, otherwise,
-     *                       the value is taken as an type_name.
-     */
-    public function removetypes($type)
-    {
     }
 
     /**
@@ -115,4 +115,3 @@ class Content_Types_Manager {
     }
 
 }
-?>
