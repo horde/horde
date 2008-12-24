@@ -62,7 +62,7 @@ class Horde_Block_imp_newmail extends Horde_Block
             }
 
             $more_msgs = count($ids) - $shown;
-            $text = $more_msgs
+            $text = ($more_msgs > 0)
                 ? sprintf(ngettext("%d more unseen message...", "%d more unseen messages...", $more_msgs), $more_msgs)
                 : _("Go to your Inbox...");
             $html .= '<tr><td colspan="2" style="cursor:pointer" align="right" onclick="DimpBase.go(\'folder:INBOX\');return false;">' . $text . '</td></tr>';
