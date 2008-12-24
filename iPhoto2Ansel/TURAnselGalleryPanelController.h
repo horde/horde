@@ -29,6 +29,7 @@
 - (IBAction)doNewGallery: (id)sender;
 - (IBAction)cancelNewGallery: (id)sender;
 - (id)initWithController: (TURAnsel *)theController;
+- (id)initWithController: (TURAnsel *)theController withGalleryName: (NSString *)galleryName;
 - (void)showSheetForWindow: (NSWindow *)theWindow;
 - (void)setDelegate: (id)theDelegate;
 @end

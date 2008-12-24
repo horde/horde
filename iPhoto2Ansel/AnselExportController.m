@@ -93,9 +93,17 @@ NSString * const TURAnselServerPasswordKey = @"password";
 // Put up the newGallerySheet NSPanel
 - (IBAction)showNewGallery: (id)sender
 {
+    TURAnselGalleryPanelController *newGalleryController;
+    NSString *albumName;
+    
     // Make sure we're not doing this for nothing
     if ([anselController state] == TURAnselStateConnected) {
-        TURAnselGalleryPanelController *newGalleryController = [[TURAnselGalleryPanelController alloc] initWithController: anselController];
+        
+        // It *looks* like index 0 is the first selected album?
+        albumName = [mExportMgr albumNameAtIndex: 0];
+        newGalleryController = [[TURAnselGalleryPanelController alloc] initWithController: anselController
+                                                                          withGalleryName: albumName
+                                                                   withGalleryDescription: [mExportMgr albumCommentsAtIndex:0]];
         [newGalleryController setDelegate: self];
         [newGalleryController showSheetForWindow: [self window]];
     }

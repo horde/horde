@@ -75,6 +75,22 @@
     return self;
 }
 
+- (id)initWithController: (TURAnsel *)theController
+       withGalleryName: (NSString *)galleryName 
+{
+    
+    [super init];
+    anselController = [theController retain];
+    [NSBundle loadNibNamed: @"AnselGalleryPanel"
+                     owner: self];
+    
+    [galleryNameTextField setStringValue: galleryName];
+    
+    return self;  
+    
+    
+}
+
 - (void)setDelegate: (id)theDelegate
 {
     delegate = theDelegate; // weak
