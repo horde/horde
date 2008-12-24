@@ -32,7 +32,7 @@ $mapper->connect('tag', array('controller' => 'tag', 'action' => 'tag',
 // Untag an object. Required POST parameters are: tags (array or string list)
 // and objectId. userId is inferred from the authenticated user:
 $mapper->connect('untag', array('controller' => 'tag', 'action' => 'untag',
-                                'conditions' => array('method' => array('POST'))));
+                                'conditions' => array('method' => array('POST', 'DELETE'))));
 
 
 // Local route overrides
