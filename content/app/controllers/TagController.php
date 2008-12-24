@@ -10,6 +10,8 @@ class TagController extends Horde_Controller_Base
     {
         parent::__construct($options);
 
+        // @TODO Figure out application class loading
+        require_once dirname(__FILE__) . '/../../lib/Tags/Tagger.php';
         $this->tagger = new Content_Tagger();
         $this->tagger->setDbAdapter(Horde_Db::getAdapter());
     }
