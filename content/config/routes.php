@@ -27,7 +27,7 @@ $mapper->connect('users.:(format)', array('controller' => 'tag', 'action' => 'se
 // Tag an object. Required POST parameters are: tags (array or string list) and
 // objectId. userId is inferred from the authenticated user:
 $mapper->connect('tag', array('controller' => 'tag', 'action' => 'tag',
-                              'conditions' => array('method' => array('POST'))));
+                              'conditions' => array('method' => array('POST', 'PUT'))));
 
 // Untag an object. Required POST parameters are: tags (array or string list)
 // and objectId. userId is inferred from the authenticated user:
