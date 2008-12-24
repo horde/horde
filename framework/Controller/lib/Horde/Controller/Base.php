@@ -161,6 +161,7 @@ abstract class Horde_Controller_Base
             }
         } catch (Exception $e) {
             // error handling
+            throw $e;
         }
 
         return $this->_response;
