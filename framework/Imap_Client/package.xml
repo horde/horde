@@ -42,13 +42,17 @@ http://pear.php.net/dtd/package-2.0.xsd">
       <dir name="Client">
        <dir name="Cclient">
         <file name="Pop3.php" role="php" />
-       </dir>
+       </dir> <!-- /lib/Horde/Imap/Client/Cclient -->
+       <dir name="Search">
+        <file name="Query.php" role="php" />
+       </dir> <!-- /lib/Horde/Imap/Client/Search -->
        <file name="Base.php" role="php" />
        <file name="Cache.php" role="php" />
        <file name="Cclient.php" role="php" />
        <file name="Exception.php" role="php" />
        <file name="Socket.php" role="php" />
        <file name="Sort.php" role="php" />
+       <file name="Thread.php" role="php" />
        <file name="Utf7imap.php" role="php" />
       </dir> <!-- /lib/Horde/Imap/Client -->
       <file name="Client.php" role="php" />
@@ -65,6 +69,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <pearinstaller>
     <min>1.5.0</min>
    </pearinstaller>
+   <package>
+   <name>Horde_Autoloader</name>
+    <channel>pear.horde.org</channel>
+   </package>
   </required>
   <optional>
    <package>
@@ -102,8 +110,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Imap/Client/Cclient/Pop3.php" as="Horde/Imap/Client/Cclient/Pop3.php" />
    <install name="lib/Horde/Imap/Client/Cclient.php" as="Horde/Imap/Client/Cclient.php" />
    <install name="lib/Horde/Imap/Client/Exception.php" as="Horde/Imap/Client/Exception.php" />
+   <install name="lib/Horde/Imap/Client/Search/Query.php" as="Horde/Imap/Client/Search/Query.php" />
    <install name="lib/Horde/Imap/Client/Socket.php" as="Horde/Imap/Client/Socket.php" />
    <install name="lib/Horde/Imap/Client/Sort.php" as="Horde/Imap/Client/Sort.php" />
+   <install name="lib/Horde/Imap/Client/Thread.php" as="Horde/Imap/Client/Thread.php" />
    <install name="lib/Horde/Imap/Client/Utf7imap.php" as="Horde/Imap/Client/Utf7imap.php" />
    <install name="lib/Horde/Imap/Client.php" as="Horde/Imap/Client.php" />
   </filelist>
