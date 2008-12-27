@@ -84,8 +84,6 @@ class Content_Tagger
      */
     public function __construct($context = array())
     {
-        //$this->_db = $adapter;
-
         if (!empty($context['userManager'])) {
             $this->_userManager = $context['userManager'];
         }
@@ -101,7 +99,6 @@ class Content_Tagger
 
     /**
      * Set the database connection for the tagger.
-     * @TODO: Should we propogate this to any managers we may have?
      *
      * @param Horde_Db $db
      */
@@ -112,7 +109,6 @@ class Content_Tagger
 
     /**
      * Change the name of a database table.
-     * @TODO: Need to propagate these changes to our other managers...or not?
      *
      * @param string $tableType
      * @param string $tableName
