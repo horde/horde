@@ -10,7 +10,7 @@
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  */
-class Service_Vimeo_Simple extends Service_Vimeo {
+class Horde_Service_Vimeo_Simple extends Horde_Service_Vimeo {
 
     protected $_api_endpoint = 'http://www.vimeo.com/api/';
     protected $_oembed_endpoint = 'http://www.vimeo.com/api/oembed.json';
@@ -30,10 +30,6 @@ class Service_Vimeo_Simple extends Service_Vimeo {
      *
      *     Groups
      *       groupClips: clips in this group
-     *
-     *
-     *
-     * @param unknown_type $criteria
      */
     public function getClips($criteria)
     {
@@ -45,12 +41,9 @@ class Service_Vimeo_Simple extends Service_Vimeo {
             break;
         }
 
-        $req = new HTTP_Request($this->_api_endpoint . $method);
-        if (is_a($req, 'PEAR_Error')) {
-            return $req;
-        }
-        $req->sendRequest();
-        return $req->getResponseBody();
+        $req = $this->getHttpClient();
+        $response = $req->request('GET', $this->_api_endpoint . $method);
+        return $response->getBody();
     }
 
     public function getActivity($criteria)
@@ -81,14 +74,11 @@ class Service_Vimeo_Simple extends Service_Vimeo {
     public function getEmbedJSON($clipUrl)
     {
         $url = $this->_oembed_endpoint . '?url=' . rawurlencode($clipUrl);
-        $req = new HTTP_Request($url);
-        //@TODO: We should probably throw an exception here.
-        if (is_a($req, 'PEAR_Error')) {
-            return $req;
-        }
-        $req->sendRequest();
-        $response = $req->getResponseBody();
-        return $response;
+        $req = $this->getHttpClient();
+        $response = $req->request('GET', $url);
+        $results = $response->getBody();
+
+        return $results;
     }
 
 }

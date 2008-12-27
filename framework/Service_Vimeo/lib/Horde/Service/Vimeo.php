@@ -14,7 +14,7 @@ require_once 'HTTP/Request.php';
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  */
-class Service_Vimeo {
+class Horde_Service_Vimeo {
 
     protected $_format = 'php';
 
@@ -57,7 +57,7 @@ class Service_Vimeo {
         $driver = basename($driver);
 
         include_once dirname(__FILE__) . '/Vimeo/' . $driver . '.php';
-        $class = 'Horde_Services_Vimeo_' . $driver;
+        $class = 'Horde_Service_Vimeo_' . $driver;
         if (class_exists($class)) {
             return new $class($params);
         } else {
