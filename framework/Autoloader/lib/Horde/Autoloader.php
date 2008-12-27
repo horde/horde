@@ -6,6 +6,11 @@
  * @package  Horde_Autoloader
  * @license  http://www.gnu.org/copyleft/lesser.html
  */
+
+/**
+ * @category Horde
+ * @package  Horde_Autoloader
+ */
 class Horde_Autoloader
 {
     /**
@@ -38,9 +43,10 @@ class Horde_Autoloader
             if (!is_null($replace) || preg_match($pattern, $file)) {
                 $file = str_replace(array('::', '_'), '/', $file) . '.php';
                 $oldErrorReporting = error_reporting(E_ALL ^ E_WARNING);
-                $res = include_once $file;
+                /* @TODO H4: Change back to include */
+                $included = include_once $file;
                 error_reporting($oldErrorReporting);
-                if ($res) {
+                if ($included) {
                     return true;
                 }
             }
