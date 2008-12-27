@@ -5,7 +5,6 @@
 
 // @TODO Clean up
 require_once dirname(__FILE__) . '/ApplicationController.php';
-require_once dirname(__FILE__) . '/../../lib/Tags/Tagger.php';
 
 /**
  * @package Content

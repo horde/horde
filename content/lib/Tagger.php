@@ -8,11 +8,6 @@
  * @package  Horde_Content
  */
 
-// For now, require these, but they should be autoloadable...
-require_once dirname(__FILE__) . '/../Objects/Manager.php';
-require_once dirname(__FILE__) . '/../Types/Manager.php';
-require_once dirname(__FILE__) . '/../Users/Manager.php';
-
 /**
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @license  http://opensource.org/licenses/bsd-license.php BSD
