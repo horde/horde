@@ -1,9 +1,4 @@
 <?php
-
-require_once dirname(__FILE__) . '/Client/Base.php';
-require_once dirname(__FILE__) . '/Client/Exception.php';
-require_once dirname(__FILE__) . '/Client/Utf7imap.php';
-
 /**
  * Horde_Imap_Client:: provides an abstracted API interface to various IMAP
  * backends (RFC 3501).
@@ -151,36 +146,6 @@ class Horde_Imap_Client
     static public $encryptKey = null;
 
     /**
-     * Autoload handler.
-     */
-    static public function autoload($classname)
-    {
-        $res = false;
-
-        $old_error = error_reporting(0);
-        switch ($classname) {
-        case 'Horde_Mime':
-            $res = require_once 'Horde/Mime.php';
-            break;
-
-        case 'Horde_Mime_Headers':
-            $res = require_once 'Horde/Mime/Headers.php';
-            break;
-
-        case 'Horde_Mime_Part':
-            $res = require_once 'Horde/Mime/Part.php';
-            break;
-
-        case 'Secret':
-            $res = require_once 'Horde/Secret.php';
-            break;
-        }
-        error_reporting($old_error);
-
-        return $res;
-    }
-
-    /**
      * Attempts to return a concrete Horde_Imap_Client instance based on
      * $driver.
      * Throws a Horde_Imap_Client_Exception on error.
@@ -195,12 +160,6 @@ class Horde_Imap_Client
     static final public function getInstance($driver, $params = array())
     {
         $class = 'Horde_Imap_Client_' . strtr(basename($driver), '-', '_');
-        if (!class_exists($class)) {
-            $fname = dirname(__FILE__) . '/Client/' . $driver . '.php';
-            if (is_file($fname)) {
-                require_once $fname;
-            }
-        }
         if (!class_exists($class)) {
             throw new Horde_Imap_Client_Exception('Driver ' . $driver . ' not found', Horde_Imap_Client_Exception::DRIVER_NOT_FOUND);
         }
@@ -550,6 +509,5 @@ class Horde_Imap_Client
 
         return $ret_array;
     }
-}
 
-spl_autoload_register(array('Horde_Imap_Client_Base', 'autoload'));
+}

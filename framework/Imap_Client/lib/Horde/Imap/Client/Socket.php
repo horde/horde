@@ -495,12 +495,18 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             switch ($method) {
             case 'CRAM-MD5':
                 // RFC 2195
+                if (class_exists('Auth_SASL')) {
+                    throw new Horde_Imap_Client_Exception('The Auth_SASL package is required for CRAM-MD5 authentication');
+                }
                 $auth_sasl = Auth_SASL::factory('crammd5');
                 $response = base64_encode($auth_sasl->getResponse($this->_params['username'], $this->_params['password'], base64_decode($ob['line'])));
                 $this->_sendLine($response, array('debug' => '[CRAM-MD5 Response]', 'notag' => true));
                 break;
 
             case 'DIGEST-MD5':
+                if (class_exists('Auth_SASL')) {
+                    throw new Horde_Imap_Client_Exception('The Auth_SASL package is required for DIGEST-MD5 authentication');
+                }
                 $auth_sasl = Auth_SASL::factory('digestmd5');
                 $response = base64_encode($auth_sasl->getResponse($this->_params['username'], $this->_params['password'], base64_decode($ob['line']), $this->_params['hostspec'], 'imap'));
                 $ob = $this->_sendLine($response, array('debug' => '[DIGEST-MD5 Response]', 'noparse' => true, 'notag' => true));

@@ -1,8 +1,4 @@
 <?php
-
-require_once 'Horde/Cache.php';
-require_once 'Horde/Serialize.php';
-
 /**
  * Horde_Imap_Client_Cache:: provides an interface to cache various data
  * retrieved from the IMAP server.
@@ -86,19 +82,15 @@ class Horde_Imap_Client_Cache
     /**
      * Return a reference to a concrete Horde_Imap_Client_Cache instance.
      *
-     * This method must be invoked as:
-     *   $var = &IMP_MessageCache::singleton();
-     *
      * @param array $params  The configuration parameters.
      *
      * @return Horde_Imap_Client_Cache  The global instance.
      */
-    static public function &singleton($params = array())
+    static public function singleton($params = array())
     {
         static $instance = array();
 
         $sig = md5(serialize($params));
-
         if (!isset($instance[$sig])) {
             $instance[$sig] = new Horde_Imap_Client_Cache($params);
         }
@@ -122,7 +114,7 @@ class Horde_Imap_Client_Cache
         }
 
         /* Initialize the Cache object. */
-        $this->_cacheOb = &Horde_Cache::singleton($params['driver'], $params['driver_params']);
+        $this->_cacheOb = Horde_Cache::singleton($params['driver'], $params['driver_params']);
         if (is_a($this->_cacheOb, 'PEAR_Error')) {
             throw new Horde_Imap_Client_Exception($this->_cacheOb->getMessage());
         }
