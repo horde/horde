@@ -1,8 +1,4 @@
 <?php
-
-/** HTTP_Request **/
-require_once 'HTTP/Request.php';
-
 /**
  * Horde_Serivce_VimeoSimple:: wrapper around Vimeo's (http://www.vimeo.com)
  * Simple API.
@@ -14,18 +10,10 @@ require_once 'HTTP/Request.php';
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  */
-class Service_VimeoSimple {
+class Service_Vimeo_Simple extends Service_Vimeo {
 
     protected $_api_endpoint = 'http://www.vimeo.com/api/';
     protected $_oembed_endpoint = 'http://www.vimeo.com/api/oembed.json';
-    protected $_format = 'php';
-
-
-    public function setReturnFormat($format)
-    {
-        // TODO: Validate (json, php, xml)
-        $this->_format = $format;
-    }
 
     /**
      * Return an array of clips data based on the search criteria.
