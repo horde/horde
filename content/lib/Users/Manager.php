@@ -32,9 +32,11 @@ class Content_Users_Manager
         'users' => 'rampage_users',
     );
 
-    public function __construct($adapter, $params = array())
+    public function __construct($context = array())
     {
-        $this->_db = $adapter;
+        if (!empty($context['dbAdapter'])) {
+            $this->_db = $context['dbAdapter'];
+        }
     }
 
     /**

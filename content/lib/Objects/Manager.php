@@ -45,13 +45,17 @@ class Content_Objects_Manager
      */
     public function __construct($context = array())
     {
+        if (!empty($context['dbAdapter'])) {
+            $this->_db = $context['dbAdapter'];
+        }
+
         if (!empty($params['typeManager'])) {
             $this->_typeManager = $params['typeManager'];
         }
     }
 
     /**
-     *
+     * Set the database connection.
      *
      * @param Horde_Db $db  The database connection
      */

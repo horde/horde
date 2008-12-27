@@ -34,7 +34,9 @@ class Content_Types_Manager
 
     public function __construct($context = array())
     {
-        $this->_db = $adapter;
+        if (!empty($context['dbAdapter'])) {
+            $this->_db = $context['dbAdapter'];
+        }
     }
 
     /**
