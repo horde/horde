@@ -79,6 +79,10 @@ class Content_Tagger
      */
     public function __construct($context = array())
     {
+        if (!empty($context['dbAdapter'])) {
+            $this->_db = $context['dbAdapter'];
+        }
+
         if (!empty($context['userManager'])) {
             $this->_userManager = $context['userManager'];
         }
