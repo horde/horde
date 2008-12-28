@@ -37,27 +37,10 @@ class Content_Types_Manager
         if (!empty($context['dbAdapter'])) {
             $this->_db = $context['dbAdapter'];
         }
-    }
 
-    /**
-     * Set the database adapter.
-     *
-     * @param Horde_Db $db  The database connection
-     */
-    public function setDbAdapter($db)
-    {
-        $this->_db = $db;
-    }
-
-    /**
-     * Change the name of a database table.
-     *
-     * @param string $tableType
-     * @param string $tableName
-     */
-    public function setTableName($tableType, $tableName)
-    {
-        $this->_tables[$tableType] = $tableName;
+        if (!empty($context['tables'])) {
+            $this->_tables = array_merge($this->_tables, $context['tables']);
+        }
     }
 
     /**

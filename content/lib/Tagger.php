@@ -94,27 +94,10 @@ class Content_Tagger
         if (!empty($context['objectManager'])) {
             $this->_objectManager = $context['objectManager'];
         }
-    }
 
-    /**
-     * Set the database connection for the tagger.
-     *
-     * @param Horde_Db $db
-     */
-    public function setDbAdapter($db)
-    {
-        $this->_db = $db;
-    }
-
-    /**
-     * Change the name of a database table.
-     *
-     * @param string $tableType
-     * @param string $tableName
-     */
-    public function setTableName($tableType, $tableName)
-    {
-        $this->_tables[$tableType] = $tableName;
+        if (!empty($context['tables'])) {
+            $this->_tables = array_merge($this->_tables, $context['tables']);
+        }
     }
 
     /**

@@ -15,8 +15,7 @@ class TagController extends Content_ApplicationController
      */
     protected function _initialize()
     {
-        $this->tagger = new Content_Tagger();
-        $this->tagger->setDbAdapter(Horde_Db::getAdapter());
+        $this->tagger = new Content_Tagger(array('dbAdapter' => Horde_Db::getAdapter()));
     }
 
     /**

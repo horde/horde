@@ -24,8 +24,7 @@ class Content_Tags_TaggerTest extends PHPUnit_Framework_TestCase
         ));
 
         // Create tagger
-        $this->tagger = new Content_Tagger();
-        $this->tagger->setDbAdapter($this->db);
+        $this->tagger = new Content_Tagger(array('dbAdapter' => $this->db));
 
         // Read sql schema file
         $statements = array();

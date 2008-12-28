@@ -17,7 +17,6 @@ if (!count($tags)) {
     throw new InvalidArgumentException('List at least one tag to add.');
 }
 
-$tagger = new Content_Tagger();
-$tagger->setDbAdapter(Horde_Db::getAdapter());
+$tagger = new Content_Tagger(array('dbAdapter' => Horde_Db::getAdapter()));
 $tagger->tag($opts->user_id, $opts->object_id, $tags);
 exit(0);

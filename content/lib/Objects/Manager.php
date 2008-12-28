@@ -52,27 +52,10 @@ class Content_Objects_Manager
         if (!empty($params['typeManager'])) {
             $this->_typeManager = $params['typeManager'];
         }
-    }
 
-    /**
-     * Set the database connection.
-     *
-     * @param Horde_Db $db  The database connection
-     */
-    public function setDbAdapter($db)
-    {
-        $this->_db = $db;
-    }
-
-    /**
-     * Change the name of a database table.
-     *
-     * @param string $tableType
-     * @param string $tableName
-     */
-    public function setTableName($tableType, $tableName)
-    {
-        $this->_tables[$tableType] = $tableName;
+        if (!empty($context['tables'])) {
+            $this->_tables = array_merge($this->_tables, $context['tables']);
+        }
     }
 
     /**
