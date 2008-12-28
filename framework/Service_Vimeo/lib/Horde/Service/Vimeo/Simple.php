@@ -70,7 +70,15 @@ class Horde_Service_Vimeo_Simple extends Horde_Service_Vimeo {
      * @param mixed $optons  Either an array containing api parameters or the
      *                       video id. If an array, if the url is not passed,
      *                       we find it from the video_id.
-     *
+     * Parameters:
+     * url OR video_id
+     * width
+     * maxwidth
+     * byline
+     * title
+     * portrait
+     * color
+     * callback
      *
      * @return JSON encoded data
      */
@@ -88,7 +96,7 @@ class Horde_Service_Vimeo_Simple extends Horde_Service_Vimeo {
         }
 
         // We should have a url now, and possibly other options.
-        $url = Util::addParameter($this->_oembed_endpoint, $options, null, true);
+        $url = Util::addParameter($this->_oembed_endpoint, $options, null, false);
 
         $req = $this->getHttpClient();
         $response = $req->request('GET', $url);
