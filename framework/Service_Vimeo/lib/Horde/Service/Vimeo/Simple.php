@@ -12,10 +12,6 @@
  */
 class Horde_Service_Vimeo_Simple extends Horde_Service_Vimeo {
 
-    protected $_api_endpoint = 'http://www.vimeo.com/api/';
-    protected $_oembed_endpoint = 'http://www.vimeo.com/api/oembed.json';
-
-
     public function getActivity($criteria)
     {
     }
@@ -50,9 +46,12 @@ class Horde_Service_Vimeo_Request {
     protected $_identifier;
     protected $_method;
 
-    public function __construct($args)
+    public function __construct($args = array())
     {
-        $this->_identifier = $args['type'];
+        if (count($args) && !empty($args['type'])) {
+            $this->_identifier = $args['type'];
+
+        }
     }
 
     public function __call($name, $args)
@@ -63,6 +62,30 @@ class Horde_Service_Vimeo_Request {
             return $this;
        }
     }
+
+    public function embed($options)
+    {
+        if (!is_array($options)) {
+            // Assume it's a video id, need to get the video url
+            // @TODO
+        }
+
+        // $options should be an array now
+        if (empty($options['url']) && !empty($options['video_id'])) {
+            // We were originally passed an array, but still need the url
+            // @TODO
+        }
+
+        // We should have a url now, and possibly other options.
+        $url = Util::addParameter($this->_oembed_endpoint, $options, null, false);
+
+        $req = Horde_Service_Vimeo::getHttpClient();
+        $response = $req->request('GET', $url);
+        $results = $response->getBody();
+
+        return $results;
+    }
+
 
     public function run()
     {

@@ -76,25 +76,8 @@ class Horde_Service_Vimeo {
      */
     public function getEmbedJSON($options)
     {
-        if (!is_array($options)) {
-            // Assume it's a video id, need to get the video url
-            // @TODO
-        }
-
-        // $options should be an array now
-        if (empty($options['url']) && !empty($options['video_id'])) {
-            // We were originally passed an array, but still need the url
-            // @TODO
-        }
-
-        // We should have a url now, and possibly other options.
-        $url = Util::addParameter($this->_oembed_endpoint, $options, null, false);
-
-        $req = $this->getHttpClient();
-        $response = $req->request('GET', $url);
-        $results = $response->getBody();
-
-        return $results;
+        $request = new Horde_Service_Vimeo_Request();
+        return $request->embed($options);
     }
 
     /**
