@@ -32,19 +32,6 @@ class Horde_Service_Vimeo_Simple extends Horde_Service_Vimeo {
     public function __call($name, $args)
     {
         return new Horde_Service_Vimeo_Request(array('type' => $name, 'identifier' => $args[0]));
-        // TODO: May need to validate these values before they are passed on.
-        //        switch ($name) {
-        //        case 'user':
-        //            // ->user('username')
-        //            $request = new Horde_Service_Vimeo_Request(array('type' => 'user', 'identifier' => $args[0]));
-        //            return $request;
-        //        case 'group':
-        //            //->group('groupidentifier')
-        //            $request = new Horde_Service_Vimeo_Request(array('type' => 'group', 'identifier' => $args[0]));
-        //            return $request;
-        //
-        //        case 'channel':
-        //        }
     }
 
 }
@@ -95,7 +82,7 @@ class Horde_Service_Vimeo_Request {
      */
     public function __call($name, $args)
     {
-        if (!in_array($name, $this->_methodType[$this->_type])) {
+        if (!in_array($name, $this->_methodTypes[$this->_type])) {
             return;
         }
         $this->_method = $name;
