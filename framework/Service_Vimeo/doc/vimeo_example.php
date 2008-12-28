@@ -1,17 +1,20 @@
 <?php
-
-// require_once /var/www/html/horde/horde-hatchery/service/lib/VimeoSimple.php';
-
 require_once 'Horde/Autoloader.php';
-$v = new Service_VimeoSimple();
+$v = Horde_Service_Vimeo::factory('Simple');
 
 // Get the list of all user videos
-$results = unserialize($v->getClips(array('userClips' => 'user1015172')));
+$results = unserialize($v->user('user1015172')->clips()->run());
+
+// Get the list of all clips in a group
+$results = unserialize($v->group('bestof08')->clips()->run());
+
+// List of all clips in a channel
+$results = unserialize($v->channel('theedit')->clips()->run());
+
+// List of clips in an album
+$results = unserialize($v->album('52803')->clips()->run());
 
 // Get first video to embed
-$latest = $results[0]; 
-
-// Get the code to embed it
 $embed = $v->getEmbedJSON($latest['url']);
 
 // Decode the data and print out the HTML

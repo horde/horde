@@ -74,6 +74,9 @@ class Horde_Service_Vimeo_Request {
             case 'channel':
                 $this->_identifier = '/channel/' . $args['identifier'];
                 break;
+            case 'album':
+                $this->_identifier = '/album/' . $args['identifier'];
+                break;
             }
         }
     }
