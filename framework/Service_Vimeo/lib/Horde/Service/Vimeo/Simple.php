@@ -63,46 +63,4 @@ class Horde_Service_Vimeo_Simple extends Horde_Service_Vimeo {
     {
     }
 
-
-    /**
-     * Get the raw JSON response containing the data to embed a single video.
-     *
-     * @param mixed $optons  Either an array containing api parameters or the
-     *                       video id. If an array, if the url is not passed,
-     *                       we find it from the video_id.
-     * Parameters:
-     * url OR video_id
-     * width
-     * maxwidth
-     * byline
-     * title
-     * portrait
-     * color
-     * callback
-     *
-     * @return JSON encoded data
-     */
-    public function getEmbedJSON($options)
-    {
-        if (!is_array($options)) {
-            // Assume it's a video id, need to get the video url
-            // @TODO
-        }
-
-        // $options should be an array now
-        if (empty($options['url']) && !empty($options['video_id'])) {
-            // We were originally passed an array, but still need the url
-            // @TODO
-        }
-
-        // We should have a url now, and possibly other options.
-        $url = Util::addParameter($this->_oembed_endpoint, $options, null, false);
-
-        $req = $this->getHttpClient();
-        $response = $req->request('GET', $url);
-        $results = $response->getBody();
-
-        return $results;
-    }
-
 }
