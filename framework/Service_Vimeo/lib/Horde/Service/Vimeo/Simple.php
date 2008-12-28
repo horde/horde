@@ -31,11 +31,20 @@ class Horde_Service_Vimeo_Simple extends Horde_Service_Vimeo {
 
     public function __call($name, $args)
     {
-        switch ($name) {
-        case 'user';
-            $request = new Horde_Service_Vimeo_Request(array('type' => $args[0]));
-            return $request;
-        }
+        return new Horde_Service_Vimeo_Request(array('type' => $name, 'identifier' => $args[0]));
+        // TODO: May need to validate these values before they are passed on.
+        //        switch ($name) {
+        //        case 'user':
+        //            // ->user('username')
+        //            $request = new Horde_Service_Vimeo_Request(array('type' => 'user', 'identifier' => $args[0]));
+        //            return $request;
+        //        case 'group':
+        //            //->group('groupidentifier')
+        //            $request = new Horde_Service_Vimeo_Request(array('type' => 'group', 'identifier' => $args[0]));
+        //            return $request;
+        //
+        //        case 'channel':
+        //        }
     }
 
 }
@@ -43,21 +52,44 @@ class Horde_Service_Vimeo_Simple extends Horde_Service_Vimeo {
 class Horde_Service_Vimeo_Request {
     protected $_api_endpoint = 'http://www.vimeo.com/api';
     protected $_oembed_endpoint = 'http://www.vimeo.com/api/oembed.json';
+
+    // Qualifier in the URL after /api/
     protected $_identifier;
     protected $_method;
+    protected $_type;
 
     public function __construct($args = array())
     {
         if (count($args) && !empty($args['type'])) {
-            $this->_identifier = $args['type'];
 
+            // Might be useful to know the type at some point
+            $this->_type = $args['type'];
+            switch ($args['type']) {
+            case 'user':
+                $this->_identifier = $args['identifier'];
+                break;
+            case 'group':
+                $this->_identifier = '/group/' . $args['identifier'];
+                break;
+            case 'channel':
+                $this->_identifier = '/channel/' . $args['identifier'];
+                break;
+            }
         }
     }
 
+    /**
+     * TODO: Validate the requested method fits with the type of query
+     *
+     * @param unknown_type $name
+     * @param unknown_type $args
+     * @return unknown
+     */
     public function __call($name, $args)
     {
         switch ($name) {
         case 'clips':
+            // ->clips()
             $this->_method = $name;
             return $this;
        }
