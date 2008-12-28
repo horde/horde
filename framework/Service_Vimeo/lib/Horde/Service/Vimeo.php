@@ -16,7 +16,7 @@ require_once 'HTTP/Request.php';
  */
 class Horde_Service_Vimeo {
 
-    protected $_format = 'php';
+    protected static $_format = 'php';
 
     /**
      * HTTP client object to use for accessing the Vimeo API.
@@ -49,6 +49,11 @@ class Horde_Service_Vimeo {
         }
 
         return self::$_httpClient;
+    }
+
+    public static function getFormat()
+    {
+        return self::$_format;
     }
 
     /**

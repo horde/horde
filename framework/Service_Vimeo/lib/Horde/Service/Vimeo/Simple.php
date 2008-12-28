@@ -15,36 +15,6 @@ class Horde_Service_Vimeo_Simple extends Horde_Service_Vimeo {
     protected $_api_endpoint = 'http://www.vimeo.com/api/';
     protected $_oembed_endpoint = 'http://www.vimeo.com/api/oembed.json';
 
-    /**
-     * Return an array of clips data based on the search criteria.
-     *
-     * @param array $criteria  The search criteria:
-     *     Users
-     *       userClips:
-     *       userLikes:
-     *       userIn:
-     *       userAll:
-     *       userSubscriptions:
-     *       contactsClips:
-     *       contactsLikes:
-     *
-     *     Groups
-     *       groupClips: clips in this group
-     */
-    public function getClips($criteria)
-    {
-        $key = array_pop(array_keys($criteria));
-
-        switch ($key) {
-        case 'userClips':
-            $method = $criteria['userClips'] . '/clips.' . $this->_format;
-            break;
-        }
-
-        $req = $this->getHttpClient();
-        $response = $req->request('GET', $this->_api_endpoint . $method);
-        return $response->getBody();
-    }
 
     public function getActivity($criteria)
     {
@@ -63,4 +33,41 @@ class Horde_Service_Vimeo_Simple extends Horde_Service_Vimeo {
     {
     }
 
+    public function __call($name, $args)
+    {
+        switch ($name) {
+        case 'user';
+            $request = new Horde_Service_Vimeo_Request(array('type' => $args[0]));
+            return $request;
+        }
+    }
+
+}
+
+class Horde_Service_Vimeo_Request {
+    protected $_api_endpoint = 'http://www.vimeo.com/api';
+    protected $_oembed_endpoint = 'http://www.vimeo.com/api/oembed.json';
+    protected $_identifier;
+    protected $_method;
+
+    public function __construct($args)
+    {
+        $this->_identifier = $args['type'];
+    }
+
+    public function __call($name, $args)
+    {
+        switch ($name) {
+        case 'clips':
+            $this->_method = $name;
+            return $this;
+       }
+    }
+
+    public function run()
+    {
+        $req = Horde_Service_Vimeo::getHttpClient();
+        $response = $req->request('GET', $this->_api_endpoint . '/' . $this->_identifier . '/' . $this->_method . '.' . Horde_Service_Vimeo::getFormat());
+        return $response->getBody();
+    }
 }
