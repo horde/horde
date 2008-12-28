@@ -58,6 +58,11 @@ class Horde_Service_Vimeo_Request {
     protected $_method;
     protected $_type;
 
+    protected $_methodTypes = array('user' => array('clips', 'likes', 'info', 'appears_in', 'all_clips', 'subscriptions', 'albums', 'channels', 'groups', 'contacts_clips', 'contacts_like'),
+                                    'group' => array('clips', 'users', 'info'),
+                                    'channel' => array('clips', 'info'),
+                                    'album' => array('clips', 'info'));
+
     public function __construct($args = array())
     {
         if (count($args) && !empty($args['type'])) {
@@ -90,12 +95,11 @@ class Horde_Service_Vimeo_Request {
      */
     public function __call($name, $args)
     {
-        switch ($name) {
-        case 'clips':
-            // ->clips()
-            $this->_method = $name;
-            return $this;
-       }
+        if (!in_array($name, $this->_methodType[$this->_type])) {
+            return;
+        }
+        $this->_method = $name;
+        return $this;
     }
 
     public function embed($options)
