@@ -211,7 +211,7 @@ class IMP_Compose
 
         /* Need to add Message-ID so we can use it in the index search. */
         $draft_headers->addMessageIdHeader();
-        $draft_headers = $mime->addMimeHeaders($draft_headers);
+        $draft_headers = $base->addMimeHeaders($draft_headers);
 
         return $draft_headers->toString(array('charset' => $charset, 'defserver' => $session ? $_SESSION['imp']['maildomain'] : null)) . $base->toString(false);
     }
