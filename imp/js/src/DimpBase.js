@@ -696,7 +696,7 @@ var DimpBase = {
     {
         var elt, label, unseen;
         if (this.viewport.isFiltering()) {
-            label = DIMP.text.search + ' :: ' + this.viewport.getMetaData('total_rows') + ' ' + DIMP.text.resfound;
+            label = DIMP.text.search + ' :: ' + (this.viewport.getMetaData('total_rows') || 0) + ' ' + DIMP.text.resfound;
         } else {
             elt = $(this.getFolderId(this.folder));
             if (elt) {

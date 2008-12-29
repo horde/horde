@@ -191,7 +191,7 @@ class DIMP
             'portal' => ("Portal"),
             'prefs' => _("User Options"),
             'search' => _("Search"),
-            'resfound' => _("results found"),
+            'resfound' => _("messages found"),
             'message' => _("Message"),
             'messages' => _("Messages"),
             'of' => _("of"),

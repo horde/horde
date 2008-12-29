@@ -196,10 +196,12 @@ class IMP_Views_ListMessages
                 (isset($sorted_list['m'][$key]['m'])
                     ? $sorted_list['m'][$key]['m']
                     : '');
-            $msglist[$key] = $sorted_list['s'][$key];
-            $rowlist[$uid] = $key;
-            if (!isset($cached[$uid])) {
-                $data[] = $key;
+            if ($uid) {
+                $msglist[$key] = $sorted_list['s'][$key];
+                $rowlist[$uid] = $key;
+                if (!isset($cached[$uid])) {
+                    $data[] = $key;
+                }
             }
         }
         $result->rowlist = $rowlist;
