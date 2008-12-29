@@ -74,7 +74,7 @@ class Horde_Service_Vimeo {
      *
      * @return JSON encoded data
      */
-    public function getEmbedJSON($options)
+    public function getEmbedJson($options)
     {
         $request = new Horde_Service_Vimeo_Request();
         return $request->embed($options);

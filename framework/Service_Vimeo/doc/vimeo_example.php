@@ -15,7 +15,7 @@ $results = unserialize($v->channel('theedit')->clips()->run());
 $results = unserialize($v->album('52803')->clips()->run());
 
 // Get first video to embed
-$embed = $v->getEmbedJSON($latest['url']);
+$embed = $v->getEmbedJson($latest['url']);
 
 // Decode the data and print out the HTML
 $results = Horde_Serialize::unserialize($embed, SERIALIZE_JSON);
