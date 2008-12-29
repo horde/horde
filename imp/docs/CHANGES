@@ -43,6 +43,7 @@ v5.0-cvs
 v4.3.3-cvs
 ----------
 
+[mms] Show translated 'INBOX' prefix for subfolders (Request #7759).
 [mms] Workaround obsolete 'UT' date format (Request #5717).
 [mms] Fix tracking folder changes when renaming (Bug #7772).
 [cjh] Suppress browser autocomplete when redirecting messages (Bug #7767).

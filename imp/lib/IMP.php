@@ -477,7 +477,7 @@ class IMP
      */
     static public function displayFolder($folder)
     {
-        $cache = self::$_displaycache;
+        $cache = &self::$_displaycache;
 
         if (isset($cache[$folder])) {
             return $cache[$folder];
@@ -486,12 +486,15 @@ class IMP
         if ($folder == 'INBOX') {
             $cache[$folder] = _("Inbox");
         } else {
-            $namespace_info = $GLOBALS['imp_imap']->getNamespace($folder);
-            if (!is_null($namespace_info) &&
-                !empty($namespace_info['name']) &&
-                ($namespace_info['type'] == 'personal') &&
-                substr($folder, 0, strlen($namespace_info['name'])) == $namespace_info['name']) {
-                $cache[$folder] = substr($folder, strlen($namespace_info['name']));
+            $ns_info = $GLOBALS['imp_imap']->getNamespace($folder);
+            if (!is_null($ns_info) &&
+                !empty($ns_info['name']) &&
+                ($ns_info['type'] == 'personal') &&
+                substr($folder, 0, strlen($ns_info['name'])) == $ns_info['name']) {
+                $cache[$folder] = substr($folder, strlen($ns_info['name']));
+            } elseif (!is_null($ns_info) &&
+                      (stripos($folder, 'INBOX' . $ns_info['delimiter']) === 0)) {
+                $cache[$folder] = _("Inbox") . substr($folder, 5);
             } else {
                 $cache[$folder] = $folder;
             }
