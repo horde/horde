@@ -258,7 +258,7 @@ class Horde_Mime_Address
 
             /* Ensure we're working with initialized values. */
             if (!empty($ob['personal'])) {
-                $ob['personal'] = stripslashes(trim(Horde_Mime::decode($ob['personal']), '"'));
+                $ob['personal'] = trim(stripslashes(Horde_Mime::decode($ob['personal'])), '"');
             }
 
             $inner = self::writeAddress($ob['mailbox'], $ob['host']);
