@@ -273,7 +273,7 @@ $_prefs['sent_mail_folder'] = array(
     // 3501 [5.1.3]). For Exchange, uncomment the entry below and remove the
     // default value entry.
     // 'value' => 'Sent Items',
-    'value' => _("Sent"),
+    'value' => 'Sent',
     'locked' => false,
     'shared' => false,
     'type' => 'implicit');
@@ -311,7 +311,7 @@ $_prefs['folderselect'] = array('type' => 'special');
 $_prefs['drafts_folder'] = array(
     // The mailbox value must be encoded in the UTF7-IMAP charset (see RFC
     // 3501 [5.1.3]).
-    'value' => _("Drafts"),
+    'value' => 'Drafts',
     'locked' => false,
     'shared' => false,
     'type' => 'implicit');
@@ -326,7 +326,7 @@ $_prefs['trash_folder'] = array(
     // 3501 [5.1.3]). For Exchange, uncomment the entry below and remove the
     // default value entry.
     // 'value' => 'Deleted Items',
-    'value' => _("Trash"),
+    'value' => 'Trash',
     'locked' => false,
     'shared' => false,
     'type' => 'implicit');
@@ -339,7 +339,7 @@ $_prefs['spamselect'] = array('type' => 'special');
 $_prefs['spam_folder'] = array(
     // The mailbox value must be encoded in the UTF7-IMAP charset (see RFC
     // 3501 [5.1.3]).
-    'value' => _("Spam"),
+    'value' => 'Spam',
     'locked' => false,
     'shared' => false,
     'type' => 'implicit');

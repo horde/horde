@@ -469,38 +469,52 @@ class IMP
     /**
      * If there is information available to tell us about a prefix in front of
      * mailbox names that shouldn't be displayed to the user, then use it to
-     * strip that prefix out.
+     * strip that prefix out. Additionally, translate prefix text if this
+     * is one of the folders with special meaning.
      *
      * @param string $folder  The folder name to display (UTF7-IMAP).
      *
-     * @return string  The folder, with any prefix gone.
+     * @return string  The folder, with any prefix gone/translated.
      */
     static public function displayFolder($folder)
     {
+        global $prefs;
+
         $cache = &self::$_displaycache;
 
         if (isset($cache[$folder])) {
             return $cache[$folder];
         }
 
-        if ($folder == 'INBOX') {
-            $cache[$folder] = _("Inbox");
-        } else {
-            $ns_info = $GLOBALS['imp_imap']->getNamespace($folder);
-            if (!is_null($ns_info) &&
-                !empty($ns_info['name']) &&
-                ($ns_info['type'] == 'personal') &&
-                substr($folder, 0, strlen($ns_info['name'])) == $ns_info['name']) {
-                $cache[$folder] = substr($folder, strlen($ns_info['name']));
-            } elseif (!is_null($ns_info) &&
-                      (stripos($folder, 'INBOX' . $ns_info['delimiter']) === 0)) {
-                $cache[$folder] = _("Inbox") . substr($folder, 5);
-            } else {
-                $cache[$folder] = $folder;
-            }
+        $ns_info = $GLOBALS['imp_imap']->getNamespace($folder);
+        $delimiter = is_null($ns_info) ? $ns_info['delimiter'] : '';
 
-            $cache[$folder] = String::convertCharset($cache[$folder], 'UTF7-IMAP');
+        /* Substitute any translated prefix text. */
+        $sub_array = array(
+            'INBOX' => _("Inbox"),
+            $prefs->getValue('sent_mail_folder') => _("Sent"),
+            $prefs->getValue('drafts_folder') => _("Drafts"),
+            $prefs->getValue('trash_folder') => _("Trash"),
+            $prefs->getValue('spam_folder') => _("Spam")
+        );
+
+        foreach ($sub_array as $key => $val) {
+            if (stripos($folder, $key . $delimiter) === 0) {
+                return $val . String::convertCharset(substr($folder, strlen($key)), 'UTF7-IMAP');
+            }
         }
+
+        /* Strip namespace information. */
+        if (!is_null($ns_info) &&
+            !empty($ns_info['name']) &&
+            ($ns_info['type'] == 'personal') &&
+            substr($folder, 0, strlen($ns_info['name'])) == $ns_info['name']) {
+            $out = substr($folder, strlen($ns_info['name']));
+        } else {
+            $out = $folder;
+        }
+
+        $cache[$folder] = String::convertCharset($out, 'UTF7-IMAP');
 
         return $cache[$folder];
     }

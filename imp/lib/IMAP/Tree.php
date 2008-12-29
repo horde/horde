@@ -383,9 +383,8 @@ class IMP_IMAP_Tree
         $tmp = explode(is_null($ns_info) ? $this->_delimiter : $ns_info['delimiter'], $elt['v']);
         $elt['c'] = count($tmp) - 1;
 
-        /* Convert label to localized charset & convert 'INBOX' to localized
-         * name. */
-        $elt['l'] = ($elt['v'] == 'INBOX') ? _("Inbox") : String::convertCharset($tmp[$elt['c']], 'UTF7-IMAP');
+        /* Get the mailbox label. */
+        $elt['l'] = IMP::getLabel($tmp[$elt['c']]);
 
         if ($_SESSION['imp']['protocol'] != 'pop') {
             if ($elt['c'] != 0) {
