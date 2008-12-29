@@ -9,3 +9,14 @@ Hippo will be a new Horde 4, PHP 5 application that aggregates content. It will 
     * This application should eventually be able to replace Klutz
     * Additional possible content types include podcasts, content from other Horde applications (iCalendar data from Kronolith), "friend information (http://hasin.wordpress.com/2008/05/31/building-friendfeed-using-php-part-1/, http://hasin.wordpress.com/2008/06/03/building-services-like-friendfeed-using-php-part2/), etc.
     * http://www.dapper.net/
+
+GUID detection:
+                if (isset($item['guid'])) {
+                    $guid = $item['guid'];
+                } else if (isset($item['id'])) {
+                    $guid = $item['id'];
+            $item['guid'] = $item['id'];
+            } else {
+                    $guid = $item['link'];
+            $item['guid'] = $item['link'];
+                }
