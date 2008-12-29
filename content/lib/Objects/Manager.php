@@ -50,7 +50,7 @@ class Content_Objects_Manager
         }
 
         if (!empty($params['typeManager'])) {
-            $this->_typeManager = $params['typeManager'];
+            $this->_typeManager = $context['typeManager'];
         }
 
         if (!empty($context['tables'])) {
