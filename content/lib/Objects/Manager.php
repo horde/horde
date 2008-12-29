@@ -49,7 +49,7 @@ class Content_Objects_Manager
             $this->_db = $context['dbAdapter'];
         }
 
-        if (!empty($params['typeManager'])) {
+        if (!empty($context['typeManager'])) {
             $this->_typeManager = $context['typeManager'];
         }
 
