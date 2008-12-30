@@ -73,8 +73,8 @@ $log = &$fl->logs;
 $log_messages = array();
 $range = $VC->getRevisionRange($fl, $r1, $r2);
 foreach ($range as $val) {
-    list($branchname, $branchrev) = Chora::getBranch($fl, $val);
     if (isset($log[$val])) {
+        list($branchname, $branchrev) = Chora::getBranch($fl, $val);
         $clog = &$log[$val];
         $log_messages[] = array(
             'rev' => $val,
