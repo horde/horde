@@ -298,6 +298,8 @@ div.msgSize {
 /* Thread images. */
 div.msgSubject img {
     margin-top: -4px;
+    vertical-align: top;
+    padding-right: 1px;
 }
 /* Size images. */
 div.msgSize img {
@@ -927,9 +929,6 @@ div.spellcheck {
     padding-right: 4px;
 }
 .context div.sep {
-    font-size: 1px;
-    line-height: 1px;
-    height: 1px;
     border-bottom: 1px #d4d4d4 solid;
 }
 

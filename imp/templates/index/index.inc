@@ -137,7 +137,7 @@ function _simpleButton($id, $text, $image, $imagedir = null)
      </li>
      <li class="folder" id="dropbase" style="display:none">
       <div class="base"></div>
-      <a title="<?php echo _("Base Level") ?>"><?php echo _("Base Level") ?></a>
+      <a title="<?php echo _("Move to Base Level") ?>"><?php echo _("Move to Base Level") ?></a>
      </li>
     </ul>
    </div>
