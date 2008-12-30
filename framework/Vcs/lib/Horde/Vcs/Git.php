@@ -220,7 +220,7 @@ class Horde_Vcs_Diff_git extends Horde_Vcs_Diff
      */
     public function getRevisionRange($rep, $file, $r1, $r2)
     {
-        $cmd = $rep->getCommand() . ' rev-list ' . $r1 . '..' . $r2;
+        $cmd = $rep->getCommand() . ' rev-list ' . $r1 . '..' . $r2 . ' -- "' . $file->queryModulePath() . '"';
         $pipe = popen($cmd, 'r');
         if (!is_resource($pipe)) {
             throw new Horde_Vcs_Exception('Unable to run ' . $cmd . ': ' . error_get_last());
@@ -234,7 +234,6 @@ class Horde_Vcs_Diff_git extends Horde_Vcs_Diff
             }
         }
 
-        $revs[] = $r1;
         pclose($pipe);
 
         return $revs;
