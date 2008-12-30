@@ -436,7 +436,6 @@ class Horde_Vcs_File_cvs extends Horde_Vcs_File
      */
     public function __construct($rep, $fl, $cache = null, $quicklog = false)
     {
-        $fl .= ',v';
         $this->rep = $rep;
         $this->name = basename($fl);
         $this->dir = dirname($fl);
@@ -466,7 +465,7 @@ class Horde_Vcs_File_cvs extends Horde_Vcs_File
             $fileOb = unserialize($this->cache->get($cacheId, $ctime));
             $fileOb->setRepository($this->rep);
         } else {
-            $fileOb = new Horde_Vcs_File_cvs($this->rep, $filename, $this->cache, $this->quicklog);
+            $fileOb = new Horde_Vcs_File_cvs($this->rep, $filename . ',v', $this->cache, $this->quicklog);
             $fileOb->setRepository($this->rep);
             if (is_a(($result = $fileOb->getBrowseInfo()), 'PEAR_Error')) {
                 return $result;
