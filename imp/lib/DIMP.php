@@ -523,7 +523,7 @@ class DIMP
         // encode the params and explicitly call rawurlencode() in
         // compose.php.
         $args = IMP::composeLinkArgs($args, $extra);
-        $encode_args = array();
+        $encode_args = array('popup' => 1);
         foreach ($args as $k => $v) {
             $encode_args[$k] = rawurlencode($v);
         }
