@@ -21,15 +21,17 @@ class Chora {
         static $time, $desc, $breaks;
 
         /* Initialize popular variables. */
-        if (is_null($time)) {
+        if (!isset($time)) {
             $time = time();
-            $desc = array(1 => array(_("second"), _("seconds")),
-                          60 => array(_("minute"), _("minutes")),
-                          3600 => array(_("hour"), _("hours")),
-                          86400 => array(_("day"), _("days")),
-                          604800 => array(_("week"), _("weeks")),
-                          2628000 => array(_("month"), _("months")),
-                          31536000 => array(_("year"), _("years")));
+            $desc = array(
+                1 => array(_("second"), _("seconds")),
+                60 => array(_("minute"), _("minutes")),
+                3600 => array(_("hour"), _("hours")),
+                86400 => array(_("day"), _("days")),
+                604800 => array(_("week"), _("weeks")),
+                2628000 => array(_("month"), _("months")),
+                31536000 => array(_("year"), _("years"))
+            );
             $breaks = array_keys($desc);
         }
 
@@ -44,7 +46,7 @@ class Chora {
 
         $break = $breaks[$i];
 
-        $val = (int)($secs / $break);
+        $val = intval($secs / $break);
         $retval = $val . ' ' . ($val > 1 ? $desc[$break][1] : $desc[$break][0]);
         if ($long && $i > 0) {
             $rest = $secs % $break;
@@ -64,10 +66,11 @@ class Chora {
      */
     function initialize()
     {
-        global $acts, $defaultActs, $conf, $where, $atdir,
-            $fullname, $prefs, $sourceroot, $scriptName;
+        global $acts, $defaultActs, $conf, $where, $atdir, $fullname, $prefs,
+               $sourceroot, $scriptName;
 
         $sourceroots = Chora::sourceroots();
+
         /**
          * Variables we wish to propagate across web pages
          *  sbt = Sort By Type (name, age, author, etc)
@@ -189,17 +192,15 @@ class Chora {
     {
         global $where, $atdir;
 
-        $bar = '';
-        $wherePath = '';
-
+        $bar = $wherePath = '';
+        $i = 0;
         $dirs = explode('/', $where);
         $last = count($dirs) - 1;
-        $i = 0;
+
         foreach ($dirs as $dir) {
+            $wherePath .= '/' . $dir;
             if (!$atdir && $i++ == $last) {
-                $wherePath .= "/$dir";
-            } else {
-                $wherePath .= "/$dir/";
+                $wherePath .= '/';
             }
             $wherePath = str_replace('//', '/', $wherePath);
             if (!empty($dir) && ($dir != 'Attic')) {
@@ -213,7 +214,9 @@ class Chora {
      * Output an error page.
      *
      * @param string $message       The verbose error message to be displayed.
-     * @param string $responseCode  The HTTP error number (and optional text), for sending 404s or other codes if appropriate..
+     * @param string $responseCode  The HTTP error number (and optional text),
+     *                              for sending 404s or other codes if
+     *                              appropriate..
      */
     public static function fatal($message, $responseCode = null)
     {
@@ -260,7 +263,8 @@ class Chora {
     function showAuthorName($name, $fullname = false)
     {
         static $users = null;
-        if ($users === null) {
+
+        if (is_null($users)) {
             $users = $GLOBALS['VC']->getUsers($GLOBALS['conf']['paths']['cvsusers']);
         }
 
@@ -269,6 +273,7 @@ class Chora {
                 htmlspecialchars($fullname ? $users[$name]['name'] : $name) .
                 '</a>' . ($fullname ? ' <em>' . htmlspecialchars($name) . '</em>' : '');
         }
+
         return htmlspecialchars($name);
     }
 
@@ -399,24 +404,27 @@ class Chora {
     }
 
     /**
-     * Pretty-print the checked out copy, using the
-     * Horde::Mime::Viewer package.
+     * Pretty-print the checked out copy, using Horde_Mime_Viewer.
      *
-     * @param string $mime_type File extension of the checked out file
-     * @param resource fp File pointer to the head of the checked out copy
-     * @return object The MIME_Viewer object which can be rendered or
-     *                false on failure
+     * @param string $mime_type  File extension of the checked out file.
+     * @param resource $fp       File pointer to the head of the checked out
+     *                           copy.
+     *
+     * @return mixed  The Horde_Mime_Viewer object which can be rendered or
+     *                false on failure.
      */
-    function &pretty($mime_type, $fp)
+    function pretty($mime_type, $fp)
     {
         $lns = '';
         while ($ln = fread($fp, 8192)) {
             $lns .= $ln;
         }
 
-        $mime = &new MIME_Part($mime_type, $lns);
-        $viewer = &MIME_Viewer::factory($mime);
-        return $viewer;
+        $mime = new Horde_Mime_Part();
+        $mime->setType($mime_type);
+        $mime->setContents($lns);
+
+        return Horde_Mime_Viewer::factory($mime);
     }
 
     /**
@@ -470,7 +478,7 @@ class Chora {
     {
         require_once 'Horde/Menu.php';
 
-        $menu = &new Menu();
+        $menu = new Menu();
         $menu->add(Chora::url(), _("_Browse"), 'chora.png');
 
         if ($returnType == 'object') {
@@ -514,6 +522,7 @@ class Chora {
                                     'widget', '', '', _("_Branches"));
             }
         }
+
         $views[] = $current == 'stats'
             ? '<em class="widget">' . _("Statistics") . '</em>'
             : Horde::widget(Chora::url('stats', $where), _("Statistics"),
@@ -532,7 +541,8 @@ class Chora {
 
         $log = Text_Filter::filter($log, 'text2html', array('parselevel' => TEXT_HTML_MICRO, 'charset' => NLS::getCharset(), 'class' => ''));
 
-        if (!empty($conf['tickets']['regexp']) && !empty($conf['tickets']['replacement'])) {
+        if (!empty($conf['tickets']['regexp']) &&
+            !empty($conf['tickets']['replacement'])) {
             $log = preg_replace($conf['tickets']['regexp'], $conf['tickets']['replacement'], $log);
         }
 
