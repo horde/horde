@@ -104,7 +104,7 @@ class Horde_Imap_Client_Cache
      *
      * @param array $params  The configuration parameters.
      */
-    function __construct($params = array())
+    public function __construct($params = array())
     {
         if (empty($params['driver']) ||
             empty($params['driver_params']) ||
@@ -153,7 +153,7 @@ class Horde_Imap_Client_Cache
     /**
      * Saves items to the cache at shutdown.
      */
-    function __destruct()
+    public function __destruct()
     {
         $compress = $this->_params['compress'];
         $lifetime = $this->_params['lifetime'];

@@ -4,6 +4,15 @@
  * class allows translation between abstracted search criteria and a
  * generated IMAP search criteria string suitable for sending to a remote
  * IMAP server.
+ *
+ * Copyright 2008 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ *
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @package  Horde_Imap_Client
  */
 class Horde_Imap_Client_Search_Query
 {

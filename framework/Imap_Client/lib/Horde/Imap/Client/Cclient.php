@@ -115,7 +115,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
      * Do cleanup prior to serialization and provide a list of variables
      * to serialize.
      */
-    function __sleep()
+    public function __sleep()
     {
         $this->logout();
         parent::__sleep();

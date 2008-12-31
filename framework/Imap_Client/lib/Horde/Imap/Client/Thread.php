@@ -2,6 +2,15 @@
 /**
  * A class allowing easy access to threaded sort results from
  * Horde_Imap_Client::thread().
+ *
+ * Copyright 2008 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ *
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @package  Horde_Imap_Client
  */
 class Horde_Imap_Client_Thread
 {
@@ -26,7 +35,7 @@ class Horde_Imap_Client_Thread
      *                      Horde_Imap_Client_Base::_thread().
      * @param string $type  Either 'uid' or 'sequence'.
      */
-    function __construct($data, $type)
+    public function __construct($data, $type)
     {
         $this->_thread = $data;
         $this->_type = $type;

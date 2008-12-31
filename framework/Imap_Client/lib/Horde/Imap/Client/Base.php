@@ -123,7 +123,7 @@ abstract class Horde_Imap_Client_Base extends Horde_Imap_Client
     /**
      * Destructor.
      */
-    function __destruct()
+    public function __destruct()
     {
         $this->_closeDebug();
     }
@@ -131,7 +131,7 @@ abstract class Horde_Imap_Client_Base extends Horde_Imap_Client
     /**
      * Do cleanup prior to serialization.
      */
-    function __sleep()
+    public function __sleep()
     {
         $this->_closeDebug();
 
@@ -151,7 +151,7 @@ abstract class Horde_Imap_Client_Base extends Horde_Imap_Client
     /**
      * Do re-initialization on unserialize().
      */
-    function __wakeup()
+    public function __wakeup()
     {
         if (isset($this->_params['_passencrypt']) &&
             !is_null(Horde_Imap_Client::$encryptKey)) {

@@ -64,7 +64,7 @@ class Horde_Imap_Client_Exception extends Exception
     /**
      * Constructor.
      */
-    function __construct($message = null, $code = 0)
+    public function __construct($message = null, $code = 0)
     {
         parent::__construct($message, $code);
 
