@@ -500,9 +500,10 @@ var ViewPort = Class.create({
             cached, params, rowlist;
 
         if (this.isFiltering()) {
-            params = this.filter.addFilterParams();
+            params = this.filter.addFilterParams().merge({ view: this.isFiltering() });
         } else {
             params = this.opts.additionalParams ? this.opts.additionalParams(opts.view || this.view) : $H();
+            params.update({ view: opts.view || this.view });
         }
 
         if (cid) {
@@ -526,7 +527,7 @@ var ViewPort = Class.create({
             params.update({ cached: cached });
         }
 
-        return params.merge(args).merge({ view: opts.view || this.view });
+        return params.merge(args);
     },
 
     // r = (Object) viewport response object.
@@ -1426,7 +1427,6 @@ ViewPort_Filter = Class.create({
         this.callback = callback;
 
         // Initialize other variables
-        this.filterid = 0;
         this.filtering = this.last_filter = this.last_folder = null;
     },
 
@@ -1457,7 +1457,7 @@ ViewPort_Filter = Class.create({
             return;
         }
 
-        this.filtering = ++this.filterid + '%search%';
+        this.filtering = true;
         this.last_folder = this.vp.view;
 
         // Filter visible rows immediately.
@@ -1474,12 +1474,12 @@ ViewPort_Filter = Class.create({
             c.update(this.vp.opts.empty.innerHTML);
         }
 
-        this.vp.loadView(this.filtering);
+        this.vp.loadView('%%filter%%');
     },
 
     isFiltering: function()
     {
-        return this.filtering;
+        return this.filtering ? this.last_folder : false;
     },
 
     getAction: function()
@@ -1506,12 +1506,11 @@ ViewPort_Filter = Class.create({
     clear: function(reset)
     {
         if (this.filtering) {
-            var fname = this.filtering;
             this.filtering = null;
             if (!reset) {
                 this.vp.loadView(this.last_folder);
             }
-            this.vp.deleteView(fname);
+            this.vp.deleteView('%%filter%%');
             this.last_filter = this.last_folder = null;
         }
     }
