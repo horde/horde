@@ -288,7 +288,7 @@ class Content_Tagger
     {
         $sql = 'SELECT tagged.tag_id AS tag_id, tag_name, MAX(created) AS created FROM ' . $this->_t('tagged') . ' tagged INNER JOIN ' . $this->_t('tags') . ' t ON tagged.tag_id = t.tag_id';
         if (isset($args['typeId'])) {
-            $args['typeId'] = array_pop($this->_typeManager->ensureTypes($arge['typeId']));
+            $args['typeId'] = array_pop($this->_typeManager->ensureTypes($args['typeId']));
             $sql .= ' INNER JOIN ' . $this->_t('objects') . ' objects ON tagged.object_id = objects.object_id AND objects.type_id = ' . (int)$args['typeId'];
         }
         if (isset($args['userId'])) {
@@ -333,12 +333,18 @@ class Content_Tagger
             $notTags = isset($args['notTagId']) ? (is_array($args['notTagId']) ? array_values($args['notTagId']) : array($args['notTagId'])) : array();
             $notCount = count($notTags);
 
-            $sql = 'SELECT DISTINCT tagged.object_id FROM ' . $this->_t('tagged') . ' AS tagged';
+            $sql = 'SELECT DISTINCT tagged.object_id FROM ' . $this->_t('tagged') . ' AS tagged INNER JOIN ' . $this->_t('objects') . ' AS objects ON objects.object_id =tagged.object_id';
+
+            if (!empty($args['typeId'])) {
+                $args['typeId'] = $this->_typeManager->ensureTypes($args['typeId']);
+            }
+
             if ($count > 1) {
                 for ($i = 1; $i < $count; $i++) {
                     $sql .= ' INNER JOIN ' . $this->_t('tagged') . ' AS tagged' . $i . ' ON tagged.object_id = tagged' . $i . '.object_id';
                 }
             }
+
             if ($notCount) {
                 // Left joins for tags we want to exclude.
                 for ($j = 0; $j < $notCount; $j++) {
@@ -358,6 +364,12 @@ class Content_Tagger
                     $sql .= ' AND not_tagged' . $j . '.object_id IS NULL';
                 }
             }
+
+            if (!empty($args['typeId']) && count($args['typeId'])) {
+                $sql .= ' AND objects.type_id IN (' . implode(', ', $args['typeId']) . ')';
+            }
+
+
         }
 
         if (isset($args['limit'])) {
