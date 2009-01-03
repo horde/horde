@@ -322,7 +322,7 @@ class Content_Tagger
             $args['objectId'] = array_pop($this->_objectManager->ensureObject($args['objectId']));
             $radius = isset($args['radius']) ? (int)$args['radius'] : $this->_defaultRadius;
             $inner = $this->_db->addLimitOffset('SELECT tag_id FROM ' . $this->_t('tagged') . ' WHERE object_id = ' . (int)$objectId, array('limit' => $radius));
-            $sql = $this->_db->addLimitOffset('SELECT tagged2.object_id FROM (' . $inner . ') AS t1 INNER JOIN ' . $this->_tagged . ' AS tagged2 ON t1.tag_id = t2.tag_id WHERE t2.object_id != ' . (int)$objectId . ' GROUP BY t2.object_id', array('limit' => $radius));
+            $sql = $this->_db->addLimitOffset('SELECT tagged2.object_id as object_id, object_name FROM (' . $inner . ') AS t1 INNER JOIN ' . $this->_tagged . ' AS tagged2 ON t1.tag_id = t2.tag_id INNER JOIN ' . $this->_t('objects') . ' AS objects ON objects.object_id =tagged.object_id WHERE t2.object_id != ' . (int)$objectId . ' GROUP BY t2.object_id', array('limit' => $radius));
         } elseif (isset($args['tagId'])) {
             $tags = is_array($args['tagId']) ? array_values($args['tagId']) : array($args['tagId']);
             $count = count($tags);
@@ -333,7 +333,7 @@ class Content_Tagger
             $notTags = isset($args['notTagId']) ? (is_array($args['notTagId']) ? array_values($args['notTagId']) : array($args['notTagId'])) : array();
             $notCount = count($notTags);
 
-            $sql = 'SELECT DISTINCT tagged.object_id FROM ' . $this->_t('tagged') . ' AS tagged INNER JOIN ' . $this->_t('objects') . ' AS objects ON objects.object_id =tagged.object_id';
+            $sql = 'SELECT DISTINCT tagged.object_id as object_id, object_name FROM ' . $this->_t('tagged') . ' AS tagged INNER JOIN ' . $this->_t('objects') . ' AS objects ON objects.object_id =tagged.object_id';
 
             if (!empty($args['typeId'])) {
                 $args['typeId'] = $this->_typeManager->ensureTypes($args['typeId']);
@@ -376,7 +376,7 @@ class Content_Tagger
             $sql = $this->_db->addLimitOffset($sql, array('limit' => $args['limit'], 'offset' => isset($args['offset']) ? $args['offset'] : 0));
         }
 
-        return $this->_db->selectValues($sql);
+        return $this->_db->selectAssoc($sql);
     }
 
     /**
