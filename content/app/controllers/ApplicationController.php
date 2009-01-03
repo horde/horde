@@ -6,8 +6,20 @@ class Content_ApplicationController extends Horde_Controller_Base
         $CONTENT_DIR = dirname(__FILE__) . '/../';
 
         $GLOBALS['conf']['sql']['adapter'] = $GLOBALS['conf']['sql']['phptype'] == 'mysqli' ? 'mysqli' : 'pdo_' . $GLOBALS['conf']['sql']['phptype'];
-        Horde_Rdo::setAdapter(Horde_Rdo_Adapter::factory('pdo', $GLOBALS['conf']['sql']));
-        Horde_Db::setAdapter(Horde_Db_Adapter::factory($GLOBALS['conf']['sql']));
+
+        $db = Horde_Db_Adapter::factory($GLOBALS['conf']['sql']);
+        $context = array('dbAdapter' => $db);
+
+        $this->typeManager = new Content_Types_Manager($context);
+        $context['typeManager'] = $this->typeManager;
+
+        $this->userManager = new Content_Users_Manager($context);
+        $context['userManager'] = $this->userManager;
+
+        $this->objectManager = new Content_Objects_Manager($context);
+        $context['objectManager'] = $this->objectManager;
+
+        $this->tagger = new Content_Tagger($context);
     }
 
 }
