@@ -201,13 +201,15 @@ class Content_Tagger
             $sql = 'SELECT DISTINCT t.tag_id AS tag_id, tag_name FROM ' . $this->_t('tags') . ' AS t INNER JOIN ' . $this->_t('tagged') . ' AS tagged ON t.tag_id = tagged.tag_id AND tagged.object_id = ' . (int)$args['objectId'];
         } elseif (isset($args['userId']) && isset($args['typeId'])) {
             $args['userId'] = array_pop($this->_userManager->ensureUsers($args['userId']));
-            $args['typeId'] = array_pop($this->_typeManager->ensureTypes($arge['typeId']));
+            $args['typeId'] = array_pop($this->_typeManager->ensureTypes($args['typeId']));
             $sql = 'SELECT DISTINCT t.tag_id AS tag_id, tag_name FROM ' . $this->_t('tags') . ' AS t INNER JOIN ' . $this->_t('tagged') . ' AS tagged ON t.tag_id = tagged.tag_id AND tagged.user_id = ' . (int)$args['userId'] . ' INNER JOIN ' . $this->_t('objects') . ' objects ON tagged.object_id = objects.object_id AND objects.type_id = ' . (int)$args['typeId'];
         } elseif (isset($args['userId'])) {
             $args['userId'] = array_pop($this->_userManager->ensureUsers($args['userId']));
             $sql = 'SELECT DISTINCT t.tag_id AS tag_id, tag_name FROM ' . $this->_t('tagged') . ' AS tagged INNER JOIN ' . $this->_t('tags') . ' AS t ON tagged.tag_id = t.tag_id WHERE tagged.user_id = ' . (int)$args['userId'];
         } elseif (isset($args['typeId'])) {
-            $args['typeId'] = array_pop($this->_typeManager->ensureTypes($arge['typeId']));
+            var_dump($args['typeId']);
+            $args['typeId'] = array_pop($this->_typeManager->ensureTypes($args['typeId']));
+            var_dump($args['typeId']);
             $sql = 'SELECT DISTINCT t.tag_id AS tag_id, tag_name FROM ' . $this->_t('tagged') . ' AS tagged INNER JOIN ' . $this->_t('objects') . ' AS objects ON tagged.object_id = objects.object_id AND objects.type_id = ' . (int)$args['typeId'] . ' INNER JOIN ' . $this->_t('tags') . ' AS t ON tagged.tag_id = t.tag_id';
         } elseif (isset($args['tagId'])) {
             $radius = isset($args['limit']) ? (int)$args['limit'] : $this->_defaultRadius;
@@ -252,14 +254,14 @@ class Content_Tagger
             $sql = 'SELECT t.tag_id AS tag_id, tag_name, COUNT(*) AS count FROM ' . $this->_t('tagged') . ' AS tagged INNER JOIN ' . $this->_t('tags') . ' AS t ON tagged.tag_id = t.tag_id WHERE tagged.object_id = ' . (int)$args['objectId'] . ' GROUP BY t.tag_id';
         } elseif (isset($args['userId']) && isset($args['typeId'])) {
             $args['userId'] = array_pop($this->_userManager->ensureUsers($args['userId']));
-            $args['typeId'] = array_pop($this->_typeManager->ensureTypes($arge['typeId']));
+            $args['typeId'] = array_pop($this->_typeManager->ensureTypes($args['typeId']));
             // This doesn't use a stat table, so may be slow.
             $sql = 'SELECT t.tag_id AS tag_id, tag_name, COUNT(*) AS count FROM ' . $this->_t('tagged') . ' AS tagged INNER JOIN ' . $this->_t('objects') . ' AS objects ON tagged.object_id = objects.object_id AND objects.type_id = ' . (int)$args['typeId'] . ' INNER JOIN ' . $this->_t('tags') . ' AS t ON tagged.tag_id = t.tag_id WHERE tagged.user_id = ' . (int)$args['user_id'] . ' GROUP BY t.tag_id';
         } elseif (isset($args['userId'])) {
             $args['userId'] = array_pop($this->_userManager->ensureUsers($args['userId']));
             $sql = 'SELECT t.tag_id AS tag_id, tag_name, count FROM ' . $this->_t('tagged') . ' AS tagged INNER JOIN ' . $this->_t('tags') . ' AS t ON tagged.tag_id = t.tag_id INNER JOIN ' . $this->_t('user_tag_stats') . ' AS uts ON t.tag_id = uts.tag_id AND uts.user_id = ' . (int)$args['userId'] . ' GROUP BY t.tag_id';
         } elseif (isset($args['typeId'])) {
-            $args['typeId'] = array_pop($this->_typeManager->ensureTypes($arge['typeId']));
+            $args['typeId'] = array_pop($this->_typeManager->ensureTypes($args['typeId']));
             // This doesn't use a stat table, so may be slow.
             $sql = 'SELECT t.tag_id AS tag_id, tag_name, COUNT(*) AS count FROM ' . $this->_t('tagged') . ' AS tagged INNER JOIN ' . $this->_t('objects') . ' AS objects ON tagged.object_id = objects.object_id AND objects.type_id = ' . (int)$args['typeId'] . ' INNER JOIN ' . $this->_t('tags') . ' AS t ON tagged.tag_id = t.tag_id GROUP BY t.tag_id';
         } else {
