@@ -825,11 +825,24 @@ class Horde_Db_Adapter_Pdo_SqliteTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('SELECT * FROM documents ORDER BY name DESC', $result);
     }
 
+
     /*##########################################################################
-    # Test Cached table descriptions
+    # Test table cache
     ##########################################################################*/
 
-    public function testCachedTableDescription()
+    public function testCachedTableIndexes()
+    {
+        // remove any current cache.
+        $this->_cache->set('tables/indexes/cache_table', '');
+        $this->assertEquals('', $this->_cache->get('tables/indexes/cache_table'));
+
+        $this->_createTestTable('cache_table');
+        $idxs = $this->_conn->indexes('cache_table');
+
+        $this->assertNotEquals('', $this->_cache->get('tables/indexes/cache_table'));
+    }
+
+    public function testCachedTableColumns()
     {
         // remove any current cache.
         $this->_cache->set('tables/columns/cache_table', '');
