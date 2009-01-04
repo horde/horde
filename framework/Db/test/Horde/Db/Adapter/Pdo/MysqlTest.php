@@ -815,13 +815,13 @@ class Horde_Db_Adapter_Pdo_MysqlTest extends PHPUnit_Framework_TestCase
     public function testCachedTableDescription()
     {
         // remove any current cache.
-        $this->_cache->set('tables/cache_table', '');
-        $this->assertEquals('', $this->_cache->get('tables/cache_table'));
+        $this->_cache->set('tables/columns/cache_table', '');
+        $this->assertEquals('', $this->_cache->get('tables/columns/cache_table'));
 
         $this->_createTestTable('cache_table');
         $cols = $this->_conn->columns('cache_table');
 
-        $this->assertNotEquals('', $this->_cache->get('tables/cache_table'));
+        $this->assertNotEquals('', $this->_cache->get('tables/columns/cache_table'));
     }
 
 

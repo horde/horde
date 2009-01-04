@@ -203,42 +203,48 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Abstract_Schem
      */
     public function indexes($tableName, $name = null)
     {
-        $schemas = array();
-        foreach (explode(',', $this->getSchemaSearchPath()) as $p) {
-            $schemas[] = $this->quote($p);
-        }
+        $indexes = @unserialize($this->_cache->get("tables/indexes/$tableName"));
 
-        $sql = "
-           SELECT distinct i.relname, d.indisunique, a.attname
-             FROM pg_class t, pg_class i, pg_index d, pg_attribute a
-           WHERE i.relkind = 'i'
-             AND d.indexrelid = i.oid
-             AND d.indisprimary = 'f'
-             AND t.oid = d.indrelid
-             AND t.relname = " . $this->quote($tableName) . "
-             AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname IN (" . implode(',', $schemas) . ") )
-             AND a.attrelid = t.oid
-             AND ( d.indkey[0]=a.attnum OR d.indkey[1]=a.attnum
-                OR d.indkey[2]=a.attnum OR d.indkey[3]=a.attnum
-                OR d.indkey[4]=a.attnum OR d.indkey[5]=a.attnum
-                OR d.indkey[6]=a.attnum OR d.indkey[7]=a.attnum
-                OR d.indkey[8]=a.attnum OR d.indkey[9]=a.attnum )
-          ORDER BY i.relname";
-
-        $result = $this->select($sql, $name);
-
-        $currentIndex = null;
-        $indexes = array();
-
-        foreach ($result as $row) {
-            if ($currentIndex != $row[0]) {
-                $indexes[] = (object)array('table'   => $tableName,
-                                           'name'    => $row[0],
-                                           'unique'  => $row[1] == 't',
-                                           'columns' => array());
-                $currentIndex = $row[0];
+        if (!$indexes) {
+            $schemas = array();
+            foreach (explode(',', $this->getSchemaSearchPath()) as $p) {
+                $schemas[] = $this->quote($p);
             }
-            $indexes[sizeof($indexes)-1]->columns[] = $row[2];
+
+            $sql = "
+              SELECT distinct i.relname, d.indisunique, a.attname
+                 FROM pg_class t, pg_class i, pg_index d, pg_attribute a
+               WHERE i.relkind = 'i'
+                 AND d.indexrelid = i.oid
+                 AND d.indisprimary = 'f'
+                 AND t.oid = d.indrelid
+                 AND t.relname = " . $this->quote($tableName) . "
+                 AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname IN (" . implode(',', $schemas) . ") )
+                 AND a.attrelid = t.oid
+                 AND ( d.indkey[0]=a.attnum OR d.indkey[1]=a.attnum
+                    OR d.indkey[2]=a.attnum OR d.indkey[3]=a.attnum
+                    OR d.indkey[4]=a.attnum OR d.indkey[5]=a.attnum
+                    OR d.indkey[6]=a.attnum OR d.indkey[7]=a.attnum
+                    OR d.indkey[8]=a.attnum OR d.indkey[9]=a.attnum )
+              ORDER BY i.relname";
+
+            $result = $this->select($sql, $name);
+
+            $currentIndex = null;
+            $indexes = array();
+
+            foreach ($result as $row) {
+                if ($currentIndex != $row[0]) {
+                    $indexes[] = (object)array('table'   => $tableName,
+                                               'name'    => $row[0],
+                                               'unique'  => $row[1] == 't',
+                                               'columns' => array());
+                    $currentIndex = $row[0];
+                }
+                $indexes[sizeof($indexes)-1]->columns[] = $row[2];
+            }
+
+            $this->_cache->set("tables/indexes/$tableName", serialize($indexes));
         }
 
         return $indexes;
@@ -249,15 +255,12 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Abstract_Schem
      */
     public function columns($tableName, $name = null)
     {
-        // check cache
-        $rows = @unserialize($this->_cache->get("tables/$tableName"));
+        $rows = @unserialize($this->_cache->get("tables/columns/$tableName"));
 
-        // query to build rows
         if (!$rows) {
             $rows = $this->columnDefinitions($tableName, $name);
 
-            // write cache
-            $this->_cache->set("tables/$tableName", serialize($rows));
+            $this->_cache->set("tables/columns/$tableName", serialize($rows));
         }
 
         // create columns from rows

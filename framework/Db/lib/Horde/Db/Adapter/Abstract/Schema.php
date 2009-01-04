@@ -251,7 +251,7 @@ abstract class Horde_Db_Adapter_Abstract_Schema
      * @param   string  $name
      * @return  array
      */
-    abstract public function indexes($tableName, $name=null);
+    abstract public function indexes($tableName, $name = null);
 
     /**
      * Returns an array of Column objects for the table specified by +table_name+.
@@ -261,7 +261,7 @@ abstract class Horde_Db_Adapter_Abstract_Schema
      * @param   string  $name
      * @return  array
      */
-    abstract public function columns($tableName, $name=null);
+    abstract public function columns($tableName, $name = null);
 
     /**
      * Creates a new table
@@ -714,7 +714,8 @@ abstract class Horde_Db_Adapter_Abstract_Schema
      */
     protected function _clearTableCache($tableName)
     {
-        $this->_cache->set("tables/$tableName", null);
+        $this->_cache->set("tables/columns/$tableName", null);
+        $this->_cache->set("tables/indexes/$tableName", null);
     }
 
 }

@@ -124,7 +124,7 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Abstract_Schema
      *
      * @param   string  $name
      */
-    public function tables($name=null)
+    public function tables($name = null)
     {
         return $this->selectValues("SELECT name FROM sqlite_master WHERE type = 'table' UNION ALL SELECT name FROM sqlite_temp_master WHERE type = 'table' AND name != 'sqlite_sequence' ORDER BY name");
     }
@@ -135,20 +135,27 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Abstract_Schema
      * @param   string  $tableName
      * @param   string  $name
      */
-    public function indexes($tableName, $name=null)
+    public function indexes($tableName, $name = null)
     {
-        $indexes = array();
-        foreach ($this->select('PRAGMA index_list(' . $this->quoteTableName($tableName) . ')') as $row) {
-            $index = (object)array('table'   => $tableName,
-                                   'name'    => $row[1],
-                                   'unique'  => (bool)$row[2],
-                                   'columns' => array());
-            foreach ($this->select('PRAGMA index_info(' . $this->quoteColumnName($index->name) . ')') as $field) {
-                $index->columns[] = $field[2];
+        $indexes = @unserialize($this->_cache->get("tables/indexes/$tableName"));
+
+        if (!$indexes) {
+            $indexes = array();
+            foreach ($this->select('PRAGMA index_list(' . $this->quoteTableName($tableName) . ')') as $row) {
+                $index = (object)array('table'   => $tableName,
+                                       'name'    => $row[1],
+                                       'unique'  => (bool)$row[2],
+                                       'columns' => array());
+                foreach ($this->select('PRAGMA index_info(' . $this->quoteColumnName($index->name) . ')') as $field) {
+                    $index->columns[] = $field[2];
+                }
+
+                $indexes[] = $index;
             }
 
-            $indexes[] = $index;
+            $this->_cache->set("tables/indexes/$tableName", serialize($indexes));
         }
+
         return $indexes;
     }
 
@@ -156,17 +163,14 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Abstract_Schema
      * @param   string  $tableName
      * @param   string  $name
      */
-    public function columns($tableName, $name=null)
+    public function columns($tableName, $name = null)
     {
-        // check cache
-        $rows = @unserialize($this->_cache->get("tables/$tableName"));
+        $rows = @unserialize($this->_cache->get("tables/columns/$tableName"));
 
-        // query to build rows
         if (!$rows) {
             $rows = $this->selectAll('PRAGMA table_info(' . $this->quoteTableName($tableName) . ')', $name);
 
-            // write cache
-            $this->_cache->set("tables/$tableName", serialize($rows));
+            $this->_cache->set("tables/columns/$tableName", serialize($rows));
         }
 
         // create columns from rows
@@ -175,6 +179,7 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Abstract_Schema
             $columns[] = $this->componentFactory('Column', array(
                 $row[1], $row[4], $row[2], !(bool)$row[3]));
         }
+
         return $columns;
     }
 

@@ -202,19 +202,26 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Abstract_Schema
      */
     public function indexes($tableName, $name=null)
     {
-        $indexes = array();
-        $currentIndex = null;
-        foreach ($this->select('SHOW KEYS FROM ' . $this->quoteTableName($tableName)) as $row) {
-            if ($currentIndex != $row[2]) {
-                if ($row[2] == 'PRIMARY') continue;
-                $currentIndex = $row[2];
-                $indexes[] = (object)array('table'   => $row[0],
-                                           'name'    => $row[2],
-                                           'unique'  => $row[1] == '0',
-                                           'columns' => array());
+        $indexes = @unserialize($this->_cache->get("tables/indexes/$tableName"));
+
+        if (!$indexes) {
+            $indexes = array();
+            $currentIndex = null;
+            foreach ($this->select('SHOW KEYS FROM ' . $this->quoteTableName($tableName)) as $row) {
+                if ($currentIndex != $row[2]) {
+                    if ($row[2] == 'PRIMARY') continue;
+                    $currentIndex = $row[2];
+                    $indexes[] = (object)array('table'   => $row[0],
+                                               'name'    => $row[2],
+                                               'unique'  => $row[1] == '0',
+                                               'columns' => array());
+                }
+                $indexes[count($indexes) - 1]->columns[] = $row[4];
             }
-            $indexes[sizeof($indexes)-1]->columns[] = $row[4];
+
+            $this->_cache->set("tables/indexes/$tableName", serialize($indexes));
         }
+
         return $indexes;
     }
 
@@ -224,15 +231,12 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Abstract_Schema
      */
     public function columns($tableName, $name=null)
     {
-        // check cache
-        $rows = @unserialize($this->_cache->get("tables/$tableName"));
+        $rows = @unserialize($this->_cache->get("tables/columns/$tableName"));
 
-        // query to build rows
         if (!$rows) {
             $rows = $this->selectAll('SHOW FIELDS FROM ' . $this->quoteTableName($tableName), $name);
 
-            // write cache
-            $this->_cache->set("tables/$tableName", serialize($rows));
+            $this->_cache->set("tables/columns/$tableName", serialize($rows));
         }
 
         // create columns from rows
@@ -241,6 +245,7 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Abstract_Schema
             $columns[] = $this->componentFactory('Column', array(
                 $row[0], $row[4], $row[1], $row[2] == 'YES'));
         }
+
         return $columns;
     }
 
