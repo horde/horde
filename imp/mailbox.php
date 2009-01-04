@@ -81,7 +81,7 @@ if (!$search_mbox) {
  * set: $actionID, $start. */
 $mailbox_url = Horde::applicationUrl('mailbox.php');
 $mailbox_imp_url = IMP::generateIMPUrl('mailbox.php', $imp_mbox['mailbox']);
-if (!isset($from_message_page)) {
+if (!Util::nonInputVar('from_message_page')) {
     $actionID = Util::getFormData('actionID');
     $start = Util::getFormData('start');
 }
@@ -104,7 +104,7 @@ $do_filter = false;
 $open_compose_window = null;
 
 /* Run through the action handlers */
-if ($actionID && $actionID != 'message_missing') {
+if ($actionID != 'message_missing') {
     $result = IMP::checkRequestToken('imp.mailbox', Util::getFormData('mailbox_token'));
     if (is_a($result, 'PEAR_Error')) {
         $notification->push($result);
@@ -125,17 +125,21 @@ case 'change_sort':
     break;
 
 case 'blacklist':
+    $imp_filter = new IMP_Filter();
+    $imp_filter->blacklistMessage($indices);
+    break;
+
 case 'whitelist':
     $imp_filter = new IMP_Filter();
-    ($actionID == 'blacklist')
-        ? $imp_filter->blacklistMessage($indices)
-        : $imp_filter->whitelistMessage($indices);
+    $imp_filter->whitelistMessage($indices);
     break;
 
 case 'spam_report':
+    IMP_Spam::reportSpam($indices, 'spam');
+    break;
+
 case 'notspam_report':
-    $action = str_replace('_report', '', $actionID);
-    IMP_Spam::reportSpam($indices, $action);
+    IMP_Spam::reportSpam($indices, 'notspam');
     break;
 
 case 'message_missing':
@@ -150,12 +154,16 @@ case 'fwd_digest':
     break;
 
 case 'delete_messages':
+    if (!empty($indices)) {
+        $imp_message = &IMP_Message::singleton();
+        $imp_message->delete($indices);
+    }
+    break;
+
 case 'undelete_messages':
     if (!empty($indices)) {
         $imp_message = &IMP_Message::singleton();
-        ($actionID == 'delete_messages')
-            ? $imp_message->delete($indices)
-            : $imp_message->undelete($indices);
+        $imp_message->undelete($indices);
     }
     break;
 
