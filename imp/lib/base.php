@@ -161,7 +161,7 @@ if ($authentication !== 'none') {
     }
 
     // Set default message character set, if necessary
-    if ($def_charset = $prefs->getValue('default_msg_charset')) {
+    if ($def_charset = $GLOBALS['prefs']->getValue('default_msg_charset')) {
         Horde_Mime_Part::$defaultCharset = $def_charset;
         Horde_Mime_Headers::$defaultCharset = $def_charset;
     }
