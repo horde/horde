@@ -41,6 +41,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
        <dir name="Abstract">
         <file name="Column.php" role="php" />
         <file name="ColumnDefinition.php" role="php" />
+        <file name="Index.php" role="php" />
         <file name="Schema.php" role="php" />
         <file name="TableDefinition.php" role="php" />
        </dir> <!-- /lib/Horde/Db/Adapter/Abstract -->
@@ -98,6 +99,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <filelist>
    <install name="lib/Horde/Db/Adapter/Abstract/Column.php" as="Horde/Db/Adapter/Abstract/Column.php" />
    <install name="lib/Horde/Db/Adapter/Abstract/ColumnDefinition.php" as="Horde/Db/Adapter/Abstract/ColumnDefinition.php" />
+   <install name="lib/Horde/Db/Adapter/Abstract/Index.php" as="Horde/Db/Adapter/Abstract/Index.php" />
    <install name="lib/Horde/Db/Adapter/Abstract/Schema.php" as="Horde/Db/Adapter/Abstract/Schema.php" />
    <install name="lib/Horde/Db/Adapter/Abstract/TableDefinition.php" as="Horde/Db/Adapter/Abstract/TableDefinition.php" />
    <install name="lib/Horde/Db/Adapter/Abstract.php" as="Horde/Db/Adapter/Abstract.php" />

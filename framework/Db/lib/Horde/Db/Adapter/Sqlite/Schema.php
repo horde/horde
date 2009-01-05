@@ -142,12 +142,10 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Abstract_Schema
         if (!$indexes) {
             $indexes = array();
             foreach ($this->select('PRAGMA index_list(' . $this->quoteTableName($tableName) . ')') as $row) {
-                $index = (object)array('table'   => $tableName,
-                                       'name'    => $row[1],
-                                       'unique'  => (bool)$row[2],
-                                       'columns' => array());
+                $index = $this->componentFactory('Index', array(
+                    $tableName, $row['name'], false, (bool)$row['unique'], array()));
                 foreach ($this->select('PRAGMA index_info(' . $this->quoteColumnName($index->name) . ')') as $field) {
-                    $index->columns[] = $field[2];
+                    $index->columns[] = $field['name'];
                 }
 
                 $indexes[] = $index;

@@ -208,15 +208,15 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Abstract_Schema
             $indexes = array();
             $currentIndex = null;
             foreach ($this->select('SHOW KEYS FROM ' . $this->quoteTableName($tableName)) as $row) {
-                if ($currentIndex != $row[2]) {
-                    if ($row[2] == 'PRIMARY') continue;
-                    $currentIndex = $row[2];
-                    $indexes[] = (object)array('table'   => $row[0],
-                                               'name'    => $row[2],
-                                               'unique'  => $row[1] == '0',
-                                               'columns' => array());
+                if ($currentIndex != $row['Key_name']) {
+                    if ($row['Key_name'] == 'PRIMARY') {
+                        continue;
+                    }
+                    $currentIndex = $row['Key_name'];
+                    $indexes[] = $this->componentFactory('Index', array(
+                        $tableName, $row['Key_name'], false, $row['Non_unique'] == '0', array()));
                 }
-                $indexes[count($indexes) - 1]->columns[] = $row[4];
+                $indexes[count($indexes) - 1]->columns[] = $row['Column_name'];
             }
 
             $this->_cache->set("tables/indexes/$tableName", serialize($indexes));
@@ -243,7 +243,7 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Abstract_Schema
         $columns = array();
         foreach ($rows as $row) {
             $columns[] = $this->componentFactory('Column', array(
-                $row[0], $row[4], $row[1], $row[2] == 'YES'));
+                $row['Field'], $row['Default'], $row['Type'], $row['Null'] == 'YES'));
         }
 
         return $columns;

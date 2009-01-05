@@ -221,11 +221,11 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Abstract_Schem
                  AND t.relname = " . $this->quote($tableName) . "
                  AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname IN (" . implode(',', $schemas) . ") )
                  AND a.attrelid = t.oid
-                 AND ( d.indkey[0]=a.attnum OR d.indkey[1]=a.attnum
-                    OR d.indkey[2]=a.attnum OR d.indkey[3]=a.attnum
-                    OR d.indkey[4]=a.attnum OR d.indkey[5]=a.attnum
-                    OR d.indkey[6]=a.attnum OR d.indkey[7]=a.attnum
-                    OR d.indkey[8]=a.attnum OR d.indkey[9]=a.attnum )
+                 AND (d.indkey[0] = a.attnum OR d.indkey[1] = a.attnum
+                   OR d.indkey[2] = a.attnum OR d.indkey[3] = a.attnum
+                   OR d.indkey[4] = a.attnum OR d.indkey[5] = a.attnum
+                   OR d.indkey[6] = a.attnum OR d.indkey[7] = a.attnum
+                   OR d.indkey[8] = a.attnum OR d.indkey[9] = a.attnum)
               ORDER BY i.relname";
 
             $result = $this->select($sql, $name);
@@ -235,13 +235,11 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Abstract_Schem
 
             foreach ($result as $row) {
                 if ($currentIndex != $row[0]) {
-                    $indexes[] = (object)array('table'   => $tableName,
-                                               'name'    => $row[0],
-                                               'unique'  => $row[1] == 't',
-                                               'columns' => array());
                     $currentIndex = $row[0];
+                    $indexes[] = $this->componentFactory('Index', array(
+                        $tableName, $row[0], false, $row[1] == 't', array()));
                 }
-                $indexes[sizeof($indexes)-1]->columns[] = $row[2];
+                $indexes[count($indexes) - 1]->columns[] = $row[2];
             }
 
             $this->_cache->set("tables/indexes/$tableName", serialize($indexes));
