@@ -242,7 +242,7 @@ abstract class Horde_Db_Adapter_Abstract_Schema
      * @param   string  $name
      * @return  array
      */
-    abstract public function tables($name=null);
+    abstract public function tables($name = null);
 
     /**
      * Returns an array of indexes for the given table.
@@ -254,8 +254,9 @@ abstract class Horde_Db_Adapter_Abstract_Schema
     abstract public function indexes($tableName, $name = null);
 
     /**
-     * Returns an array of Column objects for the table specified by +table_name+.
-     * See the concrete implementation for details on the expected parameter values.
+     * Returns an array of Horde_Db_Adapter_Abstract_Column objects for the
+     * table specified by +table_name+.  See the concrete implementation for
+     * details on the expected parameter values.
      *
      * @param   string  $tableName
      * @param   string  $name
