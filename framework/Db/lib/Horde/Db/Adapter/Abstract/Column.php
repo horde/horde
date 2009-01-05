@@ -26,7 +26,6 @@ class Horde_Db_Adapter_Abstract_Column
     protected $_name;
     protected $_type;
     protected $_null;
-    protected $_primary;
     protected $_limit;
     protected $_precision;
     protected $_scale;
@@ -48,7 +47,7 @@ class Horde_Db_Adapter_Abstract_Column
      * @param   string  $sqlType  Only used to extract the column's length, if necessary. For example +60+ in <tt>company_name varchar(60)</tt>.
      * @param   boolean $null     Determines if this column allows +NULL+ values.
      */
-    public function __construct($name, $default, $sqlType=null, $null=true)
+    public function __construct($name, $default, $sqlType = null, $null = true)
     {
         $this->_name      = $name;
         $this->_sqlType   = $sqlType;
@@ -58,7 +57,6 @@ class Horde_Db_Adapter_Abstract_Column
         $this->_scale     = $this->_extractScale($sqlType);
         $this->_type      = $this->_simplifiedType($sqlType);
         $this->_default   = $this->extractDefault($default);
-        $this->_primary   = false;
 
         $this->_isText    = $this->_type == 'text'  || $this->_type == 'string';
         $this->_isNumber  = $this->_type == 'float' || $this->_type == 'integer' || $this->_type == 'decimal';
@@ -187,22 +185,6 @@ class Horde_Db_Adapter_Abstract_Column
         return $this->_sqlType;
     }
 
-    /**
-     * @return  mixed
-     */
-    public function isPrimary()
-    {
-        return $this->_primary;
-    }
-
-    /**
-     * @param   boolean
-     */
-    public function setPrimary($primary)
-    {
-        $this->_primary = $primary;
-    }
-
 
     /*##########################################################################
     # Type Juggling
@@ -239,8 +221,8 @@ class Horde_Db_Adapter_Abstract_Column
         if (empty($string)) { return null; }
 
         // preserve '0000-00-00' (http://bugs.php.net/bug.php?id=45647)
-        if (preg_replace('/[^\d]/', '', $string) == 0) { 
-            return '0000-00-00'; 
+        if (preg_replace('/[^\d]/', '', $string) == 0) {
+            return '0000-00-00';
         }
 
         return date('Y-m-d', strtotime($string));
@@ -257,8 +239,8 @@ class Horde_Db_Adapter_Abstract_Column
         if (empty($string)) { return null; }
 
         // preserve '0000-00-00 00:00:00' (http://bugs.php.net/bug.php?id=45647)
-        if (preg_replace('/[^\d]/', '', $string) == 0) { 
-            return '0000-00-00 00:00:00'; 
+        if (preg_replace('/[^\d]/', '', $string) == 0) {
+            return '0000-00-00 00:00:00';
         }
 
         return date('Y-m-d H:i:s', strtotime($string));

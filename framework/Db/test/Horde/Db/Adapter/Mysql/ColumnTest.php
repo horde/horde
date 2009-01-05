@@ -149,18 +149,6 @@ class Horde_Db_Adapter_Mysql_ColumnTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('string', $col->getType());
     }
 
-    /*##########################################################################
-    # Primary
-    ##########################################################################*/
-
-    public function testPrimary()
-    {
-        $col = new Horde_Db_Adapter_Mysql_Column('id', 'NULL', 'int(11)');
-        $this->assertFalse($col->isPrimary());
-
-        $col->setPrimary(true);
-        $this->assertTrue($col->isPrimary());
-    }
 
     /*##########################################################################
     # Extract Limit
