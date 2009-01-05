@@ -361,6 +361,20 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Abstract_Schema
     }
 
     /**
+     */
+    public function caseSensitiveEqualityOperator()
+    {
+        return '= BINARY';
+    }
+
+    /**
+     */
+    public function limitedUpdateConditions($whereSql, $quotedTableName, $quotedPrimaryKey)
+    {
+        return $whereSql;
+    }
+
+    /**
      * Add AFTER option
      *
      * @param   string  $sql
