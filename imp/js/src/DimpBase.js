@@ -532,7 +532,7 @@ var DimpBase = {
             onCachedList: function(id) {
                 var tmp, vs;
                 if (!this.cacheids[id]) {
-                    vs = this.viewport.getViewportSelection(id);
+                    vs = this.viewport.getViewportSelection(id, true);
                     if (!vs.size()) {
                         return '';
                     }

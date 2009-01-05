@@ -70,7 +70,8 @@ function _getListMessages($mbox, $change)
         'cached' => Util::getPost('cached'),
         'cacheid' => Util::getPost('cacheid'),
         'filter' => Util::getPost('filter'),
-        'folder' => $mbox,
+        'mbox' => $mbox,
+        'rangeslice' => Util::getPost('rangeslice'),
         'searchfolder' => Util::getPost('searchfolder'),
         'searchmsg' => Util::getPost('searchmsg'),
     );
@@ -320,17 +321,12 @@ case 'ListMessages':
     }
 
     $result = new stdClass;
+    $changed = _changed($mbox, $cacheid, false);
 
-    if (Util::getPost('rangeslice')) {
-        $list_msg = new IMP_Views_ListMessages();
-        $result->viewport = $list_msg->getSlice($mbox, intval(Util::getPost('start')) - 1, intval(Util::getPost('length')));
-        $result->viewport->request_id = Util::getPost('request_id');
-        $result->viewport->type = 'slice';
-    } else {
-        $changed = _changed($mbox, $cacheid, false);
-        if (!Util::getPost('checkcache') || $changed) {
-            $result->viewport = _getListMessages($mbox, $changed);
-        }
+    if (Util::getPost('rangeslice') ||
+        !Util::getPost('checkcache') ||
+        $changed) {
+        $result->viewport = _getListMessages($mbox, $changed);
     }
     break;
 

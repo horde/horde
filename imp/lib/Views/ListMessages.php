@@ -21,10 +21,10 @@ class IMP_Views_ListMessages
      */
     public function ListMessages($args)
     {
-        $folder = $args['folder'];
+        $mbox = $args['mbox'];
         $search_id = null;
 
-        $sortpref = IMP::getSort($folder);
+        $sortpref = IMP::getSort($mbox);
 
         /* If we're searching, do search. */
         if (!empty($args['filter']) &&
@@ -60,7 +60,7 @@ class IMP_Views_ListMessages
                 break;
 
             case 'current':
-                $folder_list = array($folder);
+                $folder_list = array($mbox);
                 break;
             }
 
@@ -69,30 +69,30 @@ class IMP_Views_ListMessages
             $search_id = $GLOBALS['imp_search']->createSearchQuery($query, $folder_list, array(), _("Search Results"), isset($c_ptr['dimp_searchquery']) ? $c_ptr['dimp_searchquery'] : null);
 
             /* Folder is now the search folder. */
-            $folder = $c_ptr['dimp_searchquery'] = $GLOBALS['imp_search']->createSearchID($search_id);
+            $mbox = $c_ptr['dimp_searchquery'] = $GLOBALS['imp_search']->createSearchID($search_id);
         }
 
-        $label = IMP::getLabel($folder);
+        $label = IMP::getLabel($mbox);
 
         /* Set the current time zone. */
         NLS::setTimeZone();
 
         /* Run filters now. */
         if (!empty($_SESSION['imp']['filteravail']) &&
-            ($folder == 'INBOX') &&
+            ($mbox == 'INBOX') &&
             $GLOBALS['prefs']->getValue('filter_on_display')) {
             $imp_filter = new IMP_Filter();
-            $imp_filter->filter($folder);
+            $imp_filter->filter($mbox);
         }
 
         /* Generate the sorted mailbox list now. */
-        $imp_mailbox = &IMP_Mailbox::singleton($folder);
+        $imp_mailbox = &IMP_Mailbox::singleton($mbox);
         $sorted_list = $imp_mailbox->getSortedList();
         $msgcount = count($sorted_list['s']);
 
         /* Create the base object. */
         $result = new stdClass;
-        $result->id = $folder;
+        $result->id = $mbox;
         $result->totalrows = $msgcount;
         $result->label = $label;
         $result->cacheid = $imp_mailbox->getCacheID();
@@ -126,7 +126,7 @@ class IMP_Views_ListMessages
         /* Mail-specific viewport information. */
         $result->metadata = new stdClass;
         $md = &$result->metadata;
-        if (!IMP::threadSortAvailable($folder)) {
+        if (!IMP::threadSortAvailable($mbox)) {
             $md->nothread = 1;
         }
         $md->sortby = intval($sortpref['by']);
@@ -134,10 +134,10 @@ class IMP_Views_ListMessages
         if ($sortpref['limit']) {
             $md->sortlimit = 1;
         }
-        if (IMP::isSpecialFolder($folder)) {
+        if (IMP::isSpecialFolder($mbox)) {
             $md->special = 1;
         }
-        if ($GLOBALS['imp_search']->isSearchMbox($folder)) {
+        if ($GLOBALS['imp_search']->isSearchMbox($mbox)) {
             $md->search = 1;
         }
 
@@ -146,7 +146,7 @@ class IMP_Views_ListMessages
          * 1 message, we don't need this check. */
         if (empty($msgcount) && is_null($search_id)) {
             $imp_folder = &IMP_Folder::singleton();
-            if (!$imp_folder->exists($folder)) {
+            if (!$imp_folder->exists($mbox)) {
                 $GLOBALS['notification']->push(sprintf(_("Mailbox %s does not exist."), $label), 'horde.error');
             }
 
@@ -163,7 +163,7 @@ class IMP_Views_ListMessages
             !empty($args['cached'])) {
             $uid_expire = false;
             try {
-                $status = $GLOBALS['imp_imap']->ob->status($folder, Horde_Imap_Client::STATUS_UIDVALIDITY);
+                $status = $GLOBALS['imp_imap']->ob->status($mbox, Horde_Imap_Client::STATUS_UIDVALIDITY);
                 list($old_uidvalid,) = explode('|', $args['cacheid']);
                 $uid_expire = ($old_uidvalid != $status['uidvalidity']);
             } catch (Horde_Imap_Cache_Exception $e) {
@@ -206,13 +206,33 @@ class IMP_Views_ListMessages
         }
         $result->rowlist = $rowlist;
 
+        /* Build the overview list for slice information. */
+        if ($args['rangeslice']) {
+            $slice = new stdClass;
+            $slice->id = $mbox;
+            $slice->partial = 1;
+            $slice->rowlist = $rowlist;
+
+            $slice_data = array();
+            foreach ($rowlist as $key => $val) {
+                $slice_data[$key] = array(
+                    'imapuid' => $sorted_list['s'][$val],
+                    'mailbox' => isset($sorted_list['m'][$val]['m']) ? $sorted_list['m'][$val]['m'] : $mbox,
+                    'rownum' => $val
+                );
+            }
+            $slice->data = $slice_data;
+
+            return $slice;
+        }
+
         /* Build the overview list. */
-        $result->data = $this->_getOverviewData($imp_mailbox, $folder, $data, isset($md->search));
+        $result->data = $this->_getOverviewData($imp_mailbox, $mbox, $data, isset($md->search));
 
         /* Get unseen/thread information. */
         if (is_null($search_id)) {
             $imptree = &IMP_IMAP_Tree::singleton();
-            $info = $imptree->getElementInfo($folder);
+            $info = $imptree->getElementInfo($mbox);
             if (!empty($info)) {
                 $md->unseen = $info['unseen'];
             }
@@ -226,39 +246,6 @@ class IMP_Views_ListMessages
             $result->search = 1;
         }
 
-        return $result;
-    }
-
-    /**
-     * Return a reduced message list for use with ViewPort -- only a unique
-     * ID/Rownum/UID/Mailbox mapping.  Used to select slices without needing
-     * to obtain IMAP information for all messages in the slice.
-     *
-     * @param string $folder   The current folder.
-     * @param integer $start   Starting row number.
-     * @param integer $length  Slice length.
-     *
-     * @return array  The minimal message list.
-     */
-    public function getSlice($folder, $start, $length)
-    {
-        $start += 1;
-        $end = $start + $length;
-
-        $imp_mailbox = &IMP_Mailbox::singleton($folder);
-        $sorted_list = $imp_mailbox->getSortedList();
-        $data = array();
-        for ($i = $start; $i < $end; ++$i) {
-            $id = $sorted_list['s'][$i];
-            $data[$id . (empty($sorted_list['m'][$i]) ? '': $sorted_list['m'][$i])] = array(
-                'imapuid' => $id,
-                'rownum' => $i
-            );
-        }
-
-        $result = new stdClass;
-        $result->data = $data;
-        $result->id = $folder;
         return $result;
     }
 
