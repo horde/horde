@@ -337,6 +337,14 @@ class Horde_Db_Adapter_MysqliTest extends PHPUnit_Framework_TestCase
         $this->assertContains('unit_tests', $tables);
     }
 
+    public function testPrimaryKey()
+    {
+        $pk = $this->_conn->primaryKey('unit_tests');
+        $this->assertEquals('id', (string)$pk);
+        $this->assertEquals(1, count($pk->columns));
+        $this->assertEquals('id', $pk->columns[0]);
+    }
+
     public function testIndexes()
     {
         $indexes = $this->_conn->indexes('unit_tests');

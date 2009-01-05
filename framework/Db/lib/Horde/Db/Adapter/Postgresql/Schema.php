@@ -199,6 +199,15 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Abstract_Schem
     }
 
     /**
+     * Return a table's primary key
+     */
+    public function primaryKey($tableName, $name = null)
+    {
+        list($defaultPk, ) = $this->pkAndSequenceFor($tableName);
+        return $this->componentFactory('Index', array($tableName, 'PRIMARY', true, true, array($defaultPk)));
+    }
+
+    /**
      * Returns the list of all indexes for a table.
      */
     public function indexes($tableName, $name = null)

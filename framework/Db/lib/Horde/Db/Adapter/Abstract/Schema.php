@@ -245,6 +245,11 @@ abstract class Horde_Db_Adapter_Abstract_Schema
     abstract public function tables($name = null);
 
     /**
+     * Return a table's primary key
+     */
+    abstract public function primaryKey($tableName, $name = null);
+
+    /**
      * Returns an array of indexes for the given table.
      *
      * @param   string  $tableName

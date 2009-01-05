@@ -130,6 +130,30 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Abstract_Schema
     }
 
     /**
+     * Return a table's primary key
+     */
+    public function primaryKey($tableName, $name = null)
+    {
+        // Share the columns cache with the columns() method
+        $rows = @unserialize($this->_cache->get("tables/columns/$tableName"));
+
+        if (!$rows) {
+            $rows = $this->selectAll('PRAGMA table_info(' . $this->quoteTableName($tableName) . ')', $name);
+
+            $this->_cache->set("tables/columns/$tableName", serialize($rows));
+        }
+
+        $pk = $this->componentFactory('Index', array($tableName, 'PRIMARY', true, true, array()));
+        foreach ($rows as $row) {
+            if ($row['pk'] == 1) {
+                $pk->columns[] = $row['name'];
+            }
+        }
+
+        return $pk;
+    }
+
+    /**
      * List of indexes for the given table
      *
      * @param   string  $tableName
