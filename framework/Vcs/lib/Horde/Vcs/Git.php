@@ -587,4 +587,17 @@ class Horde_Vcs_Revision_git extends Horde_Vcs_Revision
     {
         return preg_match('/^[a-f0-9]+$/i', $rev);
     }
+
+    /**
+     * Returns an abbreviated form of the revision, for display.
+     *
+     * @param string $rev  The revision string.
+     *
+     * @return string  The abbreviated string.
+     */
+    public function abbrev($rev)
+    {
+        return substr($rev, 0, 7);
+    }
+
 }

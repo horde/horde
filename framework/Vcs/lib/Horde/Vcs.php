@@ -1022,24 +1022,24 @@ abstract class Horde_Vcs_Patchset
 abstract class Horde_Vcs_Revision
 {
     /**
-     * Validation function to ensure that a revision number is of the right
+     * Validation function to ensure that a revision string is of the right
      * form.
      *
-     * @param mixed $rev  The purported revision number.
+     * @param mixed $rev  The purported revision string.
      *
-     * @return boolean  True if it is a revision number.
+     * @return boolean  True if it is a valid revision string.
      */
     abstract public function valid($rev);
 
     /**
-     * Given a revision number, remove a given number of portions from
+     * Given a revision strin, remove a given number of portions from
      * it. For example, if we remove 2 portions of 1.2.3.4, we are
      * left with 1.2.
      *
-     * @param string $val      Input revision
-     * @param integer $amount  Number of portions to strip
+     * @param string $val      Input revision string.
+     * @param integer $amount  Number of portions to strip.
      *
-     * @return string  Stripped revision number
+     * @return string  Stripped revision string.
      */
     abstract public function strip($val, $amount = 1);
 
@@ -1054,13 +1054,11 @@ abstract class Horde_Vcs_Revision
     abstract public function sizeof($val);
 
     /**
-     * Given two revision numbers, this figures out which one is
-     * greater than the other by stepping along the decimal points
-     * until a difference is found, at which point a sign comparison
-     * of the two is returned.
+     * Given two revisions, this figures out which one is greater than the
+     * the other.
      *
-     * @param string $rev1  Period delimited revision number
-     * @param string $rev2  Second period delimited revision number
+     * @param string $rev1  Revision string.
+     * @param string $rev2  Second revision string.
      *
      * @return integer  1 if the first is greater, -1 if the second if greater,
      *                  and 0 if they are equal
@@ -1068,15 +1066,25 @@ abstract class Horde_Vcs_Revision
     abstract public function cmp($rev1, $rev2);
 
     /**
-     * Return the logical revision before this one. Normally, this
-     * will be the revision minus one, but in the case of a new
-     * branch, we strip off the last two decimal places to return the
-     * original branch point.
+     * Return the logical revision before this one.
      *
-     * @param string $rev  Revision number to decrement.
+     * @param string $rev  Revision string to decrement.
      *
-     * @return string|boolean  Revision number, or false if none could be
+     * @return string|boolean  Revision string, or false if none could be
      *                         determined.
      */
     abstract public function prev($rev);
+
+    /**
+     * Returns an abbreviated form of the revision, for display.
+     *
+     * @param string $rev  The revision string.
+     *
+     * @return string  The abbreviated string.
+     */
+    public function abbrev($rev)
+    {
+        return $rev;
+    }
+
 }
