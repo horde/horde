@@ -3,9 +3,9 @@
  * Operator_Driver:: defines an API for implementing storage backends for
  * Operator.
  *
- * $Horde: incubator/operator/lib/Driver.php,v 1.4 2008/07/06 18:21:50 bklang Exp $
+ * $Horde: incubator/operator/lib/Driver.php,v 1.5 2009/01/06 17:51:06 jan Exp $
  *
- * Copyright 2007-2008 The Horde Project <http://www.horde.org/>
+ * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.

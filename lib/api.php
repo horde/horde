@@ -5,9 +5,9 @@
  * This file defines Operator's external API interface. Other applications
  * can interact with Operator through this API.
  *
- * $Horde: incubator/operator/lib/api.php,v 1.2 2008/07/05 17:20:00 bklang Exp $
+ * $Horde: incubator/operator/lib/api.php,v 1.3 2009/01/06 17:51:06 jan Exp $
  *
- * Copyright 2008 The Horde Project <http://www.horde.org/>
+ * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.

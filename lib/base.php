@@ -2,12 +2,12 @@
 /**
  * Operator base application file.
  *
- * $Horde: incubator/operator/lib/base.php,v 1.4 2008/07/05 17:20:00 bklang Exp $
+ * $Horde: incubator/operator/lib/base.php,v 1.5 2009/01/06 17:51:06 jan Exp $
  *
  * This file brings in all of the dependencies that every Operator script will
  * need, and sets up objects that all scripts use.
  *
- * Copyright 2008 The Horde Project <http://www.horde.org/>
+ * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
  * @author Ben Klang <ben@alkaloid.net>
  */

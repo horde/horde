@@ -1,8 +1,8 @@
 <?php
 /**
- * $Horde: incubator/operator/search.php,v 1.9 2008/07/08 15:13:42 bklang Exp $
+ * $Horde: incubator/operator/search.php,v 1.10 2009/01/06 17:51:06 jan Exp $
  *
- * Copyright 2008 The Horde Project <http://www.horde.org/>
+ * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
