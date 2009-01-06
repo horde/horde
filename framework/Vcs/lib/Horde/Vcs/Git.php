@@ -406,7 +406,9 @@ class Horde_Vcs_File_git extends Horde_Vcs_File
      */
     public function queryModulePath()
     {
-        return $this->name;
+        return ($this->dir == '.')
+            ? $this->name
+            : $this->dir . '/' . $this->name;
     }
 
 }
