@@ -1982,7 +1982,7 @@ var DimpBase = {
         }, this);
         tmp = $('applogout');
         if (tmp) {
-            C({ d: tmp, f: DimpCore.logout.bind(DimpCore) });
+            C({ d: tmp, f: function() { $('applogout').down('A').update('[' + DIMP.text.onlogout + ']'); DimpCore.logout(); } });
         }
 
         tmp = $('applicationfolders');
