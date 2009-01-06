@@ -14,6 +14,7 @@ require_once 'Horde/Text/Filter.php';
 
 /* Spawn the file object. */
 $fl = $VC->getFileObject($where, $cache);
+$rev_ob = $VC->getRevisionObject();
 Chora::checkError($fl);
 
 /* Retrieve the desired revision from the GET variable. */

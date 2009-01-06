@@ -16,6 +16,8 @@ if (!$atdir && !$VC->isFile($fullname)) {
     Chora::fatal(sprintf(_("$s: no such file or directory"), $where), '404 Not Found');
 }
 
+$rev_ob = $VC->getRevisionObject();
+
 if ($atdir) {
     Chora::checkError($dir = $VC->queryDir($where));
 
@@ -47,12 +49,12 @@ if ($atdir) {
         'author' => Horde_Vcs::SORT_AUTHOR
     );
 
-    foreach (array('age', 'rev', 'name', 'author') as $u) {
-        $arg = array('sbt' => $umap[$u]);
-        if ($acts['sbt'] == $umap[$u]) {
+    foreach ($umap as $key => $val) {
+        $arg = array('sbt' => $val);
+        if ($acts['sbt'] == $val) {
             $arg['ord'] = !$acts['ord'];
         }
-        $url[$u] = Chora::url('', $where . '/', $arg);
+        $url[$key] = Chora::url('', $where . '/', $arg);
     }
 
     /* Print out the directory header. */
@@ -130,7 +132,6 @@ if ($atdir) {
 
 /* Showing a file. */
 $fl = $VC->getFileObject($where, $cache);
-$rev_ob = $VC->getRevisionObject();
 Chora::checkError($fl);
 $title = sprintf(_("Revisions for %s"), $where);
 $onb = Util::getFormData('onb', 0);

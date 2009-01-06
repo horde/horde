@@ -16,11 +16,11 @@
   <td>
    <strong>
 <?php if ($conf['filename_linkto'] == 'revlog'): ?>
-   <a href="<?php echo Chora::url('co', $fileName, array('r' => $head)) ?>">
+    <a href="<?php echo Chora::url('co', $fileName, array('r' => $head)) ?>" title="<?php echo $head ?>">
 <?php else: ?>
-   <a href="<?php echo $url ?>">
+    <a href="<?php echo $url ?>" title="<?php echo $head ?>">
 <?php endif; ?>
-<?php echo $head ?></a></strong>
+<?php echo $rev_ob->abbrev($head) ?></a></strong>
   </td>
 <?php else: ?>
   <td>
@@ -31,7 +31,7 @@
 <?php endif; ?>
    <?php echo $name ?>
   </td>
-  <td><strong><?php echo $head ?></strong></td>
+  <td><strong><?php echo $rev_ob->abbrev($head) ?></strong></td>
 <?php endif; ?>
   <td><?php echo $author ?></td>
   <td sortval="<?php echo (int)$date ?>">

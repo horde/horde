@@ -82,15 +82,12 @@ class Horde_Vcs_Annotate_git extends Horde_Vcs_Annotate
 
         while (!feof($pipe)) {
             $line = rtrim(fgets($pipe, 4096));
-            if (!$line) {
-                continue;
-            }
 
-            if ($line[0] == "\t") {
+            if (!$line || ($line[0] == "\t")) {
                 $lines[] = array(
                     'author' => $db[$curr_rev]['author'] . ' ' . $db[$curr_rev]['author-mail'],
                     'date' => $db[$curr_rev]['author-time'],
-                    'line' => substr($line, 1),
+                    'line' => $line ? substr($line, 1) : '',
                     'lineno' => $line_num++,
                     'rev' => $curr_rev
                 );
@@ -107,7 +104,10 @@ class Horde_Vcs_Annotate_git extends Horde_Vcs_Annotate
                         break;
                     }
                 } else {
-                    list($curr_rev, , $line_num, $lines_group) = explode(' ', $line);
+                    $curr_line = explode(' ', $line);
+                    $curr_rev = $curr_line[0];
+                    $line_num = $curr_line[2];
+                    $lines_group = isset($curr_line[3]) ? $curr_line[3] : 1;
                 }
             }
         }

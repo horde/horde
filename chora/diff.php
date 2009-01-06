@@ -13,6 +13,7 @@ require_once dirname(__FILE__) . '/lib/base.php';
 
 /* Spawn the repository and file objects */
 $fl = $VC->getFileObject($where, $cache);
+$rev_ob = $VC->getRevisionObject();
 Chora::checkError($fl);
 
 /* Initialise the form variables correctly. */
@@ -65,8 +66,10 @@ if ($type != 'colored') {
 }
 
 /* Human-Readable diff. */
+$abbrev_r1 = $rev_ob->abbrev($r1);
+$abbrev_r2 = $rev_ob->abbrev($r2);
 $title = sprintf(_("Diff for %s between version %s and %s"),
-                 Text::htmlallspaces($where), $r1, $r2);
+                 Text::htmlallspaces($where), $abbrev_r1, $abbrev_r2);
 
 /* Format log entries. */
 $log = &$fl->logs;

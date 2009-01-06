@@ -19,6 +19,7 @@ if (is_a($VC, 'VC_svn')) {
 
 /* Spawn the file object. */
 $fl = $VC->getFileObject($where, $cache);
+$rev_ob = $VC->getRevisionObject();
 Chora::checkError($fl);
 
 /* $trunk contains an array of trunk revisions. */
@@ -38,7 +39,7 @@ foreach ($fl->branches as $rev => $sym) {
  * array.  Otherwise, add it to an array in $branches[$branch]. */
 foreach ($fl->logs as $log) {
     $rev = $log->queryRevision();
-    $baseRev = VC_Revision::strip($rev, 1);
+    $baseRev = $rev_ob->strip($rev, 1);
     $branchFound = false;
     foreach ($fl->branches as $branch => $name) {
         if ($branch == $baseRev) {
@@ -48,7 +49,7 @@ foreach ($fl->logs as $log) {
     }
     /* If its not a branch, then add it to the trunk. */
     /* TODO: this silently drops vendor branches atm! - avsm. */
-    if (!$branchFound && VC_Revision::sizeof($rev) == 2) {
+    if (!$branchFound && $rev_ob->sizeof($rev) == 2) {
         array_unshift($trunk, $rev);
     }
 }
@@ -96,7 +97,7 @@ function populateGrid($row, $col)
         $brrev = $brkeys[$a];
         $brcont = $branches[$brrev];
         /* Check to see if current point matches a branch point. */
-        if (!strcmp($rev, VC_Revision::strip($brrev, 1))) {
+        if (!strcmp($rev, $rev_ob->strip($brrev, 1))) {
             /* If it does, figure out how many rows we have to add. */
             $numRows = sizeof($brcont);
             /* Check rows in columns to the right, until one is
@@ -182,7 +183,7 @@ foreach ($grid as $row) {
         /* Otherwise, this cell has content; determine what it is. */
         $rev = $row[$i];
 
-        if ($VC->isValidRevision($rev) && (VC_Revision::sizeof($rev) % 2)) {
+        if ($VC->isValidRevision($rev) && ($rev_ob->sizeof($rev) % 2)) {
             /* This is a branch point, so put the info out. */
             $bg = isset($branchColours[$rev]) ? $branchColours[$rev] : '#e9e9e9';
             $symname = $fl->branches[$rev];
@@ -191,13 +192,13 @@ foreach ($grid as $row) {
         } elseif (preg_match('|^:|', $rev)) {
             /* This is a continuation cell, so render it with the
              * branch colour. */
-            $bgbr = VC_Revision::strip(preg_replace('|^\:|', '', $rev), 1);
+            $bgbr = $rev_ob->strip(preg_replace('|^\:|', '', $rev), 1);
             $bg = isset($branchColours[$bgbr]) ? $branchColours[$bgbr] : '#e9e9e9';
             require CHORA_TEMPLATES . '/history/blank.inc';
 
         } elseif ($VC->isValidRevision($rev)) {
             /* This cell contains a revision, so render it. */
-            $bgbr = VC_Revision::strip($rev, 1);
+            $bgbr = $rev_ob->strip($rev, 1);
             $bg = isset($branchColours[$bgbr]) ? $branchColours[$bgbr] : '#e9e9e9';
             $log = $fl->logs[$rev];
             $author = Chora::showAuthorName($log->queryAuthor());
