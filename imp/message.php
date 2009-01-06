@@ -16,7 +16,7 @@ function _returnToMailbox($startIndex = null, $actID = null)
 {
     $GLOBALS['actionID'] = $actID;
     $GLOBALS['from_message_page'] = true;
-    $GLOBALS['startIndex'] = $startIndex;
+    $GLOBALS['start'] = $startIndex;
 }
 
 function _moveAfterAction()
@@ -86,7 +86,6 @@ case 'print_message':
 
 case 'delete_message':
 case 'undelete_message':
-    $imp_message = &IMP_Message::singleton();
     if ($actionID == 'undelete_message') {
         $imp_message->undelete($indices_array);
     } else {
@@ -105,8 +104,6 @@ case 'undelete_message':
 case 'move_message':
 case 'copy_message':
     if (($targetMbox = Util::getFormData('targetMbox')) !== null) {
-        $imp_message = &IMP_Message::singleton();
-
         if (Util::getFormData('newMbox', 0) == 1) {
             $targetMbox = IMP::folderPref($targetMbox, true);
             $newMbox = true;
@@ -148,7 +145,6 @@ case 'flag_message':
         } else {
             $set = true;
         }
-        $imp_message = &IMP_Message::singleton();
         $imp_message->flag(array($flag), $indices_array, $set);
         if ($prefs->getValue('mailbox_return')) {
             _returnToMailbox($imp_mailbox->getMessageIndex());
@@ -169,7 +165,6 @@ case 'add_address':
 
 case 'strip_all':
 case 'strip_attachment':
-    $imp_message = &IMP_Message::singleton();
     $result = $imp_message->stripPart($indices_array, ($actionID == 'strip_all') ? null : Util::getFormData('imapid'));
     if (is_a($result, 'PEAR_Error')) {
         $notification->push($result, 'horde.error');
@@ -184,7 +179,7 @@ $message_token = IMP::getRequestToken('imp.message');
  * message array, so we will return to mailbox.php if that is the
  * case. */
 if (!$imp_mailbox->isValidIndex()) {
-    _returnToMailbox($imp_mailbox->getMessageIndex());
+    _returnToMailbox($imp_mailbox->getMessageCount());
     require IMP_BASE . '/mailbox.php';
     exit;
 }

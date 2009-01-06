@@ -28,13 +28,6 @@ class IMP_Mailbox
     protected $_arrayIndex = null;
 
     /**
-     * The location of the last message we were at.
-     *
-     * @var integer
-     */
-    protected $_lastArrayIndex = null;
-
-    /**
      * The array of sorted indices.
      *
      * @var array
@@ -365,9 +358,7 @@ class IMP_Mailbox
      */
     public function getMessageIndex()
     {
-        return (is_null($this->_arrayIndex) && is_null($this->_lastArrayIndex))
-            ? 1
-            : $this->_arrayIndex + 1;
+        return is_null($this->_arrayIndex) ? 1 : $this->_arrayIndex + 1;
     }
 
     /**
@@ -559,7 +550,6 @@ class IMP_Mailbox
         switch ($type) {
         case 'offset':
             if (!is_null($this->_arrayIndex)) {
-                $this->_lastArrayIndex = $this->_arrayIndex;
                 $this->_arrayIndex += $data;
                 if (empty($this->_sorted[$this->_arrayIndex])) {
                     $this->_arrayIndex = null;
@@ -569,7 +559,7 @@ class IMP_Mailbox
             break;
 
         case 'uid':
-            $this->_arrayIndex = $this->_lastArrayIndex = $this->getArrayIndex($data);
+            $this->_arrayIndex = $this->getArrayIndex($data);
             break;
         }
     }
