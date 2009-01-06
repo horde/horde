@@ -7,7 +7,7 @@ require_once dirname(__FILE__) . '/../base.php';
  * The Maintenance_IMP class defines the maintenance operations run upon
  * login to IMP.
  *
- * Copyright 2001-2008 The Horde Project (http://www.horde.org/)
+ * Copyright 2001-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.

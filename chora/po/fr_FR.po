@@ -1,7 +1,7 @@
 # French translation for Chora
-# Copyright (C) 2001 Free Software Foundation, Inc.
+# Copyright 2001 Free Software Foundation, Inc.
 # Mathieu Arnold <mat@absolight.net>, 2001
-# Copyright (C) 2002, 2007 Thierry Thomas.
+# Copyright 2002, 2007 Thierry Thomas.
 #
 msgid ""
 msgstr ""

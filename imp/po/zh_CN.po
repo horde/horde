@@ -1,5 +1,5 @@
 # IMP Simplified Chinese Translation
-# Copyright (C) 2001 WangHengWen.
+# Copyright 2001 WangHengWen.
 # WangHengWen <whw@my169.com>, 2001.
 #
 msgid ""

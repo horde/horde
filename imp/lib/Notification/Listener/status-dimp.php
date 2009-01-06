@@ -8,7 +8,7 @@ require_once 'Horde/Notification/Event.php';
  * Notification_Listener_status_imp:: class to return all messages instead of
  * printing them.
  *
- * Copyright 2005-2008 The Horde Project (http://www.horde.org/)
+ * Copyright 2005-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.

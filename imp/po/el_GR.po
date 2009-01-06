@@ -1,5 +1,5 @@
 # IMP Greek translation.
-# Copyright (C) 2002 Stefanos I. Dimitriou.
+# Copyright 2002 Stefanos I. Dimitriou.
 # Stefanos I. Dimitriou <sdimitri_webmail@teiath.gr>, 2002.
 # Silligardos Xristoforos, 2002.
 # Anagnostopoulos Apostolis, 2002.

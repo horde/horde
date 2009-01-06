@@ -1,5 +1,5 @@
 # Basque translations for IMP.
-# Copyright (C) 2008 Horde Project
+# Copyright 2008-2009 The Horde Project
 # This file is distributed under the same license as the IMP package.
 # Euskal Herriko Unibertsitatea EHU/UPV <xabier.arrieta@ehu.es>, 2008.
 #

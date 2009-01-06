@@ -1,5 +1,5 @@
 # IMP Ukrainian win-1251 translation.
-# Copyright (C)
+# Copyright
 # Andriy Kopystyansky <anri@polynet.lviv.ua>, 2006
 #
 msgid ""

@@ -3,7 +3,7 @@
  * The IMP_Horde_Mime_Viewer_tnef class allows MS-TNEF attachments to be
  * displayed.
  *
- * Copyright 2002-2008 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.

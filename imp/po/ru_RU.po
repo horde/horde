@@ -1,5 +1,5 @@
 # IMP Russian translation.
-# Copyright (C)
+# Copyright
 # Anton Nekhoroshih <anton@valuehost.ru>, 2001
 # Fedor A. Fetisov <faf@ssc.ru>, 2002
 # Alexey Zakharov <baber@mosga.net>, 2008

@@ -1,5 +1,5 @@
 # Jeta Finnish translation
-# Copyright (C) 2003 Petteri Karttunen.
+# Copyright 2003 Petteri Karttunen.
 # Petteri Karttunen <pkarttun@siba.fi>, 2003.
 #
 msgid ""

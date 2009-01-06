@@ -4,7 +4,7 @@
  *
  * $Horde: incubator/folks/scripts/notify.php,v 1.4 2008/10/07 00:00:05 duck Exp $
  *
- * Copyright 2008 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.

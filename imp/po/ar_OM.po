@@ -1,5 +1,5 @@
 # IMP 3.2.1 Arabic translation
-# Copyright (C) 2003 wabhosting.com <admin@wabhosting.com>
+# Copyright 2003 wabhosting.com <admin@wabhosting.com>
 # Web Advanced Business Hosting <admin@wabhosting.com>, 2001
 # Saeed <admin@wabhosting.com>, 2002, 2003
 #

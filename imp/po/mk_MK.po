@@ -1,6 +1,6 @@
 # translation of mk_MK.po to Macedonian
 # This file is distributed under the same license as the IMP package.
-# Copyright (C) 2003 Eureka Informatika
+# Copyright 2003 Eureka Informatika
 # Stojan Pesov <ssp@eureka.com.mk>, 2003
 #
 msgid ""

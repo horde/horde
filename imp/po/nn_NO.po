@@ -1,5 +1,5 @@
 # IMP Norwegian Nynorsk translation
-# Copyright (C) 2002 Per-Stian Vatne <nynorsk@orsta.org>
+# Copyright 2002 Per-Stian Vatne <nynorsk@orsta.org>
 # This file is distributed under the same license as the IMP package.
 # Per-Stian Vatne <psv@orsta.org>, 2002.
 #

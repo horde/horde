@@ -1,5 +1,5 @@
 # CHORA ROMANIAN TRANSLATION
-# Copyright (C) 2003 Horde Project
+# Copyright 2003-2009 The Horde Project
 # Eugen Hoanca <eugenh@urban-grafx.ro>, 2003.
 # Marius Dragulescu <mariusd@urban-grafx.ro>, 2003.
 #

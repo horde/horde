@@ -1,5 +1,5 @@
 # Romanian translations for Jeta package.
-# Copyright (C) 2003 Horde Project
+# Copyright 2003-2009 The Horde Project
 # This file is distributed under the same license as the Jeta package.
 # Eugen Hoanca <eugenh@urban-grafx.ro>, 2003.
 #

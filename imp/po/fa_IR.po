@@ -1,7 +1,7 @@
 # Persian translations for Imp package.
 # This file is distributed under the same license as the Horde package.
 #
-# Copyright (C) 2004 High Concil of Informatics (www.shci.ir)
+# Copyright 2004 High Concil of Informatics (www.shci.ir)
 # Provided by  Amirkabir Metanetworking Ltd, 2004 <persian-horde@metanetworking.com>
 # Mohsen Nader-Badr       <naderi@metanetworking.com>
 # chakameh Mortezania     <mortezania@metanetworking.com>

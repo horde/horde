@@ -4,12 +4,12 @@
  *
  * $Horde: ansel/lib/Report.php,v 1.9 2008-07-03 04:16:00 mrubinsk Exp $
  *
- * Copyright 2008 The Horde Project (http://www.horde.org)
+ * Copyright 2008-2009 The Horde Project (http://www.horde.org)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * Copyright 2008 The Horde Project (http://www.horde.org)
+ * Copyright 2008-2009 The Horde Project (http://www.horde.org)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.

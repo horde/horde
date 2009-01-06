@@ -3,7 +3,7 @@
  * @category   Horde
  * @package    Date_Parser
  * @subpackage UnitTests
- * @copyright  2008 The Horde Project (http://www.horde.org/)
+ * @copyright  2008-2009 The Horde Project (http://www.horde.org/)
  * @license    http://opensource.org/licenses/bsd-license.php
  */
 

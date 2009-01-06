@@ -127,7 +127,7 @@ Time zones other than the local one are not currently supported. Support for oth
 
 (The MIT License)
 
-Copyright (c) 2006 Ryan Davis, Zen Spider Software
+Copyright 2006 Ryan Davis, Zen Spider Software
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the

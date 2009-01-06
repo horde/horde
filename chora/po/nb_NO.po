@@ -1,5 +1,5 @@
 # Norwegian Chora Translation.
-# Copyright (C) 2001 Oystein Steimler.
+# Copyright 2001 Oystein Steimler.
 # Oystein Steimler <oystein@rexta.net>, 2001.
 #
 msgid ""

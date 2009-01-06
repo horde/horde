@@ -5,7 +5,7 @@
  *
  * $Horde: incubator/Horde_Form/Horde/Form/VarRenderer.php,v 1.8 2008/01/02 11:12:48 jan Exp $
  *
- * Copyright 2003-2008 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
  * Copyright 2005-2007 Matt Warden <mwarden@gmail.com>
  *
  * See the enclosed file LICENSE for license information (LGPL).

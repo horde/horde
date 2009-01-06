@@ -1,5 +1,5 @@
 # IMP Traditional Chinese Translation
-# Copyright (C) 2001 David Chang,TAIWAN. 張良文,台灣
+# Copyright 2001 David Chang,TAIWAN. 張良文,台灣
 # David Chang <david@tmv.gov.tw>, 2001.
 msgid ""
 msgstr ""

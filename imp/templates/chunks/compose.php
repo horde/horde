@@ -6,7 +6,7 @@
  *   $args('folder', 'index'), $compose_html, $draft_index, $from, $id,
  *   $identity, $composeCache, $rte, $selected_identity, $sent_mail_folder
  *
- * Copyright 2005-2008 The Horde Project (http://www.horde.org/)
+ * Copyright 2005-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.

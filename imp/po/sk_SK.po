@@ -1,5 +1,5 @@
 # IMP Slovak translation.
-# Copyright (C) 2002 Leo Mrafko <leo@oel.sk> (original translator)
+# Copyright 2002 Leo Mrafko <leo@oel.sk> (original translator)
 # (C) 2002, 2003 Ivan Noris <vix@vazka.sk>
 # Martin Matu¹ka <martin@matuska.org>, 2008
 #

@@ -1,5 +1,5 @@
 # Finnish translation for Chora.
-# Copyright (C)
+# Copyright
 # Tero Matinlassi <terom@iki.fi>, 2002.
 # Leena Heino <liinu@uta.fi>, 2002-2008.
 #

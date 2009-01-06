@@ -7,7 +7,7 @@ require_once 'HTTP/Request.php';
  * Horde_Serivce_Vimeo:: wrapper around Vimeo's (http://www.vimeo.com)
  * API.
  *
- * Copyright 2008 The Horde Project (http://www.horde.org)
+ * Copyright 2008-2009 The Horde Project (http://www.horde.org)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.

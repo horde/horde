@@ -1,6 +1,6 @@
 # translation of fr_FR.po to french
 # French translations for Imp package.
-# Copyright (C) 2001, 2007 Horde Project
+# Copyright 2001-2009 Horde Project
 # This file is distributed under the same license as the Imp package.
 #
 # Pierre Lachance <pl@pierrelachance.net> et Benoit St-André (ben@benoitst-andre.net), 2003, 2004.

@@ -1,5 +1,5 @@
 # Chora Chinese Translation
-# Copyright (C) 2003. Lin Zhemin.
+# Copyright 2003. Lin Zhemin.
 # This file is distributed under the same license as the PACKAGE package.
 # Lin Zhemin <ljm@ljm.idv.tw> 2003
 #

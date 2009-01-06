@@ -2,7 +2,7 @@
 /**
  * $Id: Activity.php 979 2008-10-08 08:31:13Z duck $
  *
- * Copyright 2008 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.

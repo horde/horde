@@ -23,7 +23,7 @@
  *   $imp_search  - An IMP_Search object
  *   $mimp_render - (MIMP view only) A Horde_Mobile object
  *
- * Copyright 1999-2008 The Horde Project (http://www.horde.org/)
+ * Copyright 1999-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.

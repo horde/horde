@@ -1,5 +1,5 @@
 // 
-// Copyright (c) 2008 Eric Czarny <eczarny@gmail.com>
+// Copyright 2008 Eric Czarny <eczarny@gmail.com>
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of  this  software  and  associated documentation files (the "Software"), to
@@ -25,7 +25,7 @@
 // XMLRPCConnection.h
 // 
 // Created by Eric Czarny on Thursday, January 15, 2004.
-// Copyright (c) 2008 Divisible by Zero.
+// Copyright 2008 Divisible by Zero.
 // 
  
 #import <Foundation/Foundation.h>

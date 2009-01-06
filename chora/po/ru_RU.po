@@ -1,5 +1,5 @@
 # Chora Russian translation.
-# Copyright (C) 2005 Jan Schneider.
+# Copyright 2005 Jan Schneider.
 # Illya Belov <belov@iop.irkps.ru>, 2005.
 msgid ""
 msgstr ""

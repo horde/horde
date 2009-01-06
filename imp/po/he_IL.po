@@ -1,5 +1,5 @@
 # Hebrew translations for Imp package.
-# Copyright (C) 2006 Matt Selsky <selsky@columbia.edu>
+# Copyright 2006 Matt Selsky <selsky@columbia.edu>
 # This file is distributed under the same license as the Imp package.
 # Automatically generated, 2006.
 #

@@ -1,5 +1,5 @@
 // 
-// Copyright (c) 2008 Eric Czarny <eczarny@gmail.com>
+// Copyright 2008 Eric Czarny <eczarny@gmail.com>
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of  this  software  and  associated documentation files (the "Software"), to
@@ -25,7 +25,7 @@
 // XMLRPCDecoder.m
 // 
 // Created by Eric Czarny on Wednesday, January 14, 2004.
-// Copyright (c) 2008 Divisible by Zero.
+// Copyright 2008 Divisible by Zero.
 // 
 
 #import "XMLRPCDecoder.h"

@@ -1,5 +1,5 @@
 # Chora Polish translation.
-# Copyright (C) 2001 Piotr Roszatycki <dexter@debian.org>
+# Copyright 2001 Piotr Roszatycki <dexter@debian.org>
 # Piotr Roszatycki <dexter@debian.org>, 2001.
 #
 msgid ""

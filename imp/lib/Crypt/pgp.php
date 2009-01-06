@@ -3,7 +3,7 @@
  * The IMP_Horde_Crypt_pgp:: class contains all functions related to handling
  * PGP messages within IMP.
  *
- * Copyright 2002-2008 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.

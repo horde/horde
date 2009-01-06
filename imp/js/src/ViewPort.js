@@ -4,7 +4,7 @@
  * Requires prototypejs 1.6+, DimpSlider.js, scriptaculous 1.8+ (effects.js
  * only), and DIMP's dragdrop.js.
  *
- * Copyright 2005-2008 The Horde Project (http://www.horde.org/)
+ * Copyright 2005-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.

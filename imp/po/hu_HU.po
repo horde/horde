@@ -1,5 +1,5 @@
 # IMP Hungarian translation file.
-# Copyright (C) 2002-2008 Laszlo L. Tornoci
+# Copyright 2002-2008 Laszlo L. Tornoci
 # This file is distributed under the same license as the IMP package.
 # Latest versions: ftp://xenia.sote.hu/pub/linux/horde/
 #

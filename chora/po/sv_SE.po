@@ -1,5 +1,5 @@
 # Chora Swedish translation
-# Copyright (C) 2002-2005 Andreas Dahlén.
+# Copyright 2002-2005 Andreas Dahlén.
 # Andreas Dahlén <andreas@dahlen.ws>, 2005.
 #
 msgid ""

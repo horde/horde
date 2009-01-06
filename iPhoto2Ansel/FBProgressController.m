@@ -1,6 +1,6 @@
 /*
  * Facebook Exporter for iPhoto Software License
- * Copyright (c) 2007, Facebook, Inc.
+ * Copyright 2007, Facebook, Inc.
  * All rights reserved.
  * Permission is hereby granted, free of charge, to any person or organization 
  * obtaining a copy of the software and accompanying documentation covered by 

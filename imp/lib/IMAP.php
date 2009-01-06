@@ -3,7 +3,7 @@
  * The IMP_IMAP:: class provides common functions for interaction with the
  * IMAP/POP3 server via the Horde_Imap_Client:: library.
  *
- * Copyright 2008 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.

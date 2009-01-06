@@ -2,7 +2,7 @@
 /**
  * $Id: content_edit.php 229 2008-01-12 19:47:30Z duck $
  *
- * Copyright 2007 The Horde Project (http://www.horde.org/)
+ * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://cvs.horde.org/co.php/thomas/LICENSE.

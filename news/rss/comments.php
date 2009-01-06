@@ -2,7 +2,7 @@
 /**
  * $Id: comments.php 183 2008-01-06 17:39:50Z duck $
  *
- * Copyright 2007 The Horde Project (http://www.horde.org/)
+ * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.

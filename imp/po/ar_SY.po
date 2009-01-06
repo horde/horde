@@ -1,5 +1,5 @@
 # IMP 3.2.1 Arabic translation
-# Copyright (C) 2003 Platinum Inc. <pl@tinum.info>
+# Copyright 2003 Platinum Inc. <pl@tinum.info>
 # Custom Web Applications <http://platinum-sy.com>
 # Platinum Development Team <devteam@platinum-sy.net>
 #
