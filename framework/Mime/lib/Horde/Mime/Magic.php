@@ -6,7 +6,7 @@ require_once 'Horde/Util.php';
  * The Horde_Mime_Magic:: class provides an interface to determine a MIME type
  * for various content, if it provided with different levels of information.
  *
- * Copyright 1999-2008 The Horde Project (http://www.horde.org/)
+ * Copyright 1999-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.

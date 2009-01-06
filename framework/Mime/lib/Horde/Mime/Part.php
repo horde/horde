@@ -7,7 +7,7 @@ require_once dirname(__FILE__) . '/../Mime.php';
  * The Horde_Mime_Part:: class provides a wrapper around MIME parts and
  * methods for dealing with them.
  *
- * Copyright 1999-2008 The Horde Project (http://www.horde.org/)
+ * Copyright 1999-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.

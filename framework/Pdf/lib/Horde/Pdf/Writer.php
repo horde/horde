@@ -11,7 +11,7 @@
  * $Horde: framework/Pdf/lib/Horde/Pdf/Writer.php,v 1.3 2008/02/27 04:27:29 chuck Exp $
  *
  * Copyright 2001-2003 Olivier Plathey <olivier@fpdf.org>
- * Copyright 2003-2008 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
  *
  * @author   Olivier Plathey <olivier@fpdf.org>
  * @author   Marko Djukic <marko@oblo.com>

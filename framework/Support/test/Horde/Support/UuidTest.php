@@ -3,7 +3,7 @@
  * @category   Horde
  * @package    Support
  * @subpackage UnitTests
- * @copyright  1999-2008 The Horde Project (http://www.horde.org/)
+ * @copyright  1999-2009 The Horde Project (http://www.horde.org/)
  * @license    http://opensource.org/licenses/bsd-license.php
  */
 
@@ -12,7 +12,7 @@
  * @category   Horde
  * @package    Support
  * @subpackage UnitTests
- * @copyright  1999-2008 The Horde Project (http://www.horde.org/)
+ * @copyright  1999-2009 The Horde Project (http://www.horde.org/)
  * @license    http://opensource.org/licenses/bsd-license.php
  */
 class Horde_Support_UuidTest extends PHPUnit_Framework_TestCase

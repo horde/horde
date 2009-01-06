@@ -3,7 +3,7 @@
  * The Horde_Mime_Viewer_msexcel class renders out Microsoft Excel
  * documents in HTML format by using the xlHtml package.
  *
- * Copyright 1999-2008 The Horde Project (http://www.horde.org/)
+ * Copyright 1999-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.

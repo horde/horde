@@ -2,14 +2,14 @@
 /**
  * @category   Horde
  * @package    Support
- * @copyright  2007-2008 The Horde Project (http://www.horde.org/)
+ * @copyright  2007-2009 The Horde Project (http://www.horde.org/)
  * @license    http://opensource.org/licenses/bsd-license.php
  */
 
 /**
  * @category   Horde
  * @package    Support
- * @copyright  2007-2008 The Horde Project (http://www.horde.org/)
+ * @copyright  2007-2009 The Horde Project (http://www.horde.org/)
  * @license    http://opensource.org/licenses/bsd-license.php
  *
  * For a thorough description of consistent hashing, see

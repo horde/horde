@@ -6,7 +6,7 @@ require_once dirname(__FILE__) . '/source.php';
  * The Horde_Mime_Viewer_enscript class renders out various content in HTML
  * format by using GNU Enscript.
  *
- * Copyright 1999-2008 The Horde Project (http://www.horde.org/)
+ * Copyright 1999-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.

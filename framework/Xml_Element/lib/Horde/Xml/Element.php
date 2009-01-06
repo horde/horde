@@ -3,7 +3,7 @@
  * $Horde: framework/Xml_Element/lib/Horde/Xml/Element.php,v 1.14 2008/09/27 02:57:42 chuck Exp $
  *
  * Portions Copyright 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
- * Copyright 2007-2008 The Horde Project (http://www.horde.org/)
+ * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @license  http://opensource.org/licenses/bsd-license.php BSD
