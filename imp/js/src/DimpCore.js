@@ -208,8 +208,7 @@ DimpCore = {
         msgs.find(function(m) {
             switch (m.type) {
             case 'dimp.timeout':
-                this.is_logout = true;
-                this.redirect(DIMP.conf.timeout_url);
+                this.logout(DIMP.conf.timeout_url);
                 return true;
 
             case 'horde.error':
@@ -367,10 +366,10 @@ DimpCore = {
         }
     },
 
-    logout: function()
+    logout: function(url)
     {
         this.is_logout = true;
-        this.redirect(DIMP.conf.URI_IMP + '/LogOut');
+        this.redirect(url || (DIMP.conf.URI_IMP + '/LogOut'));
     },
 
     redirect: function(url)
