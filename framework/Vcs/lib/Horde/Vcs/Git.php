@@ -35,6 +35,14 @@ class Horde_Vcs_git extends Horde_Vcs
         return $this->getPath('git') . ' --git-dir=' . $this->_sourceroot;
     }
 
+    public function getCheckout($file, $rev)
+    {
+        if (!isset($this->_cache['co'])) {
+            $this->_cache['co'] = new 'Horde_Vcs_Checkout_git';
+        }
+        return $this->_cache['co']->get($this, $file->queryModulePath(), $rev);
+    }
+
 }
 
 /**
@@ -136,7 +144,9 @@ class Horde_Vcs_Checkout_git extends Horde_Vcs_Checkout
     {
         $rep->assertValidRevision($rev);
 
-        return ($pipe = popen($rep->getCommand() . ' cat-file blob ' . $file->getHashForRevision($rev) . ' 2>&1', VC_WINDOWS ? 'rb' : 'r'))
+        $file_ob = $rep->getFileObject($file);
+
+        return ($pipe = popen($rep->getCommand() . ' cat-file blob ' . $file_ob->getHashForRevision($rev) . ' 2>&1', VC_WINDOWS ? 'rb' : 'r'))
             ? $pipe
             : PEAR::raiseError('Couldn\'t perform checkout of the requested file');
     }
@@ -387,6 +397,16 @@ class Horde_Vcs_File_git extends Horde_Vcs_File
                 break;
             }
         }
+    }
+
+    /**
+     * Return the name of this file relative to its sourceroot.
+     *
+     * @return string  Pathname relative to the sourceroot.
+     */
+    public function queryModulePath()
+    {
+        return $this->name;
     }
 
 }
