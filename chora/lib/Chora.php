@@ -523,7 +523,8 @@ class Chora {
             }
         }
 
-        $views[] = $current == 'stats'
+        /* Can't use $current - gives us PATH_INFO information. */
+        $views[] = (strpos($_SERVER['PHP_SELF'], '/stats.php/') !== false)
             ? '<em class="widget">' . _("Statistics") . '</em>'
             : Horde::widget(Chora::url('stats', $where), _("Statistics"),
                             'widget', '', '', _("_Statistics"));
