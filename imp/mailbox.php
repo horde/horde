@@ -104,7 +104,7 @@ $do_filter = false;
 $open_compose_window = null;
 
 /* Run through the action handlers */
-if ($actionID != 'message_missing') {
+if ($actionID && ($actionID != 'message_missing')) {
     $result = IMP::checkRequestToken('imp.mailbox', Util::getFormData('mailbox_token'));
     if (is_a($result, 'PEAR_Error')) {
         $notification->push($result);
