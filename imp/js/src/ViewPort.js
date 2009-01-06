@@ -982,6 +982,7 @@ var ViewPort = Class.create({
                 this._fetchBuffer({ offset: this.currentOffset(), params: { rangeslice: 1 }, rowlist: { start: vs.min(), end: vs.size() } });
                 return;
             }
+            vs = slice;
         }
 
         if (!opts.add) {
