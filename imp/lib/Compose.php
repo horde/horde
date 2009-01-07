@@ -669,7 +669,7 @@ class IMP_Compose
     /**
      * Return mail driver/params necessary to send a message.
      *
-     * @return array  'driver' => mail dirver; 'params' => list of params.
+     * @return array  'driver' => mail driver; 'params' => list of params.
      */
     static public function getMailDriver()
     {
