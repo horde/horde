@@ -56,6 +56,11 @@ class Horde_Service_Vimeo {
         return self::$_format;
     }
 
+    public static function setFormat($format)
+    {
+        self::$_format = $format;
+    }
+
     /**
      * Get the raw JSON response containing the data to embed a single video.
      *
