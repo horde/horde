@@ -16,6 +16,20 @@ require_once dirname(__FILE__) . '/rcs.php';
 class Horde_Vcs_cvs extends Horde_Vcs_rcs
 {
     /**
+     * Does driver support deleted files?
+     *
+     * @var boolean
+     */
+    protected $_deleted = true;
+
+    /**
+     * Does driver support branches?
+     *
+     * @var boolean
+     */
+    protected $_branches = true;
+
+    /**
      * Constructor.
      *
      * @param array $params  Any parameter the class expects.

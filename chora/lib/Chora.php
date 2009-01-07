@@ -501,15 +501,16 @@ class Chora {
             ? '<em class="widget">' . _("Logs") . '</em>'
             : Horde::widget(Chora::url('', $where), _("Logs"), 'widget', '',
                             '', _("_Logs"));
-        // Subversion supports patchsets natively.
+
         if (!empty($GLOBALS['conf']['paths']['cvsps']) ||
-            is_a($GLOBALS['VC'], 'VC_svn')) {
+            $GLOBALS['VC']->supportsFeature('patchsets')) {
             $views[] = $current == 'patchsets'
                 ? '<em class="widget">' . _("Patchsets") . '</em>'
                 : Horde::widget(Chora::url('patchsets', $where), _("Patchsets"),
                                 'widget', '', '', _("_Patchsets"));
         }
-        if (!is_a($GLOBALS['VC'], 'VC_svn')) {
+
+        if ($GLOBALS['VC']->supportsFeature('branches')) {
             if (empty($GLOBALS['conf']['paths']['cvsgraph'])) {
                 $views[] = $current == 'history'
                     ? '<em class="widget">' . _("Branches") . '</em>'

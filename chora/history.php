@@ -12,7 +12,7 @@
 require_once dirname(__FILE__) . '/lib/base.php';
 
 /* Exit if it's not supported. */
-if (is_a($VC, 'VC_svn')) {
+if (!$VC->supportsFeature('branches')) {
     header('Location: ' . Chora::url('browse', $where));
     exit;
 }

@@ -32,15 +32,9 @@ if ($atdir) {
         ? $conf['options']['introTitle']
         : sprintf(_("Source Directory of /%s"), $where);
 
-    $extraLink = '';
-    if (is_a($VC, 'VC_cvs')) {
-        $extraLink = Horde::widget(Chora::url(
-            '', $where . '/', array('sa' => ($acts['sa'] ? 0 : 1))),
-            $acts['sa'] ? _("Hide Deleted Files") : _("Show Deleted Files"),
-            'widget', '', '',
-            $acts['sa'] ? _("Hide _Deleted Files") : _("Show _Deleted Files")
-        );
-    }
+    $extraLink = $VC->supportsFeature('deleted')
+        ? Horde::widget(Chora::url('', $where . '/', array('sa' => ($acts['sa'] ? 0 : 1))), $acts['sa'] ? _("Hide Deleted Files") : _("Show Deleted Files"), 'widget', '', '', $acts['sa'] ? _("Hide _Deleted Files") : _("Show _Deleted Files"))
+        : '';
 
     $umap = array(
         'age' => Horde_Vcs::SORT_AGE,

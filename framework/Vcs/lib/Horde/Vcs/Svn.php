@@ -30,6 +30,13 @@ class Horde_Vcs_svn extends Horde_Vcs
     protected $_password = '';
 
     /**
+     * Does driver support patchsets?
+     *
+     * @var boolean
+     */
+    protected $_patchsets = true;
+
+    /**
      * Constructor.
      *
      * @param array $params  Any parameter the class expects.

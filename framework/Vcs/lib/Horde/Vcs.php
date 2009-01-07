@@ -64,6 +64,27 @@ class Horde_Vcs
     protected $_cached = array();
 
     /**
+     * Does driver support deleted files?
+     *
+     * @var boolean
+     */
+    protected $_deleted = false;
+
+    /**
+     * Does driver support patchsets?
+     *
+     * @var boolean
+     */
+    protected $_patchsets = false;
+
+    /**
+     * Does driver support branches?
+     *
+     * @var boolean
+     */
+    protected $_branches = false;
+
+    /**
      * Attempts to return a concrete Horde_Vcs instance based on $driver.
      *
      * @param mixed $driver  The type of concrete Horde_Vcs subclass to return.
@@ -120,6 +141,28 @@ class Horde_Vcs
     {
         $pos = strpos(get_class($this), '_');
         $this->_driver = substr(get_class($this), $pos + 1);
+    }
+
+    /**
+     * Does this driver support the given feature
+     *
+     * @return boolean  True if driver supports the given feature.
+     */
+    public function supportsFeature($feature)
+    {
+        switch ($feature) {
+        case 'branches':
+            return $this->_branches;
+
+        case 'deleted':
+            return $this->_deleted;
+
+        case 'patchsets':
+            return $this->_patchsets;
+
+        default:
+            return false;
+        }
     }
 
     /**
