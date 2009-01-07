@@ -13,8 +13,8 @@ require_once dirname(__FILE__) . '/lib/base.php';
 
 /* Spawn the repository and file objects */
 $fl = $VC->getFileObject($where, $cache);
-$rev_ob = $VC->getRevisionObject();
 Chora::checkError($fl);
+$rev_ob = $VC->getRevisionObject();
 
 /* Initialise the form variables correctly. */
 $r1 = Util::getFormData('r1');

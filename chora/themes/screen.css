@@ -221,6 +221,8 @@ table.annotate .author {
 }
 table.annotate .rev {
     background: #fee;
+    padding-right: 2px;
+    white-space: nowrap;
 }
 
 /* Diff styles. */

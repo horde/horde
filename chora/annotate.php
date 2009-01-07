@@ -39,9 +39,6 @@ $revMap = $fl->revs;
 sort($revMap);
 $rrevMap = array_flip($revMap);
 
-/* Keep track of any revision we encounter in the following loop. */
-$revList = array();
-
 require CHORA_TEMPLATES . '/common-header.inc';
 require CHORA_TEMPLATES . '/menu.inc';
 require CHORA_TEMPLATES . '/headerbar.inc';
@@ -49,25 +46,20 @@ require CHORA_TEMPLATES . '/annotate/header.inc';
 
 /* Use this counter so that we can give each tooltip object a unique
  * id attribute (which we use to set the tooltip text later). */
-foreach ($lines as $line) {
+while (list(,$line) = each($lines)) {
     $lineno = $line['lineno'];
-    $prevAuthor = $author;
     $author = Chora::showAuthorName($line['author']);
-    if ($prevAuthor != $author) {
+    $prevRev = $rev;
+    $rev = $line['rev'];
+    if ($prevRev != $rev) {
         $style = (++$style % 2);
     }
-    $rev = $line['rev'];
-    $prev = isset($revMap[$rrevMap[$rev] - 1]) ? $revMap[$rrevMap[$rev] - 1] : null;
-    if (!isset($revList[$rev])) {
-        $revList[$rev] = $fl->logs[$rev];
-    }
-    if (!is_null($prev) && !isset($revList[$prev])) {
-        $revList[$prev] = $fl->logs[$prev];
-    }
+    $prev = (isset($rrevMap[$rev]) && isset($revMap[$rrevMap[$rev] - 1]))
+        ? $revMap[$rrevMap[$rev] - 1]
+        : null;
     $line = Text::htmlAllSpaces($line['line']);
     include CHORA_TEMPLATES . '/annotate/line.inc';
     ++$i;
 }
 
-require CHORA_TEMPLATES . '/annotate/footer.inc';
 require $registry->get('templates', 'horde') . '/common-footer.inc';

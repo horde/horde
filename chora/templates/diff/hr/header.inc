@@ -45,7 +45,7 @@
    <?php if (!empty($val['branchName'])): ?><li><?php echo _("Branch:") ?> <strong><a href="<?php echo Chora::url('', $where, array('onb' => $val['branchRev'])) ?>"><?php echo $val['branchName'] ?></a></strong></li><?php endif; ?>
    <?php if (!empty($val['tags'])): ?><li class="tags"><?php echo _("Tags:") ?> <?php echo implode(', ', $val['tags']) ?></li><?php endif; ?>
   </ul>
-  <a href="<?php echo Chora::url('co', $where, array('r' => $val['rev'])) ?>" title="<?php echo $val['rev'] ?>"><?php echo $rev_ob->abbrev($val['rev']) ?></a>: <?php echo $val['msg'] ?>
+  <a href="<?php echo Chora::url('co', $where, array('r' => $val['rev'])) ?>" title="<?php echo htmlspecialchars($val['rev']) ?>"><?php echo htmlspecialchars($rev_ob->abbrev($val['rev'])) ?></a>: <?php echo $val['msg'] ?>
   <div class="diffclear"></div>
  </div>
 <?php endforeach; ?>
@@ -53,8 +53,8 @@
 <?php endif; ?>
 <thead>
 <tr>
- <th><a href="<?php echo Chora::url('co', $where, array('r' => $r1)) ?>" title="<?php echo $r1 ?>"><?php printf(_("Version %s"), $abbrev_r1) ?></a></th>
- <th><a href="<?php echo Chora::url('co', $where, array('r' => $r2)) ?>" title="<?php echo $r2 ?>"><?php printf(_("Version %s"), $abbrev_r2) ?></a></th>
+ <th><a href="<?php echo Chora::url('co', $where, array('r' => $r1)) ?>" title="<?php echo htmlspecialchars($r1) ?>"><?php printf(_("Version %s"), htmlspecialchars($abbrev_r1)) ?></a></th>
+ <th><a href="<?php echo Chora::url('co', $where, array('r' => $r2)) ?>" title="<?php echo htmlspecialchars($r2) ?>"><?php printf(_("Version %s"), htmlspecialchars($abbrev_r2)) ?></a></th>
 </tr>
 </thead>
 <tbody>
