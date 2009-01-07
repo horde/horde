@@ -336,9 +336,10 @@ class IMP_Horde_Mime_Viewer_itip extends Horde_Mime_Viewer_Driver
                     $msg_headers->addHeader('Subject', Horde_Mime::encode($subject, $charset));
 
                     // Send the reply.
+                    $mail_driver = IMP_Compose::getMailDriver();
                     $status = $mime->send($organizerEmail, $msg_headers,
-                                          $GLOBALS['conf']['mailer']['type'],
-                                          $GLOBALS['conf']['mailer']['params']);
+                                          $mail_driver['driver'],
+                                          $mail_driver['params']);
                     if (is_a($status, 'PEAR_Error')) {
                         $msgs[] = array('error', sprintf(_("Error sending reply: %s."), $status->getMessage()));
                     } else {
@@ -437,9 +438,10 @@ class IMP_Horde_Mime_Viewer_itip extends Horde_Mime_Viewer_Driver
                     $msg_headers->addHeader('Subject', Horde_Mime::encode(_("Free/Busy Request Response"), $charset));
 
                     // Send the reply.
+                    $mail_driver = IMP_Compose::getMailDriver();
                     $status = $mime->send($organizerEmail, $msg_headers,
-                                          $GLOBALS['conf']['mailer']['type'],
-                                          $GLOBALS['conf']['mailer']['params']);
+                                          $mail_driver['driver'],
+                                          $mail_driver['params']);
                     if (is_a($status, 'PEAR_Error')) {
                         $msgs[] = array('error', sprintf(_("Error sending reply: %s."), $status->getMessage()));
                     } else {
