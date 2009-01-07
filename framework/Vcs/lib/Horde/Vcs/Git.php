@@ -230,7 +230,16 @@ class Horde_Vcs_Diff_git extends Horde_Vcs_Diff
      */
     public function getRevisionRange($rep, $file, $r1, $r2)
     {
-        $cmd = $rep->getCommand() . ' rev-list ' . $r1 . '..' . $r2 . ' -- "' . $file->queryModulePath() . '"';
+        $revs = $this->_getRevisionRange($rep, $file, $r1, $r2);
+        if (empty($revs)) {
+            $revs = array_reverse($this->_getRevisionRange($rep, $file, $r2, $r1));
+        }
+        return $revs;
+    }
+
+    private function _getRevisionRange($rep, $file, $r1, $r2)
+    {
+        $cmd = $rep->getCommand() . ' rev-list ' . $r1 . '..' . $r2 . ' -- "' . $file->queryModulePath() . '"'e
         $pipe = popen($cmd, 'r');
         if (!is_resource($pipe)) {
             throw new Horde_Vcs_Exception('Unable to run ' . $cmd . ': ' . error_get_last());
