@@ -533,8 +533,8 @@ class IMP_Contents
                 $size = $mime_part->getSize(true);
             }
             $part['size'] = ($size > 1024)
-                ? sprintf(_("%s MB"), number_format(max(($size / 1024), 1)))
-                : sprintf(_("%s KB"), $size);
+                ? sprintf(_("%s MB"), number_format(max(($size / 1024))))
+                : sprintf(_("%s KB"), round($size) || 1);
         }
 
         /* Get part's icon. */
