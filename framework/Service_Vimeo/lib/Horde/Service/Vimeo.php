@@ -81,8 +81,12 @@ class Horde_Service_Vimeo {
      */
     public function getEmbedJson($options)
     {
-        $request = new Horde_Service_Vimeo_Request();
-        return $request->embed($options);
+        if (!empty($this->_cache)) {
+            $params = array('cache' => array('object' => $this->_cache, 'lifetime' => $this->_cache_lifetime));
+        }
+        $request = new Horde_Service_Vimeo_Request($params);
+
+        return $request->getEmbedJson($options);
     }
 
     /**
