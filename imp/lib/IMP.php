@@ -1071,12 +1071,12 @@ class IMP
             $default = $GLOBALS['prefs']->getValue('default_encrypt');
         }
 
-        $enc_opts = array();
+        $enc_opts = array(self::ENCRYPT_NONE => _("No Encryption"));
         $output = '';
 
         if (!empty($GLOBALS['conf']['utils']['gnupg']) &&
             $GLOBALS['prefs']->getValue('use_pgp')) {
-            $enc_opts = array(
+            $enc_opts += array(
                 self::PGP_ENCRYPT => _("PGP Encrypt Message"),
                 self::PGP_SIGN => _("PGP Sign Message"),
                 self::PGP_SIGNENC => _("PGP Sign/Encrypt Message"),
@@ -1085,14 +1085,12 @@ class IMP
             );
         }
         if ($GLOBALS['prefs']->getValue('use_smime')) {
-            $enc_opts = array_merge($enc_opts, array(
+            $enc_opts += array(
                 self::SMIME_ENCRYPT => _("S/MIME Encrypt Message"),
                 self::SMIME_SIGN => _("S/MIME Sign Message"),
                 self::SMIME_SIGNENC => _("S/MIME Sign/Encrypt Message")
-            ));
+            );
         }
-
-        $enc_opts = array_merge(array(self::ENCRYPT_NONE => _("No Encryption")), $enc_opts);
 
         foreach ($enc_opts as $key => $val) {
              $output .= '<option value="' . $key . '"' . (($default == $key) ? ' selected="selected"' : '') . '>' . $val . '</option>' . "\n";
