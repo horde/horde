@@ -225,9 +225,9 @@
 //             if (($attachment = $imp_ui->getAttachmentType($res_ptr['structure']->getType()))) {
 //                 switch ($mode) {
 //                 case 'imp':
-//                     $alt_text = (isset($list[$attachment]))
-//                         ? $list[$attachment]
-//                         : $list['attachment'];
+//                     $alt_text = (isset($alt_list[$attachment]))
+//                         ? $alt_list[$attachment]
+//                         : $alt_list['attachment'];
 //                     $tmp['status'] = Horde::img($attachment . '.png', $alt_text, array('title' => $alt_text));
 //                     break;
 //
