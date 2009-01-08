@@ -155,7 +155,6 @@ class IMP_Horde_Crypt_smime extends Horde_Crypt_smime
         }
 
         return array(
-            'email'  => $address,
             'pubkey' => $public_key,
             'type' => 'message'
         );
