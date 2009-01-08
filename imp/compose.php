@@ -812,7 +812,7 @@ if ($redirect) {
     /* Prepare the redirect template. */
     $t->set('mailbox', htmlspecialchars($thismailbox));
     $t->set('index', htmlspecialchars($index));
-    $t->set('status', IMP::status());
+    $t->set('status', Util::bufferOutput(array('IMP', 'status')));
     $t->set('title', htmlspecialchars($title));
     $t->set('token', IMP::getRequestToken('imp.compose'));
 
@@ -931,7 +931,7 @@ if ($redirect) {
     $t->set('hidden', $hidden_val);
 
     $t->set('title', htmlspecialchars($title));
-    $t->set('status', IMP::status());
+    $t->set('status', Util::bufferOutput(array('IMP', 'status')));
     $t->set('send_msg_ak', Horde::getAccessKeyAndTitle(_("_Send Message")));
     if ($conf['user']['allow_folders'] && !$readonly_drafts) {
         $t->set('save_draft_ak', Horde::getAccessKeyAndTitle(_("Save _Draft")));
