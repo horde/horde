@@ -13,28 +13,6 @@
 class Horde_Service_Vimeo_Simple extends Horde_Service_Vimeo {
 
     /**
-     * An optional cache object that implments the same interface as
-     * Horde_Cache
-     *
-     * @var Horde_Cache
-     */
-    protected $_cache;
-    protected $_cache_lifetime;
-
-
-    /**
-     * Inject a cache obect
-     *
-     * @param Horde_Cache $cache  The cache object
-     * @param int $lifetime       The cache lifetime in seconds
-     */
-    public function setCache($cache, $lifetime = 1)
-    {
-        $this->_cache = $cache;
-        $this->_cache_lifetime = $lifetime;
-    }
-
-    /**
      * Set up a request based on the method name.
      *
      * @TODO: validate that we have a valid method or throw an exception
@@ -44,9 +22,7 @@ class Horde_Service_Vimeo_Simple extends Horde_Service_Vimeo {
     public function __call($name, $args)
     {
         $params = array('type' => $name,
-                        'identifier' => $args[0],
-                        'cache' => array('object' => $this->_cache,
-                                          'lifetime' => $this->_cache_lifetime));
+                        'identifier' => $args[0]);
 
         return new Horde_Service_Vimeo_Request($params);
     }
@@ -91,27 +67,25 @@ class Horde_Service_Vimeo_Request {
      */
     public function __construct($args = array())
     {
-        if (count($args)) {
-            $this->_cache = isset($args['cache']) ? $args['cache'] : null;
-            if (!empty($args['type'])) {
+        $this->_cache = Horde_Service_Vimeo::getCache();
 
-                // The type of method we are calling (user, group, etc...)
-                $this->_type = $args['type'];
+        if (count($args) && !empty($args['type'])) {
+            // The type of method we are calling (user, group, etc...)
+            $this->_type = $args['type'];
 
-                switch ($args['type']) {
-                case 'user':
-                    $this->_identifier = $args['identifier'];
-                    break;
-                case 'group':
-                    $this->_identifier = '/group/' . $args['identifier'];
-                    break;
-                case 'channel':
-                    $this->_identifier = '/channel/' . $args['identifier'];
-                    break;
-                case 'album':
-                    $this->_identifier = '/album/' . $args['identifier'];
-                    break;
-                }
+            switch ($args['type']) {
+            case 'user':
+                $this->_identifier = $args['identifier'];
+                break;
+            case 'group':
+                $this->_identifier = '/group/' . $args['identifier'];
+                break;
+            case 'channel':
+                $this->_identifier = '/channel/' . $args['identifier'];
+                break;
+            case 'album':
+                $this->_identifier = '/album/' . $args['identifier'];
+                break;
             }
         }
     }
@@ -157,9 +131,9 @@ class Horde_Service_Vimeo_Request {
 
         // See if we have a cache, and if so, try to get the data from it before
         // polling the vimeo service.
-        if (!empty($this->_cache['object'])) {
+        if (!empty($this->_cache)) {
             $cache_key = 'VimeoJson' . md5(serialize($options));
-            $data = $this->_cache['object']->get($cache_key, $this->_cache['lifetime']);
+            $data = $this->_cache->get($cache_key, Horde_Service_Vimeo::getCacheLifetime());
             if ($data !== false) {
                 return unserialize($data);
             }
@@ -172,7 +146,7 @@ class Horde_Service_Vimeo_Request {
         $response = $req->request('GET', $url);
         $results = $response->getBody();
         if (!empty($this->_cache)) {
-            $this->_cache['object']->set($cache_key, serialize($results));
+            $this->_cache->set($cache_key, serialize($results));
         }
 
         return $results;
@@ -182,9 +156,9 @@ class Horde_Service_Vimeo_Request {
     public function run()
     {
         $call =  '/' . $this->_identifier . '/' . $this->_method . '.' . Horde_Service_Vimeo::getFormat();
-        if (!empty($this->_cache['object'])) {
+        if (!empty($this->_cache)) {
             $cache_key = 'VimeoRequest' . md5($call);
-            $data = $this->_cache['object']->get($cache_key, $this->_cache['lifetime']);
+            $data = $this->_cache->get($cache_key, Horde_Service_Vimeo::getCacheLifetime());
             if ($data !== false) {
                 // php format is already returned serialized
                 if (Horde_Service_Vimeo::getFormat() != 'php') {
@@ -199,13 +173,13 @@ class Horde_Service_Vimeo_Request {
         $response = $req->request('GET', $this->_api_endpoint . $call);
         $data = $response->getBody();
 
-        if (!empty($this->_cache['object'])) {
+        if (!empty($this->_cache)) {
             if (Horde_Service_Vimeo::getFormat() != 'php') {
                 $sdata = serialize($data);
             } else {
                 $sdata = $data;
             }
-            $this->_cache['object']->set($cache_key, $sdata);
+            $this->_cache->set($cache_key, $sdata);
         }
 
         return $data;

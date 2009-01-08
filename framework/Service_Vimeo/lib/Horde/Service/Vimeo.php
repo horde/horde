@@ -24,6 +24,9 @@ class Horde_Service_Vimeo {
      */
     protected static $_httpClient = null;
 
+    protected static $_cache;
+    protected static $_cache_lifetime;
+
     /**
      * Set the HTTP client instance
      *
@@ -61,6 +64,31 @@ class Horde_Service_Vimeo {
         self::$_format = $format;
     }
 
+
+    /**
+     * Inject a cache obect
+     *
+     * @param Horde_Cache $cache  The cache object
+     * @param int $lifetime       The cache lifetime in seconds
+     */
+    public static function setCache($cache, $lifetime = 60)
+    {
+        self::$_cache = $cache;
+        self::$_cache_lifetime = $lifetime;
+    }
+
+
+    public static function getCache()
+    {
+        return self::$_cache;
+    }
+
+    public static function getCacheLifetime()
+    {
+        return self::$_cache_lifetime;
+    }
+
+
     /**
      * Get the raw JSON response containing the data to embed a single video.
      *
@@ -81,10 +109,7 @@ class Horde_Service_Vimeo {
      */
     public function getEmbedJson($options)
     {
-        if (!empty($this->_cache)) {
-            $params = array('cache' => array('object' => $this->_cache, 'lifetime' => $this->_cache_lifetime));
-        }
-        $request = new Horde_Service_Vimeo_Request($params);
+        $request = new Horde_Service_Vimeo_Request();
 
         return $request->getEmbedJson($options);
     }
