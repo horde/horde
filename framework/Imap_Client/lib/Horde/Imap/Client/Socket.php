@@ -145,7 +145,11 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         }
 
         $c = &$this->_init['capability'];
-        $c = array();
+        if (empty($this->_temp['in_login'])) {
+            $c = array();
+        } else {
+            $this->_temp['logincapset'] = true;
+        }
 
         foreach ($data as $val) {
             $cap_list = explode('=', $val);
@@ -164,10 +168,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
          * listed as a capability. */
         if (isset($c['QRESYNC'])) {
             $c['CONDSTORE'] = true;
-        }
-
-        if (!empty($this->_temp['in_login'])) {
-            $this->_temp['logincapset'] = true;
         }
     }
 
@@ -340,8 +340,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
             /* Set a flag indicating whether we have received a CAPABILITY
              * response after we successfully login. Since capabilities may
-             * be different after login, this is the value we should end up
-             * caching if the object is eventually serialized. */
+             * be different after login, we need to merge this information into
+             * the current CAPABILITY array (since some servers, e.g. Cyrus,
+             * may not include authentication capabilities that are still
+             * needed in the event this object is eventually serialized). */
             $this->_temp['in_login'] = true;
 
             try {
