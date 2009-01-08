@@ -21,7 +21,7 @@ function imp_reload()
 
 function submit_login()
 {
-    if (show_list && $F('server').startsWith("_")) {
+    if (show_list && $F('server_key').startsWith('_')) {
         return false;
     }
     if (!$F('imapuser')) {
