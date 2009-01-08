@@ -263,13 +263,14 @@ class Horde_Crypt_smime extends Horde_Crypt
      */
     public function signMIMEPart($mime_part, $params)
     {
-        require_once 'Horde/Mime/Message.php';
-
         /* Sign the part as a message */
         $message = $this->encrypt($mime_part->toCanonicalString(), $params);
+        if (is_a($message, 'PEAR_Error')) {
+            return $message;
+        }
 
         /* Break the result into its components */
-        $mime_message = MIME_message::parseMessage($message);
+        $mime_message = Horde_Mime_Part::parseMessage($message);
 
         $smime_sign = $mime_message->getPart('2');
         $smime_sign->setDescription(_("S/MIME Cryptographic Signature"));
@@ -279,10 +280,10 @@ class Horde_Crypt_smime extends Horde_Crypt
         $smime_part = new Horde_Mime_Part();
         $smime_part->setType('multipart/signed');
         $smime_part->setContents('This is a cryptographically signed message in MIME format.' . "\n");
-        $smime_part->addPart($mime_part);
-        $smime_part->addPart($smime_sign);
         $smime_part->setContentTypeParameter('protocol', 'application/pkcs7-signature');
         $smime_part->setContentTypeParameter('micalg', 'sha1');
+        $smime_part->addPart($mime_part);
+        $smime_part->addPart($smime_sign);
 
         return $smime_part;
     }
@@ -294,13 +295,11 @@ class Horde_Crypt_smime extends Horde_Crypt
      * @param array $params               The parameters required for
      *                                    encryption.
      *
-     * @return mixed  A Horde_Mme_Part object that is encrypted or a
+     * @return mixed  A Horde_Mime_Part object that is encrypted or a
      *                PEAR_Error on error.
      */
     public function encryptMIMEPart($mime_part, $params = array())
     {
-        require_once 'Horde/Mime/Message.php';
-
         /* Sign the part as a message */
         $message = $this->encrypt($mime_part->toCanonicalString(), $params);
         if (is_a($message, 'PEAR_Error')) {
@@ -310,23 +309,15 @@ class Horde_Crypt_smime extends Horde_Crypt
         /* Get charset for mime part description. */
         $charset = NLS::getEmailCharset();
 
-        /* Break the result into its components */
-        $mime_message = MIME_Message::parseMessage($message);
+        $msg = new Horde_Mime_Part();
+        $msg->setCharset($charset);
+        $msg->setDescription(String::convertCharset(_("S/MIME Encrypted Message"), NLS::getCharset(), $charset));
+        $msg->setDisposition('inline');
+        $msg->setType('application/pkcs7-mime');
+        $msg->setContentTypeParameter('smime-type', 'enveloped-data');
+        $msg->setContents(substr($message, strpos($message, "\n\n") + 2));
 
-        $mime_message->setCharset($charset);
-        $mime_message->setDescription(String::convertCharset(_("S/MIME Encrypted Message"), NLS::getCharset(), $charset));
-        $mime_message->transferDecodeContents();
-        $mime_message->setTransferEncoding('base64');
-        $mime_message->setDisposition('inline');
-
-        /* By default, encrypt() produces a message with type
-         * 'application/x-pkcs7-mime' and no 'smime-type' parameter. Per
-         * RFC 2311, the more correct MIME type is 'application/pkcs7-mime'
-         * and the smime-type should be 'enveloped-data'. */
-        $mime_message->setType('application/pkcs7-mime');
-        $mime_message->setContentTypeParameter('smime-type', 'enveloped-data');
-
-        return $mime_message;
+        return $msg;
     }
 
     /**
@@ -337,11 +328,8 @@ class Horde_Crypt_smime extends Horde_Crypt
      * <pre>
      * Parameters:
      * ===========
-     * 'type'    =>  'message' (REQUIRED)
-     * 'pubkey'  =>  public key. (REQUIRED)
-     * 'email'   =>  E-mail address of recipient. If not present, or not found
-     *               in the public key, the first e-mail address found in the
-     *               key will be used instead. (Optional)
+     * 'type'   => 'message' (REQUIRED)
+     * 'pubkey' => public key (REQUIRED)
      * </pre>
      *
      * @return string  The encrypted message.
@@ -349,8 +337,6 @@ class Horde_Crypt_smime extends Horde_Crypt
      */
     protected function _encryptMessage($text, $params)
     {
-        $email = null;
-
         /* Check for required parameters. */
         if (!isset($params['pubkey'])) {
             return PEAR::raiseError(_("A public S/MIME key is required to encrypt a message."), 'horde.error');
@@ -364,17 +350,8 @@ class Horde_Crypt_smime extends Horde_Crypt
         file_put_contents($input, $text);
         unset($text);
 
-        if (isset($params['email'])) {
-            $email = $params['email'];
-        } else {
-            $email = $this->getEmailFromKey($params['pubkey']);
-            if (is_null($email)) {
-                return PEAR::raiseError(_("Could not determine the recipient's e-mail address."), 'horde.error');
-            }
-        }
-
         /* Encrypt the document. */
-        if (openssl_pkcs7_encrypt($input, $output, $params['pubkey'], array('To' => $email))) {
+        if (openssl_pkcs7_encrypt($input, $output, $params['pubkey'], array())) {
             $result = file_get_contents($output);
             if (!empty($result)) {
                 return $this->_fixContentType($result, 'encrypt');
