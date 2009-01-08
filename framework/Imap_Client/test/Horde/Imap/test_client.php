@@ -48,14 +48,10 @@ $test_mbox = 'TestMailboxTest';
 $test_mbox_utf8 = 'TestMailboxTest1è';
 /** End Configuration **/
 
-
-$currdir = dirname(__FILE__);
-$dir = dirname(dirname(dirname($currdir))) . '/lib/Horde/Imap/';
-require_once $dir . 'Client.php';
-require_once $dir . '/Client/Sort.php';
+require_once 'Horde/Autoloader.php';
 
 /* Check for Horde_Cache::. */
-if (@require_once 'Horde/Cache.php') {
+if (@include_once 'Horde/Cache.php') {
     $horde_cache = true;
     print "Using Horde_Imap_Client_Cache (driver: " . $cache_params['driver'] . ").\n\n";
     $params['cache'] = $cache_params;
