@@ -208,8 +208,7 @@ class IMP_Horde_Mime_Viewer_smime extends Horde_Mime_Viewer_Driver
     {
         $partlist = array_keys($this->_mimepart->contentTypeMap());
         $base_id = reset($partlist);
-        $signed_id = next($partlist);
-        $sig_id = Horde_Mime::mimeIdArithmetic($signed_id, 'next');
+        $sig_id = Horde_Mime::mimeIdArithmetic(next($partlist), 'next');
 
         $ret = array(
             $base_id => array(
@@ -231,8 +230,11 @@ class IMP_Horde_Mime_Viewer_smime extends Horde_Mime_Viewer_Driver
             return $ret;
         }
 
+        $raw_text = $base_id
+            ? $this->_params['contents']->getBodyPart($base_id, array('mimeheaders' => true))
+            : $this->_params['contents']->fullMessageText();
+        $raw_text = Horde_Imap_Client::removeBareNewlines($raw_text);
 
-        $raw_text = Horde_Imap_Client::removeBareNewlines($this->_params['contents']->getBodyPart($signed_id, array('mimeheaders' => true)));
         $sig_result = null;
 
         if ($GLOBALS['prefs']->getValue('smime_verify') ||
@@ -251,14 +253,14 @@ class IMP_Horde_Mime_Viewer_smime extends Horde_Mime_Viewer_Driver
             return $ret;
         }
 
-        $subpart = $this->_params['contents']->getBodyPart($sig_id);
+        $subpart = $this->_params['contents']->getMIMEPart($sig_id);
         if (!isset($subpart)) {
             $msg_data = $this->_impsmime->extractSignedContents($raw_text);
             if (is_a($msg_data, 'PEAR_Error')) {
                 $this->_status[] = $msg_data->getMessage();
-                $mime_message = $this->_mimepart;
+                $subpart = $this->_mimepart;
             } else {
-                $mime_message = Horde_Mime_Part::parseMessage($msg_data);
+                $subpart = Horde_Mime_Part::parseMessage($msg_data);
             }
         }
 
@@ -299,7 +301,7 @@ class IMP_Horde_Mime_Viewer_smime extends Horde_Mime_Viewer_Driver
                     !empty($subject) &&
                     $GLOBALS['registry']->hasMethod('contacts/addField') &&
                     $GLOBALS['prefs']->getValue('add_source')) {
-                    $status[] = sprintf(_("The S/MIME certificate of %s: "), @htmlspecialchars($subject, ENT_COMPAT, NLS::getCharset())) . $this->_params['contents']->linkViewJS($subpart, 'view_attach', _("View"), array('params' => array('mode' => IMP_Contents::RENDER_INLINE, 'view_smime_key' => 1))) . '/' . Horde::link('#', '', null, null, $this->_impsmime->savePublicKeyURL($sig_result->cert) . ' return false;') . _("Save in your Address Book") . '</a>';
+                    $status[] = sprintf(_("The S/MIME certificate of %s: "), @htmlspecialchars($subject, ENT_COMPAT, NLS::getCharset())) . $this->_params['contents']->linkViewJS($subpart, 'view_attach', _("View"), array('params' => array('mode' => IMP_Contents::RENDER_INLINE, 'view_smime_key' => 1))) . '/' . Horde::link('#', '', null, null, $this->_impsmime->savePublicKeyURL($sig_result->cert, $this->_params['contents']->getIndex(), $sig_id) . ' return false;') . _("Save in your Address Book") . '</a>';
                 }
             }
         }
