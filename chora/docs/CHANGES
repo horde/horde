@@ -1,7 +1,9 @@
 --------
-v2.1-cvs
+v3.0-git
 --------
 
+[mms] Move log entries in annotate screen to an AJAX request.
+[mms] Add support for git repositories.
 [jan] Add Italian translation (Fabio Pedretti <fabio.pedretti@ing.unibs.it>).
 [cjh] Allow configuring which views the file name and latest revision number
       link to (jon@spriggs.org.uk, Request #6690).
@@ -29,12 +31,6 @@ v2.1-cvs
 [cjh] Add support for dynamic re-sorting of file lists.
 [mas] Change any output of <b> and <i> tags to <strong> and <em> for better
       accessibility support.
-
-
-----------
-v2.0.3-cvs
-----------
-
 
 
 ------
