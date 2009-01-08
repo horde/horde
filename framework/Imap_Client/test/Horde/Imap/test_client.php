@@ -81,13 +81,6 @@ if (!empty($argv[3])) {
     $params = array_merge($params, Horde_Imap_Client::parseImapURL($argv[3]));
 }
 
-function error_handler($exception) {
-    print "\n=====================================\n" .
-          'ERROR EXCEPTION: ' . $exception->getMessage() .
-          "\n=====================================\n";
-}
-set_exception_handler('error_handler');
-
 function exception_handler($exception) {
     print "\n=====================================\n" .
           'UNCAUGHT EXCEPTION: ' . $exception->getMessage() .
@@ -95,7 +88,7 @@ function exception_handler($exception) {
 }
 set_exception_handler('exception_handler');
 
-if (@require_once 'Benchmark/Timer.php') {
+if (@include_once 'Benchmark/Timer.php') {
     $timer = new Benchmark_Timer();
     $timer->start();
 }
