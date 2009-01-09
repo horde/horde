@@ -107,7 +107,7 @@ class Horde_Vcs
      */
     public function __construct()
     {
-        $pos = strpos(get_class($this), '_');
+        $pos = strrpos(get_class($this), '_');
         $this->_driver = substr(get_class($this), $pos + 1);
     }
 
