@@ -534,7 +534,7 @@ class IMP_Contents
             }
             $part['size'] = ($size > 1024)
                 ? sprintf(_("%s MB"), number_format(max(($size / 1024))))
-                : sprintf(_("%s KB"), round($size) || 1);
+                : sprintf(_("%s KB"), max(round($size), 1));
         }
 
         /* Get part's icon. */
