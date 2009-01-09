@@ -224,6 +224,9 @@ table.annotate .rev {
     padding-right: 2px;
     white-space: nowrap;
 }
+table.annotate .logentry {
+    background: #cde;
+}
 
 /* Diff styles. */
 table.hrdiff {

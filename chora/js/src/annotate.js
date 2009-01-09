@@ -9,15 +9,23 @@
 
 var Chora_Annotate = {
     showLog: function(e) {
-        var elt = e.findElement('SPAN').hide(),
-            rev = elt.up('TD').down('A').readAttribute('id').slice(4, -2),
-            newelt = new Element('TD', { colspan: 5 }).insert(Chora.loading_text);
-        elt.up('TR').insert({ after: new Element('TR').insert(newelt) });
+        var elt = e.element(), rev, newelt;
+        if (!elt.hasClassName('logdisplay')) {
+            elt = elt.up('SPAN.logdisplay');
+            if (!elt) {
+                return;
+            }
+        }
+
+        e.stop();
+
+        rev = elt.hide().up('TD').down('A').readAttribute('rev');
+        newelt = new Element('TD', { colspan: 5 }).insert(Chora.loading_text);
+
+        elt.up('TR').insert({ after: new Element('TR', { className: 'logentry' }).insert(newelt) });
 
         new Ajax.Updater(newelt, Chora.ANNOTATE_URL + rev);
     }
 };
 
-document.observe('dom:loaded', function() {
-    $$('.logdisplay').invoke('observe', 'click', Chora_Annotate.showLog.bindAsEventListener(Chora_Annotate));
-});
+document.observe('click', Chora_Annotate.showLog.bindAsEventListener(Chora_Annotate));

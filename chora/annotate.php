@@ -58,7 +58,7 @@ require CHORA_TEMPLATES . '/headerbar.inc';
 require CHORA_TEMPLATES . '/annotate/header.inc';
 
 $author = '';
-$i = $style = 0;
+$style = 0;
 
 /* Use this counter so that we can give each tooltip object a unique
  * id attribute (which we use to set the tooltip text later). */
@@ -78,7 +78,6 @@ while (list(,$line) = each($lines)) {
 
     $line = Text::htmlAllSpaces($line['line']);
     include CHORA_TEMPLATES . '/annotate/line.inc';
-    ++$i;
 }
 
 require $registry->get('templates', 'horde') . '/common-footer.inc';
