@@ -1,7 +1,4 @@
 <?php
-
-require_once dirname(__FILE__) . '/VC/Exception.php';
-
 /* Need to define this outside of class since constants in class can not be
  * assigned from a function return. */
 define('VC_WINDOWS', !strncasecmp(PHP_OS, 'WIN', 3));
