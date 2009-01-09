@@ -93,7 +93,7 @@ class Horde_Service_Vimeo {
      *
      * @return Horde_Service_Vimeo object
      */
-    private function __construct($http_client, $params)
+    protected function __construct($http_client, $params)
     {
         $this->_http_client = $http_client;
 
