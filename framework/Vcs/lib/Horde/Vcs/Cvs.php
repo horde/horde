@@ -1,7 +1,4 @@
 <?php
-
-require_once dirname(__FILE__) . '/rcs.php';
-
 /**
  * Horde_Vcs_cvs implementation.
  *
