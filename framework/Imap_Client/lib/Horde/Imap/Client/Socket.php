@@ -532,7 +532,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 // IMAP Extension for SASL Initial Client Response (RFC 4959)
                 $this->_sendLine('AUTHENTICATE PLAIN ' . $auth, array('debug' => '[SASL-IR AUTHENTICATE Command]'));
             } else {
-                $this->_sendLine('AUTHENTICATE PLAIN');
+                $this->_sendLine('AUTHENTICATE PLAIN', array('noparse' => true));
                 $this->_sendLine($auth, array('debug' => '[AUTHENTICATE Command]', 'notag' => true));
             }
             break;
