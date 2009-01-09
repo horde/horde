@@ -5,10 +5,10 @@
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org)
  *
- * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
- *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
+ * @license  http://opensource.org/licenses/bsd-license.php BSD
+ * @category Horde
+ * @package  Horde_Service_Vimeo
  */
 class Horde_Service_Vimeo {
 
@@ -66,10 +66,9 @@ class Horde_Service_Vimeo {
      */
     public static function factory($driver = 'Simple', $params = null)
     {
-
         // Check for required dependencies
         if (empty($params['http_client'])) {
-            // Throw exception
+            throw new InvalidArgumentException('A http client object is required');
         }
 
         $driver = basename($driver);
@@ -79,8 +78,7 @@ class Horde_Service_Vimeo {
         if (class_exists($class)) {
             return new $class($params['http_client'], $params);
         } else {
-            // @TODO: Exceptions!!!
-            Horde::fatal(PEAR::raiseError(sprintf(_("Unable to load the definition of %s."), $class)), __FILE__, __LINE__);
+            throw new Horde_Service_Vimeo_Exception(sprintf("Unable to load the definition of %s.", $class));
         }
     }
 
