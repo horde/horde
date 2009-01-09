@@ -1,8 +1,4 @@
 <?php
-
-/** HTTP_Request **/
-require_once 'HTTP/Request.php';
-
 /**
  * Horde_Serivce_Vimeo:: wrapper around Vimeo's (http://www.vimeo.com)
  * API.
@@ -16,116 +12,97 @@ require_once 'HTTP/Request.php';
  */
 class Horde_Service_Vimeo {
 
-    protected static $_format = 'php';
+    /**
+     * The format of the data returned from Vimeo.
+     * Obviously does not apply to the getEmbedJson() method.
+     *
+     * php  - serialized php array
+     * json - json encoded
+     *
+     * @var string
+     */
+    protected $_format = 'php';
 
     /**
      * HTTP client object to use for accessing the Vimeo API.
      * @var Horde_Http_Client
      */
-    protected static $_httpClient = null;
-
-    protected $_cache;
-    protected $_cache_lifetime;
+    protected $_http_client;
 
     /**
-     * Set the HTTP client instance
+     * An optional cache object
      *
-     * Sets the HTTP client object to use for Vimeo requests. If none is set,
-     * the default Horde_Http_Client will be used.
-     *
-     * @param Horde_Http_Client $httpClient
+     * @var Horde_Cache
      */
-    public static function setHttpClient($httpClient)
+    protected $_cache;
+
+    /**
+     * The lifetime of any cached data in seconds.
+     *
+     * @var int
+     */
+    protected $_cache_lifetime = 60;
+
+
+    /**
+     * Setter for changing the format parameter
+     *
+     * @param string $format  The data format requested.
+     */
+    public function setFormat($format)
     {
-        self::$_httpClient = $httpClient;
+        $this->_format = $format;
     }
 
     /**
-     * Gets the HTTP client object.
+     * Facory method. Attempt to return a concrete Horde_Service_Vimeo instance
+     * based on the parameters. A 'http_client' parameter is required. An
+     * optional 'cache' and 'cache_lifetime' parameters are also taken.
      *
-     * @return Horde_Http_Client
+     * @param string $driver  The concrete class to instantiate.
+     * @param array $params   An array containing any parameters the class needs.
+     *
+     * @return Horde_Service_Vimeo object
      */
-    public static function getHttpClient()
+    public static function factory($driver = 'Simple', $params = null)
     {
-        if (!self::$_httpClient) {
-            self::$_httpClient = new Horde_Http_Client;
+
+        // Check for required dependencies
+        if (empty($params['http_client'])) {
+            // Throw exception
         }
 
-        return self::$_httpClient;
-    }
-
-    public static function getFormat()
-    {
-        return self::$_format;
-    }
-
-    public static function setFormat($format)
-    {
-        self::$_format = $format;
-    }
-
-
-    /**
-     * Inject a cache obect
-     *
-     * @param Horde_Cache $cache  The cache object
-     * @param int $lifetime       The cache lifetime in seconds
-     */
-    protected function _setCache($cache, $lifetime = 60)
-    {
-        $this->_cache = $cache;
-        $this->_cache_lifetime = $lifetime;
-    }
-
-    /**
-     * Get the raw JSON response containing the data to embed a single video.
-     *
-     * @param mixed $optons  Either an array containing api parameters or the
-     *                       video id. If an array, if the url is not passed,
-     *                       we find it from the video_id.
-     * Parameters:
-     * url OR video_id
-     * width
-     * maxwidth
-     * byline
-     * title
-     * portrait
-     * color
-     * callback
-     *
-     * @return JSON encoded data
-     */
-    public function getEmbedJson($options)
-    {
-        $params = array('cache' => array('object' => $this->_cache,
-                                         'lifetime' => $this->_cache_lifetime));
-
-        $request = new Horde_Service_Vimeo_Request($params);
-        return $request->getEmbedJson($options);
-    }
-
-    /**
-     */
-    public function factory($driver = 'Simple', $params = null)
-    {
         $driver = basename($driver);
 
         include_once dirname(__FILE__) . '/Vimeo/' . $driver . '.php';
         $class = 'Horde_Service_Vimeo_' . $driver;
         if (class_exists($class)) {
-            return new $class($params);
+            return new $class($params['http_client'], $params);
         } else {
             // @TODO: Exceptions!!!
             Horde::fatal(PEAR::raiseError(sprintf(_("Unable to load the definition of %s."), $class)), __FILE__, __LINE__);
         }
     }
 
-    private function __construct($params)
+    /**
+     * Constructor
+     *
+     * @param Horde_Http_Client $http_client  Http client object.
+     * @param array $params                   An array of any other parameters
+     *                                        or optional object dependencies.
+     *
+     * @return Horde_Service_Vimeo object
+     */
+    private function __construct($http_client, $params)
     {
-        if (isset($params['cache'])) {
-            $this->_setCache($params['cache'], $params['cache_lifetime']);
-        }
+        $this->_http_client = $http_client;
 
+        if (isset($params['cache'])) {
+            $this->_cache = $params['cache'];
+            if (isset($params['cache_lifetime'])) {
+                $this->_cache_lifetime = $params['cache_lifetime'];
+            }
+        }
     }
 
 }
