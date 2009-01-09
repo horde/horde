@@ -42,14 +42,14 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <dir name="/">
    <dir name="lib">
     <dir name="Horde">
-     <dir name="VC">
-      <file name="cvs.php" role="php" />
+     <dir name="Vcs">
+      <file name="Cvs.php" role="php" />
       <file name="Exception.php" role="php" />
-      <file name="git.php" role="php" />
-      <file name="rcs.php" role="php" />
-      <file name="svn.php" role="php" />
+      <file name="Git.php" role="php" />
+      <file name="Rcs.php" role="php" />
+      <file name="Svn.php" role="php" />
      </dir> <!-- /lib/Horde/VC -->
-     <file name="VC.php" role="php" />
+     <file name="Vcs.php" role="php" />
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
   </dir> <!-- / -->
@@ -79,12 +79,12 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/VC/cvs.php" as="Horde/VC/cvs.php" />
-   <install name="lib/Horde/VC/Exception.php" as="Horde/VC/Exception.php" />
-   <install name="lib/Horde/VC/git.php" as="Horde/VC/git.php" />
-   <install name="lib/Horde/VC/rcs.php" as="Horde/VC/rcs.php" />
-   <install name="lib/Horde/VC/svn.php" as="Horde/VC/svn.php" />
-   <install name="lib/Horde/VC.php" as="Horde/VC.php" />
+   <install name="lib/Horde/Vcs/Cvs.php" as="Horde/Vcs/Cvs.php" />
+   <install name="lib/Horde/Vcs/Exception.php" as="Horde/VC/Exception.php" />
+   <install name="lib/Horde/Vcs/Git.php" as="Horde/Vcs/Git.php" />
+   <install name="lib/Horde/Vcs/Rcs.php" as="Horde/Vcs/Rcs.php" />
+   <install name="lib/Horde/Vcs/Svn.php" as="Horde/Vcs/Svn.php" />
+   <install name="lib/Horde/Vcs.php" as="Horde/Vcs.php" />
   </filelist>
  </phprelease>
  <changelog>
