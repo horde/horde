@@ -15,6 +15,7 @@ class Horde_Autoloader
 {
     /**
      * Patterns that match classes we can load.
+     *
      * @var array
      */
     protected static $_classPatterns = array('/^Horde_/' => 'Horde/');
@@ -89,7 +90,7 @@ class Horde_Autoloader
      */
     public static function addClassPattern($pattern, $replace = null)
     {
-        self::$_classPatterns[$pattern] = $replace;
+        self::$_classPatterns[$pattern] = rtrim($replace, '/') . '/';
     }
 
 }
