@@ -59,7 +59,7 @@ $sourceroots['localsvn'] = array(
 
 $sourceroots['git'] = array(
     'name' => 'Git',
-    'location' => '/path/to/git/repo
+    'location' => '/path/to/git/repo',
     'title' => 'Git repository',
     'type' => 'git',
 );
