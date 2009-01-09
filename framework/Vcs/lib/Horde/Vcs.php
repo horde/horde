@@ -103,35 +103,6 @@ class Horde_Vcs
     }
 
     /**
-     * Attempts to return a reference to a concrete Horde_Vcs instance based
-     * on $driver. It will only create a new instance if no Horde_Vcs
-     * instance with the same parameters currently exists.
-     *
-     * This should be used if multiple types of file backends (and,
-     * thus, multiple Horde_Vcs instances) are required.
-     *
-     * This method must be invoked as: $var = &Horde_Vcs::singleton()
-     *
-     * @param mixed $driver  The type of concrete Horde_Vcs subclass to return.
-     *                       The code is dynamically included.
-     * @param array $params  A hash containing any additional configuration
-     *                       or parameters a subclass might need.
-     *
-     * @return Horde_Vcs  The concrete reference, or PEAR_Error on failure.
-     */
-    static public function &singleton($driver, $params = array())
-    {
-        static $instances = array();
-
-        $signature = serialize(array($driver, $params));
-        if (!isset($instances[$signature])) {
-            $instances[$signature] = &Horde_Vcs::factory($driver, $params);
-        }
-
-        return $instances[$signature];
-    }
-
-    /**
      * Constructor.
      */
     public function __construct()
