@@ -48,7 +48,7 @@ class Horde_Service_Vimeo_Simple extends Horde_Service_Vimeo {
 
             // Make sure we have an identifier arguament.
             if (empty($args[0])) {
-                //@TODO Exception
+                throw new InvalidArgumentException(sprintf("Missing identifier argument when calling %s", $name));
             }
 
             // Remember the type we're requesting
@@ -75,7 +75,7 @@ class Horde_Service_Vimeo_Simple extends Horde_Service_Vimeo {
         }
 
         // Don't know what the heck is going on...
-        // @TODO Throw exception
+        throw new BadMethodCallException(sprintf("Unknown method call: %s", $name));
     }
 
     /**
@@ -114,7 +114,18 @@ class Horde_Service_Vimeo_Simple extends Horde_Service_Vimeo {
         // We should have a url now, and possibly other options.
         $url = Util::addParameter($this->_oembed_endpoint, $options, null, false);
 
-        $response = $this->_http_client->request('GET', $url);
+        try {
+            $response = $this->_http_client->request('GET', $url);
+        } catch (Horde_Http_Client_Exception $e) {
+            // TODO:
+            // Some videos it seems are not found via oembed? This appears to be
+            // a fringe case, and only happens when I'm attempting to load
+            // videos that aren't mine.  Maybe they are marked as
+            // non-embeddable? I can't seem to find that setting though....
+            // for now, ignore the Http_Client's exception so we don't kill
+            // the page...just log it....once we have a logger, that is.
+        }
+
         $results = $response->getBody();
         if (!empty($this->_cache)) {
             $this->_cache->set($cache_key, serialize($results));
@@ -122,7 +133,6 @@ class Horde_Service_Vimeo_Simple extends Horde_Service_Vimeo {
 
         return $results;
     }
-
 
     public function run()
     {
