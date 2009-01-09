@@ -40,11 +40,8 @@ class Horde_Autoloader
             list($pattern, $replace) = $classPattern;
             $file = $class;
 
-            if (!is_null($replace)) {
-                $file = preg_replace($pattern, $replace, $file);
-            }
-
             if (!is_null($replace) || preg_match($pattern, $file)) {
+                $file = preg_replace($pattern, $replace, $file);
                 $file = str_replace(array('::', '_'), '/', $file) . '.php';
                 $oldErrorReporting = error_reporting(E_ALL ^ E_WARNING);
                 /* @TODO H4: Change back to include */
