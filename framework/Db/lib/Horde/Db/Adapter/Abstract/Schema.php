@@ -245,6 +245,23 @@ abstract class Horde_Db_Adapter_Abstract_Schema
     abstract public function tables($name = null);
 
     /**
+     * Get a Horde_Db_Adapter_Abstract_Table object for the table.
+     *
+     * @param  string  $tableName
+     * @param  string  $name
+     *
+     * @return Horde_Db_Adapter_Abstract_Table
+     */
+    public function table($tableName, $name = null)
+    {
+        return $this->componentFactory('Table', array(
+            $tableName,
+            $this->columns($tableName, $name),
+            $this->indexes($tableName, $name),
+        ));
+    }
+
+    /**
      * Return a table's primary key
      */
     abstract public function primaryKey($tableName, $name = null);
