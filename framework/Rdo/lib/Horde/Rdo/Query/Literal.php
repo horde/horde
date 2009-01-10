@@ -1,7 +1,7 @@
 <?php
 /**
  * @category Horde
- * @package Horde_Rdo
+ * @package  Horde_Rdo
  */
 
 /**
@@ -17,10 +17,10 @@
  *   $literal = new Horde_Rdo_Query_Literal('MAX(column_name)');
  *
  * @category Horde
- * @package Horde_Rdo
+ * @package  Horde_Rdo
  */
-class Horde_Rdo_Query_Literal {
-
+class Horde_Rdo_Query_Literal
+{
     /**
      * SQL literal string.
      *
@@ -56,16 +56,12 @@ class Horde_Rdo_Query_Literal {
 
     /**
      * @param Horde_Rdo_Mapper $mapper Rdo mapper base class
-     *
-     * @return Horde_Rdo_Query Return the query object for fluent chaining.
      */
     public function setMapper($mapper)
     {
-        if ($mapper === $this->mapper) {
-            return $this;
+        if ($mapper !== $this->mapper) {
+            $this->mapper = $mapper;
         }
-
-        $this->mapper = $mapper;
     }
 
 }

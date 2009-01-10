@@ -3,7 +3,7 @@
  * Rdo Mapper base class.
  *
  * @category Horde
- * @package Horde_Rdo
+ * @package  Horde_Rdo
  */
 
 /**
@@ -20,10 +20,10 @@
  *   the main table of this entity.
  *
  * @category Horde
- * @package Horde_Rdo
+ * @package  Horde_Rdo
  */
-abstract class Horde_Rdo_Mapper implements Countable {
-
+abstract class Horde_Rdo_Mapper implements Countable
+{
     /**
      * If this is true and fields named created and updated are
      * present, Rdo will automatically set creation and last updated
@@ -130,9 +130,11 @@ abstract class Horde_Rdo_Mapper implements Countable {
             return $this->table;
 
         case 'tableDefinition':
+            $this->tableDefinition = $this->adapter->table($this->table);
+            return $this->tableDefinition;
 
         case 'fields':
-            $this->fields = array_diff($this->model->listFields(), $this->_lazyFields);
+            $this->fields = array_diff($this->tableDefinition->getColumnNames(), $this->_lazyFields);
             return $this->fields;
 
         case 'lazyFields':
@@ -219,8 +221,8 @@ abstract class Horde_Rdo_Mapper implements Countable {
                     }
                 }
 
-                if (isset($relationships[$m->model->table])) {
-                    $o->$relationship = $m->map($relationships[$m->model->table]);
+                if (isset($relationships[$m->table])) {
+                    $o->$relationship = $m->map($relationships[$m->table]);
                 }
             }
         }
@@ -283,8 +285,8 @@ abstract class Horde_Rdo_Mapper implements Countable {
         $query = Horde_Rdo_Query::create($query, $this);
         $query->setFields('COUNT(*)')
               ->clearSort();
-        list($sql, $bindParams) = $this->adapter->dml->getCount($query);
-        return $this->adapter->selectOne($sql, $bindParams);
+        list($sql, $bindParams) = $query->getQuery();
+        return $this->adapter->selectValue($sql, $bindParams);
     }
 
     /**
@@ -300,8 +302,8 @@ abstract class Horde_Rdo_Mapper implements Countable {
         $query = Horde_Rdo_Query::create($query, $this);
         $query->setFields(1)
               ->clearSort();
-        list($sql, $bindParams) = $this->adapter->dml->getQuery($query);
-        return (bool)$this->adapter->selectOne($sql, $bindParams);
+        list($sql, $bindParams) = $query->getQuery();
+        return (bool)$this->adapter->selectValue($sql, $bindParams);
     }
 
     /**
@@ -323,7 +325,7 @@ abstract class Horde_Rdo_Mapper implements Countable {
         }
 
         // Filter out any extra fields.
-        $fields = array_intersect_key($fields, $this->model->getFields());
+        $fields = array_intersect_key($fields, $this->tableDefinition->getColumnNames());
 
         if (!$fields) {
             throw new Horde_Rdo_Exception('create() requires at least one field value.');
@@ -342,7 +344,7 @@ abstract class Horde_Rdo_Mapper implements Countable {
 
         $id = $this->adapter->insert($sql, $bindParams);
 
-        return $this->map(array_merge(array($this->model->key => $id),
+        return $this->map(array_merge(array($this->tableDefinition->getPrimaryKey() => $id),
                                       $fields));
     }
 
@@ -361,7 +363,7 @@ abstract class Horde_Rdo_Mapper implements Countable {
     public function update($object, $fields = null)
     {
         if ($object instanceof Horde_Rdo_Base) {
-            $key = $this->model->key;
+            $key = $this->tableDefinition->getPrimaryKey();
             $id = $object->$key;
             $fields = iterator_to_array($object);
 
@@ -380,7 +382,7 @@ abstract class Horde_Rdo_Mapper implements Countable {
         }
 
         // Filter out any extra fields.
-        $fields = array_intersect_key($fields, $this->model->getFields());
+        $fields = array_intersect_key($fields, $this->tableDefinition->getColumnNames());
 
         if (!$fields) {
             // Nothing to change.
@@ -393,7 +395,7 @@ abstract class Horde_Rdo_Mapper implements Countable {
             $sql .= ' ' . $this->adapter->quoteColumnName($field) . ' = ?,';
             $bindParams[] = $value;
         }
-        $sql = substr($sql, 0, -1) . ' WHERE ' . $this->model->key . ' = ?';
+        $sql = substr($sql, 0, -1) . ' WHERE ' . $this->tableDefinition->getPrimaryKey() . ' = ?';
         $bindParams[] = $id;
 
         return $this->adapter->update($sql, $bindParams);
@@ -411,13 +413,13 @@ abstract class Horde_Rdo_Mapper implements Countable {
     public function delete($object)
     {
         if ($object instanceof Horde_Rdo_Base) {
-            $key = $this->model->key;
+            $key = $this->tableDefinition->getPrimaryKey();
             $id = $object->$key;
             $query = array($key => $id);
         } elseif ($object instanceof Horde_Rdo_Query) {
             $query = $object;
         } else {
-            $key = $this->model->key;
+            $key = $this->tableDefinition->getPrimaryKey();
             $query = array($key => $object);
         }
 
@@ -467,7 +469,7 @@ abstract class Horde_Rdo_Mapper implements Countable {
             if (is_numeric(key($arg))) {
                 // Numerically indexed arrays are assumed to be an array of
                 // primary keys.
-                $key = $this->model->key;
+                $key = $this->tableDefinition->getPrimaryKey();
                 $query = new Horde_Rdo_Query();
                 $query->combineWith('OR');
                 foreach ($argv[0] as $id) {
@@ -505,7 +507,7 @@ abstract class Horde_Rdo_Mapper implements Countable {
         if (is_null($arg)) {
             $query = null;
         } elseif (is_scalar($arg)) {
-            $query = array($this->model->key => $arg);
+            $query = array($this->tableDefinition->getPrimaryKey() => $arg);
         } else {
             $query = $arg;
         }

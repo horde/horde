@@ -1,7 +1,7 @@
 <?php
 /**
  * @category Horde
- * @package Horde_Rdo
+ * @package  Horde_Rdo
  */
 
 /**
@@ -10,10 +10,10 @@
  * @TODO implement ArrayAccess as well?
  *
  * @category Horde
- * @package Horde_Rdo
+ * @package  Horde_Rdo
  */
-class Horde_Rdo_List implements Iterator {
-
+class Horde_Rdo_List implements Iterator
+{
     /**
      * Rdo Mapper
      * @var Horde_Rdo_Mapper
@@ -79,7 +79,7 @@ class Horde_Rdo_List implements Iterator {
 
             // Convert the query into a SQL statement and an array of
             // bind parameters.
-            list($this->_sql, $this->_bindParams) = $mapper->adapter->dml->getQuery($query);
+            list($this->_sql, $this->_bindParams) = $query->getQuery();
         } elseif (is_string($query)) {
             // Straight SQL query, empty bind parameters array.
             $this->_sql = $query;
