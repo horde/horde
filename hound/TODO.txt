@@ -16,6 +16,26 @@ A simpler and jQuery based UI:
 http://jx.myofiz.com/
 http://jx.myofiz.com/feedreader.html
 
+Add a Ubiquity verb:
+CmdUtils.CreateCommand({
+    name: "subscribe",
+    description: "Subscribe to a feed for the current page in Google Reader",
+    help: "Subscribe to a feed for the current page in Google Reader (does same thing as their bookmarklet)",
+    execute: function(tags) {
+        var document = context.focusedWindow.document;
+        var b=document.body;
+        var GR________bookmarklet_domain='http://www.google.com';
+        if (b&&!document.xmlVersion) {
+            void(z=document.createElement('script'));
+            void(z.src='http://www.google.com/reader/ui/subscribe-bookmarklet.js');
+            void(b.appendChild(z));
+        } else {
+            location = 'http://www.google.com/reader/view/feed/' + encodeURIComponent(location.href);
+        }
+    }
+})
+
+
 Resources:
 http://www.protocolostomy.com/2008/11/21/help-me-pick-a-new-feed-reader/
 http://www.readwriteweb.com/archives/opera_96_launches_now_includes_magazine_style_rss.php
