@@ -40,34 +40,4 @@ class Horde_Rdo
      */
     const MANY_TO_MANY = 4;
 
-    /**
-     * Global inflector object.
-     *
-     * @var Horde_Support_Inflector
-     */
-    protected static $_inflector;
-
-    /**
-     * Get the global inflector object.
-     *
-     * @return Horde_Support_Inflector
-     */
-    public static function getInflector()
-    {
-        if (!self::$_inflector) {
-            self::$_inflector = new Horde_Support_Inflector;
-        }
-        return self::$_inflector;
-    }
-
-    /**
-     * Set a custom global inflector.
-     *
-     * @param Horde_Support_Inflector $inflector
-     */
-    public static function setInflector($inflector)
-    {
-        self::$_inflector = $inflector;
-    }
-
 }

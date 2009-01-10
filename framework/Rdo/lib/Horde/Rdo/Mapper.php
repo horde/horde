@@ -123,7 +123,8 @@ abstract class Horde_Rdo_Mapper implements Countable
             return $this->adapter;
 
         case 'inflector':
-            return Horde_Rdo::getInflector();
+            $this->inflector = new Horde_Support_Inflector();
+            return $this->inflector;
 
         case 'table':
             $this->table = !empty($this->_table) ? $this->_table : $this->mapperToTable();
