@@ -1938,10 +1938,6 @@ class IMP
     {
         global $conf;
 
-        if ($conf['cache']['driver'] == 'none') {
-            return false;
-        }
-
         $cache = &Horde_Cache::singleton($conf['cache']['driver'], Horde::getDriverConfig('cache', $conf['cache']['driver']));
         if (is_a($cache, 'PEAR_Error')) {
             Horde::fatal($cache, __FILE__, __LINE__);
