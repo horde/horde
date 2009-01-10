@@ -128,7 +128,6 @@ class Horde_Mime_Viewer
             if (is_a($res, 'PEAR_Error')) {
                 return false;
             }
-
             require_once 'Horde/Array.php';
             self::$_config = Horde_Array::array_merge_recursive_overwrite(self::$_config, $res);
         }
@@ -146,7 +145,7 @@ class Horde_Mime_Viewer
             return self::_getDriver($mime_type, 'horde');
         }
 
-        $dr = self::$_config['mime_drivers'][$app];
+        $dr = isset(self::$_config['mime_drivers'][$app]) ? self::$_config['mime_drivers'][$app] : array();
         $map = self::$_config['mime_drivers_map'][$app];
 
         /* If an override exists for this MIME type, then use that */
