@@ -1,7 +1,5 @@
 - port Rdo to run on Horde_Db
 
-- document running the test suite
-
 - port updates in schema_definitions.rb and schema_statements.rb
 
 - allow adding multiple indexes (and columns) at once, in an aggregate
