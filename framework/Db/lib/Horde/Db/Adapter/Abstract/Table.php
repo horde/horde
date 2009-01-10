@@ -38,11 +38,12 @@ class Horde_Db_Adapter_Abstract_Table
      *
      * @param   string  $name     The table's name, such as <tt>supplier_id</tt> in <tt>supplier_id int(11)</tt>.
      */
-    public function __construct($name, $columns, $indexes)
+    public function __construct($name, $primaryKey, $columns, $indexes)
     {
-        $this->_name    = $name;
-        $this->_columns = $columns;
-        $this->_indexes = $indexes;
+        $this->_name       = $name;
+        $this->_primaryKey = $primaryKey;
+        $this->_columns    = $columns;
+        $this->_indexes    = $indexes;
     }
 
 

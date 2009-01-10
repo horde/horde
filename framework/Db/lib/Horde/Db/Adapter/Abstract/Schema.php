@@ -256,6 +256,7 @@ abstract class Horde_Db_Adapter_Abstract_Schema
     {
         return $this->componentFactory('Table', array(
             $tableName,
+            $this->primaryKey($tableName),
             $this->columns($tableName, $name),
             $this->indexes($tableName, $name),
         ));
