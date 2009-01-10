@@ -39,7 +39,7 @@ class Horde_Mime_Viewer_html extends Horde_Mime_Viewer_Driver
 
         return array(
             $this->_mimepart->getMimeId() => array(
-                'data' => $html['data'],
+                'data' => $html['html'],
                 'status' => array(),
                 'type' => $this->_mimepart->getType(true)
             )
