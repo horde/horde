@@ -1,0 +1,152 @@
+- Add query logging/profiling (also something like
+  http://blog.talbott.ws/articles/2006/05/17/querytrace-my-first-official-rails-plugin
+  ?)
+
+- Remove Horde_Rdo::CUSTOM, allow custom 'query' arrays on all
+  relationships as possible, and have a new type (not relationships,
+  but mixins? extra_fields? that can be defined by a Query and that
+  allows the flexibility of CUSTOM without being smooshed into
+  relationships.
+
+- Allow Horde_Rdo_Query objects to be turned into just WHERE (or JOIN)
+  clauses
+
+- Allow relationships to be defined by Query objects?
+
+- allow for using php.ini-set database configs for security, or perhaps
+  $ENV variables - see Ilia's security presentation. Example php.ini dsn:
+  [PDO]
+  pdo.dsn.MYDB="odbc:SAMPLE"
+
+- Ensure that Rdo_Base objects are serializable
+
+- Charset support: support a database charset config parameter, and
+  convert field values to the requested client charset.
+
+- Implement named queries
+  (http://www.tonybibbs.com/article.php/PropelDAO)
+
+- Support composite primary keys. Discussion of surragate vs. natural
+  primary keys: http://www.bcarter.com/intsurr1.htm
+
+- Saving arrays, hashes, and other non-mappable objects in text
+  columns ?
+
+- Allow setting $key field explicitly (not just by overriding the
+  model)
+
+- Some check for whether or not an object is new (has been saved to
+  the backend yet)?
+
+- Freezing: implement $frozen variable for Rdo objects for when the
+  object has been deleted, or similar?
+
+- Caching hooks - not required, but allow caching of models, query
+  generation, etc. with a passed-in Cache object.
+
+- Work on the basic Horde_Support_Inflector enough that it supports
+  standard Horde table naming.
+
+- Use fetchObject (at least in PDO drivers) for performance?
+
+- Eager loading of MANY relationships - see
+  http://darwinweb.net/article/Optimizing_And_Simplifying_Limited_Eager_Loading_In_Activerecord
+
+- Two-query eager loading of a specific relationship (load the main
+  object in one query, then all foreign-key objects in a 2nd, and join
+  the two.
+
+- Observer hooks: beforeDelete, afterDelete, beforeUpdate, afterUpdate, beforeCreate, afterCreate
+
+- Support fixtures (YAML?) for testing
+
+- Test suite for Rdo:
+  http://www.ds-o.com/archives/64-Adding-Database-Tests-to-Existing-PHPUnit-Test-Cases.html
+  http://mikenaberezny.com/archives/79
+  http://www.phpunit.de/browser/phpunit/branches/3.2/PHPUnit/Extensions/Database/Operation
+
+
+Links:
+http://www.analysisandsolutions.com/code/dates.htm
+http://www.qcodo.com/
+http://dev.mysql.com/doc/refman/5.0/en/example-maximum-column-group-row.html
+http://www.phpdoctrine.com/
+http://www.artfulsoftware.com/mysqlbook/sampler/mysqled1ch20.html
+http://www.analysisandsolutions.com/presentations/portability/slides/toc.htm
+http://fuzzyblog.com/archives/2006/08/12/sql_calc_found_rows-and-faster-count-alternatives/
+http://phplens.com/phpeverywhere/?q=node/view/231
+http://pooteeweet.org/blog/688
+http://pooteeweet.org/blog/711
+http://pooteeweet.org/blog/809
+http://schlitt.info/applications/blog/?/archives/528-Object-relation-mapping-in-eZ-Components.html
+http://nubyonrails.com/articles/2005/12/27/dump-or-slurp-yaml-reference-data
+http://db.apache.org/ddlutils/
+http://www.thespanner.co.uk/2007/07/23/php-mysql-tips/
+http://www.sqlalchemy.org/
+
+
+things that can be specified on relationships:
+className - only if it can't be inferred from the field name
+foreignKey - also if can't be inferred
+criteria - restrict associations by more than foreign keys
+dependent - if true, associated object is destroyed when main object is
+order - of associated objects?
+
+
+- cascading deletes/updates: ?
+
+
+- Single table inheritance ?
+class Company extends Rdo
+class Firm extends Company
+class Client extends Company
+class PriorityClient extends Client
+
+CREATE TABLE companies (
+  id int(11) unsigned NOT NULL AUTO_INCREMENT,
+  client_of int(11),
+  name varchar(255),
+  type varchar(100),
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE people (
+  id int(11) unsigned NOT NULL AUTO_INCREMENT,
+  name text,
+  company_id text,
+  PRIMARY KEY (id)
+);
+
+
+potential field parameters:
+size
+maxsize
+fixedsize
+numeric
+null
+canbenull
+default
+canhavedefault
+unsigned
+canbeunsigned
+realname
+description
+type
+base
+
+
+>> Here I disagree. To me the key point of a DBAL compared to just a DBL (database layer) is that it provides almost everything necessary to manually build portable SQL. This means that instead of passing of an array that magically builds my SQL, the user remains in the driver seat and is provided with a rich enough API to build almost everything in the SQL spec (and a bit beyond that) in a portable manner.
+
+> What you want to say is that a DBAL must additionally provide:
+> a Query Builder, maybe extendable by the driver to provide RDBMS specific options/methods
+
+no .. not a query builder .. that would imply that you just pass of some data and it magically constructs the entire SQL for you .. that is the job for some OO<->SQL tool. what I think a DBAL should provide is methods to generate pieces of SQL that are then assembled by the user.
+
+so for example setLimit() would either return or automatically append to an supplied SQL string. same applies to field abstraction, you still call quote() to get the necessary SQL fragment to embedd in your SQL statement.
+
+
+
+Pierre Minnieur wrote:
+> Must a DBAL then provide OO access to executed statements, prepared statements and results sets, too (like PDO does)?
+
+absolutely .. a DBAL also needs to cover the reading part. so you need to have a portable way to read data from the database (including data type abstraction, handling of trimming off empty spaces etc).
