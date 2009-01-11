@@ -382,13 +382,11 @@ class Horde_Rdo_Query
             $sql .= ' ORDER BY';
             foreach ($this->sortby as $sort) {
                 if (strpos($sort, '@') !== false) {
-                    /* @TODO parse these placeholders out, or drop them */
-                    list($field, $direction) = $sort;
-                    list($rel, $field) = explode('@', $field);
+                    list($rel, $field) = explode('@', $sort);
                     if (!isset($this->relationships[$rel])) {
                         continue;
                     }
-                    $sql .= ' ' . $this->relationships[$rel]['table'] . '.' . $field . ' ' . $direction . ',';
+                    $sql .= ' ' . $this->relationships[$rel]['table'] . '.' . $field . ',';
                 } else {
                     $sql .= " $sort,";
                 }

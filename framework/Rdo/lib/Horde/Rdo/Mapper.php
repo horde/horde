@@ -508,7 +508,7 @@ abstract class Horde_Rdo_Mapper implements Countable
         if (is_null($arg)) {
             $query = null;
         } elseif (is_scalar($arg)) {
-            $query = array($this->tableDefinition->getPrimaryKey() => $arg);
+            $query = array((string)$this->tableDefinition->getPrimaryKey() => $arg);
         } else {
             $query = $arg;
         }

@@ -118,7 +118,7 @@ abstract class Horde_Rdo_Base implements IteratorAggregate {
                 $query = $this->_fillPlaceholders($rel['query']);
                 $this->_fields[$field] = $m->findOne($query);
             } else {
-                $this->_fields[$field] = $m->find($this->{$rel['foreignKey']});
+                $this->_fields[$field] = $m->findOne($this->{$rel['foreignKey']});
             }
             break;
 
