@@ -21,7 +21,7 @@ function newDraftsFolderName()
 <input type="hidden" name="drafts_new" value="" />
 <select id="drafts" name="drafts" onchange="newDraftsFolderName();">
   <option value="<?php echo IMP_PREF_NO_FOLDER ?>"><?php echo _("None") ?></option>
-  <?php echo IMP::flistSelect(array('heading' => _("Create a new drafts folder"), 'filter' => array('INBOX'), 'selected' => IMP::folderPref($prefs->getValue('drafts_folder'), 'new_folder' => true))) ?>
+  <?php echo IMP::flistSelect(array('heading' => _("Create a new drafts folder"), 'filter' => array('INBOX'), 'selected' => IMP::folderPref($prefs->getValue('drafts_folder')), 'new_folder' => true)) ?>
 </select>
 <br />
 <?php endif; ?>
