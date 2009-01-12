@@ -138,7 +138,7 @@ case 'download_folder_zip':
 case 'import_mbox':
     $import_folder = Util::getFormData('import_folder');
     if (!empty($import_folder)) {
-        $res = Browser::wasFileUploaded('mbox_upload', _("mailbox file"));
+        $res = $browser->wasFileUploaded('mbox_upload', _("mailbox file"));
         if (!is_a($res, 'PEAR_Error')) {
             $res = $imp_folder->importMbox(String::convertCharset($import_folder, $charset, 'UTF7-IMAP'), $_FILES['mbox_upload']['tmp_name']);
             $mbox_name = basename(Util::dispelMagicQuotes($_FILES['mbox_upload']['name']));

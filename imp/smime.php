@@ -34,7 +34,7 @@ function _getImportKey()
         return $key;
     }
 
-    $res = Browser::wasFileUploaded('upload_key', _("key"));
+    $res = $GLOBALS['browser']->wasFileUploaded('upload_key', _("key"));
     if (!is_a($res, 'PEAR_Error')) {
         return file_get_contents($_FILES['upload_key']['tmp_name']);
     } else {

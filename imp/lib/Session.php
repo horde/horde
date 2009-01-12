@@ -148,7 +148,7 @@ class IMP_Session
 
         /* Does the server allow file uploads? If yes, store the
          * value, in bytes, of the maximum file size. */
-        $sess['file_upload'] = Browser::allowFileUploads();
+        $sess['file_upload'] = $GLOBALS['browser']->allowFileUploads();
 
         /* Is the 'mail/canApplyFilters' API call available? */
         if ($registry->hasMethod('mail/canApplyFilters') &&

@@ -1526,7 +1526,7 @@ class IMP_Compose
     {
         global $conf;
 
-        $res = Browser::wasFileUploaded($name, _("attachment"));
+        $res = $GLOBALS['browser']->wasFileUploaded($name, _("attachment"));
         if (is_a($res, 'PEAR_Error')) {
             return $res;
         }
