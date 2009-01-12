@@ -1686,9 +1686,15 @@ class IMP
                 $flags = defined('FILE_IGNORE_NEW_LINES') ? (FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) : 0;
                 foreach ($css as $file) {
                     $path = substr($file['u'], 0, strrpos($file['u'], '/') + 1);
-                    // Fix relative URLs, remove multiple whitespaces, and
-                    // strip comments.
-                    $out .= preg_replace(array('/(url\(["\']?)([^\/])/i', '/\s+/', '/\/\*.*?\*\//'), array('$1' . $path . '$2', ' ', ''), implode('', file($file['f'], $flags)));
+
+                    // Fix relative URLs, convert graphics URLs to data URLs
+                    // (if possible), remove multiple whitespaces, and strip
+                    // comments.
+                    $tmp = preg_replace(array('/(url\(["\']?)([^\/])/i', '/\s+/', '/\/\*.*?\*\//'), array('$1' . $path . '$2', ' ', ''), implode('', file($file['f'], $flags)));
+                    if ($GLOBALS['browser']->hasFeature('dataurl')) {
+                        $tmp = preg_replace_callback('/(background(?:-image)?:[^;}]*(?:url\(["\']?))(.*?)((?:["\']?\)))/i', array('IMP', 'stylesheetCallback'), $tmp);
+                    }
+                    $out .= $tmp;
                 }
 
                 switch ($cache_type) {
@@ -1709,6 +1715,17 @@ class IMP
         foreach ($css_out as $file) {
             echo '<link href="' . $file['u'] . '" rel="stylesheet" type="text/css"' . (isset($file['m']) ? ' media="' . $file['m'] . '"' : '') . ' />' . "\n";
         }
+    }
+
+    /**
+     * TODO
+     */
+    public function stylesheetCallback($matches)
+    {
+        return $matches[1] .
+            'data:image/' . substr($matches[2], strrpos($matches[2], '.') + 1) . ';base64,' .
+            base64_encode(file_get_contents(dirname(realpath($GLOBALS['registry']->get('fileroot', 'horde'))) . $matches[2])) .
+            $matches[3];
     }
 
     /**
