@@ -1,0 +1,1 @@
+Event.observe(window,"load",function(){var A=kronolithNodes.length;for(var C=0;C<A;C++){var B=kronolithNodes[C];$(B).update(kronolith[B]);if(typeof Horde_ToolTips!="undefined"){(function(){var D=B;Horde_ToolTips.attachBehavior(D)})()}}Event.observe(window,"unload",Horde_ToolTips.out.bind(Horde_ToolTips))});
