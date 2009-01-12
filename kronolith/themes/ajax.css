@@ -1,0 +1,639 @@
+body {
+    overflow: hidden;
+}
+
+#kronolithToday {
+    font-weight: bold;
+}
+
+.kronolithSeparator {
+    padding-left: 2px;
+    padding-right: 2px;
+    color: #808080;
+}
+
+/* Logo */
+#kronolithLogo {
+    display: none;
+}
+
+/* User data and options */
+#kronolithUser {
+    float: right;
+    margin-top: 8px;
+    margin-right: 10px;
+    font-size: 70%;
+}
+
+/* Main area */
+#kronolithMain {
+    clear: both;
+    padding-top: 15px;
+}
+
+/* Left menu column */
+#kronolithMenu {
+    position: absolute;
+    left: 10px;
+    width: 150px;
+    top: 10px;
+}
+#kronolithMenu h3 {
+    position: relative;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    height: 20px;
+    line-height: 20px;
+    font-size: 100%;
+    font-weight: bold;
+    border-bottom: 1px #000 dotted;
+}
+#kronolithMenu a.kronolithAdd {
+    position: absolute;
+    right: 0;
+    padding-right: 8px;
+    background: transparent url("graphics/plus.png") no-repeat;
+    color: transparent;
+    cursor: pointer;
+}
+#kronolithMenu div.kronolithCalendars {
+    margin-bottom: 15px;
+}
+#kronolithMenu div.kronolithCalendars div {
+    margin-bottom: 5px;
+    padding: 2px 2px 2px 20px;
+    background: url("graphics/checkbox_off.png") 2px center no-repeat;
+    cursor: pointer;
+}
+#kronolithMenu div.kronolithCalendars div.kronolithCalOn {
+    background-image: url("graphics/checkbox_on.png");
+}
+#kronolithMenu div.kronolithCalendars div.kronolithCalOver {
+    background-image: url("graphics/checkbox_over.png");
+}
+
+/* to be removed */
+div.c1 {
+	color: #336600;
+}
+div.c2 {
+	color: #1a5587;
+}
+div.c3 {
+	color: #d38a23;
+}
+div.c4 {
+	color: #4b2a16;
+}
+div.c1.kronolithEventFull {
+	background-color: #336600 !important;
+}
+div.c2.kronolithEventFull {
+	background-color: #1a5587 !important;
+}
+div.c3.kronolithEventFull {
+	background-color: #d38a23 !important;
+}
+div.c4.kronolithEventFull {
+	background-color: #4b2a16 !important;
+}
+
+#kronolithAddEvents span {
+    /* We need some style here. */
+    margin-bottom: 5px;
+    padding-right: 10px;
+    font-weight: bold;
+    cursor: pointer;
+}
+span#kronolithQuickEvent {
+    background: transparent url("graphics/new.png") no-repeat;
+    color: transparent;
+}
+
+#kronolithMenu form {
+    padding: 0;
+    margin: 0 0 5px 0;
+    line-height: 35px;
+}
+#kronolithSearch {
+    width: 80px;
+}
+
+/* Quick edit */
+#kronolithQuickinsert {
+    position: absolute;
+    z-index: 110;
+    left: 105px;
+    top: 10px;
+    width: 250px;
+    height: 75px;
+    margin: 0;
+    padding: 0;
+    background: transparent url("graphics/back_quick.png") top left no-repeat;
+}
+#kronolithQuickinsert form {
+    padding:  5px;
+    margin: 5px 5px 5px 15px;
+}
+
+/* Navigation bar */
+#kronolithBar {
+    position: absolute;
+    left: 175px;
+    top: 10px;
+}
+#kronolithBar form {
+    float: left;
+    margin: 0;
+}
+#kronolithBar .kronolithDateChoice {
+    float: left;
+    margin: 0 2px 0 0;
+    background: #d6d6d6;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    font-weight: bold;
+}
+#kronolithBar .kronolithDateChoice div {
+    padding: 0 10px;
+    height: 25px;
+    line-height: 25px;
+}
+
+#kronolithNav {
+    float: left;
+    margin-left: 5px;
+    height: 25px;
+    line-height: 25px;
+}
+#kronolithNav a {
+    display: block;
+    float: left;
+    margin: 0 1px 0 0;
+    padding: 0 5px 0 25px;
+    background-color: #f0f0f0;
+    background-position: 5px center;
+    background-repeat: no-repeat;
+    font-weight: bold;
+    text-decoration: none;
+    color: #202020;
+    cursor: pointer;
+}
+#kronolithNav a:first-child {
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-bottomleft: 5px;
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-bottom-left-radius: 5px;
+}
+#kronolithNav a:last-child {
+    -moz-border-radius-topright: 5px;
+    -moz-border-radius-bottomright: 5px;
+    -webkit-border-top-right-radius: 5px;
+    -webkit-border-bottom-right-radius: 5px;
+}
+#kronolithNav a:first-child:last-child {
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+#kronolithNav a:hover, #kronolithNav a.on {
+    background-color: #d9d9d9;
+}
+#kronolithNavTasks {
+    background-image: url("graphics/tasks.png");
+}
+#kronolithNavAgenda {
+    background-image: url("graphics/agenda.png");
+}
+#kronolithNavDay {
+    background-image: url("graphics/dayview.png");
+}
+#kronolithNavWeek {
+    background-image: url("graphics/weekview.png");
+}
+#kronolithNavMonth {
+    background-image: url("graphics/monthview.png");
+}
+#kronolithNavYear {
+    background-image: url("graphics/yearview.png");
+}
+
+/* Event form dialog */
+#kronolithEventForm {
+    position: absolute;
+    z-index: 1000;
+    left: 50%;
+    margin-left: -210px;
+    top: 50px;
+    width: 400px;
+    padding: 10px 20px;
+    background: #efefef;
+    border: 1px #c0c0c0 solid;
+}
+#kronolithEventForm div {
+    margin-bottom: 5px;
+}
+#kronolithEventForm label {
+    font-weight: bold;
+}
+#kronolithEventForm input.kronolithDatePicker {
+    padding-right: 20px;
+    background-image: url("graphics/picker.png");
+    background-position: right center;
+    background-repeat: no-repeat;
+}
+.kronolithLongField {
+    width: 100%;
+}
+div#kronolithEventActions {
+    margin: 5px 0;
+}
+div#kronolithEventActions #kronolithEventAdvancedLink {
+    padding-left: 2px;
+}
+div#kronolithEventActions #kronolithEventAdvancedLink a {
+    color: inherit;
+}
+
+div.kronolithTags {
+    max-height: 75px;
+    overflow: auto;
+    line-height: 20px;
+}
+div.kronolithTags span {
+    padding: 2px 4px;
+    background-color: #fff;
+    border: 1px #c0c0c0 solid;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    font-size: 90%;
+}
+div.kronolithTags span:hover {
+    background-color: #ffc;
+    cursor: pointer;
+}
+
+/* Context menu */
+.kronolithContextMenu {
+    width: auto;
+    min-width: 150px;
+    padding: 2px;
+    position: absolute;
+    top: 0;
+    z-index: 1000;
+    background: #f4f4f4;
+    border: 1px #c0c0c0 solid;
+    color: #202020;
+}
+.kronolithContextMenu a {
+    display: block;
+    height: 18px;
+    line-height: 18px;
+    padding: 2px 4px;
+    border: 1px #f4f4f4 solid;
+    color: #202020;
+    text-decoration: none;
+    white-space: nowrap;
+
+}
+.kronolithContextMenu a:hover {
+    color: black;
+    text-decoration: none;
+}
+.kronolithContextMenu div.kronolithSeparator {
+    height: 1px;
+    line-height: 1px;
+    background: #d4d4d4;
+    margin-bottom: 1px;
+}
+
+/* Mini calendar */
+#kronolithMinical {
+    position: relative;
+}
+#kronolithMinical table {
+    width: 100%;
+}
+#kronolithMinical caption {
+    position: relative;
+    margin-bottom: 10px;
+    height: 20px;
+    line-height: 20px;
+    font-weight: bold;
+    font-size: 100%;
+    border-bottom: 1px #000 dotted;
+    text-align: left;
+}
+#kronolithMinicalPrev, #kronolithMinicalNext {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+}
+#kronolithMinicalPrev {
+    right: 15px;
+}
+
+#kronolithMinical th, #kronolithMinical td {
+    font-size: 90%;
+}
+#kronolithMinical thead th, #kronolithMinical tbody td.kronolithMinicalWeek {
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    text-align: center;
+    background-color: #d6d6d6;
+    color: #202020;
+    border: 1px #c0c0c0 solid !important;
+}
+#kronolithMinical thead th.kronolithMinicalEmpty {
+    background: none;
+    border: none !important;
+}
+#kronolithMinical tbody td.kronolithMinicalWeek {
+    cursor: pointer;
+}
+#kronolithMinical tbody td {
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    border: 1px #e2e2e2 solid;
+    text-align: center;
+    color: #808080;
+    empty-cells: show;
+    cursor: pointer;
+}
+
+#kronolithMinical tbody.kronolithSelected tr td, #kronolithMinical tbody tr.kronolithSelected td, #kronolithMinical tbody td.kronolithSelected {
+    background-color: #ebf3fc;
+    border-color: #808080;
+}
+#kronolithMinical tbody td.on, #kronolithMinical tbody.kronolithSelected tr td.on, #kronolithMinical tbody tr.kronolithSelected td.on {
+    background-color: #808080;
+    border-color: #808080;
+    color: white;
+}
+#kronolithMinical tbody td.kronolithMinicalEmpty, #kronolithMinical tbody.kronolithSelected tr td.kronolithMinicalEmpty, #kronolithMinical tbody tr.kronolithSelected td.kronolithMinicalEmpty {
+    background: none;
+    border: none;
+    color: silver;
+    cursor: default;
+}
+
+/* Main views */
+div.kronolithView {
+    position: absolute;
+    top: 50px;
+    left: 175px;
+    right: 10px;
+    bottom: 10px;
+    display: block;
+    margin: 5px 0;
+    overflow: hidden;
+}
+div.kronolithView div.kronolithRow div {
+    width: 13%;
+}
+
+div.kronolithRow div {
+    float: left;
+    position: relative;
+    margin-right: 2px;
+    margin-bottom: 2px;
+    padding: 0;
+    border: 1px #c0c0c0 solid;
+    overflow: hidden;
+}
+div.kronolithRow div.kronolithFirstCol {
+    width: 20px !important;
+}
+
+/* Main view header row */
+div.kronolithView div.kronolithViewHead div.kronolithRow {
+    height: 20px;
+}
+div.kronolithView div.kronolithViewHead div.kronolithRow div {
+    height: 21px;
+    line-height: 21px;
+    font-weight: bold;
+}
+div.kronolithView div.kronolithViewHead div.kronolithRow div span {
+    padding: 0 5px;
+}
+div.kronolithView div.kronolithViewHead div.kronolithRow div.kronolithFirstCol {
+    border-color: transparent;
+}
+
+/* Main view body */
+div.kronolithView div.kronolithViewBody {
+    position: absolute;
+    top: 25px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: auto;
+}
+div.kronolithView div.kronolithViewBody div.kronolithRow {
+    clear: both;
+    vertical-align: top;
+    height: auto;
+}
+
+/* Main view month */
+.kronolithViewMonth div.kronolithViewBody div.kronolithRow div {
+    height: 86px;
+}
+
+/* Main view week */
+#kronolithViewWeek div.kronolithViewBody div.kronolithRow div {
+    height: 41px;
+}
+
+/* Main view day */
+.kronolithViewDay div.kronolithViewBody div.kronolithRow div.kronolithFirstCol {
+    margin-right: 2px;
+    border-right-width: 1px;
+}
+.kronolithViewDay div.kronolithViewBody div.kronolithRow div {
+    height: 41px;
+}
+.kronolithViewDay div.kronolithViewBody div.kronolithRow div.kronolithCol {
+    border-width: 1px 0;
+    margin-right: 0;
+}
+.kronolithViewDay div.kronolithViewBody div.kronolithRow div.kronolithCol.kronolithFirstField {
+    border-left-width: 1px;
+}
+.kronolithViewDay div.kronolithViewBody div.kronolithRow div.kronolithCol.kronolithLastField {
+    border-right-width: 1px;
+}
+.kronolithViewDay div.kronolithViewBody div.kronolithRow.kronolithAllDay div.kronolithCol {
+    border-width: 1px;
+}
+
+/* More main view */
+div.kronolithView div.kronolithViewBody div.kronolithRow div {
+    font-size: 95%;
+}
+div.kronolithView div.kronolithViewBody div.kronolithRow div.kronolithFirstCol {
+    font-weight: bold;
+    text-align: center;
+}
+.kronolithViewDay div.kronolithViewBody div.kronolithRow.kronolithNight div {
+    background-color: #f4f4f4;
+}
+div.kronolithView div.kronolithViewBody div.kronolithRow div.kronolithFirstCol:hover {
+    cursor: pointer;
+}
+div.kronolithView div.kronolithViewBody div.kronolithRow div .kronolithCorner {
+    float: left;
+    margin: 0 2px 2px 0;
+    padding: 0;
+    width: auto;
+    height: auto;
+    border: none;
+}
+div.kronolithViewMonth div.kronolithViewBody div.kronolithRow div.kronolithDay {
+    display: inline;
+    width: 15px;
+    height: 15px;
+    line-height: 15px;
+    margin: 0 2px 2px 0;
+    padding: 0;
+    border-width: 0 1px 1px 0;
+    text-align: center;
+    vertical-align: middle;
+    font-weight: bold;
+    cursor: pointer;
+}
+div.kronolithView div.kronolithViewBody div.kronolithRow div a.kronolithAdd {
+    display: inline;
+    width: 15px;
+    height: 15px;
+    line-height: 15px;
+    padding: 2px;
+    text-align: center;
+    background: transparent url("graphics/new_small_fade.png") 3px 5px no-repeat;
+}
+div.kronolithView div.kronolithViewBody div.kronolithRow div a.kronolithAdd:hover {
+    background-image: url("graphics/new_small.png");
+}
+div.kronolithView div.kronolithViewBody div.kronolithRow div.kronolithOtherMonth {
+    background: #f7f7f7;
+}
+div.kronolithView div.kronolithViewBody div.kronolithRow div.kronolithOtherMonth .kronolithDay {
+    border-color: transparent;
+    color: silver;
+}
+div.kronolithView div.kronolithViewBody div.kronolithRow div.kronolithToday {
+    background-color: #ebf3fc;
+    border-color: #808080;
+}
+div.kronolithView div.kronolithViewBody div.kronolithRow div div.kronolithMore {
+    position: absolute;
+    z-index: 10;
+    right: 0;
+    bottom: 0;
+    width: 15px;
+    height: 15px;
+    background: white;
+    border-right: none;
+    border-bottom: none;
+    text-align: center;
+}
+div.kronolithView div.kronolithViewBody div.kronolithRow div div.kronolithMore a {
+    text-decoration: none;
+}
+
+/* Events */
+div.kronolithView div.kronolithViewBody div.kronolithRow div .kronolithEvent {
+    float: none;
+    width: auto;
+    height: 15px;
+    line-height: 15px;
+    margin: 0 2px 2px 0;
+    padding: 2px 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+}
+div.kronolithView div.kronolithViewBody div.kronolithRow div .kronolithEvent.kronolithSelected {
+    height: auto;
+}
+div.kronolithView div.kronolithViewBody div.kronolithRow div .kronolithEvent.kronolithEventFull {
+    color: white !important;
+}
+div.kronolithView .kronolithEvents .kronolithEvent {
+    position: absolute;
+    z-index: 100;
+    width: 12%;
+    margin: 5px;
+    opacity: .8;
+    filter: alpha(opacity=80);
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    color: white;
+}
+div.kronolithViewWeek .kronolithEvents .kronolithEvent {
+    width: 11%;
+}
+div.kronolithView .kronolithEvents .kronolithEvent .kronolithDragger {
+    position: absolute;
+    width: 100%;
+    height: 12px;
+    background: transparent url("graphics/drag-handle.png") center center no-repeat;
+}
+div.kronolithView .kronolithEvents .kronolithEvent.kronolithSelected .kronolithDragger {
+    background-color: #202020;
+}
+div.kronolithView .kronolithEvents .kronolithEvent .kronolithDragger.kronolithDraggerTop {
+    top: 0;
+    -moz-border-radius: 5px 5px 0 0;
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+    cursor: n-resize;
+}
+div.kronolithView .kronolithEvents .kronolithEvent .kronolithDragger.kronolithDraggerBottom {
+    bottom: 0;
+    -moz-border-radius: 0 0 5px 5px;
+    -webkit-border-bottom-left-radius: 5px;
+    -webkit-border-bottom-right-radius: 5px;
+    cursor: s-resize;
+}
+div.kronolithView .kronolithEvents .kronolithEvent .kronolithEventInfo {
+    margin: 10px 0;
+    padding: 5px;
+}
+
+/* To be removed */
+.kronolithEvents .kronolithEvent.width50 { width: 5% !important; }
+
+.kronolithEvents .kronolithEvent.col1 { left: 30px; }
+.kronolithEvents .kronolithEvent.col2 { left: 15.5%; }
+.kronolithEvents .kronolithEvent.col3 { left: 28.5%; }
+.kronolithEvents .kronolithEvent.col4 { left: 41.5%; }
+.kronolithEvents .kronolithEvent.col5 { left: 54.5%; }
+.kronolithEvents .kronolithEvent.col6 { left: 67.5%; }
+.kronolithEvents .kronolithEvent.col7 { left: 80.5%; }
+/* done */
+
+.kronolithEvents .kronolithEvent.hour0 { top: 50px; }
+.kronolithEvents .kronolithEvent.hour1 { top: 95px; }
+.kronolithEvents .kronolithEvent.hour2 { top: 140px; }
+.kronolithEvents .kronolithEvent.hour3 { top: 185px; }
+.kronolithEvents .kronolithEvent.hour4 { top: 230px; }
+/* till 23 */
+
+.kronolithEvents .kronolithEvent.length1 { height: 35px; }
+.kronolithEvents .kronolithEvent.length2 { height: 75px; }
+.kronolithEvents .kronolithEvent.length3 { height: 120px; }
+.kronolithEvents .kronolithEvent.length4 { height: 165px; }
+.kronolithEvents .kronolithEvent.length5 { height: 210px; }
+.kronolithEvents .kronolithEvent.length6 { height: 255px; }
+/* till 23 */
+
+/* end tables */

@@ -9,7 +9,7 @@ $prefGroups['view'] = array(
     'column' => _("Display Options"),
     'label' => _("User Interface"),
     'desc' => _("Select confirmation options, how to display the different views and choose default view."),
-    'members' => array('confirm_delete', 'defaultview',
+    'members' => array('dynamic_view', 'confirm_delete', 'defaultview',
                        'time_between_days', 'week_start_monday',
                        'day_hour_start', 'day_hour_end', 'day_hour_force',
                        'slots_per_hour', 'show_icons', 'show_time', 'show_location',
@@ -77,6 +77,15 @@ if ($GLOBALS['registry']->hasMethod('contacts/sources')) {
         'members' => array('display_contact', 'sourceselect'),
     );
 }
+
+// show dynamic view?
+$_prefs['dynamic_view'] = array(
+    'value' => 0,
+    'locked' => false,
+    'shared' => false,
+    'type' => 'checkbox',
+    'desc' => _("Show the dynamic view by default, if the browser supports it?")
+);
 
 // confirm deletion of events which don't recur?
 $_prefs['confirm_delete'] = array(

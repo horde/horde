@@ -2,6 +2,7 @@
 v3.0-cvs
 --------
 
+[jan] Add AJAX interface.
 [jan] Store events in UTC and convert to the user's timezone on the fly.
 [jan] Remove alarm reminder code.
 [jan] Change listEvents API method to return keys as dates instead of

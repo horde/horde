@@ -19,4 +19,44 @@ if (!$kronolith_configured) {
 }
 
 require_once KRONOLITH_BASE . '/lib/base.php';
-require KRONOLITH_BASE . '/' . $prefs->getValue('defaultview') . '.php';
+
+if (!$prefs->getValue('dynamic_view') || !$browser->hasFeature('xmlhttpreq')) {
+    include KRONOLITH_BASE . '/' . $prefs->getValue('defaultview') . '.php';
+    exit;
+}
+
+require_once 'Horde/Identity.php';
+$identity = Identity::factory();
+$logout_link = Horde::getServiceLink('logout', 'kronolith');
+if ($logout_link) {
+    $logout_link = Horde::widget($logout_link, _("_Logout"), 'logout');
+}
+$help_link = Horde::getServiceLink('help', 'kronolith');
+if ($help_link) {
+    $help_link = Horde::widget($help_link, _("Help"), 'helplink', 'help', 'popup(this.href); return false;');
+}
+$today = Kronolith::currentDate();
+$remote_calendars = @unserialize($prefs->getValue('remote_cals'));
+$current_user = Auth::getAuth();
+$my_calendars = array();
+$shared_calendars = array();
+foreach (Kronolith::listCalendars() as $id => $cal) {
+    if ($cal->get('owner') == $current_user) {
+        $my_calendars[$id] = $cal;
+    } else {
+        $shared_calendars[$id] = $cal;
+    }
+}
+
+$scripts = array(
+    array('ContextSensitive.js', 'kronolith', true),
+    array('dhtmlHistory.js', 'horde', true),
+    array('redbox.js', 'horde', true),
+);
+Kronolith::header('', $scripts);
+echo "<body>\n";
+require KRONOLITH_TEMPLATES . '/index/index.inc';
+Kronolith::includeScriptFiles();
+Kronolith::outputInlineScript();
+$notification->notify(array('listeners' => array('javascript')));
+echo "</body>\n</html>";

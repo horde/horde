@@ -44,6 +44,120 @@ define('PERMS_DELEGATE', 1024);
 class Kronolith {
 
     /**
+     * Output everything up to but not including the <body> tag.
+     *
+     * @since Kronolith 3.0
+     *
+     * @param string $title   The title of the page.
+     * @param array $scripts  Any additional scripts that need to be loaded.
+     *                        Each entry contains the three elements necessary
+     *                        for a Horde::addScriptFile() call.
+     */
+    function header($title, $scripts = array())
+    {
+        // Don't autoload any javascript files.
+        Horde::disableAutoloadHordeJS();
+
+        // Need to include script files before we start output
+        Horde::addScriptFile('prototype.js', 'horde', true);
+        Horde::addScriptFile('effects.js', 'horde', true);
+
+        // ContextSensitive must be loaded first.
+        while (list($key, $val) = each($scripts)) {
+            if (($val[0] == 'ContextSensitive.js') &&
+                ($val[1] == 'kronolith')) {
+                Horde::addScriptFile($val[0], $val[1], $val[2]);
+                unset($scripts[$key]);
+                break;
+            }
+        }
+        Horde::addScriptFile('kronolith.js', 'kronolith', true);
+
+        // Add other scripts now
+        foreach ($scripts as $val) {
+            call_user_func_array(array('Horde', 'addScriptFile'), $val);
+        }
+
+        $page_title = $GLOBALS['registry']->get('name');
+        if (!empty($title)) {
+            $page_title .= ' :: ' . $title;
+        }
+
+        if (isset($GLOBALS['language'])) {
+            header('Content-type: text/html; charset=' . NLS::getCharset());
+            header('Vary: Accept-Language');
+        }
+
+        echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">' . "\n" .
+             (!empty($GLOBALS['language']) ? '<html lang="' . strtr($GLOBALS['language'], '_', '-') . '"' : '<html') . ">\n".
+             "<head>\n" .
+             '<title>' . htmlspecialchars($page_title) . "</title>\n" .
+             '<link href="' . $GLOBALS['registry']->getImageDir() . "/favicon.ico\" rel=\"SHORTCUT ICON\" />\n".
+             Kronolith::wrapInlineScript(Kronolith::includeJSVars());
+
+        Kronolith::includeStylesheetFiles(true);
+
+        echo "</head>\n";
+
+        // Send what we have currently output so the browser can start
+        // loading CSS/JS. See:
+        // http://developer.yahoo.com/performance/rules.html#flush
+        flush();
+    }
+
+    /**
+     * Outputs the javascript code which defines all javascript variables
+     * that are dependent on the local user's account.
+     *
+     * @since Kronolith 3.0
+     *
+     * @private
+     *
+     * @return string
+     */
+    function includeJSVars()
+    {
+        global $browser, $conf, $prefs, $registry;
+
+        require_once 'Horde/Serialize.php';
+
+        $kronolith_webroot = $registry->get('webroot');
+        $horde_webroot = $registry->get('webroot', 'horde');
+
+        /* Variables used in core javascript files. */
+        $code['conf'] = array(
+            'URI_AJAX' => Horde::url($kronolith_webroot . '/ajax.php', true, -1),
+            'URI_PREFS' => Horde::url($horde_webroot . '/services/prefs/', true, -1),
+            //'URI_VIEW' => Util::addParameter(Horde::url($imp_webroot . '/view.php', true, -1), array('actionID' => 'view_source', 'id' => 0), null, false),
+
+            'SESSION_ID' => defined('SID') ? SID : '',
+
+            'prefs_url' => str_replace('&amp;', '&', Horde::getServiceLink('options', 'kronolith')),
+
+            'name' => $registry->get('name'),
+
+            'is_ie6' => ($browser->isBrowser('msie') && ($browser->getMajor() < 7)),
+
+            'login_view' => $prefs->getValue('defaultview'),
+
+            // Turn debugging on?
+            'debug' => !empty($conf['js']['debug']),
+        );
+
+        /* Gettext strings used in core javascript files. */
+        $code['text'] = array_map('addslashes', array(
+        ));
+        for ($i = 1; $i <= 12; ++$i) {
+            $code['text']['month'][$i - 1] = NLS::getLangInfo(constant('MON_' . $i));
+        }
+        for ($i = 1; $i <= 7; ++$i) {
+            $code['text']['weekday'][$i] = NLS::getLangInfo(constant('DAY_' . $i));
+        }
+
+        return array('var Kronolith = ' . Horde_Serialize::serialize($code, SERIALIZE_JSON, NLS::getCharset()) . ';');
+    }
+
+    /**
      * Add inline javascript to the output buffer.
      *
      * @since Kronolith 2.2
@@ -70,8 +184,8 @@ class Kronolith {
         }
         $GLOBALS['__kronolith_inline_script'][] = $script;
 
-        // If headers have already been sent, we need to output a
-        // <script> tag directly.
+        // If headers have already been sent, we need to output a <script> tag
+        // directly.
         if (ob_get_length() || headers_sent()) {
             Kronolith::outputInlineScript();
         }
@@ -95,6 +209,274 @@ class Kronolith {
         }
 
         $GLOBALS['__kronolith_inline_script'] = array();
+    }
+
+    /**
+     * Print inline javascript to output buffer after wrapping with necessary
+     * javascript tags.
+     *
+     * @since Kronolith 3.0
+     *
+     * @param array $script  The script to output.
+     *
+     * @return string  The script with the necessary HTML javascript tags
+     *                 appended.
+     */
+    function wrapInlineScript($script)
+    {
+        return '<script type="text/javascript">//<![CDATA[' . "\n" . implode("\n", $script) . "\n//]]></script>\n";
+    }
+
+    /**
+     * Outputs the necessary script tags, honoring local configuration choices
+     * as to script caching.
+     *
+     * @since Kronolith 3.0
+     */
+    function includeScriptFiles()
+    {
+        global $conf;
+
+        $cache_type = @$conf['server']['cachejs'];
+
+        if (empty($cache_type) ||
+            $cache_type == 'none' ||
+            ($cache_type == 'horde_cache' &&
+             $conf['cache']['driver'] == 'none')) {
+            Horde::includeScriptFiles();
+            return;
+        }
+
+        $js_tocache = $js_force = array();
+        $mtime = array(0);
+
+        $s_list = Horde::listScriptFiles();
+        foreach ($s_list as $app => $files) {
+            foreach ($files as $file) {
+                if ($file['d'] && ($file['f'][0] != '/')) {
+                    $js_tocache[$file['p'] . $file['f']] = false;
+                    $mtime[] = filemtime($file['p'] . $file['f']);
+                } else {
+                    $js_force[] = $file['u'];
+                }
+            }
+        }
+
+        require_once KRONOLITH_BASE . '/lib/version.php';
+        $sig = md5(serialize($s_list) . max($mtime) . KRONOLITH_VERSION);
+
+        switch ($cache_type) {
+        case 'filesystem':
+            $js_filename = '/' . $sig . '.js';
+            $js_path = $conf['server']['cachejsparams']['file_location'] . $js_filename;
+            $js_url = $conf['server']['cachejsparams']['file_url'] . $js_filename;
+            $exists = file_exists($js_path);
+            break;
+
+        case 'horde_cache':
+            require_once 'Horde/Cache.php';
+            $cache = &Horde_Cache::singleton($conf['cache']['driver'], Horde::getDriverConfig('cache', $conf['cache']['driver']));
+            $exists = $cache->exists($sig, empty($conf['server']['cachejsparams']['lifetime']) ? 0 : $conf['server']['cachejsparams']['lifetime']);
+            $js_url = Kronolith::getCacheURL('js', $sig);
+            break;
+        }
+
+        if (!$exists) {
+            $out = '';
+            foreach ($js_tocache as $key => $val) {
+                // Separate JS files with a newline since some compressors may
+                // strip trailing terminators.
+                if ($val) {
+                    // Minify these files a bit by removing newlines and
+                    // comments.
+                    $out .= preg_replace(array('/\n+/', '/\/\*.*?\*\//'), array('', ''), file_get_contents($key)) . "\n";
+                } else {
+                    $out .= file_get_contents($key) . "\n";
+                }
+            }
+
+            switch ($cache_type) {
+            case 'filesystem':
+                register_shutdown_function(array('Kronolith', '_filesystemGC'), 'js');
+                file_put_contents($js_path, $out);
+                break;
+
+            case 'horde_cache':
+                $cache->set($sig, $out);
+                break;
+            }
+        }
+
+        foreach (array_merge(array($js_url), $js_force) as $val) {
+            echo '<script type="text/javascript" src="' . $val . '"></script>' . "\n";
+        }
+    }
+
+    /**
+     * Outputs the necessary style tags, honoring local configuration choices
+     * as to stylesheet caching.
+     *
+     * @since Kronolith 3.0
+     *
+     * @param boolean $print  Include print CSS?
+     */
+    function includeStylesheetFiles($print = false)
+    {
+        global $conf, $prefs, $registry;
+
+        $theme = $prefs->getValue('theme');
+        $themesfs = $registry->get('themesfs');
+        $themesuri = $registry->get('themesuri');
+        $css = Horde::getStylesheets('kronolith', $theme);
+        $css_out = array();
+
+        // Add print specific stylesheets.
+        if ($print) {
+            // Add Horde print stylesheet
+            $css_out[] = array('u' => $registry->get('themesuri', 'horde') . '/print/screen.css',
+                               'f' => $registry->get('themesfs', 'horde') . '/print/screen.css',
+                               'm' => 'print');
+            $css_out[] = array('u' => $themesuri . '/print/screen.css',
+                               'f' => $themesfs . '/print/screen.css',
+                               'm' => 'print');
+            if (file_exists($themesfs . '/' . $theme . '/print.css')) {
+                $css_out[] = array('u' => $themesuri . '/' . $theme . '/print.css',
+                                   'f' => $themesfs . '/' . $theme . '/print.css',
+                                   'm' => 'print');
+            }
+        }
+
+        $css[] = array('u' => $themesuri . '/ajax.css',
+                       'f' => $themesfs .  '/ajax.css');
+
+        // Load custom stylesheets.
+        if (!empty($conf['css_files'])) {
+            foreach ($conf['css_files'] as $css_file) {
+                $css[] = array('u' => $themesuri . '/' . $css_file,
+                               'f' => $themesfs .  '/' . $css_file);
+            }
+        }
+
+        $cache_type = @$conf['server']['cachecss'];
+
+        if (empty($cache_type) ||
+            $cache_type == 'none' ||
+            ($cache_type == 'horde_cache' &&
+             $conf['cache']['driver'] == 'none')) {
+            $css_out = array_merge($css, $css_out);
+        } else {
+            $mtime = array(0);
+            $out = '';
+
+            foreach ($css as $file) {
+                $mtime[] = filemtime($file['f']);
+            }
+
+            require_once KRONOLITH_BASE . '/lib/version.php';
+            $sig = md5(serialize($css) . max($mtime) . KRONOLITH_VERSION);
+
+            switch ($cache_type) {
+            case 'filesystem':
+                $css_filename = '/' . $sig . '.css';
+                $css_path = $conf['server']['cachecssparams']['file_location'] . $css_filename;
+                $css_url = $conf['server']['cachecssparams']['file_url'] . $css_filename;
+                $exists = file_exists($css_path);
+                break;
+
+            case 'horde_cache':
+                require_once 'Horde/Cache.php';
+                $cache = &Horde_Cache::singleton($GLOBALS['conf']['cache']['driver'], Horde::getDriverConfig('cache', $GLOBALS['conf']['cache']['driver']));
+                $exists = $cache->exists($sig, empty($GLOBALS['conf']['server']['cachecssparams']['lifetime']) ? 0 : $GLOBALS['conf']['server']['cachecssparams']['lifetime']);
+                $css_url = Kronolith::getCacheURL('css', $sig);
+                break;
+            }
+
+            if (!$exists) {
+                $flags = defined('FILE_IGNORE_NEW_LINES') ? (FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) : 0;
+                foreach ($css as $file) {
+                    $path = substr($file['u'], 0, strrpos($file['u'], '/') + 1);
+                    // Fix relative URLs, remove multiple whitespaces, and
+                    // strip comments.
+                    $out .= preg_replace(array('/(url\(["\']?)([^\/])/i', '/\s+/', '/\/\*.*?\*\//'), array('$1' . $path . '$2', ' ', ''), implode('', file($file['f'], $flags)));
+                }
+
+                switch ($cache_type) {
+                case 'filesystem':
+                    register_shutdown_function(array('Kronolith', '_filesystemGC'), 'css');
+                    file_put_contents($css_path, $out);
+                    break;
+
+                case 'horde_cache':
+                    $cache->set($sig, $out);
+                    break;
+                }
+            }
+
+            $css_out = array_merge(array(array('u' => $css_url)), $css_out);
+        }
+
+        foreach ($css_out as $file) {
+            echo '<link href="' . $file['u'] . '" rel="stylesheet" type="text/css"' . (isset($file['m']) ? ' media="' . $file['m'] . '"' : '') . ' />' . "\n";
+        }
+    }
+
+    /**
+     * Creates a URL for cached Kronolith data.
+     *
+     * @since Kronolith 3.0
+     *
+     * @param string $type  The cache type.
+     * @param string $cid   The cache id.
+     *
+     * @return string  The URL to the cache page.
+     */
+    function getCacheURL($type, $cid)
+    {
+        $parts = array(
+            $GLOBALS['registry']->get('webroot'),
+            'cache.php',
+            $type,
+            $cid
+        );
+        return Horde::url(implode('/', $parts));
+    }
+
+    /**
+     * Do garbage collection in the statically served file directory.
+     *
+     * @since Kronolith 3.0
+     *
+     * @access private
+     *
+     * @param string $type  Either 'css' or 'js'.
+     */
+    function _filesystemGC($type)
+    {
+        static $dir_list = array();
+
+        $ptr = $GLOBALS['conf']['server'][(($type == 'css') ? 'cachecssparams' : 'cachejsparams')];
+        $dir = $ptr['file_location'];
+        if (in_array($dir, $dir_list)) {
+            return;
+        }
+
+        $c_time = time() - $ptr['lifetime'];
+        $d = dir($dir);
+        $dir_list[] = $dir;
+
+        while (($entry = $d->read()) !== false) {
+            $path = $dir . '/' . $entry;
+            if (in_array($entry, array('.', '..'))) {
+                continue;
+            }
+
+            if ($c_time > filemtime($path)) {
+                $old_error = error_reporting(0);
+                unlink($path);
+                error_reporting($old_error);
+            }
+        }
+        $d->close();
     }
 
     /**
@@ -2028,6 +2410,35 @@ class Kronolith {
         } else {
             return @in_array('screen', $show);
         }
+    }
+
+    /**
+     * Returns the background color for a calendar.
+     *
+     * @param array|Horde_Share_Object $calendar  A calendar share or a hash
+     *                                            from a remote calender
+     *                                            definition.
+     *
+     * @return string  A HTML color code.
+     */
+    function backgroundColor($calendar)
+    {
+        $color = is_array($calendar) ? @$calendar['color'] : $calendar->get('color');
+        return empty($color) ? '#dddddd' : $color;
+    }
+
+    /**
+     * Returns the foreground color for a calendar.
+     *
+     * @param array|Horde_Share_Object $calendar  A calendar share or a hash
+     *                                            from a remote calender
+     *                                            definition.
+     * @return string  A HTML color code.
+     */
+    function foregroundColor($calendar)
+    {
+        require_once 'Horde/Image.php';
+        return Horde_Image::brightness(Kronolith::backgroundColor($calendar)) < 128 ? '#f6f6f6' : '#000';
     }
 
     /**

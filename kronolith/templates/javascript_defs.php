@@ -1,4 +1,7 @@
 <?php
+/**
+ * JavaScript variables for the traditional interface.
+ */
 
 require_once 'Horde/Serialize.php';
 $charset = NLS::getCharset();
