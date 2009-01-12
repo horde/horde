@@ -11,10 +11,11 @@ if (!defined('PHPUnit_MAIN_METHOD')) {
 require_once 'PHPUnit/Framework/TestSuite.php';
 require_once 'PHPUnit/TextUI/TestRunner.php';
 
-// @TODO HACK
-define('AUTH_HANDLER', true);
-require dirname(__FILE__) . '/../lib/base.php';
-require $CONTENT_DIR . 'lib/Tags/Tagger.php';
+require 'Horde/Autoloader.php';
+require dirname(__FILE__) . '/../lib/Types/Manager.php';
+require dirname(__FILE__) . '/../lib/Users/Manager.php';
+require dirname(__FILE__) . '/../lib/Objects/Manager.php';
+require dirname(__FILE__) . '/../lib/Tagger.php';
 
 /**
  * @package    Rampage_Content

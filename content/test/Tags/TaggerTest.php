@@ -23,8 +23,19 @@ class Content_Tags_TaggerTest extends PHPUnit_Framework_TestCase
             'dbname' => ':memory:',
         ));
 
+        $context = array('dbAdapter' => $this->db);
+
+        $this->typeManager = new Content_Types_Manager($context);
+        $context['typeManager'] = $this->typeManager;
+
+        $this->userManager = new Content_Users_Manager($context);
+        $context['userManager'] = $this->userManager;
+
+        $this->objectManager = new Content_Objects_Manager($context);
+        $context['objectManager'] = $this->objectManager;
+
         // Create tagger
-        $this->tagger = new Content_Tagger(array('dbAdapter' => $this->db));
+        $this->tagger = new Content_Tagger($context);
 
         // Read sql schema file
         $statements = array();
@@ -77,7 +88,7 @@ class Content_Tags_TaggerTest extends PHPUnit_Framework_TestCase
         $this->tagger->tag(1, 1, 1);
         $cloud = $this->tagger->getTagCloud();
         $this->assertEquals(1, $cloud[0]['tag_id']);
-        $this->assertEquals('work', $cloud[0]['tag_text']);
+        $this->assertEquals('work', $cloud[0]['tag_name']);
         $this->assertEquals(1, $cloud[0]['count']);
     }
         /*
@@ -117,7 +128,7 @@ var_dump($tagger->getRelatedObjects(3));
 
         $recentLimit = $this->tagger->getRecentTags(array('limit' => 25));
         $this->assertEquals(25, count($recentLimit));
-        $this->assertEquals('t1', $recentLimit[0]['tag_text']);
+        $this->assertEquals('t1', $recentLimit[0]['tag_name']);
     }
 
     public function testGetRecentTagsOffset()
@@ -131,7 +142,7 @@ var_dump($tagger->getRelatedObjects(3));
 
         $recentOffset = $this->tagger->getRecentTags(array('limit' => 25, 'offset' => 25));
         $this->assertEquals(25, count($recentOffset));
-        $this->assertEquals('t26', $recentOffset[0]['tag_text']);
+        $this->assertEquals('t26', $recentOffset[0]['tag_name']);
     }
 
     public function testGetRecentTagsByUser()
