@@ -65,7 +65,7 @@ class Content_Objects_Manager
      */
     public function exists($object, $type)
     {
-        $type = array_pop($this->_typeManager->ensureTypes($type));
+        $type = current($this->_typeManager->ensureTypes($type));
         $id = $this->_db->selectValue('SELECT object_id FROM ' . $this->_t('objects') . ' WHERE object_name = ' . $this->_db->quote($object) . ' AND type_id = ' . $type);
         if ($id) {
             return (int)$id;
@@ -94,7 +94,7 @@ class Content_Objects_Manager
         $objectIds = array();
         $objectName = array();
 
-        $type = array_pop($this->_typeManager->ensureTypes($type));
+        $type = current($this->_typeManager->ensureTypes($type));
 
         // Anything already typed as an integer is assumed to be a object id.
         foreach ($objects as $objectIndex => $object) {
