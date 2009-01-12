@@ -21,16 +21,9 @@ $scripts = array(
     array('mailbox-dimp.js', 'imp', false),
     array('DimpSlider.js', 'imp', true),
     array('unblockImages.js', 'imp', true),
-    array('popup.js', 'imp', true)
+    array('popup.js', 'imp', true),
+    array('dialog.js', 'imp', true)
 );
-
-/* Load necessary files for PGP or S/MIME passphrase input. */
-if ((!empty($GLOBALS['conf']['utils']['gnupg']) &&
-     $GLOBALS['prefs']->getValue('use_pgp')) ||
-    ($GLOBALS['prefs']->getValue('use_smime') &&
-     Util::extensionExists('openssl'))) {
-    $scripts[] = array('dialog.js', 'imp', true);
-}
 
 /* Get site specific menu items. */
 $js_code = $site_menu = array();
