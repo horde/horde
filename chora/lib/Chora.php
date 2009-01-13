@@ -120,7 +120,7 @@ class Chora {
         $sourceroot = $acts['rt'];
 
         $conf['paths']['temp'] = Horde::getTempDir();
-        $GLOBALS['VC'] = Horde_Vcs::factory($sourcerootopts['type'],
+        $GLOBALS['VC'] = Horde_Vcs::factory(String::ucfirst($sourcerootopts['type']),
             array('sourceroot' => $sourcerootopts['location'],
                   'paths' => $conf['paths'],
                   'username' => isset($sourcerootopts['username']) ? $sourcerootopts['username'] : '',

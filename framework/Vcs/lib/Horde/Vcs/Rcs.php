@@ -1,6 +1,6 @@
 <?php
 /**
- * Horde_Vcs_rcs implementation.
+ * Horde_Vcs_Rcs implementation.
  *
  * Copyright 2004-2007 Jeff Schwentner <jeffrey.schwentner@lmco.com>
  *
@@ -8,7 +8,7 @@
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Horde_Vcs
  */
-class Horde_Vcs_rcs extends Horde_Vcs
+class Horde_Vcs_Rcs extends Horde_Vcs
 {
     /**
      * Checks an RCS file in with a specified change log.
@@ -232,7 +232,7 @@ class Horde_Vcs_rcs extends Horde_Vcs
 
 }
 
-class Horde_Vcs_Revision_rcs extends Horde_Vcs_Revision
+class Horde_Vcs_Revision_Rcs extends Horde_Vcs_Revision
 {
     /**
      * Validation function to ensure that a revision number is of the right

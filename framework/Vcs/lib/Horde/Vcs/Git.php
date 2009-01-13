@@ -1,6 +1,6 @@
 <?php
 /**
- * Horde_Vcs_git implementation.
+ * Horde_Vcs_Git implementation.
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
@@ -11,7 +11,7 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package Horde_Vcs
  */
-class Horde_Vcs_git extends Horde_Vcs
+class Horde_Vcs_Git extends Horde_Vcs
 {
     /**
      * Constructor.
@@ -38,7 +38,7 @@ class Horde_Vcs_git extends Horde_Vcs
     public function getCheckout($file, $rev)
     {
         if (!isset($this->_cache['co'])) {
-            $this->_cache['co'] = new 'Horde_Vcs_Checkout_git';
+            $this->_cache['co'] = new 'Horde_Vcs_Checkout_Git';
         }
         return $this->_cache['co']->get($this, $file->queryModulePath(), $rev);
     }
@@ -46,14 +46,14 @@ class Horde_Vcs_git extends Horde_Vcs
 }
 
 /**
- * Horde_Vcs_git annotate class.
+ * Horde_Vcs_Git annotate class.
  *
  * Chuck Hagenbuch <chuck@horde.org>
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Horde_Vcs
  */
-class Horde_Vcs_Annotate_git extends Horde_Vcs_Annotate
+class Horde_Vcs_Annotate_Git extends Horde_Vcs_Annotate
 {
     public function __construct($rep, $file)
     {
@@ -119,14 +119,14 @@ class Horde_Vcs_Annotate_git extends Horde_Vcs_Annotate
 }
 
 /**
- * Horde_Vcs_git checkout class.
+ * Horde_Vcs_Git checkout class.
  *
  * Chuck Hagenbuch <chuck@horde.org>
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Horde_Vcs
  */
-class Horde_Vcs_Checkout_git extends Horde_Vcs_Checkout
+class Horde_Vcs_Checkout_Git extends Horde_Vcs_Checkout
 {
     /**
      * Function which returns a file pointing to the head of the requested
@@ -154,14 +154,14 @@ class Horde_Vcs_Checkout_git extends Horde_Vcs_Checkout
 }
 
 /**
- * Horde_Vcs_git diff class.
+ * Horde_Vcs_Git diff class.
  *
  * Copyright Chuck Hagenbuch <chuck@horde.org>
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Horde_Vcs
  */
-class Horde_Vcs_Diff_git extends Horde_Vcs_Diff
+class Horde_Vcs_Diff_Git extends Horde_Vcs_Diff
 {
     /**
      * The available diff types.
@@ -260,14 +260,14 @@ class Horde_Vcs_Diff_git extends Horde_Vcs_Diff
 }
 
 /**
- * Horde_Vcs_git directory class.
+ * Horde_Vcs_Git directory class.
  *
  * Copyright Chuck Hagenbuch <chuck@horde.org>
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Horde_Vcs
  */
-class Horde_Vcs_Directory_git extends Horde_Vcs_Directory
+class Horde_Vcs_Directory_Git extends Horde_Vcs_Directory
 {
     /**
      * Tell the object to open and browse its current directory, and
@@ -320,14 +320,14 @@ class Horde_Vcs_Directory_git extends Horde_Vcs_Directory
 }
 
 /**
- * Horde_Vcs_git file class.
+ * Horde_Vcs_Git file class.
  *
  * Copyright Chuck Hagenbuch <chuck@horde.org>
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Horde_Vcs
  */
-class Horde_Vcs_File_git extends Horde_Vcs_File
+class Horde_Vcs_File_Git extends Horde_Vcs_File
 {
     /**
      * Create a repository file object, and give it information about
@@ -401,7 +401,7 @@ class Horde_Vcs_File_git extends Horde_Vcs_File
 
         $this->revs = explode("\n", trim($revisions));
         foreach ($this->revs as $rev) {
-            $this->logs[$rev] = Horde_Vcs_Log_git::factory($this->rep, $this, $rev);
+            $this->logs[$rev] = Horde_Vcs_Log_Git::factory($this->rep, $this, $rev);
             if ($this->quicklog) {
                 break;
             }
@@ -423,14 +423,14 @@ class Horde_Vcs_File_git extends Horde_Vcs_File
 }
 
 /**
- * Horde_Vcs_git log class.
+ * Horde_Vcs_Git log class.
  *
  * Chuck Hagenbuch <chuck@horde.org>
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Horde_Vcs
  */
-class Horde_Vcs_Log_git {
+class Horde_Vcs_Log_Git {
 
     public $err;
     public $files = array();
@@ -449,7 +449,7 @@ class Horde_Vcs_Log_git {
             $logOb = unserialize($rep->cache->get($cacheId, 0));
             $logOb->setRepository($rep);
         } else {
-            $logOb = new Horde_Vcs_Log_git($rep, $file, $rev);
+            $logOb = new Horde_Vcs_Log_Git($rep, $file, $rev);
 
             if ($rep->cache) {
                 $rep->cache->set($cacheId, serialize($logOb));
@@ -545,14 +545,14 @@ class Horde_Vcs_Log_git {
 }
 
 /**
- * Horde_Vcs_git Patchset class.
+ * Horde_Vcs_Git Patchset class.
  *
  * Copyright Chuck Hagenbuch <chuck@horde.org>
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Horde_Vcs
  */
-class Horde_Vcs_Patchset_git extends Horde_Vcs_Patchset
+class Horde_Vcs_Patchset_Git extends Horde_Vcs_Patchset
 {
     /**
      * Populate the object with information about the patchsets that
@@ -562,7 +562,7 @@ class Horde_Vcs_Patchset_git extends Horde_Vcs_Patchset
      */
     function getPatchsets()
     {
-        $fileOb = new Horde_Vcs_File_git($this->_rep, $this->_file);
+        $fileOb = new Horde_Vcs_File_Git($this->_rep, $this->_file);
         if (is_a(($result = $fileOb->getBrowseInfo()), 'PEAR_Error')) {
             return $result;
         }
@@ -604,7 +604,7 @@ class Horde_Vcs_Patchset_git extends Horde_Vcs_Patchset
 
 }
 
-class Horde_Vcs_Revision_git extends Horde_Vcs_Revision
+class Horde_Vcs_Revision_Git extends Horde_Vcs_Revision
 {
     /**
      * Validation function to ensure that a revision number is of the right
