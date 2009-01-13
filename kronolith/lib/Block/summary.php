@@ -193,7 +193,7 @@ class Horde_Block_Kronolith_summary extends Horde_Block {
             return '<em>' . _("No events to display") . '</em>';
         }
 
-        return '<link href="' . Horde::applicationUrl('themes/categoryCSS.php') . '" rel="stylesheet" type="text/css" /><table cellspacing="0" width="100%">' . $html . '</table>';
+        return '<link href="' . Horde::applicationUrl('themes/categoryCSS.php', true) . '" rel="stylesheet" type="text/css" /><table cellspacing="0" width="100%">' . $html . '</table>';
     }
 
 }

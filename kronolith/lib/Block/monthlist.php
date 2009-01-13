@@ -86,7 +86,7 @@ class Horde_Block_Kronolith_monthlist extends Horde_Block {
             return '<em>' . $all_events->getMessage() . '</em>';
         }
 
-        $html = '<link href="' . Horde::applicationUrl('themes/categoryCSS.php') . '" rel="stylesheet" type="text/css" />';
+        $html = '<link href="' . Horde::applicationUrl('themes/categoryCSS.php', true) . '" rel="stylesheet" type="text/css" />';
 
         /* How many days do we need to check. */
         $days = Date_Calc::dateDiff($startDate->mday, $startDate->month, $startDate->year,
