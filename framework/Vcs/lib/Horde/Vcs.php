@@ -588,16 +588,15 @@ abstract class Horde_Vcs_Directory
     /**
      * TODO
      */
-    public function &queryDirList()
+    public function queryDirList()
     {
-        reset($this->_dirs);
         return $this->_dirs;
     }
 
     /**
      * TODO
      */
-    public function &queryFileList($showattic = false)
+    public function queryFileList($showattic = false)
     {
         return ($showattic && isset($this->_mergedFiles))
             ? $this->_mergedFiles
