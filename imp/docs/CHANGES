@@ -2,6 +2,9 @@
 v5.0-cvs
 --------
 
+[mms] Enhancements to status icon view (Request #7519) (DIMP).
+[mms] If the browser supports it, embed image data in cached CSS files via
+      data URLs (Request #7174).
 [mms] Translate special folder names (Request #7545).
 [mms] Make autocompletion threshold parameters configurable (Request #7322).
 [mms] Add compose attachment preview to DIMP.
