@@ -153,9 +153,10 @@ div.msgStatus, div.msgFrom, div.msgSubject, div.msgDate, div.msgSize {
 div.msgStatus {
     width: 6%;
 }
-div.msgStatus .msCheck, div.msgStatus .msState, div.msgStatus .msCompose, div.msgStatus .msPri {
+div.msgStatus div {
+    display: inline-block;
+    padding-right: 1px;
     width: 16px;
-    float: left;
 }
 div.msgFrom {
     width: 20%;
@@ -227,7 +228,7 @@ div.msgSize {
     overflow: hidden;
     text-overflow: ellipsis;
     height: 16px;
-    border-bottom: 2px #fff solid;
+    border-bottom: 1px #fff solid;
 }
 /* Flags */
 .msglist div.unseen {
@@ -258,42 +259,42 @@ div.msgSize {
     background: #ffc;
 }
 /* Checkbox images */
-.msglist .msCheck {
-    background: transparent url("graphics/checkbox_off.png") center center no-repeat;
+.msglist div.msgStatus .msCheck {
+    background: transparent url("graphics/checkbox_off.png") no-repeat;
 }
-.msglist .msCheck:hover {
-    background: transparent url("graphics/checkbox_over.png") center center no-repeat;
+.msglist div.msgStatus .msCheck:hover {
+    background: transparent url("graphics/checkbox_over.png") no-repeat;
 }
-.msglist div.selectedRow .msCheck {
-    background: transparent url("graphics/checkbox_on.png") center center no-repeat;
+.msglist div.selectedRow div.msgStatus .msCheck {
+    background: transparent url("graphics/checkbox_on.png") no-repeat;
 }
 
 /* Status images and flags selectors: status column */
-.msglist div.unseen .msState {
-    background: transparent url("graphics/mail_unseen.png") center center no-repeat;
+.msglist div.msgStatus .statusUnseen {
+    background: transparent url("graphics/mail_unseen.png") no-repeat;
 }
-.msglist div.flagged .msState {
-    background: transparent url("graphics/mail_flagged.png") center center no-repeat;
+.msglist div.msgStatus .statusFlagged {
+    background: transparent url("graphics/mail_flagged.png") no-repeat;
 }
-.msglist div.deletedmsg .msState {
-    background: transparent url("graphics/mail_deleted.png") center center no-repeat;
+.msglist div.msgStatus statusDeleted {
+    background: transparent url("graphics/mail_deleted.png") no-repeat;
 }
 /* Status images and flags selectors: priority column */
-.msglist div.unimportant .msPri {
-    background: transparent url("graphics/mail_priority_low.png") center center no-repeat;
+.msglist div.msgStatus .lowPriority {
+    background: transparent url("graphics/mail_priority_low.png") no-repeat;
 }
-.msglist div.important .msPri {
-    background: transparent url("graphics/mail_priority_high.png") center center no-repeat;
+.msglist div.msgStatus .highPriority {
+    background: transparent url("graphics/mail_priority_high.png") no-repeat;
 }
 /* Status images and flags selectors: compose status column */
-.msglist div.answered .msCompose {
-    background: transparent url("graphics/mail_answered.png") center center no-repeat;
+.msglist div.msgStatus .statusAnswered {
+    background: transparent url("graphics/mail_answered.png") no-repeat;
 }
-.msglist div.forwarded .msCompose {
-    background: transparent url("graphics/mail_forwarded.png") center center no-repeat;
+.msglist div.msgStatus .statusForwarded {
+    background: transparent url("graphics/mail_forwarded.png") no-repeat;
 }
-.msglist div.draft .msCompose {
-    background: transparent url("graphics/mail_draft.png") center center no-repeat;
+.msglist div.msgStatus .statusDraft {
+    background: transparent url("graphics/mail_draft.png") no-repeat;
 }
 /* Thread images. */
 div.msgSubject img {

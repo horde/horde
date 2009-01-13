@@ -15,9 +15,6 @@ DimpBase.message_list_template =
 '<div id="#{domid}" title="#{subject}" class="#{bg_string}">' +
  '<div class="msgStatus">' +
   '<div class="msCheck"></div>' +
-  '<div class="msState"></div>' +
-  '<div class="msCompose"></div>' +
-  '<div class="msPri"></div>' +
  '</div>' +
  '<div class="msgFrom">#{from}</div>' +
  '<div class="msgSubject">#{subject}</div>' +

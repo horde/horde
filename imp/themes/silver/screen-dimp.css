@@ -1,24 +1,27 @@
 /* Background images. */
-.msglist div.unseen .msState {
-    background-image: transparent url("graphics/mail_unseen.png");
+.msglist div.statusUnseen {
+    background-image: url("graphics/mail_unseen.png");
 }
-.msglist div.unimportant .msPri {
-    background-image: url("graphics/mail_priority_low.png");
-}
-.msglist div.important .msPri {
-    background-image: url("graphics/mail_priority_high.png");
-}
-.msglist div.flagged .msState {
+.msglist div.statusFlagged {
     background-image: url("graphics/mail_flagged.png");
 }
-.msglist div.answered .msCompose {
-    background-image: url("graphics/mail_answered.png");
-}
-.msglist div.deletedmsg .msState {
+.msglist div.statusDeleted {
     background-image: url("graphics/mail_deleted.png");
 }
-.msglist div.draft .msCompose {
+.msglist div.statusAnswered {
+    background-image: url("graphics/mail_answered.png");
+}
+.msglist div.statusForwarded {
+    background-image: url("graphics/mail_forwarded.png");
+}
+.msglist div.statusDraft {
     background-image: url("graphics/mail_draft.png");
+}
+.msglist div.lowPriority {
+    background-image: url("graphics/mail_priority_low.png");
+}
+.msglist div.highPriority {
+    background-image: url("graphics/mail_priority_high.png");
 }
 
 #sidebarPanel {

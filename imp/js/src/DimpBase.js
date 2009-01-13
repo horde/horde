@@ -23,6 +23,17 @@ var DimpBase = {
     sfiltersfolder: $H({ sf_all: 'all', sf_current: 'current' }),
     sfilters: $H({ sf_msgall: 'msgall', sf_from: 'from', sf_to: 'to', sf_subject: 'subject' }),
 
+    flags: $H({
+        unseen: 'statusUnseen',
+        flagged: 'statusFlagged',
+        deletedmsg: 'statusDeleted',
+        unimportant: 'lowPriority',
+        important: 'highPriority',
+        answered: 'statusAnswered',
+        forwarded: 'statusForwarded',
+        draft: 'statusDraft'
+    }),
+
     // Message selection functions
 
     // vs = (ViewPort_Selection) A ViewPort_Selection object.
@@ -402,6 +413,7 @@ var DimpBase = {
                 rows.get('dataob').each(function(row) {
                     var elt, tmp, u,
                         r = $(row.domid);
+
                     // Add thread graphics
                     if (thread && thread.get(row.imapuid)) {
                         elt = r.down('.msgSubject');
@@ -412,12 +424,13 @@ var DimpBase = {
                         });
                         elt.replace(tmp.insert(elt.getText().escapeHTML()));
                     }
+
                     // Add attachment graphics
                     if (row.atc) {
                         r.down('.msgSize').insert({ top: $($('atc_img_' + row.atc).cloneNode(false)).writeAttribute('id', '') });
                     }
 
-                    // Add context menu.
+                    // Add context menu
                     DimpCore.addMouseEvents({ id: row.domid, type: row.menutype });
 
                     // Highlight search terms
@@ -511,7 +524,7 @@ var DimpBase = {
             }.bind(this),
             onClearRows: function(r) {
                 r.each(function(row) {
-                    var c = $(row).down('div.msCheck');
+                    var c = $(row).down('DIV.msCheck');
                     if (c) {
                         DimpCore.addGC(c);
                     }
@@ -547,6 +560,9 @@ var DimpBase = {
                 }
                 return this.cacheids[id];
             }.bind(this),
+            onUpdateClass: function(row) {
+                this.updateStatusFlags(row);
+            }.bind(this),
             selectCallback: this._select.bind(this),
             deselectCallback: this._deselect.bind(this)
         });
@@ -572,7 +588,7 @@ var DimpBase = {
         case 'draft':
         case 'message':
             new Drag(p.id, this._msgDragConfig);
-            elt = $(p.id).down('div.msCheck');
+            elt = $(p.id).down('DIV.msCheck');
             if (elt.visible()) {
                 elt.observe('mousedown', this.bcache.get('handleMLC') || this.bcache.set('handleMLC', this._handleMsgListCheckbox.bindAsEventListener(this)));
                 elt.observe('contextmenu', Event.stop);
@@ -1866,6 +1882,23 @@ var DimpBase = {
             this.viewport.updateFlag(vs, 'forwarded', true);
             break;
         }
+    },
+
+    updateStatusFlags: function(row)
+    {
+        var elt = new Element('DIV'),
+            s = row.down('.msgStatus');
+
+        this.flags.each(function(c) {
+            var d = s.down('.' + c.value);
+            if (row.hasClassName(c.key)) {
+                if (!d) {
+                    s.insert($(elt.cloneNode(false)).addClassName(c.value));
+                }
+            } else if (d) {
+                d.remove();
+            }
+        });
     },
 
     /* Miscellaneous folder actions. */

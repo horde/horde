@@ -817,7 +817,11 @@ var ViewPort = Class.create({
             } else {
                 d.removeClassName(flag);
             }
-        });
+
+            if (this.opts.onUpdateClass) {
+                this.opts.onUpdateClass(d, add);
+            }
+        }, this);
     },
 
     _getLineHeight: function()
