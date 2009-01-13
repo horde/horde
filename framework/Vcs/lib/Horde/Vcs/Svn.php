@@ -1,4 +1,7 @@
 <?php
+
+require_once dirname(__FILE__) . '/Rcs.php';
+
 /**
  * Horde_Vcs_Svn implementation.
  *
