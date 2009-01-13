@@ -59,7 +59,7 @@ class Horde_Vcs_Svn extends Horde_Vcs
         if (!empty($params['password'])) {
             $this->_password = $params['password'];
         }
-        parent::_construct();
+        parent::__construct();
     }
 
     /**
@@ -326,13 +326,13 @@ class Horde_Vcs_File_Svn extends Horde_Vcs_File {
         $this->logs = $this->revs = $this->revsym = $this->symrev = $this->branches = array();
     }
 
-    function &getFileObject()
+    public function getFileObject()
     {
         /* The version of the cached data. Increment this whenever the
          * internal storage format changes, such that we must
          * invalidate prior cached data. */
         $cacheVersion = 2;
-        $cacheId = $rep->sourceroot() . '_n' . $this->filename . '_f' . (int)$this->quicklog . '_v' . $cacheVersion;
+        $cacheId = $this->rep->sourceroot() . '_n' . $this->filename . '_f' . (int)$this->quicklog . '_v' . $cacheVersion;
 
         if ($this->cache &&
             // The file is cached for one hour no matter what, because
@@ -342,8 +342,7 @@ class Horde_Vcs_File_Svn extends Horde_Vcs_File {
             $fileOb = unserialize($this->cache->get($cacheId, 3600));
             $fileOb->setRepository($rep);
         } else {
-            $fileOb = new Horde_Vcs_File_Svn($rep, $this->filename, $this->cache, $this->quicklog);
-            $fileOb->setRepository($rep);
+            $fileOb = new Horde_Vcs_File_Svn($this->rep, $this->filename, $this->cache, $this->quicklog);
             if (is_a(($result = $fileOb->getBrowseInfo()), 'PEAR_Error')) {
                 return $result;
             }
