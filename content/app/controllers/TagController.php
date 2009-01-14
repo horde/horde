@@ -3,9 +3,6 @@
  * @package Content
  */
 
-// @TODO Clean up
-require_once dirname(__FILE__) . '/ApplicationController.php';
-
 /**
  * @package Content
  */
