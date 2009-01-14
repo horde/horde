@@ -18,7 +18,9 @@ class Horde_Autoloader
      *
      * @var array
      */
-    protected static $_classPatterns = array('/^Horde_/' => 'Horde/');
+    protected static $_classPatterns = array(
+        array('/^Horde_/', 'Horde/'),
+    );
 
     /**
      * Autoload implementation automatically registered with
@@ -34,7 +36,8 @@ class Horde_Autoloader
      */
     public static function loadClass($class)
     {
-        foreach (self::$_classPatterns as $pattern => $replace) {
+        foreach (self::$_classPatterns as $classPattern) {
+            list($pattern, $replace) = $classPattern;
             $file = $class;
 
             if (!is_null($replace)) {
@@ -90,7 +93,7 @@ class Horde_Autoloader
      */
     public static function addClassPattern($pattern, $replace = null)
     {
-        self::$_classPatterns[$pattern] = rtrim($replace, '/') . '/';
+        self::$_classPatterns[] = array($pattern, rtrim($replace, '/') . '/');
     }
 
 }
