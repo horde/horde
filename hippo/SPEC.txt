@@ -20,3 +20,53 @@ GUID detection:
                     $guid = $item['link'];
             $item['guid'] = $item['link'];
                 }
+
+
+Stats to keep:
+stats for when a feed was last updated
+when you last read something from it
+when you last flagged something from it
+
+Great keyboard nav idea:
+http://parand.com/say/index.php/2008/09/15/readerscroll-google-reader-style-image-navigation-with-j-k-keys-bookmarklet/
+
+More keyboard nav/UI touches:
+http://blogs.newsgator.com/newsgator_widget_blog/2008/10/five-things-you.html
+
+Nice (but dojo-based) UI:
+http://ajaxian.com/archives/dojo-sensei
+
+A simpler and jQuery based UI:
+http://jx.myofiz.com/
+http://jx.myofiz.com/feedreader.html
+
+Add a Ubiquity verb:
+CmdUtils.CreateCommand({
+    name: "subscribe",
+    description: "Subscribe to a feed for the current page in Google Reader",
+    help: "Subscribe to a feed for the current page in Google Reader (does same thing as their bookmarklet)",
+    execute: function(tags) {
+        var document = context.focusedWindow.document;
+        var b=document.body;
+        var GR________bookmarklet_domain='http://www.google.com';
+        if (b&&!document.xmlVersion) {
+            void(z=document.createElement('script'));
+            void(z.src='http://www.google.com/reader/ui/subscribe-bookmarklet.js');
+            void(b.appendChild(z));
+        } else {
+            location = 'http://www.google.com/reader/view/feed/' + encodeURIComponent(location.href);
+        }
+    }
+})
+
+
+Resources:
+http://www.protocolostomy.com/2008/11/21/help-me-pick-a-new-feed-reader/
+http://www.readwriteweb.com/archives/opera_96_launches_now_includes_magazine_style_rss.php
+http://www.readwriteweb.com/archives/will_gmail_get_google_reader-like_trends.php
+http://www.readwriteweb.com/archives/google_reader_now_lets_you_sha.php
+http://www.readwriteweb.com/archives/feedly_launches_a_river_of_news.php
+http://www.readwriteweb.com/archives/bloglines_is_still_alive_and_advertising.php
+http://www.readwriteweb.com/archives/mainstream_web_watch_why_alltop_rocks.php
+http://www.readwriteweb.com/archives/mainstreaming_rss_regator_public_beta.php
+http://www.readwriteweb.com/archives/mozilla_snowl_02_review.php
