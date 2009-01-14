@@ -272,7 +272,7 @@ class Horde_Browser
 
         $signature = md5(serialize(array($userAgent, $accept)));
         if (empty($instances[$signature])) {
-            $instances[$signature] = new Browser($userAgent, $accept);
+            $instances[$signature] = new Horde_Browser($userAgent, $accept);
         }
 
         return $instances[$signature];
