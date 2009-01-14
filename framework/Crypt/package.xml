@@ -3,7 +3,7 @@
 http://pear.php.net/dtd/tasks-1.0.xsd
 http://pear.php.net/dtd/package-2.0
 http://pear.php.net/dtd/package-2.0.xsd">
- <name>Horde_Crypt</name>
+ <name>Crypt</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Cryptography API</summary>
  <description>The Horde_Crypt:: class provides an API for various cryptographic systems
