@@ -346,9 +346,6 @@ class Kronolith {
             }
         }
 
-        $css[] = array('u' => $themesuri . '/ajax.css',
-                       'f' => $themesfs .  '/ajax.css');
-
         // Load custom stylesheets.
         if (!empty($conf['css_files'])) {
             foreach ($conf['css_files'] as $css_file) {

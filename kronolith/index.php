@@ -20,11 +20,13 @@ if (!$kronolith_configured) {
 
 require_once KRONOLITH_BASE . '/lib/base.php';
 
+/* Load traditional interface? */
 if (!$prefs->getValue('dynamic_view') || !$browser->hasFeature('xmlhttpreq')) {
     include KRONOLITH_BASE . '/' . $prefs->getValue('defaultview') . '.php';
     exit;
 }
 
+/* Load Ajax interface. */
 require_once 'Horde/Identity.php';
 $identity = Identity::factory();
 $logout_link = Horde::getServiceLink('logout', 'kronolith');
@@ -54,7 +56,7 @@ $scripts = array(
     array('redbox.js', 'horde', true),
 );
 Kronolith::header('', $scripts);
-echo "<body>\n";
+echo "<body class=\"kronolithAjax\">\n";
 require KRONOLITH_TEMPLATES . '/index/index.inc';
 Kronolith::includeScriptFiles();
 Kronolith::outputInlineScript();
