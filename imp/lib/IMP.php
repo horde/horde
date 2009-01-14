@@ -1384,6 +1384,11 @@ class IMP
 
         case 'failed':
             $status_msg = 'FAILED LOGIN';
+            break;
+
+        default:
+            $status_msg = $status;
+            break;
         }
 
         $imp_imap = &$GLOBALS['imp_imap']->ob;
