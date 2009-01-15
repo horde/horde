@@ -1,6 +1,5 @@
 <?php
 /**
- * Re
  * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -9,7 +8,7 @@
  * @package Horde_Block
  * @author  Michael Slusarz <slusarz@curecanti.org>
  */
-class Horde_Block_imp_newmail extends Horde_Block
+class IMP_Block_Newmail extends Horde_Block
 {
     var $_app = 'imp';
 
