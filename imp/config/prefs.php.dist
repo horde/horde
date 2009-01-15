@@ -23,7 +23,7 @@ if (!$is_pop3) {
         'column' => _("General Options"),
         'label' => _("Server and Folder Information"),
         'desc' => _("Change mail server and folder settings."),
-        'members' => array('use_vinbox', 'subscribe', 'folderselect',
+        'members' => array('use_vinbox', 'subscribe', 'draftsselect',
                            'trashselect', 'spamselect')
         );
 }
@@ -85,7 +85,7 @@ $prefGroups['drafts'] = array(
     'column' => _("Message Options"),
     'label' => _("Message Drafts"),
     'desc' => _("Customize how to deal with message drafts."),
-    'members' => array('folderselect', 'close_draft', 'unseen_drafts',
+    'members' => array('draftsselect', 'close_draft', 'unseen_drafts',
                        'auto_delete_drafts')
 );
 
@@ -305,7 +305,7 @@ $_prefs['subscribe'] = array(
 
 // drafts folder selection widget. includes some javascript, so it's specific
 // to IMP.
-$_prefs['folderselect'] = array('type' => 'special');
+$_prefs['draftsselect'] = array('type' => 'special');
 
 // drafts folder
 $_prefs['drafts_folder'] = array(
