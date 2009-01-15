@@ -1735,8 +1735,8 @@ class IMP
      */
     public function base64ImgData($file)
     {
-        return 'data:image/' . substr($file, strrpos($file, '.') + 1) . ';base64,' .
-            base64_encode(file_get_contents(dirname(realpath($GLOBALS['registry']->get('fileroot', 'horde'))) . $file));
+        $data = file_get_contents(realpath($GLOBALS['registry']->get('fileroot', 'horde')) . preg_replace('/^' . preg_quote($GLOBALS['registry']->get('webroot', 'horde'), '/') . '/', '', $file));
+        return 'data:image/' . substr($file, strrpos($file, '.') + 1) . ';base64,' . base64_encode($data);
     }
 
     /**
