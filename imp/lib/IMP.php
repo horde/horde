@@ -1395,12 +1395,12 @@ class IMP
 
         $msg = sprintf(
             $status_msg . ' for %s [%s]%s to {%s:%s [%s]}',
-            $_SESSION['imp']['uniquser'],
+            (!empty($_SESSION['imp']['uniquser'])) ? $_SESSION['imp']['uniquser'] : '',
             $_SERVER['REMOTE_ADDR'],
             (empty($_SERVER['HTTP_X_FORWARDED_FOR'])) ? '' : ' (forwarded for [' . $_SERVER['HTTP_X_FORWARDED_FOR'] . '])',
-            $imp_imap->getParam('hostspec'),
-            $imp_imap->getParam('port'),
-            $_SESSION['imp']['protocol']
+            (!is_null($imp_imap)) ? $imp_imap->getParam('hostspec') : '',
+            (!is_null($imp_imap)) ? $imp_imap->getParam('port') : '',
+            (!empty($_SESSION['imp']['protocol'])) ? $_SESSION['imp']['protocol'] : ''
         );
 
         Horde::logMessage($msg, $file, $line, $level);
