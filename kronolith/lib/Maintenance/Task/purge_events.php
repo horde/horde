@@ -27,7 +27,7 @@ class Maintenance_Task_purge_events extends Maintenance_Task {
          * 'purge_events_keep'.  An event will be deleted if it has an end
          * time prior to this time. */
         $del_time = new Horde_Date($_SERVER['REQUEST_TIME']);
-        $del_time -= $prefs->getValue('purge_events_keep');
+        $del_time->mday -= $prefs->getValue('purge_events_keep');
         $del_time->correct();
 
         /* Need to have PERMS_DELETE on a calendar to delete events from it */
