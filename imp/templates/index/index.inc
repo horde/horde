@@ -3,13 +3,13 @@
 $hordeimg = $registry->getImageDir('horde');
 
 // Thread images
-$thread_imgs = IMP_IMAP_Thread::getImageUrls();
+$thread_imgs = IMP_IMAP_Thread::getImageUrls(true, true);
 
 // Attachment images
 $imp_ui = new IMP_UI_Mailbox('INBOX');
 $atc_imgs = array();
 foreach ($imp_ui->getAttachmentAltList() as $k => $v) {
-    $atc_imgs[] = Horde::img($k . '.png', $v, array('id' => 'atc_img_' . $k));
+    $atc_imgs[] = IMP::img($k . '.png', $v, array('id' => 'atc_img_' . $k));
 }
 
 $usetrash = $prefs->getValue('use_trash');
@@ -47,8 +47,8 @@ function _simpleButton($id, $text, $image, $imagedir = null)
         . (strlen($id) ? ' id="' . $id . '"' : '')
         . (strlen($ak) ? ' accesskey="' . $ak . '"' : '') . '>'
         . ($imagedir
-            ? Horde::img($image, Horde::stripAccessKey($text), '', $imagedir)
-            : Horde::img($image, Horde::stripAccessKey($text)))
+            ? IMP::img($image, Horde::stripAccessKey($text), '', $imagedir)
+            : IMP::img($image, Horde::stripAccessKey($text)))
         . '<a>'
         . Horde::highlightAccessKey($text, $ak) . '</a></li>';
 }
@@ -287,7 +287,7 @@ function _simpleButton($id, $text, $image, $imagedir = null)
         <div id="msgHeaders" style="display:none">
          <div class="dimpOptions noprint">
           <div id="msg_newwin_options"><span class="iconImg newwinImg"></span><a><?php echo _("Open in new window") ?></a></div>
-          <div id="msg_print"><?php echo Horde::img('print.png', '', '', $hordeimg) ?><a><?php echo _("Print") ?></a></div>
+          <div id="msg_print"><?php echo IMP::img('print.png', '', '', $hordeimg) ?><a><?php echo _("Print") ?></a></div>
 <?php if (!empty($conf['user']['allow_view_source'])): ?>
           <div id="msg_view_source"><span class="iconImg msgsourceImg"></span><a><?php echo _("View Message Source") ?></a></div>
 <?php endif; ?>

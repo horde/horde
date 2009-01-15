@@ -133,12 +133,13 @@ class IMP_IMAP_Thread
     /**
      * Get potential image URLs that may be used to display a thread.
      *
-     * @param ids $ids  Add unique DOM ID to each image?
+     * @param ids $ids      Add unique DOM ID to each image?
+     * @param ids $datauri  Output data URIs, if possible?
      *
      * @return array  An array with the image code as a key and the image url
      *                as the value.
      */
-    static public function getImageUrls($ids = true)
+    static public function getImageUrls($ids = true, $datauri = false)
     {
         $graphicsdir = $GLOBALS['registry']->getImageDir('horde');
         $args = array();
@@ -147,7 +148,11 @@ class IMP_IMAP_Thread
             if ($ids) {
                 $args['id'] = 'thread_img_' . $key;
             }
-            $out[$key] = Horde::img('tree/' . (($key != 0 && !empty($GLOBALS['nls']['rtl'][$GLOBALS['language']])) ? ('rev-' . $val) : $val), '', $args, $graphicsdir);
+            if ($datauri) {
+                $out[$key] = IMP::img('tree/' . (($key != 0 && !empty($GLOBALS['nls']['rtl'][$GLOBALS['language']])) ? ('rev-' . $val) : $val), '', $args, $graphicsdir);
+            } else {
+                $out[$key] = Horde::img('tree/' . (($key != 0 && !empty($GLOBALS['nls']['rtl'][$GLOBALS['language']])) ? ('rev-' . $val) : $val), '', $args, $graphicsdir);
+            }
         }
 
         return $out;

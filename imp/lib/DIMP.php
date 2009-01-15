@@ -50,8 +50,8 @@ class DIMP
                            empty($params['id']) ? array() : array('id' => $params['id']),
                            !empty($title))
             . (!empty($params['icon'])
-               ? Horde::img($params['icon'], $title, '',
-                            $GLOBALS['registry']->getImageDir(empty($params['app']) ? 'imp' : $params['app']))
+               ? IMP::img($params['icon'], $title, '',
+                          $GLOBALS['registry']->getImageDir(empty($params['app']) ? 'imp' : $params['app']))
                : '')
             . $title . '</a>';
     }
@@ -422,7 +422,7 @@ class DIMP
 
         if ($elt['user_icon']) {
             $ob->cl = 'custom';
-            $ob->i = Horde::img($elt['icon'], $elt['alt'], '', $elt['icondir']);
+            $ob->i = IMP::img($elt['icon'], $elt['alt'], '', $elt['icondir']);
         }
 
         return $ob;
