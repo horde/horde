@@ -15,8 +15,6 @@
 $d_read = $GLOBALS['prefs']->getValue('disposition_request_read');
 $save_attach = $GLOBALS['prefs']->getValue('save_attachments');
 
-$loading_img = Horde::img('loading.gif', _("Loading..."));
-
 // Small utility function to simplify creating dimpactions buttons.
 // As of right now, we don't show text only links.
 function _createDAcompose($text, $image, $id)
@@ -89,7 +87,7 @@ function _createDAcompose($text, $image, $id)
       <div id="to_results" class="autocomplete" style="display:none"></div>
      </td>
      <td>
-      <span id="to_loading_img" style="display:none"><?php echo $loading_img ?></span>
+      <span id="to_loading_img" class="loadingImg" style="display:none"></span>
      </td>
     </tr>
    </thead>
@@ -103,7 +101,7 @@ function _createDAcompose($text, $image, $id)
       <div id="cc_results" class="autocomplete" style="display:none"></div>
      </td>
      <td>
-      <span id="cc_loading_img" style="display:none"><?php echo $loading_img ?></span>
+      <span id="cc_loading_img" class="loadingImg" style="display:none"></span>
      </td>
     </tr>
    </thead>
@@ -117,7 +115,7 @@ function _createDAcompose($text, $image, $id)
       <div id="bcc_results" class="autocomplete" style="display:none"></div>
      </td>
      <td>
-      <span id="bcc_loading_img" style="display:none"><?php echo $loading_img ?></span>
+      <span id="bcc_loading_img" class="loadingImg" style="display:none"></span>
      </td>
     </tr>
    </thead>
@@ -133,7 +131,7 @@ function _createDAcompose($text, $image, $id)
   <table cellspacing="0">
    <thead>
     <tr class="atcrow">
-     <td class="label"><?php echo Horde::img('attachment.png') . ': ' ?></td>
+     <td class="label"><span class="iconImg attachmentImg"></span>: </td>
      <td id="attach_cell">
       <input type="file" id="upload" name="file_1" />
 <?php if (strpos($save_attach, 'prompt') !== false): ?>

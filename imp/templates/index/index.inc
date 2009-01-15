@@ -168,7 +168,7 @@ function _simpleButton($id, $text, $image, $imagedir = null)
      <div id="mailboxHeader" class="header">
       <div>
        <span class="rightFloat" id="msgHeader"></span>
-       <span id="folderLoading" style="display:none"></span>
+       <span id="folderLoading" class="loadingImg" style="display:none"></span>
        <span id="folderName"></span>
       </div>
      </div>
@@ -259,12 +259,12 @@ function _simpleButton($id, $text, $image, $imagedir = null)
      </div>
      <div id="splitBar" style="display:none" class="splitBar noprint"></div>
      <div id="previewPane" style="display:none">
-      <span id="msgLoading" style="display:none"></span>
+      <span id="msgLoading" class="loadingImg" style="display:none"></span>
       <div id="previewInfo" style="display:none">
        <?php echo _("To preview a message, select it from the list above. A right-click on the messages will display available actions.") ?><br />
        <?php printf(_("Click on a message while holding down the %s key to select multiple messages.  To select a range of messages, click the first message of the range, navigate to the last message of the range, and then click on the last message while holding down the %s key."), '<span class="kbd">' . _("Ctrl") . '</span>', '<span class="kbd">' . _("Shift") . '</span>') ?><br /><br />
        <?php echo _("The following keyboard shortcuts are available:") ?><br />
-       <span class="iconImg keuypImg"></span> / <span class="iconImg keydownImg"></span> . ' : ' . _("Move up/down through the message list.") ?><br />
+       <span class="iconImg keyupImg"></span> / <span class="iconImg keydownImg"></span> : <?php echo _("Move up/down through the message list.") ?><br />
        <span class="kbd"><?php echo _("PgUp") ?></span> / <span class="kbd"><?php echo _("PgDown") ?></span> : <?php echo _("Move one page up/down through the message list.") ?><br />
        <span class="kbd"><?php echo _("Home") ?></span> / <span class="kbd"><?php echo _("End") ?></span> : <?php echo  _("Move to the beginning/end of the message list.") ?><br />
        <span class="kbd"><?php echo _("Del") ?></span> : <?php echo _("Delete the currently selected message(s).") ?> <?php printf(_("%s will delete the current message and move to the next message if a single message is selected."), '<span class="kbd">' . _("Shift") . '</span> + <span class="kbd">' . _("Del") . '</span>') ?><br />

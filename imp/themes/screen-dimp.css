@@ -7,20 +7,6 @@
     clear: both;
 }
 
-/* Popdown styles. */
-a.popdown {
-    cursor: pointer;
-    background: url("graphics/popdown.png") no-repeat center center;
-    padding: 5px !important;
-}
-a.popdown:hover {
-    padding: 4px !important;
-    border-left: 1px solid #fff;
-    border-top: 1px solid #fff;
-    border-right: 1px solid #000;
-    border-bottom: 1px solid #000;
-}
-
 /* ini header. */
 #quota {
     float: right;
@@ -137,7 +123,7 @@ div#quota {
 }
 
 /* Message List */
-#folderLoading, #msgLoading {
+span.loadingImg {
     z-index: 1000;
     border: 1px #e0e0e0 solid;
     -moz-border-radius: 5px;
@@ -539,7 +525,7 @@ div.msgSize img {
 /* Actions */
 .dimpActions {
     background: #efefef;
-    padding: 4px 4px 2px 2px;
+    padding: 4px 4px 4px 2px;
     border: 1px silver solid;
     border-bottom: 0px;
     background: transparent url("graphics/backhead_s2.png") repeat-x;
@@ -586,16 +572,12 @@ div.msgSize img {
     -moz-opacity: .25;
     opacity: .25;
 }
-.dimpActions .popdown {
-    border: 0;
-    padding: 2px;
-}
 .dimpActions .popdown:hover {
     border-left: 1px solid #fff;
     border-top: 1px solid #fff;
     border-right: 1px solid #000;
     border-bottom: 1px solid #000;
-    padding: 1px;
+    margin: -1px;
 }
 .dimpActions .disabled .popdown:hover {
     border: 0;
@@ -607,6 +589,9 @@ div.msgSize img {
     display: none;
 }
 
+div.dimpActionsCompose, div.dimpActionsMsg {
+    border-bottom: 1px solid #999;
+}
 div.dimpActionsCompose {
     margin-top: 0;
 }
@@ -737,7 +722,7 @@ div.dimpActionsCompose {
 /* mime status messages */
 .mimeStatusMessage, .mimeStatusWarning, .mimePartInfo {
     color: #000;
-    margin: 2px;
+    padding: 4px;
 }
 .mimeStatusMessage {
     background: #ffc;
@@ -745,7 +730,12 @@ div.dimpActionsCompose {
 }
 .mimePartInfo {
     background: #efefef;
-    border: 1px #c0c0c0 solid;
+}
+.mimePartInfo img {
+    padding-right: 3px;
+}
+.mimepartInfo .downloadAtc {
+    padding-left: 2px;
 }
 .mimeStatusWarning {
     background: #e81222;

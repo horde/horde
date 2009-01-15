@@ -10,8 +10,6 @@ $horde_img = $registry->getImageDir('horde');
 $menu_view = $prefs->getValue('menu_view');
 $show_text = ($menu_view == 'text' || $menu_view == 'both');
 
-$attachment = Horde::img('attachment.png', '', array('class' => 'attachmentImage'));
-
 // Small utility function to simplify creating dimpactions buttons.
 // As of right now, we don't show text only links.
 function _createDAfmsg($text, $image, $id, $class = '', $show_text = true)
@@ -30,11 +28,11 @@ function _createDAfmsg($text, $image, $id, $class = '', $show_text = true)
  <div id="msgData">
   <div class="noprint">
    <div class="header">
-    <div class="headercloseimg" id="windowclose"><?php echo Horde::img('close.png', 'X', array(), $horde_img) ?></div>
+    <div class="headercloseimg" id="windowclose"><?php echo IMP::img('close.png', 'X', array(), $horde_img) ?></div>
     <div><?php echo _("Message:") . ' ' . $show_msg_result['subject'] ?></div>
    </div>
 
-   <div class="dimpActions">
+   <div class="dimpActions dimpActionsMsg">
     <span id="button_reply_cont"><?php _createDAfmsg(_("Reply"), 'reply_menu.png', 'reply_link', 'hasmenu', $show_text) ?></span>
     <span id="button_forward_cont"><?php _createDAfmsg(_("Forward"), 'forward_menu.png', 'forward_link', 'hasmenu', $show_text) ?></span>
 <?php if (!empty($conf['spam']['reporting']) && (!$conf['spam']['spamfolder'] || ($folder != IMP::folderPref($prefs->getValue('spam_folder'), true)))): ?>
@@ -51,9 +49,9 @@ function _createDAfmsg($text, $image, $id, $class = '', $show_text = true)
    <div class="msgHeaders">
     <div id="msgHeaders">
      <div class="dimpOptions noprint">
-      <div id="msg_print"><?php echo Horde::img('print.png', '', '', $horde_img) ?><a><?php echo _("Print") ?></a></div>
+      <div id="msg_print"><?php echo IMP::img('print.png', '', '', $horde_img) ?><a><?php echo _("Print") ?></a></div>
 <?php if (!empty($conf['user']['allow_view_source'])): ?>
-      <div id="msg_view_source"><?php echo Horde::img('message_source.png') ?><a><?php echo _("View Message Source") ?></a></div>
+      <div id="msg_view_source"><span class="iconImg msgsourceImg"></span><a><?php echo _("View Message Source") ?></a></div>
 <?php endif; ?>
      </div>
      <div id="msgHeadersContent">
@@ -71,7 +69,7 @@ function _createDAfmsg($text, $image, $id, $class = '', $show_text = true)
 <?php endforeach; ?>
 <?php if (isset($show_msg_result['atc_label'])): ?>
         <tr id="msgAtc">
-         <td class="label"><?php if ($show_msg_result['atc_list']): ?><?php echo Horde::link('') . Horde::img('arrow_collapsed.png', '', array('id' => 'partlist_col')) . Horde::img('arrow_expanded.png', '', array('id' => 'partlist_exp', 'style' => 'display:none')) . ' ' . $attachment ?></a><?php else: echo $attachment; endif; ?></td>
+         <td class="label"><?php if ($show_msg_result['atc_list']): ?><?php echo Horde::link('') ?><span id="partlist_col" class="iconImg arrowcollapsedImg"></span><span id="partlist_exp" class="iconImg arrowexpandedImg" style="display:none"></span> <span class="iconImg attachmentImg attachmentImage"></span></a><?php else: ?><span class="iconImg attachmentImg attachmentImage"></span><?php endif; ?></td>
          <td>
           <span class="atcLabel"><?php echo $show_msg_result['atc_label'] ?></span><?php echo $show_msg_result['atc_download'] ?>
 <?php if (isset($show_msg_result['atc_list'])): ?>
@@ -97,7 +95,7 @@ function _createDAfmsg($text, $image, $id, $class = '', $show_text = true)
 
  <div id="qreply" style="display:none">
   <div class="header">
-   <div class="headercloseimg"><?php echo Horde::img('close.png', 'X', array(), $horde_img) ?></div>
+   <div class="headercloseimg"><?php echo IMP::img('close.png', 'X', array(), $horde_img) ?></div>
    <div><?php echo _("Message:") . ' ' . $show_msg_result['subject'] ?></div>
   </div>
   <?php echo $compose_result['html']; ?>
@@ -123,4 +121,4 @@ function _createDAfmsg($text, $image, $id, $class = '', $show_text = true)
  <div><?php _createDAfmsg(_("Add to Address Book"), 'add_contact.png', 'ctx_contacts_add') ?></div>
 </div>
 
-<?php echo Horde::img('popdown.png', 'v', array('class' => 'popdown', 'id' => 'popdown_img', 'style' => 'display:none')) ?>
+<span id="popdown_img" class="iconImg popdownImg popdown" style="display:none"></span>
