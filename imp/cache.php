@@ -19,8 +19,16 @@
 $expire_time = 525600;
 
 /* Load IMP.php to access IMP::getPathInfo(). */
+$imp_dir = dirname(__FILE__);
 if (!defined('HORDE_BASE')) {
-    define('HORDE_BASE', dirname(__FILE__) . '/..');
+    /* Temporary fix - if horde does not live directly under the imp
+     * directory, the HORDE_BASE constant should be defined in
+     * imp/lib/base.local.php. */
+    if (file_exists($imp_dir . '/lib/base.local.php')) {
+        include $imp_dir . '/lib/base.local.php';
+    } else {
+        define('HORDE_BASE', $imp_dir . '/..');
+    }
 }
 require_once HORDE_BASE . '/lib/core.php';
 $path_info = trim(Util::getPathInfo(), '/');
@@ -47,7 +55,7 @@ if ($type == 'fckeditor') {
 }
 $session_control = 'readonly';
 $session_timeout = 'none';
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once $imp_dir . '/lib/base.php';
 
 switch ($type) {
 case 'css':

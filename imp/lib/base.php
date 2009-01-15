@@ -31,19 +31,28 @@
  * @package IMP
  */
 
+$imp_dir = dirname(__FILE__);
+
 // Check for a prior definition of HORDE_BASE.
 if (!defined('HORDE_BASE')) {
-    define('HORDE_BASE', dirname(__FILE__) . '/../..');
+    /* Temporary fix - if horde does not live directly under the imp
+     * directory, the HORDE_BASE constant should be defined in
+     * imp/lib/base.local.php. */
+    if (file_exists($imp_dir . '/base.local.php')) {
+        include $imp_dir . '/base.local.php';
+    } else {
+        define('HORDE_BASE', $imp_dir . '/../..');
+    }
 }
 
 // Find the base file path of IMP.
 if (!defined('IMP_BASE')) {
-    define('IMP_BASE', dirname(__FILE__) . '/..');
+    define('IMP_BASE', $imp_dir . '/..');
 }
 
 // Load the Horde Framework core, and set up inclusion paths.
 require_once HORDE_BASE . '/lib/core.php';
-Horde_Autoloader::addClassPattern('/^IMP_/', dirname(__FILE__));
+Horde_Autoloader::addClassPattern('/^IMP_/', $imp_dir);
 
 // Registry.
 $s_ctrl = 0;

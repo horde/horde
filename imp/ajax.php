@@ -142,8 +142,16 @@ function _getQuota()
 }
 
 // Need to load Util:: to give us access to Util::getPathInfo().
+$imp_dir = dirname(__FILE__);
 if (!defined('HORDE_BASE')) {
-    define('HORDE_BASE', dirname(__FILE__) . '/..');
+    /* Temporary fix - if horde does not live directly under the imp
+     * directory, the HORDE_BASE constant should be defined in
+     * imp/lib/base.local.php. */
+    if (file_exists($imp_dir . '/lib/base.local.php')) {
+        include $imp_dir . '/lib/base.local.php';
+    } else {
+        define('HORDE_BASE', $imp_dir . '/..');
+    }
 }
 require_once HORDE_BASE . '/lib/core.php';
 $action = basename(Util::getPathInfo());
@@ -162,7 +170,7 @@ if (in_array($action, array('chunkContent', 'Html2Text', 'Text2Html', 'GetReplyD
 
 $dimp_logout = ($action == 'LogOut');
 $session_timeout = 'json';
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once $imp_dir . '/lib/base.php';
 
 // Process common request variables.
 $mbox = Util::getPost('view');
