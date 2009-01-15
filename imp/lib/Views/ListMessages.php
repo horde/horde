@@ -93,6 +93,7 @@ class IMP_Views_ListMessages
         /* Create the base object. */
         $result = new stdClass;
         $result->id = $mbox;
+        $result->reset = false;
         $result->totalrows = $msgcount;
         $result->label = $label;
         $result->cacheid = $imp_mailbox->getCacheID();
