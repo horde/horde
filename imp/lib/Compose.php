@@ -82,7 +82,7 @@ class IMP_Compose
     /**
      * Attempts to return a reference to a concrete IMP_Compose instance.
      *
-     * If a IMP_Cacheid object exists with the given cacheid, recreate that
+     * If an IMP_Cacheid object exists with the given cacheid, recreate that
      * that object.  Else, create a new instance.
      *
      * @param string $cacheid  The cache ID string.
@@ -114,7 +114,7 @@ class IMP_Compose
      *
      * @param string $cacheid  The cache ID string.
      */
-    function __construct($cacheid)
+    protected function __construct($cacheid)
     {
         $this->_cacheid = $cacheid;
     }
@@ -1182,7 +1182,7 @@ class IMP_Compose
         $subject = $h->getValue('subject');
         $header['subject'] = empty($subject)
             ? 'Re: '
-            : 'Re: ' . Horde_Imap_Client::getBaseSubject($subject, array('keepblob' => true));
+            : 'Re: ' . $GLOBALS['imp_imap']->utils->getBaseSubject($subject, array('keepblob' => true));
 
         if (in_array($actionID, array('reply', '*'))) {
             ($header['to'] = $to) ||
@@ -1357,7 +1357,7 @@ class IMP_Compose
         $header['subject'] = $h->getValue('subject');
         if (!empty($header['subject'])) {
             $header['title'] = _("Forward") . ': ' . $header['subject'];
-            $header['subject'] = 'Fwd: ' . Horde_Imap_Client::getBaseSubject($header['subject'], array('keepblob' => true));
+            $header['subject'] = 'Fwd: ' . $GLOBALS['imp_imap']->utils->getBaseSubject($header['subject'], array('keepblob' => true));
         } else {
             $header['title'] = _("Forward");
             $header['subject'] = 'Fwd:';
@@ -1457,7 +1457,7 @@ class IMP_Compose
             } elseif (String::length($name) > 80) {
                 $name = String::substr($name, 0, 80) . '...';
             }
-            return 'Fwd: ' . Horde_Imap_Client::getBaseSubject($name, array('keepblob' => true));
+            return 'Fwd: ' . $GLOBALS['imp_imap']->utils->getBaseSubject($name, array('keepblob' => true));
         } else {
             return 'Fwd: ' . sprintf(_("%u Forwarded Messages"), $attached);
         }
