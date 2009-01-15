@@ -239,8 +239,6 @@ class Horde_Crypt_pgp extends Horde_Crypt
      *     [size]    => Size of the key in bits
      *   )
      *
-     * [fingerprint] => Fingerprint of the PGP data (if available)
-     *                  16-bit hex value (DEPRECATED)
      * [keyid] => Key ID of the PGP data (if available)
      *            16-bit hex value (as of Horde 3.2)
      *
@@ -249,7 +247,6 @@ class Horde_Crypt_pgp extends Horde_Crypt
      *         [name]        => Full Name
      *         [comment]     => Comment
      *         [email]       => E-mail Address
-     *         [fingerprint] => 16-bit hex value (DEPRECATED)
      *         [keyid]       => 16-bit hex value (as of Horde 3.2)
      *         [created]     => Signature creation - UNIX timestamp
      *         [expires]     => Signature expiration - UNIX timestamp
@@ -257,7 +254,6 @@ class Horde_Crypt_pgp extends Horde_Crypt
      *         [sig_{hex}]   => Array [details of a sig verifying the ID] (
      *             [created]     => Signature creation - UNIX timestamp
      *             [expires]     => Signature expiration - UNIX timestamp
-     *             [fingerprint] => 16-bit hex value (DEPRECATED)
      *             [keyid]       => 16-bit hex value (as of Horde 3.2)
      *             [micalg]      => The hash used to create the signature
      *         )
@@ -328,8 +324,6 @@ class Horde_Crypt_pgp extends Horde_Crypt
                         }
                         $data_array['signature'][$header]['email'] = $matches[2];
                         $data_array['signature'][$header]['keyid'] = $keyid;
-                        // TODO: Remove in Horde 4
-                        $data_array['signature'][$header]['fingerprint'] = $keyid;
                     }
                 } elseif (strpos($lowerLine, ':signature packet:') !== false) {
                     if (empty($header) || empty($uid_idx)) {
@@ -339,9 +333,6 @@ class Horde_Crypt_pgp extends Horde_Crypt
                         $sig_id = $matches[1];
                         $data_array['signature'][$header]['sig_' . $sig_id]['keyid'] = $matches[1];
                         $data_array['keyid'] = $matches[1];
-                        // TODO: Remove these 2 entries in Horde 4
-                        $data_array['signature'][$header]['sig_' . $sig_id]['fingerprint'] = $matches[1];
-                        $data_array['fingerprint'] = $matches[1];
                     }
                 } elseif (strpos($lowerLine, ':literal data packet:') !== false) {
                     $header = 'literal';
@@ -390,8 +381,6 @@ class Horde_Crypt_pgp extends Horde_Crypt
         }
 
         $keyid && $data_array['keyid'] = $keyid;
-        // TODO: Remove for Horde 4
-        $keyid && $data_array['fingerprint'] = $keyid;
 
         return $data_array;
     }
@@ -492,7 +481,6 @@ class Horde_Crypt_pgp extends Horde_Crypt
      * name         =>  Full Name
      * comment      =>  Comment
      * email        =>  E-mail Address
-     * fingerprint  =>  16-bit hex value (DEPRECATED)
      * keyid        =>  16-bit hex value
      * created      =>  Signature creation - UNIX timestamp
      * micalg       =>  The hash used to create the signature
@@ -1084,46 +1072,12 @@ class Horde_Crypt_pgp extends Horde_Crypt
      *                 (REQUIRED if 'symmetric' is false)
      * 'passphrase' => The passphrase for the symmetric encryption (REQUIRED if
      *                 'symmetric' is true)
-     * 'pubkey'     => PGP public key. (Optional) (DEPRECATED)
-     * 'email'      => E-mail address of recipient. If not present, or not
-     *                 found in the public key, the first e-mail address found
-     *                 in the key will be used instead. (Optional) (DEPRECATED)
      * </pre>
      *
      * @return string  The encrypted message, or PEAR_Error on error.
      */
     protected function _encryptMessage($text, $params)
     {
-        $email = null;
-
-        if (empty($params['symmetric']) && !isset($params['recips'])) {
-            /* Check for required parameters. */
-            if (!isset($params['pubkey'])) {
-                return PEAR::raiseError(_("A public PGP key is required to encrypt a message."), 'horde.error');
-            }
-
-            /* Get information on the key. */
-            if (isset($params['email'])) {
-                $key_info = $this->pgpPacketSignature($params['pubkey'], $params['email']);
-                if (!empty($key_info)) {
-                    $email = $key_info['email'];
-                }
-            }
-
-            /* If we have no email address at this point, use the first email
-               address found in the public key. */
-            if (empty($email)) {
-                $key_info = $this->pgpPacketInformation($params['pubkey']);
-                if (isset($key_info['signature']['id1']['email'])) {
-                    $email = $key_info['signature']['id1']['email'];
-                } else {
-                    return PEAR::raiseError(_("Could not determine the recipient's e-mail address."), 'horde.error');
-                }
-            }
-
-            $params['recips'] = array($email => $params['pubkey']);
-        }
-
         /* Create temp files for input. */
         $input = $this->_createTempFile('horde-pgp');
         $fp = fopen($input, 'w+');
