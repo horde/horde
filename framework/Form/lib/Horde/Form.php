@@ -1101,7 +1101,7 @@ class Horde_Form_Type_file extends Horde_Form_Type {
     function isValid($var, $vars, $value, &$message)
     {
         if ($var->isRequired()) {
-            $uploaded = Browser::wasFileUploaded($var->getVarName());
+            $uploaded = Horde_Browser::wasFileUploaded($var->getVarName());
             if (is_a($uploaded, 'PEAR_Error')) {
                 $message = $uploaded->getMessage();
                 return false;
@@ -1114,7 +1114,7 @@ class Horde_Form_Type_file extends Horde_Form_Type {
     function getInfo($vars, $var, &$info)
     {
         $name = $var->getVarName();
-        $uploaded = Browser::wasFileUploaded($name);
+        $uploaded = Horde_Browser::wasFileUploaded($name);
         if ($uploaded === true) {
             $info['name'] = $_FILES[$name]['name'];
             $info['type'] = $_FILES[$name]['type'];
@@ -1285,7 +1285,7 @@ class Horde_Form_Type_image extends Horde_Form_Type {
 
         /* Check if file has been uploaded. */
         $varname = $var->getVarName();
-        $this->_uploaded = Browser::wasFileUploaded($varname . '[new]');
+        $this->_uploaded = Horde_Browser::wasFileUploaded($varname . '[new]');
 
         if ($this->_uploaded === true) {
             /* A file has been uploaded on this submit. Save to temp dir for

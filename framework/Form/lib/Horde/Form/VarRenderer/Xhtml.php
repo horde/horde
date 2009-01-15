@@ -186,7 +186,7 @@ if (tmp) {
     p.src = 'file:///' + tmp;
     p.alt = '" . addslashes(_("If you see this message but no image, the image you want to upload can't be displayed by your browser.")) . "';
 }";
-            $browser = Browser::singleton();
+            $browser = Horde_Browser::singleton();
             if ($browser->isBrowser('msie')) {
                 $html .= sprintf('    <input type="file" class="form-input-file" name="%1$s" id="%1$s" onchange="%2$s" />',
                              $varname . '[new]',
