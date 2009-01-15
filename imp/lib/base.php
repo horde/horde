@@ -43,7 +43,6 @@ if (!defined('IMP_BASE')) {
 
 // Load the Horde Framework core, and set up inclusion paths.
 require_once HORDE_BASE . '/lib/core.php';
-require_once 'Horde/Autoloader.php';
 Horde_Autoloader::addClassPattern('/^IMP_/', dirname(__FILE__));
 
 // Registry.
