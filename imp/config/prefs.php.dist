@@ -4,9 +4,6 @@
  */
 
 // Make sure that constants are defined.
-require_once dirname(__FILE__) . '/../lib/IMP.php';
-require_once dirname(__FILE__) . '/../lib/IMAP.php';
-require_once 'Horde/Imap/Client.php';
 $is_pop3 = isset($_SESSION['imp']['protocol']) && ($_SESSION['imp']['protocol'] == 'pop');
 
 $prefGroups['identities'] = array(

@@ -52,6 +52,7 @@ if (!defined('IMP_BASE')) {
 
 // Load the Horde Framework core, and set up inclusion paths.
 require_once HORDE_BASE . '/lib/core.php';
+Horde_Autoloader::addClassPath($imp_dir);
 Horde_Autoloader::addClassPattern('/^IMP_/', $imp_dir);
 
 // Registry.
@@ -72,9 +73,6 @@ case 'readonly':
     break;
 }
 $registry = &Registry::singleton($s_ctrl);
-
-// Need to explicitly load IMP.php
-require_once IMP_BASE . '/lib/IMP.php';
 
 // We explicitly do not check application permissions for the compose
 // and login pages, since those are handled below and need to fall through
@@ -211,14 +209,8 @@ $GLOBALS['imp_search'] = (isset($_SESSION['imp']) && strpos($GLOBALS['imp_mbox']
     : new IMP_Search();
 
 if ($viewmode == 'mimp') {
-    // Need to explicitly load MIMP.php
-    require_once IMP_BASE . '/lib/MIMP.php';
-
     // Mobile markup renderer.
     $debug = Util::nonInputVar('mimp_debug');
     $GLOBALS['mimp_render'] = new Horde_Mobile(null, $debug);
     $GLOBALS['mimp_render']->set('debug', !empty($debug));
-} elseif ($viewmode == 'dimp') {
-    // Need to explicitly load DIMP.php
-    require_once IMP_BASE . '/lib/DIMP.php';
 }

@@ -710,10 +710,7 @@ case 'SMIMEPersonal':
         $result->error = _("Invalid passphrase entered.");
     }
 
-    /* TODO - This code will eventually be moved to the API. But this function
-     * may be called by IMP so explicitly include DIMP.php. */
     if ($_SESSION['imp']['view'] != 'dimp') {
-        require_once IMP_BASE . '/lib/DIMP.php';
         $notify = false;
     }
 
@@ -728,10 +725,6 @@ case 'Fetchmail':
         $result->success = 1;
     }
 
-    /* TODO - This code will eventually be moved to the API. But this function
-     * may be called by IMP so explicitly include DIMP.php. */
-    require_once IMP_BASE . '/lib/DIMP.php';
-
     /* Don't send dimp notifications via this response since the listener
      * on the browser (dialog.js) doesn't know what to do with them. Instead,
      * notifications will be picked up via the PollFolders() call that is
@@ -742,12 +735,7 @@ case 'Fetchmail':
 
 case 'FetchmailDialog':
     $result = IMP_Fetchmail::fetchmailDialogForm();
-
-    /* TODO - This code will eventually be moved to the API. But this function
-     * may be called by IMP so explicitly include DIMP.php. */
-    require_once IMP_BASE . '/lib/DIMP.php';
     $notify = false;
-
     break;
 }
 
