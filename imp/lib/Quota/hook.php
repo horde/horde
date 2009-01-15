@@ -28,7 +28,6 @@ class IMP_Quota_hook extends IMP_Quota
      *                'limit' = Maximum quota allowed
      *                'usage' = Currently used portion of quota (in bytes)
      */
-     */
     public function getQuota()
     {
         $quota = Horde::callHook('_imp_hook_quota', $this->_params, 'imp');

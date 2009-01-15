@@ -65,7 +65,6 @@ class IMP_Quota_command extends IMP_Quota
      *                'limit' = Maximum quota allowed
      *                'usage' = Currently used portion of quota (in bytes)
      */
-     */
     public function getQuota()
     {
         if (empty($this->_params['partition'])) {
