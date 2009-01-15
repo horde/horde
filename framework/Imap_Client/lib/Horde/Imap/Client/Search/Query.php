@@ -66,6 +66,21 @@ class Horde_Imap_Client_Search_Query
     protected $_exts = array();
 
     /**
+     * The Horde_Imap_Client_Utils object
+     *
+     * @var Horde_Imap_Client_Utils
+     */
+    protected $_utils = null;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->_utils = new Horde_Imap_Client_Utils();
+    }
+
+    /**
      * Sets the charset of the search text.
      *
      * @param string $charset  The charset to use for the search.
@@ -140,7 +155,7 @@ class Horde_Imap_Client_Search_Query
                     $tmp .= 'HEADER ';
                     $imap4 = true;
                 }
-                $cmds[] = $tmp . $val['header'] . ' ' . Horde_Imap_Client::escape($val['text']);
+                $cmds[] = $tmp . $val['header'] . ' ' . $this->_utils->escape($val['text']);
             }
         }
 
@@ -152,7 +167,7 @@ class Horde_Imap_Client_Search_Query
                     // NOT searches were not in IMAP2
                     $imap4 = true;
                 }
-                $cmds[] = $tmp . $val['type'] . ' ' . Horde_Imap_Client::escape($val['text']);
+                $cmds[] = $tmp . $val['type'] . ' ' . $this->_utils->escape($val['text']);
             }
         }
 
@@ -205,7 +220,7 @@ class Horde_Imap_Client_Search_Query
                 'MODSEQ ' .
                 (is_null($ptr['modseq']['name'])
                     ? ''
-                    : Horde_Imap_Client::escape($ptr['modseq']['name']) . ' ' . $ptr['modseq']['type'] . ' ') .
+                    : $this->_utils->escape($ptr['modseq']['name']) . ' ' . $ptr['modseq']['type'] . ' ') .
                 $ptr['modseq']['value'];
         }
 
@@ -372,7 +387,7 @@ class Horde_Imap_Client_Search_Query
         if (empty($ids)) {
             $ids = '1:*';
         } else {
-            $ids = Horde_Imap_Client::toSequenceString($ids);
+            $ids = $this->_utils->toSequenceString($ids);
         }
         $this->_search['sequence'] = array(
             'ids' => $ids,

@@ -238,7 +238,7 @@ class Horde_Imap_Client_Cclient_Pop3 extends Horde_Imap_Client_Cclient
         if ($search_query['imap4'] ||
             (!empty($options['sort']) &&
              ((count($options['sort']) > 1) ||
-             in_array(self::SORT_REVERSE, $options['sort'])))) {
+             in_array(Horde_Imap_Client::SORT_REVERSE, $options['sort'])))) {
             throw new Horde_Imap_Client_Exception('Unsupported search criteria on POP3 server.', Horde_Imap_Client_Exception::POP3_NOTSUPPORTED);
         }
 
@@ -282,7 +282,7 @@ class Horde_Imap_Client_Cclient_Pop3 extends Horde_Imap_Client_Cclient
          * and does not support defining search criteria. */
         if (!empty($options['search']) ||
             (!empty($options['criteria']) &&
-             $options['criteria'] != self::THREAD_REFERENCES)) {
+             $options['criteria'] != Horde_Imap_Client::THREAD_REFERENCES)) {
             throw new Horde_Imap_Client_Exception('Unsupported threading criteria on POP3 server.', Horde_Imap_Client_Exception::POP3_NOTSUPPORTED);
         }
 
@@ -315,7 +315,7 @@ class Horde_Imap_Client_Cclient_Pop3 extends Horde_Imap_Client_Cclient
     protected function _fetch($criteria, $options)
     {
         // No support for FETCH_MIMEHEADER or FETCH_HEADERS
-        $nosupport = array(self::FETCH_MIMEHEADER, self::FETCH_HEADERS);
+        $nosupport = array(Horde_Imap_Client::FETCH_MIMEHEADER, Horde_Imap_Client::FETCH_HEADERS);
 
         reset($criteria);
         while (list($val,) = each($criteria)) {

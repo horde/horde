@@ -62,9 +62,16 @@ abstract class Horde_Imap_Client_Base
     );
 
     /**
+     * The Horde_Imap_Client_Utils object
+     *
+     * @var Horde_Imap_Client_Utils
+     */
+    protected $_utils = null;
+
+    /**
      * The Horde_Imap_Client_Cache object.
      *
-     * @var Horde_Cache
+     * @var Horde_Imap_Client_Cache
      */
     protected $_cacheOb = null;
 
@@ -74,350 +81,6 @@ abstract class Horde_Imap_Client_Base
      * @var resource
      */
     protected $_debug = null;
-
-    /**
-     * Create an IMAP message sequence string from a list of indices.
-     * Format: range_start:range_end,uid,uid2,range2_start:range2_end,...
-     *
-     * @param array $in  An array of indices.
-     * @param array $options  Additional options:
-     * <pre>
-     * 'nosort' - (boolean) Do not numerically sort the IDs before creating
-     *            the range?
-     *            DEFAULT: IDs are sorted
-     * </pre>
-     *
-     * @return string  The IMAP message sequence string.
-     */
-    static public function toSequenceString($ids, $options = array())
-    {
-        if (empty($ids)) {
-            return '';
-        }
-
-        // Make sure IDs are unique
-        $ids = array_keys(array_flip($ids));
-
-        if (empty($options['nosort'])) {
-            sort($ids, SORT_NUMERIC);
-        }
-
-        $first = $last = array_shift($ids);
-        $out = array();
-
-        foreach ($ids as $val) {
-            if ($last + 1 == $val) {
-                $last = $val;
-            } else {
-                $out[] = $first . ($last == $first ? '' : (':' . $last));
-                $first = $last = $val;
-            }
-        }
-        $out[] = $first . ($last == $first ? '' : (':' . $last));
-
-        return implode(',', $out);
-    }
-
-    /**
-     * Parse an IMAP message sequence string into a list of indices.
-     * Format: range_start:range_end,uid,uid2,range2_start:range2_end,...
-     *
-     * @param string $str  The IMAP message sequence string.
-     *
-     * @return array  An array of indices.
-     */
-    static public function fromSequenceString($str)
-    {
-        $ids = array();
-        $str = trim($str);
-
-        $idarray = explode(',', $str);
-        if (empty($idarray)) {
-            $idarray = array($str);
-        }
-
-        foreach ($idarray as $val) {
-            $range = array_map('intval', explode(':', $val));
-            if (count($range) == 1) {
-                $ids[] = $val;
-            } else {
-                list($low, $high) = ($range[0] < $range[1]) ? $range : array_reverse($range);
-                $ids = array_merge($ids, range($low, $high));
-            }
-        }
-
-        return $ids;
-    }
-
-    /**
-     * Remove "bare newlines" from a string.
-     *
-     * @param string $str  The original string.
-     *
-     * @return string  The string with all bare newlines removed.
-     */
-    static public function removeBareNewlines($str)
-    {
-        return str_replace(array("\r\n", "\n"), array("\n", "\r\n"), $str);
-    }
-
-    /**
-     * Escape IMAP output via a quoted string (see RFC 3501 [4.3]).
-     *
-     * @param string $str  The unescaped string.
-     *
-     * @return string  The escaped string.
-     */
-    static public function escape($str)
-    {
-        return '"' . addcslashes($str, '"\\') . '"';
-    }
-
-    /**
-     * Return the "base subject" defined in RFC 5256 [2.1].
-     *
-     * @param string $str     The original subject string.
-     * @param array $options  Additional options:
-     * <pre>
-     * 'keepblob' - (boolean) Don't remove any "blob" information (i.e. text
-     *              leading text between square brackets) from string.
-     * </pre>
-     *
-     * @return string  The cleaned up subject string.
-     */
-    static public function getBaseSubject($str, $options = array())
-    {
-        // Rule 1a: MIME decode to UTF-8 (if possible).
-        $str = Horde_Mime::decode($str, 'UTF-8');
-
-        // Rule 1b: Remove superfluous whitespace.
-        $str = preg_replace("/\s{2,}/", '', $str);
-
-        if (!$str) {
-            return '';
-        }
-
-        do {
-            /* (2) Remove all trailing text of the subject that matches the
-             * the subj-trailer ABNF, repeat until no more matches are
-             * possible. */
-            $str = preg_replace("/(?:\s*\(fwd\)\s*)+$/i", '', $str);
-
-            do {
-                /* (3) Remove all prefix text of the subject that matches the
-                 * subj-leader ABNF. */
-                $found = self::_removeSubjLeader($str, !empty($options['keepblob']));
-
-                /* (4) If there is prefix text of the subject that matches
-                 * the subj-blob ABNF, and removing that prefix leaves a
-                 * non-empty subj-base, then remove the prefix text. */
-                $found = (empty($options['keepblob']) && self::_removeBlobWhenNonempty($str)) || $found;
-
-                /* (5) Repeat (3) and (4) until no matches remain. */
-            } while ($found);
-
-            /* (6) If the resulting text begins with the subj-fwd-hdr ABNF and
-             * ends with the subj-fwd-trl ABNF, remove the subj-fwd-hdr and
-             * subj-fwd-trl and repeat from step (2). */
-        } while (self::_removeSubjFwdHdr($str));
-
-        return $str;
-    }
-
-    /**
-     * Parse an IMAP URL (RFC 5092).
-     *
-     * @param string $url  A IMAP URL string.
-     *
-     * @return mixed  False if the URL is invalid.  If valid, a URL with the
-     *                following fields:
-     * <pre>
-     * 'auth' - (string) The authentication method to use.
-     * 'port' - (integer) The remote port
-     * 'hostspec' - (string) The remote server
-     * 'username' - (string) The username to use on the remote server.
-     * </pre>
-     */
-    static public function parseImapUrl($url)
-    {
-        $url = trim($url);
-        if (stripos($url, 'imap://') !== 0) {
-            return false;
-        }
-        $url = substr($url, 7);
-
-        /* At present, only support imap://<iserver>[/] style URLs. */
-        if (($pos = strpos($url, '/')) !== false) {
-            $url = substr($url, 0, $pos);
-        }
-
-        $ret_array = array();
-
-        /* Check for username/auth information. */
-        if (($pos = strpos($url, '@')) !== false) {
-            if ((($apos = stripos($url, ';AUTH=')) !== false) &&
-                ($apos < $pos)) {
-                $auth = substr($url, $apos + 6, $pos - $apos - 6);
-                if ($auth != '*') {
-                    $ret_array['auth'] = $auth;
-                }
-                if ($apos) {
-                    $ret_array['username'] = substr($url, 0, $apos);
-                }
-            }
-            $url = substr($url, $pos + 1);
-        }
-
-        /* Check for port information. */
-        if (($pos = strpos($url, ':')) !== false) {
-            $ret_array['port'] = substr($url, $pos + 1);
-            $url = substr($url, 0, $pos);
-        }
-
-        $ret_array['hostspec'] = $url;
-
-        return $ret_array;
-    }
-
-    /**
-     * Remove all prefix text of the subject that matches the subj-leader
-     * ABNF.
-     *
-     * @param string &$str       The subject string.
-     * @param boolean $keepblob  Remove blob information?
-     *
-     * @return boolean  True if string was altered.
-     */
-    static protected function _removeSubjLeader(&$str, $keepblob = false)
-    {
-        $ret = false;
-
-        if (!$str) {
-            return $ret;
-        }
-
-        if ($str[0] == ' ') {
-            $str = substr($str, 1);
-            $ret = true;
-        }
-
-        $i = 0;
-
-        if (!$keepblob) {
-            while ($str[$i] == '[') {
-                if (($i = self::_removeBlob($str, $i)) === false) {
-                    return $ret;
-                }
-            }
-        }
-
-        $cmp_str = substr($str, $i);
-        if (stripos($cmp_str, 're') === 0) {
-            $i += 2;
-        } elseif (stripos($cmp_str, 'fwd') === 0) {
-            $i += 3;
-        } elseif (stripos($cmp_str, 'fw') === 0) {
-            $i += 2;
-        } else {
-            return $ret;
-        }
-
-        if ($str[$i] == ' ') {
-            ++$i;
-        }
-
-        if (!$keepblob) {
-            while ($str[$i] == '[') {
-                if (($i = self::_removeBlob($str, $i)) === false) {
-                    return $ret;
-                }
-            }
-        }
-
-        if ($str[$i] != ':') {
-            return $ret;
-        }
-
-        $str = substr($str, ++$i);
-
-        return true;
-    }
-
-    /**
-     * Remove "[...]" text.
-     *
-     * @param string &$str  The subject string.
-     *
-     * @return boolean  True if string was altered.
-     */
-    static protected function _removeBlob($str, $i)
-    {
-        if ($str[$i] != '[') {
-            return false;
-        }
-
-        ++$i;
-
-        for ($cnt = strlen($str); $i < $cnt; ++$i) {
-            if ($str[$i] == ']') {
-                break;
-            }
-
-            if ($str[$i] == '[') {
-                return false;
-            }
-        }
-
-        if ($i == ($cnt - 1)) {
-            return false;
-        }
-
-        ++$i;
-
-        if ($str[$i] == ' ') {
-            ++$i;
-        }
-
-        return $i;
-    }
-
-    /**
-     * Remove "[...]" text if it doesn't result in the subject becoming
-     * empty.
-     *
-     * @param string &$str  The subject string.
-     *
-     * @return boolean  True if string was altered.
-     */
-    static protected function _removeBlobWhenNonempty(&$str)
-    {
-        if ($str &&
-            ($str[0] == '[') &&
-            (($i = self::_removeBlob($str, 0)) !== false) &&
-            ($i != strlen($str))) {
-            $str = substr($str, $i);
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * Remove a "[fwd: ... ]" string.
-     *
-     * @param string &$str  The subject string.
-     *
-     * @return boolean  True if string was altered.
-     */
-    static protected function _removeSubjFwdHdr(&$str)
-    {
-        if ((stripos($str, '[fwd:') !== 0) || (substr($str, -1) != ']')) {
-            return false;
-        }
-
-        $str = substr($str, 5, -1);
-        return true;
-    }
 
     /**
      * Constructs a new Horde_Imap_Client object.
@@ -448,17 +111,19 @@ abstract class Horde_Imap_Client_Base
             $params['cache'] = array('fields' => array());
         } elseif (empty($params['cache']['fields'])) {
             $params['cache']['fields'] = array(
-                self::FETCH_STRUCTURE => 1,
-                self::FETCH_ENVELOPE => 1,
-                self::FETCH_FLAGS => 1,
-                self::FETCH_DATE => 1,
-                self::FETCH_SIZE => 1
+                Horde_Imap_Client::FETCH_STRUCTURE => 1,
+                Horde_Imap_Client::FETCH_ENVELOPE => 1,
+                Horde_Imap_Client::FETCH_FLAGS => 1,
+                Horde_Imap_Client::FETCH_DATE => 1,
+                Horde_Imap_Client::FETCH_SIZE => 1
             );
         } else {
             $params['cache']['fields'] = array_flip($params['cache']['fields']);
         }
 
         $this->_params = $params;
+
+        $this->_utils = new Horde_Imap_Client_Utils();
 
         // This will initialize debugging, if needed.
         $this->__wakeup();
@@ -674,7 +339,7 @@ abstract class Horde_Imap_Client_Base
                 continue;
             }
 
-            $mbox = $this->listMailboxes($val, self::MBOX_ALL, array('delimiter' => true));
+            $mbox = $this->listMailboxes($val, Horde_Imap_Client::MBOX_ALL, array('delimiter' => true));
             $first = reset($mbox);
 
             if ($first && ($first['mailbox'] == $val)) {
@@ -691,7 +356,7 @@ abstract class Horde_Imap_Client_Base
             /* This accurately determines the namespace information of the
              * base namespace if the NAMESPACE command is not supported.
              * See: RFC 3501 [6.3.8] */
-            $mbox = $this->listMailboxes('', self::MBOX_ALL, array('delimiter' => true));
+            $mbox = $this->listMailboxes('', Horde_Imap_Client::MBOX_ALL, array('delimiter' => true));
             $first = reset($mbox);
             $ns[''] = array(
                 'name' => '',
@@ -766,9 +431,9 @@ abstract class Horde_Imap_Client_Base
             }
 
             /* Check for ability to cache flags here. */
-            if (isset($this->_params['cache']['fields'][self::FETCH_FLAGS]) &&
+            if (isset($this->_params['cache']['fields'][Horde_Imap_Client::FETCH_FLAGS]) &&
                 !isset($this->_init['enabled']['CONDSTORE'])) {
-                unset($this->_params['cache']['fields'][self::FETCH_FLAGS]);
+                unset($this->_params['cache']['fields'][Horde_Imap_Client::FETCH_FLAGS]);
             }
         }
 
@@ -927,15 +592,15 @@ abstract class Horde_Imap_Client_Base
      *                         Horde_Imap_Client::OPEN_READWRITE, or
      *                         Horde_Imap_Client::OPEN_AUTO.
      */
-    public function openMailbox($mailbox, $mode = self::OPEN_AUTO)
+    public function openMailbox($mailbox, $mode = Horde_Imap_Client::OPEN_AUTO)
     {
         $change = false;
 
         $mailbox = Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($mailbox);
 
-        if ($mode == self::OPEN_AUTO) {
+        if ($mode == Horde_Imap_Client::OPEN_AUTO) {
             if (is_null($this->_selected) || ($this->_selected != $mailbox)) {
-                $mode = self::OPEN_READONLY;
+                $mode = Horde_Imap_Client::OPEN_READONLY;
                 $change = true;
             }
         } elseif (is_null($this->_selected) ||
@@ -1052,7 +717,7 @@ abstract class Horde_Imap_Client_Base
         $new = Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($new);
 
         /* Check if old mailbox was subscribed to. */
-        $subscribed = $this->listMailboxes($old, self::MBOX_SUBSCRIBED, array('flat' => true));
+        $subscribed = $this->listMailboxes($old, Horde_Imap_Client::MBOX_SUBSCRIBED, array('flat' => true));
 
         $this->_renameMailbox($old, $new);
 
@@ -1143,7 +808,7 @@ abstract class Horde_Imap_Client_Base
      *                if 'attributes' option is true), and 'delimiter' (only
      *                if 'delimiter' option is true).
      */
-    public function listMailboxes($pattern, $mode = self::MBOX_ALL,
+    public function listMailboxes($pattern, $mode = Horde_Imap_Client::MBOX_ALL,
                                   $options = array())
     {
         $ret = $this->_listMailboxes(Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($pattern), $mode, $options);
@@ -1236,15 +901,15 @@ abstract class Horde_Imap_Client_Base
      *
      * @return array  An array with the requested keys (see above).
      */
-    public function status($mailbox, $flags = self::STATUS_ALL)
+    public function status($mailbox, $flags = Horde_Imap_Client::STATUS_ALL)
     {
-        if ($flags & self::STATUS_ALL) {
-            $flags |= self::STATUS_MESSAGES | self::STATUS_RECENT | self::STATUS_UNSEEN | self::STATUS_UIDNEXT | self::STATUS_UIDVALIDITY;
+        if ($flags & Horde_Imap_Client::STATUS_ALL) {
+            $flags |= Horde_Imap_Client::STATUS_MESSAGES | Horde_Imap_Client::STATUS_RECENT | Horde_Imap_Client::STATUS_UNSEEN | Horde_Imap_Client::STATUS_UIDNEXT | Horde_Imap_Client::STATUS_UIDVALIDITY;
         }
 
         /* STATUS_PERMFLAGS requires a read/write mailbox. */
-        if ($flags & self::STATUS_PERMFLAGS) {
-            $this->openMailbox($mailbox, self::OPEN_READWRITE);
+        if ($flags & Horde_Imap_Client::STATUS_PERMFLAGS) {
+            $this->openMailbox($mailbox, Horde_Imap_Client::OPEN_READWRITE);
         }
 
         return $this->_status(Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($mailbox), $flags);
@@ -1258,7 +923,7 @@ abstract class Horde_Imap_Client_Base
      * @param string $flags    A bitmask of information requested from the
      *                         server.
      *
-     * @return array  See Horde_Imap_Client_Base::status().
+     * @return array  See self::status().
      */
     abstract protected function _status($mailbox, $flags);
 
@@ -1425,7 +1090,7 @@ abstract class Horde_Imap_Client_Base
      */
     public function expunge($mailbox, $options = array())
     {
-        $this->openMailbox($mailbox, self::OPEN_READWRITE);
+        $this->openMailbox($mailbox, Horde_Imap_Client::OPEN_READWRITE);
         $this->_expunge($options);
     }
 
@@ -1517,12 +1182,12 @@ abstract class Horde_Imap_Client_Base
      */
     public function search($mailbox, $query = null, $options = array())
     {
-        $this->openMailbox($mailbox, self::OPEN_AUTO);
+        $this->openMailbox($mailbox, Horde_Imap_Client::OPEN_AUTO);
 
         if (empty($options['results'])) {
             $options['results'] = array(
-                self::SORT_RESULTS_MATCH,
-                self::SORT_RESULTS_COUNT
+                Horde_Imap_Client::SORT_RESULTS_MATCH,
+                Horde_Imap_Client::SORT_RESULTS_COUNT
             );
         }
 
@@ -1538,14 +1203,14 @@ abstract class Horde_Imap_Client_Base
          * optimize with unseen queries because we may cause an infinite loop
          * between here and the status() call. */
         if ((count($options['results']) == 1) &&
-            (reset($options['results']) == self::SORT_RESULTS_COUNT)) {
+            (reset($options['results']) == Horde_Imap_Client::SORT_RESULTS_COUNT)) {
             switch ($options['_query']['query']) {
             case 'ALL':
-                $ret = $this->status($this->_selected, self::STATUS_MESSAGES);
+                $ret = $this->status($this->_selected, Horde_Imap_Client::STATUS_MESSAGES);
                 return array('count' => $ret['messages']);
 
             case 'RECENT':
-                $ret = $this->status($this->_selected, self::STATUS_RECENT);
+                $ret = $this->status($this->_selected, Horde_Imap_Client::STATUS_RECENT);
                 return array('count' => $ret['recent']);
             }
         }
@@ -1662,7 +1327,7 @@ abstract class Horde_Imap_Client_Base
      */
     public function thread($mailbox, $options = array())
     {
-        $this->openMailbox($mailbox, self::OPEN_AUTO);
+        $this->openMailbox($mailbox, Horde_Imap_Client::OPEN_AUTO);
 
         $ret = $this->_thread($options);
         return new Horde_Imap_Client_Thread($ret, empty($options['sequence']) ? 'uid' : 'sequence');
@@ -2052,13 +1717,13 @@ abstract class Horde_Imap_Client_Base
 
         /* If using cache, we store by UID so we need to return UIDs. */
         if ($seq && !empty($cf)) {
-            $criteria[self::FETCH_UID] = true;
+            $criteria[Horde_Imap_Client::FETCH_UID] = true;
         }
 
-        $this->openMailbox($mailbox, self::OPEN_AUTO);
+        $this->openMailbox($mailbox, Horde_Imap_Client::OPEN_AUTO);
 
         /* We need the UIDVALIDITY for the current mailbox. */
-        $status_res = $this->status($this->_selected, self::STATUS_HIGHESTMODSEQ | self::STATUS_UIDVALIDITY);
+        $status_res = $this->status($this->_selected, Horde_Imap_Client::STATUS_HIGHESTMODSEQ | Horde_Imap_Client::STATUS_UIDVALIDITY);
 
         /* Determine if caching is available and if anything in $criteria is
          * cacheable. Do some sanity checking on criteria also. */
@@ -2066,7 +1731,7 @@ abstract class Horde_Imap_Client_Base
             $cache_field = null;
 
             switch ($k) {
-            case self::FETCH_STRUCTURE:
+            case Horde_Imap_Client::FETCH_STRUCTURE:
                 /* Don't cache if 'noext' is present. It will probably be a
                  * rare event anyway. */
                 if (empty($v['noext']) && isset($cf[$k])) {
@@ -2077,20 +1742,20 @@ abstract class Horde_Imap_Client_Base
                 }
                 break;
 
-            case self::FETCH_BODYPARTSIZE:
+            case Horde_Imap_Client::FETCH_BODYPARTSIZE:
                 if (!$this->queryCapability('BINARY')) {
                     unset($criteria[$k]);
                 }
                 break;
 
-            case self::FETCH_ENVELOPE:
+            case Horde_Imap_Client::FETCH_ENVELOPE:
                 if (isset($cf[$k])) {
                     $cache_field = 'HICenv';
                     $fetch_field = 'envelope';
                 }
                 break;
 
-            case self::FETCH_FLAGS:
+            case Horde_Imap_Client::FETCH_FLAGS:
                 if (isset($cf[$k])) {
                     /* QRESYNC would have already done syncing on mailbox
                      * open, so no need to do again. */
@@ -2102,7 +1767,7 @@ abstract class Horde_Imap_Client_Base
                             ($metadata['HICmodseq'] != $status_res['highestmodseq'])) {
                             $uids = $this->_cacheOb->get($this->_selected, array(), array(), $status_res['uidvalidity']);
                             if (!empty($uids)) {
-                                $this->_fetch(array(self::FETCH_FLAGS => true), array('changedsince' => $metadata['HICmodseq'], 'ids' => $uids));
+                                $this->_fetch(array(Horde_Imap_Client::FETCH_FLAGS => true), array('changedsince' => $metadata['HICmodseq'], 'ids' => $uids));
                             }
                             $this->_cacheOb->setMetaData($mailbox, array('HICmodseq' => $status_res['highestmodseq']));
                         }
@@ -2113,21 +1778,21 @@ abstract class Horde_Imap_Client_Base
                 }
                 break;
 
-            case self::FETCH_DATE:
+            case Horde_Imap_Client::FETCH_DATE:
                 if (isset($cf[$k])) {
                     $cache_field = 'HICdate';
                     $fetch_field = 'date';
                 }
                 break;
 
-            case self::FETCH_SIZE:
+            case Horde_Imap_Client::FETCH_SIZE:
                 if (isset($cf[$k])) {
                     $cache_field = 'HICsize';
                     $fetch_field = 'size';
                 }
                 break;
 
-            case self::FETCH_MODSEQ:
+            case Horde_Imap_Client::FETCH_MODSEQ:
                 if (!isset($this->_init['enabled']['CONDSTORE'])) {
                     unset($criteria[$k]);
                 }
@@ -2183,7 +1848,7 @@ abstract class Horde_Imap_Client_Base
             }
 
             if (!$seq) {
-                unset($crit[self::FETCH_UID]);
+                unset($crit[Horde_Imap_Client::FETCH_UID]);
             }
 
             if (!empty($crit)) {
@@ -2260,7 +1925,7 @@ abstract class Horde_Imap_Client_Base
      */
     public function store($mailbox, $options = array())
     {
-        $this->openMailbox($mailbox, self::OPEN_READWRITE);
+        $this->openMailbox($mailbox, Horde_Imap_Client::OPEN_READWRITE);
 
         if (!empty($options['unchangedsince']) &&
             !isset($this->_init['enabled']['CONDSTORE'])) {
@@ -2276,7 +1941,7 @@ abstract class Horde_Imap_Client_Base
      *
      * @param array $options  Additional options.
      *
-     * @return array  See Horde_Imap_Client::store().
+     * @return array  See self::store().
      */
     abstract protected function _store($options);
 
@@ -2306,7 +1971,7 @@ abstract class Horde_Imap_Client_Base
      */
     public function copy($source, $dest, $options = array())
     {
-        $this->openMailbox($source, empty($options['move']) ? self::OPEN_AUTO : self::OPEN_READWRITE);
+        $this->openMailbox($source, empty($options['move']) ? Horde_Imap_Client::OPEN_AUTO : Horde_Imap_Client::OPEN_READWRITE);
         return $this->_copy(Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($dest), $options);
     }
 
@@ -2570,7 +2235,7 @@ abstract class Horde_Imap_Client_Base
     {
         $search = new Horde_Imap_Client_Search_Query();
         $search->sequence($ids, $seq);
-        $res = $this->search($this->_selected, $search, array('sort' => array(self::SORT_ARRIVAL)));
+        $res = $this->search($this->_selected, $search, array('sort' => array(Horde_Imap_Client::SORT_ARRIVAL)));
         $ret = array('uids' => $res['sort']);
         if ($seq) {
             if (empty($ids)) {
@@ -2615,7 +2280,7 @@ abstract class Horde_Imap_Client_Base
         $mailbox = empty($options['mailbox']) ? $this->_selected : $options['mailbox'];
 
         if (empty($options['uidvalid'])) {
-            $status_res = $this->status($mailbox, self::STATUS_HIGHESTMODSEQ | self::STATUS_UIDVALIDITY);
+            $status_res = $this->status($mailbox, Horde_Imap_Client::STATUS_HIGHESTMODSEQ | Horde_Imap_Client::STATUS_UIDVALIDITY);
             $uidvalid = $status_res['uidvalidity'];
             if (isset($status_res['highestmodseq'])) {
                 $highestmodseq[] = $status_res['highestmodseq'];
@@ -2633,19 +2298,19 @@ abstract class Horde_Imap_Client_Base
             while (list($label, $val) = each($v)) {
                 switch ($label) {
                 case 'structure':
-                    if (isset($cf[self::FETCH_STRUCTURE])) {
+                    if (isset($cf[Horde_Imap_Client::FETCH_STRUCTURE])) {
                         $tmp[is_array($val) ? 'HICstructa' : 'HICstructm'] = $val;
                     }
                     break;
 
                 case 'envelope':
-                    if (isset($cf[self::FETCH_ENVELOPE])) {
+                    if (isset($cf[Horde_Imap_Client::FETCH_ENVELOPE])) {
                         $tmp['HICenv'] = $val;
                     }
                     break;
 
                 case 'flags':
-                    if (isset($cf[self::FETCH_FLAGS])) {
+                    if (isset($cf[Horde_Imap_Client::FETCH_FLAGS])) {
                         /* A FLAGS FETCH can only occur if we are in the
                          * mailbox. So either HIGHESTMODSEQ has already been
                          * updated or the flag FETCHs will provide the new
@@ -2664,13 +2329,13 @@ abstract class Horde_Imap_Client_Base
                     break;
 
                 case 'date':
-                    if (isset($cf[self::FETCH_DATE])) {
+                    if (isset($cf[Horde_Imap_Client::FETCH_DATE])) {
                         $tmp['HICdate'] = $val;
                     }
                     break;
 
                 case 'size':
-                    if (isset($cf[self::FETCH_SIZE])) {
+                    if (isset($cf[Horde_Imap_Client::FETCH_SIZE])) {
                         $tmp['HICsize'] = $val;
                     }
                     break;

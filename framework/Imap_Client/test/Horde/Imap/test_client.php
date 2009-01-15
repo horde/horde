@@ -74,7 +74,7 @@ if (empty($argv[2])) {
 }
 
 if (!empty($argv[3])) {
-    $params = array_merge($params, Horde_Imap_Client::parseImapUrl($argv[3]));
+    $params = array_merge($params, $imap_utils->parseImapUrl($argv[3]));
 }
 
 function exception_handler($exception) {
@@ -92,6 +92,7 @@ if (@include_once 'Benchmark/Timer.php') {
 // Add an ID field to send to server (ID extension)
 $params['id'] = array('name' => 'Horde_Imap_Client test program');
 
+$imap_utils = new Horde_Imap_Client_Utils();
 $imap_client = Horde_Imap_Client::getInstance($driver, $params);
 if ($driver == 'Cclient_Pop3') {
     $test_mbox = $test_mbox_utf8 = 'INBOX';
@@ -536,7 +537,7 @@ try {
 print "\nSort 1st 5 messages in " . $test_mbox . " by thread - references algorithm (UIDs).\n";
 try {
     $ten_query = new Horde_Imap_Client_Search_Query();
-    $ten_query->sequence(Horde_Imap_Client::fromSequenceString('1:5'), true);
+    $ten_query->sequence($imap_utils->fromSequenceString('1:5'), true);
     print_r($imap_client->thread($test_mbox, array('search' => $ten_query, 'criteria' => Horde_Imap_Client::THREAD_REFERENCES)));
     print "Thread search: OK\n";
 } catch (Horde_Imap_Client_Exception $e) {
@@ -854,7 +855,7 @@ $subject_lines = array(
 print "\nBase subject parsing:\n";
 foreach ($subject_lines as $val) {
     print "  ORIGINAL: \"" . $val . "\"\n";
-    print "  BASE: \"" . Horde_Imap_Client::getBaseSubject($val) . "\"\n\n";
+    print "  BASE: \"" . $imap_utils->getBaseSubject($val) . "\"\n\n";
 }
 
 $imap_urls = array(
@@ -874,7 +875,7 @@ print "\nRFC 5092 URL parsing:\n";
 foreach ($imap_urls as $val) {
     print "URL: " . $val . "\n";
     print "PARSED:\n";
-    print_r(Horde_Imap_Client::parseImapUrl($val));
+    print_r($imap_utils->parseImapUrl($val));
     print "\n";
 }
 

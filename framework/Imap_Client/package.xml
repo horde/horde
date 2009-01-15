@@ -54,6 +54,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
        <file name="Sort.php" role="php" />
        <file name="Thread.php" role="php" />
        <file name="Utf7imap.php" role="php" />
+       <file name="Utils.php" role="php" />
       </dir> <!-- /lib/Horde/Imap/Client -->
       <file name="Client.php" role="php" />
      </dir> <!-- /lib/Horde/Imap -->
@@ -111,6 +112,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Imap/Client/Sort.php" as="Horde/Imap/Client/Sort.php" />
    <install name="lib/Horde/Imap/Client/Thread.php" as="Horde/Imap/Client/Thread.php" />
    <install name="lib/Horde/Imap/Client/Utf7imap.php" as="Horde/Imap/Client/Utf7imap.php" />
+   <install name="lib/Horde/Imap/Client/Utils.php" as="Horde/Imap/Client/Utils.php" />
    <install name="lib/Horde/Imap/Client.php" as="Horde/Imap/Client.php" />
   </filelist>
  </phprelease>

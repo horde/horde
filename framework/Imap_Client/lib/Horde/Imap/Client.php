@@ -59,10 +59,6 @@
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
- * getBaseSubject() code adapted from imap-base-subject.c (Dovecot 1.2)
- *   Original code released under the LGPL v2.1
- *   Copyright (c) 2002-2008 Timo Sirainen <tss@iki.fi>
- *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
