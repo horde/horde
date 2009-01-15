@@ -230,7 +230,7 @@ class Horde_Support_ConsistentHash
      */
     public function hash($key)
     {
-        return substr(md5($key), 0, 8);
+        return substr(hash('md5', $key), 0, 8);
     }
 
     /**

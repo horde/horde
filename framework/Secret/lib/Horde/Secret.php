@@ -100,7 +100,7 @@ class Horde_Secret
      */
     static protected function _getCipherOb($key)
     {
-        $idx = md5($key);
+        $idx = hash('md5', $key);
 
         if (!isset(self::$_cipherCache[$idx])) {
             self::$_cipherCache[$idx] = &Horde_Cipher::factory('blowfish');
@@ -126,7 +126,7 @@ class Horde_Secret
             if (isset($_COOKIE[$keyname . '_key'])) {
                 $key = $_COOKIE[$keyname . '_key'];
             } else {
-                $key = md5(mt_rand());
+                $key = hash('md5', mt_rand());
                 $_COOKIE[$keyname . '_key'] = $key;
                 Secret::_setCookie($keyname, $key);
             }

@@ -84,7 +84,7 @@ class Horde_Oauth_Request
         $mt = microtime();
         $rand = mt_rand();
 
-        return md5(microtime() . mt_rand());
+        return hash('md5', microtime() . mt_rand());
     }
 
     /**

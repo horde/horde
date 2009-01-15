@@ -270,7 +270,7 @@ class Horde_Browser
     {
         static $instances = array();
 
-        $signature = md5(serialize(array($userAgent, $accept)));
+        $signature = hash('md5', serialize(array($userAgent, $accept)));
         if (empty($instances[$signature])) {
             $instances[$signature] = new Horde_Browser($userAgent, $accept);
         }

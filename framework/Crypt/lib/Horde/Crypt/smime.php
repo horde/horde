@@ -701,8 +701,8 @@ class Horde_Crypt_smime extends Horde_Crypt
         }
 
         $cert_details = array();
-        $cert_details['fingerprints']['md5'] = md5($raw_cert);
-        $cert_details['fingerprints']['sha1'] = sha1($raw_cert);
+        $cert_details['fingerprints']['md5'] = hash('md5', $raw_cert);
+        $cert_details['fingerprints']['sha1'] = hash('sha1', $raw_cert);
 
         $cert_details['certificate']['extensions'] = array();
         $cert_details['certificate']['version'] = $cert_data[1][0][1][0][1] + 1;

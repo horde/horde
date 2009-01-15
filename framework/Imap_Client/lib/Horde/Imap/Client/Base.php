@@ -314,7 +314,7 @@ abstract class Horde_Imap_Client_Base extends Horde_Imap_Client
     {
         $additional = array_map(array('Horde_Imap_Client_Utf7imap', 'Utf7ImapToUtf8'), $additional);
 
-        $sig = md5(serialize($additional));
+        $sig = hash('md5', serialize($additional));
 
         if (isset($this->_init['namespace'][$sig])) {
             return $this->_init['namespace'][$sig];
@@ -1843,7 +1843,7 @@ abstract class Horde_Imap_Client_Base extends Horde_Imap_Client
             }
 
             if (!empty($crit)) {
-                $sig = md5(serialize(array_values($crit)));
+                $sig = hash('md5', serialize(array_values($crit)));
                 if (isset($new_criteria[$sig])) {
                     $new_criteria[$sig]['i'][] = $id;
                 } else {

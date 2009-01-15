@@ -90,7 +90,7 @@ class Horde_Imap_Client_Cache
     {
         static $instance = array();
 
-        $sig = md5(serialize($params));
+        $sig = hash('md5', serialize($params));
         if (!isset($instance[$sig])) {
             $instance[$sig] = new Horde_Imap_Client_Cache($params);
         }
