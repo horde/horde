@@ -34,6 +34,7 @@ a.popdown:hover {
     border: 1px #000 solid;
     margin-right: 2px;
 }
+/* TODO? */
 #quota .used img {
     display: inline;
     float: none;
@@ -136,7 +137,7 @@ div#quota {
 }
 
 /* Message List */
-div.loading img, #folderLoading, #msgLoading {
+#folderLoading, #msgLoading {
     z-index: 1000;
     border: 1px #e0e0e0 solid;
     -moz-border-radius: 5px;
@@ -538,7 +539,7 @@ div.msgSize img {
 /* Actions */
 .dimpActions {
     background: #efefef;
-    padding: 4px 4px 4px 2px;
+    padding: 4px 4px 2px 2px;
     border: 1px silver solid;
     border-bottom: 0px;
     background: transparent url("graphics/backhead_s2.png") repeat-x;
@@ -554,8 +555,8 @@ div.msgSize img {
     padding: 2px 4px 4px 4px;
 }
 .dimpActions a img {
-    vertical-align: middle;
-    padding-right: 2px;
+    vertical-align: top;
+    padding-right: 3px;
 }
 .dimpActions a:hover {
     text-decoration: none;
@@ -580,7 +581,7 @@ div.msgSize img {
     padding-left: 4px;
     padding-right: 4px;
 }
-.dimpActions .disabled img {
+.dimpActions .disabled img, .dimpActions .disabled span.popdownImg {
     filter: alpha(opacity=25);
     -moz-opacity: .25;
     opacity: .25;
@@ -691,11 +692,6 @@ div.dimpActionsCompose {
 #msgHeadersColl span.date {
     float: right;
     text-align: right;
-}
-#msg_newwin img {
-    float: right;
-    padding-left: 4px;
-    vertical-align: middle;
 }
 #msgHeadersColl span.subject {
     float: left;
@@ -1257,6 +1253,11 @@ span.tickImg {
 span.newwinImg {
     background-image: url("graphics/newwin.png");
 }
+span.newwinCollapsed {
+    float: right;
+    margin-left: 4px;
+    margin-right: 0px;
+}
 span.quotaImg {
     background-image: url("graphics/quotauncover.gif");
     width: 0px;
@@ -1303,4 +1304,5 @@ span.whitelistImg {
 }
 span.popdownImg {
     background-image: url("graphics/popdown.png");
+    margin-right: 0px;
 }

@@ -279,7 +279,7 @@ function _simpleButton($id, $text, $image, $imagedir = null)
          <span class="iconImg attachmentImg" style="display:none"></span>
         </div>
         <div id="msgHeadersColl">
-         <a id="msg_newwin"><span class="iconImg newwinImg" title="<?php echo htmlspecialchars(_("Open in new window")) ?>"></span></a>
+         <a id="msg_newwin"><span class="iconImg newwinImg newwinCollapsed" title="<?php echo htmlspecialchars(_("Open in new window")) ?>"></span></a>
          <span class="date"></span>
          <span class="subject"></span>
          <span class="fromcontainer"><?php echo _("from") ?> <span class="from"></span></span>
