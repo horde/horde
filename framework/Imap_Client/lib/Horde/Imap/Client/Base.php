@@ -73,7 +73,7 @@ abstract class Horde_Imap_Client_Base
      *
      * @var Horde_Imap_Client_Cache
      */
-    protected $_cacheOb = null;
+    protected $_cache = null;
 
     /**
      * The debug stream.
@@ -145,7 +145,7 @@ abstract class Horde_Imap_Client_Base
         $this->_closeDebug();
 
         // Don't store Horde_Imap_Client_Cache object.
-        $this->_cacheOb = null;
+        $this->_cache = null;
 
         // Encrypt password in serialized object.
         if (!isset($this->_params['_passencrypt'])) {
@@ -190,15 +190,15 @@ abstract class Horde_Imap_Client_Base
      *
      * @return boolean  Returns true if caching is enabled.
      */
-    protected function _initCacheOb()
+    protected function _initCache()
     {
         if (empty($this->_params['cache']['fields'])) {
             return false;
         }
 
-        if (is_null($this->_cacheOb)) {
+        if (is_null($this->_cache)) {
             $p = $this->_params;
-            $this->_cacheOb = Horde_Imap_Client_Cache::singleton(array_merge($p['cache'], array(
+            $this->_cache = Horde_Imap_Client_Cache::singleton(array_merge($p['cache'], array(
                 'debug' => $this->_debug,
                 'hostspec' => $p['hostspec'],
                 'username' => $p['username']
@@ -225,10 +225,10 @@ abstract class Horde_Imap_Client_Base
      *
      * @return mixed  Either the object or null.
      */
-    public function getCacheOb()
+    public function getCache()
     {
-        $this->_initCacheOb();
-        return $this->_cacheOb;
+        $this->_initCache();
+        return $this->_cache;
     }
 
     /**
@@ -682,8 +682,8 @@ abstract class Horde_Imap_Client_Base
         $this->_deleteMailbox($mailbox);
 
         /* Delete mailbox cache. */
-        if ($this->_initCacheOb()) {
-            $this->_cacheOb->deleteMailbox($mailbox);
+        if ($this->_initCache()) {
+            $this->_cache->deleteMailbox($mailbox);
         }
 
         /* Unsubscribe from mailbox. */
@@ -722,8 +722,8 @@ abstract class Horde_Imap_Client_Base
         $this->_renameMailbox($old, $new);
 
         /* Delete mailbox cache. */
-        if ($this->_initCacheOb()) {
-            $this->_cacheOb->deleteMailbox($old);
+        if ($this->_initCache()) {
+            $this->_cache->deleteMailbox($old);
         }
 
         /* Clean up subscription information. */
@@ -1046,7 +1046,7 @@ abstract class Horde_Imap_Client_Base
         }
 
         /* If we are caching, search for deleted messages. */
-        if (!empty($options['expunge']) && $this->_initCacheOb()) {
+        if (!empty($options['expunge']) && $this->_initCache()) {
             $search_query = new Horde_Imap_Client_Search_Query();
             $search_query->flag('\\deleted', true);
             $search_res = $this->search($this->_selected, $search_query);
@@ -1059,7 +1059,7 @@ abstract class Horde_Imap_Client_Base
         $this->_mode = 0;
 
         if (!is_null($search_res)) {
-            $this->_cacheOb->deleteMsgs($this->_selected, $search_res['match']);
+            $this->_cache->deleteMsgs($this->_selected, $search_res['match']);
         }
     }
 
@@ -1697,7 +1697,7 @@ abstract class Horde_Imap_Client_Base
     public function fetch($mailbox, $criteria, $options = array())
     {
         $cache_array = $get_fields = $new_criteria = $ret = array();
-        $cf = $this->_initCacheOb() ? $this->_params['cache']['fields'] : array();
+        $cf = $this->_initCache() ? $this->_params['cache']['fields'] : array();
         $qresync = isset($this->_init['enabled']['QRESYNC']);
         $seq = !empty($options['sequence']);
 
@@ -1762,14 +1762,14 @@ abstract class Horde_Imap_Client_Base
                     if (!$qresync) {
                         /* Grab all flags updated since the cached modseq
                          * val. */
-                        $metadata = $this->_cacheOb->getMetaData($this->_selected, array('HICmodseq'));
+                        $metadata = $this->_cache->getMetaData($this->_selected, array('HICmodseq'));
                         if (isset($metadata['HICmodseq']) &&
                             ($metadata['HICmodseq'] != $status_res['highestmodseq'])) {
-                            $uids = $this->_cacheOb->get($this->_selected, array(), array(), $status_res['uidvalidity']);
+                            $uids = $this->_cache->get($this->_selected, array(), array(), $status_res['uidvalidity']);
                             if (!empty($uids)) {
                                 $this->_fetch(array(Horde_Imap_Client::FETCH_FLAGS => true), array('changedsince' => $metadata['HICmodseq'], 'ids' => $uids));
                             }
-                            $this->_cacheOb->setMetaData($mailbox, array('HICmodseq' => $status_res['highestmodseq']));
+                            $this->_cache->setMetaData($mailbox, array('HICmodseq' => $status_res['highestmodseq']));
                         }
                     }
 
@@ -1825,7 +1825,7 @@ abstract class Horde_Imap_Client_Base
 
         /* Get the cached values. */
         try {
-            $data = $this->_cacheOb->get($this->_selected, $uids, $get_fields, $status_res['uidvalidity']);
+            $data = $this->_cache->get($this->_selected, $uids, $get_fields, $status_res['uidvalidity']);
         } catch (Horde_Imap_Client_Exception $e) {
             if ($e->getCode() != Horde_Imap_Client_Exception::CACHEUIDINVALID) {
                 throw $e;
@@ -2266,7 +2266,7 @@ abstract class Horde_Imap_Client_Base
      */
     protected function _updateCache($data, $options = array())
     {
-        if (!$this->_initCacheOb()) {
+        if (!$this->_initCache()) {
             return;
         }
 
@@ -2348,9 +2348,9 @@ abstract class Horde_Imap_Client_Base
         }
 
         try {
-            $this->_cacheOb->set($mailbox, $tocache, $uidvalid);
+            $this->_cache->set($mailbox, $tocache, $uidvalid);
             if ($is_flags) {
-                $this->_cacheOb->setMetaData($mailbox, array('HICmodseq' => max($highestmodseq)));
+                $this->_cache->setMetaData($mailbox, array('HICmodseq' => max($highestmodseq)));
             }
         } catch (Horde_Imap_Client_Exception $e) {
             if ($e->getCode() != Horde_Imap_Client_Exception::CACHEUIDINVALID) {

@@ -48,7 +48,7 @@ class Horde_Imap_Client_Cache
      *
      * @var Horde_Cache
      */
-    protected $_cacheOb;
+    protected $_cache;
 
     /**
      * The list of items to save on shutdown.
@@ -114,9 +114,9 @@ class Horde_Imap_Client_Cache
         }
 
         /* Initialize the Cache object. */
-        $this->_cacheOb = Horde_Cache::singleton($params['driver'], $params['driver_params']);
-        if (is_a($this->_cacheOb, 'PEAR_Error')) {
-            throw new Horde_Imap_Client_Exception($this->_cacheOb->getMessage());
+        $this->_cache = Horde_Cache::singleton($params['driver'], $params['driver_params']);
+        if (is_a($this->_cache, 'PEAR_Error')) {
+            throw new Horde_Imap_Client_Exception($this->_cache->getMessage());
         }
 
         $compress = null;
@@ -179,14 +179,14 @@ class Horde_Imap_Client_Cache
                 $cid = $this->_getCID($mbox, $slice);
                 if (empty($data)) {
                     // If empty, we can expire the cache.
-                    $this->_cacheOb->expire($cid);
+                    $this->_cache->expire($cid);
                 } else {
-                    $this->_cacheOb->set($cid, Horde_Serialize::serialize($data, SERIALIZE_BASIC), $lifetime);
+                    $this->_cache->set($cid, Horde_Serialize::serialize($data, SERIALIZE_BASIC), $lifetime);
                 }
             }
 
             // Save the slicemap
-            $this->_cacheOb->set($this->_getCID($mbox, 'slicemap'), Horde_Serialize::serialize($sptr, SERIALIZE_BASIC), $lifetime);
+            $this->_cache->set($this->_getCID($mbox, 'slicemap'), Horde_Serialize::serialize($sptr, SERIALIZE_BASIC), $lifetime);
         }
     }
 
@@ -391,9 +391,9 @@ class Horde_Imap_Client_Cache
     {
         $this->_loadSliceMap($mbox);
         foreach (array_keys(array_flip($this->_slicemap[$mbox]['slice'])) as $slice) {
-            $this->_cacheOb->expire($this->_getCID($mbox, $slice));
+            $this->_cache->expire($this->_getCID($mbox, $slice));
         }
-        $this->_cacheOb->expire($this->_getCID($mbox, 'slicemap'));
+        $this->_cache->expire($this->_getCID($mbox, 'slicemap'));
         unset($this->_data[$mbox], $this->_loaded[$mbox], $this->_save[$mbox], $this->_slicemap[$mbox]);
 
         if ($this->_params['debug']) {
@@ -440,7 +440,7 @@ class Horde_Imap_Client_Cache
         $this->_loaded[$cache_id] = true;
 
         /* Attempt to grab data from the cache. */
-        if (($data = $this->_cacheOb->get($cache_id, $this->_params['lifetime'])) === false) {
+        if (($data = $this->_cache->get($cache_id, $this->_params['lifetime'])) === false) {
             return;
         }
 
@@ -569,7 +569,7 @@ class Horde_Imap_Client_Cache
     protected function _loadSliceMap($mailbox, $uidvalid = null)
     {
         if (!isset($this->_slicemap[$mailbox])) {
-            if (($data = $this->_cacheOb->get($this->_getCID($mailbox, 'slicemap'), $this->_params['lifetime'])) !== false) {
+            if (($data = $this->_cache->get($this->_getCID($mailbox, 'slicemap'), $this->_params['lifetime'])) !== false) {
                 $slice = Horde_Serialize::unserialize($data, SERIALIZE_BASIC);
                 if (is_array($slice)) {
                     $this->_slicemap[$mailbox] = $slice;
