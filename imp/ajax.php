@@ -13,7 +13,7 @@
 
 function _generateDeleteResult($mbox, $indices, $change, $nothread = false)
 {
-    $imp_mailbox = &IMP_Mailbox::singleton($mbox);
+    $imp_mailbox = IMP_Mailbox::singleton($mbox);
 
     $result = new stdClass;
     $result->folder = $mbox;
@@ -56,7 +56,7 @@ function _changed($mbox, $compare, $rw = null)
         }
     }
 
-    $imp_mailbox = &IMP_Mailbox::singleton($mbox);
+    $imp_mailbox = IMP_Mailbox::singleton($mbox);
     if ($imp_mailbox->getCacheID($mbox) != $compare) {
         return true;
     }
@@ -119,7 +119,7 @@ function _getIdxString($indices)
 
 function _getPollInformation($mbox)
 {
-    $imptree = &IMP_IMAP_Tree::singleton();
+    $imptree = IMP_IMAP_Tree::singleton();
     $elt = $imptree->get($mbox);
     if ($imptree->isPolled($elt)) {
         $info = $imptree->getElementInfo($mbox);
@@ -182,10 +182,10 @@ case 'CreateFolder':
         break;
     }
 
-    $imptree = &IMP_IMAP_Tree::singleton();
+    $imptree = IMP_IMAP_Tree::singleton();
     $imptree->eltDiffStart();
 
-    $imp_folder = &IMP_Folder::singleton();
+    $imp_folder = IMP_Folder::singleton();
 
     $new = String::convertCharset($mbox, NLS::getCharset(), 'UTF7-IMAP');
     $new = $imptree->createMailboxName(Util::getPost('parent'), $new);
@@ -205,10 +205,10 @@ case 'DeleteFolder':
         break;
     }
 
-    $imptree = &IMP_IMAP_Tree::singleton();
+    $imptree = IMP_IMAP_Tree::singleton();
     $imptree->eltDiffStart();
 
-    $imp_folder = &IMP_Folder::singleton();
+    $imp_folder = IMP_Folder::singleton();
     $result = $imp_folder->delete(array($mbox));
     if ($result) {
         $result = DIMP::getFolderResponse($imptree);
@@ -223,10 +223,10 @@ case 'RenameFolder':
         break;
     }
 
-    $imptree = &IMP_IMAP_Tree::singleton();
+    $imptree = IMP_IMAP_Tree::singleton();
     $imptree->eltDiffStart();
 
-    $imp_folder = &IMP_Folder::singleton();
+    $imp_folder = IMP_Folder::singleton();
 
     $new = $imptree->createMailboxName($new_parent, $new);
     if (is_a($new, 'PEAR_Error')) {
@@ -249,7 +249,7 @@ case 'EmptyFolder':
         break;
     }
 
-    $imp_message = &IMP_Message::singleton();
+    $imp_message = IMP_Message::singleton();
     $imp_message->emptyMailbox(array($mbox));
     $result = new stdClass;
     $result->mbox = $mbox;
@@ -261,7 +261,7 @@ case 'MarkFolderUnseen':
         break;
     }
 
-    $imp_message = &IMP_Message::singleton();
+    $imp_message = IMP_Message::singleton();
     $result = $imp_message->flagAllInMailbox(array('seen'),
                                              array($mbox),
                                              $action == 'MarkFolderSeen');
@@ -277,7 +277,7 @@ case 'MarkFolderUnseen':
     break;
 
 case 'ListFolders':
-    $imptree = &IMP_IMAP_Tree::singleton();
+    $imptree = IMP_IMAP_Tree::singleton();
     $result = DIMP::getFolderResponse($imptree, array('a' => $imptree->folderList(IMP_IMAP_TREE::FLIST_CONTAINER | IMP_IMAP_TREE::FLIST_VFOLDER), 'c' => array(), 'd' => array()));
 
     $quota = _getQuota();
@@ -289,7 +289,7 @@ case 'ListFolders':
 case 'PollFolders':
     $result = new stdClass;
 
-    $imptree = &IMP_IMAP_Tree::singleton();
+    $imptree = IMP_IMAP_Tree::singleton();
 
     $result->poll = array();
     foreach ($imptree->getPollList(true) as $val) {
@@ -341,7 +341,7 @@ case 'CopyMessage':
         $change = _changed($mbox, $cacheid, true);
     }
 
-    $imp_message = &IMP_Message::singleton();
+    $imp_message = IMP_Message::singleton();
 
     $result = $imp_message->copy($to, ($action == 'MoveMessage') ? 'move' : 'copy', $indices);
 
@@ -378,7 +378,7 @@ case 'MarkMessage':
         $set = true;
     }
 
-    $imp_message = &IMP_Message::singleton();
+    $imp_message = IMP_Message::singleton();
     $result = $imp_message->flag(array($flag), $indices, $set);
     if ($result) {
         $result = new stdClass;
@@ -391,7 +391,7 @@ case 'UndeleteMessage':
         break;
     }
 
-    $imp_message = &IMP_Message::singleton();
+    $imp_message = IMP_Message::singleton();
     if ($action == 'DeleteMessage') {
         $change = _changed($mbox, $cacheid, true);
         $result = $imp_message->delete($indices);
@@ -488,8 +488,8 @@ case 'GetForwardData':
     $msg = $header = null;
     $idx_string = _getIdxString($indices);
 
-    $imp_compose = &IMP_Compose::singleton(Util::getPost('imp_compose'));
-    $imp_contents = &IMP_Contents::singleton($idx_string);
+    $imp_compose = IMP_Compose::singleton(Util::getPost('imp_compose'));
+    $imp_contents = IMP_Contents::singleton($idx_string);
     $imp_ui = new IMP_UI_Compose();
     $fwd_msg = $imp_ui->getForwardData($imp_compose, $imp_contents, Util::getPost('type'), $idx_string);
     $header = $fwd_msg['headers'];
@@ -506,8 +506,8 @@ case 'GetForwardData':
     break;
 
 case 'GetReplyData':
-    $imp_compose = &IMP_Compose::singleton(Util::getPost('imp_compose'));
-    $imp_contents = &IMP_Contents::singleton(_getIdxString($indices));
+    $imp_compose = IMP_Compose::singleton(Util::getPost('imp_compose'));
+    $imp_contents = IMP_Contents::singleton(_getIdxString($indices));
     $reply_msg = $imp_compose->replyMessage(Util::getPost('type'), $imp_contents);
     $header = $reply_msg['headers'];
     $header['replytype'] = 'reply';
@@ -524,7 +524,7 @@ case 'DeleteDraft':
     if (empty($indices)) {
         break;
     }
-    $imp_message = &IMP_Message::singleton();
+    $imp_message = IMP_Message::singleton();
     $idx_array = array($index . IMP::IDX_SEP . IMP::folderPref($prefs->getValue('drafts_folder'), true));
     $imp_message->delete($idx_array, true);
     break;
@@ -532,7 +532,7 @@ case 'DeleteDraft':
 case 'DeleteAttach':
     $atc = Util::getPost('atc_indices');
     if (!is_null($atc)) {
-        $imp_compose = &IMP_Compose::singleton(Util::getPost('imp_compose'));
+        $imp_compose = IMP_Compose::singleton(Util::getPost('imp_compose'));
         $imp_compose->deleteAttachment($atc);
     }
     break;
@@ -611,7 +611,7 @@ case 'PurgeDeleted':
         $sort = IMP::getSort($mbox);
         $change = ($sort['by'] == SORTTHREAD);
     }
-    $imp_message = &IMP_Message::singleton();
+    $imp_message = IMP_Message::singleton();
     $expunged = $imp_message->expungeMailbox(array($mbox => 1));
     if (!empty($expunged[$mbox])) {
         $expunge_count = count($expunged[$mbox]);
@@ -635,7 +635,7 @@ case 'ModifyPollFolder':
 
     $add = Util::getPost('add');
 
-    $imptree = &IMP_IMAP_Tree::singleton();
+    $imptree = IMP_IMAP_Tree::singleton();
 
     $result = new stdClass;
     $result->add = (bool) $add;
@@ -679,13 +679,13 @@ case 'SMIMEPersonal':
     $passphrase = Util::getFormData('dialog_input');
 
     if ($action == 'SMIMEPersonal') {
-        $imp_smime = &Horde_Crypt::singleton(array('imp', 'smime'));
+        $imp_smime = Horde_Crypt::singleton(array('imp', 'smime'));
         $secure_check = $imp_smime->requireSecureConnection();
         if (!is_a($secure_check, 'PEAR_Error') && $passphrase) {
             $res = $imp_smime->storePassphrase($passphrase);
         }
     } else {
-        $imp_pgp = &Horde_Crypt::singleton(array('imp', 'pgp'));
+        $imp_pgp = Horde_Crypt::singleton(array('imp', 'pgp'));
         $secure_check = $imp_pgp->requireSecureConnection();
         if (is_a($secure_check, 'PEAR_Error') && $passphrase) {
             $res = $imp_pgp->storePassphrase(($action == 'PGPSymmetric') ? 'symmetric' : 'personal', $passphrase, Util::getFormData('symmetricid'));
