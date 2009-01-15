@@ -39,7 +39,7 @@ case 'EditEvent':
         if (empty($url)) {
             $url = Horde::applicationUrl($prefs->getValue('defaultview') . '.php', true);
         }
-        header('Location: ' . Util::addParameter($url, 'unique', md5(microtime()), false));
+        header('Location: ' . Util::addParameter($url, 'unique', hash('md5', microtime()), false));
         exit;
     }
     break;

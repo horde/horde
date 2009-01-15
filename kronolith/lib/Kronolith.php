@@ -263,7 +263,7 @@ class Kronolith {
         }
 
         require_once KRONOLITH_BASE . '/lib/version.php';
-        $sig = md5(serialize($s_list) . max($mtime) . KRONOLITH_VERSION);
+        $sig = hash('md5', serialize($s_list) . max($mtime) . KRONOLITH_VERSION);
 
         switch ($cache_type) {
         case 'filesystem':
@@ -373,7 +373,7 @@ class Kronolith {
             }
 
             require_once KRONOLITH_BASE . '/lib/version.php';
-            $sig = md5(serialize($css) . max($mtime) . KRONOLITH_VERSION);
+            $sig = hash('md5', serialize($css) . max($mtime) . KRONOLITH_VERSION);
 
             switch ($cache_type) {
             case 'filesystem':

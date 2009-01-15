@@ -209,7 +209,7 @@ class Kronolith_View_Month {
                             if ($event->hasPermission(PERMS_READ)) {
                                 $eventCategories[$event->getCategory()] = true;
                             }
-                            $html .= '<div class="month-eventbox category' . md5($event->getCategory()) . '">'
+                            $html .= '<div class="month-eventbox category' . hash('md5', $event->getCategory()) . '">'
                                 . $event->getLink($date, true, $this->link(0, true));
                             if ($showTime) {
                                 $html .= '<div class="event-time">' . htmlspecialchars($event->getTimeRange()) . '</div>';

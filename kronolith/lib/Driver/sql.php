@@ -535,7 +535,7 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
             if ($event->getId()) {
                 $id = $event->getId();
             } else {
-                $id = md5(uniqid(mt_rand(), true));
+                $id = hash('md5', uniqid(mt_rand(), true));
                 $event->setId($id);
             }
 

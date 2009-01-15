@@ -27,7 +27,7 @@ foreach ($colors as $category => $color) {
             '.month-eventBox a, .week-eventBox a, .day-eventBox a, .block-eventBox a, .legend-eventBox a, ',
             '.month-eventBox a:hover, .week-eventBox a:hover, .day-eventBox a:hover, .block-eventBox a:hover, .legend-eventBox a:hover { ';
     } else {
-        $class = '.category' . md5($category);
+        $class = '.category' . hash('md5', $category);
         echo "$class, .linedRow td$class, $class a, $class a:hover { ";
     }
 

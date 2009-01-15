@@ -1,5 +1,5 @@
 <tr class="text">
- <td nowrap="nowrap" class="category<?php echo md5($found->getCategory()) ?>">
+ <td nowrap="nowrap" class="category<?php echo hash('md5', $found->getCategory()) ?>">
   <?php echo $found->getLink() ?>
  </td>
  <td class="nowrap"><?php echo htmlspecialchars($found->getCategory()) ?></td>

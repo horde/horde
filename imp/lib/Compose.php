@@ -2388,7 +2388,7 @@ class IMP_Compose
 
         $vfs = VFS::singleton($GLOBALS['conf']['vfs']['type'], Horde::getDriverConfig('vfs', $GLOBALS['conf']['vfs']['type']));
         // TODO: Garbage collection?
-        $result = $vfs->writeData(self::VFS_DRAFTS_PATH, md5(Util::getFormData('user')), $body, true);
+        $result = $vfs->writeData(self::VFS_DRAFTS_PATH, hash('md5', Util::getFormData('user')), $body, true);
         if (is_a($result, 'PEAR_Error')) {
             return;
         }
@@ -2405,7 +2405,7 @@ class IMP_Compose
             return;
         }
 
-        $filename = md5($_SESSION['imp']['uniquser']);
+        $filename = hash('md5', $_SESSION['imp']['uniquser']);
         $vfs = VFS::singleton($GLOBALS['conf']['vfs']['type'], Horde::getDriverConfig('vfs', $GLOBALS['conf']['vfs']['type']));
         if ($vfs->exists(self::VFS_DRAFTS_PATH, $filename)) {
             $data = $vfs->read(self::VFS_DRAFTS_PATH, $filename);

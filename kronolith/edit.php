@@ -181,5 +181,5 @@ if (!empty($url)) {
 }
 
 // Make sure URL is unique.
-$location = Util::addParameter($location, 'unique', md5(microtime()), false);
+$location = Util::addParameter($location, 'unique', hash('md5', microtime()), false);
 header('Location: ' . $location);

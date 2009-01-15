@@ -42,7 +42,7 @@ class Kronolith_CreateCalendarForm extends Horde_Form {
     function execute()
     {
         // Create new share.
-        $calendar = $GLOBALS['kronolith_shares']->newShare(md5(microtime()));
+        $calendar = $GLOBALS['kronolith_shares']->newShare(hash('md5', microtime()));
         if (is_a($calendar, 'PEAR_Error')) {
             return $calendar;
         }

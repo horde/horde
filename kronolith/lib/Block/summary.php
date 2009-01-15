@@ -175,7 +175,7 @@ class Horde_Block_Kronolith_summary extends Horde_Block {
                 }
 
                 $html .= '</td><td class="text">&nbsp;&nbsp;&nbsp;</td>' .
-                    '<td class="block-eventbox category' . md5($event->getCategory()) . '" valign="top">';
+                    '<td class="block-eventbox category' . hash('md5', $event->getCategory()) . '" valign="top">';
 
                 if ($event_active) {
                     $html .= '<strong>';

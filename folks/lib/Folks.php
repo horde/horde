@@ -64,7 +64,7 @@ class Folks {
                                            'id' => $user),
                                      null, false);
         } else {
-            $p = md5($user);
+            $p = hash('md5', $user);
             return $GLOBALS['conf']['images']['direct'] .
                    '/' . substr(str_pad($p, 2, 0, STR_PAD_LEFT), -2) . '/' . $view . '/' .
                    $p . '.' . $GLOBALS['conf']['images']['image_type'];
@@ -205,7 +205,7 @@ class Folks {
      */
     static function encodeString($string, $key)
     {
-        $key = substr(md5($key), 0, 24);
+        $key = substr(hash('md5', $key), 0, 24);
         $iv_size = mcrypt_get_iv_size(MCRYPT_3DES, MCRYPT_MODE_ECB);
         $iv = mcrypt_create_iv($iv_size, MCRYPT_RAND);
         $string = mcrypt_ecb(MCRYPT_3DES, $key, $string, MCRYPT_ENCRYPT, $iv);

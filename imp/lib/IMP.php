@@ -1529,7 +1529,7 @@ class IMP
         }
 
         require_once IMP_BASE . '/lib/version.php';
-        $sig = md5(serialize($s_list) . max($mtime) . IMP_VERSION);
+        $sig = hash('md5', serialize($s_list) . max($mtime) . IMP_VERSION);
 
         switch ($cache_type) {
         case 'filesystem':
@@ -1666,7 +1666,7 @@ class IMP
             }
 
             require_once IMP_BASE . '/lib/version.php';
-            $sig = md5(serialize($css) . max($mtime) . IMP_VERSION);
+            $sig = hash('md5', serialize($css) . max($mtime) . IMP_VERSION);
 
             switch ($cache_type) {
             case 'filesystem':

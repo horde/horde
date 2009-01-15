@@ -469,7 +469,7 @@ class Kronolith_Driver_kolab_wrapper_old extends Kronolith_Driver_kolab_wrapper 
             if ($event->getUID()) {
                 $uid = $event->getUID();
             } else {
-                $uid = md5(uniqid(mt_rand(), true));
+                $uid = hash('md5', uniqid(mt_rand(), true));
                 $event->setUID($uid);
                 $event->setId($uid);
             }

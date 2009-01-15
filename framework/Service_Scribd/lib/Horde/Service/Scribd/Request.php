@@ -65,7 +65,7 @@ class Horde_Service_Scribd_Request
             $signature .= $k . $v;
         }
 
-        return md5($signature);
+        return hash('md5', $signature);
     }
 
 }

@@ -866,7 +866,7 @@ EOT;
     {
         $varname = $var->getVarName();
         $varvalue = $vars->get($varname);
-        $fieldId = 'obrowser_' . md5(uniqid(rand(), true));
+        $fieldId = 'obrowser_' . hash('md5', uniqid(rand(), true));
         $html = '
             <script type="text/javascript">
             var obrowserWindowName;

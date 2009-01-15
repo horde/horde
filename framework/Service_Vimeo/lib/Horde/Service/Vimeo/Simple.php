@@ -104,7 +104,7 @@ class Horde_Service_Vimeo_Simple extends Horde_Service_Vimeo {
         // See if we have a cache, and if so, try to get the data from it before
         // polling the vimeo service.
         if (!empty($this->_cache)) {
-            $cache_key = 'VimeoJson' . md5(serialize($options));
+            $cache_key = 'VimeoJson' . hash('md5', serialize($options));
             $data = $this->_cache->get($cache_key, $this->_cache_lifetime);
             if ($data !== false) {
                 return unserialize($data);
@@ -138,7 +138,7 @@ class Horde_Service_Vimeo_Simple extends Horde_Service_Vimeo {
     {
         $call =  '/' . $this->_identifier . '/' . $this->_method . '.' . $this->_format;
         if (!empty($this->_cache)) {
-            $cache_key = 'VimeoRequest' . md5($call);
+            $cache_key = 'VimeoRequest' . hash('md5', $call);
             $data = $this->_cache->get($cache_key, $this->_cache_lifetime);
             if ($data !== false) {
                 // php format is already returned serialized

@@ -131,7 +131,7 @@ window.onload = function() {
 
 //-->
 </script>
-<form method="post" name="contacts" onsubmit="passAddresses();" action="contacts.php?nocache=<?php echo md5(mt_rand()) ?>">
+<form method="post" name="contacts" onsubmit="passAddresses();" action="contacts.php?nocache=<?php echo hash('md5', mt_rand()) ?>">
 <input type="hidden" name="sa" />
 <?php Util::pformInput() ?>
 

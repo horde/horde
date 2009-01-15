@@ -98,7 +98,7 @@ class IMP_Folder
         }
 
         /* Compute values that will uniquely identify this list. */
-        $sig = md5(serialize(array(intval($sub), $filter)));
+        $sig = hash('md5', serialize(array(intval($sub), $filter)));
 
         /* Either get the list from the cache, or go to the IMAP server to
            obtain it. */

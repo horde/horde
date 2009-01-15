@@ -329,7 +329,7 @@
 //                 continue;
 //             }
 //             if ($field == 'password') {
-//                 $value = md5($value);
+//                 $value = hash('md5', $value);
 //             }
 //             $fields[] = 'user_' . String::lower($field);
 //             $values[] = String::convertCharset($value, NLS::getCharset(), $conf['sql']['charset']);
@@ -345,7 +345,7 @@
 //         }
 //
 //         require_once $GLOBALS['registry']->get('fileroot', 'folks') . '/lib/Folks.php';
-//         $code = Folks::encodeString($userID, 'activate' . md5($extra['password']));
+//         $code = Folks::encodeString($userID, 'activate' . hash('md5', $extra['password']));
 //         $link = Util::addParameter(Horde::applicationUrl('account/approve.php', true, -1),
 //                                     array('user' => $userID, 'code' => $code),
 //                                     null, false);

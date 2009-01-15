@@ -10,7 +10,7 @@ if ($GLOBALS['prefs']->getValue('show_legend') && count($eventCategories)) {
             continue;
         }
 
-        $html .= ' <span class="legend-eventbox event category' . md5($category) . '">' .
+        $html .= ' <span class="legend-eventbox event category' . hash('md5', $category) . '">' .
             Text::htmlAllSpaces($category) . '</span>';
     }
 

@@ -134,7 +134,7 @@ class Kronolith_View_Day extends Kronolith_Day {
                         $eventCategories[$event->getCategory()] = true;
                     }
 
-                    $row .= '<td class="day-eventbox category' . md5($event->getCategory()) . '" '
+                    $row .= '<td class="day-eventbox category' . hash('md5', $event->getCategory()) . '" '
                         . 'width="' . round(90 / count($this->_currentCalendars))  . '%" '
                         . 'valign="top" colspan="' . $this->_span[$cid] . '">'
                         . $event->getLink($this, true, $this->link(0, true));
@@ -249,7 +249,7 @@ class Kronolith_View_Day extends Kronolith_Day {
                             }
                         }
 
-                        $row .= '<td class="day-eventbox category' . md5($event->getCategory()) . '" '
+                        $row .= '<td class="day-eventbox category' . hash('md5', $event->getCategory()) . '" '
                             . 'width="' . round((90 / count($this->_currentCalendars)) * ($span / $this->_span[$cid]))  . '%" '
                             . 'valign="top" colspan="' . $span . '" rowspan="' . $event->rowspan . '">'
                             . $event->getLink($this, true, $this->link(0, true));

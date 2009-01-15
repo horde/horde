@@ -88,7 +88,7 @@ class IMP_Contents
         static $instance = array();
 
         $sig = is_a($in, 'Horde_Mime_Part')
-            ? md5(serialize($in))
+            ? hash('md5', serialize($in))
             : $in;
 
         if (empty($instance[$sig])) {
@@ -667,7 +667,7 @@ class IMP_Contents
             'params' => array()
         ), $options);
 
-        return Horde::link($this->urlView($mime_part, $actionID, $options), $options['jstext'], $options['class'], empty($options['dload']) ? null : 'view_' . md5($mime_part->getMIMEId() . $this->_mailbox . $this->_index)) . $text . '</a>';
+        return Horde::link($this->urlView($mime_part, $actionID, $options), $options['jstext'], $options['class'], empty($options['dload']) ? null : 'view_' . hash('md5', $mime_part->getMIMEId() . $this->_mailbox . $this->_index)) . $text . '</a>';
     }
 
     /**

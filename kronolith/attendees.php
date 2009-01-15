@@ -178,7 +178,7 @@ case 'dismiss':
     }
 
     // Make sure URL is unique.
-    $location = Util::addParameter($location, 'unique', md5(microtime()));
+    $location = Util::addParameter($location, 'unique', hash('md5', microtime()));
     header('Location: ' . $location);
     exit;
 

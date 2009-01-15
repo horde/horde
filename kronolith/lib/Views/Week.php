@@ -148,7 +148,7 @@ class Kronolith_View_Week {
                                 $eventCategories[$event->getCategory()] = true;
                             }
 
-                            $row .= '<td class="week-eventbox category' . md5($event->getCategory()) . '" '
+                            $row .= '<td class="week-eventbox category' . hash('md5', $event->getCategory()) . '" '
                                 . 'width="' . round(99 / count($this->days[$j]->_currentCalendars)) . '%" '
                                 . 'valign="top">'
                                 . $event->getLink($this->days[$j], true, $this->link(0, true));
@@ -275,7 +275,7 @@ class Kronolith_View_Week {
                                     }
                                 }
 
-                                $row .= '<td class="week-eventbox category' . md5($event->getCategory()) . '" '
+                                $row .= '<td class="week-eventbox category' . hash('md5', $event->getCategory()) . '" '
                                     . 'valign="top" '
                                     . 'width="' . floor(((90 / count($this->days)) / count($this->_currentCalendars)) * ($span / $this->days[$j]->_span[$cid])) . '%" '
                                     . 'colspan="' . $span . '" rowspan="' . $event->rowspan . '">'

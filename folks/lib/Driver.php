@@ -88,7 +88,7 @@ class Folks_Driver {
             return $vfs;
         }
 
-        $p = md5($user);
+        $p = hash('md5', $user);
         $vfspath = Folks::VFS_PATH . '/' . substr(str_pad($p, 2, 0, STR_PAD_LEFT), -2) . '/';
         $vfs_name = $p . '.' . $conf['images']['image_type'];
 
@@ -134,7 +134,7 @@ class Folks_Driver {
             return $vfs;
         }
 
-        $p = md5($user);
+        $p = hash('md5', $user);
         $vfspath = Folks::VFS_PATH . '/' . substr(str_pad($p, 2, 0, STR_PAD_LEFT), -2) . '/';
         $vfs_name = $p . '.' . $GLOBALS['conf']['images']['image_type'];
 
@@ -457,7 +457,7 @@ class Folks_Driver {
             $user = Auth::getAuth();
         }
 
-        $password = md5($password);
+        $password = hash('md5', $password);
 
         return $this->_saveProfile(array('user_password' => $password), $user);
     }
@@ -624,7 +624,7 @@ class Folks_Driver {
             return false;
         }
 
-        return $encrypted == md5($plaintext);
+        return $encrypted == hash('md5', $plaintext);
     }
 
     /**

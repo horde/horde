@@ -221,7 +221,7 @@ class Folks_Friends_shared extends  Folks_Friends_sql  {
     {
         $GLOBALS['folks_shares'] = Horde_Share::singleton('folks');
 
-        $share = $GLOBALS['folks_shares']->newShare(md5(microtime()));
+        $share = $GLOBALS['folks_shares']->newShare(hash('md5', microtime()));
         if ($share instanceof PEAR_Error) {
             return $share;
         }
