@@ -1,6 +1,5 @@
 <?php
 if ($registry->hasMethod('contacts/sources')) {
-    require_once IMP_BASE . '/lib/Compose.php';
     $search = IMP_Compose::getAddressSearchParams();
     $readable = $registry->call('contacts/sources');
     $writeable = $registry->call('contacts/sources', true);
