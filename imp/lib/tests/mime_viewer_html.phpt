@@ -4,8 +4,8 @@
 <?php
 
 require_once 'Horde.php';
-require_once 'Horde/MIME/Viewer.php';
-require_once dirname(dirname(__FILE__)) . '/MIME/Viewer/html.php';
+require_once 'Horde/Mime/Viewer.php';
+require_once dirname(dirname(__FILE__)) . '/Mime/Viewer/html.php';
 
 class MockRegistry {
     function getImageDir()
@@ -16,7 +16,7 @@ class MockRegistry {
 
 $registry = new MockRegistry();
 $mock_part = null;
-$v = new IMP_MIME_Viewer_html($mock_part);
+$v = new IMP_Mime_Viewer_html($mock_part);
 
 // Test regex for converting links to open in a new window.
 echo $v->_openLinksInNewWindow('foo') . "\n";
