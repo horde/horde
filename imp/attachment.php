@@ -17,7 +17,6 @@
 $authentication = 'none';
 $session_control = 'none';
 require_once dirname(__FILE__) . '/lib/base.php';
-require_once 'VFS.php';
 
 $self_url = Horde::selfUrl(false, true, true);
 

@@ -85,20 +85,16 @@ class IMP_Compose
      * If a IMP_Cacheid object exists with the given cacheid, recreate that
      * that object.  Else, create a new instance.
      *
-     * This method must be invoked as:<pre>
-     *   $imp_compose = &IMP_Compose::singleton([$cacheid]);
-     * </pre>
-     *
      * @param string $cacheid  The cache ID string.
      *
      * @return IMP_Compose  The IMP_Compose object.
      */
-    static public function &singleton($cacheid = null)
+    static public function singleton($cacheid = null)
     {
         static $instance = array();
 
         if (!is_null($cacheid) && !isset($instance[$cacheid])) {
-            $cacheSess = &Horde_SessionObjects::singleton();
+            $cacheSess = Horde_SessionObjects::singleton();
             $instance[$cacheid] = $cacheSess->query($cacheid);
             if (!empty($instance[$cacheid])) {
                 $cacheSess->setPruneFlag($cacheid, true);
@@ -131,7 +127,7 @@ class IMP_Compose
     {
         if ($this->_modified) {
             $this->_modified = false;
-            $cacheSess = &Horde_SessionObjects::singleton();
+            $cacheSess = Horde_SessionObjects::singleton();
             $cacheSess->overwrite($this->_cacheid, $this, false);
         }
     }
@@ -227,7 +223,7 @@ class IMP_Compose
      */
     protected function _saveDraftServer($data, $drafts_mbox)
     {
-        $imp_folder = &IMP_Folder::singleton();
+        $imp_folder = IMP_Folder::singleton();
         $this->_draftIdx = null;
 
         /* Check for access to drafts folder. */
@@ -281,7 +277,7 @@ class IMP_Compose
      */
     public function resumeDraft($index)
     {
-        $contents = &IMP_Contents::singleton($index);
+        $contents = IMP_Contents::singleton($index);
         if (is_a($contents, 'PEAR_Error')) {
             return $contents;
         }
@@ -310,7 +306,7 @@ class IMP_Compose
         $headers = $contents->getHeaderOb();
         if (($fromaddr = Horde_Mime_Address::bareAddress($headers->getValue('from')))) {
             require_once 'Horde/Identity.php';
-            $identity = &Identity::singleton(array('imp', 'imp'));
+            $identity = Identity::singleton(array('imp', 'imp'));
             $identity_id = $identity->getMatchingIdentity($fromaddr);
         }
 
@@ -524,7 +520,7 @@ class IMP_Compose
             }
 
             if (!empty($opts['reply_index'])) {
-                $imp_message = &IMP_Message::singleton();
+                $imp_message = IMP_Message::singleton();
 
                 switch ($opts['reply_type']) {
                 case 'reply':
@@ -584,7 +580,7 @@ class IMP_Compose
             /* Add the body text to the message string. */
             $fcc .= $mime_message->toString(false);
 
-            $imp_folder = &IMP_Folder::singleton();
+            $imp_folder = IMP_Folder::singleton();
 
             if (!$imp_folder->exists($opts['sent_folder'])) {
                 $imp_folder->create($opts['sent_folder'], $prefs->getValue('subscribe'));
@@ -1029,7 +1025,7 @@ class IMP_Compose
 
         if ($attach_flag) {
             if ($this->_pgpAttachPubkey) {
-                $imp_pgp = &Horde_Crypt::singleton(array('imp', 'pgp'));
+                $imp_pgp = Horde_Crypt::singleton(array('imp', 'pgp'));
                 $base->addPart($imp_pgp->publicKeyMIMEPart());
             }
 
@@ -1043,7 +1039,7 @@ class IMP_Compose
         if ($GLOBALS['prefs']->getValue('use_pgp') &&
             !empty($GLOBALS['conf']['utils']['gnupg']) &&
             in_array($encrypt, array(IMP::PGP_ENCRYPT, IMP::PGP_SIGN, IMP::PGP_SIGNENC, IMP::PGP_SYM_ENCRYPT, IMP::PGP_SYM_SIGNENC))) {
-            $imp_pgp = &Horde_Crypt::singleton(array('imp', 'pgp'));
+            $imp_pgp = Horde_Crypt::singleton(array('imp', 'pgp'));
 
             switch ($encrypt) {
             case IMP::PGP_SIGN:
@@ -1096,7 +1092,7 @@ class IMP_Compose
             }
         } elseif ($GLOBALS['prefs']->getValue('use_smime') &&
                   in_array($encrypt, array(IMP::SMIME_ENCRYPT, IMP::SMIME_SIGN, IMP::SMIME_SIGNENC))) {
-            $imp_smime = &Horde_Crypt::singleton(array('imp', 'smime'));
+            $imp_smime = Horde_Crypt::singleton(array('imp', 'smime'));
 
             /* Check to see if we have the user's passphrase yet. */
             if (in_array($encrypt, array(IMP::SMIME_SIGN, IMP::SMIME_SIGNENC))) {
@@ -1200,7 +1196,7 @@ class IMP_Compose
         if (in_array($actionID, array('reply_all', '*'))) {
             /* Filter out our own address from the addresses we reply to. */
             require_once 'Horde/Identity.php';
-            $identity = &Identity::singleton(array('imp', 'imp'));
+            $identity = Identity::singleton(array('imp', 'imp'));
             $all_addrs = array_keys($identity->getAllFromAddresses(true));
 
             /* Build the To: header. It is either 1) the Reply-To address
@@ -1416,7 +1412,7 @@ class IMP_Compose
         }
 
         require_once 'Horde/Identity.php';
-        $user_identity = &Identity::singleton(array('imp', 'imp'));
+        $user_identity = Identity::singleton(array('imp', 'imp'));
         return $user_identity->getMatchingIdentity($msgAddresses);
     }
 
@@ -1438,7 +1434,7 @@ class IMP_Compose
         foreach ($msgList as $mbox => $indicesList) {
             foreach ($indicesList as $idx) {
                 ++$attached;
-                $contents = &IMP_Contents::singleton($idx . IMP::IDX_SEP . $mbox);
+                $contents = IMP_Contents::singleton($idx . IMP::IDX_SEP . $mbox);
                 $headerob = $contents->getHeaderOb();
 
                 $part = new Horde_Mime_Part();
@@ -1663,9 +1659,7 @@ class IMP_Compose
 
         /* Store in VFS. */
         if ($conf['compose']['use_vfs']) {
-            require_once 'VFS.php';
-            require_once 'VFS/GC.php';
-            $vfs = &VFS::singleton($conf['vfs']['type'], Horde::getDriverConfig('vfs', $conf['vfs']['type']));
+            $vfs = VFS::singleton($conf['vfs']['type'], Horde::getDriverConfig('vfs', $conf['vfs']['type']));
             VFS_GC::gc($vfs, self::VFS_ATTACH_PATH, 86400);
             $cacheID = uniqid(mt_rand());
 
@@ -1722,8 +1716,7 @@ class IMP_Compose
             switch ($atc['filetype']) {
             case 'vfs':
                 /* Delete from VFS. */
-                require_once 'VFS.php';
-                $vfs = &VFS::singleton($GLOBALS['conf']['vfs']['type'], Horde::getDriverConfig('vfs', $GLOBALS['conf']['vfs']['type']));
+                $vfs = VFS::singleton($GLOBALS['conf']['vfs']['type'], Horde::getDriverConfig('vfs', $GLOBALS['conf']['vfs']['type']));
                 $vfs->deleteFile(self::VFS_ATTACH_PATH, $atc['filename']);
                 break;
 
@@ -1814,8 +1807,7 @@ class IMP_Compose
 
         switch ($this->_cache[$id]['filetype']) {
         case 'vfs':
-            require_once 'VFS.php';
-            $vfs = &VFS::singleton($GLOBALS['conf']['vfs']['type'], Horde::getDriverConfig('vfs', $GLOBALS['conf']['vfs']['type']));
+            $vfs = VFS::singleton($GLOBALS['conf']['vfs']['type'], Horde::getDriverConfig('vfs', $GLOBALS['conf']['vfs']['type']));
             $part->setContents($vfs->read(self::VFS_ATTACH_PATH, $this->_cache[$id]['filename']));
             break;
 
@@ -2094,8 +2086,7 @@ class IMP_Compose
             return PEAR::raiseError(_("Linked attachments are forbidden."));
         }
 
-        require_once 'VFS.php';
-        $vfs = &VFS::singleton($conf['vfs']['type'], Horde::getDriverConfig('vfs', $conf['vfs']['type']));
+        $vfs = VFS::singleton($conf['vfs']['type'], Horde::getDriverConfig('vfs', $conf['vfs']['type']));
 
         $ts = time();
         $fullpath = sprintf('%s/%s/%d', self::VFS_LINK_ATTACH_PATH, $auth, $ts);
@@ -2395,8 +2386,7 @@ class IMP_Compose
             return;
         }
 
-        require_once 'VFS.php';
-        $vfs = &VFS::singleton($GLOBALS['conf']['vfs']['type'], Horde::getDriverConfig('vfs', $GLOBALS['conf']['vfs']['type']));
+        $vfs = VFS::singleton($GLOBALS['conf']['vfs']['type'], Horde::getDriverConfig('vfs', $GLOBALS['conf']['vfs']['type']));
         // TODO: Garbage collection?
         $result = $vfs->writeData(self::VFS_DRAFTS_PATH, md5(Util::getFormData('user')), $body, true);
         if (is_a($result, 'PEAR_Error')) {
@@ -2416,8 +2406,7 @@ class IMP_Compose
         }
 
         $filename = md5($_SESSION['imp']['uniquser']);
-        require_once 'VFS.php';
-        $vfs = &VFS::singleton($GLOBALS['conf']['vfs']['type'], Horde::getDriverConfig('vfs', $GLOBALS['conf']['vfs']['type']));
+        $vfs = VFS::singleton($GLOBALS['conf']['vfs']['type'], Horde::getDriverConfig('vfs', $GLOBALS['conf']['vfs']['type']));
         if ($vfs->exists(self::VFS_DRAFTS_PATH, $filename)) {
             $data = $vfs->read(self::VFS_DRAFTS_PATH, $filename);
             if (is_a($data, 'PEAR_Error')) {

@@ -17,13 +17,11 @@ class Maintenance_Task_delete_attachments_monthly extends Maintenance_Task
      */
     function doMaintenance()
     {
-        require_once 'VFS.php';
-
         /* Find the UNIX timestamp of the last second that we will not
          * purge. */
         $del_time = gmmktime(0, 0, 0, date('n') - $GLOBALS['prefs']->getValue('delete_attachments_monthly_keep'), 1, date('Y'));
 
-        $vfs = &VFS::singleton($GLOBALS['conf']['vfs']['type'], Horde::getDriverConfig('vfs', $GLOBALS['conf']['vfs']['type']));
+        $vfs = VFS::singleton($GLOBALS['conf']['vfs']['type'], Horde::getDriverConfig('vfs', $GLOBALS['conf']['vfs']['type']));
         $path = IMP_Compose::VFS_LINK_ATTACH_PATH . '/' . Auth::getAuth();
 
         /* Make sure cleaning is done recursively. */
