@@ -11,7 +11,8 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author Michael Slusarz <slusarz@horde.org>
+ * @author  Michael Slusarz <slusarz@horde.org>
+ * @package IMP
  */
 
 /* The amount of time (in minutes) to cache the generated CSS and JS files.

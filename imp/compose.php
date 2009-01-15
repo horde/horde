@@ -1,12 +1,15 @@
 <?php
 /**
+ * Compose script for traditional (IMP) view.
+ *
  * Copyright 1999-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author Chuck Hagenbuch <chuck@horde.org>
- * @author Michael Slusarz <slusarz@horde.org>
+ * @author  Chuck Hagenbuch <chuck@horde.org>
+ * @author  Michael Slusarz <slusarz@horde.org>
+ * @package IMP
  */
 
 function _mailboxReturnURL($encode, $url = null)

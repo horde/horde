@@ -1,13 +1,18 @@
 <?php
+/**
+ * Copyright 2005-2009 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ *
+ * @package Horde_Block
+ */
 
 $block_name = _("Menu Folder List");
 $block_type = 'tree';
 
-/**
- * @package Horde_Block
- */
-class Horde_Block_imp_tree_folders extends Horde_Block {
-
+class Horde_Block_imp_tree_folders extends Horde_Block
+{
     var $_app = 'imp';
 
     function _buildTree(&$tree, $indent = 0, $parent = null)

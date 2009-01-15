@@ -7,8 +7,9 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author Chris Hastie <imp@oak-wood.co.uk>
- * @author Eric Garrido <ekg2002@columbia.edu>
+ * @author  Chris Hastie <imp@oak-wood.co.uk>
+ * @author  Eric Garrido <ekg2002@columbia.edu>
+ * @package IMP
  */
 
 require_once dirname(__FILE__) . '/lib/base.php';

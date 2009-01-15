@@ -5,7 +5,8 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author Eric Garrido <ekg2002@columbia.edu>
+ * @author  Eric Garrido <ekg2002@columbia.edu>
+ * @package IMP
  */
 
 $authentication = 'none';

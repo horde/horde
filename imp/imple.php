@@ -5,7 +5,8 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author Michael Slusarz <slusarz@horde.org>
+ * @author  Michael Slusarz <slusarz@horde.org>
+ * @package IMP
  */
 
 // As of right now, imples don't need read/write session access.

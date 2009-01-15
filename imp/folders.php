@@ -1,13 +1,16 @@
 <?php
 /**
+ * Folders display for traditional (IMP) view.
+ *
  * Copyright 2000-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author Anil Madhavapeddy <avsm@horde.org>
- * @author Chuck Hagenbuch <chuck@horde.org>
- * @author Michael Slusarz <slusarz@horde.org>
+ * @author  Anil Madhavapeddy <avsm@horde.org>
+ * @author  Chuck Hagenbuch <chuck@horde.org>
+ * @author  Michael Slusarz <slusarz@horde.org>
+ * @package IMP
  */
 
 /**

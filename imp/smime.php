@@ -5,8 +5,9 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author Mike Cochrane <mike@graftonhall.co.nz>
- * @author Michael Slusarz <slusarz@horde.org>
+ * @author  Mike Cochrane <mike@graftonhall.co.nz>
+ * @author  Michael Slusarz <slusarz@horde.org>
+ * @package IMP
  */
 
 function _importKeyDialog($target)

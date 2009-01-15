@@ -1,6 +1,6 @@
 <?php
 /**
- * Minimalist message display page.
+ * Minimalist (MIMP) message display page.
  *
  * URL Parameters:
  *   'a' - (string) actionID
@@ -13,8 +13,9 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author Chuck Hagenbuch <chuck@horde.org>
- * @author Michael Slusarz <slusarz@horde.org>
+ * @author  Chuck Hagenbuch <chuck@horde.org>
+ * @author  Michael Slusarz <slusarz@horde.org>
+ * @package IMP
  */
 
 require_once dirname(__FILE__) . '/lib/base.php';

@@ -1,14 +1,14 @@
 <?php
 /**
- * imp.php - performs an AJAX-requested action and returns the DIMP-specific
- * JSON object
+ * imp.php - performs the AJAX-requested action.
  *
  * Copyright 2005-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author Michael Slusarz <slusarz@horde.org>
+ * @author  Michael Slusarz <slusarz@horde.org>
+ * @package IMP
  */
 
 function _generateDeleteResult($mbox, $indices, $change, $nothread = false)

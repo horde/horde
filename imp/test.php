@@ -7,9 +7,10 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author Brent J. Nordquist <bjn@horde.org>
- * @author Chuck Hagenbuch <chuck@horde.org>
- * @author Michael Slusarz <slusarz@horde.org>
+ * @author  Brent J. Nordquist <bjn@horde.org>
+ * @author  Chuck Hagenbuch <chuck@horde.org>
+ * @author  Michael Slusarz <slusarz@horde.org>
+ * @package IMP
  */
 
 function _doConnectionTest()
