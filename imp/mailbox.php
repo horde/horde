@@ -98,7 +98,7 @@ NLS::setTimeZone();
 
 /* Initialize the user's identities. */
 require_once 'Horde/Identity.php';
-$identity = &Identity::singleton(array('imp', 'imp'));
+$identity = Identity::singleton(array('imp', 'imp'));
 
 $do_filter = false;
 $open_compose_window = null;
@@ -155,14 +155,14 @@ case 'fwd_digest':
 
 case 'delete_messages':
     if (!empty($indices)) {
-        $imp_message = &IMP_Message::singleton();
+        $imp_message = IMP_Message::singleton();
         $imp_message->delete($indices);
     }
     break;
 
 case 'undelete_messages':
     if (!empty($indices)) {
-        $imp_message = &IMP_Message::singleton();
+        $imp_message = IMP_Message::singleton();
         $imp_message->undelete($indices);
     }
     break;
@@ -170,7 +170,7 @@ case 'undelete_messages':
 case 'move_messages':
 case 'copy_messages':
     if (!empty($indices) && !empty($targetMbox)) {
-        $imp_message = &IMP_Message::singleton();
+        $imp_message = IMP_Message::singleton();
         if (!empty($newMbox) && ($newMbox == 1)) {
             $targetMbox = IMP::folderPref($targetMbox, true);
             $newMbox = true;
@@ -189,7 +189,7 @@ case 'flag_messages':
             $flag = substr($flag, 1);
             $set = false;
         }
-        $imp_message = &IMP_Message::singleton();
+        $imp_message = IMP_Message::singleton();
         $imp_message->flag(array($flag), $indices, $set);
     }
     break;
@@ -200,7 +200,7 @@ case 'hide_deleted':
     break;
 
 case 'expunge_mailbox':
-    $imp_message = &IMP_Message::singleton();
+    $imp_message = IMP_Message::singleton();
     $imp_message->expungeMailbox(array($imp_mbox['mailbox'] => 1));
     break;
 
@@ -209,7 +209,7 @@ case 'filter':
     break;
 
 case 'empty_mailbox':
-    $imp_message = &IMP_Message::singleton();
+    $imp_message = IMP_Message::singleton();
     $imp_message->emptyMailbox(array($imp_mbox['mailbox']));
     break;
 
@@ -250,7 +250,7 @@ if ($conf['user']['allow_folders']) {
 }
 
 /* Build the list of messages in the mailbox. */
-$imp_mailbox = &IMP_Mailbox::singleton($imp_mbox['mailbox']);
+$imp_mailbox = IMP_Mailbox::singleton($imp_mbox['mailbox']);
 $pageOb = $imp_mailbox->buildMailboxPage(Util::getFormData('page'), $start);
 $show_preview = ($conf['mailbox']['show_preview'] && $prefs->getValue('preview_enabled'));
 
