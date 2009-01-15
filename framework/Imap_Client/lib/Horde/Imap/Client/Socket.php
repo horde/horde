@@ -3474,7 +3474,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         case 'REFERRAL':
             // Defined by RFC 2221
-            $this->_temp['referral'] = $this->parseImapURL($data);
+            $this->_temp['referral'] = $this->parseImapUrl($data);
             break;
 
         case 'UNKNOWN-CTE':

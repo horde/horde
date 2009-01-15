@@ -74,7 +74,7 @@ if (empty($argv[2])) {
 }
 
 if (!empty($argv[3])) {
-    $params = array_merge($params, Horde_Imap_Client::parseImapURL($argv[3]));
+    $params = array_merge($params, Horde_Imap_Client::parseImapUrl($argv[3]));
 }
 
 function exception_handler($exception) {
@@ -874,7 +874,7 @@ print "\nRFC 5092 URL parsing:\n";
 foreach ($imap_urls as $val) {
     print "URL: " . $val . "\n";
     print "PARSED:\n";
-    print_r(Horde_Imap_Client::parseImapURL($val));
+    print_r(Horde_Imap_Client::parseImapUrl($val));
     print "\n";
 }
 
