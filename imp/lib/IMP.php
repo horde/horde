@@ -1391,7 +1391,7 @@ class IMP
             break;
         }
 
-        $imp_imap = &$GLOBALS['imp_imap']->ob;
+        $imp_imap = $GLOBALS['imp_imap']->ob;
 
         $msg = sprintf(
             $status_msg . ' for %s [%s]%s to {%s:%s [%s]}',
@@ -1502,7 +1502,7 @@ class IMP
         if (empty($cache_type) ||
             $cache_type == 'none' ||
             (($cache_type == 'horde_cache') &&
-             !($cache = self::getCacheOb()))) {
+             !($cache = self::getCache()))) {
             Horde::includeScriptFiles();
             return;
         }
@@ -1660,7 +1660,7 @@ class IMP
         if (empty($cache_type) ||
             $cache_type == 'none' ||
             (($cache_type == 'horde_cache') &&
-             !($cache = self::getCacheOb()))) {
+             !($cache = self::getCache()))) {
             $css_out = array_merge($css, $css_out);
         } else {
             $mtime = array(0);
@@ -1956,7 +1956,7 @@ class IMP
      *
      * @return Horde_Cache  A pointer to a Horde_Cache object.
      */
-    public static function getCacheOb()
+    public static function getCache()
     {
         global $conf;
 

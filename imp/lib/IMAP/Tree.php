@@ -192,19 +192,15 @@ class IMP_IMAP_Tree
      * that object.  Else, create a new instance.  Ensures that only one
      * instance is available at any time.
      *
-     * This method must be invoked as:<pre>
-     *   $imp_imap_tree = &IMP_IMAP_Tree::singleton();
-     * </pre>
-     *
      * @return IMP_IMAP_Tree  The object or null.
      */
-    static public function &singleton()
+    static public function singleton()
     {
         static $instance;
 
         if (!isset($instance)) {
             if (!empty($_SESSION['imp']['cache']['tree'])) {
-                $imp_cache = &IMP::getCacheOb();
+                $imp_cache = IMP::getCache();
                 $instance = unserialize($imp_cache->get($_SESSION['imp']['cache']['tree'], 86400));
             }
             if (empty($instance)) {
@@ -218,7 +214,7 @@ class IMP_IMAP_Tree
     /**
      * Constructor.
      */
-    function __construct()
+    protected function __construct()
     {
         if ($_SESSION['imp']['protocol'] == 'imap') {
             $ns = $GLOBALS['imp_imap']->getNamespaceList();
@@ -228,7 +224,7 @@ class IMP_IMAP_Tree
         }
 
         if (!isset($_SESSION['imp']['cache']['tree'])) {
-            $imp_cache = &IMP::getCacheOb();
+            $imp_cache = IMP::getCache();
             $_SESSION['imp']['cache']['tree'] = $imp_cache
                 ? uniqid(mt_rand() . Auth::getAuth())
                 : null;
@@ -281,7 +277,7 @@ class IMP_IMAP_Tree
             return;
         }
 
-        $imp_cache = &IMP::getCacheOb();
+        $imp_cache = IMP::getCache();
         $imp_cache->set($_SESSION['imp']['cache']['tree'], serialize($this), 86400);
     }
 
@@ -1182,7 +1178,7 @@ class IMP_IMAP_Tree
         }
 
         if (!empty($id) && !$GLOBALS['prefs']->isLocked('nav_poll')) {
-            $imp_folder = &IMP_Folder::singleton();
+            $imp_folder = IMP_Folder::singleton();
             $this->getPollList();
             foreach ($id as $val) {
                 if (!$this->isSubscribed($this->_tree[$val])) {
@@ -1738,7 +1734,7 @@ class IMP_IMAP_Tree
 
         /* Initialize the user's identities. */
         require_once 'Horde/Identity.php';
-        $identity = &Identity::singleton(array('imp', 'imp'));
+        $identity = Identity::singleton(array('imp', 'imp'));
 
         return array(
             'trash' => IMP::folderPref($prefs->getValue('trash_folder'), true),

@@ -68,9 +68,6 @@ class IMP_Mailbox
      * It will only create a new instance if no IMP_Mailbox instance with
      * the same parameters currently exists.
      *
-     * This method must be invoked as:
-     *   $var = &IMP_Mailbox::singleton($mailbox[, $index]);
-     *
      * @param string $mailbox  See IMP_Mailbox constructor.
      * @param integer $index   See IMP_Mailbox constructor.
      *
@@ -165,7 +162,7 @@ class IMP_Mailbox
             $fetch_criteria[Horde_Imap_Client::FETCH_HEADERS] = array(array('headers' => $headers, 'label' => 'imp', 'parse' => true, 'peek' => true));
         }
 
-        $cacheob = $preview ? $GLOBALS['imp_imap']->ob->getCacheOb() : null;
+        $cache = $preview ? $GLOBALS['imp_imap']->ob->getCache() : null;
 
         /* Retrieve information from each mailbox. */
         foreach ($to_process as $mbox => $ids) {
@@ -174,9 +171,9 @@ class IMP_Mailbox
 
                 if ($preview) {
                     $preview_info = $tostore = array();
-                    if ($cacheob) {
+                    if ($cache) {
                         try {
-                            $preview_info = $cacheob->get($mbox, array_keys($ids), array('IMPpreview', 'IMPpreviewc'));
+                            $preview_info = $cache->get($mbox, array_keys($ids), array('IMPpreview', 'IMPpreviewc'));
                         } catch (Horde_Imap_Client_Exception $e) {}
                     }
                 }
@@ -193,13 +190,13 @@ class IMP_Mailbox
                          !$GLOBALS['prefs']->getValue('preview_show_unread') ||
                          !in_array('\\seen', $v['flags']))) {
                         if (!isset($preview_info[$k])) {
-                            $imp_contents = &IMP_Contents::singleton($k . IMP::IDX_SEP . $mbox);
+                            $imp_contents = IMP_Contents::singleton($k . IMP::IDX_SEP . $mbox);
                             if (is_a($imp_contents, 'PEAR_Error')) {
                                 $preview_info[$k] = array('IMPpreview' => '', 'IMPpreviewc' => false);
                             } else {
                                 $prev = $imp_contents->generatePreview();
                                 $preview_info[$k] = array('IMPpreview' => $prev['text'], 'IMPpreviewc' => $prev['cut']);
-                                if (!is_null($cacheob)) {
+                                if (!is_null($cache)) {
                                     $tostore[$k] = $preview_info[$k];
                                 }
                             }
@@ -214,8 +211,8 @@ class IMP_Mailbox
 
                 $uids[$mbox] = array_keys($fetch_res);
 
-                if (!is_null($cacheob) && !empty($tostore)) {
-                    $cacheob->set($mbox, $tostore);
+                if (!is_null($cache) && !empty($tostore)) {
+                    $cache->set($mbox, $tostore);
                 }
             } catch (Horde_Imap_Client_Exception $e) {}
         }

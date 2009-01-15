@@ -37,13 +37,9 @@ class IMP_Folder
      * if it doesn't already exist. This ensures that only one IMP_Folder
      * instance is instantiated for any given session.
      *
-     * This method must be invoked as:<code>
-     *   $imp_folder = &IMP_Folder::singleton();
-     * </code>
-     *
      * @return IMP_Folder  The IMP_Folder instance.
      */
-    static public function &singleton()
+    static public function singleton()
     {
         static $folder;
 
@@ -57,7 +53,7 @@ class IMP_Folder
     /**
      * Constructor.
      */
-    function __construct()
+    protected function __construct()
     {
         if (!empty($GLOBALS['conf']['server']['cache_folders'])) {
             $this->_cacheid = 'imp_folder_cache|' . Auth::getAuth();
@@ -104,7 +100,7 @@ class IMP_Folder
            obtain it. */
         $cache = null;
         if (is_null($this->_listCache)) {
-            if (!is_null($this->_cacheid) && ($cache = &IMP::getCacheOb())) {
+            if (!is_null($this->_cacheid) && ($cache = IMP::getCache())) {
                 $ret = $cache->get($this->_cacheid, 3600);
                 if (!empty($ret)) {
                     $this->_listCache = unserialize($ret);
@@ -120,7 +116,7 @@ class IMP_Folder
             return $this->_listCache[$sig];
         }
 
-        $imaptree = &IMP_IMAP_Tree::singleton();
+        $imaptree = IMP_IMAP_Tree::singleton();
 
         $list_mask = IMP_IMAP_Tree::FLIST_CONTAINER | IMP_IMAP_Tree::FLIST_OB;
         if (!$sub) {
@@ -161,7 +157,7 @@ class IMP_Folder
      */
     public function clearFlistCache()
     {
-        if (!is_null($this->_cacheid) && ($cache = &IMP::getCacheOb())) {
+        if (!is_null($this->_cacheid) && ($cache = IMP::getCache())) {
             $cache->expire($this->_cacheid);
         }
         $this->_listCache = array();
@@ -201,7 +197,7 @@ class IMP_Folder
 
         if (!empty($deleted)) {
             /* Update the IMAP_Tree cache. */
-            $imaptree = &IMP_IMAP_Tree::singleton();
+            $imaptree = IMP_IMAP_Tree::singleton();
             $imaptree->delete($deleted);
 
             $this->_onDelete($deleted);
@@ -288,7 +284,7 @@ class IMP_Folder
         $this->clearFlistCache();
 
         /* Update the IMAP_Tree object. */
-        $imaptree = &IMP_IMAP_Tree::singleton();
+        $imaptree = IMP_IMAP_Tree::singleton();
         $imaptree->insert($folder);
 
         /* Recreate Virtual Folders. */
@@ -306,7 +302,7 @@ class IMP_Folder
      */
     public function exists($folder)
     {
-        $imaptree = &IMP_IMAP_Tree::singleton();
+        $imaptree = IMP_IMAP_Tree::singleton();
         $elt = $imaptree->get($folder);
         if ($elt) {
             return !$imaptree->isContainer($elt);
@@ -347,7 +343,7 @@ class IMP_Folder
         $deleted = array($old);
         $inserted = array($new);
 
-        $imaptree = &IMP_IMAP_Tree::singleton();
+        $imaptree = IMP_IMAP_Tree::singleton();
 
         /* Get list of any folders that are underneath this one. */
         $all_folders = array_merge(array($old), $imaptree->folderList(IMP_IMAP_Tree::FLIST_UNSUB, $old));
@@ -409,7 +405,7 @@ class IMP_Folder
 
         if (!empty($subscribed)) {
             /* Initialize the IMAP_Tree object. */
-            $imaptree = &IMP_IMAP_Tree::singleton();
+            $imaptree = IMP_IMAP_Tree::singleton();
             $imaptree->subscribe($subscribed);
 
             /* Reset the folder cache. */
@@ -455,7 +451,7 @@ class IMP_Folder
 
         if (!empty($unsubscribed)) {
             /* Initialize the IMAP_Tree object. */
-            $imaptree = &IMP_IMAP_Tree::singleton();
+            $imaptree = IMP_IMAP_Tree::singleton();
             $imaptree->unsubscribe($unsubscribed);
 
             /* Reset the folder cache. */

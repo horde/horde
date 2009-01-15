@@ -110,7 +110,7 @@ class IMP_Template {
         }
 
 
-        $this->_cache = &IMP::getCacheOb();
+        $this->_cache = IMP::getCache();
     }
 
     /**

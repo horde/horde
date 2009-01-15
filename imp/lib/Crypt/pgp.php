@@ -164,7 +164,7 @@ class IMP_Horde_Crypt_pgp extends Horde_Crypt_pgp
     {
         /* If there is a cache driver configured, try to get the public key
          * from the cache. */
-        if (($cache = &IMP::getCacheOb())) {
+        if (($cache = IMP::getCache())) {
             $result = $cache->get("PGPpublicKey_" . $address . $fingerprint, 3600);
             if ($result) {
                 Horde::logMessage('PGPpublicKey: ' . serialize($result), __FILE__, __LINE__, PEAR_LOG_DEBUG);
@@ -181,7 +181,7 @@ class IMP_Horde_Crypt_pgp extends Horde_Crypt_pgp
         /* See if the address points to the user's public key. */
         if (is_a($result, 'PEAR_Error')) {
             require_once 'Horde/Identity.php';
-            $identity = &Identity::singleton(array('imp', 'imp'));
+            $identity = Identity::singleton(array('imp', 'imp'));
             $personal_pubkey = $this->getPersonalPublicKey();
             if (!empty($personal_pubkey) && $identity->hasAddress($address)) {
                 $result = $personal_pubkey;

@@ -86,7 +86,7 @@ if (empty($cid)) {
     exit;
 }
 
-if (!($cache = &IMP::getCacheOb())) {
+if (!($cache = IMP::getCache())) {
     Horde::fatal('No cache backend available.', __FILE__, __LINE__);
 }
 
