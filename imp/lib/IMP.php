@@ -84,7 +84,7 @@ class IMP
         if ($hordeauth) {
             $reason = Auth::isAuthenticated();
         } else {
-            $auth_imp = &Auth::singleton(array('imp', 'imp'));
+            $auth_imp = Auth::singleton(array('imp', 'imp'));
             $reason = $auth_imp->authenticate(null, array(), false);
         }
 
@@ -222,7 +222,7 @@ class IMP
     {
         require_once 'Horde/Text.php';
 
-        $imp_folder = &IMP_Folder::singleton();
+        $imp_folder = IMP_Folder::singleton();
 
         /* Don't filter here - since we are going to parse through every
          * member of the folder list below anyway, we can filter at that time.
@@ -569,7 +569,7 @@ class IMP
             }
         }
         if (($permission == 'max_folders') && !$value) {
-            $folder = &IMP_Folder::singleton();
+            $folder = IMP_Folder::singleton();
             $allowed = $allowed > count($folder->flist_IMP(array(), false));
         }
 
@@ -742,7 +742,7 @@ class IMP
             return false;
         }
 
-        $quotaDriver = &IMP_Quota::singleton($_SESSION['imp']['quota']['driver'], $_SESSION['imp']['quota']['params']);
+        $quotaDriver = IMP_Quota::singleton($_SESSION['imp']['quota']['driver'], $_SESSION['imp']['quota']['params']);
         if ($quotaDriver === false) {
             return false;
         }
@@ -1297,7 +1297,7 @@ class IMP
     {
         /* Get the identities. */
         require_once 'Horde/Identity.php';
-        $identity = &Identity::singleton(array('imp', 'imp'));
+        $identity = Identity::singleton(array('imp', 'imp'));
 
         return (($mbox == self::folderPref($GLOBALS['prefs']->getValue('drafts_folder'), true)) || in_array($mbox, $identity->getAllSentmailFolders()));
     }
@@ -1497,7 +1497,7 @@ class IMP
         if (empty($cache_type) ||
             $cache_type == 'none' ||
             (($cache_type == 'horde_cache') &&
-             !($cache = &self::getCacheOb()))) {
+             !($cache = self::getCacheOb()))) {
             Horde::includeScriptFiles();
             return;
         }
@@ -1655,7 +1655,7 @@ class IMP
         if (empty($cache_type) ||
             $cache_type == 'none' ||
             (($cache_type == 'horde_cache') &&
-             !($cache = &self::getCacheOb()))) {
+             !($cache = self::getCacheOb()))) {
             $css_out = array_merge($css, $css_out);
         } else {
             $mtime = array(0);
@@ -1951,11 +1951,11 @@ class IMP
      *
      * @return Horde_Cache  A pointer to a Horde_Cache object.
      */
-    static public function &getCacheOb()
+    public static function getCacheOb()
     {
         global $conf;
 
-        $cache = &Horde_Cache::singleton($conf['cache']['driver'], Horde::getDriverConfig('cache', $conf['cache']['driver']));
+        $cache = Horde_Cache::singleton($conf['cache']['driver'], Horde::getDriverConfig('cache', $conf['cache']['driver']));
         if (is_a($cache, 'PEAR_Error')) {
             Horde::fatal($cache, __FILE__, __LINE__);
         }
