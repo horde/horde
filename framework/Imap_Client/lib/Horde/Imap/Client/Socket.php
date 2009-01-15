@@ -1328,8 +1328,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
             $res = $this->search($mailbox, $search_query);
             $unflag = $res['match'];
-
-            $this->store($mailbox, array('ids' => $unflag, 'remove' => array('\\deleted')));
+            if ($unflag) {
+                $this->store($mailbox, array('ids' => $unflag, 'remove' => array('\\deleted')));
+            }
         }
 
         /* We need to get Msgno -> UID lookup table if we are caching.
