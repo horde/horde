@@ -304,7 +304,7 @@ abstract class Horde_Db_Adapter_Abstract
      * @param   string  $arg2  If $arg1 contains bound parameters, the query name.
      * @return  Traversable
      */
-    public function select($sql, $arg1=null, $arg2=null)
+    public function select($sql, $arg1 = null, $arg2 = null)
     {
         return $this->execute($sql, $arg1, $arg2);
     }
@@ -317,7 +317,7 @@ abstract class Horde_Db_Adapter_Abstract
      * @param   mixed   $arg1  Either an array of bound parameters or a query name.
      * @param   string  $arg2  If $arg1 contains bound parameters, the query name.
      */
-    public function selectAll($sql, $arg1=null, $arg2=null)
+    public function selectAll($sql, $arg1 = null, $arg2 = null)
     {
         $rows = array();
         $result = $this->select($sql, $arg1, $arg2);
@@ -338,7 +338,7 @@ abstract class Horde_Db_Adapter_Abstract
      * @param   string  $arg2  If $arg1 contains bound parameters, the query name.
      * @return  array
      */
-    public function selectOne($sql, $arg1=null, $arg2=null)
+    public function selectOne($sql, $arg1 = null, $arg2 = null)
     {
         $result = $this->selectAll($sql, $arg1, $arg2);
         return $result ? next($result) : array();
@@ -352,7 +352,7 @@ abstract class Horde_Db_Adapter_Abstract
      * @param   string  $arg2  If $arg1 contains bound parameters, the query name.
      * @return  string
      */
-    public function selectValue($sql, $arg1=null, $arg2=null)
+    public function selectValue($sql, $arg1 = null, $arg2 = null)
     {
         $result = $this->selectOne($sql, $arg1, $arg2);
         return $result ? next($result) : null;
@@ -366,7 +366,7 @@ abstract class Horde_Db_Adapter_Abstract
      * @param   mixed   $arg1  Either an array of bound parameters or a query name.
      * @param   string  $arg2  If $arg1 contains bound parameters, the query name.
      */
-    public function selectValues($sql, $arg1=null, $arg2=null)
+    public function selectValues($sql, $arg1 = null, $arg2 = null)
     {
         $result = $this->selectAll($sql, $arg1, $arg2);
         $values = array();
@@ -386,7 +386,7 @@ abstract class Horde_Db_Adapter_Abstract
      * @param   mixed   $arg1  Either an array of bound parameters or a query name.
      * @param   string  $arg2  If $arg1 contains bound parameters, the query name.
      */
-    public function selectAssoc($sql, $arg1=null, $arg2=null)
+    public function selectAssoc($sql, $arg1 = null, $arg2 = null)
     {
         $result = $this->selectAll($sql, $arg1, $arg2);
         $values = array();
@@ -403,7 +403,7 @@ abstract class Horde_Db_Adapter_Abstract
      * @param   mixed   $arg1  Either an array of bound parameters or a query name.
      * @param   string  $arg2  If $arg1 contains bound parameters, the query name.
      */
-    public function execute($sql, $arg1=null, $arg2=null)
+    public function execute($sql, $arg1 = null, $arg2 = null)
     {
         if (is_array($arg1)) {
             $sql = $this->_replaceParameters($sql, $arg1);
@@ -439,7 +439,7 @@ abstract class Horde_Db_Adapter_Abstract
      * @param   int     $idValue
      * @param   string  $sequenceName
      */
-    public function insert($sql, $arg1=null, $arg2=null, $pk=null, $idValue=null, $sequenceName=null)
+    public function insert($sql, $arg1 = null, $arg2 = null, $pk = null, $idValue = null, $sequenceName = null)
     {
         $this->execute($sql, $arg1, $arg2);
         return isset($idValue) ? $idValue : $this->_connection->lastInsertId();
@@ -452,7 +452,7 @@ abstract class Horde_Db_Adapter_Abstract
      * @param   mixed   $arg1  Either an array of bound parameters or a query name.
      * @param   string  $arg2  If $arg1 contains bound parameters, the query name.
      */
-    public function update($sql, $arg1=null, $arg2=null)
+    public function update($sql, $arg1 = null, $arg2 = null)
     {
         $this->execute($sql, $arg1, $arg2);
         return $this->_rowCount;
@@ -465,7 +465,7 @@ abstract class Horde_Db_Adapter_Abstract
      * @param   mixed   $arg1  Either an array of bound parameters or a query name.
      * @param   string  $arg2  If $arg1 contains bound parameters, the query name.
      */
-    public function delete($sql, $arg1=null, $arg2=null)
+    public function delete($sql, $arg1 = null, $arg2 = null)
     {
         $this->execute($sql, $arg1, $arg2);
         return $this->_rowCount;
@@ -599,7 +599,7 @@ abstract class Horde_Db_Adapter_Abstract
      * @param   string  $name
      * @param   float   $runtime
      */
-    protected function _logInfo($sql, $name, $runtime=null)
+    protected function _logInfo($sql, $name, $runtime = null)
     {
         /*@TODO */
         $name = (empty($name) ? '' : $name)
