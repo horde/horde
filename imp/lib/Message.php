@@ -19,6 +19,10 @@
 class IMP_Message
 {
     /**
+     */
+    protected static $_instance = null;
+
+    /**
      * Using POP to access mailboxes?
      *
      * @var boolean
@@ -26,31 +30,25 @@ class IMP_Message
     protected $_usepop = false;
 
     /**
-     * Returns a reference to the global IMP_Message object, only creating it
-     * if it doesn't already exist. This ensures that only one IMP_Message
-     * instance is instantiated for any given session.
-     *
-     * This method must be invoked as:<code>
-     *   $imp_message = &IMP_Message::singleton();
-     * </code>
+     * Returns a reference to the global IMP_Message object, only creating it if
+     * it doesn't already exist. This ensures that only one IMP_Message instance
+     * is instantiated for any given session.
      *
      * @return IMP_Message  The IMP_Message instance.
      */
-    static final public function &singleton()
+    public static function singleton()
     {
-        static $message;
-
-        if (!isset($message)) {
-            $message = new IMP_Message();
+        if (!self::$_instance) {
+            self::$_instance = new IMP_Message();
         }
 
-        return $message;
+        return self::$_instance;
     }
 
     /**
      * Constructor.
      */
-    function __construct()
+    private function __construct()
     {
         if ($_SESSION['imp']['protocol'] == 'pop') {
             $this->_usepop = true;
@@ -95,7 +93,7 @@ class IMP_Message
         }
 
         if ($new) {
-            $imp_folder = &IMP_Folder::singleton();
+            $imp_folder = IMP_Folder::singleton();
             if (!$imp_folder->exists($targetMbox) &&
                 !$imp_folder->create($targetMbox, $prefs->getValue('subscribe'))) {
                 return false;
@@ -127,7 +125,7 @@ class IMP_Message
             try {
                 $imp_imap->ob->copy($mbox, $targetMbox, array('ids' => $msgIndices, 'move' => $imap_move));
 
-                $imp_mailbox = &IMP_Mailbox::singleton($mbox);
+                $imp_mailbox = IMP_Mailbox::singleton($mbox);
                 if ($imp_mailbox->isBuilt()) {
                     $imp_mailbox->removeMsgs(array($mbox => $msgIndices));
                 }
@@ -177,7 +175,7 @@ class IMP_Message
         $use_trash_folder = !$this->_usepop && !$nuke && !$use_vtrash && $use_trash;
         if ($use_trash_folder) {
             include_once IMP_BASE . '/lib/Folder.php';
-            $imp_folder = &IMP_Folder::singleton();
+            $imp_folder = IMP_Folder::singleton();
 
             if (!$imp_folder->exists($trash) &&
                 !$imp_folder->create($trash, $prefs->getValue('subscribe'))) {
@@ -200,7 +198,7 @@ class IMP_Message
                 try {
                     $imp_imap->ob->copy($mbox, $trash, array('ids' => $msgIndices, 'move' => true));
 
-                    $imp_mailbox = &IMP_Mailbox::singleton($mbox);
+                    $imp_mailbox = IMP_Mailbox::singleton($mbox);
                     if ($imp_mailbox->isBuilt()) {
                         $imp_mailbox->removeMsgs(array($mbox => $msgIndices));
                     }
@@ -209,8 +207,8 @@ class IMP_Message
                     return false;
                 }
             } else {
-                /* Get the list of Message-IDs for the deleted messages if
-                 * using maillogging. */
+                /* Get the list of Message-IDs for the deleted messages if using
+                 * maillogging. */
                 $fetch = null;
                 if ($maillog_update) {
                     try {
@@ -230,8 +228,8 @@ class IMP_Message
                     $expunge_now = true;
                 } else {
                     /* If we are using virtual trash, we must mark the message
-                     * as seen or else it will appear as an 'unseen' message
-                     * for purposes of new message counts. */
+                     * as seen or else it will appear as an 'unseen' message for
+                     * purposes of new message counts. */
                     if ($use_vtrash) {
                         $del_flags[] = '\\seen';
                     }
@@ -244,8 +242,8 @@ class IMP_Message
                     }
                 } catch (Horde_Imap_Client_Exception $e) {}
 
-                /* Get the list of Message-IDs deleted, and remove
-                 * the information from the mail log. */
+                /* Get the list of Message-IDs deleted, and remove the
+                 * information from the mail log. */
                 if (!is_null($fetch)) {
                     $msg_ids = array();
                     reset($fetch);
@@ -303,15 +301,15 @@ class IMP_Message
         foreach ($msgList as $folder => $msgIndices) {
             foreach ($msgIndices as $index) {
                 /* Fetch the message contents. */
-                $imp_contents = &IMP_Contents::singleton($index . IMP::IDX_SEP . $folder);
+                $imp_contents = IMP_Contents::singleton($index . IMP::IDX_SEP . $folder);
                 $imp_contents->buildMessage();
 
                 /* Fetch the message headers. */
-                $imp_headers = &$imp_contents->getHeaderOb();
+                $imp_headers = $imp_contents->getHeaderOb();
                 $subject = $imp_headers->getValue('subject');
 
                 /* Extract the message body. */
-                $imp_compose = &IMP_Compose::singleton();
+                $imp_compose = IMP_Compose::singleton();
                 $mime_message = $imp_contents->getMIMEMessage();
                 $body_id = $imp_compose->getBodyId($imp_contents);
                 $body = $imp_compose->findBody($imp_contents);
@@ -339,7 +337,7 @@ class IMP_Message
                 case 'task':
                     /* Create a new vTodo object using this message's
                      * contents. */
-                    $vTodo = &Horde_iCalendar::newComponent('vtodo', $vCal);
+                    $vTodo = Horde_iCalendar::newComponent('vtodo', $vCal);
                     $vTodo->setAttribute('SUMMARY', $subject);
                     $vTodo->setAttribute('DESCRIPTION', $body);
                     $vTodo->setAttribute('PRIORITY', '3');
@@ -357,7 +355,7 @@ class IMP_Message
                 case 'note':
                     /* Create a new vNote object using this message's
                      * contents. */
-                    $vNote = &Horde_iCalendar::newComponent('vnote', $vCal);
+                    $vNote = Horde_iCalendar::newComponent('vnote', $vCal);
                     $vNote->setAttribute('BODY', $subject . "\n". $body);
 
                     /* Get the list of editable notepads. */
@@ -447,7 +445,7 @@ class IMP_Message
         }
 
         /* Get a local copy of the message. */
-        $contents = &IMP_Contents::singleton($index . IMP::IDX_SEP . $mbox);
+        $contents = IMP_Contents::singleton($index . IMP::IDX_SEP . $mbox);
 
         /* Loop through all to-be-stripped mime parts. */
         if (is_null($partid)) {
@@ -505,7 +503,7 @@ class IMP_Message
 
         $this->delete($indices, true, true);
 
-        $imp_mailbox = &IMP_Mailbox::singleton($mbox);
+        $imp_mailbox = IMP_Mailbox::singleton($mbox);
         $imp_mailbox->setIndex(reset($uid));
 
         /* We need to replace the old index in the query string with the
@@ -627,7 +625,7 @@ class IMP_Message
             try {
                 $imp_imap->ob->expunge($key, array('ids' => is_array($val) ? $val : array()));
 
-                $imp_mailbox = &IMP_Mailbox::singleton($key);
+                $imp_mailbox = IMP_Mailbox::singleton($key);
                 if ($imp_mailbox->isBuilt()) {
                     $imp_mailbox->removeMsgs(is_array($val) ? array($key => $val) : true);
                 }
