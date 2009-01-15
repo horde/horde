@@ -38,3 +38,5 @@
 - port query_cache.rb
 
 - what to do about '0000-00-00' with PostgreSQL?
+
+- http://dev.mysql.com/doc/refman/5.1/en/time-zone-support.html
