@@ -14,6 +14,12 @@
 class IMP_Mailbox
 {
     /**
+     * Singleton instances
+     * @var array
+     */
+    protected static $_instances = array();
+
+    /**
      * The mailbox to work with.
      *
      * @var string
@@ -71,17 +77,15 @@ class IMP_Mailbox
      * @return mixed  The created concrete IMP_Mailbox instance, or false
      *                on error.
      */
-    static public function &singleton($mailbox, $index = null)
+    static public function singleton($mailbox, $index = null)
     {
-        static $instances = array();
-
-        if (!isset($instances[$mailbox])) {
-            $instances[$mailbox] = new IMP_Mailbox($mailbox, $index);
+        if (!isset(self::$_instances[$mailbox])) {
+            self::$_instances[$mailbox] = new IMP_Mailbox($mailbox, $index);
         } elseif (!is_null($index)) {
-            $instances[$mailbox]->setIndex($index);
+            self::$_instances[$mailbox]->setIndex($index);
         }
 
-        return $instances[$mailbox];
+        return self::$_instances[$mailbox];
     }
 
     /**
@@ -90,7 +94,7 @@ class IMP_Mailbox
      * @param string $mailbox  The mailbox to work with.
      * @param integer $index   The index of the current message.
      */
-    function __construct($mailbox, $index = null)
+    protected function __construct($mailbox, $index = null)
     {
         $this->_mailbox = $mailbox;
         $this->_searchmbox = $GLOBALS['imp_search']->isSearchMbox($mailbox);
