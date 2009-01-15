@@ -20,7 +20,8 @@ class IMP_Block_Foldersummary extends Horde_Block
 
         /* Filter on INBOX display, if requested. */
         if ($GLOBALS['prefs']->getValue('filter_on_display')) {
-            IMP_Filter::filter('INBOX');
+            $imp_filter = new IMP_Filter();
+            $imp_filter->filter('INBOX');
         }
 
         /* Get list of mailboxes to poll. */

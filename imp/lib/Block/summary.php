@@ -50,8 +50,8 @@ class Horde_Block_imp_summary extends Horde_Block
 
         /* Filter on INBOX display, if requested. */
         if ($prefs->getValue('filter_on_display')) {
-            require_once IMP_BASE . '/lib/Filter.php';
-            IMP_Filter::filter('INBOX');
+            $imp_filter = new IMP_Filter();
+            $imp_filter->filter('INBOX');
         }
 
         /* Get list of mailboxes to poll. */

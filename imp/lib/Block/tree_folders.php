@@ -27,7 +27,6 @@ class Horde_Block_imp_tree_folders extends Horde_Block
 
         /* Run filters now */
         if ($GLOBALS['prefs']->getValue('filter_on_sidebar')) {
-            require_once IMP_BASE . '/lib/Filter.php';
             $imp_filter = new IMP_Filter();
             $imp_filter->filter('INBOX');
         }
