@@ -299,7 +299,7 @@ class IMP_Compose
             $skip = (intval($text_id) == 1)
                 ? array('skip' => array(1))
                 : array();
-            $this->attachFilesFromMessage($contents, (intval($text_id) === 1) ? array('notify' => true, 'skip' => array($alt_key)) : array());
+            $this->attachFilesFromMessage($contents, (intval($text_id) === 1) ? array('notify' => true, 'skip' => $skip) : array());
         }
 
         $identity_id = null;
