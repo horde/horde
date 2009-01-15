@@ -88,3 +88,82 @@
 .dimpActions, .msgfullread .msgHeaders, .msgwrite {
     border-top: none;
 }
+
+span.mailseenImg {
+    background-image: url("graphics/mail_seen.png");
+}
+span.mailunseenImg {
+    background-image: url("graphics/mail_unseen.png");
+}
+span.deleteImg {
+    background-image: url("graphics/delete.png");
+}
+span.createfolderImg {
+    background-image: url("graphics/folders/folder_create.png");
+}
+span.editfolderImg {
+    background-image: url("graphics/folders/folder_edit.png");
+}
+span.forwardImg {
+    background-image: url("graphics/forward.png");
+}
+span.mailflaggedImg {
+    background-image: url("graphics/mail_flagged.png");
+}
+span.clearflagImg {
+    background-image: url("graphics/mail_clearflag.png");
+}
+span.previewImg {
+    background-image: url("graphics/preview.png");
+}
+span.tickImg {
+    background-image: url("graphics/tick.png");
+}
+span.newwinImg {
+    background-image: url("graphics/newwin.png");
+}
+span.quotaImg {
+    background-image: url("graphics/quotauncover.gif");
+}
+span.keyupImg {
+    background-image: url("graphics/key_up.png");
+}
+span.keydownImg {
+    background-image: url("graphics/key_down.png");
+}
+span.arrowcollapsedImg {
+    background-image: url("graphics/arrow_collapsed.png");
+}
+span.arrowexpandedImg {
+    background-image: url("graphics/arrow_expanded.png");
+}
+span.attachmentImg {
+    background-image: url("graphics/attachment.png");
+}
+span.msgsourceImg {
+    background-image: url("graphics/message_source.png");
+}
+span.folderdeleteImg {
+    background-image: url("graphics/folders/folder_delete.png");
+}
+span.replyImg {
+    background-image: url("graphics/reply.png");
+}
+span.replyallImg {
+    background-image: url("graphics/replyall.png");
+}
+span.spamImg {
+    background-image: url("graphics/spam.png");
+}
+span.hamImg {
+    background-image: url("graphics/ham.png");
+}
+span.blacklistImg {
+    background-image: url("graphics/blacklist.png");
+}
+span.whitelistImg {
+    background-image: url("graphics/whitelist.png");
+}
+span.popdownImg {
+    background-image: url("graphics/popdown.png");
+}

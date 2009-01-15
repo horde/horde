@@ -1,17 +1,6 @@
 <?php
 // Generate various dimp graphics used in multiple locations
 $hordeimg = $registry->getImageDir('horde');
-$mailseen = Horde::img('mail_seen.png');
-$mailunseen = Horde::img('mail_unseen.png');
-$delete = Horde::img('delete.png');
-$folder_create = Horde::img('folders/folder_create.png');
-$folder_edit = Horde::img('folders/folder_edit.png');
-$forward = Horde::img('forward.png');
-$flagged = Horde::img('mail_flagged.png');
-$clearflag = Horde::img('mail_clearflag.png');
-$preview = Horde::img('preview.png');
-$tick = Horde::img('tick.png');
-$newwin = Horde::img('newwin.png', _("Open in new window"));
 
 // Thread images
 $thread_imgs = IMP_IMAP_Thread::getImageUrls();
@@ -36,9 +25,7 @@ $has_whitelist = $registry->hasMethod('mail/whitelistFrom');
 $sidebar_width = max((int)$prefs->getValue('sidebar_width') - 50, 150) . 'px';
 
 // Quota information
-$quota_img = (isset($_SESSION['imp']['quota']) && is_array($_SESSION['imp']['quota']))
-    ? Horde::img('quotauncover.gif', '', array('width' => 0, 'height' => 10))
-    : null;
+$show_quota = (isset($_SESSION['imp']['quota']) && is_array($_SESSION['imp']['quota']));
 
 // Small utility functions to simplify creating dimpactions buttons.
 // As of right now, we don't show text only links.
@@ -164,16 +151,16 @@ function _simpleButton($id, $text, $image, $imagedir = null)
          <a id="tab<?php echo $key ?>"><img src="<?php echo $menu_item['icon'] ?>" alt="<?php echo $menu_item['text'] ?>" /><?php echo $menu_item['text'] ?></a>
         </li>
 <?php endforeach; ?>
-<?php if (!empty($quota_img)): ?>
+<?php if ($show_quota): ?>
         <li id="quota">
-         <span class="used"><?php echo $quota_img ?></span>
+         <span class="used"><span class="iconImg quotaImg"></span></span>
         </li>
 <?php endif; ?>
        </ul>
       </div>
-<?php elseif (!empty($quota_img)): ?>
+<?php elseif ($show_quota): ?>
       <div id="quota">
-       <span class="used"><?php echo $quota_img ?></span>
+       <span class="used"><span class="iconImg quotaImg"></span></span>
       </div>
 <?php endif; ?>
      </div>
@@ -181,7 +168,7 @@ function _simpleButton($id, $text, $image, $imagedir = null)
      <div id="mailboxHeader" class="header">
       <div>
        <span class="rightFloat" id="msgHeader"></span>
-       <?php echo Horde::img('loading.gif', $loading_text, array('id' => 'folderLoading', 'style' => 'display:none')) ?>
+       <span id="folderLoading" style="display:none"></span>
        <span id="folderName"></span>
       </div>
      </div>
@@ -272,12 +259,12 @@ function _simpleButton($id, $text, $image, $imagedir = null)
      </div>
      <div id="splitBar" style="display:none" class="splitBar noprint"></div>
      <div id="previewPane" style="display:none">
-      <?php echo Horde::img('loading.gif', $loading_text, array('id' => 'msgLoading', 'style' => 'display:none')) ?>
+      <span id="msgLoading" style="display:none"></span>
       <div id="previewInfo" style="display:none">
        <?php echo _("To preview a message, select it from the list above. A right-click on the messages will display available actions.") ?><br />
        <?php printf(_("Click on a message while holding down the %s key to select multiple messages.  To select a range of messages, click the first message of the range, navigate to the last message of the range, and then click on the last message while holding down the %s key."), '<span class="kbd">' . _("Ctrl") . '</span>', '<span class="kbd">' . _("Shift") . '</span>') ?><br /><br />
        <?php echo _("The following keyboard shortcuts are available:") ?><br />
-       <?php echo Horde::img('key_up.png') ?> / <?php echo Horde::img('key_down.png') . ' : ' . _("Move up/down through the message list.") ?><br />
+       <span class="iconImg keuypImg"></span> / <span class="iconImg keydownImg"></span> . ' : ' . _("Move up/down through the message list.") ?><br />
        <span class="kbd"><?php echo _("PgUp") ?></span> / <span class="kbd"><?php echo _("PgDown") ?></span> : <?php echo _("Move one page up/down through the message list.") ?><br />
        <span class="kbd"><?php echo _("Home") ?></span> / <span class="kbd"><?php echo _("End") ?></span> : <?php echo  _("Move to the beginning/end of the message list.") ?><br />
        <span class="kbd"><?php echo _("Del") ?></span> : <?php echo _("Delete the currently selected message(s).") ?> <?php printf(_("%s will delete the current message and move to the next message if a single message is selected."), '<span class="kbd">' . _("Shift") . '</span> + <span class="kbd">' . _("Del") . '</span>') ?><br />
@@ -287,22 +274,22 @@ function _simpleButton($id, $text, $image, $imagedir = null)
       <div id="previewMsg" style="display:none">
        <div class="msgHeaders">
         <div id="toggleHeaders" class="noprint">
-         <a id="th_expand"><?php echo Horde::img('arrow_collapsed.png', '>', array('title' => _("Expand Headers"))) ?></a>
-         <a id="th_collapse" style="display:none"><?php echo Horde::img('arrow_expanded.png', 'v', array('title' => _("Collapse Headers"))) ?></a>
-         <?php echo Horde::img('attachment.png', '', array('class' => 'attachmentImage', 'style' => 'display:none')) ?>
+         <a id="th_expand"><span class="iconImg arrowcollapsedImg" title="<?php echo htmlspecialchars(_("Expand Headers")) ?>"></span></a>
+         <a id="th_collapse" style="display:none"><span class="iconImg arrowexpandedImg" title="<?php echo htmlspecialchars(_("Collapse Headers")) ?>"></span></a>
+         <span class="iconImg attachmentImg" style="display:none"></span>
         </div>
         <div id="msgHeadersColl">
-         <a id="msg_newwin"><?php echo $newwin ?></a>
+         <a id="msg_newwin"><span class="iconImg newwinImg" title="<?php echo htmlspecialchars(_("Open in new window")) ?>"></span></a>
          <span class="date"></span>
          <span class="subject"></span>
          <span class="fromcontainer"><?php echo _("from") ?> <span class="from"></span></span>
         </div>
         <div id="msgHeaders" style="display:none">
          <div class="dimpOptions noprint">
-          <div id="msg_newwin_options"><?php echo $newwin ?><a><?php echo _("Open in new window") ?></a></div>
+          <div id="msg_newwin_options"><span class="iconImg newwinImg"></span><a><?php echo _("Open in new window") ?></a></div>
           <div id="msg_print"><?php echo Horde::img('print.png', '', '', $hordeimg) ?><a><?php echo _("Print") ?></a></div>
 <?php if (!empty($conf['user']['allow_view_source'])): ?>
-          <div id="msg_view_source"><?php echo Horde::img('message_source.png') ?><a><?php echo _("View Message Source") ?></a></div>
+          <div id="msg_view_source"><span class="iconImg msgsourceImg"></span><a><?php echo _("View Message Source") ?></a></div>
 <?php endif; ?>
          </div>
          <div id="msgHeadersContent">
@@ -329,7 +316,7 @@ function _simpleButton($id, $text, $image, $imagedir = null)
              <td class="cc"></td>
             </tr>
             <tr id="msgAtc" style="display:none">
-             <td class="label"><?php echo Horde::img('attachment.png', '', array('class' => 'attachmentImage')) . Horde::link('') . Horde::img('arrow_collapsed.png', '', array('id' => 'partlist_col')) . Horde::img('arrow_expanded.png', '', array('id' => 'partlist_exp', 'style' => 'display:none')) ?></a></td>
+             <td class="label"><span class="iconImg attachmentImg attachmentImage"></span><?php echo Horde::link('') ?><span class="iconImg arrowcollapsedImg" id="partlist_col"></span><span class="iconImg arrowexpandedImg" id="partlist_exp" style="display:none"></span></a></td>
              <td>
               <div></div>
               <table id="partlist" style="display:none" cellspacing="2">
@@ -354,101 +341,101 @@ function _simpleButton($id, $text, $image, $imagedir = null)
 </div>
 
 <div class="context" id="ctx_folder" style="display:none">
- <a id="ctx_folder_create"><?php echo $folder_create . _("Create subfolder") ?></a>
- <a id="ctx_folder_rename"><?php echo $folder_edit . _("Rename Folder") ?></a>
- <a id="ctx_folder_empty"><?php echo $delete . _("Empty Folder") ?></a>
- <a id="ctx_folder_delete"><?php echo Horde::img('folders/folder_delete.png') . _("Delete Folder") ?></a>
+ <a id="ctx_folder_create"><span class="contextImg createfolderImg"></span><?php echo _("Create subfolder") ?></a>
+ <a id="ctx_folder_rename"><span class="contextImg editfolderImg"></span><?php echo _("Rename Folder") ?></a>
+ <a id="ctx_folder_empty"><span class="contextImg deleteImg"></span><?php echo _("Empty Folder") ?></a>
+ <a id="ctx_folder_delete"><span class="contextImg folderdeleteImg"></span><?php echo _("Delete Folder") ?></a>
  <div id="ctx_folder_seen_sep" class="sep"></div>
- <a id="ctx_folder_seen"><?php echo $mailseen . _("Mark all as Read") ?></a>
- <a id="ctx_folder_unseen"><?php echo $mailunseen . _("Mark all as New") ?></a>
+ <a id="ctx_folder_seen"><span class="contextImg mailseenImg"></span><?php echo _("Mark all as Read") ?></a>
+ <a id="ctx_folder_unseen"><span class="contextImg mailunseenImg"></span><?php echo _("Mark all as New") ?></a>
  <div id="ctx_folder_poll_sep" class="sep"></div>
- <a id="ctx_folder_poll"><?php echo $mailseen . _("Check for New Mail") ?></a>
- <a id="ctx_folder_nopoll"><?php echo $mailseen . _("Do Not Check for New Mail") ?></a>
+ <a id="ctx_folder_poll"><span class="contextImg mailseenImg"></span><?php echo _("Check for New Mail") ?></a>
+ <a id="ctx_folder_nopoll"><span class="contextImg mailseenImg"></span><?php echo _("Do Not Check for New Mail") ?></a>
 </div>
 
 <div class="context" id="ctx_container" style="display:none">
- <a id="ctx_container_create"><?php echo $folder_create . _("Create subfolder") ?></a>
- <a id="ctx_container_rename"><?php echo $folder_edit . _("Rename Folder") ?></a>
+ <a id="ctx_container_create"><span class="contextImg createfolderImg"></span><?php echo _("Create subfolder") ?></a>
+ <a id="ctx_container_rename"><span class="contextImg editfolderImg"></span><?php echo _("Rename Folder") ?></a>
 </div>
 
 <div class="context" id="ctx_message" style="display:none">
- <a id="ctx_message_reply"><?php echo Horde::img('reply.png') . _("Reply to Sender") ?></a>
- <a id="ctx_message_reply_all"><?php echo Horde::img('replyall.png') . _("Reply to All") ?></a>
- <a id="ctx_message_reply_list"><?php echo Horde::img('replyall.png') . _("Reply to List") ?></a>
+ <a id="ctx_message_reply"><span class="contextImg replyImg"></span><?php echo _("Reply to Sender") ?></a>
+ <a id="ctx_message_reply_all"><span class="contextImg replyallImg"></span><?php echo _("Reply to All") ?></a>
+ <a id="ctx_message_reply_list"><span class="contextImg replyallImg"></span><?php echo _("Reply to List") ?></a>
  <div class="sep"></div>
- <a id="ctx_message_forward_all"><?php echo $forward . _("Forward Entire Message") ?></a>
- <a id="ctx_message_forward_body"><?php echo $forward . _("Forward Body Text Only") ?></a>
- <a id="ctx_message_forward_attachments"><?php echo $forward . _("Forward Attachments Only") ?></a>
+ <a id="ctx_message_forward_all"><span class="contextImg forwardImg"></span><?php echo _("Forward Entire Message") ?></a>
+ <a id="ctx_message_forward_body"><span class="contextImg forwardImg"></span><?php echo _("Forward Body Text Only") ?></a>
+ <a id="ctx_message_forward_attachments"><span class="contextImg forwardImg"></span><?php echo _("Forward Attachments Only") ?></a>
  <div class="sep"></div>
- <a id="ctx_message_seen"><?php echo $mailseen . _("Mark as Read") ?></a>
- <a id="ctx_message_unseen"><?php echo $mailunseen . _("Mark as New") ?></a>
- <a id="ctx_message_flagged"><?php echo $flagged . _("Flag Message") ?></a>
- <a id="ctx_message_clear"><?php echo $clearflag . _("Clear Flag") ?></a>
+ <a id="ctx_message_seen"><span class="contextImg mailseenImg"></span><?php echo _("Mark as Read") ?></a>
+ <a id="ctx_message_unseen"><span class="contextImg mailunseenImg"></span><?php echo _("Mark as New") ?></a>
+ <a id="ctx_message_flagged"><span class="contextImg mailflaggedImg"></span><?php echo _("Flag Message") ?></a>
+ <a id="ctx_message_clear"><span class="contextImg clearflagImg"></span><?php echo _("Clear Flag") ?></a>
  <div class="sep"></div>
 <?php if (!empty($conf['spam']['reporting'])): ?>
- <a id="ctx_message_spam"><?php echo Horde::img('spam.png') . _("Mark as Spam") ?></a>
+ <a id="ctx_message_spam"><span class="contextImg spamImg"></span><?php echo _("Mark as Spam") ?></a>
 <?php endif; ?>
 <?php if (!empty($conf['notspam']['reporting'])): ?>
- <a id="ctx_message_ham"><?php echo Horde::img('ham.png') . _("Mark as Innocent") ?></a>
+ <a id="ctx_message_ham"><span class="contextImg hamImg"></span><?php echo _("Mark as Innocent") ?></a>
 <?php endif; ?>
 <?php if ($has_blacklist): ?>
- <a id="ctx_message_blacklist"><?php echo Horde::img('blacklist.png') . _("Blacklist") ?></a>
+ <a id="ctx_message_blacklist"><span class="contextImg blacklistImg"></span><?php echo _("Blacklist") ?></a>
 <?php endif; ?>
 <?php if ($has_whitelist): ?>
- <a id="ctx_message_whitelist"><?php echo Horde::img('whitelist.png') . _("Whitelist") ?></a>
+ <a id="ctx_message_whitelist"><span class="contextImg whitelistImg"></span><?php echo _("Whitelist") ?></a>
 <?php endif; ?>
- <a id="ctx_message_deleted"><?php echo $delete . _("Delete") ?></a>
+ <a id="ctx_message_deleted"><span class="contextImg deleteImg"></span><?php echo _("Delete") ?></a>
 <?php if (!$usetrash): ?>
- <a id="ctx_message_undeleted"><?php echo $delete . _("Undelete") ?></a>
+ <a id="ctx_message_undeleted"><span class="contextImg deleteImg"></span><?php echo _("Undelete") ?></a>
 <?php endif; ?>
 </div>
 
 <div class="context" id="ctx_draft" style="display:none">
- <a id="ctx_draft_resume"><?php echo Horde::img('mail_draft.png') . _("Resume Draft") ?></a>
+ <a id="ctx_draft_resume"><span class="contextImg draftImg"></span><?php echo _("Resume Draft") ?></a>
  <div class="sep"></div>
- <a id="ctx_draft_flagged"><?php echo $flagged . _("Flag Message") ?></a>
- <a id="ctx_draft_clear"><?php echo $clearflag . _("Clear Flag") ?></a>
+ <a id="ctx_draft_flagged"><span class="contextImg mailflaggedImg"></span><?php echo _("Flag Message") ?></a>
+ <a id="ctx_draft_clear"><span class="contextImg clearflagImg"></span><?php echo _("Clear Flag") ?></a>
  <div class="sep"></div>
- <a id="ctx_draft_deleted"><?php echo $delete . _("Delete") ?></a>
+ <a id="ctx_draft_deleted"><span class="contextImg deleteImg"></span><?php echo _("Delete") ?></a>
 <?php if (!$usetrash): ?>
- <a id="ctx_draft_undeleted"><?php echo $delete . _("Undelete") ?></a>
+ <a id="ctx_draft_undeleted"><span class="contextImg deleteImg"></span><?php echo _("Undelete") ?></a>
 <?php endif; ?>
 </div>
 
 <div class="context" id="ctx_reply" style="display:none;">
- <a id="ctx_reply_reply"><?php echo Horde::img('replyall.png') . _("To Sender") ?></a>
- <a id="ctx_reply_reply_all"><?php echo Horde::img('replyall.png') . _("To All") ?></a>
- <a id="ctx_reply_reply_list"><?php echo Horde::img('replyall.png') . _("To List") ?></a>
+ <a id="ctx_reply_reply"><span class="contextImg replyallImg"></span><?php echo _("To Sender") ?></a>
+ <a id="ctx_reply_reply_all"><span class="contextImg replyallImg"></span><?php echo _("To All") ?></a>
+ <a id="ctx_reply_reply_list"><span class="contextImg replyallImg"></span><?php echo _("To List") ?></a>
 </div>
 
 <div class="context" id="ctx_forward" style="display:none">
- <a id="ctx_forward_forward_all"><?php echo $forward . _("Entire Message") ?></a>
- <a id="ctx_forward_forward_body"><?php echo $forward . _("Body Text Only") ?></a>
- <a id="ctx_forward_forward_attachments"><?php echo $forward . _("Attachments Only") ?></a>
+ <a id="ctx_forward_forward_all"><span class="contextImg forwardImg"></span><?php echo _("Entire Message") ?></a>
+ <a id="ctx_forward_forward_body"><span class="contextImg forwardImg"></span><?php echo _("Body Text Only") ?></a>
+ <a id="ctx_forward_forward_attachments"><span class="contextImg forwardImg"></span><?php echo _("Attachments Only") ?></a>
 </div>
 
 <div class="context" id="ctx_otheractions" style="display:none">
- <a id="previewtoggle"><?php echo $preview; echo ($prefs->getValue('dimp_show_preview') ? _("Hide Preview") : _("Show Preview")); ?></a>
+ <a id="previewtoggle"><span class="contextImg previewImg"></span><?php echo ($prefs->getValue('dimp_show_preview') ? _("Hide Preview") : _("Show Preview")); ?></a>
  <div class="sep"></div>
- <a id="oa_seen"><?php echo $mailseen . _("Mark as Read") ?></a>
- <a id="oa_unseen"><?php echo $mailunseen . _("Mark as New") ?></a>
- <a id="oa_flagged"><?php echo $flagged . _("Flag Message") ?></a>
- <a id="oa_clear"><?php echo $clearflag . _("Clear Flag") ?></a>
+ <a id="oa_seen"><span class="contextImg mailseenImg"></span><?php echo _("Mark as Read") ?></a>
+ <a id="oa_unseen"><span class="contextImg mailunseenImg"></span><?php echo _("Mark as New") ?></a>
+ <a id="oa_flagged"><span class="contextImg mailflaggedImg"></span><?php echo _("Flag Message") ?></a>
+ <a id="oa_clear"><span class="contextImg clearflagImg"></span><?php echo _("Clear Flag") ?></a>
  <div class="sep" id="oa_sep1"></div>
 <?php if ($has_blacklist || $has_whitelist): ?>
 <?php if ($has_blacklist): ?>
- <a id="oa_blacklist"><?php echo Horde::img('blacklist.png') . _("Blacklist") ?></a>
+ <a id="oa_blacklist"><span class="contextImg blacklistImg"></span><?php echo _("Blacklist") ?></a>
 <?php endif; ?>
 <?php if ($has_whitelist): ?>
- <a id="oa_whitelist"><?php echo Horde::img('whitelist.png') . _("Whitelist") ?></a>
+ <a id="oa_whitelist"><span class="contextImg whitelistImg"></span><?php echo _("Whitelist") ?></a>
 <?php endif; ?>
  <div class="sep" id="oa_sep2"></div>
 <?php endif; ?>
- <a id="oa_selectall"><?php echo $tick . _("Select All") ?></a>
+ <a id="oa_selectall"><span class="contextImg tickImg"></span><?php echo _("Select All") ?></a>
 <?php if (!$usetrash): ?>
  <div class="sep"></div>
- <a id="oa_purge_deleted"><?php echo $delete . _("Purge Deleted") ?></a>
- <a id="oa_undeleted"><?php echo $delete . _("Undelete") ?></a>
+ <a id="oa_purge_deleted"><span class="contextImg deleteImg"></span><?php echo _("Purge Deleted") ?></a>
+ <a id="oa_undeleted"><span class="contextImg deleteImg"></span><?php echo _("Undelete") ?></a>
 <?php endif; ?>
 </div>
 
@@ -458,9 +445,9 @@ function _simpleButton($id, $text, $image, $imagedir = null)
 </div>
 
 <div style="display:none">
- <?php echo Horde::img('popdown.png', 'v', array('class' => 'popdown', 'id' => 'popdown_img')) ?>
- <?php echo Horde::img('mail_priority_high.png', _("High Priority"), array('id' => 'high_priority_img')) ?>
- <?php echo Horde::img('mail_priority_low.png', _("Low Priority"), array('id' => 'low_priority_img')) ?>
+ <span id="popdown_img" class="iconImg popdownImg popdown"></span>
+ <span id="high_priority_img" class="iconImg highpriorityImg" title="<?php echo htmlspecialchars(_("High Priority")) ?>"></span>
+ <span id="low_priority_img" class="iconImg lowpriorityImg" title="<?php echo htmlspecialchars(_("Low Priority")) ?>"></span>
  <?php foreach ($thread_imgs as $val) { echo $val; } ?>
  <?php foreach ($atc_imgs as $val) { echo $val; } ?>
  <span id="largeaddrspan">

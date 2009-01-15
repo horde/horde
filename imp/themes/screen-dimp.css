@@ -138,11 +138,13 @@ div#quota {
 /* Message List */
 div.loading img, #folderLoading, #msgLoading {
     z-index: 1000;
-    background: #fff;
     border: 1px #e0e0e0 solid;
-    padding: 2px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
+    background: #fff url("graphics/loading.gif") no-repeat center;
+    padding: 2px;
+    width: 16px;
+    height: 16px;
 }
 
 /* Columns */
@@ -280,10 +282,10 @@ div.msgSize {
     background: transparent url("graphics/mail_deleted.png") no-repeat;
 }
 /* Status images and flags selectors: priority column */
-.msglist div.msgStatus .lowPriority {
+.msglist div.msgStatus .lowPriority, span.lowpriorityImg {
     background: transparent url("graphics/mail_priority_low.png") no-repeat;
 }
-.msglist div.msgStatus .highPriority {
+.msglist div.msgStatus .highPriority, span.highpriorityImg {
     background: transparent url("graphics/mail_priority_high.png") no-repeat;
 }
 /* Status images and flags selectors: compose status column */
@@ -293,7 +295,7 @@ div.msgSize {
 .msglist div.msgStatus .statusForwarded {
     background: transparent url("graphics/mail_forwarded.png") no-repeat;
 }
-.msglist div.msgStatus .statusDraft {
+.msglist div.msgStatus .statusDraft, span.draftImg {
     background: transparent url("graphics/mail_draft.png") no-repeat;
 }
 /* Thread images. */
@@ -1212,4 +1214,93 @@ a.address:hover img {
 }
 .largeaddrlist:hover {
     text-decoration: underline;
+}
+
+/* Images */
+span.iconImg, span.contextImg {
+    display: inline-block;
+    height: 16px;
+    width: 16px;
+    margin-right: 4px;
+    vertical-align: top;
+}
+span.mailseenImg {
+    background-image: url("graphics/mail_seen.png");
+}
+span.mailunseenImg {
+    background-image: url("graphics/mail_unseen.png");
+}
+span.deleteImg {
+    background-image: url("graphics/delete.png");
+}
+span.createfolderImg {
+    background-image: url("graphics/folders/folder_create.png");
+}
+span.editfolderImg {
+    background-image: url("graphics/folders/folder_edit.png");
+}
+span.forwardImg {
+    background-image: url("graphics/forward.png");
+}
+span.mailflaggedImg {
+    background-image: url("graphics/mail_flagged.png");
+}
+span.clearflagImg {
+    background-image: url("graphics/mail_clearflag.png");
+}
+span.previewImg {
+    background-image: url("graphics/preview.png");
+}
+span.tickImg {
+    background-image: url("graphics/tick.png");
+}
+span.newwinImg {
+    background-image: url("graphics/newwin.png");
+}
+span.quotaImg {
+    background-image: url("graphics/quotauncover.gif");
+    width: 0px;
+    margin-right: 0px;
+}
+span.keyupImg {
+    background-image: url("graphics/key_up.png");
+}
+span.keydownImg {
+    background-image: url("graphics/key_down.png");
+}
+span.arrowcollapsedImg {
+    background-image: url("graphics/arrow_collapsed.png");
+}
+span.arrowexpandedImg {
+    background-image: url("graphics/arrow_expanded.png");
+}
+span.attachmentImg {
+    background-image: url("graphics/attachment.png");
+}
+span.msgsourceImg {
+    background-image: url("graphics/message_source.png");
+}
+span.folderdeleteImg {
+    background-image: url("graphics/folders/folder_delete.png");
+}
+span.replyImg {
+    background-image: url("graphics/reply.png");
+}
+span.replyallImg {
+    background-image: url("graphics/replyall.png");
+}
+span.spamImg {
+    background-image: url("graphics/spam.png");
+}
+span.hamImg {
+    background-image: url("graphics/ham.png");
+}
+span.blacklistImg {
+    background-image: url("graphics/blacklist.png");
+}
+span.whitelistImg {
+    background-image: url("graphics/whitelist.png");
+}
+span.popdownImg {
+    background-image: url("graphics/popdown.png");
 }
