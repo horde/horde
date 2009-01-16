@@ -967,7 +967,7 @@ class Horde_Browser
      *                  upload in bytes.  Returns 0 if uploads are not
      *                  allowed.
      */
-    public function allowFileUploads()
+    public static function allowFileUploads()
     {
         if (ini_get('file_uploads')) {
             if (($dir = ini_get('upload_tmp_dir')) &&
