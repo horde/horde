@@ -2,6 +2,7 @@
 v5.0-cvs
 --------
 
+[mms] ESC in DIMP search box now clears the search (Request #7196).
 [mms] Enhancements to status icon view (Request #7519) (DIMP).
 [mms] If the browser supports it, embed image data in cached CSS files via
       data URLs (Request #7174).

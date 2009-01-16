@@ -9,9 +9,9 @@
 
 var DimpBase = {
     // Vars used and defaulting to null/false:
-    //   filtertoggle, fl_visible, folder, folderswitch, fspecial, isvisible,
-    //   message_list_template, offset, pollPE, pp, searchobserve, uid,
-    //   viewport
+    //   filter_on, filtertoggle, fl_visible, folder, folderswitch, fspecial,
+    //   isvisible, message_list_template, offset, pollPE, pp, searchobserve,
+    //   uid, viewport
     bcache: $H(),
     cacheids: {},
     lastrow: -1,
@@ -1131,7 +1131,9 @@ var DimpBase = {
         if (this.searchobserve) {
             clearTimeout(this.searchobserve);
         }
-        this.searchobserve = (this.bcache.get('searchfilterR') || this.bcache.set('searchfilterR', this.searchfilterRun.bind(this))).delay(0.5);
+        if (this.filter_on) {
+            this.searchobserve = (this.bcache.get('searchfilterR') || this.bcache.set('searchfilterR', this.searchfilterRun.bind(this))).delay(0.5);
+        }
     },
 
     searchfilterRun: function()
@@ -1151,7 +1153,8 @@ var DimpBase = {
             this._setFilterText(false);
         }
 
-        if (!q.visible()) {
+        if (!this.filter_on) {
+            this.filter_on = true;
             $('sf_current').update(this.viewport.getMetaData('label'));
             this._setSearchfilterParams(this.viewport.getMetaData('special') ? 'to' : 'from', 'msg');
             this._setSearchfilterParams('current', 'folder');
@@ -1170,16 +1173,17 @@ var DimpBase = {
     // reset = (boolean) TODO
     searchfilterClear: function(reset)
     {
-        var q = $('qoptions').up();
-        if (!q.visible()) {
+        if (!this.filter_on) {
             return;
         }
+
+        this.filter_on = false;
         if (this.searchobserve) {
             clearTimeout(this.searchobserve);
             this.searchobserve = null;
         }
         this._setFilterText(true);
-        Effect.SlideUp(q, { duration: 0.5, afterFinish: this._onResize.bind(this, reset) });
+        Effect.SlideUp($('qoptions').up(), { duration: 0.5, afterFinish: this._onResize.bind(this, reset) });
         this.filtertoggle = 2;
         this.resetSelected();
         this.viewport.stopFilter(reset);
@@ -1288,10 +1292,9 @@ var DimpBase = {
     /* Keydown event handler */
     _keydownHandler: function(e)
     {
-        // Only catch keyboard shortcuts in message list view. Disable catching
-        // when in form elements or the RedBox overlay is visible.
+        // Only catch keyboard shortcuts in message list view. Disable
+        // catching when the RedBox overlay is visible.
         if (!$('dimpmain_folder').visible() ||
-            e.findElement('FORM') ||
             RedBox.overlayVisible()) {
             return;
         }
@@ -1299,6 +1302,22 @@ var DimpBase = {
         var co, ps, r, row, rowoff,
             kc = e.keyCode || e.charCode,
             sel = this.viewport.getSelected();
+
+        // Form catching - normally we will ignore, but certain cases we want
+        // to catch.
+        if (e.findElement('FORM')) {
+            switch (kc) {
+            case Event.KEY_ESC:
+                if (e.element().readAttribute('id') == 'msgList_filter') {
+                    e.element().blur();
+                    this.searchfilterClear(false);
+                    e.stop();
+                }
+                break;
+            }
+
+            return;
+        }
 
         switch (kc) {
         case Event.KEY_DELETE:
