@@ -116,21 +116,25 @@ var ViewPort = Class.create({
         this.views.unset(view);
     },
 
-    // rownum = Row number
-    // noupdate = boolean
-    scrollTo: function(rownum, noupdate)
+    // rownum = (integer) Row number
+    // noupdate = (Object)
+    scrollTo: function(rownum, opts)
     {
         var s = this.scroller;
+        opts = opts || {};
 
-        s.noupdate = noupdate;
+        s.noupdate = opts.noupdate;
 
         switch (this.isVisible(rownum)) {
         case -1:
             s.moveScroll(rownum - 1);
             break;
 
-        // case 0:
-        // noop
+        case 0:
+            if (opts.top) {
+                s.moveScroll(rownum - 1);
+            }
+            break;
 
         case 1:
             s.moveScroll(Math.min(rownum, this.getMetaData('total_rows') - this.getPageSize() + 1));
@@ -682,7 +686,7 @@ var ViewPort = Class.create({
         }
 
         this.scroller.updateSize();
-        this.scrollTo(offset + 1, true);
+        this.scrollTo(offset + 1, { noupdate: true, top: true });
 
         offset = this.currentOffset();
         rows = this.createSelection('rownum', $A($R(offset + 1, offset + page_size)));
