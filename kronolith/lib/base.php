@@ -14,12 +14,18 @@
  * @package Kronolith
  */
 
-/* Check for a prior definition of HORDE_BASE (perhaps by an auto_prepend_file
- * definition for site customization). */
+// Check for a prior definition of HORDE_BASE.
 if (!defined('HORDE_BASE')) {
-    define('HORDE_BASE', dirname(__FILE__) . '/../..');
+    /* Temporary fix - if horde does not live directly under the imp
+     * directory, the HORDE_BASE constant should be defined in
+     * imp/lib/base.local.php. */
+    $krono_dir = dirname(__FILE__);
+    if (file_exists($krono_dir . '/base.local.php')) {
+        include $krono_dir . '/base.local.php';
+    } else {
+        define('HORDE_BASE', dirname(__FILE__) . '/../..');
+    }
 }
-
 /* Load the Horde Framework core, and set up inclusion paths. */
 require_once HORDE_BASE . '/lib/core.php';
 
