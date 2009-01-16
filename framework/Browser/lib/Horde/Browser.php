@@ -1027,7 +1027,7 @@ class Horde_Browser
             $name = _("file");
         }
 
-        if (!($uploadSize = Browser::allowFileUploads())) {
+        if (!($uploadSize = Horde_Browser::allowFileUploads())) {
             return PEAR::raiseError(_("File uploads not supported."));
         }
 
