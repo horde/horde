@@ -1007,8 +1007,6 @@ class Horde_Browser
      */
     public function wasFileUploaded($field, $name = null)
     {
-        require_once 'PEAR.php';
-
         if (is_null($name)) {
             $name = _("file");
         }
