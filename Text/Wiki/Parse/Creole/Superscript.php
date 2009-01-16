@@ -34,7 +34,7 @@ class Text_Wiki_Parse_Superscript extends Text_Wiki_Parse {
      *
      */
 
-    var $regex =  "/\^\^(.*?)\^\^/";
+    var $regex =  "/(\^\^(.*?)\^\^|(?<=\d)(st|nd|rd|th|er|e|re|ers|res|nds|de|des|ère|ème|ères|èmes|o|a)(?!\w))/";
 
     /**
      *
@@ -55,21 +55,21 @@ class Text_Wiki_Parse_Superscript extends Text_Wiki_Parse {
 
     function process(&$matches)
     {
-        if (! $this->wiki->checkInnerTags($matches[1])) {
+        if (! $this->wiki->checkInnerTags($matches[0])) {
             return $matches[0];
         }
 
-        $start = $this->wiki->addToken(
-            $this->rule,
-            array('type' => 'start')
-        );
+		$start = $this->wiki->addToken(
+			$this->rule,
+			array('type' => 'start')
+		);
 
-        $end = $this->wiki->addToken(
-            $this->rule,
-            array('type' => 'end')
-        );
+		$end = $this->wiki->addToken(
+			$this->rule,
+			array('type' => 'end')
+		);
 
-        return $start . $matches[1] . $end;
+        return $start . trim($matches[0], '^') . $end;
     }
 }
 ?>

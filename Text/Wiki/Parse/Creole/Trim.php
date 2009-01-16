@@ -48,11 +48,6 @@ class Text_Wiki_Parse_Trim extends Text_Wiki_Parse {
         $replace = "$1# ";
         $this->wiki->source = preg_replace($find, $replace, $this->wiki->source);
 
-        // make ordinal numbers superscripted
-        $find = "/([\d])(st|nd|rd|th|er|e|re|ers|res|nds|de|des|ère|ème|ères|èmes|o|a)([\W])/";
-        $replace = "$1^^$2^^$3";
-        $this->wiki->source = preg_replace($find, $replace, $this->wiki->source);
-
         // numbers in parentesis are footnotes and references
         $find = "/\(([\d][\d]?)\)/";
         $replace = "[$1]";
