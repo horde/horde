@@ -611,7 +611,7 @@ class IMP
                     }
                 }
 
-                if (!empty($mailbox) && !$imp_imap->isReadOnly($mailbox)) {
+                if (!empty($mailbox) && !$GLOBALS['imp_imap']->isReadOnly($mailbox)) {
                     $menu_trash_url = Util::addParameter(self::generateIMPUrl($menu_mailbox_url, $mailbox), array('actionID' => 'empty_mailbox', 'mailbox_token' => self::getRequestToken('imp.mailbox')));
                     $menu->add($menu_trash_url, _("Empty _Trash"), 'empty_trash.png', null, null, "return window.confirm('" . addslashes(_("Are you sure you wish to empty your trash folder?")) . "');", '__noselection');
                 }
