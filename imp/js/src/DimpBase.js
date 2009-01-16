@@ -15,7 +15,6 @@ var DimpBase = {
     bcache: $H(),
     cacheids: {},
     lastrow: -1,
-    mo_sidebar: {},
     pivotrow: -1,
     ppcache: {},
     ppfifo: [],
@@ -1877,9 +1876,8 @@ var DimpBase = {
             if (DIMP.conf.is_ie6) {
                 li.addClassName('over');
             }
-            if (type && !this.mo_sidebar[li.id]) {
+            if (type && !DimpCore.DMenu.validElement(li.id)) {
                 DimpCore.addMouseEvents({ id: li.id, type: type });
-                this.mo_sidebar[li.id] = 1;
             }
             break;
 
@@ -2043,7 +2041,6 @@ var DimpBase = {
         }
         [ DragDrop.Drags.get_drag(fid), DragDrop.Drops.get_drop(fid) ].compact().invoke('destroy');
         DimpCore.removeMouseEvents(f);
-        delete this.mo_sidebar[fid];
         DimpCore.addGC(f);
         if (this.viewport) {
             this.viewport.deleteView(fid);
