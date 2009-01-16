@@ -700,6 +700,12 @@ var ViewPort = Class.create({
                 c_nodes.push(this.template.evaluate(r));
             }, this);
             c.update(c_nodes.join(''));
+
+            if (this.opts.onUpdateClass) {
+                rows.get('div').each(function(d) {
+                    this.opts.onUpdateClass(d);
+                }, this);
+            }
         } else {
             // If loading a viewport for the first time, show a blank
             // viewport rather than the empty viewport status message.
@@ -819,7 +825,7 @@ var ViewPort = Class.create({
             }
 
             if (this.opts.onUpdateClass) {
-                this.opts.onUpdateClass(d, add);
+                this.opts.onUpdateClass(d);
             }
         }, this);
     },
