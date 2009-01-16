@@ -256,27 +256,12 @@ class Horde_Browser
     protected $_images = array('jpeg', 'gif', 'png', 'pjpeg', 'x-png', 'bmp');
 
     /**
-     * Returns a reference to the global Browser object, only creating it if
-     * it doesn't already exist.
-     *
-     * This method must be invoked as:<code>
-     *   $browser = &Browser::singleton([$userAgent[, $accept]]);</code>
-     *
-     * @param string $userAgent  The browser string to parse.
-     * @param string $accept     The HTTP_ACCEPT settings to use.
-     *
-     * @return Browser  The Browser object.
+     * @deprecated
      */
-    public static function &singleton($userAgent = null, $accept = null)
+    public static function singleton($userAgent = null, $accept = null)
     {
-        static $instances = array();
-
-        $signature = hash('md5', serialize(array($userAgent, $accept)));
-        if (empty($instances[$signature])) {
-            $instances[$signature] = new Horde_Browser($userAgent, $accept);
-        }
-
-        return $instances[$signature];
+        // trigger_error - warning?
+        return new Horde_Browser($userAgent, $accept);
     }
 
     /**
