@@ -18,7 +18,6 @@ DimpCore = {
     acount: 0,
     remove_gc: [],
     server_error: 0,
-    view_id: 1,
 
     buttons: [ 'button_reply', 'button_forward', 'button_spam', 'button_ham', 'button_deleted' ],
 
@@ -643,11 +642,4 @@ Object.extend(String.prototype, {
 function popup_imp(url, w, h, args)
 {
     DimpCore.compose('new', args.toQueryParams().toObject());
-}
-
-/* For attachment viewing to work, replaces the function from
- * horde/templates/contents/open_view_win.js. */
-function view(url, uniqid)
-{
-    window.open(url, ++DimpCore.view_id + uniqid.replace(/\W/g, '_'), 'menubar=yes,toolbar=no,location=no,status=no,scrollbars=yes,resizable=yes');
 }
