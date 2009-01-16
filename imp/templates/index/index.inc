@@ -58,7 +58,7 @@ function _simpleButton($id, $text, $image, $imagedir = null)
  <div id="header"></div>
  <div id="pageContainer">
   <div id="sidebarPanel" class="noprint" style="width:<?php echo $sidebar_width ?>">
-   <div id="logo"><h1><a><?php echo _("Horde") ?></a></h1></div>
+   <div id="logo"><h1><a id="logolink"><?php echo _("Horde") ?></a></h1></div>
    <ul id="dimpbarActions">
     <?php echo _simpleButton('composelink', _("_New Message"), 'compose.png') ?>
     <?php echo _simpleButton('checkmaillink', _("_Get Mail"), 'checkmail.png') ?>
@@ -91,7 +91,7 @@ function _simpleButton($id, $text, $image, $imagedir = null)
 <?php foreach ($application_folders as $val): ?>
      <li class="custom">
       <img src="<?php echo $val['icon'] ?>" alt="<?php echo $val['name'] ?>" />
-      <a title="<?php echo $val['name'] ?>" id="app<?php echo $val['app'] ?>" app="<?php echo $val['app'] ?>"><?php echo $val['name'] ?></a>
+      <a title="<?php echo $val['name'] ?>" id="app<?php echo $val['app'] ?>"><?php echo $val['name'] ?></a>
      </li>
 <?php endforeach; ?>
     </ul>
@@ -143,7 +143,7 @@ function _simpleButton($id, $text, $image, $imagedir = null)
         </li>
 <?php foreach ($application_folders as $val): ?>
         <li<?php if ($val['app'] == 'dimp') echo ' class="activeTab"' ?>>
-         <a class="applicationtab" app="<?php echo $val['app'] ?>"><img src="<?php echo $val['icon'] ?>" alt="<?php echo $val['name'] ?>" /><?php echo $val['name'] ?></a>
+         <a class="applicationtab" id="apptab<?php echo $val['app'] ?>"><img src="<?php echo $val['icon'] ?>" alt="<?php echo $val['name'] ?>" /><?php echo $val['name'] ?></a>
         </li>
 <?php endforeach; ?>
 <?php foreach ($site_menu as $key => $menu_item): if ($menu_item == 'separator') continue; ?>
@@ -209,7 +209,7 @@ function _simpleButton($id, $text, $image, $imagedir = null)
 
      <div style="display:none">
       <div id="qoptions">
-       <span class="qclose"><a>x</a></span>
+       <span id="qclose"><a>x</a></span>
        <span class="qlabel"><?php echo _("Folders: ") ?></span>
 <?php if (!empty($conf['dimp']['search']['search_all'])): ?>
        <a id="sf_all"><?php echo _("All") ?></a>
@@ -316,7 +316,7 @@ function _simpleButton($id, $text, $image, $imagedir = null)
              <td class="cc"></td>
             </tr>
             <tr id="msgAtc" style="display:none">
-             <td class="label"><span class="iconImg attachmentImg attachmentImage"></span><?php echo Horde::link('') ?><span class="iconImg arrowcollapsedImg" id="partlist_col"></span><span class="iconImg arrowexpandedImg" id="partlist_exp" style="display:none"></span></a></td>
+             <td class="label"><span class="iconImg attachmentImg attachmentImage"></span><a id="partlist_toggle"><span class="iconImg arrowcollapsedImg" id="partlist_col"></span><span class="iconImg arrowexpandedImg" id="partlist_exp" style="display:none"></span></a></td>
              <td>
               <div></div>
               <table id="partlist" style="display:none" cellspacing="2">

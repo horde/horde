@@ -495,14 +495,10 @@ var DimpCompose = {
     {
         var span = new Element('SPAN').insert(name),
             div = new Element('DIV').insert(span).insert(' [' + type + '] (' + size + ' KB) '),
-            input = new Element('INPUT', { type: 'button', atc_id: atc_num, value: DIMP.text_compose.remove }),
-            C = DimpCore.clickObserveHandler;
+            input = new Element('INPUT', { type: 'button', atc_id: atc_num, value: DIMP.text_compose.remove });
         div.insert(input);
         $('attach_list').insert(div);
-        C({ d: input, f: this.removeAttach.bind(this, [ input.up() ]) });
-        if (type != 'application/octet-stream') {
-            C({ d: span.addClassName('attachName'), f: function() { view(DimpCore.addURLParam(DIMP.conf.URI_VIEW, { composeCache: $F('composeCache'), actionID: 'compose_attach_preview', id: atc_num }), $F('composeCache') + '|' + atc_num) } });
-        }
+
         this.resizeMsgArea();
     },
 
@@ -629,6 +625,57 @@ var DimpCompose = {
     openAddressbook: function()
     {
         window.open(DIMP.conf_compose.abook_url, 'contacts', 'toolbar=no,location=no,status=no,scrollbars=yes,resizable=yes,width=550,height=300,left=100,top=100');
+    },
+
+    /* Click observe handler. */
+
+    _clickHandler: function(e)
+    {
+        if (e.isRightClick()) {
+            return;
+        }
+
+        var elt = e.element(), id, tmp;
+
+        while (Object.isElement(elt)) {
+            id = elt.readAttribute('id');
+
+            switch (id) {
+            case 'togglebcc':
+            case 'togglecc':
+                this.toggleCC(id.substring(6));
+                this.resizeMsgArea();
+                break;
+
+            case 'compose_close':
+                this.confirmCancel();
+                break;
+
+            case 'draft_button':
+            case 'send_button':
+                this.uniqueSubmit(id == 'send_button' ? 'send_message' : 'save_draft');
+                break;
+
+            case 'htmlcheckbox':
+                this.toggleHtmlCheckbox();
+                break;
+            }
+
+            /*
+            if (DIMP.conf_compose.abook_url) {
+                $('sendto', 'sendcc', 'sendbcc').each(function(a) {
+                    C({ d: a.down('TD.label SPAN').addClassName('composeAddrbook'), f: DC.openAddressbook.bind(DC) });
+                });
+            }
+
+        C({ d: input, f: this.removeAttach.bind(this, [ input.up() ]) });
+        if (type != 'application/octet-stream') {
+            C({ d: span.addClassName('attachName'), f: function() { view(DimpCore.addURLParam(DIMP.conf.URI_VIEW, { composeCache: $F('composeCache'), actionID: 'compose_attach_preview', id: atc_num }), $F('composeCache') + '|' + atc_num) } });
+        }
+            */
+
+            elt = elt.up();
+        }
     }
 },
 
@@ -676,8 +723,7 @@ ResizeTextArea = Class.create({
 document.observe('dom:loaded', function() {
     var tmp,
         DC = DimpCompose,
-        boundResize = DC.resizeMsgArea.bind(DC),
-        C = DimpCore.clickObserveHandler;
+        boundResize = DC.resizeMsgArea.bind(DC);
 
     DC.resizeMsgArea();
     DC.initializeSpellChecker();
@@ -695,24 +741,8 @@ document.observe('dom:loaded', function() {
         $('submit_frame').writeAttribute({ position: 'absolute', width: '1px', height: '1px' }).setStyle({ left: '-999px' }).show();
     }
 
-    /* Attach click handlers. */
-    if (tmp = $('compose_close')) {
-        C({ d: tmp, f: DC.confirmCancel.bind(DC) });
-    }
-    C({ d: $('send_button'), f: DC.uniqueSubmit.bind(DC, 'send_message') });
-    C({ d: $('draft_button'), f: DC.uniqueSubmit.bind(DC, 'save_draft') });
-    [ 'cc', 'bcc' ].each(function(a) {
-        C({ d: $('toggle' + a), f: DC.toggleCC.bind(DC, a) });
-    });
-    if (tmp = $('htmlcheckbox')) {
-        C({ d: tmp, f: DC.toggleHtmlCheckbox.bind(DC), ns: true });
-    }
-
-    if (DIMP.conf_compose.abook_url) {
-        $('sendto', 'sendcc', 'sendbcc').each(function(a) {
-            C({ d: a.down('TD.label SPAN').addClassName('composeAddrbook'), f: DC.openAddressbook.bind(DC) });
-        });
-    }
+    /* Mouse click handler. */
+    document.observe('click', DC._clickHandler.bindAsEventListener(DC));
 
     /* Only allow submit through send button. */
     $('compose').observe('submit', Event.stop);
@@ -720,9 +750,5 @@ document.observe('dom:loaded', function() {
     /* Attach other handlers. */
     $('identity').observe('change', DC.change_identity.bind(DC));
 
-    // Various events that may cause the textarea to grow larger than the
-    // window size.
-    $('togglecc').observe('click', boundResize);
-    $('togglebcc').observe('click', boundResize);
     Event.observe(window, 'resize', boundResize);
 });

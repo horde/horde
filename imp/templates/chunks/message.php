@@ -69,7 +69,7 @@ function _createDAfmsg($text, $image, $id, $class = '', $show_text = true)
 <?php endforeach; ?>
 <?php if (isset($show_msg_result['atc_label'])): ?>
         <tr id="msgAtc">
-         <td class="label"><?php if ($show_msg_result['atc_list']): ?><?php echo Horde::link('') ?><span id="partlist_col" class="iconImg arrowcollapsedImg"></span><span id="partlist_exp" class="iconImg arrowexpandedImg" style="display:none"></span> <span class="iconImg attachmentImg attachmentImage"></span></a><?php else: ?><span class="iconImg attachmentImg attachmentImage"></span><?php endif; ?></td>
+         <td class="label"><?php if ($show_msg_result['atc_list']): ?><a id="partlist_toggle"><span id="partlist_col" class="iconImg arrowcollapsedImg"></span><span id="partlist_exp" class="iconImg arrowexpandedImg" style="display:none"></span> <span class="iconImg attachmentImg attachmentImage"></span></a><?php else: ?><span class="iconImg attachmentImg attachmentImage"></span><?php endif; ?></td>
          <td>
           <span class="atcLabel"><?php echo $show_msg_result['atc_label'] ?></span><?php echo $show_msg_result['atc_download'] ?>
 <?php if (isset($show_msg_result['atc_list'])): ?>

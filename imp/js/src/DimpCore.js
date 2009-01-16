@@ -138,7 +138,7 @@ DimpCore = {
                 }
                 uids = tmp;
             }
-            params.set('uid', DimpCore.toRangeString(uids));
+            params.set('uid', this.toRangeString(uids));
         }
         if (DIMP.conf.SESSION_ID) {
             params.update(DIMP.conf.SESSION_ID.toQueryParams());
@@ -451,51 +451,10 @@ DimpCore = {
         [ id.select('.address'), id.select('.largeaddrtoggle') ].flatten().compact().each(this.removeMouseEvents.bind(this));
     },
 
-    /* Add event observers to message output.  Adds observers used in both
-     * the base page and the popup message window. */
-    messageOnLoad: function()
-    {
-        var C = this.clickObserveHandler, tmp;
-
-        if ($('partlist')) {
-            C({ d: $('partlist_col').up(), f: function() { $('partlist', 'partlist_col', 'partlist_exp').invoke('toggle'); } });
-        }
-        if (tmp = $('msg_print')) {
-            C({ d: tmp, f: function() { window.print(); } });
-        }
-        if (tmp = $('msg_view_source')) {
-            C({ d: tmp, f: function() { view(DimpCore.addURLParam(DIMP.conf.URI_VIEW, { index: DIMP.conf.msg_index, mailbox: DIMP.conf.msg_folder, actionID: 'view_source', id: 0 }, true), DIMP.conf.msg_index + '|' + DIMP.conf.msg_folder) } });
-        }
-        C({ d: $('ctx_contacts_new'), f: function() { this.compose('new', { to: this.DMenu.element().readAttribute('address') }); }.bind(this), ns: true });
-        C({ d: $('ctx_contacts_add'), f: function() { this.doAction('AddContact', { name: this.DMenu.element().readAttribute('personal'), email: this.DMenu.element().readAttribute('email') }, null, true); }.bind(this), ns: true });
-        if ($('alertslog')) {
-            C({ d: $('alertsloglink'), f: this.toggleAlertsLog.bind(this) });
-        }
-    },
-
     /* Utility functions. */
     addGC: function(elt)
     {
         this.remove_gc = this.remove_gc.concat(elt);
-    },
-
-    // o: (object) Contains the following items:
-    //    'd'  - (required) The DOM element
-    //    'f'  - (required) The function to bind to the click event
-    //    'ns' - (optional) If set, don't stop the event's propogation
-    //    'p'  - (optional) If set, passes in the event object to the called
-    //                      function
-    clickObserveHandler: function(o)
-    {
-        return o.d.observe('click', DimpCore._clickFunc.curry(o));
-    },
-
-    _clickFunc: function(o, e)
-    {
-        o.p ? o.f(e) : o.f();
-        if (!o.ns) {
-            e.stop();
-        }
     },
 
     addURLParam: function(url, params)
@@ -521,6 +480,56 @@ DimpCore = {
             window.location = this.addURLParam(document.location.href, params);
         } else {
             DimpBase.loadPreview(null, params);
+        }
+    },
+
+    /* Mouse click handler. */
+    _clickHandler: function(e)
+    {
+        if (e.isRightClick()) {
+            return;
+        }
+
+        var elt = e.element(), id, tmp;
+
+        while (Object.isElement(elt)) {
+            id = elt.readAttribute('id');
+
+            switch (id) {
+            case 'partlist_toggle':
+                tmp = $('partlist');
+                $('partlist_col', 'partlist_exp').invoke('toggle');
+                if (tmp.visible()) {
+                    Effect.BlindUp(tmp, { duration: 0.2 });
+                } else {
+                    Effect.BlindDown(tmp, { duration: 0.2 });
+                }
+                e.stop();
+                return;
+
+            case 'msg_print':
+                window.print();
+                e.stop();
+                return;
+
+            case 'msg_view_source':
+                this.popupWindow(this.addURLParam(DIMP.conf.URI_VIEW, { index: DIMP.conf.msg_index, mailbox: DIMP.conf.msg_folder, actionID: 'view_source', id: 0 }, true), DIMP.conf.msg_index + '|' + DIMP.conf.msg_folder);
+                break;
+
+            case 'ctx_contacts_new':
+                this.compose('new', { to: this.DMenu.element().readAttribute('address') });
+                break;
+
+            case 'ctx_contacts_add':
+                this.doAction('AddContact', { name: this.DMenu.element().readAttribute('personal'), email: this.DMenu.element().readAttribute('email') }, null, true);
+                break;
+
+            case 'alertsloglink':
+                this.toggleAlertsLog();
+                break;
+            }
+
+            elt = elt.up();
         }
     }
 };
@@ -561,6 +570,9 @@ document.observe('dom:loaded', function() {
             }
         }
     }, 10);
+
+    /* Add click handler. */
+    document.observe('click', DimpCore._clickHandler.bindAsEventListener(DimpCore));
 });
 
 Event.observe(window, 'load', function() {
@@ -634,12 +646,3 @@ Object.extend(String.prototype, {
         });
     }
 });
-
-/** Functions overriding IMP/prototypejs JS functions. **/
-
-/* We need to replace the IMP javascript for this function with code that
- * calls the correct DIMP functions. */
-function popup_imp(url, w, h, args)
-{
-    DimpCore.compose('new', args.toQueryParams().toObject());
-}

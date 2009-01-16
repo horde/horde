@@ -64,13 +64,62 @@ var DimpFullmessage = {
         if (r.imp_compose) {
             $('composeCache').setValue(r.imp_compose);
         }
+    },
+
+    /* Mouse click handler. */
+    _clickHandler: function(e)
+    {
+        if (e.isRightClick()) {
+            return;
+        }
+
+        var elt = e.element(), id;
+
+        while (Object.isElement(elt)) {
+            id = elt.readAttribute('id');
+
+            switch (id) {
+            case 'windowclose':
+                window.close();
+                e.stop();
+                exit;
+
+            case 'forward_link':
+            case 'reply_link':
+                this.quickreply(id == 'reply_link' ? 'reply' : DIMP.conf.forward_default);
+                e.stop();
+                exit;
+
+            case 'button_deleted':
+            case 'button_ham':
+            case 'button_spam':
+                DIMP.baseWindow.DimpBase.flag(id.substring(7), DIMP.conf.msg_index, DIMP.conf.msg_folder);
+                window.close();
+                e.stop();
+                exit;
+
+            case 'ctx_replypopdown_reply':
+            case 'ctx_replypopdown_reply_all':
+            case 'ctx_replypopdown_reply_list':
+                this.quickreply(id.substring(17));
+                break;
+
+            case 'ctx_fwdpopdown_forward_all':
+            case 'ctx_fwdpopdown_forward_body':
+            case 'ctx_fwdpopdown_forward_attachments':
+                this.quickreply(id.substring(15));
+                break;
+            }
+
+            // C({ d: $('qreply').select('div.headercloseimg img').first(), f: DimpCompose.confirmCancel.bind(DimpCompose) });
+            elt = elt.up();
+        }
     }
 
 };
 
 document.observe('dom:loaded', function() {
     window.focus();
-    DimpCore.messageOnLoad();
     DimpCore.addPopdown('reply_link', 'replypopdown');
     DimpCore.addPopdown('forward_link', 'fwdpopdown');
 
@@ -83,24 +132,5 @@ document.observe('dom:loaded', function() {
     });
 
     /* Set up click handlers. */
-    var C = DimpCore.clickObserveHandler;
-    C({ d: $('windowclose'), f: function() { window.close(); } });
-    C({ d: $('reply_link'), f: DimpFullmessage.quickreply.bind(DimpFullmessage, 'reply') });
-    C({ d: $('forward_link'), f: DimpFullmessage.quickreply.bind(DimpFullmessage, DIMP.conf.forward_default) });
-    [ 'spam', 'ham', 'deleted' ].each(function(a) {
-        var d = $('button_' + a);
-        if (d) {
-            C({ d: d, f: function(a) { DIMP.baseWindow.DimpBase.flag(a, DIMP.conf.msg_index, DIMP.conf.msg_folder); window.close(); }.curry(a) });
-        }
-    });
-    C({ d: $('qreply').select('div.headercloseimg img').first(), f: DimpCompose.confirmCancel.bind(DimpCompose) });
-    [ 'reply', 'reply_all', 'reply_list' ].each(function(a) {
-        var d = $('ctx_replypopdown_' + a);
-        if (d) {
-            C({ d: d, f: DimpFullmessage.quickreply.bind(DimpFullmessage, a), ns: true });
-        }
-    });
-    [ 'forward_all', 'forward_body', 'forward_attachments' ].each(function(a) {
-        C({ d: $('ctx_fwdpopdown_' + a), f: DimpFullmessage.quickreply.bind(DimpFullmessage, a), ns: true });
-    });
+    document.observe('click', DimpFullmessage.clickHandler.bindAsEventListener(DimpFullmessage));
 });

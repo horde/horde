@@ -725,8 +725,8 @@ div.dimpActionsCompose {
     padding: 4px;
 }
 .mimeStatusMessage {
-    background: #ffc;
-    border: 1px #fffba4 solid;
+    margin-bottom: 4px;
+    margin-top: 2px;
 }
 .mimePartInfo {
     background: #efefef;
@@ -1074,7 +1074,7 @@ a.address:hover img {
     -webkit-border-radius: 5px;
     padding: 1px 4px;
 }
-#qoptions .qclose a, #qoptions .qclose a:visited {
+#qclose a, #qclose a:visited {
     float: right;
     margin-top: -2px;
     width: 10px;
@@ -1092,7 +1092,7 @@ a.address:hover img {
     padding: 0px 2px 2px 4px;
     text-decoration: none;
 }
-#qoptions .qclose a:hover {
+#qclose a:hover {
     background: #fff;
 }
 #qoptions .qlabel {
