@@ -73,9 +73,11 @@ function _createDAfmsg($text, $image, $id, $class = '', $show_text = true)
          <td>
           <span class="atcLabel"><?php echo $show_msg_result['atc_label'] ?></span><?php echo $show_msg_result['atc_download'] ?>
 <?php if (isset($show_msg_result['atc_list'])): ?>
-          <table id="partlist" cellspacing="2" style="display:none">
-           <?php echo $show_msg_result['atc_list'] ?>
-          </table>
+          <div id="partlist" style="display:none">
+           <table cellspacing="2">
+            <?php echo $show_msg_result['atc_list'] ?>
+           </table>
+          </div>
 <?php endif; ?>
          </td>
         </tr>

@@ -907,7 +907,7 @@ var DimpBase = {
                 $('partlist_col').show();
                 $('partlist_exp').hide();
                 tmp.down().hide().next().show();
-                tmp2.update(r.atc_list);
+                tmp2.down('TABLE').update(r.atc_list);
             } else {
                 tmp.down().show().next().hide();
             }

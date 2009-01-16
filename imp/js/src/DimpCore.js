@@ -427,7 +427,6 @@ DimpCore = {
             base = elt;
         }
 
-        alist.each(function(o, i) {
             var a, t;
             if (o.raw) {
                 a = o.raw;

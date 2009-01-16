@@ -319,8 +319,9 @@ function _simpleButton($id, $text, $image, $imagedir = null)
              <td class="label"><span class="iconImg attachmentImg attachmentImage"></span><a id="partlist_toggle"><span class="iconImg arrowcollapsedImg" id="partlist_col"></span><span class="iconImg arrowexpandedImg" id="partlist_exp" style="display:none"></span></a></td>
              <td>
               <div></div>
-              <table id="partlist" style="display:none" cellspacing="2">
-              </table>
+              <div id="partlist" style="display:none">
+               <table cellspacing="2"></table>
+              </div>
              </td>
             </tr>
            </thead>
