@@ -55,7 +55,7 @@ function switchDateView(view, date)
 <?php else: foreach ($attendees as $email => $status): ?>
  <tr>
   <td class="nowrap"><?php $name = strpos($email, '@') === false ? $status['name'] : $email; echo Horde::link('#', sprintf(_("Remove %s"), $name), '', '', "performAction('remove', decodeURIComponent('" . rawurlencode($email) . "')); return false;") . Horde::img('delete.png', '', null, $registry->getImageDir('horde')) . '</a> ' . Horde::link('#', sprintf(_("Edit %s"), $name), '', '', "performAction('edit', decodeURIComponent('" . rawurlencode($email) . "')); return false;") . Horde::img('edit.png', '', null, $registry->getImageDir('horde')) . '</a>' ?></td>
-  <td><?php echo htmlspecialchars(empty($status['name']) ? $email : MIME::trimEmailAddress($status['name'] . (strpos($email, '@') === false ? '' : ' <' . $email . '>'))) ?></td>
+  <td><?php echo htmlspecialchars(empty($status['name']) ? $email : Horde_Mime_Address::trimAddress($status['name'] . (strpos($email, '@') === false ? '' : ' <' . $email . '>'))) ?></td>
   <td>
 <label for="<?php echo "attendance_$i" ?>" class="hidden"><?php echo _("Attendance") ?></label>
    <select id="<?php echo "attendance_$i" ?>" name="<?php echo "attendance_$i" ?>" onchange="performAction('changeatt', document.attendeesForm.<?php echo "attendance_$i" ?>.value + ' ' + decodeURIComponent('<?php echo rawurlencode($email) ?>'));">

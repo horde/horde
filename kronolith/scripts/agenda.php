@@ -12,8 +12,8 @@
  */
 
 // Find the base file path of Horde.
-@define('HORDE_BASE', dirname(__FILE__) . '/../..');
-
+//@define('HORDE_BASE', dirname(__FILE__) . '/../..');
+@define('HORDE_BASE', '/private/var/www/html/horde');
 // Find the base file path of Kronolith.
 @define('KRONOLITH_BASE', dirname(__FILE__) . '/..');
 

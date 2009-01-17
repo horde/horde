@@ -1792,10 +1792,9 @@ class Kronolith {
             return '';
         }
 
-        require_once 'Horde/MIME.php';
         $attendees = array();
         foreach ($_SESSION['kronolith']['attendees'] as $email => $attendee) {
-            $attendees[] = empty($attendee['name']) ? $email : MIME::trimEmailAddress($attendee['name'] . (strpos($email, '@') === false ? '' : ' <' . $email . '>'));
+            $attendees[] = empty($attendee['name']) ? $email : Horde_Mime_Address::trimAddress($attendee['name'] . (strpos($email, '@') === false ? '' : ' <' . $email . '>'));
         }
 
         return implode(', ', $attendees);
@@ -1834,12 +1833,8 @@ class Kronolith {
             return;
         }
 
-        require_once 'Horde/MIME.php';
-        require_once 'Horde/MIME/Headers.php';
-        require_once 'Horde/MIME/Message.php';
-
         $myemail = explode('@', $myemail);
-        $from = MIME::rfc822WriteAddress($myemail[0], isset($myemail[1]) ? $myemail[1] : '', $ident->getValue('fullname'));
+        $from = Horde_Mime_Address::writeAddress($myemail[0], isset($myemail[1]) ? $myemail[1] : '', $ident->getValue('fullname'));
 
         $mail_driver = $conf['mailer']['type'];
         $mail_params = $conf['mailer']['params'];
@@ -1895,10 +1890,9 @@ class Kronolith {
             }
 
             if ($event->getAttendees()) {
-                require_once 'Horde/MIME.php';
                 $attendee_list = array();
                 foreach ($event->getAttendees() as $mail => $attendee) {
-                    $attendee_list[] = empty($attendee['name']) ? $mail : MIME::trimEmailAddress($attendee['name'] . (strpos($mail, '@') === false ? '' : ' <' . $mail . '>'));
+                    $attendee_list[] = empty($attendee['name']) ? $mail : Horde_Mime_Address::trimAddress($attendee['name'] . (strpos($mail, '@') === false ? '' : ' <' . $mail . '>'));
                 }
                 $message .= sprintf(_("Attendees: %s"), implode(', ', $attendee_list)) . "\n\n";
             }
@@ -1913,13 +1907,9 @@ class Kronolith {
                 $message .= "\n\n" . sprintf(_("If your email client doesn't support iTip requests you can use one of the following links to accept or decline the event.\n\nTo accept the event:\n%s\n\nTo accept the event tentatively:\n%s\n\nTo decline the event:\n%s\n"), Util::addParameter($attend_link, 'a', 'accept', false), Util::addParameter($attend_link, 'a', 'tentative', false), Util::addParameter($attend_link, 'a', 'decline', false));
             }
 
-            $mime = new MIME_Part('multipart/alternative');
-            $body = new MIME_Part('text/plain', $message, NLS::getCharset());
-            $body->setTransferEncoding('quoted-printable');
-
+            /* Build the iCalendar data */
             require_once 'Horde/Data.php';
             require_once 'Horde/iCalendar.php';
-
             $iCal = new Horde_iCalendar();
             $iCal->setAttribute('METHOD', $method);
             $iCal->setAttribute('X-WR-CALNAME', String::convertCharset($share->get('name'), NLS::getCharset(), 'utf-8'));
@@ -1928,30 +1918,21 @@ class Kronolith {
                 $vevent->setAttribute('RECURRENCE-ID', $instance, array('VALUE' => 'DATE'));
             }
             $iCal->addComponent($vevent);
-            $ics = new MIME_Part('text/calendar', $iCal->exportvCalendar());
+
+            /* text/calendar part */
+            $ics = new Horde_Mime_Part();
+            $ics->setType('text/calendar');
+            $ics->setContents($iCal->exportvCalendar());
             $ics->setName($filename);
             $ics->setContentTypeParameter('METHOD', $method);
             $ics->setCharset(NLS::getCharset());
 
-            $mime->addPart($body);
-            $mime->addPart($ics);
-            $mime = &MIME_Message::convertMimePart($mime);
-
-            /* Build the notification headers. */
-            $recipient = empty($status['name']) ? $email : MIME::trimEmailAddress($status['name'] . ' <' . $email . '>');
-
-            $msg_headers = new MIME_Headers();
-            $msg_headers->addReceivedHeader();
-            $msg_headers->addMessageIdHeader();
-            $msg_headers->addHeader('Date', date('r'));
-            $msg_headers->addHeader('From', MIME::encodeAddress($from, NLS::getCharset()));
-            $msg_headers->addHeader('To', MIME::encodeAddress($recipient, NLS::getCharset()));
-            $msg_headers->addHeader('Subject', MIME::encode($subject, NLS::getCharset()));
+            $recipient = empty($status['name']) ? $email : Horde_Mime_Address::trimAddress($status['name'] . ' <' . $email . '>');
+            $mail = new Horde_Mime_Mail($subject, $message, $recipient, $from, NLS::getCharset());
             require_once KRONOLITH_BASE . '/lib/version.php';
-            $msg_headers->addHeader('User-Agent', 'Kronolith ' . KRONOLITH_VERSION);
-            $msg_headers->addMIMEHeaders($mime);
-
-            $status = $mime->send($email, $msg_headers, $mail_driver, $mail_params);
+            $mail->addHeader('User-Agent', 'Kronolith ' . KRONOLITH_VERSION);
+            $mail->addMimePart($ics);
+            $status = $mail->send($mail_driver, $mail_params);
             if (!is_a($status, 'PEAR_Error')) {
                 $notification->push(
                     sprintf(_("The event notification to %s was successfully sent."), $recipient),
@@ -1984,9 +1965,6 @@ class Kronolith {
 
         require_once 'Horde/Group.php';
         require_once 'Horde/Identity.php';
-        require_once 'Horde/MIME.php';
-        require_once 'Horde/MIME/Headers.php';
-        require_once 'Horde/MIME/Message.php';
 
         $groups = &Group::singleton();
         $calendar = $event->getCalendar();
@@ -2007,6 +1985,7 @@ class Kronolith {
                 $recipients[$user] = Kronolith::_notificationPref($user, 'read', $calendar);
             }
         }
+
         foreach ($share->listGroups(PERMS_READ) as $group) {
             $group = $groups->getGroupById($group);
             if (is_a($group, 'PEAR_Error')) {
@@ -2038,7 +2017,7 @@ class Kronolith {
             if (!isset($addresses[$vals['lang']][$vals['tf']][$vals['df']])) {
                 $addresses[$vals['lang']][$vals['tf']][$vals['df']] = array();
             }
-            $addresses[$vals['lang']][$vals['tf']][$vals['df']][] = MIME::rfc822WriteAddress($mailbox, $host, $identity->getValue('fullname'));
+            $addresses[$vals['lang']][$vals['tf']][$vals['df']][] = Horde_Mime_Address::writeAddress($mailbox, $host, $identity->getValue('fullname'));
         }
 
         if (!$addresses) {
@@ -2052,12 +2031,6 @@ class Kronolith {
             $mail_params['username'] = Auth::getAuth();
             $mail_params['password'] = Auth::getCredential('password');
         }
-
-        $msg_headers = new MIME_Headers();
-        $msg_headers->addMessageIdHeader();
-        $msg_headers->addAgentHeader();
-        $msg_headers->addHeader('Date', date('r'));
-        $msg_headers->addHeader('From', $from);
 
         foreach ($addresses as $lang => $twentyFour) {
             NLS::setLang($lang);
@@ -2079,9 +2052,6 @@ class Kronolith {
                 break;
             }
 
-            $msg_headers->removeHeader('Subject');
-            $msg_headers->addHeader('Subject', $subject . ' ' . $event->title);
-
             foreach ($twentyFour as $tf => $dateFormat) {
                 foreach ($dateFormat as $df => $df_recipients) {
                     $message = "\n"
@@ -2092,14 +2062,14 @@ class Kronolith {
                                   $event->start->strftime($tf ? '%R' : '%I:%M%p'))
                         . "\n\n" . $event->getDescription();
 
-                    $mime = new MIME_Message();
-                    $body = new MIME_Part('text/plain', String::wrap($message, 76, "\n"), NLS::getCharset());
-
-                    $mime->addPart($body);
-                    $msg_headers->addMIMEHeaders($mime);
-
+                    $mime_mail = new Horde_Mime_Mail($subject . ' ' . $event->title,
+                                                     null,
+                                                     implode(',', $df_recipients),
+                                                     $from,
+                                                     NLS::getCharset());
+                    $mime_mail->setBody($message, NLS::getCharset(), true);
                     Horde::logMessage(sprintf('Sending event notifications for %s to %s', $event->title, implode(', ', $df_recipients)), __FILE__, __LINE__, PEAR_LOG_DEBUG);
-                    $sent = $mime->send(implode(', ', $df_recipients), $msg_headers, $mail_driver, $mail_params);
+                    $sent = $mime_mail->send($mail_driver, $mail_params, false, false);
                     if (is_a($sent, 'PEAR_Error')) {
                         return $sent;
                     }

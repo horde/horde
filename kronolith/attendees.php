@@ -48,8 +48,7 @@ case 'add':
         break;
     }
 
-    require_once 'Horde/MIME.php';
-    foreach (MIME::rfc822Explode($newAttendees) as $newAttendee) {
+    foreach (Horde_Mime_Address::explode($newAttendees) as $newAttendee) {
         // Parse the address without validation to see what we can get out of
         // it. We allow email addresses (john@example.com), email address with
         // user information (John Doe <john@example.com>), and plain names
@@ -85,8 +84,8 @@ case 'add':
             $name = empty($newAttendeeParsedPart->personal)
                 ? ''
                 : $newAttendeeParsedPart->personal;
-            $newAttendeeParsedPartNew = MIME::encodeAddress(
-                MIME::rfc822WriteAddress($newAttendeeParsedPart->mailbox,
+            $newAttendeeParsedPartNew = Horde_Mime::encodeAddress(
+                Horde_Mime_Address::writeAddress($newAttendeeParsedPart->mailbox,
                                          $newAttendeeParsedPart->host, $name));
             $newAttendeeParsedPartValidated = $parser->parseAddressList(
                 $newAttendeeParsedPartNew, '', null, true);
@@ -122,8 +121,7 @@ case 'edit':
         if (empty($attendees[$actionValue]['name'])) {
             $editAttendee = $actionValue;
         } else {
-            require_once 'Horde/MIME.php';
-            $editAttendee = MIME::trimEmailAddress(
+            $editAttendee = Horde_Mime_Address::trimAddress(
                 $attendees[$actionValue]['name']
                 . (strpos($actionValue, '@') === false
                    ? ''

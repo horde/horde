@@ -174,7 +174,7 @@ if ($this->event->isInitialized() && $this->event->alarm > 0):
   <th width="25%"><?php echo _("Attendance") ?></th>
   <th width="25%"><?php echo _("Response") ?></th>
  </tr>
- <?php $link_emails = $GLOBALS['registry']->hasMethod('mail/compose'); foreach ($attendees as $email => $status): $full = empty($status['name']) ? $email : MIME::trimEmailAddress($status['name'] . (strpos($email, '@') === false ? '' : ' <' . $email . '>')) ?>
+ <?php $link_emails = $GLOBALS['registry']->hasMethod('mail/compose'); foreach ($attendees as $email => $status): $full = empty($status['name']) ? $email : Horde_Mime_Address::trimAddress($status['name'] . (strpos($email, '@') === false ? '' : ' <' . $email . '>')) ?>
  <tr>
   <td class="nowrap"><?php echo ($link_emails && strpos($email, '@') !== false) ? (Horde::link($GLOBALS['registry']->call('mail/compose', array(array('to' => $full))), sprintf(_("Send an email to %s"), empty($status['name']) ? $email : $status['name'])) . htmlspecialchars($full) . '</a>') : htmlspecialchars($full) ?></td>
   <td><?php echo Kronolith::partToString($status['attendance']) ?></td>

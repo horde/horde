@@ -42,7 +42,6 @@ class Kronolith_View_Event {
             return;
         }
 
-        require_once 'Horde/MIME.php';
         require_once 'Horde/Text.php';
         require_once 'Horde/Text/Filter.php';
 

@@ -740,12 +740,11 @@ class Kronolith_Event {
             }
             if ($v1) {
                 if (!empty($status['name'])) {
-                    require_once 'Horde/MIME.php';
                     if (!empty($email)) {
                         $email = ' <' . $email . '>';
                     }
                     $email = $status['name'] . $email;
-                    $email = MIME::trimEmailAddress($email);
+                    $email = Horde_Mime_Address::trimAddress($email);
                 }
             } else {
                 if (!empty($status['name'])) {
@@ -960,7 +959,6 @@ class Kronolith_Event {
         // ATTENDEE.
         $attendee = $vEvent->getAttribute('X-ATTENDEE');
         if (!is_a($attendee, 'PEAR_Error')) {
-            require_once 'Horde/MIME.php';
 
             if (!is_array($attendee)) {
                 $attendee = array($attendee);
@@ -972,7 +970,7 @@ class Kronolith_Event {
             for ($i = 0; $i < count($attendee); ++$i) {
                 $attendee[$i] = str_replace(array('MAILTO:', 'mailto:'), '',
                                             $attendee[$i]);
-                $email = MIME::bareAddress($attendee[$i]);
+                $email = Horde_Mime_Address::bareAddress($attendee[$i]);
                 // Default according to rfc2445:
                 $attendance = KRONOLITH_PART_REQUIRED;
                 // vCalendar 2.0 style:

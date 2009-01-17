@@ -133,7 +133,6 @@ class Kronolith_FreeBusy {
     {
         require_once 'Horde/iCalendar.php';
         require_once 'Mail/RFC822.php';
-        require_once 'Horde/MIME.php';
 
         /* Properly handle RFC822-compliant email addresses. */
         static $rfc822;
@@ -150,7 +149,7 @@ class Kronolith_FreeBusy {
             return PEAR::raiseError(_("No valid email address found"));
         }
 
-        $email = MIME::rfc822WriteAddress($res[0]->mailbox, $res[0]->host);
+        $email = Horde_Mime_Address::writeAddress($res[0]->mailbox, $res[0]->host);
 
         /* Check if we can retrieve a VFB from the Free/Busy URL, if one is
          * set. */
