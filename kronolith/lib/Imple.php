@@ -65,9 +65,7 @@ class Imple {
     function attach()
     {
         Horde::addScriptFile('prototype.js', 'horde', true);
-        Horde::addScriptFile('builder.js', 'horde', true);
         Horde::addScriptFile('effects.js', 'horde', true);
-        Horde::addScriptFile('controls.js', 'horde', true);
     }
 
     /**
