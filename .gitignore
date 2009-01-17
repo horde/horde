@@ -4,6 +4,7 @@ libs
 .cache
 .project
 .settings
+.buildpath
 *~
 .#*
 */lib/base.local.php
