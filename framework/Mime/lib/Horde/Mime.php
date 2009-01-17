@@ -209,8 +209,8 @@ class Horde_Mime
         $text = '';
         foreach ($addresses as $addr) {
             // Check for groups.
-            if (empty($addr['groupname'])) {
-                if (empty($addr['personal'])) {
+            if (!is_array($addr) || (is_array($addr) && empty($addr['groupname']))) {
+                if (!is_array($addr) || (is_array($addr) && empty($addr['personal']))) {
                     $personal = '';
                 } else {
                     if (($addr['personal'][0] == '"') &&
