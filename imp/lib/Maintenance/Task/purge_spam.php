@@ -29,7 +29,7 @@ class Maintenance_Task_purge_spam extends Maintenance_Task
         }
 
         /* Make sure the Spam folder exists. */
-        $imp_folder = &IMP_Folder::singleton();
+        $imp_folder = IMP_Folder::singleton();
         if (!$imp_folder->exists($spam_folder)) {
             return false;
         }
@@ -37,7 +37,7 @@ class Maintenance_Task_purge_spam extends Maintenance_Task
         /* Get the current UNIX timestamp minus the number of days
            specified in 'purge_spam_keep'.  If a message has a
            timestamp prior to this value, it will be deleted. */
-        $del_time = new DateTime(time() - ($prefs->getValue('purge_spam_keep') * 86400));
+        $del_time = new Horde_Date(time() - ($prefs->getValue('purge_spam_keep') * 86400));
         $month = $del_time->format('n');
         $day = $del_time->format('j');
         $year = $del_time->format('Y');
@@ -51,7 +51,7 @@ class Maintenance_Task_purge_spam extends Maintenance_Task
         }
 
         /* Go through the message list and delete the messages. */
-        $imp_message = &IMP_Message::singleton();
+        $imp_message = IMP_Message::singleton();
         if ($imp_message->delete(array($spam_folder => $msg_ids), true)) {
             $msgcount = count($msg_ids);
             if ($msgcount == 1) {

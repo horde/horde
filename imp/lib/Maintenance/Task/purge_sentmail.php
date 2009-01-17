@@ -23,15 +23,15 @@ class Maintenance_Task_purge_sentmail extends Maintenance_Task
     {
         global $prefs, $notification;
 
-        $imp_folder = &IMP_Folder::singleton();
-        $imp_message = &IMP_Message::singleton();
+        $imp_folder = IMP_Folder::singleton();
+        $imp_message = IMP_Message::singleton();
 
         $mbox_list = Maintenance_Task_purge_sentmail::_getFolders();
 
         /* Get the current UNIX timestamp minus the number of days specified
          * in 'purge_sentmail_keep'.  If a message has a timestamp prior to
          * this value, it will be deleted. */
-        $del_time = new DateTime(time() - ($prefs->getValue('purge_sentmail_keep') * 86400));
+        $del_time = new Horde_Date(time() - ($prefs->getValue('purge_sentmail_keep') * 86400));
         $month = $del_time->format('n');
         $day = $del_time->format('j');
         $year = $del_time->format('Y');
@@ -87,9 +87,8 @@ class Maintenance_Task_purge_sentmail extends Maintenance_Task
      */
     function _getFolders()
     {
-        include_once 'Horde/Identity.php';
-        $identity = &Identity::singleton(array('imp', 'imp'));
-        return $identity->getAllSentmailfolders();
+        require_once 'Horde/Identity.php';
+        return Identity::singleton(array('imp', 'imp'))->getAllSentmailfolders();
     }
 
 }
