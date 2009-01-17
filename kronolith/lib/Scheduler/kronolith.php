@@ -233,7 +233,7 @@ class Horde_Scheduler_kronolith extends Horde_Scheduler {
             String::setDefaultCharset(NLS::getCharset());
             $mime_mail = new Horde_Mime_Mail(sprintf(_("Your daily agenda for %s"), strftime($dateFormat, $this->_runtime)),
                                             null,
-                                            'CalendarReminders:;',
+                                            $email,
                                             $GLOBALS['conf']['reminder']['from_addr'],
                                             NLS::getCharset());
 
