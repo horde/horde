@@ -18,6 +18,13 @@ class IMP_Imple_ContactAutoCompleter extends IMP_Imple
     protected $_url;
 
     /**
+     * Has the address book been output to the browser?
+     *
+     * @var boolean
+     */
+    static protected $_listOutput = false;
+
+    /**
      * Constructor.
      *
      * @param array $params  Configuration parameters.
@@ -43,8 +50,6 @@ class IMP_Imple_ContactAutoCompleter extends IMP_Imple
      */
     public function attach()
     {
-        static $list_output = false;
-
         parent::attach();
         Horde::addScriptFile('autocomplete.js', 'imp', true);
 
@@ -87,12 +92,12 @@ class IMP_Imple_ContactAutoCompleter extends IMP_Imple
 
             $js_params[] = 'minChars: ' . intval($GLOBALS['conf']['compose']['ac_threshold'] ? $GLOBALS['conf']['compose']['ac_threshold'] : 1);
         } else {
-            if (!$list_output) {
+            if (!self::$_listOutput) {
                 if (!isset($addrlist)) {
                     $addrlist = IMP_Compose::getAddressList();
                 }
                 IMP::addInlineScript('if (!IMP) { var IMP = {}; } IMP.ac_list = '. Horde_Serialize::serialize(array_map('htmlspecialchars', $addrlist), SERIALIZE_JSON, NLS::getCharset()));
-                $list_output = true;
+                self::$_listOutput = true;
             }
             $func = 'Autocompleter.Local';
             $params[] = 'IMP.ac_list';
