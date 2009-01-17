@@ -29,7 +29,6 @@ $session_control = 'readonly';
 require_once KRONOLITH_BASE . '/lib/base.php';
 require_once KRONOLITH_BASE . '/lib/version.php';
 require_once 'Horde/Identity.php';
-require_once 'Horde/MIME.php';
 require_once 'Horde/Template.php';
 
 $calendar = Util::getFormData('c');
@@ -135,7 +134,7 @@ foreach ($events as $day_events) {
         /* Attendees. */
         $attendees = array();
         foreach ($event->getAttendees() as $attendee => $status) {
-            $attendees[] = empty($status['name']) ? $attendee : MIME::trimEmailAddress($status['name'] . (strpos($attendee, '@') === false ? '' : ' <' . $attendee . '>'));
+            $attendees[] = empty($status['name']) ? $attendee : Horde_Mime_Address::trimAddress($status['name'] . (strpos($attendee, '@') === false ? '' : ' <' . $attendee . '>'));
         }
         if (count($attendees)) {
             $desc .= '<br />' . _("Who:") . ' ' . @htmlspecialchars(implode(', ', $attendees), ENT_COMPAT, NLS::getCharset());

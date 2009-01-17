@@ -131,7 +131,6 @@ class Horde_Scheduler_kronolith extends Horde_Scheduler {
         // thus a list of users who have used kronolith and
         // potentially have an agenda preference set.
         $users = array();
-
         foreach (array_keys($this->_calendars) as $calendarId) {
             $calendar = $GLOBALS['shares']->getShare($calendarId);
             if (is_a($calendar, 'PEAR_Error')) {
@@ -163,16 +162,13 @@ class Horde_Scheduler_kronolith extends Horde_Scheduler {
             }
 
             require_once 'Horde/Identity.php';
-            require_once 'Horde/MIME.php';
-            require_once 'Horde/MIME/Headers.php';
-            require_once 'Horde/MIME/Message.php';
 
             // try to find an email address for the user
             $identity = &Identity::singleton('none', $user);
             $email = $identity->getValue('from_addr');
             if (strstr($email, '@')) {
                 list($mailbox, $host) = explode('@', $email);
-                $email = MIME::rfc822WriteAddress($mailbox, $host,
+                $email = Horde_Mime_Address::writeAddress($mailbox, $host,
                                                   $identity->getValue('fullname'));
             }
 
@@ -231,13 +227,15 @@ class Horde_Scheduler_kronolith extends Horde_Scheduler {
             $lang = $prefs->getValue('language');
             $twentyFour = $prefs->getValue('twentyFour');
             $dateFormat = $prefs->getValue('date_format');
-
-            $msg_headers = new MIME_Headers();
-            $msg_headers->addMessageIdHeader();
-            $msg_headers->addAgentHeader();
-            $msg_headers->addHeader('Date', date('r'));
-            $msg_headers->addHeader('To', 'CalendarReminders:;');
-            $msg_headers->addHeader('From', $GLOBALS['conf']['reminder']['from_addr']);
+            NLS::setLang($lang);
+            NLS::setTextdomain('kronolith', KRONOLITH_BASE . '/locale',
+            NLS::getCharset());
+            String::setDefaultCharset(NLS::getCharset());
+            $mime_mail = new Horde_Mime_Mail(sprintf(_("Your daily agenda for %s"), strftime($dateFormat, $this->_runtime)),
+                                            null,
+                                            'CalendarReminders:;',
+                                            $GLOBALS['conf']['reminder']['from_addr'],
+                                            NLS::getCharset());
 
             $mail_driver = $GLOBALS['conf']['mailer']['type'];
             $mail_params = $GLOBALS['conf']['mailer']['params'];
@@ -247,18 +245,7 @@ class Horde_Scheduler_kronolith extends Horde_Scheduler {
                                   __FILE__, __LINE__, PEAR_LOG_ERR);
                 return;
             }
-
-            NLS::setLang($lang);
-            NLS::setTextdomain('kronolith', KRONOLITH_BASE . '/locale',
-                               NLS::getCharset());
-            String::setDefaultCharset(NLS::getCharset());
             $pad = max(String::length(_("All day")) + 2, $twentyFour ? 6 : 8);
-
-            $msg_headers->removeHeader('Subject');
-            $msg_headers->addHeader(
-                'Subject',
-                sprintf(_("Your daily agenda for %s"),
-                        strftime($dateFormat, $this->_runtime)));
 
             $message = sprintf(_("Your daily agenda for %s"),
                                strftime($dateFormat, $this->_runtime))
@@ -273,18 +260,11 @@ class Horde_Scheduler_kronolith extends Horde_Scheduler {
                     $message .= $event->title . "\n";
             }
 
-            $mime = new MIME_Message();
-            $body = new MIME_Part('text/plain',
-                                  String::wrap($message, 76, "\n"),
-                                  NLS::getCharset());
-
-            $mime->addPart($body);
-            $msg_headers->addMIMEHeaders($mime);
-
+            $mime_mail->setBody($message, NLS::getCharset(), true);
+            $mime_mail->addRecipients($email);
             Horde::logMessage(sprintf('Sending daily agenda to %s', $email),
                               __FILE__, __LINE__, PEAR_LOG_DEBUG);
-            $sent = $mime->send($email, $msg_headers, $mail_driver,
-                                $mail_params);
+            $sent = $mime_mail->send($mail_driver, $mail_params, false, false);
             if (is_a($sent, 'PEAR_Error')) {
                 return $sent;
             }
