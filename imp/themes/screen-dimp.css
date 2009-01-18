@@ -734,9 +734,6 @@ div.dimpActionsCompose {
 .mimePartInfo img {
     padding-right: 3px;
 }
-.mimePartInfo .downloadAtc {
-    padding-left: 2px;
-}
 .mimeStatusWarning {
     background: #e81222;
     border: 1px maroon solid;

@@ -431,6 +431,8 @@ ul.nav-audio {
     height: 16px;
     width: 16px;
     background: transparent center right no-repeat;
+    padding-left: 1px;
+    padding-right: 1px;
 }
 .downloadAtc {
     background-image: url("graphics/download.png");
