@@ -49,7 +49,7 @@ if (!empty($_SERVER['Content-Type'])) {
 
 switch ($ct) {
 case 'json':
-    header('Content-Type: text/x-json');
+    header('Content-Type: application/json');
     require_once 'Horde/Serialize.php';
     echo Horde_Serialize::serialize($result, SERIALIZE_JSON, NLS::getCharset());
     break;
