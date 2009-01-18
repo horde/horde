@@ -374,19 +374,6 @@ DimpCore = {
         }
     },
 
-    /* Add/remove mouse events on the fly.
-     * Parameter: object with the following names - id, type, offset
-     *   (optional), left (optional), onShow (optional)
-     * Valid types:
-     *   'message', 'draft'  --  Message list rows
-     *   'container', 'special', 'folder'  --  Folders
-     *   'reply', 'forward', 'otheractions'  --  Message list buttons
-     *   'contacts'  --  Linked e-mail addresses */
-    addMouseEvents: function(p)
-    {
-        this.DMenu.addElement(p.id, 'ctx_' + p.type, p);
-    },
-
     /* elt = DOM element */
     removeMouseEvents: function(elt)
     {

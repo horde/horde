@@ -430,7 +430,8 @@ var DimpBase = {
                     }
 
                     // Add context menu
-                    DimpCore.addMouseEvents({ id: row.domid, type: row.menutype });
+                    this._addMouseEvents({ id: row.domid, type: row.menutype });
+                    new Drag(r, this._msgDragConfig);
 
                     // Highlight search terms
                     if (search == 'From' || search == 'Subject') {
@@ -527,10 +528,10 @@ var DimpBase = {
                         DimpCore.addGC(c);
                     }
                     if (row.id) {
-                        DimpCore.removeMouseEvents(row);
+                        this._removeMouseEvents(row);
                     }
-                });
-            },
+                }, this);
+            }.bind(this),
             onBeforeResize: function() {
                 var sel = this.viewport.getSelected();
                 this.isvisible = (sel.size() == 1) && (this.viewport.isVisible(sel.get('rownum').first()) == 0);
@@ -577,48 +578,21 @@ var DimpBase = {
         mf.addClassName('msgFilterDefault');
     },
 
-    _addMouseEvents: function(parentfunc, p)
+    _addMouseEvents: function(p)
     {
-        var elt;
-
-        switch (p.type) {
-        case 'draft':
-        case 'message':
-            new Drag(p.id, this._msgDragConfig);
-            elt = $(p.id).down('DIV.msCheck');
-            if (elt.visible()) {
-                elt.observe('mousedown', this.bcache.get('handleMLC') || this.bcache.set('handleMLC', this._handleMsgListCheckbox.bindAsEventListener(this)));
-            }
-            break;
-
-        case 'container':
-        case 'folder':
-            new Drag(p.id, this._folderDragConfig);
-            break;
-
-        case 'special':
-            // For purposes of the contextmenu, treat special folders
-            // like regular folders.
-            p.type = 'folder';
-            break;
-
-        case 'vcontainer':
-        case 'virtual':
-            $(p.id).observe('contextmenu', Event.stop);
-            break;
-        }
-
         p.onShow = this.bcache.get('onMS') || this.bcache.set('onMS', this._onMenuShow.bind(this));
-        parentfunc(p);
+        DimpCore.DMenu.addElement(p.id, 'ctx_' + p.type, p);
     },
 
-    _removeMouseEvents: function(parentfunc, elt)
+    _removeMouseEvents: function(elt)
     {
         var d, id = $(elt).readAttribute('id');
         if (id && (d = DragDrop.Drags.get_drag(id))) {
             d.destroy();
         }
-        parentfunc(elt);
+
+        DimpCore.DMenu.removeElement($(elt).identify());
+        DimpCore.addGC(elt);
     },
 
     _onMenuShow: function(ctx)
@@ -672,35 +646,6 @@ var DimpBase = {
             this.viewport.onResize(noupdate, nowait);
         }
         this._resizeIE6();
-    },
-
-    _handleMsgListDblclick: function(e)
-    {
-        var elt = this._getMsgRow(e), row;
-        if (!elt) {
-            return;
-        }
-        row = this.viewport.createSelection('domid', elt.id).get('dataob').first();
-        row.draft ? DimpCore.compose('resume', { folder: row.view, uid: row.imapuid }) : this.msgWindow(row);
-    },
-
-    _handleMsgListCheckbox: function(e)
-    {
-        var elt = this._getMsgRow(e);
-        if (!elt) {
-            return;
-        }
-        this.msgSelect(elt.identify(), { ctrl: true, right: true });
-        e.stop();
-    },
-
-    _getMsgRow: function(e)
-    {
-        e = e.element();
-        if (e && !e.hasClassName('msgRow')) {
-            e = e.up('.msgRow');
-        }
-        return e;
     },
 
     updateTitle: function()
@@ -913,7 +858,7 @@ var DimpBase = {
             $('msgAtc').hide();
         }
 
-        $('msgBody').down().update(r.msgtext);
+        $('msgBody').update(r.msgtext);
         $('msgLoading', 'previewInfo').invoke('hide');
         $('previewPane').scrollTop = 0;
         pm.show();
@@ -1406,7 +1351,7 @@ var DimpBase = {
             return;
         }
 
-        var elt = e.element(), id, mbox, tmp;
+        var elt = orig = e.element(), id, mbox, tmp;
 
         while (Object.isElement(elt)) {
             id = elt.readAttribute('id');
@@ -1414,7 +1359,11 @@ var DimpBase = {
             switch (id) {
             case 'msgList':
                 if (dblclick) {
-                    this._handleMsgListDblclick(e);
+                    if (!orig.hasClassName('msgRow')) {
+                        orig = orig.up('.msgRow');
+                    }
+                    tmp = this.viewport.createSelection('domid', orig.identify()).get('dataob').first();
+                    tmp.draft ? DimpCore.compose('resume', { folder: tmp.view, uid: tmp.imapuid }) : this.msgWindow(tmp);
                     e.stop();
                     return;
                 }
@@ -1432,7 +1381,7 @@ var DimpBase = {
 
             case 'normalfolders':
             case 'specialfolders':
-                this._handleFolderMouseEvent(e, 'click');
+                this._handleFolderMouseClick(e);
                 break;
 
             case 'hometab':
@@ -1622,7 +1571,7 @@ var DimpBase = {
 
             case 'th_expand':
             case 'th_collapse':
-                this._toggleHeaders(id, true);
+                this._toggleHeaders(elt, true);
                 break;
 
             case 'msg_newwin':
@@ -1666,6 +1615,19 @@ var DimpBase = {
             }
 
             elt = elt.up();
+        }
+    },
+
+    _mouseHandler: function(e, type)
+    {
+        var elt = e.element();
+
+        switch (type) {
+        case 'over':
+            if (DragDrop.Drags.drag && elt.hasClassName('exp')) {
+                this._toggleSubFolder(elt.up(), 'exp');
+            }
+            break;
         }
     },
 
@@ -1836,14 +1798,8 @@ var DimpBase = {
     {
         this._folderCallback(r);
 
-        var elts = $('specialfolders', 'normalfolders').compact(),
-            nf = $('normalfolders'),
+        var nf = $('normalfolders'),
             nfheight = nf.getStyle('max-height');
-
-        elts.invoke('observe', 'mouseover', this._handleFolderMouseEvent.bindAsEventListener(this, 'over'));
-        if (DIMP.conf.is_ie6) {
-            elts.invoke('observe', 'mouseout', this._handleFolderMouseEvent.bindAsEventListener(this, 'out'));
-        }
 
         $('foldersLoading').hide();
         $('foldersSidebar').show();
@@ -1864,49 +1820,31 @@ var DimpBase = {
         }
     },
 
-    _handleFolderMouseEvent: function(e, action)
+    _handleFolderMouseClick: function(e)
     {
-        var type,
-            elt = e.element(),
+        var elt = e.element(),
             li = elt.up('.folder') || elt.up('.custom');
+
         if (!li) {
             return;
         }
-        type = li.readAttribute('ftype');
 
-        switch (action) {
-        case 'over':
-            if (DIMP.conf.is_ie6) {
-                li.addClassName('over');
+        if (elt.hasClassName('exp') || elt.hasClassName('col')) {
+            this._toggleSubFolder(li.id, 'tog');
+        } else {
+            switch (li.readAttribute('ftype')) {
+            case 'container':
+            case 'vcontainer':
+                e.stop();
+                break;
+
+            case 'folder':
+            case 'special':
+            case 'virtual':
+                e.stop();
+                return this.go('folder:' + li.readAttribute('mbox'));
+                break;
             }
-            if (type && !DimpCore.DMenu.validElement(li.id)) {
-                DimpCore.addMouseEvents({ id: li.id, type: type });
-            }
-            break;
-
-        case 'out':
-            li.removeClassName('over');
-            break;
-
-        case 'click':
-            if (elt.hasClassName('exp') || elt.hasClassName('col')) {
-                this._toggleSubFolder(li.id, 'tog');
-            } else {
-                switch (type) {
-                case 'container':
-                case 'vcontainer':
-                    e.stop();
-                    break;
-
-                case 'folder':
-                case 'special':
-                case 'virtual':
-                    e.stop();
-                    return this.go('folder:' + li.readAttribute('mbox'));
-                    break;
-                }
-            }
-            break;
         }
     },
 
@@ -1939,21 +1877,17 @@ var DimpBase = {
             fid = this.getFolderId(ob.m),
             mbox = decodeURIComponent(ob.m),
             submboxid = this.getSubFolderId(fid),
-            submbox = $(submboxid);
+            submbox = $(submboxid),
+            ftype = ob.v ? (ob.co ? 'vcontainer' : 'virtual') : (ob.co ? 'container' : (ob.s ? 'special' : 'folder'));
 
-        li = new Element('LI', { className: 'folder', id: fid, l: ob.l, mbox: mbox, ftype: (ob.v ? (ob.co ? 'vcontainer' : 'virtual') : (ob.co ? 'container' : (ob.s ? 'special' : 'folder'))) });
+        li = new Element('LI', { className: 'folder', id: fid, l: ob.l, mbox: mbox, ftype: ftype });
 
         div = new Element('DIV', { className: ob.cl || 'base', id: fid + '_div' });
         if (ob.i) {
             div.update(ob.i);
         }
         if (ob.ch) {
-            div.writeAttribute({ className: 'exp' }).observe('mouseover', this.bcache.get('mo_folder') || this.bcache.set('mo_folder', function(e) {
-                e = e.element();
-                if (DragDrop.Drags.drag && e.hasClassName('exp')) {
-                    this._toggleSubFolder(e.up(), 'exp');
-                }
-            }.bindAsEventListener(this)));
+            div.writeAttribute({ className: 'exp' });
         }
 
         li.insert(div).insert(new Element('A', { id: fid + '_label', title: ob.l }).insert(ob.l));
@@ -2004,6 +1938,26 @@ var DimpBase = {
             li.writeAttribute('u', '');
             this.setFolderLabel(mbox, ob.u);
         }
+
+        switch (ftype) {
+        case 'container':
+        case 'folder':
+            new Drag(li, this._folderDragConfig);
+            break;
+
+        case 'special':
+            // For purposes of the contextmenu, treat special folders
+            // like regular folders.
+            //p.type = 'folder';
+            break;
+
+        case 'vcontainer':
+        case 'virtual':
+            li.observe('contextmenu', Event.stop);
+            break;
+        }
+
+        this._addMouseEvents({ id: fid, type: ftype });
     },
 
     deleteFolder: function(folder)
@@ -2043,7 +1997,7 @@ var DimpBase = {
             }
         }
         [ DragDrop.Drags.get_drag(fid), DragDrop.Drops.get_drop(fid) ].compact().invoke('destroy');
-        DimpCore.removeMouseEvents(f);
+        this._removeMouseEvents(f);
         DimpCore.addGC(f);
         if (this.viewport) {
             this.viewport.deleteView(fid);
@@ -2331,6 +2285,8 @@ DimpBase._msgDragConfig = {
             this.msgSelect(id, $H({ ctrl: true }).merge(args).toObject());
         } else if (e.shiftKey) {
             this.msgSelect(id, $H({ shift: true }).merge(args).toObject());
+        } else if (e.element().hasClassName('msCheck')) {
+            this.msgSelect(id, { ctrl: true, right: true });
         } else if (this.isSelected('domid', id)) {
             if (!args.right && this.selectedCount()) {
                 d.selectIfNoDrag = true;
@@ -2415,6 +2371,7 @@ document.observe('dom:loaded', function() {
     /* Bind mouse clicks. */
     document.observe('click', DimpBase._clickHandler.bindAsEventListener(DimpBase));
     document.observe('dblclick', DimpBase._clickHandler.bindAsEventListener(DimpBase, true));
+    document.observe('mouseover', DimpBase._mouseHandler.bindAsEventListener(DimpBase, 'over'));
 
     /* Resize elements on window size change. */
     Event.observe(window, 'resize', DimpBase._onResize.bind(DimpBase));
@@ -2425,7 +2382,7 @@ document.observe('dom:loaded', function() {
 
         /* Since IE 6 doesn't support hover over non-links, use javascript
          * events to replicate mouseover CSS behavior. */
-        $('dimpbarActions', 'serviceActions', 'applicationfolders').compact().invoke('select', 'LI').flatten().compact().each(function(e) {
+        $('dimpbarActions', 'serviceActions', 'applicationfolders', 'specialfolders', 'normalfolders').compact().invoke('select', 'LI').flatten().compact().each(function(e) {
             e.observe('mouseover', e.addClassName.curry('over')).observe('mouseout', e.removeClassName.curry('over'));
         });
     }
@@ -2438,8 +2395,3 @@ DimpCore.onDoActionComplete = function(r) {
         DimpBase.viewport.ajaxResponse(r.response.viewport);
     }
 };
-
-/* Extend these functions from DimpCore since additional processing needs to
- * be done re: drag/drop and menu manipulation. */
-DimpCore.addMouseEvents = DimpCore.addMouseEvents.wrap(DimpBase._addMouseEvents.bind(DimpBase));
-DimpCore.removeMouseEvents = DimpCore.removeMouseEvents.wrap(DimpBase._removeMouseEvents.bind(DimpBase));

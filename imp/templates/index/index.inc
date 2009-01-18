@@ -329,9 +329,7 @@ function _simpleButton($id, $text, $image, $imagedir = null)
          </div>
         </div>
        </div>
-       <div id="msgBody" class="msgBody">
-        <table width="100%" cellspacing="0"></table>
-       </div>
+       <div id="msgBody" class="msgBody"></div>
       </div>
      </div>
      <div style="clear:left" />

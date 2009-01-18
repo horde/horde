@@ -73,7 +73,7 @@ var DimpFullmessage = {
             return;
         }
 
-        var elt = e.element(), id;
+        var elt = orig = e.element(), id;
 
         while (Object.isElement(elt)) {
             id = elt.readAttribute('id');
@@ -82,13 +82,13 @@ var DimpFullmessage = {
             case 'windowclose':
                 window.close();
                 e.stop();
-                exit;
+                return;
 
             case 'forward_link':
             case 'reply_link':
                 this.quickreply(id == 'reply_link' ? 'reply' : DIMP.conf.forward_default);
                 e.stop();
-                exit;
+                return;
 
             case 'button_deleted':
             case 'button_ham':
@@ -96,7 +96,7 @@ var DimpFullmessage = {
                 DIMP.baseWindow.DimpBase.flag(id.substring(7), DIMP.conf.msg_index, DIMP.conf.msg_folder);
                 window.close();
                 e.stop();
-                exit;
+                return;
 
             case 'ctx_replypopdown_reply':
             case 'ctx_replypopdown_reply_all':
@@ -109,9 +109,14 @@ var DimpFullmessage = {
             case 'ctx_fwdpopdown_forward_attachments':
                 this.quickreply(id.substring(15));
                 break;
+
+            case 'qreply':
+                if (orig.match('DIV.headercloseimg IMG')) {
+                    DimpCompose.confirmCancel();
+                }
+                break;
             }
 
-            // C({ d: $('qreply').select('div.headercloseimg img').first(), f: DimpCompose.confirmCancel.bind(DimpCompose) });
             elt = elt.up();
         }
     }
@@ -132,5 +137,5 @@ document.observe('dom:loaded', function() {
     });
 
     /* Set up click handlers. */
-    document.observe('click', DimpFullmessage.clickHandler.bindAsEventListener(DimpFullmessage));
+    document.observe('click', DimpFullmessage._clickHandler.bindAsEventListener(DimpFullmessage));
 });
