@@ -784,8 +784,10 @@ $query->text('Test2', false);
 $query->size('1024', true);
 $query->size('4096', false);
 $query->sequence(array(1, 5, 50, 51, 52, 55, 54, 53, 55, 55, 100, 500, 501));
-$query->dateSearch(6, 15, 2008, Horde_Imap_Client_Search_Query::DATE_BEFORE, true, true);
-$query->dateSearch(6, 20, 2008, Horde_Imap_Client_Search_Query::DATE_ON, false);
+$date = new DateTime('2008-06-15');
+$query->dateSearch($date, Horde_Imap_Client_Search_Query::DATE_BEFORE, true, true);
+$date = new DateTime('2008-06-20');
+$query->dateSearch($date, Horde_Imap_Client_Search_Query::DATE_ON, false);
 // Add 2 simple OR queries
 $query2 = new Horde_Imap_Client_Search_Query();
 $query2->text('Test3', false, true);

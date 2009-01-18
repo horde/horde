@@ -400,10 +400,8 @@ class Horde_Imap_Client_Search_Query
      * Search for messages within a date range. Only one internal date and
      * one RFC 2822 date can be specified per query.
      *
-     * @param integer $month   Month (from 1-12).
-     * @param integer $day     Day of month (from 1-31).
-     * @param integer $year    Year (4-digit year).
-     * @param string $range    Either:
+     * @param DateTime $date   DateTime or Horde_Date object.
+     * @param string   $range  Either:
      * <pre>
      * Horde_Imap_Client_Search_Query::DATE_BEFORE,
      * Horde_Imap_Client_Search_Query::DATE_ON, or
@@ -414,15 +412,14 @@ class Horde_Imap_Client_Search_Query
      *                         IMAP date (usually arrival time).
      * @param boolean $not     If true, do a 'NOT' search of the range.
      */
-    public function dateSearch($month, $day, $year, $range, $header = true,
-                               $not = false)
+    public function dateSearch($date, $range, $header = true, $not = false)
     {
         $type = $header ? 'header' : 'internal';
         if (!isset($this->_search['date'])) {
             $this->_search['date'] = array();
         }
         $this->_search['date'][$header ? 'header' : 'internal'] = array(
-            'date' => date("d-M-y", mktime(0, 0, 0, $month, $day, $year)),
+            'date' => $date->format('d-M-y'),
             'range' => $range,
             'not' => $not
         );
