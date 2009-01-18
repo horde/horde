@@ -14,8 +14,8 @@ var frames = { horde_main: true },
 /* DimpCore object. */
 DimpCore = {
     // Vars used and defaulting to null/false:
-    //   DMenu, inAjaxCallback, is_logout, onDoActionComplete, window_load
-    acount: 0,
+    //   DMenu, alertrequest, inAjaxCallback, is_logout, onDoActionComplete,
+    //   window_load
     remove_gc: [],
     server_error: 0,
 
@@ -219,10 +219,10 @@ DimpCore = {
             case 'imp.redirect':
             case 'dimp.request':
             case 'dimp.sticky':
-                var clickdiv, fadeeffect, iefix, log, requestfunc, tmp,
+                var iefix, log, requestfunc, tmp,
                     alerts = $('alerts'),
                     div = new Element('DIV', { className: m.type.replace('.', '-') }),
-                    msg = m.message;;
+                    msg = m.message;
 
                 if (!alerts) {
                     alerts = new Element('DIV', { id: 'alerts' });
@@ -244,28 +244,17 @@ DimpCore = {
                 // overlay the div with a like sized div containing a clear
                 // gif, which tricks IE into the correct behavior.
                 if (DIMP.conf.is_ie6) {
-                    iefix = new Element('DIV', { className: 'ie6alertsfix' }).clonePosition(div, { setLeft: false, setTop: false });
-                    clickdiv = iefix;
+                    iefix = new Element('DIV', { id: 'ie6alertsfix' }).clonePosition(div, { setLeft: false, setTop: false });
                     iefix.insert(div.remove());
                     alerts.insert(iefix);
-                } else {
-                    clickdiv = div;
                 }
 
-                fadeeffect = Effect.Fade.bind(this, div, { duration: 1.5, afterFinish: this.removeAlert.bind(this) });
-
-                clickdiv.observe('click', fadeeffect);
-
                 if ($w('horde.error dimp.request dimp.sticky').indexOf(m.type) == -1) {
-                    fadeeffect.delay(m.type == 'horde.warning' ? 10 : 3);
+                    this.alertsFade.bind(this, div).delay(m.type == 'horde.warning' ? 10 : 3);
                 }
 
                 if (m.type == 'dimp.request') {
-                    requestfunc = function() {
-                        fadeeffect();
-                        document.stopObserving('click', requestfunc)
-                    };
-                    document.observe('click', requestfunc);
+                    this.alertrequest = div;
                 }
 
                 if (tmp = $('alertslog')) {
@@ -297,6 +286,13 @@ DimpCore = {
                 }
             }
         }, this);
+    },
+
+    alertsFade: function(elt)
+    {
+        if (elt) {
+            Effect.Fade(elt, { duration: 1.5, afterFinish: this.removeAlert.bind(this) });
+        }
     },
 
     toggleAlertsLog: function()
@@ -406,7 +402,7 @@ DimpCore = {
     {
         var bidelt = $(bid);
         bidelt.insert({ after: $($('popdown_img').cloneNode(false)).writeAttribute('id', bid + '_img').show() });
-        this.addMouseEvents({ id: bid + '_img', type: ctx, offset: bidelt.up(), left: true });
+        this.DMenu.addElement(bid + '_img', 'ctx_' + ctx, { offset: bidelt.up(), left: true });
     },
 
     /* Add dropdown menus to addresses. */
@@ -433,8 +429,8 @@ DimpCore = {
                 a = o.raw;
             } else {
                 t = o.personal ? (o.personal + ' <' + o.inner + '>') : o.inner;
-                a = new Element('A', { className: 'address', id: 'addr' + this.acount++, personal: o.personal, email: o.inner, address: t }).insert(t.escapeHTML());
-                a.observe('mouseover', function() { a.stopObserving('mouseover'); this.addMouseEvents({ id: a.id, type: 'contacts', offset: a, left: true }); }.bind(this));
+                a = new Element('A', { className: 'address', personal: o.personal, email: o.inner, address: t }).insert(t.escapeHTML());
+                this.DMenu.addElement(a.identify(), 'ctx_contacts', { offset: a, left: true });
             }
             base.insert(a);
             if (i + 1 != cnt) {
@@ -492,6 +488,11 @@ DimpCore = {
 
         var elt = e.element(), id, tmp;
 
+        if (this.alertrequest) {
+            this.alertsFade(this.alertrequest);
+            this.alertrequest = null;
+        }
+
         while (Object.isElement(elt)) {
             id = elt.readAttribute('id');
 
@@ -526,6 +527,10 @@ DimpCore = {
 
             case 'alertsloglink':
                 this.toggleAlertsLog();
+                break;
+
+            case 'alerts':
+                this.alertsFade(elt);
                 break;
             }
 

@@ -588,7 +588,6 @@ var DimpBase = {
             elt = $(p.id).down('DIV.msCheck');
             if (elt.visible()) {
                 elt.observe('mousedown', this.bcache.get('handleMLC') || this.bcache.set('handleMLC', this._handleMsgListCheckbox.bindAsEventListener(this)));
-                elt.observe('contextmenu', Event.stop);
             }
             break;
 
@@ -1271,7 +1270,7 @@ var DimpBase = {
     _keydownHandler: function(e)
     {
         var co, form, ps, r, row, rowoff, sel,
-            elt = e.element();
+            elt = e.element(),
             kc = e.keyCode || e.charCode;
 
         // Form catching - normally we will ignore, but certain cases we want
@@ -1407,7 +1406,7 @@ var DimpBase = {
             return;
         }
 
-        var elt = e.element(), f, id, mbox, tmp;
+        var elt = e.element(), id, mbox, tmp;
 
         while (Object.isElement(elt)) {
             id = elt.readAttribute('id');

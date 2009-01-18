@@ -52,7 +52,7 @@ form#compose {
 #alerts {
     width: 500px;
 }
-#alerts div.ie6alertsfix {
+#ie6alertsfix {
     padding: 0;
     border: 0;
     background: url("graphics/clear.gif") repeat;
