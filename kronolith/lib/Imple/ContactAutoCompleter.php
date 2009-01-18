@@ -53,7 +53,7 @@ class Imple_ContactAutoCompleter extends Imple
 
         $params[] = '{' . implode(',', $js_params) . '}';
 
-        Kronolith::addInlineScript('new Ajax.Autocompleter(' . implode(',', $params) . ')');
+        Kronolith::addInlineScript('document.observe(\'dom:loaded\', function () {new Ajax.Autocompleter(' . implode(',', $params) . ')})');
     }
 
     /**
