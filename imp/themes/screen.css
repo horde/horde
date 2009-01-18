@@ -274,8 +274,7 @@ tr.deleted:hover, tr.deleted-over {
     list-style-type: none;
 }
 .autocomplete ul li {
-    padding-top: 3px;
-    padding-bottom: 3px;
+    padding: 3px 4px 4px;
     cursor: pointer;
     color: #000;
 }
@@ -394,8 +393,8 @@ ul.nav-audio {
 
 /* MIME styles. */
 .mimeStatusMessage, .mimeStatusWarning, .mimeHeaders, .mimePartInfo {
-    padding: 1px;
-    margin-bottom: 2px;
+    padding: 4px;
+    margin-bottom: 3px;
     font-size: 90%;
 }
 .mimeStatusMessage {
@@ -403,6 +402,8 @@ ul.nav-audio {
     background: #ffc;
     border: 1px solid #fff760;
     width: 100%;
+    margin-bottom: 4px;
+    margin-top: 2px;
 }
 .mimeStatusWarning {
     border: 1px solid #800;
@@ -418,14 +419,22 @@ ul.nav-audio {
 }
 .mimePartInfo {
     border: 1px solid #ccc;
-    background: #f9f9f9;
-    padding-top: 4px;
-    padding-bottom: 3px;
+    background: #efefef;
     display: table;
 }
 .mimePartInfo img {
     vertical-align: bottom;
+    padding-right: 3px;
 }
+
+.mimeStatusMessage td, .mimeStatusWarning td, .mimePartInfo td {
+    padding: 0;
+}
+.mimeStatusMessage td table td, .mimeStatusWarning td table td, .mimePartInfo td table td {
+    padding-right: 2px;
+    white-space: nowrap;
+}
+
 .downloadAtc, .downloadZipAtc, .saveImgAtc, .stripAtc {
     display: inline-block;
     height: 16px;

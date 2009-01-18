@@ -2,11 +2,6 @@
  * DIMP core CSS.
  */
 
-/* Positioning */
-#pageContainer {
-    clear: both;
-}
-
 /* ini header. */
 #quota {
     float: right;
@@ -30,10 +25,6 @@
 }
 div#quota {
     padding-bottom: 3px;
-}
-
-#mailboxHeader {
-    clear: right;
 }
 
 #logo {
@@ -65,29 +56,6 @@ div#quota {
 }
 #dimpmain_portal h1.header a {
     cursor: pointer;
-}
-
-/* Autocomplete styles. */
-.autocomplete {
-    background: #f4f4f4;
-    border: 1px solid #d4d4d4;
-    position: absolute;
-    padding: 2px;
-}
-.autocomplete ul {
-    margin: 1px;
-    padding: 1px;
-    list-style-type: none;
-}
-.autocomplete ul li {
-    background: transparent;
-    padding: 3px 4px 4px;
-    cursor: pointer;
-    color: #000;
-}
-.autocomplete ul .selected {
-    background: gray;
-    color: #fff;
 }
 
 /* SpellChecker styles. */
@@ -129,7 +97,7 @@ span.loadingImg {
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     background: #fff url("graphics/loading.gif") no-repeat center;
-    padding: 2px;
+    padding: 3px;
     width: 16px;
     height: 16px;
 }
@@ -140,24 +108,25 @@ div.msgStatus, div.msgFrom, div.msgSubject, div.msgDate, div.msgSize {
     overflow: hidden;
 }
 div.msgStatus {
-    width: 6%;
+    width: 7%;
 }
 div.msgStatus div {
     display: inline-block;
     padding-right: 1px;
     width: 16px;
+    background-repeat: no-repeat;
 }
 div.msgFrom {
     width: 20%;
 }
 div.msgSubject {
-    width: 50%;
+    width: 51%;
 }
 div.msgDate {
-    width: 15%;
+    width: 14%;
 }
 div.msgSize {
-    width: 9%;
+    width: 8%;
 }
 
 /* Message List Header and Column Header */
@@ -166,7 +135,6 @@ div.msgSize {
     overflow: hidden;
     border: 1px solid silver;
     background: transparent url("graphics/backhead_orderby.png") repeat-x;
-    height: 16px;
 }
 #msglistHeader a {
     cursor: pointer;
@@ -217,7 +185,7 @@ div.msgSize {
     overflow: hidden;
     text-overflow: ellipsis;
     height: 16px;
-    border-bottom: 1px #fff solid;
+    margin-bottom: 1px;
 }
 /* Flags */
 .msglist div.unseen {
@@ -247,50 +215,55 @@ div.msgSize {
 .msglist div.selectedRow {
     background: #ffc;
 }
+
 /* Checkbox images */
-.msglist div.msgStatus .msCheck {
-    background: transparent url("graphics/checkbox_off.png") no-repeat;
+.msglist .msCheck {
+    background-image: url("graphics/checkbox_off.png");
 }
-.msglist div.msgStatus .msCheck:hover {
-    background: transparent url("graphics/checkbox_over.png") no-repeat;
+.msglist .msCheck:hover {
+    background-image: url("graphics/checkbox_over.png");
 }
-.msglist div.selectedRow div.msgStatus .msCheck {
-    background: transparent url("graphics/checkbox_on.png") no-repeat;
+.msglist div.selectedRow .msCheck {
+    background-image: url("graphics/checkbox_on.png");
 }
 
 /* Status images and flags selectors: status column */
-.msglist div.msgStatus .statusUnseen {
-    background: transparent url("graphics/mail_unseen.png") no-repeat;
+.msglist .statusUnseen {
+    background-image: url("graphics/mail_unseen.png");
 }
-.msglist div.msgStatus .statusFlagged {
-    background: transparent url("graphics/mail_flagged.png") no-repeat;
+.msglist .statusFlagged {
+    background-image: url("graphics/mail_flagged.png");
 }
-.msglist div.msgStatus statusDeleted {
-    background: transparent url("graphics/mail_deleted.png") no-repeat;
+.msglist .statusDeleted {
+    background-image: url("graphics/mail_deleted.png");
 }
+
 /* Status images and flags selectors: priority column */
-.msglist div.msgStatus .lowPriority, span.lowpriorityImg {
-    background: transparent url("graphics/mail_priority_low.png") no-repeat;
+.msglist .lowPriority, span.lowpriorityImg {
+    background-image: url("graphics/mail_priority_low.png");
 }
-.msglist div.msgStatus .highPriority, span.highpriorityImg {
-    background: transparent url("graphics/mail_priority_high.png") no-repeat;
+.msglist .highPriority, span.highpriorityImg {
+    background-image: url("graphics/mail_priority_high.png");
 }
+
 /* Status images and flags selectors: compose status column */
-.msglist div.msgStatus .statusAnswered {
-    background: transparent url("graphics/mail_answered.png") no-repeat;
+.msglist .statusAnswered {
+    background-image: url("graphics/mail_answered.png");
 }
-.msglist div.msgStatus .statusForwarded {
-    background: transparent url("graphics/mail_forwarded.png") no-repeat;
+.msglist .statusForwarded {
+    background-image: url("graphics/mail_forwarded.png");
 }
-.msglist div.msgStatus .statusDraft, span.draftImg {
-    background: transparent url("graphics/mail_draft.png") no-repeat;
+.msglist .statusDraft, span.draftImg {
+    background-image: url("graphics/mail_draft.png");
 }
+
 /* Thread images. */
 div.msgSubject img {
     margin-top: -4px;
     vertical-align: top;
     padding-right: 1px;
 }
+
 /* Size images. */
 div.msgSize img {
     margin-right: 2px;
@@ -315,13 +288,13 @@ div.msgSize img {
     width: 13px;
     height: 16px;
     border-left: 1px solid silver;
-    background: transparent url("graphics/sbcursor_top.png") center center no-repeat;
+    background-image: url("graphics/sbcursor_top.png");
 }
 .sbdown {
     width: 13px;
     height: 17px;
     border-left: 1px solid silver;
-    background: transparent url("graphics/sbcursor_bottom.png") center center no-repeat;
+    background-image: url("graphics/sbcursor_bottom.png");
 }
 
 /* IFRAMEs */
@@ -407,43 +380,24 @@ div.msgSize img {
 #sidebarPanel li.folder a {
     display: inline;
 }
-#sidebarPanel .base {
+#sidebarPanel .base, #sidebarPanel .col, #sidebarPanel .exp, #sidebarPanel .create, #sidebarPanel .drafts, #sidebarPanel .inbox, #sidebarPanel .sent, #sidebarPanel .spam, #sidebarPanel .trash {
     display: inline;
     float: left;
     width: 20px;
     height: 100%;
-    background: transparent url("graphics/folder.png") center left no-repeat;
+    background-repeat: no-repeat;
+}
+#sidebarPanel .base {
+    background-image: url("graphics/folder.png");
 }
 #sidebarPanel .col {
-    display: inline;
-    float: left;
-    width: 20px;
-    height: 100%;
-    background: transparent url("graphics/folder_minus.png") center left no-repeat;
+    background-image: url("graphics/folder_minus.png");
 }
 #sidebarPanel .exp {
-    display: inline;
-    float: left;
-    width: 20px;
-    height: 100%;
-    background: transparent url("graphics/folder_plus.png") center left no-repeat;
+    background-image: url("graphics/folder_plus.png");
 }
 #sidebarPanel .create {
-    display: inline;
-    float: left;
-    width: 20px;
-    height: 100%;
-    background: transparent url("graphics/folder_create.png") center left no-repeat;
-}
-#sidebarPanel .drafts, #sidebarPanel .inbox, #sidebarPanel .sent, #sidebarPanel .spam, #sidebarPanel .trash {
-    display: inline;
-    float: left;
-    width: 20px;
-    height: 100%;
-    padding: 0;
-    background-color: transparent;
-    background-position: center left;
-    background-repeat: no-repeat;
+    background-image: url("graphics/folder_create.png");
 }
 #sidebarPanel .drafts {
     background-image: url("graphics/folder_drafts.png");
@@ -503,10 +457,8 @@ div.msgSize img {
 /* Options */
 .dimpOptions {
     float: right;
-    padding-right: 5px;
 }
 .dimpOptions div {
-    clear: left;
     cursor: pointer;
     line-height: 17px;
 }
@@ -592,10 +544,7 @@ div.msgSize img {
 div.dimpActionsCompose, div.dimpActionsMsg {
     border-bottom: 1px solid #999;
 }
-div.dimpActionsCompose {
-    margin-top: 0;
-}
-.dimpActionsCompose a.popdown {
+div.dimpActionsCompose a.popdown {
     margin-right: 4px;
 }
 
@@ -620,7 +569,6 @@ div.dimpActionsCompose {
 }
 
 .msgHeaders .dimpOptions {
-    float: right;
     padding: 0 10px 10px;
     margin-top: 3px;
 }
@@ -653,8 +601,12 @@ div.dimpActionsCompose {
     font-weight: bold;
     padding-right: 5px;
 }
+#partlist table {
+    margin-top: 3px;
+    margin-bottom: 1px;
+}
 #partlist td {
-    padding-bottom: 3px;
+    padding-bottom: 2px;
 }
 
 #msgHeadersContent {
@@ -665,12 +617,7 @@ div.dimpActionsCompose {
 #toggleHeaders {
     float: left;
 }
-#toggleHeaders a img {
-    padding: 3px 0 0 2px;
-}
 #msgHeadersColl {
-    height: 17px;
-    padding: 0;
     margin: 0 6px;
     white-space: nowrap;
 }
@@ -682,7 +629,7 @@ div.dimpActionsCompose {
     float: left;
     font-weight: bold;
     overflow: hidden;
-    padding-left: 4px;
+    padding-left: 2px;
     max-width: 40%;
 }
 #msgHeadersColl span.fromcontainer {
@@ -719,34 +666,6 @@ div.dimpActionsCompose {
     min-height: 420px;
 }
 
-/* mime status messages */
-.mimeStatusMessage, .mimeStatusWarning, .mimePartInfo {
-    color: #000;
-    padding: 4px;
-}
-.mimeStatusMessage {
-    margin-bottom: 4px;
-    margin-top: 2px;
-}
-.mimePartInfo {
-    background: #efefef;
-}
-.mimePartInfo img {
-    padding-right: 3px;
-}
-.mimeStatusWarning {
-    background: #e81222;
-    border: 1px maroon solid;
-    color: #fff;
-}
-table.mimeStatusMessage td, table.mimeStatusWarning td, table.mimePartInfo td {
-    padding: 0;
-}
-table.mimeStatusMessage td table td, table.mimeStatusWarning td table td, table.mimePartInfo td table td {
-    padding: 0 2px 0 0;
-    white-space: nowrap;
-}
-
 /* Message Composition. */
 .composeAddrbook {
     cursor: pointer;
@@ -763,10 +682,8 @@ table.mimeStatusMessage td table td, table.mimeStatusWarning td table td, table.
     padding: 2px 0;
 }
 .msgwrite .dimpOptions {
-    float: right;
     padding: 10px;
     font-size: 90%;
-    line-height: 90%;
 }
 .msgwrite .dimpOptions label {
     display: block;
@@ -800,7 +717,6 @@ table.mimeStatusMessage td table td, table.mimeStatusWarning td table td, table.
     border-right: 1px silver solid;
     border-bottom: 1px silver solid;
     padding: 1%;
-    margin: 0;
 }
 #messageParent .htmlarea {
     width: 98% !important;
@@ -819,17 +735,6 @@ table.mimeStatusMessage td table td, table.mimeStatusWarning td table td, table.
     text-align: left;
     padding: 15px 80px 10px 35px;
     color: #a0a0a0;
-}
-
-div.spellcheck {
-    white-space: pre;
-    white-space: -moz-pre-wrap;
-    white-space: -hp-pre-wrap;
-    white-space: -o-pre-wrap;
-    white-space: -pre-wrap;
-    white-space: pre-wrap;
-    white-space: pre-line;
-    word-wrap: break-word;
 }
 
 .htmledit {
@@ -957,9 +862,7 @@ a.address:hover img {
 #alerts div {
     padding: 6px 20px 6px 25px;
     border: 1px #316600 solid;
-    background-color: #5db110;
-    background-position: 6px 6px;
-    background-repeat: no-repeat;
+    background: #5db110 6px 6px no-repeat;
 }
 #alerts div.horde-error {
     background: #e81222 url("graphics/error.png") 99% 50% no-repeat;
@@ -972,8 +875,7 @@ a.address:hover img {
     background-image: url("graphics/success.png");
 }
 #alerts div.horde-warning, #alerts div.dimp-sticky, #alerts div.dimp-sticky {
-    background-color: #ebe20c;
-    background-image: url("graphics/warning.png");
+    background: #ebe20c url("graphics/warning.png");
     border-color: #807b00;
     color: #000;
 }
@@ -1024,10 +926,6 @@ a.address:hover img {
     font-size: 90%;
     font-style: italic;
     padding-left: 10px;
-}
-
-.tooltip, .nicetitle {
-    z-index: 1001;
 }
 
 /* Drag and drop styles. */
@@ -1105,30 +1003,6 @@ a.address:hover img {
 }
 
 /* Redbox styles. */
-#RB_overlay {
-    position: absolute;
-    z-index: 100;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    min-height: 100%;
-    background-color: #000;
-    filter: alpha(opacity=60);
-    -moz-opacity: .6;
-    opacity: .6;
-}
-#RB_window {
-    z-index: 102;
-    display: block;
-    text-align: left;
-    overflow: hidden;
-    margin: 20px auto 0 auto;
-    position: absolute;
-}
-
 #RB_folder {
     width: 20em;
     padding: 6px;
@@ -1148,35 +1022,6 @@ a.address:hover img {
     border-bottom: none;
 }
 
-/* Based on the Mozilla default definitions */
-#html-message td {
-    padding: 0;
-}
-#html-message ul {
-    display: block;
-    list-style-type: disc;
-    margin: 1em 0;
-    -moz-padding-start: 40px;
-}
-#html-message ol {
-    display: block;
-    list-style-type: decimal;
-    margin: 1em 0;
-    -moz-padding-start: 40px;
-}
-#html-message p {
-    display: block;
-    margin: 1em 0;
-}
-#html-message blockquote {
-    margin: 1em 40px;
-}
-#html-message blockquote[type="cite"] {
-    margin-left: 0;
-    margin-right: 0;
-    padding-left: 1em;
-}
-
 /* Keyboard key style */
 .kbd {
     background: #eee;
@@ -1187,15 +1032,6 @@ a.address:hover img {
     font-size: 90%;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
-}
-
-.largeaddrlist {
-    cursor: pointer;
-    background: #aaa;
-    margin-right: 5px;
-}
-.largeaddrlist:hover {
-    text-decoration: underline;
 }
 
 /* Images */
