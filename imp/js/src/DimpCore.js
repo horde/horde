@@ -219,7 +219,7 @@ DimpCore = {
             case 'imp.redirect':
             case 'dimp.request':
             case 'dimp.sticky':
-                var iefix, log, requestfunc, tmp,
+                var iefix, log, tmp,
                     alerts = $('alerts'),
                     div = new Element('DIV', { className: m.type.replace('.', '-') }),
                     msg = m.message;
@@ -300,6 +300,7 @@ DimpCore = {
         var alink = $('alertsloglink').down('A'),
             div = $('alertslog').down('DIV'),
             opts = { duration: 0.5 };
+
         if (div.visible()) {
             Effect.BlindUp(div, opts);
             alink.update(DIMP.text.showalog);
@@ -314,15 +315,11 @@ DimpCore = {
         try {
             var elt = $(effect.element),
                 parent = elt.up();
-            // We may have already removed this element from the DOM tree
-            // (if the user clicked on the notification), so check parentNode
-            // here - will return null if node is not part of DOM tree.
-            if (parent && parent.parentNode) {
-                this.addGC(elt.remove());
-                if (!parent.childElements().size() &&
-                    parent.hasClassName('ie6alertsfix')) {
-                    this.addGC(parent.remove());
-                }
+
+            this.addGC(elt.remove());
+            if (!parent.childElements().size() &&
+                parent.readAttribute('id') == 'ie6alertsfix') {
+                this.addGC(parent.remove());
             }
         } catch (e) {
             this.debug('removeAlert', e);
@@ -393,7 +390,7 @@ DimpCore = {
     /* elt = DOM element */
     removeMouseEvents: function(elt)
     {
-        this.DMenu.removeElement($(elt).readAttribute('id'));
+        this.DMenu.removeElement($(elt).identify());
         this.addGC(elt);
     },
 
