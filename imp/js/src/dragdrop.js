@@ -63,7 +63,8 @@
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
- * @author Michael Slusarz <slusarz@curecanti.org>
+ * @author  Michael Slusarz <slusarz@curecanti.org>
+ * @package IMP
  */
 
 var DragDrop = {
@@ -72,14 +73,14 @@ var DragDrop = {
 
         register: function(obj)
         {
-            if (!this.drags.size()) {
-                if (!this.div) {
-                    this.div = new Element('DIV', { className: obj.options.classname }).hide();
-                }
+            if (!this.div) {
+                this.div = new Element('DIV', { className: obj.options.classname }).hide();
                 $(document.body).insert(this.div);
+                document.observe('mousedown', this._mouseHandler.bindAsEventListener(this));
             }
 
             this.drags.set(obj.element.identify(), obj);
+            obj.element.addClassName('DragElt');
         },
 
         unregister: function(obj)
@@ -89,10 +90,7 @@ var DragDrop = {
             }
 
             this.drags.unset(obj.element.identify());
-
-            if (!this.drags.size() && this.div) {
-                this.div.remove();
-            }
+            obj.element.removeClassName('DragElt');
         },
 
         get_drag: function(el)
@@ -119,15 +117,36 @@ var DragDrop = {
                 document.stopObserving('mousemove', this.mousemoveE);
                 document.stopObserving('mouseup', this.mouseupE);
             }
+        },
+
+        _mouseHandler: function(e)
+        {
+            var elt = e.element();
+
+            if (this.drags.size()) {
+                if (!elt.hasClassName('DragElt')) {
+                    elt = elt.up('.DragElt');
+                }
+                if (elt) {
+                    this.get_drag(elt).mouseDown(e);
+                }
+            }
         }
     },
 
     Drops: {
         drops: $H(),
+        init: false,
 
         register: function(obj)
         {
+            if (!this.init) {
+                document.observe('mouseover', this._mouseHandler.bindAsEventListener(this, 'over'));
+                document.observe('mouseout', this._mouseHandler.bindAsEventListener(this, 'out'));
+                this.init = true;
+            }
             this.drops.set(obj.element.identify(), obj);
+            obj.element.addClassName('DropElt');
         },
 
         unregister: function(obj)
@@ -137,11 +156,35 @@ var DragDrop = {
             }
 
             this.drops.unset(obj.element.identify());
+            obj.element.addClassName('DropElt');
         },
 
         get_drop: function(el)
         {
             return this.drops.get(Object.isElement(el) ? $(el).identify() : el);
+        },
+
+        _mouseHandler: function(e, type)
+        {
+            var elt = e.element();
+
+            if (this.drops.size()) {
+                if (!elt.hasClassName('DropElt')) {
+                    elt = elt.up('.DropElt');
+                }
+
+                if (elt) {
+                    switch (type) {
+                    case 'over':
+                        this.get_drop(elt).mouseOver(e);
+                        break;
+
+                    case 'out':
+                        this.get_drop(elt).mouseOut(e);
+                        break;
+                    }
+                }
+            }
         }
     },
 
@@ -172,8 +215,6 @@ Drag = Class.create({
             onEnd: null,
             onStart: null
         }, arguments[1] || {});
-        this.mousedownE = this._mouseDown.bindAsEventListener(this);
-        this.element.observe('mousedown', this.mousedownE);
         if (this.options.scroll) {
             this.options.scroll = $(this.options.scroll);
         }
@@ -193,11 +234,10 @@ Drag = Class.create({
 
     destroy: function()
     {
-        this.element.stopObserving('mousedown', this.mousedownE);
         DragDrop.Drags.unregister(this);
     },
 
-    _mouseDown: function(e)
+    mouseDown: function(e)
     {
         $(document.body).setStyle({ cursor: 'default' });
         DragDrop.Drags.activate(this);
@@ -433,21 +473,15 @@ Drop = Class.create({
             onOut: null,
             onOver: null
         }, arguments[1] || {});
-        this.mouseoverE = this._mouseOver.bindAsEventListener(this);
-        this.mouseoutE = this._mouseOut.bindAsEventListener(this);
-        this.element.observe('mouseover', this.mouseoverE);
-        this.element.observe('mouseout', this.mouseoutE);
         DragDrop.Drops.register(this);
     },
 
     destroy: function()
     {
-        this.element.stopObserving('mouseover', this.mouseoverE);
-        this.element.stopObserving('mouseout', this.mouseoutE);
         DragDrop.Drops.unregister(this);
     },
 
-    _mouseOver: function(e)
+    mouseOver: function(e)
     {
         if (DragDrop.Drags.drag) {
             DragDrop.Drops.drop = this;
@@ -457,11 +491,13 @@ Drop = Class.create({
         }
     },
 
-    _mouseOut: function(e)
+    mouseOut: function(e)
     {
-        if (Object.isFunction(this.options.onOut)) {
-            this.options.onOut(this.element, DragDrop.Drags.drag);
+        if (DragDrop.Drags.drag) {
+            if (Object.isFunction(this.options.onOut)) {
+                this.options.onOut(this.element, DragDrop.Drags.drag);
+            }
+            DragDrop.Drops.drop = null;
         }
-        DragDrop.Drops.drop = null;
     }
 });
