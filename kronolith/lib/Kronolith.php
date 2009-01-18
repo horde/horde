@@ -162,13 +162,15 @@ class Kronolith {
      *
      * @since Kronolith 2.2
      *
-     * @param mixed $script  The script text to add (can be stored in an
-     *                       array also).
+     * @param mixed $script    The script text to add (can be stored in an
+     *                         array also).
+     * @param string $onload   Load the script after the page has loaded?
+     *                         Either 'dom' (on dom:loaded), 'load'.
      *
      * @return string  The javascript text to output, or empty if the page
      *                 headers have not yet been sent.
      */
-    function addInlineScript($script)
+    function addInlineScript($script, $onload = false)
     {
         if (is_array($script)) {
             $script = implode(';', $script);
@@ -177,6 +179,15 @@ class Kronolith {
         $script = trim($script);
         if (empty($script)) {
             return;
+        }
+        switch ($onload) {
+        case 'dom':
+            $script = 'document.observe("dom:loaded", function() {' . $script . '});';
+            break;
+
+        case 'load':
+            $script = 'Event.observe(window, "load", function() {' . $script . '});';
+            break;
         }
 
         if (!isset($GLOBALS['__kronolith_inline_script'])) {
