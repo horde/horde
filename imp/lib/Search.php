@@ -835,7 +835,8 @@ class IMP_Search
                     if (!empty($search['date'][$key]['day']) &&
                         !empty($search['date'][$key]['month']) &&
                         !empty($search['date'][$key]['year'])) {
-                        $ob->dateSearch($search['date'][$key]['month'], $search['date'][$key]['day'], $search['date'][$key]['year'], ($val == 'date_on') ? Horde_Imap_Client_Search_Query::DATE_ON : (($val == 'date_until') ? Horde_Imap_Client_Search_Query::DATE_BEFORE : Horde_Imap_Client_Search_Query::DATE_SINCE));
+                        $date = new Horde_Date($search['date']);
+                        $ob->dateSearch($date, ($val == 'date_on') ? Horde_Imap_Client_Search_Query::DATE_ON : (($val == 'date_until') ? Horde_Imap_Client_Search_Query::DATE_BEFORE : Horde_Imap_Client_Search_Query::DATE_SINCE));
                         $search_array[] = $ob;
                     }
                     break;

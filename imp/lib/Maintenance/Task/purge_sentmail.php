@@ -32,9 +32,6 @@ class Maintenance_Task_purge_sentmail extends Maintenance_Task
          * in 'purge_sentmail_keep'.  If a message has a timestamp prior to
          * this value, it will be deleted. */
         $del_time = new Horde_Date(time() - ($prefs->getValue('purge_sentmail_keep') * 86400));
-        $month = $del_time->format('n');
-        $day = $del_time->format('j');
-        $year = $del_time->format('Y');
 
         foreach ($mbox_list as $mbox) {
             /* Make sure the sent-mail mailbox exists. */
@@ -45,7 +42,7 @@ class Maintenance_Task_purge_sentmail extends Maintenance_Task
             /* Open the sent-mail mailbox and get the list of messages older
              * than 'purge_sentmail_keep' days. */
             $query = new Horde_Imap_Client_Search_Query();
-            $query->dateSearch($month, $day, $year, Horde_Imap_Client_Search_Query::DATE_BEFORE);
+            $query->dateSearch($del_time, Horde_Imap_Client_Search_Query::DATE_BEFORE);
             $msg_ids = $GLOBALS['imp_search']->runSearchQuery($query, $mbox);
             if (empty($msg_ids)) {
                 continue;
