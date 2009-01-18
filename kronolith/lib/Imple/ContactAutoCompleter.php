@@ -86,7 +86,7 @@ class Imple_ContactAutoCompleter extends Imple
     protected function _expandAddresses($addrString)
     {
         return preg_match('|[^\s]|', $addrString)
-            ? $this->_getAddressList(reset(array_filter(array_map('trim', Horde_Mime_Address::explode($addrString, ',;')))))
+            ? $this->getAddressList(reset(array_filter(array_map('trim', Horde_Mime_Address::explode($addrString, ',;')))))
             : '';
     }
 
