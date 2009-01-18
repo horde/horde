@@ -327,7 +327,7 @@ NSString * const TURAnselServerPasswordKey = @"password";
     
     // add Add Gallery... and Edit List... options
     [mServersPopUp addItemWithTitle:@"Add Server..."];
-   //[mServersPopUp addItemWithTitle:@"Edit Server List..."];
+    //[mServersPopUp addItemWithTitle:@"Edit Server List..."];
     
     // fix selection
     [mServersPopUp selectItemAtIndex:0];
@@ -590,11 +590,6 @@ NSString * const TURAnselServerPasswordKey = @"password";
         [defaultImageView setImage: theImage];
         [theImage release];
         [self canExport];
-    } else if ([notification object] == mServers) {
-        [self disconnect];
-        [currentServer release];
-        currentServer = [anselServers objectAtIndex: [mServers indexOfSelectedItem]];
-        [self doConnect];
     }
 }
 
