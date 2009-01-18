@@ -79,7 +79,7 @@ var DragDrop = {
                 $(document.body).insert(this.div);
             }
 
-            this.drags.set(obj.element.readAttribute('id'), obj);
+            this.drags.set(obj.element.identify(), obj);
         },
 
         unregister: function(obj)
@@ -88,7 +88,7 @@ var DragDrop = {
                 this.drag.deactivate();
             }
 
-            this.drags.unset(obj.element.readAttribute('id'));
+            this.drags.unset(obj.element.identify());
 
             if (!this.drags.size() && this.div) {
                 this.div.remove();
@@ -97,7 +97,7 @@ var DragDrop = {
 
         get_drag: function(el)
         {
-            return this.drags.get(Object.isElement(el) ? $(el).readAttribute('id') : el);
+            return this.drags.get(Object.isElement(el) ? $(el).identify() : el);
         },
 
         activate: function(drag)
@@ -127,7 +127,7 @@ var DragDrop = {
 
         register: function(obj)
         {
-            this.drops.set(obj.element.readAttribute('id'), obj);
+            this.drops.set(obj.element.identify(), obj);
         },
 
         unregister: function(obj)
@@ -136,12 +136,12 @@ var DragDrop = {
                 this.drop = null;
             }
 
-            this.drops.unset(obj.element.readAttribute('id'));
+            this.drops.unset(obj.element.identify());
         },
 
         get_drop: function(el)
         {
-            return this.drops.get(Object.isElement(el) ? $(el).readAttribute('id') : el);
+            return this.drops.get(Object.isElement(el) ? $(el).identify() : el);
         }
     },
 

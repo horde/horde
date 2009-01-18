@@ -690,7 +690,7 @@ var DimpBase = {
         if (!elt) {
             return;
         }
-        this.msgSelect(elt.readAttribute('id'), { ctrl: true, right: true });
+        this.msgSelect(elt.identify(), { ctrl: true, right: true });
         e.stop();
     },
 
@@ -1642,7 +1642,7 @@ var DimpBase = {
                     tmp.up('LI.custom');
                 }
                 if (tmp) {
-                    this.go('app:' + tmp.down('A').readAttribute('id').substring(3));
+                    this.go('app:' + tmp.down('A').identify().substring(3));
                     e.stop();
                     return;
                 }
@@ -1650,7 +1650,7 @@ var DimpBase = {
 
             case 'tabbar':
                 if (e.element().hasClassName('applicationtab')) {
-                    this.go('app:' + e.element().readAttribute('id').substring(6));
+                    this.go('app:' + e.element().identify().substring(6));
                     e.stop();
                     return;
                 }
@@ -2242,7 +2242,7 @@ var DimpBase = {
     // c = (element) Child element
     isSubfolder: function(p, c)
     {
-        var sf = $(this.getSubFolderId(p.readAttribute('id')));
+        var sf = $(this.getSubFolderId(p.identify()));
         return sf && c.descendantOf(sf);
     },
 
