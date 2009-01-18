@@ -24,9 +24,6 @@
     background-image: url("graphics/mail_priority_high.png");
 }
 
-#sidebarPanel {
-    border-bottom: none;
-}
 #sidebarPanel .base {
     background-image: url("graphics/folder.png");
 }
