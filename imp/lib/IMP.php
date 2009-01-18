@@ -498,12 +498,6 @@ class IMP
             $prefs->getValue('spam_folder') => _("Spam")
         );
 
-        foreach ($sub_array as $key => $val) {
-            if (stripos($folder, $key . $delimiter) === 0) {
-                return $val . String::convertCharset(substr($folder, strlen($key)), 'UTF7-IMAP');
-            }
-        }
-
         /* Strip namespace information. */
         if (!is_null($ns_info) &&
             !empty($ns_info['name']) &&
@@ -512,6 +506,16 @@ class IMP
             $out = substr($folder, strlen($ns_info['name']));
         } else {
             $out = $folder;
+        };
+
+        foreach ($sub_array as $key => $val) {
+            if (stripos($out, $key) === 0) {
+                $len = strlen($key);
+                if ((strlen($out) == $len) || ($out[$len + 1] == $delimiter)) {
+                    $out = substr_replace($out, String::convertCharset($val, NLS::getCharset(), 'UTF7-IMAP'), 0, $len);
+                    break;
+                }
+            }
         }
 
         $cache[$folder] = String::convertCharset($out, 'UTF7-IMAP');
