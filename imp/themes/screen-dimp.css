@@ -867,9 +867,8 @@ div.spellcheck {
 }
 #attach_list input {
     background: none;
-    border: none;
+    border: 1px solid #ccc;
     font-weight: bold;
-    text-decoration: underline;
 }
 #attach_list div {
     background: transparent url("graphics/attachment.png") left 2px no-repeat;
@@ -877,12 +876,12 @@ div.spellcheck {
     padding-left: 20px;
 }
 
-#attachName span {
+span.attachName {
     text-decoration: underline;
     cursor: pointer;
 }
-#attachName span:hover {
-    font-weight: bold;
+span.attachName:hover {
+    color: red;
 }
 
 /* Context Menus */

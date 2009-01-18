@@ -499,6 +499,10 @@ var DimpCompose = {
         div.insert(input);
         $('attach_list').insert(div);
 
+        if (type != 'application/octet-stream') {
+            span.addClassName('attachName');
+        }
+
         this.resizeMsgArea();
     },
 
@@ -635,7 +639,7 @@ var DimpCompose = {
             return;
         }
 
-        var elt = e.element(), id, tmp;
+        var elt = orig = e.element(), atc_num, id;
 
         while (Object.isElement(elt)) {
             id = elt.readAttribute('id');
@@ -659,20 +663,24 @@ var DimpCompose = {
             case 'htmlcheckbox':
                 this.toggleHtmlCheckbox();
                 break;
-            }
 
-            /*
-            if (DIMP.conf_compose.abook_url) {
-                $('sendto', 'sendcc', 'sendbcc').each(function(a) {
-                    C({ d: a.down('TD.label SPAN').addClassName('composeAddrbook'), f: DC.openAddressbook.bind(DC) });
-                });
-            }
+            case 'sendcc':
+            case 'sendbcc':
+            case 'sendto':
+                if (orig.match('TD.label SPAN')) {
+                    this.openAddressbook();
+                }
+                break;
 
-        C({ d: input, f: this.removeAttach.bind(this, [ input.up() ]) });
-        if (type != 'application/octet-stream') {
-            C({ d: span.addClassName('attachName'), f: function() { view(DimpCore.addURLParam(DIMP.conf.URI_VIEW, { composeCache: $F('composeCache'), actionID: 'compose_attach_preview', id: atc_num }), $F('composeCache') + '|' + atc_num) } });
-        }
-            */
+            case 'attach_list':
+                if (orig.match('INPUT')) {
+                    this.removeAttach([ orig.up() ]);
+                } else if (orig.match('SPAN.attachName')) {
+                    atc_num = orig.next().readAttribute('atc_id');
+                    DimpCore.popupWindow(DimpCore.addURLParam(DIMP.conf.URI_VIEW, { composeCache: $F('composeCache'), actionID: 'compose_attach_preview', id: atc_num }), $F('composeCache') + '|' + atc_num);
+                }
+                break;
+            }
 
             elt = elt.up();
         }
@@ -739,6 +747,13 @@ document.observe('dom:loaded', function() {
     //   http://blog.caboo.se/articles/2007/4/2/ajax-file-upload
     if (Prototype.Browser.WebKit) {
         $('submit_frame').writeAttribute({ position: 'absolute', width: '1px', height: '1px' }).setStyle({ left: '-999px' }).show();
+    }
+
+    /* Add addressbook link formatting. */
+    if (DIMP.conf_compose.abook_url) {
+        $('sendto', 'sendcc', 'sendbcc').each(function(a) {
+            a.down('TD.label SPAN').addClassName('composeAddrbook');
+        });
     }
 
     /* Mouse click handler. */
