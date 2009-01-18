@@ -32,7 +32,7 @@ var ContextSensitive = Class.create({
 
     initialize: function()
     {
-        this.current = this.target = null;
+        this.current = this.lasttarget = this.target = null;
         this.elements = $H();
 
         document.observe('contextmenu', this.rightClickHandler.bindAsEventListener(this));
@@ -78,9 +78,9 @@ var ContextSensitive = Class.create({
     /**
      * Get the element that triggered the current context menu (if any).
      */
-    element: function()
+    element: function(current)
     {
-        return this.target;
+        return current ? this.target : this.lasttarget;
     },
 
     /**
@@ -170,7 +170,7 @@ var ContextSensitive = Class.create({
         // Register the current element that will be shown and the
         // element that was clicked on.
         this.current = el;
-        this.target = $(ctx.id);
+        this.lasttarget = this.target = $(ctx.id);
 
         // Get the base element positions.
         offset = ctx.opts.offset;
