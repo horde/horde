@@ -426,21 +426,23 @@ ul.nav-audio {
 .mimePartInfo img {
     vertical-align: bottom;
 }
+.downloadAtc, .downloadZipAtc, .saveImgAtc, .stripAtc {
+    display: inline-block;
+    height: 16px;
+    width: 16px;
+    background: transparent center right no-repeat;
+}
 .downloadAtc {
-    padding: 2px 20px 2px 0;
-    background: transparent url("graphics/download.png") center right no-repeat;
+    background-image: url("graphics/download.png");
 }
 .downloadZipAtc {
-    padding: 2px 20px 2px 0;
-    background: transparent url("graphics/mime/compressed.png") center right no-repeat;
+    background-image: url("graphics/mime/compressed.png");
 }
 .saveImgAtc {
-    padding: 2px 20px 2px 0;
-    background: transparent url("graphics/gallery.png") center right no-repeat;
+    background-image: url("graphics/gallery.png");
 }
 .stripAtc {
-    padding: 2px 20px 2px 0;
-    background: transparent url("graphics/delete.png") center right no-repeat;
+    background-image: url("graphics/delete.png");
 }
 .mimeStatusIcon {
     width: 22px;
