@@ -1271,6 +1271,7 @@ var DimpBase = {
     _keydownHandler: function(e)
     {
         var co, form, ps, r, row, rowoff, sel,
+            elt = e.element();
             kc = e.keyCode || e.charCode;
 
         // Form catching - normally we will ignore, but certain cases we want
@@ -1279,10 +1280,13 @@ var DimpBase = {
         if (form) {
             switch (kc) {
             case Event.KEY_ESC:
+            case Event.KEY_TAB:
                 // Catch escapes in search box
-                if (e.element().readAttribute('id') == 'msgList_filter') {
-                    e.element().blur();
-                    this.searchfilterClear(false);
+                if (elt.readAttribute('id') == 'msgList_filter') {
+                    if (kc == Event.KEY_ESC || !elt.getValue()) {
+                        this.searchfilterClear(false);
+                    }
+                    elt.blur();
                     e.stop();
                 }
                 break;
@@ -1366,7 +1370,7 @@ var DimpBase = {
             break;
 
         case Event.KEY_RETURN:
-            if (!e.element().match('input')) {
+            if (!elt.match('input')) {
                 // Popup message window if single message is selected.
                 if (sel.size() == 1) {
                     this.msgWindow(sel.get('dataob').first());
