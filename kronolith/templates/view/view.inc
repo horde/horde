@@ -94,9 +94,9 @@ if ($this->event->isInitialized() && $this->event->alarm > 0):
 <tr>
  <td class="rightAlign" valign="top"><strong><?php echo _("Pattern") ?>&nbsp;&nbsp;</strong></td>
  <td valign="top">
-<?php if ($this->event->recurrence->hasRecurType(HORDE_DATE_RECUR_DAILY)): ?>
+<?php if ($this->event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_DAILY)): ?>
    <?php echo _("Daily: Recurs every") . ' ' . $this->event->recurrence->getRecurInterval() . ' ' . _("day(s)") ?>
-<?php elseif ($this->event->recurrence->hasRecurType(HORDE_DATE_RECUR_WEEKLY)):
+<?php elseif ($this->event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_WEEKLY)):
     $weekdays = array();
     if ($this->event->recurrence->recurOnDay(HORDE_DATE_MASK_MONDAY))    $weekdays[] = _("Monday");
     if ($this->event->recurrence->recurOnDay(HORDE_DATE_MASK_TUESDAY))   $weekdays[] = _("Tuesday");
@@ -106,15 +106,15 @@ if ($this->event->isInitialized() && $this->event->alarm > 0):
     if ($this->event->recurrence->recurOnDay(HORDE_DATE_MASK_SATURDAY))  $weekdays[] = _("Saturday");
     if ($this->event->recurrence->recurOnDay(HORDE_DATE_MASK_SUNDAY))    $weekdays[] = _("Sunday");
     echo _("Weekly: Recurs every") . ' ' . $this->event->recurrence->getRecurInterval() . ' ' . _("week(s) on:") . ' ' . implode(', ', $weekdays) ?>
-<?php elseif ($this->event->recurrence->hasRecurType(HORDE_DATE_RECUR_MONTHLY_DATE)): ?>
+<?php elseif ($this->event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_MONTHLY_DATE)): ?>
    <?php echo _("Monthly: Recurs every") . ' ' . $this->event->recurrence->getRecurInterval() . ' ' . _("month(s)") . ' ' . _("on the same date") ?>
-<?php elseif ($this->event->recurrence->hasRecurType(HORDE_DATE_RECUR_MONTHLY_WEEKDAY)): ?>
+<?php elseif ($this->event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY)): ?>
    <?php echo _("Monthly: Recurs every") . ' ' . $this->event->recurrence->getRecurInterval() . ' ' . _("month(s)") . ' ' . _("on the same weekday") ?>
-<?php elseif ($this->event->recurrence->hasRecurType(HORDE_DATE_RECUR_YEARLY_DATE)): ?>
+<?php elseif ($this->event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_YEARLY_DATE)): ?>
    <?php echo _("Yearly: Recurs every") . ' ' . $this->event->recurrence->getRecurInterval() . ' ' . _("year(s) on the same date") ?>
-<?php elseif ($this->event->recurrence->hasRecurType(HORDE_DATE_RECUR_YEARLY_DAY)): ?>
+<?php elseif ($this->event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_YEARLY_DAY)): ?>
    <?php echo _("Yearly: Recurs every") . ' ' . $this->event->recurrence->getRecurInterval() . ' ' . _("year(s) on the same day of the year") ?>
-<?php elseif ($this->event->recurrence->hasRecurType(HORDE_DATE_RECUR_YEARLY_WEEKDAY)): ?>
+<?php elseif ($this->event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_YEARLY_WEEKDAY)): ?>
    <?php echo _("Yearly: Recurs every") . ' ' . $this->event->recurrence->getRecurInterval() . ' ' . _("year(s) on the same weekday and month of the year") ?>
 <?php endif; ?>
  </td>

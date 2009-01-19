@@ -306,7 +306,7 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
         }
         $q .= 'event_start <= ?' .
             ' AND event_recurtype <> ?))';
-        array_push($values, $etime, HORDE_DATE_RECUR_NONE);
+        array_push($values, $etime, Horde_Date_Recurrence::RECUR_NONE);
 
         /* Log the query at a DEBUG log level. */
         Horde::logMessage(sprintf('Kronolith_Driver_sql::listEventsConditional(): user = "%s"; query = "%s"; values = "%s"',
@@ -346,7 +346,7 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
             /* We have all the information we need to create an event
              * object for this event, so go ahead and cache it. */
             $this->_cache[$this->_calendar][$row['event_id']] = &new Kronolith_Event_sql($this, $row);
-            if ($row['event_recurtype'] == HORDE_DATE_RECUR_NONE) {
+            if ($row['event_recurtype'] == Horde_Date_Recurrence::RECUR_NONE) {
                 $events[$row['event_uid']] = $row['event_id'];
             } else {
                 $next = $this->nextRecurrence($row['event_id'], $startInterval);
@@ -1012,7 +1012,7 @@ class Kronolith_Event_sql extends Kronolith_Event {
             $this->_properties['event_recurcount'] = $this->recurrence->getRecurCount();
 
             switch ($recur) {
-            case HORDE_DATE_RECUR_WEEKLY:
+            case Horde_Date_Recurrence::RECUR_WEEKLY:
                 $this->_properties['event_recurdays'] = $this->recurrence->getRecurOnDays();
                 break;
             }

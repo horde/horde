@@ -21,7 +21,7 @@ $object->setCategory('Schöngeistiges');
 $object->setLocation('Allgäu');
 $object->setAlarm(10);
 $object->recurrence = new Horde_Date_Recurrence($object->start);
-$object->recurrence->setRecurType(HORDE_DATE_RECUR_DAILY);
+$object->recurrence->setRecurType(Horde_Date_Recurrence::RECUR_DAILY);
 $object->recurrence->setRecurInterval(2);
 $object->recurrence->addException(2007, 3, 19);
 $object->initialized = true;
@@ -39,7 +39,7 @@ echo $ical->exportvCalendar() . "\n";
 $object->setPrivate(true);
 $object->setStatus(KRONOLITH_STATUS_TENTATIVE);
 $object->recurrence = new Horde_Date_Recurrence($object->start);
-$object->recurrence->setRecurType(HORDE_DATE_RECUR_MONTHLY_DATE);
+$object->recurrence->setRecurType(Horde_Date_Recurrence::RECUR_MONTHLY_DATE);
 $object->recurrence->setRecurInterval(1);
 $object->recurrence->addException(2007, 4, 15);
 $object->setAttendees(

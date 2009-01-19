@@ -218,21 +218,21 @@
   <table cellspacing="0" width="100%">
    <tr>
     <td class="nowrap">
-     <input id="recurnone" type="radio" class="checkbox" name="recur" onclick="clearFields(0);" value="<?php echo HORDE_DATE_RECUR_NONE ?>"<?php if (!$event->recurs()) echo ' checked="checked"' ?> /><label for="recurnone"> <?php echo _("No recurrence") ?></label>
+     <input id="recurnone" type="radio" class="checkbox" name="recur" onclick="clearFields(0);" value="<?php echo Horde_Date_Recurrence::RECUR_NONE ?>"<?php if (!$event->recurs()) echo ' checked="checked"' ?> /><label for="recurnone"> <?php echo _("No recurrence") ?></label>
     </td>
    </tr>
    <tr>
     <td class="nowrap">
-     <input id="recurdaily" type="radio" class="checkbox" name="recur" onclick="setInterval('recur_daily_interval');" value="<?php echo HORDE_DATE_RECUR_DAILY ?>"<?php if ($event->recurs() && $event->recurrence->hasRecurType(HORDE_DATE_RECUR_DAILY)) echo ' checked="checked"' ?> /><label for="recurdaily"> <?php echo _("Daily: Recurs every") ?>&nbsp;</label>
-     <input type="text" id="recur_daily_interval" name="recur_daily_interval" size="2" onkeypress="setRecur(1);" onchange="setRecur(1);" value="<?php echo $event->recurs() && $event->recurrence->hasRecurType(HORDE_DATE_RECUR_DAILY) ? $event->recurrence->getRecurInterval() : '' ?>" />&nbsp;<?php echo Horde::label('recur_daily_interval', _("day(s)")) ?>
+     <input id="recurdaily" type="radio" class="checkbox" name="recur" onclick="setInterval('recur_daily_interval');" value="<?php echo Horde_Date_Recurrence::RECUR_DAILY ?>"<?php if ($event->recurs() && $event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_DAILY)) echo ' checked="checked"' ?> /><label for="recurdaily"> <?php echo _("Daily: Recurs every") ?>&nbsp;</label>
+     <input type="text" id="recur_daily_interval" name="recur_daily_interval" size="2" onkeypress="setRecur(1);" onchange="setRecur(1);" value="<?php echo $event->recurs() && $event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_DAILY) ? $event->recurrence->getRecurInterval() : '' ?>" />&nbsp;<?php echo Horde::label('recur_daily_interval', _("day(s)")) ?>
     </td>
    </tr>
    <tr>
     <td class="nowrap">
-     <input id="recurweekly" type="radio" class="checkbox" name="recur" onclick="setInterval('recur_weekly_interval');" value="<?php echo HORDE_DATE_RECUR_WEEKLY ?>"<?php if ($event->recurs() && $event->recurrence->hasRecurType(HORDE_DATE_RECUR_WEEKLY)) echo ' checked="checked"' ?> /><label for="recurweekly"> <?php echo _("Weekly: Recurs every") ?>&nbsp;</label>
-     <input type="text" id="recur_weekly_interval" name="recur_weekly_interval" size="2" onkeypress="setRecur(2);" onchange="setRecur(2);" value="<?php echo $event->recurs() && $event->recurrence->hasRecurType(HORDE_DATE_RECUR_WEEKLY) ? $event->recurrence->getRecurInterval() : '' ?>" />&nbsp;
+     <input id="recurweekly" type="radio" class="checkbox" name="recur" onclick="setInterval('recur_weekly_interval');" value="<?php echo Horde_Date_Recurrence::RECUR_WEEKLY ?>"<?php if ($event->recurs() && $event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_WEEKLY)) echo ' checked="checked"' ?> /><label for="recurweekly"> <?php echo _("Weekly: Recurs every") ?>&nbsp;</label>
+     <input type="text" id="recur_weekly_interval" name="recur_weekly_interval" size="2" onkeypress="setRecur(2);" onchange="setRecur(2);" value="<?php echo $event->recurs() && $event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_WEEKLY) ? $event->recurrence->getRecurInterval() : '' ?>" />&nbsp;
      <?php echo Horde::label('recur_weekly_interval', _("week(s) on:")) ?><br />
-     <label for="mo"><?php echo _("Mo") ?></label><input id="mo" type="checkbox" class="checkbox" name="weekly[]" onclick="setInterval('recur_weekly_interval');setRecur(2);" value="<?php echo HORDE_DATE_MASK_MONDAY ?>"<?php if ($event->recurs() && $event->recurrence->recurOnDay(HORDE_DATE_MASK_MONDAY)) echo ' checked="checked"' ?> />&nbsp;
+     <label for="mo"><?php echo _("Mo") ?></label><input id="mo" type="checkbox" class="checkbox" name="weekly[]" onclick="setInterval('recur_weekly_interval');setRecur(2);" value="<?php echo Horde_Date_Recurrence::MASK_MONDAY ?>"<?php if ($event->recurs() && $event->recurrence->recurOnDay(Horde_Date_Recurrence::MASK_MONDAY)) echo ' checked="checked"' ?> />&nbsp;
      <label for="tu"><?php echo _("Tu") ?></label><input id="tu" type="checkbox" class="checkbox" name="weekly[]" onclick="setInterval('recur_weekly_interval');setRecur(2);" value="<?php echo HORDE_DATE_MASK_TUESDAY ?>"<?php if ($event->recurs() && $event->recurrence->recurOnDay(HORDE_DATE_MASK_TUESDAY)) echo ' checked="checked"' ?> />&nbsp;
      <label for="we"><?php echo _("We") ?></label><input id="we" type="checkbox" class="checkbox" name="weekly[]" onclick="setInterval('recur_weekly_interval');setRecur(2);" value="<?php echo HORDE_DATE_MASK_WEDNESDAY ?>"<?php if ($event->recurs() && $event->recurrence->recurOnDay(HORDE_DATE_MASK_WEDNESDAY)) echo ' checked="checked"' ?> />&nbsp;
      <label for="th"><?php echo _("Th") ?></label><input id="th" type="checkbox" class="checkbox" name="weekly[]" onclick="setInterval('recur_weekly_interval');setRecur(2);" value="<?php echo HORDE_DATE_MASK_THURSDAY ?>"<?php if ($event->recurs() && $event->recurrence->recurOnDay(HORDE_DATE_MASK_THURSDAY)) echo ' checked="checked"' ?> />&nbsp;
@@ -243,32 +243,32 @@
    </tr>
    <tr>
     <td class="nowrap">
-     <input id="recurmonthday" type="radio" class="checkbox" name="recur" onclick="setInterval('recur_day_of_month_interval');" value="<?php echo HORDE_DATE_RECUR_MONTHLY_DATE ?>"<?php if ($event->recurs() && $event->recurrence->hasRecurType(HORDE_DATE_RECUR_MONTHLY_DATE)) echo ' checked="checked"' ?> /><label for="recurmonthday"> <?php echo _("Monthly: Recurs every") ?>&nbsp;</label>
-     <input type="text" id="recur_day_of_month_interval" name="recur_day_of_month_interval" size="2" onkeypress="setRecur(3);" onchange="setRecur(3);" value="<?php echo $event->recurs() && $event->recurrence->hasRecurType(HORDE_DATE_RECUR_MONTHLY_DATE) ? $event->recurrence->getRecurInterval() : '' ?>" />&nbsp;<?php echo Horde::label('recur_day_of_month_interval', _("month(s)") . ' ' . _("on the same date")) ?>
+     <input id="recurmonthday" type="radio" class="checkbox" name="recur" onclick="setInterval('recur_day_of_month_interval');" value="<?php echo Horde_Date_Recurrence::RECUR_MONTHLY_DATE ?>"<?php if ($event->recurs() && $event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_MONTHLY_DATE)) echo ' checked="checked"' ?> /><label for="recurmonthday"> <?php echo _("Monthly: Recurs every") ?>&nbsp;</label>
+     <input type="text" id="recur_day_of_month_interval" name="recur_day_of_month_interval" size="2" onkeypress="setRecur(3);" onchange="setRecur(3);" value="<?php echo $event->recurs() && $event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_MONTHLY_DATE) ? $event->recurrence->getRecurInterval() : '' ?>" />&nbsp;<?php echo Horde::label('recur_day_of_month_interval', _("month(s)") . ' ' . _("on the same date")) ?>
     </td>
    </tr>
    <tr>
     <td class="nowrap">
-     <input id="recurmonthweek" type="radio" class="checkbox" name="recur" onclick="setInterval('recur_week_of_month_interval');" value="<?php echo HORDE_DATE_RECUR_MONTHLY_WEEKDAY ?>"<?php if ($event->recurs() && $event->recurrence->hasRecurType(HORDE_DATE_RECUR_MONTHLY_WEEKDAY)) echo ' checked="checked"' ?> /><label for="recurmonthweek"> <?php echo _("Monthly: Recurs every") ?>&nbsp;</label>
-     <input type="text" id="recur_week_of_month_interval" name="recur_week_of_month_interval" size="2" onkeypress="setRecur(4);" onchange="setRecur(4);" value="<?php echo $event->recurs() && $event->recurrence->hasRecurType(HORDE_DATE_RECUR_MONTHLY_WEEKDAY) ? $event->recurrence->getRecurInterval() : '' ?>" />&nbsp;<?php echo Horde::label('recur_week_of_month_interval', _("month(s)") . ' ' . _("on the same weekday")) ?>
+     <input id="recurmonthweek" type="radio" class="checkbox" name="recur" onclick="setInterval('recur_week_of_month_interval');" value="<?php echo Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY ?>"<?php if ($event->recurs() && $event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY)) echo ' checked="checked"' ?> /><label for="recurmonthweek"> <?php echo _("Monthly: Recurs every") ?>&nbsp;</label>
+     <input type="text" id="recur_week_of_month_interval" name="recur_week_of_month_interval" size="2" onkeypress="setRecur(4);" onchange="setRecur(4);" value="<?php echo $event->recurs() && $event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY) ? $event->recurrence->getRecurInterval() : '' ?>" />&nbsp;<?php echo Horde::label('recur_week_of_month_interval', _("month(s)") . ' ' . _("on the same weekday")) ?>
     </td>
    </tr>
    <tr>
     <td class="nowrap">
-     <input id="recuryear" type="radio" class="checkbox" name="recur" onclick="setInterval('recur_yearly_interval');" value="<?php echo HORDE_DATE_RECUR_YEARLY_DATE ?>"<?php if ($event->recurs() && $event->recurrence->hasRecurType(HORDE_DATE_RECUR_YEARLY_DATE)) echo ' checked="checked"' ?> /><label for="recuryear"> <?php echo _("Yearly: Recurs every") ?>&nbsp;</label>
-     <input type="text" id="recur_yearly_interval" name="recur_yearly_interval" size="2" onkeypress="setRecur(5);" onchange="setRecur(5);" value="<?php echo $event->recurs() && $event->recurrence->hasRecurType(HORDE_DATE_RECUR_YEARLY_DATE) ? $event->recurrence->getRecurInterval() : '' ?>" />&nbsp;<?php echo Horde::label('recur_yearly_interval', _("year(s) on the same date")) ?>
+     <input id="recuryear" type="radio" class="checkbox" name="recur" onclick="setInterval('recur_yearly_interval');" value="<?php echo Horde_Date_Recurrence::RECUR_YEARLY_DATE ?>"<?php if ($event->recurs() && $event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_YEARLY_DATE)) echo ' checked="checked"' ?> /><label for="recuryear"> <?php echo _("Yearly: Recurs every") ?>&nbsp;</label>
+     <input type="text" id="recur_yearly_interval" name="recur_yearly_interval" size="2" onkeypress="setRecur(5);" onchange="setRecur(5);" value="<?php echo $event->recurs() && $event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_YEARLY_DATE) ? $event->recurrence->getRecurInterval() : '' ?>" />&nbsp;<?php echo Horde::label('recur_yearly_interval', _("year(s) on the same date")) ?>
     </td>
    </tr>
    <tr>
     <td class="nowrap">
-     <input id="recuryearday" type="radio" class="checkbox" name="recur" onclick="setInterval('recur_yearly_day_interval');" value="<?php echo HORDE_DATE_RECUR_YEARLY_DAY ?>"<?php if ($event->recurs() && $event->recurrence->hasRecurType(HORDE_DATE_RECUR_YEARLY_DAY)) echo ' checked="checked"' ?> /><label for="recuryearday"> <?php echo _("Yearly: Recurs every") ?>&nbsp;</label>
-     <input type="text" id="recur_yearly_day_interval" name="recur_yearly_day_interval" size="2" onkeypress="setRecur(6);" onchange="setRecur(6);" value="<?php echo $event->recurs() && $event->recurrence->hasRecurType(HORDE_DATE_RECUR_YEARLY_DAY) ? $event->recurrence->getRecurInterval() : '' ?>" />&nbsp;<?php echo Horde::label('recur_yearly_day_interval', _("year(s) on the same day of the year")) ?>
+     <input id="recuryearday" type="radio" class="checkbox" name="recur" onclick="setInterval('recur_yearly_day_interval');" value="<?php echo Horde_Date_Recurrence::RECUR_YEARLY_DAY ?>"<?php if ($event->recurs() && $event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_YEARLY_DAY)) echo ' checked="checked"' ?> /><label for="recuryearday"> <?php echo _("Yearly: Recurs every") ?>&nbsp;</label>
+     <input type="text" id="recur_yearly_day_interval" name="recur_yearly_day_interval" size="2" onkeypress="setRecur(6);" onchange="setRecur(6);" value="<?php echo $event->recurs() && $event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_YEARLY_DAY) ? $event->recurrence->getRecurInterval() : '' ?>" />&nbsp;<?php echo Horde::label('recur_yearly_day_interval', _("year(s) on the same day of the year")) ?>
     </td>
    </tr>
    <tr>
     <td class="nowrap">
-     <input id="recuryearweekday" type="radio" class="checkbox" name="recur" onclick="setInterval('recur_yearly_weekday_interval');" value="<?php echo HORDE_DATE_RECUR_YEARLY_WEEKDAY ?>"<?php if ($event->recurs() && $event->recurrence->hasRecurType(HORDE_DATE_RECUR_YEARLY_WEEKDAY)) echo ' checked="checked"' ?> /><label for="recuryearweekday"> <?php echo _("Yearly: Recurs every") ?>&nbsp;</label>
-     <input type="text" id="recur_yearly_weekday_interval" name="recur_yearly_weekday_interval" size="2" onkeypress="setRecur(7);" onchange="setRecur(7);" value="<?php echo $event->recurs() && $event->recurrence->hasRecurType(HORDE_DATE_RECUR_YEARLY_WEEKDAY) ? $event->recurrence->getRecurInterval() : '' ?>" />&nbsp;<?php echo Horde::label('recur_yearly_weekday_interval', _("year(s) on the same weekday and month of the year")) ?>
+     <input id="recuryearweekday" type="radio" class="checkbox" name="recur" onclick="setInterval('recur_yearly_weekday_interval');" value="<?php echo Horde_Date_Recurrence::RECUR_YEARLY_WEEKDAY ?>"<?php if ($event->recurs() && $event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_YEARLY_WEEKDAY)) echo ' checked="checked"' ?> /><label for="recuryearweekday"> <?php echo _("Yearly: Recurs every") ?>&nbsp;</label>
+     <input type="text" id="recur_yearly_weekday_interval" name="recur_yearly_weekday_interval" size="2" onkeypress="setRecur(7);" onchange="setRecur(7);" value="<?php echo $event->recurs() && $event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_YEARLY_WEEKDAY) ? $event->recurrence->getRecurInterval() : '' ?>" />&nbsp;<?php echo Horde::label('recur_yearly_weekday_interval', _("year(s) on the same weekday and month of the year")) ?>
     </td>
    </tr>
   </table>

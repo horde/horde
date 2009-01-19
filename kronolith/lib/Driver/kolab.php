@@ -561,11 +561,11 @@ class Kronolith_Driver_kolab_wrapper_old extends Kronolith_Driver_kolab_wrapper 
             $this->_kolab->setElemVal($recurrence, 'interval', $event->recurrence->getRecurInterval());
 
             switch ($event->recurrence->getRecurType()) {
-                case HORDE_DATE_RECUR_DAILY:
+                case Horde_Date_Recurrence::RECUR_DAILY:
                     $recurrence->set_attribute('cycle', 'daily');
                     break;
 
-                case HORDE_DATE_RECUR_WEEKLY:
+                case Horde_Date_Recurrence::RECUR_WEEKLY:
                     $recurrence->set_attribute('cycle', 'weekly');
 
                     $days = array('sunday', 'monday', 'tuesday', 'wednesday',
@@ -579,13 +579,13 @@ class Kronolith_Driver_kolab_wrapper_old extends Kronolith_Driver_kolab_wrapper 
                     }
                     break;
 
-                case HORDE_DATE_RECUR_MONTHLY_DATE:
+                case Horde_Date_Recurrence::RECUR_MONTHLY_DATE:
                     $recurrence->set_attribute('cycle', 'monthly');
                     $recurrence->set_attribute('type', 'daynumber');
                     $this->_kolab->setElemVal($recurrence, 'daynumber', $event->start->mday);
                     break;
 
-                case HORDE_DATE_RECUR_MONTHLY_WEEKDAY:
+                case Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY:
                     $recurrence->set_attribute('cycle', 'monthly');
                     $recurrence->set_attribute('type', 'weekday');
                     $this->_kolab->setElemVal($recurrence, 'daynumber', (int)(($event->start->mday - 1) / 7));
@@ -595,7 +595,7 @@ class Kronolith_Driver_kolab_wrapper_old extends Kronolith_Driver_kolab_wrapper 
                     $this->_kolab->setElemVal($recurrence, 'day', $days[$start->dayOfWeek()]);
                     break;
 
-                case HORDE_DATE_RECUR_YEARLY_DATE:
+                case Horde_Date_Recurrence::RECUR_YEARLY_DATE:
                     $recurrence->set_attribute('cycle', 'yearly');
                     $recurrence->set_attribute('type', 'monthday');
 
@@ -607,13 +607,13 @@ class Kronolith_Driver_kolab_wrapper_old extends Kronolith_Driver_kolab_wrapper 
                     $this->_kolab->setElemVal($recurrence, 'daynumber', $event->start->mday);
                     break;
 
-                case HORDE_DATE_RECUR_YEARLY_DAY:
+                case Horde_Date_Recurrence::YEARLY_DAY:
                     $recurrence->set_attribute('cycle', 'yearly');
                     $recurrence->set_attribute('type', 'yearday');
                     $this->_kolab->setElemVal($recurrence, 'daynumber', $event->start->dayOfYear());
                     break;
 
-                case HORDE_DATE_RECUR_YEARLY_WEEKDAY:
+                case Horde_Date_Recurrence::YEARLY_WEEKDAY:
                     $recurrence->set_attribute('cycle', 'yearly');
                     $recurrence->set_attribute('type', 'weekday');
                     $this->_kolab->setElemVal($recurrence, 'daynumber', (int)(($event->start->mday - 1) / 7));
@@ -856,11 +856,11 @@ class Kronolith_Event_kolab_old extends Kronolith_Event {
 
             switch ($cycle) {
             case 'daily':
-                $this->recurrence->setRecurType(HORDE_DATE_RECUR_DAILY);
+                $this->recurrence->setRecurType(Horde_Date_Recurrence::RECUR_DAILY);
                 break;
 
             case 'weekly':
-                $this->recurrence->setRecurType(HORDE_DATE_RECUR_WEEKLY);
+                $this->recurrence->setRecurType(Horde_Date_Recurrence::RECUR_WEEKLY);
 
                 $mask = 0;
                 $bits = array(
@@ -890,11 +890,11 @@ class Kronolith_Event_kolab_old extends Kronolith_Event {
             case 'monthly':
                 switch ($recurrence->get_attribute('type')) {
                 case 'daynumber':
-                    $this->recurrence->setRecurType(HORDE_DATE_RECUR_MONTHLY_DATE);
+                    $this->recurrence->setRecurType(Horde_Date_Recurrence::RECUR_MONTHLY_DATE);
                     break;
 
                 case 'weekday':
-                    $this->recurrence->setRecurType(HORDE_DATE_RECUR_MONTHLY_DATE);
+                    $this->recurrence->setRecurType(Horde_Date_Recurrence::RECUR_MONTHLY_DATE);
                     break;
                 }
                 break;
@@ -902,13 +902,13 @@ class Kronolith_Event_kolab_old extends Kronolith_Event {
             case 'yearly':
                 switch ($recurrence->get_attribute('type')) {
                 case 'monthday':
-                    $this->recurrence->setRecurType(HORDE_DATE_RECUR_YEARLY_DATE);
+                    $this->recurrence->setRecurType(Horde_Date_Recurrence::RECUR_YEARLY_DATE);
                     break;
                 case 'daynumber':
-                    $this->recurrence->setRecurType(HORDE_DATE_RECUR_YEARLY_DAY);
+                    $this->recurrence->setRecurType(Horde_Date_Recurrence::RECUR_YEARLY_DAY);
                     break;
                 case 'weekday':
-                    $this->recurrence->setRecurType(HORDE_DATE_RECUR_YEARLY_WEEKDAY);
+                    $this->recurrence->setRecurType(Horde_Date_Recurrence::RECUR_YEARLY_WEEKDAY);
                     break;
                 }
             }

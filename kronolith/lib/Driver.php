@@ -1341,7 +1341,7 @@ class Kronolith_Event {
     function recurs()
     {
         return isset($this->recurrence) &&
-            !$this->recurrence->hasRecurType(HORDE_DATE_RECUR_NONE);
+            !$this->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_NONE);
     }
 
     /**
@@ -1911,11 +1911,11 @@ class Kronolith_Event {
 
             $this->recurrence->setRecurType($recur);
             switch ($recur) {
-            case HORDE_DATE_RECUR_DAILY:
+            case Horde_Date_Recurrence::RECUR_DAILY:
                 $this->recurrence->setRecurInterval(Util::getFormData('recur_daily_interval', 1));
                 break;
 
-            case HORDE_DATE_RECUR_WEEKLY:
+            case Horde_Date_Recurrence::RECUR_WEEKLY:
                 $weekly = Util::getFormData('weekly');
                 $weekdays = 0;
                 if (is_array($weekly)) {
@@ -1941,23 +1941,23 @@ class Kronolith_Event {
                 $this->recurrence->setRecurOnDay($weekdays);
                 break;
 
-            case HORDE_DATE_RECUR_MONTHLY_DATE:
+            case Horde_Date_Recurrence::RECUR_MONTHLY_DATE:
                 $this->recurrence->setRecurInterval(Util::getFormData('recur_day_of_month_interval', 1));
                 break;
 
-            case HORDE_DATE_RECUR_MONTHLY_WEEKDAY:
+            case Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY:
                 $this->recurrence->setRecurInterval(Util::getFormData('recur_week_of_month_interval', 1));
                 break;
 
-            case HORDE_DATE_RECUR_YEARLY_DATE:
+            case Horde_Date_Recurrence::RECUR_YEARLY_DATE:
                 $this->recurrence->setRecurInterval(Util::getFormData('recur_yearly_interval', 1));
                 break;
 
-            case HORDE_DATE_RECUR_YEARLY_DAY:
+            case Horde_Date_Recurrence::RECUR_YEARLY_DAY:
                 $this->recurrence->setRecurInterval(Util::getFormData('recur_yearly_day_interval', 1));
                 break;
 
-            case HORDE_DATE_RECUR_YEARLY_WEEKDAY:
+            case Horde_Date_Recurrence::RECUR_YEARLY_WEEKDAY:
                 $this->recurrence->setRecurInterval(Util::getFormData('recur_yearly_weekday_interval', 1));
                 break;
             }

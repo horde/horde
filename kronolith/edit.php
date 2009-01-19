@@ -89,7 +89,7 @@ if ($exception = Util::getFormData('del_exception')) {
                 $kronolith_driver->open($target);
                 $event = &$kronolith_driver->getEvent();
                 $event->readForm();
-                $event->recurrence->setRecurType(HORDE_DATE_RECUR_NONE);
+                $event->recurrence->setRecurType(Horde_Date_Recurrence::RECUR_NONE);
 
                 break;
 

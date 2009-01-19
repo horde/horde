@@ -1507,29 +1507,29 @@ class Kronolith {
      * display.
      *
      * @param integer $type  The recurrence value; one of the
-     *                       HORDE_DATE_RECUR_XXX constants.
+     *                       Horde_Date_Recurrence::RECUR_XXX constants.
      *
      * @return string  The translated displayable recurrence value string.
      */
     function recurToString($type)
     {
         switch ($type) {
-        case HORDE_DATE_RECUR_NONE:
+        case Horde_Date_Recurrence::RECUR_NONE:
             return _("Does not recur");
 
-        case HORDE_DATE_RECUR_DAILY:
+        case Horde_Date_Recurrence::RECUR_DAILY:
             return _("Recurs daily");
 
-        case HORDE_DATE_RECUR_WEEKLY:
+        case Horde_Date_Recurrence::RECUR_WEEKLY:
             return _("Recurs weekly");
 
-        case HORDE_DATE_RECUR_MONTHLY_DATE:
-        case HORDE_DATE_RECUR_MONTHLY_WEEKDAY:
+        case Horde_Date_Recurrence::RECUR_MONTHLY_DATE:
+        case Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY:
             return _("Recurs monthly");
 
-        case HORDE_DATE_RECUR_YEARLY_DATE:
-        case HORDE_DATE_RECUR_YEARLY_DAY:
-        case HORDE_DATE_RECUR_YEARLY_WEEKDAY:
+        case Horde_Date_Recurrence::RECUR_YEARLY_DATE:
+        case Horde_Date_Recurrence::RECUR_YEARLY_DAY:
+        case Horde_Date_Recurrence::RECUR_YEARLY_WEEKDAY:
             return _("Recurs yearly");
         }
     }
