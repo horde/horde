@@ -512,7 +512,6 @@ var DimpCompose = {
         e.each(function(n) {
             n = $(n);
             ids.push(n.down('INPUT').readAttribute('atc_id'));
-            DimpCore.addGC(n.childElements());
             n.remove();
         });
         DimpCore.doAction('DeleteAttach', { atc_indices: ids, imp_compose: $F('composeCache') });

@@ -16,7 +16,6 @@ DimpCore = {
     // Vars used and defaulting to null/false:
     //   DMenu, alertrequest, inAjaxCallback, is_logout, onDoActionComplete,
     //   window_load
-    remove_gc: [],
     server_error: 0,
 
     buttons: [ 'button_reply', 'button_forward', 'button_spam', 'button_ham', 'button_deleted' ],
@@ -316,10 +315,10 @@ DimpCore = {
             var elt = $(effect.element),
                 parent = elt.up();
 
-            this.addGC(elt.remove());
+            elt.remove();
             if (!parent.childElements().size() &&
                 parent.readAttribute('id') == 'ie6alertsfix') {
-                this.addGC(parent.remove());
+                parent.remove();
             }
         } catch (e) {
             this.debug('removeAlert', e);
@@ -374,13 +373,6 @@ DimpCore = {
         }
     },
 
-    /* elt = DOM element */
-    removeMouseEvents: function(elt)
-    {
-        this.DMenu.removeElement($(elt).identify());
-        this.addGC(elt);
-    },
-
     /* Add a popdown menu to a dimpactions button. */
     addPopdown: function(bid, ctx)
     {
@@ -397,11 +389,10 @@ DimpCore = {
 
         if (cnt > 15) {
             tmp = $('largeaddrspan').cloneNode(true);
+            tmp.writeAttribute('id', 'largeaddrspan_active');
             elt.insert(tmp);
             base = tmp.down('.dispaddrlist');
-            tmp = tmp.down();
-            this.clickObserveHandler({ d: tmp, f: function(d) { [ d.down(), d.down(1), d.next() ].invoke('toggle'); }.curry(tmp) });
-            tmp = tmp.down();
+            tmp = tmp.down(1);
             tmp.setText(tmp.getText().replace('%d', cnt));
         } else {
             base = elt;
@@ -428,13 +419,9 @@ DimpCore = {
     /* Removes event handlers from address links. */
     removeAddressLinks: function(id)
     {
-        [ id.select('.address'), id.select('.largeaddrtoggle') ].flatten().compact().each(this.removeMouseEvents.bind(this));
-    },
-
-    /* Utility functions. */
-    addGC: function(elt)
-    {
-        this.remove_gc = this.remove_gc.concat(elt);
+        id.select('.address').each(function(elt) {
+            this.DMenu.removeElement(elt.identify());
+        }, this);
     },
 
     addURLParam: function(url, params)
@@ -516,6 +503,11 @@ DimpCore = {
             case 'alerts':
                 this.alertsFade(elt);
                 break;
+
+            case 'largeaddrspan_active':
+                tmp = elt.down();
+                [ tmp.down(), tmp.down(1), tmp.next() ].invoke('toggle');
+                break;
             }
 
             elt = elt.up();
@@ -548,17 +540,6 @@ document.observe('dom:loaded', function() {
     if (!DIMP.conf.ham_reporting) {
         DimpCore.buttons = DimpCore.buttons.without('button_ham');
     }
-
-    /* Init garbage collection function - runs every 10 seconds. */
-    new PeriodicalExecuter(function() {
-        if (DimpCore.remove_gc.size()) {
-            try {
-                $A(DimpCore.remove_gc.splice(0, 75)).compact().invoke('stopObserving');
-            } catch (e) {
-                DimpCore.debug('remove_gc[].stopObserving', e);
-            }
-        }
-    }, 10);
 
     /* Add click handler. */
     document.observe('click', DimpCore._clickHandler.bindAsEventListener(DimpCore));

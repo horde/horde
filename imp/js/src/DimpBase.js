@@ -399,9 +399,6 @@ var DimpBase = {
             norows: true,
             onScrollIdle: settitle,
             onSlide: settitle,
-            onViewChange: function() {
-                DimpCore.addGC(this.viewport.visibleRows());
-            }.bind(this),
             onContent: function(rows) {
                 var mf, search,
                     thread = ((this.viewport.getMetaData('sortby') == DIMP.conf.sortthread) && this.viewport.getMetaData('thread'));
@@ -523,10 +520,6 @@ var DimpBase = {
             }.bind(this),
             onClearRows: function(r) {
                 r.each(function(row) {
-                    var c = $(row).down('DIV.msCheck');
-                    if (c) {
-                        DimpCore.addGC(c);
-                    }
                     if (row.id) {
                         this._removeMouseEvents(row);
                     }
@@ -592,7 +585,6 @@ var DimpBase = {
         }
 
         DimpCore.DMenu.removeElement($(elt).identify());
-        DimpCore.addGC(elt);
     },
 
     _onMenuShow: function(ctx)
@@ -1989,7 +1981,6 @@ var DimpBase = {
     deleteFolderElt: function(fid, sub)
     {
         var f = $(fid), submbox;
-        DimpCore.addGC($(f, fid + '_div', fid + '_label'));
         if (sub) {
             submbox = $(this.getSubFolderId(fid));
             if (submbox) {
@@ -1998,7 +1989,6 @@ var DimpBase = {
         }
         [ DragDrop.Drags.get_drag(fid), DragDrop.Drops.get_drop(fid) ].compact().invoke('destroy');
         this._removeMouseEvents(f);
-        DimpCore.addGC(f);
         if (this.viewport) {
             this.viewport.deleteView(fid);
         }
