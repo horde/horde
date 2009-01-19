@@ -14,7 +14,7 @@ require_once dirname(__FILE__) . '/lib/base.php';
 require_once 'Horde/Lock.php';
 
 $meta_params = array(
-		     "Project-Id-Version" => @$_SESSION['translation']['language'],
+		     "Project-Id-Version" => @$_SESSION['babel']['language'],
 		     "Report-Msgid-Bugs-To" => "support@scopserv.com",
 		     "POT-Creation-Date" => "",
 		     "PO-Revision-Date" => "",
@@ -34,7 +34,7 @@ $search   = Util::getFormData('search');
 
 if ($app) {
     /* Render the page. */
-    Translation::RB_init();
+    Babel::RB_init();
 }
 
 /* Render the page. */
@@ -42,9 +42,9 @@ require BABEL_TEMPLATES . '/common-header.inc';
 
 if ($app) {
     if ($editmode) {
-	Translation::RB_start(10);
+	Babel::RB_start(10);
     } else {
-	Translation::RB_start(60);
+	Babel::RB_start(60);
     }
 }
 
@@ -142,7 +142,7 @@ if ($f_save && $cstring) {
 // 
 
 /* Set up the template fields. */
-$template->set('menu', Translation::getMenu('string'));
+$template->set('menu', Babel::getMenu('string'));
 $template->set('notify', Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status')));
 
 /* Create upload form */
@@ -150,7 +150,7 @@ $form = &new Horde_Form($vars, _("View Translation"), $show);
 
 if (!$app) {
     $form->setButtons(_("View"));
-    $form->addVariable(_("Module"), 'module', 'enum', true, false, null, array(Translation::listApps(), true));
+    $form->addVariable(_("Module"), 'module', 'enum', true, false, null, array(Babel::listApps(), true));
     $form->addVariable('', '', 'spacer', true);
     
     $renderer_params = array();
@@ -160,7 +160,7 @@ if (!$app) {
     $form->renderActive($renderer, $vars, Horde::selfURL(), 'post');
 } else {
     
-    if (Translation::hasPermission('view', 'tabs', PERMS_EDIT)) {
+    if (Babel::hasPermission('view', 'tabs', PERMS_EDIT)) {
 	$hmenu_desc = _("Edit Header");
 	$url = Horde::applicationUrl('edit.php');
 	$url = Util::addParameter($url, array('module' => $app,
@@ -373,7 +373,7 @@ if (!$app) {
 		$sfile = $m[1];
 		$sline = $m[2];
 
-		if (Translation::hasPermission('viewsource', 'tabs', PERMS_EDIT)) {
+		if (Babel::hasPermission('viewsource', 'tabs', PERMS_EDIT)) {
 		    $surl = Horde::applicationUrl('viewsource.php');
 		    $surl = Util::addParameter($surl, array('module' => $app,
 							    'file'   => $sfile,
@@ -429,13 +429,13 @@ if (!$app) {
 	  if ($locked) {
 	      echo Horde::img('locked.png') . '&nbsp;' . sprintf(_("Locked by %s"), $locked);
 	  } else {
-	      if (Translation::hasPermission('view', 'tabs', PERMS_EDIT)) {
+	      if (Babel::hasPermission('view', 'tabs', PERMS_EDIT)) {
 		  if (!$editmode || $cstring != $encstr) {
 		      $surl = Horde::applicationUrl('view.php');
 		      $surl = Util::addParameter($surl, array('module' => $app, 'cstring' => $encstr, 'editmode' => 1, 'page' => $page, 'filter' => $filter, 'search' => $search));
 		      $surl .= "#" . md5($encstr);
 		      
-		      echo Horde::link($surl, _("Edit Translation")) . Horde::img('translation.png') . '&nbsp;' ._("Edit Translation") . "</a>";
+		      echo Horde::link($surl, _("Edit Translation")) . Horde::img('babel.png') . '&nbsp;' ._("Edit Translation") . "</a>";
 		  } elseif ($editmode && $cstring == $encstr) {
 		      echo '<input type="submit" class="button" name="submit" value="' . _("Save") . '">';
 		      echo '&nbsp;';
@@ -496,7 +496,7 @@ $viewurl = Util::addParameter($viewurl, array('editmode' => $editmode,
 <!-- END PAGER -->
 <?php
 if ($app) {
-    Translation::RB_close();
+    Babel::RB_close();
 }
 
 require $registry->get('templates', 'horde') . '/common-footer.inc';

@@ -16,13 +16,13 @@ require_once BABEL_BASE . '/lib/base.php';
 
 if ($app) {
     /* Render the page. */
-    Translation::RB_init();
+    Babel::RB_init();
 }
 
 require BABEL_TEMPLATES . '/common-header.inc';
 
 if ($app) {
-    Translation::RB_start(30);
+    Babel::RB_start(30);
 }
 
 echo $template->fetch(BABEL_TEMPLATES . '/layout.html');
@@ -34,7 +34,7 @@ $form = &new Horde_Form($vars, _("Make Translation"), 'make');
 
 if (!$app) {
     $form->setButtons(_("Make"));
-    $form->addVariable(_("Module"), 'module', 'enum', true, false, null, array(Translation::listApps(true), true));
+    $form->addVariable(_("Module"), 'module', 'enum', true, false, null, array(Babel::listApps(true), true));
     $form->addVariable('', '', 'spacer', true);
     
     $renderer_params = array();
@@ -70,7 +70,7 @@ if (!$app) {
     Translate_Display::info();
     Translate::make();
     
-    Translation::RB_close();
+    Babel::RB_close();
 }
 
 require $registry->get('templates', 'horde') . '/common-footer.inc';

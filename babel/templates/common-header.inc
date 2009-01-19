@@ -19,7 +19,7 @@ Horde::includeScriptFiles();
 
 ?>
 <title><?php echo $page_title ?></title>
-<?php echo Horde::stylesheetLink('translation') ?>
+<?php echo Horde::stylesheetLink('babel') ?>
 </head>
 
 <body<?php if (Util::nonInputVar('bodyClass')) echo ' class="' . $bodyClass . '"' ?>>

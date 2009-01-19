@@ -12,12 +12,12 @@
 @define('BABEL_BASE', dirname(__FILE__)) ;
 require_once BABEL_BASE . '/lib/base.php';
 
-Translation::RB_init();
+Babel::RB_init();
 
 /* Render the page. */
 require BABEL_TEMPLATES . '/common-header.inc';
 
-Translation::RB_start(15);
+Babel::RB_start(15);
 
 echo $template->fetch(BABEL_TEMPLATES . '/layout.html');
 
@@ -41,13 +41,13 @@ foreach($dirs as $d => $dir) {
     $po  = $dir . '/po/' . $lang . '.po';
     
     Translate_Display::info(_("Reset PO file on ") . $po);
-    Translation::callHook('reset', $po);
+    Babel::callHook('reset', $po);
 
 }
 
 Translate_Display::info();
 Translate::cleanup(true);
 
-Translation::RB_close();
+Babel::RB_close();
 
 require $registry->get('templates', 'horde') . '/common-footer.inc';

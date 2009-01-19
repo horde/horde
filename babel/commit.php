@@ -45,7 +45,7 @@ if ($custom_commit) {
 	
 	if (@file_exists($po)) {
 	    Translate_Display::info(_("Commit") . " $po ($lang)");
-	    Translation::callHook('commit', array($po, $lang));
+	    Babel::callHook('commit', array($po, $lang));
 	}
 	
     }

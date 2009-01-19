@@ -9,14 +9,14 @@
  * @package Babel
  */
 
-class Translation {
+class Babel {
 
     function callHook($fname, $info) {
 	/* Check if an hooks file exist */
 	if (file_exists(BABEL_BASE . '/config/hooks.php')) {
 	    include_once BABEL_BASE . '/config/hooks.php';
 	    
-	    $func = '_translation_hook_' . $fname;
+	    $func = '_babel_hook_' . $fname;
 	    
 	    if (function_exists($func)) {
 		$res = call_user_func($func, $info);
@@ -50,10 +50,10 @@ class Translation {
 	$html .= '<form action="' . Horde::selfUrl() . '" method="post" name="moduleSelector">';
 	$html .= '<select name="module" onchange="moduleSubmit()">';
 	
-	$apps = array('ALL' => _("All Applications")) +  Translation::listApps();
+	$apps = array('ALL' => _("All Applications")) +  Babel::listApps();
 	
 	foreach($apps as $app => $desc) {
-	    if (!Translation::hasPermission("module:$app")) {
+	    if (!Babel::hasPermission("module:$app")) {
 		continue;
 	    }
 	    
@@ -97,11 +97,11 @@ class Translation {
 	unset($tests['en_US']);
 	
 	foreach($tests as $dir => $desc) {
-	    if (!Translation::hasPermission("language:$dir")) {
+	    if (!Babel::hasPermission("language:$dir")) {
 		continue;
 	    }
 	    
-	    if (isset($_SESSION['translation']['language']) && $dir == $_SESSION['translation']['language']) {
+	    if (isset($_SESSION['babel']['language']) && $dir == $_SESSION['babel']['language']) {
 		$html .= '<option class="control" value="' . $dir . '" selected>' .  '+ ' . $desc;
 	    } else {
 		$html .= '<option value="' . $dir . '">' . '&#8211; ' . $desc;
@@ -148,7 +148,7 @@ class Translation {
 		continue;
 	    }
 	    
-	    if (Translation::hasPermission("module:$app")) {
+	    if (Babel::hasPermission("module:$app")) {
 		$res[$app] = sprintf("%s (%s)", $params['name'], $app);
 	    }
 	}
@@ -167,16 +167,16 @@ class Translation {
 	$userId = Auth::getAuth();
 	$admin = ($userId == 'admin') ? true : false;
 	
-	if ($admin || !$perms->exists('translation:' . $permission)) {
+	if ($admin || !$perms->exists('babel:' . $permission)) {
 	    return true;
 	}
 	
-	$allowed = $perms->getPermissions('translation:' . $permission);
+	$allowed = $perms->getPermissions('babel:' . $permission);
 	
 	switch ($filter) {
 	 case 'tabs':
 	    if ($perm) {
-		$allowed  = $perms->hasPermission('translation:' . $permission, Auth::getAuth(), $perm);
+		$allowed  = $perms->hasPermission('babel:' . $permission, Auth::getAuth(), $perm);
 	    }
 	    break;
 	}
@@ -197,31 +197,31 @@ class Translation {
 			      'text' => _("_General"),
 			      'icon' => 'list.png'));
 
-	if (Translation::hasPermission('view')) {
+	if (Babel::hasPermission('view')) {
 	    $menu->addArray(array('url' => Horde::applicationUrl('view.php'),
 				  'text' => _("_View"),
 				  'icon' => 'view.png'));
 	}
 	
-	if (Translation::hasPermission('stats')) {
+	if (Babel::hasPermission('stats')) {
 	    $menu->addArray(array('url' => Horde::applicationUrl('stats.php'),
 				  'text' => _("_Stats"),
 				  'icon' => 'extract.png'));
 	}
 	
-	if (Translation::hasPermission('extract')) {
+	if (Babel::hasPermission('extract')) {
 	    $menu->addArray(array('url' => Horde::applicationUrl('extract.php'),
 				  'text' => _("_Extract"),
 				  'icon' => 'extract.png'));
 	}
 	
-	if (Translation::hasPermission('make')) {
+	if (Babel::hasPermission('make')) {
 	    $menu->addArray(array('url' => Horde::applicationUrl('make.php'),
 				  'text' => _("_Make"),
 				  'icon' => 'make.png'));
 	}
 
-	if (Translation::hasPermission('upload')) {
+	if (Babel::hasPermission('upload')) {
 	    $menu->addArray(array('url' => Horde::applicationUrl('upload.php'),
 				  'text' => _("_Upload"),
 				  'icon' => 'upload.png'));

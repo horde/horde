@@ -10,7 +10,7 @@
  */
 
 $meta_params = array(
-		     "Project-Id-Version" => @$_SESSION['translation']['language'],
+		     "Project-Id-Version" => @$_SESSION['babel']['language'],
 		     "Report-Msgid-Bugs-To" => "support@scopserv.com",
 		     "POT-Creation-Date" => "",
 		     "PO-Revision-Date" => "",
@@ -39,13 +39,13 @@ $vars = &Variables::getDefaultVariables();
 
 if ($app) {
     $napp = ($app == 'horde') ? '' : $app;
-    $pofile = HORDE_BASE . '/' . $napp . '/po/' . $_SESSION['translation']['language'] . '.po';
+    $pofile = HORDE_BASE . '/' . $napp . '/po/' . $_SESSION['babel']['language'] . '.po';
     $po = &new File_Gettext_PO();
     $po->load($pofile);
 }
 
 /* Set up the template fields. */
-$template->set('menu', Translation::getMenu('string'));
+$template->set('menu', Babel::getMenu('string'));
 $template->set('notify', Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status')));
 
 /* Create upload form */
@@ -76,7 +76,7 @@ if ($app && Util::getFormData('submitbutton') == _("Save")) {
 
 if (!$app) {
     $form->setButtons(_("Edit"));
-    $form->addVariable(_("Module"), 'module', 'enum', true, false, null, array(Translation::listApps(), true));
+    $form->addVariable(_("Module"), 'module', 'enum', true, false, null, array(Babel::listApps(), true));
     $form->addVariable('', '', 'spacer', true);
 } else {
 

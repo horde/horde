@@ -17,7 +17,7 @@ $_services['perms'] = array(
     'type' => '{urn:horde}hash'
 );
 
-function _translation_perms()
+function _babel_perms()
 {
 
     global $nls, $registry;
@@ -27,19 +27,19 @@ function _translation_perms()
 	return $perms;
     }
 
-    $perms['tree']['translation']['language'] = array();
-    $perms['title']['translation:language'] = _("Languages");
-    $perms['type']['translation:language']  = 'none';
+    $perms['tree']['babel']['language'] = array();
+    $perms['title']['babel:language'] = _("Languages");
+    $perms['type']['babel:language']  = 'none';
     
     foreach($nls['languages'] as $langcode => $langdesc) {
-	$perms['tree']['translation']['language'][$langcode] = false;
-	$perms['title']['translation:language:' . $langcode] = sprintf("%s (%s)", $langdesc, $langcode);
-	$perms['type']['translation:language:' . $langcode] = 'boolean';
+	$perms['tree']['babel']['language'][$langcode] = false;
+	$perms['title']['babel:language:' . $langcode] = sprintf("%s (%s)", $langdesc, $langcode);
+	$perms['type']['babel:language:' . $langcode] = 'boolean';
     }
 
-    $perms['tree']['translation']['module'] = array();
-    $perms['title']['translation:module'] = _("Modules");
-    $perms['type']['translation:module']  = 'none';
+    $perms['tree']['babel']['module'] = array();
+    $perms['title']['babel:module'] = _("Modules");
+    $perms['type']['babel:module']  = 'none';
     
     foreach ($registry->applications as $app => $params) {
 	if ($params['status'] == 'heading' || $params['status'] == 'block') {
@@ -54,9 +54,9 @@ function _translation_perms()
 	    continue;
 	}
 	
-	$perms['tree']['translation']['module'][$app] = false;
-	$perms['title']['translation:module:' . $app] = sprintf("%s (%s)", $params['name'], $app);
-	$perms['type']['translation:module:' . $app] = 'boolean';
+	$perms['tree']['babel']['module'][$app] = false;
+	$perms['title']['babel:module:' . $app] = sprintf("%s (%s)", $params['name'], $app);
+	$perms['type']['babel:module:' . $app] = 'boolean';
     }
 
     $tabdesc['download']   = _("Download");
@@ -70,8 +70,8 @@ function _translation_perms()
     $tabdesc['reset']      = _("Reset");
     
     foreach ($tabdesc as $cat => $desc) {
-	$perms['tree']['translation'][$cat] = array();
-	$perms['title']['translation:' . $cat] = $desc;
+	$perms['tree']['babel'][$cat] = array();
+	$perms['title']['babel:' . $cat] = $desc;
     }
     
     return $perms;

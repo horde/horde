@@ -67,7 +67,7 @@ $cmds['reset'] = array(
 $i = 0;
 
 foreach($cmds as $cmdid => $cmd) {
-    if (Translation::hasPermission($cmdid)) {
+    if (Babel::hasPermission($cmdid)) {
 	echo '<tr height="50" class="item' . ($i++ % 2) . '">';
 	echo '<td align="center"><div style="width: 140px;" onclick="window.location=\'' . $cmd['url'] . '\';" class="button"><a class="smallheader" href="' . $cmd['url'] . '">' . $cmd['desc'] . '</a></div></td>';
 	echo '<td>' . $cmd['text'] . '</td>';

@@ -17,7 +17,7 @@ $vars = &Variables::getDefaultVariables();
 /* Create upload form */
 $form = &new Horde_Form($vars, _("Upload new Translation"), 'upload');
 $form->setButtons(_("Upload"));
-$form->addVariable(_("Module"), 'module', 'enum', true, false, null, array(Translation::listApps(true), true));
+$form->addVariable(_("Module"), 'module', 'enum', true, false, null, array(Babel::listApps(true), true));
 $form->addVariable(_("Translations File (.PO)"), 'po_file', 'file', true, false);
 $form->addVariable('', '', 'spacer', true);
 

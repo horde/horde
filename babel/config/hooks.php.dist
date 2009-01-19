@@ -1,7 +1,7 @@
 <?php
 
-if (!function_exists('_translation_hook_commit')) {
-    function _translation_hook_commit($info)
+if (!function_exists('_babel_hook_commit')) {
+    function _babel_hook_commit($info)
     {
 	$po   = $info[0];
 	$lang = $info[1];
@@ -10,8 +10,8 @@ if (!function_exists('_translation_hook_commit')) {
     }
 }
 
-if (!function_exists('_translation_hook_reset')) {
-    function _translation_hook_reset($po)
+if (!function_exists('_babel_hook_reset')) {
+    function _babel_hook_reset($po)
     {
 
 	$cmd = "rm -rf $po";

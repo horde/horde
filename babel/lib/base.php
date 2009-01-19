@@ -29,7 +29,7 @@ $notification->attach('status');
 /* Registry. */
 $registry = &Registry::singleton();
 
-if (is_a(($pushed = $registry->pushApp('translation', !defined('AUTH_HANDLER'))), 'PEAR_Error')) {
+if (is_a(($pushed = $registry->pushApp('babel', !defined('AUTH_HANDLER'))), 'PEAR_Error')) {
     if ($pushed->getCode() == 'permission_denied') {
         Horde::authenticationFailureRedirect(); 
     }
@@ -42,8 +42,8 @@ $conf = &$GLOBALS['conf'];
 /* Horde base libraries */
 require_once 'Horde/Secret.php';
 
-/* Translation base library */
-require_once BABEL_BASE . '/lib/Translation.php';
+/* Babel base library */
+require_once BABEL_BASE . '/lib/Babel.php';
 require_once BABEL_BASE . '/lib/Translate.php';
 require_once BABEL_BASE . '/lib/Translate_Help.php';
 require_once BABEL_BASE . '/lib/Display.php';
@@ -76,9 +76,9 @@ $app = Util::getFormData('module');
   
 /* Language selection */
 if (($lang = Util::getFormData('display_language')) !== null) {
-    $_SESSION['translation']['language'] = $lang;
-} elseif (isset($_SESSION['translation']['language'])) {
-    $lang = $_SESSION['translation']['language'];
+    $_SESSION['babel']['language'] = $lang;
+} elseif (isset($_SESSION['babel']['language'])) {
+    $lang = $_SESSION['babel']['language'];
 } else {
     
     $tests =  $nls['languages'];
@@ -87,33 +87,33 @@ if (($lang = Util::getFormData('display_language')) !== null) {
     unset($tests['en_US']);
     
     foreach($tests as $dir => $desc) {
-	if (!Translation::hasPermission("language:$dir")) {
+	if (!Babel::hasPermission("language:$dir")) {
 	    continue;
 	} else {
 	    $lang = $dir;
 	    break;
 	}
     }
-    $_SESSION['translation']['language'] = $lang;
+    $_SESSION['babel']['language'] = $lang;
 }
 						  
 /* Set up the template fields. */
-$template->set('menu', Translation::getMenu('string'));
+$template->set('menu', Babel::getMenu('string'));
 $template->set('notify', Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status')));
-$template->set('lang', Translation::displayLanguage());
-$fmenu = Translation::LanguageSelection();
+$template->set('lang', Babel::displayLanguage());
+$fmenu = Babel::LanguageSelection();
 
 // Only display the Module Selection widget if an application has been set
 if ($app) {
-    $fmenu .= Translation::ModuleSelection();
+    $fmenu .= Babel::ModuleSelection();
 }
 $template->set('fmenu', $fmenu);
 
-if ($lang && !Translation::hasPermission("language:$lang")) {
+if ($lang && !Babel::hasPermission("language:$lang")) {
     Horde::fatal(sprintf(_("Access forbidden to '%s'."), $lang), __FILE__, __LINE__, true);
 }
 
-if ($app && !Translation::hasPermission("module:$app")) {
+if ($app && !Babel::hasPermission("module:$app")) {
     Horde::fatal(sprintf(_("Access forbidden to '%s'."), $app), __FILE__, __LINE__, true);
 }
 
