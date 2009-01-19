@@ -36,8 +36,8 @@ IMP::includeStylesheetFiles(!empty($printer_friendly));
 <?php if ($last_url = Util::nonInputVar('last_url')): ?>
 <link href="<?php echo $last_url ?>" rel="Last" />
 <?php endif; ?>
-<?php if ($alternate_url = Util::nonInputVar('alternate_url')): ?>
-<link rel="alternate" type="application/rss+xml" href="<?php echo $alternate_url ?>" />
+<?php if ($rss_url = Util::nonInputVar('rss_url')): ?>
+<link rel="alternate" type="application/rss+xml" href="<?php echo $rss_url ?>" />
 <?php endif; ?>
 <?php if (!Util::nonInputVar('login_page')): ?>
 <link href="<?php echo Horde::applicationUrl('search.php') ?>" rel="search" />

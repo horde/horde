@@ -341,7 +341,7 @@ if ($imp_mbox['mailbox'] == 'INBOX') {
 }
 
 if (!is_null($rss_box)) {
-    $alternate_url = Horde::applicationUrl('rss.php') . $rss_box;
+    $rss_url = Horde::applicationUrl('rss.php') . $rss_box;
 }
 
 /* If user wants the mailbox to be refreshed, set time here. */
