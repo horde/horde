@@ -5,6 +5,9 @@
  * This file defines Babel's external API interface. Other applications can
  * interact with Babel through this API.
  *
+ * Copyright 2009 The Horde Project (http://www.horde.org/)
+ *
+ * @author  Joel Vandal <joel@scopserv.com>
  * @package Babel
  */
 
