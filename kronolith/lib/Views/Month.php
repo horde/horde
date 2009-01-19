@@ -6,11 +6,8 @@ require_once KRONOLITH_BASE . '/lib/Day.php';
  * The Kronolith_View_Month:: class provides an API for viewing
  * months.
  *
- * $Horde: kronolith/lib/Views/Month.php,v 1.20 2008/10/13 23:00:18 jan Exp $
- *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @author  Jan Schneider <jan@horde.org>
- * @since   Kronolith 2.2
  * @package Kronolith
  */
 class Kronolith_View_Month {

@@ -3,12 +3,9 @@
  * The Kronolith_Driver_holidays implements support for the PEAR package
  * Date_Holidays.
  *
- * $Horde: kronolith/lib/Driver/holidays.php,v 1.13 2008/11/15 15:43:24 jan Exp $
- *
  * @see     http://pear.php.net/packages/Date_Holidays
  * @author  Stephan Hohmann <webmaster@dasourcerer.net>
  * @package Kronolith
- * @since   Kronolith 2.2
  */
 
 class Kronolith_Driver_holidays extends Kronolith_Driver {

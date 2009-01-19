@@ -2,8 +2,6 @@
 /**
  * Horde_Form for creating calendars.
  *
- * $Horde: kronolith/lib/Forms/CreateCalendar.php,v 1.2 2007/12/19 17:41:15 chuck Exp $
- *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
@@ -24,7 +22,6 @@ require_once 'Horde/Form/Renderer.php';
  * creating a calendar.
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
- * @since   Kronolith 2.2
  * @package Kronolith
  */
 class Kronolith_CreateCalendarForm extends Horde_Form {

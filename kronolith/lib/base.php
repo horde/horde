@@ -14,20 +14,23 @@
  * @package Kronolith
  */
 
+$kronolith_dir = dirname(__FILE__);
+
 // Check for a prior definition of HORDE_BASE.
 if (!defined('HORDE_BASE')) {
     /* Temporary fix - if horde does not live directly under the imp
      * directory, the HORDE_BASE constant should be defined in
      * imp/lib/base.local.php. */
-    $krono_dir = dirname(__FILE__);
-    if (file_exists($krono_dir . '/base.local.php')) {
-        include $krono_dir . '/base.local.php';
+    if (file_exists($kronolith_dir . '/base.local.php')) {
+        include $kronolith_dir . '/base.local.php';
     } else {
-        define('HORDE_BASE', dirname(__FILE__) . '/../..');
+        define('HORDE_BASE', $kronolith_dir . '/../..');
     }
 }
 /* Load the Horde Framework core, and set up inclusion paths. */
 require_once HORDE_BASE . '/lib/core.php';
+Horde_Autoloader::addClassPath($kronolith_dir);
+Horde_Autoloader::addClassPattern('/^Kronolith_/', $kronolith_dir);
 
 /* Registry. */
 $session_control = Util::nonInputVar('session_control');
@@ -50,14 +53,11 @@ define('KRONOLITH_TEMPLATES', $registry->get('templates'));
 
 /* Find the base file path of Kronolith. */
 if (!defined('KRONOLITH_BASE')) {
-    define('KRONOLITH_BASE', dirname(__FILE__) . '/..');
+    define('KRONOLITH_BASE', $kronolith_dir . '/..');
 }
 
 /* Horde framework libraries. */
-require_once 'Horde/Date.php';
-require_once 'Horde/Date/Recurrence.php';
 require_once 'Horde/Help.php';
-require_once 'Horde/History.php';
 
 /* Notification system. */
 $notification = &Notification::singleton();
@@ -72,9 +72,6 @@ require_once 'Horde/Prefs/CategoryManager.php';
 $GLOBALS['cManager'] = new Prefs_CategoryManager();
 $GLOBALS['cManager_fgColors'] = $GLOBALS['cManager']->fgColors();
 
-/* PEAR Date_Calc. */
-require_once 'Date/Calc.php';
-
 /* Start compression, if requested. */
 Horde::compressOutput();
 
@@ -82,10 +79,9 @@ Horde::compressOutput();
 NLS::setTimeZone();
 
 /* Create a calendar backend object. */
-$GLOBALS['kronolith_driver'] = &Kronolith_Driver::factory();
+$GLOBALS['kronolith_driver'] = Kronolith_Driver::factory();
 
 /* Create a share instance. */
-require_once 'Horde/Share.php';
 $GLOBALS['kronolith_shares'] = &Horde_Share::singleton($registry->getApp());
 
 Kronolith::initialize();
@@ -99,26 +95,22 @@ require_once 'Horde/Maintenance.php';
 if (Kronolith::loginTasksFlag() &&
     !strstr($_SERVER['PHP_SELF'], 'maintenance.php') &&
     !headers_sent() && !defined('AUTH_HANDLER') &&
-    $GLOBALS['prefs']->getValue('do_maintenance'))   {
-
+    $GLOBALS['prefs']->getValue('do_maintenance')) {
     Kronolith::loginTasksFlag(2);
-    $maint = &Maintenance::factory('kronolith', array('last_maintenance' => $GLOBALS['prefs']->getValue('last_kronolith_maintenance')));
+    $maint = Maintenance::factory('kronolith', array('last_maintenance' => $GLOBALS['prefs']->getValue('last_kronolith_maintenance')));
     if (!$maint) {
         $GLOBALS['notification']->push(_("Could not execute maintenance operations."), 'horde.warning');
     } else {
        $maint->runMaintenance();
     }
     Kronolith::loginTasksFlag(0);
-
 } elseif (Util::getFormData(MAINTENANCE_DONE_PARAM) &&
           Kronolith::loginTasksFlag()) {
-
-        $maint = &Maintenance::factory('kronolith', array('last_maintenance' => $GLOBALS['prefs']->getValue('last_kronolith_maintenance')));
-        if (!$maint) {
-            $GLOBALS['notification']->push(_("Could not execute maintenance operations."), 'horde.warning');
-        } else {
-           $maint->runMaintenance();
-        }
-        Kronolith::loginTasksFlag(0);
-
+    $maint = Maintenance::factory('kronolith', array('last_maintenance' => $GLOBALS['prefs']->getValue('last_kronolith_maintenance')));
+    if (!$maint) {
+        $GLOBALS['notification']->push(_("Could not execute maintenance operations."), 'horde.warning');
+    } else {
+        $maint->runMaintenance();
+    }
+    Kronolith::loginTasksFlag(0);
 }

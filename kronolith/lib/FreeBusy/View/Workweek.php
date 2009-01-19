@@ -1,7 +1,4 @@
 <?php
-
-require_once dirname(__FILE__) . '/week.php';
-
 /**
  * This class represent a work week of free busy information sets.
  *
@@ -9,13 +6,11 @@ require_once dirname(__FILE__) . '/week.php';
  *
  * See the enclosed file COPYING for license information.
  *
- * $Horde: kronolith/lib/FBView/workweek.php,v 1.18 2009/01/06 18:01:01 jan Exp $
- *
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
  * @author  Jan Schneider <jan@horde.org>
  * @package Kronolith
  */
-class Kronolith_FreeBusy_View_workweek extends Kronolith_FreeBusy_View_week {
+class Kronolith_FreeBusy_View_Workweek extends Kronolith_FreeBusy_View_Week {
 
     var $view = 'workweek';
     var $_days = 5;

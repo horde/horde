@@ -4,15 +4,13 @@
  * websites. Meant to be called via a single script tag, therefore this will
  * always return nothing but valid javascript.
  *
- * $Horde: kronolith/lib/Imple/Embed.php,v 1.10 2009/01/06 18:01:01 jan Exp $
- *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  *
  * @package Ansel
  */
-class Imple_Embed extends Imple {
+class Kronolith_Imple_Embed extends Kronolith_Imple {
 
     /**
      * Override the parent method since it uses Horde::addScriptFile()

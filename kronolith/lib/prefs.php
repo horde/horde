@@ -21,7 +21,6 @@ function handle_remote_cal_management($updated)
 
     $key = Auth::getCredential('password');
     if ($key) {
-        require_once 'Horde/Secret.php';
         $calUser = base64_encode(Secret::write($key, $calUser));
         $calPasswd = base64_encode(Secret::write($key, $calPasswd));
     }
@@ -156,7 +155,6 @@ function prefs_callback()
     if ($GLOBALS['prefs']->isDirty('event_alarms')) {
         $alarms = $GLOBALS['registry']->callByPackage('kronolith', 'listAlarms', array($_SERVER['REQUEST_TIME']));
         if (!is_a($alarms, 'PEAR_Error') && !empty($alarms)) {
-            require_once 'Horde/Alarm.php';
             $horde_alarm = Horde_Alarm::factory();
             foreach ($alarms as $alarm) {
                 $alarm['start'] = new Horde_Date($alarm['start']);

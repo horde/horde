@@ -5,11 +5,8 @@ require_once dirname(__FILE__) . '/Day.php';
 /**
  * The Kronolith_View_Week:: class provides an API for viewing weeks.
  *
- * $Horde: kronolith/lib/Views/Week.php,v 1.34 2008/11/03 22:50:06 jan Exp $
- *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @author  Jan Schneider <jan@horde.org>
- * @since   Kronolith 0.1
  * @package Kronolith
  */
 class Kronolith_View_Week {

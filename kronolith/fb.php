@@ -1,21 +1,18 @@
 <?php
 /**
- * $Horde: kronolith/fb.php,v 1.43 2009/01/06 18:00:59 jan Exp $
- *
  * Copyright 1999-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author Chuck Hagenbuch <chuck@horde.org>
+ * @author  Chuck Hagenbuch <chuck@horde.org>
+ * @package Kronolith
  */
 
 @define('AUTH_HANDLER', true);
 @define('KRONOLITH_BASE', dirname(__FILE__));
 $session_control = 'none';
 require_once KRONOLITH_BASE . '/lib/base.php';
-require_once KRONOLITH_BASE . '/lib/FreeBusy.php';
-require_once 'Horde/Cache.php';
 
 // We want to always generate UTF-8 iCalendar data.
 NLS::setCharset('UTF-8');

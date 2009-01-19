@@ -6,13 +6,11 @@
  *
  * See the enclosed file COPYING for license information.
  *
- * $Horde: kronolith/lib/FBView/week.php,v 1.30 2009/01/06 18:01:01 jan Exp $
- *
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
  * @author  Jan Schneider <jan@horde.org>
  * @package Kronolith
  */
-class Kronolith_FreeBusy_View_week extends Kronolith_FreeBusy_View {
+class Kronolith_FreeBusy_View_Week extends Kronolith_FreeBusy_View {
 
     var $view = 'week';
     var $_days = 7;

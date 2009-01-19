@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: kronolith/search.php,v 1.28 2009/01/06 18:00:59 jan Exp $
- *
  * Copyright 2004-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

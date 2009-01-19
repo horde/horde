@@ -3,10 +3,7 @@
  * The Kronolith_Driver_ical:: class implements the Kronolith_Driver
  * API for iCalendar data.
  *
- * $Horde: kronolith/lib/Driver/ical.php,v 1.11 2008/04/30 21:32:13 chuck Exp $
- *
  * @author  Chuck Hagenbuch <chuck@horde.org>
- * @since   Kronolith 2.0
  * @package Kronolith
  */
 class Kronolith_Driver_ical extends Kronolith_Driver {

@@ -6,13 +6,11 @@
  *
  * See the enclosed file COPYING for license information.
  *
- * $Horde: kronolith/lib/FBView/month.php,v 1.8 2009/01/06 18:01:01 jan Exp $
- *
  * @author  Gunnar Wrobel <wrobel@pardus.de>
  * @author  Jan Schneider <jan@horde.org>
  * @package Kronolith
  */
-class Kronolith_FreeBusy_View_month extends Kronolith_FreeBusy_View {
+class Kronolith_FreeBusy_View_Month extends Kronolith_FreeBusy_View {
 
     var $view = 'month';
     var $_days = 30;

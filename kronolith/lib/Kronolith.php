@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: kronolith/lib/Kronolith.php,v 1.440 2008/11/10 05:07:19 chuck Exp $
- *
  * @package Kronolith
  */
 
@@ -38,15 +36,12 @@ define('PERMS_DELEGATE', 1024);
  * The Kronolith:: class provides functionality common to all of Kronolith.
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
- * @since   Kronolith 0.1
  * @package Kronolith
  */
 class Kronolith {
 
     /**
      * Output everything up to but not including the <body> tag.
-     *
-     * @since Kronolith 3.0
      *
      * @param string $title   The title of the page.
      * @param array $scripts  Any additional scripts that need to be loaded.
@@ -109,8 +104,6 @@ class Kronolith {
      * Outputs the javascript code which defines all javascript variables
      * that are dependent on the local user's account.
      *
-     * @since Kronolith 3.0
-     *
      * @private
      *
      * @return string
@@ -118,8 +111,6 @@ class Kronolith {
     function includeJSVars()
     {
         global $browser, $conf, $prefs, $registry;
-
-        require_once 'Horde/Serialize.php';
 
         $kronolith_webroot = $registry->get('webroot');
         $horde_webroot = $registry->get('webroot', 'horde');
@@ -159,8 +150,6 @@ class Kronolith {
 
     /**
      * Add inline javascript to the output buffer.
-     *
-     * @since Kronolith 2.2
      *
      * @param mixed $script    The script text to add (can be stored in an
      *                         array also).
@@ -205,8 +194,6 @@ class Kronolith {
     /**
      * Print inline javascript to the output buffer.
      *
-     * @since Kronolith 2.2
-     *
      * @return string  The javascript text to output.
      */
     function outputInlineScript()
@@ -226,8 +213,6 @@ class Kronolith {
      * Print inline javascript to output buffer after wrapping with necessary
      * javascript tags.
      *
-     * @since Kronolith 3.0
-     *
      * @param array $script  The script to output.
      *
      * @return string  The script with the necessary HTML javascript tags
@@ -241,8 +226,6 @@ class Kronolith {
     /**
      * Outputs the necessary script tags, honoring local configuration choices
      * as to script caching.
-     *
-     * @since Kronolith 3.0
      */
     function includeScriptFiles()
     {
@@ -285,7 +268,6 @@ class Kronolith {
             break;
 
         case 'horde_cache':
-            require_once 'Horde/Cache.php';
             $cache = &Horde_Cache::singleton($conf['cache']['driver'], Horde::getDriverConfig('cache', $conf['cache']['driver']));
             $exists = $cache->exists($sig, empty($conf['server']['cachejsparams']['lifetime']) ? 0 : $conf['server']['cachejsparams']['lifetime']);
             $js_url = Kronolith::getCacheURL('js', $sig);
@@ -326,8 +308,6 @@ class Kronolith {
     /**
      * Outputs the necessary style tags, honoring local configuration choices
      * as to stylesheet caching.
-     *
-     * @since Kronolith 3.0
      *
      * @param boolean $print  Include print CSS?
      */
@@ -392,7 +372,6 @@ class Kronolith {
                 break;
 
             case 'horde_cache':
-                require_once 'Horde/Cache.php';
                 $cache = &Horde_Cache::singleton($GLOBALS['conf']['cache']['driver'], Horde::getDriverConfig('cache', $GLOBALS['conf']['cache']['driver']));
                 $exists = $cache->exists($sig, empty($GLOBALS['conf']['server']['cachecssparams']['lifetime']) ? 0 : $GLOBALS['conf']['server']['cachecssparams']['lifetime']);
                 $css_url = Kronolith::getCacheURL('css', $sig);
@@ -431,8 +410,6 @@ class Kronolith {
     /**
      * Creates a URL for cached Kronolith data.
      *
-     * @since Kronolith 3.0
-     *
      * @param string $type  The cache type.
      * @param string $cid   The cache id.
      *
@@ -451,8 +428,6 @@ class Kronolith {
 
     /**
      * Do garbage collection in the statically served file directory.
-     *
-     * @since Kronolith 3.0
      *
      * @access private
      *
@@ -843,7 +818,6 @@ class Kronolith {
                 $options = array_merge($options, $GLOBALS['conf']['http']['proxy']);
             }
 
-            require_once 'HTTP/Request.php';
             $http = new HTTP_Request($url, $options);
             /* Check for HTTP authentication credentials */
             $cals = unserialize($GLOBALS['prefs']->getValue('remote_cals'));
@@ -895,7 +869,6 @@ class Kronolith {
             return $data;
         }
 
-        require_once 'Horde/iCalendar.php';
         $iCal = new Horde_iCalendar();
         if (!$iCal->parsevCalendar($data)) {
             return array();
@@ -962,7 +935,6 @@ class Kronolith {
             return $data;
         }
 
-        require_once 'Horde/iCalendar.php';
         $iCal = new Horde_iCalendar();
         if (!$iCal->parsevCalendar($data)) {
             return array();
@@ -1919,8 +1891,6 @@ class Kronolith {
             }
 
             /* Build the iCalendar data */
-            require_once 'Horde/Data.php';
-            require_once 'Horde/iCalendar.php';
             $iCal = new Horde_iCalendar();
             $iCal->setAttribute('METHOD', $method);
             $iCal->setAttribute('X-WR-CALNAME', String::convertCharset($share->get('name'), NLS::getCharset(), 'utf-8'));
@@ -2162,8 +2132,6 @@ class Kronolith {
     /**
      * Returns the specified permission for the current user.
      *
-     * @since Kronolith 2.1
-     *
      * @param string $permission  A permission, currently only 'max_events'.
      *
      * @return mixed  The value of the specified permission.
@@ -2196,7 +2164,6 @@ class Kronolith {
         $date = Kronolith::currentDate();
         $date_stamp = $date->dateString();
 
-        require_once 'Horde/UI/Tabs.php';
         require_once 'Horde/Variables.php';
         $tabs = new Horde_UI_Tabs('view', Variables::getDefaultVariables());
         $tabs->preserve('date', $date_stamp);
@@ -2228,7 +2195,6 @@ class Kronolith {
             return;
         }
 
-        require_once 'Horde/UI/Tabs.php';
         require_once 'Horde/Variables.php';
         $tabs = new Horde_UI_Tabs('event', Variables::getDefaultVariables());
 
@@ -2415,7 +2381,6 @@ class Kronolith {
      */
     function foregroundColor($calendar)
     {
-        require_once 'Horde/Image.php';
         return Horde_Image::brightness(Kronolith::backgroundColor($calendar)) < 128 ? '#f6f6f6' : '#000';
     }
 

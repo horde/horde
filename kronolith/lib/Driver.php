@@ -3,11 +3,8 @@
  * Kronolith_Driver defines an API for implementing storage backends for
  * Kronolith.
  *
- * $Horde: kronolith/lib/Driver.php,v 1.303 2008/10/24 21:10:06 jan Exp $
- *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @author  Jan Schneider <jan@horde.org>
- * @since   Kronolith 0.1
  * @package Kronolith
  */
 class Kronolith_Driver {
@@ -53,8 +50,6 @@ class Kronolith_Driver {
 
     /**
      * Returns a configuration for this driver.
-     *
-     * @since Kronolith 3.0
      *
      * @param string $param  A parameter name.
      *
@@ -275,7 +270,6 @@ class Kronolith_Driver {
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @author  Jan Schneider <jan@horde.org>
- * @since   Kronolith 0.1
  * @package Kronolith
  */
 class Kronolith_Event {
@@ -422,8 +416,6 @@ class Kronolith_Event {
     /**
      * Whether this is an all-day event.
      *
-     * @since Kronolith 3.0
-     *
      * @var boolean
      */
     var $allday = false;
@@ -561,7 +553,6 @@ class Kronolith_Event {
             if ($alarm) {
                 $alarm['start'] = new Horde_Date($alarm['start']);
                 $alarm['end'] = new Horde_Date($alarm['end']);
-                require_once 'Horde/Alarm.php';
                 $horde_alarm = Horde_Alarm::factory();
                 $horde_alarm->set($alarm);
             }
@@ -1301,7 +1292,6 @@ class Kronolith_Event {
         }
 
         if ($this->start && $this->end) {
-            require_once 'Date/Calc.php';
             $dur_day_match = Date_Calc::dateDiff($this->start->mday,
                                                  $this->start->month,
                                                  $this->start->year,
@@ -2152,7 +2142,6 @@ class Kronolith_Event {
         }
 
         if (!$this->_varRenderer) {
-            require_once 'Horde/UI/VarRenderer.php';
             $this->_varRenderer = Horde_UI_VarRenderer::factory('html');
         }
 

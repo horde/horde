@@ -12,7 +12,6 @@
 
 @define('KRONOLITH_BASE', dirname(__FILE__));
 require_once KRONOLITH_BASE . '/lib/base.php';
-require_once KRONOLITH_BASE . '/lib/Imple.php';
 
 $path = Util::getFormData('imple');
 if (!$path) {
@@ -24,7 +23,7 @@ if ($path[0] == '/') {
 $path = explode('/', $path);
 $impleName = array_shift($path);
 
-$imple = Imple::factory($impleName);
+$imple = Kronolith_Imple::factory($impleName);
 if (!$imple) {
     exit;
 }
@@ -50,7 +49,6 @@ if (!empty($_SERVER['Content-Type'])) {
 switch ($ct) {
 case 'json':
     header('Content-Type: application/json');
-    require_once 'Horde/Serialize.php';
     echo Horde_Serialize::serialize($result, SERIALIZE_JSON, NLS::getCharset());
     break;
 

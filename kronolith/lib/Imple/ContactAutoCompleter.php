@@ -8,7 +8,7 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package Kronolith
  */
-class Imple_ContactAutoCompleter extends Imple
+class Kronolith_Imple_ContactAutoCompleter extends Kronolith_Imple
 {
     /**
      * Constructor.

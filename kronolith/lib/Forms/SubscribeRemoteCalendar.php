@@ -2,8 +2,6 @@
 /**
  * Horde_Form for subscribing to remote calendars.
  *
- * $Horde: kronolith/lib/Forms/SubscribeRemoteCalendar.php,v 1.1 2007/12/19 19:32:33 chuck Exp $
- *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
@@ -24,7 +22,6 @@ require_once 'Horde/Form/Renderer.php';
  * for subscribing to remote calendars
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
- * @since   Kronolith 2.2
  * @package Kronolith
  */
 class Kronolith_SubscribeRemoteCalendarForm extends Horde_Form {

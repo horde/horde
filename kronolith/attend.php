@@ -1,13 +1,12 @@
 <?php
 /**
- * $Horde: kronolith/attend.php,v 1.11 2009/01/06 18:00:59 jan Exp $
- *
  * Copyright 2005-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author Jan Schneider <jan@horde.org>
+ * @author  Jan Schneider <jan@horde.org>
+ * @package Kronolith
  */
 
 @define('AUTH_HANDLER', true);

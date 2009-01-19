@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: kronolith/contacts.php,v 1.26 2009/01/06 18:00:59 jan Exp $
- *
  * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

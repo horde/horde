@@ -2,8 +2,6 @@
 /**
  * Horde_Form for unsubscribing from remote calendars.
  *
- * $Horde: kronolith/lib/Forms/UnsubscribeRemoteCalendar.php,v 1.1 2007/12/19 19:32:34 chuck Exp $
- *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
@@ -24,7 +22,6 @@ require_once 'Horde/Form/Renderer.php';
  * deleting a calendar.
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
- * @since   Kronolith 2.2
  * @package Kronolith
  */
 class Kronolith_UnsubscribeRemoteCalendarForm extends Horde_Form {

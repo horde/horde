@@ -1,15 +1,10 @@
 <?php
-
-require_once 'Horde/Template.php';
-
 /**
  * This class represent a view of multiple free busy information sets.
  *
  * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information.
- *
- * $Horde: kronolith/lib/FBView.php,v 1.33 2009/01/07 13:05:21 jan Exp $
  *
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
  * @author  Jan Schneider <jan@horde.org>
@@ -46,7 +41,6 @@ class Kronolith_FreeBusy_View {
 
         $this->_render($day);
 
-        require_once 'Horde/iCalendar.php';
         $vCal = new Horde_iCalendar();
         $required = &Horde_iCalendar::newComponent('vfreebusy', $vCal);
         foreach ($this->_requiredMembers as $member) {
@@ -69,7 +63,7 @@ class Kronolith_FreeBusy_View {
         $base_url = Util::removeParameter($base_url, 'fbview');
         $base_url = Util::addParameter($base_url, 'fbview', $this->view);
 
-        $template = &new Horde_Template();
+        $template = new Horde_Template();
         $template->set('title', $this->_title());
 
         $html = $template->fetch(KRONOLITH_TEMPLATES . '/fbview/header.html') .

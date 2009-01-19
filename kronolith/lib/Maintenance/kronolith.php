@@ -4,8 +4,6 @@ require_once 'Horde/Maintenance.php';
 require_once $GLOBALS['registry']->get('fileroot', 'kronolith') . '/lib/base.php';
 
 /**
- * $Horde: kronolith/lib/Maintenance/kronolith.php,v 1.2 2009/01/06 18:01:01 jan Exp $
- *
  * The Maintenance_Kronolith class defines the maintenance operations run upon
  * login to Kronolith
  *
@@ -14,7 +12,6 @@ require_once $GLOBALS['registry']->get('fileroot', 'kronolith') . '/lib/base.php
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @since   Kronolith 2.2.1
  * @package Horde_Maintenance
  */
 class Maintenance_Kronolith extends Maintenance {

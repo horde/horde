@@ -6,10 +6,7 @@ require_once dirname(__FILE__) . '/Week.php';
  * The Kronolith_View_WorkWeek:: class provides a shortcut for a week
  * view that is only Monday through Friday.
  *
- * $Horde: kronolith/lib/Views/WorkWeek.php,v 1.3 2006/11/07 21:47:42 chuck Exp $
- *
  * @author  Chuck Hagenbuch <chuck@horde.org>
- * @since   Kronolith 2.2
  * @package Kronolith
  */
 class Kronolith_View_WorkWeek extends Kronolith_View_Week {

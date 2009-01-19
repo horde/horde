@@ -6,13 +6,11 @@
  *
  * See the enclosed file COPYING for license information.
  *
- * $Horde: kronolith/lib/FBView/day.php,v 1.30 2009/01/07 12:39:13 jan Exp $
- *
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
  * @author  Jan Schneider <jan@horde.org>
  * @package Kronolith
  */
-class Kronolith_FreeBusy_View_day extends Kronolith_FreeBusy_View {
+class Kronolith_FreeBusy_View_Day extends Kronolith_FreeBusy_View {
 
     var $view = 'day';
 

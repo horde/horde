@@ -517,7 +517,6 @@ function _kronolith_put($path, $content, $content_type)
     switch ($content_type) {
     case 'text/calendar':
     case 'text/x-vcalendar':
-        require_once 'Horde/iCalendar.php';
         $iCal = new Horde_iCalendar();
         if (!is_a($content, 'Horde_iCalendar_vevent')) {
             if (!$iCal->parsevCalendar($content)) {
@@ -789,7 +788,6 @@ function _kronolith_import($content, $contentType, $calendar = null)
     switch ($contentType) {
     case 'text/calendar':
     case 'text/x-vcalendar':
-        require_once 'Horde/iCalendar.php';
         $iCal = new Horde_iCalendar();
         if (!is_a($content, 'Horde_iCalendar_vevent')) {
             if (!$iCal->parsevCalendar($content)) {
@@ -886,7 +884,6 @@ function _kronolith_export($uid, $contentType)
     case 'text/calendar':
         $share = &$kronolith_shares->getShare($event->getCalendar());
 
-        require_once 'Horde/iCalendar.php';
         $iCal = new Horde_iCalendar($version);
         $iCal->setAttribute('X-WR-CALNAME', String::convertCharset($share->get('name'), NLS::getCharset(), 'utf-8'));
 
@@ -939,7 +936,6 @@ function _kronolith_exportCalendar($calendar, $contentType)
     case 'text/calendar':
         $share = &$kronolith_shares->getShare($calendar);
 
-        require_once 'Horde/iCalendar.php';
         $iCal = new Horde_iCalendar($version);
         $iCal->setAttribute('X-WR-CALNAME', String::convertCharset($share->get('name'), NLS::getCharset(), 'utf-8'));
 
@@ -1060,7 +1056,6 @@ function _kronolith_replace($uid, $content, $contentType)
         case 'text/calendar':
         case 'text/x-vcalendar':
             if (!is_a($content, 'Horde_iCalendar_vevent')) {
-                require_once 'Horde/iCalendar.php';
                 $iCal = new Horde_iCalendar();
                 if (!$iCal->parsevCalendar($content)) {
                     return PEAR::raiseError(_("There was an error importing the iCalendar data."));
@@ -1111,7 +1106,6 @@ function _kronolith_getFreeBusy($startstamp = null, $endstamp = null,
                                 $calendar = null)
 {
     require_once dirname(__FILE__) . '/base.php';
-    require_once KRONOLITH_BASE . '/lib/FreeBusy.php';
 
     if (is_null($calendar)) {
         $calendar = Kronolith::getDefaultCalendar();

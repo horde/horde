@@ -1,13 +1,12 @@
 <?php
 /**
- * $Horde: kronolith/data.php,v 1.97 2009/01/06 18:00:59 jan Exp $
- *
  * Copyright 2001-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author Jan Schneider <jan@horde.org>
+ * @author  Jan Schneider <jan@horde.org>
+ * @package Kronolith
  */
 
 function _cleanup()
@@ -19,7 +18,6 @@ function _cleanup()
 
 @define('KRONOLITH_BASE', dirname(__FILE__));
 require_once KRONOLITH_BASE . '/lib/base.php';
-require_once 'Horde/Data.php';
 
 if (!$conf['menu']['import_export']) {
     require KRONOLITH_BASE . '/index.php';
@@ -160,7 +158,6 @@ case 'export':
 
     case EXPORT_ICALENDAR:
         require_once 'Horde/Identity.php';
-        require_once 'Horde/iCalendar.php';
         $iCal = new Horde_iCalendar();
 
         $calNames = array();

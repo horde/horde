@@ -3,11 +3,8 @@
  * The Kronolith_Driver_sql:: class implements the Kronolith_Driver
  * API for a SQL backend.
  *
- * $Horde: kronolith/lib/Driver/sql.php,v 1.214 2008/10/22 21:14:07 jan Exp $
- *
  * @author  Luc Saillard <luc.saillard@fr.alcove.com>
  * @author  Chuck Hagenbuch <chuck@horde.org>
- * @since   Kronolith 0.3
  * @package Kronolith
  */
 class Kronolith_Driver_sql extends Kronolith_Driver {

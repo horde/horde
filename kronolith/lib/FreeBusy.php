@@ -2,10 +2,7 @@
 /**
  * Free/Busy functionality.
  *
- * $Horde: kronolith/lib/FreeBusy.php,v 1.19 2009/01/07 13:03:55 jan Exp $
- *
  * @author  Chuck Hagenbuch <chuck@horde.org>
- * @since   Kronolith 2.2
  * @package Kronolith
  */
 class Kronolith_FreeBusy {
@@ -29,7 +26,6 @@ class Kronolith_FreeBusy {
         global $kronolith_shares;
 
         require_once 'Horde/Identity.php';
-        require_once 'Horde/iCalendar.php';
         require_once KRONOLITH_BASE . '/lib/version.php';
 
         if (!is_array($calendar)) {
@@ -131,9 +127,6 @@ class Kronolith_FreeBusy {
      */
     function get($email)
     {
-        require_once 'Horde/iCalendar.php';
-        require_once 'Mail/RFC822.php';
-
         /* Properly handle RFC822-compliant email addresses. */
         static $rfc822;
         if (is_null($rfc822)) {
@@ -168,7 +161,6 @@ class Kronolith_FreeBusy {
                 $options = array_merge($options, $GLOBALS['conf']['http']['proxy']);
             }
 
-            require_once 'HTTP/Request.php';
             $http = new HTTP_Request($url, $options);
             if (is_a($response = @$http->sendRequest(), 'PEAR_Error')) {
                 return PEAR::raiseError(sprintf(_("The free/busy url for %s cannot be retrieved."), $email));

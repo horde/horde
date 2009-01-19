@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: kronolith/attendees.php,v 1.47 2009/01/07 13:05:20 jan Exp $
- *
  * Copyright 2004-2007 Code Fusion  <http://www.codefusion.co.za/>
  * Copyright 2004-2007 Stuart Binge <s.binge@codefusion.co.za>
  *
@@ -11,11 +9,7 @@
 
 @define('KRONOLITH_BASE', dirname(__FILE__));
 require_once KRONOLITH_BASE . '/lib/base.php';
-require_once KRONOLITH_BASE . '/lib/FreeBusy.php';
-require_once KRONOLITH_BASE . '/lib/FBView.php';
-require_once KRONOLITH_BASE . '/lib/Imple.php';
 require_once 'Horde/Identity.php';
-require_once 'Horde/UI/Tabs.php';
 require_once 'Horde/Variables.php';
 
 // Get the current attendees array from the session cache.
@@ -35,7 +29,6 @@ $actionValue = Util::getFormData('actionValue');
 // Perform the specified action, if there is one.
 switch ($actionID) {
 case 'add':
-    require_once 'Mail/RFC822.php';
     $parser = new Mail_RFC822;
     // Add new attendees. Multiple attendees can be seperated on a single line
     // by whitespace and/or commas.
@@ -259,7 +252,7 @@ $date = new Horde_Date($date);
 $vfb_html = $attendee_view->render($date);
 
 // Add the ContactAutoCompleter
-Imple::factory('ContactAutoCompleter', array('triggerId' => 'newAttendees'));
+Kronolith_Imple::factory('ContactAutoCompleter', array('triggerId' => 'newAttendees'));
 
 $title = _("Edit attendees");
 require KRONOLITH_TEMPLATES . '/common-header.inc';

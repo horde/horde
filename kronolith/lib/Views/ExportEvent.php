@@ -3,10 +3,7 @@
  * The Kronolith_View_ExportEvent:: class provides an API for exporting
  * events.
  *
- * $Horde: kronolith/lib/Views/ExportEvent.php,v 1.2 2008/03/14 13:55:05 jan Exp $
- *
  * @author  Jan Schneider <chuck@horde.org>
- * @since   Kronolith 2.2
  * @package Kronolith
  */
 class Kronolith_View_ExportEvent {

@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: kronolith/lib/Imple.php,v 1.4 2009/01/06 18:01:00 jan Exp $
- *
  * Copyright 2005-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -10,7 +8,7 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package Kronolith
  */
-class Imple {
+class Kronolith_Imple {
 
     /**
      * Parameters needed by the subclasses.
