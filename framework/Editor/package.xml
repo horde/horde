@@ -53,6 +53,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <min>1.5.0</min>
    </pearinstaller>
    <package>
+    <name>Browser</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
     <name>Util</name>
     <channel>pear.horde.org</channel>
    </package>
@@ -60,9 +64,9 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/Browser/Fckeditor.php" as "Horde/Browser/Fckeditor.php" />
-   <install name="lib/Horde/Browser/Xinha.php" as "Horde/Browser/Xinha.php" />
-   <install name="lib/Horde/Browser.php" as "Horde/Browser.php" />
+   <install name="lib/Horde/Editor/Fckeditor.php" as="Horde/Editor/Fckeditor.php" />
+   <install name="lib/Horde/Editor/Xinha.php" as="Horde/Editor/Xinha.php" />
+   <install name="lib/Horde/Editor.php" as="Horde/Editor.php" />
   </filelist>
  </phprelease>
  <changelog>

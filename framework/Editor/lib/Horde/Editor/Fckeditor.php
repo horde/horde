@@ -39,4 +39,29 @@ class Horde_Editor_Fckeditor extends Horde_Editor
         }
     }
 
+    /**
+     * Does the current browser support the Horde_Editor driver.
+     *
+     * @return boolean  True if the browser supports the editor.
+     */
+    public function supportedByBrowser()
+    {
+        global $browser;
+
+        switch ($browser->getBrowser()) {
+        case 'konqueror':
+        case 'msie':
+        case 'mozilla':
+        case 'opera':
+            // MSIE: 5.5+
+            // Firefox: 1.5+
+            // Opera: 9.5+
+            // Safari: 3.0+
+            return $browser->hasFeature('rte');
+
+        default:
+            return false;
+        }
+    }
+
 }

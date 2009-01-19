@@ -119,6 +119,16 @@ class Horde_Editor
     }
 
     /**
+     * Does the current browser support the Horde_Editor driver.
+     *
+     * @return boolean  True if the browser supports the editor.
+     */
+    public function supportedByBrowser()
+    {
+        return true;
+    }
+
+    /**
      * List the available editors.
      * Can be called statically: Horde_Editor::availableEditors();
      *
