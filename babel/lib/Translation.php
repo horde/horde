@@ -1,0 +1,312 @@
+<?php
+/**
+ * Copyright 2000-2009 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ *
+ * @author  Joel Vandal <joel@scopserv.com>
+ * @package Babel
+ */
+
+class Translation {
+
+    function callHook($fname, $info) {
+	/* Check if an hooks file exist */
+	if (file_exists(BABEL_BASE . '/config/hooks.php')) {
+	    include_once BABEL_BASE . '/config/hooks.php';
+	    
+	    $func = '_translation_hook_' . $fname;
+	    
+	    if (function_exists($func)) {
+		$res = call_user_func($func, $info);
+	    } else {
+		Translate_Display::warning(sprintf(_("Function doesn't exist: %s"), $func));
+	    }
+	} else {
+	    Translate_Display::warning(_("Hook file doesn't exist"));
+	}
+    }
+    
+    function displayLanguage() {
+	global $nls, $lang, $app;
+	
+	if (!isset($nls['languages'][$lang])) {
+	    return;
+	}
+	
+	$res = sprintf(_("Language: %s (%s)"), $nls['languages'][$lang], $lang);
+	if ($app) {
+	    $res .= '&nbsp; | &nbsp; ' . sprintf(_("Module: %s"), $app);
+	}
+	
+	return $res;
+    }
+
+    
+    function ModuleSelection() {
+	$html = '';
+	$html .= '<span style="float:right">';
+	$html .= '<form action="' . Horde::selfUrl() . '" method="post" name="moduleSelector">';
+	$html .= '<select name="module" onchange="moduleSubmit()">';
+	
+	$apps = array('ALL' => _("All Applications")) +  Translation::listApps();
+	
+	foreach($apps as $app => $desc) {
+	    if (!Translation::hasPermission("module:$app")) {
+		continue;
+	    }
+	    
+	    if (Util::getFormData('module') == $app) {
+		$html .= '<option class="control" value="' . $app . '" selected>' .  '+ ' . $desc;
+	    } else {
+		$html .= '<option value="' . $app . '">' . '&#8211; ' . $desc;
+	    }
+	}
+	
+	$html .= '</select>';
+	$html .= '</form>';
+	$html .= '</span>';
+	
+	$html .= '<script language="JavaScript" type="text/javascript">' . "\n";
+	$html .= '<!--' . "\n";
+	$html .= 'var loading;' . "\n";
+	$html .= 'function moduleSubmit()' . "\n";
+	$html .= '{' . "\n";
+	$html .= 'document.moduleSelector.submit();' . "\n";
+	$html .= 'return false;' . "\n";
+	$html .= '}' . "\n";
+	$html .= '// -->' . "\n";
+	$html .= '</script>' . "\n";
+	return $html;
+    }
+    
+    function LanguageSelection() {
+	global $nls, $app;
+	
+	$html = '';
+	$html .= '<span style="float:right">';
+	$html .= '<form action="' . Horde::selfUrl() . '" method="post" name="languageSelector">';
+	$html .= '&nbsp;';
+	$html .= '<input type="hidden" name="module" value="' . $app . '">';
+	$html .= '<select name="display_language" onchange="languageSubmit()">';
+	
+	$tests =  $nls['languages'];
+	
+	// Unset English
+	unset($tests['en_US']);
+	
+	foreach($tests as $dir => $desc) {
+	    if (!Translation::hasPermission("language:$dir")) {
+		continue;
+	    }
+	    
+	    if (isset($_SESSION['translation']['language']) && $dir == $_SESSION['translation']['language']) {
+		$html .= '<option class="control" value="' . $dir . '" selected>' .  '+ ' . $desc;
+	    } else {
+		$html .= '<option value="' . $dir . '">' . '&#8211; ' . $desc;
+	    }
+	}
+	
+	$html .= '</select>';
+	$html .= '&nbsp;';
+	$html .= '</form>';
+	$html .= '</span>';
+	
+	$html .= '<script language="JavaScript" type="text/javascript">' . "\n";
+	$html .= '<!--' . "\n";
+	$html .= 'var loading;' . "\n";
+	$html .= 'function languageSubmit()' . "\n";
+	$html .= '{' . "\n";
+	$html .= 'document.languageSelector.submit();' . "\n";
+	$html .= 'return false;' . "\n";
+	$html .= '}' . "\n";
+	$html .= '// -->' . "\n";
+	$html .= '</script>' . "\n";
+	return $html;
+    }
+    
+    function listApps($all = false) {
+	global $registry;
+
+	$res = array();
+	
+	if ($all) {
+	    $res['ALL'] = _("All Applications");
+	}
+	
+	foreach ($registry->applications as $app => $params) {
+	    if ($params['status'] == 'heading' || $params['status'] == 'block') {
+		continue;
+	    }
+	    
+	    if (isset($params['fileroot']) && !is_dir($params['fileroot'])) {
+		continue;
+	    }
+	    
+	    if (preg_match('/_reports$/', $app) || preg_match('/_tools$/', $app)) {
+		continue;
+	    }
+	    
+	    if (Translation::hasPermission("module:$app")) {
+		$res[$app] = sprintf("%s (%s)", $params['name'], $app);
+	    }
+	}
+	return $res;
+    }
+      
+    /**
+     * Returns the value of the specified permission for $userId.
+     *
+     * @return mixed  Does user have $permission?
+     */
+    function hasPermission($permission, $filter = null, $perm = null)
+    {
+	global $perms;
+	
+	$userId = Auth::getAuth();
+	$admin = ($userId == 'admin') ? true : false;
+	
+	if ($admin || !$perms->exists('translation:' . $permission)) {
+	    return true;
+	}
+	
+	$allowed = $perms->getPermissions('translation:' . $permission);
+	
+	switch ($filter) {
+	 case 'tabs':
+	    if ($perm) {
+		$allowed  = $perms->hasPermission('translation:' . $permission, Auth::getAuth(), $perm);
+	    }
+	    break;
+	}
+	return $allowed;
+    }
+
+    /**
+     * Get the module main Menu.
+     **/
+    function getMenu($returnType = 'object')
+    {
+        global $registry;
+
+	require_once 'Horde/Menu.php';
+	$menu = &new Menu();
+	
+        $menu->addArray(array('url' => Horde::applicationUrl('index.php'),
+			      'text' => _("_General"),
+			      'icon' => 'list.png'));
+
+	if (Translation::hasPermission('view')) {
+	    $menu->addArray(array('url' => Horde::applicationUrl('view.php'),
+				  'text' => _("_View"),
+				  'icon' => 'view.png'));
+	}
+	
+	if (Translation::hasPermission('stats')) {
+	    $menu->addArray(array('url' => Horde::applicationUrl('stats.php'),
+				  'text' => _("_Stats"),
+				  'icon' => 'extract.png'));
+	}
+	
+	if (Translation::hasPermission('extract')) {
+	    $menu->addArray(array('url' => Horde::applicationUrl('extract.php'),
+				  'text' => _("_Extract"),
+				  'icon' => 'extract.png'));
+	}
+	
+	if (Translation::hasPermission('make')) {
+	    $menu->addArray(array('url' => Horde::applicationUrl('make.php'),
+				  'text' => _("_Make"),
+				  'icon' => 'make.png'));
+	}
+
+	if (Translation::hasPermission('upload')) {
+	    $menu->addArray(array('url' => Horde::applicationUrl('upload.php'),
+				  'text' => _("_Upload"),
+				  'icon' => 'upload.png'));
+	}
+	if ($returnType == 'object') {
+	    return $menu;
+	} else {
+	    return $menu->render();
+	}
+    }
+
+
+    /**
+     * Send an Email.
+     **/
+    function sendEmail($email, $type = 'html', $attachments = array()) {
+	global $client, $scopserv;
+	
+	include_once("Mail.php");
+	include_once("Mail/mime.php");
+
+	$headers["From"]    = $email['from'];
+	$headers["Subject"] = $email['subject'];
+	
+	$mime = new Mail_Mime();
+	if ($type == 'html') {
+	    $mime->setHtmlBody($email['content']);
+	} else {
+	    $mime->setTxtBody($email['content']);
+	}
+	
+	if (!empty($attachments)) {
+	    foreach ($attachments as $info) {
+		$mime->addAttachment($info['file'],
+				     $info['type'],
+				     $info['name'], false);
+	    }
+	}
+	
+	$body = $mime->get();
+	$hdrs = $mime->headers($headers);
+	
+	$mail_object = &Mail::factory("mail");
+	return $mail_object->send($email['to'], $hdrs, $body);
+    }
+
+
+    function RB_init() {
+	Horde::addScriptFile('prototype.js', 'translation', true);
+	Horde::addScriptFile('effects.js', 'translation', true);
+	Horde::addScriptFile('redbox.js', 'translation', true);
+    }
+    
+    function RB_start($secs = 30) {
+	
+	$msg = '';
+	$msg .= '<table width=100% id="RB_confirm"><tr><td>';
+	$msg .= '<b>' . _("Please be patient ...") . '</b>';
+	$msg .= '<br />';
+	$msg .= '<br />';
+	if ($secs < 60) {
+	    $msg .= addslashes(sprintf(_("Can take up to %d seconds !"), $secs));
+	} else {
+	    $min = intval($secs / 60);
+	    if ($min == 1) {
+		$msg .= addslashes(_("Can take up to 1 minute !"));
+	    } else {
+		$msg .= addslashes(sprintf(_("Can take up to %d minutes !"), $min));
+	    }
+	}
+	
+	$msg .= '</td><td><img src="themes/graphics/redbox_spinner.gif">';
+	
+	$msg .= '</td></tr></table>';
+	echo '<script>';
+	echo 'RedBox.loading();';
+	echo "RedBox.showHtml('$msg');";
+	echo '</script>';
+	flush();
+    }
+
+    function RB_close() {
+	echo '<script>';
+	echo 'RedBox.close();';
+	echo '</script>';
+    }
+    
+}
