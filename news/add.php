@@ -110,6 +110,7 @@ foreach ($conf['attributes']['languages'] as $key) {
         $form->addVariable($flag . _("Tags"), "tags_$key", 'text', false, false, _("Enter one or more keywords that describe your news. Separate them by spaces."));
     }
     $form->addVariable($flag . _("Content"), "content_$key", 'longtext', ($key == $default_lang) ? true : false , false, false, array(20, 120));
+    // TODO: tinymce is no longer available
     Horde_Editor::singleton('tinymce',
         array('id' => "content_$key",
               'config' => array('mode'=> 'exact',

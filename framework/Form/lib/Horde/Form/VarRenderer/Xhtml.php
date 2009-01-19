@@ -299,7 +299,7 @@ if (tmp) {
                         htmlspecialchars($var->getValue($vars)));
 
         if ($var->type->hasHelper('rte') && $browser->hasFeature('rte')) {
-            $editor = Horde_Editor::factory('xinha', array('id' => $var->getVarName()));
+            $editor = Horde_Editor::factory('Xinha', array('id' => $var->getVarName()));
         }
 
         if ($var->type->hasHelper() && $browser->hasFeature('javascript')) {
