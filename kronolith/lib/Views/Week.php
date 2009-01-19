@@ -42,7 +42,7 @@ class Kronolith_View_Week {
         $week = $date->weekOfYear();
         $year = $date->year;
         if (!$GLOBALS['prefs']->getValue('week_start_monday') &&
-            $date->dayOfWeek() == HORDE_DATE_SUNDAY) {
+            $date->dayOfWeek() == Horde_Date::DATE_SUNDAY) {
             ++$week;
         }
         if ($week > 51 && $date->month == 1) {
@@ -57,12 +57,12 @@ class Kronolith_View_Week {
 
         if (!isset($this->startDay)) {
             if ($GLOBALS['prefs']->getValue('week_start_monday')) {
-                $this->startDay = HORDE_DATE_MONDAY;
-                $this->endDay = HORDE_DATE_SUNDAY + 7;
+                $this->startDay = Horde_Date::DATE_MONDAY;
+                $this->endDay = Horde_Date::DATE_SUNDAY + 7;
             } else {
                 $day->mday--;
-                $this->startDay = HORDE_DATE_SUNDAY;
-                $this->endDay = HORDE_DATE_SATURDAY;
+                $this->startDay = Horde_Date::DATE_SUNDAY;
+                $this->endDay = Horde_Date::DATE_SATURDAY;
             }
         }
 

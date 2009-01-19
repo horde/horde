@@ -98,13 +98,13 @@ if ($this->event->isInitialized() && $this->event->alarm > 0):
    <?php echo _("Daily: Recurs every") . ' ' . $this->event->recurrence->getRecurInterval() . ' ' . _("day(s)") ?>
 <?php elseif ($this->event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_WEEKLY)):
     $weekdays = array();
-    if ($this->event->recurrence->recurOnDay(HORDE_DATE_MASK_MONDAY))    $weekdays[] = _("Monday");
-    if ($this->event->recurrence->recurOnDay(HORDE_DATE_MASK_TUESDAY))   $weekdays[] = _("Tuesday");
-    if ($this->event->recurrence->recurOnDay(HORDE_DATE_MASK_WEDNESDAY)) $weekdays[] = _("Wednesday");
-    if ($this->event->recurrence->recurOnDay(HORDE_DATE_MASK_THURSDAY))  $weekdays[] = _("Thursday");
-    if ($this->event->recurrence->recurOnDay(HORDE_DATE_MASK_FRIDAY))    $weekdays[] = _("Friday");
-    if ($this->event->recurrence->recurOnDay(HORDE_DATE_MASK_SATURDAY))  $weekdays[] = _("Saturday");
-    if ($this->event->recurrence->recurOnDay(HORDE_DATE_MASK_SUNDAY))    $weekdays[] = _("Sunday");
+    if ($this->event->recurrence->recurOnDay(Horde_Date::MASK_MONDAY))    $weekdays[] = _("Monday");
+    if ($this->event->recurrence->recurOnDay(Horde_Date::MASK_TUESDAY))   $weekdays[] = _("Tuesday");
+    if ($this->event->recurrence->recurOnDay(Horde_Date::MASK_WEDNESDAY)) $weekdays[] = _("Wednesday");
+    if ($this->event->recurrence->recurOnDay(Horde_Date::MASK_THURSDAY))  $weekdays[] = _("Thursday");
+    if ($this->event->recurrence->recurOnDay(Horde_Date::MASK_FRIDAY))    $weekdays[] = _("Friday");
+    if ($this->event->recurrence->recurOnDay(Horde_Date::MASK_SATURDAY))  $weekdays[] = _("Saturday");
+    if ($this->event->recurrence->recurOnDay(Horde_Date::MASK_SUNDAY))    $weekdays[] = _("Sunday");
     echo _("Weekly: Recurs every") . ' ' . $this->event->recurrence->getRecurInterval() . ' ' . _("week(s) on:") . ' ' . implode(', ', $weekdays) ?>
 <?php elseif ($this->event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_MONTHLY_DATE)): ?>
    <?php echo _("Monthly: Recurs every") . ' ' . $this->event->recurrence->getRecurInterval() . ' ' . _("month(s)") . ' ' . _("on the same date") ?>

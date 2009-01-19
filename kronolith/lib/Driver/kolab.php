@@ -864,13 +864,13 @@ class Kronolith_Event_kolab_old extends Kronolith_Event {
 
                 $mask = 0;
                 $bits = array(
-                    'monday' => HORDE_DATE_MASK_MONDAY,
-                    'tuesday' => HORDE_DATE_MASK_TUESDAY,
-                    'wednesday' => HORDE_DATE_MASK_WEDNESDAY,
-                    'thursday' => HORDE_DATE_MASK_THURSDAY,
-                    'friday' => HORDE_DATE_MASK_FRIDAY,
-                    'saturday' => HORDE_DATE_MASK_SATURDAY,
-                    'sunday' => HORDE_DATE_MASK_SUNDAY,
+                    'monday' => Horde_Date::MASK_MONDAY,
+                    'tuesday' => Horde_Date::MASK_TUESDAY,
+                    'wednesday' => Horde_Date::MASK_WEDNESDAY,
+                    'thursday' => Horde_Date::MASK_THURSDAY,
+                    'friday' => Horde_Date::MASK_FRIDAY,
+                    'saturday' => Horde_Date::MASK_SATURDAY,
+                    'sunday' => Horde_Date::MASK_SUNDAY,
                 );
 
                 $days = $kolab->getAllElems('day', $recurrence);

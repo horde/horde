@@ -69,18 +69,18 @@ class Kronolith_View_Month {
 
             // We may need to adjust the number of days in the view if
             // we're starting weeks on Sunday.
-            if ($this->_startday == HORDE_DATE_SUNDAY) {
+            if ($this->_startday == Horde_Date::DATE_SUNDAY) {
                 $this->_daysInView -= 7;
             }
             $endday = new Horde_Date(array('mday' => Horde_Date::daysInMonth($this->month, $this->year),
                                            'month' => $this->month,
                                            'year' => $this->year));
             $endday = $endday->dayOfWeek();
-            if ($endday == HORDE_DATE_SUNDAY) {
+            if ($endday == Horde_Date::DATE_SUNDAY) {
                 $this->_daysInView += 7;
             }
         } else {
-            if ($this->_startday == HORDE_DATE_SUNDAY) {
+            if ($this->_startday == Horde_Date::DATE_SUNDAY) {
                 $this->_startOfView = -5;
             } else {
                 $this->_startOfView = 2 - $this->_startday;
@@ -192,7 +192,7 @@ class Kronolith_View_Month {
                         Horde::img('new_small.png', '+') . '</a>';
                 }
 
-                if ($date->dayOfWeek() == HORDE_DATE_MONDAY) {
+                if ($date->dayOfWeek() == Horde_Date::DATE_MONDAY) {
                     $url = Util::addParameter('week.php', 'date', $date->dateString());
                     $html .= Horde::link(Horde::applicationUrl($url), '', 'week') . sprintf(_("Week %d"), $week) . '</a>';
                 }

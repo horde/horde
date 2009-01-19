@@ -1927,13 +1927,13 @@ class Kronolith_Event {
                 if ($weekdays == 0) {
                     // Sunday starts at 0.
                     switch ($this->start->dayOfWeek()) {
-                    case 0: $weekdays |= HORDE_DATE_MASK_SUNDAY; break;
-                    case 1: $weekdays |= HORDE_DATE_MASK_MONDAY; break;
-                    case 2: $weekdays |= HORDE_DATE_MASK_TUESDAY; break;
-                    case 3: $weekdays |= HORDE_DATE_MASK_WEDNESDAY; break;
-                    case 4: $weekdays |= HORDE_DATE_MASK_THURSDAY; break;
-                    case 5: $weekdays |= HORDE_DATE_MASK_FRIDAY; break;
-                    case 6: $weekdays |= HORDE_DATE_MASK_SATURDAY; break;
+                    case 0: $weekdays |= Horde_Date::MASK_SUNDAY; break;
+                    case 1: $weekdays |= Horde_Date::MASK_MONDAY; break;
+                    case 2: $weekdays |= Horde_Date::MASK_TUESDAY; break;
+                    case 3: $weekdays |= Horde_Date::MASK_WEDNESDAY; break;
+                    case 4: $weekdays |= Horde_Date::MASK_THURSDAY; break;
+                    case 5: $weekdays |= Horde_Date::MASK_FRIDAY; break;
+                    case 6: $weekdays |= Horde_Date::MASK_SATURDAY; break;
                     }
                 }
 

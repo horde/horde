@@ -91,18 +91,18 @@ class Horde_Block_Kronolith_month extends Horde_Block {
 
             // We may need to adjust the number of days in the view if
             // we're starting weeks on Sunday.
-            if ($startday == HORDE_DATE_SUNDAY) {
+            if ($startday == Horde_Date::Date_SUNDAY) {
                 $daysInView -= 7;
             }
             $endday = new Horde_Date(array('mday' => Horde_Date::daysInMonth($month, $year),
                                            'month' => $month,
                                            'year' => $year));
             $endday = $endday->dayOfWeek();
-            if ($endday == HORDE_DATE_SUNDAY) {
+            if ($endday == Horde_Date::Date_SUNDAY) {
                 $daysInView += 7;
             }
         } else {
-            if ($startday == HORDE_DATE_SUNDAY) {
+            if ($startday == Horde_Date::Date_SUNDAY) {
                 $startOfView = -5;
             } else {
                 $startOfView = 2 - $startday;

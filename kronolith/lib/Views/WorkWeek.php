@@ -11,8 +11,8 @@ require_once dirname(__FILE__) . '/Week.php';
  */
 class Kronolith_View_WorkWeek extends Kronolith_View_Week {
 
-    var $startDay = HORDE_DATE_MONDAY;
-    var $endDay = HORDE_DATE_FRIDAY;
+    var $startDay = Horde_Date::DATE_MONDAY;
+    var $endDay = Horde_Date::DATE_FRIDAY;
     var $_controller = 'workweek.php';
 
     function getName()
