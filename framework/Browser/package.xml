@@ -32,7 +32,7 @@ about the current user&apos;s browser and its capabilities.
     <dir name="Horde">
      <dir name="Browser">
       <file name="Imode.php" role="php" />
-     </dir> <!-- //Browser -->
+     </dir> <!-- /lib/Horde/Browser -->
      <file name="Browser.php" role="php" />
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
