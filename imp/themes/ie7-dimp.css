@@ -2,10 +2,6 @@
  * CSS corrections for IE 7.
  */
 
-#pageContainer {
-    height: 1px;
-}
-
 #sidebarPanel li {
     overflow: hidden;
     max-width: 133px;
