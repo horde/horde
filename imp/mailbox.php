@@ -246,7 +246,7 @@ if (!$readonly && $do_filter) {
 
 /* Generate folder options list. */
 if ($conf['user']['allow_folders']) {
-    $folder_options = IMP::flistSelect(array('heading' => _("Messages to"), 'new_folder' => true, 'inc_tasklist' => true, 'inc_notepads' => true));
+    $folder_options = IMP::flistSelect(array('heading' => _("Messages to"), 'new_folder' => true, 'inc_tasklists' => true, 'inc_notepads' => true));
 }
 
 /* Build the list of messages in the mailbox. */
