@@ -111,7 +111,7 @@ while (list(,$ob) = each($mbox_info['overview'])) {
 
     $msg['subject'] = $imp_ui->getSubject($ob['envelope']['subject']);
 
-    if (!is_null($threadob) && ($threadob->getThreadIndent($ob['uid']) - 1)) {
+    if (!is_null($threadob) && ($threadob->getThreadIndent($ob['uid']))) {
         $msg['subject'] = '>> ' . ltrim($msg['subject']);
     }
 
