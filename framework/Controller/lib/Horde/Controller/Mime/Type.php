@@ -120,13 +120,15 @@ class Horde_Controller_Mime_Type
     public static function registerTypes()
     {
         if (!self::$registered) {
-            Horde_Controller_Mime_Type::register("*/*",              'all');
-            Horde_Controller_Mime_Type::register("text/plain",       'text', array(), array('txt'));
-            Horde_Controller_Mime_Type::register("text/html",        'html', array('application/xhtml+xml'), array('xhtml'));
-            Horde_Controller_Mime_Type::register("text/javascript",  'js',   array('application/javascript', 'application/x-javascript'), array('xhtml'));
-            Horde_Controller_Mime_Type::register("application/json", 'json');
-            Horde_Controller_Mime_Type::register("text/csv",         'csv');
-            Horde_Controller_Mime_Type::register("application/xml",  'xml',  array('text/xml', 'application/x-xml'));
+            Horde_Controller_Mime_Type::register('*/*',                  'all');
+            Horde_Controller_Mime_Type::register('text/plain',           'text', array(), array('txt'));
+            Horde_Controller_Mime_Type::register('text/html',            'html', array('application/xhtml+xml'), array('xhtml'));
+            Horde_Controller_Mime_Type::register('text/javascript',      'js',   array('application/javascript', 'application/x-javascript'), array('xhtml'));
+            Horde_Controller_Mime_Type::register('application/json',     'json');
+            Horde_Controller_Mime_Type::register('text/xml',             'rss');
+            Horde_Controller_Mime_Type::register('application/atom+xml', 'atom');
+            Horde_Controller_Mime_Type::register('text/csv',             'csv');
+            Horde_Controller_Mime_Type::register('application/xml',      'xml',  array('text/xml', 'application/x-xml'));
             self::$registered = true;
         }
     }
