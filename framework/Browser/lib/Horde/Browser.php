@@ -220,6 +220,7 @@ class Horde_Browser
         'xmlhttpreq' => false,
         'cite'       => false,
         'issafari'   => false,
+        'ischrome'   => false,
         // RFC 2397
         'dataurl'    => false,
     );
@@ -349,8 +350,6 @@ class Horde_Browser
                 }
                 if (($this->_majorVersion >= 9) &&
                     ($this->_minorVersion >= 5)) {
-                    // Xinha supports (somewhat) 9.2, but fckeditor supports
-                    // only 9.5+.
                     $this->setFeature('rte');
                 }
                 $this->setFeature('dom');
@@ -530,7 +529,19 @@ class Horde_Browser
                 $this->_minorVersion = $version[2];
             }
 
-            if (strpos($agent, 'Safari') !== false &&
+            if (stripos($agent, 'Chrome/') !== false) {
+                // Google Chrome.
+                // TODO: Really need to identify as chrome (or webkit),
+                // not konqueror. For now, hack around by setting feature
+                // 'ischrome'.
+                //$this->setBrowser('chrome');
+                $this->setFeature('ischrome');
+                $this->setFeature('rte');
+
+                if (preg_match('|Chrome/([0-9.]+)|i', $agent, $version_string)) {
+                    list($this->_majorVersion, $this->_minorVersion) = explode('.', $version_string[1], 2);
+                }
+            } elseif (stripos($agent, 'Safari/') !== false &&
                 $this->_majorVersion >= 60) {
                 // Safari.
                 // TODO: Really need to identify as safari (or webkit),
@@ -544,8 +555,6 @@ class Horde_Browser
                 if (preg_match('|Version/([0-9.]+)|', $agent, $version_string)) {
                     list($this->_majorVersion, $this->_minorVersion) = explode('.', $version_string[1], 2);
                     $this->_minorVersion = intval($this->_minorVersion);
-                    // Safari 3 works with both FCKEditor (2.6) and Xinha
-                    // (0.95) packaged with Horde as of 3.2.
                     $this->setFeature('rte');
                 } elseif ($this->_majorVersion >= 412)  {
                     $this->_majorVersion = 2;
