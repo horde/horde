@@ -157,8 +157,8 @@ if (($subject = $mime_headers->getValue('subject'))) {
     $subject = IMP::filterText($subject);
 
     /* Generate the shortened subject text. */
-    if (String::length($subject) > $conf['mimp']['max_subj_chars']) {
-        $subject = String::substr($subject, 0, $conf['mimp']['max_subj_chars']) . '...';
+    if (String::length($subject) > $conf['mimp']['mailbox']['max_subj_chars']) {
+        $subject = String::substr($subject, 0, $conf['mimp']['mailbox']['max_subj_chars']) . '...';
     }
 } else {
     $subject = _("[No Subject]");
@@ -355,7 +355,7 @@ foreach ($display_headers as $head => $val) {
 foreach ($atc_parts as $key) {
     $summary = $imp_contents->getSummary($key, IMP_Contents::SUMMARY_SIZE | IMP_Contents::SUMMARY_DESCRIP_NOLINK_NOHTMLSPECCHARS);
     $hb->add(new Horde_Mobile_text(_("Attachment") . ': ', array('b')));
-    $t = &$hb->add(new Horde_Mobile_text(sprintf('%s %s', $summary['description'], $summary['size']) . "\n"));
+    $t = &$hb->add(new Horde_Mobile_text(sprintf('%s [%s] %s', $summary['description'], $summary['type'], $summary['size']) . "\n"));
     $t->set('linebreaks', true);
 }
 
