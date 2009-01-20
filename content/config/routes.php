@@ -13,6 +13,12 @@
 $mapper->connect('tags', array('controller' => 'tag', 'action' => 'searchTags'));
 $mapper->connect('tags.:(format)', array('controller' => 'tag', 'action' => 'searchTags'));
 
+// Most recent tags. Available query parameters:
+//   typeId:    restrict matches to tags that have been applied to objects with type $typeId
+//   userId:    restrict matches to tags that have been applied by $userId
+$mapper->connect('tags/recent', array('controller' => 'tag', 'action' => 'recentTags'));
+$mapper->connect('tags/recent.:(format)', array('controller' => 'tag', 'action' => 'recentTags'));
+
 // List objects. At least a content type, or more specific parameters, are
 // required; listing all objects is not allowed.
 $mapper->connect('objects', array('controller' => 'tag', 'action' => 'searchObjects'));
