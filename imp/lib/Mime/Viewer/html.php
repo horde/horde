@@ -140,7 +140,7 @@ class IMP_Horde_Mime_Viewer_html extends Horde_Mime_Viewer_html
             $data = Text_Filter::filter($data, 'html2text');
 
             // Filter bad language.
-            return IMP::filterText($data);
+            return array('html' => IMP::filterText($data), 'status' => array());
         }
 
         /* Reset absolutely positioned elements. */
