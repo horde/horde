@@ -9,7 +9,7 @@ if ($pageOb['pagecount'] > 1) {
 $c = &$mimp_render->add(new Horde_Mobile_card('m', $title));
 $c->softkey('#o', _("Menu"));
 
-$mimp_notify->setMobileObject($c);
+$imp_notify->setMobileObject($c);
 $notification->notify(array('listeners' => 'status'));
 
 if (!empty($pageOb['end'])) {
