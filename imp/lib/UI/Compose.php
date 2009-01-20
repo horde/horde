@@ -188,9 +188,12 @@ class IMP_UI_Compose
 
     /**
      */
-    function initRTE($mode = 'imp')
+    function initRTE($mode = 'imp', $editoronly = false)
     {
         $editor = &Horde_Editor::singleton('Fckeditor', array('id' => 'message', 'no_notify' => true));
+        if ($editoronly) {
+            return $editor;
+        }
 
         $fck_buttons = $GLOBALS['prefs']->getValue('fckeditor_buttons');
         if (!empty($fck_buttons)) {

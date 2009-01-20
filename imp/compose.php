@@ -187,7 +187,7 @@ $isPopup = (($prefs->getValue('compose_popup') || Util::getFormData('popup')) &&
 /* Determine the composition type - text or HTML.
    $rtemode is null if browser does not support it. */
 $rtemode = null;
-if ($browser->hasFeature('rte')) {
+if ($_SESSION['imp']['rteavail']) {
     if ($prefs->isLocked('compose_html')) {
         $rtemode = $prefs->getValue('compose_html');
     } else {

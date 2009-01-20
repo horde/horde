@@ -41,6 +41,7 @@ class IMP_Session
      * 'maildomain'    -- See config/servers.php.
      * 'notepadavail'  -- Is listing of notepads available?
      * 'protocol'      -- Either 'imap' or 'pop'.
+     * 'rteavail'      -- Is the HTML editor available?
      * 'search'        -- Settings used by the IMP_Search library.
      * 'smime'         -- Settings related to the S/MIME viewer.
      * 'smtp'          -- SMTP options ('host' and 'port')
@@ -167,6 +168,11 @@ class IMP_Session
             $registry->hasMethod('notes/listNotepads')) {
             $sess['notepadavail'] = true;
         }
+
+        /* Is the HTML editor available? */
+        $imp_ui = new IMP_UI_Compose();
+        $editor = $imp_ui->initRTE(null, true);
+        $sess['rteavail'] = $editor->supportedByBrowser();
 
         /* Cache autologin check. */
         $sess['autologin'] = self::canAutologin();

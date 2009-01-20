@@ -88,7 +88,7 @@ class IMP_Views_Compose
         );
 
         $compose_html = $rte = false;
-        if ($GLOBALS['browser']->hasFeature('rte')) {
+        if ($_SESSION['imp']['rteavail']) {
             $compose_html = $GLOBALS['prefs']->getValue('compose_html');
             $rte = true;
 

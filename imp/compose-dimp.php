@@ -269,10 +269,7 @@ case 'resume':
     break;
 
 case 'new':
-    $rte = ($browser->hasFeature('rte') && $prefs->getValue('compose_html'));
-    if ($rte) {
-        $show_editor = true;
-    }
+    $rte = $show_editor = ($prefs->getValue('compose_html') && $_SESSION['imp']['rteavail']);
     break;
 }
 

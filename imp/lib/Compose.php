@@ -2163,8 +2163,7 @@ class IMP_Compose
         $body_id = null;
         $mode = 'text';
 
-        if (!empty($options['html']) &&
-            $GLOBALS['browser']->hasFeature('rte')) {
+        if (!empty($options['html']) && $_SESSION['imp']['rteavail']) {
             $body_id = $contents->findBody('html');
             if (!is_null($body_id)) {
                 $mode = 'html';
