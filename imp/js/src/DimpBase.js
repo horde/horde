@@ -1343,7 +1343,9 @@ var DimpBase = {
             return;
         }
 
-        var elt = orig = e.element(), id, mbox, tmp;
+        var elt = e.element(),
+            orig = e.element(),
+            id, mbox, tmp;
 
         while (Object.isElement(elt)) {
             id = elt.readAttribute('id');
