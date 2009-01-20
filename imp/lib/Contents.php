@@ -453,6 +453,9 @@ class IMP_Contents
      * @param string $id     The MIME ID.
      * @param integer $mask  A bitmask indicating what information to return:
      * <pre>
+     * Always output:
+     *   'type' = MIME type
+     *
      * IMP_Contents::SUMMARY_BYTES
      *   Output: parts = 'bytes'
      *

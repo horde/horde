@@ -1433,6 +1433,8 @@ $_prefs['smime_additional_cert'] = array(
 
 // End S/MIME Options
 
+// MIMP Options
+
 // display only the first 250 characters of a message on first message view?
 $_prefs['mimp_preview_msg'] = array(
     'value' => 0,
@@ -1441,6 +1443,10 @@ $_prefs['mimp_preview_msg'] = array(
     'type' => 'checkbox',
     'desc' => _("Display only the first 250 characters of a message initially?")
 );
+
+// End MIMP Options
+
+// DIMP Options
 
 // Login preferences (dimp)
 $_prefs['dimp_login_view'] = array(
@@ -1465,6 +1471,8 @@ $_prefs['dimp_toggle_headers'] = array(
     'locked' => false,
     'shared' => false,
     'type' => 'implicit');
+
+// End DIMP Options
 
 // Other entries (used internally in IMP)
 
