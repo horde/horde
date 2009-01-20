@@ -353,9 +353,14 @@ foreach ($display_headers as $head => $val) {
 }
 
 foreach ($atc_parts as $key) {
-    $summary = $imp_contents->getSummary($key, IMP_Contents::SUMMARY_SIZE | IMP_Contents::SUMMARY_DESCRIP_NOLINK_NOHTMLSPECCHARS);
+    $summary = $imp_contents->getSummary($key, IMP_Contents::SUMMARY_SIZE | IMP_Contents::SUMMARY_DESCRIP_NOLINK_NOHTMLSPECCHARS | IMP_Contents::SUMMARY_DOWNLOAD_NOJS);
     $hb->add(new Horde_Mobile_text(_("Attachment") . ': ', array('b')));
-    $t = &$hb->add(new Horde_Mobile_text(sprintf('%s [%s] %s', $summary['description'], $summary['type'], $summary['size']) . "\n"));
+    if (empty($summary['download'])) {
+        $hb->add(new Horde_Mobile_text($summary['description']));
+    } else {
+        $hb->add(new Horde_Mobile_link($summary['description'], $summary['download']));
+    }
+    $t = &$hb->add(new Horde_Mobile_text(sprintf(' [%s] %s', $summary['type'], $summary['size']) . "\n"));
     $t->set('linebreaks', true);
 }
 

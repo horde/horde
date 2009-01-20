@@ -21,9 +21,10 @@ class IMP_Contents
     const SUMMARY_DESCRIP_NOLINK = 16;
     const SUMMARY_DESCRIP_NOLINK_NOHTMLSPECCHARS = 32;
     const SUMMARY_DOWNLOAD = 64;
-    const SUMMARY_DOWNLOAD_ZIP = 128;
-    const SUMMARY_IMAGE_SAVE = 256;
-    const SUMMARY_STRIP_LINK = 512;
+    const SUMMARY_DOWNLOAD_NOJS = 128;
+    const SUMMARY_DOWNLOAD_ZIP = 256;
+    const SUMMARY_IMAGE_SAVE = 512;
+    const SUMMARY_STRIP_LINK = 1024;
 
     /* Rendering mask entries. */
     const RENDER_FULL = 1;
@@ -471,6 +472,7 @@ class IMP_Contents
      *   Output: parts = 'description'
      *
      * IMP_Contents::SUMMARY_DOWNLOAD
+     * IMP_Contents::SUMMARY_DOWNLOAD_NOJS
      *   Output: parts = 'download'
      *
      * IMP_Contents::SUMMARY_DOWNLOAD_ZIP
@@ -557,9 +559,12 @@ class IMP_Contents
 
         /* Download column. */
         if ($is_atc &&
-            ($mask & self::SUMMARY_DOWNLOAD) &&
             (is_null($part['bytes']) || $part['bytes'])) {
-            $part['download'] = $this->linkView($mime_part, 'download_attach', '', array('class' => 'downloadAtc', 'dload' => true, 'jstext' => _("Download")));
+            if ($mask & self::SUMMARY_DOWNLOAD) {
+                $part['download'] = $this->linkView($mime_part, 'download_attach', '', array('class' => 'downloadAtc', 'dload' => true, 'jstext' => _("Download")));
+            } elseif ($mask & self::SUMMARY_DOWNLOAD_NOJS) {
+                $part['download'] = $this->urlView($mime_part, 'download_attach', array('dload' => true));
+            }
         }
 
         /* Display the compressed download link only if size is greater

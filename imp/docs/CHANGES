@@ -2,6 +2,7 @@
 v5.0-cvs
 --------
 
+[mms] Add ability to download attachments in MIMP (Request #2925).
 [mms] Revamp JS event handling model.
 [mms] ESC in DIMP search box now clears the search (Request #7196).
 [mms] Enhancements to status icon view (Request #7519) (DIMP).
