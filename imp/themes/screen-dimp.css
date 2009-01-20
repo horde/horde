@@ -865,7 +865,8 @@ a.address:hover img {
     background: #5db110 6px 6px no-repeat;
 }
 #alerts div.horde-error {
-    background: #e81222 url("graphics/error.png") 99% 50% no-repeat;
+    background-color: #e81222;
+    background-image: url("graphics/error.png");
     border-color: maroon;
 }
 #alerts div.horde-message {
@@ -875,7 +876,8 @@ a.address:hover img {
     background-image: url("graphics/success.png");
 }
 #alerts div.horde-warning, #alerts div.dimp-sticky, #alerts div.dimp-sticky {
-    background: #ebe20c url("graphics/warning.png");
+    background-color: #ebe20c;
+    background-image: url("graphics/warning.png");
     border-color: #807b00;
     color: #000;
 }

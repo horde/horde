@@ -26,9 +26,9 @@ function _image($name, $alt, $type)
     }
 
     if ($type == 'folder') {
-        $cache[$type][$val] = Horde::img($name['icon'], $name['alt'], 'style="vertical-align:middle"', $name['icondir']);
+        $cache[$type][$val] = Horde::img($name['icon'], $name['alt'], null, $name['icondir']);
     } else {
-        $cache[$type][$val] = Horde::img('tree/' . $name, $alt, 'style="vertical-align:middle"', $GLOBALS['registry']->getImageDir('horde'));
+        $cache[$type][$val] = Horde::img('tree/' . $name, $alt, null, $GLOBALS['registry']->getImageDir('horde'));
     }
 
     return $cache[$type][$val];

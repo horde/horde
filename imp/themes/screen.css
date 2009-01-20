@@ -25,7 +25,8 @@
     vertical-align: middle;
 }
 .messageList img {
-    vertical-align: middle;
+    padding-right: 1px;
+    vertical-align: bottom;
 }
 
 /* Newmail alerts. */
@@ -136,6 +137,11 @@ ul.msgactions, ul.msgactions ul {
 /* Search page styling. */
 form#search div {
     padding: 1px;
+}
+
+/* Folder view. */
+#fmanager div, #fmanager div input {
+    vertical-align: middle;
 }
 
 /* Style for div that fixes KHTML browsers. */
