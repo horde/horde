@@ -6,6 +6,8 @@
  * Browser identification is performed by examining the HTTP_USER_AGENT
  * environment variable provided by the web server.
  *
+ * @TODO http://ajaxian.com/archives/parse-user-agent
+ *
  * Copyright 1999-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
