@@ -48,7 +48,7 @@ class IMP_Message
     /**
      * Constructor.
      */
-    private function __construct()
+    protected function __construct()
     {
         if ($_SESSION['imp']['protocol'] == 'pop') {
             $this->_usepop = true;
@@ -296,13 +296,10 @@ class IMP_Message
             return false;
         }
 
-        require_once 'Text/Flowed.php';
-
         foreach ($msgList as $folder => $msgIndices) {
             foreach ($msgIndices as $index) {
                 /* Fetch the message contents. */
                 $imp_contents = IMP_Contents::singleton($index . IMP::IDX_SEP . $folder);
-                $imp_contents->buildMessage();
 
                 /* Fetch the message headers. */
                 $imp_headers = $imp_contents->getHeaderOb();
@@ -311,8 +308,9 @@ class IMP_Message
                 /* Extract the message body. */
                 $imp_compose = IMP_Compose::singleton();
                 $mime_message = $imp_contents->getMIMEMessage();
-                $body_id = $imp_compose->getBodyId($imp_contents);
-                $body = $imp_compose->findBody($imp_contents);
+                $body_id = $imp_contents->findBody();
+                $body_part = $mime_message->getPart($body_id);
+                $body = $body_part->getContents();
 
                 /* Re-flow the message for prettier formatting. */
                 $flowed = new Text_Flowed($mime_message->replaceEOL($body, "\n"));
@@ -325,10 +323,10 @@ class IMP_Message
                 /* TODO: When Horde_iCalendar supports setting of charsets
                  * we need to set it there instead of relying on the fact
                  * that both Nag and IMP use the same charset. */
-                $body_part = $mime_message->getPart($body_id);
                 $body = String::convertCharset($body, $body_part->getCharset(), NLS::getCharset());
 
                 /* Create a new iCalendar. */
+                require_once IMP_BASE . '/lib/version.php';
                 $vCal = new Horde_iCalendar();
                 $vCal->setAttribute('PRODID', '-//The Horde Project//IMP ' . IMP_VERSION . '//EN');
                 $vCal->setAttribute('METHOD', 'PUBLISH');
