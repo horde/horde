@@ -75,15 +75,12 @@ class IMP_Contents
      * Ensures that only one IMP_Contents instance for any given message is
      * available at any one time.
      *
-     * This method must be invoked as:
-     *   $imp_contents = &IMP_Contents::singleton($in);
-     *
      * @param mixed $in  Either an index string (see IMP_Contents::singleton()
      *                   for the format) or a Horde_Mime_Part object.
      *
      * @return IMP_Contents  The IMP_Contents object or null.
      */
-    static public function &singleton($in)
+    static public function singleton($in)
     {
         static $instance = array();
 
@@ -104,7 +101,7 @@ class IMP_Contents
      * @param mixed $in  Either an index string (see IMP_Contents::singleton()
      *                   for the format) or a Horde_Mime_Part object.
      */
-    function __construct($in)
+    protected function __construct($in)
     {
         if (is_a($in, 'Horde_Mime_Part')) {
             $this->_message = $in;
@@ -270,7 +267,7 @@ class IMP_Contents
      *
      * @return Horde_Mime_Part  The raw MIME part asked for (reference).
      */
-    public function &getMIMEPart($id, $options = array())
+    public function getMIMEPart($id, $options = array())
     {
         $this->_buildMessage();
 
@@ -321,7 +318,7 @@ class IMP_Contents
             ? $this->getMIMEPart($mime_id)
             : $options['mime_part'];
         $viewer = Horde_Mime_Viewer::factory($mime_part, empty($options['type']) ? null : $options['type']);
-        $viewer->setParams(array('contents' => &$this));
+        $viewer->setParams(array('contents' => $this));
         if (!empty($options['params'])) {
             $viewer->setParams($options['params']);
         }
@@ -767,7 +764,7 @@ class IMP_Contents
             if ($viewer->embeddedMimeParts()) {
                 $mime_part = $this->getMIMEPart($id);
                 $viewer->setMIMEPart($mime_part);
-                $viewer->setParams(array('contents' => &$this));
+                $viewer->setParams(array('contents' => $this));
                 $new_parts = $viewer->getEmbeddedMimeParts();
                 if (!is_null($new_parts)) {
                     foreach (array_keys($new_parts) as $key) {
