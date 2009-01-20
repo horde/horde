@@ -71,6 +71,16 @@ class Horde_Controller_Request_Base
     }
 
     /**
+     * Get request timestamp
+     *
+     * @return integer
+     */
+    public function getTimestamp()
+    {
+        return $this->_timestamp;
+    }
+
+    /**
      * Get server variable with the specified $name
      *
      * @param   string  $name
