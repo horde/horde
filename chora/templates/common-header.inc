@@ -12,7 +12,6 @@ if (!empty($refresh_time) && ($refresh_time > 0) && !empty($refresh_url)) {
 }
 
 if (Util::nonInputVar('js_vars')) {
-    require_once 'Horde/Serialize.php';
     echo '<script type="text/javascript">//<![CDATA[' . "\n" .
        'var Chora = ' . Horde_Serialize::serialize($js_vars, SERIALIZE_JSON, NLS::getCharset()) . ";\n//]]></script>\n";
 }
