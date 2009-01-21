@@ -226,7 +226,7 @@ class Horde_Vcs_Diff_Git extends Horde_Vcs_Diff
             break;
         }
 
-        // TODO: add options for $hr options - however these may not
+        // @TODO: add options for $hr options - however these may not
         // be compatible with some diffs.
         $command = $rep->getCommand() . " diff -M -C $options --no-color $rev1..$rev2 -- " . escapeshellarg($file->queryModulePath()) . ' 2>&1';
 
@@ -296,9 +296,9 @@ class Horde_Vcs_Directory_Git extends Horde_Vcs_Directory
     public function browseDir($cache = null, $quicklog = true,
                               $showattic = false)
     {
-        //@TODO For now, we're browsing master
+        // @TODO For now, we're browsing master
         $head = trim(shell_exec($this->_rep->getCommand() . ' rev-parse --verify master'));
-        //@TODO can use this to see if we have a valid cache of the tree at this revision
+        // @TODO can use this to see if we have a valid cache of the tree at this revision
 
         $dir = $this->queryDir();
         if (substr($dir, 0, 1) == '/') {
@@ -346,6 +346,9 @@ class Horde_Vcs_Directory_Git extends Horde_Vcs_Directory
  */
 class Horde_Vcs_File_Git extends Horde_Vcs_File
 {
+    /* @TODO */
+    protected $_branch = 'master';
+
     /**
      * Create a repository file object, and give it information about
      * what its parent directory and repository objects are.
@@ -405,7 +408,7 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File
     function getBrowseInfo()
     {
         // Get the list of revisions that touch this path
-        $cmd = $this->rep->getCommand() . ' rev-list master -- ' . escapeshellarg($this->fullname) . ' 2>&1';
+        $cmd = $this->rep->getCommand() . ' rev-list ' . escapeshellarg($this->_branch) . ' -- ' . escapeshellarg($this->fullname) . ' 2>&1';
         $revisions = shell_exec($cmd);
         if (substr($revisions, 5) == 'fatal') {
             throw new Horde_Vcs_Exception($revisions);
@@ -531,8 +534,8 @@ class Horde_Vcs_Log_Git extends Horde_Vcs_Log {
                     $value = substr($value, 1, -1);
                     foreach (explode(',', $value) as $val) {
                         $val = trim($val);
-                        if (strpos($val, 'refs/tags/') === 0) {
-                            $this->tags[] = substr($val, 10);
+                        if (($pos = strrpos($val, '/')) !== false) {
+                            $this->tags[] = substr($val, $pos + 1);
                         }
                     }
                     if (!empty($this->tags)) {
@@ -553,7 +556,7 @@ class Horde_Vcs_Log_Git extends Horde_Vcs_Log {
             $line = fgets($pipe);
         }
         $this->log = trim($log);
-        //@TODO internal line formatting
+        // @TODO internal line formatting
 
         // Build list of files in this revision. The format of these lines is
         // documented in the git diff-tree documentation:
@@ -583,7 +586,7 @@ class Horde_Vcs_Log_Git extends Horde_Vcs_Log {
 
     public function getHashForPath($path)
     {
-        //@TODO not confident yet abotu the choice of dstSha1 vs. srcSha1
+        // @TODO not confident yet abotu the choice of dstSha1 vs. srcSha1
         return $this->files[$path]['dstSha1'];
     }
 

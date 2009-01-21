@@ -555,10 +555,9 @@ class Horde_Vcs_File_Cvs extends Horde_Vcs_File
             return PEAR::raiseError('Failed to spawn rlog to retrieve file log information for ' . $file);
         }
 
-        $accum = array();
-        $symrev = array();
-        $revsym = array();
+        $accum = $revsym = $symrev = array();
         $state = 'init';
+
         foreach ($return_array as $line) {
             switch ($state) {
             case 'init':
