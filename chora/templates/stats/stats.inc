@@ -8,12 +8,12 @@
 <tbody>
 <?php
 
-$most = max($author_stats);
+$most = max($stats);
 $factor = $most / 400;
-foreach ($author_stats as $author => $commits): $width = (int)($commits / $factor); ?>
+foreach ($stats as $author => $commits): $width = (int)($commits / $factor); ?>
  <tr>
   <td class="rightAlign"><?php echo $author ?>&nbsp;&nbsp;</td>
-  <td><?php echo Horde::img('pixel.php?c=bbcbff', '', 'style="border:1px solid #000;" width="' . $width . '" height="10"', $registry->get('webroot', 'horde') . '/services/images') . ' (' . $commits . ')</td>' ?>
+  <td><?php echo Horde::img('pixel.php?c=bbcbff', '', 'id="statsImg" width="' . $width . '" height="10"', $registry->get('webroot', 'horde') . '/services/images') . ' (' . $commits . ')</td>' ?>
  </tr>
 <?php endforeach ?>
 </tbody>

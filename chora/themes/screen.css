@@ -272,10 +272,12 @@ table.hrdiff caption {
     font-weight: bold;
     padding: 5px;
 }
+table.hrdiff caption img, .statsImg {
+    border: 1px solid #000;
+}
 table.hrdiff caption img {
     height: 10px;
     width: 10px;
-    border: 1px solid #000;
     margin-left: 0.5em;
     vertical-align: baseline;
 }

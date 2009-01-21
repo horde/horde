@@ -11,16 +11,20 @@
 
 require_once dirname(__FILE__) . '/lib/base.php';
 
-$fl = &$VC->getFileObject($where, $cache);
+$fl = $VC->getFileObject($where, $cache);
 Chora::checkError($fl);
 
 $extraLink = Chora::getFileViews();
 
-$author_stats = array();
+$stats = array();
 foreach ($fl->logs as $lg) {
-    @$author_stats[$lg->queryAuthor()]++;
+    $qa = $lg->queryAuthor();
+    if (!isset($stats[$qa])) {
+        $stats[$qa] = 0;
+    }
+    ++$stats[$qa];
 }
-arsort($author_stats);
+arsort($stats);
 
 $title = sprintf(_("Statistics for %s"), Text::htmlallspaces($where));
 Horde::addScriptFile('prototype.js', 'horde', true);
