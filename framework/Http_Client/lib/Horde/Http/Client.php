@@ -144,7 +144,7 @@ class Horde_Http_Client
      */
     public function put($uri = null, $data = null, $headers = array())
     {
-        // FIXME: suport method override (X-Method-Override: PUT).
+        /* @TODO suport method override (X-Method-Override: PUT). */
         return $this->request('PUT', $uri, $data, $headers);
     }
 
@@ -155,7 +155,7 @@ class Horde_Http_Client
      */
     public function delete($uri = null, $headers = array())
     {
-        // FIXME: suport method override (X-Method-Override: DELETE).
+        /* @TODO suport method override (X-Method-Override: DELETE). */
         return $this->request('DELETE', $uri, null, $headers);
     }
 
