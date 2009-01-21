@@ -19,10 +19,6 @@ if (empty($conf['paths']['cvsps']) &&
     exit;
 }
 
-if (@is_dir($fullname)) {
-    Chora::fatal(_("No patchsets for directories yet."), '501 Not Implemented');
-}
-
 if (!$VC->isFile($fullname)) {
     Chora::fatal(sprintf(_("%s: no such file or directory"), $where), '404 Not Found');
 }
@@ -44,7 +40,7 @@ require CHORA_TEMPLATES . '/patchsets/header.inc';
 $patchsets = $ps->_patchsets;
 krsort($patchsets);
 foreach ($patchsets as $id => $patchset) {
-    $commitDate = Chora::formatTime($patchset['date']);
+    $commitDate = Chora::formatDate($patchset['date']);
     $readableDate = Chora::readableTime($patchset['date'], true);
     $author = Chora::showAuthorName($patchset['author'], true);
     if ($VC->supportsFeature('patchsets')) {
