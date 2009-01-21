@@ -966,7 +966,7 @@ class Horde_Vcs_Log
 abstract class Horde_Vcs_Patchset
 {
     protected $_rep;
-    protected $_patchsets = array();
+    public $_patchsets = array();
     protected $_file;
     protected $_cache;
     protected $_ctime = 3600;
@@ -990,7 +990,7 @@ abstract class Horde_Vcs_Patchset
          * invalidate prior cached data. */
         if ($this->_cache) {
             $cacheVersion = 1;
-            $cacheId = $this->_rep->sourceroot() . '_n' . $this->_filename . '_f_v' . $cacheVersion;
+            $cacheId = $this->_rep->sourceroot() . '_n' . $this->_file . '_f_v' . $cacheVersion;
         }
 
         if ($this->_cache &&
@@ -998,8 +998,8 @@ abstract class Horde_Vcs_Patchset
             $psOb = unserialize($this->_cache->get($cacheId, $this->_ctime));
             $psOb->setRepository($this->_rep);
         } else {
-            $class_name = __CLASS__;
-            $psOb = new $class_name($this->_rep, $this->_filename, $this->_cache);
+            $class_name = get_class($this);
+            $psOb = new $class_name($this->_rep, $this->_file, $this->_cache);
             $psOb->setRepository($this->_rep);
             if (is_a(($result = $psOb->getPatchsets()), 'PEAR_Error')) {
                 return $result;
@@ -1027,9 +1027,9 @@ abstract class Horde_Vcs_Patchset
  * Copyright Anil Madhavapeddy, <anil@recoil.org>
  *
  * @author  Anil Madhavapeddy <anil@recoil.org>
- * @package Hored_VC
+ * @package Horde_VC
  */
-abstract class Horde_Vcs_Revision
+class Horde_Vcs_Revision
 {
     /**
      * Validation function to ensure that a revision string is of the right
@@ -1039,10 +1039,13 @@ abstract class Horde_Vcs_Revision
      *
      * @return boolean  True if it is a valid revision string.
      */
-    abstract public function valid($rev);
+    public function valid($rev)
+    {
+        return true;
+    }
 
     /**
-     * Given a revision strin, remove a given number of portions from
+     * Given a revision string, remove a given number of portions from
      * it. For example, if we remove 2 portions of 1.2.3.4, we are
      * left with 1.2.
      *
@@ -1051,7 +1054,10 @@ abstract class Horde_Vcs_Revision
      *
      * @return string  Stripped revision string.
      */
-    abstract public function strip($val, $amount = 1);
+    public function strip($val, $amount = 1)
+    {
+        return $val;
+    }
 
     /**
      * The size of a revision number is the number of portions it has.
@@ -1061,7 +1067,10 @@ abstract class Horde_Vcs_Revision
      *
      * @return integer  Size of revision number
      */
-    abstract public function sizeof($val);
+    public function sizeof($val)
+    {
+        return 1;
+    }
 
     /**
      * Given two revisions, this figures out which one is greater than the
@@ -1073,7 +1082,10 @@ abstract class Horde_Vcs_Revision
      * @return integer  1 if the first is greater, -1 if the second if greater,
      *                  and 0 if they are equal
      */
-    abstract public function cmp($rev1, $rev2);
+    public function cmp($rev1, $rev2)
+    {
+        return strcasecmp($rev1, $rev2);
+    }
 
     /**
      * Return the logical revision before this one.
@@ -1083,7 +1095,10 @@ abstract class Horde_Vcs_Revision
      * @return string|boolean  Revision string, or false if none could be
      *                         determined.
      */
-    abstract public function prev($rev);
+    public function prev($rev)
+    {
+        return false;
+    }
 
     /**
      * Returns an abbreviated form of the revision, for display.
