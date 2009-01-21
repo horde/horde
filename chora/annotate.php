@@ -17,26 +17,23 @@ Chora::checkError($fl);
 $rev_ob = $VC->getRevisionObject();
 
 /* Retrieve the desired revision from the GET variable. */
-$rev = Util::getFormData('rev', '1.1');
-if (!$VC->isValidRevision($rev)) {
-    Chora::fatal(sprintf(_("Revision %s not found"), $rev), '404 Not Found');
+$rev = Util::getFormData('rev');
+if (!$rev || !$VC->isValidRevision($rev)) {
+    Chora::fatal(sprintf(_("Revision %s not found"), $rev ? $rev : _("NONE")), '404 Not Found');
 }
 
 switch (Util::getFormData('actionID')) {
 case 'log':
     if (isset($fl->logs[$rev])) {
         $log = $fl->logs[$rev];
-        $out = '<em>' . _("Author") . ':</em> ' . Chora::showAuthorName($log->queryAuthor(), true) . '<br />' .
+        echo '<em>' . _("Author") . ':</em> ' . Chora::showAuthorName($log->queryAuthor(), true) . '<br />' .
             '<em>' . _("Date") . ':</em> ' . Chora::formatDate($log->queryDate()) . '<br /><br />' .
             Chora::formatLogMessage($log->queryLog());
-    } else {
-        $out = '';
     }
-    echo $out;
     exit;
 }
 
-$ann = &$VC->getAnnotateObject($fl);
+$ann = $VC->getAnnotateObject($fl);
 Chora::checkError($lines = $ann->doAnnotate($rev));
 
 $title = sprintf(_("Source Annotation of %s (revision %s)"), Text::htmlAllSpaces($where), $rev);
@@ -60,8 +57,6 @@ require CHORA_TEMPLATES . '/annotate/header.inc';
 $author = '';
 $style = 0;
 
-/* Use this counter so that we can give each tooltip object a unique
- * id attribute (which we use to set the tooltip text later). */
 while (list(,$line) = each($lines)) {
     $lineno = $line['lineno'];
     $author = Chora::showAuthorName($line['author']);
