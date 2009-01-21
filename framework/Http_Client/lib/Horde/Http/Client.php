@@ -160,6 +160,17 @@ class Horde_Http_Client
     }
 
     /**
+     * Send a HEAD request
+     * @TODO
+     *
+     * @return  ? Probably just the status
+     */
+    public function head($uri = null, $headers = array())
+    {
+        return $this->request('HEAD', $uri, null, $headers);
+    }
+
+    /**
      * Send an HTTP request
      *
      * @param string $method HTTP request method (GET, PUT, etc.)
