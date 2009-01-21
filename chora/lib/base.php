@@ -6,20 +6,28 @@
  * will need, and sets up objects that all scripts use.
  */
 
-// Check for a prior definition of HORDE_BASE (perhaps by an
-// auto_prepend_file definition for site customization).
+$chora_dir = dirname(__FILE__);
+
+// Check for a prior definition of HORDE_BASE.
 if (!defined('HORDE_BASE')) {
-    define('HORDE_BASE', dirname(__FILE__) . '/../..');
+    /* Temporary fix - if horde does not live directly under the imp
+     * directory, the HORDE_BASE constant should be defined in
+     * imp/lib/base.local.php. */
+    if (file_exists($chora_dir . '/base.local.php')) {
+        include $chora_dir . '/base.local.php';
+    } else {
+        define('HORDE_BASE', $chora_dir . '/../..');
+    }
 }
 
 // Find the base file path of Chora.
 if (!defined('CHORA_BASE')) {
-    define('CHORA_BASE', dirname(__FILE__) . '/..');
+    define('CHORA_BASE', $chora_dir . '/..');
 }
 
 // Load the Horde Framework core, and set up inclusion paths.
+// No inclusion paths currently needed for Chora
 require_once HORDE_BASE . '/lib/core.php';
-require_once 'Horde/Autoloader.php';
 
 // Registry
 $registry = &Registry::singleton();
