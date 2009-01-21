@@ -1037,7 +1037,7 @@ var DimpBase = {
     _portalCallback: function(r)
     {
         if (r.response.linkTags) {
-            var head = $$('HEAD').first();
+            var head = $(document.documentElement).down('HEAD');
             r.response.linkTags.each(function(newLink) {
                 var link = new Element('LINK', { type: 'text/css', rel: 'stylesheet', href: newLink.href });
                 if (newLink.media) {
