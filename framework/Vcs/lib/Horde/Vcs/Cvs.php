@@ -564,6 +564,7 @@ class Horde_Vcs_File_Cvs extends Horde_Vcs_File
             case 'init':
                 if (!strncmp('head: ', $line, 6)) {
                     $this->head = substr($line, 6);
+                    $this->branches[$this->head] = 'HEAD';
                 } elseif (!strncmp('branch:', $line, 7)) {
                     $state = 'rev';
                 }
@@ -596,9 +597,9 @@ class Horde_Vcs_File_Cvs extends Horde_Vcs_File
                     strcmp('----------------------------', $line)) {
                     $accum[] = $line;
                 } elseif (count($accum)) {
-                    // spawn a new Horde_Vcs_Log object and add it to the logs
-                    // hash
-                    $log = new Horde_Vcs_Log_Cvs($this);
+                    // Spawn a new Horde_Vcs_Log object and add it to the logs
+                    // hash.
+                    $log = new Horde_Vcs_Log_Cvs($this->rep, $this->filename);
                     $err = $log->processLog($accum);
                     // TODO: error checks - avsm
                     $this->logs[$log->queryRevision()] = $log;
