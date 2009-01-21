@@ -537,6 +537,12 @@ class Horde_Browser
                 //$this->setBrowser('chrome');
                 $this->setFeature('ischrome');
                 $this->setFeature('rte');
+                $this->setFeature('utf');
+                $this->setFeature('javascript', 1.4);
+                $this->setFeature('dom');
+                $this->setFeature('iframes');
+                $this->setFeature('accesskey');
+                $this->setFeature('xmlhttpreq');
 
                 if (preg_match('|Chrome/([0-9.]+)|i', $agent, $version_string)) {
                     list($this->_majorVersion, $this->_minorVersion) = explode('.', $version_string[1], 2);
