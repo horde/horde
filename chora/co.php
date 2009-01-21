@@ -92,7 +92,7 @@ $content = '';
 while ($line = fgets($checkOut)) {
     $content .= $line;
 }
-@fclose($checkOut);
+fclose($checkOut);
 
 // Get name.
 $filename = $file->queryName();

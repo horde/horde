@@ -199,20 +199,16 @@ class Chora
         global $where, $atdir;
 
         $bar = $wherePath = '';
-        $i = 0;
         $dirs = explode('/', $where);
-        $last = count($dirs) - 1;
+        $dir_count = count($dirs) - 1;
 
-        foreach ($dirs as $dir) {
-            $wherePath .= '/' . $dir;
-            if (!$atdir && $i++ == $last) {
-                $wherePath .= '/';
-            }
-            $wherePath = str_replace('//', '/', $wherePath);
+        foreach ($dirs as $i => $dir) {
             if (!empty($dir) && ($dir != 'Attic')) {
-                $bar .= '/ <a href="' . Chora::url('', $wherePath) . '">'. Text::htmlallspaces($dir) . '</a> ';
+                $wherePath = str_replace('//', '/', $wherePath . '/' . $dir);
+                $bar .= '/ <a href="' . Chora::url('', $wherePath . ($i == $dir_count ? '' : '/')) . '">'. Text::htmlallspaces($dir) . '</a> ';
             }
         }
+
         return $bar;
     }
 
@@ -562,7 +558,7 @@ class Chora
      * Return a list of tags for a given log entry.
      *
      * @param Horde_Vcs_Log $lg  The Horde_Vcs_Log object.
-     * @param string $where     The filename.
+     * @param string $where      The filename.
      *
      * @return array  An array of linked tags.
      */
@@ -576,7 +572,7 @@ class Chora
 
         if ($lg->tags) {
             foreach ($lg->tags as $tag) {
-            $tags[] = htmlspecialchars($tag);
+                $tags[] = htmlspecialchars($tag);
             }
         }
 
@@ -589,7 +585,7 @@ class Chora
      * @param Horde_Vcs_File $fl  The Horde_Vcs_File object.
      * @param string $rev         The filename.
      *
-     * @return array  An 2-member array - branch name and branch revision.
+     * @return array  A 2-member array - branch name and branch revision.
      */
     static public function getBranch($fl, $rev)
     {

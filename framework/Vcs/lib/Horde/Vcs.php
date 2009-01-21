@@ -274,13 +274,14 @@ class Horde_Vcs
     }
 
     public function getDiff($file, $rev1, $rev2, $type = 'unified', $num = 3,
-                            $ws = true)
+                            $ws = true, $human = false)
     {
         if (!isset($this->_cache['diff'])) {
             $class = 'Horde_Vcs_Diff_' . $this->_driver;
             $this->_cache['diff'] = new $class();
         }
-        return $this->_cache['diff']->get($this, $file, $rev1, $rev2, $type, $num, $ws);
+        $diff = $this->_cache['diff']->get($this, $file, $rev1, $rev2, $type, $num, $ws);
+        return $human ? $this->_cache['diff']->humanReadable($diff) : $diff;
     }
 
     public function availableDiffTypes()
@@ -372,7 +373,7 @@ abstract class Horde_Vcs_Checkout
 /**
  * @package Horde_Vcs
  */
-class Horde_Vcs_Diff
+abstract class Horde_Vcs_Diff
 {
     /**
      * The available diff types.
@@ -380,6 +381,24 @@ class Horde_Vcs_Diff
      * @var array
      */
     protected $_diffTypes = array('column', 'context', 'ed', 'unified');
+
+    /**
+     * Obtain the differences between two revisions of a file.
+     *
+     * @param Horde_Vcs $rep        A repository object.
+     * @param Horde_Vcs_File $file  The desired file.
+     * @param string $rev1          Original revision number to compare from.
+     * @param string $rev2          New revision number to compare against.
+     * @param string $type          The type of diff (e.g. 'unified').
+     * @param integer $num          Number of lines to be used in context and
+     *                              unified diffs.
+     * @param boolean $ws           Show whitespace in the diff?
+     *
+     * @return string|boolean  False on failure, or a string containing the
+     *                         diff on success.
+     */
+    abstract public function get($rep, $file, $rev1, $rev2, $type = 'context',
+                                 $num = 3, $ws = true);
 
     /**
      * Obtain a tree containing information about the changes between

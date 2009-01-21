@@ -20,23 +20,6 @@ $rev_ob = $VC->getRevisionObject();
 $r1 = Util::getFormData('r1');
 $r2 = Util::getFormData('r2');
 
-/* If we are in a SVN repository (or another VC system that doesn't
- * always use consecutive revision numbers from change-to-change
- * per-file) and we compare against an older version that does not
- * exist, then we search for the newest version older than the given
- * old version. */
-if (!isset($fl->logs[$r1]) && isset($fl->logs[$r2]) && $r1 < $r2) {
-    $rn = 0;
-    foreach (array_keys($fl->logs) as $r) {
-        if ($r > $rn && $r < $r1) {
-            $rn = $r;
-        }
-    }
-    if ($rn) {
-        $r1 = $rn;
-    }
-}
-
 /* Ensure that we have valid revision numbers. */
 if (!$VC->isValidRevision($r1) || !$VC->isValidRevision($r2)) {
     Chora::fatal(_("Malformed Query"), '500 Internal Server Error');
@@ -74,11 +57,10 @@ $title = sprintf(_("Diff for %s between version %s and %s"),
 /* Format log entries. */
 $log = &$fl->logs;
 $log_messages = array();
-$range = $VC->getRevisionRange($fl, $r1, $r2);
-foreach ($range as $val) {
+foreach ($VC->getRevisionRange($fl, $r1, $r2) as $val) {
     if (isset($log[$val])) {
         list($branchname, $branchrev) = Chora::getBranch($fl, $val);
-        $clog = &$log[$val];
+        $clog = $log[$val];
         $log_messages[] = array(
             'rev' => $val,
             'msg' => Chora::formatLogMessage($clog->queryLog()),
@@ -111,7 +93,7 @@ if (substr($mime_type, 0, 6) == 'image/') {
         "<td><img src=\"$url2\" alt=\"" . htmlspecialchars($r2) . '" /></td></tr>';
 } else {
     /* Retrieve the tree of changes. */
-    $lns = VC_Diff::humanReadable($VC->getDiff($fl, $r1, $r2, 'unified', $num, $ws));
+    $lns = $VC->getDiff($fl, $r1, $r2, 'unified', $num, $ws, true);
     if (!$lns) {
         /* Is the diff empty? */
         require CHORA_TEMPLATES . '/diff/hr/nochange.inc';
