@@ -91,14 +91,16 @@ class Horde_Vcs_Annotate_Git extends Horde_Vcs_Annotate
             $line = rtrim(fgets($pipe, 4096));
 
             if (!$line || ($line[0] == "\t")) {
-                $lines[] = array(
-                    'author' => $db[$curr_rev]['author'] . ' ' . $db[$curr_rev]['author-mail'],
-                    'date' => $db[$curr_rev]['author-time'],
-                    'line' => $line ? substr($line, 1) : '',
-                    'lineno' => $line_num++,
-                    'rev' => $curr_rev
-                );
-                --$lines_group;
+                if ($lines_group) {
+                    $lines[] = array(
+                        'author' => $db[$curr_rev]['author'] . ' ' . $db[$curr_rev]['author-mail'],
+                        'date' => $db[$curr_rev]['author-time'],
+                        'line' => $line ? substr($line, 1) : '',
+                        'lineno' => $line_num++,
+                        'rev' => $curr_rev
+                    );
+                    --$lines_group;
+                }
             } elseif ($line != 'boundary') {
                 if ($lines_group) {
                     list($prefix, $linedata) = explode(' ', $line, 2);
