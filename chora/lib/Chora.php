@@ -594,7 +594,7 @@ class Chora
     static public function getBranch($fl, $rev)
     {
         $branchName = '';
-        $rev_ob = $fl->rev->getRevisionObject();
+        $rev_ob = $fl->rep->getRevisionObject();
         $branchRev = $rev_ob->strip($rev, 1);
         if (isset($fl->branches[$rev])) {
             $branchName = $fl->branches[$rev];
