@@ -26,7 +26,9 @@
 }
 .messageList img {
     padding-right: 1px;
-    vertical-align: bottom;
+}
+.messageList td label input {
+    vertical-align: middle;
 }
 
 /* Newmail alerts. */
