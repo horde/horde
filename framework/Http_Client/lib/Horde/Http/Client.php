@@ -49,6 +49,12 @@ class Horde_Http_Client
     protected $_proxyPass = null;
 
     /**
+     * HTTP timeout
+     * @var fload
+     */
+    protected $_timeout = 5;
+
+    /**
      * The most recent HTTP request
      *
      * An array with these values:
@@ -207,7 +213,9 @@ class Horde_Http_Client
         $opts = array('http' => array(
             'method' => $method,
             'header' => implode("\n", $headers),
-            'content' => $data));
+            'content' => $data,
+            'timeout' => $this->_timeout,
+        ));
 
         // Proxy settings
         if ($this->proxyServer) {
