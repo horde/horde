@@ -80,7 +80,7 @@ foreach ($branches as $brrev => $brcont) {
  * Calling this function on every revision of the trunk is enough to
  * render out the whole tree.
  */
-function populateGrid($row, $col)
+function _populateGrid($row, $col, $rev_ob)
 {
     global $grid, $branches;
 
@@ -134,7 +134,7 @@ function populateGrid($row, $col)
             /* For each value just set, check for sub-branches, - but
              * in reverse (VERY IMPORTANT!). */
             for ($i = $numRows - 1; $i >= 0 ; --$i) {
-                populateGrid(1+$i+$row, $insCol);
+                _populateGrid(1 + $i + $row, $insCol, $rev_ob);
             }
         }
     }
@@ -146,7 +146,7 @@ function populateGrid($row, $col)
  * populating the grid with branch revisions. */
 for ($row = sizeof($trunk) - 1; $row >= 0; $row--) {
     $grid[$row][0] = $trunk[$row];
-    populateGrid($row, 0);
+    _populateGrid($row, 0, $rev_ob);
 }
 
 /* Sort the grid array into row order, and determine the maximum
