@@ -12,13 +12,16 @@
 <h3 class="checkout"><?php echo _("Checkout") ?></h3>
 <div class="checkout">
 <?php
-$type = $pretty->getType();
-if (strpos($type, 'text/plain') !== false) {
-    echo '<div class="fixed">' . Text_Filter::filter($pretty->render(), 'text2html', array('parselevel' => TEXT_HTML_MICRO)) . '</div>';
-} elseif (strpos($type, 'image/') !== false) {
+if (strpos($mime_type, 'text/plain') !== false) {
+    $data = $pretty->render('inline');
+    $data = reset($data);
+    echo '<div class="fixed">' . Text_Filter::filter($data['data'], 'text2html', array('parselevel' => TEXT_HTML_MICRO)) . '</div>';
+} elseif (strpos($mime_type, 'image/') !== false) {
     echo Horde::img(Util::addParameter(Horde::selfUrl(true), 'p', 1), '', '', '');
-} elseif ($pretty->canDisplayInline()) {
-    echo $pretty->render();
+} elseif ($pretty->canRender('inline')) {
+    $data = $pretty->render('inline');
+    $data = reset($data);
+    echo $data['data'];
 } else {
     echo Horde::link(Util::addParameter(Horde::selfUrl(true), 'p', 1)) . Horde::img('download.png', '', '', $registry->getImageDir('horde')) . ' ' . sprintf(_("Download revision %s"), $r) . '</a>';
 }
