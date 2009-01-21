@@ -21,8 +21,10 @@
   the schema/data files. might want to automatically generate these for release
   tarballs too.
 
-- migrations. either rails-style, or MDB2 diff between one parsed structure and
-  another, or both.
+- migrations. rails-style, and possibly also MDB2 diff between one parsed
+  structure and another. For rails-style, add convenience methods of calling
+  $t->string('foo'), instead of $t->column('string', 'foo'). Will need to
+  introspect the nativeDatabaseTypes() list from the connection for this.
 
 - rdo: add the ability to load a table once, then use it repeatedly in a
   relationship (or to have it be a static array), instead of joining.
