@@ -14,6 +14,13 @@
 class Horde_Vcs_Git extends Horde_Vcs
 {
     /**
+     * Does driver support patchsets?
+     *
+     * @var boolean
+     */
+    protected $_patchsets = true;
+
+    /**
      * Constructor.
      *
      * @param array $params  Any parameter the class expects.
@@ -38,7 +45,7 @@ class Horde_Vcs_Git extends Horde_Vcs
     public function getCheckout($file, $rev)
     {
         if (!isset($this->_cache['co'])) {
-            $this->_cache['co'] = new 'Horde_Vcs_Checkout_Git';
+            $this->_cache['co'] = new Horde_Vcs_Checkout_Git();
         }
         return $this->_cache['co']->get($this, $file->queryModulePath(), $rev);
     }
@@ -239,7 +246,7 @@ class Horde_Vcs_Diff_Git extends Horde_Vcs_Diff
 
     private function _getRevisionRange($rep, $file, $r1, $r2)
     {
-        $cmd = $rep->getCommand() . ' rev-list ' . $r1 . '..' . $r2 . ' -- "' . $file->queryModulePath() . '"'e
+        $cmd = $rep->getCommand() . ' rev-list ' . $r1 . '..' . $r2 . ' -- "' . $file->queryModulePath() . '"';
         $pipe = popen($cmd, 'r');
         if (!is_resource($pipe)) {
             throw new Horde_Vcs_Exception('Unable to run ' . $cmd . ': ' . error_get_last());
@@ -430,7 +437,7 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Horde_Vcs
  */
-class Horde_Vcs_Log_Git {
+class Horde_Vcs_Log_Git extends Horde_Vcs_Log {
 
     public $err;
     public $files = array();
@@ -568,6 +575,7 @@ class Horde_Vcs_Patchset_Git extends Horde_Vcs_Patchset
         }
 
         $this->_patchsets = array();
+
         foreach ($fileOb->logs as $rev => $log) {
             $this->_patchsets[$rev] = array(
                 'date' => $log->queryDate(),
@@ -579,15 +587,20 @@ class Horde_Vcs_Patchset_Git extends Horde_Vcs_Patchset
             );
 
             foreach ($log->files as $file) {
-                $action = substr($file, 0, 1);
                 $file = preg_replace('/.*?\s(.*?)(\s|$).*/', '\\1', $file);
                 $to = $rev;
-                if ($action == 'A') {
+
+                switch ($file['status']) {
+                case 'A':
                     $from = 'INITIAL';
-                } elseif ($action == 'D') {
+                    break;
+
+                case 'D':
                     $from = $to;
                     $to = '(DEAD)';
-                } else {
+                    break;
+
+                default:
                     // This technically isn't the previous revision,
                     // but it works for diffing purposes.
                     $from = $to - 1;
@@ -628,7 +641,7 @@ class Horde_Vcs_Revision_Git extends Horde_Vcs_Revision
      */
     public function abbrev($rev)
     {
-        return substr($rev, 0, 7);
+        return substr($rev, 0, 7) . '[...]';
     }
 
 }
