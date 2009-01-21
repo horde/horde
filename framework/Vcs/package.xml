@@ -80,7 +80,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
  <phprelease>
   <filelist>
    <install name="lib/Horde/Vcs/Cvs.php" as="Horde/Vcs/Cvs.php" />
-   <install name="lib/Horde/Vcs/Exception.php" as="Horde/VC/Exception.php" />
+   <install name="lib/Horde/Vcs/Exception.php" as="Horde/Vcs/Exception.php" />
    <install name="lib/Horde/Vcs/Git.php" as="Horde/Vcs/Git.php" />
    <install name="lib/Horde/Vcs/Rcs.php" as="Horde/Vcs/Rcs.php" />
    <install name="lib/Horde/Vcs/Svn.php" as="Horde/Vcs/Svn.php" />
