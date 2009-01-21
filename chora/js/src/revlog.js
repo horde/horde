@@ -2,50 +2,57 @@
  * Revision log javascript.
  */
 
-var revlog_selected = null;
-var isMSIE = /*@cc_on!@*/false;
+var Chora_RevLog = {
 
-function revlog_highlight()
-{
-    var revlog_body = $('revlog_body');
+    selected: null,
 
-    $A(revlog_body.getElementsByTagName('TR')).each(function(tr) {
-        if (isMSIE) {
-            Event.observe(tr, 'mouseover', (function() { Element.addClassName(this, 'hover'); }).bind(tr));
-            Event.observe(tr, 'mouseout', (function() { Element.removeClassName(this, 'hover'); }).bind(tr));
+    highlight: function()
+    {
+        $('revlog_body').select('TR').each(function(tr) {
+            if (Prototype.Browser.IE) {
+                tr.observe('mouseover', this.rowover.bindAsEventListener(this, 'over'));
+                tr.observe('mouseover', this.rowover.bindAsEventListener(this, 'out'));
+            }
+            tr.observe('click', this.toggle.bindAsEventListener(this));
+        }, this);
+    },
+
+    rowover: function(e, type)
+    {
+        e.element().invoke(type == 'over' ? 'addClassName' : 'removeClassName', 'hover');
+    },
+
+    toggle: function(e)
+    {
+        // Ignore clicks on links.
+        var elt = e.element();
+        if (elt.tagName.toUpperCase() != 'TR') {
+            if (elt.tagName.toUpperCase() == 'A' &&
+                elt.readAttribute('href')) {
+                return;
+            }
+            elt = elt.up('TR');
         }
-        Event.observe(tr, 'click', revlog_toggle.bindAsEventListener(tr));
-    });
-}
 
-function revlog_toggle(e)
-{
-    // Ignore clicks on links.
-    var elt = Event.element(e);
-    while (elt != this) {
-        if (elt.tagName.toUpperCase() == 'A' && elt.getAttribute('href')) {
-            return;
+        if (this.selected != null) {
+            this.selected.removeClassName('selected');
+            if (this.selected == elt) {
+                this.selected = null;
+                $('revlog_body').removeClassName('selection');
+                return;
+            }
         }
-        elt = elt.parentNode;
+
+        this.selected = elt;
+        elt.addClassName('selected');
+        $('revlog_body').addClassName('selection');
+    },
+
+    sdiff: function(link)
+    {
+        link = $(link);
+        link.writeAttribute('href', link.readAttribute('href').replace(/r1=([\d\.]+)/, 'r1=' + this.selected.identify().substring(3)));
     }
+};
 
-    if (revlog_selected != null) {
-        Element.removeClassName(revlog_selected, 'selected');
-        if (revlog_selected == this) {
-            revlog_selected = null;
-            Element.removeClassName('revlog_body', 'selection');
-            return;
-        }
-    }
-
-    revlog_selected = this;
-    Element.addClassName(this, 'selected');
-    Element.addClassName('revlog_body', 'selection');
-}
-
-function revlog_sdiff(link)
-{
-    link.href = link.href.replace(/r1=([\d\.]+)/, 'r1=' + revlog_selected.id.substring(3));
-}
-
-Event.observe(window, 'load', revlog_highlight);
+document.observe('dom:loaded', Chora_RevLog.highlight.bind(Chora_RevLog));
