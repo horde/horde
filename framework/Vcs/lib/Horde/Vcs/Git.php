@@ -139,9 +139,9 @@ class Horde_Vcs_Checkout_Git extends Horde_Vcs_Checkout
 {
     /**
      * Function which returns a file pointing to the head of the requested
-     * revision of an SVN file.
+     * revision of a file.
      *
-     * @param Horde_Vcs $rep     A repository object
+     * @param Horde_Vcs $rep    A repository object
      * @param string $fullname  Fully qualified pathname of the desired file
      *                          to checkout
      * @param string $rev       Revision number to check out
@@ -452,7 +452,9 @@ class Horde_Vcs_Log_Git extends Horde_Vcs_Log {
         $cacheVersion = 1;
         $cacheId = $rep->sourceroot() . '_r' . $rev . '_v' . $cacheVersion;
 
-        if (0/*@TODO no caching during dev*/ && $rep->cache &&
+        /* @TODO: No caching during dev */
+        if (0 &&
+            $rep->cache &&
             // Individual revisions can be cached forever
             $rep->cache->exists($cacheId, 0)) {
             $logOb = unserialize($rep->cache->get($cacheId, 0));
@@ -477,7 +479,7 @@ class Horde_Vcs_Log_Git extends Horde_Vcs_Log {
 
         $this->rev = $rev;
 
-        $cmd = $this->rep->getCommand() . ' whatchanged --no-color --pretty=fuller --no-abbrev -n 1 ' . $this->rev;
+        $cmd = $this->rep->getCommand() . ' whatchanged --no-color --pretty=format:"commit %H%nAuthor:%an <%ae>%nAuthorDate:%at%nRefs:%d%n%n%s%n%b" --no-abbrev -n 1 ' . $this->rev;
         $pipe = popen($cmd, 'r');
         if (!is_resource($pipe)) {
             throw new Horde_Vcs_Exception('Unable to run ' . $cmd . ': ' . error_get_last());
@@ -485,20 +487,44 @@ class Horde_Vcs_Log_Git extends Horde_Vcs_Log {
 
         $commit = trim(array_pop(explode(' ', fgets($pipe))));
         if ($commit != $rev) {
+            fclose($pipe);
             throw new Horde_Vcs_Exception('Expected ' . $rev . ', got ' . $commit);
         }
 
-        $properties = array();
+        // @TODO use Commit, CommitDate, and Merge properties
         $line = trim(fgets($pipe));
         while ($line != '') {
             list($key, $value) = explode(':', $line, 2);
-            $properties[trim($key)] = trim($value);
+            $value = trim($value);
+
+            switch (trim($key)) {
+            case 'Author':
+                $this->author = $value;
+                break;
+
+            case 'AuthorDate':
+                $this->date = $value;
+                break;
+
+            case 'Refs':
+                if ($value) {
+                    $value = substr($value, 1, -1);
+                    foreach (explode(',', $value) as $val) {
+                        $val = trim($val);
+                        if (strpos($val, 'refs/tags/') === 0) {
+                            $this->tags[] = substr($val, 10);
+                        }
+                    }
+                    if (!empty($this->tags)) {
+                        sort($this->tags);
+                    }
+                }
+                break;
+            }
+
             $line = trim(fgets($pipe));
         }
 
-        $this->author = $properties['Author'];
-        $this->date = strtotime($properties['AuthorDate']);
-        //@TODO use Committer, CommitterDate, and Merge properties
 
         $log = '';
         $line = fgets($pipe);
@@ -526,6 +552,8 @@ class Horde_Vcs_Log_Git extends Horde_Vcs_Log {
 
             $line = fgets($pipe);
         }
+
+        fclose($pipe);
     }
 
     public function setRepository($rep)
@@ -544,7 +572,7 @@ class Horde_Vcs_Log_Git extends Horde_Vcs_Log {
      * accordingly, and performs a lookup on the file object to
      * return the symbolic name(s) of that branch in the tree.
      *
-     * @return hash of symbolic names => branch numbers
+     * @return  Hash of symbolic names => branch numbers
      */
     public function querySymbolicBranches()
     {
@@ -608,9 +636,11 @@ class Horde_Vcs_Patchset_Git extends Horde_Vcs_Patchset
                     $from = $to - 1;
                 }
 
-                $this->_patchsets[$rev]['members'][] = array('file' => $file,
-                                                             'from' => $from,
-                                                             'to' => $to);
+                $this->_patchsets[$rev]['members'][] = array(
+                    'file' => $file,
+                    'from' => $from,
+                    'to' => $to
+                );
             }
         }
 
