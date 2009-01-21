@@ -2,11 +2,16 @@
 /**
  * Chora Base Class.
  *
+ * Copyright 2000-2009 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ *
  * @author  Anil Madhavapeddy <avsm@horde.org>
  * @package Chora
  */
-class Chora {
-
+class Chora
+{
     /**
      * Return a text description of how long its been since the file
      * has been last modified.
@@ -16,7 +21,7 @@ class Chora {
      *
      * @return string  The human-readable date.
      */
-    function readableTime($date, $long = false)
+    static public function readableTime($date, $long = false)
     {
         static $time, $desc, $breaks;
 
@@ -64,7 +69,7 @@ class Chora {
     /**
      * Initialize global variables and objects.
      */
-    function initialize()
+    static public function initialize()
     {
         global $acts, $defaultActs, $conf, $where, $atdir, $fullname, $prefs,
                $sourceroot, $scriptName;
@@ -81,10 +86,12 @@ class Chora {
          * TODO: defaults of 1 will not get propagated correctly - avsm
          * XXX: Rewrite this propagation code, since it sucks - avsm
          */
-        $defaultActs = array('sbt' => constant($conf['options']['defaultsort']),
-                             'sa'  => 0,
-                             'ord' => Horde_Vcs::SORT_ASCENDING,
-                             'ws'  => 1);
+        $defaultActs = array(
+            'sbt' => constant($conf['options']['defaultsort']),
+            'sa'  => 0,
+            'ord' => Horde_Vcs::SORT_ASCENDING,
+            'ws'  => 1
+        );
 
         /* Use the last sourceroot used as the default value if the user
          * has that preference. */
@@ -141,12 +148,10 @@ class Chora {
         }
 
         /* Location relative to the sourceroot. */
-        $where = preg_replace('|^/|', '', $where);
-        $where = preg_replace('|\.\.|', '', $where);
+        $where = preg_replace(array('|^/|', '|\.\.|'), '', $where);
 
         /* Location of this script (e.g. /chora/browse.php). */
-        $scriptName = preg_replace('|^/?|', '/', $_SERVER['PHP_SELF']);
-        $scriptName = preg_replace('|/$|', '', $scriptName);
+        $scriptName = preg_replace(array('|^/?|', '|/$|'), array('/', ''), $_SERVER['PHP_SELF']);
 
         /* Store last file/repository viewed, and set 'where' to
          * last_file if necessary. */
@@ -179,7 +184,8 @@ class Chora {
         }
         $where = preg_replace('|/$|', '', $where);
 
-        if ($sourcerootopts['type'] == 'cvs' && !@is_dir($sourcerootopts['location'])) {
+        if (($sourcerootopts['type'] == 'cvs') &&
+            !@is_dir($sourcerootopts['location'])) {
             Chora::fatal(_("Sourceroot not found. This could be a misconfiguration by the server administrator, or the server could be having temporary problems. Please try again later."), '500 Internal Server Error');
         }
 
@@ -188,7 +194,7 @@ class Chora {
         }
     }
 
-    function whereMenu()
+    static public function whereMenu()
     {
         global $where, $atdir;
 
@@ -218,7 +224,7 @@ class Chora {
      *                              for sending 404s or other codes if
      *                              appropriate..
      */
-    public static function fatal($message, $responseCode = null)
+    static public function fatal($message, $responseCode = null)
     {
         if (defined('CHORA_ERROR_HANDLER') && constant('CHORA_ERROR_HANDLER')) {
             return;
@@ -246,7 +252,7 @@ class Chora {
      *
      * @param mixed $e  Return object from a Horde_Vcs:: call.
      */
-    function checkError($e)
+    static public function checkError($e)
     {
         if (is_a($e, 'PEAR_Error')) {
             Chora::fatal($e->getMessage());
@@ -260,7 +266,7 @@ class Chora {
      *
      * @return string  The transformed name.
      */
-    function showAuthorName($name, $fullname = false)
+    static public function showAuthorName($name, $fullname = false)
     {
         static $users = null;
 
@@ -287,7 +293,8 @@ class Chora {
      *
      * @return string  The URL, with session information if necessary.
      */
-    function url($script = '', $uri = '', $args = array(), $anchor = '')
+    static public function url($script = '', $uri = '', $args = array(),
+                               $anchor = '')
     {
         global $conf, $acts, $defaultActs;
 
@@ -316,7 +323,7 @@ class Chora {
 
         $url = Util::addParameter(Horde::applicationUrl($script), $arglist);
         if (!empty($anchor)) {
-            $url .= "#$anchor";
+            $url .= '#' . $anchor;
         }
 
         return $url;
@@ -329,7 +336,7 @@ class Chora {
      *
      * @return string  The form fields, with session information if necessary.
      */
-    function formInputs($args = array())
+    static public function formInputs($args = array())
     {
         global $conf, $acts, $defaultActs;
 
@@ -356,7 +363,7 @@ class Chora {
      *
      * @return array  The sourceroots that the current user has access to.
      */
-    function sourceroots()
+    static public function sourceroots()
     {
         global $perms, $sourceroot, $sourceroots;
 
@@ -379,7 +386,7 @@ class Chora {
      *
      * @return string  XHTML code representing links to the repositories.
      */
-    function repositories()
+    static public function repositories()
     {
         $sourceroots = Chora::sourceroots();
         $num_repositories = count($sourceroots);
@@ -413,7 +420,7 @@ class Chora {
      * @return mixed  The Horde_Mime_Viewer object which can be rendered or
      *                false on failure.
      */
-    function pretty($mime_type, $fp)
+    static public function pretty($mime_type, $fp)
     {
         $lns = '';
         while ($ln = fread($fp, 8192)) {
@@ -431,7 +438,7 @@ class Chora {
      * Check if the given item is restricted from being shown.
      * @return boolean whether or not the item is allowed to be displayed
      **/
-    function isRestricted($item)
+    static public function isRestricted($item)
     {
         global $conf, $perms, $sourceroots, $sourceroot;
         static $restricted;
@@ -474,7 +481,7 @@ class Chora {
     /**
      * Build Chora's list of menu items.
      */
-    function getMenu($returnType = 'object')
+    static public function getMenu($returnType = 'object')
     {
         require_once 'Horde/Menu.php';
 
@@ -490,7 +497,7 @@ class Chora {
 
     /**
      */
-    function getFileViews()
+    static public function getFileViews()
     {
         global $where;
 
@@ -535,7 +542,7 @@ class Chora {
 
     /**
      */
-    function formatLogMessage($log)
+    static public function formatLogMessage($log)
     {
         global $conf;
 
@@ -559,17 +566,20 @@ class Chora {
      *
      * @return array  An array of linked tags.
      */
-    function getTags($lg, $where)
+    static public function getTags($lg, $where)
     {
         $tags = array();
+
         foreach ($lg->querySymbolicBranches() as $symb => $bra) {
             $tags[] = '<a href="' . Chora::url('', $where, array('onb' => $bra)) . '">'. htmlspecialchars($symb) . '</a>';
         }
+
         if ($lg->tags) {
             foreach ($lg->tags as $tag) {
             $tags[] = htmlspecialchars($tag);
             }
         }
+
         return $tags;
     }
 
@@ -581,7 +591,7 @@ class Chora {
      *
      * @return array  An 2-member array - branch name and branch revision.
      */
-    function getBranch($fl, $rev)
+    static public function getBranch($fl, $rev)
     {
         $branchName = '';
         $rev_ob = $fl->rev->getRevisionObject();
@@ -601,7 +611,7 @@ class Chora {
      *
      * @return string  The date formatted pursuant to Horde prefs.
      */
-    function formatDate($date)
+    static public function formatDate($date)
     {
         static $format;
 
