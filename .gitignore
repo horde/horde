@@ -1,4 +1,4 @@
-*/config/*.local.php
+*/config/*.php
 .DS_Store
 libs
 .cache
