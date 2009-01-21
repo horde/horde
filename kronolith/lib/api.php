@@ -126,6 +126,21 @@ $_services['unsubscribe'] = array(
     'type' => 'boolean',
 );
 
+$_services['lock'] = array(
+    'args' => array('calendar' => 'string', 'event' => 'string'),
+    'type' => 'string'
+);
+
+$_services['unlock'] = array(
+    'args' => array('calendar' => 'string', 'lockid' => 'string'),
+    'type' => 'string'
+);
+
+$_services['checklocks'] = array(
+    'args' => array('calendar' => 'string', 'event' => 'string'),
+    'type' => 'string'
+);
+
 /**
  * Returns a list of available permissions.
  *
@@ -1428,4 +1443,69 @@ function _kronolith_unsubscribe($calendar)
     default:
         return PEAR::raiseError('Unknown calendar specification');
     }
+}
+
+
+/**
+ * Place a lock for an exclusive calendar or for an event if defined
+ *
+ * @param array $calendar  The calendar to lock
+ * @param array $event     The event to lock
+ *
+ * @return mixed    A string lock ID on success; PEAR_Error on failure;
+ *                  false if:
+ *                    - The calendar is already locked
+ *                    - The event is already locked
+ *                    - We want a calendar lock and exists any event already
+ *                      locked associated to the calendar
+ */
+function _kronolith_lock($calendar, $event = null)
+{
+    require_once dirname(__FILE__) . '/base.php';
+    global $kronolith_shares;
+
+    if (!array_key_exists($calendar,
+                          Kronolith::listCalendars(false, PERMS_EDIT))) {
+        return PEAR::raiseError(_("Permission Denied"));
+    }
+    $share = &$kronolith_shares->getShare($calendar);
+    return $share->lock($calendar, $event);
+}
+
+/**
+ * Releases a lock
+ *
+ * @param array $calendar  The event to lock
+ * @param array $lockid  The lock id to unlock
+ */
+function _kronolith_unlock($calendar, $lockid)
+{
+    require_once dirname(__FILE__) . '/base.php';
+    global $kronolith_shares;
+
+    if (!array_key_exists($calendar,
+                          Kronolith::listCalendars(false, PERMS_EDIT))) {
+        return PEAR::raiseError(_("Permission Denied"));
+
+    $share = &$kronolith_shares->getShare($calendar);
+    return $share->unlock($lockid);
+}
+
+/**
+ * Check for existing calendar locks, or event locks if defined
+ *
+ * @param array $calendar  The calendar to check locks for
+ * @param array $event     The event to check locks for
+ */
+function _kronolith_checklocks($calendar, $event = null)
+{
+    require_once dirname(__FILE__) . '/base.php';
+    global $kronolith_shares;
+
+    if (!array_key_exists($calendar,
+                          Kronolith::listCalendars(false, PERMS_READ))) {
+        return PEAR::raiseError(_("Permission Denied"));
+
+    $share = &$kronolith_shares->getShare($calendar);
+    return $share->checkLocks($event);
 }
