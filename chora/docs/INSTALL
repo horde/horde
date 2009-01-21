@@ -2,7 +2,7 @@
  Installing Chora
 ==================
 
-:Contact:       chora@lists.horde.org
+:Contact: chora@lists.horde.org
 
 .. contents:: Contents
 .. section-numbering::
@@ -53,18 +53,19 @@ To function properly, Chora requires the following:
    have completed all of the steps in the INSTALL_ file for the Horde
    Framework before installing Chora.
 
-2. SVN, CVS or RCS repositories to view.
+2. A VCS repository to view.
 
-   Chora can display any number of local CVS and RCS repositories, as well as
-   local and remote SVN repositories.  Chora does **not** work on CVS
-   **checkouts**.  The user under which the web server is running needs read
-   access to the repositories.
+   Chora can display any number of local and remote repositories. If accessing
+   a local repository, the user under which the web server is running needs
+   read access to the repositories.
 
-3. SVN, CVS and RCS binaries.
+   TODO: Documentation on the various drivers
+
+3. VCS binaries.
 
    Depending on which kind of repositories you want to use, you need SVN
-   (http://subversion.tigris.org/) and RCS/CVS (http://www.cvshome.org/)
-   binaries.
+   (http://subversion.tigris.org/), RCS/CVS (http://www.cvshome.org/), or
+   Git (http://git-scm.com/) binaries.
 
 
 Installing Chora
@@ -140,7 +141,7 @@ Configuring Chora
    if you're having trouble using a provided translation, please see the
    `horde/docs/TRANSLATIONS`_ file for instructions.
 
-4. Testing Chora
+3. Testing Chora
 
    Go to the Chora URL, and test out all the functionality to ensure it is
    working.

@@ -4,8 +4,7 @@
  <configtab name="paths" desc="Paths and Locations">
   <configsection name="paths">
    <configheader>Paths and Locations</configheader>
-   <configdescription>Location of RCS and other binaries you must have
-   installed as part of CVS, or optional tools for expanding CVS functionality</configdescription>
+   <configdescription>Paths for use with CVS</configdescription>
    <configstring name="ci" desc="ci">/usr/bin/ci</configstring>
    <configstring name="co" desc="co">/usr/bin/co</configstring>
    <configstring name="rcs" desc="rcs">/usr/bin/rcs</configstring>
@@ -95,7 +94,10 @@
   restricted files will not be displayed in directory
   lists.">true</configboolean>
 
-  <configenum name="filename_linkto" desc="When clicking on a file name in the browse view, should we show the revision log, or display the most recent revision? The opposite action will be available when clicking on the revision number.">revlog
+  <configenum name="filename_linkto" desc="When clicking on a file name in the
+  browse view, should we show the revision log, or display the most recent
+  revision? The opposite action will be available when clicking on the
+  revision number.">revlog
    <values>
     <value desc="Revision Log">revlog</value>
     <value desc="Most recent version">checkout</value>

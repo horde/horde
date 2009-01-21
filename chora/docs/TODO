@@ -2,7 +2,7 @@
  Chora Development TODO List
 =============================
 
-:Contact:       chora@lists.horde.org
+:Contact: chora@lists.horde.org
 
 - Other utility support (lint support for C files, pod2html for perl, PHPDoc
   for PHP).

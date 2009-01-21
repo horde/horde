@@ -18,6 +18,11 @@ original cvsweb script again, and looking at the 'cvs server' implementation.
 Initial Subversion support was written by "Jay Freeman (saurik)"
 <saurik@saurik.com>.
 
+Continuing development has mainly been performed by Chuck Hagenbuch and
+Jan Schnieder <jan@horde.org>.  Michael Slusarz has chipped in here and there
+and has helped reorganize the code to to allow Git to be added to the list
+of available VCS drivers.
+
 
 Localization
 ============
