@@ -4,6 +4,12 @@ v3.0-git
 
 [mms] Move log entries in annotate screen to an AJAX request.
 [mms] Add support for git repositories.
+
+
+--------
+v2.1-RC1
+--------
+
 [jan] Add Italian translation (Fabio Pedretti <fabio.pedretti@ing.unibs.it>).
 [cjh] Allow configuring which views the file name and latest revision number
       link to (jon@spriggs.org.uk, Request #6690).
