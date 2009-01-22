@@ -113,7 +113,7 @@ var DragDrop = {
         deactivate: function()
         {
             if (this.drag) {
-                this.drag = null;
+                this.drag = DragDrop.Drops.drop = null;
                 document.stopObserving('mousemove', this.mousemoveE);
                 document.stopObserving('mouseup', this.mouseupE);
             }
