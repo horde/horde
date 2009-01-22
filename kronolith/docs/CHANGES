@@ -2,6 +2,8 @@
 v3.0-cvs
 --------
 
+[jan] Add individual notification methods for single events (Alfonso Marín
+      Marín <almarin@um.es>).
 [jan] Add Ajax interface.
 [jan] Store events in UTC and convert to the user's timezone on the fly.
 [jan] Remove alarm reminder code.

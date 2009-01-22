@@ -128,6 +128,11 @@
    </field>
 
    <field>
+    <name>event_alarm_methods</name>
+    <type>clob</type>
+   </field>
+
+   <field>
     <name>event_allday</name>
     <type>integer</type>
     <length>1</length>

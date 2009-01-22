@@ -281,7 +281,8 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
             ' event_keywords, event_title, event_category, event_recurcount,' .
             ' event_recurtype, event_recurenddate, event_recurinterval,' .
             ' event_recurdays, event_start, event_end, event_allday,' .
-            ' event_alarm, event_modified, event_exceptions, event_creator_id' .
+            ' event_alarm, event_alarm_methods, event_modified,' .
+            ' event_exceptions, event_creator_id' .
             ' FROM ' . $this->_params['table'] .
             ' WHERE calendar_id = ? AND ((';
         $values = array($this->_calendar);
@@ -377,7 +378,8 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
             ' event_keywords, event_title, event_category, event_recurcount,' .
             ' event_recurtype, event_recurenddate, event_recurinterval,' .
             ' event_recurdays, event_start, event_end, event_allday,' .
-            ' event_alarm, event_modified, event_exceptions, event_creator_id' .
+            ' event_alarm, event_alarm_methods, event_modified,' .
+            ' event_exceptions, event_creator_id' .
             ' FROM ' . $this->_params['table'] . ' WHERE event_id = ? AND calendar_id = ?';
         $values = array($eventId, $this->_calendar);
 
@@ -417,7 +419,8 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
             ' event_keywords, event_title, event_category, event_recurcount,' .
             ' event_recurtype, event_recurenddate, event_recurinterval,' .
             ' event_recurdays, event_start, event_end, event_allday,' .
-            ' event_alarm, event_modified, event_exceptions, event_creator_id' .
+            ' event_alarm, event_alarm_methods, event_modified,' .
+            ' event_exceptions, event_creator_id' .
             ' FROM ' . $this->_params['table'] . ' WHERE event_uid = ?';
         $values = array($uid);
 
@@ -947,7 +950,9 @@ class Kronolith_Event_sql extends Kronolith_Event {
         if (isset($SQLEvent['event_alarm'])) {
             $this->alarm = (int)$SQLEvent['event_alarm'];
         }
-
+        if (isset($SQLEvent['event_alarm_methods'])) {
+            $this->methods = $driver->convertFromDriver(unserialize($SQLEvent['event_alarm_methods']));
+        }
         $this->initialized = true;
         $this->stored = true;
     }
@@ -989,6 +994,9 @@ class Kronolith_Event_sql extends Kronolith_Event {
 
         /* Alarm. */
         $this->_properties['event_alarm'] = (int)$this->getAlarm();
+
+        /* Alarm Notification Methods. */
+        $this->_properties['event_alarm_methods'] = serialize($driver->convertToDriver($this->methods));
 
         /* Recurrence. */
         if (!$this->recurs()) {

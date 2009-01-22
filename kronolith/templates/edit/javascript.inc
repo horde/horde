@@ -219,6 +219,16 @@ function updateEndDate()
     updateWday('end_wday');
 }
 
+function toggleAlarmMethods()
+{
+    if ($('nooverwrite').checked) {
+        $('notification_options').hide();
+    } else {
+        $('notification_options').show();
+        $('yesalarm').checked = true;
+    }
+}
+
 function setStartDate(date)
 {
     var year = parseInt(date.substr(0, 4));
@@ -265,6 +275,7 @@ function toggleSection(section)
     }
 }
 Event.observe(window, 'load', function() {
+    toggleSection('alarm');
     toggleSection('description');
     toggleSection('attendees');
     toggleSection('recurrence');

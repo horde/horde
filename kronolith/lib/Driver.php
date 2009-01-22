@@ -428,6 +428,13 @@ class Kronolith_Event {
     var $alarm = 0;
 
     /**
+     * Parameter of the particular alarm method overridden for this event.
+     *
+     * @var array
+     */
+    var $methods;
+
+    /**
      * The identifier of the calender this event exists on.
      *
      * @var string
@@ -1198,7 +1205,7 @@ class Kronolith_Event {
             $prefs = $GLOBALS['prefs'];
         }
 
-        $methods = @unserialize($prefs->getValue('event_alarms'));
+        $methods = !empty($this->methods) ? $this->methods : @unserialize($prefs->getValue('event_alarms'));
         $start = Util::cloneObject($this->start);
         $start->min -= $this->getAlarm();
         $start->correct();
@@ -1875,8 +1882,32 @@ class Kronolith_Event {
         // Alarm.
         if (Util::getFormData('alarm') == 1) {
             $this->setAlarm(Util::getFormData('alarm_value') * Util::getFormData('alarm_unit'));
+            // Notification.
+            if (Util::getFormData('alarm_change_method')) {
+                $types = Util::getFormData('event_alarms');
+                if (!empty($types)) {
+                    $methods = array();
+                    foreach ($types as $type) {
+                        $methods[$type] = array();
+                        switch ($type){
+                        case 'notify':
+                            $methods[$type]['sound'] = Util::getFormData('event_alarms_sound');
+                            break;
+                        case 'mail':
+                            $methods[$type]['email'] = Util::getFormData('event_alarms_email');
+                            break;
+                        case 'popup':
+                            break;
+                        }
+                    }
+                    $this->methods = $methods;
+                }
+            } else {
+                $this->methods = array();
+            }
         } else {
             $this->setAlarm(0);
+            $this->methods = array();
         }
 
         // Recurrence.

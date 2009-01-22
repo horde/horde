@@ -127,40 +127,51 @@
 <?php require KRONOLITH_TEMPLATES . '/edit/edit_timespan.inc' ?>
 
 <!-- alarm -->
+<?php
+if ($event->alarm) {
+    $alarm_set = true;
+    if ($event->alarm % 10080 == 0) {
+        $alarm_value = $event->alarm / 10080;
+        $alarm_unit = 'week';
+        $alarm_unit_title = _("Week(s)");
+    } elseif ($event->alarm % 1440 == 0) {
+        $alarm_value = $event->alarm / 1440;
+        $alarm_unit = 'day';
+        $alarm_unit_title = _("Day(s)");
+    } elseif ($event->alarm % 60 == 0) {
+        $alarm_value = $event->alarm / 60;
+        $alarm_unit = 'hour';
+        $alarm_unit_title = _("Hour(s)");
+    } else {
+        $alarm_value = $event->alarm;
+        $alarm_unit = 'min';
+        $alarm_unit_title = _("Minute(s)");
+    }
+} else {
+    $alarm_value = 15;
+    $alarm_unit = 'min';
+    $alarm_set = false;
+}
+?>
+<tr>
+ <td colspan="5" class="control toggle" onclick="toggleSection('alarm')">
+  <?php echo Horde::img('tree/blank.png', '', array('id' => 'toggle_alarm'), $GLOBALS['registry']->getImageDir('horde')) . ' <strong>' . Horde::label('alarm', _("_Alarm")) ?></strong>
+  <span class="extra" id="extra_alarm"><?php if ($alarm_set) printf(_("%d %s before the event starts"), $alarm_value, $alarm_unit_title); ?></span>
+</td>
+</tr>
+<tbody id="section_alarm">
 <tr>
  <td class="rightAlign" valign="top">
-    <strong><?php $ak = Horde::getAccessKey(_("_Alarm")); echo Horde::highlightAccessKey(_("_Alarm"), $ak) ?></strong>
+  <strong><?php echo _("Alarm") ?></strong>
  </td>
  <td valign="top">
-  <?php
-  if ($event->alarm) {
-      $alarm_set = true;
-      if ($event->alarm % 10080 == 0) {
-          $alarm_value = $event->alarm / 10080;
-          $alarm_unit = 'week';
-      } elseif ($event->alarm % 1440 == 0) {
-          $alarm_value = $event->alarm / 1440;
-          $alarm_unit = 'day';
-      } elseif ($event->alarm % 60 == 0) {
-          $alarm_value = $event->alarm / 60;
-          $alarm_unit = 'hour';
-      } else {
-          $alarm_value = $event->alarm;
-          $alarm_unit = 'min';
-      }
-  } else {
-      $alarm_value = 15;
-      $alarm_unit = 'min';
-      $alarm_set = false;
-  }
-  ?>
   <input id="noalarm" name="alarm" type="radio" class="checkbox" value="0"<?php if (!$alarm_set) echo ' checked="checked"' ?> /><br />
   <input id="yesalarm" name="alarm" type="radio" class="checkbox" value="1"<?php if ($alarm_set) echo ' checked="checked"' ?> />
   <label for="yesalarm" class="hidden"><?php echo _("Alarm enabled") ?></label>
  </td>
  <td>&nbsp;</td>
  <td valign="top" colspan="2">
-  <label for="noalarm" accesskey="<?php echo $ak ?>"> <?php echo _("No alarm") ?></label><br />
+  <label for="noalarm"> <?php echo _("No alarm") ?></label><br />
   <label for="alarm_value" class="hidden"><?php echo _("Alarm Value") ?></label>
   <input type="text" size="2" id="alarm_value" name="alarm_value" value="<?php echo $alarm_value ?>" onchange="document.eventform.alarm[1].checked=true" />&nbsp;
   <label for="alarm_unit" class="hidden"><?php echo _("Alarm Unit") ?></label>
@@ -172,6 +183,39 @@
   </select>
   <?php echo _("before the event starts") ?>
  </td>
+</tr>
+<tr>
+ <td class="rightAlign" valign="top">
+  <strong><?php echo _("Notification") ?></strong>
+ </td>
+ <td valign="top">
+  <input id="nooverwrite" name="alarm_change_method" type="radio" class="checkbox" value="0"<?php if (empty($event->methods)) echo ' checked="checked"' ?> onclick="toggleAlarmMethods()" /><br />
+  <input id="yesoverwrite" name="alarm_change_method" type="radio" class="checkbox" value="1"<?php if (!empty($event->methods)) echo ' checked="checked"' ?> onclick="toggleAlarmMethods()" />
+ </td>
+ <td>&nbsp;</td>
+ <td valign="top" colspan="2">
+  <label for="nooverwrite"> <?php echo _("Use default notification method") ?></label><br/>
+  <label for="yesoverwrite"> <?php echo _("Use custom notification method") ?></label>
+  <div id="notification_options" style="display:<?php echo !empty($event->methods) ? 'block' : 'none' ?>">
+   <?php
+   // TODO: clean this hack up with H4
+   global $registry, $prefs;
+   $pref = 'event_alarms';
+   $_prefs = array($pref => array('desc' => ''));
+   $helplink = '';
+   $original_value = $prefs->getValue($pref);
+   if (!empty($event->methods)) {
+       $prefs->setValue($pref, serialize($event->methods));
+   }
+   include $GLOBALS['registry']->get('templates', 'horde') . '/prefs/alarm.inc';
+   if (!empty($event->methods)) {
+       $prefs->setValue($pref, $original_value);
+   }
+   ?>
+  </div>
+ </td>
+ </tr>
+ </tbody>
 </tr>
 
 <!-- description -->

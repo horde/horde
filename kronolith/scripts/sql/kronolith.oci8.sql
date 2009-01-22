@@ -1,5 +1,3 @@
--- $Horde: kronolith/scripts/sql/kronolith.oci8.sql,v 1.17 2008/10/22 21:14:07 jan Exp $
-
 CREATE TABLE kronolith_events (
     event_id VARCHAR2(32) NOT NULL,
     event_uid VARCHAR2(255) NOT NULL,
@@ -22,6 +20,7 @@ CREATE TABLE kronolith_events (
     event_end DATE,
     event_allday INT DEFAULT 0,
     event_alarm INT DEFAULT 0,
+    event_alarm_methods VARCHAR2(4000),
     event_modified INT NOT NULL,
     event_private INT DEFAULT 0 NOT NULL,
 --
