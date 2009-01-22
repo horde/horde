@@ -45,7 +45,9 @@ $notification = &Notification::singleton();
 $notification->attach('status');
 
 // Cache.
-$cache = &Horde_Cache::singleton($conf['cache']['driver'], Horde::getDriverConfig('cache', $conf['cache']['driver']));
+if (!empty($conf['caching'])) {
+    $cache = &Horde_Cache::singleton($conf['cache']['driver'], Horde::getDriverConfig('cache', $conf['cache']['driver']));
+}
 
 // Horde base libraries.
 require_once 'Horde/Text.php';

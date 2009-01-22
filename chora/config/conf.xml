@@ -105,6 +105,11 @@
   </configenum>
  </configtab>
 
+ <configtab name="cache" desc="Caching">
+  <configboolean name="caching" desc="Allow caching of views? This requires
+  that a caching backend be configured in Horde.">false</configboolean>
+ </configtab>
+
  <configtab name="menu" desc="Menu Settings">
   <configsection name="menu">
    <configheader>Menu Settings</configheader>
