@@ -59,14 +59,12 @@ $log = &$fl->logs;
 $log_messages = array();
 foreach ($VC->getRevisionRange($fl, $r1, $r2) as $val) {
     if (isset($log[$val])) {
-        list($branchname, $branchrev) = Chora::getBranch($fl, $val);
         $clog = $log[$val];
         $log_messages[] = array(
             'rev' => $val,
             'msg' => Chora::formatLogMessage($clog->queryLog()),
             'author' => Chora::showAuthorName($clog->queryAuthor(), true),
-            'branchRev' => $branchrev,
-            'branchName' => $branchname,
+            'branchinfo' => Chora::getBranch($fl, $val),
             'date' => Chora::formatDate($clog->queryDate()),
             'tags' => Chora::getTags($clog, $where),
         );

@@ -14,7 +14,7 @@ require_once dirname(__FILE__) . '/lib/base.php';
 
 // Exit if cvsps isn't active or it's not a subversion repository.
 if (empty($conf['paths']['cvsps']) &&
-    !$GLOBALS['VC']->supportsFeature('patchsets')) {
+    !$GLOBALS['VC']->hasFeature('patchsets')) {
     header('Location: ' . Chora::url('', $where));
     exit;
 }
@@ -43,7 +43,7 @@ foreach ($patchsets as $id => $patchset) {
     $commitDate = Chora::formatDate($patchset['date']);
     $readableDate = Chora::readableTime($patchset['date'], true);
     $author = Chora::showAuthorName($patchset['author'], true);
-    if ($VC->supportsFeature('patchsets')) {
+    if ($VC->hasFeature('patchsets')) {
         // The diff should be from the top of the source tree so as to
         // get all files.
         $topDir = substr($where, 0, strpos($where, '/', 1));
@@ -60,7 +60,7 @@ foreach ($patchsets as $id => $patchset) {
     $dir = dirname($where);
     foreach ($patchset['members'] as $member) {
         $file = array();
-        $mywhere = ($VC->supportsFeature('patchsets')) ? $member['file'] : $dir . '/' . $member['file'];
+        $mywhere = ($VC->hasFeature('patchsets')) ? $member['file'] : $dir . '/' . $member['file'];
         $file['file'] = Horde::link(Chora::url('patchsets', $mywhere)) . htmlspecialchars($member['file']) . '</a>';
         if ($member['from'] == 'INITIAL') {
             $file['from'] = '<ins>' . _("New File") . '</ins>';

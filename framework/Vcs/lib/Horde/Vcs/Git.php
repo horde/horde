@@ -25,8 +25,7 @@ class Horde_Vcs_Git extends Horde_Vcs
      *
      * @var boolean
      */
-    /* @TODO */
-    protected $_branches = false;
+    protected $_branches = true;
 
     /**
      * Constructor.
@@ -88,7 +87,7 @@ class Horde_Vcs_Annotate_Git extends Horde_Vcs_Annotate
         $command = $this->_rep->getCommand() . ' blame -p ' . $rev . ' -- ' . escapeshellarg($this->_file->queryModulePath()) . ' 2>&1';
         $pipe = popen($command, 'r');
         if (!$pipe) {
-            return PEAR::raiseError('Failed to execute git annotate: ' . $command);
+            throw new Horde_Vcs_Exception('Failed to execute git annotate: ' . $command);
         }
 
         $curr_rev = null;
@@ -163,9 +162,11 @@ class Horde_Vcs_Checkout_Git extends Horde_Vcs_Checkout
 
         $file_ob = $rep->getFileObject($file);
 
-        return ($pipe = popen($rep->getCommand() . ' cat-file blob ' . $file_ob->getHashForRevision($rev) . ' 2>&1', VC_WINDOWS ? 'rb' : 'r'))
-            ? $pipe
-            : PEAR::raiseError('Couldn\'t perform checkout of the requested file');
+        if ($pipe = popen($rep->getCommand() . ' cat-file blob ' . $file_ob->getHashForRevision($rev) . ' 2>&1', VC_WINDOWS ? 'rb' : 'r')) {
+            return $pipe;
+        }
+
+        throw new Horde_Vcs_Exception('Couldn\'t perform checkout of the requested file');
     }
 
 }
@@ -312,7 +313,7 @@ class Horde_Vcs_Directory_Git extends Horde_Vcs_Directory
 
         $dir = popen($cmd, 'r');
         if (!$dir) {
-            return PEAR::raiseError('Failed to execute git ls-tree: ' . $cmd);
+            throw new Horde_Vcs_Exception('Failed to execute git ls-tree: ' . $cmd);
         }
 
         // Create two arrays - one of all the files, and the other of
@@ -366,10 +367,11 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File
         $this->dir = dirname($fl);
         $this->quicklog = $quicklog;
         $this->cache = $cache;
-
-        $this->logs = $this->revs = $this->revsym = $this->symrev = $this->branches = array();
     }
 
+    /**
+     * TODO
+     */
     public function getFileObject()
     {
         $this->getBrowseInfo();
@@ -379,9 +381,9 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File
     /**
      * Get the hash name for this file at a specific revision.
      *
-     * @param string $rev
+     * @param string $rev  TODO
      *
-     * @return string Commit hash
+     * @return string  Commit hash.
      */
     public function getHashForRevision($rev)
     {
@@ -392,7 +394,7 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File
      * Returns name of the current file without the repository
      * extensions (usually ,v)
      *
-     * @return Filename without repository extension
+     * @return string  Filename without repository extension
      */
     function queryName()
     {
@@ -402,13 +404,12 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File
     /**
      * Populate the object with information about the revisions logs
      * and dates of the file.
-     *
-     * @return mixed  True on success, PEAR_Error on error.
      */
     function getBrowseInfo()
     {
         // Get the list of revisions that touch this path
-        $cmd = $this->rep->getCommand() . ' rev-list ' . escapeshellarg($this->_branch) . ' -- ' . escapeshellarg($this->fullname) . ' 2>&1';
+        // TODO: Gets all revisions
+        $cmd = $this->rep->getCommand() . ' rev-list --branches -- ' . escapeshellarg($this->fullname) . ' 2>&1';
         $revisions = shell_exec($cmd);
         if (substr($revisions, 5) == 'fatal') {
             throw new Horde_Vcs_Exception($revisions);
@@ -421,22 +422,22 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File
         $this->revs = explode("\n", trim($revisions));
 
         foreach ($this->revs as $rev) {
-            $this->logs[$rev] = Horde_Vcs_Log_Git::factory($this->rep, $this, $rev);
+            $this->logs[$rev] = Horde_Vcs_Log_Git::factory($this, $rev);
             if ($this->quicklog) {
                 break;
             }
         }
 
         // Add branch information
-        $cmd = $this->rep->getCommand() . ' branch -l';
+        $cmd = $this->rep->getCommand() . ' show-ref --heads';
         $branch_list = shell_exec($cmd);
         if (empty($branch_list)) {
             throw new Horde_Vcs_Exception('No branches found');
         }
 
-        $i = 0;
         foreach (explode("\n", trim($branch_list)) as $val) {
-            $this->branches[++$i] = ltrim($val, '* ');
+            $line = explode(' ', trim($val), 2);
+            $this->branches[substr($line[1], strrpos($line[1], '/') + 1)] = $line[0];
         }
     }
 
@@ -467,26 +468,26 @@ class Horde_Vcs_Log_Git extends Horde_Vcs_Log {
     public $err;
     public $files = array();
 
-    public static function factory($rep, $file, $rev)
+    public static function factory($file, $rev)
     {
         /* The version of the cached data. Increment this whenever the
          * internal storage format changes, such that we must
          * invalidate prior cached data. */
         $cacheVersion = 1;
-        $cacheId = $rep->sourceroot() . '_r' . $rev . '_v' . $cacheVersion;
+        $cacheId = $file->rep->sourceroot() . '_r' . $rev . '_v' . $cacheVersion;
 
         /* @TODO: No caching during dev */
         if (0 &&
-            $rep->cache &&
+            $file->rep->cache &&
             // Individual revisions can be cached forever
-            $rep->cache->exists($cacheId, 0)) {
-            $logOb = unserialize($rep->cache->get($cacheId, 0));
-            $logOb->setRepository($rep);
+            $file->rep->cache->exists($cacheId, 0)) {
+            $logOb = unserialize($file->rep->cache->get($cacheId, 0));
+            $logOb->setRepository($file->rep);
         } else {
-            $logOb = new Horde_Vcs_Log_Git($rep, $file, $rev);
+            $logOb = new Horde_Vcs_Log_Git($file, $rev);
 
-            if ($rep->cache) {
-                $rep->cache->set($cacheId, serialize($logOb));
+            if ($file->rep->cache) {
+                $file->rep->cache->set($cacheId, serialize($logOb));
             }
         }
 
@@ -496,9 +497,9 @@ class Horde_Vcs_Log_Git extends Horde_Vcs_Log {
     /**
      * Constructor.
      */
-    public function __construct($rep, $fl, $rev)
+    public function __construct($fl, $rev)
     {
-        parent::__construct($rep, $fl);
+        parent::__construct($fl);
 
         $this->rev = $rev;
 
@@ -534,8 +535,8 @@ class Horde_Vcs_Log_Git extends Horde_Vcs_Log {
                     $value = substr($value, 1, -1);
                     foreach (explode(',', $value) as $val) {
                         $val = trim($val);
-                        if (($pos = strrpos($val, '/')) !== false) {
-                            $this->tags[] = substr($val, $pos + 1);
+                        if (strpos($val, 'refs/tags/') === 0) {
+                            $this->tags[] = substr($val, 10);
                         }
                     }
                     if (!empty($this->tags)) {

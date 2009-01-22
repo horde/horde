@@ -70,7 +70,7 @@ if (!$plain) {
                          Chora::url('co', $where, array('r' => $r, 'p' => 1)), _("Download"));
 
     $tags = Chora::getTags($log, $where);
-    list($branchName,) = Chora::getBranch($file, $r);
+    $branch_info = Chora::getBranch($file, $r);
 
     $log_print = Chora::formatLogMessage($log->queryLog());
     $author = Chora::showAuthorName($log->queryAuthor(), true);

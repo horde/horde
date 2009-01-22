@@ -45,7 +45,9 @@ $notification = &Notification::singleton();
 $notification->attach('status');
 
 // Cache.
-if (!empty($conf['caching'])) {
+if (empty($conf['caching'])) {
+    $cache = null;
+} else {
     $cache = &Horde_Cache::singleton($conf['cache']['driver'], Horde::getDriverConfig('cache', $conf['cache']['driver']));
 }
 

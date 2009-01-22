@@ -453,7 +453,6 @@ class Horde_Vcs_File_Cvs extends Horde_Vcs_File
         $this->filename = $fl;
         $this->cache = $cache;
         $this->quicklog = $quicklog;
-        $this->logs = $this->revs = $this->branches = array();
     }
 
     public function &getFileObject()
@@ -563,7 +562,7 @@ class Horde_Vcs_File_Cvs extends Horde_Vcs_File
             case 'init':
                 if (!strncmp('head: ', $line, 6)) {
                     $this->head = substr($line, 6);
-                    $this->branches[$this->head] = 'HEAD';
+                    $this->branches['HEAD'] = $this->head;
                 } elseif (!strncmp('branch:', $line, 7)) {
                     $state = 'rev';
                 }
@@ -578,9 +577,7 @@ class Horde_Vcs_File_Cvs extends Horde_Vcs_File
                     // Check to see if this is a branch
                     if (preg_match('/^(\d+(\.\d+)+)\.0\.(\d+)$/', $regs[2])) {
                         $branchRev = $this->toBranch($regs[2]);
-                        if (!isset($this->branches[$branchRev])) {
-                            $this->branches[$branchRev] = $regs[1];
-                        }
+                        $this->branches[$regs[1]] = $branchRev;
                     } else {
                         $symrev[$regs[1]] = $regs[2];
                         if (empty($revsym[$regs[2]])) {
@@ -598,7 +595,7 @@ class Horde_Vcs_File_Cvs extends Horde_Vcs_File
                 } elseif (count($accum)) {
                     // Spawn a new Horde_Vcs_Log object and add it to the logs
                     // hash.
-                    $log = new Horde_Vcs_Log_Cvs($this->rep, $this->filename);
+                    $log = new Horde_Vcs_Log_Cvs($this);
                     $err = $log->processLog($accum);
                     // TODO: error checks - avsm
                     $this->logs[$log->queryRevision()] = $log;
@@ -702,12 +699,14 @@ class Horde_Vcs_Log_Cvs extends Horde_Vcs_Log
             case 'branches':
                 /* If we find a branch tag, process and pop it,
                    otherwise leave input stream untouched */
-                if (!empty($raw) && preg_match("/^branches:\s+(.*)/", $raw[0], $br)) {
+                if (!empty($raw) &&
+                    preg_match("/^branches:\s+(.*)/", $raw[0], $br)) {
                     /* Get the list of branches from the string, and
                      * push valid revisions into the branches array */
                     $brs = preg_split('/;\s*/', $br[1]);
                     foreach ($brs as $brpoint) {
                         if ($this->rep->isValidRevision($brpoint)) {
+                            // TODO: Need branchname
                             $this->branches[] = $brpoint;
                         }
                     }

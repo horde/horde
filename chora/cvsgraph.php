@@ -15,7 +15,7 @@
 require_once dirname(__FILE__) . '/lib/base.php';
 
 // Exit if cvsgraph isn't active or it's not supported.
-if (empty($conf['paths']['cvsgraph']) || !$VC->supportsFeature('branches')) {
+if (empty($conf['paths']['cvsgraph']) || !$VC->hasFeature('branches')) {
     header('Location: ' . Chora::url('', $where));
     exit;
 }

@@ -506,14 +506,14 @@ class Chora
                             '', _("_Logs"));
 
         if (!empty($GLOBALS['conf']['paths']['cvsps']) ||
-            $GLOBALS['VC']->supportsFeature('patchsets')) {
+            $GLOBALS['VC']->hasFeature('patchsets')) {
             $views[] = $current == 'patchsets'
                 ? '<em class="widget">' . _("Patchsets") . '</em>'
                 : Horde::widget(Chora::url('patchsets', $where), _("Patchsets"),
                                 'widget', '', '', _("_Patchsets"));
         }
 
-        if ($GLOBALS['VC']->supportsFeature('branches')) {
+        if ($GLOBALS['VC']->hasFeature('branches')) {
             if (empty($GLOBALS['conf']['paths']['cvsgraph'])) {
                 $views[] = $current == 'history'
                     ? '<em class="widget">' . _("Branches") . '</em>'
@@ -583,13 +583,17 @@ class Chora
      * Return branch information for a given revision.
      *
      * @param Horde_Vcs_File $fl  The Horde_Vcs_File object.
-     * @param string $rev         The filename.
+     * @param string $rev         The revision string.
      *
-     * @return array  A 2-member array - branch name and branch revision.
+     * @return array  TODO
      */
     static public function getBranch($fl, $rev)
     {
-        $branchName = '';
+        return $GLOBALS['VC']->hasFeature('branches')
+            ? array_keys($fl->branches, $rev)
+            : array();
+
+        /*
         $rev_ob = $fl->rep->getRevisionObject();
         $branchRev = $rev_ob->strip($rev, 1);
         if (isset($fl->branches[$rev])) {
@@ -598,6 +602,7 @@ class Chora
             $branchName = $fl->branches[$branchRev];
         }
         return array($branchName, $branchRev);
+        */
     }
 
     /**

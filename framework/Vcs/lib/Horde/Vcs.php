@@ -112,11 +112,11 @@ class Horde_Vcs
     }
 
     /**
-     * Does this driver support the given feature
+     * Does this driver support the given feature?
      *
      * @return boolean  True if driver supports the given feature.
      */
-    public function supportsFeature($feature)
+    public function hasFeature($feature)
     {
         switch ($feature) {
         case 'branches':
@@ -741,13 +741,13 @@ class Horde_Vcs_File
     public $rep;
     public $dir;
     public $name;
-    public $logs;
-    public $revs;
+    public $logs = array();
+    public $revs = array();
     public $head;
     public $quicklog;
-    public $symrev;
-    public $revsym;
-    public $branches;
+    public $symrev = array();
+    public $revsym = array();
+    public $branches = array();
     public $revob;
 
     /**
@@ -919,10 +919,10 @@ class Horde_Vcs_Log
     /**
      * Constructor.
      */
-    public function __construct($rep, $fl)
+    public function __construct($fl)
     {
-        $this->rep = $rep;
         $this->file = $fl;
+        $this->rep = $fl->rep;
     }
 
     public function queryDate()
@@ -955,20 +955,16 @@ class Horde_Vcs_Log
      * accordingly, and performs a lookup on the file object to
      * return the symbolic name(s) of that branch in the tree.
      *
-     * @return hash of symbolic names => branch numbers
+     * @return array  Hash of symbolic names => branch numbers.
      */
     public function querySymbolicBranches()
     {
         $symBranches = array();
 
         foreach ($this->branches as $branch) {
-            $parts = explode('.', $branch);
-            $last = array_pop($parts);
-            $parts[] = '0';
-            $parts[] = $last;
-            $rev = implode('.', $parts);
-            if (isset($this->file->branches[$branch])) {
-                $symBranches[$this->file->branches[$branch]] = $branch;
+            $key = array_search($branch, $this->file->branches);
+            if ($key !== false) {
+                $symBranches[$key] = $branch;
             }
         }
 

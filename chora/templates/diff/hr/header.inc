@@ -42,7 +42,13 @@
   <ul class="revision striped">
    <?php if (!empty($val['author'])): ?><li><?php echo _("Author:") ?> <?php echo $val['author'] ?></li><?php endif; ?>
    <?php if (!empty($val['date'])): ?><li><?php echo _("Date:") ?> <?php echo $val['date'] ?></li><?php endif; ?>
-   <?php if (!empty($val['branchName'])): ?><li><?php echo _("Branch:") ?> <strong><a href="<?php echo Chora::url('', $where, array('onb' => $val['branchRev'])) ?>"><?php echo $val['branchName'] ?></a></strong></li><?php endif; ?>
+<?php if (!empty($val['branchinfo'])): ?>
+   <li><?php echo _("Branch:") ?>
+<?php foreach ($val['branchinfo'] as $branchname): ?>
+    <strong><a href="<?php echo Chora::url('', $where, array('onb' => $branchname)) ?>"><?php echo $branchname ?></a></strong>
+<?php endforeach; ?>
+   </li>
+<?php endif; ?>
    <?php if (!empty($val['tags'])): ?><li class="tags"><?php echo _("Tags:") ?> <?php echo implode(', ', $val['tags']) ?></li><?php endif; ?>
   </ul>
   <a href="<?php echo Chora::url('co', $where, array('r' => $val['rev'])) ?>" title="<?php echo htmlspecialchars($val['rev']) ?>"><?php echo htmlspecialchars($rev_ob->abbrev($val['rev'])) ?></a>: <?php echo $val['msg'] ?>

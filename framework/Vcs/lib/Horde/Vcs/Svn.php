@@ -323,7 +323,6 @@ class Horde_Vcs_File_Svn extends Horde_Vcs_File {
         $this->filename = $fl;
         $this->quicklog = $quicklog;
         $this->cache = $cache;
-        $this->logs = $this->revs = $this->revsym = $this->symrev = $this->branches = array();
     }
 
     public function getFileObject()

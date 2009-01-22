@@ -12,15 +12,15 @@
 require_once dirname(__FILE__) . '/lib/base.php';
 
 /* Exit if it's not supported. */
-if (!$VC->supportsFeature('branches')) {
+if (!$VC->hasFeature('branches')) {
     header('Location: ' . Chora::url('browse', $where));
     exit;
 }
 
 /* Spawn the file object. */
 $fl = $VC->getFileObject($where, $cache);
-$rev_ob = $VC->getRevisionObject();
 Chora::checkError($fl);
+$rev_ob = $VC->getRevisionObject();
 
 /* $trunk contains an array of trunk revisions. */
 $trunk = array();
@@ -30,7 +30,7 @@ $trunk = array();
 $branches = array();
 
 /* Populate $col with a list of all the branch points. */
-foreach ($fl->branches as $rev => $sym) {
+foreach ($fl->branches as $rev) {
     $branches[$rev] = array();
 }
 

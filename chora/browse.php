@@ -32,7 +32,7 @@ if ($atdir) {
         ? $conf['options']['introTitle']
         : sprintf(_("Source Directory of /%s"), $where);
 
-    $extraLink = $VC->supportsFeature('deleted')
+    $extraLink = $VC->hasFeature('deleted')
         ? Horde::widget(Chora::url('', $where . '/', array('sa' => ($acts['sa'] ? 0 : 1))), $acts['sa'] ? _("Hide Deleted Files") : _("Show Deleted Files"), 'widget', '', '', $acts['sa'] ? _("Hide _Deleted Files") : _("Show _Deleted Files"))
         : '';
 
@@ -125,21 +125,14 @@ if ($atdir) {
 }
 
 /* Showing a file. */
+// TODO - onb is j
+$onb = Util::getFormData('onb', 0);
+if ($VC->isValidRevision($onb)) {
+}
+
 $fl = $VC->getFileObject($where, $cache);
 Chora::checkError($fl);
 $title = sprintf(_("Revisions for %s"), $where);
-$onb = Util::getFormData('onb', 0);
-if ($VC->isValidRevision($onb)) {
-    $onb_len = strlen($onb);
-    $onb_base = $rev_ob->strip($onb, 1);
-    $onb_parents = array();
-    while (substr_count($onb_base, '.')) {
-        $onb_parents[$onb_base] = true;
-        $onb_base = $rev_ob->strip($onb_base, 1);
-    }
-} else {
-    $onb = null;
-}
 
 $extraLink = Chora::getFileViews();
 $first = end($fl->logs);
@@ -152,8 +145,10 @@ foreach ($fl->symrev as $sm => $rv) {
 }
 
 $selAllBranches = '';
-foreach ($fl->branches as $num => $sym) {
-    $selAllBranches .= '<option value="' . $num . '"' . ($num == $onb ? ' selected="selected"' : '') . '>' . $sym . '</option>';
+if ($VC->hasFeature('branches')) {
+    foreach (array_keys($fl->branches) as $sym) {
+        $selAllBranches .= '<option value="' . $sym . '">' . $sym . '</option>';
+    }
 }
 
 Horde::addScriptFile('prototype.js', 'horde', true);
@@ -168,20 +163,7 @@ require CHORA_TEMPLATES . '/log/header.inc';
 $i = 0;
 foreach ($fl->logs as $lg) {
     $rev = $lg->queryRevision();
-    list($branchName, $branchRev) = Chora::getBranch($fl, $rev);
-
-    /* Are we tracking a branch? */
-    if ($onb) {
-        /* If we are on the branch itself, let it through */
-        if (substr($rev, 0, $onb_len) != $onb) {
-            /* If the revision is on one of the parent branches, and
-             * is before the branch was made, let it through. */
-            if ((!isset($onb_parents[$branchRev]) && substr_count($rev, '.') > 1) ||
-                $rev_ob->cmp($rev, $onb) > 0) {
-                continue;
-            }
-        }
-    }
+    $branch_info = Chora::getBranch($fl, $rev);
 
     $textUrl = Chora::url('co', $where, array('r' => $rev));
     $commitDate = Chora::formatDate($lg->queryDate());
@@ -200,7 +182,7 @@ foreach ($fl->logs as $lg) {
 
     require CHORA_TEMPLATES . '/log/rev.inc';
 
-    if ($i++ > 100 && !Util::getFormData('all')) {
+    if (($i++ > 100) && !Util::getFormData('all')) {
         break;
     }
 }

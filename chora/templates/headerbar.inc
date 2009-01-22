@@ -5,8 +5,8 @@
    <?php echo _("Location:") ?>
    <strong>[ <a href="<?php echo Chora::url('') ?>"><?php echo $conf['options']['sourceRootName'] ?></a> ]
    <?php echo Chora::whereMenu() ?></strong>
-   <?php if (isset($fl) && isset($onb) && isset($fl->branches[$onb])): ?>
-    <em>(<?php echo _("Tracking Branch") ?> <strong><?php echo $fl->branches[$onb] ?></strong>)</em>
+   <?php if (!empty($onb)): ?>
+    <em>(<?php echo _("Tracking Branch") ?> <strong><?php echo $onb ?></strong>)</em>
    <?php endif; ?>
   </td>
 <?php if (!empty($extraLink)): ?>
