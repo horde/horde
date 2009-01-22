@@ -252,7 +252,7 @@ case 'folders_empty_mailbox_confirm':
             $data = array(
                 'class' => (++$rowct % 2) ? 'item0' : 'item1',
                 'name' => htmlspecialchars(IMP::displayFolder($val)),
-                'msgs' => $elt_info['messages'],
+                'msgs' => $elt_info ? $elt_info['messages'] : 0,
                 'val' => htmlspecialchars($val)
             );
             $loop[] = $data;
