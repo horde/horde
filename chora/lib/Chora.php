@@ -580,32 +580,6 @@ class Chora
     }
 
     /**
-     * Return branch information for a given revision.
-     *
-     * @param Horde_Vcs_File $fl  The Horde_Vcs_File object.
-     * @param string $rev         The revision string.
-     *
-     * @return array  TODO
-     */
-    static public function getBranch($fl, $rev)
-    {
-        return $GLOBALS['VC']->hasFeature('branches')
-            ? array_keys($fl->branches, $rev)
-            : array();
-
-        /*
-        $rev_ob = $fl->rep->getRevisionObject();
-        $branchRev = $rev_ob->strip($rev, 1);
-        if (isset($fl->branches[$rev])) {
-            $branchName = $fl->branches[$rev];
-        } elseif (isset($fl->branches[$branchRev])) {
-            $branchName = $fl->branches[$branchRev];
-        }
-        return array($branchName, $branchRev);
-        */
-    }
-
-    /**
      * Return formatted date information.
      *
      * @param integer $date  Number of seconds since epoch we wish to display.

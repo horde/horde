@@ -147,7 +147,7 @@ foreach ($fl->symrev as $sm => $rv) {
 $selAllBranches = '';
 if ($VC->hasFeature('branches')) {
     foreach (array_keys($fl->branches) as $sym) {
-        $selAllBranches .= '<option value="' . $sym . '">' . $sym . '</option>';
+        $selAllBranches .= '<option value="' . $sym . '"' . ($sym == $onb ? ' selected="selected"' : '' ) . '>' . $sym . '</option>';
     }
 }
 
@@ -163,7 +163,7 @@ require CHORA_TEMPLATES . '/log/header.inc';
 $i = 0;
 foreach ($fl->logs as $lg) {
     $rev = $lg->queryRevision();
-    $branch_info = Chora::getBranch($fl, $rev);
+    $branch_info = $lg->queryBranch();
 
     $textUrl = Chora::url('co', $where, array('r' => $rev));
     $commitDate = Chora::formatDate($lg->queryDate());

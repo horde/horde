@@ -945,6 +945,11 @@ class Horde_Vcs_Log
         return $this->log;
     }
 
+    public function queryBranch()
+    {
+        return array();
+    }
+
     public function queryChangedLines()
     {
         return isset($this->lines) ? $this->lines : '';

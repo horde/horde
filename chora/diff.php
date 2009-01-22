@@ -64,7 +64,7 @@ foreach ($VC->getRevisionRange($fl, $r1, $r2) as $val) {
             'rev' => $val,
             'msg' => Chora::formatLogMessage($clog->queryLog()),
             'author' => Chora::showAuthorName($clog->queryAuthor(), true),
-            'branchinfo' => Chora::getBranch($fl, $val),
+            'branchinfo' => $clog->queryBranch(),
             'date' => Chora::formatDate($clog->queryDate()),
             'tags' => Chora::getTags($clog, $where),
         );

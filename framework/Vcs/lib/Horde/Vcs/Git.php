@@ -463,9 +463,8 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Horde_Vcs
  */
-class Horde_Vcs_Log_Git extends Horde_Vcs_Log {
-
-    public $err;
+class Horde_Vcs_Log_Git extends Horde_Vcs_Log
+{
     public $files = array();
 
     public static function factory($file, $rev)
@@ -476,10 +475,9 @@ class Horde_Vcs_Log_Git extends Horde_Vcs_Log {
         $cacheVersion = 1;
         $cacheId = $file->rep->sourceroot() . '_r' . $rev . '_v' . $cacheVersion;
 
-        /* @TODO: No caching during dev */
-        if (0 &&
-            $file->rep->cache &&
+        if ($file->rep->cache &&
             // Individual revisions can be cached forever
+            // return array_keys(
             $file->rep->cache->exists($cacheId, 0)) {
             $logOb = unserialize($file->rep->cache->get($cacheId, 0));
             $logOb->setRepository($file->rep);
@@ -601,6 +599,14 @@ class Horde_Vcs_Log_Git extends Horde_Vcs_Log {
     public function querySymbolicBranches()
     {
         return array();
+    }
+
+    public function queryBranch()
+    {
+        $branches = $ret = array();
+        $command = $this->rep->getCommand() . ' branch --contains ' . escapeshellarg($this->rev) . ' 2>&1';
+        exec($command, $branches);
+        return array_map('trim', $branches, array_fill(0, count($branches), '* '));
     }
 
 }

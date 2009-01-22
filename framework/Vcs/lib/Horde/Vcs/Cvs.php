@@ -725,6 +725,18 @@ class Horde_Vcs_Log_Cvs extends Horde_Vcs_Log
             array();
     }
 
+    public function queryBranch()
+    {
+        $key = array_search($this->rev, $this->file->branches);
+        if ($key) {
+            return array($key);
+        }
+
+        $rev_ob = $this->file->rep->getRevisionObject();
+        $key = array_search($rev_ob->strip($this->rev, 1), $this->file->branches);
+        return $key ? array($key) : array();
+    }
+
 }
 
 /**
