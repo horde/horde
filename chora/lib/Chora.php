@@ -127,13 +127,14 @@ class Chora
         $sourceroot = $acts['rt'];
 
         $conf['paths']['temp'] = Horde::getTempDir();
-        $GLOBALS['VC'] = Horde_Vcs::factory(String::ucfirst($sourcerootopts['type']),
-            array('sourceroot' => $sourcerootopts['location'],
-                  'paths' => $conf['paths'],
-                  'username' => isset($sourcerootopts['username']) ? $sourcerootopts['username'] : '',
-                  'password' => isset($sourcerootopts['password']) ? $sourcerootopts['password'] : ''));
-        if (is_a($GLOBALS['VC'], 'PEAR_Error')) {
-            Chora::fatal($GLOBALS['VC']->getMessage());
+        try {
+            $GLOBALS['VC'] = Horde_Vcs::factory(String::ucfirst($sourcerootopts['type']),
+                array('sourceroot' => $sourcerootopts['location'],
+                      'paths' => $conf['paths'],
+                      'username' => isset($sourcerootopts['username']) ? $sourcerootopts['username'] : '',
+                      'password' => isset($sourcerootopts['password']) ? $sourcerootopts['password'] : ''));
+        } catch (Horde_Vcs_Exception $e) {
+            Chora::fatal($e);
         }
 
         $conf['paths']['sourceroot'] = $sourcerootopts['location'];
@@ -228,6 +229,10 @@ class Chora
 
         global $registry, $conf, $notification, $browser, $prefs;
 
+        if (is_a($message, 'Horde_Vcs_Exception')) {
+            $message = $message->getMessage();
+        }
+
         /* Don't store the bad file in the user's preferences. */
         $prefs->setValue('last_file', '');
 
@@ -240,19 +245,6 @@ class Chora
         require CHORA_TEMPLATES . '/menu.inc';
         require $registry->get('templates', 'horde') . '/common-footer.inc';
         exit;
-    }
-
-    /**
-     * Given a return object from a Horde_Vcs:: call, make sure
-     * that it's not a PEAR_Error object.
-     *
-     * @param mixed $e  Return object from a Horde_Vcs:: call.
-     */
-    static public function checkError($e)
-    {
-        if (is_a($e, 'PEAR_Error')) {
-            Chora::fatal($e->getMessage());
-        }
     }
 
     /**

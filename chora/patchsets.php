@@ -23,8 +23,11 @@ if (!$VC->isFile($fullname)) {
     Chora::fatal(sprintf(_("%s: no such file or directory"), $where), '404 Not Found');
 }
 
-$ps = $VC->getPatchsetObject($where, $cache);
-Chora::checkError($ps);
+try {
+    $ps = $VC->getPatchsetObject($where, $cache);
+} catch (Horde_Vcs_Exception $e) {
+    Chora::fatal($e);
+}
 
 $title = sprintf(_("Patchsets for %s"), $where);
 $extraLink = Chora::getFileViews();

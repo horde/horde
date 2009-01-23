@@ -12,8 +12,11 @@
 require_once dirname(__FILE__) . '/lib/base.php';
 
 /* Spawn the repository and file objects */
-$fl = $VC->getFileObject($where, array('cache' => $cache));
-Chora::checkError($fl);
+try {
+    $fl = $VC->getFileObject($where, array('cache' => $cache));
+} catch (Horde_Vcs_Exception $e) {
+    Chora::fatal($e);
+}
 $rev_ob = $VC->getRevisionObject();
 
 /* Initialise the form variables correctly. */

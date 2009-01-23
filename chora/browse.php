@@ -19,13 +19,16 @@ if (!$atdir && !$VC->isFile($fullname)) {
 $rev_ob = $VC->getRevisionObject();
 
 if ($atdir) {
-    Chora::checkError($dir = $VC->queryDir($where));
-
-    $atticFlags = (bool)$acts['sa'];
-    Chora::checkError($dir->browseDir($cache, true, $atticFlags));
-    $dir->applySort($acts['sbt'], $acts['ord']);
-    Chora::checkError($dirList = &$dir->queryDirList());
-    Chora::checkError($fileList = $dir->queryFileList($atticFlags));
+    try {
+        $dir = $VC->queryDir($where);
+        $atticFlags = (bool)$acts['sa'];
+        $dir->browseDir($cache, true, $atticFlags);
+        $dir->applySort($acts['sbt'], $acts['ord']);
+        $dirList = &$dir->queryDirList();
+        $fileList = $dir->queryFileList($atticFlags);
+    } catch (Horde_Vcs_Exception $e) {
+        Chora::fatal($e);
+    }
 
     /* Decide what title to display. */
     $title = ($where == '')
@@ -90,9 +93,6 @@ if ($atdir) {
                 continue;
             }
             $lg = $currFile->queryLastLog();
-            if (is_a($lg, 'PEAR_Error')) {
-                continue;
-            }
             $realname = $currFile->queryName();
             $mimeType = Horde_Mime_Magic::filenameToMIME($realname);
 
@@ -126,8 +126,12 @@ if ($atdir) {
 
 /* Showing a file. */
 $onb = Util::getFormData('onb');
-$fl = $VC->getFileObject($where, array('cache' => $cache, 'branch' => $onb));
-Chora::checkError($fl);
+try {
+    $fl = $VC->getFileObject($where, array('cache' => $cache, 'branch' => $onb));
+} catch (Horde_Vcs_Exception $e) {
+    Chora::fatal($e);
+}
+
 $title = sprintf(_("Revisions for %s"), $where);
 
 $extraLink = Chora::getFileViews();

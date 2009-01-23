@@ -12,8 +12,11 @@
 require_once dirname(__FILE__) . '/lib/base.php';
 
 /* Spawn the file object. */
-$fl = $VC->getFileObject($where, array('cache' => $cache));
-Chora::checkError($fl);
+try {
+    $fl = $VC->getFileObject($where, array('cache' => $cache));
+} catch (Horde_Vcs_Exception $e) {
+    Chora::fatal($e);
+}
 $rev_ob = $VC->getRevisionObject();
 
 /* Retrieve the desired revision from the GET variable. */
@@ -34,7 +37,11 @@ case 'log':
 }
 
 $ann = $VC->getAnnotateObject($fl);
-Chora::checkError($lines = $ann->doAnnotate($rev));
+try {
+    $lines = $ann->doAnnotate($rev);
+} catch (Horde_Vcs_Exception $e) {
+    Chora::fatal($e);
+}
 
 $title = sprintf(_("Source Annotation of %s (revision %s)"), Text::htmlAllSpaces($where), $rev);
 $extraLink = sprintf('<a href="%s">%s</a> | <a href="%s">%s</a>',

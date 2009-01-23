@@ -11,8 +11,11 @@
 
 require_once dirname(__FILE__) . '/lib/base.php';
 
-$fl = $VC->getFileObject($where, array('cache' => $cache));
-Chora::checkError($fl);
+try {
+    $fl = $VC->getFileObject($where, array('cache' => $cache));
+} catch (Horde_Vcs_Exception $e) {
+    Chora::fatal($e);
+}
 
 $extraLink = Chora::getFileViews();
 

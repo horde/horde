@@ -21,8 +21,11 @@ if ($atdir) {
 $plain = Util::getFormData('p', 0);
 
 /* Create the VC_File object and populate it. */
-$file = $VC->getFileObject($where, array('cache' => $cache));
-Chora::checkError($file);
+try {
+    $file = $VC->getFileObject($where, array('cache' => $cache));
+} catch (Horde_Vcs_Exception $e) {
+    Chora::fatal($e);
+}
 
 /* Get the revision number. */
 $r = Util::getFormData('r');
@@ -42,17 +45,17 @@ if (!$VC->isValidRevision($r)) {
 }
 
 /* Retrieve the actual checkout. */
-$checkOut = $VC->getCheckout($file, $r);
+try {
+    $checkOut = $VC->getCheckout($file, $r);
+} catch (Horde_Vcs_Exception $e) {
+    Chora::fatal($e);
+}
 
 /* Get the MIME type of the file, or at least our best guess at it. */
 $mime_type = Horde_Mime_Magic::filenameToMIME($fullname);
 if ($mime_type == 'application/octet-stream') {
     $mime_type = 'text/plain';
 }
-
-/* Check error status, and either show error page, or the checkout
- * contents */
-Chora::checkError($checkOut);
 
 if (!$plain) {
     /* Pretty-print the checked out copy */

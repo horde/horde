@@ -18,8 +18,11 @@ if (!$VC->hasFeature('branches')) {
 }
 
 /* Spawn the file object. */
-$fl = $VC->getFileObject($where, array('cache' => $cache));
-Chora::checkError($fl);
+try {
+    $fl = $VC->getFileObject($where, array('cache' => $cache));
+} catch (Horde_Vcs_Exception $e) {
+    Chora::fatal($e);
+}
 $rev_ob = $VC->getRevisionObject();
 
 $colset = array('#ccdeff', '#ecf', '#fec', '#efc', '#cfd', '#dcdba0');
