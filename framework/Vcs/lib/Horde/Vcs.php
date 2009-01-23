@@ -165,19 +165,10 @@ class Horde_Vcs
     }
 
     /**
-     * TODO
-     */
-    public function isFile($where)
-    {
-        return true;
-    }
-
-    /**
      * Throw an exception if the revision number isn't valid.
      *
      * @param mixed $rev The revision number
      *
-     * @return void
      * @throws Horde_Vcs_Exception
      */
     public function assertValidRevision($rev)
@@ -185,6 +176,14 @@ class Horde_Vcs
         if (!$this->isValidRevision($rev)) {
             throw new Horde_Vcs_Exception('Invalid revision number');
         }
+    }
+
+    /**
+     * TODO
+     */
+    public function isFile($where)
+    {
+        return true;
     }
 
     /**

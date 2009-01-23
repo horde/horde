@@ -83,9 +83,7 @@ class Horde_Vcs_Svn extends Horde_Vcs
      */
     public function annotate($fileob, $rev)
     {
-        if (!$this->isValidRevision($rev)) {
-            return false;
-        }
+        $this->assertValidRevision($rev);
 
         $command = $this->getCommand() . ' annotate -r ' . escapeshellarg('1:' . $rev) . ' ' . escapeshellarg($fileob->queryFullPath()) . ' 2>&1';
         $pipe = popen($command, 'r');
@@ -125,9 +123,7 @@ class Horde_Vcs_Svn extends Horde_Vcs
      */
     public function checkout($fullname, $rev)
     {
-        if (!$rep->isValidRevision($rev)) {
-            throw new Horde_Vcs_Exception('Invalid revision number');
-        }
+        $rep->assertValidRevision($rev);
 
         return ($RCS = popen($this->getCommand() . ' cat -r ' . escapeshellarg($rev) . ' ' . escapeshellarg($fullname) . ' 2>&1', VC_WINDOWS ? 'rb' : 'r'))
             ? $RCS

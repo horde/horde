@@ -84,9 +84,7 @@ class Horde_Vcs_Cvs extends Horde_Vcs_Rcs
      */
     public function annotate($fileob, $rev)
     {
-        if (!$this->isValidRevision($rev)) {
-            return false;
-        }
+        $this->assertValidRevision($rev);
 
         $tmpfile = Util::getTempFile('vc', true, $this->getTempPath());
         $where = $fileob->queryModulePath();
@@ -167,9 +165,7 @@ class Horde_Vcs_Cvs extends Horde_Vcs_Rcs
      */
     public function checkout($fullname, $rev)
     {
-        if (!$rep->isValidRevision($rev)) {
-            throw new Horde_Vcs_Exception('Invalid revision number');
-        }
+        $rep->assertValidRevision($rev);
 
         if (!($RCS = popen($this->getPath('co') . ' ' . escapeshellarg('-p' . $rev) . ' ' . escapeshellarg($fullname) . " 2>&1", VC_WINDOWS ? 'rb' : 'r'))) {
             throw new Horde_Vcs_Exception('Couldn\'t perform checkout of the requested file');
@@ -643,7 +639,6 @@ class Horde_Vcs_Log_Cvs extends Horde_Vcs_Log
                     $brs = preg_split('/;\s*/', $br[1]);
                     foreach ($brs as $brpoint) {
                         if ($this->rep->isValidRevision($brpoint)) {
-                            // TODO: Need branchname
                             $this->branches[] = $brpoint;
                         }
                     }

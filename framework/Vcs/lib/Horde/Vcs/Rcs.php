@@ -234,9 +234,8 @@ class Horde_Vcs_Rcs extends Horde_Vcs
      */
     public function strip($val, $amount = 1)
     {
-        if (!$this->isValidRevision($val)) {
-            return false;
-        }
+        $this->assertValidRevision($val);
+
         $pos = 0;
         while ($amount-- > 0 && ($pos = strrpos($val, '.')) !== false) {
             $val = substr($val, 0, $pos);
@@ -256,7 +255,7 @@ class Horde_Vcs_Rcs extends Horde_Vcs
     {
         return $this->isValidRevision($val)
             ? (substr_count($val, '.') + 1)
-            : false;
+            : 0;
     }
 
     /**
