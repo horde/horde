@@ -428,7 +428,7 @@ class Kronolith_Event {
     var $alarm = 0;
 
     /**
-     * Parameter of the particular alarm method overridden for this event.
+     * The particular alarm methods overridden for this event.
      *
      * @var array
      */
