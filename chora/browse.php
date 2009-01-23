@@ -13,7 +13,7 @@
 require_once dirname(__FILE__) . '/lib/base.php';
 
 if (!$atdir && !$VC->isFile($fullname)) {
-    Chora::fatal(sprintf(_("$s: no such file or directory"), $where), '404 Not Found');
+    Chora::fatal(sprintf(_("$fullname: no such file or directory"), $where), '404 Not Found');
 }
 
 $rev_ob = $VC->getRevisionObject();
