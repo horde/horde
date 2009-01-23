@@ -15,6 +15,8 @@ v3.0-cvs
 v2.3.1-cvs
 ----------
 
+[jan] Empty view cache when changing calendar selection
+      (stpierre@nebrwesleyan.edu, Bug #7879).
 [mjr] Fix category CSS being included on embedded widgets.
 [jan] Allow to manually change attendee responses (paul@carnie.com.au,
       Request #7443).

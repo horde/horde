@@ -16,6 +16,12 @@ var Views = {
         if (this.hash.size() > 10) {
             this.hash.unset(this.keys.pop());
         }
+    },
+
+    invalidate: function()
+    {
+        this.hash = $H();
+        this.keys = [];
     }
 
 };
