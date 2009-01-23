@@ -69,9 +69,9 @@ class IMP_Message
      */
     public function copy($targetMbox, $action, $indices, $new = false)
     {
-        global $conf, $imp_imap, $notification, $prefs;
+        global $conf, $notification, $prefs;
 
-        if (($action == 'move') && $imp_imap->isReadOnly($targetMbox)) {
+        if (($action == 'move') && $GLOBALS['imp_imap']->isReadOnly($targetMbox)) {
             return false;
         }
 
@@ -115,7 +115,7 @@ class IMP_Message
         }
 
         foreach ($msgList as $mbox => $msgIndices) {
-            if (($action == 'move') && $imp_imap->isReadOnly($mbox)) {
+            if (($action == 'move') && $GLOBALS['imp_imap']->isReadOnly($mbox)) {
                 $notification->push(sprintf($message, IMP::displayFolder($mbox), IMP::displayFolder($targetMbox)) . ': ' . _("The target directory is read-only."), 'horde.error');
                 $return_value = false;
                 continue;
@@ -123,7 +123,7 @@ class IMP_Message
 
             /* Attempt to copy/move messages to new mailbox. */
             try {
-                $imp_imap->ob->copy($mbox, $targetMbox, array('ids' => $msgIndices, 'move' => $imap_move));
+                $GLOBALS['imp_imap']->ob->copy($mbox, $targetMbox, array('ids' => $msgIndices, 'move' => $imap_move));
 
                 $imp_mailbox = IMP_Mailbox::singleton($mbox);
                 if ($imp_mailbox->isBuilt()) {
@@ -154,7 +154,7 @@ class IMP_Message
      */
     public function delete($indices, $nuke = false, $keeplog = false)
     {
-        global $conf, $imp_imap, $notification, $prefs;
+        global $conf, $notification, $prefs;
 
         if (!($msgList = IMP::parseIndicesList($indices))) {
             return false;
@@ -184,7 +184,7 @@ class IMP_Message
         }
 
         foreach ($msgList as $mbox => $msgIndices) {
-            if ($imp_imap->isReadOnly($mbox)) {
+            if ($GLOBALS['imp_imap']->isReadOnly($mbox)) {
                 $notification->push(sprintf(_("There was an error deleting messages from the folder \"%s\". This folder is read-only."), IMP::displayFolder($mbox)), 'horde.error');
                 $return_value = false;
                 continue;
@@ -196,7 +196,7 @@ class IMP_Message
             /* Trash is only valid for IMAP mailboxes. */
             if ($use_trash_folder && ($mbox != $trash)) {
                 try {
-                    $imp_imap->ob->copy($mbox, $trash, array('ids' => $msgIndices, 'move' => true));
+                    $GLOBALS['imp_imap']->ob->copy($mbox, $trash, array('ids' => $msgIndices, 'move' => true));
 
                     $imp_mailbox = IMP_Mailbox::singleton($mbox);
                     if ($imp_mailbox->isBuilt()) {
@@ -212,7 +212,7 @@ class IMP_Message
                 $fetch = null;
                 if ($maillog_update) {
                     try {
-                        $fetch = $imp_imap->ob->fetch($mbox, array(Horde_Imap_Client::FETCH_ENVELOPE => true), array('ids' => $msgIndices));
+                        $fetch = $GLOBALS['imp_imap']->ob->fetch($mbox, array(Horde_Imap_Client::FETCH_ENVELOPE => true), array('ids' => $msgIndices));
                     } catch (Horde_Imap_Client_Exception $e) {}
                 }
 
@@ -236,7 +236,7 @@ class IMP_Message
                 }
 
                 try {
-                    $imp_imap->ob->store($mbox, array('add' => array('\\deleted'), 'ids' => $msgIndices));
+                    $GLOBALS['imp_imap']->ob->store($mbox, array('add' => array('\\deleted'), 'ids' => $msgIndices));
                     if ($expunge_now) {
                         $this->expungeMailbox($indices_array);
                     }
@@ -423,8 +423,6 @@ class IMP_Message
      */
     public function stripPart($indices, $partid = null)
     {
-        global $imp_imap;
-
         /* Return error if no index was provided. */
         if (!($msgList = IMP::parseIndicesList($indices))) {
             return PEAR::raiseError(_("An error occured while attempting to strip the attachment."));
@@ -438,7 +436,7 @@ class IMP_Message
         }
         $index = implode('', $index);
 
-        if ($imp_imap->isReadOnly($mbox)) {
+        if ($GLOBALS['imp_imap']->isReadOnly($mbox)) {
             return PEAR::raiseError(_("Cannot strip the MIME part as the mailbox is read-only"));
         }
 
@@ -525,7 +523,7 @@ class IMP_Message
      */
     public function flag($flags, $indices, $action = true)
     {
-        global $imp_imap, $notification;
+        global $notification;
 
         if (!($msgList = IMP::parseIndicesList($indices))) {
             return false;
@@ -536,14 +534,14 @@ class IMP_Message
             : array('remove' => $flags);
 
         foreach ($msgList as $mbox => $msgIndices) {
-            if ($imp_imap->isReadOnly($mbox)) {
+            if ($GLOBALS['imp_imap']->isReadOnly($mbox)) {
                 $notification->push(sprintf(_("There was an error flagging messages in the folder \"%s\". This folder is read-only."), IMP::displayFolder($mbox)), 'horde.error');
                 continue;
             }
 
             /* Flag/unflag the messages now. */
             try {
-                $imp_imap->ob->store($mbox, array_merge($action_array, array('ids' => $msgIndices)));
+                $GLOBALS['imp_imap']->ob->store($mbox, array_merge($action_array, array('ids' => $msgIndices)));
             } catch (Horde_Imap_Client_Exception $e) {
                 $notification->push(sprintf(_("There was an error flagging messages in the folder \"%s\". This is what the server said"), IMP::displayFolder($mbox)) . ': ' . $e->getMessage(), 'horde.error');
                 return false;
@@ -599,7 +597,7 @@ class IMP_Message
      */
     public function expungeMailbox($mbox_list)
     {
-        global $imp_imap, $imp_search;
+        global $imp_search;
 
         if (empty($mbox_list)) {
             return array();
@@ -608,7 +606,7 @@ class IMP_Message
         $process_list = $update_list = array();
 
         foreach (array_keys($mbox_list) as $key) {
-            if (!$imp_imap->isReadOnly($key)) {
+            if (!$GLOBALS['imp_imap']->isReadOnly($key)) {
                 if ($imp_search->isSearchMbox($key)) {
                     foreach ($imp_search->getSearchFolders($key) as $skey) {
                         $process_list[$skey] = $mbox_list[$key];
@@ -621,7 +619,7 @@ class IMP_Message
 
         foreach ($process_list as $key => $val) {
             try {
-                $imp_imap->ob->expunge($key, array('ids' => is_array($val) ? $val : array()));
+                $GLOBALS['imp_imap']->ob->expunge($key, array('ids' => is_array($val) ? $val : array()));
 
                 $imp_mailbox = IMP_Mailbox::singleton($key);
                 if ($imp_mailbox->isBuilt()) {
@@ -648,7 +646,7 @@ class IMP_Message
         foreach ($mbox_list as $mbox) {
             $display_mbox = IMP::displayFolder($mbox);
 
-            if ($imp_imap->isReadOnly($mbox)) {
+            if ($GLOBALS['imp_imap']->isReadOnly($mbox)) {
                 $notification->push(sprintf(_("Could not delete messages from %s. This mailbox is read-only."), $display_mbox), 'horde.error');
                 continue;
             }
@@ -662,7 +660,7 @@ class IMP_Message
             /* Make sure there is at least 1 message before attempting to
                delete. */
             try {
-                $status = $imp_imap->ob->status($mbox, Horde_Imap_Client::STATUS_MESSAGES);
+                $status = $GLOBALS['imp_imap']->ob->status($mbox, Horde_Imap_Client::STATUS_MESSAGES);
                 if (empty($status['messages'])) {
                     $notification->push(sprintf(_("The mailbox %s is already empty."), $display_mbox), 'horde.message');
                     continue;
@@ -672,7 +670,7 @@ class IMP_Message
                     $this->flagAllInMailbox(array('\\deleted'), $mbox, true);
                     $this->expungeMailbox(array($mbox => 1));
                 } else {
-                    $ret = $imp_imap->ob->search($mbox);
+                    $ret = $GLOBALS['imp_imap']->ob->search($mbox);
                     $indices = array($mbox => $ret['match']);
                     $this->delete($indices);
                 }
