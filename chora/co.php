@@ -21,7 +21,7 @@ if ($atdir) {
 $plain = Util::getFormData('p', 0);
 
 /* Create the VC_File object and populate it. */
-$file = $VC->getFileObject($where, $cache);
+$file = $VC->getFileObject($where, array('cache' => $cache));
 Chora::checkError($file);
 
 /* Get the revision number. */

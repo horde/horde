@@ -125,12 +125,8 @@ if ($atdir) {
 }
 
 /* Showing a file. */
-// TODO - onb is j
-$onb = Util::getFormData('onb', 0);
-if ($VC->isValidRevision($onb)) {
-}
-
-$fl = $VC->getFileObject($where, $cache);
+$onb = Util::getFormData('onb');
+$fl = $VC->getFileObject($where, array('cache' => $cache, 'branch' => $onb));
 Chora::checkError($fl);
 $title = sprintf(_("Revisions for %s"), $where);
 
@@ -147,7 +143,7 @@ foreach ($fl->symrev as $sm => $rv) {
 $selAllBranches = '';
 if ($VC->hasFeature('branches')) {
     foreach (array_keys($fl->branches) as $sym) {
-        $selAllBranches .= '<option value="' . $sym . '"' . ($sym == $onb ? ' selected="selected"' : '' ) . '>' . $sym . '</option>';
+        $selAllBranches .= '<option value="' . $sym . '"' . (($sym === $onb) ? ' selected="selected"' : '' ) . '>' . $sym . '</option>';
     }
 }
 

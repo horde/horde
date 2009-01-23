@@ -1,9 +1,12 @@
 <?php
-
-require_once dirname(__FILE__) . '/Rcs.php';
-
 /**
  * Horde_Vcs_Svn implementation.
+ *
+ * Constructor args:
+ * <pre>
+ * 'sourceroot': The source root for this repository
+ * 'paths': Hash with the locations of all necessary binaries: 'svn', 'diff'
+ * </pre>
  *
  * Copyright 2000-2009 The Horde Project (http://www.horde.org/)
  *
@@ -39,19 +42,10 @@ class Horde_Vcs_Svn extends Horde_Vcs
     /**
      * Constructor.
      *
-     * @param array $params  Any parameter the class expects.
-     *                       Current parameters:
-     * <pre>
-     * 'sourceroot': The source root for this repository
-     * 'paths': Hash with the locations of all necessary binaries: 'svn',
-     *          'diff'
-     * </pre>
+     * @param array $params  Required parameters (see above).
      */
-    public function __construct($params)
+    public function __construct($params = array())
     {
-        $this->_sourceroot = $params['sourceroot'];
-        $this->_paths = $params['paths'];
-
         if (!empty($params['username'])) {
             $this->_username = $params['username'];
         }
@@ -281,7 +275,7 @@ class Horde_Vcs_Directory_Svn extends Horde_Vcs_Directory
             } elseif (substr($line, -1) == '/') {
                 $this->_dirs[] = substr($line, 0, -1);
             } else {
-                $fl = $this->_rep->getFileObject($this->queryDir() . "/$line", $cache, $quicklog);
+                $fl = $this->_rep->getFileObject($this->queryDir() . "/$line", array('cache' => $cache, 'quicklog' => $quicklog));
                 if (is_a($fl, 'PEAR_Error')) {
                     return $fl;
                 } else {
@@ -313,16 +307,18 @@ class Horde_Vcs_File_Svn extends Horde_Vcs_File {
      * Create a repository file object, and give it information about
      * what its parent directory and repository objects are.
      *
-     * @param string $fl  Full path to this file.
+     * @param TODO $rep    TODO
+     * @param string $fl   Full path to this file.
+     * @param array $opts  TODO
      */
-    public function __construct($rep, $fl, $cache = null, $quicklog = false)
+    public function __construct($rep, $fl, $opts = array())
     {
         $this->rep = $rep;
         $this->name = basename($fl);
         $this->dir = dirname($fl);
         $this->filename = $fl;
-        $this->quicklog = $quicklog;
-        $this->cache = $cache;
+        $this->cache = empty($opts['cache']) ? null : $opts['cache'];
+        $this->quicklog = !empty($opts['quicklog']);
     }
 
     public function getFileObject()

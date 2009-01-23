@@ -12,7 +12,7 @@
 require_once dirname(__FILE__) . '/lib/base.php';
 
 /* Spawn the file object. */
-$fl = $VC->getFileObject($where, $cache);
+$fl = $VC->getFileObject($where, array('cache' => $cache));
 Chora::checkError($fl);
 $rev_ob = $VC->getRevisionObject();
 

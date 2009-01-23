@@ -18,58 +18,17 @@ if (!$VC->hasFeature('branches')) {
 }
 
 /* Spawn the file object. */
-$fl = $VC->getFileObject($where, $cache);
+$fl = $VC->getFileObject($where, array('cache' => $cache));
 Chora::checkError($fl);
 $rev_ob = $VC->getRevisionObject();
 
-/* $trunk contains an array of trunk revisions. */
-$trunk = array();
-
-/* $branches is a hash with the branch revision as the key, and value
- * being an array of revs on that branch. */
-$branches = array();
-
-/* Populate $col with a list of all the branch points. */
-foreach ($fl->branches as $rev) {
-    $branches[$rev] = array();
-}
-
-/* For every revision, figure out if it is a trunk revision, or
- * instead associated with a branch.  If trunk, add it to the $trunk
- * array.  Otherwise, add it to an array in $branches[$branch]. */
-foreach ($fl->logs as $log) {
-    $rev = $log->queryRevision();
-    $baseRev = $rev_ob->strip($rev, 1);
-    $branchFound = false;
-    foreach ($fl->branches as $branch => $name) {
-        if ($branch == $baseRev) {
-            array_unshift($branches[$branch], $rev);
-            $branchFound = true;
-        }
-    }
-    /* If its not a branch, then add it to the trunk. */
-    /* TODO: this silently drops vendor branches atm! - avsm. */
-    if (!$branchFound && $rev_ob->sizeof($rev) == 2) {
-        array_unshift($trunk, $rev);
-    }
-}
-
-foreach ($branches as $col => $rows) {
-    /* If this branch has no actual commits on it, then it's a stub
-     * branch, and we can remove it for this view. */
-    if (!sizeof($rows)) {
-        unset($branches[$col]);
-    }
-}
-
 $colset = array('#ccdeff', '#ecf', '#fec', '#efc', '#cfd', '#dcdba0');
-$colStack = array();
-$branchColours = array();
+$branch_colors = $colStack = array();
 foreach ($branches as $brrev => $brcont) {
     if (!count($colStack)) {
         $colStack = $colset;
     }
-    $branchColours[$brrev] = array_shift($colset);
+    $branch_colors[$brrev] = array_shift($colset);
 }
 
 /**
@@ -185,7 +144,7 @@ foreach ($grid as $row) {
 
         if ($VC->isValidRevision($rev) && ($rev_ob->sizeof($rev) % 2)) {
             /* This is a branch point, so put the info out. */
-            $bg = isset($branchColours[$rev]) ? $branchColours[$rev] : '#e9e9e9';
+            $bg = isset($branch_colors[$rev]) ? $branch_colors[$rev] : '#e9e9e9';
             $symname = $fl->branches[$rev];
             require CHORA_TEMPLATES . '/history/branch_cell.inc';
 
@@ -193,13 +152,13 @@ foreach ($grid as $row) {
             /* This is a continuation cell, so render it with the
              * branch colour. */
             $bgbr = $rev_ob->strip(preg_replace('|^\:|', '', $rev), 1);
-            $bg = isset($branchColours[$bgbr]) ? $branchColours[$bgbr] : '#e9e9e9';
+            $bg = isset($branch_colors[$bgbr]) ? $branch_colors[$bgbr] : '#e9e9e9';
             require CHORA_TEMPLATES . '/history/blank.inc';
 
         } elseif ($VC->isValidRevision($rev)) {
             /* This cell contains a revision, so render it. */
             $bgbr = $rev_ob->strip($rev, 1);
-            $bg = isset($branchColours[$bgbr]) ? $branchColours[$bgbr] : '#e9e9e9';
+            $bg = isset($branch_colors[$bgbr]) ? $branch_colors[$bgbr] : '#e9e9e9';
             $log = $fl->logs[$rev];
             $author = Chora::showAuthorName($log->queryAuthor());
             $date = strftime('%e %b %Y', $log->queryDate());

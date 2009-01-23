@@ -105,8 +105,11 @@ class Horde_Vcs
     /**
      * Constructor.
      */
-    public function __construct()
+    public function __construct($params = array())
     {
+        $this->_sourceroot = $params['sourceroot'];
+        $this->_paths = $params['paths'];
+
         $pos = strrpos(get_class($this), '_');
         $this->_driver = substr(get_class($this), $pos + 1);
     }
@@ -293,10 +296,15 @@ class Horde_Vcs
         return $this->_cache['diff']->availableDiffTypes();
     }
 
-    public function getFileObject($filename, $cache = null, $quicklog = false)
+    /**
+     * $opts:
+     * 'cache' - (boolean)
+     * 'quicklog' - (boolean)
+     */
+    public function getFileObject($filename, $opts = array())
     {
         $class = 'Horde_Vcs_File_' . $this->_driver;
-        $vc_file = new $class($this, $filename, $cache, $quicklog);
+        $vc_file = new $class($this, $filename, $opts);
         return $vc_file->getFileObject();
     }
 
@@ -750,6 +758,10 @@ class Horde_Vcs_File
     public $branches = array();
     public $revob;
 
+    public function getFileObject()
+    {
+    }
+
     /**
      * TODO
      */
@@ -769,9 +781,19 @@ class Horde_Vcs_File
     }
 
     /**
-     * Returns the name of the current file as in the repository
+     * Returns name of the current file without the repository extensions.
      *
-     * @return string  Filename (without the path)
+     * @return string  Filename without repository extension
+     */
+    function queryName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Returns the name of the current file as in the repository.
+     *
+     * @return string  Filename (without the path).
      */
     public function queryRepositoryName()
     {
