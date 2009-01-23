@@ -36,9 +36,18 @@ class Horde_Vcs_Git extends Horde_Vcs
     /**
      * TODO
      */
+    public function isValidRevision($rev)
+    {
+        return $rev && preg_match('/^[a-f0-9]+$/i', $rev);
+    }
+
+    /**
+     * TODO
+     */
     public function isFile($where)
     {
-        $command = $this->_rep->getCommand() . ' ls-tree master ' . escapeshellarg($where) . ' 2>&1';
+        $where = str_replace($this->sourceroot() . '/', '', $where);
+        $command = $this->getCommand() . ' ls-tree master ' . escapeshellarg($where) . ' 2>&1';
         $entry = array();
         exec($command, $entry);
         $data = explode(' ', $entry[0]);
@@ -70,14 +79,6 @@ class Horde_Vcs_Git extends Horde_Vcs
  */
 class Horde_Vcs_Annotate_Git extends Horde_Vcs_Annotate
 {
-    public function __construct($rep, $file)
-    {
-        if (is_a($file, 'PEAR_Error')) {
-            throw new Horde_Vcs_Exception($file->getMessage());
-        }
-        parent::__construct($rep, $file);
-    }
-
     /**
      * TODO
      */
@@ -154,8 +155,7 @@ class Horde_Vcs_Checkout_Git extends Horde_Vcs_Checkout
      *                          to checkout
      * @param string $rev       Revision number to check out
      *
-     * @return resource|object  Either a PEAR_Error object, or a stream
-     *                          pointer to the head of the checkout.
+     * @return resource  A stream pointer to the head of the checkout.
      */
     function get($rep, $file, $rev)
     {
@@ -207,11 +207,6 @@ class Horde_Vcs_Diff_Git extends Horde_Vcs_Diff
     public function get($rep, $file, $rev1, $rev2, $type = 'context',
                                $num = 3, $ws = true)
     {
-        /* Make sure that the file parameter is valid */
-        if (is_a($file, 'PEAR_Error')) {
-            return false;
-        }
-
         /* Check that the revision numbers are valid */
         $rev1 = $rep->isValidRevision($rev1) ? $rev1 : 0;
         $rev2 = $rep->isValidRevision($rev1) ? $rev2 : 0;
@@ -281,7 +276,7 @@ class Horde_Vcs_Directory_Git extends Horde_Vcs_Directory
      * retrieve a list of all the objects in there.  It then populates
      * the file/directory stack and makes it available for retrieval.
      *
-     * @return PEAR_Error object on an error, 1 on success.
+     * @return integer  1 on success.
      */
     public function browseDir($cache = null, $quicklog = true,
                               $showattic = false)
@@ -339,6 +334,7 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File
 {
     /* @TODO */
     protected $_branch;
+    public $cache;
 
     /**
      * Create a repository file object, and give it information about
@@ -359,13 +355,7 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File
         if (!empty($opts['branch'])) {
             $this->_branch = $opts['branch'];
         }
-    }
 
-    /**
-     * TODO
-     */
-    public function getFileObject()
-    {
         // Get the list of revisions that touch this path
         $this->revs = $this->_getRevList($this->_branch);
 
@@ -387,22 +377,6 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File
             $line = explode(' ', trim($val), 2);
             $this->branches[substr($line[1], strrpos($line[1], '/') + 1)] = $line[0];
         }
-
-        return $this;
-    }
-
-    protected function _getRevList($branch)
-    {
-        $cmd = $this->rep->getCommand() . ' rev-list ' . (empty($branch) ? '--branches' : $branch) . ' -- ' . escapeshellarg($this->fullname) . ' 2>&1';
-
-        $revisions = shell_exec($cmd);
-        if (substr($revisions, 5) == 'fatal') {
-            throw new Horde_Vcs_Exception($revisions);
-        } elseif (!strlen($revisions)) {
-            throw new Horde_Vcs_Exception('No revisions found');
-        }
-
-        return explode("\n", trim($revisions));
     }
 
     /**
@@ -441,6 +415,23 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File
         }
 
         return $revs;
+    }
+
+    /**
+     * TODO
+     */
+    protected function _getRevList($branch)
+    {
+        $cmd = $this->rep->getCommand() . ' rev-list ' . (empty($branch) ? '--branches' : $branch) . ' -- ' . escapeshellarg($this->fullname) . ' 2>&1';
+
+        $revisions = shell_exec($cmd);
+        if (substr($revisions, 5) == 'fatal') {
+            throw new Horde_Vcs_Exception($revisions);
+        } elseif (!strlen($revisions)) {
+            throw new Horde_Vcs_Exception('No revisions found');
+        }
+
+        return explode("\n", trim($revisions));
     }
 
 }
@@ -673,10 +664,6 @@ class Horde_Vcs_Revision_Git extends Horde_Vcs_Revision
      *
      * @return boolean  True if it is a revision number.
      */
-    public function valid($rev)
-    {
-        return preg_match('/^[a-f0-9]+$/i', $rev);
-    }
 
     /**
      * Returns an abbreviated form of the revision, for display.

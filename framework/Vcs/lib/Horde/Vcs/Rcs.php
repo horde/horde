@@ -11,6 +11,14 @@
 class Horde_Vcs_Rcs extends Horde_Vcs
 {
     /**
+     * TODO
+     */
+    public function isValidRevision($rev)
+    {
+        return $rev && preg_match('/^[\d\.]+$/', $rev);
+    }
+
+    /**
      * Checks an RCS file in with a specified change log.
      *
      * @param string $filepath    Location of file to check in.
@@ -18,8 +26,7 @@ class Horde_Vcs_Rcs extends Horde_Vcs
      * @param string $user        The user name to use for the check in.
      * @param boolean $newBinary  Does the change involve binary data?
      *
-     * @return string|object  The new revision number on success, or a
-     *                        PEAR_Error object on failure.
+     * @return string  The new revision number on success.
      */
     public function ci($filepath, $message, $user = null, $newBinary = false)
     {
@@ -29,10 +36,8 @@ class Horde_Vcs_Rcs extends Horde_Vcs
             putenv('LOGNAME=guest');
         }
 
-        $Q = VC_WINDOWS ? '"' : "'" ;
-
-        $ci_cmd = $this->getPath('ci') . ' ' . $Q . $filepath . $Q.' 2>&1';
-        $rcs_cmd = $this->getPath('rcs') . ' -i -kb ' . $Q . $filepath . $Q.' 2>&1';
+        $ci_cmd = $this->getPath('ci') . ' ' . escapeshellarg($filepath) . ' 2>&1';
+        $rcs_cmd = $this->getPath('rcs') . ' -i -kb ' . escapeshellarg($filepath) . ' 2>&1';
         $output = '';
 
         $message_lines = explode("\n", $message);
@@ -63,14 +68,14 @@ class Horde_Vcs_Rcs extends Horde_Vcs
             fclose($pipes[1]);
             proc_close($process);
         } else {
-            return PEAR::raiseError('Failed to open pipe in ci()');
+            throw new Horde_Vcs_Exception('Failed to open pipe in ci()');
         }
 
         if ($newBinary) {
             exec($ci_cmd . ' 2>&1', $return_array, $retval);
 
             if ($retval) {
-                return PEAR::raiseError("Unable to spawn ci on $filepath from ci()");
+                throw new Horde_Vcs_Exception("Unable to spawn ci on $filepath from ci()");
             } else {
                 foreach ($return_array as $line) {
                     $output .= $line;
@@ -95,9 +100,9 @@ class Horde_Vcs_Rcs extends Horde_Vcs
             unlock($filepath);
             $temp_pos = strpos($output, 'file is unchanged');
             if ($temp_pos !== false) {
-                return PEAR::raiseError('Check-in Failure: ' . basename($filepath) . ' has not been modified');
+                throw new Horde_Vcs_Exception('Check-in Failure: ' . basename($filepath) . ' has not been modified');
             } else {
-                return PEAR::raiseError("Failed to checkin $filepath, $ci_cmd, $output");
+                throw new Horde_Vcs_Exception("Failed to checkin $filepath, $ci_cmd, $output");
             }
         }
     }
@@ -108,21 +113,16 @@ class Horde_Vcs_Rcs extends Horde_Vcs
      * @param string $filepath    Location of file.
      * @param string &$locked_by  Returns the username holding the lock.
      *
-     * @return boolean|object  True on success, or a PEAR_Error on failure.
+     * @return boolean  True on success.
      */
     public function isLocked($filepath, &$locked_by)
     {
-        $rlog_cmd  = $this->getPath('rlog');
-        $rlog_flag = ' -L ';
+        $cmd = $this->getPath('rlog') . ' -L ' . escapeshellarg($filepath);
 
-        $Q = VC_WINDOWS ? '"' : "'";
-
-        $cmd = $rlog_cmd . $rlog_flag . $Q . $filepath . $Q;
-
-        exec($cmd.' 2>&1', $return_array, $retval);
+        exec($cmd . ' 2>&1', $return_array, $retval);
 
         if ($retval) {
-            return PEAR::raiseError("Unable to spawn rlog on $filepath from isLocked()");
+            throw new Horde_Vcs_Exception("Unable to spawn rlog on $filepath from isLocked()");
         } else {
             $output = '';
 
@@ -140,7 +140,7 @@ class Horde_Vcs_Rcs extends Horde_Vcs
             }  elseif (strlen($output) == 0) {
                 return false;
             } else {
-                return PEAR::raiseError('Failure running rlog in isLocked()');
+                throw new Horde_Vcs_Exception('Failure running rlog in isLocked()');
             }
         }
     }
@@ -151,7 +151,7 @@ class Horde_Vcs_Rcs extends Horde_Vcs
      * @param string $filepath  Location of file.
      * @param string $user      User name to lock the file with
      *
-     * @return boolean|object  True on success, or a PEAR_Error on failure.
+     * @return boolean  True on success.
      */
     public function lock($filepath, $user = null)
     {
@@ -162,15 +162,11 @@ class Horde_Vcs_Rcs extends Horde_Vcs
             putenv('LOGNAME=guest');
         }
 
-        $rcs_cmd = $this->getPath('rcs');
-        $rcs_flag = ' -l ';
-
-        $Q = VC_WINDOWS ? '"' : "'" ;
-        $cmd = $rcs_cmd . $rcs_flag . $Q . $filepath . $Q;
-        exec($cmd.' 2>&1', $return_array, $retval);
+        $cmd = $this->getPath('rcs') . ' -l ' . escapeshellarg($filepath);
+        exec($cmd . ' 2>&1', $return_array, $retval);
 
         if ($retval) {
-            return PEAR::raiseError('Failed to spawn rcs ("' . $cmd . '") on "' . $filepath . '" (returned ' . $retval . ')');
+            throw new Horde_Vcs_Exception('Failed to spawn rcs ("' . $cmd . '") on "' . $filepath . '" (returned ' . $retval . ')');
         } else {
             $output = '';
             foreach ($return_array as $line) {
@@ -181,7 +177,7 @@ class Horde_Vcs_Rcs extends Horde_Vcs
             if ($locked_pos !== false) {
                 return true;
             } else {
-                return PEAR::raiseError('Failed to lock "' . $filepath . '" (Ran "' . $cmd . '", got return code ' . $retval . ', output: ' . $output . ')');
+                throw new Horde_Vcs_Exception('Failed to lock "' . $filepath . '" (Ran "' . $cmd . '", got return code ' . $retval . ', output: ' . $output . ')');
             }
         }
     }
@@ -192,7 +188,7 @@ class Horde_Vcs_Rcs extends Horde_Vcs
      * @param string $filepath  Location of file.
      * @param string $user      User name to unlock the file with
      *
-     * @return boolean|object  True on success, or a PEAR_Error on failure.
+     * @return boolean  True on success.
      */
     public function unlock($filepath, $user = null)
     {
@@ -203,15 +199,11 @@ class Horde_Vcs_Rcs extends Horde_Vcs
             putenv('LOGNAME=guest');
         }
 
-        $rcs_cmd = $this->getPath('rcs');
-        $rcs_flag = ' -u ';
-
-        $Q = VC_WINDOWS ? '"' : "'" ;
-        $cmd = $rcs_cmd . $rcs_flag . $Q . $filepath . $Q;
+        $cmd = $this->getPath('rcs') . ' -u ' . escapeshellarg($filepath);
         exec($cmd . ' 2>&1', $return_array, $retval);
 
         if ($retval) {
-            return PEAR::raiseError('Failed to spawn rcs ("' . $cmd . '") on "' . $filepath . '" (returned ' . $retval . ')');
+            throw new Horde_Vcs_Exception('Failed to spawn rcs ("' . $cmd . '") on "' . $filepath . '" (returned ' . $retval . ')');
         } else {
             $output = '';
 
@@ -234,19 +226,6 @@ class Horde_Vcs_Rcs extends Horde_Vcs
 
 class Horde_Vcs_Revision_Rcs extends Horde_Vcs_Revision
 {
-    /**
-     * Validation function to ensure that a revision number is of the right
-     * form.
-     *
-     * @param mixed $rev  The purported revision number.
-     *
-     * @return boolean  True if it is a revision number.
-     */
-    public function valid($rev)
-    {
-        return $rev && preg_match('/^[\d\.]+$/', $rev);
-    }
-
     /**
      * Given a revision number, remove a given number of portions from
      * it. For example, if we remove 2 portions of 1.2.3.4, we are

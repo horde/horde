@@ -60,7 +60,15 @@ class Horde_Vcs_Cvs extends Horde_Vcs_Rcs
         if (substr($filename, 0, 1) != '/') {
             $filename = '/' . $filename;
         }
-        return parent::getFileObject($this->sourceroot() . $filename, $opts);
+
+        $filename = $this->sourceroot() . $filename;
+
+        /* Assume file is in the Attic if it doesn't exist. */
+        $fname = $filename . ',v';
+        if (!@is_file($fname)) {
+            $fname = dirname($filename) . '/Attic/' . basename($filename) . ',v';
+                                        }
+        return parent::getFileObject($fname, $opts);
     }
 
     /**
@@ -113,9 +121,7 @@ class Horde_Vcs_Annotate_Cvs extends Horde_Vcs_Annotate
      */
     public function doAnnotate($rev)
     {
-        if (is_a($this->_file, 'PEAR_Error') ||
-            is_a($this->_rep, 'PEAR_Error') ||
-            !$this->_rep->isValidRevision($rev)) {
+        if (!$this->_rep->isValidRevision($rev)) {
             return false;
         }
 
@@ -166,7 +172,7 @@ class Horde_Vcs_Annotate_Cvs extends Horde_Vcs_Annotate
         }
 
         if (!$line) {
-            return PEAR::raiseError('Unable to annotate; server said: ' . $line);
+            throw new Horde_Vcs_Exception('Unable to annotate; server said: ' . $line);
         }
 
         $lineno = 1;
@@ -207,25 +213,16 @@ class Horde_Vcs_Checkout_Cvs extends Horde_Vcs_Checkout
      *                            to checkout.
      * @param string $rev         Revision number to check out.
      *
-     * @return resource|object  Either a PEAR_Error object, or a stream
-     *                          pointer to the head of the checkout
+     * @return resource  A stream pointer to the head of the checkout.
      */
     public function get($rep, $fullname, $rev)
     {
         if (!$rep->isValidRevision($rev)) {
-            return PEAR::raiseError('Invalid revision number');
+            throw new Horde_Vcs_Exception('Invalid revision number');
         }
 
-        if (VC_WINDOWS) {
-            $mode = 'rb';
-            $q_name = '"' . escapeshellcmd(str_replace('\\', '/', $fullname)) . '"';
-        } else {
-            $mode = 'r';
-            $q_name = escapeshellarg($fullname);
-        }
-
-        if (!($RCS = popen($rep->getPath('co') . " -p$rev $q_name 2>&1", $mode))) {
-            return PEAR::raiseError('Couldn\'t perform checkout of the requested file');
+        if (!($RCS = popen($rep->getPath('co') . " -p$rev " . escapeshellarg($fullname) . " 2>&1", VC_WINDOWS ? 'rb' : 'r'))) {
+            throw new Horde_Vcs_Exception('Couldn\'t perform checkout of the requested file');
         }
 
         /* First line from co should be of the form :
@@ -235,7 +232,7 @@ class Horde_Vcs_Checkout_Cvs extends Horde_Vcs_Checkout
         $co = fgets($RCS, 1024);
         if (!preg_match('/^([\S ]+),v\s+-->\s+st(andar)?d ?out(put)?\s*$/', $co, $regs) ||
             ($regs[1] != $fullname)) {
-            return PEAR::raiseError('Unexpected output from checkout: ' . $co);
+            throw new Horde_Vcs_Exception('Unexpected output from checkout: ' . $co);
         }
 
         /* Next line from co is of the form:
@@ -278,11 +275,6 @@ class Horde_Vcs_Diff_Cvs extends Horde_Vcs_Diff
     public function get($rep, $file, $rev1, $rev2, $type = 'context',
                         $num = 3, $ws = true)
     {
-        /* Make sure that the file parameter is valid. */
-        if (is_a($file, 'PEAR_Error')) {
-            return false;
-        }
-
         /* Check that the revision numbers are valid. */
         $rev1 = $rep->isValidRevision($rev1) ? $rev1 : '1.1';
         $rev2 = $rep->isValidRevision($rev1) ? $rev2 : '1.1';
@@ -362,19 +354,19 @@ class Horde_Vcs_Directory_Cvs extends Horde_Vcs_Directory
      * retrieve a list of all the objects in there.  It then populates
      * the file/directory stack and makes it available for retrieval.
      *
-     * @return boolean|object  PEAR_Error object on an error, true on success.
+     * @return boolean  True on success.
      */
     public function browseDir($cache = null, $quicklog = true,
                               $showattic = false)
     {
         /* Make sure we are trying to list a directory */
         if (!@is_dir($this->_dirName)) {
-            return PEAR::raiseError('Unable to find directory ' . $this->_dirName);
+            throw new Horde_Vcs_Exception('Unable to find directory ' . $this->_dirName);
         }
 
         /* Open the directory for reading its contents */
         if (!($DIR = @opendir($this->_dirName))) {
-            return PEAR::raiseError(empty($php_errormsg) ? 'Permission denied' : $php_errormsg);
+            throw new Horde_Vcs_Exception(empty($php_errormsg) ? 'Permission denied' : $php_errormsg);
         }
 
         /* Create two arrays - one of all the files, and the other of
@@ -392,12 +384,7 @@ class Horde_Vcs_Directory_Cvs extends Horde_Vcs_Directory
                 }
             } elseif (@is_file($path) && (substr($name, -2) == ',v')) {
                 /* Spawn a new file object to represent this file. */
-                $fl = $this->_rep->getFileObject(substr($path, strlen($this->_rep->sourceroot()), -2), array('cache' => $cache, 'quicklog' => $quicklog));
-                if (is_a($fl, 'PEAR_Error')) {
-                    return $fl;
-                } else {
-                    $this->_files[] = $fl;
-                }
+                $this->_files[] = $this->_rep->getFileObject(substr($path, strlen($this->_rep->sourceroot()), -2), array('cache' => $cache, 'quicklog' => $quicklog));
             }
         }
 
@@ -406,11 +393,11 @@ class Horde_Vcs_Directory_Cvs extends Horde_Vcs_Directory
 
         /* If we want to merge the attic, add it in here. */
         if ($showattic) {
-            $atticDir = new Horde_Vcs_Directory_Cvs($this->_rep, $this->_moduleName . '/Attic', $this);
-            if (!is_a($atticDir->browseDir($cache, $quicklog), 'PEAR_Error')) {
+            try {
+                $atticDir = new Horde_Vcs_Directory_Cvs($this->_rep, $this->_moduleName . '/Attic', $this);
                 $this->_atticFiles = $atticDir->queryFileList();
                 $this->_mergedFiles = array_merge($this->_files, $this->_atticFiles);
-            }
+            } catch (Horde_Vcs_Exception $e) {}
         }
 
         return true;
@@ -446,109 +433,26 @@ class Horde_Vcs_File_Cvs extends Horde_Vcs_File
         $this->name = basename($fl);
         $this->dir = dirname($fl);
         $this->filename = $fl;
-        $this->cache = empty($opts['cache']) ? null : $opts['cache'];
         $this->quicklog = !empty($opts['quicklog']);
         if (!empty($opts['branch'])) {
             $this->_branch = $opts['branch'];
         }
-    }
 
-    public function &getFileObject()
-    {
-        /* Assume file is in the Attic if it doesn't exist. */
-        $filename = $this->filename . ',v';
-        if (!@is_file($filename)) {
-            $filename = dirname($this->filename) . '/Attic/' . basename($this->filename) . ',v';
-        }
-
-        /* The version of the cached data. Increment this whenever the
-         * internal storage format changes, such that we must
-         * invalidate prior cached data. */
-        $cacheVersion = 2;
-        $cacheId = $this->rep->sourceroot() . '_n' . $filename . '_f' . (int)$this->quicklog . '_v' . $cacheVersion;
-
-        $ctime = time() - filemtime($filename);
-        if ($this->cache &&
-            $this->cache->exists($cacheId, $ctime)) {
-            $fileOb = unserialize($this->cache->get($cacheId, $ctime));
-            $fileOb->setRepository($this->rep);
-        } else {
-            if (is_a(($result = $this->getBrowseInfo()), 'PEAR_Error')) {
-                return $result;
-            }
-            $this->applySort(Horde_Vcs::SORT_AGE);
-
-            if ($this->cache) {
-                $this->cache->set($cacheId, serialize($this));
-            }
-
-            $fileOb = $this;
-        }
-
-        return $fileOb;
-    }
-
-    /**
-     * If this file is present in an Attic directory, this indicates it.
-     *
-     * @return boolean  True if file is in the Attic, and false otherwise
-     */
-    public function isDeleted()
-    {
-        return (substr($this->dir, -5) == 'Attic');
-    }
-
-    /**
-     * Returns name of the current file without the repository
-     * extensions (usually ,v)
-     *
-     * @return string  Filename without repository extension
-     */
-    public function queryName()
-    {
-        return preg_replace('/,v$/', '', $this->name);
-    }
-
-    public function queryPreviousRevision($rev)
-    {
-        $ob = $this->rep->getRevisionObject();
-        return $ob->prev($rev);
-    }
-
-    /**
-     * Return the HEAD (most recent) revision number for this file.
-     *
-     * @return string  HEAD revision number
-     */
-    public function queryHead()
-    {
-        return $this->head;
-    }
-
-    /**
-     * Populate the object with information about the revisions logs and dates
-     * of the file.
-     *
-     * @return boolean|object  PEAR_Error object on error, or true on success
-     */
-    public function getBrowseInfo()
-    {
         /* Check that we are actually in the filesystem. */
-        $file = $this->queryFullPath() . ',v';
+        $file = $this->queryFullPath();
         if (!is_file($file)) {
-            return PEAR::raiseError('File Not Found: ' . $file);
+            throw new Horde_Vcs_Exception('File Not Found: ' . $file);
         }
 
         /* Call the RCS rlog command to retrieve the file
          * information. */
         $flag = $this->quicklog ? ' -r ' : ' ';
-        $q_file = VC_WINDOWS ? '"' . escapeshellcmd($file) . '"' : escapeshellarg($file);
 
-        $cmd = $this->rep->getPath('rlog') . $flag . $q_file;
+        $cmd = $this->rep->getPath('rlog') . $flag . escapeshellarg($file);
         exec($cmd, $return_array, $retval);
 
         if ($retval) {
-            return PEAR::raiseError('Failed to spawn rlog to retrieve file log information for ' . $file);
+            throw new Horde_Vcs_Exception('Failed to spawn rlog to retrieve file log information for ' . $file);
         }
 
         $accum = $revsym = $symrev = array();
@@ -613,7 +517,46 @@ class Horde_Vcs_File_Cvs extends Horde_Vcs_File
             }
         }
 
-        return true;
+    }
+
+    /**
+     * If this file is present in an Attic directory, this indicates it.
+     *
+     * @return boolean  True if file is in the Attic, and false otherwise
+     */
+    public function isDeleted()
+    {
+        return (substr($this->dir, -5) == 'Attic');
+    }
+
+    /**
+     * Returns name of the current file without the repository
+     * extensions (usually ,v)
+     *
+     * @return string  Filename without repository extension
+     */
+    public function queryName()
+    {
+        return preg_replace('/,v$/', '', $this->name);
+    }
+
+    /**
+     * TODO
+     */
+    public function queryPreviousRevision($rev)
+    {
+        $ob = $this->rep->getRevisionObject();
+        return $ob->prev($rev);
+    }
+
+    /**
+     * Return the HEAD (most recent) revision number for this file.
+     *
+     * @return string  HEAD revision number
+     */
+    public function queryHead()
+    {
+        return $this->head;
     }
 
     /**
@@ -647,12 +590,8 @@ class Horde_Vcs_File_Cvs extends Horde_Vcs_File
     public function toBranch($rev)
     {
         /* Check if we have a valid revision number */
-        $rev_ob = $this->rep->getRevisionObject();
-        if (!$rev_ob->valid($rev)) {
-            return false;
-        }
-
-        if (($end = strrpos($rev, '.')) === false) {
+        if (!$this->rep->isValidRevision($rev) ||
+            (($end = strrpos($rev, '.')) === false)) {
             return false;
         }
 
@@ -836,28 +775,25 @@ class Horde_Vcs_Patchset_Cvs extends Horde_Vcs_Patchset
      * Populate the object with information about the patchsets that
      * this file is involved in.
      *
-     * @return boolean|object  PEAR_Error object on error, or true on success.
+     * @return boolean  True on success.
      */
     public function getPatchsets()
     {
         /* Check that we are actually in the filesystem. */
         if (!is_file($this->getFullPath() . ',v')) {
-            return PEAR::raiseError('File Not Found');
+            throw new Horde_Vcs_Exception('File Not Found');
         }
 
         /* Call cvsps to retrieve all patchsets for this file. */
-        $q_root = $this->_rep->sourceroot();
-        $q_root = VC_WINDOWS ? '"' . escapeshellcmd($q_root) . '"' : escapeshellarg($q_root);
-
         $cvsps_home = $this->_rep->getPath('cvsps_home');
         $HOME = !empty($cvsps_home) ?
             'HOME=' . $cvsps_home . ' ' :
             '';
 
-        $cmd = $HOME . $this->_rep->getPath('cvsps') . ' -u --cvs-direct --root ' . $q_root . ' -f ' . escapeshellarg($this->_name) . ' ' . escapeshellarg($this->_dir);
+        $cmd = $HOME . $this->_rep->getPath('cvsps') . ' -u --cvs-direct --root ' . escapeshellarg($this->_rep->sourceroot) . ' -f ' . escapeshellarg($this->_name) . ' ' . escapeshellarg($this->_dir);
         exec($cmd, $return_array, $retval);
         if ($retval) {
-            return PEAR::raiseError('Failed to spawn cvsps to retrieve patchset information');
+            throw new Horde_Vcs_Exception('Failed to spawn cvsps to retrieve patchset information');
         }
 
         $this->_patchsets = array();

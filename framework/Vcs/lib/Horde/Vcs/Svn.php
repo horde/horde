@@ -77,6 +77,11 @@ class Horde_Vcs_Svn extends Horde_Vcs
 
         return $command;
     }
+
+    public function isValidRevision($rev)
+    {
+        return $rev && is_numeric($rev);
+    }
 }
 
 /**
@@ -94,15 +99,14 @@ class Horde_Vcs_Annotate_Svn extends Horde_Vcs_Annotate
      */
     public function doAnnotate($rev)
     {
-        if (is_a($this->_file, 'PEAR_Error') ||
-            !$this->_rep->isValidRevision($rev)) {
+        if (!$this->_rep->isValidRevision($rev)) {
             return false;
         }
 
         $command = $this->_rep->getCommand() . ' annotate -r 1:' . $rev . ' ' . escapeshellarg($this->_file->queryFullPath()) . ' 2>&1';
         $pipe = popen($command, 'r');
         if (!$pipe) {
-            return PEAR::raiseError('Failed to execute svn annotate: ' . $command);
+            throw new Horde_Vcs_Exception('Failed to execute svn annotate: ' . $command);
         }
 
         $lines = array();
@@ -141,23 +145,22 @@ class Horde_Vcs_Checkout_Svn extends Horde_Vcs_Checkout
      * Function which returns a file pointing to the head of the requested
      * revision of a file.
      *
-     * @param Horde_Vcs $rep     A repository object
+     * @param Horde_Vcs $rep    A repository object
      * @param string $fullname  Fully qualified pathname of the desired file
      *                          to checkout
      * @param string $rev       Revision number to check out
      *
-     * @return resource|object  Either a PEAR_Error object, or a stream
-     *                          pointer to the head of the checkout.
+     * @return resource  A stream pointer to the head of the checkout.
      */
     public function get($rep, $fullname, $rev)
     {
         if (!$rep->isValidRevision($rev)) {
-            return PEAR::raiseError('Invalid revision number');
+            throw new Horde_Vcs_Exception('Invalid revision number');
         }
 
         return ($RCS = popen($rep->getCommand() . ' cat -r ' . $rev . ' ' . escapeshellarg($fullname) . ' 2>&1', VC_WINDOWS ? 'rb' : 'r'))
             ? $RCS
-            : PEAR::raiseError('Couldn\'t perform checkout of the requested file');
+            : throw new Horde_Vcs_Exception('Couldn\'t perform checkout of the requested file');
     }
 
 }
@@ -177,12 +180,12 @@ class Horde_Vcs_Diff_Svn extends Horde_Vcs_Diff
      *
      * @param Horde_Vcs $rep        A repository object.
      * @param Horde_Vcs_File $file  The desired file.
-     * @param string $rev1         Original revision number to compare from.
-     * @param string $rev2         New revision number to compare against.
-     * @param string $type         The type of diff (e.g. 'unified').
-     * @param integer $num         Number of lines to be used in context and
-     *                             unified diffs.
-     * @param boolean $ws          Show whitespace in the diff?
+     * @param string $rev1          Original revision number to compare from.
+     * @param string $rev2          New revision number to compare against.
+     * @param string $type          The type of diff (e.g. 'unified').
+     * @param integer $num          Number of lines to be used in context and
+     *                              unified diffs.
+     * @param boolean $ws           Show whitespace in the diff?
      *
      * @return string|boolean  False on failure, or a string containing the
      *                         diff on success.
@@ -190,11 +193,6 @@ class Horde_Vcs_Diff_Svn extends Horde_Vcs_Diff
     public function get($rep, $file, $rev1, $rev2, $type = 'context',
                         $num = 3, $ws = true)
     {
-        /* Make sure that the file parameter is valid */
-        if (is_a($file, 'PEAR_Error')) {
-            return false;
-        }
-
         /* Check that the revision numbers are valid */
         $rev1 = $rep->isValidRevision($rev1) ? $rev1 : 0;
         $rev2 = $rep->isValidRevision($rev1) ? $rev2 : 0;
@@ -249,7 +247,7 @@ class Horde_Vcs_Directory_Svn extends Horde_Vcs_Directory
      * retrieve a list of all the objects in there.  It then populates
      * the file/directory stack and makes it available for retrieval.
      *
-     * @return PEAR_Error object on an error, 1 on success.
+     * @return integer  1 on success.
      */
     public function browseDir($cache = null, $quicklog = true,
                               $showattic = false)
@@ -258,7 +256,7 @@ class Horde_Vcs_Directory_Svn extends Horde_Vcs_Directory
 
         $dir = popen($cmd, 'r');
         if (!$dir) {
-            return PEAR::raiseError('Failed to execute svn ls: ' . $cmd);
+            throw new Horde_Vcs_Exception('Failed to execute svn ls: ' . $cmd);
         }
 
         /* Create two arrays - one of all the files, and the other of
@@ -275,19 +273,14 @@ class Horde_Vcs_Directory_Svn extends Horde_Vcs_Directory
             } elseif (substr($line, -1) == '/') {
                 $this->_dirs[] = substr($line, 0, -1);
             } else {
-                $fl = $this->_rep->getFileObject($this->queryDir() . "/$line", array('cache' => $cache, 'quicklog' => $quicklog));
-                if (is_a($fl, 'PEAR_Error')) {
-                    return $fl;
-                } else {
-                    $this->_files[] = $fl;
-                }
+                $this->_files[] = $this->_rep->getFileObject($this->queryDir() . "/$line", array('cache' => $cache, 'quicklog' => $quicklog));
             }
         }
 
         pclose($dir);
 
         return $errors
-            ? PEAR::raiseError(implode("\n", $errors))
+            ? throw new Horde_Vcs_Exception(implode("\n", $errors))
             : true;
     }
 
@@ -317,75 +310,22 @@ class Horde_Vcs_File_Svn extends Horde_Vcs_File {
         $this->name = basename($fl);
         $this->dir = dirname($fl);
         $this->filename = $fl;
-        $this->cache = empty($opts['cache']) ? null : $opts['cache'];
         $this->quicklog = !empty($opts['quicklog']);
-    }
 
-    public function getFileObject()
-    {
-        /* The version of the cached data. Increment this whenever the
-         * internal storage format changes, such that we must
-         * invalidate prior cached data. */
-        $cacheVersion = 2;
-        $cacheId = $this->rep->sourceroot() . '_n' . $this->filename . '_f' . (int)$this->quicklog . '_v' . $cacheVersion;
-
-        if ($this->cache &&
-            // The file is cached for one hour no matter what, because
-            // there is no way to determine with Subversion the time
-            // the file last changed.
-            $this->cache->exists($cacheId, 3600)) {
-            $fileOb = unserialize($this->cache->get($cacheId, 3600));
-            $fileOb->setRepository($rep);
-        } else {
-            $fileOb = new Horde_Vcs_File_Svn($this->rep, $this->filename, $this->cache, $this->quicklog);
-            if (is_a(($result = $fileOb->getBrowseInfo()), 'PEAR_Error')) {
-                return $result;
-            }
-            $fileOb->applySort(Horde_Vcs::SORT_AGE);
-
-            if ($this->cache) {
-                $this->cache->set($cacheId, serialize($fileOb));
-            }
-        }
-
-        return $fileOb;
-    }
-
-    /**
-     * Returns name of the current file without the repository
-     * extensions (usually ,v)
-     *
-     * @return Filename without repository extension
-     */
-    function queryName()
-    {
-       return preg_replace('/,v$/', '', $this->name);
-    }
-
-    /**
-     * Populate the object with information about the revisions logs
-     * and dates of the file.
-     *
-     * @return mixed boolean            True on success,
-     *               PEAR_Error         On error.
-     */
-    function getBrowseInfo()
-    {
         /* This doesn't work; need to find another way to simply
          * request the most recent revision:
          *
          * $flag = $this->quicklog ? '-r HEAD ' : ''; */
         $flag = '';
-        $Q = VC_WINDOWS ? '"' : "'";
-        $cmd = $this->rep->getCommand() . ' log -v ' . $flag . $Q . str_replace($Q, '\\' . $Q, $this->queryFullPath()) . $Q . ' 2>&1';
+        $cmd = $this->rep->getCommand() . ' log -v ' . $flag . escapeshellarg($this->queryFullPath()) . ' 2>&1';
         $pipe = popen($cmd, 'r');
         if (!$pipe) {
-            return PEAR::raiseError('Failed to execute svn log: ' . $cmd);
+            throw new Horde_Vcs_Exception('Failed to execute svn log: ' . $cmd);
         }
 
         $header = fgets($pipe);
         if (!strspn($header, '-')) {
-            return PEAR::raiseError('Error executing svn log: ' . $header);
+            throw new Horde_Vcs_Exception('Error executing svn log: ' . $header);
         }
 
         while (!feof($pipe)) {
@@ -403,7 +343,17 @@ class Horde_Vcs_File_Svn extends Horde_Vcs_File {
         }
 
         pclose($pipe);
-        return true;
+    }
+
+    /**
+     * Returns name of the current file without the repository
+     * extensions (usually ,v)
+     *
+     * @return Filename without repository extension
+     */
+    function queryName()
+    {
+       return preg_replace('/,v$/', '', $this->name);
     }
 
 }
@@ -472,14 +422,11 @@ class Horde_Vcs_Patchset_Svn extends Horde_Vcs_Patchset
      * Populate the object with information about the patchsets that
      * this file is involved in.
      *
-     * @return mixed  PEAR_Error object on error, or true on success.
+     * @return boolean  True on success.
      */
     function getPatchsets()
     {
         $fileOb = new Horde_Vcs_File_Svn($this->_rep, $this->_file);
-        if (is_a(($result = $fileOb->getBrowseInfo()), 'PEAR_Error')) {
-            return $result;
-        }
 
         $this->_patchsets = array();
         foreach ($fileOb->logs as $rev => $log) {
@@ -514,20 +461,4 @@ class Horde_Vcs_Patchset_Svn extends Horde_Vcs_Patchset
         return true;
     }
 
-}
-
-class Horde_Vcs_Revision_Svn extends Horde_Vcs_Revision_Rcs
-{
-    /**
-     * Validation function to ensure that a revision number is of the right
-     * form.
-     *
-     * @param mixed $rev  The purported revision number.
-     *
-     * @return boolean  True if it is a revision number.
-     */
-    public function valid($rev)
-    {
-        return is_numeric($rev);
-    }
 }

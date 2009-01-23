@@ -82,6 +82,11 @@ class Horde_Vcs
     protected $_branches = false;
 
     /**
+     * @var integer
+     */
+    protected $_cacheVersion = 3;
+
+    /**
      * Attempts to return a concrete Horde_Vcs instance based on $driver.
      *
      * @param mixed $driver  The type of concrete Horde_Vcs subclass to return.
@@ -99,7 +104,7 @@ class Horde_Vcs
             return new $class($params);
         }
 
-        return PEAR::raiseError($class . ' not found.');
+        throw new Horde_Vcs_Exception($class . ' not found.');
     }
 
     /**
@@ -137,7 +142,7 @@ class Horde_Vcs
     }
 
     /**
-     * Return the source root for this repository, with no trailing /
+     * Return the source root for this repository, with no trailing /.
      *
      * @return string  Source root for this repository.
      */
@@ -147,17 +152,16 @@ class Horde_Vcs
     }
 
     /**
-     * Validation function to ensure that a revision number is of the right
+     * Validation function to ensure that a revision string is of the right
      * form.
      *
-     * @param mixed $rev  The purported revision number.
+     * @param mixed $rev  The purported revision string.
      *
-     * @return boolean  True if it is a revision number.
+     * @return boolean  True if a valid revision string.
      */
     public function isValidRevision($rev)
     {
-        $rev_ob = $this->getRevisionObject();
-        return $rev_ob->valid($rev);
+        return true;
     }
 
     /**
@@ -300,12 +304,33 @@ class Horde_Vcs
      * $opts:
      * 'cache' - (boolean)
      * 'quicklog' - (boolean)
+     * 'branch' - (string)
      */
     public function getFileObject($filename, $opts = array())
     {
         $class = 'Horde_Vcs_File_' . $this->_driver;
-        $vc_file = new $class($this, $filename, $opts);
-        return $vc_file->getFileObject();
+
+        /* The version of the cached data. Increment this whenever the
+         * internal storage format changes, such that we must
+         * invalidate prior cached data. */
+        sort($opts);
+        $cacheId = implode('|', array($class, $this->sourceroot(), $filename, serialize($opts), $this->_cacheVersion));
+
+        $ctime = time() - filemtime($filename);
+        if (!empty($opts['cache']) &&
+            $opts['cache']->exists($cacheId, $ctime)) {
+            $fileOb = unserialize($opts['cache']->get($cacheId, $ctime));
+            $fileOb->setRepository($this);
+        } else {
+            $fileOb = new $class($this, $filename, $opts);
+            $fileOb->applySort(self::SORT_AGE);
+
+            if (!empty($opts['cache'])) {
+                $opts['cache']->set($cacheId, serialize($fileOb));
+            }
+        }
+
+        return $fileOb;
     }
 
     public function getAnnotateObject($filename)
@@ -758,10 +783,6 @@ class Horde_Vcs_File
     public $branches = array();
     public $revob;
 
-    public function getFileObject()
-    {
-    }
-
     /**
      * TODO
      */
@@ -808,7 +829,7 @@ class Horde_Vcs_File
     public function queryRevision()
     {
         if (!isset($this->revs[0])) {
-            return PEAR::raiseError('No revisions');
+            throw new Horde_Vcs_Exception('No revisions');
         }
         return $this->revs[0];
     }
@@ -846,7 +867,7 @@ class Horde_Vcs_File
     public function queryLastLog()
     {
         if (!isset($this->revs[0]) || !isset($this->logs[$this->revs[0]])) {
-            return PEAR::raiseError('No revisions');
+            throw new Horde_Vcs_Exception('No revisions');
         }
         return $this->logs[$this->revs[0]];
     }
@@ -1073,19 +1094,6 @@ abstract class Horde_Vcs_Patchset
  */
 class Horde_Vcs_Revision
 {
-    /**
-     * Validation function to ensure that a revision string is of the right
-     * form.
-     *
-     * @param mixed $rev  The purported revision string.
-     *
-     * @return boolean  True if it is a valid revision string.
-     */
-    public function valid($rev)
-    {
-        return true;
-    }
-
     /**
      * Given a revision string, remove a given number of portions from
      * it. For example, if we remove 2 portions of 1.2.3.4, we are
