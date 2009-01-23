@@ -143,9 +143,9 @@ class Horde_Controller_Response_Http extends Horde_Controller_Response_Base
         ?>
 <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
 <html><head>
-<title><?= $code ?></title>
+<title><?php echo $code ?></title>
 </head><body>
-<h1><?= $code ?></h1>
+<h1><?php echo $code ?></h1>
 <?php
     if ($msg != NULL)
     {
