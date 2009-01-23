@@ -112,7 +112,7 @@ div.msgStatus {
 }
 div.msgStatus div {
     display: inline-block;
-    padding-right: 1px;
+    padding-right: 2px;
     width: 16px;
     background-repeat: no-repeat;
 }
