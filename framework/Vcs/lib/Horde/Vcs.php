@@ -94,8 +94,8 @@ class Horde_Vcs
      * @param array $params  A hash containing any additional configuration
      *                       or  parameters a subclass might need.
      *
-     * @return Horde_Vcs  The newly created concrete instance, or PEAR_Error on
-     *                   failure.
+     * @return Horde_Vcs  The newly created concrete instance.
+     * @throws Horde_Vcs_Exception
      */
     static public function factory($driver, $params = array())
     {
@@ -271,15 +271,6 @@ class Horde_Vcs
         return new $class($this, $where);
     }
 
-    public function getCheckout($file, $rev)
-    {
-        if (!isset($this->_cache['co'])) {
-            $class = 'Horde_Vcs_Checkout_' . $this->_driver;
-            $this->_cache['co'] = new $class();
-        }
-        return $this->_cache['co']->get($this, $file->queryFullPath(), $rev);
-    }
-
     public function getDiff($file, $rev1, $rev2, $type = 'unified', $num = 3,
                             $ws = true, $human = false)
     {
@@ -298,6 +289,21 @@ class Horde_Vcs
             $this->_cache['diff'] = new $class();
         }
         return $this->_cache['diff']->availableDiffTypes();
+    }
+
+    /**
+     * Function which returns a file pointing to the head of the requested
+     * revision of an SVN file.
+     *
+     * @param string $fullname  Fully qualified pathname of the desired file
+     *                          to checkout
+     * @param string $rev       Revision number to check out
+     *
+     * @return resource  A stream pointer to the head of the checkout.
+     */
+    public function checkout($fullname, $rev)
+    {
+        return null;
     }
 
     /**
@@ -333,12 +339,6 @@ class Horde_Vcs
         return $fileOb;
     }
 
-    public function getAnnotateObject($filename)
-    {
-        $class = 'Horde_Vcs_Annotate_' . $this->_driver;
-        return new $class($this, $filename);
-    }
-
     public function getPatchsetObject($filename, $cache = null)
     {
         $class = 'Horde_Vcs_Patchset_' . $this->_driver;
@@ -346,61 +346,82 @@ class Horde_Vcs
         return $vc_patchset->getPatchsetObject();
     }
 
-    public function getRevisionObject()
-    {
-        if (!isset($this->_cache['rev'])) {
-            $class = 'Horde_Vcs_Revision_' . $this->_driver;
-            $this->_cache['rev'] = new $class();
-        }
-        return $this->_cache['rev'];
-    }
-}
-
-/**
- * Horde_Vcs annotate class.
- *
- * @package Horde_Vcs
- */
-abstract class Horde_Vcs_Annotate
-{
-    protected $_file;
-    protected $_rep;
-
-    /**
-     * Constructor
-     *
-     * TODO
-     */
-    public function __construct($rep, $file)
-    {
-        $this->_rep = $rep;
-        $this->_file = $file;
-    }
-
     /**
      * TODO
      */
-    abstract public function doAnnotate($rev);
-}
+    public function annotate($fileob, $rev)
+    {
+        return array();
+    }
 
-/**
- * @package Horde_Vcs
- */
-abstract class Horde_Vcs_Checkout
-{
     /**
-     * Function which returns a file pointing to the head of the requested
-     * revision of an SVN file.
+     * Given a revision string, remove a given number of portions from
+     * it. For example, if we remove 2 portions of 1.2.3.4, we are
+     * left with 1.2.
      *
-     * @param Horde_Vcs $rep     A repository object
-     * @param string $fullname  Fully qualified pathname of the desired file
-     *                          to checkout
-     * @param string $rev       Revision number to check out
+     * @param string $val      Input revision string.
+     * @param integer $amount  Number of portions to strip.
      *
-     * @return resource|object  Either a PEAR_Error object, or a stream
-     *                          pointer to the head of the checkout.
+     * @return string  Stripped revision string.
      */
-    abstract function get($rep, $fullname, $rev);
+    public function strip($val, $amount = 1)
+    {
+        return $val;
+    }
+
+    /**
+     * The size of a revision number is the number of portions it has.
+     * For example, 1,2.3.4 is of size 4.
+     *
+     * @param string $val  Revision number to determine size of
+     *
+     * @return integer  Size of revision number
+     */
+    public function sizeof($val)
+    {
+        return 1;
+    }
+
+    /**
+     * Given two revisions, this figures out which one is greater than the
+     * the other.
+     *
+     * @param string $rev1  Revision string.
+     * @param string $rev2  Second revision string.
+     *
+     * @return integer  1 if the first is greater, -1 if the second if greater,
+     *                  and 0 if they are equal
+     */
+    public function cmp($rev1, $rev2)
+    {
+        return strcasecmp($rev1, $rev2);
+    }
+
+    /**
+     * Return the logical revision before this one.
+     *
+     * @param string $rev  Revision string to decrement.
+     *
+     * @return string|boolean  Revision string, or false if none could be
+     *                         determined.
+     */
+    public function prev($rev)
+    {
+        return false;
+    }
+
+    /**
+     * Returns an abbreviated form of the revision, for display.
+     *
+     * @param string $rev  The revision string.
+     *
+     * @return string  The abbreviated string.
+     */
+    public function abbrev($rev)
+    {
+        return $rev;
+    }
+
 }
 
 /**
@@ -558,11 +579,9 @@ abstract class Horde_Vcs_Diff
      */
     public function getRevisionRange($rep, $file, $r1, $r2)
     {
-        $rev_ob = $rep->getRevisionObject();
-
-        if ($rev_ob->cmp($r1, $r2) == 1) {
-            $curr = $rev_ob->prev($r1);
-            $stop = $rev_ob->prev($r2);
+        if ($rev->cmp($r1, $r2) == 1) {
+            $curr = $rev->prev($r1);
+            $stop = $rev->prev($r2);
             $flip = true;
         } else {
             $curr = $r2;
@@ -574,11 +593,11 @@ abstract class Horde_Vcs_Diff
 
         do {
             $ret_array[] = $curr;
-            $curr = $rev_ob->prev($curr);
+            $curr = $rev->prev($curr);
             if ($curr == $stop) {
                 return ($flip) ? array_reverse($ret_array) : $ret_array;
             }
-        } while ($rev_ob->cmp($curr, $stop) != -1);
+        } while ($rev->cmp($curr, $stop) != -1);
 
         return array();
     }
@@ -715,7 +734,6 @@ abstract class Horde_Vcs_Directory
             break;
 
         case Horde_Vcs::SORT_REV:
-            $this->_revob = $this->_rep->getRevisionObject();
             usort($fileList, array($this, 'fileRevSort'));
             break;
 
@@ -761,7 +779,7 @@ abstract class Horde_Vcs_Directory
      */
     public function fileRevSort($a, $b)
     {
-        return $this->_revob->cmp($a->queryHead(), $b->queryHead());
+        return $this->_rep->cmp($a->queryHead(), $b->queryHead());
     }
 
 }
@@ -781,7 +799,6 @@ class Horde_Vcs_File
     public $symrev = array();
     public $revsym = array();
     public $branches = array();
-    public $revob;
 
     /**
      * TODO
@@ -834,19 +851,15 @@ class Horde_Vcs_File
         return $this->revs[0];
     }
 
+    /**
+     * TODO
+     */
     public function queryPreviousRevision($rev)
     {
-        $last = false;
-        foreach ($this->revs as $entry) {
-            if ($last) {
-                return $entry;
-            }
-            if ($entry == $rev) {
-                $last = true;
-            }
-        }
-
-        return false;
+        $key = array_search($rev, $this->revs);
+        return (($key !== false) && isset($this->revs[$key + 1]))
+            ? $this->revs[$key + 1]
+            : false;
     }
 
     /**
@@ -892,7 +905,6 @@ class Horde_Vcs_File
 
         case Horde_Vcs::SORT_REV:
         default:
-            $this->revob = $this->rep->getRevisionObject();
             $func = 'Revision';
             break;
         }
@@ -906,7 +918,7 @@ class Horde_Vcs_File
      */
     public function sortByRevision($a, $b)
     {
-        return $this->revob->cmp($b->rev, $a->rev);
+        return $this->rep->cmp($b->rev, $a->rev);
     }
 
     public function sortByAge($a, $b)
@@ -1082,84 +1094,4 @@ abstract class Horde_Vcs_Patchset
     {
         $this->_rep = $rep;
     }
-}
-
-/**
- * Horde_Vcs revisions class.
- *
- * Copyright Anil Madhavapeddy, <anil@recoil.org>
- *
- * @author  Anil Madhavapeddy <anil@recoil.org>
- * @package Horde_VC
- */
-class Horde_Vcs_Revision
-{
-    /**
-     * Given a revision string, remove a given number of portions from
-     * it. For example, if we remove 2 portions of 1.2.3.4, we are
-     * left with 1.2.
-     *
-     * @param string $val      Input revision string.
-     * @param integer $amount  Number of portions to strip.
-     *
-     * @return string  Stripped revision string.
-     */
-    public function strip($val, $amount = 1)
-    {
-        return $val;
-    }
-
-    /**
-     * The size of a revision number is the number of portions it has.
-     * For example, 1,2.3.4 is of size 4.
-     *
-     * @param string $val  Revision number to determine size of
-     *
-     * @return integer  Size of revision number
-     */
-    public function sizeof($val)
-    {
-        return 1;
-    }
-
-    /**
-     * Given two revisions, this figures out which one is greater than the
-     * the other.
-     *
-     * @param string $rev1  Revision string.
-     * @param string $rev2  Second revision string.
-     *
-     * @return integer  1 if the first is greater, -1 if the second if greater,
-     *                  and 0 if they are equal
-     */
-    public function cmp($rev1, $rev2)
-    {
-        return strcasecmp($rev1, $rev2);
-    }
-
-    /**
-     * Return the logical revision before this one.
-     *
-     * @param string $rev  Revision string to decrement.
-     *
-     * @return string|boolean  Revision string, or false if none could be
-     *                         determined.
-     */
-    public function prev($rev)
-    {
-        return false;
-    }
-
-    /**
-     * Returns an abbreviated form of the revision, for display.
-     *
-     * @param string $rev  The revision string.
-     *
-     * @return string  The abbreviated string.
-     */
-    public function abbrev($rev)
-    {
-        return $rev;
-    }
-
 }

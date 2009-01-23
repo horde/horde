@@ -222,10 +222,6 @@ class Horde_Vcs_Rcs extends Horde_Vcs
         }
     }
 
-}
-
-class Horde_Vcs_Revision_Rcs extends Horde_Vcs_Revision
-{
     /**
      * Given a revision number, remove a given number of portions from
      * it. For example, if we remove 2 portions of 1.2.3.4, we are
@@ -238,14 +234,14 @@ class Horde_Vcs_Revision_Rcs extends Horde_Vcs_Revision
      */
     public function strip($val, $amount = 1)
     {
-        //if (!Horde_Vcs_Revision::valid($val)) {
-        //    return false;
-        //}
+        if (!$this->isValidRevision($val)) {
+            return false;
+        }
         $pos = 0;
         while ($amount-- > 0 && ($pos = strrpos($val, '.')) !== false) {
             $val = substr($val, 0, $pos);
         }
-        return $pos !== false ? $val : false;
+        return ($pos !== false) ? $val : false;
     }
 
     /**
@@ -258,12 +254,9 @@ class Horde_Vcs_Revision_Rcs extends Horde_Vcs_Revision
      */
     public function sizeof($val)
     {
-        //@TODO This concept is broken beyond CVS
-        //if (!Horde_Vcs_Revision::valid($val)) {
-        //    return false;
-        //}
-
-        return (substr_count($val, '.') + 1);
+        return $this->isValidRevision($val)
+            ? (substr_count($val, '.') + 1)
+            : false;
     }
 
     /**
@@ -312,4 +305,5 @@ class Horde_Vcs_Revision_Rcs extends Horde_Vcs_Revision
             }
         }
     }
+
 }

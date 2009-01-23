@@ -51,7 +51,7 @@
 <?php endif; ?>
    <?php if (!empty($val['tags'])): ?><li class="tags"><?php echo _("Tags:") ?> <?php echo implode(', ', $val['tags']) ?></li><?php endif; ?>
   </ul>
-  <a href="<?php echo Chora::url('co', $where, array('r' => $val['rev'])) ?>" title="<?php echo htmlspecialchars($val['rev']) ?>"><?php echo htmlspecialchars($rev_ob->abbrev($val['rev'])) ?></a>: <?php echo $val['msg'] ?>
+  <a href="<?php echo Chora::url('co', $where, array('r' => $val['rev'])) ?>" title="<?php echo htmlspecialchars($val['rev']) ?>"><?php echo htmlspecialchars($VC->abbrev($val['rev'])) ?></a>: <?php echo $val['msg'] ?>
   <div class="diffclear"></div>
  </div>
 <?php endforeach; ?>

@@ -6,7 +6,7 @@
     <?php echo $author ?>
   </td>
   <td class="rev">
-    <a rev="<?php echo htmlspecialchars($rev) ?>" href="<?php echo Chora::url('co', $where, array('r' => $rev)) ?>" title="<?php echo htmlspecialchars($rev) ?>"><?php echo htmlspecialchars($rev_ob->abbrev($rev)) ?></a>
+    <a rev="<?php echo htmlspecialchars($rev) ?>" href="<?php echo Chora::url('co', $where, array('r' => $rev)) ?>" title="<?php echo htmlspecialchars($rev) ?>"><?php echo htmlspecialchars($VC->abbrev($rev)) ?></a>
 <?php if ($prev): ?>
     <a href="<?php echo Chora::url('diff', $where, array('r1' => $prev, 'r2' => $rev)) ?>" title="<?php echo sprintf(_("Diff to %s"), htmlspecialchars($prev)) ?>"><?php echo Horde::img('diff.png') ?></a>
     <span class="logdisplay"><?php echo Horde::img('log.png') ?></span>
@@ -14,7 +14,7 @@
   </td>
   <td class="rev">
 <?php if ($prev): ?>
-    <a rev="<?php echo htmlspecialchars($prev) ?>" href="<?php echo Chora::url('annotate', $where, array('rev' => $prev)) . '#l' . $lineno ?>" title="<?php echo htmlspecialchars($prev) ?>"><?php echo htmlspecialchars($rev_ob->abbrev($prev)) ?></a>
+    <a rev="<?php echo htmlspecialchars($prev) ?>" href="<?php echo Chora::url('annotate', $where, array('rev' => $prev)) . '#l' . $lineno ?>" title="<?php echo htmlspecialchars($prev) ?>"><?php echo htmlspecialchars($VC->abbrev($prev)) ?></a>
 <?php endif; ?>
   </td>
   <td class="item<?php echo $style ?>">

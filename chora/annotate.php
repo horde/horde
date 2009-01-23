@@ -17,7 +17,6 @@ try {
 } catch (Horde_Vcs_Exception $e) {
     Chora::fatal($e);
 }
-$rev_ob = $VC->getRevisionObject();
 
 /* Retrieve the desired revision from the GET variable. */
 $rev = Util::getFormData('rev');
@@ -36,9 +35,8 @@ case 'log':
     exit;
 }
 
-$ann = $VC->getAnnotateObject($fl);
 try {
-    $lines = $ann->doAnnotate($rev);
+    $lines = $VC->annotate($fl, $rev);
 } catch (Horde_Vcs_Exception $e) {
     Chora::fatal($e);
 }

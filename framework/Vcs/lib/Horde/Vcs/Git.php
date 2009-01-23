@@ -54,39 +54,22 @@ class Horde_Vcs_Git extends Horde_Vcs
         return ($data[1] == 'blob');
     }
 
+    /**
+     * TODO
+     */
     public function getCommand()
     {
         return $this->getPath('git') . ' --git-dir=' . escapeshellarg($this->_sourceroot);
     }
 
-    public function getCheckout($file, $rev)
-    {
-        if (!isset($this->_cache['co'])) {
-            $this->_cache['co'] = new Horde_Vcs_Checkout_Git();
-        }
-        return $this->_cache['co']->get($this, $file->queryModulePath(), $rev);
-    }
-
-}
-
-/**
- * Horde_Vcs_Git annotate class.
- *
- * Chuck Hagenbuch <chuck@horde.org>
- *
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @package Horde_Vcs
- */
-class Horde_Vcs_Annotate_Git extends Horde_Vcs_Annotate
-{
     /**
      * TODO
      */
-    public function doAnnotate($rev)
+    public function annotate($fileob, $rev)
     {
-        $this->_rep->assertValidRevision($rev);
+        $this->assertValidRevision($rev);
 
-        $command = $this->_rep->getCommand() . ' blame -p ' . $rev . ' -- ' . escapeshellarg($this->_file->queryModulePath()) . ' 2>&1';
+        $command = $this->getCommand() . ' blame -p ' . escapeshellarg($rev) . ' -- ' . escapeshellarg($fileob->queryModulePath()) . ' 2>&1';
         $pipe = popen($command, 'r');
         if (!$pipe) {
             throw new Horde_Vcs_Exception('Failed to execute git annotate: ' . $command);
@@ -134,40 +117,39 @@ class Horde_Vcs_Annotate_Git extends Horde_Vcs_Annotate
         return $lines;
     }
 
-}
-
-/**
- * Horde_Vcs_Git checkout class.
- *
- * Chuck Hagenbuch <chuck@horde.org>
- *
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @package Horde_Vcs
- */
-class Horde_Vcs_Checkout_Git extends Horde_Vcs_Checkout
-{
     /**
      * Function which returns a file pointing to the head of the requested
      * revision of a file.
      *
-     * @param Horde_Vcs $rep    A repository object
      * @param string $fullname  Fully qualified pathname of the desired file
      *                          to checkout
      * @param string $rev       Revision number to check out
      *
      * @return resource  A stream pointer to the head of the checkout.
      */
-    function get($rep, $file, $rev)
+    public function checkout($file, $rev)
     {
-        $rep->assertValidRevision($rev);
+        $this->assertValidRevision($rev);
 
-        $file_ob = $rep->getFileObject($file);
+        $file_ob = $this->getFileObject($file);
 
-        if ($pipe = popen($rep->getCommand() . ' cat-file blob ' . $file_ob->getHashForRevision($rev) . ' 2>&1', VC_WINDOWS ? 'rb' : 'r')) {
+        if ($pipe = popen($this->getCommand() . ' cat-file blob ' . $file_ob->getHashForRevision($rev) . ' 2>&1', VC_WINDOWS ? 'rb' : 'r')) {
             return $pipe;
         }
 
         throw new Horde_Vcs_Exception('Couldn\'t perform checkout of the requested file');
+    }
+
+    /**
+     * Returns an abbreviated form of the revision, for display.
+     *
+     * @param string $rev  The revision string.
+     *
+     * @return string  The abbreviated string.
+     */
+    public function abbrev($rev)
+    {
+        return substr($rev, 0, 7) . '[...]';
     }
 
 }
@@ -251,13 +233,13 @@ class Horde_Vcs_Diff_Git extends Horde_Vcs_Diff
         return $revs;
     }
 
-    private function _getRevisionRange($rep, $file, $r1, $r2)
+    protected function _getRevisionRange($rep, $file, $r1, $r2)
     {
         $cmd = $rep->getCommand() . ' rev-list ' . escapeshellarg($r1) . '..' . escapeshellarg($r2) . ' -- ' . escapeshellarg($file->queryModulePath());
         $revs = array();
 
         exec($cmd, $revs);
-        return array_map($revs, 'trim');
+        return array_map('trim', $revs);
     }
 }
 
@@ -650,31 +632,6 @@ class Horde_Vcs_Patchset_Git extends Horde_Vcs_Patchset
         }
 
         return true;
-    }
-
-}
-
-class Horde_Vcs_Revision_Git extends Horde_Vcs_Revision
-{
-    /**
-     * Validation function to ensure that a revision number is of the right
-     * form.
-     *
-     * @param mixed $rev  The purported revision number.
-     *
-     * @return boolean  True if it is a revision number.
-     */
-
-    /**
-     * Returns an abbreviated form of the revision, for display.
-     *
-     * @param string $rev  The revision string.
-     *
-     * @return string  The abbreviated string.
-     */
-    public function abbrev($rev)
-    {
-        return substr($rev, 0, 7) . '[...]';
     }
 
 }

@@ -5,7 +5,7 @@
   <?php endif ?>
   <a href="<?php echo Chora::url('diff', $where, array('r1' => 0, 'r2' => $rev)) ?>" class="sdiff" title="<?php echo _("Show changes to the selected revision") ?>" onclick="Chora_RevLog.sdiff(this);"><?php echo Horde::img('diff.png') ?></a>
  </td>
- <td><a href="<?php echo $textUrl ?>" title="<?php echo htmlspecialchars($rev) ?>"><?php echo htmlspecialchars($rev_ob->abbrev($rev)) ?></a>
+ <td><a href="<?php echo $textUrl ?>" title="<?php echo htmlspecialchars($rev) ?>"><?php echo htmlspecialchars($VC->abbrev($rev)) ?></a>
 <?php foreach (array_diff($branch_info, array($onb)) as $val): ?>
   <span class="branch"><?php echo Horde::link(Chora::url('', $where, array('onb' => $val))) . htmlspecialchars($val) ?></a></span>
 <?php endforeach; ?>

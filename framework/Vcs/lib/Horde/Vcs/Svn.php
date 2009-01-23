@@ -78,32 +78,16 @@ class Horde_Vcs_Svn extends Horde_Vcs
         return $command;
     }
 
-    public function isValidRevision($rev)
-    {
-        return $rev && is_numeric($rev);
-    }
-}
-
-/**
- * Horde_Vcs_Svn annotate class.
- *
- * Anil Madhavapeddy, <anil@recoil.org>
- *
- * @author  Anil Madhavapeddy <anil@recoil.org>
- * @package Horde_Vcs
- */
-class Horde_Vcs_Annotate_Svn extends Horde_Vcs_Annotate
-{
     /**
      * TODO
      */
-    public function doAnnotate($rev)
+    public function annotate($fileob, $rev)
     {
-        if (!$this->_rep->isValidRevision($rev)) {
+        if (!$this->isValidRevision($rev)) {
             return false;
         }
 
-        $command = $this->_rep->getCommand() . ' annotate -r 1:' . $rev . ' ' . escapeshellarg($this->_file->queryFullPath()) . ' 2>&1';
+        $command = $this->getCommand() . ' annotate -r ' . escapeshellarg('1:' . $rev) . ' ' . escapeshellarg($fileob->queryFullPath()) . ' 2>&1';
         $pipe = popen($command, 'r');
         if (!$pipe) {
             throw new Horde_Vcs_Exception('Failed to execute svn annotate: ' . $command);
@@ -129,38 +113,33 @@ class Horde_Vcs_Annotate_Svn extends Horde_Vcs_Annotate
         return $lines;
     }
 
-}
-
-/**
- * Horde_Vcs_Svn checkout class.
- *
- * Anil Madhavapeddy, <anil@recoil.org>
- *
- * @author  Anil Madhavapeddy <anil@recoil.org>
- * @package Horde_Vcs
- */
-class Horde_Vcs_Checkout_Svn extends Horde_Vcs_Checkout
-{
     /**
      * Function which returns a file pointing to the head of the requested
      * revision of a file.
      *
-     * @param Horde_Vcs $rep    A repository object
      * @param string $fullname  Fully qualified pathname of the desired file
      *                          to checkout
      * @param string $rev       Revision number to check out
      *
      * @return resource  A stream pointer to the head of the checkout.
      */
-    public function get($rep, $fullname, $rev)
+    public function checkout($fullname, $rev)
     {
         if (!$rep->isValidRevision($rev)) {
             throw new Horde_Vcs_Exception('Invalid revision number');
         }
 
-        return ($RCS = popen($rep->getCommand() . ' cat -r ' . $rev . ' ' . escapeshellarg($fullname) . ' 2>&1', VC_WINDOWS ? 'rb' : 'r'))
+        return ($RCS = popen($this->getCommand() . ' cat -r ' . escapeshellarg($rev) . ' ' . escapeshellarg($fullname) . ' 2>&1', VC_WINDOWS ? 'rb' : 'r'))
             ? $RCS
             : throw new Horde_Vcs_Exception('Couldn\'t perform checkout of the requested file');
+    }
+
+    /**
+     * TODO
+     */
+    public function isValidRevision($rev)
+    {
+        return $rev && is_numeric($rev);
     }
 
 }

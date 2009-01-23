@@ -46,7 +46,7 @@ if (!$VC->isValidRevision($r)) {
 
 /* Retrieve the actual checkout. */
 try {
-    $checkOut = $VC->getCheckout($file, $r);
+    $checkOut = $VC->checkout($file, $r);
 } catch (Horde_Vcs_Exception $e) {
     Chora::fatal($e);
 }

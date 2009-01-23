@@ -23,7 +23,6 @@ try {
 } catch (Horde_Vcs_Exception $e) {
     Chora::fatal($e);
 }
-$rev_ob = $VC->getRevisionObject();
 
 $colset = array('#ccdeff', '#ecf', '#fec', '#efc', '#cfd', '#dcdba0');
 $branch_colors = $colStack = array();
@@ -42,9 +41,9 @@ foreach ($branches as $brrev => $brcont) {
  * Calling this function on every revision of the trunk is enough to
  * render out the whole tree.
  */
-function _populateGrid($row, $col, $rev_ob)
+function _populateGrid($row, $col)
 {
-    global $grid, $branches;
+    global $branches, $grid, $VC;
 
     /* Figure out the starting revision this function uses. */
     $rev = $grid[$row][$col];
@@ -59,7 +58,7 @@ function _populateGrid($row, $col, $rev_ob)
         $brrev = $brkeys[$a];
         $brcont = $branches[$brrev];
         /* Check to see if current point matches a branch point. */
-        if (!strcmp($rev, $rev_ob->strip($brrev, 1))) {
+        if (!strcmp($rev, $VC->strip($brrev, 1))) {
             /* If it does, figure out how many rows we have to add. */
             $numRows = sizeof($brcont);
             /* Check rows in columns to the right, until one is
@@ -96,7 +95,7 @@ function _populateGrid($row, $col, $rev_ob)
             /* For each value just set, check for sub-branches, - but
              * in reverse (VERY IMPORTANT!). */
             for ($i = $numRows - 1; $i >= 0 ; --$i) {
-                _populateGrid(1 + $i + $row, $insCol, $rev_ob);
+                _populateGrid(1 + $i + $row, $insCol);
             }
         }
     }
@@ -108,7 +107,7 @@ function _populateGrid($row, $col, $rev_ob)
  * populating the grid with branch revisions. */
 for ($row = sizeof($trunk) - 1; $row >= 0; $row--) {
     $grid[$row][0] = $trunk[$row];
-    _populateGrid($row, 0, $rev_ob);
+    _populateGrid($row, 0);
 }
 
 /* Sort the grid array into row order, and determine the maximum
@@ -145,7 +144,7 @@ foreach ($grid as $row) {
         /* Otherwise, this cell has content; determine what it is. */
         $rev = $row[$i];
 
-        if ($VC->isValidRevision($rev) && ($rev_ob->sizeof($rev) % 2)) {
+        if ($VC->isValidRevision($rev) && ($VC->sizeof($rev) % 2)) {
             /* This is a branch point, so put the info out. */
             $bg = isset($branch_colors[$rev]) ? $branch_colors[$rev] : '#e9e9e9';
             $symname = $fl->branches[$rev];
@@ -154,13 +153,13 @@ foreach ($grid as $row) {
         } elseif (preg_match('|^:|', $rev)) {
             /* This is a continuation cell, so render it with the
              * branch colour. */
-            $bgbr = $rev_ob->strip(preg_replace('|^\:|', '', $rev), 1);
+            $bgbr = $VC->strip(preg_replace('|^\:|', '', $rev), 1);
             $bg = isset($branch_colors[$bgbr]) ? $branch_colors[$bgbr] : '#e9e9e9';
             require CHORA_TEMPLATES . '/history/blank.inc';
 
         } elseif ($VC->isValidRevision($rev)) {
             /* This cell contains a revision, so render it. */
-            $bgbr = $rev_ob->strip($rev, 1);
+            $bgbr = $VC->strip($rev, 1);
             $bg = isset($branch_colors[$bgbr]) ? $branch_colors[$bgbr] : '#e9e9e9';
             $log = $fl->logs[$rev];
             $author = Chora::showAuthorName($log->queryAuthor());

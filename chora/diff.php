@@ -17,7 +17,6 @@ try {
 } catch (Horde_Vcs_Exception $e) {
     Chora::fatal($e);
 }
-$rev_ob = $VC->getRevisionObject();
 
 /* Initialise the form variables correctly. */
 $r1 = Util::getFormData('r1');
@@ -52,8 +51,8 @@ if ($type != 'colored') {
 }
 
 /* Human-Readable diff. */
-$abbrev_r1 = $rev_ob->abbrev($r1);
-$abbrev_r2 = $rev_ob->abbrev($r2);
+$abbrev_r1 = $VC->abbrev($r1);
+$abbrev_r2 = $VC->abbrev($r2);
 $title = sprintf(_("Diff for %s between version %s and %s"),
                  Text::htmlallspaces($where), $abbrev_r1, $abbrev_r2);
 

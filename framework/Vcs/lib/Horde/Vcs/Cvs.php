@@ -74,80 +74,43 @@ class Horde_Vcs_Cvs extends Horde_Vcs_Rcs
     /**
      * TODO
      */
-    public function getAnnotateObject($filename)
-    {
-        return new Horde_Vcs_Annotate_Cvs($this, $filename);
-    }
-
-    /**
-     * TODO
-     */
     public function getPatchsetObject($filename, $cache = null)
     {
         return parent::getPatchsetObject($this->sourceroot() . '/' . $filename, $cache);
     }
-}
-
-/**
- * Horde_Vcs_Cvs annotate class.
- *
- * Anil Madhavapeddy, <anil@recoil.org>
- *
- * @author  Anil Madhavapeddy <anil@recoil.org>
- * @package Horde_Vcs
- */
-class Horde_Vcs_Annotate_Cvs extends Horde_Vcs_Annotate
-{
-    /**
-     * Temporary filename.
-     *
-     * @var string
-     */
-    protected $_tmpfile;
-
-    /**
-     * Constructor.
-     *
-     * TODO
-     */
-    public function __construct($rep, $file)
-    {
-        $this->_tmpfile = Util::getTempFile('vc', true, $rep->getTempPath());
-        parent::__construct($rep, $file);
-    }
 
     /**
      * TODO
      */
-    public function doAnnotate($rev)
+    public function annotate($fileob, $rev)
     {
-        if (!$this->_rep->isValidRevision($rev)) {
+        if (!$this->isValidRevision($rev)) {
             return false;
         }
 
-        $where = $this->_file->queryModulePath();
-        $sourceroot = $this->_rep->sourceroot();
+        $tmpfile = Util::getTempFile('vc', true, $this->getTempPath());
+        $where = $fileob->queryModulePath();
 
-        $pipe = popen($this->_rep->getPath('cvs') . ' -n server > ' . $this->_tmpfile, VC_WINDOWS ? 'wb' : 'w');
+        $pipe = popen($this->getPath('cvs') . ' -n server > ' . escapeshellarg($tmpfile), VC_WINDOWS ? 'wb' : 'w');
 
         $out = array(
-            "Root $sourceroot",
+            'Root ' . $this->sourceroot(),
             'Valid-responses ok error Valid-requests Checked-in Updated Merged Removed M E',
             'UseUnchanged',
             'Argument -r',
-            "Argument $rev",
-            "Argument $where"
+            'Argument ' . $rev,
+            'Argument ' . $where
         );
 
         $dirs = explode('/', dirname($where));
         while (count($dirs)) {
             $out[] = 'Directory ' . implode('/', $dirs);
-            $out[] = "$sourceroot/" . implode('/', $dirs);
+            $out[] = $this->sourceroot() . '/' . implode('/', $dirs);
             array_pop($dirs);
         }
 
         $out[] = 'Directory .';
-        $out[] = $sourceroot;
+        $out[] = $this->sourceroot();
         $out[] = 'annotate';
 
         foreach ($out as $line) {
@@ -155,7 +118,7 @@ class Horde_Vcs_Annotate_Cvs extends Horde_Vcs_Annotate
         }
         pclose($pipe);
 
-        if (!($fl = fopen($this->_tmpfile, VC_WINDOWS ? 'rb' : 'r'))) {
+        if (!($fl = fopen($tmpfile, VC_WINDOWS ? 'rb' : 'r'))) {
             return false;
         }
 
@@ -192,36 +155,23 @@ class Horde_Vcs_Annotate_Cvs extends Horde_Vcs_Annotate
         return $lines;
     }
 
-}
-
-/**
- * Horde_Vcs_cvs checkout class.
- *
- * Anil Madhavapeddy, <anil@recoil.org>
- *
- * @author  Anil Madhavapeddy <anil@recoil.org>
- * @package Horde_Vcs
- */
-class Horde_Vcs_Checkout_Cvs extends Horde_Vcs_Checkout
-{
     /**
-     * Static function which returns a file pointing to the head of the
-     * requested revision of an RCS file.
+     * Returns a file pointing to the head of the requested revision of a
+     * file.
      *
-     * @param Horde_Vcs_Cvs $rep  A repository object.
-     * @param string $fullname    Fully qualified pathname of the desired file
-     *                            to checkout.
-     * @param string $rev         Revision number to check out.
+     * @param string $fullname  Fully qualified pathname of the desired file
+     *                          to checkout.
+     * @param string $rev       Revision number to check out.
      *
      * @return resource  A stream pointer to the head of the checkout.
      */
-    public function get($rep, $fullname, $rev)
+    public function checkout($fullname, $rev)
     {
         if (!$rep->isValidRevision($rev)) {
             throw new Horde_Vcs_Exception('Invalid revision number');
         }
 
-        if (!($RCS = popen($rep->getPath('co') . " -p$rev " . escapeshellarg($fullname) . " 2>&1", VC_WINDOWS ? 'rb' : 'r'))) {
+        if (!($RCS = popen($this->getPath('co') . ' ' . escapeshellarg('-p' . $rev) . ' ' . escapeshellarg($fullname) . " 2>&1", VC_WINDOWS ? 'rb' : 'r'))) {
             throw new Horde_Vcs_Exception('Couldn\'t perform checkout of the requested file');
         }
 
@@ -230,7 +180,7 @@ class Horde_Vcs_Checkout_Cvs extends Horde_Vcs_Checkout
          * and we check that this is the case and error otherwise
          */
         $co = fgets($RCS, 1024);
-        if (!preg_match('/^([\S ]+),v\s+-->\s+st(andar)?d ?out(put)?\s*$/', $co, $regs) ||
+        if (!preg_match('/^([\S ]+,v)\s+-->\s+st(andar)?d ?out(put)?\s*$/', $co, $regs) ||
             ($regs[1] != $fullname)) {
             throw new Horde_Vcs_Exception('Unexpected output from checkout: ' . $co);
         }
@@ -456,7 +406,6 @@ class Horde_Vcs_File_Cvs extends Horde_Vcs_File
         }
 
         $accum = $revsym = $symrev = array();
-        $rev_ob = $this->rep->getRevisionObject();
         $state = 'init';
 
         foreach ($return_array as $line) {
@@ -503,7 +452,7 @@ class Horde_Vcs_File_Cvs extends Horde_Vcs_File
                     $branch = $log->queryBranch();
                     if (empty($this->_branch) ||
                         in_array($this->_branch, $log->queryBranch()) ||
-                        (($rev_ob->cmp($rev, $this->branches[$this->_branch]) === -1) &&
+                        (($this->rep->cmp($rev, $this->branches[$this->_branch]) === -1) &&
                          (empty($branch) ||
                           in_array('HEAD', $branch) ||
                           (strpos($this->branches[$this->_branch], $rev) === 0)))) {
@@ -538,15 +487,6 @@ class Horde_Vcs_File_Cvs extends Horde_Vcs_File
     public function queryName()
     {
         return preg_replace('/,v$/', '', $this->name);
-    }
-
-    /**
-     * TODO
-     */
-    public function queryPreviousRevision($rev)
-    {
-        $ob = $this->rep->getRevisionObject();
-        return $ob->prev($rev);
     }
 
     /**
@@ -734,12 +674,9 @@ class Horde_Vcs_Log_Cvs extends Horde_Vcs_Log
         }
 
         $key = array_keys($this->file->branches, $this->rev);
-        if (!empty($key)) {
-            return $key;
-        }
-
-        $rev_ob = $this->file->rep->getRevisionObject();
-        return array_keys($this->file->branches, $rev_ob->strip($this->rev, 1));
+        return empty($key)
+            ? array_keys($this->file->branches, $this->rep->strip($this->rev, 1))
+            : $key;
     }
 
 }
@@ -880,5 +817,3 @@ class Horde_Vcs_Patchset_Cvs extends Horde_Vcs_Patchset
     }
 
 }
-
-class Horde_Vcs_Revision_Cvs extends Horde_Vcs_Revision_Rcs {}

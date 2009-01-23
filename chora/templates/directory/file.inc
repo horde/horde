@@ -20,7 +20,7 @@
 <?php else: ?>
     <a href="<?php echo $url ?>" title="<?php echo htmlspecialchars($head) ?>">
 <?php endif; ?>
-<?php echo htmlspecialchars($rev_ob->abbrev($head)) ?></a></strong>
+<?php echo htmlspecialchars($VC->abbrev($head)) ?></a></strong>
   </td>
 <?php else: ?>
   <td>
@@ -31,7 +31,7 @@
 <?php endif; ?>
    <?php echo $name ?>
   </td>
-  <td><strong><?php echo htmlspecialchars($rev_ob->abbrev($head)) ?></strong></td>
+  <td><strong><?php echo htmlspecialchars($VC->abbrev($head)) ?></strong></td>
 <?php endif; ?>
   <td><?php echo $author ?></td>
   <td sortval="<?php echo (int)$date ?>">
