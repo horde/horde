@@ -15,6 +15,7 @@ v3.0-cvs
 v2.3.1-cvs
 ----------
 
+[jan] Use improved translation support in Date_Holidays (Bug #7272).
 [jan] Empty view cache when changing calendar selection
       (stpierre@nebrwesleyan.edu, Bug #7879).
 [mjr] Fix category CSS being included on embedded widgets.
