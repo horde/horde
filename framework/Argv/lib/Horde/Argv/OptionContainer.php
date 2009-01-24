@@ -218,8 +218,9 @@ class Horde_Argv_OptionContainer
     public function removeOption($opt_str)
     {
         $option = $this->getOption($opt_str);
-        if (is_null($option))
+        if (is_null($option)) {
             throw new InvalidArgumentException("no such option '$opt_str'");
+        }
 
         foreach ($option->shortOpts as $opt) {
             unset($this->shortOpt[$opt]);

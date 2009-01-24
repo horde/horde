@@ -33,7 +33,7 @@
  *      irrelevant for parsing the command-line, but very useful
  *      for generating help)
  *
- *    allow_interspersed_args : bool = true
+ *    allowInterspersedArgs : bool = true
  *      if true, positional arguments may be interspersed with options.
  *      Assuming -a and -b each take a single argument, the command-line
  *        -ablah foo bar -bboo baz
@@ -46,6 +46,10 @@
  *      Python's getopt module, Perl's Getopt::Std, and other argument-
  *      parsing libraries, but it is generally annoying to users.)
  *
+ *    allowUnknownArgs : bool = false
+ *      if true, unrecognized arguments will be auto-created, instead
+ *      of throwing a BadOptionException.
+ *
  *    rargs : [string]
  *      the argument list currently being parsed.  Only set when
  *      parseArgs() is active, and continually trimmed down as
@@ -53,7 +57,7 @@
  *      callback options.
  *    largs : [string]
  *      the list of leftover arguments that we have skipped while
- *      parsing options.  If allow_interspersed_args is false, this
+ *      parsing options.  If allowInterspersedArgs is false, this
  *      list is always empty.
  *    values : Values
  *      the set of option values currently being accumulated.  Only
@@ -81,14 +85,17 @@ class Horde_Argv_Parser extends Horde_Argv_OptionContainer
             'formatter' => null,
             'addHelpOption' => true,
             'prog' => null,
-            'epilog' => null),
-            $args);
+            'epilog' => null,
+            'allowInterspersedArgs' => true,
+            'allowUnknownArgs' => false,
+            ), $args);
 
         parent::__construct($args['optionClass'], $args['conflictHandler'], $args['description']);
         $this->setUsage($args['usage']);
         $this->prog = $args['prog'];
         $this->version = $args['version'];
-        $this->allow_interspersed_args = true;
+        $this->allowInterspersedArgs = $args['allowInterspersedArgs'];
+        $this->allowUnknownArgs = $args['allowUnknownArgs'];
         if (is_null($args['formatter']))
             $args['formatter'] = new Horde_Argv_IndentedHelpFormatter();
         $this->formatter = $args['formatter'];
@@ -178,12 +185,12 @@ class Horde_Argv_Parser extends Horde_Argv_OptionContainer
 
     public function enableInterspersedArgs()
     {
-        $this->allow_interspersed_args = true;
+        $this->allowInterspersedArgs = true;
     }
 
     public function disableInterspersedArgs()
     {
-        $this->allow_interspersed_args = false;
+        $this->allowInterspersedArgs = false;
     }
 
     public function setDefault($dest, $value)
@@ -334,7 +341,7 @@ class Horde_Argv_Parser extends Horde_Argv_OptionContainer
      *                values : Values)
      *
      *  Process command-line arguments and populate 'values', consuming
-     *  options and arguments from 'rargs'.  If 'allow_interspersed_args' is
+     *  options and arguments from 'rargs'.  If 'allowInterspersedArgs' is
      *  false, stop at the first non-option argument.  If true, accumulate any
      *  interspersed non-option arguments in 'largs'.
      */
@@ -355,7 +362,7 @@ class Horde_Argv_Parser extends Horde_Argv_OptionContainer
                 // process a cluster of short options (possibly with
                 // value(s) for the last one only)
                 $this->_processShortOpts($rargs, $values);
-            } elseif ($this->allow_interspersed_args) {
+            } elseif ($this->allowInterspersedArgs) {
                 $largs[] = $arg;
                 array_shift($rargs);
             } else {
@@ -380,7 +387,7 @@ class Horde_Argv_Parser extends Horde_Argv_OptionContainer
         //   largs = subset of [arg0, ..., arg(i)]
         //   rargs = [arg(i+1), ..., arg(N-1)]
         //
-        // If allow_interspersed_args is false, largs will always be
+        // If allowInterspersedArgs is false, largs will always be
         // *empty* -- still a subset of [arg0, ..., arg(i-1)], but
         // not a very interesting subset!
     }
@@ -446,8 +453,16 @@ class Horde_Argv_Parser extends Horde_Argv_OptionContainer
             $had_explicit_value = false;
         }
 
-        $opt = $this->_matchLongOpt($opt);
-        $option = $this->longOpt[$opt];
+        try {
+            $opt = $this->_matchLongOpt($opt);
+            $option = $this->longOpt[$opt];
+        } catch (Horde_Argv_BadOptionException $e) {
+            if ($this->allowUnknownArgs) {
+                $option = $this->addOption($opt);
+            } else {
+                throw $e;
+            }
+        }
         if ($option->takesValue()) {
             $nargs = $option->nargs;
             if (count($rargs) < $nargs) {
@@ -483,8 +498,13 @@ class Horde_Argv_Parser extends Horde_Argv_OptionContainer
             $option = isset($this->shortOpt[$opt]) ? $this->shortOpt[$opt] : null;
             $i++; // we have consumed a character
 
-            if (!$option)
-                throw new Horde_Argv_BadOptionException($opt);
+            if (!$option) {
+                if ($this->allowUnknownArgs) {
+                    $option = $this->addOption($opt);
+                } else {
+                    throw new Horde_Argv_BadOptionException($opt);
+                }
+            }
 
             if ($option->takesValue()) {
                 // Any characters left in arg?  Pretend they're the
