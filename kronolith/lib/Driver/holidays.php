@@ -53,25 +53,15 @@ class Kronolith_Driver_holidays extends Kronolith_Driver {
                                       __FILE__, __LINE__, PEAR_LOG_ERR);
                     continue;
                 }
-
-                list($type, $file) = $this->_getTranslationFile($driver);
-                if (empty($file)) {
-                    Horde::logMessage(sprintf('Failed to load translation file for driver %s with locale %s', $driver, $language), __FILE__, __LINE__, PEAR_LOG_DEBUG);
-                    $events = array_merge($events, $this->_getEvents($dh, $startDate, $endDate, 'ISO-8859-1'));
-                } elseif ($type = 'ser') {
-                    $dh->addCompiledTranslationFile($file, $language);
-                    $events = array_merge($events, $this->_getEvents($dh, $startDate, $endDate, 'UTF-8'));
-                } else {
-                    $dh->addTranslationFile($file , $language);
-                    $events = array_merge($events, $this->_getEvents($dh, $startDate, $endDate, 'ISO-8859-1'));
-                }
+                $dh->addTranslation($language);
+                $events = array_merge($events, $this->_getEvents($dh, $startDate, $endDate));
             }
         }
 
         return $events;
     }
 
-    function _getEvents($dh, $startDate, $endDate, $charset)
+    function _getEvents($dh, $startDate, $endDate)
     {
         $events = array();
         for ($date = new Horde_Date($startDate);
@@ -90,7 +80,7 @@ class Kronolith_Driver_holidays extends Kronolith_Driver {
 
             foreach ($holidays as $holiday) {
                 $event = &new Kronolith_Event_holidays($this);
-                $event->fromDriver($holiday, $charset);
+                $event->fromDriver($holiday);
                 $events[] = $event;
             }
         }
@@ -211,11 +201,11 @@ class Kronolith_Event_holidays extends Kronolith_Event {
      * @param Date_Holidays_Holiday $dhEvent  A holiday returned
      *                                        from the driver
      */
-    function fromDriver($dhEvent, $charset)
+    function fromDriver($dhEvent)
     {
         $this->stored = true;
         $this->initialized = true;
-        $this->setTitle(String::convertCharset($dhEvent->getTitle(), $charset));
+        $this->setTitle(String::convertCharset($dhEvent->getTitle(), 'UTF-8'));
         $this->setId($dhEvent->getInternalName());
 
         $this->start = new Horde_Date($dhEvent->_date->getTime());
