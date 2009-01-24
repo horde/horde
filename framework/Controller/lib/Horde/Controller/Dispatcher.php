@@ -74,6 +74,13 @@ class Horde_Controller_Dispatcher
             $this->_controllerDir .= '/';
         }
 
+        // Set the mapper's controller directory and controllerScan
+        if ($this->_controllerDir && !$this->_mapper->directory) {
+            $this->_mapper->directory = $this->_controllerDir;
+        }
+        $scanner = new Horde_Controller_Scanner($this->_mapper);
+        $this->_mapper->controllerScan = $scanner->getCallback();
+
         // Make sure views directory, if set, ends in a /.
         if ($this->_viewsDir && substr($this->_viewsDir, -1) != '/') {
             $this->_viewsDir .= '/';

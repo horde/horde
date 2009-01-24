@@ -52,8 +52,9 @@ http://pear.php.net/dtd/package-2.0.xsd">
       <file name="Base.php" role="php" />
       <file name="Dispatcher.php" role="php" />
       <file name="Exception.php" role="php" />
-      <file name="UrlWriter.php" role="php" />
+      <file name="Scanner.php" role="php" />
       <file name="StatusCodes.php" role="php" />
+      <file name="UrlWriter.php" role="php" />
      </dir> <!-- /lib/Horde/Controller -->
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
@@ -74,8 +75,9 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Controller/Base.php" as="Horde/Controller/Base.php" />
    <install name="lib/Horde/Controller/Dispatcher.php" as="Horde/Controller/Dispatcher.php" />
    <install name="lib/Horde/Controller/Exception.php" as="Horde/Controller/Exception.php" />
-   <install name="lib/Horde/Controller/UrlWriter.php" as="Horde/Controller/UrlWriter.php" />
+   <install name="lib/Horde/Controller/Scanner.php" as="Horde/Controller/Scanner.php" />
    <install name="lib/Horde/Controller/StatusCodes.php" as="Horde/Controller/StatusCodes.php" />
+   <install name="lib/Horde/Controller/UrlWriter.php" as="Horde/Controller/UrlWriter.php" />
    <install name="lib/Horde/Controller/Mime/Type.php" as="Horde/Controller/Mime/Type.php" />
    <install name="lib/Horde/Controller/Request/Base.php" as="Horde/Controller/Request/Base.php" />
    <install name="lib/Horde/Controller/Request/Http.php" as="Horde/Controller/Request/Http.php" />
