@@ -270,8 +270,8 @@ class Horde_Routes_Utils
                  new RecursiveDirectoryIterator($dirname)) as $entry) {
 
             if ($entry->isFile()) {
-                 // match .php files that don't start with an underscore
-                 if (preg_match('/^[^_]{1,1}.*\.php$/', basename($entry->getFilename())) != 0) {
+                // match .php files that don't start with an underscore
+                if (preg_match('/^[^_]{1,1}.*\.php$/', basename($entry->getFilename())) != 0) {
                     // strip off base path: dirname/admin/users.php -> admin/users.php
                     $controller = preg_replace("/^$baseregexp(.*)\.php/", '\\1', $entry->getPathname());
 

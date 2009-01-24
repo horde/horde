@@ -815,7 +815,7 @@ class Horde_Routes_Route
             $newExtras = array();
             foreach ($kargs as $key => $value) {
                 if (in_array($key, $extras) && ($key != 'action' || $key != 'controller')) {
-                     $newExtras[$key] = $value;
+                    $newExtras[$key] = $value;
                 }
             }
             $url .= http_build_query($newExtras);

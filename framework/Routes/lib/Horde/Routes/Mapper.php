@@ -430,8 +430,7 @@ class Horde_Routes_Mapper
                 if (empty($url)) {
                     $url = '/';
                 }
-            }
-            else {
+            } else {
                 return array(null, null, $matchLog);
             }
         }
@@ -771,7 +770,7 @@ class Horde_Routes_Mapper
      *       # '/regions/51/locations'
      *
      * Note: Since Horde Routes 0.2.0 and Python Routes 1.8, this method is
-     * not compatible with earlier versions inasmuch as the semicolon is no 
+     * not compatible with earlier versions inasmuch as the semicolon is no
      * longer used to delimit custom actions.  This was a change in Rails
      * itself (http://dev.rubyonrails.org/changeset/6485) and adopting it
      * here allows us to keep parity with Rails and ActiveResource.
