@@ -2,59 +2,54 @@
 /**
  * News
  *
- * Copyright 2006 Duck <duck@obala.net>
+ * $Id: pdf.php 1191 2009-01-21 16:45:21Z duck $
  *
- * See the enclosed file LICENSE for license information (BSD). If you
- * did not receive this file, see http://cvs.horde.org/co.php/news/LICENSE.
+ * Copyright Obala d.o.o. (www.obala.si)
  *
- * $Id: pdf.php 183 2008-01-06 17:39:50Z duck $
- *
- * @author Duck <duck@obala.net>
+ * @author  Duck <duck@obala.net>
  * @package News
  */
-
-define('NEWS_BASE', dirname(__FILE__));
-require_once NEWS_BASE . '/lib/base.php';
-require_once 'File/PDF.php';
+$no_compress = true;
+require_once dirname(__FILE__) . '/lib/base.php';
 
 $id = Util::getFormData('id');
 $row = $news->get($id);
 
-// check if the news eyists
+// Check if the news exists
 if ($row instanceof PEAR_Error) {
-    $notification->push($row->getMessage(), 'horde.error');
+    $notification->push($row);
     header('Location: ' . Horde::applicationUrl('browse.php'));
     exit;
 }
 
-/* Set up the PDF object. */
-$pdf = File_PDF::factory(array('orientation' => 'P', 'unit' => 'mm', 'format' => 'A4'));
-$pdf->setMargins(5, 5, 20);
+// Set up the PDF object.
+$pdf = new Horde_Pdf_Writer();
 
-/* Enable automatic page breaks. */
-$pdf->setAutoPageBreak(true, 50);
+$pdf->setInfo('title', $row['title']);
+$pdf->setInfo('author', $row['user']);
+$pdf->setInfo('CreationDate', 'D:' . date('Ymdhis'));
 
-/* Start the document. */
 $pdf->open();
-
-/* Start a page. */
 $pdf->addPage();
+$pdf->setAutoPageBreak(true);
+$pdf->setFont('Arial', '', 12);
 
-/* Write the header in Times 24 Bold. */
-@$pdf->setFont('timesce', '', 20);
-$pdf->multiCell(0, 20, $row['title']);
-$pdf->newLine(1);
+if ($row['picture']) {
+    $file = $conf['vfs']['params']['vfsroot'] . '/'
+            . News::VFS_PATH . '/images/news/big/'
+            . $id . '.' . $conf['images']['image_type'];
+    if (file_exists($file)) {
+        $pdf->image($file, 120, 20);
+    }
+}
 
-/* News data */
-$news_url = Util::addParameter(Horde::applicationUrl('news.php', true), 'id', $id);
-$body = _("On") . ': ' . $news->dateFormat($row['publish']) . "\n"
-       . _("Link") . ': ' . $news_url . "\n"
-      . iconv('utf-8', 'cp1250', strip_tags($row['content']));
+$pdf->setFillColor('rgb', 200/255, 220/255, 255/255);
+$pdf->cell(0, 6, $row['title'], 0, 1, 'L', 1);
+$pdf->newLine(4);
 
-/* Write the note body in Times 14. */
-$pdf->setFont('timesce', '', 12);
-$pdf->write(12, $body);
+$pdf->write(12, _("On") . ': ' . $news->dateFormat($row['publish']) . "\n");
+$pdf->write(12, _("Link") . ': ' . News::getUrlFor('news', $id, true) . "\n\n", News::getUrlFor('news', $id, true));
+$pdf->multiCell(0, 12, String::convertCharset(strip_tags($row['content']), NLS::getCharset(), 'UTF-8'));
 
-/* Output the generated PDF. */
 $browser->downloadHeaders($id . '.pdf', 'application/pdf');
 echo $pdf->getOutput();
