@@ -173,7 +173,7 @@ class Kronolith_FreeBusy_View {
     function factory($view)
     {
         $driver = basename($view);
-        require_once dirname(__FILE__) . '/FBView/' . $driver . '.php';
+        require_once dirname(__FILE__) . '/View/' . $driver . '.php';
         $class = 'Kronolith_FreeBusy_View_' . $driver;
         if (class_exists($class)) {
             return new $class($user, $params);

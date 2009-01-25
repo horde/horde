@@ -8,14 +8,15 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package Kronolith
  */
-class Kronolith_Imple {
+class Kronolith_Imple
+{
 
     /**
      * Parameters needed by the subclasses.
      *
      * @var array
      */
-    var $_params = array();
+    protected $_params = array();
 
     /**
      * Attempts to return a concrete Imple instance based on $imple.
@@ -28,7 +29,7 @@ class Kronolith_Imple {
      * @return mixed  The newly created concrete Imple instance, or false on
      *                error.
      */
-    function factory($imple, $params = array())
+    public static function factory($imple, $params = array())
     {
         $imple = basename($imple);
         if (!$imple) {
@@ -51,7 +52,7 @@ class Kronolith_Imple {
      *
      * @param array $params  Any parameters needed by the class.
      */
-    function Imple($params)
+    public function __construct($params)
     {
         $this->_params = $params;
         $this->attach();
@@ -60,7 +61,7 @@ class Kronolith_Imple {
     /**
      * Attach the Imple object to a javascript event.
      */
-    function attach()
+    public function attach()
     {
         Horde::addScriptFile('prototype.js', 'horde', true);
         Horde::addScriptFile('effects.js', 'horde', true);
@@ -71,7 +72,7 @@ class Kronolith_Imple {
      *
      * @param TODO
      */
-    function handle($args)
+    public function handle($args)
     {
     }
 
@@ -80,7 +81,7 @@ class Kronolith_Imple {
      *
      * @return string  The HTML code.
      */
-    function html()
+    public function html()
     {
     }
 
@@ -91,7 +92,7 @@ class Kronolith_Imple {
      *
      * @return string  The random ID string.
      */
-    function _randomid()
+    public function _randomid()
     {
         return 'imple_' . uniqid(mt_rand());
     }
