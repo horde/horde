@@ -2,31 +2,26 @@
 /**
  * News
  *
- * Copyright 2006 Duck <duck@obala.net>
+ * $Id: note.php 890 2008-09-23 09:58:23Z duck $
  *
- * See the enclosed file LICENSE for license information (BSD). If you
- * did not receive this file, see http://cvs.horde.org/co.php/news/LICENSE.
+ * Copyright Obala d.o.o. (www.obala.si)
  *
- * $Id: note.php 183 2008-01-06 17:39:50Z duck $
- *
- * @author Duck <duck@obala.net>
+ * @author  Duck <duck@obala.net>
  * @package News
  */
-define('NEWS_BASE', dirname(__FILE__));
-require_once NEWS_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/base.php';
 
 $id = Util::getFormData('id');
 $row = $news->get($id);
 if ($row instanceof PEAR_Error) {
-    $notification->push($row->getMessage(), 'horde.error');
+    $notification->push($row);
     header('Location: ' . Horde::applicationUrl('browse.php'));
     exit;
 }
 
-$news_url = Util::addParameter(Horde::applicationUrl('news.php', true), 'id', $id);
-$body = $row['title'] . "\n\n"
+$body = $row['title'] . "\n\n"getUrlFor
        . _("On") . ': ' . $news->dateFormat($row['publish']) . "\n"
-       . _("Link") . ': ' . $news_url . "\n\n"
+       . _("Link") . ': ' . News::getUrlFor('news', $id) . "\n\n"
        . strip_tags($row['content']);
 
 /* Create a new vNote object using this message's contents. */
@@ -38,8 +33,8 @@ $vNote->setAttribute('BODY', $body);
 $res = $registry->call('notes/import', array($vNote, 'text/x-vnote'));
 
 if ($res instanceof PEAR_Error) {
-    $notification->push($res->getMessage(), 'horde.error');
-    header('Location: ' . $news_url);
+    $notification->push($res);
+    header('Location: ' . News::getUrlFor('news', $id));
     exit;
 } else {
     $notification->push(_("News sucessfuly added to you notes."), 'horde.success');

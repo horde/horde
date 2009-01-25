@@ -1,9 +1,11 @@
 <tr valign="top">
 <td colspan="7">
-<img src="<?php echo News::getImageUrl($id, 'small'); ?>" style="float: right; height: 50px; width: 50px;" />
 
 <table style="width: 100%;">
 <tr valign="top">
+<td>
+<img src="<?php echo News::getImageUrl($id, 'small'); ?>" style="height: 50px; width: 50px;" />
+</td>
 <td>
 <?php
 
@@ -56,11 +58,11 @@ if (!empty($row['selling'])) {
 
 // Form
 if (!empty($row['form'])) {
-    // 
+    //
 }
 
 if ($row['attachments']) {
-    echo News::format_attached($id);
+    echo $news->format_attached($id);
 }
 
 ?>
@@ -84,6 +86,7 @@ if (sizeof($versions)>0) {
         switch ($version['action']) {
         case 'update':
             echo _("Update");
+            break;
         default:
             echo _("Insert");
         break;

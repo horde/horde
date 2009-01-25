@@ -2,18 +2,14 @@
 /**
  * Show feed
  *
- * Copyright 2007 Duck <duck@obala.net>
+ * $Id: feed.php 1179 2009-01-20 13:19:34Z duck $
  *
- * See the enclosed file LICENSE for license information (BSD). If you
- * did not receive this file, see http://cvs.horde.org/co.php/news/LICENSE.
+ * Copyright Obala d.o.o. (www.obala.si)
  *
- * $Id: feed.php 183 2008-01-06 17:39:50Z duck $
- *
- * @author Duck <duck@obala.net>
+ * @author  Duck <duck@obala.net>
  * @package News
  */
-define('NEWS_BASE', dirname(__FILE__));
-require_once NEWS_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/base.php';
 
 function _getStories($feed_id)
 {
@@ -23,7 +19,7 @@ function _getStories($feed_id)
         $GLOBALS['cache']->set('news_feed_' . $feed_id, serialize($stories));
         return $stories;
     } else {
-        return unserialize($stories); 
+        return unserialize($stories);
     }
 }
 
@@ -32,5 +28,6 @@ $stories = _getStories($feed_id);
 $df = $GLOBALS['prefs']->getValue('date_format');
 foreach ($stories as $story) {
     echo strftime($df, $story['story_published'])
-        . ' <a href="' . $story['story_url'] . '" target="_blank" title="' . strip_tags($story['story_desc']) . '">' . $story['story_title'] . '</a><br />';
+        . ' <a href="' . $story['story_url'] . '" target="_blank" title="' . strip_tags($story['story_desc']) . '">'
+        . $story['story_title'] . '</a><br />';
 }

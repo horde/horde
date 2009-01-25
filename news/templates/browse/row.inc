@@ -1,7 +1,7 @@
 <p style="clear: both;">
 <img src="<?php echo News::getImageUrl($row['id'], 'small'); ?>" style="float: left; margin: 5px;" />
 <strong>
-<?php echo Horde::link(Util::addParameter($news_url, 'id', $row['id']), $row['title']) . $row['title'] . '</a>'; ?>
+<?php echo Horde::link(News::getUrlFor('news', $row['id']), $row['title']) . $row['title'] . '</a>'; ?>
 </strong> - <?php echo News::dateFormat($row['publish'], false) ?>
  <br />
 <?php echo $row['abbreviation'] ?> ...<br />

@@ -1,7 +1,7 @@
 <?php
 /**
-* extend Horde TagCloud to allow complete css font sizes
-*/
+ * extend Horde TagCloud to allow complete css font sizes
+ */
 class Oscar_TagCloud extends Horde_UI_TagCloud {
 
     /**

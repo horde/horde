@@ -22,7 +22,7 @@ if ($registry->hasMethod('blogs/createUrl')) {
     echo Horde::link($blog_url) . '<strong>' . _("Trackback this blog on this site.") . '</strong></a><br/>';
 }
 
-$read_url = Util::addParameter(Horde::applicationUrl('news.php', true), 'id', $id);
+$read_url = News::getUrlFor('news', $id);
 ?>
 
 <!--

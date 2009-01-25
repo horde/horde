@@ -11,7 +11,7 @@
 <tr>
 <td><?php foreach ($source['actions'] as $action ) { echo $action . ' '; } ?></td>
 <td><?php echo $source_id ?></td>
-<td><?php echo $source['source_name'] ?></td>
+<td><a href="<?php echo News::getUrlFor('source', $source_id) ?>" target="_blank"><?php echo $source['source_name'] ?></a></td>
 <td><?php echo $source['source_url'] ?></td>
 </tr>
 <?php } ?>

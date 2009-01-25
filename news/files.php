@@ -1,72 +1,95 @@
 <?php
 /**
-* Download and veiew files
-*
- * Copyright 2006 Duck <duck@obala.net>
+ * Download and veiew files
  *
- * See the enclosed file LICENSE for license information (BSD). If you
- * did not receive this file, see http://cvs.horde.org/co.php/news/LICENSE.
+ * $Id: files.php 1187 2009-01-21 10:33:06Z duck $
  *
- * $Id: files.php 183 2008-01-06 17:39:50Z duck $
+ * Copyright Obala d.o.o. (www.obala.si)
  *
- * @author Duck <duck@obala.net>
+ * @author  Duck <duck@obala.net>
  * @package News
  */
-
-/* application include */
 $no_compress = true;
-define('NEWS_BASE', dirname(__FILE__));
-require_once NEWS_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/base.php';
 
-$id = Util::getFormData('id', false);
+$news_id = Util::getFormData('news_id', false);
 $actionID = Util::getFormData('actionID');
-$filedir = Util::getFormData('dir');
-$filename = Util::getFormData('file');
-$type = substr($filename, strpos($filename, '.'));
+$file_id = Util::getFormData('file_id');
+$file_name = Util::getFormData('file_name');
+$news_lang = Util::getFormData('news_lang', News::getLang());
+$file_type = Util::getFormData('file_type');
+$file_size = Util::getFormData('file_size');
 
 /* Run through action handlers. */
 switch ($actionID) {
 case 'download_file':
 
-    $browser->downloadHeaders($filename);
-    readfile($conf['attributes']['attachments'] . $filedir . '/' . $filename);
+    $browser->downloadHeaders($file_name, $file_type, false, $file_size);
+    readfile($conf['attributes']['attachments'] . '/' . $file_id);
     break;
 
 case 'view_file':
 
-    require_once 'Horde/MIME/Part.php';
-    require_once 'Horde/MIME/Viewer.php';
-    require_once 'Horde/MIME/Magic.php';
-    require_once 'Horde/MIME/Contents.php';
+    $data = file_get_contents($conf['attributes']['attachments'] . '/' . $file_id);
 
-    $data = file_get_contents($conf['attributes']['attachments'] . $filedir . '/' . $filename);
-    $mime = &new MIME_Part(MIME_Magic::extToMIME($type), $data);
-    $mime->setName($filename);
-    $contents = &new MIME_Contents($mime);
-    $body = $contents->renderMIMEPart($mime);
-    $type = $contents->getMIMEViewerType($mime);
-    $browser->downloadHeaders($mime->getName(true, true), $type, true, strlen($body));
+    $mime_part = new Horde_Mime_Part();
+    $mime_part->setName($file_id);
+    $mime_part->setType($file_type);
+    $mime_part->setContents($data);
+
+    $viewer = Horde_Mime_Viewer::factory($mime_part);
+    if ($viewer) {
+        $render = $viewer->render('full');
+        if (!empty($render)) {
+            reset($render);
+            $key = key($render);
+            $browser->downloadHeaders($file_id, $render[$key]['type'], true, strlen($render[$key]['data']));
+            echo $render[$key]['data'];
+        }
+    } else {
+        // We cannnot see this file, so download it
+        $browser->downloadHeaders($file_name, $file_type, false, $file_size);
+        echo $data;
+    }
+
+break;
+
+case 'download_zip_all':
+
+    $file_id = sprintf(_("FilesOfNews-%s"), $news_id);
+    $zipfiles = array();
+    foreach ($news->getFiles($news_id) as $file) {
+
+        $file_path = $conf['attributes']['attachments'] . '/' . $file['file_id'];
+        if (!file_exists($file_path)) {
+            continue;
+        }
+        $zipfiles[] = array('data' => $file_path,
+                            'name' => $file);
+    }
+
+    if (empty($zipfiles)) {
+        exit;
+    }
+
+var_dump($zipfiles);
+exit;
+
+    $zip = Horde_Compress::singleton('zip');
+    $body = @$zip->compress($zipfiles);
+    $browser->downloadHeaders($news_id . '.zip', 'application/zip', false, strlen($body));
     echo $body;
 
 break;
 
 case 'download_zip':
 
-    if ($id) {
-        $filename = sprintf(_("FilesOfNews-%s"), $id);
-        $zipfiles = array();
-        foreach ($news->getFiles($id) as $file_data) {
-            $zipfiles[] = array('data' => file_get_contents($conf['attributes']['attachments'] . $file_data['filename']),
-                                'name' => basename($file_data['filename']));
-        }
-    } else {
-        $zipfiles = array('data' => file_get_contents($conf['attributes']['attachments'] . $filedir . '/' . $filename),
-                            'name' => $filename);
-    }
+    $zipfiles = array('data' => file_get_contents($conf['attributes']['attachments'] . '/' . $file_id),
+                        'name' => $file_id);
 
     $zip = Horde_Compress::singleton('zip');
-    $body = $zip->compress($zipfiles);
-    $browser->downloadHeaders($filename . '.zip', 'application/zip', false, strlen($body));
+    $body = @$zip->compress($zipfiles);
+    $browser->downloadHeaders($file_id . '.zip', 'application/zip', false, strlen($body));
     echo $body;
 
 break;

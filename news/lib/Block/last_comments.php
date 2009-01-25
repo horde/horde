@@ -6,7 +6,7 @@ $block_name = _("Last comments");
  * thomas_Minisearch_Block:: Implementation of the Horde_Block API to
  * allows searching of addressbooks from the portal.
  *
- * $Id: last_comments.php 22 2007-12-13 11:10:52Z duck $
+ * $Id: last_comments.php 890 2008-09-23 09:58:23Z duck $
  *
  * @package Horde_Block
  */
@@ -42,7 +42,7 @@ class Horde_Block_news_last_comments extends Horde_Block {
 
         $comments = News::getLastComments($this->_params['limit']);
         if ($comments instanceof PEAR_Error) {
-            return $comments->getMessage();
+            return $comments;
         }
 
         $html = '';
@@ -53,5 +53,4 @@ class Horde_Block_news_last_comments extends Horde_Block {
         }
         return $html;
     }
-
 }

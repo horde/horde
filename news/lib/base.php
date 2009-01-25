@@ -7,7 +7,7 @@
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://cvs.horde.org/co.php/news/LICENSE.
  *
- * $Id: base.php 200 2008-01-09 08:29:52Z duck $
+ * $Id: base.php 1174 2009-01-19 15:11:03Z duck $
  *
  * @author Duck <duck@obala.net>
  * @package News
@@ -21,7 +21,6 @@ if (!defined('HORDE_BASE')) {
 
 // Load the Horde Framework core, and set up inclusion paths.
 require_once HORDE_BASE . '/lib/core.php';
-require_once 'Horde/Loader.php';
 
 // Registry.
 $registry = &Registry::singleton();
@@ -60,4 +59,3 @@ $GLOBALS['news_cat'] = new News_Categories();
 if (!Util::nonInputVar('no_compress')) {
     Horde::compressOutput();
 }
-

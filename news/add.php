@@ -2,19 +2,16 @@
 /**
  * Add
  *
- * Copyright 2006 Duck <duck@obala.net>
+ * $Id: add.php 1186 2009-01-21 10:24:00Z duck $
  *
- * See the enclosed file LICENSE for license information (BSD). If you
- * did not receive this file, see http://cvs.horde.org/co.php/news/LICENSE.
+ * Copyright Obala d.o.o. (www.obala.si)
  *
- * $Id: add.php 750 2008-08-19 06:03:03Z duck $
- *
- * @author Duck <duck@obala.net>
+ * @author  Duck <duck@obala.net>
  * @package News
  */
 
-define('NEWS_BASE', dirname(__FILE__));
-require_once NEWS_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/base.php';
+require_once 'Horde/Variables.php';
 
 /**
  * This routine removes all attributes from a given tag except
@@ -59,24 +56,69 @@ function stripeentag($msg, $tag, $attr = array())
     return $msg;
 }
 
+/**
+ * Max upload size msg
+ */
+function _max_upload_size()
+{
+    static $msg;
+
+    if ($msg) {
+        return $msg;
+    }
+
+    $filesize = ini_get('upload_max_filesize');
+    if (substr($filesize, -1) == 'M') {
+        $filesize = $filesize * 1048576;
+    }
+    $filesize = News::format_filesize($filesize);
+
+    $postsize = ini_get('post_max_size');
+    if (substr($postsize, -1) == 'M') {
+        $postsize = $postsize * 1048576;
+    }
+    $postsize = News::format_filesize($postsize);
+
+    $msg = sprintf(_("Maximum file size: %s; with a total of: %s"),
+                    $filesize, $postsize);
+
+    return $msg;
+}
+
 // Is logged it?
 if (!Auth::isAuthenticated()) {
     $notification->push(_("Only authenticated users can post news."), 'horde.warning');
     Horde::authenticationFailureRedirect();
 }
 
-/* default vars */
+// Default vars
 $title = _("Add news");
 $default_lang = News::getLang();
 $id = Util::getFormData('id', false);
 $return = Util::getFormData('return', false);
 
-/* prepare form */
+// We just delete default image?
+if ($id && Util::getFormData('submitbutton') == _("Delete existing picture")) {
+    $result = $news->write_db->query('UPDATE ' . $news->prefix . ' SET picture = ? WHERE id = ?', array(0, $id));
+    if ($sources instanceof PEAR_Error) {
+        $notification->push($sources);
+    } else {
+        News::deleteImage($id);
+        header('Location: ' . News::getUrlFor('news', $id));
+        exit;
+    }
+}
+
+// Prepare form
 $vars = Variables::getDefaultVariables();
-$form = &new Horde_Form($vars, '', 'addnews');
-$form->_submit = _("Save");
+$form = new Horde_Form($vars, '', 'addnews');
 $form->addHidden('', 'return', 'text', false, true);
 
+if ($id) {
+    $form->setButtons(array(_("Update"), _("Delete existing picture")), _("Reset"));
+} else {
+    $form->setButtons(array(_("Save")), _("Reset"));
+}
 
 // General
 $form->setSection('content', _("Content"), '', false);
@@ -86,55 +128,23 @@ $v = &$form->addVariable(_("Publish"), 'publish', 'datetime', true, false, false
 $v->setDefault(date('Y-m-d H:i:s'));
 $form->addVariable(_("Primary category"), 'category1', 'enum', true, false, false, array($news_cat->getEnum(), _("-- select --")));
 
-/* Sources */
+// Sources
 $sources = $GLOBALS['news']->getSources();
 if ($sources instanceof PEAR_Error) {
-    $notification->push($sources->getDebugInfo(), 'horde.error');
+    $notification->push($sources);
 } elseif (!empty($sources)) {
     $form->addVariable(_("Source"), 'source', 'enum', false, false, false, array($sources, _("-- select --")));
 }
 $form->addVariable(_("Source link"), 'sourcelink', 'text', false, false);
 
-/* Picture */
-$form->addVariable(_("Picture"), 'picture', 'image', false, false, false, array('showUpload' => false));
-if ($id) {
-    $form->addVariable(_("Picture delete"), 'picture_delete', 'boolean', false, false, _("Delete existing picture"));
-}
-
-/* Languages */
+// Languages
 foreach ($conf['attributes']['languages'] as $key) {
     $flag = (count($conf['attributes']['languages']) > 1) ? News::getFlag($key) . ' ' : '';
     $form->addVariable($flag . _("Title"), "title_$key", 'text', ($key == $default_lang) ? true : false);
-    $form->addVariable($flag . _("Picture comment"), "picture_comment_$key", 'text', false);
     if ($conf['attributes']['tags']) {
         $form->addVariable($flag . _("Tags"), "tags_$key", 'text', false, false, _("Enter one or more keywords that describe your news. Separate them by spaces."));
     }
     $form->addVariable($flag . _("Content"), "content_$key", 'longtext', ($key == $default_lang) ? true : false , false, false, array(20, 120));
-    // TODO: tinymce is no longer available
-    Horde_Editor::singleton('tinymce',
-        array('id' => "content_$key",
-              'config' => array('mode'=> 'exact',
-                                'elements' => "content_$key",
-                                'theme' => 'advanced',
-                                'plugins' => "xhtmlxtras,paste,media,fullscreen,wordfix",
-                                'extended_valid_elements' => "img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name],hr[class|width|size|noshade],font[face|size|color|style],span[class|align|style],object,iframe[src|width|height|frameborder]",
-                                'paste_auto_cleanup_on_paste' => 'true',
-                                'paste_convert_headers_to_strong' => 'true',
-                                'theme_advanced_toolbar_location' => 'top',
-                                'theme_advanced_toolbar_align' => 'left',
-                                'theme_advanced_buttons1' => 'bold,italic,underline,fontsizeselect,separator,strikethrough,sub,sup,bullist,numlist,separator,link,unlink,image,separator,undo,redo,cleanup,code,hr,removeformat,wordfix,fullscreen',
-                                'theme_advanced_buttons2' => '',
-                                'theme_advanced_buttons3' => '',
-                                'theme_advanced_path_location' => 'bottom',
-                                'content_css' => '/include/tinymce/screen.css',
-                                //'cleanup_on_startup' => 'true',
-                                'button_tile_map' => 'true',
-                                'theme_advanced_buttons1_add' => 'media',
-                                'language' => 'en',
-                                'gecko_spellcheck' => 'true',
-                                'entity_encoding' => 'raw'
-    )));
-
 }
 
 // Additional
@@ -148,42 +158,83 @@ if ($registry->hasMethod('forums/doComments')) {
     $form->addVariable(sprintf(_("Threads in %s"), $registry->get('name', 'agora')), 'threads', 'intList', false, false, _("Enter threads separated by commas."));
 }
 
-/* Link to a gallery */
-if ($conf['attributes']['ansel-images'] 
+$form->setSection('images', _("Images"), '', true);
+$form->addVariable(_("News images"), 'content', 'header', false);
+$form->addVariable(_max_upload_size(), 'description', 'description', false);
+
+$form->addVariable(_("Picture"), 'picture_0', 'image', false, false, false, array(false));
+
+foreach ($conf['attributes']['languages'] as $key) {
+    $flag = (count($conf['attributes']['languages']) > 1) ? News::getFlag($key) . ' ' : '';
+    $form->addVariable($flag . _("Picture comment"), "caption_0_$key", 'text', false);
+}
+
+// Link to a gallery
+if ($conf['attributes']['ansel-images']
     && $registry->hasMethod('images/listGalleries')
     && $registry->call('images/countGalleries', array()) > 0) {
 
-    if ($registry->call('images/countGalleries', array()) > 30) {
-        $form->addVariable(_("Gallery"), 'gallery', 'int', false);
+    $form->addVariable(_("Enter gallery ID or upload images below"), 'description', 'description', false);
+
+    if ($registry->call('images/countGalleries', array()) > 50) {
+        $form->addVariable(_("Gallery"), 'gallery', 'int', false, false);
     } else {
         $ansel_galleries = $registry->call('images/listGalleries', array());
         $galleries = array();
         foreach ($ansel_galleries as $gallery_id => $gallery) {
             $galleries[$gallery_id] = $gallery['attribute_name'];
         }
-        $form->addVariable(_("Gallery"), 'gallery', 'enum', false, false, false, array('enum' => $galleries, 'prompt' => true));
+        $form->addVariable(_("Gallery"), 'gallery', 'enum', false, false, false, array($galleries, true));
+    }
+}
+
+if ($registry->hasMethod('images/listGalleries')) {
+    $images = 4;
+}
+
+if ($images > 1) {
+    $form->addVariable(_("Images will be added to a gallery linked with this article. You can edit and manage images in gallery."), 'description', 'description', false);
+    for ($i = 1; $i < $images; $i++) {
+        $form->addVariable(_("Picture") . ' ' . $i, 'picture_' . $i, 'image', false, false, false, array(false));
+        $form->addVariable(_("Caption") . ' ' . $i, 'caption_' . $i, 'text', false);
+    }
+}
+
+if ($conf['attributes']['attachments']) {
+    $form->setSection('files', _("Files"), '', true);
+
+    $form->addVariable(_max_upload_size(), 'description', 'description', false);
+
+    foreach ($conf['attributes']['languages'] as $key) {
+        $flag = (count($conf['attributes']['languages']) > 1) ? News::getFlag($key) . ' ' : '';
+        for ($i = 1; $i < 6; $i++) {
+            $form->addVariable($flag . ' ' . _("File") . ' ' . $i, 'file_' . $key . '_' . $i, 'file', false);
+        }
     }
 }
 
 if (Auth::isAdmin('news:admin')) {
 
+    $form->setSection('admin', _("Admin"), '', true);
+    $form->addVariable(_("News administrator options"), 'content', 'header', false);
+
     if ($conf['attributes']['sponsored']) {
         $form->addVariable(_("Sponsored"), 'sponsored', 'boolean', false);
     }
 
-    /* Allow commeting this content */
+    // Allow commeting this content
     if ($conf['comments']['allow'] != 'never' && $registry->hasMethod('forums/doComments')) {
         $form->addVariable(_("Disallow comments"), 'disable_comments', 'boolean', false, false);
     }
 
-    /* Link to selling  */
+    // Link to selling
     $apis = array();
     foreach ($registry->listAPIs() as $api) {
         if ($registry->hasMethod($api . '/getSellingForm')) {
             $apis[$api] = array();
             $articles = $registry->call($api  . '/listCostObjects');
             if ($articles instanceof PEAR_Error) {
-                $notification->push($articles->getMessage(), 'horde.error');
+                $notification->push($articles);
             } elseif (!empty($articles)) {
                 foreach ($articles[0]['objects'] as $item) {
                     $apis[$api][$item['id']] = $item['name'];
@@ -196,7 +247,7 @@ if (Auth::isAdmin('news:admin')) {
         $v = &$form->addVariable(_("Selling item"), 'selling', 'mlenum', false, false, false, array($apis));
     }
 
-    /* Show from */
+    // Show from
     $available = $GLOBALS['registry']->callByPackage('ulaform', 'getForms');
     if (!($available instanceof PEAR_Error)) {
         $forms = array();
@@ -209,16 +260,7 @@ if (Auth::isAdmin('news:admin')) {
     }
 }
 
-/* Files in gollem */
-if ($conf['attributes']['attachments'] && $registry->hasMethod('files/setSelectList')) {
-    $selectid = Util::getFormData('selectlist_selectid', $registry->call('files/setSelectList'));
-    $form->addVariable(_("Attachments"), 'attachments', 'selectfiles', false, false, false, array('link_text' => _("Select files"),
-                                                                                                  'link_style' => '',
-                                                                                                  'icon' => false,
-                                                                                                  'selectid' => $selectid));
-}
-
-/* Process form */
+// Process form
 if ($form->validate()) {
 
     $status_inserted = false;
@@ -237,7 +279,7 @@ if ($form->validate()) {
         $info['status'] = News::CONFIRMED;
     }
 
-    /* Multi language */
+    // Multi language
     $info['chars'] = strlen(preg_replace('/\s\s+/', '', trim(strip_tags($info["content_$default_lang"]))));
 
     foreach ($conf['attributes']['languages'] as $key) {
@@ -246,30 +288,30 @@ if ($form->validate()) {
         }
         $info['body'][$key]['title'] = $info["title_$key"];
         $info['body'][$key]['content'] = $info["content_$key"];
-        $info['body'][$key]['picture_comment'] = $info["picture_comment_$key"];
+        $info['body'][$key]['caption'] = empty($info["caption_0_$key"]) ? '' : $info["caption_0_$key"];
         $info['body'][$key]['tags'] = $conf['attributes']['tags'] ? $info["tags_$key"] : '';
         unset($info["title_$key"]);
         unset($info["content_$key"]);
-        unset($info["picture_comment_$key"]);
+        unset($info["caption_$key"]);
         unset($info["tags_$key"]);
 
         if (strpos($info['body'][$key]['content'], '<') === FALSE) {
-            $info['body'][$key]['content'] = nl2br($info['body'][$key]['content']);
+            $info['body'][$key]['content'] = nl2br(trim($info['body'][$key]['content']));
         } else {
-            $info['body'][$key]['content'] = stripeentag($info['body'][$key]['content'], 'p', array());
-            $info['body'][$key]['content'] = stripeentag($info['body'][$key]['content'], 'font', array());
+            $info['body'][$key]['content'] = trim(stripeentag($info['body'][$key]['content'], 'p'));
+            $info['body'][$key]['content'] = trim(stripeentag($info['body'][$key]['content'], 'font'));
         }
-        $info['chars'] = strlen(strip_tags( $info['body'][$key]['content']));
+        $info['chars'] = strlen(strip_tags($info['body'][$key]['content']));
     }
 
-    /* Selling */
+    // Selling
     if (empty($info['selling'][1])) {
         $info['selling'] = '';
     } else {
         $info['selling'] = $info['selling'][1] . '|' . $info['selling'][2];
     }
 
-    /* Clean up parents ID */
+    // Clean up parents ID
     if ($info['parents']) {
         $info['parents'] = explode(',', trim($info['parents']));
         foreach ($info['parents'] as $i => $parent_id) {
@@ -280,8 +322,15 @@ if ($form->validate()) {
         $info['parents'] = implode(',', array_unique($info['parents']));
     }
 
-    /* save as current version */
+    // Save as current version
     if (empty($id)) {
+
+        $id = $news->write_db->nextID($news->prefix);
+        if ($id instanceof PEAR_Error) {
+            $notification->push($id);
+            header('Location: ' . Horde::applicationUrl('browse.php'));
+            exit;
+        }
 
         $query = 'INSERT INTO ' . $news->prefix
                . ' (sortorder, status, publish, submitted, updated, user, editor, sourcelink, source,'
@@ -307,11 +356,13 @@ if ($form->validate()) {
                       $info['threads'],
                       empty($info['form_id']) ? 0 : (int)$info['form_id'],
                       empty($info['form_ttl']) ? 0 : (int)$info['form_ttl']);
+
         $status_inserted = true;
+
     } else {
 
         $query = 'UPDATE ' . $news->prefix . ' SET '
-                 . 'sortorder = ?, publish = ?, updated = NOW(), editor=?, sourcelink = ?, source = ?, '
+                 . 'sortorder = ?, publish = ?, updated = NOW(), editor = ?, sourcelink = ?, source = ?, '
                  . 'sponsored = ?, parents = ?, category1 = ?, category2 = ?, '
                  . 'chars = ?, attachments = ?, gallery = ?, selling = ?, threads = ?, '
                  . 'form_id = ?, form_ttl = ? WHERE id = ?';
@@ -335,81 +386,147 @@ if ($form->validate()) {
                       $id);
     }
 
-    $result = $news->writedb->query($query, $data);
+    $result = $news->write_db->query($query, $data);
     if ($result instanceof PEAR_Error) {
         $notification->push($result->getDebugInfo(), 'horde.error');
         header('Location: ' . Horde::applicationUrl('edit.php'));
         exit;
     }
 
-    if (!$id) {
-        $id = $news->writedb->getOne('SELECT LAST_INSERT_ID()');
-    }
-
-    /* picture */
-    if (isset($info['picture_delete']) && $info['picture_delete']) {
-        $news->writedb->query('UPDATE ' . $news->prefix . ' SET picture = ? WHERE id = ?', array(0, $id));
-    } elseif (getimagesize(@$info['picture']['file']) !== FALSE) {
-        News::saveImage($id, $info['picture']['file']);
-        
-        $news->writedb->query('UPDATE  ' . $news->prefix . '  SET picture = ? WHERE id = ?', array(1, $id));
-    }
-
-    /* comments */
-    if (isset($info['disable_comments']) && $info['disable_comments']) {
-        $news->writedb->query('UPDATE  ' . $news->prefix . '  SET comments = ? WHERE id = ?', array(-1, $id));
-    }
-
-    /* bodies */ 
-    $news->writedb->query('DELETE FROM ' . $news->prefix . '_body WHERE id=?', array($id));
-    $news->writedb->query('DELETE FROM ' . $news->prefix . '_attachment WHERE id=?', array($id));
-
-    $attachments = array();
-    if (isset($info['attachments'])) {
-        foreach ($info['attachments'] as $file) {
-            $attachments[] =  Util::realPath(key($file) . '/' . current($file));
+    // Picture
+    $images_uploaded = array();
+    if (isset($info['picture_0']['uploaded'])) {
+        if ($info['picture_0']['uploaded'] instanceof PEAR_Error) {
+            if ($info['picture_0']['uploaded']->getCode() != UPLOAD_ERR_NO_FILE) {
+                $notification->push($info['picture_0']['uploaded']->getMessage(), 'horde.warning');
+            }
+        } else {
+            $images_uploaded[] = 0;
+            $result = News::saveImage($id, $info['picture_0']['file']);
+            if ($result instanceof PEAR_Error) {
+                $notification->push($result);
+            } else {
+                $news->write_db->query('UPDATE ' . $news->prefix . ' SET picture = ? WHERE id = ?', array(1, $id));
+            }
         }
     }
 
-    $query_attach = $news->writedb->prepare('INSERT INTO ' . $news->prefix . '_attachment (id, lang, filename, filesize) VALUES (?, ?, ?, ?)');
-    $query_body   = $news->writedb->prepare('INSERT INTO ' . $news->prefix . '_body '
-                                            . '(id, lang, title, abbreviation, content, picture_comment, tags) VALUES (?, ?, ?, ?, ?, ?, ?)');
+    for ($i = 1; $i < $images; $i++) {
+        if (isset($info['picture_' . $i]['uploaded'])) {
+            if ($info['picture_' . $i]['uploaded'] instanceof PEAR_Error) {
+                if ($uploaded->getCode() != UPLOAD_ERR_NO_FILE) {
+                    $notification->push($uploaded->getMessage(), 'horde.warning');
+                }
+            } else {
+                $images_uploaded[] = $i;
+            }
+        }
+    }
 
-    foreach ($info['body'] as $lang => $values) {
-        $abbr = String::substr(strip_tags($values['content']), 0, $conf['preview']['list_content']);
-        $news->writedb->execute($query_body, array($id, $lang, $values['title'], $abbr, $values['content'], $values['picture_comment'], $values['tags']));
-        if (isset($info['attachments'])) {
-            for ($i = 0; $i < sizeof($info['attachments']); $i++) {
-                $f = $conf['attributes']['attachments'] . $attachments[$i];
-                $size = filesize($f);
-                if ($size) {
-                    $news->writedb->execute($query_attach, array($id, $lang, $attachments[$i], $size));
-                } else {
-                    $notification->push(sprintf(_("Cannot access file %s"), $f), 'horde.warning');
+    // Don't create a galler if no picture or only default one was uploaded
+    if (!empty($images_uploaded) &&
+        !(count($images_uploaded) == 1 && $images_uploaded[0] == 0)) {
+
+        // Do we have a gallery?
+        if (empty($info['gallery'])) {
+            $abbr = String::substr(strip_tags($info['body'][$default_lang]['content']), 0, $conf['preview']['list_content']);
+            $result = $registry->call('images/createGallery',
+                                        array(null,
+                                                array('name' => $info['body'][$default_lang]['title'],
+                                                        'desc' => $abbr)));
+            if ($result instanceof PEAR_Error) {
+                $notification->push(_("There was an error creating gallery: ") . $result->getMessage(), 'horde.warning');
+            } else {
+                $info['gallery'] = $result;
+            }
+        }
+
+        if (!empty($info['gallery'])) {
+            $news->write_db->query('UPDATE ' . $news->prefix . ' SET gallery = ? WHERE id = ?', array($info['gallery'], $id));
+            foreach ($images_uploaded as $i) {
+                $result = $registry->call('images/saveImage',
+                                            array(null, $info['gallery'],
+                                                    array('filename' => $info['picture_' . $i]['file'],
+                                                            'description' => $info['caption_' . ($i == 0 ? $i . '_' . $default_lang: $i)],
+                                                            'type' => $info['picture_' . $i]['type'],
+                                                            'data' => file_get_contents($info['picture_' . $i]['file']))));
+                if ($result instanceof PEAR_Error) {
+                    $notification->push(_("There was an error with the uploaded image: ") . $result->getMessage(), 'horde.warning');
                 }
             }
         }
     }
 
-    /* save as future version */
+    // Files
+    if ($conf['attributes']['attachments']) {
+        $uploaded = false;
+        $form->setSection('files', _("Files"), '', true);
+        foreach ($conf['attributes']['languages'] as $key) {
+            for ($i = 1; $i < 6; $i++) {
+                $input = 'file_' . $key . '_' . $i;
+                $uploaded = Horde_Browser::wasFileUploaded($input);
+                if ($uploaded instanceof PEAR_Error) {
+                    if ($uploaded->getCode() != UPLOAD_ERR_NO_FILE) {
+                        $notification->push($uploaded->getMessage(), 'horde.warning');
+                    }
+                } elseif ($uploaded) {
+                    $file_id = $news->write_db->nextID($news->prefix . '_files');
+                    if ($file_id instanceof PEAR_Error) {
+                        $notification->push($file_id);
+                    } else {
+                        $result = News::saveFile($file_id, $info[$input]['file']);
+                        if ($result instanceof PEAR_Error) {
+                            $notification->push($result->getMessage(), 'horde.warning');
+                        } else {
+                            $result = $news->write_db->query('INSERT INTO ' . $news->prefix . '_files (file_id, news_id, news_lang, file_name, file_size, file_type) VALUES (?, ?, ?, ?, ?, ?)',
+                                        array($file_id, $id, $key, $info[$input]['name'], $info[$input]['size'], $info[$input]['type']));
+                            if ($result instanceof PEAR_Error) {
+                                $notification->push($result->getMessage(), 'horde.warning');
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        if ($uploaded) {
+            $news->write_db->query('UPDATE ' . $news->prefix . ' SET attachments = ? WHERE id = ?', array(1, $id));
+        }
+     }
+
+    // Comments
+    if (isset($info['disable_comments']) && $info['disable_comments']) {
+        $news->write_db->query('UPDATE ' . $news->prefix . ' SET comments = ? WHERE id = ?', array(-1, $id));
+    }
+
+    // Bodies
+    $news->write_db->query('DELETE FROM ' . $news->prefix . '_body WHERE id = ?', array($id));
+    $query_body = $news->write_db->prepare('INSERT INTO ' . $news->prefix . '_body '
+                                            . '(id, lang, title, abbreviation, content, picture_comment, tags) VALUES (?, ?, ?, ?, ?, ?, ?)');
+
+    foreach ($info['body'] as $lang => $values) {
+        $abbr = String::substr(strip_tags($values['content']), 0, $conf['preview']['list_content']);
+        $news->write_db->execute($query_body, array($id, $lang, $values['title'], $abbr, $values['content'], $values['caption'], $values['tags']));
+    }
+
+    // Save as future version
     if ($status_inserted === true) {
         $status_version = 'insert';
     } else {
         $status_version = 'update';
     }
     $version = $news->db->getOne('SELECT MAX(version) FROM ' . $news->prefix . '_versions WHERE id = ?', array($id));
-    $result  = $news->writedb->query('INSERT INTO ' . $news->prefix . '_versions (id, version, action, created, user_uid, content) VALUES (?,?,?,NOW(),?,?)',
+    $result = $news->write_db->query('INSERT INTO ' . $news->prefix . '_versions (id, version, action, created, user_uid, content) VALUES (?, ?, ?, NOW(), ? ,?)',
                                 array($id, $version + 1, $status_version, Auth::getAuth(), serialize($info['body'])));
     if ($result instanceof PEAR_Error) {
-        $notification->push($result->getMessage(), 'horde.error');
+        $notification->push($result);
     }
 
-    /* Expire newscache */
+    // Expire newscache
     foreach ($conf['attributes']['languages'] as $key) {
-            $cache->expire('news_'  . $key . '_' . $id);
+        $cache->expire('news_'  . $key . '_' . $id);
     }
 
-    /* return */
+    // Return
     if ($return) {
         $url = $return;
     } elseif (in_array($info['category1'], $allowed_cats) ||
@@ -450,7 +567,7 @@ if ($form->validate()) {
                 $vars->set('selling', array(1 => $value[0], 2 => $value[1]));
                 continue;
             }
-        } 
+        }
 
         $vars->set($key, $value);
     }
@@ -460,30 +577,21 @@ if ($form->validate()) {
     foreach ($result as $row) {
         $vars->set('title_' . $row['lang'], $row['title']);
         $vars->set('content_' . $row['lang'], $row['content']);
-        $vars->set('picture_comment_' . $row['lang'], $row['picture_comment']);
+        $vars->set('caption_0_' . $row['lang'], $row['picture_comment']);
         if ($conf['attributes']['tags']) {
             $vars->set('tags_' . $row['lang'], $row['tags']);
         }
-    }
-
-    if ($conf['attributes']['attachments'] && $registry->hasMethod('files/setSelectList')) {
-        $sql = 'SELECT lang, filename FROM ' . $news->prefix . '_attachment WHERE id = ?';
-        $result = $news->db->getAll($sql, array($id), DB_FETCHMODE_ASSOC);
-        $files = array();
-        if (sizeof($result)>0) {
-            foreach ($result as $row) {
-                $files[] = array(dirname($row['filename']) => basename($row['filename']));
-            }
-        }
-
-        $registry->call('files/setSelectList', array($selectid, $files));
     }
 
     $form->_submit = _("Update");
     $form->_reset = _("Reset");
 }
 
-/* display */
+// Add editor now to avoud JS error notifications no redirect
+foreach ($conf['attributes']['languages'] as $key) {
+    Horde_Editor::singleton('fckeditor', array('id' => "content_$key"));
+}
+
 require_once NEWS_TEMPLATES . '/common-header.inc';
 require_once NEWS_TEMPLATES . '/menu.inc';
 require_once NEWS_TEMPLATES . '/add/before.inc';

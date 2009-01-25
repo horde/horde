@@ -2,14 +2,11 @@
 /**
  * News base calss
  *
- * Copyright 2007 Obala d.o.o.
+ * $Id: News.php 1190 2009-01-21 16:10:50Z duck $
  *
- * See the enclosed file LICENSE for license information (BSD). If you
- * did not receive this file, see http://cvs.horde.org/co.php/news/LICENSE.
+ * Copyright Obala d.o.o. (www.obala.si)
  *
- * $Id: News.php 287 2008-01-25 17:45:33Z duck $
- *
- * @author Duck <duck@obala.net>
+ * @author  Duck <duck@obala.net>
  * @package News
  */
 class News {
@@ -17,6 +14,7 @@ class News {
     const UNCONFIRMED = 0;
     const CONFIRMED = 1;
     const LOCKED = 2;
+
     const VFS_PATH = '.horde/news';
 
     /**
@@ -39,7 +37,7 @@ class News {
      *
      * @var DB
      */
-    public $writedb;
+    public $write_db;
 
     /**
      * Handle for the tables prefix.
@@ -49,6 +47,7 @@ class News {
     public $prefix = 'news';
 
     /**
+     * Constructor
      */
     public function __construct()
     {
@@ -113,6 +112,45 @@ class News {
     }
 
     /**
+     * Return a properly formatted link depending on the global pretty url
+     * configuration
+     *
+     * @param string $controller       The controller to generate a URL for.
+     * @param array $data              The data needed to generate the URL.
+     * @param boolean $full            Generate a full URL.
+     * @param integer $append_session  0 = only if needed, 1 = always,
+     *                                 -1 = never.
+     *
+     * @param string  The generated URL
+     */
+    function getUrlFor($controller, $data, $full = false, $append_session = 0)
+    {
+        switch ($controller) {
+
+        case 'news':
+            if (empty($GLOBALS['conf']['urls']['pretty'])) {
+                return Util::addParameter(Horde::applicationUrl('news.php', $full, $append_session), 'id', $data);
+            } else {
+                return Horde::applicationUrl('article/' . $data, $full, $append_session);
+            }
+
+        case 'category':
+            if (empty($GLOBALS['conf']['urls']['pretty'])) {
+                return Util::addParameter(Horde::applicationUrl('browse.php', $full, $append_session), 'category', $data);
+            } else {
+                return Horde::applicationUrl('category/' . $data, $full, $append_session);
+            }
+
+        case 'source':
+            if (empty($GLOBALS['conf']['urls']['pretty'])) {
+                return Util::addParameter(Horde::applicationUrl('browse.php', $full, $append_session), 'source', $data);
+            } else {
+                return Horde::applicationUrl('source/' . $data, $full, $append_session);
+            }
+        }
+    }
+
+    /**
      * Template path
      *
      * @param intiger    $id $category id
@@ -133,62 +171,61 @@ class News {
     /**
      * Format file size
      *
-     * @param int filesize
+     * @param int $size File size
      *
-     * @return boolean formatted filesize.
+     * @return boolean formatted file_size.
      */
-    static public function format_filesize($filesize)
+    static public function format_filesize($size)
     {
         $units = array('B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB');
         $pass = 0; // set zero, for Bytes
-        while ($filesize >= 1024) {
-            $filesize /= 1024;
+        while ($size >= 1024) {
+            $size /= 1024;
             $pass++;
         }
 
-        return round($filesize, 2) . ' ' . $units[$pass];
+        return round($size, 2) . ' ' . $units[$pass];
     }
 
     /**
      * Format file size
      *
-     * @param int filesize
+     * @param int $id News ID
      *
-     * @return boolean formatted filesize.
+     * @return boolean formatted file_size.
      */
-    static public function format_attached($id)
+    public function format_attached($id)
     {
-        global $mime_drivers, $mime_drivers_map;
+        $files = $this->getFiles($id);
+        if (empty($files)) {
+            return '';
+        }
 
-        require_once 'Horde/MIME/Part.php';
-        require_once 'Horde/MIME/Viewer.php';
-        require_once 'Horde/MIME/Magic.php';
-        require_once 'Horde/MIME/Contents.php';
-        require HORDE_BASE . '/config/mime_drivers.php';
+        if (Auth::isAdmin('news:admin')) {
+            $delete_img = Horde::img('delete.png', _("Delete"), ' style="width: 16px height: 16px"', $GLOBALS['registry']->getImageDir('horde'));
+            $delete_url = Horde::applicationUrl('delete_file.php');
+        }
 
         $dowload_img = Horde::img('save.png', _("Dowload"), ' style="width: 16px height: 16px"', $GLOBALS['registry']->getImageDir('horde'));
         $dowload_zip = Horde::img('mime/compressed.png', _("Dowload Zip Compressed"), 'style="width: 16px height: 16px"', $GLOBALS['registry']->getImageDir('horde'));
         $view_url = Horde::applicationUrl('files.php');
 
         $html = '<table><tr valign="top"><td>';
-        $html .= Horde::link(Util::addParameter($view_url, array('actionID' => 'dowload_zip', 'id' => $id)), _("Compress and dowload all files at once")) . $dowload_zip . '</a> ' . "\n";
+        $html .= Horde::link(Util::addParameter($view_url, array('actionID' => 'download_zip_all', 'news_id' => $id)), _("Compress and dowload all files at once")) . $dowload_zip . '</a> ' . "\n";
         $html .= _("Attached files: ") . '</td><td>' . "\n";
 
-        $sql = 'SELECT filename, filesize FROM ' . $this->prefix . '_attachment WHERE id = ? AND lang = ?';
-        $files = $GLOBALS['news']->db->getAll($sql, array($id, NLS::select()),  DB_FETCHMODE_ASSOC);
-
-        foreach ($files as $file_data) {
+        foreach ($files as $file) {
+            $view_url = Util::addParameter($view_url, $file);
             $html .= ' -  ' . "\n";
-            $file = basename($file_data['filename']);
-            $dir = dirname($file_data['filename']);
-
-            $html .= Horde::link(Util::addParameter($view_url, array('actionID' => 'dowload_zip', 'dir' => $dir, 'file' => $file)), sprintf(_("Compress and dowload %s"), $file)) . $dowload_zip . '</a> ' . "\n";
-            $html .= Horde::link(Util::addParameter($view_url, array('actionID' => 'dowload_file', 'dir' => $dir, 'file' => $file)), sprintf(_("Dowload %s"), $file)) . $dowload_img . '</a> ' . "\n";
-            $html .= Horde::link(Util::addParameter($view_url, array('actionID' => 'view_file', 'dir' => $dir, 'file' => $file)), sprintf(_("Preview %s"), $file), '', '_file_view');
-            $html .= Horde::img(MIME_Viewer::getIcon(MIME_Magic::extToMIME(substr($file, strpos($file, '.')))), $file, 'width="16" height="16"', '') . ' ';
-            $html .= $file . '</a> ' . "\n";
-
-            $html .= ' (' . self::format_filesize($file_data['filesize']) . ')';
+            $html .= Horde::link(Util::addParameter($view_url, 'actionID', 'download_zip'), sprintf(_("Compress and dowload %s"), $file['file_name'])) . $dowload_zip . '</a> ' . "\n";
+            $html .= Horde::link(Util::addParameter($view_url, 'actionID', 'download_file'), sprintf(_("Dowload %s"), $file['file_name'])) . $dowload_img . '</a> ' . "\n";
+            $html .= Horde::link(Util::addParameter($view_url, 'actionID', 'view_file'), sprintf(_("Preview %s"), $file['file_name']), '', '_file_view');
+            $html .= Horde::img(Horde_Mime_Viewer::getIcon($file['file_type']), $file['file_name'], 'width="16" height="16"', '') . ' ';
+            if (Auth::isAdmin('news:admin')) {
+                $html .= Horde::link(Util::addParameter($delete_url, $file), sprintf(_("Delete %s"), $file['file_name'])) . $delete_img . '</a> ' . "\n";
+            }
+            $html .= $file['file_name'] . '</a> ' . "\n";
+            $html .= ' (' . self::format_filesize($file['file_size']) . ')';
             $html .= '<br /> ' . "\n";
         }
 
@@ -202,30 +239,33 @@ class News {
      */
     static public function loadVFS()
     {
+        static $vfs;
+
+        if ($vfs) {
+            return $vfs;
+        }
+
         $v_params = Horde::getVFSConfig('images');
         if ($v_params instanceof PEAR_Error) {
             return $v_params;
         }
 
         require_once 'VFS.php';
-        return VFS::singleton($v_params['type'], $v_params['params']);
+        $vfs = VFS::singleton($v_params['type'], $v_params['params']);
+        return $vfs;
     }
 
     /**
      * Store image
      *
-     * @param $id     Image id (item id)
-     * @param $file   Image file
+     * @param $id     Image owner record id
+     * @param $file['file_name']   Horde_Form_Type_image::getInfo() result
      * @param $type   Image type ('events', 'categories' ...)
      * @param $resize Resize the big image?
      */
     static public function saveImage($id, $file, $type = 'news', $resize = true)
     {
         global $conf;
-
-        if ($file['uploaded'] instanceof PEAR_Error) {
-            return $file['uploaded'];
-        }
 
         $vfs = self::loadVFS();
         if ($vfs instanceof PEAR_Error) {
@@ -235,9 +275,10 @@ class News {
         $vfspath = self::VFS_PATH . '/images/' . $type;
         $vfs_name = $id . '.' . $conf['images']['image_type'];
 
-        require_once 'Horde/Image.php';
-        $img = Horde_Image::factory('gd', array('type' => $conf['images']['image_type'],
-                                                'temp' => Horde::getTempDir()));
+        $driver = empty($conf['image']['convert']) ? 'gd' : 'im';
+        $img = Horde_Image::factory($driver,
+                                    array('type' => $conf['images']['image_type'],
+                                            'temp' => Horde::getTempDir()));
 
         if ($img instanceof PEAR_Error) {
             return $img;
@@ -250,6 +291,12 @@ class News {
 
         // Store big image for articles
         if ($type == 'news') {
+
+            // Store full image
+            $result = $vfs->writeData($vfspath . '/full/', $vfs_name, $img->raw(), true);
+            if ($result instanceof PEAR_Error) {
+                return $result;
+            }
 
             // Resize big image?
             if ($resize) {
@@ -296,22 +343,54 @@ class News {
      */
     static public function deleteImage($id)
     {
-        global $conf;
-
-        $vfs = NEWS::loadVFS();
+        $vfs = self::loadVFS();
         if ($vfs instanceof PEAR_Error) {
             return $vfs;
         }
 
-        $vfspath = self::VFS_PATH . '/images/' . $type;
-        $vfs_name = $id . '.' . $conf['images']['image_type'];
-
-        $vfs->deleteFile($vfspath . '/small/', $vfs_name);
-        $vfs->deleteFile($vfspath . '/big/', $vfs_name);
+        $vfs_name = $id . '.' . $GLOBALS['conf']['images']['image_type'];
+        $vfs->deleteFile(self::VFS_PATH . '/images/small/', $vfs_name);
+        $vfs->deleteFile(self::VFS_PATH . '/images/big/', $vfs_name);
+        $vfs->deleteFile(self::VFS_PATH . '/images/full/', $vfs_name);
     }
 
     /**
-     * get Image path
+     * Store file
+     *
+     * @param $file_id     Image owner record id
+     * @param $file_src   File path
+     */
+    static public function saveFile($file_id, $file_src)
+    {
+        $vfs = self::loadVFS();
+        if ($vfs instanceof PEAR_Error) {
+            return $vfs;
+        }
+
+        return $vfs->writeData(self::VFS_PATH . '/files/', $file_id, file_get_contents($file_src), true);
+    }
+
+    /**
+     * Delete file
+     *
+     * @param $id     Image owner record id
+     */
+    static public function deleteFile($file_id)
+    {
+        $vfs = self::loadVFS();
+        if ($vfs instanceof PEAR_Error) {
+            return $vfs;
+        }
+
+        if ($vfs->exists(self::VFS_PATH . '/files/', $file_id)) {
+            return $vfs->deleteFile(self::VFS_PATH . '/files/', $file_id);
+        }
+
+        return true;
+    }
+
+    /**
+     * Returns image path
      */
     static public function getImageUrl($id, $view = 'small', $type = 'news')
     {
@@ -329,7 +408,7 @@ class News {
     }
 
     /**
-     * get gallery images
+     * Returns gallery images
      */
     static public function getGalleyImages($id)
     {
@@ -384,7 +463,7 @@ class News {
             $sql = 'SELECT MIN(YEAR(publish)) FROM ' . $this->prefix;
             $params = array('start_year' => $GLOBALS['news']->db->getOne($sql),
                             'end_year' => date('Y') + 1,
-                            'picker' => true, 
+                            'picker' => true,
                             'format_in' => '%Y-%m-%d %H:%M:%S',
                             'format_out' => '%Y-%m-%d %H:%M:%S');
         }
@@ -417,7 +496,6 @@ class News {
             return $threads;
         }
 
-        $read_url = Horde::applicationUrl('news.php', true);
         foreach ($threads as $id => $message) {
             $news_id = $registry->call('forums/getForumName', array('news', $message['forum_id']));
             if ($news_id instanceof PEAR_Error) {
@@ -426,7 +504,7 @@ class News {
             }
 
             $threads[$id]['news_id'] = $news_id;
-            $threads[$id]['read_url'] = Util::addParameter($read_url, 'id', $news_id);
+            $threads[$id]['read_url'] = self::getUrlFor('news', $news_id);
         }
 
         $GLOBALS['cache']->set($cache_key, serialize($threads));
@@ -442,7 +520,7 @@ class News {
      */
     public function updateComments($id, $count)
     {
-        return $this->writedb->query('UPDATE ' . $this->prefix . ' SET comments = ? WHERE id = ?', array($count, $id));
+        return $this->write_db->query('UPDATE ' . $this->prefix . ' SET comments = ? WHERE id = ?', array($count, $id));
     }
 
     /**
@@ -520,16 +598,23 @@ class News {
     }
 
     /**
-     * Updates news comments counter
+     * Get news attached files
      *
-     * @param int    $news news id
+     * @param int $news_id      news id
+     * @param string $news_lang news language
      *
      * @return true on succes PEAR_Error on failure
      */
-    public function getFiles($id)
+    public function getFiles($news_id, $news_lang = null)
     {
-        $sql = 'SELECT filename, filesize FROM ' . $this->prefix . '_attachment WHERE id=? AND lang=?';
-        return $this->db->getAll($sql, array($id, self::getLang()),  DB_FETCHMODE_ASSOC);
+        if (is_null($news_lang)) {
+            $news_lang = self::getLang();
+        }
+
+        $sql = 'SELECT file_id, news_id, news_lang, file_name, file_size, file_type FROM ' . $this->prefix . '_files'
+                . ' WHERE news_id = ? AND news_lang = ?';
+
+        return $this->db->getAll($sql, array($news_id, $news_lang), DB_FETCHMODE_ASSOC);
     }
 
     /**
@@ -558,7 +643,7 @@ class News {
      */
     public function getVerisons($id)
     {
-        $sql = 'SELECT version, created, user_uid,content,action FROM ' . $this->prefix . '_versions WHERE id = ? ORDER BY version DESC';
+        $sql = 'SELECT version, created, user_uid, content, action FROM ' . $this->prefix . '_versions WHERE id = ? ORDER BY version DESC';
         return $this->db->getAll($sql, array($id), DB_FETCHMODE_ASSOC);
     }
 
@@ -586,18 +671,18 @@ class News {
         $_COOKIE['news_viewed_news'] .= $id . '|' . $_SERVER['REQUEST_TIME'] . ':';
 
         setcookie('news_viewed_news', $_COOKIE['news_viewed_news'], $_SERVER['REQUEST_TIME'] + 22896000, $GLOBALS['conf']['cookie']['path'],
-                  $GLOBALS['conf']['cookie']['domain'],  $GLOBALS['conf']['use_ssl'] == 1 ? 1 : 0);
+                  $GLOBALS['conf']['cookie']['domain'], $GLOBALS['conf']['use_ssl'] == 1 ? 1 : 0);
 
         /* Update the count */
         $sql = 'UPDATE ' . $this->prefix . ' SET view_count = view_count + 1 WHERE id = ?';
-        $result = $this->writedb->query($sql, array($id));
+        $result = $this->write_db->query($sql, array($id));
         if ($result instanceof PEAR_Error) {
             return $result;
         }
 
         /* Log it */
         $sql = 'INSERT INTO ' . $this->prefix . '_user_reads (id,user,ip,useragent,readdate) VALUES (?,?,?,?,NOW())';
-        $result = $this->writedb->query($sql, array($id,Auth::getAuth(),$_SERVER['REMOTE_ADDR'],$_SERVER["HTTP_USER_AGENT"]));
+        $result = $this->write_db->query($sql, array($id,Auth::getAuth(),$_SERVER['REMOTE_ADDR'],$_SERVER["HTTP_USER_AGENT"]));
         if ($result instanceof PEAR_Error) {
             return $result;
         }
@@ -636,14 +721,14 @@ class News {
                         'created' => date('Y-m-d H:i:s'));
 
         $sql = 'INSERT INTO ' . $this->prefix . '_trackback (' . implode(',', array_keys($params)) . ') VALUES (?, ?, ?, ?, ?, ?)';
-        $result = $this->writedb->query($sql, $params);
+        $result = $this->write_db->query($sql, $params);
         if ($result instanceof PEAR_Error) {
             return $result;
         }
 
         /* Update trackback count */
         $GLOBALS['cache']->expire('news_'  . self::getLang() . '_' . $id);
-        return $this->writedb->query('UPDATE ' . $this->prefix . ' SET trackbacks = trackbacks + 1 WHERE id = ?', array($id));
+        return $this->write_db->query('UPDATE ' . $this->prefix . ' SET trackbacks = trackbacks + 1 WHERE id = ?', array($id));
     }
 
     /**
@@ -658,7 +743,7 @@ class News {
         $GLOBALS['cache']->expire('newsSources');
         $this->deleteImage($id, 'sources');
         $sql = 'DELETE FROM ' . $this->prefix . '_sources WHERE sources_id = ?';
-        return $this->writedb->query($sql, array($id));
+        return $this->write_db->query($sql, array($id));
     }
 
     /**
@@ -716,7 +801,7 @@ class News {
             }
 
             $sql = 'UPDATE ' . $this->prefix . '_sources SET source_image = ? WHERE source_id = ?';
-            $this->writedb->query($sql, array(1, $info['source_id']));
+            $this->write_db->query($sql, array(1, $info['source_id']));
         }
 
         $GLOBALS['cache']->expire('newsSources');
@@ -732,7 +817,7 @@ class News {
      */
     private function _insertSource($data)
     {
-        $new_id = $this->writedb->nextId('news_sources');
+        $new_id = $this->write_db->nextId('news_sources');
 
         $sql = 'INSERT INTO ' . $this->prefix . '_sources' .
                ' (source_id, source_name, source_url)' .
@@ -741,7 +826,7 @@ class News {
                         $data['source_name'],
                         $data['source_url']);
 
-        $source = $this->writedb->query($sql, $values);
+        $source = $this->write_db->query($sql, $values);
         if ($source instanceof PEAR_Error) {
             Horde::logMessage($source, __FILE__, __LINE__, PEAR_LOG_ERR);
             return $source;
@@ -767,7 +852,7 @@ class News {
                         $data['source_url'],
                         $source_id);
 
-        $source = $this->writedb->query($sql, $values);
+        $source = $this->write_db->query($sql, $values);
         if ($source instanceof PEAR_Error) {
             Horde::logMessage($source, __FILE__, __LINE__, PEAR_LOG_ERR);
             return $source;
@@ -799,19 +884,19 @@ class News {
 
         /* Connect to the SQL server using the supplied parameters. */
         require_once 'DB.php';
-        $this->writedb = &DB::connect($this->_params,
+        $this->write_db = &DB::connect($this->_params,
                                         array('persistent' => !empty($this->_params['persistent'])));
-        if ($this->writedb instanceof PEAR_Error) {
-            Horde::fatal($this->writedb, __FILE__, __LINE__);
+        if ($this->write_db instanceof PEAR_Error) {
+            Horde::fatal($this->write_db, __FILE__, __LINE__);
         }
 
         // Set DB portability options.
-        switch ($this->writedb->phptype) {
+        switch ($this->write_db->phptype) {
         case 'mssql':
-            $this->writedb->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS | DB_PORTABILITY_RTRIM);
+            $this->write_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS | DB_PORTABILITY_RTRIM);
             break;
         default:
-            $this->writedb->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
+            $this->write_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
         }
 
         /* Check if we need to set up the read DB connection seperately. */
@@ -834,7 +919,7 @@ class News {
 
         } else {
             /* Default to the same DB handle for the writer too. */
-            $this->db =& $this->writedb;
+            $this->db =& $this->write_db;
         }
 
         return true;
@@ -872,6 +957,12 @@ class News {
         if (isset($criteria['status'])) {
             $sql .= ' AND n.status = ?';
             $params['status'] = $criteria['status'];
+        }
+
+        /* check status */
+        if (isset($criteria['source'])) {
+            $sql .= ' AND n.source = ?';
+            $params['source'] = $criteria['source'];
         }
 
         /* get category */

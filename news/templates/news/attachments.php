@@ -1,5 +1,5 @@
 <?php
 
 if ($row['attachments']) {
-    echo '<br /> <br />' . News::format_attached($id);
+    echo '<br /> <br />' . $news->format_attached($id);
 }

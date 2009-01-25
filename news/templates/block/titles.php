@@ -7,7 +7,7 @@
 <td>
 <?php
 echo strftime($GLOBALS['prefs']->getValue('date_format'), strtotime($news['publish'])) . ' - ';
-echo Horde::link(Util::addParameter($this->news_url, 'id', $news['id']), $news['abbreviation']);
+echo Horde::link(News::getUrlFor('news', $news['id']), $news['abbreviation']);
 echo $news['title'] . '</a>';
 ?>
 </td>

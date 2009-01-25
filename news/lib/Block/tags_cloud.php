@@ -35,5 +35,4 @@ class Horde_Block_news_tags_cloud extends Horde_Block {
 
         return $GLOBALS['news']->getCloud(true);
     }
-
 }

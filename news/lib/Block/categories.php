@@ -3,7 +3,7 @@
 $block_name = _("Categories");
 
 /**
- * $Id: categories.php 22 2007-12-13 11:10:52Z duck $
+ * $Id: categories.php 890 2008-09-23 09:58:23Z duck $
  *
  * @package Horde_Block
  */
@@ -31,5 +31,4 @@ class Horde_Block_News_categories extends Horde_Block {
         require_once dirname(__FILE__) . '/../base.php';
         return $GLOBALS['news_cat']->getHtml();
     }
-
 }

@@ -6,8 +6,11 @@
 <?php
 
 if ($row['picture'])  {
-    echo '<div id="news_picture"><img src="' . News::getImageUrl($id, 'big') . '" /><br />';
-    echo $row['picture_comment'] . '</div>';
+    echo '<div id="news_picture">'
+            . '<a href="' . News::getImageUrl($id, 'full') . '" title="' . _("Click for full picture") . '" target="_blank">'
+            . '<img src="' . News::getImageUrl($id, 'big') . '" /></a><br />'
+            . $row['picture_comment']
+            . '</div>';
 }
 
 $plain_text = trim(strip_tags($row['content']));

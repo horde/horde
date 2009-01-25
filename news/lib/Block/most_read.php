@@ -3,7 +3,7 @@
 $block_name = _("Last most read news");
 
 /**
- * $Id: most_read.php 201 2008-01-09 08:38:05Z duck $
+ * $Id: most_read.php 890 2008-09-23 09:58:23Z duck $
  *
  * @package Horde_Block
 */
@@ -47,9 +47,7 @@ class Horde_Block_News_most_read extends Horde_Block {
 
         $view = new News_View();
         $view->news = $rows;
-        $view->news_url = Horde::applicationUrl('news.php');
 
         return $view->render('/block/titles.php');
     }
-
 }

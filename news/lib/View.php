@@ -2,12 +2,9 @@
 /**
  * News General View Class
  *
- * $Id: View.php 250 2008-01-18 15:31:32Z duck $
+ * $Id: View.php 1118 2008-12-04 19:10:41Z duck $
  *
- * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * Copyright Obala d.o.o. (www.obala.si)
  *
  * @author  Duck <duck@obala.net>
  * @package News
@@ -22,31 +19,6 @@ class News_View extends Horde_View {
         /* Set parents defualt data */
         parent::__construct(array('templatePath' => NEWS_TEMPLATES,
                                   'encoding' => NLS::select()));
-
-        $this->list_url = Horde::applicationUrl('list.php');
-    }
-
-    /**
-     * Format value accoring to currency
-     *
-     * @param float   $price  The price value to format.
-     *
-     * @return Currency formatted price string.
-     */
-    public public function format_price($price)
-    {
-        if (empty($price)) {
-            return '';
-        }
-
-        static $currency;
-
-        if (is_null($currency)) {
-            $currencies = new Horde_CurrenciesMapper();
-            $currency = $currencies->getDefault('data');
-        }
-
-        return Horde_Currencies::formatPrice($price, $currency);
     }
 
     /**

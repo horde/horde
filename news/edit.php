@@ -2,23 +2,17 @@
 /**
  * Edit browsing
  *
- * Copyright 2006 Duck <duck@obala.net>
+ * $Id: edit.php 1188 2009-01-21 10:33:56Z duck $
  *
- * See the enclosed file LICENSE for license information (BSD). If you
- * did not receive this file, see http://cvs.horde.org/co.php/news/LICENSE.
+ * Copyright Obala d.o.o. (www.obala.si)
  *
- * $Id: edit.php 372 2008-02-29 12:05:00Z duck $
- *
- * @author Duck <duck@obala.net>
+ * @author  Duck <duck@obala.net>
  * @package News
  */
-
-/* application include */
-define('NEWS_BASE', dirname(__FILE__));
-require_once NEWS_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/base.php';
 require_once NEWS_BASE . '/lib/Forms/Search.php';
 
-/* redirect if not an admin */
+// redirect if not an admin
 $allowed_cats = $news_cat->getAllowed(PERMS_DELETE);
 if (empty($allowed_cats)) {
     $notification->push(_("You have not editor permission on any category."));
@@ -29,58 +23,51 @@ if (empty($allowed_cats)) {
 $id = Util::getFormData('id', 0);
 $page = Util::getFormData('page', 0);
 $browse_url = Horde::applicationUrl('edit.php');
-$news_url = Horde::applicationUrl('news.php');
 $edit_url = Horde::applicationUrl('add.php');
 $read_url = Horde::applicationUrl('reads.php');
 $has_comments = $registry->hasMethod('forums/doComments');
 $actionID = Util::getFormData('actionID');
 
+// save as future version
 if (!empty($actionID) && $id > 0) {
-    /* save as future version */
     $version = $news->db->getOne('SELECT MAX(version) FROM ' . $news->prefix . '_versions WHERE id=?', array($id));
-    $result  = $news->writedb->query('INSERT INTO ' . $news->prefix . '_versions (id, version, action, created, user_uid) VALUES (?,?,?,NOW(),?)',
-                                array($id, $version  + 1, $actionID, Auth::getAuth()));
+    $result  = $news->write_db->query('INSERT INTO ' . $news->prefix . '_versions (id, version, action, created, user_uid) VALUES (?,?,?,NOW(),?)',
+                                        array($id, $version + 1, $actionID, Auth::getAuth()));
+}
+
+if ($id) {
+    $article = $news->get($id);
 }
 
 switch ($actionID) {
-case 'delete_attachments';
-
-    $news->writedb->query('DELETE FROM ' . $news->prefix . '_attachment WHERE id = ?', array($id));
-    $news->writedb->query('UPDATE ' . $news->prefix . ' SET attachments = ? WHERE id = ?', array(0, $id));
-
-    $notification->push(sprintf(_("News %s: %s"), $id, _("Attachment deleted")), 'horde.success');
-    header('Location: ' . $browse_url);
-    exit;
-
-break;
 case 'deactivate';
 
-    $news->writedb->query('UPDATE ' . $news->prefix . ' SET status = ? WHERE id = ?', array(News::UNCONFIRMED, $id));
-    $notification->push(sprintf(_("News %s: %s"), $id, _("deactivated")), 'horde.success');
+    $news->write_db->query('UPDATE ' . $news->prefix . ' SET status = ? WHERE id = ?', array(News::UNCONFIRMED, $id));
+    $notification->push(sprintf(_("News \"%s\" (%s): %s"), $article['title'], $id, _("deactivated")), 'horde.success');
     header('Location: ' . $browse_url);
     exit;
 
 break;
 case 'activate';
 
-    $news->writedb->query('UPDATE ' . $news->prefix . ' SET status = ? WHERE id = ?', array(News::CONFIRMED, $id));
-    $notification->push(sprintf(_("News %s: %s"), $id, _("activated")), 'horde.success');
+    $news->write_db->query('UPDATE ' . $news->prefix . ' SET status = ? WHERE id = ?', array(News::CONFIRMED, $id));
+    $notification->push(sprintf(_("News \"%s\" (%s): %s"), $article['title'], $id, _("activated")), 'horde.success');
     header('Location: ' . $browse_url);
     exit;
 
 break;
 case 'lock';
 
-    $news->writedb->query('UPDATE ' . $news->prefix . ' SET status = ? WHERE id = ?', array(News::LOCKED, $id));
-    $notification->push(sprintf(_("News %s: %s"), $id, _("locked")), 'horde.success');
+    $news->write_db->query('UPDATE ' . $news->prefix . ' SET status = ? WHERE id = ?', array(News::LOCKED, $id));
+    $notification->push(sprintf(_("News \"%s\" (%s): %s"), $article['title'], $id, _("locked")), 'horde.success');
     header('Location: ' . $browse_url);
     exit;
 
 break;
 case 'unlock';
 
-    $news->writedb->query('UPDATE ' . $news->prefix . ' SET status = ? WHERE id = ?', array(News::UNCONFIRMED, $id));
-    $notification->push(sprintf(_("News %s: %s"), $id, _("unlocked")), 'horde.success');
+    $news->write_db->query('UPDATE ' . $news->prefix . ' SET status = ? WHERE id = ?', array(News::UNCONFIRMED, $id));
+    $notification->push(sprintf(_("News \"%s\" (%s): %s"), $article['title'], $id, _("unlocked")), 'horde.success');
     header('Location: ' . $browse_url);
     exit;
 
@@ -93,7 +80,7 @@ case 'renew';
                                       array($id, $version), DB_FETCHMODE_ASSOC);
 
     $version_data['content'] = unserialize($version_data['content']);
-    $news->writedb->query('DELETE FROM ' . $news->prefix . '_body WHERE id = ?', array($id));
+    $news->write_db->query('DELETE FROM ' . $news->prefix . '_body WHERE id = ?', array($id));
 
     $new_version = array();
     $sql = 'INSERT INTO ' . $news->prefix . '_body (id,lang,title,abbreviation,content) VALUES (?,?,?,?,?)';
@@ -105,15 +92,15 @@ case 'renew';
                       $values['title'],
                       substr(strip_tags($values['content']), 0, $conf['preview']['list_content']),
                       $values['content']);
-        $news->writedb->query($sql, $data);
+        $news->write_db->query($sql, $data);
     }
 
     /* save as future version */
     $version = $news->db->getOne('SELECT MAX(version) FROM ' . $news->prefix . '_versions WHERE id = ?', array($id)) + 1;
-    $result  = $news->writedb->query('INSERT INTO ' . $news->prefix . '_versions (id, version, created, user_uid, content) VALUES (?,?,NOW(),?,?)',
+    $result  = $news->write_db->query('INSERT INTO ' . $news->prefix . '_versions (id, version, created, user_uid, content) VALUES (?,?,NOW(),?,?)',
                                 array($id, $version, Auth::getAuth(), serialize($new_version)));
 
-    $notification->push(sprintf(_("News %s: %s"), $id, _("renewed")), 'horde.success');
+    $notification->push(sprintf(_("News \"%s\" (%s): %s"), $article['title'], $id, _("renewed")), 'horde.success');
     header('Location: ' . $browse_url);
     exit;
 
@@ -160,7 +147,7 @@ if ($rows instanceof PEAR_Error) {
 // Get pager
 $pager = News_Search::getPager($binds[1], $count, $browse_url);
 
-/* Output */
+// Output
 Horde::addScriptFile('tables.js', 'horde', true);
 Horde::addScriptFile('popup.js', 'horde', true);
 

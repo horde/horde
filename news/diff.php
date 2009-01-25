@@ -2,18 +2,14 @@
 /**
  * Diff
  *
- * Copyright 2006 Duck <duck@obala.net>
+ * $Id: diff.php 803 2008-08-27 08:29:20Z duck $
  *
- * See the enclosed file LICENSE for license information (BSD). If you
- * did not receive this file, see http://cvs.horde.org/co.php/news/LICENSE.
+ * Copyright Obala d.o.o. (www.obala.si)
  *
- * $Id: diff.php 183 2008-01-06 17:39:50Z duck $
- *
- * @author Duck <duck@obala.net>
+ * @author  Duck <duck@obala.net>
  * @package News
  */
-define('NEWS_BASE', dirname(__FILE__));
-require_once NEWS_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/base.php';
 
 $title = _("Diff");
 $id = Util::getFormData('id', 0);
@@ -52,7 +48,7 @@ while (list($k, $v) = each($current_data)) {
     echo '<hr><strong>' . $nls['languages'][$k] . '</strong><hr>' . "\n";
     $to = explode("\n", @htmlentities(strip_tags($v['content'])));
     $from = explode("\n", @htmlentities(strip_tags($version_data[$k]['content'])));
-    $diff = &new Text_Diff($from, $to);
+    $diff = new Text_Diff($from, $to);
     if (!empty($diff)) {
        echo nl2br($renderer->render($diff));
     } else {

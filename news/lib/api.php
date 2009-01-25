@@ -2,14 +2,11 @@
 /**
  * News api
  *
- * Copyright 2006 Duck <duck@obala.net>
+ * $Id: api.php 970 2008-10-07 17:11:59Z duck $
  *
- * See the enclosed file LICENSE for license information (BSD). If you
- * did not receive this file, see http://cvs.horde.org/co.php/news/LICENSE.
+ * Copyright Obala d.o.o. (www.obala.si)
  *
- * $Id: api.php 730 2008-08-10 09:52:55Z duck $
- *
- * @author Duck <duck@obala.net>
+ * @author  Duck <duck@obala.net>
  * @package News
  */
 
@@ -94,10 +91,17 @@ function _news_commentCallback($id, $type = 'title', $params = null)
         return $news['user'];
 
     case 'link':
-        return Util::addParameter(Horde::applicationUrl('news.php', true, -1), 'id', $id);
+        return News::getUrlFor('news', $id, true, -1);
 
     case 'messages':
         $GLOBALS['news']->updateComments($id, $params);
+
+        if ($GLOBALS['registry']->hasMethod('logActivity', 'folks')) {
+            $link = '<a href="' . News::getUrlFor('news', $id) . '">' . $news['title'] . '</a>';
+            $message = sprintf(_("Has commented news \"%s\""), $link);
+            $GLOBALS['registry']->callByPackage('folks', 'logActivity', array($message, 'news'));
+        }
+
         return true;
 
     default:
@@ -128,7 +132,7 @@ function _news_listNews($criteria = array(), $from = 0, $count = 0, $perms = PER
 {
     require_once dirname(__FILE__) . '/base.php';
 
-    return $GLOBALS['news']->listNews($criteria, $perms);
+    return $GLOBALS['news']->listNews($criteria, $from, $count, $perms);
 }
 
 /**

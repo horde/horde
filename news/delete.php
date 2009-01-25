@@ -1,25 +1,22 @@
 <?php
 /**
- * Delete an news
+ * Delete a news
  *
- * $Id: delete.php 229 2008-01-12 19:47:30Z duck $
+ * $Id: delete.php 1184 2009-01-21 09:12:20Z duck $
  *
- * NEWS: Copyright 2007 Duck <duck@obala.net>
+ * Copyright Obala d.o.o. (www.obala.si)
  *
  * @author  Duck <duck@obala.net>
- * @package NEWS
-*/
-define('NEWS_BASE', dirname(__FILE__));
-require_once NEWS_BASE . '/lib/base.php';
+ * @package News
+ */
+require_once dirname(__FILE__) . '/lib/base.php';
+require_once 'Horde/Variables.php';
 
 if (!Auth::isAdmin('news:admin')) {
     $notification->push(_("Only admin can delete a news."));
     header('Location: ' . Horde::applicationUrl('edit.php'));
     exit;
-};
-
-require_once 'Horde/Form.php';
-require_once 'Horde/Variables.php';
+}
 
 $vars = Variables::getDefaultVariables();
 $form = new Horde_Form($vars, _("Are you sure you want to delete this news?"), 'delete');
@@ -28,14 +25,13 @@ $form->setButtons(array(_("Remove"), _("Cancel")));
 $id = (int)Util::getFormData('id');
 $form->addHidden('', 'id', 'int', $id);
 
+$row = $news->get($id);
+$form->addVariable($row['title'], 'news', 'description', true);
+$form->addVariable($row['content'], 'content', 'description', true);
+
 if ($form->validate()) {
 
     if (Util::getFormData('submitbutton') == _("Remove")) {
-
-        $news->writedb->query('DELETE FROM ' . $news->prefix . ' WHERE id=?', array($id));
-        $news->writedb->query('DELETE FROM ' . $news->prefix . '_version WHERE id=?', array($id));
-        $news->writedb->query('DELETE FROM ' . $news->prefix . '_body WHERE id=?', array($id));
-        $news->writedb->query('DELETE FROM ' . $news->prefix . '_user_reads WHERE id=?', array($id));
 
         // Delete attachment
         $sql = 'SELECT filename FROM ' . $news->prefix . '_attachment WHERE id = ?';
@@ -43,19 +39,45 @@ if ($form->validate()) {
         foreach ($files as $file) {
             unlink($conf['attributes']['attachments'] . $file);
         }
-        $news->writedb->query('DELETE FROM ' . $news->prefix . '_attachment WHERE id=?', array($id));
+
+        // Delete image and gallery
+        $sql = 'SELECT picture, gallery FROM ' . $news->prefix . ' WHERE id = ?';
+        $image = $news->db->getRow($sql, array($id), DB_FETCHMODE_ASSOC);
+        if ($image['picture']) {
+            $result = News::deleteImage($id);
+            if ($result instanceof PEAR_Error) {
+                $notification->push($result);
+            }
+        }
+        if ($image['gallery']) {
+            $result = $registry->call('images/removeGallery', array(null, $image['gallery']));
+            if ($result instanceof PEAR_Error) {
+                $notification->push($result);
+            }
+        }
+
+        // Delete from DB
+        $news->write_db->query('DELETE FROM ' . $news->prefix . ' WHERE id = ?', array($id));
+        $news->write_db->query('DELETE FROM ' . $news->prefix . '_version WHERE id = ?', array($id));
+        $news->write_db->query('DELETE FROM ' . $news->prefix . '_body WHERE id = ?', array($id));
+        $news->write_db->query('DELETE FROM ' . $news->prefix . '_user_reads WHERE id = ?', array($id));
+        $news->write_db->query('DELETE FROM ' . $news->prefix . '_attachment WHERE id=?', array($id));
+
         // Delete forum
         if ($registry->hasMethod('forums/deleteForum')) {
             $comments = $registry->call('forums/deleteForum', array('news', $id));
             if ($comments instanceof PEAR_Error) {
-                $notification->push($comments->getMessage(), 'horde.error');
+                $notification->push($comments);
             }
         }
 
         $notification->push(sprintf(_("News %s: %s"), $id, _("deleted")), 'horde.success');
+
     } else {
+
         $notification->push(sprintf(_("News %s: %s"), $id, _("not deleted")), 'horde.warning');
     }
+
     header('Location: ' . Horde::applicationUrl('edit.php'));
     exit;
 }

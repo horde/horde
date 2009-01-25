@@ -1,17 +1,15 @@
 <?php
 /**
- * $Id: content_edit.php 229 2008-01-12 19:47:30Z duck $
+ * $Id: content_edit.php 803 2008-08-27 08:29:20Z duck $
  *
- * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
+ * $Id: content_edit.php 803 2008-08-27 08:29:20Z duck $
  *
- * See the enclosed file LICENSE for license information (BSD). If you
- * did not receive this file, see http://cvs.horde.org/co.php/thomas/LICENSE.
+ * Copyright Obala d.o.o. (www.obala.si)
  *
- * @author Duck <duck@obala.net>
+ * @author  Duck <duck@obala.net>
+ * @package News
  */
-
-define('NEWS_BASE', dirname(__FILE__));
-require_once NEWS_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/base.php';
 
 // Instantiate the blocks objects.
 $blocks = &Horde_Block_Collection::singleton('news_layout', array('news'));

@@ -1,10 +1,15 @@
 <?php
+
+require_once 'Horde/Variables.php';
+
 /**
- * News search
+ * News search form
  *
- * Copyright 2006 Duck <duck@obala.net>
+ * $Id: Search.php 1175 2009-01-19 15:17:06Z duck $
  *
- * @author Duck <duck@obala.net>
+ * Copyright Obala d.o.o. (www.obala.si)
+ *
+ * @author  Duck <duck@obala.net>
  * @package News
  */
 class News_Search extends Horde_Form {
@@ -23,10 +28,15 @@ class News_Search extends Horde_Form {
         $s = array(News::UNCONFIRMED => _("Unconfirmed"),
                    News::CONFIRMED => _("Confirmed"),
                    News::LOCKED => _("Locked"));
-        $this->addVariable(_("Status"), 'status', 'enum', false, false, false, array($s, true));
+        $this->addVariable(_("Status"), 'status', 'enum', false, false, false, array($s, _("-- select --")));
 
         $allowed_cats = $GLOBALS['news_cat']->getAllowed(PERMS_DELETE);
-        $this->addVariable(_("Category"), 'category', 'enum', false, false, false, array($allowed_cats, true));
+        $this->addVariable(_("Category"), 'category', 'enum', false, false, false, array($allowed_cats, _("-- select --")));
+
+        $sources = $GLOBALS['news']->getSources();
+        if (!empty($sources)) {
+            $this->addVariable(_("Source"), 'source', 'enum', false, false, false, array($sources, _("-- select --")));
+        }
 
         $this->addVariable(_("Order by"), 'sort_by', 'enum', false, false, false, array(array('n.publish' => _("Publish date"),
                                                                                               'n.id' => _("Id"),
@@ -53,7 +63,7 @@ class News_Search extends Horde_Form {
      */
     public function getPager($info, $count, $url)
     {
-        $pager = &new Horde_UI_Pager('news_page',
+        $pager = new Horde_UI_Pager('news_page',
                                     Variables::getDefaultVariables(),
                                     array('num' => $count,
                                           'url' => $url,
@@ -103,7 +113,6 @@ class News_Search extends Horde_Form {
                 continue;
             }
 
-            require_once 'Horde/Array.php';
             if (Horde_Array::getArrayParts($var->getVarName(), $base, $keys)) {
                 if (!isset($info[$base])) {
                     $info[$base] = array();

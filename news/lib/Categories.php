@@ -2,12 +2,9 @@
 /**
  * News Tree Class.
  *
- * $Id: Categories.php 268 2008-01-22 10:15:10Z mclion $
+ * $Id: Categories.php 1163 2009-01-14 17:47:23Z duck $
  *
- * Copyright 2007-2008 Obala d.o.o. (http://www.obala.si/)
- *
- * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * Copyright Obala d.o.o. (www.obala.si)
  *
  * @author  Duck <duck@obala.net>
  * @package News
@@ -170,7 +167,7 @@ class News_Categories {
      */
     public function getHtml()
     {
-        $this->_view_url = Horde::applicationUrl('browse.php');
+        $this->_view_url = News::getUrlFor('category', '');
 
         $output = '';
         foreach ($this->_root_nodes as $node_id) {
@@ -186,7 +183,7 @@ class News_Categories {
         if ($this->_nodes[$node_id]['indent'] == 0) {
             $output .= '<strong>';
         }
-        $url = Util::addParameter($this->_view_url, 'cid', $node_id);
+        $url = $this->_view_url . $node_id;
         $output .= Horde::link($url) . $this->_nodes[$node_id]['category_name'] . '</a>, ';
         if ($this->_nodes[$node_id]['indent'] == 0) {
             $output .= '</strong><br />';
@@ -594,6 +591,6 @@ class News_Categories {
     private function _connect()
     {
         $this->_db = $GLOBALS['news']->db;
-        $this->_write_db = $GLOBALS['news']->writedb;
+        $this->_write_db = $GLOBALS['news']->write_db;
     }
 }

@@ -63,10 +63,9 @@ class Horde_Block_news_my_comments extends Horde_Block {
             return $threads->getMessage();
         }
 
-        $url = Util::addParameter(Horde::applicationUrl('news.php'), 'id', null);
         foreach ($threads as $message) {
             $html .= '<tr><td>'
-                  . '<a href="' . $url  . $message['forum_name'] . '" title="' . $message['message_date'] . '">'
+                  . '<a href="' . News::getUrlFor('news', $message['forum_name']) . '" title="' . $message['message_date'] . '">'
                   . $message['message_subject'] . '</a> '
                   . '</td><td>'
                   . $message['message_author'] . '</td></tr>';
@@ -76,5 +75,4 @@ class Horde_Block_news_my_comments extends Horde_Block {
         $GLOBALS['cache']->set($cache_key, $html);
         return $html;
     }
-
 }

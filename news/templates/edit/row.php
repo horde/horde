@@ -38,14 +38,20 @@ if (Auth::isAdmin() || isset($allowed_cats[$row['category1']]) || isset($allowed
 <?php
 
 switch ($row['status']) {
+case News::UNCONFIRMED:
+    echo _("Unconfirmed");
+    break;
 
-case News::UNCONFIRMED: echo _("Unconfirmed"); break;
-case News::CONFIRMED: echo _("Confirmed"); break;
-case News::LOCKED: echo _("Locked"); break;
+case News::CONFIRMED:
+    echo _("Confirmed");
+    break;
 
+case News::LOCKED:
+    echo _("Locked");
+    break;
 }
 ?></td>
-<td><?php echo Horde::link(Util::addParameter($news_url, 'id', $row['id']), _("Read"), '', '_blank') . $row['title']; ?></a></td>
+<td><?php echo Horde::link(News::getUrlFor('news', $row['id']), _("Read"), '', '_blank') . $row['title']; ?></a></td>
 <td><?php echo $news->dateFormat($row['publish']) ?></td>
 <td><?php echo $row['user'] ?></td>
 <td>

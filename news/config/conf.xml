@@ -43,8 +43,8 @@
     </configsection>
 
     <configsection name="images">
-      <configheader>Images settigns</configheader>
-      <configboolean name="ansel-images" desc="Link items to Ansel Galleries.">true</configboolean> 
+      <configheader>Images settings</configheader>
+      <configboolean name="ansel-images" desc="Link items to Ansel Galleries.">true</configboolean>
       <configvfs switchname="type">horde
         <case name="sql">
           <configstring name="table" desc="Table to use">horde_vfs</configstring>
@@ -53,7 +53,7 @@
       <configstring name="direct" desc="If should images be viewed directly out of
                     the VFS, specify the alias pointing to the right place on your filesystem
                     defined in your webserver. Example: /schedul-images">/schedul-images</configstring>
-      <configenum name="image_type" desc="What format should images be generated in? Make 
+      <configenum name="image_type" desc="What format should images be generated in? Make
                   sure that your server supports whichever format you choose!">png
         <values>
           <value desc="JPEG">jpeg</value>

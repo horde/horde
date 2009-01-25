@@ -3,7 +3,7 @@
 $block_name = _("Last news in category");
 
 /**
- * $Id: category.php 201 2008-01-09 08:38:05Z duck $
+ * $Id: category.php 890 2008-09-23 09:58:23Z duck $
  *
  * @package Horde_Block
 */
@@ -56,10 +56,8 @@ class Horde_Block_News_category extends Horde_Block {
 
         $view = new News_View();
         $view->news = $rows;
-        $view->news_url = Horde::applicationUrl('news.php');
         $view->moreurl = Util::addParameter(Horde::applicationUrl('browse.php'), 'category', $this->_params['category']);
 
         return $view->render('/block/news.php');
     }
-
 }

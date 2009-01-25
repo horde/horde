@@ -12,9 +12,9 @@
 <tr>
 <td><?php foreach ($category['actions'] as $action ) { echo $action . ' '; } ?></td>
 <td><?php echo $category_id ?></td>
-<td><?php echo $category['category_name'] ?></td>
+<td><a href="<?php echo News::getUrlFor('category', $category_id) ?>" target="_blank"><?php echo $category['category_name'] ?></a></td>
 <td>
-<?php 
+<?php
 if ($category['category_parentid']) {
     echo $this->categories[$category['category_parentid']]['category_name'] .
          ' - '  . $category['category_parentid'];

@@ -43,9 +43,7 @@ class Horde_Block_News_last_blogs extends Horde_Block {
 
         $view = new News_View();
         $view->news = $rows;
-        $view->news_url = Horde::applicationUrl('news.php');
 
         return $view->render('/block/news.php');
     }
-
 }

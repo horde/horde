@@ -1,8 +1,8 @@
 <?php
 /**
- * $Id: news.php 183 2008-01-06 17:39:50Z duck $
+ * $Id: news.php 1191 2009-01-21 16:45:21Z duck $
  *
- * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2007 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
@@ -32,12 +32,12 @@ if (empty($rss)) {
     $categories = $news_cat->getCategories(false);
     $title = sprintf(_("Last news"), $registry->get('name', 'horde'));
 
-    $read_url = Horde::applicationUrl('news.php', true, -1);
     $lastnewstime = 0;
     foreach ($list as $news_id => $news) {
-        $news_link = Util::addParameter($read_url, 'id', $news_id);
+        $news_link = News::getUrlFor('news', $news_id);
         $rssbody .= '
     <item>
+        <enclosure url="http://' . $_SERVER['SERVER_NAME']  . News::getImageUrl($news_id) . '" type="image/jpg" />
         <title>' . htmlspecialchars($news['title']) . ' </title>
         <dc:creator>' . htmlspecialchars($news['user']). '</dc:creator>
         <link>' . $news_link . '</link>
@@ -52,7 +52,7 @@ if (empty($rss)) {
             $lastnewstime = strtotime($news['publish']);
         }
     }
-    
+
     // Wee need the last published news time
     $rssheader = '<?xml version="1.0" encoding="' . NLS::getCharset() . '" ?>
 <rss version="2.0"
@@ -67,8 +67,6 @@ if (empty($rss)) {
     <link>' . Horde::applicationUrl('index.php', true, -1) . '</link>
     <generator>' . htmlspecialchars($registry->get('name')) . '</generator>';
 
-
-
     $rssfooter = '
 </channel>
 </rss>';
@@ -78,7 +76,6 @@ if (empty($rss)) {
 
     $cache->set($cache_key, $rss);
 }
-
 
 header('Content-type: text/xml;  charset=utf-8');
 echo $rss;

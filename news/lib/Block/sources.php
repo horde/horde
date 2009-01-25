@@ -3,7 +3,7 @@
 $block_name = _("Sources");
 
 /**
- * $Id: sources.php 22 2007-12-13 11:10:52Z duck $
+ * $Id: sources.php 890 2008-09-23 09:58:23Z duck $
  *
  * @package Horde_Block
  */
@@ -41,5 +41,4 @@ class Horde_Block_News_sources extends Horde_Block {
 
         return $html;
     }
-
 }

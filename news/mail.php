@@ -2,23 +2,19 @@
 /**
  * News
  *
- * Copyright 2006 Duck <duck@obala.net>
+ * $Id: mail.php 1174 2009-01-19 15:11:03Z duck $
  *
- * See the enclosed file LICENSE for license information (BSD). If you
- * did not receive this file, see http://cvs.horde.org/co.php/news/LICENSE.
+ * Copyright Obala d.o.o. (www.obala.si)
  *
- * $Id: mail.php 183 2008-01-06 17:39:50Z duck $
- *
- * @author Duck <duck@obala.net>
+ * @author  Duck <duck@obala.net>
  * @package News
  */
-define('NEWS_BASE', dirname(__FILE__));
-require_once NEWS_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/base.php';
 
 $id = Util::getFormData('id');
 $row = $news->get($id);
 if ($row instanceof PEAR_Error) {
-    $notification->push($row->getMessage(), 'horde.error');
+    $notification->push($row);
     header('Location: ' . Horde::applicationUrl('browse.php'));
     exit;
 }
@@ -27,8 +23,7 @@ if ($row instanceof PEAR_Error) {
 function _error($msg)
 {
     $GLOBALS['notification']->push($msg, 'horde.error');
-    $news_url = Util::addParameter(Horde::applicationUrl('news.php', true), 'id', $GLOBALS['id']);
-    header('Location: ' . $news_url);
+    header('Location: ' . News::getUrlFor('news', $GLOBALS['id']));
     exit;
 }
 
@@ -52,16 +47,15 @@ $body = sprintf(_("%s would you like to invite you to read the news\n Title: %s\
                 Auth::getAuth(),
                 $row['title'],
                 $row['publish'],
-                Util::addParameter(Horde::applicationUrl('news.php', true, -1), 'id', $id));
+                News::getUrlFor('news', $id, true, -1));
 
-require_once 'Horde/MIME/Mail.php';
-$mail = new MIME_Mail($row['title'], $body, $to, $from, NLS::getCharset());
+$mail = new Horde_Mime_Mail($row['title'], $body, $to, $from, NLS::getCharset());
 $result = $mail->send($conf['mailer']['type'], $conf['mailer']['params']);
 if ($result instanceof PEAR_Error) {
-    $notification->push($result->getMessage(), 'horde.error');
+    $notification->push($result);
 } else {
     $notification->push(sprintf(_("News succesfully send to %s"), $to), 'horde.success');
 }
 
-header('Location: ' . Util::addParameter(Horde::applicationUrl('news.php', true), 'id', $id));
+header('Location: ' . News::getUrlFor('news', $id));
 exit;

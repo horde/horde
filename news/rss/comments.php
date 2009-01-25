@@ -1,8 +1,8 @@
 <?php
 /**
- * $Id: comments.php 183 2008-01-06 17:39:50Z duck $
+ * $Id: comments.php 1179 2009-01-20 13:19:34Z duck $
  *
- * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2007 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
@@ -15,12 +15,11 @@ define('NEWS_BASE', dirname(__FILE__) . '/../');
 require_once NEWS_BASE . '/lib/base.php';
 
 $cache_key = 'news_rss_comments';
-//$rss = $cache->get($cache_key, $conf['cache']['default_lifetime']);
+$rss = $cache->get($cache_key, $conf['cache']['default_lifetime']);
 if (!$rss) {
 
     $list = News::getLastComments(50);
     $title = _("Last comments");
-
 
     $rss = '<?xml version="1.0" encoding="' . NLS::getCharset() . '" ?>
 <rss version="2.0">

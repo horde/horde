@@ -5,7 +5,7 @@ if ($GLOBALS['registry']->hasInterface('news')) {
 }
 
 /**
- * $Id: jonah.php 201 2008-01-09 08:38:05Z duck $
+ * $Id: jonah.php 890 2008-09-23 09:58:23Z duck $
  *
  * @package Horde_Block
  */
@@ -56,5 +56,4 @@ class Horde_Block_News_jonah extends Horde_Block {
 
         return $html;
     }
-
 }

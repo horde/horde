@@ -2,25 +2,20 @@
 /**
  * Browse
  *
- * Copyright 2007 Duck <duck@obala.net>
+ * $Id: browse.php 1179 2009-01-20 13:19:34Z duck $
  *
- * See the enclosed file LICENSE for license information (BSD). If you
- * did not receive this file, see http://cvs.horde.org/co.php/news/LICENSE.
+ * Copyright Obala d.o.o. (www.obala.si)
  *
- * $Id: browse.php 210 2008-01-10 12:41:43Z duck $
- *
- * @author Duck <duck@obala.net>
+ * @author  Duck <duck@obala.net>
  * @package News
  */
-define('NEWS_BASE', dirname(__FILE__));
-require_once NEWS_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/base.php';
 require_once NEWS_BASE . '/lib/Forms/Search.php';
 
 // Default vars
 $title = _("Browse");
 $page = Util::getGet('news_page', 0);
 $per_page = $prefs->getValue('per_page');
-$news_url = Horde::applicationUrl('news.php');
 $browse_url = Horde::applicationUrl('browse.php');
 $cid = Util::getGet('cid');
 
@@ -39,7 +34,7 @@ if ($count instanceof PEAR_Error) {
     exit;
 }
 
-
+// Get news
 $rows = $news->listNews($criteria, $page*$per_page, $per_page);
 if ($rows instanceof PEAR_Error) {
     echo $rows->getMessage() . ': ' . $rows->getDebugInfo();
@@ -48,7 +43,7 @@ if ($rows instanceof PEAR_Error) {
 
 // If we have only one row redirect ot it
 if ($count == 1 && sizeof($cats) < 2 && $page < 1) {
-    header('Location: '. Util::addParameter($news_url, 'id', $rows[0]['id'], false));
+    header('Location: '. News::getUrlFor('news', $rows[0]['id']));
     exit;
 }
 
