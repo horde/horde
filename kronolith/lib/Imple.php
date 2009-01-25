@@ -35,7 +35,7 @@ class Kronolith_Imple {
             return false;
         }
 
-        $class = 'Imple_' . $imple;
+        $class = 'Kronolith_Imple_' . $imple;
         if (!class_exists($class)) {
             include_once dirname(__FILE__) . '/Imple/' . $imple . '.php';
             if (!class_exists($class)) {
