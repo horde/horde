@@ -89,7 +89,7 @@ To function properly, Kronolith requires the following:
 
          pear install XML_Serializer-beta
 
-   c. Date_Holidays 0.20.2 [OPTIONAL]
+   c. Date_Holidays 0.21.0 [OPTIONAL]
 
       Kronolith can use the Date_Holidays package to show several sets of
       national and religious holidays and memorial days. Since Date_Holidays
