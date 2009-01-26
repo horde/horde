@@ -1,27 +1,48 @@
+<?php
+/**
   # A Span represents a range of time. Since this class extends
   # Range, you can use #begin and #end to get the beginning and
   # ending times of the span (they will be of class Time)
-  class Span < Range
-    # Returns the width of this span in seconds
-    def width
-      (self.end - self.begin).to_i
-    end
+ * @TODO remove dependencies on timestamps
+ */
+class Horde_Date_Span
+{
+    public $begin;
+    public $end;
 
-    # Add a number of seconds to this span, returning the
-    # resulting Span
-    def +(seconds)
-      Span.new(self.begin + seconds, self.end + seconds)
-    end
+    public function __construct($begin, $end)
+    {
+        $this->begin = $begin;
+        $this->end = $end;
+    }
 
-    # Subtract a number of seconds to this span, returning the
-    # resulting Span
-    def -(seconds)
-      self + -seconds
-    end
+    /**
+     * Return the width of this span in seconds
+     */
+    public function width()
+    {
+        return $this->end - $this->begin;
+    }
 
-    # Prints this span in a nice fashion
-    def to_s
-      '(' << self.begin.to_s << '..' << self.end.to_s << ')'
-    end
-  end
+    /**
+     * Add a number of seconds to this span, returning the new span
+     */
+    public function add($seconds)
+    {
+        return new Horde_Date_Span($this->begin + $seconds, $this->end + $seconds);
+    }
 
+    /**
+     * Subtract a number of seconds from this span, returning the new span.
+     */
+    public function sub($seconds)
+    {
+        return $this->add(-$seconds);
+    }
+
+    public function __toString()
+    {
+        return '(' . $this->begin . '..' . $this->end . ')';
+    }
+
+}
