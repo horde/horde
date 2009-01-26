@@ -51,10 +51,10 @@ KronolithCore = {
             case 'horde.warning':
             case 'kronolith.request':
             case 'kronolith.sticky':
-                var clickdiv, fadeeffect, iefix, log, requestfunc, tmp,
+                var iefix, log, tmp,
                     alerts = $('alerts'),
                     div = new Element('DIV', { className: m.type.replace('.', '-') }),
-                    msg = m.message;;
+                    msg = m.message;
 
                 if (!alerts) {
                     alerts = new Element('DIV', { id: 'alerts' });
@@ -76,28 +76,17 @@ KronolithCore = {
                 // overlay the div with a like sized div containing a clear
                 // gif, which tricks IE into the correct behavior.
                 if (Kronolith.conf.is_ie6) {
-                    iefix = new Element('DIV', { className: 'ie6alertsfix' }).clonePosition(div, { setLeft: false, setTop: false });
-                    clickdiv = iefix;
+                    iefix = new Element('DIV', { id: 'ie6alertsfix' }).clonePosition(div, { setLeft: false, setTop: false });
                     iefix.insert(div.remove());
                     alerts.insert(iefix);
-                } else {
-                    clickdiv = div;
                 }
 
-                fadeeffect = Effect.Fade.bind(this, div, { duration: 1.5, afterFinish: this.removeAlert.bind(this) });
-
-                clickdiv.observe('click', fadeeffect);
-
                 if ($w('horde.error kronolith.request kronolith.sticky').indexOf(m.type) == -1) {
-                    fadeeffect.delay(m.type == 'horde.warning' ? 10 : 3);
+                    this.alertsFade.bind(this, div).delay(m.type == 'horde.warning' ? 10 : 3);
                 }
 
                 if (m.type == 'kronolith.request') {
-                    requestfunc = function() {
-                        fadeeffect();
-                        document.stopObserving('click', requestfunc)
-                    };
-                    document.observe('click', requestfunc);
+                    this.alertrequest = div;
                 }
 
                 if (tmp = $('alertslog')) {
@@ -131,6 +120,13 @@ KronolithCore = {
         }, this);
     },
 
+    alertsFade: function(elt)
+    {
+        if (elt) {
+            Effect.Fade(elt, { duration: 1.5, afterFinish: this.removeAlert.bind(this) });
+        }
+    },
+
     toggleAlertsLog: function()
     {
         var alink = $('alertsloglink').down('A'),
@@ -150,15 +146,11 @@ KronolithCore = {
         try {
             var elt = $(effect.element),
                 parent = elt.up();
-            // We may have already removed this element from the DOM tree
-            // (if the user clicked on the notification), so check parentNode
-            // here - will return null if node is not part of DOM tree.
-            if (parent && parent.parentNode) {
-                this.addGC(elt.remove());
-                if (!parent.childElements().size() &&
-                    parent.hasClassName('ie6alertsfix')) {
-                    this.addGC(parent.remove());
-                }
+
+            elt.remove();
+            if (!parent.childElements().size() &&
+                parent.readAttribute('id') == 'ie6alertsfix') {
+                parent.remove();
             }
         } catch (e) {
             this.debug('removeAlert', e);
@@ -197,7 +189,7 @@ KronolithCore = {
     /* elt = DOM element */
     removeMouseEvents: function(elt)
     {
-        this.DMenu.removeElement($(elt).readAttribute('id'));
+        this.DMenu.removeElement($(elt).identify());
         this.addGC(elt);
     },
 
@@ -213,25 +205,6 @@ KronolithCore = {
     addGC: function(elt)
     {
         this.remove_gc = this.remove_gc.concat(elt);
-    },
-
-    // o: (object) Contains the following items:
-    //    'd'  - (required) The DOM element
-    //    'f'  - (required) The function to bind to the click event
-    //    'ns' - (optional) If set, don't stop the event's propogation
-    //    'p'  - (optional) If set, passes in the event object to the called
-    //                      function
-    clickObserveHandler: function(o)
-    {
-        return o.d.observe('click', KronolithCore._clickFunc.curry(o));
-    },
-
-    _clickFunc: function(o, e)
-    {
-        o.p ? o.f(e) : o.f();
-        if (!o.ns) {
-            e.stop();
-        }
     },
 
     addSID: function(url)
@@ -339,7 +312,6 @@ KronolithCore = {
                     });
                 }
                 $('kronolithBody').select('div.kronolithEvent').each(function(s) {
-                    KronolithCore.clickObserveHandler({ d: s, f: $('kronolithEventForm').appear.bind($('kronolithEventForm')) });
                     s.observe('mouseover', s.addClassName.curry('kronolithSelected'));
                     s.observe('mouseout', s.removeClassName.curry('kronolithSelected'));
                 });
@@ -353,7 +325,7 @@ KronolithCore = {
         case 'options':
             //this.highlightSidebar('appoptions');
             this._addHistory(loc);
-            KronolithCore.setTitle(Kronolith.text.prefs);
+            this.setTitle(Kronolith.text.prefs);
             this.iframeContent(loc, Kronolith.conf.prefs_url);
             break;
         }
@@ -374,7 +346,7 @@ KronolithCore = {
 
         var container = $('dimpmain_portal'), iframe;
         if (!container) {
-            KronolithCore.showNotifications([ { type: 'horde.error', message: 'Bad portal!' } ]);
+            this.showNotifications([ { type: 'horde.error', message: 'Bad portal!' } ]);
             return;
         }
 
@@ -388,6 +360,7 @@ KronolithCore = {
 
         container.insert(iframe);
     },
+
     _onMenuShow: function(ctx)
     {
         var elts, folder, ob, sel;
@@ -395,7 +368,7 @@ KronolithCore = {
         switch (ctx.ctx) {
         case 'ctx_folder':
             elts = $('ctx_folder_create', 'ctx_folder_rename', 'ctx_folder_delete');
-            folder = KronolithCore.DMenu.element();
+            folder = this.DMenu.element();
             if (folder.readAttribute('mbox') == 'INBOX') {
                 elts.invoke('hide');
             } else if (Kronolith.conf.fixed_folders.indexOf(folder.readAttribute('mbox')) != -1) {
@@ -458,121 +431,164 @@ KronolithCore = {
                 label = this.viewport.getMetaData('label');
             }
         }
-        KronolithCore.setTitle(label);
+        this.setTitle(label);
     },
 
     /* Keydown event handler */
     _keydownHandler: function(e)
     {
-        // Only catch keyboard shortcuts in message list view. Disable catching
-        // when in form elements or the RedBox overlay is visible.
-        if (e.findElement('FORM') ||
-            RedBox.overlayVisible()) {
-            return;
-        }
-
-        var co, ps, r, row, rowoff,
-            kc = e.keyCode || e.charCode;
+        var kc = e.keyCode || e.charCode;
 
         switch (kc) {
         case Event.KEY_ESC:
             $('kronolithEventForm').fade({ duration: 0.5 });
             break;
+        }
+    },
 
-        case Event.KEY_DELETE:
-        case Event.KEY_BACKSPACE:
-            if (sel.size() == 1) {
-                r = sel.get('dataob').first();
-                if (e.shiftKey) {
-                    this.moveSelected(r.rownum + ((r.rownum == this.viewport.getMetaData('total_rows')) ? -1 : 1), true);
-                }
-                this.flag('deleted', r);
-            } else {
-                this.flag('deleted');
-            }
-            e.stop();
-            break;
+    _keyupHandler: function(e)
+    {
+        /*
+        if (e.element().readAttribute('id') == 'foo') {
+        }
+        */
+    },
 
-        case Event.KEY_UP:
-        case Event.KEY_DOWN:
-            if (e.shiftKey && this.lastrow != -1) {
-                row = this.viewport.createSelection('rownum', this.lastrow + ((kc == Event.KEY_UP) ? -1 : 1));
-                if (row.size()) {
-                    row = row.get('dataob').first();
-                    this.viewport.scrollTo(row.rownum);
-                    this.msgSelect(row.domid, { shift: true });
-                }
-            } else {
-                this.moveSelected(kc == Event.KEY_UP ? -1 : 1);
-            }
-            e.stop();
-            break;
+    _clickHandler: function(e, dblclick)
+    {
+        if (e.isRightClick()) {
+            return;
+        }
 
-        case Event.KEY_PAGEUP:
-        case Event.KEY_PAGEDOWN:
-            if (!e.ctrlKey && !e.shiftKey && !e.altKey && !e.metaKey) {
-                ps = this.viewport.getPageSize() - 1;
-                move = ps * (kc == Event.KEY_PAGEUP ? -1 : 1);
-                if (sel.size() == 1) {
-                    co = this.viewport.currentOffset();
-                    rowoff = sel.get('rownum').first() - 1;
-                    switch (kc) {
-                    case Event.KEY_PAGEUP:
-                        if (co != rowoff) {
-                            move = co - rowoff;
-                        }
-                        break;
+        var elt = e.element(),
+            orig = e.element(),
+            id, tmp;
 
-                    case Event.KEY_PAGEDOWN:
-                        if ((co + ps) != rowoff) {
-                            move = co + ps - rowoff;
-                        }
-                        break;
-                    }
-                }
-                this.moveSelected(move);
+        if (this.alertrequest) {
+            this.alertsFade(this.alertrequest);
+            this.alertrequest = null;
+        }
+
+        while (Object.isElement(elt)) {
+            id = elt.readAttribute('id');
+
+            switch (id) {
+            case 'kronolithLogo':
+                this.go('portal');
                 e.stop();
-            }
-            break;
+                return;
 
-        case Event.KEY_HOME:
-        case Event.KEY_END:
-            this.moveSelected(kc == Event.KEY_HOME ? 1 : this.viewport.getMetaData('total_rows'), true);
-            e.stop();
-            break;
-
-        case Event.KEY_RETURN:
-            if (!e.element().match('input')) {
-                // Popup message window if single message is selected.
-                if (sel.size() == 1) {
-                    this.msgWindow(sel.get('dataob').first());
-                }
-            }
-            e.stop();
-            break;
-
-        case 65: // A
-        case 97: // a
-            if (e.ctrlKey) {
-                this.selectAll();
+            case 'id_fullday':
+                $('kronolithEventForm').select('.edit_at').each(Element.toggle); 
                 e.stop();
+                return;
+
+            case 'kronolithNewEvent':
+                this.editEvent();
+                e.stop();
+                return;
+
+            case 'kronolithEventActions':
+                if (orig.match('input.button')) {
+	            $('kronolithEventForm').fade();
+                }
+                e.stop();
+                return;
+
+            case 'kronolithNavDay':
+            case 'kronolithNavWeek':
+            case 'kronolithNavMonth':
+            case 'kronolithNavYear':
+            case 'kronolithNavTasks':
+            case 'kronolithNavAgenda':
+                this.go(id.substring(12).toLowerCase());
+                e.stop();
+                return;
+
+            case 'kronolithMenu':
+                if (orig.match('div.kronolithCalendars div')) {
+                    this.toggleCalendar(orig);
+                }
+                e.stop();
+                return;
+
+            case 'kronolithMinicalDate':
+                this.go('month:' + $('kronolithMinicalDate').readAttribute('date'));
+                e.stop();
+                return;
+
+            case 'kronolithMinical':
+                var tmp = orig;
+                if (tmp.tagName != 'td') {
+                    tmp.up('td');
+                }
+                if (tmp) {
+                    if (tmp.hasClassName('kronolithMinicalWeek')) {
+		        this.go('week:' + tmp.readAttribute('date'));
+		    } else if (!tmp.hasClassName('empty')) {
+		        this.go('day:' + tmp.readAttribute('date'));
+		    }
+                }
+                e.stop();
+                return;
+
+            case 'kronolithViewMonth':
+                if (orig.hasClassName('kronolithFirstCol')) {
+                    this.go('week');
+                } else if (orig.hasClassName('kronolithDay')) {
+                    this.go('day');
+                }
+                e.stop();
+                return;
+
+            case 'kronolithBody':
+                var tmp = orig;
+                if (!tmp.match('div.kronolithEvent')) {
+                    tmp = tmp.up('div.kronolithEvent');
+                }
+                if (tmp) {
+                     $('kronolithEventForm').appear();
+                }
+                e.stop();
+                return;
+
+            case 'alertsloglink':
+                this.toggleAlertsLog();
+                break;
+
+            case 'alerts':
+                this.alertsFade(elt);
+                break;
+            }
+
+            elt = elt.up();
+        }
+    },
+
+    _mouseHandler: function(e, type)
+    {
+        /*
+        var elt = e.element();
+
+        switch (type) {
+        case 'over':
+            if (DragDrop.Drags.drag && elt.hasClassName('exp')) {
+                this._toggleSubFolder(elt.up(), 'exp');
             }
             break;
         }
+        */
     },
 
     _closeRedBox: function()
     {
-        var c = RedBox.getWindowContents();
-        KronolithCore.addGC([ c, c.descendants() ].flatten());
         RedBox.close();
     },
 
     /* Onload function. */
     _onLoad: function() {
         var tmp,
-             C = KronolithCore.clickObserveHandler,
-             dmenu = KronolithCore.DMenu;
+             C = this.clickObserveHandler;
 
         if (Horde.dhtmlHistory.initialize()) {
             Horde.dhtmlHistory.addListener(this.go.bind(this));
@@ -587,167 +603,21 @@ KronolithCore = {
 
         /* Add popdown menus. */
         /*
-        KronolithCore.addPopdown('button_reply', 'reply');
-        dmenu.disable('button_reply_img', true, true);
-        KronolithCore.addPopdown('button_forward', 'forward');
-        dmenu.disable('button_forward_img', true, true);
-        KronolithCore.addPopdown('button_other', 'otheractions');
+        this.addPopdown('button_reply', 'reply');
+        this.DMenu.disable('button_reply_img', true, true);
+        this.addPopdown('button_forward', 'forward');
+        this.DMenu.disable('button_forward_img', true, true);
+        this.addPopdown('button_other', 'otheractions');
         */
-
-        /* Set up click event observers for elements on main page. */
-        tmp = $('kronolithLogo');
-        if (tmp.visible()) {
-            C({ d: tmp.down('a'), f: this.go.bind(this, 'portal') });
-        }
-
-        C({ d: $('id_fullday'), f: function() { $('kronolithEventForm').select('.edit_at').each(Element.toggle); } });
-
-        C({ d: $('kronolithNewEvent'), f: KronolithCore.editEvent });
-
-        $('kronolithEventActions').select('input.button').each(function(s) {
-	    C({ d: s, f: function() { Effect.Fade('kronolithEventForm');} });
-        });
 
         $('kronolithEventForm').select('div.kronolithTags span').each(function(s) {
 	    $('id_tags').value = $F('id_tags') + s.getText() + ', ';
         });
 
-        [ 'Day', 'Week', 'Month', 'Year', 'Tasks', 'Agenda' ].each(function(a) {
-            C({ d: $('kronolithNav' + a), f: KronolithCore.go.bind(KronolithCore, a.toLowerCase()) });
-        });
-
         $('kronolithMenu').select('div.kronolithCalendars div').each(function(s) {
-            C({ d: s, f: KronolithCore.toggleCalendar.bind(KronolithCore, s) });
             s.observe('mouseover', s.addClassName.curry('kronolithCalOver'));
             s.observe('mouseout', s.removeClassName.curry('kronolithCalOver'));
         });
-
-        C({ d: $('kronolithMinicalDate'), f: KronolithCore.go.bind(KronolithCore, 'month:' + $('kronolithMinicalDate').readAttribute('date')) });
-        $('kronolithMinical').select('td').each(function(td) {
-            C({ d: td, f: function() {
-                if (td.hasClassName('kronolithMinicalWeek')) {
-		    KronolithCore.go('week:' + td.readAttribute('date'));
-		} else if (!td.hasClassName('empty')) {
-		    KronolithCore.go('day:' + td.readAttribute('date'));
-		}
-            }});
-        });
-
-        /* Set up click event observers for elements on month view. */
-        $('kronolithViewMonth').select('.kronolithFirstCol').each(function(l) {
-            C({ d: l, f: KronolithCore.go.bind(KronolithCore, 'week') });
-        });
-        $('kronolithViewMonth').select('.kronolithDay').each(function(l) {
-            C({ d: l, f: KronolithCore.go.bind(KronolithCore, 'day') });
-        });
-
-        /*
-        C({ d: $('composelink'), f: KronolithCore.compose.bind(KronolithCore, 'new') });
-        C({ d: $('checkmaillink'), f: this.pollFolders.bind(this) });
-
-        [ 'portal', 'options' ].each(function(a) {
-            var d = $('app' + a);
-            if (d) {
-                C({ d: d, f: this.go.bind(this, a) });
-            }
-        }, this);
-        tmp = $('applogout');
-        if (tmp) {
-            C({ d: tmp, f: function() { $('applogout').down('A').update('[' + KronolithText.onlogout + ']'); KronolithCore.logout(); } });
-        }
-
-        tmp = $('applicationfolders');
-        if (tmp) {
-            tmp.select('li.custom a').each(function(s) {
-                C({ d: s, f: this.go.bind(this, 'app:' + s.readAttribute('app')) });
-            }, this);
-        }
-
-        C({ d: $('newfolder'), f: this.createBaseFolder.bind(this) });
-        new Drop('dropbase', this._folderDropConfig);
-        tmp = $('hometab');
-        if (tmp) {
-            C({ d: tmp, f: this.go.bind(this, 'portal') });
-        }
-        $('tabbar').select('a.applicationtab').each(function(a) {
-            C({ d: a, f: this.go.bind(this, 'app:' + a.readAttribute('app')) });
-        }, this);
-        C({ d: $('button_reply'), f: this.composeMailbox.bind(this, 'reply'), ns: true });
-        C({ d: $('button_forward'), f: this.composeMailbox.bind(this, Kronolith.conf.forward_default), ns: true });
-        [ 'spam', 'ham', 'deleted' ].each(function(a) {
-            var d = $('button_' + a);
-            if (d) {
-                C({ d: d, f: this.flag.bind(this, a) });
-            }
-        }, this);
-        C({ d: $('button_compose').down('A'), f: KronolithCore.compose.bind(KronolithCore, 'new') });
-        C({ d: $('button_other'), f: function(e) { dmenu.trigger(e.findElement('A').next(), true); }, p: true });
-        C({ d: $('qoptions').down('.qclose a'), f: this.searchfilterClear.bind(this, false) });
-        [ 'all', 'current' ].each(function(a) {
-            var d = $('sf_' + a);
-            if (d) {
-                C({ d: d, f: this.updateSearchfilter.bind(this, a, 'folder') });
-            }
-        }, this);
-        [ 'msgall', 'from', 'to', 'subject' ].each(function(a) {
-            C({ d: $('sf_' + a), f: this.updateSearchfilter.bind(this, a, 'msg') });
-        }, this);
-        C({ d: $('msglistHeader'), f: this.sort.bind(this), p: true });
-        C({ d: $('ctx_folder_create'), f: function() { this.createSubFolder(dmenu.element()); }.bind(this), ns: true });
-        C({ d: $('ctx_folder_rename'), f: function() { this.renameFolder(dmenu.element()); }.bind(this), ns: true });
-        C({ d: $('ctx_folder_empty'), f: function() { var mbox = dmenu.element().readAttribute('mbox'); dmenu.close(true); if (window.confirm(Kronolith.text.empty_folder)) { KronolithCore.doAction('EmptyFolder', { folder: mbox }, null, this._emptyFolderCallback.bind(this)); } }.bind(this), ns: true });
-        C({ d: $('ctx_folder_delete'), f: function() { var mbox = dmenu.element().readAttribute('mbox'); dmenu.close(true); if (window.confirm(Kronolith.text.delete_folder)) { KronolithCore.doAction('DeleteFolder', { folder: mbox }, null, this.bcache.get('folderC') || this.bcache.set('folderC', this._folderCallback.bind(this))); } }.bind(this), ns: true });
-        [ 'ctx_folder_seen', 'ctx_folder_unseen' ].each(function(a) {
-            C({ d: $(a), f: function(type) { this.flag(type, null, dmenu.element().readAttribute('mbox')); }.bind(this, a == 'ctx_folder_seen' ? 'allSeen' : 'allUnseen'), ns: true });
-        }, this);
-        [ 'ctx_folder_poll', 'ctx_folder_nopoll' ].each(function(a) {
-            C({ d: $(a), f: function(modify) { this.modifyPollFolder(dmenu.element().readAttribute('mbox'), modify); }.bind(this, a == 'ctx_folder_poll'), ns: true });
-        }, this);
-        C({ d: $('ctx_container_create'), f: function() { this.createSubFolder(dmenu.element()); }.bind(this), ns: true });
-        C({ d: $('ctx_container_rename'), f: function() { this.renameFolder(dmenu.element()); }.bind(this), ns: true });
-        [ 'reply', 'reply_all', 'reply_list', 'forward_all', 'forward_body', 'forward_attachments' ].each(function(a) {
-            C({ d: $('ctx_message_' + a), f: this.composeMailbox.bind(this, a), ns: true });
-        }, this);
-        [ 'seen', 'unseen', 'flagged', 'clear', 'spam', 'ham', 'blacklist', 'whitelist', 'deleted', 'undeleted' ].each(function(a) {
-            var d = $('ctx_message_' + a);
-            if (d) {
-                C({ d: d, f: this.flag.bind(this, a), ns: true });
-            }
-        }, this);
-        C({ d: $('ctx_draft_resume'), f: this.composeMailbox.bind(this, 'resume') });
-        [ 'flagged', 'clear', 'deleted', 'undeleted' ].each(function(a) {
-            var d = $('ctx_draft_' + a);
-            if (d) {
-                C({ d: d, f: this.flag.bind(this, a), ns: true });
-            }
-        }, this);
-        [ 'reply', 'reply_all', 'reply_list' ].each(function(a) {
-            C({ d: $('ctx_reply_' + a), f: this.composeMailbox.bind(this, a), ns: true });
-        }, this);
-        [ 'forward_all', 'forward_body', 'forward_attachments' ].each(function(a) {
-            C({ d: $('ctx_forward_' + a), f: this.composeMailbox.bind(this, a), ns: true });
-        }, this);
-        C({ d: $('previewtoggle'), f: this.togglePreviewPane.bind(this), ns: true });
-        [ 'seen', 'unseen', 'flagged', 'clear', 'blacklist', 'whitelist' ].each(function(a) {
-            var d = $('oa_' + a);
-            if (d) {
-                C({ d: d, f: this.flag.bind(this, a), ns: true });
-            }
-        }, this);
-        C({ d: $('oa_selectall'), f: this.selectAll.bind(this), ns: true });
-
-        tmp = $('oa_purge_deleted');
-        if (tmp) {
-            C({ d: tmp, f: this.purgeDeleted.bind(this), ns: true });
-        }
-
-        $('toggleHeaders').select('A').each(function(a) {
-            C({ d: a, f: function() { [ a.up().select('A'), $('msgHeadersColl', 'msgHeaders') ].flatten().invoke('toggle'); }, ns: true });
-        });
-        $('msg_newwin', 'msg_newwin_options').compact().each(function(a) {
-            C({ d: a, f: function() { this.msgWindow(this.viewport.getViewportSelection().search({ imapuid: { equal: [ Kronolith.conf.msg_index ] } , view: { equal: [ Kronolith.conf.msg_folder ] } }).get('dataob').first()); }.bind(this) });
-        }, this);
-        */
 
         this._resizeIE6();
     },
@@ -855,7 +725,13 @@ document.observe('dom:loaded', function() {
     KronolithCore._onLoad();
 
     /* Bind key shortcuts. */
-    document.observe('keydown', KronolithCore._keydownHandler.bind(KronolithCore));
+    document.observe('keydown', KronolithCore._keydownHandler.bindAsEventListener(KronolithCore));
+    document.observe('keyup', KronolithCore._keyupHandler.bindAsEventListener(KronolithCore));
+
+    /* Bind mouse clicks. */
+    document.observe('click', KronolithCore._clickHandler.bindAsEventListener(KronolithCore));
+    document.observe('dblclick', KronolithCore._clickHandler.bindAsEventListener(KronolithCore, true));
+    document.observe('mouseover', KronolithCore._mouseHandler.bindAsEventListener(KronolithCore, 'over'));
 
     /* Resize elements on window size change. */
     Event.observe(window, 'resize', KronolithCore._onResize.bind(KronolithCore));
