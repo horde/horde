@@ -173,6 +173,40 @@ class Content_Tagger
     }
 
     /**
+     * Remove all occurrences of a specific tag from an object regardless of
+     * the username who tagged the object originally.
+     *
+     * @param mixed  $obejctId  The object identifier @see Content_Tagger::tag()
+     * @param mixed  $tags      The tags to remove. @see Content_Tagger::tag()
+     *
+     * @return void
+     */
+    public function removeTagFromObject($objectId, $tags)
+    {
+        $objectId = $this->_ensureObject($objectId);
+        if (!is_array($tags)) {
+            $tags = array($tags);
+        }
+
+        foreach ($this->ensureTags($tags) as $tagId) {
+            // Get the users who have tagged this so we can update the stats
+            $users = $this->_db->selectValues('SELECT user_id, tag_id FROM ' . $this->_t('tagged') . ' WHERE object_id = ? AND tag_id = ?', array($objectId, $tagId));
+
+            // Delete the tags
+            if ($this->_db->delete('DELETE FROM ' . $this->_t('tagged') . ' WHERE object_id = ? AND tag_id = ?', array($objectId, $tagId))) {
+                // Update the stats
+                $this->_db->update('UPDATE ' . $this->_t('tag_stats') . ' SET count = count - ' . count($users) . ' WHERE tag_id = ?', array($tagId));
+                $this->_db->update('UPDATE ' . $this->_t('user_tag_stats') . ' SET count = count - 1 WHERE user_id IN(' . str_repeat('?, ', count($users) - 1) . '?) AND tag_id = ?', array_merge($users, array($tagId)));
+
+                // Housekeeping
+                $this->_db->delete('DELETE FROM ' . $this->_t('tag_stats') . ' WHERE count = 0');
+                $this->_db->delete('DELETE FROM ' . $this->_t('user_tag_stats') . ' WHERE count = 0');
+            }
+        }
+
+    }
+
+    /**
      * Retrieve tags based on criteria.
      *
      * @param array  $args  Search criteria:
@@ -207,9 +241,7 @@ class Content_Tagger
             $args['userId'] = current($this->_userManager->ensureUsers($args['userId']));
             $sql = 'SELECT DISTINCT t.tag_id AS tag_id, tag_name FROM ' . $this->_t('tagged') . ' AS tagged INNER JOIN ' . $this->_t('tags') . ' AS t ON tagged.tag_id = t.tag_id WHERE tagged.user_id = ' . (int)$args['userId'];
         } elseif (isset($args['typeId'])) {
-            var_dump($args['typeId']);
             $args['typeId'] = current($this->_typeManager->ensureTypes($args['typeId']));
-            var_dump($args['typeId']);
             $sql = 'SELECT DISTINCT t.tag_id AS tag_id, tag_name FROM ' . $this->_t('tagged') . ' AS tagged INNER JOIN ' . $this->_t('objects') . ' AS objects ON tagged.object_id = objects.object_id AND objects.type_id = ' . (int)$args['typeId'] . ' INNER JOIN ' . $this->_t('tags') . ' AS t ON tagged.tag_id = t.tag_id';
         } elseif (isset($args['tagId'])) {
             $radius = isset($args['limit']) ? (int)$args['limit'] : $this->_defaultRadius;
