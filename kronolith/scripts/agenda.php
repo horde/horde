@@ -146,9 +146,7 @@ function send_agendas()
         $lang = $prefs->getValue('language');
         $twentyFour = $prefs->getValue('twentyFour');
         $dateFormat = $prefs->getValue('date_format');
-        NLS::setLang($lang);
-        NLS::setTextdomain('kronolith', KRONOLITH_BASE . '/locale', NLS::getCharset());
-        String::setDefaultCharset(NLS::getCharset());
+        NLS::setLanguageEnvironment($lang);
         $mime_mail = new Horde_Mime_Mail(sprintf(_("Your daily agenda for %s"), strftime($dateFormat, $runtime)),
                                          null,
                                          $email,
