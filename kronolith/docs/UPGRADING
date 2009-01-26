@@ -44,6 +44,15 @@ the event times, execute the provided PHP script::
    php scripts/upgrades/convert_to_utc.php
 
 
+Daily agendas
+-------------
+
+There is a new script in ``scripts/agenda.php`` to send out daily agendas to
+all users. It should be run once a day. This replaces the
+``scripts/reminders.php`` script from older versions, but you have to take
+care yourself now that the script isn't run more than once per day.
+
+
 Upgrading Kronolith from 2.3 to 2.3.1
 =====================================
 
