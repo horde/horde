@@ -23,7 +23,7 @@ class Horde_Date_Parser_Token
      */
     public function untag($tag_class)
     {
-        $this->tags = array_filter($this->tags, create_function('$t', 'return $t instanceof ' . $tag_class));
+        $this->tags = array_filter($this->tags, create_function('$t', 'return $t instanceof ' . $tag_class . ';'));
     }
 
     /**
@@ -39,7 +39,7 @@ class Horde_Date_Parser_Token
      */
     public function getTag($tag_class)
     {
-        $matches = array_filter($this->tags, create_function('$t', 'return $t instanceof ' . $tag_class));
+        $matches = array_filter($this->tags, create_function('$t', 'return $t instanceof ' . $tag_class . ';'));
         return array_shift($matches);
     }
 
