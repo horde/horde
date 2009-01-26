@@ -4,6 +4,13 @@
  */
 class Horde_Date_Parser
 {
+    public static $debug = false;
+
+    public static function parse($text, $args = array())
+    {
+        return self::factory($args)->parse($text, $args);
+    }
+
     public static function factory($args = array())
     {
         $locale = isset($args['locale']) ? $args['locale'] : null;
@@ -26,6 +33,10 @@ class Horde_Date_Parser
         return new Horde_Date_Parser_Locale_Base($args);
     }
 
+    /**
+     * @TODO this should be an instance method of one of the base classes, and
+     * should already known the locale
+     */
     public static function componentFactory($component, $args = array())
     {
         $locale = isset($args['locale']) ? $args['locale'] : null;
