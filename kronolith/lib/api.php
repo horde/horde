@@ -1340,10 +1340,7 @@ function _kronolith_listAlarms($time, $user = null)
                 if (($reminder == 'owner' && $alarm_user == $owner) ||
                     ($reminder == 'show' && in_array($calendar, $shown_calendars)) ||
                     $reminder == 'read') {
-                    /* @todo: replace with NLS::setLanguageEnvironement(). */
-                    NLS::setLang($prefs->getValue('language'));
-                    NLS::setTextdomain('kronolith', KRONOLITH_BASE . '/locale', NLS::getCharset());
-                    String::setDefaultCharset(NLS::getCharset());
+                    NLS::setLanguageEnvironment($prefs->getValue('language'));
                     $alarm = $event->toAlarm($time, $alarm_user, $prefs);
                     if ($alarm) {
                         $alarm_list[] = $alarm;

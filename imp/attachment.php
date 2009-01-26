@@ -86,8 +86,6 @@ if ($conf['compose']['link_attachments_notify']) {
                 $mail_address_full = $mail_identity->getDefaultFromAddress(true);
                 NLS::setTimeZone();
                 NLS::setLanguageEnvironment();
-                NLS::setTextdomain('imp', dirname(__FILE__) . '/locale', NLS::getCharset());
-                String::setDefaultCharset(NLS::getCharset());
 
                 /* Set up the mail headers and read the log file. */
                 $msg_headers = new Horde_Mime_Headers();
