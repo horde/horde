@@ -72,10 +72,10 @@ class Content_Types_Manager
 
         // Get the ids for any types that already exist.
         if (count($typeName)) {
-            foreach ($this->_db->selectAll('SELECT type_id, type_name FROM ' . $this->_t('types') . ' WHERE type_name IN ('.implode(',', array_map(array($this->_db, 'quote'), array_keys($typeName))).')') as $row) {
-                $typeIndex = $typeName[$row['type_name']];
-                unset($typeName[$row['type_name']]);
-                $typeIds[$typeIndex] = (int)$row['type_id'];
+            foreach ($this->_db->selectAssoc('SELECT type_id, type_name FROM ' . $this->_t('types') . ' WHERE type_name IN ('.implode(',', array_map(array($this->_db, 'quote'), array_keys($typeName))).')') as $id => $type) {
+                $typeIndex = $typeName[$type];
+                unset($typeName[$type]);
+                $typeIds[$typeIndex] = (int)$id;
             }
         }
 
