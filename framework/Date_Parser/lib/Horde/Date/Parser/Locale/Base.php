@@ -1,6 +1,7 @@
-module Chronic
-  class << self
-
+<?php
+class Horde_Date_Parser_Locale_Base
+{
+    /**
     # Parses a string containing a natural language date or time. If the parser
     # can find a date or time, either a Time or Chronic::Span will be returned
     # (depending on the value of <tt>:guess</tt>). If no date or time can be found,
@@ -28,7 +29,7 @@ module Chronic
     #     given date or time. If you'd rather have the entire time span returned,
     #     set <tt>:guess</tt> to +false+ and a Chronic::Span will be returned.
     #
-    # [<tt>:ambiguous_time_range</tt>]
+    # [<tt>:ambiguousTimeRange</tt>]
     #     Integer or <tt>:none</tt> (defaults to <tt>6</tt> (6am-6pm))
     #
     #     If an Integer is given, ambiguous times (like 5:00) will be
@@ -38,115 +39,136 @@ module Chronic
     #     assume that means 5:00pm. If <tt>:none</tt> is given, no assumption
     #     will be made, and the first matching instance of that time will
     #     be used.
-    def parse(text, specified_options = {})
-      # get options and set defaults if necessary
-      default_options = {:context => :future,
-                         :now => Time.now,
-                         :guess => true,
-                         :ambiguous_time_range => 6}
-      options = default_options.merge specified_options
+    */
+    public function parse($text, $specifiedOptions = array())
+    {
+        // get options and set defaults if necessary
+        $defaultOptions = array(
+            'context' => 'future',
+            'now' => new Horde_Date,
+            'guess' => true,
+            'ambiguousTimeRange' => 6,
+        );
+        $options = array_merge($defaultOptions, $specifiedOptions);
 
-      # ensure the specified options are valid
-      specified_options.keys.each do |key|
-        default_options.keys.include?(key) || raise(InvalidArgumentException, "#{key} is not a valid option key.")
-      end
-      [:past, :future, :none].include?(options[:context]) || raise(InvalidArgumentException, "Invalid value ':#{options[:context]}' for :context specified. Valid values are :past and :future.")
+        // ensure the specified options are valid
+        foreach (array_keys($specifiedOptions) as $key) {
+            if (!isset($defaultOptions[$key])) {
+                throw new InvalidArgumentException("$key is not a valid option key");
+            }
+        }
 
-      # store now for later =)
-      @now = options[:now]
+        if (!in_array($options['context'], array('past', 'future', 'none'))) {
+            throw new InvalidArgumentException("Invalid value " . $options['context'] . " for 'context' specified. Valid values are 'past', 'future', and 'none'");
+        }
 
-      # put the text into a normal format to ease scanning
-      text = self.pre_normalize(text)
+        // store now for later =)
+        $this->now = $options['now'];
 
-      # get base tokens for each word
-      @tokens = self.base_tokenize(text)
+        // put the text into a normal format to ease scanning
+        $text = $this->preNormalize($text);
 
-      # scan the tokens with each token scanner
-      [Repeater].each do |tokenizer|
-        @tokens = tokenizer.scan(@tokens, options)
-      end
+        // get base tokens for each word
+        $tokens = $this->baseTokenize($text);
 
-      [Grabber, Pointer, Scalar, Ordinal, Separator, TimeZone].each do |tokenizer|
-        @tokens = tokenizer.scan(@tokens)
-      end
+        // scan the tokens with each token scanner
+        foreach (array('Repater') as $tokenizer) {
+            $tokenizer = $this->componentFactory($tokenizer);
+            $tokens = $tokenizer->scan($tokens, $options);
+        }
 
-      # strip any non-tagged tokens
-      @tokens = @tokens.select { |token| token.tagged? }
+        foreach (array('Grabber', 'Pointer', 'Scalar', 'Ordinal', 'Separator', 'Timezone') as $tokenizer) {
+            $tokenizer = $this->componentFactory($tokenizer);
+            $tokens = $tokenizer->scan($tokens);
+        }
 
-      if Chronic.debug
-        puts "+---------------------------------------------------"
-        puts "| " + @tokens.to_s
-        puts "+---------------------------------------------------"
-      end
+        // strip any non-tagged tokens
+        $tokens = array_filter($tokens, create_function('$t', 'return $t->tagged();'));
 
-      # do the heavy lifting
-      begin
-        span = self.tokens_to_span(@tokens, options)
-      rescue
-        raise
-        return nil
-      end
+        if (Horde_Date_Parser::$debug) {
+            echo "+---------------------------------------------------\n";
+            echo "| " + implode(', ', $tokens) . "\n";
+            echo "+---------------------------------------------------\n";
+        }
 
-      # guess a time within a span if required
-      if options[:guess]
-        return self.guess(span)
-      else
-        return span
-      end
-    end
+        // do the heavy lifting
+        $span = $this->tokensToSpan($tokens, $options);
 
+        // guess a time within a span if required
+        if ($options['guess']) {
+            return $this->guess($span);
+        } else {
+            return $span;
+        }
+    }
+
+    /**
     # Clean up the specified input text by stripping unwanted characters,
     # converting idioms to their canonical form, converting number words
     # to numbers (three => 3), and converting ordinal words to numeric
     # ordinals (third => 3rd)
-    def pre_normalize(text) #:nodoc:
-      normalized_text = text.to_s.downcase
-      normalized_text = numericize_numbers(normalized_text)
-      normalized_text.gsub!(/['"\.]/, '')
-      normalized_text.gsub!(/([\/\-\,\@])/) { ' ' + $1 + ' ' }
-      normalized_text.gsub!(/\btoday\b/, 'this day')
-      normalized_text.gsub!(/\btomm?orr?ow\b/, 'next day')
-      normalized_text.gsub!(/\byesterday\b/, 'last day')
-      normalized_text.gsub!(/\bnoon\b/, '12:00')
-      normalized_text.gsub!(/\bmidnight\b/, '24:00')
-      normalized_text.gsub!(/\bbefore now\b/, 'past')
-      normalized_text.gsub!(/\bnow\b/, 'this second')
-      normalized_text.gsub!(/\b(ago|before)\b/, 'past')
-      normalized_text.gsub!(/\bthis past\b/, 'last')
-      normalized_text.gsub!(/\bthis last\b/, 'last')
-      normalized_text.gsub!(/\b(?:in|during) the (morning)\b/, '\1')
-      normalized_text.gsub!(/\b(?:in the|during the|at) (afternoon|evening|night)\b/, '\1')
-      normalized_text.gsub!(/\btonight\b/, 'this night')
-      normalized_text.gsub!(/(?=\w)([ap]m|oclock)\b/, ' \1')
-      normalized_text.gsub!(/\b(hence|after|from)\b/, 'future')
-      normalized_text = numericize_ordinals(normalized_text)
-    end
+    */
+    public function preNormalize($text)
+    {
+        $normalizedText = strtolower($text);
+        $normalizedText = $this->numericizeNumbers($normalizedText);
+        $normalizedText = preg_replace('/[\'"\.]/', '', $normalizedText);
+        $normalizedText = preg_replace('/([\/\-\,\@])/', ' \1 ', $normalizedText);
+        $normalizedText = preg_replace('/\btoday\b/', 'this day', $normalizedText);
+        $normalizedText = preg_replace('/\btomm?orr?ow\b/', 'next day', $normalizedText);
+        $normalizedText = preg_replace('/\byesterday\b/', 'last day', $normalizedText);
+        $normalizedText = preg_replace('/\bnoon\b/', '12:00', $normalizedText);
+        $normalizedText = preg_replace('/\bmidnight\b/', '24:00', $normalizedText);
+        $normalizedText = preg_replace('/\bbefore now\b/', 'past', $normalizedText);
+        $normalizedText = preg_replace('/\bnow\b/', 'this second', $normalizedText);
+        $normalizedText = preg_replace('/\b(ago|before)\b/', 'past', $normalizedText);
+        $normalizedText = preg_replace('/\bthis past\b/', 'last', $normalizedText);
+        $normalizedText = preg_replace('/\bthis last\b/', 'last', $normalizedText);
+        $normalizedText = preg_replace('/\b(?:in|during) the (morning)\b/', '\1', $normalizedText);
+        $normalizedText = preg_replace('/\b(?:in the|during the|at) (afternoon|evening|night)\b/', '\1', $normalizedText);
+        $normalizedText = preg_replace('/\btonight\b/', 'this night', $normalizedText);
+        $normalizedText = preg_replace('/(?=\w)([ap]m|oclock)\b/', ' \1', $normalizedText);
+        $normalizedText = preg_replace('/\b(hence|after|from)\b/', 'future', $normalizedText);;
+        $normalizedText = $this->numericizeOrdinals($normalizedText);
+    }
 
-    # Convert number words to numbers (three => 3)
-    def numericize_numbers(text) #:nodoc:
-      Numerizer.numerize(text)
-    end
+    /**
+     * Convert number words to numbers (three => 3)
+     */
+    public function numericizeNumbers($text)
+    {
+        return Horde_Support_Numerizer::numerize($normalizedText, array('locale' => $this->locale));
+    }
 
-    # Convert ordinal words to numeric ordinals (third => 3rd)
-    def numericize_ordinals(text) #:nodoc:
-      text
-    end
+    /**
+     * Convert ordinal words to numeric ordinals (third => 3rd)
+     */
+    public function numericizeOrdinals($text)
+    {
+        return $text;
+    }
 
-    # Split the text on spaces and convert each word into
-    # a Token
-    def base_tokenize(text) #:nodoc:
-      text.split(' ').map { |word| Token.new(word) }
-    end
+    /**
+     * Split the text on spaces and convert each word into a Token
+     */
+    public function baseTokenize($text)
+    {
+        return array_map(create_function('$w', 'return new Horde_Date_Parser_Token($w);'), preg_split('/\s+/', $text));
+    }
 
-    # Guess a specific time within the given span
-    def guess(span) #:nodoc:
-      return nil if span.nil?
-      if span.width > 1
-        span.begin + (span.width / 2)
-      else
-        span.begin
-      end
-    end
-  end
+    /**
+     * Guess a specific time within the given span
+     */
+    public function guess($span)
+    {
+        if (empty($span)) {
+            return null;
+        }
+        if ($span->width > 1) {
+            return $span->begin + ($span->width() / 2);
+        } else {
+            return $span->begin;
+        }
+    }
 
-end
+}
