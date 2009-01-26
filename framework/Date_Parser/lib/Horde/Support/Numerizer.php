@@ -4,6 +4,11 @@
  */
 class Horde_Support_Numerizer
 {
+    public static function numerize($string, $args = array())
+    {
+        return self::factory($args)->numerize($string);
+    }
+
     public static function factory($args = array())
     {
         $locale = isset($args['locale']) ? $args['locale'] : null;
