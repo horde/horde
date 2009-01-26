@@ -20,9 +20,9 @@
  * The table structure can be created by the scripts/sql/folks_foo.sql
  * script.
  *
- * $Id: sql.php 984 2008-10-09 09:38:16Z duck $
+ * $Id: sql.php 1074 2008-11-29 09:04:26Z duck $
  *
- * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
@@ -68,11 +68,16 @@ class Folks_Driver_sql extends Folks_Driver {
 
     /**
      * Get last visitors
+     *
+     * @param integer $limit   Username to check
+     *
+     * @return array  users
      */
     protected function _getRecentVisitors($limit = 10)
     {
         $sql = 'SELECT user_uid FROM ' . $this->_params['online']
-            . ' WHERE user_uid <> "" ORDER BY time_last_click DESC LIMIT 0, ' . (int)$limit;
+            . ' WHERE user_uid <> "" AND user_uid <> "0" '
+            . '  ORDER BY time_last_click DESC LIMIT 0, ' . (int)$limit;
 
         return $this->_db->getCol($sql);
     }
@@ -570,6 +575,7 @@ class Folks_Driver_sql extends Folks_Driver {
         }
 
         /* Connect to the SQL server using the supplied parameters. */
+        require_once 'DB.php';
         $this->_write_db = DB::connect($this->_params,
                                         array('persistent' => !empty($this->_params['persistent'])));
         if ($this->_write_db instanceof PEAR_Error) {

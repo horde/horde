@@ -1,6 +1,6 @@
 <?php
  /**
- * $Id: user.php 987 2008-10-09 12:23:30Z duck $
+ * $Id: user.php 1076 2008-11-29 09:33:19Z duck $
  *
  * Copyright Obala d.o.o. (www.obala.si)
  *
@@ -71,6 +71,7 @@ case 'inactive':
 break;
 
 case 'deleted':
+case 'deactivated':
     require FOLKS_TEMPLATES . '/user/deleted.php';
 break;
 

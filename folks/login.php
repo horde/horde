@@ -1,6 +1,6 @@
 <?php
 /**
- * $Id: login.php 954 2008-09-30 19:09:25Z duck $
+ * $Id: login.php 1076 2008-11-29 09:33:19Z duck $
  *
  * Copyright Obala d.o.o. (www.obala.si)
  *
@@ -77,7 +77,7 @@ if (isset($_GET['logout_reason'])) {
 /*
  * Special login for apps (gollem, imp)?
  */
-if ($conf['login']['prelogin'] && 
+if ($conf['login']['prelogin'] &&
     Auth::getAuth() &&
    ($app = Util::getGet('app'))) {
     Horde::callHook('_folks_hook_prelogin', array($app), 'folks');
@@ -119,7 +119,7 @@ if (isset($_COOKIE['folks_login_code']) &&
 }
 
 /*
- * Form 
+ * Form
  */
 $title = sprintf(_("Login to %s"), $registry->get('name', 'horde'));
 $vars = Variables::getDefaultVariables();
@@ -128,7 +128,7 @@ $form = new Folks_Login_Form($vars, $title, 'folks_login');
 /*
  * Check time between one login and anther
  */
-$username = strtolower(Util::getPost('username'));
+$username = strtolower(trim(Util::getPost('username')));
 if ($username && $conf['login']['diff']) {
     $last_try = $cache->get('login_last_try_' . $username, $conf['cache']['default_lifetime']);
     if ($last_try && $_SERVER['REQUEST_TIME'] - $last_try <= $conf['login']['diff']) {
@@ -175,6 +175,7 @@ if ($form->isSubmitted()) {
         break;
 
     case 'unconfirmed':
+    case 'inactive':
         $notification->push(_("This account was still not activated. Check your inbox, we send you the activation code there."), 'horde.warning');
         header('Location: ' . Horde::selfUrl(true));
         exit;

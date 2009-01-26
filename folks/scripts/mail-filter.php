@@ -3,7 +3,7 @@
 /**
  * This script parses MIME messages and deactivates users with returned emails.
  *
- * $Id: mail-filter.php 1019 2008-10-31 08:18:10Z duck $
+ * $Id: mail-filter.php 1020 2008-10-31 09:25:56Z duck $
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
@@ -162,7 +162,7 @@ if (empty($mails)) {
 // Get usernames
 $query = 'SELECT DISTINCT user_uid FROM folks_users WHERE user_email'
             . ' IN (' . implode(', ', array_unique($mails)) . ') ';
-$users = $db->getOne($query, $mail);
+$users = $db->getCol($query);
 if ($user_uid instanceof PEAR_Error) {
     $cli->fatal($user_uid);
     continue;
@@ -180,15 +180,16 @@ $auth = Auth::singleton('auto', array('username' => $opts_hash['--username']));
 $auth->setAuth($opts_hash['--username'], array('transparent' => 1));
 
 // Send messages
-$result = $registry->callByPackage(
-    'letter', 'sendMessage', array($users,
-                                array('title' => $title,
-                                        'content' => sprintf($body, $user_uid, $edit_url))));
-
-if ($result instanceof PEAR_Error) {
-    $cli->message($result, 'cli.error');
-} else {
-    $cli->message('', 'cli.sucess');
+foreach ($users as $user) {
+    $result = $registry->callByPackage(
+        'letter', 'sendMessage', array($user,
+                                    array('title' => $title,
+                                            'content' => sprintf($body, $user_uid, $edit_url))));
+    if ($result instanceof PEAR_Error) {
+        $cli->message($result, 'cli.error');
+    } else {
+        $cli->message($user, 'cli.sucess');
+    }
 }
 
 exit(0);

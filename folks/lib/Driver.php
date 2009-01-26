@@ -249,7 +249,7 @@ class Folks_Driver {
      */
     public function getRecentVisitors($limit = 10)
     {
-        $recent = $GLOBALS['cache']->get('folksRecentVisitors', $GLOBALS['conf']['online']['ttl']);
+        $recent = $GLOBALS['cache']->get('folksRecentVisitors' . $limit, $GLOBALS['conf']['online']['ttl']);
         if ($recent) {
             $recent = unserialize($recent);
         } else {
@@ -257,7 +257,7 @@ class Folks_Driver {
             if ($recent instanceof PEAR_Error) {
                 return $recent;
             }
-            $GLOBALS['cache']->set('folksRecentVisitors', serialize($recent));
+            $GLOBALS['cache']->set('folksRecentVisitors' . $limit, serialize($recent));
         }
 
         return $recent;
