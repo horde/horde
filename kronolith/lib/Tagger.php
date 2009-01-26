@@ -38,7 +38,7 @@ class Kronolith_Tagger {
 
             self::$_tagger = new Content_Tagger($context);
             $types = $type_mgr->ensureTypes(array('calendar', 'event'));
-            self::$_type_ids = array('calendar' => $types[0], 'event' => $types[1]);
+            self::$_type_ids = array('calendar' => (int)$types[0], 'event' => (int)$types[1]);
         }
     }
 
@@ -71,13 +71,13 @@ class Kronolith_Tagger {
         foreach ($localId as $id) {
             $tags = $tags + self::$_tagger->getTags(array('objectId' => array('object' => $id, 'type' => $type)));
         }
-var_dump($tags);
+
         return $tags;
     }
 
     public function untag($localId, $tag, $content_type = 'event')
     {
-        //self::$_tagger->
+        self::$_tagger->removeTagFromObject(array('object' => $localId, 'type' => $content_type), $tag);
     }
 
     /**
