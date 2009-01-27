@@ -11,9 +11,23 @@ Horde_Autoloader::addClassPattern('/^Content_/',
 
 class Kronolith_Tagger {
 
+    /**
+     * Local cache of the type name => ids from Content, so we don't have to
+     * query for them each time.
+     *
+     * @var array
+     */
     protected static $_type_ids = array();
+
+    /**
+     * @var Content_Tagger
+     */
     protected static $_tagger;
 
+    /**
+     * Constructor - needs to instantiate the Content_Tagger object if it's not
+     * already present.
+     */
     public function __construct()
     {
         if (is_null(self::$_tagger)) {
@@ -36,8 +50,11 @@ class Kronolith_Tagger {
             $context['userManager'] = $user_mgr;
             $context['objectManager'] = $object_mgr;
 
+            // Cache the object statically
             self::$_tagger = new Content_Tagger($context);
             $types = $type_mgr->ensureTypes(array('calendar', 'event'));
+
+            // Remember the types to avoid having Content query them again.
             self::$_type_ids = array('calendar' => (int)$types[0], 'event' => (int)$types[1]);
         }
     }
@@ -53,6 +70,10 @@ class Kronolith_Tagger {
      */
     public function tag($localId, $tags, $content_type = 'event')
     {
+        // If we don't have an array - split the string.
+        if (!is_array($tags)) {
+            $tags = self::$_tagger->splitTags($tags);
+        }
         self::$_tagger->tag(Auth::getAuth(),
                    array('object' => $localId,
                          'type' => self::$_type_ids[$content_type]),
