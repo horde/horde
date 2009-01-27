@@ -81,7 +81,12 @@ class Kronolith_Tagger {
     }
 
     /**
-     * Retrieve the tags on a given object(s)
+     * Retrieve the tags on given object(s).
+     *
+     * @param string $localId  The identifier of the kronolith object.
+     * @param string $type     The type of object $localId represents.
+     *
+     * @return a tag_id => tag_name hash.
      */
     public function getTags($localId, $type = 'event')
     {
@@ -96,20 +101,31 @@ class Kronolith_Tagger {
         return $tags;
     }
 
+    /**
+     * Remove a tag from a kronolith object. Removes *all* tags - regardless of
+     * the user that added the tag.
+     *
+     * @param string $localId       The kronolith object identifier.
+     * @param mixed $tag            Either a tag_id, tag_name or an array of
+     *                              ids or names to remove.
+     * @param string $content_type  The type of object that $localId represents.
+     *
+     * @return void
+     */
     public function untag($localId, $tag, $content_type = 'event')
     {
-        self::$_tagger->removeTagFromObject(array('object' => $localId, 'type' => $content_type), $tag);
+        self::$_tagger->removeTagFromObject(
+            array('object' => $localId, 'type' => $content_type),
+            $tag);
     }
 
     /**
-     * tag search - return all types of content we care about tagged with
-     * the passed in tags
-     *
+     * @TODO
      * @param array $tags  An array of tag ids.
      */
     public function search($tags, $content_type = null)
     {
-        $this->getObjects(array('tagId' => $tags, ''));
+        //TODO
     }
 
 }
