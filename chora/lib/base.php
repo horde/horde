@@ -44,13 +44,6 @@ define('CHORA_TEMPLATES', $registry->get('templates'));
 $notification = &Notification::singleton();
 $notification->attach('status');
 
-// Cache.
-if (empty($conf['caching'])) {
-    $cache = null;
-} else {
-    $cache = &Horde_Cache::singleton($conf['cache']['driver'], Horde::getDriverConfig('cache', $conf['cache']['driver']));
-}
-
 // Horde base libraries.
 require_once 'Horde/Text.php';
 require_once 'Horde/Help.php';

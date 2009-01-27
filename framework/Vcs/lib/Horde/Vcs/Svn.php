@@ -14,6 +14,7 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Anil Madhavapeddy <anil@recoil.org>
+ * @author  Michael Slusarz <slusarz@horde.org>
  * @package Horde_Vcs
  */
 class Horde_Vcs_Svn extends Horde_Vcs
@@ -125,9 +126,11 @@ class Horde_Vcs_Svn extends Horde_Vcs
     {
         $rep->assertValidRevision($rev);
 
-        return ($RCS = popen($this->getCommand() . ' cat -r ' . escapeshellarg($rev) . ' ' . escapeshellarg($fullname) . ' 2>&1', VC_WINDOWS ? 'rb' : 'r'))
-            ? $RCS
-            : throw new Horde_Vcs_Exception('Couldn\'t perform checkout of the requested file');
+        if ($RCS = popen($this->getCommand() . ' cat -r ' . escapeshellarg($rev) . ' ' . escapeshellarg($fullname) . ' 2>&1', VC_WINDOWS ? 'rb' : 'r')) {
+            return $RCS;
+        }
+
+        throw new Horde_Vcs_Exception('Couldn\'t perform checkout of the requested file');
     }
 
     /**
@@ -138,68 +141,68 @@ class Horde_Vcs_Svn extends Horde_Vcs
         return $rev && is_numeric($rev);
     }
 
-}
+    /**
+     * Create a range of revisions between two revision numbers.
+     *
+     * @param Horde_Vcs_File $file  The desired file.
+     * @param string $r1            The initial revision.
+     * @param string $r2            The ending revision.
+     *
+     * @return array  The revision range, or empty if there is no straight
+     *                line path between the revisions.
+     */
+    public function getRevisionRange($file, $r1, $r2)
+    {
+        // TODO
+    }
 
-/**
- * Horde_Vcs_Svn diff class.
- *
- * Copyright Anil Madhavapeddy, <anil@recoil.org>
- *
- * @author  Anil Madhavapeddy <anil@recoil.org>
- * @package Horde_Vcs
- */
-class Horde_Vcs_Diff_Svn extends Horde_Vcs_Diff
-{
     /**
      * Obtain the differences between two revisions of a file.
      *
-     * @param Horde_Vcs $rep        A repository object.
      * @param Horde_Vcs_File $file  The desired file.
      * @param string $rev1          Original revision number to compare from.
      * @param string $rev2          New revision number to compare against.
-     * @param string $type          The type of diff (e.g. 'unified').
-     * @param integer $num          Number of lines to be used in context and
-     *                              unified diffs.
-     * @param boolean $ws           Show whitespace in the diff?
+     * @param array $opts           The following optional options:
+     * <pre>
+     * 'num' - (integer) DEFAULT: 3
+     * 'type' - (string) DEFAULT: 'unified'
+     * 'ws' - (boolean) DEFAULT: true
+     * </pre>
      *
      * @return string|boolean  False on failure, or a string containing the
      *                         diff on success.
      */
-    public function get($rep, $file, $rev1, $rev2, $type = 'context',
-                        $num = 3, $ws = true)
+    protected function _diff($file, $rev1, $rev2, $opts)
     {
-        /* Check that the revision numbers are valid */
-        $rev1 = $rep->isValidRevision($rev1) ? $rev1 : 0;
-        $rev2 = $rep->isValidRevision($rev1) ? $rev2 : 0;
-
         $fullName = $file->queryFullPath();
         $diff = array();
-        $options = '';
-        if (!$ws) {
-            $options .= ' -bB ';
+        $flags = '';
+
+        if (!$opts['ws']) {
+            $flags .= ' -bB ';
         }
 
-        switch ($type) {
+        switch ($opts['type']) {
         case 'context':
-            $options .= '--context=' . (int)$num;
+            $flags .= '--context=' . (int)$opts['num'];
             break;
 
         case 'unified':
-            $options .= '-p --unified=' . (int)$num;
+            $flags .= '-p --unified=' . (int)$opts['num'];
             break;
 
         case 'column':
-            $options .= '--side-by-side --width=120';
+            $flags .= '--side-by-side --width=120';
             break;
 
         case 'ed':
-            $options .= '-e';
+            $flags .= '-e';
             break;
         }
 
         // TODO: add options for $hr options - however these may not
         // be compatible with some diffs.
-        $command = $rep->getCommand() . " diff --diff-cmd " . $rep->getPath('diff') . " -r $rev1:$rev2 -x " . escapeshellarg($options) . ' ' . escapeshellarg($file->queryFullPath()) . ' 2>&1';
+        $command = $this->getCommand() . " diff --diff-cmd " . $this->getPath('diff') . ' -r ' . escapeshellarg($rev1 . ':' . $rev2) . ' -x ' . escapeshellarg($flags) . ' ' . escapeshellarg($file->queryFullPath()) . ' 2>&1';
 
         exec($command, $diff, $retval);
         return $diff;
@@ -210,24 +213,25 @@ class Horde_Vcs_Diff_Svn extends Horde_Vcs_Diff
 /**
  * Horde_Vcs_Svn directory class.
  *
- * Copyright Anil Madhavapeddy, <anil@recoil.org>
- *
  * @author  Anil Madhavapeddy <anil@recoil.org>
+ * @author  Michael Slusarz <slusarz@horde.org>
  * @package Horde_Vcs
  */
 class Horde_Vcs_Directory_Svn extends Horde_Vcs_Directory
 {
     /**
-     * Tell the object to open and browse its current directory, and
-     * retrieve a list of all the objects in there.  It then populates
-     * the file/directory stack and makes it available for retrieval.
+     * Create a Directory object to store information about the files in a
+     * single directory in the repository.
      *
-     * @return integer  1 on success.
+     * @param Horde_Vcs $rep  The Repository object this directory is part of.
+     * @param string $dn      Path to the directory.
+     * @param array $opts     TODO
      */
-    public function browseDir($cache = null, $quicklog = true,
-                              $showattic = false)
+    public function __construct($rep, $dn, $opts = array())
     {
-        $cmd = $this->_rep->getCommand() . ' ls ' . escapeshellarg($this->_rep->sourceroot() . $this->queryDir()) . ' 2>&1';
+        parent::__construct($rep, $dn, $opts);
+
+        $cmd = $rep->getCommand() . ' ls ' . escapeshellarg($rep->sourceroot() . $this->queryDir()) . ' 2>&1';
 
         $dir = popen($cmd, 'r');
         if (!$dir) {
@@ -248,15 +252,17 @@ class Horde_Vcs_Directory_Svn extends Horde_Vcs_Directory
             } elseif (substr($line, -1) == '/') {
                 $this->_dirs[] = substr($line, 0, -1);
             } else {
-                $this->_files[] = $this->_rep->getFileObject($this->queryDir() . "/$line", array('cache' => $cache, 'quicklog' => $quicklog));
+                $this->_files[] = $rep->getFileObject($this->queryDir() . '/' . $line, array('quicklog' => !empty($opts['quicklog'])));
             }
         }
 
         pclose($dir);
 
-        return $errors
-            ? throw new Horde_Vcs_Exception(implode("\n", $errors))
-            : true;
+        if (empty($errors)) {
+            return true;
+        }
+
+        throw new Horde_Vcs_Exception(implode("\n", $errors));
     }
 
 }
@@ -264,12 +270,16 @@ class Horde_Vcs_Directory_Svn extends Horde_Vcs_Directory
 /**
  * Horde_Vcs_Svn file class.
  *
- * Copyright Anil Madhavapeddy, <anil@recoil.org>
- *
  * @author  Anil Madhavapeddy <anil@recoil.org>
+ * @author  Michael Slusarz <slusarz@horde.org>
  * @package Horde_Vcs
  */
-class Horde_Vcs_File_Svn extends Horde_Vcs_File {
+class Horde_Vcs_File_Svn extends Horde_Vcs_File
+{
+    /**
+     * @var resource
+     */
+    public $logpipe;
 
     /**
      * Create a repository file object, and give it information about
@@ -281,18 +291,14 @@ class Horde_Vcs_File_Svn extends Horde_Vcs_File {
      */
     public function __construct($rep, $fl, $opts = array())
     {
-        $this->rep = $rep;
-        $this->name = basename($fl);
-        $this->dir = dirname($fl);
-        $this->filename = $fl;
-        $this->quicklog = !empty($opts['quicklog']);
+        parent::__construct($rep, $fl, $opts);
 
         /* This doesn't work; need to find another way to simply
          * request the most recent revision:
          *
-         * $flag = $this->quicklog ? '-r HEAD ' : ''; */
-        $flag = '';
-        $cmd = $this->rep->getCommand() . ' log -v ' . $flag . escapeshellarg($this->queryFullPath()) . ' 2>&1';
+         * $flag = $this->_quicklog ? '-r HEAD ' : '';
+         */
+        $cmd = $rep->getCommand() . ' log -v ' . escapeshellarg($this->queryFullPath()) . ' 2>&1';
         $pipe = popen($cmd, 'r');
         if (!$pipe) {
             throw new Horde_Vcs_Exception('Failed to execute svn log: ' . $cmd);
@@ -303,16 +309,17 @@ class Horde_Vcs_File_Svn extends Horde_Vcs_File {
             throw new Horde_Vcs_Exception('Error executing svn log: ' . $header);
         }
 
-        while (!feof($pipe)) {
-            $log = new Horde_Vcs_Log_Svn($this->rep, $this);
-            $err = $log->processLog($pipe);
-            if ($err) {
-                $rev = $log->queryRevision();
-                $this->logs[$rev] = $log;
-                $this->revs[] = $rev;
-            }
+        $this->logpipe = $pipe;
 
-            if ($this->quicklog) {
+        while (!feof($pipe)) {
+            try {
+                $log = $rep->getLogObject($this, null);
+                $rev = $log->queryRevision();
+                $this->_logs[$rev] = $log;
+                $this->_revs[] = $rev;
+            } catch (Horde_Vcs_Exception $e) {}
+
+            if ($this->_quicklog) {
                 break;
             }
         }
@@ -322,13 +329,13 @@ class Horde_Vcs_File_Svn extends Horde_Vcs_File {
 
     /**
      * Returns name of the current file without the repository
-     * extensions (usually ,v)
+     * extensions (usually ,v).
      *
-     * @return Filename without repository extension
+     * @return string  Filename without repository extension.
      */
-    function queryName()
+    public function queryName()
     {
-       return preg_replace('/,v$/', '', $this->name);
+        return preg_replace('/,v$/', '', $this->_name);
     }
 
 }
@@ -336,49 +343,58 @@ class Horde_Vcs_File_Svn extends Horde_Vcs_File {
 /**
  * Horde_Vcs_Svn log class.
  *
- * Anil Madhavapeddy, <anil@recoil.org>
- *
  * @author  Anil Madhavapeddy <anil@recoil.org>
  * @package Horde_Vcs
  */
 class Horde_Vcs_Log_Svn extends Horde_Vcs_Log
 {
-    public $err;
-    public $files;
+    /**
+     * TODO
+     */
+    protected $_files = array();
 
-    public function processLog($pipe)
+    /**
+     * Constructor.
+     */
+    public function __construct($rep, $fl, $rev)
     {
-        $line = fgets($pipe);
+        parent::__construct($rep, $fl, $rev);
 
-        if (feof($pipe)) {
-            return false;
+        $line = fgets($fl->logpipe);
+
+        if (feof($fl->logpipe)) {
+            return;
         }
 
         if (preg_match('/^r([0-9]*) \| (.*?) \| (.*) \(.*\) \| ([0-9]*) lines?$/', $line, $matches)) {
-            $this->rev = $matches[1];
-            $this->author = $matches[2];
-            $this->date = strtotime($matches[3]);
+            $this->_rev = $matches[1];
+            $this->_author = $matches[2];
+            $this->_date = strtotime($matches[3]);
             $size = $matches[4];
         } else {
-            $this->err = $line;
-            return false;
+            throw new Horde_Vcs_Exception('SVN Error');
         }
 
-        fgets($pipe);
+        fgets($fl->logpipe);
 
-        $this->files = array();
-        while (($line = trim(fgets($pipe))) != '') {
-            $this->files[] = $line;
+        while (($line = trim(fgets($fl->logpipe))) != '') {
+            $this->_files[] = $line;
         }
 
         for ($i = 0; $i != $size; ++$i) {
-            $this->log = $this->log . chop(fgets($pipe)) . "\n";
+            $this->_log = $this->_log . chop(fgets($fl->logpipe)) . "\n";
         }
 
-        $this->log = chop($this->log);
-        fgets($pipe);
+        $this->_log = chop($this->_log);
+        fgets($fl->logpipe);
+    }
 
-        return true;
+    /**
+     * TODO
+     */
+    public function queryFiles()
+    {
+        return $this->_files;
     }
 
 }
@@ -386,33 +402,33 @@ class Horde_Vcs_Log_Svn extends Horde_Vcs_Log
 /**
  * Horde_Vcs_Svn Patchset class.
  *
- * Copyright Anil Madhavapeddy, <anil@recoil.org>
- *
  * @author  Anil Madhavapeddy <anil@recoil.org>
+ * @author  Michael Slusarz <slusarz@horde.org>
  * @package Horde_Vcs
  */
 class Horde_Vcs_Patchset_Svn extends Horde_Vcs_Patchset
 {
     /**
-     * Populate the object with information about the patchsets that
-     * this file is involved in.
+     * Constructor
      *
-     * @return boolean  True on success.
+     * @param Horde_Vcs $rep  A Horde_Vcs repository object.
+     * @param string $file    The filename to create patchsets for.
      */
-    function getPatchsets()
+    public function __construct($rep, $file)
     {
-        $fileOb = new Horde_Vcs_File_Svn($this->_rep, $this->_file);
+        $fileOb = $rep->getFileObject($file);
 
-        $this->_patchsets = array();
         foreach ($fileOb->logs as $rev => $log) {
-            $this->_patchsets[$rev] = array();
-            $this->_patchsets[$rev]['date'] = $log->queryDate();
-            $this->_patchsets[$rev]['author'] = $log->queryAuthor();
-            $this->_patchsets[$rev]['branch'] = '';
-            $this->_patchsets[$rev]['tag'] = '';
-            $this->_patchsets[$rev]['log'] = $log->queryLog();
-            $this->_patchsets[$rev]['members'] = array();
-            foreach ($log->files as $file) {
+            $this->_patchsets[$rev] = array(
+                'author' => $log->queryAuthor(),
+                'branch' => '',
+                'date' => $log->queryDate(),
+                'log' => $log->queryLog(),
+                'members' => array(),
+                'tag' => ''
+            );
+
+            foreach ($log->queryFiles() as $file) {
                 $action = substr($file, 0, 1);
                 $file = preg_replace('/.*?\s(.*?)(\s|$).*/', '\\1', $file);
                 $to = $rev;

@@ -13,7 +13,7 @@ require_once dirname(__FILE__) . '/lib/base.php';
 
 /* Spawn the file object. */
 try {
-    $fl = $VC->getFileObject($where, array('cache' => $cache));
+    $fl = $VC->getFileObject($where);
 } catch (Horde_Vcs_Exception $e) {
     Chora::fatal($e);
 }

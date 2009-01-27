@@ -13,7 +13,7 @@ require_once dirname(__FILE__) . '/lib/base.php';
 
 /* Spawn the repository and file objects */
 try {
-    $fl = $VC->getFileObject($where, array('cache' => $cache));
+    $fl = $VC->getFileObject($where);
 } catch (Horde_Vcs_Exception $e) {
     Chora::fatal($e);
 }
@@ -46,7 +46,7 @@ header('Cache-Control: max-age=604800');
  * the end of the file - patch requires it. */
 if ($type != 'colored') {
     header('Content-Type: text/plain');
-    echo implode("\n", $VC->getDiff($fl, $r1, $r2, $type, $num, $ws)) . "\n";
+    echo implode("\n", $VC->diff($fl, $r1, $r2, array('num' => $num, 'type' => $type, 'ws' => $ws))) . "\n";
     exit;
 }
 
@@ -93,7 +93,7 @@ if (substr($mime_type, 0, 6) == 'image/') {
         "<td><img src=\"$url2\" alt=\"" . htmlspecialchars($r2) . '" /></td></tr>';
 } else {
     /* Retrieve the tree of changes. */
-    $lns = $VC->getDiff($fl, $r1, $r2, 'unified', $num, $ws, true);
+    $lns = $VC->diff($fl, $r1, $r2, array('human' => true, 'num' => $num, 'ws' => $ws));
     if (!$lns) {
         /* Is the diff empty? */
         require CHORA_TEMPLATES . '/diff/hr/nochange.inc';

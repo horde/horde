@@ -1,7 +1,7 @@
 </tbody>
 </table>
 
-<?php if (count($fl->logs) > 100 && !Util::getFormData('all')): ?>
+<?php if ($fl->revisionCount() > 100 && !Util::getFormData('all')): ?>
 <table class="options" cellspacing="0">
  <tr>
   <td>

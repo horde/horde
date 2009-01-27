@@ -24,7 +24,7 @@ if (!$VC->isFile($fullname)) {
 }
 
 try {
-    $ps = $VC->getPatchsetObject($where, $cache);
+    $ps = $VC->getPatchsetObject($where);
 } catch (Horde_Vcs_Exception $e) {
     Chora::fatal($e);
 }
@@ -40,7 +40,7 @@ require CHORA_TEMPLATES . '/menu.inc';
 require CHORA_TEMPLATES . '/headerbar.inc';
 require CHORA_TEMPLATES . '/patchsets/header.inc';
 
-$patchsets = $ps->_patchsets;
+$patchsets = $ps->getPatchsets();
 krsort($patchsets);
 foreach ($patchsets as $id => $patchset) {
     $commitDate = Chora::formatDate($patchset['date']);

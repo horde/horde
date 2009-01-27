@@ -126,10 +126,18 @@ class Chora
         $sourcerootopts = $sourceroots[$acts['rt']];
         $sourceroot = $acts['rt'];
 
+        // Cache.
+        if (empty($conf['caching'])) {
+            $cache = null;
+        } else {
+            $cache = &Horde_Cache::singleton($conf['cache']['driver'], Horde::getDriverConfig('cache', $conf['cache']['driver']));
+        }
+
         $conf['paths']['temp'] = Horde::getTempDir();
         try {
             $GLOBALS['VC'] = Horde_Vcs::factory(String::ucfirst($sourcerootopts['type']),
-                array('sourceroot' => $sourcerootopts['location'],
+                array('cache' => $cache,
+                      'sourceroot' => $sourcerootopts['location'],
                       'paths' => $conf['paths'],
                       'username' => isset($sourcerootopts['username']) ? $sourcerootopts['username'] : '',
                       'password' => isset($sourcerootopts['password']) ? $sourcerootopts['password'] : ''));
@@ -219,7 +227,7 @@ class Chora
      * @param string $message       The verbose error message to be displayed.
      * @param string $responseCode  The HTTP error number (and optional text),
      *                              for sending 404s or other codes if
-     *                              appropriate..
+     *                              appropriate.
      */
     static public function fatal($message, $responseCode = null)
     {
@@ -562,10 +570,8 @@ class Chora
             $tags[] = '<a href="' . Chora::url('', $where, array('onb' => $bra)) . '">'. htmlspecialchars($symb) . '</a>';
         }
 
-        if ($lg->tags) {
-            foreach ($lg->tags as $tag) {
-                $tags[] = htmlspecialchars($tag);
-            }
+        foreach ($lg->queryTags() as $tag) {
+            $tags[] = htmlspecialchars($tag);
         }
 
         return $tags;

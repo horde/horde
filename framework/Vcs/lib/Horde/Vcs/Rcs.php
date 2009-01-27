@@ -19,6 +19,41 @@ class Horde_Vcs_Rcs extends Horde_Vcs
     }
 
     /**
+     * Create a range of revisions between two revision numbers.
+     *
+     * @param Horde_Vcs_File $file  The desired file.
+     * @param string $r1            The initial revision.
+     * @param string $r2            The ending revision.
+     *
+     * @return array  The revision range, or empty if there is no straight
+     *                line path between the revisions.
+     */
+    public function getRevisionRange($file, $r1, $r2)
+    {
+        if ($this->cmp($r1, $r2) == 1) {
+            $curr = $this->prev($r1);
+            $stop = $this->prev($r2);
+            $flip = true;
+        } else {
+            $curr = $r2;
+            $stop = $r1;
+            $flip = false;
+        }
+
+        $ret_array = array();
+
+        do {
+            $ret_array[] = $curr;
+            $curr = $this->prev($curr);
+            if ($curr == $stop) {
+                return ($flip) ? array_reverse($ret_array) : $ret_array;
+            }
+        } while ($this->cmp($curr, $stop) != -1);
+
+        return array();
+    }
+
+    /**
      * Checks an RCS file in with a specified change log.
      *
      * @param string $filepath    Location of file to check in.
@@ -30,11 +65,7 @@ class Horde_Vcs_Rcs extends Horde_Vcs
      */
     public function ci($filepath, $message, $user = null, $newBinary = false)
     {
-        if ($user) {
-            putenv('LOGNAME=' . $user);
-        } else {
-            putenv('LOGNAME=guest');
-        }
+        putenv('LOGNAME=' . ($user ? $user : 'guest'));
 
         $ci_cmd = $this->getPath('ci') . ' ' . escapeshellarg($filepath) . ' 2>&1';
         $rcs_cmd = $this->getPath('rcs') . ' -i -kb ' . escapeshellarg($filepath) . ' 2>&1';
@@ -45,12 +76,7 @@ class Horde_Vcs_Rcs extends Horde_Vcs
         $pipe_def = array(0 => array("pipe", 'r'),
                           1 => array("pipe", 'w'));
 
-        if ($newBinary) {
-            $process = proc_open($rcs_cmd, $pipe_def, $pipes);
-        } else {
-            $process = proc_open($ci_cmd, $pipe_def, $pipes);
-        }
-
+        $process = proc_open($newBinary ? $rcs_cmd : $ci_cmd, $pipe_def, $pipes);
         if (is_resource($process)) {
             foreach ($message_lines as $line) {
                 if ($line == '.\n') {
@@ -227,10 +253,10 @@ class Horde_Vcs_Rcs extends Horde_Vcs
      * it. For example, if we remove 2 portions of 1.2.3.4, we are
      * left with 1.2.
      *
-     * @param string $val      Input revision
-     * @param integer $amount  Number of portions to strip
+     * @param string $val      Input revision.
+     * @param integer $amount  Number of portions to strip.
      *
-     * @return string  Stripped revision number
+     * @return string  Stripped revision number.
      */
     public function strip($val, $amount = 1)
     {
@@ -240,6 +266,7 @@ class Horde_Vcs_Rcs extends Horde_Vcs
         while ($amount-- > 0 && ($pos = strrpos($val, '.')) !== false) {
             $val = substr($val, 0, $pos);
         }
+
         return ($pos !== false) ? $val : false;
     }
 
@@ -247,9 +274,9 @@ class Horde_Vcs_Rcs extends Horde_Vcs
      * The size of a revision number is the number of portions it has.
      * For example, 1,2.3.4 is of size 4.
      *
-     * @param string $val  Revision number to determine size of
+     * @param string $val  Revision number to determine size of.
      *
-     * @return integer  Size of revision number
+     * @return integer  Size of revision number.
      */
     public function sizeof($val)
     {
