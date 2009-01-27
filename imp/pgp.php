@@ -116,7 +116,7 @@ case 'process_import_public_key':
             foreach ($key_info['signature'] as $sig) {
                 $notification->push(sprintf(_("PGP Public Key for \"%s (%s)\" was successfully added."), $sig['name'], $sig['email']), 'horde.success');
             }
-            Util::closeWindowJS('opener.focus();opener.location.href="' . Util::getFormData('reload') . '";');
+            Util::closeWindowJS('opener.focus();opener.location.href="' . htmlspecialchars(Util::getFormData('reload')) . '";');
         }
     }
     exit;
@@ -166,7 +166,7 @@ case 'process_import_personal_private_key':
              * successfully - close the import popup window. */
             $imp_pgp->addPersonalPrivateKey($privateKey);
             $notification->push(_("PGP private key successfully added."), 'horde.success');
-            Util::closeWindowJS('opener.focus();opener.location.href="' . Util::getFormData('reload') . '";');
+            Util::closeWindowJS('opener.focus();opener.location.href="' . htmlspecialchars(Util::getFormData('reload')) . '";');
         } else {
             /* Invalid private key imported - Redo private key import
              * screen. */

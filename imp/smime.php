@@ -54,7 +54,7 @@ function _actionWindow()
 
 function _reloadWindow()
 {
-    Util::closeWindowJS('opener.focus();opener.location.href="' . Util::getFormData('reload') . '";');
+    Util::closeWindowJS('opener.focus();opener.location.href="' . htmlspecialchars(Util::getFormData('reload')) . '";');
 }
 
 function _textWindowOutput($filename, $msg, $html = false)

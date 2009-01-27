@@ -381,7 +381,7 @@ $view_link = IMP::generateIMPUrl('view.php', $imp_mbox['mailbox'], $index, $mail
 if (!IMP::$printMode && !empty($conf['maillog']['use_maillog'])) {
     /* Do MDN processing now. */
     if ($imp_ui->MDNCheck($mime_headers, Util::getFormData('mdn_confirm'))) {
-        $confirm_link = Horde::link(Util::addParameter($selfURL, 'mdn_confirm', 1)) . _("HERE") . '</a>';
+        $confirm_link = Horde::link(htmlspecialchars(Util::addParameter($selfURL, 'mdn_confirm', 1))) . _("HERE") . '</a>';
         $notification->push(sprintf(_("The sender of this message is requesting a Message Disposition Notification from you when you have read this message. Please click %s to send the notification message."), $confirm_link), 'horde.message', array('content.raw'));
     }
 }
@@ -559,13 +559,13 @@ if (!IMP::$printMode) {
 
     $a_template->set('headers', Horde::widget('#', _("Headers"), 'widget hasmenu', '', '', _("Headers"), true));
     if ($all_headers || $list_headers) {
-        $a_template->set('common_headers', Horde::widget($headersURL, _("Show Common Headers"), 'widget', '', '', _("Show Common Headers"), true));
+        $a_template->set('common_headers', Horde::widget(htmlspecialchars($headersURL), _("Show Common Headers"), 'widget', '', '', _("Show Common Headers"), true));
     }
     if (!$all_headers) {
-        $a_template->set('all_headers', Horde::widget(Util::addParameter($headersURL, 'show_all_headers', 1), _("Show All Headers"), 'widget', '', '', _("Show All Headers"), true));
+        $a_template->set('all_headers', Horde::widget(htmlspecialchars(Util::addParameter($headersURL, 'show_all_headers', 1)), _("Show All Headers"), 'widget', '', '', _("Show All Headers"), true));
     }
     if ($list_info['exists'] && !$list_headers) {
-        $a_template->set('list_headers', Horde::widget(Util::addParameter($headersURL, 'show_list_headers', 1), _("Show Mailing List Information"), 'widget', '', '', _("Show Mailing List Information"), true));
+        $a_template->set('list_headers', Horde::widget(htmlspecialchars(Util::addParameter($headersURL, 'show_list_headers', 1)), _("Show Mailing List Information"), 'widget', '', '', _("Show Mailing List Information"), true));
     }
 }
 
@@ -675,15 +675,15 @@ if (!strlen($msgtext)) {
 if (!IMP::$printMode) {
     $a_template->set('atc', Horde::widget('#', _("Attachments"), 'widget hasmenu', '', '', _("Attachments"), true));
     if ($show_parts != 'all') {
-        $a_template->set('show_parts_all', Horde::widget(Util::addParameter($headersURL, array('show_parts' => 'all')), _("Show All Message Parts"), 'widget', '', '', _("Show All Message Parts"), true));
+        $a_template->set('show_parts_all', Horde::widget(htmlspecialchars(Util::addParameter($headersURL, array('show_parts' => 'all'))), _("Show All Message Parts"), 'widget', '', '', _("Show All Message Parts"), true));
     }
     if ($show_parts != 'atc') {
-        $a_template->set('show_parts_atc', Horde::widget(Util::addParameter($headersURL, array('show_parts' => 'atc')), _("Show Attachments Only"), 'widget', '', '', _("Show Attachments Only"), true));
+        $a_template->set('show_parts_atc', Horde::widget(htmlspecialchars(Util::addParameter($headersURL, array('show_parts' => 'atc'))), _("Show Attachments Only"), 'widget', '', '', _("Show Attachments Only"), true));
     }
     if (count($display_ids) > 2) {
         $a_template->set('download_all', Horde::widget($imp_contents->urlView($imp_contents->getMIMEMessage(), 'download_all'), _("Download All Attachments (in .zip file)"), 'widget', '', '', _("Download All Attachments (in .zip file)"), true));
         if ($strip_atc) {
-            $a_template->set('strip_all', Horde::widget(Util::addParameter(Util::removeParameter(Horde::selfUrl(true), array('actionID')), array('actionID' => 'strip_all', 'message_token' => $message_token)), _("Strip All Attachments"), 'widget', '', "return window.confirm('" . addslashes(_("Are you sure you wish to PERMANENTLY delete all attachments?")) . "');", _("Strip All Attachments"), true));
+            $a_template->set('strip_all', Horde::widget(htmlspecialchars(Util::addParameter(Util::removeParameter(Horde::selfUrl(true), array('actionID')), array('actionID' => 'strip_all', 'message_token' => $message_token))), _("Strip All Attachments"), 'widget', '', "return window.confirm('" . addslashes(_("Are you sure you wish to PERMANENTLY delete all attachments?")) . "');", _("Strip All Attachments"), true));
         }
     }
 }

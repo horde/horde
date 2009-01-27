@@ -47,9 +47,18 @@ v5.0-cvs
 
 
 ----------
-v4.3.3-cvs
+v4.3.4-cvs
 ----------
 
+
+
+
+------
+v4.3.3
+------
+
+[cjh] SECURITY: Escape output in pgp.php and smime.php
+      (found by Gunnar Wrobel <p@rdus.de>).
 [jan] Use all credentials and mailer settings for iTip replies (Bug #7388).
 [mms] Show translated 'INBOX' prefix for subfolders (Request #7759).
 [mms] Workaround obsolete 'UT' date format (Request #5717).
