@@ -159,6 +159,15 @@ v4.3-RC1 (released as v4.2.1-RC1)
 [jan] Fix parsing for Token System configuration parameters.
 [mms] Add ability to search by size.
 
+
+------
+v4.2.2
+------
+
+[cjh] SECURITY: Escape output in message.php, pgp.php and smime.php
+      (found by Gunnar Wrobel <p@rdus.de>).
+
+
 ------
 v4.2.1
 ------
