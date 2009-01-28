@@ -35,6 +35,13 @@ class Folks_Friends {
     protected $_user;
 
     /**
+     * String cache reference
+     *
+     * @var Horde_Cache
+     */
+    protected $_cache;
+
+    /**
      * Attempts to return a concrete Folks_Friends instance based on $friends.
      *
      * @param string $friends  The type of the concrete Folks_Friends subclass
@@ -96,6 +103,9 @@ class Folks_Friends {
     public function __construct($params)
     {
         $this->_user = empty($params['user']) ? Auth::getAuth() : $params['user'];
+
+        $this->_cache = Horde_Cache::singleton($GLOBALS['conf']['cache']['driver'],
+                                            Horde::getDriverConfig('cache', $GLOBALS['conf']['cache']['driver']));
     }
 
     /**
@@ -155,7 +165,7 @@ class Folks_Friends {
      */
     public function getBlacklist()
     {
-        $blacklist = $GLOBALS['cache']->get('folksBlacklist' . $this->_user, $GLOBALS['conf']['cache']['default_lifetime']);
+        $blacklist = $this->_cache->get('folksBlacklist' . $this->_user, $GLOBALS['conf']['cache']['default_lifetime']);
         if ($blacklist) {
             return unserialize($blacklist);
         } else {
@@ -163,7 +173,7 @@ class Folks_Friends {
             if ($blacklist instanceof PEAR_Error) {
                 return $blacklist;
             }
-            $GLOBALS['cache']->set('folksBlacklist' . $this->_user, serialize($blacklist));
+            $this->_cache->set('folksBlacklist' . $this->_user, serialize($blacklist));
             return $blacklist;
         }
     }
@@ -195,7 +205,7 @@ class Folks_Friends {
             return $result;
         }
 
-        $GLOBALS['cache']->expire('folksBlacklist' . $this->_user);
+        $this->_cache->expire('folksBlacklist' . $this->_user);
 
         return true;
     }
@@ -212,7 +222,7 @@ class Folks_Friends {
             return $result;
         }
 
-        $GLOBALS['cache']->expire('folksBlacklist' . $this->_user);
+        $this->_cache->expire('folksBlacklist' . $this->_user);
 
         return true;
     }
@@ -278,7 +288,7 @@ class Folks_Friends {
 
         // If we do not need an approval just expire cache
         if (!$this->needsApproval($friend)) {
-            $GLOBALS['cache']->expire('folksFriends' . $this->_user . $group);
+            $this->_cache->expire('folksFriends' . $this->_user . $group);
         }
 
         return true;
@@ -292,7 +302,7 @@ class Folks_Friends {
      */
     public function removeFriend($friend, $group = null)
     {
-        $GLOBALS['cache']->expire('folksFriends' . $this->_user . $group);
+        $this->_cache->expire('folksFriends' . $this->_user . $group);
 
         return $this->_removeFriend($friend, $group);
     }
@@ -307,7 +317,7 @@ class Folks_Friends {
      */
     public function getFriends($group = null)
     {
-        $friends = $GLOBALS['cache']->get('folksFriends' . $this->_user . $group, $GLOBALS['conf']['cache']['default_lifetime']);
+        $friends = $this->_cache->get('folksFriends' . $this->_user . $group, $GLOBALS['conf']['cache']['default_lifetime']);
         if ($friends) {
             return unserialize($friends);
         } else {
@@ -315,7 +325,7 @@ class Folks_Friends {
             if ($friends instanceof PEAR_Error) {
                 return $friends;
             }
-            $GLOBALS['cache']->set('folksFriends' . $this->_user . $group, serialize($friends));
+            $this->_cache->set('folksFriends' . $this->_user . $group, serialize($friends));
             return $friends;
         }
     }
@@ -348,8 +358,8 @@ class Folks_Friends {
             return $result;
         }
 
-        $GLOBALS['cache']->expire('folksFriends' . $friend);
-        $GLOBALS['cache']->expire('folksFriends' . $this->_user);
+        $this->_cache->expire('folksFriends' . $friend);
+        $this->_cache->expire('folksFriends' . $this->_user);
 
         return true;
     }
