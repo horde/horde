@@ -170,7 +170,7 @@ class Horde_Vcs_Git extends Horde_Vcs
      */
     protected function _getRevisionRange($file, $r1, $r2)
     {
-        $cmd = $this->getCommand() . ' rev-list ' . escapeshellarg($r1) . '..' . escapeshellarg($r2) . ' -- ' . escapeshellarg($file->queryModulePath());
+        $cmd = $this->getCommand() . ' rev-list ' . escapeshellarg($r1 . '..' . $r2) . ' -- ' . escapeshellarg($file->queryModulePath());
         $revs = array();
 
         exec($cmd, $revs);
