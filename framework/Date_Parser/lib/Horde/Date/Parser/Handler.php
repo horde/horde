@@ -1,24 +1,23 @@
-module Chronic
+<?php
+class Horde_Date_Parser_Handler
+{
+    public $pattern;
+    public $handlerMethod;
 
-  class Handler #:nodoc:
-    attr_accessor :pattern, :handler_method
+    public function __construct($pattern, $handlerMethod)
+    {
+        $this->pattern = $pattern;
+        $this->handlerMethod = $handlerMethod;
+    }
 
-    def initialize(pattern, handler_method)
-      @pattern = pattern
-      @handler_method = handler_method
-    end
-
-    def constantize(name)
-      camel = name.to_s.gsub(/(^|_)(.)/) { $2.upcase }
-      ::Chronic.module_eval(camel, __FILE__, __LINE__)
-    end
-
-    def match(tokens, definitions)
-      token_index = 0
-      @pattern.each do |element|
-        name = element.to_s
-        optional = name.reverse[0..0] == '?'
-        name = name.chop if optional
+    public function match($tokens, $definitions)
+    {
+        $tokenIndex = 0;
+        foreach ($this->pattern as $element) {
+            $name = (string)$element;
+            $optional = substr($name, -1) == '?';
+            if ($optional) { $name = rtrim($name, '?'); }
+            /*
         if element.instance_of? Symbol
           klass = constantize(name)
           match = tokens[token_index] && !tokens[token_index].tags.select { |o| o.kind_of?(klass) }.empty?
@@ -26,19 +25,27 @@ module Chronic
           (token_index += 1; next) if match
           next if !match && optional
         elsif element.instance_of? String
-          return true if optional && token_index == tokens.size
-          sub_handlers = definitions[name.intern] || raise(ChronicPain, "Invalid subset #{name} specified")
-          sub_handlers.each do |sub_handler|
-            return true if sub_handler.match(tokens[token_index..tokens.size], definitions)
-          end
-          return false
+            */
+            if ($optional && $tokenIndex == count($tokens)) { return true; }
+            if (!isset($definitions[$name])) {
+                throw new Horde_Date_Parser_Exception("Invalid subset $name specified");
+            }
+            $subHandlers = $definitions[$name];
+            foreach ($subHandlers as $subHandler) {
+                if ($subHandler->match(array_slice($tokens, $tokenIndex), $definitions)) {
+                    return true;
+                }
+            }
+            return false;
+            /*
         else
           raise(ChronicPain, "Invalid match type: #{element.class}")
         end
-      end
-      return false if token_index != tokens.size
-      return true
-    end
-  end
+            */
+        }
 
-end
+        if ($tokenIndex != count($tokens)) { return false; }
+        return true;
+    }
+
+}
