@@ -486,7 +486,7 @@ class Horde_Vcs
     {
         $class = 'Horde_Vcs_File_' . $this->_driver;
 
-        sort($opts);
+        ksort($opts);
         $cacheId = implode('|', array($class, $this->sourceroot(), $filename, serialize($opts), $this->_cacheVersion));
 
         if (!empty($this->_cache)) {
