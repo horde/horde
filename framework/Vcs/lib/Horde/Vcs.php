@@ -910,7 +910,7 @@ abstract class Horde_Vcs_File
         $key = array_search($rev, $this->_revs);
         return (($key !== false) && isset($this->_revs[$key + 1]))
             ? $this->_revs[$key + 1]
-            : false;
+            : null;
     }
 
     /**
