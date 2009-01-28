@@ -302,6 +302,11 @@ class Horde_Vcs_Directory_Git extends Horde_Vcs_Directory
 class Horde_Vcs_File_Git extends Horde_Vcs_File
 {
     /**
+     * @var array
+     */
+    protected $_revlist = array();
+
+    /**
      * Create a repository file object, and give it information about
      * what its parent directory and repository objects are.
      *
@@ -313,26 +318,52 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File
     {
         parent::__construct($rep, $fl, $opts);
 
-        // Get the list of revisions that touch this path
-        $this->_revs = $this->_getRevList($this->_branch);
+        $branch_list = $revs = $tmp = array();
 
-        foreach ($this->_revs as $rev) {
-            $this->_logs[$rev] = $rep->getLogObject($this, $rev);
-            if ($this->_quicklog) {
-                break;
-            }
-        }
-
-        // Add branch information
+        /* Add branch information. */
         $cmd = $rep->getCommand() . ' show-ref --heads';
-        $branch_list = shell_exec($cmd);
-        if (empty($branch_list)) {
-            throw new Horde_Vcs_Exception('No branches found');
-        }
+        exec($cmd, $branch_list);
 
-        foreach (explode("\n", trim($branch_list)) as $val) {
+        foreach ($branch_list as $val) {
             $line = explode(' ', trim($val), 2);
             $this->_branches[substr($line[1], strrpos($line[1], '/') + 1)] = $line[0];
+        }
+
+        /* Get the list of revisions.  Need to get all revisions, not just
+         * those on $this->_branch, for branch determination reasons. */
+        $cmd = $rep->getCommand() . ' rev-list --branches --parents -- ' . escapeshellarg($this->queryModulePath()) . ' 2>&1';
+        exec($cmd, $revs);
+        if (stripos($revs[0], 'fatal') === 0) {
+            throw new Horde_Vcs_Exception($revs);
+        }
+
+        /* $revs format: revision parent */
+        foreach ($revs as $val) {
+            $line = explode(' ', trim($val), 2);
+            $this->_revs[] = $line[0];
+
+            if (isset($tmp[$line[0]])) {
+                foreach ($tmp[$line[0]] as $val2) {
+                    $this->_revlist[$val2][] = $line[0];
+                }
+            } else {
+                $branch = array_search($line[0], $this->_branches);
+                $this->_revlist[$branch] = array($line[0]);
+                $tmp[$line[0]] = array($branch);
+            }
+
+            if (isset($line[1])) {
+                if (!isset($tmp[$line[1]])) {
+                    $tmp[$line[1]] = array();
+                }
+                $tmp[$line[1]] = array_merge($tmp[$line[1]], $tmp[$line[0]]);
+            }
+
+            if ((!$this->_quicklog || empty($this->_logs)) &&
+                (empty($this->_branch) ||
+                 in_array($this->_branch, $tmp[$line[0]]))) {
+                $this->_logs[$line[0]] = $rep->getLogObject($this, $line[0]);
+            }
         }
     }
 
@@ -365,30 +396,23 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File
      */
     public function getBranchList()
     {
-        $revs = array();
-
-        foreach (array_keys($this->_branches) as $key) {
-            $revs[$key] = $this->_getRevList($key);
-        }
-
-        return $revs;
+        return $this->_revlist;
     }
 
     /**
      * TODO
      */
-    protected function _getRevList($branch)
+    public function queryBranch($rev)
     {
-        $cmd = $this->_rep->getCommand() . ' rev-list ' . (empty($branch) ? '--branches' : $branch) . ' -- ' . escapeshellarg($this->queryModulePath()) . ' 2>&1';
+        $branches = array();
 
-        $revisions = shell_exec($cmd);
-        if (substr($revisions, 5) == 'fatal') {
-            throw new Horde_Vcs_Exception($revisions);
-        } elseif (!strlen($revisions)) {
-            throw new Horde_Vcs_Exception('No revisions found');
+        foreach (array_keys($this->_revlist) as $val) {
+            if (array_search($rev, $this->_revlist[$val]) !== false) {
+                $branches[] = $val;
+            }
         }
 
-        return explode("\n", trim($revisions));
+        return $branches;
     }
 
     /**
@@ -518,12 +542,12 @@ class Horde_Vcs_Log_Git extends Horde_Vcs_Log
         return array();
     }
 
+    /**
+     * TODO
+     */
     public function queryBranch()
     {
-        $branches = array();
-        $command = $this->_rep->getCommand() . ' branch --contains ' . escapeshellarg($this->_rev) . ' 2>&1';
-        exec($command, $branches);
-        return array_map('trim', $branches, array_fill(0, count($branches), '* '));
+        return $this->_file->queryBranch($this->_rev);
     }
 
 }
