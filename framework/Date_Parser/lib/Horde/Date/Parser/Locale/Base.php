@@ -72,7 +72,7 @@ class Horde_Date_Parser_Locale_Base
         $tokens = $this->baseTokenize($text);
 
         // scan the tokens with each token scanner
-        foreach (array('Repater') as $tokenizer) {
+        foreach (array('Repeater') as $tokenizer) {
             $tokenizer = $this->componentFactory($tokenizer);
             $tokens = $tokenizer->scan($tokens, $options);
         }
