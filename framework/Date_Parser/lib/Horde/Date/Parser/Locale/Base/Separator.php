@@ -1,76 +1,122 @@
-module Chronic
+<?php
+class Horde_Date_Parser_Locale_Base_Separator extends Horde_Date_Parser_Tag
+{
+    public $commaScanner = array(
+        '/^,$/' => 'comma',
+    );
 
-  class Separator < Tag #:nodoc:
-    def self.scan(tokens)
-      tokens.each_index do |i|
-        if t = self.scan_for_commas(tokens[i]) then tokens[i].tag(t); next end
-        if t = self.scan_for_slash_or_dash(tokens[i]) then tokens[i].tag(t); next end
-        if t = self.scan_for_at(tokens[i]) then tokens[i].tag(t); next end
-        if t = self.scan_for_in(tokens[i]) then tokens[i].tag(t); next end
-      end
-      tokens
-    end
-    
-    def self.scan_for_commas(token)
-      scanner = {/^,$/ => :comma}
-      scanner.keys.each do |scanner_item|
-        return SeparatorComma.new(scanner[scanner_item]) if scanner_item =~ token.word
-      end
-      return nil
-    end
-    
-    def self.scan_for_slash_or_dash(token)
-      scanner = {/^-$/ => :dash,
-                 /^\/$/ => :slash}
-      scanner.keys.each do |scanner_item|
-        return SeparatorSlashOrDash.new(scanner[scanner_item]) if scanner_item =~ token.word
-      end
-      return nil
-    end
-    
-    def self.scan_for_at(token)
-      scanner = {/^(at|@)$/ => :at}
-      scanner.keys.each do |scanner_item|
-        return SeparatorAt.new(scanner[scanner_item]) if scanner_item =~ token.word
-      end
-      return nil
-    end
-    
-    def self.scan_for_in(token)
-      scanner = {/^in$/ => :in}
-      scanner.keys.each do |scanner_item|
-        return SeparatorIn.new(scanner[scanner_item]) if scanner_item =~ token.word
-      end
-      return nil
-    end
-    
-    def to_s
-      'separator'
-    end
-  end
-  
-  class SeparatorComma < Separator #:nodoc:
-    def to_s
-      super << '-comma'
-    end
-  end
-  
-  class SeparatorSlashOrDash < Separator #:nodoc:
-    def to_s
-      super << '-slashordash-' << @type.to_s
-    end
-  end
-  
-  class SeparatorAt < Separator #:nodoc:
-    def to_s
-      super << '-at'
-    end
-  end
-  
-  class SeparatorIn < Separator #:nodoc:
-    def to_s
-      super << '-in'
-    end
-  end
+    public $slashOrDashScanner = array(
+        '/^-$/' => 'dash',
+        '/^\/$/' => 'slash',
+    );
 
-end
+    public $atScanner = array(
+        '/^(at|@)$/' => 'at',
+    );
+
+    public $inScanner = array(
+        '/^in$/' => 'in',
+    );
+
+    public function scan($tokens)
+    {
+        foreach ($tokens as &$token) {
+            if ($t = $this->scanForCommas($token)) {
+                $token->tag($t);
+            } elseif ($t = $this->scanForSlashOrDash($token)) {
+                $token->tag($t);
+            } elseif ($t = $this->scanForAt($token)) {
+                $token->tag($t);
+            } elseif ($t = $this->scanForIn($token)) {
+                $token->tag($t);
+            }
+        }
+        return $tokens;
+    }
+
+    public function scanForCommas($token)
+    {
+        foreach ($this->commaScanner as $scannerItem => $scannerTag) {
+            if (preg_match($scannerItem, $token->word)) {
+                /* FIXME */
+                return new Horde_Date_Parser_Locale_Base_SeparatorComma($scannerTag);
+            }
+        }
+        return null;
+    }
+
+    public function scanForSlashOrDash($token)
+    {
+        foreach ($this->slashOrDashScanner as $scannerItem => $scannerTag) {
+            if (preg_match($scannerItem, $token->word)) {
+                /* FIXME */
+                return new Horde_Date_Parser_Locale_Base_SeparatorSlashOrDash($scannerTag);
+            }
+        }
+        return null;
+    }
+
+    public function scanForAt($token)
+    {
+        foreach ($this->atScanner as $scannerItem => $scannerTag) {
+            if (preg_match($scannerItem, $token->word)) {
+                /* FIXME */
+                return new Horde_Date_Parser_Locale_Base_SeparatorAt($scannerTag);
+            }
+        }
+        return null;
+    }
+
+    public function scanForIn($token)
+    {
+        foreach ($this->inScanner as $scannerItem => $scannerTag) {
+            if (preg_match($scannerItem, $token->word)) {
+                /* FIXME */
+                return new Horde_Date_Parser_Locale_Base_SeparatorIn($scannerTag);
+            }
+        }
+        return null;
+    }
+
+    public function __toString()
+    {
+        return 'separator';
+    }
+
+}
+
+class Horde_Date_Parser_Locale_Base_SeparatorComma extends Horde_Date_Parser_Locale_Base_Separator
+{
+    public function __toString()
+    {
+        return parent::__toString() . '-comma';
+    }
+
+}
+
+class Horde_Date_Parser_Locale_Base_SeparatorSlashOrDash extends Horde_Date_Parser_Locale_Base_Separator
+{
+    public function __toString()
+    {
+        return parent::__toString() . '-slashordash-' . $this->type;
+    }
+
+}
+
+class Horde_Date_Parser_Locale_Base_SeparatorAt extends Horde_Date_Parser_Locale_Base_Separator
+{
+    public function __toString()
+    {
+        return parent::__toString() . '-at';
+    }
+
+}
+
+class Horde_Date_Parser_Locale_Base_SeparatorIn extends Horde_Date_Parser_Locale_Base_Separator
+{
+    public function __toString()
+    {
+        return parent::__toString() . '-in';
+    }
+
+}
