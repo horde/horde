@@ -438,31 +438,47 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File
 class Horde_Vcs_Log_Git extends Horde_Vcs_Log
 {
     /**
+     * @var string
+     */
+    protected $_parent = null;
+
+    /**
+     * @var array
+     */
+    protected $_files = array();
+
+    /**
      * Constructor.
      */
     public function __construct($rep, $fl, $rev)
     {
         parent::__construct($rep, $fl, $rev);
 
-        $cmd = $rep->getCommand() . ' whatchanged --no-color --pretty=format:"commit %H%nAuthor:%an <%ae>%nAuthorDate:%at%nRefs:%d%n%n%s%n%b" --no-abbrev -n 1 ' . $rev;
+        // @TODO use Commit, CommitDate, and Merge properties
+        $cmd = $rep->getCommand() . ' whatchanged --no-color --pretty=format:"Rev:%H%nParents:%P%nAuthor:%an <%ae>%nAuthorDate:%at%nRefs:%d%n%n%s%n%b" --no-abbrev -n 1 ' . $rev;
         $pipe = popen($cmd, 'r');
         if (!is_resource($pipe)) {
             throw new Horde_Vcs_Exception('Unable to run ' . $cmd . ': ' . error_get_last());
         }
 
-        $commit = trim(array_pop(explode(' ', fgets($pipe))));
-        if ($commit != $rev) {
-            fclose($pipe);
-            throw new Horde_Vcs_Exception('Expected ' . $rev . ', got ' . $commit);
-        }
-
-        // @TODO use Commit, CommitDate, and Merge properties
         $line = trim(fgets($pipe));
         while ($line != '') {
             list($key, $value) = explode(':', $line, 2);
             $value = trim($value);
 
             switch (trim($key)) {
+            case 'Rev':
+                if ($rev != $value) {
+                    fclose($pipe);
+                    throw new Horde_Vcs_Exception('Expected ' . $rev . ', got ' . $value);
+                }
+                break;
+
+            case 'Parents':
+                // @TODO: More than 1 parent?
+                $this->_parent = $value;
+                break;
+
             case 'Author':
                 $this->_author = $value;
                 break;
@@ -489,7 +505,6 @@ class Horde_Vcs_Log_Git extends Horde_Vcs_Log
 
             $line = trim(fgets($pipe));
         }
-
 
         $log = '';
         $line = fgets($pipe);
@@ -550,6 +565,22 @@ class Horde_Vcs_Log_Git extends Horde_Vcs_Log
         return $this->_file->queryBranch($this->_rev);
     }
 
+    /**
+     * TODO
+     */
+    public function queryFiles()
+    {
+        return $this->_files;
+    }
+
+    /**
+     * TODO
+     */
+    public function queryParent()
+    {
+        return $this->_parent;
+    }
+
 }
 
 /**
@@ -569,47 +600,49 @@ class Horde_Vcs_Patchset_Git extends Horde_Vcs_Patchset
      */
     public function __construct($rep, $file)
     {
-        $fileOb = $rep->getFileObject($this->file);
+        $fileOb = $rep->getFileObject($file);
 
-        foreach ($fileOb->logs as $rev => $log) {
+        foreach ($fileOb->queryLogs() as $rev => $log) {
             $this->_patchsets[$rev] = array(
                 'date' => $log->queryDate(),
                 'author' => $log->queryAuthor(),
-                'branch' => '',
-                'tag' => '',
+                'branches' => $log->queryBranch(),
+                'tags' => $log->queryTags(),
                 'log' => $log->queryLog(),
                 'members' => array()
             );
 
-            foreach ($log->files as $file) {
-                $file = preg_replace('/.*?\s(.*?)(\s|$).*/', '\\1', $file);
+            $ps = &$this->_patchsets[$rev];
+
+            foreach ($log->queryFiles() as $file) {
                 $to = $rev;
+                $status = 0;
 
                 switch ($file['status']) {
                 case 'A':
-                    $from = 'INITIAL';
+                    $from = null;
+                    $status = self::INITIAL;
                     break;
 
                 case 'D':
                     $from = $to;
-                    $to = '(DEAD)';
+                    $to = null;
+                    $to = self::DEAD;
                     break;
 
                 default:
-                    // This technically isn't the previous revision,
-                    // but it works for diffing purposes.
-                    $from = $to - 1;
+                    $from = $log->queryParent();
+                    break;
                 }
 
-                $this->_patchsets[$rev]['members'][] = array(
-                    'file' => $file,
+                $ps['members'][] = array(
+                    'file' => $file['srcPath'],
                     'from' => $from,
+                    'status' => $status,
                     'to' => $to
                 );
             }
         }
-
-        return true;
     }
 
 }

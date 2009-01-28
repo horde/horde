@@ -1171,6 +1171,9 @@ abstract class Horde_Vcs_Log
  */
 abstract class Horde_Vcs_Patchset
 {
+    const INITIAL = 1;
+    const DEAD = 2;
+
     /**
      * @var array
      */
@@ -1186,6 +1189,18 @@ abstract class Horde_Vcs_Patchset
 
     /**
      * TODO
+     *
+     * @return array  TODO
+     * 'date'
+     * 'author'
+     * 'branches'
+     * 'tags'
+     * 'log'
+     * 'members' - array:
+     *     'file'
+     *     'from'
+     *     'to'
+     *     'status'
      */
     public function getPatchsets()
     {

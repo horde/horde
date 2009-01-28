@@ -673,11 +673,9 @@ class Horde_Vcs_Patchset_Cvs extends Horde_Vcs_Patchset
     public function __construct($rep, $file)
     {
         $file = $rep->sourceroot() . '/' . $file;
-        $name = basename($file);
-        $dir = dirname($file);
 
         /* Check that we are actually in the filesystem. */
-        if (!is_file($file . ',v')) {
+        if (!$rep->isFile($file)) {
             throw new Horde_Vcs_Exception('File Not Found');
         }
 
@@ -688,15 +686,17 @@ class Horde_Vcs_Patchset_Cvs extends Horde_Vcs_Patchset
             '';
 
         $ret_array = array();
-        $cmd = $HOME . $rep->getPath('cvsps') . ' -u --cvs-direct --root ' . escapeshellarg($rep->sourceroot()) . ' -f ' . escapeshellarg($name) . ' ' . escapeshellarg($dir);
+        $cmd = $HOME . $rep->getPath('cvsps') . ' -u --cvs-direct --root ' . escapeshellarg($rep->sourceroot()) . ' -f ' . escapeshellarg(basename($file)) . ' ' . escapeshellarg(dirname($file));
         exec($cmd, $ret_array, $retval);
         if ($retval) {
             throw new Horde_Vcs_Exception('Failed to spawn cvsps to retrieve patchset information.');
         }
 
         $state = 'begin';
-        foreach ($ret_array as $line) {
+        reset($ret_array);
+        while (list(,$line) = each($ret_array)) {
             $line = trim($line);
+
             if ($line == '---------------------') {
                 $state = 'begin';
                 continue;
@@ -711,27 +711,28 @@ class Horde_Vcs_Patchset_Cvs extends Horde_Vcs_Patchset
 
             case 'info':
                 $info = explode(':', $line, 2);
+                $info[1] = ltrim($info[1]);
+
                 switch ($info[0]) {
                 case 'Date':
-                    if (preg_match('|(\d{4})/(\d{2})/(\d{2}) (\d{2}):(\d{2}):(\d{2})|', $info[1], $date)) {
-                        $this->_patchsets[$id]['date'] = gmmktime($date[4], $date[5], $date[6], $date[2], $date[3], $date[1]);
-                    }
+                    $d = new DateTime($info[1]);
+                    $this->_patchsets[$id]['date'] = $d->format('U');
                     break;
 
                 case 'Author':
-                    $this->_patchsets[$id]['author'] = trim($info[1]);
+                    $this->_patchsets[$id]['author'] = $info[1];
                     break;
 
                 case 'Branch':
-                    if (trim($info[1]) != 'HEAD') {
-                        $this->_patchsets[$id]['branch'] = trim($info[1]);
-                    }
+                    $this->_patchsets[$id]['branches'] = ($info[1] == 'HEAD')
+                        ? array()
+                        : array($info[1]);
                     break;
 
                 case 'Tag':
-                    if (trim($info[1]) != '(none)') {
-                        $this->_patchsets[$id]['tag'] = trim($info[1]);
-                    }
+                    $this->_patchsets[$id]['tags'] = ($info[1] == '(none)')
+                        ? array()
+                        : array($info[1]);
                     break;
 
                 case 'Log':
@@ -744,7 +745,7 @@ class Horde_Vcs_Patchset_Cvs extends Horde_Vcs_Patchset
             case 'log':
                 if ($line == 'Members:') {
                     $state = 'members';
-                    $this->_patchsets[$id]['log'] = trim($this->_patchsets[$id]['log']);
+                    $this->_patchsets[$id]['log'] = rtrim($this->_patchsets[$id]['log']);
                     $this->_patchsets[$id]['members'] = array();
                 } else {
                     $this->_patchsets[$id]['log'] .= $line . "\n";
@@ -754,16 +755,27 @@ class Horde_Vcs_Patchset_Cvs extends Horde_Vcs_Patchset
             case 'members':
                 if (!empty($line)) {
                     $parts = explode(':', $line);
-                    $revs = explode('->', $parts[1]);
-                    $this->_patchsets[$id]['members'][] = array('file' => $parts[0],
-                                                                'from' => $revs[0],
-                                                                'to' => $revs[1]);
+                    list($from, $to) = explode('->', $parts[1], 2);
+                    $status = 0;
+
+                    if ($from == 'INITIAL') {
+                        $from = null;
+                        $status = self::INITIAL;
+                    } elseif (substr($to, -6) == '(DEAD)') {
+                        $to = null;
+                        $status = self::DEAD;
+                    }
+
+                    $this->_patchsets[$id]['members'][] = array(
+                        'file' => $parts[0],
+                        'from' => $from,
+                        'status' => $status,
+                        'to' => $to
+                    );
                 }
                 break;
             }
         }
-
-        return true;
     }
 
 }
