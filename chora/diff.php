@@ -57,11 +57,10 @@ $title = sprintf(_("Diff for %s between version %s and %s"),
                  Text::htmlallspaces($where), $abbrev_r1, $abbrev_r2);
 
 /* Format log entries. */
-$log = &$fl->logs;
 $log_messages = array();
 foreach ($VC->getRevisionRange($fl, $r1, $r2) as $val) {
-    if (isset($log[$val])) {
-        $clog = $log[$val];
+    $clog = $fl->queryLogs($val);
+    if (!is_null($clog)) {
         $log_messages[] = array(
             'rev' => $val,
             'msg' => Chora::formatLogMessage($clog->queryLog()),
