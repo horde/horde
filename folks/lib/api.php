@@ -202,7 +202,7 @@ function _folks_getFriends($user = null)
 {
     require_once dirname(__FILE__) . '/Friends.php';
 
-    $friends = Folks_Friends::singleton(null, null, $user);
+    $friends = Folks_Friends::singleton(null, array('user' => $user));
 
     return $friends->getFriends();
 }
@@ -214,11 +214,11 @@ function _folks_getFriends($user = null)
  *
  * @return true or PEAR_Error
  */
-function _folks_addFriend($user)
+function _folks_addFriend($user = null)
 {
     require_once dirname(__FILE__) . '/Friends.php';
 
-    $friends = Folks_Friends::singleton(null);
+    $friends = Folks_Friends::singleton(null, array('user' => $user));
 
     return $friends->addFriend($user);
 }
@@ -230,11 +230,11 @@ function _folks_addFriend($user)
  *
  * @return true or PEAR_Error
  */
-function _folks_removeFriend($user)
+function _folks_removeFriend($user = null)
 {
     require_once dirname(__FILE__) . '/Friends.php';
 
-    $friends = Folks_Friends::singleton(null);
+    $friends = Folks_Friends::singleton(null, array('user' => $user));
 
     return $friends->removeFriend($user);
 }
@@ -246,11 +246,11 @@ function _folks_removeFriend($user)
  *
  * @return array of users
  */
-function _folks_getBlacklist()
+function _folks_getBlacklist($user = null)
 {
     require_once dirname(__FILE__) . '/Friends.php';
 
-    $friends = Folks_Friends::singleton(null);
+    $friends = Folks_Friends::singleton(null, array('user' => $user));
 
     return $friends->getBlacklist();
 }
@@ -260,11 +260,11 @@ function _folks_getBlacklist()
  *
  * @param string $user   Usersame
  */
-function _folks_addBlacklisted($user)
+function _folks_addBlacklisted($user = null)
 {
     require_once dirname(__FILE__) . '/Friends.php';
 
-    $friends = Folks_Friends::singleton(null);
+    $friends = Folks_Friends::singleton(null, array('user' => $user));
 
     return $friends->addBlacklisted($user);
 }
@@ -274,11 +274,11 @@ function _folks_addBlacklisted($user)
  *
  * @param string $user   Usersame
  */
-function _folks_removeBlacklisted($user)
+function _folks_removeBlacklisted($user = null)
 {
     require_once dirname(__FILE__) . '/Friends.php';
 
-    $friends = Folks_Friends::singleton(null);
+    $friends = Folks_Friends::singleton(null, array('user' => $user));
 
     return $friends->removeBlacklisted($user);
 }
@@ -298,7 +298,7 @@ function _folks_isBlacklisted($user = null)
 
     require_once dirname(__FILE__) . '/Friends.php';
 
-    $friends = Folks_Friends::singleton(null, null, $user);
+    $friends = Folks_Friends::singleton(null, array('user' => $user));
 
     return $friends->isBlacklisted(Auth::getAuth());
 }
