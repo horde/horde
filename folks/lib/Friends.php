@@ -17,8 +17,9 @@
 class Folks_Friends {
 
     /**
+     * Friends instances
      */
-    static private $instance;
+    static private $instances = array();
 
     /**
      * Hash containing connection parameters.
@@ -87,11 +88,12 @@ class Folks_Friends {
      */
     static function singleton($driver = null, $params = null)
     {
-        if (!self::$instance) {
-            self::$instance = Folks_Friends::factory($driver, $params);
+        $signature = $driver . ':' . $params['user'];
+        if (!array_key_exists($signature, self::$instances)) {
+            self::$instances[$signature] = self::factory($driver, $params);
         }
 
-        return self::$instance;
+        return self::$instances[$signature];
     }
 
     /**
