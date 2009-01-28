@@ -18,6 +18,8 @@ require_once 'tabs.php';
 
 $title = _("Blacklist");
 $remove_url = Util::addParameter(Horde::applicationUrl('edit/blacklist.php'), 'user', null);
+$remove_img = Horde::img('delete.png', '', '', $registry->getImageDir('horde'));
+$profile_img = Horde::img('user.png', '', '', $registry->getImageDir('horde'));
 
 // Load driver
 require_once FOLKS_BASE . '/lib/Friends.php';

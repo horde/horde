@@ -16,13 +16,16 @@ if (empty($blacklist)) {
 <tbody>
 <?php foreach ($blacklist as $user) { ?>
 <tr>
-    <td><?php echo $user ?></td>
-    <td><a href="<?php $remove_url . $user ?>"><?php echo _("Remove") ?></a></td>
+    <td><?php echo '<img src="' . Folks::getImageUrl($user) . '" class="userMiniIcon" /> ' . $user ?></td>
+    <td>
+        <a href="<?php echo Util::addParameter($remove_url, 'user', $user) ?>"><?php echo $remove_img  . ' ' . _("Remove") ?></a>
+        <a href="<?php echo Folks::getUrlFor('user', $user) ?>"><?php echo $profile_img  . ' ' . _("View profile") ?></a>
+    </td>
 </tr>
 <?php } ?>
 </tbody>
 </table>
 
 <?php
-} 
+}
 echo $form->renderActive();
