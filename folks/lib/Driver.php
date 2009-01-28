@@ -92,8 +92,10 @@ class Folks_Driver {
         $vfspath = Folks::VFS_PATH . '/' . substr(str_pad($p, 2, 0, STR_PAD_LEFT), -2) . '/';
         $vfs_name = $p . '.' . $conf['images']['image_type'];
 
-        $img = Horde_Image::factory('gd', array('type' => $conf['images']['image_type'],
-                                                'temp' => Horde::getTempDir()));
+        $driver = empty($conf['image']['convert']) ? 'gd' : 'im';
+        $img = Horde_Image::factory($driver,
+                                    array('type' => $conf['images']['image_type'],
+                                            'temp' => Horde::getTempDir()));
 
         $result = $img->loadFile($file);
         if ($result instanceof PEAR_Error) {
@@ -165,7 +167,7 @@ class Folks_Driver {
     public function isBlacklisted($user, $check)
     {
         require_once FOLKS_BASE . '/lib/Friends.php';
-        $friends = Folks_Friends::singleton($GLOBALS['conf']['friends'], array('user' => $user));
+        $friends = Folks_Friends::singleton(null, array('user' => $user));
         return $friends->isBlacklisted($check);
     }
 
@@ -184,7 +186,7 @@ class Folks_Driver {
         }
 
         require_once FOLKS_BASE . '/lib/Friends.php';
-        $friends = Folks_Friends::singleton($GLOBALS['conf']['friends'], array('user' => $user));
+        $friends = Folks_Friends::singleton(null, array('user' => $user));
         return $friends->isFriend($check);
     }
 
@@ -198,7 +200,7 @@ class Folks_Driver {
     public function getFriends($user)
     {
         require_once FOLKS_BASE . '/lib/Friends.php';
-        $friends = Folks_Friends::singleton($GLOBALS['conf']['friends'], array('user' => $user));
+        $friends = Folks_Friends::singleton(null, array('user' => $user));
 
         return $friends->getFriends();
     }
