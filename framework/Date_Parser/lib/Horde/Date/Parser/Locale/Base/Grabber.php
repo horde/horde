@@ -1,26 +1,38 @@
-#module Chronic
+<?php
+class Horde_Date_Parser_Locale_Base_Grabber extends Horde_Date_Parser_Tag
+{
+    /**
+     * Regex tokens
+     */
+    public $scanner = array(
+        '/last/' => 'last',
+        '/this/' => 'this',
+        '/next/' => 'next',
+    );
 
-  class Chronic::Grabber < Chronic::Tag #:nodoc:
-    def self.scan(tokens)
-      tokens.each_index do |i|
-        if t = self.scan_for_all(tokens[i]) then tokens[i].tag(t); next end
-      end
-      tokens
-    end
-    
-    def self.scan_for_all(token)
-      scanner = {/last/ => :last,
-                 /this/ => :this,
-                 /next/ => :next}
-      scanner.keys.each do |scanner_item|
-        return self.new(scanner[scanner_item]) if scanner_item =~ token.word
-      end
-      return nil
-    end
-    
-    def to_s
-      'grabber-' << @type.to_s
-    end
-  end
+    public function scan($tokens)
+    {
+        foreach ($tokens as &$token) {
+            if ($t = $this->scanForAll($token)) {
+                $token->tag($t);
+            }
+        }
+        return $tokens;
+    }
 
-#end
+    public function scanForAll($token)
+    {
+        foreach ($this->scanner as $scannerItem => $scannerTag) {
+            if (preg_match($scannerItem, $token->word)) {
+                return new self($scannerTag);
+            }
+        }
+        return null;
+    }
+
+    public function __toString()
+    {
+        return 'grabber-' . $this->type;
+    }
+
+}

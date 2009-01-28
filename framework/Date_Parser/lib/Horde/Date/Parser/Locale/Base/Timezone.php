@@ -1,22 +1,33 @@
-module Chronic
-  class TimeZone < Tag #:nodoc:    
-    def self.scan(tokens)
-      tokens.each_index do |i|
-        if t = self.scan_for_all(tokens[i]) then tokens[i].tag(t); next end
-      end
-      tokens
-    end
+<?php
+class Horde_Date_Parser_Locale_Base_Timezone extends Horde_Date_Parser_Tag
+{
+    public $scanner = array(
+        '/[PMCE][DS]T/i' => 'tz',
+    );
 
-    def self.scan_for_all(token)
-      scanner = {/[PMCE][DS]T/i => :tz}
-      scanner.keys.each do |scanner_item|
-        return self.new(scanner[scanner_item]) if scanner_item =~ token.word
-      end
-      return nil
-    end
+    public function scan($tokens)
+    {
+        foreach ($tokens as &$token) {
+            if ($t = $this->scanForAll($token)) {
+                $token->tag($t);
+            }
+        }
+        return $tokens;
+    }
 
-    def to_s
-      'timezone'
-    end
-  end
-end
+    public function scanForAll($token)
+    {
+        foreach ($this->scanner as $scannerItem => $scannerTag) {
+            if (preg_match($scannerItem, $token->word)) {
+                return new self($scannerTag);
+            }
+        }
+        return null;
+    }
+
+    public function __toString()
+    {
+        return 'timezone';
+    }
+
+}
