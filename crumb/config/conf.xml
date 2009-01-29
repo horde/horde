@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!-- $Horde$ -->
+<!-- $Id$ -->
 <configuration>
  <configsection name="storage">
   <configheader>Storage System Settings</configheader>

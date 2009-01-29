@@ -1,4 +1,5 @@
 <?xml version="1.0"?>
+<!-- $Id$ -->
 <configuration>
  <configsection name="jeta" desc="Base jeta settings">
   <configheader>Authentication Settings</configheader>
