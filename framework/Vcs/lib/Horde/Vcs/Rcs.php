@@ -30,14 +30,21 @@ class Horde_Vcs_Rcs extends Horde_Vcs
      */
     public function getRevisionRange($file, $r1, $r2)
     {
-        if ($this->cmp($r1, $r2) == 1) {
+        switch ($this->cmp($r1, $r2)) {
+        case 0:
+            return array();
+
+        case 1:
             $curr = $this->prev($r1);
             $stop = $this->prev($r2);
             $flip = true;
-        } else {
+            break;
+
+        case -1:
             $curr = $r2;
             $stop = $r1;
             $flip = false;
+            break;
         }
 
         $ret_array = array();
@@ -45,10 +52,10 @@ class Horde_Vcs_Rcs extends Horde_Vcs
         do {
             $ret_array[] = $curr;
             $curr = $this->prev($curr);
-            if ($curr == $stop) {
+            if ($curr === $stop) {
                 return ($flip) ? array_reverse($ret_array) : $ret_array;
             }
-        } while ($this->cmp($curr, $stop) != -1);
+        } while (!is_null($curr) && ($this->cmp($curr, $stop) != -1));
 
         return array();
     }
@@ -271,21 +278,6 @@ class Horde_Vcs_Rcs extends Horde_Vcs
     }
 
     /**
-     * The size of a revision number is the number of portions it has.
-     * For example, 1,2.3.4 is of size 4.
-     *
-     * @param string $val  Revision number to determine size of.
-     *
-     * @return integer  Size of revision number.
-     */
-    public function sizeof($val)
-    {
-        return $this->isValidRevision($val)
-            ? (substr_count($val, '.') + 1)
-            : 0;
-    }
-
-    /**
      * Given two revision numbers, this figures out which one is
      * greater than the other by stepping along the decimal points
      * until a difference is found, at which point a sign comparison
@@ -299,7 +291,7 @@ class Horde_Vcs_Rcs extends Horde_Vcs
      */
     public function cmp($rev1, $rev2)
     {
-        return version_compare($rev1, $rev2);
+        return strnatcasecmp($rev1, $rev2);
     }
 
     /**
@@ -310,8 +302,7 @@ class Horde_Vcs_Rcs extends Horde_Vcs
      *
      * @param string $rev  Revision number to decrement.
      *
-     * @return string|boolean  Revision number, or false if none could be
-     *                         determined.
+     * @return string  Revision number, or null if none could be determined.
      */
     public function prev($rev)
     {
@@ -321,12 +312,12 @@ class Horde_Vcs_Rcs extends Horde_Vcs
         if (--$val > 0) {
             return substr($rev, 0, $last_dot) . $val;
         } else {
-            $last_dot--;
+            --$last_dot;
             while (--$last_dot) {
                 if ($rev[$last_dot] == '.') {
-                    return  substr($rev, 0, $last_dot);
-                } elseif ($rev[$last_dot] == null) {
-                    return false;
+                    return substr($rev, 0, $last_dot);
+                } elseif (is_null($rev[$last_dot])) {
+                    return null;
                 }
             }
         }
