@@ -49,8 +49,8 @@ $module_list = array();
 /* Display versions of other Horde applications. */
 $app_list = array(
     'horde' => array(
-        'error' => 'Chora requires Horde 3.0 or greater to operate.',
-        'version' => '3.0'
+        'error' => 'Chora requires Horde 4.0 or greater to operate.',
+        'version' => '4.0'
     ),
 );
 
