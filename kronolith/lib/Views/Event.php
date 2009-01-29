@@ -112,6 +112,12 @@ class Kronolith_View_Event {
         $dateFormat = $prefs->getValue('date_format');
         $timeFormat = $prefs->getValue('twentyFour') ? 'G:i' : 'g:ia';
 
+        // Tags
+        $tagger = new Kronolith_Tagger();
+        $tags = $tagger->getTags($this->event->getUID(), 'event');
+        $tags = implode(',', array_values($tags));
+
+
         echo '<div id="Event"' . ($active ? '' : ' style="display:none"') . '>';
         require KRONOLITH_TEMPLATES . '/view/view.inc';
         echo '</div>';

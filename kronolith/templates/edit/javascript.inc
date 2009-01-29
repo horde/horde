@@ -279,6 +279,7 @@ Event.observe(window, 'load', function() {
     toggleSection('description');
     toggleSection('attendees');
     toggleSection('recurrence');
+    toggleSection('tags');
 <?php if ($GLOBALS['conf']['metadata']['keywords']): ?>
     toggleSection('keywords');
 <?php endif; ?>
