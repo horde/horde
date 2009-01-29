@@ -66,11 +66,13 @@ class Horde_Vcs_Git extends Horde_Vcs
      */
     public function getCommand()
     {
-        return escapeshellcmd($this->getPath('git')) . ' --git-dir=' . escapeshellarg($this->_sourceroot);
+        return escapeshellcmd($this->getPath('git')) . ' --git-dir=' . escapeshellarg($this->sourceroot());
     }
 
     /**
      * TODO
+     *
+     * @throws Horde_Vcs_Exception
      */
     public function annotate($fileob, $rev)
     {
@@ -121,6 +123,7 @@ class Horde_Vcs_Git extends Horde_Vcs
         }
 
         pclose($pipe);
+
         return $lines;
     }
 
@@ -133,6 +136,7 @@ class Horde_Vcs_Git extends Horde_Vcs
      * @param string $rev       Revision number to check out
      *
      * @return resource  A stream pointer to the head of the checkout.
+     * @throws Horde_Vcs_Exception
      */
     public function checkout($file, $rev)
     {
@@ -190,8 +194,7 @@ class Horde_Vcs_Git extends Horde_Vcs
      * 'ws' - (boolean) DEFAULT: true
      * </pre>
      *
-     * @return string|boolean  False on failure, or a string containing the
-     *                         diff on success.
+     * @return string  The diff text.
      */
     protected function _diff($file, $rev1, $rev2, $opts)
     {
@@ -204,15 +207,16 @@ class Horde_Vcs_Git extends Horde_Vcs
 
         switch ($opts['type']) {
         case 'unified':
-            $flags .= '--unified=' . (int)$opts['num'];
+            $flags .= '--unified=' . escapeshellarg((int)$opts['num']);
             break;
         }
 
         // @TODO: add options for $hr options - however these may not
         // be compatible with some diffs.
-        $command = $this->getCommand() . " diff -M -C $flags --no-color " . escapeshellarg($rev1 . '..' . $rev2) . ' -- ' . escapeshellarg($file->queryModulePath()) . ' 2>&1';
+        $command = $this->getCommand() . ' diff -M -C ' . $flags . ' --no-color ' . escapeshellarg($rev1 . '..' . $rev2) . ' -- ' . escapeshellarg($file->queryModulePath()) . ' 2>&1';
 
         exec($command, $diff, $retval);
+
         return $diff;
     }
 
@@ -246,14 +250,16 @@ class Horde_Vcs_Directory_Git extends Horde_Vcs_Directory
      * @param Horde_Vcs $rep  The Repository object this directory is part of.
      * @param string $dn      Path to the directory.
      * @param array $opts     TODO
+     *
+     * @throws Horde_Vcs_Exception
      */
     public function __construct($rep, $dn, $opts = array())
     {
         parent::__construct($rep, $dn, $opts);
 
-        // @TODO For now, we're browsing HEAD
-        //$head = trim(shell_exec($this->_rep->getCommand() . ' rev-parse --verify master'));
-        $head = 'HEAD';
+        // @TODO For now, we're browsing master
+        $branch = 'master';
+
         // @TODO can use this to see if we have a valid cache of the tree at this revision
 
         $dir = $this->queryDir();
@@ -264,7 +270,7 @@ class Horde_Vcs_Directory_Git extends Horde_Vcs_Directory
             $dir .= '/';
         }
 
-        $cmd = $rep->getCommand() . ' ls-tree --full-name ' . escapeshellarg($head) . ' ' . escapeshellarg($dir) . ' 2>&1';
+        $cmd = $rep->getCommand() . ' ls-tree --full-name ' . escapeshellarg($branch) . ' ' . escapeshellarg($dir) . ' 2>&1';
 
         $dir = popen($cmd, 'r');
         if (!$dir) {
@@ -313,6 +319,8 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File
      * @param TODO $rep    TODO
      * @param string $fl   Full path to this file.
      * @param array $opts  TODO
+     *
+     * @throws Horde_Vcs_Exception
      */
     public function __construct($rep, $fl, $opts = array())
     {
@@ -449,6 +457,8 @@ class Horde_Vcs_Log_Git extends Horde_Vcs_Log
 
     /**
      * Constructor.
+     *
+     * @throws Horde_Vcs_Exception
      */
     public function __construct($rep, $fl, $rev)
     {
@@ -513,7 +523,6 @@ class Horde_Vcs_Log_Git extends Horde_Vcs_Log
             $line = fgets($pipe);
         }
         $this->_log = trim($log);
-        // @TODO internal line formatting
 
         // Build list of files in this revision. The format of these lines is
         // documented in the git diff-tree documentation:
@@ -541,20 +550,7 @@ class Horde_Vcs_Log_Git extends Horde_Vcs_Log
      */
     public function getHashForPath($path)
     {
-        // @TODO Not confident yet abotu the choice of dstSha1 vs. srcSha1
         return $this->_files[$path]['dstSha1'];
-    }
-
-    /**
-     * Given a branch revision number, this function remaps it
-     * accordingly, and performs a lookup on the file object to
-     * return the symbolic name(s) of that branch in the tree.
-     *
-     * @return  Hash of symbolic names => branch numbers
-     */
-    public function querySymbolicBranches()
-    {
-        return array();
     }
 
     /**
@@ -626,7 +622,6 @@ class Horde_Vcs_Patchset_Git extends Horde_Vcs_Patchset
 
                 case 'D':
                     $from = $to;
-                    $to = null;
                     $to = self::DEAD;
                     break;
 
