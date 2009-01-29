@@ -62,7 +62,7 @@ foreach (DIMP::menuList() as $app) {
 }
 
 echo "<body>\n";
-require IMP_TEMPLATES . '/index/index.inc';
+require IMP_TEMPLATES . '/index/index-dimp.inc';
 IMP::includeScriptFiles();
 IMP::outputInlineScript();
 $notification->notify(array('listeners' => array('javascript')));

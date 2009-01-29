@@ -470,32 +470,28 @@
     run a custom function in which array elements can be added to use in the
     template file, while processing the message lists? If so, make sure
     you define _imp_hook_dimp_mailboxarray() in config/hooks.php. The elements
-    will be available as template tags in the dimp/templates/imp/mailbox.html
+    will be available as template tags in the imp/templates/imp/mailbox.html
     template file.">false</configboolean>
     <configboolean name="previewview" required="false" desc="Should we
     run a custom function in which array elements can be modified, and
     javascript code be provided to dynamically update page elements in the
-    preview pane? If so, make sure you define _dimp_hook_previewview() in
+    preview pane? If so, make sure you define _imp_hook_dimp_previewview() in
     config/hooks.php. The sample documentation in that file can better explain
     what can be accomplished with this hook.">false</configboolean>
     <configboolean name="messageview" required="false" desc="Should we
     run a custom function in which array elements can be added to use in the
     template file, while displaying the message text? If so, make sure
-    you define _dimp_hook_messageview() in config/hooks.php. The elements
-    will be available as template tags in the dimp/templates/imp/message.html
+    you define _imp_hook_dimp_messageview() in config/hooks.php. The elements
+    will be available as template tags in the imp/templates/chunks/message.php
     template file.">false</configboolean>
     <configboolean name="addressformatting" required="false" desc="Should we
     run a custom function that is used to format email addresses in message
-    headers? If so, make sure you define _dimp_hook_addressformatting() in
+    headers? If so, make sure you define _imp_hook_dimp_addressformatting() in
     config/hooks.php.">false</configboolean>
-    <configboolean name="msglist_format" required="false" desc="Should we use
-    a custom function to provide additional information/custom formatting of
-    messages in the mailbox message list? If so, make sure you define
-   _dimp_hook_msglist_format() in config/hooks.php.">false</configboolean>
    </configsection>
 
    <configlist name="css_files" required="false" desc="A list of additional CSS
-   files to load from the dimp/themes/ directory."/>
+   files to load from the imp/themes/ directory."/>
 
    <configheader>JavaScript Settings</configheader>
    <configsection name="js">
