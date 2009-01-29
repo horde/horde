@@ -599,11 +599,11 @@ class Horde_Date_Parser_Locale_Base
             if ($t1tag->type == 'morning') {
                 if (Horde_Date_Parser::$debug) { echo "--morning->am\n"; }
                 $t1->untag('RepeaterDayPortion');
-                $t1->tag(new Horde_Date_Parser_Locale_Base_RepeaterDayPortion('am'));
+                $t1->tag($this->componentFactory('RepeaterDayPortion', array('am')));
             } elseif (in_array($t1tag->type, array('afternoon', 'evening', 'night'))) {
                 if (Horde_Date_Parser::$debug) { echo "--{$t1tag->type}->pm\n"; }
                 $t1->untag('RepeaterDayPortion');
-                $t1->tag(new Horde_Date_Parser_Locale_Base_RepeaterDayPortion('pm'));
+                $t1->tag($this->componentFactory('RepeaterDayPortion', array('pm')));
             }
         }
 
@@ -632,7 +632,7 @@ class Horde_Date_Parser_Locale_Base
                 $t1 = isset($tokens[$i + 1]) ? $tokens[$i + 1] : null;
                 if ($t0->getTag('RepeaterTime') && $t0->getTag('RepeaterTime')->type->ambiguous() && (!$t1 || !$t1->getTag('RepeaterDayPortion'))) {
                     $distoken = new Horde_Date_Parser_Token('disambiguator');
-                    $distoken->tag(new Horde_Date_Parser_Locale_Base_RepeaterDayPortion($options['ambiguousTimeRange']));
+                    $distoken->tag($this->componentFactory('RepeaterDayPortion', array($options['ambiguousTimeRange']));
                     $ttokens[] = $distoken;
                 }
             }
