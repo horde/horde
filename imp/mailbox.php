@@ -23,7 +23,7 @@ function _outputSummaries($msgs, $mbox, &$ids)
             $ptr = &$msgs[$uid];
 
             if (!empty($val['class'])) {
-                $ptr['bg'] = array_merge($ptr['bg'], $val['class']);
+                $ptr['bg'] = implode(' ', array_keys(array_flip(array_merge(explode(' ', $ptr['bg']), $val['class']))));
             }
 
             if (!empty($val['flagbits'])) {

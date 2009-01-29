@@ -27,7 +27,6 @@ $imple = Kronolith_Imple::factory($impleName);
 if (!$imple) {
     exit;
 }
-
 $args = array();
 foreach ($path as $pair) {
     if (strpos($pair, '=') === false) {

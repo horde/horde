@@ -12,7 +12,7 @@ $most = max($stats);
 $factor = $most / 400;
 foreach ($stats as $author => $commits): $width = (int)($commits / $factor); ?>
  <tr>
-  <td class="rightAlign"><?php echo $author ?>&nbsp;&nbsp;</td>
+  <td class="rightAlign"><?php echo htmlspecialchars($author) ?>&nbsp;&nbsp;</td>
   <td><?php echo Horde::img('pixel.php?c=bbcbff', '', 'id="statsImg" width="' . $width . '" height="10"', $registry->get('webroot', 'horde') . '/services/images') . ' (' . $commits . ')</td>' ?>
  </tr>
 <?php endforeach ?>

@@ -13,6 +13,10 @@ function sbarToggle()
     new Ajax.Request(KronolithVar.pref_api_url, { parameters: { app: 'kronolith', pref: 'show_panel', value: pref_value } });
 }
 
+function removeTag(tagid)
+{
+	
+}
 document.observe('dom:loaded', function() {
     $$('#pageControlsInner .checkbox').invoke('observe', 'click', function() {
         Views.invalidate();

@@ -26,8 +26,8 @@ if (!$rev || !$VC->isValidRevision($rev)) {
 
 switch (Util::getFormData('actionID')) {
 case 'log':
-    if (isset($fl->logs[$rev])) {
-        $log = $fl->logs[$rev];
+    $log = $fl->queryLogs($rev);
+    if (!is_null($log)) {
         echo '<em>' . _("Author") . ':</em> ' . Chora::showAuthorName($log->queryAuthor(), true) . '<br />' .
             '<em>' . _("Date") . ':</em> ' . Chora::formatDate($log->queryDate()) . '<br /><br />' .
             Chora::formatLogMessage($log->queryLog());
@@ -70,11 +70,7 @@ while (list(,$line) = each($lines)) {
     if ($prevRev != $rev) {
         $style = (++$style % 2);
     }
-
-    $prev_key = array_search($rev, $fl->revs);
-    $prev = isset($fl->revs[$prev_key + 1])
-            ? $fl->revs[$prev_key + 1]
-            : null;
+    $prev = $fl->queryPreviousRevision($rev);
 
     $line = Text::htmlAllSpaces($line['line']);
     include CHORA_TEMPLATES . '/annotate/line.inc';

@@ -218,7 +218,7 @@
 //         $ret = array();
 //
 //         foreach ($uids as $uid) {
-//             $tmp = array();
+//             $tmp = array('status' => '');
 //             $res_ptr = &$imap_res[$uid];
 //
 //             // Add attachment information
@@ -516,11 +516,11 @@ if (!function_exists('_imp_hook_quota')) {
 // This is an example hook function for the dynamic (dimp) mailbox view. This
 // function is allows additional information to be added to the array that is
 // is passed to the mailbox display template -
-// dimp/templates/javascript/mailbox.js.  The current entry array is passed
-// in, the value returned should be the altered array to use in the
+// imp/templates/javascript/mailbox-dimp.js.  The current entry array is
+// passed in, the value returned should be the altered array to use in the
 // template. If you are going to add new columns, you also have to update
-// dimp/templates/index/index.inc to contain the new field in the header and
-// dimp/themes/screen.css to specify the column width.
+// imp/templates/index/dimp.inc to contain the new field in the header and
+// imp/themes/screen-dimp.css to specify the column width.
 
 // if (!function_exists('_imp_hook_dimp_mailboxarray')) {
 //     function _imp_hook_dimp_mailboxarray($msgs) {
@@ -535,7 +535,7 @@ if (!function_exists('_imp_hook_quota')) {
 // This is an example hook function for the dynamic (dimp) message view.  This
 // function allows additional information to be added to the array that is
 // passed to the message text display template -
-// dimp/templates/chunks/message.html. The current entry array is passed in
+// imp/templates/chunks/message.php. The current entry array is passed in
 // (see the showMessage() function in lib/Views/ShowMessage.php for the
 // format). The value returned should be the altered array to use in the
 // template.
@@ -550,8 +550,8 @@ if (!function_exists('_imp_hook_quota')) {
 
 // This is an example hook function for the dynamic (dimp) preview view.  This
 // function allows additional information to be added to the preview view and
-// its corresponding template - dimp/templates/index/index.inc. The current
-// entry array is passed in (see the showMessage() function in
+// its corresponding template - imp/templates/index/index-dimp.inc. The
+// current entry array is passed in (see the showMessage() function in
 // lib/Views/ShowMessage.php for the format). Since the preview pane is
 // dynamically updated via javascript, all updates other than the base
 // entries must be provided in javascript code to be run at update time. The

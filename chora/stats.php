@@ -1,5 +1,7 @@
 <?php
 /**
+ * Stats script.
+ *
  * Copyright 2000-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -17,15 +19,12 @@ try {
     Chora::fatal($e);
 }
 
-$extraLink = Chora::getFileViews();
+$extraLink = Chora::getFileViews($where, 'stats');
 
 $stats = array();
-foreach ($fl->logs as $lg) {
+foreach ($fl->queryLogs() as $lg) {
     $qa = $lg->queryAuthor();
-    if (!isset($stats[$qa])) {
-        $stats[$qa] = 0;
-    }
-    ++$stats[$qa];
+    $stats[$qa] = isset($stats[$qa]) ? ($stats[$qa] + 1) : 1;
 }
 arsort($stats);
 

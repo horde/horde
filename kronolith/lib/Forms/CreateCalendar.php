@@ -32,7 +32,7 @@ class Kronolith_CreateCalendarForm extends Horde_Form {
 
         $this->addVariable(_("Name"), 'name', 'text', true);
         $this->addVariable(_("Description"), 'description', 'longtext', false, false, null, array(4, 60));
-
+        $this->addVariable(_("Tags"), 'tags', 'text', false);
         $this->setButtons(array(_("Create")));
     }
 
@@ -45,6 +45,8 @@ class Kronolith_CreateCalendarForm extends Horde_Form {
         }
         $calendar->set('name', $this->_vars->get('name'));
         $calendar->set('desc', $this->_vars->get('description'));
+        $tagger = new Kronolith_Tagger();
+        $tagger->tag($calendar->getName(), $this->_vars->get('tags'), 'calendar');
         return $GLOBALS['kronolith_shares']->addShare($calendar);
     }
 

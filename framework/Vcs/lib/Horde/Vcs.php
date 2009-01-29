@@ -44,7 +44,7 @@ class Horde_Vcs
      *
      * @var array
      */
-    protected $_users = null;
+    protected $_users = array();
 
     /**
      * The current driver.
@@ -175,7 +175,7 @@ class Horde_Vcs
     /**
      * Throw an exception if the revision number isn't valid.
      *
-     * @param mixed $rev The revision number
+     * @param mixed $rev  The revision number.
      *
      * @throws Horde_Vcs_Exception
      */
@@ -223,8 +223,7 @@ class Horde_Vcs
      * 'ws' - (boolean) DEFAULT: true
      * </pre>
      *
-     * @return string|boolean  False on failure, or a string containing the
-     *                         diff on success.
+     * @return string  The diff string.
      * @throws Horde_Vcs_Exception
      */
     public function diff($file, $rev1, $rev2, $opts = array())
@@ -409,42 +408,40 @@ class Horde_Vcs
      * a hash containing the requisite information, keyed on the
      * username, and with the 'desc', 'name', and 'mail' values inside.
      *
-     * @return boolean|array  False if the file is not present, otherwise
-     *                        $this->_users populated with the data
+     * @return array  User data.
+     * @throws Horde_Vcs_Exception
      */
     public function getUsers($usersfile)
     {
         /* Check that we haven't already parsed users. */
-        if (!is_null($this->_users)) {
-            return $this->_users;
+        if (isset($this->_users[$usersfile])) {
+            return $this->_users[$usersfile];
         }
 
         if (!@is_file($usersfile) ||
             !($fl = @fopen($usersfile, VC_WINDOWS ? 'rb' : 'r'))) {
-            return false;
+            throw new Horde_Vcs_Exception('Invalid users file: ' . $usersfile);
         }
-
-        $this->_users = array();
 
         /* Discard the first line, since it'll be the header info. */
         fgets($fl, 4096);
 
-        /* Parse the rest of the lines into a hash, keyed on
-         * username. */
+        /* Parse the rest of the lines into a hash, keyed on username. */
+        $users = array();
         while ($line = fgets($fl, 4096)) {
-            if (preg_match('/^\s*$/', $line) ||
-                !preg_match('/^(\w+)\s+(.+)\s+([\w\.\-\_]+@[\w\.\-\_]+)\s+(.*)$/', $line, $regs)) {
-                continue;
+            if (!preg_match('/^\s*$/', $line) &&
+                preg_match('/^(\w+)\s+(.+)\s+([\w\.\-\_]+@[\w\.\-\_]+)\s+(.*)$/', $line, $regs)) {
+                $users[$regs[1]] = array(
+                    'name' => trim($regs[2]),
+                    'mail' => trim($regs[3]),
+                    'desc' => trim($regs[4])
+                );
             }
-
-            $this->_users[$regs[1]] = array(
-                'name' => trim($regs[2]),
-                'mail' => trim($regs[3]),
-                'desc' => trim($regs[4])
-            );
         }
 
-        return $this->_users;
+        $this->_users[$usersfile] = $users;
+
+        return $users;
     }
 
     /**
@@ -486,7 +483,7 @@ class Horde_Vcs
     {
         $class = 'Horde_Vcs_File_' . $this->_driver;
 
-        sort($opts);
+        ksort($opts);
         $cacheId = implode('|', array($class, $this->sourceroot(), $filename, serialize($opts), $this->_cacheVersion));
 
         if (!empty($this->_cache)) {
@@ -809,11 +806,6 @@ abstract class Horde_Vcs_File
     /**
      * TODO
      */
-    protected $_symrev = array();
-
-    /**
-     * TODO
-     */
     protected $_branches = array();
 
     /**
@@ -910,7 +902,7 @@ abstract class Horde_Vcs_File
         $key = array_search($rev, $this->_revs);
         return (($key !== false) && isset($this->_revs[$key + 1]))
             ? $this->_revs[$key + 1]
-            : false;
+            : null;
     }
 
     /**
@@ -1043,7 +1035,7 @@ abstract class Horde_Vcs_File
      */
     public function querySymbolicRevisions()
     {
-        return $this->_symrev;
+        return array();
     }
 
 }
@@ -1153,7 +1145,6 @@ abstract class Horde_Vcs_Log
         $branches = $this->_file->queryBranches();
 
         foreach ($this->_branches as $branch) {
-            $key = array_search($branch, $branches);
             if (($key = array_search($branch, $branches)) !== false) {
                 $symBranches[$key] = $branch;
             }
@@ -1171,6 +1162,9 @@ abstract class Horde_Vcs_Log
  */
 abstract class Horde_Vcs_Patchset
 {
+    const INITIAL = 1;
+    const DEAD = 2;
+
     /**
      * @var array
      */
@@ -1186,6 +1180,18 @@ abstract class Horde_Vcs_Patchset
 
     /**
      * TODO
+     *
+     * @return array  TODO
+     * 'date'
+     * 'author'
+     * 'branches'
+     * 'tags'
+     * 'log'
+     * 'members' - array:
+     *     'file'
+     *     'from'
+     *     'to'
+     *     'status'
      */
     public function getPatchsets()
     {

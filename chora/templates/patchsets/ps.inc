@@ -4,22 +4,15 @@
  <td class="author"><?php echo $author ?></td>
  <td class="files">
   <ul>
-   <?php foreach ($files as $file): ?>
-   <li><?php echo $file['file'] . ': ' . $file['from'] . ' -> ' . $file['to'] . ' ' . $file['diff'] ?>
-   <?php endforeach; ?>
+<?php foreach ($files as $file): ?>
+   <li><?php echo $file['file'] . ': ' . $file['from'] . ' -> ' . $file['to'] . ' ' . $file['diff'] ?></li>
+<?php endforeach; ?>
   </ul>
  </td>
  <td class="log">
-<?php
-echo '<p class="message">' . $logMessage . '</p>';
-$tags = array();
-if (isset($patchset['branch'])) {
-    $tags[] = htmlspecialchars($patchset['branch']);
-}
-if (isset($patchset['tag'])) {
-    $tags[] = htmlspecialchars($patchset['tag']);
-}
-if ($tags) echo '<p class="tags">' . _("Tags") . ': ' . implode(', ', $tags) . '</p>';
-?>
+  <p class="message"><?php echo $logMessage ?></p>
+<?php if (!empty($tags)): ?>
+  <p class="tags"><?php echo _("Tags") . ': ' . implode(', ', array_map('htmlspecialchars', $tags)) ?></p>
+<?php endif; ?>
  </td>
 </tr>

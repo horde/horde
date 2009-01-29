@@ -1,6 +1,6 @@
 <?php
 /**
- * Ansel_XRequest_Embed:: Class for embedding a small gallery widget in external
+ * Kronolith_Imple_Embed:: Class for embedding calendar widgets in external
  * websites. Meant to be called via a single script tag, therefore this will
  * always return nothing but valid javascript.
  *
@@ -8,7 +8,7 @@
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  *
- * @package Ansel
+ * @package Kronolith
  */
 class Kronolith_Imple_Embed extends Kronolith_Imple {
 

@@ -48,12 +48,7 @@ $notification->attach('status');
 require_once 'Horde/Text.php';
 require_once 'Horde/Help.php';
 
-// Chora libraries and config.
-if (is_callable(array('Horde', 'loadConfiguration'))) {
-    $sourceroots = Horde::loadConfiguration('sourceroots.php', 'sourceroots');
-} else {
-    require_once CHORA_BASE . '/config/sourceroots.php';
-}
+// Chora base library.
 require_once CHORA_BASE . '/lib/Chora.php';
 
 // Initialize objects, path, etc.

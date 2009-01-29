@@ -151,6 +151,15 @@ if ($this->event->isInitialized() && $this->event->alarm > 0):
 <?php endforeach; ?>
 <?php endif; ?>
 
+<!-- tags  -->
+<?php if (!empty($tags)):?>
+    <tr>
+     <td colspan="2" class="control"><strong><?php echo _("Tags")?></strong></td>
+    </tr>
+    <tr>
+     <td colspan="2"><?php echo $tags?></td>
+    </tr>
+<?php endif;?>
 <?php if (!$private && !empty($description)): ?>
 <!-- description -->
 <tr>

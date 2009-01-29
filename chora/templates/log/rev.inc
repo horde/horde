@@ -7,7 +7,7 @@
  </td>
  <td><a href="<?php echo $textUrl ?>" title="<?php echo htmlspecialchars($rev) ?>"><?php echo htmlspecialchars($VC->abbrev($rev)) ?></a>
 <?php foreach (array_diff($branch_info, array($onb)) as $val): ?>
-  <span class="branch"><?php echo Horde::link(Chora::url('', $where, array('onb' => $val))) . htmlspecialchars($val) ?></a></span>
+  <span class="branch"><?php echo Horde::link(Chora::url('browse', $where, array('onb' => $val))) . htmlspecialchars($val) ?></a></span>
 <?php endforeach; ?>
 <?php if (!empty($lg->lines)): ?>
   <small>(<?php printf('%s lines', $lg->lines) ?>)</small>

@@ -16,6 +16,8 @@ foreach (Kronolith::listCalendars() as $id => $cal) {
         $shared_calendars[$id] = $cal;
     }
 }
+
+$tagger = new Kronolith_Tagger();
 ?>
 
 <div id="pageControls">
@@ -41,7 +43,21 @@ foreach (Kronolith::listCalendars() as $id => $cal) {
  <h4><?php echo _("My Calendars:") ?></h4>
  <ul id="mycalendars">
 <?php foreach ($my_calendars as $id => $cal): ?>
-  <li><label><input type="checkbox" class="checkbox" name="display_cal[]" value="<?php echo htmlspecialchars($id) ?>"<?php echo (in_array($id, $display_calendars) ? ' checked="checked"' : '') . ' /> ' . htmlspecialchars($cal->get('name')) ?></label> <?php echo $info_img ?></li>
+  <li><label><input type="checkbox" class="checkbox" name="display_cal[]" value="<?php echo htmlspecialchars($id) ?>"<?php echo (in_array($id, $display_calendars) ? ' checked="checked"' : '') . ' /> ' . htmlspecialchars($cal->get('name')) ?></label> <?php echo $info_img ?>
+   <ul class="panel-tags" id="tags-<?php echo $id?>" style="margin-left: 10px;">
+    <?php $tags = $tagger->getTags($id, 'calendar'); ?>
+    <?php foreach ($tags as $tag_id => $tag): ?>
+    <li><?php echo $tag . ($cal->hasPermission(Auth::getAuth(), PERMS_EDIT) ? '<a href="#" id="remove' . md5($id . $tag_id) . '">' . Horde::img('delete-small.png', _("Remove Tag"), '', $registry->getImageDir('horde')) . '</a>' : '') . '</li>'?>
+    <?php
+        Kronolith_Imple::factory('TagActions', array('triggerId' => 'remove' . md5($id . $tag_id),
+                                                              'action' => 'delete',
+                                                              'resource' => $id,
+                                                              'type' => 'calendar',
+                                                              'tagId' => $tag_id));
+    ?>
+    <?php endforeach;?>
+  </ul>
+  </li>
 <?php endforeach; ?>
  </ul>
 <?php endif; ?>

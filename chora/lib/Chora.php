@@ -8,73 +8,41 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author  Anil Madhavapeddy <avsm@horde.org>
+ * @author  Michael Slusarz <slusarz@horde.org>
  * @package Chora
  */
 class Chora
 {
     /**
-     * Return a text description of how long its been since the file
-     * has been last modified.
+     * Cached data for isRestricted().
      *
-     * @param integer $date  Number of seconds since epoch we wish to display.
-     * @param boolean $long  If true, display a more verbose date.
-     *
-     * @return string  The human-readable date.
+     * @var array
      */
-    static public function readableTime($date, $long = false)
-    {
-        static $time, $desc, $breaks;
+    static public $restricted;
 
-        /* Initialize popular variables. */
-        if (!isset($time)) {
-            $time = time();
-            $desc = array(
-                1 => array(_("second"), _("seconds")),
-                60 => array(_("minute"), _("minutes")),
-                3600 => array(_("hour"), _("hours")),
-                86400 => array(_("day"), _("days")),
-                604800 => array(_("week"), _("weeks")),
-                2628000 => array(_("month"), _("months")),
-                31536000 => array(_("year"), _("years"))
-            );
-            $breaks = array_keys($desc);
-        }
+    /**
+     * Cached data for readableTime().
+     *
+     * @var array
+     */
+    static public $rtcache;
 
-        $i = count($breaks);
-        $secs = $time - $date;
-
-        if ($secs < 2) {
-            return _("very little time");
-        }
-
-        while (--$i && $i && $breaks[$i] * 2 > $secs);
-
-        $break = $breaks[$i];
-
-        $val = intval($secs / $break);
-        $retval = $val . ' ' . ($val > 1 ? $desc[$break][1] : $desc[$break][0]);
-        if ($long && $i > 0) {
-            $rest = $secs % $break;
-            $break = $breaks[--$i];
-            $rest = (int)($rest / $break);
-            if ($rest > 0) {
-                $resttime = $rest . ' ' . ($rest > 1 ? $desc[$break][1] : $desc[$break][0]);
-                $retval .= ', ' . $resttime;
-            }
-        }
-
-        return $retval;
-    }
+    /**
+     * Cached data for formatDate().
+     *
+     * @var string
+     */
+    static public $fdcache;
 
     /**
      * Initialize global variables and objects.
      */
     static public function initialize()
     {
-        global $acts, $defaultActs, $conf, $where, $atdir, $fullname, $prefs,
-               $sourceroot, $scriptName;
+        global $acts, $defaultActs, $where, $atdir, $fullname, $sourceroot;
 
-        $sourceroots = Chora::sourceroots();
+        $GLOBALS['sourceroots'] = Horde::loadConfiguration('sourceroots.php', 'sourceroots');
+        $sourceroots = self::sourceroots();
 
         /**
          * Variables we wish to propagate across web pages
@@ -87,22 +55,27 @@ class Chora
          * XXX: Rewrite this propagation code, since it sucks - avsm
          */
         $defaultActs = array(
-            'sbt' => constant($conf['options']['defaultsort']),
+            'sbt' => constant($GLOBALS['conf']['options']['defaultsort']),
             'sa'  => 0,
             'ord' => Horde_Vcs::SORT_ASCENDING,
             'ws'  => 1
         );
 
-        /* Use the last sourceroot used as the default value if the user
-         * has that preference. */
-        $remember_last_file = $prefs->getValue('remember_last_file');
-        if ($remember_last_file) {
-            $last_file = $prefs->getValue('last_file') ? $prefs->getValue('last_file') : null;
-            $last_sourceroot = $prefs->getValue('last_sourceroot') ? $prefs->getValue('last_sourceroot') : null;
+        /* Use the last sourceroot used as the default value if the user has
+         * that preference. */
+        if ($remember = $GLOBALS['prefs']->getValue('remember_last_file')) {
+            $last_file = $GLOBALS['prefs']->getValue('last_file')
+                ? $GLOBALS['prefs']->getValue('last_file')
+                : null;
+            $last_sourceroot = $GLOBALS['prefs']->getValue('last_sourceroot')
+                ? $GLOBALS['prefs']->getValue('last_sourceroot')
+                : null;
         }
 
-        if ($remember_last_file && !empty($last_sourceroot) &&
-            is_array(@$sourceroots[$last_sourceroot])) {
+        if ($remember &&
+            !empty($last_sourceroot) &&
+            !empty($sourceroots[$last_sourceroot]) &&
+            is_array($sourceroots[$last_sourceroot])) {
             $defaultActs['rt'] = $last_sourceroot;
         } else {
             foreach ($sourceroots as $key => $val) {
@@ -112,59 +85,54 @@ class Chora
             }
         }
 
-        /* See if any have been passed as GET variables, and if so,
-         * assign them into the acts array. */
+        /* See if any have been passed as GET variables, and if so, assign
+         * them into the acts array. */
         $acts = array();
         foreach ($defaultActs as $key => $default) {
             $acts[$key] = Util::getFormData($key, $default);
         }
 
         if (!isset($sourceroots[$acts['rt']])) {
-            Chora::fatal(_("Malformed URL"), '400 Bad Request');
+            self::fatal(_("Malformed URL"), '400 Bad Request');
         }
 
         $sourcerootopts = $sourceroots[$acts['rt']];
         $sourceroot = $acts['rt'];
 
         // Cache.
-        if (empty($conf['caching'])) {
+        if (empty($GLOBALS['conf']['caching'])) {
             $cache = null;
         } else {
-            $cache = &Horde_Cache::singleton($conf['cache']['driver'], Horde::getDriverConfig('cache', $conf['cache']['driver']));
+            $cache = &Horde_Cache::singleton($GLOBALS['conf']['cache']['driver'], Horde::getDriverConfig('cache', $GLOBALS['conf']['cache']['driver']));
         }
 
-        $conf['paths']['temp'] = Horde::getTempDir();
+        $GLOBALS['conf']['paths']['temp'] = Horde::getTempDir();
+
         try {
             $GLOBALS['VC'] = Horde_Vcs::factory(String::ucfirst($sourcerootopts['type']),
                 array('cache' => $cache,
                       'sourceroot' => $sourcerootopts['location'],
-                      'paths' => $conf['paths'],
+                      'paths' => $GLOBALS['conf']['paths'],
                       'username' => isset($sourcerootopts['username']) ? $sourcerootopts['username'] : '',
                       'password' => isset($sourcerootopts['password']) ? $sourcerootopts['password'] : ''));
         } catch (Horde_Vcs_Exception $e) {
-            Chora::fatal($e);
+            self::fatal($e);
         }
 
-        $conf['paths']['sourceroot'] = $sourcerootopts['location'];
-        $conf['paths']['cvsusers'] = $sourcerootopts['location'] . '/' . (isset($sourcerootopts['cvsusers']) ? $sourcerootopts['cvsusers'] : '');
-        $conf['paths']['introText'] = CHORA_BASE . '/config/' . (isset($sourcerootopts['intro']) ? $sourcerootopts['intro'] : '');
-        $conf['options']['introTitle'] = isset($sourcerootopts['title']) ? $sourcerootopts['title'] : '';
-        $conf['options']['sourceRootName'] = $sourcerootopts['name'];
+        $GLOBALS['conf']['paths']['sourceroot'] = $sourcerootopts['location'];
+        $GLOBALS['conf']['paths']['cvsusers'] = $sourcerootopts['location'] . '/' . (isset($sourcerootopts['cvsusers']) ? $sourcerootopts['cvsusers'] : '');
+        $GLOBALS['conf']['paths']['introText'] = CHORA_BASE . '/config/' . (isset($sourcerootopts['intro']) ? $sourcerootopts['intro'] : '');
+        $GLOBALS['conf']['options']['introTitle'] = isset($sourcerootopts['title']) ? $sourcerootopts['title'] : '';
+        $GLOBALS['conf']['options']['sourceRootName'] = $sourcerootopts['name'];
 
-        $where = Util::getFormData('f', '');
-        if ($where == '') {
-            $where = '/';
-        }
+        $where = Util::getFormData('f', '/');
 
         /* Location relative to the sourceroot. */
         $where = preg_replace(array('|^/|', '|\.\.|'), '', $where);
 
-        /* Location of this script (e.g. /chora/browse.php). */
-        $scriptName = preg_replace(array('|^/?|', '|/$|'), array('/', ''), $_SERVER['PHP_SELF']);
-
         /* Store last file/repository viewed, and set 'where' to
          * last_file if necessary. */
-        if ($remember_last_file) {
+        if ($remember) {
             if (!isset($_SESSION['chora']['login'])) {
                 $_SESSION['chora']['login'] = 0;
             }
@@ -172,8 +140,8 @@ class Chora
             /* We store last_sourceroot and last_file only when we have
              * already displayed at least one page. */
             if (!empty($_SESSION['chora']['login'])) {
-                $prefs->setValue('last_sourceroot', $acts['rt']);
-                $prefs->setValue('last_file', $where);
+                $GLOBALS['prefs']->setValue('last_sourceroot', $acts['rt']);
+                $GLOBALS['prefs']->setValue('last_file', $where);
             } else {
                 /* We are displaying the first page. */
                 if ($last_file && !$where) {
@@ -195,26 +163,30 @@ class Chora
 
         if (($sourcerootopts['type'] == 'cvs') &&
             !@is_dir($sourcerootopts['location'])) {
-            Chora::fatal(_("Sourceroot not found. This could be a misconfiguration by the server administrator, or the server could be having temporary problems. Please try again later."), '500 Internal Server Error');
+            self::fatal(_("Sourceroot not found. This could be a misconfiguration by the server administrator, or the server could be having temporary problems. Please try again later."), '500 Internal Server Error');
         }
 
-        if (Chora::isRestricted($where)) {
-            Chora::fatal(sprintf(_("%s: Forbidden by server configuration"), $where), '403 Forbidden');
+        if (self::isRestricted($where)) {
+            self::fatal(sprintf(_("%s: Forbidden by server configuration"), $where), '403 Forbidden');
         }
     }
 
-    static public function whereMenu()
+    /**
+     * Create the breadcrumb directory listing.
+     *
+     * @param string $where  The current filepath.
+     *
+     * @return string  The directory string.
+     */
+    static public function whereMenu($where)
     {
-        global $where, $atdir;
-
-        $bar = $wherePath = '';
+        $bar = '';
         $dirs = explode('/', $where);
         $dir_count = count($dirs) - 1;
 
         foreach ($dirs as $i => $dir) {
-            if (!empty($dir) && ($dir != 'Attic')) {
-                $wherePath = str_replace('//', '/', $wherePath . '/' . $dir);
-                $bar .= '/ <a href="' . Chora::url('', $wherePath . ($i == $dir_count ? '' : '/')) . '">'. Text::htmlallspaces($dir) . '</a> ';
+            if (!empty($dir)) {
+                $bar .= '/ <a href="' . self::url('browse', $dir . ($i == $dir_count ? '' : '/')) . '">'. Text::htmlallspaces($dir) . '</a> ';
             }
         }
 
@@ -224,87 +196,51 @@ class Chora
     /**
      * Output an error page.
      *
-     * @param string $message       The verbose error message to be displayed.
-     * @param string $responseCode  The HTTP error number (and optional text),
-     *                              for sending 404s or other codes if
-     *                              appropriate.
+     * @param string $message  The verbose error message to be displayed.
+     * @param string $code     The HTTP error number (and optional text), for
+     *                         sending 404s or other codes if appropriate.
      */
-    static public function fatal($message, $responseCode = null)
+    static public function fatal($message, $code = null)
     {
         if (defined('CHORA_ERROR_HANDLER') && constant('CHORA_ERROR_HANDLER')) {
             return;
         }
-
-        global $registry, $conf, $notification, $browser, $prefs;
 
         if (is_a($message, 'Horde_Vcs_Exception')) {
             $message = $message->getMessage();
         }
 
         /* Don't store the bad file in the user's preferences. */
-        $prefs->setValue('last_file', '');
+        $GLOBALS['prefs']->setValue('last_file', '');
 
-        if ($responseCode) {
-            header('HTTP/1.0 ' . $responseCode);
+        if ($code) {
+            header('HTTP/1.0 ' . $code);
         }
 
-        $notification->push($message, 'horde.error');
+        $GLOBALS['notification']->push($message, 'horde.error');
         require CHORA_TEMPLATES . '/common-header.inc';
         require CHORA_TEMPLATES . '/menu.inc';
-        require $registry->get('templates', 'horde') . '/common-footer.inc';
+        require $GLOBALS['registry']->get('templates', 'horde') . '/common-footer.inc';
         exit;
-    }
-
-    /**
-     * Convert a commit-name into whatever the user wants.
-     *
-     * @param string $name  Account name.
-     *
-     * @return string  The transformed name.
-     */
-    static public function showAuthorName($name, $fullname = false)
-    {
-        static $users = null;
-
-        if (is_null($users)) {
-            $users = $GLOBALS['VC']->getUsers($GLOBALS['conf']['paths']['cvsusers']);
-        }
-
-        if (is_array($users) && isset($users[$name])) {
-            return '<a href="mailto:' . htmlspecialchars($users[$name]['mail']) . '">' .
-                htmlspecialchars($fullname ? $users[$name]['name'] : $name) .
-                '</a>' . ($fullname ? ' <em>' . htmlspecialchars($name) . '</em>' : '');
-        }
-
-        return htmlspecialchars($name);
     }
 
     /**
      * Generate a URL that links into Chora.
      *
-     * @param string $script  Name of the Chora script to link into
+     * @param string $script  Name of the Chora script to link into.
      * @param string $uri     The path being browsed.
-     * @param array  $args    Key/value pair of any GET parameters to append
-     * @param string $anchor  Anchor entity name
+     * @param array $args     Key/value pair of any GET parameters to append.
+     * @param string $anchor  Anchor entity name.
      *
      * @return string  The URL, with session information if necessary.
      */
-    static public function url($script = '', $uri = '', $args = array(),
+    static public function url($script, $uri = '', $args = array(),
                                $anchor = '')
     {
-        global $conf, $acts, $defaultActs;
+        $arglist = self::_getArgList($GLOBALS['acts'], $GLOBALS['defaultActs'], $args);
+        $script .= '.php';
 
-        $differing = array();
-        foreach ($acts as $key => $val) {
-            if ($val != $defaultActs[$key]) {
-                $differing[$key] = $val;
-            }
-        }
-
-        $arglist = array_merge($differing, $args);
-        $script = $script ? $script . '.php' : 'browse.php';
-
-        if ($conf['options']['urls'] == 'rewrite') {
+        if ($GLOBALS['conf']['options']['urls'] == 'rewrite') {
             if ($script == 'browse.php') {
                 $script = $uri;
                 if (substr($script, 0, 1) == '/') {
@@ -313,62 +249,69 @@ class Chora
             } else {
                 $script .= '/' . $uri;
             }
-        } else {
+        } elseif (!empty($uri)) {
             $arglist['f'] = $uri;
         }
 
         $url = Util::addParameter(Horde::applicationUrl($script), $arglist);
-        if (!empty($anchor)) {
-            $url .= '#' . $anchor;
-        }
 
-        return $url;
+        return empty($anchor) ? $url : ($url . '#' . $anchor);
     }
 
     /**
      * Generates hidden form fields with all required parameters.
      *
-     * @param array  $args    Key/value pair of any POST parameters to append
-     *
      * @return string  The form fields, with session information if necessary.
      */
-    static public function formInputs($args = array())
+    static public function formInputs()
     {
-        global $conf, $acts, $defaultActs;
-
-        $differing = array();
-        foreach ($acts as $key => $val) {
-            if ($val != $defaultActs[$key]) {
-                $differing[$key] = $val;
-            }
-        }
-
-        $arglist = array_merge($differing, $args);
+        $arglist = self::_getArgList($GLOBALS['acts'], $GLOBALS['defaultActs'], array());
 
         $fields = Util::formInput();
         foreach ($arglist as $key => $val) {
-            $fields .= '<input type="hidden" name="' . htmlspecialchars($key)
-                . '" value="' . htmlspecialchars($val) . '" />';
+            $fields .= '<input type="hidden" name="' . htmlspecialchars($key) . '" value="' . htmlspecialchars($val) . '" />';
         }
 
         return $fields;
     }
 
     /**
-     * Returns the entries of $sourceroots that the current user has access to.
+     * TODO
+     */
+    static protected function _getArgList($acts, $defaultActs, $args)
+    {
+        $differing = array();
+
+        foreach ($acts as $key => $val) {
+            if ($val != $defaultActs[$key]) {
+                $differing[$key] = $val;
+            }
+        }
+
+        return array_merge($differing, $args);
+    }
+
+    /**
+     * TODO
+     */
+    static public function checkPerms($key)
+    {
+        return (!$GLOBALS['perms']->exists('chora:sourceroots:' . $key) ||
+                $GLOBALS['perms']->hasPermission('chora:sourceroots:' . $key, Auth::getAuth(), PERMS_READ | PERMS_SHOW));
+    }
+
+    /**
+     * Returns the entries of $sourceroots that the current user has access
+     * to.
      *
      * @return array  The sourceroots that the current user has access to.
      */
     static public function sourceroots()
     {
-        global $perms, $sourceroot, $sourceroots;
-
         $arr = array();
-        foreach ($sourceroots as $key => $val) {
-            if (!$perms->exists('chora:sourceroots:' . $key) ||
-                 $perms->hasPermission('chora:sourceroots:' . $key,
-                                       Auth::getAuth(),
-                                       PERMS_READ | PERMS_SHOW)) {
+
+        foreach ($GLOBALS['sourceroots'] as $key => $val) {
+            if (self::checkPerms($key)) {
                 $arr[$key] = $val;
             }
         }
@@ -377,15 +320,16 @@ class Chora
     }
 
     /**
-     * Generate a list of repositories available from this
-     * installation of Chora.
+     * Generate a list of repositories available from this installation of
+     * Chora.
      *
      * @return string  XHTML code representing links to the repositories.
      */
     static public function repositories()
     {
-        $sourceroots = Chora::sourceroots();
+        $sourceroots = self::sourceroots();
         $num_repositories = count($sourceroots);
+
         if ($num_repositories == 1) {
             return '';
         }
@@ -393,17 +337,14 @@ class Chora
         $arr = array();
         foreach ($sourceroots as $key => $val) {
             if ($GLOBALS['sourceroot'] != $key) {
-                $arr[] = '<option value="' .
-                    Chora::url('', '', array('rt' => $key)) .
-                    '">' . $val['name'] . '</option>';
+                $arr[] = '<option value="' . self::url('browse', '', array('rt' => $key)) . '">' . $val['name'] . '</option>';
             }
         }
 
-        return
-            '<form action="#" id="repository-picker">'
-            . '<select onchange="location.href=this[this.selectedIndex].value">'
-            . '<option value="">' . _("Change repositories:") . '</option>'
-            . implode(' , ', $arr) . '</select></form>';
+        return '<form action="#" id="repository-picker">' .
+            '<select onchange="location.href=this[this.selectedIndex].value">' .
+            '<option value="">' . _("Change repositories:") . '</option>' .
+            implode(' , ', $arr) . '</select></form>';
     }
 
     /**
@@ -432,40 +373,41 @@ class Chora
 
     /**
      * Check if the given item is restricted from being shown.
-     * @return boolean whether or not the item is allowed to be displayed
-     **/
-    static public function isRestricted($item)
+     *
+     * @param string $where  The current file path.
+     *
+     * @return boolean  Is item allowed to be displayed?
+     */
+    static public function isRestricted($where)
     {
-        global $conf, $perms, $sourceroots, $sourceroot;
-        static $restricted;
-
         // First check if the current user has access to this repository.
-        if ($perms->exists('chora:sourceroots:' . $sourceroot) &&
-            !$perms->hasPermission('chora:sourceroots:' . $sourceroot,
-                                   Auth::getAuth(),
-                                   PERMS_READ | PERMS_SHOW)) {
+        if (!self::checkPerms($GLOBALS['sourceroot'])) {
             return true;
         }
 
-        if (!isset($restricted)) {
+        if (!isset(self::$restricted)) {
             $restricted = array();
-            if (isset($conf['restrictions']) && is_array($conf['restrictions'])) {
-                $restricted = $conf['restrictions'];
+
+            if (isset($GLOBALS['conf']['restrictions']) &&
+                is_array($GLOBALS['conf']['restrictions'])) {
+                $restricted = $GLOBALS['conf']['restrictions'];
             }
 
-            foreach ($sourceroots as $key => $val) {
-                if ($sourceroot == $key) {
-                    if (isset($val['restrictions']) && is_array($val['restrictions'])) {
-                        $restricted = array_merge($restricted, $val['restrictions']);
-                        break;
-                    }
+            foreach ($GLOBALS['sourceroots'] as $key => $val) {
+                if (($GLOBALS['sourceroot'] == $key) &&
+                    isset($val['restrictions']) &&
+                    is_array($val['restrictions'])) {
+                    $restricted = array_merge($restricted, $val['restrictions']);
+                    break;
                 }
             }
+
+            self::$restricted = $restricted;
         }
 
-        if (!empty($restricted) && is_array($restricted) && count($restricted)) {
-            for ($i = 0; $i < count($restricted); $i++) {
-                if (preg_match('|' . str_replace('|', '\|', $restricted[$i]) . '|', $item)) {
+        if (!empty($restricted)) {
+            for ($i = 0; $i < count($restricted); ++$i) {
+                if (preg_match('|' . str_replace('|', '\|', $restricted[$i]) . '|', $where)) {
                     return true;
                 }
             }
@@ -476,89 +418,62 @@ class Chora
 
     /**
      * Build Chora's list of menu items.
+     *
+     * @return string  The menu HTML code.
      */
-    static public function getMenu($returnType = 'object')
+    static public function getMenu()
     {
         require_once 'Horde/Menu.php';
-
         $menu = new Menu();
-        $menu->add(Chora::url(), _("_Browse"), 'chora.png');
-
-        if ($returnType == 'object') {
-            return $menu;
-        } else {
-            return $menu->render();
-        }
+        $menu->add(self::url('browse'), _("_Browse"), 'chora.png');
+        return $menu->render();
     }
 
     /**
+     * Generate the link used for various file-based views.
+     *
+     * @param string $where    The current file path.
+     * @param string $current  The current view ('browse', 'patchsets',
+     *                         'history', 'cvsgraph', or 'stats').
+     *
+     * @return array  An array of file view links.
      */
-    static public function getFileViews()
+    static public function getFileViews($where, $current)
     {
-        global $where;
+        $views = ($current == 'browse')
+            ? array('<em class="widget">' . _("Logs") . '</em>')
+            : array(Horde::widget(self::url('browse', $where), _("Logs"), 'widget', '', '', _("_Logs")));
 
-        $views = array();
-        $current = str_replace('.php', '', basename($_SERVER['PHP_SELF']));
-
-        $views[] = $current == 'browse'
-            ? '<em class="widget">' . _("Logs") . '</em>'
-            : Horde::widget(Chora::url('', $where), _("Logs"), 'widget', '',
-                            '', _("_Logs"));
-
-        if (!empty($GLOBALS['conf']['paths']['cvsps']) ||
-            $GLOBALS['VC']->hasFeature('patchsets')) {
-            $views[] = $current == 'patchsets'
+        if ($GLOBALS['VC']->hasFeature('patchsets')) {
+            $views[] = ($current == 'patchsets')
                 ? '<em class="widget">' . _("Patchsets") . '</em>'
-                : Horde::widget(Chora::url('patchsets', $where), _("Patchsets"),
-                                'widget', '', '', _("_Patchsets"));
+                : Horde::widget(self::url('patchsets', $where), _("Patchsets"), 'widget', '', '', _("_Patchsets"));
         }
 
         if ($GLOBALS['VC']->hasFeature('branches')) {
             if (empty($GLOBALS['conf']['paths']['cvsgraph'])) {
-                $views[] = $current == 'history'
+                $views[] = ($current == 'history')
                     ? '<em class="widget">' . _("Branches") . '</em>'
-                    : Horde::widget(Chora::url('history', $where), _("Branches"),
-                                    'widget', '', '', _("_Branches"));
+                    : Horde::widget(self::url('history', $where), _("Branches"), 'widget', '', '', _("_Branches"));
             } else {
-                $views[] = $current == 'cvsgraph'
+                $views[] = ($current == 'cvsgraph')
                     ? '<em class="widget">' . _("Branches") . '</em>'
-                    : Horde::widget(Chora::url('cvsgraph', $where), _("Branches"),
-                                    'widget', '', '', _("_Branches"));
+                    : Horde::widget(self::url('cvsgraph', $where), _("Branches"), 'widget', '', '', _("_Branches"));
             }
         }
 
-        /* Can't use $current - gives us PATH_INFO information. */
-        $views[] = (strpos($_SERVER['PHP_SELF'], '/stats.php') !== false)
+        $views[] = ($current == 'stats')
             ? '<em class="widget">' . _("Statistics") . '</em>'
-            : Horde::widget(Chora::url('stats', $where), _("Statistics"),
-                            'widget', '', '', _("_Statistics"));
+            : Horde::widget(self::url('stats', $where), _("Statistics"), 'widget', '', '', _("_Statistics"));
 
         return _("View:") . ' ' . implode(' | ', $views);
-    }
-
-    /**
-     */
-    static public function formatLogMessage($log)
-    {
-        global $conf;
-
-        require_once 'Horde/Text/Filter.php';
-
-        $log = Text_Filter::filter($log, 'text2html', array('parselevel' => TEXT_HTML_MICRO, 'charset' => NLS::getCharset(), 'class' => ''));
-
-        if (!empty($conf['tickets']['regexp']) &&
-            !empty($conf['tickets']['replacement'])) {
-            $log = preg_replace($conf['tickets']['regexp'], $conf['tickets']['replacement'], $log);
-        }
-
-        return $log;
     }
 
     /**
      * Return a list of tags for a given log entry.
      *
      * @param Horde_Vcs_Log $lg  The Horde_Vcs_Log object.
-     * @param string $where      The filename.
+     * @param string $where      The current filepath.
      *
      * @return array  An array of linked tags.
      */
@@ -567,7 +482,7 @@ class Chora
         $tags = array();
 
         foreach ($lg->querySymbolicBranches() as $symb => $bra) {
-            $tags[] = '<a href="' . Chora::url('', $where, array('onb' => $bra)) . '">'. htmlspecialchars($symb) . '</a>';
+            $tags[] = '<a href="' . self::url('browse', $where, array('onb' => $bra)) . '">'. htmlspecialchars($symb) . '</a>';
         }
 
         foreach ($lg->queryTags() as $tag) {
@@ -575,6 +490,83 @@ class Chora
         }
 
         return $tags;
+    }
+
+    /**
+     * Return a text description of how long its been since the file
+     * has been last modified.
+     *
+     * @param integer $date  Number of seconds since epoch we wish to display.
+     * @param boolean $long  If true, display a more verbose date.
+     *
+     * @return string  The human-readable date.
+     */
+    static public function readableTime($date, $long = false)
+    {
+        /* Initialize popular variables. */
+        if (!isset(self::$rtcache)) {
+            $desc = array(
+                1 => array(_("second"), _("seconds")),
+                60 => array(_("minute"), _("minutes")),
+                3600 => array(_("hour"), _("hours")),
+                86400 => array(_("day"), _("days")),
+                604800 => array(_("week"), _("weeks")),
+                2628000 => array(_("month"), _("months")),
+                31536000 => array(_("year"), _("years"))
+            );
+
+            self::$rtcache = array(
+                'breaks' => array_keys($desc),
+                'desc' => $desc,
+                'time' => time(),
+            );
+        }
+
+        $cache = self::$rtcache;
+        $i = count($cache['breaks']);
+        $secs = $cache['time'] - $date;
+
+        if ($secs < 2) {
+            return _("very little time");
+        }
+
+        while (--$i && $i && $cache['breaks'][$i] * 2 > $secs);
+
+        $break = $cache['breaks'][$i];
+
+        $val = intval($secs / $break);
+        $retval = $val . ' ' . ($val > 1 ? $cache['desc'][$break][1] : $cache['desc'][$break][0]);
+        if ($long && $i > 0) {
+            $rest = $secs % $break;
+            $break = $cache['breaks'][--$i];
+            $rest = (int)($rest / $break);
+            if ($rest > 0) {
+                $retval .= ', ' . $rest . ' ' . ($rest > 1 ? $cache['desc'][$break][1] : $cache['desc'][$break][0]);
+            }
+        }
+
+        return $retval;
+    }
+
+    /**
+     * Convert a commit-name into whatever the user wants.
+     *
+     * @param string $name  Account name.
+     *
+     * @return string  The transformed name.
+     */
+    static public function showAuthorName($name, $fullname = false)
+    {
+        try {
+            $users = $GLOBALS['VC']->getUsers($GLOBALS['conf']['paths']['cvsusers']);
+            if (isset($users[$name])) {
+                return '<a href="mailto:' . htmlspecialchars($users[$name]['mail']) . '">' .
+                    htmlspecialchars($fullname ? $users[$name]['name'] : $name) .
+                    '</a>' . ($fullname ? ' <em>' . htmlspecialchars($name) . '</em>' : '');
+            }
+        } catch (Horde_Vcs_Exception $e) {}
+
+        return htmlspecialchars($name);
     }
 
     /**
@@ -586,16 +578,32 @@ class Chora
      */
     static public function formatDate($date)
     {
-        static $format;
-
-        if (!isset($format)) {
-            $format = $GLOBALS['prefs']->getValue('date_format') .
+        if (!isset(self::$fdcache)) {
+            self::$fdcache = $GLOBALS['prefs']->getValue('date_format') .
                 ($GLOBALS['prefs']->getValue('twenty_four')
                  ? ' %H:%M'
                  : ' %I:%M %p');
         }
 
-        return strftime($format, $date);
+        return strftime(self::$fdcache, $date);
+    }
+
+    /**
+     * Formats a log message.
+     *
+     * @param string $log  The log message text.
+     *
+     * @return string  The formatted message.
+     */
+    static public function formatLogMessage($log)
+    {
+        require_once 'Horde/Text/Filter.php';
+
+        $log = Text_Filter::filter($log, 'text2html', array('parselevel' => TEXT_HTML_MICRO, 'charset' => NLS::getCharset(), 'class' => ''));
+
+        return (empty($GLOBALS['conf']['tickets']['regexp']) || empty($GLOBALS['conf']['tickets']['replacement']))
+            ? $log
+            : preg_replace($GLOBALS['conf']['tickets']['regexp'], $GLOBALS['conf']['tickets']['replacement'], $log);
     }
 
 }

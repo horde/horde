@@ -1,5 +1,5 @@
 <td id="rev<?php echo $rev ?>" style="background:<?php echo $bg ?>">
- <a href="<?php echo Chora::url('', $where, array('r'=>$rev), "rev$rev") ?>">
+ <a href="<?php echo Chora::url('browse', $where, array('r'=>$rev), "rev$rev") ?>">
  <?php echo $rev ?></a> <?php printf(_("by %s"), $author) ?>
  <br />
  <em><?php echo $date ?></em>
