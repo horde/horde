@@ -5,7 +5,7 @@
 <?php if (!empty($branch_info)): ?>
   <li><?php echo _("Branch:") ?>
 <?php foreach ($branch_info as $val): ?>
-   <strong><a href="<?php echo Chora::url('', $where, array('onb' => $val)) ?>"><?php echo $val ?></a></strong>
+   <strong><a href="<?php echo Chora::url('browse', $where, array('onb' => $val)) ?>"><?php echo $val ?></a></strong>
 <?php endforeach; ?>
   </li>
 <?php endif; ?>

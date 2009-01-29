@@ -17,7 +17,7 @@ try {
     Chora::fatal($e);
 }
 
-$extraLink = Chora::getFileViews();
+$extraLink = Chora::getFileViews($where, 'stats');
 
 $stats = array();
 foreach ($fl->logs as $lg) {

@@ -33,7 +33,7 @@ if ($atdir) {
         : sprintf(_("Source Directory of /%s"), $where);
 
     $extraLink = $VC->hasFeature('deleted')
-        ? Horde::widget(Chora::url('', $where . '/', array('sa' => ($acts['sa'] ? 0 : 1))), $acts['sa'] ? _("Hide Deleted Files") : _("Show Deleted Files"), 'widget', '', '', $acts['sa'] ? _("Hide _Deleted Files") : _("Show _Deleted Files"))
+        ? Horde::widget(Chora::url('browse', $where . '/', array('sa' => ($acts['sa'] ? 0 : 1))), $acts['sa'] ? _("Hide Deleted Files") : _("Show Deleted Files"), 'widget', '', '', $acts['sa'] ? _("Hide _Deleted Files") : _("Show _Deleted Files"))
         : '';
 
     $umap = array(
@@ -48,7 +48,7 @@ if ($atdir) {
         if ($acts['sbt'] == $val) {
             $arg['ord'] = !$acts['ord'];
         }
-        $url[$key] = Chora::url('', $where . '/', $arg);
+        $url[$key] = Chora::url('browse', $where . '/', $arg);
     }
 
     /* Print out the directory header. */
@@ -63,7 +63,7 @@ if ($atdir) {
 
     /* Unless we're at the top, display the 'back' bar. */
     if ($where != '') {
-        $url = Chora::url('', preg_replace('|[^/]+$|', '', $where));
+        $url = Chora::url('browse', preg_replace('|[^/]+$|', '', $where));
         require CHORA_TEMPLATES . '/directory/back.inc';
     }
 
@@ -74,7 +74,7 @@ if ($atdir) {
             if ($conf['hide_restricted'] && Chora::isRestricted($currentDir)) {
                 continue;
             }
-            $url = Chora::url('', "$where/$currentDir/");
+            $url = Chora::url('browse', "$where/$currentDir/");
             $currDir = Text::htmlAllSpaces($currentDir);
             require CHORA_TEMPLATES . '/directory/dir.inc';
         }
@@ -102,7 +102,7 @@ if ($atdir) {
             $attic = $currFile->isDeleted();
             $fileName = $where . ($attic ? '/' . 'Attic' : '') . '/' . $realname;
             $name = Text::htmlAllSpaces($realname);
-            $url = Chora::url('', $fileName);
+            $url = Chora::url('browse', $fileName);
             $readableDate = Chora::readableTime($date);
             if ($log) {
                 $shortLog = str_replace("\n", ' ',
@@ -131,7 +131,7 @@ try {
 
 $title = sprintf(_("Revisions for %s"), $where);
 
-$extraLink = Chora::getFileViews();
+$extraLink = Chora::getFileViews($where, 'browse');
 $logs = $fl->queryLogs();
 $first = end($logs);
 $diffValueLeft = $first->queryRevision();

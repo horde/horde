@@ -16,7 +16,7 @@ require_once dirname(__FILE__) . '/lib/base.php';
 
 // Exit if cvsgraph isn't active or it's not supported.
 if (empty($conf['paths']['cvsgraph']) || !$VC->hasFeature('branches')) {
-    header('Location: ' . Chora::url('', $where));
+    header('Location: ' . Chora::url('browse', $where));
     exit;
 }
 
@@ -49,7 +49,7 @@ if (Util::getFormData('show_image')) {
 } else {
     // Display the wrapper page for the image.
     $title = sprintf(_("Graph for %s"), Text::htmlAllSpaces($where));
-    $extraLink = Chora::getFileViews();
+    $extraLink = Chora::getFileViews($where, 'cvsgraph');
 
     require CHORA_TEMPLATES . '/common-header.inc';
     require CHORA_TEMPLATES . '/menu.inc';
@@ -61,7 +61,7 @@ if (Util::getFormData('show_image')) {
                   'M' => 'graphMap',
                   'r' => $root,
                   '0' => '&amp;',
-                  '1' => Chora::url('', $where, array('dummy' => 'true')),
+                  '1' => Chora::url('browse', $where, array('dummy' => 'true')),
                   '2' => Chora::url('diff', $where, array('dummy' =>'true')),
                   '3' => Chora::url('co', $where, array('dummy' => 'true')),
     );

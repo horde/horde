@@ -17,7 +17,7 @@ require_once dirname(__FILE__) . '/lib/base.php';
 
 // Exit if patchset feature is not available.
 if (!$GLOBALS['VC']->hasFeature('patchsets')) {
-    header('Location: ' . Chora::url('', $where));
+    header('Location: ' . Chora::url('browse', $where));
     exit;
 }
 
@@ -33,7 +33,7 @@ try {
 }
 
 $title = sprintf(_("Patchsets for %s"), $where);
-$extraLink = Chora::getFileViews();
+$extraLink = Chora::getFileViews($where, 'patchsets');
 
 Horde::addScriptFile('prototype.js', 'horde', true);
 Horde::addScriptFile('tables.js', 'horde', true);

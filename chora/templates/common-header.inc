@@ -5,7 +5,7 @@ if (isset($language)) {
 }
 echo !empty($language) ? '<html lang="' . strtr($language, '_', '-') . '">' : '<html><head>';
 
-$page_title = $registry->get('name');
+$page_title = $GLOBALS['registry']->get('name');
 if (!empty($title)) $page_title .= ' :: ' . $title;
 if (!empty($refresh_time) && ($refresh_time > 0) && !empty($refresh_url)) {
     echo "<meta http-equiv=\"refresh\" content=\"$refresh_time;url=$refresh_url\">\n";

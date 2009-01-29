@@ -125,7 +125,7 @@ foreach ($grid as $cols) {
 }
 
 $title = sprintf(_("Source Branching View for %s"), Text::htmlallspaces($where));
-$extraLink = Chora::getFileViews();
+$extraLink = Chora::getFileViews($where, 'history');
 
 require CHORA_TEMPLATES . '/common-header.inc';
 require CHORA_TEMPLATES . '/menu.inc';

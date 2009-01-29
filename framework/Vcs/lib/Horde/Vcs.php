@@ -44,7 +44,7 @@ class Horde_Vcs
      *
      * @var array
      */
-    protected $_users = null;
+    protected $_users = array();
 
     /**
      * The current driver.
@@ -409,42 +409,40 @@ class Horde_Vcs
      * a hash containing the requisite information, keyed on the
      * username, and with the 'desc', 'name', and 'mail' values inside.
      *
-     * @return boolean|array  False if the file is not present, otherwise
-     *                        $this->_users populated with the data
+     * @return array  User data.
+     * @throws Horde_Vcs_Exception
      */
     public function getUsers($usersfile)
     {
         /* Check that we haven't already parsed users. */
-        if (!is_null($this->_users)) {
-            return $this->_users;
+        if (isset($this->_users[$usersfile])) {
+            return $this->_users[$usersfile];
         }
 
         if (!@is_file($usersfile) ||
             !($fl = @fopen($usersfile, VC_WINDOWS ? 'rb' : 'r'))) {
-            return false;
+            throw new Horde_Vcs_Exception('Invalid users file: ' . $usersfile);
         }
-
-        $this->_users = array();
 
         /* Discard the first line, since it'll be the header info. */
         fgets($fl, 4096);
 
-        /* Parse the rest of the lines into a hash, keyed on
-         * username. */
+        /* Parse the rest of the lines into a hash, keyed on username. */
+        $users = array();
         while ($line = fgets($fl, 4096)) {
-            if (preg_match('/^\s*$/', $line) ||
-                !preg_match('/^(\w+)\s+(.+)\s+([\w\.\-\_]+@[\w\.\-\_]+)\s+(.*)$/', $line, $regs)) {
-                continue;
+            if (!preg_match('/^\s*$/', $line) &&
+                preg_match('/^(\w+)\s+(.+)\s+([\w\.\-\_]+@[\w\.\-\_]+)\s+(.*)$/', $line, $regs)) {
+                $users[$regs[1]] = array(
+                    'name' => trim($regs[2]),
+                    'mail' => trim($regs[3]),
+                    'desc' => trim($regs[4])
+                );
             }
-
-            $this->_users[$regs[1]] = array(
-                'name' => trim($regs[2]),
-                'mail' => trim($regs[3]),
-                'desc' => trim($regs[4])
-            );
         }
 
-        return $this->_users;
+        $this->_users[$usersfile] = $users;
+
+        return $users;
     }
 
     /**
