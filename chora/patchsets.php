@@ -1,5 +1,7 @@
 <?php
 /**
+ * Patchsets script.
+ *
  * Copyright 1999-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -7,14 +9,14 @@
  *
  * @author  Anil Madhavapeddy <anil@recoil.org>
  * @author  Chuck Hagenbuch <chuck@horde.org>
+ * @author  Michael Slusarz <slusarz@horde.org>
  * @package Chora
  */
 
 require_once dirname(__FILE__) . '/lib/base.php';
 
-// Exit if cvsps isn't active or it's not a subversion repository.
-if (empty($conf['paths']['cvsps']) &&
-    !$GLOBALS['VC']->hasFeature('patchsets')) {
+// Exit if patchset feature is not available.
+if (!$GLOBALS['VC']->hasFeature('patchsets')) {
     header('Location: ' . Chora::url('', $where));
     exit;
 }

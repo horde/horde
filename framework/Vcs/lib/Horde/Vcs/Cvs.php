@@ -42,13 +42,15 @@ class Horde_Vcs_Cvs extends Horde_Vcs_Rcs
     protected $_branches = true;
 
     /**
-     * Returns the temporary file path.
+     * Does this driver support the given feature?
      *
-     * @return string  Temporary file path.
+     * @return boolean  True if driver supports the given feature.
      */
-    public function getTempPath()
+    public function hasFeature($feature)
     {
-        return $this->_paths['temp'];
+        return (($feature != 'patchsets') || $this->getPath('cvsps'))
+            ? parent::hasFeature($feature)
+            : false;
     }
 
     /**
@@ -146,7 +148,7 @@ class Horde_Vcs_Cvs extends Horde_Vcs_Rcs
     {
         $this->assertValidRevision($rev);
 
-        $tmpfile = Util::getTempFile('vc', true, $this->getTempPath());
+        $tmpfile = Util::getTempFile('vc', true, $this->_paths['temp']);
         $where = $fileob->queryModulePath();
 
         $pipe = popen($this->getPath('cvs') . ' -n server > ' . escapeshellarg($tmpfile), VC_WINDOWS ? 'wb' : 'w');
