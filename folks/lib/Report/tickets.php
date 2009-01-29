@@ -12,7 +12,7 @@ class Folks_Report_tickets extends Folks_Report {
     /**
      * Report
      */
-    function report($message)
+    public function report($message)
     {
         $info = array_merge($GLOBALS['conf']['report_content']['ticket_params'],
                             array('summary' => $this->getTitle(),

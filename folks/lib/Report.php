@@ -4,12 +4,12 @@
  *
  * $Horde: ansel/lib/Report.php,v 1.9 2008-07-03 04:16:00 mrubinsk Exp $
  *
- * Copyright 2008-2009 The Horde Project (http://www.horde.org)
+ * Copyright 2009 The Horde Project (http://www.horde.org)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * Copyright 2008-2009 The Horde Project (http://www.horde.org)
+ * Copyright 2008 The Horde Project (http://www.horde.org)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
@@ -24,7 +24,7 @@ class Folks_Report {
     /**
      * Create instance
      */
-    function factory($driver = null, $params = array())
+    public static factory($driver = null, $params = array())
     {
         if ($driver === null) {
             $driver = $GLOBALS['conf']['report_content']['driver'];
@@ -34,13 +34,13 @@ class Folks_Report {
             $params = $GLOBALS['conf']['report_content'];
         }
 
-        require_once ANSEL_BASE . '/lib/Report/' . $driver  . '.php';
+        require_once FOLKS_BASE . '/lib/Report/' . $driver  . '.php';
         $class_name = 'Folks_Report_' . $driver;
         if (!class_exists($class_name)) {
             return PEAR::RaiseError(_("Report driver does not exist."));
         }
 
-        $report = &new $class_name($params);
+        $report = new $class_name($params);
 
         return $report;
     }
@@ -48,7 +48,7 @@ class Folks_Report {
     /**
      * Get reporting user email
      */
-    function getUserEmail()
+    public function getUserEmail()
     {
         return $this->_getUserEmail();
     }
@@ -56,7 +56,7 @@ class Folks_Report {
     /**
      * Get user email
      */
-    function _getUserEmail($user = null)
+    public function _getUserEmail($user = null)
     {
         require_once 'Horde/Identity.php';
 
@@ -68,7 +68,7 @@ class Folks_Report {
     /**
      * Get scope admins
      */
-    function getAdmins()
+    public function getAdmins()
     {
         $name = $GLOBALS['registry']->getApp() . ':admin';
 
@@ -84,7 +84,7 @@ class Folks_Report {
     /**
      * Set title
      */
-    function setTitle($title)
+    public function setTitle($title)
     {
         $this->_title = $title;
     }
@@ -92,7 +92,7 @@ class Folks_Report {
     /**
      * Get report message title
      */
-    function getTitle()
+    public function getTitle()
     {
         if (empty($this->_title)) {
             return sprintf(_("Content abuse report in %s"), $GLOBALS['registry']->get('name'));
@@ -104,7 +104,7 @@ class Folks_Report {
     /**
      * Get report message content
      */
-    function getMessage($message)
+    public function getMessage($message)
     {
         $message .=  "\n\n" . _("Report by user") . ': ' . Auth::getAuth()
                  . ' (' . $_SERVER['REMOTE_ADDR'] . ')';
@@ -117,7 +117,7 @@ class Folks_Report {
      *
      * @param string $message to pass
      */
-    function report($message, $users = array())
+    public function report($message, $users = array())
     {
         return PEAR::raiseError(_("Unsupported"));
     }

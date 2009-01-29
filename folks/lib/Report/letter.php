@@ -12,7 +12,7 @@ class Folks_Report_letter extends Folks_Report {
     /**
      * Report
      */
-    function report($message, $users = array())
+    public function report($message, $users = array())
     {
         if (!empty($users)) {
             // We are sending a report to to the gallery owner

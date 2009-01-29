@@ -56,7 +56,7 @@ class Folks_Friends {
      * @return Folks_Friends  The newly created concrete Folks_Friends
      *                          instance, or false on an error.
      */
-    public function factory($driver = null, $params = null)
+    static public function factory($driver = null, $params = null)
     {
         if ($driver === null) {
             $driver = $GLOBALS['conf']['friends'];

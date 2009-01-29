@@ -12,7 +12,7 @@ class Folks_Report_mail extends Folks_Report {
     /**
      * Report
      */
-    function report($message, $users = array())
+    public function report($message, $users = array())
     {
         global $conf;
 
@@ -27,30 +27,14 @@ class Folks_Report_mail extends Folks_Report {
             }
         }
 
-        require_once 'Horde/MIME.php';
-        require_once 'Horde/MIME/Headers.php';
-        require_once 'Horde/MIME/Message.php';
-
-        $email = $this->getUserEmail();
-
-        $msg_headers = new MIME_Headers();
-        $msg_headers->addReceivedHeader();
-        $msg_headers->addMessageIdHeader();
-        $msg_headers->addAgentHeader();
-        $msg_headers->addHeader('Date', date('r'));
-        $msg_headers->addHeader('To', $to);
-        $msg_headers->addHeader('Subject', $this->getTitle());
-        $msg_headers->addHeader('From', $email);
+        /*
+         * Needed for the Horde 4 mime library - use autoload everywhere we can
+         * when this is *really* refactored for horde 4
+         */
+        $mail = new Horde_Mime_Mail($this->getTitle(), $this->getMessage($message), $to, $this->getUserEmail());
 
         //FIXME: This address should be configurable
-        $msg_headers->addHeader('Sender', 'horde-problem@' . $conf['report_content']['maildomain']);
-
-        $mime = new MIME_Message();
-        $mime->addPart(
-            new MIME_Part('text/plain',
-                          String::wrap($this->getMessage($message), 80, "\n"),
-                          NLS::getCharset()));
-        $msg_headers->addMIMEHeaders($mime);
+        $mail->addHeader('Sender', 'horde-problem@' . $conf['report_content']['maildomain']);
 
         $mail_driver = $conf['mailer']['type'];
         $mail_params = $conf['mailer']['params'];
@@ -66,7 +50,6 @@ class Folks_Report_mail extends Folks_Report {
             }
         }
 
-        return $mime->send($conf['report_content']['email'],
-                           $msg_headers, $mail_driver, $mail_params);
+        return $mail->send($mail_driver, $mail_params);
     }
 }

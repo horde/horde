@@ -4,7 +4,7 @@
  *
  * $Horde: folks/report.php,v 1.5 2008-08-03 18:32:29 mrubinsk Exp $
  *
- * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2007-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
@@ -55,10 +55,10 @@ if ($form->validate()) {
         $body =  _("User") . ': ' . $user . "\n"
             . _("Report type") . ': ' . $enum[$vars->get('type')] . "\n"
             . _("Report reason") . ': ' . $vars->get('reason') . "\n"
-            . $return_url;
+            . Folks::getUrlFor('user', $user);
 
         $result = $report->report($body);
-        if (is_a($result, 'PEAR_Error')) {
+        if ($result instanceof PEAR_Error) {
             $notification->push(_("User was not reported.") . ' ' .
                                 $result->getMessage(), 'horde.error');
         } else {
@@ -67,7 +67,7 @@ if ($form->validate()) {
     } else {
         $notification->push(_("User was not reported."), 'horde.warning');
     }
-    header('Location: ' . $return_url);
+    header('Location: ' . Folks::getUrlFor('user', $user));
     exit;
 }
 
