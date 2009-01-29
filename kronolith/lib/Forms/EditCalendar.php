@@ -39,6 +39,7 @@ class Kronolith_EditCalendarForm extends Horde_Form {
         $this->addHidden('', 'c', 'text', true);
         $this->addVariable(_("Name"), 'name', 'text', true);
         $this->addVariable(_("Description"), 'description', 'longtext', false, false, null, array(4, 60));
+        $this->addVariable(_("Tags"), 'tags', 'text', false);
         $this->setButtons(array(_("Save")));
     }
 
@@ -59,6 +60,9 @@ class Kronolith_EditCalendarForm extends Horde_Form {
         if (is_a($result, 'PEAR_Error')) {
             return PEAR::raiseError(sprintf(_("Unable to save calendar \"%s\": %s"), $new_name, $result->getMessage()));
         }
+
+        $tagger = new Kronolith_Tagger();
+        $tagger->replaceTags($this->_calendar->getName(), $this->_vars->get('tags'), 'calendar');
         return true;
     }
 
