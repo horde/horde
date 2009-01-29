@@ -103,6 +103,7 @@ class Kronolith_View_EditEvent {
         $tagger = new Kronolith_Tagger();
         $tags = $tagger->getTags($event->getUID(), 'event');
         $tags = implode(',', array_values($tags));
+
         echo '<div id="EditEvent"' . ($active ? '' : ' style="display:none"') . '>';
         require KRONOLITH_TEMPLATES . '/edit/javascript.inc';
         require KRONOLITH_TEMPLATES . '/edit/edit.inc';
