@@ -632,7 +632,7 @@ class Horde_Date_Parser_Locale_Base
                 $t1 = isset($tokens[$i + 1]) ? $tokens[$i + 1] : null;
                 if ($t0->getTag('RepeaterTime') && $t0->getTag('RepeaterTime')->type->ambiguous() && (!$t1 || !$t1->getTag('RepeaterDayPortion'))) {
                     $distoken = new Horde_Date_Parser_Token('disambiguator');
-                    $distoken->tag($this->componentFactory('RepeaterDayPortion', array($options['ambiguousTimeRange']));
+                    $distoken->tag($this->componentFactory('RepeaterDayPortion', array($options['ambiguousTimeRange'])));
                     $ttokens[] = $distoken;
                 }
             }
