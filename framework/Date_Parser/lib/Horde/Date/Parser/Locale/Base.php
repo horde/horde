@@ -298,7 +298,7 @@ class Horde_Date_Parser_Locale_Base
 
     public function handle_rmn_sy($tokens, $options)
     {
-        $month = $tokens[0]->getTag('RepeaterMonthName')->index;
+        $month = $tokens[0]->getTag('RepeaterMonthName')->index();
         $year = $tokens[1]->getTag('ScalarYear')->type;
 
         try {
@@ -310,7 +310,7 @@ class Horde_Date_Parser_Locale_Base
 
     public function handle_rdn_rmn_sd_t_tz_sy($tokens, $options)
     {
-        $month = $tokens[1]->getTag('RepeaterMonthName')->index;
+        $month = $tokens[1]->getTag('RepeaterMonthName')->index();
         $day = $tokens[2]->getTag('ScalarDay')->type;
         $year = $tokens[5]->getTag('ScalarYear')->type;
 
@@ -324,7 +324,7 @@ class Horde_Date_Parser_Locale_Base
 
     public function handle_rmn_sd_sy($tokens, $options)
     {
-        $month = $tokens[0]->getTag('RepeaterMonthName')->index;
+        $month = $tokens[0]->getTag('RepeaterMonthName')->index();
         $day = $tokens[1]->getTag('ScalarDay')->type;
         $year = $tokens[2]->getTag('ScalarYear')->type;
 
