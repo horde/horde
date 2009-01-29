@@ -1,12 +1,14 @@
-class Chronic::RepeaterDayPortion < Chronic::Repeater #:nodoc:
+<?php
+class Horde_Date_Parser_Locale_Base_Repeater_DayPortion extends Horde_Date_Parser_Locale_Base_Repeater
+{
   @@morning = (6 * 60 * 60)..(12 * 60 * 60) # 6am-12am
   @@afternoon = (13 * 60 * 60)..(17 * 60 * 60) # 1pm-5pm
   @@evening = (17 * 60 * 60)..(20 * 60 * 60) # 5pm-8pm
   @@night = (20 * 60 * 60)..(24 * 60 * 60) # 8pm-12pm
-  
+
   def initialize(type)
     super
-    
+
     if type.kind_of? Integer
       @range = (@type * 60 * 60)..((@type + 12) * 60 * 60)
     else
@@ -21,12 +23,12 @@ class Chronic::RepeaterDayPortion < Chronic::Repeater #:nodoc:
     end
     @range || raise("Range should have been set by now")
   end
-  
+
   def next(pointer)
     super
-    
+
     full_day = 60 * 60 * 24
-    
+
     if !@current_span
       now_seconds = @now - Time.construct(@now.year, @now.month, @now.day)
       if now_seconds < @range.begin
@@ -51,7 +53,7 @@ class Chronic::RepeaterDayPortion < Chronic::Repeater #:nodoc:
           range_start = Time.construct(@now.year, @now.month, @now.day) - full_day + @range.begin
         end
       end
-      
+
       @current_span = Chronic::Span.new(range_start, range_start + (@range.end - @range.begin))
     else
       case pointer
@@ -62,21 +64,21 @@ class Chronic::RepeaterDayPortion < Chronic::Repeater #:nodoc:
       end
     end
   end
-  
+
   def this(context = :future)
     super
-    
+
     range_start = Time.construct(@now.year, @now.month, @now.day) + @range.begin
     @current_span = Chronic::Span.new(range_start, range_start + (@range.end - @range.begin))
   end
-  
+
   def offset(span, amount, pointer)
     @now = span.begin
     portion_span = self.next(pointer)
     direction = pointer == :future ? 1 : -1
     portion_span + (direction * (amount - 1) * Chronic::RepeaterDay::DAY_SECONDS)
   end
-  
+
   def width
     @range || raise("Range has not been set")
     return @current_span.width if @current_span
@@ -86,7 +88,7 @@ class Chronic::RepeaterDayPortion < Chronic::Repeater #:nodoc:
       @range.end - @range.begin
     end
   end
-  
+
   def to_s
     super << '-dayportion-' << @type.to_s
   end
