@@ -76,7 +76,7 @@ if ($atdir) {
             if ($conf['hide_restricted'] && Chora::isRestricted($currentDir)) {
                 continue;
             }
-            $url = Chora::url('browse', '$where' . '/' . $currentDir . '/');
+            $url = Chora::url('browse', $where . '/' . $currentDir . '/');
             $currDir = Text::htmlAllSpaces($currentDir);
             require CHORA_TEMPLATES . '/directory/dir.inc';
         }
