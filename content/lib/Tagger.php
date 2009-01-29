@@ -642,8 +642,13 @@ class Content_Tagger
         // Get the ids for any tags that already exist.
         if (count($tagText)) {
             foreach ($this->_db->selectAll('SELECT tag_id, tag_name FROM ' . $this->_t('tags') . ' WHERE tag_name IN ('.implode(',', array_map(array($this->_db, 'quote'), array_keys($tagText))).')') as $row) {
-                $tagIndex = $tagText[$row['tag_name']];
-                unset($tagText[$row['tag_name']]);
+                $tagTextCopy = $tagText;
+                foreach ($tagTextCopy as $tag => $tagIndex) {
+                    if (strtolower($row['tag_name']) == strtolower($tag)) {
+                        unset($tagText[$tag]);
+                        break;
+                    }
+                }
                 $tagIds[$tagIndex] = $row['tag_id'];
             }
         }
