@@ -23,7 +23,6 @@ class Horde_Date_Parser_Locale_Base_Ordinal extends Horde_Date_Parser_Tag
         if (preg_match($this->ordinalRegex, $token->word, $matches)) {
             return new self((int)$matches[1]);
         }
-        return null;
     }
 
     public function scanForDays($token)
@@ -34,7 +33,6 @@ class Horde_Date_Parser_Locale_Base_Ordinal extends Horde_Date_Parser_Tag
                 return new Horde_Date_Parser_Locale_Base_OrdinalDay((int)$m[1]);
             }
         }
-        return null;
     }
 
     public function __toString()

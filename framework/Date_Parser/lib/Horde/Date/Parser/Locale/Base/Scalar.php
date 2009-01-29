@@ -34,7 +34,6 @@ class Horde_Date_Parser_Locale_Base_Scalar extends Horde_Date_Parser_Tag
                 return new self((int)$token->word);
             }
         }
-        return null;
     }
 
     public function scanForDays($token, $postToken)
@@ -44,7 +43,6 @@ class Horde_Date_Parser_Locale_Base_Scalar extends Horde_Date_Parser_Tag
                 return new Horde_Date_Parser_Locale_Base_ScalarDay((int)$token->word);
             }
         }
-        return null;
     }
 
     public function scanForMonths($token, $postToken)
@@ -54,7 +52,6 @@ class Horde_Date_Parser_Locale_Base_Scalar extends Horde_Date_Parser_Tag
                 return new Horde_Date_Parser_Locale_Base_ScalarMonth((int)$token->word);
             }
         }
-        return null;
     }
 
     public function scanForYears($token, $postToken)
@@ -64,7 +61,6 @@ class Horde_Date_Parser_Locale_Base_Scalar extends Horde_Date_Parser_Tag
                 return new Horde_Date_Parser_Locale_Base_ScalarYear((int)$token->word);
             }
         }
-        return null;
     }
 
     public function __toString()

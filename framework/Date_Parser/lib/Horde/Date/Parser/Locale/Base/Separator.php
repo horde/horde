@@ -42,7 +42,6 @@ class Horde_Date_Parser_Locale_Base_Separator extends Horde_Date_Parser_Tag
                 return new Horde_Date_Parser_Locale_Base_SeparatorComma($scannerTag);
             }
         }
-        return null;
     }
 
     public function scanForSlashOrDash($token)
@@ -53,7 +52,6 @@ class Horde_Date_Parser_Locale_Base_Separator extends Horde_Date_Parser_Tag
                 return new Horde_Date_Parser_Locale_Base_SeparatorSlashOrDash($scannerTag);
             }
         }
-        return null;
     }
 
     public function scanForAt($token)
@@ -64,7 +62,6 @@ class Horde_Date_Parser_Locale_Base_Separator extends Horde_Date_Parser_Tag
                 return new Horde_Date_Parser_Locale_Base_SeparatorAt($scannerTag);
             }
         }
-        return null;
     }
 
     public function scanForIn($token)
@@ -75,7 +72,6 @@ class Horde_Date_Parser_Locale_Base_Separator extends Horde_Date_Parser_Tag
                 return new Horde_Date_Parser_Locale_Base_SeparatorIn($scannerTag);
             }
         }
-        return null;
     }
 
     public function __toString()

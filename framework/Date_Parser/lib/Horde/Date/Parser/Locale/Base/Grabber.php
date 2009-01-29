@@ -27,7 +27,6 @@ class Horde_Date_Parser_Locale_Base_Grabber extends Horde_Date_Parser_Tag
                 return new self($scannerTag);
             }
         }
-        return null;
     }
 
     public function __toString()
