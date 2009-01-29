@@ -90,11 +90,11 @@ class Horde_Vcs_Cvs extends Horde_Vcs_Rcs
 
         switch ($opts['type']) {
         case 'context':
-            $flags .= '-p --context=' . (int)$opts['num'];
+            $flags .= '-p --context=' . escapeshellarg((int)$opts['num']);
             break;
 
         case 'unified':
-            $flags .= '-p --unified=' . (int)$opts['num'];
+            $flags .= '-p --unified=' . escapeshellarg((int)$opts['num']);
             break;
 
         case 'column':
@@ -113,9 +113,9 @@ class Horde_Vcs_Cvs extends Horde_Vcs_Rcs
 
         // TODO: add options for $hr options - however these may not be
         // compatible with some diffs.
-        $command = $this->getPath('rcsdiff') . " $flags -r" . escapeshellarg($rev1) . ' -r' . escapeshellarg($rev2) . ' ' . escapeshellarg($fullName) . ' 2>&1';
+        $command = escapeshellcmd($this->getPath('rcsdiff')) . ' ' . $flags . ' -r' . escapeshellarg($rev1) . ' -r' . escapeshellarg($rev2) . ' ' . escapeshellarg($fullName) . ' 2>&1';
         if (VC_WINDOWS) {
-            $command .= ' < "' . __FILE__ . '"';
+            $command .= ' < ' . escapeshellarg(__FILE__);
         }
 
         exec($command, $diff, $retval);
@@ -143,6 +143,8 @@ class Horde_Vcs_Cvs extends Horde_Vcs_Rcs
 
     /**
      * TODO
+     *
+     * @throws Horde_Vcs_Exception
      */
     public function annotate($fileob, $rev)
     {
@@ -151,7 +153,7 @@ class Horde_Vcs_Cvs extends Horde_Vcs_Rcs
         $tmpfile = Util::getTempFile('vc', true, $this->_paths['temp']);
         $where = $fileob->queryModulePath();
 
-        $pipe = popen($this->getPath('cvs') . ' -n server > ' . escapeshellarg($tmpfile), VC_WINDOWS ? 'wb' : 'w');
+        $pipe = popen(escapeshellcmd($this->getPath('cvs')) . ' -n server > ' . escapeshellarg($tmpfile), VC_WINDOWS ? 'wb' : 'w');
 
         $out = array(
             'Root ' . $this->sourceroot(),
@@ -224,12 +226,13 @@ class Horde_Vcs_Cvs extends Horde_Vcs_Rcs
      * @param string $rev       Revision number to check out.
      *
      * @return resource  A stream pointer to the head of the checkout.
+     * @throws Horde_Vcs_Exception
      */
     public function checkout($fullname, $rev)
     {
         $this->assertValidRevision($rev);
 
-        if (!($RCS = popen($this->getPath('co') . ' ' . escapeshellarg('-p' . $rev) . ' ' . escapeshellarg($fullname) . " 2>&1", VC_WINDOWS ? 'rb' : 'r'))) {
+        if (!($RCS = popen(escapeshellcmd($this->getPath('co')) . ' ' . escapeshellarg('-p' . $rev) . ' ' . escapeshellarg($fullname) . " 2>&1", VC_WINDOWS ? 'rb' : 'r'))) {
             throw new Horde_Vcs_Exception('Couldn\'t perform checkout of the requested file');
         }
 
@@ -271,6 +274,8 @@ class Horde_Vcs_Directory_Cvs extends Horde_Vcs_Directory
      * @param Horde_Vcs $rep  The Repository object this directory is part of.
      * @param string $dn      Path to the directory.
      * @param array $opts     TODO
+     *
+     * @throws Horde_Vcs_Exception
      */
     public function __construct($rep, $dn, $opts = array())
     {
@@ -335,12 +340,22 @@ class Horde_Vcs_File_Cvs extends Horde_Vcs_File
     /**
      * TODO
      */
-    public $accum;
+    protected $_accum;
 
     /**
      * TODO
      */
     protected $_revsym = array();
+
+    /**
+     * TODO
+     */
+    protected $_symrev = array();
+
+    /**
+     * @var array
+     */
+    protected $_revlist = array();
 
     /**
      * Create a repository file object, and give it information about
@@ -349,6 +364,8 @@ class Horde_Vcs_File_Cvs extends Horde_Vcs_File
      * @param TODO $rep    TODO
      * @param string $fl   Full path to this file.
      * @param array $opts  TODO
+     *
+     * @throws Horde_Vcs_Exception
      */
     public function __construct($rep, $fl, $opts = array())
     {
@@ -361,71 +378,94 @@ class Horde_Vcs_File_Cvs extends Horde_Vcs_File
         }
 
         $ret_array = array();
-        $cmd = $rep->getPath('rlog') . ($this->_quicklog ? ' -r' : '') . ' ' .  escapeshellarg($file);
+        $cmd = escapeshellcmd($rep->getPath('rlog')) . ($this->_quicklog ? ' -r' : '') . ' ' . escapeshellarg($file);
         exec($cmd, $ret_array, $retval);
 
         if ($retval) {
             throw new Horde_Vcs_Exception('Failed to spawn rlog to retrieve file log information for ' . $file);
         }
 
-        $accum = $revsym = $symrev = array();
+        $branches = array();
         $state = 'init';
 
         foreach ($ret_array as $line) {
             switch ($state) {
             case 'init':
-                if (!strncmp('head: ', $line, 6)) {
+                if (strpos($line, 'head: ') === 0) {
                     $this->_head = $this->_branches['HEAD'] = substr($line, 6);
-                } elseif (!strncmp('branch:', $line, 7)) {
+                    $this->_revlist['HEAD'] = $rep->getRevisionRange($this, '1.1', $this->_head);
+                } elseif (strpos($line, 'branch:') === 0) {
                     $state = 'rev';
                 }
                 break;
 
             case 'rev':
-                if (!strncmp('----------', $line, 10)) {
+                if (strpos($line, '----------') === 0) {
                     $state = 'info';
-                    $this->_symrev = $symrev;
-                    $this->_revsym = $revsym;
                 } elseif (preg_match("/^\s+([^:]+):\s+([\d\.]+)/", $line, $regs)) {
-                    // Check to see if this is a branch
+                    // Check to see if this is a branch.
                     if (preg_match('/^(\d+(\.\d+)+)\.0\.(\d+)$/', $regs[2])) {
-                        $branchRev = $this->toBranch($regs[2]);
-                        $this->_branches[$regs[1]] = $branchRev;
+                        $rev = $regs[2];
+                        $end = strrpos($rev, '.');
+                        $rev[$end] = 0;
+                        $branchRev = (($end2 = strrpos($rev, '.')) === false)
+                            ? substr($rev, ++$end)
+                            : substr_replace($rev, '.', $end2, ($end - $end2 + 1));
+
+                        /* $branchRev is only the branching point, NOT the
+                         * HEAD of the branch. To determine the HEAD, we need
+                         * to parse all of the log data first. Yuck. */
+                        $branches[$regs[1]] = $branchRev . '.';
                     } else {
-                        $symrev[$regs[1]] = $regs[2];
-                        if (empty($revsym[$regs[2]])) {
-                            $revsym[$regs[2]] = array();
+                        $this->_symrev[$regs[1]] = $regs[2];
+                        if (empty($this->_revsym[$regs[2]])) {
+                            $this->_revsym[$regs[2]] = array();
                         }
-                        $revsym[$regs[2]][] = $regs[1];
+                        $this->_revsym[$regs[2]][] = $regs[1];
                     }
                 }
                 break;
 
             case 'info':
-                if (strncmp('==============================', $line, 30) &&
-                    strcmp('----------------------------', $line)) {
-                    $accum[] = $line;
-                } elseif (count($accum)) {
-                    $this->accum = $accum;
+                if ((strpos($line, '==============================') === false) &&
+                    (strpos($line, '----------------------------') === false)) {
+                    $this->_accum[] = $line;
+                } elseif (count($this->_accum)) {
                     $log = $rep->getLogObject($this, null);
                     $rev = $log->queryRevision();
-                    $branch = $log->queryBranch();
-                    if (empty($this->_branch) ||
-                        in_array($this->_branch, $log->queryBranch()) ||
-                        (($rep->cmp($rev, $this->_branches[$this->_branch]) === -1) &&
-                         (empty($branch) ||
-                          in_array('HEAD', $branch) ||
-                          (strpos($this->_branches[$this->_branch], $rev) === 0)))) {
-                        $log->setBranch($branch);
-                        $this->_logs[$rev] = $log;
-                        $this->_revs[] = $rev;
+                    $onbranch = false;
+                    $onhead = (substr_count($rev, '.') > 1);
+
+                    // Determine branch information.
+                    if (!empty($branches)) {
+                        if ($onhead) {
+                            foreach ($branches as $key => $val) {
+                                if (strpos($rev, $val) === 0) {
+                                    $onbranch = true;
+                                    $log->setBranch($key);
+                                    if (!isset($this->_branches[$key])) {
+                                        $this->_branches[$key] = $rev;
+                                        $this->_revlist[$key] = $rep->getRevisionRange($this, '1.1', $rev);
+                                    }
+                                    break;
+                                }
+                            }
+                        } else {
+                            $onbranch = $this->_branch &&
+                                ($rep->cmp($branches[$this->_branch], $rev) === 1);
+                        }
                     }
-                    $accum = array();
+
+                    if (!$this->_branch || $onbranch) {
+                        $this->_revs[] = $rev;
+                        $this->_logs[$rev] = $log;
+                    }
+
+                    $this->_accum = array();
                 }
                 break;
             }
         }
-
     }
 
     /**
@@ -470,75 +510,11 @@ class Horde_Vcs_File_Cvs extends Horde_Vcs_File
     }
 
     /**
-     * Given a revision number of the form x.y.0.z, this remaps it
-     * into the appropriate branch number, which is x.y.z
-     *
-     * @param string $rev  Even-digit revision number of a branch
-     *
-     * @return string  Odd-digit Branch number
-     */
-    public function toBranch($rev)
-    {
-        /* Check if we have a valid revision number */
-        if (!$this->_rep->isValidRevision($rev) ||
-            (($end = strrpos($rev, '.')) === false)) {
-            return false;
-        }
-
-        $rev[$end] = 0;
-        if (($end2 = strrpos($rev, '.')) === false) {
-            return substr($rev, ++$end);
-        }
-
-        return substr_replace($rev, '.', $end2, ($end - $end2 + 1));
-    }
-
-    /**
      * TODO
      */
     public function getBranchList()
     {
-/*
-// $trunk contains an array of trunk revisions.
-$trunk = array();
-
-// $branches is a hash with the branch revision as the key, and value
-// being an array of revs on that branch.
-$branches = array();
-
-// Populate $col with a list of all the branch points.
-foreach ($fl->branches as $rev) {
-    $branches[$rev] = array();
-}
-
-// For every revision, figure out if it is a trunk revision, or
-// instead associated with a branch.  If trunk, add it to the $trunk
-// array.  Otherwise, add it to an array in $branches[$branch].
-foreach ($fl->logs as $log) {
-    $rev = $log->queryRevision();
-    $baseRev = $rev_ob->strip($rev, 1);
-    $branchFound = false;
-    foreach ($fl->branches as $branch => $name) {
-        if ($branch == $baseRev) {
-            array_unshift($branches[$branch], $rev);
-            $branchFound = true;
-        }
-    }
-    // If its not a branch, then add it to the trunk.
-    // TODO: this silently drops vendor branches atm! - avsm.
-    if (!$branchFound && $rev_ob->sizeof($rev) == 2) {
-        array_unshift($trunk, $rev);
-    }
-}
-
-foreach ($branches as $col => $rows) {
-    // If this branch has no actual commits on it, then it's a stub
-    // branch, and we can remove it for this view.
-    if (!sizeof($rows)) {
-        unset($branches[$col]);
-    }
-}
-*/
+        return $this->_revlist();
     }
 
     /**
@@ -549,6 +525,22 @@ foreach ($branches as $col => $rows) {
         return isset($this->_revsym[$rev])
             ? $this->_revsym[$rev]
             : array();
+    }
+
+    /**
+     * TODO
+     */
+    public function querySymbolicRevisions()
+    {
+        return $this->_symrev;
+    }
+
+    /**
+     * TODO
+     */
+    public function getAccum()
+    {
+        return $this->_accum;
     }
 
 }
@@ -576,7 +568,7 @@ class Horde_Vcs_Log_Cvs extends Horde_Vcs_Log
     {
         parent::__construct($rep, $fl, $rev);
 
-        $raw = $fl->accum;
+        $raw = $fl->getAccum();
 
         /* Initialise a simple state machine to parse the output of rlog */
         $state = 'init';
@@ -636,7 +628,7 @@ class Horde_Vcs_Log_Cvs extends Horde_Vcs_Log
      */
     public function setBranch($branch)
     {
-        $this->_branch = $branch;
+        $this->_branch = array($branch);
     }
 
     /**
@@ -671,6 +663,8 @@ class Horde_Vcs_Patchset_Cvs extends Horde_Vcs_Patchset
      *
      * @param Horde_Vcs $rep  A Horde_Vcs repository object.
      * @param string $file    The filename to create a patchset for.
+     *
+     * @throws Horde_Vcs_Exception
      */
     public function __construct($rep, $file)
     {
@@ -684,11 +678,11 @@ class Horde_Vcs_Patchset_Cvs extends Horde_Vcs_Patchset
         /* Call cvsps to retrieve all patchsets for this file. */
         $cvsps_home = $rep->getPath('cvsps_home');
         $HOME = !empty($cvsps_home) ?
-            'HOME=' . $cvsps_home . ' ' :
+            'HOME=' . escapeshellarg($cvsps_home) . ' ' :
             '';
 
         $ret_array = array();
-        $cmd = $HOME . $rep->getPath('cvsps') . ' -u --cvs-direct --root ' . escapeshellarg($rep->sourceroot()) . ' -f ' . escapeshellarg(basename($file)) . ' ' . escapeshellarg(dirname($file));
+        $cmd = $HOME . escapeshellcmd($rep->getPath('cvsps')) . ' -u --cvs-direct --root ' . escapeshellarg($rep->sourceroot()) . ' -f ' . escapeshellarg(basename($file)) . ' ' . escapeshellarg(dirname($file));
         exec($cmd, $ret_array, $retval);
         if ($retval) {
             throw new Horde_Vcs_Exception('Failed to spawn cvsps to retrieve patchset information.');

@@ -175,7 +175,7 @@ class Horde_Vcs
     /**
      * Throw an exception if the revision number isn't valid.
      *
-     * @param mixed $rev The revision number
+     * @param mixed $rev  The revision number.
      *
      * @throws Horde_Vcs_Exception
      */
@@ -223,8 +223,7 @@ class Horde_Vcs
      * 'ws' - (boolean) DEFAULT: true
      * </pre>
      *
-     * @return string|boolean  False on failure, or a string containing the
-     *                         diff on success.
+     * @return string  The diff string.
      * @throws Horde_Vcs_Exception
      */
     public function diff($file, $rev1, $rev2, $opts = array())
@@ -807,11 +806,6 @@ abstract class Horde_Vcs_File
     /**
      * TODO
      */
-    protected $_symrev = array();
-
-    /**
-     * TODO
-     */
     protected $_branches = array();
 
     /**
@@ -1041,7 +1035,7 @@ abstract class Horde_Vcs_File
      */
     public function querySymbolicRevisions()
     {
-        return $this->_symrev;
+        return array();
     }
 
 }
@@ -1151,7 +1145,6 @@ abstract class Horde_Vcs_Log
         $branches = $this->_file->queryBranches();
 
         foreach ($this->_branches as $branch) {
-            $key = array_search($branch, $branches);
             if (($key = array_search($branch, $branches)) !== false) {
                 $symBranches[$key] = $branch;
             }
