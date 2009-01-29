@@ -123,7 +123,15 @@
   <input type="checkbox" class="checkbox" id="private" name="private"<?php if ($event->isPrivate()) echo ' checked="checked"' ?> />
  </td>
 </tr>
-
+<!-- tags  -->
+<tr>
+ <td class="rightAlign">
+     <strong><?php echo Horde::label('tags', _("Tags"))?></strong>
+ </td>
+ <td colspan="4">
+   <input type="text" name="tags" id="tags" value="<?php echo $tags?>" size="40" value="<?php echo $tags?>" />
+ </td>
+</tr>
 <?php require KRONOLITH_TEMPLATES . '/edit/edit_timespan.inc' ?>
 
 <!-- alarm -->

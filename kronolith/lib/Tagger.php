@@ -2,14 +2,21 @@
 /**
  * Kronolith interface to the Horde_Content tagger
  *
+ * Copyright 2009 The Horde Project (http://www.horde.org)
  *
+ * @author Michael J. Rubinsky <mrubinsk@horde.org>
+ *
+ * @package Kronolith
  */
 
-// Note:: Autoloading depends on there being a registry entry for content
+// NOTE: For now, autoloading depends on there being a registry entry for the
+//       'content' application.
+
 Horde_Autoloader::addClassPattern('/^Content_/',
                                   $GLOBALS['registry']->get('fileroot', 'content') . '/lib/');
 
-class Kronolith_Tagger {
+class Kronolith_Tagger
+{
 
     /**
      * Local cache of the type name => ids from Content, so we don't have to
@@ -74,6 +81,7 @@ class Kronolith_Tagger {
         if (!is_array($tags)) {
             $tags = self::$_tagger->splitTags($tags);
         }
+
         self::$_tagger->tag(Auth::getAuth(),
                    array('object' => $localId,
                          'type' => self::$_type_ids[$content_type]),
@@ -115,9 +123,63 @@ class Kronolith_Tagger {
     public function untag($localId, $tag, $content_type = 'event')
     {
         self::$_tagger->removeTagFromObject(
-            array('object' => $localId, 'type' => $content_type),
+            array('object' => $localId, 'type' => self::$_type_ids[$content_type]),
             $tag);
     }
+
+    /**
+     * Tag the given resource with *only* the tags provided, removing any tags
+     * that are already present but not in the list.
+     *
+     * @param $localId
+     * @param $tags
+     * @param $content_type
+     *
+     * @return void
+     */
+    public function replaceTags($localId, $tags, $content_type = 'event')
+    {
+        // First get a list of existing tags.
+        $existing_tags = $this->getTags($localId, $content_type);
+
+        // If we don't have an array - split the string.
+        if (!is_array($tags)) {
+            $tags = self::$_tagger->splitTags($tags);
+        }
+        $remove = array();
+        foreach ($existing_tags as $tag_id => $existing_tag) {
+            $found = false;
+            foreach ($tags as $tag_text) {
+                //if ($existing_tag == String::lower($tag_text, true)) {
+                if ($existing_tag == $tag_text) {
+                    $found = true;
+                    break;
+                }
+            }
+            // Remove any tags that were not found in the passed in list.
+            if (!$found) {
+                $remove[] = $tag_id;
+            }
+        }
+
+        $this->untag($localId, $remove, $content_type);
+        $add = array();
+        foreach ($tags as $tag_text) {
+            $found = false;
+            foreach ($existing_tags as $existing_tag) {
+                if ($tag_text == $existing_tag) {
+                    $found = true;
+                    break;
+                }
+            }
+            if (!$found) {
+                $add[] = $tag_text;
+            }
+        }
+
+        $this->tag($localId, $add, $content_type);
+    }
+
 
     /**
      * @TODO
