@@ -67,21 +67,27 @@ class Horde_Mime_Viewer_vcard extends Horde_Mime_Viewer_Driver
             Util::getFormData('source') &&
             $registry->hasMethod('contacts/import')) {
             $source = Util::getFormData('source');
-            $contacts = $registry->call('contacts/import',
-                                        array($data, 'text/x-vcard', $source));
-            if (is_a($contacts, 'PEAR_Error')) {
-                $notification->push(
-                    _("There was an error importing the contact data:") . ' '
-                    . $contacts->getMessage(),
-                    'horde.error');
-            } else {
-                $notification->push(sprintf(ngettext(
-                    "%d contact was successfully added to your address book.",
-                    "%d contacts were successfully added to your address book.",
-                    $iCal->getComponentCount()),
-                                            $iCal->getComponentCount()),
-                                    'horde.success');
+            $count = 0;
+            foreach ($iCal->getComponents() as $c) {
+                if (is_a($c, 'Horde_iCalendar_vcard')) {
+                    $contacts = $registry->call('contacts/import',
+                                                array($c, null, $source));
+                    if (is_a($contacts, 'PEAR_Error')) {
+                        $notification->push(
+                            _("There was an error importing the contact data:") . ' '
+                            . $contacts->getMessage(),
+                            'horde.error');
+                        continue;
+                    }
+                    $count++;
+                }
             }
+            $notification->push(sprintf(ngettext(
+                "%d contact was successfully added to your address book.",
+                "%d contacts were successfully added to your address book.",
+                $count),
+                                        $count),
+                                'horde.success');
         }
 
         $html .= '<table cellspacing="1" border="0" cellpadding="1">';
