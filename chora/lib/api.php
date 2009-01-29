@@ -17,6 +17,7 @@ $_services['perms'] = array(
 function _chora_perms()
 {
     static $perms = array();
+
     if (!empty($perms)) {
         return $perms;
     }
