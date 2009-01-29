@@ -1,5 +1,7 @@
 <?php
 /**
+ * $Id$
+ *
  * This file contains all the configuration information for the
  * various CVS repositories that you wish to display. You should have
  * a minimum of one entry here!  Each entry requires a unique key name.

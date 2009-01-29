@@ -1,5 +1,7 @@
 <?php
 /**
+ * $Id$
+ *
  * Dynamic portal configuration page.
  *
  * Format: An array named $dimp_block_list

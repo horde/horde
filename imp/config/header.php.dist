@@ -1,5 +1,7 @@
 <?php
 /**
+ * $Id$
+ *
  * This file will allow you to set headers to append to outgoing mail messages.
  *
  * To add a new header item, simply add a new entry to the $_header array.

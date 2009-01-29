@@ -1,6 +1,6 @@
 <?php
 /**
- * $Horde: news/config/prefs.php.dist,v 1.3 2003/12/03 20:09:14 chuck Exp $
+ * $Id$
  *
  * See horde/config/prefs.php for documentation on the structure of this file.
  */

@@ -1,5 +1,7 @@
 <?php
 /**
+ * $Id$
+ *
  * This file specifies which mail servers people using your installation of
  * IMP can login to.
  *

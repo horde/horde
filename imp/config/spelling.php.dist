@@ -1,5 +1,7 @@
 <?php
 /**
+ * $Id$
+ *
  * This file defines a custom list of words that will be added to the spell
  * checker dictionary.
  */

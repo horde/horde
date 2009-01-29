@@ -1,5 +1,7 @@
 <?php
 /**
+ * $Id$
+ *
  * Kronolith Keyword Definition File
  *
  * This file is where you define the list of keywords that can be used

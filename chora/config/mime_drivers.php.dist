@@ -1,5 +1,7 @@
 <?php
 /**
+ * $Id$
+ *
  * Decide which output drivers you want to activate for the Chora application.
  *
  * The avilable drivers are:

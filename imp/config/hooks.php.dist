@@ -1,5 +1,7 @@
 <?php
 /**
+ * $Id$
+ *
  * IMP Hooks configuration file.
  *
  * THE HOOKS PROVIDED IN THIS FILE ARE EXAMPLES ONLY.  DO NOT ENABLE THEM
