@@ -50,7 +50,7 @@ v5.0-git
 v4.3.4-cvs
 ----------
 
-
+[jan] Fix logging of messages forwarded with attachments (Bug #7911).
 
 
 ------

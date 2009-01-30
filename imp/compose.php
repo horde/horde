@@ -879,7 +879,7 @@ if ($redirect) {
         case 'forward':
         case 'forward_all':
         case 'forward_body':
-        case 'forward_attachment':
+        case 'forward_attachments':
             $reply_type = 'forward';
             break;
         }
