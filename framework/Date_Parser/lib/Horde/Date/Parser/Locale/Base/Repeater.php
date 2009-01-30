@@ -17,17 +17,16 @@ class Horde_Date_Parser_Locale_Base_Repeater extends Horde_Date_Parser_Tag
     );
 
     public $dayNameScanner = array(
-        '/^jan\.?(uary)?$/' => 'january',
-        '/^m[ou]n(day)?$/' => 'monday',
-        '/^t(ue|eu|oo|u|)s(day)?$/' => 'tuesday',
-        '/^tue$/' => 'tuesday',
-        '/^we(dnes|nds|nns)day$/' => 'wednesday',
-        '/^wed$/' => 'wednesday',
-        '/^th(urs|ers)day$/' => 'thursday',
-        '/^thu$/' => 'thursday',
-        '/^fr[iy](day)?$/' => 'friday',
-        '/^sat(t?[ue]rday)?$/' => 'saturday',
-        '/^su[nm](day)?$/' => 'sunday',
+        '/^m[ou]n(day)?$/' => Horde_Date::DATE_MONDAY,
+        '/^t(ue|eu|oo|u|)s(day)?$/' => Horde_Date::DATE_TUESDAY,
+        '/^tue$/' => Horde_Date::DATE_TUESDAY,
+        '/^we(dnes|nds|nns)day$/' => Horde_Date::DATE_WEDNESDAY,
+        '/^wed$/' => Horde_Date::DATE_WEDNESDAY,
+        '/^th(urs|ers)day$/' => Horde_Date::DATE_THURSDAY,
+        '/^thu$/' => Horde_Date::DATE_THURSDAY,
+        '/^fr[iy](day)?$/' => Horde_Date::DATE_FRIDAY,
+        '/^sat(t?[ue]rday)?$/' => Horde_Date::DATE_SATURDAY,
+        '/^su[nm](day)?$/' => Horde_Date::DATE_SUNDAY,
     );
 
     public $dayPortionScanner = array(
