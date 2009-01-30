@@ -4,46 +4,57 @@ class Horde_Date_Parser_Locale_Base_Repeater_DayName extends Horde_Date_Parser_L
     // (24 * 60 * 60)
     const DAY_SECONDS = 86400;
 
-  def next(pointer)
-    super
+    public $currentDayStart;
 
-    direction = pointer == :future ? 1 : -1
+    public function next($pointer)
+    {
+        parent::next($pointer);
 
-    if !@current_day_start
-      @current_day_start = Time.construct(@now.year, @now.month, @now.day)
-      @current_day_start += direction * DAY_SECONDS
+        $direction = ($pointer == 'future') ? 1 : -1;
 
-      day_num = symbol_to_number(@type)
+        if (!$this->currentDayStart) {
+            $this->currentDayStart = new Horde_Date(array('year' => $this->now->year, 'month' => $this->now->month, 'day' => $this->now->day + $direction));
 
-      while @current_day_start.wday != day_num
-        @current_day_start += direction * DAY_SECONDS
-      end
-    else
-      @current_day_start += direction * 7 * DAY_SECONDS
-    end
+            $dayNum = $this->type;
+            while ($this->currentDayStart->dayOfWeek() != $dayNum) {
+                $this->currentDayStart->day += $direction;
+            }
+        } else {
+            $this->currentDayStart->day += $direction * 7;
+        }
 
-    Chronic::Span.new(@current_day_start, @current_day_start + DAY_SECONDS)
-  end
+        $end = clone($this->currentDayStart);
+        $end->day++;
+        return new Horde_Date_Span($this->currentDayStart, $end);
+    }
 
-  def this(pointer = :future)
-    super
+    public function this($pointer = 'future')
+    {
+        parent::next($pointer);
 
-    pointer = :future if pointer == :none
-    self.next(pointer)
-  end
+        if ($pointer == 'none') {
+            $pointer = 'future';
+        }
+        return $this->next($pointer);
+    }
 
-  def width
-    DAY_SECONDS
-  end
+    public function width()
+    {
+        return self::DAY_SECONDS;
+    }
 
-  def to_s
-    super << '-dayname-' << @type.to_s
-  end
+    public function __toString()
+    {
+        $dayStrings = array(
+            Horde_Date::DATE_MONDAY => 'monday',
+            Horde_Date::DATE_TUESDAY => 'tuesday',
+            Horde_Date::DATE_WEDNESDAY => 'wednesday',
+            Horde_Date::DATE_THURSDAY => 'thursday',
+            Horde_Date::DATE_FRIDAY => 'friday',
+            Horde_Date::DATE_SATURDAY => 'saturday',
+            Horde_Date::DATE_SUNDAY => 'sunday',
+        );
+        return parent::__toString() . '-dayname-' . $dayStrings[$this->type];
+    }
 
-  private
-
-  def symbol_to_number(sym)
-    lookup = {:sunday => 0, :monday => 1, :tuesday => 2, :wednesday => 3, :thursday => 4, :friday => 5, :saturday => 6}
-    lookup[sym] || raise("Invalid symbol specified")
-  end
-end
+}

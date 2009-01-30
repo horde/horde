@@ -1,70 +1,91 @@
 <?php
 class Horde_Date_Parser_Locale_Base_Repeater_Week extends Horde_Date_Parser_Locale_Base_Repeater
 {
-  WEEK_SECONDS = 604800 # (7 * 24 * 60 * 60)
+    /**
+     * (7 * 24 * 60 * 60)
+     */
+    const WEEK_SECONDS = 604800;
 
-  def next(pointer)
-    super
+    public $currentWeekStart;
 
-    if !@current_week_start
-      case pointer
-      when :future
-        sunday_repeater = Chronic::RepeaterDayName.new(:sunday)
-        sunday_repeater.start = @now
-        next_sunday_span = sunday_repeater.next(:future)
-        @current_week_start = next_sunday_span.begin
-      when :past
-        sunday_repeater = Chronic::RepeaterDayName.new(:sunday)
-        sunday_repeater.start = (@now + Chronic::RepeaterDay::DAY_SECONDS)
-        sunday_repeater.next(:past)
-        last_sunday_span = sunday_repeater.next(:past)
-        @current_week_start = last_sunday_span.begin
-      end
-    else
-      direction = pointer == :future ? 1 : -1
-      @current_week_start += direction * WEEK_SECONDS
-    end
+    public function next($pointer)
+    {
+        parent::next($pointer);
 
-    Chronic::Span.new(@current_week_start, @current_week_start + WEEK_SECONDS)
-  end
+        if (!$this->currentWeekStart) {
+            switch ($pointer) {
+            case 'future':
+                $sundayRepeater = new Horde_Date_Parser_Locale_Base_Repeater_DayName(Horde_Date::DATE_SUNDAY);
+                $sundayRepeater->start = $this->now;
+                $nextSundaySpan = $sundayRepeater->next('future');
+                $this->currentWeekStart = $nextSundaySpan->begin;
+                break;
 
-  def this(pointer = :future)
-    super
+            case 'past':
+                $sundayRepeater = new Horde_Date_Parser_Locale_Base_Repeater_DayName(Horde_Date::DATE_SUNDAY);
+                $sundayRepeater->start = clone($this->now);
+                $sundayRepeater->start->day++;
+                $sundayRepeater->next('past');
+                $lastSundaySpan = $sundayRepeater->next('past');
+                $currentWeekStart = $lastSundaySpan->begin;
+                break;
+            }
+        } else {
+            $direction = ($pointer == 'future') ? 1 : -1;
+            $this->currentWeekStart->day += $direction * 7;
+        }
 
-    case pointer
-    when :future
-      this_week_start = Time.local(@now.year, @now.month, @now.day, @now.hour) + Chronic::RepeaterHour::HOUR_SECONDS
-      sunday_repeater = Chronic::RepeaterDayName.new(:sunday)
-      sunday_repeater.start = @now
-      this_sunday_span = sunday_repeater.this(:future)
-      this_week_end = this_sunday_span.begin
-      Chronic::Span.new(this_week_start, this_week_end)
-    when :past
-      this_week_end = Time.local(@now.year, @now.month, @now.day, @now.hour)
-      sunday_repeater = Chronic::RepeaterDayName.new(:sunday)
-      sunday_repeater.start = @now
-      last_sunday_span = sunday_repeater.next(:past)
-      this_week_start = last_sunday_span.begin
-      Chronic::Span.new(this_week_start, this_week_end)
-    when :none
-      sunday_repeater = Chronic::RepeaterDayName.new(:sunday)
-      sunday_repeater.start = @now
-      last_sunday_span = sunday_repeater.next(:past)
-      this_week_start = last_sunday_span.begin
-      Chronic::Span.new(this_week_start, this_week_start + WEEK_SECONDS)
-    end
-  end
+        $end = clone($this->currentWeekStart);
+        $end->day += 7;
+        return new Horde_Date_Span($this->currentWeekStart, $end);
+    }
 
-  def offset(span, amount, pointer)
-    direction = pointer == :future ? 1 : -1
-    span + direction * amount * WEEK_SECONDS
-  end
+    public function this($pointer = 'future')
+    {
+        parent::this($pointer);
 
-  def width
-    WEEK_SECONDS
-  end
+        switch ($pointer) {
+        case 'future':
+            $thisWeekStart = new Horde_Date(array('year' => $now->year, 'month' => $now->month, 'day' => $now->day, 'hour' => $now->hour + 1));
+            $sundayRepeater = new Horde_Date_Parser_Locale_Base_Repeater_DayName(Horde_Date::DATE_SUNDAY);
+            $sundayRepeater->start = $this->now;
+            $thisSundaySpan = $sundayRepeater->this('future');
+            $thisWeekEnd = $thisSundaySpan->begin;
+            return new Horde_Date_Span($thisWeekStart, $thisWeekEnd);
 
-  def to_s
-    super << '-week'
-  end
-end
+        case 'past':
+            $thisWeekEnd = new Horde_Date(array('year' => $now->year, 'month' => $now->month, 'day' => $now->day, 'hour' => $now->hour));
+            $sundayRepeater = new Horde_Date_Parser_Locale_Base_Repeater_DayName(Horde_Date::DATE_SUNDAY);
+            $sundayRepeater->start = $this->now;
+            $lastSundaySpan = $sundayRepeater->next('past');
+            $thisWeekStart = $lastSundaySpan->begin;
+            return new Horde_Date_Span($thisWeekStart, $thisWeekEnd);
+
+        case 'none':
+            $sundayRepeater = new Horde_Date_Parser_Locale_Base_Repeater_DayName(Horde_Date::DATE_SUNDAY);
+            $sundayRepeater->start = $this->now;
+            $lastSundaySpan = $sundayRepeater->next('past');
+            $thisWeekStart = $lastSundaySpan->begin;
+            $thisWeekEnd = clone($thisWeekStart);
+            $thisWeekEnd->day += 7;
+            return new Horde_Date_Span($thisWeekStart, $thisWeekEnd);
+        }
+    }
+
+    public function offset($span, $amount, $pointer)
+    {
+        $direction = ($pointer == 'future') ? 1 : -1;
+        return $span->add($direction * $amount * self::WEEK_SECONDS);
+    }
+
+    public function width()
+    {
+        return self::WEEK_SECONDS;
+    }
+
+    public function __toString()
+    {
+        return parent::__toString() . '-week';
+    }
+
+}
