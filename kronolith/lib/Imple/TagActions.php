@@ -89,7 +89,6 @@ class Kronolith_Imple_TagActions extends Kronolith_Imple
     private function _getTagHtml($tagger, $id, $type)
     {
         $tags = $tagger->getTags($id, 'calendar');
-        $html = '';
         $js = '';
 
         if ($type == 'calendar') {
@@ -103,11 +102,13 @@ class Kronolith_Imple_TagActions extends Kronolith_Imple
             $hasEdit = $event->hasPermission(PERMS_EDIT, Auth::getAuth());
         }
 
+        $html = count($tags) ? '<h5>' . _("Tags") . '</h5>': '';
+        $html .= '<ul>';
         foreach ($tags as $tag_id => $tag) {
             $html .= '<li>' .  $tag . ($hasEdit ? '<a href="#" onclick="removeTag(\'' . $id . '\', \'' . $type . '\',' . $tag_id . ', \'' . Horde::url('imple.php', true) . '\'); Event.stop(event)" id="remove' . md5($id . $tag_id) . '">' . Horde::img('delete-small.png', _("Remove Tag"), '', $GLOBALS['registry']->getImageDir('horde')) . '</a>' : '') . '</li>';
         }
 
-        return $html;
+        return $html . '</ul><div class="clear">&nbsp;</div>';
     }
 
 }
