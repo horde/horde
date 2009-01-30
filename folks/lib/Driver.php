@@ -3,7 +3,7 @@
  * Folks_Driver:: defines an API for implementing storage backends for
  * Folks.
  *
- * $Id: Driver.php 991 2008-10-10 10:27:58Z duck $
+ * $Id: Driver.php 1247 2009-01-30 15:01:34Z duck $
  *
  * Copyright Obala d.o.o. (www.obala.si)
  *
@@ -815,5 +815,4 @@ class Folks_Driver {
         $GLOBALS['cache']->expire($user . '_activity');
         return $this->_deleteActivity($scope, $date, $user);
     }
-
 }

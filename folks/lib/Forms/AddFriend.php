@@ -1,13 +1,14 @@
 <?php
 /**
- * $Id: AddFriend.php 1019 2008-10-31 08:18:10Z duck $
+ * $Id: AddFriend.php 1247 2009-01-30 15:01:34Z duck $
  *
- * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author Duck <duck@obala.net>
+ * @package Folks
  */
 class Folks_AddFriend_Form extends Horde_Form {
 

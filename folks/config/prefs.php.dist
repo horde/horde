@@ -1,6 +1,6 @@
 <?php
 /**
- * $Id: prefs.php 233 2008-01-14 15:34:50Z duck $
+ * $Id$
  *
  * Copyright Obala d.o.o. (www.obala.si)
  *
@@ -28,7 +28,7 @@ $prefGroups['Settings'] = array(
 $prefGroups['Activities'] = array(
     'column' => _("Settings"),
     'label' => _("Activity log"),
-    'desc' => _("Set activity prefetences"),
+    'desc' => _("Set activity preferences"),
     'members' => array('log_user_comments', 'log_account_changes', 'log_scopes', 'log_scope_comments')
 );
 

@@ -44,7 +44,7 @@ require_once FOLKS_BASE . '/lib/Driver.php';
 $GLOBALS['folks_driver'] = Folks_Driver::factory();
 
 // Cache
-$GLOBALS['cache'] = &Horde_Cache::singleton($GLOBALS['conf']['cache']['driver'],
+$GLOBALS['cache'] = Horde_Cache::singleton($GLOBALS['conf']['cache']['driver'],
                                             Horde::getDriverConfig('cache', $GLOBALS['conf']['cache']['driver']));
 
 // Update user online status

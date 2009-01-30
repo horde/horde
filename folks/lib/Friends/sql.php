@@ -3,7 +3,7 @@
  * Folks_Friends:: defines an API for implementing storage backends for
  * Folks.
  *
- * $Id: sql.php 1008 2008-10-24 09:07:35Z duck $
+ * $Id: sql.php 1247 2009-01-30 15:01:34Z duck $
  *
  * Copyright Obala d.o.o. (www.obala.si)
  *
@@ -32,20 +32,6 @@ class Folks_Friends_sql extends Folks_Friends {
      * @var DB
      */
     private $_write_db;
-
-    /**
-     * friends list ID
-     *
-     * @var int
-     */
-    private $_friends = 0;
-
-    /**
-     * Black list ID
-     *
-     * @var int
-     */
-    private $_blacklist = 1;
 
     /**
      * Constructs a new SQL storage object.

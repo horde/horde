@@ -1,6 +1,6 @@
 <?php
 /**
- * $Id: blacklist.php 974 2008-10-07 19:46:00Z duck $
+ * $Id: blacklist.php 1234 2009-01-28 18:44:02Z duck $
  *
  * Copyright Obala d.o.o. (www.obala.si)
  *

@@ -7,7 +7,7 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author Your Name <you@example.com>
+ * @author Duck <duck@obala.net>
  */
 
 define('FOLKS_BASE', dirname(__FILE__));

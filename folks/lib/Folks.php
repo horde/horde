@@ -2,7 +2,7 @@
 /**
  * Folks Base Class.
  *
- * $Id: Folks.php 976 2008-10-07 21:24:47Z duck $
+ * $Id: Folks.php 1247 2009-01-30 15:01:34Z duck $
  *
  * Copyright Obala d.o.o. (www.obala.si)
  *

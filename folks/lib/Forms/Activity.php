@@ -1,6 +1,6 @@
 <?php
 /**
- * $Id: Activity.php 979 2008-10-08 08:31:13Z duck $
+ * $Id: Activity.php 1247 2009-01-30 15:01:34Z duck $
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
@@ -8,6 +8,7 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author Duck <duck@obala.net>
+ * @package Folks
  */
 class Folks_Activity_Form extends Horde_Form {
 

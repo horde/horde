@@ -6,7 +6,7 @@ require_once dirname(__FILE__) . '/sql.php';
  * Folks_Friends:: defines an API for implementing storage backends for
  * Folks.
  *
- * $Id: shared.php 1019 2008-10-31 08:18:10Z duck $
+ * $Id: shared.php 1247 2009-01-30 15:01:34Z duck $
  *
  * Copyright Obala d.o.o. (www.obala.si)
  *

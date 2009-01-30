@@ -3,7 +3,7 @@
  * Folks_Friends:: defines an API for implementing storage backends for
  * Friends.
  *
- * $Id: Friends.php 910 2008-09-24 19:02:50Z duck $
+ * $Id: Friends.php 1248 2009-01-30 15:04:49Z duck $
  *
  * Copyright Obala d.o.o. (www.obala.si)
  *
@@ -86,7 +86,7 @@ class Folks_Friends {
      * @param array $params   A hash containing any additional configuration
      *                        or connection parameters a subclass might need.
      */
-    static function singleton($driver = null, $params = null)
+    static public function singleton($driver = null, $params = null)
     {
         $signature = $driver . ':' . $params['user'];
         if (!array_key_exists($signature, self::$instances)) {

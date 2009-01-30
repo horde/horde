@@ -7,7 +7,7 @@
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://cvs.horde.org/co.php/folks/LICENSE.
  *
- * $Id: api.php 979 2008-10-08 08:31:13Z duck $
+ * $Id: api.php 1235 2009-01-28 19:25:04Z duck $
  *
  * @author Duck <duck@obala.net>
  * @package Folks
@@ -292,10 +292,6 @@ function _folks_removeBlacklisted($user = null)
  */
 function _folks_isBlacklisted($user = null)
 {
-    if (empty($user)) {
-        $user = Auth::getAuth();
-    }
-
     require_once dirname(__FILE__) . '/Friends.php';
 
     $friends = Folks_Friends::singleton(null, array('user' => $user));
@@ -493,7 +489,7 @@ function _folks_removeUser($userId)
  *
  * @return boolean  True on success or a PEAR_Error object on failure.
  */
-function _folks_removeUserData($user)
+function _folks_removeUserData($user = null)
 {
     return _folks_removeUser($user);
 }

@@ -20,7 +20,7 @@
  * The table structure can be created by the scripts/sql/folks_foo.sql
  * script.
  *
- * $Id: sql.php 1074 2008-11-29 09:04:26Z duck $
+ * $Id: sql.php 1234 2009-01-28 18:44:02Z duck $
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *

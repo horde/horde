@@ -1,6 +1,6 @@
 <?php
 /**
- * $Id: hooks.php 747 2008-08-18 07:46:33Z duck $
+ * $Id$
  *
  * Folks Hooks configuration file.
  *
@@ -15,44 +15,46 @@
 // registry calls and one much faster with direct DB access but requres your
 // monitorig for application structure changes.
 
-// if (!function_exists('_folks_hook_countService')) {
-//
-//     function _folks_hook_countService($service, $user)
-//     {
-//         switch ($service) {
-//
-//         case 'videos':
-//             return $GLOBALS['registry']->callByPackage('oscar', 'countVideos', array(array('author' => $user)));
-//
-//         case 'attendances':
-//             return $GLOBALS['registry']->callByPackage('schedul', 'countUserAttendances', array(array('user' => $user)));
-//
-//         case 'news':
-//             return $GLOBALS['registry']->callByPackage('news', 'countNews', array(array('user' => $user)));
-//
-//         case 'wishes':
-//             $result = $GLOBALS['registry']->callByPackage('genie', 'listUserItems', array($user));
-//             if ($result instanceof PEAR_Error) {
-//                 return $result;
-//             } else {
-//                 return count($result);
-//             }
-//
-//         case 'galleries':
-//             return $GLOBALS['registry']->callByPackage('ansel', 'countGalleries', array('ansel', PERMS_SHOW, $user));
-//
-//         case 'blogs':
-//             return $GLOBALS['registry']->callByPackage('thomas', 'countPosts', array(array('user' => $user)));
-//
-//         case 'classifieds':
-//             return $GLOBALS['registry']->callByPackage('classified', 'countAds', array(array('user_uid' => $user)));
-//
-//         default:
-//             return 0;
-//         }
-//
-//     }
-// }
+if (!function_exists('_folks_hook_countService')) {
+
+    function _folks_hook_countService($service, $user)
+    {
+        switch ($service) {
+
+        case 'videos':
+            return $GLOBALS['registry']->callByPackage('oscar', 'countVideos', array(array('author' => $user)));
+
+        case 'attendances':
+            return $GLOBALS['registry']->callByPackage('schedul', 'countUserAttendances', array(array('user' => $user)));
+
+        case 'news':
+            return $GLOBALS['registry']->callByPackage('news', 'countNews', array(array('user' => $user)));
+
+        case 'wishes':
+            $result = $GLOBALS['registry']->callByPackage('genie', 'listUserItems', array($user));
+            if ($result instanceof PEAR_Error) {
+                return $result;
+            } else {
+                return count($result);
+            }
+
+        case 'galleries':
+            return $GLOBALS['registry']->callByPackage('ansel', 'countGalleries', array('ansel', PERMS_SHOW, $user));
+
+        case 'blogs':
+            return $GLOBALS['registry']->callByPackage('thomas', 'countPosts', array(array('user' => $user)));
+
+        case 'classifieds':
+            return $GLOBALS['registry']->callByPackage('classified', 'countAds', array(array('user_uid' => $user)));
+
+        default:
+            return 0;
+        }
+
+    }
+}
+
+// DB optimized version
 //
 // if (!function_exists('_folks_hook_countService')) {
 //
@@ -114,36 +116,39 @@
 // registry calls and one much faster with direct DB access but requres your
 // monitorig for application structure changes.
 
-// if (!function_exists('_folks_hook_getService')) {
-//     function _folks_hook_getService($service, $user)
-//     {
-//         switch ($service) {
-//
-//         case 'videos':
-//             return $GLOBALS['registry']->callByPackage('oscar', 'listVideos', array(array('author' => $user, 0, 3)));
-//
-//         case 'attendances':
-//             return $GLOBALS['registry']->callByPackage('schedul', 'getUserAttendances', array($user));
-//
-//         case 'news':
-//             return $GLOBALS['registry']->callByPackage('news', 'listNews', array(array('user' => $user), 0, 3));
-//
-//         case 'wishes':
-//             return $GLOBALS['registry']->callByPackage('genie', 'listUserItems', array($user));
-//
-//         case 'galleries':
-//             return $GLOBALS['registry']->callByPackage('ansel', 'listGalleries', array('ansel', PERMS_SHOW, null, true, 0, 3, $user));
-//
-//         case 'blogs':
-//             return $GLOBALS['registry']->callByPackage('thomas', 'getRecentPosts', array($user, Auth::getAuth(), '', 3));
-//
-//         case 'classifieds':
-//             return $GLOBALS['registry']->callByPackage('classified', 'listAds', array(array('user_uid' => $user), 0, 3));
-//
-//         default:
-//             return array();
-//         }
-//
+if (!function_exists('_folks_hook_getService')) {
+    function _folks_hook_getService($service, $user)
+    {
+        switch ($service) {
+
+        case 'videos':
+            return $GLOBALS['registry']->callByPackage('oscar', 'listVideos', array(array('author' => $user, 0, 3)));
+
+        case 'attendances':
+            return $GLOBALS['registry']->callByPackage('schedul', 'getUserAttendances', array($user));
+
+        case 'news':
+            return $GLOBALS['registry']->callByPackage('news', 'listNews', array(array('user' => $user), 0, 3));
+
+        case 'wishes':
+            return $GLOBALS['registry']->callByPackage('genie', 'listUserItems', array($user));
+
+        case 'galleries':
+            return $GLOBALS['registry']->callByPackage('ansel', 'listGalleries', array('ansel', PERMS_SHOW, null, true, 0, 3, $user));
+
+        case 'blogs':
+            return $GLOBALS['registry']->callByPackage('thomas', 'getRecentPosts', array($user, Auth::getAuth(), '', 3));
+
+        case 'classifieds':
+            return $GLOBALS['registry']->callByPackage('classified', 'listAds', array(array('user_uid' => $user), 0, 3));
+
+        default:
+            return array();
+        }
+    }
+}
+
+// DB optimized version
 //
 // if (!function_exists('_folks_hook_getService')) {
 //     function _folks_hook_getService($service, $user)
@@ -212,64 +217,64 @@
 // paid service and perform autologin or redirect to a wikipage with
 // additional information
 
-// if (!function_exists('_folks_hook_prelogin')) {
-//
-//     function _folks_hook_prelogin($app)
-//     {
-//         require_once 'Horde/Group.php';
-//         $group = Group::singleton();
-//         $user_uid = Auth::getAuth();
-//
-//         switch ($app) {
-//
-//         case 'gollem':
-//
-//             if (Auth::isAdmin() || $group->userIsInGroup($user_uid, 1, false)) {
-//                 $_GET['backend_key'] = 'kjbnzi78';
-//                 require $GLOBALS['registry']->get('fileroot', 'gollem') .  '/redirect.php';
-//                 exit;
-//             } else {
-//                 header('Location: ' .  $GLOBALS['registry']->link('wiki/show',  array('page' => 'PaidFiles')));
-//                 exit;
-//             }
-//             break;
-//
-//         case 'imp':
-//
-//             if (Auth::isAdmin()
-//                 || $group->userIsInGroup($user_uid, 1, false)
-//                 || $group->userIsInGroup($user_uid, 2, false)) {
-//
-//                 $db = DB::connect($GLOBALS['conf']['sql']);
-//                 $password = $db->getOne('SELECT password FROM mails.accountuser WHERE username = ?', array($user_uid . '@HOST'));
-//
-//                 $GLOBALS['authentication'] = 'none';
-//                 $GLOBALS['noset_view'] = true;
-//                 require_once $GLOBALS['registry']->get('fileroot', 'imp') . '/lib/base.php';
-//                 require_once IMP_BASE . '/lib/Session.php';
-//                 $server = IMP_Session::getAutoLoginServer(true);
-//
-//                 $try = IMP_Session::createSession($user_uid, $password, $server);
-//                 if ($try === true) {
-//                     if ($GLOBALS['browser']->isMobile()) {
-//                         require $GLOBALS['registry']->get('fileroot', 'mimp') . '/mailbox.php';
-//                     } else {
-//                         require $GLOBALS['registry']->get('fileroot', 'imp') . '/redirect.php';
-//                     }
-//                 } else {
-//                     $notification->push(_("There was an error login into your mail account."));
-//                     header('Location: ' . $GLOBALS['registry']->get('webroot', 'folks') . 'login.php');
-//                 }
-//             } else {
-//                 header('Location: ' .  $GLOBALS['registry']->link('wiki/show',  array('page' => 'MailAccount')));
-//             }
-//
-//             exit;
-//
-//             break;
-//         }
-//     }
-// }
+if (!function_exists('_folks_hook_prelogin')) {
+
+    function _folks_hook_prelogin($app)
+    {
+        require_once 'Horde/Group.php';
+        $group = Group::singleton();
+        $user_uid = Auth::getAuth();
+
+        switch ($app) {
+
+        case 'gollem':
+
+            if (Auth::isAdmin() || $group->userIsInGroup($user_uid, 1, false)) {
+                $_GET['backend_key'] = 'kjbnzi78';
+                require $GLOBALS['registry']->get('fileroot', 'gollem') .  '/redirect.php';
+                exit;
+            } else {
+                header('Location: ' .  $GLOBALS['registry']->link('wiki/show',  array('page' => 'PaidFiles')));
+                exit;
+            }
+            break;
+
+        case 'imp':
+
+            if (Auth::isAdmin()
+                || $group->userIsInGroup($user_uid, 1, false)
+                || $group->userIsInGroup($user_uid, 2, false)) {
+
+                $db = DB::connect($GLOBALS['conf']['sql']);
+                $password = $db->getOne('SELECT password FROM mails.accountuser WHERE username = ?', array($user_uid . '@HOST'));
+
+                $GLOBALS['authentication'] = 'none';
+                $GLOBALS['noset_view'] = true;
+                require_once $GLOBALS['registry']->get('fileroot', 'imp') . '/lib/base.php';
+                require_once IMP_BASE . '/lib/Session.php';
+                $server = IMP_Session::getAutoLoginServer(true);
+
+                $try = IMP_Session::createSession($user_uid, $password, $server);
+                if ($try === true) {
+                    if ($GLOBALS['browser']->isMobile()) {
+                        require $GLOBALS['registry']->get('fileroot', 'mimp') . '/mailbox.php';
+                    } else {
+                        require $GLOBALS['registry']->get('fileroot', 'imp') . '/redirect.php';
+                    }
+                } else {
+                    $notification->push(_("There was an error login into your mail account."));
+                    header('Location: ' . $GLOBALS['registry']->get('webroot', 'folks') . 'login.php');
+                }
+            } else {
+                header('Location: ' .  $GLOBALS['registry']->link('wiki/show',  array('page' => 'MailAccount')));
+            }
+
+            exit;
+
+            break;
+        }
+    }
+}
 
 
 // This hook is called when a user submits a signup request.  It allows
@@ -277,136 +282,136 @@
 // attempts are made to add them to the system. Here we lowecase the useranme
 // and check if username or email is already taken
 
-// if (!function_exists('_horde_hook_signup_preprocess')) {
-//     function _horde_hook_signup_preprocess($info)
-//     {
-//         if (isset($info['extra']['username'])) {
-//             $info['extra']['username'] = String::lower($info['extra']['username']);
-//             $username = $info['extra']['username'];
-//         } else {
-//             $info['user_name'] = String::lower($info['user_name']);
-//             $username = $info['user_name'];
-//         }
-//
-//         if (!eregi("^[_a-z0-9-]*$", $username)) {
-//             return PEAR::raiseError(_("Username can contain only alphanumeric characters, underscore and minus."));
-//         }
-//
-//         $_db = DB::connect($GLOBALS['conf']['sql'], true);
-//
-//         $query  = 'SELECT user_uid, user_email FROM folks_users WHERE user_uid = ? OR user_email = ?';
-//         $result = $_db->getRow($query, array($username, $info['extra']['email']), DB_FETCHMODE_ASSOC);
-//
-//         if ($result instanceof PEAR_Error) {
-//             return $result;
-//         } elseif (empty($result)) {
-//             return $info;
-//         } elseif ($result['user_uid'] == $username) {
-//             return PEAR::raiseError(_("There is already an user registered with this username"));
-//         } elseif ($result['user_email'] == $info['extra']['email']) {
-//             return PEAR::raiseError(_("There is already an user registered with this email"));
-//         }
-//
-//         return $info;
-//     }
-// }
+if (!function_exists('_horde_hook_signup_preprocess')) {
+    function _horde_hook_signup_preprocess($info)
+    {
+        if (isset($info['extra']['username'])) {
+            $info['extra']['username'] = String::lower($info['extra']['username']);
+            $username = $info['extra']['username'];
+        } else {
+            $info['user_name'] = String::lower($info['user_name']);
+            $username = $info['user_name'];
+        }
+
+        if (!eregi("^[_a-z0-9-]*$", $username)) {
+            return PEAR::raiseError(_("Username can contain only alphanumeric characters, underscore and minus."));
+        }
+
+        $_db = DB::connect($GLOBALS['conf']['sql'], true);
+
+        $query  = 'SELECT user_uid, user_email FROM folks_users WHERE user_uid = ? OR user_email = ?';
+        $result = $_db->getRow($query, array($username, $info['extra']['email']), DB_FETCHMODE_ASSOC);
+
+        if ($result instanceof PEAR_Error) {
+            return $result;
+        } elseif (empty($result)) {
+            return $info;
+        } elseif ($result['user_uid'] == $username) {
+            return PEAR::raiseError(_("There is already an user registered with this username"));
+        } elseif ($result['user_email'] == $info['extra']['email']) {
+            return PEAR::raiseError(_("There is already an user registered with this email"));
+        }
+
+        return $info;
+    }
+}
 
 // Following on from the example in the above function, this is how a sample
 // _horde_hook_signup_addextra function would look like.
 // Here we connect to the database and update folks user table
 // with additional user data and send confirmation code to check his email
 
-// if (!function_exists('_horde_hook_signup_addextra')) {
-//      function _horde_hook_signup_addextra($userID, $extra)
-//      {
-//         global $conf;
-//
-//         $_db = DB::connect($conf['sql']);
-//         $fields = array();
-//         $values = array();
-//         foreach ($extra as $field => $value) {
-//             if ($field == 'user_name') {
-//                 continue;
-//             }
-//             if ($field == 'password') {
-//                 $value = hash('md5', $value);
-//             }
-//             $fields[] = 'user_' . String::lower($field);
-//             $values[] = String::convertCharset($value, NLS::getCharset(), $conf['sql']['charset']);
-//         }
-//
-//         $values[] = $userID;
-//         $query  = 'UPDATE folks_users SET ' . implode(' = ?, ', $fields) . ' = ? '
-//                     . '  WHERE user_uid = ?';
-//
-//         $result = $_db->query($query, $values);
-//         if ($result instanceof PEAR_Error) {
-//             return $result;
-//         }
-//
-//         require_once $GLOBALS['registry']->get('fileroot', 'folks') . '/lib/Folks.php';
-//         $code = Folks::encodeString($userID, 'activate' . hash('md5', $extra['password']));
-//         $link = Util::addParameter(Horde::applicationUrl('account/approve.php', true, -1),
-//                                     array('user' => $userID, 'code' => $code),
-//                                     null, false);
-//
-//         $body = sprintf(_("Your username on %s %s is: %s. \n\n Please confirm the registration by going to this link \n %s"),
-//                             $GLOBALS['registry']->get('name', 'horde'),
-//                             Horde::url($GLOBALS['registry']->get('webroot', 'horde'), true),
-//                             $user['user_uid'],
-//                             $link);
-//
-//         $result = Folks::sendMail($extra['email'], _("Confirmation code"), $body);
-//         if ($result instanceof PEAR_Error) {
-//             $_db->query('DELETE FROM folks_users WHERE user_uid = ?', array($userID));
-//         }
-//
-//         return $result;
-//      }
-// }
+if (!function_exists('_horde_hook_signup_addextra')) {
+     function _horde_hook_signup_addextra($userID, $extra)
+     {
+        global $conf;
+
+        $_db = DB::connect($conf['sql']);
+        $fields = array();
+        $values = array();
+        foreach ($extra as $field => $value) {
+            if ($field == 'user_name') {
+                continue;
+            }
+            if ($field == 'password') {
+                $value = hash('md5', $value);
+            }
+            $fields[] = 'user_' . String::lower($field);
+            $values[] = String::convertCharset($value, NLS::getCharset(), $conf['sql']['charset']);
+        }
+
+        $values[] = $userID;
+        $query  = 'UPDATE folks_users SET ' . implode(' = ?, ', $fields) . ' = ? '
+                    . '  WHERE user_uid = ?';
+
+        $result = $_db->query($query, $values);
+        if ($result instanceof PEAR_Error) {
+            return $result;
+        }
+
+        require_once $GLOBALS['registry']->get('fileroot', 'folks') . '/lib/Folks.php';
+        $code = Folks::encodeString($userID, 'activate' . hash('md5', $extra['password']));
+        $link = Util::addParameter(Horde::applicationUrl('account/approve.php', true, -1),
+                                    array('user' => $userID, 'code' => $code),
+                                    null, false);
+
+        $body = sprintf(_("Your username on %s %s is: %s. \n\n Please confirm the registration by going to this link \n %s"),
+                            $GLOBALS['registry']->get('name', 'horde'),
+                            Horde::url($GLOBALS['registry']->get('webroot', 'horde'), true),
+                            $user['user_uid'],
+                            $link);
+
+        $result = Folks::sendMail($extra['email'], _("Confirmation code"), $body);
+        if ($result instanceof PEAR_Error) {
+            $_db->query('DELETE FROM folks_users WHERE user_uid = ?', array($userID));
+        }
+
+        return $result;
+     }
+}
 
 // This is an example of a post-push hook; it is called right after an
 // application is pushed successfully onto the app stack. Here we check
 // If the user has a authentication cookie code. Compara it with one in DB
 // and autologin the user.
 
-// if (!function_exists('_horde_hook_post_pushapp')) {
-//     function _horde_hook_post_pushapp($app)
-//     {
-//         if ($app != 'horde' ||
-//             !isset($_COOKIE['folks_login_code']) ||
-//             !isset($_COOKIE['folks_login_user'])) {
-//             return;
-//         }
-//
-//         $user = Auth::getAuth();
-//         if ($user) {
-//             return;
-//         }
-//
-//         $conn = mysql_connect($GLOBALS['conf']['sql']['hostspec'],
-//                                 $GLOBALS['conf']['sql']['username'],
-//                                 $GLOBALS['conf']['sql']['password']);
-//
-//         $query = 'SELECT user_password FROM '
-//                     . $GLOBALS['conf']['sql']['database']
-//                     . '.folks_users WHERE user_uid = "'
-//                     . $_COOKIE['folks_login_user'] . '"';
-//
-//         $result = mysql_query($query);
-//         $r = mysql_fetch_assoc($result);
-//
-//         if (mysql_num_rows($result) == 0) {
-//             return;
-//         }
-//
-//         $key = date('m') . $r['user_password'];
-//         require_once $GLOBALS['registry']->get('fileroot', 'folks') . '/lib/Folks.php';
-//         if ($_COOKIE['folks_login_code'] != Folks::encodeString($_COOKIE['folks_login_user'], $key)) {
-//             return;
-//         }
-//
-//         $auth = &Auth::singleton('folks');
-//         return $auth->setAuth($_COOKIE['folks_login_user'], array('transparent' => 1, 'password' => null));
-//     }
-// }
+if (!function_exists('_horde_hook_post_pushapp')) {
+    function _horde_hook_post_pushapp($app)
+    {
+        if ($app != 'horde' ||
+            !isset($_COOKIE['folks_login_code']) ||
+            !isset($_COOKIE['folks_login_user'])) {
+            return;
+        }
+
+        $user = Auth::getAuth();
+        if ($user) {
+            return;
+        }
+
+        $conn = mysql_connect($GLOBALS['conf']['sql']['hostspec'],
+                                $GLOBALS['conf']['sql']['username'],
+                                $GLOBALS['conf']['sql']['password']);
+
+        $query = 'SELECT user_password FROM '
+                    . $GLOBALS['conf']['sql']['database']
+                    . '.folks_users WHERE user_uid = "'
+                    . $_COOKIE['folks_login_user'] . '"';
+
+        $result = mysql_query($query);
+        $r = mysql_fetch_assoc($result);
+
+        if (mysql_num_rows($result) == 0) {
+            return;
+        }
+
+        $key = date('m') . $r['user_password'];
+        require_once $GLOBALS['registry']->get('fileroot', 'folks') . '/lib/Folks.php';
+        if ($_COOKIE['folks_login_code'] != Folks::encodeString($_COOKIE['folks_login_user'], $key)) {
+            return;
+        }
+
+        $auth = &Auth::singleton('folks');
+        return $auth->setAuth($_COOKIE['folks_login_user'], array('transparent' => 1, 'password' => null));
+    }
+}
