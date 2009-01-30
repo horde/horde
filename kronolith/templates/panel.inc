@@ -44,8 +44,10 @@ $tagger = new Kronolith_Tagger();
  <ul id="mycalendars">
 <?php foreach ($my_calendars as $id => $cal): ?>
   <li><label><input type="checkbox" class="checkbox" name="display_cal[]" value="<?php echo htmlspecialchars($id) ?>"<?php echo (in_array($id, $display_calendars) ? ' checked="checked"' : '') . ' /> ' . htmlspecialchars($cal->get('name')) ?></label> <?php echo $info_img ?>
-   <ul class="panel-tags" id="tags-<?php echo $id?>" style="margin-left: 10px;">
-    <?php $tags = $tagger->getTags($id, 'calendar'); ?>
+   <div class="panel-tags">
+   <?php $tags = $tagger->getTags($id, 'calendar'); ?>
+   <h5><?php echo (count($tags) ? _("Tags") : '');?></h5>
+   <ul id="tags-<?php echo $id?>" style="margin-left: 10px;">
     <?php foreach ($tags as $tag_id => $tag): ?>
     <li><?php echo $tag . ($cal->hasPermission(Auth::getAuth(), PERMS_EDIT) ? '<a href="#" id="remove' . md5($id . $tag_id) . '">' . Horde::img('delete-small.png', _("Remove Tag"), '', $registry->getImageDir('horde')) . '</a>' : '') . '</li>'?>
     <?php
@@ -57,6 +59,8 @@ $tagger = new Kronolith_Tagger();
     ?>
     <?php endforeach;?>
   </ul>
+  <div class="clear">&nbsp;</div>
+  </div>
   </li>
 <?php endforeach; ?>
  </ul>

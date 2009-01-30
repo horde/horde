@@ -1106,3 +1106,23 @@ div.kronolithView .kronolithEvents .kronolithEvent .kronolithEventInfo {
 /* till 23 */
 
 /* end tables */
+
+/* tags */
+.panel-tags {
+    margin-left: 10px;
+}
+
+.panel-tags ul {
+    margin: 1px;
+    padding: 1px;
+    list-style-type: none;
+}
+
+.panel-tags li {
+    float: left;
+    padding: 2px;
+}
+
+.panel-tags li:hover {
+    text-decoration: underline;
+}
