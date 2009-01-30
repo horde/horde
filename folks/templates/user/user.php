@@ -106,7 +106,15 @@ foreach ($profile['activity_log'] as $item) {
 
 <tr>
     <td><strong><?php echo _("Age") ?></strong></td>
-    <td><?php $age = Folks::calcAge($profile['user_birthday']); echo $age['age'] . ' (' . $age['sign'] . ')'?></td>
+    <td>
+        <?php
+            $age = Folks::calcAge($profile['user_birthday']);
+            echo $age['age'];
+            if ($age['sign']) {
+                echo ' (' . $age['sign'] . ')';
+            }
+        ?>
+    </td>
 </tr>
 <tr>
     <td><strong><?php echo _("Gender") ?></strong></td>

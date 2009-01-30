@@ -3,7 +3,7 @@
 /**
  * This script parses MIME messages and deactivates users with returned emails.
  *
- * $Id: mail-filter.php 1020 2008-10-31 09:25:56Z duck $
+ * $Id: mail-filter.php 1234 2009-01-28 18:44:02Z duck $
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
