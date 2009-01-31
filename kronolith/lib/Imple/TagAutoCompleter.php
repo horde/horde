@@ -21,9 +21,11 @@ class Kronolith_Imple_TagAutoCompleter extends Kronolith_Imple
      */
     public function __construct($params)
     {
-        if (empty($params['triggerId'])) {
-            $params['triggerId'] = $this->_randomid();
+
+        if (!count($params)) {
+            return;
         }
+        $params['triggerId'] = $params['triggerId'] . '_' . $params['id'];
         if (empty($params['resultsId'])) {
             $params['resultsId'] = $params['triggerId'] . '_results';
         }
@@ -84,6 +86,9 @@ class Kronolith_Imple_TagAutoCompleter extends Kronolith_Imple
     {
         $tagger = new Kronolith_Tagger();
         $tags = $tagger->listTags($search);
+
+
+
         return array_values($tags);
     }
 

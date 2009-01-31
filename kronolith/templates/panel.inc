@@ -46,10 +46,10 @@ $tagger = new Kronolith_Tagger();
   <li><label><input type="checkbox" class="checkbox" name="display_cal[]" value="<?php echo htmlspecialchars($id) ?>"<?php echo (in_array($id, $display_calendars) ? ' checked="checked"' : '') . ' /> ' . htmlspecialchars($cal->get('name')) ?></label> <?php echo $info_img ?>
    <div class="panel-tags">
    <?php $tags = $tagger->getTags($id, 'calendar'); ?>
-    <span style="cursor:pointer;" id="tag-show-<?php echo $id?>" onclick="toggleNewTags('<?php echo $id?>');" title="<?php echo _("Add new tags")?>">+</span><span id="tag-hide-<?php echo $id?>" style="display:none;cursor:pointer;" onclick="toggleNewTags('<?php echo $id?>');">-</span>
-   <h5 style="display: inline;"><?php echo _("Tags")?></h5>
-   <div id="newtags-<?php echo $id?>" style="display:none;">
-        <ul id="tags-<?php echo $id?>">
+    <span style="cursor:pointer;" id="tag-show_<?php echo $id?>" onclick="toggleTags('<?php echo $id?>');" title="<?php echo _("Add new tags")?>">+</span><span id="tag-hide_<?php echo $id?>" style="display:none;cursor:pointer;" onclick="toggleTags('<?php echo $id?>');">-</span>
+    <h5 style="display: inline;"><?php echo _("Tags")?></h5>
+    <div id="tagnode_<?php echo $id?>" style="display:none;">
+      <ul id="tags_<?php echo $id?>">
         <?php foreach ($tags as $tag_id => $tag): ?>
          <li class="panel-tags"><?php echo $tag . ($cal->hasPermission(Auth::getAuth(), PERMS_EDIT) ? '<a href="#" id="remove' . md5($id . $tag_id) . '">' . Horde::img('delete-small.png', _("Remove Tag"), '', $registry->getImageDir('horde')) . '</a>' : '') . '</li>'?>
         <?php
@@ -62,11 +62,11 @@ $tagger = new Kronolith_Tagger();
        <?php endforeach;?>
       </ul>
       <div class="clear">&nbsp;</div>
-      <input type="text" name="newtags-input-<?php echo $id?>" id="newtags-input-<?php echo $id?>" size="10" /><input type="button" class="button" value="add" id="test" />
-      <div id="newtags-input-<?php echo $id?>_results" class="autocomplete"></div>
-      <span id="newtags-input-<?php echo $id?>_loading_img" style="display:none;"><?php echo Horde::img('loading.gif', _("Loading...")) ?></span>
+      <input type="text" name="newtags-input_<?php echo $id?>" id="newtags-input_<?php echo $id?>" size="10" /><input type="button" class="button" value="add" id="test" />
+      <div id="newtags-input_<?php echo $id?>_results" class="autocomplete"></div>
+      <span id="newtags-input_<?php echo $id?>_loading_img" style="display:none;"><?php echo Horde::img('loading.gif', _("Loading...")) ?></span>
      <?php
-      Kronolith_Imple::factory('TagAutoCompleter', array('triggerId' => 'newtags-input-' . $id));
+      Kronolith_Imple::factory('TagAutoCompleter', array('triggerId' => 'newtags-input', 'id' => $id));
       ?>
   </div>
   </div>

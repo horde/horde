@@ -104,7 +104,7 @@ class Kronolith_Imple_TagActions extends Kronolith_Imple
         }
 
         foreach ($tags as $tag_id => $tag) {
-            $html .= '<li>' .  $tag . ($hasEdit ? '<a href="#" onclick="removeTag(\'' . $id . '\', \'' . $type . '\',' . $tag_id . ', \'' . Horde::url('imple.php', true) . '\'); Event.stop(event)" id="remove' . md5($id . $tag_id) . '">' . Horde::img('delete-small.png', _("Remove Tag"), '', $GLOBALS['registry']->getImageDir('horde')) . '</a>' : '') . '</li>';
+            $html .= '<li class="panel-tags">' .  $tag . ($hasEdit ? '<a href="#" onclick="removeTag(\'' . $id . '\', \'' . $type . '\',' . $tag_id . ', \'' . Horde::url('imple.php', true) . '\'); Event.stop(event)" id="remove' . md5($id . $tag_id) . '">' . Horde::img('delete-small.png', _("Remove Tag"), '', $GLOBALS['registry']->getImageDir('horde')) . '</a>' : '') . '</li>';
         }
 
         return $html;

@@ -20,7 +20,7 @@ function removeTag(resource, type, tagid, endpoint)
 {
     var params = new Object();
     params.imple = "TagActions/action=remove/resource=" + resource + "/type=" + type + "/tags=" + tagid;
-    new Ajax.Updater({success:'tags-' + resource},
+    new Ajax.Updater({success:'tags_' + resource},
                      endpoint,
                      {
                          method: 'post',
@@ -30,9 +30,9 @@ function removeTag(resource, type, tagid, endpoint)
     return true;
 }
 
-function toggleNewTags(domid)
+function toggleTags(domid)
 {
-	$('tag-show-' + domid).toggle();
-	$('tag-hide-' + domid).toggle();
-	$('newtags-' + domid).toggle();
+	$('tag-show_' + domid).toggle();
+	$('tag-hide_' + domid).toggle();
+	$('tagnode_' + domid).toggle();
 }
