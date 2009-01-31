@@ -409,7 +409,7 @@ endif;
 <tr>
 <td colspan="5" class="control toggle" onclick="toggleSection('tags')">
  <?php echo Horde::img('tree/blank.png', '', array('id' => 'toggle_tags'), $GLOBALS['registry']->getImageDir('horde')) . ' <strong>' . _("Tags") ?></strong>
-  <span class="extra" id="extra_tags"><?php echo $tags?></span>
+  <span class="extra" id="extra_tags"><?php echo (!empty($tags) ? $tags : '');?></span>
   </td>
 </tr>
 <tr id="section_tags">
@@ -417,7 +417,7 @@ endif;
      <strong><?php echo Horde::label('tags', _("Tags"))?></strong>
  </td>
  <td colspan="4">
-   <input type="text" name="tags" id="tags" value="<?php echo $tags?>" size="40" value="<?php echo $tags?>" />
+   <input type="text" name="tags" id="tags" value="<?php echo (!empty($tags) ? $tags : '')?>" size="40" />
  </td>
 </tr>
 
