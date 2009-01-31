@@ -1,3 +1,11 @@
+<script type="text/javascript">
+    function toggleTags(domid)
+    {
+        $('tag-show_' + domid).toggle();
+        $('tag-hide_' + domid).toggle();
+        $('tagnode_' + domid).toggle();
+    }
+</script>
 <?php
 Horde::addScriptFile('QuickFinder.js', 'horde', true);
 Horde::addScriptFile('redbox.js', 'horde', true);
