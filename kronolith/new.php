@@ -76,4 +76,6 @@ require KRONOLITH_TEMPLATES . '/common-header.inc';
 require KRONOLITH_TEMPLATES . '/menu.inc';
 require KRONOLITH_TEMPLATES . '/edit/javascript.inc';
 require KRONOLITH_TEMPLATES . '/edit/edit.inc';
+Kronolith_Imple::factory('TagAutoCompleter', array('triggerId' => 'tags', 'id' => $event->getUID()));
+
 require $registry->get('templates', 'horde') . '/common-footer.inc';

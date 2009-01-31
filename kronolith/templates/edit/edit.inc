@@ -418,6 +418,8 @@ endif;
  </td>
  <td colspan="4">
    <input type="text" name="tags" id="tags" value="<?php echo (!empty($tags) ? $tags : '')?>" size="40" />
+   <div id="tags_results" class="autocomplete"></div>
+   <span id="tags_loading_img" style="display:none;"><?php echo Horde::img('loading.gif', _("Loading...")) ?></span>
  </td>
 </tr>
 
