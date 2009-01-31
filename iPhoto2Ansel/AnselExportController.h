@@ -49,6 +49,10 @@ extern NSString * const TURAnselServerPasswordKey;
     IBOutlet NSSecureTextField *password;
     IBOutlet NSTextField *serverNickName;
     
+    // Server list
+    IBOutlet NSPanel *serverListPanel;
+    IBOutlet NSTableView *serverTable;
+    
     // Progress struct (This one is part of the protocol, but we don't use it)
     ExportPluginProgress progress;
     
@@ -79,6 +83,9 @@ extern NSString * const TURAnselServerPasswordKey;
 - (IBAction) doAddServer: (id)sender;
 - (IBAction) doCancelAddServer: (id)sender;
 - (IBAction) clickServer: (id)sender;
+
+// Server List
+- (IBAction) closeServerList: (id)sender;
 
 // overrides
 - (void)awakeFromNib;

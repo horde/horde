@@ -14,6 +14,7 @@
 
 @interface AnselExportController (PrivateAPI)
 - (void)showNewServerSheet;
+- (void)showServerListPanel;
 - (void)doConnect;
 - (void)connect;
 - (void)disconnect;
@@ -111,13 +112,12 @@ NSString * const TURAnselServerPasswordKey = @"password";
 - (IBAction)clickServer: (id)sender
 {
       // Servers list
-//    if ([mServersPopUp indexOfSelectedItem] == [mServersPopUp numberOfItems] - 1) {
-//        [galleryListTable reloadData];
-//        [NSApp beginSheet:galleryListPanel modalForWindow:[exportManager window] modalDelegate:self didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:) contextInfo:NULL];
-//    }
+    if ([mServersPopUp indexOfSelectedItem] == [mServersPopUp numberOfItems] - 1) {
+        [self showServerListPanel];
+    }
     
     // Add new server
-    if ([mServersPopUp indexOfSelectedItem] == [mServersPopUp numberOfItems] - 1) {
+    if ([mServersPopUp indexOfSelectedItem] == [mServersPopUp numberOfItems] - 2) {
         [self showNewServerSheet];
     } else if (![[[mServersPopUp selectedItem] title] isEqual:@"(None)"]) {
             
@@ -128,6 +128,12 @@ NSString * const TURAnselServerPasswordKey = @"password";
         currentServer = [[mServersPopUp selectedItem] representedObject];
         [self doConnect];
     }
+}
+
+- (IBAction) closeServerList: (id)sender
+{
+    [NSApp endSheet: serverListPanel];
+    [serverListPanel orderOut: nil];
 }
 
 // Server setup sheet
@@ -290,6 +296,15 @@ NSString * const TURAnselServerPasswordKey = @"password";
           contextInfo: nil];
 }
 
+- (void) showServerListPanel
+{
+    [NSApp beginSheet: serverListPanel
+       modalForWindow: [self window]
+        modalDelegate: nil
+       didEndSelector: nil
+          contextInfo: nil];
+}
+
 // See if we have everything we need to export...
 - (void)canExport
 {
@@ -326,7 +341,7 @@ NSString * const TURAnselServerPasswordKey = @"password";
     
     // add Add Gallery... and Edit List... options
     [mServersPopUp addItemWithTitle:@"Add Server..."];
-    //[mServersPopUp addItemWithTitle:@"Edit Server List..."];
+    [mServersPopUp addItemWithTitle:@"Edit Server List..."];
     
     // fix selection
     [mServersPopUp selectItemAtIndex:0];
@@ -624,14 +639,18 @@ NSString * const TURAnselServerPasswordKey = @"password";
     [userPrefs synchronize];
 }
 
-#pragma mark NSComboBoxDatasource delegates (used for server list)
-- (id)comboBox: (NSComboBox *)aComboBox objectValueForItemAtIndex: (NSInteger)index
+#pragma mark NSTableView Datasource
+- (int)numberOfRowsInTableView:(NSTableView *)aTableView
 {
-    NSDictionary *server = [anselServers objectAtIndex: index];
-    return [server objectForKey:TURAnselServerNickKey];
-}
-- (NSInteger)numberOfItemsInComboBox: (NSComboBox *)aComboBox
-{
+    NSLog(@"Table count");
+    NSLog(@"%@", anselServers);
     return [anselServers count];
+}
+
+- (id)tableView:(NSTableView *)aTableView
+objectValueForTableColumn:(NSTableColumn *)aTableColumn
+            row:(int)rowIndex
+{
+    return [[anselServers objectAtIndex: rowIndex] objectForKey: [aTableColumn identifier]];
 }
 @end
