@@ -25,7 +25,7 @@ class Kronolith_Imple_TagAutoCompleter extends Kronolith_Imple
         if (!count($params)) {
             return;
         }
-        $params['triggerId'] = $params['triggerId'] . '_' . $params['id'];
+        //$params['triggerId'] = $params['triggerId'] . '_' . $params['id'];
         if (empty($params['resultsId'])) {
             $params['resultsId'] = $params['triggerId'] . '_results';
         }
