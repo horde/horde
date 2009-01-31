@@ -132,6 +132,7 @@ NSString * const TURAnselServerPasswordKey = @"password";
 
 - (IBAction) closeServerList: (id)sender
 {
+    [serverTable setDelegate: nil];
     [NSApp endSheet: serverListPanel];
     [serverListPanel orderOut: nil];
 }
@@ -303,6 +304,8 @@ NSString * const TURAnselServerPasswordKey = @"password";
         modalDelegate: nil
        didEndSelector: nil
           contextInfo: nil];
+    
+    [serverTable setDelegate: self];
 }
 
 // See if we have everything we need to export...
@@ -607,6 +610,13 @@ NSString * const TURAnselServerPasswordKey = @"password";
     }
 }
 
+
+#pragma mark NSTableView Notifications
+- (void)NSTableViewSelectionDidChangeNotification: (NSNotification *)notification
+{
+    NSLog(@"%@", notification);
+}
+
 #pragma mark TURAnselGalleryPanel Notifications
 - (void)TURAnselGalleryPanelDidAddGallery
 {
@@ -642,8 +652,6 @@ NSString * const TURAnselServerPasswordKey = @"password";
 #pragma mark NSTableView Datasource
 - (int)numberOfRowsInTableView:(NSTableView *)aTableView
 {
-    NSLog(@"Table count");
-    NSLog(@"%@", anselServers);
     return [anselServers count];
 }
 
