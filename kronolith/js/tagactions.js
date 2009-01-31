@@ -1,14 +1,14 @@
-function addTag()
+function addTag(resource, type, endpoint)
 {
-    if (!$('addtag').value.blank()) {
+    if (!$('newtags-input_' + resource).value.blank()) {
         var params = new Object();
-        params.requestType="TagActions/action=add/gallery=" + tagActions.gallery + "/tags=" + $('addtag').value;
-        new Ajax.Updater({success:'tags'},
-                         tagActions.url,
+        params.imple="TagActions/action=add/resource=" + resource + "/type=" + type + "/tags=" + $('newtags-input_' + resource).value;
+        new Ajax.Updater({success:'tags_' + resource},
+                         endpoint,
                          {
                              method: 'post',
                              parameters: params,
-                             onComplete: function() {$('addtag').value = "";}
+                             onComplete: function() {$('newtags-input_' + resource).value = "";}
                          }
         );
     }
@@ -27,6 +27,7 @@ function removeTag(resource, type, tagid, endpoint)
                          parameters: params
                      }
     );
+    
     return true;
 }
 

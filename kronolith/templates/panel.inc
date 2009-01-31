@@ -62,11 +62,15 @@ $tagger = new Kronolith_Tagger();
        <?php endforeach;?>
       </ul>
       <div class="clear">&nbsp;</div>
-      <input type="text" name="newtags-input_<?php echo $id?>" id="newtags-input_<?php echo $id?>" size="10" /><input type="button" class="button" value="add" id="test" />
+      <input type="text" name="newtags-input_<?php echo $id?>" id="newtags-input_<?php echo $id?>" size="10" /><input type="button" class="button" value="add" name="newtags-button_<?php echo $id?>" id="newtags-button_<?php echo $id?>" />
       <div id="newtags-input_<?php echo $id?>_results" class="autocomplete"></div>
       <span id="newtags-input_<?php echo $id?>_loading_img" style="display:none;"><?php echo Horde::img('loading.gif', _("Loading...")) ?></span>
      <?php
       Kronolith_Imple::factory('TagAutoCompleter', array('triggerId' => 'newtags-input', 'id' => $id));
+      Kronolith_Imple::factory('TagActions', array('triggerId' => 'newtags-button',
+                                                   'resource' => $id,
+                                                   'type' => 'calendar',
+                                                   'action' => 'add'));
       ?>
   </div>
   </div>

@@ -23,11 +23,11 @@ class Kronolith_Imple_TagActions extends Kronolith_Imple
         $action = $this->_params['action'];
         $content_id = $this->_params['resource'];
         $content_type = $this->_params['type'];
-        $tag_id = $this->_params['tagId'];
+        $tag_id = !empty($this->_params['tagId']) ? $this->_params['tagId'] : null;
         $endpoint = Horde::url('imple.php', true);
 
         if ($action == 'add') {
-            $js = "Event.observe('" . $dom_id . "', 'click', function(event) {addTag(); Event.stop(event)});";
+            $js = "Event.observe('" . $dom_id . "_" . $content_id . "', 'click', function(event) {addTag('" . $content_id . "', '" . $content_type . "', '" . $endpoint . "'); Event.stop(event)});";
         } elseif ($action == 'delete') {
             $js = "Event.observe('" . $dom_id . "', 'click', function(event) {removeTag('" . $content_id . "', '" . $content_type . "', " . $tag_id . ", '" . $endpoint . "'); Event.stop(event)});";
         }
@@ -61,12 +61,12 @@ class Kronolith_Imple_TagActions extends Kronolith_Imple
 
         if ($perm) {
             /* Get the resource owner */
+            $tagger = new Kronolith_Tagger();
             switch ($request) {
             case 'add':
-                //@TODO
+                $tagger->tag($args['resource'], $tags, $args['type']);
                 break;
             case 'remove':
-                $tagger = new Kronolith_Tagger();
                 $tagger->untag($args['resource'], (int)$tags, $args['type']);
                 break;
             }
