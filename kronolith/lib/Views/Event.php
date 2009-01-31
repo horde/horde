@@ -115,7 +115,7 @@ class Kronolith_View_Event {
         // Tags
         $tagger = new Kronolith_Tagger();
         $tags = $tagger->getTags($this->event->getUID(), 'event');
-        $tags = implode(',', array_values($tags));
+        $tags = implode(', ', array_values($tags));
 
 
         echo '<div id="Event"' . ($active ? '' : ' style="display:none"') . '>';
