@@ -190,4 +190,9 @@ class Kronolith_Tagger
         //TODO
     }
 
+    public function listTags($token)
+    {
+        return self::$_tagger->getTags(array('q' => $token));
+    }
+
 }

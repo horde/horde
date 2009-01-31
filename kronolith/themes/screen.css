@@ -1118,7 +1118,7 @@ div.kronolithView .kronolithEvents .kronolithEvent .kronolithEventInfo {
     list-style-type: none;
 }
 
-.panel-tags li {
+li.panel-tags {
     float: left;
     padding: 2px;
 }

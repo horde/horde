@@ -30,9 +30,9 @@ function removeTag(resource, type, tagid, endpoint)
     return true;
 }
 
-// Since onsubmit is never called when submitting programatically we
-// can use this function to add tags when we press enter on the tag form.
-function submitcheck()
+function toggleNewTags(domid)
 {
-    return !addTag();
+	$('tag-show-' + domid).toggle();
+	$('tag-hide-' + domid).toggle();
+	$('newtags-' + domid).toggle();
 }
