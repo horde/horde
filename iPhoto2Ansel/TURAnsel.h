@@ -18,7 +18,8 @@ typedef enum {
 typedef enum {
     TURAnselStateDisconnected = 0,
     TURAnselStateConnected,
-    TURAnselStateError
+    TURAnselStateError,
+    TURAnselStateCancelled
 } TURAnselState;
 
 
@@ -48,6 +49,7 @@ typedef enum {
 - (TURAnselGallery *)getGalleryByIndex: (NSInteger)index;
 - (XMLRPCResponse *)callRPCMethod: (NSString *)methodName withParams: (NSArray *)params;
 - (NSDictionary *)createNewGallery: (NSDictionary *)params;
+- (void)cancel;
 
 // Getters/setters
 - (void) setState: (TURAnselState)state;

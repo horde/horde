@@ -60,6 +60,11 @@ static NSString *ERR_DOMAIN = @"com.theupstairsroom.TURAnsel";
     }
 }
 
+- (void) cancel
+{
+    state = TURAnselStateCancelled;
+}
+
 // Fetch a gallery by id
 - (TURAnselGallery *)getGalleryById: (NSString *)galleryId
 {
@@ -138,7 +143,10 @@ static NSString *ERR_DOMAIN = @"com.theupstairsroom.TURAnsel";
 
     // Don't move on until we have a response - this blocks the thread until
     // that happens.  We should have some kind of timeout here...
-    while ([connection isRunning]) {
+    while ([connection isRunning]) {        
+        if (state == TURAnselStateCancelled) {
+            [connection cancel];
+        }
         NSDate *loopDate = [[NSDate alloc] initWithTimeIntervalSinceNow:0.1];
         [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode
                                  beforeDate:loopDate];

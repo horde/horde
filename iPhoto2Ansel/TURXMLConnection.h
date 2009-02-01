@@ -17,6 +17,7 @@
 // Local error codes
 #define TURXML_ERR_BADAUTH  1  // Login failed
 #define TURXML_ERR_PARSE    2  // Could not parse XML
+#define TURXML_ERR_CANCEL   3  // Action cancelled
 
 @interface TURXMLConnection : XMLRPCConnection {
     NSString *username;

@@ -8,6 +8,7 @@
 		<string key="IBDocument.HIToolboxVersion">353.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
+			<integer value="495"/>
 			<integer value="502"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
@@ -42,7 +43,7 @@
 				<string key="NSWindowContentMaxSize">{3.40282e+38, 3.40282e+38}</string>
 				<string key="NSWindowContentMinSize">{213, 107}</string>
 				<object class="NSView" key="NSWindowView" id="442259745">
-					<nil key="NSNextResponder"/>
+					<reference key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<object class="NSMutableArray" key="NSSubviews">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -208,7 +209,7 @@
 															<reference key="NSSuperview" ref="917722533"/>
 															<bool key="NSEnabled">YES</bool>
 															<object class="NSButtonCell" key="NSCell" id="1009076064">
-																<int key="NSCellFlags">604110336</int>
+																<int key="NSCellFlags">67239424</int>
 																<int key="NSCellFlags2">134479872</int>
 																<string key="NSContents">Cancel</string>
 																<object class="NSFont" key="NSSupport" id="22">
@@ -659,6 +660,7 @@
 						</object>
 					</object>
 					<string key="NSFrameSize">{548, 406}</string>
+					<reference key="NSSuperview"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1920, 1178}}</string>
 				<string key="NSMinSize">{213, 129}</string>
@@ -1332,6 +1334,22 @@
 						<reference key="destination" ref="887276643"/>
 					</object>
 					<int key="connectionID">523</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">mCancelConnect</string>
+						<reference key="source" ref="685567789"/>
+						<reference key="destination" ref="739969881"/>
+					</object>
+					<int key="connectionID">525</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">clickCancelConnect:</string>
+						<reference key="source" ref="685567789"/>
+						<reference key="destination" ref="1009076064"/>
+					</object>
+					<int key="connectionID">526</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -2190,9 +2208,9 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{341, 647}, {548, 406}}</string>
+					<string>{{580, 642}, {548, 406}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{341, 647}, {548, 406}}</string>
+					<string>{{580, 642}, {548, 406}}</string>
 					<reference ref="5"/>
 					<reference ref="5"/>
 					<string>{213, 107}</string>
@@ -2244,7 +2262,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">523</int>
+			<int key="maxID">526</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -2256,6 +2274,7 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSMutableArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>clickCancelConnect:</string>
 							<string>clickServer:</string>
 							<string>closeServerList:</string>
 							<string>doAddServer:</string>
@@ -2265,6 +2284,7 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -2281,8 +2301,8 @@
 							<string>defaultImageView</string>
 							<string>firstView</string>
 							<string>galleryCombo</string>
+							<string>mCancelConnect</string>
 							<string>mExportMgr</string>
-							<string>mServers</string>
 							<string>mServersPopUp</string>
 							<string>mSettingsBox</string>
 							<string>mSizePopUp</string>
@@ -2302,8 +2322,8 @@
 							<string>NSImageView</string>
 							<string>NSControl</string>
 							<string>NSComboBox</string>
+							<string>NSButton</string>
 							<string>id</string>
-							<string>NSComboBox</string>
 							<string>NSPopUpButton</string>
 							<string>NSBox</string>
 							<string>NSPopUpButton</string>

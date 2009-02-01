@@ -193,6 +193,11 @@ NSString * const TURAnselServerPasswordKey = @"password";
     [newServerSheet orderOut: nil];
 }
 
+- (IBAction) clickCancelConnect: (id)sender
+{
+    [anselController cancel];
+}
+
 #pragma mark ExportPluginProtocol
 // Initialize
 - (id)initWithExportImageObj:(id <ExportImageProtocol>)obj
@@ -374,6 +379,7 @@ NSString * const TURAnselServerPasswordKey = @"password";
     [galleryCombo setDelegate: nil];
     [galleryCombo setDataSource: nil];
     [galleryCombo setEnabled: false];
+    [newGalleryButton setEnabled: false];
     
     [currentServer release];
     currentServer = nil;
@@ -569,6 +575,8 @@ NSString * const TURAnselServerPasswordKey = @"password";
 {   
     [galleryCombo reloadData];
     [galleryCombo setEnabled: true];
+    [newGalleryButton setEnabled: true];
+    
     [self setStatusText: @"Connected" withColor: [NSColor greenColor]];
     [self canExport];
     [spinner stopAnimation: self];
@@ -661,6 +669,7 @@ NSString * const TURAnselServerPasswordKey = @"password";
         [self showNewServerSheet];
     } else {
         // Autoconnect to default server. For now, just make it the first one.
+        // TODO: Fix this so it uses a default pref, not just the first in the list
         currentServer = [[mServersPopUp selectedItem] representedObject];
         [self doConnect];
     }

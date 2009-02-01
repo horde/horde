@@ -125,5 +125,15 @@ didReceiveAuthenticationChallenge: (NSURLAuthenticationChallenge *)challenge
     running = NO;
 }
 
+// Set the status and tell the underlaying connection we cancelled.
+- (void) cancel
+{
+    running = NO;
+    hasError = YES;
+    error = [[NSError alloc] initWithDomain: ERR_DOMAIN
+                                       code: TURXML_ERR_CANCEL
+                                   userInfo: nil];
+    [super cancel];
+}
 
 @end

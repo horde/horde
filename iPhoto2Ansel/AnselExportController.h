@@ -40,6 +40,7 @@ extern NSString * const TURAnselServerPasswordKey;
     IBOutlet NSImageView *defaultImageView;
     IBOutlet NSButton *newGalleryButton;
     IBOutlet NSPopUpButton *mServersPopUp;
+    IBOutlet NSButton *mCancelConnect;
     
     // New Server sheet
     IBOutlet NSWindow *newServerSheet;
@@ -82,6 +83,7 @@ extern NSString * const TURAnselServerPasswordKey;
 - (IBAction) doAddServer: (id)sender;
 - (IBAction) doCancelAddServer: (id)sender;
 - (IBAction) clickServer: (id)sender;
+- (IBAction) clickCancelConnect: (id)sender;
 
 // Server List
 - (IBAction) closeServerList: (id)sender;
