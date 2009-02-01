@@ -125,19 +125,22 @@ NSString * const TURAnselServerPasswordKey = @"password";
     [self updateServersPopupMenu];
 }
 
-
+// Action sent by the server pop up menu
 - (IBAction)clickServer: (id)sender
 {
-      // Servers list
     if ([mServersPopUp indexOfSelectedItem] == [mServersPopUp numberOfItems] - 1) {
+        // Server list
         [self showServerListPanel];
-    }
-    
-    // Add new server
-    if ([mServersPopUp indexOfSelectedItem] == [mServersPopUp numberOfItems] - 2) {
+        
+        // Disconnect from the current server.
+        // TODO: See which server we deleted and only disconnect if that was the
+        // one we removed.
+        [self disconnect];
+    } else if ([mServersPopUp indexOfSelectedItem] == [mServersPopUp numberOfItems] - 2) {
+        // New Server
         [self showNewServerSheet];
     } else if (![[[mServersPopUp selectedItem] title] isEqual:@"(None)"]) {
-            
+        // Connect to a server
         if (currentServer == [[mServersPopUp selectedItem] representedObject]) {
             return;
         }
