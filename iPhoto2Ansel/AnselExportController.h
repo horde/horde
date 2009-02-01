@@ -35,7 +35,6 @@ extern NSString * const TURAnselServerPasswordKey;
     //Outlets   
     IBOutlet NSPopUpButton *mSizePopUp;
     IBOutlet NSComboBox *galleryCombo;
-    IBOutlet NSComboBox *mServers; 
     IBOutlet NSTextField *statusLabel;
     IBOutlet NSProgressIndicator *spinner;
     IBOutlet NSImageView *defaultImageView;
@@ -86,6 +85,7 @@ extern NSString * const TURAnselServerPasswordKey;
 
 // Server List
 - (IBAction) closeServerList: (id)sender;
+- (IBAction) removeServer: (id)sender;
 
 // overrides
 - (void)awakeFromNib;

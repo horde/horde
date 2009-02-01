@@ -15,6 +15,7 @@
 @interface AnselExportController (PrivateAPI)
 - (void)showNewServerSheet;
 - (void)showServerListPanel;
+- (void)updateServersPopupMenu;
 - (void)doConnect;
 - (void)connect;
 - (void)disconnect;
@@ -109,6 +110,20 @@ NSString * const TURAnselServerPasswordKey = @"password";
     }
 }
 
+// Remove the selected server from the saved list.
+// TODO: Sanity checks - make sure we don't delete the current server, 
+// or disconnect first etc...
+- (IBAction)removeServer: (id)sender
+{
+    NSUserDefaults *userPrefs = [NSUserDefaults standardUserDefaults]; 
+    [anselServers removeObjectAtIndex: [serverTable selectedRow]];
+    [userPrefs setObject:anselServers forKey:TURAnselServersKey];
+    [userPrefs synchronize];
+    [serverTable reloadData];
+    [self updateServersPopupMenu];
+}
+
+
 - (IBAction)clickServer: (id)sender
 {
       // Servers list
@@ -164,7 +179,6 @@ NSString * const TURAnselServerPasswordKey = @"password";
     // Save it to the userdefaults
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     [prefs setObject:anselServers  forKey:TURAnselServersKey];
-    [mServers reloadData];
     [newServer release];
 }
 
@@ -612,9 +626,9 @@ NSString * const TURAnselServerPasswordKey = @"password";
 
 
 #pragma mark NSTableView Notifications
-- (void)NSTableViewSelectionDidChangeNotification: (NSNotification *)notification
+- (void)tableViewSelectionDidChange:(NSNotification *)aNotification
 {
-    NSLog(@"%@", notification);
+    NSLog(@"%@", aNotification);
 }
 
 #pragma mark TURAnselGalleryPanel Notifications
