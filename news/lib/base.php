@@ -2,12 +2,12 @@
 /**
  * News base
  *
- * Copyright 2006 Duck <duck@obala.net>
+ * $Id: base.php 1260 2009-02-01 23:15:50Z duck $
  *
- * See the enclosed file LICENSE for license information (BSD). If you
- * did not receive this file, see http://cvs.horde.org/co.php/news/LICENSE.
+ * Copyright 2009 The Horde Project (http://www.horde.org/)
  *
- * $Id: base.php 1174 2009-01-19 15:11:03Z duck $
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author Duck <duck@obala.net>
  * @package News

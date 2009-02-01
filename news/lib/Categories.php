@@ -2,9 +2,12 @@
 /**
  * News Tree Class.
  *
- * $Id: Categories.php 1163 2009-01-14 17:47:23Z duck $
+ * $Id: Categories.php 1261 2009-02-01 23:20:07Z duck $
  *
- * Copyright Obala d.o.o. (www.obala.si)
+ * Copyright 2009 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author  Duck <duck@obala.net>
  * @package News
@@ -344,6 +347,10 @@ class News_Categories {
     private function _insertCategory($data)
     {
         $new_id = $this->_write_db->nextId('news_categories');
+        if ($new_id instanceof PEAR_Error) {
+            Horde::logMessage($new_id, __FILE__, __LINE__, PEAR_LOG_ERR);
+            return $new_id;
+        }
 
         $sql = 'INSERT INTO ' . $this->prefix . '_categories' .
                ' (category_id, category_parentid) VALUES (?, ?)';
@@ -357,11 +364,16 @@ class News_Categories {
 
         $sql = 'INSERT INTO ' . $this->prefix . '_categories_nls VALUES (?, ?, ?, ?)';
         foreach ($GLOBALS['conf']['attributes']['languages'] as $lang) {
+
             $values = array($new_id,
                             $lang,
                             $data['category_name_' . $lang],
                             $data['category_description_' . $lang]);
-            $this->_write_db->query($sql, $values);
+            $result = $this->_write_db->query($sql, $values);
+            if ($result instanceof PEAR_Error) {
+                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                return $result;
+            }
         }
 
         return $new_id;
@@ -535,7 +547,7 @@ class News_Categories {
     public function getCategories($flat = true)
     {
         $lang = News::getLang();
-        $cache_key = 'NewsCategories_' . $lang . '_'. $flat;
+        $cache_key = 'NewsCategories_' . $lang . '_' . (int)$flat;
         $categories = $GLOBALS['cache']->get($cache_key, $GLOBALS['conf']['cache']['default_lifetime']);
         if ($categories) {
             return unserialize($categories);

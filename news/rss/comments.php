@@ -1,6 +1,6 @@
 <?php
 /**
- * $Id: comments.php 1179 2009-01-20 13:19:34Z duck $
+ * $Id: comments.php 1263 2009-02-01 23:25:56Z duck $
  *
  * Copyright 2007 The Horde Project (http://www.horde.org/)
  *

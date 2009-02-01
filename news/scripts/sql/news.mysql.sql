@@ -67,7 +67,7 @@ CREATE TABLE news_categories_nls (
   category_nls char(5) NOT NULL,
   category_name varchar(50) NOT NULL,
   category_description varchar(255) NOT NULL,
-  PRIMARY KEY  (category_id, category_nls)
+  PRIMARY KEY  (category_id, category_nls),
   KEY category_nls (category_nls)
 );
 

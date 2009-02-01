@@ -2,7 +2,7 @@
 /**
  * extend Horde TagCloud to allow complete css font sizes
  */
-class Oscar_TagCloud extends Horde_UI_TagCloud {
+class News_TagCloud extends Horde_UI_TagCloud {
 
     /**
      * create a Element of HTML part

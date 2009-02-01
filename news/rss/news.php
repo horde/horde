@@ -1,8 +1,8 @@
 <?php
 /**
- * $Id: news.php 1191 2009-01-21 16:45:21Z duck $
+ * $Id: news.php 1263 2009-02-01 23:25:56Z duck $
  *
- * Copyright 2007 The Horde Project (http://www.horde.org/)
+ * Copyright 2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
@@ -34,7 +34,7 @@ if (empty($rss)) {
 
     $lastnewstime = 0;
     foreach ($list as $news_id => $news) {
-        $news_link = News::getUrlFor('news', $news_id);
+        $news_link = News::getUrlFor('news', $news_id, true);
         $rssbody .= '
     <item>
         <enclosure url="http://' . $_SERVER['SERVER_NAME']  . News::getImageUrl($news_id) . '" type="image/jpg" />

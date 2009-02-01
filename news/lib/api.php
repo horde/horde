@@ -2,11 +2,14 @@
 /**
  * News api
  *
- * $Id: api.php 970 2008-10-07 17:11:59Z duck $
+ * $Id: api.php 1260 2009-02-01 23:15:50Z duck $
  *
- * Copyright Obala d.o.o. (www.obala.si)
+ * Copyright 2009 The Horde Project (http://www.horde.org/)
  *
- * @author  Duck <duck@obala.net>
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ *
+ * @author Duck <duck@obala.net>
  * @package News
  */
 

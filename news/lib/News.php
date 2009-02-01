@@ -2,7 +2,7 @@
 /**
  * News base calss
  *
- * $Id: News.php 1190 2009-01-21 16:10:50Z duck $
+ * $Id: News.php 1263 2009-02-01 23:25:56Z duck $
  *
  * Copyright Obala d.o.o. (www.obala.si)
  *
@@ -504,7 +504,7 @@ class News {
             }
 
             $threads[$id]['news_id'] = $news_id;
-            $threads[$id]['read_url'] = self::getUrlFor('news', $news_id);
+            $threads[$id]['read_url'] = self::getUrlFor('news', $news_id, true);
         }
 
         $GLOBALS['cache']->set($cache_key, serialize($threads));
@@ -545,11 +545,13 @@ class News {
                 ' n.category2, n.attachments, n.picture, n.comments, n.gallery, n.sponsored, ' .
                 ' l.title, l.content, l.picture_comment, l.tags, n.selling, n.trackbacks, n.threads, ' .
                 ' n.form_id, n.form_ttl FROM ' . $this->prefix . ' AS n, ' . $this->prefix . '_body AS l ' .
-                ' WHERE n.id=? AND n.id=l.id AND l.lang=?';
+                ' WHERE n.id = ? AND n.id=l.id AND l.lang = ?';
 
+        /** TODO Allow for now to allow static linked news, but not shown in list
         if (!Auth::isAdmin('news:admin')) {
             $query .= ' AND n.status = ' . self::CONFIRMED;
         }
+        */
 
         $data = $this->db->getRow($query, array($id, self::getLang()), DB_FETCHMODE_ASSOC);
         if ($data instanceof PEAR_Error) {

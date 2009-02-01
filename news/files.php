@@ -1,8 +1,8 @@
 <?php
 /**
- * Download and veiew files
+ * Download and view files
  *
- * $Id: files.php 1187 2009-01-21 10:33:06Z duck $
+ * $Id: files.php 1241 2009-01-29 23:27:58Z duck $
  *
  * Copyright Obala d.o.o. (www.obala.si)
  *
@@ -71,9 +71,6 @@ case 'download_zip_all':
     if (empty($zipfiles)) {
         exit;
     }
-
-var_dump($zipfiles);
-exit;
 
     $zip = Horde_Compress::singleton('zip');
     $body = @$zip->compress($zipfiles);

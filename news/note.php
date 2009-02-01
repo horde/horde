@@ -2,7 +2,7 @@
 /**
  * News
  *
- * $Id: note.php 890 2008-09-23 09:58:23Z duck $
+ * $Id: note.php 1241 2009-01-29 23:27:58Z duck $
  *
  * Copyright Obala d.o.o. (www.obala.si)
  *
@@ -19,7 +19,7 @@ if ($row instanceof PEAR_Error) {
     exit;
 }
 
-$body = $row['title'] . "\n\n"getUrlFor
+$body = $row['title'] . "\n\n"
        . _("On") . ': ' . $news->dateFormat($row['publish']) . "\n"
        . _("Link") . ': ' . News::getUrlFor('news', $id) . "\n\n"
        . strip_tags($row['content']);
