@@ -20,6 +20,12 @@ $_services['authCredentials'] = array(
     'type' => '{urn:horde}hashHash'
 );
 
+$_services['authenticate'] = array(
+    'args' => array('userID' => 'string', 'credentials' => '{urn:horde}hash', 'params' => '{urn:horde}hash'),
+    'checkperms' => false,
+    'type' => 'boolean'
+);
+
 $_services['compose'] = array(
     'args' => array('args' => '{urn:horde}hash', 'extra' => '{urn:horde}hash'),
     'type' => 'string'
@@ -135,6 +141,31 @@ function _imp_authCredentials()
     );
 
     return $credentials;
+}
+
+/**
+ * Tries to authenticate with the mail server and create a mail session.
+ *
+ * @param string $userID The username of the user.
+ * @param array $credentials Credentials of the user. Only allowed key:
+ * 'password'.
+ * @param array $params Additional parameters. Only allowed key:
+ * 'server'.
+ *
+ * @return boolean True on success, false on failure.
+ */
+function _imp_authenticate($userID, $credentials, $params = array())
+{
+    $GLOBALS['authentication'] = 'none';
+    $GLOBALS['noset_view'] = true;
+    require_once dirname(__FILE__) . '/base.php';
+    require_once IMP_BASE . '/lib/Session.php';
+
+    $server_key = empty($params['server'])
+    ? IMP_Session::getAutoLoginServer()
+    : $params['server'];
+
+     return IMP_Session::createSession($userID, $credentials['password'], $server_key);
 }
 
 /**
