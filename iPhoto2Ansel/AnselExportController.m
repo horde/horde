@@ -119,7 +119,9 @@ NSString * const TURAnselServerPasswordKey = @"password";
     [anselServers removeObjectAtIndex: [serverTable selectedRow]];
     [userPrefs setObject:anselServers forKey:TURAnselServersKey];
     [userPrefs synchronize];
+    NSLog(@"Attempting to reload");
     [serverTable reloadData];
+    NSLog(@"Reloaded");
     [self updateServersPopupMenu];
 }
 
@@ -155,13 +157,10 @@ NSString * const TURAnselServerPasswordKey = @"password";
 // Server setup sheet
 -(IBAction)doAddServer: (id)sender
 {
-    // Sanity Checking
-    // TODO - make sure we don't have more than one gallery with the same nick??
-//    if (![[serverNickName stringValue] length]) {
-//        // TODO: Errors - for now, just silently fail, yea, I know....
-//        return;
-//    }
+    // TODO: Sanity checks
 
+    [self disconnect];
+    
     NSDictionary *newServer = [[NSDictionary alloc] initWithObjectsAndKeys:
                                [serverNickName stringValue], TURAnselServerNickKey,
                                [anselHostURL stringValue], TURAnselServerEndpointKey,
@@ -172,13 +171,16 @@ NSString * const TURAnselServerPasswordKey = @"password";
     [NSApp endSheet: newServerSheet];
     [newServerSheet orderOut: nil];
     
-    [self disconnect];
     currentServer = [newServer retain];
     [self doConnect];
     
     // Save it to the userdefaults
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     [prefs setObject:anselServers  forKey:TURAnselServersKey];
+    [prefs synchronize];
+    
+    [self updateServersPopupMenu];
+    
     [newServer release];
 }
 
@@ -350,7 +352,6 @@ NSString * const TURAnselServerPasswordKey = @"password";
     }
     if ([anselServers count] == 0) {
         [mServersPopUp addItemWithTitle:@"(None)"];
-       //[mainStatusString setStringValue:@"No galleries configured"];
     }
     
     // add separator
@@ -369,7 +370,8 @@ NSString * const TURAnselServerPasswordKey = @"password";
 {
     [galleryCombo setDelegate: nil];
     [galleryCombo setDataSource: nil];
-
+    [galleryCombo setEnabled: false];
+    
     [currentServer release];
     currentServer = nil;
     [anselController release];
@@ -380,6 +382,8 @@ NSString * const TURAnselServerPasswordKey = @"password";
 // Start the connection process.
 -(void)doConnect
 {
+    [galleryCombo deselectItemAtIndex: [galleryCombo indexOfSelectedItem]];
+    [mServersPopUp setEnabled: false];
     [self setStatusText: @"Connecting..."];
     [spinner startAnimation: self];
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
@@ -561,9 +565,11 @@ NSString * const TURAnselServerPasswordKey = @"password";
 - (void)TURAnselDidInitialize
 {   
     [galleryCombo reloadData];
+    [galleryCombo setEnabled: true];
     [self setStatusText: @"Connected" withColor: [NSColor greenColor]];
     [self canExport];
     [spinner stopAnimation: self];
+    [mServersPopUp setEnabled: true];
 }
 
 - (void)TURAnselHadError: (NSError *)error
@@ -571,6 +577,7 @@ NSString * const TURAnselServerPasswordKey = @"password";
     // Stop the spinner
     [spinner stopAnimation: self];
     [self disconnect];
+    [mServersPopUp setEnabled: true];
     
     NSAlert *alert;
     // For some reason, this method doesn't pick up our userInfo dictionary...
@@ -611,7 +618,7 @@ NSString * const TURAnselServerPasswordKey = @"password";
 - (void)comboBoxSelectionDidChange:(NSNotification *)notification
 {    
     // Yes, I'm comparing the pointers here on purpose
-    if ([notification object] == galleryCombo) {
+    //if ([notification object] == galleryCombo) {
         int row = [galleryCombo indexOfSelectedItem];
         [currentGallery setDelegate:nil];
         [currentGallery autorelease];
@@ -621,7 +628,7 @@ NSString * const TURAnselServerPasswordKey = @"password";
         [defaultImageView setImage: theImage];
         [theImage release];
         [self canExport];
-    }
+    //}
 }
 
 
