@@ -111,17 +111,20 @@ NSString * const TURAnselServerPasswordKey = @"password";
 }
 
 // Remove the selected server from the saved list.
-// TODO: Sanity checks - make sure we don't delete the current server, 
-// or disconnect first etc...
 - (IBAction)removeServer: (id)sender
 {
+    NSTableColumn *theCol = [serverTable tableColumnWithIdentifier:@"nickname"];
+    
+    // We are deleting the entry for the currently selected server - make sure 
+    // we disconnect.
+    if ([currentServer objectForKey:TURAnselServerNickKey] == [[theCol dataCell] stringValue]) {
+        [self disconnect];
+    }
     NSUserDefaults *userPrefs = [NSUserDefaults standardUserDefaults]; 
     [anselServers removeObjectAtIndex: [serverTable selectedRow]];
     [userPrefs setObject:anselServers forKey:TURAnselServersKey];
     [userPrefs synchronize];
-    NSLog(@"Attempting to reload");
     [serverTable reloadData];
-    NSLog(@"Reloaded");
     [self updateServersPopupMenu];
 }
 
@@ -131,11 +134,6 @@ NSString * const TURAnselServerPasswordKey = @"password";
     if ([mServersPopUp indexOfSelectedItem] == [mServersPopUp numberOfItems] - 1) {
         // Server list
         [self showServerListPanel];
-        
-        // Disconnect from the current server.
-        // TODO: See which server we deleted and only disconnect if that was the
-        // one we removed.
-        [self disconnect];
     } else if ([mServersPopUp indexOfSelectedItem] == [mServersPopUp numberOfItems] - 2) {
         // New Server
         [self showNewServerSheet];
