@@ -373,14 +373,6 @@ DimpCore = {
         }
     },
 
-    /* Add a popdown menu to a dimpactions button. */
-    addPopdown: function(bid, ctx)
-    {
-        var bidelt = $(bid);
-        bidelt.insert({ after: $($('popdown_img').cloneNode(false)).writeAttribute('id', bid + '_img').show() });
-        this.DMenu.addElement(bid + '_img', 'ctx_' + ctx, { offset: bidelt.up(), left: true });
-    },
-
     /* Add dropdown menus to addresses. */
     buildAddressLinks: function(alist, elt)
     {

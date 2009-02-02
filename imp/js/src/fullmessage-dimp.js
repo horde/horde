@@ -119,23 +119,34 @@ var DimpFullmessage = {
 
             elt = elt.up();
         }
+    },
+
+    /* Add a popdown menu to a dimpactions button. */
+    addPopdown: function(bid, ctx)
+    {
+        var bidelt = $(bid);
+        bidelt.insert({ after: $($('popdown_img').cloneNode(false)).writeAttribute('id', bid + '_img').show() });
+        DimpCore.DMenu.addElement(bid + '_img', 'ctx_' + ctx, { offset: bidelt.up(), left: true });
     }
 
 };
 
 document.observe('dom:loaded', function() {
+    var FM = DimpFullmessage;
+
     window.focus();
-    DimpCore.addPopdown('reply_link', 'replypopdown');
-    DimpCore.addPopdown('forward_link', 'fwdpopdown');
+
+    FM.addPopdown('reply_link', 'replypopdown');
+    FM.addPopdown('forward_link', 'fwdpopdown');
 
     /* Set up address linking. */
     [ 'from', 'to', 'cc', 'bcc', 'replyTo' ].each(function(a) {
-        if (DimpFullmessage[a]) {
+        if (FM[a]) {
             var elt = $('msgHeader' + a.charAt(0).toUpperCase() + a.substring(1)).down('TD', 1);
-            elt.replace(DimpCore.buildAddressLinks(DimpFullmessage[a], elt.cloneNode(false)));
+            elt.replace(DimpCore.buildAddressLinks(FM[a], elt.cloneNode(false)));
         }
     });
 
     /* Set up click handlers. */
-    document.observe('click', DimpFullmessage._clickHandler.bindAsEventListener(DimpFullmessage));
+    document.observe('click', FM._clickHandler.bindAsEventListener(FM));
 });

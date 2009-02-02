@@ -2221,11 +2221,11 @@ var DimpBase = {
         this._setFilterText(true);
 
         /* Add popdown menus. */
-        DimpCore.addPopdown('button_reply', 'reply');
+        this._addMouseEvents({ id: 'button_reply', type: 'reply' }, true);
         DimpCore.DMenu.disable('button_reply_img', true, true);
-        DimpCore.addPopdown('button_forward', 'forward');
+        this._addMouseEvents({ id: 'button_forward', type: 'forward' }, true);
         DimpCore.DMenu.disable('button_forward_img', true, true);
-        DimpCore.addPopdown('button_other', 'otheractions');
+        this._addMouseEvents({ id: 'button_other', type: 'otheractions' }, true);
 
         new Drop('dropbase', this._folderDropConfig);
 
