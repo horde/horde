@@ -1,13 +1,23 @@
 <?php
 /**
-  # A Span represents a range of time. Since this class extends
-  # Range, you can use #begin and #end to get the beginning and
-  # ending times of the span (they will be of class Time)
- * @TODO remove dependencies on timestamps
+ * A Span represents a range of time.
+ *
+ * @package Horde_Date
+ */
+
+/**
+ * @package Horde_Date
  */
 class Horde_Date_Span
 {
+    /**
+     * @var Horde_Date
+     */
     public $begin;
+
+    /**
+     * @var Horde_Date
+     */
     public $end;
 
     public function __construct($begin, $end)
@@ -21,23 +31,42 @@ class Horde_Date_Span
      */
     public function width()
     {
-        return $this->end - $this->begin;
+        return $this->end->timestamp() - $this->begin->timestamp();
     }
 
     /**
      * Add a number of seconds to this span, returning the new span
      */
-    public function add($seconds)
+    public function add($factor)
     {
-        return new Horde_Date_Span($this->begin + $seconds, $this->end + $seconds);
+        $b = clone($this->begin);
+        $e = clone($this->end);
+        if (is_array($factor)) {
+            foreach ($factor as $property => $value) {
+                $b->$property += $value;
+                $e->$property += $value;
+            }
+        } else {
+            $b->sec += $factor;
+            $e->sec += $factor;
+        }
+        return new Horde_Date_Span($b, $e);
     }
 
     /**
      * Subtract a number of seconds from this span, returning the new span.
      */
-    public function sub($seconds)
+    public function sub($factor)
     {
-        return $this->add(-$seconds);
+        if (is_array($factor)) {
+            foreach ($factor as &$value) {
+                $value *= -1;
+            }
+        } else {
+            $factor *= -1;
+        }
+
+        return $this->add($factor);
     }
 
     public function __toString()
