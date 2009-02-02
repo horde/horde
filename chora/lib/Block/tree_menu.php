@@ -15,7 +15,7 @@ class Horde_Block_chora_tree_menu extends Horde_Block
         $arr = array();
         asort($GLOBALS['sourceroots']);
 
-        foreach ($sourceroots as $key => $val) {
+        foreach ($GLOBALS['sourceroots'] as $key => $val) {
             if (Chora::checkPerms($key)) {
                 $tree->addNode($parent . $key,
                     $parent,
