@@ -13,7 +13,7 @@
   <small>(<?php printf('%s lines', $lg->lines) ?>)</small>
 <?php endif; ?>
 </td>
- <td class="ago" sortval="<?php echo (int)$lg->date ?>"><a title="<?php echo $readableDate ?>"><?php echo $commitDate ?></a></td>
+ <td class="ago" sortval="<?php echo (int)$lg->queryDate() ?>"><a title="<?php echo $readableDate ?>"><?php echo $commitDate ?></a></td>
  <td class="author"><?php echo $author ?></td>
  <td class="log">
   <p class="message"><?php echo $logMessage ?></p>
