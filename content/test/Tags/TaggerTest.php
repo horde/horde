@@ -91,18 +91,6 @@ class Content_Tags_TaggerTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('work', $cloud[0]['tag_name']);
         $this->assertEquals(1, $cloud[0]['count']);
     }
-        /*
-// var_dump($tagger->getTagIds(1));
-
-// $tagger->tag(1, 3, 3);
-// $tagger->untag(1, 3, 3);
-
-var_dump($tagger->getRelatedObjects(1));
-var_dump($tagger->getRelatedObjects(2));
-var_dump($tagger->getRelatedObjects(3));
-
-// var_dump($tagger->getTagCloud());
-*/
 
     public function testGetRecentTags()
     {
