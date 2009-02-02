@@ -91,11 +91,12 @@ class Horde_Date_Parser_Locale_Base_Repeater_DayPortion extends Horde_Date_Parse
         } else {
             switch ($pointer) {
             case 'future':
-                $this->currentSpan->add(array('day' => 1));
+                $this->currentSpan = $this->currentSpan->add(array('day' => 1));
                 break;
 
             case 'past':
-                $this->currentSpan->sub(array('day' => 1));
+                $this->currentSpan = $this->currentSpan->add(array('day' => -1));
+                break;
             }
         }
 

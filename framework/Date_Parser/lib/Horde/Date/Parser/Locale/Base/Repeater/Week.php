@@ -75,7 +75,7 @@ class Horde_Date_Parser_Locale_Base_Repeater_Week extends Horde_Date_Parser_Loca
     public function offset($span, $amount, $pointer)
     {
         $direction = ($pointer == 'future') ? 1 : -1;
-        return $span->add($direction * $amount * self::WEEK_SECONDS);
+        return $span->add(array('day' => $direction * $amount * 7));
     }
 
     public function width()

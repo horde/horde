@@ -50,7 +50,7 @@ class Horde_Date_Parser_Locale_Base_Repeater_Day extends Horde_Date_Parser_Local
     public function offset($span, $amount, $pointer)
     {
         $direction = ($pointer == 'future') ? 1 : -1;
-        return $span->add($direction * $amount * self::DAY_SECONDS);
+        return $span->add(array('day' => $direction * $amount));
     }
 
     public function width()
