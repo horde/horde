@@ -1,95 +1,145 @@
 <?php
 class Horde_Date_Parser_Locale_Base_Repeater_DayPortion extends Horde_Date_Parser_Locale_Base_Repeater
 {
-  @@morning = (6 * 60 * 60)..(12 * 60 * 60) # 6am-12am
-  @@afternoon = (13 * 60 * 60)..(17 * 60 * 60) # 1pm-5pm
-  @@evening = (17 * 60 * 60)..(20 * 60 * 60) # 5pm-8pm
-  @@night = (20 * 60 * 60)..(24 * 60 * 60) # 8pm-12pm
+    /**
+     * 6am-12am (6 * 60 * 60, 12 * 60 * 60)
+     */
+    public static $morning = array(21600, 43200);
 
-  def initialize(type)
-    super
+    /**
+     * 1pm-5pm (13 * 60 * 60, 17 * 60 * 60)
+     */
+    public static $afternoon = array(46800, 61200);
 
-    if type.kind_of? Integer
-      @range = (@type * 60 * 60)..((@type + 12) * 60 * 60)
-    else
-      lookup = {:am => 0..(12 * 60 * 60 - 1),
-                :pm => (12 * 60 * 60)..(24 * 60 * 60 - 1),
-                :morning => @@morning,
-                :afternoon => @@afternoon,
-                :evening => @@evening,
-                :night => @@night}
-      @range = lookup[type]
-      lookup[type] || raise("Invalid type '#{type}' for RepeaterDayPortion")
-    end
-    @range || raise("Range should have been set by now")
-  end
+    /**
+     * 5pm-8pm (17 * 60 * 60, 20 * 60 * 60)
+     */
+    public static $evening = array(61200, 72000);
 
-  def next(pointer)
-    super
+    /**
+     * 8pm-12pm (20 * 60 * 60, 24 * 60 * 60)
+     */
+    public static $night = array(72000, 86400);
 
-    full_day = 60 * 60 * 24
+    public $range;
+    public $currentSpan;
 
-    if !@current_span
-      now_seconds = @now - Time.construct(@now.year, @now.month, @now.day)
-      if now_seconds < @range.begin
-        case pointer
-        when :future
-          range_start = Time.construct(@now.year, @now.month, @now.day) + @range.begin
-        when :past
-          range_start = Time.construct(@now.year, @now.month, @now.day) - full_day + @range.begin
-        end
-      elsif now_seconds > @range.end
-        case pointer
-        when :future
-          range_start = Time.construct(@now.year, @now.month, @now.day) + full_day + @range.begin
-        when :past
-          range_start = Time.construct(@now.year, @now.month, @now.day) + @range.begin
-        end
-      else
-        case pointer
-        when :future
-          range_start = Time.construct(@now.year, @now.month, @now.day) + full_day + @range.begin
-        when :past
-          range_start = Time.construct(@now.year, @now.month, @now.day) - full_day + @range.begin
-        end
-      end
+    public function __construct($type)
+    {
+        parent::__construct($type);
 
-      @current_span = Chronic::Span.new(range_start, range_start + (@range.end - @range.begin))
-    else
-      case pointer
-      when :future
-        @current_span += full_day
-      when :past
-        @current_span -= full_day
-      end
-    end
-  end
+        if (is_int($type)) {
+            $this->range = array(($type * 3600), (($type + 12) * 3600));
+        } else {
+            $lookup = array(
+                'am' => array(0, (12 * 3600 - 1)),
+                'pm' => array((12 * 3600), (24 * 3600 - 1)),
+                'morning' => self::$morning,
+                'afternoon' => self::$afternoon,
+                'evening' => self::$evening,
+                'night' => self::$night,
+            );
+            if (!isset($lookup[$type])) {
+                throw new InvalidArgumentException("Invalid type '$type' for Repeater_DayPortion");
+            }
+            $this->range = $lookup[$type];
+        }
+    }
 
-  def this(context = :future)
-    super
+    public function next($pointer)
+    {
+        parent::next($pointer);
 
-    range_start = Time.construct(@now.year, @now.month, @now.day) + @range.begin
-    @current_span = Chronic::Span.new(range_start, range_start + (@range.end - @range.begin))
-  end
+        $fullDay = 60 * 60 * 24;
 
-  def offset(span, amount, pointer)
-    @now = span.begin
-    portion_span = self.next(pointer)
-    direction = pointer == :future ? 1 : -1
-    portion_span + (direction * (amount - 1) * Chronic::RepeaterDay::DAY_SECONDS)
-  end
+        if (!$this->currentSpan) {
+            $nowSeconds = $this->now->hour * 3600 + $this->now->min * 60 + $this->now->sec;
+            if ($nowSeconds < $this->range[0]) {
+                switch ($pointer) {
+                case 'future':
+                    $rangeStart = new Horde_Date(array('year' => $this->now->year, 'month' => $this->now->month, 'day' => $this->now->day, 'sec' => $this->range[0]));
+                    break;
 
-  def width
-    @range || raise("Range has not been set")
-    return @current_span.width if @current_span
-    if @type.kind_of? Integer
-      return (12 * 60 * 60)
-    else
-      @range.end - @range.begin
-    end
-  end
+                case 'past':
+                    $rangeStart = new Horde_Date(array('year' => $this->now->year, 'month' => $this->now->month, 'day' => $this->now->day - 1, 'sec' => $this->range[0]));
+                    break;
+                }
+            } elseif ($nowSeconds > $this->range[1]) {
+                switch ($pointer) {
+                case 'future':
+                    $rangeStart = new Horde_Date(array('year' => $this->now->year, 'month' => $this->now->month, 'day' => $this->now->day + 1, 'sec' => $this->range[0]));
+                    break;
 
-  def to_s
-    super << '-dayportion-' << @type.to_s
-  end
-end
+                case 'past':
+                    $rangeStart = new Horde_Date(array('year' => $this->now->year, 'month' => $this->now->month, 'day' => $this->now->day, 'sec' => $this->range[0]));
+                    break;
+                }
+            } else {
+                switch ($pointer) {
+                case 'future':
+                    $rangeStart = new Horde_Date(array('year' => $this->now->year, 'month' => $this->now->month, 'day' => $this->now->day + 1, 'sec' => $this->range[0]));
+                    break;
+
+                case 'past':
+                    $rangeStart = new Horde_Date(array('year' => $this->now->year, 'month' => $this->now->month, 'day' => $this->now->day - 1, 'sec' => $this->range[0]));
+                    break;
+                }
+            }
+
+            $rangeEnd = new Horde_Date(array('year' => $rangeStart->year, 'month' => $rangeStart->month, 'day' => $rangeStart->day, 'sec' => $this->range[1] - $this->range[0]));
+            $this->currentSpan = new Horde_Date_Span($rangeStart, $rangeEnd);
+        } else {
+            switch ($pointer) {
+            case 'future':
+                $this->currentSpan->add(array('day' => 1));
+                break;
+
+            case 'past':
+                $this->currentSpan->sub(array('day' => 1));
+            }
+        }
+
+        return $this->currentSpan;
+    }
+
+    public function this($context = 'future')
+    {
+        parent::super($context);
+
+        $rangeStart = new Horde_Date(array('year' => $this->now->year, 'month' => $this->now->month, 'day' => $this->now->day, 'sec' => $this->range[0]));
+        $rangeEnd = new Horde_Date(array('year' => $rangeStart->year, 'month' => $rangeStart->month, 'day' => $rangeStart->day, 'sec' => $this->range[1] - $this->range[0]));
+        $this->currentSpan = new Horde_Date_Span($rangeStart, $rangeEnd);
+        return $this->currentSpan;
+    }
+
+    public function offset($span, $amount, $pointer)
+    {
+        $this->now = $span->begin;
+        $portionSpan = $this->next($pointer);
+        $direction = ($pointer == 'future') ? 1 : -1;
+        return $portionSpan + ($direction * ($amount - 1) * Horde_Date_Parser_Locale_Base_Repeater_Day::DAY_SECONDS);
+    }
+
+    public function width()
+    {
+        if (!$this->range) {
+            throw new Horde_Date_Parser_Exception('Range has not been set');
+        }
+
+        if ($this->currentSpan) {
+            return $this->currentSpan->width();
+        }
+
+        if (is_int($this->type)) {
+            return (12 * 3600);
+        } else {
+            return $this->range[1] - $this->range[0];
+        }
+    }
+
+    public function __toString()
+    {
+        return parent::__toString() . '-dayportion-' . $this->type;
+    }
+
+}
