@@ -1,54 +1,46 @@
 <?php
 class Horde_Date_Parser_Locale_Base_Repeater_Time extends Horde_Date_Parser_Locale_Base_Repeater
 {
+    public $currentTime;
 
-  class Tick #:nodoc:
-    attr_accessor :time
+    public function __construct($time, $options = array())
+    {
+        $t = str_replace(':', '', $time);
 
-    def initialize(time, ambiguous = false)
-      @time = time
-      @ambiguous = ambiguous
-    end
+        switch (strlen($t)) {
+        case 1:
+        case 2:
+            hours = t.to_i;
+            hours == 12 ? Tick.new(0 * 60 * 60, true) : Tick.new(hours * 60 * 60, true);
+            $this->type = $hours;
+            break;
 
-    def ambiguous?
-      @ambiguous
-    end
+        case 3:
+            $this->type = Tick.new((t[0..0].to_i * 60 * 60) + (t[1..2].to_i * 60), true);
+            break;
 
-    def *(other)
-      Tick.new(@time * other, @ambiguous)
-    end
+        case 4:
+            $ambiguous = time =~ /:/ && t[0..0].to_i != 0 && t[0..1].to_i <= 12;
+            hours = t[0..1].to_i;
+            hours == 12 ? Tick.new(0 * 60 * 60 + t[2..3].to_i * 60, ambiguous) : Tick.new(hours * 60 * 60 + t[2..3].to_i * 60, ambiguous);
+            $this->type = $hours;
+            break;
 
-    def to_f
-      @time.to_f
-    end
+        case 5:
+            $this->type = Tick.new(t[0..0].to_i * 60 * 60 + t[1..2].to_i * 60 + t[3..4].to_i, true);
+            break;
 
-    def to_s
-      @time.to_s + (@ambiguous ? '?' : '')
-    end
-  end
+        case 6:
+            $ambiguous = time =~ /:/ && t[0..0].to_i != 0 && t[0..1].to_i <= 12;
+            $hours = t[0..1].to_i;
+            $hours == 12 ? Tick.new(0 * 60 * 60 + t[2..3].to_i * 60 + t[4..5].to_i, ambiguous) : Tick.new(hours * 60 * 60 + t[2..3].to_i * 60 + t[4..5].to_i, ambiguous);
+            $this->type = $hours;
+            break;
 
-  def initialize(time, options = {})
-    t = time.gsub(/\:/, '')
-    @type =
-    if (1..2) === t.size
-      hours = t.to_i
-      hours == 12 ? Tick.new(0 * 60 * 60, true) : Tick.new(hours * 60 * 60, true)
-    elsif t.size == 3
-      Tick.new((t[0..0].to_i * 60 * 60) + (t[1..2].to_i * 60), true)
-    elsif t.size == 4
-      ambiguous = time =~ /:/ && t[0..0].to_i != 0 && t[0..1].to_i <= 12
-      hours = t[0..1].to_i
-      hours == 12 ? Tick.new(0 * 60 * 60 + t[2..3].to_i * 60, ambiguous) : Tick.new(hours * 60 * 60 + t[2..3].to_i * 60, ambiguous)
-    elsif t.size == 5
-      Tick.new(t[0..0].to_i * 60 * 60 + t[1..2].to_i * 60 + t[3..4].to_i, true)
-    elsif t.size == 6
-      ambiguous = time =~ /:/ && t[0..0].to_i != 0 && t[0..1].to_i <= 12
-      hours = t[0..1].to_i
-      hours == 12 ? Tick.new(0 * 60 * 60 + t[2..3].to_i * 60 + t[4..5].to_i, ambiguous) : Tick.new(hours * 60 * 60 + t[2..3].to_i * 60 + t[4..5].to_i, ambiguous)
-    else
-      raise("Time cannot exceed six digits")
-    end
-  end
+        default:
+            throw new Horde_Date_Parser_Exception('Time cannot exceed six digits');
+        }
+    }
 
   # Return the next past or future Span for the time that this Repeater represents
   #   pointer - Symbol representing which temporal direction to fetch the next day
@@ -118,3 +110,32 @@ class Horde_Date_Parser_Locale_Base_Repeater_Time extends Horde_Date_Parser_Loca
     super << '-time-' << @type.to_s
   end
 end
+
+class Horde_Date_Tick
+{
+    public $time;
+    public $ambiguous;
+
+    public function __construct($time, $ambiguous = false)
+    {
+        $this->time = $time;
+        $this->ambiguous = $ambiguous;
+    }
+
+    public function mult($other)
+    {
+        return new Horde_Date_Tick($this->time * $other, $this->ambiguous);
+    }
+
+    /*
+    def to_f
+      @time.to_f
+    end
+    */
+
+    public function __toString()
+    {
+        return $this->time . ($this->ambiguous ? '?' : '');
+    }
+
+}
