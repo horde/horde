@@ -31,6 +31,8 @@ if (!defined('HORDE_BASE')) {
 require_once HORDE_BASE . '/lib/core.php';
 Horde_Autoloader::addClassPath($kronolith_dir);
 Horde_Autoloader::addClassPattern('/^Kronolith_/', $kronolith_dir);
+Horde_Autoloader::addClassPath(HORDE_BASE . '/content/lib');
+Horde_Autoloader::addClassPattern('/^Content_/', HORDE_BASE . '/content/lib');
 
 /* Registry. */
 $session_control = Util::nonInputVar('session_control');
