@@ -15,8 +15,9 @@ libs
 chora/config/*.php
 framework/Rdo/examples/Horde/Rdo/conf.php
 iPhoto2Ansel/build/
-iPhoto2Ansel/*.pbxuser
-iPhoto2Ansel/*.perspectivev3
+iPhoto2Ansel/iPhoto2Ansel.xcodeproj/*.pbxuser
+!iPhoto2Ansel/iPhoto2Ansel.xcodeproj/default.pbxuser
+iPhoto2Ansel/iPhoto2Ansel.xcodeproj/*.perspectivev3
 iPhoto2Ansel/*.pbxproject
 imp/config/*.php
 jeta/config/*.php
