@@ -44,10 +44,10 @@ extern NSString * const TURAnselServerPasswordKey;
     
     // New Server sheet
     IBOutlet NSWindow *newServerSheet;
-    IBOutlet NSTextField *anselHostURL;
-    IBOutlet NSTextField *username;    
-    IBOutlet NSSecureTextField *password;
-    IBOutlet NSTextField *serverNickName;
+    IBOutlet NSTextField *mServerSheetHostURL;
+    IBOutlet NSTextField *mServerSheetUsername;    
+    IBOutlet NSSecureTextField *mServerSheetPassword;
+    IBOutlet NSTextField *mServerSheetServerNickName;
     
     // Server list
     IBOutlet NSPanel *serverListPanel;

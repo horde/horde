@@ -162,10 +162,10 @@ NSString * const TURAnselServerPasswordKey = @"password";
     //[self disconnect];
     
     NSDictionary *newServer = [[NSDictionary alloc] initWithObjectsAndKeys:
-                               [serverNickName stringValue], TURAnselServerNickKey,
-                               [anselHostURL stringValue], TURAnselServerEndpointKey,
-                               [username stringValue], TURAnselServerUsernameKey,
-                               [password stringValue], TURAnselServerPasswordKey,
+                               [mServerSheetServerNickName stringValue], TURAnselServerNickKey,
+                               [mServerSheetHostURL stringValue], TURAnselServerEndpointKey,
+                               [mServerSheetUsername stringValue], TURAnselServerUsernameKey,
+                               [mServerSheetPassword stringValue], TURAnselServerPasswordKey,
                                 nil];
     [anselServers addObject: newServer];
     [NSApp endSheet: newServerSheet];
@@ -327,10 +327,10 @@ NSString * const TURAnselServerPasswordKey = @"password";
           contextInfo: nil];
     
     // Make sure these are cleared.
-    [anselHostURL setStringValue: @""];
-    [username setStringValue: @""];
-    [password setStringValue: @""];
-    [serverNickName setStringValue: @""];
+    [mServerSheetHostURL setStringValue: @""];
+    [mServerSheetUsername setStringValue: @""];
+    [mServerSheetPassword setStringValue: @""];
+    [mServerSheetServerNickName setStringValue: @""];
     
     [serverTable setDelegate: self];
 }
