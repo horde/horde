@@ -25,8 +25,13 @@ if (!$VC->isFile($fullname)) {
     Chora::fatal(sprintf(_("%s: no such file or directory"), $where), '404 Not Found');
 }
 
+$ps_opts = array();
+if ($ps_id = Util::getFormData('ps')) {
+    $ps_opts['range'] = array($ps_id);
+}
+
 try {
-    $ps = $VC->getPatchsetObject($where);
+    $ps = $VC->getPatchsetObject($where, $ps_opts);
     $patchsets = $ps->getPatchsets();
 } catch (Horde_Vcs_Exception $e) {
     Chora::fatal($e);
@@ -37,7 +42,14 @@ $extraLink = Chora::getFileViews($where, 'patchsets');
 
 Horde::addScriptFile('prototype.js', 'horde', true);
 Horde::addScriptFile('tables.js', 'horde', true);
-Horde::addScriptFile('QuickFinder.js', 'horde', true);
+
+// JS search not needed if showing a single patchset
+if ($ps_id) {
+    $full_ps_link = Horde::link(Chora::url('patchsets', $where)) . _("View All Patchsets for File") . '</a>';
+} else {
+    Horde::addScriptFile('QuickFinder.js', 'horde', true);
+}
+
 require CHORA_TEMPLATES . '/common-header.inc';
 require CHORA_TEMPLATES . '/menu.inc';
 require CHORA_TEMPLATES . '/headerbar.inc';

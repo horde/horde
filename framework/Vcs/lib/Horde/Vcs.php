@@ -536,11 +536,12 @@ class Horde_Vcs
     /**
      * TODO
      */
-    public function getPatchsetObject($filename)
+    public function getPatchsetObject($filename, $opts = array())
     {
         $class = 'Horde_Vcs_Patchset_' . $this->_driver;
 
-        $cacheId = implode('|', array($class, $this->sourceroot(), $filename, $this->_cacheVersion));
+        ksort($opts);
+        $cacheId = implode('|', array($class, $this->sourceroot(), $filename, serialize($opts), $this->_cacheVersion));
 
         if (!empty($this->_cache)) {
             // TODO: Can't use filemtime() - Git bare repos contain no files
@@ -550,7 +551,7 @@ class Horde_Vcs
             }
         }
 
-        $ob = new $class($this, $filename);
+        $ob = new $class($this, $filename, $opts);
 
         if (!empty($this->_cache)) {
             $this->_cache->set($cacheId, serialize($ob));
@@ -1175,8 +1176,13 @@ abstract class Horde_Vcs_Patchset
      *
      * @param Horde_Vcs $rep  A Horde_Vcs repository object.
      * @param string $file    The filename to create patchsets for.
+     * @param array $opts     Additional options:
+     * <pre>
+     * 'range' - (array) The patchsets to process.
+     *           DEFAULT: None (all patchsets are processed).
+     * </pre>
      */
-    abstract public function __construct($rep, $file);
+    abstract public function __construct($rep, $file, $opts = array());
 
     /**
      * TODO

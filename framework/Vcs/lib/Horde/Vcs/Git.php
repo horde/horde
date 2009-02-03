@@ -593,12 +593,27 @@ class Horde_Vcs_Patchset_Git extends Horde_Vcs_Patchset
      *
      * @param Horde_Vcs $rep  A Horde_Vcs repository object.
      * @param string $file    The filename to create patchsets for.
+     * @param array $opts     Additional options.
+     * <pre>
+     * 'range' - (array) The patchsets to process.
+     *           DEFAULT: None (all patchsets are processed).
+     * </pre>
      */
-    public function __construct($rep, $file)
+    public function __construct($rep, $file, $opts = array())
     {
         $fileOb = $rep->getFileObject($file);
+        $revs = array();
 
-        foreach ($fileOb->queryLogs() as $rev => $log) {
+        if (empty($opts['range'])) {
+            $revs = $fileOb->queryLogs();
+        } else {
+            foreach ($opts['range'] as $val) {
+                $revs[$val] = $fileOb->queryLogs($val);
+            }
+        }
+
+        reset($revs);
+        while(list($rev, $log) = each($revs)) {
             $this->_patchsets[$rev] = array(
                 'date' => $log->queryDate(),
                 'author' => $log->queryAuthor(),
