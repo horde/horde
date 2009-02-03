@@ -86,6 +86,13 @@
     border-top: none;
 }
 
+.context a span.contextExpand {
+    width: 16px;
+    height: 16px;
+    background-image: url("graphics/popright.png");
+    margin-top: -1px;
+}
+
 span.mailseenImg {
     background-image: url("graphics/mail_seen.png");
 }

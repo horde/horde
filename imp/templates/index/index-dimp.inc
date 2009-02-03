@@ -416,10 +416,8 @@ function _simpleButton($id, $text, $image, $imagedir = null)
 <div class="context" id="ctx_otheractions" style="display:none">
  <a id="previewtoggle"><span class="contextImg previewImg"></span><?php echo ($prefs->getValue('dimp_show_preview') ? _("Hide Preview") : _("Show Preview")); ?></a>
  <div class="sep"></div>
- <a id="oa_seen"><span class="contextImg mailseenImg"></span><?php echo _("Mark as Read") ?></a>
- <a id="oa_unseen"><span class="contextImg mailunseenImg"></span><?php echo _("Mark as New") ?></a>
- <a id="oa_flagged"><span class="contextImg mailflaggedImg"></span><?php echo _("Flag Message") ?></a>
- <a id="oa_clear"><span class="contextImg clearflagImg"></span><?php echo _("Clear Flag") ?></a>
+ <a id="oa_setflag"><span class="contextImg mailflaggedImg"></span><?php echo _("Set Flag") ?></a>
+ <a id="oa_clearflag"><span class="contextImg clearflagImg"></span><?php echo _("Clear Flag") ?></a>
  <div class="sep" id="oa_sep1"></div>
 <?php if ($has_blacklist || $has_whitelist): ?>
 <?php if ($has_blacklist): ?>
@@ -436,6 +434,16 @@ function _simpleButton($id, $text, $image, $imagedir = null)
  <a id="oa_purge_deleted"><span class="contextImg deleteImg"></span><?php echo _("Purge Deleted") ?></a>
  <a id="oa_undeleted"><span class="contextImg deleteImg"></span><?php echo _("Undelete") ?></a>
 <?php endif; ?>
+</div>
+
+<div class="context" id="ctx_otheractions2" style="display:none">
+ <a id="oa_unseen"><span class="contextImg mailunseenImg"></span><?php echo _("Mark as New") ?></a>
+ <a id="oa_flagged"><span class="contextImg mailflaggedImg"></span><?php echo _("Flag Message") ?></a>
+</div>
+
+<div class="context" id="ctx_otheractions3" style="display:none">
+ <a id="oa_seen"><span class="contextImg mailseenImg"></span><?php echo _("Mark as Read") ?></a>
+ <a id="oa_clear"><span class="contextImg clearflagImg"></span><?php echo _("Clear Flag") ?></a>
 </div>
 
 <div class="context" id="ctx_contacts" style="display:none">

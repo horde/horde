@@ -581,7 +581,6 @@ var DimpBase = {
             p.left = true;
         }
 
-        p.onShow = this.bcache.get('onMS') || this.bcache.set('onMS', this._onMenuShow.bind(this));
         DimpCore.DMenu.addElement(p.id, 'ctx_' + p.type, p);
     },
 
@@ -595,11 +594,11 @@ var DimpBase = {
         DimpCore.DMenu.removeElement($(elt).identify());
     },
 
-    _onMenuShow: function(ctx)
+    _onMenuShow: function(ctx_id)
     {
         var elts, folder, ob, sel;
 
-        switch (ctx.ctx) {
+        switch (ctx_id) {
         case 'ctx_folder':
             elts = $('ctx_folder_create', 'ctx_folder_rename', 'ctx_folder_delete');
             folder = DimpCore.DMenu.element();
@@ -622,7 +621,7 @@ var DimpBase = {
             break;
 
         case 'ctx_message':
-            [ $('ctx_message_reply_list') ].invoke(this.viewport.createSelection('domid', ctx.id).get('dataob').first().listmsg ? 'show' : 'hide');
+            [ $('ctx_message_reply_list') ].invoke(this.viewport.createSelection('domid', ctx_id).get('dataob').first().listmsg ? 'show' : 'hide');
             break;
 
         case 'ctx_reply':
@@ -634,7 +633,9 @@ var DimpBase = {
             break;
 
         case 'ctx_otheractions':
-            $('oa_seen', 'oa_unseen', 'oa_flagged', 'oa_clear', 'oa_sep1', 'oa_blacklist', 'oa_whitelist', 'oa_sep2', 'oa_undeleted').compact().invoke(this.viewport.getSelected().size() ? 'show' : 'hide');
+            $('oa_setflag', 'oa_clearflag', 'oa_sep1', 'oa_blacklist', 'oa_whitelist', 'oa_sep2', 'oa_undeleted').compact().invoke(this.viewport.getSelected().size() ? 'show' : 'hide');
+            DimpCore.DMenu.addSubMenu('oa_setflag', 'ctx_otheractions2');
+            DimpCore.DMenu.addSubMenu('oa_clearflag', 'ctx_otheractions3');
             break;
         }
         return true;
@@ -2229,6 +2230,7 @@ var DimpBase = {
         this._setFilterText(true);
 
         /* Add popdown menus. */
+        DimpCore.DMenu.setOnShow(this._onMenuShow.bind(this));
         this._addMouseEvents({ id: 'button_reply', type: 'reply' }, true);
         DimpCore.DMenu.disable('button_reply_img', true, true);
         this._addMouseEvents({ id: 'button_forward', type: 'forward' }, true);

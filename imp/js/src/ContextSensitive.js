@@ -32,12 +32,23 @@ var ContextSensitive = Class.create({
 
     initialize: function()
     {
-        this.current = this.lasttarget = this.target = null;
+        this.lasttarget = this.target = null;
         this.elements = $H();
+        this.submenus = $H();
+        this.current = [];
+        this.onShow = null;
 
-        document.observe('contextmenu', this.rightClickHandler.bindAsEventListener(this));
-        document.observe('click', this.leftClickHandler.bindAsEventListener(this));
+        document.observe('contextmenu', this._rightClickHandler.bindAsEventListener(this));
+        document.observe('click', this._leftClickHandler.bindAsEventListener(this));
         document.observe(Prototype.Browser.Gecko ? 'DOMMouseScroll' : 'mousescroll', this.close.bind(this));
+    },
+
+    /**
+     * Set an onshow function.
+     */
+    setOnShow: function(func)
+    {
+        this.onShow = func;
     },
 
     /**
@@ -61,18 +72,26 @@ var ContextSensitive = Class.create({
     },
 
     /**
-     * Hide the current element.
+     * Hide the currently displayed element(s).
      */
     close: function(immediate)
     {
-        if (this.current) {
+        this._closeSubmenu(0, immediate);
+    },
+
+    /**
+     * Close all submenus below a specified level.
+     */
+    _closeSubmenu: function(idx, immediate)
+    {
+        this.current.splice(idx, this.current.size() - idx).each(function(s) {
             if (immediate) {
-                this.current.hide();
+                s.hide();
             } else {
-                Effect.Fade(this.current, { duration: 0.2 });
+                Effect.Fade(s, { duration: 0.2 });
             }
-            this.current = this.target = null;
-        }
+        });
+        this.target = this.current[idx];
     },
 
     /**
@@ -84,13 +103,12 @@ var ContextSensitive = Class.create({
     },
 
     /**
-     * Returns the current displayed menu element, if any.
+     * Returns the current displayed menu element ID, if any. If more than one
+     * submenu is open, returns the last ID opened.
      */
     currentmenu: function()
     {
-        if (this.current && this.current.visible()) {
-            return this.current;
-        }
+        return this.current.last();
     },
 
     /**
@@ -117,7 +135,7 @@ var ContextSensitive = Class.create({
      * Called when a left click event occurs. Will return before the
      * element is closed if we click on an element inside of it.
      */
-    leftClickHandler: function(e)
+    _leftClickHandler: function(e)
     {
         // Check for a right click. FF on Linux triggers an onclick event even
         // w/a right click, so disregard.
@@ -126,13 +144,13 @@ var ContextSensitive = Class.create({
         }
 
         // Check if the mouseclick is registered to an element now.
-        this.rightClickHandler(e, true);
+        this._rightClickHandler(e, true);
     },
 
     /**
      * Called when a right click event occurs.
      */
-    rightClickHandler: function(e, left)
+    _rightClickHandler: function(e, left)
     {
         if (this.trigger(e.element(), left, e.pointerX(), e.pointerY())) {
             e.stop();
@@ -144,7 +162,7 @@ var ContextSensitive = Class.create({
      */
     trigger: function(target, leftclick, x, y)
     {
-        var ctx, el, offset, offsets, size, v, voffsets;
+        var ctx, el, el_id, offset, offsets, voffsets;
 
         [ target ].concat(target.ancestors()).find(function(n) {
             ctx = this.validElement(n.id, leftclick);
@@ -153,7 +171,10 @@ var ContextSensitive = Class.create({
 
         // Return if event not found or event is disabled.
         if (!ctx || ctx.disable) {
-            this.close();
+            // Return if this is a click on a submenu item.
+            if (!ctx || !ctx.hasClassName('contextSubmenu')) {
+                this.close();
+            }
             return false;
         }
 
@@ -163,19 +184,21 @@ var ContextSensitive = Class.create({
         if (!el) {
             this.close();
             return false;
-        } else if (leftclick && el == this.current) {
+        }
+
+        el_id = el.readAttribute('id');
+        if (leftclick && el_id == this.currentmenu()) {
             return false;
         }
 
-        // Register the current element that will be shown and the
-        // element that was clicked on.
-        this.current = el;
+        // Register the current element that will be shown and the element
+        // that was clicked on.
+        this.close();
         this.lasttarget = this.target = $(ctx.id);
 
-        // Get the base element positions.
         offset = ctx.opts.offset;
         if (!offset && (Object.isUndefined(x) || Object.isUndefined(y))) {
-            offset = target.id;
+            offset = target.readAttribute('id');
         }
         offset = $(offset);
 
@@ -186,9 +209,20 @@ var ContextSensitive = Class.create({
             y = offsets[1] + offset.getHeight() + voffsets.top;
         }
 
+        this._displayMenu(el, x, y);
+
+        return true;
+    },
+
+    /**
+     * Display the [sub]menu on the screen.
+     */
+    _displayMenu: function(elt, x, y)
+    {
         // Get window/element dimensions
-        v = document.viewport.getDimensions();
-        size = el.getDimensions();
+        var id = elt.readAttribute('id'),
+            size = elt.getDimensions(),
+            v = document.viewport.getDimensions();
 
         // Make sure context window is entirely on screen
         if ((y + size.height) > v.height) {
@@ -198,14 +232,60 @@ var ContextSensitive = Class.create({
             x = v.width - size.width - 10;
         }
 
-        if (ctx.opts.onShow) {
-            ctx.opts.onShow(ctx);
+        if (this.onShow) {
+            this.onShow(id);
         }
 
-        Effect.Appear(el.setStyle({ left: x + 'px', top: y + 'px' }), { duration: 0.2 });
+        Effect.Appear(elt.setStyle({ left: x + 'px', top: y + 'px' }), { duration: 0.2 });
 
-        return true;
+        this.current.push(id);
+    },
+
+    /**
+     * Add a submenu to an existing menu.
+     */
+    addSubMenu: function(id, submenu)
+    {
+        if (!this.submenus.get(id)) {
+            if (!this.submenus.size()) {
+                document.observe('mouseover', this._mouseoverHandler.bindAsEventListener(this));
+            }
+            this.submenus.set(id, submenu);
+            $(id).addClassName('contextSubmenu').insert({ top: new Element('SPAN', { className: 'contextExpand' }) });
+        }
+    },
+
+    /**
+     * Mouseover DOM Event handler.
+     */
+    _mouseoverHandler: function(e)
+    {
+        var elt = e.element(),
+            id = elt.readAttribute('id'),
+            cm = this.currentmenu(),
+            div_id, offsets, sub, voffsets, x, y;
+
+        if (elt.hasClassName('contextSubmenu')) {
+            sub = this.submenus.get(id);
+            if (sub != cm) {
+                div_id = elt.up().readAttribute('id');
+                if (div_id != cm) {
+                    this._closeSubmenu(this.current.indexOf(div_id) + 1);
+                }
+
+                offsets = elt.viewportOffset();
+                voffsets = document.viewport.getScrollOffsets();
+                x = offsets[0] + voffsets.left + elt.getWidth();
+                y = offsets[1] + voffsets.top;
+                this._displayMenu($(sub), x, y);
+            }
+        } else if ((this.current.size() > 1) &&
+                   elt.hasClassName('contextElt') &&
+                   elt.up().readAttribute('id') != cm) {
+            this._closeSubmenu(this.current.indexOf(id));
+        }
     }
+
 });
 
 ContextSensitive.Element = Class.create({
@@ -219,6 +299,12 @@ ContextSensitive.Element = Class.create({
         this.opts = opts;
         this.opts.left = Boolean(opts.left);
         this.disable = false;
+
+        /* Add 'contextElt' class to all context children. */
+        target = $(target);
+        if (target) {
+            target.select('A').invoke('addClassName', 'contextElt');
+        }
     }
 
 });

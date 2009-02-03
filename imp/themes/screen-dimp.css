@@ -811,9 +811,12 @@ span.attachName:hover {
     color: #fff;
     cursor: pointer;
 }
-.context a img {
-    vertical-align: middle;
-    padding-right: 4px;
+.context a span.contextExpand {
+    float: right;
+    margin-top: 2px;
+    width: 4px;
+    height: 9px;
+    background: url("graphics/popright.png") no-repeat;
 }
 .context div.sep {
     border-bottom: 1px #d4d4d4 solid;
