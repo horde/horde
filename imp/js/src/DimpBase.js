@@ -571,8 +571,16 @@ var DimpBase = {
         mf.addClassName('msgFilterDefault');
     },
 
-    _addMouseEvents: function(p)
+    _addMouseEvents: function(p, popdown)
     {
+        if (popdown) {
+            var bidelt = $(p.id);
+            bidelt.insert({ after: $($('popdown_img').cloneNode(false)).writeAttribute('id', p.id + '_img').show() });
+            p.id += '_img';
+            p.offset = bidelt.up();
+            p.left = true;
+        }
+
         p.onShow = this.bcache.get('onMS') || this.bcache.set('onMS', this._onMenuShow.bind(this));
         DimpCore.DMenu.addElement(p.id, 'ctx_' + p.type, p);
     },
