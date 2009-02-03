@@ -82,6 +82,15 @@ class Horde_Vcs
     protected $_branches = false;
 
     /**
+     * Does driver support snapshots?
+     *
+     * @var boolean
+     */
+    protected $_snapshots = false;
+
+    /**
+     * Current cache version.
+     *
      * @var integer
      */
     protected $_cacheVersion = 3;
@@ -143,6 +152,9 @@ class Horde_Vcs
 
         case 'patchsets':
             return $this->_patchsets;
+
+        case 'snapshots':
+            return $this->_snapshots;
 
         default:
             return false;
@@ -449,6 +461,7 @@ class Horde_Vcs
      *
      * $opts:
      * 'quicklog' - (boolean)
+     * 'rev' - (string)
      * 'showAttic' - (boolean)
      */
     public function getDirObject($where, $opts = array())

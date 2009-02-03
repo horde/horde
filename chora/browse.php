@@ -21,9 +21,13 @@ Horde::addScriptFile('prototype.js', 'horde', true);
 Horde::addScriptFile('tables.js', 'horde', true);
 
 if ($atdir) {
+    $rev = $VC->hasFeature('snapshots')
+        ? Util::getFormData('rev')
+        : null;
+
     try {
         $atticFlags = (bool)$acts['sa'];
-        $dir = $VC->getDirObject($where, array('quicklog' => true, 'showattic' => $atticFlags));
+        $dir = $VC->getDirObject($where, array('quicklog' => true, 'rev' => $rev, 'showattic' => $atticFlags));
         $dir->applySort($acts['sbt'], $acts['ord']);
         $dirList = $dir->queryDirList();
         $fileList = $dir->queryFileList($atticFlags);

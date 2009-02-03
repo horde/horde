@@ -73,6 +73,10 @@ if (!$plain) {
         Horde::widget(Chora::url('annotate', $where, array('rev' => $r)), _("Annotate"), 'widget', '', '', _("_Annotate")),
         Horde::widget(Chora::url('co', $where, array('r' => $r, 'p' => 1)), _("Download"), 'widget', '', '', _("_Download"))
     );
+    if ($VC->hasFeature('snapshots')) {
+        $snapdir = dirname($file->queryPath());
+        $views[] = Horde::widget(Chora::url('browse', $snapdir == '.' ? '' : $snapdir, array('rev' => $r)), _("Snapshot"), 'widget', '', '', _("_Snapshot"));
+    }
     $extraLink = _("View:") . ' ' . implode(' | ', $views);
 
     $tags = Chora::getTags($log, $where);

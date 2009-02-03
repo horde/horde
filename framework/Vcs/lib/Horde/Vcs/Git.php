@@ -34,6 +34,13 @@ class Horde_Vcs_Git extends Horde_Vcs
     protected $_branches = true;
 
     /**
+     * Does driver support snapshots?
+     *
+     * @var boolean
+     */
+    protected $_snapshots = true;
+
+    /**
      * The available diff types.
      *
      * @var array
@@ -257,8 +264,7 @@ class Horde_Vcs_Directory_Git extends Horde_Vcs_Directory
     {
         parent::__construct($rep, $dn, $opts);
 
-        // @TODO For now, we're browsing master
-        $branch = 'master';
+        $branch = empty($opts['rev']) ? 'master' : $opts['rev'];
 
         // @TODO can use this to see if we have a valid cache of the tree at this revision
 
@@ -272,15 +278,16 @@ class Horde_Vcs_Directory_Git extends Horde_Vcs_Directory
 
         $cmd = $rep->getCommand() . ' ls-tree --full-name ' . escapeshellarg($branch) . ' ' . escapeshellarg($dir) . ' 2>&1';
 
-        $dir = popen($cmd, 'r');
-        if (!$dir) {
+        $stream = popen($cmd, 'r');
+        if (!$stream) {
             throw new Horde_Vcs_Exception('Failed to execute git ls-tree: ' . $cmd);
         }
 
         // Create two arrays - one of all the files, and the other of
         // all the dirs.
-        while (!feof($dir)) {
-            $line = chop(fgets($dir, 1024));
+        while (!feof($stream)) {
+            $line = chop(fgets($stream, 1024));
+            print "$line\n";
             if (!strlen($line)) {
                 continue;
             }
@@ -293,7 +300,7 @@ class Horde_Vcs_Directory_Git extends Horde_Vcs_Directory
             }
         }
 
-        pclose($dir);
+        pclose($stream);
     }
 
 }
