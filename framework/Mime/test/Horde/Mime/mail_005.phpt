@@ -31,13 +31,10 @@ Subject: My Subject
 To: recipient@example.com
 From: sender@example.com
 Message-ID: <%d.%s@mail.example.com>
-User-Agent: Horde Application Framework 3.2
+User-Agent: Horde Application Framework 4.0
 Date: %s, %d %s %d %d:%d:%d %s%d
+Content-Type: text/plain; charset=iso-8859-1; format=flowed; DelSp=Yes
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset=iso-8859-1;
-	DelSp="Yes";
-	format="flowed"
 Content-Disposition: inline
 Content-Transfer-Encoding: 7bit
 
@@ -48,11 +45,10 @@ Subject: My Subject
 To: recipient@example.com
 From: sender@example.com
 Message-ID: <%d.%s@mail.example.com>
-User-Agent: Horde Application Framework 3.2
+User-Agent: Horde Application Framework 4.0
 Date: %s, %d %s %d %d:%d:%d %s%d
+Content-Type: text/html; charset=iso-8859-1
 MIME-Version: 1.0
-Content-Type: text/html;
-	charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 7bit
 
@@ -63,20 +59,16 @@ Subject: My Subject
 To: recipient@example.com
 From: sender@example.com
 Message-ID: <%d.%s@mail.example.com>
-User-Agent: Horde Application Framework 3.2
+User-Agent: Horde Application Framework 4.0
 Date: %s, %d %s %d %d:%d:%d %s%d
+Content-Type: multipart/alternative; boundary="=_%s"
 MIME-Version: 1.0
-Content-Type: multipart/alternative;
-	boundary="=_%s"
 Content-Transfer-Encoding: 7bit
 
 This message is in MIME format.
 
 --=_%s
-Content-Type: text/plain;
-	charset=iso-8859-1;
-	DelSp="Yes";
-	format="flowed"
+Content-Type: text/plain; charset=iso-8859-1; format=flowed; DelSp=Yes
 Content-Description: Plaintext Version of Message
 Content-Disposition: inline
 Content-Transfer-Encoding: 7bit
@@ -89,8 +81,7 @@ This is
 the html text body.
 
 --=_%s
-Content-Type: text/html;
-	charset=iso-8859-1
+Content-Type: text/html; charset=iso-8859-1
 Content-Description: HTML Version of Message
 Content-Disposition: inline
 Content-Transfer-Encoding: 7bit

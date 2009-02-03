@@ -22,13 +22,10 @@ Subject: My Subject
 To: recipient@example.com
 From: sender@example.com
 Message-ID: <%d.%s@mail.example.com>
-User-Agent: Horde Application Framework 3.2
+User-Agent: Horde Application Framework 4.0
 Date: %s, %d %s %d %d:%d:%d %s%d
+Content-Type: text/plain; charset=iso-8859-15; format=flowed; DelSp=Yes
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset=iso-8859-15;
-	DelSp="Yes";
-	format="flowed"
 Content-Disposition: inline
 Content-Transfer-Encoding: 7bit
 
