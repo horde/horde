@@ -53,9 +53,9 @@ NSString * const TURAnselServerPasswordKey = @"password";
     [defaultValues setObject: [NSNumber numberWithInt: 2]
                       forKey: TURAnselExportSize];    
     
-    [defaultValues setObject: [[NSMutableArray alloc] init] forKey: TURAnselServersKey];
+    [defaultValues setObject: [[NSArray alloc] init] forKey: TURAnselServersKey];
     
-    [defaultValues setObject: @""
+    [defaultValues setObject: [[NSDictionary alloc] init]
                       forKey: TURAnselDefaultServerKey];
     
     NSUserDefaults *userPrefs = [NSUserDefaults standardUserDefaults];
@@ -177,12 +177,16 @@ NSString * const TURAnselServerPasswordKey = @"password";
     [newServerSheet orderOut: nil];
     currentServer = [newServer retain];
     [self doConnect];
-    int butState = [mMakeNewServerDefault state];
-    // Make the new server the default?
     
     // Save it to the userdefaults
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    [prefs setObject:anselServers  forKey:TURAnselServersKey];
+    [prefs setObject:anselServers  forKey:TURAnselServersKey];   
+    
+    int defaultState = [mMakeNewServerDefault state];
+    if (defaultState == NSOnState) {
+        [prefs setObject: currentServer forKey: TURAnselDefaultServerKey];
+    }
+
     [prefs synchronize];
     
     [self updateServersPopupMenu];
@@ -670,10 +674,18 @@ NSString * const TURAnselServerPasswordKey = @"password";
     if ([anselServers count] == 0) {
         [self showNewServerSheet];
     } else {
-        // Autoconnect to default server. For now, just make it the first one.
-        // TODO: Fix this so it uses a default pref, not just the first in the list
-        //currentServer = [[mServersPopUp selectedItem] representedObject];
-        //[self doConnect];
+        // Try to autoconnect?
+        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+        NSDictionary *defaultServer = [prefs objectForKey:TURAnselDefaultServerKey];
+        
+        if ([defaultServer count]) {
+            // This needs to be retained, right?
+            currentServer = [defaultServer retain];
+            [self doConnect];
+            //TODO: Iterate over the popup menu's objects looking for the
+            // entry with the same nickname to select.
+        }
+
     }
 }
 - (void)sizeChoiceWillChange: (NSNotification *)notification
