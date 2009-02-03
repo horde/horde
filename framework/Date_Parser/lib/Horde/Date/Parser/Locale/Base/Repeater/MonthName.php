@@ -14,51 +14,47 @@ class Horde_Date_Parser_Locale_Base_Repeater_MonthName extends Horde_Date_Parser
 
         if (!$this->currentMonthStart) {
             $targetMonth = $this->_monthNumber($this->type);
-      case pointer
-      when :future
-        if @now.month < target_month
-          @currentMonthStart = Time.construct(@now.year, target_month)
-        else @now.month > target_month
-          @currentMonthStart = Time.construct(@now.year + 1, target_month)
-        end
-      when :none
-        if @now.month <= target_month
-          @currentMonthStart = Time.construct(@now.year, target_month)
-        else @now.month > target_month
-          @currentMonthStart = Time.construct(@now.year + 1, target_month)
-        end
-      when :past
-        if @now.month > target_month
-          @currentMonthStart = Time.construct(@now.year, target_month)
-        else @now.month < target_month
-          @currentMonthStart = Time.construct(@now.year - 1, target_month)
-        end
-      end
-      @currentMonthStart || raise("Current month should be set by now")
-    else
-      case pointer
-      when :future
-        @currentMonthStart = Time.construct(@currentMonthStart.year + 1, @currentMonthStart.month)
-      when :past
-        @currentMonthStart = Time.construct(@currentMonthStart.year - 1, @currentMonthStart.month)
-      end
-    end
+            switch ($pointer) {
+            case 'future':
+                if ($this->now->month > $targetMonth) {
+                    $this->currentMonthStart = new Horde_Date(array('year' => $this->now->year, 'month' => $targetMonth));
+                } else {
+                    $this->currentMonthStart = new Horde_Date(array('year' => $this->now->year + 1, 'month' => $targetMonth));
+                }
+                break;
 
-    cur_month_year = @currentMonthStart.year
-    cur_month_month = @currentMonthStart.month
+            case 'none':
+                if ($this->now->month <= $targetMonth) {
+                    $this->currentMonthStart = new Horde_Date(array('year' => $this->now->year, 'month' => $targetMonth));
+                } else {
+                    $this->currentMonthStart = new Horde_Date(array('year' => $this->now->year + 1, 'month' => $targetMonth));
+                }
+                break;
 
-    if cur_month_month == 12
-      next_month_year = cur_month_year + 1
-      next_month_month = 1
-    else
-      next_month_year = cur_month_year
-      next_month_month = cur_month_month + 1
-    end
+            case 'past':
+                if ($this->now->month > $targetMonth) {
+                    $this->currentMonthStart = new Horde_Date(array('year' => $this->now->year, 'month' => $targetMonth));
+                } else {
+                    $this->currentMonthStart = new Horde_Date(array('year' => $this->now->year - 1, 'month' => $targetMonth));
+                }
+                break;
+            }
+        } else {
+            switch ($pointer) {
+            case 'future':
+                $this->currentMonthStart->year++;
+                break;
 
-    Chronic::Span.new(@currentMonthStart, Time.construct(next_month_year, next_month_month))
-  end
+            case 'past':
+                $this->currentMonthStart->year--;
+                break;
+            }
+        }
 
-    public funcction this($pointer = 'future')
+        return new Horde_Date_Span($this->currentMonthStart, new Horde_Date(array('year' => $this->currentMonthStart->year, 'month' => $this->currentMonthStart->month + 1)));
+    }
+
+    public function this($pointer = 'future')
     {
         parent::this($pointer);
 
@@ -89,18 +85,24 @@ class Horde_Date_Parser_Locale_Base_Repeater_MonthName extends Horde_Date_Parser
 
     protected function _monthNumber($monthName)
     {
-    lookup = {:january => 1,
-              :february => 2,
-              :march => 3,
-              :april => 4,
-              :may => 5,
-              :june => 6,
-              :july => 7,
-              :august => 8,
-              :september => 9,
-              :october => 10,
-              :november => 11,
-              :december => 12}
-    lookup[sym] || raise("Invalid symbol specified")
+        $months = array(
+            'january' => 1,
+            'february' => 2,
+            'march' => 3,
+            'april' => 4,
+            'may' => 5,
+            'june' => 6,
+            'july' => 7,
+            'august' => 8,
+            'september' => 9,
+            'october' => 10,
+            'november' => 11,
+            'december' => 12,
+        );
+        if (!isset($months[$monthName])) {
+            throw new InvalidArgumentException('Invalid month name "' . $monthName . '"');
+        }
+        return $months[$monthName];
+    }
 
 }
