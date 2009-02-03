@@ -159,8 +159,7 @@ NSString * const TURAnselServerPasswordKey = @"password";
 -(IBAction)doAddServer: (id)sender
 {
     // TODO: Sanity checks
-
-    [self disconnect];
+    //[self disconnect];
     
     NSDictionary *newServer = [[NSDictionary alloc] initWithObjectsAndKeys:
                                [serverNickName stringValue], TURAnselServerNickKey,
@@ -326,6 +325,12 @@ NSString * const TURAnselServerPasswordKey = @"password";
         modalDelegate: nil
        didEndSelector: nil
           contextInfo: nil];
+    
+    // Make sure these are cleared.
+    [anselHostURL setStringValue: @""];
+    [username setStringValue: @""];
+    [password setStringValue: @""];
+    [serverNickName setStringValue: @""];
     
     [serverTable setDelegate: self];
 }
