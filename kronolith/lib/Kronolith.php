@@ -2385,6 +2385,26 @@ class Kronolith {
     }
 
     /**
+     * Returns the CSS color definition for a calendar.
+     *
+     * @param array|Horde_Share_Object $calendar  A calendar share or a hash
+     *                                            from a remote calender
+     *                                            definition.
+     * @param boolean $with_attribute             Whether to wrap the colors
+     *                                            inside a "style" attribute.
+     *
+     * @return string  A CSS string with color definitions.
+     */
+    function getCSSColors($calendar, $with_attribute = true)
+    {
+        $css = 'background-color:' . Kronolith::backgroundColor($calendar) . ';color:' . Kronolith::foregroundColor($calendar);
+        if ($with_attribute) {
+            $css = ' style="' . $css . '"';
+        }
+        return $css;
+    }
+
+    /**
      * Builds Kronolith's list of menu items.
      */
     function getMenu($returnType = 'object')

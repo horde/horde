@@ -51,7 +51,7 @@ $tagger = new Kronolith_Tagger();
  <h4><?php echo _("My Calendars:") ?></h4>
  <ul id="mycalendars">
 <?php foreach ($my_calendars as $id => $cal): ?>
-  <li><label><input type="checkbox" class="checkbox" name="display_cal[]" value="<?php echo htmlspecialchars($id) ?>"<?php echo (in_array($id, $display_calendars) ? ' checked="checked"' : '') . ' /> ' . htmlspecialchars($cal->get('name')) ?></label> <?php echo $info_img ?>
+  <li<?php echo Kronolith::getCSSColors($cal) ?>><label><input type="checkbox" class="checkbox" name="display_cal[]" value="<?php echo htmlspecialchars($id) ?>"<?php echo (in_array($id, $display_calendars) ? ' checked="checked"' : '') . ' /> ' . htmlspecialchars($cal->get('name')) ?></label> <?php echo $info_img ?>
    <div class="panel-tags">
    <?php $tags = $tagger->getTags($id, 'calendar'); ?>
     <span style="cursor:pointer;" id="tag-show_<?php echo $id?>" onclick="toggleTags('<?php echo $id?>');" title="<?php echo _("Add new tags")?>">+</span><span id="tag-hide_<?php echo $id?>" style="display:none;cursor:pointer;" onclick="toggleTags('<?php echo $id?>');">-</span>
@@ -91,7 +91,7 @@ $tagger = new Kronolith_Tagger();
  <h4><?php echo _("Shared Calendars:") ?></h4>
  <ul id="sharedcalendars">
 <?php foreach ($shared_calendars as $id => $cal): ?>
-  <li><label><input type="checkbox" class="checkbox" name="display_cal[]" value="<?php echo htmlspecialchars($id) ?>"<?php echo (in_array($id, $display_calendars) ? ' checked="checked"' : '') . ' /> [' . htmlspecialchars(Auth::removeHook($cal->get('owner'))) . '] ' . htmlspecialchars($cal->get('name')) ?></label> <?php echo $info_img ?></li>
+  <li<?php echo Kronolith::getCSSColors($cal) ?>><label><input type="checkbox" class="checkbox" name="display_cal[]" value="<?php echo htmlspecialchars($id) ?>"<?php echo (in_array($id, $display_calendars) ? ' checked="checked"' : '') . ' /> [' . htmlspecialchars(Auth::removeHook($cal->get('owner'))) . '] ' . htmlspecialchars($cal->get('name')) ?></label> <?php echo $info_img ?></li>
 <?php endforeach; ?>
  </ul>
 <?php endif; ?>
@@ -114,7 +114,7 @@ $tagger = new Kronolith_Tagger();
  <h4><?php echo _("Remote Calendars:") ?></h4>
  <ul id="remotecalendars">
 <?php foreach ($remote_calendars as $id => $cal): ?>
-  <li><label><input type="checkbox" class="checkbox" name="display_cal[]" value="remote_<?php echo htmlspecialchars($cal['url']) ?>"<?php echo (in_array($cal['url'], $display_remote_calendars) ? ' checked="checked"' : '') . ' /> ' . htmlspecialchars($cal['name']) ?></label> <?php echo $info_img ?></li>
+  <li<?php echo Kronolith::getCSSColors($cal) ?>><label><input type="checkbox" class="checkbox" name="display_cal[]" value="remote_<?php echo htmlspecialchars($cal['url']) ?>"<?php echo (in_array($cal['url'], $display_remote_calendars) ? ' checked="checked"' : '') . ' /> ' . htmlspecialchars($cal['name']) ?></label> <?php echo $info_img ?></li>
 <?php endforeach; ?>
  </ul>
 <?php endif; ?>

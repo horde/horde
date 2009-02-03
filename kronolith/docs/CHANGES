@@ -2,6 +2,7 @@
 v3.0-git
 --------
 
+[jan] Set colors per calendar (Request #7480).
 [jan] Add individual notification methods for single events (Alfonso Marín
       Marín <almarin@um.es>).
 [jan] Add Ajax interface.

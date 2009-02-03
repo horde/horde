@@ -442,6 +442,20 @@ class Kronolith_Event {
     var $_calendar;
 
     /**
+     * The HTML background color to be used for this event.
+     *
+     * @var string
+     */
+    var $_backgroundColor;
+
+    /**
+     * The HTML foreground color to be used for this event.
+     *
+     * @var string
+     */
+    var $_foregroundColor;
+
+    /**
      * The VarRenderer class to use for printing select elements.
      *
      * @var Horde_UI_VarRenderer
@@ -474,6 +488,15 @@ class Kronolith_Event {
         $this->alarm = $alarm;
 
         $this->_calendar = $driver->getCalendar();
+        if (!empty($this->_calendar)) {
+            $share = $GLOBALS['all_calendars'][$this->_calendar];
+            $this->_backgroundColor = $share->get('color');
+            if (empty($this->_backgroundColor)) {
+                $this->_backgroundColor = '#dddddd';
+            }
+            $this->_foregroundColor = Horde_Image::brightness($this->_backgroundColor) < 128 ? '#f6f6f6' : '#000';
+        }
+
         if ($eventObject !== null) {
             $this->fromDriver($eventObject);
         }
@@ -2301,7 +2324,9 @@ class Kronolith_Event {
             $link = Horde::linkTooltip($this->getViewUrl(array('datetime' => $datetime->strftime('%Y%m%d%H%M%S'), 'url' => $from_url), $full),
                                        $event_title,
                                        $this->getStatusClass(), '', '',
-                                       $this->getTooltip());
+                                       $this->getTooltip(),
+                                       '',
+                                       array('style' => $this->getCSSColors(false)));
         }
 
         $link .= @htmlspecialchars($event_title, ENT_QUOTES, NLS::getCharset());
@@ -2313,10 +2338,7 @@ class Kronolith_Event {
         }
 
         if ($icons && $prefs->getValue('show_icons')) {
-            $icon_color = isset($GLOBALS['cManager_fgColors'][$this->category]) ?
-                ($GLOBALS['cManager_fgColors'][$this->category] == '#000' ? '000' : 'fff') :
-                ($GLOBALS['cManager_fgColors']['_default_'] == '#000' ? '000' : 'fff');
-
+            $icon_color = $this->_foregroundColor == '#000' ? '000' : 'fff';
             $status = '';
             if ($this->alarm) {
                 if ($this->alarm % 10080 == 0) {
@@ -2404,6 +2426,23 @@ class Kronolith_Event {
         }
 
         return $link;
+    }
+
+    /**
+     * Returns the CSS color definition for this event.
+     *
+     * @param boolean $with_attribute  Whether to wrap the colors inside a
+     *                                 "style" attribute.
+     *
+     * @return string  A CSS string with color definitions.
+     */
+    function getCSSColors($with_attribute = true)
+    {
+        $css = 'background-color:' . $this->_backgroundColor . ';color:' . $this->_foregroundColor;
+        if ($with_attribute) {
+            $css = ' style="' . $css . '"';
+        }
+        return $css;
     }
 
     /**

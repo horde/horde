@@ -38,6 +38,7 @@ class Kronolith_EditCalendarForm extends Horde_Form {
 
         $this->addHidden('', 'c', 'text', true);
         $this->addVariable(_("Name"), 'name', 'text', true);
+        $this->addVariable(_("Color"), 'color', 'colorpicker', false);
         $this->addVariable(_("Description"), 'description', 'longtext', false, false, null, array(4, 60));
         $this->addVariable(_("Tags"), 'tags', 'text', false);
         $this->setButtons(array(_("Save")));
@@ -48,6 +49,7 @@ class Kronolith_EditCalendarForm extends Horde_Form {
         $original_name = $this->_calendar->get('name');
         $new_name = $this->_vars->get('name');
         $this->_calendar->set('name', $new_name);
+        $this->_calendar->set('color', $this->_vars->get('color'));
         $this->_calendar->set('desc', $this->_vars->get('description'));
         if ($original_name != $new_name) {
             $result = $GLOBALS['kronolith_driver']->rename($original_name, $new_name);

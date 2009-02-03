@@ -52,6 +52,7 @@ if ($form->validate($vars)) {
 }
 
 $vars->set('name', $calendar->get('name'));
+$vars->set('color', $calendar->get('color'));
 $vars->set('description', $calendar->get('desc'));
 $tags = new Kronolith_Tagger();
 $vars->set('tags', implode(',', array_values($tags->getTags($calendar->getName(), 'calendar'))));
