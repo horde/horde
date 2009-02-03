@@ -1,5 +1,7 @@
 --TEST--
 Horde_Mime_Viewer_html: URL dereferer tests
+--SKIPIF--
+skip: Horde_Mime_Viewer has too many dependencies.
 --FILE--
 <?php
 

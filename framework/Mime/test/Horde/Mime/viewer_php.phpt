@@ -1,5 +1,7 @@
 --TEST--
 PHP source viewer
+--SKIPIF--
+skip: Horde_Mime_Viewer has too many dependencies.
 --FILE--
 <?php
 
