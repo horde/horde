@@ -1,54 +1,61 @@
 <?php
 class Horde_Date_Parser_Locale_Base_Repeater_Minute extends Horde_Date_Parser_Locale_Base_Repeater
 {
-  MINUTE_SECONDS = 60
+    public $currentMinuteStart;
 
-  def next(pointer = :future)
-    super
+    public function next($pointer = 'future')
+    {
+        parent::next($pointer);
 
-    if !@current_minute_start
-      case pointer
-      when :future
-        @current_minute_start = Time.construct(@now.year, @now.month, @now.day, @now.hour, @now.min + 1)
-      when :past
-        @current_minute_start = Time.construct(@now.year, @now.month, @now.day, @now.hour, @now.min - 1)
-      end
-    else
-      direction = pointer == :future ? 1 : -1
-      @current_minute_start += direction * MINUTE_SECONDS
-    end
+        if (!$this->currentMinuteStart) {
+            $this->currentMinuteStart = new Horde_Date(array('month' => $this->now->month, 'year' => $this->now->year, 'day' => $this->now->day, 'hour' => $this->now->hour, 'min' => $this->now->min));
+        }
+        $direction = ($pointer == 'future') ? 1 : -1;
+        $this->currentMinuteStart->min += $direction;
 
-    Chronic::Span.new(@current_minute_start, @current_minute_start + MINUTE_SECONDS)
-  end
+        $end = clone($this->currentMinuteStart);
+        $end->min++;
+        return new Horde_Date_Span($this->currentMinuteStart, $end);
+    }
 
-  def this(pointer = :future)
-    super
+    public function this($pointer = 'future')
+    {
+        parent::this($pointer);
 
-    case pointer
-    when :future
-      minute_begin = @now
-      minute_end = Time.construct(@now.year, @now.month, @now.day, @now.hour, @now.min)
-    when :past
-      minute_begin = Time.construct(@now.year, @now.month, @now.day, @now.hour, @now.min)
-      minute_end = @now
-    when :none
-      minute_begin = Time.construct(@now.year, @now.month, @now.day, @now.hour, @now.min)
-      minute_end = Time.construct(@now.year, @now.month, @now.day, @now.hour, @now.min) + MINUTE_SECONDS
-    end
+        switch ($pointer) {
+        case 'future':
+            $minuteBegin = clone($this->now);
+            $minuteEnd = new Horde_Date(array('month' => $this->now->month, 'year' => $this->now->year, 'day' => $this->now->day, 'hour' => $this->now->hour, 'min' => $this->now->min));
+            break;
 
-    Chronic::Span.new(minute_begin, minute_end)
-  end
+        case 'past':
+            $minuteBegin = new Horde_Date(array('month' => $this->now->month, 'year' => $this->now->year, 'day' => $this->now->day, 'hour' => $this->now->hour, 'min' => $this->now->min));
+            $minuteEnd = clone($this->now);
+            break;
 
-  def offset(span, amount, pointer)
-    direction = pointer == :future ? 1 : -1
-    span + direction * amount * MINUTE_SECONDS
-  end
+        case 'none':
+            $minuteBegin = new Horde_Date(array('month' => $this->now->month, 'year' => $this->now->year, 'day' => $this->now->day, 'hour' => $this->now->hour, 'min' => $this->now->min));
+            $minuteEnd = new Horde_Date(array('month' => $this->now->month, 'year' => $this->now->year, 'day' => $this->now->day, 'hour' => $this->now->hour, 'min' => $this->now->min + 1));
+            break;
+        }
 
-  def width
-    MINUTE_SECONDS
-  end
+        return new Horde_Date_Span($minuteBegin, $minuteEnd);
+    }
 
-  def to_s
-    super << '-minute'
-  end
-end
+    public function offset($span, $amount, $pointer)
+    {
+        $direction = ($pointer == 'future') ? 1 : -1;
+        return $span->add(array('min' => $diretion * $amount));
+    }
+
+    public function width()
+    {
+        return 60;
+    }
+
+    public function __toString()
+    {
+        return parent::__toString() . '-minute';
+    }
+
+}

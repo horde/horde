@@ -1,38 +1,49 @@
 <?php
 class Horde_Date_Parser_Locale_Base_Repeater_Second extends Horde_Date_Parser_Locale_Base_Repeater
 {
-    const SECOND_SECONDS = 1;
+    public $secondStart;
 
-  def next(pointer = :future)
-    super
+    public function next($pointer = 'future')
+    {
+        parent::next($pointer);
 
-    direction = pointer == :future ? 1 : -1
+        $direction = ($pointer == 'future') ? 1 : -1;
 
-    if !@second_start
-      @second_start = @now + (direction * SECOND_SECONDS)
-    else
-      @second_start += SECOND_SECONDS * direction
-    end
+        if (!$this->secondStart) {
+            $this->secondStart = clone($this->now);
+            $this->secondStart->sec += $direction;
+        } else {
+            $this->secondStart += $direction;
+        }
 
-    Chronic::Span.new(@second_start, @second_start + SECOND_SECONDS)
-  end
+        $end = clone($this->secondStart);
+        $end->sec++;
+        return new Horde_Date_Span($this->secondStart, $end);
+    }
 
-  def this(pointer = :future)
-    super
+    public function this($pointer = 'future')
+    {
+        parent::this($pointer);
 
-    Chronic::Span.new(@now, @now + 1)
-  end
+        $end = clone($this->now);
+        $end->sec++;
+        return new Horde_Date_Span($this->now, $end);
+    }
 
-  def offset(span, amount, pointer)
-    direction = pointer == :future ? 1 : -1
-    span + direction * amount * SECOND_SECONDS
-  end
+    public function offset($span, $amount, $pointer)
+    {
+        $direction = ($pointer == 'future') ? 1 : -1;
+        return $span->add($direction * $amount);
+    }
 
-  def width
-    SECOND_SECONDS
-  end
+    public function width()
+    {
+        return 1;
+    }
 
-  def to_s
-    super << '-second'
-  end
-end
+    public function __toString()
+    {
+        return parent::__toString() . '-second';
+    }
+
+}
