@@ -339,13 +339,13 @@ NSString * const TURAnselServerPasswordKey = @"password";
 - (void)canExport
 {
     if ([anselController state] == TURAnselStateConnected) {
-        [newGalleryButton setEnabled: YES];
+        [mNewGalleryButton setEnabled: YES];
         [galleryCombo setEnabled: YES];
         if (currentGallery != nil) {
             [mExportMgr enableControls];
         }
     } else {
-        [newGalleryButton setEnabled: NO];
+        [mNewGalleryButton setEnabled: NO];
         [mExportMgr disableControls];   
         [galleryCombo setEnabled: YES];
     }
@@ -382,7 +382,7 @@ NSString * const TURAnselServerPasswordKey = @"password";
     [galleryCombo setDelegate: nil];
     [galleryCombo setDataSource: nil];
     [galleryCombo setEnabled: false];
-    [newGalleryButton setEnabled: false];
+    [mNewGalleryButton setEnabled: false];
     
     [currentServer release];
     currentServer = nil;
@@ -578,7 +578,7 @@ NSString * const TURAnselServerPasswordKey = @"password";
 {   
     [galleryCombo reloadData];
     [galleryCombo setEnabled: true];
-    [newGalleryButton setEnabled: true];
+    [mNewGalleryButton setEnabled: true];
     
     [self setStatusText: @"Connected" withColor: [NSColor greenColor]];
     [self canExport];
