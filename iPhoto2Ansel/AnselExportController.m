@@ -642,6 +642,8 @@ NSString * const TURAnselServerPasswordKey = @"password";
     [currentGallery autorelease];
     currentGallery = [[anselController getGalleryByIndex:row] retain];
     [currentGallery setDelegate: self];
+    
+    // TODO: Figure out why these don't always properly size.
     NSImage *theImage = [[NSImage alloc] initWithContentsOfURL: [currentGallery galleryDefaultImageURL]];
     [defaultImageView setImage: theImage];
     [theImage release];
@@ -674,16 +676,23 @@ NSString * const TURAnselServerPasswordKey = @"password";
     if ([anselServers count] == 0) {
         [self showNewServerSheet];
     } else {
-        // Try to autoconnect?
+        // Try to autoconnect and select the proper server in the popup.
         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
         NSDictionary *defaultServer = [prefs objectForKey:TURAnselDefaultServerKey];
-        
         if ([defaultServer count]) {
-            // This needs to be retained, right?
             currentServer = [defaultServer retain];
             [self doConnect];
-            //TODO: Iterate over the popup menu's objects looking for the
-            // entry with the same nickname to select.
+            int itemCount = [mServersPopUp numberOfItems];
+            
+            // C99 mode is off by default in Apple's gcc.
+            int i;
+            for (i = 0; i < itemCount; i++) {
+                NSDictionary *menuItem = [[mServersPopUp itemAtIndex: i] representedObject];
+                if ([[menuItem objectForKey: TURAnselServerNickKey] isEqual: [currentServer objectForKey:TURAnselServerNickKey]]) {
+                    [mServersPopUp selectItemAtIndex: i];
+                    break;
+                }
+            }
         }
 
     }
