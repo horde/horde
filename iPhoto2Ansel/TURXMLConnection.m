@@ -79,12 +79,15 @@ didReceiveResponse: (XMLRPCResponse *)theResponse
                                        userInfo: userInfo];
         hasError = YES;
         [theResponse release];
-        [xconnection cancel];
     }
     
     response = [[theResponse responseObject] retain];
     [theResponse release];
-    [xconnection release];
+    if (!hasError) {
+        // Looks like the NSURLConnection object is released somewhere upstream
+        // when there is an error.
+        [xconnection release];
+    }
     running = NO;
 }
 
