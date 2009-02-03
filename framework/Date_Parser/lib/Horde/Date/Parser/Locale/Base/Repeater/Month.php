@@ -1,63 +1,66 @@
 <?php
 class Horde_Date_Parser_Locale_Base_Repeater_Month extends Horde_Date_Parser_Locale_Base_Repeater
 {
-  MONTH_SECONDS = 2_592_000 # 30 * 24 * 60 * 60
-  YEAR_MONTHS = 12
+    /**
+     * 30 * 24 * 60 * 60
+     */
+    const MONTH_SECONDS = 2592000;
 
-  def next(pointer)
-    super
+    public $currentMonthStart;
 
-    if !@current_month_start
-      @current_month_start = offset_by(Time.construct(@now.year, @now.month), 1, pointer)
-    else
-      @current_month_start = offset_by(Time.construct(@current_month_start.year, @current_month_start.month), 1, pointer)
-    end
+    public function next($pointer)
+    {
+        parent::next($pointer);
 
-    Chronic::Span.new(@current_month_start, Time.construct(@current_month_start.year, @current_month_start.month + 1))
-  end
+        if (!$this->currentMonthStart) {
+            $this->currentMonthStart = new Horde_Date(array('year' => $this->now->year, 'month' => $this->now->month));
+        }
+        $direction = ($pointer == 'future') ? 1 : -1;
+        $this->currentMonthStart->month += $direction;
 
-  def this(pointer = :future)
-    super
+        $end = clone($this->currentMonthStart);
+        $end->month++;
+        return new Horde_Date_Span($this->currentMonthStart, $end);
+    }
 
-    case pointer
-    when :future
-      month_start = Time.construct(@now.year, @now.month, @now.day + 1)
-      month_end = self.offset_by(Time.construct(@now.year, @now.month), 1, :future)
-    when :past
-      month_start = Time.construct(@now.year, @now.month)
-      month_end = Time.construct(@now.year, @now.month, @now.day)
-    when :none
-      month_start = Time.construct(@now.year, @now.month)
-      month_end = self.offset_by(Time.construct(@now.year, @now.month), 1, :future)
-    end
+    public function this($pointer = 'future')
+    {
+        parent::this($pointer);
 
-    Chronic::Span.new(month_start, month_end)
-  end
+        switch ($pointer) {
+        case 'future':
+            $monthStart = new Horde_Date(array('year' => $this->now->year, 'month' => $this->now->month, 'day' => $this->now->day + 1));
+            $monthEnd = new Horde_Date(array('year' => $this->now->year, 'month' => $this->now->month + 1));
+            break;
 
-  def offset(span, amount, pointer)
-    Chronic::Span.new(offset_by(span.begin, amount, pointer), offset_by(span.end, amount, pointer))
-  end
+        case 'past':
+            $monthStart = new Horde_Date(array('year' => $this->now->year, 'month' => $this->now->month));
+            $monthEnd = new Horde_Date(array('year' => $this->now->year, 'month' => $this->now->month, 'day' => $this->now->day));
+            break;
 
-  def offset_by(time, amount, pointer)
-    direction = pointer == :future ? 1 : -1
+        case 'none':
+            $monthStart = new Horde_Date(array('year' => $this->now->year, 'month' => $this->now->month));
+            $monthEnd = new Horde_Date(array('year' => $this->now->year, 'month' => $this->now->month + 1));
+            break;
+        }
 
-    amount_years = direction * amount / YEAR_MONTHS
-    amount_months = direction * amount % YEAR_MONTHS
+        return new Horde_Date_Span($monthStart, $monthEnd);
+    }
 
-    new_year = time.year + amount_years
-    new_month = time.month + amount_months
-    if new_month > YEAR_MONTHS
-      new_year += 1
-      new_month -= YEAR_MONTHS
-    end
-    Time.construct(new_year, new_month, time.day, time.hour, time.min, time.sec)
-  end
+    public function offset($span, $amount, $pointer)
+    {
+        $direction = ($pointer == 'future') ? 1 : -1;
+        return $span->add(array('month' => $amount * $direction));
+    }
 
-  def width
-    MONTH_SECONDS
-  end
+    public function width()
+    {
+        return self::MONTH_SECONDS;
+    }
 
-  def to_s
-    super << '-month'
-  end
-end
+    public function __toString()
+    {
+        return parent::__toString() . '-month';
+    }
+
+}
