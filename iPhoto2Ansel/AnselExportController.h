@@ -16,6 +16,7 @@
 // User defaults keys
 extern NSString * const TURAnselServersKey;
 extern NSString * const TURAnselExportSize;
+extern NSString * const TURAnselDefaultServerKey;
 
 // Server property keys
 extern NSString * const TURAnselServerNickKey;
@@ -48,6 +49,7 @@ extern NSString * const TURAnselServerPasswordKey;
     IBOutlet NSTextField *mServerSheetUsername;    
     IBOutlet NSSecureTextField *mServerSheetPassword;
     IBOutlet NSTextField *mServerSheetServerNickName;
+    IBOutlet NSButton *mMakeNewServerDefault;
     
     // Server list
     IBOutlet NSPanel *serverListPanel;
@@ -71,6 +73,10 @@ extern NSString * const TURAnselServerPasswordKey;
     TURAnsel *anselController;
     TURAnselGallery *currentGallery;
     int currentImageCount;
+    
+    // Remembers the selected server before it changes. Used to reselect the
+    // proper server if necessary when server panels are closed.
+    int mIndexOfPreviouslySelectedServer;
 }
 
 @property (readwrite, retain) TURAnselGallery *currentGallery;
@@ -92,5 +98,6 @@ extern NSString * const TURAnselServerPasswordKey;
 // overrides
 - (void)awakeFromNib;
 - (void)dealloc;
+
 
 @end

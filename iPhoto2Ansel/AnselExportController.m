@@ -30,6 +30,7 @@
 // User default keys
 NSString * const TURAnselServersKey = @"AnselServers";
 NSString * const TURAnselExportSize = @"AnselExportSize";
+NSString * const TURAnselDefaultServerKey = @"AnselDefaultServer";
 
 // Server property keys
 NSString * const TURAnselServerNickKey = @"nickname";
@@ -51,7 +52,12 @@ NSString * const TURAnselServerPasswordKey = @"password";
     NSMutableDictionary *defaultValues = [NSMutableDictionary dictionary];
     [defaultValues setObject: [NSNumber numberWithInt: 2]
                       forKey: TURAnselExportSize];    
+    
     [defaultValues setObject: [[NSMutableArray alloc] init] forKey: TURAnselServersKey];
+    
+    [defaultValues setObject: @""
+                      forKey: TURAnselDefaultServerKey];
+    
     NSUserDefaults *userPrefs = [NSUserDefaults standardUserDefaults];
     [userPrefs registerDefaults: defaultValues];
         
@@ -129,7 +135,10 @@ NSString * const TURAnselServerPasswordKey = @"password";
 // Action sent by the server pop up menu
 - (IBAction)clickServer: (id)sender
 {
-    if ([mServersPopUp indexOfSelectedItem] == [mServersPopUp numberOfItems] - 1) {
+    // Are we set to "none" now?
+    if ([mServersPopUp indexOfSelectedItem] == 0) {
+        [self disconnect];
+    } else if ([mServersPopUp indexOfSelectedItem] == [mServersPopUp numberOfItems] - 1) {
         // Server list
         [self showServerListPanel];
     } else if ([mServersPopUp indexOfSelectedItem] == [mServersPopUp numberOfItems] - 2) {
@@ -166,9 +175,10 @@ NSString * const TURAnselServerPasswordKey = @"password";
     [anselServers addObject: newServer];
     [NSApp endSheet: newServerSheet];
     [newServerSheet orderOut: nil];
-    
     currentServer = [newServer retain];
     [self doConnect];
+    int butState = [mMakeNewServerDefault state];
+    // Make the new server the default?
     
     // Save it to the userdefaults
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
@@ -350,15 +360,13 @@ NSString * const TURAnselServerPasswordKey = @"password";
 - (void)updateServersPopupMenu
 {
     [mServersPopUp removeAllItems];
+    [mServersPopUp addItemWithTitle:@"(None)"];
     for (NSDictionary *server in anselServers) {
         NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle: [server objectForKey: TURAnselServerNickKey]
                                                           action: nil
                                                    keyEquivalent: @""];
         [menuItem setRepresentedObject: server];
         [[mServersPopUp menu] addItem: menuItem];
-    }
-    if ([anselServers count] == 0) {
-        [mServersPopUp addItemWithTitle:@"(None)"];
     }
     
     // add separator
@@ -623,29 +631,17 @@ NSString * const TURAnselServerPasswordKey = @"password";
 }
 
 #pragma mark comboBoxDelegate
-// Probably should have a seperate controller for each combobox, but this is
-// pretty small stuff...
 - (void)comboBoxSelectionDidChange:(NSNotification *)notification
 {    
-    // Yes, I'm comparing the pointers here on purpose
-    //if ([notification object] == galleryCombo) {
-        int row = [galleryCombo indexOfSelectedItem];
-        [currentGallery setDelegate:nil];
-        [currentGallery autorelease];
-        currentGallery = [[anselController getGalleryByIndex:row] retain];
-        [currentGallery setDelegate: self];
-        NSImage *theImage = [[NSImage alloc] initWithContentsOfURL: [currentGallery galleryDefaultImageURL]];
-        [defaultImageView setImage: theImage];
-        [theImage release];
-        [self canExport];
-    //}
-}
-
-
-#pragma mark NSTableView Notifications
-- (void)tableViewSelectionDidChange:(NSNotification *)aNotification
-{
-    NSLog(@"%@", aNotification);
+    int row = [galleryCombo indexOfSelectedItem];
+    [currentGallery setDelegate:nil];
+    [currentGallery autorelease];
+    currentGallery = [[anselController getGalleryByIndex:row] retain];
+    [currentGallery setDelegate: self];
+    NSImage *theImage = [[NSImage alloc] initWithContentsOfURL: [currentGallery galleryDefaultImageURL]];
+    [defaultImageView setImage: theImage];
+    [theImage release];
+    [self canExport];
 }
 
 #pragma mark TURAnselGalleryPanel Notifications
@@ -664,13 +660,20 @@ NSString * const TURAnselServerPasswordKey = @"password";
                                                     name: NSWindowDidBecomeKeyNotification 
                                                   object: nil];
     [self updateServersPopupMenu];
+    
+    // Register for notifications
+    [[NSNotificationCenter defaultCenter] addObserver: self
+                                             selector: @selector(NSPopUpWillPopUp:)
+                                                 name:@"NSPopUpButtonWillPopUpNotification"
+                                               object: nil];
+    
     if ([anselServers count] == 0) {
         [self showNewServerSheet];
     } else {
         // Autoconnect to default server. For now, just make it the first one.
         // TODO: Fix this so it uses a default pref, not just the first in the list
-        currentServer = [[mServersPopUp selectedItem] representedObject];
-        [self doConnect];
+        //currentServer = [[mServersPopUp selectedItem] representedObject];
+        //[self doConnect];
     }
 }
 - (void)sizeChoiceWillChange: (NSNotification *)notification
@@ -680,6 +683,15 @@ NSString * const TURAnselServerPasswordKey = @"password";
     [userPrefs setInteger: newSize forKey:TURAnselExportSize];
     [userPrefs synchronize];
 }
+
+#pragma mark NSPopUpButton Notification Handlers
+- (void) NSPopUpWillPopUp:(id)theButton
+{
+    // Remember the previous selection before it changes.
+    // The 'clickServer' action will handle what to do with the selection.
+    mIndexOfPreviouslySelectedServer = [mServersPopUp indexOfSelectedItem];
+}
+
 
 #pragma mark NSTableView Datasource
 - (int)numberOfRowsInTableView:(NSTableView *)aTableView
