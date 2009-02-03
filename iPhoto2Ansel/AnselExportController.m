@@ -316,6 +316,12 @@ NSString * const TURAnselServerPasswordKey = @"password";
         modalDelegate: nil
        didEndSelector: nil
           contextInfo: nil];
+    
+    // Make sure these are cleared.
+    [mServerSheetHostURL setStringValue: @""];
+    [mServerSheetUsername setStringValue: @""];
+    [mServerSheetPassword setStringValue: @""];
+    [mServerSheetServerNickName setStringValue: @""];
 }
 
 - (void) showServerListPanel
@@ -325,12 +331,6 @@ NSString * const TURAnselServerPasswordKey = @"password";
         modalDelegate: nil
        didEndSelector: nil
           contextInfo: nil];
-    
-    // Make sure these are cleared.
-    [mServerSheetHostURL setStringValue: @""];
-    [mServerSheetUsername setStringValue: @""];
-    [mServerSheetPassword setStringValue: @""];
-    [mServerSheetServerNickName setStringValue: @""];
     
     [serverTable setDelegate: self];
 }
