@@ -1,45 +1,51 @@
 <?php
 class Horde_Date_Parser_Locale_Base_Repeater_MonthName extends Horde_Date_Parser_Locale_Base_Repeater
 {
-  MONTH_SECONDS = 2_592_000 # 30 * 24 * 60 * 60
+    /**
+     * 30 * 24 * 60 * 60
+     */
+    const MONTH_SECONDS = 2592000;
 
-  def next(pointer)
-    super
+    public $currentMonthStart;
 
-    if !@current_month_begin
-      target_month = symbol_to_number(@type)
+    public function next($pointer)
+    {
+        parent::next($pointer);
+
+        if (!$this->currentMonthStart) {
+            $targetMonth = $this->_monthNumber($this->type);
       case pointer
       when :future
         if @now.month < target_month
-          @current_month_begin = Time.construct(@now.year, target_month)
+          @currentMonthStart = Time.construct(@now.year, target_month)
         else @now.month > target_month
-          @current_month_begin = Time.construct(@now.year + 1, target_month)
+          @currentMonthStart = Time.construct(@now.year + 1, target_month)
         end
       when :none
         if @now.month <= target_month
-          @current_month_begin = Time.construct(@now.year, target_month)
+          @currentMonthStart = Time.construct(@now.year, target_month)
         else @now.month > target_month
-          @current_month_begin = Time.construct(@now.year + 1, target_month)
+          @currentMonthStart = Time.construct(@now.year + 1, target_month)
         end
       when :past
         if @now.month > target_month
-          @current_month_begin = Time.construct(@now.year, target_month)
+          @currentMonthStart = Time.construct(@now.year, target_month)
         else @now.month < target_month
-          @current_month_begin = Time.construct(@now.year - 1, target_month)
+          @currentMonthStart = Time.construct(@now.year - 1, target_month)
         end
       end
-      @current_month_begin || raise("Current month should be set by now")
+      @currentMonthStart || raise("Current month should be set by now")
     else
       case pointer
       when :future
-        @current_month_begin = Time.construct(@current_month_begin.year + 1, @current_month_begin.month)
+        @currentMonthStart = Time.construct(@currentMonthStart.year + 1, @currentMonthStart.month)
       when :past
-        @current_month_begin = Time.construct(@current_month_begin.year - 1, @current_month_begin.month)
+        @currentMonthStart = Time.construct(@currentMonthStart.year - 1, @currentMonthStart.month)
       end
     end
 
-    cur_month_year = @current_month_begin.year
-    cur_month_month = @current_month_begin.month
+    cur_month_year = @currentMonthStart.year
+    cur_month_month = @currentMonthStart.month
 
     if cur_month_month == 12
       next_month_year = cur_month_year + 1
@@ -49,35 +55,40 @@ class Horde_Date_Parser_Locale_Base_Repeater_MonthName extends Horde_Date_Parser
       next_month_month = cur_month_month + 1
     end
 
-    Chronic::Span.new(@current_month_begin, Time.construct(next_month_year, next_month_month))
+    Chronic::Span.new(@currentMonthStart, Time.construct(next_month_year, next_month_month))
   end
 
-  def this(pointer = :future)
-    super
+    public funcction this($pointer = 'future')
+    {
+        parent::this($pointer);
 
-    case pointer
-    when :past
-      self.next(pointer)
-    when :future, :none
-      self.next(:none)
-    end
-  end
+        switch ($pointer) {
+        case 'past':
+            return $this->next($pointer);
 
-  def width
-    MONTH_SECONDS
-  end
+        case 'future':
+        case 'none':
+            return $this->next('none');
+        }
+    }
 
-  def index
-    symbol_to_number(@type)
-  end
+    public function width()
+    {
+        return self::MONTH_SECONDS;
+    }
 
-  def to_s
-    super << '-monthname-' << @type.to_s
-  end
+    public function index()
+    {
+        return $this->_monthNumber($this->type);
+    }
 
-  private
+    public function __toString()
+    {
+        return parent::__toString() . '-monthname-' . $this->type;
+    }
 
-  def symbol_to_number(sym)
+    protected function _monthNumber($monthName)
+    {
     lookup = {:january => 1,
               :february => 2,
               :march => 3,
@@ -91,5 +102,5 @@ class Horde_Date_Parser_Locale_Base_Repeater_MonthName extends Horde_Date_Parser
               :november => 11,
               :december => 12}
     lookup[sym] || raise("Invalid symbol specified")
-  end
-end
+
+}
