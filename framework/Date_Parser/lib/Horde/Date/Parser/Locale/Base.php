@@ -279,7 +279,7 @@ class Horde_Date_Parser_Locale_Base
 
     public function handle_m_d($month, $day, $timeTokens, $options)
     {
-        $month->start = $this->now;
+        $month->now = $this->now;
         $span = $month->this($options['context']);
 
         $dayStart = new Horde_Date(array('year' => $span->begin->year, 'month' => $span->begin->month, 'day' => $day));
@@ -420,22 +420,6 @@ class Horde_Date_Parser_Locale_Base
 
     public function handle_s_r_p($tokens, $options)
     {
-        $repeater = $tokens[1]->getTag('Repeater');
-
-        /*
-          # span =
-          # case true
-          # when [RepeaterYear, RepeaterSeason, RepeaterSeasonName, RepeaterMonth, RepeaterMonthName, RepeaterWeek].include?(repeater.class)
-          #   self.parse("this hour", :guess => false, :now => @now)
-          # when [RepeaterWeekend, RepeaterDay, RepeaterDayName, RepeaterDayPortion, RepeaterHour].include?(repeater.class)
-          #   self.parse("this minute", :guess => false, :now => @now)
-          # when [RepeaterMinute, RepeaterSecond].include?(repeater.class)
-          #   self.parse("this second", :guess => false, :now => @now)
-          # else
-          #   raise(ChronicPain, "Invalid repeater: #{repeater.class}")
-          # end
-        */
-
         $span = $this->parse('this second', array('guess' => false, 'now' => $this->now));
         return $this->handle_srp($tokens, $span, $options);
     }
@@ -460,7 +444,7 @@ class Horde_Date_Parser_Locale_Base
     public function handle_orr($tokens, $outerSpan, $options)
     {
         $repeater = $tokens[1]->getTag('Repeater');
-        $repeater->start = $outerSpan->begin - 1;
+        $repeater->now = $outerSpan->begin - 1;
         $ordinal = $tokens[0]->getTag('Ordinal')->type;
         $span = null;
 
@@ -507,7 +491,7 @@ class Horde_Date_Parser_Locale_Base
         }
 
         $head = array_shift($repeaters);
-        $head->start = $this->now;
+        $head->now = $this->now;
 
         switch ($grabber->type) {
         case 'last':
@@ -559,7 +543,7 @@ class Horde_Date_Parser_Locale_Base
 
         $head = array_shift($tags);
         $rest = $tags;
-        $head->start = ($pointer == 'future') ? $span->begin : $span->end;
+        $head->now = ($pointer == 'future') ? $span->begin : $span->end;
         $h = $head->this('none');
 
         if ($span->include($h->begin) || $span->include($h->end)) {

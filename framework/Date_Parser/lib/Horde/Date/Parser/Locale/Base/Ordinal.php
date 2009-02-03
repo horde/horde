@@ -29,7 +29,7 @@ class Horde_Date_Parser_Locale_Base_Ordinal extends Horde_Date_Parser_Tag
     {
         if (preg_match($this->ordinalDayRegex, $token->word, $matches)) {
             if ($matches[1] <= 31) {
-                /* @TODO FIXME - hardcoded class name */
+                /* FIXME - hardcoded class name */
                 return new Horde_Date_Parser_Locale_Base_OrdinalDay((int)$m[1]);
             }
         }
