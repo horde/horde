@@ -1,5 +1,5 @@
 <?php
-class Horde_Date_Parser_Locale_Base_Repeater_Day extends Horde_Date_Parser_Locale_Base_Repeater
+class Horde_Date_Repeater_Day extends Horde_Date_Repeater
 {
     // (24 * 60 * 60)
     const DAY_SECONDS = 86400;

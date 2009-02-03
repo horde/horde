@@ -1,5 +1,5 @@
 <?php
-class Horde_Date_Parser_Locale_Base_Repeater_Weekend extends Horde_Date_Parser_Locale_Base_Repeater
+class Horde_Date_Repeater_Weekend extends Horde_Date_Repeater
 {
     /**
      * (2 * 24 * 60 * 60)
@@ -15,16 +15,16 @@ class Horde_Date_Parser_Locale_Base_Repeater_Weekend extends Horde_Date_Parser_L
         if ($this->currentWeekStart) {
             switch ($pointer) {
             case 'future':
-                $saturdayRepeater = new Horde_Date_Locale_Base_Repeater_DayName(Horde_Date::DATE_SATURDAY);
-                $saturdayRepeater->start = $this->now;
+                $saturdayRepeater = new Horde_Date_Repeater_DayName(Horde_Date::DATE_SATURDAY);
+                $saturdayRepeater->now = $this->now;
                 $nextSaturdaySpan = $saturdayRepeater->next('future');
                 $this->currentWeekStart = $nextSaturdaySpan->begin;
                 break;
 
             case 'past':
-                $saturdayRepeater = new Horde_Date_Locale_Base_Repeater_DayName(Horde_Date::DATE_SATURDAY);
-                $saturdayRepeater->start = $this->now;
-                $saturdayRepeater->start->day++;
+                $saturdayRepeater = new Horde_Date_Repeater_DayName(Horde_Date::DATE_SATURDAY);
+                $saturdayRepeater->now = $this->now;
+                $saturdayRepeater->now->day++;
                 $lastSaturdaySpan = $saturdayRepeater->next('past');
                 $this->currentWeekStart = $lastSaturdaySpan->begin;
                 break;
@@ -46,16 +46,16 @@ class Horde_Date_Parser_Locale_Base_Repeater_Weekend extends Horde_Date_Parser_L
         switch ($pointer) {
         case 'future':
         case 'none':
-            $saturdayRepeater = new Horde_Date_Locale_Base_Repeater_DayName(Horde_Date::DATE_SATURDAY);
-            $saturdayRepeater->start = $this->now;
+            $saturdayRepeater = new Horde_Date_Repeater_DayName(Horde_Date::DATE_SATURDAY);
+            $saturdayRepeater->now = $this->now;
             $thisSaturdaySpan = $saturdayRepeater->this('future');
             $thisSaturdaySpanEnd = $thisSaturdaySpan->begin;
             $thisSaturdaySpanEnd->day += 2;
             return new Horde_Date_Span($thisSaturdaySpan->begin, $thisSaturdaySpanEnd);
 
         case 'past':
-            $saturdayRepeater = new Horde_Date_Locale_Base_Repeater_DayName(Horde_Date::DATE_SATURDAY);
-            $saturdayRepeater->start = $this->now;
+            $saturdayRepeater = new Horde_Date_Repeater_DayName(Horde_Date::DATE_SATURDAY);
+            $saturdayRepeater->now = $this->now;
             $lastSaturdaySpan = $saturdayRepeater->this('past');
             $lastSaturdaySpanEnd = $lastSaturdaySpan->begin;
             $lastSaturdaySpanEnd->day += 2;
@@ -66,8 +66,8 @@ class Horde_Date_Parser_Locale_Base_Repeater_Weekend extends Horde_Date_Parser_L
     public function offset($span, $amount, $pointer)
     {
         $direction = ($pointer == 'future') ? 1 : -1;
-        $weekend = new Horde_Date_Parser_Locale_Base_Repeater_Weekend('weekend');
-        $weekend->start = $span->begin;
+        $weekend = new Horde_Date_Repeater_Weekend('weekend');
+        $weekend->now = $span->begin;
         $start = $weekend->next($pointer)->begin;
         $start->day += ($amount - 1) * $direction * 7;
         // @FIXME

@@ -1,11 +1,6 @@
 <?php
-class Horde_Date_Parser_Locale_Base_Repeater_MonthName extends Horde_Date_Parser_Locale_Base_Repeater
+class Horde_Date_Repeater_MonthName extends Horde_Date_Repeater
 {
-    /**
-     * 30 * 24 * 60 * 60
-     */
-    const MONTH_SECONDS = 2592000;
-
     public $currentMonthStart;
 
     public function next($pointer)
@@ -70,7 +65,7 @@ class Horde_Date_Parser_Locale_Base_Repeater_MonthName extends Horde_Date_Parser
 
     public function width()
     {
-        return self::MONTH_SECONDS;
+        return Horde_Date_Repeater_Month::MONTH_SECONDS;
     }
 
     public function index()

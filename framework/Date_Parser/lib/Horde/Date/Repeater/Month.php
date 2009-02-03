@@ -1,5 +1,5 @@
 <?php
-class Horde_Date_Parser_Locale_Base_Repeater_Month extends Horde_Date_Parser_Locale_Base_Repeater
+class Horde_Date_Repeater_Month extends Horde_Date_Repeater
 {
     /**
      * 30 * 24 * 60 * 60

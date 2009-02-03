@@ -1,5 +1,5 @@
 <?php
-class Horde_Date_Parser_Locale_Base_Repeater_Time extends Horde_Date_Parser_Locale_Base_Repeater
+class Horde_Date_Repeater_Time extends Horde_Date_Repeater
 {
     public $currentTime;
 
@@ -41,7 +41,7 @@ class Horde_Date_Parser_Locale_Base_Repeater_Time extends Horde_Date_Parser_Loca
             break;
 
         default:
-            throw new Horde_Date_Parser_Exception('Time cannot exceed six digits');
+            throw new Horde_Date_Repeater_Exception('Time cannot exceed six digits');
         }
     }
 
@@ -100,7 +100,7 @@ class Horde_Date_Parser_Locale_Base_Repeater_Time extends Horde_Date_Parser_Loca
             }
 
             if (!$this->currentTime) {
-                throw new Horde_Date_Parser_Exception('Current time cannot be null at this point');
+                throw new Horde_Date_Repeater_Exception('Current time cannot be null at this point');
             }
         }
 

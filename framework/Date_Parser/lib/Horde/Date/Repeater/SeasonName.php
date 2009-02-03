@@ -1,5 +1,5 @@
 <?php
-class Horde_Date_Parser_Locale_Base_Repeater_SeasonName extends Horde_Date_Parser_Locale_Base_Repeater_Season
+class Horde_Date_Repeater_SeasonName extends Horde_Date_Repeater_Season
 {
     /**
      * 91 * 24 * 60 * 60
@@ -14,13 +14,13 @@ class Horde_Date_Parser_Locale_Base_Repeater_SeasonName extends Horde_Date_Parse
     public function next($pointer)
     {
         parent::next($pointer);
-        throw new Horde_Date_Parser_Exception('Not implemented');
+        throw new Horde_Date_Repeater_Exception('Not implemented');
     }
 
     public function this($pointer = 'future')
     {
         parent::this($pointer);
-        throw new Horde_Date_Parser_Exception('Not implemented');
+        throw new Horde_Date_Repeater_Exception('Not implemented');
     }
 
     public function width()

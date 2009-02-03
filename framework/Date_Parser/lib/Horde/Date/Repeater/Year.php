@@ -1,5 +1,5 @@
 <?php
-class Horde_Date_Parser_Locale_Base_Repeater_Year extends Horde_Date_Parser_Locale_Base_Repeater
+class Horde_Date_Repeater_Year extends Horde_Date_Repeater
 {
     public $currentYearStart;
 

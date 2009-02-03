@@ -1,5 +1,5 @@
 <?php
-class Horde_Date_Parser_Locale_Base_Repeater_DayPortion extends Horde_Date_Parser_Locale_Base_Repeater
+class Horde_Date_Repeater_DayPortion extends Horde_Date_Repeater
 {
     /**
      * 6am-12am (6 * 60 * 60, 12 * 60 * 60)
@@ -118,13 +118,13 @@ class Horde_Date_Parser_Locale_Base_Repeater_DayPortion extends Horde_Date_Parse
         $this->now = $span->begin;
         $portionSpan = $this->next($pointer);
         $direction = ($pointer == 'future') ? 1 : -1;
-        return $portionSpan + ($direction * ($amount - 1) * Horde_Date_Parser_Locale_Base_Repeater_Day::DAY_SECONDS);
+        return $portionSpan + ($direction * ($amount - 1) * Horde_Date_Repeater_Day::DAY_SECONDS);
     }
 
     public function width()
     {
         if (!$this->range) {
-            throw new Horde_Date_Parser_Exception('Range has not been set');
+            throw new Horde_Date_Repeater_Exception('Range has not been set');
         }
 
         if ($this->currentSpan) {
