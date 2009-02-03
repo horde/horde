@@ -1,6 +1,11 @@
 <?php
 /**
- * extend Horde TagCloud to allow complete css font sizes
+ * Extend Horde TagCloud to allow complete css font sizes
+ *
+ * Copyright Obala d.o.o. (www.obala.si)
+ *
+ * @author  Duck <duck@obala.net>
+ * @package News
  */
 class News_TagCloud extends Horde_UI_TagCloud {
 
