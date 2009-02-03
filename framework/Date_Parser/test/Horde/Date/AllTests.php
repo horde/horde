@@ -1,20 +1,20 @@
 <?php
 /**
  * @category   Horde
- * @package    Date_Parser
+ * @package    Date
  * @subpackage UnitTests
  * @copyright  2008-2009 The Horde Project (http://www.horde.org/)
  * @license    http://opensource.org/licenses/bsd-license.php
  */
 
 if (!defined('PHPUnit_MAIN_METHOD')) {
-    define('PHPUnit_MAIN_METHOD', 'Horde_Date_Parser_AllTests::main');
+    define('PHPUnit_MAIN_METHOD', 'Horde_Date_AllTests::main');
 }
 
 require_once 'PHPUnit/Framework/TestSuite.php';
 require_once 'PHPUnit/TextUI/TestRunner.php';
 
-class Horde_Date_Parser_AllTests {
+class Horde_Date_AllTests {
 
     public static function main()
     {
@@ -23,12 +23,12 @@ class Horde_Date_Parser_AllTests {
 
     public static function suite()
     {
-        set_include_path(dirname(__FILE__) . '/../../../../lib' . PATH_SEPARATOR . get_include_path());
+        set_include_path(dirname(__FILE__) . '/../../../lib' . PATH_SEPARATOR . get_include_path());
         if (!spl_autoload_functions()) {
             spl_autoload_register(create_function('$class', '$filename = str_replace(array(\'::\', \'_\'), \'/\', $class); include "$filename.php";'));
         }
 
-        $suite = new PHPUnit_Framework_TestSuite('Horde Framework - Horde_Date_Parser');
+        $suite = new PHPUnit_Framework_TestSuite('Horde Framework - Horde_Date');
 
         $basedir = dirname(__FILE__);
         $baseregexp = preg_quote($basedir . DIRECTORY_SEPARATOR, '/');
@@ -40,7 +40,7 @@ class Horde_Date_Parser_AllTests {
 
                 $class = str_replace(DIRECTORY_SEPARATOR, '_',
                                      preg_replace("/^$baseregexp(.*)\.php/", '\\1', $pathname));
-                $suite->addTestSuite('Horde_Date_Parser_' . $class);
+                $suite->addTestSuite('Horde_Date_' . $class);
             }
         }
 
@@ -49,6 +49,6 @@ class Horde_Date_Parser_AllTests {
 
 }
 
-if (PHPUnit_MAIN_METHOD == 'Horde_Date_Parser_AllTests::main') {
-    Horde_Date_Parser_AllTests::main();
+if (PHPUnit_MAIN_METHOD == 'Horde_Date_AllTests::main') {
+    Horde_Date_AllTests::main();
 }
