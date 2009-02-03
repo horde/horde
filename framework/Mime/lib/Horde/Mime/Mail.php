@@ -422,24 +422,30 @@ class Horde_Mime_Mail
         }
 
         /* Build mime message. */
-        $mime = new Horde_Mime_Part();
+        $body = null;
         if (!empty($this->_body) && !empty($this->_htmlBody)) {
-            $basepart = new Horde_Mime_Part();
-            $basepart->setType('multipart/alternative');
+            $body = new Horde_Mime_Part();
+            $body->setType('multipart/alternative');
             $this->_body->setDescription(_("Plaintext Version of Message"));
-            $basepart->addPart($this->_body);
+            $body->addPart($this->_body);
             $this->_htmlBody->setDescription(_("HTML Version of Message"));
-            $basepart->addPart($this->_htmlBody);
-            $mime->addPart($basepart);
-            $mime->setType('multipart/alternative');
+            $body->addPart($this->_htmlBody);
         } elseif (!empty($this->_htmlBody)) {
-            $mime->addPart($this->_htmlBody);
+            $body = $this->_htmlBody;
         } elseif (!empty($this->_body)) {
-            $mime->addPart($this->_body);
-            $mime->setType('multipart/alternative');
+            $body = $this->_body;
         }
-        foreach ($this->_parts as $mime_part) {
-            $mime->addPart($mime_part);
+        if (count($this->_parts)) {
+            $basepart = new Horde_Mime_Part();
+            $basepart->setType('multipart/mixed');
+            if ($body) {
+                $basepart->addPart($body);
+            }
+            foreach ($this->_parts as $mime_part) {
+                $basepart->addPart($mime_part);
+            }
+        } else {
+            $basepart = $body;
         }
 
         /* Check mailer configuration. */
@@ -451,8 +457,9 @@ class Horde_Mime_Mail
         }
 
         /* Send message. */
-        return $mime->send(implode(', ', $this->_recipients), $this->_headers,
-                           $this->_mailer_driver, $this->_mailer_params);
+        return $basepart->send(implode(', ', $this->_recipients),
+                               $this->_headers, $this->_mailer_driver,
+                               $this->_mailer_params);
     }
 
     /**
