@@ -68,9 +68,12 @@ if (!$plain) {
                      basename($fullname),
                      $r,
                      Chora::readableTime($log->queryDate(), true));
-    $extraLink = sprintf('<a href="%s">%s</a> | <a href="%s">%s</a>',
-                         Chora::url('annotate', $where, array('rev' => $r)), _("Annotate"),
-                         Chora::url('co', $where, array('r' => $r, 'p' => 1)), _("Download"));
+
+    $views = array(
+        Horde::widget(Chora::url('annotate', $where, array('rev' => $r)), _("Annotate"), 'widget', '', '', _("_Annotate")),
+        Horde::widget(Chora::url('co', $where, array('r' => $r, 'p' => 1)), _("Download"), 'widget', '', '', _("_Download"))
+    );
+    $extraLink = _("View:") . ' ' . implode(' | ', $views);
 
     $tags = Chora::getTags($log, $where);
     $branch_info = $log->queryBranch();
