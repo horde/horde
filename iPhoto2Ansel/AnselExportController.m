@@ -37,7 +37,6 @@ NSString * const TURAnselServerEndpointKey = @"endpoint";
 NSString * const TURAnselServerUsernameKey = @"username";
 NSString * const TURAnselServerPasswordKey = @"password";
 
-
 @implementation AnselExportController
 
 @synthesize currentGallery;
@@ -100,8 +99,7 @@ NSString * const TURAnselServerPasswordKey = @"password";
     
     // Make sure we're not doing this for nothing
     if ([anselController state] == TURAnselStateConnected) {
-        
-        // It *looks* like index 0 is the first selected album?
+
         albumName = [mExportMgr albumNameAtIndex: 0];
         newGalleryController = [[TURAnselGalleryPanelController alloc] initWithController: anselController
                                                                           withGalleryName: albumName];
@@ -159,8 +157,6 @@ NSString * const TURAnselServerPasswordKey = @"password";
 -(IBAction)doAddServer: (id)sender
 {
     // TODO: Sanity checks
-    //[self disconnect];
-    
     NSDictionary *newServer = [[NSDictionary alloc] initWithObjectsAndKeys:
                                [mServerSheetServerNickName stringValue], TURAnselServerNickKey,
                                [mServerSheetHostURL stringValue], TURAnselServerEndpointKey,
