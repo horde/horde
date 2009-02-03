@@ -42,7 +42,6 @@ class Horde_Date_Parser_Locale_Base_Repeater extends Horde_Date_Parser_Tag
         '/^years?$/' => 'year',
         '/^seasons?$/' => 'season',
         '/^months?$/' => 'month',
-        '/^fortnights?$/' => 'fortnight',
         '/^weeks?$/' => 'week',
         '/^weekends?$/' => 'weekend',
         '/^days?$/' => 'day',
