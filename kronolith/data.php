@@ -61,7 +61,6 @@ $app_fields    = array('title' => _("Title"),
                        'description' => _("Description"),
                        'category' => _("Category"),
                        'location' => _("Location"),
-                       'keywords' => _("Keywords"),
                        'recur_type' => _("Recurrence Type"),
                        'recur_end_date' => _("Recurrence End Date"),
                        'recur_interval' => _("Recurrence Interval"),
@@ -128,7 +127,6 @@ case 'export':
                 $row['category'] = $event->category;
                 $row['location'] = $event->location;
                 $row['description'] = $event->description;
-                $row['keywords'] = implode(',', $event->keywords);
                 $row['start_date'] = sprintf('%d-%02d-%02d', $event->start->year, $event->start->month, $event->start->mday);
                 $row['start_time'] = sprintf('%02d:%02d:%02d', $event->start->hour, $event->start->min, $event->start->sec);
                 $row['end_date'] = sprintf('%d-%02d-%02d', $event->end->year, $event->end->month, $event->end->mday);

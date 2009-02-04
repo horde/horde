@@ -278,7 +278,7 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
     {
         $q = 'SELECT event_id, event_uid, event_description, event_location,' .
             ' event_private, event_status, event_attendees,' .
-            ' event_keywords, event_title, event_category, event_recurcount,' .
+            ' event_title, event_category, event_recurcount,' .
             ' event_recurtype, event_recurenddate, event_recurinterval,' .
             ' event_recurdays, event_start, event_end, event_allday,' .
             ' event_alarm, event_alarm_methods, event_modified,' .
@@ -375,7 +375,7 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
 
         $query = 'SELECT event_id, event_uid, event_description,' .
             ' event_location, event_private, event_status, event_attendees,' .
-            ' event_keywords, event_title, event_category, event_recurcount,' .
+            ' event_title, event_category, event_recurcount,' .
             ' event_recurtype, event_recurenddate, event_recurinterval,' .
             ' event_recurdays, event_start, event_end, event_allday,' .
             ' event_alarm, event_alarm_methods, event_modified,' .
@@ -416,7 +416,7 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
     {
         $query = 'SELECT event_id, event_uid, calendar_id, event_description,' .
             ' event_location, event_private, event_status, event_attendees,' .
-            ' event_keywords, event_title, event_category, event_recurcount,' .
+            ' event_title, event_category, event_recurcount,' .
             ' event_recurtype, event_recurenddate, event_recurinterval,' .
             ' event_recurdays, event_start, event_end, event_allday,' .
             ' event_alarm, event_alarm_methods, event_modified,' .
@@ -941,9 +941,6 @@ class Kronolith_Event_sql extends Kronolith_Event {
         if (isset($SQLEvent['event_attendees'])) {
             $this->attendees = array_change_key_case($driver->convertFromDriver(unserialize($SQLEvent['event_attendees'])));
         }
-        if (isset($SQLEvent['event_keywords'])) {
-            $this->keywords = explode(',', $driver->convertFromDriver($SQLEvent['event_keywords']));
-        }
         if (isset($SQLEvent['event_description'])) {
             $this->description = $driver->convertFromDriver($SQLEvent['event_description']);
         }
@@ -970,7 +967,6 @@ class Kronolith_Event_sql extends Kronolith_Event {
         $this->_properties['event_private'] = (int)$this->isPrivate();
         $this->_properties['event_status'] = $this->getStatus();
         $this->_properties['event_attendees'] = serialize($driver->convertToDriver($this->getAttendees()));
-        $this->_properties['event_keywords'] = $driver->convertToDriver(implode(',', $this->getKeywords()));
         $this->_properties['event_modified'] = $_SERVER['REQUEST_TIME'];
 
         if ($this->isAllDay()) {

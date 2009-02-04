@@ -134,23 +134,6 @@ if ($this->event->isInitialized() && $this->event->alarm > 0):
 </tr>
 <?php endif; endif; ?>
 
-<?php if ($conf['metadata']['keywords'] && count($keyword_list)): ?>
-<!-- keywords -->
-<tr>
- <td colspan="2" class="control"><strong><?php echo _("Keywords") ?></strong></td>
-</tr>
-<?php foreach ($keyword_list as $cat => $list): ?>
-<tr>
- <td class="rightAlign" valign="top"><?php echo htmlspecialchars($cat) ?></td>
- <td>
-<?php foreach ($list as $entry): ?>
-  <?php echo htmlspecialchars($entry) ?><br />
-<?php endforeach; ?>
- </td>
-</tr>
-<?php endforeach; ?>
-<?php endif; ?>
-
 <!-- tags  -->
 <?php if (!empty($tags)):?>
     <tr>

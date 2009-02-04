@@ -386,13 +386,6 @@ class Kronolith_Event {
     var $attendees = array();
 
     /**
-     * All the key words associtated with this event.
-     *
-     * @var array
-     */
-    var $keywords = array();
-
-    /**
      * The start time of the event.
      *
      * @var Horde_Date
@@ -1101,9 +1094,6 @@ class Kronolith_Event {
         if (!empty($hash['location'])) {
             $this->setLocation($hash['location']);
         }
-        if (!empty($hash['keywords'])) {
-            $this->setKeywords(explode(',', $hash['keywords']));
-        }
         if (!empty($hash['start_date'])) {
             $date = explode('-', $hash['start_date']);
             if (empty($hash['start_time'])) {
@@ -1750,21 +1740,6 @@ class Kronolith_Event {
         }
     }
 
-    function getKeywords()
-    {
-        return $this->keywords;
-    }
-
-    function hasKeyword($keyword)
-    {
-        return in_array($keyword, $this->keywords);
-    }
-
-    function setKeywords($keywords)
-    {
-        $this->keywords = $keywords;
-    }
-
     function isAllDay()
     {
         return $this->allday ||
@@ -1804,7 +1779,6 @@ class Kronolith_Event {
         $this->setDescription(Util::getFormData('description', $this->description));
         $this->setLocation(Util::getFormData('location', $this->location));
         $this->setPrivate(Util::getFormData('private'));
-        $this->setKeywords(Util::getFormData('keywords', $this->keywords));
 
         // Category.
         if ($new_category = Util::getFormData('new_category')) {

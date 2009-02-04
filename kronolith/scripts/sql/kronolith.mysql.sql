@@ -7,7 +7,6 @@ CREATE TABLE kronolith_events (
     event_location TEXT,
     event_status INT DEFAULT 0,
     event_attendees TEXT,
-    event_keywords TEXT,
     event_exceptions TEXT,
     event_title VARCHAR(255),
     event_category VARCHAR(80),

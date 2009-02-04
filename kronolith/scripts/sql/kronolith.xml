@@ -61,11 +61,6 @@
    </field>
 
    <field>
-    <name>event_keywords</name>
-    <type>clob</type>
-   </field>
-
-   <field>
     <name>event_exceptions</name>
     <type>clob</type>
    </field>
