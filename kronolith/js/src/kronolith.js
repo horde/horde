@@ -245,13 +245,10 @@ KronolithCore = {
             [ 'Day', 'Week', 'Month', 'Year', 'Tasks', 'Agenda' ].each(function(a) {
                 $('kronolithNav' + a).removeClassName('on');
             });
+            $('kronolithNav' + locCap).addClassName('on');
             if (this.view) {
                 $('kronolithView' + this.view.capitalize()).fade();
             }
-            if ($('kronolithView' + locCap)) {
-                $('kronolithView' + locCap).appear();
-            }
-            $('kronolithNav' + locCap).addClassName('on');
 
             switch (loc) {
             case 'day':
@@ -265,6 +262,11 @@ KronolithCore = {
                     date = this.date;
                 }
 
+                this.updateView(date, loc);
+                if ($('kronolithView' + locCap)) {
+                    $('kronolithView' + locCap).appear();
+                }
+
                 this.updateMinical(date, loc);
                 $('kronolithBody').select('div.kronolithEvent').each(function(s) {
                     s.observe('mouseover', s.addClassName.curry('kronolithSelected'));
@@ -273,6 +275,12 @@ KronolithCore = {
 
                 this.date = date;
 
+                break;
+
+            default:
+                if ($('kronolithView' + locCap)) {
+                    $('kronolithView' + locCap).appear();
+                }
                 break;
             }
 
@@ -289,44 +297,118 @@ KronolithCore = {
         }
     },
 
+    /**
+     * Rebuilds one of the calendar views for a new date.
+     *
+     * @param Date date    The date to show in the calendar.
+     * @param string view  The view that's rebuilt.
+     */
+    updateView: function(date, view)
+    {
+        // Maybe we should only rebuild the calendars if necessary.
+        switch (view) {
+        case 'month':
+            var body = $('kronolithViewMonth').down('.kronolithViewBody'),
+                day = date.clone(), monthEnd = date.clone(),
+                cell, monday;
+
+            // Calculate first and last days being displayed.
+            day.setDate(1);
+            this.moveToBeginOfWeek(day);
+            monthEnd.moveToLastDayOfMonth();
+            this.moveToBeginOfWeek(monthEnd);
+
+            // Remove old rows.
+            body.childElements().invoke('remove');
+
+            // Build new calendar view.
+            while (day.compareTo(monthEnd) < 1) {
+                var row = body.insert(this.createWeekRow(day, date.getMonth()).show());
+                day.next().week();
+            }
+            break;
+        }
+    },
+
+    /**
+     * Creates a single row of day cells for usage in the month and multi-week
+     * views.
+     *
+     * @param Date date      The first day to show in the row.
+     * @oaram integer month  The current month. Days not from the current month
+     *                       get the kronolithOtherMonth CSS class assigned.
+     *
+     * @return Element  The element rendering a week row.
+     */
+    createWeekRow: function(date, month)
+    {
+        // Find monday of the week, to determine the week number.
+        var monday = date.clone(), day = date.clone();
+        if (monday.getDay() != 1) {
+            monday.moveToDayOfWeek(1, 1);
+        }
+
+        // Create a copy of the row template.
+        var row = $('kronolithRowTemplate').cloneNode(true);
+        row.removeAttribute('id');
+
+        // Fill week number and day cells.
+        var cell = row.down().setText(monday.getWeek()).next();
+        while (cell) {
+            cell.removeClassName('kronolithOtherMonth');
+            if (typeof month != 'undefined' && day.getMonth() != month) {
+                cell.addClassName('kronolithOtherMonth');
+            }
+            cell.down('.kronolithDay').setText(day.getDate());
+            cell = cell.next();
+            day.add(1).day();
+        }
+
+        return row;
+    },
+
+    /**
+     * Rebuilds the mini calendar
+     *
+     * @param Date date    The date to show in the calendar.
+     * @param string view  The view that's displayed, determines which days in
+     *                     the mini calendar are highlighted.
+     */
     updateMinical: function(date, view)
     {
-        // Maybe we should only rebuild the minical if necessary.
         var tbody = $('kronolithMinical').down('tbody'),
             day = date.clone(), monthEnd = date.clone(),
             weekStart, weekEnd, weekEndDay, td, tr;
 
         day.setDate(1);
-        if (day.getDay() != Kronolith.conf.week_start) {
-            day.moveToDayOfWeek(Kronolith.conf.week_start, -1);
-        }
+        this.moveToBeginOfWeek(day);
         monthEnd.moveToLastDayOfMonth();
-        weekEndDay = Kronolith.conf.week_start + 6;
-        if (weekEndDay > 6) {
-            weekEndDay -= 7;
-        }
-        if (monthEnd.getDay() != weekEndDay) {
-            monthEnd.moveToDayOfWeek(weekEndDay, 1);
-        }
+        this.moveToEndOfWeek(monthEnd);
 
+        // Update header.
         $('kronolithMinicalDate').setText(date.toString('MMMM yyyy')).setAttribute('date', date.toString('yyyyMMdd'));
-        tbody.childElements().each(Element.remove);
+
+        // Remove old calendar rows. Maybe we should only rebuild the minical
+        // if necessary.
+        tbody.childElements().invoke('remove');
 
         while (day.compareTo(monthEnd) < 1) {
+            // Create calendar row and insert week number.
             if (day.getDay() == Kronolith.conf.week_start) {
                 tr = new Element('tr');
-                tbody.appendChild(tr);
-                td = new Element('td', { 'class': 'kronolithMinicalWeek', date: day.toString('yyyyMMdd') });
-                td.setText(day.getWeek());
-                tr.appendChild(td);
+                tbody.insert(tr);
+                td = new Element('td', { 'class': 'kronolithMinicalWeek', date: day.toString('yyyyMMdd') }).setText(day.getWeek());;
+                tr.insert(td);
                 weekStart = day.clone();
                 weekEnd = day.clone();
                 weekEnd.add(6).days();
             }
+            // Insert day cell.
             td = new Element('td', {date: day.toString('yyyyMMdd')});
             if (day.getMonth() != date.getMonth()) {
                 td.addClassName('kronolithMinicalEmpty');
             }
+            // Highlight days currently being displayed.
             if (view &&
                 (view == 'month' ||
                  (view == 'week' && date.between(weekStart, weekEnd)) ||
@@ -334,14 +416,58 @@ KronolithCore = {
                 td.addClassName('kronolithSelected');
             }
             td.setText(day.getDate());
-            tr.appendChild(td);
+            tr.insert(td);
             day.next().day();
         }
     },
 
+    /**
+     * Parses a date attribute string into a Date object.
+     *
+     * For other strings use Date.parse().
+     *
+     * @param string date  A yyyymmdd date string.
+     *
+     * @return Date  A date object.
+     */
     parseDate: function(date)
     {
         return new Date(date.substr(0, 4), date.substr(4, 2) - 1, date.substr(6, 2));
+    },
+
+    /**
+     * Moves a date to the end of the corresponding week.
+     *
+     * @param Date date  A Date object. Passed by reference!
+     *
+     * @return Date  The same Date object, now pointing to the end of the week.
+     */
+    moveToEndOfWeek: function(date)
+    {
+        var weekEndDay = Kronolith.conf.week_start + 6;
+        if (weekEndDay > 6) {
+            weekEndDay -= 7;
+        }
+        if (date.getDay() != weekEndDay) {
+            date.moveToDayOfWeek(weekEndDay, 1);
+        }
+        return date;
+    },
+
+    /**
+     * Moves a date to the begin of the corresponding week.
+     *
+     * @param Date date  A Date object. Passed by reference!
+     *
+     * @return Date  The same Date object, now pointing to the begin of the
+     *               week.
+     */
+    moveToBeginOfWeek: function(date)
+    {
+        if (date.getDay() != Kronolith.conf.week_start) {
+            date.moveToDayOfWeek(Kronolith.conf.week_start, -1);
+        }
+        return date;
     },
 
     _addHistory: function(loc, data)
