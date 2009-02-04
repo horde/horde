@@ -48,7 +48,13 @@ foreach (Kronolith::listCalendars() as $id => $cal) {
     }
 }
 
+$datejs = str_replace('_', '-', $language) . '.js';
+if (!file_exists($registry->get('fileroot') . '/js/' . $datejs)) {
+    $datejs = 'en-US.js';
+}
 $scripts = array(
+    array($datejs, 'kronolith', true),
+    array('date.js', 'kronolith', true),
     array('ContextSensitive.js', 'kronolith', true),
     array('dhtmlHistory.js', 'horde', true),
     array('redbox.js', 'horde', true),
