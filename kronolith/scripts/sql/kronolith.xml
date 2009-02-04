@@ -72,12 +72,6 @@
    </field>
 
    <field>
-    <name>event_category</name>
-    <type>text</type>
-    <length>80</length>
-   </field>
-
-   <field>
     <name>event_recurtype</name>
     <type>integer</type>
     <default>0</default>

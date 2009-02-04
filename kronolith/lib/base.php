@@ -69,11 +69,6 @@ $notification->attach('status');
 require_once KRONOLITH_BASE . '/lib/Kronolith.php';
 require_once KRONOLITH_BASE . '/lib/Driver.php';
 
-/* Categories. */
-require_once 'Horde/Prefs/CategoryManager.php';
-$GLOBALS['cManager'] = new Prefs_CategoryManager();
-$GLOBALS['cManager_fgColors'] = $GLOBALS['cManager']->fgColors();
-
 /* Start compression, if requested. */
 Horde::compressOutput();
 

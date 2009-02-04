@@ -93,8 +93,6 @@ class Kronolith_View_Day extends Kronolith_Day {
         }
         echo '<tbody>';
 
-        $eventCategories = array();
-
         if ($addLinks) {
             $newEventUrl = Util::addParameter(
                 'new.php',
@@ -127,10 +125,6 @@ class Kronolith_View_Day extends Kronolith_Day {
                     // We have not printed every all day event yet. Put one
                     // into this row.
                     $event = $this->_all_day_events[$cid][$k];
-                    if ($event->hasPermission(PERMS_READ)) {
-                        $eventCategories[$event->getCategory()] = true;
-                    }
-
                     $row .= '<td class="day-eventbox"'
                         . $event->getCSSColors()
                         . 'width="' . round(90 / count($this->_currentCalendars))  . '%" '
@@ -235,9 +229,6 @@ class Kronolith_View_Day extends Kronolith_Day {
                         ($day_hour_force &&
                          $i == $day_hour_start &&
                          $event->start->compareDateTime($start) < 0)) {
-                        if ($event->hasPermission(PERMS_READ)) {
-                            $eventCategories[$event->getCategory()] = true;
-                        }
 
                         // Store the nodes that we're covering for
                         // this event in the coverage graph.

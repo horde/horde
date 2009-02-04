@@ -60,7 +60,6 @@ class Horde_Block_Kronolith_summary extends Horde_Block {
         global $registry, $prefs;
         require_once dirname(__FILE__) . '/../base.php';
         require_once KRONOLITH_BASE . '/lib/Day.php';
-        require_once 'Horde/Prefs/CategoryManager.php';
 
         Horde::addScriptFile('tooltip.js', 'horde', true);
 
@@ -174,9 +173,6 @@ class Horde_Block_Kronolith_summary extends Horde_Block {
                     $html .= '</strong>';
                 }
 
-                $html .= '</td><td class="text">&nbsp;&nbsp;&nbsp;</td>' .
-                    '<td class="block-eventbox category' . hash('md5', $event->getCategory()) . '" valign="top">';
-
                 if ($event_active) {
                     $html .= '<strong>';
                 }
@@ -193,7 +189,7 @@ class Horde_Block_Kronolith_summary extends Horde_Block {
             return '<em>' . _("No events to display") . '</em>';
         }
 
-        return '<link href="' . Horde::applicationUrl('themes/categoryCSS.php', true) . '" rel="stylesheet" type="text/css" /><table cellspacing="0" width="100%">' . $html . '</table>';
+        return '<table cellspacing="0" width="100%">' . $html . '</table>';
     }
 
 }

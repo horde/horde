@@ -74,17 +74,17 @@ class Kronolith_View_EditEvent {
             (!empty($GLOBALS['conf']['hooks']['permsdenied']) ||
              Kronolith::hasPermission('max_events') === true ||
              Kronolith::hasPermission('max_events') > Kronolith::countEvents())) {
-            $buttons[] = '<input type="submit" class="button" name="saveAsNew" value="' . _("Save As New") . '" onclick="return checkCategory();" />';
+            $buttons[] = '<input type="submit" class="button" name="saveAsNew" value="' . _("Save As New") . '" />';
         } else {
             if (!$this->event->isRemote()) {
-                $buttons[] = '<input type="submit" class="button" name="save" value="' . _("Save Event") . '" onclick="return checkCategory();" />';
+                $buttons[] = '<input type="submit" class="button" name="save" value="' . _("Save Event") . '" />';
             }
             if ($this->event->isInitialized()) {
                 if (!$this->event->recurs() &&
                     (!empty($conf['hooks']['permsdenied']) ||
                      Kronolith::hasPermission('max_events') === true ||
                      Kronolith::hasPermission('max_events') > Kronolith::countEvents())) {
-                    $buttons[] = '<input type="submit" class="button" name="saveAsNew" value="' . _("Save As New") . '" onclick="return checkCategory();" />';
+                    $buttons[] = '<input type="submit" class="button" name="saveAsNew" value="' . _("Save As New") . '" />';
                 }
             }
         }

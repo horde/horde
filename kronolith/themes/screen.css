@@ -189,11 +189,6 @@ table.monthgrid th, table.monthgrid td {
     -webkit-border-radius: 10px;
     padding: 3px;
 }
-.legend-eventbox {
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    padding: 1px 5px 1px 5px;
-}
 
 .selected-control {
     background: #bbcbff;

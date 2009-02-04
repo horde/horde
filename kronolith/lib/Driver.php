@@ -144,9 +144,7 @@ class Kronolith_Driver {
                 (empty($query->description) ||
                  stristr($event->getDescription(), $query->description)) &&
                 (empty($query->creatorID) ||
-                 stristr($event->getCreatorID(), $query->creatorID)) &&
-                (!isset($query->category) ||
-                 $event->getCategory() == $query->category) &&
+                 stristr($event->getCreatorID(), $query->creatorID))  &&
                 (!isset($query->status) ||
                  $event->getStatus() == $query->status)) {
                 $results[] = $event;
@@ -323,13 +321,6 @@ class Kronolith_Event {
      * @var string
      */
     var $title = '';
-
-    /**
-     * The category of this event.
-     *
-     * @var string
-     */
-    var $category = '';
 
     /**
      * The location this event occurs at.
@@ -647,10 +638,11 @@ class Kronolith_Event {
             if (!empty($this->description)) {
                 $vEvent->setAttribute('DESCRIPTION', $v1 ? $this->description : String::convertCharset($this->description, NLS::getCharset(), 'utf-8'));
             }
-            $categories = $this->getCategory();
-            if (!empty($categories)) {
-                $vEvent->setAttribute('CATEGORIES', $v1 ? $categories : String::convertCharset($categories, NLS::getCharset(), 'utf-8'));
-            }
+//@TODO: Tags -> iCal
+//            $categories = $this->getCategory();
+//            if (!empty($categories)) {
+//                $vEvent->setAttribute('CATEGORIES', $v1 ? $categories : String::convertCharset($categories, NLS::getCharset(), 'utf-8'));
+//            }
             if (!empty($this->location)) {
                 $vEvent->setAttribute('LOCATION', $v1 ? $this->location : String::convertCharset($this->location, NLS::getCharset(), 'utf-8'));
             }
@@ -840,24 +832,25 @@ class Kronolith_Event {
             $this->_sequence = $seq;
         }
 
-        // Title, category and description.
+        // Title, tags and description.
         $title = $vEvent->getAttribute('SUMMARY');
         if (!is_array($title) && !is_a($title, 'PEAR_Error')) {
             $this->setTitle($title);
         }
 
-        $categories = $vEvent->getAttribute('CATEGORIES');
-        if (!is_array($categories) && !is_a($categories, 'PEAR_Error')) {
-            // The CATEGORY attribute is delimited by commas, so split
-            // it up.
-            $categories = explode(',', $categories);
-
-            // We only support one category per event right now, so
-            // arbitrarily take the last one.
-            foreach ($categories as $category) {
-                $this->setCategory($category);
-            }
-        }
+// @TODO iCal -> Tags
+//        $categories = $vEvent->getAttribute('CATEGORIES');
+//        if (!is_array($categories) && !is_a($categories, 'PEAR_Error')) {
+//            // The CATEGORY attribute is delimited by commas, so split
+//            // it up.
+//            $categories = explode(',', $categories);
+//
+//            // We only support one category per event right now, so
+//            // arbitrarily take the last one.
+//            foreach ($categories as $category) {
+//                $this->setCategory($category);
+//            }
+//        }
         $desc = $vEvent->getAttribute('DESCRIPTION');
         if (!is_array($desc) && !is_a($desc, 'PEAR_Error')) {
             $this->setDescription($desc);
@@ -1082,14 +1075,6 @@ class Kronolith_Event {
         }
         if (!empty($hash['description'])) {
             $this->setDescription($hash['description']);
-        }
-        if (!empty($hash['category'])) {
-            global $cManager;
-            $categories = $cManager->get();
-            if (!in_array($hash['category'], $categories)) {
-                $cManager->add($hash['category']);
-            }
-            $this->setCategory($hash['category']);
         }
         if (!empty($hash['location'])) {
             $this->setLocation($hash['location']);
@@ -1567,26 +1552,6 @@ class Kronolith_Event {
     }
 
     /**
-     * Returns the category of this event.
-     *
-     * @return string  The category of this event.
-     */
-    function getCategory()
-    {
-        return $this->category;
-    }
-
-    /**
-     * Sets the category of this event.
-     *
-     * @param string $category  The category of this event.
-     */
-    function setCategory($category)
-    {
-        $this->category = $category;
-    }
-
-    /**
      * Returns the location this event occurs at.
      *
      * @return string  The location of this event.
@@ -1779,15 +1744,6 @@ class Kronolith_Event {
         $this->setDescription(Util::getFormData('description', $this->description));
         $this->setLocation(Util::getFormData('location', $this->location));
         $this->setPrivate(Util::getFormData('private'));
-
-        // Category.
-        if ($new_category = Util::getFormData('new_category')) {
-            $new_category = $cManager->add($new_category);
-            $category = $new_category ? $new_category : '';
-        } else {
-            $category = Util::getFormData('category', $this->category);
-        }
-        $this->setCategory($category);
 
         // Status.
         $this->setStatus(Util::getFormData('status', $this->status));

@@ -86,14 +86,14 @@ class Horde_Block_Kronolith_monthlist extends Horde_Block {
             return '<em>' . $all_events->getMessage() . '</em>';
         }
 
-        $html = '<link href="' . Horde::applicationUrl('themes/categoryCSS.php', true) . '" rel="stylesheet" type="text/css" />';
-
         /* How many days do we need to check. */
         $days = Date_Calc::dateDiff($startDate->mday, $startDate->month, $startDate->year,
                                     $endDate->mday, $endDate->month, $endDate->year);
 
         /* Loop through the days. */
         $totalevents = 0;
+
+        $html = '';
         for ($i = 0; $i < $days; ++$i) {
             $day = new Kronolith_Day($startDate->month, $today + $i);
             $date_stamp = $day->dateString();
@@ -148,9 +148,6 @@ class Horde_Block_Kronolith_monthlist extends Horde_Block {
                 } else {
                     $html .= $event->getLocation();
                 }
-
-                $html .= '</td><td class="text">&nbsp;&nbsp;&nbsp;</td>' .
-                    '<td class="block-eventbox category' . hash('md5', $event->getCategory()) . '" valign="top">';
 
                 if ($event->start->compareDate($now) < 0 &&
                     $event->end->compareDate($now) > 0) {

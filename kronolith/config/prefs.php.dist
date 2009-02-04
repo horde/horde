@@ -13,7 +13,7 @@ $prefGroups['view'] = array(
                        'time_between_days', 'week_start_monday',
                        'day_hour_start', 'day_hour_end', 'day_hour_force',
                        'slots_per_hour', 'show_icons', 'show_time', 'show_location',
-                       'show_legend', 'show_panel', 'show_fb_legend', 'show_shared_side_by_side', 'show_external_colors'),
+                       'show_panel', 'show_fb_legend', 'show_shared_side_by_side'),
 );
 
 $prefGroups['summary'] = array(
@@ -203,16 +203,6 @@ $_prefs['show_location'] = array(
     'desc' => _("Choose the views to show event locations in:"),
 );
 
-// show category legend?
-// a value of 0 = no, 1 = yes
-$_prefs['show_legend'] = array(
-    'value' => 1,
-    'locked' => false,
-    'shared' => false,
-    'type' => 'checkbox',
-    'desc' => _("Show category legend?"),
-);
-
 // show the calendar options panel?
 // a value of 0 = no, 1 = yes
 $_prefs['show_panel'] = array(
@@ -269,15 +259,6 @@ $_prefs['summary_alarms'] = array(
     'shared' => false,
     'type' => 'checkbox',
     'desc' => _("Show only events that have an alarm set?"),
-);
-
-// show external event colors?
-$_prefs['show_external_colors'] = array(
-    'value' => 1,
-    'locked' => false,
-    'shared' => false,
-    'type' => 'checkbox',
-    'desc' => _("Show external events using category colors?"),
 );
 
 // default calendar selection widget
@@ -457,21 +438,6 @@ $_prefs['fb_cals'] = array(
 
 // Free/Busy calendars selector.
 $_prefs['fb_cals_select'] = array('type' => 'special');
-
-// The following two preferences are no longer used and only necessary for the
-// upgrade script.
-$_prefs['event_categories'] = array(
-    'value' => '',
-    'locked' => false,
-    'shared' => false,
-    'type' => 'implicit'
-);
-$_prefs['event_colors'] = array(
-    'value' => '',
-    'locked' => false,
-    'shared' => false,
-    'type' => 'implicit'
-);
 
 $_prefs['purge_events'] = array(
     'value' => 0,

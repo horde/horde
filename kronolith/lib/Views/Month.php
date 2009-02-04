@@ -136,8 +136,6 @@ class Kronolith_View_Month {
             require KRONOLITH_TEMPLATES . '/month/head.inc';
         }
 
-        $eventCategories = array();
-
         $html = '';
         if (!$sidebyside && count($this->_currentCalendars)) {
             $html .= '<tr>';
@@ -203,9 +201,6 @@ class Kronolith_View_Month {
                 if (!empty($this->_events[$date_stamp])) {
                     foreach ($this->_events[$date_stamp] as $event) {
                         if (!$sidebyside || $event->getCalendar() == $id) {
-                            if ($event->hasPermission(PERMS_READ)) {
-                                $eventCategories[$event->getCategory()] = true;
-                            }
                             $html .= '<div class="month-eventbox"' . $event->getCSSColors() . '>'
                                 . $event->getLink($date, true, $this->link(0, true));
                             if ($showTime) {

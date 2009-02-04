@@ -61,7 +61,7 @@ $event->end->correct();
 $month = $event->start->month;
 $year = $event->start->year;
 
-$buttons = array('<input type="submit" class="button" name="save" value="' . _("Save Event") . '" onclick="return checkCategory();" />');
+$buttons = array('<input type="submit" class="button" name="save" value="' . _("Save Event") . '" />');
 if (isset($url)) {
     $cancelurl = $url;
 } else {

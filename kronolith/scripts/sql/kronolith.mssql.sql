@@ -9,7 +9,6 @@ CREATE TABLE kronolith_events (
     event_attendees VARCHAR(MAX),
     event_exceptions VARCHAR(MAX),
     event_title VARCHAR(255),
-    event_category VARCHAR(80),
     event_recurtype INT DEFAULT 0,
     event_recurinterval INT,
     event_recurdays INT,

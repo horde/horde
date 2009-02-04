@@ -52,29 +52,6 @@ require KRONOLITH_TEMPLATES . '/edit/javascript.inc';
  </td>
 </tr>
 
-<!-- category -->
-<tr>
- <td class="rightAlign">
-  <strong><?php echo Horde::label('category', _("Categor_y")) ?></strong>
- </td>
- <td align="left" colspan="4">
-  <select id="category" name="category">
-  <?php
-  echo '<option value="__any"';
-  echo (!isset($event->category)) ? ' selected="selected"' : '';
-  echo '>' . _("Any") . '</option>';
-  $categories = $cManager->get();
-
-  foreach ($categories as $name) {
-      echo '<option value="' . htmlspecialchars($name) . '"' .
-          (($event->category == $name) ? ' selected="selected">' : '>') .
-          htmlspecialchars($name) . '</option>';
-   }
-  ?>
-  </select>
- </td>
-</tr>
-
 <!-- location -->
 <tr>
  <td class="rightAlign">

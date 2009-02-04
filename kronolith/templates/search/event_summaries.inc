@@ -1,8 +1,7 @@
 <tr class="text">
- <td nowrap="nowrap" class="category<?php echo hash('md5', $found->getCategory()) ?>">
+ <td nowrap="nowrap">
   <?php echo $found->getLink() ?>
  </td>
- <td class="nowrap"><?php echo htmlspecialchars($found->getCategory()) ?></td>
  <td class="nowrap"><?php echo htmlspecialchars($found->getLocation()) ?></td>
  <td class="nowrap"><?php echo Kronolith::statusToString($found->getStatus()) ?></td>
  <td class="nowrap"><?php echo $start->strftime($prefs->getValue('date_format')) . $start->strftime($prefs->getValue('twentyFour') ? ' %H:%M' : ' %I:%M %p') ?></td>

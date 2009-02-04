@@ -479,7 +479,6 @@ class Kronolith_Driver_kolab_wrapper_old extends Kronolith_Driver_kolab_wrapper 
 
         $this->_kolab->setStr('summary', $event->getTitle());
         $this->_kolab->setStr('body', $event->getDescription());
-        $this->_kolab->setStr('categories', $event->getCategory());
         $this->_kolab->setStr('location', $event->getLocation());
         if ($event->isPrivate()) {
             $this->_kolab->setStr('sensitivity', 'private');
@@ -769,7 +768,6 @@ class Kronolith_Event_kolab_old extends Kronolith_Event {
         $this->title = $kolab->getStr('summary');
         $this->description = $kolab->getStr('body');
         $this->location = $kolab->getStr('location');
-        $this->category = $kolab->getStr('categories');
 
         $class = String::lower($kolab->getStr('sensitivity'));
         if ($class == 'private' || $class == 'confidential') {
@@ -1429,9 +1427,6 @@ class Kronolith_Event_kolab_new extends Kronolith_Event {
         if (isset($event['location'])) {
             $this->location = $event['location'];
         }
-        if (isset($event['categories'])) {
-            $this->category = $event['categories'];
-        }
 
         if (isset($event['sensitivity']) &&
             ($event['sensitivity'] == 'private' || $event['sensitivity'] == 'confidential')) {
@@ -1541,7 +1536,6 @@ class Kronolith_Event_kolab_new extends Kronolith_Event {
         $event['summary'] = $this->title;
         $event['body']  = $this->description;
         $event['location'] = $this->location;
-        $event['categories'] = $this->category;
 
         if ($this->isPrivate()) {
             $event['sensitivity'] = 'private';

@@ -37,7 +37,6 @@ class Maintenance_Task_purge_events extends Maintenance_Task {
         $query = &$kronolith_driver->getEvent();
         $query->start = null;
         $query->end = $del_time;
-        $query->category = null;
         $query->status = null;
         $query->calendars = array_keys($calendars);
         $query->creatorID = Auth::getAuth();

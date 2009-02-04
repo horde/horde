@@ -97,8 +97,6 @@ class Kronolith_View_Year {
             }
 
             $currentCalendars = array(true);
-            $eventCategories = array();
-
             foreach ($currentCalendars as $id => $cal) {
                 $cell = 0;
                 for ($day = $startOfView; $day < $startOfView + $daysInView; ++$day) {

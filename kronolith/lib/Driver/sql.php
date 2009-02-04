@@ -132,15 +132,6 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
                 $cond .= $binds;
             }
         }
-        if (isset($query->category)) {
-            $binds = Horde_SQL::buildClause($this->_db, 'event_category', '=', $this->convertToDriver($query->category), true);
-            if (is_array($binds)) {
-                $cond .= $binds[0] . ' AND ';
-                $values = array_merge($values, $binds[1]);
-            } else {
-                $cond .= $binds;
-            }
-        }
         if (isset($query->status)) {
             $binds = Horde_SQL::buildClause($this->_db, 'event_status', '=', $query->status, true);
             if (is_array($binds)) {
@@ -278,7 +269,7 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
     {
         $q = 'SELECT event_id, event_uid, event_description, event_location,' .
             ' event_private, event_status, event_attendees,' .
-            ' event_title, event_category, event_recurcount,' .
+            ' event_title, event_recurcount,' .
             ' event_recurtype, event_recurenddate, event_recurinterval,' .
             ' event_recurdays, event_start, event_end, event_allday,' .
             ' event_alarm, event_alarm_methods, event_modified,' .
@@ -375,7 +366,7 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
 
         $query = 'SELECT event_id, event_uid, event_description,' .
             ' event_location, event_private, event_status, event_attendees,' .
-            ' event_title, event_category, event_recurcount,' .
+            ' event_title, event_recurcount,' .
             ' event_recurtype, event_recurenddate, event_recurinterval,' .
             ' event_recurdays, event_start, event_end, event_allday,' .
             ' event_alarm, event_alarm_methods, event_modified,' .
@@ -416,7 +407,7 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
     {
         $query = 'SELECT event_id, event_uid, calendar_id, event_description,' .
             ' event_location, event_private, event_status, event_attendees,' .
-            ' event_title, event_category, event_recurcount,' .
+            ' event_title, event_recurcount,' .
             ' event_recurtype, event_recurenddate, event_recurinterval,' .
             ' event_recurdays, event_start, event_end, event_allday,' .
             ' event_alarm, event_alarm_methods, event_modified,' .
@@ -926,9 +917,6 @@ class Kronolith_Event_sql extends Kronolith_Event {
             }
         }
 
-        if (isset($SQLEvent['event_category'])) {
-            $this->category = $driver->convertFromDriver($SQLEvent['event_category']);
-        }
         if (isset($SQLEvent['event_location'])) {
             $this->location = $driver->convertFromDriver($SQLEvent['event_location']);
         }
@@ -962,7 +950,6 @@ class Kronolith_Event_sql extends Kronolith_Event {
         $this->_properties['event_creator_id'] = $driver->convertToDriver($this->getCreatorId());
         $this->_properties['event_title'] = $driver->convertToDriver($this->title);
         $this->_properties['event_description'] = $driver->convertToDriver($this->getDescription());
-        $this->_properties['event_category'] = $driver->convertToDriver((string)String::substr($this->getCategory(), 0, 80));
         $this->_properties['event_location'] = $driver->convertToDriver($this->getLocation());
         $this->_properties['event_private'] = (int)$this->isPrivate();
         $this->_properties['event_status'] = $this->getStatus();

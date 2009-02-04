@@ -5,7 +5,6 @@
 <input type="hidden" name="month" value="<?php if (isset($month)) echo htmlspecialchars($month) ?>" />
 <input type="hidden" name="mday" value="<?php if (isset($day)) echo htmlspecialchars($day) ?>" />
 <input type="hidden" name="date" value="<?php if (isset($date)) echo htmlspecialchars($date) ?>" />
-<input type="hidden" name="new_category" value="" />
 <?php if (isset($url)): ?>
 <input type="hidden" name="url" value="<?php echo htmlspecialchars($url) ?>" />
 <?php endif; ?>
@@ -87,14 +86,6 @@
  </td>
 </tr>
 <?php endif; ?>
-
-<!-- category -->
-<tr>
- <td class="rightAlign">
-    <strong><?php echo Horde::label('category', _("Categor_y")) ?></strong>
- </td>
- <td colspan="4"><?php echo $GLOBALS['cManager']->getSelect('category', $event->getCategory()) ?></td>
-</tr>
 
 <!-- location -->
 <tr>

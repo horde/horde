@@ -148,7 +148,6 @@ foreach ($events as $day_events) {
         $entries[$id]['desc'] = @htmlspecialchars($desc, ENT_COMPAT, NLS::getCharset());
         $entries[$id]['url'] = htmlspecialchars(Horde::url($event->getViewUrl(), true, -1));
         $entries[$id]['modified'] = $modified->format(DATE_ATOM);
-        $entries[$id]['category'] = $event->getCategory();
     }
 }
 $template->set('entries', $entries, true);

@@ -59,7 +59,6 @@ $app_fields    = array('title' => _("Title"),
                        'alarm_date' => _("Alarm Date"),
                        'alarm_time' => _("Alarm Time"),
                        'description' => _("Description"),
-                       'category' => _("Category"),
                        'location' => _("Location"),
                        'recur_type' => _("Recurrence Type"),
                        'recur_end_date' => _("Recurrence End Date"),
@@ -121,10 +120,9 @@ case 'export':
                 if (is_a($event, 'PEAR_Error')) {
                     continue;
                 }
-
+//@TODO Tags
                 $row = array();
                 $row['title'] = $event->getTitle();
-                $row['category'] = $event->category;
                 $row['location'] = $event->location;
                 $row['description'] = $event->description;
                 $row['start_date'] = sprintf('%d-%02d-%02d', $event->start->year, $event->start->month, $event->start->mday);
@@ -222,11 +220,6 @@ if (!$error) {
 
 /* We have a final result set. */
 if (is_array($next_step)) {
-    /* Create a category manager. */
-    require_once 'Horde/Prefs/CategoryManager.php';
-    $cManager = new Prefs_CategoryManager();
-    $categories = $cManager->get();
-
     $events = array();
     $error = false;
     $max_events = Kronolith::hasPermission('max_events');
@@ -289,12 +282,6 @@ if (is_array($next_step)) {
             $notification->push($success, 'horde.error');
             $error = true;
             break;
-        }
-
-        $category = $event->getCategory();
-        if (!empty($category) && !in_array($category, $categories)) {
-            $cManager->add($category);
-            $categories[] = $category;
         }
 
         if ($max_events !== true) {

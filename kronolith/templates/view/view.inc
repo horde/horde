@@ -1,14 +1,6 @@
 <table cellspacing="0" width="100%" class="striped">
 
 <?php if (!$private): ?>
-<!-- category -->
-<tr>
- <td class="rightAlign"><strong><?php echo _("Category") ?>&nbsp;&nbsp;</strong></td>
- <td>
-  <?php echo @htmlspecialchars($category ? $category : _("Unfiled"), ENT_COMPAT, NLS::getCharset()) ?>
- </td>
-</tr>
-
 <!-- location -->
 <tr>
  <td class="rightAlign"><strong><?php echo _("Location") ?>&nbsp;&nbsp;</strong></td>

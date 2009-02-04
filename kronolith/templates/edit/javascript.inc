@@ -1,5 +1,3 @@
-<?php echo $GLOBALS['cManager']->getJavaScript('eventform', 'category') ?>
-
 <script type="text/javascript">
 
 <?php if (!Util::nonInputVar('issearch')): ?>

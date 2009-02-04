@@ -1077,7 +1077,6 @@ class Kronolith {
                                     'description' => $task['desc'],
                                     'start' => $task['due'],
                                     'end' => $task['due'],
-                                    'category' => $task['category'],
                                     'params' => array('task' => $task['task_id'],
                                                       'tasklist' => $task['tasklist_id']));
                             }
@@ -1104,12 +1103,6 @@ class Kronolith {
                         }
 
                         $event = &$kronolith_driver->getEvent();
-
-                        if ($GLOBALS['prefs']->getValue('show_external_colors') &&
-                            isset($eventsListItem['category'])) {
-                            $event->category = $eventsListItem['category'];
-                        }
-
                         $event->eventID = '_' . $api . $eventsListItem['id'];
                         $event->external = $api;
                         $event->external_params = $eventsListItem['params'];

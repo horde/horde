@@ -76,7 +76,6 @@ class Kronolith_View_Event {
         }
 
         $creatorId = $this->event->getCreatorId();
-        $category = $this->event->getCategory();
         $description = $this->event->getDescription();
         $location = $this->event->getLocation();
         $private = $this->event->isPrivate() && $creatorId != Auth::getAuth();

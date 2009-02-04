@@ -127,8 +127,6 @@ class Kronolith_View_Week {
             $newEventUrl = _("All day");
         }
 
-        $eventCategories = array();
-
         $row = '';
         for ($j = $this->startDay; $j <= $this->endDay; ++$j) {
             $row .= '<td class="hour rightAlign">' . ($more_timeslots ? _("All day") : '&nbsp;') . '</td>' .
@@ -141,10 +139,6 @@ class Kronolith_View_Week {
                             $row .= '<td rowspan="' . ($this->days[$j]->_all_day_maxrowspan - $k) . '" width="'. round(99 / count($this->days[$j]->_currentCalendars)) . '%">&nbsp;</td>';
                         } elseif (count($this->days[$j]->_all_day_events[$cid]) > $k) {
                             $event = $this->days[$j]->_all_day_events[$cid][$k];
-                            if ($event->hasPermission(PERMS_READ)) {
-                                $eventCategories[$event->getCategory()] = true;
-                            }
-
                             $row .= '<td class="week-eventbox"'
                                 . $event->getCSSColors()
                                 . 'width="' . round(99 / count($this->days[$j]->_currentCalendars)) . '%" '
@@ -259,11 +253,7 @@ class Kronolith_View_Week {
                                  $event->start->compareDateTime($slot_end) < 0 ||
                                  $start->compareDateTime($this->days[$j]) == 0) ||
                                 ($day_hour_force &&
-                                 $i == $day_hour_start &&
-                                 $event->start->compareDateTime($start) < 0)) {
-                                if ($event->hasPermission(PERMS_READ)) {
-                                    $eventCategories[$event->getCategory()] = true;
-                                }
+                                 $i == $day_hour_start)) {
 
                                 // Store the nodes that we're covering for
                                 // this event in the coverage graph.
