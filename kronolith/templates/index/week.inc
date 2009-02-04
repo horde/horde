@@ -3,13 +3,9 @@
 <div class="kronolithViewHead">
   <div class="kronolithRow">
     <div class="kronolithFirstCol">&nbsp;</div>
-    <div class="kronolithCol"><span><?php echo NLS::getLangInfo(DAY_2) ?></span></div>
-    <div class="kronolithCol"><span><?php echo NLS::getLangInfo(DAY_3) ?></span></div>
-    <div class="kronolithCol"><span><?php echo NLS::getLangInfo(DAY_4) ?></span></div>
-    <div class="kronolithCol"><span><?php echo NLS::getLangInfo(DAY_5) ?></span></div>
-    <div class="kronolithCol"><span><?php echo NLS::getLangInfo(DAY_6) ?></span></div>
-    <div class="kronolithCol"><span><?php echo NLS::getLangInfo(DAY_7) ?></span></div>
-    <div class="kronolithCol"><span><?php echo NLS::getLangInfo(DAY_1) ?></span></div>
+    <?php for ($i = $prefs->getValue('week_start_monday'), $c = $i + 7; $i < $c; $i++): ?>
+    <div class="kronolithCol"><span><?php echo NLS::getLangInfo(constant('DAY_' . ($i % 7 + 1))) ?></span></div>
+    <?php endfor; ?>
   </div>
 </div>
 <div class="kronolithViewBody">

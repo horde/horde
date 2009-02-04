@@ -305,8 +305,11 @@ KronolithCore = {
      */
     updateView: function(date, view)
     {
-        // Maybe we should only rebuild the calendars if necessary.
         switch (view) {
+        case 'day':
+            $('kronolithViewDay').down('.kronolithCol').setText(date.toString('D'));
+            break;
+
         case 'month':
             var body = $('kronolithViewMonth').down('.kronolithViewBody'),
                 day = date.clone(), monthEnd = date.clone(),
@@ -318,7 +321,8 @@ KronolithCore = {
             monthEnd.moveToLastDayOfMonth();
             this.moveToBeginOfWeek(monthEnd);
 
-            // Remove old rows.
+            // Remove old rows. Maybe we should only rebuild the calendars if
+            // necessary.
             body.childElements().invoke('remove');
 
             // Build new calendar view.

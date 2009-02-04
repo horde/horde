@@ -3,7 +3,7 @@
 <div class="kronolithViewHead">
   <div class="kronolithRow">
     <div class="kronolithFirstCol">&nbsp;</div>
-    <div class="kronolithCol"><span>Monday, October 1, 2008</span></div>
+    <div class="kronolithCol"><span></span></div>
   </div>
 </div>
 <div class="kronolithViewBody">
