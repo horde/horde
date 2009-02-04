@@ -290,8 +290,6 @@ class Kronolith_View_Day extends Kronolith_Day {
         $template->set('show_slots', true, true);
         echo $template->fetch(KRONOLITH_TEMPLATES . '/day/rows.html')
             . '</tbody></table>';
-
-        require KRONOLITH_TEMPLATES . '/category_legend.inc';
     }
 
     /**

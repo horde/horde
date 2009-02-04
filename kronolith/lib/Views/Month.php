@@ -232,7 +232,6 @@ class Kronolith_View_Month {
         }
 
         echo $html . '</tbody></table>';
-        require KRONOLITH_TEMPLATES . '/category_legend.inc';
     }
 
     function getMonth($offset = 0)

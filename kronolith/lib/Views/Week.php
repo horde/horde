@@ -307,8 +307,6 @@ class Kronolith_View_Week {
         $template->set('show_slots', !$more_timeslots, true);
         echo $template->fetch(KRONOLITH_TEMPLATES . '/day/rows.html')
             . '</tbody></table>';
-
-        require KRONOLITH_TEMPLATES . '/category_legend.inc';
     }
 
     /**
