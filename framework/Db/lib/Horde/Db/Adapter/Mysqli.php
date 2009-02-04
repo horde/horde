@@ -386,7 +386,13 @@ class Horde_Db_Adapter_Mysqli extends Horde_Db_Adapter_Abstract
             $msg = 'Required config missing: ' . implode(', ', array_keys($diff));
             throw new Horde_Db_Exception($msg);
         }
-
+        $rails2pdo = array('database' => 'dbname', 'socket' => 'unix_socket');
+        foreach ($rails2pdo as $from => $to) {
+            if (isset($this->_config[$from])) {
+                $this->_config[$to] = $this->_config[$from];
+                unset($this->_config[$from]);
+            }
+        }
         if (isset($this->_config['port'])) {
             if (empty($this->_config['host'])) {
                 $msg = 'host is required if port is specified';
