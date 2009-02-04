@@ -293,12 +293,12 @@ KronolithCore = {
     {
         // Maybe we should only rebuild the minical if necessary.
         var tbody = $('kronolithMinical').down('tbody'),
-            oDate = date.clone(), monthEnd = date.clone(),
+            day = date.clone(), monthEnd = date.clone(),
             weekStart, weekEnd, weekEndDay, td, tr;
 
-        oDate.setDate(1);
-        if (oDate.getDay() != Kronolith.conf.week_start) {
-            oDate.moveToDayOfWeek(Kronolith.conf.week_start, -1);
+        day.setDate(1);
+        if (day.getDay() != Kronolith.conf.week_start) {
+            day.moveToDayOfWeek(Kronolith.conf.week_start, -1);
         }
         monthEnd.moveToLastDayOfMonth();
         weekEndDay = Kronolith.conf.week_start + 6;
@@ -312,30 +312,30 @@ KronolithCore = {
         $('kronolithMinicalDate').setText(date.toString('MMMM yyyy')).setAttribute('date', date.toString('yyyyMMdd'));
         tbody.childElements().each(Element.remove);
 
-        while (oDate.compareTo(monthEnd) < 1) {
-            if (oDate.getDay() == Kronolith.conf.week_start) {
+        while (day.compareTo(monthEnd) < 1) {
+            if (day.getDay() == Kronolith.conf.week_start) {
                 tr = new Element('tr');
                 tbody.appendChild(tr);
-                td = new Element('td', { 'class': 'kronolithMinicalWeek', date: oDate.toString('yyyyMMdd') });
-                td.setText(oDate.getWeek());
+                td = new Element('td', { 'class': 'kronolithMinicalWeek', date: day.toString('yyyyMMdd') });
+                td.setText(day.getWeek());
                 tr.appendChild(td);
-                weekStart = oDate.clone();
-                weekEnd = oDate.clone();
+                weekStart = day.clone();
+                weekEnd = day.clone();
                 weekEnd.add(6).days();
             }
-            td = new Element('td', {date: oDate.toString('yyyyMMdd')});
-            if (oDate.getMonth() != date.getMonth()) {
+            td = new Element('td', {date: day.toString('yyyyMMdd')});
+            if (day.getMonth() != date.getMonth()) {
                 td.addClassName('kronolithMinicalEmpty');
             }
             if (view &&
                 (view == 'month' ||
                  (view == 'week' && date.between(weekStart, weekEnd)) ||
-                 (view == 'day' && date.compareTo(oDate) == 0))) {
+                 (view == 'day' && date.compareTo(day) == 0))) {
                 td.addClassName('kronolithSelected');
             }
-            td.setText(oDate.getDate());
+            td.setText(day.getDate());
             tr.appendChild(td);
-            oDate.next().day();
+            day.next().day();
         }
     },
 
