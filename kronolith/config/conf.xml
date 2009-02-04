@@ -51,12 +51,6 @@
   </configswitch>
  </configsection>
 
- <configsection name="metadata">
-  <configheader>Metadata Settings</configheader>
-  <configboolean name="keywords" desc="Should keywords be loaded from
-   config/keywords.php to be assigned to events?">false</configboolean>
- </configsection>
-
  <configsection name="reminder">
   <configheader>Reminder Settings</configheader>
   <configstring name="server_name" desc="Server name from which reminder

@@ -372,39 +372,6 @@ endif;
 <?php endif; ?>
 </tbody>
 
-<?php if ($GLOBALS['conf']['metadata']['keywords']): ?>
-<!-- keywords -->
-<tr>
- <td colspan="5" class="control toggle" onclick="toggleSection('keywords')">
-  <?php echo Horde::img('tree/blank.png', '', array('id' => 'toggle_keywords'), $GLOBALS['registry']->getImageDir('horde')) . ' <strong>' . _("Keywords") ?></strong>
-  <span class="extra" id="extra_keywords"><?php echo implode(', ', $event->getKeywords()) ?></span>
- </td>
-</tr>
-<tr id="section_keywords">
- <td></td>
- <td colspan="4">
-  <table cellspacing="2">
-   <?php include KRONOLITH_BASE . '/config/keywords.php'; $count = 0 ?>
-   <?php foreach ($keywords as $cat => $list):
-       if ($count % 3 == 0): ?>
-   <tr>
-   <?php endif; ?>
-    <td valign="top">
-     <strong><?php echo $cat ?></strong><br />
-    <?php for ($k = 0; $k < count($list); ++$k): ?>
-     <input type="checkbox" class="checkbox" id="keyword<?php echo htmlspecialchars($k) ?>" name="keywords[]" value="<?php echo htmlspecialchars($list[$k]) ?>"<?php if ($event->hasKeyword($list[$k])) echo ' checked="checked"' ?> />
-     <?php echo Horde::label('keyword' . $k, htmlspecialchars($list[$k])) ?><br />
-    <?php endfor; ?>
-    </td>
-   <?php if (($count % 3 == 2) || ($count == count($keywords) - 1)): ?>
-   </tr>
-   <?php endif; ++$count ?>
-   <?php endforeach; ?>
-  </table>
- </td>
-</tr>
-<?php endif; ?>
-
 <!-- tags  -->
 <tr>
 <td colspan="5" class="control toggle" onclick="toggleSection('tags')">

@@ -84,22 +84,6 @@ class Kronolith_View_Event {
         $status = Kronolith::statusToString($this->event->getStatus());
         $attendees = $this->event->getAttendees();
 
-        if ($conf['metadata']['keywords']) {
-            include KRONOLITH_BASE . '/config/keywords.php';
-            $keyword_list = array();
-            foreach ($keywords as $cat => $list) {
-                $sub_list = array();
-                foreach ($list as $entry) {
-                    if ($this->event->hasKeyword($entry)) {
-                        $sub_list[] = htmlspecialchars($entry);
-                    }
-                }
-                if (count($sub_list)) {
-                    $keyword_list[$cat] = $sub_list;
-                }
-            }
-        }
-
         if ($datetime = Util::getFormData('datetime')) {
             $datetime = new Horde_Date($datetime);
             $month = $datetime->month;
