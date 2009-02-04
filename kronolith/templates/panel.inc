@@ -54,7 +54,7 @@ $tagger = new Kronolith_Tagger();
   <li<?php echo Kronolith::getCSSColors($cal) ?>><label><input type="checkbox" class="checkbox" name="display_cal[]" value="<?php echo htmlspecialchars($id) ?>"<?php echo (in_array($id, $display_calendars) ? ' checked="checked"' : '') . ' /> ' . htmlspecialchars($cal->get('name')) ?></label> <?php echo $info_img ?>
    <div class="panel-tags">
    <?php $tags = $tagger->getTags($id, 'calendar'); ?>
-    <span style="cursor:pointer;" id="tag-show_<?php echo $id?>" onclick="toggleTags('<?php echo $id?>');" title="<?php echo _("Add new tags")?>">+</span><span id="tag-hide_<?php echo $id?>" style="display:none;cursor:pointer;" onclick="toggleTags('<?php echo $id?>');">-</span>
+    <span style="cursor:pointer;" id="tag-show_<?php echo $id?>" onclick="toggleTags('<?php echo $id?>');" title="<?php echo _("Add new tags")?>"><?php echo Horde::img('plus.png')?></span><span id="tag-hide_<?php echo $id?>" style="display:none;cursor:pointer;" onclick="toggleTags('<?php echo $id?>');"><?php echo Horde::img('minus.png')?></span>
     <h5 style="display: inline;"><?php echo _("Tags")?></h5>
     <div id="tagnode_<?php echo $id?>" style="display:none;">
       <ul id="tags_<?php echo $id?>">
