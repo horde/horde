@@ -511,9 +511,9 @@ KronolithCore = {
             case 'kronolithNavDay':
             case 'kronolithNavWeek':
             case 'kronolithNavMonth':
-            case 'kronolithNavYear':
-            case 'kronolithNavTasks':
-            case 'kronolithNavAgenda':
+            //case 'kronolithNavYear':
+            //case 'kronolithNavTasks':
+            //case 'kronolithNavAgenda':
                 this.go(id.substring(12).toLowerCase());
                 e.stop();
                 return;
