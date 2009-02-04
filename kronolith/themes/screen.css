@@ -792,6 +792,9 @@ div.kronolithTags span:hover {
     border-bottom: 1px #000 dotted;
     text-align: left;
 }
+#kronolithMinicalDate {
+    cursor: pointer;
+}
 #kronolithMinicalPrev, #kronolithMinicalNext {
     position: absolute;
     top: 0;

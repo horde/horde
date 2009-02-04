@@ -120,17 +120,12 @@ class Kronolith {
             'URI_AJAX' => Horde::url($kronolith_webroot . '/ajax.php', true, -1),
             'URI_PREFS' => Horde::url($horde_webroot . '/services/prefs/', true, -1),
             //'URI_VIEW' => Util::addParameter(Horde::url($imp_webroot . '/view.php', true, -1), array('actionID' => 'view_source', 'id' => 0), null, false),
-
             'SESSION_ID' => defined('SID') ? SID : '',
-
             'prefs_url' => str_replace('&amp;', '&', Horde::getServiceLink('options', 'kronolith')),
-
             'name' => $registry->get('name'),
-
             'is_ie6' => ($browser->isBrowser('msie') && ($browser->getMajor() < 7)),
-
             'login_view' => $prefs->getValue('defaultview'),
-
+            'week_start' => (int)$prefs->getValue('week_start_monday'),
             // Turn debugging on?
             'debug' => !empty($conf['js']['debug']),
         );

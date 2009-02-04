@@ -94,25 +94,15 @@
     </caption>
 
     <thead>
-      <tr><th class="kronolithMinicalEmpty">&nbsp;</th><th title="<?php echo _("Monday") ?>"><?php echo substr(_("Monday"), 0, 1) ?></th><th title="<?php echo _("Tuesday") ?>"><?php echo substr(_("Tuesday"), 0, 1) ?></th><th title="<?php echo _("Wednesday") ?>"><?php echo substr(_("Wednesday"), 0, 1) ?></th><th title="<?php echo _("Thursday") ?>"><?php echo substr(_("Thursday"), 0, 1) ?></th><th title="<?php echo _("Friday") ?>"><?php echo substr(_("Friday"), 0, 1) ?></th><th title="<?php echo _("Saturday") ?>"><?php echo substr(_("Saturday"), 0, 1) ?></th><th title="<?php echo _("Sunday") ?>"><?php echo substr(_("Sunday"), 0, 1) ?></th></tr>
+      <tr>
+        <th class="kronolithMinicalEmpty">&nbsp;</th>
+        <?php for ($i = $prefs->getValue('week_start_monday'), $c = $i + 7; $i < $c; $i++): ?>
+        <th title="<?php echo NLS::getLangInfo(constant('DAY_' . ($i % 7 + 1))) ?>"><?php echo substr(NLS::getLangInfo(constant('DAY_' . ($i % 7 + 1))), 0, 1) ?></th>
+        <?php endfor; ?>
+      </tr>
     </thead>
 
     <tbody>
-    <?php
-    $currentDay = null;
-    $firstDay = clone $today;
-    $firstDay->mday = 1;
-    $week = $firstDay->weekOfYear();
-    while (!$currentDay || $currentDay->month == $today->month):
-        $currentDay = Horde_Date::firstDayOfWeek($week, $today->year);
-    ?>
-      <tr>
-        <td class="kronolithMinicalWeek" date="<?php echo $currentDay->dateString() ?>"><?php echo $week ?></td>
-        <?php for ($i = 0; $i < 7; $i++): ?>
-        <td class="<?php if ($currentDay->month != $today->month) echo 'kronolithMinicalEmpty'; elseif ($currentDay->mday == $today->mday) echo 'on' ?>" date="<?php echo $currentDay->dateString() ?>"><?php echo $currentDay->mday ?></td>
-        <?php $currentDay->mday++; endfor; ?>
-      </tr>
-      <?php $week++; endwhile; ?>
     </tbody>
     </table>
   </div>

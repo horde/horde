@@ -2,9 +2,7 @@
  * kronolith.js - Base application logic.
  * NOTE: ContextSensitive.js must be loaded before this file.
  *
- * $Horde$
- *
- * Copyright 2008 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
@@ -20,6 +18,7 @@ KronolithCore = {
 
     view: '',
     remove_gc: [],
+    date: new Date(),
 
     debug: function(label, e)
     {
@@ -228,31 +227,6 @@ KronolithCore = {
 
     go: function(fullloc, data)
     {
-        var app, f, separator;
-
-        if (fullloc.startsWith('compose:')) {
-            return;
-        }
-
-        /*
-        $('dimpmain_portal').update(Kronolith.text.loading).show();
-
-        if (loc.startsWith('app:')) {
-            app = loc.substr(4);
-            if (app == 'imp' || app == 'dimp') {
-                this.go('folder:INBOX');
-                return;
-            }
-            this.highlightSidebar('app' + app);
-            this._addHistory(loc, data);
-            if (data) {
-                this.iframeContent(loc, data);
-            } else if (Kronolith.conf.app_urls[app]) {
-                this.iframeContent(loc, Kronolith.conf.app_urls[app]);
-            }
-            return;
-        }
-        */
         var locParts = fullloc.split(':');
         var loc = locParts.shift();
 
@@ -268,8 +242,6 @@ KronolithCore = {
             }
 
             var locCap = loc.capitalize();
-            this._addHistory(fullloc);
-
             [ 'Day', 'Week', 'Month', 'Year', 'Tasks', 'Agenda' ].each(function(a) {
                 $('kronolithNav' + a).removeClassName('on');
             });
@@ -286,39 +258,25 @@ KronolithCore = {
             case 'week':
             case 'month':
             case 'year':
-                $('kronolithMinical').select('td').each(function(td) {
-                    td.removeClassName('kronolithSelected');
-                    if (locParts.length) {
-                        if (!td.hasClassName('kronolithMinicalWeek') &&
-                            (loc == 'month' ||
-                             (loc == 'day' &&
-                              td.readAttribute('date') == locParts[0]))) {
-                            td.addClassName('kronolithSelected');
-                        }
-                    }
-                });
-                if (loc == 'week' && locParts.length) {
-                    $('kronolithMinical').select('td').each(function(td) {
-                        if (td.readAttribute('date') == locParts[0]) {
-                            var tds = td.parentNode.childNodes;
-                            for (i = 0; i < tds.length; i++) {
-                                if (tds.item(i) != td &&
-                                    tds.item(i).tagName == 'TD') {
-                                    $(tds.item(i)).addClassName('kronolithSelected');
-                                }
-                            }
-                            throw $break;
-                        }
-                    });
+                var date = locParts.shift();
+                if (date) {
+                    date = this.parseDate(date);
+                } else {
+                    date = this.date;
                 }
+
+                this.updateMinical(date, loc);
                 $('kronolithBody').select('div.kronolithEvent').each(function(s) {
                     s.observe('mouseover', s.addClassName.curry('kronolithSelected'));
                     s.observe('mouseout', s.removeClassName.curry('kronolithSelected'));
                 });
 
+                this.date = date;
+
                 break;
             }
 
+            this._addHistory(fullloc);
             this.view = loc;
             break;
 
@@ -329,6 +287,61 @@ KronolithCore = {
             this.iframeContent(loc, Kronolith.conf.prefs_url);
             break;
         }
+    },
+
+    updateMinical: function(date, view)
+    {
+        // Maybe we should only rebuild the minical if necessary.
+        var tbody = $('kronolithMinical').down('tbody'),
+            oDate = date.clone(), monthEnd = date.clone(),
+            weekStart, weekEnd, weekEndDay, td, tr;
+
+        oDate.setDate(1);
+        if (oDate.getDay() != Kronolith.conf.week_start) {
+            oDate.moveToDayOfWeek(Kronolith.conf.week_start, -1);
+        }
+        monthEnd.moveToLastDayOfMonth();
+        weekEndDay = Kronolith.conf.week_start + 6;
+        if (weekEndDay > 6) {
+            weekEndDay -= 7;
+        }
+        if (monthEnd.getDay() != weekEndDay) {
+            monthEnd.moveToDayOfWeek(weekEndDay, 1);
+        }
+
+        $('kronolithMinicalDate').setText(date.toString('MMMM yyyy')).setAttribute('date', date.toString('yyyyMMdd'));
+        tbody.childElements().each(Element.remove);
+
+        while (oDate.compareTo(monthEnd) < 1) {
+            if (oDate.getDay() == Kronolith.conf.week_start) {
+                tr = new Element('tr');
+                tbody.appendChild(tr);
+                td = new Element('td', { 'class': 'kronolithMinicalWeek', date: oDate.toString('yyyyMMdd') });
+                td.setText(oDate.getWeek());
+                tr.appendChild(td);
+                weekStart = oDate.clone();
+                weekEnd = oDate.clone();
+                weekEnd.add(6).days();
+            }
+            td = new Element('td', {date: oDate.toString('yyyyMMdd')});
+            if (oDate.getMonth() != date.getMonth()) {
+                td.addClassName('kronolithMinicalEmpty');
+            }
+            if (view &&
+                (view == 'month' ||
+                 (view == 'week' && date.between(weekStart, weekEnd)) ||
+                 (view == 'day' && date.compareTo(oDate) == 0))) {
+                td.addClassName('kronolithSelected');
+            }
+            td.setText(oDate.getDate());
+            tr.appendChild(td);
+            oDate.next().day();
+        }
+    },
+
+    parseDate: function(date)
+    {
+        return new Date(date.substr(0, 4), date.substr(4, 2) - 1, date.substr(6, 2));
     },
 
     _addHistory: function(loc, data)
@@ -479,7 +492,7 @@ KronolithCore = {
                 return;
 
             case 'id_fullday':
-                $('kronolithEventForm').select('.edit_at').each(Element.toggle); 
+                $('kronolithEventForm').select('.edit_at').each(Element.toggle);
                 e.stop();
                 return;
 
@@ -513,16 +526,31 @@ KronolithCore = {
                 return;
 
             case 'kronolithMinicalDate':
-                this.go('month:' + $('kronolithMinicalDate').readAttribute('date'));
+                this.go('month:' + orig.readAttribute('date'));
                 e.stop();
                 return;
 
             case 'kronolithMinical':
+                if (orig.id == 'kronolithMinicalPrev') {
+                    var date = this.parseDate($('kronolithMinicalDate').readAttribute('date'));
+                    date.previous().month();
+                    this.updateMinical(date);
+                    e.stop();
+                    return;
+                }
+                if (orig.id == 'kronolithMinicalNext') {
+                    var date = this.parseDate($('kronolithMinicalDate').readAttribute('date'));
+                    date.next().month();
+                    this.updateMinical(date);
+                    e.stop();
+                    return;
+                }
+
                 var tmp = orig;
                 if (tmp.tagName != 'td') {
                     tmp.up('td');
                 }
-                if (tmp) {
+                if (tmp && tmp.readAttribute('date')) {
                     if (tmp.hasClassName('kronolithMinicalWeek')) {
 		        this.go('week:' + tmp.readAttribute('date'));
 		    } else if (!tmp.hasClassName('empty')) {
@@ -586,10 +614,8 @@ KronolithCore = {
     },
 
     /* Onload function. */
-    _onLoad: function() {
-        var tmp,
-             C = this.clickObserveHandler;
-
+    onLoad: function()
+    {
         if (Horde.dhtmlHistory.initialize()) {
             Horde.dhtmlHistory.addListener(this.go.bind(this));
         }
@@ -722,7 +748,7 @@ document.observe('dom:loaded', function() {
     //$('kronolithPage').show();
 
     /* Start message list loading as soon as possible. */
-    KronolithCore._onLoad();
+    KronolithCore.onLoad();
 
     /* Bind key shortcuts. */
     document.observe('keydown', KronolithCore._keydownHandler.bindAsEventListener(KronolithCore));
@@ -771,6 +797,8 @@ Element.addMethods({
         if (!t) {
             $(element).insert(text);
         }
+
+        return element;
     },
 
     getText: function(element, recursive)
