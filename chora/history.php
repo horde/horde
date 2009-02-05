@@ -16,7 +16,7 @@ Chora::fatal('History display is currently broken', '500 Internal Server Error')
 
 /* Exit if it's not supported. */
 if (!$VC->hasFeature('branches')) {
-    header('Location: ' . Chora::url('browse', $where));
+    header('Location: ' . Chora::url('browsefile', $where));
     exit;
 }
 

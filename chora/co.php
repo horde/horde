@@ -13,7 +13,7 @@ require_once dirname(__FILE__) . '/lib/base.php';
 
 /* If we know we're at a directory, just go to browse.php. */
 if ($atdir) {
-    require CHORA_BASE . '/browse.php';
+    require CHORA_BASE . '/browsedir.php';
     exit;
 }
 
@@ -75,7 +75,7 @@ if (!$plain) {
     );
     if ($VC->hasFeature('snapshots')) {
         $snapdir = dirname($file->queryPath());
-        $views[] = Horde::widget(Chora::url('browse', $snapdir == '.' ? '' : $snapdir, array('rev' => $r)), _("Snapshot"), 'widget', '', '', _("_Snapshot"));
+        $views[] = Horde::widget(Chora::url('browsedir', $snapdir == '.' ? '' : $snapdir, array('rev' => $r)), _("Snapshot"), 'widget', '', '', _("_Snapshot"));
     }
     $extraLink = _("View:") . ' ' . implode(' | ', $views);
 

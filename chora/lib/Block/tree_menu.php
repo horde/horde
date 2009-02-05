@@ -25,7 +25,7 @@ class Horde_Block_chora_tree_menu extends Horde_Block
                     array(
                         'icon' => 'folder.png',
                         'icondir' => $GLOBALS['registry']->getImageDir('horde') . '/tree',
-                        'url' => Chora::url('browse', '', array('rt' => $key))
+                        'url' => Chora::url('browsedir', '', array('rt' => $key))
                     )
                 );
             }

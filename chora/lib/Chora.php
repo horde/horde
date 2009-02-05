@@ -186,7 +186,7 @@ class Chora
 
         foreach ($dirs as $i => $dir) {
             if (!empty($dir)) {
-                $bar .= '/ <a href="' . self::url('browse', $dir . ($i == $dir_count ? '' : '/')) . '">'. Text::htmlallspaces($dir) . '</a> ';
+                $bar .= '/ <a href="' . self::url('browsedir', $dir . ($i == $dir_count ? '' : '/')) . '">'. Text::htmlallspaces($dir) . '</a> ';
             }
         }
 
@@ -241,7 +241,7 @@ class Chora
         $script .= '.php';
 
         if ($GLOBALS['conf']['options']['urls'] == 'rewrite') {
-            if ($script == 'browse.php') {
+            if (in_array($script, array('browse.php', 'browsedir.php'))) {
                 $script = $uri;
                 if (substr($script, 0, 1) == '/') {
                     $script = substr($script, 1);
@@ -337,7 +337,7 @@ class Chora
         $arr = array();
         foreach ($sourceroots as $key => $val) {
             if ($GLOBALS['sourceroot'] != $key) {
-                $arr[] = '<option value="' . self::url('browse', '', array('rt' => $key)) . '">' . $val['name'] . '</option>';
+                $arr[] = '<option value="' . self::url('browsedir', '', array('rt' => $key)) . '">' . $val['name'] . '</option>';
             }
         }
 
@@ -425,7 +425,7 @@ class Chora
     {
         require_once 'Horde/Menu.php';
         $menu = new Menu();
-        $menu->add(self::url('browse'), _("_Browse"), 'chora.png');
+        $menu->add(self::url('browsedir'), _("_Browse"), 'chora.png');
         return $menu->render();
     }
 
@@ -433,16 +433,16 @@ class Chora
      * Generate the link used for various file-based views.
      *
      * @param string $where    The current file path.
-     * @param string $current  The current view ('browse', 'patchsets',
+     * @param string $current  The current view ('browsefile', 'patchsets',
      *                         'history', 'cvsgraph', or 'stats').
      *
      * @return array  An array of file view links.
      */
     static public function getFileViews($where, $current)
     {
-        $views = ($current == 'browse')
+        $views = ($current == 'browsefile')
             ? array('<em class="widget">' . _("Logs") . '</em>')
-            : array(Horde::widget(self::url('browse', $where), _("Logs"), 'widget', '', '', _("_Logs")));
+            : array(Horde::widget(self::url('browsefile', $where), _("Logs"), 'widget', '', '', _("_Logs")));
 
         if ($GLOBALS['VC']->hasFeature('patchsets')) {
             $views[] = ($current == 'patchsets')
@@ -482,7 +482,7 @@ class Chora
         $tags = array();
 
         foreach ($lg->querySymbolicBranches() as $symb => $bra) {
-            $tags[] = '<a href="' . self::url('browse', $where, array('onb' => $bra)) . '">'. htmlspecialchars($symb) . '</a>';
+            $tags[] = '<a href="' . self::url('browsefile', $where, array('onb' => $bra)) . '">'. htmlspecialchars($symb) . '</a>';
         }
 
         foreach ($lg->queryTags() as $tag) {

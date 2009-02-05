@@ -23,7 +23,7 @@
 
 <?php if (!empty($selAllBranches)): ?>
   <td>
-   <form method="get" action="browse.php">
+   <form method="get" action="browsefile.php">
     <?php echo Chora::formInputs() ?>
     <input type="hidden" name="f" value="<?php echo htmlspecialchars(Util::getFormData('f')) ?>" />
     <?php echo _("Show Branch:") ?>

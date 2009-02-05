@@ -45,7 +45,7 @@
 <?php if (!empty($val['branchinfo'])): ?>
    <li><?php echo _("Branch:") ?>
 <?php foreach ($val['branchinfo'] as $branchname): ?>
-    <strong><a href="<?php echo Chora::url('browse', $where, array('onb' => $branchname)) ?>"><?php echo $branchname ?></a></strong>
+    <strong><a href="<?php echo Chora::url('browsefile', $where, array('onb' => $branchname)) ?>"><?php echo $branchname ?></a></strong>
 <?php endforeach; ?>
    </li>
 <?php endif; ?>

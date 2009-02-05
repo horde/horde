@@ -1,0 +1,88 @@
+<?php
+/**
+ * Browse view (for files).
+ *
+ * Copyright 1999-2009 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ *
+ * @author  Anil Madhavapeddy <anil@recoil.org>
+ * @author  Chuck Hagenbuch <chuck@horde.org>
+ * @package Chora
+ */
+
+require_once dirname(__FILE__) . '/lib/base.php';
+
+if ($atdir) {
+    require CHORA_BASE . '/browsedir.php';
+    exit;
+}
+
+if (!$VC->isFile($fullname)) {
+    Chora::fatal(sprintf(_("$fullname: no such file or directory"), $where), '404 Not Found');
+}
+
+$onb = Util::getFormData('onb');
+try {
+    $fl = $VC->getFileObject($where, array('branch' => $onb));
+} catch (Horde_Vcs_Exception $e) {
+    Chora::fatal($e);
+}
+
+$title = sprintf(_("Revisions for %s"), $where);
+
+$extraLink = Chora::getFileViews($where, 'browsefile');
+$logs = $fl->queryLogs();
+$first = end($logs);
+$diffValueLeft = $first->queryRevision();
+$diffValueRight = $fl->queryRevision();
+
+$sel = '';
+foreach ($fl->querySymbolicRevisions() as $sm => $rv) {
+    $sel .= '<option value="' . $rv . '">' . $sm . '</option>';
+}
+
+$selAllBranches = '';
+if ($VC->hasFeature('branches')) {
+    foreach (array_keys($fl->queryBranches()) as $sym) {
+        $selAllBranches .= '<option value="' . $sym . '"' . (($sym === $onb) ? ' selected="selected"' : '' ) . '>' . $sym . '</option>';
+    }
+}
+
+Horde::addScriptFile('QuickFinder.js', 'horde', true);
+Horde::addScriptFile('revlog.js', 'chora', true);
+require CHORA_TEMPLATES . '/common-header.inc';
+require CHORA_TEMPLATES . '/menu.inc';
+require CHORA_TEMPLATES . '/headerbar.inc';
+require CHORA_TEMPLATES . '/log/header.inc';
+
+$i = 0;
+reset($logs);
+while (list(,$lg) = each($logs)) {
+    $rev = $lg->queryRevision();
+    $branch_info = $lg->queryBranch();
+
+    $textUrl = Chora::url('co', $where, array('r' => $rev));
+    $commitDate = Chora::formatDate($lg->queryDate());
+    $readableDate = Chora::readableTime($lg->queryDate(), true);
+
+    $author = Chora::showAuthorName($lg->queryAuthor(), true);
+    $tags = Chora::getTags($lg, $where);
+
+    if ($prevRevision = $fl->queryPreviousRevision($lg->queryRevision())) {
+        $diffUrl = Chora::url('diff', $where, array('r1' => $prevRevision, 'r2' => $rev));
+    } else {
+        $diffUrl = '';
+    }
+
+    $logMessage = Chora::formatLogMessage($lg->queryLog());
+
+    require CHORA_TEMPLATES . '/log/rev.inc';
+
+    if (($i++ > 100) && !Util::getFormData('all')) {
+        break;
+    }
+}
+require CHORA_TEMPLATES . '/log/footer.inc';
+require $registry->get('templates', 'horde') . '/common-footer.inc';

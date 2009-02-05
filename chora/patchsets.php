@@ -17,7 +17,7 @@ require_once dirname(__FILE__) . '/lib/base.php';
 
 // Exit if patchset feature is not available.
 if (!$GLOBALS['VC']->hasFeature('patchsets')) {
-    header('Location: ' . Chora::url('browse', $where));
+    header('Location: ' . Chora::url('browsefile', $where));
     exit;
 }
 

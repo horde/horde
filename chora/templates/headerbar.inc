@@ -3,7 +3,7 @@
  <tr>
   <td>
    <?php echo _("Location:") ?>
-   <strong>[ <a href="<?php echo Chora::url('browse') ?>"><?php echo $conf['options']['sourceRootName'] ?></a> ]
+   <strong>[ <a href="<?php echo Chora::url('browsedir') ?>"><?php echo $conf['options']['sourceRootName'] ?></a> ]
    <?php echo Chora::whereMenu($where) ?></strong>
    <?php if (!empty($onb)): ?>
     <em>(<?php echo _("Tracking Branch") ?> <strong><?php echo $onb ?></strong>)</em>

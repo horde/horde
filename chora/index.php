@@ -23,4 +23,4 @@ if (!$chora_configured) {
         array('sourceroots.php' => 'This file defines all of the source repositories that you wish Chora to display.'));
 }
 
-require CHORA_BASE . '/browse.php';
+require CHORA_BASE . '/browsedir.php';
