@@ -24,17 +24,17 @@ class Horde_Date_Repeater_Hour extends Horde_Date_Repeater
 
         switch ($pointer) {
         case 'future':
-            $hourStart = new Horde_Date(array('year' => $this->month->year, 'month' => $this->now->month, 'day' => $this->now->day, 'hour' => $this->now->hour, 'min' => $this->now->min + 1));
-            $hourEnd = new Horde_Date(array('year' => $this->month->year, 'month' => $this->now->month, 'day' => $this->now->day, 'hour' => $this->now->hour + 1));
+            $hourStart = new Horde_Date(array('year' => $this->now->year, 'month' => $this->now->month, 'day' => $this->now->day, 'hour' => $this->now->hour, 'min' => $this->now->min + 1));
+            $hourEnd = new Horde_Date(array('year' => $this->now->year, 'month' => $this->now->month, 'day' => $this->now->day, 'hour' => $this->now->hour + 1));
             break;
 
         case 'past':
-            $hourStart = new Horde_Date(array('year' => $this->month->year, 'month' => $this->now->month, 'day' => $this->now->day, 'hour' => $this->now->hour));
-            $hourEnd = new Horde_Date(array('year' => $this->month->year, 'month' => $this->now->month, 'day' => $this->now->day, 'hour' => $this->now->hour + 1, 'min' => $this->now->min));
+            $hourStart = new Horde_Date(array('year' => $this->now->year, 'month' => $this->now->month, 'day' => $this->now->day, 'hour' => $this->now->hour));
+            $hourEnd = new Horde_Date(array('year' => $this->now->year, 'month' => $this->now->month, 'day' => $this->now->day, 'hour' => $this->now->hour + 1, 'min' => $this->now->min));
             break;
 
         case 'none':
-            $hourStart = new Horde_Date(array('year' => $this->month->year, 'month' => $this->now->month, 'day' => $this->now->day, 'hour' => $this->now->hour));
+            $hourStart = new Horde_Date(array('year' => $this->now->year, 'month' => $this->now->month, 'day' => $this->now->day, 'hour' => $this->now->hour));
             $hourEnd = clone($hourStart);
             $hourEnd->hour++;
             break;
