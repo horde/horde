@@ -28,6 +28,7 @@ class IMP_IMAP_Tree
     const ELT_NEED_SORT = 64;
     const ELT_VFOLDER = 128;
     const ELT_NONIMAP = 256;
+    const ELT_INVISIBLE = 512;
 
     /* The isOpen() expanded mode constants. */
     const OPEN_NONE = 0;
@@ -382,7 +383,12 @@ class IMP_IMAP_Tree
         /* Get the mailbox label. */
         $elt['l'] = IMP::getLabel($tmp[$elt['c']]);
 
+
         if ($_SESSION['imp']['protocol'] != 'pop') {
+            if (!empty($GLOBALS['conf']['hooks']['display_folder'])) {
+                $this->_setInvisible($elt, !Horde::callHook('_imp_hook_display_folder', array($elt['v']), 'imp'));
+            }
+
             if ($elt['c'] != 0) {
                 $elt['p'] = implode(is_null($ns_info) ? $this->_delimiter : $ns_info['delimiter'], array_slice($tmp, 0, $elt['c']));
             }
@@ -1248,6 +1254,29 @@ class IMP_IMAP_Tree
     }
 
     /**
+     * Is the element invisible?
+     *
+     * @param array $elt  A tree element.
+     *
+     * @return integer  True if the element is marked as invisible.
+     */
+    public function isInvisible($elt)
+    {
+        return $elt['a'] & self::ELT_INVISIBLE;
+    }
+
+    /**
+     * Set the invisible attribute for an element.
+     *
+     * @param array &$elt    A tree element.
+     * @param boolean $bool  The setting.
+     */
+    protected function _setInvisible(&$elt, $bool)
+    {
+        $this->_setAttribute($elt, self::ELT_INVISIBLE, $bool);
+    }
+
+    /**
      * Flag the element as needing its children to be sorted.
      *
      * @param array &$elt    A tree element.
@@ -1401,9 +1430,10 @@ class IMP_IMAP_Tree
      */
     protected function _activeElt($elt)
     {
-        return ($this->_showunsub ||
-                ($this->isSubscribed($elt) && !$this->isContainer($elt)) ||
-                $this->hasChildren($elt));
+        return (!$this->isInvisible($elt) &&
+                ($this->_showunsub ||
+                 ($this->isSubscribed($elt) && !$this->isContainer($elt)) ||
+                 $this->hasChildren($elt)));
     }
 
     /**

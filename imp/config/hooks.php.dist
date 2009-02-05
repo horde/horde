@@ -377,6 +377,16 @@
 //     }
 // }
 
+// This is an example hook function to hide specified IMAP mailboxes in
+// folder listings. If the hook returns false, the mailbox will not be
+// displayed.
+
+// if (!function_exists('_imp_hook_display_folder')) {
+//     function _imp_hook_display_folder($mailbox) {
+//         return ($mailbox == 'DONOTDISPLAY');
+//     }
+// }
+
 // This is an example hook function for the IMP spam reporting email option.
 // This function is called when the message is about to be forwarded - it
 // will return the email address to forward to.  This is handy for spam
@@ -476,6 +486,13 @@ if (!empty($GLOBALS['conf']['kolab']['enabled'])) {
             }
 
             return $icons;
+        }
+    }
+
+    if (!function_exists('_imp_hook_display_folder')) {
+        function _imp_hook_display_folder($mailbox) {
+            $type = Kolab::getMailboxType($mailbox);
+            return empty($type) || ($type == 'mail');
         }
     }
 }

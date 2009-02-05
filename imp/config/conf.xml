@@ -385,6 +385,10 @@
    a custom function to provide additional information/custom formatting of
    messages in the mailbox message list? If so, make sure you define
    _imp_hook_msglist_format() in hooks.php.">false</configboolean>
+   <configboolean name="display_folder" required="false" desc="Should we use
+   a custom function to dynamically determine if we show a specified IMAP
+   mailbox in the folderlist ? If so, make sure you define
+   _imp_hook_display_folder() in hooks.php.">false</configboolean>
   </configsection>
  </configtab>
 
