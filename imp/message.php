@@ -437,7 +437,8 @@ if (!IMP::$printMode) {
     $t_template->set('thismailbox', htmlspecialchars($mailbox_name));
     $t_template->set('start', htmlspecialchars($msgindex));
     $t_template->set('index', htmlspecialchars($index));
-    $t_template->set('label', sprintf(_("%s: %s (%d&nbsp;of&nbsp;%d)"), $header_label, $shortsub, $msgindex, $imp_mailbox->getMessageCount()));
+    $t_template->set('label', sprintf(_("%s: %s"), $header_label, $shortsub));
+    $t_template->set('msg_count', sprintf(_("(%d&nbsp;of&nbsp;%d)"), $msgindex, $imp_mailbox->getMessageCount()));
     $t_template->set('status', $status);
     $t_template->set('message_token', $message_token);
 
