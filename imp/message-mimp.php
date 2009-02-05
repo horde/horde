@@ -71,6 +71,9 @@ case 'u':
         }
     }
     break;
+
+// 'c' = confirm download
+// Need to build message information, so don't do action until below.
 }
 
 /* We may have done processing that has taken us past the end of the
@@ -115,13 +118,6 @@ if (is_a($imp_contents, 'PEAR_Error')) {
     exit;
 }
 
-/* Create the IMP_UI_Message:: object. */
-$imp_ui = new IMP_UI_Message();
-
-/* Create the Identity object. */
-require_once 'Horde/Identity.php';
-$user_identity = &Identity::singleton(array('imp', 'imp'));
-
 /* Get the starting index for the current message and the message count. */
 $msgindex = $imp_mailbox->getMessageIndex();
 $msgcount = $imp_mailbox->getMessageCount();
@@ -129,6 +125,35 @@ $msgcount = $imp_mailbox->getMessageCount();
 /* Generate the mailbox link. */
 $mailbox_link = Util::addParameter(IMP::generateIMPUrl('mailbox-mimp.php', $imp_mbox['mailbox']), array('s' => $msgindex));
 $self_link = IMP::generateIMPUrl('message-mimp.php', $imp_mbox['mailbox'], $index, $mailbox_name);
+
+/* Output download confirmation screen. */
+$atc_id = Util::getFormData('atc');
+if (($actionID == 'c') && !is_null($atc_id)) {
+    $summary = $imp_contents->getSummary($atc_id, IMP_Contents::SUMMARY_SIZE | IMP_Contents::SUMMARY_DESCRIP_NOLINK_NOHTMLSPECCHARS | IMP_Contents::SUMMARY_DOWNLOAD_NOJS);
+
+    $mimp_render->set('title', _("Verify Download"));
+
+    $null = null;
+    $hb = &$mimp_render->add(new Horde_Mobile_block($null));
+
+    $hb->add(new Horde_Mobile_text(_("Click to verify download of attachment") . ': '));
+    $hb->add(new Horde_Mobile_link($summary['description'], $summary['download']));
+    $t = &$hb->add(new Horde_Mobile_text(sprintf(' [%s] %s', $summary['type'], $summary['size']) . "\n"));
+    $t->set('linebreaks', true);
+
+    $hb = &$mimp_render->add(new Horde_Mobile_block($null));
+    $hb->add(new Horde_Mobile_link(_("Return to message view"), $self_link));
+
+    $mimp_render->display();
+    exit;
+}
+
+/* Create the IMP_UI_Message:: object. */
+$imp_ui = new IMP_UI_Message();
+
+/* Create the Identity object. */
+require_once 'Horde/Identity.php';
+$user_identity = &Identity::singleton(array('imp', 'imp'));
 
 /* Develop the list of headers to display. */
 $basic_headers = $imp_ui->basicHeaders();
@@ -358,7 +383,7 @@ foreach ($atc_parts as $key) {
     if (empty($summary['download'])) {
         $hb->add(new Horde_Mobile_text($summary['description']));
     } else {
-        $hb->add(new Horde_Mobile_link($summary['description'], $summary['download']));
+        $hb->add(new Horde_Mobile_link($summary['description'], Util::addParameter($self_link, array('a' => 'c', 'atc' => $key))));
     }
     $t = &$hb->add(new Horde_Mobile_text(sprintf(' [%s] %s', $summary['type'], $summary['size']) . "\n"));
     $t->set('linebreaks', true);
