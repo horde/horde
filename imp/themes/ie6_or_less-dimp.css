@@ -43,10 +43,7 @@ form#compose {
     overflow: auto;
 }
 #messageParent {
-    width: auto !important;
-}
-#messageParent textarea#message {
-    width: 97% !important;
+    width: 96% !important;
 }
 
 #alerts {
