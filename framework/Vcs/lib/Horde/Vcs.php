@@ -780,7 +780,15 @@ abstract class Horde_Vcs_Directory
      */
     public function _fileRevSort($a, $b)
     {
-        return $this->_rep->cmp($a->queryHead(), $b->queryHead());
+        return $this->_rep->cmp($a->queryRevision(), $b->queryRevision());
+    }
+
+    /**
+     * TODO
+     */
+    public function getBranches()
+    {
+        return array();
     }
 
 }
@@ -820,22 +828,12 @@ abstract class Horde_Vcs_File
     /**
      * TODO
      */
-    protected $_branches = array();
-
-    /**
-     * TODO
-     */
     protected $_quicklog;
 
     /**
      * TODO
      */
     protected $_branch;
-
-    /**
-     * TODO
-     */
-    protected $_head = null;
 
     /**
      * Create a repository file object, and give it information about
@@ -917,16 +915,6 @@ abstract class Horde_Vcs_File
         return (($key !== false) && isset($this->_revs[$key + 1]))
             ? $this->_revs[$key + 1]
             : null;
-    }
-
-    /**
-     * Return the HEAD (most recent) revision number for this file.
-     *
-     * @return string  HEAD revision string.
-     */
-    public function queryHead()
-    {
-        return is_null($this->_head) ? $this->queryRevision() : $this->_head;
     }
 
    /**
@@ -1025,7 +1013,7 @@ abstract class Horde_Vcs_File
      */
     public function queryBranches()
     {
-        return $this->_branches;
+        return array();
     }
 
     /**

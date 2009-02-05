@@ -326,6 +326,14 @@ class Horde_Vcs_Directory_Cvs extends Horde_Vcs_Directory
         return true;
     }
 
+    /**
+     * TODO
+     */
+    public function getBranches()
+    {
+        return array('HEAD');
+    }
+
 }
 
 /**
@@ -339,23 +347,38 @@ class Horde_Vcs_File_Cvs extends Horde_Vcs_File
 {
     /**
      * TODO
+     *
+     * @var string
      */
     protected $_accum;
 
     /**
      * TODO
+     *
+     * @var array
      */
     protected $_revsym = array();
 
     /**
      * TODO
+     *
+     * @var array
      */
     protected $_symrev = array();
 
     /**
+     * TODO
+     *
      * @var array
      */
     protected $_revlist = array();
+
+    /**
+     * TODO
+     *
+     * @var array
+     */
+    protected $_branches = array();
 
     /**
      * Create a repository file object, and give it information about
@@ -392,8 +415,8 @@ class Horde_Vcs_File_Cvs extends Horde_Vcs_File
             switch ($state) {
             case 'init':
                 if (strpos($line, 'head: ') === 0) {
-                    $this->_head = $this->_branches['HEAD'] = substr($line, 6);
-                    $this->_revlist['HEAD'] = $rep->getRevisionRange($this, '1.1', $this->_head);
+                    $this->_branches['HEAD'] = substr($line, 6);
+                    $this->_revlist['HEAD'] = $rep->getRevisionRange($this, '1.1', $this->_branches['HEAD']);
                 } elseif (strpos($line, 'branch:') === 0) {
                     $state = 'rev';
                 }
@@ -542,6 +565,14 @@ class Horde_Vcs_File_Cvs extends Horde_Vcs_File
     {
         return $this->_accum;
     }
+
+    /**
+     * TODO
+     */
+     public function queryBranches()
+     {
+         return $this->_branches;
+     }
 
 }
 

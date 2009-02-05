@@ -48,6 +48,13 @@ class Horde_Vcs_Git extends Horde_Vcs
     protected $_diffTypes = array('unified');
 
     /**
+     * The list of branches for the repo.
+     *
+     * @var array
+     */
+    protected $_branchlist;
+
+    /**
      * TODO
      */
     public function isValidRevision($rev)
@@ -239,6 +246,21 @@ class Horde_Vcs_Git extends Horde_Vcs
         return substr($rev, 0, 7) . '[...]';
     }
 
+    public function getBranchList()
+    {
+        if (!isset($this->_branchlist)) {
+            $branch_list = array();
+            exec($this->getCommand() . ' show-ref --heads', $branch_list);
+
+            foreach ($branch_list as $val) {
+                $line = explode(' ', trim($val), 2);
+                $this->_branchlist[substr($line[1], strrpos($line[1], '/') + 1)] = $line[0];
+            }
+        }
+
+        return $this->_branchlist;
+    }
+
 }
 
 /**
@@ -266,7 +288,7 @@ class Horde_Vcs_Directory_Git extends Horde_Vcs_Directory
 
         $branch = empty($opts['rev']) ? 'master' : $opts['rev'];
 
-        // @TODO can use this to see if we have a valid cache of the tree at this revision
+        // @TODO See if we have a valid cache of the tree at this revision
 
         $dir = $this->queryDir();
         if (substr($dir, 0, 1) == '/') {
@@ -286,8 +308,7 @@ class Horde_Vcs_Directory_Git extends Horde_Vcs_Directory
         // Create two arrays - one of all the files, and the other of
         // all the dirs.
         while (!feof($stream)) {
-            $line = chop(fgets($stream, 1024));
-            print "$line\n";
+            $line = rtrim(fgets($stream, 1024));
             if (!strlen($line)) {
                 continue;
             }
@@ -296,11 +317,19 @@ class Horde_Vcs_Directory_Git extends Horde_Vcs_Directory
             if ($type == 'tree') {
                 $this->_dirs[] = basename($file);
             } else {
-                $this->_files[] = $rep->getFileObject($file, array('quicklog' => !empty($opts['quicklog'])));
+                $this->_files[] = $rep->getFileObject($file, array('branch' => $branch, 'quicklog' => !empty($opts['quicklog'])));
             }
         }
 
         pclose($stream);
+    }
+
+    /**
+     * TODO
+     */
+    public function getBranches()
+    {
+        return array_keys($this->_rep->getBranchList());
     }
 
 }
@@ -333,52 +362,46 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File
     {
         parent::__construct($rep, $fl, $opts);
 
-        $branch_list = $revs = $tmp = array();
+        $log_list = null;
+        $revs = array();
 
-        /* Add branch information. */
-        $cmd = $rep->getCommand() . ' show-ref --heads';
-        exec($cmd, $branch_list);
-
-        foreach ($branch_list as $val) {
-            $line = explode(' ', trim($val), 2);
-            $this->_branches[substr($line[1], strrpos($line[1], '/') + 1)] = $line[0];
-        }
-
-        /* Get the list of revisions.  Need to get all revisions, not just
-         * those on $this->_branch, for branch determination reasons. */
-        $cmd = $rep->getCommand() . ' rev-list --branches --parents -- ' . escapeshellarg($this->queryModulePath()) . ' 2>&1';
+        $cmd = $rep->getCommand() . ' rev-list --branches -- ' . escapeshellarg($this->queryModulePath()) . ' 2>&1';
         exec($cmd, $revs);
         if (stripos($revs[0], 'fatal') === 0) {
             throw new Horde_Vcs_Exception($revs);
         }
+        $this->_revs = $revs;
 
-        /* $revs format: revision parent */
-        foreach ($revs as $val) {
-            $line = explode(' ', trim($val), 2);
-            $this->_revs[] = $line[0];
+        /* Get the list of revisions. Need to get all revisions, not just
+         * those on $this->_branch, for branch determination reasons. */
+        foreach (array_keys($rep->getBranchList()) as $key) {
+            $revs = array();
+            $cmd = $rep->getCommand() . ' rev-list ' . escapeshellarg($key) . ' -- ' . escapeshellarg($this->queryModulePath()) . ' 2>&1';
+            exec($cmd, $revs);
 
-            if (isset($tmp[$line[0]])) {
-                foreach ($tmp[$line[0]] as $val2) {
-                    $this->_revlist[$val2][] = $line[0];
+            if (!empty($revs)) {
+                if (stripos($revs[0], 'fatal') === 0) {
+                    throw new Horde_Vcs_Exception($revs);
                 }
-            } else {
-                $branch = array_search($line[0], $this->_branches);
-                $this->_revlist[$branch] = array($line[0]);
-                $tmp[$line[0]] = array($branch);
-            }
 
-            if (isset($line[1])) {
-                if (!isset($tmp[$line[1]])) {
-                    $tmp[$line[1]] = array();
+                $this->_revlist[$key] = $revs;
+
+                if (!empty($this->_branch) && ($this->_branch == $key)) {
+                    $log_list = $this->_quicklog
+                        ? array(reset($revs))
+                        : $revs;
                 }
-                $tmp[$line[1]] = array_merge($tmp[$line[1]], $tmp[$line[0]]);
             }
+        }
 
-            if ((!$this->_quicklog || empty($this->_logs)) &&
-                (empty($this->_branch) ||
-                 in_array($this->_branch, $tmp[$line[0]]))) {
-                $this->_logs[$line[0]] = $rep->getLogObject($this, $line[0]);
-            }
+        if (is_null($log_list)) {
+            $log_list = $this->_quicklog
+                ? array(reset($this->_revs))
+                : (empty($this->_branch) ? $this->_revs : array());
+        }
+
+        foreach ($log_list as $val) {
+            $this->_logs[$val] = $rep->getLogObject($this, $val);
         }
     }
 
@@ -439,6 +462,36 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File
     public function queryPath()
     {
         return $this->queryModulePath();
+    }
+
+    /**
+     * TODO
+     */
+    public function queryBranches()
+    {
+        return $this->_rep->getBranchList();
+    }
+
+   /**
+     * Return the last Horde_Vcs_Log object in the file.
+     *
+     * @return Horde_Vcs_Log  Log object of the last entry in the file.
+     * @throws Horde_Vcs_Exception
+     */
+    public function queryLastLog()
+    {
+        if (empty($this->_branch)) {
+            return parent::queryLastLog();
+        }
+
+        $rev = reset($this->_revlist[$this->_branch]);
+        if (!is_null($rev)) {
+            if (isset($this->_logs[$rev])) {
+                return $this->_logs[$rev];
+            }
+        }
+
+        throw new Horde_Vcs_Exception('No revisions');
     }
 
 }
