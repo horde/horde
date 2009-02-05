@@ -8,7 +8,7 @@
  * @subpackage UnitTests
  */
 
-class Horde_Argv_TestBase extends PHPUnit_Framework_TestCase
+class Horde_Argv_TestCase extends PHPUnit_Framework_TestCase
 {
     public function makeOption()
     {

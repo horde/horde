@@ -11,7 +11,7 @@
 /**
  * Conflicting default values: the last one should win.
  */
-class Horde_Argv_ConflictingDefaultsTest extends Horde_Argv_TestBase
+class Horde_Argv_ConflictingDefaultsTest extends Horde_Argv_TestCase
 {
     public function setUp()
     {

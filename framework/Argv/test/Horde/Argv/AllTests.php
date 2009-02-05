@@ -40,8 +40,8 @@ class Horde_Argv_AllTests {
         }
 
         // Test base classes and helper objects
-        require_once dirname(__FILE__) . '/TestBase.php';
-        require_once dirname(__FILE__) . '/ConflictTestBase.php';
+        require_once dirname(__FILE__) . '/TestCase.php';
+        require_once dirname(__FILE__) . '/ConflictTestCase.php';
         require_once dirname(__FILE__) . '/InterceptedException.php';
         require_once dirname(__FILE__) . '/InterceptingParser.php';
 

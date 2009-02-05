@@ -8,7 +8,7 @@
  * @subpackage UnitTests
  */
 
-class Horde_Argv_ProgNameTest extends Horde_Argv_TestBase
+class Horde_Argv_ProgNameTest extends Horde_Argv_TestCase
 {
     public function assertUsage($parser, $expectedUsage)
     {

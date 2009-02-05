@@ -8,7 +8,7 @@
  * @subpackage UnitTests
  */
 
-class Horde_Argv_HelpTest extends Horde_Argv_TestBase
+class Horde_Argv_HelpTest extends Horde_Argv_TestCase
 {
 
     public static $expected_help_basic = 'Usage: bar.php [options]

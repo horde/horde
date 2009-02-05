@@ -8,7 +8,7 @@
  * @subpackage UnitTests
  */
 
-class Horde_Argv_ConflictResolveTest extends Horde_Argv_ConflictTestBase
+class Horde_Argv_ConflictResolveTest extends Horde_Argv_ConflictTestCase
 {
     public function setUp()
     {

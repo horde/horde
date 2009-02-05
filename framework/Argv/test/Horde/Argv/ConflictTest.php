@@ -8,7 +8,7 @@
  * @subpackage UnitTests
  */
 
-class Horde_Argv_ConflictTest extends Horde_Argv_ConflictTestBase
+class Horde_Argv_ConflictTest extends Horde_Argv_ConflictTestCase
 {
     public function assertConflictError($func)
     {
