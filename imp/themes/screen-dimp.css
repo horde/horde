@@ -380,7 +380,7 @@ div.msgSize img {
 #sidebarPanel li.folder a {
     display: inline;
 }
-#sidebarPanel .base, #sidebarPanel .col, #sidebarPanel .exp, #sidebarPanel .create, #sidebarPanel .drafts, #sidebarPanel .inbox, #sidebarPanel .sent, #sidebarPanel .spam, #sidebarPanel .trash {
+#sidebarPanel .base, #sidebarPanel .col, #sidebarPanel .exp, #sidebarPanel .create, #sidebarPanel .drafts, #sidebarPanel .inbox, #sidebarPanel .sent, #sidebarPanel .spam, #sidebarPanel .trash, #sidebarPanel .customimg {
     display: inline;
     float: left;
     width: 20px;

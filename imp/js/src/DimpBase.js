@@ -1886,7 +1886,7 @@ var DimpBase = {
 
         div = new Element('DIV', { className: ob.cl || 'base', id: fid + '_div' });
         if (ob.i) {
-            div.update(ob.i);
+            div.setStyle({ background-image: 'url("' + ob.i + '")' });
         }
         if (ob.ch) {
             div.writeAttribute({ className: 'exp' });

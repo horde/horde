@@ -421,8 +421,13 @@ class DIMP
         }
 
         if ($elt['user_icon']) {
-            $ob->cl = 'custom';
-            $ob->i = IMP::img($elt['icon'], $elt['alt'], '', $elt['icondir']);
+            $ob->cl = 'customimg';
+            $dir = empty($elt['icondir'])
+                ? $GLOBALS['registry']->getImageDir()
+                : $elt['icondir'];
+            $ob->i = empty($dir)
+                ? $elt['icon']
+                : $dir . '/' . $elt['icon'];
         }
 
         return $ob;
