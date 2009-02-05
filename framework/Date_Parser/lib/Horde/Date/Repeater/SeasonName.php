@@ -10,6 +10,12 @@ class Horde_Date_Repeater_SeasonName extends Horde_Date_Repeater_Season
     public $autumn = array('sep 23', 'dec 21');
     public $winter = array('dec 22', 'mar 19');
     public $spring = array('mar 20', 'jul 20');
+    public $type;
+
+    public function __construct($type)
+    {
+        $this->type = $type;
+    }
 
     public function next($pointer)
     {

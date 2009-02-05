@@ -39,18 +39,7 @@ class Horde_Date_Span
      */
     public function add($factor)
     {
-        $b = clone($this->begin);
-        $e = clone($this->end);
-        if (is_array($factor)) {
-            foreach ($factor as $property => $value) {
-                $b->$property += $value;
-                $e->$property += $value;
-            }
-        } else {
-            $b->sec += $factor;
-            $e->sec += $factor;
-        }
-        return new Horde_Date_Span($b, $e);
+        return new Horde_Date_Span($this->begin->add($factor), $this->end->add($factor));
     }
 
     /**
@@ -58,15 +47,7 @@ class Horde_Date_Span
      */
     public function sub($factor)
     {
-        if (is_array($factor)) {
-            foreach ($factor as &$value) {
-                $value *= -1;
-            }
-        } else {
-            $factor *= -1;
-        }
-
-        return $this->add($factor);
+        return new Horde_Date_Span($this->begin->sub($factor), $this->end->sub($factor));
     }
 
     public function __toString()

@@ -2,6 +2,7 @@
 class Horde_Date_Repeater_Time extends Horde_Date_Repeater
 {
     public $currentTime;
+    public $type;
 
     public function __construct($time, $options = array())
     {

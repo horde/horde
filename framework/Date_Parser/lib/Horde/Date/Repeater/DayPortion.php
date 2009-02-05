@@ -23,10 +23,11 @@ class Horde_Date_Repeater_DayPortion extends Horde_Date_Repeater
 
     public $range;
     public $currentSpan;
+    public $type;
 
     public function __construct($type)
     {
-        parent::__construct($type);
+        $this->type = $type;
 
         if (is_int($type)) {
             $this->range = array(($type * 3600), (($type + 12) * 3600));

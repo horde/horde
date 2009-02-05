@@ -6,6 +6,8 @@
  */
 abstract class Horde_Date_Repeater
 {
+    public $now;
+
     /**
      * returns the width (in seconds or months) of this repeatable.
      */

@@ -2,6 +2,12 @@
 class Horde_Date_Repeater_MonthName extends Horde_Date_Repeater
 {
     public $currentMonthStart;
+    public $type;
+
+    public function __construct($type)
+    {
+        $this->type = $type;
+    }
 
     public function next($pointer)
     {

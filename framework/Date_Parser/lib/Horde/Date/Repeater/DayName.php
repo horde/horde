@@ -5,6 +5,12 @@ class Horde_Date_Repeater_DayName extends Horde_Date_Repeater
     const DAY_SECONDS = 86400;
 
     public $currentDayStart;
+    public $type;
+
+    public function __construct($type)
+    {
+        $this->type = $type;
+    }
 
     public function next($pointer)
     {
@@ -15,7 +21,7 @@ class Horde_Date_Repeater_DayName extends Horde_Date_Repeater
         if (!$this->currentDayStart) {
             $this->currentDayStart = new Horde_Date(array('year' => $this->now->year, 'month' => $this->now->month, 'day' => $this->now->day + $direction));
 
-            $dayNum = $this->type;
+            $dayNum = $this->_dayNumber($this->type);
             while ($this->currentDayStart->dayOfWeek() != $dayNum) {
                 $this->currentDayStart->day += $direction;
             }
@@ -45,16 +51,24 @@ class Horde_Date_Repeater_DayName extends Horde_Date_Repeater
 
     public function __toString()
     {
-        $dayStrings = array(
-            Horde_Date::DATE_MONDAY => 'monday',
-            Horde_Date::DATE_TUESDAY => 'tuesday',
-            Horde_Date::DATE_WEDNESDAY => 'wednesday',
-            Horde_Date::DATE_THURSDAY => 'thursday',
-            Horde_Date::DATE_FRIDAY => 'friday',
-            Horde_Date::DATE_SATURDAY => 'saturday',
-            Horde_Date::DATE_SUNDAY => 'sunday',
+        return parent::__toString() . '-dayname-' . $this->type;
+    }
+
+    protected function _dayNumber($dayName)
+    {
+        $days = array(
+            'monday' => Horde_Date::DATE_MONDAY,
+            'tuesday' => Horde_Date::DATE_TUESDAY,
+            'wednesday' => Horde_Date::DATE_WEDNESDAY,
+            'thursday' => Horde_Date::DATE_THURSDAY,
+            'friday' => Horde_Date::DATE_FRIDAY,
+            'saturday' => Horde_Date::DATE_SATURDAY,
+            'sunday' => Horde_Date::DATE_SUNDAY,
         );
-        return parent::__toString() . '-dayname-' . $dayStrings[$this->type];
+        if (!isset($days[$dayName])) {
+            throw new InvalidArgumentException('Invalid day name "' . $dayName . '"');
+        }
+        return $days[$dayName];
     }
 
 }
