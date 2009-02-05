@@ -20,7 +20,7 @@ function _importKeyDialog($target)
     $t->setOption('gettext', true);
     $t->set('selfurl', Horde::applicationUrl('smime.php'));
     $t->set('broken_mp_form', $GLOBALS['browser']->hasQuirk('broken_multipart_form'));
-    $t->set('reload', htmlspecialchars(Util::getFormData('reload')));
+    $t->set('reload', htmlspecialchars(html_entity_decode(Util::getFormData('reload'))));
     $t->set('target', $target);
     $t->set('forminput', Util::formInput());
     $t->set('import_public_key', $target == 'process_import_public_key');
@@ -54,7 +54,7 @@ function _actionWindow()
 
 function _reloadWindow()
 {
-    Util::closeWindowJS('opener.focus();opener.location.href="' . htmlspecialchars(Util::getFormData('reload')) . '";');
+    Util::closeWindowJS('opener.focus();opener.location.href="' . htmlspecialchars(html_entity_decode(Util::getFormData('reload'))) . '";');
 }
 
 function _textWindowOutput($filename, $msg, $html = false)
