@@ -1238,7 +1238,7 @@ var DimpBase = {
             case Event.KEY_RETURN:
                 // Catch returns in RedBox
                 if (form.readAttribute('id') == 'RB_folder') {
-                    this.cfolderaction();
+                    this.cfolderaction(e);
                     e.stop();
                 }
                 break;
@@ -1372,7 +1372,7 @@ var DimpBase = {
                 break;
 
             case 'RB_Folder_ok':
-                this.cfolderaction();
+                this.cfolderaction(e);
                 e.stop();
                 return;
 
@@ -1648,16 +1648,16 @@ var DimpBase = {
     /* Handle insert folder actions. */
     createBaseFolder: function()
     {
-        this._createFolderForm(function(e) { this._folderAction('', e, 'create'); return false; }.bindAsEventListener(this), DIMP.text.create_prompt);
+        this._createFolderForm(function(e) { this._folderAction('', e, 'create'); }.bindAsEventListener(this), DIMP.text.create_prompt);
     },
 
     createSubFolder: function(folder)
     {
         if (Object.isUndefined(folder)) {
-            return false;
+            return;
         }
 
-        this._createFolderForm(function(e) { this._folderAction($(folder), e, 'createsub'); return false; }.bindAsEventListener(this), DIMP.text.createsub_prompt);
+        this._createFolderForm(function(e) { this._folderAction($(folder), e, 'createsub'); }.bindAsEventListener(this), DIMP.text.createsub_prompt);
     },
 
     _createFolderForm: function(action, text)
