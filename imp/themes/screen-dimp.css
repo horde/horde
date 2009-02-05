@@ -669,10 +669,10 @@ div.dimpActionsCompose a.popdown {
 /* Message Composition. */
 .composeAddrbook {
     cursor: pointer;
-    font-weight: bold;
+    text-decoration: underline;
 }
 .composeAddrbook:hover {
-    text-decoration: underline;
+    font-weight: bold;
 }
 
 .msgwrite {
