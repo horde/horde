@@ -12,50 +12,37 @@
  */
 class Horde_Date_Repeater_DayNameTest extends PHPUnit_Framework_TestCase
 {
-  def setup
-    @now = Time.local(2006, 8, 16, 14, 0, 0, 0)
-  end
+    public function setUp()
+    {
+        $this->now = new Horde_Date('2006-08-16 14:00:00');
+    }
 
-  def test_match
-    token = Chronic::Token.new('saturday')
-    repeater = Chronic::Repeater.scan_for_day_names(token)
-    assert_equal Chronic::RepeaterDayName, repeater.class
-    assert_equal :saturday, repeater.type
+    public function testNextFuture()
+    {
+        $mondays = new Horde_Date_Repeater_DayName('monday');
+        $mondays->now = $this->now;
 
-    token = Chronic::Token.new('sunday')
-    repeater = Chronic::Repeater.scan_for_day_names(token)
-    assert_equal Chronic::RepeaterDayName, repeater.class
-    assert_equal :sunday, repeater.type
-  end
+        $span = $mondays->next('future');
+        $this->assertEquals('2006-08-21', $span->begin->format('Y-m-d'));
+        $this->assertEquals('2006-08-22', $span->end->format('Y-m-d'));
 
-  def test_next_future
-    mondays = Chronic::RepeaterDayName.new(:monday)
-    mondays.start = @now
+        $span = $mondays->next('future');
+        $this->assertEquals('2006-08-28', $span->begin->format('Y-m-d'));
+        $this->assertEquals('2006-08-29', $span->end->format('Y-m-d'));
+    }
 
-    span = mondays.next(:future)
+    public function testNextPast()
+    {
+        $mondays = new Horde_Date_Repeater_DayName('monday');
+        $mondays->now = $this->now;
 
-    assert_equal Time.local(2006, 8, 21), span.begin
-    assert_equal Time.local(2006, 8, 22), span.end
+        $span = $mondays->next('past');
+        $this->assertEquals('2006-08-14', $span->begin->format('Y-m-d'));
+        $this->assertEquals('2006-08-15', $span->end->format('Y-m-d'));
 
-    span = mondays.next(:future)
+        $span = $mondays->next('past');
+        $this->assertEquals('2006-08-07', $span->begin->format('Y-m-d'));
+        $this->assertEquals('2006-08-08', $span->end->format('Y-m-d'));
+    }
 
-    assert_equal Time.local(2006, 8, 28), span.begin
-    assert_equal Time.local(2006, 8, 29), span.end
-  end
-
-  def test_next_past
-    mondays = Chronic::RepeaterDayName.new(:monday)
-    mondays.start = @now
-
-    span = mondays.next(:past)
-
-    assert_equal Time.local(2006, 8, 14), span.begin
-    assert_equal Time.local(2006, 8, 15), span.end
-
-    span = mondays.next(:past)
-
-    assert_equal Time.local(2006, 8, 7), span.begin
-    assert_equal Time.local(2006, 8, 8), span.end
-  end
-
-end
+}

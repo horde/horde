@@ -12,10 +12,11 @@
  */
 class Horde_Date_Repeater_WeekTest extends PHPUnit_Framework_TestCase
 {
-  def setup
-    @now = Time.local(2006, 8, 16, 14, 0, 0, 0)
-  end
-
+    public function setUp()
+    {
+        $this->now = new Horde_Date('2006-08-16 14:00:00');
+    }
+    /*
   def test_next_future
     weeks = Chronic::RepeaterWeek.new(:week)
     weeks.start = @now
@@ -68,5 +69,6 @@ class Horde_Date_Repeater_WeekTest extends PHPUnit_Framework_TestCase
     assert_equal Time.local(2006, 9, 6, 14), offset_span.begin
     assert_equal Time.local(2006, 9, 6, 14, 0, 1), offset_span.end
   end
+    */
 
-end
+}

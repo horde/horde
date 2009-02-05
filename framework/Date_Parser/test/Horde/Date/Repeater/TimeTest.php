@@ -12,11 +12,11 @@
  */
 class Horde_Date_Repeater_TimeTest extends PHPUnit_Framework_TestCase
 {
-  def setup
-    # Wed Aug 16 14:00:00 2006
-    @now = Time.local(2006, 8, 16, 14, 0, 0, 0)
-  end
-
+    public function setUp()
+    {
+        $this->now = new Horde_Date('2006-08-16 14:00:00');
+    }
+    /*
   def test_next_future
     t = Chronic::RepeaterTime.new('4:00')
     t.start = @now
@@ -76,6 +76,6 @@ class Horde_Date_Repeater_TimeTest extends PHPUnit_Framework_TestCase
     t1 = Chronic::RepeaterTime.new('400')
     assert_equal 14_400, t1.type.time
   end
+    */
 
-
-end
+}

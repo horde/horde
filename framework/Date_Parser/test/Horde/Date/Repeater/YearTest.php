@@ -12,61 +12,65 @@
  */
 class Horde_Date_Repeater_YearTest extends PHPUnit_Framework_TestCase
 {
-  def setup
-    @now = Time.local(2006, 8, 16, 14, 0, 0, 0)
-  end
+    public function setUp()
+    {
+        $this->now = new Horde_Date('2006-08-16 14:00:00');
+    }
 
-  def test_next_future
-    years = Chronic::RepeaterYear.new(:year)
-    years.start = @now
+    public function testNextFuture()
+    {
+        $years = new Horde_Date_Repeater_Year();
+        $years->now = $this->now;
 
-    next_year = years.next(:future)
-    assert_equal Time.local(2007, 1, 1), next_year.begin
-    assert_equal Time.local(2008, 1, 1), next_year.end
+        $nextYear = $years->next('future');
+        $this->assertEquals('2007-01-01', $nextYear->begin->format('Y-m-d'));
+        $this->assertEquals('2008-01-01', $nextYear->end->format('Y-m-d'));
 
-    next_next_year = years.next(:future)
-    assert_equal Time.local(2008, 1, 1), next_next_year.begin
-    assert_equal Time.local(2009, 1, 1), next_next_year.end
-  end
+        $nextNextYear = $years->next('future');
+        $this->assertEquals('2008-01-01', $nextNextYear->begin->format('Y-m-d'));
+        $this->assertEquals('2009-01-01', $nextNextYear->end->format('Y-m-d'));
+    }
 
-  def test_next_past
-    years = Chronic::RepeaterYear.new(:year)
-    years.start = @now
+    public function testNextPast()
+    {
+        $years = new Horde_Date_Repeater_Year();
+        $years->now = $this->now;
 
-    last_year = years.next(:past)
-    assert_equal Time.local(2005, 1, 1), last_year.begin
-    assert_equal Time.local(2006, 1, 1), last_year.end
+        $lastYear = $years->next('past');
+        $this->assertEquals('2005-01-01', $lastYear->begin->format('Y-m-d'));
+        $this->assertEquals('2006-01-01', $lastYear->end->format('Y-m-d'));
 
-    last_last_year = years.next(:past)
-    assert_equal Time.local(2004, 1, 1), last_last_year.begin
-    assert_equal Time.local(2005, 1, 1), last_last_year.end
-  end
+        $lastLastYear = $years->last('future');
+        $this->assertEquals('2004-01-01', $lastLastYear->begin->format('Y-m-d'));
+        $this->assertEquals('2005-01-01', $lastLastYear->end->format('Y-m-d'));
+    }
 
-  def test_this
-    years = Chronic::RepeaterYear.new(:year)
-    years.start = @now
+    public function testThis()
+    {
+        $years = new Horde_Date_Repeater_Year();
+        $years->now = $this->now;
 
-    this_year = years.this(:future)
-    assert_equal Time.local(2006, 8, 17), this_year.begin
-    assert_equal Time.local(2007, 1, 1), this_year.end
+        $thisYear = $years->this('future');
+        $this->assertEquals('2006-08-17', $thisYear->begin->format('Y-m-d'));
+        $this->assertEquals('2007-01-01', $thisYear->end->format('Y-m-d'));
 
-    this_year = years.this(:past)
-    assert_equal Time.local(2006, 1, 1), this_year.begin
-    assert_equal Time.local(2006, 8, 16), this_year.end
-  end
+        $thisYear = $years->this('past');
+        $this->assertEquals('2006-01-01', $thisYear->begin->format('Y-m-d'));
+        $this->assertEquals('2006-08-16', $thisYear->end->format('Y-m-d'));
+    }
 
-  def test_offset
-    span = Chronic::Span.new(@now, @now + 1)
+    public function testOffset()
+    {
+        $span = new Horde_Date_Span($this->now, $this->now->add(1));
+        $years = new Horde_Date_Repeater_Year();
 
-    offset_span = Chronic::RepeaterYear.new(:year).offset(span, 3, :future)
+        $offsetSpan = $years->offset($span, 3, 'future');
+        $this->assertEquals('2009-08-16 14:00:00', (string)$offsetSpan->begin);
+        $this->assertEquals('2009-08-16 14:00:01', (string)$offsetSpan->end);
 
-    assert_equal Time.local(2009, 8, 16, 14), offset_span.begin
-    assert_equal Time.local(2009, 8, 16, 14, 0, 1), offset_span.end
+        $offsetSpan = $years->offset($span, 10, 'past');
+        $this->assertEquals('1996-08-16 14:00:00', (string)$offsetSpan->begin);
+        $this->assertEquals('1996-08-16 14:00:01', (string)$offsetSpan->end);
+    }
 
-    offset_span = Chronic::RepeaterYear.new(:year).offset(span, 10, :past)
-
-    assert_equal Time.local(1996, 8, 16, 14), offset_span.begin
-    assert_equal Time.local(1996, 8, 16, 14, 0, 1), offset_span.end
-  end
-
-end
+}

@@ -12,63 +12,65 @@
  */
 class Horde_Date_Repeater_HourTest extends PHPUnit_Framework_TestCase
 {
-  def setup
-    @now = Time.local(2006, 8, 16, 14, 0, 0, 0)
-  end
+    public function setUp()
+    {
+        $this->now = new Horde_Date('2006-08-16 14:00:00');
+    }
 
-  def test_next_future
-    hours = Chronic::RepeaterHour.new(:hour)
-    hours.start = @now
+    public function testNextFuture()
+    {
+        $hours = new Horde_Date_Repeater_Hour();
+        $hours->now = $this->now;
 
-    next_hour = hours.next(:future)
-    assert_equal Time.local(2006, 8, 16, 15), next_hour.begin
-    assert_equal Time.local(2006, 8, 16, 16), next_hour.end
+        $nextHour = $hours->next('future');
+        $this->assertEquals('2006-08-16 15:00:00', (string)$nextHour->begin);
+        $this->assertEquals('2006-08-16 16:00:00', (string)$nextHour->end);
 
-    next_next_hour = hours.next(:future)
-    assert_equal Time.local(2006, 8, 16, 16), next_next_hour.begin
-    assert_equal Time.local(2006, 8, 16, 17), next_next_hour.end
-  end
+        $nextNextHour = $hours->next('future');
+        $this->assertEquals('2006-08-16 16:00:00', (string)$nextNextHour->begin);
+        $this->assertEquals('2006-08-16 17:00:00', (string)$nextNextHour->end);
+    }
 
-  def test_next_past
-    hours = Chronic::RepeaterHour.new(:hour)
-    hours.start = @now
+    public function testNextPast()
+    {
+        $hours = new Horde_Date_Repeater_Hour();
+        $hours->now = $this->now;
 
-    past_hour = hours.next(:past)
-    assert_equal Time.local(2006, 8, 16, 13), past_hour.begin
-    assert_equal Time.local(2006, 8, 16, 14), past_hour.end
+        $pastHour = $hours->next('past');
+        $this->assertEquals('2006-08-16 13:00:00', (string)$pastHour->begin);
+        $this->assertEquals('2006-08-16 14:00:00', (string)$pastHour->end);
 
-    past_past_hour = hours.next(:past)
-    assert_equal Time.local(2006, 8, 16, 12), past_past_hour.begin
-    assert_equal Time.local(2006, 8, 16, 13), past_past_hour.end
-  end
+        $pastPastHour = $hours->next('past');
+        $this->assertEquals('2006-08-16 12:00:00', (string)$pastPastHour->begin);
+        $this->assertEquals('2006-08-16 13:00:00', (string)$pastPastHour->end);
+    }
 
-  def test_this
-    @now = Time.local(2006, 8, 16, 14, 30)
+    public function testThis()
+    {
+        $hours = new Horde_Date_Repeater_Hour();
+        $hours->now = new Horde_Date('2006-08-16 14:30:00');
 
-    hours = Chronic::RepeaterHour.new(:hour)
-    hours.start = @now
+        $thisHour = $hours->this('future');
+        $this->assertEquals('2006-08-16 14:31:00', (string)$thisHour->begin);
+        $this->assertEquals('2006-08-16 15:00:00', (string)$thisHour->end);
 
-    this_hour = hours.this(:future)
-    assert_equal Time.local(2006, 8, 16, 14, 31), this_hour.begin
-    assert_equal Time.local(2006, 8, 16, 15), this_hour.end
+        $thisHour = $hours->this('past');
+        $this->assertEquals('2006-08-16 14:00:00', (string)$thisHour->begin);
+        $this->assertEquals('2006-08-16 14:30:00', (string)$thisHour->end);
+    }
 
-    this_hour = hours.this(:past)
-    assert_equal Time.local(2006, 8, 16, 14), this_hour.begin
-    assert_equal Time.local(2006, 8, 16, 14, 30), this_hour.end
-  end
+    public function testOffset()
+    {
+        $span = new Horde_Date_Span($this->now, $this->now->add(1));
+        $hours = new Horde_Date_Repeater_Hour();
 
-  def test_offset
-    span = Chronic::Span.new(@now, @now + 1)
+        $offsetSpan = $hours->offset($span, 3, 'future');
+        $this->assertEquals('2006-08-16 16:00:00', (string)$offsetSpan->begin);
+        $this->assertEquals('2006-08-16 17:00:00', (string)$offsetSpan->end);
 
-    offset_span = Chronic::RepeaterHour.new(:hour).offset(span, 3, :future)
+        $offsetSpan = $hours->offset($span, 24, 'past');
+        $this->assertEquals('2006-08-15 14:00:00', (string)$offsetSpan->begin);
+        $this->assertEquals('2006-08-15 14:00:01', (string)$offsetSpan->end);
+    }
 
-    assert_equal Time.local(2006, 8, 16, 17), offset_span.begin
-    assert_equal Time.local(2006, 8, 16, 17, 0, 1), offset_span.end
-
-    offset_span = Chronic::RepeaterHour.new(:hour).offset(span, 24, :past)
-
-    assert_equal Time.local(2006, 8, 15, 14), offset_span.begin
-    assert_equal Time.local(2006, 8, 15, 14, 0, 1), offset_span.end
-  end
-
-end
+}
