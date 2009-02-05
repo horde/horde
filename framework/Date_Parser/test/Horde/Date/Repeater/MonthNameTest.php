@@ -16,52 +16,52 @@ class Horde_Date_Repeater_MonthNameTest extends PHPUnit_Framework_TestCase
     {
         $this->now = new Horde_Date('2006-08-16 14:00:00');
     }
-    /*
-  def test_next
-    # future
 
-    mays = Chronic::RepeaterMonthName.new(:may)
-    mays.start = @now
+    public function testNextFuture()
+    {
+        $mays = new Horde_Date_Repeater_MonthName('may');
+        $mays->now = $this->now;
 
-    next_may = mays.next(:future)
-    assert_equal Time.local(2007, 5), next_may.begin
-    assert_equal Time.local(2007, 6), next_may.end
+        $nextMay = $mays->next('future');
+        $this->assertEquals('2007-05-01 00:00:00', (string)$nextMay->begin);
+        $this->assertEquals('2007-06-01 00:00:00', (string)$nextMay->end);
 
-    next_next_may = mays.next(:future)
-    assert_equal Time.local(2008, 5), next_next_may.begin
-    assert_equal Time.local(2008, 6), next_next_may.end
+        $nextNextMay = $mays->next('future');
+        $this->assertEquals('2008-05-01 00:00:00', (string)$nextNextMay->begin);
+        $this->assertEquals('2008-06-01 00:00:00', (string)$nextNextMay->end);
 
-    decembers = Chronic::RepeaterMonthName.new(:december)
-    decembers.start = @now
+        $decembers = new Horde_Date_Repeater_MonthName('december');
+        $decembers->now = $this->now;
 
-    next_december = decembers.next(:future)
-    assert_equal Time.local(2006, 12), next_december.begin
-    assert_equal Time.local(2007, 1), next_december.end
+        $nextDecember = $decembers->next('future');
+        $this->assertEquals('2006-12-01 00:00:00', (string)$nextDecember->begin);
+        $this->assertEquals('2007-01-01 00:00:00', (string)$nextDecember->end);
+    }
 
-    # past
+    public function testNextPast()
+    {
+        $mays = new Horde_Date_Repeater_MonthName('may');
+        $mays->now = $this->now;
 
-    mays = Chronic::RepeaterMonthName.new(:may)
-    mays.start = @now
+        $this->assertEquals('2006-05-01 00:00:00', (string)$mays->next('past')->begin);
+        $this->assertEquals('2005-05-01 00:00:00', (string)$mays->next('past')->begin);
+    }
 
-    assert_equal Time.local(2006, 5), mays.next(:past).begin
-    assert_equal Time.local(2005, 5), mays.next(:past).begin
-  end
+    public function testThis()
+    {
+        $octobers = new Horde_Date_Repeater_MonthName('october');
+        $octobers->now = $this->now;
 
-  def test_this
-    octobers = Chronic::RepeaterMonthName.new(:october)
-    octobers.start = @now
+        $thisOctober = $octobers->this('future');
+        $this->assertEquals('2006-10-01 00:00:00', (string)$thisOctober->begin);
+        $this->assertEquals('2006-11-01 00:00:00', (string)$thisOctober->end);
 
-    this_october = octobers.this(:future)
-    assert_equal Time.local(2006, 10, 1), this_october.begin
-    assert_equal Time.local(2006, 11, 1), this_october.end
+        $aprils = new Horde_Date_Repeater_MonthName('april');
+        $aprils->now = $this->now;
 
-    aprils = Chronic::RepeaterMonthName.new(:april)
-    aprils.start = @now
-
-    this_april = aprils.this(:past)
-    assert_equal Time.local(2006, 4, 1), this_april.begin
-    assert_equal Time.local(2006, 5, 1), this_april.end
-  end
-    */
+        $thisApril = $aprils->this('past');
+        $this->assertEquals('2006-04-01 00:00:00', (string)$thisApril->begin);
+        $this->assertEquals('2006-05-01 00:00:00', (string)$thisApril->end);
+    }
 
 }
