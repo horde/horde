@@ -16,3 +16,7 @@ div.composebody {
 #newmail {
     border-width: 1px;
 }
+
+span.spellcheckPopdownImg {
+    background-image: url("graphics/popdown.png");
+}

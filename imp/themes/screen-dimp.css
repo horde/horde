@@ -519,19 +519,19 @@ div.msgSize img {
     padding-left: 4px;
     padding-right: 4px;
 }
-.dimpActions .disabled img, .dimpActions .disabled span.popdownImg {
+.dimpActions .disabled img, .dimpActions .disabled span.popdownImg, .dimpActions .disabled span.spellcheckPopdownImg {
     filter: alpha(opacity=25);
     -moz-opacity: .25;
     opacity: .25;
 }
-.dimpActions .popdown:hover {
+.dimpActions span.popdown:hover, .dimpActions span.spellcheckPopdownImg:hover {
     border-left: 1px solid #fff;
     border-top: 1px solid #fff;
     border-right: 1px solid #000;
     border-bottom: 1px solid #000;
     margin: -1px;
 }
-.dimpActions .disabled .popdown:hover {
+.dimpActions .disabled span.popdown:hover, .dimpActions .disabled span.spellcheckPopdownImg {
     border: 0;
     cursor: default;
     padding-left: 2px;
@@ -543,9 +543,6 @@ div.msgSize img {
 
 div.dimpActionsCompose, div.dimpActionsMsg {
     border-bottom: 1px solid #999;
-}
-div.dimpActionsCompose a.popdown {
-    margin-right: 4px;
 }
 
 #previewPane {
@@ -1037,7 +1034,7 @@ a.address:hover img {
 }
 
 /* Images */
-span.iconImg, span.contextImg {
+span.iconImg, span.contextImg, span.spellcheckPopdownImg {
     display: inline-block;
     height: 16px;
     width: 16px;
@@ -1126,7 +1123,7 @@ span.blacklistImg {
 span.whitelistImg {
     background-image: url("graphics/whitelist.png");
 }
-span.popdownImg {
+span.popdownImg, span.spellcheckPopdownImg {
     background-image: url("graphics/popdown.png");
     margin-right: 0px;
 }

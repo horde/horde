@@ -47,7 +47,7 @@ var SpellChecker = Class.create({
 
             this.localeChoices = new KeyNavList(d, { onChoose: this.setLocale.bindAsEventListener(this) });
 
-            popdown = new Element('A', { className: 'popdown' }).insert('&nbsp;').observe('click', function() {
+            popdown = new Element('SPAN', { className: 'spellcheckPopdownImg' }).observe('click', function() {
                 $('spellcheckpopdown').clonePosition(this.statusButton, {
                     setHeight: false,
                     setWidth: false,

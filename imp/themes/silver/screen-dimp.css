@@ -161,6 +161,6 @@ span.blacklistImg {
 span.whitelistImg {
     background-image: url("graphics/whitelist.png");
 }
-span.popdownImg {
+span.popdownImg, span.spellcheckPopdownImg {
     background-image: url("graphics/popdown.png");
 }

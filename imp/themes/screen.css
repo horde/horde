@@ -313,19 +313,21 @@ tr.deleted:hover, tr.deleted-over {
 }
 
 /* Popdown styles. */
-a.popdown {
+span.spellcheckPopdownImg {
     cursor: pointer;
     background: url("graphics/popdown.png") no-repeat center center;
-    padding-left: 6px;
-    padding-right: 6px;
+    display: inline-block;
+    height: 16px;
+    width: 16px;
+    vertical-align: top;
+    margin-left: 3px;
 }
-a.popdown:hover {
-    padding-left: 5px;
-    padding-right: 5px;
+span.spellcheckPopdownImg:hover {
     border-left: 1px solid #fff;
     border-top: 1px solid #fff;
     border-right: 1px solid #000;
     border-bottom: 1px solid #000;
+    margin: -1px -1px -1px 2px;
 }
 
 /* Other styles used in IMP. */
