@@ -55,8 +55,13 @@ foreach ($umap as $key => $val) {
     $url[$key] = Chora::url('browsedir', $where . '/', $arg);
 }
 
+if ($VC->hasFeature('branches')) {
+    $branches = $dir->getBranches();
+}
+
 /* Print out the directory header. */
 $printAllCols = count($fileList);
+$sortdirclass = $acts['sbt'] ? 'sortdown' : 'sortup';
 
 Horde::addScriptFile('prototype.js', 'horde', true);
 Horde::addScriptFile('tables.js', 'horde', true);
@@ -93,6 +98,7 @@ if ($fileList) {
             Chora::isRestricted($currFile->queryName())) {
             continue;
         }
+
         $lg = $currFile->queryLastLog();
         $realname = $currFile->queryName();
         $mimeType = Horde_Mime_Magic::filenameToMIME($realname);
@@ -100,7 +106,7 @@ if ($fileList) {
         $icon = Horde_Mime_Viewer::getIcon($mimeType);
 
         $author = Chora::showAuthorName($lg->queryAuthor());
-        $head = $currFile->queryHead();
+        $filerev = $lg->queryRevision();
         $date = $lg->queryDate();
         $log = $lg->queryLog();
         $attic = $currFile->isDeleted();

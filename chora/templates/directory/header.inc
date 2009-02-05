@@ -1,4 +1,23 @@
-<?php $sortdirclass = $acts['sbt'] ? 'sortdown' : 'sortup' ?>
+<?php if (count($branches) > 1): ?>
+<table class="options" cellspacing="0">
+ <tr>
+  <td>
+   <form method="get" action="browsedir.php">
+   <?php echo _("View Branch:") ?>
+    <?php echo Chora::formInputs() ?>
+    <input type="hidden" name="f" value="<?php echo htmlspecialchars(Util::getFormData('f')) ?>" />
+    <select name="rev" onchange="this.form.submit()">
+<?php foreach (array_map('htmlspecialchars', $branches) as $val): ?>
+     <option value="<?php echo $val ?>"<?php echo ($val == $rev) ? ' selected="selected"' : '' ?>><?php echo $val ?></option>
+<?php endforeach; ?>
+    </select>
+    <noscript><input class="button" type="submit" value="<?php echo _("View") ?>" /></noscript>
+   </form>
+  </td>
+ </tr>
+</table>
+<?php endif; ?>
+
 <table id="browse" cellspacing="0" class="browse sortable striped nowrap">
 <thead>
  <tr>
