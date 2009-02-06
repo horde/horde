@@ -1907,7 +1907,7 @@ var DimpBase = {
                 parent_e = $('specialfolders');
             } else {
                 parent_e = $(this.getSubFolderId(this.getFolderId(ob.pa)));
-                parent_e = (parent_e) ? parent_e.down('UL') : $('normalfolders');
+                parent_e = (parent_e) ? parent_e.down() : $('normalfolders');
             }
 
             ll = mbox.toLowerCase();
