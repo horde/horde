@@ -208,20 +208,28 @@ class Horde_Mime
 
         $text = '';
         foreach ($addresses as $addr) {
-            // Check for groups.
-            if (empty($addr['groupname'])) {
-                if (empty($addr['personal'])) {
+            $addrobs = empty($addr['groupname'])
+                ? array($addr)
+                : $addr['addresses'];
+            $addrlist = array();
+
+            foreach ($addrobs as $val) {
+                if (empty($val['personal'])) {
                     $personal = '';
                 } else {
-                    if (($addr['personal'][0] == '"') &&
-                        (substr($addr['personal'], -1) == '"')) {
-                        $addr['personal'] = stripslashes(substr($addr['personal'], 1, -1));
+                    if (($val['personal'][0] == '"') &&
+                        (substr($val['personal'], -1) == '"')) {
+                        $addr['personal'] = stripslashes(substr($val['personal'], 1, -1));
                     }
-                    $personal = self::encode($addr['personal'], $charset);
+                    $personal = self::encode($val['personal'], $charset);
                 }
-                $text .= Horde_Mime_Address::writeAddress($addr['mailbox'], $addr['host'], $personal) . ', ';
+                $addrlist[] = Horde_Mime_Address::writeAddress($val['mailbox'], $val['host'], $personal);
+            }
+
+            if (empty($addr['groupname'])) {
+                $text .= reset($addrlist) . ', ';
             } else {
-                $text .= Horde_Mime_Address::writeGroupAddress($addr['groupname'], $addr['addresses']) . ' ';
+                $text .= Horde_Mime_Address::writeGroupAddress($addr['groupname'], $addrlist) . ' ';
             }
         }
 
