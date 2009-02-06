@@ -31,7 +31,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>alpha</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Initial package.</notes>
+ <notes>* Add support for decoding IDN (RFC 3490) names (Request #5836).
+ * Initial package.</notes>
  <contents>
   <dir name="/">
    <dir name="lib">
@@ -134,6 +135,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
    </extension>
   </required>
   <optional>
+   <package>
+    <name>idn</name>
+    <channel>pecl.php.net</channel>
+   </package>
    <package>
     <name>Auth</name>
     <channel>pear.horde.org</channel>

@@ -1,7 +1,7 @@
 <?php
 /**
  * The Horde_Mime_Address:: class provides methods for dealing with email
- * address standards (RFC 822/2822/5322).
+ * address standards (RFC 822/2822/3490/5322).
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
@@ -20,11 +20,19 @@ class Horde_Mime_Address
      * @param string $mailbox   Mailbox name.
      * @param string $host      Domain name of mailbox's host.
      * @param string $personal  Personal name phrase.
+     * @param array $opts  Additional options:
+     * <pre>
+     * 'idn' - (boolean) Convert IDN domain names (Punycode/RFC 3490) into
+     *         the local charset.
+     *         Requires the PECL idn module.
+     *         DEFAULT: true
+     * </pre>
      *
      * @return string  The correctly escaped and quoted
      *                 "$personal <$mailbox@$host>" string.
      */
-    static public function writeAddress($mailbox, $host, $personal = '')
+    static public function writeAddress($mailbox, $host, $personal = '',
+                                        $opts = array())
     {
         $address = '';
 
@@ -32,7 +40,14 @@ class Horde_Mime_Address
             $address .= self::encode($personal, 'personal') . ' <';
         }
 
-        $address .= self::encode($mailbox, 'address') . '@' . ltrim($host, '@');
+        $host = ltrim($host, '@');
+        if ((!isset($opts['idn']) || !$opts['idn']) &&
+            (stripos($host, 'xn--') === 0) &&
+            Util::extensionExists('idn')) {
+            $host = String::convertCharset(idn_to_utf8($host), 'UTF-8');
+        }
+
+        $address .= self::encode($mailbox, 'address') . '@' . $host;
 
         if (strlen($personal)) {
             $address .= '>';
@@ -138,15 +153,22 @@ class Horde_Mime_Address
      * 'host' = The host the mailbox is on ("example.com")
      * </pre>
      *
-     * @param array $ob      The address object to be turned into a string.
-     * @param mixed $filter  A user@example.com style bare address to ignore.
-     *                       Either single string or an array of strings.  If
-     *                       the address matches $filter, an empty string will
-     *                       be returned.
+     * @param array $ob    The address object to be turned into a string.
+     * @param array $opts  Additional options:
+     * <pre>
+     * 'filter' - (mixed) A user@example.com style bare address to ignore.
+     *            Either single string or an array of strings. If the address
+     *            matches $filter, an empty string will be returned.
+     *            DEFAULT: No filter
+     * 'idn' - (boolean) Convert IDN domain names (Punycode/RFC 3490) into
+     *         the local charset.
+     *         Requires the PECL idn module.
+     *         DEFAULT: true
+     * </pre>
      *
      * @return string  The formatted address.
      */
-    static public function addrObject2String($ob, $filter = '')
+    static public function addrObject2String($ob, $opts = array())
     {
         /* If the personal name is set, decode it. */
         $ob['personal'] = isset($ob['personal'])
@@ -171,10 +193,10 @@ class Horde_Mime_Address
         }
 
         /* Filter out unwanted addresses based on the $filter string. */
-        if ($filter) {
-            if (!is_array($filter)) {
-                $filter = array($filter);
-            }
+        if (!empty($opts['filter'])) {
+            $filter = is_array($opts['filter'])
+                ? $opts['filter']
+                : array($opts['filter']);
             foreach ($filter as $f) {
                 if (strcasecmp($f, $ob['mailbox'] . '@' . $ob['host']) == 0) {
                     return '';
@@ -183,7 +205,7 @@ class Horde_Mime_Address
         }
 
         /* Return the formatted email address. */
-        return self::writeAddress($ob['mailbox'], $ob['host'], $ob['personal']);
+        return self::writeAddress($ob['mailbox'], $ob['host'], $ob['personal'], $opts);
     }
 
     /**
@@ -191,14 +213,21 @@ class Horde_Mime_Address
      * addrObject2String().
      *
      * @param array $addresses  The array of address objects.
-     * @param mixed $filter     A user@example.com style bare address to
-     *                          ignore. Either single string or an array of
-     *                          strings.
+     * @param array $opts       Additional options:
+     * <pre>
+     * 'filter' - (mixed) A user@example.com style bare address to ignore.
+     *            Either single string or an array of strings.
+     *            DEFAULT: No filter
+     * 'idn' - (boolean) Convert IDN domain names (Punycode/RFC 3490) into
+     *         the local charset.
+     *         Requires the PECL idn module.
+     *         DEFAULT: true
+     * </pre>
      *
      * @return string  All of the addresses in a comma-delimited string.
      *                 Returns the empty string on error/no addresses found.
      */
-    static public function addrArray2String($addresses, $filter = '')
+    static public function addrArray2String($addresses, $opts = array())
     {
         if (!is_array($addresses)) {
             return '';
@@ -207,7 +236,7 @@ class Horde_Mime_Address
         $addrList = array();
 
         foreach ($addresses as $addr) {
-            $val = self::addrObject2String($addr, $filter);
+            $val = self::addrObject2String($addr, $opts);
             if (!empty($val)) {
                 $addrList[String::lower(self::bareAddress($val))] = $val;
             }
@@ -219,9 +248,17 @@ class Horde_Mime_Address
     /**
      * Return the list of addresses for a header object.
      *
-     * @param array $obs     An array of header objects.
-     * @param mixed $filter  A user@example.com style bare address to ignore.
-     *                       Either single string or an array of strings.
+     * @param array $obs   An array of header objects.
+     * @param array $opts  Additional options:
+     * <pre>
+     * 'filter' - (mixed) A user@example.com style bare address to ignore.
+     *            Either single string or an array of strings.
+     *            DEFAULT: No filter
+     * 'idn' - (boolean) Convert IDN domain names (Punycode/RFC 3490) into
+     *         the local charset.
+     *         Requires the PECL idn module.
+     *         DEFAULT: true
+     * </pre>
      *
      * @return array  An array of address information. Array elements:
      * <pre>
@@ -233,7 +270,7 @@ class Horde_Mime_Address
      * 'personal' - (string) Personal string
      * </pre>
      */
-    static public function getAddressesFromObject($obs, $filter = '')
+    static public function getAddressesFromObject($obs, $opts = array())
     {
         $ret = array();
 
@@ -263,7 +300,8 @@ class Horde_Mime_Address
 
             $inner = self::writeAddress($ob['mailbox'], $ob['host']);
 
-            $addr_string = self::addrObject2String($ob, $filter);
+            $addr_string = self::addrObject2String($ob, $opts);
+
             if (!empty($addr_string)) {
                 /* Generate the new object. */
                 $ret[] = array(
@@ -404,4 +442,5 @@ class Horde_Mime_Address
             ? '"' . addcslashes($str, '\\"') . '"'
             : $str;
     }
+
 }
