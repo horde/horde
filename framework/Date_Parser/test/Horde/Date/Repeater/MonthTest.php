@@ -16,42 +16,25 @@ class Horde_Date_Repeater_MonthTest extends PHPUnit_Framework_TestCase
     {
         $this->now = new Horde_Date('2006-08-16 14:00:00');
     }
-    /*
-  def test_offset_by
-    # future
 
-    time = Chronic::RepeaterMonth.new(:month).offset_by(@now, 1, :future)
-    assert_equal Time.local(2006, 9, 16, 14), time
+    public function testOffsetFuture()
+    {
+        $span = new Horde_Date_Span($this->now, $this->now->add(60));
+        $repeater = new Horde_Date_Repeater_Month();
+        $offsetSpan = $repeater->offset($span, 1, 'future');
 
-    time = Chronic::RepeaterMonth.new(:month).offset_by(@now, 5, :future)
-    assert_equal Time.local(2007, 1, 16, 14), time
+        $this->assertEquals('2006-09-16 14:00:00', (string)$offsetSpan->begin);
+        $this->assertEquals('2006-09-16 14:01:00', (string)$offsetSpan->end);
+    }
 
-    # past
+    public function testOffsetPast()
+    {
+        $span = new Horde_Date_Span($this->now, $this->now->add(60));
+        $repeater = new Horde_Date_Repeater_Month();
+        $offsetSpan = $repeater->offset($span, 1, 'past');
 
-    time = Chronic::RepeaterMonth.new(:month).offset_by(@now, 1, :past)
-    assert_equal Time.local(2006, 7, 16, 14), time
-
-    time = Chronic::RepeaterMonth.new(:month).offset_by(@now, 10, :past)
-    assert_equal Time.local(2005, 10, 16, 14), time
-  end
-
-  def test_offset
-    # future
-
-    span = Chronic::Span.new(@now, @now + 60)
-    offset_span = Chronic::RepeaterMonth.new(:month).offset(span, 1, :future)
-
-    assert_equal Time.local(2006, 9, 16, 14), offset_span.begin
-    assert_equal Time.local(2006, 9, 16, 14, 1), offset_span.end
-
-   # past
-
-   span = Chronic::Span.new(@now, @now + 60)
-   offset_span = Chronic::RepeaterMonth.new(:month).offset(span, 1, :past)
-
-   assert_equal Time.local(2006, 7, 16, 14), offset_span.begin
-   assert_equal Time.local(2006, 7, 16, 14, 1), offset_span.end
-  end
-    */
+        $this->assertEquals('2006-07-16 14:00:00', (string)$offsetSpan->begin);
+        $this->assertEquals('2006-07-16 14:01:00', (string)$offsetSpan->end);
+    }
 
 }

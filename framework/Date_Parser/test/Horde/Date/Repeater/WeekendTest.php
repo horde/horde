@@ -16,70 +16,73 @@ class Horde_Date_Repeater_WeekendTest extends PHPUnit_Framework_TestCase
     {
         $this->now = new Horde_Date('2006-08-16 14:00:00');
     }
-    /*
-  def test_next_future
-    weekend = Chronic::RepeaterWeekend.new(:weekend)
-    weekend.start = @now
 
-    next_weekend = weekend.next(:future)
-    assert_equal Time.local(2006, 8, 19), next_weekend.begin
-    assert_equal Time.local(2006, 8, 21), next_weekend.end
-  end
+    public function testNextFuture()
+    {
+        $weekend = new Horde_Date_Repeater_Weekend();
+        $weekend->now = $this->now;
 
-  def test_next_past
-    weekend = Chronic::RepeaterWeekend.new(:weekend)
-    weekend.start = @now
+        $nextWeekend = $weekend->next('future');
+        $this->assertEquals('2006-08-19 00:00:00', (string)$nextWeekend->begin);
+        $this->assertEquals('2006-08-21 00:00:00', (string)$nextWeekend->end);
+    }
 
-    next_weekend = weekend.next(:past)
-    assert_equal Time.local(2006, 8, 12), next_weekend.begin
-    assert_equal Time.local(2006, 8, 14), next_weekend.end
-  end
+    public function testNextPast()
+    {
+        $weekend = new Horde_Date_Repeater_Weekend();
+        $weekend->now = $this->now;
 
-  def test_this_future
-    weekend = Chronic::RepeaterWeekend.new(:weekend)
-    weekend.start = @now
+        $lastWeekend = $weekend->next('past');
+        $this->assertEquals('2006-08-12 00:00:00', (string)$lastWeekend->begin);
+        $this->assertEquals('2006-08-14 00:00:00', (string)$lastWeekend->end);
+    }
 
-    next_weekend = weekend.this(:future)
-    assert_equal Time.local(2006, 8, 19), next_weekend.begin
-    assert_equal Time.local(2006, 8, 21), next_weekend.end
-  end
+    public function testThisFuture()
+    {
+        $weekend = new Horde_Date_Repeater_Weekend();
+        $weekend->now = $this->now;
 
-  def test_this_past
-    weekend = Chronic::RepeaterWeekend.new(:weekend)
-    weekend.start = @now
+        $thisWeekend = $weekend->this('future');
+        $this->assertEquals('2006-08-19 00:00:00', (string)$thisWeekend->begin);
+        $this->assertEquals('2006-08-21 00:00:00', (string)$thisWeekend->end);
+    }
 
-    next_weekend = weekend.this(:past)
-    assert_equal Time.local(2006, 8, 12), next_weekend.begin
-    assert_equal Time.local(2006, 8, 14), next_weekend.end
-  end
+    public function testThisPast()
+    {
+        $weekend = new Horde_Date_Repeater_Weekend();
+        $weekend->now = $this->now;
 
-  def test_this_none
-    weekend = Chronic::RepeaterWeekend.new(:weekend)
-    weekend.start = @now
+        $thisWeekend = $weekend->this('past');
+        $this->assertEquals('2006-08-12 00:00:00', (string)$thisWeekend->begin);
+        $this->assertEquals('2006-08-14 00:00:00', (string)$thisWeekend->end);
+    }
 
-    next_weekend = weekend.this(:future)
-    assert_equal Time.local(2006, 8, 19), next_weekend.begin
-    assert_equal Time.local(2006, 8, 21), next_weekend.end
-  end
+    public function testThisNone()
+    {
+        $weekend = new Horde_Date_Repeater_Weekend();
+        $weekend->now = $this->now;
 
-  def test_offset
-    span = Chronic::Span.new(@now, @now + 1)
+        $thisWeekend = $weekend->this('none');
+        $this->assertEquals('2006-08-19 00:00:00', (string)$thisWeekend->begin);
+        $this->assertEquals('2006-08-21 00:00:00', (string)$thisWeekend->end);
+    }
 
-    offset_span = Chronic::RepeaterWeekend.new(:weekend).offset(span, 3, :future)
+    public function testOffset()
+    {
+        $weekend = new Horde_Date_Repeater_Weekend();
+        $span = new Horde_Date_Span($this->now, $this->now->add(1));
 
-    assert_equal Time.local(2006, 9, 2), offset_span.begin
-    assert_equal Time.local(2006, 9, 2, 0, 0, 1), offset_span.end
+        $offsetSpan = $weekend->offset($span, 3, 'future');
+        $this->assertEquals('2006-09-02 00:00:00', (string)$offsetSpan->begin);
+        $this->assertEquals('2006-09-02 00:00:01', (string)$offsetSpan->end);
 
-    offset_span = Chronic::RepeaterWeekend.new(:weekend).offset(span, 1, :past)
+        $offsetSpan = $weekend->offset($span, 1, 'past');
+        $this->assertEquals('2006-08-12 00:00:00', (string)$offsetSpan->begin);
+        $this->assertEquals('2006-08-12 00:00:01', (string)$offsetSpan->end);
 
-    assert_equal Time.local(2006, 8, 12), offset_span.begin
-    assert_equal Time.local(2006, 8, 12, 0, 0, 1), offset_span.end
-
-    offset_span = Chronic::RepeaterWeekend.new(:weekend).offset(span, 0, :future)
-
-    assert_equal Time.local(2006, 8, 12), offset_span.begin
-    assert_equal Time.local(2006, 8, 12, 0, 0, 1), offset_span.end
-  end
-    */
+        $offsetSpan = $weekend->offset($span, 0, 'future');
+        $this->assertEquals('2006-08-12 00:00:00', (string)$offsetSpan->begin);
+        $this->assertEquals('2006-08-12 00:00:01', (string)$offsetSpan->end);
+    }
 
 }

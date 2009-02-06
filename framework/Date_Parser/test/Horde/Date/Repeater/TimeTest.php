@@ -16,66 +16,68 @@ class Horde_Date_Repeater_TimeTest extends PHPUnit_Framework_TestCase
     {
         $this->now = new Horde_Date('2006-08-16 14:00:00');
     }
-    /*
-  def test_next_future
-    t = Chronic::RepeaterTime.new('4:00')
-    t.start = @now
 
-    assert_equal Time.local(2006, 8, 16, 16), t.next(:future).begin
-    assert_equal Time.local(2006, 8, 17, 4), t.next(:future).begin
+    public function testNextFuture()
+    {
+        $t = new Horde_Date_Repeater_Time('4:00');
+        $t->now = $this->now;
 
-    t = Chronic::RepeaterTime.new('13:00')
-    t.start = @now
+        $this->assertEquals('2006-08-16 16:00:00', $t->next('future')->begin);
+        $this->assertEquals('2006-08-17 04:00:00', $t->next('future')->begin);
 
-    assert_equal Time.local(2006, 8, 17, 13), t.next(:future).begin
-    assert_equal Time.local(2006, 8, 18, 13), t.next(:future).begin
+        $t = new Horde_Date_Repeater_Time('13:00');
+        $t->now = $this->now;
 
-    t = Chronic::RepeaterTime.new('0400')
-    t.start = @now
+        $this->assertEquals('2006-08-17 13:00:00', $t->next('future')->begin);
+        $this->assertEquals('2006-08-18 13:00:00', $t->next('future')->begin);
 
-    assert_equal Time.local(2006, 8, 17, 4), t.next(:future).begin
-    assert_equal Time.local(2006, 8, 18, 4), t.next(:future).begin
-  end
+        $t = new Horde_Date_Repeater_Time('0400');
+        $t->now = $this->now;
 
-  def test_next_past
-    t = Chronic::RepeaterTime.new('4:00')
-    t.start = @now
+        $this->assertEquals('2006-08-17 04:00:00', $t->next('future')->begin);
+        $this->assertEquals('2006-08-18 04:00:00', $t->next('future')->begin);
+    }
 
-    assert_equal Time.local(2006, 8, 16, 4), t.next(:past).begin
-    assert_equal Time.local(2006, 8, 15, 16), t.next(:past).begin
+    public function testNextPast()
+    {
+        $t = new Horde_Date_Repeater_Time('4:00');
+        $t->now = $this->now;
 
-    t = Chronic::RepeaterTime.new('13:00')
-    t.start = @now
+        $this->assertEquals('2006-08-16 04:00:00', $t->next('past')->begin);
+        $this->assertEquals('2006-08-15 16:00:00', $t->next('past')->begin);
 
-    assert_equal Time.local(2006, 8, 16, 13), t.next(:past).begin
-    assert_equal Time.local(2006, 8, 15, 13), t.next(:past).begin
-  end
+        $t = new Horde_Date_Repeater_Time('13:00');
+        $t->now = $this->now;
 
-  def test_type
-    t1 = Chronic::RepeaterTime.new('4')
-    assert_equal 14_400, t1.type.time
+        $this->assertEquals('2006-08-16 13:00:00', $t->next('past')->begin);
+        $this->assertEquals('2006-08-15 13:00:00', $t->next('past')->begin);
+    }
 
-    t1 = Chronic::RepeaterTime.new('14')
-    assert_equal 50_400, t1.type.time
+    public function testType()
+    {
+        $t = new Horde_Date_Repeater_Time('4');
+        $this->assertEquals(14400, $t->type->time);
 
-    t1 = Chronic::RepeaterTime.new('4:00')
-    assert_equal 14_400, t1.type.time
+        $t = new Horde_Date_Repeater_Time('14');
+        $this->assertEquals(50400, $t->type->time);
 
-    t1 = Chronic::RepeaterTime.new('4:30')
-    assert_equal 16_200, t1.type.time
+        $t = new Horde_Date_Repeater_Time('4:00');
+        $this->assertEquals(14400, $t->type->time);
 
-    t1 = Chronic::RepeaterTime.new('1400')
-    assert_equal 50_400, t1.type.time
+        $t = new Horde_Date_Repeater_Time('4:30');
+        $this->assertEquals(16200, $t->type->time);
 
-    t1 = Chronic::RepeaterTime.new('0400')
-    assert_equal 14_400, t1.type.time
+        $t = new Horde_Date_Repeater_Time('1400');
+        $this->assertEquals(50400, $t->type->time);
 
-    t1 = Chronic::RepeaterTime.new('04')
-    assert_equal 14_400, t1.type.time
+        $t = new Horde_Date_Repeater_Time('0400');
+        $this->assertEquals(14400, $t->type->time);
 
-    t1 = Chronic::RepeaterTime.new('400')
-    assert_equal 14_400, t1.type.time
-  end
-    */
+        $t = new Horde_Date_Repeater_Time('04');
+        $this->assertEquals(14400, $t->type->time);
+
+        $t = new Horde_Date_Repeater_Time('400');
+        $this->assertEquals(14400, $t->type->time);
+    }
 
 }
