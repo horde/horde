@@ -19,6 +19,9 @@
 class IMP_Message
 {
     /**
+     * The singleton IMP_Message instance
+     *
+     * @var IMP_Message
      */
     protected static $_instance = null;
 
@@ -30,9 +33,9 @@ class IMP_Message
     protected $_usepop = false;
 
     /**
-     * Returns a reference to the global IMP_Message object, only creating it if
-     * it doesn't already exist. This ensures that only one IMP_Message instance
-     * is instantiated for any given session.
+     * Returns a reference to the global IMP_Message object, only creating it
+     * if it doesn't already exist. This ensures that only one IMP_Message
+     * instance is instantiated for any given session.
      *
      * @return IMP_Message  The IMP_Message instance.
      */
@@ -126,7 +129,7 @@ class IMP_Message
                 $GLOBALS['imp_imap']->ob->copy($mbox, $targetMbox, array('ids' => $msgIndices, 'move' => $imap_move));
 
                 $imp_mailbox = IMP_Mailbox::singleton($mbox);
-                if ($imp_mailbox->isBuilt()) {
+                if (($action == 'move') && $imp_mailbox->isBuilt()) {
                     $imp_mailbox->removeMsgs(array($mbox => $msgIndices));
                 }
             } catch (Horde_Imap_Client_Exception $e) {
