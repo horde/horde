@@ -358,8 +358,8 @@ ksort($full_headers);
  * stuff in the query string, so we need to do an add/remove of 'index'. */
 $selfURL = Util::removeParameter(Horde::selfUrl(true), array('index', 'actionID', 'mailbox', 'thismailbox'));
 $selfURL = IMP::generateIMPUrl($selfURL, $imp_mbox['mailbox'], $index, $mailbox_name);
-$selfURL = Util::addParameter($selfURL, 'message_token', $message_token);
-$headersURL = Util::removeParameter($selfURL, array('show_all_headers', 'show_list_headers'));
+$selfURL = html_entity_decode(Util::addParameter($selfURL, 'message_token', $message_token));
+$headersURL = htmlspecialchars(Util::removeParameter($selfURL, array('show_all_headers', 'show_list_headers')));
 
 /* Generate previous/next links. */
 $prev_msg = $imp_mailbox->getIMAPIndex(-1);
@@ -560,13 +560,13 @@ if (!IMP::$printMode) {
 
     $a_template->set('headers', Horde::widget('#', _("Headers"), 'widget hasmenu', '', '', _("Headers"), true));
     if ($all_headers || $list_headers) {
-        $a_template->set('common_headers', Horde::widget(htmlspecialchars($headersURL), _("Show Common Headers"), 'widget', '', '', _("Show Common Headers"), true));
+        $a_template->set('common_headers', Horde::widget($headersURL, _("Show Common Headers"), 'widget', '', '', _("Show Common Headers"), true));
     }
     if (!$all_headers) {
-        $a_template->set('all_headers', Horde::widget(htmlspecialchars(Util::addParameter($headersURL, 'show_all_headers', 1)), _("Show All Headers"), 'widget', '', '', _("Show All Headers"), true));
+        $a_template->set('all_headers', Horde::widget(Util::addParameter($headersURL, 'show_all_headers', 1), _("Show All Headers"), 'widget', '', '', _("Show All Headers"), true));
     }
     if ($list_info['exists'] && !$list_headers) {
-        $a_template->set('list_headers', Horde::widget(htmlspecialchars(Util::addParameter($headersURL, 'show_list_headers', 1)), _("Show Mailing List Information"), 'widget', '', '', _("Show Mailing List Information"), true));
+        $a_template->set('list_headers', Horde::widget(Util::addParameter($headersURL, 'show_list_headers', 1), _("Show Mailing List Information"), 'widget', '', '', _("Show Mailing List Information"), true));
     }
 }
 
@@ -676,10 +676,10 @@ if (!strlen($msgtext)) {
 if (!IMP::$printMode) {
     $a_template->set('atc', Horde::widget('#', _("Attachments"), 'widget hasmenu', '', '', _("Attachments"), true));
     if ($show_parts != 'all') {
-        $a_template->set('show_parts_all', Horde::widget(htmlspecialchars(Util::addParameter($headersURL, array('show_parts' => 'all'))), _("Show All Message Parts"), 'widget', '', '', _("Show All Message Parts"), true));
+        $a_template->set('show_parts_all', Horde::widget(Util::addParameter($headersURL, array('show_parts' => 'all')), _("Show All Message Parts"), 'widget', '', '', _("Show All Message Parts"), true));
     }
     if ($show_parts != 'atc') {
-        $a_template->set('show_parts_atc', Horde::widget(htmlspecialchars(Util::addParameter($headersURL, array('show_parts' => 'atc'))), _("Show Attachments Only"), 'widget', '', '', _("Show Attachments Only"), true));
+        $a_template->set('show_parts_atc', Horde::widget(Util::addParameter($headersURL, array('show_parts' => 'atc')), _("Show Attachments Only"), 'widget', '', '', _("Show Attachments Only"), true));
     }
     if (count($display_ids) > 2) {
         $a_template->set('download_all', Horde::widget($imp_contents->urlView($imp_contents->getMIMEMessage(), 'download_all'), _("Download All Attachments (in .zip file)"), 'widget', '', '', _("Download All Attachments (in .zip file)"), true));
