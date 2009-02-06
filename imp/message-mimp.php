@@ -324,7 +324,7 @@ if (empty($conf['hooks']['disable_compose']) ||
         $items[IMP::composeLink(array(), array('a' => 'rl') + $compose_params)] = _("Reply to List");
     }
 
-    if (Horde_Mime_Address::addrArray2String(array_merge($envelope['to'], $envelope['cc']), array_keys($user_identity->getAllFromAddresses(true)))) {
+    if (Horde_Mime_Address::addrArray2String(array_merge($envelope['to'], $envelope['cc']), array('filter' => array_keys($user_identity->getAllFromAddresses(true))))) {
         $items[IMP::composeLink(array(), array('a' => 'ra') + $compose_params)] = _("Reply All");
     }
 

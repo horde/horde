@@ -186,7 +186,7 @@ To function properly, IMP **requires** the following:
 
    a. idn [OPTIONAL]
 
-      idn is required in order to handle Internationalized Domain Names
+      idn is required to handle display of Internationalized Domain Names
       (see RFC 3490).
 
 5. At least one IMAP or POP3 server.

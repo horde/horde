@@ -1206,7 +1206,7 @@ class IMP_Compose
             foreach (array('reply-to', 'from', 'to', 'cc') as $val) {
                 $ob = $h->getOb($val);
                 if (!empty($ob)) {
-                    $addr_obs = Horde_Mime_Address::getAddressesFromObject($ob, $all_addrs);
+                    $addr_obs = Horde_Mime_Address::getAddressesFromObject($ob, array('filter' => $all_addrs));
                     if (!empty($addr_obs)) {
                         if (isset($addr_obs[0]['groupname'])) {
                             $cc_addrs = array_merge($cc_addrs, $addr_obs);
@@ -1239,7 +1239,7 @@ class IMP_Compose
             $header[empty($header['to']) ? 'to' : 'cc'] = rtrim(implode('', $hdr_cc), ' ,');
 
             /* Build the Bcc: header. */
-            $header['bcc'] = Horde_Mime_Address::addrArray2String($h->getOb('bcc') + $identity->getBccAddresses(), $all_addrs);
+            $header['bcc'] = Horde_Mime_Address::addrArray2String($h->getOb('bcc') + $identity->getBccAddresses(), array('filter' => $all_addrs));
             if ($actionID == '*') {
                 $all_headers['reply_all'] = $header;
             }

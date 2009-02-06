@@ -500,7 +500,7 @@ if (!IMP::$printMode) {
             $a_template->set('reply_list', Horde::widget(IMP::composeLink(array(), array('actionID' => 'reply_list') + $compose_params), _("To List"), 'widget', '', '', _("To _List"), true));
         }
 
-        if (Horde_Mime_Address::addrArray2String(array_merge($envelope['to'], $envelope['cc']), array_keys($user_identity->getAllFromAddresses(true)))) {
+        if (Horde_Mime_Address::addrArray2String(array_merge($envelope['to'], $envelope['cc']), array('filter' => array_keys($user_identity->getAllFromAddresses(true))))) {
             $a_template->set('show_reply_all', Horde::widget(IMP::composeLink(array(), array('actionID' => 'reply_all') + $compose_params), _("To All"), 'widget', '', '', _("To _All"), true));
         }
 

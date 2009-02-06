@@ -2,6 +2,7 @@
 v5.0-git
 --------
 
+[mms] Decode IDN (RFC 3490) names in addresses (Request #5836).
 [mms] Add ability to download attachments in MIMP (Request #2925).
 [mms] Revamp JS event handling model.
 [mms] ESC in DIMP search box now clears the search (Request #7196).
