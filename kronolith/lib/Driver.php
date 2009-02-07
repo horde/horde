@@ -769,7 +769,6 @@ class Kronolith_Event {
             if ($v1) {
                 $alarm = new Horde_Date($this->start);
                 $alarm->min -= $this->alarm;
-                $alarm->correct();
                 $vEvent->setAttribute('AALARM', $alarm);
             } else {
                 $vAlarm = &Horde_iCalendar::newComponent('valarm', $vEvent);
@@ -920,7 +919,6 @@ class Kronolith_Event {
                         array('year'  => (int)$this->end->year,
                               'month' => (int)$this->end->month,
                               'mday'  => (int)$this->end->mday + 1));
-                    $this->end->correct();
                 }
             } elseif (is_array($end) && !is_a($end, 'PEAR_Error')) {
                 // Date field
@@ -928,21 +926,18 @@ class Kronolith_Event {
                     array('year'  => (int)$end['year'],
                           'month' => (int)$end['month'],
                           'mday'  => (int)$end['mday']));
-                $this->end->correct();
             }
         } else {
             $duration = $vEvent->getAttribute('DURATION');
             if (!is_array($duration) && !is_a($duration, 'PEAR_Error')) {
                 $this->end = new Horde_Date($this->start);
                 $this->end->sec += $duration;
-                $this->end->correct();
             } else {
                 // End date equal to start date as per RFC 2445.
                 $this->end = new Horde_Date($this->start);
                 if (is_array($start)) {
                     // Date field
                     $this->end->mday++;
-                    $this->end->correct();
                 }
             }
         }
@@ -1116,7 +1111,6 @@ class Kronolith_Event {
             $hash['duration'] = ($weeks * 60 * 60 * 24 * 7) + ($days * 60 * 60 * 24) + ($hours * 60 * 60) + ($minutes * 60) + $seconds;
             $this->end = new Horde_Date($this->start);
             $this->end->sec += $hash['duration'];
-            $this->end->correct();
         }
         if (!empty($hash['end_date'])) {
             $date = explode('-', $hash['end_date']);
@@ -1206,7 +1200,6 @@ class Kronolith_Event {
         $methods = !empty($this->methods) ? $this->methods : @unserialize($prefs->getValue('event_alarms'));
         $start = Util::cloneObject($this->start);
         $start->min -= $this->getAlarm();
-        $start->correct();
         if (isset($methods['notify'])) {
             $methods['notify']['show'] = array(
                 '__app' => $GLOBALS['registry']->getApp(),
@@ -1791,7 +1784,6 @@ class Kronolith_Event {
                                             'month' => $start_month,
                                             'mday' => $start_day,
                                             'year' => $start_year));
-        $this->start->correct();
 
         if (Util::getFormData('end_or_dur') == 1) {
             // Event duration.
@@ -1800,7 +1792,6 @@ class Kronolith_Event {
                                               'month' => $start_month,
                                               'mday' => $start_day + $dur_day,
                                               'year' => $start_year));
-            $this->end->correct();
         } else {
             // Event end.
             $end = Util::getFormData('end');
@@ -1826,7 +1817,6 @@ class Kronolith_Event {
                                               'month' => $end_month,
                                               'mday' => $end_day,
                                               'year' => $end_year));
-            $this->end->correct();
             if ($this->end->compareDateTime($this->start) < 0) {
                 $this->end = new Horde_Date($this->start);
             }

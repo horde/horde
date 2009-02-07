@@ -57,7 +57,6 @@ class Kronolith_Day extends Horde_Date {
             $day = date('j');
         }
         parent::Horde_Date(array('year' => $year, 'month' => $month, 'mday' => $day));
-        $this->correct();
 
         $this->_slotsPerHour = $GLOBALS['prefs']->getValue('slots_per_hour');
         if (!$this->_slotsPerHour) {
@@ -78,7 +77,6 @@ class Kronolith_Day extends Horde_Date {
         $date = new Horde_Date(array('month' => $this->month,
                                      'mday' => $this->mday + $offset,
                                      'year' => $this->year));
-        $date->correct();
         return $date->strftime($format);
     }
 
@@ -87,7 +85,6 @@ class Kronolith_Day extends Horde_Date {
         $date = new Horde_Date(array('month' => $this->month,
                                      'mday' => $this->mday + 1,
                                      'year' => $this->year));
-        $date->correct();
         return $date;
     }
 
@@ -96,7 +93,6 @@ class Kronolith_Day extends Horde_Date {
         $date = new Horde_Date(array('month' => $this->month,
                                      'mday' => $this->mday - 1,
                                      'year' => $this->year));
-        $date->correct();
         return $date;
     }
 
@@ -110,7 +106,6 @@ class Kronolith_Day extends Horde_Date {
         $date = new Horde_Date(array('month' => $this->month,
                                      'mday' => $this->mday - 1,
                                      'year' => $this->year));
-        $date->correct();
         return $date->compareDate(new Horde_Date(mktime(0, 0, 0))) == 0;
     }
 

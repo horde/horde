@@ -68,7 +68,6 @@ class Horde_Block_Kronolith_summary extends Horde_Block {
 
         $startDate = new Horde_Date(array('year' => date('Y'), 'month' => date('n'), 'mday' => date('j')));
         $endDate = new Horde_Date(array('year' => date('Y'), 'month' => date('n'), 'mday' => date('j') + $prefs->getValue('summary_days')));
-        $endDate->correct();
 
         if (isset($this->_params['calendar']) &&
             $this->_params['calendar'] != '__all') {

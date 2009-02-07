@@ -112,8 +112,6 @@ class Horde_Block_Kronolith_month extends Horde_Block {
         $startDate = new Horde_Date(array('year' => $year, 'month' => $month, 'mday' => $startOfView));
         $endDate = new Horde_Date(array('year' => $year, 'month' => $month, 'mday' => $startOfView + $daysInView,
                                         'hour' => 23, 'min' => 59, 'sec' => 59));
-        $startDate->correct();
-        $endDate->correct();
 
         /* Table start. and current month indicator. */
         $html = '<table cellspacing="1" class="block-monthgrid" width="100%"><tr>';

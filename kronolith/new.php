@@ -57,7 +57,6 @@ if (Util::getFormData('allday')) {
 } else {
     $event->end->hour++;
 }
-$event->end->correct();
 $month = $event->start->month;
 $year = $event->start->year;
 

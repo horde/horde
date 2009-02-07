@@ -96,8 +96,6 @@ class Kronolith_View_Month {
                                         'hour' => 23,
                                         'min' => 59,
                                         'sec' => 59));
-        $startDate->correct();
-        $endDate->correct();
 
         if ($prefs->getValue('show_shared_side_by_side')) {
             $allCalendars = Kronolith::listCalendars();
@@ -152,7 +150,6 @@ class Kronolith_View_Month {
             $cell = 0;
             for ($day = $this->_startOfView; $day < $this->_startOfView + $this->_daysInView; ++$day) {
                 $date = new Kronolith_Day($this->month, $day, $this->year);
-                $date->correct();
                 $date->hour = $twentyFour ? 12 : 6;
                 $week = $date->weekOfYear();
 
@@ -233,7 +230,6 @@ class Kronolith_View_Month {
     {
         $month = new Horde_Date($this->date);
         $month->month += $offset;
-        $month->correct();
         return $month;
     }
 

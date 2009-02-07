@@ -43,7 +43,7 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
 
         $events = array();
         foreach ($allevents as $eventId) {
-            $event = &$this->getEvent($eventId);
+            $event = $this->getEvent($eventId);
             if (is_a($event, 'PEAR_Error')) {
                 continue;
             }
@@ -51,7 +51,6 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
             if (!$event->recurs()) {
                 $start = new Horde_Date($event->start);
                 $start->min -= $event->getAlarm();
-                $start->correct();
                 if ($start->compareDateTime($date) <= 0 &&
                     $date->compareDateTime($event->end) <= -1) {
                     $events[] = $fullevent ? $event : $eventId;
@@ -63,7 +62,6 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
                     }
                     $start = new Horde_Date($next);
                     $start->min -= $event->getAlarm();
-                    $start->correct();
                     $diff = Date_Calc::dateDiff($event->start->mday,
                                                 $event->start->month,
                                                 $event->start->year,
@@ -79,7 +77,6 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
                                                 'hour' => $event->end->hour,
                                                 'min' => $event->end->min,
                                                 'sec' => $event->end->sec));
-                    $end->correct();
                     if ($start->compareDateTime($date) <= 0 &&
                         $date->compareDateTime($end) <= -1) {
                         if ($fullevent) {
@@ -170,7 +167,7 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
 
         $events = array();
         foreach ($eventIds as $eventId) {
-            $event = &$this->getEvent($eventId);
+            $event = $this->getEvent($eventId);
             if (is_a($event, 'PEAR_Error')) {
                 return $event;
             }
@@ -337,7 +334,7 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
 
             /* We have all the information we need to create an event
              * object for this event, so go ahead and cache it. */
-            $this->_cache[$this->_calendar][$row['event_id']] = &new Kronolith_Event_sql($this, $row);
+            $this->_cache[$this->_calendar][$row['event_id']] = new Kronolith_Event_sql($this, $row);
             if ($row['event_recurtype'] == Horde_Date_Recurrence::RECUR_NONE) {
                 $events[$row['event_uid']] = $row['event_id'];
             } else {
@@ -353,11 +350,10 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
         return $events;
     }
 
-    function &getEvent($eventId = null)
+    function getEvent($eventId = null)
     {
         if (is_null($eventId)) {
-            $event = &new Kronolith_Event_sql($this);
-            return $event;
+            return new Kronolith_Event_sql($this);
         }
 
         if (isset($this->_cache[$this->_calendar][$eventId])) {
@@ -386,7 +382,7 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
         }
 
         if ($event) {
-            $this->_cache[$this->_calendar][$eventId] = &new Kronolith_Event_sql($this, $event);
+            $this->_cache[$this->_calendar][$eventId] = new Kronolith_Event_sql($this, $event);
             return $this->_cache[$this->_calendar][$eventId];
         } else {
             return PEAR::raiseError(_("Event not found"));
@@ -403,7 +399,7 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
      *
      * @return Kronolith_Event
      */
-    function &getByUID($uid, $calendars = null, $getAll = false)
+    function getByUID($uid, $calendars = null, $getAll = false)
     {
         $query = 'SELECT event_id, event_uid, calendar_id, event_description,' .
             ' event_location, event_private, event_status, event_attendees,' .
@@ -441,8 +437,8 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
         $eventArray = array();
         foreach ($events as $event) {
             $this->open($event['calendar_id']);
-            $this->_cache[$this->_calendar][$event['event_id']] = &new Kronolith_Event_sql($this, $event);
-            $eventArray[] = &$this->_cache[$this->_calendar][$event['event_id']];
+            $this->_cache[$this->_calendar][$event['event_id']] = new Kronolith_Event_sql($this, $event);
+            $eventArray[] = $this->_cache[$this->_calendar][$event['event_id']];
         }
 
         if ($getAll) {
@@ -511,7 +507,7 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
 
             /* Log the modification of this item in the history log. */
             if ($event->getUID()) {
-                $history = &Horde_History::singleton();
+                $history = Horde_History::singleton();
                 $history->log('kronolith:' . $this->_calendar . ':' . $event->getUID(), array('action' => 'modify'), true);
             }
 
@@ -566,7 +562,7 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
             }
 
             /* Log the creation of this item in the history log. */
-            $history = &Horde_History::singleton();
+            $history = Horde_History::singleton();
             $history->log('kronolith:' . $this->_calendar . ':' . $uid, array('action' => 'add'), true);
 
             /* Notify users about the new event. */
@@ -588,7 +584,7 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
     function move($eventId, $newCalendar)
     {
         /* Fetch the event for later use. */
-        $event = &$this->getEvent($eventId);
+        $event = $this->getEvent($eventId);
         if (is_a($event, 'PEAR_Error')) {
             return $event;
         }
@@ -611,7 +607,7 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
         /* Log the moving of this item in the history log. */
         $uid = $event->getUID();
         if ($uid) {
-            $history = &Horde_History::singleton();
+            $history = Horde_History::singleton();
             $history->log('kronolith:' . $this->_calendar . ':' . $uid, array('action' => 'delete'), true);
             $history->log('kronolith:' . $newCalendar . ':' . $uid, array('action' => 'add'), true);
         }
@@ -651,7 +647,7 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
     function deleteEvent($eventId, $silent = false)
     {
         /* Fetch the event for later use. */
-        $event = &$this->getEvent($eventId);
+        $event = $this->getEvent($eventId);
         if (is_a($event, 'PEAR_Error')) {
             return $event;
         }
@@ -672,7 +668,7 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
 
         /* Log the deletion of this item in the history log. */
         if ($event->getUID()) {
-            $history = &Horde_History::singleton();
+            $history = Horde_History::singleton();
             $history->log('kronolith:' . $this->_calendar . ':' . $event->getUID(), array('action' => 'delete'), true);
         }
 
@@ -716,9 +712,8 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
         }
 
         /* Connect to the SQL server using the supplied parameters. */
-        require_once 'DB.php';
-        $this->_write_db = &DB::connect($this->_params,
-                                        array('persistent' => !empty($this->_params['persistent'])));
+        $this->_write_db = DB::connect($this->_params,
+                                       array('persistent' => !empty($this->_params['persistent'])));
         if (is_a($this->_write_db, 'PEAR_Error')) {
             return $this->_write_db;
         }
@@ -728,15 +723,15 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
          * seperately. */
         if (!empty($this->_params['splitread'])) {
             $params = array_merge($this->_params, $this->_params['read']);
-            $this->_db = &DB::connect($params,
-                                      array('persistent' => !empty($params['persistent'])));
+            $this->_db = DB::connect($params,
+                                     array('persistent' => !empty($params['persistent'])));
             if (is_a($this->_db, 'PEAR_Error')) {
                 return $this->_db;
             }
             $this->_initConn($this->_db);
         } else {
             /* Default to the same DB handle for the writer too. */
-            $this->_db = &$this->_write_db;
+            $this->_db = $this->_write_db;
         }
 
         return true;
@@ -861,7 +856,7 @@ class Kronolith_Event_sql extends Kronolith_Event {
 
     function fromDriver($SQLEvent)
     {
-        $driver = &$this->getDriver();
+        $driver = $this->getDriver();
 
         $this->allday = (bool)$SQLEvent['event_allday'];
         if (!$this->allday && $driver->getParam('utc')) {
@@ -944,7 +939,7 @@ class Kronolith_Event_sql extends Kronolith_Event {
 
     function toDriver()
     {
-        $driver = &$this->getDriver();
+        $driver = $this->getDriver();
 
         /* Basic fields. */
         $this->_properties['event_creator_id'] = $driver->convertToDriver($this->getCreatorId());

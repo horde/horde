@@ -20,10 +20,8 @@ class Kronolith_FreeBusy_View_Day extends Kronolith_FreeBusy_View {
 
         $prev = new Horde_Date($this->_start);
         $prev->mday--;
-        $prev->correct();
         $next = new Horde_Date($this->_start);
         $next->mday++;
-        $next->correct();
         return Horde::link('#', _("Previous Day"), '', '', 'return switchDate(' . $prev->dateString() . ');')
             . Horde::img('nav/left.png', '<', null, $registry->getImageDir('horde'))
             . '</a>'

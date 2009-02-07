@@ -33,7 +33,6 @@ if ($eventID = Util::getFormData('eventID')) {
                                              'month' => Util::getFormData('month', date('n')),
                                              'mday' => Util::getFormData('mday', date('j')) - 1,
                                              'year' => Util::getFormData('year', date('Y'))));
-            $recurEnd->correct();
             if ($event->end->compareDate($recurEnd) > 0) {
                 $result = $kronolith_driver->deleteEvent($event->getId());
                 if (is_a($result, 'PEAR_Error')) {

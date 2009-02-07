@@ -62,9 +62,7 @@ class Horde_Block_Kronolith_prevmonthlist extends Horde_Block {
         Horde::addScriptFile('tooltip.js', 'horde', true);
 
         $startDate = new Horde_Date(array('year' => date('Y'), 'month' => date('n') - $this->_params['months'], 'mday' => date('j')));
-        $startDate->correct();
         $endDate = new Horde_Date(array('year' => date('Y'), 'month' => date('n'), 'mday' => date('j') - 1));
-        $endDate->correct();
 
         $current_month = '';
 

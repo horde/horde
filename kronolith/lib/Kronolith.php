@@ -1255,7 +1255,6 @@ class Kronolith {
                  * starts. */
                 $next = Util::cloneObject($event->start);
                 ++$next->mday;
-                $next->correct();
             }
 
             /* Add all recurrences of the event. */
@@ -1269,7 +1268,6 @@ class Kronolith {
                     $nextEnd->mday  += $diff[2];
                     $nextEnd->hour  += $diff[3];
                     $nextEnd->min   += $diff[4];
-                    $nextEnd->correct();
                     Kronolith::_addCoverDates($results, $event, $next, $nextEnd);
                 }
                 $next = $event->recurrence->nextRecurrence(
@@ -1359,7 +1357,6 @@ class Kronolith {
                     array('month' => $eventStart->month,
                           'mday' => ++$i,
                           'year' => $eventStart->year));
-                $loopDate->correct();
             }
         }
         ksort($results);
@@ -1392,7 +1389,6 @@ class Kronolith {
                 array('month' => $eventStart->month,
                       'mday' => ++$i,
                       'year' => $eventStart->year));
-            $loopDate->correct();
         }
     }
 

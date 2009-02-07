@@ -221,7 +221,6 @@ class Kronolith_View_Day extends Kronolith_Day {
                         'year'  => $this->year));
                     $end_slot = new Horde_Date($start);
                     $end_slot->min += $this->_slotLength;
-                    $end_slot->correct();
                     if (((!$day_hour_force || $i >= $day_hour_start) &&
                          $event->start->compareDateTime($start) >= 0 &&
                          $event->start->compareDateTime($end_slot) < 0 ||
@@ -358,7 +357,6 @@ class Kronolith_View_Day extends Kronolith_Day {
                 'year'  => $this->year));
             $end = clone $start;
             $end->min += $this->_slotLength;
-            $end->correct();
 
             // Search through our events.
             foreach ($this->_events as $key => $event) {

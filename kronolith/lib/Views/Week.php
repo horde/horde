@@ -68,11 +68,9 @@ class Kronolith_View_Week {
 
         $this->startDate = new Horde_Date($day);
         for ($i = $this->startDay; $i <= $this->endDay; ++$i) {
-            $day->correct();
             $this->days[$i] = new Kronolith_View_Day($day, array());
             $day->mday++;
         }
-        $day->correct();
         $endDate = new Horde_Date($day);
         $allevents = Kronolith::listEvents($this->startDate, $endDate, $GLOBALS['display_calendars']);
         if (is_a($allevents, 'PEAR_Error')) {
@@ -247,7 +245,6 @@ class Kronolith_View_Week {
                                 'year'  => $this->days[$j]->year));
                             $slot_end = new Horde_Date($start);
                             $slot_end->min += $this->_slotLength;
-                            $slot_end->correct();
                             if (((!$day_hour_force || $i >= $day_hour_start) &&
                                  $event->start->compareDateTime($start) >= 0 &&
                                  $event->start->compareDateTime($slot_end) < 0 ||
@@ -339,7 +336,6 @@ class Kronolith_View_Week {
     {
         $week = new Horde_Date($this->startDate);
         $week->mday += $offset * 7;
-        $week->correct();
         return $week;
     }
 

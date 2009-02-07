@@ -98,7 +98,6 @@ if ($exception = Util::getFormData('del_exception')) {
             case 'future':
                 /* Set recurrence end. */
                 $exception->mday--;
-                $exception->correct();
                 if ($event->end->compareDate($exception) > 0) {
                     $result = $kronolith_driver->deleteEvent($event->getId());
                     if (is_a($result, 'PEAR_Error')) {

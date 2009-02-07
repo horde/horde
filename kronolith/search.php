@@ -39,7 +39,6 @@ if ($search_mode != 'basic') {
     $event->start = new Horde_Date(mktime(0, 0, 0));
     $event->end = new Horde_Date($event->start);
     $event->end->mday++;
-    $event->end->correct();
 
     /* We need to set the event to initialized, otherwise we will end up with
      * a default end date. */
@@ -110,7 +109,6 @@ if (isset($events)) {
             $start = $found->recurs() ? $found->recurrence->nextRecurrence($event->start) : $found->start;
             $end = new Horde_Date($start);
             $end->min += $found->durMin;
-            $end->correct();
             require KRONOLITH_TEMPLATES . '/search/event_summaries.inc';
         }
         require KRONOLITH_TEMPLATES . '/search/event_footers.inc';

@@ -47,7 +47,6 @@ class Kronolith_FreeBusy {
         if (is_null($endstamp) || $endstamp < $startstamp) {
             $enddate = new Horde_Date($startstamp);
             $enddate->mday += $GLOBALS['prefs']->getValue('freebusy_days');
-            $enddate->correct();
             $endstamp = $enddate->timestamp();
         }
 
