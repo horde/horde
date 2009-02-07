@@ -4,11 +4,15 @@
  *
  * $Id: files.php 1241 2009-01-29 23:27:58Z duck $
  *
- * Copyright Obala d.o.o. (www.obala.si)
+ * Copyright 2009 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author  Duck <duck@obala.net>
  * @package News
  */
+
 $no_compress = true;
 require_once dirname(__FILE__) . '/lib/base.php';
 

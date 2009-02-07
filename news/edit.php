@@ -4,13 +4,16 @@
  *
  * $Id: edit.php 1188 2009-01-21 10:33:56Z duck $
  *
- * Copyright Obala d.o.o. (www.obala.si)
+ * Copyright 2009 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author  Duck <duck@obala.net>
  * @package News
  */
+
 require_once dirname(__FILE__) . '/lib/base.php';
-require_once NEWS_BASE . '/lib/Forms/Search.php';
 
 // redirect if not an admin
 $allowed_cats = $news_cat->getAllowed(PERMS_DELETE);

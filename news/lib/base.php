@@ -22,6 +22,10 @@ if (!defined('HORDE_BASE')) {
 // Load the Horde Framework core, and set up inclusion paths.
 require_once HORDE_BASE . '/lib/core.php';
 
+$news_dir = dirname(__FILE__);
+Horde_Autoloader::addClassPath($news_dir);
+Horde_Autoloader::addClassPattern('/^News/', $news_dir);
+
 // Registry.
 $registry = &Registry::singleton();
 if (($pushed = $registry->pushApp('news', !defined('AUTH_HANDLER'))) instanceof PEAR_Error) {
@@ -46,13 +50,8 @@ if (!defined('NEWS_BASE')) {
 $GLOBALS['cache'] = &Horde_Cache::singleton($GLOBALS['conf']['cache']['driver'],
                                             Horde::getDriverConfig('cache', $GLOBALS['conf']['cache']['driver']));
 
-// News base library
-require_once NEWS_BASE . '/lib/News.php';
-require_once NEWS_BASE . '/lib/Categories.php';
-require_once NEWS_BASE . '/lib/View.php';
-
 // Set up News drivers.
-$GLOBALS['news'] = new News();
+$GLOBALS['news'] = News_Driver::factory();
 $GLOBALS['news_cat'] = new News_Categories();
 
 // Start compression.

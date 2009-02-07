@@ -55,7 +55,7 @@ class News_View extends Horde_View {
      *
      * @param string $tags Video's tags
      */
-    function getTagsLinks($tags)
+    public function getTagsLinks($tags)
     {
         if (empty($tags)) {
             return '';

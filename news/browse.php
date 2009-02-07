@@ -4,13 +4,16 @@
  *
  * $Id: browse.php 1179 2009-01-20 13:19:34Z duck $
  *
- * Copyright Obala d.o.o. (www.obala.si)
+ * Copyright 2009 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author  Duck <duck@obala.net>
  * @package News
  */
+
 require_once dirname(__FILE__) . '/lib/base.php';
-require_once NEWS_BASE . '/lib/Forms/Search.php';
 
 // Default vars
 $title = _("Browse");

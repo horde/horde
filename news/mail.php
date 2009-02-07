@@ -4,11 +4,15 @@
  *
  * $Id: mail.php 1174 2009-01-19 15:11:03Z duck $
  *
- * Copyright Obala d.o.o. (www.obala.si)
+ * Copyright 2009 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author  Duck <duck@obala.net>
  * @package News
  */
+
 require_once dirname(__FILE__) . '/lib/base.php';
 
 $id = Util::getFormData('id');

@@ -1,6 +1,6 @@
 <?php
 /**
- * News Tree Class.
+ * News Category Class.
  *
  * $Id: Categories.php 1261 2009-02-01 23:20:07Z duck $
  *

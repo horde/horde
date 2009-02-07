@@ -52,7 +52,7 @@ case News::LOCKED:
 }
 ?></td>
 <td><?php echo Horde::link(News::getUrlFor('news', $row['id']), _("Read"), '', '_blank') . $row['title']; ?></a></td>
-<td><?php echo $news->dateFormat($row['publish']) ?></td>
+<td><?php echo News::dateFormat($row['publish']) ?></td>
 <td><?php echo $row['user'] ?></td>
 <td>
 <?php

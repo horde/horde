@@ -2,7 +2,12 @@
 /**
  * Extend Horde TagCloud to allow complete css font sizes
  *
- * Copyright Obala d.o.o. (www.obala.si)
+ * $Id: News.php 1263 2009-02-01 23:25:56Z duck $
+ *
+ * Copyright 2009 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license inion (GPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author  Duck <duck@obala.net>
  * @package News

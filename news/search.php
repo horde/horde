@@ -2,15 +2,16 @@
 /**
  * Search
  *
- * $Id: search.php 889 2008-09-23 09:52:06Z duck $
+ * Copyright 2009 The Horde Project (http://www.horde.org/)
  *
- * Copyright Obala d.o.o. (www.obala.si)
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author  Duck <duck@obala.net>
  * @package News
  */
+
 require_once dirname(__FILE__) . '/lib/base.php';
-require_once NEWS_BASE . '/lib/Forms/Search.php';
 
 // Default vars
 $title = _("Browse");
@@ -37,11 +38,7 @@ if ($rows instanceof PEAR_Error) {
     exit;
 }
 
-$vars = Variables::getDefaultVariables();
-$pager = new Horde_UI_Pager('news_page',
-                            $vars, array('num' => $count,
-                                         'url' => 'search.php',
-                                         'perpage' => $per_page));
+$pager = News_Search::getPager($criteria, $count, 'search.php');
 
 $pager->preserve($criteria);
 

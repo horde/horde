@@ -4,11 +4,15 @@
  *
  * $Id: delete.php 1184 2009-01-21 09:12:20Z duck $
  *
- * Copyright Obala d.o.o. (www.obala.si)
+ * Copyright 2009 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author  Duck <duck@obala.net>
  * @package News
  */
+
 require_once dirname(__FILE__) . '/lib/base.php';
 require_once 'Horde/Variables.php';
 
@@ -34,10 +38,13 @@ if ($form->validate()) {
     if (Util::getFormData('submitbutton') == _("Remove")) {
 
         // Delete attachment
-        $sql = 'SELECT filename FROM ' . $news->prefix . '_attachment WHERE id = ?';
+        $sql = 'SELECT file_id FROM ' . $news->prefix . '_files WHERE news_id = ?';
         $files = $news->db->getCol($sql, 0, array($id));
         foreach ($files as $file) {
-            unlink($conf['attributes']['attachments'] . $file);
+            $result = News::deleteFile($file_id);
+            if ($result instanceof PEAR_Error) {
+                $notification->push($result);
+            }
         }
 
         // Delete image and gallery
@@ -61,7 +68,7 @@ if ($form->validate()) {
         $news->write_db->query('DELETE FROM ' . $news->prefix . '_version WHERE id = ?', array($id));
         $news->write_db->query('DELETE FROM ' . $news->prefix . '_body WHERE id = ?', array($id));
         $news->write_db->query('DELETE FROM ' . $news->prefix . '_user_reads WHERE id = ?', array($id));
-        $news->write_db->query('DELETE FROM ' . $news->prefix . '_attachment WHERE id=?', array($id));
+        $news->write_db->query('DELETE FROM ' . $news->prefix . '_files WHERE id = ?', array($id));
 
         // Delete forum
         if ($registry->hasMethod('forums/deleteForum')) {

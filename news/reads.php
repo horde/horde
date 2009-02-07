@@ -2,13 +2,15 @@
 /**
  * News reads
  *
- * $Id: reads.php 803 2008-08-27 08:29:20Z duck $
+ * Copyright 2009 The Horde Project (http://www.horde.org/)
  *
- * Copyright Obala d.o.o. (www.obala.si)
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author  Duck <duck@obala.net>
  * @package News
  */
+
 require_once dirname(__FILE__) . '/lib/base.php';
 
 if (!Auth::isAuthenticated()) {

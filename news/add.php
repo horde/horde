@@ -4,7 +4,10 @@
  *
  * $Id: add.php 1186 2009-01-21 10:24:00Z duck $
  *
- * Copyright Obala d.o.o. (www.obala.si)
+ * Copyright 2009 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author  Duck <duck@obala.net>
  * @package News
@@ -124,7 +127,7 @@ if ($id) {
 $form->setSection('content', _("Content"), '', false);
 $form->addVariable(_("News content"), 'content', 'header', false);
 
-$v = &$form->addVariable(_("Publish"), 'publish', 'datetime', true, false, false, $news->datetimeParams());
+$v = &$form->addVariable(_("Publish"), 'publish', 'datetime', true, false, false, News::datetimeParams());
 $v->setDefault(date('Y-m-d H:i:s'));
 $form->addVariable(_("Primary category"), 'category1', 'enum', true, false, false, array($news_cat->getEnum(), _("-- select --")));
 
@@ -489,9 +492,12 @@ if ($form->validate()) {
             }
         }
         if ($uploaded) {
-            $news->write_db->query('UPDATE ' . $news->prefix . ' SET attachments = ? WHERE id = ?', array(1, $id));
+            $result = $news->write_db->query('UPDATE ' . $news->prefix . ' SET attachments = ? WHERE id = ?', array(1, $id));
+            if ($result instanceof PEAR_Error) {
+                $notification->push($result->getMessage(), 'horde.warning');
+            }
         }
-     }
+    }
 
     // Comments
     if (isset($info['disable_comments']) && $info['disable_comments']) {
