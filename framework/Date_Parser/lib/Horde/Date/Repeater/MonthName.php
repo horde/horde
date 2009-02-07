@@ -17,26 +17,26 @@ class Horde_Date_Repeater_MonthName extends Horde_Date_Repeater
             $targetMonth = $this->_monthNumber($this->type);
             switch ($pointer) {
             case 'future':
-                if ($this->now->month > $targetMonth) {
-                    $this->currentMonthStart = new Horde_Date(array('year' => $this->now->year, 'month' => $targetMonth));
+                if ($this->now->month < $targetMonth) {
+                    $this->currentMonthStart = new Horde_Date(array('year' => $this->now->year, 'month' => $targetMonth, 'day' => 1));
                 } else {
-                    $this->currentMonthStart = new Horde_Date(array('year' => $this->now->year + 1, 'month' => $targetMonth));
+                    $this->currentMonthStart = new Horde_Date(array('year' => $this->now->year + 1, 'month' => $targetMonth, 'day' => 1));
                 }
                 break;
 
             case 'none':
                 if ($this->now->month <= $targetMonth) {
-                    $this->currentMonthStart = new Horde_Date(array('year' => $this->now->year, 'month' => $targetMonth));
+                    $this->currentMonthStart = new Horde_Date(array('year' => $this->now->year, 'month' => $targetMonth, 'day' => 1));
                 } else {
-                    $this->currentMonthStart = new Horde_Date(array('year' => $this->now->year + 1, 'month' => $targetMonth));
+                    $this->currentMonthStart = new Horde_Date(array('year' => $this->now->year + 1, 'month' => $targetMonth, 'day' => 1));
                 }
                 break;
 
             case 'past':
                 if ($this->now->month > $targetMonth) {
-                    $this->currentMonthStart = new Horde_Date(array('year' => $this->now->year, 'month' => $targetMonth));
+                    $this->currentMonthStart = new Horde_Date(array('year' => $this->now->year, 'month' => $targetMonth, 'day' => 1));
                 } else {
-                    $this->currentMonthStart = new Horde_Date(array('year' => $this->now->year - 1, 'month' => $targetMonth));
+                    $this->currentMonthStart = new Horde_Date(array('year' => $this->now->year - 1, 'month' => $targetMonth, 'day' => 1));
                 }
                 break;
             }
@@ -52,7 +52,7 @@ class Horde_Date_Repeater_MonthName extends Horde_Date_Repeater
             }
         }
 
-        return new Horde_Date_Span($this->currentMonthStart, new Horde_Date(array('year' => $this->currentMonthStart->year, 'month' => $this->currentMonthStart->month + 1)));
+        return new Horde_Date_Span($this->currentMonthStart, $this->currentMonthStart->add(array('month' => 1)));
     }
 
     public function this($pointer = 'future')

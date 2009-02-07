@@ -65,8 +65,8 @@ class Horde_Date_Repeater_HourTest extends PHPUnit_Framework_TestCase
         $hours = new Horde_Date_Repeater_Hour();
 
         $offsetSpan = $hours->offset($span, 3, 'future');
-        $this->assertEquals('2006-08-16 16:00:00', (string)$offsetSpan->begin);
-        $this->assertEquals('2006-08-16 17:00:00', (string)$offsetSpan->end);
+        $this->assertEquals('2006-08-16 17:00:00', (string)$offsetSpan->begin);
+        $this->assertEquals('2006-08-16 17:00:01', (string)$offsetSpan->end);
 
         $offsetSpan = $hours->offset($span, 24, 'past');
         $this->assertEquals('2006-08-15 14:00:00', (string)$offsetSpan->begin);

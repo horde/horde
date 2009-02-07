@@ -40,7 +40,7 @@ class Horde_Date_Repeater_YearTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('2005-01-01', $lastYear->begin->format('Y-m-d'));
         $this->assertEquals('2006-01-01', $lastYear->end->format('Y-m-d'));
 
-        $lastLastYear = $years->last('future');
+        $lastLastYear = $years->next('past');
         $this->assertEquals('2004-01-01', $lastLastYear->begin->format('Y-m-d'));
         $this->assertEquals('2005-01-01', $lastLastYear->end->format('Y-m-d'));
     }

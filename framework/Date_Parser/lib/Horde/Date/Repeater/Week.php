@@ -15,19 +15,19 @@ class Horde_Date_Repeater_Week extends Horde_Date_Repeater
         if (!$this->currentWeekStart) {
             switch ($pointer) {
             case 'future':
-                $sundayRepeater = new Horde_Date_Repeater_DayName(Horde_Date::DATE_SUNDAY);
+                $sundayRepeater = new Horde_Date_Repeater_DayName('sunday');
                 $sundayRepeater->now = $this->now;
                 $nextSundaySpan = $sundayRepeater->next('future');
                 $this->currentWeekStart = $nextSundaySpan->begin;
                 break;
 
             case 'past':
-                $sundayRepeater = new Horde_Date_Repeater_DayName(Horde_Date::DATE_SUNDAY);
+                $sundayRepeater = new Horde_Date_Repeater_DayName('sunday');
                 $sundayRepeater->now = clone($this->now);
                 $sundayRepeater->now->day++;
                 $sundayRepeater->next('past');
                 $lastSundaySpan = $sundayRepeater->next('past');
-                $currentWeekStart = $lastSundaySpan->begin;
+                $this->currentWeekStart = $lastSundaySpan->begin;
                 break;
             }
         } else {
@@ -35,9 +35,7 @@ class Horde_Date_Repeater_Week extends Horde_Date_Repeater
             $this->currentWeekStart->day += $direction * 7;
         }
 
-        $end = clone($this->currentWeekStart);
-        $end->day += 7;
-        return new Horde_Date_Span($this->currentWeekStart, $end);
+        return new Horde_Date_Span($this->currentWeekStart, $this->currentWeekStart->add(array('day' => 7)));
     }
 
     public function this($pointer = 'future')
@@ -46,23 +44,23 @@ class Horde_Date_Repeater_Week extends Horde_Date_Repeater
 
         switch ($pointer) {
         case 'future':
-            $thisWeekStart = new Horde_Date(array('year' => $now->year, 'month' => $now->month, 'day' => $now->day, 'hour' => $now->hour + 1));
-            $sundayRepeater = new Horde_Date_Repeater_DayName(Horde_Date::DATE_SUNDAY);
+            $thisWeekStart = new Horde_Date(array('year' => $this->now->year, 'month' => $this->now->month, 'day' => $this->now->day, 'hour' => $this->now->hour + 1));
+            $sundayRepeater = new Horde_Date_Repeater_DayName('sunday');
             $sundayRepeater->now = $this->now;
             $thisSundaySpan = $sundayRepeater->this('future');
             $thisWeekEnd = $thisSundaySpan->begin;
             return new Horde_Date_Span($thisWeekStart, $thisWeekEnd);
 
         case 'past':
-            $thisWeekEnd = new Horde_Date(array('year' => $now->year, 'month' => $now->month, 'day' => $now->day, 'hour' => $now->hour));
-            $sundayRepeater = new Horde_Date_Repeater_DayName(Horde_Date::DATE_SUNDAY);
+            $thisWeekEnd = new Horde_Date(array('year' => $this->now->year, 'month' => $this->now->month, 'day' => $this->now->day, 'hour' => $this->now->hour));
+            $sundayRepeater = new Horde_Date_Repeater_DayName('sunday');
             $sundayRepeater->now = $this->now;
             $lastSundaySpan = $sundayRepeater->next('past');
             $thisWeekStart = $lastSundaySpan->begin;
             return new Horde_Date_Span($thisWeekStart, $thisWeekEnd);
 
         case 'none':
-            $sundayRepeater = new Horde_Date_Repeater_DayName(Horde_Date::DATE_SUNDAY);
+            $sundayRepeater = new Horde_Date_Repeater_DayName('sunday');
             $sundayRepeater->now = $this->now;
             $lastSundaySpan = $sundayRepeater->next('past');
             $thisWeekStart = $lastSundaySpan->begin;

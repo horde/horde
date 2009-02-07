@@ -8,21 +8,13 @@ class Horde_Date_Repeater_Year extends Horde_Date_Repeater
         parent::next($pointer);
 
         if (!$this->currentYearStart) {
-            switch ($pointer) {
-            case 'future':
-                $this->currentYearStart = new Horde_Date(array('year' => $this->now->year + 1));
-                break;
-
-            case 'past':
-                $this->currentYearStart = new Horde_Date(array('year' => $this->now->year - 1));
-                break;
-            }
-        } else {
-            $diff = ($pointer == 'future') ? 1 : -1;
-            $this->currentYearStart->year += $diff;
+            $this->currentYearStart = new Horde_Date(array('year' => $this->now->year, 'month' => 1, 'day' => 1));
         }
 
-        return new Horde_Date_Span($this->currentYearStart, new Horde_Date(array('year' => $this->currentYearStart->year + 1)));
+        $diff = ($pointer == 'future') ? 1 : -1;
+        $this->currentYearStart->year += $diff;
+
+        return new Horde_Date_Span($this->currentYearStart, $this->currentYearStart->add(array('year' => 1)));
     }
 
     public function this($pointer = 'future')
@@ -32,17 +24,17 @@ class Horde_Date_Repeater_Year extends Horde_Date_Repeater
         switch ($pointer) {
         case 'future':
             $thisYearStart = new Horde_Date(array('year' => $this->now->year, 'month' => $this->now->month, 'day' => $this->now->day + 1));
-            $thisYearEnd = new Horde_Date(array('year' => $this->now->year + 1));
+            $thisYearEnd = new Horde_Date(array('year' => $this->now->year + 1, 'month' => 1, 'day' => 1));
             break;
 
         case 'past':
-            $thisYearStart = new Horde_Date(array('year' => $this->now->year));
+            $thisYearStart = new Horde_Date(array('year' => $this->now->year, 'month' => 1, 'day' => 1));
             $thisYearEnd = new Horde_Date(array('year' => $this->now->year, 'month' => $this->now->month, 'day' => $this->now->day));
             break;
 
         case 'none':
-            $thisYearStart = new Horde_Date(array('year' => $this->now->year));
-            $thisYearEnd = new Horde_Date(array('year' => $this->now->year + 1));
+            $thisYearStart = new Horde_Date(array('year' => $this->now->year, 'month' => 1, 'day' => 1));
+            $thisYearEnd = new Horde_Date(array('year' => $this->now->year + 1, 'month' => 1, 'day' => 1));
             break;
         }
 
@@ -52,14 +44,7 @@ class Horde_Date_Repeater_Year extends Horde_Date_Repeater
     public function offset($span, $amount, $pointer)
     {
         $direction = ($pointer == 'future') ? 1 : -1;
-
-        $sb = clone($span->begin);
-        $sb->year += ($amount * $direction);
-
-        $se = clone($span->end);
-        $se->year += ($amount * $direction);
-
-        return new Horde_Date_Span($se, $sb);
+        return $span->add(array('year' => ($amount * $direction)));
     }
 
     public function width()

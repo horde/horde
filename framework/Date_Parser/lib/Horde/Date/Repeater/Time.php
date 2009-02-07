@@ -68,31 +68,31 @@ class Horde_Date_Repeater_Time extends Horde_Date_Repeater
 
             if ($pointer == 'future') {
                 if ($this->type->ambiguous) {
-                    foreach (array($midnight + $this->type, $midnight + $halfDay + $this->type, $tomorrowMidnight + $this->type) as $t) {
-                        if ($t >= $this->now) {
+                    foreach (array($midnight->add($this->type->time), $midnight->add($halfDay + $this->type->time), $tomorrowMidnight->add($this->type->time)) as $t) {
+                        if ($t->compareDateTime($this->now) >= 0) {
                             $this->currentTime = $t;
                             break;
                         }
                     }
                 } else {
-                    foreach (array($midnight + $this->type, $tomorrowMidnight + $this->type) as $t) {
-                        if ($t >= $this->now) {
+                    foreach (array($midnight->add($this->type->time), $tomorrowMidnight->add($this->type->time)) as $t) {
+                        if ($t->compareDateTime($this->now) >= 0) {
                             $this->currentTime = $t;
                             break;
                         }
                     }
                 }
-            } else {
+            } elseif ($pointer == 'past') {
                 if ($this->type->ambiguous) {
-                    foreach (array($midnight + $halfDay + $this->type, $midnight + $this->type, $yesterdayMidnight + $this->type * 2) as $t) {
-                        if ($t <= $this->now) {
+                    foreach (array($midnight->add($halfDay + $this->type->time), $midnight->add($this->type->time), $yesterdayMidnight->add($this->type->time * 2)) as $t) {
+                        if ($t->compareDateTime($this->now) <= 0) {
                             $this->currentTime = $t;
                             break;
                         }
                     }
                 } else {
-                    foreach (array($midnight + $this->type, $yesterdayMidnight + $this->type) as $t) {
-                        if ($t <= $this->now) {
+                    foreach (array($midnight->add($this->type->time), $yesterdayMidnight->add($this->type->time)) as $t) {
+                        if ($t->compareDateTime($this->now) <= 0) {
                             $this->currentTime = $t;
                             break;
                         }
@@ -106,11 +106,11 @@ class Horde_Date_Repeater_Time extends Horde_Date_Repeater
         }
 
         if (!$first) {
-            $increment = $this->type->ambiguous ? $halfday : $fullDay;
-            $this->currentTime += ($pointer == 'future') ? $increment : -$increment;
+            $increment = $this->type->ambiguous ? $halfDay : $fullDay;
+            $this->currentTime->sec += ($pointer == 'future') ? $increment : -$increment;
         }
 
-        return new Horde_Date_Span($this->currentTime, $this->currentTime + $this->width());
+        return new Horde_Date_Span($this->currentTime, $this->currentTime->add(1));
     }
 
     public function this($context = 'future')
@@ -148,12 +148,6 @@ class Horde_Date_Tick
     {
         return new Horde_Date_Tick($this->time * $other, $this->ambiguous);
     }
-
-    /*
-    def to_f
-      @time.to_f
-    end
-    */
 
     public function __toString()
     {

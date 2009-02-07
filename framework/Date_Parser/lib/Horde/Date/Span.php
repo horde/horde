@@ -31,7 +31,7 @@ class Horde_Date_Span
      */
     public function width()
     {
-        return $this->end->timestamp() - $this->begin->timestamp();
+        return abs($this->end->timestamp() - $this->begin->timestamp());
     }
 
     /**

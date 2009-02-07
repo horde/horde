@@ -30,13 +30,12 @@ class Horde_Date_Repeater_Hour extends Horde_Date_Repeater
 
         case 'past':
             $hourStart = new Horde_Date(array('year' => $this->now->year, 'month' => $this->now->month, 'day' => $this->now->day, 'hour' => $this->now->hour));
-            $hourEnd = new Horde_Date(array('year' => $this->now->year, 'month' => $this->now->month, 'day' => $this->now->day, 'hour' => $this->now->hour + 1, 'min' => $this->now->min));
+            $hourEnd = new Horde_Date(array('year' => $this->now->year, 'month' => $this->now->month, 'day' => $this->now->day, 'hour' => $this->now->hour, 'min' => $this->now->min));
             break;
 
         case 'none':
             $hourStart = new Horde_Date(array('year' => $this->now->year, 'month' => $this->now->month, 'day' => $this->now->day, 'hour' => $this->now->hour));
-            $hourEnd = clone($hourStart);
-            $hourEnd->hour++;
+            $hourEnd = $hourStart->add(array('hour' => 1));
             break;
         }
 
