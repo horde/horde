@@ -1,5 +1,5 @@
 <?php
-class Horde_Date_Parser_Locale_Base_Pointer extends Horde_Date_Parser_Tag
+class Horde_Date_Parser_Locale_Base_Pointer
 {
     public $scanner = array(
         '/\bpast\b/' => 'past',
@@ -11,7 +11,7 @@ class Horde_Date_Parser_Locale_Base_Pointer extends Horde_Date_Parser_Tag
     {
         foreach ($tokens as &$token) {
             if ($t = $this->scanForAll($token)) {
-                $token->tag($t);
+                $token->tag('pointer', $t);
             }
         }
         return $tokens;
@@ -21,14 +21,9 @@ class Horde_Date_Parser_Locale_Base_Pointer extends Horde_Date_Parser_Tag
     {
         foreach ($this->scanner as $scannerItem => $scannerTag) {
             if (preg_match($scannerItem, $token->word)) {
-                return new self($scannerTag);
+                return $scannerTag;
             }
         }
-    }
-
-    public function __toString()
-    {
-        return 'pointer-' . $this->type;
     }
 
 }

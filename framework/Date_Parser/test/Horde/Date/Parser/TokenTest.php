@@ -19,24 +19,18 @@ class Horde_Date_Parser_TokenTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(0, count($token->tags));
         $this->assertFalse($token->tagged());
 
-        $token->tag(new FooTag('mytag'));
+        $token->tag('foo', 'mytag');
         $this->assertEquals(1, count($token->tags));
         $this->assertTrue($token->tagged());
-        $this->assertType('FooTag', $token->getTag('FooTag'));
+        $this->assertType('string', $token->getTag('foo'));
 
-        $token->tag(new BarTag(5));
+        $token->tag('bar', 5);
         $this->assertEquals(2, count($token->tags));
+        $this->assertType('int', $token->getTag('bar'));
 
-        $token->untag('FooTag');
+        $token->untag('foo');
         $this->assertEquals(1, count($token->tags));
+        $this->assertType('int', $token->getTag('bar'));
     }
 
-}
-
-class FooTag extends Horde_Date_Parser_Tag
-{
-}
-
-class BarTag extends Horde_Date_Parser_Tag
-{
 }

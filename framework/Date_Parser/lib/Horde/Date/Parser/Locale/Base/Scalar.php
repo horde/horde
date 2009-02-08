@@ -1,5 +1,5 @@
 <?php
-class Horde_Date_Parser_Locale_Base_Scalar extends Horde_Date_Parser_Tag
+class Horde_Date_Parser_Locale_Base_Scalar
 {
     public $scalarRegex = '/^\d*$/';
     public $dayRegex = '/^\d\d?$/';
@@ -10,18 +10,18 @@ class Horde_Date_Parser_Locale_Base_Scalar extends Horde_Date_Parser_Tag
     public function scan($tokens)
     {
         foreach ($tokens as $i => &$token) {
-            $postToken = isset($tokens[$i + 1]) ? $tokens[$i + 1] : null;
-            if ($t = $this->scanForScalars($token, $postToken)) {
-                $token->tag($t);
+            $postToken = isset($tokens[$i + 1]) ? $tokens[$i + 1]->word : null;
+            if (!is_null($t = $this->scanForScalars($token, $postToken))) {
+                $token->tag('scalar', $t);
             }
-            if ($t = $this->scanForDays($token, $postToken)) {
-                $token->tag($t);
+            if (!is_null($t = $this->scanForDays($token, $postToken))) {
+                $token->tag('scalar_day', $t);
             }
-            if ($t = $this->scanForMonths($token, $postToken)) {
-                $token->tag($t);
+            if (!is_null($t = $this->scanForMonths($token, $postToken))) {
+                $token->tag('scalar_month', $t);
             }
-            if ($t = $this->scanForYears($token, $postToken)) {
-                $token->tag($t);
+            if (!is_null($t = $this->scanForYears($token, $postToken))) {
+                $token->tag('scalar_year', $t);
             }
         }
         return $tokens;
@@ -31,7 +31,7 @@ class Horde_Date_Parser_Locale_Base_Scalar extends Horde_Date_Parser_Tag
     {
         if (preg_match($this->scalarRegex, $token->word)) {
             if (!in_array($postToken, $this->timeSignifiers)) {
-                return new self((int)$token->word);
+                return (int)$token->word;
             }
         }
     }
@@ -40,7 +40,7 @@ class Horde_Date_Parser_Locale_Base_Scalar extends Horde_Date_Parser_Tag
     {
         if (preg_match($this->dayRegex, $token->word)) {
             if ((int)$token->word <= 31 && !in_array($postToken, $this->timeSignifiers)) {
-                return new Horde_Date_Parser_Locale_Base_ScalarDay((int)$token->word);
+                return (int)$token->word;
             }
         }
     }
@@ -49,7 +49,7 @@ class Horde_Date_Parser_Locale_Base_Scalar extends Horde_Date_Parser_Tag
     {
         if (preg_match($this->monthRegex, $token->word)) {
             if ((int)$token->word <= 12 && !in_array($postToken, $this->timeSignifiers)) {
-                return new Horde_Date_Parser_Locale_Base_ScalarMonth((int)$token->word);
+                return (int)$token->word;
             }
         }
     }
@@ -58,41 +58,9 @@ class Horde_Date_Parser_Locale_Base_Scalar extends Horde_Date_Parser_Tag
     {
         if (preg_match($this->yearRegex, $token->word)) {
             if (!in_array($postToken, $this->timeSignifiers)) {
-                return new Horde_Date_Parser_Locale_Base_ScalarYear((int)$token->word);
+                return (int)$token->word;
             }
         }
-    }
-
-    public function __toString()
-    {
-        return 'scalar';
-    }
-
-}
-
-class Horde_Date_Parser_Locale_Base_ScalarDay extends Horde_Date_Parser_Locale_Base_Scalar
-{
-    public function __toString()
-    {
-        return parent::__toString() . '-day-' . $this->type;
-    }
-
-}
-
-class Horde_Date_Parser_Locale_Base_ScalarMonth extends Horde_Date_Parser_Locale_Base_Scalar
-{
-    public function __toString()
-    {
-        return parent::__toString() . '-month-' . $this->type;
-    }
-
-}
-
-class Horde_Date_Parser_Locale_Base_ScalarYear extends Horde_Date_Parser_Locale_Base_Scalar
-{
-    public function __toString()
-    {
-        return parent::__toString() . '-year-' . $this->type;
     }
 
 }

@@ -1,5 +1,5 @@
 <?php
-class Horde_Date_Parser_Locale_Base_Repeater extends Horde_Date_Parser_Tag
+class Horde_Date_Parser_Locale_Base_Repeater
 {
     public $monthNameScanner = array(
         '/^jan\.?(uary)?$/' => 'january',
@@ -57,15 +57,15 @@ class Horde_Date_Parser_Locale_Base_Repeater extends Horde_Date_Parser_Tag
     {
         foreach ($tokens as &$token) {
             if ($t = $this->scanForMonthNames($token)) {
-                $token->tag($t);
+                $token->tag('repeater_month_name', $t);
             } elseif ($t = $this->scanForDayNames($token)) {
-                $token->tag($t);
+                $token->tag('repeater_day_name', $t);
             } elseif ($t = $this->scanForDayPortions($token)) {
-                $token->tag($t);
+                $token->tag('repeater_day_portion', $t);
             } elseif ($t = $this->scanForTimes($token, $options)) {
-                $token->tag($t);
+                $token->tag('repeater_time', $t);
             } elseif ($t = $this->scanForUnits($token)) {
-                $token->tag($t);
+                $token->tag(strtolower(str_replace('Horde_Date_', '', get_class($t))), $t);
             }
         }
         return $tokens;
@@ -75,7 +75,7 @@ class Horde_Date_Parser_Locale_Base_Repeater extends Horde_Date_Parser_Tag
     {
         foreach ($this->monthNameScanner as $scannerItem => $scannerTag) {
             if (preg_match($scannerItem, $token->word)) {
-                return new Horde_Date_Parser_Locale_Base_Repeater_MonthName($scannerTag);
+                return new Horde_Date_Repeater_MonthName($scannerTag);
             }
         }
     }
@@ -84,7 +84,7 @@ class Horde_Date_Parser_Locale_Base_Repeater extends Horde_Date_Parser_Tag
     {
         foreach ($this->dayNameScanner as $scannerItem => $scannerTag) {
             if (preg_match($scannerItem, $token->word)) {
-                return new Horde_Date_Parser_Locale_Base_Repeater_DayName($scannerTag);
+                return new Horde_Date_Repeater_DayName($scannerTag);
             }
         }
     }
@@ -93,7 +93,7 @@ class Horde_Date_Parser_Locale_Base_Repeater extends Horde_Date_Parser_Tag
     {
         foreach ($this->dayPortionScanner as $scannerItem => $scannerTag) {
             if (preg_match($scannerItem, $token->word)) {
-                return new Horde_Date_Parser_Locale_Base_Repeater_DayPortion($scannerTag);
+                return new Horde_Date_Repeater_DayPortion($scannerTag);
             }
         }
     }
@@ -101,15 +101,15 @@ class Horde_Date_Parser_Locale_Base_Repeater extends Horde_Date_Parser_Tag
     public function scanForTimes($token, $options)
     {
         if (preg_match($this->timeRegex, $token->word)) {
-            return new Horde_Date_Parser_Locale_Base_Repeater_Time($token->word, $options);
+            return new Horde_Date_Repeater_Time($token->word, $options);
         }
     }
 
     public function scanForUnits($token)
     {
-        foreach ($this->uniScanner as $scannerItem => $scannerTag) {
+        foreach ($this->unitScanner as $scannerItem => $scannerTag) {
             if (preg_match($scannerItem, $token->word)) {
-                $class = 'Horde_Date_Parser_Locale_Base_Repeater_' . ucfirst($scannerTag);
+                $class = 'Horde_Date_Repeater_' . ucfirst($scannerTag);
                 return new $class($scannerTag);
             }
         }

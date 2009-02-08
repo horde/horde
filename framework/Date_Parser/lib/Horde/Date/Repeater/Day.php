@@ -29,18 +29,18 @@ class Horde_Date_Repeater_Day extends Horde_Date_Repeater
 
         switch ($pointer) {
         case 'future':
-            $dayBegin = new Horde_Date(array('year' => $now->year, 'month' => $now->month, 'day' => $now->day, 'hour' => $now->hour + 1));
-            $dayEnd = new Horde_Date(array('year' => $now->year, 'month' => $now->month, 'day' => $now->day + 1));
+            $dayBegin = new Horde_Date(array('year' => $this->now->year, 'month' => $this->now->month, 'day' => $this->now->day, 'hour' => $this->now->hour + 1));
+            $dayEnd = new Horde_Date(array('year' => $this->now->year, 'month' => $this->now->month, 'day' => $this->now->day + 1));
             break;
 
         case 'past':
-            $dayBegin = new Horde_Date(array('year' => $now->year, 'month' => $now->month, 'day' => $now->day));
-            $dayBegin = new Horde_Date(array('year' => $now->year, 'month' => $now->month, 'day' => $now->day, 'hour' => $now->hour));
+            $dayBegin = new Horde_Date(array('year' => $this->now->year, 'month' => $this->now->month, 'day' => $this->now->day));
+            $dayBegin = new Horde_Date(array('year' => $this->now->year, 'month' => $this->now->month, 'day' => $this->now->day, 'hour' => $this->now->hour));
             break;
 
         case 'none':
-            $dayBegin = new Horde_Date(array('year' => $now->year, 'month' => $now->month, 'day' => $now->day));
-            $dayEnd = new Horde_Date(array('year' => $now->year, 'month' => $now->month, 'day' => $now->day + 1));
+            $dayBegin = new Horde_Date(array('year' => $this->now->year, 'month' => $this->now->month, 'day' => $this->now->day));
+            $dayEnd = new Horde_Date(array('year' => $this->now->year, 'month' => $this->now->month, 'day' => $this->now->day + 1));
             break;
         }
 

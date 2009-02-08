@@ -35,6 +35,16 @@ class Horde_Date_Span
     }
 
     /**
+     * Is a Horde_Date within this span?
+     *
+     * @param Horde_Date $date
+     */
+    public function includes($date)
+    {
+        return ($this->begin->compareDateTime($date) <= 0) && ($this->end->compareDateTime($date) >= 0);
+    }
+
+    /**
      * Add a number of seconds to this span, returning the new span
      */
     public function add($factor)

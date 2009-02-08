@@ -2,6 +2,12 @@
 class Horde_Date_Parser_Locale_Base
 {
     public $definitions = array();
+    public $args = array();
+
+    public function __construct($args)
+    {
+        $this->args = $args;
+    }
 
     /**
     # Parses a string containing a natural language date or time. If the parser
@@ -47,7 +53,7 @@ class Horde_Date_Parser_Locale_Base
         // get options and set defaults if necessary
         $defaultOptions = array(
             'context' => 'future',
-            'now' => new Horde_Date,
+            'now' => new Horde_Date(time()),
             'guess' => true,
             'ambiguousTimeRange' => 6,
         );
@@ -87,12 +93,6 @@ class Horde_Date_Parser_Locale_Base
         // strip any non-tagged tokens
         $tokens = array_filter($tokens, create_function('$t', 'return $t->tagged();'));
 
-        if (Horde_Date_Parser::$debug) {
-            echo "+---------------------------------------------------\n";
-            echo "| " + implode(', ', $tokens) . "\n";
-            echo "+---------------------------------------------------\n";
-        }
-
         // do the heavy lifting
         $span = $this->tokensToSpan($tokens, $options);
 
@@ -105,6 +105,33 @@ class Horde_Date_Parser_Locale_Base
     }
 
     /**
+     * @TODO this should be an instance method of one of the base classes, and
+     * should already known the locale
+     */
+    public function componentFactory($component, $args = null)
+    {
+        $locale = isset($this->args['locale']) ? $this->args['locale'] : null;
+        if ($locale && strtolower($locale) != 'base') {
+            $locale = str_replace(' ', '_', ucwords(str_replace('_', ' ', strtolower($locale))));
+            $class = 'Horde_Date_Parser_Locale_' . $locale . '_' . $component;
+            if (class_exists($class)) {
+                return new $class($args);
+            }
+
+            $language = array_shift(explode('_', $locale));
+            if ($language != $locale) {
+                $class = 'Horde_Date_Parser_Locale_' . $language . '_' . $component;
+                if (class_exists($class)) {
+                    return new $class($args);
+                }
+            }
+        }
+
+        $class = 'Horde_Date_Parser_Locale_Base_' . $component;
+        return new $class($args);
+    }
+
+    /**
     # Clean up the specified input text by stripping unwanted characters,
     # converting idioms to their canonical form, converting number words
     # to numbers (three => 3), and converting ordinal words to numeric
@@ -112,26 +139,28 @@ class Horde_Date_Parser_Locale_Base
     */
     public function preNormalize($text)
     {
-        $normalizedText = strtolower($text);
-        $normalizedText = $this->numericizeNumbers($normalizedText);
-        $normalizedText = preg_replace('/[\'"\.]/', '', $normalizedText);
-        $normalizedText = preg_replace('/([\/\-\,\@])/', ' \1 ', $normalizedText);
-        $normalizedText = preg_replace('/\btoday\b/', 'this day', $normalizedText);
-        $normalizedText = preg_replace('/\btomm?orr?ow\b/', 'next day', $normalizedText);
-        $normalizedText = preg_replace('/\byesterday\b/', 'last day', $normalizedText);
-        $normalizedText = preg_replace('/\bnoon\b/', '12:00', $normalizedText);
-        $normalizedText = preg_replace('/\bmidnight\b/', '24:00', $normalizedText);
-        $normalizedText = preg_replace('/\bbefore now\b/', 'past', $normalizedText);
-        $normalizedText = preg_replace('/\bnow\b/', 'this second', $normalizedText);
-        $normalizedText = preg_replace('/\b(ago|before)\b/', 'past', $normalizedText);
-        $normalizedText = preg_replace('/\bthis past\b/', 'last', $normalizedText);
-        $normalizedText = preg_replace('/\bthis last\b/', 'last', $normalizedText);
-        $normalizedText = preg_replace('/\b(?:in|during) the (morning)\b/', '\1', $normalizedText);
-        $normalizedText = preg_replace('/\b(?:in the|during the|at) (afternoon|evening|night)\b/', '\1', $normalizedText);
-        $normalizedText = preg_replace('/\btonight\b/', 'this night', $normalizedText);
-        $normalizedText = preg_replace('/(?=\w)([ap]m|oclock)\b/', ' \1', $normalizedText);
-        $normalizedText = preg_replace('/\b(hence|after|from)\b/', 'future', $normalizedText);;
-        $normalizedText = $this->numericizeOrdinals($normalizedText);
+        $text = strtolower($text);
+        $text = $this->numericizeNumbers($text);
+        $text = preg_replace('/[\'"\.]/', '', $text);
+        $text = preg_replace('/([\/\-\,\@])/', ' \1 ', $text);
+        $text = preg_replace('/\btoday\b/', 'this day', $text);
+        $text = preg_replace('/\btomm?orr?ow\b/', 'next day', $text);
+        $text = preg_replace('/\byesterday\b/', 'last day', $text);
+        $text = preg_replace('/\bnoon\b/', '12:00', $text);
+        $text = preg_replace('/\bmidnight\b/', '24:00', $text);
+        $text = preg_replace('/\bbefore now\b/', 'past', $text);
+        $text = preg_replace('/\bnow\b/', 'this second', $text);
+        $text = preg_replace('/\b(ago|before)\b/', 'past', $text);
+        $text = preg_replace('/\bthis past\b/', 'last', $text);
+        $text = preg_replace('/\bthis last\b/', 'last', $text);
+        $text = preg_replace('/\b(?:in|during) the (morning)\b/', '\1', $text);
+        $text = preg_replace('/\b(?:in the|during the|at) (afternoon|evening|night)\b/', '\1', $text);
+        $text = preg_replace('/\btonight\b/', 'this night', $text);
+        $text = preg_replace('/(?=\w)([ap]m|oclock)\b/', ' \1', $text);
+        $text = preg_replace('/\b(hence|after|from)\b/', 'future', $text);;
+        $text = $this->numericizeOrdinals($text);
+
+        return $text;
     }
 
     /**
@@ -139,7 +168,7 @@ class Horde_Date_Parser_Locale_Base
      */
     public function numericizeNumbers($text)
     {
-        return Horde_Support_Numerizer::numerize($normalizedText, array('locale' => $this->locale));
+        return Horde_Support_Numerizer::numerize($text, $this->args);
     }
 
     /**
@@ -166,8 +195,8 @@ class Horde_Date_Parser_Locale_Base
         if (empty($span)) {
             return null;
         }
-        if ($span->width > 1) {
-            return $span->begin + ($span->width() / 2);
+        if ($span->width() > 1) {
+            return $span->begin->add($span->width() / 2);
         } else {
             return $span->begin;
         }
@@ -179,54 +208,53 @@ class Horde_Date_Parser_Locale_Base
 
         $this->definitions = array(
             'time' => array(
-                new Horde_Date_Parser_Handler(array('repeater_time', 'repeater_day_portion?'), null),
+                new Horde_Date_Parser_Handler(array(':repeater_time', ':repeater_day_portion?'), null),
             ),
 
             'date' => array(
-                new Horde_Date_Parser_Handler(array('repeater_day_name', 'repeater_month_name', 'scalar_day', 'repeater_time', 'time_zone', 'scalar_year'), 'handle_rdn_rmn_sd_t_tz_sy'),
-                new Horde_Date_Parser_Handler(array('repeater_month_name', 'scalar_day', 'scalar_year'), 'handle_rmn_sd_sy'),
-                new Horde_Date_Parser_Handler(array('repeater_month_name', 'scalar_day', 'scalar_year', 'separator_at?', 'time?'), 'handle_rmn_sd_sy'),
-                new Horde_Date_Parser_Handler(array('repeater_month_name', 'scalar_day', 'separator_at?', 'time?'), 'handle_rmn_sd'),
-                new Horde_Date_Parser_Handler(array('repeater_month_name', 'ordinal_day', 'separator_at?', 'time?'), 'handle_rmn_od'),
-                new Horde_Date_Parser_Handler(array('repeater_month_name', 'scalar_year'), 'handle_rmn_sy'),
-                new Horde_Date_Parser_Handler(array('scalar_day', 'repeater_month_name', 'scalar_year', 'separator_at?', 'time?'), 'handle_sd_rmn_sy'),
-                new Horde_Date_Parser_Handler(array('scalar_month', 'separator_slash_or_dash', 'scalar_day', 'separator_slash_or_dash', 'scalar_year', 'separator_at?', 'time?'), 'handle_sm_sd_sy'),
-                new Horde_Date_Parser_Handler(array('scalar_day', 'separator_slash_or_dash', 'scalar_month', 'separator_slash_or_dash', 'scalar_year', 'separator_at?', 'time?'), 'handle_sd_sm_sy'),
-                new Horde_Date_Parser_Handler(array('scalar_year', 'separator_slash_or_dash', 'scalar_month', 'separator_slash_or_dash', 'scalar_day', 'separator_at?', 'time?'), 'handle_sy_sm_sd'),
-                new Horde_Date_Parser_Handler(array('scalar_month', 'separator_slash_or_dash', 'scalar_year'), 'handle_sm_sy'),
+                new Horde_Date_Parser_Handler(array(':repeater_day_name', ':repeater_month_name', ':scalar_day', ':repeater_time', ':time_zone', ':scalar_year'), 'handle_rdn_rmn_sd_t_tz_sy'),
+                new Horde_Date_Parser_Handler(array(':repeater_month_name', ':scalar_day', ':scalar_year'), 'handle_rmn_sd_sy'),
+                new Horde_Date_Parser_Handler(array(':repeater_month_name', ':scalar_day', ':scalar_year', ':separator_at?', 'time?'), 'handle_rmn_sd_sy'),
+                new Horde_Date_Parser_Handler(array(':repeater_month_name', ':scalar_day', ':separator_at?', 'time?'), 'handle_rmn_sd'),
+                new Horde_Date_Parser_Handler(array(':repeater_month_name', ':ordinal_day', ':separator_at?', 'time?'), 'handle_rmn_od'),
+                new Horde_Date_Parser_Handler(array(':repeater_month_name', ':scalar_year'), 'handle_rmn_sy'),
+                new Horde_Date_Parser_Handler(array(':scalar_day', ':repeater_month_name', ':scalar_year', ':separator_at?', 'time?'), 'handle_sd_rmn_sy'),
+                new Horde_Date_Parser_Handler(array(':scalar_month', ':separator_slash_or_dash', ':scalar_day', ':separator_slash_or_dash', ':scalar_year', ':separator_at?', 'time?'), 'handle_sm_sd_sy'),
+                new Horde_Date_Parser_Handler(array(':scalar_day', ':separator_slash_or_dash', ':scalar_month', ':separator_slash_or_dash', ':scalar_year', ':separator_at?', 'time?'), 'handle_sd_sm_sy'),
+                new Horde_Date_Parser_Handler(array(':scalar_year', ':separator_slash_or_dash', ':scalar_month', ':separator_slash_or_dash', ':scalar_day', ':separator_at?', 'time?'), 'handle_sy_sm_sd'),
+                new Horde_Date_Parser_Handler(array(':scalar_month', ':separator_slash_or_dash', ':scalar_year'), 'handle_sm_sy'),
             ),
 
             // tonight at 7pm
             'anchor' => array(
-                new Horde_Date_Parser_Handler(array('grabber?', 'repeater', 'separator_at?', 'repeater?', 'repeater?'), 'handle_r'),
-                new Horde_Date_Parser_Handler(array('grabber?', 'repeater', 'repeater', 'separator_at?', 'repeater?', 'repeater?'), 'handle_r'),
-                new Horde_Date_Parser_Handler(array('repeater', 'grabber', 'repeater'), 'handle_r_g_r'),
+                new Horde_Date_Parser_Handler(array(':grabber?', ':repeater', ':separator_at?', ':repeater?', ':repeater?'), 'handle_r'),
+                new Horde_Date_Parser_Handler(array(':grabber?', ':repeater', ':repeater', ':separator_at?', ':repeater?', ':repeater?'), 'handle_r'),
+                new Horde_Date_Parser_Handler(array(':repeater', ':grabber', ':repeater'), 'handle_r_g_r'),
             ),
 
             // 3 weeks from now, in 2 months
             'arrow' => array(
-                new Horde_Date_Parser_Handler(array('scalar', 'repeater', 'pointer'), 'handle_s_r_p'),
-                new Horde_Date_Parser_Handler(array('pointer', 'scalar', 'repeater'), 'handle_p_s_r'),
-                new Horde_Date_Parser_Handler(array('scalar', 'repeater', 'pointer', 'anchor'), 'handle_s_r_p_a'),
+                new Horde_Date_Parser_Handler(array(':scalar', ':repeater', ':pointer'), 'handle_s_r_p'),
+                new Horde_Date_Parser_Handler(array(':pointer', ':scalar', ':repeater'), 'handle_p_s_r'),
+                new Horde_Date_Parser_Handler(array(':scalar', ':repeater', ':pointer', 'anchor'), 'handle_s_r_p_a'),
             ),
 
             // 3rd week in march
             'narrow' => array(
-                new Horde_Date_Parser_Handler(array('ordinal', 'repeater', 'separator_in', 'repeater'), 'handle_o_r_s_r'),
-                new Horde_Date_Parser_Handler(array('ordinal', 'repeater', 'grabber', 'repeater'), 'handle_o_r_g_r'),
+                new Horde_Date_Parser_Handler(array(':ordinal', ':repeater', ':separator_in', ':repeater'), 'handle_o_r_s_r'),
+                new Horde_Date_Parser_Handler(array(':ordinal', ':repeater', ':grabber', ':repeater'), 'handle_o_r_g_r'),
             ),
         );
     }
 
-    public function tokensToSpans($tokens, $options)
+    public function tokensToSpan($tokens, $options)
     {
         $this->initDefinitions();
 
         // maybe it's a specific date
         foreach ($this->definitions['date'] as $handler) {
             if ($handler->match($tokens, $this->definitions)) {
-                if (Horde_Date_Parser::$debug) { echo "-date\n"; }
-                $goodTokens = array_filter($tokens, create_function('$o', 'return !$o->getTag("Separator");'));
+                $goodTokens = array_filter($tokens, create_function('$o', 'return !$o->getTag("separator");'));
                 return call_user_func(array($this, $handler->handlerMethod), $goodTokens, $options);
             }
         }
@@ -234,8 +262,7 @@ class Horde_Date_Parser_Locale_Base
         // I guess it's not a specific date, maybe it's just an anchor
         foreach ($this->definitions['anchor'] as $handler) {
             if ($handler->match($tokens, $this->definitions)) {
-                if (Horde_Date_Parser::$debug) { echo "-anchor\n"; }
-                $goodTokens = array_filter($tokens, create_function('$o', 'return !$o->getTag("Separator");'));
+                $goodTokens = array_filter($tokens, create_function('$o', 'return !$o->getTag("separator");'));
                 return call_user_func(array($this, $handler->handlerMethod), $goodTokens, $options);
             }
         }
@@ -243,8 +270,7 @@ class Horde_Date_Parser_Locale_Base
         // not an anchor, perhaps it's an arrow
         foreach ($this->definitions['arrow'] as $handler) {
             if ($handler->match($tokens, $this->definitions)) {
-                if (Horde_Date_Parser::$debug) { echo "-arrow\n"; }
-                $goodTokens = array_filter($tokens, create_function('$o', 'return !$o->getTag("SeparatorAt") && !$o->getTag("SeparatorSlashOrDash") && !$o->getTag("SeparatorComma");'));
+                $goodTokens = array_filter($tokens, create_function('$o', 'return !$o->getTag("separator_at") && !$o->getTag("separator_slash_or_dash") && !$o->getTag("separator_comma");'));
                 return call_user_func(array($this, $handler->handlerMethod), $goodTokens, $options);
             }
         }
@@ -252,21 +278,19 @@ class Horde_Date_Parser_Locale_Base
         // not an arrow, let's hope it's a narrow
         foreach ($this->definitions['narrow'] as $handler) {
             if ($handler->match($tokens, $this->definitions)) {
-                if (Horde_Date_Parser::$debug) { echo "-narrow\n"; }
                 //good_tokens = tokens.select { |o| !o.get_tag Separator }
                 return call_user_func(array($this, $handler->handlerMethod), $tokens, $options);
             }
         }
 
         // I guess you're out of luck!
-        if (Horde_Date_Parser::$debug) { echo "-none\n"; }
         return null;
     }
 
 
     public function dayOrTime($dayStart, $timeTokens, $options)
     {
-        $outerSpan = new Horde_Date_Span($dayStart, $dayStart + (24 * 60 * 60));
+        $outerSpan = new Horde_Date_Span($dayStart, $dayStart->add(array('day' => 1)));
 
         if (!empty($timeTokens)) {
             $this->now = $outerSpan->begin;
@@ -288,18 +312,18 @@ class Horde_Date_Parser_Locale_Base
 
     public function handle_rmn_sd($tokens, $options)
     {
-        return $this->handle_m_d($tokens[0]->getTag('RepeaterMonthName'), $tokens[1]->getTag('ScalarDay')->type, array_slice($tokens, 2), $options);
+        return $this->handle_m_d($tokens[0]->getTag('repeater_month_name'), $tokens[1]->getTag('scalar_day'), array_slice($tokens, 2), $options);
     }
 
     public function handle_rmn_od($tokens, $options)
     {
-        return $this->handle_m_d($tokens[0]->getTag('RepeaterMonthName'), $tokens[1]->getTag('OrdinalDay')->type, array_slice($tokens, 2), $options);
+        return $this->handle_m_d($tokens[0]->getTag('repeater_month_name'), $tokens[1]->getTag('ordinal_day'), array_slice($tokens, 2), $options);
     }
 
     public function handle_rmn_sy($tokens, $options)
     {
-        $month = $tokens[0]->getTag('RepeaterMonthName')->index();
-        $year = $tokens[1]->getTag('ScalarYear')->type;
+        $month = $tokens[0]->getTag('repeater_month_name')->index();
+        $year = $tokens[1]->getTag('scalar_year');
 
         try {
             return new Horde_Date_Span(new Horde_Date(array('year' => $year, 'month' => $month)), new Horde_Date(array('year' => $year, 'month' => $month + 1)));
@@ -310,9 +334,9 @@ class Horde_Date_Parser_Locale_Base
 
     public function handle_rdn_rmn_sd_t_tz_sy($tokens, $options)
     {
-        $month = $tokens[1]->getTag('RepeaterMonthName')->index();
-        $day = $tokens[2]->getTag('ScalarDay')->type;
-        $year = $tokens[5]->getTag('ScalarYear')->type;
+        $month = $tokens[1]->getTag('repeater_month_name')->index();
+        $day = $tokens[2]->getTag('scalar_day');
+        $year = $tokens[5]->getTag('scalar_year');
 
         try {
             $dayStart = new Horde_Date(array('year' => $year, 'month' => $month, 'day' => $day));
@@ -324,9 +348,9 @@ class Horde_Date_Parser_Locale_Base
 
     public function handle_rmn_sd_sy($tokens, $options)
     {
-        $month = $tokens[0]->getTag('RepeaterMonthName')->index();
-        $day = $tokens[1]->getTag('ScalarDay')->type;
-        $year = $tokens[2]->getTag('ScalarYear')->type;
+        $month = $tokens[0]->getTag('repeater_month_name')->index();
+        $day = $tokens[1]->getTag('scalar_day');
+        $year = $tokens[2]->getTag('scalar_year');
 
         $timeTokens = array_slice($tokens, 3);
 
@@ -347,9 +371,9 @@ class Horde_Date_Parser_Locale_Base
 
     public function handle_sm_sd_sy($tokens, $options)
     {
-        $month = $tokens[0]->getTag('ScalarMonth')->type;
-        $day = $tokens[1]->getTag('ScalarDay')->type;
-        $year = $tokens[2]->getTag('ScalarYear')->type;
+        $month = $tokens[0]->getTag('scalar_month');
+        $day = $tokens[1]->getTag('scalar_day');
+        $year = $tokens[2]->getTag('scalar_year');
 
         $timeTokens = array_slice($tokens, 3);
 
@@ -377,8 +401,8 @@ class Horde_Date_Parser_Locale_Base
 
     public function handle_sm_sy($tokens, $options)
     {
-        $month = $tokens[0]->getTag('ScalarMonth')->type;
-        $year = $tokens[1]->getTag('ScalarYear')->type;
+        $month = $tokens[0]->getTag('scalar_month');
+        $year = $tokens[1]->getTag('scalar_year');
 
         try {
             return new Horde_Date_Span(new Horde_Date(array('year' => $year, 'month' => $month)), new Horde_Date(array('year' => $year, 'month' => $month = 1)));
@@ -411,9 +435,9 @@ class Horde_Date_Parser_Locale_Base
 
     public function handle_srp($tokens, $span, $options)
     {
-        $distance = $tokens[0]->getTag('Scalar')->type;
-        $repeater = $tokens[1]->getTag('Repeater');
-        $pointer = $tokens[2]->getTag('Pointer')->type;
+        $distance = $tokens[0]->getTag('scalar');
+        $repeater = $tokens[1]->getTag('repeater');
+        $pointer = $tokens[2]->getTag('pointer');
 
         return $repeater->offset($span, $distance, $pointer);
     }
@@ -443,9 +467,9 @@ class Horde_Date_Parser_Locale_Base
 
     public function handle_orr($tokens, $outerSpan, $options)
     {
-        $repeater = $tokens[1]->getTag('Repeater');
-        $repeater->now = $outerSpan->begin - 1;
-        $ordinal = $tokens[0]->getTag('Ordinal')->type;
+        $repeater = $tokens[1]->getTag('repeater');
+        $repeater->now = $outerSpan->begin->sub(1);
+        $ordinal = $tokens[0]->getTag('ordinal');
         $span = null;
 
         for ($i = 0; $i < $ordinal; $i++) {
@@ -477,7 +501,7 @@ class Horde_Date_Parser_Locale_Base
 
     public function getAnchor($tokens, $options)
     {
-        $grabber = $this->componentFactory('Grabber', array('this'));
+        $grabber = 'this';
         $pointer = 'future';
 
         $repeaters = $this->getRepeaters($tokens);
@@ -485,15 +509,15 @@ class Horde_Date_Parser_Locale_Base
             array_pop($tokens);
         }
 
-        if (count($tokens) && $tokens[0]->getTag('Grabber')) {
-            $grabber = $tokens[0]->getTag('Grabber');
+        if (count($tokens) && $tokens[0]->getTag('grabber')) {
+            $grabber = $tokens[0]->getTag('grabber');
             array_pop($tokens);
         }
 
         $head = array_shift($repeaters);
         $head->now = $this->now;
 
-        switch ($grabber->type) {
+        switch ($grabber) {
         case 'last':
             $outerSpan = $head->next('past');
             break;
@@ -511,10 +535,9 @@ class Horde_Date_Parser_Locale_Base
             break;
 
         default:
-            throw new Horde_Date_Parser_Exception('Invalid grabber ' . $grabber->type);
+            throw new Horde_Date_Parser_Exception('Invalid grabber ' . $grabber);
         }
 
-        if (Horde_Date_Parser::$debug) { echo "--$outerSpan\n"; }
         return $this->findWithin($repeaters, $outerSpan, $pointer);
     }
 
@@ -522,7 +545,7 @@ class Horde_Date_Parser_Locale_Base
     {
         $repeaters = array();
         foreach ($tokens as $token) {
-            if ($t = $token->getTag('Repeater')) {
+            if ($t = $token->getTag('repeater')) {
                 $repeaters[] = $t;
             }
         }
@@ -538,7 +561,6 @@ class Horde_Date_Parser_Locale_Base
      */
     public function findWithin($tags, $span, $pointer)
     {
-        if (Horde_Date_Parser::$debug) { echo "--$span\n"; }
         if (empty($tags)) { return $span; }
 
         $head = array_shift($tags);
@@ -546,7 +568,7 @@ class Horde_Date_Parser_Locale_Base
         $head->now = ($pointer == 'future') ? $span->begin : $span->end;
         $h = $head->this('none');
 
-        if ($span->include($h->begin) || $span->include($h->end)) {
+        if ($span->includes($h->begin) || $span->includes($h->end)) {
             return $this->findWithin($rest, $h, $pointer);
         } else {
             return null;
@@ -562,7 +584,7 @@ class Horde_Date_Parser_Locale_Base
     {
         $dayPortionIndex = null;
         foreach ($tokens as $i => $t) {
-            if ($t->getTag('RepeaterDayPortion')) {
+            if ($t->getTag('repeater_day_portion')) {
                 $dayPortionIndex = $i;
                 break;
             }
@@ -570,7 +592,7 @@ class Horde_Date_Parser_Locale_Base
 
         $timeIndex = null;
         foreach ($tokens as $i => $t) {
-            if ($t->getTag('RepeaterTime')) {
+            if ($t->getTag('repeater_time')) {
                 $timeIndex = $i;
                 break;
             }
@@ -578,45 +600,26 @@ class Horde_Date_Parser_Locale_Base
 
         if ($dayPortionIndex && $timeIndex) {
             $t1 = $tokens[$dayPortionIndex];
-            $t1tag = $t1->getTag('RepeaterDayPortion');
+            $t1tag = $t1->getTag('repeater_day_portion');
 
-            if ($t1tag->type == 'morning') {
-                if (Horde_Date_Parser::$debug) { echo "--morning->am\n"; }
-                $t1->untag('RepeaterDayPortion');
-                $t1->tag($this->componentFactory('RepeaterDayPortion', array('am')));
-            } elseif (in_array($t1tag->type, array('afternoon', 'evening', 'night'))) {
-                if (Horde_Date_Parser::$debug) { echo "--{$t1tag->type}->pm\n"; }
-                $t1->untag('RepeaterDayPortion');
-                $t1->tag($this->componentFactory('RepeaterDayPortion', array('pm')));
+            if ($t1tag == 'morning') {
+                $t1->untag('repeater_day_portion');
+                $t1->tag('repeater_day_portion', new Horde_Date_Repeater_DayPortion('am'));
+            } elseif (in_array($t1tag, array('afternoon', 'evening', 'night'))) {
+                $t1->untag('repeater_day_portion');
+                $t1->tag('repeater_day_portion', new Horde_Date_Repeater_DayPortion('pm'));
             }
         }
 
-        /*
-          # tokens.each_with_index do |t0, i|
-          #   t1 = tokens[i + 1]
-          #   if t1 && (t1tag = t1.get_tag(RepeaterDayPortion)) && t0.get_tag(RepeaterTime)
-          #     if [:morning].include?(t1tag.type)
-          #       puts '--morning->am' if Chronic.debug
-          #       t1.untag(RepeaterDayPortion)
-          #       t1.tag(RepeaterDayPortion.new(:am))
-          #     elsif [:afternoon, :evening, :night].include?(t1tag.type)
-          #       puts "--#{t1tag.type}->pm" if Chronic.debug
-          #       t1.untag(RepeaterDayPortion)
-          #       t1.tag(RepeaterDayPortion.new(:pm))
-          #     end
-          #   end
-          # end
-        */
-
-        // handle ambiguous times if :ambiguousTimeRange is specified
+        // handle ambiguous times if ambiguousTimeRange is specified
         if ($options['ambiguousTimeRange'] != 'none') {
             $ttokens = array();
             foreach ($tokens as $i => $t0) {
                 $ttokens[] = $t0;
                 $t1 = isset($tokens[$i + 1]) ? $tokens[$i + 1] : null;
-                if ($t0->getTag('RepeaterTime') && $t0->getTag('RepeaterTime')->type->ambiguous() && (!$t1 || !$t1->getTag('RepeaterDayPortion'))) {
+                if ($t0->getTag('repeater_time') && $t0->getTag('repeater_time')->ambiguous && (!$t1 || !$t1->getTag('repeater_day_portion'))) {
                     $distoken = new Horde_Date_Parser_Token('disambiguator');
-                    $distoken->tag($this->componentFactory('RepeaterDayPortion', array($options['ambiguousTimeRange'])));
+                    $distoken->tag('repeater_day_portion', new Horde_Date_Repeater_DayPortion($options['ambiguousTimeRange']));
                     $ttokens[] = $distoken;
                 }
             }

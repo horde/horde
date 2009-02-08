@@ -106,7 +106,7 @@ class Horde_Date_Repeater_DayPortion extends Horde_Date_Repeater
 
     public function this($context = 'future')
     {
-        parent::super($context);
+        parent::this($context);
 
         $rangeStart = new Horde_Date(array('year' => $this->now->year, 'month' => $this->now->month, 'day' => $this->now->day, 'sec' => $this->range[0]));
         $rangeEnd = new Horde_Date(array('year' => $rangeStart->year, 'month' => $rangeStart->month, 'day' => $rangeStart->day, 'sec' => $this->range[1] - $this->range[0]));

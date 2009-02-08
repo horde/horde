@@ -3,6 +3,7 @@ class Horde_Date_Repeater_Time extends Horde_Date_Repeater
 {
     public $currentTime;
     public $type;
+    public $ambiguous;
 
     public function __construct($time, $options = array())
     {
@@ -12,33 +13,34 @@ class Horde_Date_Repeater_Time extends Horde_Date_Repeater
         case 1:
         case 2:
             $hours = (int)$t;
-            $this->type = ($hours == 12) ?
-                new Horde_Date_Tick(0, true) :
-                new Horde_Date_Tick($hours * 3600, true);
+            $this->ambiguous = true;
+            $this->type = ($hours == 12) ? 0 : $hours * 3600;
             break;
 
         case 3:
-            $this->type = new Horde_Date_Tick($t[0] * 3600 + (int)substr($t, 1, 2) * 60, true);
+            $this->ambiguous = true;
+            $this->type = $t[0] * 3600 + (int)substr($t, 1, 2) * 60;
             break;
 
         case 4:
-            $ambiguous = (strpos($time, ':') !== false) && ($t[0] != 0) && ((int)substr($t, 0, 2) <= 12);
+            $this->ambiguous = (strpos($time, ':') !== false) && ($t[0] != 0) && ((int)substr($t, 0, 2) <= 12);
             $hours = (int)substr($t, 0, 2);
             $this->type = ($hours == 12) ?
-                new Horde_Date_Tick((int)substr($t, 2, 2) * 60, $ambiguous) :
-                new Horde_Date_Tick($hours * 60 * 60 + (int)substr($t, 2, 2) * 60, $ambiguous);
+                ((int)substr($t, 2, 2) * 60) :
+                ($hours * 60 * 60 + (int)substr($t, 2, 2) * 60);
             break;
 
         case 5:
-            $this->type = new Horde_Date_Tick($t[0] * 3600 + (int)substr($t, 1, 2) * 60 + (int)substr($t, 3, 2), true);
+            $this->ambiguous = true;
+            $this->type = $t[0] * 3600 + (int)substr($t, 1, 2) * 60 + (int)substr($t, 3, 2);
             break;
 
         case 6:
-            $ambiguous = (strpos($time, ':') !== false) && ($t[0] != 0) && ((int)substr($t, 0, 2) <= 12);
+            $this->ambiguous = (strpos($time, ':') !== false) && ($t[0] != 0) && ((int)substr($t, 0, 2) <= 12);
             $hours = (int)substr($t, 0, 2);
             $this->type = ($hours == 12) ?
-                new Horde_Date_Tick((int)substr($t, 2, 2) * 60 + (int)substr($t, 4, 2), $ambiguous) :
-                new Horde_Date_Tick($hours * 60 * 60 + (int)substr($t, 2, 2) * 60 + (int)substr($t, 4, 2), $ambiguous);
+                ((int)substr($t, 2, 2) * 60 + (int)substr($t, 4, 2)) :
+                ($hours * 60 * 60 + (int)substr($t, 2, 2) * 60 + (int)substr($t, 4, 2));
             break;
 
         default:
@@ -67,15 +69,15 @@ class Horde_Date_Repeater_Time extends Horde_Date_Repeater
             $tomorrowMidnight = new Horde_Date(array('year' => $this->now->year, 'month' => $this->now->month, 'day' => $this->now->day + 1));
 
             if ($pointer == 'future') {
-                if ($this->type->ambiguous) {
-                    foreach (array($midnight->add($this->type->time), $midnight->add($halfDay + $this->type->time), $tomorrowMidnight->add($this->type->time)) as $t) {
+                if ($this->ambiguous) {
+                    foreach (array($midnight->add($this->type), $midnight->add($halfDay + $this->type), $tomorrowMidnight->add($this->type)) as $t) {
                         if ($t->compareDateTime($this->now) >= 0) {
                             $this->currentTime = $t;
                             break;
                         }
                     }
                 } else {
-                    foreach (array($midnight->add($this->type->time), $tomorrowMidnight->add($this->type->time)) as $t) {
+                    foreach (array($midnight->add($this->type), $tomorrowMidnight->add($this->type)) as $t) {
                         if ($t->compareDateTime($this->now) >= 0) {
                             $this->currentTime = $t;
                             break;
@@ -83,15 +85,15 @@ class Horde_Date_Repeater_Time extends Horde_Date_Repeater
                     }
                 }
             } elseif ($pointer == 'past') {
-                if ($this->type->ambiguous) {
-                    foreach (array($midnight->add($halfDay + $this->type->time), $midnight->add($this->type->time), $yesterdayMidnight->add($this->type->time * 2)) as $t) {
+                if ($this->ambiguous) {
+                    foreach (array($midnight->add($halfDay + $this->type), $midnight->add($this->type), $yesterdayMidnight->add($this->type * 2)) as $t) {
                         if ($t->compareDateTime($this->now) <= 0) {
                             $this->currentTime = $t;
                             break;
                         }
                     }
                 } else {
-                    foreach (array($midnight->add($this->type->time), $yesterdayMidnight->add($this->type->time)) as $t) {
+                    foreach (array($midnight->add($this->type), $yesterdayMidnight->add($this->type)) as $t) {
                         if ($t->compareDateTime($this->now) <= 0) {
                             $this->currentTime = $t;
                             break;
@@ -106,7 +108,7 @@ class Horde_Date_Repeater_Time extends Horde_Date_Repeater
         }
 
         if (!$first) {
-            $increment = $this->type->ambiguous ? $halfDay : $fullDay;
+            $increment = $this->ambiguous ? $halfDay : $fullDay;
             $this->currentTime->sec += ($pointer == 'future') ? $increment : -$increment;
         }
 
@@ -129,29 +131,6 @@ class Horde_Date_Repeater_Time extends Horde_Date_Repeater
     public function __toString()
     {
         return parent::__toString() . '-time-' . $this->type;
-    }
-
-}
-
-class Horde_Date_Tick
-{
-    public $time;
-    public $ambiguous;
-
-    public function __construct($time, $ambiguous = false)
-    {
-        $this->time = $time;
-        $this->ambiguous = $ambiguous;
-    }
-
-    public function mult($other)
-    {
-        return new Horde_Date_Tick($this->time * $other, $this->ambiguous);
-    }
-
-    public function __toString()
-    {
-        return $this->time . ($this->ambiguous ? '?' : '');
     }
 
 }
