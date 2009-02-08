@@ -13,17 +13,17 @@ class Horde_Date_Parser_Token
     /**
      * Tag this token with the specified tag
      */
-    public function tag($new_tag)
+    public function tag($tag)
     {
-        $this->tags[] = $new_tag;
+        $this->tags[] = $tag;
     }
 
     /**
      * Remove all tags of the given class
      */
-    public function untag($tag_class)
+    public function untag($tagClass)
     {
-        $this->tags = array_filter($this->tags, create_function('$t', 'return $t instanceof ' . $tag_class . ';'));
+        $this->tags = array_filter($this->tags, create_function('$t', 'return $t instanceof ' . $tagClass . ';'));
     }
 
     /**
@@ -37,9 +37,9 @@ class Horde_Date_Parser_Token
     /**
      * Return the Tag that matches the given class
      */
-    public function getTag($tag_class)
+    public function getTag($tagClass)
     {
-        $matches = array_filter($this->tags, create_function('$t', 'return $t instanceof ' . $tag_class . ';'));
+        $matches = array_filter($this->tags, create_function('$t', 'return $t instanceof ' . $tagClass . ';'));
         return array_shift($matches);
     }
 
