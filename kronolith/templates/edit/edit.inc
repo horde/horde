@@ -367,7 +367,7 @@ endif;
 <tr>
 <td colspan="5" class="control toggle" onclick="toggleSection('tags')">
  <?php echo Horde::img('tree/blank.png', '', array('id' => 'toggle_tags'), $GLOBALS['registry']->getImageDir('horde')) . ' <strong>' . _("Tags") ?></strong>
-  <span class="extra" id="extra_tags"><?php echo (!empty($tags) ? $tags : '');?></span>
+  <span class="extra" id="extra_tags"><?php echo (!empty($tags) ? htmlspecialchars($tags) : '');?></span>
   </td>
 </tr>
 <tr id="section_tags">
@@ -375,12 +375,12 @@ endif;
      <strong><?php echo Horde::label('tags', _("Tags"))?></strong>
  </td>
  <td colspan="4">
-   <input type="text" name="tags" id="tags" value="<?php echo (!empty($tags) ? $tags : '')?>" size="40" />
-   <div id="tags_results" class="autocomplete"></div>
+   <input type="text" name="tags" id="tags" value="<?php echo (!empty($tags) ? htmlspecialchars($tags) : '')?>" size="40" />
+   <div id="tags_results" name="tags_results" class="autocomplete"></div>
    <span id="tags_loading_img" style="display:none;"><?php echo Horde::img('loading.gif', _("Loading...")) ?></span>
  </td>
 </tr>
-
+<?php Kronolith_Imple::factory('TagAutoCompleter', array('triggerId' => 'tags', 'id' => $event->getUID())); ?>
 <!-- spacer -->
 <tr>
  <td style="line-height:4px;">&nbsp;</td>
