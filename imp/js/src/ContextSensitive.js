@@ -36,7 +36,7 @@ var ContextSensitive = Class.create({
         this.elements = $H();
         this.submenus = $H();
         this.current = [];
-        this.onShow = null;
+        this.basectx = this.onShow = null;
 
         document.observe('contextmenu', this._rightClickHandler.bindAsEventListener(this));
         document.observe('click', this._leftClickHandler.bindAsEventListener(this));
@@ -92,6 +92,7 @@ var ContextSensitive = Class.create({
             }
         });
         this.target = this.current[idx];
+        this.basectx = null;
     },
 
     /**
@@ -209,6 +210,7 @@ var ContextSensitive = Class.create({
             y = offsets[1] + offset.getHeight() + voffsets.top;
         }
 
+        this.basectx = ctx;
         this._displayMenu(el, x, y);
 
         return true;
@@ -233,7 +235,7 @@ var ContextSensitive = Class.create({
         }
 
         if (this.onShow) {
-            this.onShow(id);
+            this.onShow(id, this.basectx);
         }
 
         Effect.Appear(elt.setStyle({ left: x + 'px', top: y + 'px' }), { duration: 0.2 });

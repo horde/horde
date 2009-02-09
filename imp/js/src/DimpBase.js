@@ -594,7 +594,7 @@ var DimpBase = {
         DimpCore.DMenu.removeElement($(elt).identify());
     },
 
-    _onMenuShow: function(ctx_id)
+    _onMenuShow: function(ctx_id, ctx)
     {
         var elts, folder, ob, sel;
 
@@ -621,7 +621,7 @@ var DimpBase = {
             break;
 
         case 'ctx_message':
-            [ $('ctx_message_reply_list') ].invoke(this.viewport.createSelection('domid', ctx_id).get('dataob').first().listmsg ? 'show' : 'hide');
+            [ $('ctx_message_reply_list') ].invoke(this.viewport.createSelection('domid', ctx.id).get('dataob').first().listmsg ? 'show' : 'hide');
             break;
 
         case 'ctx_reply':
