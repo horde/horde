@@ -15,12 +15,12 @@
   <td>&nbsp;</td>
   <td class="nowrap">
 <if:allow_compose>
-   <input name="btn_send_message" type="submit" <tag:send_msg_ak /> class="button" onclick="return uniqSubmit('send_message', event);" value="<gettext>Send Message</gettext>" />
+   <input name="btn_send_message" type="submit" <tag:send_msg_ak /> class="button" value="<gettext>Send Message</gettext>" />
 </if:allow_compose>
 <if:save_draft_ak>
-   <input name="btn_save_draft" type="submit" <tag:save_draft_ak /> class="button" onclick="uniqSubmit('save_draft', event);" value="<gettext>Save Draft</gettext>" />
+   <input name="btn_save_draft" type="submit" <tag:save_draft_ak /> class="button" value="<gettext>Save Draft</gettext>" />
 </if:save_draft_ak>
-   <input name="btn_cancel_compose" type="submit" title="<gettext>Cancel Message</gettext>" class="button" onclick="return confirmCancel(event);" value="<gettext>Cancel Message</gettext>" />
+   <input name="btn_cancel_compose" type="submit" title="<gettext>Cancel Message</gettext>" class="button" value="<gettext>Cancel Message</gettext>" />
   </td>
   <td class="rightAlign"><tag:help_buttons />&nbsp;</td>
  </tr>
@@ -37,7 +37,7 @@
 <else:di_locked>
    <input type="hidden" id="last_identity" name="last_identity" value="<tag:last_identity />" />
 <if:count_select_list>
-   <select id="identity" name="identity" tabindex="<tag:selectlist_tabindex />" onchange="change_identity(this.selectedIndex)">
+   <select id="identity" name="identity" tabindex="<tag:selectlist_tabindex />">
 <loop:select_list>
     <option value="<tag:select_list.value />" <if:select_list.selected>selected="selected" </if:select_list.selected>><tag:select_list.label /></option>
 </loop:select_list>
@@ -132,7 +132,7 @@
  <tr>
   <td class="light rightAlign" valign="middle"><strong><tag:stationery_label />&nbsp;</strong></td>
   <td class="item" colspan="2">
-   <select name="stationery" id="stationery" onchange="uniqSubmit('change_stationery', event);">
+   <select name="stationery" id="stationery">
     <option value=""><gettext>Select stationery:</gettext></option>
 <loop:stationeries>
     <option value="<tag:stationeries.val />" <if:stationeries.selected>selected="selected" </if:stationeries.selected>><tag:stationeries.label /></option>
@@ -165,7 +165,7 @@
    <input id="ssm" type="checkbox" class="checkbox" name="save_sent_mail" <if:ssm_selected>checked="checked" </if:ssm_selected>/>
    <tag:ssm_label />
 <if:ssm_folders>
-   <select onchange="$('ssm').checked='checked'" tabindex="<tag:ssm_tabindex />" id="sent_mail_folder" name="sent_mail_folder"><tag:ssm_folders /></select>
+   <select tabindex="<tag:ssm_tabindex />" id="sent_mail_folder" name="sent_mail_folder"><tag:ssm_folders /></select>
 <else:ssm_folders>
    <span id="sent_mail_folder"><tag:ssm_folder /></span>
 </else:ssm_folders></if:ssm_folders>
@@ -204,12 +204,12 @@
   <td>&nbsp;</td>
   <td class="nowrap">
 <if:allow_compose>
-   <input name="btn_send_message" type="submit" <tag:send_msg_ak /> class="button" onclick="return uniqSubmit('send_message', event);" value="<gettext>Send Message</gettext>" />
+   <input name="btn_send_message" type="submit" <tag:send_msg_ak /> class="button" value="<gettext>Send Message</gettext>" />
 </if:allow_compose>
 <if:save_draft_ak>
-   <input name="btn_save_draft" type="submit" <tag:save_draft_ak /> class="button" onclick="uniqSubmit('save_draft', event);" value="<gettext>Save Draft</gettext>" />
+   <input name="btn_save_draft" type="submit" <tag:save_draft_ak /> class="button" value="<gettext>Save Draft</gettext>" />
 </if:save_draft_ak>
-   <input name="btn_cancel_compose" type="submit" title="<gettext>Cancel Message</gettext>" class="button" onclick="return confirmCancel(event);" value="<gettext>Cancel Message</gettext>" />
+   <input name="btn_cancel_compose" type="submit" title="<gettext>Cancel Message</gettext>" class="button" value="<gettext>Cancel Message</gettext>" />
   </td>
   <td class="rightAlign"><tag:help_buttons />&nbsp;</td>
  </tr>
@@ -272,7 +272,7 @@
    <table>
     <tr id="attachment_row_1">
      <td>
-      <strong><label for="upload_1"><gettext>File</gettext> 1:</label></strong> <input id="upload_1" name="upload_1" tabindex="<tag:file_tabindex />" type="file" onchange="attachmentChanged()" size="25" />
+      <strong><label for="upload_1"><gettext>File</gettext> 1:</label></strong> <input id="upload_1" name="upload_1" tabindex="<tag:file_tabindex />" type="file" size="25" />
      </td>
     </tr>
     <tr>
@@ -285,7 +285,7 @@
 </else:maxattachmentnumber></if:maxattachmentnumber>
 </else:maxattachsize></if:maxattachsize>
   <td class="rightAlign">
-   <input type="submit" name="btn_add_attachment" class="button" onclick="uniqSubmit('add_attachment', event);" value="<gettext>Update</gettext>" />
+   <input type="submit" name="btn_add_attachment" class="button" value="<gettext>Update</gettext>" />
    &nbsp;<tag:help-attachments />
   </td>
  </tr>

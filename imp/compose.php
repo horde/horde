@@ -774,15 +774,15 @@ if (!$rtemode) {
 
 /* Define some variables used in the javascript code. */
 $js_code = array(
-    'var cancel_url = \'' . $cancel_url . '\'',
-    'var compose_spellcheck = ' . intval($spellcheck && $prefs->getValue('compose_spellcheck')),
-    'var cursor_pos = ' . (is_null($cursor_pos) ? 'null' : $cursor_pos),
-    'var max_attachments = ' . (($max_attach === true) ? 'null' : $max_attach),
-    'var compose_popup = ' . intval($isPopup),
-    'var redirect = ' . intval($redirect),
-    'var rtemode = ' . intval($rtemode),
-    'var smf_check = ' . intval($smf_check),
-    'var reloaded = ' . intval($token)
+    'ImpCompose.cancel_url = \'' . $cancel_url . '\'',
+    'ImpCompose.spellcheck = ' . intval($spellcheck && $prefs->getValue('compose_spellcheck')),
+    'ImpCompose.cursor_pos = ' . (is_null($cursor_pos) ? 'null' : $cursor_pos),
+    'ImpCompose.max_attachments = ' . (($max_attach === true) ? 'null' : $max_attach),
+    'ImpCompose.popup = ' . intval($isPopup),
+    'ImpCompose.redirect = ' . intval($redirect),
+    'ImpCompose.rtemode = ' . intval($rtemode),
+    'ImpCompose.smf_check = ' . intval($smf_check),
+    'ImpCompose.reloaded = ' . intval($token)
 );
 
 /* Create javascript identities array. */
@@ -798,7 +798,7 @@ if (!$redirect) {
             Horde_Mime_Address::addrArray2String($identity->getBccAddresses($ident))
         );
     }
-    $js_code[] = 'var identities = ' . Horde_Serialize::serialize($js_ident, SERIALIZE_JSON, NLS::getCharset());
+    $js_code[] = 'ImpCompose.identities = ' . Horde_Serialize::serialize($js_ident, SERIALIZE_JSON, NLS::getCharset());
 }
 
 
