@@ -80,14 +80,6 @@ if (count($source_list) > 1) {
     $template->set('source_list', key($source_list));
 }
 
-if ($browser->isBrowser('msie')) {
-    $template->set('select_event', ' ondblclick="addAddress(\'to\')"');
-    $template->set('option_event', null);
-} else {
-    $template->set('select_event', null);
-    $template->set('option_event', ' ondblclick="addAddress(\'to\')"');
-}
-
 $a_list = array();
 foreach ($addresses as $addr) {
     if (!empty($addr['email'])) {
@@ -111,8 +103,8 @@ Horde::addScriptFile('prototype.js', 'horde', true);
 Horde::addScriptFile('contacts.js', 'imp', true);
 require IMP_TEMPLATES . '/common-header.inc';
 IMP::addInlineScript(array(
-    'var formname = \'' . $formname . '\'',
-    'var to_only = ' . intval($to_only),
+    'ImpContacts.formname = \'' . $formname . '\'',
+    'ImpContacts.to_only = ' . intval($to_only),
 ));
 echo $template->fetch(IMP_TEMPLATES . '/contacts/contacts.html');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

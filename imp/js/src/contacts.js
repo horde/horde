@@ -1,121 +1,187 @@
 /**
- * Provides the javascript for the contacts.php script
+ * Provides the javascript for the contacts.php script (standard view).
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  */
 
-// The following variables are defined in contacts.php:
-//   formname, to_only
+var ImpContacts = {
+    // The following variables are defined in contacts.php:
+    //   formname, to_only
 
-function passAddresses()
-{
-    var sa = '';
+    _passAddresses: function()
+    {
+        var sa = '';
 
-    $('selected_addresses').childElements().each(function(s) {
-        if (!s.value) {
-            return;
-        }
-        sa += s.value + '|';
-    });
-
-    $('sa').setValue(sa);
-}
-
-function sameOption(f, item, itemj)
-{
-    var t = f + ": " + item.value,
-        tj = itemj.value;
-
-    return Try.these(
-        function() {
-            return (t == tj) || (decodeURIComponent(t) == decodeURIComponent(tj));
-        },
-        // Catch exception with NS 7.1
-        function() {
-            return (t == tj);
-        }
-    );
-}
-
-function addAddress(f)
-{
-    var s = $('search_results');
-
-    if (!$F(s).size()) {
-        alert(IMP.text.contacts_select);
-        return false;
-    } else {
-        var d = $('selected_addresses'), l = $A(d).length, option;
-        s.childElements().each(function(i) {
-            if (i.value && i.selected) {
-                if (!$A(d).any(function(j) {
-                    return sameOption(f, i, j);
-                })) {
-                    option = f + ': ' + i.value;
-                    d[l++] = new Option(option, option);
-                }
+        $('selected_addresses').childElements().each(function(s) {
+            if (s.value) {
+                sa += s.value + '|';
             }
         });
-    }
 
-    return true;
-}
+        $('sa').setValue(sa);
+    },
 
-function updateMessage()
-{
-    if (parent.opener.closed) {
-        alert(IMP.text.contacts_closed);
-        this.close();
-        return;
-    }
+    sameOption: function(f, item, itemj)
+    {
+        var t = f + ": " + item.value,
+            tj = itemj.value;
 
-    if (!parent.opener.document[formname]) {
-        alert(IMP.text.contacts_called);
-        this.close();
-        return;
-    }
+        return Try.these(
+            function() {
+                return (t == tj) || (decodeURIComponent(t) == decodeURIComponent(tj));
+            },
+            // Catch exception with NS 7.1
+            function() {
+                return (t == tj);
+            }
+        );
+    },
 
-    $('selected_addresses').childElements().each(function(s) {
-        var address = s.value, f, field = null, pos, v;
-        pos = address.indexOf(':');
-        f = address.substring(0, pos);
-        address = address.substring(pos + 2, address.length)
+    addAddress: function(f)
+    {
+        var d, l, option, s = $('search_results');
 
-        if (f == 'to') {
-            field = parent.opener.document[formname].to;
-        } else if (!to_only && f == 'cc') {
-            field = parent.opener.document[formname].cc;
-        } else if (!to_only && f == 'bcc') {
-            field = parent.opener.document[formname].bcc;
+        if (!$F(s).size()) {
+            alert(IMP.text.contacts_select);
         } else {
+            d = $('selected_addresses');
+            l = $A(d).size();
+            s.childElements().each(function(i) {
+                if (i.value && i.selected) {
+                    if (!$A(d).any(function(j) {
+                        return this.sameOption(f, i, j);
+                    }.bind(this))) {
+                        option = f + ': ' + i.value;
+                        d[l++] = new Option(option, option);
+                    }
+                }
+            }.bind(this));
+        }
+    },
+
+    updateMessage: function()
+    {
+        if (parent.opener.closed) {
+            alert(IMP.text.contacts_closed);
+            window.close();
             return;
         }
 
-        // Always delimit with commas.
-        if (field.value.length) {
-            v = field.value.replace(/, +/g, ',').split(',').findAll(function(s) { return s; });
-            field.value = v.join(', ');
-            if (field.value.lastIndexOf(';') != field.value.length - 1) {
-                field.value += ',';
+        if (!parent.opener.document[this.formname]) {
+            alert(IMP.text.contacts_called);
+            window.close();
+            return;
+        }
+
+        $('selected_addresses').childElements().each(function(s) {
+            var address = s.value, f, field = null, pos, v;
+            pos = address.indexOf(':');
+            f = address.substring(0, pos);
+            address = address.substring(pos + 2, address.length)
+
+            if (f == 'to') {
+                field = parent.opener.document[this.formname].to;
+            } else if (!this.to_only && f == 'cc') {
+                field = parent.opener.document[this.formname].cc;
+            } else if (!this.to_only && f == 'bcc') {
+                field = parent.opener.document[this.formname].bcc;
             }
-            field.value += ' ' + address;
-        } else {
-            field.value = address;
-        }
-        if (address.lastIndexOf(';') != address.length - 1) {
-            field.value += ', ';
-        }
-    });
 
-    this.close();
-}
+            if (!field) {
+                return;
+            }
 
-function removeAddress()
-{
-    $('selected_addresses').childElements().each(function(o) {
-        if (o.selected) {
-            o.remove();
+            // Always delimit with commas.
+            if (field.value.length) {
+                v = field.value.replace(/, +/g, ',').split(',').findAll(function(s) { return s; });
+                field.value = v.join(', ');
+                if (field.value.lastIndexOf(';') != field.value.length - 1) {
+                    field.value += ',';
+                }
+                field.value += ' ' + address;
+            } else {
+                field.value = address;
+            }
+            if (address.lastIndexOf(';') != address.length - 1) {
+                field.value += ', ';
+            }
+        }.bind(this));
+
+        window.close();
+    },
+
+    removeAddress: function()
+    {
+        $('selected_addresses').childElements().each(function(o) {
+            if (o.selected) {
+                o.remove();
+            }
+        });
+    },
+
+    onDomLoad: function()
+    {
+        $('contacts').observe('submit', this._passAddresses.bind(this));
+        document.observe('change', this._changeHandler.bindAsEventListener(this));
+        document.observe('click', this._clickHandler.bindAsEventListener(this));
+        document.observe('dblclick', this._dblclickHandler.bindAsEventListener(this));
+    },
+
+    _changeHandler: function(e)
+    {
+        var id = e.element().readAttribute('id');
+
+        switch (id) {
+        case 'search_results':
+            $(id)[0].selected = false;
+            break;
         }
-    });
-}
+    },
+
+    _clickHandler: function(e)
+    {
+        var id = e.element().readAttribute('id');
+
+        switch (id) {
+        case 'btn_add_to':
+        case 'btn_add_cc':
+        case 'btn_add_bcc':
+            this.addAddress(id.substring(8));
+            break;
+
+        case 'btn_update':
+            this.updateMessage();
+            break;
+
+        case 'btn_delete':
+            this.removeAddress();
+            break;
+
+        case 'btn_cancel':
+            window.close();
+            break;
+        }
+    },
+
+    _dblclickHandler: function(e)
+    {
+        var elt = e.element();
+        if (!elt.match('SELECT')) {
+            elt = elt.up('SELECT');
+        }
+
+        switch (elt.readAttribute('id')) {
+        case 'search_results':
+            this.addAddress('to');
+            break;
+
+        case 'selected_addresses':
+            this.removeAddress();
+            break;
+        }
+    }
+
+};
+
+document.observe('dom:loaded', ImpContacts.onDomLoad.bind(ImpContacts));

@@ -1,4 +1,4 @@
-<form method="post" id="contacts" onsubmit="passAddresses();" action="<tag:action />">
+<form method="post" id="contacts" action="<tag:action />">
 <input type="hidden" name="formname" value="<tag:formname />" />
 <input type="hidden" name="searched" value="1" />
 <input type="hidden" id="sa" name="sa" />
@@ -11,7 +11,7 @@
 <div id="contactstable" class="headerbox item">
  <p class="control">
   <label for="search"><strong><gettext>Find:</gettext></strong></label>
-  <input value="<tag:search />" id="search" name="search" style="width:150px" />
+  <input value="<tag:search />" id="search" name="search" />
 <if:multiple_source>
   <strong><label for="source"><gettext>from</gettext></label></strong>
   <select id="source" name="source">
@@ -29,23 +29,23 @@
   <tr>
    <td width="33%">
     <label for="search_results" class="hidden"><gettext>Search Results</gettext></label>
-    <select id="search_results" name="search_results" multiple="multiple" size="10" style="width:200px" onchange="$('search_results')[0].selected=false"<tag:select_event />>
+    <select id="search_results" name="search_results" multiple="multiple" size="10">
      <option value=""><gettext>* Please select address(es) *</gettext></option>
 <loop:a_list>
-     <option title="<tag:a_list />" value="<tag:a_list />"<tag:option_event />><tag:a_list /></option>
+     <option title="<tag:a_list />" value="<tag:a_list />"><tag:a_list /></option>
 </loop:a_list>
     </select>
    </td>
-   <td width="33%" style="text-align:center">
-    <input type="button" class="button" style="width:60px" onclick="addAddress('to');" value="<gettext>To</gettext> &gt;&gt;" /><br />&nbsp;<br />
+   <td width="33%" class="contactsButtons">
+    <input id="btn_add_to" type="button" class="button" value="<gettext>To</gettext> &gt;&gt;" /><br />&nbsp;<br />
 <if:cc>
-    <input type="button" class="button" style="width:60px" onclick="addAddress('cc');" value="<gettext>Cc</gettext> &gt;&gt;" /><br />&nbsp;<br />
-    <input type="button" class="button" style="width:60px" onclick="addAddress('bcc');" value="<gettext>Bcc</gettext> &gt;&gt;" />
+    <input id="btn_add_cc" type="button" class="button" value="<gettext>Cc</gettext> &gt;&gt;" /><br />&nbsp;<br />
+    <input id="btn_add_bcc" type="button" class="button" value="<gettext>Bcc</gettext> &gt;&gt;" />
 </if:cc>
    </td>
    <td width="33%">
     <label for="selected_addresses" class="hidden"><gettext>Selected Addresses</gettext></label>
-    <select id="selected_addresses" name="selected_addresses" multiple="multiple" size="10" style="width:200px" onchange="$('selected_addresses')[0].selected = false;">
+    <select id="selected_addresses" name="selected_addresses" multiple="multiple" size="10">
      <option value=""><gettext>* Add these by clicking OK *</gettext></option>
 <loop:sa>
      <option value="<tag:sa />"><tag:sa /></option>
@@ -56,7 +56,7 @@
   <tr>
    <td colspan="2">&nbsp;</td>
    <td>
-    <input type="button" class="button" onclick="removeAddress()" value="<gettext>Delete</gettext>" />
+    <input type="button" class="button" value="<gettext>Delete</gettext>" />
    </td>
   </tr>
  </table>
@@ -65,8 +65,8 @@
 <br class="spacer" />
 
 <div>
- <input type="button" class="button" onclick="updateMessage();" value="<gettext>OK</gettext>" />
- <input type="button" class="button" onclick="window.close();" value="<gettext>Cancel</gettext>" />
+ <input id="btn_update" type="button" class="button" value="<gettext>OK</gettext>" />
+ <input id="btn_cancel" type="button" class="button" value="<gettext>Cancel</gettext>" />
 </div>
 
 </form>

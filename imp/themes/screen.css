@@ -312,6 +312,20 @@ tr.deleted:hover, tr.deleted-over {
     color: #090;
 }
 
+/* Contacts styles. */
+#contactstable #search {
+    width: 150px;
+}
+#contactstable #search_results, #contactstable #selected_addresses {
+    width: 200px;
+}
+.contactsButtons {
+    text-align: center;
+}
+.contactsButtons input {
+    width: 60px;
+}
+
 /* Popdown styles. */
 span.spellcheckPopdownImg {
     cursor: pointer;
