@@ -365,9 +365,9 @@ class Kronolith_Event {
     var $private = false;
 
     /**
-     * An array of this event's tags in the form of ('tag1', 'tag2', ...)
+     * This tag's events.
      *
-     * @var array
+     * @var mixed  Array of tags or comma delimited string.
      */
     var $tags = array();
 
@@ -647,11 +647,17 @@ class Kronolith_Event {
             if (!empty($this->description)) {
                 $vEvent->setAttribute('DESCRIPTION', $v1 ? $this->description : String::convertCharset($this->description, NLS::getCharset(), 'utf-8'));
             }
-//@TODO: Tags -> iCal
-//            $categories = $this->getCategory();
-//            if (!empty($categories)) {
-//                $vEvent->setAttribute('CATEGORIES', $v1 ? $categories : String::convertCharset($categories, NLS::getCharset(), 'utf-8'));
-//            }
+
+            // Tags
+            $tags = $this->tags;
+            if (is_array($tags)) {
+                $tags = implode(', ', $tags);
+            }
+            if (!empty($tags)) {
+                $vEvent->setAttribute('CATEGORIES', $v1 ? $tags : String::convertCharset($tags, NLS::getCharset(), 'utf-8'));
+            }
+
+            // Location
             if (!empty($this->location)) {
                 $vEvent->setAttribute('LOCATION', $v1 ? $this->location : String::convertCharset($this->location, NLS::getCharset(), 'utf-8'));
             }
@@ -846,19 +852,15 @@ class Kronolith_Event {
             $this->setTitle($title);
         }
 
-// @TODO iCal -> Tags
-//        $categories = $vEvent->getAttribute('CATEGORIES');
-//        if (!is_array($categories) && !is_a($categories, 'PEAR_Error')) {
-//            // The CATEGORY attribute is delimited by commas, so split
-//            // it up.
-//            $categories = explode(',', $categories);
-//
-//            // We only support one category per event right now, so
-//            // arbitrarily take the last one.
-//            foreach ($categories as $category) {
-//                $this->setCategory($category);
-//            }
-//        }
+        // Tags
+        $categories = $vEvent->getAttribute('CATEGORIES');
+        if (!is_array($categories) && !is_a($categories, 'PEAR_Error')) {
+            // The CATEGORY attribute is delimited by commas, so the tagger
+            // can deal with it as-is.
+            $this->tags = $categories;
+        }
+
+        // Description
         $desc = $vEvent->getAttribute('DESCRIPTION');
         if (!is_array($desc) && !is_a($desc, 'PEAR_Error')) {
             $this->setDescription($desc);
