@@ -82,7 +82,7 @@ class Kronolith_Imple_TagAutoCompleter extends Kronolith_Imple
      */
     static public function getTagList($search = '')
     {
-        $tagger = new Kronolith_Tagger();
+        $tagger = Kronolith::getTagger();
         $tags = $tagger->listTags($search);
 
         return array_values($tags);
