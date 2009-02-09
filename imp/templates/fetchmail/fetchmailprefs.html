@@ -17,7 +17,7 @@
 <if:accounts>
       <label for="account"><gettext>Your accounts:</gettext></label>&nbsp;
       <br />
-      <select id="account" name="account" onchange="accountSubmit()">
+      <select id="account" name="account">
        <option value=""><gettext>Select an account:</gettext></option>
 <loop:accounts>
        <option value="<tag:accounts.i />"><tag:accounts.val /></option>
@@ -25,12 +25,12 @@
       </select>
       <gettext>or</gettext>
 </if:accounts>
-      <input type="button" class="button" onclick="$('actionID').setValue('fetchmail_create');accountSubmit(true);return true;" value="<gettext>Create a New Account</gettext>" />
+      <input id="btn_create" type="button" class="button" value="<gettext>Create a New Account</gettext>" />
 </if:accountselect>
 <if:driverselect>
       <label for="fm_driver"><gettext>Mail server type to connect to:</gettext></label>&nbsp;
       <br />
-      <select id="fm_driver" name="fm_driver" onchange="driverSubmit()">
+      <select id="fm_driver" name="fm_driver">
        <option value=""><gettext>Select the mail server type:</gettext></option>
 <loop:drivers>
        <option value="<tag:drivers.key />"><tag:drivers.val /></option>
@@ -118,11 +118,11 @@
  <tr>
   <td nowrap="nowrap">
 <if:manage>
-   <input type="submit" name="save" class="button" onclick="$('actionID').setValue('fetchmail_prefs_save')" value="<if:fm_create><gettext>Create</gettext><else:fm_create><gettext>Save</gettext></else:fm_create></if:fm_create>" />
-   <input type="submit" name="delete" class="button" onclick="$('actionID').setValue('fetchmail_prefs_delete')" value="<gettext>Delete</gettext>" />
-   <input type="button" name="select" class="button" onclick="document.location.href='<tag:fetchurl />'" value="<gettext>Select Another Account</gettext>" />
+   <input id="btn_save" type="submit" name="save" class="button" value="<if:fm_create><gettext>Create</gettext><else:fm_create><gettext>Save</gettext></else:fm_create></if:fm_create>" />
+   <input id="btn_delete" type="submit" name="delete" class="button" value="<gettext>Delete</gettext>" />
+   <input id="btn_select" type="button" name="select" class="button" value="<gettext>Select Another Account</gettext>" />
 </if:manage>
-   <input type="button" name="back" class="button" onclick="document.location.href='<tag:prefsurl />'" value="<gettext>Return to Fetch Mail</gettext>" />
+   <input id="btn_return" type="button" name="back" class="button" value="<gettext>Return to Fetch Mail</gettext>" />
   </td>
  </tr>
 </table>

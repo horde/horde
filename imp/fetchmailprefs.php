@@ -187,6 +187,11 @@ if (empty($actionID)) {
 Prefs_UI::generateHeader(null, $chunk);
 Horde::addScriptFile('prototype.js', 'horde', true);
 Horde::addScriptFile('fetchmailprefs.js', 'imp', true);
+IMP::addInlineScript(array(
+    'ImpFetchmailprefs.fetchurl = \'' . $fetch_url . '\'',
+    'ImpFetchmailprefs.prefsurl = \'' . $prefs_url . '\''
+));
+
 echo $t->fetch(IMP_TEMPLATES . '/fetchmail/fetchmailprefs.html');
 if (!$chunk) {
     require $registry->get('templates', 'horde') . '/common-footer.inc';
