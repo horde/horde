@@ -12,7 +12,7 @@
 function _save(&$event)
 {
     $res = $event->save();
-    $tagger = new Kronolith_Tagger();
+    $tagger = Kronolith::getTagger();
     $tagger->replaceTags($event->getUID(), Util::getFormData('tags'));
     if (is_a($res, 'PEAR_Error')) {
         $GLOBALS['notification']->push(sprintf(_("There was an error editing the event: %s"), $res->getMessage()), 'horde.error');

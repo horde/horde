@@ -50,7 +50,7 @@ if (!Util::getFormData('cancel')) {
                 }
             }
         }
-        $tagger = new Kronolith_Tagger();
+        $tagger = Kronolith::getTagger();
         $tagger->tag($event->getUID(), Util::getFormData('tags'), 'event');
     }
 }

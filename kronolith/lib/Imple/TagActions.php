@@ -61,7 +61,7 @@ class Kronolith_Imple_TagActions extends Kronolith_Imple
 
         if ($perm) {
             /* Get the resource owner */
-            $tagger = new Kronolith_Tagger();
+            $tagger = Kronolith::getTagger();
             switch ($request) {
             case 'add':
                 $tagger->tag($args['resource'], $tags, $args['type']);

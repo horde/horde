@@ -54,8 +54,8 @@ if ($form->validate($vars)) {
 $vars->set('name', $calendar->get('name'));
 $vars->set('color', $calendar->get('color'));
 $vars->set('description', $calendar->get('desc'));
-$tags = new Kronolith_Tagger();
-$vars->set('tags', implode(',', array_values($tags->getTags($calendar->getName(), 'calendar'))));
+$tagger = Kronolith::getTagger();
+$vars->set('tags', implode(',', array_values($tagger->getTags($calendar->getName(), 'calendar'))));
 $title = $form->getTitle();
 require KRONOLITH_TEMPLATES . '/common-header.inc';
 require KRONOLITH_TEMPLATES . '/menu.inc';

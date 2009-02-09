@@ -100,7 +100,7 @@ class Kronolith_View_EditEvent {
         $event = &$this->event;
 
         // Tags
-        $tagger = new Kronolith_Tagger();
+        $tagger = Kronolith::getTagger();
         $tags = $tagger->getTags($event->getUID(), 'event');
         $tags = implode(',', array_values($tags));
 

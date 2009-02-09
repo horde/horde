@@ -678,6 +678,10 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
             $alarm->delete($event->getUID());
         }
 
+        /* Remove any tags */
+        $tagger = Kronolith::getTagger();
+        $tagger->replaceTags($event->getUID(), array(), 'event');
+
         /* Notify about the deleted event. */
         if (!$silent) {
             $result = Kronolith::sendNotification($event, 'delete');

@@ -63,7 +63,7 @@ class Kronolith_EditCalendarForm extends Horde_Form {
             return PEAR::raiseError(sprintf(_("Unable to save calendar \"%s\": %s"), $new_name, $result->getMessage()));
         }
 
-        $tagger = new Kronolith_Tagger();
+        $tagger = Kronolith::getTagger();
         $tagger->replaceTags($this->_calendar->getName(), $this->_vars->get('tags'), 'calendar');
         return true;
     }

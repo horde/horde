@@ -47,7 +47,8 @@ class Kronolith_CreateCalendarForm extends Horde_Form {
         $calendar->set('name', $this->_vars->get('name'));
         $calendar->set('color', $this->_vars->get('color'));
         $calendar->set('desc', $this->_vars->get('description'));
-        $tagger = new Kronolith_Tagger();
+        $tagger = Kronolith::getTagger();
+
         $tagger->tag($calendar->getName(), $this->_vars->get('tags'), 'calendar');
         return $GLOBALS['kronolith_shares']->addShare($calendar);
     }

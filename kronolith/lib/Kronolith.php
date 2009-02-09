@@ -2447,4 +2447,16 @@ class Kronolith {
         }
     }
 
+    function getTagger()
+    {
+        static $_tagger;
+
+        if (empty($_tagger)) {
+            $_tagger = new Kronolith_Tagger();
+        }
+
+        return $_tagger;
+    }
+
+
 }

@@ -25,7 +25,7 @@ foreach (Kronolith::listCalendars() as $id => $cal) {
     }
 }
 
-$tagger = new Kronolith_Tagger();
+$tagger = Kronolith::getTagger();
 ?>
 
 <div id="pageControls">
