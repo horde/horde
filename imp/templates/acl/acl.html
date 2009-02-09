@@ -11,7 +11,7 @@
  <ul>
   <li>
    <label for="aclfolder" class="hidden"><gettext>Change Folder</gettext></label>
-   <tag:changefolder /><tag:sharedimg /></a> <select id="aclfolder" name="folder" onchange="ACLFolderChange()"><tag:options /></select>
+   <tag:changefolder /><tag:sharedimg /></a> <select id="aclfolder" name="folder"><tag:options /></select>
   </li>
  </ul>
  <span class="smallheader"><tag:current /></span>
@@ -77,7 +77,7 @@
 <tr>
  <td colspan = "<tag:maxrule />" class="header" valign="middle">
   <input type="button" class="button" id="fbutton" name="fbutton" onclick="$('acl').submit(); $('acl').disable();" value="<gettext>Save</gettext>" />
-  <input type="button" class="button" id="resetbut" name="resetbut" onclick="ACLFolderChange(true); return false;" value="<gettext>Reset</gettext>" />
+  <input type="button" class="button" id="resetbut" name="resetbut" value="<gettext>Reset</gettext>" />
   <input type="button" class="button" id="back" name="back" onclick="$('acl').disable(); document.location.href='<tag:prefsurl />'" value="<gettext>Return to Options</gettext>" />
  </td>
  <td class="header">&nbsp;</td>

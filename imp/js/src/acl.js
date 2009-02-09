@@ -1,19 +1,46 @@
 /**
- * Provides the javascript for the acl.php script
+ * Provides the javascript for the acl.php script (standard view).
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  */
 
-var acl_loading;
+var ImpAcl = {
 
-function ACLFolderChange(clear)
-{
-    if ($F('aclfolder')) {
-        if (acl_loading == null || clear != null) {
-            acl_loading = true;
-            $('acl').disable();
-            $('folders').submit();
+    acl_loading: false,
+
+    folderChange: function(e, clear)
+    {
+        if ($F('aclfolder')) {
+            if (!this.acl_loading || clear != null) {
+                this.acl_loading = true;
+                $('acl').disable();
+                $('folders').submit();
+                e.stop();
+            }
+        }
+    },
+
+    changeHandler: function(e)
+    {
+        switch (e.element().readAttribute('id')) {
+        case 'aclfolder':
+            this.folderChange(e);
+            break;
+        }
+    },
+
+    clickHandler: function(e)
+    {
+        switch (e.element().readAttribute('id')) {
+        case 'changefolder':
+        case 'resetbut':
+            this.folderChange(e, true);
+            break;
         }
     }
-}
+
+};
+
+document.observe('change', ImpAcl.changeHandler.bindAsEventListener(ImpAcl));
+document.observe('click', ImpAcl.clickHandler.bindAsEventListener(ImpAcl));

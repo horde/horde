@@ -137,7 +137,7 @@ $t->setOption('gettext', true);
 $t->set('aclurl', Horde::applicationUrl('acl.php'));
 $t->set('forminput', Util::formInput());
 $t->set('aclnavcell', Util::bufferOutput(array('Prefs_UI', 'generateNavigationCell'), 'acl'));
-$t->set('changefolder', Horde::link('#', _("Change Folder"), 'smallheader', '', 'ACLFolderChange(true); return false;'));
+$t->set('changefolder', Horde::link('#', _("Change Folder"), 'smallheader', '', '', '', '', array('id' => 'changefolder')));
 $t->set('sharedimg', Horde::img('shared.png', _("Change Folder")));
 $t->set('options', IMP::flistSelect(array('selected' => $folder)));
 $t->set('current', sprintf(_("Current access to %s"), IMP::displayFolder($folder)));
