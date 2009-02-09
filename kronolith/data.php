@@ -13,7 +13,7 @@ function _cleanup()
 {
     global $import_step;
     $import_step = 1;
-    return IMPORT_FILE;
+    return Horde_Data::IMPORT_FILE;
 }
 
 @define('KRONOLITH_BASE', dirname(__FILE__));
@@ -30,9 +30,9 @@ $file_types = array('csv'       => _("Comma separated values"),
 
 /* Templates for the different import steps. */
 $templates = array(
-    IMPORT_CSV => array($registry->get('templates', 'horde') . '/data/csvinfo.inc'),
-    IMPORT_MAPPED => array($registry->get('templates', 'horde') . '/data/csvmap.inc'),
-    IMPORT_DATETIME => array($registry->get('templates', 'horde') . '/data/datemap.inc')
+    Horde_Data::IMPORT_CSV => array($registry->get('templates', 'horde') . '/data/csvinfo.inc'),
+    Horde_Data::IMPORT_MAPPED => array($registry->get('templates', 'horde') . '/data/csvmap.inc'),
+    Horde_Data::IMPORT_DATETIME => array($registry->get('templates', 'horde') . '/data/datemap.inc')
 );
 if (Kronolith::hasPermission('max_events') !== true &&
     Kronolith::hasPermission('max_events') <= Kronolith::countEvents()) {
@@ -41,15 +41,15 @@ if (Kronolith::hasPermission('max_events') !== true &&
         $message = Horde::callHook('_perms_hook_denied', array('kronolith:max_events'), 'horde', $message);
     }
     $notification->push($message, 'horde.warning', array('content.raw'));
-    $templates[IMPORT_FILE] = array(KRONOLITH_TEMPLATES . '/data/export.inc');
+    $templates[Horde_Data::IMPORT_FILE] = array(KRONOLITH_TEMPLATES . '/data/export.inc');
 } else {
-    $templates[IMPORT_FILE] = array(KRONOLITH_TEMPLATES . '/data/import.inc', KRONOLITH_TEMPLATES . '/data/export.inc');
+    $templates[Horde_Data::IMPORT_FILE] = array(KRONOLITH_TEMPLATES . '/data/import.inc', KRONOLITH_TEMPLATES . '/data/export.inc');
 }
 
 /* Initial values. */
 $import_step   = Util::getFormData('import_step', 0) + 1;
 $actionID      = Util::getFormData('actionID');
-$next_step     = IMPORT_FILE;
+$next_step     = Horde_Data::IMPORT_FILE;
 $app_fields    = array('title' => _("Title"),
                        'start_date' => _("Start Date"),
                        'start_time' => _("Start Time"),
@@ -109,7 +109,7 @@ case 'export':
 
     $exportID = Util::getFormData('exportID');
     switch ($exportID) {
-    case EXPORT_CSV:
+    case Horde_Data::EXPORT_CSV:
         $data = array();
         foreach ($events as $cal => $calevents) {
             if ($kronolith_driver->getCalendar() != $cal) {
@@ -152,7 +152,7 @@ case 'export':
         $csv->exportFile(_("events.csv"), $data, true);
         exit;
 
-    case EXPORT_ICALENDAR:
+    case Horde_Data::EXPORT_ICALENDAR:
         require_once 'Horde/Identity.php';
         $iCal = new Horde_iCalendar();
 
@@ -181,7 +181,7 @@ case 'export':
     }
     break;
 
-case IMPORT_FILE:
+case Horde_Data::IMPORT_FILE:
     $_SESSION['import_data']['import_cal'] = Util::getFormData('importCal');
     $_SESSION['import_data']['purge'] = Util::getFormData('purge');
     break;
@@ -191,9 +191,9 @@ if (!$error) {
     $data = &Horde_Data::singleton($import_format);
     if (is_a($data, 'PEAR_Error')) {
         $notification->push(_("This file format is not supported."), 'horde.error');
-        $next_step = IMPORT_FILE;
+        $next_step = Horde_Data::IMPORT_FILE;
     } else {
-        if ($actionID == IMPORT_FILE) {
+        if ($actionID == Horde_Data::IMPORT_FILE) {
             $share = &$kronolith_shares->getShare($_SESSION['import_data']['import_cal']);
             if (is_a($share, 'PEAR_Error')) {
                 $notification->push(_("You have specified an invalid calendar."), 'horde.error');

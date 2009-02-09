@@ -11,8 +11,8 @@
 <div class="item">
     <?php echo Horde::label('exportID', _("Select the export format:")) ?><br />
     <select id="exportID" name="exportID">
-      <option value="<?php echo EXPORT_CSV ?>">CSV</option>
-      <option value="<?php echo EXPORT_ICALENDAR ?>">iCalendar</option>
+      <option value="<?php echo Horde_Data::EXPORT_CSV ?>">CSV</option>
+      <option value="<?php echo Horde_Data::EXPORT_ICALENDAR ?>">iCalendar</option>
     </select><br /><br />
 
     <?php if (count($calendars = Kronolith::listCalendars(false, PERMS_READ)) > 1): ?>
