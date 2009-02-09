@@ -358,18 +358,12 @@ function _simpleButton($id, $text, $image, $imagedir = null)
 </div>
 
 <div class="context" id="ctx_message" style="display:none">
- <a id="ctx_message_reply"><span class="contextImg replyImg"></span><?php echo _("Reply to Sender") ?></a>
- <a id="ctx_message_reply_all"><span class="contextImg replyallImg"></span><?php echo _("Reply to All") ?></a>
- <a id="ctx_message_reply_list"><span class="contextImg replyallImg"></span><?php echo _("Reply to List") ?></a>
+ <a id="ctx_message_reply"><span class="contextImg replyImg"></span><?php echo _("Reply") ?></a>
  <div class="sep"></div>
- <a id="ctx_message_forward_all"><span class="contextImg forwardImg"></span><?php echo _("Forward Entire Message") ?></a>
- <a id="ctx_message_forward_body"><span class="contextImg forwardImg"></span><?php echo _("Forward Body Text Only") ?></a>
- <a id="ctx_message_forward_attachments"><span class="contextImg forwardImg"></span><?php echo _("Forward Attachments Only") ?></a>
+ <a id="ctx_message_forward"><span class="contextImg forwardImg"></span><?php echo _("Forward") ?></a>
  <div class="sep"></div>
- <a id="ctx_message_seen"><span class="contextImg mailseenImg"></span><?php echo _("Mark as Read") ?></a>
- <a id="ctx_message_unseen"><span class="contextImg mailunseenImg"></span><?php echo _("Mark as New") ?></a>
- <a id="ctx_message_flagged"><span class="contextImg mailflaggedImg"></span><?php echo _("Flag Message") ?></a>
- <a id="ctx_message_clear"><span class="contextImg clearflagImg"></span><?php echo _("Clear Flag") ?></a>
+ <a id="ctx_message_setflag"><span class="contextImg mailflaggedImg"></span><?php echo _("Set Flag") ?></a>
+ <a id="ctx_message_clearflag"><span class="contextImg clearflagImg"></span><?php echo _("Clear Flag") ?></a>
  <div class="sep"></div>
 <?php if (!empty($conf['spam']['reporting'])): ?>
  <a id="ctx_message_spam"><span class="contextImg spamImg"></span><?php echo _("Mark as Spam") ?></a>
@@ -436,12 +430,12 @@ function _simpleButton($id, $text, $image, $imagedir = null)
 <?php endif; ?>
 </div>
 
-<div class="context" id="ctx_otheractions2" style="display:none">
+<div class="context" id="ctx_flag" style="display:none">
  <a id="oa_unseen"><span class="contextImg mailunseenImg"></span><?php echo _("Mark as New") ?></a>
  <a id="oa_flagged"><span class="contextImg mailflaggedImg"></span><?php echo _("Flag Message") ?></a>
 </div>
 
-<div class="context" id="ctx_otheractions3" style="display:none">
+<div class="context" id="ctx_clearflag" style="display:none">
  <a id="oa_seen"><span class="contextImg mailseenImg"></span><?php echo _("Mark as Read") ?></a>
  <a id="oa_clear"><span class="contextImg clearflagImg"></span><?php echo _("Clear Flag") ?></a>
 </div>

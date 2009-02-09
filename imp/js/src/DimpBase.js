@@ -621,7 +621,10 @@ var DimpBase = {
             break;
 
         case 'ctx_message':
-            [ $('ctx_message_reply_list') ].invoke(this.viewport.createSelection('domid', ctx.id).get('dataob').first().listmsg ? 'show' : 'hide');
+            DimpCore.DMenu.addSubMenu('ctx_message_reply', 'ctx_reply');
+            DimpCore.DMenu.addSubMenu('ctx_message_forward', 'ctx_forward');
+            DimpCore.DMenu.addSubMenu('ctx_message_setflag', 'ctx_flag');
+            DimpCore.DMenu.addSubMenu('ctx_message_clearflag', 'ctx_clearflag');
             break;
 
         case 'ctx_reply':
@@ -634,8 +637,8 @@ var DimpBase = {
 
         case 'ctx_otheractions':
             $('oa_setflag', 'oa_clearflag', 'oa_sep1', 'oa_blacklist', 'oa_whitelist', 'oa_sep2', 'oa_undeleted').compact().invoke(this.viewport.getSelected().size() ? 'show' : 'hide');
-            DimpCore.DMenu.addSubMenu('oa_setflag', 'ctx_otheractions2');
-            DimpCore.DMenu.addSubMenu('oa_clearflag', 'ctx_otheractions3');
+            DimpCore.DMenu.addSubMenu('oa_setflag', 'ctx_flag');
+            DimpCore.DMenu.addSubMenu('oa_clearflag', 'ctx_clearflag');
             break;
         }
         return true;
@@ -1504,19 +1507,6 @@ var DimpBase = {
                 this.renameFolder(DimpCore.DMenu.element());
                 break;
 
-            case 'ctx_message_reply':
-            case 'ctx_message_reply_all':
-            case 'ctx_message_reply_list':
-            case 'ctx_message_forward_all':
-            case 'ctx_message_forward_body':
-            case 'ctx_message_forward_attachments':
-                this.composeMailbox(id.substring(12));
-                break;
-
-            case 'ctx_message_seen':
-            case 'ctx_message_unseen':
-            case 'ctx_message_flagged':
-            case 'ctx_message_clear':
             case 'ctx_message_spam':
             case 'ctx_message_ham':
             case 'ctx_message_blacklist':
