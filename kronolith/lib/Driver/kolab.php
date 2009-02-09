@@ -1257,6 +1257,14 @@ class Kronolith_Driver_kolab_wrapper_new extends Kronolith_Driver_kolab_wrapper 
             return $result;
         }
 
+        /* Deal with tags */
+        $tagger = Kronolith::getTagger();
+        if (!empty($edit)) {
+            $tagger->replaceTags($event->getUID(), $event->tags, 'event');
+        } else {
+            $tagger->tag($event->getUID(), $event->tags, 'event');
+        }
+
         /* Notify about the changed event. */
         $result = Kronolith::sendNotification($event, $edit ? 'edit' : 'add');
         if (is_a($result, 'PEAR_Error')) {

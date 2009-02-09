@@ -365,6 +365,13 @@ class Kronolith_Event {
     var $private = false;
 
     /**
+     * An array of this event's tags in the form of ('tag1', 'tag2', ...)
+     *
+     * @var array
+     */
+    var $tags = array();
+
+    /**
      * All the attendees of this event.
      *
      * This is an associative array where the keys are the email addresses
@@ -483,6 +490,8 @@ class Kronolith_Event {
 
         if ($eventObject !== null) {
             $this->fromDriver($eventObject);
+            $tagger = Kronolith::getTagger();
+            $this->tags = $tagger->getTags($this->getUID(), 'event');
         }
     }
 
@@ -1936,6 +1945,9 @@ class Kronolith_Event {
                 break;
             }
         }
+
+        // Tags.
+        $this->tags = Util::getFormData('tags');
 
         $this->initialized = true;
     }

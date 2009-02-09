@@ -511,6 +511,10 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
                 $history->log('kronolith:' . $this->_calendar . ':' . $event->getUID(), array('action' => 'modify'), true);
             }
 
+            /* Update tags */
+            $tagger = Kronolith::getTagger();
+            $tagger->replaceTags($event->getUID(), $event->tags, 'event');
+
             /* Notify users about the changed event. */
             $result = Kronolith::sendNotification($event, 'edit');
             if (is_a($result, 'PEAR_Error')) {
@@ -564,6 +568,10 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
             /* Log the creation of this item in the history log. */
             $history = Horde_History::singleton();
             $history->log('kronolith:' . $this->_calendar . ':' . $uid, array('action' => 'add'), true);
+
+            /* Deal with any tags */
+            $tagger = Kronolith::getTagger();
+            $tagger->tag($event->getUID(), $event->tags, 'event');
 
             /* Notify users about the new event. */
             $result = Kronolith::sendNotification($event, 'add');

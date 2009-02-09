@@ -50,8 +50,6 @@ if (!Util::getFormData('cancel')) {
                 }
             }
         }
-        $tagger = Kronolith::getTagger();
-        $tagger->tag($event->getUID(), Util::getFormData('tags'), 'event');
     }
 }
 

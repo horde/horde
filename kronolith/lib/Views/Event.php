@@ -96,9 +96,7 @@ class Kronolith_View_Event {
         $timeFormat = $prefs->getValue('twentyFour') ? 'G:i' : 'g:ia';
 
         // Tags
-        $tagger = Kronolith::getTagger();
-        $tags = $tagger->getTags($this->event->getUID(), 'event');
-        $tags = implode(', ', array_values($tags));
+        $tags = implode(', ', $this->event->tags);
 
 
         echo '<div id="Event"' . ($active ? '' : ' style="display:none"') . '>';
