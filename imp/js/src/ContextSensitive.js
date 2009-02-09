@@ -262,17 +262,22 @@ var ContextSensitive = Class.create({
      */
     _mouseoverHandler: function(e)
     {
-        var elt = e.element(),
+        if (!this.current.size()) {
+            return;
+        }
+
+        var cm = this.currentmenu(),
+            elt = e.element(),
+            elt_up = elt.up(),
             id = elt.readAttribute('id'),
-            cm = this.currentmenu(),
-            div_id, offsets, sub, voffsets, x, y;
+            id_div = elt_up.readAttribute('id'),
+            offsets, sub, voffsets, x, y;
 
         if (elt.hasClassName('contextSubmenu')) {
             sub = this.submenus.get(id);
             if (sub != cm) {
-                div_id = elt.up().readAttribute('id');
-                if (div_id != cm) {
-                    this._closeSubmenu(this.current.indexOf(div_id) + 1);
+                if (id_div != cm) {
+                    this._closeSubmenu(this.current.indexOf(id_div) + 1);
                 }
 
                 offsets = elt.viewportOffset();
@@ -282,8 +287,8 @@ var ContextSensitive = Class.create({
                 this._displayMenu($(sub), x, y);
             }
         } else if ((this.current.size() > 1) &&
-                   elt.hasClassName('contextElt') &&
-                   elt.up().readAttribute('id') != cm) {
+                   elt_up.hasClassName('contextMenu') &&
+                   id_div != cm) {
             this._closeSubmenu(this.current.indexOf(id));
         }
     }
@@ -302,10 +307,9 @@ ContextSensitive.Element = Class.create({
         this.opts.left = Boolean(opts.left);
         this.disable = false;
 
-        /* Add 'contextElt' class to all context children. */
         target = $(target);
         if (target) {
-            target.select('A').invoke('addClassName', 'contextElt');
+            target.addClassName('contextMenu');
         }
     }
 
