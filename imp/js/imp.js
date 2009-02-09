@@ -1,0 +1,1 @@
+if(!IMP){var IMP={}}IMP.menuFolderSubmit=function(a){var b=$("menuform");if((!this.menufolder_load||a)&&$F(b.down('SELECT[name="mailbox"]'))){this.menufolder_load=true;b.submit()}};document.observe("dom:loaded",function(){$("menuform").observe("change",IMP.menuFolderSubmit.bind(IMP));$("openfoldericon").down().observe("click",IMP.menuFolderSubmit.bind(IMP,true))});

@@ -694,9 +694,10 @@ class IMP
             $t->set('accesskey', $GLOBALS['prefs']->getValue('widget_accesskey') ? Horde::getAccessKey(_("Open Fo_lder")) : '', true);
             $t->set('flist', self::flistSelect(array('selected' => $GLOBALS['imp_mbox']['mailbox'], 'inc_vfolder' => true)));
 
+            Horde::addScriptFile('imp.js', 'imp', true);
+
             $menu_view = $GLOBALS['prefs']->getValue('menu_view');
-            $link = Horde::link('#', '', '', '', 'folderSubmit(true); return false;');
-            $t->set('flink', sprintf('<ul><li class="rightFloat">%s%s<br />%s</a></li></ul>', $link, ($menu_view != 'text') ? Horde::img('folders/folder_open.png', _("Open Folder"), ($menu_view == 'icon') ? array('title' => _("Open Folder")) : array()) : '', ($menu_view != 'icon') ? Horde::highlightAccessKey(_("Open Fo_lder"), $t->get('accesskey')) : ''));
+            $t->set('flink', sprintf('<ul><li class="rightFloat" id="openfoldericon">%s%s<br />%s</a></li></ul>', Horde::link('#'), ($menu_view != 'text') ? Horde::img('folders/folder_open.png', _("Open Folder"), ($menu_view == 'icon') ? array('title' => _("Open Folder")) : array()) : '', ($menu_view != 'icon') ? Horde::highlightAccessKey(_("Open Fo_lder"), $t->get('accesskey')) : ''));
         }
         $t->set('menu_string', self::getMenu('string'));
 
