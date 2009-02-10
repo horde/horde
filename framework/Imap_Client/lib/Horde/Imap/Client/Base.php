@@ -83,6 +83,13 @@ abstract class Horde_Imap_Client_Base
     protected $_debug = null;
 
     /**
+     * Temp array (destroyed at end of process).
+     *
+     * @var array
+     */
+    protected $_temp = array();
+
+    /**
      * Constructs a new Horde_Imap_Client object.
      *
      * @param array $params  A hash containing configuration parameters.
@@ -106,6 +113,10 @@ abstract class Horde_Imap_Client_Base
 
         if (empty($params['timeout'])) {
             $params['timeout'] = 10;
+        }
+
+        if (!isset($params['statuscache'])) {
+            $params['statuscache'] = true;
         }
 
         if (empty($params['cache'])) {
@@ -145,8 +156,9 @@ abstract class Horde_Imap_Client_Base
     {
         $this->_closeDebug();
 
-        // Don't store Horde_Imap_Client_Cache object.
+        // Don't store Horde_Imap_Client_Cache object or temp data.
         $this->_cache = null;
+        $this->_temp = array();
 
         // Encrypt password in serialized object.
         if (!isset($this->_params['_passencrypt'])) {
@@ -620,6 +632,7 @@ abstract class Horde_Imap_Client_Base
             $this->_openMailbox($mailbox, $mode);
             $this->_selected = $mailbox;
             $this->_mode = $mode;
+            unset($this->_temp['statuscache'][$mailbox]);
         }
     }
 
@@ -919,8 +932,40 @@ abstract class Horde_Imap_Client_Base
      */
     public function status($mailbox, $flags = Horde_Imap_Client::STATUS_ALL)
     {
+        $unselected_flags = array(
+            'messages' => Horde_Imap_Client::STATUS_MESSAGES,
+            'recent' => Horde_Imap_Client::STATUS_RECENT,
+            'unseen' => Horde_Imap_Client::STATUS_UNSEEN,
+            'uidnext' => Horde_Imap_Client::STATUS_UIDNEXT,
+            'uidvalidity' => Horde_Imap_Client::STATUS_UIDVALIDITY
+        );
+
         if ($flags & Horde_Imap_Client::STATUS_ALL) {
-            $flags |= Horde_Imap_Client::STATUS_MESSAGES | Horde_Imap_Client::STATUS_RECENT | Horde_Imap_Client::STATUS_UNSEEN | Horde_Imap_Client::STATUS_UIDNEXT | Horde_Imap_Client::STATUS_UIDVALIDITY;
+            foreach ($unselected_flags as $val) {
+                $flags |= $val;
+            }
+        }
+
+        $mailbox = Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($mailbox);
+        $curr_mbox = ($this->currentMailbox() == $mailbox);
+        $ret = array();
+
+        /* Check for cached information. */
+        if (!$curr_mbox &&
+            $this->_params['statuscache'] &&
+            isset($this->_temp['statuscache'][$mailbox])) {
+            $ptr = &$this->_temp['statuscache'][$mailbox];
+
+            foreach ($unselected_flags as $key => $val) {
+                if (($flags & $val) && isset($ptr[$key])) {
+                    $ret[$key] = $ptr[$key];
+                    $flags &= ~$val;
+                }
+            }
+        }
+
+        if (!$flags) {
+            return $ret;
         }
 
         /* STATUS_PERMFLAGS requires a read/write mailbox. */
@@ -928,7 +973,20 @@ abstract class Horde_Imap_Client_Base
             $this->openMailbox($mailbox, Horde_Imap_Client::OPEN_READWRITE);
         }
 
-        return $this->_status(Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($mailbox), $flags);
+        $ret = array_merge($ret, $this->_status($mailbox, $flags));
+
+        if ($this->currentMailbox() != $mailbox) {
+            if (!isset($this->_temp['statuscache'])) {
+                $this->_temp['statuscache'] = array();
+            }
+            $ptr = &$this->_temp['statuscache'];
+
+            $ptr[$mailbox] = isset($ptr[$mailbox])
+                ? array_merge($ptr[$mailbox], $ret)
+                : $ret;
+        }
+
+        return $ret;
     }
 
     /**

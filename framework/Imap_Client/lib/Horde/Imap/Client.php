@@ -54,6 +54,8 @@
  *   secure - (string) Use SSL or TLS to connect.
  *            VALUES: false, 'ssl', 'tls'.
  *            DEFAULT: No encryption
+ *   statuscache - (boolean) Cache STATUS responses?
+ *                 DEFAULT: True
  *   timeout - (integer)  Connection timeout, in seconds.
  *             DEFAULT: 10 seconds
  *

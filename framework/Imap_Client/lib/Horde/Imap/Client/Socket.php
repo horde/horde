@@ -84,13 +84,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     protected $_stream = null;
 
     /**
-     * Temp array (destroyed at end of process).
-     *
-     * @var array
-     */
-    protected $_temp = array();
-
-    /**
      * Destructor.
      */
     public function __destruct()
@@ -106,7 +99,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     public function __sleep()
     {
         $this->logout();
-        $this->_temp = array();
         $this->_tag = 0;
         parent::__sleep();
         return array_diff(array_keys(get_class_vars(__CLASS__)), array('encryptKey'));
