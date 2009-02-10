@@ -68,8 +68,8 @@ var ImpLogin = {
             }
         }
 
-        document.observe('change', this._changeHandler.bindAsEventListner(this));
-        document.observe('click', this._clickHandler.bindAsEventListner(this));
+        document.observe('change', this._changeHandler.bindAsEventListener(this));
+        document.observe('click', this._clickHandler.bindAsEventListener(this));
 
         // Need to capture hash information if it exists in URL
         if (location.hash) {
@@ -115,4 +115,4 @@ var ImpLogin = {
 
 };
 
-document.observe('dom:loaded', ImpLogin.onDomLoad.bin(ImpLogin));
+document.observe('dom:loaded', ImpLogin.onDomLoad.bind(ImpLogin));

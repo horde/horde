@@ -334,7 +334,7 @@ IMP::addInlineScript(array(
     'ImpLogin.imp_auth = ' . intval($imp_auth),
     'ImpLogin.lang_url = ' . Horde_Serialize::serialize($lang_url, SERIALIZE_JSON, $charset),
     'ImpLogin.nomenu = ' . intval(empty($conf['menu']['always'])),
-    'ImpLogin.reloadmenu = ' . (boolean) ($logout_reason && $imp_auth && $conf['menu']['always']),
+    'ImpLogin.reloadmenu = ' . intval($logout_reason && $imp_auth && $conf['menu']['always']),
     'ImpLogin.show_list = ' . intval($show_list),
 ));
 
