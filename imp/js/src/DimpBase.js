@@ -2327,7 +2327,7 @@ DimpBase._msgDragConfig = {
         if (!args.right && (e.ctrlKey || e.metaKey)) {
             DimpBase.msgSelect(id, $H({ ctrl: true }).merge(args).toObject());
         } else if (e.shiftKey) {
-            DimpBsae.msgSelect(id, $H({ shift: true }).merge(args).toObject());
+            DimpBase.msgSelect(id, $H({ shift: true }).merge(args).toObject());
         } else if (e.element().hasClassName('msCheck')) {
             DimpBase.msgSelect(id, { ctrl: true, right: true });
         } else if (DimpBase.isSelected('domid', id)) {
