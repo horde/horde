@@ -22,8 +22,8 @@
 </h1>
 
 <div>
- <input type="submit" class="button" value="<if:edit_query_vfolder><gettext>Save</gettext><else:edit_query_vfolder><gettext>Submit</gettext></else:edit_query_vfolder></if:edit_query_vfolder>" onclick="return formCheck();" />
- <input type="button" class="button" value="<gettext>Reset</gettext>" onclick="return search_reset();" />
+ <input type="submit" class="button searchSubmit" value="<if:edit_query_vfolder><gettext>Save</gettext><else:edit_query_vfolder><gettext>Submit</gettext></else:edit_query_vfolder></if:edit_query_vfolder>" />
+ <input type="button" class="button searchReset" value="<gettext>Reset</gettext>" />
 </div>
 
 <if:saved_searches>
@@ -33,7 +33,7 @@
 
 <div class="item">
  <label for="save_cache" class="hidden"><gettext>Recent Searches:</gettext></label>
- <select id="save_cache" name="save_cache" onchange="saveCache();">
+ <select id="save_cache" name="save_cache">
   <option value=""><gettext>Recent Searches:</gettext></option>
 <loop:saved_searches>
   <option value="<tag:saved_searches.val />"><tag:saved_searches.text /></option>
@@ -47,9 +47,9 @@
 </div>
 
 <div class="item">
- <input type="radio" class="checkbox" name="search_match" id="search_match_or" value="or"<if:field_end> onchange="$('search').submit();return true;" onclick="$('search').submit();return true;"</if:field_end><if:match_or> checked="checked"</if:match_or> />
+ <input type="radio" class="checkbox" name="search_match" id="search_match_or" value="or"<if:match_or> checked="checked"</if:match_or> />
  <em><tag:label_or /></em>
- <input type="radio" class="checkbox" name="search_match" id="search_match_and" value="and"<if:field_end> onchange="$('search').submit();return true;" onclick="$('search').submit();return true;"</if:field_end><if:match_and> checked="checked"</if:match_and> />
+ <input type="radio" class="checkbox" name="search_match" id="search_match_and" value="and"<if:match_and> checked="checked"</if:match_and> />
  <em><tag:label_and /></em>
 
 <table class="item" cellspacing="0">
@@ -63,7 +63,7 @@
 </else:fields.first></if:fields.first>
   <td>
    <label for="field_<tag:fields.i />" class="hidden"><gettext>Select a field</gettext></label>
-   <select onchange="$('search').submit();return true;" name="field[<tag:fields.i />]" id="field_<tag:fields.i />">
+   <select name="field[<tag:fields.i />]" id="field_<tag:fields.i />">
 <if:fields.last>
     <option value=""><gettext>Select a field</gettext></option>
     <option value="" disabled="disabled">- - - - - - - - -</option>
@@ -97,13 +97,13 @@
 </loop:fields.month>
    </select>
    <label for="search_date_<tag:fields.i />_day" class="hidden"><gettext>Day</gettext></label>
-   <select id="search_date_<tag:fields.i />_day" name="search_date[<tag:fields.i />][day]" onchange="dateCheck('on')">
+   <select id="search_date_<tag:fields.i />_day" name="search_date[<tag:fields.i />][day]">
 <loop:fields.day>
     <option value="<tag:fields.day.val />" <if:fields.day.sel>selected="selected" </if:fields.day.sel>><tag:fields.day.val /></option>
 </loop:fields.day>
    </select>
    <label for="search_date_<tag:fields.i />_year" class="hidden"><gettext>Year</gettext></label>
-   <select id="search_date_<tag:fields.i />_year" name="search_date[<tag:fields.i />][year]" onchange="dateCheck('on')">
+   <select id="search_date_<tag:fields.i />_year" name="search_date[<tag:fields.i />][year]">
 <loop:fields.year>
     <option value="<tag:fields.year.val />" <if:fields.year.sel>selected="selected"</if:fields.year.sel>><tag:fields.year.val /></option>
 </loop:fields.year>
@@ -125,7 +125,7 @@
   <td>&nbsp;</td>
 </if:fields.i>
 <else:fields.last>
-  <td><input type="image" class="image" src="<tag:delete_img />" onclick="return delete_field(<tag:fields.i />);" value="<tag:remove />" /></td>
+  <td><input type="image" class="image searchDelete" fid="<tag:fields.i />" src="<tag:delete_img />" value="<tag:remove />" /></td>
 </else:fields.last></if:fields.last>
  </tr>
 </loop:fields>
@@ -138,10 +138,10 @@
 </div>
 
 <div class="item">
- <a href="#" onclick="toggleAll(true); return false;"><gettext>Select all</gettext></a> |
- <a href="#" onclick="toggleAll(false); return false;"><gettext>Select none</gettext></a>
+ <a id="link_sel_all" href="#"><gettext>Select all</gettext></a> |
+ <a id="link_sel_none" href="#"><gettext>Select none</gettext></a>
 <if:subscribe>
- | <a href="#" onclick="return show_subscribed('<tag:inverse_subscribe />');"><if:inverse_subscribe><gettext>Show Only Subscribed Folders</gettext><else:inverse_subscribe><gettext>Show All Folders</gettext></else:inverse_subscribe></if:inverse_subscribe></a>
+ | <a id="link_sub" href="#"><if:inverse_subscribe><gettext>Show Only Subscribed Folders</gettext><else:inverse_subscribe><gettext>Show All Folders</gettext></else:inverse_subscribe></if:inverse_subscribe></a>
 </if:subscribe>
 </div>
 
@@ -179,7 +179,7 @@
 </if:virtualfolder>
 
 <div>
- <input type="submit" class="button" value="<if:edit_query_vfolder><gettext>Save</gettext><else:edit_query_vfolder><gettext>Submit</gettext></else:edit_query_vfolder></if:edit_query_vfolder>" onclick="return formCheck();" />
- <input type="button" class="button" value="<gettext>Reset</gettext>" onclick="return search_reset();" />
+ <input type="submit" class="button searchSubmit" value="<if:edit_query_vfolder><gettext>Save</gettext><else:edit_query_vfolder><gettext>Submit</gettext></else:edit_query_vfolder></if:edit_query_vfolder>" />
+ <input type="button" class="button searchReset" value="<gettext>Reset</gettext>" />
 </div>
 </form>

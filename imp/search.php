@@ -26,6 +26,8 @@ $search_mailbox = Util::getFormData('search_mailbox');
 
 $imp_search_fields = $imp_search->searchFields();
 
+$charset = NLS::getCharset();
+
 /* Get URL parameter data. */
 $search = array();
 if (Util::getFormData('no_match')) {
@@ -155,7 +157,6 @@ if (!$edit_query_vfolder) {
     }
 }
 $t->set('search_help', Help::link('imp', 'search'));
-$t->set('field_end', $search['field_end'] > 0);
 $t->set('match_or', $search['match'] == 'or');
 $t->set('label_or', Horde::label('search_match_or', _("Match Any Query")));
 $t->set('match_and', ($search['match'] == null) || ($search['match'] == 'and'));
@@ -213,7 +214,7 @@ for ($i = 0; $i <= $search['field_end']; $i++) {
             $fields[$i]['s_fields'][$curr]['sel'] = true;
             if (in_array($imp_search_fields[$curr]['type'], array(IMP_Search::HEADER, IMP_Search::BODY, IMP_Search::TEXT, IMP_Search::SIZE))) {
                 $fields[$i]['search_text'] = true;
-                $fields[$i]['search_text_val'] = (!empty($search['text'][$i])) ? @htmlspecialchars($search['text'][$i], ENT_COMPAT, NLS::getCharset()) : null;
+                $fields[$i]['search_text_val'] = (!empty($search['text'][$i])) ? @htmlspecialchars($search['text'][$i], ENT_COMPAT, $charset) : null;
                 if ($retrieve_search &&
                     ($imp_search_fields[$curr]['type'] == IMP_Search::SIZE)) {
                     $fields[$i]['search_text_val'] /= 1024;
@@ -291,7 +292,7 @@ $t->set('mbox', htmlspecialchars($search['mbox']));
 $t->set('virtualfolder', $_SESSION['imp']['protocol'] != 'pop');
 if ($t->get('virtualfolder')) {
     $t->set('save_vfolder', !empty($search['save_vfolder']));
-    $t->set('vfolder_label', !empty($search['vfolder_label']) ? htmlspecialchars($search['vfolder_label'], ENT_COMPAT, NLS::getCharset()) : null);
+    $t->set('vfolder_label', !empty($search['vfolder_label']) ? htmlspecialchars($search['vfolder_label'], ENT_COMPAT, $charset) : null);
 }
 
 if (empty($search['mbox'])) {
@@ -332,17 +333,17 @@ if (empty($search['mbox'])) {
 }
 
 $title = _("Message Search");
-Horde::addScriptFile('stripe.js', 'horde', true);
 Horde::addScriptFile('prototype.js', 'horde', true);
+Horde::addScriptFile('stripe.js', 'horde', true);
 Horde::addScriptFile('search.js', 'imp', true);
 require IMP_TEMPLATES . '/common-header.inc';
 IMP::menu();
 IMP::status();
+
 IMP::addInlineScript(array(
-    'var search_month = \'' . date('m') . '\'',
-    'var search_day = \'' . date('d') . '\'',
-    'var search_year = \'' . date('Y') . '\'',
-    'var not_search = ' . intval(empty($search['mbox'])),
+    'ImpSearch.search_date = ' . Horde_Serialize::serialize(array('m' => date('m'), 'd' => date('d'), 'y' => date('Y')), SERIALIZE_JSON, $charset),
+    'ImpSearch.not_search = ' . intval(empty($search['mbox'])),
+    'ImpSearch.inverse_sub = ' . intval($t->get('inverse_subscribe')),
 ));
 echo $t->fetch(IMP_TEMPLATES . '/search/search.html');
 require $registry->get('templates', 'horde') . '/common-footer.inc';
