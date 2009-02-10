@@ -1,10 +1,10 @@
-<table style="width:100%;border-collapse:collapse">
+<table class="msgActionTable">
  <tr class="mboxcontrol">
   <td>
 <if:usepop><else:usepop>
    <div class="leftFloat">
     <label for="flag<tag:id />" class="hidden"><gettext>Mark as:</gettext></label>
-    <select id="flag<tag:id />" name="flag<tag:id />" onchange="flagMessage(<tag:id />);">
+    <select id="flag<tag:id />" name="flag<tag:id />">
      <option value="" selected="selected"><gettext>Mark as:</gettext></option>
      <option value="0\seen"><gettext>Unseen</gettext></option>
      <option value="\flagged"><gettext>Flagged For Followup</gettext></option>
@@ -18,7 +18,7 @@
 </else:usepop></if:usepop>
 <if:move>
 <if:readonly><else:readonly>
-   <div class="leftFloat" style="padding-left:15px">
+   <div class="leftFloat msgActions">
     <ul class="msgactions">
      <li><tag:move /></li>
      <li class="lastnavbar"><tag:copy /></li>
@@ -26,7 +26,7 @@
    </div>
    <div class="leftFloat">
     <label for="target<tag:id />" class="hidden"><gettext>Target Folder</gettext></label>
-    <select id="target<tag:id />" name="target<tag:id />" onchange="updateFolders(<tag:id />);">
+    <select id="target<tag:id />" name="target<tag:id />">
      <tag:options />
     </select>
    </div>
@@ -41,7 +41,7 @@
  </tr>
 <if:isbottom>
  <tr>
-  <td class="bottomborder" style="padding:0" colspan="3"></td>
+  <td class="bottomborder" colspan="3"></td>
  </tr>
 </if:isbottom>
 </table>

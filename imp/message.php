@@ -728,7 +728,9 @@ Horde::addScriptFile('prototype.js', 'horde', true);
 Horde::addScriptFile('popup.js', 'imp', true);
 Horde::addScriptFile('message.js', 'imp', true);
 require IMP_TEMPLATES . '/common-header.inc';
-if (!IMP::$printMode) {
+if (IMP::$printMode) {
+    IMP::addInlineScript('ImpMessage.printmode = true');
+} else {
     if (!empty($conf['maillog']['use_maillog'])) {
         IMP_Maillog::displayLog($envelope['message-id']);
     }
@@ -755,10 +757,6 @@ if (!IMP::$printMode) {
         $n_template->set('copy', Horde::widget('#', _("Copy to folder"), 'widget', '', "transfer('copy_message', 2); return false;", _("Copy"), true));
     }
     echo $n_template->fetch(IMP_TEMPLATES . '/message/navbar_navigate.html');
-}
-
-if ($browser->hasFeature('javascript') && IMP::$printMode) {
-    require $registry->get('templates', 'horde') . '/javascript/print.js';
 }
 
 require $registry->get('templates', 'horde') . '/common-footer.inc';

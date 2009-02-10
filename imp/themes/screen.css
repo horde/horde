@@ -121,6 +121,14 @@ ul.msgactions, ul.msgactions ul {
     border-top: 1px solid #999;
 }
 
+table.msgActionTable, #fmanager table {
+    width: 100%;
+    border-collapse: collapse;
+}
+div.msgActions, #fmanager div.folderActions {
+    padding-left: 15px;
+}
+
 #msgheaders {
     clear: left;
 }
@@ -145,15 +153,8 @@ form#search div {
 #fmanager div, #fmanager div input {
     vertical-align: middle;
 }
-#fmanager table {
-    width: 100%;
-    border-collapse: collapse;
-}
 #fmanager div.folderChoose {
     padding-left: 5px;
-}
-#fmanager div.folderActions {
-    padding-left: 15px;
 }
 
 /* Style for div that fixes KHTML browsers. */
@@ -271,6 +272,10 @@ tr.deleted:hover, tr.deleted-over {
 .quotaalert {
     color: #fff;
     background: #f00;
+}
+
+table.msgheaders, td.msgheader {
+    width: 100%;
 }
 
 /* Pad the addressbook icon in header compose links. */
