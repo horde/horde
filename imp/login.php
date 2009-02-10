@@ -141,12 +141,6 @@ if (!$logout_reason && IMP_Session::canAutoLogin($server_key, $autologin)) {
     exit;
 }
 
-if ($logout_reason && $imp_auth && $conf['menu']['always']) {
-    $notification->push('setFocus();if (window.parent.frames.horde_menu) window.parent.frames.horde_menu.location.reload();', 'javascript');
-} else {
-    $notification->push('setFocus()', 'javascript');
-}
-
 $reason = $auth->getLogoutReasonString();
 $title = sprintf(_("Welcome to %s"), $registry->get('name', ($imp_auth) ? 'horde' : null));
 
@@ -332,14 +326,18 @@ $login_page = true;
 Horde::addScriptFile('prototype.js', 'horde', true);
 Horde::addScriptFile('login.js', 'imp', true);
 require IMP_TEMPLATES . '/common-header.inc';
+
+$charset = NLS::getCharset();
 IMP::addInlineScript(array(
-    'var autologin_url = \'' . Util::addParameter(Horde::selfUrl(), array('autologin' => $autologin, 'server_key' => '')) . '\'',
-    'var show_list = ' . intval($show_list),
-    'var ie_clientcaps = ' . intval($t->get('ie_clientcaps')),
-    'var lang_url = ' . ((is_null($lang_url)) ? 'null' : '\'' . $lang_url . '\''),
-    'var imp_auth = ' . intval($imp_auth),
-    'var nomenu = ' . intval(empty($conf['menu']['always'])),
+    'ImpLogin.autologin_url = ' . Horde_Serialize::serialize(Util::addParameter(Horde::selfUrl(), array('autologin' => $autologin, 'server_key' => '')), SERIALIZE_JSON, $charset),
+    'ImpLogin.ie_clientcaps = ' . intval($t->get('ie_clientcaps')),
+    'ImpLogin.imp_auth = ' . intval($imp_auth),
+    'ImpLogin.lang_url = ' . Horde_Serialize::serialize($lang_url, SERIALIZE_JSON, $charset),
+    'ImpLogin.nomenu = ' . intval(empty($conf['menu']['always'])),
+    'ImpLogin.reloadmenu = ' . (boolean) ($logout_reason && $imp_auth && $conf['menu']['always']),
+    'ImpLogin.show_list = ' . intval($show_list),
 ));
+
 echo $t->fetch(IMP_TEMPLATES . '/login/login.html');
 
 Horde::loadConfiguration('motd.php', null, null, true);

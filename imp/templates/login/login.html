@@ -32,12 +32,12 @@
     <tr>
      <td class="light rightAlign"><label for="server_key"><strong><gettext>Server</gettext></strong></label></td>
      <td class="light leftAlign">
-      <select tabindex="<tag:hsl_skey_tabindex />" id="server_key" name="server_key" onchange="imp_reload();">
+      <select tabindex="<tag:hsl_skey_tabindex />" id="server_key" name="server_key">
 <loop:hsl>
        <option value="<tag:hsl.val />"<if:hsl.sel> selected="selected"</if:hsl.sel>><tag:hsl.name /></option>
 </loop:hsl>
       </select>
-      <input tabindex="<tag:hsl_tabindex />" type="button" class="button" onclick="imp_reload();" value="<tag:login />" />
+      <input id="btn_login" tabindex="<tag:hsl_tabindex />" type="button" class="button" value="<tag:login />" />
      </td>
     </tr>
 </if:display_list>
@@ -73,7 +73,7 @@
     <tr>
      <td class="light rightAlign"><label for="new_lang"><strong><gettext>Language</gettext></strong></label></td>
      <td class="light leftAlign">
-      <select tabindex="<tag:langs_tabindex />" id="new_lang" name="new_lang" onchange="selectLang()">
+      <select tabindex="<tag:langs_tabindex />" id="new_lang" name="new_lang">
 <loop:langs>
        <option value="<tag:langs.val />" <if:langs.sel>selected="selected"</if:langs.sel>><tag:langs.name /></option>
 </loop:langs>
@@ -98,7 +98,7 @@
     <tr>
      <td>&nbsp;</td>
      <td class="light leftAlign">
-      <input type="submit" class="button" name="loginButton" id="loginButton" tabindex="<tag:login_tabindex />" value="<tag:login />" onclick="return submit_login();" />
+      <input type="submit" class="button" name="loginButton" id="loginButton" tabindex="<tag:login_tabindex />" value="<tag:login />" />
      </td>
     </tr>
 
