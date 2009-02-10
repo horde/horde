@@ -37,7 +37,7 @@ class Kronolith_Imple_TagAutoCompleter extends Kronolith_Imple
     public function attach()
     {
         parent::attach();
-        Horde::addScriptFile('autocomplete.js', 'kronolith', true);
+        Horde::addScriptFile('autocomplete.js', 'horde', true);
 
         $params = array(
             '"' . $this->_params['triggerId'] . '"',

@@ -51,7 +51,7 @@ class IMP_Imple_ContactAutoCompleter extends IMP_Imple
     public function attach()
     {
         parent::attach();
-        Horde::addScriptFile('autocomplete.js', 'imp', true);
+        Horde::addScriptFile('autocomplete.js', 'horde', true);
 
         $params = array(
             '"' . $this->_params['triggerId'] . '"',

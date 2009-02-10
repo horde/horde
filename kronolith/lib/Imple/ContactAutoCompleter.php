@@ -37,7 +37,7 @@ class Kronolith_Imple_ContactAutoCompleter extends Kronolith_Imple
     public function attach()
     {
         parent::attach();
-        Horde::addScriptFile('autocomplete.js', 'kronolith', true);
+        Horde::addScriptFile('autocomplete.js', 'horde', true);
 
         $params = array(
             '"' . $this->_params['triggerId'] . '"',
