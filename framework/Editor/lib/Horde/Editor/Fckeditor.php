@@ -49,7 +49,7 @@ class Horde_Editor_Fckeditor extends Horde_Editor
         global $browser;
 
         switch ($browser->getBrowser()) {
-        case 'konqueror':
+        case 'webkit':
         case 'msie':
         case 'mozilla':
         case 'opera':

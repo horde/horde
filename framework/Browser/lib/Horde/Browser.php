@@ -219,10 +219,12 @@ class Horde_Browser
         'optgroup'   => false,
         'xmlhttpreq' => false,
         'cite'       => false,
-        'issafari'   => false,
-        'ischrome'   => false,
         // RFC 2397
-        'dataurl'    => false,
+        'dataurl' => false,
+        // Webkit browsers
+        'ischrome'    => false,
+        'iskonqueror' => false,
+        'issafari'    => false,
     );
 
     /**
@@ -510,9 +512,7 @@ class Horde_Browser
             $this->_mobile = true;
         } elseif (preg_match('|Konqueror/([0-9]+)\.?([0-9]+)?|', $agent, $version) ||
                   preg_match('|Safari/([0-9]+)\.?([0-9]+)?|', $agent, $version)) {
-            // Konqueror and Apple's Safari both use the KHTML
-            // rendering engine.
-            $this->setBrowser('konqueror');
+            $this->setBrowser('webkit');
             $this->setQuirk('empty_file_input_value');
             $this->setQuirk('no_hidden_overflow_tables');
             $this->setFeature('dataurl');
@@ -531,10 +531,6 @@ class Horde_Browser
 
             if (stripos($agent, 'Chrome/') !== false) {
                 // Google Chrome.
-                // TODO: Really need to identify as chrome (or webkit),
-                // not konqueror. For now, hack around by setting feature
-                // 'ischrome'.
-                //$this->setBrowser('chrome');
                 $this->setFeature('ischrome');
                 $this->setFeature('rte');
                 $this->setFeature('utf');
@@ -550,10 +546,6 @@ class Horde_Browser
             } elseif (stripos($agent, 'Safari/') !== false &&
                 $this->_majorVersion >= 60) {
                 // Safari.
-                // TODO: Really need to identify as safari (or webkit),
-                // not konqueror. For now, hack around by setting feature
-                // 'issafari'.
-                //$this->setBrowser('safari');
                 $this->setFeature('issafari');
 
                 // Truly annoying - Safari did not start putting real version
@@ -588,6 +580,7 @@ class Horde_Browser
             } else {
                 // Konqueror.
                 $this->setFeature('javascript', 1.1);
+                $this->setFeature('iskonqueror');
                 switch ($this->_majorVersion) {
                 case 4:
                 case 3:
