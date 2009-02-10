@@ -515,8 +515,8 @@ if ($pageOb['msgcount']) {
     $n_template->set('imp_personal', IMP::FLAG_PERSONAL);
     $n_template->set('imp_forwarded', IMP::FLAG_FORWARDED);
     if ($n_template->get('use_folders')) {
-        $n_template->set('move', Horde::widget('#', _("Move to folder"), 'widget', '', "transfer('move_messages', 1); return false;", _("Move"), true));
-        $n_template->set('copy', Horde::widget('#', _("Copy to folder"), 'widget', '', "transfer('copy_messages', 1); return false;", _("Copy"), true));
+        $n_template->set('move', Horde::widget('#', _("Move to folder"), 'widget', '', "ImpMessage.transfer('move_messages', 1); return false;", _("Move"), true));
+        $n_template->set('copy', Horde::widget('#', _("Copy to folder"), 'widget', '', "ImpMessage.transfer('copy_messages', 1); return false;", _("Copy"), true));
         $n_template->set('folder_options', $folder_options);
 
     }

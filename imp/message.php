@@ -753,8 +753,8 @@ if (!IMP::$printMode) {
     $n_template->set('id', 2);
     $n_template->set('isbottom', true);
     if ($n_template->get('move')) {
-        $n_template->set('move', Horde::widget('#', _("Move to folder"), 'widget', '', "transfer('move_message', 2); return false;", _("Move"), true), true);
-        $n_template->set('copy', Horde::widget('#', _("Copy to folder"), 'widget', '', "transfer('copy_message', 2); return false;", _("Copy"), true));
+        $n_template->set('move', Horde::widget('#', _("Move to folder"), 'widget', '', "ImpMessage.transfer('move_message', 2); return false;", _("Move"), true), true);
+        $n_template->set('copy', Horde::widget('#', _("Copy to folder"), 'widget', '', "ImpMessage.transfer('copy_message', 2); return false;", _("Copy"), true));
     }
     echo $n_template->fetch(IMP_TEMPLATES . '/message/navbar_navigate.html');
 }
