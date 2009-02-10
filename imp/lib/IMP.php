@@ -1744,7 +1744,7 @@ class IMP
     }
 
     /**
-     * TODO - Temporary DIMP fix.
+     * TODO - Temporary DIMP fix/Merge to Horde core
      */
     private function _getDIMPStylesheets($theme = '')
     {
@@ -1757,7 +1757,9 @@ class IMP
 
         /* Collect browser specific stylesheets if needed. */
         $browser_css = array();
-        if ($GLOBALS['browser']->isBrowser('msie')) {
+
+        switch ($GLOBALS['browser']->getBrowser()) {
+        case 'msie':
             $ie_major = $GLOBALS['browser']->getMajor();
             if ($ie_major == 7) {
                 $browser_css[] = 'ie7.css';
@@ -1769,18 +1771,22 @@ class IMP
                     $browser_css[] = 'ie5mac.css';
                 }
             }
-        }
-        if ($GLOBALS['browser']->isBrowser('opera')) {
+            break;
+
+        case 'opera':
             $browser_css[] = 'opera.css';
-        }
-        if ($GLOBALS['browser']->isBrowser('mozilla') &&
-            $GLOBALS['browser']->getMajor() >= 5 &&
-            preg_match('/rv:(.*)\)/', $GLOBALS['browser']->getAgentString(), $revision) &&
-            $revision[1] <= 1.4) {
-            $browser_css[] = 'moz14.css';
-        }
-        if (strpos(strtolower($GLOBALS['browser']->getAgentString()), 'safari') !== false) {
-            $browser_css[] = 'safari.css';
+            break;
+
+        case 'mozilla':
+            if ($GLOBALS['browser']->getMajor() >= 5 &&
+                preg_match('/rv:(.*)\)/', $GLOBALS['browser']->getAgentString(), $revision) &&
+                $revision[1] <= 1.4) {
+                $browser_css[] = 'moz14.css';
+            }
+            break;
+
+        case 'webkit':
+            $browser_css[] = 'webkit.css';
         }
 
         foreach (array('horde', 'imp') as $app) {
