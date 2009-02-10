@@ -59,7 +59,7 @@ $code = array(
         /* Strings used in search.js */
         'search_select' => _("Please select at least one folder to search."),
 
-        /* Strings used in popup.js */
+        /* Strings used in imp.js */
         'popup_block' => _("A popup window could not be opened. Perhaps you have set your browser to block popup windows?"),
 
         /* Strings used in login.js */

@@ -71,8 +71,7 @@ $scripts = array(
     array('ContextSensitive.js', 'imp', true),
     array('fullmessage-dimp.js', 'imp', true),
     array('compose-dimp.js', 'imp', true),
-    array('unblockImages.js', 'imp', true),
-    array('popup.js', 'imp', true)
+    array('imp.js', 'imp', true)
 );
 
 DIMP::header($show_msg_result['subject'], $scripts);

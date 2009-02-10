@@ -413,7 +413,7 @@ if ($open_compose_window === false) {
     if (!isset($options)) {
         $options = array();
     }
-    Horde::addScriptFile('popup.js', 'imp', true);
+    Horde::addScriptFile('imp.js', 'imp', true);
     $notification->push(IMP::popupIMPString('compose.php', array_merge(array('popup' => 1), $options, IMP::getComposeArgs())), 'javascript');
 }
 

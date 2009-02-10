@@ -288,7 +288,7 @@ $t = new IMP_Template();
 $t->setOption('gettext', true);
 if ($prefs->getValue('use_pgp')) {
     Horde::addScriptFile('prototype.js', 'horde', true);
-    Horde::addScriptFile('popup.js', 'imp', true);
+    Horde::addScriptFile('imp.js', 'imp', true);
     $t->set('pgpactive', true);
     $t->set('overview-help', Help::link('imp', 'pgp-overview'));
     $t->set('attach_pubkey_notlocked', !$prefs->isLocked('pgp_attach_pubkey'));

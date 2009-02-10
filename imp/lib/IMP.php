@@ -419,7 +419,7 @@ class IMP
             $GLOBALS['prefs']->getValue('compose_popup') &&
             $GLOBALS['browser']->hasFeature('javascript')) {
             Horde::addScriptFile('prototype.js', 'horde', true);
-            Horde::addScriptFile('popup.js', 'imp', true);
+            Horde::addScriptFile('imp.js', 'imp', true);
             if (isset($args['to'])) {
                 $args['to'] = addcslashes($args['to'], '\\"');
             }
@@ -1339,7 +1339,7 @@ class IMP
     }
 
     /**
-     * Output the javascript needed to call the popup_imp JS function.
+     * Output the javascript needed to call the IMP popup JS function.
      *
      * @param string $url      The IMP page to load.
      * @param array $params    An array of paramters to pass to the URL.
@@ -1351,7 +1351,7 @@ class IMP
     static public function popupIMPString($url, $params = array(),
                                           $width = 700, $height = 650)
     {
-        return "popup_imp('" . Horde::applicationUrl($url) . "'," . $width . "," . $height . ",'" . $GLOBALS['browser']->escapeJSCode(str_replace('+', '%20', substr(Util::addParameter('', $params, null, false), 1))) . "');";
+        return "IMP.popup('" . Horde::applicationUrl($url) . "'," . $width . "," . $height . ",'" . $GLOBALS['browser']->escapeJSCode(str_replace('+', '%20', substr(Util::addParameter('', $params, null, false), 1))) . "');";
     }
 
     /**

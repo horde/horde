@@ -232,7 +232,7 @@ $t = new IMP_Template();
 $t->setOption('gettext', true);
 $t->set('use_smime_help', Help::link('imp', 'smime-overview'));
 if (!is_a($openssl_check, 'PEAR_Error') && $prefs->getValue('use_smime')) {
-    Horde::addScriptFile('popup.js', 'imp', true);
+    Horde::addScriptFile('imp.js', 'imp', true);
     $t->set('smimeactive', true);
     $t->set('manage_pubkey-help', Help::link('imp', 'smime-manage-pubkey'));
 

@@ -219,7 +219,7 @@ class IMP_Horde_Mime_Viewer_html extends Horde_Mime_Viewer_html
 
             if (!$view_img && !$addr_check) {
                 $data .= Util::bufferOutput(array('Horde', 'addScriptFile'), 'prototype.js', 'horde', true) .
-                    Util::bufferOutput(array('Horde', 'addScriptFile'), 'unblockImages.js', 'imp', true);
+                    Util::bufferOutput(array('Horde', 'addScriptFile'), 'imp.js', 'imp', true);
 
                 $cleanhtml['status'][] = array(
                     'icon' => Horde::img('mime/image.png'),
