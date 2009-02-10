@@ -299,6 +299,8 @@ class IMP_Message
             return false;
         }
 
+        require_once IMP_BASE . '/lib/version.php';
+
         foreach ($msgList as $folder => $msgIndices) {
             foreach ($msgIndices as $index) {
                 /* Fetch the message contents. */
@@ -329,7 +331,6 @@ class IMP_Message
                 $body = String::convertCharset($body, $body_part->getCharset(), NLS::getCharset());
 
                 /* Create a new iCalendar. */
-                require_once IMP_BASE . '/lib/version.php';
                 $vCal = new Horde_iCalendar();
                 $vCal->setAttribute('PRODID', '-//The Horde Project//IMP ' . IMP_VERSION . '//EN');
                 $vCal->setAttribute('METHOD', 'PUBLISH');
@@ -374,8 +375,13 @@ class IMP_Message
                     $notification->push($res, $res->getCode());
                 } elseif (!$res) {
                     switch ($type) {
-                    case 'task': $notification->push(_("An unknown error occured while creating the new task."), 'horde.error'); break;
-                    case 'note': $notification->push(_("An unknown error occured while creating the new note."), 'horde.error'); break;
+                    case 'task':
+                        $notification->push(_("An unknown error occured while creating the new task."), 'horde.error');
+                        break;
+
+                    case 'note':
+                        $notification->push(_("An unknown error occured while creating the new note."), 'horde.error');
+                        break;
                     }
                 } else {
                     $name = '"' . htmlspecialchars($subject) . '"';
