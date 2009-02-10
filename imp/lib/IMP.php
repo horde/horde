@@ -688,7 +688,6 @@ class IMP
     {
         $t = new IMP_Template();
         $t->set('forminput', Util::formInput());
-        $t->set('webkit', $GLOBALS['browser']->isBrowser('konqueror'));
         $t->set('use_folders', ($_SESSION['imp']['protocol'] != 'pop') && $GLOBALS['conf']['user']['allow_folders'], true);
         if ($t->get('use_folders')) {
             $t->set('accesskey', $GLOBALS['prefs']->getValue('widget_accesskey') ? Horde::getAccessKey(_("Open Fo_lder")) : '', true);

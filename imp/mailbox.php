@@ -373,9 +373,6 @@ if ($search_mbox) {
 } else {
     $unread = $imp_mailbox->unseenMessages(Horde_Imap_Client::SORT_RESULTS_COUNT);
 }
-if ($browser->isBrowser('konqueror')) {
-    $notification->push('if (window.fluid) window.fluid.setDockBadge("' . ($unread ? $unread : '') . '");', 'javascript');
-}
 
 /* Get the recent message count. */
 $newmsgs = 0;
@@ -893,7 +890,8 @@ if (($pageOb['end'] - $pageOb['begin']) >= 20) {
 
 IMP::addInlineScript(array(
     'ImpMessage.messagelist = ' . Horde_Serialize::serialize($ids, SERIALIZE_JSON, NLS::getCharset()),
-    'ImpMessage.sortlimit = ' . intval($sortpref['limit'])
+    'ImpMessage.sortlimit = ' . intval($sortpref['limit']),
+    'ImpMessage.unread = ' . strval($unread)
 ));
 
 require $registry->get('templates', 'horde') . '/common-footer.inc';

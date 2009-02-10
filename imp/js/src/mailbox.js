@@ -7,7 +7,7 @@
 
 var ImpMessage = {
     // The following variables are defined in mailbox.php:
-    //  messagelist, sortlimit
+    //  messagelist, sortlimit, unread
     keyId: null,
     startrange: null,
 
@@ -407,3 +407,11 @@ document.observe('change', ImpMessage.changeHandler.bindAsEventListener(ImpMessa
 document.observe('click', ImpMessage.clickHandler.bindAsEventListener(ImpMessage));
 document.observe('keydown', ImpMessage.keyDownHandler.bindAsEventListener(ImpMessage));
 document.observe('submit', ImpMessage.submitHandler.bindAsEventListener(ImpMessage));
+
+Event.observe(window, 'load', function() {
+    if (window.fluid) {
+        try {
+            window.fluid.setDockBadge(ImpMessage.unread);
+        } catch (e) {}
+    }
+});
