@@ -547,18 +547,18 @@ case 'DeleteAttach':
 
 case 'ShowPortal':
     // Load the block list. Blocks are located in $dimp_block_list.
-    // KEY: Block label  VALUE: Horde_Block object
+    // KEY: Block label; VALUE: Horde_Block object
     require IMP_BASE . '/config/portal.php';
 
     $blocks = $linkTags = array();
-    $css_load = array('dimp' => true);
+    $css_load = array('imp' => true);
     foreach ($dimp_block_list as $title => $block) {
         if (is_a($block['ob'], 'Horde_Block')) {
             $app = $block['ob']->getApp();
-            $content = ((empty($css_load[$app])) ? Horde::styleSheetLink($app, '', false) : '') . $block['ob']->getContent();
+            $content = (empty($css_load[$app]) ? Horde::styleSheetLink($app, '', false) : '') . $block['ob']->getContent();
             $css_load[$app] = true;
             // Don't do substitutions on our own blocks.
-            if ($app != 'dimp') {
+            if ($app != 'imp') {
                 $content = preg_replace('/<a href="([^"]+)"/',
                                         '<a onclick="DimpBase.go(\'app:' . $app . '\', \'$1\');return false"',
                                         $content);
