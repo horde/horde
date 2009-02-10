@@ -2,10 +2,10 @@
  <tr class="mboxcontrol">
   <td<if:isbottom> class="bottomborder"</if:isbottom>>
    <div class="leftFloat">
-    <form id="select<tag:id />" action="javascript:void(0)" onsubmit="return false">
+    <form id="select<tag:id />">
     <input type="hidden" name="mailbox" value="<tag:mailbox />" />
     <label for="filter<tag:id />" class="hidden"><gettext>Select:</gettext></label>
-    <select id="filter<tag:id />" name="filter" onchange="makeSelection(<tag:id />);">
+    <select id="filter<tag:id />" name="filter">
      <option value="" selected="selected"><gettext>Select:</gettext></option>
      <option value="!<tag:imp_all />"><gettext>All</gettext></option>
      <option value="<tag:imp_all />"><gettext>None</gettext></option>
@@ -28,7 +28,7 @@
     </select>
 <if:readonly><else:readonly>
     <label for="flag<tag:id />" class="hidden"><gettext>Mark as:</gettext></label>
-    <select id="flag<tag:id />" name="flag" onchange="flagMessages(<tag:id />);">
+    <select id="flag<tag:id />" name="flag">
      <option value="" selected="selected"><gettext>Mark as:</gettext></option>
      <option value="\seen"><gettext>Seen</gettext></option>
      <option value="0\seen"><gettext>Unseen</gettext></option>
@@ -57,7 +57,7 @@
      <li class="lastnavbar"><tag:copy /></li>
     </ul>
     <label for="targetMailbox<tag:id />" class="hidden"><gettext>Target Mailbox:</gettext></label>
-    <select id="targetMailbox<tag:id />" name="targetMailbox" onchange="updateFolders(<tag:id />);">
+    <select id="targetMailbox<tag:id />" name="targetMailbox">
      <tag:folder_options />
     </select>
     </form>

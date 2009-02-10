@@ -11,7 +11,6 @@
 $code = array(
 /* Variables used in core javascript files. */
     'conf' =>  array(
-        'hasDOM' => $GLOBALS['browser']->hasFeature('dom'),
         'IMP_ALL' => IMP::FLAG_ALL,
         'isIE' => $GLOBALS['browser']->isBrowser('msie'),
         'pop3' => (isset($_SESSION['imp']) && ($_SESSION['imp']['protocol'] == 'pop')),

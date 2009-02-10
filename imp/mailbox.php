@@ -454,7 +454,7 @@ $hdr_template->set('search', false);
 if (!$search_mbox) {
     $hdr_template->set('search', Horde::link(Util::addParameter(Horde::applicationUrl('search.php'), 'search_mailbox', $imp_mbox['mailbox']), sprintf(_("Search %s"), $rawtitle)) . Horde::img('search.png', _("Search"), '', $graphicsdir) . '</a>');
     if (!$readonly) {
-        $hdr_template->set('empty', Horde::link(Util::addParameter($mailbox_imp_url, array('actionID' => 'empty_mailbox', 'mailbox' => $imp_mbox['mailbox'], 'mailbox_token' => $mailbox_token)), _("Empty folder"), '', '', "imp_confirm(this.href, '" . addslashes(_("Are you sure you wish to delete all mail in this folder?")) . "'); return false;") . Horde::img('empty_spam.png', _("Empty folder")) . '</a>');
+        $hdr_template->set('empty', Horde::link(Util::addParameter($mailbox_imp_url, array('actionID' => 'empty_mailbox', 'mailbox' => $imp_mbox['mailbox'], 'mailbox_token' => $mailbox_token)), _("Empty folder"), '', '', "ImpMessage.confirmDialog(this.href, '" . addslashes(_("Are you sure you wish to delete all mail in this folder?")) . "'); return false;") . Horde::img('empty_spam.png', _("Empty folder")) . '</a>');
     }
 } else {
     if ($imp_search->isEditableVFolder()) {
@@ -541,13 +541,13 @@ if ($pageOb['msgcount']) {
     $a_template = new IMP_Template();
     if ($use_trash &&
         (($imp_mbox['mailbox'] == (IMP::folderPref($prefs->getValue('trash_folder'), true))) || ($vtrash !== null))) {
-        $a_template->set('delete', Horde::widget('#', _("Delete"), 'widget', '', "if (confirm('" . addslashes(_("Are you sure you wish to permanently delete these messages?")) . "')) { messages_submit('delete_messages'); } return false;", _("_Delete")));
+        $a_template->set('delete', Horde::widget('#', _("Delete"), 'widget permdeleteAction', '', '', _("_Delete")));
     } else {
-        $a_template->set('delete', Horde::widget('#', _("Delete"), 'widget', '', "messages_submit('delete_messages'); return false;", _("_Delete")));
+        $a_template->set('delete', Horde::widget('#', _("Delete"), 'widget deleteAction', '', '', _("_Delete")));
     }
 
     if ($showdelete['purge'] || ($vtrash !== null)) {
-        $a_template->set('undelete', Horde::widget('#', _("Undelete"), 'widget', '', "messages_submit('undelete_messages'); return false;", _("_Undelete")));
+        $a_template->set('undelete', Horde::widget('#', _("Undelete"), 'widget undeleteAction', '', '', _("_Undelete")));
     }
 
     if ($showdelete['purge']) {
@@ -559,32 +559,32 @@ if ($pageOb['msgcount']) {
     }
 
     if (!$readonly && $registry->hasMethod('mail/blacklistFrom')) {
-        $a_template->set('blacklist', Horde::widget('#', _("Blacklist"), 'widget', '', "messages_submit('blacklist'); return false;", _("_Blacklist")));
+        $a_template->set('blacklist', Horde::widget('#', _("Blacklist"), 'widget blacklistAction', '', '', _("_Blacklist")));
     }
 
     if (!$readonly && $registry->hasMethod('mail/whitelistFrom')) {
-        $a_template->set('whitelist', Horde::widget('#', _("Whitelist"), 'widget', '', "messages_submit('whitelist'); return false;", _("_Whitelist")));
+        $a_template->set('whitelist', Horde::widget('#', _("Whitelist"), 'widget whitelistAction', '', '', _("_Whitelist")));
     }
 
     if (empty($conf['hooks']['disable_compose']) || !Horde::callHook('_imp_hook_disable_compose', array(false), 'imp')) {
-        $a_template->set('forward', Horde::widget('#', _("Forward"), 'widget', '', "messages_submit('fwd_digest'); return false;", _("Fo_rward")));
+        $a_template->set('forward', Horde::widget('#', _("Forward"), 'widget forwardAction', '', '', _("Fo_rward")));
     }
 
     if (!$readonly &&
         $conf['spam']['reporting'] &&
         ($conf['spam']['spamfolder'] ||
          ($imp_mbox['mailbox'] != IMP::folderPref($prefs->getValue('spam_folder'), true)))) {
-        $a_template->set('spam', Horde::widget('#', _("Report as Spam"), 'widget', '', "messages_submit('spam_report'); return false;", _("Report as Spam")));
+        $a_template->set('spam', Horde::widget('#', _("Report as Spam"), 'widget spamAction', '', '', _("Report as Spam")));
     }
 
     if (!$readonly &&
         $conf['notspam']['reporting'] &&
         (!$conf['notspam']['spamfolder'] ||
          ($imp_mbox['mailbox'] == IMP::folderPref($prefs->getValue('spam_folder'), true)))) {
-        $a_template->set('notspam', Horde::widget('#', _("Report as Innocent"), 'widget', '', "messages_submit('notspam_report'); return false;", _("Report as Innocent")));
+        $a_template->set('notspam', Horde::widget('#', _("Report as Innocent"), 'widget notspamAction', '', '', _("Report as Innocent")));
     }
 
-    $a_template->set('view_messages', Horde::widget('#', _("View Messages"), 'widget', '', "messages_submit('view_messages'); return false;", _("View Messages")));
+    $a_template->set('view_messages', Horde::widget('#', _("View Messages"), 'widget viewAction', '', '', _("View Messages")));
 
     echo $a_template->fetch(IMP_TEMPLATES . '/mailbox/actions.html');
 }
@@ -891,5 +891,9 @@ if (($pageOb['end'] - $pageOb['begin']) >= 20) {
     echo $n_template->fetch(IMP_TEMPLATES . '/mailbox/navbar.html');
 }
 
-IMP::addInlineScript('var messagelist = ' . Horde_Serialize::serialize($ids, SERIALIZE_JSON, NLS::getCharset()) . ';');
+IMP::addInlineScript(array(
+    'ImpMessage.messagelist = ' . Horde_Serialize::serialize($ids, SERIALIZE_JSON, NLS::getCharset()),
+    'ImpMessage.sortlimit = ' . intval($sortpref['limit'])
+));
+
 require $registry->get('templates', 'horde') . '/common-footer.inc';
