@@ -18,7 +18,17 @@ DimpCore = {
     //   window_load
     server_error: 0,
 
-    buttons: [ 'button_reply', 'button_forward', 'button_spam', 'button_ham', 'button_deleted' ],
+    buttons: [
+        'button_reply', 'button_forward', 'button_spam', 'button_ham',
+        'button_deleted'
+    ],
+
+    doActionOpts: {
+        onException: function(r, e) { DimpCore.debug('onException', e); },
+        onFailure: function(t, o) { DimpCore.debug('onFailure', t); },
+        evalJS: false,
+        evalJSON: true
+    },
 
     debug: function(label, e)
     {
@@ -103,19 +113,6 @@ DimpCore = {
     doAction: function(action, params, uids, callback, opts)
     {
         var b, tmp = {};
-
-        if (!this.doActionOpts) {
-            this.doActionOpts = {
-                onException: function(r, e) {
-                    this.debug('onException', e);
-                }.bind(this),
-                onFailure: function(t, o) {
-                    this.debug('onFailure', t);
-                }.bind(this),
-                evalJS: false,
-                evalJSON: true
-            };
-        };
 
         opts = Object.extend(this.doActionOpts, opts || {});
         params = $H(params);

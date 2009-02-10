@@ -19,8 +19,17 @@ var DimpBase = {
     ppcache: {},
     ppfifo: [],
 
-    sfiltersfolder: $H({ sf_all: 'all', sf_current: 'current' }),
-    sfilters: $H({ sf_msgall: 'msgall', sf_from: 'from', sf_to: 'to', sf_subject: 'subject' }),
+    sfiltersfolder: $H({
+        sf_all: 'all',
+        sf_current: 'current'
+    }),
+
+    sfilters: $H({
+        sf_msgall: 'msgall',
+        sf_from: 'from',
+        sf_to: 'to',
+        sf_subject: 'subject'
+    }),
 
     flags: $H({
         unseen: 'statusUnseen',
@@ -1209,7 +1218,7 @@ var DimpBase = {
         }
     },
 
-    _dragCaption: function()
+    dragCaption: function()
     {
         var cnt = this.selectedCount();
         return cnt + ' ' + (cnt == 1 ? DIMP.text.message : DIMP.text.messages);
@@ -2198,7 +2207,18 @@ var DimpBase = {
     },
 
     /* Onload function. */
-    _onLoad: function() {
+    onDomLoad: function()
+    {
+        var DC = DimpCore;
+
+        $('dimpLoading').hide();
+        $('dimpPage').show();
+
+        /* Create the folder list. Any pending notifications will be caught
+         * via the return from this call. */
+        DC.doAction('ListFolders', {}, null, this._folderLoadCallback.bind(this));
+
+        /* Start message list loading as soon as possible. */
         if (Horde.dhtmlHistory.initialize()) {
             Horde.dhtmlHistory.addListener(this.go.bind(this));
         }
@@ -2220,11 +2240,11 @@ var DimpBase = {
         this._setFilterText(true);
 
         /* Add popdown menus. */
-        DimpCore.DMenu.setOnShow(this._onMenuShow.bind(this));
+        DC.DMenu.setOnShow(this._onMenuShow.bind(this));
         this._addMouseEvents({ id: 'button_reply', type: 'reply' }, true);
-        DimpCore.DMenu.disable('button_reply_img', true, true);
+        DC.DMenu.disable('button_reply_img', true, true);
         this._addMouseEvents({ id: 'button_forward', type: 'forward' }, true);
-        DimpCore.DMenu.disable('button_forward_img', true, true);
+        DC.DMenu.disable('button_forward_img', true, true);
         this._addMouseEvents({ id: 'button_other', type: 'otheractions' }, true);
 
         new Drop('dropbase', this._folderDropConfig);
@@ -2234,6 +2254,37 @@ var DimpBase = {
         }
 
         this._resizeIE6();
+
+        /* Remove unneeded search folders. */
+        if (!DIMP.conf.search_all) {
+            this.sfiltersfolder.unset('sf_all');
+        }
+
+        /* Check for new mail. */
+        this.setPollFolders();
+
+        /* Bind key shortcuts. */
+        document.observe('keydown', this._keydownHandler.bindAsEventListener(this));
+        document.observe('keyup', this._keyupHandler.bindAsEventListener(this));
+
+        /* Bind mouse clicks. */
+        document.observe('click', this._clickHandler.bindAsEventListener(this));
+        document.observe('dblclick', this._clickHandler.bindAsEventListener(this, true));
+        document.observe('mouseover', this._mouseHandler.bindAsEventListener(this, 'over'));
+
+        /* Resize elements on window size change. */
+        Event.observe(window, 'resize', this._onResize.bind(this));
+
+        if (DIMP.conf.is_ie6) {
+            /* Disable text selection in preview pane for IE 6. */
+            document.observe('selectstart', Event.stop);
+
+            /* Since IE 6 doesn't support hover over non-links, use javascript
+             * events to replicate mouseover CSS behavior. */
+            $('dimpbarActions', 'serviceActions', 'applicationfolders', 'specialfolders', 'normalfolders').compact().invoke('select', 'LI').flatten().compact().each(function(e) {
+                e.observe('mouseover', e.addClassName.curry('over')).observe('mouseout', e.removeClassName.curry('over'));
+            });
+        }
     },
 
     // IE 6 width fixes (See Bug #6793)
@@ -2265,7 +2316,7 @@ var DimpBase = {
 DimpBase._msgDragConfig = {
     scroll: 'normalfolders',
     threshold: 5,
-    caption: DimpBase._dragCaption.bind(DimpBase),
+    caption: DimpBase.dragCaption.bind(DimpBase),
     onStart: function(d, e) {
         var args = { right: e.isRightClick() },
             id = d.element.id;
@@ -2274,24 +2325,24 @@ DimpBase._msgDragConfig = {
 
         // Handle selection first.
         if (!args.right && (e.ctrlKey || e.metaKey)) {
-            this.msgSelect(id, $H({ ctrl: true }).merge(args).toObject());
+            DimpBase.msgSelect(id, $H({ ctrl: true }).merge(args).toObject());
         } else if (e.shiftKey) {
-            this.msgSelect(id, $H({ shift: true }).merge(args).toObject());
+            DimpBsae.msgSelect(id, $H({ shift: true }).merge(args).toObject());
         } else if (e.element().hasClassName('msCheck')) {
-            this.msgSelect(id, { ctrl: true, right: true });
-        } else if (this.isSelected('domid', id)) {
-            if (!args.right && this.selectedCount()) {
+            DimpBase.msgSelect(id, { ctrl: true, right: true });
+        } else if (DimpBase.isSelected('domid', id)) {
+            if (!args.right && DimpBase.selectedCount()) {
                 d.selectIfNoDrag = true;
             }
         } else {
-            this.msgSelect(id, args);
+            DimpBase.msgSelect(id, args);
         }
-    }.bind(DimpBase),
+    },
     onEnd: function(d, e) {
         if (d.selectIfNoDrag && !d.wasDragged) {
-            this.msgSelect(d.element.id, { right: e.isRightClick() });
+            DimpBase.msgSelect(d.element.id, { right: e.isRightClick() });
         }
-    }.bind(DimpBase)
+    }
 };
 
 DimpBase._folderDragConfig = {
@@ -2327,58 +2378,14 @@ DimpBase._folderDropConfig = {
         } else {
             m = (e.ctrlKey) ? DIMP.text.copyto : DIMP.text.moveto;
             if (drag.hasClassName('folder')) {
-                return (ftype != 'special' && !this.isSubfolder(drag, drop)) ? m.replace(/%s/, d).replace(/%s/, l) : '';
+                return (ftype != 'special' && !DimpBase.isSubfolder(drag, drop)) ? m.replace(/%s/, d).replace(/%s/, l) : '';
             } else {
-                return ftype != 'container' ? m.replace(/%s/, this._dragCaption()).replace(/%s/, l) : '';
+                return ftype != 'container' ? m.replace(/%s/, DimpBase.dragCaption()).replace(/%s/, l) : '';
             }
         }
-    }.bind(DimpBase),
+    },
     onDrop: DimpBase._folderDropHandler.bind(DimpBase)
 };
-
-/* Stuff to do immediately when page is ready. */
-document.observe('dom:loaded', function() {
-    $('dimpLoading').hide();
-    $('dimpPage').show();
-
-    /* Create the folder list. Any pending notifications will be caught via
-     * the return from this call. */
-    DimpCore.doAction('ListFolders', {}, null, DimpBase._folderLoadCallback.bind(DimpBase));
-
-    /* Start message list loading as soon as possible. */
-    DimpBase._onLoad();
-
-    /* Remove unneeded search folders. */
-    if (!DIMP.conf.search_all) {
-        DimpBase.sfiltersfolder.unset('sf_all');
-    }
-
-    /* Check for new mail. */
-    DimpBase.setPollFolders();
-
-    /* Bind key shortcuts. */
-    document.observe('keydown', DimpBase._keydownHandler.bindAsEventListener(DimpBase));
-    document.observe('keyup', DimpBase._keyupHandler.bindAsEventListener(DimpBase));
-
-    /* Bind mouse clicks. */
-    document.observe('click', DimpBase._clickHandler.bindAsEventListener(DimpBase));
-    document.observe('dblclick', DimpBase._clickHandler.bindAsEventListener(DimpBase, true));
-    document.observe('mouseover', DimpBase._mouseHandler.bindAsEventListener(DimpBase, 'over'));
-
-    /* Resize elements on window size change. */
-    Event.observe(window, 'resize', DimpBase._onResize.bind(DimpBase));
-
-    if (DIMP.conf.is_ie6) {
-        /* Disable text selection in preview pane for IE 6. */
-        document.observe('selectstart', Event.stop);
-
-        /* Since IE 6 doesn't support hover over non-links, use javascript
-         * events to replicate mouseover CSS behavior. */
-        $('dimpbarActions', 'serviceActions', 'applicationfolders', 'specialfolders', 'normalfolders').compact().invoke('select', 'LI').flatten().compact().each(function(e) {
-            e.observe('mouseover', e.addClassName.curry('over')).observe('mouseout', e.removeClassName.curry('over'));
-        });
-    }
-});
 
 /* Need to register a callback function for doAction to catch viewport
  * information returned from the server. */
@@ -2387,3 +2394,7 @@ DimpCore.onDoActionComplete = function(r) {
         DimpBase.viewport.ajaxResponse(r.response.viewport);
     }
 };
+
+/* Stuff to do immediately when page is ready. */
+document.observe('dom:loaded', DimpBase.onDomLoad.bind(DimpBase));
+
