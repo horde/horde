@@ -1,4 +1,4 @@
-<table style="width:100%;border-collapse:collapse">
+<table>
  <tr class="control">
   <td>
 <if:javascript>
@@ -7,7 +7,7 @@
     &nbsp;<input type="checkbox" class="checkbox" id="checkAll<tag:id />" name="checkAll" <tag:check_ak /> />
    </div>
 </if:javascript>
-   <div class="leftFloat" style="padding-left:5px">
+   <div class="leftFloat folderChoose">
     <label for="action_choose<tag:id />" class="hidden"><gettext>Choose Action</gettext></label>
     <select id="action_choose<tag:id />">
      <option selected="selected"><gettext>Choose Action</gettext></option>
@@ -43,7 +43,7 @@
     <input name="btn_action" type="submit" class="button" value="<tag:go />" />
 </else:javascript></if:javascript>
    </div>
-   <div class="leftFloat" style="padding-left:15px">
+   <div class="leftFloat folderActions">
     <ul class="msgactions">
 <if:subscribe>
      <li><tag:toggle_subscribe /></li>

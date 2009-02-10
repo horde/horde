@@ -345,7 +345,10 @@ if ($_SESSION['imp']['file_upload'] && ($actionID == 'import_mbox')) {
 /* Build the folder tree. */
 list($raw_rows, $newmsgs, $displayNames) = $imaptree->build();
 
-IMP::addInlineScript('var displayNames = ' . Horde_Serialize::serialize($displayNames, SERIALIZE_JSON, $charset) . ';');
+IMP::addInlineScript(array(
+    'ImpFolders.displayNames = ' . Horde_Serialize::serialize($displayNames, SERIALIZE_JSON, $charset),
+    'ImpFolders.folders_url = ' . Horde_Serialize::serialize($folders_url, SERIALIZE_JSON, $charset)
+));
 
 /* Prepare the header template. */
 $refresh_title = _("Reload View");

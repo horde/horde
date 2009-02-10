@@ -1,168 +1,196 @@
 /**
- * IMP Folders Javascript
- *
- * Provides the javascript to help the folders.php script.
- * This file should be included via Horde::addScriptFile().
+ * Provides the javascript for the compose.php script (standard view).
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  */
 
-function getChecked()
-{
-    return getFolders().findAll(function(e) {
-        return e.checked;
-    });
-}
+var ImpFolders = {
 
-function getFolders()
-{
-    return $('fmanager').getInputs(null, 'folder_list[]');
-}
+    // The following variables are defined in folders.php:
+    //   displayNames, folders_url
 
-function selectedFoldersDisplay()
-{
-    var folder = 0, sel = "";
-    getFolders().each(function(e) {
-        if (e.checked) {
-            sel += displayNames[folder] + "\n";
+    getChecked: function()
+    {
+        return this.getFolders().findAll(function(e) {
+            return e.checked;
+        });
+    },
+
+    getFolders: function()
+    {
+        return $('fmanager').getInputs(null, 'folder_list[]');
+    },
+
+    selectedFoldersDisplay: function()
+    {
+        var folder = 0, sel = "";
+
+        this.getFolders().each(function(e) {
+            if (e.checked) {
+                sel += this.displayNames[folder] + "\n";
+            }
+            ++folder;
+        });
+
+        return sel.strip();
+    },
+
+    chooseAction: function(e)
+    {
+        var id = (e.element().readAttribute('id') == 'action_choose0') ? 0 : 1,
+            a = $('action_choose' + id),
+            action = $F(a);
+        a.selectedIndex = 0;
+
+        switch (action) {
+        case 'create_folder':
+            this.createMailbox();
+            break;
+
+        case 'rebuild_tree':
+            this.submitAction(action);
+            break;
+
+        default:
+            if (!this.getChecked().size()) {
+                if (action != '') {
+                    alert(IMP.text.folders_select);
+                }
+                break;
+            }
+
+            switch (action) {
+            case 'rename_folder':
+                this.renameMailbox();
+                break;
+
+            case 'subscribe_folder':
+            case 'unsubscribe_folder':
+            case 'poll_folder':
+            case 'expunge_folder':
+            case 'nopoll_folder':
+            case 'mark_folder_seen':
+            case 'mark_folder_unseen':
+            case 'delete_folder_confirm':
+            case 'folders_empty_mailbox_confirm':
+            case 'mbox_size':
+                this.submitAction(action);
+                break;
+
+            case 'download_folder':
+            case 'download_folder_zip':
+                this.downloadMailbox(action);
+                break;
+
+            case 'import_mbox':
+                if (this.getChecked().length > 1) {
+                    alert(IMP.text.folders_oneselect);
+                } else {
+                    this.submitAction(action);
+                }
+                break;
+            }
+
+            break;
         }
-        ++folder;
-    });
+    },
 
-    if (sel.endsWith("\n")) {
-        sel = sel.substring(0, sel.length - 1);
-    }
+    submitAction: function(a)
+    {
+        $('actionID').setValue(a);
+        $('fmanager').submit();
+    },
 
-    return sel;
-}
-
-function chooseAction(e)
-{
-    var id = (e.element().id == 'action_choose0') ? 0 : 1;
-
-    var a = $('action_choose' + id);
-    var action = $F(a);
-    a.selectedIndex = 0;
-
-    if (action == 'create_folder') {
-        createMailbox();
-    } else if (action == 'rebuild_tree') {
-        submitAction(action);
-    } else if (!getChecked().size()) {
-        if (action != '') {
-            alert(IMP.text.folders_select);
+    createMailbox: function()
+    {
+        var count = this.getChecked().size(), mbox;
+        if (count > 1) {
+            window.alert(IMP.text.folders_oneselect);
+            return;
         }
-    } else if (action == 'rename_folder') {
-        renameMailbox();
-    } else if (action == 'subscribe_folder' ||
-               action == 'unsubscribe_folder' ||
-               action == 'poll_folder' ||
-               action == 'expunge_folder' ||
-               action == 'nopoll_folder' ||
-               action == 'mark_folder_seen' ||
-               action == 'mark_folder_unseen' ||
-               action == 'delete_folder_confirm' ||
-               action == 'folders_empty_mailbox_confirm' ||
-               action == 'mbox_size') {
-        submitAction(action);
-    } else if (action == 'download_folder' ||
-               action == 'download_folder_zip') {
-        downloadMailbox(action);
-    } else if (action == 'import_mbox') {
-        if (getChecked().length > 1) {
-            alert(IMP.text.folders_oneselect);
-        } else {
-            submitAction(action);
+
+        mbox = (count == 1)
+            ? window.prompt(IMP.text.folders_subfolder1 + ' ' + this.selectedFoldersDisplay() + ".\n" + IMP.text.folders_subfolder2 + "\n", '')
+            : window.prompt(IMP.text.folders_toplevel, '');
+
+        if (mbox) {
+            $('new_mailbox').setValue(mbox);
+            this.submitAction('create_folder');
         }
-    }
-}
+    },
 
-function submitAction(a)
-{
-    $('actionID').setValue(a);
-    $('fmanager').submit();
-}
+    downloadMailbox: function(actionid)
+    {
+        if (window.confirm(IMP.text.folders_download1 + "\n" + this.selectedFoldersDisplay() + "\n" + IMP.text.folders_download2)) {
+            this.submitAction(actionid);
+        }
+    },
 
-function createMailbox()
-{
-    var count = getChecked().size(), mbox;
-    if (count > 1) {
-        window.alert(IMP.text.folders_oneselect);
-        return;
-    }
+    renameMailbox: function()
+    {
+        var newnames = '', oldnames = '', j = 0;
 
-    if (count == 1) {
-        mbox = window.prompt(IMP.text.folders_subfolder1 + ' ' + selectedFoldersDisplay() + ".\n" + IMP.text.folders_subfolder2 + "\n", '');
-    } else {
-        mbox = window.prompt(IMP.text.folders_toplevel, '');
-    }
-
-    if (mbox) {
-        $('new_mailbox').setValue(mbox);
-        submitAction('create_folder');
-    }
-}
-
-function downloadMailbox(actionid)
-{
-    if (window.confirm(IMP.text.folders_download1 + "\n" + selectedFoldersDisplay() + "\n" + IMP.text.folders_download2)) {
-        submitAction(actionid);
-    }
-}
-
-function renameMailbox()
-{
-    var newnames = '', oldnames = '', j = 0;
-
-    getFolders().each(function(f) {
-        if (f.checked) {
-            if (IMP.conf.fixed_folders.indexOf(displayNames[j]) != -1) {
-                window.alert(IMP.text.folders_no_rename + ' ' + displayNames[j]);
-            } else {
-                var tmp = window.prompt(IMP.text.folders_rename1 + ' ' + displayNames[j] + "\n" + IMP.text.folders_rename2, displayNames[j]);
-                if (tmp) {
-                    newnames += tmp + "\n";
-                    oldnames += f.value + "\n";
+        this.getFolders().each(function(f) {
+            if (f.checked) {
+                if (IMP.conf.fixed_folders.indexOf(this.displayNames[j]) != -1) {
+                    window.alert(IMP.text.folders_no_rename + ' ' + this.displayNames[j]);
+                } else {
+                    var tmp = window.prompt(IMP.text.folders_rename1 + ' ' + this.displayNames[j] + "\n" + IMP.text.folders_rename2, this.displayNames[j]);
+                    if (tmp) {
+                        newnames += tmp + "\n";
+                        oldnames += f.value + "\n";
+                    }
                 }
             }
+            ++j;
+        });
+
+        if (newnames) {
+            $('new_names').setValue(newnames.strip());
+            $('old_names').setValue(oldnames.strip());
+            this.submitAction('rename_folder');
         }
-        ++j;
-    });
+    },
 
-    if (!newnames) {
-        return;
+    toggleSelection: function()
+    {
+        var count = this.getChecked().size(), folders = this.getFolders(),
+            checked = (count != folders.size());
+        folders.each(function(f) {
+            f.checked = checked;
+        });
+    },
+
+    changeHandler: function(e)
+    {
+        switch (e.element().readAttribute('id')) {
+        case 'action_choose0':
+        case 'action_choose1':
+            this.chooseAction(e);
+            break;
+        }
+    },
+
+    clickHandler: function(e)
+    {
+        switch (e.element().readAttribute('id')) {
+        case 'btn_import':
+            this.submitAction('import_mbox');
+            break;
+
+        case 'btn_return':
+            document.location.href = this.folders_url;
+            break;
+
+        case 'checkAll0':
+        case 'checkAll1':
+            this.toggleSelection();
+            break;
+        }
     }
 
-    if (newnames.endsWith("\n")) {
-        newnames = newnames.substring(0, newnames.length - 1);
-    }
-    if (oldnames.endsWith("\n")) {
-        oldnames = oldnames.substring(0, oldnames.length - 1);
-    }
+};
 
-    $('new_names').setValue(newnames);
-    $('old_names').setValue(oldnames);
-    submitAction('rename_folder');
-    return true;
-}
-
-function toggleSelection()
-{
-    var count = getChecked().size(), folders = getFolders();
-    var checked = (count != folders.size());
-    folders.each(function(f) {
-        f.checked = checked;
-    });
-}
-
-document.observe('dom:loaded', function() {
-    if ($('checkAll0')) {
-        $('checkAll0').observe('click', toggleSelection);
-        $('action_choose0').observe('change', chooseAction);
-    }
-    if ($('checkAll1')) {
-        $('checkAll1').observe('click', toggleSelection);
-        $('action_choose1').observe('change', chooseAction);
-    }
-});
+document.observe('change', ImpFolders.changeHandler.bind(ImpFolders));
+document.observe('click', ImpFolders.clickHandler.bind(ImpFolders));

@@ -145,6 +145,16 @@ form#search div {
 #fmanager div, #fmanager div input {
     vertical-align: middle;
 }
+#fmanager table {
+    width: 100%;
+    border-collapse: collapse;
+}
+#fmanager div.folderChoose {
+    padding-left: 5px;
+}
+#fmanager div.folderActions {
+    padding-left: 15px;
+}
 
 /* Style for div that fixes KHTML browsers. */
 .ohide {
