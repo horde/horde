@@ -643,8 +643,8 @@ class IMP
             $prefs->getValue('fetchmail_menu')) {
             Horde::addScriptFile('prototype.js', 'horde', true);
             Horde::addScriptFile('effects.js', 'horde', true);
+            Horde::addScriptFile('redbox.js', 'horde', true);
             Horde::addScriptFile('dialog.js', 'imp', true);
-            Horde::addScriptFile('redbox.js', 'imp', true);
 
             $js_params = array(
                 'dialog_load' => Horde::applicationUrl('ajax.php', true, -1) . '/FetchmailDialog'
@@ -2058,8 +2058,8 @@ class IMP
     {
         Horde::addScriptFile('prototype.js', 'horde', true);
         Horde::addScriptFile('effects.js', 'horde', true);
+        Horde::addScriptFile('redbox.js', 'horde', true);
         Horde::addScriptFile('dialog.js', 'imp', true);
-        Horde::addScriptFile('redbox.js', 'imp', true);
 
         switch ($type) {
         case 'PGPPersonal':
