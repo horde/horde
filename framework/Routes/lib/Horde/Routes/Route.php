@@ -619,7 +619,7 @@ class Horde_Routes_Route
             $host = substr($host, 0, strpos(':', $host));
             $subMatch = '@^(.+?)\.' . $kargs['domainMatch'] . '$';
             $subdomain = preg_replace($subMatch, '$1', $host);
-            if (!in_array($subdomain, $kargs['subDomainsIgnore'] && $host != $subdomain)) {
+            if (!in_array($subdomain, $kargs['subDomainsIgnore']) && $host != $subdomain) {
                 $subDomain = $subdomain;
             }
         }
