@@ -20,18 +20,18 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <email>mike@maintainable.com</email>
   <active>yes</active>
  </lead>
- <date>2007-10-21</date>
+ <date>2009-02-09</date>
  <time>23:26:00</time>
  <version>
-  <release>0.1.0</release>
-  <api>0.1.0</api>
+  <release>0.2.0</release>
+  <api>0.2.0</api>
  </version>
  <stability>
   <release>beta</release>
   <api>beta</api>
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
- <notes>Initial Horde_Log release
+ <notes>* Added Horde_Log_Filter_Suppress.
  </notes>
  <contents>
   <dir name="/">
@@ -42,6 +42,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
        <file name="Interface.php" role="php" />
        <file name="Level.php" role="php" />
        <file name="Message.php" role="php" />
+       <file name="Suppress.php" role="php" />
       </dir> <!-- /lib/Horde/Log/Filter -->
       <dir name="Formatter">
        <file name="Interface.php" role="php" />
@@ -80,6 +81,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Log/Filter/Interface.php" as="Horde/Log/Filter/Interface.php" />
    <install name="lib/Horde/Log/Filter/Level.php" as="Horde/Log/Filter/Level.php" />
    <install name="lib/Horde/Log/Filter/Message.php" as="Horde/Log/Filter/Message.php" />
+   <install name="lib/Horde/Log/Filter/Suppress.php" as="Horde/Log/Filter/Suppress.php" />
    <install name="lib/Horde/Log/Formatter/Interface.php" as="Horde/Log/Formatter/Interface.php" />
    <install name="lib/Horde/Log/Formatter/Simple.php" as="Horde/Log/Formatter/Simple.php" />
    <install name="lib/Horde/Log/Formatter/Xml.php" as="Horde/Log/Formatter/Xml.php" />
