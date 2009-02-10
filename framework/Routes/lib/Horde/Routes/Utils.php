@@ -243,6 +243,19 @@ class Horde_Routes_Utils
     }
 
     /**
+     * Pretty-print a listing of the routes connected to the mapper.
+     *
+     * @param  stream|null  $stream  Output stream for printing (optional)
+     * @param  string|null  $eol     Line ending (optional)
+     * @return void
+     */
+    public function printRoutes($stream = null, $eol = PHP_EOL)
+    {
+        $printer = new Horde_Routes_Printer($this->mapper);
+        $printer->printRoutes($stream, $eol);
+    }
+
+    /**
      * Scan a directory for PHP files and use them as controllers.  Used
      * as the default scanner callback for Horde_Routes_Mapper.  See the
      * constructor of that class for more information.
