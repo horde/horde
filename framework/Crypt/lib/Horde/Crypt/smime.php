@@ -384,12 +384,6 @@ class Horde_Crypt_smime extends Horde_Crypt
      */
     protected function _encryptSignature($text, $params)
     {
-        /* Check for secure connection. */
-        $secure_check = $this->requireSecureConnection();
-        if (is_a($secure_check, 'PEAR_Error')) {
-            return $secure_check;
-        }
-
         /* Check for required parameters. */
         if (!isset($params['pubkey']) ||
             !isset($params['privkey']) ||
@@ -454,12 +448,6 @@ class Horde_Crypt_smime extends Horde_Crypt
      */
     protected function _decryptMessage($text, $params)
     {
-        /* Check for secure connection. */
-        $secure_check = $this->requireSecureConnection();
-        if (is_a($secure_check, 'PEAR_Error')) {
-            return $secure_check;
-        }
-
         /* Check for required parameters. */
         if (!isset($params['pubkey']) ||
             !isset($params['privkey']) ||

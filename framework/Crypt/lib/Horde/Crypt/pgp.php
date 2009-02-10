@@ -169,12 +169,6 @@ class Horde_Crypt_pgp extends Horde_Crypt
     public function generateKey($realname, $email, $passphrase, $comment = '',
                                 $keylength = 1024)
     {
-        /* Check for secure connection. */
-        $secure_check = $this->requireSecureConnection();
-        if (is_a($secure_check, 'PEAR_Error')) {
-            return $secure_check;
-        }
-
         /* Create temp files to hold the generated keys. */
         $pub_file = $this->_createTempFile('horde-pgp');
         $secret_file = $this->_createTempFile('horde-pgp');
@@ -631,12 +625,6 @@ class Horde_Crypt_pgp extends Horde_Crypt
      */
     public function verifyPassphrase($public_key, $private_key, $passphrase)
     {
-        /* Check for secure connection. */
-        $secure_check = $this->requireSecureConnection();
-        if (is_a($secure_check, 'PEAR_Error')) {
-            return $secure_check;
-        }
-
         /* Encrypt a test message. */
         $result = $this->encrypt('Test', array('type' => 'message', 'pubkey' => $public_key));
         if (is_a($result, 'PEAR_Error')) {
@@ -1136,12 +1124,6 @@ class Horde_Crypt_pgp extends Horde_Crypt
      */
     protected function _encryptSignature($text, $params)
     {
-        /* Check for secure connection. */
-        $secure_check = $this->requireSecureConnection();
-        if (is_a($secure_check, 'PEAR_Error')) {
-            return $secure_check;
-        }
-
         /* Check for required parameters. */
         if (!isset($params['pubkey']) ||
             !isset($params['privkey']) ||
@@ -1215,12 +1197,6 @@ class Horde_Crypt_pgp extends Horde_Crypt
      */
     protected function _decryptMessage($text, $params)
     {
-        /* Check for secure connection. */
-        $secure_check = $this->requireSecureConnection();
-        if (is_a($secure_check, 'PEAR_Error')) {
-            return $secure_check;
-        }
-
         $good_sig_flag = false;
 
         /* Check for required parameters. */
