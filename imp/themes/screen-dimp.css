@@ -990,6 +990,7 @@ a.address:hover img {
 }
 #qclose a:hover {
     background: #fff;
+    padding: 0px 2px 2px 4px;
 }
 #qoptions .qlabel {
     font-weight: bold;
