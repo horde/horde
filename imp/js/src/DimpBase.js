@@ -305,7 +305,9 @@ var DimpBase = {
         elt.addClassName('on');
 
         // Make sure all subfolders are expanded
-        elt.ancestors().find(function(n) {
+        // The last 2 elements of ancestors() are the BODY and HTML tags -
+        // don't need to parse through them.
+        elt.ancestors().slice(0, -2).find(function(n) {
             if (n.hasClassName('subfolders')) {
                 this._toggleSubFolder(n.id.substring(3), 'exp');
             } else {
