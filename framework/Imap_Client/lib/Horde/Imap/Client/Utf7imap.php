@@ -61,11 +61,11 @@ class Horde_Imap_Client_Utf7imap
 
     /**
      * Convert a string from UTF7-IMAP to UTF-8.
-     * Throws a Horde_Imap_Client_Exception on error.
      *
      * @param string  The UTF7-IMAP string.
      *
      * @return string  The converted UTF-8 string.
+     * @throws Horde_Imap_Client_Exception
      */
     public static function Utf7ImapToUtf8($str)
     {
@@ -157,11 +157,11 @@ class Horde_Imap_Client_Utf7imap
 
     /**
      * Convert a string from UTF-8 to UTF7-IMAP.
-     * Throws a Horde_Imap_Client_Exception on error.
      *
      * @param string  The UTF-8 string.
      *
      * @return string  The converted UTF7-IMAP string.
+     * @throws Horde_Imap_Client_Exception
      */
     public static function Utf8ToUtf7Imap($str)
     {

@@ -100,9 +100,10 @@ class Horde_Imap_Client_Cache
 
     /**
      * Constructor.
-     * Throws a Horde_Imap_Client_Exception on error.
      *
      * @param array $params  The configuration parameters.
+     *
+     * @throws Horde_Imap_Client_Exception
      */
     public function __construct($params = array())
     {
@@ -206,7 +207,6 @@ class Horde_Imap_Client_Cache
 
     /**
      * Get information from the cache.
-     * Throws a Horde_Imap_Cache_Exception on error.
      *
      * @param string $mailbox    An IMAP mailbox string.
      * @param array $uids        The list of message UIDs to retrieve
@@ -219,6 +219,7 @@ class Horde_Imap_Client_Cache
      *                key (if found) and the fields as values (will be
      *                undefined if not found). If $uids is empty, returns the
      *                full list of cached UIDs.
+     * @throws Horde_Imap_Client_Exception
      */
     public function get($mailbox, $uids = array(), $fields = array(),
                         $uidvalid = null)
@@ -338,10 +339,11 @@ class Horde_Imap_Client_Cache
 
     /**
      * Delete messages in the cache.
-     * Throws a Horde_Imap_Client_Exception on error.
      *
      * @param string $mailbox  An IMAP mailbox string.
      * @param array $uids      The list of message UIDs to delete.
+     *
+     * @throws Horde_Imap_Client_Exception
      */
     public function deleteMsgs($mailbox, $uids)
     {
@@ -403,12 +405,14 @@ class Horde_Imap_Client_Cache
 
     /**
      * Load the given mailbox by regenerating from the cache.
-     * Throws a Horde_Imap_Client_Exception on error (only if $uidvalid is
-     * set).
+     * Throws a Horde_Imap_Client_Exception on error ONLY if $uidvalid is
+     * set.
      *
      * @param string $mailbox    The mailbox to load.
      * @param array $uids        The UIDs to load.
      * @param integer $uidvalid  The IMAP uidvalidity value of the mailbox.
+     *
+     * @throws Horde_Imap_Client_Exception
      */
     protected function _loadMailbox($mailbox, $uids, $uidvalid = null)
     {
@@ -479,13 +483,13 @@ class Horde_Imap_Client_Cache
 
     /**
      * Given a list of UIDs, determine the slices that need to be loaded.
-     * Throws a Horde_Imap_Client_Exception on error.
      *
      * @param string $mailbox  The mailbox.
      * @param array $uids      A list of UIDs.
      * @param boolean $set     Set the slice information in $_slicemap?
      *
      * @return array  UIDs as the keys, the slice number as the value.
+     * @throws Horde_Imap_Client_Exception
      */
     protected function _getCacheSlices($mailbox, $uids, $set = false)
     {

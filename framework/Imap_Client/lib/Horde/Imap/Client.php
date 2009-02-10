@@ -144,14 +144,15 @@ class Horde_Imap_Client
     /**
      * Attempts to return a concrete Horde_Imap_Client instance based on
      * $driver.
-     * Throws a Horde_Imap_Client_Exception on error.
      *
      * @param string $driver  The type of concrete Horde_Imap_Client subclass
      *                        to return.
      * @param array $params   A hash containing any additional configuration or
      *                        connection parameters a subclass might need.
      *
-     * @return Horde_Imap_Client_Base  The newly created Horde_Imap_Client instance.
+     * @return Horde_Imap_Client_Base  The newly created Horde_Imap_Client
+     *                                 instance.
+     * @throws Horde_Imap_Client_Exception
      */
     static public function getInstance($driver, $params = array())
     {

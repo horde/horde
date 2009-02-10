@@ -124,9 +124,9 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
 
     /**
      * Get CAPABILITY info from the IMAP server.
-     * Throws a Horde_Imap_Client_Exception on error.
      *
      * @return array  The capability array.
+     * @throws Horde_Imap_Client_Exception
      */
     protected function _capability()
     {
@@ -142,7 +142,8 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
 
     /**
      * Send a NOOP command.
-     * Throws a Horde_Imap_Client_Exception on error.
+     *
+     * @throws Horde_Imap_Client_Exception
      */
     protected function _noop()
     {
@@ -159,9 +160,9 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
 
     /**
      * Get the NAMESPACE information from the IMAP server.
-     * Throws a Horde_Imap_Client_Exception on error.
      *
      * @return array  An array of namespace information.
+     * @throws Horde_Imap_Client_Exception
      */
     protected function _getNamespaces()
     {
@@ -181,9 +182,9 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
 
     /**
      * Login to the IMAP server.
-     * Throws a Horde_Imap_Client_Exception on error.
      *
      * @return boolean  Return true if global login tasks should be run.
+     * @throws Horde_Imap_Client_Exception
      */
     protected function _login()
     {
@@ -254,9 +255,10 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
 
     /**
      * Send ID information to the IMAP server (RFC 2971).
-     * Throws a Horde_Imap_Client_Exception on error.
      *
      * @param array $info  The information to send to the server.
+     *
+     * @throws Horde_Imap_Client_Exception
      */
     protected function _sendID($info)
     {
@@ -265,10 +267,10 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
 
     /**
      * Return ID information from the IMAP server (RFC 2971).
-     * Throws a Horde_Imap_Client_Exception on error.
      *
      * @return array  An array of information returned, with the keys as the
      *                'field' and the values as the 'value'.
+     * @throws Horde_Imap_Client_Exception
      */
     protected function _getID()
     {
@@ -277,12 +279,12 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
 
     /**
      * Sets the preferred language for server response messages (RFC 5255).
-     * Throws a Horde_Imap_Client_Exception on error.
      *
      * @param array $info  The preferred list of languages.
      *
      * @return string  The language accepted by the server, or null if the
      *                 default language is used.
+     * @throws Horde_Imap_Client_Exception
      */
     protected function _setLanguage($langs)
     {
@@ -291,13 +293,13 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
 
     /**
      * Gets the preferred language for server response messages (RFC 5255).
-     * Throws a Horde_Imap_Client_Exception on error.
      *
      * @param array $list  If true, return the list of available languages.
      *
      * @return mixed  If $list is true, the list of languages available on the
      *                server (may be empty). If false, the language used by
      *                the server, or null if the default language is used.
+     * @throws Horde_Imap_Client_Exception
      */
     protected function _getLanguage($list)
     {
@@ -306,10 +308,11 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
 
     /**
      * Open a mailbox.
-     * Throws a Horde_Imap_Client_Exception on error.
      *
      * @param string $mailbox  The mailbox to open (UTF7-IMAP).
      * @param integer $mode    The access mode.
+     *
+     * @throws Horde_Imap_Client_Exception
      */
     protected function _openMailbox($mailbox, $mode)
     {
@@ -331,9 +334,10 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
 
     /**
      * Create a mailbox.
-     * Throws a Horde_Imap_Client_Exception on error.
      *
      * @param string $mailbox  The mailbox to create (UTF7-IMAP).
+     *
+     * @throws Horde_Imap_Client_Exception
      */
     protected function _createMailbox($mailbox)
     {
@@ -350,9 +354,10 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
 
     /**
      * Delete a mailbox.
-     * Throws a Horde_Imap_Client_Exception on error.
      *
      * @param string $mailbox  The mailbox to delete (UTF7-IMAP).
+     *
+     * @throws Horde_Imap_Client_Exception
      */
     protected function _deleteMailbox($mailbox)
     {
@@ -369,10 +374,11 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
 
     /**
      * Rename a mailbox.
-     * Throws a Horde_Imap_Client_Exception on error.
      *
      * @param string $old     The old mailbox name (UTF7-IMAP).
      * @param string $new     The new mailbox name (UTF7-IMAP).
+     *
+     * @throws Horde_Imap_Client_Exception
      */
     protected function _renameMailbox($old, $new)
     {
@@ -389,10 +395,11 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
 
     /**
      * Manage subscription status for a mailbox.
-     * Throws a Horde_Imap_Client_Exception on error.
      *
      * @param string $mailbox     The mailbox to [un]subscribe to (UTF7-IMAP).
      * @param boolean $subscribe  True to subscribe, false to unsubscribe.
+     *
+     * @throws Horde_Imap_Client_Exception
      */
     protected function _subscribeMailbox($mailbox, $subscribe)
     {
@@ -413,7 +420,6 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
 
     /**
      * Obtain a list of mailboxes matching a pattern.
-     * Throws a Horde_Imap_Client_Exception on error.
      *
      * @param string $pattern  The mailbox search pattern.
      * @param integer $mode    Which mailboxes to return.
@@ -426,6 +432,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
      * </pre>
      *
      * @return array  See Horde_Imap_Client_Base::listMailboxes().
+     * @throws Horde_Imap_Client_Exception
      */
     protected function _listMailboxes($pattern, $mode, $options)
     {
@@ -542,13 +549,13 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
 
     /**
      * Obtain status information for a mailbox.
-     * Throws a Horde_Imap_Client_Exception on error.
      *
      * @param string $mailbox  The mailbox to query (UTF7-IMAP).
      * @param string $flags    A bitmask of information requested from the
      *                         server.
      *
      * @return array  See Horde_Imap_Client_Base::status().
+     * @throws Horde_Imap_Client_Exception
      */
     protected function _status($mailbox, $flags)
     {
@@ -608,7 +615,6 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
 
     /**
      * Append message(s) to a mailbox.
-     * Throws a Horde_Imap_Client_Exception on error.
      *
      * @param string $mailbox  The mailbox to append the message(s) to
      *                         (UTF7-IMAP).
@@ -616,6 +622,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
      * @param array $options   Additional options.
      *
      * @return mixed  Returns true.
+     * @throws Horde_Imap_Client_Exception
      */
     protected function _append($mailbox, $data, $options)
     {
@@ -653,7 +660,8 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
 
     /**
      * Request a checkpoint of the currently selected mailbox.
-     * Throws a Horde_Imap_Client_Exception on error.
+     *
+     * @throws Horde_Imap_Client_Exception
      */
     protected function _check()
     {
@@ -671,9 +679,10 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
     /**
      * Close the connection to the currently selected mailbox, optionally
      * expunging all deleted messages (RFC 3501 [6.4.2]).
-     * Throws a Horde_Imap_Client_Exception on error.
      *
      * @param array $options  Additional options.
+     *
+     * @throws Horde_Imap_Client_Exception
      */
     protected function _close($options)
     {
@@ -685,9 +694,10 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
 
     /**
      * Expunge deleted messages from the given mailbox.
-     * Throws a Horde_Imap_Client_Exception on error.
      *
      * @param array $options  Additional options.
+     *
+     * @throws Horde_Imap_Client_Exception
      */
     protected function _expunge($options)
     {
@@ -740,7 +750,6 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
 
     /**
      * Search a mailbox.
-     * Throws a Horde_Imap_Client_Exception on error.
      *
      * @param object $query   The search string.
      * @param array $options  Additional options. The '_query' key contains
@@ -748,6 +757,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
      *
      * @return array  An array of UIDs (default) or an array of message
      *                sequence numbers (if 'sequence' is true).
+     * @throws Horde_Imap_Client_Exception
      */
     protected function _search($query, $options)
     {
@@ -808,12 +818,13 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
 
    /**
      * Set the comparator to use for searching/sorting (RFC 5255).
-     * Throws a Horde_Imap_Client_Exception on error.
      *
      * @param string $comparator  The comparator string (see RFC 4790 [3.1] -
      *                            "collation-id" - for format). The reserved
      *                            string 'default' can be used to select
      *                            the default comparator.
+     *
+     * @throws Horde_Imap_Client_Exception
      */
     protected function _setComparator($comparator)
     {
@@ -822,10 +833,10 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
 
     /**
      * Get the comparator used for searching/sorting (RFC 5255).
-     * Throws a Horde_Imap_Client_Exception on error.
      *
      * @return mixed  Null if the default comparator is being used, or an
      *                array of comparator information (see RFC 5255 [4.8]).
+     * @throws Horde_Imap_Client_Exception
      */
     protected function _getComparator()
     {
@@ -834,11 +845,11 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
 
     /**
      * Thread sort a given list of messages (RFC 5256).
-     * Throws a Horde_Imap_Client_Exception on error.
      *
      * @param array $options  Additional options.
      *
      * @return array  See Horde_Imap_Client_Base::_thread().
+     * @throws Horde_Imap_Client_Exception
      */
     protected function _thread($options)
     {
@@ -926,12 +937,12 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
 
     /**
      * Fetch message data.
-     * Throws a Horde_Imap_Client_Exception on error.
      *
      * @param array $criteria  The fetch criteria.
      * @param array $options   Additional options.
      *
      * @return array  See self::fetch().
+     * @throws Horde_Imap_Client_Exception
      */
     protected function _fetch($criteria, $options)
     {
@@ -1306,9 +1317,10 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
 
     /**
      * Store message flag data.
-     * Throws a Horde_Imap_Client_Exception on error.
      *
      * @param array $options  Additional options.
+     *
+     * @throws Horde_Imap_Client_Exception
      */
     protected function _store($options)
     {
@@ -1358,13 +1370,13 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
 
     /**
      * Copy messages to another mailbox.
-     * Throws a Horde_Imap_Client_Exception on error.
      *
      * @param string $dest    The destination mailbox (UTF7-IMAP).
      * @param array $options  Additional options.
      *
      * @return boolean  True on success (this driver does not support
      *                  returning the UIDs).
+     * @throws Horde_Imap_Client_Exception
      */
     protected function _copy($dest, $options)
     {
@@ -1405,10 +1417,11 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
 
     /**
      * Set quota limits.
-     * Throws a Horde_Imap_Client_Exception on error.
      *
      * @param string $root    The quota root (UTF7-IMAP).
      * @param array $options  Additional options.
+     *
+     * @throws Horde_Imap_Client_Exception
      */
     protected function _setQuota($root, $options)
     {
@@ -1431,13 +1444,13 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
 
     /**
      * Get quota limits.
-     * Throws a Horde_Imap_Client_Exception on error.
      *
      * @param string $root  The quota root (UTF7-IMAP).
      *
      * @return mixed  An array with these possible keys: 'messages' and
      *                'storage'; each key holds an array with 2 values:
      *                'limit' and 'usage'.
+     * @throws Horde_Imap_Client_Exception
      */
     protected function _getQuota($root)
     {
@@ -1454,7 +1467,6 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
 
     /**
      * Get quota limits for a mailbox.
-     * Throws a Horde_Imap_Client_Exception on error.
      *
      * @param string $mailbox  A mailbox (UTF7-IMAP).
      *
@@ -1462,6 +1474,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
      *                holds an array with two possible keys: 'messages' and
      *                'storage'; each of these keys holds an array with 2
      *                values: 'limit' and 'usage'.
+     * @throws Horde_Imap_Client_Exception
      */
     protected function _getQuotaRoot($mailbox)
     {
@@ -1480,11 +1493,12 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
 
     /**
      * Set ACL rights for a given mailbox/identifier.
-     * Throws a Horde_Imap_Client_Exception on error.
      *
      * @param string $mailbox     A mailbox (UTF7-IMAP).
      * @param string $identifier  The identifier to alter (UTF7-IMAP).
      * @param array $options      Additional options.
+     *
+     * @throws Horde_Imap_Client_Exception
      */
     protected function _setACL($mailbox, $identifier, $options)
     {
@@ -1514,12 +1528,12 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
 
     /**
      * Get ACL rights for a given mailbox.
-     * Throws a Horde_Imap_Client_Exception on error.
      *
      * @param string $mailbox  A mailbox (UTF7-IMAP).
      *
      * @return array  An array with identifiers as the keys and an array of
      *                rights as the values.
+     * @throws Horde_Imap_Client_Exception
      */
     protected function _getACL($mailbox)
     {
@@ -1547,12 +1561,12 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
 
     /**
      * Get ACL rights for a given mailbox/identifier.
-     * Throws a Horde_Imap_Client_Exception on error.
      *
      * @param string $mailbox     A mailbox (UTF7-IMAP).
      * @param string $identifier  The identifier (UTF-8).
      *
      * @return array  An array of rights (keys: 'required' and 'optional').
+     * @throws Horde_Imap_Client_Exception
      */
     protected function _listACLRights($mailbox, $identifier)
     {
@@ -1563,11 +1577,11 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
 
     /**
      * Get the ACL rights for the current user for a given mailbox.
-     * Throws a Horde_Imap_Client_Exception on error.
      *
      * @param string $mailbox  A mailbox (UTF7-IMAP).
      *
      * @return array  An array of rights.
+     * @throws Horde_Imap_Client_Exception
      */
     protected function _getMyACLRights($mailbox)
     {
