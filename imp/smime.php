@@ -20,7 +20,7 @@ function _importKeyDialog($target)
     $t->setOption('gettext', true);
     $t->set('selfurl', Horde::applicationUrl('smime.php'));
     $t->set('broken_mp_form', $GLOBALS['browser']->hasQuirk('broken_multipart_form'));
-    $t->set('reload', htmlspecialchars(html_entity_decode(Util::getFormData('reload'))));
+    $t->set('reload', htmlspecialchars(Util::getFormData('reload')));
     $t->set('target', $target);
     $t->set('forminput', Util::formInput());
     $t->set('import_public_key', $target == 'process_import_public_key');
@@ -54,7 +54,10 @@ function _actionWindow()
 
 function _reloadWindow()
 {
-    Util::closeWindowJS('opener.focus();opener.location.href="' . htmlspecialchars(html_entity_decode(Util::getFormData('reload'))) . '";');
+    $cacheSess = &Horde_SessionObjects::singleton();
+    $reload = Util::getFormData('reload');
+    $cacheSess->setPruneFlag($reload, true);
+    Util::closeWindowJS('opener.focus();opener.location.href="' . $cacheSess->query($reload) . '";');
 }
 
 function _textWindowOutput($filename, $msg, $html = false)
@@ -265,7 +268,8 @@ if (!is_a($openssl_check, 'PEAR_Error') && $prefs->getValue('use_smime')) {
     if (!$t->get('no_file_upload')) {
         $t->set('no_source', !$GLOBALS['prefs']->getValue('add_source'));
         if (!$t->get('no_source')) {
-            $t->set('public_import_url', Util::addParameter(Util::addParameter($selfURL, 'actionID', 'import_public_key'), 'reload', $selfURL));
+            $cacheSess = &Horde_SessionObjects::singleton();
+            $t->set('public_import_url', Util::addParameter(Util::addParameter($selfURL, 'actionID', 'import_public_key'), 'reload', $cacheSess->storeOid($selfURL, false)));
             $t->set('import_pubkey-help', Help::link('imp', 'smime-import-pubkey'));
         }
     }

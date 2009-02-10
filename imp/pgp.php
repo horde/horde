@@ -25,7 +25,7 @@ function _importKeyDialog($target)
     $t->setOption('gettext', true);
     $t->set('selfurl', Horde::applicationUrl('pgp.php'));
     $t->set('broken_mp_form', $GLOBALS['browser']->hasQuirk('broken_multipart_form'));
-    $t->set('reload', htmlspecialchars(html_entity_decode(Util::getFormData('reload'))));
+    $t->set('reload', htmlspecialchars(Util::getFormData('reload')));
     $t->set('target', $target);
     $t->set('forminput', Util::formInput());
     $t->set('import_public_key', $target == 'process_import_public_key');
@@ -54,6 +54,14 @@ function _textWindowOutput($filename, $msg)
 {
     $GLOBALS['browser']->downloadHeaders($filename, 'text/plain; charset=' . NLS::getCharset(), true, strlen($msg));
     echo $msg;
+}
+
+function _reloadWindow()
+{
+    $cacheSess = &Horde_SessionObjects::singleton();
+    $reload = Util::getFormData('reload');
+    $cacheSess->setPruneFlag($reload, true);
+    Util::closeWindowJS('opener.focus();opener.location.href="' . $cacheSess->query($reload) . '";');
 }
 
 require_once dirname(__FILE__) . '/lib/base.php';
@@ -116,7 +124,7 @@ case 'process_import_public_key':
             foreach ($key_info['signature'] as $sig) {
                 $notification->push(sprintf(_("PGP Public Key for \"%s (%s)\" was successfully added."), $sig['name'], $sig['email']), 'horde.success');
             }
-            Util::closeWindowJS('opener.focus();opener.location.href="' . htmlspecialchars(html_entity_decode(Util::getFormData('reload'))) . '";');
+            _reloadWindow();
         }
     }
     exit;
@@ -166,7 +174,7 @@ case 'process_import_personal_private_key':
              * successfully - close the import popup window. */
             $imp_pgp->addPersonalPrivateKey($privateKey);
             $notification->push(_("PGP private key successfully added."), 'horde.success');
-            Util::closeWindowJS('opener.focus();opener.location.href="' . htmlspecialchars(html_entity_decode(Util::getFormData('reload'))) . '";');
+            _reloadWindow();
         } else {
             /* Invalid private key imported - Redo private key import
              * screen. */
@@ -331,7 +339,8 @@ if ($prefs->getValue('use_pgp')) {
     if (!$t->get('no_file_upload')) {
         $t->set('no_source', !$GLOBALS['prefs']->getValue('add_source'));
         if (!$t->get('no_source')) {
-            $t->set('public_import_url', Util::addParameter(Util::addParameter($selfURL, 'actionID', 'import_public_key'), 'reload', $selfURL));
+            $cacheSess = &Horde_SessionObjects::singleton();
+            $t->set('public_import_url', Util::addParameter(Util::addParameter($selfURL, 'actionID', 'import_public_key'), 'reload', $cacheSess->storeOid($selfURL, false)));
             $t->set('import_pubkey-help', Help::link('imp', 'pgp-import-pubkey'));
         }
     }
