@@ -187,9 +187,11 @@ if (empty($actionID)) {
 Prefs_UI::generateHeader(null, $chunk);
 Horde::addScriptFile('prototype.js', 'horde', true);
 Horde::addScriptFile('fetchmailprefs.js', 'imp', true);
+
+$charset = NLS::getCharset();
 IMP::addInlineScript(array(
-    'ImpFetchmailprefs.fetchurl = \'' . $fetch_url . '\'',
-    'ImpFetchmailprefs.prefsurl = \'' . $prefs_url . '\''
+    'ImpFetchmailprefs.fetchurl = ' . Horde_Serialize($fetch_url, SERIALIZE_JSON, $charset),
+    'ImpFetchmailprefs.prefsurl = ' . Horde_Serialize($prefs_url, SERIALIZE_JSON, $charset)
 ));
 
 echo $t->fetch(IMP_TEMPLATES . '/fetchmail/fetchmailprefs.html');
