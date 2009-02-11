@@ -513,7 +513,7 @@ class IMP_Message
 
         /* We need to replace the old index in the query string with the
          * new index. */
-        $_SERVER['QUERY_STRING'] = preg_replace('/' . $index . '/', $reset($uid), $_SERVER['QUERY_STRING']);
+        $_SERVER['QUERY_STRING'] = preg_replace('/' . $index . '/', reset($uid), $_SERVER['QUERY_STRING']);
 
         return true;
     }

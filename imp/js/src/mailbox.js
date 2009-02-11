@@ -167,7 +167,7 @@ var ImpMessage = {
 
         if (this.anySelected()) {
             tmbox = $('targetMbox');
-            tmbox.setValue($('targetMailbox1'));
+            tmbox.setValue($F('targetMailbox1'));
 
             // Check for a mailbox actually being selected.
             if ($F(tmbox) == '*new*') {
