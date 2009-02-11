@@ -124,19 +124,8 @@ abstract class Horde_Kolab_Server
             } else {
                 $server_params = array();
             }
-        } else if (isset($conf['kolab']['ldap']['server'])
-                   && isset($conf['kolab']['ldap']['basedn'])
-                   && isset($conf['kolab']['ldap']['phpdn'])
-                   && isset($conf['kolab']['ldap']['phppw'])) {
-            $driver = 'ldap';
-
-            $server_params = array('server'  => $conf['kolab']['ldap']['server'],
-                                  'base_dn' => $conf['kolab']['ldap']['basedn'],
-                                  'uid'     => $conf['kolab']['ldap']['phpdn'],
-                                  'pass'    => $conf['kolab']['ldap']['phppw']);
         } else {
-            $driver        = null;
-            $server_params = array();
+            return PEAR::raiseError('The configuration for the Kolab server driver is missing!');
         }
 
         if (!empty($params)) {
