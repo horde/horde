@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+http://pear.php.net/dtd/tasks-1.0.xsd
+http://pear.php.net/dtd/package-2.0
+http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Kolab_Server</name>
+ <channel>pear.horde.org</channel>
+ <summary>A package for manipulating the Kolab user database.</summary>
+ <description>This package allows to read/write entries in the Kolab user
+ database stored in LDAP.
+ </description>
+ <lead>
+  <name>Gunnar Wrobel</name>
+  <user>wrobel</user>
+  <email>p@rdus.de</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Thomas Jarosch</name>
+  <user>jarosch</user>
+  <email>thomas.jarosch@intra2net.com</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Jan Schneider</name>
+  <user>jan</user>
+  <email>jan@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2008-12-16</date>
+ <version>
+  <release>0.4.0</release>
+  <api>0.2.0</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <notes>
+  * Fixed objectClass evaluation to respect case-insensitivity (Bug: #7694)
+  * kolab/issue2207 (Make it possible to enable and disable users to be able to
+    use the webclient)
+  * Added fullname attribute as support for kolab/issue2546 (Horde
+    should use name and email from ldap as defaults)
+  * Fixed initialization of parameters retrieved from LDAP.
+ </notes>
+ <contents>
+  <dir name="/">
+   <dir name="lib">
+    <dir name="Horde">
+     <dir name="Kolab">
+      <file name="IMAP.php" role="php" />
+      <dir name="IMAP">
+       <file name="cclient.php" role="php" />
+       <file name="pear.php" role="php" />
+       <file name="test.php" role="php" />
+      </dir> <!-- /lib/Horde/Kolab/IMAP -->
+      <file name="Server.php" role="php" />
+      <file name="Session.php" role="php" />
+      <dir name="Server">
+       <file name="ldap.php" role="php" />
+       <file name="Object.php" role="php" />
+       <file name="test.php" role="php" />
+       <dir name="Object">
+        <file name="address.php" role="php" />
+        <file name="administrator.php" role="php" />
+        <file name="adminrole.php" role="php" />
+        <file name="distlist.php" role="php" />
+        <file name="domainmaintainer.php" role="php" />
+        <file name="group.php" role="php" />
+        <file name="maintainer.php" role="php" />
+        <file name="server.php" role="php" />
+        <file name="sharedfolder.php" role="php" />
+        <file name="user.php" role="php" />
+       </dir> <!-- /lib/Horde/Kolab/Server/Object -->
+      </dir> <!-- /lib/Horde/Kolab/Server -->
+      <dir name="Test">
+       <file name="Server.php" role="php" />
+      </dir> <!-- /lib/Horde/Kolab/Test -->
+     </dir> <!-- /lib/Horde/Kolab -->
+    </dir> <!-- /lib/Horde -->
+   </dir> <!-- /lib -->
+   <dir name="test">
+    <dir name="Horde">
+     <dir name="Kolab">
+      <dir name="Server">
+       <file name="AddingObjectsTest.php" role="test" />
+       <file name="AdminTest.php" role="test" />
+       <file name="AllTests.php" role="test" />
+       <file name="DistListHandlingTest.php" role="test" />
+       <file name="GroupHandlingTest.php" role="test" />
+       <file name="GroupTest.php" role="test" />
+       <file name="ldapTest.php" role="test" />
+       <file name="ObjectTest.php" role="test" />
+       <file name="ServerTest.php" role="test" />
+       <file name="SessionTest.php" role="test" />
+       <file name="testTest.php" role="test" />
+       <file name="UserHandlingTest.php" role="test" />
+       <file name="UserTest.php" role="test" />
+      </dir> <!-- /test/Horde/Kolab/Server -->
+     </dir> <!-- /test/Horde/Kolab -->
+    </dir> <!-- /test/Horde -->
+   </dir> <!-- /test -->
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>4.3.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0b1</min>
+   </pearinstaller>
+   <package>
+    <name>Auth</name>
+    <channel>pear.horde.org</channel>
+   </package>
+  </required>
+  <optional>
+   <package>
+    <name>Horde_LDAP</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Horde_SessionObjects</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>PHPUnit</name>
+    <channel>pear.phpunit.de</channel>
+   </package>
+   <extension>
+    <name>ldap</name>
+   </extension>
+  </optional>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install name="lib/Horde/Kolab/IMAP.php" as="Horde/Kolab/IMAP.php" />
+   <install name="lib/Horde/Kolab/IMAP/cclient.php" as="Horde/Kolab/IMAP/cclient.php" />
+   <install name="lib/Horde/Kolab/IMAP/pear.php" as="Horde/Kolab/IMAP/pear.php" />
+   <install name="lib/Horde/Kolab/IMAP/test.php" as="Horde/Kolab/IMAP/test.php" />
+   <install name="lib/Horde/Kolab/Server.php" as="Horde/Kolab/Server.php" />
+   <install name="lib/Horde/Kolab/Session.php" as="Horde/Kolab/Session.php" />
+   <install name="lib/Horde/Kolab/Test/Server.php" as="Horde/Kolab/Test/Server.php" />
+   <install name="lib/Horde/Kolab/Server/ldap.php" as="Horde/Kolab/Server/ldap.php" />
+   <install name="lib/Horde/Kolab/Server/test.php" as="Horde/Kolab/Server/test.php" />
+   <install name="lib/Horde/Kolab/Server/Object.php" as="Horde/Kolab/Server/Object.php" />
+   <install name="lib/Horde/Kolab/Server/Object/address.php" as="Horde/Kolab/Server/Object/address.php" />
+   <install name="lib/Horde/Kolab/Server/Object/administrator.php" as="Horde/Kolab/Server/Object/administrator.php" />
+   <install name="lib/Horde/Kolab/Server/Object/adminrole.php" as="Horde/Kolab/Server/Object/adminrole.php" />
+   <install name="lib/Horde/Kolab/Server/Object/distlist.php" as="Horde/Kolab/Server/Object/distlist.php" />
+   <install name="lib/Horde/Kolab/Server/Object/domainmaintainer.php" as="Horde/Kolab/Server/Object/domainmaintainer.php" />
+   <install name="lib/Horde/Kolab/Server/Object/group.php" as="Horde/Kolab/Server/Object/group.php" />
+   <install name="lib/Horde/Kolab/Server/Object/maintainer.php" as="Horde/Kolab/Server/Object/maintainer.php" />
+   <install name="lib/Horde/Kolab/Server/Object/server.php" as="Horde/Kolab/Server/Object/server.php" />
+   <install name="lib/Horde/Kolab/Server/Object/sharedfolder.php" as="Horde/Kolab/Server/Object/sharedfolder.php" />
+   <install name="lib/Horde/Kolab/Server/Object/user.php" as="Horde/Kolab/Server/Object/user.php" />
+   <install name="test/Horde/Kolab/Server/AddingObjectsTest.php" as="Horde/Kolab/Server/AddingObjectsTest.php" />
+   <install name="test/Horde/Kolab/Server/AdminTest.php" as="Horde/Kolab/Server/AdminTest.php" />
+   <install name="test/Horde/Kolab/Server/AllTests.php" as="Horde/Kolab/Server/AllTests.php" />
+   <install name="test/Horde/Kolab/Server/DistListHandlingTest.php" as="Horde/Kolab/Server/DistListHandlingTest.php" />
+   <install name="test/Horde/Kolab/Server/GroupHandlingTest.php" as="Horde/Kolab/Server/GroupHandlingTest.php" />
+   <install name="test/Horde/Kolab/Server/GroupTest.php" as="Horde/Kolab/Server/GroupTest.php" />
+   <install name="test/Horde/Kolab/Server/ldapTest.php" as="Horde/Kolab/Server/ldapTest.php" />
+   <install name="test/Horde/Kolab/Server/ObjectTest.php" as="Horde/Kolab/Server/ObjectTest.php" />
+   <install name="test/Horde/Kolab/Server/ServerTest.php" as="Horde/Kolab/Server/ServerTest.php" />
+   <install name="test/Horde/Kolab/Server/SessionTest.php" as="Horde/Kolab/Server/SessionTest.php" />
+   <install name="test/Horde/Kolab/Server/testTest.php" as="Horde/Kolab/Server/testTest.php" />
+   <install name="test/Horde/Kolab/Server/UserHandlingTest.php" as="Horde/Kolab/Server/UserHandlingTest.php" />
+   <install name="test/Horde/Kolab/Server/UserTest.php" as="Horde/Kolab/Server/UserTest.php" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <date>2008-12-16</date>
+   <version>
+    <release>0.3.0</release>
+    <api>0.2.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+    * Fixed the fallback for a missing freebusy_server value.
+    * Fixed identification of external addresses.
+   </notes>
+  </release>
+  <release>
+   <date>2008-10-29</date>
+   <version>
+    <release>0.2.0</release>
+    <api>0.2.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+     * Fixed retrieval of the users IMAP home server.
+     * Allowed retrieving a DN for an id matching either mail, uid or alias.
+       (Kolab issue 2587, https://www.intevation.de/roundup/kolab/issue2587)
+     * Moved Kolab session handler from Kolab_Storage to Kolab_Server.
+     * Enabled retrieval of the users free/busy server. (Enhancement: #6699)
+     * Added capability to list objects.
+     * Added write capabilities to the package.
+     * Moved the IMAP drivers from Kolab_Storage to Kolab_Server as the
+       IMAP connection must be handled by the Kolab session.
+     * Added a test class for simplified PHPUnit testing.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.1.1</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+     * Renamed package to Kolab_Server.
+     * Removed an unnecessary translation.
+     * Added dnForMailOrAlias function to Horde_Kolab_Server.
+     * Fixed experimental KOLAB_ATTR_IMAPHOST attribute.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2008-07-29</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+     * Initial release.
+   </notes>
+  </release>
+ </changelog>
+</package>
