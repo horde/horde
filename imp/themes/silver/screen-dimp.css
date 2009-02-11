@@ -1,21 +1,9 @@
 /* Background images. */
-.msglist div.statusUnseen {
-    background-image: url("graphics/mail_unseen.png");
-}
-.msglist div.statusFlagged {
-    background-image: url("graphics/mail_flagged.png");
-}
 .msglist div.statusDeleted {
     background-image: url("graphics/mail_deleted.png");
 }
-.msglist div.statusAnswered {
-    background-image: url("graphics/mail_answered.png");
-}
-.msglist div.statusForwarded {
+.msglist div.statusForwarded, #alerts div.imp-forward, #alerts div.imp-redirect {
     background-image: url("graphics/mail_forwarded.png");
-}
-.msglist div.statusDraft {
-    background-image: url("graphics/mail_draft.png");
 }
 .msglist div.lowPriority {
     background-image: url("graphics/mail_priority_low.png");
@@ -51,7 +39,7 @@
 #sidebarPanel .trash {
     background-image: url("graphics/folder_trash.png");
 }
-#attach_list div {
+#attach_list div, span.attachmentImg {
     background-image: url("graphics/attachment.png");
 }
 #alerts div.horde-error {
@@ -65,12 +53,6 @@
 }
 #alerts div.horde-warning, #alerts div.dimp-sticky, #alerts div.dimp-sticky {
     background-image: url("graphics/warning.png");
-}
-#alerts div.imp-reply {
-    background-image: url("graphics/mail_answered.png");
-}
-#alerts div.imp-forward, #alerts div.imp-redirect {
-    background-image: url("graphics/mail_forwarded.png");
 }
 
 .header {
@@ -87,10 +69,7 @@
 }
 
 .context a span.contextExpand {
-    width: 16px;
-    height: 16px;
     background-image: url("graphics/popright.png");
-    margin-top: -1px;
 }
 
 /* Context menu images */
@@ -112,29 +91,26 @@
 #flag_seen span.contextImg, #ctx_folder_seen span.contextImg {
     background-image: url("graphics/mail_seen.png");
 }
-#flag_unseen span.contextImg, #ctx_folder_unseen span.contextImg, #ctx_folder_poll span.contextImg, #ctx_folder_nopoll span.contextImg {
+.msglist div.statusUnseen, #flag_unseen span.contextImg, #ctx_folder_unseen span.contextImg, #ctx_folder_poll span.contextImg, #ctx_folder_nopoll span.contextImg {
     background-image: url("graphics/mail_unseen.png");
 }
-#ctx_message_setflag span.contextImg, #ctx_draft_setflag span.contextImg, #oa_setflag span.contextImg, #flag_flagged span.contextImg {
+.msglist div.statusFlagged, #ctx_message_setflag span.contextImg, #ctx_draft_setflag span.contextImg, #oa_setflag span.contextImg, #flag_flagged span.contextImg {
     background-image: url("graphics/mail_flagged.png");
 }
 #flag_clear span.contextImg {
     background-image: url("graphics/mail_clearflag.png");
 }
-#flag_answered span.contextImg {
+.msglist div.statusAnswered, #alerts div.imp-reply, #flag_answered span.contextImg {
     background-image: url("graphics/mail_answered.png");
 }
 #flag_unanswered span.contextImg {
     background-image: url("graphics/mail_notanswered.png");
 }
-#flag_draft span.contextImg {
+.msglist div.statusDraft, #flag_draft span.contextImg, #ctx_draft_resume span.contextImg {
     background-image: url("graphics/mail_draft.png");
 }
 #flag_notdraft span.contextImg {
     background-image: url("graphics/mail_notdraft.png");
-}
-#ctx_draft_resume span.contextImg {
-    background-image: url("graphics/mail_draft.png");
 }
 #previewtoggle span.contextImg {
     background-image: url("graphics/preview.png");
@@ -165,30 +141,28 @@
 }
 
 /* Other images */
-span.newwinImg {
+#msg_newwin span.iconImg, #msg_newwin_options span.iconImg {
     background-image: url("graphics/newwin.png");
 }
-span.quotaImg {
+#quota span.iconImg {
     background-image: url("graphics/quotauncover.gif");
+}
+#th_expand span.iconImg, #partlist_col {
+    background-image: url("graphics/arrow_collapsed.png");
+}
+#th_collapse span.iconImg, #partlist_exp {
+    background-image: url("graphics/arrow_expanded.png");
+}
+#msg_view_source span.iconImg {
+    background-image: url("graphics/message_source.png");
+}
+
+span.popdownImg, span.spellcheckPopdownImg {
+    background-image: url("graphics/popdown.png");
 }
 span.keyupImg {
     background-image: url("graphics/key_up.png");
 }
 span.keydownImg {
     background-image: url("graphics/key_down.png");
-}
-span.arrowcollapsedImg {
-    background-image: url("graphics/arrow_collapsed.png");
-}
-span.arrowexpandedImg {
-    background-image: url("graphics/arrow_expanded.png");
-}
-span.attachmentImg {
-    background-image: url("graphics/attachment.png");
-}
-span.msgsourceImg {
-    background-image: url("graphics/message_source.png");
-}
-span.popdownImg, span.spellcheckPopdownImg {
-    background-image: url("graphics/popdown.png");
 }

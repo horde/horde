@@ -772,8 +772,11 @@ div.dimpActionsCompose, div.dimpActionsMsg {
     border: 1px solid #ccc;
     font-weight: bold;
 }
+#attach_list div, span.attachmentImg {
+    background-image: url("graphics/attachment.png");
+}
 #attach_list div {
-    background: transparent url("graphics/attachment.png") left 2px no-repeat;
+    background: transparent left 2px no-repeat;
     height: 20px;
     padding-left: 20px;
 }
@@ -813,9 +816,9 @@ span.attachName:hover {
 }
 .context a span.contextExpand {
     float: right;
-    margin-top: 2px;
-    width: 4px;
-    height: 9px;
+    width: 16px;
+    height: 16px;
+    margin-top: -1px;
     background: url("graphics/popright.png") no-repeat;
 }
 .context div.sep {
@@ -1115,17 +1118,31 @@ span.iconImg, span.contextImg, span.spellcheckPopdownImg {
 }
 
 /* Other images */
-span.newwinImg {
+#msg_newwin span.iconImg, #msg_newwin_options span.iconImg {
     background-image: url("graphics/newwin.png");
 }
-span.newwinCollapsed {
+#msg_newwin span.iconImg {
     float: right;
     margin-left: 4px;
     margin-right: 0px;
 }
-span.quotaImg {
+#quota span.iconImg {
     background-image: url("graphics/quotauncover.gif");
     width: 0px;
+    margin-right: 0px;
+}
+#th_expand span.iconImg, #partlist_col {
+    background-image: url("graphics/arrow_collapsed.png");
+}
+#th_collapse span.iconImg, #partlist_exp {
+    background-image: url("graphics/arrow_expanded.png");
+}
+#msg_view_source span.iconImg {
+    background-image: url("graphics/message_source.png");
+}
+
+span.popdownImg, span.spellcheckPopdownImg {
+    background-image: url("graphics/popdown.png");
     margin-right: 0px;
 }
 span.keyupImg {
@@ -1133,20 +1150,4 @@ span.keyupImg {
 }
 span.keydownImg {
     background-image: url("graphics/key_down.png");
-}
-span.arrowcollapsedImg {
-    background-image: url("graphics/arrow_collapsed.png");
-}
-span.arrowexpandedImg {
-    background-image: url("graphics/arrow_expanded.png");
-}
-span.attachmentImg {
-    background-image: url("graphics/attachment.png");
-}
-span.msgsourceImg {
-    background-image: url("graphics/message_source.png");
-}
-span.popdownImg, span.spellcheckPopdownImg {
-    background-image: url("graphics/popdown.png");
-    margin-right: 0px;
 }

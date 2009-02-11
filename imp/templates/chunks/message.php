@@ -51,7 +51,7 @@ function _createDAfmsg($text, $image, $id, $class = '', $show_text = true)
      <div class="dimpOptions noprint">
       <div id="msg_print"><?php echo IMP::img('print.png', '', '', $horde_img) ?><a><?php echo _("Print") ?></a></div>
 <?php if (!empty($conf['user']['allow_view_source'])): ?>
-      <div id="msg_view_source"><span class="iconImg msgsourceImg"></span><a><?php echo _("View Message Source") ?></a></div>
+      <div id="msg_view_source"><span class="iconImg"></span><a><?php echo _("View Message Source") ?></a></div>
 <?php endif; ?>
      </div>
      <div id="msgHeadersContent">
@@ -69,7 +69,7 @@ function _createDAfmsg($text, $image, $id, $class = '', $show_text = true)
 <?php endforeach; ?>
 <?php if (isset($show_msg_result['atc_label'])): ?>
         <tr id="msgAtc">
-         <td class="label"><?php if ($show_msg_result['atc_list']): ?><a id="partlist_toggle"><span id="partlist_col" class="iconImg arrowcollapsedImg"></span><span id="partlist_exp" class="iconImg arrowexpandedImg" style="display:none"></span> <span class="iconImg attachmentImg attachmentImage"></span></a><?php else: ?><span class="iconImg attachmentImg attachmentImage"></span><?php endif; ?></td>
+         <td class="label"><?php if ($show_msg_result['atc_list']): ?><a id="partlist_toggle"><span id="partlist_col" class="iconImg"></span><span id="partlist_exp" class="iconImg" style="display:none"></span> <span class="iconImg attachmentImg attachmentImage"></span></a><?php else: ?><span class="iconImg attachmentImg attachmentImage"></span><?php endif; ?></td>
          <td>
           <span class="atcLabel"><?php echo $show_msg_result['atc_label'] ?></span><?php echo $show_msg_result['atc_download'] ?>
 <?php if (isset($show_msg_result['atc_list'])): ?>

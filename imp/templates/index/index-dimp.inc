@@ -153,14 +153,14 @@ function _simpleButton($id, $text, $image, $imagedir = null)
 <?php endforeach; ?>
 <?php if ($show_quota): ?>
         <li id="quota">
-         <span class="used"><span class="iconImg quotaImg"></span></span>
+         <span class="used"><span class="iconImg"></span></span>
         </li>
 <?php endif; ?>
        </ul>
       </div>
 <?php elseif ($show_quota): ?>
       <div id="quota">
-       <span class="used"><span class="iconImg quotaImg"></span></span>
+       <span class="used"><span class="iconImg"></span></span>
       </div>
 <?php endif; ?>
      </div>
@@ -274,22 +274,22 @@ function _simpleButton($id, $text, $image, $imagedir = null)
       <div id="previewMsg" style="display:none">
        <div class="msgHeaders">
         <div id="toggleHeaders" class="noprint">
-         <a id="th_expand"><span class="iconImg arrowcollapsedImg" title="<?php echo htmlspecialchars(_("Expand Headers")) ?>"></span></a>
-         <a id="th_collapse" style="display:none"><span class="iconImg arrowexpandedImg" title="<?php echo htmlspecialchars(_("Collapse Headers")) ?>"></span></a>
+         <a id="th_expand"><span class="iconImg" title="<?php echo htmlspecialchars(_("Expand Headers")) ?>"></span></a>
+         <a id="th_collapse" style="display:none"><span class="iconImg" title="<?php echo htmlspecialchars(_("Collapse Headers")) ?>"></span></a>
          <span class="iconImg attachmentImg" style="display:none"></span>
         </div>
         <div id="msgHeadersColl">
-         <a id="msg_newwin"><span class="iconImg newwinImg newwinCollapsed" title="<?php echo htmlspecialchars(_("Open in new window")) ?>"></span></a>
+         <a id="msg_newwin"><span class="iconImg" title="<?php echo htmlspecialchars(_("Open in new window")) ?>"></span></a>
          <span class="date"></span>
          <span class="subject"></span>
          <span class="fromcontainer"><?php echo _("from") ?> <span class="from"></span></span>
         </div>
         <div id="msgHeaders" style="display:none">
          <div class="dimpOptions noprint">
-          <div id="msg_newwin_options"><span class="iconImg newwinImg"></span><a><?php echo _("Open in new window") ?></a></div>
+          <div id="msg_newwin_options"><span class="iconImg"></span><a><?php echo _("Open in new window") ?></a></div>
           <div id="msg_print"><?php echo IMP::img('print.png', '', '', $hordeimg) ?><a><?php echo _("Print") ?></a></div>
 <?php if (!empty($conf['user']['allow_view_source'])): ?>
-          <div id="msg_view_source"><span class="iconImg msgsourceImg"></span><a><?php echo _("View Message Source") ?></a></div>
+          <div id="msg_view_source"><span class="iconImg"></span><a><?php echo _("View Message Source") ?></a></div>
 <?php endif; ?>
          </div>
          <div id="msgHeadersContent">
@@ -316,7 +316,7 @@ function _simpleButton($id, $text, $image, $imagedir = null)
              <td class="cc"></td>
             </tr>
             <tr id="msgAtc" style="display:none">
-             <td class="label"><span class="iconImg attachmentImg attachmentImage"></span><a id="partlist_toggle"><span class="iconImg arrowcollapsedImg" id="partlist_col"></span><span class="iconImg arrowexpandedImg" id="partlist_exp" style="display:none"></span></a></td>
+             <td class="label"><span class="iconImg attachmentImg attachmentImage"></span><a id="partlist_toggle"><span class="iconImg" id="partlist_col"></span><span class="iconImg" id="partlist_exp" style="display:none"></span></a></td>
              <td>
               <div></div>
               <div id="partlist" style="display:none">

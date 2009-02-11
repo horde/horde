@@ -64,7 +64,8 @@ ul.msgactions, ul.msgactions ul {
     border-right: 0;
 }
 .msgactions a.hasmenu {
-    padding-right: 11px;
+    padding-right: 15px;
+    margin-right: -3px;
     background: url("graphics/popdown.png") no-repeat center right;
 }
 .msgactions li a {
