@@ -60,7 +60,7 @@ if ($actionID == 'compose_attach_preview') {
 
     /* Create a dummy IMP_Contents() object so we can use the view code below.
      * Then use the 'view_attach' handler to output. */
-    $contents = new IMP_Contents($mime);
+    $contents = &IMP_Contents::singleton($mime);
     $actionID = 'view_attach';
     $id = $mime->getMimeId();
 } else {
