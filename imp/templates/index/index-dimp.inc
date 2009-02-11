@@ -359,7 +359,6 @@ function _simpleButton($id, $text, $image, $imagedir = null)
 
 <div class="context" id="ctx_message" style="display:none">
  <a id="ctx_message_reply"><span class="contextImg replyImg"></span><?php echo _("Reply") ?></a>
- <div class="sep"></div>
  <a id="ctx_message_forward"><span class="contextImg forwardImg"></span><?php echo _("Forward") ?></a>
  <div class="sep"></div>
  <a id="ctx_message_setflag"><span class="contextImg mailflaggedImg"></span><?php echo _("Set Flag") ?></a>

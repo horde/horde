@@ -420,6 +420,9 @@ ul.nav-audio {
 #RB_confirm input {
     margin: .2em;
 }
+#RB_confirm ul {
+    margin-left: .5em;
+}
 
 .largeaddrlist {
     cursor: pointer;
