@@ -127,6 +127,12 @@
 #flag_unanswered span.contextImg {
     background-image: url("graphics/mail_notanswered.png");
 }
+#flag_draft span.contextImg {
+    background-image: url("graphics/mail_draft.png");
+}
+#flag_notdraft span.contextImg {
+    background-image: url("graphics/mail_notdraft.png");
+}
 #ctx_draft_resume span.contextImg {
     background-image: url("graphics/mail_draft.png");
 }

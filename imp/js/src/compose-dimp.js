@@ -222,11 +222,11 @@ var DimpCompose = {
                 if (DIMP.baseWindow) {
                     switch (d.reply_type) {
                     case 'reply':
-                        DIMP.baseWindow.DimpBase.flag('answered', d.index, d.reply_folder);
+                        DIMP.baseWindow.DimpBase.flag('answered', { index: d.index, mailbox: d.reply_folder, noserver: true });
                         break;
 
                     case 'forward':
-                        DIMP.baseWindow.DimpBase.flag('forwarded', d.index, d.reply_folder);
+                        DIMP.baseWindow.DimpBase.flag('forwarded', { index: d.index, mailbox: d.reply_folder, noserver: true });
                         break;
                     }
 

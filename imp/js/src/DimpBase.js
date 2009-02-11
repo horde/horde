@@ -1278,7 +1278,7 @@ var DimpBase = {
             if (e.shiftKey) {
                 this.moveSelected((r.last().rownum == this.viewport.getMetaData('total_rows')) ? (r.first().rownum - 1) : (r.last().rownum + 1), true);
             }
-            this.flag('deleted', r);
+            this.flag('deleted', { index: r });
             e.stop();
             break;
 
@@ -1504,7 +1504,7 @@ var DimpBase = {
 
             case 'ctx_folder_seen':
             case 'ctx_folder_unseen':
-                this.flag(id == 'ctx_folder_seen' ? 'allSeen' : 'allUnseen', null, DimpCore.DMenu.element().readAttribute('mbox'));
+                this.flag(id == 'ctx_folder_seen' ? 'allSeen' : 'allUnseen', { mailbox: DimpCore.DMenu.element().readAttribute('mbox') });
                 break;
 
             case 'ctx_folder_poll':
@@ -1563,6 +1563,8 @@ var DimpBase = {
             case 'flag_clear':
             case 'flag_answered':
             case 'flag_unanswered':
+            case 'flag_draft':
+            case 'flag_notdraft':
                 this.flag(id.substring(5));
                 break;
 
@@ -2021,20 +2023,22 @@ var DimpBase = {
     },
 
     /* Flag actions for message list. */
-    flag: function(action, index, folder)
+    // opts = 'index', 'mailbox', 'noserver' (only for answered/unanswered)
+    flag: function(action, opts)
     {
         var actionCall, args, vs,
             obs = [],
             unseenstatus = 1;
+        opts = opts || {};
 
-        if (index) {
-            if (Object.isUndefined(folder)) {
-                vs = this.viewport.createSelection('dataob', index);
-            } else {
-                vs = this.viewport.getViewportSelection().search({ imapuid: { equal: [ index ] }, view: { equal: [ folder ] } });
-                if (!vs.size() && folder != this.folder) {
-                    vs = this.viewport.getViewportSelection(folder).search({ imapuid: { equal: [ index ] } });
+        if (opts.index) {
+            if (opts.mailbox) {
+                vs = this.viewport.getViewportSelection().search({ imapuid: { equal: [ opts.index ] }, view: { equal: [ opts.mailbox ] } });
+                if (!vs.size() && opts.mailbox != this.folder) {
+                    vs = this.viewport.getViewportSelection(opts.mailbox).search({ imapuid: { equal: [ opts.index ] } });
                 }
+            } else {
+                vs = this.viewport.createSelection('dataob', opts.index);
             }
         } else {
             vs = this.viewport.getSelected();
@@ -2043,8 +2047,8 @@ var DimpBase = {
         switch (action) {
         case 'allUnseen':
         case 'allSeen':
-            DimpCore.doAction((action == 'allUnseen') ? 'MarkFolderUnseen' : 'MarkFolderSeen', { view: folder }, null, this.bcache.get('flagAC') || this.bcache.set('flagAC', this._flagAllCallback.bind(this)));
-            if (folder == this.folder) {
+            DimpCore.doAction((action == 'allUnseen') ? 'MarkFolderUnseen' : 'MarkFolderSeen', { view: opts.mailbox }, null, this.bcache.get('flagAC') || this.bcache.set('flagAC', this._flagAllCallback.bind(this)));
+            if (opts.mailbox == this.folder) {
                 this.viewport.updateFlag(this.createSelection('rownum', $A($R(1, this.viewport.getMetaData('total_rows')))), 'unseen', action == 'allUnseen');
             }
             break;
@@ -2082,7 +2086,7 @@ var DimpBase = {
                 // This needs to be synchronous Ajax if we are calling from a
                 // popup window because Mozilla will not correctly call the
                 // callback function if the calling window has been closed.
-                DimpCore.doAction(actionCall[action], args, vs, this.bcache.get('deleteC') || this.bcache.set('deleteC', this._deleteCallback.bind(this)), { asynchronous: !(index && folder) });
+                DimpCore.doAction(actionCall[action], args, vs, this.bcache.get('deleteC') || this.bcache.set('deleteC', this._deleteCallback.bind(this)), { asynchronous: !(opts.index && opts.mailbox) });
 
                 // If reporting spam, to indicate to the user that something is
                 // happening (since spam reporting may not be instantaneous).
@@ -2097,10 +2101,10 @@ var DimpBase = {
             if (!vs.size()) {
                 break;
             }
-            args = { view: this.folder, messageFlag: '-\\seen' };
+            args = { view: this.folder, flags: [ '-\\seen' ].toJSON() };
             if (action == 'seen') {
                 unseenstatus = 0;
-                args.messageFlag = '\\seen';
+                args.flags = [ '\\seen' ];
             }
             obs = vs.get('dataob');
             if (obs.size()) {
@@ -2118,19 +2122,52 @@ var DimpBase = {
             }
             args = {
                 view: this.folder,
-                messageFlag: ((action == 'flagged') ? '\\flagged' : '-\\flagged')
+                flags: [ ((action == 'flagged') ? '' : '-') + '\\flagged' ].toJSON()
             };
             this.viewport.updateFlag(vs, 'flagged', action == 'flagged');
             DimpCore.doAction('MarkMessage', args, vs);
             break;
 
         case 'answered':
+            if (!vs.size()) {
+                break;
+            }
             this.viewport.updateFlag(vs, 'answered', true);
             this.viewport.updateFlag(vs, 'flagged', false);
+            if (!opts.noserver) {
+                args = {
+                    view: this.folder,
+                    flags: [ '\\answered', '-\\flagged' ].toJSON()
+                };
+                DimpCore.doAction('MarkMessage', args, vs);
+            }
             break;
 
         case 'unanswered':
+            if (!vs.size()) {
+                break;
+            }
             this.viewport.updateFlag(vs, 'answered', false);
+            if (!opts.noserver) {
+                args = {
+                    view: this.folder,
+                    flags: [ '-\\answered' ].toJSON()
+                };
+                DimpCore.doAction('MarkMessage', args, vs);
+            }
+            break;
+
+        case 'draft':
+        case 'notdraft':
+            if (!vs.size()) {
+                break;
+            }
+            args = {
+                view: this.folder,
+                flags: [ ((action == 'draft') ? '' : '-') + '\\draft' ].toJSON()
+            };
+            this.viewport.updateFlag(vs, 'draft', action == 'draft');
+            DimpCore.doAction('MarkMessage', args, vs);
             break;
 
         case 'forwarded':

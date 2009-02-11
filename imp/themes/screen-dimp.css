@@ -1080,8 +1080,11 @@ span.iconImg, span.contextImg, span.spellcheckPopdownImg {
 #flag_unanswered span.contextImg {
     background-image: url("graphics/mail_notanswered.png");
 }
-#ctx_draft_resume span.contextImg {
+#flag_draft span.contextImg, #ctx_draft_resume span.contextImg {
     background-image: url("graphics/mail_draft.png");
+}
+#flag_notdraft span.contextImg {
+    background-image: url("graphics/mail_notdraft.png");
 }
 #previewtoggle span.contextImg {
     background-image: url("graphics/preview.png");

@@ -375,19 +375,29 @@ case 'CopyMessage':
     break;
 
 case 'MarkMessage':
-    $flag = Util::getPost('messageFlag');
-    if (!$flag || empty($indices)) {
+    $flags = Util::getPost('flags');
+    if (!$flags || empty($indices)) {
         break;
     }
-    if ($flag[0] == '-') {
-        $flag = substr($flag, 1);
-        $set = false;
-    } else {
-        $set = true;
+    $flags = Horde_Serialize::unserialize($flags, SERIALIZE_JSON);
+
+    $set = $notset = array();
+    foreach ($flags as $val) {
+        if ($val[0] == '-') {
+            $notset[] = substr($val, 1);
+        } else {
+            $set[] = $val;
+        }
     }
 
     $imp_message = IMP_Message::singleton();
-    $result = $imp_message->flag(array($flag), $indices, $set);
+    if (!empty($set)) {
+        $result = $imp_message->flag($set, $indices, true);
+    }
+    if (!empty($notset)) {
+        $result = $imp_message->flag($notset, $indices, false);
+    }
+
     if ($result) {
         $result = new stdClass;
     }

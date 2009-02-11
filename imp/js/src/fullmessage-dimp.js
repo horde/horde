@@ -93,7 +93,7 @@ var DimpFullmessage = {
             case 'button_deleted':
             case 'button_ham':
             case 'button_spam':
-                DIMP.baseWindow.DimpBase.flag(id.substring(7), DIMP.conf.msg_index, DIMP.conf.msg_folder);
+                DIMP.baseWindow.DimpBase.flag(id.substring(7), { index: DIMP.conf.msg_index, mailbox: DIMP.conf.msg_folder });
                 window.close();
                 e.stop();
                 return;

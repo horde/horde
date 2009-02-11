@@ -433,6 +433,8 @@ function _simpleButton($id, $text, $image, $imagedir = null)
  <a id="flag_clear"><span class="contextImg"></span><?php echo _("Not Flagged") ?></a>
  <a id="flag_answered"><span class="contextImg"></span><?php echo _("Answered") ?></a>
  <a id="flag_unanswered"><span class="contextImg"></span><?php echo _("Not Answered") ?></a>
+ <a id="flag_draft"><span class="contextImg"></span><?php echo _("Draft") ?></a>
+ <a id="flag_notdraft"><span class="contextImg"></span><?php echo _("Not Draft") ?></a>
 </div>
 
 <div class="context" id="ctx_contacts" style="display:none">
