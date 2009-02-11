@@ -561,7 +561,7 @@ class Horde_Kolab_Server_ldap extends Horde_Kolab_Server
      *
      * @return int The corresponding Kolab object type.
      */
-    function _determineType($dn)
+    function determineType($dn)
     {
         $oc = $this->_getObjectClasses($dn);
         if (is_a($oc, 'PEAR_Error')) {
@@ -851,7 +851,7 @@ class Horde_Kolab_Server_ldap extends Horde_Kolab_Server
      *
      * @return array|PEAR_Error An array of Kolab objects.
      */
-    function _listObjects($type, $params = null)
+    function listObjects($type, $params = null)
     {
         if (empty($params['base_dn'])) {
             $base = $this->_base_dn;
@@ -932,7 +932,7 @@ class Horde_Kolab_Server_ldap extends Horde_Kolab_Server
      *
      * @return string|PEAR_Error The DN.
      */
-    function _generateUid($type, $id, $info)
+    function generateServerUid($type, $id, $info)
     {
         switch ($type) {
         case KOLAB_OBJECT_USER:

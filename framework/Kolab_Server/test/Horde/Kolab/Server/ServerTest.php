@@ -101,6 +101,31 @@ class Horde_Kolab_Server_none extends Horde_Kolab_Server
     }
 
     /**
+     * Determine the type of a Kolab object.
+     *
+     * @param string $uid The UID of the object to examine.
+     *
+     * @return string The corresponding Kolab object type.
+     */
+    protected function determineType($uid)
+    {
+        return KOLAB_OBJECT_USER;
+    }
+
+    /**
+     * List all objects of a specific type
+     *
+     * @param string $type   The type of the objects to be listed
+     * @param array  $params Additional parameters.
+     *
+     * @return array|PEAR_Error An array of Kolab objects.
+     */
+    public function listObjects($type, $params = null)
+    {
+        return array();
+    }
+
+    /**
      * Generates a UID for the given information.
      *
      * @param string $type The type of the object to create.
@@ -109,7 +134,7 @@ class Horde_Kolab_Server_none extends Horde_Kolab_Server
      *
      * @return string|PEAR_Error The UID.
      */
-    protected function _generateUid($type, $id, $info)
+    protected function generateServerUid($type, $id, $info)
     {
         return $id;
     }

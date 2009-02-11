@@ -139,31 +139,31 @@ class Horde_Kolab_Server_testTest extends Horde_Kolab_Test_Server
      */
     public function testDetermineType()
     {
-        $type = $this->ldap->_determineType('cn=empty.group@example.org,dc=example,dc=org');
+        $type = $this->ldap->determineType('cn=empty.group@example.org,dc=example,dc=org');
         $this->assertNoError($type);
         $this->assertEquals(KOLAB_OBJECT_GROUP, $type);
 
-        $type = $this->ldap->_determineType('cn=shared@example.org,dc=example,dc=org');
+        $type = $this->ldap->determineType('cn=shared@example.org,dc=example,dc=org');
         $this->assertNoError($type);
         $this->assertEquals(KOLAB_OBJECT_SHAREDFOLDER, $type);
 
-        $type = $this->ldap->_determineType('cn=The Administrator,dc=example,dc=org');
+        $type = $this->ldap->determineType('cn=The Administrator,dc=example,dc=org');
         $this->assertNoError($type);
         $this->assertEquals(KOLAB_OBJECT_ADMINISTRATOR, $type);
 
-        $type = $this->ldap->_determineType('cn=Main Tainer,dc=example,dc=org');
+        $type = $this->ldap->determineType('cn=Main Tainer,dc=example,dc=org');
         $this->assertNoError($type);
         $this->assertEquals(KOLAB_OBJECT_MAINTAINER, $type);
 
-        $type = $this->ldap->_determineType('cn=Domain Maintainer,dc=example,dc=org');
+        $type = $this->ldap->determineType('cn=Domain Maintainer,dc=example,dc=org');
         $this->assertNoError($type);
         $this->assertEquals(KOLAB_OBJECT_DOMAINMAINTAINER, $type);
 
-        $type = $this->ldap->_determineType('cn=Test Address,cn=external,dc=example,dc=org');
+        $type = $this->ldap->determineType('cn=Test Address,cn=external,dc=example,dc=org');
         $this->assertNoError($type);
         $this->assertEquals(KOLAB_OBJECT_ADDRESS, $type);
 
-        $type = $this->ldap->_determineType('cn=Gunnar Wrobel,dc=example,dc=org');
+        $type = $this->ldap->determineType('cn=Gunnar Wrobel,dc=example,dc=org');
         $this->assertNoError($type);
         $this->assertEquals(KOLAB_OBJECT_USER, $type);
     }
