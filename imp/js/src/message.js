@@ -60,10 +60,10 @@ var ImpMessage = {
         }
     },
 
-    transfer: function(actID, form)
+    _transfer: function(actID)
     {
         var newFolder, tmbox = $('targetMbox');
-        tmbox.setValue((form == 1) ? $F('target1') : $F('target2'));
+        tmbox.setValue($F('target1'));
 
         // Check for a mailbox actually being selected.
         if ($F(tmbox) == '*new*') {
@@ -131,6 +131,7 @@ var ImpMessage = {
             // Set up left and right arrows to go to the previous/next page.
             document.observe('keydown', this._arrowHandler.bindAsEventListener(this));
             document.observe('change', this._changeHandler.bindAsEventListener(this));
+            document.observe('click', this._clickHandler.bindAsEventListener(this));
 
             if (Prototype.Browser.IE) {
                 this._messageActionsHover();
@@ -156,6 +157,19 @@ var ImpMessage = {
             this.flagMessage(id.substring(4));
         } else if (id.startsWith('target')) {
             this.updateFolders(id.substring(6));
+        }
+    },
+
+    _clickHandler: function(e)
+    {
+        var elt = e.element();
+
+        if (elt.match('.msgactions A.widget')) {
+            if (elt.hasClassName('moveAction')) {
+                this._transfer('move_message');
+            } else if (elt.hasClassName('copyAction')) {
+                this._transfer('copy_message');
+            }
         }
     }
 

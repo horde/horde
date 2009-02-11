@@ -161,13 +161,13 @@ var ImpMessage = {
         }
     },
 
-    transfer: function(actID, form)
+    _transfer: function(actID)
     {
         var newFolder, tmbox;
 
         if (this.anySelected()) {
             tmbox = $('targetMbox');
-            tmbox.setValue((form == 1) ? $F('targetMailbox1') : $F('targetMailbox2'));
+            tmbox.setValue($('targetMailbox1'));
 
             // Check for a mailbox actually being selected.
             if ($F(tmbox) == '*new*') {
@@ -264,7 +264,11 @@ var ImpMessage = {
             id = elt.readAttribute('id');
 
         if (elt.match('.msgactions A.widget')) {
-            if (elt.hasClassName('permdeleteAction')) {
+            if (elt.hasClassName('moveAction')) {
+                this._transfer('move_messages');
+            } else if (elt.hasClassName('copyAction')) {
+                this._transfer('copy_messages');
+            } else if (elt.hasClassName('permdeleteAction')) {
                 if (confirm(IMP.text.mailbox_delete)) {
                     this.submit('delete_messages');
                 }
@@ -276,7 +280,7 @@ var ImpMessage = {
                 this.submit('blacklist');
             } else if (elt.hasClassName('whitelistAction')) {
                 this.submit('whitelist');
-            } else if (elt.hasClassName('whitelistAction')) {
+            } else if (elt.hasClassName('forwardAction')) {
                 this.submit('fwd_digest');
             } else if (elt.hasClassName('spamAction')) {
                 this.submit('spam_report');

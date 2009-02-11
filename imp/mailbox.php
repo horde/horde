@@ -515,8 +515,8 @@ if ($pageOb['msgcount']) {
     $n_template->set('imp_personal', IMP::FLAG_PERSONAL);
     $n_template->set('imp_forwarded', IMP::FLAG_FORWARDED);
     if ($n_template->get('use_folders')) {
-        $n_template->set('move', Horde::widget('#', _("Move to folder"), 'widget', '', "ImpMessage.transfer('move_messages', 1); return false;", _("Move"), true));
-        $n_template->set('copy', Horde::widget('#', _("Copy to folder"), 'widget', '', "ImpMessage.transfer('copy_messages', 1); return false;", _("Copy"), true));
+        $n_template->set('move', Horde::widget('#', _("Move to folder"), 'widget moveAction', '', '', _("Move"), true));
+        $n_template->set('copy', Horde::widget('#', _("Copy to folder"), 'widget copyAction', '', '', _("Copy"), true));
         $n_template->set('folder_options', $folder_options);
 
     }
@@ -879,10 +879,6 @@ echo $mf_template->fetch(IMP_TEMPLATES . '/mailbox/message_footers.html');
 if (($pageOb['end'] - $pageOb['begin']) >= 20) {
     $a_template->set('isbottom', true);
     echo $a_template->fetch(IMP_TEMPLATES . '/mailbox/actions.html');
-    if ($n_template->get('use_folders')) {
-        $n_template->set('move', Horde::widget('#', _("Move to folder"), 'widget', '', "transfer('move_messages', 2); return false;", _("Move"), true));
-        $n_template->set('copy', Horde::widget('#', _("Copy to folder"), 'widget', '', "transfer('copy_messages', 2); return false;", _("Copy"), true));
-    }
     $n_template->set('id', 2);
     $n_template->set('isbottom', true);
     echo $n_template->fetch(IMP_TEMPLATES . '/mailbox/navbar.html');
