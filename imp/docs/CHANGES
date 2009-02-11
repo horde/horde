@@ -2,6 +2,7 @@
 v5.0-git
 --------
 
+[mms] Trim leading/trailing whitespace from reply text.
 [mms] Add full IMAP message flagging capabilities to DIMP.
 [mms] Decode IDN (RFC 3490) names in addresses (Request #5836).
 [mms] Add ability to download attachments in MIMP (Request #2925).

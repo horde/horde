@@ -282,7 +282,7 @@ class IMP_Compose
             return $contents;
         }
 
-        $msg_text = $this->_getMessageText($contents);
+        $msg_text = $this->_getMessageText($contents, array('type' => 'draft'));
         if (empty($msg_text)) {
             $message = '';
             $mode = 'text';
@@ -1292,7 +1292,8 @@ class IMP_Compose
         $msg_text = $this->_getMessageText($contents, array(
             'html' => ($GLOBALS['prefs']->getValue('reply_format') || $compose_html),
             'replylimit' => true,
-            'toflowed' => true
+            'toflowed' => true,
+            'type' => 'reply'
         ));
 
         if (!empty($msg_text) &&
@@ -1374,7 +1375,8 @@ class IMP_Compose
             $compose_html = $GLOBALS['prefs']->getValue('compose_html');
 
             $msg_text = $this->_getMessageText($contents, array(
-                'html' => ($GLOBALS['prefs']->getValue('reply_format') || $compose_html)
+                'html' => ($GLOBALS['prefs']->getValue('reply_format') || $compose_html),
+                'type' => 'forward'
             ));
 
             if (!empty($msg_text) &&
@@ -2147,6 +2149,7 @@ class IMP_Compose
      * 'html' - (boolean) Return text/html part, if available.
      * 'replylimit' - (boolean) Enforce length limits?
      * 'toflowed' - (boolean) Convert to flowed?
+     * 'type' - (string) 'draft', 'forward', or 'reply'.
      * </pre>
      *
      * @return mixed  Null if bodypart not found, or array with the following
@@ -2154,8 +2157,8 @@ class IMP_Compose
      * <pre>
      * 'encoding' - (string) The guessed encoding to use.
      * 'id' - (string) The MIME ID of the bodypart.
-     * 'mode' - (string)
-     * 'text' - (string)
+     * 'mode' - (string) Either 'text' or 'html'.
+     * 'text' - (string) The body text.
      * </pre>
      */
     protected function _getMessageText($contents, $options = array())
@@ -2211,6 +2214,12 @@ class IMP_Compose
         }
 
         if ($type == 'text/plain') {
+            /* For replies, remove all leading/trailing whitespace.  This
+             * doesn't add anything to reply data. */
+            if ($options['type'] == 'reply') {
+                $msg = trim($msg);
+            }
+
             if ($part->getContentTypeParameter('format') == 'flowed') {
                 require_once 'Text/Flowed.php';
                 $flowed = new Text_Flowed($msg);
