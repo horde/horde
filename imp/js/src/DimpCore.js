@@ -295,7 +295,7 @@ DimpCore = {
     {
         var alink = $('alertsloglink').down('A'),
             div = $('alertslog').down('DIV'),
-            opts = { duration: 0.5, queue: { position: 'end', scope: 'alertslog', limit: 2} };
+            opts = { duration: 0.5, queue: { position: 'end', scope: 'alertslog', limit: 2 } };
 
         if (div.visible()) {
             Effect.BlindUp(div, opts);
