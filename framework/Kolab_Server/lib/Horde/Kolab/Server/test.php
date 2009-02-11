@@ -80,7 +80,7 @@ class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap
      *
      * @param array $params Parameter array.
      */
-    function Horde_Kolab_Server_test($params = array())
+    function __construct($params = array())
     {
         if (isset($params['data'])) {
             $GLOBALS['KOLAB_SERVER_TEST_DATA'] = $params['data'];
@@ -89,7 +89,7 @@ class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap
                 $GLOBALS['KOLAB_SERVER_TEST_DATA'] = array();
             }
         }
-        Horde_Kolab_Server::Horde_Kolab_Server($params);
+        parent::__construct($params);
     }
 
     /**

@@ -2,7 +2,6 @@
 /**
  * A library for accessing the Kolab user database.
  *
- *
  * PHP version 5
  *
  * @category Kolab
@@ -12,8 +11,10 @@
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
 
-/** We need PEAR */
-require_once 'PEAR.php';
+/**
+ * The Autoloader allows us to omit "require/include" statements.
+ */
+require_once 'Horde/Autoloader.php';
 
 /** Provide access to the Kolab specific objects. */
 require_once 'Horde/Kolab/Server/Object.php';
@@ -27,7 +28,6 @@ define('KOLAB_SERVER_RESULT_MANY',   3);
  * This class provides methods to deal with Kolab objects stored in
  * the Kolab object db.
  *
- *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
@@ -39,7 +39,7 @@ define('KOLAB_SERVER_RESULT_MANY',   3);
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server
+abstract class Horde_Kolab_Server
 {
 
     /**
@@ -54,7 +54,7 @@ class Horde_Kolab_Server
      *
      * @var string
      */
-    var $uid;
+    public $uid;
 
     /**
      * Valid Kolab object types
@@ -78,7 +78,7 @@ class Horde_Kolab_Server
      *
      * @param array $params Parameter array.
      */
-    function Horde_Kolab_Server($params = array())
+    public function __construct($params = array())
     {
         $this->_params = $params;
         if (isset($params['uid'])) {
@@ -101,16 +101,6 @@ class Horde_Kolab_Server
      */
     function &factory($driver, $params = array())
     {
-        $driver = basename($driver);
-        if (empty($driver) || $driver == 'none') {
-            $db = new Horde_Kolab_Server($params);
-            return $db;
-        }
-
-        if (file_exists(dirname(__FILE__) . '/Server/' . $driver . '.php')) {
-            include_once dirname(__FILE__) . '/Server/' . $driver . '.php';
-        }
-
         $class = 'Horde_Kolab_Server_' . $driver;
         if (class_exists($class)) {
             $db = new $class($params);

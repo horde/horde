@@ -2,7 +2,6 @@
 /**
  * Test the server class.
  *
- *
  * PHP version 5
  *
  * @category Kolab
@@ -13,15 +12,17 @@
  */
 
 /**
- *  We need the unit test framework
+ * We need the unit test framework
  */
 require_once 'PHPUnit/Framework.php';
 
-require_once 'Horde/Kolab/Server.php';
+/**
+ * The Autoloader allows us to omit "require/include" statements.
+ */
+require_once 'Horde/Autoloader.php';
 
 /**
  * Tests for the main server class.
- *
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
@@ -68,4 +69,22 @@ class Horde_Kolab_Server_ServerTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('test', $dn);
     }
 
+}
+
+/**
+ * A dummy class to test the original abstract class.
+ *
+ * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ *
+ * @category Kolab
+ * @package  Kolab_Server
+ * @author   Gunnar Wrobel <wrobel@pardus.de>
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @link     http://pear.horde.org/index.php?package=Kolab_Server
+ */
+class Horde_Kolab_Server_none extends Horde_Kolab_Server
+{
 }
