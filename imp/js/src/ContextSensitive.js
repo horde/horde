@@ -86,9 +86,9 @@ var ContextSensitive = Class.create({
     {
         this.current.splice(idx, this.current.size() - idx).each(function(s) {
             if (immediate) {
-                s.hide();
+                $(s).hide();
             } else {
-                Effect.Fade(s, { duration: 0.2 });
+                Effect.Fade(s, { duration: 0.2, queue: { position: 'end', scope: 'cm_' + s, limit: 2 } });
             }
         });
         this.target = this.current[idx];
@@ -238,7 +238,7 @@ var ContextSensitive = Class.create({
             this.onShow(id, this.basectx);
         }
 
-        Effect.Appear(elt.setStyle({ left: x + 'px', top: y + 'px' }), { duration: 0.2 });
+        Effect.Appear(elt.setStyle({ left: x + 'px', top: y + 'px' }), { duration: 0.2, queue: { position: 'end', scope: 'cm_' + id, limit: 2 } });
 
         this.current.push(id);
     },
