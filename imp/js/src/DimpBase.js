@@ -1961,7 +1961,7 @@ var DimpBase = {
         case 'special':
             // For purposes of the contextmenu, treat special folders
             // like regular folders.
-            //p.type = 'folder';
+            ftype = 'folder';
             break;
 
         case 'vcontainer':
