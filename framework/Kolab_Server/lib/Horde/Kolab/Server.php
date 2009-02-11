@@ -57,23 +57,6 @@ abstract class Horde_Kolab_Server
     public $uid;
 
     /**
-     * Valid Kolab object types
-     *
-     * @var array
-     */
-    var $valid_types = array(
-        KOLAB_OBJECT_ADDRESS,
-        KOLAB_OBJECT_ADMINISTRATOR,
-        KOLAB_OBJECT_DISTLIST,
-        KOLAB_OBJECT_DOMAINMAINTAINER,
-        KOLAB_OBJECT_GROUP,
-        KOLAB_OBJECT_MAINTAINER,
-        KOLAB_OBJECT_SERVER,
-        KOLAB_OBJECT_SHAREDFOLDER,
-        KOLAB_OBJECT_USER,
-    );
-
-    /**
      * Construct a new Horde_Kolab_Server object.
      *
      * @param array $params Parameter array.
@@ -221,11 +204,6 @@ abstract class Horde_Kolab_Server
             if (is_a($type, 'PEAR_Error')) {
                 return $type;
             }
-        } else {
-            if (!in_array($type, $this->valid_types)) {
-                return PEAR::raiseError(sprintf(_("Invalid Kolab object type \"%s\"."),
-                                                $type));
-            }
         }
 
         $object = &Horde_Kolab_Server_Object::factory($type, $uid, $this);
@@ -243,10 +221,6 @@ abstract class Horde_Kolab_Server
     {
         if (!isset($info['type'])) {
             return PEAR::raiseError('The type of a new object must be specified!');
-        }
-        if (!in_array($info['type'], $this->valid_types)) {
-            return PEAR::raiseError(sprintf(_("Invalid Kolab object type \"%s\"."),
-                                            $type));
         }
 
         $uid = $this->generateUid($info['type'], $info);
@@ -282,10 +256,6 @@ abstract class Horde_Kolab_Server
      */
     function &store($type, $info, $uid = null)
     {
-        if (!in_array($type, $this->valid_types)) {
-            return PEAR::raiseError(sprintf(_("Invalid Kolab object type \"%s\"."),
-                                            $type));
-        }
         if (empty($uid)) {
             $uid = $this->generateUid($type, $info);
         }
@@ -600,11 +570,6 @@ abstract class Horde_Kolab_Server
      */
     function listObjects($type, $params = null)
     {
-        if (!in_array($type, $this->valid_types)) {
-            return PEAR::raiseError(sprintf(_("Invalid Kolab object type \"%s\"."),
-                                            $type));
-        }
-
         return $this->_listObjects($type, $params);
     }
 
