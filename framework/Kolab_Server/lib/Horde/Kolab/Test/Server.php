@@ -2,7 +2,6 @@
 /**
  * Base for PHPUnit scenarios.
  *
- * $Horde: framework/Kolab_Server/lib/Horde/Kolab/Test/Server.php,v 1.3 2009/01/06 17:49:26 jan Exp $
  *
  * PHP version 5
  *
@@ -28,7 +27,6 @@ require_once 'Horde/Kolab/Server.php';
 /**
  * Base for PHPUnit scenarios.
  *
- * $Horde: framework/Kolab_Server/lib/Horde/Kolab/Test/Server.php,v 1.3 2009/01/06 17:49:26 jan Exp $
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
@@ -146,7 +144,7 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
             if (!isset($world['result'])) {
                 $this->fail('Did not receive a result!');
             }
-            foreach ($world['result'] as $result) { 
+            foreach ($world['result'] as $result) {
                 if ($result instanceOf PEAR_Error) {
                     $this->assertEquals('', $result->getMessage());
                 } else {
@@ -158,7 +156,7 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
             if (!isset($world['result'])) {
                 $this->fail('Did not receive a result!');
             }
-            foreach ($world['result'] as $result) { 
+            foreach ($world['result'] as $result) {
                 if ($result instanceOf PEAR_Error) {
                     $this->assertEquals('', $result->getMessage());
                 } else {
@@ -170,7 +168,7 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
             if (!isset($world['result'])) {
                 $this->fail('Did not receive a result!');
             }
-            foreach ($world['result'] as $result) { 
+            foreach ($world['result'] as $result) {
                 if ($result instanceOf PEAR_Error) {
                     $this->assertEquals($arguments[0], $result->getMessage());
                 } else {
@@ -273,7 +271,7 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
         }
     }
 
-    
+  
     /**
      * Prepare an empty Kolab server.
      *

@@ -3,9 +3,8 @@
  * The Horde_Kolab_Session class holds additional user details for the current
  * session.
  *
- * $Horde: framework/Kolab_Server/lib/Horde/Kolab/Session.php,v 1.11 2009/02/07 14:03:32 wrobel Exp $
  *
- * PHP version 4
+ * PHP version 5
  *
  * @category Kolab
  * @package  Kolab_Server
@@ -27,7 +26,6 @@ require_once 'Horde/Auth.php';
  * relevant for the user session should be accessed via the Horde_Kolab_Session
  * class.
  *
- * $Horde: framework/Kolab_Server/lib/Horde/Kolab/Session.php,v 1.11 2009/02/07 14:03:32 wrobel Exp $
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
@@ -40,7 +38,8 @@ require_once 'Horde/Auth.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Session {
+class Horde_Kolab_Session
+{
 
     /**
      * User ID.

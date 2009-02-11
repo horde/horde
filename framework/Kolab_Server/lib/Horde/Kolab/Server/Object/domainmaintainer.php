@@ -2,9 +2,8 @@
 /**
  * A Kolab domain maintainer.
  *
- * $Horde: framework/Kolab_Server/lib/Horde/Kolab/Server/Object/domainmaintainer.php,v 1.6 2009/01/06 17:49:26 jan Exp $
  *
- * PHP version 4
+ * PHP version 5
  *
  * @category Kolab
  * @package  Kolab_Server
@@ -18,7 +17,6 @@ require_once 'Horde/Kolab/Server/Object/adminrole.php';
 /**
  * This class provides methods associated to Kolab domain maintainers.
  *
- * $Horde: framework/Kolab_Server/lib/Horde/Kolab/Server/Object/domainmaintainer.php,v 1.6 2009/01/06 17:49:26 jan Exp $
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
@@ -31,7 +29,8 @@ require_once 'Horde/Kolab/Server/Object/adminrole.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_Object_domainmaintainer extends Horde_Kolab_Server_Object_adminrole {
+class Horde_Kolab_Server_Object_domainmaintainer extends Horde_Kolab_Server_Object_adminrole
+{
 
     /**
      * The attributes required when creating an object of this class.

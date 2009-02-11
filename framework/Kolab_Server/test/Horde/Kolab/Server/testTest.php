@@ -2,7 +2,6 @@
 /**
  * Test the test driver.
  *
- * $Horde: framework/Kolab_Server/test/Horde/Kolab/Server/testTest.php,v 1.12 2009/01/06 17:49:27 jan Exp $
  *
  * PHP version 5
  *
@@ -21,7 +20,6 @@ require_once 'Horde/Kolab/Test/Server.php';
 /**
  * Test the test backend.
  *
- * $Horde: framework/Kolab_Server/test/Horde/Kolab/Server/testTest.php,v 1.12 2009/01/06 17:49:27 jan Exp $
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
@@ -34,7 +32,8 @@ require_once 'Horde/Kolab/Test/Server.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_testTest extends Horde_Kolab_Test_Server {
+class Horde_Kolab_Server_testTest extends Horde_Kolab_Test_Server
+{
 
     /**
      * Set up testing.
@@ -56,7 +55,7 @@ class Horde_Kolab_Server_testTest extends Horde_Kolab_Test_Server {
         $result = $this->ldap->_search('(objectClass=top)', array('objectClass'));
         $this->assertNoError($result);
         $this->assertEquals(12, count($result));
-        
+      
         $result = $this->ldap->_search('(objectClass=top)', array('objectClass'),
                                        'cn=internal,dc=example,dc=org');
         $this->assertNoError($result);

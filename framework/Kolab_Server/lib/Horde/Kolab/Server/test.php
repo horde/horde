@@ -2,9 +2,8 @@
 /**
  * A driver for simulating a Kolab user database stored in LDAP.
  *
- * $Horde: framework/Kolab_Server/lib/Horde/Kolab/Server/test.php,v 1.8 2009/01/06 17:49:26 jan Exp $
  *
- * PHP version 4
+ * PHP version 5
  *
  * @category Kolab
  * @package  Kolab_Server
@@ -19,7 +18,6 @@ require_once 'Horde/Kolab/Server/ldap.php';
 /**
  * This class provides a class for testing the Kolab Server DB.
  *
- * $Horde: framework/Kolab_Server/lib/Horde/Kolab/Server/test.php,v 1.8 2009/01/06 17:49:26 jan Exp $
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
@@ -32,7 +30,8 @@ require_once 'Horde/Kolab/Server/ldap.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap {
+class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap
+{
 
     /**
      * Array holding the current result set.

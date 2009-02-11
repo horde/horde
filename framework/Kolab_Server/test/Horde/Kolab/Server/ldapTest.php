@@ -2,7 +2,6 @@
 /**
  * Test the LDAP driver.
  *
- * $Horde: framework/Kolab_Server/test/Horde/Kolab/Server/ldapTest.php,v 1.7 2009/01/06 17:49:27 jan Exp $
  *
  * PHP version 5
  *
@@ -24,7 +23,6 @@ require_once 'Horde/Kolab/Server/ldap.php';
 /**
  * Test the LDAP backend.
  *
- * $Horde: framework/Kolab_Server/test/Horde/Kolab/Server/ldapTest.php,v 1.7 2009/01/06 17:49:27 jan Exp $
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
@@ -37,7 +35,8 @@ require_once 'Horde/Kolab/Server/ldap.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_ldapTest extends PHPUnit_Framework_TestCase {
+class Horde_Kolab_Server_ldapTest extends PHPUnit_Framework_TestCase
+{
 
     /**
      * Test handling of object classes.

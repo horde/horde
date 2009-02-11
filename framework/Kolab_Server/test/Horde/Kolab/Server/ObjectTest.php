@@ -2,7 +2,6 @@
 /**
  * Test the object class.
  *
- * $Horde: framework/Kolab_Server/test/Horde/Kolab/Server/ObjectTest.php,v 1.7 2009/01/06 17:49:27 jan Exp $
  *
  * PHP version 5
  *
@@ -24,7 +23,6 @@ require_once 'Horde/Kolab/Server/Object.php';
 /**
  * The the handling of objects.
  *
- * $Horde: framework/Kolab_Server/test/Horde/Kolab/Server/ObjectTest.php,v 1.7 2009/01/06 17:49:27 jan Exp $
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
@@ -37,7 +35,8 @@ require_once 'Horde/Kolab/Server/Object.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_ObjectTest extends Horde_Kolab_Test_Server {
+class Horde_Kolab_Server_ObjectTest extends Horde_Kolab_Test_Server
+{
 
     /**
      * Set up a dummy db object that will not be used during the
@@ -148,7 +147,6 @@ class Horde_Kolab_Server_ObjectTest extends Horde_Kolab_Test_Server {
 /**
  * A dummy class for testing.
  *
- * $Horde: framework/Kolab_Server/test/Horde/Kolab/Server/ObjectTest.php,v 1.7 2009/01/06 17:49:27 jan Exp $
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
@@ -161,7 +159,8 @@ class Horde_Kolab_Server_ObjectTest extends Horde_Kolab_Test_Server {
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class DummyDB {
+class DummyDB
+{
 
 
 }

@@ -2,7 +2,6 @@
 /**
  * All tests for the Horde_Kolab_Server:: package.
  *
- * $Horde: framework/Kolab_Server/test/Horde/Kolab/Server/AllTests.php,v 1.5 2009/01/06 17:49:27 jan Exp $
  *
  * PHP version 5
  *
@@ -14,7 +13,7 @@
  */
 
 /**
- * Define the main method 
+ * Define the main method
  */
 if (!defined('PHPUnit_MAIN_METHOD')) {
     define('PHPUnit_MAIN_METHOD', 'Horde_Kolab_Server_AllTests::main');
@@ -26,7 +25,6 @@ require_once 'PHPUnit/TextUI/TestRunner.php';
 /**
  * Combine the tests for this package.
  *
- * $Horde: framework/Kolab_Server/test/Horde/Kolab/Server/AllTests.php,v 1.5 2009/01/06 17:49:27 jan Exp $
  *
  * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
  *
@@ -39,7 +37,8 @@ require_once 'PHPUnit/TextUI/TestRunner.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_AllTests {
+class Horde_Kolab_Server_AllTests
+{
 
     /**
      * Main entry point for running the suite.

@@ -2,7 +2,6 @@
 /**
  * Test the Kolab session handler.
  *
- * $Horde: framework/Kolab_Server/test/Horde/Kolab/Server/SessionTest.php,v 1.10 2009/01/14 21:46:54 wrobel Exp $
  *
  * PHP version 5
  *
@@ -23,7 +22,6 @@ require_once 'Horde/Kolab/Session.php';
 /**
  * Test the Kolab session handler.
  *
- * $Horde: framework/Kolab_Server/test/Horde/Kolab/Server/SessionTest.php,v 1.10 2009/01/14 21:46:54 wrobel Exp $
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
@@ -36,7 +34,8 @@ require_once 'Horde/Kolab/Session.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_SessionTest extends Horde_Kolab_Test_Server {
+class Horde_Kolab_Server_SessionTest extends Horde_Kolab_Test_Server
+{
 
     /**
      * Test class construction.

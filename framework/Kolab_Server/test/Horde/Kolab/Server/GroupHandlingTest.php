@@ -2,7 +2,6 @@
 /**
  * Handling groups.
  *
- * $Horde: framework/Kolab_Server/test/Horde/Kolab/Server/GroupHandlingTest.php,v 1.3 2009/01/06 17:49:27 jan Exp $
  *
  * PHP version 5
  *
@@ -23,7 +22,6 @@ require_once 'Horde/Kolab/Server.php';
 /**
  * Handling groups.
  *
- * $Horde: framework/Kolab_Server/test/Horde/Kolab/Server/GroupHandlingTest.php,v 1.3 2009/01/06 17:49:27 jan Exp $
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
@@ -36,7 +34,8 @@ require_once 'Horde/Kolab/Server.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_GroupHandlingTest extends Horde_Kolab_Test_Server {
+class Horde_Kolab_Server_GroupHandlingTest extends Horde_Kolab_Test_Server
+{
     /**
      * Test listing groups if there are no groups.
      *

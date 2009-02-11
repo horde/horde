@@ -2,7 +2,6 @@
 /**
  * Adding objects to the server.
  *
- * $Horde: framework/Kolab_Server/test/Horde/Kolab/Server/AddingObjectsTest.php,v 1.3 2009/01/06 17:49:27 jan Exp $
  *
  * PHP version 5
  *
@@ -21,7 +20,6 @@ require_once 'Horde/Kolab/Test/Server.php';
 /**
  * Adding objects to the server.
  *
- * $Horde: framework/Kolab_Server/test/Horde/Kolab/Server/AddingObjectsTest.php,v 1.3 2009/01/06 17:49:27 jan Exp $
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
@@ -34,7 +32,8 @@ require_once 'Horde/Kolab/Test/Server.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_AddingObjectsTest extends Horde_Kolab_Test_Server {
+class Horde_Kolab_Server_AddingObjectsTest extends Horde_Kolab_Test_Server
+{
     /**
      * Test adding valid users.
      *

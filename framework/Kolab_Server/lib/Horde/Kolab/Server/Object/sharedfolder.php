@@ -2,9 +2,8 @@
 /**
  * A shared IMAP folder.
  *
- * $Horde: framework/Kolab_Server/lib/Horde/Kolab/Server/Object/sharedfolder.php,v 1.5 2009/01/06 17:49:26 jan Exp $
  *
- * PHP version 4
+ * PHP version 5
  *
  * @category Kolab
  * @package  Kolab_Server
@@ -17,7 +16,6 @@
  * This class provides methods to deal with shared folders
  * entries for Kolab.
  *
- * $Horde: framework/Kolab_Server/lib/Horde/Kolab/Server/Object/sharedfolder.php,v 1.5 2009/01/06 17:49:26 jan Exp $
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
@@ -30,7 +28,8 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_Object_sharedfolder extends Horde_Kolab_Server_Object {
+class Horde_Kolab_Server_Object_sharedfolder extends Horde_Kolab_Server_Object
+{
 
     /**
      * The LDAP filter to retrieve this object type

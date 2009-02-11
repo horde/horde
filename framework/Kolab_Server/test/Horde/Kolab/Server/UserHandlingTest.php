@@ -2,7 +2,6 @@
 /**
  * Handling users.
  *
- * $Horde: framework/Kolab_Server/test/Horde/Kolab/Server/UserHandlingTest.php,v 1.3 2009/01/06 17:49:27 jan Exp $
  *
  * PHP version 5
  *
@@ -21,7 +20,6 @@ require_once 'Horde/Kolab/Test/Server.php';
 /**
  * Handling users.
  *
- * $Horde: framework/Kolab_Server/test/Horde/Kolab/Server/UserHandlingTest.php,v 1.3 2009/01/06 17:49:27 jan Exp $
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
@@ -34,7 +32,8 @@ require_once 'Horde/Kolab/Test/Server.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_UserHandlingTest extends Horde_Kolab_Test_Server {
+class Horde_Kolab_Server_UserHandlingTest extends Horde_Kolab_Test_Server
+{
 
     /**
      * Test listing userss if there are no users.

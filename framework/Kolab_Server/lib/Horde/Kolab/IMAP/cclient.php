@@ -2,14 +2,12 @@
 /**
  * @package Kolab_Storage
  *
- * $Horde: framework/Kolab_Server/lib/Horde/Kolab/IMAP/cclient.php,v 1.3 2009/01/06 17:49:25 jan Exp $
  */
 
 /**
  * The Horde_Kolab_IMAP_Connection_cclient class connects to an IMAP server using
  * the IMAP functionality within PHP.
  *
- * $Horde: framework/Kolab_Server/lib/Horde/Kolab/IMAP/cclient.php,v 1.3 2009/01/06 17:49:25 jan Exp $
  *
  * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
  *
@@ -20,7 +18,8 @@
  * @author  Thomas Jarosch <thomas.jarosch@intra2net.com>
  * @package Kolab_Storage
  */
-class Horde_Kolab_IMAP_cclient extends Horde_Kolab_IMAP {
+class Horde_Kolab_IMAP_cclient extends Horde_Kolab_IMAP
+{
 
     /**
      * Basic IMAP connection string.

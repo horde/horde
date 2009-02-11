@@ -2,9 +2,8 @@
 /**
  * A system administrator.
  *
- * $Horde: framework/Kolab_Server/lib/Horde/Kolab/Server/Object/administrator.php,v 1.5 2009/01/06 17:49:26 jan Exp $
  *
- * PHP version 4
+ * PHP version 5
  *
  * @category Kolab
  * @package  Kolab_Server
@@ -19,7 +18,6 @@ require_once 'Horde/Kolab/Server/Object/adminrole.php';
  * This class provides methods to deal with administrator
  * entries for Kolab.
  *
- * $Horde: framework/Kolab_Server/lib/Horde/Kolab/Server/Object/administrator.php,v 1.5 2009/01/06 17:49:26 jan Exp $
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
@@ -32,7 +30,8 @@ require_once 'Horde/Kolab/Server/Object/adminrole.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_Object_administrator extends Horde_Kolab_Server_Object_adminrole {
+class Horde_Kolab_Server_Object_administrator extends Horde_Kolab_Server_Object_adminrole
+{
 
     /**
      * The group the UID must be member of so that this object really

@@ -2,7 +2,6 @@
 /**
  * Test the server class.
  *
- * $Horde: framework/Kolab_Server/test/Horde/Kolab/Server/ServerTest.php,v 1.6 2009/01/06 17:49:27 jan Exp $
  *
  * PHP version 5
  *
@@ -23,7 +22,6 @@ require_once 'Horde/Kolab/Server.php';
 /**
  * Tests for the main server class.
  *
- * $Horde: framework/Kolab_Server/test/Horde/Kolab/Server/ServerTest.php,v 1.6 2009/01/06 17:49:27 jan Exp $
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
@@ -36,7 +34,8 @@ require_once 'Horde/Kolab/Server.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_ServerTest extends PHPUnit_Framework_TestCase {
+class Horde_Kolab_Server_ServerTest extends PHPUnit_Framework_TestCase
+{
     /**
      * The base class provides no abilities for reading data. So it
      * should mainly return error. But it should be capable of

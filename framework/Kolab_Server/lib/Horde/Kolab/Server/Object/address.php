@@ -2,9 +2,8 @@
 /**
  * An entry in the global addressbook.
  *
- * $Horde: framework/Kolab_Server/lib/Horde/Kolab/Server/Object/address.php,v 1.6 2009/01/08 21:00:08 wrobel Exp $
  *
- * PHP version 4
+ * PHP version 5
  *
  * @category Kolab
  * @package  Kolab_Server
@@ -17,7 +16,6 @@
  * This class provides methods to deal with global address book
  * entries for Kolab.
  *
- * $Horde: framework/Kolab_Server/lib/Horde/Kolab/Server/Object/address.php,v 1.6 2009/01/08 21:00:08 wrobel Exp $
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
@@ -30,7 +28,8 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_Object_address extends Horde_Kolab_Server_Object {
+class Horde_Kolab_Server_Object_address extends Horde_Kolab_Server_Object
+{
 
     /**
      * The LDAP filter to retrieve this object type
