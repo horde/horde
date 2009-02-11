@@ -295,7 +295,7 @@ DimpCore = {
     {
         var alink = $('alertsloglink').down('A'),
             div = $('alertslog').down('DIV'),
-            opts = { duration: 0.5 };
+            opts = { duration: 0.5, queue: { position: 'end', scope: 'alertslog', limit: 2} };
 
         if (div.visible()) {
             Effect.BlindUp(div, opts);
@@ -446,7 +446,7 @@ DimpCore = {
             return;
         }
 
-        var elt = e.element(), id, tmp;
+        var elt = e.element(), id, opts, tmp;
 
         if (this.alertrequest) {
             this.alertsFade(this.alertrequest);
@@ -460,10 +460,11 @@ DimpCore = {
             case 'partlist_toggle':
                 tmp = $('partlist');
                 $('partlist_col', 'partlist_exp').invoke('toggle');
+                opts = { duration: 0.2, queue: { position: 'end', scope: 'partlist', limit: 2 } };
                 if (tmp.visible()) {
-                    Effect.BlindUp(tmp, { duration: 0.2 });
+                    Effect.BlindUp(tmp, opts);
                 } else {
-                    Effect.BlindDown(tmp, { duration: 0.2 });
+                    Effect.BlindDown(tmp, opts);
                 }
                 e.stop();
                 return;

@@ -2,6 +2,8 @@
 v5.0-git
 --------
 
+[mms] Use effects queue to prevent issues with users clicking on effects
+      elements too quickly.
 [mms] Trim leading/trailing whitespace from reply text.
 [mms] Add full IMAP message flagging capabilities to DIMP.
 [mms] Decode IDN (RFC 3490) names in addresses (Request #5836).
@@ -2250,13 +2252,13 @@ Updated lynx pages so lynx works again with IMP
 OLD DIMP CHANGELOG
 ==================
 
-----------
-v1.1.1-cvs
-----------
+------
+v1.1.1
+------
 
 [mms] Shift-Delete on multiple messages will move selection to next message
       (Request #7533).
-[mms] Fix occasional buggy behavior when drag/drop folders (Bug #7414).
+[mms] Fix occasional buggy behavior with drag/drop folders (Bug #7414).
 [mms] The UP key will start at the bottom of the mailbox, if no current
       message is selected (Request #7532).
 [mms] Add 'undelete' to Other Actions menu (Bug #7496).

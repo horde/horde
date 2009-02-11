@@ -1864,7 +1864,7 @@ var DimpBase = {
     _toggleSubFolder: function(base, mode)
     {
         base = $(base);
-        var opts = { duration: 0.2 },
+        var opts = { duration: 0.2, queue: { position: 'end', scope: 'subfolder', limit: 2} },
             s = $(this.getSubFolderId(base.id));
         if (s &&
             (mode == 'tog' ||
