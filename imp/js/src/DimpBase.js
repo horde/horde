@@ -635,7 +635,6 @@ var DimpBase = {
             DimpCore.DMenu.addSubMenu('ctx_message_reply', 'ctx_reply');
             DimpCore.DMenu.addSubMenu('ctx_message_forward', 'ctx_forward');
             DimpCore.DMenu.addSubMenu('ctx_message_setflag', 'ctx_flag');
-            DimpCore.DMenu.addSubMenu('ctx_message_clearflag', 'ctx_clearflag');
             break;
 
         case 'ctx_reply':
@@ -647,9 +646,12 @@ var DimpBase = {
             break;
 
         case 'ctx_otheractions':
-            $('oa_setflag', 'oa_clearflag', 'oa_sep1', 'oa_blacklist', 'oa_whitelist', 'oa_sep2', 'oa_undeleted').compact().invoke(this.viewport.getSelected().size() ? 'show' : 'hide');
+            $('oa_setflag', 'oa_sep1', 'oa_blacklist', 'oa_whitelist', 'oa_sep2', 'oa_undeleted').compact().invoke(this.viewport.getSelected().size() ? 'show' : 'hide');
             DimpCore.DMenu.addSubMenu('oa_setflag', 'ctx_flag');
-            DimpCore.DMenu.addSubMenu('oa_clearflag', 'ctx_clearflag');
+            break;
+
+        case 'ctx_draft':
+            DimpCore.DMenu.addSubMenu('ctx_draft_setflag', 'ctx_flag');
             break;
         }
         return true;
@@ -1555,10 +1557,15 @@ var DimpBase = {
                 this.togglePreviewPane();
                 break;
 
-            case 'oa_seen':
-            case 'oa_unseen':
-            case 'oa_flagged':
-            case 'oa_clear':
+            case 'flag_seen':
+            case 'flag_unseen':
+            case 'flag_flagged':
+            case 'flag_clear':
+            case 'flag_answered':
+            case 'flag_unanswered':
+                this.flag(id.substring(5));
+                break;
+
             case 'oa_blacklist':
             case 'oa_whitelist':
             case 'oa_undeleted':
@@ -2120,6 +2127,10 @@ var DimpBase = {
         case 'answered':
             this.viewport.updateFlag(vs, 'answered', true);
             this.viewport.updateFlag(vs, 'flagged', false);
+            break;
+
+        case 'unanswered':
+            this.viewport.updateFlag(vs, 'answered', false);
             break;
 
         case 'forwarded':

@@ -253,7 +253,7 @@ div.msgSize {
 .msglist .statusForwarded {
     background-image: url("graphics/mail_forwarded.png");
 }
-.msglist .statusDraft, span.draftImg {
+.msglist .statusDraft {
     background-image: url("graphics/mail_draft.png");
 }
 
@@ -1045,36 +1045,73 @@ span.iconImg, span.contextImg, span.spellcheckPopdownImg {
     margin-right: 4px;
     vertical-align: top;
 }
-span.mailseenImg {
-    background-image: url("graphics/mail_seen.png");
+
+/* Context menu images */
+#ctx_message_reply span.contextImg {
+    background-image: url("graphics/reply.png");
 }
-span.mailunseenImg {
-    background-image: url("graphics/mail_unseen.png");
+#ctx_reply_reply span.contextImg, #ctx_reply_reply_all span.contextImg, #ctx_reply_reply_list span.contextImg {
+    background-image: url("graphics/replyall.png");
 }
-span.deleteImg {
-    background-image: url("graphics/delete.png");
-}
-span.createfolderImg {
-    background-image: url("graphics/folders/folder_create.png");
-}
-span.editfolderImg {
-    background-image: url("graphics/folders/folder_edit.png");
-}
-span.forwardImg {
+#ctx_message_forward span.contextImg, #ctx_forward_forward_all span.contextImg, #ctx_forward_forward_body span.contextImg, #ctx_forward_forward_attachments span.contextImg {
     background-image: url("graphics/forward.png");
 }
-span.mailflaggedImg {
+#ctx_folder_empty span.contextImg, #ctx_message_deleted span.contextImg, #ctx_draft_deleted span.contextImg, #oa_purge_deleted span.contextImg {
+    background-image: url("graphics/delete.png");
+}
+#ctx_message_undeleted span.contextImg, #ctx_draft_undeleted span.contextImg, #oa_undeleted span.contextImg {
+    background-image: url("graphics/undelete.png");
+}
+#flag_seen span.contextImg, #ctx_folder_seen span.contextImg {
+    background-image: url("graphics/mail_seen.png");
+}
+#flag_unseen span.contextImg, #ctx_folder_unseen span.contextImg, #ctx_folder_poll span.contextImg, #ctx_folder_nopoll span.contextImg {
+    background-image: url("graphics/mail_unseen.png");
+}
+#ctx_message_setflag span.contextImg, #ctx_draft_setflag span.contextImg, #oa_setflag span.contextImg, #flag_flagged span.contextImg {
     background-image: url("graphics/mail_flagged.png");
 }
-span.clearflagImg {
+#flag_clear span.contextImg {
     background-image: url("graphics/mail_clearflag.png");
 }
-span.previewImg {
+#flag_answered span.contextImg {
+    background-image: url("graphics/mail_answered.png");
+}
+#flag_unanswered span.contextImg {
+    background-image: url("graphics/mail_notanswered.png");
+}
+#ctx_draft_resume span.contextImg {
+    background-image: url("graphics/mail_draft.png");
+}
+#previewtoggle span.contextImg {
     background-image: url("graphics/preview.png");
 }
-span.tickImg {
+#oa_selectall span.contextImg {
     background-image: url("graphics/tick.png");
 }
+#ctx_folder_create span.contextImg, #ctx_container_create span.contextImg {
+    background-image: url("graphics/folders/folder_create.png");
+}
+#ctx_folder_rename span.contextImg, #ctx_container_rename span.contextImg {
+    background-image: url("graphics/folders/folder_edit.png");
+}
+#ctx_folder_delete span.contextImg {
+    background-image: url("graphics/folders/folder_delete.png");
+}
+#ctx_message_spam span.contextImg {
+    background-image: url("graphics/spam.png");
+}
+#ctx_message_ham span.contextImg {
+    background-image: url("graphics/ham.png");
+}
+#ctx_message_blacklist span.contextImg, #oa_blacklist span.contextImg {
+    background-image: url("graphics/blacklist.png");
+}
+#ctx_message_whitelist span.contextImg, #oa_whitelist span.contextImg {
+    background-image: url("graphics/whitelist.png");
+}
+
+/* Other images */
 span.newwinImg {
     background-image: url("graphics/newwin.png");
 }
@@ -1105,27 +1142,6 @@ span.attachmentImg {
 }
 span.msgsourceImg {
     background-image: url("graphics/message_source.png");
-}
-span.folderdeleteImg {
-    background-image: url("graphics/folders/folder_delete.png");
-}
-span.replyImg {
-    background-image: url("graphics/reply.png");
-}
-span.replyallImg {
-    background-image: url("graphics/replyall.png");
-}
-span.spamImg {
-    background-image: url("graphics/spam.png");
-}
-span.hamImg {
-    background-image: url("graphics/ham.png");
-}
-span.blacklistImg {
-    background-image: url("graphics/blacklist.png");
-}
-span.whitelistImg {
-    background-image: url("graphics/whitelist.png");
 }
 span.popdownImg, span.spellcheckPopdownImg {
     background-image: url("graphics/popdown.png");

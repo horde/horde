@@ -340,103 +340,99 @@ function _simpleButton($id, $text, $image, $imagedir = null)
 </div>
 
 <div class="context" id="ctx_folder" style="display:none">
- <a id="ctx_folder_create"><span class="contextImg createfolderImg"></span><?php echo _("Create subfolder") ?></a>
- <a id="ctx_folder_rename"><span class="contextImg editfolderImg"></span><?php echo _("Rename Folder") ?></a>
- <a id="ctx_folder_empty"><span class="contextImg deleteImg"></span><?php echo _("Empty Folder") ?></a>
- <a id="ctx_folder_delete"><span class="contextImg folderdeleteImg"></span><?php echo _("Delete Folder") ?></a>
+ <a id="ctx_folder_create"><span class="contextImg"></span><?php echo _("Create subfolder") ?></a>
+ <a id="ctx_folder_rename"><span class="contextImg"></span><?php echo _("Rename Folder") ?></a>
+ <a id="ctx_folder_empty"><span class="contextImg"></span><?php echo _("Empty Folder") ?></a>
+ <a id="ctx_folder_delete"><span class="contextImg"></span><?php echo _("Delete Folder") ?></a>
  <div id="ctx_folder_seen_sep" class="sep"></div>
- <a id="ctx_folder_seen"><span class="contextImg mailseenImg"></span><?php echo _("Mark all as Read") ?></a>
- <a id="ctx_folder_unseen"><span class="contextImg mailunseenImg"></span><?php echo _("Mark all as New") ?></a>
+ <a id="ctx_folder_seen"><span class="contextImg"></span><?php echo _("Mark all as Read") ?></a>
+ <a id="ctx_folder_unseen"><span class="contextImg"></span><?php echo _("Mark all as New") ?></a>
  <div id="ctx_folder_poll_sep" class="sep"></div>
- <a id="ctx_folder_poll"><span class="contextImg mailseenImg"></span><?php echo _("Check for New Mail") ?></a>
- <a id="ctx_folder_nopoll"><span class="contextImg mailseenImg"></span><?php echo _("Do Not Check for New Mail") ?></a>
+ <a id="ctx_folder_poll"><span class="contextImg"></span><?php echo _("Check for New Mail") ?></a>
+ <a id="ctx_folder_nopoll"><span class="contextImg"></span><?php echo _("Do Not Check for New Mail") ?></a>
 </div>
 
 <div class="context" id="ctx_container" style="display:none">
- <a id="ctx_container_create"><span class="contextImg createfolderImg"></span><?php echo _("Create subfolder") ?></a>
- <a id="ctx_container_rename"><span class="contextImg editfolderImg"></span><?php echo _("Rename Folder") ?></a>
+ <a id="ctx_container_create"><span class="contextImg"></span><?php echo _("Create subfolder") ?></a>
+ <a id="ctx_container_rename"><span class="contextImg"></span><?php echo _("Rename Folder") ?></a>
 </div>
 
 <div class="context" id="ctx_message" style="display:none">
- <a id="ctx_message_reply"><span class="contextImg replyImg"></span><?php echo _("Reply") ?></a>
- <a id="ctx_message_forward"><span class="contextImg forwardImg"></span><?php echo _("Forward") ?></a>
+ <a id="ctx_message_reply"><span class="contextImg"></span><?php echo _("Reply") ?></a>
+ <a id="ctx_message_forward"><span class="contextImg"></span><?php echo _("Forward") ?></a>
  <div class="sep"></div>
- <a id="ctx_message_setflag"><span class="contextImg mailflaggedImg"></span><?php echo _("Set Flag") ?></a>
- <a id="ctx_message_clearflag"><span class="contextImg clearflagImg"></span><?php echo _("Clear Flag") ?></a>
+ <a id="ctx_message_setflag"><span class="contextImg"></span><?php echo _("Mark as") ?></a>
  <div class="sep"></div>
 <?php if (!empty($conf['spam']['reporting'])): ?>
- <a id="ctx_message_spam"><span class="contextImg spamImg"></span><?php echo _("Mark as Spam") ?></a>
+ <a id="ctx_message_spam"><span class="contextImg"></span><?php echo _("Mark as Spam") ?></a>
 <?php endif; ?>
 <?php if (!empty($conf['notspam']['reporting'])): ?>
- <a id="ctx_message_ham"><span class="contextImg hamImg"></span><?php echo _("Mark as Innocent") ?></a>
+ <a id="ctx_message_ham"><span class="contextImg"></span><?php echo _("Mark as Innocent") ?></a>
 <?php endif; ?>
 <?php if ($has_blacklist): ?>
- <a id="ctx_message_blacklist"><span class="contextImg blacklistImg"></span><?php echo _("Blacklist") ?></a>
+ <a id="ctx_message_blacklist"><span class="contextImg"></span><?php echo _("Blacklist") ?></a>
 <?php endif; ?>
 <?php if ($has_whitelist): ?>
- <a id="ctx_message_whitelist"><span class="contextImg whitelistImg"></span><?php echo _("Whitelist") ?></a>
+ <a id="ctx_message_whitelist"><span class="contextImg"></span><?php echo _("Whitelist") ?></a>
 <?php endif; ?>
- <a id="ctx_message_deleted"><span class="contextImg deleteImg"></span><?php echo _("Delete") ?></a>
+ <a id="ctx_message_deleted"><span class="contextImg"></span><?php echo _("Delete") ?></a>
 <?php if (!$usetrash): ?>
- <a id="ctx_message_undeleted"><span class="contextImg deleteImg"></span><?php echo _("Undelete") ?></a>
+ <a id="ctx_message_undeleted"><span class="contextImg"></span><?php echo _("Undelete") ?></a>
 <?php endif; ?>
 </div>
 
 <div class="context" id="ctx_draft" style="display:none">
- <a id="ctx_draft_resume"><span class="contextImg draftImg"></span><?php echo _("Resume Draft") ?></a>
+ <a id="ctx_draft_resume"><span class="contextImg"></span><?php echo _("Resume Draft") ?></a>
  <div class="sep"></div>
- <a id="ctx_draft_flagged"><span class="contextImg mailflaggedImg"></span><?php echo _("Flag Message") ?></a>
- <a id="ctx_draft_clear"><span class="contextImg clearflagImg"></span><?php echo _("Clear Flag") ?></a>
+ <a id="ctx_draft_setflag"><span class="contextImg"></span><?php echo _("Mark as") ?></a>
  <div class="sep"></div>
- <a id="ctx_draft_deleted"><span class="contextImg deleteImg"></span><?php echo _("Delete") ?></a>
+ <a id="ctx_draft_deleted"><span class="contextImg"></span><?php echo _("Delete") ?></a>
 <?php if (!$usetrash): ?>
- <a id="ctx_draft_undeleted"><span class="contextImg deleteImg"></span><?php echo _("Undelete") ?></a>
+ <a id="ctx_draft_undeleted"><span class="contextImg"></span><?php echo _("Undelete") ?></a>
 <?php endif; ?>
 </div>
 
 <div class="context" id="ctx_reply" style="display:none;">
- <a id="ctx_reply_reply"><span class="contextImg replyallImg"></span><?php echo _("To Sender") ?></a>
- <a id="ctx_reply_reply_all"><span class="contextImg replyallImg"></span><?php echo _("To All") ?></a>
- <a id="ctx_reply_reply_list"><span class="contextImg replyallImg"></span><?php echo _("To List") ?></a>
+ <a id="ctx_reply_reply"><span class="contextImg"></span><?php echo _("To Sender") ?></a>
+ <a id="ctx_reply_reply_all"><span class="contextImg"></span><?php echo _("To All") ?></a>
+ <a id="ctx_reply_reply_list"><span class="contextImg"></span><?php echo _("To List") ?></a>
 </div>
 
 <div class="context" id="ctx_forward" style="display:none">
- <a id="ctx_forward_forward_all"><span class="contextImg forwardImg"></span><?php echo _("Entire Message") ?></a>
- <a id="ctx_forward_forward_body"><span class="contextImg forwardImg"></span><?php echo _("Body Text Only") ?></a>
- <a id="ctx_forward_forward_attachments"><span class="contextImg forwardImg"></span><?php echo _("Attachments Only") ?></a>
+ <a id="ctx_forward_forward_all"><span class="contextImg"></span><?php echo _("Entire Message") ?></a>
+ <a id="ctx_forward_forward_body"><span class="contextImg"></span><?php echo _("Body Text Only") ?></a>
+ <a id="ctx_forward_forward_attachments"><span class="contextImg"></span><?php echo _("Attachments Only") ?></a>
 </div>
 
 <div class="context" id="ctx_otheractions" style="display:none">
- <a id="previewtoggle"><span class="contextImg previewImg"></span><?php echo ($prefs->getValue('dimp_show_preview') ? _("Hide Preview") : _("Show Preview")); ?></a>
+ <a id="previewtoggle"><span class="contextImg"></span><?php echo ($prefs->getValue('dimp_show_preview') ? _("Hide Preview") : _("Show Preview")); ?></a>
  <div class="sep"></div>
- <a id="oa_setflag"><span class="contextImg mailflaggedImg"></span><?php echo _("Set Flag") ?></a>
- <a id="oa_clearflag"><span class="contextImg clearflagImg"></span><?php echo _("Clear Flag") ?></a>
+ <a id="oa_setflag"><span class="contextImg"></span><?php echo _("Mark as") ?></a>
  <div class="sep" id="oa_sep1"></div>
 <?php if ($has_blacklist || $has_whitelist): ?>
 <?php if ($has_blacklist): ?>
- <a id="oa_blacklist"><span class="contextImg blacklistImg"></span><?php echo _("Blacklist") ?></a>
+ <a id="oa_blacklist"><span class="contextImg"></span><?php echo _("Blacklist") ?></a>
 <?php endif; ?>
 <?php if ($has_whitelist): ?>
- <a id="oa_whitelist"><span class="contextImg whitelistImg"></span><?php echo _("Whitelist") ?></a>
+ <a id="oa_whitelist"><span class="contextImg"></span><?php echo _("Whitelist") ?></a>
 <?php endif; ?>
  <div class="sep" id="oa_sep2"></div>
 <?php endif; ?>
- <a id="oa_selectall"><span class="contextImg tickImg"></span><?php echo _("Select All") ?></a>
+ <a id="oa_selectall"><span class="contextImg"></span><?php echo _("Select All") ?></a>
 <?php if (!$usetrash): ?>
  <div class="sep"></div>
- <a id="oa_purge_deleted"><span class="contextImg deleteImg"></span><?php echo _("Purge Deleted") ?></a>
- <a id="oa_undeleted"><span class="contextImg deleteImg"></span><?php echo _("Undelete") ?></a>
+ <a id="oa_purge_deleted"><span class="contextImg"></span><?php echo _("Purge Deleted") ?></a>
+ <a id="oa_undeleted"><span class="contextImg"></span><?php echo _("Undelete") ?></a>
 <?php endif; ?>
 </div>
 
 <div class="context" id="ctx_flag" style="display:none">
- <a id="oa_unseen"><span class="contextImg mailunseenImg"></span><?php echo _("Mark as New") ?></a>
- <a id="oa_flagged"><span class="contextImg mailflaggedImg"></span><?php echo _("Flag Message") ?></a>
-</div>
-
-<div class="context" id="ctx_clearflag" style="display:none">
- <a id="oa_seen"><span class="contextImg mailseenImg"></span><?php echo _("Mark as Read") ?></a>
- <a id="oa_clear"><span class="contextImg clearflagImg"></span><?php echo _("Clear Flag") ?></a>
+ <a id="flag_seen"><span class="contextImg"></span><?php echo _("Seen") ?></a>
+ <a id="flag_unseen"><span class="contextImg"></span><?php echo _("Unseen") ?></a>
+ <a id="flag_flagged"><span class="contextImg"></span><?php echo _("Flagged For Followup") ?></a>
+ <a id="flag_clear"><span class="contextImg"></span><?php echo _("Not Flagged") ?></a>
+ <a id="flag_answered"><span class="contextImg"></span><?php echo _("Answered") ?></a>
+ <a id="flag_unanswered"><span class="contextImg"></span><?php echo _("Not Answered") ?></a>
 </div>
 
 <div class="context" id="ctx_contacts" style="display:none">
