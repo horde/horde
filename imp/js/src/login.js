@@ -108,7 +108,7 @@ var ImpLogin = {
             break;
 
         case 'loginButton':
-            this._submit();
+            this.submit();
             break;
         }
     }
