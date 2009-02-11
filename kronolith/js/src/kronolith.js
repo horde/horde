@@ -15,6 +15,8 @@ var frames = { horde_main: true },
 
 /* Kronolith object. */
 KronolithCore = {
+    // Vars used and defaulting to null/false:
+    //  eventForm
 
     view: '',
     remove_gc: [],
@@ -584,7 +586,7 @@ KronolithCore = {
 
         switch (kc) {
         case Event.KEY_ESC:
-            $('kronolithEventForm').fade({ duration: 0.5 });
+            this._closeRedBox();
             break;
         }
     },
@@ -622,7 +624,7 @@ KronolithCore = {
                 return;
 
             case 'id_fullday':
-                $('kronolithEventForm').select('.edit_at').each(Element.toggle);
+                this.eventForm.select('.edit_at').each(Element.toggle);
                 e.stop();
                 return;
 
@@ -633,7 +635,7 @@ KronolithCore = {
 
             case 'kronolithEventActions':
                 if (orig.match('input.button')) {
-	            $('kronolithEventForm').fade();
+	            this._closeRedBox();
                 }
                 e.stop();
                 return;
@@ -705,7 +707,7 @@ KronolithCore = {
                     tmp = tmp.up('div.kronolithEvent');
                 }
                 if (tmp) {
-                     $('kronolithEventForm').appear();
+                     this.editEvent();
                 }
                 e.stop();
                 return;
@@ -738,9 +740,21 @@ KronolithCore = {
         */
     },
 
+    editEvent: function()
+    {
+        // todo: fill form.
+        $('kronolithEventForm').select('div.kronolithTags span').each(function(s) {
+	    $('id_tags').value = $F('id_tags') + s.getText() + ', ';
+        });
+
+        RedBox.showHtml($('kronolithEventForm').show());
+        this.eventForm = RedBox.getWindowContents();
+    },
+
     _closeRedBox: function()
     {
         RedBox.close();
+        this.eventForm = null;
     },
 
     /* Onload function. */
@@ -765,10 +779,6 @@ KronolithCore = {
         this.DMenu.disable('button_forward_img', true, true);
         this.addPopdown('button_other', 'otheractions');
         */
-
-        $('kronolithEventForm').select('div.kronolithTags span').each(function(s) {
-	    $('id_tags').value = $F('id_tags') + s.getText() + ', ';
-        });
 
         $('kronolithMenu').select('div.kronolithCalendars div').each(function(s) {
             s.observe('mouseover', s.addClassName.curry('kronolithCalOver'));
@@ -827,11 +837,6 @@ KronolithCore = {
         if (Kronolith.conf.is_ie6) {
             iframe.setStyle({ width: $('kronolithmain').getStyle('width'), height: (document.viewport.getHeight() - 20) + 'px' });
         }
-    },
-
-    editEvent: function()
-    {
-        $('kronolithEventForm').appear({ duration: 0.5 });
     },
 
     toggleCalendar: function(elm)

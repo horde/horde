@@ -683,11 +683,6 @@ span#kronolithQuickEvent {
 
 /* Event form dialog */
 #kronolithEventForm {
-    position: absolute;
-    z-index: 1000;
-    left: 50%;
-    margin-left: -210px;
-    top: 50px;
     width: 400px;
     padding: 10px 20px;
     background: #efefef;
