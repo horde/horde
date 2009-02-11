@@ -87,4 +87,16 @@ class Horde_Kolab_Server_ServerTest extends PHPUnit_Framework_TestCase
  */
 class Horde_Kolab_Server_none extends Horde_Kolab_Server
 {
+    /**
+     * Generates a UID for the given information.
+     *
+     * @param string $type The type of the object to create.
+     * @param string $id   The id of the object.
+     * @param array  $info Any additional information about the object to create.
+     *
+     * @return string|PEAR_Error The UID.
+     */
+    protected function _generateUid($type, $id, $info) {
+        return $id;
+    }
 }

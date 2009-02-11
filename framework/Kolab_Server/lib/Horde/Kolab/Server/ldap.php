@@ -70,15 +70,15 @@ class Horde_Kolab_Server_ldap extends Horde_Kolab_Server
         }
 
         if (!$server) {
-            if (isset($this->_params['server'])) {
-                $server = $this->_params['server'];
+            if (isset($this->params['server'])) {
+                $server = $this->params['server'];
             } else {
                 return PEAR::raiseError(_("Horde_Kolab_Server_ldap needs a server parameter!"));
             }
         }
         if (!$base_dn) {
-            if (isset($this->_params['base_dn'])) {
-                $this->_base_dn = $this->_params['base_dn'];
+            if (isset($this->params['base_dn'])) {
+                $this->_base_dn = $this->params['base_dn'];
             } else {
                 return PEAR::raiseError(_("Horde_Kolab_Server_ldap needs a base_dn parameter!"));
             }
@@ -120,15 +120,15 @@ class Horde_Kolab_Server_ldap extends Horde_Kolab_Server
         }
 
         if (!$dn) {
-            if (isset($this->_params['uid'])) {
-                $dn = $this->_params['uid'];
+            if (isset($this->params['uid'])) {
+                $dn = $this->params['uid'];
             } else {
                 $dn = '';
             }
         }
         if (!$pw) {
-            if (isset($this->_params['pass'])) {
-                $pw = $this->_params['pass'];
+            if (isset($this->params['pass'])) {
+                $pw = $this->params['pass'];
             }
         }
 

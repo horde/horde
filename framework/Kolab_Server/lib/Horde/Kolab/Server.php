@@ -47,7 +47,7 @@ abstract class Horde_Kolab_Server
      *
      * @var array
      */
-    var $_params = array();
+    protected $params = array();
 
     /**
      * The UID of the current user.
@@ -63,7 +63,7 @@ abstract class Horde_Kolab_Server
      */
     public function __construct($params = array())
     {
-        $this->_params = $params;
+        $this->params = $params;
         if (isset($params['uid'])) {
             $this->uid = $params['uid'];
         }
@@ -82,7 +82,7 @@ abstract class Horde_Kolab_Server
      * @return Horde_Kolab_Server|PEAR_Error The newly created concrete
      *                                       Horde_Kolab_Server instance.
      */
-    function &factory($driver, $params = array())
+    public function &factory($driver, $params = array())
     {
         $class = 'Horde_Kolab_Server_' . $driver;
         if (class_exists($class)) {
@@ -111,7 +111,7 @@ abstract class Horde_Kolab_Server
      * @return Horde_Kolab_Server|PEAR_Error The concrete Horde_Kolab_Server
      *                                       reference.
      */
-    function &singleton($params = null)
+    public function &singleton($params = null)
     {
         global $conf;
 
@@ -181,7 +181,7 @@ abstract class Horde_Kolab_Server
      *
      * @return string The base UID on this server (base DN on ldap).
      */
-    function getBaseUid()
+    public function getBaseUid()
     {
         return '';
     }
@@ -194,7 +194,7 @@ abstract class Horde_Kolab_Server
      *
      * @return Kolab_Object|PEAR_Error The corresponding Kolab object.
      */
-    function &fetch($uid = null, $type = null)
+    public function &fetch($uid = null, $type = null)
     {
         if (!isset($uid)) {
             $uid = $this->uid;
@@ -217,7 +217,7 @@ abstract class Horde_Kolab_Server
      *
      * @return Kolab_Object|PEAR_Error The newly created Kolab object.
      */
-    function &add($info)
+    public function &add($info)
     {
         if (!isset($info['type'])) {
             return PEAR::raiseError('The type of a new object must be specified!');
@@ -254,7 +254,7 @@ abstract class Horde_Kolab_Server
      *
      * @return Kolab_Object|PEAR_Error The updated Kolab object.
      */
-    function &store($type, $info, $uid = null)
+    public function &store($type, $info, $uid = null)
     {
         if (empty($uid)) {
             $uid = $this->generateUid($type, $info);
@@ -275,7 +275,7 @@ abstract class Horde_Kolab_Server
      *
      * @return array|PEAR_Error An array of group ids.
      */
-    function getGroups($uid)
+    public function getGroups($uid)
     {
         return array();
     }
@@ -288,7 +288,7 @@ abstract class Horde_Kolab_Server
      *
      * @return array|PEAR_Error An array of attributes.
      */
-    function read($uid, $attrs = null)
+    public function read($uid, $attrs = null)
     {
         return $this->_read($uid, $attrs);
     }
@@ -314,7 +314,7 @@ abstract class Horde_Kolab_Server
      *
      * @return array|PEAR_Error An array of attributes.
      */
-    function save($uid, $data)
+    public function save($uid, $data)
     {
         return PEAR::raiseError(_("Not implemented!"));
     }
@@ -340,7 +340,7 @@ abstract class Horde_Kolab_Server
      * @return mixed|PEAR_Error The mail address or false if there was
      *                          no result.
      */
-    function mailForIdOrMail($id)
+    public function mailForIdOrMail($id)
     {
         /* In the default class we just return the id */
         return $id;
@@ -353,7 +353,7 @@ abstract class Horde_Kolab_Server
      *
      * @return array|PEAR_Error An array of allowed mail addresses.
      */
-    function addrsForIdOrMail($user)
+    public function addrsForIdOrMail($user)
     {
         /* In the default class we just return the user name */
         return $user;
@@ -366,7 +366,7 @@ abstract class Horde_Kolab_Server
      *
      * @return mixed|PEAR_Error The UID or false if there was no result.
      */
-    function uidForMailAddress($mail)
+    public function uidForMailAddress($mail)
     {
         /* In the default class we just return the mail address */
         return $mail;
@@ -382,7 +382,7 @@ abstract class Horde_Kolab_Server
      *
      * @return mixed|PEAR_Error The UID or false if there was no result.
      */
-    function uidForAttr($attr, $value,
+    public function uidForAttr($attr, $value,
                        $restrict = KOLAB_SERVER_RESULT_SINGLE)
     {
         /* In the default class we just return false */
@@ -399,7 +399,7 @@ abstract class Horde_Kolab_Server
      *
      * @return mixed|PEAR_Error The GID or false if there was no result.
      */
-    function gidForAttr($attr, $value,
+    public function gidForAttr($attr, $value,
                         $restrict = KOLAB_SERVER_RESULT_SINGLE)
     {
         /* In the default class we just return false */
@@ -415,7 +415,7 @@ abstract class Horde_Kolab_Server
      * @return boolean|PEAR_Error True in case the user is in the
      *                            group, false otherwise.
      */
-    function memberOfGroupAddress($uid, $mail)
+    public function memberOfGroupAddress($uid, $mail)
     {
         /* No groups in the default class */
         return false;
@@ -429,7 +429,7 @@ abstract class Horde_Kolab_Server
      *
      * @return mixed|PEAR_Error The UID or false if there was no result.
      */
-    function uidForId($id,
+    public function uidForId($id,
                       $restrict = KOLAB_SERVER_RESULT_SINGLE)
     {
         return $this->uidForAttr('uid', $id);
@@ -443,7 +443,7 @@ abstract class Horde_Kolab_Server
      *
      * @return mixed|PEAR_Error The UID or false if there was no result.
      */
-    function uidForMail($mail,
+    public function uidForMail($mail,
                         $restrict = KOLAB_SERVER_RESULT_SINGLE)
     {
         return $this->uidForAttr('mail', $mail);
@@ -457,7 +457,7 @@ abstract class Horde_Kolab_Server
      *
      * @return mixed|PEAR_Error The GID or false if there was no result.
      */
-    function gidForMail($mail,
+    public function gidForMail($mail,
                         $restrict = KOLAB_SERVER_RESULT_SINGLE)
     {
         return $this->gidForAttr('mail', $mail);
@@ -470,7 +470,7 @@ abstract class Horde_Kolab_Server
      *
      * @return mixed|PEAR_Error The UID or false if there was no result.
      */
-    function uidForIdOrMail($id)
+    public function uidForIdOrMail($id)
     {
         $uid = $this->uidForAttr('uid', $id);
         if (!$uid) {
@@ -487,7 +487,7 @@ abstract class Horde_Kolab_Server
      *
      * @return mixed|PEAR_Error The UID or false if there was no result.
      */
-    function uidForAlias($mail,
+    public function uidForAlias($mail,
                       $restrict = KOLAB_SERVER_RESULT_SINGLE)
     {
         return $this->uidForAttr('alias', $mail);
@@ -502,7 +502,7 @@ abstract class Horde_Kolab_Server
      *
      * @return mixed|PEAR_Error The UID or false if there was no result.
      */
-    function uidForMailOrAlias($mail)
+    public function uidForMailOrAlias($mail)
     {
         $uid = $this->uidForAttr('alias', $mail);
         if (!$uid) {
@@ -519,7 +519,7 @@ abstract class Horde_Kolab_Server
      *
      * @return mixed|PEAR_Error The UID or false if there was no result.
      */
-    function uidForMailOrIdOrAlias($id)
+    public function uidForMailOrIdOrAlias($id)
     {
         $uid = $this->uidForAttr('uid', $id);
         if (!$uid) {
@@ -539,7 +539,7 @@ abstract class Horde_Kolab_Server
      *
      * @return array|PEAR_Error An array of Kolab objects.
      */
-    function listHash($type, $params = null)
+    public function listHash($type, $params = null)
     {
         $list = $this->_listObjects($type, $params);
         if (is_a($list, 'PEAR_Error')) {
@@ -568,7 +568,7 @@ abstract class Horde_Kolab_Server
      *
      * @return array|PEAR_Error An array of Kolab objects.
      */
-    function listObjects($type, $params = null)
+    public function listObjects($type, $params = null)
     {
         return $this->_listObjects($type, $params);
     }
@@ -581,7 +581,7 @@ abstract class Horde_Kolab_Server
      *
      * @return array|PEAR_Error An array of Kolab objects.
      */
-    function _listObjects($type, $params = null)
+    public function _listObjects($type, $params = null)
     {
         return array();
     }
@@ -594,7 +594,7 @@ abstract class Horde_Kolab_Server
      *
      * @return string|PEAR_Error The UID.
      */
-    function generateUid($type, $info)
+    public function generateUid($type, $info)
     {
         if (!class_exists($type)) {
             $result = Horde_Kolab_Server_Object::loadClass($type);
@@ -619,9 +619,6 @@ abstract class Horde_Kolab_Server
      *
      * @return string|PEAR_Error The UID.
      */
-    function _generateUid($type, $id, $info)
-    {
-        return $id;
-    }
+    abstract protected function _generateUid($type, $id, $info);
 
 }

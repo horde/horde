@@ -103,15 +103,15 @@ class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap
     function _bind($dn = false, $pw = '')
     {
         if (!$dn) {
-            if (isset($this->_params['uid'])) {
-                $dn = $this->_params['uid'];
+            if (isset($this->params['uid'])) {
+                $dn = $this->params['uid'];
             } else {
                 $dn = '';
             }
         }
         if (!$pw) {
-            if (isset($this->_params['pass'])) {
-                $pw = $this->_params['pass'];
+            if (isset($this->params['pass'])) {
+                $pw = $this->params['pass'];
             }
         }
 
@@ -135,7 +135,7 @@ class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap
             if (!$this->_bound) {
                 return PEAR::raiseError('Incorrect password!');
             }
-        } else if (!empty($this->_params['no_anonymous_bind'])) {
+        } else if (!empty($this->params['no_anonymous_bind'])) {
             $this->_bound = false;
             return PEAR::raiseError('Anonymous bind is not allowed!');
         } else {
