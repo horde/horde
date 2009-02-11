@@ -88,6 +88,19 @@ class Horde_Kolab_Server_ServerTest extends PHPUnit_Framework_TestCase
 class Horde_Kolab_Server_none extends Horde_Kolab_Server
 {
     /**
+     * Stub for reading object data.
+     *
+     * @param string $uid   The object to retrieve.
+     * @param string $attrs Restrict to these attributes.
+     *
+     * @return array|PEAR_Error An array of attributes.
+     */
+    public function read($uid, $attrs = null)
+    {
+            return PEAR::raiseError('Not implemented!');
+    }
+
+    /**
      * Generates a UID for the given information.
      *
      * @param string $type The type of the object to create.
@@ -96,7 +109,9 @@ class Horde_Kolab_Server_none extends Horde_Kolab_Server
      *
      * @return string|PEAR_Error The UID.
      */
-    protected function _generateUid($type, $id, $info) {
+    protected function _generateUid($type, $id, $info)
+    {
         return $id;
     }
+
 }

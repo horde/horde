@@ -178,6 +178,11 @@ abstract class Horde_Kolab_Server
     /**
      * Fetch a Kolab object.
      *
+     * This method will not necessarily retrieve any data from the server and
+     * might simply generate a new instance for hte desired object. This method
+     * can also be used in order to fetch non-existing objects that will be
+     * saved later.
+     *
      * @param string $uid  The UID of the object to fetch.
      * @param string $type The type of the object to fetch.
      *
@@ -232,80 +237,6 @@ abstract class Horde_Kolab_Server
                                             $result->getMessage()));
         }
         return $object;
-    }
-
-    /**
-     * Update or create a Kolab object.
-     *
-     * @param string $type The type of the object to store.
-     * @param array  $info Any additional information about the object to store.
-     * @param string $uid  The unique id of the object to store.
-     *
-     * @return Kolab_Object|PEAR_Error The updated Kolab object.
-     */
-    public function &store($type, $info, $uid = null)
-    {
-        if (empty($uid)) {
-            $uid = $this->generateUid($type, $info);
-        }
-
-        $object = &Horde_Kolab_Server_Object::factory($type, $uid, $this);
-        $result = $object->save($info);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
-        return $object;
-    }
-
-    /**
-     * Get the groups for this object
-     *
-     * @param string $uid The UID of the object to fetch.
-     *
-     * @return array|PEAR_Error An array of group ids.
-     */
-    public function getGroups($uid)
-    {
-        return array();
-    }
-
-    /**
-     * Read object data.
-     *
-     * @param string $uid   The object to retrieve.
-     * @param string $attrs Restrict to these attributes.
-     *
-     * @return array|PEAR_Error An array of attributes.
-     */
-    public function read($uid, $attrs = null)
-    {
-        return $this->_read($uid, $attrs);
-    }
-
-    /**
-     * Stub for reading object data.
-     *
-     * @param string $uid   The object to retrieve.
-     * @param string $attrs Restrict to these attributes.
-     *
-     * @return array|PEAR_Error An array of attributes.
-     */
-    function _read($uid, $attrs = null)
-    {
-        return PEAR::raiseError(_("Not implemented!"));
-    }
-
-    /**
-     * Stub for saving object data.
-     *
-     * @param string $uid  The object to save.
-     * @param string $data The data of the object.
-     *
-     * @return array|PEAR_Error An array of attributes.
-     */
-    public function save($uid, $data)
-    {
-        return PEAR::raiseError(_("Not implemented!"));
     }
 
     /**
@@ -598,6 +529,16 @@ abstract class Horde_Kolab_Server
         }
         return $this->_generateUid($type, $id, $info);
     }
+
+    /**
+     * Stub for reading object data.
+     *
+     * @param string $uid   The object to retrieve.
+     * @param string $attrs Restrict to these attributes.
+     *
+     * @return array|PEAR_Error An array of attributes.
+     */
+    abstract public function read($uid, $attrs = null);
 
     /**
      * Generates a UID for the given information.

@@ -199,7 +199,7 @@ class Horde_Kolab_Server_ldap extends Horde_Kolab_Server
      *
      * @return array|PEAR_Error An array of attributes.
      */
-    function _read($dn, $attrs = null)
+    function read($dn, $attrs = null)
     {
         if (!$this->_bound) {
             $result = $this->_bind();
@@ -616,7 +616,7 @@ class Horde_Kolab_Server_ldap extends Horde_Kolab_Server
      */
     function _getObjectClasses($dn)
     {
-        $object = $this->_read($dn, array('objectClass'));
+        $object = $this->read($dn, array('objectClass'));
         if (is_a($object, 'PEAR_Error')) {
             return $object;
         }

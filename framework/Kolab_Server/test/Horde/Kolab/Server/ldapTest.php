@@ -45,9 +45,9 @@ class Horde_Kolab_Server_ldapTest extends PHPUnit_Framework_TestCase
      */
     public function testGetObjectClasses()
     {
-        $ldap = $this->getMock('Horde_Kolab_Server_ldap', array('_read'));
+        $ldap = $this->getMock('Horde_Kolab_Server_ldap', array('read'));
         $ldap->expects($this->any())
-            ->method('_read')
+            ->method('read')
             ->will($this->returnValue(array (
                                           'objectClass' =>
                                           array (
@@ -61,13 +61,16 @@ class Horde_Kolab_Server_ldapTest extends PHPUnit_Framework_TestCase
                                           'count' => 1)));
 
         $classes = $ldap->_getObjectClasses('cn=Gunnar Wrobel,dc=example,dc=org');
+        if (is_a($classes, 'PEAR_Error')) {
+            $this->assertEquals('', $classes->getMessage());
+        }
         $this->assertContains('top', $classes);
         $this->assertContains('kolabinetorgperson', $classes);
         $this->assertContains('hordeperson', $classes);
 
-        $ldap = $this->getMock('Horde_Kolab_Server_ldap', array('_read'));
+        $ldap = $this->getMock('Horde_Kolab_Server_ldap', array('read'));
         $ldap->expects($this->any())
-             ->method('_read')
+             ->method('read')
              ->will($this->returnValue(PEAR::raiseError('LDAP Error: No such object: cn=DOES NOT EXIST,dc=example,dc=org: No such object')));
 
         $classes = $ldap->_getObjectClasses('cn=DOES NOT EXIST,dc=example,dc=org');

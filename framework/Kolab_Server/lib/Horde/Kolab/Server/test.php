@@ -122,7 +122,7 @@ class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap
 
             $this->_bound = true;
 
-            $data = $this->_read($dn, $attrs = array('userPassword'));
+            $data = $this->read($dn, $attrs = array('userPassword'));
             if (is_a($data, 'PEAR_Error')) {
                 $this->_bound = false;
                 return $data;
@@ -375,7 +375,7 @@ class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap
      *
      * @return array|PEAR_Error An array of attributes.
      */
-    function _read($dn, $attrs = null)
+    function read($dn, $attrs = null)
     {
         if (!$this->_bound) {
             $result = $this->_bind();
