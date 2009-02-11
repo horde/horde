@@ -16,12 +16,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <active>yes</active>
  </lead>
  <lead>
-  <name>Thomas Jarosch</name>
-  <user>jarosch</user>
-  <email>thomas.jarosch@intra2net.com</email>
-  <active>yes</active>
- </lead>
- <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
   <email>chuck@horde.org</email>
@@ -35,8 +29,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </lead>
  <date>2008-12-16</date>
  <version>
-  <release>0.4.0</release>
-  <api>0.2.0</api>
+  <release>0.5.0</release>
+  <api>0.5.0</api>
  </version>
  <stability>
   <release>alpha</release>
@@ -44,12 +38,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-  * Fixed objectClass evaluation to respect case-insensitivity (Bug: #7694)
-  * kolab/issue2207 (Make it possible to enable and disable users to be able to
-    use the webclient)
-  * Added fullname attribute as support for kolab/issue2546 (Horde
-    should use name and email from ldap as defaults)
-  * Fixed initialization of parameters retrieved from LDAP.
+  * Converted the package to Horde 4 / PHP 5.
  </notes>
  <contents>
   <dir name="/">
@@ -179,6 +168,26 @@ http://pear.php.net/dtd/package-2.0.xsd">
   </filelist>
  </phprelease>
  <changelog>
+  <release>
+   <date>2008-12-16</date>
+   <version>
+    <release>0.4.0</release>
+    <api>0.2.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+    * Fixed objectClass evaluation to respect case-insensitivity (Bug: #7694)
+    * kolab/issue2207 (Make it possible to enable and disable users to be able to
+      use the webclient)
+    * Added fullname attribute as support for kolab/issue2546 (Horde
+      should use name and email from ldap as defaults)
+    * Fixed initialization of parameters retrieved from LDAP.
+   </notes>
+  </release>
   <release>
    <date>2008-12-16</date>
    <version>
