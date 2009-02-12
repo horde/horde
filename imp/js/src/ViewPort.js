@@ -36,7 +36,6 @@ var ViewPort = Class.create({
 
         this.showSplitPane(opts.show_split_pane);
 
-        // Initialize all other variables
         this.isbusy = this.line_height = this.page_size = this.splitbar = this.splitbar_loc = this.uc_run = this.view = this.viewport_init = null;
         this.request_num = 1;
     },
@@ -1323,10 +1322,9 @@ ViewPort_Buffer = Class.create({
     remove: function(rownums)
     {
         var minrow = rownums.min(),
-            newsize,
             rowsize = this.rowlist.size(),
-            rowsubtract = 0;
-        newsize = rowsize - rownums.size();
+            rowsubtract = 0,
+            newsize = rowsize - rownums.size();
 
         return this.rowlist.keys().each(function(n) {
             if (n >= minrow) {
@@ -1384,7 +1382,6 @@ ViewPort_Filter = Class.create({
         this.action = action;
         this.callback = callback;
 
-        // Initialize other variables
         this.filtering = this.last_filter = this.last_folder = null;
     },
 
@@ -1614,12 +1611,14 @@ ViewPort_Selection = Class.create({
 Object.extend(Array.prototype, {
     // Need our own diff() function because prototypejs's without() function
     // does not handle array input.
-    diff: function(values) {
+    diff: function(values)
+    {
         return this.select(function(value) {
             return !values.include(value);
         });
     },
-    numericSort: function() {
+    numericSort: function()
+    {
         return this.collect(Number).sort(function(a,b) {
             return (a > b) ? 1 : ((a < b) ? -1 : 0);
         });
