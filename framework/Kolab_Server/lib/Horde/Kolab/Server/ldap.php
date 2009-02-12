@@ -756,7 +756,7 @@ class Horde_Kolab_Server_ldap extends Horde_Kolab_Server
      *
      * @return mixed|PEAR_Error The UID or false if there was no result.
      */
-    function uidForMailAddress($mail)
+    function uidForIdOrMailOrAlias($mail)
     {
         $filter = '(&(objectClass=kolabInetOrgPerson)(|(uid='.
             Horde_LDAP::quote($mail) . ')(mail=' .

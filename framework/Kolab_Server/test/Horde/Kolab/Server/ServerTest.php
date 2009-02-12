@@ -65,8 +65,8 @@ class Horde_Kolab_Server_ServerTest extends PHPUnit_Framework_TestCase
         $ks = &Horde_Kolab_Server::factory('none');
         $dn = $ks->uidForIdOrMail('test');
         $this->assertEquals(false, $dn);
-        $dn = $ks->uidForMailAddress('test');
-        $this->assertEquals('test', $dn);
+        $dn = $ks->uidForIdOrMailOrAlias('test');
+        $this->assertFalse($dn);
     }
 
 }
@@ -139,4 +139,47 @@ class Horde_Kolab_Server_none extends Horde_Kolab_Server
         return $id;
     }
 
+    /**
+     * Return the root of the UID values on this server.
+     *
+     * @return string The base UID on this server (base DN on ldap).
+     */
+    public function getBaseUid()
+    {
+        return '';
+    }
+
+    /**
+     * Identify the UID for the first user found using a specified
+     * attribute value.
+     *
+     * @param string $attr     The name of the attribute used for searching.
+     * @param string $value    The desired value of the attribute.
+     * @param int    $restrict A KOLAB_SERVER_RESULT_* result restriction.
+     *
+     * @return mixed|PEAR_Error The UID or false if there was no result.
+     */
+    public function uidForAttr($attr, $value,
+                               $restrict = KOLAB_SERVER_RESULT_SINGLE)
+    {
+        /* In the default class we just return false */
+        return false;
+    }
+
+    /**
+     * Identify the GID for the first group found using a specified
+     * attribute value.
+     *
+     * @param string $attr     The name of the attribute used for searching.
+     * @param string $value    The desired value of the attribute.
+     * @param int    $restrict A KOLAB_SERVER_RESULT_* result restriction.
+     *
+     * @return mixed|PEAR_Error The GID or false if there was no result.
+     */
+    public function gidForAttr($attr, $value,
+                               $restrict = KOLAB_SERVER_RESULT_SINGLE)
+    {
+        /* In the default class we just return false */
+        return false;
+    }
 }

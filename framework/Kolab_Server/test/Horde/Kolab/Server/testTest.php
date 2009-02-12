@@ -215,19 +215,19 @@ class Horde_Kolab_Server_testTest extends Horde_Kolab_Test_Server
      */
     public function testUidForMailOrIdOrAlias()
     {
-        $uid = $this->ldap->uidForMailOrIdOrAlias('g.wrobel@example.org');
+        $uid = $this->ldap->uidForIdOrMailOrAlias('g.wrobel@example.org');
         $this->assertNoError($uid);
         $this->assertEquals('cn=Gunnar Wrobel,dc=example,dc=org', $uid);
 
-        $uid = $this->ldap->uidForMailOrIdOrAlias('wrobel@example.org');
+        $uid = $this->ldap->uidForIdOrMailOrAlias('wrobel@example.org');
         $this->assertNoError($uid);
         $this->assertEquals('cn=Gunnar Wrobel,dc=example,dc=org', $uid);
 
-        $uid = $this->ldap->uidForMailOrIdOrAlias('wrobel');
+        $uid = $this->ldap->uidForIdOrMailOrAlias('wrobel');
         $this->assertNoError($uid);
         $this->assertEquals('cn=Gunnar Wrobel,dc=example,dc=org', $uid);
 
-        $uid = $this->ldap->uidForMailOrIdOrAlias('DOES NOT EXIST');
+        $uid = $this->ldap->uidForIdOrMailOrAlias('DOES NOT EXIST');
         $this->assertNoError($uid);
         $this->assertSame(false, $uid);
     }
@@ -266,19 +266,19 @@ class Horde_Kolab_Server_testTest extends Horde_Kolab_Test_Server
      */
     public function testUidForMailAddress()
     {
-        $uid = $this->ldap->uidForMailAddress('wrobel@example.org');
+        $uid = $this->ldap->uidForIdOrMailOrAlias('wrobel@example.org');
         $this->assertNoError($uid);
         $this->assertEquals('cn=Gunnar Wrobel,dc=example,dc=org', $uid);
 
-        $uid = $this->ldap->uidForMailAddress('test@example.org');
+        $uid = $this->ldap->uidForIdOrMailOrAlias('test@example.org');
         $this->assertNoError($uid);
         $this->assertEquals('cn=Test Test,dc=example,dc=org', $uid);
 
-        $uid = $this->ldap->uidForMailAddress('gunnar@example.org');
+        $uid = $this->ldap->uidForIdOrMailOrAlias('gunnar@example.org');
         $this->assertNoError($uid);
         $this->assertEquals('cn=Gunnar Wrobel,dc=example,dc=org', $uid);
 
-        $uid = $this->ldap->uidForMailAddress('wrobel');
+        $uid = $this->ldap->uidForIdOrMailOrAlias('wrobel');
         $this->assertNoError($uid);
         $this->assertEquals('cn=Gunnar Wrobel,dc=example,dc=org', $uid);
     }
@@ -302,20 +302,20 @@ class Horde_Kolab_Server_testTest extends Horde_Kolab_Test_Server
      */
     public function testMemberOfGroupAddress()
     {
-        $uid = $this->ldap->uidForMailAddress('g.wrobel@example.org');
+        $uid = $this->ldap->uidForIdOrMailOrAlias('g.wrobel@example.org');
         $this->assertNoError($uid);
         $member = $this->ldap->memberOfGroupAddress($uid, 'group@example.org');
         $this->assertNoError($member);
         $this->assertTrue($member);
 
         $member = $this->ldap->memberOfGroupAddress(
-            $this->ldap->uidForMailAddress('test@example.org'),
+            $this->ldap->uidForIdOrMailOrAlias('test@example.org'),
             'group@example.org');
         $this->assertNoError($member);
         $this->assertTrue($member);
 
         $member = $this->ldap->memberOfGroupAddress(
-            $this->ldap->uidForMailAddress('somebody@example.org'),
+            $this->ldap->uidForIdOrMailOrAlias('somebody@example.org'),
             'group@example.org');
         $this->assertNoError($member);
         $this->assertFalse($member);
@@ -354,11 +354,11 @@ class Horde_Kolab_Server_testTest extends Horde_Kolab_Test_Server
         $this->assertNoError($groups);
         $this->assertTrue(!empty($groups));
 
-        $groups = $this->ldap->getGroups($this->ldap->uidForMailAddress('g.wrobel@example.org'));
+        $groups = $this->ldap->getGroups($this->ldap->uidForIdOrMailOrAlias('g.wrobel@example.org'));
         $this->assertNoError($groups);
         $this->assertContains('cn=group@example.org,dc=example,dc=org', $groups);
 
-        $groups = $this->ldap->getGroups($this->ldap->uidForMailAddress('test@example.org'));
+        $groups = $this->ldap->getGroups($this->ldap->uidForIdOrMailOrAlias('test@example.org'));
         $this->assertNoError($groups);
         $this->assertContains('cn=group@example.org,dc=example,dc=org', $groups);
 

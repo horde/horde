@@ -169,7 +169,7 @@ abstract class Horde_Kolab_Server
      * Fetch a Kolab object.
      *
      * This method will not necessarily retrieve any data from the server and
-     * might simply generate a new instance for hte desired object. This method
+     * might simply generate a new instance for the desired object. This method
      * can also be used in order to fetch non-existing objects that will be
      * saved later.
      *
@@ -192,6 +192,30 @@ abstract class Horde_Kolab_Server
 
         $object = &Horde_Kolab_Server_Object::factory($type, $uid, $this);
         return $object;
+    }
+
+    /**
+     * Generates a unique ID for the given information.
+     *
+     * @param string $type The type of the object to create.
+     * @param array  $info Any additional information about the object to create.
+     *
+     * @return string|PEAR_Error The UID.
+     */
+    public function generateUid($type, $info)
+    {
+        if (!class_exists($type)) {
+            $result = Horde_Kolab_Server_Object::loadClass($type);
+            if (is_a($result, 'PEAR_Error')) {
+                return $result;
+            }
+        }
+
+        $id = call_user_func(array($type, 'generateId'), $info);
+        if (is_a($id, 'PEAR_Error')) {
+            return $id;
+        }
+        return $this->generateServerUid($type, $id, $info);
     }
 
     /**
@@ -230,106 +254,6 @@ abstract class Horde_Kolab_Server
     }
 
     /**
-     * Return the root of the UID values on this server.
-     *
-     * @return string The base UID on this server (base DN on ldap).
-     */
-    public function getBaseUid()
-    {
-        return '';
-    }
-
-    /**
-     * Identify the primary mail attribute for the first object found
-     * with the given ID or mail.
-     *
-     * @param string $id Search for objects with this ID/mail.
-     *
-     * @return mixed|PEAR_Error The mail address or false if there was
-     *                          no result.
-     */
-    public function mailForIdOrMail($id)
-    {
-        /* In the default class we just return the id */
-        return $id;
-    }
-
-    /**
-     * Returns a list of allowed email addresses for the given user.
-     *
-     * @param string $user The user name.
-     *
-     * @return array|PEAR_Error An array of allowed mail addresses.
-     */
-    public function addrsForIdOrMail($user)
-    {
-        /* In the default class we just return the user name */
-        return $user;
-    }
-
-    /**
-     * Return the UID for a given primary mail, uid, or alias.
-     *
-     * @param string $mail A valid mail address for the user.
-     *
-     * @return mixed|PEAR_Error The UID or false if there was no result.
-     */
-    public function uidForMailAddress($mail)
-    {
-        /* In the default class we just return the mail address */
-        return $mail;
-    }
-
-    /**
-     * Identify the UID for the first user found using a specified
-     * attribute value.
-     *
-     * @param string $attr     The name of the attribute used for searching.
-     * @param string $value    The desired value of the attribute.
-     * @param int    $restrict A KOLAB_SERVER_RESULT_* result restriction.
-     *
-     * @return mixed|PEAR_Error The UID or false if there was no result.
-     */
-    public function uidForAttr($attr, $value,
-                               $restrict = KOLAB_SERVER_RESULT_SINGLE)
-    {
-        /* In the default class we just return false */
-        return false;
-    }
-
-    /**
-     * Identify the GID for the first group found using a specified
-     * attribute value.
-     *
-     * @param string $attr     The name of the attribute used for searching.
-     * @param string $value    The desired value of the attribute.
-     * @param int    $restrict A KOLAB_SERVER_RESULT_* result restriction.
-     *
-     * @return mixed|PEAR_Error The GID or false if there was no result.
-     */
-    public function gidForAttr($attr, $value,
-                               $restrict = KOLAB_SERVER_RESULT_SINGLE)
-    {
-        /* In the default class we just return false */
-        return false;
-    }
-
-    /**
-     * Is the given UID member of the group with the given mail address?
-     *
-     * @param string $uid  UID of the user.
-     * @param string $mail Search the group with this mail address.
-     *
-     * @return boolean|PEAR_Error True in case the user is in the
-     *                            group, false otherwise.
-     */
-    public function memberOfGroupAddress($uid, $mail)
-    {
-        /* No groups in the default class */
-        return false;
-    }
-
-    /**
      * Identify the UID for the first object found with the given ID.
      *
      * @param string $id       Search for objects with this ID.
@@ -358,17 +282,17 @@ abstract class Horde_Kolab_Server
     }
 
     /**
-     * Identify the GID for the first group found with the given mail.
+     * Identify the UID for the first object found with the given alias.
      *
-     * @param string $mail     Search for groups with this mail address.
+     * @param string $mail     Search for objects with this mail alias.
      * @param int    $restrict A KOLAB_SERVER_RESULT_* result restriction.
      *
-     * @return mixed|PEAR_Error The GID or false if there was no result.
+     * @return mixed|PEAR_Error The UID or false if there was no result.
      */
-    public function gidForMail($mail,
-                               $restrict = KOLAB_SERVER_RESULT_SINGLE)
+    public function uidForAlias($mail,
+                                $restrict = KOLAB_SERVER_RESULT_SINGLE)
     {
-        return $this->gidForAttr('mail', $mail);
+        return $this->uidForAttr('alias', $mail);
     }
 
     /**
@@ -385,20 +309,6 @@ abstract class Horde_Kolab_Server
             $uid = $this->uidForAttr('mail', $id);
         }
         return $uid;
-    }
-
-    /**
-     * Identify the UID for the first object found with the given alias.
-     *
-     * @param string $mail     Search for objects with this mail alias.
-     * @param int    $restrict A KOLAB_SERVER_RESULT_* result restriction.
-     *
-     * @return mixed|PEAR_Error The UID or false if there was no result.
-     */
-    public function uidForAlias($mail,
-                                $restrict = KOLAB_SERVER_RESULT_SINGLE)
-    {
-        return $this->uidForAttr('alias', $mail);
     }
 
     /**
@@ -427,7 +337,7 @@ abstract class Horde_Kolab_Server
      *
      * @return mixed|PEAR_Error The UID or false if there was no result.
      */
-    public function uidForMailOrIdOrAlias($id)
+    public function uidForIdOrMailOrAlias($id)
     {
         $uid = $this->uidForAttr('uid', $id);
         if (!$uid) {
@@ -437,6 +347,66 @@ abstract class Horde_Kolab_Server
             }
         }
         return $uid;
+    }
+
+    /**
+     * Identify the primary mail attribute for the first object found
+     * with the given ID or mail.
+     *
+     * @param string $id Search for objects with this ID/mail.
+     *
+     * @return mixed|PEAR_Error The mail address or false if there was
+     *                          no result.
+     */
+    public function mailForIdOrMail($id)
+    {
+        $uid  = $this->uidForIdOrMail($id);
+        $data = $this->read($uid, array('mail'));
+        return $data['mail'];
+    }
+
+    /**
+     * Returns a list of allowed email addresses for the given user.
+     *
+     * @param string $id Search for objects with this ID/mail.
+     *
+     * @return array|PEAR_Error An array of allowed mail addresses.
+     */
+    public function addrsForIdOrMail($id)
+    {
+        $uid  = $this->uidForIdOrMail($id);
+        $data = $this->read($uid, array('mail', 'alias'));
+        return array_merge($data['mail'], $data['alias']);
+    }
+
+    /**
+     * Identify the GID for the first group found with the given mail.
+     *
+     * @param string $mail     Search for groups with this mail address.
+     * @param int    $restrict A KOLAB_SERVER_RESULT_* result restriction.
+     *
+     * @return mixed|PEAR_Error The GID or false if there was no result.
+     */
+    public function gidForMail($mail,
+                               $restrict = KOLAB_SERVER_RESULT_SINGLE)
+    {
+        return $this->gidForAttr('mail', $mail);
+    }
+
+    /**
+     * Is the given UID member of the group with the given mail address?
+     *
+     * @param string $uid  UID of the user.
+     * @param string $mail Search the group with this mail address.
+     *
+     * @return boolean|PEAR_Error True in case the user is in the
+     *                            group, false otherwise.
+     */
+    public function memberOfGroupAddress($uid, $mail)
+    {
+        $gid  = $this->gidForMail($mail);
+        $data = $this->read($gid, array('member'));
+        return in_array($uid, $data['member']);
     }
 
     /**
@@ -466,30 +436,6 @@ abstract class Horde_Kolab_Server
         }
 
         return $hash;
-    }
-
-    /**
-     * Generates a unique ID for the given information.
-     *
-     * @param string $type The type of the object to create.
-     * @param array  $info Any additional information about the object to create.
-     *
-     * @return string|PEAR_Error The UID.
-     */
-    public function generateUid($type, $info)
-    {
-        if (!class_exists($type)) {
-            $result = Horde_Kolab_Server_Object::loadClass($type);
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
-            }
-        }
-
-        $id = call_user_func(array($type, 'generateId'), $info);
-        if (is_a($id, 'PEAR_Error')) {
-            return $id;
-        }
-        return $this->generateServerUid($type, $id, $info);
     }
 
     /**
@@ -531,5 +477,38 @@ abstract class Horde_Kolab_Server
      * @return string|PEAR_Error The UID.
      */
     abstract protected function generateServerUid($type, $id, $info);
+
+    /**
+     * Return the root of the UID values on this server.
+     *
+     * @return string The base UID on this server (base DN on ldap).
+     */
+    abstract public function getBaseUid();
+
+    /**
+     * Identify the UID for the first user found using a specified
+     * attribute value.
+     *
+     * @param string $attr     The name of the attribute used for searching.
+     * @param string $value    The desired value of the attribute.
+     * @param int    $restrict A KOLAB_SERVER_RESULT_* result restriction.
+     *
+     * @return mixed|PEAR_Error The UID or false if there was no result.
+     */
+    abstract public function uidForAttr($attr, $value,
+                                        $restrict = KOLAB_SERVER_RESULT_SINGLE);
+
+    /**
+     * Identify the GID for the first group found using a specified
+     * attribute value.
+     *
+     * @param string $attr     The name of the attribute used for searching.
+     * @param string $value    The desired value of the attribute.
+     * @param int    $restrict A KOLAB_SERVER_RESULT_* result restriction.
+     *
+     * @return mixed|PEAR_Error The GID or false if there was no result.
+     */
+    abstract public function gidForAttr($attr, $value,
+                                        $restrict = KOLAB_SERVER_RESULT_SINGLE);
 
 }
