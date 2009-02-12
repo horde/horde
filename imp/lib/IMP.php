@@ -1439,61 +1439,6 @@ class IMP
     }
 
     /**
-     * Send response data to browser.
-     *
-     * @param mixed $data  The data to serialize and send to the browser.
-     * @param string $ct   The content-type to send the data with.  Either
-     *                     'json', 'js-json', 'html', 'plain', and 'xml'.
-     */
-    static public function sendHTTPResponse($data, $ct)
-    {
-        $charset = NLS::getCharset();
-
-        // Output headers and encoded response.
-        switch ($ct) {
-        case 'json':
-        case 'js-json':
-            /* JSON responses are a structured object which always
-             * includes the response in a member named 'response', and an
-             * additional array of messages in 'msgs' which may be updates
-             * for the server or notification messages.
-             *
-             * Make sure no null bytes sneak into the JSON output stream.
-             * Null bytes cause IE to stop reading from the input stream,
-             * causing malformed JSON data and a failed request.  These
-             * bytes don't seem to break any other browser, but might as
-             * well remove them anyway.
-             *
-             * Finally, add prototypejs security delimiters to returned
-             * JSON. */
-            $s_data = '/*-secure-' .
-                String::convertCharset(str_replace("\00", '', Horde_Serialize::serialize($data, SERIALIZE_JSON, $charset)), 'UTF-8') .
-                '*/';
-
-            if ($ct == 'json') {
-                header('Content-Type: application/json');
-                echo $s_data;
-            } else {
-                header('Content-Type: text/html; charset=' . $charset);
-                echo htmlspecialchars($s_data);
-            }
-            break;
-
-        case 'html':
-        case 'plain':
-        case 'xml':
-            header('Content-Type: text/' . $ct . '; charset=' . $charset);
-            echo $data;
-            break;
-
-        default:
-            echo $data;
-        }
-
-        exit;
-    }
-
-    /**
      * Outputs the necessary script tags, honoring local configuration
      * choices as to script caching.
      */

@@ -146,7 +146,7 @@ if ($authentication !== 'none') {
             switch (Util::nonInputVar('session_timeout')) {
             case 'json':
                 $notification->push(null, 'dimp.timeout');
-                IMP::sendHTTPResponse(DIMP::prepareResponse(), 'json');
+                Horde::sendHTTPResponse(Horde::prepareResponse(), 'json');
 
             case 'none':
                 exit;

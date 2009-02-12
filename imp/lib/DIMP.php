@@ -434,33 +434,6 @@ class DIMP
     }
 
     /**
-     * Returns a stdClass response object with added notification information.
-     *
-     * @param string $data     The 'response' data.
-     * @param boolean $notify  If true, adds notification information to
-     *                         object.
-     * @param boolean $auto    If true, DimpCore will automatically display the
-     *                         notification.  If false, the callback handler
-     *                         is responsible for displaying the notification.
-     */
-    public function prepareResponse($data = null, $notify = true, $auto = true)
-    {
-        $response = new stdClass();
-        $response->response = $data;
-        if ($notify) {
-            $GLOBALS['notification']->notify(array('listeners' => 'status'));
-            $stack = $GLOBALS['imp_notify']->getStack();
-            if (!empty($stack)) {
-                $response->msgs = $GLOBALS['imp_notify']->getStack();
-                if (!(bool)$auto) {
-                    $response->msgs_noauto = true;
-                }
-            }
-        }
-        return $response;
-    }
-
-    /**
      * Return information about the current attachments for a message
      *
      * @param IMP_Compose $imp_compose  An IMP_Compose object.

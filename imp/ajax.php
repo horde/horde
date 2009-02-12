@@ -1,6 +1,6 @@
 <?php
 /**
- * imp.php - performs the AJAX-requested action.
+ * Performs the AJAX-requested action.
  *
  * Copyright 2005-2009 The Horde Project (http://www.horde.org/)
  *
@@ -758,4 +758,4 @@ if ($errors) {
 }
 
 // Send the final result.
-IMP::sendHTTPResponse(DIMP::prepareResponse($result, $notify), 'json');
+Horde::sendHTTPResponse(Horde::prepareResponse($result, $notify ? $GLOBALS['imp_notify'] : null), 'json');

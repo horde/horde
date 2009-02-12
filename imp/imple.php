@@ -20,7 +20,7 @@ $viewmode = $_SESSION['imp']['view'];
 
 if (!($path = Util::getFormData('imple'))) {
     if ($viewmode == 'dimp') {
-        IMP::sendHTTPResponse(new stdClass(), 'json');
+        Horde::sendHTTPResponse(new stdClass(), 'json');
     }
     exit;
 }
@@ -34,7 +34,7 @@ $impleName = reset($path);
 
 if (!($imple = IMP_Imple::factory($impleName))) {
     if ($viewmode == 'dimp') {
-        IMP::sendHTTPResponse(new stdClass(), 'json');
+        Horde::sendHTTPResponse(new stdClass(), 'json');
     }
     exit;
 }
@@ -55,4 +55,4 @@ $ct = empty($_SERVER['Content-Type'])
     ? (is_string($result) ? 'plain' : 'json')
     : $_SERVER['Content-Type'];
 
-IMP::sendHTTPResponse($result, $ct);
+Horde::sendHTTPResponse($result, $ct);
