@@ -52,8 +52,8 @@ ob_start();
 $notify = true;
 $result = false;
 
-switch (strtolower($action)) {
-case 'listevents':
+switch ($action) {
+case 'ListEvents':
     $dates = Kronolith::listEvents(Util::getFormData('start'), Util::getFormData('end'));
     if (is_a($dates, 'PEAR_Error')) {
         $notification->push($dates, 'horde.error');
@@ -69,7 +69,7 @@ case 'listevents':
     }
     break;
 
-case 'chunkcontent':
+case 'ChunkContent':
     $chunk = basename(Util::getPost('chunk'));
     if (!empty($chunk)) {
         $result = new stdClass;
