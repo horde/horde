@@ -115,10 +115,6 @@ abstract class Horde_Imap_Client_Base
             $params['timeout'] = 10;
         }
 
-        if (!isset($params['statuscache'])) {
-            $params['statuscache'] = true;
-        }
-
         if (empty($params['cache'])) {
             $params['cache'] = array('fields' => array());
         } elseif (empty($params['cache']['fields'])) {
@@ -952,7 +948,7 @@ abstract class Horde_Imap_Client_Base
 
         /* Check for cached information. */
         if (!$curr_mbox &&
-            $this->_params['statuscache'] &&
+            !empty($this->_params['statuscache']) &&
             isset($this->_temp['statuscache'][$mailbox])) {
             $ptr = &$this->_temp['statuscache'][$mailbox];
 
