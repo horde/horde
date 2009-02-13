@@ -19,8 +19,8 @@ NLS::setCharset('UTF-8');
 
 // Determine which calendar to export.
 $calendar = Util::getFormData('c');
-if (empty($calendar) && !empty($_SERVER['PATH_INFO'])) {
-    $calendar = basename($_SERVER['PATH_INFO']);
+if (empty($calendar) && $pathInfo = Util::getPathInfo()) {
+    $calendar = basename($pathInfo);
 }
 
 $share = $kronolith_shares->getShare($calendar);

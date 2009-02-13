@@ -24,8 +24,8 @@ if (!empty($cal)) {
     if (is_array($cal)) {
         $cal = implode('|', $cal);
     }
-} elseif (!empty($_SERVER['PATH_INFO'])) {
-    $user = basename($_SERVER['PATH_INFO']);
+} elseif ($pathInfo = Util::getPathInfo()) {
+    $user = basename($pathInfo);
 }
 
 $cache = Horde_Cache::factory($conf['cache']['driver'], Horde::getDriverConfig('cache', $conf['cache']['driver']));
