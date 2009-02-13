@@ -1119,3 +1119,10 @@ li.panel-tags {
 .panel-tags li:hover {
     text-decoration: underline;
 }
+
+#hordeAlerts div.kronolith-sticky, #hordeAlerts div.kronolith-sticky {
+    background-color: #ebe20c;
+    background-image: url("graphics/warning.png");
+    border-color: #807b00;
+    color: #000;
+}

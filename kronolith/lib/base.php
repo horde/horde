@@ -61,7 +61,8 @@ require_once 'Horde/Help.php';
 
 /* Notification system. */
 $notification = &Notification::singleton();
-$notification->attach('status');
+require_once KRONOLITH_BASE . '/lib/Notification/Listener/status.php';
+$GLOBALS['kronolith_notify'] = &$notification->attach('status', null, 'Notification_Listener_status_kronolith');
 
 /* Kronolith base library. */
 require_once KRONOLITH_BASE . '/lib/Kronolith.php';
