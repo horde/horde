@@ -40,7 +40,7 @@ a, a:visited {
     font-weight: bold;
 }
 
-#msgHeadersColl, .context, .address img, .noprint, .mimeStatusMessage, .largeaddrlist, #alertslog, #msgAtc {
+#msgHeadersColl, .context, .address img, .noprint, .mimeStatusMessage, .largeaddrlist, #msgAtc {
     display: none !important;
 }
 a.address {

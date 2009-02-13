@@ -46,15 +46,6 @@ form#compose {
     width: 96% !important;
 }
 
-#alerts {
-    width: 500px;
-}
-#ie6alertsfix {
-    padding: 0;
-    border: 0;
-    background: url("graphics/clear.gif") repeat;
-}
-
 .block-monthgrid table {
     border-width: 2px;
 }

@@ -216,12 +216,12 @@ DimpCore = {
             case 'dimp.request':
             case 'dimp.sticky':
                 var iefix, log, tmp,
-                    alerts = $('alerts'),
+                    alerts = $('hordeAlerts'),
                     div = new Element('DIV', { className: m.type.replace('.', '-') }),
                     msg = m.message;
 
                 if (!alerts) {
-                    alerts = new Element('DIV', { id: 'alerts' });
+                    alerts = new Element('DIV', { id: 'hordeAlerts' });
                     $(document.body).insert(alerts);
                 }
 
@@ -240,7 +240,7 @@ DimpCore = {
                 // overlay the div with a like sized div containing a clear
                 // gif, which tricks IE into the correct behavior.
                 if (DIMP.conf.is_ie6) {
-                    iefix = new Element('DIV', { id: 'ie6alertsfix' }).clonePosition(div, { setLeft: false, setTop: false });
+                    iefix = new Element('DIV', { id: 'hordeIE6AlertsFix' }).clonePosition(div, { setLeft: false, setTop: false });
                     iefix.insert(div.remove());
                     alerts.insert(iefix);
                 }
@@ -253,7 +253,7 @@ DimpCore = {
                     this.alertrequest = div;
                 }
 
-                if (tmp = $('alertslog')) {
+                if (tmp = $('hordeAlertslog')) {
                     switch (m.type) {
                     case 'horde.error':
                         log = DIMP.text.alog_error;
@@ -274,7 +274,7 @@ DimpCore = {
 
                     if (log) {
                         tmp = tmp.down('DIV UL');
-                        if (tmp.down().hasClassName('noalerts')) {
+                        if (tmp.down().hasClassName('hordeNoalerts')) {
                             tmp.down().remove();
                         }
                         tmp.insert(new Element('LI').insert(new Element('P', { className: 'label' }).insert(log)).insert(new Element('P', { className: 'indent' }).insert(msg).insert(new Element('SPAN', { className: 'alertdate'}).insert('[' + (new Date).toLocaleString() + ']'))));
@@ -294,8 +294,8 @@ DimpCore = {
     toggleAlertsLog: function()
     {
         var alink = $('alertsloglink').down('A'),
-            div = $('alertslog').down('DIV'),
-            opts = { duration: 0.5, queue: { position: 'end', scope: 'alertslog', limit: 2 } };
+            div = $('hordeAlertslog').down('DIV'),
+            opts = { duration: 0.5, queue: { position: 'end', scope: 'hordeAlertslog', limit: 2} };
 
         if (div.visible()) {
             Effect.BlindUp(div, opts);
@@ -314,7 +314,7 @@ DimpCore = {
 
             elt.remove();
             if (!parent.childElements().size() &&
-                parent.readAttribute('id') == 'ie6alertsfix') {
+                parent.readAttribute('id') == 'hordeIE6AlertsFix') {
                 parent.remove();
             }
         } catch (e) {
@@ -490,7 +490,7 @@ DimpCore = {
                 this.toggleAlertsLog();
                 break;
 
-            case 'alerts':
+            case 'hordeAlerts':
                 this.alertsFade(elt);
                 break;
 

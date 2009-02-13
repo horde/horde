@@ -458,10 +458,10 @@ function _simpleButton($id, $text, $image, $imagedir = null)
 </div>
 
 <?php if (!$is_ie6): ?>
-<div id="alertslog">
+<div id="hordeAlertslog">
  <div style="display:none">
   <ul>
-   <li class="noalerts"><strong><?php echo _("No Alerts") ?></strong></li>
+   <li class="hordeNoalerts"><strong><?php echo _("No Alerts") ?></strong></li>
   </ul>
  </div>
 </div>

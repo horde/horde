@@ -32,10 +32,6 @@ form#compose {
     width: expression(document.body.clientWidth-220);
 }
 
-#alerts {
-    width: expression(document.body.clientWidth/2);
-}
-
 .block-monthgrid table {
     border-width: 2px;
 }

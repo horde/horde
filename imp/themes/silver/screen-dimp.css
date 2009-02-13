@@ -2,7 +2,7 @@
 .msglist div.statusDeleted {
     background-image: url("graphics/mail_deleted.png");
 }
-.msglist div.statusForwarded, #alerts div.imp-forward, #alerts div.imp-redirect {
+.msglist div.statusForwarded, #hordeAlerts div.imp-forward, #hordeAlerts div.imp-redirect {
     background-image: url("graphics/mail_forwarded.png");
 }
 .msglist div.lowPriority {
@@ -42,16 +42,8 @@
 #attach_list div, span.attachmentImg {
     background-image: url("graphics/attachment.png");
 }
-#alerts div.horde-error {
-    background-image: url("graphics/error.png");
-}
-#alerts div.horde-message {
-    background-image: url("graphics/message.png");
-}
-#alerts div.horde-success {
-    background-image: url("graphics/success.png");
-}
-#alerts div.horde-warning, #alerts div.dimp-sticky, #alerts div.dimp-sticky {
+
+#hordeAlerts div.dimp-sticky, #hordeAlerts div.dimp-sticky {
     background-image: url("graphics/warning.png");
 }
 
@@ -100,7 +92,7 @@
 #flag_clear span.contextImg {
     background-image: url("graphics/mail_clearflag.png");
 }
-.msglist div.statusAnswered, #alerts div.imp-reply, #flag_answered span.contextImg {
+.msglist div.statusAnswered, #hordeAlerts div.imp-reply, #flag_answered span.contextImg {
     background-image: url("graphics/mail_answered.png");
 }
 #flag_unanswered span.contextImg {

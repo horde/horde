@@ -848,89 +848,17 @@ a.address:hover img {
     padding-left: 4px;
 }
 
-#alerts {
-    cursor: pointer;
-    position: absolute;
-    top: 20%;
-    left: 25%;
-    right: 25%;
-    width: 50%;
-    /* Must always be the highest z-index on the page to ensure we can always
-       click the alert box to close. */
-    z-index: 10001;
-    margin: 0 0 10px;
-    font-weight: bold;
-    color: #fff;
-}
-#alerts div {
-    padding: 6px 20px 6px 25px;
-    border: 1px #316600 solid;
-    background: #5db110 6px 6px no-repeat;
-}
-#alerts div.horde-error {
-    background-color: #e81222;
-    background-image: url("graphics/error.png");
-    border-color: maroon;
-}
-#alerts div.horde-message {
-    background-image: url("graphics/message.png");
-}
-#alerts div.horde-success {
-    background-image: url("graphics/success.png");
-}
-#alerts div.horde-warning, #alerts div.dimp-sticky, #alerts div.dimp-sticky {
+#hordeAlerts div.dimp-sticky {
     background-color: #ebe20c;
     background-image: url("graphics/warning.png");
     border-color: #807b00;
     color: #000;
 }
-#alerts div.imp-reply {
+#hordeAlerts div.imp-reply {
     background-image: url("graphics/mail_answered.png");
 }
-#alerts div.imp-forward, #alerts div.imp-redirect {
+#hordeAlerts div.imp-forward, #hordeAlerts div.imp-redirect {
     background-image: url("graphics/mail_forwarded.png");
-}
-
-#alertslog {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    max-height: 200px;
-    z-index: 10000;
-}
-#alertslog ul {
-    background: #999;
-    overflow: auto;
-    filter: alpha(opacity=80);
-    -moz-opacity: .8;
-    opacity: .8;
-}
-#alertslog ul li {
-    color: #333;
-    font-size: 12px;
-    list-style-type: none;
-    overflow: hidden;
-    padding: 10px 20px;
-    border-bottom: 1px dotted;
-}
-#alertslog ul li:last-child {
-    border: 0;
-}
-#alertslog ul li p {
-    margin-bottom: 0;
-}
-#alertslog p.label {
-    float: left;
-    font-weight: bold;
-}
-#alertslog p.indent {
-    margin: 0 100px 0 75px;
-}
-#alertslog span.alertdate {
-    font-size: 90%;
-    font-style: italic;
-    padding-left: 10px;
 }
 
 /* Drag and drop styles. */
