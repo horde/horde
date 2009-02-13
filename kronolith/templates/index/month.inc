@@ -15,22 +15,22 @@
 
 <div id="kronolithRowTemplate" class="kronolithRow" style="display:none">
   <div class="kronolithFirstCol"></div>
-  <div class="kronolithCol kronolithOtherMonth">
+  <div class="kronolithCol">
     <div class="kronolithCorner"><div class="kronolithDay"></div><a class="kronolithAdd"><?php echo $img_blank ?></a></div>
   </div>
-  <div class="kronolithCol kronolithOtherMonth">
+  <div class="kronolithCol">
     <div class="kronolithCorner"><div class="kronolithDay"></div><a class="kronolithAdd"><?php echo $img_blank ?></a></div>
   </div>
-  <div class="kronolithCol kronolithOtherMonth">
+  <div class="kronolithCol">
     <div class="kronolithCorner"><div class="kronolithDay"></div><a class="kronolithAdd"><?php echo $img_blank ?></a></div>
   </div>
-  <div class="kronolithCol kronolithOtherMonth">
+  <div class="kronolithCol">
     <div class="kronolithCorner"><div class="kronolithDay"></div><a class="kronolithAdd"><?php echo $img_blank ?></a></div>
   </div>
-  <div class="kronolithCol kronolithOtherMonth">
+  <div class="kronolithCol">
     <div class="kronolithCorner"><div class="kronolithDay"></div><a class="kronolithAdd"><?php echo $img_blank ?></a></div>
   </div>
-  <div class="kronolithCol kronolithOtherMonth">
+  <div class="kronolithCol">
     <div class="kronolithCorner"><div class="kronolithDay"></div><a class="kronolithAdd"><?php echo $img_blank ?></a></div>
   </div>
   <div class="kronolithCol">

@@ -1256,6 +1256,21 @@ class Kronolith_Event {
     }
 
     /**
+     * Returns a simple object suitable for json transport representing this
+     * event.
+     *
+     * @return object  A simple object.
+     */
+    function toJSON()
+    {
+        $json = new stdClass;
+        $json->t = $this->getTitle();
+        $json->bg = $this->_backgroundColor;
+        $json->fg = $this->_foregroundColor;
+        return $json;
+    }
+
+    /**
      * TODO
      */
     function isInitialized()

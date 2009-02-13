@@ -439,6 +439,7 @@ KronolithCore = {
         // Fill week number and day cells.
         var cell = row.down().setText(monday.getWeek()).next();
         while (cell) {
+            cell.id = 'kronolithMonthDay' + day.toString('yyyyMMdd');
             cell.removeClassName('kronolithOtherMonth');
             if (typeof month != 'undefined' && day.getMonth() != month) {
                 cell.addClassName('kronolithOtherMonth');
@@ -512,6 +513,12 @@ KronolithCore = {
      */
     _monthCallback: function(r)
     {
+        r = r.response;
+        $H(r.events).each(function(date) {
+            $H(date.value).each(function(event) {
+                $('kronolithMonthDay' + date.key).insert(new Element('DIV', { 'class': 'kronolithEvent', 'style': 'background-color:' + event.value.bg + ';color:' + event.value.fg }).setText(event.value.t));
+            });
+        });
     },
 
     /**
