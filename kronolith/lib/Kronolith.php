@@ -132,6 +132,8 @@ class Kronolith {
 
         /* Gettext strings used in core javascript files. */
         $code['text'] = array_map('addslashes', array(
+            'ajax_timeout' => _("There has been no contact with the remote server for several minutes. The server may be temporarily unavailable or network problems may be interrupting your session. You will not see any updates until the connection is restored."),
+            'ajax_recover' => _("The connection to the remote server has been restored."),
         ));
         for ($i = 1; $i <= 12; ++$i) {
             $code['text']['month'][$i - 1] = NLS::getLangInfo(constant('MON_' . $i));

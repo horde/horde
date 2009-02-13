@@ -16,17 +16,89 @@ var frames = { horde_main: true },
 /* Kronolith object. */
 KronolithCore = {
     // Vars used and defaulting to null/false:
-    //  eventForm
+    //   DMenu, alertrequest, inAjaxCallback, is_logout, onDoActionComplete,
+    //   window_load, eventForm
 
     view: '',
     remove_gc: [],
     date: new Date(),
+
+    doActionOpts: {
+        onException: function(r, e) { KronolitCore.debug('onException', e); },
+        onFailure: function(t, o) { KronolithCore.debug('onFailure', t); },
+        evalJS: false,
+        evalJSON: true
+    },
 
     debug: function(label, e)
     {
         if (!this.is_logout && Kronolith.conf.debug) {
             alert(label + ': ' + (e instanceof Error ? e.name + '-' + e.message : Object.inspect(e)));
         }
+    },
+
+    /* 'action' -> if action begins with a '*', the exact string will be used
+     *  instead of sending the action to the ajax handler. */
+    doAction: function(action, params, callback, opts)
+    {
+        var b, tmp = {};
+
+        opts = Object.extend(this.doActionOpts, opts || {});
+        params = $H(params);
+        action = action.startsWith('*')
+            ? action.substring(1)
+            : Kronolith.conf.URI_AJAX + '/' + action;
+        if (Kronolith.conf.SESSION_ID) {
+            params.update(Kronolith.conf.SESSION_ID.toQueryParams());
+        }
+        opts.parameters = params.toQueryString();
+        opts.onComplete = function(t, o) { this.doActionComplete(t, callback); }.bind(this);
+        new Ajax.Request(action, opts);
+    },
+
+    doActionComplete: function(request, callback)
+    {
+        this.inAjaxCallback = true;
+        var r;
+
+        if (!request.responseJSON) {
+            if (++this.server_error == 3) {
+                this.showNotifications([ { type: 'horde.error', message: Kronolith.text.ajax_timeout } ]);
+            }
+            this.inAjaxCallback = false;
+            return;
+        }
+
+        r = request.responseJSON;
+
+        if (!r.msgs) {
+            r.msgs = [];
+        }
+
+        if (r.response && Object.isFunction(callback)) {
+            if (Kronolith.conf.debug) {
+                callback(r);
+            } else {
+                try {
+                    callback(r);
+                } catch (e) {}
+            }
+        }
+
+        if (this.server_error >= 3) {
+            r.msgs.push({ type: 'horde.success', message: Kronolith.text.ajax_recover });
+        }
+        this.server_error = 0;
+
+        if (!r.msgs_noauto) {
+            this.showNotifications(r.msgs);
+        }
+
+        if (this.onDoActionComplete) {
+            this.onDoActionComplete(r);
+        }
+
+        this.inAjaxCallback = false;
     },
 
     setTitle: function(title)
@@ -315,12 +387,14 @@ KronolithCore = {
         case 'month':
             var body = $('kronolithViewMonth').down('.kronolithViewBody'),
                 day = date.clone(), monthEnd = date.clone(),
-                cell, monday;
+                cell, monday, firstDay, lastDay;
 
             // Calculate first and last days being displayed.
             day.setDate(1);
+            firstDay = day.clone()
             this.moveToBeginOfWeek(day);
             monthEnd.moveToLastDayOfMonth();
+            lastDay = monthEnd.clone();
             this.moveToBeginOfWeek(monthEnd);
 
             // Remove old rows. Maybe we should only rebuild the calendars if
@@ -332,6 +406,10 @@ KronolithCore = {
                 var row = body.insert(this.createWeekRow(day, date.getMonth()).show());
                 day.next().week();
             }
+
+            // Load events.
+            this.doAction('ListEvents', { start: firstDay.toJSON(), end: lastDay.toJSON() }, this._monthCallback.bind(this));
+
             break;
         }
     },
@@ -425,6 +503,15 @@ KronolithCore = {
             tr.insert(td);
             day.next().day();
         }
+    },
+
+    /**
+     * Callback method for inserting events in the month view.
+     *
+     * @param object r  The returned object.
+     */
+    _monthCallback: function(r)
+    {
     },
 
     /**
