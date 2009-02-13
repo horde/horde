@@ -340,13 +340,7 @@ KronolithCore = {
                 if ($('kronolithView' + locCap)) {
                     $('kronolithView' + locCap).appear();
                 }
-
                 this.updateMinical(date, loc);
-                $('kronolithBody').select('div.kronolithEvent').each(function(s) {
-                    s.observe('mouseover', s.addClassName.curry('kronolithSelected'));
-                    s.observe('mouseout', s.removeClassName.curry('kronolithSelected'));
-                });
-
                 this.date = date;
 
                 break;
@@ -513,10 +507,15 @@ KronolithCore = {
      */
     _monthCallback: function(r)
     {
+        var div;
         r = r.response;
         $H(r.events).each(function(date) {
             $H(date.value).each(function(event) {
-                $('kronolithMonthDay' + date.key).insert(new Element('DIV', { 'class': 'kronolithEvent', 'style': 'background-color:' + event.value.bg + ';color:' + event.value.fg }).setText(event.value.t));
+                div = new Element('DIV', { 'class': 'kronolithEvent', 'style': 'background-color:' + event.value.bg + ';color:' + event.value.fg });
+                div.setText(event.value.t)
+                    .observe('mouseover', div.addClassName.curry('kronolithSelected'))
+                    .observe('mouseout', div.removeClassName.curry('kronolithSelected'));
+                $('kronolithMonthDay' + date.key).insert(div);
             });
         });
     },
