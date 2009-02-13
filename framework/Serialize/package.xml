@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+http://pear.php.net/dtd/tasks-1.0.xsd
+http://pear.php.net/dtd/package-2.0
+http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Serialize</name>
+ <channel>pear.horde.org</channel>
+ <summary>Data Encapulation API</summary>
+ <description>The Horde_Serialize:: class provides various methods of
+ encapsulating data.
+ </description>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Jan Schneider</name>
+  <user>jan</user>
+  <email>jan@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2009-02-12</date>
+ <version>
+  <release>0.1.0</release>
+  <api>0.1.0</api>
+ </version>
+ <stability>
+  <release>beta</release>
+  <api>beta</api>
+ </stability>
+ <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <notes>* Initial Horde 4 package.</notes>
+ <contents>
+  <dir name="/">
+   <dir name="lib">
+    <dir name="Horde">
+     <file name="Serialize.php" role="php" />
+    </dir> <!-- /lib/Horde -->
+   </dir> <!-- /lib/ -->
+   <dir name="test">
+    <dir name="Horde">
+     <dir name="Serialize">
+      <file name="json_assoc_array.phpt" role="test" />
+      <file name="json_empty.phpt" role="test" />
+      <file name="json_encode_decode.phpt" role="test" />
+      <file name="json_nested_array.phpt" role="test" />
+      <file name="json_object.phpt" role="test" />
+      <file name="json_spaces_comments.phpt" role="test" />
+      <file name="json_unquoted_keys.phpt" role="test" />
+     </dir> <!-- /test/Horde/Serialize -->
+    </dir> <!-- /test/Horde -->
+   </dir> <!-- /test -->
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.5.0</min>
+   </pearinstaller>
+   <package>
+    <name>Util</name>
+    <channel>pear.horde.org</channel>
+   </package>
+  </required>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install name="lib/Horde/Serialize.php" as="Horde/Serialize.php" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <date>2006-05-08</date>
+   <time>23:12:48</time>
+   <version>
+    <release>0.0.2</release>
+    <api>0.0.2</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>Converted to package.xml 2.0 for pear.horde.org</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.0.1</release>
+    <api>0.0.1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2004-01-01</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>Initial packaging.
+   </notes>
+  </release>
+ </changelog>
+</package>
