@@ -286,7 +286,7 @@ class Horde_Serialize
      *
      * @return mixed  Unserialized data on success or PEAR_Error on error.
      */
-    static public function _unserialize(&$data, $mode, $params = null)
+    static protected function _unserialize(&$data, $mode, $params = null)
     {
         switch ($mode) {
         case self::NONE:
