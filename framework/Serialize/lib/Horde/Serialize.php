@@ -225,7 +225,7 @@ class Horde_Serialize
             break;
 
         // $params['level'] = Level of compression (default: 3)
-        case self::GZ_ENCOD:
+        case self::GZ_ENCODE:
             $data = gzencode($data, isset($params['level']) ? $params['level'] : 3);
             break;
 
