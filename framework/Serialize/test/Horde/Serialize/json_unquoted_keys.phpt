@@ -24,13 +24,13 @@ $arrs_jo = '{"1":"one",2:"two","5":\'fi"ve\'}';
 // associative arrays, and some numeric keys thrown in
 // ...unless the input array has some numeric indeces, in which case the
 // behavior is to degrade to a regular array
-var_dump(Horde_Serialize::unserialize($arn_ja, SERIALIZE_JSON));
+var_dump(Horde_Serialize::unserialize($arn_ja, Horde_Serialize::JSON));
 
 // sparse numeric assoc array: associative array with unquoted keys,
 // single-quoted values, numeric keys which are not fully populated in a range
 // of 0 to length-1
 // Test a sparsely populated numerically indexed associative array
-var_dump(Horde_Serialize::unserialize($arrs_jo, SERIALIZE_JSON));
+var_dump(Horde_Serialize::unserialize($arrs_jo, Horde_Serialize::JSON));
 
 ?>
 --EXPECT--

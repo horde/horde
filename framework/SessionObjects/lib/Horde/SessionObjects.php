@@ -157,10 +157,10 @@ class Horde_SessionObjects
             if (!is_null($this->_sdata)) {
                 $data = $this->_sdata;
             } else {
-                $modes[] = SERIALIZE_BASIC;
+                $modes[] = Horde_Serialize::BASIC;
             }
-            if (Horde_Serialize::hasCapability(SERIALIZE_LZF)) {
-                $modes[] = SERIALIZE_LZF;
+            if (Horde_Serialize::hasCapability(Horde_Serialize::LZF)) {
+                $modes[] = Horde_Serialize::LZF;
             }
             $ptr[$oid] = array(
                 'data' => ((empty($modes)) ? $data : Horde_Serialize::serialize($data, $modes)),
@@ -209,10 +209,10 @@ class Horde_SessionObjects
             $object = false;
         } else {
             $modes = array();
-            if (Horde_Serialize::hasCapability(SERIALIZE_LZF)) {
-                $modes[] = SERIALIZE_LZF;
+            if (Horde_Serialize::hasCapability(Horde_Serialize::LZF)) {
+                $modes[] = Horde_Serialize::LZF;
             }
-            $object = Horde_Serialize::unserialize($_SESSION[$this->_name][$oid]['data'], array_merge($modes, array(SERIALIZE_BASIC)));
+            $object = Horde_Serialize::unserialize($_SESSION[$this->_name][$oid]['data'], array_merge($modes, array(Horde_Serialize::BASIC)));
             if (is_a($object, 'PEAR_Error')) {
                 $this->setPruneFlag($oid, true);
                 $object = false;

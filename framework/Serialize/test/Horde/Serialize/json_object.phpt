@@ -22,17 +22,17 @@ $obj1_j = '{"car1":{"color":"tan","model":"sedan"},"car2":{"color":"red","model"
 /* Types test */
 
 // checking whether decoded type is object
-out(gettype(Horde_Serialize::unserialize($obj_j, SERIALIZE_JSON)));
+out(gettype(Horde_Serialize::unserialize($obj_j, Horde_Serialize::JSON)));
 
 /* Encode test */
 
 // object - strict: Object with nested objects
-out(Horde_Serialize::serialize($obj1, SERIALIZE_JSON));
+out(Horde_Serialize::serialize($obj1, Horde_Serialize::JSON));
 
 /* Decode/encode test */
 
 // object case
-out(Horde_Serialize::serialize(Horde_Serialize::unserialize($obj_j, SERIALIZE_JSON), SERIALIZE_JSON));
+out(Horde_Serialize::serialize(Horde_Serialize::unserialize($obj_j, Horde_Serialize::JSON), Horde_Serialize::JSON));
 
 ?>
 --EXPECT--

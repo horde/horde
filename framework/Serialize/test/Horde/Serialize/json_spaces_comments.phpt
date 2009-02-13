@@ -31,24 +31,24 @@ $obj_jc4 = '{\'a_string\': "\"he\":llo}:{world",
                 "obj": {"a_number":123}}';
 
 // Base result
-var_dump(Horde_Serialize::unserialize($obj_j, SERIALIZE_JSON));
+var_dump(Horde_Serialize::unserialize($obj_j, Horde_Serialize::JSON));
 
 /* Spaces tests */
 
 // checking whether notation with spaces works
-var_dump(Horde_Serialize::unserialize($obj_js, SERIALIZE_JSON));
+var_dump(Horde_Serialize::unserialize($obj_js, Horde_Serialize::JSON));
 
 /* Comments tests */
 
 // checking whether notation with single line comments works
-var_dump(Horde_Serialize::unserialize($obj_jc1, SERIALIZE_JSON));
+var_dump(Horde_Serialize::unserialize($obj_jc1, Horde_Serialize::JSON));
 
 // checking whether notation with multiline comments works
-var_dump(Horde_Serialize::unserialize($obj_jc2, SERIALIZE_JSON));
-var_dump(Horde_Serialize::unserialize($obj_jc3, SERIALIZE_JSON));
+var_dump(Horde_Serialize::unserialize($obj_jc2, Horde_Serialize::JSON));
+var_dump(Horde_Serialize::unserialize($obj_jc3, Horde_Serialize::JSON));
 
 // checking whether notation with single-quotes and multiline comments works
-var_dump(Horde_Serialize::unserialize($obj_jc4, SERIALIZE_JSON));
+var_dump(Horde_Serialize::unserialize($obj_jc4, Horde_Serialize::JSON));
 
 ?>
 --EXPECT--

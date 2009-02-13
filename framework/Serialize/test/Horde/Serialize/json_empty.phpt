@@ -18,19 +18,19 @@ $obj2_j = '{ /* comment inside */ }';
 /* Types tests */
 
 // should be object
-out(gettype(Horde_Serialize::unserialize($obj0_j, SERIALIZE_JSON)));
+out(gettype(Horde_Serialize::unserialize($obj0_j, Horde_Serialize::JSON)));
 // should be empty object
-out(count(get_object_vars(Horde_Serialize::unserialize($obj0_j, SERIALIZE_JSON))));
+out(count(get_object_vars(Horde_Serialize::unserialize($obj0_j, Horde_Serialize::JSON))));
 
 // should be object, even with space
-out(gettype(Horde_Serialize::unserialize($obj1_j, SERIALIZE_JSON)));
+out(gettype(Horde_Serialize::unserialize($obj1_j, Horde_Serialize::JSON)));
 // should be empty object, even with space
-out(count(get_object_vars(Horde_Serialize::unserialize($obj1_j, SERIALIZE_JSON))));
+out(count(get_object_vars(Horde_Serialize::unserialize($obj1_j, Horde_Serialize::JSON))));
 
 // should be object, despite comment
-out(gettype(Horde_Serialize::unserialize($obj2_j, SERIALIZE_JSON)));
+out(gettype(Horde_Serialize::unserialize($obj2_j, Horde_Serialize::JSON)));
 // should be empty object, despite comment
-out(count(get_object_vars(Horde_Serialize::unserialize($obj2_j, SERIALIZE_JSON))));
+out(count(get_object_vars(Horde_Serialize::unserialize($obj2_j, Horde_Serialize::JSON))));
 
 ?>
 --EXPECT--

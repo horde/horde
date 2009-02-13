@@ -15,15 +15,15 @@ $str5 = '{"params":[{"options": {"old": [ ], "new": {"0": {"elements": {"old": [
 /* Decode tests */
 
 // simple compactly-nested array
-var_dump(Horde_Serialize::unserialize($str1, SERIALIZE_JSON));
+var_dump(Horde_Serialize::unserialize($str1, Horde_Serialize::JSON));
 // simple compactly-nested array
-var_dump(Horde_Serialize::unserialize($str2, SERIALIZE_JSON));
+var_dump(Horde_Serialize::unserialize($str2, Horde_Serialize::JSON));
 // complex compactly nested array
-var_dump(Horde_Serialize::unserialize($str3, SERIALIZE_JSON));
+var_dump(Horde_Serialize::unserialize($str3, Horde_Serialize::JSON));
 // complex compactly nested array
-var_dump(Horde_Serialize::unserialize($str4, SERIALIZE_JSON));
+var_dump(Horde_Serialize::unserialize($str4, Horde_Serialize::JSON));
 // super complex compactly nested array
-var_dump(Horde_Serialize::unserialize($str5, SERIALIZE_JSON));
+var_dump(Horde_Serialize::unserialize($str5, Horde_Serialize::JSON));
 
 ?>
 --EXPECT--

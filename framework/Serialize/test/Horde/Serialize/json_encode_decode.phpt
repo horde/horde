@@ -38,139 +38,139 @@ $str4_j_ = '"héllö wørłd"';
 /* Encode tests. */
 
 // type case: null
-out(Horde_Serialize::serialize(null, SERIALIZE_JSON));
+out(Horde_Serialize::serialize(null, Horde_Serialize::JSON));
 // type case: boolean true
-out(Horde_Serialize::serialize(true, SERIALIZE_JSON));
+out(Horde_Serialize::serialize(true, Horde_Serialize::JSON));
 // type case: boolean false
-out(Horde_Serialize::serialize(false, SERIALIZE_JSON));
+out(Horde_Serialize::serialize(false, Horde_Serialize::JSON));
 
 // numeric case: 1
-out(Horde_Serialize::serialize(1, SERIALIZE_JSON));
+out(Horde_Serialize::serialize(1, Horde_Serialize::JSON));
 // numeric case: -1
-out(Horde_Serialize::serialize(-1, SERIALIZE_JSON));
+out(Horde_Serialize::serialize(-1, Horde_Serialize::JSON));
 // numeric case: 1.0
-out(Horde_Serialize::serialize(1.0, SERIALIZE_JSON));
+out(Horde_Serialize::serialize(1.0, Horde_Serialize::JSON));
 // numeric case: 1.1
-out(Horde_Serialize::serialize(1.1, SERIALIZE_JSON));
+out(Horde_Serialize::serialize(1.1, Horde_Serialize::JSON));
 
 // string case: hello world
-out(Horde_Serialize::serialize($str1, SERIALIZE_JSON));
+out(Horde_Serialize::serialize($str1, Horde_Serialize::JSON));
 // string case: hello world, with tab, double-quotes
-out(Horde_Serialize::serialize($str2, SERIALIZE_JSON));
+out(Horde_Serialize::serialize($str2, Horde_Serialize::JSON));
 // string case: backslash, return, newline, tab, double-quote
-out(Horde_Serialize::serialize($str3, SERIALIZE_JSON));
+out(Horde_Serialize::serialize($str3, Horde_Serialize::JSON));
 // string case: hello world, with unicode
-out(Horde_Serialize::serialize($str4, SERIALIZE_JSON));
+out(Horde_Serialize::serialize($str4, Horde_Serialize::JSON));
 
 // array case: array with elements and nested arrays
-out(Horde_Serialize::serialize($arr, SERIALIZE_JSON));
+out(Horde_Serialize::serialize($arr, Horde_Serialize::JSON));
 // object case: object with properties, nested object and arrays
-out(Horde_Serialize::serialize($obj, SERIALIZE_JSON));
+out(Horde_Serialize::serialize($obj, Horde_Serialize::JSON));
 
 echo"============================================================================\n";
 
 /* Decode tests */
 
 // type case: null
-var_dump(Horde_Serialize::unserialize('null', SERIALIZE_JSON));
+var_dump(Horde_Serialize::unserialize('null', Horde_Serialize::JSON));
 // type case: boolean true
-var_dump(Horde_Serialize::unserialize('true', SERIALIZE_JSON));
+var_dump(Horde_Serialize::unserialize('true', Horde_Serialize::JSON));
 // type case: boolean false
-var_dump(Horde_Serialize::unserialize('false', SERIALIZE_JSON));
+var_dump(Horde_Serialize::unserialize('false', Horde_Serialize::JSON));
 
 // numeric case: 1
-var_dump(Horde_Serialize::unserialize('1', SERIALIZE_JSON));
+var_dump(Horde_Serialize::unserialize('1', Horde_Serialize::JSON));
 // numeric case: -1
-var_dump(Horde_Serialize::unserialize('-1', SERIALIZE_JSON));
+var_dump(Horde_Serialize::unserialize('-1', Horde_Serialize::JSON));
 // numeric case: 1.0
-var_dump(Horde_Serialize::unserialize('1.0', SERIALIZE_JSON));
+var_dump(Horde_Serialize::unserialize('1.0', Horde_Serialize::JSON));
 // numeric case: 1.1
-var_dump(Horde_Serialize::unserialize('1.1', SERIALIZE_JSON));
+var_dump(Horde_Serialize::unserialize('1.1', Horde_Serialize::JSON));
 
 // string case: hello world
-var_dump(Horde_Serialize::unserialize($str1_j, SERIALIZE_JSON));
-var_dump(Horde_Serialize::unserialize($str1_j_, SERIALIZE_JSON));
+var_dump(Horde_Serialize::unserialize($str1_j, Horde_Serialize::JSON));
+var_dump(Horde_Serialize::unserialize($str1_j_, Horde_Serialize::JSON));
 // string case: hello world, with tab, double-quotes
-var_dump(Horde_Serialize::unserialize($str2_j, SERIALIZE_JSON));
+var_dump(Horde_Serialize::unserialize($str2_j, Horde_Serialize::JSON));
 // string case: backslash, return, newline, tab, double-quote
-var_dump(Horde_Serialize::unserialize($str3_j, SERIALIZE_JSON));
+var_dump(Horde_Serialize::unserialize($str3_j, Horde_Serialize::JSON));
 // string case: hello world, with unicode
-var_dump(Horde_Serialize::unserialize($str4_j, SERIALIZE_JSON));
-var_dump(Horde_Serialize::unserialize($str4_j_, SERIALIZE_JSON));
+var_dump(Horde_Serialize::unserialize($str4_j, Horde_Serialize::JSON));
+var_dump(Horde_Serialize::unserialize($str4_j_, Horde_Serialize::JSON));
 
 // array case: array with elements and nested arrays
-var_dump(Horde_Serialize::unserialize($arr_j, SERIALIZE_JSON));
+var_dump(Horde_Serialize::unserialize($arr_j, Horde_Serialize::JSON));
 // object case: object with properties, nested object and arrays
-var_dump(Horde_Serialize::unserialize($obj_j, SERIALIZE_JSON));
+var_dump(Horde_Serialize::unserialize($obj_j, Horde_Serialize::JSON));
 
 echo"============================================================================\n";
 
 /* Encode-decode tests */
 
 // type case: null
-var_dump(Horde_Serialize::unserialize(Horde_Serialize::serialize(null, SERIALIZE_JSON), SERIALIZE_JSON));
+var_dump(Horde_Serialize::unserialize(Horde_Serialize::serialize(null, Horde_Serialize::JSON), Horde_Serialize::JSON));
 // type case: boolean true
-var_dump(Horde_Serialize::unserialize(Horde_Serialize::serialize(true, SERIALIZE_JSON), SERIALIZE_JSON));
+var_dump(Horde_Serialize::unserialize(Horde_Serialize::serialize(true, Horde_Serialize::JSON), Horde_Serialize::JSON));
 // type case: boolean false
-var_dump(Horde_Serialize::unserialize(Horde_Serialize::serialize(false, SERIALIZE_JSON), SERIALIZE_JSON));
+var_dump(Horde_Serialize::unserialize(Horde_Serialize::serialize(false, Horde_Serialize::JSON), Horde_Serialize::JSON));
 
 // numeric case: 1
-var_dump(Horde_Serialize::unserialize(Horde_Serialize::serialize(1, SERIALIZE_JSON), SERIALIZE_JSON));
+var_dump(Horde_Serialize::unserialize(Horde_Serialize::serialize(1, Horde_Serialize::JSON), Horde_Serialize::JSON));
 // numeric case: -1
-var_dump(Horde_Serialize::unserialize(Horde_Serialize::serialize(-1, SERIALIZE_JSON), SERIALIZE_JSON));
+var_dump(Horde_Serialize::unserialize(Horde_Serialize::serialize(-1, Horde_Serialize::JSON), Horde_Serialize::JSON));
 // numeric case: 1.0
-var_dump(Horde_Serialize::unserialize(Horde_Serialize::serialize(1.0, SERIALIZE_JSON), SERIALIZE_JSON));
+var_dump(Horde_Serialize::unserialize(Horde_Serialize::serialize(1.0, Horde_Serialize::JSON), Horde_Serialize::JSON));
 // numeric case: 1.1
-var_dump(Horde_Serialize::unserialize(Horde_Serialize::serialize(1.1, SERIALIZE_JSON), SERIALIZE_JSON));
+var_dump(Horde_Serialize::unserialize(Horde_Serialize::serialize(1.1, Horde_Serialize::JSON), Horde_Serialize::JSON));
 
 // string case: hello world
-var_dump(Horde_Serialize::unserialize(Horde_Serialize::serialize($str1, SERIALIZE_JSON), SERIALIZE_JSON));
+var_dump(Horde_Serialize::unserialize(Horde_Serialize::serialize($str1, Horde_Serialize::JSON), Horde_Serialize::JSON));
 // string case: hello world, with tab, double-quotes
-var_dump(Horde_Serialize::unserialize(Horde_Serialize::serialize($str2, SERIALIZE_JSON), SERIALIZE_JSON));
+var_dump(Horde_Serialize::unserialize(Horde_Serialize::serialize($str2, Horde_Serialize::JSON), Horde_Serialize::JSON));
 // string case: backslash, return, newline, tab, double-quote
-var_dump(Horde_Serialize::unserialize(Horde_Serialize::serialize($str3, SERIALIZE_JSON), SERIALIZE_JSON));
+var_dump(Horde_Serialize::unserialize(Horde_Serialize::serialize($str3, Horde_Serialize::JSON), Horde_Serialize::JSON));
 // string case: hello world, with unicode
-var_dump(Horde_Serialize::unserialize(Horde_Serialize::serialize($str4, SERIALIZE_JSON), SERIALIZE_JSON));
+var_dump(Horde_Serialize::unserialize(Horde_Serialize::serialize($str4, Horde_Serialize::JSON), Horde_Serialize::JSON));
 
 // array case: array with elements and nested arrays
-var_dump(Horde_Serialize::unserialize(Horde_Serialize::serialize($arr, SERIALIZE_JSON), SERIALIZE_JSON));
+var_dump(Horde_Serialize::unserialize(Horde_Serialize::serialize($arr, Horde_Serialize::JSON), Horde_Serialize::JSON));
 // object case: object with properties, nested object and arrays
-var_dump(Horde_Serialize::unserialize(Horde_Serialize::serialize($obj, SERIALIZE_JSON), SERIALIZE_JSON));
+var_dump(Horde_Serialize::unserialize(Horde_Serialize::serialize($obj, Horde_Serialize::JSON), Horde_Serialize::JSON));
 
 echo"============================================================================\n";
 
 /* Decode-encode tests */
 
 // type case: null
-out(Horde_Serialize::serialize(Horde_Serialize::unserialize('null', SERIALIZE_JSON), SERIALIZE_JSON));
+out(Horde_Serialize::serialize(Horde_Serialize::unserialize('null', Horde_Serialize::JSON), Horde_Serialize::JSON));
 // type case: boolean true
-out(Horde_Serialize::serialize(Horde_Serialize::unserialize('true', SERIALIZE_JSON), SERIALIZE_JSON));
+out(Horde_Serialize::serialize(Horde_Serialize::unserialize('true', Horde_Serialize::JSON), Horde_Serialize::JSON));
 // type case: boolean false
-out(Horde_Serialize::serialize(Horde_Serialize::unserialize('false', SERIALIZE_JSON), SERIALIZE_JSON));
+out(Horde_Serialize::serialize(Horde_Serialize::unserialize('false', Horde_Serialize::JSON), Horde_Serialize::JSON));
 
 // numeric case: 1
-out(Horde_Serialize::serialize(Horde_Serialize::unserialize('1', SERIALIZE_JSON), SERIALIZE_JSON));
+out(Horde_Serialize::serialize(Horde_Serialize::unserialize('1', Horde_Serialize::JSON), Horde_Serialize::JSON));
 // numeric case: -1
-out(Horde_Serialize::serialize(Horde_Serialize::unserialize('-1', SERIALIZE_JSON), SERIALIZE_JSON));
+out(Horde_Serialize::serialize(Horde_Serialize::unserialize('-1', Horde_Serialize::JSON), Horde_Serialize::JSON));
 // numeric case: 1.0
-out(Horde_Serialize::serialize(Horde_Serialize::unserialize('1.0', SERIALIZE_JSON), SERIALIZE_JSON));
+out(Horde_Serialize::serialize(Horde_Serialize::unserialize('1.0', Horde_Serialize::JSON), Horde_Serialize::JSON));
 // numeric case: 1.1
-out(Horde_Serialize::serialize(Horde_Serialize::unserialize('1.1', SERIALIZE_JSON), SERIALIZE_JSON));
+out(Horde_Serialize::serialize(Horde_Serialize::unserialize('1.1', Horde_Serialize::JSON), Horde_Serialize::JSON));
 
 // string case: hello world
-out(Horde_Serialize::serialize(Horde_Serialize::unserialize($str1_j, SERIALIZE_JSON), SERIALIZE_JSON));
+out(Horde_Serialize::serialize(Horde_Serialize::unserialize($str1_j, Horde_Serialize::JSON), Horde_Serialize::JSON));
 // string case: hello world, with tab, double-quotes
-out(Horde_Serialize::serialize(Horde_Serialize::unserialize($str2_j, SERIALIZE_JSON), SERIALIZE_JSON));
+out(Horde_Serialize::serialize(Horde_Serialize::unserialize($str2_j, Horde_Serialize::JSON), Horde_Serialize::JSON));
 // string case: backslash, return, newline, tab, double-quote
-out(Horde_Serialize::serialize(Horde_Serialize::unserialize($str3_j, SERIALIZE_JSON), SERIALIZE_JSON));
+out(Horde_Serialize::serialize(Horde_Serialize::unserialize($str3_j, Horde_Serialize::JSON), Horde_Serialize::JSON));
 // string case: hello world, with unicode
-out(Horde_Serialize::serialize(Horde_Serialize::unserialize($str4_j, SERIALIZE_JSON), SERIALIZE_JSON));
-out(Horde_Serialize::serialize(Horde_Serialize::unserialize($str4_j_, SERIALIZE_JSON), SERIALIZE_JSON));
+out(Horde_Serialize::serialize(Horde_Serialize::unserialize($str4_j, Horde_Serialize::JSON), Horde_Serialize::JSON));
+out(Horde_Serialize::serialize(Horde_Serialize::unserialize($str4_j_, Horde_Serialize::JSON), Horde_Serialize::JSON));
 
 // array case: array with elements and nested arrays
-out(Horde_Serialize::serialize(Horde_Serialize::unserialize($arr_j, SERIALIZE_JSON), SERIALIZE_JSON));
+out(Horde_Serialize::serialize(Horde_Serialize::unserialize($arr_j, Horde_Serialize::JSON), Horde_Serialize::JSON));
 // object case: object with properties, nested object and arrays
-out(Horde_Serialize::serialize(Horde_Serialize::unserialize($obj_j, SERIALIZE_JSON), SERIALIZE_JSON));
+out(Horde_Serialize::serialize(Horde_Serialize::unserialize($obj_j, Horde_Serialize::JSON), Horde_Serialize::JSON));
 
 ?>
 --EXPECT--

@@ -24,24 +24,24 @@ $arrs_jo = '{"1":"one","2":"two","5":"five"}';
 /* Types test */
 
 // strict type should be array
-out(gettype(Horde_Serialize::unserialize($arn_ja, SERIALIZE_JSON)));
+out(gettype(Horde_Serialize::unserialize($arn_ja, Horde_Serialize::JSON)));
 
 echo"============================================================================\n";
 
 /* Encode tests */
 
 // array case - strict: associative array with nested associative arrays
-out(Horde_Serialize::serialize($arr, SERIALIZE_JSON));
+out(Horde_Serialize::serialize($arr, Horde_Serialize::JSON));
 
 // array case - strict: associative array with nested associative arrays, and
 // some numeric keys thrown in
 // Should degrade to a numeric array.
-out(Horde_Serialize::serialize($arn, SERIALIZE_JSON));
+out(Horde_Serialize::serialize($arn, Horde_Serialize::JSON));
 
 // sparse numeric assoc array: associative array numeric keys which are not
 // fully populated in a range of 0 to length-1
 // Test a sparsely populated numerically indexed associative array.
-out(Horde_Serialize::serialize($arrs, SERIALIZE_JSON));
+out(Horde_Serialize::serialize($arrs, Horde_Serialize::JSON));
 
 ?>
 --EXPECT--
