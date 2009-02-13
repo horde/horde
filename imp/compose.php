@@ -798,7 +798,7 @@ if (!$redirect) {
             Horde_Mime_Address::addrArray2String($identity->getBccAddresses($ident))
         );
     }
-    $js_code[] = 'ImpCompose.identities = ' . Horde_Serialize::serialize($js_ident, SERIALIZE_JSON, NLS::getCharset());
+    $js_code[] = 'ImpCompose.identities = ' . Horde_Serialize::serialize($js_ident, Horde_Serialize::JSON, NLS::getCharset());
 }
 
 

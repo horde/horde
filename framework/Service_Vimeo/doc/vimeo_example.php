@@ -27,5 +27,5 @@ $embed = $v->getEmbedJson($latest['url']);
 
 // Decode the data and print out the HTML. You could also just output
 // the json within your page's javascript for use later etc...
-$results = Horde_Serialize::unserialize($embed, SERIALIZE_JSON);
+$results = Horde_Serialize::unserialize($embed, Horde_Serialize::JSON);
 echo $results->html;

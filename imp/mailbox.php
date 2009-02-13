@@ -885,7 +885,7 @@ if (($pageOb['end'] - $pageOb['begin']) >= 20) {
 }
 
 IMP::addInlineScript(array(
-    'ImpMessage.messagelist = ' . Horde_Serialize::serialize($ids, SERIALIZE_JSON, NLS::getCharset()),
+    'ImpMessage.messagelist = ' . Horde_Serialize::serialize($ids, Horde_Serialize::JSON, NLS::getCharset()),
     'ImpMessage.sortlimit = ' . intval($sortpref['limit']),
     'ImpMessage.unread = ' . strval($unread)
 ));

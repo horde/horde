@@ -341,7 +341,7 @@ IMP::menu();
 IMP::status();
 
 IMP::addInlineScript(array(
-    'ImpSearch.search_date = ' . Horde_Serialize::serialize(array('m' => date('m'), 'd' => date('d'), 'y' => date('Y')), SERIALIZE_JSON, $charset),
+    'ImpSearch.search_date = ' . Horde_Serialize::serialize(array('m' => date('m'), 'd' => date('d'), 'y' => date('Y')), Horde_Serialize::JSON, $charset),
     'ImpSearch.not_search = ' . intval(empty($search['mbox'])),
     'ImpSearch.inverse_sub = ' . intval($t->get('inverse_subscribe')),
 ));

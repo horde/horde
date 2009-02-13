@@ -1363,7 +1363,7 @@ class IMP
      */
     static public function escapeJSON($json)
     {
-        return '/*-secure-' . rawurlencode(Horde_Serialize::serialize($json, SERIALIZE_JSON, NLS::getCharset())) . '*/';
+        return '/*-secure-' . rawurlencode(Horde_Serialize::serialize($json, Horde_Serialize::JSON, NLS::getCharset())) . '*/';
     }
 
     /**

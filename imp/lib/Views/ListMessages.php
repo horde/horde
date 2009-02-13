@@ -182,7 +182,7 @@ class IMP_Views_ListMessages
             $cached = array();
         } else {
             if (isset($md->search)) {
-                $cached = Horde_Serialize::unserialize($args['cached'], SERIALIZE_JSON);
+                $cached = Horde_Serialize::unserialize($args['cached'], Horde_Serialize::JSON);
             } else {
                 $cached = IMP::parseRangeString($args['cached']);
                 $cached = reset($cached);

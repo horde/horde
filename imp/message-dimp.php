@@ -60,7 +60,7 @@ $compose_result['js'] = array_merge($compose_result['js'], array(
 
 foreach (array('from', 'to', 'cc', 'bcc', 'replyTo') as $val) {
     if (!empty($show_msg_result[$val])) {
-        $compose_result['js'][] = 'DimpFullmessage.' . $val . ' = ' . Horde_Serialize::serialize($show_msg_result[$val], SERIALIZE_JSON);
+        $compose_result['js'][] = 'DimpFullmessage.' . $val . ' = ' . Horde_Serialize::serialize($show_msg_result[$val], Horde_Serialize::JSON);
     }
 }
 IMP::addInlineScript($compose_result['js']);

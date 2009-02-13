@@ -95,9 +95,9 @@ class Horde_Block_Layout_View_Js extends Horde_Block_Layout_View {
             }
         }
 
-        $content = Horde_Serialize::serialize($content, SERIALIZE_JSON, NLS::getCharset());
-        $title = Horde_Serialize::serialize($title, SERIALIZE_JSON, NLS::getCharset());
-        $params = Horde_Serialize::serialize($params, SERIALIZE_JSON, NLS::getCharset());
+        $content = Horde_Serialize::serialize($content, Horde_Serialize::JSON, NLS::getCharset());
+        $title = Horde_Serialize::serialize($title, Horde_Serialize::JSON, NLS::getCharset());
+        $params = Horde_Serialize::serialize($params, Horde_Serialize::JSON, NLS::getCharset());
 
         $js_init .= 'portal.add(new Xilinus.Widget().'
                     . 'setTitle(title_' . $js_id .').'

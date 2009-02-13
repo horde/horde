@@ -22,6 +22,6 @@ $gettext = array_map('addslashes', array(
 
 ?>
 <script type="text/javascript">//<![CDATA[
-var KronolithVar = <?php echo Horde_Serialize::serialize($var, SERIALIZE_JSON, $charset) ?>;
-var KronolithText = <?php echo Horde_Serialize::serialize($gettext, SERIALIZE_JSON, $charset) ?>;
+var KronolithVar = <?php echo Horde_Serialize::serialize($var, Horde_Serialize::JSON, $charset) ?>;
+var KronolithText = <?php echo Horde_Serialize::serialize($gettext, Horde_Serialize::JSON, $charset) ?>;
 //]]></script>

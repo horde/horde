@@ -311,7 +311,7 @@ IMP::addInlineScript($compose_result['js']);
 IMP::addInlineScript(array(DIMP::notify()), 'dom');
 
 /* Javascript to be run on window load. */
-$compose_result['js_onload'][] = 'DimpCompose.fillForm(' . Horde_Serialize::serialize($msg, SERIALIZE_JSON) . ', ' . Horde_Serialize::serialize($header, SERIALIZE_JSON) . ', "' . (($type == 'new' || $type == 'forward') ? 'to' : 'message') . '", true)';
+$compose_result['js_onload'][] = 'DimpCompose.fillForm(' . Horde_Serialize::serialize($msg, Horde_Serialize::JSON) . ', ' . Horde_Serialize::serialize($header, Horde_Serialize::JSON) . ', "' . (($type == 'new' || $type == 'forward') ? 'to' : 'message') . '", true)';
 IMP::addInlineScript($compose_result['js_onload'], 'load');
 
 $scripts = array(

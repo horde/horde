@@ -140,7 +140,7 @@ class Kronolith {
             $code['text']['weekday'][$i] = NLS::getLangInfo(constant('DAY_' . $i));
         }
 
-        return array('var Kronolith = ' . Horde_Serialize::serialize($code, SERIALIZE_JSON, NLS::getCharset()) . ';');
+        return array('var Kronolith = ' . Horde_Serialize::serialize($code, Horde_Serialize::JSON, NLS::getCharset()) . ';');
     }
 
     /**

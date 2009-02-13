@@ -329,10 +329,10 @@ require IMP_TEMPLATES . '/common-header.inc';
 
 $charset = NLS::getCharset();
 IMP::addInlineScript(array(
-    'ImpLogin.autologin_url = ' . Horde_Serialize::serialize(Util::addParameter(Horde::selfUrl(), array('autologin' => $autologin, 'server_key' => '')), SERIALIZE_JSON, $charset),
+    'ImpLogin.autologin_url = ' . Horde_Serialize::serialize(Util::addParameter(Horde::selfUrl(), array('autologin' => $autologin, 'server_key' => '')), Horde_Serialize::JSON, $charset),
     'ImpLogin.ie_clientcaps = ' . intval($t->get('ie_clientcaps')),
     'ImpLogin.imp_auth = ' . intval($imp_auth),
-    'ImpLogin.lang_url = ' . Horde_Serialize::serialize($lang_url, SERIALIZE_JSON, $charset),
+    'ImpLogin.lang_url = ' . Horde_Serialize::serialize($lang_url, Horde_Serialize::JSON, $charset),
     'ImpLogin.nomenu = ' . intval(empty($conf['menu']['always'])),
     'ImpLogin.reloadmenu = ' . intval($logout_reason && $imp_auth && $conf['menu']['always']),
     'ImpLogin.show_list = ' . intval($show_list),

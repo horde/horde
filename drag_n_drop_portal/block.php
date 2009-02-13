@@ -34,4 +34,4 @@ if ($block instanceof PEAR_Error) {
     }
 }
 
-echo Horde_Serialize::serialize($block_data, SERIALIZE_JSON, NLS::getCharset());
+echo Horde_Serialize::serialize($block_data, Horde_Serialize::JSON, NLS::getCharset());

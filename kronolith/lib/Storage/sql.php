@@ -148,7 +148,7 @@ class Kronolith_Storage_sql extends Kronolith_Storage {
                 /* Retrieve Freebusy object.  TODO: check for multiple
                  * results and merge them into one and return. */
                 require_once 'Horde/Serialize.php';
-                $vfb = Horde_Serialize::unserialize($row['vfb_serialized'], SERIALIZE_BASIC);
+                $vfb = Horde_Serialize::unserialize($row['vfb_serialized'], Horde_Serialize::BASIC);
                 return $vfb;
             }
         }
@@ -173,7 +173,7 @@ class Kronolith_Storage_sql extends Kronolith_Storage {
         require_once 'Horde/Serialize.php';
         $query = sprintf('INSERT INTO %s (vfb_owner, vfb_email, vfb_serialized) VALUES (?, ?, ?)',
                          $this->_params['table']);
-        $values = array($owner, $email, Horde_Serialize::serialize($vfb, SERIALIZE_BASIC));
+        $values = array($owner, $email, Horde_Serialize::serialize($vfb, Horde_Serialize::BASIC));
 
         /* Log the query at debug level. */
         Horde::logMessage(sprintf('SQL insert by %s: query = "%s"',

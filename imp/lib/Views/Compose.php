@@ -83,7 +83,7 @@ class IMP_Views_Compose
 
         $result['js'] = array(
             'DIMP.conf_compose.auto_save_interval_val = ' . intval($GLOBALS['prefs']->getValue('auto_save_drafts')),
-            'DIMP.conf_compose.identities = ' . Horde_Serialize::serialize($identities, SERIALIZE_JSON),
+            'DIMP.conf_compose.identities = ' . Horde_Serialize::serialize($identities, Horde_Serialize::JSON),
             'DIMP.conf_compose.qreply = ' . intval(!empty($args['qreply'])),
         );
 

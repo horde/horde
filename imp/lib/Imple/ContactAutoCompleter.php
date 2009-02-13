@@ -96,7 +96,7 @@ class IMP_Imple_ContactAutoCompleter extends IMP_Imple
                 if (!isset($addrlist)) {
                     $addrlist = IMP_Compose::getAddressList();
                 }
-                IMP::addInlineScript('if (!IMP) { var IMP = {}; } IMP.ac_list = '. Horde_Serialize::serialize(array_map('htmlspecialchars', $addrlist), SERIALIZE_JSON, NLS::getCharset()));
+                IMP::addInlineScript('if (!IMP) { var IMP = {}; } IMP.ac_list = '. Horde_Serialize::serialize(array_map('htmlspecialchars', $addrlist), Horde_Serialize::JSON, NLS::getCharset()));
                 self::$_listOutput = true;
             }
             $func = 'Autocompleter.Local';

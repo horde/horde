@@ -190,8 +190,8 @@ Horde::addScriptFile('fetchmailprefs.js', 'imp', true);
 
 $charset = NLS::getCharset();
 IMP::addInlineScript(array(
-    'ImpFetchmailprefs.fetchurl = ' . Horde_Serialize($fetch_url, SERIALIZE_JSON, $charset),
-    'ImpFetchmailprefs.prefsurl = ' . Horde_Serialize($prefs_url, SERIALIZE_JSON, $charset)
+    'ImpFetchmailprefs.fetchurl = ' . Horde_Serialize($fetch_url, Horde_Serialize::JSON, $charset),
+    'ImpFetchmailprefs.prefsurl = ' . Horde_Serialize($prefs_url, Horde_Serialize::JSON, $charset)
 ));
 
 echo $t->fetch(IMP_TEMPLATES . '/fetchmail/fetchmailprefs.html');

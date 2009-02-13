@@ -257,7 +257,7 @@ class DIMP
             ));
         }
 
-        return array('var DIMP = ' . Horde_Serialize::serialize($code, SERIALIZE_JSON, NLS::getCharset()) . ';');
+        return array('var DIMP = ' . Horde_Serialize::serialize($code, Horde_Serialize::JSON, NLS::getCharset()) . ';');
     }
 
     /**
@@ -281,7 +281,7 @@ class DIMP
             return '';
         }
 
-        return 'DimpCore.showNotifications(' . Horde_Serialize::serialize($msgs, SERIALIZE_JSON) . ')';
+        return 'DimpCore.showNotifications(' . Horde_Serialize::serialize($msgs, Horde_Serialize::JSON) . ')';
     }
 
     /**

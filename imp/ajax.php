@@ -85,7 +85,7 @@ function _getListMessages($mbox, $change)
             'slice_end' => intval($slice_end)
         );
     } else {
-        $search = Horde_Serialize::unserialize($search, SERIALIZE_JSON);
+        $search = Horde_Serialize::unserialize($search, Horde_Serialize::JSON);
         $args += array(
             'search_uid' => $search->imapuid,
             'search_view' => $search->view,
@@ -379,7 +379,7 @@ case 'MarkMessage':
     if (!$flags || empty($indices)) {
         break;
     }
-    $flags = Horde_Serialize::unserialize($flags, SERIALIZE_JSON);
+    $flags = Horde_Serialize::unserialize($flags, Horde_Serialize::JSON);
 
     $set = $notset = array();
     foreach ($flags as $val) {
