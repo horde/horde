@@ -431,8 +431,8 @@ function _simpleButton($id, $text, $image, $imagedir = null)
 </div>
 
 <div class="context" id="ctx_contacts" style="display:none">
- <div><?php _createDA(_("New Message"), 'compose.png', 'ctx_contacts_new') ?></div>
- <div><?php _createDA(_("Add to Address Book"), 'add_contact.png', 'ctx_contacts_add') ?></div>
+ <a id="ctx_contacts_new"><span class="contextImg"></span><?php echo _("New Message") ?></a>
+ <a id="ctx_contacts_add"><span class="contextImg"></span><?php echo _("Add to Address Book") ?></a>
 </div>
 
 <div style="display:none">

@@ -32,7 +32,7 @@ var ContextSensitive = Class.create({
 
     initialize: function(opts)
     {
-        this.basectx = this.lasttarget = this.target = null;
+        this.basectx = this.target = null;
         this.elements = $H();
         this.submenus = $H();
         this.current = [];
@@ -76,23 +76,17 @@ var ContextSensitive = Class.create({
      */
     _closeSubmenu: function(idx, immediate)
     {
-        this.current.splice(idx, this.current.size() - idx).each(function(s) {
-            if (immediate) {
-                $(s).hide();
-            } else {
-                Effect.Fade(s, { duration: 0.2, queue: { position: 'end', scope: 'cm_' + s, limit: 2 } });
-            }
-        });
-        this.target = this.current[idx];
-        this.basectx = null;
-    },
-
-    /**
-     * Get the element that triggered the current context menu (if any).
-     */
-    element: function(current)
-    {
-        return current ? this.target : this.lasttarget;
+        if (this.current.size()) {
+            this.current.splice(idx, this.current.size() - idx).each(function(s) {
+                if (immediate) {
+                    $(s).hide();
+                } else {
+                    Effect.Fade(s, { duration: 0.2, queue: { position: 'end', scope: 'cm_' + s, limit: 2 } });
+                }
+            });
+            this.target = this.current[idx];
+            this.basectx = null;
+        }
     },
 
     /**
@@ -130,10 +124,34 @@ var ContextSensitive = Class.create({
      */
     _leftClickHandler: function(e)
     {
+        var curr, elt, elt_up;
+
         // Check for a right click. FF on Linux triggers an onclick event even
         // w/a right click, so disregard.
         if (e.isRightClick()) {
             return;
+        }
+
+        // Check for click in open contextmenu.
+        if (this.current.size()) {
+            elt = e.element();
+            elt_up = elt.up();
+
+            if (elt_up.hasClassName('contextMenu')) {
+                e.stop();
+
+                if (elt.hasClassName('contextSubmenu') &&
+                    elt_up.readAttribute('id') != this.currentmenu()) {
+                    this._closeSubmenu(this.current.indexOf(elt.readAttribute('id')));
+                } else {
+                    curr = $(this.target);
+                    this.close(true);
+                    if (this.opts.onClick) {
+                        this.opts.onClick(elt.readAttribute('id'), curr);
+                    }
+                }
+                return;
+            }
         }
 
         // Check if the mouseclick is registered to an element now.
@@ -164,10 +182,7 @@ var ContextSensitive = Class.create({
 
         // Return if event not found or event is disabled.
         if (!ctx || ctx.disable) {
-            // Return if this is a click on a submenu item.
-            if (!ctx || !ctx.hasClassName('contextSubmenu')) {
-                this.close();
-            }
+            this.close();
             return false;
         }
 
@@ -187,7 +202,7 @@ var ContextSensitive = Class.create({
         // Register the current element that will be shown and the element
         // that was clicked on.
         this.close();
-        this.lasttarget = this.target = $(ctx.id);
+        this.target = ctx.id;
 
         offset = ctx.opts.offset;
         if (!offset && (Object.isUndefined(x) || Object.isUndefined(y))) {
@@ -245,6 +260,7 @@ var ContextSensitive = Class.create({
                 document.observe('mouseover', this._mouseoverHandler.bindAsEventListener(this));
             }
             this.submenus.set(id, submenu);
+            $(submenu).addClassName('contextMenu');
             $(id).addClassName('contextSubmenu').insert({ top: new Element('SPAN', { className: 'contextExpand' }) });
         }
     },

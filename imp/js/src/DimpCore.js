@@ -474,14 +474,6 @@ DimpCore = {
                 this.popupWindow(this.addURLParam(DIMP.conf.URI_VIEW, { index: DIMP.conf.msg_index, mailbox: DIMP.conf.msg_folder, actionID: 'view_source', id: 0 }, true), DIMP.conf.msg_index + '|' + DIMP.conf.msg_folder);
                 break;
 
-            case 'ctx_contacts_new':
-                this.compose('new', { to: this.DMenu.element().readAttribute('address') });
-                break;
-
-            case 'ctx_contacts_add':
-                this.doAction('AddContact', { name: this.DMenu.element().readAttribute('personal'), email: this.DMenu.element().readAttribute('email') }, null, true);
-                break;
-
             case 'alertsloglink':
                 this.toggleAlertsLog();
                 break;
@@ -500,13 +492,27 @@ DimpCore = {
         }
     },
 
-    /* Dimp initialization function. */
-    init: function(opts)
-    {
-        opts = opts || {};
+    // By default, no context onShow action
+    contextOnShow: Prototype.emptyFunction,
 
+    contextOnClick: function(id, elt)
+    {
+        switch (id) {
+        case 'ctx_contacts_new':
+            this.compose('new', { to: elt.readAttribute('address') });
+            break;
+
+        case 'ctx_contacts_add':
+            this.doAction('AddContact', { name: elt.readAttribute('personal'), email: elt.readAttribute('email') }, null, true);
+            break;
+        }
+    },
+
+    /* DIMP initialization function. */
+    init: function()
+    {
         if (typeof ContextSensitive != 'undefined') {
-            this.DMenu = new ContextSensitive({ onShow: opts.DMenu_onShow });
+            this.DMenu = new ContextSensitive({ onClick: this.contextOnClick, onShow: this.contextOnShow });
         }
 
         /* Don't do additional onload stuff if we are in a popup. We need a

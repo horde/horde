@@ -105,22 +105,22 @@ function _createDAfmsg($text, $image, $id, $class = '', $show_text = true)
 </div>
 
 <div class="context" id="ctx_replypopdown" style="display:none">
- <div><?php _createDAfmsg(_("To Sender"), 'reply.png', 'ctx_replypopdown_reply') ?></div>
- <div><?php _createDAfmsg(_("To All"), 'replyall.png', 'ctx_replypopdown_reply_all') ?></div>
+ <a id="ctx_reply_reply"><span class="contextImg"></span><?php echo _("To Sender") ?></a>
+ <a id="ctx_reply_reply_all"><span class="contextImg"></span><?php echo _("To All") ?></a>
 <?php if ($show_msg_result['list_info']['exists']): ?>
- <div><?php _createDAfmsg(_("To List"), 'replyall.png', 'ctx_replypopdown_reply_list') ?></div>
+ <a id="ctx_reply_reply_list"><span class="contextImg"></span><?php echo _("To List") ?></a>
 <?php endif; ?>
 </div>
 
 <div class="context" id="ctx_fwdpopdown" style="display:none">
- <div><?php _createDAfmsg(_("Entire Message"), 'forward.png', 'ctx_fwdpopdown_forward_all') ?></div>
- <div><?php _createDAfmsg(_("Body Text Only"), 'forward.png', 'ctx_fwdpopdown_forward_body') ?></div>
- <div><?php _createDAfmsg(_("Attachments Only"), 'forward.png', 'ctx_fwdpopdown_forward_attachments') ?></div>
+ <a id="ctx_forward_forward_all"><span class="contextImg"></span><?php echo _("Entire Message") ?></a>
+ <a id="ctx_forward_forward_body"><span class="contextImg"></span><?php echo _("Body Text Only") ?></a>
+ <a id="ctx_forward_forward_attachments"><span class="contextImg"></span><?php echo _("Attachments Only") ?></a>
 </div>
 
 <div class="context" id="ctx_contacts" style="display:none">
- <div><?php _createDAfmsg(_("New Message"), 'compose.png', 'ctx_contacts_new') ?></div>
- <div><?php _createDAfmsg(_("Add to Address Book"), 'add_contact.png', 'ctx_contacts_add') ?></div>
+ <a id="ctx_contacts_new"><span class="contextImg"></span><?php echo _("New Message") ?></a>
+ <a id="ctx_contacts_add"><span class="contextImg"></span><?php echo _("Add to Address Book") ?></a>
 </div>
 
 <span id="popdown_img" class="iconImg popdownImg popdown" style="display:none"></span>

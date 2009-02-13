@@ -66,7 +66,7 @@ var DimpFullmessage = {
         }
     },
 
-    /* Mouse click handler. */
+    /* Click handlers. */
     clickHandler: function(e)
     {
         if (e.isRightClick()) {
@@ -98,18 +98,6 @@ var DimpFullmessage = {
                 e.stop();
                 return;
 
-            case 'ctx_replypopdown_reply':
-            case 'ctx_replypopdown_reply_all':
-            case 'ctx_replypopdown_reply_list':
-                this.quickreply(id.substring(17));
-                break;
-
-            case 'ctx_fwdpopdown_forward_all':
-            case 'ctx_fwdpopdown_forward_body':
-            case 'ctx_fwdpopdown_forward_attachments':
-                this.quickreply(id.substring(15));
-                break;
-
             case 'qreply':
                 if (orig.match('DIV.headercloseimg IMG')) {
                     DimpCompose.confirmCancel();
@@ -118,6 +106,27 @@ var DimpFullmessage = {
             }
 
             elt = elt.up();
+        }
+    },
+
+    contextOnClick: function(parentfunc, id, elt)
+    {
+        switch (id) {
+        case 'ctx_reply_reply':
+        case 'ctx_reply_reply_all':
+        case 'ctx_reply_reply_list':
+            this.quickreply(id.substring(10));
+            break;
+
+        case 'ctx_forward_forward_all':
+        case 'ctx_forward_forward_body':
+        case 'ctx_forward_forward_attachments':
+            this.quickreply(id.substring(12));
+            break;
+
+        default:
+            parentfunc(id, elt);
+            break;
         }
     },
 
@@ -133,8 +142,8 @@ var DimpFullmessage = {
     {
         DimpCore.init();
 
-        this.addPopdown('reply_link', 'replypopdown');
-        this.addPopdown('forward_link', 'fwdpopdown');
+        this._addPopdown('reply_link', 'replypopdown');
+        this._addPopdown('forward_link', 'fwdpopdown');
 
         /* Set up address linking. */
         [ 'from', 'to', 'cc', 'bcc', 'replyTo' ].each(function(a) {
@@ -147,5 +156,9 @@ var DimpFullmessage = {
 
 };
 
+/* ContextSensitive functions. */
+DimpCore.contextOnClick = DimpCore.contextOnClick.wrap(DimpFullmessage.contextOnClick.bind(DimpFullmessage));
+
+/* Attach event handlers. */
 document.observe('dom:loaded', DimpFullmessage.onDomLoad.bind(DimpFullmessage));
 document.observe('click', DimpFullmessage.clickHandler.bindAsEventListener(DimpFullmessage));
