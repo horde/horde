@@ -62,7 +62,7 @@ class Horde_SessionObjects
     static public function singleton($params = array())
     {
         ksort($params);
-        $sig = md5($params);
+        $sig = md5(Horde_Serialize::serialize($params, Horde_Serialize::BASIC));
 
         if (!isset(self::$_instance[$sig])) {
             self::$_instance[$sig] = new Horde_SessionObjects($params);
