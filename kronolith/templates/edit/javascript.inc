@@ -1,28 +1,28 @@
 <script type="text/javascript">
 
 <?php if (!Util::nonInputVar('issearch')): ?>
-
-function setInterval(field)
+KronolithEventForm = new Object();
+KronolithEventForm.setInterval = function(field)
 {
     elt = document.eventform[field];
     if (elt.value == "") {
         elt.value = 1;
     }
 
-    if (field == 'recur_daily_interval') clearFields(1);
-    else if (field == 'recur_weekly_interval') clearFields(2);
-    else if (field == 'recur_day_of_month_interval') clearFields(3);
-    else if (field == 'recur_week_of_month_interval') clearFields(4);
-    else if (field == 'recur_yearly_interval') clearFields(5);
+    if (field == 'recur_daily_interval') KronolithEventForm.clearFields(1);
+    else if (field == 'recur_weekly_interval') KronolithEventForm.clearFields(2);
+    else if (field == 'recur_day_of_month_interval') KronolithEventForm.clearFields(3);
+    else if (field == 'recur_week_of_month_interval') KronolithEventForm.clearFields(4);
+    else if (field == 'recur_yearly_interval') KronolithEventForm.clearFields(5);
 }
 
-function setRecur(index)
+KronolithEventForm.setRecur = function(index)
 {
     document.eventform.recur[index].checked = true;
-    clearFields(index);
+    KronolithEventForm.clearFields(index);
 }
 
-function clearFields(index)
+KronolithEventForm.clearFields = function(index)
 {
     var f = document.eventform;
     if (index != 1) f.recur_daily_interval.value = '';
@@ -41,7 +41,7 @@ function clearFields(index)
 
 <?php endif; ?>
 
-function setWholeDay(wholeDay)
+KronolithEventForm.setWholeDay = function(wholeDay)
 {
     if (wholeDay == 1) {
 <?php if ($GLOBALS['prefs']->getValue('twentyFour')): ?>
@@ -57,7 +57,7 @@ function setWholeDay(wholeDay)
     }
 }
 
-function updateWday(span)
+KronolithEventForm.updateWday = function(span)
 {
 <?php if ($GLOBALS['browser']->hasFeature('dom')): ?>
     wdays = [
@@ -94,7 +94,7 @@ function updateWday(span)
 <?php if (!$GLOBALS['prefs']->getValue('twentyFour')): ?>
 
 // Converts a 12 hour based number to its 24 hour format
-function convertTo24Hour(in_hour, pm_elementName)
+KronolithEventForm.convertTo24Hour = function(in_hour, pm_elementName)
 {
     if ($F(pm_elementName)) {
         if (in_hour != 12) {
@@ -108,13 +108,13 @@ function convertTo24Hour(in_hour, pm_elementName)
 }
 <?php endif; ?>
 
-function updateDuration()
+KronolithEventForm.updateDuration = function()
 {
     var startHour = parseInt($F('start_hour'));
     var endHour = parseInt($F('end_hour'));
 <?php if (!$GLOBALS['prefs']->getValue('twentyFour')): ?>
-    startHour = convertTo24Hour(startHour, 'pm');
-    endHour = convertTo24Hour(endHour, 'epm');
+    startHour = KronolithEventForm.convertTo24Hour(startHour, 'pm');
+    endHour = KronolithEventForm.convertTo24Hour(endHour, 'epm');
 <?php endif; ?>
     var startDate = Date.UTC($F('start_year'),
                              $F('start_month') - 1,
@@ -143,7 +143,7 @@ function updateDuration()
 
             // Recalculate end time.
             var endHour = parseInt($F('end_hour'));
-            endHour = convertTo24Hour(endHour, 'epm');
+            endHour = KronolithEventForm.convertTo24Hour(endHour, 'epm');
             endDate = Date.UTC($F('end_year'),
                                $F('end_month') - 1,
                                $F('end_day'),
@@ -168,16 +168,16 @@ function updateDuration()
     $('dur_min').selectedIndex = durMin;
     $('allday').checked = false;
     if (failed) {
-        updateEndDate();
+    	KronolithEventForm.updateEndDate();
     }
 }
 
-function updateEndDate()
+KronolithEventForm.updateEndDate = function()
 {
     var yearDiff = <?php echo date('Y') - 1 ?>;
     var startHour = parseInt($F('start_hour'));
 <?php if (!$GLOBALS['prefs']->getValue('twentyFour')): ?>
-    startHour = convertTo24Hour(startHour, 'pm');
+    startHour = KronolithEventForm.convertTo24Hour(startHour, 'pm');
 <?php endif; ?>
     var startDate = new Date($F('start_year'),
                              $F('start_month') - 1,
@@ -214,10 +214,10 @@ function updateEndDate()
 <?php endif; ?>
     $('end_hour').selectedIndex = endHour;
     $('end_min').selectedIndex = endDate.getMinutes() / 5;
-    updateWday('end_wday');
+    KronolithEventForm.updateWday('end_wday');
 }
 
-function toggleAlarmMethods()
+KronolithEventForm.toggleAlarmMethods = function()
 {
     if ($('nooverwrite').checked) {
         $('notification_options').hide();
@@ -227,7 +227,7 @@ function toggleAlarmMethods()
     }
 }
 
-function setStartDate(date)
+KronolithEventForm.setStartDate = function(date)
 {
     var year = parseInt(date.substr(0, 4));
     var month = parseInt(date.substr(4, 2));
@@ -236,7 +236,7 @@ function setStartDate(date)
     $('start_year').value = year;
     $('start_month').selectedIndex = month - 1;
     $('start_day').selectedIndex = day - 1;
-    updateEndDate();
+    KronolithEventForm.updateEndDate();
 
     // Uncheck recurring weekdays.
     $('mo').checked = false;
@@ -254,7 +254,7 @@ Event.observe(window, 'load', function() {
 });
 <?php endif; ?>
 
-function toggleSection(section)
+KronolithEventForm.toggleSection = function(section)
 {
     var dir = '<?php echo $GLOBALS['registry']->getImageDir() ?>';
     $('section_' + section).toggle();
@@ -273,11 +273,11 @@ function toggleSection(section)
     }
 }
 Event.observe(window, 'load', function() {
-    toggleSection('alarm');
-    toggleSection('description');
-    toggleSection('attendees');
-    toggleSection('recurrence');
-    toggleSection('tags');
+	KronolithEventForm.toggleSection('alarm');
+	KronolithEventForm.toggleSection('description');
+	KronolithEventForm.toggleSection('attendees');
+	KronolithEventForm.toggleSection('recurrence');
+	KronolithEventForm.toggleSection('tags');
 });
 
 </script>

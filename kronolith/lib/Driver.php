@@ -1995,7 +1995,7 @@ class Kronolith_Event {
             for ($i = $hour_min; $i < $hour_max; ++$i) {
                 $options[$i] = $i;
             }
-            $attributes = ' onchange="document.eventform.whole_day.checked = false; updateEndDate();"';
+            $attributes = ' onchange="document.eventform.whole_day.checked = false; KronolithEventForm.updateEndDate();"';
             $label = _("Start Hour");
             break;
 
@@ -2005,7 +2005,7 @@ class Kronolith_Event {
                 $min = sprintf('%02d', $i * 5);
                 $options[$min] = $min;
             }
-            $attributes = ' onchange="document.eventform.whole_day.checked = false; updateEndDate();"';
+            $attributes = ' onchange="document.eventform.whole_day.checked = false; KronolithEventForm.updateEndDate();"';
             $label = _("Start Minute");
             break;
 
@@ -2042,7 +2042,7 @@ class Kronolith_Event {
             for ($i = $hour_min; $i < $hour_max; ++$i) {
                 $options[$i] = $i;
             }
-            $attributes = ' onchange="updateDuration(); document.eventform.end_or_dur[0].checked = true"';
+            $attributes = ' onchange="KronolithEventForm.updateDuration(); document.eventform.end_or_dur[0].checked = true"';
             $label = _("End Hour");
             break;
 
@@ -2053,7 +2053,7 @@ class Kronolith_Event {
                 $min = sprintf('%02d', $i * 5);
                 $options[$min] = $min;
             }
-            $attributes = ' onchange="updateDuration(); document.eventform.end_or_dur[0].checked = true"';
+            $attributes = ' onchange="KronolithEventForm.updateDuration(); document.eventform.end_or_dur[0].checked = true"';
             $label = _("End Minute");
             break;
 
@@ -2146,24 +2146,24 @@ class Kronolith_Event {
         case 'start[year]':
         case 'start[day]':
         case 'start':
-            return 'updateWday(\'start_wday\'); document.eventform.whole_day.checked = false; updateEndDate();';
+            return 'KronolithEventForm.updateWday(\'start_wday\'); document.eventform.whole_day.checked = false; KronolithEventForm.updateEndDate();';
 
         case 'end[month]':
         case 'end[year]':
         case 'end[day]':
         case 'end':
-            return 'updateWday(\'end_wday\'); updateDuration(); document.eventform.end_or_dur[0].checked = true;';
+            return 'KronolithEventForm.updateWday(\'end_wday\'); updateDuration(); document.eventform.end_or_dur[0].checked = true;';
 
         case 'recur_enddate[month]':
         case 'recur_enddate[year]':
         case 'recur_enddate[day]':
         case 'recur_enddate':
-            return 'updateWday(\'recur_end_wday\'); document.eventform.recur_enddate_type[1].checked = true;';
+            return 'KronolithEventForm.updateWday(\'recur_end_wday\'); document.eventform.recur_enddate_type[1].checked = true;';
 
         case 'dur_day':
         case 'dur_hour':
         case 'dur_min':
-            return 'document.eventform.whole_day.checked = false; updateEndDate(); document.eventform.end_or_dur[1].checked = true;';
+            return 'document.eventform.whole_day.checked = false; KronolithEventForm.updateEndDate(); document.eventform.end_or_dur[1].checked = true;';
         }
     }
 

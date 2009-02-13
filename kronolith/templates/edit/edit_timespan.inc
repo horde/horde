@@ -20,7 +20,7 @@
 <?php if ($GLOBALS['browser']->hasFeature('dom')): ?>
   <span id="start_wday"></span>
   <script type="text/javascript">
-   updateWday('start_wday');
+  KronolithEventForm.updateWday('start_wday');
   </script>
  </td>
  <td>
@@ -46,8 +46,8 @@
           $pm = ' checked="checked"';
       }
   ?>
-  <input id="am" type="radio" class="checkbox" name="am_pm" value="AM"<?php echo $am ?> onclick="$('allday').checked=false;updateEndDate();" /><label for="am" onclick="$('allday').checked=false;updateEndDate();">AM</label>
-  <input id="pm" type="radio" class="checkbox" name="am_pm" value="PM"<?php echo $pm ?> onclick="$('allday').checked=false;updateEndDate();" /><label for="pm" onclick="$('allday').checked=false;updateEndDate();">PM</label>
+  <input id="am" type="radio" class="checkbox" name="am_pm" value="AM"<?php echo $am ?> onclick="$('allday').checked=false;KronolithEventForm.updateEndDate();" /><label for="am" onclick="$('allday').checked=false;KronolithEventForm.updateEndDate();">AM</label>
+  <input id="pm" type="radio" class="checkbox" name="am_pm" value="PM"<?php echo $pm ?> onclick="$('allday').checked=false;KronolithEventForm.updateEndDate();" /><label for="pm" onclick="$('allday').checked=false;KronolithEventForm.updateEndDate();">PM</label>
   <?php } ?>
  </td>
 </tr>
@@ -70,7 +70,7 @@
 <?php if ($GLOBALS['browser']->hasFeature('dom')): ?>
   <span id="end_wday"></span>
   <script type="text/javascript">
-   updateWday('end_wday');
+  KronolithEventForm.updateWday('end_wday');
   </script>
   </td>
   <td rowspan="2" valign="top">
@@ -101,8 +101,8 @@ endif;
           $pm = ' checked="checked"';
       }
   ?>
-  <input id="eam" type="radio" class="checkbox" name="end_am_pm" value="AM"<?php echo $am ?> onclick="$('end').checked=true;updateDuration()" /><label for="eam" onclick="$('end').checked=true;updateDuration()">AM</label>
-  <input id="epm" type="radio" class="checkbox" name="end_am_pm" value="PM"<?php echo $pm ?> onclick="$('end').checked=true;updateDuration()" /><label for="epm" onclick="$('end').checked=true;updateDuration()">PM</label>
+  <input id="eam" type="radio" class="checkbox" name="end_am_pm" value="AM"<?php echo $am ?> onclick="$('end').checked=true;KronolithEventForm.updateDuration()" /><label for="eam" onclick="$('end').checked=true;KronolithEventForm.updateDuration()">AM</label>
+  <input id="epm" type="radio" class="checkbox" name="end_am_pm" value="PM"<?php echo $pm ?> onclick="$('end').checked=true;KronolithEventForm.updateDuration()" /><label for="epm" onclick="$('end').checked=true;KronolithEventForm.updateDuration()">PM</label>
   <?php } ?>
  </td>
 </tr>
@@ -115,7 +115,7 @@ endif;
  </td>
  <td>&nbsp;</td>
  <td valign="top">
-  <input id="allday" name="whole_day" type="checkbox" class="checkbox" value="1" onclick="setWholeDay(this.value); updateEndDate(); $('duration').checked = true"<?php $dur = $event->getDuration(); if ($dur->wholeDay) echo ' checked="checked"' ?> />
+  <input id="allday" name="whole_day" type="checkbox" class="checkbox" value="1" onclick="KronolithEventForm.setWholeDay(this.value); KronolithEventForm.updateEndDate(); $('duration').checked = true"<?php $dur = $event->getDuration(); if ($dur->wholeDay) echo ' checked="checked"' ?> />
   <?php echo Horde::label('allday', _("All day")) ?><br />
   <?php printf(_("%s Day(s) %s Hour(s) %s Minutes"), $event->html('dur_day'), $event->html('dur_hour'), $event->html('dur_min')) ?>
 <?php if ($GLOBALS['browser']->hasFeature('dom')): ?>
