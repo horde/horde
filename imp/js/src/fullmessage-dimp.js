@@ -67,7 +67,7 @@ var DimpFullmessage = {
     },
 
     /* Mouse click handler. */
-    _clickHandler: function(e)
+    clickHandler: function(e)
     {
         if (e.isRightClick()) {
             return;
@@ -122,31 +122,30 @@ var DimpFullmessage = {
     },
 
     /* Add a popdown menu to a dimpactions button. */
-    addPopdown: function(bid, ctx)
+    _addPopdown: function(bid, ctx)
     {
         var bidelt = $(bid);
         bidelt.insert({ after: $($('popdown_img').cloneNode(false)).writeAttribute('id', bid + '_img').show() });
         DimpCore.DMenu.addElement(bid + '_img', 'ctx_' + ctx, { offset: bidelt.up(), left: true });
+    },
+
+    onDomLoad: function()
+    {
+        DimpCore.init();
+
+        this.addPopdown('reply_link', 'replypopdown');
+        this.addPopdown('forward_link', 'fwdpopdown');
+
+        /* Set up address linking. */
+        [ 'from', 'to', 'cc', 'bcc', 'replyTo' ].each(function(a) {
+            if (this[a]) {
+                var elt = $('msgHeader' + a.charAt(0).toUpperCase() + a.substring(1)).down('TD', 1);
+                elt.replace(DimpCore.buildAddressLinks(this[a], elt.cloneNode(false)));
+            }
+        }, this);
     }
 
 };
 
-document.observe('dom:loaded', function() {
-    var FM = DimpFullmessage;
-
-    window.focus();
-
-    FM.addPopdown('reply_link', 'replypopdown');
-    FM.addPopdown('forward_link', 'fwdpopdown');
-
-    /* Set up address linking. */
-    [ 'from', 'to', 'cc', 'bcc', 'replyTo' ].each(function(a) {
-        if (FM[a]) {
-            var elt = $('msgHeader' + a.charAt(0).toUpperCase() + a.substring(1)).down('TD', 1);
-            elt.replace(DimpCore.buildAddressLinks(FM[a], elt.cloneNode(false)));
-        }
-    });
-
-    /* Set up click handlers. */
-    document.observe('click', FM._clickHandler.bindAsEventListener(FM));
-});
+document.observe('dom:loaded', DimpFullmessage.onDomLoad.bind(DimpFullmessage));
+document.observe('click', DimpFullmessage.clickHandler.bindAsEventListener(DimpFullmessage));

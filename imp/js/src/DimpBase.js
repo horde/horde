@@ -602,12 +602,12 @@ var DimpBase = {
 
     _onMenuShow: function(ctx_id, ctx)
     {
-        var elts, folder, ob, sel;
+        var elts, folder, ob, sel, tmp;
 
         switch (ctx_id) {
         case 'ctx_folder':
             elts = $('ctx_folder_create', 'ctx_folder_rename', 'ctx_folder_delete');
-            folder = DimpCore.DMenu.element();
+            folder = $(ctx.ctx);
             if (folder.readAttribute('mbox') == 'INBOX') {
                 elts.invoke('hide');
             } else if (DIMP.conf.fixed_folders.indexOf(folder.readAttribute('mbox')) != -1) {
@@ -617,19 +617,9 @@ var DimpBase = {
                 elts.invoke('show');
             }
 
-            if (folder.hasAttribute('u')) {
-                $('ctx_folder_poll').hide();
-                $('ctx_folder_nopoll').show();
-            } else {
-                $('ctx_folder_poll').show();
-                $('ctx_folder_nopoll').hide();
-            }
-            break;
-
-        case 'ctx_message':
-            DimpCore.DMenu.addSubMenu('ctx_message_reply', 'ctx_reply');
-            DimpCore.DMenu.addSubMenu('ctx_message_forward', 'ctx_forward');
-            DimpCore.DMenu.addSubMenu('ctx_message_setflag', 'ctx_flag');
+            tmp = folder.hasAttribute('u');
+            [ $('ctx_folder_poll') ].invoke(tmp ? 'hide' : 'show');
+            [ $('ctx_folder_nopoll') ].invoke(tmp? 'show' : 'hide');
             break;
 
         case 'ctx_reply':
@@ -642,17 +632,11 @@ var DimpBase = {
 
         case 'ctx_otheractions':
             $('oa_setflag', 'oa_sep1', 'oa_blacklist', 'oa_whitelist', 'oa_sep2', 'oa_undeleted').compact().invoke(this.viewport.getSelected().size() ? 'show' : 'hide');
-            DimpCore.DMenu.addSubMenu('oa_setflag', 'ctx_flag');
-            break;
-
-        case 'ctx_draft':
-            DimpCore.DMenu.addSubMenu('ctx_draft_setflag', 'ctx_flag');
             break;
         }
-        return true;
     },
 
-    _onResize: function(noupdate, nowait)
+    onResize: function(noupdate, nowait)
     {
         if (this.viewport) {
             this.viewport.onResize(noupdate, nowait);
@@ -663,6 +647,7 @@ var DimpBase = {
     updateTitle: function()
     {
         var elt, label, unseen;
+
         if (this.viewport.isFiltering()) {
             label = DIMP.text.search + ' :: ' + (this.viewport.getMetaData('total_rows') || 0) + ' ' + DIMP.text.resfound;
         } else {
@@ -689,6 +674,7 @@ var DimpBase = {
 
         var s, sortby,
             elt = e.element();
+
         if (!elt.hasAttribute('sortby')) {
             elt = elt.up('[sortby]');
             if (!elt) {
@@ -1004,9 +990,10 @@ var DimpBase = {
     /* Folder list updates. */
     pollFolders: function()
     {
+        var args = {};
+
         // Reset poll folder counter.
         this.setPollFolders();
-        var args = {};
 
         // Check for label info - it is possible that the mailbox may be
         // loading but not complete yet and sending this request will cause
@@ -1022,13 +1009,11 @@ var DimpBase = {
 
     _pollFoldersCallback: function(r)
     {
-        var that;
         r = r.response;
         if (r.poll) {
-            that = this;
             $H(r.poll).each(function(u) {
-                that.updateUnseenStatus(u.key, u.value);
-            });
+                this.updateUnseenStatus(u.key, u.value);
+            }, this);
         }
         if (r.quota) {
             this._displayQuota(r.quota);
@@ -1038,7 +1023,7 @@ var DimpBase = {
 
     _displayQuota: function(r)
     {
-        q = $('quota').cleanWhitespace();
+        var q = $('quota').cleanWhitespace();
         q.setText(r.m);
         q.down('SPAN.used IMG').writeAttribute({ width: 99 - r.p });
     },
@@ -1093,7 +1078,7 @@ var DimpBase = {
             this._setSearchfilterParams(this.viewport.getMetaData('special') ? 'to' : 'from', 'msg');
             this._setSearchfilterParams('current', 'folder');
             $(document.documentElement).setStyle({ overflowY: 'hidden' });
-            Effect.SlideDown(q, { duration: 0.5, afterFinish: function() { this._onResize(false, true); $(document.documentElement).setStyle({ overflowY: 'auto' }); }.bind(this) });
+            Effect.SlideDown(q, { duration: 0.5, afterFinish: function() { this.onResize(false, true); $(document.documentElement).setStyle({ overflowY: 'auto' }); }.bind(this) });
         }
     },
 
@@ -1117,7 +1102,7 @@ var DimpBase = {
             this.searchobserve = null;
         }
         this._setFilterText(true);
-        Effect.SlideUp($('qoptions').up(), { duration: 0.5, afterFinish: this._onResize.bind(this, reset) });
+        Effect.SlideUp($('qoptions').up(), { duration: 0.5, afterFinish: this.onResize.bind(this, reset) });
         this.filtertoggle = 2;
         this.resetSelected();
         this.viewport.stopFilter(reset);
@@ -1224,7 +1209,7 @@ var DimpBase = {
     },
 
     /* Keydown event handler */
-    _keydownHandler: function(e)
+    keydownHandler: function(e)
     {
         var co, form, ps, r, row, rowoff, sel,
             elt = e.element(),
@@ -1345,7 +1330,7 @@ var DimpBase = {
         }
     },
 
-    _keyupHandler: function(e)
+    keyupHandler: function(e)
     {
         if (e.element().readAttribute('id') == 'msgList_filter') {
             if (this.searchobserve) {
@@ -1357,7 +1342,7 @@ var DimpBase = {
         }
     },
 
-    _clickHandler: function(e, dblclick)
+    clickHandler: function(e, dblclick)
     {
         if (e.isRightClick()) {
             return;
@@ -1626,7 +1611,7 @@ var DimpBase = {
         }
     },
 
-    _mouseHandler: function(e, type)
+    mouseHandler: function(e, type)
     {
         var elt = e.element();
 
@@ -2265,7 +2250,9 @@ var DimpBase = {
     /* Onload function. */
     onDomLoad: function()
     {
-        var DC = DimpCore;
+        var DC = DimpCore, DM = DimpCore.DMenu;
+
+        DC.init({ DMenu_onShow: this._onMenuShow.bind(this) });
 
         $('dimpLoading').hide();
         $('dimpPage').show();
@@ -2296,12 +2283,16 @@ var DimpBase = {
         this._setFilterText(true);
 
         /* Add popdown menus. */
-        DC.DMenu.setOnShow(this._onMenuShow.bind(this));
         this._addMouseEvents({ id: 'button_reply', type: 'reply' }, true);
-        DC.DMenu.disable('button_reply_img', true, true);
+        DM.disable('button_reply_img', true, true);
         this._addMouseEvents({ id: 'button_forward', type: 'forward' }, true);
-        DC.DMenu.disable('button_forward_img', true, true);
+        DM.disable('button_forward_img', true, true);
         this._addMouseEvents({ id: 'button_other', type: 'otheractions' }, true);
+        DM.addSubMenu('ctx_message_reply', 'ctx_reply');
+        DM.addSubMenu('ctx_message_forward', 'ctx_forward');
+        DM.addSubMenu('ctx_message_setflag', 'ctx_flag');
+        DM.addSubMenu('oa_setflag', 'ctx_flag');
+        DM.addSubMenu('ctx_draft_setflag', 'ctx_flag');
 
         new Drop('dropbase', this._folderDropConfig);
 
@@ -2318,18 +2309,6 @@ var DimpBase = {
 
         /* Check for new mail. */
         this.setPollFolders();
-
-        /* Bind key shortcuts. */
-        document.observe('keydown', this._keydownHandler.bindAsEventListener(this));
-        document.observe('keyup', this._keyupHandler.bindAsEventListener(this));
-
-        /* Bind mouse clicks. */
-        document.observe('click', this._clickHandler.bindAsEventListener(this));
-        document.observe('dblclick', this._clickHandler.bindAsEventListener(this, true));
-        document.observe('mouseover', this._mouseHandler.bindAsEventListener(this, 'over'));
-
-        /* Resize elements on window size change. */
-        Event.observe(window, 'resize', this._onResize.bind(this));
 
         if (DIMP.conf.is_ie6) {
             /* Disable text selection in preview pane for IE 6. */
@@ -2366,6 +2345,7 @@ var DimpBase = {
             iframe.setStyle({ width: $('dimpmain').getStyle('width'), height: (document.viewport.getHeight() - 20) + 'px' });
         }
     }
+
 };
 
 /* Need to add after DimpBase is defined. */
@@ -2451,6 +2431,11 @@ DimpCore.onDoActionComplete = function(r) {
     }
 };
 
-/* Stuff to do immediately when page is ready. */
+/* Initialize global event handlers. */
 document.observe('dom:loaded', DimpBase.onDomLoad.bind(DimpBase));
-
+document.observe('keydown', DimpBase.keydownHandler.bindAsEventListener(DimpBase));
+document.observe('keyup', DimpBase.keyupHandler.bindAsEventListener(DimpBase));
+document.observe('click', DimpBase.clickHandler.bindAsEventListener(DimpBase));
+document.observe('dblclick', DimpBase.clickHandler.bindAsEventListener(DimpBase, true));
+document.observe('mouseover', DimpBase.mouseHandler.bindAsEventListener(DimpBase, 'over'));
+Event.observe(window, 'resize', DimpBase.onResize.bind(DimpBase));

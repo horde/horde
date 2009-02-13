@@ -14,8 +14,7 @@ var frames = { horde_main: true },
 /* DimpCore object. */
 DimpCore = {
     // Vars used and defaulting to null/false:
-    //   DMenu, alertrequest, inAjaxCallback, is_logout, onDoActionComplete,
-    //   window_load
+    //   DMenu, alertrequest, inAjaxCallback, is_logout, onDoActionComplete
     server_error: 0,
 
     buttons: [
@@ -147,7 +146,6 @@ DimpCore = {
     doActionComplete: function(request, callback)
     {
         this.inAjaxCallback = true;
-        var r;
 
         if (!request.responseJSON) {
             if (++this.server_error == 3) {
@@ -157,19 +155,17 @@ DimpCore = {
             return;
         }
 
-        r = request.responseJSON;
+        var r = request.responseJSON;
 
         if (!r.msgs) {
             r.msgs = [];
         }
 
         if (r.response && Object.isFunction(callback)) {
-            if (DIMP.conf.debug) {
+            try {
                 callback(r);
-            } else {
-                try {
-                    callback(r);
-                } catch (e) {}
+            } catch (e) {
+                this.debug('doActionComplete', e);
             }
         }
 
@@ -502,42 +498,41 @@ DimpCore = {
 
             elt = elt.up();
         }
+    },
+
+    /* Dimp initialization function. */
+    init: function(opts)
+    {
+        opts = opts || {};
+
+        if (typeof ContextSensitive != 'undefined') {
+            this.DMenu = new ContextSensitive({ onShow: opts.DMenu_onShow });
+        }
+
+        /* Don't do additional onload stuff if we are in a popup. We need a
+         * try/catch block here since, if the page was loaded by an opener
+         * out of this current domain, this will throw an exception. */
+        try {
+            if (parent.opener &&
+                parent.opener.location.host == window.location.host &&
+                parent.opener.DimpCore) {
+                DIMP.baseWindow = parent.opener.DIMP.baseWindow || parent.opener;
+            }
+        } catch (e) {}
+
+        /* Remove unneeded buttons. */
+        if (!DIMP.conf.spam_reporting) {
+            this.buttons = this.buttons.without('button_spam');
+        }
+        if (!DIMP.conf.ham_reporting) {
+            this.buttons = this.buttons.without('button_ham');
+        }
     }
+
 };
 
-// Initialize DMenu now.  Need to init here because IE doesn't load dom:loaded
-// in a predictable order.
-if (typeof ContextSensitive != 'undefined') {
-    DimpCore.DMenu = new ContextSensitive();
-}
-
-document.observe('dom:loaded', function() {
-    /* Don't do additional onload stuff if we are in a popup. We need a
-     * try/catch block here since, if the page was loaded by an opener
-     * out of this current domain, this will throw an exception. */
-    try {
-        if (parent.opener &&
-            parent.opener.location.host == window.location.host &&
-            parent.opener.DimpCore) {
-            DIMP.baseWindow = parent.opener.DIMP.baseWindow || parent.opener;
-        }
-    } catch (e) {}
-
-    /* Remove unneeded buttons. */
-    if (!DIMP.conf.spam_reporting) {
-        DimpCore.buttons = DimpCore.buttons.without('button_spam');
-    }
-    if (!DIMP.conf.ham_reporting) {
-        DimpCore.buttons = DimpCore.buttons.without('button_ham');
-    }
-
-    /* Add click handler. */
-    document.observe('click', DimpCore._clickHandler.bindAsEventListener(DimpCore));
-});
-
-Event.observe(window, 'load', function() {
-    DimpCore.window_load = true;
-});
+/* Add click handler. */
+document.observe('click', DimpCore._clickHandler.bindAsEventListener(DimpCore));
 
 /* Helper methods for setting/getting element text without mucking
  * around with multiple TextNodes. */

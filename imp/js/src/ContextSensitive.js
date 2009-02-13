@@ -30,25 +30,17 @@
 
 var ContextSensitive = Class.create({
 
-    initialize: function()
+    initialize: function(opts)
     {
-        this.lasttarget = this.target = null;
+        this.basectx = this.lasttarget = this.target = null;
         this.elements = $H();
         this.submenus = $H();
         this.current = [];
-        this.basectx = this.onShow = null;
+        this.opts = opts || {};
 
         document.observe('contextmenu', this._rightClickHandler.bindAsEventListener(this));
         document.observe('click', this._leftClickHandler.bindAsEventListener(this));
         document.observe(Prototype.Browser.Gecko ? 'DOMMouseScroll' : 'mousescroll', this.close.bind(this));
-    },
-
-    /**
-     * Set an onshow function.
-     */
-    setOnShow: function(func)
-    {
-        this.onShow = func;
     },
 
     /**
@@ -234,8 +226,8 @@ var ContextSensitive = Class.create({
             x = v.width - size.width - 10;
         }
 
-        if (this.onShow) {
-            this.onShow(id, this.basectx);
+        if (this.opts.onShow) {
+            this.opts.onShow(id, this.basectx);
         }
 
         Effect.Appear(elt.setStyle({ left: x + 'px', top: y + 'px' }), { duration: 0.2, queue: { position: 'end', scope: 'cm_' + id, limit: 2 } });

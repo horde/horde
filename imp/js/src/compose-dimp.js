@@ -256,7 +256,6 @@ var DimpCompose = {
                     elt = new Element('DIV', [ DIMP.text_compose.attachment_limit ]);
                 } else {
                     elt = new Element('INPUT', { type: 'file', name: 'file_1' });
-                    elt.observe('change', this.uploadAttachment.bind(this));
                 }
                 $('upload_wait').replace(elt.writeAttribute('id', 'upload'));
                 this.resizeMsgArea();
@@ -524,7 +523,7 @@ var DimpCompose = {
             de = document.documentElement,
             msg = $('message');
 
-        if (!DimpCore.window_load) {
+        if (!document.loaded) {
             this.resizeMsgArea.bind(this).defer();
             return;
         }
@@ -567,16 +566,14 @@ var DimpCompose = {
     uploadAttachment: function()
     {
         var u = $('upload');
-        $('submit_frame').observe('load', this.attachmentComplete.bind(this));
         this.uniqueSubmit('add_attachment');
-        u.stopObserving('change').replace(new Element('DIV', { id: 'upload_wait' }).insert(DIMP.text_compose.uploading + ' ' + $F(u)));
+        u.replace(new Element('DIV', { id: 'upload_wait' }).insert(DIMP.text_compose.uploading + ' ' + $F(u)));
     },
 
     attachmentComplete: function()
     {
         var sf = $('submit_frame'),
             doc = sf.contentDocument || sf.contentWindow.document;
-        sf.stopObserving('load');
         DimpCore.doActionComplete({ responseJSON: doc.body.innerHTML.evalJSON(true) }, this.uniqueSubmitCallback.bind(this));
     },
 
@@ -631,8 +628,7 @@ var DimpCompose = {
     },
 
     /* Click observe handler. */
-
-    _clickHandler: function(e)
+    clickHandler: function(e)
     {
         if (e.isRightClick()) {
             return;
@@ -683,7 +679,53 @@ var DimpCompose = {
 
             elt = elt.up();
         }
+    },
+
+    changeHandler: function(e)
+    {
+        var elt = e.element(),
+            id = elt.readAttribute('id');
+
+        switch (id) {
+        case 'identity':
+            this.change_identity();
+            break;
+
+        case 'upload':
+            this.uploadAttachment();
+            break;
+        }
+    },
+
+    onDomLoad: function()
+    {
+        var boundResize = this.resizeMsgArea.bind(this);
+
+        DimpCore.init();
+
+        this.resizeMsgArea();
+        this.initializeSpellChecker();
+
+        // Automatically resize address fields.
+        this.resizeto = new ResizeTextArea('to', boundResize);
+        this.resizecc = new ResizeTextArea('cc', boundResize);
+        this.resizebcc = new ResizeTextArea('bcc', boundResize);
+
+        // Safari requires a submit target iframe to be at least 1x1 size or
+        // else it will open content in a new window.  See:
+        //   http://blog.caboo.se/articles/2007/4/2/ajax-file-upload
+        if (Prototype.Browser.WebKit) {
+            $('submit_frame').writeAttribute({ position: 'absolute', width: '1px', height: '1px' }).setStyle({ left: '-999px' }).show();
+        }
+
+        /* Add addressbook link formatting. */
+        if (DIMP.conf_compose.abook_url) {
+            $('sendto', 'sendcc', 'sendbcc').each(function(a) {
+                a.down('TD.label SPAN').addClassName('composeAddrbook');
+            });
+        }
     }
+
 },
 
 ResizeTextArea = Class.create({
@@ -725,44 +767,13 @@ ResizeTextArea = Class.create({
             }
         }
     }
+
 });
 
-document.observe('dom:loaded', function() {
-    var tmp,
-        DC = DimpCompose,
-        boundResize = DC.resizeMsgArea.bind(DC);
-
-    DC.resizeMsgArea();
-    DC.initializeSpellChecker();
-    $('upload').observe('change', DC.uploadAttachment.bind(DC));
-
-    // Automatically resize address fields.
-    DC.resizeto = new ResizeTextArea('to', boundResize);
-    DC.resizecc = new ResizeTextArea('cc', boundResize);
-    DC.resizebcc = new ResizeTextArea('bcc', boundResize);
-
-    // Safari requires a submit target iframe to be at least 1x1 size or else
-    // it will open content in a new window.  See:
-    //   http://blog.caboo.se/articles/2007/4/2/ajax-file-upload
-    if (Prototype.Browser.WebKit) {
-        $('submit_frame').writeAttribute({ position: 'absolute', width: '1px', height: '1px' }).setStyle({ left: '-999px' }).show();
-    }
-
-    /* Add addressbook link formatting. */
-    if (DIMP.conf_compose.abook_url) {
-        $('sendto', 'sendcc', 'sendbcc').each(function(a) {
-            a.down('TD.label SPAN').addClassName('composeAddrbook');
-        });
-    }
-
-    /* Mouse click handler. */
-    document.observe('click', DC._clickHandler.bindAsEventListener(DC));
-
-    /* Only allow submit through send button. */
-    $('compose').observe('submit', Event.stop);
-
-    /* Attach other handlers. */
-    $('identity').observe('change', DC.change_identity.bind(DC));
-
-    Event.observe(window, 'resize', boundResize);
-});
+/* Attach event handlers. */
+document.observe('dom:loaded', DimpCompose.onDomLoad.bind(DimpCompose));
+document.observe('change', DimpCompose.changeHandler.bindAsEventListener(DimpCompose));
+document.observe('click', DimpCompose.clickHandler.bindAsEventListener(DimpCompose));
+Event.observe(window, 'resize', DimpCompose.resizeMsgArea.bind(DimpCompose));
+$('compose').observe('submit', Event.stop);
+$('submit_frame').observe('load', DimpCompose.attachmentComplete.bind(DimpCompose));
