@@ -318,20 +318,7 @@ The following items are not required, but are strongly **RECOMMENDED**:
    create the information using other server variables, but this process is
    slower and less reliable.
 
-8. PHP version 5.2.5+ (for dimp).
-
-   If using the PHP built-in JSON encoder/decoder (highly recommended as it is
-   hundreds of times faster than the fallback PHP code-based version), you
-   should be using the latest version of PHP. The PECL json module is badly
-   out-of-date (as of version 1.2.1) and does not contain many bug fixes
-   for handling message data that contains invalid characters. Using older
-   versions of the JSON encoder may result in the JSON output to the browser
-   being prematurely terminated, resulting in incomplete or blank screens.
-
-   If you still see this problem after upgrading PHP, your server may have
-   incorrect locale information.  See `Bug #5955`_ for further information.
-
-9. A configured VFS backend.
+8. A configured VFS backend.
 
    During composition of messages, it is possible that the PHP session may
    timeout. If VFS is enabled in Horde, IMP can store the draft message and
