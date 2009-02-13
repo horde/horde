@@ -11,28 +11,6 @@
  * @package  Horde_Serialize
  * @category Horde
  */
-
-/* TODO */
-define('SERIALIZE_UNKNOWN', -1);
-define('SERIALIZE_NONE', 0);
-define('SERIALIZE_WDDX', 1);
-define('SERIALIZE_BZIP', 2);
-define('SERIALIZE_IMAP8', 3);
-define('SERIALIZE_IMAPUTF7', 4);
-define('SERIALIZE_IMAPUTF8', 5);
-define('SERIALIZE_BASIC', 6);
-define('SERIALIZE_GZ_DEFLATE', 7);
-define('SERIALIZE_GZ_COMPRESS', 8);
-define('SERIALIZE_GZ_ENCOD', 9);
-define('SERIALIZE_BASE64', 10);
-define('SERIALIZE_SQLXML', 11);
-define('SERIALIZE_RAW', 12);
-define('SERIALIZE_URL', 13);
-define('SERIALIZE_UTF7', 14);
-define('SERIALIZE_UTF7_BASIC', 15);
-define('SERIALIZE_JSON', 16);
-define('SERIALIZE_LZF', 17);
-
 class Horde_Serialize
 {
     /* Type constants */
