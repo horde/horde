@@ -15,6 +15,7 @@ class IMP_Mailbox
 {
     /**
      * Singleton instances
+     *
      * @var array
      */
     protected static $_instances = array();

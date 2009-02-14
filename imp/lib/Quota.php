@@ -14,6 +14,13 @@
 class IMP_Quota
 {
     /**
+     * Singleton instances.
+     *
+     * @var array
+     */
+    static protected $_instances = array();
+
+    /**
      * Hash containing connection parameters.
      *
      * @var array
@@ -35,16 +42,16 @@ class IMP_Quota
      *
      * @return mixed  The created concrete instance, or false on error.
      */
-    static public function &singleton($driver, $params = array())
+    static public function singleton($driver, $params = array())
     {
-        static $instances = array();
+        ksort($params);
+        $signature = md5(serialize(array($driver, $params)));
 
-        $signature = serialize(array($driver, $params));
-        if (!isset($instances[$signature])) {
-            $instances[$signature] = IMP_Quota::factory($driver, $params);
+        if (!isset(self::$_instances[$signature])) {
+            self::$_instances[$signature] = IMP_Quota::factory($driver, $params);
         }
 
-        return $instances[$signature];
+        return self::$_instances[$signature];
     }
 
     /**

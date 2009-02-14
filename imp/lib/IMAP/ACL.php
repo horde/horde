@@ -13,6 +13,13 @@
 class IMP_IMAP_ACL
 {
     /**
+     * Singleton instance.
+     *
+     * @var IMP_IMAP_ACL
+     */
+    static protected $_instance = null;
+
+    /**
      * Hash containing the list of possible rights and a human readable
      * description of each.
      *
@@ -32,26 +39,21 @@ class IMP_IMAP_ACL
      * Attempts to return a reference to a concrete object instance.
      * It will only create a new instance if no instance currently exists.
      *
-     * This method must be invoked as:
-     *   $var = &IMP_IMAP_ACL::singleton()
-     *
      * @return IMP_IMAP_ACL  The created concrete instance.
      */
-    static public function &singleton($driver, $params = array())
+    static public function singleton()
     {
-        static $instance;
-
-        if (!isset($instance)) {
-            $instances = new IMP_IMAP_ACL();
+        if (!self::$_instance) {
+            self::$_instance = new IMP_IMAP_ACL();
         }
 
-        return $instances[$signature];
+        return self::$_instance;
     }
 
     /**
      * Constructor.
      */
-    function __construct()
+    protected function __construct()
     {
         if ($_SESSION['imp']['protocol'] != 'imap') {
             throw new Exception(_("ACL requires an IMAP server."));

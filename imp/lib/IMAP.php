@@ -171,6 +171,7 @@ class IMP_IMAP
             'password' => $password,
             'port' => isset($server['port']) ? $server['port'] : null,
             'secure' => isset($server['secure']) ? $server['secure'] : false,
+            'statuscache' => true,
             'timeout' => !empty($server['timeout']) ? $server['timeout'] : 10,
             'username' => $username,
         );
