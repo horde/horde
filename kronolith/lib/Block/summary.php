@@ -17,6 +17,7 @@ class Horde_Block_Kronolith_summary extends Horde_Block {
     function _params()
     {
         @define('KRONOLITH_BASE', dirname(__FILE__) . '/../..');
+
         require_once KRONOLITH_BASE . '/lib/base.php';
 
         $params = array('calendar' => array('name' => _("Calendar"),
@@ -58,6 +59,9 @@ class Horde_Block_Kronolith_summary extends Horde_Block {
     function _content()
     {
         global $registry, $prefs;
+
+        // @TODO Remove this hack when maintenance is refactored.
+        $from_block = true;
         require_once dirname(__FILE__) . '/../base.php';
         require_once KRONOLITH_BASE . '/lib/Day.php';
 

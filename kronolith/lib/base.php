@@ -82,13 +82,15 @@ $GLOBALS['kronolith_shares'] = &Horde_Share::singleton($registry->getApp());
 
 Kronolith::initialize();
 
+// TODO - Maintenance operations need to be refactored to a more global
+//        operation and then wen can get rid of these hackish checks
 /* Do maintenance operations - need to check for a number of conditions to be
  * sure that we aren't here due to alarm notifications (which would occur after
  * headers are sent), we aren't on any of the portal pages, and that we haven't
  * already performed maintenance.
  */
 require_once 'Horde/Maintenance.php';
-if (Kronolith::loginTasksFlag() &&
+if (empty($from_block) && Kronolith::loginTasksFlag() &&
     !strstr($_SERVER['PHP_SELF'], 'maintenance.php') &&
     !headers_sent() && !defined('AUTH_HANDLER') &&
     $GLOBALS['prefs']->getValue('do_maintenance')) {

@@ -54,10 +54,14 @@ class Horde_Block_Kronolith_prevmonthlist extends Horde_Block {
      */
     function _content()
     {
+        // @TODO Remove this hack when maintenance is refactored.
+        $from_block = true;
         require_once dirname(__FILE__) . '/../base.php';
         require_once KRONOLITH_BASE . '/lib/Day.php';
 
         global $registry, $prefs;
+
+        $GLOBALS['from_block'] = true;
 
         Horde::addScriptFile('tooltip.js', 'horde', true);
 
