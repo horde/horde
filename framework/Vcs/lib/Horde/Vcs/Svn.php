@@ -54,7 +54,7 @@ class Horde_Vcs_Svn extends Horde_Vcs
         if (!empty($params['password'])) {
             $this->_password = $params['password'];
         }
-        parent::__construct();
+        parent::__construct($params);
     }
 
     /**
