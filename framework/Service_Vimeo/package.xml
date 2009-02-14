@@ -34,7 +34,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
      <dir name="Service">
       <dir name="Vimeo">
        <file name="Simple.php" role="php" />
-      </dir> <!-- /lib/Horde/Service/Scribd -->
+       <file name="Exception.php" role="php" />
+      </dir> <!-- /lib/Horde/Service/Vimeo -->
       <file name="Vimeo.php" role="php" />
      </dir> <!-- /lib/Horde/Service -->
     </dir> <!-- /lib/Horde -->
@@ -58,6 +59,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
  <phprelease>
   <filelist>
    <install name="lib/Horde/Service/Vimeo/Simple.php" as="Horde/Service/Vimeo/Simple.php" />
+   <install name="lib/Horde/Service/Vimeo/Exception.php" as="Horde/Service/Vimeo/Exception.php" />
    <install name="lib/Horde/Service/Vimeo.php" as="Horde/Service/Vimeo.php" />
   </filelist>
  </phprelease>
