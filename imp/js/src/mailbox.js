@@ -288,6 +288,8 @@ var ImpMessage = {
                 this.submit('notspam_report');
             } else if (elt.hasClassName('viewAction')) {
                 this.submit('view_messages');
+            } else if (elt.hasClassName('hideAction') || elt.hasClassName('purgeAction')) {
+            	return;
             }
 
             e.stop();

@@ -479,9 +479,9 @@ if (empty($pageOb['end'])) {
         /* Show 'Show Deleted' prompt if mailbox has no viewable message but
            has hidden, deleted messages. */
         $del_template = new IMP_Template();
-        $del_template->set('hide', Horde::widget(Util::addParameter($refresh_url, array('actionID' => 'hide_deleted', 'mailbox_token' => $mailbox_token)), $deleted_prompt, 'widget', '', '', $deleted_prompt));
+        $del_template->set('hide', Horde::widget(Util::addParameter($refresh_url, array('actionID' => 'hide_deleted', 'mailbox_token' => $mailbox_token)), $deleted_prompt, 'widget hideAction', '', '', $deleted_prompt));
         if (!$readonly) {
-            $del_template->set('purge', Horde::widget(Util::addParameter($refresh_url, array('actionID' => 'expunge_mailbox', 'mailbox_token' => $mailbox_token)), _("Purge Deleted"), 'widget', '', '', _("Pur_ge Deleted")));
+            $del_template->set('purge', Horde::widget(Util::addParameter($refresh_url, array('actionID' => 'expunge_mailbox', 'mailbox_token' => $mailbox_token)), _("Purge Deleted"), 'widget purgeAction', '', '', _("Pur_ge Deleted")));
         }
         echo $del_template->fetch(IMP_TEMPLATES . '/mailbox/actions_deleted.html');
     }
@@ -550,9 +550,9 @@ if ($pageOb['msgcount']) {
     if ($showdelete['purge']) {
         $mailbox_link = Util::addParameter($mailbox_imp_url, 'page', $pageOb['page']);
         if (isset($deleted_prompt)) {
-            $a_template->set('hide_deleted', Horde::widget(Util::addParameter($mailbox_link, array('actionID' => 'hide_deleted', 'mailbox_token' => $mailbox_token)), $deleted_prompt, 'widget', '', '', $deleted_prompt));
+            $a_template->set('hide_deleted', Horde::widget(Util::addParameter($mailbox_link, array('actionID' => 'hide_deleted', 'mailbox_token' => $mailbox_token)), $deleted_prompt, 'widget hideAction', '', '', $deleted_prompt));
         }
-        $a_template->set('purge_deleted', Horde::widget(Util::addParameter($mailbox_link, array('actionID' => 'expunge_mailbox', 'mailbox_token' => $mailbox_token)), _("Purge Deleted"), 'widget', '', '', _("Pur_ge Deleted")));
+        $a_template->set('purge_deleted', Horde::widget(Util::addParameter($mailbox_link, array('actionID' => 'expunge_mailbox', 'mailbox_token' => $mailbox_token)), _("Purge Deleted"), 'widget purgeAction', '', '', _("Pur_ge Deleted")));
     }
 
     if (!$readonly && $registry->hasMethod('mail/blacklistFrom')) {
