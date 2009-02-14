@@ -145,7 +145,7 @@ if ($authentication !== 'none') {
         if (!IMP::checkAuthentication(true)) {
             switch (Util::nonInputVar('session_timeout')) {
             case 'json':
-                $notification->push(null, 'dimp.timeout');
+                $GLOBALS['notification']->push(null, 'dimp.timeout');
                 Horde::sendHTTPResponse(Horde::prepareResponse(), 'json');
 
             case 'none':
