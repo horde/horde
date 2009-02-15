@@ -554,7 +554,7 @@ class Horde_Service_Facebook
 
 
     if (is_array($result) && isset($result['error_code'])) {
-      throw new FacebookRestClientException($result['error_msg'],
+      throw new Horde_Service_Facebook_Exception($result['error_msg'],
                                             $result['error_code']);
     }
 
@@ -567,7 +567,7 @@ class Horde_Service_Facebook
 
       if (is_array($batch_item_result) &&
           isset($batch_item_result['error_code'])) {
-        throw new FacebookRestClientException($batch_item_result['error_msg'],
+        throw new Horde_Service_Facebook_Exception($batch_item_result['error_msg'],
                                               $batch_item_result['error_code']);
       }
       $batch_item['r'] = $batch_item_result;
