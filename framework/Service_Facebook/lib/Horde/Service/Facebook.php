@@ -62,7 +62,6 @@ class Horde_Service_Facebook
     protected $base_domain;
 
     private $call_as_apikey;
-
     private $batch_queue;
     private $use_curl_if_available = false;
 
@@ -180,25 +179,12 @@ class Horde_Service_Facebook
         return !empty($this->fb_params);
     }
 
-//    // Store a temporary session secret for the current session
-//    // for use with the JS client library
-//    public function promote_session() {
-//        try {
-//          $session_secret = $this->api_client->auth_promoteSession();
-//          if (!$this->in_fb_canvas()) {
-//            $this->set_cookies($this->user, $this->api_client->session_key, $this->session_expires, $session_secret);
-//          }
-//
-//          return $session_secret;
-//        } catch (FacebookRestClientException $e) {
-//          // API_EC_PARAM means we don't have a logged in user, otherwise who
-//          // knows what it means, so just throw it.
-//          if ($e->getCode() != FacebookAPIErrorCodes::API_EC_PARAM) {
-//            throw $e;
-//          }
-//        }
-//    }
-
+    /**
+     * Return the session information
+     *
+     * @param $auth_token
+     * @return unknown_type
+     */
     public function do_get_session($auth_token)
     {
         try {
@@ -243,9 +229,7 @@ class Horde_Service_Facebook
      */
     public function redirect($url)
     {
-        if ($this->in_fb_canvas()) {
-            echo '<fb:redirect url="' . $url . '"/>';
-        } elseif (preg_match('/^https?:\/\/([^\/]*\.)?facebook\.com(:\d+)?/i', $url)) {
+        if (preg_match('/^https?:\/\/([^\/]*\.)?facebook\.com(:\d+)?/i', $url)) {
             // make sure facebook.com url's load in the full frame so that we don't
             // get a frame within a frame.
             echo "<script type=\"text/javascript\">\ntop.location.href = \"$url\";\n</script>";
@@ -320,8 +304,8 @@ class Horde_Service_Facebook
 
     public function set_user($user, $session_key, $expires = null, $session_secret = null)
     {
-        if (!$this->in_fb_canvas() &&
-            (!isset($_COOKIE[$this->api_key . '_user']) || $_COOKIE[$this->api_key . '_user'] != $user)) {
+        if (!isset($_COOKIE[$this->api_key . '_user']) ||
+            $_COOKIE[$this->api_key . '_user'] != $user) {
 
             $this->set_cookies($user, $session_key, $expires, $session_secret);
         }
