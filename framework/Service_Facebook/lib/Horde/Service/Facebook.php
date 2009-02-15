@@ -259,7 +259,10 @@ class Horde_Service_Facebook
 
     public static function current_url()
     {
-        return (!empty($_SERVER['HTTP']) ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+        // Is this autoloadable / should we just copy this functionality to avoid
+        // the dependency?
+        require_once 'Horde.php';
+        return Horde::selfUrl(true, true, true, false);
     }
 
     /**
