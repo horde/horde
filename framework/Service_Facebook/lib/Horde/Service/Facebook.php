@@ -259,7 +259,7 @@ class Horde_Service_Facebook
 
     public static function current_url()
     {
-        return 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+        return (!empty($_SERVER['HTTP']) ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
     }
 
     /**
