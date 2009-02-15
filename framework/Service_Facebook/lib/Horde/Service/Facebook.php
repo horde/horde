@@ -432,13 +432,13 @@ class Horde_Service_Facebook
     }
 
     /*
-    * Validates that a given set of parameters match their signature.
-    * Parameters all match a given input prefix, such as "fb_sig".
-    *
-    * @param $fb_params     an array of all Facebook-sent parameters,
-    *                       not including the signature itself
-    * @param $expected_sig  the expected result to check against
-    */
+     * Validates that a given set of parameters match their signature.
+     * Parameters all match a given input prefix, such as "fb_sig".
+     *
+     * @param $fb_params     an array of all Facebook-sent parameters,
+     *                       not including the signature itself
+     * @param $expected_sig  the expected result to check against
+     */
     public function verify_signature($fb_params, $expected_sig)
     {
         // we don't want to verify the signature until we have a valid
@@ -503,7 +503,7 @@ class Horde_Service_Facebook
                                       'feed' => $feed)));
     }
 
-        /**
+    /**
      * Start a batch operation.
      */
     public function begin_batch()
@@ -517,14 +517,14 @@ class Horde_Service_Facebook
         $this->batch_queue = array();
     }
 
-    /*
-    * End current batch operation
-    */
+    /**
+     * End current batch operation
+     */
     public function end_batch()
     {
-        if($this->batch_queue === null) {
+        if ($this->batch_queue === null) {
             $code = Horde_Service_Facebook_ErrorCodes::API_EC_BATCH_NOT_STARTED;
-            $description = FacebookAPIErrorCodes::$api_error_descriptions[$code];
+            $description = Horde_Service_Facebook_ErrorCodes::$api_error_descriptions[$code];
             throw new Horde_Service_Facebook_Exception($description, $code);
         }
 
