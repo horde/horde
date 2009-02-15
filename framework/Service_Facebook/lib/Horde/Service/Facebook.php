@@ -68,7 +68,7 @@ class Horde_Service_Facebook
     public $last_call_id = 0;
     public $server_addr = 'http://api.facebook.com/restserver.php';
     protected $base_domain;
-
+    protected $use_ssl_resources = false;
     private $call_as_apikey;
     private $batch_queue;
     private $use_curl_if_available = false;
@@ -85,7 +85,7 @@ class Horde_Service_Facebook
      *
      * @param session_key
      */
-    public function __construct($api_key, $secret, $session_key = null)
+    public function __construct($api_key, $secret, $params = array())
     {
         $this->api_key = $api_key;
         $this->secret = $secret;
@@ -97,6 +97,10 @@ class Horde_Service_Facebook
         // Set the default user id for methods that allow the caller to
         // pass an explicit uid instead of using a session key.
         $this->user = !empty($this->user) ? $this->user : null;
+
+        if (!empty($params['use_ssl'])) {
+            $this->use_ssl_resources = true;
+        }
     }
 
     /**
@@ -528,79 +532,51 @@ class Horde_Service_Facebook
         $this->batch_queue = null;
     }
 
-    private function execute_server_side_batch() {
-    $item_count = count($this->batch_queue);
-    $method_feed = array();
-    foreach($this->batch_queue as $batch_item) {
-      $method = $batch_item['m'];
-      $params = $batch_item['p'];
-      $this->finalize_params($method, $params);
-      $method_feed[] = $this->create_post_string($method, $params);
-    }
-
-    $method_feed_json = json_encode($method_feed);
-
-    $serial_only =
-      ($this->batch_mode == FacebookRestClient::BATCH_MODE_SERIAL_ONLY);
-    $params = array('method_feed' => $method_feed_json,
-                    'serial_only' => $serial_only);
-    if ($this->call_as_apikey) {
-      $params['call_as_apikey'] = $this->call_as_apikey;
-    }
-
-    $xml = $this->post_request('batch.run', $params);
-
-    $result = $this->convert_xml_to_result($xml, 'batch.run', $params);
-
-
-    if (is_array($result) && isset($result['error_code'])) {
-      throw new Horde_Service_Facebook_Exception($result['error_msg'],
-                                            $result['error_code']);
-    }
-
-    for($i = 0; $i < $item_count; $i++) {
-      $batch_item = $this->batch_queue[$i];
-      $batch_item_result_xml = $result[$i];
-      $batch_item_result = $this->convert_xml_to_result($batch_item_result_xml,
-                                                        $batch_item['m'],
-                                                        $batch_item['p']);
-
-      if (is_array($batch_item_result) &&
-          isset($batch_item_result['error_code'])) {
-        throw new Horde_Service_Facebook_Exception($batch_item_result['error_msg'],
-                                              $batch_item_result['error_code']);
-      }
-      $batch_item['r'] = $batch_item_result;
-    }
-    }
-
-
-
-    //@TODO: Um, WTF is permissions_mode?? :)
-    public function begin_permissions_mode($permissions_apikey)
+    private function execute_server_side_batch()
     {
-    $this->call_as_apikey = $permissions_apikey;
-    }
+        $item_count = count($this->batch_queue);
+        $method_feed = array();
+        foreach($this->batch_queue as $batch_item) {
+            $method = $batch_item['m'];
+            $params = $batch_item['p'];
+            $this->finalize_params($method, $params);
+            $method_feed[] = $this->create_post_string($method, $params);
+        }
+        $method_feed_json = json_encode($method_feed);
 
-    public function end_permissions_mode()
-    {
-        $this->call_as_apikey = '';
-    }
+        $serial_only = ($this->batch_mode == self::BATCH_MODE_SERIAL_ONLY);
+        $params = array('method_feed' => $method_feed_json,
+                        'serial_only' => $serial_only);
+        if ($this->call_as_apikey) {
+            $params['call_as_apikey'] = $this->call_as_apikey;
+        }
 
-  /*
-   * If a page is loaded via HTTPS, then all images and static
-   * resources need to be printed with HTTPS urls to avoid
-   * mixed content warnings. If your page loads with an HTTPS
-   * url, then call set_use_ssl_resources to retrieve the correct
-   * urls.
-   *
-   * @TODO: This should either be set as a parameter in the const'r
-   *
-   */
-  public function set_use_ssl_resources($is_ssl = true)
-  {
-    $this->use_ssl_resources = $is_ssl;
-  }
+        $xml = $this->post_request('batch.run', $params);
+
+        $result = $this->convert_xml_to_result($xml, 'batch.run', $params);
+
+
+        if (is_array($result) && isset($result['error_code'])) {
+          throw new Horde_Service_Facebook_Exception($result['error_msg'],
+                                                     $result['error_code']);
+        }
+
+        for ($i = 0; $i < $item_count; $i++) {
+            $batch_item = $this->batch_queue[$i];
+            $batch_item_result_xml = $result[$i];
+            $batch_item_result = $this->convert_xml_to_result($batch_item_result_xml,
+                                                              $batch_item['m'],
+                                                              $batch_item['p']);
+
+            if (is_array($batch_item_result) &&
+                isset($batch_item_result['error_code'])) {
+
+                throw new Horde_Service_Facebook_Exception($batch_item_result['error_msg'],
+                                                           $batch_item_result['error_code']);
+            }
+            $batch_item['r'] = $batch_item_result;
+        }
+    }
 
   /**
    * Creates an authentication token to be used as part of the desktop login
@@ -1472,9 +1448,8 @@ class Horde_Service_Facebook
     if (!isset($params['v'])) {
       $params['v'] = '1.0';
     }
-    if (isset($this->use_ssl_resources) &&
-        $this->use_ssl_resources) {
-      $params['return_ssl_resources'] = true;
+    if (!empty($this->use_ssl_resources)) {
+        $params['return_ssl_resources'] = true;
     }
   }
 
