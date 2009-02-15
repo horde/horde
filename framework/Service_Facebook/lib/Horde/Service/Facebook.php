@@ -1393,7 +1393,7 @@ class Horde_Service_Facebook
             } else {
               $result = json_decode($data, true);
             }
-var_dump($_POST);
+
             if (is_array($result) && isset($result['error_code'])) {
                 throw new Horde_Service_Facebook_Exception(
                     $result['error_msg'], $result['error_code']);
