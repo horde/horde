@@ -257,7 +257,7 @@ class Horde_Service_Facebook
         return $this->user;
     }
 
-    public static function current_url()
+    private static function _current_url()
     {
         // Is this autoloadable / should we just copy this functionality to avoid
         // the dependency?
@@ -296,7 +296,7 @@ class Horde_Service_Facebook
         }
 
         // if we get here, we need to redirect the user to log in
-        $this->redirect($this->get_login_url(self::current_url()));
+        $this->redirect($this->get_login_url(self::_current_url()));
     }
 
     /**
