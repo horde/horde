@@ -56,8 +56,6 @@ class Horde_Service_Facebook
 
     public $fb_params;
     public $user;
-    public $profile_user;
-    public $canvas_user;
     public $batch_mode;
     public $last_call_id = 0;
     public $server_addr = 'http://api.facebook.com/restserver.php';
@@ -106,10 +104,6 @@ class Horde_Service_Facebook
         $defaultUser = null;
         if ($this->user) {
             $defaultUser = $this->user;
-        } elseif ($this->profile_user) {
-            $defaultUser = $this->profile_user;
-        } elseif ($this->canvas_user) {
-            $defaultUser = $this->canvas_user;
         }
 
         $this->user = $defaultUser;
@@ -129,27 +123,19 @@ class Horde_Service_Facebook
      *
      * @param bool  resolve_auth_token  convert an auth token into a session
      */
-    /* @TODO: See if some of this can be replaced by Util::getFormData() but let's get
-     *  the rest of this working first. Also, maybe should probably pass the $_GET/$_POST/$_COOKIE
-     *  data into the function instead of accessing it directly?
-     */
     public function validate_fb_params($resolve_auth_token = true)
-     {
+    {
+        // Prefer $_POST data - but if absent, try $_GET and $_POST with
+        // 'fb_post_sig' since that might be returned by FQL queries.
         $this->fb_params = $this->get_valid_fb_params($_POST, 48 * 3600, 'fb_sig');
-
-        // note that with preload FQL, it's possible to receive POST params in
-        // addition to GET, so use a different prefix to differentiate them
         if (!$this->fb_params) {
             $fb_params = $this->get_valid_fb_params($_GET, 48 * 3600, 'fb_sig');
             $fb_post_params = $this->get_valid_fb_params($_POST, 48 * 3600, 'fb_post_sig');
             $this->fb_params = array_merge($fb_params, $fb_post_params);
         }
 
-        // Okay, something came in via POST or GET
         if ($this->fb_params) {
-              $user = isset($this->fb_params['user']) ? $this->fb_params['user'] : null;
-            $this->profile_user = isset($this->fb_params['profile_user']) ? $this->fb_params['profile_user'] : null;
-            $this->canvas_user  = isset($this->fb_params['canvas_user']) ? $this->fb_params['canvas_user'] : null;
+            $user = isset($this->fb_params['user']) ? $this->fb_params['user'] : null;
             $this->base_domain  = isset($this->fb_params['base_domain']) ? $this->fb_params['base_domain'] : null;
 
             if (isset($this->fb_params['session_key'])) {
@@ -273,24 +259,10 @@ class Horde_Service_Facebook
     {
         return isset($this->fb_params['in_canvas']) || isset($this->fb_params['in_iframe']);
     }
-    public function in_fb_canvas()
-    {
-        return isset($this->fb_params['in_canvas']);
-    }
 
     public function get_loggedin_user()
     {
         return $this->user;
-    }
-
-    public function get_canvas_user()
-    {
-        return $this->canvas_user;
-    }
-
-    public function get_profile_user()
-    {
-        return $this->profile_user;
     }
 
     public static function current_url()
