@@ -240,7 +240,7 @@ class Horde_Service_Facebook
      * @param $url
      * @return unknown_type
      */
-    public function redirect($url)
+    protected function _redirect($url)
     {
         if (preg_match('/^https?:\/\/([^\/]*\.)?facebook\.com(:\d+)?/i', $url)) {
             // make sure facebook.com url's load in the full frame so that we don't
@@ -257,7 +257,7 @@ class Horde_Service_Facebook
         return $this->user;
     }
 
-    private static function _current_url()
+    protected static function _current_url()
     {
         // Is this autoloadable / should we just copy this functionality to avoid
         // the dependency?
@@ -296,13 +296,13 @@ class Horde_Service_Facebook
         }
 
         // if we get here, we need to redirect the user to log in
-        $this->redirect($this->get_login_url(self::_current_url()));
+        $this->_redirect($this->_get_login_url(self::_current_url()));
     }
 
     /**
      *
      */
-    private static function _get_facebook_url($subdomain = 'www')
+    protected static function _get_facebook_url($subdomain = 'www')
     {
         return 'http://' . $subdomain . '.facebook.com';
     }
@@ -319,7 +319,7 @@ class Horde_Service_Facebook
     /**
      *
      */
-    public function get_login_url($next)
+    protected function _get_login_url($next)
     {
         return self::_get_facebook_url() . '/login.php?v=1.0&api_key='
             . $this->api_key . ($next ? '&next=' . urlencode($next)  : '');
