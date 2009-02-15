@@ -48,9 +48,17 @@
 
 class Horde_Service_Facebook
 {
+    // The application's API Key
     public $api_key;
+
+    // The API Secret Key
     public $secret;
-    public $generate_session_secret;
+
+    // Used since we are emulating a FB Desktop Application - since we are not
+    // being used within the context of a FB Canvas.
+    public $app_secret;
+    protected $verify_sig = false;
+
     public $session_key;
     public $session_expires;
 
@@ -71,41 +79,24 @@ class Horde_Service_Facebook
     const BATCH_MODE_SERIAL_ONLY = 2;
 
     /**
-     * Create a Facebook client like this:
-     *
-     * $fb = new Facebook(API_KEY, SECRET);
-     *
-     * This will automatically pull in any parameters, validate them against the
-     * session signature, and chuck them in the public $fb_params member variable.
      *
      * @param api_key                  your Developer API key
      * @param secret                   your Developer API secret
+     *
      * @param session_key
-     * @param generate_session_secret  whether to automatically generate a session
-     *                                 if the user doesn't have one, but
-     *                                 there is an auth token present in the url,
      */
-    public function __construct($api_key, $secret, $session_key = null, $generate_session_secret = false)
+    public function __construct($api_key, $secret, $session_key = null)
     {
         $this->api_key = $api_key;
         $this->secret = $secret;
-        $this->generate_session_secret = $generate_session_secret;
+        $this->app_secret = $secret;
         $this->validate_fb_params();
-
-        // Not sure what to do with this here, setting it seems to invalidate my
-        // signature.
-        //$this->session_key  = $session_key;
         $this->batch_mode = self::BATCH_MODE_DEFAULT;
         $this->call_as_apikey = '';
 
         // Set the default user id for methods that allow the caller to
         // pass an explicit uid instead of using a session key.
-        $defaultUser = null;
-        if ($this->user) {
-            $defaultUser = $this->user;
-        }
-
-        $this->user = $defaultUser;
+        $this->user = !empty($this->user) ? $this->user : null;
     }
 
     /**
@@ -159,21 +150,13 @@ class Horde_Service_Facebook
         } elseif ($resolve_auth_token && isset($_GET['auth_token']) &&
                   $session = $this->do_get_session($_GET['auth_token'])) {
 
-            // finally, if we received no parameters, but the 'auth_token' GET var
-            // is present, then we are in the middle of auth handshake,
-            // so go ahead and create the session
-            if ($this->generate_session_secret && !empty($session['secret'])) {
-                $session_secret = $session['secret'];
-            }
-
             if (isset($session['base_domain'])) {
                 $this->base_domain = $session['base_domain'];
             }
 
             $this->set_user($session['uid'],
                             $session['session_key'],
-                            $session['expires'],
-                            isset($session_secret) ? $session_secret : null);
+                            $session['expires']);
         }
 
         return !empty($this->fb_params);
@@ -185,10 +168,10 @@ class Horde_Service_Facebook
      * @param $auth_token
      * @return unknown_type
      */
-    public function do_get_session($auth_token)
+    protected function _do_get_session($auth_token)
     {
         try {
-            return $this->auth_getSession($auth_token, $this->generate_session_secret);
+            return $this->auth_getSession($auth_token);
         } catch (Horde_Service_Facebook_Exception $e) {
             // API_EC_PARAM means we don't have a logged in user, otherwise who
             // knows what it means, so just throw it.
@@ -198,8 +181,33 @@ class Horde_Service_Facebook
         }
     }
 
+    /**
+     * Get authenticated session information for a "desktop" app.
+     *
+     * @param $auth_token
+     * @return unknown_type
+     */
+    public function do_get_session($auth_token)
+    {
+        $this->secret = $this->app_secret;
+        $this->session_key = null;
+        $session_info = $this->_do_get_session($auth_token);
+        if (!empty($session_info['secret'])) {
+            // store the session secret
+            $this->set_session_secret($session_info['secret']);
+        }
+
+        return $session_info;
+    }
+
+    public function set_session_secret($session_secret)
+    {
+        $this->secret = $session_secret;
+    }
+
     // Invalidate the session currently being used, and clear any state associated with it
-    public function expire_session() {
+    public function expire_session()
+    {
         if ($this->auth_expireSession()) {
             if (!$this->in_fb_canvas() && isset($_COOKIE[$this->api_key . '_user'])) {
                 $cookies = array('user', 'session_key', 'expires', 'ss');
@@ -223,9 +231,10 @@ class Horde_Service_Facebook
     }
 
     /**
-     * TODO: Where is the called from, do we need it? Can we do it better?
-     *       Do we even want this library to be used in a fb canvas? Seems like
-     *       that would be overkill for us....
+     * TODO: Can we put this in a redbox overlay instead of redirecting?
+     *
+     * @param $url
+     * @return unknown_type
      */
     public function redirect($url)
     {
@@ -237,11 +246,6 @@ class Horde_Service_Facebook
             header('Location: ' . $url);
         }
         exit;
-    }
-
-    public function in_frame()
-    {
-        return isset($this->fb_params['in_canvas']) || isset($this->fb_params['in_iframe']);
     }
 
     public function get_loggedin_user()
@@ -259,20 +263,33 @@ class Horde_Service_Facebook
      */
     public function require_login()
     {
-        if ($user = $this->get_loggedin_user()) {
-            return $user;
-        }
-        $this->redirect($this->get_login_url(self::current_url(), $this->in_frame()));
-    }
+        if ($this->get_loggedin_user()) {
+          try {
+            // try a session-based API call to ensure that we have the correct
+            // session secret
+            $user = $this->users_getLoggedInUser();
 
-    /**
-     *
-     */
-    public function require_frame()
-    {
-        if (!$this->in_frame()) {
-            $this->redirect($this->get_login_url(self::current_url(), true));
+            // now that we have a valid session secret, verify the signature
+            $this->verify_sig = true;
+            if ($this->validate_fb_params(false)) {
+              return $user;
+            } else {
+              // validation failed
+              return null;
+            }
+          } catch (Horde_Service_Facebook_Exception $ex) {
+            if (isset($_GET['auth_token'])) {
+              // if we have an auth_token, use it to establish a session
+              $session_info = $this->do_get_session($_GET['auth_token']);
+              if ($session_info) {
+                return $session_info['uid'];
+              }
+            }
+          }
         }
+
+        // if we get here, we need to redirect the user to log in
+        $this->redirect($this->get_login_url(self::current_url()));
     }
 
     /**
@@ -295,35 +312,31 @@ class Horde_Service_Facebook
     /**
      *
      */
-    public function get_login_url($next, $canvas)
+    public function get_login_url($next)
     {
         return self::get_facebook_url() . '/login.php?v=1.0&api_key='
-            . $this->api_key . ($next ? '&next=' . urlencode($next)  : '')
-            . ($canvas ? '&canvas' : '');
+            . $this->api_key . ($next ? '&next=' . urlencode($next)  : '');
     }
 
-    public function set_user($user, $session_key, $expires = null, $session_secret = null)
+    public function set_user($user, $session_key, $expires = null)
     {
         if (!isset($_COOKIE[$this->api_key . '_user']) ||
             $_COOKIE[$this->api_key . '_user'] != $user) {
 
-            $this->set_cookies($user, $session_key, $expires, $session_secret);
+            $this->set_cookies($user, $session_key, $expires);
         }
         $this->user = $user;
         $this->session_key = $session_key;
         $this->session_expires = $expires;
     }
 
-    public function set_cookies($user, $session_key, $expires = null, $session_secret = null)
+    public function set_cookies($user, $session_key, $expires = null)
     {
         $cookies = array();
         $cookies['user'] = $user;
         $cookies['session_key'] = $session_key;
         if ($expires != null) {
             $cookies['expires'] = $expires;
-        }
-        if ($session_secret != null) {
-            $cookies['ss'] = $session_secret;
         }
 
         foreach ($cookies as $name => $val) {
@@ -422,8 +435,15 @@ class Horde_Service_Facebook
     *                       not including the signature itself
     * @param $expected_sig  the expected result to check against
     */
-    public function verify_signature($fb_params, $expected_sig) {
-       return self::generate_sig($fb_params, $this->secret) == $expected_sig;
+    public function verify_signature($fb_params, $expected_sig)
+    {
+        // we don't want to verify the signature until we have a valid
+        // session secret
+        if ($this->verify_sig) {
+            return self::generate_sig($fb_params, $this->secret) == $expected_sig;
+        } else {
+            return true;
+        }
     }
 
     /**
@@ -595,32 +615,28 @@ class Horde_Service_Facebook
   }
 
     /**
-   * Returns the session information available after current user logs in.
-   *
-   * @param string $auth_token             the token returned by
-   *                                       auth_createToken or passed back to
-   *                                       your callback_url.
-   * @param bool $generate_session_secret  whether the session returned should
-   *                                       include a session secret
-   *
-   * @return array  An assoc array containing session_key, uid
-   */
-  public function auth_getSession($auth_token, $generate_session_secret=false)
-  {
-    //Check if we are in batch mode
-    if($this->batch_queue === null) {
-      $result = $this->call_method('facebook.auth.getSession',
-          array('auth_token' => $auth_token,
-                'generate_session_secret' => $generate_session_secret));
-      $this->session_key = $result['session_key'];
+     * Returns the session information available after current user logs in.
+     *
+     * @param string $auth_token             the token returned by
+     *                                       auth_createToken or passed back to
+     *                                       your callback_url.
+     *
+     * @return array  An assoc array containing session_key, uid
+     */
+    public function auth_getSession($auth_token)
+    {
+        //Check if we are in batch mode
+        if ($this->batch_queue === null) {
+            $result = $this->call_method('facebook.auth.getSession', array('auth_token' => $auth_token));
+            $this->session_key = $result['session_key'];
 
-    if (!empty($result['secret']) && !$generate_session_secret) {
-      // desktop apps have a special secret
-      $this->secret = $result['secret'];
+            if (!empty($result['secret'])) {
+                // desktop apps have a special secret
+                $this->secret = $result['secret'];
+            }
+            return $result;
+        }
     }
-      return $result;
-    }
-  }
 
   /**
    * Generates a session-specific secret. This is for integration with
@@ -802,13 +818,8 @@ class Horde_Service_Facebook
    * @return array  An array of friends
    */
   public function &friends_get($flid=null, $uid = null) {
-    if (isset($this->friends_list)) {
-      return $this->friends_list;
-    }
+
     $params = array();
-    if (!$uid && isset($this->canvas_user)) {
-      $uid = $this->canvas_user;
-    }
     if ($uid) {
       $params['uid'] = $uid;
     }
