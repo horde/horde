@@ -271,28 +271,28 @@ class Horde_Service_Facebook
     public function require_login()
     {
         if ($this->get_loggedin_user()) {
-          try {
-            // try a session-based API call to ensure that we have the correct
-            // session secret
-            $user = $this->users_getLoggedInUser();
+            try {
+                // try a session-based API call to ensure that we have the correct
+                // session secret
+                $user = $this->users_getLoggedInUser();
 
-            // now that we have a valid session secret, verify the signature
-            $this->verify_sig = true;
-            if ($this->validate_fb_params(false)) {
-              return $user;
-            } else {
-              // validation failed
-              return null;
+                // now that we have a valid session secret, verify the signature
+                $this->verify_sig = true;
+                if ($this->validate_fb_params(false)) {
+                    return $user;
+                } else {
+                    // validation failed
+                    return null;
+                }
+            } catch (Horde_Service_Facebook_Exception $ex) {
+                if (isset($_GET['auth_token'])) {
+                    // if we have an auth_token, use it to establish a session
+                    $session_info = $this->do_get_session($_GET['auth_token']);
+                    if ($session_info) {
+                      return $session_info['uid'];
+                    }
+                }
             }
-          } catch (Horde_Service_Facebook_Exception $ex) {
-            if (isset($_GET['auth_token'])) {
-              // if we have an auth_token, use it to establish a session
-              $session_info = $this->do_get_session($_GET['auth_token']);
-              if ($session_info) {
-                return $session_info['uid'];
-              }
-            }
-          }
         }
 
         // if we get here, we need to redirect the user to log in
@@ -302,7 +302,7 @@ class Horde_Service_Facebook
     /**
      *
      */
-    public static function get_facebook_url($subdomain = 'www')
+    private static function _get_facebook_url($subdomain = 'www')
     {
         return 'http://' . $subdomain . '.facebook.com';
     }
@@ -312,7 +312,7 @@ class Horde_Service_Facebook
      */
     public function get_add_url($next = null)
     {
-        return self::get_facebook_url() . '/add.php?api_key=' . $this->api_key
+        return self::_get_facebook_url() . '/add.php?api_key=' . $this->api_key
             . ($next ? '&next=' . urlencode($next) : '');
     }
 
@@ -321,7 +321,7 @@ class Horde_Service_Facebook
      */
     public function get_login_url($next)
     {
-        return self::get_facebook_url() . '/login.php?v=1.0&api_key='
+        return self::_get_facebook_url() . '/login.php?v=1.0&api_key='
             . $this->api_key . ($next ? '&next=' . urlencode($next)  : '');
     }
 
@@ -1194,7 +1194,7 @@ class Horde_Service_Facebook
                                      array('title' => $title,
                                            'description' => $description),
                                      $file,
-                                     Facebook::get_facebook_url('api-video') . '/restserver.php');
+                                     self::_get_facebook_url('api-video') . '/restserver.php');
   }
 
   /**
