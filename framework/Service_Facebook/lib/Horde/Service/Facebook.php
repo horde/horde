@@ -301,7 +301,7 @@ class Horde_Service_Facebook
      */
     public static function get_facebook_url($subdomain = 'www')
     {
-        return 'http://' . $subdomain . '.facebook.com';
+        return (!empty($_SERVER['HTTPS']) ? 'https://' : 'http://') . $subdomain . '.facebook.com';
     }
 
     /**
