@@ -26,40 +26,16 @@ class Horde_Db_Migration_MigratorTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
+        $this->_conn = Horde_Db_Adapter::factory(array(
+            'adapter' => 'pdo_sqlite',
+            'dbname' => ':memory:',
+        ));
         Horde_Db_Migration_Base::$verbose = false;
-    }
-
-    public function tearDown()
-    {
-        $this->_conn->initializeSchemaInformation();
-        $this->_conn->update("UPDATE schema_info SET version = 0");
-
-        // drop tables
-        foreach (array('reminders', 'users_reminders', 'testings', 'octopuses',
-                       'octopi', 'binary_testings', 'big_numbers') as $table) {
-            try {
-                $this->_conn->dropTable($table);
-            } catch (Exception $e) {}
-        }
-
-        // drop cols
-        foreach (array('first_name', 'middle_name', 'last_name', 'key', 'male',
-                       'bio', 'age', 'height', 'wealth', 'birthday', 'group',
-                       'favorite_day', 'moment_of_truth', 'administrator',
-                       'exgirlfriend', 'contributor', 'nick_name',
-                       'intelligence_quotient') as $col) {
-            try {
-                $this->_conn->removeColumn('users', $col);
-            } catch (Exception $e) {}
-        }
-        $this->_conn->addColumn('users', 'first_name', 'string', array('limit' => 40));
-        $this->_conn->changeColumn('users', 'approved', 'boolean', array('default' => true));
     }
 
     public function testMigrator()
     {
-        $user = new User;
-        $columns = $user->columnNames();
+        $columns = $this->_columnNames('users');
 
         $this->assertFalse(in_array('last_name', $columns));
 
@@ -70,24 +46,23 @@ class Horde_Db_Migration_MigratorTest extends PHPUnit_Framework_TestCase
         $this->assertType('Horde_Db_Exception', $e);
 
         $dir = dirname(dirname(dirname(dirname(__FILE__)))).'/fixtures/migrations/';
-        Horde_Db_Migration_Migrator::up($dir);
-        $this->assertEquals(3, Horde_Db_Migration_Migrator::getCurrentVersion());
+        $migrator = new Horde_Db_Migration_Migrator($this->_conn, $dir);
+        $migrator->up();
+        $this->assertEquals(3, $migrator->getCurrentVersion());
 
-        $user->resetColumnInformation();
-        $columns = $user->columnNames();
+        $columns = $this->_columnNames('users');
         $this->assertTrue(in_array('last_name', $columns));
 
-        $result = Reminder::create(array('content'   => 'hello world',
-                                         'remind_at' => '2005-01-01 02:22:23'));
-        $reminder = Reminder::find('first');
+        $this->_conn->insert("INSERT INTO reminders (content, remind_at) VALUES ('hello world', '2005-01-01 02:22:23')");
+        $reminder = (object)$this->_conn->selectOne('SELECT * FROM reminders');
         $this->assertEquals('hello world', $reminder->content);
 
         $dir = dirname(dirname(dirname(dirname(__FILE__)))).'/fixtures/migrations/';
-        Horde_Db_Migration_Migrator::down($dir);
-        $this->assertEquals(0, Horde_Db_Migration_Migrator::getCurrentVersion());
+        $migrator = new Horde_Db_Migration_Migrator($this->_conn, $dir);
+        $migrator->down();
+        $this->assertEquals(0, $migrator->getCurrentVersion());
 
-        $user->resetColumnInformation();
-        $columns = $user->columnNames();
+        $columns = $this->_columnNames('users');
         $this->assertFalse(in_array('last_name', $columns));
 
         $e = null;
@@ -106,11 +81,11 @@ class Horde_Db_Migration_MigratorTest extends PHPUnit_Framework_TestCase
         $this->assertType('Horde_Db_Exception', $e);
 
         $dir = dirname(dirname(dirname(dirname(__FILE__)))).'/fixtures/migrations/';
-        Horde_Db_Migration_Migrator::up($dir, 1);
-        $this->assertEquals(1, Horde_Db_Migration_Migrator::getCurrentVersion());
+        $migrator = new Horde_Db_Migration_Migrator($this->_conn, $dir);
+        $migrator->up(1);
+        $this->assertEquals(1, $migrator->getCurrentVersion());
 
-        $user = new User;
-        $columns = $user->columnNames();
+        $columns = $this->_columnNames('users');
         $this->assertTrue(in_array('last_name', $columns));
 
         $e = null;
@@ -119,48 +94,47 @@ class Horde_Db_Migration_MigratorTest extends PHPUnit_Framework_TestCase
         } catch (Exception $e) {}
         $this->assertType('Horde_Db_Exception', $e);
 
-        Horde_Db_Migration_Migrator::up($dir, 2);
-        $this->assertEquals(2, Horde_Db_Migration_Migrator::getCurrentVersion());
+        $migrator->up(2);
+        $this->assertEquals(2, $migrator->getCurrentVersion());
 
-        $result = Reminder::create(array('content'   => 'hello world',
-                                         'remind_at' => '2005-01-01 02:22:23'));
-        $reminder = Reminder::find('first');
+        $this->_conn->insert("INSERT INTO reminders (content, remind_at) VALUES ('hello world', '2005-01-01 02:22:23')");
+        $reminder = (object)$this->_conn->selectOne('SELECT * FROM reminders');
         $this->assertEquals('hello world', $reminder->content);
     }
 
     public function testOneDown()
     {
         $dir = dirname(dirname(dirname(dirname(__FILE__)))).'/fixtures/migrations/';
+        $migrator = new Horde_Db_Migration_Migrator($this->_conn, $dir);
 
-        Horde_Db_Migration_Migrator::up($dir);
-        Horde_Db_Migration_Migrator::down($dir, 1);
+        $migrator->up();
+        $migrator->down(1);
 
-        $user = new User;
-        $columns = $user->columnNames();
+        $columns = $this->_columnNames('users');
         $this->assertTrue(in_array('last_name', $columns));
     }
 
     public function testOneUpOneDown()
     {
         $dir = dirname(dirname(dirname(dirname(__FILE__)))).'/fixtures/migrations/';
+        $migrator = new Horde_Db_Migration_Migrator($this->_conn, $dir);
 
-        Horde_Db_Migration_Migrator::up($dir, 1);
-        Horde_Db_Migration_Migrator::down($dir, 0);
+        $migrator->up(1);
+        $migrator->down(0);
 
-        $user = new User;
-        $columns = $user->columnNames();
+        $columns = $this->_columnNames('users');
         $this->assertFalse(in_array('last_name', $columns));
     }
 
     public function testMigratorGoingDownDueToVersionTarget()
     {
         $dir = dirname(dirname(dirname(dirname(__FILE__)))).'/fixtures/migrations/';
+        $migrator = new Horde_Db_Migration_Migrator($this->_conn, $dir);
 
-        Horde_Db_Migration_Migrator::up($dir, 1);
-        Horde_Db_Migration_Migrator::down($dir, 0);
+        $migrator->up(1);
+        $migrator->down(0);
 
-        $user = new User;
-        $columns = $user->columnNames();
+        $columns = $this->_columnNames('users');
         $this->assertFalse(in_array('last_name', $columns));
 
         $e = null;
@@ -169,16 +143,13 @@ class Horde_Db_Migration_MigratorTest extends PHPUnit_Framework_TestCase
         } catch (Exception $e) {}
         $this->assertType('Horde_Db_Exception', $e);
 
+        $migrator->up();
 
-        Horde_Db_Migration_Migrator::up($dir);
-
-        $user->resetColumnInformation();
-        $columns = $user->columnNames();
+        $columns = $this->_columnNames('users');
         $this->assertTrue(in_array('last_name', $columns));
 
-        $result = Reminder::create(array('content'   => 'hello world',
-                                         'remind_at' => '2005-01-01 02:22:23'));
-        $reminder = Reminder::find('first');
+        $this->_conn->insert("INSERT INTO reminders (content, remind_at) VALUES ('hello world', '2005-01-01 02:22:23')");
+        $reminder = (object)$this->_conn->selectOne('SELECT * FROM reminders');
         $this->assertEquals('hello world', $reminder->content);
     }
 
@@ -186,7 +157,8 @@ class Horde_Db_Migration_MigratorTest extends PHPUnit_Framework_TestCase
     {
         try {
             $dir = dirname(dirname(dirname(dirname(__FILE__)))).'/fixtures/migrations_with_duplicate/';
-            Horde_Db_Migration_Migrator::up($dir);
+            $migrator = new Horde_Db_Migration_Migrator($this->_conn, $dir);
+            $migrator->up();
         } catch (Exception $e) { return; }
         $this->fail('Expected exception wasn\'t raised');
     }
@@ -194,11 +166,12 @@ class Horde_Db_Migration_MigratorTest extends PHPUnit_Framework_TestCase
     public function testWithMissingVersionNumbers()
     {
         $dir = dirname(dirname(dirname(dirname(__FILE__)))).'/fixtures/migrations_with_missing_versions/';
-        Horde_Db_Migration_Migrator::migrate($dir, 500);
-        $this->assertEquals(4, Horde_Db_Migration_Migrator::getCurrentVersion());
+        $migrator = new Horde_Db_Migration_Migrator($this->_conn, $dir);
+        $migrator->migrate(500);
+        $this->assertEquals(4, $migrator->getCurrentVersion());
 
-        Horde_Db_Migration_Migrator::migrate($dir, 2);
-        $this->assertEquals(2, Horde_Db_Migration_Migrator::getCurrentVersion());
+        $migrator->migrate(2);
+        $this->assertEquals(2, $migrator->getCurrentVersion());
 
         $e = null;
         try {
@@ -206,8 +179,18 @@ class Horde_Db_Migration_MigratorTest extends PHPUnit_Framework_TestCase
         } catch (Exception $e) {}
         $this->assertType('Horde_Db_Exception', $e);
 
-        $user = new User;
-        $columns = $user->columnNames();
+        $columns = $this->_columnNames('users');
         $this->assertTrue(in_array('last_name', $columns));
     }
+
+
+    protected function _columnNames($tableName)
+    {
+        $columns = array();
+        foreach ($this->_conn->columns($tableName) as $c) {
+            $columns[] = $c->name;
+        }
+        return $columns;
+    }
+
 }

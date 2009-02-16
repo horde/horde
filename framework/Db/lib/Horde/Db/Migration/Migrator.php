@@ -57,7 +57,9 @@ class Horde_Db_Migration_Migrator
 
         $this->_connection     = $connection;
         $this->_migrationsPath = $migrationsPath;
-        $this->_logger         = $logger;
+        /* @TODO */
+        //$this->_logger         = $logger;
+        $this->_logger         = new Horde_Support_Stub();
 
         $this->_connection->initializeSchemaInformation();
     }
