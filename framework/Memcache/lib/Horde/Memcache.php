@@ -27,6 +27,10 @@
  *                 DEFAULT: none (equal weight to all servers)
  * </pre>
  *
+ * @TODO Support for new pecl memcached extension?
+ * http://gravitonic.com/2009/01/new-memcached-extension,
+ * http://pecl.php.net/package/memcached
+ *
  * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
