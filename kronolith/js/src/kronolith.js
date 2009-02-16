@@ -386,10 +386,10 @@ KronolithCore = {
             // Calculate first and last days being displayed.
             day.setDate(1);
             firstDay = day.clone()
-            this.moveToBeginOfWeek(day);
+            day.moveToBeginOfWeek();
             monthEnd.moveToLastDayOfMonth();
             lastDay = monthEnd.clone();
-            this.moveToBeginOfWeek(monthEnd);
+            monthEnd.moveToBeginOfWeek();
 
             // Remove old rows. Maybe we should only rebuild the calendars if
             // necessary.
@@ -460,9 +460,9 @@ KronolithCore = {
             weekStart, weekEnd, weekEndDay, td, tr;
 
         day.setDate(1);
-        this.moveToBeginOfWeek(day);
+        day.moveToBeginOfWeek();
         monthEnd.moveToLastDayOfMonth();
-        this.moveToEndOfWeek(monthEnd);
+        monthEnd.moveToEndOfWeek();
 
         // Update header.
         $('kronolithMinicalDate').setText(date.toString('MMMM yyyy')).setAttribute('date', date.toString('yyyyMMdd'));
@@ -532,41 +532,6 @@ KronolithCore = {
     parseDate: function(date)
     {
         return new Date(date.substr(0, 4), date.substr(4, 2) - 1, date.substr(6, 2));
-    },
-
-    /**
-     * Moves a date to the end of the corresponding week.
-     *
-     * @param Date date  A Date object. Passed by reference!
-     *
-     * @return Date  The same Date object, now pointing to the end of the week.
-     */
-    moveToEndOfWeek: function(date)
-    {
-        var weekEndDay = Kronolith.conf.week_start + 6;
-        if (weekEndDay > 6) {
-            weekEndDay -= 7;
-        }
-        if (date.getDay() != weekEndDay) {
-            date.moveToDayOfWeek(weekEndDay, 1);
-        }
-        return date;
-    },
-
-    /**
-     * Moves a date to the begin of the corresponding week.
-     *
-     * @param Date date  A Date object. Passed by reference!
-     *
-     * @return Date  The same Date object, now pointing to the begin of the
-     *               week.
-     */
-    moveToBeginOfWeek: function(date)
-    {
-        if (date.getDay() != Kronolith.conf.week_start) {
-            date.moveToDayOfWeek(Kronolith.conf.week_start, -1);
-        }
-        return date;
     },
 
     _addHistory: function(loc, data)
@@ -1071,4 +1036,37 @@ Object.extend(String.prototype, {
             }
         });
     }
+});
+
+Object.extend(Date.prototype, {
+    /**
+     * Moves a date to the end of the corresponding week.
+     *
+     * @return Date  The same Date object, now pointing to the end of the week.
+     */
+    moveToEndOfWeek: function()
+    {
+        var weekEndDay = Kronolith.conf.week_start + 6;
+        if (weekEndDay > 6) {
+            weekEndDay -= 7;
+        }
+        if (this.getDay() != weekEndDay) {
+            this.moveToDayOfWeek(weekEndDay, 1);
+        }
+        return this;
+    },
+
+    /**
+     * Moves a date to the begin of the corresponding week.
+     *
+     * @return Date  The same Date object, now pointing to the begin of the
+     *               week.
+     */
+    moveToBeginOfWeek: function()
+    {
+        if (this.getDay() != Kronolith.conf.week_start) {
+            this.moveToDayOfWeek(Kronolith.conf.week_start, -1);
+        }
+        return this;
+    },
 });
