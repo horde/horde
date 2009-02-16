@@ -433,7 +433,7 @@ KronolithCore = {
         // Fill week number and day cells.
         var cell = row.down().setText(monday.getWeek()).next();
         while (cell) {
-            cell.id = 'kronolithMonthDay' + day.toString('yyyyMMdd');
+            cell.id = 'kronolithMonthDay' + day.dateString();
             cell.removeClassName('kronolithOtherMonth');
             if (typeof month != 'undefined' && day.getMonth() != month) {
                 cell.addClassName('kronolithOtherMonth');
@@ -465,7 +465,7 @@ KronolithCore = {
         monthEnd.moveToEndOfWeek();
 
         // Update header.
-        $('kronolithMinicalDate').setText(date.toString('MMMM yyyy')).setAttribute('date', date.toString('yyyyMMdd'));
+        $('kronolithMinicalDate').setText(date.toString('MMMM yyyy')).setAttribute('date', date.dateString());
 
         // Remove old calendar rows. Maybe we should only rebuild the minical
         // if necessary.
@@ -476,14 +476,14 @@ KronolithCore = {
             if (day.getDay() == Kronolith.conf.week_start) {
                 tr = new Element('tr');
                 tbody.insert(tr);
-                td = new Element('td', { 'class': 'kronolithMinicalWeek', date: day.toString('yyyyMMdd') }).setText(day.getWeek());;
+                td = new Element('td', { 'class': 'kronolithMinicalWeek', date: day.dateString() }).setText(day.getWeek());;
                 tr.insert(td);
                 weekStart = day.clone();
                 weekEnd = day.clone();
                 weekEnd.add(6).days();
             }
             // Insert day cell.
-            td = new Element('td', {date: day.toString('yyyyMMdd')});
+            td = new Element('td', {date: day.dateString()});
             if (day.getMonth() != date.getMonth()) {
                 td.addClassName('kronolithMinicalEmpty');
             }
@@ -525,7 +525,7 @@ KronolithCore = {
      *
      * For other strings use Date.parse().
      *
-     * @param string date  A yyyymmdd date string.
+     * @param string date  A yyyyMMdd date string.
      *
      * @return Date  A date object.
      */
@@ -1069,4 +1069,15 @@ Object.extend(Date.prototype, {
         }
         return this;
     },
+
+    /**
+     * Format date and time to be passed around as a short url parameter,
+     * cache id, etc.
+     *
+     * @return string  Date and time.
+     */
+    dateString()
+    {
+        return this.toString('yyyyMMdd');
+    }
 });
