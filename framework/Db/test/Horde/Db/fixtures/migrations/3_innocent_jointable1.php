@@ -1,6 +1,6 @@
 <?php
 
-class InnocentJointable1 extends Mad_Model_Migration_Base 
+class InnocentJointable1 extends Horde_Db_Migration_Base
 {
     public function up()
     {

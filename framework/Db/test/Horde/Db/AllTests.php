@@ -57,13 +57,21 @@ class Horde_Db_AllTests {
         $baseregexp = preg_quote($basedir . DIRECTORY_SEPARATOR, '/');
 
         foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($basedir)) as $file) {
-            if ($file->isFile() && preg_match('/Suite.php$/', $file->getFilename())) {
-                $pathname = $file->getPathname();
-                require $pathname;
+            if (!$file->isFile()) {
+                continue;
+            }
 
-                $class = str_replace(DIRECTORY_SEPARATOR, '_',
-                                     preg_replace("/^$baseregexp(.*)\.php/", '\\1', $pathname));
-                $suite->addTestSuite('Horde_Db_'.$class);
+            $filename = $file->getFilename();
+            $pathname = $file->getPathname();
+            $class = str_replace(DIRECTORY_SEPARATOR, '_',
+                                 preg_replace("/^$baseregexp(.*)\.php/", '\\1', $pathname));
+
+            if (preg_match('/Suite.php$/', $filename)) {
+                require $pathname;
+                $suite->addTestSuite('Horde_Db_' . $class);
+            } elseif (strpos($class, 'Adapter_') === false && preg_match('/Test.php$/', $filename)) {
+                require $pathname;
+                $suite->addTestSuite('Horde_Db_' . $class);
             }
         }
 

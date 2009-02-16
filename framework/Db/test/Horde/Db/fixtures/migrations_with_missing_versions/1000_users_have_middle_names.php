@@ -1,6 +1,6 @@
 <?php
 
-class UsersHaveMiddleNames extends Mad_Model_Migration_Base 
+class UsersHaveMiddleNames extends Horde_Db_Migration_Base
 {
     public function up()
     {

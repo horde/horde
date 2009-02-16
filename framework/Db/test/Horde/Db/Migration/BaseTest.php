@@ -12,9 +12,9 @@
  * @subpackage UnitTests
  */
 
-require_once dirname(dirname(dirname(dirname(__FILE__)))) . '/fixtures/migrations/1_users_have_last_names1.php';
-require_once dirname(dirname(dirname(dirname(__FILE__)))) . '/fixtures/migrations/2_we_need_reminders1.php';
-require_once dirname(dirname(dirname(dirname(__FILE__)))) . '/fixtures/migrations_with_decimal/1_give_me_big_numbers.php';
+require_once dirname(dirname(__FILE__)) . '/fixtures/migrations/1_users_have_last_names1.php';
+require_once dirname(dirname(__FILE__)) . '/fixtures/migrations/2_we_need_reminders1.php';
+require_once dirname(dirname(__FILE__)) . '/fixtures/migrations_with_decimal/1_give_me_big_numbers.php';
 
 /**
  * @author     Mike Naberezny <mike@maintainable.com>
@@ -30,6 +30,11 @@ class Horde_Db_Migration_BaseTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
+        $this->_conn = Horde_Db_Adapter::factory(array(
+            'adapter' => 'pdo_sqlite',
+            'dbname' => ':memory:',
+        ));
+
         Horde_Db_Migration_Base::$verbose = false;
     }
 
@@ -79,7 +84,7 @@ class Horde_Db_Migration_BaseTest extends PHPUnit_Framework_TestCase
         $this->_conn->addIndex('users', array('last_name', 'first_name'));
         $this->_conn->removeIndex('users', 'last_name_and_first_name');
 
-        // # quoting
+        // quoting
 
         $this->_conn->addIndex('users', array('key'), array('name' => 'key_idx', 'unique' => true));
         $this->_conn->removeIndex('users', array('name' => 'key_idx', 'unique' => true));

@@ -1,6 +1,6 @@
 <?php
 
-class GiveMeBigNumbers extends Mad_Model_Migration_Base 
+class GiveMeBigNumbers extends Horde_Db_Migration_Base
 {
     public function up()
     {
