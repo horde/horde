@@ -9,6 +9,16 @@ CREATE TABLE IF NOT EXISTS folks_attributes (
   KEY attributes_group (attributes_group)
 );
 
+-- friends SQL
+CREATE TABLE IF NOT EXISTS `folks_friends` (
+  `user_uid` VARCHAR(32) NOT NULL,
+  `friend_uid` VARCHAR(32) NOT NULL,
+  `friend_ask` TINYINT(1) UNSIGNED NOT NULL DEFAULT '0',
+  PRIMARY KEY  (`user_uid`, `friend_uid`),
+  KEY `friend_ask` (`friend_ask`)
+);
+
+-- friends SHARED
 CREATE TABLE IF NOT EXISTS `folks_friends` (
   `user_uid` VARCHAR(32) NOT NULL,
   `group_id` TINYINT(1) UNSIGNED NOT NULL DEFAULT '0',
@@ -19,6 +29,13 @@ CREATE TABLE IF NOT EXISTS `folks_friends` (
   KEY `group_name` (`group_id`),
   KEY `friend_uid` (`friend_uid`),
   KEY `friend_ask` (`friend_ask`)
+);
+
+-- BLACKLIST
+CREATE TABLE IF NOT EXISTS `folks_blacklist` (
+  `user_uid` VARCHAR(32) NOT NULL,
+  `friend_uid` VARCHAR(32) NOT NULL,
+  PRIMARY KEY  (`user_uid`, `friend_uid`)
 );
 
 CREATE TABLE IF NOT EXISTS folks_notify_counts (

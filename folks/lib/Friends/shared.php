@@ -8,7 +8,7 @@ require_once dirname(__FILE__) . '/sql.php';
  *
  * $Id: shared.php 1247 2009-01-30 15:01:34Z duck $
  *
- * Copyright Obala d.o.o. (www.obala.si)
+ * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
@@ -16,14 +16,16 @@ require_once dirname(__FILE__) . '/sql.php';
  * @author Duck <duck@obala.net>
  * @package Folks
  */
-class Folks_Friends_shared extends  Folks_Friends_sql  {
+class Folks_Friends_shared extends  Folks_Friends_sql {
+
+    const CUSTOM = 3;
 
     /**
      * friends list ID
      *
      * @var int
      */
-    private $_friends;
+    private $_whitelist;
 
     /**
      * Black list ID
@@ -33,11 +35,30 @@ class Folks_Friends_shared extends  Folks_Friends_sql  {
     private $_blacklist;
 
     /**
+     * Get whitelist ID
+     */
+    protected function _id($id)
+    {
+        switch ($id) {
+
+        case self::BLACKLIST;
+            return $this->_blacklist;
+
+        case self::WHITELIST;
+            return $this->_whitelist;
+
+        default:
+            return $id;
+
+        }
+    }
+
+    /**
      * Get user friends and blacklist group id
      */
     private function _getIds()
     {
-        if ($this->_friends && $this->_blacklist) {
+        if ($this->_whitelist && $this->_blacklist) {
             return;
         }
 
@@ -46,12 +67,12 @@ class Folks_Friends_shared extends  Folks_Friends_sql  {
         if ($groups instanceof PEAR_Error) {
             return $groups;
         }
-
+var_dump($groups);
         foreach ($groups as $id => $group) {
             if ($group->get('type') == self::BLACKLIST) {
                 $this->_blacklist = $group->getId();
             } elseif ($group->get('type') == self::WHITELIST) {
-                $this->_friends = $group->getId();
+                $this->_whitelist = $group->getId();
             }
         }
     }
@@ -65,11 +86,12 @@ class Folks_Friends_shared extends  Folks_Friends_sql  {
     {
         $this->_getIds();
 
+        // No blacklist even created
         if (empty($this->_blacklist)) {
             return array();
         }
 
-        parent::_getBlacklist();
+        return parent::_getBlacklist();
     }
 
     /**
@@ -81,14 +103,16 @@ class Folks_Friends_shared extends  Folks_Friends_sql  {
     {
         $this->_getIds();
 
+        // Create blacklist
         if (empty($this->_blacklist)) {
-            $result = $this->addGroup('_BLACKLIST_', self::BLACKLIST);
-            if ($result instanceof PEAR_Error) {
-                return $result;
+            $group_id = $this->addGroup('_BLACKLIST_', self::BLACKLIST);
+            if ($group_id instanceof PEAR_Error) {
+                return $group_id;
             }
+            $this->_blacklist = $group_id;
         }
 
-        parent::_addBlacklisted($user);
+        return parent::_addBlacklisted($user);
     }
 
     /**
@@ -117,11 +141,12 @@ class Folks_Friends_shared extends  Folks_Friends_sql  {
     {
         $this->_getIds();
 
-        if (empty($this->_friends)) {
-            $result = $this->addGroup('_FRIENDS_', self::WHITELIST);
-            if ($result instanceof PEAR_Error) {
-                return $result;
+        if (empty($this->_whitelist)) {
+            $group_id = $this->addGroup('_FRIENDS_', self::WHITELIST);
+            if ($group_id instanceof PEAR_Error) {
+                return $group_id;
             }
+            $this->_whitelist = $group_id;
         }
 
         parent::_addFriend($friend, $group);
@@ -137,7 +162,7 @@ class Folks_Friends_shared extends  Folks_Friends_sql  {
     {
         $this->_getIds();
 
-        if (empty($this->_friends)) {
+        if (empty($this->_whitelist)) {
             return true;
         }
 
@@ -148,19 +173,18 @@ class Folks_Friends_shared extends  Folks_Friends_sql  {
      * Get user friends
      *
      * @param string $group  Get friens only from this group
-     * @param boolean $ask   Show all users or only them who approved us
      *
      * @return array of users (in group)
      */
-    protected function _getFriends($group = null, $ask = false)
+    protected function _getFriends($group = null)
     {
         $this->_getIds();
 
-        if (empty($this->_friends)) {
+        if (empty($this->_whitelist)) {
             return array();
         }
 
-        parent::_getFriends($group, $ask);
+        parent::_getFriends($group);
     }
 
     /**
@@ -176,13 +200,15 @@ class Folks_Friends_shared extends  Folks_Friends_sql  {
 
         $list = array();
         foreach ($groups as $id => $group) {
-            $list[$id] = $group->get('name');
-
             // set friends ids
             if ($group->get('type') == self::BLACKLIST) {
                 $this->_blacklist = $id;
+                $list[$id] = _("Blacklist");
             } elseif ($group->get('type') == self::WHITELIST) {
-                $this->_friends = $id;
+                $this->_whitelist = $id;
+                $list[$id] = _("Friends");
+            } else {
+                $list[$id] = $group->get('name');
             }
         }
 
@@ -230,6 +256,8 @@ class Folks_Friends_shared extends  Folks_Friends_sql  {
 
         if ($type !== null) {
             $share->set('type', $type);
+        } else {
+            $share->set('type', self::CUSTOM);
         }
 
         return $GLOBALS['folks_shares']->addShare($share);

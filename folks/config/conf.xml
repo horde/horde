@@ -28,13 +28,20 @@
 
 <configtab name="general" desc="General">
    <configstring name="support" desc="Email from which support messages will be sent">support@example.com</configstring>
-   <configenum name="friends" desc="Driver for friends storage">sql
-     <values>
-       <value desc="Internal - friends and blacklist only">sql</value>
-       <value desc="Internal - shared lists">shared</value>
-       <value desc="Letter app">letter</value>
-     </values>
-   </configenum>
+   <configswitch name="friends" desc="Driver for friends storage">sql
+       <case name="prefs" desc="Prefs - friends and blacklist only sored"></case>
+       <case name="sql" desc="SQL - friends and blacklist only"></case>
+       <case name="shared" desc="Shared - custom shared groups lists"></case>
+       <case name="application" desc="Application">
+        <configsection name="params">
+        <configenum name="app" desc="The application which is providing friends">letter
+        <values>
+            <configspecial name="list-horde-apps"/>
+        </values>
+        </configenum>
+        </configsection>
+       </case>
+   </configswitch>
 
  <configsection name="images">
    <configheader>Images</configheader>

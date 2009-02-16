@@ -56,7 +56,7 @@ class Folks_Friends {
      * @return Folks_Friends  The newly created concrete Folks_Friends
      *                          instance, or false on an error.
      */
-    static public function factory($driver = null, $params = null)
+    private static function factory($driver = null, $params = null)
     {
         if ($driver === null) {
             $driver = $GLOBALS['conf']['friends'];
@@ -102,7 +102,7 @@ class Folks_Friends {
      * @param array $params   A hash containing any additional configuration
      *                        or connection parameters a subclass might need.
      */
-    public function __construct($params)
+    protected function __construct($params)
     {
         $this->_user = empty($params['user']) ? Auth::getAuth() : $params['user'];
 
