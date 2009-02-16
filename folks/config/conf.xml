@@ -9,8 +9,6 @@
      <configsql switchname="driverconfig">
       <configstring name="table" desc="Database
       table">folks_users</configstring>
-      <configstring name="friends" desc="Database
-        friends table">folks_friends</configstring>
       <configstring name="online" desc="Database
         online table">folks_online</configstring>
       <configstring name="search" desc="Database
@@ -28,20 +26,33 @@
 
 <configtab name="general" desc="General">
    <configstring name="support" desc="Email from which support messages will be sent">support@example.com</configstring>
-   <configswitch name="friends" desc="Driver for friends storage">sql
+
+   <configsection name="friends">
+   <configswitch name="driver" desc="Driver for friends storage">sql
        <case name="prefs" desc="Prefs - friends and blacklist only sored"></case>
-       <case name="sql" desc="SQL - friends and blacklist only"></case>
-       <case name="shared" desc="Shared - custom shared groups lists"></case>
-       <case name="application" desc="Application">
+       <case name="sql" desc="SQL - friends and blacklist only">
         <configsection name="params">
-        <configenum name="app" desc="The application which is providing friends">letter
-        <values>
-            <configspecial name="list-horde-apps"/>
-        </values>
-        </configenum>
+            <configstring name="friends" desc="Friends table"></configstring>
+            <configstring name="blacklist" desc="Blacklist table"></configstring>
         </configsection>
        </case>
+       <case name="shared" desc="Shared - custom shared groups lists">
+       <configsection name="params">
+            <configstring name="friends" desc="Friends table"></configstring>
+            <configstring name="blacklist" desc="Blacklist table"></configstring>
+        </configsection>
+       </case>
+       <case name="application" desc="Application">
+            <configsection name="params">
+                <configenum name="app" desc="The application which is providing friends">letter
+                <values>
+                    <configspecial name="list-horde-apps"/>
+                </values>
+                </configenum>
+            </configsection>
+       </case>
    </configswitch>
+   </configsection>
 
  <configsection name="images">
    <configheader>Images</configheader>

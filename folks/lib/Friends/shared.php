@@ -18,7 +18,12 @@ require_once dirname(__FILE__) . '/sql.php';
  */
 class Folks_Friends_shared extends  Folks_Friends_sql {
 
-    const CUSTOM = 3;
+    /**
+     * Share holder
+     *
+     * @var int
+     */
+    private $_shares;
 
     /**
      * friends list ID
@@ -67,11 +72,9 @@ class Folks_Friends_shared extends  Folks_Friends_sql {
         if ($groups instanceof PEAR_Error) {
             return $groups;
         }
-var_dump($groups);
+
         foreach ($groups as $id => $group) {
-            if ($group->get('type') == self::BLACKLIST) {
-                $this->_blacklist = $group->getId();
-            } elseif ($group->get('type') == self::WHITELIST) {
+            if ($group->get('name') == '__FRIENDS__') {
                 $this->_whitelist = $group->getId();
             }
         }
@@ -198,17 +201,15 @@ var_dump($groups);
             return $groups;
         }
 
+        /** TODO: USE TRANSLATEDN NAMES ??? */
+
         $list = array();
-        foreach ($groups as $id => $group) {
-            // set friends ids
-            if ($group->get('type') == self::BLACKLIST) {
-                $this->_blacklist = $id;
-                $list[$id] = _("Blacklist");
-            } elseif ($group->get('type') == self::WHITELIST) {
+        foreach ($groups as $group) {
+            if ($group->get('name') == '__FRIENDS__') {
                 $this->_whitelist = $id;
-                $list[$id] = _("Friends");
+                $list[$group->getId()] = _("Friends");
             } else {
-                $list[$id] = $group->get('name');
+                $list[$group->getId()] = $group->get('name');
             }
         }
 
@@ -216,9 +217,44 @@ var_dump($groups);
     }
 
     /**
+     * Rename user group
+     *
+     * @param integer $group   Group ID to delete
+     */
+    public function renameGroup($group, $name)
+    {
+        if (empty($name)) {
+            return PEAR::raiseError(_("A group names cannot be empty"));
+        }
+
+        $GLOBALS['folks_shares'] = Horde_Share::singleton('folks');
+
+        $share = $GLOBALS['folks_shares']->getShareById($group);
+        if ($share instanceof PEAR_Error) {
+            return $share;
+        }
+
+        // Only owners of a group can delete them
+        if (Auth::getAuth() != $share->get('owner') &&
+            !Auth::isAdmin('folks:admin')) {
+            return PEAR::raiseError("You can rename only your own groups.");
+        }
+
+        $share->set('name', $name);
+        $result = $share->save();
+        if ($result instanceof PEAR_Error) {
+            return $result;
+        }
+
+        $this->_cache->expire('folksGroups' . $this->_user);
+
+        return true;
+    }
+
+    /**
      * Delete user group
      *
-     * @param string $group   Group to delete
+     * @param integer $group   Group ID to delete
      */
     public function removeGroup($group)
     {
@@ -229,22 +265,47 @@ var_dump($groups);
             return $share;
         }
 
-        $query = 'DELETE FROM ' . $this->_params['friends'] . ' WHERE user_uid = ? AND group_id = ?';
-        $result = $this->_write_db->query($query, array($this->_user, $share->getId()));
+        // Only owners of a group can delete them
+        if (Auth::getAuth() != $share->get('owner') &&
+            !Auth::isAdmin('folks:admin')) {
+            return PEAR::raiseError("You can delete only your own groups.");
+        }
+
+        $query = 'DELETE FROM ' . $this->_params['friends']
+                    . ' WHERE user_uid = ' . $share->_shareOb->_write_db->quote($this->_user)
+                    . ' AND group_id = ' . $share->_shareOb->_write_db->quote($share->getId());
+        $result = $share->_shareOb->_write_db->exec($query);
         if ($result instanceof PEAR_Error) {
             return $result;
         }
 
-        return $GLOBALS['folks_shares']->_removeShare($share);
+        $result = $GLOBALS['folks_shares']->removeShare($share);
+        if ($result instanceof PEAR_Error) {
+            return $result;
+        }
+
+        $this->_cache->expire('folksGroups' . $this->_user);
+        $this->_cache->expire('folksFriends' . $this->_user . $group);
+
+        return true;
     }
 
     /**
-     * Delete user group
+     * Add group
      *
-     * @param string $group   Group to delete
+     * @param string $group   Group name
      */
-    public function addGroup($group, $type = null)
+    public function addGroup($name)
     {
+        if (empty($name)) {
+            return PEAR::raiseError(_("A group names cannot be empty"));
+        }
+
+        $groups = $this->getGroups();
+        if (in_array($name, $groups)) {
+            return PEAR::raiseError(sprintf(_("You already have a group named \"%s\"."), $name));
+        }
+
         $GLOBALS['folks_shares'] = Horde_Share::singleton('folks');
 
         $share = $GLOBALS['folks_shares']->newShare(hash('md5', microtime()));
@@ -252,14 +313,12 @@ var_dump($groups);
             return $share;
         }
 
-        $share->set('name', $group);
-
-        if ($type !== null) {
-            $share->set('type', $type);
-        } else {
-            $share->set('type', self::CUSTOM);
+        $share->set('name', $name);
+        $result = $GLOBALS['folks_shares']->addShare($share);
+        if ($result instanceof PEAR_Error) {
+            return $result;
         }
 
-        return $GLOBALS['folks_shares']->addShare($share);
+        return $share->getId();
     }
 }

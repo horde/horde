@@ -15,9 +15,6 @@
  */
 class Folks_Friends_sql extends Folks_Friends {
 
-    const WHITELIST = 0;
-    const BLACKLIST = 1;
-
     /**
      * Handle for the current database connection.
      *
@@ -192,8 +189,7 @@ class Folks_Friends_sql extends Folks_Friends {
      */
     public function getGroups()
     {
-        return array(self::WHITELIST => _("Whitelist"),
-                        self::BLACKLIST  => _("Blacklist"));
+        return array(_("Whitelist"));
     }
 
     /**

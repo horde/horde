@@ -59,7 +59,11 @@ class Folks_Friends {
     private static function factory($driver = null, $params = null)
     {
         if ($driver === null) {
-            $driver = $GLOBALS['conf']['friends'];
+            $driver = $GLOBALS['conf']['friends']['driver'];
+        }
+
+        if ($params === null && isset($GLOBALS['conf']['friends']['params'])) {
+            $params = $GLOBALS['conf']['friends']['params'];
         }
 
         $driver = basename($driver);
@@ -250,7 +254,7 @@ class Folks_Friends {
      * Add user to a friend list
      *
      * @param string $friend   Friend's usersame
-     * @param string $group   Group to add friend to
+     * @param string $group    Group to add friend to
      */
     public function addFriend($friend, $group = null)
     {
