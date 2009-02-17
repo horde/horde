@@ -73,6 +73,10 @@ class Horde_Service_Facebook
 
     /* Horde_Http_Client */
     protected $_http;
+    protected $_request;
+
+    /* Context */
+    protected $_context;
 
     const API_VALIDATION_ERROR = 1;
     const BATCH_MODE_DEFAULT = 0;
@@ -92,7 +96,14 @@ class Horde_Service_Facebook
         if (empty($context['http_client'])) {
             throw new InvalidArgumentException('A http client object is required');
         } else {
-            $this->_http = $params['http_client'];
+            $this->_http = $context['http_client'];
+        }
+
+        // Horde_Controller_Request object
+        if (empty($context['http_request'])) {
+            throw new InvalidArgumentException('A http request object is required');
+        } else {
+            $this->_request = $context['http_request'];
         }
 
         $this->_api_key = $api_key;
@@ -109,6 +120,9 @@ class Horde_Service_Facebook
         if (!empty($context['use_ssl'])) {
             $this->_use_ssl_resources = true;
         }
+
+        // Save the rest
+        $this->_context = $context;
     }
 
     /**
@@ -129,17 +143,19 @@ class Horde_Service_Facebook
     {
         // Prefer $_POST data - but if absent, try $_GET and $_POST with
         // 'fb_post_sig' since that might be returned by FQL queries.
-        $this->fb_params = $this->get_valid_fb_params($_POST, 48 * 3600, 'fb_sig');
+        $post = $this->_request->getPostParams();
+        $get = $this->_request->getGetParams();
+
+        $this->fb_params = $this->get_valid_fb_params($post, 48 * 3600, 'fb_sig');
         if (!$this->fb_params) {
-            $fb_params = $this->get_valid_fb_params($_GET, 48 * 3600, 'fb_sig');
-            $fb_post_params = $this->get_valid_fb_params($_POST, 48 * 3600, 'fb_post_sig');
+            $fb_params = $this->get_valid_fb_params($get, 48 * 3600, 'fb_sig');
+            $fb_post_params = $this->get_valid_fb_params($post, 48 * 3600, 'fb_post_sig');
             $this->fb_params = array_merge($fb_params, $fb_post_params);
         }
 
         if ($this->fb_params) {
             $user = isset($this->fb_params['user']) ? $this->fb_params['user'] : null;
             $this->_base_domain  = isset($this->fb_params['base_domain']) ? $this->fb_params['base_domain'] : null;
-
             if (isset($this->fb_params['session_key'])) {
                 $session_key = $this->fb_params['session_key'];
             } elseif (isset($this->fb_params['profile_session_key'])) {
@@ -149,18 +165,17 @@ class Horde_Service_Facebook
             }
             $expires = isset($this->fb_params['expires']) ? $this->fb_params['expires'] : null;
             $this->set_user($user, $session_key, $expires);
-        } elseif ($cookies = $this->get_valid_fb_params($_COOKIE, null, $this->_api_key)) {
+        } elseif ($cookies = $this->get_valid_fb_params($this->_request->getCookie(), null, $this->_api_key)) {
             $base_domain_cookie = 'base_domain_' . $this->_api_key;
-            if (isset($_COOKIE[$base_domain_cookie])) {
-                $this->_base_domain = $_COOKIE[$base_domain_cookie];
+            if ($this->_request->getCookie($base_domain_cookie)) {
+                $this->_base_domain = $this->_request->getCookie($base_domain_cookie);
             }
-
             // use $api_key . '_' as a prefix for the cookies in case there are
             // multiple facebook clients on the same domain.
             $expires = isset($cookies['expires']) ? $cookies['expires'] : null;
             $this->set_user($cookies['user'], $cookies['session_key'], $expires);
-        } elseif ($resolve_auth_token && isset($_GET['auth_token']) &&
-                  $session = $this->do_get_session($_GET['auth_token'])) {
+        } elseif ($resolve_auth_token && isset($get['auth_token']) &&
+                  $session = $this->do_get_session($get['auth_token'])) {
 
             if (isset($session['base_domain'])) {
                 $this->_base_domain = $session['base_domain'];
@@ -217,18 +232,22 @@ class Horde_Service_Facebook
         $this->_secret = $session_secret;
     }
 
-    // Invalidate the session currently being used, and clear any state associated with it
+    /**
+     * Invalidate the session currently being used, and clear any state
+     * associated with it.
+     *
+     * TODO: This calls setcookie() so need to ensure we aren't called after
+     * headers are sent or throw an exception.
+     */
     public function expire_session()
     {
         if ($this->auth_expireSession()) {
-            if (!$this->in_fb_canvas() && isset($_COOKIE[$this->_api_key . '_user'])) {
+            if (!$this->in_fb_canvas() && $this->_request->getCookie($this->_api_key . '_user')) {
                 $cookies = array('user', 'session_key', 'expires', 'ss');
                 foreach ($cookies as $name) {
                     setcookie($this->_api_key . '_' . $name, false, time() - 3600);
-                    unset($_COOKIE[$this->_api_key . '_' . $name]);
                 }
                 setcookie($this->_api_key, false, time() - 3600);
-                unset($_COOKIE[$this->_api_key]);
             }
 
             // now, clear the rest of the stored state
@@ -243,7 +262,8 @@ class Horde_Service_Facebook
     }
 
     /**
-     * TODO: Can we put this in a redbox overlay instead of redirecting?
+     * TODO: Use an overlay or a js popup instead of redirecting...or at least
+     *       make this an option we can pass in $context.
      *
      * @param $url
      * @return unknown_type
@@ -265,12 +285,13 @@ class Horde_Service_Facebook
         return $this->user;
     }
 
-    protected static function _current_url()
+    /**
+     *
+     * @return unknown_type
+     */
+    protected function _current_url()
     {
-        // Is this autoloadable / should we just copy this functionality to avoid
-        // the dependency?
-        require_once 'Horde.php';
-        return Horde::selfUrl(true, true, true, false);
+        return sprintf("%s/%s", $this->_request->getHost(), $this->_request->getUri());
     }
 
     /**
@@ -293,9 +314,10 @@ class Horde_Service_Facebook
                     return null;
                 }
             } catch (Horde_Service_Facebook_Exception $ex) {
-                if (isset($_GET['auth_token'])) {
+                $get = $this->_request->getGetParams();
+                if (isset($get['auth_token'])) {
                     // if we have an auth_token, use it to establish a session
-                    $session_info = $this->do_get_session($_GET['auth_token']);
+                    $session_info = $this->do_get_session($get['auth_token']);
                     if ($session_info) {
                       return $session_info['uid'];
                     }
@@ -335,8 +357,8 @@ class Horde_Service_Facebook
 
     public function set_user($user, $session_key, $expires = null)
     {
-        if (!isset($_COOKIE[$this->_api_key . '_user']) ||
-            $_COOKIE[$this->_api_key . '_user'] != $user) {
+        if (!$this->_request->getCookie($this->_api_key . '_user') ||
+            $this->_request->getCookie($this->_api_key . '_user') != $user) {
 
             $this->set_cookies($user, $session_key, $expires);
         }
@@ -353,35 +375,14 @@ class Horde_Service_Facebook
         if ($expires != null) {
             $cookies['expires'] = $expires;
         }
-
         foreach ($cookies as $name => $val) {
             setcookie($this->_api_key . '_' . $name, $val, (int)$expires, '', $this->_base_domain);
-            $_COOKIE[$this->_api_key . '_' . $name] = $val;
         }
         $sig = self::generate_sig($cookies, $this->_secret);
         setcookie($this->_api_key, $sig, (int)$expires, '', $this->_base_domain);
-        $_COOKIE[$this->_api_key] = $sig;
-
         if ($this->_base_domain != null) {
             $base_domain_cookie = 'base_domain_' . $this->_api_key;
             setcookie($base_domain_cookie, $this->_base_domain, (int)$expires, '', $this->_base_domain);
-            $_COOKIE[$base_domain_cookie] = $this->_base_domain;
-        }
-    }
-
-    /**
-     * Tries to undo the badness of magic quotes as best we can
-     * @param     string   $val   Should come directly from $_GET, $_POST, etc.
-     * @return    string   val without added slashes
-     *
-     * @TODO: Should we use Util::dispelMagicQuotes in place of this call?
-     */
-    public static function no_magic_quotes($val)
-    {
-        if (get_magic_quotes_gpc()) {
-            return stripslashes($val);
-        } else {
-            return $val;
         }
     }
 
@@ -423,7 +424,7 @@ class Horde_Service_Facebook
             // pull out only those parameters that match the prefix
             // note that the signature itself ($params[$namespace]) is not in the list
             if (strpos($name, $prefix) === 0) {
-                $fb_params[substr($name, $prefix_len)] = self::no_magic_quotes($val);
+                $fb_params[substr($name, $prefix_len)] = $val;
             }
         }
 
