@@ -63,7 +63,9 @@ class IMP_Quota_sql extends IMP_Quota
     {
         if (!$this->_connected) {
             require_once 'DB.php';
-            $this->_db = &DB::connect($this->_params);
+            $this->_db = &DB::connect($this->_params,
+                                      array('persistent' => !empty($this->_params['persistent']),
+                                            'ssl' => !empty($this->_params['ssl'])));
             if (is_a($this->_db, 'PEAR_Error')) {
                 return PEAR::raiseError(_("Unable to connect to SQL server."));
             }
