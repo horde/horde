@@ -48,10 +48,18 @@
 
 class Horde_Service_Facebook
 {
-    // The application's API Key
+    /**
+     * The application's API Key
+     *
+     * @var stirng
+     */
     protected $_api_key;
 
-    // The API Secret Key
+    /**
+     * The API Secret Key
+     *
+     * @var string
+     */
     protected $_secret;
 
     // Used since we are emulating a FB Desktop Application - since we are not
@@ -73,41 +81,58 @@ class Horde_Service_Facebook
     // The current session user
     public $user;
 
-    // Flag to indicate we are in batch mode
+    // Flag to indicate we are in batch mode.
     protected $_batch_mode;
+
+    // The array to hold batch operations in batch mode.
+    protected $_batch_queue;
 
     // Internal call_id counter
     protected $_last_call_id = 0;
 
-
     protected $_base_domain;
     protected $_use_ssl_resources = false;
     protected $_call_as_apikey;
-    private $_batch_queue;
 
-    /* Horde_Http_Client */
+
+    /**
+     *
+     * @var Horde_Http_Client
+     */
     protected $_http;
+
+    /**
+     *
+     * @var Horde_Controller_Request_Http
+     */
     protected $_request;
 
-    /* Context */
+    /**
+     *
+     * @var array
+     */
     protected $_context;
 
     const API_VALIDATION_ERROR = 1;
     const BATCH_MODE_DEFAULT = 0;
     const BATCH_MODE_SERVER_PARALLEL = 0;
     const BATCH_MODE_SERIAL_ONLY = 2;
-
-
     const REST_SERVER_ADDR = 'http://api.facebook.com/restserver.php';
 
     /**
+     * Const'r
      *
-     * @param api_key                  your Developer API key
-     * @param secret                   your Developer API secret
+     * @param string $api_key  Developer API key.
+     * @param string $secret   Developer API secret.
+     * @param array $context   Array of context information containing:
+     *  <pre>
+     *      http_client - required
+     *      http_response - required
+     *      login_redirect_callback - optional
      *
      * @param session_key
      */
-    public function __construct($api_key, $secret, $context = array())
+    public function __construct($api_key, $secret, $context)
     {
         // We require a http client object
         if (empty($context['http_client'])) {
@@ -287,6 +312,12 @@ class Horde_Service_Facebook
      */
     protected function _redirect($url)
     {
+        // If we have a callback, call it then return.
+        if (!empty($this->_context['login_redirect_callback'])) {
+            call_user_func($this->_url_callback, $url)
+            return;
+        }
+
         if (preg_match('/^https?:\/\/([^\/]*\.)?facebook\.com(:\d+)?/i', $url)) {
             // make sure facebook.com url's load in the full frame so that we don't
             // get a frame within a frame.
