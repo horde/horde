@@ -329,14 +329,20 @@ class Horde_Service_Facebook
         exit;
     }
 
+    /**
+     * Getter for session user.
+     *
+     * @return string  The FB userid
+     */
     public function get_loggedin_user()
     {
         return $this->user;
     }
 
     /**
+     * Return the current request's url
      *
-     * @return unknown_type
+     * @return string
      */
     protected function _current_url()
     {
@@ -344,7 +350,10 @@ class Horde_Service_Facebook
     }
 
     /**
+     * Ensure the user is logged in and has a current FB session. If not,
+     * attempt to redirect to a FB login page.
      *
+     * @return void
      */
     public function require_login()
     {
@@ -379,7 +388,9 @@ class Horde_Service_Facebook
     }
 
     /**
+     * Helper function to get the appropriate facebook url
      *
+     * @return string
      */
     protected static function _get_facebook_url($subdomain = 'www')
     {
@@ -387,7 +398,9 @@ class Horde_Service_Facebook
     }
 
     /**
+     *  Return a valid FB add URL, with all necessary GET parameters appended
      *
+     *  @return string
      */
     public function get_add_url($next = null)
     {
@@ -396,7 +409,9 @@ class Horde_Service_Facebook
     }
 
     /**
+     *  Return a valid FB login URL with necessary GET parameters appended.
      *
+     *  @return string
      */
     protected function _get_login_url($next)
     {
@@ -404,6 +419,15 @@ class Horde_Service_Facebook
             . $this->_api_key . ($next ? '&next=' . urlencode($next)  : '');
     }
 
+    /**
+     * Set the current session user
+     *
+     * @param string $user  The FB userid
+     * @param string $session_key
+     * @param timestamp $expires
+     *
+     * @return void
+     */
     public function set_user($user, $session_key, $expires = null)
     {
         if (!$this->_request->getCookie($this->_api_key . '_user') ||
@@ -416,6 +440,15 @@ class Horde_Service_Facebook
         $this->_session_expires = $expires;
     }
 
+    /**
+     * Set session cookies (Facebook *requires* cookies to be enabled).
+     *
+     * @param string $user  FB userid
+     * @param string $session_key  The current session key
+     * @param timestamp $expires
+     *
+     * @return void
+     */
     public function set_cookies($user, $session_key, $expires = null)
     {
         $cookies = array();
@@ -449,16 +482,14 @@ class Horde_Service_Facebook
      *
      * This is done automatically by verify_fb_params.
      *
-     * @param  assoc  $params     a full array of external parameters.
-     *                            presumed $_GET, $_POST, or $_COOKIE
-     * @param  int    $timeout    number of seconds that the args are good for.
-     *                            Specifically good for forcing cookies to expire.
-     * @param  string $namespace  prefix string for the set of parameters we want
-     *                            to verify. i.e., fb_sig or fb_post_sig
+     * @param array $params       A hash of all external parameters.
+     * @param int $timeout        Number of seconds that the args are good for.
+     * @param string $namespace   Prefix string for the set of parameters we
+     *                            want to verify(fb_sig or fb_post_sig).
      *
-     * @return  assoc the subset of parameters containing the given prefix,
-     *                and also matching the signature associated with them.
-     *          OR    an empty array if the params do not validate
+     * @return array  The subset of parameters containing the given prefix,
+     *                and also matching the signature associated with them or an
+     *                empty array if the signature did not match.
      */
     public function get_valid_fb_params($params, $timeout = null, $namespace = 'fb_sig')
     {
@@ -492,13 +523,15 @@ class Horde_Service_Facebook
         return $fb_params;
     }
 
-    /*
+    /**
      * Validates that a given set of parameters match their signature.
      * Parameters all match a given input prefix, such as "fb_sig".
      *
-     * @param $fb_params     an array of all Facebook-sent parameters,
-     *                       not including the signature itself
-     * @param $expected_sig  the expected result to check against
+     * @param array $fb_params  An array of all Facebook-sent parameters, not
+     *                          including the signature itself.
+     * @param $expected_sig     The expected result to check against.
+     *
+     * @return boolean
      */
     protected function _verify_signature($fb_params, $expected_sig)
     {
@@ -519,11 +552,11 @@ class Horde_Service_Facebook
      * the signature, you can rely on it to verify that the information
      * came from Facebook.
      *
-     * @param $params_array   an array of all Facebook-sent parameters,
-     *                        NOT INCLUDING the signature itself
-     * @param $secret         your app's secret key
+     * @param array $params   An array of all Facebook-sent parameters, NOT
+     *                        INCLUDING the signature itself.
+     * @param string $secret  The application's secret key.
      *
-     * @return a hash to be checked against the signature provided by Facebook
+     * @return string  Hash to be checked against the FB provided signature.
      */
     public static function generate_sig($params_array, $secret)
     {
@@ -538,7 +571,9 @@ class Horde_Service_Facebook
     }
 
     /**
-     * TODO: Use Horde_Serialize::? Not sure what we would get out of it...
+     * JSON encode a validation error.
+     *
+     * @return string  JSON encoded error message.
      */
     public function encode_validationError($summary, $message)
     {
@@ -1438,12 +1473,15 @@ class Horde_Service_Facebook
     public function post_request($method, $params)
     {
         $this->finalize_params($method, $params);
+
+        // TODO: Figure out why passing the array to ->post doesn't work -
+        //       we have to manually create the post string or we get an
+        //       invalid signature error from FB
         $post_string = $this->create_post_string($method, $params);
         $result = $this->_http->post(self::REST_SERVER_ADDR, $post_string);
 
         return $result->getBody();
     }
-
 
     private function post_upload_request($method, $params, $file, $server_addr = null)
     {
