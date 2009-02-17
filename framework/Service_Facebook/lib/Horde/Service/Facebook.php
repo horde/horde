@@ -61,7 +61,6 @@ class Horde_Service_Facebook
 
     protected $_session_key;
     protected $_session_expires;
-
     public $fb_params;
     public $user;
     protected $_batch_mode;
@@ -71,7 +70,6 @@ class Horde_Service_Facebook
     protected $_use_ssl_resources = false;
     protected $_call_as_apikey;
     private $_batch_queue;
-    private $use_curl_if_available = false;
 
     const API_VALIDATION_ERROR = 1;
     const BATCH_MODE_DEFAULT = 0;
@@ -92,7 +90,7 @@ class Horde_Service_Facebook
         $this->_app_secret = $secret;
         $this->validate_fb_params();
         $this->batch_mode = self::BATCH_MODE_DEFAULT;
-        $this->call_as_apikey = '';
+        $this->_call_as_apikey = '';
 
         // Set the default user id for methods that allow the caller to
         // pass an explicit uid instead of using a session key.
@@ -442,7 +440,7 @@ class Horde_Service_Facebook
      *                       not including the signature itself
      * @param $expected_sig  the expected result to check against
      */
-    public function verify_signature($fb_params, $expected_sig)
+    protected function _verify_signature($fb_params, $expected_sig)
     {
         // we don't want to verify the signature until we have a valid
         // session secret
@@ -550,8 +548,8 @@ class Horde_Service_Facebook
         $serial_only = ($this->batch_mode == self::BATCH_MODE_SERIAL_ONLY);
         $params = array('method_feed' => $method_feed_json,
                         'serial_only' => $serial_only);
-        if ($this->call_as_apikey) {
-            $params['call_as_apikey'] = $this->call_as_apikey;
+        if ($this->_call_as_apikey) {
+            $params['call_as_apikey'] = $this->_call_as_apikey;
         }
 
         $xml = $this->post_request('batch.run', $params);
@@ -1316,8 +1314,8 @@ class Horde_Service_Facebook
     {
         //Check if we are in batch mode
         if($this->_batch_queue === null) {
-            if ($this->call_as_apikey) {
-                $params['call_as_apikey'] = $this->call_as_apikey;
+            if ($this->_call_as_apikey) {
+                $params['call_as_apikey'] = $this->_call_as_apikey;
             }
             $data = $this->post_request($method, $params);
             if (empty($params['format']) || strtolower($params['format']) != 'json') {
@@ -1327,8 +1325,7 @@ class Horde_Service_Facebook
             }
 
             if (is_array($result) && isset($result['error_code'])) {
-                throw new Horde_Service_Facebook_Exception(
-                    $result['error_msg'], $result['error_code']);
+                throw new Horde_Service_Facebook_Exception($result['error_msg'], $result['error_code']);
             }
         } else {
             $result = null;
@@ -1338,50 +1335,56 @@ class Horde_Service_Facebook
 
         return $result;
     }
-      public function post_request($method, $params) {
+
+    /**
+     * Calls the specified file-upload POST method with the specified parameters
+     *
+     * @param string $method Name of the Facebook method to invoke
+     * @param array  $params A map of param names => param values
+     * @param string $file   A path to the file to upload (required)
+     *
+     * @return array A dictionary representing the response.
+     */
+    public function call_upload_method($method, $params, $file, $server_addr = null) {
+        if ($this->batch_queue === null) {
+            if (!file_exists($file)) {
+                $code = Horde_Service_Facebook_ErrorCodes::API_EC_PARAM;
+                $description = FacebookAPIErrorCodes::$api_error_descriptions[$code];
+                throw new Horde_Service_Facebook_Exception($description, $code);
+            }
+        }
+
+        $xml = $this->post_upload_request($method, $params, $file, $server_addr);
+        $result = $this->convert_xml_to_result($xml, $method, $params);
+
+        if (is_array($result) && isset($result['error_code'])) {
+            throw new Horde_Service_Facebook_Exception($result['error_msg'], $result['error_code']);
+        } else {
+            $code = Horde_Service_Facebook_ErrorCodes::API_EC_BATCH_METHOD_NOT_ALLOWED_IN_BATCH_MODE;
+            $description = Horde_Service_Facebook_ErrorCodes::$api_error_descriptions[$code];
+            throw new Horde_Service_Facebook_Exception($description, $code);
+        }
+
+        return $result;
+    }
+
+    public function post_request($method, $params)
+    {
         $this->finalize_params($method, $params);
         $post_string = $this->create_post_string($method, $params);
-        if ($this->use_curl_if_available && function_exists('curl_init')) {
-          $useragent = 'Facebook API PHP5 Client 1.1 (curl) ' . phpversion();
-          $ch = curl_init();
-          curl_setopt($ch, CURLOPT_URL, $this->server_addr);
-          curl_setopt($ch, CURLOPT_POSTFIELDS, $post_string);
-          curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-          curl_setopt($ch, CURLOPT_USERAGENT, $useragent);
-          $result = curl_exec($ch);
-          curl_close($ch);
-        } else {
-          $content_type = 'application/x-www-form-urlencoded';
-          $content = $post_string;
-          $result = $this->run_http_post_transaction($content_type,
-                                                     $content,
-                                                     $this->server_addr);
-        }
-        return $result;
-  }
-
-  private function post_upload_request($method, $params, $file, $server_addr = null) {
-    $server_addr = $server_addr ? $server_addr : $this->server_addr;
-    $this->finalize_params($method, $params);
-    if ($this->use_curl_if_available && function_exists('curl_init')) {
-      // prepending '@' causes cURL to upload the file; the key is ignored.
-      $params['_file'] = '@' . $file;
-      $useragent = 'Facebook API PHP5 Client 1.1 (curl) ' . phpversion();
-      $ch = curl_init();
-      curl_setopt($ch, CURLOPT_URL, $server_addr);
-      // this has to come before the POSTFIELDS set!
-      curl_setopt($ch, CURLOPT_POST, 1 );
-      // passing an array gets curl to use the multipart/form-data content type
-      curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
-      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-      curl_setopt($ch, CURLOPT_USERAGENT, $useragent);
-      $result = curl_exec($ch);
-      curl_close($ch);
-    } else {
-      $result = $this->run_multipart_http_transaction($method, $params, $file, $server_addr);
+        $client = new Horde_Http_Client();
+        $result = $client->post($this->server_addr, $post_string);
+        return $result->getBody();
     }
-    return $result;
-  }
+
+
+    private function post_upload_request($method, $params, $file, $server_addr = null)
+    {
+        $server_addr = $server_addr ? $server_addr : $this->server_addr;
+        $this->finalize_params($method, $params);
+        $result = $this->run_multipart_http_transaction($method, $params, $file, $server_addr);
+        return $result;
+    }
 
   private function run_http_post_transaction($content_type, $content, $server_addr) {
 
@@ -1423,8 +1426,8 @@ class Horde_Service_Facebook
   }
 
   private function add_standard_params($method, &$params) {
-    if ($this->call_as_apikey) {
-      $params['call_as_apikey'] = $this->call_as_apikey;
+    if ($this->_call_as_apikey) {
+      $params['call_as_apikey'] = $this->_call_as_apikey;
     }
     $params['method'] = $method;
     $params['session_key'] = $this->_session_key;
@@ -1442,13 +1445,19 @@ class Horde_Service_Facebook
     }
   }
 
-  private function create_post_string($method, $params) {
-    $post_params = array();
-    foreach ($params as $key => &$val) {
-      $post_params[] = $key.'='.urlencode($val);
+    /**
+     * TODO: Figure out why using http_build_query doesn't work here.
+     *
+     */
+    private function create_post_string($method, $params)
+    {
+        $post_params = array();
+        foreach ($params as $key => &$val) {
+            $post_params[] = $key.'='.urlencode($val);
+        }
+
+        return implode('&', $post_params);
     }
-    return implode('&', $post_params);
-  }
 
   private function run_multipart_http_transaction($method, $params, $file, $server_addr) {
 
