@@ -40,7 +40,17 @@ http://pear.php.net/dtd/package-2.0.xsd">
      <dir name="View">
       <dir name="Helper">
        <file name="Base.php" role="php" />
+       <dir name="Benchmark">
+        <file name="Timer.php" role="php" />
+       </dir> <!-- /lib/Horde/View/Helper/Benchmark -->
+       <file name="Benchmark.php" role="php" />
        <file name="Block.php" role="php" />
+       <dir name="Capture">
+        <file name="Base.php" role="php" />
+        <file name="ContentFor.php" role="php" />
+       </dir> <!-- /lib/Horde/View/Helper/Capture -->
+       <file name="Capture.php" role="php" />
+       <file name="Debug.php" role="php" />
        <file name="Javascript.php" role="php" />
        <file name="Tag.php" role="php" />
        <file name="Url.php" role="php" />
@@ -67,7 +77,13 @@ http://pear.php.net/dtd/package-2.0.xsd">
  <phprelease>
   <filelist>
    <install name="lib/Horde/View/Helper/Base.php" as="Horde/View/Helper/Base.php" />
+   <install name="lib/Horde/View/Helper/Benchmark/Timer.php" as="Horde/View/Helper/Benchmark/Timer.php" />
+   <install name="lib/Horde/View/Helper/Benchmark.php" as="Horde/View/Helper/Benchmark.php" />
    <install name="lib/Horde/View/Helper/Block.php" as="Horde/View/Helper/Block.php" />
+   <install name="lib/Horde/View/Helper/Capture/Base.php" as="Horde/View/Helper/Capture/Base.php" />
+   <install name="lib/Horde/View/Helper/Capture/ContentFor.php" as="Horde/View/Helper/Capture/ContentFor.php" />
+   <install name="lib/Horde/View/Helper/Capture.php" as="Horde/View/Helper/Capture.php" />
+   <install name="lib/Horde/View/Helper/Debug.php" as="Horde/View/Helper/Debug.php" />
    <install name="lib/Horde/View/Helper/Javascript.php" as="Horde/View/Helper/Javascript.php" />
    <install name="lib/Horde/View/Helper/Tag.php" as="Horde/View/Helper/Tag.php" />
    <install name="lib/Horde/View/Helper/Url.php" as="Horde/View/Helper/Url.php" />
