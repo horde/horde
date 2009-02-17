@@ -304,17 +304,18 @@ class Horde_Service_Facebook
     }
 
     /**
-     * TODO: Use an overlay or a js popup instead of redirecting...or at least
-     *       make this an option we can pass in $context.
+     * Either redirect to the FB login page, or call a callback function to let
+     * the client code handle the redirect.
      *
-     * @param $url
-     * @return unknown_type
+     * @param string $url  The URL to redirect to.
+     *
+     * @return void
      */
     protected function _redirect($url)
     {
         // If we have a callback, call it then return.
         if (!empty($this->_context['login_redirect_callback'])) {
-            call_user_func($this->_url_callback, $url)
+            call_user_func($this->_context['login_redirect_callback'], $url);
             return;
         }
 
