@@ -607,7 +607,7 @@ class Horde_Service_Facebook
             $method = $batch_item['m'];
             $params = $batch_item['p'];
             $this->finalize_params($method, $params);
-            $method_feed[] = $this->create_post_string($method, $params);
+            $method_feed[] = $this->create_post_string($params);
         }
         $method_feed_json = json_encode($method_feed);
 
@@ -618,11 +618,12 @@ class Horde_Service_Facebook
             $params['call_as_apikey'] = $this->_call_as_apikey;
         }
 
-        $xml = $this->post_request('batch.run', $params);
-
-        $result = $this->convert_xml_to_result($xml, 'batch.run', $params);
-
-
+        // Request JSON format
+        $params['format'] = 'JSON';
+        $json = $this->post_request('batch.run', $params);
+        // For now, get back a hash instead of a stdObject until more of the
+        // library gets refactored.
+        $result = json_decode($json, true);
         if (is_array($result) && isset($result['error_code'])) {
           throw new Horde_Service_Facebook_Exception($result['error_msg'],
                                                      $result['error_code']);
@@ -630,11 +631,8 @@ class Horde_Service_Facebook
 
         for ($i = 0; $i < $item_count; $i++) {
             $batch_item = $this->_batch_queue[$i];
-            $batch_item_result_xml = $result[$i];
-            $batch_item_result = $this->convert_xml_to_result($batch_item_result_xml,
-                                                              $batch_item['m'],
-                                                              $batch_item['p']);
-
+            $batch_item_json = $result[$i];
+            $batch_item_result = json_decode($batch_item_json, true);
             if (is_array($batch_item_result) &&
                 isset($batch_item_result['error_code'])) {
 
@@ -1317,7 +1315,8 @@ class Horde_Service_Facebook
    *
    * @return boolean  true if the user has authorized the app
    */
-  public function &users_isAppUser($uid=null) {
+  public function &users_isAppUser($uid=null)
+  {
     if ($uid === null && isset($this->is_user)) {
       return $this->is_user;
     }
@@ -1332,7 +1331,8 @@ class Horde_Service_Facebook
    *
    * @return boolean  true if the user is verified
    */
-  public function &users_isVerified() {
+  public function &users_isVerified()
+  {
     return $this->call_method('facebook.users.isVerified');
   }
 
@@ -1356,7 +1356,8 @@ class Horde_Service_Facebook
   public function &users_setStatus($status,
                                    $uid = null,
                                    $clear = false,
-                                   $status_includes_verb = true) {
+                                   $status_includes_verb = true)
+ {
     $args = array(
       'status' => $status,
       'uid' => $uid,
@@ -1378,24 +1379,25 @@ class Horde_Service_Facebook
      */
     public function &call_method($method, $params = array())
     {
+        // Ensure we ask for JSON data
+        $params['format'] = 'JSON';
+
         //Check if we are in batch mode
         if($this->_batch_queue === null) {
             if ($this->_call_as_apikey) {
                 $params['call_as_apikey'] = $this->_call_as_apikey;
             }
             $data = $this->post_request($method, $params);
-            if (empty($params['format']) || strtolower($params['format']) != 'json') {
-              $result = $this->convert_xml_to_result($data, $method, $params);
-            } else {
-              $result = json_decode($data, true);
-            }
 
+            // TODO: For now, get back a hash instead of stdObject until more
+            // refactoring is finished.
+            $result = json_decode($data, true);
             if (is_array($result) && isset($result['error_code'])) {
                 throw new Horde_Service_Facebook_Exception($result['error_msg'], $result['error_code']);
             }
         } else {
             $result = null;
-            $batch_item = array('m' => $method, 'p' => $params, 'r' => & $result);
+            $batch_item = array('m' => $method, 'p' => $params, 'r' => &$result);
             $this->_batch_queue[] = $batch_item;
         }
 
@@ -1415,14 +1417,13 @@ class Horde_Service_Facebook
         if ($this->batch_queue === null) {
             if (!file_exists($file)) {
                 $code = Horde_Service_Facebook_ErrorCodes::API_EC_PARAM;
-                $description = FacebookAPIErrorCodes::$api_error_descriptions[$code];
+                $description = Horde_Service_Facebook_ErrorCodes::$api_error_descriptions[$code];
                 throw new Horde_Service_Facebook_Exception($description, $code);
             }
         }
 
-        $xml = $this->post_upload_request($method, $params, $file, $server_addr);
-        $result = $this->convert_xml_to_result($xml, $method, $params);
-
+        $json = $this->post_upload_request($method, $params, $file, $server_addr);
+        $result = json_decode($json, true);
         if (is_array($result) && isset($result['error_code'])) {
             throw new Horde_Service_Facebook_Exception($result['error_msg'], $result['error_code']);
         } else {
@@ -1448,7 +1449,7 @@ class Horde_Service_Facebook
         // TODO: Figure out why passing the array to ->post doesn't work -
         //       we have to manually create the post string or we get an
         //       invalid signature error from FB
-        $post_string = $this->create_post_string($method, $params);
+        $post_string = $this->create_post_string($params);
         $result = $this->_http->post(self::REST_SERVER_ADDR, $post_string);
 
         return $result->getBody();
@@ -1456,6 +1457,9 @@ class Horde_Service_Facebook
 
     private function post_upload_request($method, $params, $file, $server_addr = null)
     {
+        // Ensure we ask for JSON
+        $params['format'] = 'json';
+
         $server_addr = $server_addr ? $server_addr : self::REST_SERVER_ADDR;
         $this->finalize_params($method, $params);
         $result = $this->run_multipart_http_transaction($method, $params, $file, $server_addr);
@@ -1486,20 +1490,28 @@ class Horde_Service_Facebook
     return $result;
   }
 
-    private function finalize_params($method, &$params) {
-    $this->add_standard_params($method, $params);
-    // we need to do this before signing the params
-    $this->convert_array_values_to_csv($params);
-    $params['sig'] = self::generate_sig($params, $this->_secret);
-  }
-
-  private function convert_array_values_to_csv(&$params) {
-    foreach ($params as $key => &$val) {
-      if (is_array($val)) {
-        $val = implode(',', $val);
-      }
+    /**
+     *
+     * @param $method
+     * @param $params
+     * @return unknown_type
+     */
+    private function finalize_params($method, &$params)
+    {
+        $this->add_standard_params($method, $params);
+        // we need to do this before signing the params
+        $this->convert_array_values_to_csv($params);
+        $params['sig'] = self::generate_sig($params, $this->_secret);
     }
-  }
+
+    private function convert_array_values_to_csv(&$params)
+    {
+        foreach ($params as $key => &$val) {
+            if (is_array($val)) {
+                $val = implode(',', $val);
+            }
+        }
+    }
 
   private function add_standard_params($method, &$params) {
     if ($this->_call_as_apikey) {
@@ -1525,7 +1537,7 @@ class Horde_Service_Facebook
      * TODO: Figure out why using http_build_query doesn't work here.
      *
      */
-    private function create_post_string($method, $params)
+    private function create_post_string($params)
     {
         $post_params = array();
         foreach ($params as $key => &$val) {
@@ -1565,43 +1577,5 @@ class Horde_Service_Facebook
     $content = implode("\r\n", $content_lines);
     return $this->run_http_post_transaction($content_type, $content, $server_addr);
   }
-  private function convert_xml_to_result($xml, $method, $params) {
-    $sxml = simplexml_load_string($xml);
-    $result = self::convert_simplexml_to_array($sxml);
 
-    if (!empty($GLOBALS['facebook_config']['debug'])) {
-      // output the raw xml and its corresponding php object, for debugging:
-      print '<div style="margin: 10px 30px; padding: 5px; border: 2px solid black; background: gray; color: white; font-size: 12px; font-weight: bold;">';
-      $this->cur_id++;
-      print $this->cur_id . ': Called ' . $method . ', show ' .
-            '<a href=# onclick="return toggleDisplay(' . $this->cur_id . ', \'params\');">Params</a> | '.
-            '<a href=# onclick="return toggleDisplay(' . $this->cur_id . ', \'xml\');">XML</a> | '.
-            '<a href=# onclick="return toggleDisplay(' . $this->cur_id . ', \'sxml\');">SXML</a> | '.
-            '<a href=# onclick="return toggleDisplay(' . $this->cur_id . ', \'php\');">PHP</a>';
-      print '<pre id="params'.$this->cur_id.'" style="display: none; overflow: auto;">'.print_r($params, true).'</pre>';
-      print '<pre id="xml'.$this->cur_id.'" style="display: none; overflow: auto;">'.htmlspecialchars($xml).'</pre>';
-      print '<pre id="php'.$this->cur_id.'" style="display: none; overflow: auto;">'.print_r($result, true).'</pre>';
-      print '<pre id="sxml'.$this->cur_id.'" style="display: none; overflow: auto;">'.print_r($sxml, true).'</pre>';
-      print '</div>';
-    }
-    return $result;
-  }
-
-  public static function convert_simplexml_to_array($sxml) {
-    $arr = array();
-    if ($sxml) {
-      foreach ($sxml as $k => $v) {
-        if ($sxml['list']) {
-          $arr[] = self::convert_simplexml_to_array($v);
-        } else {
-          $arr[$k] = self::convert_simplexml_to_array($v);
-        }
-      }
-    }
-    if (sizeof($arr) > 0) {
-      return $arr;
-    } else {
-      return (string)$sxml;
-    }
-  }
 }
