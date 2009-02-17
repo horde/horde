@@ -57,15 +57,29 @@ class Horde_Service_Facebook
     // Used since we are emulating a FB Desktop Application - since we are not
     // being used within the context of a FB Canvas.
     protected  $_app_secret;
+
+    // Flag used internally to help with authentication
     protected $_verify_sig = false;
 
+    // Store the current session_key
     protected $_session_key;
+
+    // Session expiry
     protected $_session_expires;
+
+    // All parameters passed back to us from FB
     public $fb_params;
+
+    // The current session user
     public $user;
+
+    // Flag to indicate we are in batch mode
     protected $_batch_mode;
+
+    // Internal call_id counter
     protected $_last_call_id = 0;
-    public $server_addr = 'http://api.facebook.com/restserver.php';
+
+
     protected $_base_domain;
     protected $_use_ssl_resources = false;
     protected $_call_as_apikey;
@@ -82,6 +96,9 @@ class Horde_Service_Facebook
     const BATCH_MODE_DEFAULT = 0;
     const BATCH_MODE_SERVER_PARALLEL = 0;
     const BATCH_MODE_SERIAL_ONLY = 2;
+
+
+    const REST_SERVER_ADDR = 'http://api.facebook.com/restserver.php';
 
     /**
      *
@@ -1390,7 +1407,7 @@ class Horde_Service_Facebook
     {
         $this->finalize_params($method, $params);
         $post_string = $this->create_post_string($method, $params);
-        $result = $this->_http->post($this->server_addr, $post_string);
+        $result = $this->_http->post(self::REST_SERVER_ADDR, $post_string);
 
         return $result->getBody();
     }
@@ -1398,7 +1415,7 @@ class Horde_Service_Facebook
 
     private function post_upload_request($method, $params, $file, $server_addr = null)
     {
-        $server_addr = $server_addr ? $server_addr : $this->server_addr;
+        $server_addr = $server_addr ? $server_addr : self::REST_SERVER_ADDR;
         $this->finalize_params($method, $params);
         $result = $this->run_multipart_http_transaction($method, $params, $file, $server_addr);
         return $result;
