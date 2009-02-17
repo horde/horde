@@ -70,7 +70,8 @@ class Kronolith_Storage_sql extends Kronolith_Storage {
         /* Connect to the SQL server using the supplied parameters. */
         include_once 'DB.php';
         $this->_write_db = &DB::connect($this->_params,
-                                        array('persistent' => !empty($this->_params['persistent'])));
+                                        array('persistent' => !empty($this->_params['persistent']),
+                                              'ssl' => !empty($this->_params['ssl'])));
         if (is_a($this->_write_db, 'PEAR_Error')) {
             return PEAR::raiseError(_("Unable to connect to SQL server."));
         }
@@ -89,7 +90,8 @@ class Kronolith_Storage_sql extends Kronolith_Storage {
         if (!empty($this->_params['splitread'])) {
             $params = array_merge($this->_params, $this->_params['read']);
             $this->_db = &DB::connect($params,
-                                      array('persistent' => !empty($params['persistent'])));
+                                      array('persistent' => !empty($params['persistent']),
+                                            'ssl' => !empty($params['ssl'])));
             if (is_a($this->_db, 'PEAR_Error')) {
                 return $this->_db;
             }
