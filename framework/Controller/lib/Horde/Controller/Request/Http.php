@@ -294,7 +294,7 @@ class Horde_Controller_Request_Http extends Horde_Controller_Request_Base
      * @param   string  $default
      * @return  string
      */
-    public function getCookie($name = null, $default = null)
+    public function getCookie($name=null, $default=null)
     {
         if (isset($name)) {
             return isset($this->_cookie[$name]) ? $this->_cookie[$name] : $default;
@@ -310,7 +310,7 @@ class Horde_Controller_Request_Http extends Horde_Controller_Request_Base
      * @param   string  $default
      * @return  mixed
      */
-    public function getSession($name = null, $default = null)
+    public function getSession($name=null, $default=null)
     {
         if (isset($name)) {
             return isset($this->_session[$name]) ? $this->_session[$name] : $default;
