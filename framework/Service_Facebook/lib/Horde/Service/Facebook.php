@@ -71,6 +71,9 @@ class Horde_Service_Facebook
     protected $_call_as_apikey;
     private $_batch_queue;
 
+    /* Horde_Http_Client */
+    protected $_http;
+
     const API_VALIDATION_ERROR = 1;
     const BATCH_MODE_DEFAULT = 0;
     const BATCH_MODE_SERVER_PARALLEL = 0;
@@ -83,8 +86,15 @@ class Horde_Service_Facebook
      *
      * @param session_key
      */
-    public function __construct($api_key, $secret, $params = array())
+    public function __construct($api_key, $secret, $context = array())
     {
+        // We require a http client object
+        if (empty($context['http_client'])) {
+            throw new InvalidArgumentException('A http client object is required');
+        } else {
+            $this->_http = $params['http_client'];
+        }
+
         $this->_api_key = $api_key;
         $this->_secret = $secret;
         $this->_app_secret = $secret;
@@ -96,7 +106,7 @@ class Horde_Service_Facebook
         // pass an explicit uid instead of using a session key.
         $this->user = !empty($this->user) ? $this->user : null;
 
-        if (!empty($params['use_ssl'])) {
+        if (!empty($context['use_ssl'])) {
             $this->_use_ssl_resources = true;
         }
     }
@@ -1368,12 +1378,19 @@ class Horde_Service_Facebook
         return $result;
     }
 
+    /**
+     * Send a POST request to FB.
+     *
+     * @param $method
+     * @param $params
+     * @return unknown_type
+     */
     public function post_request($method, $params)
     {
         $this->finalize_params($method, $params);
         $post_string = $this->create_post_string($method, $params);
-        $client = new Horde_Http_Client();
-        $result = $client->post($this->server_addr, $post_string);
+        $result = $this->_http->post($this->server_addr, $post_string);
+
         return $result->getBody();
     }
 
