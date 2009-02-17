@@ -14,6 +14,12 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
+ <lead>
+  <name>Mike Naberezny</name>
+  <user>mnaberez</user>
+  <email>mike@maintainable.com</email>
+  <active>yes</active>
+ </lead>
  <date>2008-02-12</date>
  <time>17:00:00</time>
  <version>
@@ -33,12 +39,14 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <dir name="Horde">
      <dir name="View">
       <dir name="Helper">
+       <file name="Base.php" role="php" />
        <file name="Block.php" role="php" />
+       <file name="Javascript.php" role="php" />
+       <file name="Tag.php" role="php" />
        <file name="Url.php" role="php" />
       </dir> <!-- /lib/Horde/View/Helper -->
       <file name="Base.php" role="php" />
       <file name="Exception.php" role="php" />
-      <file name="Helper.php" role="php" />
       <file name="Interface.php" role="php" />
      </dir> <!-- /lib/Horde/View -->
      <file name="View.php" role="php" />
@@ -58,11 +66,13 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
+   <install name="lib/Horde/View/Helper/Base.php" as="Horde/View/Helper/Base.php" />
    <install name="lib/Horde/View/Helper/Block.php" as="Horde/View/Helper/Block.php" />
+   <install name="lib/Horde/View/Helper/Javascript.php" as="Horde/View/Helper/Javascript.php" />
+   <install name="lib/Horde/View/Helper/Tag.php" as="Horde/View/Helper/Tag.php" />
    <install name="lib/Horde/View/Helper/Url.php" as="Horde/View/Helper/Url.php" />
    <install name="lib/Horde/View/Base.php" as="Horde/View/Base.php" />
    <install name="lib/Horde/View/Exception.php" as="Horde/View/Exception.php" />
-   <install name="lib/Horde/View/Helper.php" as="Horde/View/Helper.php" />
    <install name="lib/Horde/View/Interface.php" as="Horde/View/Interface.php" />
    <install name="lib/Horde/View.php" as="Horde/View.php" />
   </filelist>

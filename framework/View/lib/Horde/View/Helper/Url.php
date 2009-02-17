@@ -1,18 +1,27 @@
 <?php
 /**
- * $Horde: framework/View/lib/Horde/View/Helper/Url.php,v 1.2 2008/10/09 02:43:53 chuck Exp $
+ * Copyright 2007 Maintainable Software, LLC
+ * Copyright 2006-2009 The Horde Project (http://www.horde.org/)
  *
- * @category Horde
- * @package Horde_View
- * @subpackage Helpers
+ * @author     Mike Naberezny <mike@maintainable.com>
+ * @author     Derek DeVries <derek@maintainable.com>
+ * @author     Chuck Hagenbuch <chuck@horde.org>
+ * @license    http://opensource.org/licenses/bsd-license.php
+ * @category   Horde
+ * @package    Horde_View
+ * @subpackage Helper
  */
 
 /**
- * View helper for URLs
+ * View helpers for URLs
  *
- * @category Horde
- * @package Horde_View
- * @subpackage Helpers
+ * @author     Mike Naberezny <mike@maintainable.com>
+ * @author     Derek DeVries <derek@maintainable.com>
+ * @author     Chuck Hagenbuch <chuck@horde.org>
+ * @license    http://opensource.org/licenses/bsd-license.php
+ * @category   Horde
+ * @package    Horde_View
+ * @subpackage Helper
  */
 class Horde_View_Helper_Url extends Horde_View_Helper
 {
@@ -66,9 +75,44 @@ class Horde_View_Helper_Url extends Horde_View_Helper
     }
 
     /**
-     * Creates a link tag of the given $name using $url unless the current
-     * request URI is the same as the links, in which case only the name is
-     * returned.
+     * Creates a link tag of the given +name+ using a URL created by the set of
+     * +options+ unless the current request URI is the same as the links, in
+     * which case only the name is returned (or the given block is yielded, if
+     * one exists).  You can give link_to_unless_current a block which will
+     * specialize the default behavior (e.g., show a "Start Here" link rather
+     * than the link's text).
+     *
+     * ==== Examples
+     * Let's say you have a navigation menu...
+     *
+     *   <ul id="navbar">
+     *     <li><%= link_to_unless_current("Home", { :action => "index" }) %></li>
+     *     <li><%= link_to_unless_current("About Us", { :action => "about" }) %></li>
+     *   </ul>
+     *
+     * If in the "about" action, it will render...
+     *
+     *   <ul id="navbar">
+     *     <li><a href="/controller/index">Home</a></li>
+     *     <li>About Us</li>
+     *   </ul>
+     *
+     * ...but if in the "home" action, it will render:
+     *
+     *   <ul id="navbar">
+     *     <li><a href="/controller/index">Home</a></li>
+     *     <li><a href="/controller/about">About Us</a></li>
+     *   </ul>
+     *
+     * The implicit block given to link_to_unless_current is evaluated if the current
+     * action is the action given.  So, if we had a comments page and wanted to render a
+     * "Go Back" link instead of a link to the comments page, we could do something like this...
+     *
+     *    <%=
+     *        link_to_unless_current("Comment", { :controller => 'comments', :action => 'new}) do
+     *           link_to("Go back", { :controller => 'posts', :action => 'index' })
+     *        end
+     *     %>
      */
     public function linkToUnlessCurrent($name, $url, $htmlOptions = array())
     {
@@ -79,9 +123,24 @@ class Horde_View_Helper_Url extends Horde_View_Helper
     /**
      * Creates a link tag of the given +name+ using a URL created by the set of
      * +options+ unless +condition+ is true, in which case only the name is
-     * returned. To specialize the default behavior (i.e., show a login link rather
-     * than just the plaintext link text), you can pass a block that
+     * returned. To specialize the default behavior (i.e., show a login link
+     * rather than just the plaintext link text), you can pass a block that
      * accepts the name or the full argument list for link_to_unless.
+     *
+     * ==== Examples
+     *   <%= link_to_unless(@current_user.nil?, "Reply", { :action => "reply" }) %>
+     *   # If the user is logged in...
+     *   # => <a href="/controller/reply/">Reply</a>
+     *
+     *   <%=
+     *      link_to_unless(@current_user.nil?, "Reply", { :action => "reply" }) do |name|
+     *        link_to(name, { :controller => "accounts", :action => "signup" })
+     *      end
+     *   %>
+     *   # If the user is logged in...
+     *   # => <a href="/controller/reply/">Reply</a>
+     *   # If not...
+     *   # => <a href="/accounts/signup">Reply</a>
      */
     public function linkToUnless($condition, $name, $url, $htmlOptions = array())
     {
@@ -94,6 +153,21 @@ class Horde_View_Helper_Url extends Horde_View_Helper
      * returned. To specialize the default behavior, you can pass a block that
      * accepts the name or the full argument list for link_to_unless (see the examples
      * in link_to_unless).
+     *
+     * ==== Examples
+     *   <%= link_to_if(@current_user.nil?, "Login", { :controller => "sessions", :action => "new" }) %>
+     *   # If the user isn't logged in...
+     *   # => <a href="/sessions/new/">Login</a>
+     *
+     *   <%=
+     *      link_to_if(@current_user.nil?, "Login", { :controller => "sessions", :action => "new" }) do
+     *        link_to(@current_user.login, { :controller => "accounts", :action => "show", :id => @current_user })
+     *      end
+     *   %>
+     *   # If the user isn't logged in...
+     *   # => <a href="/sessions/new/">Login</a>
+     *   # If they are logged in...
+     *   # => <a href="/accounts/show/3">my_username</a>
      */
     public function linkToIf($condition, $name, $url, $htmlOptions = array())
     {
@@ -108,72 +182,6 @@ class Horde_View_Helper_Url extends Horde_View_Helper
     public function isCurrentPage($url)
     {
         return $url == $_SERVER['REQUEST_URI'];
-    }
-
-    // @TODO Move these methods to a generic HTML/Tag helper
-
-    /**
-     * HTML attributes that get converted from boolean to the attribute name:
-     * array('disabled' => true) becomes array('disabled' => 'disabled')
-     *
-     * @var array
-     */
-    private $_booleanAttributes = array('disabled', 'readonly', 'multiple', 'selected', 'checked');
-
-    /**
-     * Converts an associative array of $options into
-     * a string of HTML attributes
-     *
-     * @param  array  $options  key/value pairs
-     * @param  string           key1="value1" key2="value2"
-     */
-    public function tagOptions($options)
-    {
-        foreach ($options as $k => &$v) {
-            if ($v === null || $v === false) {
-                unset($options[$k]);
-            } else {
-                if (in_array($k, $this->_booleanAttributes)) {
-                    $v = $k;
-                }
-            }
-        }
-
-        if (!empty($options)) {
-            foreach ($options as $k => &$v) {
-                $v = $k . '="' . $this->escapeOnce($v) . '"';
-            }
-            sort($options);
-            return ' ' . implode(' ', $options);
-        } else {
-            return '';
-        }
-    }
-
-    /**
-     * Returns the escaped $html without affecting existing escaped entities.
-     *
-     *   $this->escapeOnce("1 > 2 &amp; 3")
-     *     => "1 &lt; 2 &amp; 3"
-     *
-     * @param  string  $html    HTML to be escaped
-     *
-     * @return string           Escaped HTML without affecting existing escaped entities
-     */
-    public function escapeOnce($html)
-    {
-        return $this->_fixDoubleEscape(htmlspecialchars($html, ENT_QUOTES, $this->getEncoding()));
-    }
-
-    /**
-     * Fix double-escaped entities, such as &amp;amp;
-     *
-     * @param  string  $escaped  Double-escaped entities
-     * @return string            Entities fixed
-     */
-    private function _fixDoubleEscape($escaped)
-    {
-        return preg_replace('/&amp;([a-z]+|(#\d+));/i', '&\\1;', $escaped);
     }
 
 }

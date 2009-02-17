@@ -1,14 +1,20 @@
 <?php
 /**
- * @category Horde
- * @package Horde_View
+ * Copyright 2006-2009 The Horde Project (http://www.horde.org/)
+ *
+ * @author     Chuck Hagenbuch <chuck@horde.org>
+ * @category   Horde
+ * @package    Horde_View
  * @subpackage UnitTests
  */
 
-require_once dirname(__FILE__) . '/../../../lib/Horde/View/Interface.php';
-require_once dirname(__FILE__) . '/../../../lib/Horde/View/Base.php';
-require_once dirname(__FILE__) . '/../../../lib/Horde/View.php';
-
+/**
+ * @group      view
+ * @author     Chuck Hagenbuch <chuck@horde.org>
+ * @category   Horde
+ * @package    Horde_View
+ * @subpackage UnitTests
+ */
 class Horde_View_InterfaceTest extends PHPUnit_Framework_TestCase {
 
     public function testViewInterface()

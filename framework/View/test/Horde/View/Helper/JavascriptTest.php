@@ -1,0 +1,40 @@
+<?php
+/**
+ * Copyright 2007 Maintainable Software, LLC
+ * Copyright 2006-2009 The Horde Project (http://www.horde.org/)
+ *
+ * @author     Mike Naberezny <mike@maintainable.com>
+ * @author     Derek DeVries <derek@maintainable.com>
+ * @author     Chuck Hagenbuch <chuck@horde.org>
+ * @license    http://opensource.org/licenses/bsd-license.php
+ * @category   Horde
+ * @package    Horde_View
+ * @subpackage UnitTests
+ */
+
+/**
+ * @group      view
+ * @author     Mike Naberezny <mike@maintainable.com>
+ * @author     Derek DeVries <derek@maintainable.com>
+ * @author     Chuck Hagenbuch <chuck@horde.org>
+ * @license    http://opensource.org/licenses/bsd-license.php
+ * @category   Horde
+ * @package    Horde_View
+ * @subpackage UnitTests
+ */
+class Horde_View_Helper_JavascriptTest extends PHPUnit_Framework_TestCase
+{
+    public function setUp()
+    {
+        $this->view = new Horde_View();
+        $this->view->addHelper(new Horde_View_Helper_Tag($this->view));
+        $this->view->addHelper(new Horde_View_Helper_Javascript($this->view));
+    }
+
+    public function testJavascriptTag()
+    {
+        $this->assertEquals("<script type=\"text/javascript\">\n//<![CDATA[\nfoo = 1;\n//]]>\n</script>",
+                            $this->view->javascriptTag('foo = 1;'));
+    }
+
+}

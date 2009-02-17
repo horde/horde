@@ -1,18 +1,20 @@
 <?php
 /**
- * $Horde: framework/View/lib/Horde/View/Helper/Block.php,v 1.2 2008/10/09 02:43:53 chuck Exp $
+ * Copyright 2006-2009 The Horde Project (http://www.horde.org/)
  *
- * @category Horde
- * @package Horde_View
- * @subpackage Helpers
+ * @author     Chuck Hagenbuch <chuck@horde.org>
+ * @category   Horde
+ * @package    Horde_View
+ * @subpackage Helper
  */
 
 /**
  * View helper for displaying Horde_Block objects
  *
- * @category Horde
- * @package Horde_View
- * @subpackage Helpers
+ * @author     Chuck Hagenbuch <chuck@horde.org>
+ * @category   Horde
+ * @package    Horde_View
+ * @subpackage Helper
  */
 class Horde_View_Helper_Block extends Horde_View_Helper
 {

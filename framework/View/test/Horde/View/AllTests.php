@@ -1,5 +1,9 @@
 <?php
 /**
+ * Copyright 2006-2009 The Horde Project (http://www.horde.org/)
+ *
+ * @author     Chuck Hagenbuch <chuck@horde.org>
+ * @category   Horde
  * @package    Horde_View
  * @subpackage UnitTests
  */
@@ -20,6 +24,19 @@ class Horde_View_AllTests {
 
     public static function suite()
     {
+        // Catch strict standards
+        error_reporting(E_ALL | E_STRICT);
+
+        // Ensure a default timezone is set.
+        date_default_timezone_set('America/New_York');
+
+        // Set up autoload
+        set_include_path(dirname(dirname(dirname(dirname(__FILE__)))) . DIRECTORY_SEPARATOR . 'lib' . PATH_SEPARATOR . get_include_path());
+        if (!spl_autoload_functions()) {
+            spl_autoload_register(create_function('$class', '$filename = str_replace(array(\'::\', \'_\'), \'/\', $class); @include_once "$filename.php";'));
+        }
+
+        // Build the suite
         $suite = new PHPUnit_Framework_TestSuite('Horde Framework - Horde_View');
 
         $basedir = dirname(__FILE__);
