@@ -576,15 +576,18 @@ Element.addMethods({
 
 /* Create some utility functions. */
 Object.extend(Array.prototype, {
+    // Need our own diff() function because prototypejs's without() function
+    // does not handle array input.
+    diff: function(values)
+    {
+        return this.select(function(value) {
+            return !values.include(value);
+        });
+    },
     numericSort: function()
     {
-        return this.collect(Number).sort(function(a, b) {
-            if (a > b) {
-                return 1;
-            } else if (a < b) {
-                return -1;
-            }
-            return 0;
+        return this.collect(Number).sort(function(a,b) {
+            return (a > b) ? 1 : ((a < b) ? -1 : 0);
         });
     }
 });

@@ -909,7 +909,7 @@ var DimpBase = {
 
     _expirePPCache: function(ids)
     {
-        this.ppfifo = this.ppfifo.without(ids);
+        this.ppfifo = this.ppfifo.diff(ids);
         ids.each(function(i) {
             delete this.ppcache[i];
         }, this);
