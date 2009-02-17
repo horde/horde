@@ -108,7 +108,7 @@ div.msgStatus, div.msgFrom, div.msgSubject, div.msgDate, div.msgSize {
     overflow: hidden;
 }
 div.msgStatus {
-    width: 7%;
+    width: 8%;
 }
 div.msgStatus div {
     display: inline-block;
@@ -120,13 +120,13 @@ div.msgFrom {
     width: 20%;
 }
 div.msgSubject {
-    width: 51%;
+    width: 52%;
 }
 div.msgDate {
     width: 14%;
 }
 div.msgSize {
-    width: 8%;
+    width: 6%;
 }
 
 /* Message List Header and Column Header */
@@ -217,44 +217,49 @@ div.msgSize {
 }
 
 /* Checkbox images */
-.msglist .msCheck {
+.msglist div.msCheck {
     background-image: url("graphics/checkbox_off.png");
 }
-.msglist .msCheck:hover {
+.msglist div.msCheck:hover {
     background-image: url("graphics/checkbox_over.png");
 }
-.msglist div.selectedRow .msCheck {
+.msglist div.selectedRow div.msCheck {
     background-image: url("graphics/checkbox_on.png");
 }
 
-/* Status images and flags selectors: status column */
-.msglist .statusUnseen {
+/* Status images and flags selectors */
+.msglist div.statusUnseen {
     background-image: url("graphics/mail_unseen.png");
 }
-.msglist .statusFlagged {
+.msglist div.statusFlagged {
     background-image: url("graphics/mail_flagged.png");
 }
-.msglist .statusDeleted {
+.msglist div.statusDeleted {
     background-image: url("graphics/mail_deleted.png");
 }
-
-/* Status images and flags selectors: priority column */
-.msglist .lowPriority, span.lowpriorityImg {
+.msglist div.statusLowPriority {
     background-image: url("graphics/mail_priority_low.png");
 }
-.msglist .highPriority, span.highpriorityImg {
+.msglist div.statusHighPriority {
     background-image: url("graphics/mail_priority_high.png");
 }
-
-/* Status images and flags selectors: compose status column */
-.msglist .statusAnswered {
+.msglist div.statusAnswered {
     background-image: url("graphics/mail_answered.png");
 }
-.msglist .statusForwarded {
+.msglist div.statusForwarded {
     background-image: url("graphics/mail_forwarded.png");
 }
-.msglist .statusDraft {
+.msglist div.statusDraft {
     background-image: url("graphics/mail_draft.png");
+}
+.msglist div.statusAttachment {
+    background-image: url("graphics/attachment.png");
+}
+.msglist div.statusEncrypted {
+    background-image: url("graphics/encrypted.png");
+}
+.msglist div.statusSigned {
+    background-image: url("graphics/signed.png");
 }
 
 /* Thread images. */
@@ -262,11 +267,6 @@ div.msgSubject img {
     margin-top: -4px;
     vertical-align: top;
     padding-right: 1px;
-}
-
-/* Size images. */
-div.msgSize img {
-    margin-right: 2px;
 }
 
 /* Scroller */

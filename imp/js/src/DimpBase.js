@@ -32,14 +32,14 @@ var DimpBase = {
     }),
 
     flags: $H({
-        unseen: 'statusUnseen',
-        flagged: 'statusFlagged',
-        deletedmsg: 'statusDeleted',
-        unimportant: 'lowPriority',
-        important: 'highPriority',
-        answered: 'statusAnswered',
-        forwarded: 'statusForwarded',
-        draft: 'statusDraft'
+        unseen: 'Unseen',
+        flagged: 'Flagged',
+        deletedmsg: 'Deleted',
+        unimportant: 'LowPriority',
+        important: 'HighPriority',
+        answered: 'Answered',
+        forwarded: 'Forwarded',
+        draft: 'Draft'
     }),
 
     // Message selection functions
@@ -430,11 +430,6 @@ var DimpBase = {
                             tmp.insert($($('thread_img_' + u.charAt(i)).cloneNode(false)).writeAttribute('id', ''));
                         });
                         elt.replace(tmp.insert(elt.getText().escapeHTML()));
-                    }
-
-                    // Add attachment graphics
-                    if (row.atc) {
-                        r.down('.msgSize').insert({ top: $($('atc_img_' + row.atc).cloneNode(false)).writeAttribute('id', '') });
                     }
 
                     // Add context menu
@@ -2179,13 +2174,24 @@ var DimpBase = {
     updateStatusFlags: function(row)
     {
         var elt = new Element('DIV'),
-            s = row.down('.msgStatus');
+            r = $(row.domid),
+            s = r.down('.msgStatus'),
+            tmp;
+
+        // Add attachment graphic
+        if (row.atc) {
+            tmp = 'status' + row.atc.capitalize();
+            if (!s.down('.' + tmp)) {
+                s.insert($(elt.cloneNode(false)).writeAttribute({ className: tmp, title: DIMP.conf.atc_list[row.atc] || null }));
+            }
+        }
 
         this.flags.each(function(c) {
-            var d = s.down('.' + c.value);
-            if (row.hasClassName(c.key)) {
+            tmp = 'status' + c.value;
+            var d = s.down('.' + tmp);
+            if (r.hasClassName(c.key)) {
                 if (!d) {
-                    s.insert($(elt.cloneNode(false)).addClassName(c.value));
+                    s.insert($(elt.cloneNode(false)).addClassName(tmp));
                 }
             } else if (d) {
                 d.remove();

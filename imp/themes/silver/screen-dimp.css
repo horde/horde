@@ -1,16 +1,25 @@
-/* Background images. */
 .msglist div.statusDeleted {
     background-image: url("graphics/mail_deleted.png");
 }
 .msglist div.statusForwarded, #hordeAlerts div.imp-forward, #hordeAlerts div.imp-redirect {
     background-image: url("graphics/mail_forwarded.png");
 }
-.msglist div.lowPriority {
+.msglist div.statusLowPriority {
     background-image: url("graphics/mail_priority_low.png");
 }
-.msglist div.highPriority {
+.msglist div.statusHighPriority {
     background-image: url("graphics/mail_priority_high.png");
 }
+.msglist div.statusAttachment {
+    background-image: url("graphics/attachment.png");
+}
+.msglist div.statusEncrypted {
+    background-image: url("graphics/encrypted.png");
+}
+.msglist div.statusSigned {
+    background-image: url("graphics/signed.png");
+}
+
 
 #sidebarPanel .base {
     background-image: url("graphics/folder.png");

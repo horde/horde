@@ -12,12 +12,12 @@
  */
 
 DimpBase.message_list_template =
-'<div id="#{domid}" title="#{subject}" class="#{bg_string}">' +
+'<div id="#{domid}" class="#{bg_string}">' +
  '<div class="msgStatus">' +
   '<div class="msCheck"></div>' +
  '</div>' +
  '<div class="msgFrom">#{from}</div>' +
- '<div class="msgSubject">#{subject}</div>' +
+ '<div class="msgSubject" title="#{subject}">#{subject}</div>' +
  '<div class="msgDate">#{date}</div>' +
  '<div class="msgSize">#{size}</div>' +
  '<div class="clear">&nbsp;</div>' +

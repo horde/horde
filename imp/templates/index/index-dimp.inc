@@ -5,13 +5,6 @@ $hordeimg = $registry->getImageDir('horde');
 // Thread images
 $thread_imgs = IMP_IMAP_Thread::getImageUrls(true, true);
 
-// Attachment images
-$imp_ui = new IMP_UI_Mailbox('INBOX');
-$atc_imgs = array();
-foreach ($imp_ui->getAttachmentAltList() as $k => $v) {
-    $atc_imgs[] = IMP::img($k . '.png', $v, array('id' => 'atc_img_' . $k));
-}
-
 $usetrash = $prefs->getValue('use_trash');
 $menu_view = $prefs->getValue('menu_view');
 $show_text = ($menu_view == 'text' || $menu_view == 'both');
@@ -444,10 +437,7 @@ function _simpleButton($id, $text, $image, $imagedir = null)
 
 <div style="display:none">
  <span id="popdown_img" class="iconImg popdownImg popdown"></span>
- <span id="high_priority_img" class="iconImg highpriorityImg" title="<?php echo htmlspecialchars(_("High Priority")) ?>"></span>
- <span id="low_priority_img" class="iconImg lowpriorityImg" title="<?php echo htmlspecialchars(_("Low Priority")) ?>"></span>
  <?php foreach ($thread_imgs as $val) { echo $val; } ?>
- <?php foreach ($atc_imgs as $val) { echo $val; } ?>
  <span id="largeaddrspan">
   <span class="largeaddrtoggle">
    <span class="largeaddrlist">[<?php echo _("Show Addresses - %d recipients") ?>]</span>

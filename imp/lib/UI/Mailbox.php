@@ -163,7 +163,7 @@ class IMP_UI_Mailbox
      *
      * @return array  Type -> ALT text mappings.
      */
-    public function getAttachmentAltList()
+    static public function getAttachmentAltList()
     {
         return array(
             'signed' => _("Message is signed"),

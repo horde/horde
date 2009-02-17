@@ -705,7 +705,7 @@ var ViewPort = Class.create({
             c.update(c_nodes.join(''));
 
             if (this.opts.onUpdateClass) {
-                rows.get('div').each(function(d) {
+                rows.get('dataob').each(function(d) {
                     this.opts.onUpdateClass(d);
                 }, this);
             }
@@ -826,11 +826,13 @@ var ViewPort = Class.create({
             } else {
                 d.removeClassName(flag);
             }
-
-            if (this.opts.onUpdateClass) {
-                this.opts.onUpdateClass(d);
-            }
         }, this);
+
+        if (this.opts.onUpdateClass) {
+            vs.get('dataob').each(function(d) {
+                this.opts.onUpdateClass(d);
+            }, this);
+        }
     },
 
     _getLineHeight: function()

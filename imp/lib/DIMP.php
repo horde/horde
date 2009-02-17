@@ -182,6 +182,8 @@ class DIMP
             'login_view' => $prefs->getValue('dimp_login_view'),
             'background_inbox' => !empty($conf['dimp']['viewport']['background_inbox']),
 
+            'atc_list' => IMP_UI_Mailbox::getAttachmentAltList(),
+
             // Turn debugging on?
             'debug' => !empty($conf['dimp']['js']['debug']),
         );
