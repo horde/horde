@@ -571,35 +571,6 @@ class Horde_Service_Facebook
     }
 
     /**
-     * JSON encode a validation error.
-     *
-     * @return string  JSON encoded error message.
-     */
-    public function encode_validationError($summary, $message)
-    {
-        return json_encode(
-            array('errorCode'    => FACEBOOK_API_VALIDATION_ERROR,
-                  'errorTitle'   => $summary,
-                  'errorMessage' => $message));
-    }
-
-    public function encode_multiFeedStory($feed, $next)
-    {
-        return json_encode(
-            array('method'   => 'multiFeedStory',
-                  'content'  => array('next' => $next,
-                                      'feed' => $feed)));
-    }
-
-    public function encode_feedStory($feed, $next)
-    {
-        return json_encode(
-            array('method'   => 'feedStory',
-                  'content'  => array('next' => $next,
-                                      'feed' => $feed)));
-    }
-
-    /**
      * Start a batch operation.
      */
     public function begin_batch()
