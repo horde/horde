@@ -51,8 +51,7 @@
 #attach_list div, span.attachmentImg {
     background-image: url("graphics/attachment.png");
 }
-
-#hordeAlerts div.dimp-sticky, #hordeAlerts div.dimp-sticky {
+#hordeAlerts div.dimp-sticky {
     background-image: url("graphics/warning.png");
 }
 
