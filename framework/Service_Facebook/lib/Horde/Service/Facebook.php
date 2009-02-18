@@ -552,7 +552,7 @@ class Horde_Service_Facebook
     /**
      * Start a batch operation.
      */
-    public function begin_batch()
+    public function batchBegin()
     {
         if ($this->_batchRequest !== null) {
             $code = Horde_Service_Facebook_ErrorCodes::API_EC_BATCH_ALREADY_STARTED;
@@ -566,7 +566,7 @@ class Horde_Service_Facebook
     /**
      * End current batch operation
      */
-    public function end_batch()
+    public function batchEnd()
     {
         if ($this->_batchRequest === null) {
             $code = Horde_Service_Facebook_ErrorCodes::API_EC_BATCH_NOT_STARTED;
