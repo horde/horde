@@ -81,16 +81,11 @@ class Horde_Service_Facebook
     // The current session user
     public $user;
 
-    // Flag to indicate we are in batch mode.
-    protected $_batch_mode;
-
+    // Use only ssl resource flag
+    public $use_ssl_resources = false;
     private $_batchRequest;
 
-//    // Internal call_id counter
-//    protected $_last_call_id = 0;
-
     protected $_base_domain;
-    public $use_ssl_resources = false;
     protected $_call_as_apikey;
 
 
@@ -113,9 +108,6 @@ class Horde_Service_Facebook
     protected $_context;
 
     const API_VALIDATION_ERROR = 1;
-    const BATCH_MODE_DEFAULT = 0;
-    const BATCH_MODE_SERVER_PARALLEL = 0;
-    const BATCH_MODE_SERIAL_ONLY = 2;
     const REST_SERVER_ADDR = 'http://api.facebook.com/restserver.php';
 
     /**

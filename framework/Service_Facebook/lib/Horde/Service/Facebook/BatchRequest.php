@@ -6,9 +6,33 @@
  */
 class Horde_Service_Facebook_BatchRequest extends Horde_Service_Facebook_Request
 {
+    /**
+     *  Holds pending operations
+     *
+     * @var array
+     */
     private $_queue = array();
-    private $_batchMode = Horde_Service_Facebook::BATCH_MODE_DEFAULT;
 
+    /**
+     * Current mode.
+     *
+     * @var BATCH_MODE_* Constant
+     */
+    private $_batchMode;
+
+    /** BATCH_MODE constants **/
+    const BATCH_MODE_DEFAULT = 0;
+    const BATCH_MODE_SERVER_PARALLEL = 0;
+    const BATCH_MODE_SERIAL_ONLY = 2;
+
+    /**
+     *
+     *
+     * @param $facebook
+     * @param $http_client
+     * @param $params
+     * @return unknown_type
+     */
     public function __construct($facebook, $http_client, $params = array())
     {
         $this->_http = $http_client;
@@ -16,6 +40,8 @@ class Horde_Service_Facebook_BatchRequest extends Horde_Service_Facebook_Request
 
         if (!empty($params['batch_mode'])) {
             $this->_batchMode = $params['batch_mode'];
+        } else {
+            $this->_batchMode = self::BATCH_MODE_DEFAULT;
         }
     }
 
@@ -51,7 +77,7 @@ class Horde_Service_Facebook_BatchRequest extends Horde_Service_Facebook_Request
         }
         $method_feed_json = json_encode($method_feed);
 
-        $serial_only = ($this->_batchMode == Horde_Service_Facebook::BATCH_MODE_SERIAL_ONLY);
+        $serial_only = ($this->_batchMode == self::BATCH_MODE_SERIAL_ONLY);
         $params = array('method_feed' => $method_feed_json,
                         'serial_only' => $serial_only);
         $json = $this->_postRequest('batch.run', $params);
