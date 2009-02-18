@@ -53,14 +53,14 @@ class Horde_Service_Facebook
      *
      * @var stirng
      */
-    protected $_api_key;
+    public $api_key;
 
     /**
      * The API Secret Key
      *
      * @var string
      */
-    protected $_secret;
+    public $secret;
 
     // Used since we are emulating a FB Desktop Application - since we are not
     // being used within the context of a FB Canvas.
@@ -70,7 +70,7 @@ class Horde_Service_Facebook
     protected $_verify_sig = false;
 
     // Store the current session_key
-    protected $_session_key;
+    public $session_key;
 
     // Session expiry
     protected $_session_expires;
@@ -87,11 +87,11 @@ class Horde_Service_Facebook
     // The array to hold batch operations in batch mode.
     protected $_batch_queue;
 
-    // Internal call_id counter
-    protected $_last_call_id = 0;
+//    // Internal call_id counter
+//    protected $_last_call_id = 0;
 
     protected $_base_domain;
-    protected $_use_ssl_resources = false;
+    public $use_ssl_resources = false;
     protected $_call_as_apikey;
 
 
@@ -148,8 +148,8 @@ class Horde_Service_Facebook
             $this->_request = $context['http_request'];
         }
 
-        $this->_api_key = $api_key;
-        $this->_secret = $secret;
+        $this->api_key = $api_key;
+        $this->secret = $secret;
         $this->_app_secret = $secret;
         $this->validate_fb_params();
         $this->batch_mode = self::BATCH_MODE_DEFAULT;
@@ -160,7 +160,7 @@ class Horde_Service_Facebook
         $this->user = !empty($this->user) ? $this->user : null;
 
         if (!empty($context['use_ssl'])) {
-            $this->_use_ssl_resources = true;
+            $this->useSslResources = true;
         }
 
         // Save the rest
@@ -207,8 +207,8 @@ class Horde_Service_Facebook
             }
             $expires = isset($this->fb_params['expires']) ? $this->fb_params['expires'] : null;
             $this->set_user($user, $session_key, $expires);
-        } elseif ($cookies = $this->get_valid_fb_params($this->_request->getCookie(), null, $this->_api_key)) {
-            $base_domain_cookie = 'base_domain_' . $this->_api_key;
+        } elseif ($cookies = $this->get_valid_fb_params($this->_request->getCookie(), null, $this->api_key)) {
+            $base_domain_cookie = 'base_domain_' . $this->api_key;
             if ($this->_request->getCookie($base_domain_cookie)) {
                 $this->_base_domain = $this->_request->getCookie($base_domain_cookie);
             }
@@ -258,8 +258,8 @@ class Horde_Service_Facebook
      */
     public function do_get_session($auth_token)
     {
-        $this->_secret = $this->_app_secret;
-        $this->_session_key = null;
+        $this->secret = $this->_app_secret;
+        $this->session_key = null;
         $session_info = $this->_do_get_session($auth_token);
         if (!empty($session_info['secret'])) {
             // store the session secret
@@ -271,7 +271,7 @@ class Horde_Service_Facebook
 
     public function set_session_secret($session_secret)
     {
-        $this->_secret = $session_secret;
+        $this->secret = $session_secret;
     }
 
     /**
@@ -284,17 +284,17 @@ class Horde_Service_Facebook
     public function expire_session()
     {
         if ($this->auth_expireSession()) {
-            if (!$this->in_fb_canvas() && $this->_request->getCookie($this->_api_key . '_user')) {
+            if (!$this->in_fb_canvas() && $this->_request->getCookie($this->api_key . '_user')) {
                 $cookies = array('user', 'session_key', 'expires', 'ss');
                 foreach ($cookies as $name) {
-                    setcookie($this->_api_key . '_' . $name, false, time() - 3600);
+                    setcookie($this->api_key . '_' . $name, false, time() - 3600);
                 }
-                setcookie($this->_api_key, false, time() - 3600);
+                setcookie($this->api_key, false, time() - 3600);
             }
 
             // now, clear the rest of the stored state
             $this->user = 0;
-            $this->_session_key = 0;
+            $this->session_key = 0;
 
             return true;
         } else {
@@ -405,7 +405,7 @@ class Horde_Service_Facebook
     protected function _get_login_url($next)
     {
         return self::_get_facebook_url() . '/login.php?v=1.0&api_key='
-            . $this->_api_key . ($next ? '&next=' . urlencode($next)  : '');
+            . $this->api_key . ($next ? '&next=' . urlencode($next)  : '');
     }
 
     /**
@@ -419,13 +419,13 @@ class Horde_Service_Facebook
      */
     public function set_user($user, $session_key, $expires = null)
     {
-        if (!$this->_request->getCookie($this->_api_key . '_user') ||
-            $this->_request->getCookie($this->_api_key . '_user') != $user) {
+        if (!$this->_request->getCookie($this->api_key . '_user') ||
+            $this->_request->getCookie($this->api_key . '_user') != $user) {
 
             $this->set_cookies($user, $session_key, $expires);
         }
         $this->user = $user;
-        $this->_session_key = $session_key;
+        $this->session_key = $session_key;
         $this->_session_expires = $expires;
     }
 
@@ -447,12 +447,12 @@ class Horde_Service_Facebook
             $cookies['expires'] = $expires;
         }
         foreach ($cookies as $name => $val) {
-            setcookie($this->_api_key . '_' . $name, $val, (int)$expires, '', $this->_base_domain);
+            setcookie($this->api_key . '_' . $name, $val, (int)$expires, '', $this->_base_domain);
         }
-        $sig = self::generate_sig($cookies, $this->_secret);
-        setcookie($this->_api_key, $sig, (int)$expires, '', $this->_base_domain);
+        $sig = self::generate_sig($cookies, $this->secret);
+        setcookie($this->api_key, $sig, (int)$expires, '', $this->_base_domain);
         if ($this->_base_domain != null) {
-            $base_domain_cookie = 'base_domain_' . $this->_api_key;
+            $base_domain_cookie = 'base_domain_' . $this->api_key;
             setcookie($base_domain_cookie, $this->_base_domain, (int)$expires, '', $this->_base_domain);
         }
     }
@@ -527,7 +527,7 @@ class Horde_Service_Facebook
         // we don't want to verify the signature until we have a valid
         // session secret
         if ($this->_verify_sig) {
-            return self::generate_sig($fb_params, $this->_secret) == $expected_sig;
+            return self::generate_sig($fb_params, $this->secret) == $expected_sig;
         } else {
             return true;
         }
@@ -663,10 +663,10 @@ class Horde_Service_Facebook
         //Check if we are in batch mode
         if ($this->_batch_queue === null) {
             $result = $this->call_method('facebook.auth.getSession', array('auth_token' => $auth_token));
-            $this->_session_key = $result['session_key'];
+            $this->session_key = $result['session_key'];
             if (!empty($result['secret'])) {
                 // desktop apps have a special secret
-                $this->_secret = $result['secret'];
+                $this->secret = $result['secret'];
             }
             return $result;
         }
@@ -1378,29 +1378,10 @@ class Horde_Service_Facebook
      */
     public function &call_method($method, $params = array())
     {
-        // Ensure we ask for JSON data
-        $params['format'] = 'JSON';
 
-        //Check if we are in batch mode
-        if($this->_batch_queue === null) {
-            if ($this->_call_as_apikey) {
-                $params['call_as_apikey'] = $this->_call_as_apikey;
-            }
-            $data = $this->post_request($method, $params);
-
-            // TODO: For now, get back a hash instead of stdObject until more
-            // refactoring is finished.
-            $result = json_decode($data, true);
-            if (is_array($result) && isset($result['error_code'])) {
-                throw new Horde_Service_Facebook_Exception($result['error_msg'], $result['error_code']);
-            }
-        } else {
-            $result = null;
-            $batch_item = array('m' => $method, 'p' => $params, 'r' => &$result);
-            $this->_batch_queue[] = $batch_item;
-        }
-
-        return $result;
+        $request = new Horde_Service_Facebook_Request($this, $method, $this->_http, $params);
+        $results = &$request->run();
+        return $results;
     }
 
     /**
@@ -1435,26 +1416,6 @@ class Horde_Service_Facebook
         return $result;
     }
 
-    /**
-     * Send a POST request to FB.
-     *
-     * @param $method
-     * @param $params
-     * @return unknown_type
-     */
-    public function post_request($method, $params)
-    {
-        $this->finalize_params($method, $params);
-
-        // TODO: Figure out why passing the array to ->post doesn't work -
-        //       we have to manually create the post string or we get an
-        //       invalid signature error from FB
-        $post_string = $this->create_post_string($params);
-        $result = $this->_http->post(self::REST_SERVER_ADDR, $post_string);
-
-        return $result->getBody();
-    }
-
     private function post_upload_request($method, $params, $file, $server_addr = null)
     {
         // Ensure we ask for JSON
@@ -1487,65 +1448,7 @@ class Horde_Service_Facebook
     }
 
     /**
-     *
-     * @param $method
-     * @param $params
-     * @return unknown_type
-     */
-    private function finalize_params($method, &$params)
-    {
-        $this->add_standard_params($method, $params);
-        // we need to do this before signing the params
-        $this->convert_array_values_to_csv($params);
-        $params['sig'] = self::generate_sig($params, $this->_secret);
-    }
-
-    private function convert_array_values_to_csv(&$params)
-    {
-        foreach ($params as $key => &$val) {
-            if (is_array($val)) {
-                $val = implode(',', $val);
-            }
-        }
-    }
-
-    private function add_standard_params($method, &$params)
-    {
-        if ($this->_call_as_apikey) {
-            $params['call_as_apikey'] = $this->_call_as_apikey;
-        }
-        $params['method'] = $method;
-        $params['session_key'] = $this->_session_key;
-        $params['api_key'] = $this->_api_key;
-        $params['call_id'] = microtime(true);
-        if ($params['call_id'] <= $this->_last_call_id) {
-            $params['call_id'] = $this->_last_call_id + 0.001;
-        }
-        $this->_last_call_id = $params['call_id'];
-        if (!isset($params['v'])) {
-            $params['v'] = '1.0';
-        }
-        if (!empty($this->_use_ssl_resources)) {
-            $params['return_ssl_resources'] = true;
-        }
-    }
-
-    /**
-     * TODO: Figure out why using http_build_query doesn't work here.
-     *
-     */
-    private function create_post_string($params)
-    {
-        $post_params = array();
-        foreach ($params as $key => &$val) {
-            $post_params[] = $key.'='.urlencode($val);
-        }
-
-        return implode('&', $post_params);
-    }
-
-    /**
-     * TODO: This will probably be replaced with http_client
+     * TODO: This will probably be replace
      * @param $method
      * @param $params
      * @param $file

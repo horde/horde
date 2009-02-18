@@ -35,6 +35,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
       <dir name="Facebook">
        <file name="Exception.php" role="php" />
        <file name="ErrorCodes.php" role="php" />
+       <file name="Request.php" role="php" />
+       <file name="BatchRequest.php" role="php" />
       </dir> <!-- /lib/Horde/Service/Facebook -->
       <file name="Facebook.php" role="php" />
      </dir> <!-- /lib/Horde/Service -->
@@ -60,7 +62,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <filelist>
    <install name="lib/Horde/Service/Facebook/Exception.php" as="Horde/Service/Facebook/Exception.php" />
    <install name="lib/Horde/Service/Facebook/ErrorCodes.php" as="Horde/Service/Facebook/ErrorCodes.php" />
+   <install name="lib/Horde/Service/Facebook/Request.php" as="Horde/Service/Facebook/Request.php" />
+   <install name="lib/Horde/Service/Facebook/BatchRequest.php" as="Horde/Service/Facebook/BatchRequest.php" />
    <install name="lib/Horde/Service/Facebook.php" as="Horde/Service/Facebook.php" />
+   
   </filelist>
  </phprelease>
 </package>
