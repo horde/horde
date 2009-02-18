@@ -28,7 +28,7 @@ class Horde_Service_Facebook_Request
      */
     public function &run()
     {
-        $data = $this->_post_request($this->_method, $this->_params);
+        $data = $this->_postRequest($this->_method, $this->_params);
         $result = json_decode($data, true);
         if (is_array($result) && isset($result['error_code'])) {
             throw new Horde_Service_Facebook_Exception($result['error_msg'], $result['error_code']);
@@ -36,13 +36,13 @@ class Horde_Service_Facebook_Request
         return $result;
     }
 
-    protected function _post_request($method, $params)
+    protected function _postRequest($method, $params)
     {
-        $this->_finalize_params($method, $params);
+        $this->_finalizeParams($method, $params);
         // TODO: Figure out why passing the array to ->post doesn't work -
         //       we have to manually create the post string or we get an
         //       invalid signature error from FB
-        $post_string = $this->_create_post_string($params);
+        $post_string = $this->_createPostString($params);
         $result = $this->_http->post(Horde_Service_Facebook::REST_SERVER_ADDR, $post_string);
         return $result->getBody();
     }
@@ -53,15 +53,15 @@ class Horde_Service_Facebook_Request
      * @param $params
      * @return unknown_type
      */
-    protected function _finalize_params($method, &$params)
+    protected function _finalizeParams($method, &$params)
     {
-        $this->_add_standard_params($method, $params);
+        $this->_addStandardParams($method, $params);
         // we need to do this before signing the params
-        $this->convert_array_values_to_csv($params);
+        $this->_convertToCsv($params);
         $params['sig'] = Horde_Service_Facebook::generate_sig($params, $this->_facebook->secret);
     }
 
-    protected function _add_standard_params($method, &$params)
+    protected function _addStandardParams($method, &$params)
     {
         // We only support JSON
         $params['format'] = 'json';
@@ -81,7 +81,7 @@ class Horde_Service_Facebook_Request
         }
     }
 
-    protected function convert_array_values_to_csv(&$params)
+    protected function _convertToCsv(&$params)
     {
         foreach ($params as $key => &$val) {
             if (is_array($val)) {
@@ -94,7 +94,7 @@ class Horde_Service_Facebook_Request
      * TODO: Figure out why using http_build_query doesn't work here.
      *
      */
-    protected function _create_post_string($params)
+    protected function _createPostString($params)
     {
         $post_params = array();
         foreach ($params as $key => &$val) {

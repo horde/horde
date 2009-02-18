@@ -46,15 +46,15 @@ class Horde_Service_Facebook_BatchRequest extends Horde_Service_Facebook_Request
         foreach ($this->_queue as $batch_item) {
             $method = $batch_item['m'];
             $params = $batch_item['p'];
-            $this->_finalize_params($method, $params);
-            $method_feed[] = $this->_create_post_string($params);
+            $this->_finalizeParams($method, $params);
+            $method_feed[] = $this->_createPostString($params);
         }
         $method_feed_json = json_encode($method_feed);
 
         $serial_only = ($this->_batchMode == Horde_Service_Facebook::BATCH_MODE_SERIAL_ONLY);
         $params = array('method_feed' => $method_feed_json,
                         'serial_only' => $serial_only);
-        $json = $this->_post_request('batch.run', $params);
+        $json = $this->_postRequest('batch.run', $params);
         $result = json_decode($json, true);
         if (is_array($result) && isset($result['error_code'])) {
           throw new Horde_Service_Facebook_Exception($result['error_msg'],
