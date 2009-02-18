@@ -84,8 +84,7 @@ class Horde_Service_Facebook
     // Flag to indicate we are in batch mode.
     protected $_batch_mode;
 
-    // The array to hold batch operations in batch mode.
-    protected $_batch_queue;
+    private $_batchRequest;
 
 //    // Internal call_id counter
 //    protected $_last_call_id = 0;
@@ -152,7 +151,6 @@ class Horde_Service_Facebook
         $this->secret = $secret;
         $this->_app_secret = $secret;
         $this->validate_fb_params();
-        $this->batch_mode = self::BATCH_MODE_DEFAULT;
         $this->_call_as_apikey = '';
 
         // Set the default user id for methods that allow the caller to
@@ -564,13 +562,13 @@ class Horde_Service_Facebook
      */
     public function begin_batch()
     {
-        if ($this->_batch_queue !== null) {
+        if ($this->_batchRequest !== null) {
             $code = Horde_Service_Facebook_ErrorCodes::API_EC_BATCH_ALREADY_STARTED;
             $description = Horde_Service_Facebook_ErrorCodes::$api_error_descriptions[$code];
             throw new Horde_Service_Facebook_Exception($description, $code);
         }
 
-        $this->_batch_queue = array();
+        $this->_batchRequest = new Horde_Service_Facebook_BatchRequest($this, $this->_http);
     }
 
     /**
@@ -578,63 +576,14 @@ class Horde_Service_Facebook
      */
     public function end_batch()
     {
-        if ($this->_batch_queue === null) {
+        if ($this->_batchRequest === null) {
             $code = Horde_Service_Facebook_ErrorCodes::API_EC_BATCH_NOT_STARTED;
             $description = Horde_Service_Facebook_ErrorCodes::$api_error_descriptions[$code];
             throw new Horde_Service_Facebook_Exception($description, $code);
         }
 
-        $this->execute_server_side_batch();
-        $this->_batch_queue = null;
-    }
-
-    /**
-     * Execute a set of batch operations.
-     *
-     * @return void
-     */
-    private function execute_server_side_batch()
-    {
-        $item_count = count($this->_batch_queue);
-        $method_feed = array();
-        foreach ($this->_batch_queue as $batch_item) {
-            $method = $batch_item['m'];
-            $params = $batch_item['p'];
-            $this->finalize_params($method, $params);
-            $method_feed[] = $this->create_post_string($params);
-        }
-        $method_feed_json = json_encode($method_feed);
-
-        $serial_only = ($this->batch_mode == self::BATCH_MODE_SERIAL_ONLY);
-        $params = array('method_feed' => $method_feed_json,
-                        'serial_only' => $serial_only);
-        if ($this->_call_as_apikey) {
-            $params['call_as_apikey'] = $this->_call_as_apikey;
-        }
-
-        // Request JSON format
-        $params['format'] = 'JSON';
-        $json = $this->post_request('batch.run', $params);
-        // For now, get back a hash instead of a stdObject until more of the
-        // library gets refactored.
-        $result = json_decode($json, true);
-        if (is_array($result) && isset($result['error_code'])) {
-          throw new Horde_Service_Facebook_Exception($result['error_msg'],
-                                                     $result['error_code']);
-        }
-
-        for ($i = 0; $i < $item_count; $i++) {
-            $batch_item = $this->_batch_queue[$i];
-            $batch_item_json = $result[$i];
-            $batch_item_result = json_decode($batch_item_json, true);
-            if (is_array($batch_item_result) &&
-                isset($batch_item_result['error_code'])) {
-
-                throw new Horde_Service_Facebook_Exception($batch_item_result['error_msg'],
-                                                           $batch_item_result['error_code']);
-            }
-            $batch_item['r'] = $batch_item_result;
-        }
+        $this->_batchRequest->run();
+        $this->_batchRequest = null;
     }
 
     /**
@@ -661,7 +610,7 @@ class Horde_Service_Facebook
     public function auth_getSession($auth_token)
     {
         //Check if we are in batch mode
-        if ($this->_batch_queue === null) {
+        if ($this->_batchRequest === null) {
             $result = $this->call_method('facebook.auth.getSession', array('auth_token' => $auth_token));
             $this->session_key = $result['session_key'];
             if (!empty($result['secret'])) {
@@ -1378,9 +1327,12 @@ class Horde_Service_Facebook
      */
     public function &call_method($method, $params = array())
     {
-
-        $request = new Horde_Service_Facebook_Request($this, $method, $this->_http, $params);
-        $results = &$request->run();
+        if ($this->_batchRequest === null) {
+            $request = new Horde_Service_Facebook_Request($this, $method, $this->_http, $params);
+            $results = &$request->run();
+        } else {
+            $results = &$this->_batchRequest->add($method, $params);
+        }
         return $results;
     }
 

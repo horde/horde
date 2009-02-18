@@ -5,9 +5,9 @@
  */
 class Horde_Service_Facebook_Request
 {
-    private $_facebook;
-    private  $_last_call_id = 0;
-    private $_http;
+    protected $_facebook;
+    protected  $_last_call_id = 0;
+    protected $_http;
     private $_method;
     private $_params;
 
@@ -53,7 +53,7 @@ class Horde_Service_Facebook_Request
      * @param $params
      * @return unknown_type
      */
-    private function _finalize_params($method, &$params)
+    protected function _finalize_params($method, &$params)
     {
         $this->_add_standard_params($method, $params);
         // we need to do this before signing the params
@@ -61,7 +61,7 @@ class Horde_Service_Facebook_Request
         $params['sig'] = Horde_Service_Facebook::generate_sig($params, $this->_facebook->secret);
     }
 
-    private function _add_standard_params($method, &$params)
+    protected function _add_standard_params($method, &$params)
     {
         // We only support JSON
         $params['format'] = 'json';
@@ -81,7 +81,7 @@ class Horde_Service_Facebook_Request
         }
     }
 
-    private function convert_array_values_to_csv(&$params)
+    protected function convert_array_values_to_csv(&$params)
     {
         foreach ($params as $key => &$val) {
             if (is_array($val)) {
@@ -94,7 +94,7 @@ class Horde_Service_Facebook_Request
      * TODO: Figure out why using http_build_query doesn't work here.
      *
      */
-    private function _create_post_string($params)
+    protected function _create_post_string($params)
     {
         $post_params = array();
         foreach ($params as $key => &$val) {
