@@ -188,7 +188,7 @@ abstract class Horde_Db_Adapter_Pdo_Abstract extends Horde_Db_Adapter_Abstract
         unset($dsnOpts['adapter'], $dsnOpts['username'], $dsnOpts['password']);
 
         // rewrite rails config key names to pdo equivalents
-        $rails2pdo = array('database' => 'dbname', 'socket' => 'unix_socket');
+        $rails2pdo = array('database' => 'dbname', 'socket' => 'unix_socket', 'hostspec' => 'host');
         foreach ($rails2pdo as $from => $to) {
             if (isset($dsnOpts[$from])) {
                 $dsnOpts[$to] = $dsnOpts[$from];
