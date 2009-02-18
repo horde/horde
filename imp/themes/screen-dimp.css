@@ -262,13 +262,6 @@ div.msgSize {
     background-image: url("graphics/signed.png");
 }
 
-/* Thread images. */
-div.msgSubject img {
-    margin-top: -4px;
-    vertical-align: top;
-    padding-right: 1px;
-}
-
 /* Scroller */
 .sbdiv {
     position: relative;
@@ -1080,6 +1073,27 @@ span.dimpactionDrafts {
 }
 #ctx_contacts_add span.contextImg {
     background-image: url("graphics/add_contact.png");
+}
+
+/* Thread images */
+span.threadImg {
+    margin-top: -4px;
+    padding-right: 5px;
+    margin-right: 0;
+    height: 20px;
+}
+
+span.threadImg1 {
+    background-image: url("graphics/tree/line.png");
+}
+span.threadImg2 {
+    background-image: url("graphics/tree/join.png");
+}
+span.threadImg3 {
+    background-image: url("graphics/tree/joinbottom-down.png");
+}
+span.threadImg4 {
+    background-image: url("graphics/tree/joinbottom.png");
 }
 
 /* Other images */

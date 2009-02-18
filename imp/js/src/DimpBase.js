@@ -427,7 +427,7 @@ var DimpBase = {
                         tmp = elt.cloneNode(false);
                         u = thread.get(row.imapuid);
                         $R(0, u.length, true).each(function(i) {
-                            tmp.insert($($('thread_img_' + u.charAt(i)).cloneNode(false)).writeAttribute('id', ''));
+                            tmp.insert(new Element('SPAN', { className: 'iconImg threadImg threadImg' + u.charAt(i) }));
                         });
                         elt.replace(tmp.insert(elt.getText().escapeHTML()));
                     }
@@ -954,7 +954,7 @@ var DimpBase = {
         if (r.atc_label) {
             tmp = $('msgAtc').show().down('.label');
             tmp2 = $('partlist');
-            tmp2.hide().previous().update(new Element('SPAN', { className: 'atcLabel'}).insert(r.atc_label)).insert(r.atc_download);
+            tmp2.hide().previous().update(new Element('SPAN', { className: 'atcLabel' }).insert(r.atc_label)).insert(r.atc_download);
             if (r.atc_list) {
                 $('partlist_col').show();
                 $('partlist_exp').hide();

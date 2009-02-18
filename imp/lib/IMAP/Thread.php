@@ -119,8 +119,12 @@ class IMP_IMAP_Thread
      */
     public function getThreadImageTree($indices, $sortdir)
     {
-        $tree = array();
-        $imgs = self::getImageUrls(false);
+        $imgs = $tree = array();
+
+        foreach (self::$_imglist as $key => $val) {
+            $imgs[$key] = Horde::img('tree/' . (($key != 0 && !empty($GLOBALS['nls']['rtl'][$GLOBALS['language']])) ? ('rev-' . $val) : $val));
+        }
+
         foreach ($this->getThreadTreeOb($indices, $sortdir) as $k => $v) {
             $tree[$k] = '';
             for ($i = 0, $length = strlen($v); $i < $length; ++$i) {
@@ -130,31 +134,4 @@ class IMP_IMAP_Thread
         return $tree;
     }
 
-    /**
-     * Get potential image URLs that may be used to display a thread.
-     *
-     * @param ids $ids      Add unique DOM ID to each image?
-     * @param ids $datauri  Output data URIs, if possible?
-     *
-     * @return array  An array with the image code as a key and the image url
-     *                as the value.
-     */
-    static public function getImageUrls($ids = true, $datauri = false)
-    {
-        $graphicsdir = $GLOBALS['registry']->getImageDir('horde');
-        $args = array();
-
-        foreach (self::$_imglist as $key => $val) {
-            if ($ids) {
-                $args['id'] = 'thread_img_' . $key;
-            }
-            if ($datauri) {
-                $out[$key] = IMP::img('tree/' . (($key != 0 && !empty($GLOBALS['nls']['rtl'][$GLOBALS['language']])) ? ('rev-' . $val) : $val), '', $args, $graphicsdir);
-            } else {
-                $out[$key] = Horde::img('tree/' . (($key != 0 && !empty($GLOBALS['nls']['rtl'][$GLOBALS['language']])) ? ('rev-' . $val) : $val), '', $args, $graphicsdir);
-            }
-        }
-
-        return $out;
-    }
 }

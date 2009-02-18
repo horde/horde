@@ -2,9 +2,6 @@
 // Generate various dimp graphics used in multiple locations
 $hordeimg = $registry->getImageDir('horde');
 
-// Thread images
-$thread_imgs = IMP_IMAP_Thread::getImageUrls(true, true);
-
 $usetrash = $prefs->getValue('use_trash');
 $menu_view = $prefs->getValue('menu_view');
 $show_text = ($menu_view == 'text' || $menu_view == 'both');
@@ -436,7 +433,6 @@ function _simpleButton($id, $text, $image, $imagedir = null)
 </div>
 
 <div style="display:none">
- <?php foreach ($thread_imgs as $val) { echo $val; } ?>
  <span id="largeaddrspan">
   <span class="largeaddrtoggle">
    <span class="largeaddrlist">[<?php echo _("Show Addresses - %d recipients") ?>]</span>
