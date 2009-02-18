@@ -436,7 +436,6 @@ function _simpleButton($id, $text, $image, $imagedir = null)
 </div>
 
 <div style="display:none">
- <span id="popdown_img" class="iconImg popdownImg popdown"></span>
  <?php foreach ($thread_imgs as $val) { echo $val; } ?>
  <span id="largeaddrspan">
   <span class="largeaddrtoggle">

@@ -581,7 +581,7 @@ var DimpBase = {
     {
         if (popdown) {
             var bidelt = $(p.id);
-            bidelt.insert({ after: $($('popdown_img').cloneNode(false)).writeAttribute('id', p.id + '_img').show() });
+            bidelt.insert({ after: new Element('SPAN', { className: 'iconImg popdownImg popdown', id: p.id + '_img' }) });
             p.id += '_img';
             p.offset = bidelt.up();
             p.left = true;

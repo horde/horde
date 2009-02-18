@@ -134,7 +134,7 @@ var DimpFullmessage = {
     _addPopdown: function(bid, ctx)
     {
         var bidelt = $(bid);
-        bidelt.insert({ after: $($('popdown_img').cloneNode(false)).writeAttribute('id', bid + '_img').show() });
+        bidelt.insert({ after: new Element('SPAN', { className: 'iconImg popdownImg popdown', id: p.id + '_img' }) });
         DimpCore.DMenu.addElement(bid + '_img', 'ctx_' + ctx, { offset: bidelt.up(), left: true });
     },
 
