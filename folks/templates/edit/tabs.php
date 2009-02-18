@@ -20,6 +20,7 @@ if ($groups instanceof PEAR_Error) {
 $vars = Variables::getDefaultVariables();
 $ftabs = new Horde_UI_Tabs('ftab', $vars);
 
+$ftabs->addTab(_("Add"), Horde::applicationUrl('edit/friends/add.php'), 'add');
 $ftabs->addTab(_("All"), Horde::applicationUrl('edit/friends/index.php'), 'all');
 $ftabs->addTab(_("Invite"), Horde::applicationUrl('edit/friends/invite.php'), 'invite');
 
@@ -30,6 +31,6 @@ foreach ($groups as $group_id => $group_name) {
 $ftabs->addTab(_("Wainting for"), Horde::applicationUrl('edit/friends/for.php'), 'for');
 $ftabs->addTab(_("Wainting from"), Horde::applicationUrl('edit/friends/from.php'), 'from');
 $ftabs->addTab(_("I am friend of"), Horde::applicationUrl('edit/friends/of.php'), 'of');
+$ftabs->addTab(_("Blacklist"), Horde::applicationUrl('edit/friends/blacklist.php'), 'blacklist');
 
 echo $ftabs->render();
-

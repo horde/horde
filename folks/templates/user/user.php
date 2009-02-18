@@ -402,7 +402,7 @@ case 'never':
 case 'authenticated':
     $allow_comments = Auth::isAuthenticated();
     if ($allow_comments) {
-        if ($folks_driver->isBlacklisted($user,  Auth::getAuth())) {
+        if ($folks_driver->isBlacklisted($user, Auth::getAuth())) {
             $allow_comments = false;
             $comments_reason = sprintf(_("You are on %s blacklist."), $user);
         }

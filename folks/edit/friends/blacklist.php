@@ -68,7 +68,7 @@ if ($groups instanceof PEAR_Error) {
     $groups = array();
 }
 
-$form = new Folks_AddFriend_Form($vars, _("Add or remove user"), 'blacklist');
+$friend_form = new Folks_AddFriend_Form($vars, _("Add or remove user"), 'blacklist');
 
 Horde::addScriptFile('tables.js', 'horde', true);
 
@@ -77,5 +77,7 @@ require FOLKS_TEMPLATES . '/menu.inc';
 
 echo $tabs->render('blacklist');
 require FOLKS_TEMPLATES . '/edit/friends.php';
+
+$friend_form->renderActive();
 
 require $registry->get('templates', 'horde') . '/common-footer.inc';

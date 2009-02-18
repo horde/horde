@@ -19,7 +19,7 @@ require_once 'Horde/Variables.php';
 
 $vars = Variables::getDefaultVariables();
 $tabs = new Horde_UI_Tabs('what', $vars);
-$tabs->addTab(_("Edit my profile"), Horde::applicationUrl('edit.php'), 'edit');
+$tabs->addTab(_("Edit my profile"), Horde::applicationUrl('edit/edit.php'), 'edit');
 $tabs->addTab(_("Privacy"), Horde::applicationUrl('edit/privacy.php'), 'privacy');
 $tabs->addTab(_("Blacklist"), Horde::applicationUrl('edit/friends/blacklist.php'), 'blacklist');
 $tabs->addTab(_("Friends"),  Horde::applicationUrl('edit/friends/index.php'), 'friends');

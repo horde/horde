@@ -224,12 +224,12 @@ class Folks {
      */
     static public function sendMail($to, $subject, $body, $attaches = array())
     {
-        global $conf;
-
-        $mail = new Horde_Mime_Mail($subject, $body, $to, $conf['support'], NLS::getCharset());
+        $mail = new Horde_Mime_Mail($subject, $body, $to, $GLOBALS['conf']['support'], NLS::getCharset());
 
         require_once FOLKS_BASE . '/lib/version.php';
         $mail->addHeader('User-Agent', 'Folks ' . FOLKS_VERSION);
+        $mail->addHeader('X-Originating-IP', $_SERVER['REMOTE_ADDR']);
+        $mail->addHeader('X-Remote-Browser', $_SERVER['HTTP_USER_AGENT']);
 
         foreach ($attaches as $file) {
             if (file_exists($file)) {

@@ -31,83 +31,82 @@ if ($groups instanceof PEAR_Error) {
 // Handle action
 $action = Util::getFormData('action');
 switch ($action) {
+case 'delete':
 
-    case 'delete':
+    $g = Util::getFormdata('g');
+    $result = $friends->removeGroup($g);
+    if ($result instanceof PEAR_Error) {
+        $notification->push($result);
+    } elseif ($result) {
+        $notification->push(sprintf(_("Group \"%s\" has been deleted."), $groups[$g]), 'horde.success');
+    }
 
-        $g = Util::getFormdata('g');
-        $result = $friends->removeGroup($g);
-        if ($result instanceof PEAR_Error) {
-            $notification->push($result);
-        } elseif ($result) {
-            $notification->push(sprintf(_("Group \"%s\" has been deleted."), $groups[$g]), 'horde.success');
-        }
+    header('Location: ' . Horde::applicationUrl('edit/groups.php'));
+    exit;
 
+break;
+
+case 'edit':
+
+    $g = Util::getFormdata('g');
+    $form = new Horde_Form($vars, _("Rename group"), 'editgroup');
+    $form->addHidden('action', 'action', 'text', 'edit');
+    $form->addHidden('g', 'g', 'text', 'edit');
+    $form->setButtons(array(_("Rename"), _("Cancel")), _("Reset"));
+    $v = $form->addVariable(_("Old name"), 'old_name', 'text', false, true);
+    $v->setDefault($groups[$g]);
+    $v = $form->addVariable(_("New name"), 'new_name', 'text', true);
+    $v->setDefault($groups[$g]);
+
+    if (Util::getFormData('submitbutton') == _("Cancel")) {
+        $notification->push(sprintf(_("Group \"%s\" has not been renamed."), $groups[$g]), 'horde.warning');
         header('Location: ' . Horde::applicationUrl('edit/groups.php'));
         exit;
-
-    break;
-
-    case 'edit':
-
-        $g = Util::getFormdata('g');
-        $form = new Horde_Form($vars, _("Rename group"), 'editgroup');
-        $form->addHidden('action', 'action', 'text', 'edit');
-        $form->addHidden('g', 'g', 'text', 'edit');
-        $form->setButtons(array(_("Rename"), _("Cancel")), _("Reset"));
-        $v = $form->addVariable(_("Old name"), 'old_name', 'text', false, true);
-        $v->setDefault($groups[$g]);
-        $v = $form->addVariable(_("New name"), 'new_name', 'text', true);
-        $v->setDefault($groups[$g]);
-
-        if (Util::getFormData('submitbutton') == _("Cancel")) {
-            $notification->push(sprintf(_("Group \"%s\" has not been renamed."), $groups[$g]), 'horde.warning');
+    } elseif (Util::getFormData('submitbutton') == _("Rename")) {
+        $new_name = Util::getFormData('new_name');
+        $result = $friends->renameGroup($g, $new_name);
+        if ($result instanceof PEAR_Error) {
+            $notification->push($result);
+        } else {
+            $notification->push(sprintf(_("Group \"%s\" has been renamed to \"%s\"."), $groups[$g], $new_name), 'horde.success');
             header('Location: ' . Horde::applicationUrl('edit/groups.php'));
             exit;
-        } elseif (Util::getFormData('submitbutton') == _("Rename")) {
-            $new_name = Util::getFormData('new_name');
-            $result = $friends->renameGroup($g, $new_name);
-            if ($result instanceof PEAR_Error) {
-                $notification->push($result);
-            } else {
-                $notification->push(sprintf(_("Group \"%s\" has been renamed to \"%s\"."), $groups[$g], $new_name), 'horde.success');
-                header('Location: ' . Horde::applicationUrl('edit/groups.php'));
-                exit;
-            }
         }
+    }
 
-    break;
+break;
 
-    default:
+default:
 
-        // Manage adding groups
-        $form = new Horde_Form($vars, _("Add group"), 'addgroup');
-        $translated = Horde::loadConfiguration('groups.php', 'groups', 'folks');
-        asort($translated);
-        $form->addHidden('action', 'action', 'text', 'add');
-        $form->addVariable(_("Name"), 'translated_name', 'radio', false, false, null, array($translated, true));
-        $form->addVariable(_("Name"), 'custom_name', 'text', false, false, _("Enter custom name"));
+    // Manage adding groups
+    $form = new Horde_Form($vars, _("Add group"), 'addgroup');
+    $translated = Horde::loadConfiguration('groups.php', 'groups', 'folks');
+    asort($translated);
+    $form->addHidden('action', 'action', 'text', 'add');
+    $form->addVariable(_("Name"), 'translated_name', 'radio', false, false, null, array($translated, true));
+    $form->addVariable(_("Name"), 'custom_name', 'text', false, false, _("Enter custom name"));
 
-        if ($form->validate()) {
-            $form->getInfo(null, $info);
+    if ($form->validate()) {
+        $form->getInfo(null, $info);
+        if (empty($info['custom_name'])) {
+            $name = $info['translated_name'];
+        } else {
+            $name = $info['custom_name'];
+        }
+        $result = $friends->addGroup($name);
+        if ($result instanceof PEAR_Error) {
+            $notification->push($result);
+        } else {
             if (empty($info['custom_name'])) {
-                $name = $info['translated_name'];
-            } else {
-                $name = $info['custom_name'];
+                $name = $translated[$info['translated_name']];
             }
-            $result = $friends->addGroup($name);
-            if ($result instanceof PEAR_Error) {
-                $notification->push($result);
-            } else {
-                if (empty($info['custom_name'])) {
-                    $name = $translated[$info['translated_name']];
-                }
-                $notification->push(sprintf(_("Group \"%s\" was success added."), $name), 'horde.success');
-                header('Location: ' . Horde::applicationUrl('edit/groups.php'));
-                exit;
-            }
+            $notification->push(sprintf(_("Group \"%s\" was success added."), $name), 'horde.success');
+            header('Location: ' . Horde::applicationUrl('edit/groups.php'));
+            exit;
         }
+    }
 
-    break;
+break;
 }
 
 $remove_url = Util::addParameter(Horde::applicationUrl('edit/friends/groups.php'), 'action', 'delete');

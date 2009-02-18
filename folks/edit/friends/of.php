@@ -12,7 +12,6 @@
  */
 
 require_once dirname(__FILE__) . '/../../lib/base.php';
-require_once FOLKS_BASE . '/lib/Forms/AddFriend.php';
 require_once FOLKS_BASE . '/edit/tabs.php';
 
 $title = _("We are friends of");
