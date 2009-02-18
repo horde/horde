@@ -187,15 +187,7 @@ class Horde_Db_Adapter_Pdo_Sqlite extends Horde_Db_Adapter_Pdo_Abstract
         // collect options to build PDO Data Source Name (DSN) string
         $dsnOpts = $this->_config;
         unset($dsnOpts['adapter'], $dsnOpts['username'], $dsnOpts['password']);
-
-        // rewrite rails config key names to pdo equivalents
-        $rails2pdo = array('database' => 'dbname');
-        foreach ($rails2pdo as $from => $to) {
-            if (isset($dsnOpts[$from])) {
-                $dsnOpts[$to] = $dsnOpts[$from];
-                unset($dsnOpts[$from]);
-            }
-        }
+        $dsnOpts = $this->_railsToPdo($dsnOpts);
 
         // build DSN string
         $dsn = 'sqlite:' . $dsnOpts['dbname'];

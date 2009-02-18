@@ -162,13 +162,7 @@ abstract class Horde_Db_Adapter_Pdo_Abstract extends Horde_Db_Adapter_Abstract
     # Protected
     ##########################################################################*/
 
-    /**
-     * Parse configuration array into options for PDO constructor.
-     *
-     * @throws  Horde_Db_Exception
-     * @return  array  [dsn, username, password]
-     */
-    protected function _parseConfig()
+    protected function _checkRequiredConfig()
     {
         // check required config keys are present
         $required = array('adapter', 'username');
@@ -182,26 +176,51 @@ abstract class Horde_Db_Adapter_Pdo_Abstract extends Horde_Db_Adapter_Abstract
         if (!isset($this->_config['password'])) {
             $this->_config['password'] = '';
         }
+    }
+
+    protected function _railsToPdo($params)
+    {
+        // rewrite rails config key names to pdo equivalents
+        $rails2pdo = array('database' => 'dbname', 'socket' => 'unix_socket', 'hostspec' => 'host');
+        foreach ($rails2pdo as $from => $to) {
+            if (isset($params[$from])) {
+                $params[$to] = $params[$from];
+                unset($params[$from]);
+            }
+        }
+
+        return $params;
+    }
+
+    protected function _buildDsnString($params)
+    {
+         // build DSN string
+        $dsn = $this->_config['adapter'] . ':';
+        foreach ($params as $k => $v) {
+            $dsn .= "$k=$v;";
+        }
+        $dsn = rtrim($dsn, ';');
+
+        return $dsn;
+    }
+
+    /**
+     * Parse configuration array into options for PDO constructor.
+     *
+     * @throws  Horde_Db_Exception
+     * @return  array  [dsn, username, password]
+     */
+    protected function _parseConfig()
+    {
+        $this->_checkRequiredConfig();
 
         // collect options to build PDO Data Source Name (DSN) string
         $dsnOpts = $this->_config;
         unset($dsnOpts['adapter'], $dsnOpts['username'], $dsnOpts['password']);
-
-        // rewrite rails config key names to pdo equivalents
-        $rails2pdo = array('database' => 'dbname', 'socket' => 'unix_socket', 'hostspec' => 'host');
-        foreach ($rails2pdo as $from => $to) {
-            if (isset($dsnOpts[$from])) {
-                $dsnOpts[$to] = $dsnOpts[$from];
-                unset($dsnOpts[$from]);
-            }
-        }
+        $dsnOpts = $this->_railsToPdo($dsnOpts);
 
         // build DSN string
-        $dsn = $this->_config['adapter'] . ':';
-        foreach ($dsnOpts as $k => $v) {
-            $dsn .= "$k=$v;";
-        }
-        $dsn = rtrim($dsn, ';');
+        $dsn = $this->_buildDsnString($dsnOpts);
 
         // return DSN and user/pass for connection
         return array(

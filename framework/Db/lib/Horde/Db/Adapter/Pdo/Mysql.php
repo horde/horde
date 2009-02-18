@@ -83,20 +83,32 @@ class Horde_Db_Adapter_Pdo_Mysql extends Horde_Db_Adapter_Pdo_Abstract
     protected function _parseConfig()
     {
         $this->_config['adapter'] = 'mysql';
+        $this->_checkRequiredConfig();
 
-        if (isset($this->_config['port'])) {
-            if (empty($this->_config['host'])) {
+        // collect options to build PDO Data Source Name (DSN) string
+        $dsnOpts = $this->_config;
+        unset($dsnOpts['adapter'], $dsnOpts['username'], $dsnOpts['password']);
+        $dsnOpts = $this->_railsToPdo($dsnOpts);
+
+        if (isset($dsnOpts['port'])) {
+            if (empty($dsnOpts['host'])) {
                 $msg = 'host is required if port is specified';
                 throw new Horde_Db_Exception($msg);
             }
 
-            if (preg_match('/[^\d\.]/', $this->_config['host'])) {
+            if (preg_match('/[^\d\.]/', $dsnOpts['host'])) {
                 $msg = 'pdo_mysql ignores port unless IP address is used for host';
                 throw new Horde_Db_Exception($msg);
             }
         }
 
-        return parent::_parseConfig();
+        $dsn = $this->_buildDsnString($dsnOpts);
+
+        // return DSN and user/pass for connection
+        return array(
+            $dsn,
+            $this->_config['username'],
+            $this->_config['password']);
     }
 
 }
