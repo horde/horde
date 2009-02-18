@@ -11,8 +11,7 @@
  * @package Folks
  */
 
-define('FOLKS_BASE', dirname(__FILE__) . '/..');
-require_once FOLKS_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/../../lib/base.php';
 require_once FOLKS_BASE . '/lib/Friends.php';
 
 if (!Auth::isAuthenticated()) {
@@ -22,7 +21,7 @@ if (!Auth::isAuthenticated()) {
 $user = Util::getGet('user');
 if (empty($user)) {
     $notification->push(_("You must supply a username."));
-    header('Location: ' . Horde::applicationUrl('edit/friends.php'));
+    header('Location: ' . Horde::applicationUrl('edit/friends/index.php'));
     exit;
 }
 
@@ -30,7 +29,7 @@ $friends = Folks_Friends::singleton($conf['friends'], array('user' => $user));
 $result = $friends->removeFriend(Auth::getAuth());
 if ($result instanceof PEAR_Error) {
     $notification->push($result);
-    header('Location: ' . Horde::applicationUrl('edit/friends.php'));
+    header('Location: ' . Horde::applicationUrl('edit/friends/index.php'));
     exit;
 }
 
@@ -47,5 +46,5 @@ $body = sprintf(_("User %s rejected you as a friend on %s.. \nTo see to his prof
 
 $friends->sendNotification($user, $title, $body);
 
-header('Location: ' . Horde::applicationUrl('edit/friends.php'));
+header('Location: ' . Horde::applicationUrl('edit/friends/index.php'));
 exit;

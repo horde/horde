@@ -11,9 +11,9 @@
  * @package Folks
  */
 
-define('FOLKS_BASE', dirname(__FILE__) . '/..');
+require_once dirname(__FILE__) . '/../../lib/base.php';
 require_once FOLKS_BASE . '/lib/base.php';
-require_once 'tabs.php';
+require_once FOLKS_BASE . '/edit/tabs.php';
 
 $title = _("Groups");
 
@@ -110,12 +110,14 @@ switch ($action) {
     break;
 }
 
-$remove_url = Util::addParameter(Horde::applicationUrl('edit/groups.php'), 'action', 'delete');
+$remove_url = Util::addParameter(Horde::applicationUrl('edit/friends/groups.php'), 'action', 'delete');
 $remove_img = Horde::img('delete.png', '', '', $registry->getImageDir('horde'));
-$edit_url = Util::addParameter(Horde::applicationUrl('edit/groups.php'), 'action', 'edit');
+$edit_url = Util::addParameter(Horde::applicationUrl('edit/friends/groups.php'), 'action', 'edit');
 $edit_img = Horde::img('edit.png', '', '', $registry->getImageDir('horde'));
 $perms_url = Horde::applicationUrl('perms.php');
 $perms_img = Horde::img('perms.png', '', '', $registry->getImageDir('horde'));
+$members_url = Horde::applicationUrl('edit/friends/friends.php');
+$members_img = Horde::img('group.png', '', '', $registry->getImageDir('horde'));
 
 Horde::addScriptFile('popup.js', 'horde', true);
 

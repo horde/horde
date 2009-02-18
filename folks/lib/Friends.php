@@ -115,6 +115,19 @@ class Folks_Friends {
     }
 
     /**
+     * Queries the current object to find out if it supports the given
+     * capability.
+     *
+     * @param string $capability  The capability to test for.
+     *
+     * @return boolean  Whether or not the capability is supported.
+     */
+    public function hasCapability($capability)
+    {
+        return !empty($this->_capabilities[$capability]);
+    }
+
+    /**
      * Check if a users requies his approval to be added as a friend
      *
      * @param string $user   Usersame
@@ -408,31 +421,33 @@ class Folks_Friends {
     }
 
     /**
+     * Get user owning group
+     *
+     * @param integer Get group ID
+     *
+     * @param string Owner
+     */
+    public function getGroupOwner($group)
+    {
+        return $this->_user;
+    }
+
+    /**
      * Get user groups
      */
     public function getGroups()
     {
-        return array();
-    }
-
-    /**
-     * Delete user friend group
-     *
-     * @param string $group   Group to delete
-     */
-    public function removeGroup($group)
-    {
-        return false;
-    }
-
-    /**
-     * Add group
-     *
-     * @param string $group   Group name
-     */
-    public function addGroup($name)
-    {
-        return false;
+        $groups = $this->_cache->get('folksGroups' . $this->_user, $GLOBALS['conf']['cache']['default_lifetime']);
+        if ($groups) {
+            return unserialize($groups);
+        } else {
+            $groups = $this->_getGroups();
+            if ($groups instanceof PEAR_Error) {
+                return $groups;
+            }
+            $this->_cache->set('folksGroups' . $this->_user, serialize($groups));
+            return $groups;
+        }
     }
 
     /**

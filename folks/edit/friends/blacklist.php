@@ -11,13 +11,12 @@
  * @package Folks
  */
 
-define('FOLKS_BASE', dirname(__FILE__) . '/..');
-require_once FOLKS_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/../../lib/base.php';
 require_once FOLKS_BASE . '/lib/Forms/AddFriend.php';
-require_once 'tabs.php';
+require_once FOLKS_BASE . '/edit/tabs.php';
 
 $title = _("Blacklist");
-$remove_url = Util::addParameter(Horde::applicationUrl('edit/blacklist.php'), 'user', null);
+$remove_url = Util::addParameter(Horde::applicationUrl('edit/friends/blacklist.php'), 'user', null);
 $remove_img = Horde::img('delete.png', '', '', $registry->getImageDir('horde'));
 $profile_img = Horde::img('user.png', '', '', $registry->getImageDir('horde'));
 
@@ -34,6 +33,8 @@ if ($user) {
             $notification->push($result);
         } else {
             $notification->push(sprintf(_("User \"%s\" was removed from your blacklist."), $user), 'horde.success');
+            header('Location: ' . Horde::applicationUrl('edit/friends/blacklist.php'));
+            exit;
         }
     } else {
         $result = $friends->addBlacklisted($user);
@@ -41,15 +42,30 @@ if ($user) {
             $notification->push($result);
         } else {
             $notification->push(sprintf(_("User \"%s\" was added to your blacklist."), $user), 'horde.success');
+            header('Location: ' . Horde::applicationUrl('edit/friends/blacklist.php'));
+            exit;
         }
     }
 }
 
 // Get blacklist
-$blacklist = $friends->getBlacklist();
-if ($blacklist instanceof PEAR_Error) {
-    $notification->push($blacklist);
+$list = $friends->getBlacklist();
+if ($list instanceof PEAR_Error) {
+    $notification->push($list);
     $blacklist = array();
+}
+
+// Users online
+$online = $folks_driver->getOnlineUsers();
+if ($online instanceof PEAR_Error) {
+    return $online;
+}
+
+// Get groups
+$groups = $friends->getGroups();
+if ($groups instanceof PEAR_Error) {
+    $notification->push($groups);
+    $groups = array();
 }
 
 $form = new Folks_AddFriend_Form($vars, _("Add or remove user"), 'blacklist');
@@ -60,6 +76,6 @@ require FOLKS_TEMPLATES . '/common-header.inc';
 require FOLKS_TEMPLATES . '/menu.inc';
 
 echo $tabs->render('blacklist');
-require FOLKS_TEMPLATES . '/edit/blacklist.php';
+require FOLKS_TEMPLATES . '/edit/friends.php';
 
 require $registry->get('templates', 'horde') . '/common-footer.inc';

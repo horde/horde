@@ -226,18 +226,20 @@ class Folks {
     {
         global $conf;
 
-        require_once FOLKS_BASE . '/lib/version.php';
-        require_once 'Horde/MIME/Mail.php';
+        $mail = new Horde_Mime_Mail($subject, $body, $to, $conf['support'], NLS::getCharset());
 
-        $mail = new MIME_Mail($subject, $body, $to, $conf['support'], NLS::getCharset());
+        require_once FOLKS_BASE . '/lib/version.php';
         $mail->addHeader('User-Agent', 'Folks ' . FOLKS_VERSION);
+
         foreach ($attaches as $file) {
             if (file_exists($file)) {
                 $mail->addAttachment($file, null, null, NLS::getCharset());
             }
         }
 
-        return $mail->send($conf['mailer']['type'], $conf['mailer']['params']);
+        list($mail_driver, $mail_params) = Horde::getMailerConfig();
+
+        return $mail->send($mail_driver, $mail_params);
     }
 
     /**
@@ -290,11 +292,6 @@ class Folks {
         $menu->add(Horde::applicationUrl('services.php'), _("Services"), 'horde.png', $img);
         $menu->add(Horde::applicationUrl('search.php'), _("Search"), 'search.png', $img);
         $menu->add(self::getUrlFor('list', 'online'), _("List"), 'group.png', $img);
-        // $menu->add(self::getUrlFor('list', 'list'), _("List"), 'group.png', $img);
-        // $menu->add(self::getUrlFor('list', 'online'), _("Online"), 'group.png', $img);
-        // $menu->add(self::getUrlFor('list', 'popularity'), _("Popularity"), 'group.png', $img);
-        // $menu->add(self::getUrlFor('list', 'activity'), _("Activity"), 'group.png', $img);
-        // $menu->add(self::getUrlFor('list', 'birthday'), _("Birthday"), 'guest.png', $img);
 
         if ($returnType == 'object') {
             return $menu;

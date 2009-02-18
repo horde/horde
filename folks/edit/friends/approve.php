@@ -11,8 +11,7 @@
  * @package Folks
  */
 
-define('FOLKS_BASE', dirname(__FILE__) . '/..');
-require_once FOLKS_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/../../lib/base.php';
 require_once FOLKS_BASE . '/lib/Friends.php';
 
 if (!Auth::isAuthenticated()) {
@@ -22,7 +21,7 @@ if (!Auth::isAuthenticated()) {
 $user = Util::getGet('user');
 if (empty($user)) {
     $notification->push(_("You must supply a username."));
-    header('Location: ' . Horde::applicationUrl('edit/friends.php'));
+    header('Location: ' . Horde::applicationUrl('edit/friends/index.php'));
     exit;
 }
 
@@ -31,7 +30,7 @@ $result = $friends->approveFriend($user);
 if ($result instanceof PEAR_Error) {
     $notification->push($result);
     $notification->push($result->getDebugInfo());
-    header('Location: ' . Horde::applicationUrl('edit/friends.php'));
+    header('Location: ' . Horde::applicationUrl('edit/friends/index.php'));
     exit;
 }
 
@@ -51,5 +50,5 @@ $friends->sendNotification($user, $title, $body);
 $link = '<a href="' . Folks::getUrlFor('user', $user) . '">' . $user . '</a>';
 $folks_driver->logActivity(sprintf(_("Added user %s as a friend."), $link));
 
-header('Location: ' . Horde::applicationUrl('edit/friends.php'));
+header('Location: ' . Horde::applicationUrl('edit/friends/index.php'));
 exit;

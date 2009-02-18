@@ -5,7 +5,7 @@ echo $form->renderActive();
 if (empty($activities)) {
     echo '<ul class="notices"><li>';
     echo _("There is no activity logged for your account.");
-    echo '</li>';
+    echo '</li></ul>';
     return;
 }
 ?>
@@ -27,7 +27,7 @@ if (empty($activities)) {
         <?php echo $registry->get('name', $activity['activity_scope']) ?></a>
     </td>
     <td><?php echo Folks::format_datetime($activity['activity_date']) ?></td>
-    <td><?php echo $activity['activity_message']; unset($activity['activity_message']); var_dump($activity['activity_scope']); ?></td>
+    <td><?php echo $activity['activity_message']; unset($activity['activity_message']); ?></td>
     <td><a href="<?php echo Util::addParameter($delete_url, $activity) ?>" title="<?php echo _("Delete") ?>"/><?php echo $delete_img ?></a></td>
 </tr>
 <?php } ?>

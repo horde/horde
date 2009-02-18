@@ -19,12 +19,13 @@ require_once 'Horde/Variables.php';
 
 $vars = Variables::getDefaultVariables();
 $tabs = new Horde_UI_Tabs('what', $vars);
-$tabs->addTab(_("Edit my profile"), 'edit.php', 'edit');
-$tabs->addTab(_("Privacy"), 'privacy.php', 'privacy');
-$tabs->addTab(_("Blacklist"), 'blacklist.php', 'blacklist');
-$tabs->addTab(_("Friends"), 'friends.php', 'friends');
-$tabs->addTab(_("Activity"), 'activity.php', 'activity');
-$tabs->addTab(_("Password"), 'password.php', 'password');
+$tabs->addTab(_("Edit my profile"), Horde::applicationUrl('edit.php'), 'edit');
+$tabs->addTab(_("Privacy"), Horde::applicationUrl('edit/privacy.php'), 'privacy');
+$tabs->addTab(_("Blacklist"), Horde::applicationUrl('edit/friends/blacklist.php'), 'blacklist');
+$tabs->addTab(_("Friends"),  Horde::applicationUrl('edit/friends/index.php'), 'friends');
+$tabs->addTab(_("Groups"),  Horde::applicationUrl('edit/friends/groups.php'), 'groups');
+$tabs->addTab(_("Activity"),  Horde::applicationUrl('edit/activity.php'), 'activity');
+$tabs->addTab(_("Password"), Horde::applicationUrl('edit/password.php'), 'password');
 
 if ($conf['comments']['allow'] != 'never'
         && $registry->hasMethod('forums/doComments')) {

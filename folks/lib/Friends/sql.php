@@ -187,7 +187,7 @@ class Folks_Friends_sql extends Folks_Friends {
     /**
      * Get user groups
      */
-    public function getGroups()
+    protected function _getGroups()
     {
         return array(_("Whitelist"));
     }

@@ -11,13 +11,12 @@
  * @package Folks
  */
 
-define('FOLKS_BASE', dirname(__FILE__) . '/..');
-require_once FOLKS_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/../../lib/base.php';
 require_once FOLKS_BASE . '/lib/Forms/AddFriend.php';
-require_once 'tabs.php';
+require_once FOLKS_BASE . '/edit/tabs.php';
 
 $title = _("Friends");
-$remove_url = Horde::applicationUrl('edit/friends.php');
+$remove_url = Horde::applicationUrl('edit/friends/index.php');
 $remove_img = Horde::img('delete.png', '', '', $registry->getImageDir('horde'));
 $profile_img = Horde::img('user.png', '', '', $registry->getImageDir('horde'));
 $letter_url = '';
@@ -52,8 +51,8 @@ if ($user) {
             $body = sprintf(_("User %s added you to his firends list on %s. \nTo approve, go to: %s \nTo reject, go to: %s \nTo see to his profile, go to: %s \n"),
                             Auth::getAuth(),
                             $registry->get('name', 'horde'),
-                            Util::addParameter(Horde::applicationUrl('edit/approve.php', true, -1), 'user', Auth::getAuth()),
-                            Util::addParameter(Horde::applicationUrl('edit/reject.php', true, -1), 'user', Auth::getAuth()),
+                            Util::addParameter(Horde::applicationUrl('edit/friends/approve.php', true, -1), 'user', Auth::getAuth()),
+                            Util::addParameter(Horde::applicationUrl('edit/friends/reject.php', true, -1), 'user', Auth::getAuth()),
                             Folks::getUrlFor('user', Auth::getAuth(), true, -1));
             $friends->sendNotification($user, $title, $body);
         } else {
@@ -61,36 +60,15 @@ if ($user) {
         }
     }
 
-    header('Location: ' . Horde::applicationUrl('edit/friends.php'));
+    header('Location: ' . Horde::applicationUrl('edit/friends/index.php'));
     exit;
 }
 
 // Get friends
-$friend_list = $friends->getFriends();
-if ($friend_list instanceof PEAR_Error) {
-    $notification->push($friend_list);
-    $friend_list = array();
-}
-
-// Get friends we are waiting approval from
-$waitingFrom = $friends->waitingApprovalFrom();
-if ($waitingFrom instanceof PEAR_Error) {
-    $notification->push($waitingFrom);
-    $waitingFrom = array();
-}
-
-// Get friends we are waiting approval from
-$waitingFor = $friends->waitingApprovalFor();
-if ($waitingFor instanceof PEAR_Error) {
-    $notification->push($waitingFor);
-    $waitingFor = array();
-}
-
-// Get users who have you on friendlist
-$possibilities = $friends->getPossibleFriends();
-if ($possibilities instanceof PEAR_Error) {
-    $notification->push($waiting);
-    $possibilities = array();
+$list = $friends->getFriends();
+if ($list instanceof PEAR_Error) {
+    $notification->push($list);
+    $list = array();
 }
 
 $form = new Folks_AddFriend_Form($vars, _("Add or remove user"), 'blacklist');

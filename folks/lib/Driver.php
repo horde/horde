@@ -201,8 +201,11 @@ class Folks_Driver {
     {
         require_once FOLKS_BASE . '/lib/Friends.php';
         $friends = Folks_Friends::singleton(null, array('user' => $user));
-
-        return $friends->getFriends();
+        if ($friends) {
+            return array();
+        } else {
+            return $friends->getFriends();
+        }
     }
 
     /**

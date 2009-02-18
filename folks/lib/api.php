@@ -202,7 +202,7 @@ function _folks_getFriends($user = null)
 {
     require_once dirname(__FILE__) . '/Friends.php';
 
-    $friends = Folks_Friends::singleton(null, array('user' => $user));
+    $friends = Folks_Friends::singleton('sql', array('user' => $user));
 
     return $friends->getFriends();
 }
@@ -218,7 +218,7 @@ function _folks_addFriend($user = null)
 {
     require_once dirname(__FILE__) . '/Friends.php';
 
-    $friends = Folks_Friends::singleton(null, array('user' => $user));
+    $friends = Folks_Friends::singleton('sql', array('user' => $user));
 
     return $friends->addFriend($user);
 }
@@ -234,7 +234,7 @@ function _folks_removeFriend($user = null)
 {
     require_once dirname(__FILE__) . '/Friends.php';
 
-    $friends = Folks_Friends::singleton(null, array('user' => $user));
+    $friends = Folks_Friends::singleton('sql', array('user' => $user));
 
     return $friends->removeFriend($user);
 }
@@ -250,7 +250,7 @@ function _folks_getBlacklist($user = null)
 {
     require_once dirname(__FILE__) . '/Friends.php';
 
-    $friends = Folks_Friends::singleton(null, array('user' => $user));
+    $friends = Folks_Friends::singleton('sql', array('user' => $user));
 
     return $friends->getBlacklist();
 }
@@ -264,7 +264,7 @@ function _folks_addBlacklisted($user = null)
 {
     require_once dirname(__FILE__) . '/Friends.php';
 
-    $friends = Folks_Friends::singleton(null, array('user' => $user));
+    $friends = Folks_Friends::singleton('sql', array('user' => $user));
 
     return $friends->addBlacklisted($user);
 }
@@ -278,7 +278,7 @@ function _folks_removeBlacklisted($user = null)
 {
     require_once dirname(__FILE__) . '/Friends.php';
 
-    $friends = Folks_Friends::singleton(null, array('user' => $user));
+    $friends = Folks_Friends::singleton('sql', array('user' => $user));
 
     return $friends->removeBlacklisted($user);
 }
@@ -294,7 +294,7 @@ function _folks_isBlacklisted($user = null)
 {
     require_once dirname(__FILE__) . '/Friends.php';
 
-    $friends = Folks_Friends::singleton(null, array('user' => $user));
+    $friends = Folks_Friends::singleton('sql', array('user' => $user));
 
     return $friends->isBlacklisted(Auth::getAuth());
 }

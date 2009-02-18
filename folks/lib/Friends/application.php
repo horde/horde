@@ -107,7 +107,7 @@ class Folks_Friends_application extends Folks_Friends {
     /**
      * Get avaiable groups
      */
-    public function getGroups()
+    protected function _getGroups()
     {
         if (!$GLOBALS['registry']->hasMethod('getGroups', $this->_params['app'])) {
             return array();
