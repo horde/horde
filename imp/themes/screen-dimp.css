@@ -519,7 +519,7 @@ div.msgSubject img {
     padding-left: 4px;
     padding-right: 4px;
 }
-.dimpActions .disabled img, .dimpActions .disabled span.popdownImg, .dimpActions .disabled span.spellcheckPopdownImg {
+.dimpActions .disabled span.iconImg, .dimpActions .disabled span.spellcheckPopdownImg {
     filter: alpha(opacity=25);
     -moz-opacity: .25;
     opacity: .25;
@@ -975,6 +975,37 @@ span.iconImg, span.contextImg, span.spellcheckPopdownImg {
     width: 16px;
     margin-right: 4px;
     vertical-align: top;
+}
+
+span.dimpactionReply {
+    background-image: url("graphics/reply_menu.png");
+}
+span.dimpactionForward {
+    background-image: url("graphics/forward_menu.png");
+}
+span.dimpactionSpam {
+    background-image: url("graphics/spam_menu.png");
+}
+span.dimpactionHam {
+    background-image: url("graphics/ham_menu.png");
+}
+span.dimpactionCompose {
+    background-image: url("graphics/compose_menu.png");
+}
+span.dimpactionCheckmail {
+    background-image: url("graphics/checkmail_menu.png");
+}
+span.dimpactionDelete {
+    background-image: url("graphics/delete_menu.png");
+}
+span.dimpactionOther {
+    background-image: url("graphics/plus_menu.png");
+}
+span.dimpactionSpellcheck {
+    background-image: url("graphics/spellcheck_menu.png");
+}
+span.dimpactionDrafts {
+    background-image: url("graphics/drafts_menu.png");
 }
 
 /* Context menu images */

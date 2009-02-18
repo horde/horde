@@ -19,7 +19,7 @@ class DIMP
      * <pre>
      * 'app' - The application to load the icon from.
      * 'class' - The CSS classname to use for the link.
-     * 'icon' - The icon filename to display.
+     * 'icon' - The icon CSS classname.
      * 'id' - The DOM ID of the link.
      * 'title' - The title string.
      * 'tooltip' - Tooltip text to use.
@@ -50,9 +50,8 @@ class DIMP
                            empty($params['id']) ? array() : array('id' => $params['id']),
                            !empty($title))
             . (!empty($params['icon'])
-               ? IMP::img($params['icon'], $title, '',
-                          $GLOBALS['registry']->getImageDir(empty($params['app']) ? 'imp' : $params['app']))
-               : '')
+                  ? '<span class="iconImg dimpaction' . $params['icon'] . '"></span>'
+                  : '')
             . $title . '</a>';
     }
 

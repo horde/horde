@@ -44,15 +44,25 @@ function _createDAcompose($text, $image, $id)
 <input type="hidden" id="composeCache" name="composeCache" value="<?php echo $composeCache ?>" />
 
 <div class="dimpActions dimpActionsCompose">
- <?php _createDAcompose(_("Send"), 'forward_menu.png', 'send_button') ?>
+ <span>
+  <?php _createDAcompose(_("Send"), 'Forward', 'send_button') ?>
+ </span>
 <?php if ($GLOBALS['conf']['compose']['allow_receipts'] && $d_read != 'never'): ?>
- <label><input type="checkbox" class="checkbox" name="request_read_receipt"<?php if ($d_read != 'ask') echo ' checked="checked"' ?> /> <?php echo _("Read Receipt") ?></label>
+ <span>
+  <label><input type="checkbox" class="checkbox" name="request_read_receipt"<?php if ($d_read != 'ask') echo ' checked="checked"' ?> /> <?php echo _("Read Receipt") ?></label>
+ </span>
 <?php endif; ?>
 <?php if ($GLOBALS['conf']['user']['allow_folders'] && !$GLOBALS['prefs']->isLocked('save_sent_mail')): ?>
-  <label><input type="checkbox" class="checkbox" id="save_sent_mail" name="save_sent_mail"<?php if ($identity->saveSentmail()) echo ' checked="checked"' ?> /> <?php echo _("Save in ") ?><span id="sent_mail_folder_label"><?php echo $sent_mail_folder ?></span></label>
+  <span>
+   <label><input type="checkbox" class="checkbox" id="save_sent_mail" name="save_sent_mail"<?php if ($identity->saveSentmail()) echo ' checked="checked"' ?> /> <?php echo _("Save in ") ?><span id="sent_mail_folder_label"><?php echo $sent_mail_folder ?></span></label>
+  </span>
 <?php endif; ?>
- <?php _createDAcompose(_("Check Spelling"), 'spellcheck_menu.png', 'spellcheck') ?>
- <?php _createDAcompose(_("Save as Draft"), 'drafts_menu.png', 'draft_button') ?>
+ <span>
+  <?php _createDAcompose(_("Check Spelling"), 'Spellcheck', 'spellcheck') ?>
+ </span>
+ <span>
+  <?php _createDAcompose(_("Save as Draft"), 'Drafts', 'draft_button') ?>
+ </span>
 </div>
 
 <div id="writemsg" class="noprint">

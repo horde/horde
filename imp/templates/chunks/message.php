@@ -33,15 +33,25 @@ function _createDAfmsg($text, $image, $id, $class = '', $show_text = true)
    </div>
 
    <div class="dimpActions dimpActionsMsg">
-    <span id="button_reply_cont"><?php _createDAfmsg(_("Reply"), 'reply_menu.png', 'reply_link', 'hasmenu', $show_text) ?></span>
-    <span id="button_forward_cont"><?php _createDAfmsg(_("Forward"), 'forward_menu.png', 'forward_link', 'hasmenu', $show_text) ?></span>
+    <span>
+     <?php _createDAfmsg(_("Reply"), 'Reply', 'reply_link', 'hasmenu', $show_text) ?>
+    </span>
+    <span>
+     <?php _createDAfmsg(_("Forward"), 'Forward', 'forward_link', 'hasmenu', $show_text) ?>
+    </span>
 <?php if (!empty($conf['spam']['reporting']) && (!$conf['spam']['spamfolder'] || ($folder != IMP::folderPref($prefs->getValue('spam_folder'), true)))): ?>
-    <span><?php _createDAfmsg(_("Report Spam"), 'spam_menu.png', 'button_spam', '', $show_text) ?></span>
+    <span>
+     <?php _createDAfmsg(_("Report Spam"), 'Spam', 'button_spam', '', $show_text) ?>
+    </span>
 <?php endif; ?>
 <?php if (!empty($conf['notspam']['reporting']) && (!$conf['notspam']['spamfolder'] || ($folder == IMP::folderPref($prefs->getValue('spam_folder'), true)))): ?>
-    <span><?php _createDAfmsg(_("Report Innocent"), 'ham_menu.png', 'button_ham', '', $show_text) ?></span>
+    <span>
+     <?php _createDAfmsg(_("Report Innocent"), 'Ham', 'button_ham', '', $show_text) ?>
+    </span>
 <?php endif; ?>
-    <span><?php _createDAfmsg(_("Delete"), 'delete_menu.png', 'button_deleted', '', $show_text) ?></span>
+    <span>
+     <?php _createDAfmsg(_("Delete"), 'Delete', 'button_deleted', '', $show_text) ?>
+    </span>
    </div>
   </div>
 
