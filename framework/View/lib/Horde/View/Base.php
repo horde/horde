@@ -49,6 +49,12 @@ abstract class Horde_View_Base
     private $_encoding = 'UTF-8';
 
     /**
+     * Should we throw an error if helper methods collide?
+     * @var boolean
+     */
+    private $_throwOnHelperCollision = false;
+
+    /**
      * Constructor.
      *
      * @param array $config Configuration key-value pairs.
@@ -143,11 +149,36 @@ abstract class Horde_View_Base
     /**
      * Adds to the stack of helpers in LIFO order.
      *
-     * @param Horde_View_Helper $helper The helper instance to add.
+     * @param Horde_View_Helper $helper The helper instance to add. If this is a
+     * string instead of a Helper instance, then it will be treated as a class
+     * name. Names without "_" and that do not have "Helper" in them will be
+     * prefixed with Horde_View_Helper_; other names will be treated as literal
+     * class names. Examples:
+     *
+     *   $v->addHelper('Tag');        // Adds a new Horde_View_Helper_Tag to the view
+     *   $v->addHelper('AppHelper');  // Adds a new AppHelper object to the view if
+     *                                // it exists, otherwise throws an exception.
      */
     public function addHelper($helper)
     {
+        if (is_string($helper)) {
+            if (strpos($helper, '_') === false && strpos($helper, 'Helper') === false) {
+                $class = 'Horde_View_Helper_' . $helper;
+            } else {
+                $class = $helper;
+            }
+            if (!class_exists($class)) {
+                throw new Horde_View_Exception('Helper class ' . $helper . ' not found');
+            }
+            $helper = new $class($this);
+        }
+
         foreach (get_class_methods($helper) as $method) {
+            if (isset($this->_helpers[$method])) {
+                $msg = 'Helper method ' . get_class($this->_helpers[$helper]) . '#' . $method . ' overridden by ' . get_class($helper) . '#' . $method;
+                if ($this->_throwOnHelperCollision) { throw new Horde_View_Exception($msg); }
+                if ($this->logger)                  { $this->logger->warn($msg); }
+            }
             $this->_helpers[$method] = $helper;
         }
     }
@@ -236,6 +267,16 @@ abstract class Horde_View_Base
     public function getEncoding()
     {
         return $this->_encoding;
+    }
+
+    /**
+     * Control the behavior when a helper method is overridden by another helper
+     *
+     * @param boolean $throw  Throw an exception when helper methods collide?
+     */
+    public function throwOnHelperCollision($throw = true)
+    {
+        $this->_throwOnHelperCollision = $throw;
     }
 
     /**
