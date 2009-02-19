@@ -23,7 +23,7 @@ class Horde_Date_Repeater_Week extends Horde_Date_Repeater
 
             case 'past':
                 $sundayRepeater = new Horde_Date_Repeater_DayName('sunday');
-                $sundayRepeater->now = clone($this->now);
+                $sundayRepeater->now = clone $this->now;
                 $sundayRepeater->now->day++;
                 $sundayRepeater->next('past');
                 $lastSundaySpan = $sundayRepeater->next('past');
@@ -64,7 +64,7 @@ class Horde_Date_Repeater_Week extends Horde_Date_Repeater
             $sundayRepeater->now = $this->now;
             $lastSundaySpan = $sundayRepeater->next('past');
             $thisWeekStart = $lastSundaySpan->begin;
-            $thisWeekEnd = clone($thisWeekStart);
+            $thisWeekEnd = clone $thisWeekStart;
             $thisWeekEnd->day += 7;
             return new Horde_Date_Span($thisWeekStart, $thisWeekEnd);
         }

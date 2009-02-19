@@ -24,12 +24,12 @@ class Kronolith_FreeBusy_View {
 
     function addRequiredMember($vFreebusy)
     {
-        $this->_requiredMembers[] = Util::cloneObject($vFreebusy);
+        $this->_requiredMembers[] = clone $vFreebusy;
     }
 
     function addOptionalMember($vFreebusy)
     {
-        $this->_optionalMembers[] = Util::cloneObject($vFreebusy);
+        $this->_optionalMembers[] = clone $vFreebusy;
     }
 
     function render($day = null)

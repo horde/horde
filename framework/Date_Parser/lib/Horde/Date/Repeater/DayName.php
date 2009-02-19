@@ -29,7 +29,7 @@ class Horde_Date_Repeater_DayName extends Horde_Date_Repeater
             $this->currentDayStart->day += $direction * 7;
         }
 
-        $end = clone($this->currentDayStart);
+        $end = clone $this->currentDayStart;
         $end->day++;
         return new Horde_Date_Span($this->currentDayStart, $end);
     }

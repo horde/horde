@@ -1209,7 +1209,7 @@ class Kronolith_Event {
         }
 
         $methods = !empty($this->methods) ? $this->methods : @unserialize($prefs->getValue('event_alarms'));
-        $start = Util::cloneObject($this->start);
+        $start = clone $this->start;
         $start->min -= $this->getAlarm();
         if (isset($methods['notify'])) {
             $methods['notify']['show'] = array(

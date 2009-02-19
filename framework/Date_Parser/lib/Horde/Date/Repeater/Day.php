@@ -17,7 +17,7 @@ class Horde_Date_Repeater_Day extends Horde_Date_Repeater
         $direction = ($pointer == 'future') ? 1 : -1;
         $this->currentDayStart->day += $direction;
 
-        $end = clone($this->currentDayStart);
+        $end = clone $this->currentDayStart;
         $end->day += 1;
 
         return new Horde_Date_Span($this->currentDayStart, $end);

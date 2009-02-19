@@ -13,7 +13,7 @@ class Horde_Date_Repeater_Hour extends Horde_Date_Repeater
         }
         $this->currentHourStart->hour += $direction;
 
-        $end = clone($this->currentHourStart);
+        $end = clone $this->currentHourStart;
         $end->hour++;
         return new Horde_Date_Span($this->currentHourStart, $end);
     }

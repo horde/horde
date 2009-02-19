@@ -315,7 +315,7 @@ class Kronolith_View_Day extends Kronolith_Day {
 
             // All day events are easy; store them seperately.
             if ($event->isAllDay()) {
-                $this->_all_day_events[$cid][] = &Util::cloneObject($event);
+                $this->_all_day_events[$cid][] = clone $event;
                 ++$this->_all_day_rowspan[$cid];
                 $this->_all_day_maxrowspan = max($this->_all_day_maxrowspan, $this->_all_day_rowspan[$cid]);
             } else {
@@ -326,7 +326,7 @@ class Kronolith_View_Day extends Kronolith_Day {
                 // Initialize this event's vertical span.
                 $event->rowspan = 0;
 
-                $tmp[] = &Util::cloneObject($event);
+                $tmp[] = clone $event;
             }
         }
         $this->_events = $tmp;

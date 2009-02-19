@@ -13,7 +13,7 @@ class Horde_Date_Repeater_Minute extends Horde_Date_Repeater
         $direction = ($pointer == 'future') ? 1 : -1;
         $this->currentMinuteStart->min += $direction;
 
-        $end = clone($this->currentMinuteStart);
+        $end = clone $this->currentMinuteStart;
         $end->min++;
         return new Horde_Date_Span($this->currentMinuteStart, $end);
     }
@@ -24,13 +24,13 @@ class Horde_Date_Repeater_Minute extends Horde_Date_Repeater
 
         switch ($pointer) {
         case 'future':
-            $minuteBegin = clone($this->now);
+            $minuteBegin = clone $this->now;
             $minuteEnd = new Horde_Date(array('month' => $this->now->month, 'year' => $this->now->year, 'day' => $this->now->day, 'hour' => $this->now->hour, 'min' => $this->now->min));
             break;
 
         case 'past':
             $minuteBegin = new Horde_Date(array('month' => $this->now->month, 'year' => $this->now->year, 'day' => $this->now->day, 'hour' => $this->now->hour, 'min' => $this->now->min));
-            $minuteEnd = clone($this->now);
+            $minuteEnd = clone $this->now;
             break;
 
         case 'none':

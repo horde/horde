@@ -67,7 +67,7 @@ class Horde_Rdo_Query
     {
         if ($query instanceof Horde_Rdo_Query ||
             $query instanceof Horde_Rdo_Query_Literal) {
-            $query = clone($query);
+            $query = clone $query;
             if (!is_null($mapper)) {
                 $query->setMapper($mapper);
             }

@@ -10,13 +10,13 @@ class Horde_Date_Repeater_Second extends Horde_Date_Repeater
         $direction = ($pointer == 'future') ? 1 : -1;
 
         if (!$this->secondStart) {
-            $this->secondStart = clone($this->now);
+            $this->secondStart = clone $this->now;
             $this->secondStart->sec += $direction;
         } else {
             $this->secondStart += $direction;
         }
 
-        $end = clone($this->secondStart);
+        $end = clone $this->secondStart;
         $end->sec++;
         return new Horde_Date_Span($this->secondStart, $end);
     }
@@ -25,7 +25,7 @@ class Horde_Date_Repeater_Second extends Horde_Date_Repeater
     {
         parent::this($pointer);
 
-        $end = clone($this->now);
+        $end = clone $this->now;
         $end->sec++;
         return new Horde_Date_Span($this->now, $end);
     }

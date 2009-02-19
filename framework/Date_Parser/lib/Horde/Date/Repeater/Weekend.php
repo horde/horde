@@ -61,7 +61,7 @@ class Horde_Date_Repeater_Weekend extends Horde_Date_Repeater
     {
         $direction = ($pointer == 'future') ? 1 : -1;
         $weekend = new self();
-        $weekend->now = clone($span->begin);
+        $weekend->now = clone $span->begin;
         $start = $weekend->next($pointer)->begin;
         $start->day += ($amount - 1) * $direction * 7;
         return new Horde_Date_Span($start, $start->add($span->width()));

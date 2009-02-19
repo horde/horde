@@ -1014,9 +1014,9 @@ class Kronolith {
 
         $eventIds = Kronolith::listEventIds($startDate, $endDate, $calendars, $alarmsOnly);
 
-        $startOfPeriod = Util::cloneObject($startDate);
+        $startOfPeriod = clone $startDate;
         $startOfPeriod->hour = $startOfPeriod->min = $startOfPeriod->sec = 0;
-        $endOfPeriod = Util::cloneObject($endDate);
+        $endOfPeriod = clone $endDate;
         $endOfPeriod->hour = 23;
         $endOfPeriod->min = $endOfPeriod->sec = 59;
 
@@ -1255,7 +1255,7 @@ class Kronolith {
 
                 /* Start searching for recurrences from the day after it
                  * starts. */
-                $next = Util::cloneObject($event->start);
+                $next = clone $event->start;
                 ++$next->mday;
             }
 
@@ -1264,7 +1264,7 @@ class Kronolith {
             while ($next !== false && $next->compareDate($endDate) <= 0) {
                 if (!$event->recurrence->hasException($next->year, $next->month, $next->mday)) {
                     /* Add the event to all the days it covers. */
-                    $nextEnd = Util::cloneObject($next);
+                    $nextEnd = clone $next;
                     $nextEnd->year  += $diff[0];
                     $nextEnd->month += $diff[1];
                     $nextEnd->mday  += $diff[2];
@@ -1286,15 +1286,15 @@ class Kronolith {
             /* Work out what day it starts on. */
             if ($event->start->compareDateTime($startOfPeriod) < 0) {
                 /* It started before the beginning of the period. */
-                $eventStart = Util::cloneObject($startOfPeriod);
+                $eventStart = clone $startOfPeriod;
             } else {
-                $eventStart = Util::cloneObject($event->start);
+                $eventStart = clone $event->start;
             }
 
             /* Work out what day it ends on. */
             if ($event->end->compareDateTime($endOfPeriod) > 0) {
                 /* Ends after the end of the period. */
-                $eventEnd = Util::cloneObject($event->end);
+                $eventEnd = clone $event->end;
             } else {
                 /* If the event doesn't end at 12am set the end date to the
                  * current end date. If it ends at 12am and does not end at
@@ -1305,7 +1305,7 @@ class Kronolith {
                     $event->end->sec != 0 ||
                     $event->start->compareDateTime($event->end) == 0 ||
                     $event->isAllDay()) {
-                    $eventEnd = Util::cloneObject($event->end);
+                    $eventEnd = clone $event->end;
                 } else {
                     $eventEnd = new Horde_Date(
                         array('hour' =>  23,
@@ -1329,7 +1329,7 @@ class Kronolith {
             while ($loopDate->compareDateTime($eventEnd) <= 0) {
                 if (!$event->isAllDay() ||
                     $loopDate->compareDateTime($eventEnd) != 0) {
-                    $addEvent = Util::cloneObject($event);
+                    $addEvent = clone $event;
 
                     /* If this is the start day, set the start time to
                      * the real start time, otherwise set it to
@@ -1382,7 +1382,7 @@ class Kronolith {
         while ($loopDate->compareDateTime($eventEnd) <= 0) {
             if (!$event->isAllDay() ||
                 $loopDate->compareDateTime($eventEnd) != 0) {
-                $addEvent = Util::cloneObject($event);
+                $addEvent = clone $event;
                 $addEvent->start = $eventStart;
                 $addEvent->end = $eventEnd;
                 $results[$loopDate->dateString()][$addEvent->getId()] = $addEvent;

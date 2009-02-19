@@ -18,7 +18,7 @@ class Horde_Date_Repeater_Month extends Horde_Date_Repeater
         $direction = ($pointer == 'future') ? 1 : -1;
         $this->currentMonthStart->month += $direction;
 
-        $end = clone($this->currentMonthStart);
+        $end = clone $this->currentMonthStart;
         $end->month++;
         return new Horde_Date_Span($this->currentMonthStart, $end);
     }
