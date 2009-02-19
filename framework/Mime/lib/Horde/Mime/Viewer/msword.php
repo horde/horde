@@ -1,7 +1,7 @@
 <?php
 /**
  * The Horde_Mime_Viewer_msword class renders out Microsoft Word documents
- * in HTML format by using the wvWare package.
+ * in HTML format by using the AbiWord package.
  *
  * Copyright 1999-2009 The Horde Project (http://www.horde.org/)
  *
@@ -39,42 +39,28 @@ class Horde_Mime_Viewer_msword extends Horde_Mime_Viewer_Driver
             return array();
         }
 
-        $charset = NLS::getCharset();
         $tmp_word = Horde::getTempFile('msword');
         $tmp_output = Horde::getTempFile('msword');
-        $tmp_dir = Horde::getTempDir();
-        $tmp_file = str_replace($tmp_dir . '/', '', $tmp_output);
+        $tmp_file = str_replace(Horde::getTempDir() . '/', '', $tmp_output);
 
-        if (OS_WINDOWS) {
-            $args = ' -x ' . dirname($this->_conf['location']) . "\\wvHtml.xml -d $tmp_dir -1 $tmp_word > $tmp_output";
-        } else {
-            $version = exec($this->_conf['location'] . ' --version');
-            $args = (version_compare($version, '0.7.0') >= 0)
-                ? " --charset=$charset --targetdir=$tmp_dir $tmp_word $tmp_file"
-                : " $tmp_word $tmp_output";
-        }
-
-        $fh = fopen($tmp_word, 'w');
-        fwrite($fh, $this->_mimepart->getContents());
-        fclose($fh);
+        file_put_contents($tmp_word, $this->_mimepart->getContents());
+        $args = ' --to=html --to-name=' . $tmp_output . ' ' . $tmp_word;
 
         exec($this->_conf['location'] . $args);
 
         if (file_exists($tmp_output)) {
-            return array(
-                $this->_mimepart->getMimeId() => array(
-                    'data' => file_get_contents($tmp_output),
-                    'status' => array(),
-                    'type' => 'text/html; charset=' . $charset
-                )
-            );
+            $data = file_get_contents($tmp_output);
+            $type = 'text/html';
+        } else {
+            $data = _("Unable to translate this Word document");
+            $type = 'text/plain';
         }
 
         return array(
             $this->_mimepart->getMimeId() => array(
-                'data' => _("Unable to translate this Word document"),
+                'data' => $data,
                 'status' => array(),
-                'type' => 'text/plain; charset=' . $charset
+                'type' => $type . '; charset=' . NLS::getCharset()
             )
         );
     }
