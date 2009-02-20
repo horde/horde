@@ -546,14 +546,14 @@ if (!IMP::$printMode) {
         $conf['spam']['reporting'] &&
         ($conf['spam']['spamfolder'] ||
          ($mailbox_name != IMP::folderPref($prefs->getValue('spam_folder'), true)))) {
-        $a_template->set('spam', Horde::widget('#', _("Report as Spam"), 'widget', '', "message_submit('spam_report'); return false;", _("Report as Spam"), true));
+        $a_template->set('spam', Horde::widget('#', _("Report as Spam"), 'widget spamAction', '', '', _("Report as Spam"), true));
     }
 
     if (!$readonly &&
         $conf['notspam']['reporting'] &&
         (!$conf['notspam']['spamfolder'] ||
          ($mailbox_name == IMP::folderPref($prefs->getValue('spam_folder'), true)))) {
-        $a_template->set('notspam', Horde::widget('#', _("Report as Innocent"), 'widget', '', "message_submit('notspam_report'); return false;", _("Report as Innocent"), true));
+        $a_template->set('notspam', Horde::widget('#', _("Report as Innocent"), 'widget notspamAction', '', '', _("Report as Innocent"), true));
     }
 
     $a_template->set('redirect', Horde::widget(IMP::composeLink(array(), array('actionID' => 'redirect_compose') + $compose_params), _("Redirect"), 'widget', '', '', _("Redirec_t"), true));

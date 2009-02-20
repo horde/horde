@@ -174,6 +174,10 @@ var ImpMessage = {
                     this._transfer('move_message');
                 } else if (elt.hasClassName('copyAction')) {
                     this._transfer('copy_message');
+                } else if (elt.hasClassName('spamAction')) {
+                    this.submit('spam_report');
+                } else if (elt.hasClassName('notspamAction')) {
+                    this.submit('notspam_report');
                 }
             } else if (elt.match('SPAN.toggleQuoteShow')) {
                 [ elt, elt.next() ].invoke('toggle');
