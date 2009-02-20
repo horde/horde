@@ -49,6 +49,7 @@ CREATE TABLE kronolith_shares (
     perm_guest SMALLINT NOT NULL DEFAULT 0,
     attribute_name VARCHAR2(255) NOT NULL,
     attribute_desc VARCHAR2(255),
+    attribute_color VARCHAR2(7),
     PRIMARY KEY (share_id)
 );
 
