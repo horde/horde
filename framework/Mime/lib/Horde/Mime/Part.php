@@ -1510,7 +1510,10 @@ class Horde_Mime_Part
 
         /* Set the name. */
         if (!$ob->getName()) {
-            $ob->setName($ob->getDispositionParameter('filename'));
+            $fname = $ob->getDispositionParameter('filename');
+            if (strlen($fname)) {
+                $ob->setName($fname);
+            }
         }
 
         // @todo Handle language, location, md5, lines, envelope
