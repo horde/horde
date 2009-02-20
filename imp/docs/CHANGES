@@ -2,6 +2,7 @@
 v5.0-git
 --------
 
+[mms] Fix wrong charset on filenames when stripping attachments (Bug #7220).
 [mms] Use effects queue to prevent issues with users clicking on effects
       elements too quickly.
 [mms] Trim leading/trailing whitespace from reply text.
