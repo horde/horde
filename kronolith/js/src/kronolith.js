@@ -17,10 +17,9 @@ var frames = { horde_main: true },
 KronolithCore = {
     // Vars used and defaulting to null/false:
     //   DMenu, alertrequest, inAjaxCallback, is_logout, onDoActionComplete,
-    //   window_load, eventForm
+    //   eventForm
 
     view: '',
-    remove_gc: [],
     date: new Date(),
 
     doActionOpts: {
@@ -59,7 +58,6 @@ KronolithCore = {
     doActionComplete: function(request, callback)
     {
         this.inAjaxCallback = true;
-        var r;
 
         if (!request.responseJSON) {
             if (++this.server_error == 3) {
@@ -69,19 +67,17 @@ KronolithCore = {
             return;
         }
 
-        r = request.responseJSON;
+        var r = request.responseJSON;
 
         if (!r.msgs) {
             r.msgs = [];
         }
 
         if (r.response && Object.isFunction(callback)) {
-            if (Kronolith.conf.debug) {
+            try {
                 callback(r);
-            } else {
-                try {
-                    callback(r);
-                } catch (e) {}
+            } catch (e) {
+                this.debug('doActionComplete', e);
             }
         }
 
@@ -244,40 +240,6 @@ KronolithCore = {
         } else {
             window.location = url;
         }
-    },
-
-    /* Add/remove mouse events on the fly.
-     * Parameter: object with the following names - id, type, offset
-     *   (optional), left (optional), onShow (optional)
-     * Valid types:
-     *   'message', 'draft'  --  Message list rows
-     *   'container', 'special', 'folder'  --  Folders
-     *   'reply', 'forward', 'otheractions'  --  Message list buttons
-     *   'contacts'  --  Linked e-mail addresses */
-    addMouseEvents: function(p)
-    {
-        this.DMenu.addElement(p.id, 'ctx_' + p.type, p);
-    },
-
-    /* elt = DOM element */
-    removeMouseEvents: function(elt)
-    {
-        this.DMenu.removeElement($(elt).identify());
-        this.addGC(elt);
-    },
-
-    /* Add a popdown menu to an actions button. */
-    addPopdown: function(bid, ctx)
-    {
-        var bidelt = $(bid);
-        bidelt.insert({ after: $($('popdown_img').cloneNode(false)).writeAttribute('id', bid + '_img').show() });
-        this.addMouseEvents({ id: bid + '_img', type: ctx, offset: bidelt.up(), left: true });
-    },
-
-    /* Utility functions. */
-    addGC: function(elt)
-    {
-        this.remove_gc = this.remove_gc.concat(elt);
     },
 
     addSID: function(url)
@@ -564,78 +526,13 @@ KronolithCore = {
         container.insert(iframe);
     },
 
-    _onMenuShow: function(ctx)
-    {
-        var elts, folder, ob, sel;
-
-        switch (ctx.ctx) {
-        case 'ctx_folder':
-            elts = $('ctx_folder_create', 'ctx_folder_rename', 'ctx_folder_delete');
-            folder = this.DMenu.element();
-            if (folder.readAttribute('mbox') == 'INBOX') {
-                elts.invoke('hide');
-            } else if (Kronolith.conf.fixed_folders.indexOf(folder.readAttribute('mbox')) != -1) {
-                elts.shift();
-                elts.invoke('hide');
-            } else {
-                elts.invoke('show');
-            }
-
-            if (folder.hasAttribute('u')) {
-                $('ctx_folder_poll').hide();
-                $('ctx_folder_nopoll').show();
-            } else {
-                $('ctx_folder_poll').show();
-                $('ctx_folder_nopoll').hide();
-            }
-            break;
-
-        case 'ctx_message':
-            [ $('ctx_message_reply_list') ].invoke(this.viewport.createSelection('domid', ctx.id).get('dataob').first().listmsg ? 'show' : 'hide');
-            break;
-
-        case 'ctx_reply':
-            sel = this.viewport.getSelected();
-            if (sel.size() == 1) {
-                ob = sel.get('dataob').first();
-            }
-            [ $('ctx_reply_reply_list') ].invoke(ob && ob.listmsg ? 'show' : 'hide');
-            break;
-
-        case 'ctx_otheractions':
-            $('oa_seen', 'oa_unseen', 'oa_flagged', 'oa_clear', 'oa_sep1', 'oa_blacklist', 'oa_whitelist', 'oa_sep2').compact().invoke(this.viewport.getSelected().size() ? 'show' : 'hide');
-            break;
-        }
-        return true;
-    },
-
-    _onResize: function(noupdate, nowait)
+    onResize: function(noupdate, nowait)
     {
         this._resizeIE6();
     },
 
-    updateTitle: function()
-    {
-        var elt, label, unseen;
-        if (this.viewport.isFiltering()) {
-            label = Kronolith.text.search + ' :: ' + this.viewport.getMetaData('total_rows') + ' ' + Kronolith.text.resfound;
-        } else {
-            elt = $(this.getFolderId(this.folder));
-            if (elt) {
-                unseen = elt.readAttribute('u');
-                label = elt.readAttribute('l');
-                if (unseen > 0) {
-                    label += ' (' + unseen + ')';
-                }
-            } else {
-                label = this.viewport.getMetaData('label');
-            }
-        }
-        this.setTitle(label);
-    },
-
     /* Keydown event handler */
-    _keydownHandler: function(e)
+    keydownHandler: function(e)
     {
         var kc = e.keyCode || e.charCode;
 
@@ -646,7 +543,7 @@ KronolithCore = {
         }
     },
 
-    _keyupHandler: function(e)
+    keyupHandler: function(e)
     {
         /*
         if (e.element().readAttribute('id') == 'foo') {
@@ -654,7 +551,7 @@ KronolithCore = {
         */
     },
 
-    _clickHandler: function(e, dblclick)
+    clickHandler: function(e, dblclick)
     {
         if (e.isRightClick()) {
             return;
@@ -780,7 +677,7 @@ KronolithCore = {
         }
     },
 
-    _mouseHandler: function(e, type)
+    mouseHandler: function(e, type)
     {
         /*
         var elt = e.element();
@@ -813,8 +710,10 @@ KronolithCore = {
     },
 
     /* Onload function. */
-    onLoad: function()
+    onDomLoad: function()
     {
+        KronolithCore.init();
+
         if (Horde.dhtmlHistory.initialize()) {
             Horde.dhtmlHistory.addListener(this.go.bind(this));
         }
@@ -826,19 +725,21 @@ KronolithCore = {
             this.go(Kronolith.conf.login_view);
         }
 
-        /* Add popdown menus. */
-        /*
-        this.addPopdown('button_reply', 'reply');
-        this.DMenu.disable('button_reply_img', true, true);
-        this.addPopdown('button_forward', 'forward');
-        this.DMenu.disable('button_forward_img', true, true);
-        this.addPopdown('button_other', 'otheractions');
-        */
-
         $('kronolithMenu').select('div.kronolithCalendars div').each(function(s) {
             s.observe('mouseover', s.addClassName.curry('kronolithCalOver'));
             s.observe('mouseout', s.removeClassName.curry('kronolithCalOver'));
         });
+
+        if (Kronolith.conf.is_ie6) {
+            /* Disable text selection in preview pane for IE 6. */
+            document.observe('selectstart', Event.stop);
+
+            /* Since IE 6 doesn't support hover over non-links, use javascript
+             * events to replicate mouseover CSS behavior. */
+            $('foobar').compact().invoke('select', 'LI').flatten().compact().each(function(e) {
+                e.observe('mouseover', e.addClassName.curry('over')).observe('mouseout', e.removeClassName.curry('over'));
+            });
+        }
 
         this._resizeIE6();
     },
@@ -901,72 +802,34 @@ KronolithCore = {
         } else {
             elm.addClassName('on');
         }
+    },
+
+    // By default, no context onShow action
+    contextOnShow: Prototype.emptyFunction,
+
+    // By default, no context onClick action
+    contextOnClick: Prototype.emptyFunction,
+
+    /* Kronolith initialization function. */
+    init: function()
+    {
+        if (typeof ContextSensitive != 'undefined') {
+            this.DMenu = new ContextSensitive({ onClick: this.contextOnClick, onShow: this.contextOnShow });
+        }
+
+        /* Don't do additional onload stuff if we are in a popup. We need a
+         * try/catch block here since, if the page was loaded by an opener
+         * out of this current domain, this will throw an exception. */
+        try {
+            if (parent.opener &&
+                parent.opener.location.host == window.location.host &&
+                parent.opener.DimpCore) {
+                Kronolith.baseWindow = parent.opener.Kronolith.baseWindow || parent.opener;
+            }
+        } catch (e) {}
     }
 
 };
-
-// Initialize DMenu now.  Need to init here because IE doesn't load dom:loaded
-// in a predictable order.
-if (typeof ContextSensitive != 'undefined') {
-    KronolithCore.DMenu = new ContextSensitive();
-}
-
-document.observe('dom:loaded', function() {
-    /* Don't do additional onload stuff if we are in a popup. We need a
-     * try/catch block here since, if the page was loaded by an opener
-     * out of this current domain, this will throw an exception. */
-    try {
-        if (parent.opener &&
-            parent.opener.location.host == window.location.host &&
-            parent.opener.KronolithCore) {
-            Kronolith.baseWindow = parent.opener.Kronolith.baseWindow || parent.opener;
-        }
-    } catch (e) {}
-
-    /* Init garbage collection function - runs every 10 seconds. */
-    new PeriodicalExecuter(function() {
-        if (KronolithCore.remove_gc.size()) {
-            try {
-                $A(KronolithCore.remove_gc.splice(0, 75)).compact().invoke('stopObserving');
-            } catch (e) {
-                KronolithCore.debug('remove_gc[].stopObserving', e);
-            }
-        }
-    }, 10);
-
-    //$('kronolithLoading').hide();
-    //$('kronolithPage').show();
-
-    /* Start message list loading as soon as possible. */
-    KronolithCore.onLoad();
-
-    /* Bind key shortcuts. */
-    document.observe('keydown', KronolithCore._keydownHandler.bindAsEventListener(KronolithCore));
-    document.observe('keyup', KronolithCore._keyupHandler.bindAsEventListener(KronolithCore));
-
-    /* Bind mouse clicks. */
-    document.observe('click', KronolithCore._clickHandler.bindAsEventListener(KronolithCore));
-    document.observe('dblclick', KronolithCore._clickHandler.bindAsEventListener(KronolithCore, true));
-    document.observe('mouseover', KronolithCore._mouseHandler.bindAsEventListener(KronolithCore, 'over'));
-
-    /* Resize elements on window size change. */
-    Event.observe(window, 'resize', KronolithCore._onResize.bind(KronolithCore));
-
-    if (Kronolith.conf.is_ie6) {
-        /* Disable text selection in preview pane for IE 6. */
-        document.observe('selectstart', Event.stop);
-
-        /* Since IE 6 doesn't support hover over non-links, use javascript
-         * events to replicate mouseover CSS behavior. */
-        $('foobar').compact().invoke('select', 'LI').flatten().compact().each(function(e) {
-            e.observe('mouseover', e.addClassName.curry('over')).observe('mouseout', e.removeClassName.curry('over'));
-        });
-    }
-});
-
-Event.observe(window, 'load', function() {
-    KronolithCore.window_load = true;
-});
 
 /* Helper methods for setting/getting element text without mucking
  * around with multiple TextNodes. */
@@ -1084,3 +947,12 @@ Object.extend(Date.prototype, {
         return this.toString('yyyyMMdd');
     }
 });
+
+/* Initialize global event handlers. */
+document.observe('dom:loaded', KronolithCore.onDomLoad.bind(KronolithCore));
+document.observe('keydown', KronolithCore.keydownHandler.bindAsEventListener(KronolithCore));
+document.observe('keyup', KronolithCore.keyupHandler.bindAsEventListener(KronolithCore));
+document.observe('click', KronolithCore.clickHandler.bindAsEventListener(KronolithCore));
+document.observe('dblclick', KronolithCore.clickHandler.bindAsEventListener(KronolithCore, true));
+document.observe('mouseover', KronolithCore.mouseHandler.bindAsEventListener(KronolithCore, 'over'));
+Event.observe(window, 'resize', KronolithCore.onResize.bind(KronolithCore));
