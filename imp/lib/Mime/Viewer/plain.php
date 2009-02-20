@@ -87,7 +87,7 @@ class IMP_Horde_Mime_Viewer_plain extends Horde_Mime_Viewer_plain
                 $list_info = $imp_ui->getListInformation($header);
                 $hideBlocks = $list_info['exists'];
             }
-            $filters['highlightquotes'] = array('hideBlocks' => $hideBlocks);
+            $filters['highlightquotes'] = array('hideBlocks' => $hideBlocks, 'outputJS' => false);
         }
 
         // Highlight simple markup of an email.

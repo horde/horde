@@ -486,6 +486,17 @@ DimpCore = {
                 tmp = elt.down();
                 [ tmp.down(), tmp.down(1), tmp.next() ].invoke('toggle');
                 break;
+
+            default:
+                // CSS class based matching
+                if (elt.match('SPAN.toggleQuoteShow')) {
+                    [ elt, elt.next() ].invoke('toggle');
+                    Effect.BlindDown(elt.next(1), { duration: 0.2, queue: { position: 'end', scope: 'showquote', limit: 2 } });
+                } else if (elt.match('SPAN.toggleQuoteHide')) {
+                    [ elt, elt.previous() ].invoke('toggle');
+                    Effect.BlindUp(elt.next(), { duration: 0.2, queue: { position: 'end', scope: 'showquote', limit: 2 } });
+                }
+                break;
             }
 
             elt = elt.up();

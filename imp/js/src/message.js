@@ -162,14 +162,28 @@ var ImpMessage = {
 
     _clickHandler: function(e)
     {
+        if (e.isRightClick()) {
+            return;
+        }
+
         var elt = e.element();
 
-        if (elt.match('.msgactions A.widget')) {
-            if (elt.hasClassName('moveAction')) {
-                this._transfer('move_message');
-            } else if (elt.hasClassName('copyAction')) {
-                this._transfer('copy_message');
+        while (Object.isElement(elt)) {
+            if (elt.match('.msgactions A.widget')) {
+                if (elt.hasClassName('moveAction')) {
+                    this._transfer('move_message');
+                } else if (elt.hasClassName('copyAction')) {
+                    this._transfer('copy_message');
+                }
+            } else if (elt.match('SPAN.toggleQuoteShow')) {
+                [ elt, elt.next() ].invoke('toggle');
+                Effect.BlindDown(elt.next(1), { duration: 0.2, queue: { position: 'end', scope: 'showquote', limit: 2 } });
+            } else if (elt.match('SPAN.toggleQuoteHide')) {
+                [ elt, elt.previous() ].invoke('toggle');
+                Effect.BlindUp(elt.next(), { duration: 0.2, queue: { position: 'end', scope: 'showquote', limit: 2 } });
             }
+
+            elt = elt.up();
         }
     }
 
