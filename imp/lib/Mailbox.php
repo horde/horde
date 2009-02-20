@@ -562,6 +562,10 @@ class IMP_Mailbox
 
         case 'uid':
             $this->_arrayIndex = $this->getArrayIndex($data);
+            if (empty($this->_arrayIndex)) {
+                $this->_rebuild(true);
+                $this->_arrayIndex = $this->getArrayIndex($data);
+            }
             break;
         }
     }
@@ -597,7 +601,7 @@ class IMP_Mailbox
             (!is_null($this->_arrayIndex) &&
              !$this->_searchmbox &&
              !$this->getIMAPIndex(1))) {
-            $this->_build = false;
+            $this->_sorted = null;
             $this->_buildMailbox();
         }
     }
