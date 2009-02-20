@@ -170,8 +170,13 @@ class Horde_Db_Adapter_Pdo_Sqlite extends Horde_Db_Adapter_Pdo_Abstract
         }
     }
 
+    protected function _buildDsnString($params)
+    {
+        return 'sqlite:' . $params['dbname'];
+    }
+
     /**
-     * Parse YAML configuration array into options for PDO constructor
+     * Parse configuration array into options for PDO constructor
      *
      * @throws  Horde_Db_Exception
      * @return  array  [dsn, username, password]
@@ -187,13 +192,9 @@ class Horde_Db_Adapter_Pdo_Sqlite extends Horde_Db_Adapter_Pdo_Abstract
         // collect options to build PDO Data Source Name (DSN) string
         $dsnOpts = $this->_config;
         unset($dsnOpts['adapter'], $dsnOpts['username'], $dsnOpts['password']);
-        $dsnOpts = $this->_railsToPdo($dsnOpts);
-
-        // build DSN string
-        $dsn = 'sqlite:' . $dsnOpts['dbname'];
 
         // return DSN and dummy user/pass for connection
-        return array($dsn, '', '');
+        return array($this->_buildDsnString($this->_normalizeConfig($dsnOpts)), '', '');
     }
 
 }

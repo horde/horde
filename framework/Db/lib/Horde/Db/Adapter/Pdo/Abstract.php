@@ -178,11 +178,11 @@ abstract class Horde_Db_Adapter_Pdo_Abstract extends Horde_Db_Adapter_Abstract
         }
     }
 
-    protected function _railsToPdo($params)
+    protected function _normalizeConfig($params)
     {
-        // rewrite rails config key names to pdo equivalents
-        $rails2pdo = array('database' => 'dbname', 'socket' => 'unix_socket', 'hostspec' => 'host');
-        foreach ($rails2pdo as $from => $to) {
+        // normalize config parameters to what PDO expects
+        $normalize = array('database' => 'dbname', 'socket' => 'unix_socket', 'hostspec' => 'host');
+        foreach ($normalize as $from => $to) {
             if (isset($params[$from])) {
                 $params[$to] = $params[$from];
                 unset($params[$from]);
@@ -194,14 +194,11 @@ abstract class Horde_Db_Adapter_Pdo_Abstract extends Horde_Db_Adapter_Abstract
 
     protected function _buildDsnString($params)
     {
-         // build DSN string
         $dsn = $this->_config['adapter'] . ':';
         foreach ($params as $k => $v) {
             $dsn .= "$k=$v;";
         }
-        $dsn = rtrim($dsn, ';');
-
-        return $dsn;
+        return rtrim($dsn, ';');
     }
 
     /**
@@ -217,14 +214,10 @@ abstract class Horde_Db_Adapter_Pdo_Abstract extends Horde_Db_Adapter_Abstract
         // collect options to build PDO Data Source Name (DSN) string
         $dsnOpts = $this->_config;
         unset($dsnOpts['adapter'], $dsnOpts['username'], $dsnOpts['password']);
-        $dsnOpts = $this->_railsToPdo($dsnOpts);
-
-        // build DSN string
-        $dsn = $this->_buildDsnString($dsnOpts);
 
         // return DSN and user/pass for connection
         return array(
-            $dsn,
+            $this->_buildDsnString($this->_normalizeConfig($dsnOpts)),
             $this->_config['username'],
             $this->_config['password']);
     }
