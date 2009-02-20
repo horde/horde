@@ -198,7 +198,7 @@ class IMP_Horde_Mime_Viewer_html extends Horde_Mime_Viewer_html
 
         if ($inline) {
             /* Put div around message. */
-            $data = '<div id="html-message">' . $data . '</div>';
+            $data = '<div class="htmlMessage">' . $data . '</div>';
         }
 
         /* Only display images if specifically allowed by user. */
@@ -208,10 +208,7 @@ class IMP_Horde_Mime_Viewer_html extends Horde_Mime_Viewer_html
             preg_match($this->_img_regex, $data)) {
             /* Make sure the URL parameters are correct for the current
              * message. */
-            $url = Util::removeParameter(Horde::selfUrl(true), array('index'));
-            if ($inline) {
-                $url = Util::removeParameter($url, array('actionID'));
-            }
+            $url = Util::removeParameter(Horde::selfUrl(true), array('actionID', 'index'));
             $url = Util::addParameter($url, 'index', $this->_params['contents']->getIndex());
 
             $view_img = Util::getFormData('view_html_images');
@@ -221,12 +218,12 @@ class IMP_Horde_Mime_Viewer_html extends Horde_Mime_Viewer_html
                 $data .= Util::bufferOutput(array('Horde', 'addScriptFile'), 'prototype.js', 'horde', true) .
                     Util::bufferOutput(array('Horde', 'addScriptFile'), 'imp.js', 'imp', true);
 
+                // Unblock javascript code in js/src/imp.js
                 $cleanhtml['status'][] = array(
                     'icon' => Horde::img('mime/image.png'),
-                    'id' => 'impblockimages',
                     'text' => array(
                         String::convertCharset(_("Images have been blocked to protect your privacy."), $charset, $msg_charset),
-                        Horde::link(Util::addParameter($url, 'view_html_images', 1), '', '', '', 'return IMP.unblockImages(' . (!$inline ? 'document.body' : '$(\'html-message\')') . ', \'impblockimages\');', '', '', $inline ? array() : array('style' => 'color:blue')) . String::convertCharset(_("Show Images?"), $charset, $msg_charset) . '</a>'
+                        Horde::link(Util::addParameter($url, 'view_html_images', 1), '', 'unblockImageLink') . String::convertCharset(_("Show Images?"), $charset, $msg_charset) . '</a>'
                     )
                 );
 

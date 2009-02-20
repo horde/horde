@@ -164,29 +164,29 @@ form#search div {
 }
 
 /* Based on the Mozilla default definitions */
-#html-message td {
+.htmlMessage td {
     padding: 0;
 }
-#html-message ul {
+.htmlMessage ul {
     display: block;
     list-style-type: disc;
     margin: 1em 0;
     -moz-padding-start: 40px;
 }
-#html-message ol {
+.htmlMessage ol {
     display: block;
     list-style-type: decimal;
     margin: 1em 0;
     -moz-padding-start: 40px;
 }
-#html-message p {
+.htmlMessage p {
     display: block;
     margin: 1em 0;
 }
-#html-message blockquote {
+.htmlMessage blockquote {
     margin: 1em 40px;
 }
-#html-message blockquote[type="cite"] {
+.htmlMessage blockquote[type="cite"] {
     margin-left: 0;
     margin-right: 0;
     padding-left: 1em;

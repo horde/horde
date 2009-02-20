@@ -489,7 +489,9 @@ DimpCore = {
 
             default:
                 // CSS class based matching
-                if (elt.match('SPAN.toggleQuoteShow')) {
+                if (elt.hasClassName('unblockImageLink')) {
+                    IMP.unblockImages(e);
+                } else if (elt.match('SPAN.toggleQuoteShow')) {
                     [ elt, elt.next() ].invoke('toggle');
                     Effect.BlindDown(elt.next(1), { duration: 0.2, queue: { position: 'end', scope: 'showquote', limit: 2 } });
                 } else if (elt.match('SPAN.toggleQuoteHide')) {

@@ -64,17 +64,13 @@ IMP.popup = function(url, width, height, args)
 };
 
 /**
- * Use DOM manipulation to un-block images that had been redirected.
+ * Use DOM manipulation to un-block images.
  */
-IMP.unblockImages = function(p, message)
+IMP.unblockImages = function(e)
 {
-    var tmp;
+    var elt = e.element().up('TABLE.mimeStatusMessage');
 
-    if (!p) {
-        return true;
-    }
-
-    $(p).select('[blocked]').each(function(elt) {
+    elt.next('.htmlMessage').select('[blocked]').each(function(elt) {
         var src = decodeURIComponent(elt.readAttribute('blocked'));
         if (elt.hasAttribute('src')) {
             elt.writeAttribute('src', src);
@@ -85,20 +81,9 @@ IMP.unblockImages = function(p, message)
         }
     });
 
-    message = $(message);
-    if (message) {
-        tmp = message.up();
-        message.remove();
-        if (!tmp.childElements().size()) {
-            tmp = tmp.up('TABLE.mimeStatusMessage');
-            if (tmp) {
-                tmp.remove();
-            }
-        }
-    }
+    Effect.Fade(elt, { duration: 0.6, afterFinish: function() { elt.remove(); } });
 
-    // On success return false to stop event propagation.
-    return false;
+    e.stop();
 };
 
 document.observe('dom:loaded', function() {

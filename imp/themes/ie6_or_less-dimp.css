@@ -58,6 +58,6 @@ form#compose {
 }
 
 /* Fixes li & ol list numbering issues in HTML messages. */
-#html-message ul li, #html-message ol li {
+.htmlMessage ul li, .htmlMessage ol li {
     margin-left: 2em;
 }

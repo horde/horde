@@ -179,6 +179,8 @@ var ImpMessage = {
                 } else if (elt.hasClassName('notspamAction')) {
                     this.submit('notspam_report');
                 }
+            } else if (elt.hasClassName('unblockImageLink')) {
+                IMP.unblockImages(e);
             } else if (elt.match('SPAN.toggleQuoteShow')) {
                 [ elt, elt.next() ].invoke('toggle');
                 Effect.BlindDown(elt.next(1), { duration: 0.2, queue: { position: 'end', scope: 'showquote', limit: 2 } });

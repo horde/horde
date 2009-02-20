@@ -31,7 +31,7 @@
 }
 
 /* Based on the Mozilla default defintions */
-#html-message blockquote[type="cite"] {
+.htmlMessage blockquote[type="cite"] {
     padding-left: 0;
     padding-right: 1em;
 }
