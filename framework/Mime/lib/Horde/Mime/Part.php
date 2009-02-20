@@ -1475,12 +1475,9 @@ class Horde_Mime_Part
         if (isset($data['disposition'])) {
             $ob->setDisposition($data['disposition']);
             if (!empty($data['dparameters'])) {
-                foreach ($data['dparameters'] as $key => $val) {
-                    /* Disposition parameters are supposed to be encoded via
-                     * RFC 2231, but many mailers do RFC 2045 encoding
-                     * instead. */
-                    // @todo: RFC 2231 decoding
-                    $ob->setDispositionParameter($key, Horde_Mime::decode($val));
+                $params = Horde_Mime::decodeParam('content-disposition', $data['dparameters']);
+                foreach ($params['params'] as $key => $val) {
+                    $ob->setDispositionParameter($key, $val);
                 }
             }
         }
@@ -1494,11 +1491,9 @@ class Horde_Mime_Part
         }
 
         if (!empty($data['parameters'])) {
-            foreach ($data['parameters'] as $key => $val) {
-                /* Content-type parameters are supposed to be encoded via RFC
-                 * 2231, but many mailers do RFC 2045 encoding instead. */
-                // @todo: RFC 2231 decoding
-                $ob->setContentTypeParameter($key, Horde_Mime::decode($val));
+            $params = Horde_Mime::decodeParam('content-type', $data['parameters']);
+            foreach ($params['params'] as $key => $val) {
+                $ob->setContentTypeParameter($key, $val);
             }
         }
 

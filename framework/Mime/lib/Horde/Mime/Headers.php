@@ -82,12 +82,7 @@ class Horde_Mime_Headers
                     /* MIME encoded headers (RFC 2231). */
                     $text = $val[$key];
                     foreach ($ob['params'] as $name => $param) {
-                        foreach (Horde_Mime::encodeParam($name, $param, $charset) as $name2 => $param2) {
-                            /* Escape certain characters in params (See RFC
-                             * 2045 [Appendix A]. */
-                            if (strcspn($param2, "\11\40\"(),/:;<=>?@[\\]") != strlen($param2)) {
-                                $param2 = '"' . addcslashes($param2, '\\"') . '"';
-                            }
+                        foreach (Horde_Mime::encodeParam($name, $param, $charset, array('escape' => true)) as $name2 => $param2) {
                             $text .= '; ' . $name2 . '=' . $param2;
                         }
                     }
@@ -541,7 +536,7 @@ class Horde_Mime_Headers
             } else {
                 if (!is_null($currheader)) {
                     if (in_array(String::lower($currheader), $mime)) {
-                        $res = Horde_Mime::decodeParam($currheader . ': ' . $currtext);
+                        $res = Horde_Mime::decodeParam($currheader, $currtext);
                         $to_process[] = array($currheader, $res['val'], array('decode' => true, 'params' => $res['params']));
                     } else {
                         $to_process[] = array($currheader, $currtext, array('decode' => true));
