@@ -94,35 +94,43 @@ var ImpSearch = {
 
     clickHandler: function(e)
     {
+        if (e.isRightClick()) {
+            return;
+        }
+
         var elt = e.element();
 
-        if (elt.hasClassName('searchSubmit')) {
-            this._formCheck();
-        } else if (elt.hasClassName('searchReset')) {
-            this._reset();
-        } else if (elt.hasClassName('searchDelete')) {
-            this._deleteField(elt.readAttribute('fid'));
-        } else {
-            switch (elt.readAttribute('id')) {
-            case 'link_sel_all':
-                this._toggleAll(true);
-                break;
+        while (Object.isElement(elt)) {
+            if (elt.hasClassName('searchSubmit')) {
+                this._formCheck();
+            } else if (elt.hasClassName('searchReset')) {
+                this._reset();
+            } else if (elt.hasClassName('searchDelete')) {
+                this._deleteField(elt.readAttribute('fid'));
+            } else {
+                switch (elt.readAttribute('id')) {
+                case 'link_sel_all':
+                    this._toggleAll(true);
+                    break;
 
-            case 'link_sel_none':
-                this._toggleAll(false);
-                break;
+                case 'link_sel_none':
+                    this._toggleAll(false);
+                    break;
 
-            case 'link_sub':
-                this._showSubscribed(this.inverse_sub);
-                break;
+                case 'link_sub':
+                    this._showSubscribed(this.inverse_sub);
+                    break;
 
-            case 'search_match_and':
-            case 'search_match_or':
-                if ($('field_1')) {
-                    $('search').submit();
+                case 'search_match_and':
+                case 'search_match_or':
+                    if ($('field_1')) {
+                        $('search').submit();
+                    }
+                    break;
                 }
-                break;
             }
+
+            elt = elt.up();
         }
     }
 

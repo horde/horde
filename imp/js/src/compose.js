@@ -274,22 +274,30 @@ var ImpCompose = {
 
     clickHandler: function(e)
     {
+        if (e.isRightClick()) {
+            return;
+        }
+
         var elt = e.element(), name;
 
-        if (elt.hasClassName('button')) {
-            name = elt.readAttribute('name');
-            switch (name) {
-            case 'btn_add_attachment':
-            case 'btn_redirect':
-            case 'btn_save_draft':
-            case 'btn_send_message':
-                this.uniqSubmit(name.substring(4), e);
-                break;
+        while (Object.isElement(elt)) {
+            if (elt.hasClassName('button')) {
+                name = elt.readAttribute('name');
+                switch (name) {
+                case 'btn_add_attachment':
+                case 'btn_redirect':
+                case 'btn_save_draft':
+                case 'btn_send_message':
+                    this.uniqSubmit(name.substring(4), e);
+                    break;
 
-            case 'btn_cancel_compose':
-                this.confirmCancel(e);
-                break;
+                case 'btn_cancel_compose':
+                    this.confirmCancel(e);
+                    break;
+                }
             }
+
+            elt = elt.up();
         }
     },
 

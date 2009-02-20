@@ -102,14 +102,24 @@ var ImpLogin = {
 
     _clickHandler: function(e)
     {
-        switch (e.element().readAttribute('id')) {
-        case 'btn_login':
-            this._reload();
-            break;
+        if (e.isRightClick()) {
+            return;
+        }
 
-        case 'loginButton':
-            this.submit();
-            break;
+        var elt = e.element();
+
+        while (Object.isElement(elt)) {
+            switch (elt.readAttribute('id')) {
+            case 'btn_login':
+                this._reload();
+                break;
+
+            case 'loginButton':
+                this.submit();
+                break;
+            }
+
+            elt = elt.up();
         }
     }
 

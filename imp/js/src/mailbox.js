@@ -260,62 +260,71 @@ var ImpMessage = {
 
     clickHandler: function(e)
     {
-        var elt = e.element(),
+        if (e.isRightClick()) {
+            return;
+        }
+
+        var elt = e.element(), id;
+
+        while (Object.isElement(elt)) {
             id = elt.readAttribute('id');
 
-        if (elt.match('.msgactions A.widget')) {
-            if (elt.hasClassName('moveAction')) {
-                this._transfer('move_messages');
-            } else if (elt.hasClassName('copyAction')) {
-                this._transfer('copy_messages');
-            } else if (elt.hasClassName('permdeleteAction')) {
-                if (confirm(IMP.text.mailbox_delete)) {
+            if (elt.match('.msgactions A.widget')) {
+                if (elt.hasClassName('moveAction')) {
+                    this._transfer('move_messages');
+                } else if (elt.hasClassName('copyAction')) {
+                    this._transfer('copy_messages');
+                } else if (elt.hasClassName('permdeleteAction')) {
+                    if (confirm(IMP.text.mailbox_delete)) {
+                        this.submit('delete_messages');
+                    }
+                } else if (elt.hasClassName('deleteAction')) {
                     this.submit('delete_messages');
+                } else if (elt.hasClassName('undeleteAction')) {
+                    this.submit('undelete_messages');
+                } else if (elt.hasClassName('blacklistAction')) {
+                    this.submit('blacklist');
+                } else if (elt.hasClassName('whitelistAction')) {
+                    this.submit('whitelist');
+                } else if (elt.hasClassName('forwardAction')) {
+                    this.submit('fwd_digest');
+                } else if (elt.hasClassName('spamAction')) {
+                    this.submit('spam_report');
+                } else if (elt.hasClassName('notspamAction')) {
+                    this.submit('notspam_report');
+                } else if (elt.hasClassName('viewAction')) {
+                    this.submit('view_messages');
+                } else if (elt.hasClassName('hideAction') || elt.hasClassName('purgeAction')) {
+                	return;
                 }
-            } else if (elt.hasClassName('deleteAction')) {
-                this.submit('delete_messages');
-            } else if (elt.hasClassName('undeleteAction')) {
-                this.submit('undelete_messages');
-            } else if (elt.hasClassName('blacklistAction')) {
-                this.submit('blacklist');
-            } else if (elt.hasClassName('whitelistAction')) {
-                this.submit('whitelist');
-            } else if (elt.hasClassName('forwardAction')) {
-                this.submit('fwd_digest');
-            } else if (elt.hasClassName('spamAction')) {
-                this.submit('spam_report');
-            } else if (elt.hasClassName('notspamAction')) {
-                this.submit('notspam_report');
-            } else if (elt.hasClassName('viewAction')) {
-                this.submit('view_messages');
-            } else if (elt.hasClassName('hideAction') || elt.hasClassName('purgeAction')) {
-            	return;
+
+                e.stop();
+                return;
             }
 
-            e.stop();
-            return;
-        }
-
-        if (!id) {
-            return;
-        }
-
-        switch (id) {
-        case 'checkheader':
-        case 'checkAll':
-            if (id == 'checkheader') {
-                $('checkAll').checked = !$('checkAll').checked;
+            if (!id) {
+                return;
             }
-            this.makeSelection(-1);
-            return;
-        }
 
-        if (id.startsWith('check') && elt.hasClassName('checkbox')) {
-            this.selectRange(e);
-        } else if (!this.sortlimit &&
-                  elt.match('TH') &&
-                  elt.up('TABLE.messageList')) {
-            document.location.href = elt.down('A').href;
+            switch (id) {
+            case 'checkheader':
+            case 'checkAll':
+                if (id == 'checkheader') {
+                    $('checkAll').checked = !$('checkAll').checked;
+                }
+                this.makeSelection(-1);
+                return;
+            }
+
+            if (id.startsWith('check') && elt.hasClassName('checkbox')) {
+                this.selectRange(e);
+            } else if (!this.sortlimit &&
+                      elt.match('TH') &&
+                      elt.up('TABLE.messageList')) {
+                document.location.href = elt.down('A').href;
+            }
+
+            elt = elt.up();
         }
     },
 

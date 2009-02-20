@@ -32,11 +32,21 @@ var ImpAcl = {
 
     clickHandler: function(e)
     {
-        switch (e.element().readAttribute('id')) {
-        case 'changefolder':
-        case 'resetbut':
-            this.folderChange(e, true);
-            break;
+        if (e.isRightClick()) {
+            return;
+        }
+
+        var elt = e.element();
+
+        while (Object.isElement(elt)) {
+            switch (elt.readAttribute('id')) {
+            case 'changefolder':
+            case 'resetbut':
+                this.folderChange(e, true);
+                break;
+            }
+
+            elt = elt.up();
         }
     }
 

@@ -49,27 +49,37 @@ var ImpFetchmailprefs = {
 
     _clickHandler: function(e)
     {
-        switch (e.element().readAttribute('id')) {
-        case 'btn_delete':
-            $('actionID').setValue('fetchmail_prefs_delete');
-            break;
+        if (e.isRightClick()) {
+            return;
+        }
 
-        case 'btn_create':
-            $('actionID').setValue('fetchmail_create');
-            this._accountSubmit(true);
-            break;
+        var elt = e.element();
 
-        case 'btn_return':
-            document.location.href = this.prefsurl;
-            break;
+        while (Object.isElement(elt)) {
+            switch (elt.readAttribute('id')) {
+            case 'btn_delete':
+                $('actionID').setValue('fetchmail_prefs_delete');
+                break;
 
-        case 'btn_save':
-            $('actionID').setValue('fetchmail_prefs_save');
-            break;
+            case 'btn_create':
+                $('actionID').setValue('fetchmail_create');
+                this._accountSubmit(true);
+                break;
 
-        case 'btn_select':
-            document.location.href = this.fetchurl;
-            break;
+            case 'btn_return':
+                document.location.href = this.prefsurl;
+                break;
+
+            case 'btn_save':
+                $('actionID').setValue('fetchmail_prefs_save');
+                break;
+
+            case 'btn_select':
+                document.location.href = this.fetchurl;
+                break;
+            }
+
+            elt = elt.up();
         }
     }
 

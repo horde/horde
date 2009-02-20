@@ -174,19 +174,29 @@ var ImpFolders = {
 
     clickHandler: function(e)
     {
-        switch (e.element().readAttribute('id')) {
-        case 'btn_import':
-            this.submitAction('import_mbox');
-            break;
+        if (e.isRightClick()) {
+            return;
+        }
 
-        case 'btn_return':
-            document.location.href = this.folders_url;
-            break;
+        var elt = e.element();
 
-        case 'checkAll0':
-        case 'checkAll1':
-            this.toggleSelection();
-            break;
+        while (Object.isElement(elt)) {
+            switch (elt.readAttribute('id')) {
+            case 'btn_import':
+                this.submitAction('import_mbox');
+                break;
+
+            case 'btn_return':
+                document.location.href = this.folders_url;
+                break;
+
+            case 'checkAll0':
+            case 'checkAll1':
+                this.toggleSelection();
+                break;
+            }
+
+            elt = elt.up();
         }
     }
 

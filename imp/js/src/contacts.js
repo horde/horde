@@ -141,26 +141,36 @@ var ImpContacts = {
 
     _clickHandler: function(e)
     {
-        var id = e.element().readAttribute('id');
+        if (e.isRightClick()) {
+            return;
+        }
 
-        switch (id) {
-        case 'btn_add_to':
-        case 'btn_add_cc':
-        case 'btn_add_bcc':
-            this.addAddress(id.substring(8));
-            break;
+        var elt = e.element(), id;
 
-        case 'btn_update':
-            this.updateMessage();
-            break;
+        while (Object.isElement(elt)) {
+            id = elt.readAttribute('id');
 
-        case 'btn_delete':
-            this.removeAddress();
-            break;
+            switch (id) {
+            case 'btn_add_to':
+            case 'btn_add_cc':
+            case 'btn_add_bcc':
+                this.addAddress(id.substring(8));
+                break;
 
-        case 'btn_cancel':
-            window.close();
-            break;
+            case 'btn_update':
+                this.updateMessage();
+                break;
+
+            case 'btn_delete':
+                this.removeAddress();
+                break;
+
+            case 'btn_cancel':
+                window.close();
+                break;
+            }
+
+            elt = elt.up();
         }
     },
 
