@@ -21,6 +21,17 @@ class Kronolith_Driver_ical extends Kronolith_Driver {
         return array();
     }
 
+    /**
+     * Lists all events in the time range, optionally restricting
+     * results to only events with alarms.
+     *
+     * @param Horde_Date $startInterval  Start of range date object.
+     * @param Horde_Date $endInterval    End of range data object.
+     * @param boolean $hasAlarm          Only return events with alarms?
+     *                                   Defaults to all events.
+     *
+     * @return array  Events in the given time range.
+     */
     function listEvents($startDate = null, $endDate = null, $hasAlarm = false)
     {
         $data = Kronolith::getRemoteCalendar($url);
@@ -29,7 +40,7 @@ class Kronolith_Driver_ical extends Kronolith_Driver {
         }
 
         require_once 'Horde/iCalendar.php';
-        $iCal = &new Horde_iCalendar();
+        $iCal = new Horde_iCalendar();
         if (!$iCal->parsevCalendar($data)) {
             return array();
         }
@@ -51,7 +62,7 @@ class Kronolith_Driver_ical extends Kronolith_Driver {
         return $events;
     }
 
-    function &getEvent($eventId = null)
+    function getEvent($eventId = null)
     {
         $data = Kronolith::getRemoteCalendar($url);
         if (is_a($data, 'PEAR_Error')) {
@@ -59,7 +70,7 @@ class Kronolith_Driver_ical extends Kronolith_Driver {
         }
 
         require_once 'Horde/iCalendar.php';
-        $iCal = &new Horde_iCalendar();
+        $iCal = new Horde_iCalendar();
         if (!$iCal->parsevCalendar($data)) {
             return array();
         }
