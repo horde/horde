@@ -122,7 +122,7 @@ class IMP_IMAP_Thread
         $imgs = $tree = array();
 
         foreach (self::$_imglist as $key => $val) {
-            $imgs[$key] = Horde::img('tree/' . (($key != 0 && !empty($GLOBALS['nls']['rtl'][$GLOBALS['language']])) ? ('rev-' . $val) : $val));
+            $imgs[$key] = Horde::img('tree/' . (($key != 0 && !empty($GLOBALS['nls']['rtl'][$GLOBALS['language']])) ? ('rev-' . $val) : $val), null, null, $GLOBALS['registry']->getImageDir('horde'));
         }
 
         foreach ($this->getThreadTreeOb($indices, $sortdir) as $k => $v) {
