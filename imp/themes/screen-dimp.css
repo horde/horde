@@ -110,11 +110,13 @@ div.msgStatus, div.msgFrom, div.msgSubject, div.msgDate, div.msgSize {
 div.msgStatus {
     width: 8%;
 }
-div.msgStatus div {
+div.msgStatus div, #msgHeadersContent .subject span {
     display: inline-block;
     padding-right: 2px;
     width: 16px;
+    height: 16px;
     background-repeat: no-repeat;
+    vertical-align: inherit;
 }
 div.msgFrom {
     width: 20%;
@@ -237,10 +239,10 @@ div.msgSize {
 .msglist div.statusDeleted {
     background-image: url("graphics/mail_deleted.png");
 }
-.msglist div.statusLowPriority {
+.msglist div.statusLowPriority, #msgHeadersContent span.statusLowPriority {
     background-image: url("graphics/mail_priority_low.png");
 }
-.msglist div.statusHighPriority {
+.msglist div.statusHighPriority, #msgHeadersContent span.statusHighPriority {
     background-image: url("graphics/mail_priority_high.png");
 }
 .msglist div.statusAnswered {

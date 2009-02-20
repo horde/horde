@@ -273,7 +273,7 @@ DimpCore = {
                         if (tmp.down().hasClassName('hordeNoalerts')) {
                             tmp.down().remove();
                         }
-                        tmp.insert(new Element('LI').insert(new Element('P', { className: 'label' }).insert(log)).insert(new Element('P', { className: 'indent' }).insert(msg).insert(new Element('SPAN', { className: 'alertdate'}).insert('[' + (new Date).toLocaleString() + ']'))));
+                        tmp.insert(new Element('LI').insert(new Element('P', { className: 'label' }).insert(log)).insert(new Element('P', { className: 'indent' }).insert(msg).insert(new Element('SPAN', { className: 'alertdate'} ).insert('[' + (new Date).toLocaleString() + ']'))));
                     }
                 }
             }

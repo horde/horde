@@ -931,7 +931,7 @@ var DimpBase = {
         switch (r.priority) {
         case 'high':
         case 'low':
-            tmp.invoke('insert', { top: $($(r.priority + '_priority_img').cloneNode(false)).writeAttribute('id', false) });
+            tmp.invoke('insert', { top: new Element('SPAN').addClassName('status' + r.priority.capitalize() + 'Priority') });
             break;
         }
 
