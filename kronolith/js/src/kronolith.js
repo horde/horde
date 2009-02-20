@@ -470,16 +470,18 @@ KronolithCore = {
     _monthCallback: function(r)
     {
         var div;
-        r = r.response;
-        $H(r.events).each(function(date) {
-            $H(date.value).each(function(event) {
-                div = new Element('DIV', { 'class': 'kronolithEvent', 'style': 'background-color:' + event.value.bg + ';color:' + event.value.fg });
-                div.setText(event.value.t)
-                    .observe('mouseover', div.addClassName.curry('kronolithSelected'))
-                    .observe('mouseout', div.removeClassName.curry('kronolithSelected'));
-                $('kronolithMonthDay' + date.key).insert(div);
+
+        if (typeof r.response.events.length == 'undefined') {
+            $H(r.response.events).each(function(date) {
+                $H(date.value).each(function(event) {
+                    div = new Element('DIV', { 'class': 'kronolithEvent', 'style': 'background-color:' + event.value.bg + ';color:' + event.value.fg });
+                    div.setText(event.value.t)
+                        .observe('mouseover', div.addClassName.curry('kronolithSelected'))
+                        .observe('mouseout', div.removeClassName.curry('kronolithSelected'));
+                    $('kronolithMonthDay' + date.key).insert(div);
+                });
             });
-        });
+        }
     },
 
     /**
