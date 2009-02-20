@@ -2253,6 +2253,13 @@ OLD DIMP CHANGELOG
 ==================
 
 ------
+v1.1.2
+------
+
+[mms] Fix address autocomplete display on IE (Bug #7982).
+
+
+------
 v1.1.1
 ------
 
