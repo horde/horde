@@ -257,7 +257,8 @@ class IMP_UI_Message
 
             /* See if the List-Post header provides an e-mail address for the
              * list. */
-            if (($val = $headers->getValue('list-post'))) {
+            if (($val = $headers->getValue('list-post')) &&
+                ($val != 'NO')) {
                 $ret['reply_list'] = $this->parseListHeaders($val, true);
             }
         }
