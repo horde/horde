@@ -17,9 +17,12 @@ var frames = { horde_main: true },
 KronolithCore = {
     // Vars used and defaulting to null/false:
     //   DMenu, alertrequest, inAjaxCallback, is_logout, onDoActionComplete,
-    //   eventForm
+    //   eventForm, eventsLoading
 
     view: '',
+    calendars: [],
+    ecache: {},
+    efifo: {},
     date: new Date(),
 
     doActionOpts: {
@@ -273,16 +276,12 @@ KronolithCore = {
         case 'year':
         case 'agenda':
         case 'tasks':
-            if (this.view == loc) {
-                break;
-            }
-
             var locCap = loc.capitalize();
             [ 'Day', 'Week', 'Month', 'Year', 'Tasks', 'Agenda' ].each(function(a) {
                 $('kronolithNav' + a).removeClassName('on');
             });
             $('kronolithNav' + locCap).addClassName('on');
-            if (this.view) {
+            if (this.view && this.view != loc) {
                 $('kronolithView' + this.view.capitalize()).fade();
             }
 
@@ -296,6 +295,13 @@ KronolithCore = {
                     date = this.parseDate(date);
                 } else {
                     date = this.date;
+                }
+
+                if (this.view == loc && date.getYear() == this.date.getYear() &&
+                    ((loc == 'year') ||
+                     (loc == 'month' && date.getMonth() == this.date.getMonth()) ||
+                     (loc == 'day' && date.dateString() == this.date.dateString()))) {
+                         return;
                 }
 
                 this.updateView(date, loc);
@@ -343,14 +349,13 @@ KronolithCore = {
         case 'month':
             var body = $('kronolithViewMonth').down('.kronolithViewBody'),
                 day = date.clone(), monthEnd = date.clone(),
-                cell, monday, firstDay, lastDay;
+                cell, monday, firstDay;
 
             // Calculate first and last days being displayed.
             day.setDate(1);
-            firstDay = day.clone()
             day.moveToBeginOfWeek();
+            firstDay = day.clone()
             monthEnd.moveToLastDayOfMonth();
-            lastDay = monthEnd.clone();
             monthEnd.moveToBeginOfWeek();
 
             // Remove old rows. Maybe we should only rebuild the calendars if
@@ -364,7 +369,7 @@ KronolithCore = {
             }
 
             // Load events.
-            this.doAction('ListEvents', { start: firstDay.toJSON(), end: lastDay.toJSON() }, this._monthCallback.bind(this));
+            this._loadEvents(firstDay, monthEnd, this._monthCallback.bind(this));
 
             break;
         }
@@ -463,6 +468,14 @@ KronolithCore = {
     },
 
     /**
+     */
+    _loadEvents: function(firstDay, lastDay, callback, calendar)
+    {
+        this.eventsLoading = firstDay.dateString() + lastDay.dateString();
+        this.doAction('ListEvents', { start: firstDay.toJSON(), end: lastDay.toJSON() }, callback);
+    },
+
+    /**
      * Callback method for inserting events in the month view.
      *
      * @param object r  The returned object.
@@ -471,10 +484,15 @@ KronolithCore = {
     {
         var div;
 
-        if (typeof r.response.events.length == 'undefined') {
+        // Check if this is the still the result of the most current request.
+        if (r.response.sig != this.eventsLoading) {
+            return;
+        }
+
+        if (r.response.events) {
             $H(r.response.events).each(function(date) {
                 $H(date.value).each(function(event) {
-                    div = new Element('DIV', { 'class': 'kronolithEvent', 'style': 'background-color:' + event.value.bg + ';color:' + event.value.fg });
+                    div = new Element('DIV', { 'class': 'kronolithEvent', 'style': 'background-color:' + event.value.bg + ';color:' + event.value.fg, 'calendar': event.value.c });
                     div.setText(event.value.t)
                         .observe('mouseover', div.addClassName.curry('kronolithSelected'))
                         .observe('mouseout', div.removeClassName.curry('kronolithSelected'));
@@ -677,6 +695,7 @@ KronolithCore = {
 
             elt = elt.up();
         }
+        Prototype.emptyFunction();
     },
 
     mouseHandler: function(e, type)

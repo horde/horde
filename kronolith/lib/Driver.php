@@ -1265,6 +1265,7 @@ class Kronolith_Event {
     {
         $json = new stdClass;
         $json->t = $this->getTitle();
+        $json->c = $this->getCalendar();
         $json->bg = $this->_backgroundColor;
         $json->fg = $this->_foregroundColor;
         return $json;

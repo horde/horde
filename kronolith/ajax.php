@@ -54,13 +54,15 @@ $result = false;
 
 switch ($action) {
 case 'ListEvents':
-    $dates = Kronolith::listEvents(Util::getFormData('start'), Util::getFormData('end'));
+    $start = new Horde_Date(Util::getFormData('start'));
+    $end   = new Horde_Date(Util::getFormData('end'));
+    $dates = Kronolith::listEvents($start, $end);
     if (is_a($dates, 'PEAR_Error')) {
         $notification->push($dates, 'horde.error');
         $result = false;
     } else {
         $result = new stdClass;
-        $result->events = array();
+        $result->sig = $start->dateString() . $end->dateString();
         foreach ($dates as $date => $events) {
             foreach ($events as $id => $event) {
                 $result->events[$date][$id] = $event->toJSON();
