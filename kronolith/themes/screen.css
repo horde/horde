@@ -800,7 +800,7 @@ div.kronolithTags span:hover {
 #kronolithMinical th, #kronolithMinical td {
     font-size: 90%;
 }
-#kronolithMinical thead th, #kronolithMinical tbody td.kronolithMinicalWeek {
+#kronolithMinical th, #kronolithMinical td.kronolithMinicalWeek {
     width: 16px;
     height: 16px;
     line-height: 16px;
@@ -808,13 +808,6 @@ div.kronolithTags span:hover {
     background-color: #d6d6d6;
     color: #202020;
     border: 1px #c0c0c0 solid !important;
-}
-#kronolithMinical thead th.kronolithMinicalEmpty {
-    background: none;
-    border: none !important;
-}
-#kronolithMinical tbody td.kronolithMinicalWeek {
-    cursor: pointer;
 }
 #kronolithMinical tbody td {
     width: 16px;
@@ -826,21 +819,15 @@ div.kronolithTags span:hover {
     empty-cells: show;
     cursor: pointer;
 }
-
-#kronolithMinical tbody.kronolithSelected tr td, #kronolithMinical tbody tr.kronolithSelected td, #kronolithMinical tbody td.kronolithSelected {
-    background-color: #ebf3fc;
-    border-color: #808080;
-}
-#kronolithMinical tbody td.on, #kronolithMinical tbody.kronolithSelected tr td.on, #kronolithMinical tbody tr.kronolithSelected td.on {
-    background-color: #808080;
-    border-color: #808080;
-    color: white;
-}
-#kronolithMinical tbody td.kronolithMinicalEmpty, #kronolithMinical tbody.kronolithSelected tr td.kronolithMinicalEmpty, #kronolithMinical tbody tr.kronolithSelected td.kronolithMinicalEmpty {
+#kronolithMinical .kronolithMinicalEmpty {
     background: none;
     border: none;
     color: silver;
     cursor: default;
+}
+#kronolithMinical .kronolithSelected {
+    background-color: #ebf3fc;
+    border: 1px #808080 solid;
 }
 
 /* Main views */
