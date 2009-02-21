@@ -239,7 +239,7 @@ class Horde_Serialize
 
         case self::SQLXML:
             require_once 'DB.php';
-            $sql2xml = &new xml_sql2xml();
+            $sql2xml = new xml_sql2xml();
             $data = $sql2xml->getXML($data);
             break;
 
