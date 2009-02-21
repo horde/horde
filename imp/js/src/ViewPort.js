@@ -820,7 +820,10 @@ var ViewPort = Class.create({
     // add = (boolean) Whether to set/unset flag.
     _updateClass: function(vs, flag, add)
     {
-        vs.get('div').each(function(d) {
+        var divs = vs.get('div'),
+            sel = new ViewPort_Selection(this._getBuffer(), 'div', divs);
+
+        divs.each(function(d) {
             if (add) {
                 d.addClassName(flag);
             } else {
@@ -828,8 +831,9 @@ var ViewPort = Class.create({
             }
         }, this);
 
+
         if (this.opts.onUpdateClass) {
-            vs.get('dataob').each(function(d) {
+            sel.get('dataob').each(function(d) {
                 this.opts.onUpdateClass(d);
             }, this);
         }
