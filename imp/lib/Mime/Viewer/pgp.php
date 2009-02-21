@@ -177,7 +177,7 @@ class IMP_Horde_Mime_Viewer_pgp extends Horde_Mime_Viewer_Driver
                 case 'imp':
                     /* Ask for the correct passphrase if this is encrypted
                      * symmetrically. */
-                    $status[] = Horde::link('#', '', null, null, IMP::passphraseDialogJS('PGPSymmetric', $js_action, array('symmetricid' => $symmetric_id)) . ';return false;') . _("You must enter the passphrase used to encrypt this message to view it.") . '</a>';
+                    $status[] = Horde::link('#', '', '', '', IMP::passphraseDialogJS('PGPSymmetric', $js_action, array('symmetricid' => $symmetric_id)) . ';return false;') . _("You must enter the passphrase used to encrypt this message to view it.") . '</a>';
                     break;
                 }
                 return null;
@@ -213,7 +213,7 @@ class IMP_Horde_Mime_Viewer_pgp extends Horde_Mime_Viewer_Driver
                         case 'imp':
                             /* Ask for the private key's passphrase if this is
                              * encrypted asymmetrically. */
-                            $status[] = Horde::link('#', '', null, null, IMP::passphraseDialogJS('PGPPersonal', $js_action) . ';return false;') . _("You must enter the passphrase for your PGP private key to view this message.") . '</a>';
+                            $status[] = Horde::link('#', '', '', '', IMP::passphraseDialogJS('PGPPersonal', $js_action) . ';return false;') . _("You must enter the passphrase for your PGP private key to view this message.") . '</a>';
                             break;
                         }
                         return null;
@@ -356,7 +356,7 @@ class IMP_Horde_Mime_Viewer_pgp extends Horde_Mime_Viewer_Driver
                 break;
 
             case 'dimp':
-                $status[] = Horde::link('#', '', '', '', 'DimpCore.reloadMessage({ pgp_verify_msg: 1 });return false;') . _("Click HERE to verify the message.") . '</a>';
+                $status[] = Horde::link('#', '', 'pgpVerifyMsg') . _("Click HERE to verify the message.") . '</a>';
                 break;
             }
         }

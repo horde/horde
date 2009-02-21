@@ -146,7 +146,7 @@ class IMP_Horde_Mime_Viewer_smime extends Horde_Mime_Viewer_Driver
                 // Fall through
 
             case 'imp':
-                $status[] = Horde::link('#', '', null, null, IMP::passphraseDialogJS('SMIMEPersonal', $js_action) . ';return false;') . _("You must enter the passphrase for your S/MIME private key to view this message.") . '</a>';
+                $status[] = Horde::link('#', '', '', '', IMP::passphraseDialogJS('SMIMEPersonal', $js_action) . ';return false;') . _("You must enter the passphrase for your S/MIME private key to view this message.") . '</a>';
                 break;
             }
             return null;
@@ -247,7 +247,7 @@ class IMP_Horde_Mime_Viewer_smime extends Horde_Mime_Viewer_Driver
                 break;
 
             case 'dimp':
-                $status[] = Horde::link('#', '', '', '', 'DimpCore.reloadMessage({ smime_verify_msg: 1 });return false;') . _("Click HERE to verify the message.") . '</a>';
+                $status[] = Horde::link('#', '', 'smimeVerifyMsg') . _("Click HERE to verify the message.") . '</a>';
                 break;
             }
             return $ret;
