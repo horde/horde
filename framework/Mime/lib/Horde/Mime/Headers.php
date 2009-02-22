@@ -74,8 +74,9 @@ class Horde_Mime_Headers
             foreach (array_keys($val) as $key) {
                 if (in_array($header, $address_keys) ) {
                     /* Address encoded headers. */
-                    $text = Horde_Mime::encodeAddress($val[$key], $charset, empty($options['defserver']) ? null : $options['defserver']);
-                    if (is_a($text, 'PEAR_Error')) {
+                    try {
+                        $text = Horde_Mime::encodeAddress($val[$key], $charset, empty($options['defserver']) ? null : $options['defserver']);
+                    } catch (Horde_Mime_Exception $e) {
                         $text = $val[$key];
                     }
                 } elseif (in_array($header, $mime) && !empty($ob['params'])) {
@@ -267,7 +268,11 @@ class Horde_Mime_Headers
         if (!empty($options['decode'])) {
             // Fields defined in RFC 2822 that contain address information
             if (in_array($lcHeader, $this->addressFields())) {
-                $value = Horde_Mime::decodeAddrString($value);
+                try {
+                    $value = Horde_Mime::decodeAddrString($value);
+                } catch (Horde_Mime_Exception $e) {
+                    $value = '';
+                }
             } else {
                 $value = Horde_Mime::decode($value);
             }
@@ -503,9 +508,12 @@ class Horde_Mime_Headers
     public function getOb($field)
     {
         $val = $this->getValue($field);
-        return is_null($val)
-            ? array()
-            : Horde_Mime_Address::parseAddressList($val);
+        if (!is_null($val)) {
+            try {
+                return Horde_Mime_Address::parseAddressList($val);
+            } catch (Horde_Mime_Exception $e) {}
+        }
+        return array();
     }
 
     /**

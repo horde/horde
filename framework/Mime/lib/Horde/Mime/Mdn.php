@@ -74,7 +74,12 @@ class Horde_Mime_Mdn
         /* RFC 3798 [2.1]: Explicit confirmation is needed if there is more
          * than one distinct address in the Disposition-Notification-To
          * header. */
-        $addr_arr = Horde_Mime_Address::parseAddressList($this->getMdnReturnAddr());
+        try {
+            $addr_arr = Horde_Mime_Address::parseAddressList($this->getMdnReturnAddr());
+        } catch (Horde_Mime_Exception $e) {
+            return false;
+        }
+
         if (count($addr_arr) > 1) {
             return true;
         }
@@ -84,7 +89,12 @@ class Horde_Mime_Mdn
          * from the address in the Return-Path header." This comparison is
          * case-sensitive for the mailbox part and case-insensitive for the
          * host part. */
-        $ret_arr = Horde_Mime_Address::parseAddressList($return_path);
+        try {
+            $ret_arr = Horde_Mime_Address::parseAddressList($return_path);
+        } catch (Horde_Mime_Exception $e) {
+            return false;
+        }
+
         return ($addr_arr[0]['mailbox'] == $ret_arr[0]['mailbox']) &&
                (String::lower($addr_arr[0]['host']) == String::lower($ret_arr[0]['host']));
     }
@@ -129,7 +139,7 @@ class Horde_Mime_Mdn
      *                            information to provide.  Key is the type of
      *                            modification, value is the text.
      *
-     * @return mixed  True on success, PEAR_Error object on error.
+     * @throws Horde_Mime_Exception
      */
     public function generate($action, $sending, $type, $maildriver,
                              $mailparams = array(), $mod = array(),

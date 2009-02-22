@@ -1304,7 +1304,7 @@ class Horde_Mime_Part
      * @param array $params                 Any parameters necessary for the
      *                                      Mail driver.
      *
-     * @return mixed  True on success, PEAR_Error on error.
+     * @throws Horde_Mime_Exception
      */
     public function send($email, $headers, $driver, $params = array())
     {
@@ -1362,7 +1362,8 @@ class Horde_Mime_Part
             } else {
                 $userinfo = $result->toString();
             }
-            return PEAR::raiseError($error, null, null, null, $userinfo);
+            // TODO: userinfo
+            throw new Horde_Mime_Exception($error);
         }
 
         return $result;

@@ -114,13 +114,13 @@ class Horde_Mime_Mail
      * @param array $header    Hash with header names as keys and header
      *                         contents as values.
      * @param string $charset  The header value's charset.
+     *
+     * @throws Horde_Mime_Exception
      */
     public function addHeaders($headers = array(), $charset = 'iso-8859-1')
     {
         foreach ($headers as $header => $value) {
-            if (is_a($added = $this->addHeader($header, $value, $charset), 'PEAR_Error')) {
-                return $added;
-            }
+            $this->addHeader($header, $value, $charset);
         }
     }
 
@@ -135,6 +135,8 @@ class Horde_Mime_Mail
      *                            headers are added; if null, the correct
      *                            behaviour is automatically chosen depending
      *                            on the header name.
+     *
+     * @throws Horde_Mime_Exception
      */
     public function addHeader($header, $value, $charset = 'iso-8859-1',
                               $overwrite = null)
@@ -180,7 +182,9 @@ class Horde_Mime_Mail
         $value = $this->_headers->getValue($header);
         $this->_headers->removeHeader($header);
         if (in_array(String::lower($header), array('to', 'cc', 'bcc'))) {
-            $this->removeRecipients($value);
+            try {
+                $this->removeRecipients($value);
+            } catch (Horde_Mime_Exception $e) {}
         }
     }
 
@@ -311,14 +315,12 @@ class Horde_Mime_Mail
      *
      * @param string|array  List of recipients, either as a comma separated
      *                      list or as an array of email addresses.
+     *
+     * @throws Horde_Mime_Exception
      */
     public function addRecipients($recipients)
     {
-        $recipients = $this->_buildRecipients($recipients);
-        if (is_a($recipients, 'PEAR_Error')) {
-            return $recipients;
-        }
-        $this->_recipients = array_merge($this->_recipients, $recipients);
+        $this->_recipients = array_merge($this->_recipients, $this->_buildRecipients($recipients));
     }
 
     /**
@@ -326,14 +328,12 @@ class Horde_Mime_Mail
      *
      * @param string|array  List of recipients, either as a comma separated
      *                      list or as an array of email addresses.
+     *
+     * @throws Horde_Mime_Exception
      */
     public function removeRecipients($recipients)
     {
-        $recipients = $this->_buildRecipients($recipients);
-        if (is_a($recipients, 'PEAR_Error')) {
-            return $recipients;
-        }
-        $this->_recipients = array_diff($this->_recipients, $recipients);
+        $this->_recipients = array_diff($this->_recipients, $this->_buildRecipients($recipients));
     }
 
     /**
@@ -350,7 +350,8 @@ class Horde_Mime_Mail
      * @param string|array  List of recipients, either as a comma separated
      *                      list or as an array of email addresses.
      *
-     * @return array  Normalized list of recipients or PEAR_Error on failure.
+     * @return array  Normalized list of recipients.
+     * @throws Horde_Mime_Exception
      */
     protected function _buildRecipients($recipients)
     {
@@ -373,7 +374,7 @@ class Horde_Mime_Mail
 
         foreach (Horde_Mime_Address::bareAddress(implode(', ', $addrlist), null, true) as $val) {
             if (Horde_Mime::is8bit($val)) {
-                return PEAR::raiseError(sprintf(_("Invalid character in e-mail address: %s."), $val));
+                throw new Horde_Mime_Exception(sprintf(_("Invalid character in e-mail address: %s."), $val));
             }
         }
 
@@ -391,10 +392,9 @@ class Horde_Mime_Mail
      * @param array $params    Any parameters necessary for the Mail driver.
      * @param boolean $resend  If true, the message id and date are re-used;
      *                         If false, they will be updated.
-     * @param boolean $flowed  Send message in flowed text format. @since
-     *                         Horde 3.2.1
+     * @param boolean $flowed  Send message in flowed text format.
      *
-     * @return mixed  True on success, PEAR_Error on error.
+     * @throws Horde_Mime_Exception
      */
     public function send($driver = null, $params = array(), $resend = false,
                          $flowed = true)
@@ -457,9 +457,14 @@ class Horde_Mime_Mail
         }
 
         /* Send message. */
-        return $basepart->send(implode(', ', $this->_recipients),
+        $res = $basepart->send(implode(', ', $this->_recipients),
                                $this->_headers, $this->_mailer_driver,
                                $this->_mailer_params);
+        if (is_a($res, 'PEAR_Error')) {
+            throw new Horde_Mime_Exception($res);
+        }
+
+        return $res;
     }
 
     /**

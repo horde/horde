@@ -187,7 +187,8 @@ class Horde_Mime
      * @param string $defserver  The default domain to append to mailboxes.
      *
      * @return string  The text, encoded only if it contains non-ASCII
-     *                 characters, or PEAR_Error on error.
+     *                 characters.
+     * @throws Horde_Mime_Exception
      */
     static public function encodeAddress($addresses, $charset = null,
                                          $defserver = null)
@@ -201,9 +202,6 @@ class Horde_Mime
             }
 
             $addresses = Horde_Mime_Address::parseAddressList($addresses, array('defserver' => $defserver, 'nestgroups' => true));
-            if (is_a($addresses, 'PEAR_Error')) {
-                return $addresses;
-            }
         }
 
         $text = '';
@@ -315,6 +313,7 @@ class Horde_Mime
      *                            to.
      *
      * @return string  The decoded text.
+     * @throw Horde_Mime_Exception
      */
     static public function decodeAddrString($string, $to_charset = null)
     {
