@@ -337,13 +337,13 @@ class IMP_Horde_Mime_Viewer_itip extends Horde_Mime_Viewer_Driver
 
                     // Send the reply.
                     $mail_driver = IMP_Compose::getMailDriver();
-                    $status = $mime->send($organizerEmail, $msg_headers,
-                                          $mail_driver['driver'],
-                                          $mail_driver['params']);
-                    if (is_a($status, 'PEAR_Error')) {
-                        $msgs[] = array('error', sprintf(_("Error sending reply: %s."), $status->getMessage()));
-                    } else {
+                    try {
+                        $mime->send($organizerEmail, $msg_headers,
+                                    $mail_driver['driver'],
+                                    $mail_driver['params']);
                         $msgs[] = array('success', _("Reply Sent."));
+                    } catch (Horde_Mime_Exception $e) {
+                        $msgs[] = array('error', sprintf(_("Error sending reply: %s."), $e->getMessage()));
                     }
                 } else {
                     $msgs[] = array('warning', _("This action is not supported."));
@@ -439,13 +439,13 @@ class IMP_Horde_Mime_Viewer_itip extends Horde_Mime_Viewer_Driver
 
                     // Send the reply.
                     $mail_driver = IMP_Compose::getMailDriver();
-                    $status = $mime->send($organizerEmail, $msg_headers,
-                                          $mail_driver['driver'],
-                                          $mail_driver['params']);
-                    if (is_a($status, 'PEAR_Error')) {
-                        $msgs[] = array('error', sprintf(_("Error sending reply: %s."), $status->getMessage()));
-                    } else {
+                    try {
+                        $mime->send($organizerEmail, $msg_headers,
+                                    $mail_driver['driver'],
+                                    $mail_driver['params']);
                         $msgs[] = array('success', _("Reply Sent."));
+                    } catch (Horde_Mime_Exception $e) {
+                        $msgs[] = array('error', sprintf(_("Error sending reply: %s."), $e->getMessage()));
                     }
                 } else {
                     $msgs[] = array('warning', _("Invalid Action selected for this component."));

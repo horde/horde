@@ -275,7 +275,7 @@
 // function should be a valid page within a horde application which will be
 // placed in a "Location" header to redirect the client.  The only parameter
 // is the name of the mailbox which the user has opened.  If an empty string
-// is returned the user is not redirected.
+// is returned the user is not redirected.  Throw a Horde_Exception on error.
 
 // if (!function_exists('_imp_hook_mbox_redirect')) {
 //     function _imp_hook_mbox_redirect($mailbox)

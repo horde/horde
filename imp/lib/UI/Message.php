@@ -82,13 +82,18 @@ class IMP_UI_Message
             } else {
                 /* Send out the MDN now. */
                 $mail_driver = IMP_Compose::getMailDriver();
+
                 try {
                     $mdn->generate(false, $confirmed, 'displayed', $mail_driver['driver'], $mail_driver['params']);
                     IMP_Maillog::log('mdn', $msg_id, 'displayed');
-                } catch (Horde_Mime_Exception $e) {}
+                    $success = true;
+                } catch (Horde_Mime_Exception $e) {
+                    $success = false;
+                }
+
                 if ($GLOBALS['conf']['sentmail']['driver'] != 'none') {
                     $sentmail = IMP_Sentmail::factory();
-                    $sentmail->log('mdn', '', $return_addr, !is_a($result, 'PEAR_Error'));
+                    $sentmail->log('mdn', '', $return_addr, $success);
                 }
             }
         }

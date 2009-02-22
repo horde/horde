@@ -255,10 +255,9 @@ case 'forward_attachments':
     break;
 
 case 'resume':
-    $result = $imp_compose->resumeDraft($index . IMP::IDX_SEP . $folder);
-    if (is_a($result, 'PEAR_Error')) {
-        $notification->push($result->getMessage(), 'horde.error');
-    } else {
+    try {
+        $result = $imp_compose->resumeDraft($index . IMP::IDX_SEP . $folder);
+
         if ($result['mode'] == 'html') {
             $show_editor = true;
         }
@@ -268,6 +267,8 @@ case 'resume':
             $identity->setDefault($result['identity']);
         }
         $header = array_merge($header, $result['header']);
+    } catch (IMP_Compose_Exception $e) {
+        $notification->push($e->getMessage(), 'horde.error');
     }
     $get_sig = false;
     break;

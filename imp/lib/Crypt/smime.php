@@ -19,7 +19,7 @@ class IMP_Horde_Crypt_smime extends Horde_Crypt_smime
     /**
      * Constructor.
      */
-    function __construct()
+    public function __construct()
     {
         parent::__construct(array('temp' => Horde::getTempDir()));
     }
@@ -138,7 +138,7 @@ class IMP_Horde_Crypt_smime extends Horde_Crypt_smime
      * @param string $address  The e-mail address of the recipient.
      *
      * @return array  The list of parameters needed by encrypt().
-     *                Returns PEAR_Error object on error.
+     * @throws Horde_Exception
      */
     protected function _encryptParameters($address)
     {
@@ -147,9 +147,6 @@ class IMP_Horde_Crypt_smime extends Horde_Crypt_smime
         $key_addr = array_pop($addrOb);
 
         $public_key = $this->getPublicKey($key_addr);
-        if (is_a($public_key, 'PEAR_Error')) {
-            return $public_key;
-        }
 
         return array(
             'pubkey' => $public_key,
@@ -164,7 +161,7 @@ class IMP_Horde_Crypt_smime extends Horde_Crypt_smime
      * @param string $address  The e-mail address to search for.
      *
      * @return string  The S/MIME public key requested.
-     *                 Returns PEAR_Error object on error.
+     * @throws Horde_Exception
      */
     public function getPublicKey($address)
     {
@@ -179,6 +176,7 @@ class IMP_Horde_Crypt_smime extends Horde_Crypt_smime
             if (!empty($personal_pubkey) && $identity->hasAddress($address)) {
                 return $personal_pubkey;
             }
+            throw new Horde_Exception($key);
         }
 
         /* If more than one public key is returned, just return the first in
@@ -191,14 +189,20 @@ class IMP_Horde_Crypt_smime extends Horde_Crypt_smime
      * Retrieves all public keys from a user's address book(s).
      *
      * @return array  All PGP public keys available.
-     *                Returns PEAR_Error object on error.
+     * @throws Horde_Exception
      */
     public function listPublicKeys()
     {
         $params = IMP_Compose::getAddressSearchParams();
-        return (empty($params['sources']))
-            ? array()
-            : $GLOBALS['registry']->call('contacts/getAllAttributeValues', array(self::PUBKEY_FIELD, $params['sources']));
+        if (empty($params['sources'])) {
+            return array();
+        }
+        $res = $GLOBALS['registry']->call('contacts/getAllAttributeValues', array(self::PUBKEY_FIELD, $params['sources']));
+        if (is_a($res, 'PEAR_Error')) {
+            throw new Horde_Exception($res);
+        }
+
+        return $res;
     }
 
     /**
@@ -206,12 +210,15 @@ class IMP_Horde_Crypt_smime extends Horde_Crypt_smime
      *
      * @param string $email  The e-mail address to delete.
      *
-     * @return PEAR_Error  Returns PEAR_Error object on error.
+     * @throws Horde_Exception
      */
     public function deletePublicKey($email)
     {
         $params = IMP_Compose::getAddressSearchParams();
-        return $GLOBALS['registry']->call('contacts/deleteField', array($email, self::PUBKEY_FIELD, $params['sources']));
+        $res = $GLOBALS['registry']->call('contacts/deleteField', array($email, self::PUBKEY_FIELD, $params['sources']));
+        if (is_a($res, 'PEAR_Error')) {
+            throw new Horde_Exception($res);
+        }
     }
 
     /**
@@ -250,12 +257,17 @@ class IMP_Horde_Crypt_smime extends Horde_Crypt_smime
      * @param string $text  The text to decrypt.
      *
      * @return string  See Horde_Crypt_smime::decrypt().
-     *                 Returns PEAR_Error object on error.
+     * @throws Horde_Exception
      */
     public function decryptMessage($text)
     {
         /* decrypt() returns a PEAR_Error object on error. */
-        return $this->decrypt($text, array('type' => 'message', 'pubkey' => $this->getPersonalPublicKey(), 'privkey' => $this->getPersonalPrivateKey(), 'passphrase' => $this->getPassphrase()));
+        $res = $this->decrypt($text, array('type' => 'message', 'pubkey' => $this->getPersonalPublicKey(), 'privkey' => $this->getPersonalPrivateKey(), 'passphrase' => $this->getPassphrase()));
+        if (is_a($res, 'PEAR_Error')) {
+            throw new Horde_Exception($res);
+        }
+
+        return $res;
     }
 
     /**
@@ -341,15 +353,17 @@ class IMP_Horde_Crypt_smime extends Horde_Crypt_smime
      * @param mixed $to_address     The e-mail address of the key to use for
      *                              encryption.
      *
-     * @return MIME_Part  See Horde_Crypt_smime::encryptMIMEPart(). Returns
-     *                    PEAR_Error on error.
+     * @return MIME_Part  See Horde_Crypt_smime::encryptMIMEPart().
+     * @throws Horde_Exception
      */
     public function IMPencryptMIMEPart($mime_part, $to_address)
     {
-        $params = $this->_encryptParameters($to_address);
-        return is_a($params, 'PEAR_Error')
-            ? $params
-            : $this->encryptMIMEPart($mime_part, $params);
+        $res = $this->encryptMIMEPart($mime_part, $this->_encryptParameters($to_address));
+        if (is_a($res, 'PEAR_Error')) {
+            throw new Horde_Exception($res);
+        }
+
+        return $res;
     }
 
     /**
@@ -357,12 +371,17 @@ class IMP_Horde_Crypt_smime extends Horde_Crypt_smime
      *
      * @param MIME_Part $mime_part  The MIME_Part object to sign.
      *
-     * @return MIME_Part  See Horde_Crypt_smime::signMIMEPart(). Returns
-     *                    PEAR_Error on error.
+     * @return MIME_Part  See Horde_Crypt_smime::signMIMEPart().
+     * @throws Horde_Exception
      */
     public function IMPsignMIMEPart($mime_part)
     {
-        return $this->signMIMEPart($mime_part, $this->_signParameters());
+        $res = $this->signMIMEPart($mime_part, $this->_signParameters());
+        if (is_a($res, 'PEAR_Error')) {
+            throw new Horde_Exception($res);
+        }
+
+        return $res;
     }
 
     /**
@@ -373,15 +392,16 @@ class IMP_Horde_Crypt_smime extends Horde_Crypt_smime
      *                              encryption.
      *
      * @return MIME_Part  See Horde_Crypt_smime::signAndencryptMIMEPart().
-     *                    Returns PEAR_Error on error.
+     * @throws Horde_Exception
      */
     public function IMPsignAndEncryptMIMEPart($mime_part, $to_address)
     {
-        $encrypt_params = $this->_encryptParameters($to_address);
-        if (is_a($encrypt_params, 'PEAR_Error')) {
-            return $encrypt_params;
+        $res = $this->signAndEncryptMIMEPart($mime_part, $this->_signParameters(), $this->_encryptParameters($to_address));
+        if (is_a($res, 'PEAR_Error')) {
+            throw new Horde_Exception($res);
         }
-        return $this->signAndEncryptMIMEPart($mime_part, $this->_signParameters(), $encrypt_params);
+
+        return $res;
     }
 
     /**
@@ -392,13 +412,13 @@ class IMP_Horde_Crypt_smime extends Horde_Crypt_smime
      * @param string $password  The password of the PKCS 12 file.
      * @param string $pkpass    The password to use to encrypt the private key.
      *
-     * @return boolean  True on success, PEAR_Error on error.
+     * @throws Horde_Exception
      */
     public function addFromPKCS12($pkcs12, $password, $pkpass = null)
     {
         $openssl = $this->checkForOpenSSL();
         if (is_a($openssl, 'PEAR_Error')) {
-            return $openssl;
+            throw new Horde_Exception($openssl);
         }
 
         $sslpath = (empty($GLOBALS['conf']['utils']['openssl_binary'])) ? null : $GLOBALS['conf']['utils']['openssl_binary'];
@@ -408,14 +428,12 @@ class IMP_Horde_Crypt_smime extends Horde_Crypt_smime
         }
         $res = $this->parsePKCS12Data($pkcs12, $params);
         if (is_a($res, 'PEAR_Error')) {
-            return $res;
+            throw new Horde_Exception($res);
         }
 
         $this->addPersonalPrivateKey($res->private);
         $this->addPersonalPublicKey($res->public);
         $this->addAdditionalCert($res->certs);
-
-        return true;
     }
 
     /**
@@ -424,12 +442,20 @@ class IMP_Horde_Crypt_smime extends Horde_Crypt_smime
      * @param string $data  The signed S/MIME data.
      *
      * @return string  The contents embedded in the signed data.
-     *                 Returns PEAR_Error on error.
+     * @throws Horde_Exception
      */
     public function extractSignedContents($data)
     {
-        $sslpath = (empty($GLOBALS['conf']['utils']['openssl_binary'])) ? null : $GLOBALS['conf']['utils']['openssl_binary'];
-        return parent::extractSignedContents($data, $sslpath);
+        $sslpath = empty($GLOBALS['conf']['utils']['openssl_binary'])
+            ? null
+            : $GLOBALS['conf']['utils']['openssl_binary'];
+
+        $res = parent::extractSignedContents($data, $sslpath);
+        if (is_a($res, 'PEAR_Error')) {
+            throw new Horde_Exception($res);
+        }
+
+        return $res;
     }
 
 }

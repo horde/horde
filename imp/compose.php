@@ -46,12 +46,14 @@ function &_getIMPContents($index, $mailbox)
     if (empty($index)) {
         return false;
     }
-    $imp_contents = &IMP_Contents::singleton($index . IMP::IDX_SEP . $mailbox);
-    if (is_a($imp_contents, 'PEAR_Error')) {
+
+    try {
+        $imp_contents = &IMP_Contents::singleton($index . IMP::IDX_SEP . $mailbox);
+        return $imp_contents;
+    } catch (Horde_Exception $e) {
         $GLOBALS['notification']->push(_("Could not retrieve the message from the mail server."), 'horde.error');
         return false;
     }
-    return $imp_contents;
 }
 
 
@@ -166,9 +168,10 @@ $imp_compose = &IMP_Compose::singleton(Util::getFormData('composeCache'));
 $imp_compose->pgpAttachPubkey((bool) Util::getFormData('pgp_attach_pubkey'));
 $imp_compose->userLinkAttachments((bool) Util::getFormData('link_attachments'));
 
-$vcard = $imp_compose->attachVCard((bool) Util::getFormData('vcard'), $identity->getValue('fullname'));
-if (is_a($vcard, 'PEAR_Error')) {
-    $notification->push($vcard);
+try {
+    $imp_compose->attachVCard((bool) Util::getFormData('vcard'), $identity->getValue('fullname'));
+} catch (IMP_Compose_Exception $e) {
+    $notification->push($e);
 }
 
 /* Init IMP_UI_Compose:: object. */
@@ -283,10 +286,9 @@ case 'mailto_link':
     break;
 
 case 'draft':
-    $result = $imp_compose->resumeDraft($index . IMP::IDX_SEP . $thismailbox);
-    if (is_a($result, 'PEAR_Error')) {
-        $notification->push($result->getMessage(), 'horde.error');
-    } else {
+    try {
+        $result = $imp_compose->resumeDraft($index . IMP::IDX_SEP . $thismailbox);
+
         if (!is_null($rtemode)) {
             $rtemode = ($result['mode'] == 'html');
         }
@@ -299,6 +301,8 @@ case 'draft':
             $sent_mail_folder = $identity->getValue('sent_mail_folder');
         }
         $resume_draft = true;
+    } catch (IMP_Compose_Exception $e) {
+        $notification->push($e, 'horde.error');
     }
     $get_sig = false;
     break;
@@ -746,15 +750,14 @@ if ($prefs->getValue('use_pgp')) {
             if (!empty($addrs['list'])) {
                 $imp_pgp = &Horde_Crypt::singleton(array('imp', 'pgp'));
                 foreach ($addrs['list'] as $val) {
-                    $res = $imp_pgp->getPublicKey($val);
-                    if (is_a($res, 'PEAR_Error')) {
-                        $notification->push(_("PGP encryption cannot be used by default as public keys cannot be found for all recipients."), 'horde.warning');
-                        $encrypt_options = ($default_encrypt == IMP::PGP_ENCRYPT) ? IMP::ENCRYPT_NONE : IMP::PGP_SIGN;
-                        break;
-                    }
+                    $imp_pgp->getPublicKey($val);
                 }
             }
-        } catch (IMP_Compose_Exception $e) {}
+        } catch (IMP_Compose_Exception $e) {
+        } catch (Horde_Exception $e) {
+            $notification->push(_("PGP encryption cannot be used by default as public keys cannot be found for all recipients."), 'horde.warning');
+            $encrypt_options = ($default_encrypt == IMP::PGP_ENCRYPT) ? IMP::ENCRYPT_NONE : IMP::PGP_SIGN;
+        }
     }
 }
 

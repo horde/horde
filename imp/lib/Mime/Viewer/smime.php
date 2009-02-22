@@ -153,9 +153,11 @@ class IMP_Horde_Mime_Viewer_smime extends Horde_Mime_Viewer_Driver
         }
 
         $raw_text = $GLOBALS['imp_imap']->utils->removeBareNewlines($this->_params['contents']->getBodyPart($this->_mimepart->getMimeId(), array('mimeheaders' => true)));
-        $decrypted_data = $this->_impsmime->decryptMessage($raw_text);
-        if (is_a($decrypted_data, 'PEAR_Error')) {
-            $status[] = $decrypted_data->getMessage();
+
+        try {
+            $decrypted_data = $this->_impsmime->decryptMessage($raw_text);
+        } catch (Horde_Exception $e) {
+            $status[] = $e->getMessage();
             return null;
         }
 
@@ -255,12 +257,12 @@ class IMP_Horde_Mime_Viewer_smime extends Horde_Mime_Viewer_Driver
 
         $subpart = $this->_params['contents']->getMIMEPart($sig_id);
         if (!isset($subpart)) {
-            $msg_data = $this->_impsmime->extractSignedContents($raw_text);
-            if (is_a($msg_data, 'PEAR_Error')) {
-                $this->_status[] = $msg_data->getMessage();
-                $subpart = $this->_mimepart;
-            } else {
+            try {
+                $msg_data = $this->_impsmime->extractSignedContents($raw_text);
                 $subpart = Horde_Mime_Part::parseMessage($msg_data);
+            } catch (Horde_Exception $e) {
+                $this->_status[] = $e->getMessage();
+                $subpart = $this->_mimepart;
             }
         }
 

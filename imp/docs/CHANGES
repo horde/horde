@@ -2,6 +2,7 @@
 v5.0-git
 --------
 
+[mms] All native IMP code now uses exceptions instead of PEAR_Errors.
 [mms] Fix wrong charset on filenames when stripping attachments (Bug #7220).
 [mms] Use effects queue to prevent issues with users clicking on effects
       elements too quickly.

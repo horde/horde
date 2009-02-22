@@ -15,7 +15,7 @@ class Maintenance_Task_delete_attachments_monthly extends Maintenance_Task
      *
      * @return boolean  Whether any old attachments were deleted.
      */
-    function doMaintenance()
+    public function doMaintenance()
     {
         /* Find the UNIX timestamp of the last second that we will not
          * purge. */
@@ -46,7 +46,7 @@ class Maintenance_Task_delete_attachments_monthly extends Maintenance_Task
      * @return string  Description of what the operation is going to do during
      *                 this login.
      */
-    function describeMaintenance()
+    public function describeMaintenance()
     {
         return sprintf(_("All old linked attachments more than %s months old will be deleted."), $GLOBALS['prefs']->getValue('delete_attachments_monthly_keep'));
     }

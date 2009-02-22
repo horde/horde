@@ -92,11 +92,11 @@ case 'delete_key':
     break;
 
 case 'delete_public_key':
-    $result = $imp_smime->deletePublicKey(Util::getFormData('email'));
-    if (is_a($result, 'PEAR_Error')) {
-        $notification->push($result, $result->getCode());
-    } else {
+    try {
+        $imp_smime->deletePublicKey(Util::getFormData('email'));
         $notification->push(sprintf(_("S/MIME Public Key for \"%s\" was successfully deleted."), Util::getFormData('email')), 'horde.success');
+    } catch (Horde_Exception $e) {
+        $notification->push($e);
     }
     break;
 
@@ -125,19 +125,17 @@ case 'process_import_public_key':
     exit;
 
 case 'view_public_key':
-    $key = $imp_smime->getPublicKey(Util::getFormData('email'));
-    if (is_a($key, 'PEAR_Error')) {
-        $key = $key->getMessage();
-    }
-    _textWindowOutput('S/MIME Public Key', $key);
-    exit;
-
 case 'info_public_key':
-    $key = $imp_smime->getPublicKey(Util::getFormData('email'));
-    if (is_a($key, 'PEAR_Error')) {
-        $key = $key->getMessage();
+    try {
+        $key = $imp_smime->getPublicKey(Util::getFormData('email'));
+    } catch (Horde_Exception $e) {
+        $key = $e->getMessage();
     }
-    _printKeyInfo($key);
+    if ($actionID == 'view_public_key') {
+        _textWindowOutput('S/MIME Public Key', $key);
+    } else {
+        _printKeyInfo($key);
+    }
     exit;
 
 case 'view_personal_public_key':
@@ -161,14 +159,14 @@ case 'process_import_personal_certs':
         $actionID = 'import_personal_certs';
         _importKeyDialog('process_import_personal_certs');
     } else {
-        $res = $imp_smime->addFromPKCS12($pkcs12, Util::getFormData('upload_key_pass'), Util::getFormData('upload_key_pk_pass'));
-        if (is_a($res, 'PEAR_Error')) {
-            $notification->push(_("Personal S/MIME certificates NOT imported: ") . $res->getMessage(), 'horde.error');
-            $actionID = 'import_personal_certs';
-            _importKeyDialog('process_import_personal_certs');
-        } else {
+        try {
+            $imp_smime->addFromPKCS12($pkcs12, Util::getFormData('upload_key_pass'), Util::getFormData('upload_key_pk_pass'));
             $notification->push(_("S/MIME Public/Private Keypair successfully added."), 'horde.success');
             _reloadWindow();
+        } catch (Horde_Exception $e) {
+            $notification->push(_("Personal S/MIME certificates NOT imported: ") . $e->getMessage(), 'horde.error');
+            $actionID = 'import_personal_certs';
+            _importKeyDialog('process_import_personal_certs');
         }
     }
     exit;
@@ -209,9 +207,11 @@ case 'save_options':
 }
 
 /* Get list of Public Keys. */
-$pubkey_list = $imp_smime->listPublicKeys();
-if (is_a($pubkey_list, 'PEAR_Error')) {
-    $notification->push($pubkey_list, $pubkey_list->getCode());
+try {
+    $pubkey_list = $imp_smime->listPublicKeys();
+} catch (Horde_Exception $e) {
+    $pubkey_list = array();
+    $notification->push($e);
 }
 
 $result = Horde::loadConfiguration('prefs.php', array('prefGroups', '_prefs'), 'imp');
@@ -248,21 +248,18 @@ if (!is_a($openssl_check, 'PEAR_Error') && $prefs->getValue('use_smime')) {
 
     $t->set('empty_pubkey_list', empty($pubkey_list));
     if (!$t->get('empty_pubkey_list')) {
-        $t->set('pubkey_error', is_a($pubkey_list, 'PEAR_Error') ? $pubkey_list->getMessage() : false);
-        if (!$t->get('pubkey_error')) {
-            $plist = array();
-            foreach ($pubkey_list as $val) {
-                $linkurl = Util::addParameter($selfURL, 'email', $val['email']);
-                $plist[] = array(
-                    'name' => $val['name'],
-                    'email' => $val['email'],
-                    'view' => Horde::link(Util::addParameter($linkurl, 'actionID', 'view_public_key'), sprintf(_("View %s Public Key"), $val['name']), null, 'view_key'),
-                    'info' => Horde::link(Util::addParameter($linkurl, 'actionID', 'info_public_key'), sprintf(_("Information on %s Public Key"), $val['name']), null, 'info_key'),
-                    'delete' => Horde::link(Util::addParameter($linkurl, 'actionID', 'delete_public_key'), sprintf(_("Delete %s Public Key"), $val['name']), null, null, "if (confirm('" . addslashes(_("Are you sure you want to delete this public key?")) . "')) { return true; } else { return false; }")
-                );
-            }
-            $t->set('pubkey_list', $plist);
+        $plist = array();
+        foreach ($pubkey_list as $val) {
+            $linkurl = Util::addParameter($selfURL, 'email', $val['email']);
+            $plist[] = array(
+                'name' => $val['name'],
+                'email' => $val['email'],
+                'view' => Horde::link(Util::addParameter($linkurl, 'actionID', 'view_public_key'), sprintf(_("View %s Public Key"), $val['name']), null, 'view_key'),
+                'info' => Horde::link(Util::addParameter($linkurl, 'actionID', 'info_public_key'), sprintf(_("Information on %s Public Key"), $val['name']), null, 'info_key'),
+                'delete' => Horde::link(Util::addParameter($linkurl, 'actionID', 'delete_public_key'), sprintf(_("Delete %s Public Key"), $val['name']), null, null, "if (confirm('" . addslashes(_("Are you sure you want to delete this public key?")) . "')) { return true; } else { return false; }")
+            );
         }
+        $t->set('pubkey_list', $plist);
     }
 
     $t->set('no_file_upload', !$_SESSION['imp']['file_upload']);

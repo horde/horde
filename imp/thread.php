@@ -48,11 +48,11 @@ NLS::setTimeZone();
 $actionID = Util::getFormData('actionID');
 switch ($actionID) {
 case 'add_address':
-    $contact_link = IMP::addAddress(Util::getFormData('address'), Util::getFormData('name'));
-    if (is_a($contact_link, 'PEAR_Error')) {
-        $notification->push($contact_link);
-    } else {
+    try {
+        $contact_link = IMP::addAddress(Util::getFormData('address'), Util::getFormData('name'));
         $notification->push(sprintf(_("Entry \"%s\" was successfully added to the address book"), $contact_link), 'horde.success', array('content.raw'));
+    } catch (Horde_Exception $e) {
+        $notification->push($e);
     }
     break;
 }

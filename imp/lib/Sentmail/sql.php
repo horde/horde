@@ -25,13 +25,6 @@
 class IMP_Sentmail_sql extends IMP_Sentmail
 {
     /**
-     * Hash containing connection parameters.
-     *
-     * @var array
-     */
-    protected $_params = array();
-
-    /**
      * Handle for the current database connection.
      *
      * @var DB
@@ -42,10 +35,43 @@ class IMP_Sentmail_sql extends IMP_Sentmail
      * Constructor.
      *
      * @param array $params  A hash containing connection parameters.
+     *
+     * @throws Horde_Exception
      */
     function __construct($params = array())
     {
-        $this->_params = $params;
+        parent::__construct($params);
+
+        Horde::assertDriverConfig($this->_params, 'storage', array('phptype', 'table'));
+
+        if (!isset($this->_params['database'])) {
+            $this->_params['database'] = '';
+        }
+        if (!isset($this->_params['username'])) {
+            $this->_params['username'] = '';
+        }
+        if (!isset($this->_params['hostspec'])) {
+            $this->_params['hostspec'] = '';
+        }
+
+        /* Connect to the SQL server using the supplied parameters. */
+        require_once 'DB.php';
+        $this->_db = DB::connect($this->_params,
+                                 array('persistent' => !empty($this->_params['persistent']),
+                                       'ssl' => !empty($this->_params['ssl'])));
+        if (is_a($this->_db, 'PEAR_Error')) {
+            throw new Horde_Exception($this->_db);
+        }
+
+        /* Set DB portability options. */
+        switch ($this->_db->phptype) {
+        case 'mssql':
+            $this->_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS | DB_PORTABILITY_RTRIM);
+            break;
+
+        default:
+            $this->_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
+        }
     }
 
     /**
@@ -91,6 +117,7 @@ class IMP_Sentmail_sql extends IMP_Sentmail
      *                        A value of null returns all message types.
      *
      * @return array  A list with the $limit most favourite recipients.
+     * @throws Horde_Exception
      */
     public function favouriteRecipients($limit,
                                         $filter = array('new', 'forward', 'reply', 'redirect'))
@@ -116,7 +143,7 @@ class IMP_Sentmail_sql extends IMP_Sentmail
         $recipients = $this->_db->getAll($query);
         if (is_a($recipients, 'PEAR_Error')) {
             Horde::logMessage($recipients, __FILE__, __LINE__, PEAR_LOG_ERR);
-            return $recipients;
+            throw new Horde_Exception($recipients);
         }
 
         /* Extract email addresses. */
@@ -136,6 +163,7 @@ class IMP_Sentmail_sql extends IMP_Sentmail
      *                        user?
      *
      * @return integer  The number of recipients in the given time period.
+     * @throws Horde_Exception
      */
     public function numberOfRecipients($hours, $user = false)
     {
@@ -154,6 +182,7 @@ class IMP_Sentmail_sql extends IMP_Sentmail
         $recipients = $this->_db->getOne($query, array(time() - $hours * 3600));
         if (is_a($recipients, 'PEAR_Error')) {
             Horde::logMessage($recipients, __FILE__, __LINE__, PEAR_LOG_ERR);
+            throw new Horde_Exception($recipients);
         }
 
         return $recipients;
@@ -164,6 +193,8 @@ class IMP_Sentmail_sql extends IMP_Sentmail
      *
      * @param integer $before  Unix timestamp before that all log entries
      *                         should be deleted.
+     *
+     * @throw Horde_Exception
      */
     protected function _deleteOldEntries($before)
     {
@@ -179,49 +210,8 @@ class IMP_Sentmail_sql extends IMP_Sentmail
         $result = $this->_db->query($query, array($before));
         if (is_a($result, 'PEAR_Error')) {
             Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-            return $result;
+            throw new Horde_Exception($result);
         }
-    }
-
-    /**
-     * Attempts to open a connection to the SQL server.
-     *
-     * @return boolean  True on success, PEAR_Error on failure.
-     */
-    public function initialize()
-    {
-        Horde::assertDriverConfig($this->_params, 'storage',
-                                  array('phptype', 'table'));
-
-        if (!isset($this->_params['database'])) {
-            $this->_params['database'] = '';
-        }
-        if (!isset($this->_params['username'])) {
-            $this->_params['username'] = '';
-        }
-        if (!isset($this->_params['hostspec'])) {
-            $this->_params['hostspec'] = '';
-        }
-
-        /* Connect to the SQL server using the supplied parameters. */
-        require_once 'DB.php';
-        $this->_db = DB::connect($this->_params,
-                                 array('persistent' => !empty($this->_params['persistent']),
-                                       'ssl' => !empty($this->_params['ssl'])));
-        if (is_a($this->_db, 'PEAR_Error')) {
-            return $this->_db;
-        }
-
-        /* Set DB portability options. */
-        switch ($this->_db->phptype) {
-        case 'mssql':
-            $this->_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS | DB_PORTABILITY_RTRIM);
-            break;
-        default:
-            $this->_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
-        }
-
-        return true;
     }
 
 }

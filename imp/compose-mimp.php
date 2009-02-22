@@ -73,10 +73,9 @@ $actionID = Util::getFormData('a');
 switch ($actionID) {
 // 'd' = draft
 case 'd':
-    $result = $imp_compose->resumeDraft($index . IMP::IDX_SEP . $thismailbox);
-    if (is_a($result, 'PEAR_Error')) {
-        $notification->push($result, 'horde.error');
-    } else {
+    try {
+        $result = $imp_compose->resumeDraft($index . IMP::IDX_SEP . $thismailbox);
+
         $msg = $result['msg'];
         $header = array_merge($header, $result['header']);
         if (!is_null($result['identity']) &&
@@ -86,6 +85,8 @@ case 'd':
             $sent_mail_folder = $identity->getValue('sent_mail_folder');
         }
         $resume_draft = true;
+    } catch (IMP_Compose_Exception $e) {
+        $notification->push($e, 'horde.error');
     }
     break;
 

@@ -159,6 +159,7 @@ class IMP
      * @param string $newName     The contact's name.
      *
      * @return string  A link or message to show in the notification area.
+     * @throws Horde_Exception
      */
     static public function addAddress($newAddress, $newName)
     {
@@ -172,17 +173,18 @@ class IMP
                                   array(array('name' => $newName, 'email' => $newAddress),
                                         'array', $prefs->getValue('add_source')));
         if (is_a($result, 'PEAR_Error')) {
-            return $result;
+            throw new Horde_Exception($result);
         }
 
         $contact_link = $registry->link('contacts/show', array('uid' => $result, 'source' => $prefs->getValue('add_source')));
-        if (!empty($contact_link) && !is_a($contact_link, 'PEAR_Error')) {
-            $contact_link = Horde::link(Horde::url($contact_link), sprintf(_("Go to address book entry of \"%s\""), $newName)) . @htmlspecialchars($newName, ENT_COMPAT, NLS::getCharset()) . '</a>';
-        } else {
-            $contact_link = @htmlspecialchars($newName, ENT_COMPAT, NLS::getCharset());
-        }
 
-        return $contact_link;
+        $old_error = error_reporting(0);
+        $escapeName = htmlspecialchars($newName, ENT_COMPAT, NLS::getCharset());
+        error_reporting($old_error);
+
+        return (!empty($contact_link) && !is_a($contact_link, 'PEAR_Error'))
+            ? Horde::link(Horde::url($contact_link), sprintf(_("Go to address book entry of \"%s\""), $newName)) . $escapeName . '</a>'
+            : $escapeName;
     }
 
     /**

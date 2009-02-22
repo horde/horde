@@ -56,13 +56,15 @@ require_once dirname(__FILE__) . '/lib/base.php';
 
 /* Call the mailbox redirection hook, if requested. */
 if (!empty($conf['hooks']['mbox_redirect'])) {
-    $redirect = Horde::callHook('_imp_hook_mbox_redirect',
-                                array($imp_mbox['mailbox']),
-                                'imp');
-    if (!empty($redirect) && !is_a($redirect, 'PEAR_Error')) {
-        $redirect = Horde::applicationUrl($redirect, true);
-        header('Location: ' . $redirect);
-        exit;
+    try {
+        $redirect = Horde::callHook('_imp_hook_mbox_redirect', array($imp_mbox['mailbox']), 'imp');
+        if (!empty($redirect)) {
+            $redirect = Horde::applicationUrl($redirect, true);
+            header('Location: ' . $redirect);
+            exit;
+        }
+    } catch (Horde_Exception $e) {
+        Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
     }
 }
 

@@ -432,13 +432,13 @@ case 'AddContact':
         break;
     }
 
-    $result = IMP::addAddress($email, $name);
-    if (is_a($result, 'PEAR_Error')) {
-        $notification->push($result, 'horde.error');
-        $result = false;
-    } else {
+    try {
+        IMP::addAddress($email, $name);
         $result = true;
         $notification->push(sprintf(_("%s was successfully added to your address book."), $name ? $name : $email), 'horde.success');
+    } catch (Horde_Exception $e) {
+        $notification->push($e, 'horde.error');
+        $result = false;
     }
     break;
 

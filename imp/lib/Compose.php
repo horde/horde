@@ -175,9 +175,6 @@ class IMP_Compose
     {
         /* Set up the base message now. */
         $mime = $this->_createMimeMessage(array(null), $message, $charset, array('html' => $html, 'nofinal' => true, 'noattach' => !$session));
-        if (is_a($mime, 'PEAR_Error')) {
-            return $mime;
-        }
         $base = $mime['msg'];
         $base->isBasePart(true);
 
@@ -268,22 +265,21 @@ class IMP_Compose
      * @param string $index  The IMAP message mailbox/index. The index should
      *                       be in IMP::parseIndicesList() format #1.
      *
-     * @return mixed  PEAR_Error on error, or an array with the following
-     *                keys:
+     * @return mixed  An array with the following keys:
      * <pre>
      * 'msg' - (string) The message text.
      * 'mode' - (string) 'html' or 'text'.
      * 'header' - (array) A list of headers to add to the outgoing message.
      * 'identity' - (integer) The identity used to create the message.
      * </pre>
+     * @throws IMP_Compose_Exception
      */
     public function resumeDraft($index)
     {
         try {
             $contents = IMP_Contents::singleton($index);
         } catch (Horde_Exception $e) {
-            // TODO
-            return $contents;
+            throw new IMP_Compose_Exception($e);
         }
 
         $msg_text = $this->_getMessageText($contents, array('type' => 'draft'));
@@ -387,11 +383,7 @@ class IMP_Compose
         if ($prefs->getValue('use_smime') &&
             in_array($encrypt, array(IMP::SMIME_ENCRYPT, IMP::SMIME_SIGNENC))) {
             foreach ($recip['list'] as $val) {
-                $res = $this->_createMimeMessage(array($val), $body, $charset, $msg_options);
-                if (is_a($res, 'PEAR_Error')) {
-                    return $res;
-                }
-                $send_msgs[] = $res;
+                $send_msgs[] = $this->_createMimeMessage(array($val), $body, $charset, $msg_options);
             }
 
             /* Must target the encryption for the sender before saving message
@@ -402,10 +394,6 @@ class IMP_Compose
              * multiple addresses in the same message. */
             $msg_options['from'] = $barefrom;
             $send_msgs[] = $save_msg = $this->_createMimeMessage($recip['list'], $body, $charset, $msg_options);
-        }
-
-        if (is_a($save_msg, 'PEAR_Error')) {
-            return $save_msg;
         }
 
         /* Initalize a header object for the outgoing message. */
@@ -496,6 +484,10 @@ class IMP_Compose
             }
         }
 
+        if ($conf['sentmail']['driver'] != 'none') {
+            $sentmail = IMP_Sentmail::factory();
+        }
+
         /* Send the messages out now. */
         foreach ($send_msgs as $val) {
             try {
@@ -503,13 +495,16 @@ class IMP_Compose
             } catch (IMP_Compose_Exception $e) {
                 /* Unsuccessful send. */
                 Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
+                if (isset($sentmail)) {
+                    $sentmail->log(empty($opts['reply_type']) ? 'new' : $opts['reply_type'], $headers->getValue('message-id'), $val['recipients'], false);
+                }
+
                 throw new IMP_Compose_Exception(sprintf(_("There was an error sending your message: %s"), $e->getMessage()));
             }
 
             /* Store history information. */
-            if ($conf['sentmail']['driver'] != 'none') {
-                $sentmail = IMP_Sentmail::factory();
-                $sentmail->log(empty($opts['reply_type']) ? 'new' : $opts['reply_type'], $headers->getValue('message-id'), $val['recipients'], !is_a($res, 'PEAR_Error'));
+            if (isset($sentmail)) {
+                $sentmail->log(empty($opts['reply_type']) ? 'new' : $opts['reply_type'], $headers->getValue('message-id'), $val['recipients'], true);
             }
         }
 
@@ -664,9 +659,10 @@ class IMP_Compose
 
         $mail_driver = $this->getMailDriver();
 
-        $res = $message->send($email, $headers, $mail_driver['driver'], $mail_driver['params']);
-        if (is_a($res, 'PEAR_Error')) {
-            throw new IMP_Compose_Exception($res);
+        try {
+            $message->send($email, $headers, $mail_driver['driver'], $mail_driver['params']);
+        } catch (Horde_Mime_Exception $e) {
+            throw new IMP_Compose_Exception($e);
         }
     }
 
@@ -1070,31 +1066,30 @@ class IMP_Compose
             }
 
             /* Do the encryption/signing requested. */
-            switch ($encrypt) {
-            case IMP::PGP_SIGN:
-                $base = $imp_pgp->IMPsignMIMEPart($base);
-                break;
+            try {
+                switch ($encrypt) {
+                case IMP::PGP_SIGN:
+                    $base = $imp_pgp->IMPsignMIMEPart($base);
+                    break;
 
-            case IMP::PGP_ENCRYPT:
-            case IMP::PGP_SYM_ENCRYPT:
-                $to_list = empty($options['from'])
-                    ? $to
-                    : array_keys(array_flip(array_merge($to, array($options['from']))));
-                $base = $imp_pgp->IMPencryptMIMEPart($base, $to_list, ($encrypt == IMP::PGP_SYM_ENCRYPT) ? $symmetric_passphrase : null);
-                break;
+                case IMP::PGP_ENCRYPT:
+                case IMP::PGP_SYM_ENCRYPT:
+                    $to_list = empty($options['from'])
+                        ? $to
+                        : array_keys(array_flip(array_merge($to, array($options['from']))));
+                    $base = $imp_pgp->IMPencryptMIMEPart($base, $to_list, ($encrypt == IMP::PGP_SYM_ENCRYPT) ? $symmetric_passphrase : null);
+                    break;
 
-            case IMP::PGP_SIGNENC:
-            case IMP::PGP_SYM_SIGNENC:
-                $to_list = empty($options['from'])
-                    ? $to
-                    : array_keys(array_flip(array_merge($to, array($options['from']))));
-                $base = $imp_pgp->IMPsignAndEncryptMIMEPart($base, $to_list, ($encrypt == IMP::PGP_SYM_SIGNENC) ? $symmetric_passphrase : null);
-                break;
-            }
-
-            /* Check for errors. */
-            if (is_a($base, 'PEAR_Error')) {
-                throw new IMP_Compose_Exception(_("PGP Error: ") . $base->getMessage(), $base->getCode());
+                case IMP::PGP_SIGNENC:
+                case IMP::PGP_SYM_SIGNENC:
+                    $to_list = empty($options['from'])
+                        ? $to
+                        : array_keys(array_flip(array_merge($to, array($options['from']))));
+                    $base = $imp_pgp->IMPsignAndEncryptMIMEPart($base, $to_list, ($encrypt == IMP::PGP_SYM_SIGNENC) ? $symmetric_passphrase : null);
+                    break;
+                }
+            } catch (Horde_Exception $e) {
+                throw new IMP_Compose_Exception(_("PGP Error: ") . $e->getMessage(), $e->getCode());
             }
         } elseif ($GLOBALS['prefs']->getValue('use_smime') &&
                   in_array($encrypt, array(IMP::SMIME_ENCRYPT, IMP::SMIME_SIGN, IMP::SMIME_SIGNENC))) {
@@ -1111,23 +1106,22 @@ class IMP_Compose
             }
 
             /* Do the encryption/signing requested. */
-            switch ($encrypt) {
-            case IMP::SMIME_SIGN:
-                $base = $imp_smime->IMPsignMIMEPart($base);
-                break;
+            try {
+                switch ($encrypt) {
+                case IMP::SMIME_SIGN:
+                    $base = $imp_smime->IMPsignMIMEPart($base);
+                    break;
 
-            case IMP::SMIME_ENCRYPT:
-                $base = $imp_smime->IMPencryptMIMEPart($base, $to[0]);
-                break;
+                case IMP::SMIME_ENCRYPT:
+                    $base = $imp_smime->IMPencryptMIMEPart($base, $to[0]);
+                    break;
 
-            case IMP::SMIME_SIGNENC:
-                $base = $imp_smime->IMPsignAndEncryptMIMEPart($base, $to[0]);
-                break;
-            }
-
-            /* Check for errors. */
-            if (is_a($base, 'PEAR_Error')) {
-                throw new IMP_Compose_Exception(_("S/MIME Error: ") . $base->getMessage(), $base->getCode());
+                case IMP::SMIME_SIGNENC:
+                    $base = $imp_smime->IMPsignAndEncryptMIMEPart($base, $to[0]);
+                    break;
+                }
+            } catch (Horde_Exception $e) {
+                throw new IMP_Compose_Exception(_("S/MIME Error: ") . $e->getMessage(), $e->getCode());
             }
         }
 
@@ -1963,17 +1957,14 @@ class IMP_Compose
     /**
      * Adds attachments from the IMP_Contents object to the message.
      *
-     * @param IMP_Contents &$contents  An IMP_Contents object.
-     * @param array $options           Additional options:
+     * @param IMP_Contents $contents  An IMP_Contents object.
+     * @param array $options          Additional options:
      * <pre>
      * 'notify' - (boolean) Add notification message on errors?
      * 'skip' - (array) Skip these MIME IDs.
      * </pre>
-     *
-     * @return array  An array of PEAR_Error object on error.
-     *                An empty array if successful.
      */
-    public function attachFilesFromMessage(&$contents, $options = array())
+    public function attachFilesFromMessage($contents, $options = array())
     {
         $mime_message = $contents->getMIMEMessage();
         $dl_list = array_slice(array_keys($mime_message->contentTypeMap()), 1);
@@ -2284,7 +2275,7 @@ class IMP_Compose
      * @param boolean $attach  True if vCard should be attached.
      * @param string $name     The user's name.
      *
-     * @return mixed  True on success, PEAR_Error on error.
+     * @throws IMP_Compose_Exception
      */
     public function attachVCard($attach, $name)
     {
@@ -2294,7 +2285,7 @@ class IMP_Compose
 
         $vcard = $GLOBALS['registry']->call('contacts/ownVCard');
         if (is_a($vcard, 'PEAR_Error')) {
-            return $vcard;
+            throw new IMP_Compose_Exception($vcard);
         }
 
         $part = new Horde_Mime_Part();
@@ -2303,8 +2294,6 @@ class IMP_Compose
         $part->setContents($vcard);
         $part->setName((strlen($name) ? $name : 'vcard') . '.vcf');
         $this->_attachVCard = $part;
-
-        return true;
     }
 
     /**

@@ -222,16 +222,16 @@ class IMP_Horde_Mime_Viewer_pgp extends Horde_Mime_Viewer_Driver
             }
         }
 
-        if (!is_null($symmetric_pass)) {
-            $decrypted_data = $this->_imppgp->decryptMessage($encrypted_data, 'symmetric', $symmetric_pass);
-        } elseif (!is_null($personal_pass)) {
-            $decrypted_data = $this->_imppgp->decryptMessage($encrypted_data, 'personal', $personal_pass);
-        } else {
-            $decrypted_data = $this->_imppgp->decryptMessage($encrypted_data, 'literal');
-        }
-
-        if (is_a($decrypted_data, 'PEAR_Error')) {
-            $status[] = _("The message below does not appear to be a valid PGP encrypted message. Error: ") . $decrypted_data->getMessage();
+        try {
+            if (!is_null($symmetric_pass)) {
+                $decrypted_data = $this->_imppgp->decryptMessage($encrypted_data, 'symmetric', $symmetric_pass);
+            } elseif (!is_null($personal_pass)) {
+                $decrypted_data = $this->_imppgp->decryptMessage($encrypted_data, 'personal', $personal_pass);
+            } else {
+                $decrypted_data = $this->_imppgp->decryptMessage($encrypted_data, 'literal');
+            }
+        } catch (Horde_Exception $e) {
+            $status[] = _("The message below does not appear to be a valid PGP encrypted message. Error: ") . $e->getMessage();
             if (!is_null($symmetric_pass)) {
                 $this->_imppgp->unsetPassphrase('symmetric', $this->_getSymmetricID());
                 return $this->_getEmbeddedMimeParts();
@@ -324,22 +324,20 @@ class IMP_Horde_Mime_Viewer_pgp extends Horde_Mime_Viewer_Driver
 
             /* Check for the 'x-imp-pgp-signature' param. This is set by the
              * plain driver when parsing PGP armor text. */
-            if ($sig_part->getContentTypeParameter('x-imp-pgp-signature')) {
-                $sig_result = $this->_imppgp->verifySignature($signed_data, $this->_address);
-            } else {
-                $sig_result = $this->_imppgp->verifySignature($signed_data, $this->_address, $sig_part->getContents());
-            }
-
             $graphicsdir = $GLOBALS['registry']->getImageDir('horde');
+            try {
+                $sig_result = $sig_part->getContentTypeParameter('x-imp-pgp-signature')
+                    ? $this->_imppgp->verifySignature($signed_data, $this->_address)
+                    : $this->_imppgp->verifySignature($signed_data, $this->_address, $sig_part->getContents());
+                }
 
-            if (is_a($sig_result, 'PEAR_Error')) {
-                $icon = Horde::img('alerts/error.png', _("Error"), null, $graphicsdir);
-                $sig_result = $sig_result->getMessage();
-            } else {
                 $icon = Horde::img('alerts/success.png', _("Success"), null, $graphicsdir);
                 if (empty($sig_result)) {
                    $sig_result = _("The message below has been verified.");
                 }
+            } catch (Horde_Exception $e) {
+                $icon = Horde::img('alerts/error.png', _("Error"), null, $graphicsdir);
+                $sig_result = $e->getMessage();
             }
 
             require_once 'Horde/Text/Filter.php';

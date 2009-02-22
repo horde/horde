@@ -25,9 +25,6 @@
 <if:empty_pubkey_list>
  <em><gettext>No Keys in Keyring</gettext></em>
 <else:empty_pubkey_list>
-<if:pubkey_error>
- <em style="color:red"><gettext>Error:</gettext></em> <tag:pubkey_error />
-<else:pubkey_error>
  <table>
 <loop:pubkey_list>
   <tr>
@@ -36,7 +33,7 @@
   </tr>
 </loop:pubkey_list>
  </table>
-</else:pubkey_error></if:pubkey_error></else:empty_pubkey_list></if:empty_pubkey_list>
+</else:empty_pubkey_list></if:empty_pubkey_list>
 
 <if:no_file_upload>
  <em style="color:red"><gettext>Key import is not available. File upload is not enabled on this server.</gettext></em>

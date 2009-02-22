@@ -89,11 +89,11 @@ case 'generate_key':
     } elseif ($passphrase1 !== $passphrase2) {
         $notification->push(_("Passphrases do not match"), 'horde.error');
     } else {
-        $result = $imp_pgp->generatePersonalKeys($realname, $email, $passphrase1, $comment, $keylength);
-        if (is_a($result, 'PEAR_Error')) {
-            $notification->push($result, $result->getCode());
-        } else {
+        try {
+            $imp_pgp->generatePersonalKeys($realname, $email, $passphrase1, $comment, $keylength);
             $notification->push(_("Personal PGP keypair generated successfully."), 'horde.success');
+        } catch (Horde_Exception $e) {
+            $notification->push($e);
         }
     }
     break;
@@ -189,23 +189,21 @@ case 'process_import_personal_private_key':
     exit;
 
 case 'view_public_key':
-    $key = $imp_pgp->getPublicKey(Util::getFormData('email'), null, false);
-    if (is_a($key, 'PEAR_Error')) {
-        $key = $key->getMessage();
+case 'info_public_key':
+    try {
+        $key = $imp_pgp->getPublicKey(Util::getFormData('email'), null, false);
+    } catch (Horde_Exception $e) {
+        $key = $e->getMessage();
     }
-    _textWindowOutput('PGP Public Key', $key);
+    if ($actionID == 'view_public_key') {
+        _textWindowOutput('PGP Public Key', $key);
+    } else {
+        _printKeyInfo($key);
+    }
     exit;
 
 case 'view_personal_public_key':
     _textWindowOutput('PGP Personal Public Key', $imp_pgp->getPersonalPublicKey());
-    exit;
-
-case 'info_public_key':
-    $key = $imp_pgp->getPublicKey(Util::getFormData('email'), null, false);
-    if (is_a($key, 'PEAR_Error')) {
-        $key = $key->getMessage();
-    }
-    _printKeyInfo($key);
     exit;
 
 case 'info_personal_public_key':
@@ -221,11 +219,11 @@ case 'info_personal_private_key':
     exit;
 
 case 'delete_public_key':
-    $result = $imp_pgp->deletePublicKey(Util::getFormData('email'));
-    if (is_a($result, 'PEAR_Error')) {
-        $notification->push($result, $result->getCode());
-    } else {
+    try {
+        $imp_pgp->deletePublicKey(Util::getFormData('email'));
         $notification->push(sprintf(_("PGP Public Key for \"%s\" was successfully deleted."), Util::getFormData('email')), 'horde.success');
+    } catch (Horde_Exception $e) {
+        $notification->push($e);
     }
     break;
 
@@ -264,11 +262,11 @@ case 'unset_passphrase':
     break;
 
 case 'send_public_key':
-    $result = $imp_pgp->sendToPublicKeyserver($imp_pgp->getPersonalPublicKey());
-    if (is_a($result, 'PEAR_Error')) {
-        $notification->push($result, $result->getCode());
-    } else {
+    try {
+        $imp_pgp->sendToPublicKeyserver($imp_pgp->getPersonalPublicKey());
         $notification->push(_("Key successfully sent to the public keyserver."), 'horde.success');
+    } catch (Horde_Exception $e) {
+        $notification->push($e);
     }
     break;
 }
@@ -276,9 +274,11 @@ case 'send_public_key':
 $selfURL = Horde::applicationUrl('pgp.php');
 
 /* Get list of Public Keys on keyring. */
-$pubkey_list = $imp_pgp->listPublicKeys();
-if (is_a($pubkey_list, 'PEAR_Error')) {
-    $notification->push($pubkey_list, $pubkey_list->getCode());
+try {
+    $pubkey_list = $imp_pgp->listPublicKeys();
+} catch (Horde_Exception $e) {
+    $pubkey_list = array();
+    $notification->push($e);
 }
 
 $result = Horde::loadConfiguration('prefs.php', array('prefGroups', '_prefs'), 'imp');
@@ -319,21 +319,18 @@ if ($prefs->getValue('use_pgp')) {
 
     $t->set('empty_pubkey_list', empty($pubkey_list));
     if (!$t->get('empty_pubkey_list')) {
-        $t->set('pubkey_error', is_a($pubkey_list, 'PEAR_Error') ? $pubkey_list->getMessage() : false);
-        if (!$t->get('pubkey_error')) {
-            $plist = array();
-            foreach ($pubkey_list as $val) {
-                $linkurl = Util::addParameter($selfURL, 'email', $val['email']);
-                $plist[] = array(
-                    'name' => $val['name'],
-                    'email' => $val['email'],
-                    'view' => Horde::link(Util::addParameter($linkurl, 'actionID', 'view_public_key'), sprintf(_("View %s Public Key"), $val['name']), null, 'view_key'),
-                    'info' => Horde::link(Util::addParameter($linkurl, 'actionID', 'info_public_key'), sprintf(_("Information on %s Public Key"), $val['name']), null, 'info_key'),
-                    'delete' => Horde::link(Util::addParameter($linkurl, 'actionID', 'delete_public_key'), sprintf(_("Delete %s Public Key"), $val['name']), null, null, "if (confirm('" . addslashes(_("Are you sure you want to delete this public key?")) . "')) { return true; } else { return false; }")
-                );
-            }
-            $t->set('pubkey_list', $plist);
+        $plist = array();
+        foreach ($pubkey_list as $val) {
+            $linkurl = Util::addParameter($selfURL, 'email', $val['email']);
+            $plist[] = array(
+                'name' => $val['name'],
+                'email' => $val['email'],
+                'view' => Horde::link(Util::addParameter($linkurl, 'actionID', 'view_public_key'), sprintf(_("View %s Public Key"), $val['name']), null, 'view_key'),
+                'info' => Horde::link(Util::addParameter($linkurl, 'actionID', 'info_public_key'), sprintf(_("Information on %s Public Key"), $val['name']), null, 'info_key'),
+                'delete' => Horde::link(Util::addParameter($linkurl, 'actionID', 'delete_public_key'), sprintf(_("Delete %s Public Key"), $val['name']), null, null, "if (confirm('" . addslashes(_("Are you sure you want to delete this public key?")) . "')) { return true; } else { return false; }")
+            );
         }
+        $t->set('pubkey_list', $plist);
     }
 
     $t->set('no_file_upload', !$_SESSION['imp']['file_upload']);
