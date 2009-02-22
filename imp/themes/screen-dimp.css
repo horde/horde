@@ -44,7 +44,7 @@ div#quota {
     white-space: normal;
     -moz-border-radius-bottomright: 0;
     -webkit-border-bottom-right-radius: 0;
-    border-bottom: 0px;
+    border-bottom: 0;
 }
 #dimpmain {
     position: absolute;
@@ -474,7 +474,7 @@ div.msgSize {
     background: #efefef;
     padding: 4px 4px 4px 2px;
     border: 1px silver solid;
-    border-bottom: 0px;
+    border-bottom: 0;
     background: transparent url("graphics/backhead_s2.png") repeat-x;
 }
 .dimpActions span {
@@ -911,12 +911,12 @@ a.address:hover img {
     vertical-align: middle;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
-    padding: 0px 2px 2px 4px;
+    padding: 0 2px 2px 4px;
     text-decoration: none;
 }
 #qclose a:hover {
     background: #fff;
-    padding: 0px 2px 2px 4px;
+    padding: 0 2px 2px 4px;
 }
 #qoptions .qlabel {
     font-weight: bold;
@@ -1105,12 +1105,12 @@ span.threadImg4 {
 #msg_newwin span.iconImg {
     float: right;
     margin-left: 4px;
-    margin-right: 0px;
+    margin-right: 0;
 }
 #quota span.iconImg {
     background-image: url("graphics/quotauncover.gif");
-    width: 0px;
-    margin-right: 0px;
+    width: 0;
+    margin-right: 0;
 }
 #th_expand span.iconImg, #partlist_col {
     background-image: url("graphics/arrow_collapsed.png");
@@ -1124,7 +1124,8 @@ span.threadImg4 {
 
 span.popdownImg, span.spellcheckPopdownImg {
     background-image: url("graphics/popdown.png");
-    margin-right: 0px;
+    margin-right: 0;
+    margin-left: 0;
 }
 span.keyupImg {
     background-image: url("graphics/key_up.png");
