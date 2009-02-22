@@ -45,8 +45,10 @@ class Horde_Block_Folks_friends extends Horde_Block {
     function _content()
     {
         require_once dirname(__FILE__) . '/../base.php';
+        require_once FOLKS_BASE . '/lib/Friends.php';
 
-        $friends = $GLOBALS['folks_driver']->getFriends(Auth::getAuth());
+        $friends_driver = Folks_Friends::singleton();
+        $friends = $friends_driver->getFriends();
         if ($friends instanceof PEAR_Error) {
             return $friends;
         }
