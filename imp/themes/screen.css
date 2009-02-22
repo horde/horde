@@ -411,6 +411,9 @@ ul.nav-audio {
     margin: 20px auto 0 auto;
     position: absolute;
 }
+#RB_window p, #RB_window ul {
+    margin-bottom: 3px;
+}
 
 #RB_confirm {
     width: 20em;
