@@ -31,3 +31,5 @@ if ($conf['comments']['allow'] != 'never'
         && $registry->hasMethod('forums/doComments')) {
     $tabs->addTab(_("Comments"), 'comments.php', 'comments');
 }
+
+Horde::addScriptFile('tables.js', 'horde', true);
