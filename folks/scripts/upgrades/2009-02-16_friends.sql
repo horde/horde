@@ -5,4 +5,6 @@ CREATE TABLE IF NOT EXISTS `folks_blacklist` (
 );
 
 INSERT folks_blacklist (`user_uid`, `friend_uid`)
-    SELECT `user_uid`, `friend_uid` FROM `folks_friends` WHERE `group_id` = 0;
+    SELECT `user_uid`, `friend_uid` FROM `folks_friends` WHERE `group_id` = 1;
+
+DELETE FROM folks_friends  WHERE `group_id` = 1;
