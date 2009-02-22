@@ -70,9 +70,10 @@ if ($actionID == 'compose_attach_preview') {
         exit;
     }
 
-    $contents = &IMP_Contents::singleton($index . IMP::IDX_SEP . $mailbox);
-    if (is_a($contents, 'PEAR_Error')) {
-        Horde::fatal($contents, __FILE__, __LINE__);
+    try {
+        $contents = &IMP_Contents::singleton($index . IMP::IDX_SEP . $mailbox);
+    } catch (Horde_Exception $e) {
+        Horde::fatal($e, __FILE__, __LINE__);
     }
 }
 

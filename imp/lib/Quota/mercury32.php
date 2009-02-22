@@ -43,8 +43,7 @@ class IMP_Quota_mercury32 extends IMP_Quota
     /**
      * Get quota information (used/allocated), in bytes.
      *
-     * @return mixed  Returns PEAR_Error on failure. Otherwise, returns an
-     *                array with the following keys:
+     * @return array  An array with the following keys:
      *                'limit' = Maximum quota allowed
      *                'usage' = Currently used portion of quota (in bytes)
      */
@@ -63,7 +62,8 @@ class IMP_Quota_mercury32 extends IMP_Quota
                 return array('usage' => $quota, 'limit' => 0);
             }
         }
-        return PEAR::raiseError(_("Unable to retrieve quota"), 'horde.error');
+
+        throw new Horde_Exception(_("Unable to retrieve quota"), 'horde.error');
     }
 
 }

@@ -122,8 +122,9 @@ class IMP_Views_ShowMessage
         }
 
         /* Parse MIME info and create the body of the message. */
-        $imp_contents = &IMP_Contents::singleton($index . IMP::IDX_SEP . $folder);
-        if (is_a($imp_contents, 'PEAR_Error')) {
+        try {
+            $imp_contents = &IMP_Contents::singleton($index . IMP::IDX_SEP . $folder);
+        } catch (Horde_Exception $e) {
             $result['error'] = $error_msg;
             $result['errortype'] = 'horde.error';
             return $result;

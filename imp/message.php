@@ -49,9 +49,10 @@ $user_identity = &Identity::singleton(array('imp', 'imp'));
 /* Run through action handlers. */
 $actionID = Util::getFormData('actionID');
 if ($actionID && ($actionID != 'print_message')) {
-    $result = IMP::checkRequestToken('imp.message', Util::getFormData('message_token'));
-    if (is_a($result, 'PEAR_Error')) {
-        $notification->push($result);
+    try {
+        IMP::checkRequestToken('imp.message', Util::getFormData('message_token'));
+    } catch (Horde_Exception $e) {
+        $notification->push($e);
         $actionID = null;
     }
 }
@@ -165,9 +166,10 @@ case 'add_address':
 
 case 'strip_all':
 case 'strip_attachment':
-    $result = $imp_message->stripPart($indices_array, ($actionID == 'strip_all') ? null : Util::getFormData('imapid'));
-    if (is_a($result, 'PEAR_Error')) {
-        $notification->push($result, 'horde.error');
+    try {
+        $imp_message->stripPart($indices_array, ($actionID == 'strip_all') ? null : Util::getFormData('imapid'));
+    } catch (Horde_Exception $e) {
+        $notification->push($e, 'horde.error');
     }
     break;
 }
@@ -212,8 +214,9 @@ $mime_headers = reset($fetch_ret[$index]['headertext']);
 $use_pop = ($_SESSION['imp']['protocol'] == 'pop');
 
 /* Parse the message. */
-$imp_contents = &IMP_Contents::singleton($index . IMP::IDX_SEP . $mailbox_name);
-if (is_a($imp_contents, 'PEAR_Error')) {
+try {
+    $imp_contents = &IMP_Contents::singleton($index . IMP::IDX_SEP . $mailbox_name);
+} catch (Horde_Exception $e) {
     _returnToMailbox(null, 'message_missing');
     require IMP_BASE . '/mailbox.php';
     exit;

@@ -105,6 +105,9 @@
 // ex. $HTTP_HOST = 'mail.mydomain.com', $username = 'myname':
 //   $vdomain  = 'mydomain.com'
 //   $username = 'myname_mydomain_com'
+//
+// Throw a Horde_Exception object on failure.
+
 
 // if (!function_exists('_imp_hook_vinfo')) {
 //     function _imp_hook_vinfo($type = 'username', $data = null)
@@ -119,7 +122,7 @@
 //             return $vdomain;
 //
 //         default:
-//             return PEAR::raiseError('invalid type: ' . $type);
+//             throw new Horde_Exception('invalid type: ' . $type);
 //         }
 //     }
 // }
@@ -505,7 +508,7 @@ if (!empty($GLOBALS['conf']['kolab']['enabled'])) {
 // @return array Tuple with two members:
 //               first: disk space used (in bytes)
 //               second: maximum disk space (in bytes)
-//               In case of an error, return PEAR::raiseError()
+//               In case of an error, throw a Horde_Exception object.
 if (!function_exists('_imp_hook_quota')) {
     function _imp_hook_quota($params = null)
     {
@@ -516,11 +519,11 @@ if (!function_exists('_imp_hook_quota')) {
 
         $session = ssh2_connect($host);
         if (!$session) {
-            return PEAR::raiseError(_("Connection to server failed."), 'horde.error');
+            throw new Horde_Exception(_("Connection to server failed."), 'horde.error');
         }
 
         if (!ssh2_auth_password($session, $user, $pass)) {
-            return PEAR::raiseError(_("Authentication failed."), 'horde.error');
+            throw new Horde_Exception(_("Authentication failed."), 'horde.error');
         }
 
         $stream = ssh2_exec($session, $command, false);

@@ -115,16 +115,16 @@ case 'process_import_public_key':
         _importKeyDialog('process_import_public_key');
     } else {
         /* Add the public key to the storage system. */
-        $key_info = $imp_pgp->addPublicKey($publicKey);
-        if (is_a($key_info, 'PEAR_Error')) {
-            $notification->push($key_info, 'horde.error');
-            $actionID = 'import_public_key';
-            _importKeyDialog('process_import_public_key');
-        } else {
+        try {
+            $imp_pgp->addPublicKey($publicKey);
             foreach ($key_info['signature'] as $sig) {
                 $notification->push(sprintf(_("PGP Public Key for \"%s (%s)\" was successfully added."), $sig['name'], $sig['email']), 'horde.success');
             }
             _reloadWindow();
+        } catch (Horde_Exception $e) {
+            $notification->push($e, 'horde.error');
+            $actionID = 'import_public_key';
+            _importKeyDialog('process_import_public_key');
         }
     }
     exit;
@@ -239,9 +239,10 @@ case 'save_options':
 
 case 'save_attachment_public_key':
     /* Retrieve the key from the message. */
-    $contents = &IMP_Contents::singleton(Util::getFormData('uid') . IMP::IDX_SEP . Util::getFormData('mailbox'));
-    if (is_a($contents, 'PEAR_Error')) {
-        Horde::fatal($contents, __FILE__, __LINE__);
+    try {
+        $contents = &IMP_Contents::singleton(Util::getFormData('uid') . IMP::IDX_SEP . Util::getFormData('mailbox'));
+    } catch (Horde_Exception $e) {
+        Horde::fatal($e, __FILE__, __LINE__);
     }
     $mime_part = $contents->getMIMEPart(Util::getFormData('mime_id'));
     if (empty($mime_part)) {
@@ -249,11 +250,11 @@ case 'save_attachment_public_key':
     }
 
     /* Add the public key to the storage system. */
-    $key_info = $imp_pgp->addPublicKey($mime_part->getContents());
-    if (is_a($key_info, 'PEAR_Error')) {
-        $notification->push($key_info, $key_info->getCode());
-    } else {
+    try {
+        $imp_pgp->addPublicKey($mime_part->getContents());
         Util::closeWindowJS();
+    } catch (Horde_Exception $e) {
+        $notification->push($e, $key_info->getCode());
     }
     exit;
 

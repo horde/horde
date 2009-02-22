@@ -100,21 +100,20 @@ class IMP_Horde_Crypt_smime extends Horde_Crypt_smime
      *
      * @param string $cert  A public certificate to add.
      *
-     * @return boolean  True on successful add.
-     *                  Returns PEAR_Error or error.
+     * @throws Horde_Exception
      */
     public function addPublicKey($cert)
     {
         /* Make sure the certificate is valid. */
         $key_info = openssl_x509_parse($cert);
         if (!is_array($key_info) || !isset($key_info['subject'])) {
-            return PEAR::raiseError(_("Not a valid public key."), 'horde.error');
+            throw new Horde_Exception(_("Not a valid public key."), 'horde.error');
         }
 
         /* Add key to the user's address book. */
         $email = $this->getEmailFromKey($cert);
         if (is_null($email)) {
-            return PEAR::raiseError(_("No email information located in the public key."), 'horde.error');
+            throw new Horde_Exception(_("No email information located in the public key."), 'horde.error');
         }
 
         /* Get the name corresponding to this key. */
@@ -123,15 +122,13 @@ class IMP_Horde_Crypt_smime extends Horde_Crypt_smime
         } elseif (isset($key_info['subject']['OU'])) {
             $name = $key_info['subject']['OU'];
         } else {
-            return PEAR::raiseError(_("Not a valid public key."), 'horde.error');
+            throw new Horde_Exception(_("Not a valid public key."), 'horde.error');
         }
 
         $res = $GLOBALS['registry']->call('contacts/addField', array($email, $name, self::PUBKEY_FIELD, $cert, $GLOBALS['prefs']->getValue('add_source')));
         if (is_a($res, 'PEAR_Error')) {
-            return $res;
+            throw new Horde_Exception($res);
         }
-
-        return $key_info;
     }
 
     /**

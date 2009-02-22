@@ -23,21 +23,18 @@ class IMP_Quota_hook extends IMP_Quota
     /**
      * Get quota information (used/allocated), in bytes.
      *
-     * @return mixed  Returns PEAR_Error on failure. Otherwise, returns an
-     *                array with the following keys:
+     * @return array  An array with the following keys:
      *                'limit' = Maximum quota allowed
      *                'usage' = Currently used portion of quota (in bytes)
+     * @throws Horde_Exception
      */
     public function getQuota()
     {
         $quota = Horde::callHook('_imp_hook_quota', $this->_params, 'imp');
-        if (is_a($quota, 'PEAR_Error')) {
-            return $quota;
-        }
 
         if (count($quota) != 2) {
             Horde::logMessage('Incorrect number of return values from quota hook.', __FILE__, __LINE__, PEAR_LOG_ERR);
-            return PEAR::raiseError(_("Unable to retrieve quota"), 'horde.error');
+            throw new Horde_Exception(_("Unable to retrieve quota"), 'horde.error');
         }
 
         return array('usage' => $quota[0], 'limit' => $quota[1]);

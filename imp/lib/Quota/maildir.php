@@ -14,15 +14,17 @@
  *     )
  * );
  *
- * path -- The path to the user's Maildir directory. You may use the
- *         two-character sequence "~U" to represent the user's account name,
- *         and the actual username will be substituted in that location.
- *         E.g., '/home/~U/Maildir/' or '/var/mail/~U/Maildir/'
+ * path - The path to the user's Maildir directory. You may use the
+ *        two-character sequence "~U" to represent the user's account name,
+ *        and the actual username will be substituted in that location.
+ *        E.g., '/home/~U/Maildir/' or '/var/mail/~U/Maildir/'
+ *
+ * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author  Eric Rostetter
+ * @author  Eric Rostetter <eric.rostetter@physics.utexas.edu>
  * @package IMP_Quota
  */
 class IMP_Quota_Maildir extends IMP_Quota
@@ -32,19 +34,18 @@ class IMP_Quota_Maildir extends IMP_Quota
      *
      * @param array $params  Hash containing connection parameters.
      */
-    function __construct($params = array())
+    protected function __construct($params = array())
     {
-        $params = array_merge(array('path' => ''), $params);
-        parent::__construct($params);
+        parent::__construct(array_merge(array('path' => ''), $params));
     }
 
     /**
      * Returns quota information (used/allocated), in bytes.
      *
-     * @return mixed  Returns PEAR_Error on failure. Otherwise, returns an
-     *                array with the following keys:
+     * @return array  An array with the following keys:
      *                'limit' = Maximum quota allowed
      *                'usage' = Currently used portion of quota (in bytes)
+     * @throws Horde_Exception
      */
     public function getQuota()
     {
@@ -59,7 +60,7 @@ class IMP_Quota_Maildir extends IMP_Quota
 
         // Read in the quota file and parse it, if possible.
         if (!is_file($full)) {
-            return PEAR::raiseError(_("Unable to retrieve quota"));
+            throw new Horde_Exception(_("Unable to retrieve quota"));
         }
 
         // Read in maildir quota file.

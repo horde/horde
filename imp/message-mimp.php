@@ -54,10 +54,8 @@ case 'u':
     if ($actionID == 'u') {
         $imp_message->undelete($indices_array);
     } else {
-        $result = IMP::checkRequestToken('imp.message-mimp', Util::getFormData('mt'));
-        if (is_a($result, 'PEAR_Error')) {
-            $notification->push($result);
-        } else {
+        try {
+            IMP::checkRequestToken('imp.message-mimp', Util::getFormData('mt'));
             $imp_message->delete($indices_array);
             if ($prefs->getValue('mailbox_return')) {
                 header('Location: ' . Util::addParameter(IMP::generateIMPUrl('mailbox-mimp.php', $imp_mbox['mailbox']), array('s' => $imp_mailbox->getMessageIndex()), null, false));
@@ -68,6 +66,8 @@ case 'u':
                 !$GLOBALS['prefs']->getValue('use_trash')) {
                 $imp_mailbox->setIndex(1, 'offset');
             }
+        } catch (Horde_Exception $e) {
+            $notification->push($e);
         }
     }
     break;
@@ -112,8 +112,9 @@ $mime_headers = $fetch_ret[$index]['headertext'][0];
 $use_pop = ($_SESSION['imp']['protocol'] == 'pop');
 
 /* Parse the message. */
-$imp_contents = &IMP_Contents::singleton($index . IMP::IDX_SEP . $mailbox_name);
-if (is_a($imp_contents, 'PEAR_Error')) {
+try {
+    $imp_contents = &IMP_Contents::singleton($index . IMP::IDX_SEP . $mailbox_name);
+} catch (Horde_Exception $e) {
     header('Location: ' . Util::addParameter(IMP::generateIMPUrl('mailbox-mimp.php', $mailbox_name), array('a' => 'm'), null, false));
     exit;
 }

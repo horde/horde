@@ -140,16 +140,18 @@ abstract class IMP_Fetchmail
             if ($driver === false) {
                 continue;
             }
-            $res = $driver->getMail();
 
-            if (is_a($res, 'PEAR_Error')) {
-                $GLOBALS['notification']->push(_("Fetchmail: ") . $res->getMessage(), 'horde.warning');
-            } elseif ($res == 1) {
-                $GLOBALS['notification']->push(_("Fetchmail: ") . sprintf(_("Fetched 1 message from %s"), $fm_account->getValue('id', $val)), 'horde.success');
-            } elseif ($res >= 0) {
-                $GLOBALS['notification']->push(_("Fetchmail: ") . sprintf(_("Fetched %d messages from %s"), $res, $fm_account->getValue('id', $val)), 'horde.success');
-            } else {
-                $GLOBALS['notification']->push(_("Fetchmail: no new messages."), 'horde.success');
+            try {
+                $res = $driver->getMail();
+                if ($res == 1) {
+                    $GLOBALS['notification']->push(_("Fetchmail: ") . sprintf(_("Fetched 1 message from %s"), $fm_account->getValue('id', $val)), 'horde.success');
+                } elseif ($res >= 0) {
+                    $GLOBALS['notification']->push(_("Fetchmail: ") . sprintf(_("Fetched %d messages from %s"), $res, $fm_account->getValue('id', $val)), 'horde.success');
+                } else {
+                    $GLOBALS['notification']->push(_("Fetchmail: no new messages."), 'horde.success');
+                }
+            } catch (Horde_Exception $e) {
+                $GLOBALS['notification']->push(_("Fetchmail: ") . $e->getMessage(), 'horde.warning');
             }
         }
     }
@@ -228,8 +230,8 @@ abstract class IMP_Fetchmail
     /**
      * Gets the mail using the data in this object.
      *
-     * @return mixed  Returns the number of messages retrieved on success.
-     *                Returns PEAR_Error on error.
+     * @return integer  Returns the number of messages retrieved on success.
+     * @throws Horde_Exception
      */
     abstract public function getMail();
 

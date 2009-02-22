@@ -57,18 +57,24 @@ case 'imp_acl_set':
         /* Each ACL is submitted with the acl as the value. Reverse the hash
            mapping for editACL(). */
         $new_acl = array_flip($new_acl);
-        $result = $ACLDriver->editACL($folder, $new_user, $new_acl);
-        if (is_a($result, 'PEAR_Error')) {
-            $notification->push($result);
-        } elseif (!count($new_acl)) {
-            $notification->push(sprintf(_("All rights on folder \"%s\" successfully removed for user \"%s\"."), $folder, $new_user), 'horde.success');
-        } else {
-            $notification->push(sprintf(_("User \"%s\" successfully given the specified rights for the folder \"%s\"."), $new_user, $folder), 'horde.success');
+        try {
+            $ACLDriver->editACL($folder, $new_user, $new_acl);
+            if (!count($new_acl)) {
+                $notification->push(sprintf(_("All rights on folder \"%s\" successfully removed for user \"%s\"."), $folder, $new_user), 'horde.success');
+            } else {
+                $notification->push(sprintf(_("User \"%s\" successfully given the specified rights for the folder \"%s\"."), $new_user, $folder), 'horde.success');
+            }
+        } catch (Horde_Exception $e) {
+            $notification->push($e);
         }
     }
 
     if ($ok_form) {
-        $current_acl = $ACLDriver->getACL($folder);
+        try {
+            $current_acl = $ACLDriver->getACL($folder);
+        } catch (Horde_Exception $e) {
+            Horde::fatal($e, __FILE__, __LINE__);
+        }
         foreach ($acls as $user => $acl) {
             if ($acl) {
                 $acl = array_flip($acl);
@@ -98,13 +104,15 @@ case 'imp_acl_set':
                 continue;
             }
 
-            $result = $ACLDriver->editACL($folder, $user, $acl);
-            if (is_a($result, 'PEAR_Error')) {
-                $notification->push($result);
-            } elseif (!count($acl)) {
-                $notification->push(sprintf(_("All rights on folder \"%s\" successfully removed for user \"%s\"."), $folder, $user), 'horde.success');
-            } else {
-                $notification->push(sprintf(_("User \"%s\" successfully given the specified rights for the folder \"%s\"."), $user, $folder), 'horde.success');
+            try {
+                $ACLDriver->editACL($folder, $user, $acl);
+                if (!count($acl)) {
+                    $notification->push(sprintf(_("All rights on folder \"%s\" successfully removed for user \"%s\"."), $folder, $user), 'horde.success');
+                } else {
+                    $notification->push(sprintf(_("User \"%s\" successfully given the specified rights for the folder \"%s\"."), $user, $folder), 'horde.success');
+                }
+            } catch (Horde_Exception $e) {
+                $notification->push($e);
             }
         }
     }
@@ -118,7 +126,11 @@ if (empty($folder)) {
     $folder = 'INBOX';
 }
 
-$curr_acl = $ACLDriver->getACL($folder);
+try {
+    $curr_acl = $ACLDriver->getACL($folder);
+} catch (Horde_Exception $e) {
+    Horde::fatal($e, __FILE__, __LINE__);
+}
 $canEdit = $ACLDriver->canEdit($folder, $_SESSION['imp']['uniquser']);
 
 require_once 'Horde/Prefs/UI.php';

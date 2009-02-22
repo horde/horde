@@ -15,20 +15,21 @@ class IMP_Quota_imap extends IMP_Quota
     /**
      * Get quota information (used/allocated), in bytes.
      *
-     * @return mixed  Returns PEAR_Error on failure. Otherwise, returns an
-     *                array with the following keys:
+     * @return array  An array with the following keys:
      *                'limit' = Maximum quota allowed
      *                'usage' = Currently used portion of quota (in bytes)
+     * @throws Horde_Exception
      */
     public function getQuota()
     {
         try {
             $quota = $GLOBALS['imp_imap']->ob->getQuotaRoot($GLOBALS['imp_search']->isSearchMbox($GLOBALS['imp_mbox']['mailbox']) ? 'INBOX' : $GLOBALS['imp_mbox']['mailbox']);
-            $quota_val = reset($quota);
-            return array('usage' => $quota['storage']['usage'] * 1024, 'limit' => $quota['storage']['limit'] * 1024);
         } catch (Horde_Imap_Client_Exception $e) {
-            return PEAR::raiseError(_("Unable to retrieve quota"), 'horde.error');
+            throw new Horde_Exception(_("Unable to retrieve quota"), 'horde.error');
         }
+
+        $quota_val = reset($quota);
+        return array('usage' => $quota['storage']['usage'] * 1024, 'limit' => $quota['storage']['limit'] * 1024);
     }
 
 }

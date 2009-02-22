@@ -105,9 +105,10 @@ $open_compose_window = null;
 
 /* Run through the action handlers */
 if ($actionID && ($actionID != 'message_missing')) {
-    $result = IMP::checkRequestToken('imp.mailbox', Util::getFormData('mailbox_token'));
-    if (is_a($result, 'PEAR_Error')) {
-        $notification->push($result);
+    try {
+        IMP::checkRequestToken('imp.mailbox', Util::getFormData('mailbox_token'));
+    } catch (Horde_Exception $e) {
+        $notification->push($e);
         $actionID = null;
     }
 }

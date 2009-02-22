@@ -17,16 +17,16 @@
  *     )
  * );
  *
- * logfile    --  The path/to/filename of the log file to use.
- * taillines  --  The number of lines to look at in the tail of the logfile.
- * FTPmail    --  If you want to show what FTP space is available (IMAP folder)
- *                or what mail space is available (INBOX).
- *                Defines the search string to username:
- *                  FTPmail to identify the line with QUOTA info.
- * beginocc   --  String that designates the characters before the usage
- *                number.
- * midocc     --  String between usage and total storage space.
- * endocc     --  String after the storage number.
+ * logfile - The path/to/filename of the log file to use.
+ * taillines - The number of lines to look at in the tail of the logfile.
+ * FTPmail - If you want to show what FTP space is available (IMAP folder)
+ *           or what mail space is available (INBOX).
+ *           Defines the search string to username:
+ *             FTPmail to identify the line with QUOTA info.
+ * beginocc - String that designates the characters before the usage
+ *            number.
+ * midocc - String between usage and total storage space.
+ * endocc - String after the storage number.
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
@@ -41,31 +41,30 @@ class IMP_Quota_logfile extends IMP_Quota
      *
      * @param array $params  Hash containing connection parameters.
      */
-    function __construct($params = array())
+    protected function __construct($params = array())
     {
-        $params = array_merge(array(
+        parent::__construct(array_merge(array(
             'logfile' => '',
             'taillines' => 10,
             'FTPmail' => 'FTP',
             'beginocc' => 'usage = ',
             'midocc' => ' of ',
             'endocc' => ' bytes'
-        ), $params);
-        parent::__construct($params);
+        ), $params));
     }
 
     /**
      * Get quota information (used/allocated), in bytes.
      *
-     * @return mixed  Returns PEAR_Error on failure. Otherwise, returns an
-     *                array with the following keys:
+     * @return array  An array with the following keys:
      *                'limit' = Maximum quota allowed
      *                'usage' = Currently used portion of quota (in bytes)
+     * @throws Horde_Exception
      */
     public function getQuota()
     {
         if (!is_file($this->_params['logfile'])) {
-            return PEAR::raiseError(_("Unable to retrieve quota"), 'horde.error');
+            throw new Horde_Exception(_("Unable to retrieve quota"), 'horde.error');
         }
 
         $full = file($this->_params['logfile']);

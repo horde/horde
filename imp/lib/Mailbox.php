@@ -191,15 +191,15 @@ class IMP_Mailbox
                          !$GLOBALS['prefs']->getValue('preview_show_unread') ||
                          !in_array('\\seen', $v['flags']))) {
                         if (empty($preview_info[$k])) {
-                            $imp_contents = IMP_Contents::singleton($k . IMP::IDX_SEP . $mbox);
-                            if (is_a($imp_contents, 'PEAR_Error')) {
-                                $preview_info[$k] = array('IMPpreview' => '', 'IMPpreviewc' => false);
-                            } else {
+                            try {
+                                $imp_contents = IMP_Contents::singleton($k . IMP::IDX_SEP . $mbox);
                                 $prev = $imp_contents->generatePreview();
                                 $preview_info[$k] = array('IMPpreview' => $prev['text'], 'IMPpreviewc' => $prev['cut']);
                                 if (!is_null($cache)) {
                                     $tostore[$k] = $preview_info[$k];
                                 }
+                            } catch (Horde_Exception $e) {
+                                $preview_info[$k] = array('IMPpreview' => '', 'IMPpreviewc' => false);
                             }
                         }
 

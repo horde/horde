@@ -123,19 +123,17 @@ class IMP
      * @param string $slug   TODO
      * @param string $token  TODO
      *
-     * @return  TODO
+     * @throws Horde_Exception
      */
     static public function checkRequestToken($slug, $token)
     {
         if (empty($_SESSION['horde_form_secrets'][$token])) {
-            return PEAR::raiseError(_("We cannot verify that this request was really sent by you. It could be a malicious request. If you intended to perform this action, you can retry it now."));
+            throw new Horde_Exception(_("We cannot verify that this request was really sent by you. It could be a malicious request. If you intended to perform this action, you can retry it now."));
         }
 
         if ($_SESSION['horde_form_secrets'][$token] + $GLOBALS['conf']['server']['token_lifetime'] < time()) {
-            return PEAR::raiseError(sprintf(_("This request cannot be completed because the link you followed or the form you submitted was only valid for %d minutes. Please try again now."), round($GLOBALS['conf']['server']['token_lifetime'] / 60)));
+            throw new Horde_Exception(sprintf(_("This request cannot be completed because the link you followed or the form you submitted was only valid for %d minutes. Please try again now."), round($GLOBALS['conf']['server']['token_lifetime'] / 60)));
         }
-
-        return true;
     }
 
     /**
@@ -747,14 +745,11 @@ class IMP
             return false;
         }
 
-        $quotaDriver = IMP_Quota::singleton($_SESSION['imp']['quota']['driver'], $_SESSION['imp']['quota']['params']);
-        if ($quotaDriver === false) {
-            return false;
-        }
-
-        $quota = $quotaDriver->getQuota();
-        if (is_a($quota, 'PEAR_Error')) {
-            Horde::logMessage($quota, __FILE__, __LINE__, PEAR_LOG_ERR);
+        try {
+            $quotaDriver = IMP_Quota::singleton($_SESSION['imp']['quota']['driver'], $_SESSION['imp']['quota']['params']);
+            $quota = $quotaDriver->getQuota();
+        } catch (Horde_Exception $e) {
+            Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
             return false;
         }
 

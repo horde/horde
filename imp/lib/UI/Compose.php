@@ -41,12 +41,15 @@ class IMP_UI_Compose
 
     /**
      * $encoding = DEPRECATED
+     *
+     * @throws Horde_Exception
      */
     function redirectMessage($to, $imp_compose, $contents, $encoding)
     {
-        $recip = $imp_compose->recipientList(array('to' => $to));
-        if (is_a($recip, 'PEAR_Error')) {
-            return $recip;
+        try {
+            $recip = $imp_compose->recipientList(array('to' => $to));
+        } catch (IMP_Compose_Exception $e) {
+            throw new Horde_Exception($recip);
         }
         $recipients = implode(', ', $recip['list']);
 
@@ -67,18 +70,16 @@ class IMP_UI_Compose
         $headers->removeHeader('return-path');
         $headers->addHeader('Return-Path', $from_addr);
 
-        $bodytext = $contents->getBody();
-        $status = $imp_compose->sendMessage($recipients, $headers, $bodytext, $charset);
-        $error = is_a($status, 'PEAR_Error');
-
         /* Store history information. */
         if (!empty($GLOBALS['conf']['maillog']['use_maillog'])) {
             IMP_Maillog::log('redirect', $headers->getValue('message-id'), $recipients);
         }
 
-        if ($error) {
-            Horde::logMessage($status->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
-            return $status;
+        $bodytext = $contents->getBody();
+        try {
+            $imp_compose->sendMessage($recipients, $headers, $bodytext, $charset);
+        } catch (IMP_Compose_Exception $e) {
+            throw new Horde_Exception($e);
         }
 
         $entry = sprintf("%s Redirected message sent to %s from %s",
@@ -89,8 +90,6 @@ class IMP_UI_Compose
             $sentmail = IMP_Sentmail::factory();
             $sentmail->log('redirect', $headers->getValue('message-id'), $recipients);
         }
-
-        return true;
     }
 
     /**

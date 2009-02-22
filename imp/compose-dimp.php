@@ -91,10 +91,8 @@ if (count($_POST)) {
         $header['from'] = $from;
 
         /* Save the draft. */
-        $res = $imp_compose->saveDraft($header, Util::getFormData('message', ''), NLS::getCharset(), Util::getFormData('html'));
-        if (is_a($res, 'PEAR_Error')) {
-            $notification->push($res->getMessage(), 'horde.error');
-        } else {
+        try {
+            $res = $imp_compose->saveDraft($header, Util::getFormData('message', ''), NLS::getCharset(), Util::getFormData('html'));
             $result->success = true;
 
             /* Delete existing draft. */
@@ -107,6 +105,8 @@ if (count($_POST)) {
             } else {
                 $notification->push($res);
             }
+        } catch (IMP_Compose_Exception $e) {
+            $notification->push($e, 'horde.error');
         }
         break;
 
@@ -149,10 +149,11 @@ if (count($_POST)) {
             'reply_index' => $result->index . IMP::IDX_SEP . $result->reply_folder,
             'readreceipt' => Util::getFormData('request_read_receipt')
         );
-        $sent = $imp_compose->buildAndSendMessage($message, $header, $charset, $html, $options);
 
-        if (is_a($sent, 'PEAR_Error')) {
-            $notification->push($sent, 'horde.error');
+        try {
+            $sent = $imp_compose->buildAndSendMessage($message, $header, $charset, $html, $options);
+        } catch (IMP_Compose_Exception $e) {
+            $notification->push($e, 'horde.error');
             break;
         }
         $result->success = true;
@@ -193,8 +194,9 @@ if (in_array($type, array('reply', 'reply_all', 'reply_list', 'forward_all', 'fo
         $type = 'new';
     }
 
-    $imp_contents = &IMP_Contents::singleton($index . IMP::IDX_SEP . $folder);
-    if (is_a($imp_contents, 'PEAR_Error')) {
+    try {
+        $imp_contents = &IMP_Contents::singleton($index . IMP::IDX_SEP . $folder);
+    } catch (Horde_Exception $e) {
         $notification->push(_("Requested message not found."), 'horde.error');
         $index = $folder = null;
         $type = 'new';

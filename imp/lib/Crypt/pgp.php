@@ -110,14 +110,14 @@ class IMP_Horde_Crypt_pgp extends Horde_Crypt_pgp
      * @param string $public_key  An PGP public key.
      *
      * @return array  See Horde_Crypt_pgp::pgpPacketInformation()
-     *                Returns PEAR_Error or error.
+     * @throws Horde_Exception
      */
     public function addPublicKey($public_key)
     {
         /* Make sure the key is valid. */
         $key_info = $this->pgpPacketInformation($public_key);
         if (!isset($key_info['signature'])) {
-            return PEAR::raiseError(_("Not a valid public key."), 'horde.error');
+            throw new Horde_Exception(_("Not a valid public key."), 'horde.error');
         }
 
         /* Remove the '_SIGNATURE' entry. */
@@ -271,7 +271,7 @@ class IMP_Horde_Crypt_pgp extends Horde_Crypt_pgp
      * @param string $method      The method to use - either 'get' or 'put'.
      * @param string $additional  Any additional data.
      *
-     * @return string  See Horde_Crypt_pgp::getPublicKeyserver()  -or-
+     * @return string  See Horde_Crypt_pgp::getPublicKeyserver() -or-
      *                     Horde_Crypt_pgp::putPublicKeyserver().
      */
     protected function _keyserverConnect($data, $method, $additional = null)

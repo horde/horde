@@ -104,12 +104,12 @@ class IMP_Fetchmail_imap extends IMP_Fetchmail
     /**
      * Attempts to connect to the mail server
      *
-     * @return mixed  Returns true on success or PEAR_Error on failure.
+     * @throws Horde_Exception
      */
     protected function _connect()
     {
         if (!is_null($this->_ob)) {
-            return true;
+            return;
         }
 
         $protocols = $this->_protocolList();
@@ -125,9 +125,8 @@ class IMP_Fetchmail_imap extends IMP_Fetchmail
 
         try {
             $this->_ob = Horde_Imap_Client::getInstance(($protocols[$this->_params['protocol']]['string'] == 'imap') ? 'Socket' : 'Cclient_pop3', $imap_config);
-            return true;
         } catch (Horde_Imap_Client_Exception $e) {
-            return PEAR::raiseError(_("Cannot connect to the remote mail server: ") . $e->getMessage());
+            throw new Horde_Exception(_("Cannot connect to the remote mail server: ") . $e->getMessage());
         }
     }
 
@@ -135,6 +134,7 @@ class IMP_Fetchmail_imap extends IMP_Fetchmail
      * Gets the mail using the data in this object.
      *
      * @see IMP_Fetchmail::getMail()
+     * @throws Horde_Exception
      */
     public function getMail()
     {
@@ -142,9 +142,6 @@ class IMP_Fetchmail_imap extends IMP_Fetchmail
         $numMsgs = 0;
 
         $stream = $this->_connect();
-        if (is_a($stream, 'PEAR_Error')) {
-            return $stream;
-        }
 
         /* Check to see if remote mailbox exists. */
         $mbox = $this->_params['rmailbox'];
@@ -162,7 +159,7 @@ class IMP_Fetchmail_imap extends IMP_Fetchmail
         }
 
         if (!$mbox) {
-            return PEAR::raiseError(_("Invalid Remote Mailbox"));
+            throw new Horde_Exception(_("Invalid Remote Mailbox"));
         }
 
         $query = new Horde_Imap_Client_Search_Query();
@@ -221,4 +218,5 @@ class IMP_Fetchmail_imap extends IMP_Fetchmail
 
         return $numMsgs;
     }
+
 }

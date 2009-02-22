@@ -41,7 +41,7 @@ class Maintenance_Task_tos_agreement extends Maintenance_Task
     function describeMaintenance()
     {
         if (empty($GLOBALS['conf']['tos']['file'])) {
-            Horde::fatal(PEAR::raiseError(sprintf(_("Terms of Service file not specified in conf.php"))), __FILE__, __LINE__);
+            Horde::fatal(new Horde_Exception(sprintf(_("Terms of Service file not specified in conf.php"))), __FILE__, __LINE__);
         }
 
         return file_get_contents($GLOBALS['conf']['tos']['file']);

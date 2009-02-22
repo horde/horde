@@ -428,25 +428,25 @@ class IMP_Message
      * @param string $partid  The MIME ID of the part to strip. All parts are
      *                        stripped if null.
      *
-     * @return mixed  Returns true on success, or PEAR_Error on error.
+     * @throws Horde_Exception
      */
     public function stripPart($indices, $partid = null)
     {
         /* Return error if no index was provided. */
         if (!($msgList = IMP::parseIndicesList($indices))) {
-            return PEAR::raiseError(_("An error occured while attempting to strip the attachment."));
+            throw new Horde_Exception(_("An error occured while attempting to strip the attachment."));
         }
 
         /* If more than one index provided, return error. */
         reset($msgList);
         list($mbox, $index) = each($msgList);
         if (each($msgList) || (count($index) > 1)) {
-            return PEAR::raiseError(_("An error occured while attempting to strip the attachment."));
+            throw new Horde_Exception(_("An error occured while attempting to strip the attachment."));
         }
         $index = implode('', $index);
 
         if ($GLOBALS['imp_imap']->isReadOnly($mbox)) {
-            return PEAR::raiseError(_("Cannot strip the MIME part as the mailbox is read-only"));
+            throw new Horde_Exception(_("Cannot strip the MIME part as the mailbox is read-only"));
         }
 
         /* Get a local copy of the message. */
@@ -503,7 +503,7 @@ class IMP_Message
 
             $uid = $GLOBALS['imp_imap']->ob->append($mbox, array(array('data' => $res['headertext'][0] . $message->toString(false), 'flags' => $res['flags'], 'messageid' => $res['envelope']['message-id'])));
         } catch (Horde_Imap_Client_Exception $e) {
-            return PEAR::raiseError(_("An error occured while attempting to strip the attachment."));
+            throw new Horde_Exception(_("An error occured while attempting to strip the attachment."));
         }
 
         $this->delete($indices, true, true);
@@ -514,8 +514,6 @@ class IMP_Message
         /* We need to replace the old index in the query string with the
          * new index. */
         $_SERVER['QUERY_STRING'] = preg_replace('/' . $index . '/', reset($uid), $_SERVER['QUERY_STRING']);
-
-        return true;
     }
 
     /**

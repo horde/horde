@@ -73,9 +73,10 @@ $open_compose_window = null;
 /* Run through the action handlers. */
 $actionID = Util::getFormData('actionID');
 if ($actionID) {
-    $result = IMP::checkRequestToken('imp.folders', Util::getFormData('folders_token'));
-    if (is_a($result, 'PEAR_Error')) {
-        $notification->push($result);
+    try {
+        IMP::checkRequestToken('imp.folders', Util::getFormData('folders_token'));
+    } catch (Horde_Exception $e) {
+        $notification->push($e);
         $actionID = null;
     }
 }
@@ -162,11 +163,11 @@ case 'import_mbox':
 case 'create_folder':
     $new_mailbox = Util::getFormData('new_mailbox');
     if (!empty($new_mailbox)) {
-        $new_mailbox = $imaptree->createMailboxName(array_shift($folder_list), String::convertCharset($new_mailbox, $charset, 'UTF7-IMAP'));
-        if (is_a($new_mailbox, 'PEAR_Error')) {
-            $notification->push($new_mailbox);
-        } else {
+        try {
+            $new_mailbox = $imaptree->createMailboxName(array_shift($folder_list), String::convertCharset($new_mailbox, $charset, 'UTF7-IMAP'));
             $imp_folder->create($new_mailbox, $subscribe);
+        } catch (Horde_Exception $e) {
+            $notification->push($e);
         }
     }
     break;

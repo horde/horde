@@ -17,12 +17,13 @@ function &_getIMPContents($index, $mailbox)
     if (empty($index)) {
         return false;
     }
-    $imp_contents = &IMP_Contents::singleton($index . IMP::IDX_SEP . $mailbox);
-    if (is_a($imp_contents, 'PEAR_Error')) {
+    try {
+        $imp_contents = &IMP_Contents::singleton($index . IMP::IDX_SEP . $mailbox);
+        return $imp_contents;
+    } catch (Horde_Exception $e) {
         $GLOBALS['notification']->push(_("Could not retrieve the message from the mail server."), 'horde.error');
         return false;
     }
-    return $imp_contents;
 }
 
 require_once dirname(__FILE__) . '/lib/base.php';
@@ -137,16 +138,17 @@ case _("Redirect"):
 
     $f_to = $imp_ui->getAddressList(Util::getFormData('to'));
 
-    $result = $imp_ui->redirectMessage($f_to, $imp_compose, $imp_contents, NLS::getEmailCharset());
-    if (!is_a($result, 'PEAR_Error')) {
+    try {
+        $imp_ui->redirectMessage($f_to, $imp_compose, $imp_contents, NLS::getEmailCharset());
         if ($prefs->getValue('compose_confirm')) {
             $notification->push(_("Message redirected successfully."), 'horde.success');
         }
         require IMP_BASE . '/mailbox-mimp.php';
         exit;
+    } catch (Horde_Exception $e) {
+        $actionID = 'rc';
+        $notification->push($e, 'horde.error');
     }
-    $actionID = 'rc';
-    $notification->push($result, 'horde.error');
     break;
 
 case _("Send"):
@@ -205,21 +207,22 @@ case _("Send"):
         'reply_index' => empty($index) ? null : $index . IMP::IDX_SEP . $thismailbox,
         'readreceipt' => Util::getFormData('request_read_receipt')
     );
-    $sent = $imp_compose->buildAndSendMessage($message, $header, NLS::getEmailCharset(), false, $options);
 
-    if (is_a($sent, 'PEAR_Error')) {
-        $notification->push($sent, 'horde.error');
-    } elseif ($sent) {
-        if (Util::getFormData('resume_draft') &&
-            $prefs->getValue('auto_delete_drafts')) {
-            $imp_message = &IMP_Message::singleton();
-            $idx_array = array($index . IMP::IDX_SEP . $thismailbox);
-            $delete_draft = $imp_message->delete($idx_array, true);
+    try {
+        if ($imp_compose->buildAndSendMessage($message, $header, NLS::getEmailCharset(), false, $options)) {
+            if (Util::getFormData('resume_draft') &&
+                $prefs->getValue('auto_delete_drafts')) {
+                $imp_message = &IMP_Message::singleton();
+                $idx_array = array($index . IMP::IDX_SEP . $thismailbox);
+                $delete_draft = $imp_message->delete($idx_array, true);
+            }
+
+            $notification->push(_("Message sent successfully."), 'horde.success');
+            require IMP_BASE . '/mailbox-mimp.php';
+            exit;
         }
-
-        $notification->push(_("Message sent successfully."), 'horde.success');
-        require IMP_BASE . '/mailbox-mimp.php';
-        exit;
+    } catch (IMP_Compose_Exception $e) {
+        $notification->push($e, 'horde.error');
     }
     break;
 }

@@ -196,15 +196,15 @@ case 'CreateFolder':
     $imp_folder = IMP_Folder::singleton();
 
     $new = String::convertCharset($mbox, NLS::getCharset(), 'UTF7-IMAP');
-    $new = $imptree->createMailboxName(Util::getPost('parent'), $new);
-    if (is_a($new, 'PEAR_Error')) {
-        $notification->push($new, 'horde.error');
-        $result = false;
-    } else {
+    try {
+        $new = $imptree->createMailboxName(Util::getPost('parent'), $new);
         $result = $imp_folder->create($new, $prefs->getValue('subscribe'));
         if ($result) {
             $result = DIMP::getFolderResponse($imptree);
         }
+    } catch (Horde_Exception $e) {
+        $notification->push($e, 'horde.error');
+        $result = false;
     }
     break;
 
@@ -236,12 +236,9 @@ case 'RenameFolder':
 
     $imp_folder = IMP_Folder::singleton();
 
-    $new = $imptree->createMailboxName($new_parent, $new);
-    if (is_a($new, 'PEAR_Error')) {
-        $notification->push($new, 'horde.error');
-        $result = false;
-    } else {
-        require_once 'Horde/String.php';
+    try {
+        $new = $imptree->createMailboxName($new_parent, $new);
+
         $new = String::convertCharset($new, NLS::getCharset(), 'UTF7-IMAP');
         if ($old != $new) {
             $result = $imp_folder->rename($old, $new);
@@ -249,6 +246,9 @@ case 'RenameFolder':
                 $result = DIMP::getFolderResponse($imptree);
             }
         }
+    } catch (Horde_Exception $e) {
+        $notification->push($e, 'horde.error');
+        $result = false;
     }
     break;
 

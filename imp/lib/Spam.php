@@ -40,8 +40,9 @@ class IMP_Spam
             foreach ($msgIndices as $idx) {
                 /* Fetch the raw message contents (headers and complete
                  * body). */
-                $imp_contents = &IMP_Contents::singleton($idx . IMP::IDX_SEP . $mbox);
-                if (is_a($imp_contents, 'PEAR_Error')) {
+                try {
+                    $imp_contents = &IMP_Contents::singleton($idx . IMP::IDX_SEP . $mbox);
+                } catch (Horde_Exception $e) {
                     continue;
                 }
 
@@ -123,8 +124,12 @@ class IMP_Spam
                     $spam_headers->addHeader('Subject', sprintf(_("%s report from %s"), $action, $_SESSION['imp']['uniquser']));
 
                     /* Send the message. */
-                    $imp_compose->sendMessage($to, $spam_headers, $mime, NLS::getCharset());
-                    $report_flag = true;
+                    try {
+                        $imp_compose->sendMessage($to, $spam_headers, $mime, NLS::getCharset());
+                        $report_flag = true;
+                    } catch (IMP_Compose_Exception $e) {
+                        Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+                    }
                 }
 
                 if ($report_flag) {

@@ -1964,7 +1964,8 @@ class IMP_IMAP_Tree
      * @param string $parent  The parent name (UTF7-IMAP).
      * @param string $parent  The new mailbox name (UTF7-IMAP).
      *
-     * @return string  The full path to the new mailbox, or PEAR_Error.
+     * @return string  The full path to the new mailbox.
+     * @throws Horde_Exception
      */
     public function createMailboxName($parent, $new)
     {
@@ -1976,7 +1977,7 @@ class IMP_IMAP_Tree
                     return $new;
                 }
             }
-            return PEAR::raiseError(_("Cannot directly create mailbox in this folder."), 'horde.error');
+            throw new Horde_Exception(_("Cannot directly create mailbox in this folder."), 'horde.error');
         }
 
         $mbox = $ns_info['name'];

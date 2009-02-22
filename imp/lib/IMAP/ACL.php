@@ -140,14 +140,14 @@ class IMP_IMAP_ACL
      * @param string $mbox  The mailbox to get the ACL for.
      *
      * @return array  A hash containing information on the ACL.
+     * @throws Horde_Exception
      */
     public function getACL($mbox)
     {
         try {
             return $GLOBALS['imp_imap']->ob->getACL($mbox);
         } catch (Horde_Imap_Client_Exception $e) {
-            // return PEAR::raiseError(_("Could not retrieve ACL"));
-            return array();
+            throw new Horde_Exception(_("Could not retrieve ACL"));
         }
     }
 
@@ -156,18 +156,17 @@ class IMP_IMAP_ACL
      *
      * @param string $mbox  The mailbox on which to edit the ACL.
      * @param string $user  The user to grant rights to.
-     * @param array $acl    The keys of which are the
-     *                      rights to be granted (see RFC 2086).
+     * @param array $acl    The keys of which are the rights to be granted
+     *                      (see RFC 2086).
      *
-     * @return mixed  True on success, PEAR_Error on error.
+     * @throws Horde_Exception
      */
     public function editACL($mbox, $user, $acl)
     {
         try {
             $GLOBALS['imp_imap']->ob->setACL($mbox, $user, array('rights' => $acl));
-            return true;
         } catch (Horde_Imap_Client_Exception $e) {
-            return PEAR::raiseError(sprintf(_("Couldn't give user \"%s\" the following rights for the folder \"%s\": %s"), $user, $mbox, implode('', $acl)));
+            throw new Horde_Exception(sprintf(_("Couldn't give user \"%s\" the following rights for the folder \"%s\": %s"), $user, $mbox, implode('', $acl)));
         }
     }
 

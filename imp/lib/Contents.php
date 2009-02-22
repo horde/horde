@@ -79,7 +79,8 @@ class IMP_Contents
      * @param mixed $in  Either an index string (see IMP_Contents::singleton()
      *                   for the format) or a Horde_Mime_Part object.
      *
-     * @return IMP_Contents  The IMP_Contents object or null.
+     * @return IMP_Contents  The IMP_Contents object.
+     * @throws Horde_Exception
      */
     static public function singleton($in)
     {
@@ -101,6 +102,7 @@ class IMP_Contents
      *
      * @param mixed $in  Either an index string (see IMP_Contents::singleton()
      *                   for the format) or a Horde_Mime_Part object.
+     * @throws Horde_Exception
      */
     protected function __construct($in)
     {
@@ -116,7 +118,7 @@ class IMP_Contents
                 ), array('ids' => array($this->_index)));
                 $this->_message = $ret[$this->_index]['structure'];
             } catch (Horde_Imap_Client_Exception $e) {
-                return PEAR::raiseError('Error displaying message.');
+                throw new Horde_Exception('Error displaying message.');
             }
         }
     }

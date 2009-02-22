@@ -22,9 +22,13 @@
  * <code>
  * 'quota' => array(
  *     'driver' => 'sql',
- *     'params' => array_merge($GLOBALS['conf']['sql'],
- *                             array('query_quota' => 'SELECT quota FROM quotas WHERE user = ?',
- *                                   'query_used' => 'SELECT used FROM quotas WHERE user = ?'))
+ *     'params' => array_merge(
+ *         $GLOBALS['conf']['sql'],
+ *         array(
+ *             'query_quota' => 'SELECT quota FROM quotas WHERE user = ?',
+ *             'query_used' => 'SELECT used FROM quotas WHERE user = ?'
+ *         )
+ *     )
  * ),
  * </code>
  *
@@ -57,7 +61,7 @@ class IMP_Quota_sql extends IMP_Quota
     /**
      * Connects to the database
      *
-     * @return boolean  True on success, PEAR_Error on failure.
+     * @throws Horde_Exception
      */
     protected function _connect()
     {
@@ -67,7 +71,7 @@ class IMP_Quota_sql extends IMP_Quota
                                       array('persistent' => !empty($this->_params['persistent']),
                                             'ssl' => !empty($this->_params['ssl'])));
             if (is_a($this->_db, 'PEAR_Error')) {
-                return PEAR::raiseError(_("Unable to connect to SQL server."));
+                throw new Horde_Exception(_("Unable to connect to SQL server."));
             }
 
             $this->_connected = true;
@@ -79,18 +83,14 @@ class IMP_Quota_sql extends IMP_Quota
     /**
      * Returns quota information.
      *
-     * @return mixed  Returns PEAR_Error on failure. Otherwise, returns an
-     *                array with the following keys:
+     * @return array  An array with the following keys:
      *                'limit' = Maximum quota allowed
      *                'usage' = Currently used portion of quota (in bytes)
+     * @throws Horde_Exception
      */
-    function getQuota()
+    public function getQuota()
     {
         $conn = $this->_connect();
-        if (is_a($conn, 'PEAR_Error')) {
-            return $conn;
-        }
-
         $user = $_SESSION['imp']['user'];
         $quota = array('limit' => 0, 'usage' => 0);
 
@@ -104,7 +104,7 @@ class IMP_Quota_sql extends IMP_Quota
                                  $this->_params['query_quota']);
             $result = $this->_db->query($query);
             if (is_a($result, 'PEAR_Error')) {
-                return $result;
+                throw new Horde_Exception($result);
             }
 
             $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
@@ -125,7 +125,7 @@ class IMP_Quota_sql extends IMP_Quota
                                  $this->_params['query_used']);
             $result = $this->_db->query($query);
             if (is_a($result, 'PEAR_Error')) {
-                return $result;
+                throw new Horde_Exception($result);
             }
 
             $row = $result->fetchRow(DB_FETCHMODE_ASSOC);

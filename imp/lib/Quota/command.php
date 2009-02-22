@@ -30,7 +30,7 @@ class IMP_Quota_command extends IMP_Quota
      *
      * @param array $params  Hash containing connection parameters.
      */
-    function __construct($params = array())
+    protected function __construct($params = array())
     {
         $params = array_merge(array('quota_path' => 'quota',
                                     'grep_path'  => 'grep',
@@ -48,6 +48,8 @@ class IMP_Quota_command extends IMP_Quota
      * large number of reasons this may fail, such as OS support,
      * SELinux interference, the file being > 2 GB in size, the file
      * we're referring to not being readable, etc.
+     *
+     * @return integer  The disk block size.
      */
     protected function _blockSize()
     {
@@ -60,10 +62,10 @@ class IMP_Quota_command extends IMP_Quota
     /**
      * Get quota information (used/allocated), in bytes.
      *
-     * @return mixed  Returns PEAR_Error on failure. Otherwise, returns an
-     *                array with the following keys:
+     * @return array  An array with the following keys:
      *                'limit' = Maximum quota allowed
      *                'usage' = Currently used portion of quota (in bytes)
+     * @throws Horde_Exception
      */
     public function getQuota()
     {
@@ -81,7 +83,8 @@ class IMP_Quota_command extends IMP_Quota
            return array('usage' => $quota[1] * $blocksize,
                         'limit' => $quota[2] * $blocksize);
         }
-        return PEAR::raiseError(_("Unable to retrieve quota"), 'horde.error');
+
+        throw new Horde_Exception(_("Unable to retrieve quota"), 'horde.error');
     }
 
 }

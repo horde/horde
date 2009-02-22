@@ -111,9 +111,10 @@ if ($actionID) {
         break;
 
     default:
-        $result = IMP::checkRequestToken('imp.compose', Util::getFormData('compose_requestToken'));
-        if (is_a($result, 'PEAR_Error')) {
-            $notification->push($result);
+        try {
+            IMP::checkRequestToken('imp.compose', Util::getFormData('compose_requestToken'));
+        } catch (Horde_Exception $e) {
+            $notification->push($e);
             $actionID = null;
         }
     }
@@ -372,8 +373,8 @@ case 'redirect_send':
 
     $f_to = Util::getFormData('to', $imp_ui->getAddressList(Util::getFormData('to'), Util::getFormData('to_list'), Util::getFormData('to_field'), Util::getFormData('to_new')));
 
-    $result = $imp_ui->redirectMessage($f_to, $imp_compose, $imp_contents, $encoding);
-    if (!is_a($result, 'PEAR_Error')) {
+    try {
+        $imp_ui->redirectMessage($f_to, $imp_compose, $imp_contents, $encoding);
         if ($isPopup) {
             if ($prefs->getValue('compose_confirm')) {
                 $notification->push(_("Message redirected successfully."), 'horde.success');
@@ -388,10 +389,11 @@ case 'redirect_send':
             header('Location: ' . _mailboxReturnURL(false));
         }
         exit;
+    } catch (Horde_Exception $e) {
+        $notification->push($e, 'horde.error');
+        $actionID = 'redirect_compose';
+        $get_sig = false;
     }
-    $notification->push($result, 'horde.error');
-    $actionID = 'redirect_compose';
-    $get_sig = false;
     break;
 
 case 'send_message':
@@ -432,13 +434,15 @@ case 'send_message':
         'priority' => Util::getFormData('x_priority'),
         'readreceipt' => Util::getFormData('request_read_receipt')
     );
-    $sent = $imp_compose->buildAndSendMessage($message, $header, $charset, $rtemode, $options);
 
-    if (is_a($sent, 'PEAR_Error')) {
+    try {
+        $sent = $imp_compose->buildAndSendMessage($message, $header, $charset, $rtemode, $options);
+    } catch (IMP_Compose_Exception $e) {
         $get_sig = false;
-        $code = $sent->getCode();
-        $notification->push($sent, strpos($code, 'horde.') === 0 ? $code : 'horde.error');
-        switch ($sent->getUserInfo()) {
+        $code = $e->getCode();
+        $notification->push($e, strpos($code, 'horde.') === 0 ? $code : 'horde.error');
+        // TODO
+        switch ($e->encrypt) {
         case 'pgp_symmetric_passphrase_dialog':
             $pgp_symmetric_passphrase_dialog = true;
             break;
@@ -499,23 +503,24 @@ case 'save_draft':
     $message = Util::getFormData('message', '');
 
     /* Save the draft. */
-    $result = $imp_compose->saveDraft($header, $message, NLS::getCharset(), $rtemode);
-    if (is_a($result, 'PEAR_Error')) {
-        $notification->push($result->getMessage(), 'horde.error');
-    } else {
+    try {
+        $result = $imp_compose->saveDraft($header, $message, NLS::getCharset(), $rtemode);
+
         /* Closing draft if requested by preferences. */
         if ($isPopup) {
             if ($prefs->getValue('close_draft')) {
                 Util::closeWindowJS();
+                exit;
             } else {
                 $notification->push($result, 'horde.success');
-                break;
             }
         } else {
             $notification->push($result);
             header('Location: ' . _mailboxReturnURL(false));
+            exit;
         }
-        exit;
+    } catch (IMP_Compose_Exception $e) {
+        $notification->push($e, 'horde.error');
     }
 
     $get_sig = false;
@@ -557,9 +562,10 @@ case 'selectlist_process':
                     $part = new Horde_Mime_Part();
                     $part->setContents($data);
                     $part->setName(reset($val));
-                    $res = $imp_compose->addMIMEPartAttachment($part);
-                    if (is_a($res, 'PEAR_Error')) {
-                        $notification->push($res, 'horde.error');
+                    try {
+                        $imp_compose->addMIMEPartAttachment($part);
+                    } catch (IMP_Compose_Exception $e) {
+                        $notification->push($e, 'horde.error');
                     }
                 }
             }
@@ -732,18 +738,20 @@ if ($prefs->getValue('use_pgp')) {
     $default_encrypt = $prefs->getValue('default_encrypt');
     if (!$token &&
         in_array($default_encrypt, array(IMP::PGP_ENCRYPT, IMP::PGP_SIGNENC))) {
-        $addrs = $imp_compose->recipientList($header);
-        if (!is_a($addrs, 'PEAR_Error') && !empty($addrs['list'])) {
-            $imp_pgp = &Horde_Crypt::singleton(array('imp', 'pgp'));
-            foreach ($addrs['list'] as $val) {
-                $res = $imp_pgp->getPublicKey($val);
-                if (is_a($res, 'PEAR_Error')) {
-                    $notification->push(_("PGP encryption cannot be used by default as public keys cannot be found for all recipients."), 'horde.warning');
-                    $encrypt_options = ($default_encrypt == IMP::PGP_ENCRYPT) ? IMP::ENCRYPT_NONE : IMP::PGP_SIGN;
-                    break;
+        try {
+            $addrs = $imp_compose->recipientList($header);
+            if (!empty($addrs['list'])) {
+                $imp_pgp = &Horde_Crypt::singleton(array('imp', 'pgp'));
+                foreach ($addrs['list'] as $val) {
+                    $res = $imp_pgp->getPublicKey($val);
+                    if (is_a($res, 'PEAR_Error')) {
+                        $notification->push(_("PGP encryption cannot be used by default as public keys cannot be found for all recipients."), 'horde.warning');
+                        $encrypt_options = ($default_encrypt == IMP::PGP_ENCRYPT) ? IMP::ENCRYPT_NONE : IMP::PGP_SIGN;
+                        break;
+                    }
                 }
             }
-        }
+        } catch (IMP_Compose_Exception $e) {}
     }
 }
 
