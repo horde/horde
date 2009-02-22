@@ -875,6 +875,12 @@ var DimpBase = {
             pp_uid = data.imapuid + data.view;
 
             if (this.ppfifo.indexOf(pp_uid) != -1) {
+                  // There is a chance that the message may have been marked
+                  // as unseen since first being viewed. If so, we need to
+                  // explicitly flag as seen here.
+                if (data.bg.indexOf('unseen') != -1) {
+                    this.flag('seen');
+                }
                 return this._loadPreviewCallback(this.ppcache[pp_uid]);
             }
         }
@@ -2093,7 +2099,7 @@ var DimpBase = {
             args = { view: this.folder, flags: [ '-\\seen' ].toJSON() };
             if (action == 'seen') {
                 unseenstatus = 0;
-                args.flags = [ '\\seen' ];
+                args.flags = [ '\\seen' ].toJSON();
             }
             obs = vs.get('dataob');
             if (obs.size()) {
