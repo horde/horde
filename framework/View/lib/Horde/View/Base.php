@@ -175,7 +175,7 @@ abstract class Horde_View_Base
 
         foreach (get_class_methods($helper) as $method) {
             if (isset($this->_helpers[$method])) {
-                $msg = 'Helper method ' . get_class($this->_helpers[$helper]) . '#' . $method . ' overridden by ' . get_class($helper) . '#' . $method;
+                $msg = 'Helper method ' . get_class($this->_helpers[$method]) . '#' . $method . ' overridden by ' . get_class($helper) . '#' . $method;
                 if ($this->_throwOnHelperCollision) { throw new Horde_View_Exception($msg); }
                 if ($this->logger)                  { $this->logger->warn($msg); }
             }
