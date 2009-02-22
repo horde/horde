@@ -184,6 +184,12 @@ class Folks_Friends {
      */
     public function getBlacklist()
     {
+        static $blacklist;
+
+        if (is_array($blacklist)) {
+            return $blacklist;
+        }
+
         $blacklist = $this->_cache->get('folksBlacklist' . $this->_user, $GLOBALS['conf']['cache']['default_lifetime']);
         if ($blacklist) {
             return unserialize($blacklist);
@@ -336,6 +342,12 @@ class Folks_Friends {
      */
     public function getFriends($group = null)
     {
+        static $friends;
+
+        if (is_array($friends)) {
+            return $friends;
+        }
+
         $friends = $this->_cache->get('folksFriends' . $this->_user . $group, $GLOBALS['conf']['cache']['default_lifetime']);
         if ($friends) {
             return unserialize($friends);
@@ -402,6 +414,10 @@ class Folks_Friends {
      */
     public function isFriend($user)
     {
+        if ($user == $this->_user) {
+            return true;
+        }
+
         $friends = $this->getFriends();
         if ($friends instanceof PEAR_Error) {
             return $friends;

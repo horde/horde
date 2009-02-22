@@ -157,58 +157,6 @@ class Folks_Driver {
     }
 
     /**
-     * Check if user is on blacklist
-     *
-     * @param string $user User owner
-     * @param string $chcek User to check
-     *
-     * @return boolean
-     */
-    public function isBlacklisted($user, $check)
-    {
-        require_once FOLKS_BASE . '/lib/Friends.php';
-        $friends = Folks_Friends::singleton(null, array('user' => $user));
-        return $friends->isBlacklisted($check);
-    }
-
-    /**
-     * Check if user is on blacklist
-     *
-     * @param string $user User owner
-     * @param string $chcek User to check
-     *
-     * @return boolean
-     */
-    public function isFriend($user, $check)
-    {
-        if ($user == $check) {
-            return true;
-        }
-
-        require_once FOLKS_BASE . '/lib/Friends.php';
-        $friends = Folks_Friends::singleton(null, array('user' => $user));
-        return $friends->isFriend($check);
-    }
-
-    /**
-     * Check if user is on blacklist
-     *
-     * @param string $user User owner
-     *
-     * @return array firends usernames
-     */
-    public function getFriends($user)
-    {
-        require_once FOLKS_BASE . '/lib/Friends.php';
-        $friends = Folks_Friends::singleton(null, array('user' => $user));
-        if ($friends) {
-            return array();
-        } else {
-            return $friends->getFriends();
-        }
-    }
-
-    /**
      * Get usersnames online
      *
      * @return array  users online

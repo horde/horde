@@ -56,10 +56,10 @@ class Folks {
     /**
      * Get Image path
      */
-    static public function getImageUrl($user, $view = 'small')
+    static public function getImageUrl($user, $view = 'small', $full = false)
     {
         if (empty($GLOBALS['conf']['images']['direct'])) {
-            return Util::addParameter(Horde::applicationUrl('view.php'),
+            return Util::addParameter(Horde::applicationUrl('view.php', $full),
                                      array('view' => $view,
                                            'id' => $user),
                                      null, false);
@@ -85,14 +85,19 @@ class Folks {
      */
     function getUrlFor($controller, $data, $full = false, $append_session = 0)
     {
-
         switch ($controller) {
-
         case 'list':
             if (empty($GLOBALS['conf']['urls']['pretty'])) {
                 return Horde::applicationUrl($data . '.php', $full, $append_session);
             } else {
                 return Horde::applicationUrl('list/' . $data, $full, $append_session);
+            }
+
+        case 'feed':
+            if (empty($GLOBALS['conf']['urls']['pretty'])) {
+                return Horde::applicationUrl('rss/' . $data . '.php', $full, $append_session);
+            } else {
+                return Horde::applicationUrl('feed/' . $data, $full, $append_session);
             }
 
         case 'user':
@@ -227,11 +232,9 @@ class Folks {
         $mail = new Horde_Mime_Mail($subject, $body, $to, $GLOBALS['conf']['support'], NLS::getCharset());
 
         require_once FOLKS_BASE . '/lib/version.php';
-        try {
-            $mail->addHeader('User-Agent', 'Folks ' . FOLKS_VERSION);
-            $mail->addHeader('X-Originating-IP', $_SERVER['REMOTE_ADDR']);
-            $mail->addHeader('X-Remote-Browser', $_SERVER['HTTP_USER_AGENT']);
-        } catch (Horde_Mime_Exception $e) {}
+        $mail->addHeader('User-Agent', 'Folks ' . FOLKS_VERSION);
+        $mail->addHeader('X-Originating-IP', $_SERVER['REMOTE_ADDR']);
+        $mail->addHeader('X-Remote-Browser', $_SERVER['HTTP_USER_AGENT']);
 
         foreach ($attaches as $file) {
             if (file_exists($file)) {
@@ -241,9 +244,7 @@ class Folks {
 
         list($mail_driver, $mail_params) = Horde::getMailerConfig();
 
-        try {
-            return $mail->send($mail_driver, $mail_params);
-        } catch (Horde_Mime_Exception $e) {}
+        return $mail->send($mail_driver, $mail_params);
     }
 
     /**

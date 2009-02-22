@@ -36,12 +36,12 @@ $actions = array(
     array('url' => Horde::applicationUrl('user.php'),
           'img' => Horde::img('user.png', '', '', $registry->getImageDir('horde')),
           'id' => 'user',
-          'name' => _("Profile")));
+          'name' => _("View profile")));
 if ($registry->hasInterface('letter')) {
-    $actions[] = array('url' => Horde::applicationUrl('user.php'),
+    $actions[] = array('url' => $registry->callByPackage('letter', 'compose', ''),
                         'img' => Horde::img('letter.png', '', '', $registry->getImageDir('letter')),
                         'id' => 'user_to',
-                        'name' => $registry->get('name', 'letter'));
+                        'name' => _("Send message"));
 }
 
 require FOLKS_TEMPLATES . '/common-header.inc';

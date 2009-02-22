@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2009-02-18 19:29+0100\n"
+"POT-Creation-Date: 2009-02-22 20:39+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,7 +21,7 @@ msgstr ""
 msgid "%s Invited to join %s."
 msgstr ""
 
-#: edit/friends/add.php:42 edit/friends/friends.php:48
+#: edit/friends/add.php:42
 #, php-format
 msgid "%s added you as a friend on %s"
 msgstr ""
@@ -36,12 +36,12 @@ msgstr ""
 msgid "%s rejected you as a friend on %s"
 msgstr ""
 
-#: user.php:63
+#: user.php:67
 #, php-format
 msgid "%s's profile"
 msgstr ""
 
-#: edit/edit.php:30 edit/edit.php:46 lib/Forms/AddFriend.php:29
+#: edit/edit.php:30 edit/edit.php:46
 msgid "--- Select ---"
 msgstr ""
 
@@ -65,7 +65,7 @@ msgstr ""
 msgid "-u, --username[=username]    Horde login username"
 msgstr ""
 
-#: edit/friends/add.php:41 edit/friends/friends.php:47
+#: edit/friends/add.php:41
 #, php-format
 msgid "A confirmation was send to \"%s\"."
 msgstr ""
@@ -94,11 +94,11 @@ msgstr ""
 msgid "Activity successfully deleted"
 msgstr ""
 
-#: user.php:54 friends.php:31 edit/activity.php:40
+#: user.php:58 friends.php:31 edit/activity.php:40
 msgid "Activity successfully posted"
 msgstr ""
 
-#: templates/edit/tabs.php:23
+#: templates/edit/tabs.php:23 edit/friends/know.php:59
 msgid "Add"
 msgstr ""
 
@@ -112,7 +112,7 @@ msgstr ""
 msgid "Add %s to you blacklist?"
 msgstr ""
 
-#: lib/Forms/AddFriend.php:33
+#: lib/Forms/AddFriend.php:19
 msgid "Add / Remove"
 msgstr ""
 
@@ -128,8 +128,7 @@ msgstr ""
 msgid "Add group"
 msgstr ""
 
-#: edit/friends/add.php:62 edit/friends/blacklist.php:71
-#: edit/friends/friends.php:74
+#: edit/friends/add.php:62 edit/friends/blacklist.php:79
 msgid "Add or remove user"
 msgstr ""
 
@@ -170,7 +169,8 @@ msgstr ""
 msgid "Albums"
 msgstr ""
 
-#: templates/edit/tabs.php:24 lib/Block/friends.php:35
+#: templates/edit/tabs.php:24 edit/friends/index.php:17
+#: lib/Block/friends.php:35
 msgid "All"
 msgstr ""
 
@@ -202,11 +202,15 @@ msgid ""
 "PUBLIC CONTENT."
 msgstr ""
 
-#: lib/Folks.php:131 lib/Folks.php:135
+#: edit/friends/for.php:39
+msgid "Approve"
+msgstr ""
+
+#: lib/Folks.php:136 lib/Folks.php:140
 msgid "Aquarius"
 msgstr ""
 
-#: lib/Folks.php:139 lib/Folks.php:143
+#: lib/Folks.php:144 lib/Folks.php:148
 msgid "Aries"
 msgstr ""
 
@@ -230,7 +234,7 @@ msgstr ""
 msgid "Birthday"
 msgstr ""
 
-#: templates/user/actions.php:21 templates/edit/tabs.php:34 edit/tabs.php:24
+#: templates/user/actions.php:21 templates/edit/tabs.php:35 edit/tabs.php:24
 #: edit/friends/blacklist.php:18
 msgid "Blacklist"
 msgstr ""
@@ -243,7 +247,7 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: lib/Folks.php:151 lib/Folks.php:155
+#: lib/Folks.php:156 lib/Folks.php:160
 msgid "Cancer"
 msgstr ""
 
@@ -255,7 +259,7 @@ msgstr ""
 msgid "Cannot reset password automatically, contact your administrator."
 msgstr ""
 
-#: lib/Folks.php:274
+#: lib/Folks.php:279
 msgid "Cannot retrieve user email."
 msgstr ""
 
@@ -263,7 +267,7 @@ msgstr ""
 msgid "Cannot update password, contact your administrator."
 msgstr ""
 
-#: lib/Folks.php:131 lib/Folks.php:175
+#: lib/Folks.php:136 lib/Folks.php:180
 msgid "Capricorn"
 msgstr ""
 
@@ -428,7 +432,7 @@ msgstr ""
 msgid "Edit personal information"
 msgstr ""
 
-#: lib/Folks.php:291
+#: lib/Folks.php:296
 msgid "Edit profile"
 msgstr ""
 
@@ -482,7 +486,7 @@ msgstr ""
 msgid "Friend"
 msgstr ""
 
-#: edit/friends/invite.php:52
+#: edit/friends/invite.php:51
 #, php-format
 msgid "Friend \"%s\" was invited to join %s."
 msgstr ""
@@ -492,8 +496,8 @@ msgid "Friend's e-mail"
 msgstr ""
 
 #: friends.php:21 templates/user/user.php:152 templates/edit/tabs.php:1
-#: edit/tabs.php:25 edit/friends/index.php:17 edit/friends/friends.php:18
-#: lib/Folks.php:290 lib/Block/friends.php:3 lib/Block/friends.php:22
+#: edit/tabs.php:25 edit/friends/friends.php:18 lib/Folks.php:295
+#: lib/Block/friends.php:3 lib/Block/friends.php:22
 msgid "Friends"
 msgstr ""
 
@@ -501,15 +505,19 @@ msgstr ""
 msgid "Friends Birthdays"
 msgstr ""
 
-#: templates/friends/friends.php:7
+#: templates/friends/friends.php:7 rss/activity.php:52
 msgid "Friends activities"
+msgstr ""
+
+#: templates/common-header.inc:27
+msgid "Friends activity"
 msgstr ""
 
 #: edit/friends/from.php:17
 msgid "Friends we are waiting approval from"
 msgstr ""
 
-#: lib/Folks.php:147 lib/Folks.php:151
+#: lib/Folks.php:152 lib/Folks.php:156
 msgid "Gemini"
 msgstr ""
 
@@ -518,7 +526,7 @@ msgstr ""
 msgid "Gender"
 msgstr ""
 
-#: templates/edit/groups.php:12 lib/Forms/AddFriend.php:29
+#: templates/edit/groups.php:12
 msgid "Group"
 msgstr ""
 
@@ -562,7 +570,7 @@ msgstr ""
 msgid "How to preview users"
 msgstr ""
 
-#: templates/edit/tabs.php:33
+#: templates/edit/tabs.php:34
 msgid "I am friend of"
 msgstr ""
 
@@ -594,11 +602,11 @@ msgstr ""
 msgid "Last time online"
 msgstr ""
 
-#: lib/Folks.php:155 lib/Folks.php:159
+#: lib/Folks.php:160 lib/Folks.php:164
 msgid "Leo"
 msgstr ""
 
-#: lib/Folks.php:163 lib/Folks.php:167
+#: lib/Folks.php:168 lib/Folks.php:172
 msgid "Libra"
 msgstr ""
 
@@ -606,7 +614,7 @@ msgstr ""
 msgid "Limit"
 msgstr ""
 
-#: list.php:17 templates/list/list.php:10 lib/Folks.php:294
+#: list.php:17 templates/list/list.php:10 lib/Folks.php:299
 msgid "List"
 msgstr ""
 
@@ -662,6 +670,10 @@ msgstr ""
 msgid "Members"
 msgstr ""
 
+#: templates/edit/tabs.php:31
+msgid "Might know"
+msgstr ""
+
 #: edit/comments.php:30
 msgid "Moderate comments - I will approve every single comment"
 msgstr ""
@@ -678,7 +690,7 @@ msgstr ""
 msgid "Most popular users"
 msgstr ""
 
-#: lib/Folks.php:289
+#: lib/Folks.php:294
 msgid "My profile"
 msgstr ""
 
@@ -750,7 +762,7 @@ msgstr ""
 msgid "Offensive content"
 msgstr ""
 
-#: templates/user/user.php:77 templates/edit/friends.php:32
+#: templates/user/user.php:77 templates/edit/friends.php:33
 #: lib/Block/friends.php:37
 msgid "Offline"
 msgstr ""
@@ -760,9 +772,17 @@ msgid "Old name"
 msgstr ""
 
 #: online.php:17 templates/user/user.php:75 templates/list/list.php:3
-#: templates/edit/friends.php:30 lib/Block/random.php:38
+#: templates/edit/friends.php:31 lib/Block/random.php:38
 #: lib/Block/friends.php:36
 msgid "Online"
+msgstr ""
+
+#: templates/common-header.inc:26 rss/friends.php:48
+msgid "Online friends"
+msgstr ""
+
+#: templates/common-header.inc:24 rss/online.php:24
+msgid "Online users"
 msgstr ""
 
 #: edit/privacy.php:34
@@ -802,6 +822,10 @@ msgstr ""
 msgid "Password changed."
 msgstr ""
 
+#: templates/common-header.inc:28 edit/friends/know.php:17 rss/know.php:61
+msgid "People you might know"
+msgstr ""
+
 #: templates/edit/groups.php:28
 msgid "Permissions"
 msgstr ""
@@ -810,7 +834,7 @@ msgstr ""
 msgid "Picture"
 msgstr ""
 
-#: lib/Folks.php:135 lib/Folks.php:139
+#: lib/Folks.php:140 lib/Folks.php:144
 msgid "Pisces"
 msgstr ""
 
@@ -866,11 +890,16 @@ msgstr ""
 msgid "Recent visitors"
 msgstr ""
 
+#: edit/friends/for.php:43
+msgid "Reject"
+msgstr ""
+
 #: lib/Forms/Login.php:28
 msgid "Remember login?"
 msgstr ""
 
-#: templates/edit/friends.php:41
+#: edit/friends/index.php:35 edit/friends/blacklist.php:73
+#: edit/friends/friends.php:36
 msgid "Remove"
 msgstr ""
 
@@ -924,7 +953,7 @@ msgstr ""
 msgid "Reset Your Password"
 msgstr ""
 
-#: lib/Folks.php:171 lib/Folks.php:175
+#: lib/Folks.php:176 lib/Folks.php:180
 msgid "Sagittarius"
 msgstr ""
 
@@ -936,11 +965,11 @@ msgstr ""
 msgid "Save search criteria"
 msgstr ""
 
-#: lib/Folks.php:167 lib/Folks.php:171
+#: lib/Folks.php:172 lib/Folks.php:176
 msgid "Scorpio"
 msgstr ""
 
-#: search.php:18 lib/Folks.php:293 lib/Forms/Search.php:27
+#: search.php:18 lib/Folks.php:298 lib/Forms/Search.php:27
 msgid "Search"
 msgstr ""
 
@@ -972,7 +1001,9 @@ msgstr ""
 msgid "Send me my username"
 msgstr ""
 
-#: templates/user/actions.php:7 templates/edit/friends.php:46
+#: templates/user/actions.php:7 edit/friends/know.php:68
+#: edit/friends/for.php:48 edit/friends/index.php:44 edit/friends/of.php:40
+#: edit/friends/from.php:40 edit/friends/friends.php:45
 msgid "Send message"
 msgstr ""
 
@@ -984,7 +1015,7 @@ msgstr ""
 msgid "Send this profile to a friend"
 msgstr ""
 
-#: lib/Folks.php:292
+#: lib/Folks.php:297
 msgid "Services"
 msgstr ""
 
@@ -1072,7 +1103,7 @@ msgid ""
 "request has been approved."
 msgstr ""
 
-#: lib/Folks.php:143 lib/Folks.php:147
+#: lib/Folks.php:148 lib/Folks.php:152
 msgid "Taurus"
 msgstr ""
 
@@ -1154,22 +1185,22 @@ msgstr ""
 msgid "User"
 msgstr ""
 
-#: lib/Driver.php:381 lib/Driver/sql.php:308
+#: lib/Driver.php:329 lib/Driver/sql.php:308
 #, php-format
 msgid "User \"%s\" does not exists."
 msgstr ""
 
-#: lib/Friends.php:214 lib/Friends.php:283
+#: lib/Friends.php:220 lib/Friends.php:289
 #, php-format
 msgid "User \"%s\" does not exits"
 msgstr ""
 
-#: lib/Friends.php:291
+#: lib/Friends.php:297
 #, php-format
 msgid "User \"%s\" is already in fiend list"
 msgstr ""
 
-#: lib/Friends.php:299
+#: lib/Friends.php:305
 #, php-format
 msgid ""
 "User \"%s\" is already in fiend list, but we are waiting his/her approval."
@@ -1180,12 +1211,12 @@ msgstr ""
 msgid "User \"%s\" is not market to be in the removal process."
 msgstr ""
 
-#: edit/friends/add.php:55 edit/friends/friends.php:59
+#: edit/friends/add.php:55
 #, php-format
 msgid "User \"%s\" was added as your friend."
 msgstr ""
 
-#: edit/friends/blacklist.php:44
+#: edit/friends/blacklist.php:41
 #, php-format
 msgid "User \"%s\" was added to your blacklist."
 msgstr ""
@@ -1205,17 +1236,17 @@ msgstr ""
 msgid "User \"%s\" was rejected as a friend."
 msgstr ""
 
-#: edit/friends/blacklist.php:35
+#: edit/friends/blacklist.php:32
 #, php-format
 msgid "User \"%s\" was removed from your blacklist."
 msgstr ""
 
-#: edit/friends/add.php:32 edit/friends/friends.php:40
+#: edit/friends/add.php:32
 #, php-format
 msgid "User \"%s\" was removed from your friend list."
 msgstr ""
 
-#: edit/friends/add.php:45 edit/friends/friends.php:51
+#: edit/friends/add.php:45
 #, php-format
 msgid ""
 "User %s added you to his firends list on %s. \n"
@@ -1303,7 +1334,7 @@ msgstr ""
 
 #: templates/friends/friends.php:11 templates/list/list.php:24
 #: templates/edit/friends.php:16 account/resetpassword.php:43
-#: lib/Forms/AddFriend.php:19 lib/Forms/Login.php:22 config/prefs.php.dist:40
+#: lib/Forms/AddFriend.php:18 lib/Forms/Login.php:22 config/prefs.php.dist:40
 msgid "Username"
 msgstr ""
 
@@ -1336,11 +1367,13 @@ msgstr ""
 msgid "Video"
 msgstr ""
 
-#: templates/edit/friends.php:37
+#: edit/friends/know.php:63 edit/friends/for.php:35 edit/friends/index.php:39
+#: edit/friends/of.php:35 edit/friends/from.php:35
+#: edit/friends/blacklist.php:77 edit/friends/friends.php:40
 msgid "View profile"
 msgstr ""
 
-#: lib/Folks.php:159 lib/Folks.php:163
+#: lib/Folks.php:164 lib/Folks.php:168
 msgid "Virgo"
 msgstr ""
 
@@ -1348,11 +1381,11 @@ msgstr ""
 msgid "Visit my homepage"
 msgstr ""
 
-#: templates/edit/tabs.php:31
+#: templates/edit/tabs.php:32
 msgid "Wainting for"
 msgstr ""
 
-#: templates/edit/tabs.php:32
+#: templates/edit/tabs.php:33
 msgid "Wainting from"
 msgstr ""
 
@@ -1360,11 +1393,11 @@ msgstr ""
 msgid "We are friends of"
 msgstr ""
 
-#: user.php:48 friends.php:25 edit/activity.php:34
+#: user.php:52 friends.php:25 edit/activity.php:34
 msgid "What are you doing right now?"
 msgstr ""
 
-#: lib/Friends/prefs.php:164 lib/Friends/sql.php:192
+#: lib/Friends/prefs.php:164 lib/Friends/sql.php:193
 msgid "Whitelist"
 msgstr ""
 
@@ -1408,7 +1441,7 @@ msgstr ""
 msgid "You are entering your data too fast!"
 msgstr ""
 
-#: templates/user/user.php:407 templates/user/user.php:427
+#: templates/user/user.php:407 templates/user/user.php:426
 #, php-format
 msgid "You are on %s blacklist."
 msgstr ""
@@ -1418,16 +1451,16 @@ msgstr ""
 msgid "You can still send a private message to user %s."
 msgstr ""
 
-#: lib/Friends.php:219
+#: lib/Friends.php:225
 #, php-format
 msgid "You cannot add \"%s\" to your blacklist."
 msgstr ""
 
-#: lib/Friends.php:277
+#: lib/Friends.php:283
 msgid "You cannot add yourself as your own friend."
 msgstr ""
 
-#: lib/Friends.php:208
+#: lib/Friends.php:214
 msgid "You cannot add yourself to your blacklist."
 msgstr ""
 
@@ -1435,7 +1468,7 @@ msgstr ""
 msgid "You cannot log activities for other users."
 msgstr ""
 
-#: lib/Driver.php:753 lib/Forms/Activity.php:33
+#: lib/Driver.php:701 lib/Forms/Activity.php:33
 msgid "You cannot post an empty activity message."
 msgstr ""
 

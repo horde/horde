@@ -79,7 +79,7 @@ include FOLKS_TEMPLATES . '/user/actions.php';
                 ($profile['last_online'] == 'all' ||
                 Auth::isAuthenticated() && (
                     $profile['last_online'] == 'authenticated' ||
-                    $profile['last_online'] == 'friends' && $folks_driver->isFriend($user, Auth::getAuth())))
+                    $profile['last_online'] == 'friends' && $friends_driver->isFriend(Auth::getAuth())))
                 ) {
                 echo ' ' . _("Last time online") . ': ' . Folks::format_datetime($profile['last_online_on']);
             }
@@ -140,7 +140,7 @@ foreach ($profile['activity_log'] as $item) {
 </tr>
 
 <?php
-$friends = $folks_driver->getFriends($user);
+$friends = $friends_driver->getFriends();
 if (!empty($friends)):
 ?>
 <tr>
@@ -402,7 +402,7 @@ case 'never':
 case 'authenticated':
     $allow_comments = Auth::isAuthenticated();
     if ($allow_comments) {
-        if ($folks_driver->isBlacklisted($user, Auth::getAuth())) {
+        if ($friends_driver->isBlacklisted(Auth::getAuth())) {
             $allow_comments = false;
             $comments_reason = sprintf(_("You are on %s blacklist."), $user);
         }
@@ -415,14 +415,13 @@ case 'authenticated':
     break;
 
 case 'friends':
-    $allow_comments = $folks_driver->isFriend($user, Auth::getAuth());
+    $allow_comments = $friends_driver->isFriend(Auth::getAuth());
     $comments_reason = _("Only authenticated users can post comments.");
     break;
 
 default:
     $allow_comments = true;
-
-    if (Auth::isAuthenticated() && $folks_driver->isBlacklisted($user,  Auth::getAuth())) {
+    if (Auth::isAuthenticated() && $friends_driver->isBlacklisted(Auth::getAuth())) {
         $allow_comments = false;
         $comments_reason = sprintf(_("You are on %s blacklist."), $user);
     }

@@ -16,9 +16,6 @@ require_once FOLKS_BASE . '/lib/Forms/AddFriend.php';
 require_once FOLKS_BASE . '/edit/tabs.php';
 
 $title = _("Blacklist");
-$remove_url = Util::addParameter(Horde::applicationUrl('edit/friends/blacklist.php'), 'user', null);
-$remove_img = Horde::img('delete.png', '', '', $registry->getImageDir('horde'));
-$profile_img = Horde::img('user.png', '', '', $registry->getImageDir('horde'));
 
 // Load driver
 require_once FOLKS_BASE . '/lib/Friends.php';
@@ -77,7 +74,7 @@ $actions = array(
     array('url' => Horde::applicationUrl('user.php'),
           'img' => Horde::img('user.png', '', '', $registry->getImageDir('horde')),
           'id' => 'user',
-          'name' => _("Profile")));
+          'name' => _("View profile")));
 
 $friend_form = new Folks_AddFriend_Form($vars, _("Add or remove user"), 'blacklist');
 

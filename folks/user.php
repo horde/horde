@@ -22,6 +22,10 @@ if ($profile instanceof PEAR_Error) {
     exit;
 }
 
+// Load its friend list
+require_once FOLKS_BASE . '/lib/Friends.php';
+$friends_driver = Folks_Friends::singleton(null, array('user' => $user));
+
 // Log user view
 $folks_driver->logView($user);
 
@@ -29,7 +33,7 @@ $folks_driver->logView($user);
 if ($profile['activity_log'] == 'all' ||
     Auth::isAuthenticated() && (
         $profile['activity_log'] == 'authenticated' ||
-        $profile['activity_log'] == 'friends' && $folks_driver->isFriend($user, Auth::getAuth()))
+        $profile['activity_log'] == 'friends' && $friends_driver->isFriend($user))
     ) {
     $profile['activity_log'] = $folks_driver->getActivity($user);
     if ($profile['activity_log'] instanceof PEAR_Error) {
@@ -88,7 +92,7 @@ case 'public_authenticated':
 break;
 
 case 'public_friends':
-    if ($folks_driver->isFriend($user, Auth::getAuth())) {
+    if ($friends_driver->isFriend($user)) {
         require FOLKS_TEMPLATES . '/user/user.php';
     } else {
         require FOLKS_TEMPLATES . '/user/friends.php';
