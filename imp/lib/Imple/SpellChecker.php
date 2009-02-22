@@ -87,18 +87,18 @@ class IMP_Imple_SpellChecker extends IMP_Imple
             $spellArgs['html'] = true;
         }
 
-        $speller = Horde_SpellChecker::factory(
-            $GLOBALS['conf']['spell']['driver'], $spellArgs);
-        if ($speller === false) {
+        try {
+            $speller = Horde_SpellChecker::getInstance($GLOBALS['conf']['spell']['driver'], $spellArgs);
+        } catch (Exception $e) {
+            Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
             return array();
         }
 
-        $result = $speller->spellCheck(Util::getPost($args['input']));
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+        try {
+            return $speller->spellCheck(Util::getPost($args['input']));
+        } catch (Exception $e) {
+            Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
             return array('bad' => array(), 'suggestions' => array());
-        } else {
-            return $result;
         }
     }
 

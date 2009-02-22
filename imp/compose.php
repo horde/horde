@@ -619,9 +619,12 @@ if ($has_js) {
         }
         $imp_ui->attachAutoCompleter($auto_complete);
         if (!empty($conf['spell']['driver'])) {
-            if (Horde_SpellChecker::factory($conf['spell']['driver'], array()) !== false) {
+            try {
+                Horde_SpellChecker::getInstance($conf['spell']['driver'], array());
                 $spellcheck = true;
                 $imp_ui->attachSpellChecker('imp', true);
+            } catch (Exception $e) {
+                Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
             }
         }
         Horde::addScriptFile('ieEscGuard.js', 'horde', true);
