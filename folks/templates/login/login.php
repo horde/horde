@@ -1,4 +1,4 @@
-<?php 
+<?php
 
-echo $tabs->render('login');
+echo $tabs->render();
 $form->renderActive(null, null, null, 'post');
