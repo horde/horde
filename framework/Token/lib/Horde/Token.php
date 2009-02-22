@@ -50,7 +50,7 @@ class Horde_Token
 
         $driver = basename($driver);
         $class = ($driver == 'none')
-            ? 'Horde_Token';
+            ? 'Horde_Token'
             : 'Horde_Token_' . ucfirst($driver);
 
         if (!class_exists($class)) {
