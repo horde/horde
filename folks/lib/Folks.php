@@ -55,6 +55,10 @@ class Folks {
 
     /**
      * Get Image path
+     *
+     * @param string $user       Image username
+     * @param string $view       View type
+     * @param boolean $full      Generate a full URL.
      */
     static public function getImageUrl($user, $view = 'small', $full = false)
     {
