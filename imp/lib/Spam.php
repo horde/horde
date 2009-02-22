@@ -104,7 +104,11 @@ class IMP_Spam
                         require_once 'Horde/Identity.php';
                         $imp_compose = &IMP_Compose::singleton();
                         $identity = &Identity::singleton(array('imp', 'imp'));
-                        $from_line = $identity->getFromLine();
+                        try {
+                            $from_line = $identity->getFromLine();
+                        } catch (Horde_Exception $e) {
+                            $from = '';
+                        }
                     }
 
                     /* Build the MIME structure. */

@@ -186,7 +186,11 @@ case _("Send"):
         $message .= "\n" . $sig;
     }
 
-    $header['from'] = $identity->getFromLine(null, Util::getFormData('from'));
+    try {
+        $header['from'] = $identity->getFromLine(null, Util::getFormData('from'));
+    } catch (Horde_Exception $e) {
+        $header['from'] = '';
+    }
     $header['replyto'] = $identity->getValue('replyto_addr');
     $header['subject'] = Util::getFormData('subject');
 

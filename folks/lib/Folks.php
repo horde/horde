@@ -227,9 +227,11 @@ class Folks {
         $mail = new Horde_Mime_Mail($subject, $body, $to, $GLOBALS['conf']['support'], NLS::getCharset());
 
         require_once FOLKS_BASE . '/lib/version.php';
-        $mail->addHeader('User-Agent', 'Folks ' . FOLKS_VERSION);
-        $mail->addHeader('X-Originating-IP', $_SERVER['REMOTE_ADDR']);
-        $mail->addHeader('X-Remote-Browser', $_SERVER['HTTP_USER_AGENT']);
+        try {
+            $mail->addHeader('User-Agent', 'Folks ' . FOLKS_VERSION);
+            $mail->addHeader('X-Originating-IP', $_SERVER['REMOTE_ADDR']);
+            $mail->addHeader('X-Remote-Browser', $_SERVER['HTTP_USER_AGENT']);
+        } catch (Horde_Mime_Exception $e) {}
 
         foreach ($attaches as $file) {
             if (file_exists($file)) {
@@ -239,7 +241,9 @@ class Folks {
 
         list($mail_driver, $mail_params) = Horde::getMailerConfig();
 
-        return $mail->send($mail_driver, $mail_params);
+        try {
+            return $mail->send($mail_driver, $mail_params);
+        } catch (Horde_Mime_Exception $e) {}
     }
 
     /**

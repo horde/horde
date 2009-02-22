@@ -176,12 +176,13 @@ function send_agendas()
         }
 
         $mime_mail->setBody($message, NLS::getCharset(), true);
-        $mime_mail->addRecipients($email);
+        try {
+            $mime_mail->addRecipients($email);
+        } catch (Horde_Mime_Exception $e) {}
         Horde::logMessage(sprintf('Sending daily agenda to %s', $email),
                           __FILE__, __LINE__, PEAR_LOG_DEBUG);
-        $sent = $mime_mail->send($mail_driver, $mail_params, false, false);
-        if (is_a($sent, 'PEAR_Error')) {
-            return $sent;
-        }
+        try {
+            $mime_mail->send($mail_driver, $mail_params, false, false);
+        } catch (Horde_Mime_Exception $e) {}
     }
 }

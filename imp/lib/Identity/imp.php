@@ -126,6 +126,7 @@ class Identity_imp extends Identity
      *
      * @return string  A full From: header in the format
      *                 'Fullname <user@example.com>'.
+     * @throws Horde_Exception
      */
     public function getFromLine($ident = null, $from_address = '')
     {
@@ -144,12 +145,10 @@ class Identity_imp extends Identity
             $name = $this->getFullname($ident);
         }
 
-        if (!empty($address)) {
+        try {
             $ob = Horde_Mime_Address::parseAddressList($address, array('defserver' => $_SESSION['imp']['maildomain']));
-        }
-        if (empty($ob)) {
-            $ob['message'] .= ' ' . _("Your From address is not a valid email address. This can be fixed in your Personal Information options page.");
-            return $ob;
+        } catch (Horde_Mime_Exception $e) {
+            throw new Horde_Exception (_("Your From address is not a valid email address. This can be fixed in your Personal Information options page."));
         }
 
         if (empty($name)) {
@@ -346,7 +345,11 @@ class Identity_imp extends Identity
             if (!is_array($bcc)) {
                 $bcc = array($bcc);
             }
-            return Horde_Mime_Address::parseAddressList(implode(', ', $bcc));
+            try {
+                return Horde_Mime_Address::parseAddressList(implode(', ', $bcc));
+            } catch (Horde_Mime_Exception $e) {
+                return array();
+            }
         }
     }
 
@@ -378,8 +381,9 @@ class Identity_imp extends Identity
             $addresses = array($addresses);
         }
 
-        $addr_list = Horde_Mime_Address::parseAddressList(implode(', ', $addresses));
-        if (empty($addr_list)) {
+        try {
+            $addr_list = Horde_Mime_Address::parseAddressList(implode(', ', $addresses));
+        } catch (Horde_Mime_Exception $e) {
             return null;
         }
 

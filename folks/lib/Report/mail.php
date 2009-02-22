@@ -34,7 +34,9 @@ class Folks_Report_mail extends Folks_Report {
         $mail = new Horde_Mime_Mail($this->getTitle(), $this->getMessage($message), $to, $this->getUserEmail());
 
         //FIXME: This address should be configurable
-        $mail->addHeader('Sender', 'horde-problem@' . $conf['report_content']['maildomain']);
+        try {
+            $mail->addHeader('Sender', 'horde-problem@' . $conf['report_content']['maildomain']);
+        } catch (Horde_Mime_Exception $e) {}
 
         $mail_driver = $conf['mailer']['type'];
         $mail_params = $conf['mailer']['params'];
@@ -50,6 +52,8 @@ class Folks_Report_mail extends Folks_Report {
             }
         }
 
-        return $mail->send($mail_driver, $mail_params);
+        try {
+            return $mail->send($mail_driver, $mail_params);
+        } catch (Horde_Mime_Exception $e) {}
     }
 }

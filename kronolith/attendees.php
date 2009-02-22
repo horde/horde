@@ -77,15 +77,11 @@ case 'add':
             $name = empty($newAttendeeParsedPart->personal)
                 ? ''
                 : $newAttendeeParsedPart->personal;
-            $newAttendeeParsedPartNew = Horde_Mime::encodeAddress(
-                Horde_Mime_Address::writeAddress($newAttendeeParsedPart->mailbox,
-                                         $newAttendeeParsedPart->host, $name));
-            $newAttendeeParsedPartValidated = $parser->parseAddressList(
-                $newAttendeeParsedPartNew, '', null, true);
-            if (is_a($newAttendeeParsedPartValidated, 'PEAR_Error')) {
-                $notification->push($newAttendeeParsedPartValidated,
-                                    'horde.error');
-            } else {
+
+            try {
+                $newAttendeeParsedPartNew = Horde_Mime::encodeAddress(Horde_Mime_Address::writeAddress($newAttendeeParsedPart->mailbox, $newAttendeeParsedPart->host, $name));
+                $newAttendeeParsedPartValidated = $parser->parseAddressList($newAttendeeParsedPartNew, '', null, true);
+
                 $email = $newAttendeeParsedPart->mailbox . '@'
                     . $newAttendeeParsedPart->host;
                 // Avoid overwriting existing attendees with the default
@@ -96,6 +92,8 @@ case 'add':
                         'response'   => KRONOLITH_RESPONSE_NONE,
                         'name'       => $name,
                     );
+            } catch (Horde_Mime_Exception $e) {
+                $notification->push($e, 'horde.error');
             }
         }
     }

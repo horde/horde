@@ -128,13 +128,15 @@ while ($row =& $res->fetchRow()) {
     $body2 = sprintf($body, $row[0], $registry->get('name', 'horde'), Folks::getUrlFor('user', $row[0], true, -1));
 
     // Send mail
-    $mail = new MIME_Mail($subject, $body2, $row[1], $conf['support'], NLS::getCharset());
-    $mail->addHeader('User-Agent', 'Folks' . FOLKS_VERSION);
-    $sent = $mail->send($conf['mailer']['type'], $conf['mailer']['params']);
-    if ($sent instanceof PEAR_Error) {
-        $cli->message($sent, 'cli.warning');
-    } else {
+    $mail = new Horde_Mime_Mail($subject, $body2, $row[1], $conf['support'], NLS::getCharset());
+    try {
+        $mail->addHeader('User-Agent', 'Folks' . FOLKS_VERSION);
+    } catch (Horde_Mime_Exception $e) {}
+    try {
+        $mail->send($conf['mailer']['type'], $conf['mailer']['params']);
         $cli->message($row[0], 'cli.success');
+    } catch (Horde_Mime_Exception $e) {
+        $cli->message($e, 'cli.warning');
     }
 
     // sleep(1);

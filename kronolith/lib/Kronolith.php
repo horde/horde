@@ -1897,17 +1897,20 @@ class Kronolith {
             $recipient = empty($status['name']) ? $email : Horde_Mime_Address::trimAddress($status['name'] . ' <' . $email . '>');
             $mail = new Horde_Mime_Mail($subject, $message, $recipient, $from, NLS::getCharset());
             require_once KRONOLITH_BASE . '/lib/version.php';
-            $mail->addHeader('User-Agent', 'Kronolith ' . KRONOLITH_VERSION);
+            try {
+                $mail->addHeader('User-Agent', 'Kronolith ' . KRONOLITH_VERSION);
+            } catch (Horde_Mime_Exception $e) {}
             $mail->addMimePart($ics);
-            $status = $mail->send($mail_driver, $mail_params);
-            if (!is_a($status, 'PEAR_Error')) {
+
+            try {
+                $mail->send($mail_driver, $mail_params);
                 $notification->push(
                     sprintf(_("The event notification to %s was successfully sent."), $recipient),
                     'horde.success'
                 );
-            } else {
+            } catch (Horde_Mime_Exception $e) {
                 $notification->push(
-                    sprintf(_("There was an error sending an event notification to %s: %s"), $recipient, $status->getMessage()),
+                    sprintf(_("There was an error sending an event notification to %s: %s"), $recipient, $e->getMessage(), $e->getCode()),
                     'horde.error'
                 );
             }
@@ -2036,10 +2039,9 @@ class Kronolith {
                                                      NLS::getCharset());
                     $mime_mail->setBody($message, NLS::getCharset(), true);
                     Horde::logMessage(sprintf('Sending event notifications for %s to %s', $event->title, implode(', ', $df_recipients)), __FILE__, __LINE__, PEAR_LOG_DEBUG);
-                    $sent = $mime_mail->send($mail_driver, $mail_params, false, false);
-                    if (is_a($sent, 'PEAR_Error')) {
-                        return $sent;
-                    }
+                    try {
+                        $mime_mail->send($mail_driver, $mail_params, false, false);
+                    } catch (Horde_Mime_Exception $e) {}
                 }
             }
         }

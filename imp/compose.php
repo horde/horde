@@ -401,13 +401,14 @@ case 'send_message':
         break;
     }
 
-    $from = $identity->getFromLine(null, Util::getFormData('from'));
-    if (is_a($from, 'PEAR_Error')) {
+    try {
+        $header['from'] = $identity->getFromLine(null, Util::getFormData('from'));
+    } catch (Horde_Exception $e) {
+        $header['from'] = '';
         $get_sig = false;
-        $notification->push($from);
+        $notification->push($e);
         break;
     }
-    $header['from'] = $from;
     $header['replyto'] = $identity->getValue('replyto_addr');
 
     $header['to'] = $imp_ui->getAddressList(Util::getFormData('to'), Util::getFormData('to_list'), Util::getFormData('to_field'), Util::getFormData('to_new'));
@@ -491,10 +492,12 @@ case 'save_draft':
     }
 
     /* Set up the From address based on the identity. */
-    $header['from'] = $identity->getFromLine(null, Util::getFormData('from'));
-    if (is_a($header['from'], 'PEAR_Error')) {
+    try {
+        $header['from'] = $identity->getFromLine(null, Util::getFormData('from'));
+    } catch (Horde_Exception $e) {
+        $header['from'] = '';
         $get_sig = false;
-        $notification->push($header['from']);
+        $notification->push($e);
         break;
     }
     foreach (array('to', 'cc', 'bcc', 'subject') as $val) {
@@ -955,7 +958,11 @@ if ($redirect) {
     if ($t->get('di_locked')) {
         $t->set('help_compose-from', Help::link('imp', 'compose-from'));
         $t->set('fromaddr_locked', $prefs->isLocked('from_addr'));
-        $t->set('from', htmlspecialchars($identity->getFromLine(null, Util::getFormData('from'))));
+        try {
+            $t->set('from', htmlspecialchars($identity->getFromLine(null, Util::getFormData('from'))));
+        } catch (Horde_Exception $e) {
+            $t->set('from', '');
+        }
         if (!$t->get('fromaddr_locked')) {
             $t->set('fromaddr_tabindex', ++$tabindex);
         }

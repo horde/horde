@@ -192,9 +192,10 @@ class IMP_Compose
             if (!empty($headers[$k])) {
                 $addr = $headers[$k];
                 if ($session) {
-                    $addr_check = Horde_Mime::encodeAddress($this->formatAddr($addr), $charset, $_SESSION['imp']['maildomain']);
-                    if (is_a($addr_check, 'PEAR_Error')) {
-                        throw new IMP_Compose_Exception(sprintf(_("Saving the draft failed. The %s header contains an invalid e-mail address: %s."), $k, $addr_check->getMessage()));
+                    try {
+                        Horde_Mime::encodeAddress($this->formatAddr($addr), $charset, $_SESSION['imp']['maildomain']);
+                    } catch (Horde_Mime_Exception $e) {
+                        throw new IMP_Compose_Exception(sprintf(_("Saving the draft failed. The %s header contains an invalid e-mail address: %s."), $k, $e->getMessage()), $e->getCode());
                     }
                 }
                 $draft_headers->addHeader($v, $addr);
@@ -628,14 +629,16 @@ class IMP_Compose
         global $conf;
 
         /* Properly encode the addresses we're sending to. */
-        $email = Horde_Mime::encodeAddress($email, null, $_SESSION['imp']['maildomain']);
-        if (is_a($email, 'PEAR_Error')) {
-            throw new IMP_Compose_Exception($email);
+        try {
+            $email = Horde_Mime::encodeAddress($email, null, $_SESSION['imp']['maildomain']);
+        } catch (Horde_Mime_Exception $e) {
+            throw new IMP_Compose_Exception($e);
         }
 
         /* Validate the recipient addresses. */
-        $result = Horde_Mime_Address::parseAddressList($email, array('defserver' => $_SESSION['imp']['maildomain'], 'validate' => true));
-        if (empty($result)) {
+        try {
+            $result = Horde_Mime_Address::parseAddressList($email, array('defserver' => $_SESSION['imp']['maildomain'], 'validate' => true));
+        } catch (Horde_Mime_Exception $e) {
             return;
         }
 
@@ -719,10 +722,11 @@ class IMP_Compose
             return;
         }
 
-        $r_array = Horde_Mime::encodeAddress($recipients, null, $_SESSION['imp']['maildomain']);
-        if (!is_a($r_array, 'PEAR_Error')) {
+        try {
+            $r_array = Horde_Mime::encodeAddress($recipients, null, $_SESSION['imp']['maildomain']);
             $r_array = Horde_Mime_Address::parseAddressList($r_array, array('validate' => true));
-        }
+        } catch (Horde_Mime_Exception $e) {}
+
         if (empty($r_array)) {
             $notification->push(_("Could not save recipients."));
             return;
@@ -803,8 +807,9 @@ class IMP_Compose
                     continue;
                 }
 
-                $obs = Horde_Mime_Address::parseAddressList($email);
-                if (empty($obs)) {
+                try {
+                    $obs = Horde_Mime_Address::parseAddressList($email);
+                } catch (Horde_Mime_Exception $e) {
                     throw new IMP_Compose_Exception(sprintf(_("Invalid e-mail address: %s."), $email));
                 }
 
@@ -1839,8 +1844,9 @@ class IMP_Compose
         /* First we'll get a comma seperated list of email addresses
            and a comma seperated list of personal names out of $from
            (there just might be more than one of each). */
-        $addr_list = Horde_Mime_Address::parseAddressList($from);
-        if (!empty($addr_list)) {
+        try {
+            $addr_list = Horde_Mime_Address::parseAddressList($from);
+        } catch (Horde_Mime_Exception $e) {
             $addr_list = array();
         }
 

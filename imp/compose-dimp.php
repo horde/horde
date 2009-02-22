@@ -83,9 +83,10 @@ if (count($_POST)) {
     case 'auto_save_draft':
     case 'save_draft':
         /* Set up the From address based on the identity. */
-        $from = $identity->getFromLine(null, Util::getFormData('from'));
-        if (is_a($from, 'PEAR_Error')) {
-            $notification->push($from);
+        try {
+            $from = $identity->getFromLine(null, Util::getFormData('from'));
+        } catch (Horde_Exception $e) {
+            $notification->push($e);
             break;
         }
         $header['from'] = $from;
@@ -111,9 +112,10 @@ if (count($_POST)) {
         break;
 
     case 'send_message':
-        $from = $identity->getFromLine(null, Util::getFormData('from'));
-        if (is_a($from, 'PEAR_Error')) {
-            $notification->push($from);
+        try {
+            $from = $identity->getFromLine(null, Util::getFormData('from'));
+        } catch (Horde_Exception $e) {
+            $notification->push($e);
             break;
         }
         $header['from'] = $from;
