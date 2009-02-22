@@ -34,6 +34,13 @@ class IMP_Contents
     const RENDER_INLINE_AUTO = 16;
 
     /**
+     * Singleton instances
+     *
+     * @var array
+     */
+    static protected $_instances = array();
+
+    /**
      * The IMAP index of the message.
      *
      * @var integer
@@ -84,17 +91,15 @@ class IMP_Contents
      */
     static public function singleton($in)
     {
-        static $instance = array();
-
         $sig = is_a($in, 'Horde_Mime_Part')
             ? hash('md5', serialize($in))
             : $in;
 
-        if (empty($instance[$sig])) {
-            $instance[$sig] = new IMP_Contents($in);
+        if (empty(self::$_instances[$sig])) {
+            self::$_instances[$sig] = new IMP_Contents($in);
         }
 
-        return $instance[$sig];
+        return self::$_instances[$sig];
     }
 
     /**
