@@ -818,24 +818,24 @@ if (!$is_pop3) {
         _("Move spam messages to spam folder and innocent messages to INBOX");
 }
 
-// Replace image tags in HTML messages with blank images?
+// Replace image tags in inline viewed HTML messages with blank images?
 $_prefs['html_image_replacement'] = array(
     'value' => 1,
     'locked' => false,
     'shared' => false,
     'type' => 'checkbox',
-    'desc' => _("Block images in HTML messages unless they are specifically requested?"),
+    'desc' => _("Block images in inline viewed HTML messages unless they are specifically requested?"),
     'help' => 'prefs-html_image_replacement'
 );
 
-// By default, automatically show images in HTML messages if the sender is in
-// the user's addressbook?
+// By default, automatically show images in inline viewed HTML messages if the
+// sender is in the user's addressbook?
 $_prefs['html_image_addrbook'] = array(
     'value' => 1,
     'locked' => false,
     'shared' => false,
     'type' => 'checkbox',
-    'desc' => _("Automatically show images in HTML messages when the sender is in my address book?"),
+    'desc' => _("Automatically show images in inline viewed HTML messages when the sender is in my address book?"),
     'help' => 'prefs-html_image_addrbook'
 );
 
