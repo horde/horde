@@ -434,8 +434,6 @@ class Horde_Mime
         $convert = array();
         $ret = array('params' => array(), 'val' => '');
 
-        /* Kind of annoying: we have to re-encode in string form in order for
-         * Mail_mimeDecode to parse. */
         if (is_array($data)) {
             // Use dummy base values
             $ret['val'] = (String::lower($type) == 'content-type')
