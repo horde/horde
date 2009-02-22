@@ -25,7 +25,7 @@ if (empty($user)) {
     exit;
 }
 
-$friends = Folks_Friends::singleton($conf['friends'], array('user' => $user));
+$friends = Folks_Friends::singleton(null, array('user' => $user));
 $result = $friends->removeFriend(Auth::getAuth());
 if ($result instanceof PEAR_Error) {
     $notification->push($result);

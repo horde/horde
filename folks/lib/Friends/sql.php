@@ -91,8 +91,9 @@ class Folks_Friends_sql extends Folks_Friends {
     protected function _addFriend($friend)
     {
         $approve = $this->needsApproval($friend) ? 1 : 0;
+
         $query = 'INSERT INTO ' . $this->_params['friends']
-                . ' (user_uid, friend_uid, friend_ask) VALUES (?, ?, ?, ?)';
+                . ' (user_uid, friend_uid, friend_ask) VALUES (?, ?, ?)';
 
         return $this->_write_db->query($query, array($this->_user, $friend, $approve));
     }
@@ -140,10 +141,10 @@ class Folks_Friends_sql extends Folks_Friends {
     protected function _getFriends()
     {
         $query = 'SELECT friend_uid FROM ' . $this->_params['friends']
-                . ' WHERE user_uid = ?'
+                . ' WHERE user_uid = ? and friend_ask = ?'
                 . ' ORDER BY friend_uid ASC';
 
-        return $this->_db->getCol($query, 0, array($this->_user));
+        return $this->_db->getCol($query, 0, array($this->_user, 0));
     }
 
     /**

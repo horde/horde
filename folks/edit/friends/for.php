@@ -16,25 +16,37 @@ require_once FOLKS_BASE . '/edit/tabs.php';
 
 $title = _("Users waiting our approval");
 
-$letter_url = '';
-$profile_img = Horde::img('user.png', '', '', $registry->getImageDir('horde'));
-if ($registry->hasInterface('letter')) {
-    $letter_url = $registry->get('webroot', 'letter') . '/compose.php';
-    $letter_img = Horde::img('letter.png', '', '', $registry->getImageDir('letter'));
-}
-
 // Load driver
 require_once FOLKS_BASE . '/lib/Friends.php';
 $friends = Folks_Friends::singleton();
 
 // Get list
-$list = $friends->waitingApprovalFrom();
+$list = $friends->waitingApprovalFor();
 if ($list instanceof PEAR_Error) {
     $notification->push($list);
     $list = array();
 }
 
-Horde::addScriptFile('tables.js', 'horde', true);
+// Prepare actions
+$actions = array(
+    array('url' => Horde::applicationUrl('user.php'),
+          'img' => Horde::img('user.png', '', '', $registry->getImageDir('horde')),
+          'id' => 'user',
+          'name' => _("Profile")),
+    array('url' => Horde::applicationUrl('edit/friends/approve.php'),
+          'img' => Horde::img('tick.png', '', '', $registry->getImageDir('horde')),
+          'id' => 'user',
+          'name' => _("Approve")),
+    array('url' => Horde::applicationUrl('edit/friends/reject.php'),
+          'img' => Horde::img('cross.png', '', '', $registry->getImageDir('horde')),
+          'id' => 'user',
+          'name' => _("Reject")));
+if ($registry->hasInterface('letter')) {
+    $actions[] = array('url' => Horde::applicationUrl('user.php'),
+                        'img' => Horde::img('letter.png', '', '', $registry->getImageDir('letter')),
+                        'id' => 'user_to',
+                        'name' => $registry->get('name', 'letter'));
+}
 
 require FOLKS_TEMPLATES . '/common-header.inc';
 require FOLKS_TEMPLATES . '/menu.inc';

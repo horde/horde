@@ -68,9 +68,18 @@ if ($groups instanceof PEAR_Error) {
     $groups = array();
 }
 
-$friend_form = new Folks_AddFriend_Form($vars, _("Add or remove user"), 'blacklist');
+// Prepare actions
+$actions = array(
+    array('url' => Horde::applicationUrl('edit/friends/blacklist.php'),
+          'img' => Horde::img('delete.png', '', '', $registry->getImageDir('horde')),
+          'id' => 'user',
+          'name' => _("Remove")),
+    array('url' => Horde::applicationUrl('user.php'),
+          'img' => Horde::img('user.png', '', '', $registry->getImageDir('horde')),
+          'id' => 'user',
+          'name' => _("Profile")));
 
-Horde::addScriptFile('tables.js', 'horde', true);
+$friend_form = new Folks_AddFriend_Form($vars, _("Add or remove user"), 'blacklist');
 
 require FOLKS_TEMPLATES . '/common-header.inc';
 require FOLKS_TEMPLATES . '/menu.inc';

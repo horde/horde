@@ -301,8 +301,8 @@ class Folks_Friends {
 
         // Add friend to backend
         $result = $this->_addFriend($friend, $group);
-        if ($friends instanceof PEAR_Error) {
-            return $friends;
+        if ($result instanceof PEAR_Error) {
+            return $result;
         }
 
         // If we do not need an approval just expire cache
@@ -411,7 +411,7 @@ class Folks_Friends {
     }
 
     /**
-     * Get users who have you on friendlist
+     * Get users who have us on their friendlist
      *
      * @return array users
      */

@@ -14,15 +14,7 @@
 require_once dirname(__FILE__) . '/../../lib/base.php';
 require_once FOLKS_BASE . '/edit/tabs.php';
 
-$title = _("Friends");
-$remove_url = Horde::applicationUrl('edit/friends.php');
-$remove_img = Horde::img('delete.png', '', '', $registry->getImageDir('horde'));
-$profile_img = Horde::img('user.png', '', '', $registry->getImageDir('horde'));
-$letter_url = '';
-if ($registry->hasInterface('letter')) {
-    $letter_url = $registry->get('webroot', 'letter') . '/compose.php';
-    $letter_img = Horde::img('letter.png', '', '', $registry->getImageDir('letter'));
-}
+$title = _("All");
 
 // Load driver
 require_once FOLKS_BASE . '/lib/Friends.php';
@@ -35,7 +27,22 @@ if ($list instanceof PEAR_Error) {
     $list = array();
 }
 
-Horde::addScriptFile('tables.js', 'horde', true);
+// Prepare actions
+$actions = array(
+    array('url' => Horde::applicationUrl('edit/friends/add.php'),
+          'img' => Horde::img('delete.png', '', '', $registry->getImageDir('horde')),
+          'id' => 'user',
+          'name' => _("Remove")),
+    array('url' => Horde::applicationUrl('user.php'),
+          'img' => Horde::img('user.png', '', '', $registry->getImageDir('horde')),
+          'id' => 'user',
+          'name' => _("Profile")));
+if ($registry->hasInterface('letter')) {
+    $actions[] = array('url' => Horde::applicationUrl('user.php'),
+                        'img' => Horde::img('letter.png', '', '', $registry->getImageDir('letter')),
+                        'id' => 'user_to',
+                        'name' => $registry->get('name', 'letter'));
+}
 
 require FOLKS_TEMPLATES . '/common-header.inc';
 require FOLKS_TEMPLATES . '/menu.inc';

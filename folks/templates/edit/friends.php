@@ -22,7 +22,8 @@ if (empty($list)) {
 <?php foreach ($list as $user) { ?>
 <tr>
     <td style="text-align: center">
-        <?php echo '<img src="' . Folks::getImageUrl($user) . '" class="userMiniIcon" /><br />' . $user ?>
+        <?php echo '<a href="' . Folks::getUrlFor('user', $user) . '">'
+                . '<img src="' . Folks::getImageUrl($user) . '" class="userMiniIcon" /><br />' . $user ?></a>
     </td>
     <td>
     <?php
@@ -33,19 +34,14 @@ if (empty($list)) {
         }
     ?>
     </td>
-    <td>
-        <a href="<?php echo Folks::getUrlFor('user', $user) ?>"><?php echo $profile_img  . ' ' . _("View profile") ?></a>
-    </td>
-    <?php if (!empty($remove_url)): ?>
-        <td>
-        <a href="<?php echo Util::addParameter($remove_url, 'user', $user) ?>"><?php echo $remove_img  . ' ' . _("Remove") ?></a>
-        </td>
-    <?php endif; ?>
-    <?php if (!empty($letter_url)): ?>
-        <td>
-            <a href="<?php echo Util::addParameter($letter_url, 'user_to', $user) ?>"><?php echo $letter_img  . ' ' . _("Send message") ?></a>
-        </td>
-    <?php endif; ?>
+    <?php
+        foreach ($actions as $action) {
+            echo '<td>';
+            echo '<a href="' . Util::addParameter($action['url'], $action['id'], $user) . '">'
+                            . $action['img']  . ' ' . $action['name'] . '</a>';
+            echo '</td>';
+        }
+    ?>
 </tr>
 <?php } ?>
 </tbody>

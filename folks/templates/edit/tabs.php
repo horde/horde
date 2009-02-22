@@ -28,6 +28,7 @@ foreach ($groups as $group_id => $group_name) {
     $ftabs->addTab($group_name, Horde::applicationUrl('edit/friends/friends.php'), $group_id);
 }
 
+$ftabs->addTab(_("Might know"), Horde::applicationUrl('edit/friends/know.php'), 'know');
 $ftabs->addTab(_("Wainting for"), Horde::applicationUrl('edit/friends/for.php'), 'for');
 $ftabs->addTab(_("Wainting from"), Horde::applicationUrl('edit/friends/from.php'), 'from');
 $ftabs->addTab(_("I am friend of"), Horde::applicationUrl('edit/friends/of.php'), 'of');
