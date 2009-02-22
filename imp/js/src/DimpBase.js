@@ -1472,8 +1472,10 @@ var DimpBase = {
                     if (!orig.hasClassName('msgRow')) {
                         orig = orig.up('.msgRow');
                     }
-                    tmp = this.viewport.createSelection('domid', orig.identify()).get('dataob').first();
-                    tmp.draft ? DimpCore.compose('resume', { folder: tmp.view, uid: tmp.imapuid }) : this.msgWindow(tmp);
+                    if (orig) {
+                        tmp = this.viewport.createSelection('domid', orig.identify()).get('dataob').first();
+                        tmp.draft ? DimpCore.compose('resume', { folder: tmp.view, uid: tmp.imapuid }) : this.msgWindow(tmp);
+                    }
                     e.stop();
                     return;
                 }
