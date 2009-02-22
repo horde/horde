@@ -533,7 +533,7 @@ DimpCore = {
     init: function()
     {
         if (typeof ContextSensitive != 'undefined') {
-            this.DMenu = new ContextSensitive({ onClick: this.contextOnClick, onShow: this.contextOnShow });
+            this.DMenu = new ContextSensitive({ onClick: this.contextOnClick.bind(this), onShow: this.contextOnShow.bind(this) });
         }
 
         /* Don't do additional onload stuff if we are in a popup. We need a
