@@ -21,19 +21,6 @@ class IMP_UI_Compose
 
         if (is_array($result)) {
             $GLOBALS['notification']->push(_("Please resolve ambiguous or invalid addresses."), 'horde.warning');
-        } elseif (is_a($result, 'PEAR_Error')) {
-            $error = $result;
-            $result = array();
-
-            $list = $error->getUserInfo();
-            if (is_array($list)) {
-                foreach ($list as $entry) {
-                    $result[] = is_object($entry)
-                        ? $entry->getUserInfo()
-                        : $entry;
-                }
-            }
-            $GLOBALS['notification']->push($error, 'horde.warning');
         }
 
         return $result;

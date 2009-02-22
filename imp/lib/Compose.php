@@ -2500,8 +2500,10 @@ class IMP_Compose
     {
         $sparams = IMP_Compose::getAddressSearchParams();
         $res = $GLOBALS['registry']->call('contacts/search', array($search, $sparams['sources'], $sparams['fields'], true));
-        if (is_a($res, 'PEAR_Error') || !count($res)) {
+        if (is_a($res, 'PEAR_Error')) {
             Horde::logMessage($res, __FILE__, __LINE__, PEAR_LOG_ERR);
+            return array();
+        } elseif (!count($res)) {
             return array();
         }
 
