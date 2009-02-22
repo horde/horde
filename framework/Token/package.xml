@@ -30,9 +30,9 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </notes>
  <contents>
   <dir name="/">
-   <dir name="/lib">
-    <dir name="/lib/Horde">
-     <dir name="/lib/Horde/Token">
+   <dir name="lib">
+    <dir name="Horde">
+     <dir name="Token">
       <file name="File.php" role="php" />
       <file name="Sql.php" role="php" />
      </dir> <!-- /lib/Horde/Token -->
