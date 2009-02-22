@@ -384,12 +384,16 @@ DimpCore = {
         }
 
         alist.each(function(o, i) {
-            var a, t;
+            var a;
             if (o.raw) {
                 a = o.raw;
             } else {
-                t = o.personal ? (o.personal + ' <' + o.inner + '>') : o.inner;
-                a = new Element('A', { className: 'address', personal: o.personal, email: o.inner, address: t }).insert(t.escapeHTML());
+                a = new Element('A', { className: 'address', personal: o.personal, email: o.inner, address: (o.personal ? (o.personal + ' <' + o.inner + '>') : o.inner) });
+                if (o.personal) {
+                    a.writeAttribute({ title: o.inner }).insert(o.personal.escapeHTML());
+                } else {
+                    a.insert(o.inner.escapeHTML());
+                }
                 this.DMenu.addElement(a.identify(), 'ctx_contacts', { offset: a, left: true });
             }
             base.insert(a);
