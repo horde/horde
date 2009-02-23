@@ -17,7 +17,7 @@
  *
  * @package Horde_SessionHandler
  */
-class Horde_SessionHandler_ldap extends Horde_SessionHandler
+class Horde_SessionHandler_Ldap extends Horde_SessionHandler
 {
     /**
      * Handle for the current database connection.

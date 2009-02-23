@@ -36,7 +36,7 @@
  * @author  Jon Parise <jon@csh.rit.edu>
  * @package Horde_SessionHandler
  */
-class Horde_SessionHandler_pgsql extends Horde_SessionHandler
+class Horde_SessionHandler_Pgsql extends Horde_SessionHandler
 {
     /**
      * Handle for the current database connection.
@@ -113,7 +113,7 @@ class Horde_SessionHandler_pgsql extends Horde_SessionHandler
                          $this->_quote($id));
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('SQL Query by Horde_SessionHandler_pgsql::' . '_read(): query = "%s"', $query), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('SQL Query by Horde_SessionHandler_Pgsql::' . '_read(): query = "%s"', $query), __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
         $result = @pg_query($this->_db, $query);
         $data = pg_fetch_result($result, 0, 'session_data');
@@ -158,7 +158,7 @@ class Horde_SessionHandler_pgsql extends Horde_SessionHandler
         }
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('SQL Query by Horde_SessionHandler_pgsql::' . '_write(): query = "%s"', $query), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('SQL Query by Horde_SessionHandler_Pgsql::' . '_write(): query = "%s"', $query), __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
         $result = @pg_query($this->_db, $query);
         $rows = pg_affected_rows($result);
@@ -188,7 +188,7 @@ class Horde_SessionHandler_pgsql extends Horde_SessionHandler
                          $this->_params['table'], $this->_quote($id));
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('SQL Query by Horde_SessionHandler_pgsql::' . 'destroy(): query = "%s"', $query), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('SQL Query by Horde_SessionHandler_Pgsql::' . 'destroy(): query = "%s"', $query), __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
         /* Execute the query. */
         $result = @pg_query($this->_db, $query);
@@ -220,7 +220,7 @@ class Horde_SessionHandler_pgsql extends Horde_SessionHandler
                          $this->_quote(time() - $maxlifetime));
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('SQL Query by Horde_SessionHandler_pgsql::' . 'gc(): query = "%s"', $query), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('SQL Query by Horde_SessionHandler_Pgsql::' . 'gc(): query = "%s"', $query), __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
         /* Execute the query. */
         $result = @pg_query($this->_db, $query);
@@ -251,7 +251,7 @@ class Horde_SessionHandler_pgsql extends Horde_SessionHandler
                          time() - ini_get('session.gc_maxlifetime'));
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('SQL Query by Horde_SessionHandler_pgsql::' . 'getSessionIDs(): query = "%s"', $query), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('SQL Query by Horde_SessionHandler_Pgsql::' . 'getSessionIDs(): query = "%s"', $query), __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
         /* Execute the query. */
         $result = @pg_query($this->_db, $query);

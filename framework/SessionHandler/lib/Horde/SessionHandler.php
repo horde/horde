@@ -57,7 +57,8 @@ class Horde_SessionHandler
      * Attempts to return a concrete Horde_SessionHandler instance based on
      * $driver.
      *
-     * @param string $driver  The type of concrete subclass to return.
+     * @param string $driver  The type of concrete subclass to return
+     *                        (case-insensitive).
      * @param array $params   A hash containing any additional configuration or
      *                        connection parameters a subclass might need.
      *
@@ -66,7 +67,7 @@ class Horde_SessionHandler
      */
     static public function factory($driver, $params = array())
     {
-        $driver = basename($driver);
+        $driver = basename(strtolower($driver));
         $persistent_params = array();
 
         if ($driver == 'memcached') {
@@ -79,7 +80,7 @@ class Horde_SessionHandler
             $params = array();
         }
 
-        $class = 'Horde_SessionHandler_' . $driver;
+        $class = 'Horde_SessionHandler_' . ucfirst($driver);
 
         if (class_exists($class)) {
             if (empty($params)) {
@@ -88,7 +89,7 @@ class Horde_SessionHandler
             return new $class(array_merge($params, $persistent_params));
         }
 
-        throw new Horde_Exception('Class definition of ' . $class . ' not found.');
+        throw new Horde_Exception('Driver "' . $driver . '" not found.');
     }
 
     /**

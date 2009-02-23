@@ -25,7 +25,7 @@
  * @author  Michael Slusarz <slusarz@curecanti.org>
  * @package Horde_SessionHandler
  */
-class Horde_SessionHandler_memcache extends Horde_SessionHandler
+class Horde_SessionHandler_Memcache extends Horde_SessionHandler
 {
     /**
      * Horde_Memcache object.

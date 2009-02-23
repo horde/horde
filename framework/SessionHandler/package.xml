@@ -53,13 +53,13 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <dir name="lib">
     <dir name="Horde">
      <dir name="SessionHandler">
-      <file name="ldap.php" role="php" />
-      <file name="memcache.php" role="php" />
-      <file name="mysql.php" role="php" />
-      <file name="none.php" role="php" />
-      <file name="oci8.php" role="php" />
-      <file name="pgsql.php" role="php" />
-      <file name="sql.php" role="php" />
+      <file name="Ldap.php" role="php" />
+      <file name="Memcache.php" role="php" />
+      <file name="Mysql.php" role="php" />
+      <file name="None.php" role="php" />
+      <file name="Oci8.php" role="php" />
+      <file name="Pgsql.php" role="php" />
+      <file name="Sql.php" role="php" />
      </dir> <!-- /lib/Horde/SessionHandler -->
      <file name="SessionHandler.php" role="php" />
     </dir> <!-- /lib/Horde -->
@@ -88,12 +88,12 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/SessionHandler/ldap.php" as="Horde/SessionHandler/ldap.php" />
-   <install name="lib/Horde/SessionHandler/memcache.php" as="Horde/SessionHandler/memcache.php" />
-   <install name="lib/Horde/SessionHandler/mysql.php" as="Horde/SessionHandler/mysql.php" />
-   <install name="lib/Horde/SessionHandler/none.php" as="Horde/SessionHandler/none.php" />
-   <install name="lib/Horde/SessionHandler/oci8.php" as="Horde/SessionHandler/pgsql.php" />
-   <install name="lib/Horde/SessionHandler/sql.php" as="Horde/SessionHandler/sql.php" />
+   <install name="lib/Horde/SessionHandler/Ldap.php" as="Horde/SessionHandler/Ldap.php" />
+   <install name="lib/Horde/SessionHandler/Memcache.php" as="Horde/SessionHandler/Memcache.php" />
+   <install name="lib/Horde/SessionHandler/Mysql.php" as="Horde/SessionHandler/Mysql.php" />
+   <install name="lib/Horde/SessionHandler/None.php" as="Horde/SessionHandler/None.php" />
+   <install name="lib/Horde/SessionHandler/Oci8.php" as="Horde/SessionHandler/Pgsql.php" />
+   <install name="lib/Horde/SessionHandler/Sql.php" as="Horde/SessionHandler/Sql.php" />
    <install name="lib/Horde/SessionHandler.php" as="Horde/SessionHandler.php" />
    <install name="scripts/Horde/SessionHandler/horde-active-sessions.php" as="scripts/horde-active-sessions.php" />
   </filelist>

@@ -39,7 +39,7 @@
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
  * @package Horde_SessionHandler
  */
-class Horde_SessionHandler_sql extends Horde_SessionHandler
+class Horde_SessionHandler_Sql extends Horde_SessionHandler
 {
     /**
      * Handle for the current database connection.
@@ -170,7 +170,7 @@ class Horde_SessionHandler_sql extends Horde_SessionHandler
         $values = array($id);
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('SQL Query by Horde_SessionHandler_sql::write(): query = "%s"', $query), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('SQL Query by Horde_SessionHandler_Sql::write(): query = "%s"', $query), __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
         /* Execute the query. */
         $result = $this->_write_db->getOne($query, $values);
@@ -222,7 +222,7 @@ class Horde_SessionHandler_sql extends Horde_SessionHandler
         $values = array($id);
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('SQL Query by Horde_SessionHandler_sql::destroy(): query = "%s"', $query), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('SQL Query by Horde_SessionHandler_Sql::destroy(): query = "%s"', $query), __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
         /* Execute the query. */
         $result = $this->_write_db->query($query, $values);
@@ -255,7 +255,7 @@ class Horde_SessionHandler_sql extends Horde_SessionHandler
         $values = array(time() - $maxlifetime);
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('SQL Query by Horde_SessionHandler_sql::gc(): query = "%s"', $query), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('SQL Query by Horde_SessionHandler_Sql::gc(): query = "%s"', $query), __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
         /* Execute the query. */
         $result = $this->_write_db->query($query, $values);
@@ -283,7 +283,7 @@ class Horde_SessionHandler_sql extends Horde_SessionHandler
         $values = array(time() - ini_get('session.gc_maxlifetime'));
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('SQL Query by Horde_SessionHandler_sql::getSessionIDs(): query = "%s"', $query), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('SQL Query by Horde_SessionHandler_Sql::getSessionIDs(): query = "%s"', $query), __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
         /* Execute the query. */
         $result = $this->_db->getCol($query, 0, $values);

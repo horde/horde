@@ -1,6 +1,6 @@
 <?php
 /**
- * Horde_SessionHandler implementation for PHP's built-in session handler.
+ * Horde_SessionHandler:: implementation for PHP's built-in session handler.
  *
  * Required parameters:<pre>
  *   None.</pre>
@@ -16,7 +16,7 @@
  * @author  Matt Selsky <selsky@columbia.edu>
  * @package Horde_SessionHandler
  */
-class Horde_SessionHandler_none extends Horde_SessionHandler
+class Horde_SessionHandler_None extends Horde_SessionHandler
 {
     /**
      * Read the data for a particular session identifier from the backend.
