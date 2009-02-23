@@ -196,8 +196,7 @@ class Horde_Mime_Mdn
         $part_one->setCharset($charset);
         if ($type == 'displayed') {
             $contents = sprintf(_("The message sent on %s to %s with subject \"%s\" has been displayed.\n\nThis is no guarantee that the message has been read or understood."), $this->_headers->getValue('Date'), $this->_headers->getValue('To'), $this->_headers->getValue('Subject'));
-            require_once 'Text/Flowed.php';
-            $flowed = new Text_Flowed($contents, $charset);
+            $flowed = new Horde_Text_Flowed($contents, $charset);
             $flowed->setDelSp(true);
             $part_one->setContentTypeParameter('format', 'flowed');
             $part_one->setContentTypeParameter('DelSp', 'Yes');

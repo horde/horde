@@ -412,9 +412,7 @@ class Horde_Mime_Mail
 
         /* Send in flowed format. */
         if ($flowed && !empty($this->_body)) {
-            require_once 'Text/Flowed.php';
-            $flowed = new Text_Flowed($this->_body->getContents(),
-                                      $this->_body->getCharset());
+            $flowed = new Horde_Text_Flowed($this->_body->getContents(), $this->_body->getCharset());
             $flowed->setDelSp(true);
             $this->_body->setContentTypeParameter('format', 'flowed');
             $this->_body->setContentTypeParameter('DelSp', 'Yes');
