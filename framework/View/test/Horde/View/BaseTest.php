@@ -218,7 +218,7 @@ class Horde_View_BaseTest extends Horde_Test_Case
         // add text helper
         $this->_view->addHelper(new Horde_View_Helper_Text($this->_view));
 
-        // sucessfull when trying to add it again
+        // successful when trying to add it again
         $this->_view->addHelper(new Horde_View_Helper_Text($this->_view));
     }
 

@@ -22,7 +22,7 @@
  * @package    Horde_View
  * @subpackage UnitTests
  */
-class Horde_View_Helper_JavascriptTest extends PHPUnit_Framework_TestCase
+class Horde_View_Helper_JavascriptTest extends Horde_Test_Case
 {
     public function setUp()
     {

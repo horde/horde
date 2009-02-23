@@ -366,7 +366,7 @@ class Horde_View_Helper_FormTest extends Horde_Test_Case
         $this->assertEquals($expected, ob_get_clean());
     }
 
-    public function testFieldsForobjectWithBracketedName()
+    public function testFieldsForObjectWithBracketedName()
     {
         ob_start();
         $fields = $this->view->fieldsFor('author[post]', $this->post);
@@ -378,7 +378,7 @@ class Horde_View_Helper_FormTest extends Horde_Test_Case
             ob_get_clean());
     }
 
-    public function testFormbuilderDoesNotHaveFormForMethod()
+    public function testFormBuilderDoesNotHaveFormForMethod()
     {
         $methods = get_class_methods('Horde_View_Helper_Form_Builder');
         $this->assertTrue(empty($methods['formFor']));
@@ -474,8 +474,7 @@ class Horde_View_Helper_FormTest extends Horde_Test_Case
             ob_get_clean());
     }
 
-
-    public function testFormForWithHiddenFieldMadOnly()
+    public function testFormForWithHiddenField()
     {
         ob_start();
         $form = $this->view->formFor('post', $this->post);
@@ -490,7 +489,7 @@ class Horde_View_Helper_FormTest extends Horde_Test_Case
         $this->assertEquals($expected, ob_get_clean());
     }
 
-    public function testFormForWithFileFieldMadOnly()
+    public function testFormForWithFileField()
     {
         ob_start();
         $form = $this->view->formFor('post', $this->post);

@@ -22,7 +22,7 @@
  * @package    Horde_View
  * @subpackage UnitTests
  */
-class Horde_View_Helper_TagTest extends PHPUnit_Framework_TestCase
+class Horde_View_Helper_TagTest extends Horde_Test_Case
 {
     public function setUp()
     {
@@ -98,4 +98,5 @@ class Horde_View_Helper_TagTest extends PHPUnit_Framework_TestCase
                                 $this->helper->tag('a', array('href' => $escaped)));
         }
     }
+
 }
