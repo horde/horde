@@ -42,7 +42,7 @@ class Horde_Token
      * @return Horde_Token  The newly created concrete Horde_Token instance, or
      *                      false an error.
      */
-    static public function getInstance($driver, $params = array())
+    static public function factory($driver, $params = array())
     {
         if (is_array($driver)) {
             list($app, $driver) = $driver;
@@ -92,7 +92,7 @@ class Horde_Token
         $sig = hash('md5', serialize(array($driver, $params)));
 
         if (!isset(self::$_instances[$sig])) {
-            self::$_instances[$sig] = Horde_Token::getInstance($driver, $params);
+            self::$_instances[$sig] = Horde_Token::factory($driver, $params);
         }
 
         return self::$_instances[$sig];
