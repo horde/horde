@@ -16,7 +16,6 @@ if (!defined('HORDE_BASE')) {
 
 // Load the Horde Framework core, and set up inclusion paths and autoloading.
 require_once HORDE_BASE . '/lib/core.php';
-require_once 'Horde/Autoloader.php';
 
 // Registry.
 $registry = &Registry::singleton();
