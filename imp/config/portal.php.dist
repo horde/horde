@@ -1,7 +1,5 @@
 <?php
 /**
- * $Id$
- *
  * Dynamic portal configuration page.
  *
  * Format: An array named $dimp_block_list
@@ -16,6 +14,8 @@
  *            'domid' => A DOM ID to assign to the containing block
  *            'tag' => A tag name to add to the template array. Allows
  *                     the use of <if:block.tag> in custom template files.
+ *
+ * $Id$
  */
 
 $collection = new Horde_Block_Collection();

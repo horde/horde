@@ -1,7 +1,5 @@
 <?php
 /**
- * $Id$
- *
  * This file lets you extend IMP's menu with your own items.
  *
  * To add a new menu item, simply add a new entry to the $_menu array.
@@ -36,6 +34,8 @@
  * 'separator'.  It should look like this:
  *
  *  $_menu[] = 'separator';
+ *
+ * $Id$
  */
 
 $_menu = array();

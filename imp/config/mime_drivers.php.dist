@@ -1,7 +1,5 @@
 <?php
 /**
- * $Id$
- *
  * Decide which output drivers you want to activate for the IMP application.
  * Settings in this file override settings in horde/config/mime_drivers.php.
  * All drivers configured in that file, but not configured here, will also
@@ -15,6 +13,10 @@
  *   to download the part.  Don't set the parameter, or set to 0, to disable
  *   this check.
  *
+ * $Id$
+ */
+
+/**
  * The available drivers are:
  * --------------------------
  * alternative    multipart/alternative parts

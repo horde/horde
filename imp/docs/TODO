@@ -2,13 +2,8 @@
  IMP Development TODO List
 ===========================
 
-:Last update:   $Date: 2008/03/22 10:45:36 $
-:Revision:      $Revision: 1.30 $
-:Contact:       imp@lists.horde.org
+:Contact: imp@lists.horde.org
 
-In no particular order:
-
-- Don't render large MIME parts.
 
 - Print all messages in a mailbox.
 

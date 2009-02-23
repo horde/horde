@@ -1,7 +1,5 @@
 <?php
 /**
- * $Id$
- *
  * IMP Hooks configuration file.
  *
  * THE HOOKS PROVIDED IN THIS FILE ARE EXAMPLES ONLY.  DO NOT ENABLE THEM
@@ -9,6 +7,8 @@
  * TO MATCH YOUR SPECIFIC NEEDS AND SYSTEM ENVIRONMENT.
  *
  * For more information please see the horde/config/hooks.php.dist file.
+ *
+ * $Id$
  */
 
 // Here is an example signature hook function to set the signature from the

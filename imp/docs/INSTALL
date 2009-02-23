@@ -2,7 +2,7 @@
  Installing IMP 5.0
 ====================
 
-:Contact:       imp@lists.horde.org
+:Contact: imp@lists.horde.org
 
 .. contents:: Contents
 .. section-numbering::
@@ -27,9 +27,9 @@ Or use the mirror closest to you:
 
    http://www.horde.org/mirrors.php
 
-Bleeding-edge development versions of IMP are available via CVS; see the file
+Bleeding-edge development versions of IMP are available via Git; see the file
 `horde/docs/HACKING`_ in the Horde distribution, or the website
-http://www.horde.org/source/, for information on accessing the Horde CVS
+http://www.horde.org/source/, for information on accessing the Horde Git
 repository.
 
 

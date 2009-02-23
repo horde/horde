@@ -1,7 +1,5 @@
 <?php
 /**
- * $Id$
- *
  * This file specifies which mail servers people using your installation of
  * IMP can login to.
  *
@@ -200,6 +198,8 @@
  *       IMAP server must support the LANGUAGE extensions for this setting to
  *       have an effect. By default, IMAP messages are output in the IMAP
  *       server default language.
+ *
+ * $Id$
  */
 
 /* Any entries whose key value ('foo' in $servers['foo']) begin with '_'
