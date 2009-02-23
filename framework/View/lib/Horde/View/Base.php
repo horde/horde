@@ -152,6 +152,16 @@ abstract class Horde_View_Base
     }
 
     /**
+     * Return the template paths
+     *
+     * @return array
+     */
+    public function getTemplatePaths()
+    {
+        return $this->_templatePath;
+    }
+
+    /**
      * Adds to the stack of helpers in LIFO order.
      *
      * @param Horde_View_Helper $helper The helper instance to add. If this is a
@@ -222,8 +232,14 @@ abstract class Horde_View_Base
      *
      * @return string The template output.
      */
-    public function render($name)
+    public function render($name, $locals = array())
     {
+        // render partial
+        if (is_array($name) && $partial = $name['partial']) {
+            unset($name['partial']);
+            return $this->renderPartial($partial, $name);
+        }
+
         // Find the template file name.
         $this->_file = $this->_template($name);
 
@@ -231,8 +247,70 @@ abstract class Horde_View_Base
         unset($name);
 
         ob_start();
-        $this->_run($this->_file);
+        $this->_run($this->_file, $locals);
         return ob_get_clean();
+    }
+
+    /**
+     * Render a partial template. Partial template filenames are named with a
+     * leading underscore, although this underscore is not used when specifying
+     * the name of the partial.
+     *
+     * we would reference the file /views/shared/_sidebarInfo.html in our
+     * template using:
+     *
+     * <code>
+     *   <div>
+     *   <?= $this->renderPartial('sidebarInfo') ?>
+     *   </div>
+     * </code>
+     *
+     * @param   string  $name
+     * @param   array   $options
+     *
+     * @return  string  The template output
+     */
+    public function renderPartial($name, $options = array())
+    {
+        // pop name off of the path
+        $parts = strstr($name, '/') ? explode('/', $name) : array($name);
+        $name = array_pop($parts);
+        $path = implode('/', $parts)."/";
+
+        // check if they passed in a collection before validating keys
+        $useCollection = array_key_exists('collection', $options);
+
+        $valid = array('object' => null, 'locals' => array(), 'collection' => array());
+        $options = array_merge($valid, $options);
+        $locals = array($name => null);
+
+        // set the object variable
+        if ($options['object']) {
+            $locals[$name] = $options['object'];
+        }
+
+        // set local variables to be used in the partial
+        foreach ($options['locals'] as $key => $val) {
+            $locals[$key] = $val;
+        }
+
+        // collection
+        if ($useCollection) {
+            $rendered = '';
+            if (is_array($options['collection'])) {
+                $sz = count($options['collection']);
+                for ($i = 0; $i < $sz; $i++) {
+                    $locals["{$name}Counter"] = $i;
+                    $locals[$name] = $options['collection'][$i];
+                    $rendered .= $this->render("{$path}_{$name}", $locals);
+                }
+            }
+
+        // single render
+        } else {
+            $rendered = $this->render("{$path}_{$name}", $locals);
+        }
+        return $rendered;
     }
 
     /**
@@ -291,6 +369,9 @@ abstract class Horde_View_Base
      */
     protected function _template($name)
     {
+        // append missing html
+        if (!strstr($name, '.')) { $name .= '.html'; }
+
         if (!count($this->_templatePath)) {
             throw new Horde_View_Exception('No template directory set; unable to locate ' . $name);
         }
@@ -308,7 +389,10 @@ abstract class Horde_View_Base
      * Use to include the template in a scope that only allows public
      * members.
      *
-     * @return mixed
+     * @param string The template to execute. Not declared in the
+     * function signature so it stays out of the view's public scope.
+     *
+     * @param array  Any local variables to declare.
      */
     abstract protected function _run();
 

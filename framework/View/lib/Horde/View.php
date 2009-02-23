@@ -17,9 +17,18 @@ class Horde_View extends Horde_View_Base
      *
      * @param string The template to execute. Not declared in the
      * function signature so it stays out of the view's public scope.
+     *
+     * @param array  Any local variables to declare.
      */
     protected function _run()
     {
+        // set local variables
+        if (is_array(func_get_arg(1))) {
+            foreach (func_get_arg(1) as $key => $value) {
+                ${$key} = $value;
+            }
+        }
+
         $oldShortOpenTag = ini_set('short_open_tag', 1);
         include func_get_arg(0);
         ini_set('short_open_tag', $oldShortOpenTag);

@@ -1,0 +1,1 @@
+<p><?= $myPartialObject->string_value ?></p>
