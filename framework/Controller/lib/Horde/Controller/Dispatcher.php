@@ -62,7 +62,8 @@ class Horde_Controller_Dispatcher
     protected function __construct($context)
     {
         if (!isset($context['mapper']) || ! $context['mapper'] instanceof Horde_Routes_Mapper) {
-            throw new Horde_Controller_Exception('Mapper object missing from Dispatcher constructor');
+            $context['mapper'] = new Horde_Routes_Mapper();
+            $context['mapper']->connect('/:controller/:action/:id');
         }
 
         foreach ($context as $key => $val) {
