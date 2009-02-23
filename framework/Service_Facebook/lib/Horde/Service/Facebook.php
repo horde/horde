@@ -62,12 +62,8 @@ class Horde_Service_Facebook
      */
     public $secret;
 
-    // Used since we are emulating a FB Desktop Application - since we are not
-    // being used within the context of a FB Canvas.
-    protected  $_app_secret;
-
-    // Flag used internally to help with authentication
-    protected $_verify_sig = false;
+    // The token returned by auth.createToken
+    protected $_token;
 
     // Store the current session_key
     public $session_key;
@@ -85,9 +81,8 @@ class Horde_Service_Facebook
     public $use_ssl_resources = false;
     private $_batchRequest;
 
-    protected $_base_domain;
-    protected $_call_as_apikey;
 
+    protected $_logger;
 
     /**
      *
@@ -107,6 +102,11 @@ class Horde_Service_Facebook
      */
     protected $_context;
 
+
+    // TODO: Implement some kind of instance array for these types of classes...
+    protected $_auth = null; // H_S_Facebook_Auth
+
+
     const API_VALIDATION_ERROR = 1;
     const REST_SERVER_ADDR = 'http://api.facebook.com/restserver.php';
 
@@ -120,6 +120,10 @@ class Horde_Service_Facebook
      *      http_client - required
      *      http_response - required
      *      login_redirect_callback - optional
+     *      logger
+     *      no_resolve - set to true to prevent attempting to obtain a session
+     *                   from an auth_token. Useful if client code wants to
+     *                   handle this.
      *
      * @param session_key
      */
@@ -132,22 +136,22 @@ class Horde_Service_Facebook
             $this->_http = $context['http_client'];
         }
 
-        // Horde_Controller_Request object
+        // Required Horde_Controller_Request object
         if (empty($context['http_request'])) {
             throw new InvalidArgumentException('A http request object is required');
         } else {
             $this->_request = $context['http_request'];
         }
 
+        // Optional Horde_Log_Logger
+        if (!empty($context['logger'])) {
+            $this->_logger = $context['logger'];
+        }
+
+        $this->_logDebug('Initializing Horde_Service_Facebook');
+
         $this->api_key = $api_key;
         $this->secret = $secret;
-        $this->_app_secret = $secret;
-        $this->validate_fb_params();
-        $this->_call_as_apikey = '';
-
-        // Set the default user id for methods that allow the caller to
-        // pass an explicit uid instead of using a session key.
-        $this->user = !empty($this->user) ? $this->user : null;
 
         if (!empty($context['use_ssl'])) {
             $this->useSslResources = true;
@@ -158,138 +162,24 @@ class Horde_Service_Facebook
     }
 
     /**
-     * Validates that the parameters passed in were sent from Facebook. It does so
-     * by validating that the signature matches one that could only be generated
-     * by using your application's secret key.
-     *
-     * Facebook-provided parameters will come from $_POST, $_GET, or $_COOKIE,
-     * in that order. $_POST and $_GET are always more up-to-date than cookies,
-     * so we prefer those if they are available.
-     *
-     * For nitty-gritty details of when each of these is used, check out
-     * http://wiki.developers.facebook.com/index.php/Verifying_The_Signature
-     *
-     * @param bool  resolve_auth_token  convert an auth token into a session
+     * Initialize the object - check to see if we have a valid FB
+     * session, verify the signature etc...
      */
-    public function validate_fb_params($resolve_auth_token = true)
+    public function validateSession()
     {
-        // Prefer $_POST data - but if absent, try $_GET and $_POST with
-        // 'fb_post_sig' since that might be returned by FQL queries.
-        $post = $this->_request->getPostParams();
-        $get = $this->_request->getGetParams();
-
-        $this->fb_params = $this->get_valid_fb_params($post, 48 * 3600, 'fb_sig');
-        if (!$this->fb_params) {
-            $fb_params = $this->get_valid_fb_params($get, 48 * 3600, 'fb_sig');
-            $fb_post_params = $this->get_valid_fb_params($post, 48 * 3600, 'fb_post_sig');
-            $this->fb_params = array_merge($fb_params, $fb_post_params);
-        }
-
-        if ($this->fb_params) {
-            $user = isset($this->fb_params['user']) ? $this->fb_params['user'] : null;
-            $this->_base_domain  = isset($this->fb_params['base_domain']) ? $this->fb_params['base_domain'] : null;
-            if (isset($this->fb_params['session_key'])) {
-                $session_key = $this->fb_params['session_key'];
-            } elseif (isset($this->fb_params['profile_session_key'])) {
-                $session_key = $this->fb_params['profile_session_key'];
-            } else {
-                $session_key = null;
-            }
-            $expires = isset($this->fb_params['expires']) ? $this->fb_params['expires'] : null;
-            $this->set_user($user, $session_key, $expires);
-        } elseif ($cookies = $this->get_valid_fb_params($this->_request->getCookie(), null, $this->api_key)) {
-            $base_domain_cookie = 'base_domain_' . $this->api_key;
-            if ($this->_request->getCookie($base_domain_cookie)) {
-                $this->_base_domain = $this->_request->getCookie($base_domain_cookie);
-            }
-            // use $api_key . '_' as a prefix for the cookies in case there are
-            // multiple facebook clients on the same domain.
-            $expires = isset($cookies['expires']) ? $cookies['expires'] : null;
-            $this->set_user($cookies['user'], $cookies['session_key'], $expires);
-        } elseif ($resolve_auth_token && isset($get['auth_token']) &&
-                  $session = $this->do_get_session($get['auth_token'])) {
-
-            if (isset($session['base_domain'])) {
-                $this->_base_domain = $session['base_domain'];
-            }
-
-            $this->set_user($session['uid'],
-                            $session['session_key'],
-                            $session['expires']);
-        }
-
-        return !empty($this->fb_params);
+        return $this->auth->validateSession(empty($this->_context['no_resolve']));
     }
 
-    /**
-     * Return the session information
-     *
-     * @param $auth_token
-     * @return unknown_type
-     */
-    protected function _do_get_session($auth_token)
+    // Lazy loader
+    public function __get($value)
     {
-        try {
-            return $this->auth_getSession($auth_token);
-        } catch (Horde_Service_Facebook_Exception $e) {
-            // API_EC_PARAM means we don't have a logged in user, otherwise who
-            // knows what it means, so just throw it.
-            if ($e->getCode() != Horde_Service_Facebook_ErrorCodes::API_EC_PARAM) {
-                throw $e;
+        // TODO: Some kind of array/hash to hold valid types - maybe a
+        // factory method to instantiate these?
+        if ($value == 'auth') {
+            if (empty($this->_auth)) {
+                $this->_auth = new Horde_Service_Facebook_Auth($this, $this->_request);
             }
-        }
-    }
-
-    /**
-     * Get authenticated session information for a "desktop" app.
-     *
-     * @param $auth_token
-     * @return unknown_type
-     */
-    public function do_get_session($auth_token)
-    {
-        $this->secret = $this->_app_secret;
-        $this->session_key = null;
-        $session_info = $this->_do_get_session($auth_token);
-        if (!empty($session_info['secret'])) {
-            // store the session secret
-            $this->set_session_secret($session_info['secret']);
-        }
-
-        return $session_info;
-    }
-
-    public function set_session_secret($session_secret)
-    {
-        $this->secret = $session_secret;
-    }
-
-    /**
-     * Invalidate the session currently being used, and clear any state
-     * associated with it.
-     *
-     * TODO: This calls setcookie() so need to ensure we aren't called after
-     * headers are sent or throw an exception.
-     */
-    public function expire_session()
-    {
-        if ($this->auth_expireSession()) {
-            if (!$this->in_fb_canvas() && $this->_request->getCookie($this->api_key . '_user')) {
-                $cookies = array('user', 'session_key', 'expires', 'ss');
-                foreach ($cookies as $name) {
-                    setcookie($this->api_key . '_' . $name, false, time() - 3600);
-                }
-                setcookie($this->api_key, false, time() - 3600);
-            }
-
-            // now, clear the rest of the stored state
-            $this->user = 0;
-            $this->session_key = 0;
-
-            return true;
-        } else {
-
-            return false;
+            return $this->_auth;
         }
     }
 
@@ -320,16 +210,6 @@ class Horde_Service_Facebook
     }
 
     /**
-     * Getter for session user.
-     *
-     * @return string  The FB userid
-     */
-    public function get_loggedin_user()
-    {
-        return $this->user;
-    }
-
-    /**
      * Return the current request's url
      *
      * @return string
@@ -340,49 +220,11 @@ class Horde_Service_Facebook
     }
 
     /**
-     * Ensure the user is logged in and has a current FB session. If not,
-     * attempt to redirect to a FB login page.
-     *
-     * @return void
-     */
-    public function require_login()
-    {
-        if ($this->get_loggedin_user()) {
-            try {
-                // try a session-based API call to ensure that we have the correct
-                // session secret
-                $user = $this->users_getLoggedInUser();
-
-                // now that we have a valid session secret, verify the signature
-                $this->_verify_sig = true;
-                if ($this->validate_fb_params(false)) {
-                    return $user;
-                } else {
-                    // validation failed
-                    return null;
-                }
-            } catch (Horde_Service_Facebook_Exception $ex) {
-                $get = $this->_request->getGetParams();
-                if (isset($get['auth_token'])) {
-                    // if we have an auth_token, use it to establish a session
-                    $session_info = $this->do_get_session($get['auth_token']);
-                    if ($session_info) {
-                      return $session_info['uid'];
-                    }
-                }
-            }
-        }
-
-        // if we get here, we need to redirect the user to log in
-        $this->_redirect($this->_get_login_url(self::_current_url()));
-    }
-
-    /**
      * Helper function to get the appropriate facebook url
      *
      * @return string
      */
-    protected static function _get_facebook_url($subdomain = 'www')
+    public static function get_facebook_url($subdomain = 'www')
     {
         return 'http://' . $subdomain . '.facebook.com';
     }
@@ -392,161 +234,10 @@ class Horde_Service_Facebook
      *
      *  @return string
      */
-    protected function _get_login_url($next)
+    public function get_login_url($next)
     {
-        return self::_get_facebook_url() . '/login.php?v=1.0&api_key='
+        return self::get_facebook_url() . '/login.php?v=1.0&api_key='
             . $this->api_key . ($next ? '&next=' . urlencode($next)  : '');
-    }
-
-    /**
-     * Set the current session user
-     *
-     * @param string $user  The FB userid
-     * @param string $session_key
-     * @param timestamp $expires
-     *
-     * @return void
-     */
-    public function set_user($user, $session_key, $expires = null)
-    {
-        if (!$this->_request->getCookie($this->api_key . '_user') ||
-            $this->_request->getCookie($this->api_key . '_user') != $user) {
-
-            $this->set_cookies($user, $session_key, $expires);
-        }
-        $this->user = $user;
-        $this->session_key = $session_key;
-        $this->_session_expires = $expires;
-    }
-
-    /**
-     * Set session cookies (Facebook *requires* cookies to be enabled).
-     *
-     * @param string $user  FB userid
-     * @param string $session_key  The current session key
-     * @param timestamp $expires
-     *
-     * @return void
-     */
-    public function set_cookies($user, $session_key, $expires = null)
-    {
-        $cookies = array();
-        $cookies['user'] = $user;
-        $cookies['session_key'] = $session_key;
-        if ($expires != null) {
-            $cookies['expires'] = $expires;
-        }
-        foreach ($cookies as $name => $val) {
-            setcookie($this->api_key . '_' . $name, $val, (int)$expires, '', $this->_base_domain);
-        }
-        $sig = self::generate_sig($cookies, $this->secret);
-        setcookie($this->api_key, $sig, (int)$expires, '', $this->_base_domain);
-        if ($this->_base_domain != null) {
-            $base_domain_cookie = 'base_domain_' . $this->api_key;
-            setcookie($base_domain_cookie, $this->_base_domain, (int)$expires, '', $this->_base_domain);
-        }
-    }
-
-    /**
-     * Get the signed parameters that were sent from Facebook. Validates the set
-     * of parameters against the included signature.
-     *
-     * Since Facebook sends data to your callback URL via unsecured means, the
-     * signature is the only way to make sure that the data actually came from
-     * Facebook. So if an app receives a request at the callback URL, it should
-     * always verify the signature that comes with against your own secret key.
-     * Otherwise, it's possible for someone to spoof a request by
-     * pretending to be someone else, i.e.:
-     *      www.your-callback-url.com/?fb_user=10101
-     *
-     * This is done automatically by verify_fb_params.
-     *
-     * @param array $params       A hash of all external parameters.
-     * @param int $timeout        Number of seconds that the args are good for.
-     * @param string $namespace   Prefix string for the set of parameters we
-     *                            want to verify(fb_sig or fb_post_sig).
-     *
-     * @return array  The subset of parameters containing the given prefix,
-     *                and also matching the signature associated with them or an
-     *                empty array if the signature did not match.
-     */
-    public function get_valid_fb_params($params, $timeout = null, $namespace = 'fb_sig')
-    {
-        $prefix = $namespace . '_';
-        $prefix_len = strlen($prefix);
-        $fb_params = array();
-        if (empty($params)) {
-            return array();
-        }
-
-        foreach ($params as $name => $val) {
-            // pull out only those parameters that match the prefix
-            // note that the signature itself ($params[$namespace]) is not in the list
-            if (strpos($name, $prefix) === 0) {
-                $fb_params[substr($name, $prefix_len)] = $val;
-            }
-        }
-
-        // validate that the request hasn't expired. this is most likely
-        // for params that come from $_COOKIE
-        if ($timeout && (!isset($fb_params['time']) || time() - $fb_params['time'] > $timeout)) {
-          return array();
-        }
-
-        // validate that the params match the signature
-        $signature = isset($params[$namespace]) ? $params[$namespace] : null;
-        if (!$signature || (!$this->_verify_signature($fb_params, $signature))) {
-            return array();
-        }
-
-        return $fb_params;
-    }
-
-    /**
-     * Validates that a given set of parameters match their signature.
-     * Parameters all match a given input prefix, such as "fb_sig".
-     *
-     * @param array $fb_params  An array of all Facebook-sent parameters, not
-     *                          including the signature itself.
-     * @param $expected_sig     The expected result to check against.
-     *
-     * @return boolean
-     */
-    protected function _verify_signature($fb_params, $expected_sig)
-    {
-        // we don't want to verify the signature until we have a valid
-        // session secret
-        if ($this->_verify_sig) {
-            return self::generate_sig($fb_params, $this->secret) == $expected_sig;
-        } else {
-            return true;
-        }
-    }
-
-    /**
-     * Generate a signature using the application secret key.
-     *
-     * The only two entities that know your secret key are you and Facebook,
-     * according to the Terms of Service. Since nobody else can generate
-     * the signature, you can rely on it to verify that the information
-     * came from Facebook.
-     *
-     * @param array $params   An array of all Facebook-sent parameters, NOT
-     *                        INCLUDING the signature itself.
-     * @param string $secret  The application's secret key.
-     *
-     * @return string  Hash to be checked against the FB provided signature.
-     */
-    public static function generate_sig($params_array, $secret)
-    {
-        $str = '';
-        ksort($params_array);
-        foreach ($params_array as $k => $v) {
-            $str .= "$k=$v";
-        }
-        $str .= $secret;
-
-        return md5($str);
     }
 
     /**
@@ -578,52 +269,6 @@ class Horde_Service_Facebook
         $this->_batchRequest = null;
     }
 
-    /**
-     * Creates an authentication token to be used as part of the desktop login
-     * flow.  For more information, please see
-     * http://wiki.developers.facebook.com/index.php/Auth.createToken.
-     *
-     * @return string  An authentication token.
-     */
-    public function auth_createToken()
-    {
-        return $this->call_method('facebook.auth.createToken');
-    }
-
-    /**
-     * Returns the session information available after current user logs in.
-     *
-     * @param string $auth_token             the token returned by
-     *                                       auth_createToken or passed back to
-     *                                       your callback_url.
-     *
-     * @return array  An assoc array containing session_key, uid
-     */
-    public function auth_getSession($auth_token)
-    {
-        //Check if we are in batch mode
-        if ($this->_batchRequest === null) {
-            $result = $this->call_method('facebook.auth.getSession', array('auth_token' => $auth_token));
-            $this->session_key = $result['session_key'];
-            if (!empty($result['secret'])) {
-                // desktop apps have a special secret
-                $this->secret = $result['secret'];
-            }
-            return $result;
-        }
-    }
-
-    /**
-     * Expires the session that is currently being used.  If this call is
-     * successful, no further calls to the API (which require a session) can be
-     * made until a valid session is created.
-     *
-     * @return bool  true if session expiration was successful, false otherwise
-     */
-    public function auth_expireSession()
-    {
-        return $this->call_method('facebook.auth.expireSession');
-    }
 
     /**
      * Returns events according to the filters specified.
@@ -1177,7 +822,7 @@ class Horde_Service_Facebook
         return $this->call_upload_method('facebook.video.upload',
             array('title' => $title,
                   'description' => $description),
-            $file, self::_get_facebook_url('api-video') . '/restserver.php');
+            $file, self::get_facebook_url('api-video') . '/restserver.php');
     }
 
     /**
@@ -1427,6 +1072,20 @@ class Horde_Service_Facebook
         $content_lines[] = '';
         $content = implode("\r\n", $content_lines);
         return $this->run_http_post_transaction($content_type, $content, $server_addr);
+    }
+
+    protected function _logDebug($message)
+    {
+        if (!empty($this->_logger)) {
+            $this->_logger->debug($message);
+        }
+    }
+
+    protected function _logErr($message)
+    {
+        if (!empty($this->_logger)) {
+            $this->_logger->err($message);
+        }
     }
 
 }

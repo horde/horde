@@ -58,7 +58,7 @@ class Horde_Service_Facebook_Request
         $this->_addStandardParams($method, $params);
         // we need to do this before signing the params
         $this->_convertToCsv($params);
-        $params['sig'] = Horde_Service_Facebook::generate_sig($params, $this->_facebook->secret);
+        $params['sig'] = Horde_Service_Facebook_Auth::generateSignature($params, $this->_facebook->secret);
     }
 
     protected function _addStandardParams($method, &$params)
@@ -66,7 +66,9 @@ class Horde_Service_Facebook_Request
         // We only support JSON
         $params['format'] = 'json';
         $params['method'] = $method;
-        $params['session_key'] = $this->_facebook->session_key;
+        if (empty($params['session_key'])) {
+            $params['session_key'] = $this->_facebook->auth->getSessionKey();
+        }
         $params['api_key'] = $this->_facebook->api_key;
         $params['call_id'] = microtime(true);
         if ($params['call_id'] <= $this->_last_call_id) {
