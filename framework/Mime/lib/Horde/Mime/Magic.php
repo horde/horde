@@ -55,7 +55,7 @@ class Horde_Mime_Magic
     {
         if (is_null(self::$_magic)) {
             require dirname(__FILE__) . '/mime.magic.php';
-            self::$_magic = $mime_magic
+            self::$_magic = $mime_magic;
         }
 
         return self::$_magic;
