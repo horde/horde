@@ -79,10 +79,9 @@ class IMP_Session
         /* Run the username through virtualhost expansion functions if
          * necessary. */
         if (!empty($conf['hooks']['vinfo'])) {
-            try {
-                $imapuser = Horde::callHook('_imp_hook_vinfo', array('username', $imapuser), 'imp');
-            } catch (Horde_Exception $e) {
-                Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+            $hook_user = Horde::callHook('_imp_hook_vinfo', array('username', $imapuser), 'imp');
+            if (!is_a($hook_user, 'PEAR_Error')) {
+                $imapuser = $hook_user;
             }
         }
 
