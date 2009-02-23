@@ -318,7 +318,7 @@ class IMP_Message
                 $body = $body_part->getContents();
 
                 /* Re-flow the message for prettier formatting. */
-                $flowed = new Text_Flowed($mime_message->replaceEOL($body, "\n"));
+                $flowed = new Horde_Text_Flowed($mime_message->replaceEOL($body, "\n"));
                 if ($mime_message->getContentTypeParameter('delsp') == 'yes') {
                     $flowed->setDelSp(true);
                 }

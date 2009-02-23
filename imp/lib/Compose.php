@@ -946,8 +946,7 @@ class IMP_Compose
         $textBody->setDisposition('inline');
 
         /* Send in flowed format. */
-        require_once 'Text/Flowed.php';
-        $flowed = new Text_Flowed($body, $charset);
+        $flowed = new Horde_Text_Flowed($body, $charset);
         $flowed->setDelSp(true);
         $textBody->setContentTypeParameter('format', 'flowed');
         $textBody->setContentTypeParameter('DelSp', 'Yes');
@@ -2222,8 +2221,7 @@ class IMP_Compose
             }
 
             if ($part->getContentTypeParameter('format') == 'flowed') {
-                require_once 'Text/Flowed.php';
-                $flowed = new Text_Flowed($msg);
+                $flowed = new Horde_Text_Flowed($msg);
                 if (String::lower($part->getContentTypeParameter('delsp')) == 'yes') {
                     $flowed->setDelSp(true);
                 }
@@ -2236,8 +2234,7 @@ class IMP_Compose
             }
 
             if (!empty($options['toflowed'])) {
-                require_once 'Text/Flowed.php';
-                $flowed = new Text_Flowed($msg);
+                $flowed = new Horde_Text_Flowed($msg);
                 $msg = $flowed->toFlowed(true);
             }
         }
