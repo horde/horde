@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sl_SI\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2009-02-22 20:39+0100\n"
+"POT-Creation-Date: 2009-02-23 19:46+0100\n"
 "PO-Revision-Date: 2008-12-29 00:24+0100\n"
 "Last-Translator: Marko Milost <marko.milost@obala.si>\n"
 "Language-Team: Slovene <sl@li.org>\n"
@@ -84,10 +84,11 @@ msgstr "Ime skupine ne more biti prazno"
 msgid "Action"
 msgstr "Ukaz"
 
-#: activity.php:17 templates/friends/friends.php:13
-#: templates/user/user.php:129 templates/user/user.php:368
-#: templates/list/list.php:7 templates/edit/activity.php:18 edit/tabs.php:27
-#: edit/activity.php:19 lib/Forms/Activity.php:20 lib/Forms/Activity.php:22
+#: activity.php:17 templates/friends/friends.php:15
+#: templates/friends/friends.php:44 templates/user/user.php:129
+#: templates/user/user.php:368 templates/list/list.php:7
+#: templates/edit/activity.php:18 edit/tabs.php:27 edit/activity.php:19
+#: lib/Forms/Activity.php:20 lib/Forms/Activity.php:22
 msgid "Activity"
 msgstr "Aktivnost"
 
@@ -103,7 +104,7 @@ msgstr "Aktivnost je bil uspešno izbisana"
 msgid "Activity successfully posted"
 msgstr "Aktivnost je bila uspešno dodana"
 
-#: templates/edit/tabs.php:23 edit/friends/know.php:59
+#: templates/edit/tabs.php:23 edit/friends/know.php:35
 msgid "Add"
 msgstr "Dodaj"
 
@@ -125,7 +126,8 @@ msgstr "Dodaj / Odstrani"
 msgid "Add a comment"
 msgstr "Dodaj komentar"
 
-#: edit/friends/add.php:18
+#: templates/friends/friends.php:91 edit/friends/add.php:18
+#: lib/Block/know.php:45
 msgid "Add friend"
 msgstr "Dodaj prijatelja"
 
@@ -170,7 +172,7 @@ msgstr "Starost od"
 msgid "Age to"
 msgstr "Starost do"
 
-#: templates/list/list.php:38
+#: templates/list/list.php:36
 msgid "Albums"
 msgstr "Albumi"
 
@@ -191,7 +193,7 @@ msgstr "Vsi obiskovalci"
 msgid "Any one"
 msgstr "Vsi"
 
-#: templates/edit/activity.php:16
+#: templates/friends/friends.php:43 templates/edit/activity.php:16
 msgid "Application"
 msgstr "Aplikacija"
 
@@ -211,11 +213,11 @@ msgstr "Aplikacije katerih ne beležim JAVNEGA pregleda mojih aktivnosti"
 msgid "Approve"
 msgstr "Potrdi"
 
-#: lib/Folks.php:136 lib/Folks.php:140
+#: lib/Folks.php:140 lib/Folks.php:144
 msgid "Aquarius"
 msgstr "Vodnar"
 
-#: lib/Folks.php:144 lib/Folks.php:148
+#: lib/Folks.php:148 lib/Folks.php:152
 msgid "Aries"
 msgstr "Oven"
 
@@ -252,7 +254,7 @@ msgstr "Telo sporočila"
 msgid "Cancel"
 msgstr "Prekliči"
 
-#: lib/Folks.php:156 lib/Folks.php:160
+#: lib/Folks.php:160 lib/Folks.php:164
 msgid "Cancer"
 msgstr "Rak"
 
@@ -265,7 +267,7 @@ msgid "Cannot reset password automatically, contact your administrator."
 msgstr ""
 "Ne da se avtomatično ponastaviti gesla, kontaktirajte podporo uporabnikom."
 
-#: lib/Folks.php:279
+#: lib/Folks.php:283
 msgid "Cannot retrieve user email."
 msgstr "Ne morem prebrati email uporabnika."
 
@@ -273,7 +275,7 @@ msgstr "Ne morem prebrati email uporabnika."
 msgid "Cannot update password, contact your administrator."
 msgstr "Ne morem nastaviti gesla, obrnite se na podporo."
 
-#: lib/Folks.php:136 lib/Folks.php:180
+#: lib/Folks.php:140 lib/Folks.php:184
 msgid "Capricorn"
 msgstr "Kozorog"
 
@@ -319,7 +321,7 @@ msgstr "Komentarji so bili uspešno zbrisani"
 msgid "Confirm email"
 msgstr "Potrditev email naslova"
 
-#: config/hooks.php.dist:364
+#: config/hooks.php.dist:356
 msgid "Confirmation code"
 msgstr "Šifra za potrditev uporabnika"
 
@@ -362,7 +364,7 @@ msgstr "Država"
 msgid "Current password"
 msgstr "Trenutno geslo"
 
-#: templates/friends/friends.php:12 templates/edit/activity.php:17
+#: templates/edit/activity.php:17
 msgid "Date"
 msgstr "Datum"
 
@@ -427,7 +429,11 @@ msgstr "Uredni pravice"
 msgid "Edit Permissions for %s"
 msgstr "Uredi pravice za %s"
 
-#: templates/friends/friends.php:6
+#: templates/friends/friends.php:37
+msgid "Edit activities"
+msgstr "Uredi aktivnisti"
+
+#: templates/friends/friends.php:9
 msgid "Edit friends"
 msgstr "Urejanje prijateljev"
 
@@ -443,7 +449,7 @@ msgstr "Urejanje profila"
 msgid "Edit personal information"
 msgstr "Uredite osebne podatke"
 
-#: lib/Folks.php:296
+#: lib/Folks.php:300
 msgid "Edit profile"
 msgstr "Uredi profil"
 
@@ -476,7 +482,7 @@ msgstr "Obrazi"
 msgid "Faces in user galleries"
 msgstr "Obrazi v galerijah uporabnika"
 
-#: templates/user/user.php:121 templates/list/list.php:67 edit/edit.php:30
+#: templates/user/user.php:121 templates/list/list.php:69 edit/edit.php:30
 #: lib/Forms/Search.php:21
 msgid "Female"
 msgstr "Ženski"
@@ -507,7 +513,7 @@ msgid "Friend's e-mail"
 msgstr "Perijateljev e-mail"
 
 #: friends.php:21 templates/user/user.php:152 templates/edit/tabs.php:1
-#: edit/tabs.php:25 edit/friends/friends.php:18 lib/Folks.php:295
+#: edit/tabs.php:25 edit/friends/friends.php:18 lib/Folks.php:299
 #: lib/Block/friends.php:3 lib/Block/friends.php:22
 msgid "Friends"
 msgstr "Prijatelji"
@@ -516,7 +522,7 @@ msgstr "Prijatelji"
 msgid "Friends Birthdays"
 msgstr "Rojstni dnevi prijateljev"
 
-#: templates/friends/friends.php:7 rss/activity.php:52
+#: templates/friends/friends.php:10 rss/activity.php:52
 msgid "Friends activities"
 msgstr "Aktivnisti prijateljev"
 
@@ -528,7 +534,7 @@ msgstr "Aktivnisti prijateljev"
 msgid "Friends we are waiting approval from"
 msgstr "Uporabniki na katere čakamo da nas potrdijo"
 
-#: lib/Folks.php:152 lib/Folks.php:156
+#: lib/Folks.php:156 lib/Folks.php:160
 msgid "Gemini"
 msgstr "Dvojčka"
 
@@ -613,11 +619,11 @@ msgstr "Zadnji komentarji na mojem profilu"
 msgid "Last time online"
 msgstr "Zadnjič online"
 
-#: lib/Folks.php:160 lib/Folks.php:164
+#: lib/Folks.php:164 lib/Folks.php:168
 msgid "Leo"
 msgstr "Lev"
 
-#: lib/Folks.php:168 lib/Folks.php:172
+#: lib/Folks.php:172 lib/Folks.php:176
 msgid "Libra"
 msgstr "Tehtnica"
 
@@ -625,7 +631,7 @@ msgstr "Tehtnica"
 msgid "Limit"
 msgstr "Omeji"
 
-#: list.php:17 templates/list/list.php:10 lib/Folks.php:299
+#: list.php:17 templates/list/list.php:10 lib/Folks.php:303
 msgid "List"
 msgstr "Spisek"
 
@@ -663,7 +669,7 @@ msgstr "Prijava v %s"
 msgid "Look at this profile"
 msgstr "Poglej ta profil"
 
-#: templates/user/user.php:121 templates/list/list.php:67 edit/edit.php:30
+#: templates/user/user.php:121 templates/list/list.php:69 edit/edit.php:30
 #: lib/Forms/Search.php:21
 msgid "Male"
 msgstr "Moški"
@@ -701,7 +707,7 @@ msgstr "Najbolj aktvni uporabniki"
 msgid "Most popular users"
 msgstr "Najbolj priljubljeni uporabniki"
 
-#: lib/Folks.php:294
+#: lib/Folks.php:298
 msgid "My profile"
 msgstr "Moj profil"
 
@@ -730,10 +736,10 @@ msgstr "Novo prijavljeni"
 msgid "New users"
 msgstr "Novi uporabniki"
 
-#: templates/list/list.php:75 templates/list/list.php:76
 #: templates/list/list.php:77 templates/list/list.php:78
-#: templates/list/list.php:79 edit/privacy.php:49 config/prefs.php.dist:67
-#: config/prefs.php.dist:77 config/prefs.php.dist:87 config/prefs.php.dist:97
+#: templates/list/list.php:79 templates/list/list.php:80 edit/privacy.php:49
+#: config/prefs.php.dist:67 config/prefs.php.dist:77 config/prefs.php.dist:87
+#: config/prefs.php.dist:97
 msgid "No"
 msgstr "Ne"
 
@@ -773,8 +779,8 @@ msgstr "Število uporabnikov na vsaki strani"
 msgid "Offensive content"
 msgstr "Neprimerna ali žaljiva vsebina"
 
-#: templates/user/user.php:77 templates/edit/friends.php:33
-#: lib/Block/friends.php:37
+#: templates/block/users.php:17 templates/user/user.php:77
+#: templates/edit/friends.php:33 lib/Block/friends.php:37
 msgid "Offline"
 msgstr "Offline"
 
@@ -782,13 +788,14 @@ msgstr "Offline"
 msgid "Old name"
 msgstr "Staro ime"
 
-#: online.php:17 templates/user/user.php:75 templates/list/list.php:3
-#: templates/edit/friends.php:31 lib/Block/random.php:38
-#: lib/Block/friends.php:36
+#: online.php:17 templates/block/users.php:15 templates/user/user.php:75
+#: templates/list/list.php:3 templates/edit/friends.php:31
+#: lib/Block/random.php:38 lib/Block/friends.php:36
 msgid "Online"
 msgstr "Online"
 
-#: templates/common-header.inc:26 rss/friends.php:48
+#: templates/common-header.inc:26 templates/friends/friends.php:66
+#: rss/friends.php:48
 msgid "Online friends"
 msgstr "Prijetelji online"
 
@@ -833,7 +840,9 @@ msgstr "Geslo"
 msgid "Password changed."
 msgstr "Geslo je bilo spremenjeno."
 
-#: templates/common-header.inc:28 edit/friends/know.php:17 rss/know.php:61
+#: templates/common-header.inc:28 templates/friends/friends.php:85
+#: edit/friends/know.php:17 rss/know.php:61 lib/Block/know.php:3
+#: lib/Block/know.php:22
 msgid "People you might know"
 msgstr "Uporabnike katere morda poznate"
 
@@ -841,11 +850,11 @@ msgstr "Uporabnike katere morda poznate"
 msgid "Permissions"
 msgstr "Pravice"
 
-#: templates/list/list.php:36 edit/edit.php:51 lib/Forms/Search.php:25
+#: edit/edit.php:51 lib/Forms/Search.php:25
 msgid "Picture"
 msgstr "Slika"
 
-#: lib/Folks.php:140 lib/Folks.php:144
+#: lib/Folks.php:144 lib/Folks.php:148
 msgid "Pisces"
 msgstr "Ribi"
 
@@ -964,7 +973,7 @@ msgstr "Ponastavi"
 msgid "Reset Your Password"
 msgstr "Ponastavi svoje geslo"
 
-#: lib/Folks.php:176 lib/Folks.php:180
+#: lib/Folks.php:180 lib/Folks.php:184
 msgid "Sagittarius"
 msgstr "Strelec"
 
@@ -976,11 +985,11 @@ msgstr "Shrani"
 msgid "Save search criteria"
 msgstr "Shrani rezultate iskanja"
 
-#: lib/Folks.php:172 lib/Folks.php:176
+#: lib/Folks.php:176 lib/Folks.php:180
 msgid "Scorpio"
 msgstr "Škorpijon"
 
-#: search.php:18 lib/Folks.php:298 lib/Forms/Search.php:27
+#: search.php:18 lib/Folks.php:302 lib/Forms/Search.php:27
 msgid "Search"
 msgstr "Najdi"
 
@@ -1012,9 +1021,12 @@ msgstr "Zaščitno vprašanje, ki ga bomo uporabili pri ponastavljanju gesla"
 msgid "Send me my username"
 msgstr "Pošlji mi moje uporabniško ime"
 
-#: templates/user/actions.php:7 edit/friends/know.php:68
-#: edit/friends/for.php:48 edit/friends/index.php:44 edit/friends/of.php:40
-#: edit/friends/from.php:40 edit/friends/friends.php:45
+#: templates/friends/friends.php:76 templates/friends/friends.php:98
+#: templates/friends/friends.php:117 templates/user/actions.php:7
+#: edit/friends/know.php:44 edit/friends/for.php:48 edit/friends/index.php:44
+#: edit/friends/of.php:40 edit/friends/from.php:40 edit/friends/friends.php:45
+#: lib/Block/random.php:65 lib/Block/know.php:52 lib/Block/new.php:64
+#: lib/Block/recent.php:59 lib/Block/friends.php:86
 msgid "Send message"
 msgstr "Pošlji sporočilo"
 
@@ -1026,7 +1038,7 @@ msgstr "Pošlji osebno sporočilo"
 msgid "Send this profile to a friend"
 msgstr "Obvesti prijatelja za ta profil"
 
-#: lib/Folks.php:297
+#: lib/Folks.php:301
 msgid "Services"
 msgstr "Servisi"
 
@@ -1054,7 +1066,7 @@ msgstr "Prikaži prijatelje, ki so"
 msgid "Sign up"
 msgstr "Registracija novega uporabnika"
 
-#: templates/list/list.php:20 templates/list/list.php:43
+#: templates/list/list.php:20 templates/list/list.php:41
 msgid "Sort Direction"
 msgstr "Smer sortiranja"
 
@@ -1066,7 +1078,7 @@ msgstr "Razvrsti po"
 msgid "Sort by Age"
 msgstr "Razvrsti po starosti"
 
-#: templates/list/list.php:37
+#: templates/list/list.php:35
 msgid "Sort by Albums"
 msgstr "Razvrsti po številu albumov"
 
@@ -1086,15 +1098,11 @@ msgstr "Razvrsti po spolu"
 msgid "Sort by Homepage"
 msgstr "Razvrsti po domači strani"
 
-#: templates/list/list.php:35
-msgid "Sort by Picture"
-msgstr "Razvrsti po sliki"
-
 #: templates/list/list.php:23
 msgid "Sort by Username"
 msgstr "Ste po uporabniškem imenu"
 
-#: templates/list/list.php:39
+#: templates/list/list.php:37
 msgid "Sort by Video"
 msgstr "Razvrsti po posnetkih"
 
@@ -1116,7 +1124,7 @@ msgstr ""
 "Poslana je bila zahteva za registracijo \"%s\" v sistem. Ne morete se "
 "prijaviti, dokler vaša zahteva ne bo potrjena."
 
-#: lib/Folks.php:148 lib/Folks.php:152
+#: lib/Folks.php:152 lib/Folks.php:156
 msgid "Taurus"
 msgstr "Bik"
 
@@ -1132,11 +1140,11 @@ msgstr ""
 "Koda ni pravilna. Morda ste jo narobe prenesli iz elektronskega sporočila, "
 "ki ste ga dobili na vaš email. Preglejte, da ste skopirali kodo v celoti."
 
-#: config/hooks.php.dist:312
+#: config/hooks.php.dist:304
 msgid "There is already an user registered with this email"
 msgstr "Že obstaja uporabnik, ki koristi ta email naslov"
 
-#: config/hooks.php.dist:310
+#: config/hooks.php.dist:302
 msgid "There is already an user registered with this username"
 msgstr "To uporabniško ime je zasedno"
 
@@ -1149,7 +1157,7 @@ msgstr "Ni aktinvsoti s strani tega uporabnika."
 msgid "There was a problem adding \"%s\" to the system: %s"
 msgstr "Prišlo je do napake pri dodajanju uporabnika \"%s\": %s"
 
-#: config/hooks.php.dist:265
+#: config/hooks.php.dist:256
 msgid "There was an error login into your mail account."
 msgstr "Prišlo je do napake prišiljanju selektronska sporočila."
 
@@ -1198,7 +1206,7 @@ msgstr "Naloži nov posnetek"
 msgid "Usage: %s [OPTIONS]..."
 msgstr ""
 
-#: report.php:55 lib/Block/my_comments.php:57
+#: report.php:55 templates/friends/friends.php:14 lib/Block/my_comments.php:57
 msgid "User"
 msgstr "Uporabnik"
 
@@ -1207,17 +1215,17 @@ msgstr "Uporabnik"
 msgid "User \"%s\" does not exists."
 msgstr "Uporabnik \"%s\" ne obstaja."
 
-#: lib/Friends.php:220 lib/Friends.php:289
+#: lib/Friends.php:224 lib/Friends.php:293
 #, php-format
 msgid "User \"%s\" does not exits"
 msgstr "Uporabnik \"%s\" ne obstaja"
 
-#: lib/Friends.php:297
+#: lib/Friends.php:301
 #, php-format
 msgid "User \"%s\" is already in fiend list"
 msgstr "Uporabnik \"%s\" je že v vašem spisku prijateljev."
 
-#: lib/Friends.php:305
+#: lib/Friends.php:309
 #, php-format
 msgid ""
 "User \"%s\" is already in fiend list, but we are waiting his/her approval."
@@ -1363,13 +1371,13 @@ msgstr "Uporabnik ni bil prijavljen."
 msgid "User was reported."
 msgstr "Uporabnik je bil prijavljen."
 
-#: templates/friends/friends.php:11 templates/list/list.php:24
-#: templates/edit/friends.php:16 account/resetpassword.php:43
-#: lib/Forms/AddFriend.php:18 lib/Forms/Login.php:22 config/prefs.php.dist:40
+#: templates/list/list.php:24 templates/edit/friends.php:16
+#: account/resetpassword.php:43 lib/Forms/AddFriend.php:18
+#: lib/Forms/Login.php:22 config/prefs.php.dist:40
 msgid "Username"
 msgstr "Uporabniško ime"
 
-#: config/hooks.php.dist:297
+#: config/hooks.php.dist:289
 msgid ""
 "Username can contain only alphanumeric characters, underscore and minus."
 msgstr ""
@@ -1394,17 +1402,20 @@ msgstr "Uporabniki trenutno na strani."
 msgid "Users waiting our approval"
 msgstr "Uporabniki ki čakajo na našo potrditev"
 
-#: templates/list/list.php:40 edit/edit.php:46 lib/Forms/Search.php:25
+#: templates/list/list.php:38 edit/edit.php:46 lib/Forms/Search.php:25
 msgid "Video"
 msgstr "Video"
 
-#: edit/friends/know.php:63 edit/friends/for.php:35 edit/friends/index.php:39
-#: edit/friends/of.php:35 edit/friends/from.php:35
-#: edit/friends/blacklist.php:77 edit/friends/friends.php:40
+#: templates/friends/friends.php:72 templates/friends/friends.php:94
+#: templates/friends/friends.php:113 edit/friends/know.php:39
+#: edit/friends/for.php:35 edit/friends/index.php:39 edit/friends/of.php:35
+#: edit/friends/from.php:35 edit/friends/blacklist.php:77
+#: edit/friends/friends.php:40 lib/Block/random.php:61 lib/Block/know.php:48
+#: lib/Block/new.php:60 lib/Block/recent.php:55 lib/Block/friends.php:82
 msgid "View profile"
 msgstr "Preglej profil"
 
-#: lib/Folks.php:164 lib/Folks.php:168
+#: lib/Folks.php:168 lib/Folks.php:172
 msgid "Virgo"
 msgstr "Devica"
 
@@ -1448,10 +1459,10 @@ msgstr "Kdo lahko pregleduje kdaj sem bil zadnjič online"
 msgid "Word"
 msgstr "Beseda"
 
-#: templates/list/list.php:75 templates/list/list.php:76
 #: templates/list/list.php:77 templates/list/list.php:78
-#: templates/list/list.php:79 edit/privacy.php:49 config/prefs.php.dist:68
-#: config/prefs.php.dist:78 config/prefs.php.dist:88 config/prefs.php.dist:98
+#: templates/list/list.php:79 templates/list/list.php:80 edit/privacy.php:49
+#: config/prefs.php.dist:68 config/prefs.php.dist:78 config/prefs.php.dist:88
+#: config/prefs.php.dist:98
 msgid "Yes"
 msgstr "Da"
 
@@ -1482,16 +1493,16 @@ msgstr "Ste na črni listi uporabnika %s."
 msgid "You can still send a private message to user %s."
 msgstr "Še vedno mu lahko pošljete osebno sporočilo %s."
 
-#: lib/Friends.php:225
+#: lib/Friends.php:229
 #, php-format
 msgid "You cannot add \"%s\" to your blacklist."
 msgstr "Ne morete dodati \"%s\" na črno listo."
 
-#: lib/Friends.php:283
+#: lib/Friends.php:287
 msgid "You cannot add yourself as your own friend."
 msgstr "Sami sebe ne morete dodati kot prijatelja."
 
-#: lib/Friends.php:214
+#: lib/Friends.php:218
 msgid "You cannot add yourself to your blacklist."
 msgstr "Samega sebe ne morete dodati na črno listo."
 
@@ -1511,6 +1522,10 @@ msgstr "Podati morate kodo za potrditev računa."
 #: edit/friends/reject.php:23
 msgid "You must supply a username."
 msgstr "Podati morate uporabiško ime."
+
+#: templates/friends/friends.php:38
+msgid "Your activities"
+msgstr "Vaše aktivnosti"
 
 #: edit/comments.php:81
 msgid "Your comments preference was sucessfuly saved."
@@ -1645,7 +1660,7 @@ msgstr ""
 "\n"
 " Zahteval ga je %s ob %s"
 
-#: config/hooks.php.dist:358
+#: config/hooks.php.dist:350
 #, php-format
 msgid ""
 "Your username on %s %s is: %s. \n"
