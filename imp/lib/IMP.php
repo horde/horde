@@ -696,8 +696,9 @@ class IMP
                 ? Horde::getAccessKey(_("Open Fo_lder"))
                 : '';
 
+            $t->set('ak', $ak);
             $t->set('flist', self::flistSelect(array('selected' => $GLOBALS['imp_mbox']['mailbox'], 'inc_vfolder' => true)));
-            $t->set('flink', sprintf('%s%s<br />%s</a>', Horde::link('#', '', '', '', '', '', $ak), ($menu_view != 'text') ? Horde::img('folders/folder_open.png', _("Open Folder"), ($menu_view == 'icon') ? array('title' => _("Open Folder")) : array()) : '', ($menu_view != 'icon') ? Horde::highlightAccessKey(_("Open Fo_lder"), $ak) : ''));
+            $t->set('flink', sprintf('%s%s<br />%s</a>', Horde::link('#'), ($menu_view != 'text') ? Horde::img('folders/folder_open.png', _("Open Folder"), ($menu_view == 'icon') ? array('title' => _("Open Folder")) : array()) : '', ($menu_view != 'icon') ? Horde::highlightAccessKey(_("Open Fo_lder"), $ak) : ''));
         }
         $t->set('menu_string', self::getMenu('string'));
 
