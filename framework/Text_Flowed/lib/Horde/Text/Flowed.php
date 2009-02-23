@@ -337,8 +337,8 @@ class Horde_Text_Flowed
      */
     protected function _stuff($text, $num_quotes, $toflowed)
     {
-        return ($toflowed && ($num_quotes || preg_match("/^(?: |>|From |From$)/", $text))
-            ? '' . $text
+        return ($toflowed && ($num_quotes || preg_match("/^(?: |>|From |From$)/", $text)))
+            ? ' ' . $text
             : $text;
     }
 
