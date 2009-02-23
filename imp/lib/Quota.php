@@ -68,7 +68,6 @@ class IMP_Quota
     static public function getInstance($driver, $params = array())
     {
         $driver = basename($driver);
-        require_once dirname(__FILE__) . '/Quota/' . $driver . '.php';
         $class = 'IMP_Quota_' . $driver;
 
         if (class_exists($class)) {

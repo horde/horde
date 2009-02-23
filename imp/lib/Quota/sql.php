@@ -66,7 +66,6 @@ class IMP_Quota_sql extends IMP_Quota
     protected function _connect()
     {
         if (!$this->_connected) {
-            require_once 'DB.php';
             $this->_db = &DB::connect($this->_params,
                                       array('persistent' => !empty($this->_params['persistent']),
                                             'ssl' => !empty($this->_params['ssl'])));

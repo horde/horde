@@ -55,7 +55,6 @@ class IMP_Sentmail_sql extends IMP_Sentmail
         }
 
         /* Connect to the SQL server using the supplied parameters. */
-        require_once 'DB.php';
         $this->_db = DB::connect($this->_params,
                                  array('persistent' => !empty($this->_params['persistent']),
                                        'ssl' => !empty($this->_params['ssl'])));

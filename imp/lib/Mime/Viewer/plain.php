@@ -262,7 +262,6 @@ class IMP_Horde_Mime_Viewer_plain extends Horde_Mime_Viewer_plain
 
         /* Don't want to use convert_uudecode() here as there may be multiple
          * files residing in the text. */
-        require_once 'Mail/mimeDecode.php';
         $files = &Mail_mimeDecode::uudecode($text);
         if (empty($files)) {
             return null;
