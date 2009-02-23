@@ -51,6 +51,15 @@ http://pear.php.net/dtd/package-2.0.xsd">
        </dir> <!-- /lib/Horde/View/Helper/Capture -->
        <file name="Capture.php" role="php" />
        <file name="Debug.php" role="php" />
+       <dir name="Form">
+        <file name="Builder.php" role="php" />
+        <dir name="InstanceTag">
+         <file name="Base.php" role="php" />
+         <file name="Form.php" role="php" />
+        </dir> <!-- /lib/Horde/View/Helper/Form/InstanceTag -->
+       </dir> <!-- /lib/Horde/View/Helper/Form -->
+       <file name="Form.php" role="php" />
+       <file name="FormTag.php" role="php" />
        <file name="Javascript.php" role="php" />
        <file name="Tag.php" role="php" />
        <file name="Url.php" role="php" />
@@ -84,6 +93,11 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/View/Helper/Capture/ContentFor.php" as="Horde/View/Helper/Capture/ContentFor.php" />
    <install name="lib/Horde/View/Helper/Capture.php" as="Horde/View/Helper/Capture.php" />
    <install name="lib/Horde/View/Helper/Debug.php" as="Horde/View/Helper/Debug.php" />
+   <install name="lib/Horde/View/Helper/Form/Builder.php" as="Horde/View/Helper/Form/Builder.php" />
+   <install name="lib/Horde/View/Helper/Form/InstanceTag/Base.php" as="Horde/View/Helper/Form/InstanceTag/Base.php" />
+   <install name="lib/Horde/View/Helper/Form/InstanceTag/Form.php" as="Horde/View/Helper/Form/InstanceTag/Form.php" />
+   <install name="lib/Horde/View/Helper/Form.php" as="Horde/View/Helper/Form.php" />
+   <install name="lib/Horde/View/Helper/FormTag.php" as="Horde/View/Helper/FormTag.php" />
    <install name="lib/Horde/View/Helper/Javascript.php" as="Horde/View/Helper/Javascript.php" />
    <install name="lib/Horde/View/Helper/Tag.php" as="Horde/View/Helper/Tag.php" />
    <install name="lib/Horde/View/Helper/Url.php" as="Horde/View/Helper/Url.php" />
