@@ -61,6 +61,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
        <file name="Form.php" role="php" />
        <file name="FormTag.php" role="php" />
        <file name="Javascript.php" role="php" />
+       <file name="Number.php" role="php" />
        <file name="Tag.php" role="php" />
        <dir name="Text">
         <file name="Cycle.php" role="php" />
@@ -103,6 +104,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/View/Helper/Form.php" as="Horde/View/Helper/Form.php" />
    <install name="lib/Horde/View/Helper/FormTag.php" as="Horde/View/Helper/FormTag.php" />
    <install name="lib/Horde/View/Helper/Javascript.php" as="Horde/View/Helper/Javascript.php" />
+   <install name="lib/Horde/View/Helper/Number.php" as="Horde/View/Helper/Number.php" />
    <install name="lib/Horde/View/Helper/Tag.php" as="Horde/View/Helper/Tag.php" />
    <install name="lib/Horde/View/Helper/Text/Cycle.php" as="Horde/View/Helper/Text/Cycle.php" />
    <install name="lib/Horde/View/Helper/Text.php" as="Horde/View/Helper/Text.php" />
