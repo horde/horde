@@ -71,10 +71,11 @@ if ($activities instanceof PEAR_Error) {
 // Users online
 $online = $folks_driver->getOnlineUsers();
 if ($online instanceof PEAR_Error) {
-    return $online;
+    $notification->push($online);
+    $online = array();
 }
 
-Horde::addScriptFile('tables.js', 'horde', true);
+Horde::addScriptFile('stripe.js', 'horde', true);
 
 require FOLKS_TEMPLATES . '/common-header.inc';
 require FOLKS_TEMPLATES . '/menu.inc';

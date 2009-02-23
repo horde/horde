@@ -176,7 +176,7 @@ class Folks_Friends_sql extends Folks_Friends {
      *
      * @return array users
      */
-    public function getPossibleFriends()
+    public function friendOf()
     {
         $query = 'SELECT user_uid FROM ' . $this->_params['friends']
                 . ' WHERE friend_uid = ? AND friend_ask = ?'

@@ -92,6 +92,10 @@ class Folks_Friends {
      */
     static public function singleton($driver = null, $params = null)
     {
+        if (empty($params['user'])) {
+            $params['user'] = Auth::getAuth();
+        }
+
         $signature = $driver . ':' . $params['user'];
         if (!array_key_exists($signature, self::$instances)) {
             self::$instances[$signature] = self::factory($driver, $params);
@@ -427,11 +431,56 @@ class Folks_Friends {
     }
 
     /**
+     * Return all friends of out frends
+     * and make a top list of common users
+     *
+     * @param int $limit Users
+     *
+     * @return array users
+     */
+    public function getPossibleFriends($limit = 0)
+    {
+        $possibilities = array();
+
+        $my_list = $this->getFriends();
+        if ($my_list instanceof PEAR_Error) {
+            return $my_list;
+        }
+
+        foreach ($my_list as $friend) {
+            $friends = Folks_Friends::singleton(null, array('user' => $friend));
+            $friend_friends = $friends->getFriends();
+            if ($friend_friends instanceof PEAR_Error) {
+                continue;
+            }
+            foreach ($friend_friends as $friend_friend) {
+                if ($friend_friend == $this->_user ||
+                    in_array($friend_friend, $my_list)) {
+                    continue;
+                } elseif (isset($possibilities[$friend_friend])) {
+                    $possibilities[$friend_friend] += 1;
+                } else {
+                    $possibilities[$friend_friend] = 0;
+                }
+            }
+        }
+
+        arsort($possibilities);
+
+        if ($limit) {
+            $possibilities = array_slice($possibilities, 0, $limit, true);
+            $possibilities = array_keys($possibilities);
+        }
+
+        return $possibilities;
+    }
+
+    /**
      * Get users who have us on their friendlist
      *
      * @return array users
      */
-    public function getPossibleFriends()
+    public function friendOf()
     {
         return false;
     }

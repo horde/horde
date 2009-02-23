@@ -21,23 +21,21 @@ $sortText = _("Sort Direction");
 
 $headers = array();
 $headers['user_uid'] = array('stext' => _("Sort by Username"),
-                                                'text' => _("Username"));
+                                'text' => _("Username"));
 $headers['user_gender'] = array('stext' => _("Sort by Gender"),
-                                                'text' => _("Gender"));
+                                'text' => _("Gender"));
 $headers['user_birthday'] = array('stext' => _("Sort by Age"),
-                                                'text' => _("Age"));
+                                    'text' => _("Age"));
 $headers['user_city'] = array('stext' => _("Sort by City"),
-                                                'text' => _("City"));
+                                'text' => _("City"));
 $headers['user_homepage'] = array('stext' => _("Sort by Homepage"),
-                                                'text' => _("Homepage"));
+                                    'text' => _("Homepage"));
 $headers['user_description'] = array('stext' => _("Sort by Description"),
-                                                'text' => _("Description"));
-$headers['user_picture'] = array('stext' => _("Sort by Picture"),
-                                                'text' => _("Picture"));
+                                    'text' => _("Description"));
 $headers['count_galleries'] = array('stext' => _("Sort by Albums"),
-                                                'text' => _("Albums"));
+                                    'text' => _("Albums"));
 $headers['count_video'] = array('stext' => _("Sort by Video"),
-                                                'text' => _("Video"));
+                                    'text' => _("Video"));
 
 $sortImg = ($criteria['sort_dir'] == 'DESC') ? 'za.png' : 'az.png';
 $sortText = _("Sort Direction");
@@ -48,7 +46,7 @@ $sortText = _("Sort Direction");
 <tr>
 <?php
 foreach ($headers as $key => $val) {
-    echo '<th class="widget" align="left" nowrap="nowrap">' . "\n";
+    echo '<th class="widget leftAlign nowrap">' . "\n";
     if ($criteria['sort_by'] == $key) {
         echo Horde::link(Util::addParameter($list_url, 'sort_dir', ($criteria['sort_dir'] == 'DESC') ? 'ASC' : 'DESC'), $val['text'], null, null, null, $val['text']);
         echo Horde::img($sortImg, $sortText, null, $registry->getImageDir('horde')) . '</a>&nbsp;';
@@ -63,7 +61,11 @@ foreach ($headers as $key => $val) {
 foreach ($users as $user):
 ?>
 <tr>
-    <td><a href="<?php echo Folks::getUrlFor('user', $user['user_uid']) ?>"><?php echo $user['user_uid'] ?></a></td>
+    <td style="text-align: center">
+        <a href="<?php echo Folks::getUrlFor('user', $user['user_uid']) ?>">
+        <img src="<?php echo Folks::getImageUrl($user['user_uid']) ?>" class="userMiniIcon" />
+        <?php echo $user['user_uid'] ?></a>
+    </td>
     <td><?php if ($user['user_gender']) { echo $user['user_gender'] == 1 ? _("Male") : _("Female"); } ?></td>
     <td><?php
         $age = Folks::calcAge($user['user_birthday']);
@@ -74,7 +76,6 @@ foreach ($users as $user):
     <td><?php echo $user['user_city'] ?></td>
     <td><?php echo $user['user_url'] ? _("Yes") : _("No") ?></td>
     <td><?php echo $user['user_description'] ? _("Yes") : _("No") ?></td>
-    <td><?php echo $user['user_picture'] || $user['user_video'] ? _("Yes") : _("No") ?></td>
     <td><?php echo $user['count_galleries'] ? _("Yes") : _("No") ?></td>
     <td><?php echo $user['count_videos'] ? _("Yes") : _("No") ?></td>
 </td>

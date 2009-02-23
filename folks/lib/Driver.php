@@ -228,7 +228,7 @@ class Folks_Driver {
             $new = unserialize($new);
         } else {
             $new = $this->getUsers(array('sort_by' => 'signup_at',
-                                        'sort_dir' => 1), 0, $limit);
+                                        'sort_dir' => 0), 0, $limit);
             if ($new instanceof PEAR_Error) {
                 return $new;
             }

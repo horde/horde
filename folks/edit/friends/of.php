@@ -21,7 +21,7 @@ require_once FOLKS_BASE . '/lib/Friends.php';
 $friends = Folks_Friends::singleton();
 
 // Get list
-$list = $friends->getPossibleFriends();
+$list = $friends->friendOf();
 if ($list instanceof PEAR_Error) {
     $notification->push($list);
     $list = array();

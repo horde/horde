@@ -21,35 +21,11 @@ require_once FOLKS_BASE . '/lib/Friends.php';
 $friends = Folks_Friends::singleton();
 
 // Get friends
-$my_list = $friends->getFriends();
-if ($my_list instanceof PEAR_Error) {
-    $notification->push($my_list);
-    $my_list = array();
+$list = $friends->getPossibleFriends(20);
+if ($list instanceof PEAR_Error) {
+    $notification->push($list);
+    $list = array();
 }
-
-// Get all friends of frends and make a top list of common users
-$possibilities = array();
-foreach ($my_list as $friend) {
-    $friends = Folks_Friends::singleton(null, array('user' => $friend));
-    $friend_friends = $friends->getFriends();
-    if ($friend_friends instanceof PEAR_Error) {
-        continue;
-    }
-    foreach ($friend_friends as $friend_friend) {
-        if ($friend_friend == Auth::getAuth() ||
-            in_array($friend_friend, $my_list)) {
-            continue;
-        } elseif (isset($possibilities[$friend_friend])) {
-            $possibilities[$friend_friend] += 1;
-        } else {
-            $possibilities[$friend_friend] = 0;
-        }
-    }
-}
-
-arsort($possibilities);
-$list = array_slice($possibilities, 0, 20, true);
-$list = array_keys($list);
 
 // Prepare actions
 $actions = array(
