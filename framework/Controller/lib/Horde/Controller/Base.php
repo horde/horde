@@ -79,7 +79,7 @@ abstract class Horde_Controller_Base
     /**
      * New controller instance
      */
-    public function __construct($options)
+    public function __construct($options = array())
     {
         foreach ($options as $key => $val) {
             $this->{'_' . $key} = $val;
