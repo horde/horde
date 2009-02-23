@@ -246,27 +246,19 @@ if (!function_exists('_folks_hook_prelogin')) {
                 || $group->userIsInGroup($user_uid, 2, false)) {
 
                 $db = DB::connect($GLOBALS['conf']['sql']);
-                $password = $db->getOne('SELECT password FROM mails.accountuser WHERE username = ?', array($user_uid . '@HOST'));
+                $password = $db->getOne('SELECT password FROM mails.accountuser WHERE username = ?', array($user_uid . '@' . $_SERVER['SERVER_NAME']));
 
-                $GLOBALS['authentication'] = 'none';
-                $GLOBALS['noset_view'] = true;
-                require_once $GLOBALS['registry']->get('fileroot', 'imp') . '/lib/base.php';
-                require_once IMP_BASE . '/lib/Session.php';
-                $server = IMP_Session::getAutoLoginServer(true);
-
-                $try = IMP_Session::createSession($user_uid, $password, $server);
-                if ($try === true) {
-                    if ($GLOBALS['browser']->isMobile()) {
-                        require $GLOBALS['registry']->get('fileroot', 'mimp') . '/mailbox.php';
-                    } else {
-                        require $GLOBALS['registry']->get('fileroot', 'imp') . '/redirect.php';
-                    }
+                $try = $GLOBALS['registry']->callByPackage('imp', 'authenticate', array($user_uid, array('password' => $password)));
+                if ($try) {
+                    header('Location: ' . $GLOBALS['registry']->get('webroot', 'imp') . '/redirect.php');
+                    exit;
                 } else {
-                    $notification->push(_("There was an error login into your mail account."));
-                    header('Location: ' . $GLOBALS['registry']->get('webroot', 'folks') . 'login.php');
+                    $GLOBALS['notification']->push(_("There was an error login into your mail account."), 'horde.error');
+                    header('Location: ' . $GLOBALS['registry']->get('webroot', 'folks') . '/login.php');
+                    exit;
                 }
             } else {
-                header('Location: ' .  $GLOBALS['registry']->link('wiki/show',  array('page' => 'MailAccount')));
+                header('Location: ' .  $GLOBALS['registry']->link('wiki/show',  array('page' => 'ImapOpis')));
             }
 
             exit;
