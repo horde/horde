@@ -215,10 +215,11 @@ try {
 }
 
 $result = Horde::loadConfiguration('prefs.php', array('prefGroups', '_prefs'), 'imp');
-if (!is_a($result, 'PEAR_Error')) {
-    // @todo Don't use extract()
-    extract($result);
+if (is_a($result, 'PEAR_Error')) {
+    Horde::fatal($result, __FILE__, __LINE__);
 }
+extract($result);
+
 require_once 'Horde/Help.php';
 require_once 'Horde/Prefs/UI.php';
 $app = 'imp';

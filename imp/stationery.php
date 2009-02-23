@@ -97,10 +97,10 @@ if ($stationery['t'] == 'html') {
 /* Show the header. */
 require_once 'Horde/Prefs/UI.php';
 $result = Horde::loadConfiguration('prefs.php', array('prefGroups', '_prefs'), 'imp');
-if (!is_a($result, 'PEAR_Error')) {
-    // @todo Don't use extract()
-    extract($result);
+if (is_a($result, 'PEAR_Error')) {
+    Horde::fatal($result, __FILE__, __LINE__);
 }
+extract($result);
 
 $app = 'imp';
 $chunk = Util::nonInputVar('chunk');

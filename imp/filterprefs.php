@@ -12,11 +12,12 @@
 require_once dirname(__FILE__) . '/lib/base.php';
 require_once 'Horde/Help.php';
 require_once 'Horde/Prefs/UI.php';
+
 $result = Horde::loadConfiguration('prefs.php', array('prefGroups', '_prefs'), 'imp');
-if (!is_a($result, 'PEAR_Error')) {
-    // @todo Don't use extract()
-    extract($result);
+if (is_a($result, 'PEAR_Error')) {
+    Horde::fatal($result, __FILE__, __LINE__);
 }
+extract($result);
 
 /* Are preferences locked? */
 $login_locked = $prefs->isLocked('filter_on_login') || empty($_SESSION['imp']['filteravail']);
