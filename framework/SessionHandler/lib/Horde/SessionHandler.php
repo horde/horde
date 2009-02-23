@@ -145,9 +145,9 @@ class Horde_SessionHandler
     {
         $curr_time = time();
 
-        if (!isset($_SESSION['__sessionhandler']) ||
-            ($curr_time >= $_SESSION['__sessionhandler'])) {
-            $_SESSION['__sessionhandler'] = $curr_time + (ini_get('session.gc_maxlifetime') / 2);
+        if (!isset($_SESSION['sessionhandler']) ||
+            ($curr_time >= $_SESSION['sessionhandler'])) {
+            $_SESSION['sessionhandler'] = $curr_time + (ini_get('session.gc_maxlifetime') / 2);
             $this->_force = true;
         }
     }
