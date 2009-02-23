@@ -1,0 +1,9 @@
+/* Menu bottom margin, added for BC. */
+#menu {
+    margin-bottom: 8px;
+}
+
+/* Added for BC. */
+.hidden {
+    display: none;
+}

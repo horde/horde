@@ -1,0 +1,918 @@
+# Basque translations for Ingo.
+# Copyright 2008-2009 The Horde Project
+# This file is distributed under the same license as the Ingo package.
+# Euskal Herriko Unibertsitatea EHU/UPV <xabier.arrieta@ehu.es>, 2008.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Ingo H3 (1.1)\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2008-01-16 09:33+0100\n"
+"PO-Revision-Date: 2008-07-17 14:26+0200\n"
+"Last-Translator: Euskal Herriko Unibertsitatea EHU/UPV <xabier.arrieta@ehu."
+"es>\n"
+"Language-Team: Euskal Herriko Unibertsitatea EHU/UPV <xabier.arrieta@ehu."
+"es>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: filters.php:189
+msgid " and"
+msgstr " eta"
+
+#: filters.php:189
+msgid " or"
+msgstr " edo"
+
+#: templates/blacklist/blacklist.inc:17
+msgid "Action for blacklisted addresses:"
+msgstr "Zerrenda beltzeko helbideen ekintza:"
+
+#: templates/script/activate.inc:10
+msgid "Activate Script"
+msgstr "Aktibatu script-a"
+
+#: lib/Driver/ldap.php:232
+#, php-format
+msgid "Activating the script for \"%s\" failed: (%d) %s"
+msgstr "Huts egin du \"%s\"(r)en script-a aktibatzean: (%d) %s"
+
+#: templates/filters/settings.inc:8
+msgid "Additional Settings"
+msgstr "Beste ezarpen batzuk"
+
+#: templates/rule/header.inc:44
+msgid "All of the following"
+msgstr "Ondoko guztiarekin"
+
+#: lib/api.php:54
+msgid "Allow Rules"
+msgstr "Onartu arauak"
+
+#: templates/rule/footer.inc:33
+msgid "Answered"
+msgstr "Erantzunda"
+
+#: templates/rule/header.inc:45
+msgid "Any of the following"
+msgstr "Ondoko guztietako edozeinekin"
+
+#: templates/filters/footer.inc:8
+msgid "Apply Filters"
+msgstr "Aplikatu iragazkiak"
+
+#: filters.php:218
+msgid "Are you sure you want to delete this rule?"
+msgstr "Ziur zaude arau hau ezabatu nahi duzula?"
+
+#: config/prefs.php.dist:33
+msgid "Automatically update the script after each change?"
+msgstr "Automatikoki eguneratu script-a aldaketa bakoitzaren ondoren?"
+
+#: config/fields.php.dist:47
+msgid "Bcc"
+msgstr "Bcc"
+
+#: lib/Storage.php:379
+msgid "Begins with"
+msgstr "Honela hasten da"
+
+#: lib/Driver/ldap.php:106 lib/Driver/ldap.php:111
+#, php-format
+msgid "Bind failed: (%s) %s"
+msgstr "Loturak huts egin du: (%s) %s"
+
+#: filters.php:148 lib/Block/overview.php:95 lib/Block/overview.php:98
+#: templates/blacklist/blacklist.inc:7
+msgid "Blacklist"
+msgstr "Zerrenda beltza"
+
+#: blacklist.php:107
+msgid "Blacklist Edit"
+msgstr "Editatu zerrenda beltza"
+
+#: blacklist.php:17
+msgid "Blacklist is not supported in the current filtering driver."
+msgstr "Uneko iragazte-kontrolatzaileak ez du zerrenda beltzik onartzen."
+
+#: lib/Script/sieve.php:244 lib/Script/procmail.php:207
+#: lib/Script/maildrop.php:176
+msgid "Blacklisted Addresses"
+msgstr "Zerrenda beltzeko helbideak"
+
+#: config/fields.php.dist:88
+msgid "Body"
+msgstr "Testua"
+
+#: filters.php:186 rule.php:281
+msgid "Case Sensitive"
+msgstr "Maiuskula/minuskula"
+
+#: config/fields.php.dist:43
+msgid "Cc"
+msgstr "Cc"
+
+#: whitelist.php:36 rule.php:122 vacation.php:41 forward.php:33
+#: blacklist.php:73
+msgid "Changes saved."
+msgstr "Aldaketak gorde dira."
+
+#: lib/Driver/ldap.php:75
+msgid "Connection failure"
+msgstr "Konexioak huts egin du"
+
+#: lib/Storage.php:375
+msgid "Contains"
+msgstr "Hau dauka"
+
+#: filters.php:229 filters.php:230
+#, php-format
+msgid "Copy %s"
+msgstr "Kopiatu %s"
+
+#: lib/Storage.php:875
+#, php-format
+msgid "Copy of %s"
+msgstr "Kopia - %s"
+
+#: lib/Ingo.php:62
+msgid "Create new folder"
+msgstr "Sortu karpeta berria"
+
+#: lib/Script/procmail.php:336 lib/Script/maildrop.php:280
+msgid "DISABLED: "
+msgstr "DESGAITUTA: "
+
+#: templates/script/activate.inc:17
+msgid "Deactivate Script"
+msgstr "Desaktibatu script-a"
+
+#: filters.php:218 filters.php:219
+#, php-format
+msgid "Delete %s"
+msgstr "Ezabatu %s"
+
+#: templates/rule/filter.inc:30
+msgid "Delete Condition"
+msgstr "Ezabatu baldintza"
+
+#: lib/Storage.php:323
+msgid "Delete message completely"
+msgstr "Ezabatu mezua erabat"
+
+#: templates/rule/footer.inc:35
+msgid "Deleted"
+msgstr "Ezabatuta"
+
+#: lib/Storage.php:311
+msgid "Deliver into my Inbox"
+msgstr "Banatu nire sarrerako ontzian"
+
+#: lib/Storage.php:337
+msgid "Deliver into my Inbox and copy to"
+msgstr "Banatu sarrerako ontzian eta kopiatu hona"
+
+#: lib/Storage.php:332
+msgid "Deliver into my Inbox and redirect to"
+msgstr "Banatu sarrerako ontzian eta birbideratu hona"
+
+#: lib/Storage.php:317
+msgid "Deliver to folder"
+msgstr "Banatu karpetan"
+
+#: filters.php:242 filters.php:243
+#, php-format
+msgid "Disable %s"
+msgstr "Desgaitu %s"
+
+#: templates/vacation/vacation.inc:6 templates/rule/header.inc:26
+#: templates/forward/forward.inc:10 templates/blacklist/blacklist.inc:10
+#: templates/whitelist/whitelist.inc:10
+msgid "Disabled"
+msgstr "Desgaituta"
+
+#: templates/filters/settings.inc:15
+msgid "Display detailed notification when each filter is applied?"
+msgstr "Jakinarazpen xehea bistaratu iragazki bakoitza aplikatzen denean?"
+
+#: templates/vacation/vacation.inc:34
+msgid "Do _not send responses to bulk or list messages"
+msgstr "E_z erantzun mezu baztergarriei edo masiboei"
+
+#: templates/rule/footer.inc:10
+msgid "Do this:"
+msgstr "Egin ondokoa:"
+
+#: lib/Storage.php:380
+msgid "Doesn't begin with"
+msgstr "Ez da honela hasten"
+
+#: lib/Storage.php:376
+msgid "Doesn't contain"
+msgstr "Ez dauka"
+
+#: lib/Storage.php:382
+msgid "Doesn't end with"
+msgstr "Ez da honela amaitzen"
+
+#: lib/Storage.php:384
+msgid "Doesn't exist"
+msgstr "Ez dago"
+
+#: lib/Storage.php:387
+msgid "Doesn't match (with placeholders)"
+msgstr "Ez dator bat (leku-markekin)"
+
+#: lib/Block/overview.php:63 lib/Block/overview.php:72
+#: lib/Block/overview.php:87 lib/Block/overview.php:97
+#: templates/filters/header.inc:46
+msgid "Edit"
+msgstr "Editatu"
+
+#: filters.php:207 filters.php:209 filters.php:213 filters.php:214
+#, php-format
+msgid "Edit %s"
+msgstr "Editatu %s"
+
+#: filters.php:246 filters.php:247
+#, php-format
+msgid "Enable %s"
+msgstr "Gaitu %s"
+
+#: templates/filters/header.inc:48
+msgid "Enabled"
+msgstr "Gaituta"
+
+#: lib/Storage.php:381
+msgid "Ends with"
+msgstr "Honela amaitzen da"
+
+#: lib/Storage.php:392
+msgid "Equal to"
+msgstr "Berdin"
+
+#: lib/Driver/ldap.php:139 lib/Driver/ldap.php:149 lib/Driver/ldap.php:158
+#: lib/Driver/ldap.php:168
+#, php-format
+msgid "Error retrieving current script: (%d) %s"
+msgstr "Errorea uneko script-a eskuratzean: (%d) %s"
+
+#: blacklist.php:71
+msgid "Error saving changes."
+msgstr "Errorea aldaketak gordetzean."
+
+#: templates/filters/header.inc:41
+msgid "Existing Rules"
+msgstr "Arauak"
+
+#: lib/Storage.php:383
+msgid "Exists"
+msgstr "Badago"
+
+#: lib/Driver/ldap.php:144
+#, php-format
+msgid "Expected 1 object, got %d."
+msgstr "Objektu 1 espero zen, % lortu dira."
+
+#: templates/filters/settings.inc:22
+msgid "Filter All Messages"
+msgstr "Iragazi mezu guztiak"
+
+#: templates/filters/settings.inc:24
+msgid "Filter Only Seen Messages"
+msgstr "Iragazi ikusitako mezuak bakarrik"
+
+#: templates/filters/settings.inc:23
+msgid "Filter Only Unseen Messages"
+msgstr "Iragazi ikusi gabeko mezuak bakarrik"
+
+#: templates/filters/settings.inc:20
+msgid "Filter Options"
+msgstr "Iragazteko aukerak"
+
+#: templates/rule/header.inc:25
+msgid "Filter Rule"
+msgstr "Iragazteko araua"
+
+#: filters.php:113
+msgid "Filter Rules"
+msgstr "Iragazteko arauak"
+
+#: script.php:52
+msgid "Filter Script Display"
+msgstr "Iragazteko script-aren bistaratzea"
+
+#: lib/Ingo.php:321
+msgid "Filter _Rules"
+msgstr "Iragazteko _arauak"
+
+#: lib/Script/imap.php:314
+#, php-format
+msgid "Filter activity: %s message(s) have been copied to the folder \"%s\"."
+msgstr "Iragazkiaren jarduera: %s mezu kopiatu dira \"%s\" karpetan."
+
+#: lib/Script/imap.php:301
+#, php-format
+msgid "Filter activity: %s message(s) have been deleted."
+msgstr "Iragazkiaren jarduera: %s mezu ezabatu dira."
+
+#: lib/Script/imap.php:279
+#, php-format
+msgid "Filter activity: %s message(s) have been moved to the folder \"%s\"."
+msgstr "Iragazkiaren jarduera: %s mezu eraman dira \"%s\" karpetara."
+
+#: lib/Script/imap.php:182
+#, php-format
+msgid "Filter activity: %s message(s) that matched the blacklist were deleted."
+msgstr ""
+"Iragazkiaren jarduera: zerrenda beltzarekin bat zetozen %s mezu ezabatu dira."
+
+#: lib/Script/imap.php:311
+#, php-format
+msgid ""
+"Filter activity: The message \"%s\" from \"%s\" has been copied to the "
+"folder \"%s\"."
+msgstr ""
+"Iragazkiaren jarduera: \"%2$s\"(r)en \"%1$s\" mezua \"%3$s\" karpetan "
+"kopiatu da."
+
+#: lib/Script/imap.php:296
+#, php-format
+msgid "Filter activity: The message \"%s\" from \"%s\" has been deleted."
+msgstr "Iragazkiaren jarduera: \"%2$s\"(r)en \"%1$s\" mezua ezabatu egin da."
+
+#: lib/Script/imap.php:273
+#, php-format
+msgid ""
+"Filter activity: The message \"%s\" from \"%s\" has been moved to the folder "
+"\"%s\"."
+msgstr ""
+"Iragazkiaren jarduera: \"%2$s\"(r)en \"%1$s\" mezua \"%3$s\" karpetara "
+"eraman da."
+
+#: rule.php:160
+msgid "Filter not found."
+msgstr "Iragazkia ez da aurkitu."
+
+#: templates/rule/header.inc:42
+msgid "For an incoming message that matches:"
+msgstr "Honekin bat datorren iritsitako mezu bakoitza:"
+
+#: filters.php:166 lib/Block/overview.php:71 lib/Block/overview.php:73
+#: templates/forward/forward.inc:8
+msgid "Forward"
+msgstr "Birbidali"
+
+#: forward.php:16
+msgid "Forward is not supported in the current filtering driver."
+msgstr "Uneko iragazte-kontrolatzaileak ez du birbidaltzerik onartzen."
+
+#: lib/Script/sieve.php:214 lib/Script/procmail.php:282
+#: lib/Script/maildrop.php:225
+msgid "Forwards"
+msgstr "Birbidalketak"
+
+#: forward.php:45
+msgid "Forwards Edit"
+msgstr "Editatu birbidalketak"
+
+#: config/fields.php.dist:39
+msgid "From"
+msgstr "Nork"
+
+#: lib/Script/sieve.php:2066
+msgid "From:"
+msgstr "Nork:"
+
+#: lib/Script/sieve.php:110
+msgid "Generated by Ingo (http://www.horde.org/ingo/)"
+msgstr "Ingo-k sortua (http://www.horde.org/ingo/)"
+
+#: lib/Storage.php:390
+msgid "Greater than"
+msgstr "Hau baino handiagoa"
+
+#: lib/Storage.php:391
+msgid "Greater than or equal to"
+msgstr "Hau baino handiagoa edo berdina da"
+
+#: templates/rule/footer.inc:31
+msgid "Important"
+msgstr "Garrantzitsua"
+
+#: rule.php:36
+msgid "Individual rules are not supported in the current filtering driver."
+msgstr "Uneko iragazte-kontrolatzaileak ez du arau indibidualik onartzen."
+
+#: lib/Script/sieve.php:1864
+msgid "Inexistant mailbox specified for message delivery."
+msgstr "Mezua banatzeko zehaztutako postontzia ez dago."
+
+#: lib/Storage.php:377
+msgid "Is"
+msgstr "Hau da"
+
+#: lib/Storage.php:378
+msgid "Isn't"
+msgstr "Ez da hau"
+
+#: lib/Driver/ldap.php:23
+msgid ""
+"LDAP support is required but the LDAP module is not available or not loaded."
+msgstr ""
+"LDAP euskarria behar da, baina LDAP modulua ez dago erabilgarri edo ez da "
+"kargatu."
+
+#: lib/Storage.php:388
+msgid "Less than"
+msgstr "Hau baino txikiagoa"
+
+#: lib/Storage.php:389
+msgid "Less than or equal to"
+msgstr "Txikiago edo berdin"
+
+#: config/fields.php.dist:59
+msgid "List-ID"
+msgstr "List-Id"
+
+#: templates/blacklist/blacklist.inc:20
+msgid "Mar_k message as deleted"
+msgstr "_Markatu mezua ezabatutako gisa"
+
+#: templates/rule/footer.inc:24
+msgid "Mark message as:"
+msgstr "Markatu mezua honela:"
+
+#: lib/Storage.php:386
+msgid "Matches (with placeholders)"
+msgstr "Bat dator (leku-markekin)"
+
+#: lib/api.php:57
+msgid "Maximum Number of Rules"
+msgstr "Arauen gehieneko kopurua"
+
+#: lib/Storage.php:513
+#, php-format
+msgid ""
+"Maximum number of blacklisted addresses exceeded (Total addresses: %s, "
+"Maximum addresses: %s).  Could not add new addresses to blacklist."
+msgstr ""
+"Zerrenda beltzeko helbideen gehieneko kopurua gainditu da (Helbideak "
+"guztira: %s, Gehieneko kopurua: %s).  Ezin izan da helbide berririk gehitu "
+"zerrenda beltzean."
+
+#: lib/Storage.php:566
+#, php-format
+msgid ""
+"Maximum number of whitelisted addresses exceeded (Total addresses: %s, "
+"Maximum addresses: %s).  Could not add new addresses to whitelist."
+msgstr ""
+"Zerrenda zuriko helbideen gehieneko kopurua gainditu da (Helbideak guztira: %"
+"s, Gehieneko kopurua: %s).  Ezin izan da helbide berririk gehitu zerrenda "
+"zurian."
+
+#: lib/Script/sieve.php:2074
+msgid "Missing address to notify"
+msgstr "Jakinarazpena bidali beharreko helbidea falta da"
+
+#: lib/Script/sieve.php:1732
+msgid "Missing address to redirect message to"
+msgstr "Mezua birbideratu beharreko helbidea falta da"
+
+#: lib/Script/sieve.php:1764
+msgid "Missing reason for reject"
+msgstr "Ezesteko arrazoia falta da"
+
+#: lib/Script/sieve.php:1931
+msgid "Missing reason in vacation."
+msgstr "Kanpoan egoteko arrazoia falta da."
+
+#: templates/filters/header.inc:49
+msgid "Move"
+msgstr "Lekuz aldatu"
+
+#: filters.php:130 filters.php:239
+msgid "Move Rule Down"
+msgstr "Eraman araua behera"
+
+#: filters.php:131 filters.php:238
+msgid "Move Rule Up"
+msgstr "Eraman araua gora"
+
+#: templates/vacation/vacation.inc:42
+msgid "N_umber of days between vacation replies:"
+msgstr "_Kanpoan zaudeneko erantzunen arteko egun kopurua:"
+
+#: lib/Storage.php:771 templates/filters/footer.inc:6
+#: templates/filters/filter-none.inc:3
+msgid "New Rule"
+msgstr "Arau berria"
+
+#: lib/Ingo.php:235 lib/Ingo.php:237
+#, php-format
+msgid "No \"%s\" element found in backend configuration."
+msgstr "Ez da \"%s\" elementurik aurkitu modulu-konfigurazioan."
+
+#: lib/Ingo.php:233
+msgid "No backend configured for this host"
+msgstr "Ez da modulurik konfiguratu ostalari honentzat"
+
+#: lib/Ingo.php:210
+msgid "No backends configured in backends.php"
+msgstr "Ez dago modulurik konfiguratuta backends.php-n"
+
+#: templates/filters/filter-none.inc:3
+#, php-format
+msgid "No filters. Click \"%s\" to create a new filter."
+msgstr "Iragazkirik ez. Hautatu \"%s\" iragazki berri bat sortzeko."
+
+#: lib/Script/sieve.php:1332 lib/Script/sieve.php:1425
+#: lib/Script/sieve.php:1602
+msgid "No headers specified"
+msgstr "Ez da goibururik zehaztu"
+
+#: script.php:67
+msgid "No script generated."
+msgstr "Ez da script-ik sortu."
+
+#: lib/Script/sieve.php:1618
+msgid "No strings specified"
+msgstr "Ez da katerik zehaztu"
+
+#: lib/Storage.php:393
+msgid "Not equal to"
+msgstr "Desberdina"
+
+#: lib/Storage.php:353
+msgid "Notify email address"
+msgstr "Jakinarazi posta-helbidea"
+
+#: lib/Storage.php:347
+msgid "Only flag the message"
+msgstr "Jarri bandera mezuari bakarrik"
+
+#: config/prefs.php.dist:19
+msgid "Options about script updating."
+msgstr "Script-ak eguneratzeari buruzko aukerak."
+
+#: config/prefs.php.dist:17
+msgid "Other Options"
+msgstr "Beste aukera batzuk"
+
+#: lib/Block/overview.php:3
+msgid "Overview"
+msgstr "Aurkezpen orokorra"
+
+#: templates/javascript/new_folder.js:6
+msgid "Please enter the name of the new folder:"
+msgstr "Idatzi karpeta berriaren izena:"
+
+#: templates/vacation/vacation.inc:60
+msgid "R_eason"
+msgstr "_Arrazoia"
+
+#: config/fields.php.dist:63
+msgid "Received"
+msgstr "Jasotze-data"
+
+#: lib/Storage.php:328
+msgid "Redirect to"
+msgstr "Birbideratu hona"
+
+#: lib/Storage.php:385
+msgid "Regular expression"
+msgstr "Adierazpen erregularra"
+
+#: lib/Storage.php:343
+msgid "Reject with reason"
+msgstr "Ezetsi arrazoiarekin"
+
+#: config/fields.php.dist:55
+msgid "Resent To"
+msgstr "Bidali berriro honi"
+
+#: config/fields.php.dist:51
+msgid "Resent-from"
+msgstr "Honek berriro bidalia"
+
+#: templates/rule/footer.inc:60
+msgid "Return to Filters List"
+msgstr "Itzuli iragazkien zerrendara"
+
+#: templates/vacation/vacation.inc:71 templates/forward/forward.inc:34
+#: templates/blacklist/blacklist.inc:41 templates/whitelist/whitelist.inc:24
+msgid "Return to Rules List"
+msgstr "Itzuli arauen zerrendara"
+
+#: templates/filters/header.inc:47
+msgid "Rule"
+msgstr "Araua"
+
+#: filters.php:63
+msgid "Rule Copied"
+msgstr "Araua kopiatu da"
+
+#: filters.php:42
+msgid "Rule Deleted"
+msgstr "Araua ezabatu da"
+
+#: filters.php:79
+msgid "Rule Disabled"
+msgstr "Araua desgaitu da"
+
+#: filters.php:84
+msgid "Rule Enabled"
+msgstr "Araua gaitu da"
+
+#: templates/rule/header.inc:33
+msgid "Rule Name"
+msgstr "Arauaren izena"
+
+#: lib/Script/sieve.php:2068
+msgid "Rule:"
+msgstr "Araua:"
+
+#: lib/Driver/ldap.php:88
+#, php-format
+msgid "STARTTLS failed: (%s) %s"
+msgstr "STARTTLSek huts egin du: (%s) %s"
+
+#: templates/vacation/vacation.inc:70 templates/rule/footer.inc:59
+#: templates/forward/forward.inc:33 templates/blacklist/blacklist.inc:40
+#: templates/whitelist/whitelist.inc:23
+msgid "Save"
+msgstr "Gorde"
+
+#: templates/filters/settings.inc:31
+msgid "Save Settings"
+msgstr "Gorde ezarpenak"
+
+#: templates/script/header.inc:2
+msgid "Script"
+msgstr "Script-a"
+
+#: config/prefs.php.dist:18
+msgid "Script Updating"
+msgstr "Script-a eguneratzea"
+
+#: lib/Ingo.php:186
+msgid "Script not updated."
+msgstr "Script-a ez da eguneratu."
+
+#: lib/Ingo.php:141
+msgid "Script successfully activated."
+msgstr "Script-a ondo aktibatu da."
+
+#: lib/Ingo.php:140
+msgid "Script successfully deactivated."
+msgstr "Script-a ondo desaktibatu da."
+
+#: templates/rule/footer.inc:29
+msgid "Seen"
+msgstr "Ikusita"
+
+#: rule.php:190
+msgid "Select a field"
+msgstr "Hautatu eremua"
+
+#: lib/Ingo.php:59
+msgid "Select target folder"
+msgstr "Hautatu helburu-karpeta"
+
+#: rule.php:227
+msgid "Self-Defined Header"
+msgstr "Erabiltzaileak definitutako goiburua"
+
+#: config/fields.php.dist:35
+msgid "Sender"
+msgstr "Bidaltzailea"
+
+#: filters.php:98
+msgid "Settings successfully updated."
+msgstr "Ezarpenak ondo eguneratu dira."
+
+#: templates/script/activate.inc:24
+msgid "Show Active Script"
+msgstr "Erakutsi script aktiboa"
+
+#: templates/script/activate.inc:31
+msgid "Show Current Script"
+msgstr "Erakutsi uneko script-a"
+
+#: config/fields.php.dist:83
+msgid "Size"
+msgstr "Tamaina"
+
+#: templates/rule/footer.inc:49
+msgid "Stop checking if this rule matches?"
+msgstr "Egiaztatzeari utzi araua bat badator?"
+
+#: templates/vacation/vacation.inc:51
+msgid "Subje_ct of vacation message:"
+msgstr "_Kanpoan zaudeneko mezuaren gaia:"
+
+#: config/fields.php.dist:31
+msgid "Subject"
+msgstr "Gaia"
+
+#: lib/Script/sieve.php:2067
+msgid "Subject:"
+msgstr "Gaia:"
+
+#: lib/api.php:85
+#, php-format
+msgid "The address \"%s\" has been added to your blacklist."
+msgstr "\"%s\" helbidea zerrenda beltzean gehitu da."
+
+#: lib/api.php:104
+#, php-format
+msgid "The address \"%s\" has been added to your whitelist."
+msgstr "\"%s\" helbidea zerrenda zurian gehitu da."
+
+#: lib/Ingo.php:136
+msgid "The driver said: "
+msgstr "Kontrolatzaileak hau esan du: "
+
+#: lib/Ingo.php:135
+msgid "There was an error activating the script."
+msgstr "Errorea gertatu da script-a aktibatzean."
+
+#: lib/Ingo.php:134
+msgid "There was an error deactivating the script."
+msgstr "Errorea gertatu da script-a desaktibatzean."
+
+#: config/fields.php.dist:27
+msgid "To"
+msgstr "Nori"
+
+#: templates/filters/filter.html:23
+msgid "To:"
+msgstr "Nori:"
+
+#: lib/Script.php:127
+#, php-format
+msgid "Unable to load the definition of %s."
+msgstr "Ezin da kargatu %s(r)en definizioa."
+
+#: filters.php:160 lib/Script/sieve.php:352 lib/Script/procmail.php:262
+#: lib/Block/overview.php:61 lib/Block/overview.php:64
+#: templates/vacation/vacation.inc:5
+msgid "Vacation"
+msgstr "Kanpoan"
+
+#: vacation.php:71
+msgid "Vacation Edit"
+msgstr "Editatu kanpoan zaudeneko mezua"
+
+#: vacation.php:16
+msgid "Vacation is not supported in the current filtering driver."
+msgstr ""
+"Uneko iragazte-kontrolatzaileak ez du kanpoan zaudeneko baliabidea onartzen."
+
+#: templates/whitelist/whitelist.inc:16
+msgid "Wh_itelist addresses:"
+msgstr "Z_errenda zuriko helbideak:"
+
+#: filters.php:154 lib/Block/overview.php:85 lib/Block/overview.php:88
+#: templates/whitelist/whitelist.inc:8
+msgid "Whitelist"
+msgstr "Zerrenda zuria"
+
+#: whitelist.php:55
+msgid "Whitelist Edit"
+msgstr "Editatu zerrenda zuria"
+
+#: whitelist.php:18
+msgid "Whitelist is not supported in the current filtering driver."
+msgstr "Uneko iragazte-kontrolatzaileak ez du zerrenda zuririk onartzen."
+
+#: lib/Script/sieve.php:298 lib/Script/procmail.php:234
+#: lib/Script/maildrop.php:203
+msgid "Whitelisted Addresses"
+msgstr "Zerrenda zuriko helbideak"
+
+#: config/fields.php.dist:79
+msgid "X-Priority"
+msgstr "X-Priority"
+
+#: config/fields.php.dist:67
+msgid "X-Spam-Level"
+msgstr "X-Spam-Level"
+
+#: config/fields.php.dist:71
+msgid "X-Spam-Score"
+msgstr "X-Spam-Score"
+
+#: config/fields.php.dist:75
+msgid "X-Spam-Status"
+msgstr "X-Spam-Status"
+
+#: filters.php:56 rule.php:144
+#, php-format
+msgid "You are not allowed to create more than %d rules."
+msgstr "Ez duzu baimenik %d arau baino gehiago sortzeko."
+
+#: filters.php:48 rule.php:21
+msgid "You are not allowed to create or edit custom rules."
+msgstr "Ez duzu baimenik arau pertsonalizatuak sortzeko edo editatzeko."
+
+#: lib/Script/sieve.php:2065
+msgid "You have received a new message"
+msgstr "Mezu berri bat jaso duzu"
+
+#: vacation.php:30
+msgid ""
+"You must specify at least one email address for which the vacation messages "
+"should be activated."
+msgstr ""
+"Helbide elektronikoren bat zehaztu behar duzu kanpoan zaudeneko mezuak "
+"aktibatu ahal izateko."
+
+#: lib/Script/imap.php:274 lib/Script/imap.php:297 lib/Script/imap.php:311
+msgid "[No Subject]"
+msgstr "[Gairik ez]"
+
+#: templates/forward/forward.inc:24
+msgid "_Address(es) to forward to:"
+msgstr "_Birbideratu beharreko helbideak:"
+
+#: templates/vacation/vacation.inc:23
+msgid "_Addresses to not send responses to:"
+msgstr "_Erantzunik ez bidaltzeko helbideak:"
+
+#: lib/Ingo.php:326
+msgid "_Blacklist"
+msgstr "_Zerrenda beltza"
+
+#: templates/blacklist/blacklist.inc:18
+msgid "_Delete message completely"
+msgstr "Ez_abatu mezua erabat"
+
+#: templates/blacklist/blacklist.inc:31
+msgid "_Enter each address on a new line:"
+msgstr "_Sartu helbide bakoitza lerro berri batean:"
+
+#: lib/Ingo.php:332
+msgid "_Forward"
+msgstr "_Birbidali"
+
+#: templates/forward/forward.inc:17
+msgid "_Keep a copy of messages in this account?"
+msgstr "_Mezuen kopia bat gorde kontu honetan?"
+
+#: templates/blacklist/blacklist.inc:22
+msgid "_Move message to folder:"
+msgstr "_Eraman mezuak karpeta honetara:"
+
+#: templates/vacation/vacation.inc:13
+msgid "_My email addresses:"
+msgstr "_Nire helbide elektronikoak:"
+
+#: lib/Ingo.php:335
+msgid "_Script"
+msgstr "_Script-a"
+
+#: lib/Ingo.php:329
+msgid "_Vacation"
+msgstr "_Kanpoan"
+
+#: lib/Ingo.php:323
+msgid "_Whitelist"
+msgstr "Ze_rrenda zuria"
+
+#: lib/Block/overview.php:54
+msgid "active"
+msgstr "aktibo"
+
+#: templates/rule/filter.inc:4
+msgid "and"
+msgstr "eta"
+
+#: templates/filters/filter.html:13
+msgid "disabled - click to enable"
+msgstr "desgaituta - egin klik gaitzeko"
+
+#: filters.php:184
+msgid "field"
+msgstr "eremua"
+
+#: lib/Block/overview.php:52
+msgid "inactive"
+msgstr "inaktibo"
+
+#: lib/Script/maildrop.php:121
+msgid "maildrop script generated by Ingo"
+msgstr "Ingo-k sortutako maildrop script-a"
+
+#: filters.php:184
+msgid "match"
+msgstr "bat etorri"
+
+#: templates/rule/filter.inc:4
+msgid "or"
+msgstr "edo"
+
+#: lib/Script/procmail.php:128
+msgid "procmail script generated by Ingo"
+msgstr "Ingo-k sortutako procmail script-a"
