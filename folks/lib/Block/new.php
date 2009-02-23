@@ -48,12 +48,26 @@ class Horde_Block_Folks_new extends Horde_Block {
             return $new;
         }
 
-        $html = '';
-
-        foreach ($new as $user) {
-            $html .= '<a href="' . Folks::getUrlFor('user', $user['user_uid']) . '">' . $user['user_uid'] . '</a> ';
+        $list = array();
+        foreach ($new as $u) {
+            $list[] = $u['user_uid'];
         }
 
-        return $html;
+        // Prepare actions
+        $actions = array(
+            array('url' => Horde::applicationUrl('user.php'),
+                'id' => 'user',
+                'name' => _("View profile")));
+        if ($GLOBALS['registry']->hasInterface('letter')) {
+            $actions[] = array('url' => $GLOBALS['registry']->callByPackage('letter', 'compose', ''),
+                                'id' => 'user_to',
+                                'name' => _("Send message"));
+        }
+
+        Horde::addScriptFile('stripe.js', 'horde', true);
+
+        ob_start();
+        require FOLKS_TEMPLATES . '/block/users.php';
+        return ob_get_clean();
     }
 }

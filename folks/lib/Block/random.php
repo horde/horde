@@ -48,17 +48,27 @@ class Horde_Block_Folks_random extends Horde_Block {
     {
         require_once dirname(__FILE__) . '/../base.php';
 
-        $recent = $GLOBALS['folks_driver']->getRandomUsers($this->_params['limit'], $this->_params['online'] == 'online');
-        if ($recent instanceof PEAR_Error) {
-            return $recent;
+        $list = $GLOBALS['folks_driver']->getRandomUsers($this->_params['limit'],
+                                                        $this->_params['online'] == 'online');
+        if ($list instanceof PEAR_Error) {
+            return $list;
         }
 
-        $html = '';
-
-        foreach ($recent as $user) {
-            $html .= '<a href="' . Folks::getUrlFor('user', $user) . '">' . $user . '</a> ';
+        // Prepare actions
+        $actions = array(
+            array('url' => Horde::applicationUrl('user.php'),
+                'id' => 'user',
+                'name' => _("View profile")));
+        if ($GLOBALS['registry']->hasInterface('letter')) {
+            $actions[] = array('url' => $GLOBALS['registry']->callByPackage('letter', 'compose', ''),
+                                'id' => 'user_to',
+                                'name' => _("Send message"));
         }
 
-        return '';
+        Horde::addScriptFile('stripe.js', 'horde', true);
+
+        ob_start();
+        require FOLKS_TEMPLATES . '/block/users.php';
+        return ob_get_clean();
     }
 }
