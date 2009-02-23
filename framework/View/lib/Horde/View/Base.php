@@ -14,6 +14,11 @@
 abstract class Horde_View_Base
 {
     /**
+     * @var string
+     */
+    public static $defaultFormBuilder = 'Horde_View_Helper_Form_Builder';
+
+    /**
      * Path stack for templates.
      *
      * @var array
