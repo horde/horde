@@ -49,7 +49,6 @@ class Horde_Service_Facebook_Auth
     const EXTEND_PERMS_STATUSUPDATE = 'status_update';
     const EXTEND_PERMS_SHAREITEM = 'share_item';
     const EXTEND_PERMS_UPLOADPHOTO = 'photo_upload';
-\
 
     /**
      * TODO: Probably abstract out a Base class for these?
