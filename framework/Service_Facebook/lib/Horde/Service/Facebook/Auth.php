@@ -411,7 +411,7 @@ class Horde_Service_Facebook_Auth
      *
      * @return void
      */
-    public function setUser($user, $sessionKey, $expires = null, $no_coookie = false)
+    public function setUser($user, $sessionKey, $expires = null, $no_cookie = false)
     {
         if ($no_cookie || !$this->_request->getCookie($this->_facebook->api_key . '_user') ||
             $this->_request->getCookie($this->_facebook->api_key . '_user') != $user) {
