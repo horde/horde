@@ -129,21 +129,19 @@ class Horde_Service_Facebook
      */
     public function __construct($api_key, $secret, $context)
     {
-        // We require a http client object, but we can get it from a
-        // controller if we have one.
-        if (empty($context['http_client']) && empty($context['controller'])) {
+        // We require a http client object.
+        if (empty($context['http_client'])) {
             throw new InvalidArgumentException('A http client object is required');
-        } elseif (!empty($context['http_client'])) {
-            $this->_http = $context['http_client'];
-        } else {
-            $this->_http = $context['controller']->getRequest();
         }
 
-        // Required Horde_Controller_Request object
-        if (empty($context['http_request'])) {
+        // Required Horde_Controller_Request object, but we can also get it
+        // if we have a Horde_Controller object.
+        if (empty($context['http_request']) && empty($context['controller'])) {
             throw new InvalidArgumentException('A http request object is required');
-        } else {
+        } elseif (!empty($context['http_request'])) {
             $this->_request = $context['http_request'];
+        } else {
+            $this->_request = $context['controller']->request;
         }
 
         // Optional Horde_Log_Logger
