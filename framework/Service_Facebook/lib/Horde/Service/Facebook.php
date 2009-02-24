@@ -270,59 +270,6 @@ class Horde_Service_Facebook
     }
 
     /**
-     * Returns whether or not pairs of users are friends.
-     * Note that the Facebook friend relationship is symmetric.
-     *
-     * @param string $uids1  comma-separated list of ids (id_1, id_2,...)
-     *                       of some length X
-     * @param string $uids2  comma-separated list of ids (id_A, id_B,...)
-     *                       of SAME length X
-     *
-     * @return array  An array with uid1, uid2, and bool if friends, e.g.:
-     *   array(0 => array('uid1' => id_1, 'uid2' => id_A, 'are_friends' => 1),
-     *         1 => array('uid1' => id_2, 'uid2' => id_B, 'are_friends' => 0)
-     *         ...)
-     * @error
-     *    API_EC_PARAM_USER_ID_LIST
-     */
-    public function &friends_areFriends($uids1, $uids2)
-    {
-        return $this->call_method('facebook.friends.areFriends',
-            array('uids1' => $uids1, 'uids2' => $uids2));
-    }
-
-    /**
-     * Returns the friends of the current session user.
-     *
-     * @param int $flid  (Optional) Only return friends on this friend list.
-     * @param int $uid   (Optional) Return friends for this user.
-     *
-     * @return array  An array of friends
-     */
-    public function &friends_get($flid=null, $uid = null)
-    {
-        $params = array();
-        if ($uid) {
-          $params['uid'] = $uid;
-        }
-        if ($flid) {
-          $params['flid'] = $flid;
-        }
-
-        return $this->call_method('facebook.friends.get', $params);
-    }
-
-    /**
-     * Returns the set of friend lists for the current session user.
-     *
-     * @return array  An array of friend list objects
-     */
-    public function &friends_getLists()
-    {
-        return $this->call_method('facebook.friends.getLists');
-    }
-
-    /**
      * Returns groups according to the filters specified.
      *
      * @param int $uid     (Optional) User associated with groups.  A null
