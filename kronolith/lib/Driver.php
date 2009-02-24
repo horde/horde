@@ -186,7 +186,7 @@ class Kronolith_Driver {
      * @return Kronolith_Driver  The newly created concrete Kronolith_Driver
      *                           instance, or a PEAR_Error on error.
      */
-    function &factory($driver = null, $params = null)
+    function factory($driver = null, $params = null)
     {
         if ($driver === null) {
             $driver = $GLOBALS['conf']['calendar']['driver'];
@@ -200,7 +200,7 @@ class Kronolith_Driver {
         include_once dirname(__FILE__) . '/Driver/' . $driver . '.php';
         $class = 'Kronolith_Driver_' . $driver;
         if (class_exists($class)) {
-            $driver = &new $class($params);
+            $driver = new $class($params);
             $result = $driver->initialize();
             if (is_a($result, 'PEAR_Error')) {
                 $driver = new Kronolith_Driver($params, sprintf(_("The Calendar backend is not currently available: %s"), $result->getMessage()));

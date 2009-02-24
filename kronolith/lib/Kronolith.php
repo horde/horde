@@ -38,7 +38,14 @@ define('PERMS_DELEGATE', 1024);
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Kronolith
  */
-class Kronolith {
+class Kronolith
+{
+    /**
+     * Driver singleton instances.
+     *
+     * @var array
+     */
+    static protected $_instances = array();
 
     /**
      * Output everything up to but not including the <body> tag.
@@ -791,171 +798,6 @@ class Kronolith {
     }
 
     /**
-     * Fetches a remote calendar into the session and return the data.
-     *
-     * @param string $url  The location of the remote calendar.
-     *
-     * @return mixed  Either the calendar data, or an error on failure.
-     */
-    function getRemoteCalendar($url)
-    {
-        $url = trim($url);
-
-        /* Treat webcal:// URLs as http://. */
-        if (substr($url, 0, 9) == 'webcal://') {
-            $url = str_replace('webcal://', 'http://', $url);
-        }
-
-        if (empty($_SESSION['kronolith']['remote'][$url])) {
-            $options['method'] = 'GET';
-            $options['timeout'] = 5;
-            $options['allowRedirects'] = true;
-
-            if (!empty($GLOBALS['conf']['http']['proxy']['proxy_host'])) {
-                $options = array_merge($options, $GLOBALS['conf']['http']['proxy']);
-            }
-
-            $http = new HTTP_Request($url, $options);
-            /* Check for HTTP authentication credentials */
-            $cals = unserialize($GLOBALS['prefs']->getValue('remote_cals'));
-            foreach ($cals as $cal) {
-                if ($cal['url'] == $url) {
-                    $user = isset($cal['user']) ? $cal['user'] : '';
-                    $password = isset($cal['password']) ? $cal['password'] : '';
-                    $key = Auth::getCredential('password');
-                    if ($key && $user) {
-                        require_once 'Horde/Secret.php';
-                        $user = Secret::read($key, base64_decode($user));
-                        $password = Secret::read($key, base64_decode($password));
-                    }
-                    break;
-                }
-            }
-            if (!empty($user)) {
-                $http->setBasicAuth($user, $password);
-            }
-            @$http->sendRequest();
-            if ($http->getResponseCode() != 200) {
-                Horde::logMessage(sprintf('Failed to retrieve remote calendar: url = "%s", status = %s',
-                                          $url, $http->getResponseCode()),
-                                  __FILE__, __LINE__, PEAR_LOG_ERR);
-                return PEAR::raiseError(sprintf(_("Could not open %s."), $url));
-            }
-            $_SESSION['kronolith']['remote'][$url] = $http->getResponseBody();
-
-            /* Log fetch at DEBUG level. */
-            Horde::logMessage(sprintf('Retrieved remote calendar for %s: url = "%s"',
-                                      Auth::getAuth(), $url),
-                              __FILE__, __LINE__, PEAR_LOG_DEBUG);
-        }
-
-        return $_SESSION['kronolith']['remote'][$url];
-    }
-
-    /**
-     * Returns all the events from a remote calendar.
-     *
-     * @param string $url  The url of the remote calendar.
-     */
-    function listRemoteEvents($url)
-    {
-        global $kronolith_driver;
-
-        $data = Kronolith::getRemoteCalendar($url);
-        if (is_a($data, 'PEAR_Error')) {
-            return $data;
-        }
-
-        $iCal = new Horde_iCalendar();
-        if (!$iCal->parsevCalendar($data)) {
-            return array();
-        }
-
-        $components = $iCal->getComponents();
-        $events = array();
-        $count = count($components);
-        $exceptions = array();
-        for ($i = 0; $i < $count; ++$i) {
-            $component = $components[$i];
-            if ($component->getType() == 'vEvent') {
-                $event = &$kronolith_driver->getEvent();
-                if (is_a($event, 'PEAR_Error')) {
-                    return $event;
-                }
-                $event->status = KRONOLITH_STATUS_FREE;
-                $event->fromiCalendar($component);
-                $event->remoteCal = $url;
-                $event->eventID = $i;
-
-                /* Catch RECURRENCE-ID attributes which mark single recurrence
-                 * instances. */
-                $recurrence_id = $component->getAttribute('RECURRENCE-ID');
-                if (is_int($recurrence_id) &&
-                    is_string($uid = $component->getAttribute('UID')) &&
-                    is_int($seq = $component->getAttribute('SEQUENCE'))) {
-                    $exceptions[$uid][$seq] = $recurrence_id;
-                }
-                $events[] = $event;
-            }
-        }
-
-        /* Loop through all explicitly defined recurrence intances and create
-         * exceptions for those in the event with the matchin recurrence. */
-        foreach ($events as $key => $event) {
-            if ($event->recurs() &&
-                isset($exceptions[$event->getUID()][$event->getSequence()])) {
-                $timestamp = $exceptions[$event->getUID()][$event->getSequence()];
-                $events[$key]->recurrence->addException(date('Y', $timestamp), date('m', $timestamp), date('d', $timestamp));
-            }
-        }
-
-        return $events;
-    }
-
-    /**
-     * Returns an event object for an event on a remote calendar.
-     *
-     * This is kind of a temorary solution until we can have multiple drivers
-     * in use at the same time.
-     *
-     * @param $url      The url of the remote calendar.
-     * @param $eventId  The index of the event on the remote calendar.
-     *
-     * @return Kronolith_Event  The event object.
-     */
-    function &getRemoteEventObject($url, $eventId)
-    {
-        global $kronolith_driver;
-
-        $data = Kronolith::getRemoteCalendar($url);
-        if (is_a($data, 'PEAR_Error')) {
-            return $data;
-        }
-
-        $iCal = new Horde_iCalendar();
-        if (!$iCal->parsevCalendar($data)) {
-            return array();
-        }
-
-        $components = $iCal->getComponents();
-        if (isset($components[$eventId]) &&
-            $components[$eventId]->getType() == 'vEvent') {
-            $event = &$kronolith_driver->getEvent();
-            if (is_a($event, 'PEAR_Error')) {
-                return $event;
-            }
-            $event->status = KRONOLITH_STATUS_FREE;
-            $event->fromiCalendar($components[$eventId]);
-            $event->remoteCal = $url;
-            $event->eventID = $eventId;
-
-            return $event;
-        }
-
-        return false;
-    }
-
-    /**
      * Returns a list of events containing holidays occuring between
      * <code>$startDate</code> and <code>$endDate</code>. The outcome depends
      * on the user's selection of holiday drivers
@@ -1147,27 +989,11 @@ class Kronolith {
 
             /* Remote Calendars. */
             foreach ($GLOBALS['display_remote_calendars'] as $url) {
-                $events = Kronolith::listRemoteEvents($url);
+                $driver = self::getDriver('ical', array('url' => $url));
+                $events = $driver->listEvents($startOfPeriod, $endOfPeriod);
                 if (!is_a($events, 'PEAR_Error')) {
                     $kronolith_driver->open(Kronolith::getDefaultCalendar(PERMS_SHOW));
                     foreach ($events as $event) {
-
-                        /* Ignore events out of our period. */
-                        if (
-                            /* Starts after the period. */
-                            $event->start->compareDateTime($endOfPeriod) > 0 ||
-                            /* End before the period and doesn't recur. */
-                            (!$event->recurs() &&
-                             $event->end->compareDateTime($startOfPeriod) < 0) ||
-                            /* Recurs and ... */
-                            ($event->recurs() &&
-                             /* ... we don't show recurring events or ... */
-                             (!$showRecurrence ||
-                              /* ... has a recurrence end before the period. */
-                              ($event->recurrence->hasRecurEnd() &&
-                               $event->recurrence->recurEnd->compareDateTime($startOfPeriod) < 0)))) {
-                            continue;
-                        }
                         Kronolith::_getEvents($results, $event, $startDate,
                                               $endDate, $startOfPeriod,
                                               $endOfPeriod, $showRecurrence);
@@ -2223,6 +2049,59 @@ class Kronolith {
     }
 
     /**
+     * Attempts to return a concrete Kronolith_Driver instance based on
+     * $driver.
+     *
+     * @param string $driver  The type of concrete Kronolith_Driver subclass
+     *                        to return.
+     *
+     * @param array $params   A hash containing any additional configuration or
+     *                        connection parameters a subclass might need.
+     *
+     * @return Kronolith_Driver  The newly created concrete Kronolith_Driver
+     *                           instance, or a PEAR_Error on error.
+     */
+    public static function getDriver($driver, $params)
+    {
+        ksort($params);
+        $sig = hash('md5', serialize(array($driver, $params)));
+
+        if (!isset(self::$_instances[$sig])) {
+            switch ($driver) {
+            case 'ical':
+                /* Check for HTTP proxy configuration */
+                if (!empty($GLOBALS['conf']['http']['proxy']['proxy_host'])) {
+                    $params['proxy'] = $GLOBALS['conf']['http']['proxy'];
+                }
+
+                /* Check for HTTP authentication credentials */
+                $cals = unserialize($GLOBALS['prefs']->getValue('remote_cals'));
+                foreach ($cals as $cal) {
+                    if ($cal['url'] == $params['url']) {
+                        $user = isset($cal['user']) ? $cal['user'] : '';
+                        $password = isset($cal['password']) ? $cal['password'] : '';
+                        $key = Auth::getCredential('password');
+                        if ($key && $user) {
+                            require_once 'Horde/Secret.php';
+                            $user = Secret::read($key, base64_decode($user));
+                            $password = Secret::read($key, base64_decode($password));
+                        }
+                        if (!empty($user)) {
+                            $params['user'] = $user;
+                            $params['password'] = $password;
+                        }
+                        break;
+                    }
+                }
+            }
+
+            self::$_instances[$sig] = Kronolith_Driver::factory($driver, $params);
+        }
+
+        return self::$_instances[$sig];
+    }
+
+    /**
      * Get a named Kronolith_View_* object and load it with the
      * appropriate date parameters.
      *
@@ -2244,9 +2123,8 @@ class Kronolith {
             require_once KRONOLITH_BASE . '/lib/Views/Event.php';
 
             if (Util::getFormData('calendar') == '**remote') {
-                $event = &Kronolith::getRemoteEventObject(
-                    Util::getFormData('remoteCal'),
-                    Util::getFormData('eventID'));
+                $driver = self::getDriver('ical', array('url' => Util::getFormData('remoteCal')));
+                $event = $driver->getEvent(Util::getFormData('eventID'));
             } elseif ($uid = Util::getFormData('uid')) {
                 $event = &$GLOBALS['kronolith_driver']->getByUID($uid);
             } else {
@@ -2265,9 +2143,8 @@ class Kronolith {
             require_once KRONOLITH_BASE . '/lib/Views/EditEvent.php';
 
             if (Util::getFormData('calendar') == '**remote') {
-                $event = &Kronolith::getRemoteEventObject(
-                    Util::getFormData('remoteCal'),
-                    Util::getFormData('eventID'));
+                $driver = self::getDriver('ical', array('url' => Util::getFormData('remoteCal')));
+                $event = $driver->getEvent(Util::getFormData('eventID'));
             } else {
                 $GLOBALS['kronolith_driver']->open(Util::getFormData('calendar'));
                 $event = &$GLOBALS['kronolith_driver']->getEvent(
@@ -2297,9 +2174,8 @@ class Kronolith {
             require_once KRONOLITH_BASE . '/lib/Views/ExportEvent.php';
 
             if (Util::getFormData('calendar') == '**remote') {
-                $event = &Kronolith::getRemoteEventObject(
-                    Util::getFormData('remoteCal'),
-                    Util::getFormData('eventID'));
+                $driver = self::getDriver('ical', array('url' => Util::getFormData('remoteCal')));
+                $event = $driver->getEvent(Util::getFormData('eventID'));
             } elseif ($uid = Util::getFormData('uid')) {
                 $event = &$GLOBALS['kronolith_driver']->getByUID($uid);
             } else {
