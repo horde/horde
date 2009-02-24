@@ -32,7 +32,7 @@
      *
      * @return array  The events matching the query.
      */
-    public function &events_get($uid = null, $eids = null, $start_time = null,
+    public function &get($uid = null, $eids = null, $start_time = null,
                                 $end_time = null, $rsvp_status = null)
     {
         // Note we return a reference to support batched calls
@@ -54,7 +54,7 @@
      * @return array  An assoc array of four membership lists, with keys
      *                'attending', 'unsure', 'declined', and 'not_replied'
      */
-    public function &events_getMembers($eid)
+    public function &getMembers($eid)
     {
         return $this->_facebook->call_method('facebook.events.getMembers',
                                              array('eid' => $eid,
@@ -69,7 +69,7 @@
      *
      * @return bool  true if successful
      */
-    public function &events_rsvp($eid, $rsvp_status)
+    public function &rsvp($eid, $rsvp_status)
     {
         return $this->_facebook->call_method('facebook.events.rsvp',
             array('eid' => $eid,
@@ -87,7 +87,7 @@
      *
      * @return bool  true if successful
      */
-    public function &events_cancel($eid, $cancel_message = '')
+    public function &cancel($eid, $cancel_message = '')
     {
         return $this->_facebook->call_method('facebook.events.cancel',
             array('eid' => $eid,
@@ -103,7 +103,7 @@
      *
      * @return int  event id
      */
-    public function &events_create($event_info)
+    public function &create($event_info)
     {
         return $this->_facebook->call_method('facebook.events.create',
             array('event_info' => $event_info,
@@ -118,7 +118,7 @@
      *
      * @return bool  true if successful
      */
-    public function &events_edit($eid, $event_info)
+    public function &edit($eid, $event_info)
     {
         return $this->_facebook->call_method('facebook.events.edit',
             array('eid' => $eid,
