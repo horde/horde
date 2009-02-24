@@ -269,130 +269,6 @@ class Horde_Service_Facebook
         $this->_batchRequest = null;
     }
 
-
-    /**
-     * Returns events according to the filters specified.
-     *
-     * @param int $uid            (Optional) User associated with events. A null
-     *                            parameter will default to the session user.
-     * @param string $eids        (Optional) Filter by these comma-separated event
-     *                            ids. A null parameter will get all events for
-     *                            the user.
-     * @param int $start_time     (Optional) Filter with this unix time as lower
-     *                            bound.  A null or zero parameter indicates no
-     *                            lower bound.
-     * @param int $end_time       (Optional) Filter with this UTC as upper bound.
-     *                            A null or zero parameter indicates no upper
-     *                            bound.
-     * @param string $rsvp_status (Optional) Only show events where the given uid
-     *                            has this rsvp status.  This only works if you
-     *                            have specified a value for $uid.  Values are as
-     *                            in events.getMembers.  Null indicates to ignore
-     *                            rsvp status when filtering.
-     *
-     * @return array  The events matching the query.
-     */
-    public function &events_get($uid=null, $eids=null, $start_time=null,
-                                $end_time=null, $rsvp_status=null)
-    {
-        // Note we return a reference to support batched calls
-        //  (see self::call_method)
-        return $this->call_method('facebook.events.get',
-            array('uid' => $uid,
-                  'eids' => $eids,
-                  'start_time' => $start_time,
-                  'end_time' => $end_time,
-                  'rsvp_status' => $rsvp_status));
-    }
-
-    /**
-     * Returns membership list data associated with an event.
-     *
-     * @param int $eid  event id
-     *
-     * @return array  An assoc array of four membership lists, with keys
-     *                'attending', 'unsure', 'declined', and 'not_replied'
-     */
-    public function &events_getMembers($eid)
-    {
-        return $this->call_method('facebook.events.getMembers', array('eid' => $eid));
-    }
-
-    /**
-     * RSVPs the current user to this event.
-     *
-     * @param int $eid             event id
-     * @param string $rsvp_status  'attending', 'unsure', or 'declined'
-     *
-     * @return bool  true if successful
-     */
-    public function &events_rsvp($eid, $rsvp_status)
-    {
-        return $this->call_method('facebook.events.rsvp',
-            array('eid' => $eid,
-                  'rsvp_status' => $rsvp_status));
-    }
-
-
-    /**
-     * Cancels an event. Only works for events where application is the admin.
-     *
-     * @param int $eid                event id
-     * @param string $cancel_message  (Optional) message to send to members of
-     *                                the event about why it is cancelled
-     *
-     * @return bool  true if successful
-     */
-    public function &events_cancel($eid, $cancel_message='')
-    {
-        return $this->call_method('facebook.events.cancel',
-            array('eid' => $eid,
-                  'cancel_message' => $cancel_message));
-    }
-
-    /**
-     * Creates an event on behalf of the user is there is a session, otherwise on
-     * behalf of app.  Successful creation guarantees app will be admin.
-     *
-     * @param assoc array $event_info  json encoded event information
-     *
-     * @return int  event id
-     */
-    public function &events_create($event_info)
-    {
-        return $this->call_method('facebook.events.create', array('event_info' => $event_info));
-    }
-
-    /**
-     * Edits an existing event. Only works for events where application is admin.
-     *
-     * @param int $eid                 event id
-     * @param assoc array $event_info  json encoded event information
-     *
-     * @return bool  true if successful
-     */
-    public function &events_edit($eid, $event_info)
-    {
-        return $this->call_method('facebook.events.edit',
-            array('eid' => $eid,
-                  'event_info' => $event_info));
-    }
-
-    /**
-     * Makes an FQL query.  This is a generalized way of accessing all the data
-     * in the API, as an alternative to most of the other method calls.  More
-     * info at http://developers.facebook.com/documentation.php?v=1.0&doc=fql
-     *
-     * @param string $query  the query to evaluate
-     *
-     * @return array  generalized array representing the results
-     */
-    public function &fql_query($query)
-    {
-        return $this->call_method('facebook.fql.query', array('query' => $query));
-    }
-
-
     /**
      * Returns whether or not pairs of users are friends.
      * Note that the Facebook friend relationship is symmetric.
@@ -473,42 +349,6 @@ class Horde_Service_Facebook
     public function &groups_getMembers($gid)
     {
         return $this->call_method('facebook.groups.getMembers', array('gid' => $gid));
-    }
-
-    /**
-     * Returns cookies according to the filters specified.
-     *
-     * @param int $uid     User for which the cookies are needed.
-     * @param string $name (Optional) A null parameter will get all cookies
-     *                     for the user.
-     *
-     * @return array  Cookies!  Nom nom nom nom nom.
-     */
-    public function data_getCookies($uid, $name)
-    {
-        return $this->call_method('facebook.data.getCookies',
-            array('uid' => $uid, 'name' => $name));
-    }
-
-    /**
-     * Sets cookies according to the params specified.
-     *
-     * @param int $uid       User for which the cookies are needed.
-     * @param string $name   Name of the cookie
-     * @param string $value  (Optional) if expires specified and is in the past
-     * @param int $expires   (Optional) Expiry time
-     * @param string $path   (Optional) Url path to associate with (default is /)
-     *
-     * @return bool  true on success
-     */
-    public function data_setCookie($uid, $name, $value, $expires, $path)
-    {
-        return $this->call_method('facebook.data.setCookie',
-            array('uid' => $uid,
-                  'name' => $name,
-                  'value' => $value,
-                  'expires' => $expires,
-                  'path' => $path));
     }
 
     /**
@@ -900,12 +740,15 @@ class Horde_Service_Facebook
      *
      * @return boolean  true if the user has authorized the app
      */
-    public function &users_isAppUser($uid=null)
+    public function &users_isAppUser($uid = null, $sid = null)
     {
-        if ($uid === null && isset($this->is_user)) {
-            return $this->is_user;
+        if (empty($uid) && !empty($sid)) {
+            $params = array('session_key' => $sid);
+        } elseif (!empty($uid)) {
+            $params = array('uid' => $uid);
+        } else {
+            throw new InvalidArgumentException('isAppUser requires either a uid or a session_key');
         }
-
         return $this->call_method('facebook.users.isAppUser', array('uid' => $uid));
     }
 
@@ -918,7 +761,7 @@ class Horde_Service_Facebook
     */
     public function &users_isVerified()
     {
-    return $this->call_method('facebook.users.isVerified');
+        return $this->call_method('facebook.users.isVerified');
     }
 
   /**

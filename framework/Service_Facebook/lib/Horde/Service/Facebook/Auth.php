@@ -6,6 +6,9 @@
  * For now, only provide methods for authenticating that make sense from
  * within a Horde context.
  *
+ * Note, we don't extend Base since we are a special case in that not all
+ * the info is set until *after* we are authenticated.
+ *
  * Copyright 2009 The Horde Project (http://www.horde.org)
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
@@ -163,7 +166,13 @@ class Horde_Service_Facebook_Auth
      */
     private function _expireSession()
     {
-        return $this->_facebook->call_method('facebook.auth.expireSession');
+        // Requires a session
+        if (empty($this->_sessionKey)) {
+            throw new Horde_Service_Facebook_Exception(
+            'No Session', Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
+        }
+
+        return $this->_facebook->call_method('facebook.auth.expireSession', array('session_key' => $this->_sessionKey));
     }
 
     /**
@@ -191,27 +200,23 @@ class Horde_Service_Facebook_Auth
     }
 
     /**
-     * Validates that the parameters passed in were sent from Facebook. It does so
-     * by validating that the signature matches one that could only be generated
-     * by using your application's secret key.
-     *
-     * Valid parameters will cause an active session to be set. Note that this
-     * will only return true if the session is NOT set manually via setUser()
-     * in client code.
-     *
-     * Facebook-provided parameters will come from $_POST, $_GET, or $_COOKIE,
+     * Attempt to create or obtain Facebook session parameters from data sent
+     * to us by Facebook. This will come from $_POST, $_GET, or $_COOKIE,
      * in that order. $_POST and $_GET are always more up-to-date than cookies,
-     * so we prefer those if they are available.
+     * so we prefer those if they are available. Data obtained from Facebook
+     * is always validated by checking the signature.
      *
      * For nitty-gritty details of when each of these is used, check out
      * http://wiki.developers.facebook.com/index.php/Verifying_The_Signature
      *
-     * @param boolean  Resolve_auth_token  convert an auth token into a session
-     * @param boolean  Should we ignore any session data present in cookies?
-     *                 (Needed when we need to make sure we are using a new
-     *                  infinite session when returned)
+     * @param boolean $ignore_cookies      Ignore any seemingly valid session
+     *                                     session data obtained from a cookie.
+     *                                     (Needed to allow us to overwrite a
+     *                                      stale value when we get a new token)
+     * @param boolean $resolve_auth_token  Call auth.getSession if we have an
+     *                                     auth_token and no other parameters?
      *
-     * @return boolean  Whether or not we were able to obtain the params.
+     * @return boolean
      */
     public function validateSession($ignore_cookies = false, $resolve_auth_token = true)
     {
@@ -406,9 +411,9 @@ class Horde_Service_Facebook_Auth
      *
      * @return void
      */
-    public function setUser($user, $sessionKey, $expires = null)
+    public function setUser($user, $sessionKey, $expires = null, $no_coookie = false)
     {
-        if (!$this->_request->getCookie($this->_facebook->api_key . '_user') ||
+        if ($no_cookie || !$this->_request->getCookie($this->_facebook->api_key . '_user') ||
             $this->_request->getCookie($this->_facebook->api_key . '_user') != $user) {
 
             $this->setCookies($user, $sessionKey, $expires);

@@ -66,9 +66,6 @@ class Horde_Service_Facebook_Request
         // We only support JSON
         $params['format'] = 'json';
         $params['method'] = $method;
-        if (empty($params['session_key'])) {
-            $params['session_key'] = $this->_facebook->auth->getSessionKey();
-        }
         $params['api_key'] = $this->_facebook->api_key;
         $params['call_id'] = microtime(true);
         if ($params['call_id'] <= $this->_last_call_id) {

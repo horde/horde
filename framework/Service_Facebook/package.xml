@@ -33,6 +33,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <dir name="Horde">
      <dir name="Service">
       <dir name="Facebook">
+       <file name="Base.php" role="php" />
+       <file name="Fql.php" role="php" />
        <file name="Exception.php" role="php" />
        <file name="ErrorCodes.php" role="php" />
        <file name="Request.php" role="php" />
@@ -61,6 +63,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
+   <install name="lib/Horde/Service/Facebook/Base.php" as="Horde/Service/Facebook/Base.php" />
+   <install name="lib/Horde/Service/Facebook/Fql.php" as="Horde/Service/Facebook/Fql.php" />
    <install name="lib/Horde/Service/Facebook/Exception.php" as="Horde/Service/Facebook/Exception.php" />
    <install name="lib/Horde/Service/Facebook/ErrorCodes.php" as="Horde/Service/Facebook/ErrorCodes.php" />
    <install name="lib/Horde/Service/Facebook/Request.php" as="Horde/Service/Facebook/Request.php" />
