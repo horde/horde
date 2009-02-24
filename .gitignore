@@ -5,6 +5,7 @@ libs
 .project
 .settings
 .buildpath
+run-tests.log
 *~
 .#*
 *.orig
