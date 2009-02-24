@@ -30,7 +30,7 @@ class Horde_Servce_Facebook_Friends extends Horde_Service_Facebook_Base
     {
         // Session key is *required*
         if (empty($this->_sessionKey)) {
-            throw new Horde_FaceBook_Exception('session_key is required',
+            throw new Horde_Service_Facebook_Exception('session_key is required',
                                                Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
         }
 
@@ -52,7 +52,7 @@ class Horde_Servce_Facebook_Friends extends Horde_Service_Facebook_Base
     {
         // Session key is *required*
         if (empty($this->_sessionKey)) {
-            throw new Horde_FaceBook_Exception('session_key is required',
+            throw new Horde_Service_Facebook_Exception('session_key is required',
                                                Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
         }
         $params = array();
@@ -75,7 +75,7 @@ class Horde_Servce_Facebook_Friends extends Horde_Service_Facebook_Base
     {
         // Session key is *required*
         if (empty($this->_sessionKey)) {
-            throw new Horde_FaceBook_Exception('session_key is required',
+            throw new Horde_Service_Facebook_Exception('session_key is required',
                                                Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
         }
         return $this->_facebook->call_method('facebook.friends.getLists',
