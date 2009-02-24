@@ -87,13 +87,16 @@ abstract class Horde_Controller_Base
     }
 
     /**
-     * Lazy loading of resources: view, ...
+     * Access to resources (request) and lazy loading of some (view).
      *
-     * @param string $name Property to load
+     * @param string $name  Property to access
      */
     public function __get($name)
     {
         switch ($name) {
+        case 'request':
+            return $this->_request;
+
         case '_view':
             $this->_view = new Horde_View;
             return $this->_view;
