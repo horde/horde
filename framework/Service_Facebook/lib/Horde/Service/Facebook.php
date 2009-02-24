@@ -62,26 +62,25 @@ class Horde_Service_Facebook
      */
     public $secret;
 
-    // The token returned by auth.createToken
-    protected $_token;
+    /**
+     * Use only ssl resource flag
+     *
+     * @var boolean
+     */
+    public $useSslResources = false;
 
-    // Store the current session_key
-    public $session_key;
-
-    // Session expiry
-    protected $_session_expires;
-
-    // All parameters passed back to us from FB
-    public $fb_params;
-
-    // The current session user
-    public $user;
-
-    // Use only ssl resource flag
-    public $use_ssl_resources = false;
+    /**
+     * Holds the batch object when building a batch request.
+     *
+     * @var Horde_Service_Facebook_Batch
+     */
     private $_batchRequest;
 
-
+    /**
+     * Holds an optional logger object
+     *
+     * @var Horde_Log_Logger
+     */
     protected $_logger;
 
     /**
@@ -102,6 +101,7 @@ class Horde_Service_Facebook
      */
     protected $_context;
 
+    static protected $_objCache = array();
 
     // TODO: Implement some kind of instance array for these types of classes...
     protected $_auth = null; // H_S_Facebook_Auth
@@ -124,16 +124,19 @@ class Horde_Service_Facebook
      *      no_resolve - set to true to prevent attempting to obtain a session
      *                   from an auth_token. Useful if client code wants to
      *                   handle this.
-     *
+     * </pre>
      * @param session_key
      */
     public function __construct($api_key, $secret, $context)
     {
-        // We require a http client object
-        if (empty($context['http_client'])) {
+        // We require a http client object, but we can get it from a
+        // controller if we have one.
+        if (empty($context['http_client']) && empty($context['controller'])) {
             throw new InvalidArgumentException('A http client object is required');
-        } else {
+        } elseif (!empty($context['http_client'])) {
             $this->_http = $context['http_client'];
+        } else {
+            $this->_http = $context['controller']->getRequest();
         }
 
         // Required Horde_Controller_Request object
@@ -170,17 +173,27 @@ class Horde_Service_Facebook
         return $this->auth->validateSession(empty($this->_context['no_resolve']));
     }
 
-    // Lazy loader
+    /**
+     * Lazy load the facebook classes.
+     *
+     * @param string $value  The lowercase representation of the subclass.
+     *
+     * @throws Horde_Service_Facebook_Exception
+     * @return Horde_Service_Facebook_* object.
+     */
     public function __get($value)
     {
-        // TODO: Some kind of array/hash to hold valid types - maybe a
-        // factory method to instantiate these?
-        if ($value == 'auth') {
-            if (empty($this->_auth)) {
-                $this->_auth = new Horde_Service_Facebook_Auth($this, $this->_request);
-            }
-            return $this->_auth;
+        $class = 'Horde_Service_Facebook_' . ucfirst($value);
+        if (!empty(self::$_objCache[$class])) {
+            return self::$_objCache[$class];
         }
+
+        if (!class_exists($class)) {
+            throw new Horde_Service_Facebook_Exception(sprintf("%s class not found", $class));
+        }
+
+        self::$_objCache[$class] = new $class($this, $this->_request);
+        return self::$_objCache[$class];
     }
 
     /**
@@ -406,55 +419,6 @@ class Horde_Service_Facebook
         return $this->call_method('notes.get',
             array('uid' => $uid,
                   'note_ids' => json_encode($note_ids)));
-    }
-
-    /**
-     * Returns the outstanding notifications for the session user.
-     *
-     * @return array An assoc array of notification count objects for
-     *               'messages', 'pokes' and 'shares', a uid list of
-     *               'friend_requests', a gid list of 'group_invites',
-     *               and an eid list of 'event_invites'
-     */
-    public function &notifications_get()
-    {
-        return $this->call_method('facebook.notifications.get');
-    }
-
-    /**
-     * Sends a notification to the specified users.
-     *
-     * @return A comma separated list of successful recipients
-     * @error
-     *    API_EC_PARAM_USER_ID_LIST
-     */
-    public function &notifications_send($to_ids, $notification, $type)
-    {
-        return $this->call_method('facebook.notifications.send',
-            array('to_ids' => $to_ids,
-                  'notification' => $notification,
-                  'type' => $type));
-    }
-
-    /**
-     * Sends an email to the specified user of the application.
-     *
-     * @param string $recipients comma-separated ids of the recipients
-     * @param string $subject    subject of the email
-     * @param string $text       (plain text) body of the email
-     * @param string $fbml       fbml markup for an html version of the email
-     *
-     * @return string  A comma separated list of successful recipients
-     * @error
-     *    API_EC_PARAM_USER_ID_LIST
-     */
-    public function &notifications_sendEmail($recipients, $subject, $text, $fbml)
-    {
-        return $this->call_method('facebook.notifications.sendEmail',
-            array('recipients' => $recipients,
-                  'subject' => $subject,
-                  'text' => $text,
-                  'fbml' => $fbml));
     }
 
     /**

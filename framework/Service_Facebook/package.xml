@@ -36,6 +36,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
        <file name="Base.php" role="php" />
        <file name="Fql.php" role="php" />
        <file name="Friends.php" role="php" />
+       <file name="Notifications.php" role="php" />
        <file name="Exception.php" role="php" />
        <file name="ErrorCodes.php" role="php" />
        <file name="Request.php" role="php" />
@@ -67,6 +68,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Service/Facebook/Base.php" as="Horde/Service/Facebook/Base.php" />
    <install name="lib/Horde/Service/Facebook/Fql.php" as="Horde/Service/Facebook/Fql.php" />
    <install name="lib/Horde/Service/Facebook/Friends.php" as="Horde/Service/Facebook/Friends.php" />
+   <install name="lib/Horde/Service/Facebook/Notifications.php" as="Horde/Service/Facebook/Notifications.php" />
    <install name="lib/Horde/Service/Facebook/Exception.php" as="Horde/Service/Facebook/Exception.php" />
    <install name="lib/Horde/Service/Facebook/ErrorCodes.php" as="Horde/Service/Facebook/ErrorCodes.php" />
    <install name="lib/Horde/Service/Facebook/Request.php" as="Horde/Service/Facebook/Request.php" />
