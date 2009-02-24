@@ -132,6 +132,8 @@ class Horde_Service_Facebook
         // We require a http client object.
         if (empty($context['http_client'])) {
             throw new InvalidArgumentException('A http client object is required');
+        } else {
+            $this->_http = $context['http_client'];
         }
 
         // Required Horde_Controller_Request object, but we can also get it
