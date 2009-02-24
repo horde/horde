@@ -2,7 +2,6 @@
 /**
  * Handling distribution lists.
  *
- *
  * PHP version 5
  *
  * @category Kolab
@@ -21,7 +20,6 @@ require_once 'Horde/Kolab/Server.php';
 
 /**
  * Handling distribution lists.
- *
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
@@ -49,7 +47,7 @@ class Horde_Kolab_Server_DistListHandlingTest extends Horde_Kolab_Test_Server
         $this->given('an empty Kolab server')
             ->when('adding a distribution list')
             ->then('the result should be an object of type',
-                   KOLAB_OBJECT_DISTLIST);
+                   'Horde_Kolab_Server_Object_distlist');
     }
 
 }

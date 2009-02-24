@@ -2,7 +2,6 @@
 /**
  * Test the group object.
  *
- *
  * PHP version 5
  *
  * @category Kolab
@@ -19,7 +18,6 @@ require_once 'Horde/Kolab/Test/Server.php';
 
 /**
  * Test the group object.
- *
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
@@ -68,7 +66,7 @@ class Horde_Kolab_Server_GroupTest extends Horde_Kolab_Test_Server
     {
         $groups = $this->validGroups();
         $this->assertEquals('cn=empty.group@example.org,dc=example,dc=org',
-                            $this->ldap->generateUid(KOLAB_OBJECT_GROUP, $groups[0][0]));
+                            $this->ldap->generateUid('Horde_Kolab_Server_Object_group', $groups[0][0]));
     }
 
     /**
@@ -116,19 +114,19 @@ class Horde_Kolab_Server_GroupTest extends Horde_Kolab_Test_Server
     {
         $this->assertEquals(0, count($GLOBALS['KOLAB_SERVER_TEST_DATA']));
         $this->assertEquals(0,
-                            count($this->ldap->_search('(&(!(cn=domains))(objectClass=kolabGroupOfNames))',
-                                                       array(),
-                                                       $this->ldap->_base_dn)));
+                            count($this->ldap->search('(&(!(cn=domains))(objectClass=kolabGroupOfNames))',
+                                                      array(),
+                                                      $this->ldap->getBaseUid())));
 
         $this->_addValidGroups();
 
         $this->assertEquals(3, count($GLOBALS['KOLAB_SERVER_TEST_DATA']));
         $this->assertEquals(3,
-                            count($this->ldap->_search('(&(!(cn=domains))(objectClass=kolabGroupOfNames))',
-                                                       array(),
-                                                       $this->ldap->_base_dn)));
+                            count($this->ldap->search('(&(!(cn=domains))(objectClass=kolabGroupOfNames))',
+                                                      array(),
+                                                      $this->ldap->getBaseUid())));
 
-        $list = $this->ldap->listObjects(KOLAB_OBJECT_GROUP);
+        $list = $this->ldap->listObjects('Horde_Kolab_Server_Object_group');
         $this->assertNoError($list);
         $this->assertEquals(3, count($list));
     }

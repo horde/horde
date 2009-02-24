@@ -2,7 +2,6 @@
 /**
  * Adding objects to the server.
  *
- *
  * PHP version 5
  *
  * @category Kolab
@@ -13,13 +12,12 @@
  */
 
 /**
- *  We need the base class
+ * The Autoloader allows us to omit "require/include" statements.
  */
-require_once 'Horde/Kolab/Test/Server.php';
+require_once 'Horde/Autoloader.php';
 
 /**
  * Adding objects to the server.
- *
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
@@ -48,7 +46,7 @@ class Horde_Kolab_Server_AddingObjectsTest extends Horde_Kolab_Test_Server
     {
         $this->given('an empty Kolab server')
             ->when('adding a Kolab server object', $user)
-            ->then('the result should be an object of type', KOLAB_OBJECT_USER);
+            ->then('the result should be an object of type', 'Horde_Kolab_Server_Object_user');
     }
 
     /**
@@ -65,7 +63,7 @@ class Horde_Kolab_Server_AddingObjectsTest extends Horde_Kolab_Test_Server
     public function addingInvalidUser($user, $error)
     {
         $this->given('an empty Kolab server')
-            ->when('adding a Kolab server object', $user)
+            ->when('adding an invalid Kolab server object', $user)
             ->then('the result should indicate an error with', $error);
     }
 

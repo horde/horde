@@ -13,17 +13,6 @@
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
 
-/** Define the different Kolab object types */
-define('KOLAB_OBJECT_ADDRESS',          'Horde_Kolab_Server_Object_address');
-define('KOLAB_OBJECT_ADMINISTRATOR',    'Horde_Kolab_Server_Object_administrator');
-define('KOLAB_OBJECT_DOMAINMAINTAINER', 'Horde_Kolab_Server_Object_domainmaintainer');
-define('KOLAB_OBJECT_GROUP',            'Horde_Kolab_Server_Object_group');
-define('KOLAB_OBJECT_DISTLIST',         'Horde_Kolab_Server_Object_distlist');
-define('KOLAB_OBJECT_MAINTAINER',       'Horde_Kolab_Server_Object_maintainer');
-define('KOLAB_OBJECT_SHAREDFOLDER',     'Horde_Kolab_Server_Object_sharedfolder');
-define('KOLAB_OBJECT_USER',             'Horde_Kolab_Server_Object_user');
-define('KOLAB_OBJECT_SERVER',           'Horde_Kolab_Server_Object_server');
-
 /** Define the possible Kolab object attributes */
 define('KOLAB_ATTR_UID',          'dn');
 define('KOLAB_ATTR_ID',           'id');
@@ -175,8 +164,7 @@ class Horde_Kolab_Server_Object
         $this->_db = &$db;
         if (empty($uid)) {
             if (empty($data) || !isset($data[KOLAB_ATTR_UID])) {
-                $this->_cache = PEAR::raiseError(_('Specify either the UID or a search result!'));
-                return;
+                throw new Horde_Kolab_Server_Exception(_('Specify either the UID or a search result!'));
             }
             if (is_array($data[KOLAB_ATTR_UID])) {
                 $this->_uid = $data[KOLAB_ATTR_UID][0];
@@ -205,14 +193,11 @@ class Horde_Kolab_Server_Object
     function &factory($type, $uid, &$storage, $data = null)
     {
         $result = Horde_Kolab_Server_Object::loadClass($type);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
 
         if (class_exists($type)) {
             $object = &new $type($storage, $uid, $data);
         } else {
-            $object = PEAR::raiseError('Class definition of ' . $type . ' not found.');
+            throw new Horde_Kolab_Server_Exception('Class definition of ' . $type . ' not found.');
         }
 
         return $object;
@@ -230,21 +215,8 @@ class Horde_Kolab_Server_Object
      */
     function loadClass($type)
     {
-        if (in_array($type, array(KOLAB_OBJECT_ADDRESS, KOLAB_OBJECT_ADMINISTRATOR,
-                                  KOLAB_OBJECT_DISTLIST, KOLAB_OBJECT_DOMAINMAINTAINER,
-                                  KOLAB_OBJECT_GROUP, KOLAB_OBJECT_MAINTAINER,
-                                  KOLAB_OBJECT_SHAREDFOLDER, KOLAB_OBJECT_USER,
-                                  KOLAB_OBJECT_SERVER))) {
-            $name = substr($type, 26);
-        } else {
-            return PEAR::raiseError(sprintf('Object type "%s" not supported.',
-                                            $type));
-        }
-
-        $name = basename($name);
-
-        if (file_exists(dirname(__FILE__) . '/Object/' . $name . '.php')) {
-            include_once dirname(__FILE__) . '/Object/' . $name . '.php';
+        if (!class_exists($type)) {
+            throw new Horde_Kolab_Server_Exception('Class definition of ' . $type . ' not found.');
         }
     }
 
@@ -255,8 +227,9 @@ class Horde_Kolab_Server_Object
      */
     function exists()
     {
-        $this->_read();
-        if (!$this->_cache || is_a($this->_cache, 'PEAR_Error')) {
+        try {
+            $this->_read();
+        } catch (Horde_Kolab_Server_Exception $e) {
             return false;
         }
         return true;
@@ -285,14 +258,11 @@ class Horde_Kolab_Server_Object
         if ($attr != KOLAB_ATTR_UID) {
             if (!in_array($attr, $this->_supported_attributes)
                 && !in_array($attr, $this->_derived_attributes)) {
-                return PEAR::raiseError(sprintf(_("Attribute \"%s\" not supported!"),
-                                                $attr));
+                throw new Horde_Kolab_Server_Exception(sprintf(_("Attribute \"%s\" not supported!"),
+                                                               $attr));
             }
             if (!$this->_cache) {
                 $this->_read();
-            }
-            if (is_a($this->_cache, 'PEAR_Error')) {
-                return $this->_cache;
             }
         }
 
@@ -390,9 +360,6 @@ class Horde_Kolab_Server_Object
         $result = array();
         foreach ($attrs as $key) {
             $value = $this->get($key);
-            if (is_a($value, 'PEAR_Error')) {
-                return $value;
-            }
             $result[$key] = $value;
         }
 
@@ -445,7 +412,7 @@ class Horde_Kolab_Server_Object
      */
     function getServer($server_type)
     {
-        return PEAR::raiseError('Not implemented!');
+        throw new Horde_Kolab_Server_Exception('Not implemented!');
     }
 
     /**
@@ -485,8 +452,8 @@ class Horde_Kolab_Server_Object
     {
         foreach ($this->_required_attributes as $attribute) {
             if (!isset($info[$attribute])) {
-                return PEAR::raiseError(sprintf('The value for "%s" is missing!',
-                                                $attribute));
+                throw new Horde_Kolab_Server_Exception(sprintf(_("The value for \"%s\" is missing!"),
+                                                                 $attribute));
             }
         }
 

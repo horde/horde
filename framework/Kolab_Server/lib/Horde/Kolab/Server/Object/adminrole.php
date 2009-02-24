@@ -123,7 +123,7 @@ class Horde_Kolab_Server_Object_adminrole extends Horde_Kolab_Server_Object
         $admins_uid = sprintf('%s,%s', $this->required_group,
                               $this->_db->getBaseUid());
 
-        $admin_group = $this->_db->fetch($admins_uid, KOLAB_OBJECT_GROUP);
+        $admin_group = $this->_db->fetch($admins_uid, 'Horde_Kolab_Server_Object_group');
         if (is_a($admin_group, 'PEAR_Error') || !$admin_group->exists()) {
 
             $members = array($this->_uid);
@@ -133,7 +133,7 @@ class Horde_Kolab_Server_Object_adminrole extends Horde_Kolab_Server_Object
             list($groupname) = sscanf($parts[0], 'cn=%s');
 
             $result = $this->_db->add(array(KOLAB_ATTR_CN => $groupname,
-                                            'type' => KOLAB_OBJECT_GROUP,
+                                            'type' => 'Horde_Kolab_Server_Object_group',
                                             KOLAB_ATTR_MEMBER => $members,
                                             KOLAB_ATTR_VISIBILITY => false));
             if (is_a($result, 'PEAR_Error')) {

@@ -2,7 +2,6 @@
 /**
  * Test the user object.
  *
- *
  * PHP version 5
  *
  * @category Kolab
@@ -13,13 +12,12 @@
  */
 
 /**
- *  We need the base class
+ * The Autoloader allows us to omit "require/include" statements.
  */
-require_once 'Horde/Kolab/Test/Server.php';
+require_once 'Horde/Autoloader.php';
 
 /**
  * Test the user object.
- *
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
@@ -46,7 +44,6 @@ class Horde_Kolab_Server_UserTest extends Horde_Kolab_Test_Server
         $users        = $this->validUsers();
         foreach ($users as $user) {
             $result = $this->server->add($user[0]);
-            $this->assertNoError($result);
         }
     }
 
@@ -62,23 +59,21 @@ class Horde_Kolab_Server_UserTest extends Horde_Kolab_Test_Server
                             Horde_Kolab_Server_Object_user::generateId($users[0][0]));
 
         $this->assertEquals('cn=Gunnar Wrobel,dc=example,dc=org',
-                            $this->server->generateUid(KOLAB_OBJECT_USER,
+                            $this->server->generateUid('Horde_Kolab_Server_Object_user',
                                                        $users[0][0]));
     }
 
     /**
      * Test adding invalid user.
      *
+     * @expectedException Horde_Kolab_Server_Exception
+     *
      * @return NULL
      */
     public function testAddInvalidUser()
     {
         $user = $this->provideInvalidUserWithoutGivenName();
-
         $result = $this->server->add($user);
-
-        $this->assertError($result,
-                           'Adding object failed: Either the last name or the given name is missing!');
     }
 
     /**
@@ -89,7 +84,6 @@ class Horde_Kolab_Server_UserTest extends Horde_Kolab_Test_Server
     public function testFetchUser()
     {
         $user = $this->server->fetch('cn=Gunnar Wrobel,dc=example,dc=org');
-        $this->assertNoError($user);
         $this->assertEquals('Horde_Kolab_Server_Object_user', get_class($user));
     }
 
@@ -101,7 +95,6 @@ class Horde_Kolab_Server_UserTest extends Horde_Kolab_Test_Server
     public function testGetServer()
     {
         $user = $this->server->fetch('cn=Gunnar Wrobel,dc=example,dc=org');
-        $this->assertNoError($user);
         $imap = $user->getServer('imap');
         $this->assertEquals('imap.example.org', $imap);
 
@@ -118,7 +111,6 @@ class Horde_Kolab_Server_UserTest extends Horde_Kolab_Test_Server
 
         $imap = $user->getServer('freebusy');
         $this->assertEquals('https://fb.example.org/freebusy', $imap);
-
     }
 
 }

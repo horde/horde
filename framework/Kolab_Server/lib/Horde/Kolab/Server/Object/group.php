@@ -150,7 +150,7 @@ class Horde_Kolab_Server_Object_group extends Horde_Kolab_Server_Object
     {
         if (!isset($info['cn'])) {
             if (!isset($info['mail'])) {
-                return PEAR::raiseError('Either the mail address or the common name has to be specified for a group object!');
+                throw new Horde_Kolab_Server_Exception('Either the mail address or the common name has to be specified for a group object!');
             } else {
                 $info['cn'] = $info['mail'];
             }

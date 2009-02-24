@@ -13,16 +13,9 @@
  */
 
 /**
- *  We need the unit test framework
+ * The Autoloader allows us to omit "require/include" statements.
  */
-require_once 'PHPUnit/Framework.php';
-require_once 'PHPUnit/Extensions/Story/TestCase.php';
-
-/**
- *  We need the classes to be tested
- */
-require_once 'Horde.php';
-require_once 'Horde/Kolab/Server.php';
+require_once 'Horde/Autoloader.php';
 
 /**
  * Base for PHPUnit scenarios.
@@ -79,25 +72,40 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
     public function runWhen(&$world, $action, $arguments)
     {
         switch($action) {
-        case 'adding a Kolab server object':
-            $world['result']['add'] = $world['server']->add($arguments[0]);
-            break;
         case 'logging in as a user with a password':
             $world['login'] = $world['auth']->authenticate($arguments[0],
                                                            array('password' => $arguments[1]));
             break;
+        case 'adding a Kolab server object':
+            $result = $world['server']->add($arguments[0]);
+            $world['result']['add'] = $result;
+            break;
+        case 'adding an invalid Kolab server object':
+            try {
+                $result = $world['server']->add($arguments[0]);
+                $world['result']['add'] = $result;
+            } catch (Horde_Kolab_Server_Exception $e) {
+                $world['result']['add'] = $e;
+            }
+            break;
         case 'adding an object list':
             foreach ($arguments[0] as $object) {
-                $result = $world['server']->add($object);
-                if (is_a($result, 'PEAR_Error')) {
-                    $world['result']['add'] = $result;
+                try {
+                    $result = $world['server']->add($object);
+                } catch (Horde_Kolab_Server_Exception $e) {
+                    $world['result']['add'] = $e;
                     return;
                 }
             }
             $world['result']['add'] = true;
             break;
         case 'adding a user without first name':
-            $world['result']['add'] = $world['server']->add($this->provideInvalidUserWithoutGivenName());
+            try {
+                $result = $world['server']->add($this->provideInvalidUserWithoutGivenName());
+                $world['result']['add'] = $result;
+            } catch (Horde_Kolab_Server_Exception $e) {
+                $world['result']['add'] = $e;
+            }
             break;
         case 'adding a user without last name':
             $world['result']['add'] = $world['server']->add($this->provideInvalidUserWithoutLastName());
@@ -112,10 +120,10 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
             $world['result']['add'] = $world['server']->add($this->provideDistributionList());
             break;
         case 'listing all users':
-            $world['list'] = $world['server']->listObjects(KOLAB_OBJECT_USER);
+            $world['list'] = $world['server']->listObjects('Horde_Kolab_Server_Object_user');
             break;
         case 'listing all groups':
-            $world['list'] = $world['server']->listObjects(KOLAB_OBJECT_GROUP);
+            $world['list'] = $world['server']->listObjects('Horde_Kolab_Server_Object_group');
             break;
         case 'listing all objects of type':
             $world['list'] = $world['server']->listObjects($arguments[0]);
@@ -145,7 +153,7 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
                 $this->fail('Did not receive a result!');
             }
             foreach ($world['result'] as $result) {
-                if ($result instanceOf PEAR_Error) {
+                if ($result instanceOf Horde_Kolab_Server_Exception) {
                     $this->assertEquals('', $result->getMessage());
                 } else {
                     $this->assertEquals($arguments[0], get_class($result));
@@ -157,7 +165,7 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
                 $this->fail('Did not receive a result!');
             }
             foreach ($world['result'] as $result) {
-                if ($result instanceOf PEAR_Error) {
+                if ($result instanceOf Horde_Kolab_Server_Exception) {
                     $this->assertEquals('', $result->getMessage());
                 } else {
                     $this->assertTrue($result);
@@ -169,7 +177,7 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
                 $this->fail('Did not receive a result!');
             }
             foreach ($world['result'] as $result) {
-                if ($result instanceOf PEAR_Error) {
+                if ($result instanceOf Horde_Kolab_Server_Exception) {
                     $this->assertEquals($arguments[0], $result->getMessage());
                 } else {
                     $this->assertEquals($arguments[0], 'Action succeeded without an error.');
@@ -177,28 +185,28 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
             }
             break;
         case 'the list has a number of entries equal to':
-            if ($world['list'] instanceOf PEAR_Error) {
+            if ($world['list'] instanceOf Horde_Kolab_Server_Exception) {
                 $this->assertEquals('', $world['list']->getMessage());
             } else {
                 $this->assertEquals($arguments[0], count($world['list']));
             }
             break;
         case 'the list is an empty array':
-            if ($world['list'] instanceOf PEAR_Error) {
+            if ($world['list'] instanceOf Horde_Kolab_Server_Exception) {
                 $this->assertEquals('', $world['list']->getMessage());
             } else {
                 $this->assertEquals(array(), $world['list']);
             }
             break;
         case 'the list is an empty array':
-            if ($world['list'] instanceOf PEAR_Error) {
+            if ($world['list'] instanceOf Horde_Kolab_Server_Exception) {
                 $this->assertEquals('', $world['list']->getMessage());
             } else {
                 $this->assertEquals(array(), $world['list']);
             }
             break;
         case 'the provided list and the result list match with regard to these attributes':
-            if ($world['list'] instanceOf PEAR_Error) {
+            if ($world['list'] instanceOf Horde_Kolab_Server_Exception) {
                 $this->assertEquals('', $world['list']->getMessage());
             } else {
                 $provided_vals = array();
@@ -226,7 +234,7 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
             }
             break;
         case 'each element in the result list has an attribute':
-            if ($world['list'] instanceOf PEAR_Error) {
+            if ($world['list'] instanceOf Horde_Kolab_Server_Exception) {
                 $this->assertEquals('', $world['list']->getMessage());
             } else {
                 $result_vals = array();
@@ -240,7 +248,7 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
             }
             break;
         case 'each element in the result list has an attribute set to a given value':
-            if ($world['list'] instanceOf PEAR_Error) {
+            if ($world['list'] instanceOf Horde_Kolab_Server_Exception) {
                 $this->assertEquals('', $world['list']->getMessage());
             } else {
                 $result_vals = array();
@@ -281,23 +289,18 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
     {
         global $conf;
 
-        include_once 'Horde/Kolab/Server.php';
-
         $GLOBALS['KOLAB_SERVER_TEST_DATA'] = array();
 
         /** Prepare a Kolab test server */
-        $conf['kolab']['server']['driver'] = 'test';
+        $conf['kolab']['server']['driver']           = 'test';
+        $conf['kolab']['server']['params']['basedn'] = 'dc=example,dc=org';
 
         $server = Horde_Kolab_Server::singleton();
 
         /** Ensure we don't use a connection from older tests */
         $server->unbind();
 
-        /** Set base DN */
-        $server->_base_dn = 'dc=example,dc=org';
-
         /** Clean the server data */
-
         return $server;
     }
 
@@ -364,7 +367,7 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
     {
         return array('givenName' => 'Gunnar',
                       'sn' => 'Wrobel',
-                      'type' => KOLAB_OBJECT_USER,
+                      'type' => 'Horde_Kolab_Server_Object_user',
                       'mail' => 'wrobel@example.org',
                       'uid' => 'wrobel',
                       'userPassword' => 'none',
@@ -386,7 +389,7 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
     {
         return array('givenName' => 'Test',
                      'sn' => 'Test',
-                     'type' => KOLAB_OBJECT_USER,
+                     'type' => 'Horde_Kolab_Server_Object_user',
                      'mail' => 'test@example.org',
                      'uid' => 'test',
                      'userPassword' => 'test',
@@ -406,7 +409,7 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
     {
         return array('givenName' => 'Test',
                      'sn' => 'Address',
-                     'type' => KOLAB_OBJECT_ADDRESS,
+                     'type' => 'Horde_Kolab_Server_Object_address',
                      'mail' => 'address@example.org');
     }
 
@@ -420,7 +423,7 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
         return array('sn' => 'Administrator',
                      'givenName' => 'The',
                      'uid' => 'admin',
-                     'type' => KOLAB_OBJECT_ADMINISTRATOR,
+                     'type' => 'Horde_Kolab_Server_Object_administrator',
                      'userPassword' => 'none');
     }
 
@@ -434,7 +437,7 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
         return array('sn' => 'Tainer',
                      'givenName' => 'Main',
                      'uid' => 'maintainer',
-                     'type' => KOLAB_OBJECT_MAINTAINER,
+                     'type' => 'Horde_Kolab_Server_Object_maintainer',
                      'userPassword' => 'none',
         );
     }
@@ -449,7 +452,7 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
         return array('sn' => 'Maintainer',
                      'givenName' => 'Domain',
                      'uid' => 'domainmaintainer',
-                     'type' => KOLAB_OBJECT_DOMAINMAINTAINER,
+                     'type' => 'Horde_Kolab_Server_Object_domainmaintainer',
                      'userPassword' => 'none',
                      'domain' => array('example.com'),
         );
@@ -464,7 +467,7 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
     {
         return array('cn' => 'shared@example.org',
                      'kolabHomeServer' => 'example.org',
-                     'type' => KOLAB_OBJECT_SHAREDFOLDER);
+                     'type' => 'Horde_Kolab_Server_Object_sharedfolder');
     }
 
     /**
@@ -475,7 +478,7 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
     public function provideBasicGroupOne()
     {
         return array('mail' => 'empty.group@example.org',
-                     'type' => KOLAB_OBJECT_GROUP);
+                     'type' => 'Horde_Kolab_Server_Object_group');
     }
 
     /**
@@ -486,7 +489,7 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
     public function provideBasicGroupTwo()
     {
         return array('mail' => 'group@example.org',
-                     'type' => KOLAB_OBJECT_GROUP,
+                     'type' => 'Horde_Kolab_Server_Object_group',
                      'member' => array('cn=Test Test,dc=example,dc=org',
                                        'cn=Gunnar Wrobel,dc=example,dc=org'));
     }
@@ -494,7 +497,7 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
     public function provideDistributionList()
     {
         return array('mail' => 'distlist@example.org',
-                     'type' => KOLAB_OBJECT_DISTLIST,
+                     'type' => 'Horde_Kolab_Server_Object_distlist',
                      'member' => array('cn=Test Test,dc=example,dc=org',
                                        'cn=Gunnar Wrobel,dc=example,dc=org'));
     }
@@ -503,7 +506,7 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
     {
         return array('givenName' => 'Test',
                      'sn' => 'Test',
-                     'type' => KOLAB_OBJECT_USER,
+                     'type' => 'Horde_Kolab_Server_Object_user',
                      'mail' => 'test@example.org');
     }
 
@@ -511,7 +514,7 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
     {
         return array('sn' => 'Test',
                      'userPassword' => 'none',
-                     'type' => KOLAB_OBJECT_USER,
+                     'type' => 'Horde_Kolab_Server_Object_user',
                      'mail' => 'test@example.org');
     }
 
@@ -519,7 +522,7 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
     {
         return array('givenName' => 'Test',
                      'userPassword' => 'none',
-                     'type' => KOLAB_OBJECT_USER,
+                     'type' => 'Horde_Kolab_Server_Object_user',
                      'mail' => 'test@example.org');
     }
 
@@ -528,7 +531,7 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
         return array('givenName' => 'Test',
                      'sn' => 'Test',
                      'userPassword' => 'none',
-                     'type' => KOLAB_OBJECT_USER);
+                     'type' => 'Horde_Kolab_Server_Object_user');
     }
 
     public function provideInvalidUsers()
@@ -536,19 +539,19 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
         return array(
             array(
                 $this->provideInvalidUserWithoutPassword(),
-                'Adding object failed: The value for "userPassword" is missing!'
+                'The value for "userPassword" is missing!'
             ),
             array(
                 $this->provideInvalidUserWithoutGivenName(),
-                'Adding object failed: Either the last name or the given name is missing!'
+                'Either the last name or the given name is missing!'
             ),
             array(
                 $this->provideInvalidUserWithoutLastName(),
-                'Adding object failed: Either the last name or the given name is missing!'
+                'Either the last name or the given name is missing!'
             ),
             array(
                 $this->provideInvalidUserWithoutMail(),
-                'Adding object failed: The value for "mail" is missing!'
+                'The value for "mail" is missing!'
             ),
         );
     }
@@ -611,14 +614,14 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
             ),
             array(
                 array('mail' => 'group@example.org',
-                      'type' => KOLAB_OBJECT_GROUP,
+                      'type' => 'Horde_Kolab_Server_Object_group',
                       'member' => array('cn=Test Test,dc=example,dc=org',
                                         'cn=Gunnar Wrobel,dc=example,dc=org')
                 ),
             ),
             array(
                 array('mail' => 'group2@example.org',
-                      'type' => KOLAB_OBJECT_GROUP,
+                      'type' => 'Horde_Kolab_Server_Object_group',
                       'member' => array('cn=Gunnar Wrobel,dc=example,dc=org')
                 ),
             ),
@@ -629,7 +632,7 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
     {
         return array(
             array('cn' => 'Shared',
-                  'type' => KOLAB_OBJECT_SHAREDFOLDER
+                  'type' => 'Horde_Kolab_Server_Object_sharedfolder'
             ),
         );
     }
@@ -637,7 +640,7 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
     public function validGroupWithoutMembers()
     {
         return array('mail' => 'empty.group@example.org',
-                     'type' => KOLAB_OBJECT_GROUP,
+                     'type' => 'Horde_Kolab_Server_Object_group',
         );
     }
 
@@ -652,7 +655,7 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
         return array(
             array(
                 array(
-                    array('type' => KOLAB_OBJECT_GROUP,
+                    array('type' => 'Horde_Kolab_Server_Object_group',
                           'mail' => 'empty.group@example.org',
                     ),
                 )
@@ -660,19 +663,19 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
             array(
                 array(
                     array('mail' => 'empty.group@example.org',
-                          'type' => KOLAB_OBJECT_GROUP,
+                          'type' => 'Horde_Kolab_Server_Object_group',
                     ),
                 ),
                 array(
                     array('mail' => 'group@example.org',
-                          'type' => KOLAB_OBJECT_GROUP,
+                          'type' => 'Horde_Kolab_Server_Object_group',
                           'member' => array('cn=Test Test,dc=example,dc=org',
                                             'cn=Gunnar Wrobel,dc=example,dc=org')
                     ),
                 ),
                 array(
                     array('mail' => 'group2@example.org',
-                          'type' => KOLAB_OBJECT_GROUP,
+                          'type' => 'Horde_Kolab_Server_Object_group',
                           'member' => array('cn=Gunnar Wrobel,dc=example,dc=org')
                     ),
                 ),
@@ -711,7 +714,7 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
     }
 
     /**
-     * Ensure that the variable contains no PEAR_Error and fail if it does.
+     * Ensure that the variable contains no Horde_Kolab_Server_Exception and fail if it does.
      *
      * @param mixed $var The variable to check.
      *
@@ -719,13 +722,13 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
      */
     public function assertNoError($var)
     {
-        if (is_a($var, 'PEAR_Error')) {
+        if (is_a($var, 'Horde_Kolab_Server_Exception')) {
             $this->assertEquals('', $var->getMessage());
         }
     }
 
     /**
-     * Ensure that the variable contains a PEAR_Error and fail if it does
+     * Ensure that the variable contains a Horde_Kolab_Server_Exception and fail if it does
      * not. Optionally compare the error message with the provided message and
      * fail if both do not match.
      *
@@ -736,7 +739,7 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
      */
     public function assertError($var, $msg = null)
     {
-        $this->assertEquals('PEAR_Error', get_class($var));
+        $this->assertEquals('Horde_Kolab_Server_Exception', get_class($var));
         if (isset($msg)) {
             $this->assertEquals($msg, $var->getMessage());
         }

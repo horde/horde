@@ -2,7 +2,6 @@
 /**
  * Handling users.
  *
- *
  * PHP version 5
  *
  * @category Kolab
@@ -13,13 +12,12 @@
  */
 
 /**
- *  We need the base class
+ * The Autoloader allows us to omit "require/include" statements.
  */
-require_once 'Horde/Kolab/Test/Server.php';
+require_once 'Horde/Autoloader.php';
 
 /**
  * Handling users.
- *
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
@@ -99,7 +97,8 @@ class Horde_Kolab_Server_UserHandlingTest extends Horde_Kolab_Test_Server
     {
         $this->given('an empty Kolab server')
             ->when('adding a user list', $user_list)
-            ->then('the user list contains the unique ID for each user');
+            ->then('the user list contains the unique ID for each user')
+            ->and('the user list contains the user type for each user');
     }
 
     /**

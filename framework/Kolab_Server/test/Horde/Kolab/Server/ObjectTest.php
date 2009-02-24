@@ -2,7 +2,6 @@
 /**
  * Test the object class.
  *
- *
  * PHP version 5
  *
  * @category Kolab
@@ -13,16 +12,12 @@
  */
 
 /**
- *  We need the base class
+ * The Autoloader allows us to omit "require/include" statements.
  */
-require_once 'Horde/Kolab/Test/Server.php';
-
-require_once 'PEAR.php';
-require_once 'Horde/Kolab/Server/Object.php';
+require_once 'Horde/Autoloader.php';
 
 /**
  * The the handling of objects.
- *
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
@@ -53,23 +48,13 @@ class Horde_Kolab_Server_ObjectTest extends Horde_Kolab_Test_Server
     /**
      * Test construction of the class.
      *
+     * @expectedException Horde_Kolab_Server_Exception
+     *
      * @return NULL
      */
-    public function testConstruct()
+    public function testConstructFailureWithoutUid()
     {
         $ko = &new Horde_Kolab_Server_Object($this->_dummydb);
-        /** Not enough information provided */
-        $this->assertEquals('Specify either the UID or a search result!',
-                            $ko->_cache->message);
-        $attr = $ko->get(KOLAB_ATTR_CN);
-        /** The base object supports nothing */
-        $this->assertError($attr, 'Attribute "cn" not supported!');
-        $ko2 = &new Horde_Kolab_Server_Object($this->_dummydb);
-        $ko  = &new Horde_Kolab_Server_Object($ko2);
-        $this->assertNoError($ko);
-        $this->assertNoError($ko2);
-        /** Ensure that referencing works */
-        $this->assertSame($ko->_db, $ko2);
     }
 
     /**
@@ -134,7 +119,7 @@ class Horde_Kolab_Server_ObjectTest extends Horde_Kolab_Test_Server
      */
     public function testGetFn($data, $expect)
     {
-        $ko = &Horde_Kolab_Server_Object::factory(KOLAB_OBJECT_USER,
+        $ko = &Horde_Kolab_Server_Object::factory('Horde_Kolab_Server_Object_user',
                                                   null, $this->_dummydb, $data);
         $this->assertNoError($ko);
         $ndn = $ko->get(KOLAB_ATTR_FN);
@@ -146,7 +131,6 @@ class Horde_Kolab_Server_ObjectTest extends Horde_Kolab_Test_Server
 
 /**
  * A dummy class for testing.
- *
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *

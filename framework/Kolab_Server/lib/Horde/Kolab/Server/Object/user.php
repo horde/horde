@@ -2,7 +2,6 @@
 /**
  * A standard Kolab user.
  *
- *
  * PHP version 5
  *
  * @category Kolab
@@ -15,7 +14,6 @@
 /**
  * This class provides methods to deal with Kolab users stored in
  * the Kolab db.
- *
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
@@ -199,13 +197,7 @@ class Horde_Kolab_Server_Object_user extends Horde_Kolab_Server_Object
         switch ($server_type) {
         case 'freebusy':
             $server = $this->get(KOLAB_ATTR_FREEBUSYHOST);
-            if (!is_a($server, 'PEAR_Error') && !empty($server)) {
-                return $server;
-            }
             $server = $this->getServer('homeserver');
-            if (is_a($server, 'PEAR_Error')) {
-                return $server;
-            }
             if (empty($server)) {
                 $server = $_SERVER['SERVER_NAME'];
             }
@@ -220,7 +212,7 @@ class Horde_Kolab_Server_Object_user extends Horde_Kolab_Server_Object
             }
         case 'imap':
             $server = $this->get(KOLAB_ATTR_IMAPHOST);
-            if (!is_a($server, 'PEAR_Error') && !empty($server)) {
+            if (!empty($server)) {
                 return $server;
             }
         case 'homeserver':
@@ -277,12 +269,15 @@ class Horde_Kolab_Server_Object_user extends Horde_Kolab_Server_Object
      * @param array $info The information about the object.
      *
      * @return boolean|PEAR_Error True on success.
+     *
+     * @throws Horde_Kolab_Server_Exception If the information to be saved is
+     *                                      invalid.
      */
     function save($info)
     {
         if (!isset($info['cn'])) {
             if (!isset($info['sn']) || !isset($info['givenName'])) {
-                return PEAR::raiseError('Either the last name or the given name is missing!');
+                throw new Horde_Kolab_Server_Exception(_("Either the last name or the given name is missing!"));
             } else {
                 $info['cn'] = $this->generateId($info);
             }

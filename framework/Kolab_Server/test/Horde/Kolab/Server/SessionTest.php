@@ -2,7 +2,6 @@
 /**
  * Test the Kolab session handler.
  *
- *
  * PHP version 5
  *
  * @category Kolab
@@ -13,15 +12,12 @@
  */
 
 /**
- *  We need the base class
+ * The Autoloader allows us to omit "require/include" statements.
  */
-require_once 'Horde/Kolab/Test/Server.php';
-
-require_once 'Horde/Kolab/Session.php';
+require_once 'Horde/Autoloader.php';
 
 /**
  * Test the Kolab session handler.
- *
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
@@ -36,7 +32,6 @@ require_once 'Horde/Kolab/Session.php';
  */
 class Horde_Kolab_Server_SessionTest extends Horde_Kolab_Test_Server
 {
-
     /**
      * Test class construction.
      *

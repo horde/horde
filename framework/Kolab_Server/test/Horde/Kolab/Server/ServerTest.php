@@ -12,11 +12,6 @@
  */
 
 /**
- * We need the unit test framework
- */
-require_once 'PHPUnit/Framework.php';
-
-/**
  * The Autoloader allows us to omit "require/include" statements.
  */
 require_once 'Horde/Autoloader.php';
@@ -48,9 +43,7 @@ class Horde_Kolab_Server_ServerTest extends PHPUnit_Framework_TestCase
     {
         $ks   = &Horde_Kolab_Server::factory('none');
         $user = $ks->fetch('test');
-        $this->assertEquals(KOLAB_OBJECT_USER, get_class($user));
-        $cn = $user->get(KOLAB_ATTR_CN);
-        $this->assertEquals('Not implemented!', $cn->message);
+        $this->assertEquals('Horde_Kolab_Server_Object_user', get_class($user));
     }
 
     /**
@@ -97,7 +90,7 @@ class Horde_Kolab_Server_none extends Horde_Kolab_Server
      */
     public function read($uid, $attrs = null)
     {
-            return PEAR::raiseError('Not implemented!');
+        throw new Horde_Kolab_Server_Exception('Not implemented!');
     }
 
     /**
@@ -109,7 +102,7 @@ class Horde_Kolab_Server_none extends Horde_Kolab_Server
      */
     protected function determineType($uid)
     {
-        return KOLAB_OBJECT_USER;
+        return 'Horde_Kolab_Server_Object_user';
     }
 
     /**
@@ -150,36 +143,56 @@ class Horde_Kolab_Server_none extends Horde_Kolab_Server
     }
 
     /**
-     * Identify the UID for the first user found using a specified
-     * attribute value.
+     * Identify the UID for the first object found using the specified
+     * search criteria.
      *
-     * @param string $attr     The name of the attribute used for searching.
-     * @param string $value    The desired value of the attribute.
-     * @param int    $restrict A KOLAB_SERVER_RESULT_* result restriction.
+     * @param array $criteria The search parameters as array.
+     * @param int   $restrict A KOLAB_SERVER_RESULT_* result restriction.
      *
-     * @return mixed|PEAR_Error The UID or false if there was no result.
+     * @return boolean|string|array The UID(s) or false if there was no result.
+     *
+     * @throws Horde_Kolab_Server_Exception
      */
-    public function uidForAttr($attr, $value,
-                               $restrict = KOLAB_SERVER_RESULT_SINGLE)
+    public function uidForSearch($criteria,
+                                 $restrict = KOLAB_SERVER_RESULT_SINGLE)
     {
         /* In the default class we just return false */
         return false;
     }
 
     /**
-     * Identify the GID for the first group found using a specified
-     * attribute value.
+     * Identify the GID for the first group found using the specified
+     * search criteria
      *
-     * @param string $attr     The name of the attribute used for searching.
-     * @param string $value    The desired value of the attribute.
-     * @param int    $restrict A KOLAB_SERVER_RESULT_* result restriction.
+     * @param array $criteria The search parameters as array.
+     * @param int   $restrict A KOLAB_SERVER_RESULT_* result restriction.
      *
-     * @return mixed|PEAR_Error The GID or false if there was no result.
+     * @return boolean|string|array The GID(s) or false if there was no result.
+     *
+     * @throws Horde_Kolab_Server_Exception
      */
-    public function gidForAttr($attr, $value,
-                               $restrict = KOLAB_SERVER_RESULT_SINGLE)
+    public function gidForSearch($criteria,
+                                 $restrict = KOLAB_SERVER_RESULT_SINGLE)
     {
         /* In the default class we just return false */
         return false;
+    }
+
+    /**
+     * Identify attributes for the objects found using a filter.
+     *
+     * @param array $criteria The search parameters as array.
+     * @param array $attrs    The attributes to retrieve.
+     * @param int   $restrict A KOLAB_SERVER_RESULT_* result restriction.
+     *
+     * @return array The results.
+     *
+     * @throws Horde_Kolab_Server_Exception
+     */
+    public function attrsForSearch($criteria, $attrs,
+                                   $restrict = KOLAB_SERVER_RESULT_SINGLE)
+    {
+        /* In the default class we just return an empty array */
+        return array();
     }
 }

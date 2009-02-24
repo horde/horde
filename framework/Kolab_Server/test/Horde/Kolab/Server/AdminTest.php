@@ -2,7 +2,6 @@
 /**
  * Test the admin object.
  *
- *
  * PHP version 5
  *
  * @category Kolab
@@ -13,13 +12,12 @@
  */
 
 /**
- *  We need the base class
+ * The Autoloader allows us to omit "require/include" statements.
  */
-require_once 'Horde/Kolab/Test/Server.php';
+require_once 'Horde/Autoloader.php';
 
 /**
  * Test the admin object.
- *
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
@@ -66,7 +64,7 @@ class Horde_Kolab_Server_AdminTest extends Horde_Kolab_Test_Server
     {
         $admin = $this->provideBasicAdmin();
         $this->assertNoError($admin);
-        $uid = $this->ldap->generateUid(KOLAB_OBJECT_ADMINISTRATOR, $admin);
+        $uid = $this->ldap->generateUid('Horde_Kolab_Server_Object_administrator', $admin);
         $this->assertNoError($uid);
         $this->assertEquals('cn=The Administrator,dc=example,dc=org', $uid);
     }
@@ -125,11 +123,11 @@ class Horde_Kolab_Server_AdminTest extends Horde_Kolab_Test_Server
     {
         $this->_addValidAdmin();
 
-        $entries = $this->ldap->_search('(&(cn=*)(objectClass=inetOrgPerson)(!(uid=manager))(sn=*))');
+        $entries = $this->ldap->search('(&(cn=*)(objectClass=inetOrgPerson)(!(uid=manager))(sn=*))');
         $this->assertNoError($entries);
         $this->assertEquals(1, count($entries));
 
-        $list = $this->ldap->listObjects(KOLAB_OBJECT_ADMINISTRATOR);
+        $list = $this->ldap->listObjects('Horde_Kolab_Server_Object_administrator');
         $this->assertNoError($list);
         $this->assertEquals(1, count($list));
     }

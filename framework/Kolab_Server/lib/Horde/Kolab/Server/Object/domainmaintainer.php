@@ -98,13 +98,14 @@ class Horde_Kolab_Server_Object_domainmaintainer extends Horde_Kolab_Server_Obje
 
             //FIXME: This should be made easier by the group object
 
-            $domain_group = $this->_db->fetch($domain_uid, KOLAB_OBJECT_GROUP);
+            $domain_group = $this->_db->fetch($domain_uid, 'Horde_Kolab_Server_Object_group');
             if (is_a($domain_group, 'PEAR_Error')) {
                 return $domain_group;
             }
             if (!$domain_group->exists()) {
                 $members = array($this->_uid);
-                $domain_group->save(array(KOLAB_ATTR_MEMBER => $members));
+                $domain_group->save(array(KOLAB_ATTR_CN => $domain,
+                                          KOLAB_ATTR_MEMBER => $members));
             } else {
                 $result = $domain_group->isMember($this->_uid);
                 if (is_a($result, 'PEAR_Error')) {

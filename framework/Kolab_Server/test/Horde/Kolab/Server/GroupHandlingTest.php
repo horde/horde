@@ -2,7 +2,6 @@
 /**
  * Handling groups.
  *
- *
  * PHP version 5
  *
  * @category Kolab
@@ -21,7 +20,6 @@ require_once 'Horde/Kolab/Server.php';
 
 /**
  * Handling groups.
- *
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
@@ -47,7 +45,7 @@ class Horde_Kolab_Server_GroupHandlingTest extends Horde_Kolab_Test_Server
     {
         $this->given('an empty Kolab server')
             ->when('retrieving a hash list with all objects of type',
-                   KOLAB_OBJECT_GROUP)
+                   'Horde_Kolab_Server_Object_group')
             ->then('the list is an empty array');
     }
 
@@ -66,7 +64,7 @@ class Horde_Kolab_Server_GroupHandlingTest extends Horde_Kolab_Test_Server
         $this->given('an empty Kolab server')
             ->when('adding an object list', $group_list)
             ->and('retrieving a hash list with all objects of type',
-                  KOLAB_OBJECT_GROUP)
+                  'Horde_Kolab_Server_Object_group')
             ->then('the result indicates success.')
             ->and('the list has a number of entries equal to',
                   count($group_list));
@@ -87,7 +85,7 @@ class Horde_Kolab_Server_GroupHandlingTest extends Horde_Kolab_Test_Server
         $this->given('an empty Kolab server')
             ->when('adding an object list', $group_list)
             ->and('retrieving a hash list with all objects of type',
-                  KOLAB_OBJECT_GROUP)
+                  'Horde_Kolab_Server_Object_group')
             ->then('the provided list and the result list match with regard to these attributes',
                    'mail', 'id', $group_list);
     }
@@ -107,7 +105,7 @@ class Horde_Kolab_Server_GroupHandlingTest extends Horde_Kolab_Test_Server
         $this->given('an empty Kolab server')
             ->when('adding an object list', $group_list)
             ->and('retrieving a hash list with all objects of type',
-                  KOLAB_OBJECT_GROUP)
+                  'Horde_Kolab_Server_Object_group')
             ->then('the provided list and the result list match with regard to these attributes',
                    'mail', 'mail', $group_list);
     }
@@ -127,7 +125,7 @@ class Horde_Kolab_Server_GroupHandlingTest extends Horde_Kolab_Test_Server
         $this->given('an empty Kolab server')
             ->when('adding an object list', $group_list)
             ->and('retrieving a hash list with all objects of type',
-                  KOLAB_OBJECT_GROUP)
+                  'Horde_Kolab_Server_Object_group')
             ->then('each element in the result list has an attribute',
                    'visible');
     }
@@ -159,7 +157,7 @@ class Horde_Kolab_Server_GroupHandlingTest extends Horde_Kolab_Test_Server
         $this->given('an empty Kolab server')
             ->when('adding an object', $this->validGroupWithoutMembers())
             ->and('retrieving a hash list with all objects of type',
-                  KOLAB_OBJECT_GROUP)
+                  'Horde_Kolab_Server_Object_group')
             ->then('each element in the result list has an attribute set to a given value',
                    'visible', true);
     }

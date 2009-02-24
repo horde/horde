@@ -2,7 +2,6 @@
 /**
  * A driver for simulating a Kolab user database stored in LDAP.
  *
- *
  * PHP version 5
  *
  * @category Kolab
@@ -12,12 +11,8 @@
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
 
-/** Require the LDAP based class as our base class */
-require_once 'Horde/Kolab/Server/ldap.php';
-
 /**
  * This class provides a class for testing the Kolab Server DB.
- *
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
@@ -38,49 +33,49 @@ class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap
      *
      * @var array
      */
-    var $_result;
+    private $_result;
 
     /**
      * Buffer for error numbers.
      *
      * @var int
      */
-    var $_errno = 0;
+    private $_errno = 0;
 
     /**
      * Buffer for error descriptions.
      *
      * @var int
      */
-    var $_error = '';
+    private $_error = '';
 
     /**
      * Attribute used for sorting.
      *
      * @var string
      */
-    var $_sort_by;
+    private $_sort_by;
 
     /**
      * A result cache for iterating over the result.
      *
      * @var array
      */
-    var $_current_result;
+    private $_current_result;
 
     /**
      * An index into the current result for iterating.
      *
      * @var int
      */
-    var $_current_index;
+    private $_current_index;
 
     /**
      * Construct a new Horde_Kolab_Server object.
      *
      * @param array $params Parameter array.
      */
-    function __construct($params = array())
+    public function __construct($params = array())
     {
         if (isset($params['data'])) {
             $GLOBALS['KOLAB_SERVER_TEST_DATA'] = $params['data'];
@@ -98,9 +93,14 @@ class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap
      * @param string $dn DN to bind with
      * @param string $pw Password associated to this DN.
      *
-     * @return boolean|PEAR_Error  Whether or not the binding succeeded.
+     * @return boolean Whether or not the binding succeeded.
+     *
+     * @throws Horde_Kolab_Server_Exception If the user does not exit, he has no
+     *                                      password, provided an incorrect
+     *                                      password or anonymous binding is not
+     *                                      allowed.
      */
-    function _bind($dn = false, $pw = '')
+    protected function bind($dn = false, $pw = '')
     {
         if (!$dn) {
             if (isset($this->params['uid'])) {
@@ -117,27 +117,28 @@ class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap
 
         if (!empty($dn)) {
             if (!isset($GLOBALS['KOLAB_SERVER_TEST_DATA'][$dn])) {
-                return PEAR::raiseError('User does not exist!');
+                throw new Horde_Kolab_Server_Exception('User does not exist!');
             }
 
             $this->_bound = true;
 
-            $data = $this->read($dn, $attrs = array('userPassword'));
-            if (is_a($data, 'PEAR_Error')) {
+            try {
+                $data = $this->read($dn, array('userPassword'));
+            } catch (Horde_Kolab_Server_Exception $e) {
                 $this->_bound = false;
-                return $data;
+                throw $e;
             }
             if (!isset($data['userPassword'])) {
                 $this->_bound = false;
-                return PEAR::raiseError('User has no password entry!');
+                throw new Horde_Kolab_Server_Exception('User has no password entry!');
             }
             $this->_bound = $data['userPassword'][0] == $pw;
             if (!$this->_bound) {
-                return PEAR::raiseError('Incorrect password!');
+                throw new Horde_Kolab_Server_Exception('Incorrect password!');
             }
         } else if (!empty($this->params['no_anonymous_bind'])) {
             $this->_bound = false;
-            return PEAR::raiseError('Anonymous bind is not allowed!');
+            throw new Horde_Kolab_Server_Exception('Anonymous bind is not allowed!');
         } else {
             $this->_bound = true;
         }
@@ -149,7 +150,7 @@ class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap
      *
      * @return NULL
      */
-    function unbind()
+    public function unbind()
     {
         $this->_bound = false;
     }
@@ -160,25 +161,28 @@ class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap
      *
      * @param string $filter The filter string.
      *
-     * @return array|PEAR_Error An array of the parsed filter.
+     * @return array An array of the parsed filter.
+     *
+     * @throws Horde_Kolab_Server_Exception If parsing the filter expression
+     *                                      fails.
      */
-    function _parse($filter)
+    public function parse($filter)
     {
         $result = array();
         if (preg_match('/^\((.+?)\)$/', $filter, $matches)) {
             if (in_array(substr($matches[1], 0, 1), array('!', '|', '&'))) {
                 $result['op']  = substr($matches[1], 0, 1);
-                $result['sub'] = $this->_parseSub(substr($matches[1], 1));
+                $result['sub'] = $this->parseSub(substr($matches[1], 1));
                 return $result;
             } else {
                 if (stristr($matches[1], ')(')) {
-                    return PEAR::raiseError("Filter parsing error: invalid filter syntax - multiple leaf components detected!");
+                    throw new Horde_Kolab_Server_Exception('Filter parsing error: invalid filter syntax - multiple leaf components detected!');
                 } else {
                     $filter_parts = preg_split('/(?<!\\\\)(=|=~|>|<|>=|<=)/',
                                                $matches[1], 2,
                                                PREG_SPLIT_DELIM_CAPTURE);
                     if (count($filter_parts) != 3) {
-                        return PEAR::raiseError("Filter parsing error: invalid filter syntax - unknown matching rule used");
+                        throw new Horde_Kolab_Server_Exception('Filter parsing error: invalid filter syntax - unknown matching rule used');
                     } else {
                         $result['att'] = $filter_parts[0];
                         $result['log'] = $filter_parts[1];
@@ -188,8 +192,8 @@ class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap
                 }
             }
         } else {
-            return PEAR::raiseError(sprintf("Filter parsing error: %s - filter components must be enclosed in round brackets",
-                                            $filter));
+            throw new Horde_Kolab_Server_Exception(sprintf("Filter parsing error: %s - filter components must be enclosed in round brackets",
+                                                           $filter));
         }
     }
 
@@ -198,9 +202,11 @@ class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap
      *
      * @param string $filter The subfilter string.
      *
-     * @return array|PEAR_Error An array of the parsed subfilter.
+     * @return array An array of the parsed subfilter.
+     *
+     * @throws Horde_Kolab_Server_Exception
      */
-    function _parseSub($filter)
+    public function parseSub($filter)
     {
         $result  = array();
         $level   = 0;
@@ -216,11 +222,11 @@ class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap
                     $matches[2] = substr($matches[2], 1);
                     $level--;
                     if (!$level) {
-                        $result[] = $this->_parse($collect);
+                        $result[] = $this->parse($collect);
                     }
                 }
             } else {
-                $result[] = $this->_parse($matches[1]);
+                $result[] = $this->parse($matches[1]);
             }
             $filter = $matches[2];
         }
@@ -228,29 +234,33 @@ class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap
     }
 
     /**
-     * Search for an object.
+     * Search for object data.
      *
-     * @param string $filter     Filter criteria.
-     * @param array  $attributes Restrict the search result to
-     *                           these attributes.
-     * @param string $base       DN of the search base.
+     * @param string $filter The LDAP search filter.
+     * @param string $params Additional search parameters.
+     * @param string $base   The search base
      *
-     * @return array|PEAR_Error A LDAP serach result.
+     * @return array The result array.
+     *
+     * @throws Horde_Kolab_Server_Exception If the search operation encountered
+     *                                      a problem.
      */
-    function _search($filter, $attributes = null, $base = null)
+    public function search($filter = null, $params = array(), $base = null)
     {
         if (!$this->_bound) {
-            $result = $this->_bind();
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
-            }
+            $result = $this->bind();
         }
 
-        $filter = $this->_parse($filter);
-        if (is_a($filter, 'PEAR_Error')) {
-            return $filter;
+        $filter = $this->parse($filter);
+        if (isset($params['attributes'])) {
+            $attributes = $params['attributes'];
+            if (!is_array($attributes)) {
+                $attributes = array($attributes);
+            }
+        } else {
+            $attributes = array();
         }
-        $result = $this->_doSearch($filter, $attributes);
+        $result = $this->doSearch($filter, $attributes);
         if (empty($result)) {
             return null;
         }
@@ -274,9 +284,12 @@ class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap
      * @param array $attributes Restrict the search result to
      *                          these attributes.
      *
-     * @return array|PEAR_Error A LDAP serach result.
+     * @return array A LDAP serach result.
+     *
+     * @throws Horde_Kolab_Server_Exception If the search operation is not
+     *                                      available.
      */
-    function _doSearch($filter, $attributes = null)
+    protected function doSearch($filter, $attributes = null)
     {
         if (isset($filter['log'])) {
             $result = array();
@@ -303,7 +316,7 @@ class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap
                         }
                         break;
                     default:
-                        return PEAR::raiseError(_("Not implemented!"));
+                        throw new Horde_Kolab_Server_Exception(_("Not implemented!"));
                     }
                 }
             }
@@ -313,8 +326,8 @@ class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap
             $filtercount = count($filter['sub']);
             foreach ($filter['sub'] as $subfilter) {
                 $subresult = array_merge($subresult,
-                                         $this->_doSearch($subfilter,
-                                                          $attributes));
+                                         $this->doSearch($subfilter,
+                                                         $attributes));
             }
             $result = array();
             $dns    = array();
@@ -362,7 +375,7 @@ class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap
                 }
                 return $result;
             default:
-                return PEAR::raiseError(_("Not implemented!"));
+                throw new Horde_Kolab_Server_Exception(_("Not implemented!"));
             }
         }
     }
@@ -373,20 +386,19 @@ class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap
      * @param string $dn    The object to retrieve.
      * @param string $attrs Restrict to these attributes
      *
-     * @return array|PEAR_Error An array of attributes.
+     * @return array An array of attributes.
+     *
+     * @throws Horde_Kolab_Server_Exception If the object does not exist.
      */
-    function read($dn, $attrs = null)
+    public function read($dn, $attrs = null)
     {
         if (!$this->_bound) {
-            $result = $this->_bind();
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
-            }
+            $result = $this->bind();
         }
 
         if (!isset($GLOBALS['KOLAB_SERVER_TEST_DATA'][$dn])) {
-            return PEAR::raiseError(sprintf("LDAP Error: No such object: %s: No such object",
-                                            $dn));
+            throw new Horde_Kolab_Server_Exception(sprintf("LDAP Error: No such object: %s: No such object",
+                                                           $dn));
         }
         if (empty($attrs)) {
             return $GLOBALS['KOLAB_SERVER_TEST_DATA'][$dn]['data'];
@@ -413,13 +425,10 @@ class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap
      *
      * @return boolean  True if adding succeeded.
      */
-    function _add($dn, $data)
+    public function save($dn, $data)
     {
         if (!$this->_bound) {
-            $result = $this->_bind();
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
-            }
+            $result = $this->bind();
         }
 
         $ldap_data = array();
@@ -437,48 +446,13 @@ class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap
     }
 
     /**
-     * Count the number of results.
-     *
-     * @param array $result The LDAP search result.
-     *
-     * @return int The number of records found.
-     */
-    function _count($result)
-    {
-        if (is_array($result)) {
-            return count($result);
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * Return the dn of an entry.
-     *
-     * @param array $entry The LDAP entry.
-     *
-     * @return string  The DN of the entry.
-     */
-    function _getDn($entry)
-    {
-        if (is_array($entry) && isset($entry['dn'])) {
-            if (isset($entry['count'])) {
-                return $entry['dn'][0];
-            } else {
-                return $entry['dn'];
-            }
-        }
-        return false;
-    }
-
-    /**
      * Return the attributes of an entry.
      *
      * @param array $entry The LDAP entry.
      *
      * @return array  The attributes of the entry.
      */
-    function _getAttributes($entry)
+    protected function getAttributes($entry)
     {
         if (is_array($entry)) {
             return $entry;
@@ -491,7 +465,7 @@ class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap
      *
      * @return mixe  The current entry of the result or false.
      */
-    function _fetchEntry()
+    protected function fetchEntry()
     {
         if (is_array($this->_current_result)
             && $this->_current_index < count($this->_current_result)) {
@@ -523,11 +497,11 @@ class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap
      *
      * @return mixed The first entry of the result or false.
      */
-    function _firstEntry($result)
+    protected function firstEntry($result)
     {
         $this->_current_result = $result;
         $this->_current_index  = 0;
-        return $this->_fetchEntry();
+        return $this->fetchEntry();
     }
 
     /**
@@ -537,9 +511,9 @@ class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap
      *
      * @return resource The next entry of the result.
      */
-    function _nextEntry($entry)
+    protected function nextEntry($entry)
     {
-        return $this->_fetchEntry();
+        return $this->fetchEntry();
     }
 
     /**
@@ -549,7 +523,7 @@ class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap
      *
      * @return mixed The entries of the result or false.
      */
-    function _getEntries($result)
+    protected function getEntries($result)
     {
         if (is_array($result)) {
             $data          = array();
@@ -572,14 +546,14 @@ class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap
      *
      * @return boolean  True if sorting succeeded.
      */
-    function _sort(&$result, $attribute)
+    public function sort(&$result, $attribute)
     {
         if (empty($result)) {
             return $result;
         }
 
         $this->_sort_by = $attribute;
-        usort($result, array($this, '_resultSort'));
+        usort($result, array($this, 'resultSort'));
         return false;
     }
 
@@ -591,7 +565,7 @@ class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap
      *
      * @return int  Comparison result.
      */
-    function _resultSort($a, $b)
+    protected function resultSort($a, $b)
     {
         $x = isset($a['data'][$this->_sort_by][0])?$a['data'][$this->_sort_by][0]:'';
         $y = isset($b['data'][$this->_sort_by][0])?$b['data'][$this->_sort_by][0]:'';
@@ -604,7 +578,7 @@ class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap
      *
      * @return int  The current LDAP error number.
      */
-    function _errno()
+    protected function errno()
     {
         return $this->_errno;
     }
@@ -614,7 +588,7 @@ class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap
      *
      * @return string  The current LDAP error description.
      */
-    function _error()
+    protected function error()
     {
         return $this->_error;
     }

@@ -19,8 +19,10 @@ if (!defined('PHPUnit_MAIN_METHOD')) {
     define('PHPUnit_MAIN_METHOD', 'Horde_Kolab_Server_AllTests::main');
 }
 
-require_once 'PHPUnit/Framework/TestSuite.php';
-require_once 'PHPUnit/TextUI/TestRunner.php';
+/**
+ * The Autoloader allows us to omit "require/include" statements.
+ */
+require_once 'Horde/Autoloader.php';
 
 /**
  * Combine the tests for this package.

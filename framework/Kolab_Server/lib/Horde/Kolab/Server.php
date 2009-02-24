@@ -16,13 +16,14 @@
  */
 require_once 'Horde/Autoloader.php';
 
-/** Provide access to the Kolab specific objects. */
-require_once 'Horde/Kolab/Server/Object.php';
-
 /** Define types of return values. */
 define('KOLAB_SERVER_RESULT_SINGLE', 1);
 define('KOLAB_SERVER_RESULT_STRICT', 2);
 define('KOLAB_SERVER_RESULT_MANY',   3);
+
+/** Define the base types. */
+define('KOLAB_SERVER_USER',  'kolabInetOrgPerson');
+define('KOLAB_SERVER_GROUP', 'kolabGroupOfNames');
 
 /**
  * This class provides methods to deal with Kolab objects stored in
@@ -79,19 +80,20 @@ abstract class Horde_Kolab_Server
      *                      configuration or connection parameters a subclass
      *                      might need.
      *
-     * @return Horde_Kolab_Server|PEAR_Error The newly created concrete
-     *                                       Horde_Kolab_Server instance.
+     * @return Horde_Kolab_Server The newly created concrete Horde_Kolab_Server
+     *                            instance.
+     *
+     * @throws Horde_Kolab_Server_Exception If the requested Horde_Kolab_Server
+     *                                      subclass could not be found.
      */
     public function &factory($driver, $params = array())
     {
-        $class = 'Horde_Kolab_Server_' . $driver;
+        $class = 'Horde_Kolab_Server_' . basename($driver);
         if (class_exists($class)) {
             $db = new $class($params);
-        } else {
-            $db = PEAR::raiseError('Class definition of ' . $class . ' not found.');
+            return $db;
         }
-
-        return $db;
+        throw new Horde_Kolab_Server_Exception('Server type definition "' . $class . '" missing.');
     }
 
     /**
@@ -108,8 +110,11 @@ abstract class Horde_Kolab_Server
      *                      (if the uid is not yet known), and "pass"
      *                      (for a password).
      *
-     * @return Horde_Kolab_Server|PEAR_Error The concrete Horde_Kolab_Server
-     *                                       reference.
+     * @return Horde_Kolab_Server The concrete Horde_Kolab_Server reference.
+     *
+     * @throws Horde_Kolab_Server_Exception If the driver configuration is
+     *                                      missing or the given user could not
+     *                                      be identified.
      */
     public function &singleton($params = null)
     {
@@ -125,38 +130,28 @@ abstract class Horde_Kolab_Server
                 $server_params = array();
             }
         } else {
-            return PEAR::raiseError('The configuration for the Kolab server driver is missing!');
+            throw new Horde_Kolab_Server_Exception('The configuration for the Kolab server driver is missing!');
         }
 
         if (!empty($params)) {
             if (isset($params['user'])) {
                 $tmp_server = &Horde_Kolab_Server::factory($driver, $server_params);
 
-                $uid = $tmp_server->uidForIdOrMail($params['user']);
-                if (is_a($uid, 'PEAR_Error')) {
-                    return PEAR::raiseError(sprintf(_("Failed identifying the UID of the Kolab user %s. Error was: %s"),
-                                                    $params['user'],
-                                                    $uid->getMessage()));
+                try {
+                    $uid = $tmp_server->uidForIdOrMail($params['user']);
+                } catch (Horde_Kolab_Server_Exception $e) {
+                    throw new Horde_Kolab_Server_Exception(sprintf(_("Failed identifying the UID of the Kolab user %s. Error was: %s"),
+                                                                   $params['user'],
+                                                                   $e->getMessage()));
                 }
-                $server_params['uid'] = $uid;
+                $params['binddn'] = $uid;
             }
-            if (isset($params['pass'])) {
-                if (isset($server_params['pass'])) {
-                    $server_params['search_pass'] = $server_params['pass'];
-                }
-                $server_params['pass'] = $params['pass'];
-            }
-            if (isset($params['uid'])) {
-                if (isset($server_params['uid'])) {
-                    $server_params['search_uid'] = $server_params['pass'];
-                }
-                $server_params['uid'] = $params['uid'];
-            }
+            $server_params = array_merge($server_params, $params);
         }
 
-        $sparam         = $server_params;
-        $sparam['pass'] = isset($sparam['pass']) ? md5($sparam['pass']) : '';
-        $signature      = serialize(array($driver, $sparam));
+        $sparam           = $server_params;
+        $sparam['bindpw'] = isset($sparam['bindpw']) ? md5($sparam['bindpw']) : '';
+        $signature        = serialize(array($driver, $sparam));
         if (empty($instances[$signature])) {
             $instances[$signature] = &Horde_Kolab_Server::factory($driver,
                                                                   $server_params);
@@ -176,7 +171,9 @@ abstract class Horde_Kolab_Server
      * @param string $uid  The UID of the object to fetch.
      * @param string $type The type of the object to fetch.
      *
-     * @return Kolab_Object|PEAR_Error The corresponding Kolab object.
+     * @return Kolab_Object The corresponding Kolab object.
+     *
+     * @throws Horde_Kolab_Server_Exception
      */
     public function &fetch($uid = null, $type = null)
     {
@@ -185,9 +182,6 @@ abstract class Horde_Kolab_Server
         }
         if (empty($type)) {
             $type = $this->determineType($uid);
-            if (is_a($type, 'PEAR_Error')) {
-                return $type;
-            }
         }
 
         $object = &Horde_Kolab_Server_Object::factory($type, $uid, $this);
@@ -200,21 +194,18 @@ abstract class Horde_Kolab_Server
      * @param string $type The type of the object to create.
      * @param array  $info Any additional information about the object to create.
      *
-     * @return string|PEAR_Error The UID.
+     * @return string The UID.
+     *
+     * @throws Horde_Kolab_Server_Exception
      */
     public function generateUid($type, $info)
     {
         if (!class_exists($type)) {
             $result = Horde_Kolab_Server_Object::loadClass($type);
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
-            }
         }
 
         $id = call_user_func(array($type, 'generateId'), $info);
-        if (is_a($id, 'PEAR_Error')) {
-            return $id;
-        }
+
         return $this->generateServerUid($type, $id, $info);
     }
 
@@ -223,33 +214,26 @@ abstract class Horde_Kolab_Server
      *
      * @param array $info The object to store.
      *
-     * @return Kolab_Object|PEAR_Error The newly created Kolab object.
+     * @return Kolab_Object The newly created Kolab object.
+     *
+     * @throws Horde_Kolab_Server_Exception If the type of the object to add has
+     *                                      been left undefined or the object
+     *                                      already exists.
      */
     public function &add($info)
     {
         if (!isset($info['type'])) {
-            return PEAR::raiseError('The type of a new object must be specified!');
+            throw new Horde_Kolab_Server_Exception('The type of a new object must be specified!');
         }
 
         $uid = $this->generateUid($info['type'], $info);
-        if (is_a($uid, 'PEAR_Error')) {
-            return $uid;
-        }
 
         $object = &Horde_Kolab_Server_Object::factory($info['type'], $uid, $this);
-        if (is_a($object, 'PEAR_Error')) {
-            return $object;
-        }
-
         if ($object->exists()) {
-            return PEAR::raiseError('The object does already exist!');
+            throw new Horde_Kolab_Server_Exception(sprintf(_("The object with the uid \"%s\" does already exist!"),
+                                                           $uid));
         }
-
-        $result = $object->save($info);
-        if (is_a($result, 'PEAR_Error')) {
-            return PEAR::raiseError(sprintf('Adding object failed: %s',
-                                            $result->getMessage()));
-        }
+        $object->save($info);
         return $object;
     }
 
@@ -259,12 +243,19 @@ abstract class Horde_Kolab_Server
      * @param string $id       Search for objects with this ID.
      * @param int    $restrict A KOLAB_SERVER_RESULT_* result restriction.
      *
-     * @return mixed|PEAR_Error The UID or false if there was no result.
+     * @return mixed The UID or false if there was no result.
+     *
+     * @throws Horde_Kolab_Server_Exception
      */
     public function uidForId($id,
                              $restrict = KOLAB_SERVER_RESULT_SINGLE)
     {
-        return $this->uidForAttr('uid', $id);
+        $criteria = array('AND' => array(array('field' => 'uid',
+                                              'op'    => '=',
+                                              'test'  => $id),
+                         ),
+        );
+        return $this->uidForSearch($criteria, $restrict);
     }
 
     /**
@@ -273,12 +264,19 @@ abstract class Horde_Kolab_Server
      * @param string $mail     Search for users with this mail address.
      * @param int    $restrict A KOLAB_SERVER_RESULT_* result restriction.
      *
-     * @return mixed|PEAR_Error The UID or false if there was no result.
+     * @return mixed The UID or false if there was no result.
+     *
+     * @throws Horde_Kolab_Server_Exception
      */
     public function uidForMail($mail,
                                $restrict = KOLAB_SERVER_RESULT_SINGLE)
     {
-        return $this->uidForAttr('mail', $mail);
+        $criteria = array('AND' => array(array('field' => 'mail',
+                                              'op'    => '=',
+                                              'test'  => $mail),
+                         ),
+        );
+        return $this->uidForSearch($criteria, $restrict);
     }
 
     /**
@@ -287,12 +285,19 @@ abstract class Horde_Kolab_Server
      * @param string $mail     Search for objects with this mail alias.
      * @param int    $restrict A KOLAB_SERVER_RESULT_* result restriction.
      *
-     * @return mixed|PEAR_Error The UID or false if there was no result.
+     * @return mixed The UID or false if there was no result.
+     *
+     * @throws Horde_Kolab_Server_Exception
      */
     public function uidForAlias($mail,
                                 $restrict = KOLAB_SERVER_RESULT_SINGLE)
     {
-        return $this->uidForAttr('alias', $mail);
+        $criteria = array('AND' => array(array('field' => 'alias',
+                                              'op'    => '=',
+                                              'test'  => $mail),
+                         ),
+        );
+        return $this->uidForSearch($criteria, $restrict);
     }
 
     /**
@@ -300,15 +305,23 @@ abstract class Horde_Kolab_Server
      *
      * @param string $id Search for objects with this uid/mail.
      *
-     * @return mixed|PEAR_Error The UID or false if there was no result.
+     * @return string|boolean The UID or false if there was no result.
+     *
+     * @throws Horde_Kolab_Server_Exception
      */
     public function uidForIdOrMail($id)
     {
-        $uid = $this->uidForAttr('uid', $id);
-        if (!$uid) {
-            $uid = $this->uidForAttr('mail', $id);
-        }
-        return $uid;
+        $criteria = array('OR' =>
+                         array(
+                             array('field' => 'uid',
+                                   'op'    => '=',
+                                   'test'  => $id),
+                             array('field' => 'mail',
+                                   'op'    => '=',
+                                   'test'  => $id),
+                         ),
+        );
+        return $this->uidForSearch($criteria);
     }
 
     /**
@@ -318,15 +331,23 @@ abstract class Horde_Kolab_Server
      * @param string $mail Search for objects with this mail address
      * or alias.
      *
-     * @return mixed|PEAR_Error The UID or false if there was no result.
+     * @return string|boolean The UID or false if there was no result.
+     *
+     * @throws Horde_Kolab_Server_Exception
      */
     public function uidForMailOrAlias($mail)
     {
-        $uid = $this->uidForAttr('alias', $mail);
-        if (!$uid) {
-            $uid = $this->uidForAttr('mail', $mail);
-        }
-        return $uid;
+        $criteria = array('OR' =>
+                         array(
+                             array('field' => 'alias',
+                                   'op'    => '=',
+                                   'test'  => $id),
+                             array('field' => 'mail',
+                                   'op'    => '=',
+                                   'test'  => $id),
+                         )
+        );
+        return $this->uidForSearch($criteria);
     }
 
     /**
@@ -335,18 +356,26 @@ abstract class Horde_Kolab_Server
      *
      * @param string $id Search for objects with this ID/mail/alias.
      *
-     * @return mixed|PEAR_Error The UID or false if there was no result.
+     * @return string|boolean The UID or false if there was no result.
+     *
+     * @throws Horde_Kolab_Server_Exception
      */
     public function uidForIdOrMailOrAlias($id)
     {
-        $uid = $this->uidForAttr('uid', $id);
-        if (!$uid) {
-            $uid = $this->uidForAttr('mail', $id);
-            if (!$uid) {
-                $uid = $this->uidForAttr('alias', $id);
-            }
-        }
-        return $uid;
+        $criteria = array('OR' =>
+                         array(
+                             array('field' => 'alias',
+                                   'op'    => '=',
+                                   'test'  => $id),
+                             array('field' => 'mail',
+                                   'op'    => '=',
+                                   'test'  => $id),
+                             array('field' => 'uid',
+                                   'op'    => '=',
+                                   'test'  => $id),
+                         ),
+        );
+        return $this->uidForSearch($criteria);
     }
 
     /**
@@ -355,14 +384,37 @@ abstract class Horde_Kolab_Server
      *
      * @param string $id Search for objects with this ID/mail.
      *
-     * @return mixed|PEAR_Error The mail address or false if there was
-     *                          no result.
+     * @return mixed The mail address or false if there was no result.
+     *
+     * @throws Horde_Kolab_Server_Exception
      */
     public function mailForIdOrMail($id)
     {
-        $uid  = $this->uidForIdOrMail($id);
-        $data = $this->read($uid, array('mail'));
-        return $data['mail'];
+        $criteria = array('AND' =>
+                         array(
+                             array('field' => 'objectClass',
+                                   'op'    => '=',
+                                   'test'  => KOLAB_SERVER_USER),
+                             array('OR' =>
+                                   array(
+                                       array('field' => 'uid',
+                                             'op'    => '=',
+                                             'test'  => $id),
+                                       array('field' => 'mail',
+                                             'op'    => '=',
+                                             'test'  => $id),
+                                   ),
+                             ),
+                         ),
+        );
+
+        $data = $this->attrsForSearch($criteria, array('mail'),
+                                      KOLAB_SERVER_RESULT_STRICT);
+        if (!empty($data)) {
+            return $data['mail'];
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -370,13 +422,62 @@ abstract class Horde_Kolab_Server
      *
      * @param string $id Search for objects with this ID/mail.
      *
-     * @return array|PEAR_Error An array of allowed mail addresses.
+     * @return array An array of allowed mail addresses.
+     *
+     * @throws Horde_Kolab_Server_Exception
      */
     public function addrsForIdOrMail($id)
     {
-        $uid  = $this->uidForIdOrMail($id);
-        $data = $this->read($uid, array('mail', 'alias'));
-        return array_merge($data['mail'], $data['alias']);
+        $criteria = array('AND' =>
+                         array(
+                             array('field' => 'objectClass',
+                                   'op'    => '=',
+                                   'test'  => KOLAB_SERVER_USER),
+                             array('OR' =>
+                                   array(
+                                       array('field' => 'uid',
+                                             'op'    => '=',
+                                             'test'  => $id),
+                                       array('field' => 'mail',
+                                             'op'    => '=',
+                                             'test'  => $id),
+                                   ),
+                             ),
+                         ),
+        );
+
+        $result = $this->attrsForSearch($criteria, array('mail'),
+                                        KOLAB_SERVER_RESULT_STRICT);
+        if (empty($result)) {
+            return array();
+        }
+        $addrs = array_merge((array) $result['mail'], (array) $result['alias']);
+
+        $criteria = array('AND' =>
+                         array(
+                             array('field' => 'objectClass',
+                                   'op'    => '=',
+                                   'test'  => KOLAB_SERVER_USER),
+                             array('field' => 'kolabDelegate',
+                                   'op'    => '=',
+                                   'test'  => $result['mail']),
+                         ),
+        );
+
+        $result = $this->attrsForSearch($criteria, array('mail', 'alias'),
+                                      KOLAB_SERVER_RESULT_MANY);
+        if (!empty($result)) {
+            foreach ($result as $adr) {
+                if (isset($adr['mail'])) {
+                    $addrs = array_merge((array) $addrs, (array) $adr['mail']);
+                }
+                if (isset($adr['alias'])) {
+                    $addrs = array_merge((array) $addrs, (array) $adr['alias']);
+                }
+            }
+        }
+
+        return $addrs;
     }
 
     /**
@@ -385,12 +486,19 @@ abstract class Horde_Kolab_Server
      * @param string $mail     Search for groups with this mail address.
      * @param int    $restrict A KOLAB_SERVER_RESULT_* result restriction.
      *
-     * @return mixed|PEAR_Error The GID or false if there was no result.
+     * @return mixed The GID or false if there was no result.
+     *
+     * @throws Horde_Kolab_Server_Exception
      */
     public function gidForMail($mail,
                                $restrict = KOLAB_SERVER_RESULT_SINGLE)
     {
-        return $this->gidForAttr('mail', $mail);
+        $criteria = array('AND' => array(array('field' => 'mail',
+                                              'op'    => '=',
+                                              'test'  => $mail),
+                         ),
+        );
+        return $this->gidForSearch($criteria, $restrict);
     }
 
     /**
@@ -399,14 +507,52 @@ abstract class Horde_Kolab_Server
      * @param string $uid  UID of the user.
      * @param string $mail Search the group with this mail address.
      *
-     * @return boolean|PEAR_Error True in case the user is in the
-     *                            group, false otherwise.
+     * @return boolean True in case the user is in the group, false otherwise.
+     *
+     * @throws Horde_Kolab_Server_Exception
      */
     public function memberOfGroupAddress($uid, $mail)
     {
-        $gid  = $this->gidForMail($mail);
-        $data = $this->read($gid, array('member'));
-        return in_array($uid, $data['member']);
+        $criteria = array('AND' =>
+                          array(
+                              array('field' => 'mail',
+                                    'op'    => '=',
+                                    'test'  => $mail),
+                              array('field' => 'member',
+                                    'op'    => '=',
+                                    'test'  => $uid),
+                          ),
+        );
+
+        $result = $this->gidForSearch($criteria,
+                                      KOLAB_SERVER_RESULT_SINGLE);
+        return !empty($result);
+    }
+
+    /**
+     * Get the groups for this object.
+     *
+     * @param string $uid The UID of the object to fetch.
+     *
+     * @return array An array of group ids.
+     *
+     * @throws Horde_Kolab_Server_Exception
+     */
+    public function getGroups($uid)
+    {
+        $criteria = array('AND' =>
+                          array(
+                              array('field' => 'member',
+                                    'op'    => '=',
+                                    'test'  => $uid),
+                          ),
+        );
+
+        $result = $this->gidForSearch($criteria, KOLAB_SERVER_RESULT_MANY);
+        if (empty($result)) {
+            return array();
+        }
+        return $result;
     }
 
     /**
@@ -415,14 +561,13 @@ abstract class Horde_Kolab_Server
      * @param string $type   The type of the objects to be listed
      * @param array  $params Additional parameters.
      *
-     * @return array|PEAR_Error An array of Kolab objects.
+     * @return array An array of Kolab objects.
+     *
+     * @throws Horde_Kolab_Server_Exception
      */
     public function listHash($type, $params = null)
     {
         $list = $this->listObjects($type, $params);
-        if (is_a($list, 'PEAR_Error')) {
-            return $list;
-        }
 
         if (isset($params['attributes'])) {
             $attributes = $params['attributes'];
@@ -444,7 +589,9 @@ abstract class Horde_Kolab_Server
      * @param string $uid   The object to retrieve.
      * @param string $attrs Restrict to these attributes.
      *
-     * @return array|PEAR_Error An array of attributes.
+     * @return array An array of attributes.
+     *
+     * @throws Horde_Kolab_Server_Exception
      */
     abstract public function read($uid, $attrs = null);
 
@@ -454,6 +601,8 @@ abstract class Horde_Kolab_Server
      * @param string $uid The UID of the object to examine.
      *
      * @return string The corresponding Kolab object type.
+     *
+     * @throws Horde_Kolab_Server_Exception
      */
     abstract protected function determineType($uid);
 
@@ -463,7 +612,9 @@ abstract class Horde_Kolab_Server
      * @param string $type   The type of the objects to be listed
      * @param array  $params Additional parameters.
      *
-     * @return array|PEAR_Error An array of Kolab objects.
+     * @return array An array of Kolab objects.
+     *
+     * @throws Horde_Kolab_Server_Exception
      */
     abstract public function listObjects($type, $params = null);
 
@@ -474,7 +625,9 @@ abstract class Horde_Kolab_Server
      * @param string $id   The id of the object.
      * @param array  $info Any additional information about the object to create.
      *
-     * @return string|PEAR_Error The UID.
+     * @return string The UID.
+     *
+     * @throws Horde_Kolab_Server_Exception
      */
     abstract protected function generateServerUid($type, $id, $info);
 
@@ -489,26 +642,41 @@ abstract class Horde_Kolab_Server
      * Identify the UID for the first user found using a specified
      * attribute value.
      *
-     * @param string $attr     The name of the attribute used for searching.
-     * @param string $value    The desired value of the attribute.
-     * @param int    $restrict A KOLAB_SERVER_RESULT_* result restriction.
+     * @param array $criteria The search parameters as array.
+     * @param int   $restrict A KOLAB_SERVER_RESULT_* result restriction.
      *
-     * @return mixed|PEAR_Error The UID or false if there was no result.
+     * @return boolean|string|array The UID(s) or false if there was no result.
+     *
+     * @throws Horde_Kolab_Server_Exception
      */
-    abstract public function uidForAttr($attr, $value,
-                                        $restrict = KOLAB_SERVER_RESULT_SINGLE);
+    abstract public function uidForSearch($criteria,
+                                          $restrict = KOLAB_SERVER_RESULT_SINGLE);
 
     /**
      * Identify the GID for the first group found using a specified
      * attribute value.
      *
-     * @param string $attr     The name of the attribute used for searching.
-     * @param string $value    The desired value of the attribute.
-     * @param int    $restrict A KOLAB_SERVER_RESULT_* result restriction.
+     * @param array $criteria The search parameters as array.
+     * @param int   $restrict A KOLAB_SERVER_RESULT_* result restriction.
      *
-     * @return mixed|PEAR_Error The GID or false if there was no result.
+     * @return boolean|string|array The GID(s) or false if there was no result.
+     *
+     * @throws Horde_Kolab_Server_Exception
      */
-    abstract public function gidForAttr($attr, $value,
-                                        $restrict = KOLAB_SERVER_RESULT_SINGLE);
+    abstract public function gidForSearch($criteria,
+                                          $restrict = KOLAB_SERVER_RESULT_SINGLE);
 
+    /**
+     * Identify attributes for the objects found using a filter.
+     *
+     * @param array $criteria The search parameters as array.
+     * @param array $attrs    The attributes to retrieve.
+     * @param int   $restrict A KOLAB_SERVER_RESULT_* result restriction.
+     *
+     * @return array The results.
+     *
+     * @throws Horde_Kolab_Server_Exception
+     */
+    abstract public function attrsForSearch($criteria, $attrs,
+                                            $restrict = KOLAB_SERVER_RESULT_SINGLE);
 }
