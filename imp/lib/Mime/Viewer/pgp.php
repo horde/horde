@@ -329,7 +329,6 @@ class IMP_Horde_Mime_Viewer_pgp extends Horde_Mime_Viewer_Driver
                 $sig_result = $sig_part->getContentTypeParameter('x-imp-pgp-signature')
                     ? $this->_imppgp->verifySignature($signed_data, $this->_address)
                     : $this->_imppgp->verifySignature($signed_data, $this->_address, $sig_part->getContents());
-                }
 
                 $icon = Horde::img('alerts/success.png', _("Success"), null, $graphicsdir);
                 if (empty($sig_result)) {
