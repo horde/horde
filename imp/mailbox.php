@@ -710,7 +710,7 @@ $imp_ui = new IMP_UI_Mailbox($imp_mbox['mailbox']);
 /* Display message information. */
 $ids = $msgs = array();
 $search_template = null;
-while (list($seq, $ob) = each($mbox_info['overview'])) {
+while (list(,$ob) = each($mbox_info['overview'])) {
     if ($search_mbox) {
         if (empty($lastMbox) || ($ob['mailbox'] != $lastMbox)) {
             if (!empty($lastMbox)) {
@@ -741,7 +741,7 @@ while (list($seq, $ob) = each($mbox_info['overview'])) {
         'bg' => '',
         'color' => '',
         'date' => htmlspecialchars($imp_ui->getDate($ob['envelope']['date'])),
-        'number' => $seq,
+        'number' => $ob['seq'],
         'preview' => '',
         'size' => htmlspecialchars($imp_ui->getSize($ob['size'])),
         'status' => '',
