@@ -49,6 +49,8 @@ require FOLKS_TEMPLATES . '/common-header.inc';
 require FOLKS_TEMPLATES . '/menu.inc';
 
 echo $tabs->render('friends');
+require FOLKS_TEMPLATES . '/edit/header.php';
 require FOLKS_TEMPLATES . '/edit/friends.php';
+require FOLKS_TEMPLATES . '/edit/footer.php';
 
 require $registry->get('templates', 'horde') . '/common-footer.inc';

@@ -66,7 +66,9 @@ Horde::addScriptFile('tables.js', 'horde', true);
 require FOLKS_TEMPLATES . '/common-header.inc';
 require FOLKS_TEMPLATES . '/menu.inc';
 
-echo $tabs->render('blacklist');
+echo $tabs->render('add');
+require FOLKS_TEMPLATES . '/edit/header.php';
 require FOLKS_TEMPLATES . '/edit/add.php';
+require FOLKS_TEMPLATES . '/edit/footer.php';
 
 require $registry->get('templates', 'horde') . '/common-footer.inc';

@@ -1,5 +1,3 @@
-<?php require dirname(__FILE__) . '/tabs.php'; ?>
-
 <h1 class="header"><?php echo $title ?></h1>
 
 <?php

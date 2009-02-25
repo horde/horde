@@ -53,12 +53,11 @@ foreach ($friend_list as $user) {
         continue;
     }
     foreach ($activities as $activity) {
-        $firendActivities[$activity['activity_date']] = array('message' => $activity['activity_message'],
-                                                                'scope' => $activity['activity_scope'],
-                                                                'user' => $user);
+        $firendActivities[$activity['activity_date']] = $activity;
     }
 }
 krsort($firendActivities);
+$firendActivities = array_slice($firendActivities, 0, 30);
 
 // Own activities
 $activities = $folks_driver->getActivity(Auth::getAuth());
@@ -66,13 +65,6 @@ if ($activities instanceof PEAR_Error) {
     $notification->push($activities);
     header('Location: ' . Folks::getUrlFor('list', 'list'));
     exit;
-}
-
-// Users online
-$online = $folks_driver->getOnlineUsers();
-if ($online instanceof PEAR_Error) {
-    $notification->push($online);
-    $online = array();
 }
 
 Horde::addScriptFile('stripe.js', 'horde', true);

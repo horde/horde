@@ -82,8 +82,9 @@ require FOLKS_TEMPLATES . '/common-header.inc';
 require FOLKS_TEMPLATES . '/menu.inc';
 
 echo $tabs->render('blacklist');
+require FOLKS_TEMPLATES . '/edit/header.php';
 require FOLKS_TEMPLATES . '/edit/friends.php';
-
 $friend_form->renderActive();
+require FOLKS_TEMPLATES . '/edit/footer.php';
 
 require $registry->get('templates', 'horde') . '/common-footer.inc';
