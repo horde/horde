@@ -74,7 +74,7 @@ class Horde_Service_Facebook
      *
      * @var Horde_Service_Facebook_Batch
      */
-    private $_batchRequest;
+    public $batchRequest;
 
     /**
      * Holds an optional logger object
@@ -258,13 +258,13 @@ class Horde_Service_Facebook
      */
     public function batchBegin()
     {
-        if ($this->_batchRequest !== null) {
+        if ($this->batchRequest !== null) {
             $code = Horde_Service_Facebook_ErrorCodes::API_EC_BATCH_ALREADY_STARTED;
             $description = Horde_Service_Facebook_ErrorCodes::$api_error_descriptions[$code];
             throw new Horde_Service_Facebook_Exception($description, $code);
         }
 
-        $this->_batchRequest = new Horde_Service_Facebook_BatchRequest($this, $this->_http);
+        $this->batchRequest = new Horde_Service_FacebookbatchRequest($this, $this->_http);
     }
 
     /**
@@ -272,14 +272,14 @@ class Horde_Service_Facebook
      */
     public function batchEnd()
     {
-        if ($this->_batchRequest === null) {
+        if ($this->batchRequest === null) {
             $code = Horde_Service_Facebook_ErrorCodes::API_EC_BATCH_NOT_STARTED;
             $description = Horde_Service_Facebook_ErrorCodes::$api_error_descriptions[$code];
             throw new Horde_Service_Facebook_Exception($description, $code);
         }
 
-        $this->_batchRequest->run();
-        $this->_batchRequest = null;
+        $this->batchRequest->run();
+        $this->batchRequest = null;
     }
 
     /**
@@ -630,7 +630,8 @@ class Horde_Service_Facebook
     */
     public function &users_getLoggedInUser()
     {
-     return $this->call_method('facebook.users.getLoggedInUser');
+     return $this->call_method('facebook.users.getLoggedInUser',
+        array('session_key' => $this->auth->getSessionKey()));
     }
 
     /**
@@ -718,11 +719,11 @@ class Horde_Service_Facebook
      */
     public function &call_method($method, $params = array())
     {
-        if ($this->_batchRequest === null) {
+        if ($this->batchRequest === null) {
             $request = new Horde_Service_Facebook_Request($this, $method, $this->_http, $params);
             $results = &$request->run();
         } else {
-            $results = &$this->_batchRequest->add($method, $params);
+            $results = &$this->batchRequest->add($method, $params);
         }
         return $results;
     }

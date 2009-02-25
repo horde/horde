@@ -1,12 +1,18 @@
 <?php
 /**
  * Base class for all Horde_Service_Framework_* classes
+ *
+ * Copyright 2009 The Horde Project (http://www.horde.org)
+ *
+ * @author Michael J. Rubinsky <mrubinsk@horde.org>
+ * @category Horde
+ * @package Horde_Service_Facebook
  */
 abstract class Horde_Service_Facebook_Base
 {
-    private $_facebook;
-    private $_request;
-    private $_sessionKey;
+    protected $_facebook;
+    protected $_request;
+    protected $_sessionKey;
 
     /**
      *
