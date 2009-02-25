@@ -383,7 +383,7 @@ abstract class Horde_Rdo_Mapper implements Countable
         }
 
         // Filter out any extra fields.
-        $fields = array_intersect_key($fields, $this->tableDefinition->getColumnNames());
+        $fields = array_intersect_key($fields, array_flip($this->tableDefinition->getColumnNames()));
 
         if (!$fields) {
             // Nothing to change.
