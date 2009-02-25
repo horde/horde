@@ -41,6 +41,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
        <file name="Request.php" role="php" />
        <file name="BatchRequest.php" role="php" />
        <file name="Auth.php" role="php" />
+       <file name="Feeds.php" role="php" />
        <file name="Exception.php" role="php" />
        <file name="ErrorCodes.php" role="php" />
       </dir> <!-- /lib/Horde/Service/Facebook -->
@@ -74,6 +75,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Service/Facebook/Request.php" as="Horde/Service/Facebook/Request.php" />
    <install name="lib/Horde/Service/Facebook/BatchRequest.php" as="Horde/Service/Facebook/BatchRequest.php" />
    <install name="lib/Horde/Service/Facebook/Auth.php" as="Horde/Service/Facebook/Auth.php" />   
+   <install name="lib/Horde/Service/Facebook/Feeds.php" as="Horde/Service/Facebook/Feeds.php" />   
    <install name="lib/Horde/Service/Facebook/Exception.php" as="Horde/Service/Facebook/Exception.php" />
    <install name="lib/Horde/Service/Facebook/ErrorCodes.php" as="Horde/Service/Facebook/ErrorCodes.php" />
    <install name="lib/Horde/Service/Facebook.php" as="Horde/Service/Facebook.php" />
