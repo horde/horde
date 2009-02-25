@@ -728,6 +728,7 @@ $m_template->set('msgtext', $msgtext);
 
 /* Output message page now. */
 Horde::addScriptFile('prototype.js', 'horde', true);
+Horde::addScriptFile('effects.js', 'horde', true);
 Horde::addScriptFile('imp.js', 'imp', true);
 Horde::addScriptFile('message.js', 'imp', true);
 require IMP_TEMPLATES . '/common-header.inc';
