@@ -17,34 +17,7 @@ if ($user == Auth::getAuth()) {
 
 if ($profile['user_video']) {
 
-?>
-
-<object type="application/x-shockwave-flash" data="<?php echo $registry->get('webroot', 'oscar') ?>/videos/flow_player.swf" width="400" height="300">
-<param name="allowScriptAccess" value="sameDomain" />
-<param name="movie" value="<?php echo $registry->get('webroot', 'oscar') ?>/videos/flow_player.swf" />
-<param name="quality" value="high" />
-<param name="wmode" value="transparent" />
-<param name="autoPlay" value="true" />
-<param name="autoRewind" value="true" />
-<param name="allowfullscreen" value="true" />
-<param name="useNativeFullScreen" value="true" />
-<param name="loop" value="false" />
-<param name="protected" value="true" />
-<param name="flashvars" value="config={
-    playList: [ {
-        url: '<?php echo $registry->get('webroot', 'horde') ?>/vfs/.horde/oscar/<?php echo substr(str_pad($profile['user_video'], 2, 0, STR_PAD_LEFT), -2) . '/' . $profile['user_video'] . '/' . $profile['user_video'] ?>.flv',
-        } ],
-        streamingServer: 'lighttpd',
-    autoBuffering: true,
-    autoPlay: false,
-    initialScale: 'fit',
-    headersOverVideo: 'locked',
-    headerBarBackgroundColor: -1,
-    headerBarGloss: 'none',
-    menuItems: [ false, false, false, false, false, false ]}" />
-</object>
-
-<?php
+    echo $registry->call('video/getEmbedCode', array($profile['user_video']));
 
 } elseif ($profile['user_picture']) {
 
