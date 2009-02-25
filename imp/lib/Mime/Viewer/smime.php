@@ -175,7 +175,7 @@ class IMP_Horde_Mime_Viewer_smime extends Horde_Mime_Viewer_Driver
             return array();
         }
 
-        $raw_text = $GLOBALS['imp_imap']->utils->removeBareNewlines($this->_params['contents']->getBodyPart($this->_miempart->getMimeId(), array('mimeheaders' => true)));
+        $raw_text = $GLOBALS['imp_imap']->utils->removeBareNewlines($this->_params['contents']->getBodyPart($this->_mimepart->getMimeId(), array('mimeheaders' => true)));
         $sig_result = $this->_impsmime->verifySignature($raw_text);
         return array(
             $this->_mimepart->getMimeId() => array(
@@ -299,11 +299,10 @@ class IMP_Horde_Mime_Viewer_smime extends Horde_Mime_Viewer_Driver
                     $subject = null;
                 }
 
-                if (isset($subpart) &&
-                    !empty($subject) &&
+                if (!empty($subject) &&
                     $GLOBALS['registry']->hasMethod('contacts/addField') &&
                     $GLOBALS['prefs']->getValue('add_source')) {
-                    $status[] = sprintf(_("The S/MIME certificate of %s: "), @htmlspecialchars($subject, ENT_COMPAT, NLS::getCharset())) . $this->_params['contents']->linkViewJS($subpart, 'view_attach', _("View"), array('params' => array('mode' => IMP_Contents::RENDER_INLINE, 'view_smime_key' => 1))) . '/' . Horde::link('#', '', null, null, $this->_impsmime->savePublicKeyURL($sig_result->cert, $this->_params['contents']->getIndex(), $sig_id) . ' return false;') . _("Save in your Address Book") . '</a>';
+                    $status[] = sprintf(_("The S/MIME certificate of %s: "), @htmlspecialchars($subject, ENT_COMPAT, NLS::getCharset())) . $this->_params['contents']->linkViewJS($this->_mimepart, 'view_attach', _("View"), array('params' => array('mode' => IMP_Contents::RENDER_INLINE, 'view_smime_key' => 1))) . '/' . Horde::link('#', '', null, null, $this->_impsmime->savePublicKeyURL($sig_result->cert, $this->_params['contents']->getIndex(), $sig_id) . ' return false;') . _("Save in your Address Book") . '</a>';
                 }
             }
         }
