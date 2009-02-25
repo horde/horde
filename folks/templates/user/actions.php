@@ -14,7 +14,7 @@
 <a href="javascript: document.getElementById('message_body').focus()" title="<?php echo _("Add a comment") ?>">
 <img src="<?php echo $registry->getImageDir('agora') ?>/agora.png"> <?php echo _("Add a comment") ?></a>
 
-<a href="<?php echo Util::addParameter(Horde::applicationUrl('edit/friends.php'), 'user', $user); ?>" title="<?php echo sprintf(_("Add %s as a friend?"), $user) ?>" onclick="return confirm('<?php echo sprintf(_("Add %s as a friend?"), $user) ?>')">
+<a href="<?php echo Util::addParameter(Horde::applicationUrl('edit/friends/add.php'), 'user', $user); ?>" title="<?php echo sprintf(_("Add %s as a friend?"), $user) ?>" onclick="return confirm('<?php echo sprintf(_("Add %s as a friend?"), $user) ?>')">
 <img src="<?php echo $registry->getImageDir('horde') ?>/user.png"> <?php echo _("Friend") ?></a>
 
 <a href="<?php echo Util::addParameter(Horde::applicationUrl('edit/blacklist.php'), 'user', $user); ?>" title="<?php echo sprintf(_("Add %s to you blacklist?"), $user) ?>" onclick="return confirm('<?php echo sprintf(_("Add %s to you blacklist?"), $user) ?>')">
