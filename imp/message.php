@@ -361,7 +361,7 @@ ksort($full_headers);
  * stuff in the query string, so we need to do an add/remove of 'index'. */
 $selfURL = Util::removeParameter(Horde::selfUrl(true), array('index', 'actionID', 'mailbox', 'thismailbox'));
 $selfURL = IMP::generateIMPUrl($selfURL, $imp_mbox['mailbox'], $index, $mailbox_name);
-$selfURL = html_entity_decode(Util::addParameter($selfURL, 'message_token', $message_token));
+IMP::$newUrl = $selfURL = html_entity_decode(Util::addParameter($selfURL, 'message_token', $message_token));
 $headersURL = htmlspecialchars(Util::removeParameter($selfURL, array('show_all_headers', 'show_list_headers')));
 
 /* Generate previous/next links. */

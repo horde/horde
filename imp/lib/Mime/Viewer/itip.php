@@ -463,7 +463,7 @@ class IMP_Horde_Mime_Viewer_itip extends Horde_Mime_Viewer_Driver
         // Create the HTML to display the iCal file.
         $html = '';
         if ($_SESSION['imp']['view'] == 'imp') {
-            $html .= '<form method="post" name="iCal" action="' . Horde::selfUrl(true) . '">';
+            $html .= '<form method="post" name="iCal" action="' . (IMP::selfUrl()) . '">';
         }
 
         foreach ($components as $key => $component) {

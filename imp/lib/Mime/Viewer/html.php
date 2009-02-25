@@ -208,7 +208,7 @@ class IMP_Horde_Mime_Viewer_html extends Horde_Mime_Viewer_html
             preg_match($this->_img_regex, $data)) {
             /* Make sure the URL parameters are correct for the current
              * message. */
-            $url = Util::removeParameter(Horde::selfUrl(true), array('actionID', 'index'));
+            $url = Util::removeParameter(IMP::selfUrl(), array('actionID', 'index'));
             $url = Util::addParameter($url, 'index', $this->_params['contents']->getIndex());
 
             $view_img = Util::getFormData('view_html_images');

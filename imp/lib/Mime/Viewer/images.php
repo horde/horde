@@ -163,7 +163,7 @@ class IMP_Horde_Mime_Viewer_images extends Horde_Mime_Viewer_images
      */
     protected function _popupImageWindow()
     {
-        $self_url = Util::addParameter(Horde::selfUrl(true), array('imp_img_view' => ((Util::getFormData('imp_img_view') == 'load_convert') ? 'view_convert' : 'data')));
+        $self_url = Util::addParameter(IMP::selfUrl(), array('imp_img_view' => ((Util::getFormData('imp_img_view') == 'load_convert') ? 'view_convert' : 'data')));
         $title = $this->_mimepart->getName(true);
 
         $str = <<<EOD

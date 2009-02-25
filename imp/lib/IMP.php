@@ -53,6 +53,9 @@ class IMP
     /* Are we currently in "print" mode? */
     static public $printMode = false;
 
+    /* Storage place for an altered version of the current URL. */
+    static public $newUrl = null;
+
     /* displayFolder() cache. */
     static private $_displaycache = array();
 
@@ -1986,7 +1989,7 @@ class IMP
         return $cache;
     }
 
-   /**
+    /**
      * Generate the JS code necessary to open a passphrase dialog. Adds the
      * necessary JS files to open the dialog.
      *
@@ -2030,4 +2033,17 @@ class IMP
 
         return 'IMPDialog.display(\'' . IMP::escapeJSON($js_params) . '\')';
     }
+
+    /**
+     * Return a selfURL that has had index/mailbox/actionID information
+     * removed/altered based on an action that has occurred on the present
+     * page.
+     *
+     * @return string  The self URL.
+     */
+    static public function selfUrl()
+    {
+        return self::$newUrl ? self::$newUrl : Horde::selfUrl(true);
+    }
+
 }

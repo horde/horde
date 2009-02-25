@@ -349,7 +349,7 @@ class IMP_Horde_Mime_Viewer_pgp extends Horde_Mime_Viewer_Driver
         } else {
             switch ($_SESSION['imp']['view']) {
             case 'imp':
-                $status[] = Horde::link(Util::addParameter(Horde::selfUrl(true), array('pgp_verify_msg' => 1))) . _("Click HERE to verify the message.") . '</a>';
+                $status[] = Horde::link(Util::addParameter(IMP::selfUrl(), array('pgp_verify_msg' => 1))) . _("Click HERE to verify the message.") . '</a>';
                 break;
 
             case 'dimp':
