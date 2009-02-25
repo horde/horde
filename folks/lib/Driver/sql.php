@@ -529,7 +529,7 @@ class Folks_Driver_sql extends Folks_Driver {
     */
     protected function _getActivity($user, $limit)
     {
-        $query = 'SELECT activity_message, activity_scope, activity_date FROM '
+        $query = 'SELECT activity_message, activity_scope, activity_date, user_uid FROM '
                 . $this->_params['activity'] . ' WHERE user_uid = ? '
                 . 'ORDER BY activity_date DESC';
         $query = $this->_db->modifyLimitQuery($query, 0, $limit);
