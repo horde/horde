@@ -87,7 +87,7 @@ class Folks {
      *
      * @param string  The generated URL
      */
-    function getUrlFor($controller, $data, $full = false, $append_session = 0)
+    function getUrlFor($controller, $data = null, $full = false, $append_session = 0)
     {
         switch ($controller) {
         case 'list':
@@ -296,7 +296,7 @@ class Folks {
         $img = $GLOBALS['registry']->getImageDir('horde');
         $menu = new Menu(HORDE_MENU_MASK_ALL);
         $menu->add(self::getUrlFor('user', Auth::getAuth()), _("My profile"), 'myaccount.png', $img);
-        $menu->add(Horde::applicationUrl('friends.php'), _("Friends"), 'group.png', $img);
+        $menu->add(self::getUrlFor('list', 'friends'), _("Friends"), 'group.png', $img);
         $menu->add(Horde::applicationUrl('edit/edit.php'), _("Edit profile"), 'edit.png', $img);
         $menu->add(Horde::applicationUrl('services.php'), _("Services"), 'horde.png', $img);
         $menu->add(Horde::applicationUrl('search.php'), _("Search"), 'search.png', $img);
