@@ -97,7 +97,7 @@ class Ingo
     static public function createFolder($folder)
     {
         return $GLOBALS['registry']->hasMethod('mail/createFolder')
-            ? $GLOBALS['registry']->call('mail/createFolder', array('folder' => String::convertCharset($folder, NLS::getCharset(), 'UTF7-IMAP')));
+            ? $GLOBALS['registry']->call('mail/createFolder', array('folder' => String::convertCharset($folder, NLS::getCharset(), 'UTF7-IMAP')))
             : false;
     }
 
