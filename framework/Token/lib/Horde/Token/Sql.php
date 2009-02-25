@@ -47,7 +47,7 @@
  * @author  Max Kalika <max@horde.org>
  * @package Horde_Token
  */
-class Horde_Token_sql extends Horde_Token
+class Horde_Token_Sql extends Horde_Token
 {
     /**
      * Handle for the current database connection.

@@ -15,7 +15,7 @@
  * @author  Max Kalika <max@horde.org>
  * @package Horde_Token
  */
-class Horde_Token_file extends Horde_Token
+class Horde_Token_File extends Horde_Token
 {
     /**
      * Handle for the open file descriptor.
@@ -54,7 +54,7 @@ class Horde_Token_file extends Horde_Token
     /**
      * Destructor.
      */
-    protected function __destruct()
+    public function __destruct()
     {
         $this->_disconnect();
     }
