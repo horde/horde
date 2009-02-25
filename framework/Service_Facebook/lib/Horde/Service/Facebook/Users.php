@@ -55,13 +55,13 @@ class Horde_Service_Facebook_Users extends Horde_Service_Facebook_Base
     */
     public function &getLoggedInUser()
     {
-        if (empty($this->_sessionKey)) {
+        if (!$this->_facebook->auth->getSessionKey()) {
             throw new Horde_Service_Facebook_Exception('users.getLoggedInUser requires a session_key',
                 Horde_Service_Facebook_ErrorCodes::API_EC_PARAM_SESSION_KEY);
         }
 
         return $this->_facebook->call_method('facebook.users.getLoggedInUser',
-            array('session_key' => $this->_sessionKey));
+            array('session_key' => $this->_facebook->auth->getSessionKey()));
     }
 
     /**
@@ -73,14 +73,14 @@ class Horde_Service_Facebook_Users extends Horde_Service_Facebook_Base
      */
     public function &hasAppPermission($ext_perm, $uid = null)
     {
-        if (empty($uid) && empty($this->_sessionKey)) {
+        if (empty($uid) && !$this->_facebook->auth->getSessionKey()) {
             throw new Horde_Service_Facebook_Exception('users.hasAppPermission requires either a uid or a session_key',
-                Horde_Service_Facebook_ErrorCodes::API_EC_PARAM_SESSION_KEY)
+                Horde_Service_Facebook_ErrorCodes::API_EC_PARAM_SESSION_KEY);
         }
 
         $params = array('ext_perm' => $ext_perm);
         if (empty($uid)) {
-            $params['session_key'] = $this->_sessionKey;
+            $params['session_key'] = $this->_facebook->auth->getSessionKey();
         } else {
             $params['uid'] = $uid;
         }
@@ -97,8 +97,8 @@ class Horde_Service_Facebook_Users extends Horde_Service_Facebook_Base
      */
     public function &isAppUser($uid = null)
     {
-        if (empty($uid) && !empty($this->_sessionKey)) {
-            $params = array('session_key' => $this->_sessionKey);
+        if (empty($uid) && !!$this->_facebook->auth->getSessionKey()) {
+            $params = array('session_key' => $this->_facebook->auth->getSessionKey());
         } elseif (!empty($uid)) {
             $params = array('uid' => $uid);
         } else {
@@ -119,12 +119,12 @@ class Horde_Service_Facebook_Users extends Horde_Service_Facebook_Base
      */
     public function &isVerified()
     {
-       if (empty($this->_sessionKey)) {
+       if (!$this->_facebook->auth->getSessionKey()) {
             throw new Horde_Service_Facebook_Exception('users.isVerified requires a session_key',
                 Horde_Service_Facebook_ErrorCodes::API_EC_PARAM_SESSION_KEY);
         }
 
-        return $this->call_method('facebook.users.isVerified', array('session_key' => $this->_sessionKey));
+        return $this->call_method('facebook.users.isVerified', array('session_key' => $this->_facebook->auth->getSessionKey()));
     }
 
     /**
@@ -146,7 +146,7 @@ class Horde_Service_Facebook_Users extends Horde_Service_Facebook_Base
      */
     public function &users_setStatus($status, $uid = null, $clear = false, $includeVerb = true)
     {
-        if (empty($uid) && empty($this->_sessionKey)) {
+        if (empty($uid) && !$this->_facebook->auth->getSessionKey()) {
             throw new Horde_Service_Facebook_Exception('users.setStatus requires a uid or a session_key',
                 Horde_Service_Facebook_ErrorCodes::API_EC_PARAM_SESSION_KEY);
         }
@@ -157,7 +157,7 @@ class Horde_Service_Facebook_Users extends Horde_Service_Facebook_Base
         if (empty($uid)) {
             $params['uid'] = $uid;
         } else {
-            $params['session_key']  = $this->_sessionKey;
+            $params['session_key']  = $this->_facebook->auth->getSessionKey();
         }
 
         return $this->_facebook->call_method('facebook.users.setStatus', $params);

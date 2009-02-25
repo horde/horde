@@ -25,7 +25,6 @@ abstract class Horde_Service_Facebook_Base
     {
         $this->_facebook = $facebook;
         $this->_request = $request;
-        $this->_sessionKey = $facebook->auth->getSessionKey();
     }
 
 

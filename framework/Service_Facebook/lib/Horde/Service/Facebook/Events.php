@@ -43,7 +43,7 @@
                   'start_time' => $start_time,
                   'end_time' => $end_time,
                   'rsvp_status' => $rsvp_status,
-                  'session_key' => $this->_sessionKey));
+                  'session_key' => $this->_facebook->auth->getSessionKey()));
     }
 
     /**
@@ -58,7 +58,7 @@
     {
         return $this->_facebook->call_method('facebook.events.getMembers',
                                              array('eid' => $eid,
-                                                   'session_key' => $this->_sessionKey));
+                                                   'session_key' => $this->_facebook->auth->getSessionKey()));
     }
 
     /**
@@ -74,7 +74,7 @@
         return $this->_facebook->call_method('facebook.events.rsvp',
             array('eid' => $eid,
                   'rsvp_status' => $rsvp_status,
-                   'session_key' => $this->_sessionKey));
+                   'session_key' => $this->_facebook->auth->getSessionKey()));
     }
 
 
@@ -92,7 +92,7 @@
         return $this->_facebook->call_method('facebook.events.cancel',
             array('eid' => $eid,
                   'cancel_message' => $cancel_message,
-                  'session_key' => $this->_sessionKey));
+                  'session_key' => $this->_facebook->auth->getSessionKey()));
     }
 
     /**
@@ -107,7 +107,7 @@
     {
         return $this->_facebook->call_method('facebook.events.create',
             array('event_info' => $event_info,
-                  'session_key' => $this->_sessionKey));
+                  'session_key' => $this->_facebook->auth->getSessionKey()));
     }
 
     /**
@@ -123,7 +123,7 @@
         return $this->_facebook->call_method('facebook.events.edit',
             array('eid' => $eid,
                   'event_info' => $event_info,
-                  'session_key' => $this->_sessionKey));
+                  'session_key' => $this->_facebook->auth->getSessionKey()));
     }
 
  }

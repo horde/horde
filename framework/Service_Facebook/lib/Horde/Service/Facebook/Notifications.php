@@ -68,7 +68,7 @@ class Horde_Service_Facebook_Notifications extends Horde_Service_Facebook_Base
     public function &sendEmail($recipients, $subject, $text, $fbml)
     {
         // Session key is *required*
-        if (empty($this->_sessionKey)) {
+        if (empty($this->_facebook->auth->getSessionKey())) {
             throw new Horde_Service_Facebook_Exception('session_key is required',
                                                Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
         }
@@ -77,7 +77,7 @@ class Horde_Service_Facebook_Notifications extends Horde_Service_Facebook_Base
                   'subject' => $subject,
                   'text' => $text,
                   'fbml' => $fbml,
-                  'session_key' => $this->_sessionKey));
+                  'session_key' => $this->_facebook->auth->getSessionKey()));
     }
 
 }

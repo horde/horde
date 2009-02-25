@@ -29,7 +29,7 @@ class Horde_Servce_Facebook_Friends extends Horde_Service_Facebook_Base
     public function &areFriends($uids1, $uids2)
     {
         // Session key is *required*
-        if (empty($this->_sessionKey)) {
+        if (!$this->_facebook->auth->getSessionKey()) {
             throw new Horde_Service_Facebook_Exception('session_key is required',
                                                Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
         }
@@ -37,7 +37,7 @@ class Horde_Servce_Facebook_Friends extends Horde_Service_Facebook_Base
         return $this->_facebook->call_method('facebook.friends.areFriends',
             array('uids1' => $uids1,
                   'uids2' => $uids2,
-                  'session_key' => $this->_sessionKey));
+                  'session_key' => $this->_facebook->auth->getSessionKey()));
     }
 
     /**
@@ -51,7 +51,7 @@ class Horde_Servce_Facebook_Friends extends Horde_Service_Facebook_Base
     public function &get($flid = null, $uid = null)
     {
         // Session key is *required*
-        if (empty($this->_sessionKey)) {
+        if (!$this->_facebook->auth->getSessionKey()) {
             throw new Horde_Service_Facebook_Exception('session_key is required',
                                                Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
         }
@@ -74,12 +74,12 @@ class Horde_Servce_Facebook_Friends extends Horde_Service_Facebook_Base
     public function &getLists()
     {
         // Session key is *required*
-        if (empty($this->_sessionKey)) {
+        if (!$this->_facebook->auth->getSessionKey()) {
             throw new Horde_Service_Facebook_Exception('session_key is required',
                                                Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
         }
         return $this->_facebook->call_method('facebook.friends.getLists',
-             array('session_key' => $this->_sessionKey));
+             array('session_key' => $this->_facebook->auth->getSessionKey()));
     }
 
 }

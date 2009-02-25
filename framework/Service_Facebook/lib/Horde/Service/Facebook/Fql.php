@@ -25,7 +25,7 @@ class Horde_Service_Facebook_Fql extends Horde_Service_Facebook_Base
     {
         $params = array('query' => $query);
         if ($include_session) {
-            $params['session_key'] = $this->_sessionKey;
+            $params['session_key'] = $this->_facebook->auth->getSessionKey();
         }
 
         return $this->_facebook->call_method('facebook.fql.query', $params);
