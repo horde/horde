@@ -22,12 +22,12 @@ class Horde_Service_Facebook_Notifications extends Horde_Service_Facebook_Base
     public function &get()
     {
         // Session key is *required*
-        if (empty($this->_sessionKey)) {
+        if (!$this->_facebook->auth->getSessionKey()) {
             throw new Horde_Service_Facebook_Exception('session_key is required',
                                                Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
         }
         return $this->_facebook->call_method('facebook.notifications.get',
-            array('session_key' => $this->_sessionKey));
+            array('session_key' => $this->_facebook->auth->getSessionKey()));
     }
 
     /**
@@ -40,7 +40,7 @@ class Horde_Service_Facebook_Notifications extends Horde_Service_Facebook_Base
     public function &send($to_ids, $notification, $type)
     {
         // Session key is *required*
-        if (empty($this->_sessionKey)) {
+        if (!$this->_facebook->auth->getSessionKey()) {
             throw new Horde_Service_Facebook_Exception('session_key is required',
                                                Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
         }
@@ -49,7 +49,7 @@ class Horde_Service_Facebook_Notifications extends Horde_Service_Facebook_Base
             array('to_ids' => $to_ids,
                   'notification' => $notification,
                   'type' => $type,
-                  'session_key' => $this->_sessionKey));
+                  'session_key' => $this->_facebook->auth->getSessionKey()));
     }
 
     /**
@@ -68,7 +68,7 @@ class Horde_Service_Facebook_Notifications extends Horde_Service_Facebook_Base
     public function &sendEmail($recipients, $subject, $text, $fbml)
     {
         // Session key is *required*
-        if (empty($this->_facebook->auth->getSessionKey())) {
+        if (!$this->_facebook->auth->getSessionKey()) {
             throw new Horde_Service_Facebook_Exception('session_key is required',
                                                Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
         }
