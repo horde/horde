@@ -221,11 +221,7 @@ class Horde_Mime_Viewer
 
         require_once dirname(__FILE__) . '/Viewer/Driver.php';
 
-        $old_error = error_reporting(0);
-        $ret = require_once $file;
-        error_reporting($old_error);
-
-        return $ret;
+        return require_once $file;
     }
 
     /**
