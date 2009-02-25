@@ -66,8 +66,8 @@ case 'add':
             // If there is only a mailbox part, then it is just a local name.
             if (empty($newAttendeeParsedPart->host)) {
                 $attendees[] = array(
-                    'attendance' => KRONOLITH_PART_REQUIRED,
-                    'response'   => KRONOLITH_RESPONSE_NONE,
+                    'attendance' => Kronolith::PART_REQUIRED,
+                    'response'   => Kronolith::RESPONSE_NONE,
                     'name'       => $newAttendee,
                 );
                 continue;
@@ -88,8 +88,8 @@ case 'add':
                 // values.
                 if (!isset($attendees[$email]))
                     $attendees[$email] = array(
-                        'attendance' => KRONOLITH_PART_REQUIRED,
-                        'response'   => KRONOLITH_RESPONSE_NONE,
+                        'attendance' => Kronolith::PART_REQUIRED,
+                        'response'   => Kronolith::RESPONSE_NONE,
                         'name'       => $name,
                     );
             } catch (Horde_Mime_Exception $e) {
@@ -223,8 +223,8 @@ if (!is_a($vfb, 'PEAR_Error')) {
 // Add the Free/Busy information for each attendee.
 foreach ($attendees as $email => $status) {
     if (strpos($email, '@') !== false &&
-        ($status['attendance'] == KRONOLITH_PART_REQUIRED ||
-         $status['attendance'] == KRONOLITH_PART_OPTIONAL)) {
+        ($status['attendance'] == Kronolith::PART_REQUIRED ||
+         $status['attendance'] == Kronolith::PART_OPTIONAL)) {
         $vfb = Kronolith_Freebusy::get($email);
         if (!is_a($vfb, 'PEAR_Error')) {
             $organizer = $vfb->getAttribute('ORGANIZER');
@@ -232,7 +232,7 @@ foreach ($attendees as $email => $status) {
                 $vfb->setAttribute('ORGANIZER', 'mailto:' . $email, array(),
                                    false);
             }
-            if ($status['attendance'] == KRONOLITH_PART_REQUIRED) {
+            if ($status['attendance'] == Kronolith::PART_REQUIRED) {
                 $attendee_view->addRequiredMember($vfb);
             } else {
                 $attendee_view->addOptionalMember($vfb);

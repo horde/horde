@@ -46,7 +46,7 @@ if (!Util::getFormData('cancel')) {
                 if (is_a($event, 'PEAR_Error')) {
                     $notification->push($event, 'horde.error');
                 } else {
-                    Kronolith::sendITipNotifications($event, $notification, KRONOLITH_ITIP_REQUEST);
+                    Kronolith::sendITipNotifications($event, $notification, Kronolith::ITIP_REQUEST);
                 }
             }
         }

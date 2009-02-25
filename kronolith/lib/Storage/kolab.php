@@ -62,7 +62,7 @@ class Kronolith_Storage_kolab extends Kronolith_Storage {
         @$http->sendRequest();
         if ($http->getResponseCode() != 200) {
             return PEAR::raiseError(sprintf(_("Unable to retrieve free/busy information for %s"),
-                                            $email), KRONOLITH_ERROR_FB_NOT_FOUND);
+                                            $email), Kronolith::ERROR_FB_NOT_FOUND);
         }
         $vfb_text = $http->getResponseBody();
 
@@ -72,7 +72,7 @@ class Kronolith_Storage_kolab extends Kronolith_Storage {
         $vfb = &$iCal->findComponent('VFREEBUSY');
         if ($vfb === false) {
             return PEAR::raiseError(sprintf(_("No free/busy information is available for %s"),
-                                    $email), KRONOLITH_ERROR_FB_NOT_FOUND);
+                                    $email), Kronolith::ERROR_FB_NOT_FOUND);
         }
 
         return $vfb;

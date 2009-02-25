@@ -49,7 +49,7 @@ if ($search_mode != 'basic') {
     if (isset($q_title)) {
         /* We're returning from a previous search. */
         $event->readForm();
-        if (Util::getFormData('status') == KRONOLITH_STATUS_NONE) {
+        if (Util::getFormData('status') == Kronolith::STATUS_NONE) {
             $event->status = null;
         }
     }

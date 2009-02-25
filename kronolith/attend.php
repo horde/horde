@@ -20,22 +20,22 @@ $user = Util::getFormData('u');
 
 switch (Util::getFormData('a')) {
 case 'accept':
-    $action = KRONOLITH_RESPONSE_ACCEPTED;
+    $action = Kronolith::RESPONSE_ACCEPTED;
     $msg = _("You have successfully accepted attendence to this event.");
     break;
 
 case 'decline':
-    $action = KRONOLITH_RESPONSE_DECLINED;
+    $action = Kronolith::RESPONSE_DECLINED;
     $msg = _("You have successfully declined attendence to this event.");
     break;
 
 case 'tentative':
-    $action = KRONOLITH_RESPONSE_TENTATIVE;
+    $action = Kronolith::RESPONSE_TENTATIVE;
     $msg = _("You have tentatively accepted attendence to this event.");
     break;
 
 default:
-    $action = KRONOLITH_RESPONSE_NONE;
+    $action = Kronolith::RESPONSE_NONE;
     $msg = '';
     break;
 }
@@ -57,7 +57,7 @@ if (((empty($cal) || empty($id)) && empty($uid)) || empty($user)) {
         $notification->push(_("You are not an attendee of the specified event."), 'horde.error');
         $title = $event->getTitle();
     } else {
-        $event->addAttendee($user, KRONOLITH_PART_IGNORE, $action);
+        $event->addAttendee($user, Kronolith::PART_IGNORE, $action);
         $result = $event->save();
         if (is_a($result, 'PEAR_Error')) {
             $notification->push($result, 'horde.error');

@@ -186,7 +186,7 @@ class Kronolith_Event_holidays extends Kronolith_Event {
      *
      * @var integer
      */
-    var $status = KRONOLITH_STATUS_FREE;
+    var $status = Kronolith::STATUS_FREE;
 
     /**
      * Whether this is an all-day event.

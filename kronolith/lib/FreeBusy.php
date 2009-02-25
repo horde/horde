@@ -88,10 +88,10 @@ class Kronolith_FreeBusy {
         /* Add all the busy periods. */
         foreach ($busy as $events) {
             foreach ($events as $event) {
-                if ($event->hasStatus(KRONOLITH_STATUS_FREE)) {
+                if ($event->hasStatus(Kronolith::STATUS_FREE)) {
                     continue;
                 }
-                if ($event->hasStatus(KRONOLITH_STATUS_CANCELLED)) {
+                if ($event->hasStatus(Kronolith::STATUS_CANCELLED)) {
                     continue;
                 }
 
@@ -203,7 +203,7 @@ class Kronolith_FreeBusy {
         $fb = $storage->search($email);
         if (!is_a($fb, 'PEAR_Error')) {
             return $fb;
-        } elseif ($fb->getCode() == KRONOLITH_ERROR_FB_NOT_FOUND) {
+        } elseif ($fb->getCode() == Kronolith::ERROR_FB_NOT_FOUND) {
             return $url ?
                 PEAR::raiseError(sprintf(_("No free/busy information found at the free/busy url of %s."), $email)) :
                 PEAR::raiseError(sprintf(_("No free/busy url found for %s."), $email));

@@ -494,16 +494,16 @@ class Kronolith_Driver_kolab_wrapper_old extends Kronolith_Driver_kolab_wrapper 
         }
 
         switch ($event->status) {
-        case KRONOLITH_STATUS_FREE:
-        case KRONOLITH_STATUS_CANCELLED:
+        case Kronolith::STATUS_FREE:
+        case Kronolith::STATUS_CANCELLED:
             $this->_kolab->setVal('show-time-as', 'free');
             break;
 
-        case KRONOLITH_STATUS_TENTATIVE:
+        case Kronolith::STATUS_TENTATIVE:
             $this->_kolab->setVal('show-time-as', 'tentative');
             break;
 
-        case KRONOLITH_STATUS_CONFIRMED:
+        case Kronolith::STATUS_CONFIRMED:
         default:
             $this->_kolab->setVal('show-time-as', 'busy');
             break;
@@ -515,33 +515,33 @@ class Kronolith_Driver_kolab_wrapper_old extends Kronolith_Driver_kolab_wrapper 
             $this->_kolab->setElemVal($attendee, 'smtp-address', $email);
 
             switch ($status['response']) {
-            case KRONOLITH_RESPONSE_ACCEPTED:
+            case Kronolith::RESPONSE_ACCEPTED:
                 $this->_kolab->setElemVal($attendee, 'status', 'accepted');
                 break;
 
-            case KRONOLITH_RESPONSE_DECLINED:
+            case Kronolith::RESPONSE_DECLINED:
                 $this->_kolab->setElemVal($attendee, 'status', 'declined');
                 break;
 
-            case KRONOLITH_RESPONSE_TENTATIVE:
+            case Kronolith::RESPONSE_TENTATIVE:
                 $this->_kolab->setElemVal($attendee, 'status', 'tentative');
                 break;
 
-            case KRONOLITH_RESPONSE_NONE:
+            case Kronolith::RESPONSE_NONE:
             default:
                 $this->_kolab->setElemVal($attendee, 'status', 'none');
             }
 
             switch ($status['attendance']) {
-            case KRONOLITH_PART_OPTIONAL:
+            case Kronolith::PART_OPTIONAL:
                 $this->_kolab->setElemVal($attendee, 'role', 'optional');
                 break;
 
-            case KRONOLITH_PART_NONE:
+            case Kronolith::PART_NONE:
                 $this->_kolab->setElemVal($attendee, 'role', 'resource');
                 break;
 
-            case KRONOLITH_PART_REQUIRED:
+            case Kronolith::PART_REQUIRED:
             default:
                 $this->_kolab->setElemVal($attendee, 'role', 'required');
             }
@@ -781,17 +781,17 @@ class Kronolith_Event_kolab_old extends Kronolith_Event {
         $status = $kolab->getVal('show-time-as');
         switch ($status) {
         case 'free':
-            $this->status = KRONOLITH_STATUS_FREE;
+            $this->status = Kronolith::STATUS_FREE;
             break;
 
         case 'tentative':
-            $this->status = KRONOLITH_STATUS_TENTATIVE;
+            $this->status = Kronolith::STATUS_TENTATIVE;
             break;
 
         case 'busy':
         case 'outofoffice':
         default:
-            $this->status = KRONOLITH_STATUS_CONFIRMED;
+            $this->status = Kronolith::STATUS_CONFIRMED;
         }
 
         $attendees = array_change_key_case($kolab->getAllRootElems('attendee'));
@@ -806,36 +806,36 @@ class Kronolith_Event_kolab_old extends Kronolith_Event {
             $role = $kolab->getElemVal($attendee, 'role');
             switch ($role) {
             case 'optional':
-                $role = KRONOLITH_PART_OPTIONAL;
+                $role = Kronolith::PART_OPTIONAL;
                 break;
 
             case 'resource':
-                $role = KRONOLITH_PART_NONE;
+                $role = Kronolith::PART_NONE;
                 break;
 
             case 'required':
             default:
-                $role = KRONOLITH_PART_REQUIRED;
+                $role = Kronolith::PART_REQUIRED;
                 break;
             }
 
             $status = $kolab->getElemVal($attendee, 'status');
             switch ($status) {
             case 'accepted':
-                $status = KRONOLITH_RESPONSE_ACCEPTED;
+                $status = Kronolith::RESPONSE_ACCEPTED;
                 break;
 
             case 'declined':
-                $status = KRONOLITH_RESPONSE_DECLINED;
+                $status = Kronolith::RESPONSE_DECLINED;
                 break;
 
             case 'tentative':
-                $status = KRONOLITH_RESPONSE_TENTATIVE;
+                $status = Kronolith::RESPONSE_TENTATIVE;
                 break;
 
             case 'none':
             default:
-                $status = KRONOLITH_RESPONSE_NONE;
+                $status = Kronolith::RESPONSE_NONE;
                 break;
             }
 
@@ -1453,20 +1453,20 @@ class Kronolith_Event_kolab_new extends Kronolith_Event {
         if (isset($event['show-time-as'])) {
             switch ($event['show-time-as']) {
                 case 'free':
-                    $this->status = KRONOLITH_STATUS_FREE;
+                    $this->status = Kronolith::STATUS_FREE;
                     break;
 
                 case 'tentative':
-                    $this->status = KRONOLITH_STATUS_TENTATIVE;
+                    $this->status = Kronolith::STATUS_TENTATIVE;
                     break;
 
                 case 'busy':
                 case 'outofoffice':
                 default:
-                    $this->status = KRONOLITH_STATUS_CONFIRMED;
+                    $this->status = Kronolith::STATUS_CONFIRMED;
             }
         } else {
-            $this->status = KRONOLITH_STATUS_CONFIRMED;
+            $this->status = Kronolith::STATUS_CONFIRMED;
         }
 
         // Recurrence
@@ -1484,36 +1484,36 @@ class Kronolith_Event_kolab_new extends Kronolith_Event {
             $role = $attendee['role'];
             switch ($role) {
             case 'optional':
-                $role = KRONOLITH_PART_OPTIONAL;
+                $role = Kronolith::PART_OPTIONAL;
                 break;
 
             case 'resource':
-                $role = KRONOLITH_PART_NONE;
+                $role = Kronolith::PART_NONE;
                 break;
 
             case 'required':
             default:
-                $role = KRONOLITH_PART_REQUIRED;
+                $role = Kronolith::PART_REQUIRED;
                 break;
             }
 
             $status = $attendee['status'];
             switch ($status) {
             case 'accepted':
-                $status = KRONOLITH_RESPONSE_ACCEPTED;
+                $status = Kronolith::RESPONSE_ACCEPTED;
                 break;
 
             case 'declined':
-                $status = KRONOLITH_RESPONSE_DECLINED;
+                $status = Kronolith::RESPONSE_DECLINED;
                 break;
 
             case 'tentative':
-                $status = KRONOLITH_RESPONSE_TENTATIVE;
+                $status = Kronolith::RESPONSE_TENTATIVE;
                 break;
 
             case 'none':
             default:
-                $status = KRONOLITH_RESPONSE_NONE;
+                $status = Kronolith::RESPONSE_NONE;
                 break;
             }
 
@@ -1562,17 +1562,17 @@ class Kronolith_Event_kolab_new extends Kronolith_Event {
         $event['_is_all_day'] = $this->isAllDay();
 
         switch ($this->status) {
-        case KRONOLITH_STATUS_FREE:
-        case KRONOLITH_STATUS_CANCELLED:
+        case Kronolith::STATUS_FREE:
+        case Kronolith::STATUS_CANCELLED:
             $event['show-time-as'] = 'free';
             break;
 
-        case KRONOLITH_STATUS_TENTATIVE:
+        case Kronolith::STATUS_TENTATIVE:
             $event['show-time-as'] = 'tentative';
             break;
 
         // No mapping for outofoffice
-        case KRONOLITH_STATUS_CONFIRMED:
+        case Kronolith::STATUS_CONFIRMED:
         default:
             $event['show-time-as'] = 'busy';
         }
@@ -1601,15 +1601,15 @@ class Kronolith_Event_kolab_new extends Kronolith_Event {
             }
 
             switch ($attendee['attendance']) {
-            case KRONOLITH_PART_OPTIONAL:
+            case Kronolith::PART_OPTIONAL:
                 $new_attendee['role'] = 'optional';
                 break;
 
-            case KRONOLITH_PART_NONE:
+            case Kronolith::PART_NONE:
                 $new_attendee['role'] = 'resource';
                 break;
 
-            case KRONOLITH_PART_REQUIRED:
+            case Kronolith::PART_REQUIRED:
             default:
                 $new_attendee['role'] = 'required';
                 break;
@@ -1618,19 +1618,19 @@ class Kronolith_Event_kolab_new extends Kronolith_Event {
             $new_attendee['request-response'] = '0';
 
             switch ($attendee['response']) {
-            case KRONOLITH_RESPONSE_ACCEPTED:
+            case Kronolith::RESPONSE_ACCEPTED:
                 $new_attendee['status'] = 'accepted';
                 break;
 
-            case KRONOLITH_RESPONSE_DECLINED:
+            case Kronolith::RESPONSE_DECLINED:
                 $new_attendee['status'] = 'declined';
                 break;
 
-            case KRONOLITH_RESPONSE_TENTATIVE:
+            case Kronolith::RESPONSE_TENTATIVE:
                 $new_attendee['status'] = 'tentative';
                 break;
 
-            case KRONOLITH_RESPONSE_NONE:
+            case Kronolith::RESPONSE_NONE:
             default:
                 $new_attendee['status'] = 'none';
                 break;

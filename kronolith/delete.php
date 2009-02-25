@@ -26,7 +26,7 @@ if ($eventID = Util::getFormData('eventID')) {
     if (!$share->hasPermission(Auth::getAuth(), PERMS_DELETE, $event->getCreatorID())) {
         $notification->push(_("You do not have permission to delete this event."), 'horde.warning');
     } else {
-        $notification_type = KRONOLITH_ITIP_CANCEL;
+        $notification_type = Kronolith::ITIP_CANCEL;
         $instance = null;
         if (Util::getFormData('future')) {
             $recurEnd = new Horde_Date(array('hour' => 0, 'min' => 0, 'sec' => 0,
@@ -42,7 +42,7 @@ if ($eventID = Util::getFormData('eventID')) {
                 $event->recurrence->setRecurEnd($recurEnd);
                 $event->save();
             }
-            $notification_type = KRONOLITH_ITIP_REQUEST;
+            $notification_type = Kronolith::ITIP_REQUEST;
         } elseif (Util::getFormData('current')) {
             $event->recurrence->addException(Util::getFormData('year'),
                                              Util::getFormData('month'),

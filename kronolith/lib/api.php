@@ -1225,7 +1225,7 @@ function _kronolith_updateAttendee($response, $sender = null)
         $name = isset($atparms[$index]['CN']) ? $atparms[$index]['CN'] : null;
         if ($event->hasAttendee($attendee)) {
             if (is_null($sender) || $sender_lcase == $attendee) {
-                $event->addAttendee($attendee, KRONOLITH_PART_IGNORE, Kronolith::responseFromICal($atparms[$index]['PARTSTAT']), $name);
+                $event->addAttendee($attendee, Kronolith::PART_IGNORE, Kronolith::responseFromICal($atparms[$index]['PARTSTAT']), $name);
                 $found = true;
             } else {
                 $error = _("The attendee hasn't been updated because the update was not sent from the attendee.");

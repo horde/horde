@@ -59,17 +59,17 @@ function switchDateView(view, date)
   <td>
 <label for="<?php echo "attendance_$i" ?>" class="hidden"><?php echo _("Attendance") ?></label>
    <select id="<?php echo "attendance_$i" ?>" name="<?php echo "attendance_$i" ?>" onchange="performAction('changeatt', document.attendeesForm.<?php echo "attendance_$i" ?>.value + ' ' + decodeURIComponent('<?php echo rawurlencode($email) ?>'));">
-    <option value="<?php echo KRONOLITH_PART_REQUIRED ?>"<?php if ($status['attendance'] == KRONOLITH_PART_REQUIRED)  echo ' selected="selected"' ?>><?php echo Kronolith::partToString(KRONOLITH_PART_REQUIRED) ?></option>
-    <option value="<?php echo KRONOLITH_PART_OPTIONAL ?>"<?php if ($status['attendance'] == KRONOLITH_PART_OPTIONAL)  echo ' selected="selected"' ?>><?php echo Kronolith::partToString(KRONOLITH_PART_OPTIONAL) ?></option>
-    <option value="<?php echo KRONOLITH_PART_NONE ?>"<?php if ($status['attendance'] == KRONOLITH_PART_NONE)  echo ' selected="selected"' ?>><?php echo Kronolith::partToString(KRONOLITH_PART_NONE) ?></option>
+    <option value="<?php echo Kronolith::PART_REQUIRED ?>"<?php if ($status['attendance'] == Kronolith::PART_REQUIRED)  echo ' selected="selected"' ?>><?php echo Kronolith::partToString(Kronolith::PART_REQUIRED) ?></option>
+    <option value="<?php echo Kronolith::PART_OPTIONAL ?>"<?php if ($status['attendance'] == Kronolith::PART_OPTIONAL)  echo ' selected="selected"' ?>><?php echo Kronolith::partToString(Kronolith::PART_OPTIONAL) ?></option>
+    <option value="<?php echo Kronolith::PART_NONE ?>"<?php if ($status['attendance'] == Kronolith::PART_NONE)  echo ' selected="selected"' ?>><?php echo Kronolith::partToString(Kronolith::PART_NONE) ?></option>
    </select>
   </td>
   <td>
    <select name="<?php echo "response_$i" ?>" onchange="performAction('changeresp', document.attendeesForm.<?php echo "response_$i" ?>.value + ' ' + decodeURIComponent('<?php echo rawurlencode($email) ?>'));">
-    <option value="<?php echo KRONOLITH_RESPONSE_ACCEPTED ?>"<?php if ($status['response'] == KRONOLITH_RESPONSE_ACCEPTED)  echo ' selected="selected"' ?>><?php echo Kronolith::responseToString(KRONOLITH_RESPONSE_ACCEPTED) ?></option>
-    <option value="<?php echo KRONOLITH_RESPONSE_DECLINED ?>"<?php if ($status['response'] == KRONOLITH_RESPONSE_DECLINED)  echo ' selected="selected"' ?>><?php echo Kronolith::responseToString(KRONOLITH_RESPONSE_DECLINED) ?></option>
-    <option value="<?php echo KRONOLITH_RESPONSE_TENTATIVE ?>"<?php if ($status['response'] == KRONOLITH_RESPONSE_TENTATIVE)  echo ' selected="selected"' ?>><?php echo Kronolith::responseToString(KRONOLITH_RESPONSE_TENTATIVE) ?></option>
-    <option value="<?php echo KRONOLITH_RESPONSE_NONE ?>"<?php if ($status['response'] == KRONOLITH_RESPONSE_NONE)  echo ' selected="selected"' ?>><?php echo Kronolith::responsetoString(KRONOLITH_RESPONSE_NONE) ?></option>
+    <option value="<?php echo Kronolith::RESPONSE_ACCEPTED ?>"<?php if ($status['response'] == Kronolith::RESPONSE_ACCEPTED)  echo ' selected="selected"' ?>><?php echo Kronolith::responseToString(Kronolith::RESPONSE_ACCEPTED) ?></option>
+    <option value="<?php echo Kronolith::RESPONSE_DECLINED ?>"<?php if ($status['response'] == Kronolith::RESPONSE_DECLINED)  echo ' selected="selected"' ?>><?php echo Kronolith::responseToString(Kronolith::RESPONSE_DECLINED) ?></option>
+    <option value="<?php echo Kronolith::RESPONSE_TENTATIVE ?>"<?php if ($status['response'] == Kronolith::RESPONSE_TENTATIVE)  echo ' selected="selected"' ?>><?php echo Kronolith::responseToString(Kronolith::RESPONSE_TENTATIVE) ?></option>
+    <option value="<?php echo Kronolith::RESPONSE_NONE ?>"<?php if ($status['response'] == Kronolith::RESPONSE_NONE)  echo ' selected="selected"' ?>><?php echo Kronolith::responsetoString(Kronolith::RESPONSE_NONE) ?></option>
    </select>
   </td>
  </tr>

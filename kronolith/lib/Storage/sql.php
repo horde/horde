@@ -154,7 +154,7 @@ class Kronolith_Storage_sql extends Kronolith_Storage {
                 return $vfb;
             }
         }
-        return PEAR::raiseError(_("Not found"), KRONOLITH_ERROR_FB_NOT_FOUND);
+        return PEAR::raiseError(_("Not found"), Kronolith::ERROR_FB_NOT_FOUND);
     }
 
     /**

@@ -62,7 +62,7 @@ class Kronolith_Driver_ical extends Kronolith_Driver {
             $component = $components[$i];
             if ($component->getType() == 'vEvent') {
                 $event = new Kronolith_Event_ical($this);
-                $event->status = KRONOLITH_STATUS_FREE;
+                $event->status = Kronolith::STATUS_FREE;
                 $event->fromiCalendar($component);
                 $event->remoteCal = $this->_params['url'];
                 $event->eventID = $i;
@@ -124,7 +124,7 @@ class Kronolith_Driver_ical extends Kronolith_Driver {
         if (isset($components[$eventId]) &&
             $components[$eventId]->getType() == 'vEvent') {
             $event = new Kronolith_Event_ical($this);
-            $event->status = KRONOLITH_STATUS_FREE;
+            $event->status = Kronolith::STATUS_FREE;
             $event->fromiCalendar($components[$eventId]);
             $event->remoteCal = $url;
             $event->eventID = $eventId;

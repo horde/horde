@@ -334,7 +334,7 @@ class Kronolith_Event {
      *
      * @var integer
      */
-    var $status = KRONOLITH_STATUS_CONFIRMED;
+    var $status = Kronolith::STATUS_CONFIRMED;
 
     /**
      * The description for this event
@@ -666,21 +666,21 @@ class Kronolith_Event {
 
         // Status.
         switch ($this->getStatus()) {
-        case KRONOLITH_STATUS_FREE:
+        case Kronolith::STATUS_FREE:
             // This is not an official iCalendar value, but we need it for
             // synchronization.
             $vEvent->setAttribute('STATUS', 'FREE');
             $vEvent->setAttribute('TRANSP', $v1 ? 1 : 'TRANSPARENT');
             break;
-        case KRONOLITH_STATUS_TENTATIVE:
+        case Kronolith::STATUS_TENTATIVE:
             $vEvent->setAttribute('STATUS', 'TENTATIVE');
             $vEvent->setAttribute('TRANSP', $v1 ? 0 : 'OPAQUE');
             break;
-        case KRONOLITH_STATUS_CONFIRMED:
+        case Kronolith::STATUS_CONFIRMED:
             $vEvent->setAttribute('STATUS', 'CONFIRMED');
             $vEvent->setAttribute('TRANSP', $v1 ? 0 : 'OPAQUE');
             break;
-        case KRONOLITH_STATUS_CANCELLED:
+        case Kronolith::STATUS_CANCELLED:
             if ($v1) {
                 $vEvent->setAttribute('STATUS', 'DECLINED');
                 $vEvent->setAttribute('TRANSP', 1);
@@ -695,7 +695,7 @@ class Kronolith_Event {
         foreach ($this->getAttendees() as $email => $status) {
             $params = array();
             switch ($status['attendance']) {
-            case KRONOLITH_PART_REQUIRED:
+            case Kronolith::PART_REQUIRED:
                 if ($v1) {
                     $params['EXPECT'] = 'REQUIRE';
                 } else {
@@ -703,7 +703,7 @@ class Kronolith_Event {
                 }
                 break;
 
-            case KRONOLITH_PART_OPTIONAL:
+            case Kronolith::PART_OPTIONAL:
                 if ($v1) {
                     $params['EXPECT'] = 'REQUEST';
                 } else {
@@ -711,7 +711,7 @@ class Kronolith_Event {
                 }
                 break;
 
-            case KRONOLITH_PART_NONE:
+            case Kronolith::PART_NONE:
                 if ($v1) {
                     $params['EXPECT'] = 'FYI';
                 } else {
@@ -721,7 +721,7 @@ class Kronolith_Event {
             }
 
             switch ($status['response']) {
-            case KRONOLITH_RESPONSE_NONE:
+            case Kronolith::RESPONSE_NONE:
                 if ($v1) {
                     $params['STATUS'] = 'NEEDS ACTION';
                     $params['RSVP'] = 'YES';
@@ -731,7 +731,7 @@ class Kronolith_Event {
                 }
                 break;
 
-            case KRONOLITH_RESPONSE_ACCEPTED:
+            case Kronolith::RESPONSE_ACCEPTED:
                 if ($v1) {
                     $params['STATUS'] = 'ACCEPTED';
                 } else {
@@ -739,7 +739,7 @@ class Kronolith_Event {
                 }
                 break;
 
-            case KRONOLITH_RESPONSE_DECLINED:
+            case Kronolith::RESPONSE_DECLINED:
                 if ($v1) {
                     $params['STATUS'] = 'DECLINED';
                 } else {
@@ -747,7 +747,7 @@ class Kronolith_Event {
                 }
                 break;
 
-            case KRONOLITH_RESPONSE_TENTATIVE:
+            case Kronolith::RESPONSE_TENTATIVE:
                 if ($v1) {
                     $params['STATUS'] = 'TENTATIVE';
                 } else {
@@ -896,8 +896,8 @@ class Kronolith_Event {
             if ($status == 'DECLINED') {
                 $status = 'CANCELLED';
             }
-            if (defined('KRONOLITH_STATUS_' . $status)) {
-                $this->setStatus(constant('KRONOLITH_STATUS_' . $status));
+            if (defined('Kronolith::STATUS_' . $status)) {
+                $this->setStatus(constant('Kronolith::STATUS_' . $status));
             }
         }
 
@@ -985,16 +985,16 @@ class Kronolith_Event {
                                             $attendee[$i]);
                 $email = Horde_Mime_Address::bareAddress($attendee[$i]);
                 // Default according to rfc2445:
-                $attendance = KRONOLITH_PART_REQUIRED;
+                $attendance = Kronolith::PART_REQUIRED;
                 // vCalendar 2.0 style:
                 if (!empty($params[$i]['ROLE'])) {
                     switch($params[$i]['ROLE']) {
                     case 'OPT-PARTICIPANT':
-                        $attendance = KRONOLITH_PART_OPTIONAL;
+                        $attendance = Kronolith::PART_OPTIONAL;
                         break;
 
                     case 'NON-PARTICIPANT':
-                        $attendance = KRONOLITH_PART_NONE;
+                        $attendance = Kronolith::PART_NONE;
                         break;
                     }
                 }
@@ -1002,15 +1002,15 @@ class Kronolith_Event {
                 if (!empty($params[$i]['EXPECT'])) {
                     switch($params[$i]['EXPECT']) {
                     case 'REQUEST':
-                        $attendance = KRONOLITH_PART_OPTIONAL;
+                        $attendance = Kronolith::PART_OPTIONAL;
                         break;
 
                     case 'FYI':
-                        $attendance = KRONOLITH_PART_NONE;
+                        $attendance = Kronolith::PART_NONE;
                         break;
                     }
                 }
-                $response = KRONOLITH_RESPONSE_NONE;
+                $response = Kronolith::RESPONSE_NONE;
                 if (empty($params[$i]['PARTSTAT']) &&
                     !empty($params[$i]['STATUS'])) {
                     $params[$i]['PARTSTAT']  = $params[$i]['STATUS'];
@@ -1019,15 +1019,15 @@ class Kronolith_Event {
                 if (!empty($params[$i]['PARTSTAT'])) {
                     switch($params[$i]['PARTSTAT']) {
                     case 'ACCEPTED':
-                        $response = KRONOLITH_RESPONSE_ACCEPTED;
+                        $response = Kronolith::RESPONSE_ACCEPTED;
                         break;
 
                     case 'DECLINED':
-                        $response = KRONOLITH_RESPONSE_DECLINED;
+                        $response = Kronolith::RESPONSE_DECLINED;
                         break;
 
                     case 'TENTATIVE':
-                        $response = KRONOLITH_RESPONSE_TENTATIVE;
+                        $response = Kronolith::RESPONSE_TENTATIVE;
                         break;
                     }
                 }
@@ -1693,11 +1693,11 @@ class Kronolith_Event {
     function addAttendee($email, $attendance, $response, $name = null)
     {
         $email = String::lower($email);
-        if ($attendance == KRONOLITH_PART_IGNORE) {
+        if ($attendance == Kronolith::PART_IGNORE) {
             if (isset($this->attendees[$email])) {
                 $attendance = $this->attendees[$email]['attendance'];
             } else {
-                $attendance = KRONOLITH_PART_REQUIRED;
+                $attendance = Kronolith::PART_REQUIRED;
             }
         }
         if (empty($name) && isset($this->attendees[$email]) &&
@@ -2448,11 +2448,11 @@ class Kronolith_Event {
     function getStatusClass()
     {
         switch ($this->status) {
-        case KRONOLITH_STATUS_CANCELLED:
+        case Kronolith::STATUS_CANCELLED:
             return 'event-cancelled';
 
-        case KRONOLITH_STATUS_TENTATIVE:
-        case KRONOLITH_STATUS_FREE:
+        case Kronolith::STATUS_TENTATIVE:
+        case Kronolith::STATUS_FREE:
             return 'event-tentative';
         }
 
