@@ -99,7 +99,7 @@ class Horde_SessionHandler_Sql extends Horde_SessionHandler
             $params = array_merge($this->_params, $this->_params['read']);
             $this->_db = &DB::connect($params,
                                       array('persistent' => !empty($params['persistent']),
-                                            'ssl' => !empty($this->_params['ssl'])));
+                                            'ssl' => !empty($params['ssl'])));
             if (is_a($this->_db, 'PEAR_Error')) {
                 throw new Horde_Exception($this->_db);
             }
