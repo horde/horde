@@ -90,11 +90,11 @@ class IMP_Horde_Mime_Viewer_itip extends Horde_Mime_Viewer_Driver
 
         // Get the iCalendar file components.
         $components = $vCal->getComponents();
+        $msgs = array();
 
         // Handle the action requests.
         $actions = Util::getFormData('itip_action', array());
         foreach ($actions as $key => $action) {
-            $msgs = array();
             switch ($action) {
             case 'delete':
                 // vEvent cancellation.
@@ -704,7 +704,7 @@ class IMP_Horde_Mime_Viewer_itip extends Horde_Mime_Viewer_Driver
 
         $html .= '<h2 class="header">' . $desc . '</h2>';
 
-        foreach ($msgs[$id] as $msg) {
+        foreach ($msgs as $msg) {
             $html .= '<p class="notice">' . Horde::img('alerts/' . $msg[0] . '.png', '', null, $registry->getImageDir('horde')) . $msg[1] . '</p>';
         }
 
@@ -845,7 +845,7 @@ class IMP_Horde_Mime_Viewer_itip extends Horde_Mime_Viewer_Driver
 
         $html .= '<h2 class="header">' . $desc . '</h2>';
 
-        foreach ($msgs[$id] as $msg) {
+        foreach ($msgs as $msg) {
             $html .= '<p class="notice">' . Horde::img('alerts/' . $msg[0] . '.png', '', null, $registry->getImageDir('horde')) . $msg[1] . '</p>';
         }
 
