@@ -170,10 +170,9 @@ function _kronolith_removeUserData($user)
     }
 
     require_once dirname(__FILE__) . '/base.php';
-    global $kronolith_driver;
 
     /* Remove all events owned by the user in all calendars. */
-    $result = $kronolith_driver->removeUserData($user);
+    $result = Kronolith::getDriver()->removeUserData($user);
 
     /* Now delete history as well. */
     $history = &Horde_History::singleton();
@@ -258,7 +257,7 @@ function __kronolith_modified($uid)
 function _kronolith_browse($path = '', $properties = array())
 {
     require_once dirname(__FILE__) . '/base.php';
-    global $registry, $kronolith_driver;
+    global $registry;
 
     // Default properties.
     if (!$properties) {
@@ -382,7 +381,7 @@ function _kronolith_browse($path = '', $properties = array())
         // This request is browsing into a specific calendar.  Generate the list
         // of items and represent them as files within the directory.
         //
-        $kronolith_driver->open($parts[1]);
+        $kronolith_driver = Kronolith::getDriver(null, $parts[1]);
         $events = $kronolith_driver->listEvents();
         if (is_a($events, 'PEAR_Error')) {
             return $events;
@@ -436,11 +435,7 @@ function _kronolith_browse($path = '', $properties = array())
             //
             // This request is for a specific item within a given calendar.
             //
-            global $kronolith_driver;
-            if ($kronolith_driver->getCalendar() != $parts[1]) {
-                $kronolith_driver->open($parts[1]);
-            }
-            $event = &$kronolith_driver->getEvent($parts[2]);
+            $event = Kronolith::getCalendar(null, $parts[1])->getEvent($parts[2]);
             if (is_a($event, 'PEAR_Error')) {
                 return $event;
             }
@@ -489,7 +484,6 @@ function _kronolith_browse($path = '', $properties = array())
 function _kronolith_put($path, $content, $content_type)
 {
     require_once dirname(__FILE__) . '/base.php';
-    global $kronolith_driver;
 
     if (substr($path, 0, 9) == 'kronolith') {
         $path = substr($path, 9);
@@ -541,9 +535,10 @@ function _kronolith_put($path, $content, $content_type)
             $iCal->addComponent($content);
         }
 
+        $kronolith_driver = Kronolith::getDriver();
         foreach ($iCal->getComponents() as $content) {
             if (is_a($content, 'Horde_iCalendar_vevent')) {
-                $event = &$kronolith_driver->getEvent();
+                $event = $kronolith_driver->getEvent();
                 $event->fromiCalendar($content);
                 $event->setCalendar($calendar);
                 $uid = $event->getUID();
@@ -552,8 +547,7 @@ function _kronolith_put($path, $content, $content_type)
                 if (isset($uids_remove[$uid])) {
                     unset($uids_remove[$uid]);
                 }
-                $existing_event = &$kronolith_driver->getByUID(
-                    $uid, array($calendar));
+                $existing_event = $kronolith_driver->getByUID($uid, array($calendar));
                 if (!is_a($existing_event, 'PEAR_Error')) {
                     // Check if our event is newer then the existing - get the
                     // event's history.
@@ -621,7 +615,6 @@ function _kronolith_put($path, $content, $content_type)
 function _kronolith_path_delete($path)
 {
     require_once dirname(__FILE__) . '/base.php';
-    global $kronolith_driver;
 
     if (substr($path, 0, 9) == 'kronolith') {
         $path = substr($path, 9);
@@ -642,11 +635,10 @@ function _kronolith_path_delete($path)
 
     if (count($parts) == 3) {
         // Delete just a single entry
-        $kronolith_driver->open($calendarId);
-        return $kronolith_driver->deleteEvent($parts[2]);
+        return Kronolith::getDriver(null, $calendarId)->deleteEvent($parts[2]);
     } else {
         // Delete the entire calendar
-        $result = $kronolith_driver->delete($calendarId);
+        $result = Kronolith::getDriver()->delete($calendarId);
         if (is_a($result, 'PEAR_Error')) {
             return PEAR::raiseError(sprintf(_("Unable to delete calendar \"%s\": %s"), $calendarId, $result->getMessage()));
         } else {
@@ -789,7 +781,6 @@ function _kronolith_getActionTimestamp($uid, $action, $calendar = null)
 function _kronolith_import($content, $contentType, $calendar = null)
 {
     require_once dirname(__FILE__) . '/base.php';
-    global $kronolith_driver;
 
     if (!isset($calendar)) {
         $calendar = Kronolith::getDefaultCalendar(PERMS_EDIT);
@@ -798,7 +789,6 @@ function _kronolith_import($content, $contentType, $calendar = null)
                           Kronolith::listCalendars(false, PERMS_EDIT))) {
         return PEAR::raiseError(_("Permission Denied"));
     }
-    $kronolith_driver->open($calendar);
 
     switch ($contentType) {
     case 'text/calendar':
@@ -817,17 +807,17 @@ function _kronolith_import($content, $contentType, $calendar = null)
             return PEAR::raiseError(_("No iCalendar data was found."));
         }
 
+        $kronolith_driver = Kronolith::getDriver(null, $calendar);
         $ids = array();
         foreach ($components as $content) {
             if (is_a($content, 'Horde_iCalendar_vevent')) {
-                $event = &$kronolith_driver->getEvent();
+                $event = $kronolith_driver->getEvent();
                 $event->fromiCalendar($content);
                 $event->setCalendar($calendar);
                 // Check if the entry already exists in the data source, first
                 // by UID.
                 $uid = $event->getUID();
-                $existing_event = &$kronolith_driver->getByUID(
-                    $uid, array($calendar));
+                $existing_event = $kronolith_driver->getByUID($uid, array($calendar));
                 if (!is_a($existing_event, 'PEAR_Error')) {
                     return PEAR::raiseError(_("Already Exists"),
                                             'horde.message', null, null, $uid);
@@ -882,9 +872,9 @@ function _kronolith_import($content, $contentType, $calendar = null)
 function _kronolith_export($uid, $contentType)
 {
     require_once dirname(__FILE__) . '/base.php';
-    global $kronolith_driver, $kronolith_shares;
+    global $kronolith_shares;
 
-    $event = $kronolith_driver->getByUID($uid);
+    $event = Kronolith::getDriver()->getByUID($uid);
     if (is_a($event, 'PEAR_Error')) {
         return $event;
     }
@@ -931,17 +921,14 @@ function _kronolith_export($uid, $contentType)
 function _kronolith_exportCalendar($calendar, $contentType)
 {
     require_once dirname(__FILE__) . '/base.php';
-    global $kronolith_driver, $kronolith_shares;
+    global $kronolith_shares;
 
     if (!array_key_exists($calendar,
                           Kronolith::listCalendars(false, PERMS_READ))) {
         return PEAR::raiseError(_("Permission Denied"));
     }
 
-    if ($kronolith_driver->getCalendar() != $calendar) {
-        $kronolith_driver->open($calendar);
-    }
-
+    $kronolith_driver = Kronolith::getDriver(null, $calendar);
     $events = $kronolith_driver->listEvents();
 
     $version = '2.0';
@@ -955,7 +942,7 @@ function _kronolith_exportCalendar($calendar, $contentType)
         $iCal->setAttribute('X-WR-CALNAME', String::convertCharset($share->get('name'), NLS::getCharset(), 'utf-8'));
 
         foreach ($events as $id) {
-            $event = &$kronolith_driver->getEvent($id);
+            $event = $kronolith_driver->getEvent($id);
             if (is_a($event, 'PEAR_Error')) {
                 return $event;
             }
@@ -993,8 +980,8 @@ function _kronolith_delete($uid)
     }
 
     require_once dirname(__FILE__) . '/base.php';
-    global $kronolith_driver;
 
+    $kronolith_driver = Kronolith::getDriver();
     $events = $kronolith_driver->getByUID($uid, null, true);
     if (is_a($events, 'PEAR_Error')) {
         return $events;
@@ -1052,9 +1039,8 @@ function _kronolith_delete($uid)
 function _kronolith_replace($uid, $content, $contentType)
 {
     require_once dirname(__FILE__) . '/base.php';
-    global $kronolith_driver;
 
-    $event = $kronolith_driver->getByUID($uid);
+    $event = Kronolith::getDriver()->getByUID($uid);
     if (is_a($event, 'PEAR_Error')) {
         return $event;
     }
@@ -1143,7 +1129,7 @@ function &_kronolith_eventFromUID($uid)
 {
     require_once dirname(__FILE__) . '/base.php';
 
-    $event = $GLOBALS['kronolith_driver']->getByUID($uid);
+    $event = Kronolith::getDriver()->getByUID($uid);
     if (is_a($event, 'PEAR_Error')) {
         return $event;
     }
@@ -1180,7 +1166,7 @@ function _kronolith_updateAttendee($response, $sender = null)
         return $uid;
     }
 
-    $events = $GLOBALS['kronolith_driver']->getByUID($uid, null, true);
+    $events = Kronolith::getDriver()->getByUID($uid, null, true);
     if (is_a($events, 'PEAR_Error')) {
         return $events;
     }

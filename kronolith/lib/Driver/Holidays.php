@@ -43,31 +43,25 @@ class Kronolith_Driver_Holidays extends Kronolith_Driver
             return array();
         }
 
-        global $language;
-
-        $events = array();
-
         if (is_null($startDate)) {
             $startDate = new Horde_Date($_SERVER['REQUEST_TIME']);
         }
-
         if (is_null($endDate)) {
             $endDate = new Horde_Date($_SERVER['REQUEST_TIME']);
         }
-
         Date_Holidays::staticSetProperty('DIE_ON_MISSING_LOCALE', false);
-        foreach (unserialize($GLOBALS['prefs']->getValue('holiday_drivers')) as $driver) {
-            for ($year = $startDate->year; $year <= $endDate->year; $year++) {
-                $dh = Date_Holidays::factory($driver, $year, $language);
-                if (Date_Holidays::isError($dh)) {
-                    Horde::logMessage(sprintf('Factory was unable to produce driver object for driver %s in year %s with locale %s',
-                                              $driver, $year, $language),
-                                      __FILE__, __LINE__, PEAR_LOG_ERR);
-                    continue;
-                }
-                $dh->addTranslation($language);
-                $events = array_merge($events, $this->_getEvents($dh, $startDate, $endDate));
+
+        $events = array();
+        for ($year = $startDate->year; $year <= $endDate->year; $year++) {
+            $dh = Date_Holidays::factory($this->_calendar, $year, $this->_params['language']);
+            if (Date_Holidays::isError($dh)) {
+                Horde::logMessage(sprintf('Factory was unable to produce driver object for driver %s in year %s with locale %s',
+                                          $this->_calendar, $year, $this->_params['language']),
+                                  __FILE__, __LINE__, PEAR_LOG_ERR);
+                continue;
             }
+            $dh->addTranslation($this->_params['language']);
+            $events = array_merge($events, $this->_getEvents($dh, $startDate, $endDate));
         }
 
         return $events;
@@ -103,7 +97,6 @@ class Kronolith_Driver_Holidays extends Kronolith_Driver
     {
         static $data_dir;
         if (!isset($data_dir)) {
-            include_once 'PEAR/Config.php';
             $pear_config = new PEAR_Config();
             $data_dir = $pear_config->get('data_dir');
         }
@@ -114,7 +107,7 @@ class Kronolith_Driver_Holidays extends Kronolith_Driver
         foreach (array('', '_' . $driver) as $pkg_ext) {
             foreach (array('ser', 'xml') as $format) {
                 $location = $data_dir . '/Date_Holidays' . $pkg_ext . '/lang/'
-                    . $driver . '/' . $GLOBALS['language'] . '.' . $format;
+                    . $driver . '/' . $this->_params['language'] . '.' . $format;
                 if (file_exists($location)) {
                     return array($format, $location);
                 }

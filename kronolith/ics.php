@@ -56,14 +56,14 @@ $key = 'kronolith.ics.' . $calendar;
 
 $ics = $cache->get($key, 360);
 if (!$ics) {
-    $kronolith_driver->open($calendar);
+    $kronolith_driver = Kronolith::getDriver(null, $calendar);
     $events = $kronolith_driver->listEvents();
 
     $iCal = new Horde_iCalendar();
     $iCal->setAttribute('X-WR-CALNAME', String::convertCharset($share->get('name'), NLS::getCharset(), 'utf-8'));
 
     foreach ($events as $id) {
-        $event = &$kronolith_driver->getEvent($id);
+        $event = $kronolith_driver->getEvent($id);
         if (is_a($event, 'PEAR_Error')) {
             continue;
         }

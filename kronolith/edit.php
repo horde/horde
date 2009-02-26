@@ -39,6 +39,7 @@ function _check_max()
 require_once KRONOLITH_BASE . '/lib/base.php';
 
 $url = Util::getFormData('url');
+$kronolith_driver = Kronolith::getDriver();
 
 if ($exception = Util::getFormData('del_exception')) {
     $calendar = Util::getFormData('calendar');

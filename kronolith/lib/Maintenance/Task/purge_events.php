@@ -21,7 +21,7 @@ class Maintenance_Task_purge_events extends Maintenance_Task {
      */
     function doMaintenance()
     {
-        global $prefs, $kronolith_driver, $notification;
+        global $prefs, $notification;
 
         /* Get the current time minus the number of days specified in
          * 'purge_events_keep'.  An event will be deleted if it has an end
@@ -33,6 +33,7 @@ class Maintenance_Task_purge_events extends Maintenance_Task {
         $calendars = Kronolith::listCalendars(false, PERMS_DELETE);
 
         /* Start building an event object to use for the search */
+        $kronolith_driver = Kronolith::getDriver();
         $query = &$kronolith_driver->getEvent();
         $query->start = null;
         $query->end = $del_time;

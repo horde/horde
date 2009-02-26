@@ -12,9 +12,9 @@
 @define('KRONOLITH_BASE', dirname(__FILE__));
 require_once KRONOLITH_BASE . '/lib/base.php';
 
-$kronolith_driver->open(Util::getFormData('calendar'));
+$kronolith_driver = Kronolith::getDriver(null, Util::getFormData('calendar'));
 if ($eventID = Util::getFormData('eventID')) {
-    $event = &$kronolith_driver->getEvent($eventID);
+    $event = $kronolith_driver->getEvent($eventID);
     if (is_a($event, 'PEAR_Error')) {
         if (($url = Util::getFormData('url')) === null) {
             $url = Horde::applicationUrl($prefs->getValue('defaultview') . '.php', true);

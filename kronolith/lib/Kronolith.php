@@ -487,9 +487,9 @@ class Kronolith
      * @return array  The events happening in this time period.
      */
     public static function listEventIds($startDate = null, $endDate = null,
-                          $calendars = null, $alarmsOnly = false)
+                                        $calendars = null, $alarmsOnly = false)
     {
-        global $kronolith_driver;
+        $kronolith_driver = self::getDriver();
 
         if (!empty($startDate)) {
             $startDate = new Horde_Date($startDate);
@@ -506,11 +506,10 @@ class Kronolith
 
         $eventIds = array();
         foreach ($calendars as $cal) {
-            if ($kronolith_driver->getCalendar() != $cal) {
-                $kronolith_driver->open($cal);
-            }
-            $eventIds[$cal] = $GLOBALS['kronolith_driver']->listEvents(
-                $startDate, $endDate, $alarmsOnly);
+            $kronolith_driver->open($cal);
+            $eventIds[$cal] = $kronolith_driver->listEvents($startDate,
+                                                            $endDate,
+                                                            $alarmsOnly);
         }
 
         return $eventIds;
@@ -528,13 +527,11 @@ class Kronolith
      */
     public static function listAlarms($date, $calendars, $fullevent = false)
     {
-        global $kronolith_driver;
+        $kronolith_driver = self::getDriver();
 
         $alarms = array();
         foreach ($calendars as $cal) {
-            if ($kronolith_driver->getCalendar() != $cal) {
-                $kronolith_driver->open($cal);
-            }
+            $kronolith_driver->open($cal);
             $alarms[$cal] = $kronolith_driver->listAlarms($date, $fullevent);
             if (is_a($alarms[$cal], 'PEAR_Error')) {
                 return $alarms[$cal];
@@ -553,7 +550,7 @@ class Kronolith
      */
     public static function search($query)
     {
-        global $kronolith_driver;
+        $kronolith_driver = self::getDriver();
 
         if (!isset($query->calendars)) {
             $calendars = $GLOBALS['display_calendars'];
@@ -563,9 +560,7 @@ class Kronolith
 
         $events = array();
         foreach ($calendars as $cal) {
-            if ($kronolith_driver->getCalendar() != $cal) {
-                $kronolith_driver->open($cal);
-            }
+            $kronolith_driver->open($cal);
             $retevents = $kronolith_driver->search($query);
             foreach ($retevents as $event) {
                 $events[] = $event;
@@ -829,7 +824,7 @@ class Kronolith
                         $showRecurrence = true, $alarmsOnly = false,
                         $showRemote = true)
     {
-        global $kronolith_driver, $registry;
+        global $registry;
 
         if (!empty($startDate)) {
             $startDate = new Horde_Date($startDate);
@@ -841,6 +836,7 @@ class Kronolith
             $calendars = $GLOBALS['display_calendars'];
         }
 
+        $kronolith_driver = self::getDriver();
         $eventIds = Kronolith::listEventIds($startDate, $endDate, $calendars, $alarmsOnly);
 
         $startOfPeriod = clone $startDate;
@@ -855,11 +851,9 @@ class Kronolith
                 return $events;
             }
 
-            if ($kronolith_driver->getCalendar() != $cal) {
-                $kronolith_driver->open($cal);
-            }
+            $kronolith_driver->open($cal);
             foreach ($events as $id) {
-                $event = &$kronolith_driver->getEvent($id);
+                $event = $kronolith_driver->getEvent($id);
                 if (is_a($event, 'PEAR_Error')) {
                     return $event;
                 }
@@ -975,8 +969,9 @@ class Kronolith
             }
 
             /* Remote Calendars. */
+            $driver = self::getDriver('Ical');
             foreach ($GLOBALS['display_remote_calendars'] as $url) {
-                $driver = self::getDriver('Ical', array('url' => $url));
+                $driver->open($url);
                 $events = $driver->listEvents($startOfPeriod, $endOfPeriod);
                 if (!is_a($events, 'PEAR_Error')) {
                     $kronolith_driver->open(Kronolith::getDefaultCalendar(PERMS_SHOW));
@@ -991,14 +986,17 @@ class Kronolith
 
         /* Holidays */
         if (!empty($GLOBALS['conf']['holidays']['enable'])) {
-            $dhDriver = Kronolith_Driver::factory('Holidays');
-            $events = $dhDriver->listEvents($startDate, $endDate);
-            if (!is_a($events, 'PEAR_Error')) {
-                $kronolith_driver->open(Kronolith::getDefaultCalendar(PERMS_SHOW));
-                foreach ($events as $event) {
-                    Kronolith::_getEvents($results, $event, $startDate,
-                                          $endDate, $startOfPeriod,
-                                          $endOfPeriod, $showRecurrence);
+            $dhDriver = self::getDriver('Holidays');
+            foreach (unserialize($GLOBALS['prefs']->getValue('holiday_drivers')) as $driver) {
+                $dhDriver->open($driver);
+                $events = $dhDriver->listEvents($startDate, $endDate);
+                if (!is_a($events, 'PEAR_Error')) {
+                    $kronolith_driver->open(Kronolith::getDefaultCalendar(PERMS_SHOW));
+                    foreach ($events as $event) {
+                        Kronolith::_getEvents($results, $event, $startDate,
+                                              $endDate, $startOfPeriod,
+                                              $endOfPeriod, $showRecurrence);
+                    }
                 }
             }
         }
@@ -1022,8 +1020,6 @@ class Kronolith
                         $startOfPeriod, $endOfPeriod,
                         $showRecurrence)
     {
-        global $kronolith_driver;
-
         if ($event->recurs() && $showRecurrence) {
             /* Recurring Event. */
 
@@ -1215,30 +1211,25 @@ class Kronolith
      */
     public static function countEvents()
     {
-        global $kronolith_driver;
-
         static $count;
         if (isset($count)) {
             return $count;
         }
 
+        $kronolith_driver = self::getDriver();
         $calendars = Kronolith::listCalendars(true, PERMS_ALL);
         $current_calendar = $kronolith_driver->getCalendar();
 
         $count = 0;
         foreach (array_keys($calendars) as $calendar) {
-            if ($kronolith_driver->getCalendar() != $calendar) {
-                $kronolith_driver->open($calendar);
-            }
+            $kronolith_driver->open($calendar);
 
             /* Retrieve the event list from storage. */
             $count += count($kronolith_driver->listEvents());
         }
 
         /* Reopen last calendar. */
-        if ($kronolith_driver->getCalendar() != $current_calendar) {
-            $kronolith_driver->open($current_calendar);
-        }
+        $kronolith_driver->open($current_calendar);
 
         return $count;
     }
@@ -2037,25 +2028,37 @@ class Kronolith
     }
 
     /**
-     * Attempts to return a concrete Kronolith_Driver instance based on
-     * $driver.
+     * Attempts to return a single, concrete Kronolith_Driver instance based
+     * on a driver name.
      *
-     * @param string $driver  The type of concrete Kronolith_Driver subclass
-     *                        to return.
+     * This singleton method automatically retrieves all parameters required
+     * for the specified driver.
      *
-     * @param array $params   A hash containing any additional configuration or
-     *                        connection parameters a subclass might need.
+     * @param string $driver    The type of concrete Kronolith_Driver subclass
+     *                          to return.
+     * @param string $calendar  The calendar name. The format depends on the
+     *                          driver being used.
      *
      * @return Kronolith_Driver  The newly created concrete Kronolith_Driver
      *                           instance, or a PEAR_Error on error.
      */
-    public static function getDriver($driver, $params)
+    public static function getDriver($driver = null, $calendar = null)
     {
-        ksort($params);
-        $sig = hash('md5', serialize(array($driver, $params)));
+        if (empty($driver)) {
+            $driver = String::ucfirst($GLOBALS['conf']['calendar']['driver']);
+        }
 
-        if (!isset(self::$_instances[$sig])) {
+        if (!isset(self::$_instances[$driver])) {
+            $params = array();
             switch ($driver) {
+            case 'Sql':
+                $params = Horde::getDriverConfig('calendar', 'sql');
+                break;
+
+            case 'Kolab':
+                $params = Horde::getDriverConfig('calendar', 'kolab');
+                break;
+
             case 'Ical':
                 /* Check for HTTP proxy configuration */
                 if (!empty($GLOBALS['conf']['http']['proxy']['proxy_host'])) {
@@ -2065,7 +2068,7 @@ class Kronolith
                 /* Check for HTTP authentication credentials */
                 $cals = unserialize($GLOBALS['prefs']->getValue('remote_cals'));
                 foreach ($cals as $cal) {
-                    if ($cal['url'] == $params['url']) {
+                    if ($cal['url'] == $calendar) {
                         $user = isset($cal['user']) ? $cal['user'] : '';
                         $password = isset($cal['password']) ? $cal['password'] : '';
                         $key = Auth::getCredential('password');
@@ -2081,12 +2084,22 @@ class Kronolith
                         break;
                     }
                 }
+
+                break;
+
+            case 'Holidays':
+                $params['language'] = $GLOBALS['language'];
+                break;
             }
 
-            self::$_instances[$sig] = Kronolith_Driver::factory($driver, $params);
+            self::$_instances[$driver] = Kronolith_Driver::factory($driver, $params);
         }
 
-        return self::$_instances[$sig];
+        if (!is_null($calendar)) {
+            self::$_instances[$driver]->open($calendar);
+        }
+
+        return self::$_instances[$driver];
     }
 
     /**
@@ -2111,14 +2124,13 @@ class Kronolith
             require_once KRONOLITH_BASE . '/lib/Views/Event.php';
 
             if (Util::getFormData('calendar') == '**remote') {
-                $driver = self::getDriver('Ical', array('url' => Util::getFormData('remoteCal')));
-                $event = $driver->getEvent(Util::getFormData('eventID'));
+                $event = self::getDriver('Ical', Util::getFormData('remoteCal'))
+                    ->getEvent(Util::getFormData('eventID'));
             } elseif ($uid = Util::getFormData('uid')) {
-                $event = $GLOBALS['kronolith_driver']->getByUID($uid);
+                $event = self::getDriver()->getByUID($uid);
             } else {
-                $GLOBALS['kronolith_driver']->open(Util::getFormData('calendar'));
-                $event = $GLOBALS['kronolith_driver']->getEvent(
-                    Util::getFormData('eventID'));
+                $event = self::getDriver(null, Util::getFormData('calendar'))
+                    ->getEvent(Util::getFormData('eventID'));
             }
             if (!is_a($event, 'PEAR_Error') &&
                 !$event->hasPermission(PERMS_READ)) {
@@ -2131,12 +2143,11 @@ class Kronolith
             require_once KRONOLITH_BASE . '/lib/Views/EditEvent.php';
 
             if (Util::getFormData('calendar') == '**remote') {
-                $driver = self::getDriver('Ical', array('url' => Util::getFormData('remoteCal')));
-                $event = $driver->getEvent(Util::getFormData('eventID'));
+                $event = self::getDriver('Ical', Util::getFormData('remoteCal'))
+                    ->getEvent(Util::getFormData('eventID'));
             } else {
-                $GLOBALS['kronolith_driver']->open(Util::getFormData('calendar'));
-                $event = $GLOBALS['kronolith_driver']->getEvent(
-                    Util::getFormData('eventID'));
+                $event = self::getDriver(null, Util::getFormData('calendar'))
+                    ->getEvent(Util::getFormData('eventID'));
             }
             if (!is_a($event, 'PEAR_Error') &&
                 !$event->hasPermission(PERMS_EDIT)) {
@@ -2148,9 +2159,8 @@ class Kronolith
         case 'DeleteEvent':
             require_once KRONOLITH_BASE . '/lib/Views/DeleteEvent.php';
 
-            $GLOBALS['kronolith_driver']->open(Util::getFormData('calendar'));
-            $event = $GLOBALS['kronolith_driver']->getEvent
-                (Util::getFormData('eventID'));
+            $event = self::getDriver(null, Util::getFormData('calendar'))
+                ->getEvent(Util::getFormData('eventID'));
             if (!is_a($event, 'PEAR_Error') &&
                 !$event->hasPermission(PERMS_DELETE)) {
                 $event = PEAR::raiseError(_("Permission Denied"));
@@ -2162,14 +2172,13 @@ class Kronolith
             require_once KRONOLITH_BASE . '/lib/Views/ExportEvent.php';
 
             if (Util::getFormData('calendar') == '**remote') {
-                $driver = self::getDriver('Ical', array('url' => Util::getFormData('remoteCal')));
-                $event = $driver->getEvent(Util::getFormData('eventID'));
+                $event = self::getDriver('Ical', Util::getFormData('remoteCal'))
+                    ->getEvent(Util::getFormData('eventID'));
             } elseif ($uid = Util::getFormData('uid')) {
-                $event = $GLOBALS['kronolith_driver']->getByUID($uid);
+                $event = self::getDriver()->getByUID($uid);
             } else {
-                $GLOBALS['kronolith_driver']->open(Util::getFormData('calendar'));
-                $event = $GLOBALS['kronolith_driver']->getEvent(
-                    Util::getFormData('eventID'));
+                $event = self::getDriver(null, Util::getFormData('calendar'))
+                    ->getEvent(Util::getFormData('eventID'));
             }
             if (!is_a($event, 'PEAR_Error') &&
                 !$event->hasPermission(PERMS_READ)) {

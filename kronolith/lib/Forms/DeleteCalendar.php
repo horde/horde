@@ -54,7 +54,7 @@ class Kronolith_DeleteCalendarForm extends Horde_Form {
         }
 
         // Delete the calendar.
-        $result = $GLOBALS['kronolith_driver']->delete($this->_calendar->getName());
+        $result = Kronolith::getDriver()->delete($this->_calendar->getName());
         if (is_a($result, 'PEAR_Error')) {
             return PEAR::raiseError(sprintf(_("Unable to delete \"%s\": %s"), $this->_calendar->get('name'), $result->getMessage()));
         } else {

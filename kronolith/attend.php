@@ -45,10 +45,9 @@ if (((empty($cal) || empty($id)) && empty($uid)) || empty($user)) {
     $title = '';
 } else {
     if (empty($uid)) {
-        $kronolith_driver->open($cal);
-        $event = $kronolith_driver->getEvent($id);
+        $event = Kronolith::getDriver(null, $cal)->getEvent($id);
     } else {
-        $event = $kronolith_driver->getByUID($uid);
+        $event = Kronolith::getDriver()->getByUID($uid);
     }
     if (is_a($event, 'PEAR_Error')) {
         $notification->push($event, 'horde.error');

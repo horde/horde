@@ -32,7 +32,7 @@ if (!$calendar_id) {
     header('Location: ' . Horde::applicationUrl($url, true));
 }
 
-$event = $kronolith_driver->getEvent();
+$event = Kronolith::getDriver()->getEvent();
 $_SESSION['kronolith']['attendees'] = $event->getAttendees();
 
 $date = Util::getFormData('datetime');

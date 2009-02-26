@@ -193,18 +193,9 @@ class Kronolith_Driver
      */
     public function factory($driver = null, $params = null)
     {
-        if ($driver === null) {
-            $driver = $GLOBALS['conf']['calendar']['driver'];
-        }
         $driver = basename($driver);
-
-        if ($params === null) {
-            $params = Horde::getDriverConfig('calendar', $driver);
-        }
-
-        $driver = String::ucfirst($driver);
-
         $class = 'Kronolith_Driver_' . $driver;
+
         if (class_exists($class)) {
             $driver = new $class($params);
             $result = $driver->initialize();

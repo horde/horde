@@ -68,6 +68,7 @@ function send_agendas()
 
     $runtime = new Horde_Date($runtime);
     $default_timezone = date_default_timezone_get();
+    $kronolith_driver = Kronolith::getDriver();
 
     // Loop through the users and generate an agenda for them
     foreach ($users as $user) {
@@ -122,10 +123,10 @@ function send_agendas()
         // Get a list of events for today
         $eventlist = array();
         foreach ($calendars as $calId => $calendar) {
-            $GLOBALS['kronolith_driver']->open($calId);
-            $events = $GLOBALS['kronolith_driver']->listEvents($runtime, $runtime);
+            $kronolith_driver->open($calId);
+            $events = $kronolith_driver->listEvents($runtime, $runtime);
             foreach ($events as $eventId) {
-                $event = $GLOBALS['kronolith_driver']->getEvent($eventId);
+                $event = $kronolith_driver->getEvent($eventId);
                 if (is_a($event, 'PEAR_Error')) {
                     return $event;
                 }

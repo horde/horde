@@ -209,7 +209,7 @@ class Kronolith_Event
      * @param mixed $eventObject        Backend specific event object
      *                                  that this will represent.
      */
-    public function __construct(&$driver, $eventObject = null)
+    public function __construct($driver, $eventObject = null)
     {
         static $alarm;
 
@@ -220,7 +220,9 @@ class Kronolith_Event
         $this->alarm = $alarm;
 
         $this->_calendar = $driver->getCalendar();
-        if (!empty($this->_calendar)) {
+        // FIXME: Move color definitions anywhere else.
+        if (!empty($this->_calendar) &&
+            isset($GLOBALS['all_calendars'][$this->_calendar])) {
             $share = $GLOBALS['all_calendars'][$this->_calendar];
             $this->_backgroundColor = $share->get('color');
             if (empty($this->_backgroundColor)) {
@@ -244,12 +246,7 @@ class Kronolith_Event
      */
     public function getDriver()
     {
-        global $kronolith_driver;
-        if ($kronolith_driver->getCalendar() != $this->_calendar) {
-            $kronolith_driver->open($this->_calendar);
-        }
-
-        return $kronolith_driver;
+        return Kronolith::getDriver(null, $this->_calendar);
     }
 
     /**
@@ -309,8 +306,7 @@ class Kronolith_Event
         }
 
         $this->toDriver();
-        $driver = &$this->getDriver();
-        $result = $driver->saveEvent($this);
+        $result = $this->getDriver()->saveEvent($this);
         if (!is_a($result, 'PEAR_Error') &&
             !empty($GLOBALS['conf']['alarms']['driver'])) {
             $alarm = $this->toAlarm(new Horde_Date($_SERVER['REQUEST_TIME']));
@@ -1039,7 +1035,7 @@ class Kronolith_Event
             return false;
         }
 
-        $eventID = $GLOBALS['kronolith_driver']->exists($this->_uid, $this->_calendar);
+        $eventID = $this->getDriver()->exists($this->_uid, $this->_calendar);
         if (is_a($eventID, 'PEAR_Error') || !$eventID) {
             return false;
         } else {

@@ -40,8 +40,6 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
 
     public function listAlarms($date, $fullevent = false)
     {
-        require_once 'Date/Calc.php';
-
         $allevents = $this->listEvents($date, null, true);
         if (is_a($allevents, 'PEAR_Error')) {
             return $allevents;
@@ -102,8 +100,6 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
 
     public function search($query)
     {
-        require_once 'Horde/SQL.php';
-
         /* Build SQL conditions based on the query string. */
         $cond = '((';
         $values = array();
@@ -861,6 +857,8 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
                 $this->deleteEvent($event->getId());
             }
         }
+
         return true;
     }
+
 }

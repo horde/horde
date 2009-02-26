@@ -14,6 +14,8 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
+ * @todo Replace session cache
+ *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @author  Jan Schneider <jan@horde.org>
  * @package Kronolith
@@ -67,7 +69,7 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
                 $event = new Kronolith_Event_Ical($this);
                 $event->status = Kronolith::STATUS_FREE;
                 $event->fromiCalendar($component);
-                $event->remoteCal = $this->_params['url'];
+                $event->remoteCal = $this->_calendar;
                 $event->eventID = $i;
 
                 /* Catch RECURRENCE-ID attributes which mark single recurrence
@@ -129,7 +131,7 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
             $event = new Kronolith_Event_Ical($this);
             $event->status = Kronolith::STATUS_FREE;
             $event->fromiCalendar($components[$eventId]);
-            $event->remoteCal = $this->_params['url'];
+            $event->remoteCal = $this->_calendar;
             $event->eventID = $eventId;
 
             return $event;
@@ -145,7 +147,7 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
      */
     private function _getRemoteCalendar()
     {
-        $url = trim($this->_params['url']);
+        $url = trim($this->_calendar);
 
         /* Treat webcal:// URLs as http://. */
         if (substr($url, 0, 9) == 'webcal://') {
