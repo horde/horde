@@ -83,13 +83,13 @@ abstract class Horde_View_Base
     }
 
     /**
-     * Return a view variable
+     * Return an empty string if a variable does not exist.
      *
      * @param string $name Variable name to retrieve
      */
     public function __get($name)
     {
-        return isset($this->$name) ? $this->$name : '';
+        return '';
     }
 
     /**
