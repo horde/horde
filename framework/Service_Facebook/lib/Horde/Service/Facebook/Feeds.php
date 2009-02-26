@@ -104,6 +104,11 @@ class Horde_Service_Facebook_Feeds extends Horde_Service_Facebook_Base
     public function &publishUserAction($bundleId, $data, $targetIds = '',
                                        $body = '', $size = self::STORY_SIZE_ONE_LINE)
     {
+        // Session key is *required*
+        if (!$this->_facebook->auth->getSessionKey()) {
+            throw new Horde_Service_Facebook_Exception('session_key is required',
+                                               Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
+        }
         // Pass in JSON or an assoc that we JSON for them
         if (is_array($data)) {
             $data = json_encode($data);
@@ -119,7 +124,8 @@ class Horde_Service_Facebook_Feeds extends Horde_Service_Facebook_Base
                   'template_data' => $data,
                   'target_ids' => $targetIds,
                   'body_general' => $body,
-                  'story_size' => $size));
+                  'story_size' => $size,
+                  'session_key' => $this->_facebook->auth->getSessionKey()));
     }
 
     /**
@@ -129,7 +135,7 @@ class Horde_Service_Facebook_Feeds extends Horde_Service_Facebook_Base
      *
      * @return array  An array of feed story objects.
      */
-    public function &feed_getAppFriendStories()
+    public function &getAppFriendStories()
     {
         return $this->_facebook->call_method('facebook.feed.getAppFriendStories');
     }
