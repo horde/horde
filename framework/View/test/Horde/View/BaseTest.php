@@ -88,7 +88,7 @@ class Horde_View_BaseTest extends Horde_Test_Case
         $this->_view->myVar = 'test';
 
         $expected = "<div>test</div>";
-        $this->assertEquals($expected, $this->_view->render('testRender.html'));
+        $this->assertEquals($expected, $this->_view->render('testRender.html.php'));
     }
 
     // test rendering
