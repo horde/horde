@@ -42,13 +42,10 @@ class Kronolith_Driver_Holidays extends Kronolith_Driver
                               __FILE__, __LINE__, PEAR_LOG_ERR);
             return array();
         }
+        if ($hasAlarm || is_null($startDate) || is_null($endDate)) {
+            return array();
+        }
 
-        if (is_null($startDate)) {
-            $startDate = new Horde_Date($_SERVER['REQUEST_TIME']);
-        }
-        if (is_null($endDate)) {
-            $endDate = new Horde_Date($_SERVER['REQUEST_TIME']);
-        }
         Date_Holidays::staticSetProperty('DIE_ON_MISSING_LOCALE', false);
 
         $events = array();
