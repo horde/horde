@@ -378,6 +378,29 @@ abstract class Horde_Controller_Base
     }
 
     /**
+     * Set the layout template for the controller. Specify the name of the file in
+     * the /app/views/layouts directory without the .html extension
+     *
+     * <code>
+     *  <?php
+     *  ...
+     *  public function _initialize()
+     *  {
+     *      $this->setLayout('application');
+     *  }
+     *  ...
+     *  ?>
+     * </code>
+     *
+     * @param   string  $layoutName
+     */
+    protected function setLayout($layoutName)
+    {
+        $this->_useLayout  = true;
+        $this->_layoutName = $layoutName;
+    }
+
+    /**
      * Check if a render or redirect has been performed
      * @return  boolean
      */

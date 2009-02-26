@@ -370,7 +370,7 @@ abstract class Horde_View_Base
     protected function _template($name)
     {
         // append missing html
-        if (!strstr($name, '.')) { $name .= '.html'; }
+        if (!strstr($name, '.')) { $name .= '.html.php'; }
 
         if (!count($this->_templatePath)) {
             throw new Horde_View_Exception('No template directory set; unable to locate ' . $name);
