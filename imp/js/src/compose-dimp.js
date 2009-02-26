@@ -21,11 +21,11 @@ var DimpCompose = {
             if (DIMP.conf_compose.auto_save_interval_val) {
                 DimpCore.doAction('DeleteDraft', { index: $F('index') });
             }
-            return this._closeCompose();
+            return this.closeCompose();
         }
     },
 
-    _closeCompose: function()
+    closeCompose: function()
     {
         if (DIMP.conf_compose.qreply) {
             this.closeQReply();
@@ -213,7 +213,7 @@ var DimpCompose = {
                     DIMP.baseWindow.DimpCore.showNotifications(r.msgs);
                 }
                 if (DIMP.conf_compose.close_draft) {
-                    return this._closeCompose();
+                    return this.closeCompose();
                 }
                 break;
 
@@ -241,7 +241,7 @@ var DimpCompose = {
 
                     DIMP.baseWindow.DimpCore.showNotifications(r.msgs);
                 }
-                return this._closeCompose();
+                return this.closeCompose();
 
             case 'add_attachment':
                 this.uploading = false;
@@ -314,8 +314,8 @@ var DimpCompose = {
                 $('messageParent').childElements().invoke('show');
                 $('message').hide();
             } catch (e) {
-                this._RTELoading('show');
-                FCKeditor_OnComplete = this._RTELoading.curry('hide');
+                this.RTELoading('show');
+                FCKeditor_OnComplete = this.RTELoading.curry('hide');
                 oFCKeditor.ReplaceTextarea();
             }
         }
@@ -323,7 +323,7 @@ var DimpCompose = {
         $('html').setValue(this.editor_on ? 1 : 0);
     },
 
-    _RTELoading: function(cmd)
+    RTELoading: function(cmd)
     {
         var o, r;
         if (!$('rteloading')) {
@@ -628,13 +628,14 @@ var DimpCompose = {
     },
 
     /* Click observe handler. */
-    clickHandler: function(e)
+    clickHandler: function(parentfunc, e)
     {
         if (e.isRightClick()) {
             return;
         }
 
-        var elt = orig = e.element(), atc_num, id;
+        var elt = orig = e.element(),
+            atc_num, id;
 
         while (Object.isElement(elt)) {
             id = elt.readAttribute('id');
@@ -679,6 +680,8 @@ var DimpCompose = {
 
             elt = elt.up();
         }
+
+        parentfunc(e);
     },
 
     changeHandler: function(e)
@@ -702,6 +705,12 @@ var DimpCompose = {
         var boundResize = this.resizeMsgArea.bind(this);
 
         DimpCore.init();
+
+        /* Attach event handlers. */
+        document.observe('change', this.changeHandler.bindAsEventListener(this));
+        Event.observe(window, 'resize', this.resizeMsgArea.bind(this));
+        $('compose').observe('submit', Event.stop);
+        $('submit_frame').observe('load', this.attachmentComplete.bind(this));
 
         this.resizeMsgArea();
         this.initializeSpellChecker();
@@ -772,8 +781,6 @@ ResizeTextArea = Class.create({
 
 /* Attach event handlers. */
 document.observe('dom:loaded', DimpCompose.onDomLoad.bind(DimpCompose));
-document.observe('change', DimpCompose.changeHandler.bindAsEventListener(DimpCompose));
-document.observe('click', DimpCompose.clickHandler.bindAsEventListener(DimpCompose));
-Event.observe(window, 'resize', DimpCompose.resizeMsgArea.bind(DimpCompose));
-$('compose').observe('submit', Event.stop);
-$('submit_frame').observe('load', DimpCompose.attachmentComplete.bind(DimpCompose));
+
+/* Click handler. */
+DimpCore.clickHandler = DimpCore.clickHandler.wrap(DimpCompose.clickHandler.bind(DimpCompose));

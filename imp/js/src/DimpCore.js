@@ -440,7 +440,7 @@ DimpCore = {
     },
 
     /* Mouse click handler. */
-    _clickHandler: function(e)
+    clickHandler: function(e)
     {
         if (e.isRightClick()) {
             return;
@@ -558,12 +558,12 @@ DimpCore = {
         if (!DIMP.conf.ham_reporting) {
             this.buttons = this.buttons.without('button_ham');
         }
+
+        /* Add click handler. */
+        document.observe('click', DimpCore.clickHandler.bindAsEventListener(DimpCore));
     }
 
 };
-
-/* Add click handler. */
-document.observe('click', DimpCore._clickHandler.bindAsEventListener(DimpCore));
 
 /* Helper methods for setting/getting element text without mucking
  * around with multiple TextNodes. */

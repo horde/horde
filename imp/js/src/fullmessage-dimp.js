@@ -67,7 +67,7 @@ var DimpFullmessage = {
     },
 
     /* Click handlers. */
-    clickHandler: function(e)
+    clickHandler: function(parentfunc, e)
     {
         if (e.isRightClick()) {
             return;
@@ -107,6 +107,8 @@ var DimpFullmessage = {
 
             elt = elt.up();
         }
+
+        parentfunc(e);
     },
 
     contextOnClick: function(parentfunc, id, elt)
@@ -131,7 +133,7 @@ var DimpFullmessage = {
     },
 
     /* Add a popdown menu to a dimpactions button. */
-    _addPopdown: function(bid, ctx)
+    addPopdown: function(bid, ctx)
     {
         var bidelt = $(bid);
         bidelt.insert({ after: new Element('SPAN', { className: 'iconImg popdownImg popdown', id: bid + '_img' }) });
@@ -142,8 +144,8 @@ var DimpFullmessage = {
     {
         DimpCore.init();
 
-        this._addPopdown('reply_link', 'replypopdown');
-        this._addPopdown('forward_link', 'fwdpopdown');
+        this.addPopdown('reply_link', 'replypopdown');
+        this.addPopdown('forward_link', 'fwdpopdown');
 
         /* Set up address linking. */
         [ 'from', 'to', 'cc', 'bcc', 'replyTo' ].each(function(a) {
@@ -159,6 +161,8 @@ var DimpFullmessage = {
 /* ContextSensitive functions. */
 DimpCore.contextOnClick = DimpCore.contextOnClick.wrap(DimpFullmessage.contextOnClick.bind(DimpFullmessage));
 
+/* Click handler. */
+DimpCore.clickHandler = DimpCore.clickHandler.wrap(DimpFullmessage.clickHandler.bind(DimpFullmessage));
+
 /* Attach event handlers. */
 document.observe('dom:loaded', DimpFullmessage.onDomLoad.bind(DimpFullmessage));
-document.observe('click', DimpFullmessage.clickHandler.bindAsEventListener(DimpFullmessage));

@@ -1459,34 +1459,48 @@ var DimpBase = {
         }
     },
 
-    clickHandler: function(e, dblclick)
+    dblclickHandler: function(e)
     {
         if (e.isRightClick()) {
             return;
         }
 
-        var elt = e.element(),
-            orig = e.element(),
-            id, mbox, tmp;
+        var elt = orig = e.element(),
+            tmp;
 
         while (Object.isElement(elt)) {
             id = elt.readAttribute('id');
 
             switch (id) {
             case 'msgList':
-                if (dblclick) {
-                    if (!orig.hasClassName('msgRow')) {
-                        orig = orig.up('.msgRow');
-                    }
-                    if (orig) {
-                        tmp = this.viewport.createSelection('domid', orig.identify()).get('dataob').first();
-                        tmp.draft ? DimpCore.compose('resume', { folder: tmp.view, uid: tmp.imapuid }) : this.msgWindow(tmp);
-                    }
-                    e.stop();
-                    return;
+                if (!orig.hasClassName('msgRow')) {
+                    orig = orig.up('.msgRow');
                 }
-                break;
+                if (orig) {
+                    tmp = this.viewport.createSelection('domid', orig.identify()).get('dataob').first();
+                    tmp.draft ? DimpCore.compose('resume', { folder: tmp.view, uid: tmp.imapuid }) : this.msgWindow(tmp);
+                }
+                e.stop();
+                return;
+            }
 
+            elt = elt.up();
+        }
+    },
+
+    clickHandler: function(parentfunc, e)
+    {
+        if (e.isRightClick()) {
+            return;
+        }
+
+        var elt = e.element(),
+            id, mbox, tmp;
+
+        while (Object.isElement(elt)) {
+            id = elt.readAttribute('id');
+
+            switch (id) {
             case 'RB_Folder_ok':
                 this.cfolderaction(e);
                 e.stop();
@@ -1624,6 +1638,8 @@ var DimpBase = {
 
             elt = elt.up();
         }
+
+        parentfunc(e);
     },
 
     mouseHandler: function(e, type)
@@ -2269,6 +2285,13 @@ var DimpBase = {
 
         var DM = DimpCore.DMenu;
 
+        /* Register global handlers now. */
+        document.observe('keydown', this.keydownHandler.bindAsEventListener(this));
+        document.observe('keyup', this.keyupHandler.bindAsEventListener(this));
+        document.observe('mouseover', this.mouseHandler.bindAsEventListener(this, 'over'));
+        document.observe('dblclick', this.dblclickHandler.bindAsEventListener(this));
+        Event.observe(window, 'resize', this.onResize.bind(this));
+
         $('dimpLoading').hide();
         $('dimpPage').show();
 
@@ -2446,15 +2469,12 @@ DimpCore.onDoActionComplete = function(r) {
     }
 };
 
+/* Click handler. */
+DimpCore.clickHandler = DimpCore.clickHandler.wrap(DimpBase.clickHandler.bind(DimpBase));
+
 /* ContextSensitive functions. */
 DimpCore.contextOnClick = DimpCore.contextOnClick.wrap(DimpBase.contextOnClick.bind(DimpBase));
 DimpCore.contextOnShow = DimpCore.contextOnShow.wrap(DimpBase.contextOnShow.bind(DimpBase));
 
 /* Initialize global event handlers. */
 document.observe('dom:loaded', DimpBase.onDomLoad.bind(DimpBase));
-document.observe('keydown', DimpBase.keydownHandler.bindAsEventListener(DimpBase));
-document.observe('keyup', DimpBase.keyupHandler.bindAsEventListener(DimpBase));
-document.observe('click', DimpBase.clickHandler.bindAsEventListener(DimpBase));
-document.observe('dblclick', DimpBase.clickHandler.bindAsEventListener(DimpBase, true));
-document.observe('mouseover', DimpBase.mouseHandler.bindAsEventListener(DimpBase, 'over'));
-Event.observe(window, 'resize', DimpBase.onResize.bind(DimpBase));
