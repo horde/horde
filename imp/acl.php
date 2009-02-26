@@ -24,7 +24,7 @@ if ($prefs->isLocked('acl') || empty($_SESSION['imp']['acl'])) {
 
 try {
     $ACLDriver = &IMP_IMAP_ACL::singleton();
-} catch (Exception $e) {
+} catch (Horde_Exception $e) {
     $notification->push($error, _("This server does not support sharing folders."));
     header('Location: ' . $prefs_url);
     exit;

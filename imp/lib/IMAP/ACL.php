@@ -56,12 +56,12 @@ class IMP_IMAP_ACL
     protected function __construct()
     {
         if ($_SESSION['imp']['protocol'] != 'imap') {
-            throw new Exception(_("ACL requires an IMAP server."));
+            throw new Horde_Exception(_("ACL requires an IMAP server."));
         }
 
         $capability = $GLOBALS['imp_imap']->ob->queryCapability('ACL');
         if (!$capability) {
-            throw new Exception(_("IMAP server does not support ACLs."));
+            throw new Horde_Exception(_("IMAP server does not support ACLs."));
         }
 
         $rfc4314 = $GLOBALS['imp_imap']->ob->queryCapability('RIGHTS');
