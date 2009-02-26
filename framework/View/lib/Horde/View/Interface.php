@@ -15,19 +15,11 @@
 interface Horde_View_Interface
 {
     /**
-     * Return a view variable
+     * Undefined variables return null.
      *
-     * @param string $name Variable name to retrieve
+     * @return null
      */
     public function __get($name);
-
-    /**
-     * Assign a single view variable
-     *
-     * @param string $name Variable name to set
-     * @param mixed $value The value of $name
-     */
-    public function __set($name, $value);
 
     /**
      * Accesses a helper object from within a template.

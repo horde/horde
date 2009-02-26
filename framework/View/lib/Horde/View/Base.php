@@ -60,6 +60,12 @@ abstract class Horde_View_Base
     private $_throwOnHelperCollision = false;
 
     /**
+     * Protected properties
+     * @var array
+     */
+    private $_protectedProperties;
+
+    /**
      * Constructor.
      *
      * @param array $config Configuration key-value pairs.
@@ -80,27 +86,18 @@ abstract class Horde_View_Base
         if (!empty($config['templatePath'])) {
             $this->addTemplatePath($config['templatePath']);
         }
+
+        $this->_protectedProperties = get_class_vars(__CLASS__);
     }
 
     /**
-     * Return an empty string if a variable does not exist.
+     * Undefined variables return null.
      *
-     * @param string $name Variable name to retrieve
+     * @return null
      */
     public function __get($name)
     {
-        return '';
-    }
-
-    /**
-     * Assign a single view variable
-     *
-     * @param string $name Variable name to set
-     * @param mixed $value The value of $name
-     */
-    public function __set($name, $value)
-    {
-        $this->$name = $value;
+        return null;
     }
 
     /**
@@ -221,6 +218,9 @@ abstract class Horde_View_Base
     public function assign($array)
     {
         foreach ($array as $key => $val) {
+            if (isset($this->_protectedProperties[$key])) {
+                throw new Horde_View_Exception("Can't overwrite internal variables in assign()");
+            }
             $this->$key = $val;
         }
     }
