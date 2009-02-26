@@ -74,9 +74,6 @@ Horde::compressOutput();
 /* Set the timezone variable, if available. */
 NLS::setTimeZone();
 
-/* Create a calendar backend object. */
-$GLOBALS['kronolith_driver'] = Kronolith_Driver::factory();
-
 /* Create a share instance. */
 $GLOBALS['kronolith_shares'] = &Horde_Share::singleton($registry->getApp());
 

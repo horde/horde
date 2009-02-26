@@ -73,6 +73,7 @@ $param         = array('time_fields' => $time_fields,
                        'file_types'  => $file_types);
 $import_format = Util::getFormData('import_format', '');
 $error         = false;
+$kronolith_driver = Kronolith::getDriver();
 
 /* Loop through the action handlers. */
 switch ($actionID) {

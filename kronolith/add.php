@@ -28,8 +28,7 @@ if (!Util::getFormData('cancel')) {
         $notification->push(sprintf(_("You do not have permission to add events to %s."), $share->get('name')), 'horde.warning');
     } elseif (Kronolith::hasPermission('max_events') === true ||
               Kronolith::hasPermission('max_events') > Kronolith::countEvents()) {
-        $kronolith_driver->open($calendar_id);
-        $event = &$kronolith_driver->getEvent();
+        $event = Kronolith::getDriver(null, $calendar_id)->getEvent();
         $event->readForm();
         $result = $event->save();
         if (is_a($result, 'PEAR_Error')) {
@@ -42,11 +41,11 @@ if (!Util::getFormData('cancel')) {
             $notification->push(sprintf(_("There was an error adding the event: %s"), $message), 'horde.error');
         } else {
             if (Util::getFormData('sendupdates', false)) {
-                $event = &$kronolith_driver->getEvent($result);
+                $event = Kronolith::getDriver()->getEvent($result);
                 if (is_a($event, 'PEAR_Error')) {
                     $notification->push($event, 'horde.error');
                 } else {
-                    Kronolith::sendITipNotifications($event, $notification, KRONOLITH_ITIP_REQUEST);
+                    Kronolith::sendITipNotifications($event, $notification, Kronolith::ITIP_REQUEST);
                 }
             }
         }

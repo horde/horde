@@ -126,7 +126,7 @@ class Kronolith_View_Year {
                          * them. */
                         $day_events = '';
                         foreach ($this->_events[$date->dateString()] as $event) {
-                            if ($event->getStatus() == KRONOLITH_STATUS_CONFIRMED) {
+                            if ($event->getStatus() == Kronolith::STATUS_CONFIRMED) {
                                 /* Set the background color to distinguish the day */
                                 $style = 'year-event';
                             }

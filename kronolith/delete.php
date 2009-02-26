@@ -12,9 +12,9 @@
 @define('KRONOLITH_BASE', dirname(__FILE__));
 require_once KRONOLITH_BASE . '/lib/base.php';
 
-$kronolith_driver->open(Util::getFormData('calendar'));
+$kronolith_driver = Kronolith::getDriver(null, Util::getFormData('calendar'));
 if ($eventID = Util::getFormData('eventID')) {
-    $event = &$kronolith_driver->getEvent($eventID);
+    $event = $kronolith_driver->getEvent($eventID);
     if (is_a($event, 'PEAR_Error')) {
         if (($url = Util::getFormData('url')) === null) {
             $url = Horde::applicationUrl($prefs->getValue('defaultview') . '.php', true);
@@ -26,7 +26,7 @@ if ($eventID = Util::getFormData('eventID')) {
     if (!$share->hasPermission(Auth::getAuth(), PERMS_DELETE, $event->getCreatorID())) {
         $notification->push(_("You do not have permission to delete this event."), 'horde.warning');
     } else {
-        $notification_type = KRONOLITH_ITIP_CANCEL;
+        $notification_type = Kronolith::ITIP_CANCEL;
         $instance = null;
         if (Util::getFormData('future')) {
             $recurEnd = new Horde_Date(array('hour' => 0, 'min' => 0, 'sec' => 0,
@@ -42,7 +42,7 @@ if ($eventID = Util::getFormData('eventID')) {
                 $event->recurrence->setRecurEnd($recurEnd);
                 $event->save();
             }
-            $notification_type = KRONOLITH_ITIP_REQUEST;
+            $notification_type = Kronolith::ITIP_REQUEST;
         } elseif (Util::getFormData('current')) {
             $event->recurrence->addException(Util::getFormData('year'),
                                              Util::getFormData('month'),

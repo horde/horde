@@ -55,7 +55,7 @@ class Kronolith_Imple_TagActions extends Kronolith_Imple
             $cal = $GLOBALS['kronolith_shares']->getShare($args['resource']);
             $perm = $cal->hasPermission(Auth::getAuth(), PERMS_EDIT);
         } elseif($args['type'] == 'event') {
-            $event = $GLOBALS['kronolith_driver']->getByUID($args['resource']);
+            $event = Kronolith::getDriver()->getByUID($args['resource']);
             $perm = $event->hasPermission(PERMS_EDIT, Auth::getAuth());
         }
 
@@ -96,10 +96,7 @@ class Kronolith_Imple_TagActions extends Kronolith_Imple
             $cal = $GLOBALS['kronolith_shares']->getShare($id);
             $hasEdit = $cal->hasPermission(Auth::getAuth(), PERMS_EDIT);
         } elseif ($type == 'event') {
-            if ($kronolith_driver->getCalendar() != $cal) {
-                $kronolith_driver->open($cal);
-            }
-            $event = $GLOBALS['kronolith_driver']->getByUID($id);
+            $event = Kronolith::getDriver()->getByUID($id);
             $hasEdit = $event->hasPermission(PERMS_EDIT, Auth::getAuth());
         }
 

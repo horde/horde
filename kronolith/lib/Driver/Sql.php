@@ -1,20 +1,26 @@
 <?php
 /**
- * The Kronolith_Driver_sql:: class implements the Kronolith_Driver
- * API for a SQL backend.
+ * The Kronolith_Driver_Sql class implements the Kronolith_Driver API for a
+ * SQL backend.
+ *
+ * Copyright 1999-2009 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author  Luc Saillard <luc.saillard@fr.alcove.com>
  * @author  Chuck Hagenbuch <chuck@horde.org>
+ * @author  Jan Schneider <jan@horde.org>
  * @package Kronolith
  */
-class Kronolith_Driver_sql extends Kronolith_Driver {
-
+class Kronolith_Driver_Sql extends Kronolith_Driver
+{
     /**
      * The object handle for the current database connection.
      *
      * @var DB
      */
-    var $_db;
+    private $_db;
 
     /**
      * Handle for the current database connection, used for writing. Defaults
@@ -22,7 +28,7 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
      *
      * @var DB
      */
-    var $_write_db;
+    private $_write_db;
 
     /**
      * Cache events as we fetch them to avoid fetching the same event from the
@@ -30,12 +36,10 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
      *
      * @var array
      */
-    var $_cache = array();
+    private $_cache = array();
 
-    function listAlarms($date, $fullevent = false)
+    public function listAlarms($date, $fullevent = false)
     {
-        require_once 'Date/Calc.php';
-
         $allevents = $this->listEvents($date, null, true);
         if (is_a($allevents, 'PEAR_Error')) {
             return $allevents;
@@ -94,10 +98,8 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
         return is_array($events) ? $events : array();
     }
 
-    function search($query)
+    public function search($query)
     {
-        require_once 'Horde/SQL.php';
-
         /* Build SQL conditions based on the query string. */
         $cond = '((';
         $values = array();
@@ -187,7 +189,7 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
      * @return string|boolean  Returns a string with event_id or false if
      *                         not found.
      */
-    function exists($uid, $calendar_id = null)
+    public function exists($uid, $calendar_id = null)
     {
         $query = 'SELECT event_id  FROM ' . $this->_params['table'] . ' WHERE event_uid = ?';
         $values = array($uid);
@@ -198,7 +200,7 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
         }
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Kronolith_Driver_sql::exists(): user = "%s"; query = "%s"',
+        Horde::logMessage(sprintf('Kronolith_Driver_Sql::exists(): user = "%s"; query = "%s"',
                                   Auth::getAuth(), $query),
                           __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
@@ -226,7 +228,8 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
      *
      * @return array  Events in the given time range.
      */
-    function listEvents($startDate = null, $endDate = null, $hasAlarm = false)
+    public function listEvents($startDate = null, $endDate = null,
+                               $hasAlarm = false)
     {
         if (empty($endDate)) {
             $endInterval = new Horde_Date(array('mday' => 31, 'month' => 12,
@@ -261,8 +264,8 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
      * @return array  Events in the given time range satisfying the given
      *                conditions.
      */
-    function listEventsConditional($startInterval, $endInterval,
-                                   $conditions = '', $vals = array())
+    public function listEventsConditional($startInterval, $endInterval,
+                                          $conditions = '', $vals = array())
     {
         $q = 'SELECT event_id, event_uid, event_description, event_location,' .
             ' event_private, event_status, event_attendees,' .
@@ -298,7 +301,7 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
         array_push($values, $etime, Horde_Date_Recurrence::RECUR_NONE);
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Kronolith_Driver_sql::listEventsConditional(): user = "%s"; query = "%s"; values = "%s"',
+        Horde::logMessage(sprintf('Kronolith_Driver_Sql::listEventsConditional(): user = "%s"; query = "%s"; values = "%s"',
                                   Auth::getAuth(), $q, implode(',', $values)),
                           __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
@@ -322,7 +325,7 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
                 $values = array($row['event_uid'], $row['event_id']);
 
                 /* Log the query at a DEBUG log level. */
-                Horde::logMessage(sprintf('Kronolith_Driver_sql::listEventsConditional(): user = %s; query = "%s"; values = "%s"',
+                Horde::logMessage(sprintf('Kronolith_Driver_Sql::listEventsConditional(): user = %s; query = "%s"; values = "%s"',
                                           Auth::getAuth(), $query, implode(',', $values)),
                                   __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
@@ -334,7 +337,7 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
 
             /* We have all the information we need to create an event
              * object for this event, so go ahead and cache it. */
-            $this->_cache[$this->_calendar][$row['event_id']] = new Kronolith_Event_sql($this, $row);
+            $this->_cache[$this->_calendar][$row['event_id']] = new Kronolith_Event_Sql($this, $row);
             if ($row['event_recurtype'] == Horde_Date_Recurrence::RECUR_NONE) {
                 $events[$row['event_uid']] = $row['event_id'];
             } else {
@@ -350,10 +353,10 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
         return $events;
     }
 
-    function getEvent($eventId = null)
+    public function getEvent($eventId = null)
     {
         if (is_null($eventId)) {
-            return new Kronolith_Event_sql($this);
+            return new Kronolith_Event_Sql($this);
         }
 
         if (isset($this->_cache[$this->_calendar][$eventId])) {
@@ -371,7 +374,7 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
         $values = array($eventId, $this->_calendar);
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Kronolith_Driver_sql::getEvent(): user = "%s"; query = "%s"; values = "%s"',
+        Horde::logMessage(sprintf('Kronolith_Driver_Sql::getEvent(): user = "%s"; query = "%s"; values = "%s"',
                                   Auth::getAuth(), $query, implode(',', $values)),
                           __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
@@ -382,7 +385,7 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
         }
 
         if ($event) {
-            $this->_cache[$this->_calendar][$eventId] = new Kronolith_Event_sql($this, $event);
+            $this->_cache[$this->_calendar][$eventId] = new Kronolith_Event_Sql($this, $event);
             return $this->_cache[$this->_calendar][$eventId];
         } else {
             return PEAR::raiseError(_("Event not found"));
@@ -399,7 +402,7 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
      *
      * @return Kronolith_Event
      */
-    function getByUID($uid, $calendars = null, $getAll = false)
+    public function getByUID($uid, $calendars = null, $getAll = false)
     {
         $query = 'SELECT event_id, event_uid, calendar_id, event_description,' .
             ' event_location, event_private, event_status, event_attendees,' .
@@ -421,7 +424,7 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
         }
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Kronolith_Driver_sql::getByUID(): user = "%s"; query = "%s"; values = "%s"',
+        Horde::logMessage(sprintf('Kronolith_Driver_Sql::getByUID(): user = "%s"; query = "%s"; values = "%s"',
                                   Auth::getAuth(), $query, implode(',', $values)),
                           __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
@@ -437,7 +440,7 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
         $eventArray = array();
         foreach ($events as $event) {
             $this->open($event['calendar_id']);
-            $this->_cache[$this->_calendar][$event['event_id']] = new Kronolith_Event_sql($this, $event);
+            $this->_cache[$this->_calendar][$event['event_id']] = new Kronolith_Event_Sql($this, $event);
             $eventArray[] = $this->_cache[$this->_calendar][$event['event_id']];
         }
 
@@ -479,7 +482,7 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
      *
      * @param Kronolith_Event $event  The event to save.
      */
-    function saveEvent(&$event)
+    public function saveEvent($event)
     {
         if ($event->isStored() || $event->exists()) {
             $values = array();
@@ -495,7 +498,7 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
             $values[] = $event->getId();
 
             /* Log the query at a DEBUG log level. */
-            Horde::logMessage(sprintf('Kronolith_Driver_sql::saveEvent(): user = "%s"; query = "%s"; values = "%s"',
+            Horde::logMessage(sprintf('Kronolith_Driver_Sql::saveEvent(): user = "%s"; query = "%s"; values = "%s"',
                                       Auth::getAuth(), $query, implode(',', $values)),
                               __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
@@ -555,7 +558,7 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
             $query .= $cols_name . $cols_values;
 
             /* Log the query at a DEBUG log level. */
-            Horde::logMessage(sprintf('Kronolith_Driver_sql::saveEvent(): user = "%s"; query = "%s"; values = "%s"',
+            Horde::logMessage(sprintf('Kronolith_Driver_Sql::saveEvent(): user = "%s"; query = "%s"; values = "%s"',
                                 Auth::getAuth(), $query, implode(',', $values)),
                                 __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
@@ -589,7 +592,7 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
      * @param string $eventId      The event to move.
      * @param string $newCalendar  The new calendar.
      */
-    function move($eventId, $newCalendar)
+    public function move($eventId, $newCalendar)
     {
         /* Fetch the event for later use. */
         $event = $this->getEvent($eventId);
@@ -601,7 +604,7 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
         $values = array($newCalendar, $this->_calendar, $eventId);
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Kronolith_Driver_sql::move(): %s; values = "%s"',
+        Horde::logMessage(sprintf('Kronolith_Driver_Sql::move(): %s; values = "%s"',
                                   $query, implode(',', $values)),
                           __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
@@ -630,13 +633,13 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
      *
      * @return mixed  True or a PEAR_Error on failure.
      */
-    function delete($calendar)
+    public function delete($calendar)
     {
         $query = 'DELETE FROM ' . $this->_params['table'] . ' WHERE calendar_id = ?';
         $values = array($calendar);
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Kronolith_Driver_sql::delete(): user = "%s"; query = "%s"; values = "%s"',
+        Horde::logMessage(sprintf('Kronolith_Driver_Sql::delete(): user = "%s"; query = "%s"; values = "%s"',
                                   Auth::getAuth(), $query, implode(',', $values)),
                           __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
@@ -652,7 +655,7 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
      *
      * @return mixed  True or a PEAR_Error on failure.
      */
-    function deleteEvent($eventId, $silent = false)
+    public function deleteEvent($eventId, $silent = false)
     {
         /* Fetch the event for later use. */
         $event = $this->getEvent($eventId);
@@ -664,7 +667,7 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
         $values = array($eventId, $this->_calendar);
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Kronolith_Driver_sql::deleteEvent(): user = "%s"; query = "%s"; values = "%s"',
+        Horde::logMessage(sprintf('Kronolith_Driver_Sql::deleteEvent(): user = "%s"; query = "%s"; values = "%s"',
                                   Auth::getAuth(), $query, implode(',', $values)),
                           __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
@@ -705,7 +708,7 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
      *
      * @return boolean True.
      */
-    function initialize()
+    public function initialize()
     {
         Horde::assertDriverConfig($this->_params, 'calendar',
             array('phptype'));
@@ -753,7 +756,7 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
 
     /**
      */
-    function _initConn(&$db)
+    private function _initConn(&$db)
     {
         // Set DB portability options.
         switch ($db->phptype) {
@@ -770,7 +773,7 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
             $query = "ALTER SESSION SET NLS_DATE_FORMAT = 'YYYY-MM-DD HH24:MI:SS'";
 
             /* Log the query at a DEBUG log level. */
-            Horde::logMessage(sprintf('Kronolith_Driver_sql::_initConn(): user = "%s"; query = "%s"',
+            Horde::logMessage(sprintf('Kronolith_Driver_Sql::_initConn(): user = "%s"; query = "%s"',
                                       Auth::getAuth(), $query),
                               __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
@@ -781,7 +784,7 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
             $query = "SET datestyle TO 'iso'";
 
             /* Log the query at a DEBUG log level. */
-            Horde::logMessage(sprintf('Kronolith_Driver_sql::_initConn(): user = "%s"; query = "%s"',
+            Horde::logMessage(sprintf('Kronolith_Driver_Sql::_initConn(): user = "%s"; query = "%s"',
                                       Auth::getAuth(), $query),
                               __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
@@ -798,7 +801,7 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
      *
      * @return mixed  The converted value.
      */
-    function convertFromDriver($value)
+    public function convertFromDriver($value)
     {
         return String::convertCharset($value, $this->_params['charset']);
     }
@@ -811,7 +814,7 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
      *
      * @return mixed  The converted value.
      */
-    function convertToDriver($value)
+    public function convertToDriver($value)
     {
         return String::convertCharset($value, NLS::getCharset(), $this->_params['charset']);
     }
@@ -824,7 +827,7 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
      *
      * @param mixed  True | PEAR_Error
      */
-    function removeUserData($user)
+    public function removeUserData($user)
     {
         if (!Auth::isAdmin()) {
             return PEAR::raiseError(_("Permission Denied"));
@@ -854,175 +857,8 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
                 $this->deleteEvent($event->getId());
             }
         }
+
         return true;
-    }
-}
-
-/**
- * @package Kronolith
- */
-class Kronolith_Event_sql extends Kronolith_Event {
-
-    /**
-     * @var array
-     */
-    var $_properties = array();
-
-    function fromDriver($SQLEvent)
-    {
-        $driver = $this->getDriver();
-
-        $this->allday = (bool)$SQLEvent['event_allday'];
-        if (!$this->allday && $driver->getParam('utc')) {
-            $tz_local = date_default_timezone_get();
-            $this->start = new Horde_Date($SQLEvent['event_start'], 'UTC');
-            $this->start->setTimezone($tz_local);
-            $this->end = new Horde_Date($SQLEvent['event_end'], 'UTC');
-            $this->end->setTimezone($tz_local);
-        } else {
-            $this->start = new Horde_Date($SQLEvent['event_start']);
-            $this->end = new Horde_Date($SQLEvent['event_end']);
-        }
-
-        $this->durMin = ($this->end->timestamp() - $this->start->timestamp()) / 60;
-
-        $this->title = $driver->convertFromDriver($SQLEvent['event_title']);
-        $this->eventID = $SQLEvent['event_id'];
-        $this->setUID($SQLEvent['event_uid']);
-        $this->creatorID = $SQLEvent['event_creator_id'];
-
-        if (!empty($SQLEvent['event_recurtype'])) {
-            $this->recurrence = new Horde_Date_Recurrence($this->start);
-            $this->recurrence->setRecurType((int)$SQLEvent['event_recurtype']);
-            $this->recurrence->setRecurInterval((int)$SQLEvent['event_recurinterval']);
-            if (isset($SQLEvent['event_recurenddate'])) {
-                if ($driver->getParam('utc')) {
-                    $recur_end = new Horde_Date($SQLEvent['event_recurenddate'], 'UTC');
-                    if ($recur_end->min == 0) {
-                        /* Old recurrence end date format. */
-                        $recur_end = new Horde_Date($SQLEvent['event_recurenddate']);
-                        $recur_end->hour = 23;
-                        $recur_end->min = 59;
-                        $recur_end->sec = 59;
-                    } else {
-                        $recur_end->setTimezone(date_default_timezone_get());
-                    }
-                } else {
-                    $recur_end = new Horde_Date($SQLEvent['event_recurenddate']);
-                    $recur_end->hour = 23;
-                    $recur_end->min = 59;
-                    $recur_end->sec = 59;
-                }
-                $this->recurrence->setRecurEnd($recur_end);
-            }
-            if (isset($SQLEvent['event_recurcount'])) {
-                $this->recurrence->setRecurCount((int)$SQLEvent['event_recurcount']);
-            }
-            if (isset($SQLEvent['event_recurdays'])) {
-                $this->recurrence->recurData = (int)$SQLEvent['event_recurdays'];
-            }
-            if (!empty($SQLEvent['event_exceptions'])) {
-                $this->recurrence->exceptions = explode(',', $SQLEvent['event_exceptions']);
-            }
-        }
-
-        if (isset($SQLEvent['event_location'])) {
-            $this->location = $driver->convertFromDriver($SQLEvent['event_location']);
-        }
-        if (isset($SQLEvent['event_private'])) {
-            $this->private = (bool)($SQLEvent['event_private']);
-        }
-        if (isset($SQLEvent['event_status'])) {
-            $this->status = $SQLEvent['event_status'];
-        }
-        if (isset($SQLEvent['event_attendees'])) {
-            $this->attendees = array_change_key_case($driver->convertFromDriver(unserialize($SQLEvent['event_attendees'])));
-        }
-        if (isset($SQLEvent['event_description'])) {
-            $this->description = $driver->convertFromDriver($SQLEvent['event_description']);
-        }
-        if (isset($SQLEvent['event_alarm'])) {
-            $this->alarm = (int)$SQLEvent['event_alarm'];
-        }
-        if (isset($SQLEvent['event_alarm_methods'])) {
-            $this->methods = $driver->convertFromDriver(unserialize($SQLEvent['event_alarm_methods']));
-        }
-        $this->initialized = true;
-        $this->stored = true;
-    }
-
-    function toDriver()
-    {
-        $driver = $this->getDriver();
-
-        /* Basic fields. */
-        $this->_properties['event_creator_id'] = $driver->convertToDriver($this->getCreatorId());
-        $this->_properties['event_title'] = $driver->convertToDriver($this->title);
-        $this->_properties['event_description'] = $driver->convertToDriver($this->getDescription());
-        $this->_properties['event_location'] = $driver->convertToDriver($this->getLocation());
-        $this->_properties['event_private'] = (int)$this->isPrivate();
-        $this->_properties['event_status'] = $this->getStatus();
-        $this->_properties['event_attendees'] = serialize($driver->convertToDriver($this->getAttendees()));
-        $this->_properties['event_modified'] = $_SERVER['REQUEST_TIME'];
-
-        if ($this->isAllDay()) {
-            $this->_properties['event_start'] = $this->start->strftime('%Y-%m-%d %H:%M:%S');
-            $this->_properties['event_end'] = $this->end->strftime('%Y-%m-%d %H:%M:%S');
-            $this->_properties['event_allday'] = 1;
-        } else {
-            if ($driver->getParam('utc')) {
-                $start = clone $this->start;
-                $end = clone $this->end;
-                $start->setTimezone('UTC');
-                $end->setTimezone('UTC');
-            } else {
-                $start = $this->start;
-                $end = $this->end;
-            }
-            $this->_properties['event_start'] = $start->strftime('%Y-%m-%d %H:%M:%S');
-            $this->_properties['event_end'] = $end->strftime('%Y-%m-%d %H:%M:%S');
-            $this->_properties['event_allday'] = 0;
-        }
-
-        /* Alarm. */
-        $this->_properties['event_alarm'] = (int)$this->getAlarm();
-
-        /* Alarm Notification Methods. */
-        $this->_properties['event_alarm_methods'] = serialize($driver->convertToDriver($this->methods));
-
-        /* Recurrence. */
-        if (!$this->recurs()) {
-            $this->_properties['event_recurtype'] = 0;
-        } else {
-            $recur = $this->recurrence->getRecurType();
-            if ($this->recurrence->hasRecurEnd()) {
-                if ($driver->getParam('utc')) {
-                    $recur_end = clone $this->recurrence->recurEnd;
-                    $recur_end->setTimezone('UTC');
-                } else {
-                    $recur_end = $this->recurrence->recurEnd;
-                }
-            } else {
-                $recur_end = new Horde_Date(array('year' => 9999, 'month' => 12, 'mday' => 31, 'hour' => 23, 'min' => 59, 'sec' => 59));
-            }
-
-            $this->_properties['event_recurtype'] = $recur;
-            $this->_properties['event_recurinterval'] = $this->recurrence->getRecurInterval();
-            $this->_properties['event_recurenddate'] = $recur_end->format('Y-m-d H:i:s');
-            $this->_properties['event_recurcount'] = $this->recurrence->getRecurCount();
-
-            switch ($recur) {
-            case Horde_Date_Recurrence::RECUR_WEEKLY:
-                $this->_properties['event_recurdays'] = $this->recurrence->getRecurOnDays();
-                break;
-            }
-            $this->_properties['event_exceptions'] = implode(',', $this->recurrence->getExceptions());
-        }
-    }
-
-    function getProperties()
-    {
-        return $this->_properties;
     }
 
 }

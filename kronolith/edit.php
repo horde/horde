@@ -17,7 +17,7 @@ function _save(&$event)
     if (is_a($res, 'PEAR_Error')) {
         $GLOBALS['notification']->push(sprintf(_("There was an error editing the event: %s"), $res->getMessage()), 'horde.error');
     } elseif (Util::getFormData('sendupdates', false)) {
-        Kronolith::sendITipNotifications($event, $GLOBALS['notification'], KRONOLITH_ITIP_REQUEST);
+        Kronolith::sendITipNotifications($event, $GLOBALS['notification'], Kronolith::ITIP_REQUEST);
     }
 }
 
@@ -39,6 +39,7 @@ function _check_max()
 require_once KRONOLITH_BASE . '/lib/base.php';
 
 $url = Util::getFormData('url');
+$kronolith_driver = Kronolith::getDriver();
 
 if ($exception = Util::getFormData('del_exception')) {
     $calendar = Util::getFormData('calendar');

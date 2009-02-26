@@ -52,7 +52,7 @@ class Kronolith_EditCalendarForm extends Horde_Form {
         $this->_calendar->set('color', $this->_vars->get('color'));
         $this->_calendar->set('desc', $this->_vars->get('description'));
         if ($original_name != $new_name) {
-            $result = $GLOBALS['kronolith_driver']->rename($original_name, $new_name);
+            $result = Kronolith::getDriver()->rename($original_name, $new_name);
             if (is_a($result, 'PEAR_Error')) {
                 return PEAR::raiseError(sprintf(_("Unable to rename \"%s\": %s"), $original_name, $result->getMessage()));
             }

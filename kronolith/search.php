@@ -31,7 +31,7 @@ $search_mode = Util::getFormData('search_mode', 'basic');
 
 if ($search_mode != 'basic') {
     /* Make a new empty event object with default values. */
-    $event = &$kronolith_driver->getEvent();
+    $event = Kronolith::getDriver()->getEvent();
     $event->title = $event->calendars = $event->location =
     $event->status = $event->description = null;
 
@@ -49,7 +49,7 @@ if ($search_mode != 'basic') {
     if (isset($q_title)) {
         /* We're returning from a previous search. */
         $event->readForm();
-        if (Util::getFormData('status') == KRONOLITH_STATUS_NONE) {
+        if (Util::getFormData('status') == Kronolith::STATUS_NONE) {
             $event->status = null;
         }
     }
@@ -59,7 +59,7 @@ $desc = Util::getFormData('pattern_desc');
 $title = Util::getFormData('pattern_title');
 if ($desc || $title) {
     /* We're doing a simple search. */
-    $event = &$kronolith_driver->getEvent();
+    $event = Kronolith::getDriver()->getEvent();
     $event->setDescription($desc);
     $event->setTitle($title);
     $event->status = null;
