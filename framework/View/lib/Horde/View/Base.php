@@ -89,7 +89,7 @@ abstract class Horde_View_Base
      */
     public function __get($name)
     {
-        return isset($this->name) ? $this->name : '';
+        return isset($this->$name) ? $this->$name : '';
     }
 
     /**
