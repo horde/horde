@@ -36,9 +36,9 @@ class IMP_Horde_Mime_Viewer_pgp extends Horde_Mime_Viewer_Driver
     );
 
     /**
-     * IMP_Horde_Crypt_PGP object.
+     * IMP_Crypt_Pgp object.
      *
-     * @var IMP_Horde_Crypt_PGP
+     * @var IMP_Crypt_Pgp
      */
     protected $_imppgp;
 
@@ -65,7 +65,7 @@ class IMP_Horde_Mime_Viewer_pgp extends Horde_Mime_Viewer_Driver
     {
         if (empty($this->_imppgp) &&
             !empty($GLOBALS['conf']['utils']['gnupg'])) {
-            $this->_imppgp = &Horde_Crypt::singleton(array('imp', 'pgp'));
+            $this->_imppgp = Horde_Crypt::singleton(array('IMP', 'Pgp'));
         }
 
         if (Util::getFormData('rawpgpkey')) {
@@ -146,7 +146,7 @@ class IMP_Horde_Mime_Viewer_pgp extends Horde_Mime_Viewer_Driver
         }
 
         if (empty($this->_imppgp)) {
-            $this->_imppgp = &Horde_Crypt::singleton(array('imp', 'pgp'));
+            $this->_imppgp = Horde_Crypt::singleton(array('IMP', 'Pgp'));
         }
 
         /* PGP version information appears in the first MIME subpart. We
@@ -330,20 +330,23 @@ class IMP_Horde_Mime_Viewer_pgp extends Horde_Mime_Viewer_Driver
                     ? $this->_imppgp->verifySignature($signed_data, $this->_address)
                     : $this->_imppgp->verifySignature($signed_data, $this->_address, $sig_part->getContents());
 
-                $icon = Horde::img('alerts/success.png', _("Success"), null, $graphicsdir);
-                if (empty($sig_result)) {
-                   $sig_result = _("The message below has been verified.");
+                if ($sig_result->result) {
+                    $icon = Horde::img('alerts/success.png', _("Success"), null, $graphicsdir);
+                    $sig_text = $sig_result->message;
+                } else {
+                    $icon = Horde::img('alerts/warning.png', _("Warning"), null, $graphicsdir);
+                   $sig_text = _("The signature could not be checked because the sender's key could not be found.");
                 }
             } catch (Horde_Exception $e) {
                 $icon = Horde::img('alerts/error.png', _("Error"), null, $graphicsdir);
-                $sig_result = $e->getMessage();
+                $sig_text = $e->getMessage();
             }
 
             require_once 'Horde/Text/Filter.php';
             $ret[$base_id]['status'][] = array(
                 'icon' => $icon,
                 'text' => array(
-                    Text_Filter::filter($sig_result, 'text2html', array('parselevel' => TEXT_HTML_NOHTML))
+                    Text_Filter::filter($sig_text, 'text2html', array('parselevel' => TEXT_HTML_NOHTML))
                 )
             );
         } else {

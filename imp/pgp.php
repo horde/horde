@@ -66,8 +66,18 @@ function _reloadWindow()
 
 require_once dirname(__FILE__) . '/lib/base.php';
 
-$imp_pgp = &Horde_Crypt::singleton(array('imp', 'pgp'));
-$secure_check = $imp_pgp->requireSecureConnection();
+try {
+    $imp_pgp = Horde_Crypt::singleton(array('IMP', 'Pgp'));
+} catch (Horde_Exception $e) {
+    Horde::fatal($e, __FILE__, __LINE__);
+}
+
+try {
+    $imp_pgp->requireSecureConnection();
+    $secure_check = true;
+} catch (Horde_Exception $e) {
+    $secure_check = false;
+}
 
 /* Run through the action handlers */
 $actionID = Util::getFormData('actionID');
@@ -345,8 +355,8 @@ if ($prefs->getValue('use_pgp')) {
     }
     $t->set('personalkey-help', Help::link('imp', 'pgp-overview-personalkey'));
 
-    $t->set('secure_check', is_a($secure_check, 'PEAR_Error'));
-    if (!$t->get('secure_check')) {
+    $t->set('secure_check', !$secure_check);
+    if ($secure_check) {
         $t->set('has_key', $prefs->getValue('pgp_public_key') && $prefs->getValue('pgp_private_key'));
         if ($t->get('has_key')) {
             $t->set('viewpublic', Horde::link(Util::addParameter($selfURL, 'actionID', 'view_personal_public_key'), _("View Personal Public Key"), null, 'view_key'));

@@ -748,7 +748,7 @@ if ($prefs->getValue('use_pgp')) {
         try {
             $addrs = $imp_compose->recipientList($header);
             if (!empty($addrs['list'])) {
-                $imp_pgp = &Horde_Crypt::singleton(array('imp', 'pgp'));
+                $imp_pgp = &Horde_Crypt::singleton(array('IMP', 'Pgp'));
                 foreach ($addrs['list'] as $val) {
                     $imp_pgp->getPublicKey($val);
                 }

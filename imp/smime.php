@@ -80,8 +80,18 @@ function _printKeyInfo($cert)
 
 require_once dirname(__FILE__) . '/lib/base.php';
 
-$imp_smime = &Horde_Crypt::singleton(array('imp', 'smime'));
-$secure_check = $imp_smime->requireSecureConnection();
+try {
+    $imp_smime = Horde_Crypt::singleton(array('IMP', 'Smime'));
+} catch (Horde_Exception $e) {
+    Horde::fatal($e, __FILE__, __LINE__);
+}
+
+try {
+    $imp_smime->requireSecureConnection();
+    $secure_check = true;
+} catch (Horde_Exception $e) {
+    $secure_check = false;
+}
 
 /* Run through the action handlers */
 $actionID = Util::getFormData('actionID');
@@ -230,13 +240,18 @@ $selfURL = Horde::applicationUrl('smime.php');
 
 /* If S/MIME preference not active, or openssl PHP extension not available, do
  * NOT show S/MIME Admin screen. */
-$openssl_check = $imp_smime->checkForOpenSSL();
+try {
+    $imp_smime->checkForOpenSSL();
+    $openssl_check = true;
+} catch
+    $openssl_check = false;
+}
 
 /* If S/MIME preference not active, do NOT show S/MIME Admin screen. */
 $t = new IMP_Template();
 $t->setOption('gettext', true);
 $t->set('use_smime_help', Help::link('imp', 'smime-overview'));
-if (!is_a($openssl_check, 'PEAR_Error') && $prefs->getValue('use_smime')) {
+if ($openssl_check && $prefs->getValue('use_smime')) {
     Horde::addScriptFile('imp.js', 'imp', true);
     $t->set('smimeactive', true);
     $t->set('manage_pubkey-help', Help::link('imp', 'smime-manage-pubkey'));

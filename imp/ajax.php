@@ -697,27 +697,37 @@ case 'SMIMEPersonal':
     $passphrase = Util::getFormData('dialog_input');
 
     if ($action == 'SMIMEPersonal') {
-        $imp_smime = Horde_Crypt::singleton(array('imp', 'smime'));
-        $secure_check = $imp_smime->requireSecureConnection();
-        if (!is_a($secure_check, 'PEAR_Error') && $passphrase) {
-            $res = $imp_smime->storePassphrase($passphrase);
+        $imp_smime = Horde_Crypt::singleton(array('IMP', 'Smime'));
+        try {
+            $imp_smime->requireSecureConnection();
+            if ($passphrase) {
+                if ($imp_smime->storePassphrase($passphrase)) {
+                    $result->success = 1;
+                } else {
+                    $result->error = _("Invalid passphrase entered.");
+                }
+            } else {
+                $result->error = _("No passphrase entered.");
+            }
+        } catch (Horde_Exception $e) {
+            $result->error = $e->getMessage();
         }
     } else {
-        $imp_pgp = Horde_Crypt::singleton(array('imp', 'pgp'));
-        $secure_check = $imp_pgp->requireSecureConnection();
-        if (is_a($secure_check, 'PEAR_Error') && $passphrase) {
-            $res = $imp_pgp->storePassphrase(($action == 'PGPSymmetric') ? 'symmetric' : 'personal', $passphrase, Util::getFormData('symmetricid'));
+        $imp_pgp = Horde_Crypt::singleton(array('IMP', 'Pgp'));
+        try {
+            $imp_pgp->requireSecureConnection();
+            if ($passphrase) {
+                if ($imp_pgp->storePassphrase(($action == 'PGPSymmetric') ? 'symmetric' : 'personal', $passphrase, Util::getFormData('symmetricid'))) {
+                    $result->success = 1;
+                } else {
+                    $result->error = _("Invalid passphrase entered.");
+                }
+            } else {
+                $result->error = _("No passphrase entered.");
+            }
+        } catch (Horde_Exception $e) {
+            $result->error = $e->getMessage();
         }
-    }
-
-    if (is_a($secure_check, 'PEAR_Error')) {
-        $result->error = $secure_check->getMessage();
-    } elseif (!$passphrase) {
-        $result->error = _("No passphrase entered.");
-    } elseif ($res) {
-        $result->success = 1;
-    } else {
-        $result->error = _("Invalid passphrase entered.");
     }
 
     if ($_SESSION['imp']['view'] != 'dimp') {

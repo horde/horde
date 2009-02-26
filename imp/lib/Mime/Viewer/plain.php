@@ -166,11 +166,11 @@ class IMP_Horde_Mime_Viewer_plain extends Horde_Mime_Viewer_plain
     protected function _parsePGP()
     {
         /* Avoid infinite loop. */
-        $imp_pgp = &Horde_Crypt::singleton(array('imp', 'pgp'));
+        $imp_pgp = Horde_Crypt::singleton(array('IMP', 'Pgp'));
         $parts = $imp_pgp->parsePGPData($this->_mimepart->getContents());
         if (empty($parts) ||
             ((count($parts) == 1) &&
-             ($parts[0]['type'] == Horde_Crypt_pgp::ARMOR_TEXT))) {
+             ($parts[0]['type'] == Horde_Crypt_Pgp::ARMOR_TEXT))) {
             return null;
         }
 
@@ -181,7 +181,7 @@ class IMP_Horde_Mime_Viewer_plain extends Horde_Mime_Viewer_plain
 
         while (list(,$val) = each($parts)) {
             switch ($val['type']) {
-            case Horde_Crypt_pgp::ARMOR_TEXT:
+            case Horde_Crypt_Pgp::ARMOR_TEXT:
                 $part = new Horde_Mime_Part();
                 $part->setType('text/plain');
                 $part->setCharset($charset);
@@ -189,14 +189,14 @@ class IMP_Horde_Mime_Viewer_plain extends Horde_Mime_Viewer_plain
                 $new_part->addPart($part);
                 break;
 
-            case Horde_Crypt_pgp::ARMOR_PUBLIC_KEY:
+            case Horde_Crypt_Pgp::ARMOR_PUBLIC_KEY:
                 $part = new Horde_Mime_Part();
                 $part->setType('application/pgp-keys');
                 $part->setContents(implode("\n", $val['data']));
                 $new_part->addPart($part);
                 break;
 
-            case Horde_Crypt_pgp::ARMOR_MESSAGE:
+            case Horde_Crypt_Pgp::ARMOR_MESSAGE:
                 $part = new Horde_Mime_Part();
                 $part->setType('multipart/signed');
                 // TODO: add micalg parameter
@@ -217,9 +217,9 @@ class IMP_Horde_Mime_Viewer_plain extends Horde_Mime_Viewer_plain
                 $new_part->addPart($part);
                 break;
 
-            case Horde_Crypt_pgp::ARMOR_SIGNED_MESSAGE:
+            case Horde_Crypt_Pgp::ARMOR_SIGNED_MESSAGE:
                 if (($sig = current($parts)) &&
-                    ($sig['type'] == Horde_Crypt_pgp::ARMOR_SIGNATURE)) {
+                    ($sig['type'] == Horde_Crypt_Pgp::ARMOR_SIGNATURE)) {
                     $part = new Horde_Mime_Part();
                     $part->setType('multipart/signed');
                     // TODO: add micalg parameter
