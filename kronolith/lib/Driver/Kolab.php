@@ -8,15 +8,15 @@ require_once 'Horde/Identity.php';
  *
  * Copyright 2004-2009 The Horde Project (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author  Thomas Jarosch <thomas.jarosch@intra2net.com>
  * @author  Gunnar Wrobel <wrobel@pardus.de>
  * @author  Stuart Binge <omicron@mighty.co.za>
  * @package Kronolith
  */
-class Kronolith_Driver_kolab extends Kronolith_Driver
+class Kronolith_Driver_Kolab extends Kronolith_Driver
 {
     /**
      * Our Kolab server connection.
@@ -26,7 +26,7 @@ class Kronolith_Driver_kolab extends Kronolith_Driver
     private $_kolab = null;
 
     /**
-     * Internal cache of Kronolith_Event_kolab. eventID/UID is key
+     * Internal cache of Kronolith_Event_Kolab. eventID/UID is key
      *
      * @var array
      */
@@ -100,7 +100,7 @@ class Kronolith_Driver_kolab extends Kronolith_Driver
         $this->_events_cache = array();
         $events = $this->_store->getObjects();
         foreach ($events as $event) {
-            $this->_events_cache[$event['uid']] = new Kronolith_Event_kolab($this, $event);
+            $this->_events_cache[$event['uid']] = new Kronolith_Event_Kolab($this, $event);
         }
 
         $this->_synchronized = true;
@@ -254,7 +254,7 @@ class Kronolith_Driver_kolab extends Kronolith_Driver
     public function getEvent($eventId = null)
     {
         if (is_null($eventId)) {
-            return new Kronolith_Event_kolab($this);
+            return new Kronolith_Event_Kolab($this);
         }
 
         $result = $this->synchronize();
@@ -493,242 +493,6 @@ class Kronolith_Driver_kolab extends Kronolith_Driver
         }
 
         return true;
-    }
-
-}
-
-/**
- * @package Kronolith
- */
-class Kronolith_Event_kolab extends Kronolith_Event
-{
-
-    public function fromDriver($event)
-    {
-        $this->eventID = $event['uid'];
-        $this->setUID($this->eventID);
-
-        if (isset($event['summary'])) {
-            $this->title = $event['summary'];
-        }
-        if (isset($event['body'])) {
-            $this->description = $event['body'];
-        }
-        if (isset($event['location'])) {
-            $this->location = $event['location'];
-        }
-
-        if (isset($event['sensitivity']) &&
-            ($event['sensitivity'] == 'private' || $event['sensitivity'] == 'confidential')) {
-            $this->setPrivate(true);
-        }
-
-        if (isset($event['organizer']['smtp-address'])) {
-            if (Kronolith::isUserEmail(Auth::getAuth(), $event['organizer']['smtp-address'])) {
-                $this->creatorID = Auth::getAuth();
-            } else {
-                $this->creatorID = $event['organizer']['smtp-address'];
-            }
-        }
-
-        if (isset($event['alarm'])) {
-            $this->alarm = $event['alarm'];
-        }
-
-        $this->start = new Horde_Date($event['start-date']);
-        $this->end = new Horde_Date($event['end-date']);
-        $this->durMin = ($this->end->timestamp() - $this->start->timestamp()) / 60;
-
-        if (isset($event['show-time-as'])) {
-            switch ($event['show-time-as']) {
-                case 'free':
-                    $this->status = Kronolith::STATUS_FREE;
-                    break;
-
-                case 'tentative':
-                    $this->status = Kronolith::STATUS_TENTATIVE;
-                    break;
-
-                case 'busy':
-                case 'outofoffice':
-                default:
-                    $this->status = Kronolith::STATUS_CONFIRMED;
-            }
-        } else {
-            $this->status = Kronolith::STATUS_CONFIRMED;
-        }
-
-        // Recurrence
-        if (isset($event['recurrence'])) {
-            $this->recurrence = new Horde_Date_Recurrence($this->start);
-            $this->recurrence->fromHash($event['recurrence']);
-        }
-
-        // Attendees
-        $attendee_count = 0;
-        foreach($event['attendee'] as $attendee) {
-            $name = $attendee['display-name'];
-            $email = $attendee['smtp-address'];
-
-            $role = $attendee['role'];
-            switch ($role) {
-            case 'optional':
-                $role = Kronolith::PART_OPTIONAL;
-                break;
-
-            case 'resource':
-                $role = Kronolith::PART_NONE;
-                break;
-
-            case 'required':
-            default:
-                $role = Kronolith::PART_REQUIRED;
-                break;
-            }
-
-            $status = $attendee['status'];
-            switch ($status) {
-            case 'accepted':
-                $status = Kronolith::RESPONSE_ACCEPTED;
-                break;
-
-            case 'declined':
-                $status = Kronolith::RESPONSE_DECLINED;
-                break;
-
-            case 'tentative':
-                $status = Kronolith::RESPONSE_TENTATIVE;
-                break;
-
-            case 'none':
-            default:
-                $status = Kronolith::RESPONSE_NONE;
-                break;
-            }
-
-            // Attendees without an email address get added as incremented number
-            if (empty($email)) {
-                $email = $attendee_count;
-                $attendee_count++;
-            }
-
-            $this->addAttendee($email, $role, $status, $name);
-        }
-
-        $this->initialized = true;
-        $this->stored = true;
-    }
-
-    public function toDriver()
-    {
-        $event = array();
-        $event['uid'] = $this->getUID();
-        $event['summary'] = $this->title;
-        $event['body']  = $this->description;
-        $event['location'] = $this->location;
-
-        if ($this->isPrivate()) {
-            $event['sensitivity'] = 'private';
-        } else {
-            $event['sensitivity'] = 'public';
-        }
-
-        // Only set organizer if this is a new event
-        if ($this->getID() == null) {
-            $organizer = array(
-                            'display-name' => Kronolith::getUserName($this->getCreatorId()),
-                            'smtp-address' => Kronolith::getUserEmail($this->getCreatorId())
-                         );
-            $event['organizer'] = $organizer;
-        }
-
-        if ($this->alarm != 0) {
-            $event['alarm'] = $this->alarm;
-        }
-
-        $event['start-date'] = $this->start->timestamp();
-        $event['end-date'] = $this->end->timestamp();
-        $event['_is_all_day'] = $this->isAllDay();
-
-        switch ($this->status) {
-        case Kronolith::STATUS_FREE:
-        case Kronolith::STATUS_CANCELLED:
-            $event['show-time-as'] = 'free';
-            break;
-
-        case Kronolith::STATUS_TENTATIVE:
-            $event['show-time-as'] = 'tentative';
-            break;
-
-        // No mapping for outofoffice
-        case Kronolith::STATUS_CONFIRMED:
-        default:
-            $event['show-time-as'] = 'busy';
-        }
-
-        // Recurrence
-        if ($this->recurs()) {
-            $event['recurrence'] = $this->recurrence->toHash();
-        } else {
-            $event['recurrence'] = array();
-        }
-
-
-        // Attendees
-        $event['attendee'] = array();
-        $attendees = $this->getAttendees();
-
-        foreach($attendees as $email => $attendee) {
-            $new_attendee = array();
-            $new_attendee['display-name'] = $attendee['name'];
-
-            // Attendee without an email address
-            if (is_int($email)) {
-                $new_attendee['smtp-address'] = '';
-            } else {
-                $new_attendee['smtp-address'] = $email;
-            }
-
-            switch ($attendee['attendance']) {
-            case Kronolith::PART_OPTIONAL:
-                $new_attendee['role'] = 'optional';
-                break;
-
-            case Kronolith::PART_NONE:
-                $new_attendee['role'] = 'resource';
-                break;
-
-            case Kronolith::PART_REQUIRED:
-            default:
-                $new_attendee['role'] = 'required';
-                break;
-            }
-
-            $new_attendee['request-response'] = '0';
-
-            switch ($attendee['response']) {
-            case Kronolith::RESPONSE_ACCEPTED:
-                $new_attendee['status'] = 'accepted';
-                break;
-
-            case Kronolith::RESPONSE_DECLINED:
-                $new_attendee['status'] = 'declined';
-                break;
-
-            case Kronolith::RESPONSE_TENTATIVE:
-                $new_attendee['status'] = 'tentative';
-                break;
-
-            case Kronolith::RESPONSE_NONE:
-            default:
-                $new_attendee['status'] = 'none';
-                break;
-            }
-
-            $event['attendee'][] = $new_attendee;
-        }
-
-        return $event;
     }
 
 }

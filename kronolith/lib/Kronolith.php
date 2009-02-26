@@ -1,5 +1,10 @@
 <?php
 /**
+ * Copyright 1999-2009 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ *
  * @package Kronolith
  */
 
@@ -820,7 +825,7 @@ class Kronolith
                               __FILE__, __LINE__, PEAR_LOG_ERR);
             return array();
         } else {
-            $dhDriver = Kronolith_Driver::factory('holidays');
+            $dhDriver = Kronolith_Driver::factory('Holidays');
             return $dhDriver->listEvents($startDate, $endDate);
         }
     }
@@ -951,7 +956,7 @@ class Kronolith
                             continue;
                         }
 
-                        $event = &$kronolith_driver->getEvent();
+                        $event = $kronolith_driver->getEvent();
                         $event->eventID = '_' . $api . $eventsListItem['id'];
                         $event->external = $api;
                         $event->external_params = $eventsListItem['params'];
@@ -994,7 +999,7 @@ class Kronolith
 
             /* Remote Calendars. */
             foreach ($GLOBALS['display_remote_calendars'] as $url) {
-                $driver = self::getDriver('ical', array('url' => $url));
+                $driver = self::getDriver('Ical', array('url' => $url));
                 $events = $driver->listEvents($startOfPeriod, $endOfPeriod);
                 if (!is_a($events, 'PEAR_Error')) {
                     $kronolith_driver->open(Kronolith::getDefaultCalendar(PERMS_SHOW));
@@ -2073,7 +2078,7 @@ class Kronolith
 
         if (!isset(self::$_instances[$sig])) {
             switch ($driver) {
-            case 'ical':
+            case 'Ical':
                 /* Check for HTTP proxy configuration */
                 if (!empty($GLOBALS['conf']['http']['proxy']['proxy_host'])) {
                     $params['proxy'] = $GLOBALS['conf']['http']['proxy'];
@@ -2128,13 +2133,13 @@ class Kronolith
             require_once KRONOLITH_BASE . '/lib/Views/Event.php';
 
             if (Util::getFormData('calendar') == '**remote') {
-                $driver = self::getDriver('ical', array('url' => Util::getFormData('remoteCal')));
+                $driver = self::getDriver('Ical', array('url' => Util::getFormData('remoteCal')));
                 $event = $driver->getEvent(Util::getFormData('eventID'));
             } elseif ($uid = Util::getFormData('uid')) {
-                $event = &$GLOBALS['kronolith_driver']->getByUID($uid);
+                $event = $GLOBALS['kronolith_driver']->getByUID($uid);
             } else {
                 $GLOBALS['kronolith_driver']->open(Util::getFormData('calendar'));
-                $event = &$GLOBALS['kronolith_driver']->getEvent(
+                $event = $GLOBALS['kronolith_driver']->getEvent(
                     Util::getFormData('eventID'));
             }
             if (!is_a($event, 'PEAR_Error') &&
@@ -2148,11 +2153,11 @@ class Kronolith
             require_once KRONOLITH_BASE . '/lib/Views/EditEvent.php';
 
             if (Util::getFormData('calendar') == '**remote') {
-                $driver = self::getDriver('ical', array('url' => Util::getFormData('remoteCal')));
+                $driver = self::getDriver('Ical', array('url' => Util::getFormData('remoteCal')));
                 $event = $driver->getEvent(Util::getFormData('eventID'));
             } else {
                 $GLOBALS['kronolith_driver']->open(Util::getFormData('calendar'));
-                $event = &$GLOBALS['kronolith_driver']->getEvent(
+                $event = $GLOBALS['kronolith_driver']->getEvent(
                     Util::getFormData('eventID'));
             }
             if (!is_a($event, 'PEAR_Error') &&
@@ -2166,7 +2171,7 @@ class Kronolith
             require_once KRONOLITH_BASE . '/lib/Views/DeleteEvent.php';
 
             $GLOBALS['kronolith_driver']->open(Util::getFormData('calendar'));
-            $event = &$GLOBALS['kronolith_driver']->getEvent
+            $event = $GLOBALS['kronolith_driver']->getEvent
                 (Util::getFormData('eventID'));
             if (!is_a($event, 'PEAR_Error') &&
                 !$event->hasPermission(PERMS_DELETE)) {
@@ -2179,13 +2184,13 @@ class Kronolith
             require_once KRONOLITH_BASE . '/lib/Views/ExportEvent.php';
 
             if (Util::getFormData('calendar') == '**remote') {
-                $driver = self::getDriver('ical', array('url' => Util::getFormData('remoteCal')));
+                $driver = self::getDriver('Ical', array('url' => Util::getFormData('remoteCal')));
                 $event = $driver->getEvent(Util::getFormData('eventID'));
             } elseif ($uid = Util::getFormData('uid')) {
-                $event = &$GLOBALS['kronolith_driver']->getByUID($uid);
+                $event = $GLOBALS['kronolith_driver']->getByUID($uid);
             } else {
                 $GLOBALS['kronolith_driver']->open(Util::getFormData('calendar'));
-                $event = &$GLOBALS['kronolith_driver']->getEvent(
+                $event = $GLOBALS['kronolith_driver']->getEvent(
                     Util::getFormData('eventID'));
             }
             if (!is_a($event, 'PEAR_Error') &&

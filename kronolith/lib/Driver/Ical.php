@@ -1,7 +1,7 @@
 <?php
 /**
- * The Kronolith_Driver_ical:: class implements the Kronolith_Driver
- * API for iCalendar data.
+ * The Kronolith_Driver_Ical class implements the Kronolith_Driver API for
+ * iCalendar data.
  *
  * Possible driver parameters:
  * - url:      The location of the remote calendar.
@@ -9,11 +9,16 @@
  * - user:     The user name for HTTP Basic Authentication.
  * - password: The password for HTTP Basic Authentication.
  *
+ * Copyright 2004-2009 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @author  Jan Schneider <jan@horde.org>
  * @package Kronolith
  */
-class Kronolith_Driver_ical extends Kronolith_Driver
+class Kronolith_Driver_Ical extends Kronolith_Driver
 {
     /**
      * Cache events as we fetch them to avoid fetching or parsing the same
@@ -59,7 +64,7 @@ class Kronolith_Driver_ical extends Kronolith_Driver
         for ($i = 0; $i < $count; $i++) {
             $component = $components[$i];
             if ($component->getType() == 'vEvent') {
-                $event = new Kronolith_Event_ical($this);
+                $event = new Kronolith_Event_Ical($this);
                 $event->status = Kronolith::STATUS_FREE;
                 $event->fromiCalendar($component);
                 $event->remoteCal = $this->_params['url'];
@@ -121,7 +126,7 @@ class Kronolith_Driver_ical extends Kronolith_Driver
         $components = $iCal->getComponents();
         if (isset($components[$eventId]) &&
             $components[$eventId]->getType() == 'vEvent') {
-            $event = new Kronolith_Event_ical($this);
+            $event = new Kronolith_Event_Ical($this);
             $event->status = Kronolith::STATUS_FREE;
             $event->fromiCalendar($components[$eventId]);
             $event->remoteCal = $this->_params['url'];
@@ -177,23 +182,6 @@ class Kronolith_Driver_ical extends Kronolith_Driver
         }
 
         return $_SESSION['kronolith']['remote'][$url];
-    }
-
-}
-
-class Kronolith_Event_ical extends Kronolith_Event
-{
-
-    public function fromDriver($vEvent)
-    {
-        $this->fromiCalendar($vEvent);
-        $this->initialized = true;
-        $this->stored = true;
-    }
-
-    public function toDriver()
-    {
-        return $this->toiCalendar();
     }
 
 }

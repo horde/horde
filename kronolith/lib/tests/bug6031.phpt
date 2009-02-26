@@ -56,7 +56,7 @@ $object = array(
 var_dump($kolab->_storage->save($object));
                           
 // Check that the driver can be created
-$kron = Kronolith_Driver::factory('kolab');
+$kron = Kronolith_Driver::factory('Kolab');
 $kron->open('wrobel@example.org');
 
 $start = &new Horde_Date(86400);
