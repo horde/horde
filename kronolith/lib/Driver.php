@@ -853,10 +853,8 @@ class Kronolith_Event {
         }
 
         // Tags
-        $categories = $vEvent->getAttribute('CATEGORIES');
-        if (!is_array($categories) && !is_a($categories, 'PEAR_Error')) {
-            // The CATEGORY attribute is delimited by commas, so the tagger
-            // can deal with it as-is.
+        $categories = $vEvent->getAttributeValues('CATEGORIES');
+        if (!is_a($categories, 'PEAR_Error')) {
             $this->tags = $categories;
         }
 
