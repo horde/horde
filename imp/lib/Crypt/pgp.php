@@ -192,7 +192,7 @@ class IMP_Horde_Crypt_pgp extends Horde_Crypt_pgp
 
         /* Try retrieving via a PGP public keyserver. */
         if ($server && is_a($result, 'PEAR_Error')) {
-            $this->getFromPublicKeyserver($fingerprint, $address);
+            $result = $this->getFromPublicKeyserver($fingerprint, $address);
         }
 
         /* Return now, if no public key found at all. */
@@ -303,10 +303,10 @@ class IMP_Horde_Crypt_pgp extends Horde_Crypt_pgp
                 foreach ($conf['utils']['gnupg_keyserver'] as $server) {
                     $result = $this->getPublicKeyserver($data, $server, $timeout, $additional);
                     if (!is_a($result, 'PEAR_Error')) {
-                        throw new Horde_Exception($result);
+                        return $result;
                     }
                 }
-                return $result;
+                throw new Horde_Exception(_("Could not connect to public PGP keyserver"));
             } else {
                 return $this->putPublicKeyserver($data, $conf['utils']['gnupg_keyserver'][0], $timeout);
             }
