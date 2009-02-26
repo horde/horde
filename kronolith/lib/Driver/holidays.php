@@ -8,9 +8,10 @@
  * @package Kronolith
  */
 
-class Kronolith_Driver_holidays extends Kronolith_Driver {
+class Kronolith_Driver_holidays extends Kronolith_Driver
+{
 
-    function listAlarms($date, $fullevent = false)
+    public function listAlarms($date, $fullevent = false)
     {
         return array();
     }
@@ -29,7 +30,7 @@ class Kronolith_Driver_holidays extends Kronolith_Driver {
      *
      * @return array  An array of all holidays within the given datespan.
      */
-    function listEvents($startDate = null, $endDate = null, $hasAlarm = false)
+    public function listEvents($startDate = null, $endDate = null, $hasAlarm = false)
     {
         global $language;
 
@@ -61,7 +62,7 @@ class Kronolith_Driver_holidays extends Kronolith_Driver {
         return $events;
     }
 
-    function _getEvents($dh, $startDate, $endDate)
+    private function _getEvents($dh, $startDate, $endDate)
     {
         $events = array();
         for ($date = new Horde_Date($startDate);
@@ -87,72 +88,7 @@ class Kronolith_Driver_holidays extends Kronolith_Driver {
         return $events;
     }
 
-    function &getEvent($eventId = null)
-    {
-        return false;
-    }
-
-    /**
-     * Get an event or events with the given UID value.
-     *
-     * @param string $uid The UID to match
-     * @param array $calendars A restricted array of calendar ids to search
-     * @param boolean $getAll Return all matching events? If this is false,
-     * an error will be returned if more than one event is found.
-     *
-     * @return Kronolith_Event
-     */
-    function &getByUID($uid, $calendars = null, $getAll = false)
-    {
-        return PEAR::raiseError('Not supported');
-    }
-
-    function exists()
-    {
-        return PEAR::raiseError('Not supported');
-    }
-
-    function saveEvent($event)
-    {
-        return PEAR::raiseError('Not supported');
-    }
-
-    /**
-     * Moves an event to a new calendar.
-     *
-     * @param string $eventId      The event to move.
-     * @param string $newCalendar  The new calendar.
-     */
-    function move($eventId, $newCalendar)
-    {
-        return PEAR::raiseError('Not supported');
-    }
-
-    /**
-     * Deletes a calendar and all its events.
-     *
-     * @param string $calendar  The name of the calendar to delete.
-     *
-     * @return mixed  True or a PEAR_Error on failure.
-     */
-    function delete($calendar)
-    {
-        return PEAR::raiseError('Not supported');
-    }
-
-    /**
-     * Deletes an event.
-     *
-     * @param string $eventId  The ID of the event to delete.
-     *
-     * @return mixed  True or a PEAR_Error on failure.
-     */
-    function deleteEvent($eventId)
-    {
-        return PEAR::raiseError('Not supported');
-    }
-
-    function _getTranslationFile($driver)
+    private function _getTranslationFile($driver)
     {
         static $data_dir;
         if (!isset($data_dir)) {
@@ -179,21 +115,21 @@ class Kronolith_Driver_holidays extends Kronolith_Driver {
 
 }
 
-class Kronolith_Event_holidays extends Kronolith_Event {
-
+class Kronolith_Event_holidays extends Kronolith_Event
+{
     /**
      * The status of this event.
      *
      * @var integer
      */
-    var $status = Kronolith::STATUS_FREE;
+    public $status = Kronolith::STATUS_FREE;
 
     /**
      * Whether this is an all-day event.
      *
      * @var boolean
      */
-    var $allday = true;
+    public $allday = true;
 
     /**
      * Parse in an event from the driver.
@@ -201,7 +137,7 @@ class Kronolith_Event_holidays extends Kronolith_Event {
      * @param Date_Holidays_Holiday $dhEvent  A holiday returned
      *                                        from the driver
      */
-    function fromDriver($dhEvent)
+    public function fromDriver($dhEvent)
     {
         $this->stored = true;
         $this->initialized = true;
@@ -218,7 +154,7 @@ class Kronolith_Event_holidays extends Kronolith_Event {
      *
      * @return string The title of this event
      */
-    function getTitle()
+    public function getTitle()
     {
         return $this->title;
     }
@@ -231,7 +167,7 @@ class Kronolith_Event_holidays extends Kronolith_Event {
      *
      * @return boolean <code>true</code>
      */
-    function isAllDay()
+    public function isAllDay()
     {
         return true;
     }

@@ -16,28 +16,28 @@ require_once 'Horde/Identity.php';
  * @author  Stuart Binge <omicron@mighty.co.za>
  * @package Kronolith
  */
-class Kronolith_Driver_kolab extends Kronolith_Driver {
-
+class Kronolith_Driver_kolab extends Kronolith_Driver
+{
     /**
      * Our Kolab server connection.
      *
      * @var Kolab
      */
-    var $_kolab = null;
+    private $_kolab = null;
 
     /**
      * The wrapper to decide between the Kolab implementation
      *
      * @var Kronolith_Driver_kolab_wrapper
      */
-    var $_wrapper = null;
+    private $_wrapper = null;
 
     /**
      * Attempts to open a Kolab Groupware folder.
      *
      * @return boolean  True on success, PEAR_Error on failure.
      */
-    function initialize()
+    public function initialize()
     {
         $this->_kolab = new Kolab();
         if (empty($this->_kolab->version)) {
@@ -54,7 +54,7 @@ class Kronolith_Driver_kolab extends Kronolith_Driver {
     /**
      * Change current calendar
      */
-    function open($calendar)
+    public function open($calendar)
     {
         if ($this->_calendar != $calendar) {
             $this->_calendar = $calendar;
@@ -64,7 +64,7 @@ class Kronolith_Driver_kolab extends Kronolith_Driver {
         return true;
     }
 
-    function listAlarms($date, $fullevent = false)
+    public function listAlarms($date, $fullevent = false)
     {
         return $this->_wrapper->listAlarms($date, $fullevent);
     }
@@ -78,7 +78,7 @@ class Kronolith_Driver_kolab extends Kronolith_Driver {
      *
      * @return mixed  Returns a string with event_id or false if not found.
      */
-    function exists($uid, $calendar_id = null)
+    public function exists($uid, $calendar_id = null)
     {
         return $this->_wrapper->exists($uid, $calendar_id);
     }
@@ -94,12 +94,12 @@ class Kronolith_Driver_kolab extends Kronolith_Driver {
      *
      * @return array  Events in the given time range.
      */
-    function listEvents($startDate = null, $endDate = null, $hasAlarm = false)
+    public function listEvents($startDate = null, $endDate = null, $hasAlarm = false)
     {
         return $this->_wrapper->listEvents($startDate, $endDate, $hasAlarm);
     }
 
-    function getEvent($eventID = null)
+    public function getEvent($eventID = null)
     {
         return $this->_wrapper->getEvent($eventID);
     }
@@ -114,12 +114,12 @@ class Kronolith_Driver_kolab extends Kronolith_Driver {
      *
      * @return Kronolith_Event
      */
-    function getByUID($uid, $calendars = null, $getAll = false)
+    public function getByUID($uid, $calendars = null, $getAll = false)
     {
         return $this->_wrapper->getByUID($uid, $calendars, $getAll);
     }
 
-    function saveEvent(&$event)
+    public function saveEvent(&$event)
     {
         return $this->_wrapper->saveEvent($event);
     }
@@ -130,7 +130,7 @@ class Kronolith_Driver_kolab extends Kronolith_Driver {
      * @param string $eventId      The event to move.
      * @param string $newCalendar  The new calendar.
      */
-    function move($eventID, $newCalendar)
+    public function move($eventID, $newCalendar)
     {
         return $this->_wrapper->move($eventID, $newCalendar);
     }
@@ -142,7 +142,7 @@ class Kronolith_Driver_kolab extends Kronolith_Driver {
      *
      * @return mixed  True or a PEAR_Error on failure.
      */
-    function delete($calendar)
+    public function delete($calendar)
     {
         return $this->_wrapper->delete($calendar);
     }
@@ -155,7 +155,7 @@ class Kronolith_Driver_kolab extends Kronolith_Driver {
      *
      * @return mixed  True or a PEAR_Error on failure.
      */
-    function rename($from, $to)
+    public function rename($from, $to)
     {
         return $this->_wrapper->rename($from, $to);
     }
@@ -167,14 +167,15 @@ class Kronolith_Driver_kolab extends Kronolith_Driver {
      *
      * @return mixed  True or a PEAR_Error on failure.
      */
-    function deleteEvent($eventID, $silent = false)
+    public function deleteEvent($eventID, $silent = false)
     {
         return $this->_wrapper->deleteEvent($eventID, $silent);
     }
 }
 
 /**
- * Horde Kronolith wrapper to distinguish between both Kolab driver implementations.
+ * Horde Kronolith wrapper to distinguish between both Kolab driver
+ * implementations.
  *
  * $Horde: kronolith/lib/Driver/kolab.php,v 1.77 2009/01/06 18:01:01 jan Exp $
  *
@@ -186,14 +187,14 @@ class Kronolith_Driver_kolab extends Kronolith_Driver {
  * @author  Gunnar Wrobel <wrobel@pardus.de>
  * @package Kronolith
  */
-
-class Kronolith_Driver_kolab_wrapper {
+class Kronolith_Driver_kolab_wrapper
+{
     /**
      * Our Kolab server connection.
      *
      * @var Kolab
      */
-    var $_kolab = null;
+    private $_kolab = null;
 
     /**
      * Link to the parent driver object
@@ -201,18 +202,19 @@ class Kronolith_Driver_kolab_wrapper {
      * @var Kronolith_Driver
      */
 
-    var $_driver = null;
+    private $_driver = null;
 
     /**
       * Constructor
       *
       * @param Kronolith_driver $driver     Reference to the Kronolith_Driver
       */
-    function Kronolith_Driver_kolab_wrapper(&$driver)
+    public function __contruct(&$driver)
     {
         $this->_driver = $driver;
         $this->_kolab = $driver->_kolab;
     }
+
 }
 
 
@@ -227,19 +229,19 @@ class Kronolith_Driver_kolab_wrapper {
  * @author  Stuart Binge <omicron@mighty.co.za>
  * @package Kronolith
  */
-class Kronolith_Driver_kolab_wrapper_old extends Kronolith_Driver_kolab_wrapper {
-
+class Kronolith_Driver_kolab_wrapper_old extends Kronolith_Driver_kolab_wrapper
+{
     /**
      * Indicates if the wrapper has connected or not
      *
      * @var boolean
      */
-    var $_connected = false;
+    private $_connected = false;
 
     /**
      * Reset internal variable on share change
      */
-    function reset()
+    public function reset()
     {
         $this->_connected = false;
     }
@@ -252,7 +254,7 @@ class Kronolith_Driver_kolab_wrapper_old extends Kronolith_Driver_kolab_wrapper 
      *
      * @return mixed True on success, a PEAR error otherwise
      */
-    function connect()
+    public function connect()
     {
         if ($this->_connected) {
             return true;
@@ -268,7 +270,7 @@ class Kronolith_Driver_kolab_wrapper_old extends Kronolith_Driver_kolab_wrapper 
         return true;
     }
 
-    function listAlarms($date, $fullevent = false)
+    public function listAlarms($date, $fullevent = false)
     {
         if (!$this->_kolab) {
             return array();
@@ -337,7 +339,7 @@ class Kronolith_Driver_kolab_wrapper_old extends Kronolith_Driver_kolab_wrapper 
      *
      * @return mixed  Returns a string with event_id or false if not found.
      */
-    function exists($uid, $calendar_id = null)
+    public function exists($uid, $calendar_id = null)
     {
         $this->connect();
 
@@ -360,7 +362,7 @@ class Kronolith_Driver_kolab_wrapper_old extends Kronolith_Driver_kolab_wrapper 
      *
      * @return array  Events in the given time range.
      */
-    function listEvents($startDate = null, $endDate = null, $hasAlarm = false)
+    public function listEvents($startDate = null, $endDate = null, $hasAlarm = false)
     {
         $this->connect();
 
@@ -392,7 +394,7 @@ class Kronolith_Driver_kolab_wrapper_old extends Kronolith_Driver_kolab_wrapper 
         return $events;
     }
 
-    function getEvent($eventID = null)
+    public function getEvent($eventID = null)
     {
         if (is_null($eventID)) {
             return new Kronolith_Event_kolab_old($this->_driver);
@@ -421,7 +423,7 @@ class Kronolith_Driver_kolab_wrapper_old extends Kronolith_Driver_kolab_wrapper 
      *
      * @return Kronolith_Event
      */
-    function getByUID($uid, $calendars = null, $getAll = false)
+    public function getByUID($uid, $calendars = null, $getAll = false)
     {
         if (!is_array($calendars)) {
             $calendars = array_keys(Kronolith::listCalendars(true, PERMS_READ));
@@ -448,7 +450,7 @@ class Kronolith_Driver_kolab_wrapper_old extends Kronolith_Driver_kolab_wrapper 
         return PEAR::raiseError(sprintf(_("Event not found: %s"), $uid));
     }
 
-    function saveEvent(&$event)
+    public function saveEvent(&$event)
     {
         $this->connect();
 
@@ -673,7 +675,7 @@ class Kronolith_Driver_kolab_wrapper_old extends Kronolith_Driver_kolab_wrapper 
      * @param string $eventId      The event to move.
      * @param string $newCalendar  The new calendar.
      */
-    function move($eventID, $newCalendar)
+    public function move($eventID, $newCalendar)
     {
         $this->connect();
 
@@ -694,7 +696,7 @@ class Kronolith_Driver_kolab_wrapper_old extends Kronolith_Driver_kolab_wrapper 
      *
      * @return mixed  True or a PEAR_Error on failure.
      */
-    function delete($calendar)
+    public function delete($calendar)
     {
         // For the old code we don't care
         return true;
@@ -708,7 +710,7 @@ class Kronolith_Driver_kolab_wrapper_old extends Kronolith_Driver_kolab_wrapper 
      *
      * @return mixed  True or a PEAR_Error on failure.
      */
-    function rename($from, $to)
+    public function rename($from, $to)
     {
         // For the old code we don't care
         return true;
@@ -721,7 +723,7 @@ class Kronolith_Driver_kolab_wrapper_old extends Kronolith_Driver_kolab_wrapper 
      *
      * @return mixed  True or a PEAR_Error on failure.
      */
-    function deleteEvent($eventID, $silent = false)
+    public function deleteEvent($eventID, $silent = false)
     {
         $this->connect();
 
@@ -752,9 +754,10 @@ class Kronolith_Driver_kolab_wrapper_old extends Kronolith_Driver_kolab_wrapper 
 
 }
 
-class Kronolith_Event_kolab_old extends Kronolith_Event {
+class Kronolith_Event_kolab_old extends Kronolith_Event
+{
 
-    function fromDriver($dummy)
+    public function fromDriver($dummy)
     {
         $driver = $this->getDriver();
         $kolab = $driver->_kolab;
@@ -934,7 +937,7 @@ class Kronolith_Event_kolab_old extends Kronolith_Event {
         $this->stored = true;
     }
 
-    function toDriver()
+    public function toDriver()
     {
     }
 
@@ -942,6 +945,7 @@ class Kronolith_Event_kolab_old extends Kronolith_Event {
 
 /**
  * Horde Kronolith driver for the Kolab IMAP Server.
+ *
  * Copyright 2004-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
@@ -951,33 +955,33 @@ class Kronolith_Event_kolab_old extends Kronolith_Event {
  * @author  Stuart Binge <omicron@mighty.co.za>
  * @package Kronolith
  */
-class Kronolith_Driver_kolab_wrapper_new extends Kronolith_Driver_kolab_wrapper {
-
+class Kronolith_Driver_kolab_wrapper_new extends Kronolith_Driver_kolab_wrapper
+{
     /**
      * Internal cache of Kronolith_Event_kolab_new. eventID/UID is key
      *
      * @var array
      */
-    var $_events_cache;
+    private $_events_cache;
 
     /**
      * Indicates if we have synchronized this folder
      *
      * @var boolean
      */
-    var $_synchronized;
+    private $_synchronized;
 
     /**
      * Shortcut to the imap connection
      *
      * @var Kolab_IMAP
      */
-    var $_store;
+    private $_store;
 
     /**
       * Constructor
       */
-    function Kronolith_Driver_kolab_wrapper_new(&$driver)
+    public function __construct($driver)
     {
         parent::Kronolith_Driver_kolab_wrapper($driver);
         $this->reset();
@@ -986,7 +990,7 @@ class Kronolith_Driver_kolab_wrapper_new extends Kronolith_Driver_kolab_wrapper 
     /**
      * Reset internal variable on share change
      */
-    function reset()
+    public function reset()
     {
         $this->_events_cache = array();
         $this->_synchronized = false;
@@ -995,7 +999,7 @@ class Kronolith_Driver_kolab_wrapper_new extends Kronolith_Driver_kolab_wrapper 
     // We delay initial synchronization to the first use
     // so multiple calendars don't add to the total latency.
     // This function must be called before all internal driver functions
-    function synchronize($force = false)
+    public function synchronize($force = false)
     {
         if ($this->_synchronized && !$force) {
             return;
@@ -1018,7 +1022,7 @@ class Kronolith_Driver_kolab_wrapper_new extends Kronolith_Driver_kolab_wrapper 
         $this->_synchronized = true;
     }
 
-    function listAlarms($date, $fullevent = false)
+    public function listAlarms($date, $fullevent = false)
     {
         $allevents = $this->listEvents($date, null, true);
         $events = array();
@@ -1076,7 +1080,7 @@ class Kronolith_Driver_kolab_wrapper_new extends Kronolith_Driver_kolab_wrapper 
      * @return string|boolean  Returns a string with event_id or false if
      *                         not found.
      */
-    function exists($uid, $calendar_id = null)
+    public function exists($uid, $calendar_id = null)
     {
         // Log error if someone uses this function in an unsupported way
         if ($calendar_id != $this->_driver->_calendar) {
@@ -1107,7 +1111,7 @@ class Kronolith_Driver_kolab_wrapper_new extends Kronolith_Driver_kolab_wrapper 
      *
      * @return array  Events in the given time range.
      */
-    function listEvents($startDate = null, $endDate = null, $hasAlarm = false)
+    public function listEvents($startDate = null, $endDate = null, $hasAlarm = false)
     {
         $result = $this->synchronize();
         if (is_a($result, 'PEAR_Error')) {
@@ -1163,7 +1167,7 @@ class Kronolith_Driver_kolab_wrapper_new extends Kronolith_Driver_kolab_wrapper 
         return $ids;
     }
 
-    function getEvent($eventId = null)
+    public function getEvent($eventId = null)
     {
         if (is_null($eventId)) {
             return new Kronolith_Event_kolab_new($this->_driver);
@@ -1191,7 +1195,7 @@ class Kronolith_Driver_kolab_wrapper_new extends Kronolith_Driver_kolab_wrapper 
      *
      * @return Kronolith_Event
      */
-    function getByUID($uid, $calendars = null, $getAll = false)
+    public function getByUID($uid, $calendars = null, $getAll = false)
     {
         if (!is_array($calendars)) {
             $calendars = array_keys(Kronolith::listCalendars(true, PERMS_READ));
@@ -1228,7 +1232,7 @@ class Kronolith_Driver_kolab_wrapper_new extends Kronolith_Driver_kolab_wrapper 
      *
      * @return mixed  UID on success, a PEAR error otherwise
      */
-    function saveEvent(&$event)
+    public function saveEvent(&$event)
     {
         $result = $this->synchronize();
         if (is_a($result, 'PEAR_Error')) {
@@ -1291,7 +1295,7 @@ class Kronolith_Driver_kolab_wrapper_new extends Kronolith_Driver_kolab_wrapper 
      * @param string $eventId      The event to move.
      * @param string $newCalendar  The new calendar.
      */
-    function move($eventId, $newCalendar)
+    public function move($eventId, $newCalendar)
     {
         $event = $this->getEvent($eventId);
 
@@ -1330,7 +1334,7 @@ class Kronolith_Driver_kolab_wrapper_new extends Kronolith_Driver_kolab_wrapper 
      *
      * @return mixed  True or a PEAR_Error on failure.
      */
-    function delete($calendar)
+    public function delete($calendar)
     {
         $this->_driver->open($calendar);
         $result = $this->synchronize();
@@ -1353,7 +1357,7 @@ class Kronolith_Driver_kolab_wrapper_new extends Kronolith_Driver_kolab_wrapper 
      *
      * @return mixed  True or a PEAR_Error on failure.
      */
-    function rename($from, $to)
+    public function rename($from, $to)
     {
         // FIXME: We can't do much here. We'd need to be called after
         // renaming the share here. This needs to be checked again.
@@ -1369,7 +1373,7 @@ class Kronolith_Driver_kolab_wrapper_new extends Kronolith_Driver_kolab_wrapper 
      *
      * @return mixed  True or a PEAR_Error on failure.
      */
-    function deleteEvent($eventId, $silent = false)
+    public function deleteEvent($eventId, $silent = false)
     {
         $result = $this->synchronize();
         if (is_a($result, 'PEAR_Error')) {
@@ -1412,9 +1416,10 @@ class Kronolith_Driver_kolab_wrapper_new extends Kronolith_Driver_kolab_wrapper 
 /**
  * @package Kronolith
  */
-class Kronolith_Event_kolab_new extends Kronolith_Event {
+class Kronolith_Event_kolab_new extends Kronolith_Event
+{
 
-    function fromDriver($event)
+    public function fromDriver($event)
     {
         $this->eventID = $event['uid'];
         $this->setUID($this->eventID);
@@ -1530,7 +1535,7 @@ class Kronolith_Event_kolab_new extends Kronolith_Event {
         $this->stored = true;
     }
 
-    function toDriver()
+    public function toDriver()
     {
         $event = array();
         $event['uid'] = $this->getUID();
@@ -1641,4 +1646,5 @@ class Kronolith_Event_kolab_new extends Kronolith_Event {
 
         return $event;
     }
+
 }

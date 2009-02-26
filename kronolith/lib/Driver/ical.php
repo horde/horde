@@ -1,7 +1,4 @@
 <?php
-
-require_once 'Horde/iCalendar.php';
-
 /**
  * The Kronolith_Driver_ical:: class implements the Kronolith_Driver
  * API for iCalendar data.
@@ -16,17 +13,17 @@ require_once 'Horde/iCalendar.php';
  * @author  Jan Schneider <jan@horde.org>
  * @package Kronolith
  */
-class Kronolith_Driver_ical extends Kronolith_Driver {
-
+class Kronolith_Driver_ical extends Kronolith_Driver
+{
     /**
      * Cache events as we fetch them to avoid fetching or parsing the same
      * event twice.
      *
      * @var array
      */
-    var $_cache = array();
+    private $_cache = array();
 
-    function listAlarms($date, $fullevent = false)
+    public function listAlarms($date, $fullevent = false)
     {
         return array();
     }
@@ -42,7 +39,8 @@ class Kronolith_Driver_ical extends Kronolith_Driver {
      *
      * @return array  Events in the given time range.
      */
-    function listEvents($startDate = null, $endDate = null, $hasAlarm = false)
+    public function listEvents($startDate = null, $endDate = null,
+                               $hasAlarm = false)
     {
         $data = $this->_getRemoteCalendar();
         if (is_a($data, 'PEAR_Error')) {
@@ -108,7 +106,7 @@ class Kronolith_Driver_ical extends Kronolith_Driver {
         return $events;
     }
 
-    function getEvent($eventId = null)
+    public function getEvent($eventId = null)
     {
         $data = $this->_getRemoteCalendar();
         if (is_a($data, 'PEAR_Error')) {
@@ -126,73 +124,13 @@ class Kronolith_Driver_ical extends Kronolith_Driver {
             $event = new Kronolith_Event_ical($this);
             $event->status = Kronolith::STATUS_FREE;
             $event->fromiCalendar($components[$eventId]);
-            $event->remoteCal = $url;
+            $event->remoteCal = $this->_params['url'];
             $event->eventID = $eventId;
 
             return $event;
         }
 
         return false;
-    }
-
-    /**
-     * Get an event or events with the given UID value.
-     *
-     * @param string $uid The UID to match
-     * @param array $calendars A restricted array of calendar ids to search
-     * @param boolean $getAll Return all matching events? If this is false,
-     * an error will be returned if more than one event is found.
-     *
-     * @return Kronolith_Event
-     */
-    function &getByUID($uid, $calendars = null, $getAll = false)
-    {
-        return PEAR::raiseError('Not supported');
-    }
-
-    function exists()
-    {
-        return PEAR::raiseError('Not supported');
-    }
-
-    function saveEvent($event)
-    {
-        return PEAR::raiseError('Not supported');
-    }
-
-    /**
-     * Move an event to a new calendar.
-     *
-     * @param string $eventId      The event to move.
-     * @param string $newCalendar  The new calendar.
-     */
-    function move($eventId, $newCalendar)
-    {
-        return PEAR::raiseError('Not supported');
-    }
-
-    /**
-     * Delete a calendar and all its events.
-     *
-     * @param string $calendar  The name of the calendar to delete.
-     *
-     * @return mixed  True or a PEAR_Error on failure.
-     */
-    function delete($calendar)
-    {
-        return PEAR::raiseError('Not supported');
-    }
-
-    /**
-     * Delete an event.
-     *
-     * @param string $eventId  The ID of the event to delete.
-     *
-     * @return mixed  True or a PEAR_Error on failure.
-     */
-    function deleteEvent($eventId)
-    {
-        return PEAR::raiseError('Not supported');
     }
 
     /**
@@ -243,16 +181,17 @@ class Kronolith_Driver_ical extends Kronolith_Driver {
 
 }
 
-class Kronolith_Event_ical extends Kronolith_Event {
+class Kronolith_Event_ical extends Kronolith_Event
+{
 
-    function fromDriver($vEvent)
+    public function fromDriver($vEvent)
     {
         $this->fromiCalendar($vEvent);
         $this->initialized = true;
         $this->stored = true;
     }
 
-    function toDriver()
+    public function toDriver()
     {
         return $this->toiCalendar();
     }

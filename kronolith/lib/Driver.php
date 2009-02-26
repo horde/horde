@@ -7,28 +7,28 @@
  * @author  Jan Schneider <jan@horde.org>
  * @package Kronolith
  */
-class Kronolith_Driver {
-
+class Kronolith_Driver
+{
     /**
      * A hash containing any parameters for the current driver.
      *
      * @var array
      */
-    var $_params = array();
+    protected $_params = array();
 
     /**
      * The current calendar.
      *
      * @var string
      */
-    var $_calendar;
+    protected $_calendar;
 
     /**
      * An error message to throw when something is wrong.
      *
      * @var string
      */
-    var $_errormsg;
+    private $_errormsg;
 
     /**
      * Constructor.
@@ -38,7 +38,7 @@ class Kronolith_Driver {
      *
      * @param array $params  Any parameters needed for this driver.
      */
-    function Kronolith_Driver($params = array(), $errormsg = null)
+    public function __construct($params = array(), $errormsg = null)
     {
         $this->_params = $params;
         if ($errormsg === null) {
@@ -55,12 +55,12 @@ class Kronolith_Driver {
      *
      * @return mixed  The parameter value or null if not set.
      */
-    function getParam($param)
+    public function getParam($param)
     {
         return isset($this->_params[$param]) ? $this->_params[$param] : null;
     }
 
-    function open($calendar)
+    public function open($calendar)
     {
         $this->_calendar = $calendar;
     }
@@ -70,7 +70,7 @@ class Kronolith_Driver {
      *
      * @return string  The current calendar name.
      */
-    function getCalendar()
+    public function getCalendar()
     {
         return $this->_calendar;
     }
@@ -83,7 +83,7 @@ class Kronolith_Driver {
      *
      * @return string  A nice unique string (should be 255 chars or less).
      */
-    function generateUID()
+    public function generateUID()
     {
         return date('YmdHis') . '.'
             . substr(str_pad(base_convert(microtime(), 10, 36), 16, uniqid(mt_rand()), STR_PAD_LEFT), -16)
@@ -98,7 +98,7 @@ class Kronolith_Driver {
      *
      * @return mixed  True or a PEAR_Error on failure.
      */
-    function rename($from, $to)
+    public function rename($from, $to)
     {
         return true;
     }
@@ -111,7 +111,7 @@ class Kronolith_Driver {
      *
      * @return mixed  An array of Kronolith_Events or a PEAR_Error.
      */
-    function search($query)
+    public function search($query)
     {
         /* Our default implementation first gets <em>all</em> events in a
          * specific period, and then filters based on the actual values that
@@ -163,7 +163,7 @@ class Kronolith_Driver {
      * @return Horde_Date|boolean  The date of the next recurrence or false if
      *                             the event does not recur after $afterDate.
      */
-    function nextRecurrence($eventId, $afterDate)
+    public function nextRecurrence($eventId, $afterDate)
     {
         $event = &$this->getEvent($eventId);
         if (is_a($event, 'PEAR_Error')) {
@@ -186,7 +186,7 @@ class Kronolith_Driver {
      * @return Kronolith_Driver  The newly created concrete Kronolith_Driver
      *                           instance, or a PEAR_Error on error.
      */
-    function factory($driver = null, $params = null)
+    public function factory($driver = null, $params = null)
     {
         if ($driver === null) {
             $driver = $GLOBALS['conf']['calendar']['driver'];
@@ -215,7 +215,7 @@ class Kronolith_Driver {
     /**
      * Stub to initiate a driver.
      */
-    function initialize()
+    public function initialize()
     {
         return true;
     }
@@ -223,16 +223,7 @@ class Kronolith_Driver {
     /**
      * Stub to be overridden in the child class.
      */
-    function &getEvent()
-    {
-        $error = PEAR::raiseError($this->_errormsg);
-        return $error;
-    }
-
-    /**
-     * Stub to be overridden in the child class.
-     */
-    function listAlarms($date, $fullevent = false)
+    public function getEvent()
     {
         return PEAR::raiseError($this->_errormsg);
     }
@@ -240,15 +231,31 @@ class Kronolith_Driver {
     /**
      * Stub to be overridden in the child class.
      */
-    function listEvents()
+    public function getByUID($uid, $calendars = null, $getAll = false)
     {
         return PEAR::raiseError($this->_errormsg);
     }
 
     /**
-     * Stub o be overridden in the child class.
+     * Stub to be overridden in the child class.
      */
-    function saveEvent()
+    public function listAlarms($date, $fullevent = false)
+    {
+        return PEAR::raiseError($this->_errormsg);
+    }
+
+    /**
+     * Stub to be overridden in the child class.
+     */
+    public function listEvents()
+    {
+        return PEAR::raiseError($this->_errormsg);
+    }
+
+    /**
+     * Stub to be overridden in the child class.
+     */
+    public function saveEvent()
     {
         return PEAR::raiseError($this->_errormsg);
     }
@@ -256,7 +263,39 @@ class Kronolith_Driver {
     /**
      * Stub for child class to override if it can implement.
      */
-    function removeUserData($user)
+    public function exists()
+    {
+        return PEAR::raiseError('Not supported');
+    }
+
+    /**
+     * Stub to be overridden in the child class.
+     */
+    public function move($eventId, $newCalendar)
+    {
+        return PEAR::raiseError('Not supported');
+    }
+
+    /**
+     * Stub to be overridden in the child class.
+     */
+    public function delete($calendar)
+    {
+        return PEAR::raiseError('Not supported');
+    }
+
+    /**
+     * Stub to be overridden in the child class.
+     */
+    public function deleteEvent($eventId)
+    {
+        return PEAR::raiseError('Not supported');
+    }
+
+    /**
+     * Stub for child class to override if it can implement.
+     */
+    public function removeUserData($user)
     {
         return PEAR::raiseError(_("Removing user data is not supported with the current calendar storage backend."));
     }
@@ -270,106 +309,106 @@ class Kronolith_Driver {
  * @author  Jan Schneider <jan@horde.org>
  * @package Kronolith
  */
-class Kronolith_Event {
-
+class Kronolith_Event
+{
     /**
      * Flag that is set to true if this event has data from either a storage
      * backend or a form or other import method.
      *
      * @var boolean
      */
-    var $initialized = false;
+    public $initialized = false;
 
     /**
      * Flag that is set to true if this event exists in a storage driver.
      *
      * @var boolean
      */
-    var $stored = false;
+    public $stored = false;
 
     /**
      * The driver unique identifier for this event.
      *
      * @var string
      */
-    var $eventID = null;
+    public $eventID = null;
 
     /**
      * The UID for this event.
      *
      * @var string
      */
-    var $_uid = null;
+    protected $_uid = null;
 
     /**
      * The iCalendar SEQUENCE for this event.
      *
      * @var integer
      */
-    var $_sequence = null;
+    protected $_sequence = null;
 
     /**
      * The user id of the creator of the event.
      *
      * @var string
      */
-    var $creatorID = null;
+    public $creatorID = null;
 
     /**
      * The title of this event.
      *
      * @var string
      */
-    var $title = '';
+    public $title = '';
 
     /**
      * The location this event occurs at.
      *
      * @var string
      */
-    var $location = '';
+    public $location = '';
 
     /**
      * The status of this event.
      *
      * @var integer
      */
-    var $status = Kronolith::STATUS_CONFIRMED;
+    public $status = Kronolith::STATUS_CONFIRMED;
 
     /**
      * The description for this event
      *
      * @var string
      */
-    var $description = '';
+    public $description = '';
 
     /**
      * Remote description of this event (URL).
      *
      * @var string
      */
-    var $remoteUrl = '';
+    public $remoteUrl = '';
 
     /**
      * Remote calendar name.
      *
      * @var string
      */
-    var $remoteCal = '';
+    public $remoteCal = '';
 
     /**
      * Whether the event is private.
      *
      * @var boolean
      */
-    var $private = false;
+    public $private = false;
 
     /**
      * This tag's events.
      *
      * @var mixed  Array of tags or comma delimited string.
      */
-    var $tags = array();
+    public $tags = array();
 
     /**
      * All the attendees of this event.
@@ -381,84 +420,84 @@ class Kronolith_Event {
      *
      * @var array
      */
-    var $attendees = array();
+    public $attendees = array();
 
     /**
      * The start time of the event.
      *
      * @var Horde_Date
      */
-    var $start;
+    public $start;
 
     /**
      * The end time of the event.
      *
      * @var Horde_Date
      */
-    var $end;
+    public $end;
 
     /**
      * The duration of this event in minutes
      *
      * @var integer
      */
-    var $durMin = 0;
+    public $durMin = 0;
 
     /**
      * Whether this is an all-day event.
      *
      * @var boolean
      */
-    var $allday = false;
+    public $allday = false;
 
     /**
      * Number of minutes before the event starts to trigger an alarm.
      *
      * @var integer
      */
-    var $alarm = 0;
+    public $alarm = 0;
 
     /**
      * The particular alarm methods overridden for this event.
      *
      * @var array
      */
-    var $methods;
+    public $methods;
 
     /**
      * The identifier of the calender this event exists on.
      *
      * @var string
      */
-    var $_calendar;
+    protected $_calendar;
 
     /**
      * The HTML background color to be used for this event.
      *
      * @var string
      */
-    var $_backgroundColor;
+    protected $_backgroundColor;
 
     /**
      * The HTML foreground color to be used for this event.
      *
      * @var string
      */
-    var $_foregroundColor;
+    protected $_foregroundColor;
 
     /**
      * The VarRenderer class to use for printing select elements.
      *
      * @var Horde_UI_VarRenderer
      */
-    var $_varRenderer;
+    private $_varRenderer;
 
     /**
      * The Horde_Date_Recurrence class for this event.
      *
      * @var Horde_Date_Recurrence
      */
-    var $recurrence;
+    public $recurrence;
 
     /**
      * Constructor.
@@ -468,7 +507,7 @@ class Kronolith_Event {
      * @param mixed $eventObject        Backend specific event object
      *                                  that this will represent.
      */
-    function Kronolith_Event(&$driver, $eventObject = null)
+    public function __construct(&$driver, $eventObject = null)
     {
         static $alarm;
 
@@ -501,7 +540,7 @@ class Kronolith_Event {
      * @return Kronolith_Driver  A driver that this event can use to save
      *                           itself, etc.
      */
-    function &getDriver()
+    public function getDriver()
     {
         global $kronolith_driver;
         if ($kronolith_driver->getCalendar() != $this->_calendar) {
@@ -516,7 +555,7 @@ class Kronolith_Event {
      *
      * @return Horde_Share  This event's share.
      */
-    function &getShare()
+    public function getShare()
     {
         if (isset($GLOBALS['all_calendars'][$this->getCalendar()])) {
             $share = $GLOBALS['all_calendars'][$this->getCalendar()];
@@ -534,7 +573,7 @@ class Kronolith_Event {
      *
      * @return boolean
      */
-    function hasPermission($permission, $user = null)
+    public function hasPermission($permission, $user = null)
     {
         if ($user === null) {
             $user = Auth::getAuth();
@@ -561,7 +600,7 @@ class Kronolith_Event {
      *
      * @return mixed  True or a PEAR_Error on failure.
      */
-    function save()
+    public function save()
     {
         if (!$this->isInitialized()) {
             return PEAR::raiseError('Event not yet initialized');
@@ -592,7 +631,7 @@ class Kronolith_Event {
      *
      * @return Horde_iCalendar_vevent  The vEvent object for this event.
      */
-    function &toiCalendar(&$calendar)
+    public function toiCalendar(&$calendar)
     {
         $vEvent = &Horde_iCalendar::newComponent('vevent', $calendar);
         $v1 = $calendar->getAttribute('VERSION') == '1.0';
@@ -832,7 +871,7 @@ class Kronolith_Event {
      * @param Horde_iCalendar_vevent $vEvent  The iCalendar data to update
      *                                        from.
      */
-    function fromiCalendar($vEvent)
+    public function fromiCalendar($vEvent)
     {
         // Unique ID.
         $uid = $vEvent->getAttribute('UID');
@@ -1066,7 +1105,7 @@ class Kronolith_Event {
      *
      * @param array $hash  Array containing all the values.
      */
-    function fromHash($hash)
+    public function fromHash($hash)
     {
         // See if it's a new event.
         if ($this->getId() === null) {
@@ -1186,7 +1225,7 @@ class Kronolith_Event {
      *
      * @return array  Alarm hash or null.
      */
-    function toAlarm($time, $user = null, $prefs = null)
+    public function toAlarm($time, $user = null, $prefs = null)
     {
         if (!$this->getAlarm()) {
             return;
@@ -1259,7 +1298,7 @@ class Kronolith_Event {
      *
      * @return object  A simple object.
      */
-    function toJSON()
+    public function toJSON()
     {
         $json = new stdClass;
         $json->t = $this->getTitle();
@@ -1272,7 +1311,7 @@ class Kronolith_Event {
     /**
      * TODO
      */
-    function isInitialized()
+    public function isInitialized()
     {
         return $this->initialized;
     }
@@ -1280,7 +1319,7 @@ class Kronolith_Event {
     /**
      * TODO
      */
-    function isStored()
+    public function isStored()
     {
         return $this->stored;
     }
@@ -1292,7 +1331,7 @@ class Kronolith_Event {
      *
      * @return boolean  True if event exists, false otherwise.
      */
-    function exists()
+    public function exists()
     {
         if (!isset($this->_uid) || !isset($this->_calendar)) {
             return false;
@@ -1307,7 +1346,7 @@ class Kronolith_Event {
         }
     }
 
-    function getDuration()
+    public function getDuration()
     {
         static $duration = null;
         if (isset($duration)) {
@@ -1361,7 +1400,7 @@ class Kronolith_Event {
      *
      * @return boolean  True if this is a recurring event.
      */
-    function recurs()
+    public function recurs()
     {
         return isset($this->recurrence) &&
             !$this->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_NONE);
@@ -1372,7 +1411,7 @@ class Kronolith_Event {
      *
      * @return string  Human readable recurring type.
      */
-    function getRecurName()
+    public function getRecurName()
     {
         return $this->recurs()
             ? $this->recurrence->getRecurName()
@@ -1387,7 +1426,7 @@ class Kronolith_Event {
      *
      * @return string  The formatted date and delete link.
      */
-    function exceptionLink($date)
+    public function exceptionLink($date)
     {
         if (!preg_match('/(\d{4})(\d{2})(\d{2})/', $date, $match)) {
             return '';
@@ -1408,22 +1447,22 @@ class Kronolith_Event {
      *
      * @return string  List of exception dates and delete links.
      */
-    function exceptionsList()
+    public function exceptionsList()
     {
         return implode(', ', array_map(array($this, 'exceptionLink'), $this->recurrence->getExceptions()));
     }
 
-    function getCalendar()
+    public function getCalendar()
     {
         return $this->_calendar;
     }
 
-    function setCalendar($calendar)
+    public function setCalendar($calendar)
     {
         $this->_calendar = $calendar;
     }
 
-    function isRemote()
+    public function isRemote()
     {
         return (bool)$this->remoteCal;
     }
@@ -1433,7 +1472,7 @@ class Kronolith_Event {
      *
      * @return string  The local identifier for this event.
      */
-    function getId()
+    public function getId()
     {
         return $this->eventID;
     }
@@ -1443,7 +1482,7 @@ class Kronolith_Event {
      *
      * @param string $eventId  The local identifier for this event.
      */
-    function setId($eventId)
+    public function setId($eventId)
     {
         if (substr($eventId, 0, 10) == 'kronolith:') {
             $eventId = substr($eventId, 10);
@@ -1456,7 +1495,7 @@ class Kronolith_Event {
      *
      * @return string  The global UID for this event.
      */
-    function getUID()
+    public function getUID()
     {
         return $this->_uid;
     }
@@ -1466,7 +1505,7 @@ class Kronolith_Event {
      *
      * @param string $uid  The global UID for this event.
      */
-    function setUID($uid)
+    public function setUID($uid)
     {
         $this->_uid = $uid;
     }
@@ -1476,7 +1515,7 @@ class Kronolith_Event {
      *
      * @return integer  The sequence for this event.
      */
-    function getSequence()
+    public function getSequence()
     {
         return $this->_sequence;
     }
@@ -1486,7 +1525,7 @@ class Kronolith_Event {
      *
      * @return string  The creator id
      */
-    function getCreatorId()
+    public function getCreatorId()
     {
         return !empty($this->creatorID) ? $this->creatorID : Auth::getAuth();
     }
@@ -1496,7 +1535,7 @@ class Kronolith_Event {
      *
      * @param string $creatorID  The user id for the user who created the event
      */
-    function setCreatorId($creatorID)
+    public function setCreatorId($creatorID)
     {
         $this->creatorID = $creatorID;
     }
@@ -1508,7 +1547,7 @@ class Kronolith_Event {
      *
      * @return string  The title of this event.
      */
-    function getTitle($user = null)
+    public function getTitle($user = null)
     {
         if (isset($this->external) ||
             isset($this->contactID) ||
@@ -1544,7 +1583,7 @@ class Kronolith_Event {
      *
      * @param string  The new title for this event.
      */
-    function setTitle($title)
+    public function setTitle($title)
     {
         $this->title = $title;
     }
@@ -1554,7 +1593,7 @@ class Kronolith_Event {
      *
      * @return string  The description of this event.
      */
-    function getDescription()
+    public function getDescription()
     {
         return $this->description;
     }
@@ -1564,7 +1603,7 @@ class Kronolith_Event {
      *
      * @param string $description  The new description for this event.
      */
-    function setDescription($description)
+    public function setDescription($description)
     {
         $this->description = $description;
     }
@@ -1574,7 +1613,7 @@ class Kronolith_Event {
      *
      * @return string  The location of this event.
      */
-    function getLocation()
+    public function getLocation()
     {
         return $this->location;
     }
@@ -1584,7 +1623,7 @@ class Kronolith_Event {
      *
      * @param string $location  The new location for this event.
      */
-    function setLocation($location)
+    public function setLocation($location)
     {
         $this->location = $location;
     }
@@ -1594,7 +1633,7 @@ class Kronolith_Event {
      *
      * @return boolean  Whether this even is private.
      */
-    function isPrivate()
+    public function isPrivate()
     {
         return $this->private;
     }
@@ -1604,7 +1643,7 @@ class Kronolith_Event {
      *
      * @param boolean $private  Whether this event should be marked private.
      */
-    function setPrivate($private)
+    public function setPrivate($private)
     {
         $this->private = !empty($private);
     }
@@ -1614,7 +1653,7 @@ class Kronolith_Event {
      *
      * @return integer  The status of this event.
      */
-    function getStatus()
+    public function getStatus()
     {
         return $this->status;
     }
@@ -1626,7 +1665,7 @@ class Kronolith_Event {
      *
      * @return boolean  True if the events status is the same as $status.
      */
-    function hasStatus($status)
+    public function hasStatus($status)
     {
         return ($status == $this->status);
     }
@@ -1636,7 +1675,7 @@ class Kronolith_Event {
      *
      * @param integer $status  The new event status.
      */
-    function setStatus($status)
+    public function setStatus($status)
     {
         $this->status = $status;
     }
@@ -1646,7 +1685,7 @@ class Kronolith_Event {
      *
      * @return array  A copy of the attendees array.
      */
-    function getAttendees()
+    public function getAttendees()
     {
         return $this->attendees;
     }
@@ -1660,7 +1699,7 @@ class Kronolith_Event {
      * @return boolean  True if the specified attendee is present for this
      *                  event.
      */
-    function hasAttendee($email)
+    public function hasAttendee($email)
     {
         $email = String::lower($email);
         return isset($this->attendees[$email]);
@@ -1672,7 +1711,7 @@ class Kronolith_Event {
      * @param array $attendees  The new attendees array. This should be of the
      *                          correct format to avoid driver problems.
      */
-    function setAttendees($attendees)
+    public function setAttendees($attendees)
     {
         $this->attendees = array_change_key_case($attendees);
     }
@@ -1688,7 +1727,7 @@ class Kronolith_Event {
      * @param integer $response    The response code of the attendee.
      * @param string $name         The name of the attendee.
      */
-    function addAttendee($email, $attendance, $response, $name = null)
+    public function addAttendee($email, $attendance, $response, $name = null)
     {
         $email = String::lower($email);
         if ($attendance == Kronolith::PART_IGNORE) {
@@ -1715,7 +1754,7 @@ class Kronolith_Event {
      *
      * @param string $email  The email address of the attendee.
      */
-    function removeAttendee($email)
+    public function removeAttendee($email)
     {
         $email = String::lower($email);
         if (isset($this->attendees[$email])) {
@@ -1723,7 +1762,7 @@ class Kronolith_Event {
         }
     }
 
-    function isAllDay()
+    public function isAllDay()
     {
         return $this->allday ||
             ($this->start->hour == 0 && $this->start->min == 0 && $this->start->sec == 0 &&
@@ -1734,17 +1773,17 @@ class Kronolith_Event {
               $this->end->year > $this->start->year));
     }
 
-    function getAlarm()
+    public function getAlarm()
     {
         return $this->alarm;
     }
 
-    function setAlarm($alarm)
+    public function setAlarm($alarm)
     {
         $this->alarm = $alarm;
     }
 
-    function readForm()
+    public function readForm()
     {
         global $prefs, $cManager;
 
@@ -1968,7 +2007,7 @@ class Kronolith_Event {
         $this->initialized = true;
     }
 
-    function html($property)
+    public function html($property)
     {
         global $prefs;
 
@@ -2153,7 +2192,7 @@ class Kronolith_Event {
             '</select>';
     }
 
-    function js($property)
+    public function js($property)
     {
         switch ($property) {
         case 'start[month]':
@@ -2186,7 +2225,7 @@ class Kronolith_Event {
      *
      * @return string
      */
-    function getViewUrl($params = array(), $full = false)
+    public function getViewUrl($params = array(), $full = false)
     {
         $params['eventID'] = $this->eventID;
         if ($this->remoteUrl) {
@@ -2206,7 +2245,7 @@ class Kronolith_Event {
      *
      * @return string
      */
-    function getEditUrl($params = array())
+    public function getEditUrl($params = array())
     {
         $params['view'] = 'EditEvent';
         $params['eventID'] = $this->eventID;
@@ -2225,7 +2264,7 @@ class Kronolith_Event {
      *
      * @return string
      */
-    function getDeleteUrl($params = array())
+    public function getDeleteUrl($params = array())
     {
         $params['view'] = 'DeleteEvent';
         $params['eventID'] = $this->eventID;
@@ -2238,7 +2277,7 @@ class Kronolith_Event {
      *
      * @return string
      */
-    function getExportUrl($params = array())
+    public function getExportUrl($params = array())
     {
         $params['view'] = 'ExportEvent';
         $params['eventID'] = $this->eventID;
@@ -2252,7 +2291,7 @@ class Kronolith_Event {
         return Horde::applicationUrl(Util::addParameter('event.php', $params));
     }
 
-    function getLink($datetime = null, $icons = true, $from_url = null, $full = false)
+    public function getLink($datetime = null, $icons = true, $from_url = null, $full = false)
     {
         global $prefs, $registry;
 
@@ -2384,7 +2423,7 @@ class Kronolith_Event {
      *
      * @return string  A CSS string with color definitions.
      */
-    function getCSSColors($with_attribute = true)
+    public function getCSSColors($with_attribute = true)
     {
         $css = 'background-color:' . $this->_backgroundColor . ';color:' . $this->_foregroundColor;
         if ($with_attribute) {
@@ -2396,7 +2435,7 @@ class Kronolith_Event {
     /**
      * @return string  A tooltip for quick descriptions of this event.
      */
-    function getTooltip()
+    public function getTooltip()
     {
         $tooltip = $this->getTimeRange()
             . "\n" . sprintf(_("Owner: %s"), ($this->getCreatorId() == Auth::getAuth() ?
@@ -2419,7 +2458,7 @@ class Kronolith_Event {
      * @return string  The time range of the event ("All Day", "1:00pm-3:00pm",
      *                 "08:00-22:00").
      */
-    function getTimeRange()
+    public function getTimeRange()
     {
         if ($this->isAllDay()) {
             return _("All day");
@@ -2443,7 +2482,7 @@ class Kronolith_Event {
     /**
      * @return string  The CSS class for the event based on its status.
      */
-    function getStatusClass()
+    public function getStatusClass()
     {
         switch ($this->status) {
         case Kronolith::STATUS_CANCELLED:
@@ -2457,7 +2496,7 @@ class Kronolith_Event {
         return 'event';
     }
 
-    function _formIDEncode($id)
+    private function _formIDEncode($id)
     {
         return str_replace(array('[', ']'),
                            array('_', ''),

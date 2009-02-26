@@ -1,20 +1,21 @@
 <?php
 /**
- * The Kronolith_Driver_sql:: class implements the Kronolith_Driver
- * API for a SQL backend.
+ * The Kronolith_Driver_sql:: class implements the Kronolith_Driver API for a
+ * SQL backend.
  *
  * @author  Luc Saillard <luc.saillard@fr.alcove.com>
  * @author  Chuck Hagenbuch <chuck@horde.org>
+ * @author  Jan Schneider <jan@horde.org>
  * @package Kronolith
  */
-class Kronolith_Driver_sql extends Kronolith_Driver {
-
+class Kronolith_Driver_sql extends Kronolith_Driver
+{
     /**
      * The object handle for the current database connection.
      *
      * @var DB
      */
-    var $_db;
+    private $_db;
 
     /**
      * Handle for the current database connection, used for writing. Defaults
@@ -22,7 +23,7 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
      *
      * @var DB
      */
-    var $_write_db;
+    private $_write_db;
 
     /**
      * Cache events as we fetch them to avoid fetching the same event from the
@@ -30,9 +31,9 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
      *
      * @var array
      */
-    var $_cache = array();
+    private $_cache = array();
 
-    function listAlarms($date, $fullevent = false)
+    public function listAlarms($date, $fullevent = false)
     {
         require_once 'Date/Calc.php';
 
@@ -94,7 +95,7 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
         return is_array($events) ? $events : array();
     }
 
-    function search($query)
+    public function search($query)
     {
         require_once 'Horde/SQL.php';
 
@@ -187,7 +188,7 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
      * @return string|boolean  Returns a string with event_id or false if
      *                         not found.
      */
-    function exists($uid, $calendar_id = null)
+    public function exists($uid, $calendar_id = null)
     {
         $query = 'SELECT event_id  FROM ' . $this->_params['table'] . ' WHERE event_uid = ?';
         $values = array($uid);
@@ -226,7 +227,8 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
      *
      * @return array  Events in the given time range.
      */
-    function listEvents($startDate = null, $endDate = null, $hasAlarm = false)
+    public function listEvents($startDate = null, $endDate = null,
+                               $hasAlarm = false)
     {
         if (empty($endDate)) {
             $endInterval = new Horde_Date(array('mday' => 31, 'month' => 12,
@@ -261,8 +263,8 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
      * @return array  Events in the given time range satisfying the given
      *                conditions.
      */
-    function listEventsConditional($startInterval, $endInterval,
-                                   $conditions = '', $vals = array())
+    public function listEventsConditional($startInterval, $endInterval,
+                                          $conditions = '', $vals = array())
     {
         $q = 'SELECT event_id, event_uid, event_description, event_location,' .
             ' event_private, event_status, event_attendees,' .
@@ -350,7 +352,7 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
         return $events;
     }
 
-    function getEvent($eventId = null)
+    public function getEvent($eventId = null)
     {
         if (is_null($eventId)) {
             return new Kronolith_Event_sql($this);
@@ -399,7 +401,7 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
      *
      * @return Kronolith_Event
      */
-    function getByUID($uid, $calendars = null, $getAll = false)
+    public function getByUID($uid, $calendars = null, $getAll = false)
     {
         $query = 'SELECT event_id, event_uid, calendar_id, event_description,' .
             ' event_location, event_private, event_status, event_attendees,' .
@@ -479,7 +481,7 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
      *
      * @param Kronolith_Event $event  The event to save.
      */
-    function saveEvent(&$event)
+    public function saveEvent($event)
     {
         if ($event->isStored() || $event->exists()) {
             $values = array();
@@ -589,7 +591,7 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
      * @param string $eventId      The event to move.
      * @param string $newCalendar  The new calendar.
      */
-    function move($eventId, $newCalendar)
+    public function move($eventId, $newCalendar)
     {
         /* Fetch the event for later use. */
         $event = $this->getEvent($eventId);
@@ -630,7 +632,7 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
      *
      * @return mixed  True or a PEAR_Error on failure.
      */
-    function delete($calendar)
+    public function delete($calendar)
     {
         $query = 'DELETE FROM ' . $this->_params['table'] . ' WHERE calendar_id = ?';
         $values = array($calendar);
@@ -652,7 +654,7 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
      *
      * @return mixed  True or a PEAR_Error on failure.
      */
-    function deleteEvent($eventId, $silent = false)
+    public function deleteEvent($eventId, $silent = false)
     {
         /* Fetch the event for later use. */
         $event = $this->getEvent($eventId);
@@ -705,7 +707,7 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
      *
      * @return boolean True.
      */
-    function initialize()
+    public function initialize()
     {
         Horde::assertDriverConfig($this->_params, 'calendar',
             array('phptype'));
@@ -753,7 +755,7 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
 
     /**
      */
-    function _initConn(&$db)
+    private function _initConn(&$db)
     {
         // Set DB portability options.
         switch ($db->phptype) {
@@ -798,7 +800,7 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
      *
      * @return mixed  The converted value.
      */
-    function convertFromDriver($value)
+    public function convertFromDriver($value)
     {
         return String::convertCharset($value, $this->_params['charset']);
     }
@@ -811,7 +813,7 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
      *
      * @return mixed  The converted value.
      */
-    function convertToDriver($value)
+    public function convertToDriver($value)
     {
         return String::convertCharset($value, NLS::getCharset(), $this->_params['charset']);
     }
@@ -824,7 +826,7 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
      *
      * @param mixed  True | PEAR_Error
      */
-    function removeUserData($user)
+    public function removeUserData($user)
     {
         if (!Auth::isAdmin()) {
             return PEAR::raiseError(_("Permission Denied"));
@@ -861,14 +863,14 @@ class Kronolith_Driver_sql extends Kronolith_Driver {
 /**
  * @package Kronolith
  */
-class Kronolith_Event_sql extends Kronolith_Event {
-
+class Kronolith_Event_sql extends Kronolith_Event
+{
     /**
      * @var array
      */
-    var $_properties = array();
+    private $_properties = array();
 
-    function fromDriver($SQLEvent)
+    public function fromDriver($SQLEvent)
     {
         $driver = $this->getDriver();
 
@@ -951,7 +953,7 @@ class Kronolith_Event_sql extends Kronolith_Event {
         $this->stored = true;
     }
 
-    function toDriver()
+    public function toDriver()
     {
         $driver = $this->getDriver();
 
@@ -1020,7 +1022,7 @@ class Kronolith_Event_sql extends Kronolith_Event {
         }
     }
 
-    function getProperties()
+    public function getProperties()
     {
         return $this->_properties;
     }
