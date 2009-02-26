@@ -34,8 +34,15 @@ class Kronolith_Driver_Holidays extends Kronolith_Driver
      *
      * @return array  An array of all holidays within the given datespan.
      */
-    public function listEvents($startDate = null, $endDate = null, $hasAlarm = false)
+    public function listEvents($startDate = null, $endDate = null,
+                               $hasAlarm = false)
     {
+        if (!class_exists('Date_Holidays')) {
+            Horde::logMessage('Support for Date_Holidays has been enabled but the package seems to be missing.',
+                              __FILE__, __LINE__, PEAR_LOG_ERR);
+            return array();
+        }
+
         global $language;
 
         $events = array();

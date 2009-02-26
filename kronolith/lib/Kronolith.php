@@ -808,29 +808,6 @@ class Kronolith
     }
 
     /**
-     * Returns a list of events containing holidays occuring between
-     * <code>$startDate</code> and <code>$endDate</code>. The outcome depends
-     * on the user's selection of holiday drivers
-     *
-     * @param int|Horde_Date $startDate  The start of the datespan to be
-     *                                   checked.
-     * @param int|Horde_Date $endDate    The end of the datespan.
-     *
-     * @return array The matching holidays as an array.
-     */
-    public static function listHolidayEvents($startDate = null, $endDate = null)
-    {
-        if (!@include_once('Date/Holidays.php')) {
-            Horde::logMessage('Support for Date_Holidays has been enabled but the package seems to be missing.',
-                              __FILE__, __LINE__, PEAR_LOG_ERR);
-            return array();
-        } else {
-            $dhDriver = Kronolith_Driver::factory('Holidays');
-            return $dhDriver->listEvents($startDate, $endDate);
-        }
-    }
-
-    /**
      * Returns all the events that happen each day within a time period
      *
      * @param int|Horde_Date $startDate  The start of the time range.
@@ -1014,7 +991,8 @@ class Kronolith
 
         /* Holidays */
         if (!empty($GLOBALS['conf']['holidays']['enable'])) {
-            $events = Kronolith::listHolidayEvents($startDate, $endDate);
+            $dhDriver = Kronolith_Driver::factory('Holidays');
+            $events = $dhDriver->listEvents($startDate, $endDate);
             if (!is_a($events, 'PEAR_Error')) {
                 $kronolith_driver->open(Kronolith::getDefaultCalendar(PERMS_SHOW));
                 foreach ($events as $event) {
