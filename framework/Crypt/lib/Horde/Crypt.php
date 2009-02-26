@@ -14,6 +14,13 @@
 class Horde_Crypt
 {
     /**
+     * Singleton instances.
+     *
+     * @var array
+     */
+    static protected $_instances = array();
+
+    /**
      * The temporary directory to use.
      *
      * @var string
@@ -30,8 +37,8 @@ class Horde_Crypt
      * @param array $params  A hash containing any additional configuration or
      *                       parameters a subclass might need.
      *
-     * @return Horde_Crypt  The newly created concrete Horde_Crypt instance, or
-     *                      false on an error.
+     * @return Horde_Crypt  The newly created concrete Horde_Crypt instance.
+     * @throws Horde_Exception
      */
     static public function factory($driver, $params = array())
     {
@@ -43,26 +50,17 @@ class Horde_Crypt
         }
 
         /* Return a base Horde_Crypt object if no driver is specified. */
-        if (empty($driver) || (strcmp($driver, 'none') == 0)) {
+        if (empty($driver) || (strcasecmp($driver, 'none') == 0)) {
             return new Horde_Crypt();
         }
 
-        $class = 'Horde_Crypt_' . $driver;
-        if (!empty($app)) {
-            $class = $app . '_' . $class;
+        $class = (empty($app) ? 'Horde' : $app) . '_Crypt_' . ucfirst($driver);
+
+        if (class_exists($class)) {
+            return new $class($params);
         }
 
-        if (!class_exists($class)) {
-            if (empty($app)) {
-                include_once dirname(__FILE__) . '/Crypt/' . $driver . '.php';
-            } else {
-                include_once $GLOBALS['registry']->get('fileroot', $app) . '/lib/Crypt/' . $driver . '.php';
-            }
-        }
-
-        return class_exists($class)
-            ? new $class($params)
-            : PEAR::raiseError('Class definition of ' . $class . ' not found.');
+        throw new Horde_Exception('Class definition of ' . $class . ' not found.');
     }
 
     /**
@@ -73,7 +71,7 @@ class Horde_Crypt
      * This should be used if multiple crypto backends (and, thus,
      * multiple Horde_Crypt instances) are required.
      *
-     * This method must be invoked as: $var = &Horde_Crypt::singleton()
+     * This method must be invoked as: $var = Horde_Crypt::singleton()
      *
      * @param mixed $driver  The type of concrete Horde_Crypt subclass to
      *                       return. If $driver is an array, then we will look
@@ -82,26 +80,25 @@ class Horde_Crypt
      * @param array $params  A hash containing any additional configuration or
      *                       connection parameters a subclass might need.
      *
-     * @return Horde_Crypt  The concrete Horde_Crypt reference, or false on an
-     *                      error.
+     * @return Horde_Crypt  The concrete Horde_Crypt reference.
+     * @throws Horde_Exception
      */
     static public function &singleton($driver, $params = array())
     {
-        static $instances = array();
+        ksort($params);
+        $signature = hash('md5', serialize(array($driver, $params)));
 
-        $signature = serialize(array($driver, $params));
-        if (!isset($instances[$signature])) {
-            $instances[$signature] = Horde_Crypt::factory($driver, $params);
+        if (!isset(self::$_instances[$signature])) {
+            self::$_instances[$signature] = Horde_Crypt::factory($driver, $params);
         }
 
-        return $instances[$signature];
+        return self::$_instances[$signature];
     }
 
     /**
-     * Outputs error message if we are not using a secure connection.
+     * Throws exception if not using a secure connection.
      *
-     * @return PEAR_Error  Returns a PEAR_Error object if there is no secure
-     *                     connection.
+     * @throws Horde_Exception
      */
     public function requireSecureConnection()
     {
@@ -131,7 +128,7 @@ class Horde_Crypt
             }
         }
 
-        return PEAR::raiseError(_("The encryption features require a secure web connection."));
+        throw new Horde_Exception (_("The encryption features require a secure web connection."));
     }
 
     /**
@@ -156,6 +153,7 @@ class Horde_Crypt
      * @param array $params  An array of arguments needed to decrypt the data.
      *
      * @return array  The decrypted data.
+     * @throws Horde_Exception
      */
     public function decrypt($data, $params = array())
     {
@@ -165,8 +163,6 @@ class Horde_Crypt
     /**
      * Create a temporary file that will be deleted at the end of this
      * process.
-     *
-     * @access private
      *
      * @param string  $descrip  Description string to use in filename.
      * @param boolean $delete   Delete the file automatically?

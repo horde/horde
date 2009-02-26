@@ -30,8 +30,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <dir name="lib">
     <dir name="Horde">
      <dir name="Crypt">
-      <file name="pgp.php" role="php" />
-      <file name="smime.php" role="php" />
+      <file name="Pgp.php" role="php" />
+      <file name="Smime.php" role="php" />
      </dir> <!-- /lib/Horde/Crypt -->
      <file name="Crypt.php" role="php" />
     </dir> <!-- /lib/Horde -->
@@ -99,8 +99,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/Crypt/pgp.php" as="Horde/Crypt/pgp.php" />
-   <install name="lib/Horde/Crypt/smime.php" as="Horde/Crypt/smime.php" />
+   <install name="lib/Horde/Crypt/Pgp.php" as="Horde/Crypt/Pgp.php" />
+   <install name="lib/Horde/Crypt/Smime.php" as="Horde/Crypt/Smime.php" />
    <install name="lib/Horde/Crypt.php" as="Horde/Crypt.php" />
   </filelist>
  </phprelease>
