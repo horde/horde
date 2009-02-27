@@ -477,14 +477,22 @@ class Kronolith
     }
 
     /**
-     * Returns all the events that happen each day within a time period.
+     * Returns all the event ids of the internal backend that might happen
+     * within a time period.
+     *
+     * This method does not calculate an recurring events. The returned list
+     * might contain ids of recurring events that do not actually occur during
+     * the time period, and it only contains an id once, even if there might
+     * be several occurences during the time period.
      *
      * @param object $startDate    The start of the time range.
      * @param object $endDate      The end of the time range.
-     * @param array  $calendars    The calendars to check for events.
-     * @param boolean $alarmsOnly  Return only events with an alarm set
+     * @param array  $calendars    The calendars to check for events. Defaults
+     *                             to all visible calendars.
+     * @param boolean $alarmsOnly  Return only events with an alarm set?
      *
-     * @return array  The events happening in this time period.
+     * @return array  The events happening in this time period. A hash with
+     *                calendar names as keys and arrays of event ids as values.
      */
     public static function listEventIds($startDate = null, $endDate = null,
                                         $calendars = null, $alarmsOnly = false)
@@ -516,14 +524,15 @@ class Kronolith
     }
 
     /**
-     * Returns all the alarms active right on $date.
+     * Returns all the alarms active on a specific date.
      *
-     * @param Horde_Date $date    The start of the time range.
+     * @param Horde_Date $date    The date to check for alarms.
      * @param array $calendars    The calendars to check for events.
      * @param boolean $fullevent  Whether to return complete alarm objects or
      *                            only alarm IDs.
      *
-     * @return array  The alarms active on $date.
+     * @return array  The alarms active on the date. A hash with calendar names
+     *                as keys and arrays of events or event ids as values.
      */
     public static function listAlarms($date, $calendars, $fullevent = false)
     {
@@ -542,11 +551,11 @@ class Kronolith
     }
 
     /**
-     * Search for events with the given properties
+     * Searches for events with the given properties.
      *
-     * @param object $query  The search query
+     * @param object $query  The search query.
      *
-     * @return array  The events
+     * @return array  The events.
      */
     public static function search($query)
     {
@@ -571,238 +580,6 @@ class Kronolith
     }
 
     /**
-     * Initial app setup code.
-     */
-    public static function initialize()
-    {
-        /* Store the request timestamp if it's not already present. */
-        if (!isset($_SERVER['REQUEST_TIME'])) {
-            $_SERVER['REQUEST_TIME'] = time();
-        }
-
-        /* Initialize Kronolith session if we don't have one */
-        if (!isset($_SESSION['kronolith_session'])) {
-            $_SESSION['kronolith_session'] = array();
-            Kronolith::loginTasksFlag(1);
-        }
-
-        /* Fetch display preferences. */
-        $GLOBALS['display_calendars'] = @unserialize($GLOBALS['prefs']->getValue('display_cals'));
-        $GLOBALS['display_remote_calendars'] = @unserialize($GLOBALS['prefs']->getValue('display_remote_cals'));
-        $GLOBALS['display_external_calendars'] = @unserialize($GLOBALS['prefs']->getValue('display_external_cals'));
-
-        if (!is_array($GLOBALS['display_calendars'])) {
-            $GLOBALS['display_calendars'] = array();
-        }
-        if (!is_array($GLOBALS['display_remote_calendars'])) {
-            $GLOBALS['display_remote_calendars'] = array();
-        }
-        if (!is_array($GLOBALS['display_external_calendars'])) {
-            $GLOBALS['display_external_calendars'] = array();
-        }
-
-        /* Update preferences for which calendars to display. If the
-         * user doesn't have any selected calendars to view then fall
-         * back to an available calendar. */
-        if (($calendarId = Util::getFormData('display_cal')) !== null) {
-            if (is_array($calendarId)) {
-                $calendars = $calendarId;
-                $GLOBALS['display_calendars'] = array();
-                $GLOBALS['display_remote_calendars'] = array();
-                foreach ($calendars as $calendarId) {
-                    if (strncmp($calendarId, 'remote_', 7) === 0) {
-                        $calendarId = substr($calendarId, 7);
-                        $GLOBALS['display_remote_calendars'][] = $calendarId;
-                    } elseif (strncmp($calendarId, 'external_', 9) === 0) {
-                        $calendarId = substr($calendarId, 9);
-                        $GLOBALS['display_external_calendars'][] = $calendarId;
-                    } else {
-                        $GLOBALS['display_calendars'][] = $calendarId;
-                    }
-                }
-            } else {
-                /* Specifying a single calendar is always to make sure
-                 * that it's shown. Use the "toggle_calendar" argument
-                 * to toggle the state of a single calendar. */
-                if (strncmp($calendarId, 'remote_', 7) === 0) {
-                    $calendarId = substr($calendarId, 7);
-                    if (!in_array($calendarId, $GLOBALS['display_remote_calendars'])) {
-                        $GLOBALS['display_remote_calendars'][] = $calendarId;
-                    }
-                } elseif (strncmp($calendarId, 'external_', 9) === 0) {
-                    $calendarId = substr($calendarId, 9);
-                    if (!in_array($calendarId, $GLOBALS['display_external_calendars'])) {
-                        $GLOBALS['display_external_calendars'][] = $calendarId;
-                    }
-                } else {
-                    if (!in_array($calendarId, $GLOBALS['display_calendars'])) {
-                        $GLOBALS['display_calendars'][] = $calendarId;
-                    }
-                }
-            }
-        }
-
-        /* Check for single "toggle" calendars. */
-        if (($calendarId = Util::getFormData('toggle_calendar')) !== null) {
-            if (strncmp($calendarId, 'remote_', 7) === 0) {
-                $calendarId = substr($calendarId, 7);
-                if (in_array($calendarId, $GLOBALS['display_remote_calendars'])) {
-                    $key = array_search($calendarId, $GLOBALS['display_remote_calendars']);
-                    unset($GLOBALS['display_remote_calendars'][$key]);
-                } else {
-                    $GLOBALS['display_remote_calendars'][] = $calendarId;
-                }
-            } elseif (strncmp($calendarId, 'external_', 9) === 0) {
-                $calendarId = substr($calendarId, 9);
-                if (in_array($calendarId, $GLOBALS['display_external_calendars'])) {
-                    $key = array_search($calendarId, $GLOBALS['display_external_calendars']);
-                    unset($GLOBALS['display_external_calendars'][$key]);
-                } else {
-                    $GLOBALS['display_external_calendars'][] = $calendarId;
-                }
-            } else {
-                if (in_array($calendarId, $GLOBALS['display_calendars'])) {
-                    $key = array_search($calendarId, $GLOBALS['display_calendars']);
-                    unset($GLOBALS['display_calendars'][$key]);
-                } else {
-                    $GLOBALS['display_calendars'][] = $calendarId;
-                }
-            }
-        }
-
-        /* Make sure all shares exists now to save on checking later. */
-        $GLOBALS['all_calendars'] = Kronolith::listCalendars();
-        $calendar_keys = array_values($GLOBALS['display_calendars']);
-        $GLOBALS['display_calendars'] = array();
-        foreach ($calendar_keys as $id) {
-            if (isset($GLOBALS['all_calendars'][$id])) {
-                $GLOBALS['display_calendars'][] = $id;
-            }
-        }
-
-        /* Make sure all the remote calendars still exist. */
-        $_temp = $GLOBALS['display_remote_calendars'];
-        $GLOBALS['display_remote_calendars'] = array();
-        $_all = @unserialize($GLOBALS['prefs']->getValue('remote_cals'));
-        if (is_array($_all)) {
-            foreach ($_all as $id) {
-                if (in_array($id['url'], $_temp)) {
-                    $GLOBALS['display_remote_calendars'][] = $id['url'];
-                }
-            }
-        }
-        $GLOBALS['prefs']->setValue('display_remote_cals', serialize($GLOBALS['display_remote_calendars']));
-
-        /* Get a list of external calendars. */
-        if (isset($_SESSION['all_external_calendars'])) {
-            $GLOBALS['all_external_calendars'] = $_SESSION['all_external_calendars'];
-        } else {
-            $GLOBALS['all_external_calendars'] = array();
-            $apis = array_unique($GLOBALS['registry']->listAPIs());
-            foreach ($apis as $api) {
-                if ($GLOBALS['registry']->hasMethod($api . '/listTimeObjects')) {
-                    $categories = $GLOBALS['registry']->call($api . '/listTimeObjectCategories');
-                    if (is_a($categories, 'PEAR_Error') || !count($categories)) {
-                        continue;
-                    }
-
-                    $GLOBALS['all_external_calendars'][$api] = $categories;
-                } elseif ($api == 'tasks' && $GLOBALS['registry']->hasMethod('tasks/listTasks')) {
-                    $GLOBALS['all_external_calendars'][$api] = array('_listTasks' => $GLOBALS['registry']->get('name', $GLOBALS['registry']->hasInterface($api)));
-                }
-            }
-            $_SESSION['all_external_calendars'] = $GLOBALS['all_external_calendars'];
-        }
-
-        /* Make sure all the external calendars still exist. */
-        $_temp = $GLOBALS['display_external_calendars'];
-        $GLOBALS['display_external_calendars'] = array();
-        foreach ($GLOBALS['all_external_calendars'] as $api => $categories) {
-            foreach ($categories as $id => $name) {
-                $calendarId = $api . '/' . $id;
-                if (in_array($calendarId, $_temp)) {
-                    $GLOBALS['display_external_calendars'][] = $calendarId;
-                }
-            }
-        }
-        $GLOBALS['prefs']->setValue('display_external_cals', serialize($GLOBALS['display_external_calendars']));
-
-        /* If an authenticated user has no calendars visible and their
-         * personal calendar doesn't exist, create it. */
-        if (Auth::getAuth() &&
-            !count($GLOBALS['display_calendars']) &&
-            !$GLOBALS['kronolith_shares']->exists(Auth::getAuth())) {
-            require_once 'Horde/Identity.php';
-            $identity = &Identity::singleton();
-            $name = $identity->getValue('fullname');
-            if (trim($name) == '') {
-                $name = Auth::removeHook(Auth::getAuth());
-            }
-            $share = &$GLOBALS['kronolith_shares']->newShare(Auth::getAuth());
-            $share->set('name', sprintf(_("%s's Calendar"), $name));
-            $GLOBALS['kronolith_shares']->addShare($share);
-            $GLOBALS['all_calendars'][Auth::getAuth()] = &$share;
-
-            /* Make sure the personal calendar is displayed by default. */
-            if (!in_array(Auth::getAuth(), $GLOBALS['display_calendars'])) {
-                $GLOBALS['display_calendars'][] = Auth::getAuth();
-            }
-
-            /* Calendar auto-sharing with the user's groups */
-            if ($GLOBALS['conf']['autoshare']['shareperms'] != 'none') {
-                $perm_value = 0;
-                switch ($GLOBALS['conf']['autoshare']['shareperms']) {
-                case 'read':
-                    $perm_value = PERMS_READ | PERMS_SHOW;
-                    break;
-                case 'edit':
-                    $perm_value = PERMS_READ | PERMS_SHOW | PERMS_EDIT;
-                    break;
-                case 'full':
-                    $perm_value = PERMS_READ | PERMS_SHOW | PERMS_EDIT | PERMS_DELETE;
-                    break;
-                }
-                $groups = &Group::singleton();
-                $group_list = $groups->getGroupMemberships(Auth::getAuth());
-                if (!is_a($group_list, 'PEAR_Error') && count($group_list)) {
-                    $perm = $share->getPermission();
-                    // Add the default perm, not added otherwise
-                    $perm->addUserPermission(Auth::getAuth(), PERMS_ALL, false);
-                    foreach ($group_list as $group_id => $group_name) {
-                        $perm->addGroupPermission($group_id, $perm_value, false);
-                    }
-                    $share->setPermission($perm);
-                    $share->save();
-                    $GLOBALS['notification']->push(sprintf(_("New calendar created and automatically shared with the following group(s): %s."), implode(', ', $group_list)), 'horde.success');
-                }
-            }
-        }
-
-        $GLOBALS['prefs']->setValue('display_cals', serialize($GLOBALS['display_calendars']));
-
-    }
-
-    /**
-     * Either sets or checks the value of the logintasks flag.
-     *
-     * @param integer $set  The value of the flag.
-     *
-     * @return integer  The value of the flag.
-     *                  0 = No login tasks pending
-     *                  1 = Login tasks pending
-     *                  2 = Login tasks pending, previous tasks interrupted
-     */
-    public static function loginTasksFlag($set = null)
-    {
-        if (($set !== null)) {
-            $_SESSION['kronolith_session']['_logintasks'] = $set;
-        }
-
-        return isset($_SESSION['kronolith_session']['_logintasks']) ?
-            $_SESSION['kronolith_session']['_logintasks'] : 0;
-    }
-
-    /**
      * Returns all the events that happen each day within a time period
      *
      * @param int|Horde_Date $startDate  The start of the time range.
@@ -820,9 +597,9 @@ class Kronolith
      *
      * @return array  The events happening in this time period.
      */
-    public static function listEvents($startDate = null, $endDate = null, $calendars = null,
-                        $showRecurrence = true, $alarmsOnly = false,
-                        $showRemote = true)
+    public static function listEvents($startDate = null, $endDate = null,
+                                      $calendars = null, $showRecurrence = true,
+                                      $alarmsOnly = false, $showRemote = true)
     {
         global $registry;
 
@@ -1232,6 +1009,238 @@ class Kronolith
         $kronolith_driver->open($current_calendar);
 
         return $count;
+    }
+
+    /**
+     * Initial app setup code.
+     */
+    public static function initialize()
+    {
+        /* Store the request timestamp if it's not already present. */
+        if (!isset($_SERVER['REQUEST_TIME'])) {
+            $_SERVER['REQUEST_TIME'] = time();
+        }
+
+        /* Initialize Kronolith session if we don't have one */
+        if (!isset($_SESSION['kronolith_session'])) {
+            $_SESSION['kronolith_session'] = array();
+            Kronolith::loginTasksFlag(1);
+        }
+
+        /* Fetch display preferences. */
+        $GLOBALS['display_calendars'] = @unserialize($GLOBALS['prefs']->getValue('display_cals'));
+        $GLOBALS['display_remote_calendars'] = @unserialize($GLOBALS['prefs']->getValue('display_remote_cals'));
+        $GLOBALS['display_external_calendars'] = @unserialize($GLOBALS['prefs']->getValue('display_external_cals'));
+
+        if (!is_array($GLOBALS['display_calendars'])) {
+            $GLOBALS['display_calendars'] = array();
+        }
+        if (!is_array($GLOBALS['display_remote_calendars'])) {
+            $GLOBALS['display_remote_calendars'] = array();
+        }
+        if (!is_array($GLOBALS['display_external_calendars'])) {
+            $GLOBALS['display_external_calendars'] = array();
+        }
+
+        /* Update preferences for which calendars to display. If the
+         * user doesn't have any selected calendars to view then fall
+         * back to an available calendar. */
+        if (($calendarId = Util::getFormData('display_cal')) !== null) {
+            if (is_array($calendarId)) {
+                $calendars = $calendarId;
+                $GLOBALS['display_calendars'] = array();
+                $GLOBALS['display_remote_calendars'] = array();
+                foreach ($calendars as $calendarId) {
+                    if (strncmp($calendarId, 'remote_', 7) === 0) {
+                        $calendarId = substr($calendarId, 7);
+                        $GLOBALS['display_remote_calendars'][] = $calendarId;
+                    } elseif (strncmp($calendarId, 'external_', 9) === 0) {
+                        $calendarId = substr($calendarId, 9);
+                        $GLOBALS['display_external_calendars'][] = $calendarId;
+                    } else {
+                        $GLOBALS['display_calendars'][] = $calendarId;
+                    }
+                }
+            } else {
+                /* Specifying a single calendar is always to make sure
+                 * that it's shown. Use the "toggle_calendar" argument
+                 * to toggle the state of a single calendar. */
+                if (strncmp($calendarId, 'remote_', 7) === 0) {
+                    $calendarId = substr($calendarId, 7);
+                    if (!in_array($calendarId, $GLOBALS['display_remote_calendars'])) {
+                        $GLOBALS['display_remote_calendars'][] = $calendarId;
+                    }
+                } elseif (strncmp($calendarId, 'external_', 9) === 0) {
+                    $calendarId = substr($calendarId, 9);
+                    if (!in_array($calendarId, $GLOBALS['display_external_calendars'])) {
+                        $GLOBALS['display_external_calendars'][] = $calendarId;
+                    }
+                } else {
+                    if (!in_array($calendarId, $GLOBALS['display_calendars'])) {
+                        $GLOBALS['display_calendars'][] = $calendarId;
+                    }
+                }
+            }
+        }
+
+        /* Check for single "toggle" calendars. */
+        if (($calendarId = Util::getFormData('toggle_calendar')) !== null) {
+            if (strncmp($calendarId, 'remote_', 7) === 0) {
+                $calendarId = substr($calendarId, 7);
+                if (in_array($calendarId, $GLOBALS['display_remote_calendars'])) {
+                    $key = array_search($calendarId, $GLOBALS['display_remote_calendars']);
+                    unset($GLOBALS['display_remote_calendars'][$key]);
+                } else {
+                    $GLOBALS['display_remote_calendars'][] = $calendarId;
+                }
+            } elseif (strncmp($calendarId, 'external_', 9) === 0) {
+                $calendarId = substr($calendarId, 9);
+                if (in_array($calendarId, $GLOBALS['display_external_calendars'])) {
+                    $key = array_search($calendarId, $GLOBALS['display_external_calendars']);
+                    unset($GLOBALS['display_external_calendars'][$key]);
+                } else {
+                    $GLOBALS['display_external_calendars'][] = $calendarId;
+                }
+            } else {
+                if (in_array($calendarId, $GLOBALS['display_calendars'])) {
+                    $key = array_search($calendarId, $GLOBALS['display_calendars']);
+                    unset($GLOBALS['display_calendars'][$key]);
+                } else {
+                    $GLOBALS['display_calendars'][] = $calendarId;
+                }
+            }
+        }
+
+        /* Make sure all shares exists now to save on checking later. */
+        $GLOBALS['all_calendars'] = Kronolith::listCalendars();
+        $calendar_keys = array_values($GLOBALS['display_calendars']);
+        $GLOBALS['display_calendars'] = array();
+        foreach ($calendar_keys as $id) {
+            if (isset($GLOBALS['all_calendars'][$id])) {
+                $GLOBALS['display_calendars'][] = $id;
+            }
+        }
+
+        /* Make sure all the remote calendars still exist. */
+        $_temp = $GLOBALS['display_remote_calendars'];
+        $GLOBALS['display_remote_calendars'] = array();
+        $_all = @unserialize($GLOBALS['prefs']->getValue('remote_cals'));
+        if (is_array($_all)) {
+            foreach ($_all as $id) {
+                if (in_array($id['url'], $_temp)) {
+                    $GLOBALS['display_remote_calendars'][] = $id['url'];
+                }
+            }
+        }
+        $GLOBALS['prefs']->setValue('display_remote_cals', serialize($GLOBALS['display_remote_calendars']));
+
+        /* Get a list of external calendars. */
+        if (isset($_SESSION['all_external_calendars'])) {
+            $GLOBALS['all_external_calendars'] = $_SESSION['all_external_calendars'];
+        } else {
+            $GLOBALS['all_external_calendars'] = array();
+            $apis = array_unique($GLOBALS['registry']->listAPIs());
+            foreach ($apis as $api) {
+                if ($GLOBALS['registry']->hasMethod($api . '/listTimeObjects')) {
+                    $categories = $GLOBALS['registry']->call($api . '/listTimeObjectCategories');
+                    if (is_a($categories, 'PEAR_Error') || !count($categories)) {
+                        continue;
+                    }
+
+                    $GLOBALS['all_external_calendars'][$api] = $categories;
+                } elseif ($api == 'tasks' && $GLOBALS['registry']->hasMethod('tasks/listTasks')) {
+                    $GLOBALS['all_external_calendars'][$api] = array('_listTasks' => $GLOBALS['registry']->get('name', $GLOBALS['registry']->hasInterface($api)));
+                }
+            }
+            $_SESSION['all_external_calendars'] = $GLOBALS['all_external_calendars'];
+        }
+
+        /* Make sure all the external calendars still exist. */
+        $_temp = $GLOBALS['display_external_calendars'];
+        $GLOBALS['display_external_calendars'] = array();
+        foreach ($GLOBALS['all_external_calendars'] as $api => $categories) {
+            foreach ($categories as $id => $name) {
+                $calendarId = $api . '/' . $id;
+                if (in_array($calendarId, $_temp)) {
+                    $GLOBALS['display_external_calendars'][] = $calendarId;
+                }
+            }
+        }
+        $GLOBALS['prefs']->setValue('display_external_cals', serialize($GLOBALS['display_external_calendars']));
+
+        /* If an authenticated user has no calendars visible and their
+         * personal calendar doesn't exist, create it. */
+        if (Auth::getAuth() &&
+            !count($GLOBALS['display_calendars']) &&
+            !$GLOBALS['kronolith_shares']->exists(Auth::getAuth())) {
+            require_once 'Horde/Identity.php';
+            $identity = &Identity::singleton();
+            $name = $identity->getValue('fullname');
+            if (trim($name) == '') {
+                $name = Auth::removeHook(Auth::getAuth());
+            }
+            $share = &$GLOBALS['kronolith_shares']->newShare(Auth::getAuth());
+            $share->set('name', sprintf(_("%s's Calendar"), $name));
+            $GLOBALS['kronolith_shares']->addShare($share);
+            $GLOBALS['all_calendars'][Auth::getAuth()] = &$share;
+
+            /* Make sure the personal calendar is displayed by default. */
+            if (!in_array(Auth::getAuth(), $GLOBALS['display_calendars'])) {
+                $GLOBALS['display_calendars'][] = Auth::getAuth();
+            }
+
+            /* Calendar auto-sharing with the user's groups */
+            if ($GLOBALS['conf']['autoshare']['shareperms'] != 'none') {
+                $perm_value = 0;
+                switch ($GLOBALS['conf']['autoshare']['shareperms']) {
+                case 'read':
+                    $perm_value = PERMS_READ | PERMS_SHOW;
+                    break;
+                case 'edit':
+                    $perm_value = PERMS_READ | PERMS_SHOW | PERMS_EDIT;
+                    break;
+                case 'full':
+                    $perm_value = PERMS_READ | PERMS_SHOW | PERMS_EDIT | PERMS_DELETE;
+                    break;
+                }
+                $groups = &Group::singleton();
+                $group_list = $groups->getGroupMemberships(Auth::getAuth());
+                if (!is_a($group_list, 'PEAR_Error') && count($group_list)) {
+                    $perm = $share->getPermission();
+                    // Add the default perm, not added otherwise
+                    $perm->addUserPermission(Auth::getAuth(), PERMS_ALL, false);
+                    foreach ($group_list as $group_id => $group_name) {
+                        $perm->addGroupPermission($group_id, $perm_value, false);
+                    }
+                    $share->setPermission($perm);
+                    $share->save();
+                    $GLOBALS['notification']->push(sprintf(_("New calendar created and automatically shared with the following group(s): %s."), implode(', ', $group_list)), 'horde.success');
+                }
+            }
+        }
+
+        $GLOBALS['prefs']->setValue('display_cals', serialize($GLOBALS['display_calendars']));
+
+    }
+
+    /**
+     * Either sets or checks the value of the logintasks flag.
+     *
+     * @param integer $set  The value of the flag.
+     *
+     * @return integer  The value of the flag.
+     *                  0 = No login tasks pending
+     *                  1 = Login tasks pending
+     *                  2 = Login tasks pending, previous tasks interrupted
+     */
+    public static function loginTasksFlag($set = null)
+    {
+        if (($set !== null)) {
+            $_SESSION['kronolith_session']['_logintasks'] = $set;
+        }
+
+        return isset($_SESSION['kronolith_session']['_logintasks']) ?
+            $_SESSION['kronolith_session']['_logintasks'] : 0;
     }
 
     /**
