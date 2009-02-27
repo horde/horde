@@ -388,7 +388,6 @@ class IMP_Imap_Tree
         /* Get the mailbox label. */
         $elt['l'] = IMP::getLabel($tmp[$elt['c']]);
 
-
         if ($_SESSION['imp']['protocol'] != 'pop') {
             if (!empty($GLOBALS['conf']['hooks']['display_folder'])) {
                 $this->_setInvisible($elt, !Horde::callHook('_imp_hook_display_folder', array($elt['v']), 'imp'));
@@ -1788,26 +1787,29 @@ class IMP_Imap_Tree
      * @return array  Returns the element with extended information, or false
      *                if not found.  The information returned is as follows:
      * <pre>
-     * 'alt' - The alt text for the icon.
-     * 'base_elt' - The return from get().
-     * 'children' - Does the element have children?
-     * 'container' - Is this a container element?
-     * 'editvfolder' - Can this virtual folder be edited?
-     * 'icon' - The name of the icon graphic to use.
-     * 'icondir' - The path of the icon directory.
-     * 'level' - The deepness level of this element.
-     * 'mbox_val' - A html-ized version of 'value'.
-     * 'msgs' - The number of total messages in the element (if polled).
-     * 'name' - A html-ized version of 'label'.
-     * 'parent' - The parent element value.
-     * 'polled' - Show polled information?
-     * 'recent' - The number of new messages in the element (if polled).
-     * 'special' - An integer mask indicating if this is a "special" element.
-     * 'specialvfolder' - Is this a "special" virtual folder?
-     * 'unseen' - The number of unseen messages in the element (if polled).
-     * 'user_icon' - Use a user defined icon?
-     * 'value' - The value of this element (i.e. element id).
-     * 'vfolder' - Is this a virtual folder?
+     * 'alt' - (string) The alt text for the icon.
+     * 'base_elt' - (array) The return from get().
+     * 'children' - (children) Does the element have children?
+     * 'container' - (boolean) Is this a container element?
+     * 'editvfolder' - (boolean) Can this virtual folder be edited?
+     * 'icon' - (string) The name of the icon graphic to use.
+     * 'icondir' - (string) The path of the icon directory.
+     * 'level' - (integer) The deepness level of this element.
+     * 'mbox_val' - (string) A html-ized version of 'value'.
+     * 'msgs' - (integer) The number of total messages in the element (if
+     *          polled).
+     * 'name' - (string) A html-ized version of 'label'.
+     * 'parent' - (array) The parent element value.
+     * 'polled' - (boolean) Show polled information?
+     * 'recent' - (integer) The number of new messages in the element (if
+     *            polled).
+     * 'special' - (integer) A mask indicating if this is a "special" element.
+     * 'specialvfolder' - (boolean) Is this a "special" virtual folder?
+     * 'unseen' - (integer) The number of unseen messages in the element (if
+     *            polled).
+     * 'user_icon' - (boolean) Use a user defined icon?
+     * 'value' - (string) The value of this element (i.e. element id).
+     * 'vfolder' - (boolean) Is this a virtual folder?
      * </pre>
      */
     public function element($mailbox)
