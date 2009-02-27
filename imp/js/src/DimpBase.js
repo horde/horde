@@ -762,15 +762,13 @@ var DimpBase = {
         if (this.viewport.isFiltering()) {
             label = DIMP.text.search + ' :: ' + (this.viewport.getMetaData('total_rows') || 0) + ' ' + DIMP.text.resfound;
         } else {
+            label = this.viewport.getMetaData('label');
             elt = $(this.getFolderId(this.folder));
             if (elt) {
                 unseen = elt.readAttribute('u');
-                label = elt.readAttribute('l');
                 if (unseen > 0) {
                     label += ' (' + unseen + ')';
                 }
-            } else {
-                label = this.viewport.getMetaData('label');
             }
         }
         DimpCore.setTitle(label);
