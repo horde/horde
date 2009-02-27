@@ -657,7 +657,6 @@ class Kronolith
                 $endStamp = new Horde_Date(array('month' => $endDate->month,
                                                  'mday' => $endDate->mday + 1,
                                                  'year' => $endDate->year));
-                $kronolith_driver->open(Kronolith::getDefaultCalendar(PERMS_SHOW));
                 foreach ($apis as $api => $categories) {
                     if (!$registry->hasMethod($api . '/listTimeObjects')) {
                         /* Backwards compatibility with versions of Nag
@@ -751,7 +750,6 @@ class Kronolith
                 $driver->open($url);
                 $events = $driver->listEvents($startOfPeriod, $endOfPeriod);
                 if (!is_a($events, 'PEAR_Error')) {
-                    $kronolith_driver->open(Kronolith::getDefaultCalendar(PERMS_SHOW));
                     foreach ($events as $event) {
                         Kronolith::_getEvents($results, $event, $startDate,
                                               $endDate, $startOfPeriod,
@@ -768,7 +766,6 @@ class Kronolith
                 $dhDriver->open($driver);
                 $events = $dhDriver->listEvents($startDate, $endDate);
                 if (!is_a($events, 'PEAR_Error')) {
-                    $kronolith_driver->open(Kronolith::getDefaultCalendar(PERMS_SHOW));
                     foreach ($events as $event) {
                         Kronolith::_getEvents($results, $event, $startDate,
                                               $endDate, $startOfPeriod,
@@ -794,8 +791,8 @@ class Kronolith
      * @access private
      */
     public static function _getEvents(&$results, &$event, $startDate, $endDate,
-                        $startOfPeriod, $endOfPeriod,
-                        $showRecurrence)
+                                      $startOfPeriod, $endOfPeriod,
+                                      $showRecurrence)
     {
         if ($event->recurs() && $showRecurrence) {
             /* Recurring Event. */
@@ -960,7 +957,8 @@ class Kronolith
      *                                recurrence.
      * @param Horde_Date $eventEnd    The event's end at the actual recurrence.
      */
-    public static function _addCoverDates(&$results, $event, $eventStart, $eventEnd)
+    public static function _addCoverDates(&$results, $event, $eventStart,
+                                          $eventEnd)
     {
         $i = $eventStart->mday;
         $loopDate = new Horde_Date(array('month' => $eventStart->month,
