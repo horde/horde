@@ -144,9 +144,9 @@ class Horde_Service_Facebook_Users extends Horde_Service_Facebook_Base
      *
      * @return boolean
      */
-    public function &users_setStatus($status, $uid = null, $clear = false, $includeVerb = true)
+    public function &setStatus($status, $uid = null, $clear = false, $includeVerb = true)
     {
-        if (empty($uid) && !$this->_facebook->auth->getSessionKey()) {
+        if (empty($uid) && !$skey = $this->_facebook->auth->getSessionKey()) {
             throw new Horde_Service_Facebook_Exception('users.setStatus requires a uid or a session_key',
                 Horde_Service_Facebook_ErrorCodes::API_EC_PARAM_SESSION_KEY);
         }
@@ -154,10 +154,10 @@ class Horde_Service_Facebook_Users extends Horde_Service_Facebook_Base
                          'clear' => $clear,
                          'status_includes_verb' => $includeVerb);
 
-        if (empty($uid)) {
+        if (!empty($uid)) {
             $params['uid'] = $uid;
         } else {
-            $params['session_key']  = $this->_facebook->auth->getSessionKey();
+            $params['session_key']  = $skey;
         }
 
         return $this->_facebook->call_method('facebook.users.setStatus', $params);

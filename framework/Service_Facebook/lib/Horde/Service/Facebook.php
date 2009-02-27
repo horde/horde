@@ -264,7 +264,7 @@ class Horde_Service_Facebook
             throw new Horde_Service_Facebook_Exception($description, $code);
         }
 
-        $this->batchRequest = new Horde_Service_FacebookbatchRequest($this, $this->_http);
+        $this->batchRequest = new Horde_Service_Facebook_BatchRequest($this, $this->_http);
     }
 
     /**

@@ -22,12 +22,12 @@ class Horde_Service_Facebook_Notifications extends Horde_Service_Facebook_Base
     public function &get()
     {
         // Session key is *required*
-        if (!$this->_facebook->auth->getSessionKey()) {
+        if (!$skey = $this->_facebook->auth->getSessionKey()) {
             throw new Horde_Service_Facebook_Exception('session_key is required',
                                                Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
         }
         return $this->_facebook->call_method('facebook.notifications.get',
-            array('session_key' => $this->_facebook->auth->getSessionKey()));
+            array('session_key' => $skey));
     }
 
     /**

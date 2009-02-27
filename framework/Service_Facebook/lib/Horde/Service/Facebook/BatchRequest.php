@@ -79,7 +79,8 @@ class Horde_Service_Facebook_BatchRequest extends Horde_Service_Facebook_Request
 
         $serial_only = ($this->_batchMode == self::BATCH_MODE_SERIAL_ONLY);
         $params = array('method_feed' => $method_feed_json,
-                        'serial_only' => $serial_only);
+                        'serial_only' => $serial_only,
+                        'session_key' => $this->_facebook->auth->getSessionKey());
         $json = $this->_postRequest('batch.run', $params);
         $result = json_decode($json, true);
         if (is_array($result) && isset($result['error_code'])) {

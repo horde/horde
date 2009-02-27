@@ -8,7 +8,7 @@
  * @category Horde
  * @package Horde_Service_Facebook
  */
-class Horde_Servce_Facebook_Friends extends Horde_Service_Facebook_Base
+class Horde_Service_Facebook_Friends extends Horde_Service_Facebook_Base
 {
     /**
      * Returns whether or not pairs of users are friends.
@@ -51,15 +51,15 @@ class Horde_Servce_Facebook_Friends extends Horde_Service_Facebook_Base
     public function &get($flid = null, $uid = null)
     {
         // Session key is *required*
-        if (!$this->_facebook->auth->getSessionKey()) {
+        if (!$skey = $this->_facebook->auth->getSessionKey()) {
             throw new Horde_Service_Facebook_Exception('session_key is required',
                                                Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
         }
-        $params = array();
-        if ($uid) {
+        $params = array('session_key' => $skey);
+        if (!empty($uid)) {
           $params['uid'] = $uid;
         }
-        if ($flid) {
+        if (!empty($flid)) {
           $params['flid'] = $flid;
         }
 
