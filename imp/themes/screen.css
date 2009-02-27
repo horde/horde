@@ -278,6 +278,9 @@ tr.deleted:hover, tr.deleted-over {
 table.msgheaders, td.msgheader {
     width: 100%;
 }
+table.multipleMsgs td.msgheader {
+    width: auto;
+}
 
 /* Pad the addressbook icon in header compose links. */
 .msgheader img {
