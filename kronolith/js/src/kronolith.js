@@ -356,7 +356,7 @@ KronolithCore = {
             day.moveToBeginOfWeek();
             firstDay = day.clone()
             monthEnd.moveToLastDayOfMonth();
-            monthEnd.moveToBeginOfWeek();
+            monthEnd.moveToEndOfWeek();
 
             // Remove old rows. Maybe we should only rebuild the calendars if
             // necessary.
@@ -472,7 +472,7 @@ KronolithCore = {
     _loadEvents: function(firstDay, lastDay, callback, calendar)
     {
         this.eventsLoading = firstDay.dateString() + lastDay.dateString();
-        this.doAction('ListEvents', { start: firstDay.toJSON(), end: lastDay.toJSON() }, callback);
+        this.doAction('ListEvents', { start: firstDay.dateString(), end: lastDay.dateString() }, callback);
     },
 
     /**
