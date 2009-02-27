@@ -223,6 +223,10 @@ class DIMP
             'alog_message' => _("Message"),
             'alog_success' => _("Success"),
             'alog_warning' => _("Warning"),
+            'statusAnswered' => _("Replied"),
+            'statusForwarded' => _("Forwarded"),
+            'statusUnseen' => _("Unseen"),
+            'statusFlagged' => _("Flagged"),
         ));
 
         /* Gettext strings with individual escaping. */

@@ -2205,7 +2205,7 @@ var DimpBase = {
             var d = s.down('.' + tmp);
             if (r.hasClassName(c.key)) {
                 if (!d) {
-                    s.insert($(elt.cloneNode(false)).addClassName(tmp));
+                    s.insert($(elt.cloneNode(false)).writeAttribute({ className: tmp, title: DIMP.text[tmp] || null }));
                 }
             } else if (d) {
                 d.remove();
