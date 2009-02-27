@@ -10,12 +10,12 @@
  * @author  Chris Hastie <imp@oak-wood.co.uk>
  * @package IMP
  */
-class IMP_IMAP_ACL
+class IMP_Imap_Acl
 {
     /**
      * Singleton instance.
      *
-     * @var IMP_IMAP_ACL
+     * @var IMP_Imap_Acl
      */
     static protected $_instance = null;
 
@@ -39,12 +39,12 @@ class IMP_IMAP_ACL
      * Attempts to return a reference to a concrete object instance.
      * It will only create a new instance if no instance currently exists.
      *
-     * @return IMP_IMAP_ACL  The created concrete instance.
+     * @return IMP_Imap_Acl  The created concrete instance.
      */
     static public function singleton()
     {
         if (!self::$_instance) {
-            self::$_instance = new IMP_IMAP_ACL();
+            self::$_instance = new IMP_Imap_Acl();
         }
 
         return self::$_instance;

@@ -55,7 +55,7 @@ class IMP_Views_ListMessages
             /* Create folder search list. */
             switch ($args['searchfolder']) {
             case 'all':
-                $imptree = &IMP_IMAP_Tree::singleton();
+                $imptree = &IMP_Imap_Tree::singleton();
                 $folder_list = $imptree->folderList();
                 break;
 
@@ -232,7 +232,7 @@ class IMP_Views_ListMessages
 
         /* Get unseen/thread information. */
         if (is_null($search_id)) {
-            $imptree = &IMP_IMAP_Tree::singleton();
+            $imptree = &IMP_Imap_Tree::singleton();
             $info = $imptree->getElementInfo($mbox);
             if (!empty($info)) {
                 $md->unseen = $info['unseen'];
@@ -240,7 +240,7 @@ class IMP_Views_ListMessages
 
             if ($sortpref['by'] == Horde_Imap_Client::SORT_THREAD) {
                 $threadob = $imp_mailbox->getThreadOb();
-                $imp_thread = new IMP_IMAP_Thread($threadob);
+                $imp_thread = new IMP_Imap_Thread($threadob);
                 $md->thread = $imp_thread->getThreadTreeOb($msglist, $sortpref['dir']);
             }
         } else {

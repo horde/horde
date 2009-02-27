@@ -29,16 +29,16 @@ if (empty($conf['user']['allow_folders'])) {
 $subscribe = $prefs->getValue('subscribe');
 $showAll = (!$subscribe || $_SESSION['imp']['showunsub']);
 
-/* Initialize the IMP_IMAP_Tree object. */
-$imptree = &IMP_IMAP_Tree::singleton();
-$mask = IMP_IMAP_TREE::NEXT_SHOWCLOSED;
+/* Initialize the IMP_Imap_Tree object. */
+$imptree = &IMP_Imap_Tree::singleton();
+$mask = IMP_Imap_Tree::NEXT_SHOWCLOSED;
 
 /* Toggle subscribed view, if necessary. */
 if ($subscribe && Util::getFormData('ts')) {
     $showAll = !$showAll;
     $_SESSION['imp']['showunsub'] = $showAll;
     $imptree->showUnsubscribed($showAll);
-    $mask |= IMP_IMAP_TREE::NEXT_SHOWSUB;
+    $mask |= IMP_Imap_Tree::NEXT_SHOWSUB;
 }
 
 /* Start iterating through the list of mailboxes, displaying them. */

@@ -1,6 +1,6 @@
 <?php
 /**
- * The IMP_IMAP_Thread class provides functions to generate thread tree
+ * The IMP_Imap_Thread class provides functions to generate thread tree
  * images.
  *
  * Copyright 2005-2009 The Horde Project (http://www.horde.org/)
@@ -11,7 +11,7 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package IMP
  */
-class IMP_IMAP_Thread
+class IMP_Imap_Thread
 {
     /**
      * The thread data object.
@@ -38,7 +38,7 @@ class IMP_IMAP_Thread
      *
      * @param Horde_Imap_Client_Thread $thread  The thread data object.
      */
-    function __construct($thread)
+    public function __construct($thread)
     {
         $this->_thread = $thread;
     }

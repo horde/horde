@@ -138,7 +138,7 @@ if (count($_POST)) {
 
         /* Use IMP_Tree to determine whether the sent mail folder was
          * created. */
-        $imptree = &IMP_IMAP_Tree::singleton();
+        $imptree = &IMP_Imap_Tree::singleton();
         $imptree->eltDiffStart();
 
         $options = array(

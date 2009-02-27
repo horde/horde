@@ -56,8 +56,8 @@ $folders_url = Horde::selfUrl();
 /* Initialize the IMP_Folder object. */
 $imp_folder = &IMP_Folder::singleton();
 
-/* Initialize the IMP_IMAP_Tree object. */
-$imaptree = &IMP_IMAP_Tree::singleton();
+/* Initialize the IMP_Imap_Tree object. */
+$imaptree = &IMP_Imap_Tree::singleton();
 
 /* $folder_list is already encoded in UTF7-IMAP. */
 $charset = NLS::getCharset();

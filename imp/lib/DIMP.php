@@ -13,6 +13,11 @@
 class DIMP
 {
     /**
+     * Charset cache.
+     */
+    static protected $_charset;
+
+    /**
      * Output a dimp-style action (menubar) link.
      *
      * @param array $params  A list of parameters.
@@ -27,17 +32,16 @@ class DIMP
      *
      * @return string  An HTML link to $url.
      */
-    public function actionButton($params = array())
+    static public function actionButton($params = array())
     {
         $tooltip = (empty($params['tooltip'])) ? '' : $params['tooltip'];
 
         if (empty($params['title'])) {
-            static $charset;
-            if (!isset($charset)) {
-                $charset = NLS::getCharset();
+            if (!isset(self::$_charset)) {
+                self::$_charset = NLS::getCharset();
             }
             $old_error = error_reporting(0);
-            $tooltip = nl2br(htmlspecialchars($tooltip, ENT_QUOTES, $charset));
+            $tooltip = nl2br(htmlspecialchars($tooltip, ENT_QUOTES, self::$_charset));
             $title = $ak = '';
         } else {
             $title = $params['title'];
@@ -63,7 +67,7 @@ class DIMP
      *                        Each entry contains the three elements necessary
      *                        for a Horde::addScriptFile() call.
      */
-    public function header($title, $scripts = array())
+    static public function header($title, $scripts = array())
     {
         // Don't autoload any javascript files.
         Horde::disableAutoloadHordeJS();
@@ -121,7 +125,7 @@ class DIMP
      *
      * @return string  TODO
      */
-    protected function _includeDIMPJSVars()
+    static protected function _includeDIMPJSVars()
     {
         global $browser, $conf, $prefs, $registry;
 
@@ -269,7 +273,7 @@ class DIMP
     /**
      * Return an appended IMP folder string
      */
-    private function _appendedFolderPref($folder)
+    static private function _appendedFolderPref($folder)
     {
         return IMP::folderPref($folder, true);
     }
@@ -279,7 +283,7 @@ class DIMP
      *
      * @return string  The notification JS code.
      */
-    public function notify()
+    static public function notify()
     {
         $GLOBALS['notification']->notify(array('listeners' => 'status'));
         $msgs = $GLOBALS['imp_notify']->getStack(true);
@@ -304,9 +308,9 @@ class DIMP
      *
      * @return array  The object used by the JS code to update the folder tree.
      */
-    public function getFolderResponse($imptree, $changes = null)
+    static public function getFolderResponse($imptree, $changes = null)
     {
-        if ($changes === null) {
+        if (is_null($changes)) {
             $changes = $imptree->eltDiff();
         }
         if (empty($changes)) {
@@ -327,7 +331,7 @@ class DIMP
             foreach ($changes['c'] as $val) {
                 // Skip the base element, since any change there won't ever be
                 // updated on-screen.
-                if ($val != IMP_IMAP_TREE::BASE_ELT) {
+                if ($val != IMP_Imap_Tree::BASE_ELT) {
                     $result['c'][] = DIMP::_createFolderElt($imptree->element($val));
                 }
             }
@@ -362,7 +366,7 @@ class DIMP
      * 'v' (virtual) = Is this a virtual folder? [boolean] [DEFAULT: no]
      * </pre>
      */
-    private function _createFolderElt($elt)
+    static private function _createFolderElt($elt)
     {
         $ob = new stdClass;
         if ($elt['children']) {
@@ -387,27 +391,27 @@ class DIMP
             }
 
             switch ($elt['special']) {
-            case IMP_IMAP_TREE::SPECIAL_INBOX:
+            case IMP_Imap_Tree::SPECIAL_INBOX:
                 $ob->cl = 'inbox';
                 $ob->s = 1;
                 break;
 
-            case IMP_IMAP_TREE::SPECIAL_TRASH:
+            case IMP_Imap_Tree::SPECIAL_TRASH:
                 $ob->cl = 'trash';
                 $ob->s = 1;
                 break;
 
-            case IMP_IMAP_TREE::SPECIAL_SPAM:
+            case IMP_Imap_Tree::SPECIAL_SPAM:
                 $ob->cl = 'spam';
                 $ob->s = 1;
                 break;
 
-            case IMP_IMAP_TREE::SPECIAL_DRAFT:
+            case IMP_Imap_Tree::SPECIAL_DRAFT:
                 $ob->cl = 'drafts';
                 $ob->s = 1;
                 break;
 
-            case IMP_IMAP_TREE::SPECIAL_SENT:
+            case IMP_Imap_Tree::SPECIAL_SENT:
                 $ob->cl = 'sent';
                 $ob->s = 1;
                 break;
@@ -452,7 +456,7 @@ class DIMP
      * 'size' - The size of the attachment in KB (string)
      * </pre>
      */
-    public function getAttachmentInfo($imp_compose)
+    static public function getAttachmentInfo($imp_compose)
     {
         $fwd_list = array();
 
@@ -477,7 +481,7 @@ class DIMP
      *
      * @return array  The array of menu items.
      */
-    public function menuList()
+    static public function menuList()
     {
         if (isset($GLOBALS['conf']['dimp']['menu']['apps'])) {
             $apps = $GLOBALS['conf']['dimp']['menu']['apps'];
@@ -500,7 +504,7 @@ class DIMP
      *
      * @return string  The link to the message composition screen.
      */
-    public function composeLink($args = array(), $extra = array())
+    static public function composeLink($args = array(), $extra = array())
     {
         // IE 6 & 7 handles window.open() URL param strings differently if
         // triggered via an href or an onclick.  Since we have no hint

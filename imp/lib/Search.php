@@ -92,7 +92,7 @@ class IMP_Search
             $_SESSION['imp']['search'] = array('q' => array());
         }
         if (!$no_vf) {
-            $imaptree = &IMP_IMAP_Tree::singleton();
+            $imaptree = &IMP_Imap_Tree::singleton();
             foreach ($this->_getVFolderList() as $key => $val) {
                 if (!empty($val['vfolder']) &&
                     !$this->isVTrashFolder($key) &&
@@ -223,7 +223,7 @@ class IMP_Search
             unset($vfolders[$id]);
             $this->_saveVFolderList($vfolders);
             if (!$no_delete) {
-                $imaptree = &IMP_IMAP_Tree::singleton();
+                $imaptree = &IMP_Imap_Tree::singleton();
                 $imaptree->delete($id);
             }
         }
@@ -330,7 +330,7 @@ class IMP_Search
             $this->_saveVFolderList($vfolders);
         }
 
-        $imaptree = &IMP_IMAP_Tree::singleton();
+        $imaptree = &IMP_Imap_Tree::singleton();
         $imaptree->insertVFolders(array($id => $label));
 
         return $id;
@@ -398,8 +398,8 @@ class IMP_Search
      */
     public function createVINBOXFolder()
     {
-        /* Initialize IMP_IMAP_Tree. */
-        $imaptree = &IMP_IMAP_Tree::singleton();
+        /* Initialize IMP_Imap_Tree. */
+        $imaptree = &IMP_Imap_Tree::singleton();
 
         /* Delete the current Virtual Inbox folder, if it exists. */
         $vinbox_id = $GLOBALS['prefs']->getValue('vinbox_id');

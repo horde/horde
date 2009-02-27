@@ -116,7 +116,7 @@ function _imp_authCredentials()
     $app_name = $GLOBALS['registry']->get('name');
 
     require_once dirname(__FILE__) . '/IMAP.php';
-    $servers = IMP_IMAP::loadServerConfig();
+    $servers = IMP_Imap::loadServerConfig();
     $server_list = array();
     foreach ($servers as $key => $val) {
         $server_list[$key] = $val['name'];
@@ -302,7 +302,7 @@ function _imp_changeLanguage()
     if (IMP::checkAuthentication(true)) {
         $imp_folder = &IMP_Folder::singleton();
         $imp_folder->clearFlistCache();
-        $imaptree = &IMP_IMAP_Tree::singleton();
+        $imaptree = &IMP_Imap_Tree::singleton();
         $imaptree->init();
         $imp_search = new IMP_Search();
         $imp_search->sessionSetup(true);

@@ -119,7 +119,7 @@ function _getIdxString($indices)
 
 function _getPollInformation($mbox)
 {
-    $imptree = IMP_IMAP_Tree::singleton();
+    $imptree = IMP_Imap_Tree::singleton();
     $elt = $imptree->get($mbox);
     if ($imptree->isPolled($elt)) {
         $info = $imptree->getElementInfo($mbox);
@@ -190,7 +190,7 @@ case 'CreateFolder':
         break;
     }
 
-    $imptree = IMP_IMAP_Tree::singleton();
+    $imptree = IMP_Imap_Tree::singleton();
     $imptree->eltDiffStart();
 
     $imp_folder = IMP_Folder::singleton();
@@ -213,7 +213,7 @@ case 'DeleteFolder':
         break;
     }
 
-    $imptree = IMP_IMAP_Tree::singleton();
+    $imptree = IMP_Imap_Tree::singleton();
     $imptree->eltDiffStart();
 
     $imp_folder = IMP_Folder::singleton();
@@ -231,7 +231,7 @@ case 'RenameFolder':
         break;
     }
 
-    $imptree = IMP_IMAP_Tree::singleton();
+    $imptree = IMP_Imap_Tree::singleton();
     $imptree->eltDiffStart();
 
     $imp_folder = IMP_Folder::singleton();
@@ -285,8 +285,8 @@ case 'MarkFolderUnseen':
     break;
 
 case 'ListFolders':
-    $imptree = IMP_IMAP_Tree::singleton();
-    $result = DIMP::getFolderResponse($imptree, array('a' => $imptree->folderList(IMP_IMAP_TREE::FLIST_CONTAINER | IMP_IMAP_TREE::FLIST_VFOLDER), 'c' => array(), 'd' => array()));
+    $imptree = IMP_Imap_Tree::singleton();
+    $result = DIMP::getFolderResponse($imptree, array('a' => $imptree->folderList(IMP_Imap_Tree::FLIST_CONTAINER | IMP_Imap_Tree::FLIST_VFOLDER), 'c' => array(), 'd' => array()));
 
     $quota = _getQuota();
     if (!is_null($quota)) {
@@ -297,7 +297,7 @@ case 'ListFolders':
 case 'PollFolders':
     $result = new stdClass;
 
-    $imptree = IMP_IMAP_Tree::singleton();
+    $imptree = IMP_Imap_Tree::singleton();
 
     $result->poll = array();
     foreach ($imptree->getPollList(true) as $val) {
@@ -653,7 +653,7 @@ case 'ModifyPollFolder':
 
     $add = Util::getPost('add');
 
-    $imptree = IMP_IMAP_Tree::singleton();
+    $imptree = IMP_Imap_Tree::singleton();
 
     $result = new stdClass;
     $result->add = (bool) $add;

@@ -17,7 +17,7 @@
  *   $session_control - Sets special session control limitations
  *
  * Global variables defined:
- *   $imp_imap    - An IMP_IMAP object
+ *   $imp_imap    - An IMP_Imap object
  *   $imp_mbox    - Current mailbox information
  *   $imp_notify  - A Notification_Listener_Mobile object
  *   $imp_search  - An IMP_Search object
@@ -91,7 +91,7 @@ if (!defined('IMP_TEMPLATES')) {
 
 // Initialize global $imp_imap object.
 if (!isset($GLOBALS['imp_imap'])) {
-    $GLOBALS['imp_imap'] = new IMP_IMAP();
+    $GLOBALS['imp_imap'] = new IMP_Imap();
 }
 
 // Start compression.

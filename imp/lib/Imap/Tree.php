@@ -1,6 +1,6 @@
 <?php
 /**
- * The IMP_IMAP_Tree class provides a tree view of the mailboxes in an
+ * The IMP_Imap_Tree class provides a tree view of the mailboxes in an
  * IMAP/POP3 repository.  It provides access functions to iterate through this
  * tree and query information about individual mailboxes.
  * In IMP, folders = IMAP mailboxes so the two terms are used interchangably.
@@ -16,7 +16,7 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package IMP
  */
-class IMP_IMAP_Tree
+class IMP_Imap_Tree
 {
     /* Constants for mailboxElt attributes. */
     const ELT_NOSELECT = 1;
@@ -66,6 +66,13 @@ class IMP_IMAP_Tree
     public $SHARED_KEY;
     public $OTHER_LABEL;
     public $OTHER_KEY;
+
+    /**
+     * Singleton instance
+     *
+     * @var IMP_Imap_Tree
+     */
+    static protected $_instance = null;
 
     /**
      * Array containing the mailbox tree.
@@ -187,29 +194,27 @@ class IMP_IMAP_Tree
     protected $_forceopen = false;
 
     /**
-     * Attempts to return a reference to a concrete IMP_IMAP_Tree instance.
+     * Attempts to return a reference to a concrete IMP_Imap_Tree instance.
      *
-     * If an IMP_IMAP_Tree object is currently stored in the cache, re-create
+     * If an IMP_Imap_Tree object is currently stored in the cache, re-create
      * that object.  Else, create a new instance.  Ensures that only one
      * instance is available at any time.
      *
-     * @return IMP_IMAP_Tree  The object or null.
+     * @return IMP_Imap_Tree  The object or null.
      */
     static public function singleton()
     {
-        static $instance;
-
-        if (!isset($instance)) {
+        if (is_null(self::$_instance)) {
             if (!empty($_SESSION['imp']['cache']['tree'])) {
                 $imp_cache = IMP::getCache();
-                $instance = unserialize($imp_cache->get($_SESSION['imp']['cache']['tree'], 86400));
+                self::$_instance = unserialize($imp_cache->get($_SESSION['imp']['cache']['tree'], 86400));
             }
-            if (empty($instance)) {
-                $instance = new IMP_IMAP_Tree();
+            if (empty(self::$_instance)) {
+                self::$_instance = new IMP_Imap_Tree();
             }
         }
 
-        return $instance;
+        return self::$_instance;
     }
 
     /**
@@ -548,8 +553,8 @@ class IMP_IMAP_Tree
      *
      * @param integer $mask  A mask with the following elements:
      * <pre>
-     * IMP_IMAP_Tree::NEXT_SHOWCLOSED - Don't ignore closed elements.
-     * IMP_IMAP_Tree::NEXT_SHOWSUB - Only show subscribed elements.
+     * IMP_Imap_Tree::NEXT_SHOWCLOSED - Don't ignore closed elements.
+     * IMP_Imap_Tree::NEXT_SHOWSUB - Only show subscribed elements.
      * </pre>
      *
      * @return mixed  Returns the next element or false if the element doesn't
@@ -1672,10 +1677,10 @@ class IMP_IMAP_Tree
      *
      * @param integer $mask  A mask with the following elements:
      * <pre>
-     * IMP_IMAP_Tree::FLIST_CONTAINER - Show container elements.
-     * IMP_IMAP_Tree::FLIST_UNSUB - Show unsubscribed elements.
-     * IMP_IMAP_Tree::FLIST_OB - Return full tree object.
-     * IMP_IMAP_Tree::FLIST_VFOLDER - Show Virtual Folders.
+     * IMP_Imap_Tree::FLIST_CONTAINER - Show container elements.
+     * IMP_Imap_Tree::FLIST_UNSUB - Show unsubscribed elements.
+     * IMP_Imap_Tree::FLIST_OB - Return full tree object.
+     * IMP_Imap_Tree::FLIST_VFOLDER - Show Virtual Folders.
      * </pre>
      * @param string $base  Return all mailboxes below this element.
      *

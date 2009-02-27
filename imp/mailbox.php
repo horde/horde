@@ -596,7 +596,7 @@ $messages = $threadlevel = array();
 
 /* Get thread object, if necessary. */
 if ($sortpref['by'] == Horde_Imap_Client::SORT_THREAD) {
-    $imp_thread = new IMP_IMAP_Thread($imp_mailbox->getThreadOb());
+    $imp_thread = new IMP_Imap_Thread($imp_mailbox->getThreadOb());
     $threadtree = $imp_thread->getThreadImageTree(reset($mbox_info['uids']), $sortpref['dir']);
 }
 

@@ -179,7 +179,7 @@ function prefs_callback()
     if ($prefs->isDirty('subscribe') || $prefs->isDirty('tree_view')) {
         $imp_folder = &IMP_Folder::singleton();
         $imp_folder->clearFlistCache();
-        $imaptree = &IMP_IMAP_Tree::singleton();
+        $imaptree = &IMP_Imap_Tree::singleton();
         $imaptree->init();
     }
 

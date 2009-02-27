@@ -68,7 +68,7 @@ if ($mode == 'thread') {
     $index_array = $imp_mailbox->getIMAPIndex();
     $thread = $threadob->getThread($index_array['index']);
 
-    $imp_thread = new IMP_IMAP_Thread($threadob);
+    $imp_thread = new IMP_Imap_Thread($threadob);
     $threadtree = $imp_thread->getThreadImageTree($thread, false);
     $loop_array = array($imp_mbox['mailbox'] => $thread);
 } else {

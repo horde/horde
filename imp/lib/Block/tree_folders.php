@@ -55,10 +55,10 @@ class Horde_Block_imp_tree_folders extends Horde_Block
         $name_url = Util::addParameter(Horde::applicationUrl('mailbox.php'), 'no_newmail_popup', 1);
 
         /* Initialize the IMP_Tree object. */
-        $imaptree = &IMP_IMAP_Tree::singleton();
-        $mask = IMP_IMAP_Tree::NEXT_SHOWCLOSED;
+        $imaptree = &IMP_Imap_Tree::singleton();
+        $mask = IMP_Imap_Tree::NEXT_SHOWCLOSED;
         if ($GLOBALS['prefs']->getValue('subscribe')) {
-            $mask |= IMP_IMAP_Tree::NEXT_SHOWSUB;
+            $mask |= IMP_Imap_Tree::NEXT_SHOWSUB;
         }
 
         $unseen = 0;
