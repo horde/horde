@@ -33,7 +33,7 @@ class Horde_Service_Facebook_Request
      */
     public function &run()
     {
-        $data = $this->_postRequest();
+        $data = $this->_postRequest($this->_method, $this->_params);
         switch ($this->_facebook->dataFormat) {
         case Horde_Service_Facebook::DATA_FORMAT_JSON:
         case Horde_Service_Facebook::DATA_FORMAT_XML:
@@ -53,13 +53,13 @@ class Horde_Service_Facebook_Request
         return $result;
     }
 
-    protected function _postRequest()
+    protected function _postRequest($method, &$params)
     {
-        $this->_finalizeParams();
+        $this->_finalizeParams($method, $params);
         // TODO: Figure out why passing the array to ->post doesn't work -
         //       we have to manually create the post string or we get an
         //       invalid signature error from FB
-        $post_string = $this->_createPostString($this->_params);
+        $post_string = $this->_createPostString($params);
         $result = $this->_http->post(Horde_Service_Facebook::REST_SERVER_ADDR, $post_string);
         return $result->getBody();
     }
@@ -70,41 +70,41 @@ class Horde_Service_Facebook_Request
      * @param $params
      * @return unknown_type
      */
-    protected function _finalizeParams()
+    protected function _finalizeParams($method, &$params)
     {
-        $this->_addStandardParams();
+        $this->_addStandardParams($method, $params);
         // we need to do this before signing the params
-        $this->_convertToCsv();
-        $this->_params['sig'] = Horde_Service_Facebook_Auth::generateSignature($this->_params, $this->_facebook->secret);
+        $this->_convertToCsv($params);
+        $params['sig'] = Horde_Service_Facebook_Auth::generateSignature($params, $this->_facebook->secret);
     }
 
-    protected function _addStandardParams()
+    protected function _addStandardParams($method, &$params)
     {
         // Select the correct data format.
         if ($this->_facebook->dataFormat == Horde_Service_Facebook::DATA_FORMAT_ARRAY) {
-            $this->_params['format'] = $this->_facebook->internalFormat;
+            $params['format'] = $this->_facebook->internalFormat;
         } else {
-            $this->_params['format'] = $this->_facebook->dataFormat;
+            $params['format'] = $this->_facebook->dataFormat;
         }
 
-        $this->_params['method'] = $this->_method;
-        $this->_params['api_key'] = $this->_facebook->apiKey;
-        $this->_params['call_id'] = microtime(true);
-        if ($this->_params['call_id'] <= $this->_last_call_id) {
-            $this->_params['call_id'] = $this->_last_call_id + 0.001;
+        $params['method'] = $method;
+        $params['api_key'] = $this->_facebook->apiKey;
+        $params['call_id'] = microtime(true);
+        if ($params['call_id'] <= $this->_last_call_id) {
+            $params['call_id'] = $this->_last_call_id + 0.001;
         }
-        $this->_last_call_id = $this->_params['call_id'];
-        if (!isset($this->_params['v'])) {
-            $this->_params['v'] = '1.0';
+        $this->_last_call_id = $params['call_id'];
+        if (!isset($params['v'])) {
+            $params['v'] = '1.0';
         }
         if (!empty($this->_facebook->useSslResources)) {
-            $this->_params['return_ssl_resources'] = true;
+            $params['return_ssl_resources'] = true;
         }
     }
 
-    protected function _convertToCsv()
+    protected function _convertToCsv(&$params)
     {
-        foreach ($this->_params as $key => &$val) {
+        foreach ($params as $key => &$val) {
             if (is_array($val)) {
                 $val = implode(',', $val);
             }

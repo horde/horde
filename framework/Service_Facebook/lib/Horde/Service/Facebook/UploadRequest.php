@@ -47,7 +47,7 @@ class Horde_Service_Facebook_UploadRequest extends Horde_Service_Facebook_Reques
         $delimiter = '--' . $boundary;
         $close_delimiter = $delimiter . '--';
         $content_lines = array();
-        $this->_finalizeParams();
+        $this->_finalizeParams($this->_method, $this->_params);
         foreach ($this->_params as $key => &$val) {
             $content_lines[] = $delimiter;
             $content_lines[] = 'Content-Disposition: form-data; name="' . $key . '"';

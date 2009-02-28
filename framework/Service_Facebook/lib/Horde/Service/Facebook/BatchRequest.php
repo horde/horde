@@ -83,6 +83,7 @@ class Horde_Service_Facebook_BatchRequest extends Horde_Service_Facebook_Request
                         'session_key' => $this->_facebook->auth->getSessionKey());
         $json = $this->_postRequest('batch.run', $params);
         $result = json_decode($json, true);
+
         if (is_array($result) && isset($result['error_code'])) {
           throw new Horde_Service_Facebook_Exception($result['error_msg'],
                                                      $result['error_code']);
