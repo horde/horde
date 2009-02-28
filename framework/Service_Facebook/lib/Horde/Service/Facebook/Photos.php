@@ -3,7 +3,7 @@
  * Photos methods for Horde_Service_Facebook
  *
  */
-class Horde_Service_Facebook_Photos
+class Horde_Service_Facebook_Photos extends Horde_Service_Facebook_Base
 {
     /**
      * Adds a tag with the given information to a photo. See the wiki for details:
@@ -53,7 +53,7 @@ class Horde_Service_Facebook_Photos
             $params['session_key'] = $skey;
         }
 
-        return $this->call_method('facebook.photos.addTag', $params);
+        return $this->_facebook->call_method('facebook.photos.addTag', $params);
     }
 
     /**
@@ -94,7 +94,7 @@ class Horde_Service_Facebook_Photos
             $params['session_key'] = $skey;
         }
 
-        return $this->call_method('facebook.photos.createAlbum', $params);
+        return $this->_facebook->call_method('facebook.photos.createAlbum', $params);
     }
 
     /**
@@ -110,18 +110,28 @@ class Horde_Service_Facebook_Photos
      *
      * @return array  An array of photo objects.
      */
-    public function &get($subj_id, $aid, $pids)
+    public function &get($subj_id = null, $aid = null, $pids = null)
     {
         // Requires a session_key
         if (!$skey = $this->_facebook->auth->getSessionKey()) {
             throw new Horde_Service_Facebook_Exception('photos.addTag requires a session_key',
                                                Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
         }
-        return $this->call_method('facebook.photos.get',
-            array('subj_id' => $subj_id,
-                  'aid' => $aid,
-                  'pids' => $pids,
-                  'session_key' => $skey));
+
+        $params = array('session_key' => $skey);
+        if ($subj_id) {
+            $params['subj_id'] = $subj_id;
+        }
+
+        if ($aid) {
+            $params['aid'] = $aid;
+        }
+
+        if ($pids) {
+            $params['pids'] = $pids;
+        }
+
+        return $this->_facebook->call_method('facebook.photos.get', $params);
     }
 
     /**
@@ -136,7 +146,7 @@ class Horde_Service_Facebook_Photos
      *
      * @returns an array of album objects.
      */
-    public function &getAlbums($uid, $aids)
+    public function &getAlbums($uid = null, $aids = null)
     {
         // Requires a session_key
         if (!$skey = $this->_facebook->auth->getSessionKey()) {
@@ -144,7 +154,7 @@ class Horde_Service_Facebook_Photos
                                                Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
         }
 
-        return $this->call_method('facebook.photos.getAlbums',
+        return $this->_facebook->call_method('facebook.photos.getAlbums',
             array('uid' => $uid,
                   'aids' => $aids,
                   'session_key' => $skey));
@@ -159,7 +169,7 @@ class Horde_Service_Facebook_Photos
      *                subject uid, and two floating-point numbers (xcoord, ycoord)
      *                for tag pixel location.
      */
-    public function &photos_getTags($pids)
+    public function &getTags($pids)
     {
         // Requires a session_key
         if (!$skey = $this->_facebook->auth->getSessionKey()) {
@@ -167,7 +177,7 @@ class Horde_Service_Facebook_Photos
                                                Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
         }
 
-        return $this->call_method('facebook.photos.getTags', array('pids' => $pids, 'session_key' => $skey));
+        return $this->_facebook->call_method('facebook.photos.getTags', array('pids' => $pids, 'session_key' => $skey));
     }
 
     /**
@@ -182,7 +192,7 @@ class Horde_Service_Facebook_Photos
      *
      * @return array  An array of user objects
      */
-    public function photos_upload($file, $aid = null, $caption = null, $uid = null)
+    public function upload($file, $aid = null, $caption = null, $uid = null)
     {
         // Requires either a owner_uid or a session_key
         if (empty($uid) && !$skey = $this->_facebook->auth->getSessionKey()) {
@@ -199,7 +209,7 @@ class Horde_Service_Facebook_Photos
             $params['session_key'] = $skey;
         }
 
-        return $this->call_upload_method('facebook.photos.upload', $params, $file);
+        return $this->_facebook->call_upload_method('facebook.photos.upload', $params, $file);
     }
 
 }
