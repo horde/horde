@@ -2,7 +2,6 @@
 define('HORDE_BASE', '/private/var/www/html/horde');
 require_once HORDE_BASE . '/lib/base.php';
 
-
 // To call Facebook API methods, you will need to set up the application in
 // Facebook, and obtain both the api_key and the app_secret.
 // See:
@@ -58,8 +57,8 @@ $facebook = new Horde_Service_Facebook($apikey, $secret, $context);
 
 
 /** Use a FQL query to get some friend info **/
-//$result = $facebook->fql->run('SELECT name, status FROM user WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 = ' . $uid . ')');
-//var_dump($result);
+$result = $facebook->fql->run('SELECT name, status FROM user WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 = ' . $uid . ')');
+var_dump($result);
 
 /** Similar can be done as so using individual api calls...but takes a *long* time **/
 //$friends = $facebook->friends_get();
@@ -99,7 +98,7 @@ $facebook = new Horde_Service_Facebook($apikey, $secret, $context);
 
 
 /**
- *  Batch mode.
+ * Batch mode.
  * When calling in batch mode, you must assign the results of the method calls
  * as a reference so when run() is called, you still have a handle to the
  * results.
@@ -110,3 +109,21 @@ $friends = &$facebook->friends->get();
 $facebook->batchEnd();
 var_dump($friends);
 var_dump($notifications);
+
+/**
+ * View a user's pictures. $uid should be the user id whose albums you want to
+ * retrieve. (Permissions permitting, of course)
+ */
+$albums = $facebook->photos->getAlbums($uid);
+var_dump($albums);
+$images = $facebook->photos->get('', $albums[0]['aid']);
+var_dump($images);
+
+
+/**
+ * Request the raw JSON (or XML) data
+ */
+$facebook->dataFormat = Horde_Service_Facebook::DATA_FORMAT_JSON;
+$results = $facebook->photos->getAlbums($uid);
+var_dump($results);
+
