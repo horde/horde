@@ -210,7 +210,7 @@ class Horde_Service_Facebook
         case 'internalFormat':
             return $this->_internalFormat;
         }
-        var_dump($value);
+
         // If not, assume it's a method/action class...
         $class = 'Horde_Service_Facebook_' . ucfirst($value);
         if (!empty(self::$_objCache[$class])) {
