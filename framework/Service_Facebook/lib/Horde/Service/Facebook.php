@@ -3,9 +3,9 @@
  * Horde_Service_Facebook class abstracts communication with Facebook's
  * rest interface.
  *
- * Code is basically a refactored version of Facebook's
- * facebookapi_php5_restclient.php library, completely ripped apart and put
- * back together in a Horde friendly way.
+ * This code was originally a Hordified version of Facebook's official PHP
+ * client. However, very little of the original code or design is left. I left
+ * the original copyright notice intact below.
  *
  * Copyright 2009 The Horde Project (http://www.horde.org)
  *
@@ -302,177 +302,6 @@ class Horde_Service_Facebook
         return $old;
     }
 
-
-    /**
-     * Returns groups according to the filters specified.
-     *
-     * @param int $uid     (Optional) User associated with groups.  A null
-     *                     parameter will default to the session user.
-     * @param string $gids (Optional) Comma-separated group ids to query. A null
-     *                     parameter will get all groups for the user.
-     *
-     * @return array  An array of group objects
-     */
-    public function &groups_get($uid, $gids)
-    {
-        return $this->call_method('facebook.groups.get',
-            array('uid' => $uid, 'gids' => $gids));
-    }
-
-    /**
-     * Returns the membership list of a group.
-     *
-     * @param int $gid  Group id
-     *
-     * @return array  An array with four membership lists, with keys 'members',
-     *                'admins', 'officers', and 'not_replied'
-     */
-    public function &groups_getMembers($gid)
-    {
-        return $this->call_method('facebook.groups.getMembers', array('gid' => $gid));
-    }
-
-    /**
-     * Retrieves links posted by the given user.
-     *
-     * @param int    $uid      The user whose links you wish to retrieve
-     * @param int    $limit    The maximimum number of links to retrieve
-     * @param array $link_ids (Optional) Array of specific link
-     *                          IDs to retrieve by this user
-     *
-     * @return array  An array of links.
-     */
-    public function &links_get($uid, $limit, $link_ids = null)
-    {
-        return $this->call_method('links.get',
-            array('uid' => $uid,
-                  'limit' => $limit,
-                  'link_ids' => json_encode($link_ids)));
-    }
-
-    /**
-     * Posts a link on Facebook.
-     *
-     * @param string $url     URL/link you wish to post
-     * @param string $comment (Optional) A comment about this link
-     * @param int    $uid     (Optional) User ID that is posting this link;
-     *                        defaults to current session user
-     *
-     * @return bool
-     */
-    public function &links_post($url, $comment='', $uid = null)
-    {
-        return $this->call_method('links.post',
-            array('uid' => $uid,
-                  'url' => $url,
-                  'comment' => $comment));
-    }
-
-
-    /**
-     * Creates a note with the specified title and content.
-     *
-     * @param string $title   Title of the note.
-     * @param string $content Content of the note.
-     * @param int    $uid     (Optional) The user for whom you are creating a
-     *                        note; defaults to current session user
-     *
-     * @return int   The ID of the note that was just created.
-     */
-    public function &notes_create($title, $content, $uid = null)
-    {
-        return $this->call_method('notes.create',
-            array('uid' => $uid,
-                  'title' => $title,
-                  'content' => $content));
-    }
-
-    /**
-     * Deletes the specified note.
-     *
-     * @param int $note_id  ID of the note you wish to delete
-     * @param int $uid      (Optional) Owner of the note you wish to delete;
-     *                      defaults to current session user
-     *
-     * @return bool
-     */
-    public function &notes_delete($note_id, $uid = null)
-    {
-        return $this->call_method('notes.delete',
-            array('uid' => $uid,
-                  'note_id' => $note_id));
-    }
-
-    /**
-    * Edits a note, replacing its title and contents with the title
-    * and contents specified.
-    *
-    * @param int    $note_id  ID of the note you wish to edit
-    * @param string $title    Replacement title for the note
-    * @param string $content  Replacement content for the note
-    * @param int    $uid      (Optional) Owner of the note you wish to edit;
-    *                         defaults to current session user
-    *
-    * @return bool
-    */
-    public function &notes_edit($note_id, $title, $content, $uid = null) {
-        return $this->call_method('notes.edit',
-            array('uid' => $uid,
-                  'note_id' => $note_id,
-                  'title' => $title,
-                  'content' => $content));
-    }
-
-    /**
-     * Retrieves all notes by a user. If note_ids are specified,
-     * retrieves only those specific notes by that user.
-     *
-     * @param int    $uid      User whose notes you wish to retrieve
-     * @param array  $note_ids (Optional) List of specific note
-     *                         IDs by this user to retrieve
-     *
-     * @return array A list of all of the given user's notes, or an empty list
-     *               if the viewer lacks permissions or if there are no visible
-     *               notes.
-     */
-    public function &notes_get($uid, $note_ids = null)
-    {
-        return $this->call_method('notes.get',
-            array('uid' => $uid,
-                  'note_ids' => json_encode($note_ids)));
-    }
-
-
-
-    /**
-     * Uploads a video.
-     *
-     * @param  string $file        The location of the video on the local filesystem.
-     * @param  string $title       (Optional) A title for the video. Titles over 65 characters in length will be truncated.
-     * @param  string $description (Optional) A description for the video.
-     *
-     * @return array  An array with the video's ID, title, description, and a link to view it on Facebook.
-     */
-    public function video_upload($file, $title = null, $description = null)
-    {
-        return $this->call_upload_method('facebook.video.upload',
-            array('title' => $title,
-                  'description' => $description),
-            $file, self::get_facebook_url('api-video') . '/restserver.php');
-    }
-
-    /**
-     * Returns an array with the video limitations imposed on the current session's
-     * associated user. Maximum length is measured in seconds; maximum size is
-     * measured in bytes.
-     *
-     * @return array  Array with "length" and "size" keys
-     */
-    public function &video_getUploadLimits()
-    {
-        return $this->call_method('facebook.video.getUploadLimits');
-    }
-
     /**
      * Calls the specified normal POST method with the specified parameters.
      *
@@ -559,7 +388,7 @@ class Horde_Service_Facebook
     }
 
     /**
-     * TODO: This will probably be replace
+     * TODO: This will probably be replaced
      * @param $method
      * @param $params
      * @param $file

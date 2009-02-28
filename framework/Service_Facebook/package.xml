@@ -43,6 +43,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
        <file name="Auth.php" role="php" />
        <file name="Feeds.php" role="php" />
        <file name="Photos.php" role="php" />
+       <file name="Groups.php" role="php" />
+       <file name="Links.php" role="php" />
+	   <file name="Notes.php" role="php" />
+       <file name="Videos.php" role="php" />
        <file name="Exception.php" role="php" />
        <file name="ErrorCodes.php" role="php" />
       </dir> <!-- /lib/Horde/Service/Facebook -->
@@ -78,6 +82,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Service/Facebook/Auth.php" as="Horde/Service/Facebook/Auth.php" />   
    <install name="lib/Horde/Service/Facebook/Feeds.php" as="Horde/Service/Facebook/Feeds.php" />   
    <install name="lib/Horde/Service/Facebook/Photos.php" as="Horde/Service/Facebook/Photos.php" />
+   <install name="lib/Horde/Service/Facebook/Groups.php" as="Horde/Service/Facebook/Groups.php" />
+   <install name="lib/Horde/Service/Facebook/Links.php" as="Horde/Service/Facebook/Links.php" />
+   <install name="lib/Horde/Service/Facebook/Notes.php" as="Horde/Service/Facebook/Notes.php" />
+   <install name="lib/Horde/Service/Facebook/Videos.php" as="Horde/Service/Facebook/Videos.php" />
    <install name="lib/Horde/Service/Facebook/Exception.php" as="Horde/Service/Facebook/Exception.php" />
    <install name="lib/Horde/Service/Facebook/ErrorCodes.php" as="Horde/Service/Facebook/ErrorCodes.php" />
    <install name="lib/Horde/Service/Facebook.php" as="Horde/Service/Facebook.php" />
