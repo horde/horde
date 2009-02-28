@@ -21,15 +21,27 @@ class Horde_Service_Facebook_Request
 
     /**
      * Run this request and return the data.
-     * TODO: Still return by ref until the rest of the code is refactored to not
-     * use the original post_request method call.
      *
-     * @return unknown_type
+     * @param string $dataFormat  Optionally specify the datatype to return.
+     *
+     * @return Either raw XML, JSON, or an array of decoded values.
      */
     public function &run()
     {
         $data = $this->_postRequest($this->_method, $this->_params);
-        $result = json_decode($data, true);
+        switch ($this->_facebook->dataFormat) {
+        case Horde_Service_Facebook::DATA_FORMAT_JSON:
+        case Horde_Service_Facebook::DATA_FORMAT_XML:
+            // Return the raw data, calling code is resposible for decoding.
+            return $data;
+
+        case Horde_Service_Facebook::DATA_FORMAT_ARRAY:
+            if ($this->_facebook->internalFormat == Horde_Service_Facebook::DATA_FORMAT_JSON) {
+                $result = json_decode($data, true);
+            } else {
+                $result = $this->_xmlToResult($data);
+            }
+        }
         if (is_array($result) && isset($result['error_code'])) {
             throw new Horde_Service_Facebook_Exception($result['error_msg'], $result['error_code']);
         }
@@ -63,8 +75,13 @@ class Horde_Service_Facebook_Request
 
     protected function _addStandardParams($method, &$params)
     {
-        // We only support JSON
-        $params['format'] = 'json';
+        // Select the correct data format.
+        if ($this->_facebook->dataFormat == Horde_Service_Facebook::DATA_FORMAT_ARRAY) {
+            $params['format'] = $this->_facebook->internalFormat;
+        } else {
+            $params['format'] = $this->_facebook->dataFormat;
+        }
+
         $params['method'] = $method;
         $params['api_key'] = $this->_facebook->api_key;
         $params['call_id'] = microtime(true);
@@ -101,6 +118,33 @@ class Horde_Service_Facebook_Request
         }
 
         return implode('&', $post_params);
+    }
+
+    private function _xmlToResult($xml)
+    {
+        $sxml = simplexml_load_string($xml);
+        $result = self::_simplexmlToArray($sxml);
+
+        return $result;
+    }
+
+    private static function _simplexmlToArray($sxml)
+    {
+        $arr = array();
+        if ($sxml) {
+            foreach ($sxml as $k => $v) {
+                if ($sxml['list']) {
+                    $arr[] = self::_SimplexmlToArray($v);
+                } else {
+                    $arr[$k] = self::_SimplexmlToArray($v);
+                }
+            }
+        }
+        if (sizeof($arr) > 0) {
+            return $arr;
+        } else {
+            return (string)$sxml;
+        }
     }
 
 }

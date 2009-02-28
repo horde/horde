@@ -101,14 +101,37 @@ class Horde_Service_Facebook
      */
     protected $_context;
 
-    static protected $_objCache = array();
+    /**
+     * Return format
+     *
+     * @var Horde_Service_Facebook::DATA_FORMAT_* constant
+     */
+    public $dataFormat = self::DATA_FORMAT_ARRAY;
 
-    // TODO: Implement some kind of instance array for these types of classes...
-    protected $_auth = null; // H_S_Facebook_Auth
+    /**
+     * Data format used internally if DATA_FORMAT_OBJECT is specified.
+     * ('json' or 'xml'). Needed to overcome some current bugs in Facebook's
+     * JSON implementation.
+     */
+    protected $_internalFormat = self::DATA_FORMAT_JSON;
+
+    /**
+     * Cache for the various objects we lazy load in __get()
+     *
+     * @var hash of Horde_Service_Facebook_* objects
+     */
+    static protected $_objCache = array();
 
 
     const API_VALIDATION_ERROR = 1;
     const REST_SERVER_ADDR = 'http://api.facebook.com/restserver.php';
+
+    /**
+     * Data format returned to client code.
+     */
+    const DATA_FORMAT_JSON = 'json';
+    const DATA_FORMAT_XML = 'xml';
+    const DATA_FORMAT_ARRAY = 'array';
 
     /**
      * Const'r
@@ -182,6 +205,13 @@ class Horde_Service_Facebook
      */
     public function __get($value)
     {
+        // First, see if it's an allowed protected value.
+        switch ($value) {
+        case 'internalFormat':
+            return $this->_internalFormat;
+        }
+        var_dump($value);
+        // If not, assume it's a method/action class...
         $class = 'Horde_Service_Facebook_' . ucfirst($value);
         if (!empty(self::$_objCache[$class])) {
             return self::$_objCache[$class];
@@ -254,6 +284,24 @@ class Horde_Service_Facebook
         $this->batchRequest->run();
         $this->batchRequest = null;
     }
+
+    /**
+     * Setter for the internal data format. Returns the previously used
+     * format to make it easier for methods that need a certain format to
+     * reset the old format when done.
+     *
+     * @param Horde_Service_Facebook::DATA_FORMAT_* constant $format
+     *
+     * @return Horde_Service_Facebook::DATA_FORMAT_* constant
+     */
+    public function setInternalFormat($format)
+    {
+        $old = $this->_internalFormat;
+        $this->_internalFormat = $format;
+
+        return $old;
+    }
+
 
     /**
      * Returns groups according to the filters specified.
@@ -443,6 +491,7 @@ class Horde_Service_Facebook
         } else {
             $results = &$this->batchRequest->add($method, $params);
         }
+
         return $results;
     }
 
