@@ -39,6 +39,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
        <file name="Notifications.php" role="php" />
        <file name="Users.php" role="php" />
        <file name="Request.php" role="php" />
+       <file name="UploadRequest.php" role="php" />
        <file name="BatchRequest.php" role="php" />
        <file name="Auth.php" role="php" />
        <file name="Feeds.php" role="php" />
@@ -78,6 +79,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Service/Facebook/Notifications.php" as="Horde/Service/Facebook/Notifications.php" />
    <install name="lib/Horde/Service/Facebook/Users.php" as="Horde/Service/Facebook/Users.php" />
    <install name="lib/Horde/Service/Facebook/Request.php" as="Horde/Service/Facebook/Request.php" />
+   <install name="lib/Horde/Service/Facebook/UploadRequest.php" as="Horde/Service/Facebook/UploadRequest.php" />   
    <install name="lib/Horde/Service/Facebook/BatchRequest.php" as="Horde/Service/Facebook/BatchRequest.php" />
    <install name="lib/Horde/Service/Facebook/Auth.php" as="Horde/Service/Facebook/Auth.php" />   
    <install name="lib/Horde/Service/Facebook/Feeds.php" as="Horde/Service/Facebook/Feeds.php" />   

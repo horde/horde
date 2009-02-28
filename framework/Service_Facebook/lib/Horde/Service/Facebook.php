@@ -327,96 +327,27 @@ class Horde_Service_Facebook
      *
      * @return array A dictionary representing the response.
      */
-    public function call_upload_method($method, $params, $file, $server_addr = null)
+    public function call_upload_method($method, $params, $file)
     {
-        if ($this->batch_queue === null) {
+        if ($this->_batchRequest === null) {
             if (!file_exists($file)) {
                 $code = Horde_Service_Facebook_ErrorCodes::API_EC_PARAM;
                 $description = Horde_Service_Facebook_ErrorCodes::$api_error_descriptions[$code];
                 throw new Horde_Service_Facebook_Exception($description, $code);
             }
-        }
-
-        $json = $this->post_upload_request($method, $params, $file, $server_addr);
-        $result = json_decode($json, true);
-        if (is_array($result) && isset($result['error_code'])) {
-            throw new Horde_Service_Facebook_Exception($result['error_msg'], $result['error_code']);
         } else {
             $code = Horde_Service_Facebook_ErrorCodes::API_EC_BATCH_METHOD_NOT_ALLOWED_IN_BATCH_MODE;
             $description = Horde_Service_Facebook_ErrorCodes::$api_error_descriptions[$code];
             throw new Horde_Service_Facebook_Exception($description, $code);
         }
-
-        return $result;
-    }
-
-    private function post_upload_request($method, $params, $file, $server_addr = null)
-    {
-        // Ensure we ask for JSON
-        $params['format'] = 'json';
-        $server_addr = $server_addr ? $server_addr : self::REST_SERVER_ADDR;
-        $this->finalize_params($method, $params);
-        $result = $this->run_multipart_http_transaction($method, $params, $file, $server_addr);
-        return $result;
-    }
-
-    private function run_http_post_transaction($content_type, $content, $server_addr)
-    {
-        $user_agent = 'Facebook API PHP5 Client 1.1 (non-curl) ' . phpversion();
-        $content_length = strlen($content);
-        $context =
-            array('http' => array('method' => 'POST',
-                                  'user_agent' => $user_agent,
-                                  'header' => 'Content-Type: ' . $content_type . "\r\n" . 'Content-Length: ' . $content_length,
-                                  'content' => $content));
-        $context_id = stream_context_create($context);
-        $sock = fopen($server_addr, 'r', false, $context_id);
-        $result = '';
-        if ($sock) {
-          while (!feof($sock)) {
-            $result .= fgets($sock, 4096);
-          }
-          fclose($sock);
+        $request = new Horde_Service_Facebook_UploadRequest($this, $method, $this->_http, $file, $params);
+        $result = $request->run();
+        $result = json_decode($result, true);
+        if (is_array($result) && isset($result['error_code'])) {
+            throw new Horde_Service_Facebook_Exception($result['error_msg'], $result['error_code']);
         }
-        return $result;
-    }
 
-    /**
-     * TODO: This will probably be replaced
-     * @param $method
-     * @param $params
-     * @param $file
-     * @param $server_addr
-     * @return unknown_type
-     */
-    private function run_multipart_http_transaction($method, $params, $file, $server_addr)
-    {
-        // the format of this message is specified in RFC1867/RFC1341.
-        // we add twenty pseudo-random digits to the end of the boundary string.
-        $boundary = '--------------------------FbMuLtIpArT' .
-                    sprintf("%010d", mt_rand()) .
-                    sprintf("%010d", mt_rand());
-        $content_type = 'multipart/form-data; boundary=' . $boundary;
-        // within the message, we prepend two extra hyphens.
-        $delimiter = '--' . $boundary;
-        $close_delimiter = $delimiter . '--';
-        $content_lines = array();
-        foreach ($params as $key => &$val) {
-            $content_lines[] = $delimiter;
-            $content_lines[] = 'Content-Disposition: form-data; name="' . $key . '"';
-            $content_lines[] = '';
-            $content_lines[] = $val;
-        }
-        // now add the file data
-        $content_lines[] = $delimiter;
-        $content_lines[] = 'Content-Disposition: form-data; filename="' . $file . '"';
-        $content_lines[] = 'Content-Type: application/octet-stream';
-        $content_lines[] = '';
-        $content_lines[] = file_get_contents($file);
-        $content_lines[] = $close_delimiter;
-        $content_lines[] = '';
-        $content = implode("\r\n", $content_lines);
-        return $this->run_http_post_transaction($content_type, $content, $server_addr);
+        return $result;
     }
 
     protected function _logDebug($message)
