@@ -20,7 +20,6 @@ $context = array('http_client' => new Horde_Http_Client(),
 /** Create the facebook object **/
 $facebook = new Horde_Service_Facebook($apikey, $secret, $context);
 
-
 /**
  * Authenticating and logging into a Facebook app from an external site is
  * a complicated and multi-stage process.  For these examples, we are assuming
@@ -32,7 +31,8 @@ $facebook = new Horde_Service_Facebook($apikey, $secret, $context);
  * If we have a valid cookie, this will know about it. This method should also
  * be called both after the user has authorized the application and again after
  * the user has (optionally) authorized infinite sessions (offline_access). Then
- * you would obtain the infinite session_key by calling auth->getSessionKey().
+ * you would obtain the infinite session_key by calling auth->getSessionKey() and
+ * storing the results as you will not be able to retrieve it from FB again.
  * This is the *only* way to obtain the session key.
  */
 //$facebook->auth->validateSession();
@@ -80,6 +80,10 @@ var_dump($result);
 //    // then redirect if needed...
 //    if ($e->getCode() == Horde_Service_Facebook_ErrorCodes::API_EC_PERMISSION_STATUS_UPDATE) {
 //      // Don't have status_update...tell user/provide link to authorize page etc...
+        // You can get the link to the authorize page like this:
+//        $facebook->auth->getExtendedPermUrl(
+//            Horde_Service_Facebook_Auth::EXTEND_PERMS_STATUSUPDATE,
+//            'http://yourcallbackurl.com');
 //    } else {
 //      // Something else
 //      echo $e->getMessage();
