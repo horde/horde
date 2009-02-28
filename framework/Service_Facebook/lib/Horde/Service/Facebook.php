@@ -49,20 +49,6 @@
 class Horde_Service_Facebook
 {
     /**
-     * The application's API Key
-     *
-     * @var stirng
-     */
-    public $api_key;
-
-    /**
-     * The API Secret Key
-     *
-     * @var string
-     */
-    public $secret;
-
-    /**
      * Use only ssl resource flag
      *
      * @var boolean
@@ -70,11 +56,25 @@ class Horde_Service_Facebook
     public $useSslResources = false;
 
     /**
+     * The application's API Key
+     *
+     * @var stirng
+     */
+    protected $_apiKey;
+
+    /**
+     * The API Secret Key
+     *
+     * @var string
+     */
+    protected $_secret;
+
+    /**
      * Holds the batch object when building a batch request.
      *
      * @var Horde_Service_Facebook_Batch
      */
-    public $batchRequest;
+    protected $_batchRequest;
 
     /**
      * Holds an optional logger object
@@ -175,7 +175,7 @@ class Horde_Service_Facebook
 
         $this->_logDebug('Initializing Horde_Service_Facebook');
 
-        $this->api_key = $api_key;
+        $this->_apiKey = $api_key;
         $this->secret = $secret;
 
         if (!empty($context['use_ssl'])) {
@@ -209,6 +209,10 @@ class Horde_Service_Facebook
         switch ($value) {
         case 'internalFormat':
             return $this->_internalFormat;
+        case 'apiKey':
+            return $this->_apiKey;
+        case 'secret':
+            return $this->_secret;
         }
 
         // If not, assume it's a method/action class...
@@ -226,21 +230,11 @@ class Horde_Service_Facebook
     }
 
     /**
-     * Return the current request's url
-     *
-     * @return string
-     */
-    protected function _current_url()
-    {
-        return sprintf("%s/%s", $this->_request->getHost(), $this->_request->getUri());
-    }
-
-    /**
      * Helper function to get the appropriate facebook url
      *
      * @return string
      */
-    public static function get_facebook_url($subdomain = 'www')
+    public static function getFacebookUrl($subdomain = 'www')
     {
         return 'http://' . $subdomain . '.facebook.com';
     }
@@ -252,8 +246,8 @@ class Horde_Service_Facebook
      */
     public function get_login_url($next)
     {
-        return self::get_facebook_url() . '/login.php?v=1.0&api_key='
-            . $this->api_key . ($next ? '&next=' . urlencode($next)  : '');
+        return self::getFacebookUrl() . '/login.php?v=1.0&api_key='
+            . $this->_apiKey . ($next ? '&next=' . urlencode($next)  : '');
     }
 
     /**
@@ -261,13 +255,13 @@ class Horde_Service_Facebook
      */
     public function batchBegin()
     {
-        if ($this->batchRequest !== null) {
+        if ($this->_batchRequest !== null) {
             $code = Horde_Service_Facebook_ErrorCodes::API_EC_BATCH_ALREADY_STARTED;
             $description = Horde_Service_Facebook_ErrorCodes::$api_error_descriptions[$code];
             throw new Horde_Service_Facebook_Exception($description, $code);
         }
 
-        $this->batchRequest = new Horde_Service_Facebook_BatchRequest($this, $this->_http);
+        $this->_batchRequest = new Horde_Service_Facebook_BatchRequest($this, $this->_http);
     }
 
     /**
@@ -275,14 +269,14 @@ class Horde_Service_Facebook
      */
     public function batchEnd()
     {
-        if ($this->batchRequest === null) {
+        if ($this->_batchRequest === null) {
             $code = Horde_Service_Facebook_ErrorCodes::API_EC_BATCH_NOT_STARTED;
             $description = Horde_Service_Facebook_ErrorCodes::$api_error_descriptions[$code];
             throw new Horde_Service_Facebook_Exception($description, $code);
         }
 
-        $this->batchRequest->run();
-        $this->batchRequest = null;
+        $this->_batchRequest->run();
+        $this->_batchRequest = null;
     }
 
     /**
@@ -312,13 +306,13 @@ class Horde_Service_Facebook
      *                'delayed returns' when in a batch context.
      *     See: http://wiki.developers.facebook.com/index.php/Using_batching_API
      */
-    public function &call_method($method, $params = array())
+    public function &callMethod($method, $params = array())
     {
-        if ($this->batchRequest === null) {
+        if ($this->_batchRequest === null) {
             $request = new Horde_Service_Facebook_Request($this, $method, $this->_http, $params);
             $results = &$request->run();
         } else {
-            $results = &$this->batchRequest->add($method, $params);
+            $results = &$this->_batchRequest->add($method, $params);
         }
 
         return $results;

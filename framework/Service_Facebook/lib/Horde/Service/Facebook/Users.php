@@ -20,7 +20,7 @@ class Horde_Service_Facebook_Users extends Horde_Service_Facebook_Base
      */
     public function &getInfo($uids, $fields)
     {
-        return $this->_facebook->call_method('facebook.users.getInfo',
+        return $this->_facebook->callMethod('facebook.users.getInfo',
             array('uids' => $uids,
                   'fields' => $fields,
                   'session_key' => $this->_sessionKey));
@@ -43,7 +43,7 @@ class Horde_Service_Facebook_Users extends Horde_Service_Facebook_Base
      */
     public function &getStandardInfo($uids, $fields)
     {
-        return $this->_facebook->call_method('facebook.users.getStandardInfo',
+        return $this->_facebook->callMethod('facebook.users.getStandardInfo',
             array('uids' => $uids, 'fields' => $fields));
     }
 
@@ -60,7 +60,7 @@ class Horde_Service_Facebook_Users extends Horde_Service_Facebook_Base
                 Horde_Service_Facebook_ErrorCodes::API_EC_PARAM_SESSION_KEY);
         }
 
-        return $this->_facebook->call_method('facebook.users.getLoggedInUser',
+        return $this->_facebook->callMethod('facebook.users.getLoggedInUser',
             array('session_key' => $this->_facebook->auth->getSessionKey()));
     }
 
@@ -85,7 +85,7 @@ class Horde_Service_Facebook_Users extends Horde_Service_Facebook_Base
             $params['uid'] = $uid;
         }
 
-        return $this->_facebook->call_method('facebook.users.hasAppPermission', $params);
+        return $this->_facebook->callMethod('facebook.users.hasAppPermission', $params);
     }
 
     /**
@@ -106,7 +106,7 @@ class Horde_Service_Facebook_Users extends Horde_Service_Facebook_Base
                 Horde_Service_Facebook_ErrorCodes::API_EC_PARAM_SESSION_KEY);
         }
 
-        return $this->_facebook->call_method('facebook.users.isAppUser', $params);
+        return $this->_facebook->callMethod('facebook.users.isAppUser', $params);
     }
 
     /**
@@ -124,7 +124,7 @@ class Horde_Service_Facebook_Users extends Horde_Service_Facebook_Base
                 Horde_Service_Facebook_ErrorCodes::API_EC_PARAM_SESSION_KEY);
         }
 
-        return $this->call_method('facebook.users.isVerified', array('session_key' => $this->_facebook->auth->getSessionKey()));
+        return $this->callMethod('facebook.users.isVerified', array('session_key' => $this->_facebook->auth->getSessionKey()));
     }
 
     /**
@@ -160,7 +160,7 @@ class Horde_Service_Facebook_Users extends Horde_Service_Facebook_Base
             $params['session_key']  = $skey;
         }
 
-        return $this->_facebook->call_method('facebook.users.setStatus', $params);
+        return $this->_facebook->callMethod('facebook.users.setStatus', $params);
     }
 
 }

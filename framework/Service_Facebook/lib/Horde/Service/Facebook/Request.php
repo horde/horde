@@ -83,7 +83,7 @@ class Horde_Service_Facebook_Request
         }
 
         $params['method'] = $method;
-        $params['api_key'] = $this->_facebook->api_key;
+        $params['api_key'] = $this->_facebook->apiKey;
         $params['call_id'] = microtime(true);
         if ($params['call_id'] <= $this->_last_call_id) {
             $params['call_id'] = $this->_last_call_id + 0.001;

@@ -77,8 +77,8 @@ class Horde_Service_Facebook_Auth
      */
     public function getAuthTokenUrl()
     {
-        return $this->_facebook->get_facebook_url() . '/code_gen.php?v=1.0&api_key='
-            . $this->_facebook->api_key;
+        return $this->_facebook->getFacebookUrl() . '/code_gen.php?v=1.0&api_key='
+            . $this->_facebook->apiKey;
     }
 
 
@@ -93,8 +93,8 @@ class Horde_Service_Facebook_Auth
      */
     public function getExtendedPermUrl($perm, $success_url = '', $cancel_url = '')
     {
-        return $this->_facebook->get_facebook_url() . '/authorize.php?v=1'
-            . '&ext_perm=' . $perm . '&api_key=' . $this->_facebook->api_key
+        return $this->_facebook->getFacebookUrl() . '/authorize.php?v=1'
+            . '&ext_perm=' . $perm . '&api_key=' . $this->_facebook->apiKey
             . (!empty($success_url) ? '&next=' . urlencode($success_url) : '')
             . (!empty($cancel_url) ? '&cancel=' . urlencode($cancel_url) : '');
     }
@@ -128,19 +128,16 @@ class Horde_Service_Facebook_Auth
      */
     public function getSession($auth_token)
     {
-        //Check if we are in batch mode
-        if ($this->_facebook->batchRequest === null) {
-            try {
-                $results = $this->_facebook->call_method(
-                    'facebook.auth.getSession',
-                    array('auth_token' => $auth_token));
-                return $results;
-            } catch (Horde_Service_Facebook_Exception $e) {
-                if ($e->getCode() != Horde_Service_Facebook_ErrorCodes::API_EC_PARAM) {
-                    // API_EC_PARAM means we don't have a logged in user, otherwise who
-                    // knows what it means, so just throw it.
-                    throw $e;
-                }
+        try {
+            $results = $this->_facebook->callMethod(
+                'facebook.auth.getSession',
+                array('auth_token' => $auth_token));
+            return $results;
+        } catch (Horde_Service_Facebook_Exception $e) {
+            if ($e->getCode() != Horde_Service_Facebook_ErrorCodes::API_EC_PARAM) {
+                // API_EC_PARAM means we don't have a logged in user, otherwise who
+                // knows what it means, so just throw it.
+                throw $e;
             }
         }
     }
@@ -154,7 +151,7 @@ class Horde_Service_Facebook_Auth
      */
     public function createToken()
     {
-        return $this->_facebook->call_method('facebook.auth.createToken');
+        return $this->_facebook->callMethod('facebook.auth.createToken');
     }
 
     /**
@@ -172,7 +169,7 @@ class Horde_Service_Facebook_Auth
             'No Session', Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
         }
 
-        return $this->_facebook->call_method('facebook.auth.expireSession', array('session_key' => $this->_sessionKey));
+        return $this->_facebook->callMethod('facebook.auth.expireSession', array('session_key' => $this->_sessionKey));
     }
 
     /**
@@ -182,12 +179,12 @@ class Horde_Service_Facebook_Auth
     public function expireSession()
     {
         if ($this->_expireSession()) {
-            if ($this->_request->getCookie($this->_facebook->api_key . '_user')) {
+            if ($this->_request->getCookie($this->_facebook->apiKey . '_user')) {
                 $cookies = array('user', 'session_key', 'expires', 'ss');
                 foreach ($cookies as $name) {
-                    setcookie($this->_facebook->api_key . '_' . $name, false, time() - 3600);
+                    setcookie($this->_facebook->apiKey . '_' . $name, false, time() - 3600);
                 }
-                setcookie($this->_facebook->api_key, false, time() - 3600);
+                setcookie($this->_facebook->apiKey, false, time() - 3600);
             }
 
             // now, clear the rest of the stored state
@@ -248,12 +245,12 @@ class Horde_Service_Facebook_Auth
             $this->setUser($user, $sessionKey, $expires);
 
         } elseif (!$ignore_cookies &&
-                  $fb_params = $this->_getParams($this->_request->getCookie(), null, $this->_facebook->api_key)) {
+                  $fb_params = $this->_getParams($this->_request->getCookie(), null, $this->_facebook->apiKey)) {
 
             // Nothing yet, try cookies...this is where we will get our values
             // for an extenral web app accessing FB's API - assuming the session
             // has already been retrieved previously.
-            $base_domain_cookie = 'base_domain_' . $this->_facebook->api_key;
+            $base_domain_cookie = 'base_domain_' . $this->_facebook->apiKey;
             if ($this->_request->getCookie($base_domain_cookie)) {
                 $this->_base_domain = $this->_request->getCookie($base_domain_cookie);
             }
@@ -392,12 +389,12 @@ class Horde_Service_Facebook_Auth
             $cookies['expires'] = $expires;
         }
         foreach ($cookies as $name => $val) {
-            setcookie($this->_facebook->api_key . '_' . $name, $val, (int)$expires, '', $this->_base_domain);
+            setcookie($this->_facebook->apiKey . '_' . $name, $val, (int)$expires, '', $this->_base_domain);
         }
         $sig = self::generateSignature($cookies, $this->_facebook->secret);
-        setcookie($this->_facebook->api_key, $sig, (int)$expires, '', $this->_base_domain);
+        setcookie($this->_facebook->apiKey, $sig, (int)$expires, '', $this->_base_domain);
         if ($this->_base_domain != null) {
-            $base_domain_cookie = 'base_domain_' . $this->_facebook->api_key;
+            $base_domain_cookie = 'base_domain_' . $this->_facebook->apiKey;
             setcookie($base_domain_cookie, $this->_base_domain, (int)$expires, '', $this->_base_domain);
         }
     }
@@ -413,8 +410,8 @@ class Horde_Service_Facebook_Auth
      */
     public function setUser($user, $sessionKey, $expires = null, $no_cookie = false)
     {
-        if ($no_cookie || !$this->_request->getCookie($this->_facebook->api_key . '_user') ||
-            $this->_request->getCookie($this->_facebook->api_key . '_user') != $user) {
+        if ($no_cookie || !$this->_request->getCookie($this->_facebook->apiKey . '_user') ||
+            $this->_request->getCookie($this->_facebook->apiKey . '_user') != $user) {
 
             $this->setCookies($user, $sessionKey, $expires);
         }

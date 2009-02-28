@@ -32,7 +32,7 @@ class Horde_Service_Facebook_Videos extends Horde_Service_Facebook_Base
                   'description' => $description,
                   'session_key' => $skey),
             $file,
-            Horde_Service_Facebook::get_facebook_url('api-video') . '/restserver.php');
+            Horde_Service_Facebook::getFacebookUrl('api-video') . '/restserver.php');
     }
 
     /**
@@ -50,7 +50,7 @@ class Horde_Service_Facebook_Videos extends Horde_Service_Facebook_Base
                                                Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
         }
 
-        return $this->_facebook->call_method('facebook.video.getUploadLimits',
+        return $this->_facebook->callMethod('facebook.video.getUploadLimits',
             array('session_key' => $skey));
     }
 

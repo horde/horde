@@ -36,7 +36,7 @@ class Horde_Service_Facebook_Feeds extends Horde_Service_Facebook_Base
             $actionLinks = json_encode($actionLinks);
         }
 
-        return $this->_facebook->call_method('facebook.feed.registerTemplateBundle',
+        return $this->_facebook->callMethod('facebook.feed.registerTemplateBundle',
             array('one_line_story_templates' => $oneLineStory,
                   'short_story_templates' => $shortStory,
                   'full_story_template' => $fullStory,
@@ -51,7 +51,7 @@ class Horde_Service_Facebook_Feeds extends Horde_Service_Facebook_Base
      */
     public function &getRegisteredTemplateBundles()
     {
-        return $this->_facebook->call_method('facebook.feed.getRegisteredTemplateBundles');
+        return $this->_facebook->callMethod('facebook.feed.getRegisteredTemplateBundles');
     }
 
     /**
@@ -64,7 +64,7 @@ class Horde_Service_Facebook_Feeds extends Horde_Service_Facebook_Base
      */
     public function &getRegisteredTemplateBundleByID($id)
     {
-        return $this->_facebook->call_method('facebook.feed.getRegisteredTemplateBundleByID',
+        return $this->_facebook->callMethod('facebook.feed.getRegisteredTemplateBundleByID',
             array('template_bundle_id' => $id));
     }
 
@@ -77,7 +77,7 @@ class Horde_Service_Facebook_Feeds extends Horde_Service_Facebook_Base
      */
     public function &deactivateTemplateBundleByID($id)
     {
-        return $this->_facebook->call_method('facebook.feed.deactivateTemplateBundleByID',
+        return $this->_facebook->callMethod('facebook.feed.deactivateTemplateBundleByID',
             array('template_bundle_id' => $id));
     }
 
@@ -119,7 +119,7 @@ class Horde_Service_Facebook_Feeds extends Horde_Service_Facebook_Base
             $targetIds = trim($targetIds, "[]");
         }
 
-        return $this->_facebook->call_method('facebook.feed.publishUserAction',
+        return $this->_facebook->callMethod('facebook.feed.publishUserAction',
             array('template_bundle_id' => $bundleId,
                   'template_data' => $data,
                   'target_ids' => $targetIds,
@@ -137,7 +137,7 @@ class Horde_Service_Facebook_Feeds extends Horde_Service_Facebook_Base
      */
     public function &getAppFriendStories()
     {
-        return $this->_facebook->call_method('facebook.feed.getAppFriendStories');
+        return $this->_facebook->callMethod('facebook.feed.getAppFriendStories');
     }
 
 }

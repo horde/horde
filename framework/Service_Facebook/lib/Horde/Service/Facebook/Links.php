@@ -27,7 +27,7 @@ class Horde_Service_Facebook_Links extends Horde_Service_Facebook_Base
             throw new Horde_Service_Facebook_Exception('session_key is required',
                                                Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
         }
-        return $this->_facebook->call_method('links.get',
+        return $this->_facebook->callMethod('links.get',
             array('uid' => $uid,
                   'limit' => $limit,
                   'link_ids' => json_encode($link_ids),
@@ -51,7 +51,7 @@ class Horde_Service_Facebook_Links extends Horde_Service_Facebook_Base
             throw new Horde_Service_Facebook_Exception('session_key is required',
                                                Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
         }
-        return $this->_facebook->call_method('links.post',
+        return $this->_facebook->callMethod('links.post',
             array('uid' => $uid,
                   'url' => $url,
                   'comment' => $comment,

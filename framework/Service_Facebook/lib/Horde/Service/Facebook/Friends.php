@@ -34,7 +34,7 @@ class Horde_Service_Facebook_Friends extends Horde_Service_Facebook_Base
                                                Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
         }
 
-        return $this->_facebook->call_method('facebook.friends.areFriends',
+        return $this->_facebook->callMethod('facebook.friends.areFriends',
             array('uids1' => $uids1,
                   'uids2' => $uids2,
                   'session_key' => $skey));
@@ -63,7 +63,7 @@ class Horde_Service_Facebook_Friends extends Horde_Service_Facebook_Base
           $params['flid'] = $flid;
         }
 
-        return $this->_facebook->call_method('facebook.friends.get', $params);
+        return $this->_facebook->callMethod('facebook.friends.get', $params);
     }
 
     /**
@@ -78,7 +78,7 @@ class Horde_Service_Facebook_Friends extends Horde_Service_Facebook_Base
             throw new Horde_Service_Facebook_Exception('session_key is required',
                                                Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
         }
-        return $this->_facebook->call_method('facebook.friends.getLists',
+        return $this->_facebook->callMethod('facebook.friends.getLists',
              array('session_key' => $this->_facebook->auth->getSessionKey()));
     }
 

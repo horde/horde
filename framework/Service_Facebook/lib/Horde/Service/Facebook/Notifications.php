@@ -26,7 +26,7 @@ class Horde_Service_Facebook_Notifications extends Horde_Service_Facebook_Base
             throw new Horde_Service_Facebook_Exception('session_key is required',
                                                Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
         }
-        return $this->_facebook->call_method('facebook.notifications.get',
+        return $this->_facebook->callMethod('facebook.notifications.get',
             array('session_key' => $skey));
     }
 
@@ -45,7 +45,7 @@ class Horde_Service_Facebook_Notifications extends Horde_Service_Facebook_Base
                                                Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
         }
 
-        return $this->call_method('facebook.notifications.send',
+        return $this->callMethod('facebook.notifications.send',
             array('to_ids' => $to_ids,
                   'notification' => $notification,
                   'type' => $type,
@@ -72,7 +72,7 @@ class Horde_Service_Facebook_Notifications extends Horde_Service_Facebook_Base
             throw new Horde_Service_Facebook_Exception('session_key is required',
                                                Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
         }
-        return $this->call_method('facebook.notifications.sendEmail',
+        return $this->callMethod('facebook.notifications.sendEmail',
             array('recipients' => $recipients,
                   'subject' => $subject,
                   'text' => $text,

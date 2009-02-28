@@ -59,7 +59,7 @@ class Horde_Service_Facebook_Photos extends Horde_Service_Facebook_Base
         if ($this->_facebook->dataFormat == Horde_Service_Facebook::DATA_FORMAT_ARRAY) {
             $oldFormat = $this->_facebook->setInternalFormat(Horde_Service_Facebook::DATA_FORMAT_XML);
         }
-        $results = $this->_facebook->call_method('facebook.photos.addTag', $params);
+        $results = $this->_facebook->callMethod('facebook.photos.addTag', $params);
         if (!empty($oldFormat)) {
             $this->_facebook->setInternalFormat($oldFormat);
         }
@@ -112,7 +112,7 @@ class Horde_Service_Facebook_Photos extends Horde_Service_Facebook_Base
         if ($this->_facebook->dataFormat == Horde_Service_Facebook::DATA_FORMAT_ARRAY) {
             $oldFormat = $this->_facebook->setInternalFormat(Horde_Service_Facebook::DATA_FORMAT_XML);
         }
-        $results = $this->_facebook->call_method('facebook.photos.createAlbum', $params);
+        $results = $this->_facebook->callMethod('facebook.photos.createAlbum', $params);
         if (!empty($oldFormat)) {
             $this->_facebook->setInternalFormat($oldFormat);
         }
@@ -160,7 +160,7 @@ class Horde_Service_Facebook_Photos extends Horde_Service_Facebook_Base
         if ($this->_facebook->dataFormat == Horde_Service_Facebook::DATA_FORMAT_ARRAY) {
             $oldFormat = $this->_facebook->setInternalFormat(Horde_Service_Facebook::DATA_FORMAT_XML);
         }
-        $results = $this->_facebook->call_method('facebook.photos.get', $params);
+        $results = $this->_facebook->callMethod('facebook.photos.get', $params);
 
         if (!empty($oldFormat)) {
             $this->_facebook->setInternalFormat($oldFormat);
@@ -195,7 +195,7 @@ class Horde_Service_Facebook_Photos extends Horde_Service_Facebook_Base
         if ($this->_facebook->dataFormat == Horde_Service_Facebook::DATA_FORMAT_ARRAY) {
             $oldFormat = $this->_facebook->setInternalFormat(Horde_Service_Facebook::DATA_FORMAT_XML);
         }
-        $results = $this->_facebook->call_method('facebook.photos.getAlbums',
+        $results = $this->_facebook->callMethod('facebook.photos.getAlbums',
                                                  array('uid' => $uid,
                                                        'aids' => $aids,
                                                        'session_key' => $skey));
@@ -229,7 +229,7 @@ class Horde_Service_Facebook_Photos extends Horde_Service_Facebook_Base
         if ($this->_facebook->dataFormat == Horde_Service_Facebook::DATA_FORMAT_ARRAY) {
             $oldFormat = $this->_facebook->setInternalFormat(Horde_Service_Facebook::DATA_FORMAT_XML);
         }
-        $results = $this->_facebook->call_method('facebook.photos.getTags', array('pids' => $pids, 'session_key' => $skey));
+        $results = $this->_facebook->callMethod('facebook.photos.getTags', array('pids' => $pids, 'session_key' => $skey));
         if (!empty($oldFormat)) {
             $this->_facebook->setInternalFormat($oldFormat);
         }
