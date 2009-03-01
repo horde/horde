@@ -656,31 +656,7 @@ class Kronolith
                                                  'mday' => $endDate->mday + 1,
                                                  'year' => $endDate->year));
                 foreach ($apis as $api => $categories) {
-                    if (!$registry->hasMethod($api . '/listTimeObjects')) {
-                        /* Backwards compatibility with versions of Nag
-                         * without the listTimeObjects API call. */
-                        if ($api == 'tasks' && $registry->hasMethod('tasks/listTasks')) {
-                            $taskList = $registry->call('tasks/listTasks');
-                            if (is_a($taskList, 'PEAR_Error')) {
-                                continue;
-                            }
-
-                            $eventsList = array();
-                            foreach ($taskList as $task) {
-                                if (!$task['due'] && !empty($task['completed'])) {
-                                    continue;
-                                }
-                                $eventsList[$task['task_id']] = array(
-                                    'id' => $task['task_id'],
-                                    'title' => sprintf(_("Due: %s"), $task['name']),
-                                    'description' => $task['desc'],
-                                    'start' => $task['due'],
-                                    'end' => $task['due'],
-                                    'params' => array('task' => $task['task_id'],
-                                                      'tasklist' => $task['tasklist_id']));
-                            }
-                        }
-                    } else {
+                    if ($registry->hasMethod($api . '/listTimeObjects')) {
                         $eventsList = $registry->call($api . '/listTimeObjects', array($categories, $startDate, $endDate));
                         if (is_a($eventsList, 'PEAR_Error')) {
                             $GLOBALS['notification']->push($eventsList);
