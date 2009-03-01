@@ -613,15 +613,14 @@ class Kronolith
             $calendars = $GLOBALS['display_calendars'];
         }
 
+        $startDate = clone $startDate;
+        $startDate->hour = $startDate->min = $startDate->sec = 0;
+        $endDate = clone $endDate;
+        $endDate->hour = 23;
+        $endDate->min = $endDate->sec = 59;
         $kronolith_driver = self::getDriver();
+
         $eventIds = Kronolith::listEventIds($startDate, $endDate, $calendars, $alarmsOnly);
-
-        $startOfPeriod = clone $startDate;
-        $startOfPeriod->hour = $startOfPeriod->min = $startOfPeriod->sec = 0;
-        $endOfPeriod = clone $endDate;
-        $endOfPeriod->hour = 23;
-        $endOfPeriod->min = $endOfPeriod->sec = 59;
-
         $results = array();
         foreach ($eventIds as $cal => $events) {
             if (is_a($events, 'PEAR_Error')) {
@@ -635,9 +634,8 @@ class Kronolith
                     return $event;
                 }
 
-                Kronolith::_getEvents($results, $event, $startDate, $endDate,
-                                      $startOfPeriod, $endOfPeriod,
-                                      $showRecurrence);
+                Kronolith::addEvents($results, $event, $startDate, $endDate,
+                                     $showRecurrence);
             }
         }
 
@@ -696,10 +694,10 @@ class Kronolith
                         /* Ignore events out of our period. */
                         if (
                             /* Starts after the period. */
-                            $eventStart->compareDateTime($endOfPeriod) > 0 ||
+                            $eventStart->compareDateTime($endDate) > 0 ||
                             /* End before the period and doesn't recur. */
                             (!isset($eventsListItem['recurrence']) &&
-                             $eventEnd->compareDateTime($startOfPeriod) < 0)) {
+                             $eventEnd->compareDateTime($startDate) < 0)) {
                             continue;
                         }
 
@@ -717,7 +715,7 @@ class Kronolith
                             $recurrence->setRecurType($eventsListItem['recurrence']['type']);
                             if (isset($eventsListItem['recurrence']['end'])) {
                                 $recurrence->setRecurEnd($eventsListItem['recurrence']['end']);
-                                if ($recurrence->recurEnd->compareDateTime($startOfPeriod) < 0) {
+                                if ($recurrence->recurEnd->compareDateTime($startDate) < 0) {
                                     continue;
                                 }
                             }
@@ -737,9 +735,8 @@ class Kronolith
                             }
                             $event->recurrence = $recurrence;
                         }
-                        Kronolith::_getEvents($results, $event, $startDate, $endDate,
-                                              $startOfPeriod, $endOfPeriod,
-                                              $showRecurrence);
+                        Kronolith::addEvents($results, $event, $startDate,
+                                             $endDate, $showRecurrence);
                     }
                 }
             }
@@ -748,12 +745,11 @@ class Kronolith
             $driver = self::getDriver('Ical');
             foreach ($GLOBALS['display_remote_calendars'] as $url) {
                 $driver->open($url);
-                $events = $driver->listEvents($startOfPeriod, $endOfPeriod);
+                $events = $driver->listEvents($startDate, $endDate);
                 if (!is_a($events, 'PEAR_Error')) {
                     foreach ($events as $event) {
-                        Kronolith::_getEvents($results, $event, $startDate,
-                                              $endDate, $startOfPeriod,
-                                              $endOfPeriod, $showRecurrence);
+                        Kronolith::addEvents($results, $event, $startDate,
+                                             $endDate, $showRecurrence);
                     }
                 }
             }
@@ -767,9 +763,8 @@ class Kronolith
                 $events = $dhDriver->listEvents($startDate, $endDate);
                 if (!is_a($events, 'PEAR_Error')) {
                     foreach ($events as $event) {
-                        Kronolith::_getEvents($results, $event, $startDate,
-                                              $endDate, $startOfPeriod,
-                                              $endOfPeriod, $showRecurrence);
+                        Kronolith::addEvents($results, $event, $startDate,
+                                             $endDate, $showRecurrence);
                     }
                 }
             }
@@ -790,9 +785,8 @@ class Kronolith
      *
      * @access private
      */
-    public static function _getEvents(&$results, &$event, $startDate, $endDate,
-                                      $startOfPeriod, $endOfPeriod,
-                                      $showRecurrence)
+    public static function addEvents(&$results, &$event, $startDate, $endDate,
+                                     $showRecurrence)
     {
         if ($event->recurs() && $showRecurrence) {
             /* Recurring Event. */
@@ -821,7 +815,7 @@ class Kronolith
                 $diff[1] += 12;
             }
 
-            if ($event->start->compareDateTime($startOfPeriod) < 0) {
+            if ($event->start->compareDateTime($startDate) < 0) {
                 /* The first time the event happens was before the period
                  * started. Start searching for recurrences from the start of
                  * the period. */
@@ -834,7 +828,7 @@ class Kronolith
                 if (!$event->recurrence->hasException($event->start->year,
                                                       $event->start->month,
                                                       $event->start->mday)) {
-                    Kronolith::_addCoverDates($results, $event, $event->start, $event->end);
+                    Kronolith::addCoverDates($results, $event, $event->start, $event->end);
                 }
 
                 /* Start searching for recurrences from the day after it
@@ -854,7 +848,7 @@ class Kronolith
                     $nextEnd->mday  += $diff[2];
                     $nextEnd->hour  += $diff[3];
                     $nextEnd->min   += $diff[4];
-                    Kronolith::_addCoverDates($results, $event, $next, $nextEnd);
+                    Kronolith::addCoverDates($results, $event, $next, $nextEnd);
                 }
                 $next = $event->recurrence->nextRecurrence(
                     array('year' => $next->year,
@@ -868,15 +862,15 @@ class Kronolith
             /* Event only occurs once. */
 
             /* Work out what day it starts on. */
-            if ($event->start->compareDateTime($startOfPeriod) < 0) {
+            if ($event->start->compareDateTime($startDate) < 0) {
                 /* It started before the beginning of the period. */
-                $eventStart = clone $startOfPeriod;
+                $eventStart = clone $startDate;
             } else {
                 $eventStart = clone $event->start;
             }
 
             /* Work out what day it ends on. */
-            if ($event->end->compareDateTime($endOfPeriod) > 0) {
+            if ($event->end->compareDateTime($endDate) > 0) {
                 /* Ends after the end of the period. */
                 $eventEnd = clone $event->end;
             } else {
@@ -902,7 +896,7 @@ class Kronolith
             }
 
             /* Add the event to all the days it covers. This is
-             * similar to Kronolith::_addCoverDates(), but for days in
+             * similar to Kronolith::addCoverDates(), but for days in
              * between the start and end day, the range is midnight to
              * midnight, and for the edge days it's start to midnight,
              * and midnight to end. */
@@ -957,8 +951,8 @@ class Kronolith
      *                                recurrence.
      * @param Horde_Date $eventEnd    The event's end at the actual recurrence.
      */
-    public static function _addCoverDates(&$results, $event, $eventStart,
-                                          $eventEnd)
+    public static function addCoverDates(&$results, $event, $eventStart,
+                                         $eventEnd)
     {
         $i = $eventStart->mday;
         $loopDate = new Horde_Date(array('month' => $eventStart->month,
