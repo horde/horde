@@ -23,9 +23,9 @@ if (empty($allowed_cats)) {
     exit;
 }
 
-$id = Util::getFormData('id', 0);
-$page = Util::getFormData('page', 0);
-$browse_url = Horde::applicationUrl('edit.php');
+$id = (int)Util::getFormData('id', 0);
+$page = (int)Util::getFormData('page', 0);
+$browse_url = Util::addParameter(Horde::applicationUrl('edit.php'), array('page' => $page, 'id' => $id), null, false);
 $edit_url = Horde::applicationUrl('add.php');
 $read_url = Horde::applicationUrl('reads.php');
 $has_comments = $registry->hasMethod('forums/doComments');
@@ -33,7 +33,7 @@ $actionID = Util::getFormData('actionID');
 
 // save as future version
 if (!empty($actionID) && $id > 0) {
-    $version = $news->db->getOne('SELECT MAX(version) FROM ' . $news->prefix . '_versions WHERE id=?', array($id));
+    $version = $news->db->getOne('SELECT MAX(version) FROM ' . $news->prefix . '_versions WHERE id = ?', array($id));
     $result  = $news->write_db->query('INSERT INTO ' . $news->prefix . '_versions (id, version, action, created, user_uid) VALUES (?,?,?,NOW(),?)',
                                         array($id, $version + 1, $actionID, Auth::getAuth()));
 }
@@ -43,9 +43,32 @@ if ($id) {
 }
 
 switch ($actionID) {
+case 'deletepicture';
+
+    $result = News::deleteImage($id);
+    if ($result instanceof PEAR_Error) {
+        $notification->push($result);
+    }
+
+    $result = $news->write_db->query('UPDATE ' . $news->prefix . ' SET picture = ? WHERE id = ?', array(0, $id));
+    if ($result instanceof PEAR_Error) {
+        $notification->push($result);
+    } else {
+        $notification->push(sprintf(_("News \"%s\" (%s): %s"), $article['title'], $id, _("picture deleted")), 'horde.success');
+    }
+
+    header('Location: ' . $browse_url);
+    exit;
+
+break;
+
 case 'deactivate';
 
-    $news->write_db->query('UPDATE ' . $news->prefix . ' SET status = ? WHERE id = ?', array(News::UNCONFIRMED, $id));
+    $result = $news->write_db->query('UPDATE ' . $news->prefix . ' SET status = ? WHERE id = ?', array(News::UNCONFIRMED, $id));
+    if ($result instanceof PEAR_Error) {
+        $notification->push($result);
+    }
+
     $notification->push(sprintf(_("News \"%s\" (%s): %s"), $article['title'], $id, _("deactivated")), 'horde.success');
     header('Location: ' . $browse_url);
     exit;
@@ -53,7 +76,11 @@ case 'deactivate';
 break;
 case 'activate';
 
-    $news->write_db->query('UPDATE ' . $news->prefix . ' SET status = ? WHERE id = ?', array(News::CONFIRMED, $id));
+    $result = $news->write_db->query('UPDATE ' . $news->prefix . ' SET status = ? WHERE id = ?', array(News::CONFIRMED, $id));
+    if ($result instanceof PEAR_Error) {
+        $notification->push($result);
+    }
+
     $notification->push(sprintf(_("News \"%s\" (%s): %s"), $article['title'], $id, _("activated")), 'horde.success');
     header('Location: ' . $browse_url);
     exit;
@@ -61,7 +88,11 @@ case 'activate';
 break;
 case 'lock';
 
-    $news->write_db->query('UPDATE ' . $news->prefix . ' SET status = ? WHERE id = ?', array(News::LOCKED, $id));
+    $result = $news->write_db->query('UPDATE ' . $news->prefix . ' SET status = ? WHERE id = ?', array(News::LOCKED, $id));
+    if ($result instanceof PEAR_Error) {
+        $notification->push($result);
+    }
+
     $notification->push(sprintf(_("News \"%s\" (%s): %s"), $article['title'], $id, _("locked")), 'horde.success');
     header('Location: ' . $browse_url);
     exit;
@@ -69,7 +100,11 @@ case 'lock';
 break;
 case 'unlock';
 
-    $news->write_db->query('UPDATE ' . $news->prefix . ' SET status = ? WHERE id = ?', array(News::UNCONFIRMED, $id));
+    $result = $news->write_db->query('UPDATE ' . $news->prefix . ' SET status = ? WHERE id = ?', array(News::UNCONFIRMED, $id));
+    if ($result instanceof PEAR_Error) {
+        $notification->push($result);
+    }
+
     $notification->push(sprintf(_("News \"%s\" (%s): %s"), $article['title'], $id, _("unlocked")), 'horde.success');
     header('Location: ' . $browse_url);
     exit;
@@ -81,9 +116,15 @@ case 'renew';
 
     $version_data = $news->db->getRow('SELECT content FROM ' . $news->prefix . '_versions WHERE id = ? AND version = ?',
                                       array($id, $version), DB_FETCHMODE_ASSOC);
+    if ($version_data instanceof PEAR_Error) {
+        $notification->push($version_data);
+    }
 
     $version_data['content'] = unserialize($version_data['content']);
-    $news->write_db->query('DELETE FROM ' . $news->prefix . '_body WHERE id = ?', array($id));
+    $result = $news->write_db->query('DELETE FROM ' . $news->prefix . '_body WHERE id = ?', array($id));
+    if ($result instanceof PEAR_Error) {
+        $notification->push($result);
+    }
 
     $new_version = array();
     $sql = 'INSERT INTO ' . $news->prefix . '_body (id,lang,title,abbreviation,content) VALUES (?,?,?,?,?)';

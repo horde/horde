@@ -3,13 +3,22 @@
 
 <table style="width: 100%;">
 <tr valign="top">
-<td>
-<img src="<?php echo News::getImageUrl($id, 'small'); ?>" style="height: 50px; width: 50px;" />
+<td style="text-align: center">
+<?php if ($row['picture']): ?>
+<a href="<?php echo News::getImageUrl($id, 'big'); ?>" target="_blank" title="<?php echo _("Click for full picture") ?>">
+    <img src="<?php echo News::getImageUrl($id, 'small'); ?>" style="height: 50px; width: 50px;" />
+</a><br />
+<a href="<?php echo Util::addParameter($browse_url, array('id' => $id, 'actionID' => 'deletepicture')) ?>" onclick="confirm('<?php echo _("Do you really want to delete this picture?") ?>');"><?php echo _("Delete picture") ?></a>
+<?php endif; ?>
 </td>
 <td>
 <?php
 
-echo _("Primary category") . ': ' . $allowed_cats[$row['category1']] . "<br />\n";
+if (isset($allowed_cats[$row['category1']])) {
+    echo _("Primary category") . ': ' . $allowed_cats[$row['category1']] . "<br />\n";
+} else {
+    echo _("Primary category") . ': ' . $row['category1'] . '!!!<br />' . "\n";
+}
 
 if ($row['category2']>0) {
     echo _("Secondary category") . ': ' . $allowed_cats[$row['category2']] . "<br />\n";
@@ -62,7 +71,7 @@ if (!empty($row['form'])) {
 }
 
 if ($row['attachments']) {
-    echo $news->format_attached($id);
+    echo News::format_attached($id);
 }
 
 ?>

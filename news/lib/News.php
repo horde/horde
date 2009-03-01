@@ -339,9 +339,11 @@ class News {
         }
 
         $vfs_name = $id . '.' . $GLOBALS['conf']['images']['image_type'];
-        $vfs->deleteFile(self::VFS_PATH . '/images/small/', $vfs_name);
-        $vfs->deleteFile(self::VFS_PATH . '/images/big/', $vfs_name);
-        $vfs->deleteFile(self::VFS_PATH . '/images/full/', $vfs_name);
+        $result = $vfs->deleteFile(self::VFS_PATH . '/images/news/full', $vfs_name);
+        $result = $vfs->deleteFile(self::VFS_PATH . '/images/news/small', $vfs_name);
+        $result = $vfs->deleteFile(self::VFS_PATH . '/images/news/big', $vfs_name);
+
+        return $result;
     }
 
     /**

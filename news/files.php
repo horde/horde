@@ -35,6 +35,11 @@ case 'download_file':
 case 'view_file':
 
     $data = file_get_contents($conf['attributes']['attachments'] . '/' . $file_id);
+    if ($data === false) {
+        header('HTTP/1.0 404 Not Found');
+        echo 'HTTP/1.0 404 Not Found';
+        exit;
+    }
 
     $mime_part = new Horde_Mime_Part();
     $mime_part->setName($file_id);
@@ -47,14 +52,14 @@ case 'view_file':
         if (!empty($render)) {
             reset($render);
             $key = key($render);
-            $browser->downloadHeaders($file_id, $render[$key]['type'], true, strlen($render[$key]['data']));
+            $browser->downloadHeaders($file_name, $render[$key]['type'], true, strlen($render[$key]['data']));
             echo $render[$key]['data'];
         }
-    } else {
-        // We cannnot see this file, so download it
-        $browser->downloadHeaders($file_name, $file_type, false, $file_size);
-        echo $data;
     }
+
+    // We cannnot see this file, so download it
+    $browser->downloadHeaders($file_name, $file_type, false, $file_size);
+    echo $data;
 
 break;
 
@@ -87,6 +92,12 @@ case 'download_zip':
 
     $zipfiles = array('data' => file_get_contents($conf['attributes']['attachments'] . '/' . $file_id),
                         'name' => $file_id);
+
+    if ($zipfiles[0]['data'] === false) {
+        header('HTTP/1.0 404 Not Found');
+        echo 'HTTP/1.0 404 Not Found';
+        exit;
+    }
 
     $zip = Horde_Compress::singleton('zip');
     $body = @$zip->compress($zipfiles);
