@@ -4,8 +4,9 @@
  * rest interface.
  *
  * This code was originally a Hordified version of Facebook's official PHP
- * client. However, very little of the original code or design is left. I left
- * the original copyright notice intact below.
+ * client. However, since that client was very buggy and incomplete, very little
+ * of the original code or design is left. I left the original copyright notice
+ * intact below.
  *
  * Copyright 2009 The Horde Project (http://www.horde.org)
  *
@@ -240,17 +241,6 @@ class Horde_Service_Facebook
     }
 
     /**
-     *  Return a valid FB login URL with necessary GET parameters appended.
-     *
-     *  @return string
-     */
-    public function get_login_url($next)
-    {
-        return self::getFacebookUrl() . '/login.php?v=1.0&api_key='
-            . $this->_apiKey . ($next ? '&next=' . urlencode($next)  : '');
-    }
-
-    /**
      * Start a batch operation.
      */
     public function batchBegin()
@@ -327,7 +317,7 @@ class Horde_Service_Facebook
      *
      * @return array A dictionary representing the response.
      */
-    public function call_upload_method($method, $params, $file)
+    public function callUploadMethod($method, $params, $file)
     {
         if ($this->_batchRequest === null) {
             if (!file_exists($file)) {

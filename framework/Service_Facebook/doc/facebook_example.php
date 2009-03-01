@@ -107,27 +107,33 @@ var_dump($result);
  * as a reference so when run() is called, you still have a handle to the
  * results.
  */
-$facebook->batchBegin();
-$notifications = &$facebook->notifications->get();
-$friends = &$facebook->friends->get();
-$facebook->batchEnd();
-var_dump($friends);
-var_dump($notifications);
+//$facebook->batchBegin();
+//$notifications = &$facebook->notifications->get();
+//$friends = &$facebook->friends->get();
+//$facebook->batchEnd();
+//var_dump($friends);
+//var_dump($notifications);
 
 /**
  * View a user's pictures. $uid should be the user id whose albums you want to
  * retrieve. (Permissions permitting, of course)
  */
-$albums = $facebook->photos->getAlbums($uid);
-var_dump($albums);
-$images = $facebook->photos->get('', $albums[0]['aid']);
-var_dump($images);
+//$albums = $facebook->photos->getAlbums($uid);
+//var_dump($albums);
+//$images = $facebook->photos->get('', $albums[0]['aid']);
+//var_dump($images);
 
 
 /**
  * Request the raw JSON (or XML) data
  */
-$facebook->dataFormat = Horde_Service_Facebook::DATA_FORMAT_JSON;
-$results = $facebook->photos->getAlbums($uid);
-var_dump($results);
+//$facebook->dataFormat = Horde_Service_Facebook::DATA_FORMAT_JSON;
+//$results = $facebook->photos->getAlbums($uid);
+//var_dump($results);
 
+/**
+ * Upload a photo
+ */
+$path = "/Users/mrubinsk/Desktop/horde_fb.jpg"
+$results = $facebook->photos->upload($path);
+var_dump($results);

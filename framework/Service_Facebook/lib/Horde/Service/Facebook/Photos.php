@@ -277,7 +277,7 @@ class Horde_Service_Facebook_Photos extends Horde_Service_Facebook_Base
         if ($this->_facebook->dataFormat == Horde_Service_Facebook::DATA_FORMAT_ARRAY) {
             $oldFormat = $this->_facebook->setInternalFormat(Horde_Service_Facebook::DATA_FORMAT_XML);
         }
-        $results = $this->_facebook->call_upload_method('facebook.photos.upload', $params, $file);
+        $results = $this->_facebook->callUploadMethod('facebook.photos.upload', $params, $file);
         if (!empty($oldFormat)) {
             $this->_facebook->setInternalFormat($oldFormat);
         }

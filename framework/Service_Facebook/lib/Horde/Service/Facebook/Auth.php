@@ -64,6 +64,17 @@ class Horde_Service_Facebook_Auth
     }
 
     /**
+     *  Return a valid FB login URL with necessary GET parameters appended.
+     *
+     *  @return string
+     */
+    public function getLoginUrl($next)
+    {
+        return Horde_Service_Facebook::getFacebookUrl() . '/login.php?v=1.0&api_key='
+            . $this->_apiKey . ($next ? '&next=' . urlencode($next)  : '');
+    }
+
+    /**
      * Returns the URL for a user to obtain the auth token needed to generate an
      * infinite session for a web app.
      *
@@ -418,5 +429,27 @@ class Horde_Service_Facebook_Auth
         $this->_user = $user;
         $this->_sessionKey = $sessionKey;
         $this->_session_expires = $expires;
+    }
+
+    /**
+     * Revoke a previously authorizied extended permission
+     *
+     * @param $perm
+     * @param $uid
+     * @return unknown_type
+     */
+    public function revokeExtendedPermission($perm, $uid)
+    {
+        // Session key is *required*
+        if (!$skey = $this->getSessionKey()) {
+            throw new Horde_Service_Facebook_Exception('session_key is required',
+                                               Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
+        }
+
+        return $this->_facebook->callMethod('Auth.revokeExtendedPermission',
+                                            array('session_key' => $skey,
+                                                  'perm' => $perm,
+                                                  'user' => $uid));
+
     }
 }

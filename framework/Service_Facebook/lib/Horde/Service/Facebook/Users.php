@@ -32,7 +32,7 @@ class Horde_Service_Facebook_Users extends Horde_Service_Facebook_Base
      * authorized your application will be returned.
      *
      * Check the wiki for fields that can be queried through this API call.
-     * Data returned from here should not be used for rendering to application
+     * Data returned from here should *not* be used for rendering to application
      * users, use users.getInfo instead, so that proper privacy rules will be
      * applied.
      *
