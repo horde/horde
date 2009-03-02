@@ -477,7 +477,7 @@ class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap
                 if (!is_array($value)) {
                     $value = array($value);
                 }
-                $data[$attr]          = $value;
+                $data[$attr] = $value;
             }
             $this->_current_index++;
             return $data;
@@ -521,7 +521,7 @@ class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap
     protected function getEntries($result)
     {
         if (is_array($result)) {
-            $data          = array();
+            $data = array();
             foreach ($result as $entry) {
                 $t       = $entry['data'];
                 $t['dn'] = $entry['dn'];

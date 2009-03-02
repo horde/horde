@@ -3,7 +3,6 @@
  * The base class representing Kolab objects stored in the server
  * database.
  *
- *
  * PHP version 5
  *
  * @category Kolab
@@ -58,7 +57,6 @@ define('KOLAB_UT_RESOURCE',           3);
 /**
  * This class provides methods to deal with Kolab objects stored in
  * the Kolab db.
- *
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
@@ -359,7 +357,7 @@ class Horde_Kolab_Server_Object
         }
         $result = array();
         foreach ($attrs as $key) {
-            $value = $this->get($key);
+            $value        = $this->get($key);
             $result[$key] = $value;
         }
 

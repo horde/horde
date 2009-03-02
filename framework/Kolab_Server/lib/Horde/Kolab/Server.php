@@ -448,7 +448,7 @@ abstract class Horde_Kolab_Server
 
         $result = $this->attrsForSearch($criteria, array('mail', 'alias'),
                                         KOLAB_SERVER_RESULT_STRICT);
-        $addrs = array_merge((array) $result['mail'], (array) $result['alias']);
+        $addrs  = array_merge((array) $result['mail'], (array) $result['alias']);
 
         if (empty($result)) {
             return array();
