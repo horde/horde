@@ -1236,16 +1236,20 @@ class Horde_Crypt_Smime extends Horde_Crypt
             } else {
                 $cmdline .= ' -nodes';
             }
-            $fd = popen($cmdline, 'w');
+        } else {
+            $cmdline .= ' -nodes';
+        }
+
+        if ($fd = popen($cmdline, 'w')) {
             fwrite($fd, $params['password'] . "\n");
             if (!empty($params['newpassword'])) {
                 fwrite($fd, $params['newpassword'] . "\n");
             }
             pclose($fd);
         } else {
-            $cmdline .= ' -nodes';
-            exec($cmdline);
+            throw new Horde_Exception(_("Error while talking to smime binary."));
         }
+
         $ob->private = trim(file_get_contents($output));
         if (empty($ob->private)) {
             throw new Horde_Exception(_("Password incorrect"), 'horde.error');
@@ -1255,24 +1259,30 @@ class Horde_Crypt_Smime extends Horde_Crypt
         $cmdline = $sslpath . ' pkcs12 -in ' . $input . ' -out ' . $output . ' -nokeys -clcerts';
         if (isset($params['password'])) {
             $cmdline .= ' -passin stdin';
-            $fd = popen($cmdline, 'w');
+        }
+
+        if ($fd = popen($cmdline, 'w')) {
             fwrite($fd, $params['password'] . "\n");
             pclose($fd);
         } else {
-            exec($cmdline);
+            throw new Horde_Exception(_("Error while talking to smime binary."));
         }
+
         $ob->public = trim(file_get_contents($output));
 
         /* Extract the CA public key next. */
         $cmdline = $sslpath . ' pkcs12 -in ' . $input . ' -out ' . $output . ' -nokeys -cacerts';
         if (isset($params['password'])) {
             $cmdline .= ' -passin stdin';
-            $fd = popen($cmdline, 'w');
+        }
+
+        if ($fd = popen($cmdline, 'w')) {
             fwrite($fd, $params['password'] . "\n");
             pclose($fd);
         } else {
-            exec($cmdline);
+            throw new Horde_Exception(_("Error while talking to smime binary."));
         }
+
         $ob->certs = trim(file_get_contents($output));
 
         return $ob;
