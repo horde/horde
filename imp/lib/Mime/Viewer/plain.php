@@ -27,7 +27,7 @@ class IMP_Horde_Mime_Viewer_plain extends Horde_Mime_Viewer_plain
         $type = 'text/html; charset=' . NLS::getCharset();
 
         // Trim extra whitespace in the text.
-        $text = rtrim($this->_mimepart->getContents());
+        $text = trim($this->_mimepart->getContents());
         if ($text == '') {
             return array(
                 $mime_id => array(
