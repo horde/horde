@@ -252,7 +252,7 @@ var ImpMessage = {
         if (id.startsWith('filter')) {
             this.makeSelection(id.substring(6));
         } else if (id.startsWith('flag')) {
-            this.makeSelection(id.substring(4));
+            this.flagMessages(id.substring(4));
         } else if (id.startsWith('targetMailbox')) {
             this.updateFolders(id.substring(13));
         }
