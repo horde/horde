@@ -74,7 +74,6 @@ class IMP_Horde_Mime_Viewer_plain extends Horde_Mime_Viewer_plain
                 'charset' => NLS::getCharset()
             ),
             'tabs2spaces' => array(),
-            'emails' => array(),
         );
 
         // Highlight quoted parts of an email.
