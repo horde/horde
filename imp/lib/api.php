@@ -205,9 +205,7 @@ function _imp_batchCompose($args = array(), $extra = array())
 
     $links = array();
     foreach ($args as $i => $arg) {
-        $links[$i] = ($_SESSION['imp']['view'] == 'dimp')
-            ? DIMP::composeLink($arg, !empty($extra[$i]) ? $extra[$i] : array())
-            : IMP::composeLink($arg, !empty($extra[$i]) ? $extra[$i] : array());
+        $links[$i] = IMP::composeLink($arg, !empty($extra[$i]) ? $extra[$i] : array());
     }
 
     return $links;

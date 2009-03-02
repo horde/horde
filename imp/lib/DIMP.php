@@ -492,31 +492,4 @@ class DIMP
         return array();
     }
 
-    /**
-     * Returns the appropriate link to call the message composition screen.
-     *
-     * @param mixed $args   List of arguments to pass to compose.php. If this
-     *                      is passed in as a string, it will be parsed as a
-     *                      toaddress?subject=foo&cc=ccaddress (mailto-style)
-     *                      string.
-     * @param array $extra  Hash of extra, non-standard arguments to pass to
-     *                      compose.php.
-     *
-     * @return string  The link to the message composition screen.
-     */
-    static public function composeLink($args = array(), $extra = array())
-    {
-        // IE 6 & 7 handles window.open() URL param strings differently if
-        // triggered via an href or an onclick.  Since we have no hint
-        // at this point where this link will be used, we have to always
-        // encode the params and explicitly call rawurlencode() in
-        // compose.php.
-        $args = IMP::composeLinkArgs($args, $extra);
-        $encode_args = array('popup' => 1);
-        foreach ($args as $k => $v) {
-            $encode_args[$k] = rawurlencode($v);
-        }
-        return 'javascript:void(window.open(\'' . Util::addParameter(Horde::applicationUrl('compose-dimp.php'), $encode_args, null, false) . '\', \'\', \'width=820,height=610,status=1,scrollbars=yes,resizable=yes\'));';
-    }
-
 }

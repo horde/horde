@@ -410,15 +410,33 @@ class IMP
      *                      string.
      * @param array $extra  Hash of extra, non-standard arguments to pass to
      *                      compose.php.
+     * @param string $view  The IMP view to create a link for.
      *
      * @return string  The link to the message composition screen.
      */
-    static public function composeLink($args = array(), $extra = array())
+    static public function composeLink($args = array(), $extra = array(),
+                                       $view = null)
     {
         $args = self::composeLinkArgs($args, $extra);
-        $is_mimp = ($_SESSION['imp']['view'] == 'mimp');
 
-        if (!$is_mimp &&
+        if (is_null($view)) {
+            $view = $_SESSION['imp']['view'];
+        }
+
+        if ($view == 'dimp') {
+            // IE 6 & 7 handles window.open() URL param strings differently if
+            // triggered via an href or an onclick.  Since we have no hint
+            // at this point where this link will be used, we have to always
+            // encode the params and explicitly call rawurlencode() in
+            // compose.php.
+            $encode_args = array('popup' => 1);
+            foreach ($args as $k => $v) {
+                $encode_args[$k] = rawurlencode($v);
+            }
+            return 'javascript:void(window.open(\'' . Util::addParameter(Horde::applicationUrl('compose-dimp.php'), $encode_args, null, false) . '\', \'\', \'width=820,height=610,status=1,scrollbars=yes,resizable=yes\'));';
+        }
+
+        if (($view != 'mimp') &&
             $GLOBALS['prefs']->getValue('compose_popup') &&
             $GLOBALS['browser']->hasFeature('javascript')) {
             Horde::addScriptFile('prototype.js', 'horde', true);
@@ -427,9 +445,9 @@ class IMP
                 $args['to'] = addcslashes($args['to'], '\\"');
             }
             return "javascript:" . self::popupIMPString('compose.php', $args);
-        } else {
-            return Util::addParameter(Horde::applicationUrl($is_mimp ? 'compose-mimp.php' : 'compose.php'), $args);
         }
+
+        return Util::addParameter(Horde::applicationUrl(($view == 'mimp') ? 'compose-mimp.php' : 'compose.php'), $args);
     }
 
     /**
