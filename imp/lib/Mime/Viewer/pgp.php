@@ -158,34 +158,46 @@ class IMP_Horde_Mime_Viewer_pgp extends Horde_Mime_Viewer_Driver
         $symmetric_pass = $personal_pass = null;
 
         /* Check if this a symmetrically encrypted message. */
-        $symmetric = $this->_imppgp->encryptedSymmetrically($encrypted_data);
-        if ($symmetric) {
-            $symmetric_id = $this->_getSymmetricID();
-            $symmetric_pass = $this->_imppgp->getPassphrase('symmetric', $symmetric_id);
+        try {
+            $symmetric = $this->_imppgp->encryptedSymmetrically($encrypted_data);
+            if ($symmetric) {
+                $symmetric_id = $this->_getSymmetricID();
+                $symmetric_pass = $this->_imppgp->getPassphrase('symmetric', $symmetric_id);
 
-            if (is_null($symmetric_pass)) {
-                $js_action = '';
-                if (!$resymmetric) {
-                    $status[] = _("The message has been encrypted via PGP.");
+                if (is_null($symmetric_pass)) {
+                    $js_action = '';
+                    if (!$resymmetric) {
+                        $status[] = _("The message has been encrypted via PGP.");
+                    }
+
+                    switch ($_SESSION['imp']['view']) {
+                    case 'dimp':
+                        $js_action = 'DimpCore.reloadMessage({});';
+                        // Fall through
+
+                    case 'imp':
+                        /* Ask for the correct passphrase if this is encrypted
+                         * symmetrically. */
+                        $status[] = Horde::link('#', '', '', '', IMP::passphraseDialogJS('PGPSymmetric', $js_action, array('symmetricid' => $symmetric_id)) . ';return false;') . _("You must enter the passphrase used to encrypt this message to view it.") . '</a>';
+                        break;
+                    }
+                    return null;
                 }
-
-                switch ($_SESSION['imp']['view']) {
-                case 'dimp':
-                    $js_action = 'DimpCore.reloadMessage({});';
-                    // Fall through
-
-                case 'imp':
-                    /* Ask for the correct passphrase if this is encrypted
-                     * symmetrically. */
-                    $status[] = Horde::link('#', '', '', '', IMP::passphraseDialogJS('PGPSymmetric', $js_action, array('symmetricid' => $symmetric_id)) . ';return false;') . _("You must enter the passphrase used to encrypt this message to view it.") . '</a>';
-                    break;
-                }
-                return null;
             }
+        } catch (Horde_Exception $e) {
+            Horde::logMessage($e, __FILE__, __LINE__);
+            unset(self::$_inlinecache[$base_id]);
+            return null;
         }
 
         /* Check if this is a literal compressed message. */
-        $info = $this->_imppgp->pgpPacketInformation($encrypted_data);
+        try {
+            $info = $this->_imppgp->pgpPacketInformation($encrypted_data);
+        } catch (Horde_Exception $e) {
+            Horde::logMessage($e, __FILE__, __LINE__);
+            unset(self::$_inlinecache[$base_id]);
+            return null;
+        }
         $literal = !empty($info['literal']);
 
         if ($literal) {
@@ -271,9 +283,15 @@ class IMP_Horde_Mime_Viewer_pgp extends Horde_Mime_Viewer_Driver
         }
         $status['text'][] = $this->_params['contents']->linkViewJS($this->_mimepart, 'view_attach', _("View the raw text of the Public Key."), array('params' => array('mode' => IMP_Contents::RENDER_INLINE, 'rawpgpkey' => 1)));
 
+        try {
+            $data = '<span class="fixed">' . nl2br(str_replace(' ', '&nbsp;', $this->_imppgp->pgpPrettyKey($this->_mimepart->getContents()))) . '</span>';
+        } catch (Horde_Exception $e) {
+            $data = $e->getMessage();
+        }
+
         return array(
             $mime_id => array(
-                'data' => '<span class="fixed">' . nl2br(str_replace(' ', '&nbsp;', $this->_imppgp->pgpPrettyKey($this->_mimepart->getContents()))) . '</span>',
+                'data' => $data,
                 'status' => array($status),
                 'type' => 'text/html; charset=' . NLS::getCharset()
             )
