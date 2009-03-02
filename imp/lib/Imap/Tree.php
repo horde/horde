@@ -1135,7 +1135,7 @@ class IMP_Imap_Tree
     /**
      * Initializes and returns the list of mailboxes to poll.
      *
-     * @param boolean $prune  Prune non-existant folders from list?
+     * @param boolean $prune  Prune non-existent folders from list?
      * @param boolean $sort   Sort the directory list?
      *
      * @return array  The list of mailboxes to poll.
@@ -1144,7 +1144,10 @@ class IMP_Imap_Tree
     {
         $this->_initPollList();
 
-        $plist = ($prune) ? array_values(array_intersect(array_keys($this->_poll), $this->folderList())) : $this->_poll;
+        $plist = ($prune)
+            ? array_values(array_intersect(array_keys($this->_poll), $this->folderList()))
+            : $this->_poll;
+
         if ($sort) {
             $ns_new = $this->_getNamespace(null);
             Horde_Imap_Client_Sort::sortMailboxes($plist, array('delimiter' => $ns_new['delimiter'], 'inbox' => true));

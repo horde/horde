@@ -21,19 +21,6 @@ class IMP_Imap_Thread
     protected $_thread;
 
     /**
-     * Images used and their internal representations.
-     *
-     * @var array
-     */
-    static protected $_imglist = array(
-        '0' => 'blank.png',
-        '1' => 'line.png',
-        '2' => 'join.png',
-        '3' => 'joinbottom-down.png',
-        '4' => 'joinbottom.png'
-    );
-
-    /**
      * Constructor.
      *
      * @param Horde_Imap_Client_Thread $thread  The thread data object.
@@ -45,18 +32,29 @@ class IMP_Imap_Thread
 
     /**
      * Generate the thread representation for the given index list in the
-     * internal format (a string with each character representing the graphic
-     * to be displayed from $_imglist).
+     * internal format.
      *
      * @param array $indices    The list of indices to create a tree for.
      * @param boolean $sortdir  True for newest first, false for oldest first.
      *
      * @return array  An array with the index as the key and the internal
      *                thread representation as the value.
+     * <pre>
+     * 0 - blank
+     * 1 - line
+     * 2 - join
+     * 3 - joinbottom-down
+     * 4 - joinbottom
+     * 5 - line (reverse)
+     * 6 - join (reverse)
+     * 7 - joinbottom-down (reverse)
+     * 8 - joinbottom (reverse)
+     * </pre>
      */
     public function getThreadTreeOb($indices, $sortdir)
     {
         $container = $last_level = $last_thread = null;
+        $rtl = !empty($GLOBALS['nls']['rtl'][$GLOBALS['language']]);
         $thread_level = $tree = array();
         $t = &$this->_thread;
 
@@ -96,11 +94,15 @@ class IMP_Imap_Thread
                 $join_img = 2;
             }
 
+            if ($rtl) {
+                $join_img += 4;
+            }
+
             $thread_level[$indentLevel] = $lastinlevel;
             $line = '';
 
             for ($i = 1; $i < $indentLevel; ++$i) {
-                $line .= (!isset($thread_level[$i]) || ($thread_level[$i])) ? 0 : 1;
+                $line .= (!isset($thread_level[$i]) || ($thread_level[$i])) ? 0 : ($rtl ? 5 : 1);
             }
             $tree[$val] = $line . $join_img;
         }
@@ -119,16 +121,12 @@ class IMP_Imap_Thread
      */
     public function getThreadImageTree($indices, $sortdir)
     {
-        $imgs = $tree = array();
-
-        foreach (self::$_imglist as $key => $val) {
-            $imgs[$key] = Horde::img('tree/' . (($key != 0 && !empty($GLOBALS['nls']['rtl'][$GLOBALS['language']])) ? ('rev-' . $val) : $val), null, null, $GLOBALS['registry']->getImageDir('horde'));
-        }
+        $tree = array();
 
         foreach ($this->getThreadTreeOb($indices, $sortdir) as $k => $v) {
             $tree[$k] = '';
             for ($i = 0, $length = strlen($v); $i < $length; ++$i) {
-                $tree[$k] .= $imgs[$v[$i]];
+                $tree[$k] .= '<span class="threadImg threadImg' . $v[$i] . '"></span>';
             }
         }
         return $tree;

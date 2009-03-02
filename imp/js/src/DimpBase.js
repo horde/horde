@@ -427,7 +427,7 @@ var DimpBase = {
                         tmp = elt.cloneNode(false);
                         u = thread.get(row.imapuid);
                         $R(0, u.length, true).each(function(i) {
-                            tmp.insert(new Element('SPAN', { className: 'iconImg threadImg threadImg' + u.charAt(i) }));
+                            tmp.insert(new Element('SPAN', { className: 'threadImg threadImg' + u.charAt(i) }));
                         });
                         elt.replace(tmp.insert(elt.getText().escapeHTML()));
                     }

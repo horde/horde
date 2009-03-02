@@ -24,9 +24,6 @@
     border: 1px solid #ddd;
     vertical-align: middle;
 }
-.messageList img {
-    padding-right: 1px;
-}
 .messageList td label input {
     vertical-align: middle;
 }
@@ -437,6 +434,39 @@ ul.nav-audio {
 }
 .largeaddrlist:hover {
     text-decoration: underline;
+}
+
+/* Thread images */
+span.threadImg {
+    height: 20px;
+    width: 20px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+span.threadImg1 {
+    background-image: url("graphics/tree/line.png");
+}
+span.threadImg2 {
+    background-image: url("graphics/tree/join.png");
+}
+span.threadImg3 {
+    background-image: url("graphics/tree/joinbottom-down.png");
+}
+span.threadImg4 {
+    background-image: url("graphics/tree/joinbottom.png");
+}
+span.threadImg5 {
+    background-image: url("graphics/tree/rev-line.png");
+}
+span.threadImg6 {
+    background-image: url("graphics/tree/rev-join.png");
+}
+span.threadImg7 {
+    background-image: url("graphics/tree/rev-joinbottom-down.png");
+}
+span.threadImg8 {
+    background-image: url("graphics/tree/rev-joinbottom.png");
 }
 
 /* MIME styles. */
