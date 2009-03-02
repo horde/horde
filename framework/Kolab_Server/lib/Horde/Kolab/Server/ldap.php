@@ -54,8 +54,8 @@ class Horde_Kolab_Server_ldap extends Horde_Kolab_Server
                              'port'           => 389,
                              'version'        => 3,
                              'starttls'       => true,
-                             'binddn'         => '',
-                             'bindpw'         => '',
+                             'uid'            => '',
+                             'password'       => '',
                              'basedn'         => '',
                              'charset'        => '',
                              'options'        => array(),
@@ -65,6 +65,9 @@ class Horde_Kolab_Server_ldap extends Horde_Kolab_Server
         $config = array_merge($base_config, $params);
 
         $this->_base_dn = $config['basedn'];
+
+        $config['binddn'] = $config['uid'];
+        $config['bindpw'] = $config['password'];
 
         $this->_ldap = new Net_LDAP2($config);
 

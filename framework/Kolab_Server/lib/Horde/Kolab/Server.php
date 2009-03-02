@@ -144,14 +144,14 @@ abstract class Horde_Kolab_Server
                                                                    $params['user'],
                                                                    $e->getMessage()));
                 }
-                $params['binddn'] = $uid;
+                $params['uid'] = $uid;
             }
             $server_params = array_merge($server_params, $params);
         }
 
-        $sparam           = $server_params;
-        $sparam['bindpw'] = isset($sparam['bindpw']) ? md5($sparam['bindpw']) : '';
-        $signature        = serialize(array($driver, $sparam));
+        $sparam             = $server_params;
+        $sparam['password'] = isset($sparam['password']) ? md5($sparam['password']) : '';
+        $signature          = serialize(array($driver, $sparam));
         if (empty($instances[$signature])) {
             $instances[$signature] = &Horde_Kolab_Server::factory($driver,
                                                                   $server_params);
@@ -411,7 +411,7 @@ abstract class Horde_Kolab_Server
         $data = $this->attrsForSearch($criteria, array('mail'),
                                       KOLAB_SERVER_RESULT_STRICT);
         if (!empty($data)) {
-            return $data['mail'];
+            return $data['mail'][0];
         } else {
             return false;
         }
@@ -446,13 +446,13 @@ abstract class Horde_Kolab_Server
                          ),
         );
 
-        $result = $this->attrsForSearch($criteria, array('mail'),
+        $result = $this->attrsForSearch($criteria, array('mail', 'alias'),
                                         KOLAB_SERVER_RESULT_STRICT);
+        $addrs = array_merge((array) $result['mail'], (array) $result['alias']);
+
         if (empty($result)) {
             return array();
         }
-        $addrs = array_merge((array) $result['mail'], (array) $result['alias']);
-
         $criteria = array('AND' =>
                          array(
                              array('field' => 'objectClass',
@@ -460,7 +460,7 @@ abstract class Horde_Kolab_Server
                                    'test'  => KOLAB_SERVER_USER),
                              array('field' => 'kolabDelegate',
                                    'op'    => '=',
-                                   'test'  => $result['mail']),
+                                   'test'  => $result['mail'][0]),
                          ),
         );
 

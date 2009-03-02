@@ -211,8 +211,8 @@ class Horde_Kolab_Server_UserHandlingTest extends Horde_Kolab_Test_Server
     public function creatingUserWithoutGivenName()
     {
         $this->given('an empty Kolab server')
-            ->when('adding a user without first name')
-            ->then('the result should indicate an error with', 'Adding object failed: Either the last name or the given name is missing!');
+            ->when('adding an invalid Kolab server object', $this->provideInvalidUserWithoutGivenName())
+            ->then('the result should indicate an error with', 'Either the last name or the given name is missing!');
     }
 
     /**
@@ -221,8 +221,8 @@ class Horde_Kolab_Server_UserHandlingTest extends Horde_Kolab_Test_Server
     public function creatingUserWithoutLastName()
     {
         $this->given('an empty Kolab server')
-            ->when('adding a user without last name')
-            ->then('the result should indicate an error with', 'Adding object failed: Either the last name or the given name is missing!');
+            ->when('adding an invalid Kolab server object', $this->provideInvalidUserWithoutLastName())
+            ->then('the result should indicate an error with', 'Either the last name or the given name is missing!');
     }
 
     /**
@@ -231,8 +231,8 @@ class Horde_Kolab_Server_UserHandlingTest extends Horde_Kolab_Test_Server
     public function creatingUserWithoutPassword()
     {
         $this->given('an empty Kolab server')
-            ->when('adding a user without password')
-            ->then('the result should indicate an error with', 'Adding object failed: The value for "userPassword" is missing!');
+            ->when('adding an invalid Kolab server object', $this->provideInvalidUserWithoutPassword())
+            ->then('the result should indicate an error with', 'The value for "userPassword" is missing!');
     }
 
     /**
@@ -241,8 +241,8 @@ class Horde_Kolab_Server_UserHandlingTest extends Horde_Kolab_Test_Server
     public function creatingUserWithoutPrimaryMail()
     {
         $this->given('an empty Kolab server')
-            ->when('adding a user without primary mail')
-            ->then('the result should indicate an error with', 'Adding object failed: The value for "mail" is missing!');
+            ->when('adding an invalid Kolab server object', $this->provideInvalidUserWithoutMail())
+            ->then('the result should indicate an error with', 'The value for "mail" is missing!');
     }
 
     /**

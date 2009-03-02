@@ -273,8 +273,7 @@ class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap
             }
             $result = $subtree;
         }
-
-        return $result;
+        return $this->getEntries($result);
     }
 
     /**
@@ -412,7 +411,6 @@ class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap
                     array_push($result, $attr);
                 }
             }
-            $result['count'] = 1;
             return $result;
         }
     }
@@ -436,7 +434,7 @@ class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap
             if (!is_array($val)) {
                 $val = array($val);
             }
-            $ldap_data[$key] = array_merge(array('count' => count($val)), $val);
+            $ldap_data[$key] = $val;
         }
 
         $GLOBALS['KOLAB_SERVER_TEST_DATA'][$dn] = array(
@@ -472,9 +470,7 @@ class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap
 
             $data = array_keys($this->_current_result[$this->_current_index]['data']);
 
-            $data['count']       = 1;
-            $data['dn']          = array($this->_current_result[$this->_current_index]['dn']);
-            $data['dn']['count'] = 1;
+            $data['dn'] = array($this->_current_result[$this->_current_index]['dn']);
 
             foreach ($this->_current_result[$this->_current_index]['data']
                      as $attr => $value) {
@@ -482,7 +478,6 @@ class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap
                     $value = array($value);
                 }
                 $data[$attr]          = $value;
-                $data[$attr]['count'] = count($value);
             }
             $this->_current_index++;
             return $data;
@@ -527,7 +522,6 @@ class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap
     {
         if (is_array($result)) {
             $data          = array();
-            $data['count'] = count($result);
             foreach ($result as $entry) {
                 $t       = $entry['data'];
                 $t['dn'] = $entry['dn'];

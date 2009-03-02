@@ -99,23 +99,6 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
             }
             $world['result']['add'] = true;
             break;
-        case 'adding a user without first name':
-            try {
-                $result = $world['server']->add($this->provideInvalidUserWithoutGivenName());
-                $world['result']['add'] = $result;
-            } catch (Horde_Kolab_Server_Exception $e) {
-                $world['result']['add'] = $e;
-            }
-            break;
-        case 'adding a user without last name':
-            $world['result']['add'] = $world['server']->add($this->provideInvalidUserWithoutLastName());
-            break;
-        case 'adding a user without password':
-            $world['result']['add'] = $world['server']->add($this->provideInvalidUserWithoutPassword());
-            break;
-        case 'adding a user without primary mail':
-            $world['result']['add'] = $world['server']->add($this->provideInvalidUserWithoutMail());
-            break;
         case 'adding a distribution list':
             $world['result']['add'] = $world['server']->add($this->provideDistributionList());
             break;

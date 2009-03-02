@@ -197,12 +197,15 @@ class Horde_Kolab_Server_Object_user extends Horde_Kolab_Server_Object
         switch ($server_type) {
         case 'freebusy':
             $server = $this->get(KOLAB_ATTR_FREEBUSYHOST);
-            $server = $this->getServer('homeserver');
-            if (empty($server)) {
-                $server = $_SERVER['SERVER_NAME'];
+            if (!empty($server)) {
+                return $server;
             }
             if (isset($conf['kolab']['freebusy']['server'])) {
                 return $conf['kolab']['freebusy']['server'];
+            }
+            $server = $this->getServer('homeserver');
+            if (empty($server)) {
+                $server = $_SERVER['SERVER_NAME'];
             }
             if (isset($conf['kolab']['server']['freebusy_url_format'])) {
                 return sprintf($conf['kolab']['server']['freebusy_url_format'],
