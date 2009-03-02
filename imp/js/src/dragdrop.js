@@ -270,7 +270,7 @@ Drag = Class.create({
                 otop = this.element.offsetTop;
                 this.ghost = $(this.element.cloneNode(true)).writeAttribute('id', null).setOpacity(0.7).clonePosition(this.element, { setLeft: false, setTop: false }).setStyle({ left: oleft + 'px', position: 'absolute', top: otop + 'px', zIndex: parseInt(this.element.getStyle('zIndex')) + 1 });
                 this.element.insert({ before: this.ghost });
-                vo = this.ghost.viewportOffset();
+                vo = this.ghost.cumulativeOffset();
                 this.ghostOffset = [ vo[0] - oleft, vo[1] - otop ];
             }
 
