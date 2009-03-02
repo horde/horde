@@ -2,7 +2,6 @@
 /**
  * A Kolab object of type administrator.
  *
- *
  * PHP version 5
  *
  * @category Kolab
@@ -14,7 +13,6 @@
 
 /**
  * This class provides methods to deal with administrator object types.
- *
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
@@ -35,14 +33,14 @@ class Horde_Kolab_Server_Object_adminrole extends Horde_Kolab_Server_Object
      *
      * @var string
      */
-    var $filter = '(&(cn=*)(objectClass=inetOrgPerson)(!(uid=manager))(sn=*))';
+    public static $filter = '(&(cn=*)(objectClass=inetOrgPerson)(!(uid=manager))(sn=*))';
 
     /**
      * The attributes supported by this class
      *
      * @var array
      */
-    var $_supported_attributes = array(
+    public $supported_attributes = array(
         KOLAB_ATTR_SN,
         KOLAB_ATTR_CN,
         KOLAB_ATTR_GIVENNAME,
@@ -57,7 +55,7 @@ class Horde_Kolab_Server_Object_adminrole extends Horde_Kolab_Server_Object
      *
      * @var array
      */
-    var $_required_attributes = array(
+    public $required_attributes = array(
         KOLAB_ATTR_SN,
         KOLAB_ATTR_GIVENNAME,
         KOLAB_ATTR_USERPASSWORD,
@@ -69,7 +67,7 @@ class Horde_Kolab_Server_Object_adminrole extends Horde_Kolab_Server_Object
      *
      * @var array
      */
-    var $_derived_attributes = array(
+    public $derived_attributes = array(
         KOLAB_ATTR_ID,
         KOLAB_ATTR_LNFN,
     );
@@ -79,11 +77,19 @@ class Horde_Kolab_Server_Object_adminrole extends Horde_Kolab_Server_Object
      *
      * @var array
      */
-    var $_object_classes = array(
+    protected $object_classes = array(
         KOLAB_OC_TOP,
         KOLAB_OC_INETORGPERSON,
         KOLAB_OC_KOLABINETORGPERSON,
     );
+
+    /**
+     * The group the UID must be member of so that this object really
+     * matches this class type. This may not include the root UID.
+     *
+     * @var string
+     */
+    protected $required_group;
 
     /**
      * Convert the object attributes to a hash.
@@ -92,7 +98,7 @@ class Horde_Kolab_Server_Object_adminrole extends Horde_Kolab_Server_Object
      *
      * @return array|PEAR_Error The hash representing this object.
      */
-    function toHash($attrs = null)
+    public function toHash($attrs = null)
     {
         if (!isset($attrs)) {
             $attrs = array(
@@ -110,7 +116,7 @@ class Horde_Kolab_Server_Object_adminrole extends Horde_Kolab_Server_Object
      *
      * @return boolean|PEAR_Error True on success.
      */
-    function save($info)
+    public function save($info)
     {
         if (!isset($info['cn'])) {
             if (!isset($info['sn']) || !isset($info['givenName'])) {
@@ -121,18 +127,18 @@ class Horde_Kolab_Server_Object_adminrole extends Horde_Kolab_Server_Object
         }
 
         $admins_uid = sprintf('%s,%s', $this->required_group,
-                              $this->_db->getBaseUid());
+                              $this->db->getBaseUid());
 
-        $admin_group = $this->_db->fetch($admins_uid, 'Horde_Kolab_Server_Object_group');
+        $admin_group = $this->db->fetch($admins_uid, 'Horde_Kolab_Server_Object_group');
         if (is_a($admin_group, 'PEAR_Error') || !$admin_group->exists()) {
 
-            $members = array($this->_uid);
+            $members = array($this->uid);
 
             //FIXME: This is not okay and also contains too much LDAP knowledge
-            $parts = split(',', $this->required_group);
+            $parts           = split(',', $this->required_group);
             list($groupname) = sscanf($parts[0], 'cn=%s');
 
-            $result = $this->_db->add(array(KOLAB_ATTR_CN => $groupname,
+            $result = $this->db->add(array(KOLAB_ATTR_CN => $groupname,
                                             'type' => 'Horde_Kolab_Server_Object_group',
                                             KOLAB_ATTR_MEMBER => $members,
                                             KOLAB_ATTR_VISIBILITY => false));
@@ -140,13 +146,13 @@ class Horde_Kolab_Server_Object_adminrole extends Horde_Kolab_Server_Object
                 return $result;
             }
         } else {
-            $result = $admin_group->isMember($this->_uid);
+            $result = $admin_group->isMember($this->uid);
             if (is_a($result, 'PEAR_Error')) {
                 return $result;
             }
             if ($result === false) {
                 $members   = $admin_group->getMembers();
-                $members[] = $this->_uid;
+                $members[] = $this->uid;
                 $admin_group->save(array(KOLAB_ATTR_MEMBER => $members));
             }
         }

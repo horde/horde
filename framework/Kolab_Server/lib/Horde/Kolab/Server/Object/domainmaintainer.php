@@ -2,7 +2,6 @@
 /**
  * A Kolab domain maintainer.
  *
- *
  * PHP version 5
  *
  * @category Kolab
@@ -12,11 +11,8 @@
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
 
-require_once 'Horde/Kolab/Server/Object/adminrole.php';
-
 /**
  * This class provides methods associated to Kolab domain maintainers.
- *
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
@@ -37,7 +33,7 @@ class Horde_Kolab_Server_Object_domainmaintainer extends Horde_Kolab_Server_Obje
      *
      * @var array
      */
-    var $_required_attributes = array(
+    public $required_attributes = array(
         KOLAB_ATTR_SN,
         KOLAB_ATTR_GIVENNAME,
         KOLAB_ATTR_USERPASSWORD,
@@ -50,7 +46,7 @@ class Horde_Kolab_Server_Object_domainmaintainer extends Horde_Kolab_Server_Obje
      *
      * @var array
      */
-    var $_derived_attributes = array(
+    public $derived_attributes = array(
         KOLAB_ATTR_ID,
         KOLAB_ATTR_LNFN,
         KOLAB_ATTR_DOMAIN,
@@ -62,7 +58,7 @@ class Horde_Kolab_Server_Object_domainmaintainer extends Horde_Kolab_Server_Obje
      *
      * @var string
      */
-    var $required_group = 'cn=domain-maintainer,cn=internal';
+    protected $required_group = 'cn=domain-maintainer,cn=internal';
 
     /**
      * Convert the object attributes to a hash.
@@ -71,7 +67,7 @@ class Horde_Kolab_Server_Object_domainmaintainer extends Horde_Kolab_Server_Obje
      *
      * @return array|PEAR_Error The hash representing this object.
      */
-    function toHash($attrs = null)
+    public function toHash($attrs = null)
     {
         if (!isset($attrs)) {
             $attrs = array(
@@ -90,30 +86,30 @@ class Horde_Kolab_Server_Object_domainmaintainer extends Horde_Kolab_Server_Obje
      *
      * @return boolean|PEAR_Error True on success.
      */
-    function save($info)
+    public function save($info)
     {
         foreach ($info[KOLAB_ATTR_DOMAIN] as $domain) {
             $domain_uid = sprintf('cn=%s,cn=domain,cn=internal,%s',
-                                  $domain, $this->_db->getBaseUid());
+                                  $domain, $this->db->getBaseUid());
 
             //FIXME: This should be made easier by the group object
 
-            $domain_group = $this->_db->fetch($domain_uid, 'Horde_Kolab_Server_Object_group');
+            $domain_group = $this->db->fetch($domain_uid, 'Horde_Kolab_Server_Object_group');
             if (is_a($domain_group, 'PEAR_Error')) {
                 return $domain_group;
             }
             if (!$domain_group->exists()) {
-                $members = array($this->_uid);
+                $members = array($this->uid);
                 $domain_group->save(array(KOLAB_ATTR_CN => $domain,
                                           KOLAB_ATTR_MEMBER => $members));
             } else {
-                $result = $domain_group->isMember($this->_uid);
+                $result = $domain_group->isMember($this->uid);
                 if (is_a($result, 'PEAR_Error')) {
                     return $result;
                 }
                 if ($result === false) {
                     $members   = $domain_group->getMembers();
-                    $members[] = $this->_uid;
+                    $members[] = $this->uid;
                     $domain_group->save(array(KOLAB_ATTR_MEMBER => $members));
                 }
             }

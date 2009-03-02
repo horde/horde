@@ -34,14 +34,14 @@ class Horde_Kolab_Server_Object_user extends Horde_Kolab_Server_Object
      *
      * @var string
      */
-    var $filter = '(&(objectClass=kolabInetOrgPerson)(uid=*)(mail=*)(sn=*))';
+    public static $filter = '(&(objectClass=kolabInetOrgPerson)(uid=*)(mail=*)(sn=*))';
 
     /**
      * The attributes supported by this class
      *
      * @var array
      */
-    var $_supported_attributes = array(
+    public $supported_attributes = array(
         KOLAB_ATTR_SN,
         KOLAB_ATTR_CN,
         KOLAB_ATTR_GIVENNAME,
@@ -63,7 +63,7 @@ class Horde_Kolab_Server_Object_user extends Horde_Kolab_Server_Object
      *
      * @var array
      */
-    var $_derived_attributes = array(
+    public $derived_attributes = array(
         KOLAB_ATTR_ID,
         KOLAB_ATTR_USERTYPE,
         KOLAB_ATTR_LNFN,
@@ -75,7 +75,7 @@ class Horde_Kolab_Server_Object_user extends Horde_Kolab_Server_Object
      *
      * @var array
      */
-    var $_required_attributes = array(
+    public $required_attributes = array(
         KOLAB_ATTR_SN,
         KOLAB_ATTR_GIVENNAME,
         KOLAB_ATTR_USERPASSWORD,
@@ -88,7 +88,7 @@ class Horde_Kolab_Server_Object_user extends Horde_Kolab_Server_Object
      *
      * @var array
      */
-    var $_object_classes = array(
+    protected $object_classes = array(
         KOLAB_OC_TOP,
         KOLAB_OC_INETORGPERSON,
         KOLAB_OC_KOLABINETORGPERSON,
@@ -103,26 +103,26 @@ class Horde_Kolab_Server_Object_user extends Horde_Kolab_Server_Object
      * @param string             $dn   UID of the object.
      * @param array              $data A possible array of data for the object
      */
-    function Horde_Kolab_Server_Object_user(&$db, $dn = null, $data = null)
+    public function __construct(&$db, $dn = null, $data = null)
     {
         global $conf;
 
         /** Allows to customize the supported user attributes. */
         if (isset($conf['kolab']['server']['user_supported_attrs'])) {
-            $this->_supported_attributes = $conf['kolab']['server']['user_supported_attrs'];
+            $this->supported_attributes = $conf['kolab']['server']['user_supported_attrs'];
         }
 
         /** Allows to customize the required user attributes. */
         if (isset($conf['kolab']['server']['user_required_attrs'])) {
-            $this->_required_attributes = $conf['kolab']['server']['user_required_attrs'];
+            $this->required_attributes = $conf['kolab']['server']['user_required_attrs'];
         }
 
         /** Allows to customize the user object classes. */
         if (isset($conf['kolab']['server']['user_objectclasses'])) {
-            $this->_object_classes = $conf['kolab']['server']['user_object_classes'];
+            $this->object_classes = $conf['kolab']['server']['user_object_classes'];
         }
 
-        Horde_Kolab_Server_Object::Horde_Kolab_Server_Object($db, $dn, $data);
+        parent::__construct($db, $dn, $data);
     }
 
     /**
@@ -132,7 +132,7 @@ class Horde_Kolab_Server_Object_user extends Horde_Kolab_Server_Object
      *
      * @return mixed The value of the attribute.
      */
-    function _derive($attr)
+    protected function derive($attr)
     {
         switch ($attr) {
         case KOLAB_ATTR_USERTYPE:
@@ -157,7 +157,7 @@ class Horde_Kolab_Server_Object_user extends Horde_Kolab_Server_Object
      *
      * @return array|PEAR_Error The hash representing this object.
      */
-    function toHash($attrs = null)
+    public function toHash($attrs = null)
     {
         if (!isset($attrs)) {
             $attrs = array(
@@ -176,7 +176,7 @@ class Horde_Kolab_Server_Object_user extends Horde_Kolab_Server_Object
      * @return mixed|PEAR_Error An array of group ids, false if no groups were
      *                          found.
      */
-    function getGroups()
+    public function getGroups()
     {
         return $this->_db->getGroups($this->_uid);
     }
@@ -190,7 +190,7 @@ class Horde_Kolab_Server_Object_user extends Horde_Kolab_Server_Object
      *
      * @return string The server url or empty on error.
      */
-    function getServer($server_type)
+    public function getServer($server_type)
     {
         global $conf;
 
@@ -237,7 +237,7 @@ class Horde_Kolab_Server_Object_user extends Horde_Kolab_Server_Object
      *
      * @return string|PEAR_Error The ID.
      */
-    function generateId($info)
+    public static function generateId($info)
     {
         global $conf;
 
@@ -276,7 +276,7 @@ class Horde_Kolab_Server_Object_user extends Horde_Kolab_Server_Object
      * @throws Horde_Kolab_Server_Exception If the information to be saved is
      *                                      invalid.
      */
-    function save($info)
+    public function save($info)
     {
         if (!isset($info['cn'])) {
             if (!isset($info['sn']) || !isset($info['givenName'])) {

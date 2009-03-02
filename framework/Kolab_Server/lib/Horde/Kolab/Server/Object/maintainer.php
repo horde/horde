@@ -2,7 +2,6 @@
 /**
  * A Kolab maintainer.
  *
- *
  * PHP version 5
  *
  * @category Kolab
@@ -12,12 +11,9 @@
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
 
-require_once 'Horde/Kolab/Server/Object/adminrole.php';
-
 /**
  * This class provides methods to deal with maintainer
  * entries for Kolab.
- *
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
@@ -39,6 +35,6 @@ class Horde_Kolab_Server_Object_maintainer extends Horde_Kolab_Server_Object_adm
      *
      * @var string
      */
-    var $required_group = 'cn=maintainer,cn=internal';
+    protected $required_group = 'cn=maintainer,cn=internal';
 
 }

@@ -77,14 +77,14 @@ class Horde_Kolab_Server_Object
      *
      * @var Kolab_Server
      */
-    var $_db;
+    protected $db;
 
     /**
      * UID of this object on the Kolab server.
      *
      * @var string
      */
-    var $_uid;
+    protected $uid;
 
     /**
      * The cached LDAP result
@@ -93,7 +93,7 @@ class Horde_Kolab_Server_Object
      *
      * @var mixed
      */
-    var $_cache = false;
+    private $_cache = false;
 
     /** FIXME: Add an attribute cache for the get() function */
 
@@ -102,7 +102,7 @@ class Horde_Kolab_Server_Object
      *
      * @var string
      */
-    var $filter = '';
+    public static $filter = '';
 
     /**
      * The group the UID must be member of so that this object really
@@ -110,21 +110,21 @@ class Horde_Kolab_Server_Object
      *
      * @var string
      */
-    var $required_group;
+    protected $required_group;
 
     /**
      * The LDAP attributes supported by this class.
      *
      * @var array
      */
-    var $_supported_attributes = array();
+    public $supported_attributes = array();
 
     /**
      * Attributes derived from the LDAP values.
      *
      * @var array
      */
-    var $_derived_attributes = array(
+    public $derived_attributes = array(
         KOLAB_ATTR_ID,
     );
 
@@ -133,14 +133,14 @@ class Horde_Kolab_Server_Object
      *
      * @var array
      */
-    var $_required_attributes = array();
+    public $required_attributes = array();
 
     /**
      * The ldap classes for this type of object.
      *
      * @var array
      */
-    var $_object_classes = array();
+    protected $object_classes = array();
 
     /**
      * Sort by this attributes (must be a LDAP attribute).
@@ -157,21 +157,21 @@ class Horde_Kolab_Server_Object
      * @param string             $uid  UID of the object.
      * @param array              $data A possible array of data for the object
      */
-    function Horde_Kolab_Server_Object(&$db, $uid = null, $data = null)
+    public function __construct(&$db, $uid = null, $data = null)
     {
-        $this->_db = &$db;
+        $this->db = &$db;
         if (empty($uid)) {
             if (empty($data) || !isset($data[KOLAB_ATTR_UID])) {
                 throw new Horde_Kolab_Server_Exception(_('Specify either the UID or a search result!'));
             }
             if (is_array($data[KOLAB_ATTR_UID])) {
-                $this->_uid = $data[KOLAB_ATTR_UID][0];
+                $this->uid = $data[KOLAB_ATTR_UID][0];
             } else {
-                $this->_uid = $data[KOLAB_ATTR_UID];
+                $this->uid = $data[KOLAB_ATTR_UID];
             }
             $this->_cache = $data;
         } else {
-            $this->_uid = $uid;
+            $this->uid = $uid;
         }
     }
 
@@ -188,7 +188,7 @@ class Horde_Kolab_Server_Object
      * @return Horde_Kolab_Server_Object|PEAR_Error The newly created concrete
      *                                 Horde_Kolab_Server_Object instance.
      */
-    function &factory($type, $uid, &$storage, $data = null)
+    public function &factory($type, $uid, &$storage, $data = null)
     {
         $result = Horde_Kolab_Server_Object::loadClass($type);
 
@@ -211,7 +211,7 @@ class Horde_Kolab_Server_Object
      *
      * @return true|PEAR_Error True if successfull.
      */
-    function loadClass($type)
+    public static function loadClass($type)
     {
         if (!class_exists($type)) {
             throw new Horde_Kolab_Server_Exception('Class definition of ' . $type . ' not found.');
@@ -223,10 +223,10 @@ class Horde_Kolab_Server_Object
      *
      * @return NULL
      */
-    function exists()
+    public function exists()
     {
         try {
-            $this->_read();
+            $this->read();
         } catch (Horde_Kolab_Server_Exception $e) {
             return false;
         }
@@ -238,10 +238,10 @@ class Horde_Kolab_Server_Object
      *
      * @return NULL
      */
-    function _read()
+    protected function read()
     {
-        $this->_cache = $this->_db->read($this->_uid,
-                                         $this->_supported_attributes);
+        $this->_cache = $this->db->read($this->uid,
+					$this->supported_attributes);
     }
 
     /**
@@ -250,29 +250,31 @@ class Horde_Kolab_Server_Object
      * @param string $attr The attribute to read
      *
      * @return string the value of this attribute
+     *
+     * @todo: This needs to be magic
      */
-    function get($attr)
+    public function get($attr)
     {
         if ($attr != KOLAB_ATTR_UID) {
-            if (!in_array($attr, $this->_supported_attributes)
-                && !in_array($attr, $this->_derived_attributes)) {
+            if (!in_array($attr, $this->supported_attributes)
+                && !in_array($attr, $this->derived_attributes)) {
                 throw new Horde_Kolab_Server_Exception(sprintf(_("Attribute \"%s\" not supported!"),
                                                                $attr));
             }
             if (!$this->_cache) {
-                $this->_read();
+                $this->read();
             }
         }
 
-        if (in_array($attr, $this->_derived_attributes)) {
-            return $this->_derive($attr);
+        if (in_array($attr, $this->derived_attributes)) {
+            return $this->derive($attr);
         }
 
         switch ($attr) {
         case KOLAB_ATTR_UID:
-            return $this->_getUID();
+            return $this->uid;
         case KOLAB_ATTR_FN:
-            return $this->_getFn();
+            return $this->getFn();
         case KOLAB_ATTR_SN:
         case KOLAB_ATTR_CN:
         case KOLAB_ATTR_GIVENNAME:
@@ -301,7 +303,7 @@ class Horde_Kolab_Server_Object
      *
      * @return string the value of this attribute
      */
-    function _get($attr, $single = true)
+    protected function _get($attr, $single = true)
     {
         if (isset($this->_cache[$attr])) {
             if ($single && is_array($this->_cache[$attr])) {
@@ -320,11 +322,11 @@ class Horde_Kolab_Server_Object
      *
      * @return mixed The value of the attribute.
      */
-    function _derive($attr)
+    protected function derive($attr)
     {
         switch ($attr) {
         case KOLAB_ATTR_ID:
-            $result = split(',', $this->_uid);
+            $result = split(',', $this->uid);
             if (substr($result[0], 0, 3) == 'cn=') {
                 return substr($result[0], 3);
             } else {
@@ -350,7 +352,7 @@ class Horde_Kolab_Server_Object
      *
      * @return array|PEAR_Error The hash representing this object.
      */
-    function toHash($attrs = null)
+    public function toHash($attrs = null)
     {
         if (!isset($attrs)) {
             $attrs = array();
@@ -369,9 +371,9 @@ class Horde_Kolab_Server_Object
      *
      * @return string the UID of this object
      */
-    function _getUid()
+    public function getUid()
     {
-        return $this->_uid;
+        return $this->uid;
     }
 
     /**
@@ -381,7 +383,7 @@ class Horde_Kolab_Server_Object
      *
      * @return string the "first name" of this object
      */
-    function _getFn()
+    protected function getFn()
     {
         $sn = $this->_get(KOLAB_ATTR_SN, true);
         $cn = $this->_get(KOLAB_ATTR_CN, true);
@@ -394,7 +396,7 @@ class Horde_Kolab_Server_Object
      * @return mixed An array of group ids or a PEAR Error in case of
      *               an error.
      */
-    function getGroups()
+    public function getGroups()
     {
         return array();
     }
@@ -408,7 +410,7 @@ class Horde_Kolab_Server_Object
      *
      * @return string|PEAR_Error The server url or empty.
      */
-    function getServer($server_type)
+    public function getServer($server_type)
     {
         throw new Horde_Kolab_Server_Exception('Not implemented!');
     }
@@ -422,7 +424,7 @@ class Horde_Kolab_Server_Object
      *
      * @return string|PEAR_Error The ID.
      */
-    function generateId($info)
+    public static function generateId($info)
     {
         $id_mapfields = array('givenName', 'sn');
         $id_format    = '%s %s';
@@ -446,18 +448,18 @@ class Horde_Kolab_Server_Object
      *
      * @return boolean|PEAR_Error True on success.
      */
-    function save($info)
+    public function save($info)
     {
-        foreach ($this->_required_attributes as $attribute) {
+        foreach ($this->required_attributes as $attribute) {
             if (!isset($info[$attribute])) {
                 throw new Horde_Kolab_Server_Exception(sprintf(_("The value for \"%s\" is missing!"),
                                                                  $attribute));
             }
         }
 
-        $info['objectClass'] = $this->_object_classes;
+        $info['objectClass'] = $this->object_classes;
 
-        $result = $this->_db->save($this->_uid, $info);
+        $result = $this->db->save($this->uid, $info);
         if ($result === false || is_a($result, 'PEAR_Error')) {
             return $result;
         }

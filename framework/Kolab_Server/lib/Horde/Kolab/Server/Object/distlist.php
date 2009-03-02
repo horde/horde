@@ -2,7 +2,6 @@
 /**
  * Representation of a Kolab distribution list.
  *
- *
  * PHP version 5
  *
  * @category Kolab
@@ -12,11 +11,8 @@
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
 
-require_once 'Horde/Kolab/Server/Object/group.php';
-
 /**
  * This class provides methods to deal with distribution lists for Kolab.
- *
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
@@ -37,7 +33,7 @@ class Horde_Kolab_Server_Object_distlist extends Horde_Kolab_Server_Object_group
      *
      * @var string
      */
-    var $filter = '(&(objectClass=kolabGroupOfNames)(mail=*))';
+    public static $filter = '(&(objectClass=kolabGroupOfNames)(mail=*))';
 
 
     /**
@@ -45,7 +41,7 @@ class Horde_Kolab_Server_Object_distlist extends Horde_Kolab_Server_Object_group
      *
      * @var array
      */
-    var $_required_attributes = array(
+    public $required_attributes = array(
         KOLAB_ATTR_MAIL,
     );
 };

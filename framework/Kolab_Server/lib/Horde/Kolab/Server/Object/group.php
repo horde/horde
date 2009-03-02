@@ -2,7 +2,6 @@
 /**
  * Representation of a Kolab user group.
  *
- *
  * PHP version 5
  *
  * @category Kolab
@@ -14,7 +13,6 @@
 
 /**
  * This class provides methods to deal with groups for Kolab.
- *
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
@@ -35,14 +33,14 @@ class Horde_Kolab_Server_Object_group extends Horde_Kolab_Server_Object
      *
      * @var string
      */
-    var $filter = '(objectClass=kolabGroupOfNames)';
+    public static $filter = '(objectClass=kolabGroupOfNames)';
 
     /**
      * The attributes supported by this class
      *
      * @var array
      */
-    var $_supported_attributes = array(
+    public $supported_attributes = array(
         KOLAB_ATTR_CN,
         KOLAB_ATTR_MAIL,
         KOLAB_ATTR_MEMBER,
@@ -54,7 +52,7 @@ class Horde_Kolab_Server_Object_group extends Horde_Kolab_Server_Object
      *
      * @var array
      */
-    var $_derived_attributes = array(
+    public $derived_attributes = array(
         KOLAB_ATTR_ID,
         KOLAB_ATTR_VISIBILITY,
     );
@@ -64,7 +62,7 @@ class Horde_Kolab_Server_Object_group extends Horde_Kolab_Server_Object
      *
      * @var array
      */
-    var $_required_attributes = array(
+    public $required_attributes = array(
         KOLAB_ATTR_CN,
     );
 
@@ -73,7 +71,7 @@ class Horde_Kolab_Server_Object_group extends Horde_Kolab_Server_Object
      *
      * @var array
      */
-    var $_object_classes = array(
+    protected $object_classes = array(
         KOLAB_OC_TOP,
         KOLAB_OC_KOLABGROUPOFNAMES,
     );
@@ -83,7 +81,7 @@ class Horde_Kolab_Server_Object_group extends Horde_Kolab_Server_Object
      *
      * @var string
      */
-    var $sort_by = KOLAB_ATTR_MAIL;
+    public $sort_by = KOLAB_ATTR_MAIL;
 
     /**
      * Derive an attribute value.
@@ -92,13 +90,13 @@ class Horde_Kolab_Server_Object_group extends Horde_Kolab_Server_Object
      *
      * @return mixed The value of the attribute.
      */
-    function _derive($attr)
+    protected function derive($attr)
     {
         switch ($attr) {
         case KOLAB_ATTR_VISIBILITY:
             return strpos($this->_uid, 'cn=internal') === false;
         default:
-            return parent::_derive($attr);
+            return parent::derive($attr);
         }
     }
 
@@ -109,7 +107,7 @@ class Horde_Kolab_Server_Object_group extends Horde_Kolab_Server_Object
      *
      * @return array|PEAR_Error The hash representing this object.
      */
-    function toHash($attrs = null)
+    public function toHash($attrs = null)
     {
         if (!isset($attrs)) {
             $attrs = array(
@@ -130,7 +128,7 @@ class Horde_Kolab_Server_Object_group extends Horde_Kolab_Server_Object
      *
      * @return string|PEAR_Error The ID.
      */
-    function generateId($info)
+    public static function generateId($info)
     {
         if (isset($info['mail'])) {
             return trim($info['mail'], " \t\n\r\0\x0B,");
@@ -146,7 +144,7 @@ class Horde_Kolab_Server_Object_group extends Horde_Kolab_Server_Object
      *
      * @return boolean|PEAR_Error True on success.
      */
-    function save($info)
+    public function save($info)
     {
         if (!isset($info['cn'])) {
             if (!isset($info['mail'])) {
@@ -163,7 +161,7 @@ class Horde_Kolab_Server_Object_group extends Horde_Kolab_Server_Object
      *
      * @return array|PEAR_Error The list of members in this group.
      */
-    function getMembers()
+    public function getMembers()
     {
         return $this->_get(KOLAB_ATTR_MEMBER, false);
     }
@@ -175,7 +173,7 @@ class Horde_Kolab_Server_Object_group extends Horde_Kolab_Server_Object
      *
      * @return array|PEAR_Error True if successful.
      */
-    function addMember($member)
+    public function addMember($member)
     {
         $members = $this->getMembers();
         if (is_a($members, 'PEAR_Error')) {
@@ -197,7 +195,7 @@ class Horde_Kolab_Server_Object_group extends Horde_Kolab_Server_Object
      *
      * @return array|PEAR_Error True if successful.
      */
-    function deleteMember($member)
+    public function deleteMember($member)
     {
         $members = $this->getMembers();
         if (is_a($members, 'PEAR_Error')) {
@@ -222,7 +220,7 @@ class Horde_Kolab_Server_Object_group extends Horde_Kolab_Server_Object
      * @return boolean|PEAR_Error True if the UID is a member of the group,
      *                            false otherwise.
      */
-    function isMember($member)
+    public function isMember($member)
     {
         $members = $this->getMembers();
         if (is_a($members, 'PEAR_Error') || !is_array($members)) {
