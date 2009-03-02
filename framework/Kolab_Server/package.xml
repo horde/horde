@@ -39,20 +39,14 @@ http://pear.php.net/dtd/package-2.0.xsd">
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
   * Converted the package to Horde 4 / PHP 5.
+  * Split the session driver into a separate package (Kolab_Session).
  </notes>
  <contents>
   <dir name="/">
    <dir name="lib">
     <dir name="Horde">
      <dir name="Kolab">
-      <file name="IMAP.php" role="php" />
-      <dir name="IMAP">
-       <file name="cclient.php" role="php" />
-       <file name="pear.php" role="php" />
-       <file name="test.php" role="php" />
-      </dir> <!-- /lib/Horde/Kolab/IMAP -->
       <file name="Server.php" role="php" />
-      <file name="Session.php" role="php" />
       <dir name="Server">
        <file name="Exception.php" role="php" />
        <file name="ldap.php" role="php" />
@@ -90,7 +84,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
        <file name="ldapTest.php" role="test" />
        <file name="ObjectTest.php" role="test" />
        <file name="ServerTest.php" role="test" />
-       <file name="SessionTest.php" role="test" />
        <file name="testTest.php" role="test" />
        <file name="UserHandlingTest.php" role="test" />
        <file name="UserTest.php" role="test" />
@@ -133,12 +126,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/Kolab/IMAP.php" as="Horde/Kolab/IMAP.php" />
-   <install name="lib/Horde/Kolab/IMAP/cclient.php" as="Horde/Kolab/IMAP/cclient.php" />
-   <install name="lib/Horde/Kolab/IMAP/pear.php" as="Horde/Kolab/IMAP/pear.php" />
-   <install name="lib/Horde/Kolab/IMAP/test.php" as="Horde/Kolab/IMAP/test.php" />
    <install name="lib/Horde/Kolab/Server.php" as="Horde/Kolab/Server.php" />
-   <install name="lib/Horde/Kolab/Session.php" as="Horde/Kolab/Session.php" />
    <install name="lib/Horde/Kolab/Test/Server.php" as="Horde/Kolab/Test/Server.php" />
    <install name="lib/Horde/Kolab/Server/Exception.php" as="Horde/Kolab/Server/Exception.php" />
    <install name="lib/Horde/Kolab/Server/ldap.php" as="Horde/Kolab/Server/ldap.php" />
@@ -163,7 +151,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="test/Horde/Kolab/Server/ldapTest.php" as="Horde/Kolab/Server/ldapTest.php" />
    <install name="test/Horde/Kolab/Server/ObjectTest.php" as="Horde/Kolab/Server/ObjectTest.php" />
    <install name="test/Horde/Kolab/Server/ServerTest.php" as="Horde/Kolab/Server/ServerTest.php" />
-   <install name="test/Horde/Kolab/Server/SessionTest.php" as="Horde/Kolab/Server/SessionTest.php" />
    <install name="test/Horde/Kolab/Server/testTest.php" as="Horde/Kolab/Server/testTest.php" />
    <install name="test/Horde/Kolab/Server/UserHandlingTest.php" as="Horde/Kolab/Server/UserHandlingTest.php" />
    <install name="test/Horde/Kolab/Server/UserTest.php" as="Horde/Kolab/Server/UserTest.php" />
