@@ -130,10 +130,6 @@ div.msgActions, #fmanager div.folderActions {
     padding-left: 15px;
 }
 
-#msgheaders {
-    clear: left;
-}
-
 /* Message body styling. */
 .messageBody {
     border-top: 1px solid #ccc;
@@ -275,6 +271,9 @@ tr.deleted:hover, tr.deleted-over {
     background: #f00;
 }
 
+table.msgheaders, td {
+    vertical-align: inherit;
+}
 table.msgheaders, td.msgheader {
     width: 100%;
 }
