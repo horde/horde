@@ -1,7 +1,7 @@
 <?php
 /**
  * The Horde_Mime_Viewer_msexcel class renders out Microsoft Excel
- * documents in HTML format by using the xlHtml package.
+ * documents in HTML format by using the Gnumeric package.
  *
  * Copyright 1999-2009 The Horde Project (http://www.horde.org/)
  *
