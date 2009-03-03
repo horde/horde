@@ -190,7 +190,7 @@ class Folks_Friends_sql extends Folks_Friends {
      */
     protected function _getGroups()
     {
-        return array(_("Whitelist"));
+        return array(_("Friends"));
     }
 
     /**
