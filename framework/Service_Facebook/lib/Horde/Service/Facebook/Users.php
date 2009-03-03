@@ -163,4 +163,19 @@ class Horde_Service_Facebook_Users extends Horde_Service_Facebook_Base
         return $this->_facebook->callMethod('facebook.users.setStatus', $params);
     }
 
+    public function &getStatus($uid = null, $limit = 1)
+    {
+        if (empty($uid) && !$skey = $this->_facebook->auth->getSessionKey()) {
+            throw new Horde_Service_Facebook_Exception('users.setStatus requires a uid or a session_key',
+                Horde_Service_Facebook_ErrorCodes::API_EC_PARAM_SESSION_KEY);
+        }
+
+        $params = array('session_key' => $skey, 'limit' => $limit);
+        if (!empty($user)) {
+            $params['uid'] = $user;
+        }
+
+        return $this->_facebook->callMethod('Status.get', $params);
+    }
+
 }

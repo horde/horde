@@ -71,7 +71,7 @@ class Horde_Service_Facebook_Auth
     public function getLoginUrl($next)
     {
         return Horde_Service_Facebook::getFacebookUrl() . '/login.php?v=1.0&api_key='
-            . $this->_apiKey . ($next ? '&next=' . urlencode($next)  : '');
+            . $this->_facebook->apiKey . ($next ? '&next=' . urlencode($next)  : '');
     }
 
     /**
@@ -450,6 +450,24 @@ class Horde_Service_Facebook_Auth
                                             array('session_key' => $skey,
                                                   'perm' => $perm,
                                                   'user' => $uid));
+
+    }
+
+    /**
+     * Revoke all application permissions for the current session user.
+     *
+     */
+    function revokeAuthorization()
+    {
+        // Session key is *required*
+        if (!$skey = $this->getSessionKey()) {
+            throw new Horde_Service_Facebook_Exception('session_key is required',
+                                               Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
+        }
+
+        $this->_facebook->callMethod('Auth.revokeAuthorization',
+                                            array('session_key' => $skey));
+        $this->expireSession();
 
     }
 }

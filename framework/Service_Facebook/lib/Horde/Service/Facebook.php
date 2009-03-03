@@ -188,15 +188,6 @@ class Horde_Service_Facebook
     }
 
     /**
-     * Initialize the object - check to see if we have a valid FB
-     * session, verify the signature etc...
-     */
-    public function validateSession()
-    {
-        return $this->auth->validateSession(empty($this->_context['no_resolve']));
-    }
-
-    /**
      * Lazy load the facebook classes.
      *
      * @param string $value  The lowercase representation of the subclass.
