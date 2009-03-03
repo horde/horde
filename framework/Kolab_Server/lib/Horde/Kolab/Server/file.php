@@ -60,15 +60,17 @@ class Horde_Kolab_Server_file extends Horde_Kolab_Server_test
     protected function load()
     {
         $raw_data = file_get_contents($this->_file);
-        $data = @unserialize($raw_data);
-        if ($data !== false) {
-            $this->_data = $data;
-        } else {
-            $error = error_get_last();
-            Horde::logMessage(sprintf('Horde_Kolab_Server_file failed to read the database from %s. Error was: %s',
-                                      $this->_file, $error['message']), __FILE__,
-                              __LINE__, PEAR_LOG_WARNING);
-            $this->_data = array();
+        if (!$raw_daata === false) {
+            $data = @unserialize($raw_data);
+            if ($data !== false) {
+                $this->_data = $data;
+            } else {
+                $error = error_get_last();
+                Horde::logMessage(sprintf('Horde_Kolab_Server_file failed to read the database from %s. Error was: %s',
+                                          $this->_file, $error['message']), __FILE__,
+                                  __LINE__, PEAR_LOG_WARNING);
+                $this->_data = array();
+            }
         }
     }
 
