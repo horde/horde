@@ -167,18 +167,6 @@ class Horde_Imap_Client_Cclient_Pop3 extends Horde_Imap_Client_Cclient
     }
 
     /**
-     * Unsubscribe to a mailbox.
-     *
-     * @param string $mailbox  The mailbox to unsubscribe to (UTF7-IMAP).
-     *
-     * @throws Horde_Imap_Client_Exception
-     */
-    protected function _unsubscribeMailbox($mailbox)
-    {
-        throw new Horde_Imap_Client_Exception('Mailboxes other than INBOX not supported on POP3 servers.', Horde_Imap_Client_Exception::POP3_NOTSUPPORTED);
-    }
-
-    /**
      * Obtain a list of mailboxes matching a pattern.
      *
      * @param string $pattern  The mailbox search pattern.
@@ -214,14 +202,14 @@ class Horde_Imap_Client_Cclient_Pop3 extends Horde_Imap_Client_Cclient
      */
     protected function _status($mailbox, $flags)
     {
-        if (strcasecmp($mailbox, 'INBOX') !== 0) {
-            throw new Horde_Imap_Client_Exception('Mailboxes other than INBOX not supported on POP3 servers.', Horde_Imap_Client_Exception::POP3_NOTSUPPORTED);
-        }
+        $this->openMailbox($mailbox);
 
         // This driver only supports the base flags given by c-client.
         if (($flags & Horde_Imap_Client::STATUS_FIRSTUNSEEN) ||
             ($flags & Horde_Imap_Client::STATUS_FLAGS) ||
-            ($flags & Horde_Imap_Client::STATUS_PERMFLAGS)) {
+            ($flags & Horde_Imap_Client::STATUS_PERMFLAGS) ||
+            ($flags & Horde_Imap_Client::STATUS_HIGHESTMODSEQ) ||
+            ($flags & Horde_Imap_Client::STATUS_UIDNOTSTICKY)) {
             throw new Horde_Imap_Client_Exception('Improper status request on POP3 server.', Horde_Imap_Client_Exception::POP3_NOTSUPPORTED);
         }
 
