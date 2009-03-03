@@ -404,4 +404,5 @@ class IMP_Horde_Mime_Viewer_pgp extends Horde_Mime_Viewer_Driver
     {
         return $this->_imppgp->getSymmetricID($this->_params['contents']->getMailbox(), $this->_params['contents']->getIndex(), $this->_mimepart->getMimeId());
     }
+
 }
