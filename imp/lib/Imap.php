@@ -195,7 +195,7 @@ class IMP_Imap
         }
 
         try {
-            $ob = Horde_Imap_Client::getInstance(($protocol == 'imap') ? 'Socket' : 'Cclient_pop3', $imap_config);
+            $ob = Horde_Imap_Client::getInstance(($protocol == 'imap') ? 'Socket' : 'Socket_Pop3', $imap_config);
         } catch (Horde_Imap_Client_Exception $e) {
             return false;
         }

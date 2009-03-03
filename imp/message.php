@@ -515,7 +515,7 @@ if (!IMP::$printMode) {
         $a_template->set('redirect', Horde::widget(IMP::composeLink(array(), array('actionID' => 'redirect_compose') + $compose_params), _("Redirect"), 'widget', '', '', _("Redirec_t"), true));
     }
 
-    if (isset($imp_search) && !$imp_search->searchMboxID()) {
+    if (IMP::threadSortAvailable($imp_mbox['mailbox'])) {
         $a_template->set('show_thread', Horde::widget(Util::addParameter(IMP::generateIMPUrl('thread.php', $imp_mbox['mailbox'], $index, $mailbox_name), array('start' => $msgindex)), _("View Thread"), 'widget', '', '', _("_View Thread"), true));
     }
 

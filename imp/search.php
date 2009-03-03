@@ -19,6 +19,13 @@
 require_once dirname(__FILE__) . '/lib/base.php';
 require_once 'Horde/Help.php';
 
+/* Redirect back to the mailbox if searching is not allowed. */
+if ($_SESSION['imp']['protocol'] == 'pop') {
+    $notification->push(_("Searching is not available with a POP3 server."), 'horde.error');
+    header('Location: ' . Horde::applicationUrl('mailbox.php', true));
+    exit;
+}
+
 $actionID = Util::getFormData('actionID');
 $edit_query = Util::getFormData('edit_query');
 $edit_query_vfolder = Util::getFormData('edit_query_vfolder');

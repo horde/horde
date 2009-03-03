@@ -110,7 +110,7 @@ To function properly, IMP **requires** the following:
       See http://www.php.net/openssl for information on compiling OpenSSL
       into PHP.
 
-   b. tidy ``--with-tidy`` (PHP 5+ only)
+   b. tidy ``--with-tidy``
 
       The tidy PHP extension is required if you want IMP to sanitize the
       output of HTML messages before displaying to the user and if you want
@@ -118,68 +118,13 @@ To function properly, IMP **requires** the following:
       composition mode.  See ``imp/config/mime_drivers.php.dist`` for
       further instructions on how to enable this feature.
 
-   The following PHP options are **OPTIONAL** and only required for certain
-   configurations:
-
-   a. POP3 support ``--with-imap``
-
-      ** This extensions is only required for POP3 servers. If accessing **
-      ** mail via IMAP, this extension is NOT necessary.                 **
-
-      IMP **requires** the PHP imap extension to provide POP3 support.
-      To compile the imap extension, the UW-IMAP c-client library must be
-      present on your system.  For help with compiling the imap extension into
-      PHP, you can view the PHP imap manual entry:
-
-         http://www.php.net/imap
-
-      Because installation of the imap extension can be a non-trivial matter,
-      further configuration help/advice follows.
-
-      The UW-IMAP c-client library is available from
-
-         ftp://ftp.cac.washington.edu/imap/
-
-      The most recent code is normally located in a file named 'imap.tar.Z'.
-
-      After building the c-client library (instructions are at the top of
-      the Makefile in the base directory of the UW imap package), you may
-      need to rename the compiled library file so the local build system can
-      find it.  For example, compilation of c-client results in a file named
-      'c-client.a' in the 'c-client' directory.  On Linux (at least) this file
-      needs to be renamed or linked to libc-client.a, e.g.:
-
-         ln -s c-client.a libc-client.a
-
-      IMP can use POP3-SSL if available.  SSL support needs to be built-in to
-      both the c-client library and the PHP extension (see the
-      ``--with-imap-ssl`` configure option to PHP).
-
-      If using TLS or SSL to connect to the POP3 server, OpenSSL support is
-      **required** in PHP. See `OpenSSL Support`_ below.
-
-      .. Tip:: If you notice strange behavior when running IMP (e.g. blank
-               screens when accessing certain messages, blank message bodies)
-               you should always try recompiling PHP with a different version
-               of c-client.  The different versions of the c-client library and
-               PHP do not always work well together, and often all it takes is
-               to recompile with a different c-client version and the problems
-               will go away.
-
-      .. Tip:: If running the webserver changerooted (i.e. the default setting
-               on OpenBSD), you may need additional configuration on your
-               system to ensure the c-client library works properly.
-               See: `Configuring c-client for changerooted webservers`_
-
-      .. _`Configuring c-client for changerooted webservers`: http://lists.horde.org/archives/imp/Week-of-Mon-20050321/041502.html
-
 3. The following PEAR modules:
    (See `horde/docs/INSTALL`_ for instructions on installing PEAR modules)
 
    a. Auth_SASL [OPTIONAL]
 
-      Auth_SASL is required if your IMAP server uses CRAM-MD5 or DIGEST-MD5
-      authentication.
+      Auth_SASL is required only if your IMAP server uses CRAM-MD5 or
+      DIGEST-MD5 authentication.
 
 4. The following PECL modules:
    (See `horde/docs/INSTALL`_ for instructions on installing PECL modules)

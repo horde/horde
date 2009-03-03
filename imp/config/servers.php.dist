@@ -21,12 +21,12 @@
  *
  * protocol: (string) Either 'pop' or 'imap' (DEFAULT).
  *
- *           If using 'pop' you will connect to a POP3 mail server and all
- *           folder options will be automatically turned off (POP3 does
- *           not support folders).  If you want folders (and for much
- *           improved performance) it is HIGHLY RECOMMENDED that IMAP should
- *           be used instead.  The PHP imap module must be built into PHP in
- *           order to use a POP3 server.
+ *           'imap' requires a IMAP4rev1 (RFC 3501) compliant server.
+ *
+ *           'pop' requires a POP3 (RFC 1939) compliant server. All folder
+ *           options will be automatically turned off (POP3 does
+ *           not support folders).  Other advanced functions will also be
+ *           disabled (e.g. caching, searching, sorting).
  *
  * secure: (mixed) One of the following values:
  *         'ssl' - Use SSL to connect to the server.

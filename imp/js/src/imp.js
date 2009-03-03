@@ -88,9 +88,9 @@ IMP.unblockImages = function(e)
 
 document.observe('dom:loaded', function() {
     // If menu is present, attach event handlers to folder switcher.
-    var tmp = $('menuform');
+    var tmp = $('openfoldericon');
     if (tmp) {
-        tmp.observe('change', IMP.menuFolderSubmit.bind(IMP));
-        $('openfoldericon').down().observe('click', IMP.menuFolderSubmit.bind(IMP, true));
+        $('menuform').observe('change', IMP.menuFolderSubmit.bind(IMP));
+        tmp.down().observe('click', IMP.menuFolderSubmit.bind(IMP, true));
     }
 });

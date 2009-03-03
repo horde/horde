@@ -658,7 +658,9 @@ class IMP
             $menu->add(Util::nocacheUrl(Horde::applicationUrl('folders.php')), _("_Folders"), 'folders/folder.png');
         }
 
-        $menu->add($menu_search_url, _("_Search"), 'search.png', $registry->getImageDir('horde'));
+        if ($_SESSION['imp']['protocol'] != 'pop') {
+            $menu->add($menu_search_url, _("_Search"), 'search.png', $registry->getImageDir('horde'));
+        }
 
         if (($_SESSION['imp']['protocol'] != 'pop') &&
             $prefs->getValue('fetchmail_menu')) {
@@ -1152,6 +1154,15 @@ class IMP
             'limit' => false
         );
 
+        /* Restrict POP3 sorting to arrival only.  Although possible to
+         * abstract other sorting methods, all other methods require a
+         * download of all messages, which is too much overhead.*/
+        if ($_SESSION['imp']['protocol'] == 'pop') {
+            $ob['by'] = Horde_Imap_Client::SORT_ARRIVAL;
+            $ob['limit'] = true;
+            return $ob;
+        }
+
         /* Can't do threaded searches in search mailboxes. */
         if (!self::threadSortAvailable($mbox)) {
             if ($ob['by'] == Horde_Imap_Client::SORT_THREAD) {
@@ -1194,7 +1205,8 @@ class IMP
      */
     static public function threadSortAvailable($mbox)
     {
-        return !$GLOBALS['imp_search']->isSearchMbox($mbox) &&
+        return ($_SESSION['imp']['protocol'] == 'imap') &&
+               !$GLOBALS['imp_search']->isSearchMbox($mbox) &&
                (!$GLOBALS['prefs']->getValue('use_trash') ||
                 !$GLOBALS['prefs']->getValue('use_vtrash') ||
                 $GLOBALS['imp_search']->isVTrashFolder($mbox));

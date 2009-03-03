@@ -24,7 +24,7 @@ function _doConnectionTest()
         'secure' => ($_POST['port'] == 'yes')
     );
 
-    $driver = ($_POST['server_type'] == 'imap') ? 'Socket' : 'Cclient_pop3';
+    $driver = ($_POST['server_type'] == 'imap') ? 'Socket' : 'Socket_Pop3';
 
     try {
         $imap_client = Horde_Imap_Client::getInstance($driver, $imap_config);
@@ -156,11 +156,6 @@ $module_list = array(
     'idn' => array(
         'descrip' => 'Internationalized Domain Names Support',
         'error' => 'IMP requires the idn module (installed via PECL) in order to handle Internationalized Domain Names.',
-        'fatal' => false
-    ),
-    'imap' => array(
-        'descrip' => 'IMAP Support',
-        'error' => 'IMP requires the imap module to interact with the mail server.  It is required ONLY for POP3 access.',
         'fatal' => false
     ),
     'openssl' => array(
