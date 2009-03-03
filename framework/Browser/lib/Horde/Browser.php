@@ -980,6 +980,10 @@ class Horde_Browser
                 $filesize = intval(floatval($filesize) * 1024 * 1024);
                 break;
 
+            case 'g':
+                $filesize = intval(floatval($filesize) * 1024 * 1024 * 1024);
+                break;
+
             default:
                 $filesize = intval($filesize);
                 break;
@@ -992,6 +996,10 @@ class Horde_Browser
 
             case 'm':
                 $postsize = intval(floatval($postsize) * 1024 * 1024);
+                break;
+
+            case 'g':
+                $postsize = intval(floatval($postsize) * 1024 * 1024 * 1024);
                 break;
 
             default:

@@ -333,8 +333,9 @@ class Horde_Mime_Address
     {
         $addressList = array();
 
-        $from = self::parseAddressList($address, array('defserver' => $defserver));
-        if (is_a($from, 'PEAR_Error')) {
+        try {
+            $from = self::parseAddressList($address, array('defserver' => $defserver));
+        } catch (Horde_Mime_Exception $e) {
             return $multiple ? array() : '';
         }
 
@@ -359,16 +360,13 @@ class Horde_Mime_Address
      * 'nestgroups' - (boolean) Nest the groups? (Will appear under the
      *                'groupname' key)
      *                DEFAULT: No.
-     * 'reterror' - (boolean) Return a PEAR_Error object on error?
-     *              DEFAULT: Returns an empty array on error.
      * 'validate' - (boolean) Validate the address(es)?
      *              DEFAULT: No.
      * </pre>
      *
-     * @return mixed  If 'reterror' is true, returns a PEAR_Error object on
-     *                error.  Otherwise, a list of arrays with the possible
-     *                keys: 'mailbox', 'host', 'personal', 'adl', 'groupname',
-     *                and 'comment'.
+     * @return array  A list of arrays with the possible keys: 'mailbox',
+     *                'host', 'personal', 'adl', 'groupname', and 'comment'.
+     * @throws Horde_Mime_Exception
      */
     static public function parseAddressList($address, $options = array())
     {
@@ -379,19 +377,17 @@ class Horde_Mime_Address
         $options = array_merge(array(
             'defserver' => null,
             'nestgroups' => false,
-            'reterror' => false,
             'validate' => false
         ), $options);
 
         static $parser;
         if (!isset($parser)) {
-            require_once 'Mail/RFC822.php';
             $parser = new Mail_RFC822();
         }
 
         $ret = $parser->parseAddressList($address, $options['defserver'], $options['nestgroups'], $options['validate']);
         if (is_a($ret, 'PEAR_Error')) {
-            return empty($options['reterror']) ? array() : $ret;
+            throw new Horde_Mime_Exception($ret);
         }
 
         /* Convert objects to arrays. */

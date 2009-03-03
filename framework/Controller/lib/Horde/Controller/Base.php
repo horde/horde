@@ -79,7 +79,7 @@ abstract class Horde_Controller_Base
     /**
      * New controller instance
      */
-    public function __construct($options)
+    public function __construct($options = array())
     {
         foreach ($options as $key => $val) {
             $this->{'_' . $key} = $val;
@@ -87,13 +87,16 @@ abstract class Horde_Controller_Base
     }
 
     /**
-     * Lazy loading of resources: view, ...
+     * Access to resources (request) and lazy loading of some (view).
      *
-     * @param string $name Property to load
+     * @param string $name  Property to access
      */
     public function __get($name)
     {
         switch ($name) {
+        case 'request':
+            return $this->_request;
+
         case '_view':
             $this->_view = new Horde_View;
             return $this->_view;
@@ -372,6 +375,29 @@ abstract class Horde_Controller_Base
     protected function renderNothing()
     {
         $this->renderText('');
+    }
+
+    /**
+     * Set the layout template for the controller. Specify the name of the file in
+     * the /app/views/layouts directory without the .html extension
+     *
+     * <code>
+     *  <?php
+     *  ...
+     *  public function _initialize()
+     *  {
+     *      $this->setLayout('application');
+     *  }
+     *  ...
+     *  ?>
+     * </code>
+     *
+     * @param   string  $layoutName
+     */
+    protected function setLayout($layoutName)
+    {
+        $this->_useLayout  = true;
+        $this->_layoutName = $layoutName;
     }
 
     /**

@@ -45,7 +45,7 @@ class Horde_Mime_Viewer_rtf extends Horde_Mime_Viewer_Driver
 
         file_put_contents($tmp_rtf, $this->_mimepart->getContents());
 
-        exec($GLOBALS['mime_drivers']['horde']['rtf']['location'] . " $tmp_rtf > $tmp_output");
+        exec($this->_conf['location'] . " $tmp_rtf > $tmp_output");
 
         if (file_exists($tmp_output)) {
             $data = file_get_contents($tmp_output);

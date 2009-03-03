@@ -55,7 +55,7 @@
  *            VALUES: false, 'ssl', 'tls'.
  *            DEFAULT: No encryption
  *   statuscache - (boolean) Cache STATUS responses?
- *                 DEFAULT: True
+ *                 DEFAULT: False
  *   timeout - (integer)  Connection timeout, in seconds.
  *             DEFAULT: 10 seconds
  *

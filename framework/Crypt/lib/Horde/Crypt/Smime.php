@@ -1,6 +1,6 @@
 <?php
 /**
- * Horde_Crypt_smime:: provides a framework for Horde applications to
+ * Horde_Crypt_Smime:: provides a framework for Horde applications to
  * interact with the OpenSSL library and implement S/MIME.
  *
  * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
@@ -11,7 +11,7 @@
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
  * @package Horde_Crypt
  */
-class Horde_Crypt_smime extends Horde_Crypt
+class Horde_Crypt_Smime extends Horde_Crypt
 {
     /**
      * Object Identifers to name array.
@@ -67,7 +67,7 @@ class Horde_Crypt_smime extends Horde_Crypt
      * @param array $params  Parameter array.
      *                       'temp' => Location of temporary directory.
      */
-    function __construct($params)
+    protected function __construct($params)
     {
         $this->_tempdir = $params['temp'];
     }
@@ -80,15 +80,12 @@ class Horde_Crypt_smime extends Horde_Crypt
      *
      * @return boolean  Returns true on valid passphrase, false on invalid
      *                  passphrase.
-     *                  Returns PEAR_Error on error.
      */
     public function verifyPassphrase($private_key, $passphrase)
     {
-        if (is_null($passphrase)) {
-            $res = openssl_pkey_get_private($private_key);
-        } else {
-            $res = openssl_pkey_get_private($private_key, $passphrase);
-        }
+        $res = is_null($passphrase)
+            ? openssl_pkey_get_private($private_key)
+            : openssl_pkey_get_private($private_key, $passphrase);
 
         return is_resource($res);
     }
@@ -102,15 +99,12 @@ class Horde_Crypt_smime extends Horde_Crypt
      *                       the parameter requirements.
      *
      * @return string  The encrypted message.
-     *                 Returns PEAR_Error object on error.
+     * @throws Horde_Exception
      */
     public function encrypt($text, $params = array())
     {
         /* Check for availability of OpenSSL PHP extension. */
-        $openssl = $this->checkForOpenSSL();
-        if (is_a($openssl, 'PEAR_Error')) {
-            return $openssl;
-        }
+        $this->checkForOpenSSL();
 
         if (isset($params['type'])) {
             if ($params['type'] === 'message') {
@@ -130,15 +124,12 @@ class Horde_Crypt_smime extends Horde_Crypt
      *                       the parameter requirements.
      *
      * @return string  The decrypted message.
-     *                 Returns PEAR_Error object on error.
+     * @throws Horde_Exception
      */
     public function decrypt($text, $params = array())
     {
         /* Check for availability of OpenSSL PHP extension. */
-        $openssl = $this->checkForOpenSSL();
-        if (is_a($openssl, 'PEAR_Error')) {
-            return $openssl;
-        }
+        $this->checkForOpenSSL();
 
         if (isset($params['type'])) {
             if ($params['type'] === 'message') {
@@ -157,19 +148,16 @@ class Horde_Crypt_smime extends Horde_Crypt
      * @param mixed $certs  Either a single or array of root certificates.
      *
      * @return stdClass  Object with the following elements:
-     *                   'result' -> Returns true on success;
-     *                               PEAR_Error object on error.
+     *                   'result' -> Returns true on success.
      *                   'cert' -> The certificate of the signer stored
      *                             in the message (in PEM format).
      *                   'email' -> The email of the signing person.
+     * @throws Horde_Exception
      */
     public function verify($text, $certs)
     {
         /* Check for availability of OpenSSL PHP extension. */
         $openssl = $this->checkForOpenSSL();
-        if (is_a($openssl, 'PEAR_Error')) {
-            return $openssl;
-        }
 
         /* Create temp files for input/output. */
         $input = $this->_createTempFile('horde-smime');
@@ -206,11 +194,11 @@ class Horde_Crypt_smime extends Horde_Crypt
         $result = openssl_pkcs7_verify($input, PKCS7_NOVERIFY, $output);
 
         if ($result === true) {
-            $ob->result = PEAR::raiseError(_("Message Verified Successfully but the signer's certificate could not be verified."), 'horde.warning');
+            throw new Horde_Exception(_("Message Verified Successfully but the signer's certificate could not be verified."), 'horde.warning');
         } elseif ($result == -1) {
-            $ob->result = PEAR::raiseError(_("Verification failed - an unknown error has occurred."), 'horde.error');
+            throw new Horde_Exception(_("Verification failed - an unknown error has occurred."), 'horde.error');
         } else {
-            $ob->result = PEAR::raiseError(_("Verification failed - this message may have been tampered with."), 'horde.error');
+            throw new Horde_Exception(_("Verification failed - this message may have been tampered with."), 'horde.error');
         }
 
         $ob->cert = file_get_contents($output);
@@ -226,15 +214,12 @@ class Horde_Crypt_smime extends Horde_Crypt
      * @param string $sslpath  The path to the OpenSSL binary.
      *
      * @return string  The contents embedded in the signed data.
-     *                 Returns PEAR_Error on error.
+     * @throws Horde_Exception
      */
     public function extractSignedContents($data, $sslpath)
     {
         /* Check for availability of OpenSSL PHP extension. */
-        $openssl = $this->checkForOpenSSL();
-        if (is_a($openssl, 'PEAR_Error')) {
-            return $openssl;
-        }
+        $this->checkForOpenSSL();
 
         /* Create temp files for input/output. */
         $input = $this->_createTempFile('horde-smime');
@@ -247,9 +232,11 @@ class Horde_Crypt_smime extends Horde_Crypt
         exec($sslpath . ' smime -verify -noverify -nochain -in ' . $input . ' -out ' . $output);
 
         $ret = file_get_contents($output);
-        return $ret
-            ? $ret
-            : PEAR::raiseError(_("OpenSSL error: Could not extract data from signed S/MIME part."), 'horde.error');
+        if ($ret) {
+            return $ret;
+        }
+
+        throw new Horde_Exception(_("OpenSSL error: Could not extract data from signed S/MIME part."), 'horde.error');
     }
 
     /**
@@ -258,16 +245,13 @@ class Horde_Crypt_smime extends Horde_Crypt
      * @param Horde_Mime_Part $mime_part  The object to sign.
      * @param array $params               The parameters required for signing.
      *
-     * @return mixed  A Horde_Mime_Part object that is signed, or a
-     *                PEAR_Error object on error.
+     * @return mixed  A Horde_Mime_Part object that is signed.
+     * @throws Horde_Exception
      */
     public function signMIMEPart($mime_part, $params)
     {
         /* Sign the part as a message */
         $message = $this->encrypt($mime_part->toCanonicalString(), $params);
-        if (is_a($message, 'PEAR_Error')) {
-            return $message;
-        }
 
         /* Break the result into its components */
         $mime_message = Horde_Mime_Part::parseMessage($message);
@@ -295,16 +279,13 @@ class Horde_Crypt_smime extends Horde_Crypt
      * @param array $params               The parameters required for
      *                                    encryption.
      *
-     * @return mixed  A Horde_Mime_Part object that is encrypted or a
-     *                PEAR_Error on error.
+     * @return mixed  A Horde_Mime_Part object that is encrypted.
+     * @throws Horde_Exception
      */
     public function encryptMIMEPart($mime_part, $params = array())
     {
         /* Sign the part as a message */
         $message = $this->encrypt($mime_part->toCanonicalString(), $params);
-        if (is_a($message, 'PEAR_Error')) {
-            return $message;
-        }
 
         /* Get charset for mime part description. */
         $charset = NLS::getEmailCharset();
@@ -333,13 +314,13 @@ class Horde_Crypt_smime extends Horde_Crypt
      * </pre>
      *
      * @return string  The encrypted message.
-     *                 Return PEAR_Error object on error.
+     * @throws Horde_Exception
      */
     protected function _encryptMessage($text, $params)
     {
         /* Check for required parameters. */
         if (!isset($params['pubkey'])) {
-            return PEAR::raiseError(_("A public S/MIME key is required to encrypt a message."), 'horde.error');
+            throw new Horde_Exception(_("A public S/MIME key is required to encrypt a message."), 'horde.error');
         }
 
         /* Create temp files for input/output. */
@@ -358,7 +339,7 @@ class Horde_Crypt_smime extends Horde_Crypt
             }
         }
 
-        return PEAR::raiseError(_("Could not S/MIME encrypt message."), 'horde.error');
+        throw new Horde_Exception(_("Could not S/MIME encrypt message."), 'horde.error');
     }
 
     /**
@@ -380,7 +361,7 @@ class Horde_Crypt_smime extends Horde_Crypt
      * </pre>
      *
      * @return string  The signed message.
-     *                 Return PEAR_Error object on error.
+     * @throws Horde_Exception
      */
     protected function _encryptSignature($text, $params)
     {
@@ -388,7 +369,7 @@ class Horde_Crypt_smime extends Horde_Crypt
         if (!isset($params['pubkey']) ||
             !isset($params['privkey']) ||
             !array_key_exists('passphrase', $params)) {
-            return PEAR::raiseError(_("A public S/MIME key, private S/MIME key, and passphrase are required to sign a message."), 'horde.error');
+            throw new Horde_Exception(_("A public S/MIME key, private S/MIME key, and passphrase are required to sign a message."), 'horde.error');
         }
 
         /* Create temp files for input/output/certificates. */
@@ -406,11 +387,9 @@ class Horde_Crypt_smime extends Horde_Crypt
         }
 
         /* Determine the signature type to use. */
-        if (isset($params['sigtype']) && ($params['sigtype'] == 'cleartext')) {
-            $flags = PKCS7_TEXT;
-        } else {
-            $flags = PKCS7_DETACHED;
-        }
+        $flags = (isset($params['sigtype']) && ($params['sigtype'] == 'cleartext'))
+            ? PKCS7_TEXT
+            : PKCS7_DETACHED;
 
         $privkey = (is_null($params['passphrase'])) ? $params['privkey'] : array($params['privkey'], $params['passphrase']);
 
@@ -421,7 +400,7 @@ class Horde_Crypt_smime extends Horde_Crypt
         }
 
         if (!$res) {
-            return PEAR::raiseError(_("Could not S/MIME sign message."), 'horde.error');
+            throw new Horde_Exception(_("Could not S/MIME sign message."), 'horde.error');
         }
 
         $data = file_get_contents($output);
@@ -444,7 +423,7 @@ class Horde_Crypt_smime extends Horde_Crypt
      * </pre>
      *
      * @return string  The decrypted message.
-     *                 Returns PEAR_Error object on error.
+     * @throws Horde_Exception
      */
     protected function _decryptMessage($text, $params)
     {
@@ -452,7 +431,7 @@ class Horde_Crypt_smime extends Horde_Crypt
         if (!isset($params['pubkey']) ||
             !isset($params['privkey']) ||
             !array_key_exists('passphrase', $params)) {
-            return PEAR::raiseError(_("A public S/MIME key, private S/MIME key, and passphrase are required to decrypt a message."), 'horde.error');
+            throw new Horde_Exception(_("A public S/MIME key, private S/MIME key, and passphrase are required to decrypt a message."), 'horde.error');
         }
 
         /* Create temp files for input/output. */
@@ -468,7 +447,7 @@ class Horde_Crypt_smime extends Horde_Crypt
             return file_get_contents($output);
         }
 
-        return PEAR::raiseError(_("Could not decrypt S/MIME data."), 'horde.error');
+        throw new Horde_Exception(_("Could not decrypt S/MIME data."), 'horde.error');
     }
 
     /**
@@ -482,16 +461,12 @@ class Horde_Crypt_smime extends Horde_Crypt
      *                                     @see _encryptMessage().
      *
      * @return mixed  A Horde_Mime_Part object that is signed and encrypted.
-     *                Returns PEAR_Error on error.
+     * @throws Horde_Exception
      */
     public function signAndEncryptMIMEPart($mime_part, $sign_params = array(),
                                            $encrypt_params = array())
     {
         $part = $this->signMIMEPart($mime_part, $sign_params);
-        if (is_a($part, 'PEAR_Error')) {
-            return $part;
-        }
-
         return $this->encryptMIMEPart($part, $encrypt_params);
     }
 
@@ -1152,23 +1127,22 @@ class Horde_Crypt_smime extends Horde_Crypt
      * @param array $params  The parameters needed for verification.
      *
      * @return string  The verification message.
-     *                 Returns PEAR_Error object on error.
+     * @throws Horde_Exception
      */
     protected function _decryptSignature($text, $params)
     {
-        return PEAR::raiseError('_decryptSignature() ' . _("not yet implemented"));
+        throw new Horde_Exception('_decryptSignature() ' . _("not yet implemented"));
     }
 
     /**
      * Check for the presence of the OpenSSL extension to PHP.
      *
-     * @return boolean  Returns true if the openssl extension is available.
-     *                  Returns a PEAR_Error if not.
+     * @throws Horde_Exception
      */
     public function checkForOpenSSL()
     {
         if (!Util::extensionExists('openssl')) {
-            return PEAR::raiseError(_("The openssl module is required for the Horde_Crypt_smime:: class."));
+            throw new Horde_Exception(_("The openssl module is required for the Horde_Crypt_Smime:: class."));
         }
     }
 
@@ -1177,8 +1151,8 @@ class Horde_Crypt_smime extends Horde_Crypt
      *
      * @param string $key  The public key.
      *
-     * @return mixed Returns the first email address found, or null if
-     * there are none.
+     * @return mixed  Returns the first email address found, or null if
+     *                there are none.
      */
     public function getEmailFromKey($key)
     {
@@ -1231,18 +1205,15 @@ class Horde_Crypt_smime extends Horde_Crypt
      *                   'private' -  The private key in PEM format.
      *                   'public'  -  The public key in PEM format.
      *                   'certs'   -  An array of additional certs.
-     *                   Returns PEAR_Error on error.
+     * @throws Horde_Exception
      */
     public function parsePKCS12Data($pkcs12, $params)
     {
         /* Check for availability of OpenSSL PHP extension. */
-        $openssl = $this->checkForOpenSSL();
-        if (is_a($openssl, 'PEAR_Error')) {
-            return $openssl;
-        }
+        $this->checkForOpenSSL();
 
         if (!isset($params['sslpath'])) {
-            return PEAR::raiseError(_("No path to the OpenSSL binary provided. The OpenSSL binary is necessary to work with PKCS 12 data."), 'horde.error');
+            throw new Horde_Exception(_("No path to the OpenSSL binary provided. The OpenSSL binary is necessary to work with PKCS 12 data."), 'horde.error');
         }
         $sslpath = escapeshellcmd($params['sslpath']);
 
@@ -1277,7 +1248,7 @@ class Horde_Crypt_smime extends Horde_Crypt
         }
         $ob->private = trim(file_get_contents($output));
         if (empty($ob->private)) {
-            return PEAR::raiseError(_("Password incorrect"), 'horde.error');
+            throw new Horde_Exception(_("Password incorrect"), 'horde.error');
         }
 
         /* Extract the client public key next. */

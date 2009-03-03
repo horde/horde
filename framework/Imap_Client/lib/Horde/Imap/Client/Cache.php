@@ -124,14 +124,14 @@ class Horde_Imap_Client_Cache
         if (!empty($params['compress'])) {
             switch ($params['compress']) {
             case 'gzip':
-                if (Horde_Serialize::hasCapability(SERIALIZE_GZ_COMPRESS)) {
-                    $compress = SERIALIZE_GZ_COMPRESS;
+                if (Horde_Serialize::hasCapability(Horde_Serialize::GZ_COMPRESS)) {
+                    $compress = Horde_Serialize::GZ_COMPRESS;
                 }
                 break;
 
             case 'lzf':
-                if (Horde_Serialize::hasCapability(SERIALIZE_LZF)) {
-                    $compress = SERIALIZE_LZF;
+                if (Horde_Serialize::hasCapability(Horde_Serialize::LZF)) {
+                    $compress = Horde_Serialize::LZF;
                 }
                 break;
             }
@@ -173,7 +173,7 @@ class Horde_Imap_Client_Cache
                      * error checking when decompressing (cache data will
                      * automatically be invalidated then). */
                     if (isset($dptr[$uid])) {
-                        $data[$uid] = ($compress && is_array($dptr[$uid])) ? Horde_Serialize::serialize($dptr[$uid], array(SERIALIZE_BASIC, $compress)) : $dptr[$uid];
+                        $data[$uid] = ($compress && is_array($dptr[$uid])) ? Horde_Serialize::serialize($dptr[$uid], array(Horde_Serialize::BASIC, $compress)) : $dptr[$uid];
                     }
                 }
 
@@ -182,12 +182,12 @@ class Horde_Imap_Client_Cache
                     // If empty, we can expire the cache.
                     $this->_cache->expire($cid);
                 } else {
-                    $this->_cache->set($cid, Horde_Serialize::serialize($data, SERIALIZE_BASIC), $lifetime);
+                    $this->_cache->set($cid, Horde_Serialize::serialize($data, Horde_Serialize::BASIC), $lifetime);
                 }
             }
 
             // Save the slicemap
-            $this->_cache->set($this->_getCID($mbox, 'slicemap'), Horde_Serialize::serialize($sptr, SERIALIZE_BASIC), $lifetime);
+            $this->_cache->set($this->_getCID($mbox, 'slicemap'), Horde_Serialize::serialize($sptr, Horde_Serialize::BASIC), $lifetime);
         }
     }
 
@@ -448,7 +448,7 @@ class Horde_Imap_Client_Cache
             return;
         }
 
-        $data = Horde_Serialize::unserialize($data, SERIALIZE_BASIC);
+        $data = Horde_Serialize::unserialize($data, Horde_Serialize::BASIC);
         if (!is_array($data)) {
             return;
         }
@@ -545,7 +545,7 @@ class Horde_Imap_Client_Cache
             if (isset($ptr[$val]) && !is_array($ptr[$val])) {
                 $success = false;
                 if (!is_null($compress)) {
-                    $res = Horde_Serialize::unserialize($ptr[$val], array($compress, SERIALIZE_BASIC));
+                    $res = Horde_Serialize::unserialize($ptr[$val], array($compress, Horde_Serialize::BASIC));
                     if (!is_a($res, 'PEAR_Error')) {
                         $ptr[$val] = $res;
                         $success = true;
@@ -574,7 +574,7 @@ class Horde_Imap_Client_Cache
     {
         if (!isset($this->_slicemap[$mailbox])) {
             if (($data = $this->_cache->get($this->_getCID($mailbox, 'slicemap'), $this->_params['lifetime'])) !== false) {
-                $slice = Horde_Serialize::unserialize($data, SERIALIZE_BASIC);
+                $slice = Horde_Serialize::unserialize($data, Horde_Serialize::BASIC);
                 if (is_array($slice)) {
                     $this->_slicemap[$mailbox] = $slice;
                 }

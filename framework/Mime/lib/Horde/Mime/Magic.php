@@ -18,19 +18,32 @@ require_once 'Horde/Util.php';
 class Horde_Mime_Magic
 {
     /**
+     * The MIME extension map.
+     *
+     * @var array
+     */
+    static protected $_map = null;
+
+    /**
+     * The MIME magic file.
+     *
+     * @var array
+     */
+    static protected $_magic = null;
+
+    /**
      * Returns a copy of the MIME extension map.
      *
      * @return array  The MIME extension map.
      */
     static protected function _getMimeExtensionMap()
     {
-        static $mime_extension_map;
-
-        if (!isset($mime_extension_map)) {
+        if (is_null(self::$_map)) {
             require dirname(__FILE__) . '/mime.mapping.php';
+            self::$_map = $mime_extension_map;
         }
 
-        return $mime_extension_map;
+        return self::$_map;
     }
 
     /**
@@ -40,13 +53,12 @@ class Horde_Mime_Magic
      */
     static protected function _getMimeMagicFile()
     {
-        static $mime_magic;
-
-        if (!isset($mime_magic)) {
+        if (is_null(self::$_magic)) {
             require dirname(__FILE__) . '/mime.magic.php';
+            self::$_magic = $mime_magic;
         }
 
-        return $mime_magic;
+        return self::$_magic;
     }
 
     /**

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+http://pear.php.net/dtd/tasks-1.0.xsd
+http://pear.php.net/dtd/package-2.0
+http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Memcache</name>
+ <channel>pear.horde.org</channel>
+ <summary>Horde Memcache API</summary>
+ <description>The Horde_Memcache:: class  provides an API to access a memcache
+ installation in Horde code.
+ </description>
+ <lead>
+  <name>Michael Slusarz</name>
+  <user>slusarz</user>
+  <email>slusarz@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2009-02-12</date>
+ <version>
+  <release>0.2.0</release>
+  <api>0.2.0</api>
+ </version>
+ <stability>
+  <release>beta</release>
+  <api>beta</api>
+ </stability>
+ <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <notes>* Initial Horde 4 package.</notes>
+ <contents>
+  <dir name="/">
+   <dir name="scripts">
+    <dir name="Horde">
+     <dir name="Memcache">
+      <file name="stats.php" role="script">
+       <tasks:replace from="@php_bin@" to="php_bin" type="pear-config"/>
+      </file>
+     </dir> <!-- /scripts/Horde/Memcache -->
+    </dir> <!-- /scripts/Horde -->
+   </dir> <!-- /scripts -->
+   <dir name="lib">
+    <dir name="Horde">
+     <file name="Memcache.php" role="php" />
+    </dir> <!-- /lib/Horde -->
+   </dir> <!-- /lib -->
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.5.0</min>
+   </pearinstaller>
+   <package>
+    <name>Horde_Framework</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <extension>
+    <name>memcache</name>
+   </extension>
+  </required>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install name="lib/Horde/Memcache.php" as="Horde/Memcache.php" />
+   <install name="scripts/Horde/Memcache/stats.php" as="horde-memcache-stats" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2007-05-25</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>* Initial release.</notes>
+  </release>
+ </changelog>
+</package>

@@ -74,20 +74,16 @@ class Horde_Mime_Headers
             foreach (array_keys($val) as $key) {
                 if (in_array($header, $address_keys) ) {
                     /* Address encoded headers. */
-                    $text = Horde_Mime::encodeAddress($val[$key], $charset, empty($options['defserver']) ? null : $options['defserver']);
-                    if (is_a($text, 'PEAR_Error')) {
+                    try {
+                        $text = Horde_Mime::encodeAddress($val[$key], $charset, empty($options['defserver']) ? null : $options['defserver']);
+                    } catch (Horde_Mime_Exception $e) {
                         $text = $val[$key];
                     }
                 } elseif (in_array($header, $mime) && !empty($ob['params'])) {
                     /* MIME encoded headers (RFC 2231). */
                     $text = $val[$key];
                     foreach ($ob['params'] as $name => $param) {
-                        foreach (Horde_Mime::encodeParam($name, $param, $charset) as $name2 => $param2) {
-                            /* Escape certain characters in params (See RFC
-                             * 2045 [Appendix A]. */
-                            if (strcspn($param2, "\11\40\"(),/:;<=>?@[\\]") != strlen($param2)) {
-                                $param2 = '"' . addcslashes($param2, '\\"') . '"';
-                            }
+                        foreach (Horde_Mime::encodeParam($name, $param, $charset, array('escape' => true)) as $name2 => $param2) {
                             $text .= '; ' . $name2 . '=' . $param2;
                         }
                     }
@@ -272,7 +268,11 @@ class Horde_Mime_Headers
         if (!empty($options['decode'])) {
             // Fields defined in RFC 2822 that contain address information
             if (in_array($lcHeader, $this->addressFields())) {
-                $value = Horde_Mime::decodeAddrString($value);
+                try {
+                    $value = Horde_Mime::decodeAddrString($value);
+                } catch (Horde_Mime_Exception $e) {
+                    $value = '';
+                }
             } else {
                 $value = Horde_Mime::decode($value);
             }
@@ -508,9 +508,12 @@ class Horde_Mime_Headers
     public function getOb($field)
     {
         $val = $this->getValue($field);
-        return is_null($val)
-            ? array()
-            : Horde_Mime_Address::parseAddressList($val);
+        if (!is_null($val)) {
+            try {
+                return Horde_Mime_Address::parseAddressList($val);
+            } catch (Horde_Mime_Exception $e) {}
+        }
+        return array();
     }
 
     /**
@@ -541,7 +544,7 @@ class Horde_Mime_Headers
             } else {
                 if (!is_null($currheader)) {
                     if (in_array(String::lower($currheader), $mime)) {
-                        $res = Horde_Mime::decodeParam($currheader . ': ' . $currtext);
+                        $res = Horde_Mime::decodeParam($currheader, $currtext);
                         $to_process[] = array($currheader, $res['val'], array('decode' => true, 'params' => $res['params']));
                     } else {
                         $to_process[] = array($currheader, $currtext, array('decode' => true));
