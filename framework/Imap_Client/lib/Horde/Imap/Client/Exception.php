@@ -53,6 +53,9 @@ class Horde_Imap_Client_Exception extends Exception
     // Thrown if the cache has become invalid.
     const CACHEUIDINVALID = 11;
 
+    // Thrown if server denies the network connection.
+    const SERVER_CONNECT = 12;
+
     /**
      * Define a callback function used to log the exception. Will be passed
      * a single parameter - a copy of this object.

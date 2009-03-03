@@ -425,7 +425,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         if ($this->_stream === false) {
             $this->_stream = null;
             $this->_isSecure = false;
-            throw new Horde_Imap_Client_Exception('Error connecting to IMAP server: [' . $error_number . '] ' . $error_string);
+            throw new Horde_Imap_Client_Exception('Error connecting to IMAP server: [' . $error_number . '] ' . $error_string, Horde_Imap_Client_Exception::SERVER_CONNECT);
         }
 
         stream_set_timeout($this->_stream, $this->_params['timeout']);
