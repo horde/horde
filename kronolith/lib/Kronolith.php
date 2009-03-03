@@ -554,96 +554,29 @@ class Kronolith
                                       $showRecurrence = true,
                                       $alarmsOnly = false, $showRemote = true)
     {
-        global $registry;
+        $results = array();
 
+        /* Internal calendars. */
         if (!isset($calendars)) {
             $calendars = $GLOBALS['display_calendars'];
         }
-        $kronolith_driver = Kronolith::getDriver();
-
-        $results = array();
+        $driver = Kronolith::getDriver();
         foreach ($calendars as $calendar) {
-            $kronolith_driver->open($calendar);
-            $events = $kronolith_driver->listEvents($startDate, $endDate, true);
+            $driver->open($calendar);
+            $events = $driver->listEvents($startDate, $endDate, true);
             if (!is_a($events, 'PEAR_Error')) {
                 Kronolith::mergeEvents($results, $events);
             }
         }
 
         if ($showRemote) {
-            /* Check for listTimeObjects */
+            /* Horde applications providing listTimeObjects. */
+            $driver = Kronolith::getDriver('Horde');
             foreach ($GLOBALS['display_external_calendars'] as $external_cal) {
-                list($api, $category) = explode('/', $external_cal, 2);
-                if (!isset($apis[$api])) {
-                    $apis[$api] = array();
-                }
-                if (!array_search($category, $apis[$api])) {
-                    $apis[$api][] = $category;
-                }
-            }
-            if (!empty($apis)) {
-                $endStamp = new Horde_Date(array('month' => $endDate->month,
-                                                 'mday' => $endDate->mday + 1,
-                                                 'year' => $endDate->year));
-                foreach ($apis as $api => $categories) {
-                    if ($registry->hasMethod($api . '/listTimeObjects')) {
-                        $eventsList = $registry->call($api . '/listTimeObjects', array($categories, $startDate, $endDate));
-                        if (is_a($eventsList, 'PEAR_Error')) {
-                            $GLOBALS['notification']->push($eventsList);
-                            continue;
-                        }
-                    }
-
-                    foreach ($eventsList as $eventsListItem) {
-                        $eventStart = new Horde_Date($eventsListItem['start']);
-                        $eventEnd = new Horde_Date($eventsListItem['end']);
-                        /* Ignore events out of our period. */
-                        if (
-                            /* Starts after the period. */
-                            $eventStart->compareDateTime($endDate) > 0 ||
-                            /* End before the period and doesn't recur. */
-                            (!isset($eventsListItem['recurrence']) &&
-                             $eventEnd->compareDateTime($startDate) < 0)) {
-                            continue;
-                        }
-
-                        $event = $kronolith_driver->getEvent();
-                        $event->eventID = '_' . $api . $eventsListItem['id'];
-                        $event->external = $api;
-                        $event->external_params = $eventsListItem['params'];
-                        $event->title = $eventsListItem['title'];
-                        $event->description = isset($eventsListItem['description']) ? $eventsListItem['description'] : '';
-                        $event->start = $eventStart;
-                        $event->end = $eventEnd;
-                        $event->status = Kronolith::STATUS_FREE;
-                        if (isset($eventsListItem['recurrence'])) {
-                            $recurrence = new Horde_Date_Recurrence($eventStart);
-                            $recurrence->setRecurType($eventsListItem['recurrence']['type']);
-                            if (isset($eventsListItem['recurrence']['end'])) {
-                                $recurrence->setRecurEnd($eventsListItem['recurrence']['end']);
-                                if ($recurrence->recurEnd->compareDateTime($startDate) < 0) {
-                                    continue;
-                                }
-                            }
-                            if (isset($eventsListItem['recurrence']['interval'])) {
-                                $recurrence->setRecurInterval($eventsListItem['recurrence']['interval']);
-                            }
-                            if (isset($eventsListItem['recurrence']['count'])) {
-                                $recurrence->setRecurCount($eventsListItem['recurrence']['count']);
-                            }
-                            if (isset($eventsListItem['recurrence']['days'])) {
-                                $recurrence->setRecurOnDay($eventsListItem['recurrence']['days']);
-                            }
-                            if (isset($eventsListItem['recurrence']['exceptions'])) {
-                                foreach ($eventsListItem['recurrence']['exceptions'] as $exception) {
-                                    $recurrence->addException(new Horde_Date($exception));
-                                }
-                            }
-                            $event->recurrence = $recurrence;
-                        }
-                        Kronolith::addEvents($results, $event, $startDate,
-                                             $endDate, $showRecurrence);
-                    }
+                $driver->open($external_cal);
+                $events = $driver->listEvents($startDate, $endDate, true);
+                if (!is_a($events, 'PEAR_Error')) {
+                    Kronolith::mergeEvents($results, $events);
                 }
             }
 
@@ -658,18 +591,19 @@ class Kronolith
             }
         }
 
-        /* Holidays */
+        /* Holidays. */
         if (!empty($GLOBALS['conf']['holidays']['enable'])) {
-            $dhDriver = Kronolith::getDriver('Holidays');
-            foreach (unserialize($GLOBALS['prefs']->getValue('holiday_drivers')) as $driver) {
-                $dhDriver->open($driver);
-                $events = $dhDriver->listEvents($startDate, $endDate, true);
+            $driver = Kronolith::getDriver('Holidays');
+            foreach (unserialize($GLOBALS['prefs']->getValue('holiday_drivers')) as $holiday) {
+                $driver->open($holiday);
+                $events = $driver->listEvents($startDate, $endDate, true);
                 if (!is_a($events, 'PEAR_Error')) {
                     Kronolith::mergeEvents($results, $events);
                 }
             }
         }
 
+        /* Sort events. */
         foreach ($results as $day => $devents) {
             if (count($devents)) {
                 uasort($devents, array('Kronolith', '_sortEventStartTime'));
@@ -2001,6 +1935,10 @@ class Kronolith
                     }
                 }
 
+                break;
+
+            case 'Horde':
+                $params['registry'] = $GLOBALS['registry'];
                 break;
 
             case 'Holidays':
