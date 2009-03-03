@@ -3,7 +3,7 @@
 <div class="control folksActions" style="text-align: center;">
 
 <?php if ($registry->hasInterface('letter')): ?>
-<a href="<?php echo $registry->get('webroot', 'letter') ?>/compose.php?user_to=<?php echo $user ?>" title="<?php echo _("Send private message") ?>">
+<a href="<?php echo $registry->callByPackage('letter', 'compose', array($user)) ?>" title="<?php echo _("Send private message") ?>">
 <img src="<?php echo $registry->getImageDir('letter') ?>/letter.png"> <?php echo _("Send message") ?></a>
 
 <a href="<?php echo $registry->get('webroot', 'letter') ?>/compose.php?title=<?php echo _("Look at this profile") ?>&content=<?php echo Folks::getUrlFor('user', $user, true, -1) ?>"  title="<?php echo _("Send this profile to a friend") ?>">
@@ -17,7 +17,7 @@
 <a href="<?php echo Util::addParameter(Horde::applicationUrl('edit/friends/add.php'), 'user', $user); ?>" title="<?php echo sprintf(_("Add %s as a friend?"), $user) ?>" onclick="return confirm('<?php echo sprintf(_("Add %s as a friend?"), $user) ?>')">
 <img src="<?php echo $registry->getImageDir('horde') ?>/user.png"> <?php echo _("Friend") ?></a>
 
-<a href="<?php echo Util::addParameter(Horde::applicationUrl('edit/blacklist.php'), 'user', $user); ?>" title="<?php echo sprintf(_("Add %s to you blacklist?"), $user) ?>" onclick="return confirm('<?php echo sprintf(_("Add %s to you blacklist?"), $user) ?>')">
+<a href="<?php echo Util::addParameter(Horde::applicationUrl('edit/friends/blacklist.php'), 'user', $user); ?>" title="<?php echo sprintf(_("Add %s to you blacklist?"), $user) ?>" onclick="return confirm('<?php echo sprintf(_("Add %s to you blacklist?"), $user) ?>')">
 <img src="<?php echo $registry->getImageDir('horde') ?>/locked.png"> <?php echo _("Blacklist") ?></a>
 
 <?php if ($conf['report_content']['driver']): ?>
