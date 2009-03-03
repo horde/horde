@@ -161,6 +161,6 @@ class Folks_Friends_prefs extends Folks_Friends {
      */
     public function getGroups()
     {
-        return array('whitelist' => _("Whitelist"));
+        return array('whitelist' => _("Friends"));
     }
 }
