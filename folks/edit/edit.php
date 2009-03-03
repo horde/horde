@@ -42,7 +42,7 @@ if ($registry->hasMethod('video/listVideos')) {
         foreach ($result as $video_id => $video) {
             $videos[$video_id] = $video['video_title'] . ' - ' . Folks::format_date($video['video_created']);
         }
-        $video_link = '<a href="' .  $registry->get('webroot', 'oscar') . '//videos/edit.php">' . _("Upload a new video") . '</a>';
+        $video_link = '<a href="' .  $registry->link('video/edit') . '">' . _("Upload a new video") . '</a>';
         $form->addVariable(_("Video"), 'user_video', 'enum', false, false, $video_link, array($videos, _("--- Select ---")));
     }
 }
