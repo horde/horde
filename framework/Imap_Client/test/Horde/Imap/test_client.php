@@ -23,7 +23,7 @@
  */
 
 /** Configuration **/
-$driver = 'Socket'; // 'Socket', 'Cclient', or 'Cclient_Pop3'
+$driver = 'Socket'; // 'Socket', 'Cclient', 'Cclient_Pop3', or 'Socket_Pop3'
 $params = array(
     'username' => '',
     'password' => '',
@@ -104,9 +104,17 @@ if (@include_once 'Benchmark/Timer.php') {
 $params['id'] = array('name' => 'Horde_Imap_Client test program');
 
 $imap_client = Horde_Imap_Client::getInstance($driver, $params);
-if ($driver == 'Cclient_Pop3') {
+if (($driver == 'Cclient_Pop3') ||
+    ($driver == 'Socket_Pop3')) {
     $pop3 = true;
     $test_mbox = $test_mbox_utf8 = 'INBOX';
+
+    print "============================================================\n" .
+          "NOTE: Due to the absence of an APPEND command in POP3, the test\n" .
+          "script is unable to build a test mailbox with messages. Various\n" .
+          "status and fetching commands will therefore either not be\n" .
+          "successful or else not match up with the expected output.\n" .
+          "============================================================\n\n";
 } else {
     $pop3 = false;
 }
