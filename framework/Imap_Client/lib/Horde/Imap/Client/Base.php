@@ -1779,6 +1779,11 @@ abstract class Horde_Imap_Client_Base
         $qresync = isset($this->_init['enabled']['QRESYNC']);
         $seq = !empty($options['sequence']);
 
+        /* Make sure 'ids' is defined. */
+        if (!isset($options['ids'])) {
+            $options['ids'] = array();
+        }
+
         /* The 'vanished' modifier requires QRESYNC, 'changedsince', and
          * !'sequence'. */
         if (!empty($options['vanished']) &&
@@ -1793,15 +1798,17 @@ abstract class Horde_Imap_Client_Base
          * information (RFC 3501 [6.4.8]). Don't add to criteria because it
          * simply creates a longer FETCH command. */
 
-        /* If using cache, we store by UID so we need to return UIDs. */
-        if ($seq && !empty($cf)) {
-            $criteria[Horde_Imap_Client::FETCH_UID] = true;
-        }
-
         $this->openMailbox($mailbox, Horde_Imap_Client::OPEN_AUTO);
 
-        /* We need the UIDVALIDITY for the current mailbox. */
-        $status_res = $this->status($this->_selected, Horde_Imap_Client::STATUS_HIGHESTMODSEQ | Horde_Imap_Client::STATUS_UIDVALIDITY);
+        if (!empty($cf)) {
+            /* We need the UIDVALIDITY for the current mailbox. */
+            $status_res = $this->status($this->_selected, Horde_Imap_Client::STATUS_HIGHESTMODSEQ | Horde_Imap_Client::STATUS_UIDVALIDITY);
+
+            /* If using cache, we store by UID so we need to return UIDs. */
+            if ($seq) {
+                $criteria[Horde_Imap_Client::FETCH_UID] = true;
+            }
+        }
 
         /* Determine if caching is available and if anything in $criteria is
          * cacheable. Do some sanity checking on criteria also. */

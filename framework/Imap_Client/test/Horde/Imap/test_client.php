@@ -3,10 +3,11 @@
  * Test script for the Horde_Imap_Client:: library.
  *
  * Usage:
- *   test_client.php [[username] [[password] [[IMAP URL]]]]
+ *   test_client.php [[username] [[password] [[IMAP URL] [driver]]]]
  *
  * Username/password/hostspec on the command line will override the $params
  * values.
+ * Driver on the command line will override the $driver value.
  *
  * TODO:
  *   + Test for 'charset' searching
@@ -83,9 +84,13 @@ if (!empty($argv[3])) {
     $params = array_merge($params, $imap_utils->parseUrl($argv[3]));
 }
 
-function exception_handler($exception) {
+if (!empty($argv[4])) {
+    $driver = $argv[4];
+}
+
+function exception_handler($e) {
     print "\n=====================================\n" .
-          'UNCAUGHT EXCEPTION: ' . $exception->getMessage() .
+          'UNCAUGHT EXCEPTION: ' . $e->getMessage() .
           "\n=====================================\n";
 }
 set_exception_handler('exception_handler');
@@ -100,7 +105,10 @@ $params['id'] = array('name' => 'Horde_Imap_Client test program');
 
 $imap_client = Horde_Imap_Client::getInstance($driver, $params);
 if ($driver == 'Cclient_Pop3') {
+    $pop3 = true;
     $test_mbox = $test_mbox_utf8 = 'INBOX';
+} else {
+    $pop3 = false;
 }
 
 $use_imapproxy = false;
@@ -562,10 +570,13 @@ try {
 $simple_fetch = array(
     Horde_Imap_Client::FETCH_STRUCTURE => true,
     Horde_Imap_Client::FETCH_ENVELOPE => true,
-    Horde_Imap_Client::FETCH_FLAGS => true,
     Horde_Imap_Client::FETCH_DATE => true,
     Horde_Imap_Client::FETCH_SIZE => true
 );
+
+if (!$pop3) {
+    $simple_fetch[Horde_Imap_Client::FETCH_FLAGS] = true;
+}
 
 print "\nSimple fetch example:\n";
 try {
@@ -706,7 +717,7 @@ try {
     print "Fetch: FAILED\n";
 
     // If POP3, try easier fetch criteria
-    if ($driver == 'Cclient_Pop3') {
+    if ($pop3) {
         try {
             print_r($imap_client->fetch('INBOX', array(
                 Horde_Imap_Client::FETCH_FULLMSG => array(
