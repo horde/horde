@@ -389,38 +389,36 @@ function _kronolith_browse($path = '', $properties = array())
 
         $icon = $registry->getImageDir('horde') . '/mime/icalendar.png';
         $results = array();
-        foreach ($events as $uid => $eventId) {
-            $event = $kronolith_driver->getEvent($eventId);
-            if (is_a($event, 'PEAR_Error')) {
-                continue;
-            }
-            $key = 'kronolith/' . $path . '/' . $eventId;
-            if (in_array('name', $properties)) {
-                $results[$key]['name'] = $event->getTitle();
-            }
-            if (in_array('icon', $properties)) {
-                $results[$key]['icon'] = $icon;
-            }
-            if (in_array('browseable', $properties)) {
-                $results[$key]['browseable'] = false;
-            }
-            if (in_array('contenttype', $properties)) {
-                $results[$key]['contenttype'] = 'text/calendar';
-            }
-            if (in_array('contentlength', $properties)) {
-                // FIXME:  This is a hack.  If the content length is longer
-                // than the actual data then some WebDAV clients will report
-                // an error when the file EOF is received.  Ideally we should
-                // determine the actual size of the data and report it here, but
-                // the performance hit may be prohibitive.  This requires
-                // further investigation.
-                $results[$key]['contentlength'] = 1;
-            }
-            if (in_array('modified', $properties)) {
-                $results[$key]['modified'] = __kronolith_modified($uid);
-            }
-            if (in_array('created', $properties)) {
-                $results[$key]['created'] = _kronolith_getActionTimestamp($uid, 'add');
+        foreach ($events as $dayevents) {
+            foreach ($dayevents as $event) {
+                $key = 'kronolith/' . $path . '/' . $event->getId();
+                if (in_array('name', $properties)) {
+                    $results[$key]['name'] = $event->getTitle();
+                }
+                if (in_array('icon', $properties)) {
+                    $results[$key]['icon'] = $icon;
+                }
+                if (in_array('browseable', $properties)) {
+                    $results[$key]['browseable'] = false;
+                }
+                if (in_array('contenttype', $properties)) {
+                    $results[$key]['contenttype'] = 'text/calendar';
+                }
+                if (in_array('contentlength', $properties)) {
+                    // FIXME:  This is a hack.  If the content length is longer
+                    // than the actual data then some WebDAV clients will report
+                    // an error when the file EOF is received.  Ideally we should
+                    // determine the actual size of the data and report it here, but
+                    // the performance hit may be prohibitive.  This requires
+                    // further investigation.
+                    $results[$key]['contentlength'] = 1;
+                }
+                if (in_array('modified', $properties)) {
+                    $results[$key]['modified'] = __kronolith_modified($event->getUID());
+                }
+                if (in_array('created', $properties)) {
+                    $results[$key]['created'] = _kronolith_getActionTimestamp($event->getUID(), 'add');
+                }
             }
         }
         return $results;
@@ -672,13 +670,13 @@ function _kronolith_listCalendars($owneronly = false, $permission = null)
 }
 
 /**
- * Returns all the events that happen within a time period.
+ * Returns the ids of all the events that happen within a time period.
  *
  * @param string $calendar      The calendar to check for events.
  * @param object $startstamp    The start of the time range.
  * @param object $endstamp      The end of the time range.
  *
- * @return array  The events happening in this time period.
+ * @return array  The event ids happening in this time period.
  */
 function _kronolith_list($calendar = null, $startstamp = 0, $endstamp = 0)
 {
@@ -692,14 +690,21 @@ function _kronolith_list($calendar = null, $startstamp = 0, $endstamp = 0)
         return PEAR::raiseError(_("Permission Denied"));
     }
 
-    $ids = Kronolith::listEventIds($startstamp, $endstamp, $calendar);
-    if (is_a($ids, 'PEAR_Error')) {
-        return $ids;
+    $driver = Kronolith::getDriver(null, $calendar);
+    if (is_a($driver, 'PEAR_Error')) {
+        return $driver;
+    }
+    $events = $driver->listEvents(new Horde_Date($startstamp),
+                                  new Horde_Date($endstamp));
+    if (is_a($events, 'PEAR_Error')) {
+        return $events;
     }
 
     $uids = array();
-    foreach ($ids as $cal) {
-        $uids = array_merge($uids, array_keys($cal));
+    foreach ($events as $dayevents) {
+        foreach ($dayevents as $event) {
+            $uids[] = $event->getUID();
+        }
     }
 
     return $uids;
@@ -941,13 +946,11 @@ function _kronolith_exportCalendar($calendar, $contentType)
         $iCal = new Horde_iCalendar($version);
         $iCal->setAttribute('X-WR-CALNAME', String::convertCharset($share->get('name'), NLS::getCharset(), 'utf-8'));
 
-        foreach ($events as $id) {
-            $event = $kronolith_driver->getEvent($id);
-            if (is_a($event, 'PEAR_Error')) {
-                return $event;
+        foreach ($events as $dayevents) {
+            foreach ($dayevents as $event) {
+                $vEvent = &$event->toiCalendar($iCal);
+                $iCal->addComponent($vEvent);
             }
-            $vEvent = &$event->toiCalendar($iCal);
-            $iCal->addComponent($vEvent);
         }
 
         return $iCal->exportvCalendar();
@@ -1264,7 +1267,9 @@ function _kronolith_listEvents($startstamp = null, $endstamp = null,
         }
     }
 
-    return Kronolith::listEvents($startstamp, $endstamp, $calendars, $showRecurrence, $alarmsOnly);
+    return Kronolith::listEvents(new Horde_Date($startstamp),
+                                 new Horde_Date($endstamp),
+                                 $calendars, $showRecurrence, $alarmsOnly);
 }
 
 /**

@@ -48,6 +48,8 @@ class Kronolith_FreeBusy {
             $enddate = new Horde_Date($startstamp);
             $enddate->mday += $GLOBALS['prefs']->getValue('freebusy_days');
             $endstamp = $enddate->timestamp();
+        } else {
+            $enddate = new Horde_Date($endstamp);
         }
 
         /* Get the Identity for the owner of the share. */
@@ -57,7 +59,7 @@ class Kronolith_FreeBusy {
         $cn = $identity->getValue('fullname');
 
         /* Fetch events. */
-        $busy = Kronolith::listEvents($startstamp, $endstamp, $calendar);
+        $busy = Kronolith::listEvents(new Horde_Date($startstamp), $enddate, $calendar);
         if (is_a($busy, 'PEAR_Error')) {
             return $busy;
         }

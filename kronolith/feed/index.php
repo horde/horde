@@ -72,7 +72,9 @@ if (empty($feed_type)) {
     $feed_type = 'atom';
 }
 
-$startDate = new Horde_Date(array('year' => date('Y'), 'month' => date('n'), 'mday' => date('j')));
+$startDate = new Horde_Date(array('year' => date('Y'),
+                                  'month' => date('n'),
+                                  'mday' => date('j')));
 $events = Kronolith::listEvents($startDate,
                                 new Horde_Date($startDate),
                                 array($calendar));

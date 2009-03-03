@@ -22,10 +22,7 @@ class Kronolith_View_Year {
                                           'mday' => 1));
         $endDate = new Horde_Date(array('year' => $this->year,
                                         'month' => 12,
-                                        'mday' => 31,
-                                        'hour' => 23,
-                                        'min' => 59,
-                                        'sec' => 59));
+                                        'mday' => 31));
 
         $this->_events = Kronolith::listEvents($startDate, $endDate, $GLOBALS['display_calendars']);
         if (is_a($this->_events, 'PEAR_Error')) {

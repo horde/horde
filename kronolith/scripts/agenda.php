@@ -125,16 +125,14 @@ function send_agendas()
         foreach ($calendars as $calId => $calendar) {
             $kronolith_driver->open($calId);
             $events = $kronolith_driver->listEvents($runtime, $runtime);
-            foreach ($events as $eventId) {
-                $event = $kronolith_driver->getEvent($eventId);
-                if (is_a($event, 'PEAR_Error')) {
-                    return $event;
+            foreach ($events as $dayevents) {
+                foreach ($dayevents as $event) {
+                    // The event list contains events starting at 12am.
+                    if ($event->start->mday != $runtime->mday) {
+                        continue;
+                    }
+                    $eventlist[$event->start->strftime('%Y%m%d%H%M%S')] = $event;
                 }
-                // The event list contains events starting at 12am.
-                if ($event->start->mday != $runtime->mday) {
-                    continue;
-                }
-                $eventlist[$event->start->strftime('%Y%m%d%H%M%S')] = $event;
             }
         }
 

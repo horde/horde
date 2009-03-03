@@ -179,6 +179,20 @@ class Kronolith_Driver
     }
 
     /**
+     * Returns the number of events in the current calendar.
+     *
+     * @return integer  The number of events.
+     */
+    public function countEvents()
+    {
+        $count = 0;
+        foreach ($this->listEvents() as $dayevents) {
+            $count += count($dayevents);
+        }
+        return $count;
+    }
+
+    /**
      * Attempts to return a concrete Kronolith_Driver instance based on
      * $driver.
      *

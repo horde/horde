@@ -108,7 +108,7 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
 
     public function listAlarms($date, $fullevent = false)
     {
-        $allevents = $this->listEvents($date, null, true);
+        $allevents = $this->listEvents($date, null, false, true);
         $events = array();
 
         foreach ($allevents as $eventId) {
@@ -185,17 +185,21 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
     }
 
     /**
-     * Lists all events in the time range, optionally restricting
-     * results to only events with alarms.
+     * Lists all events in the time range, optionally restricting results to
+     * only events with alarms.
      *
      * @param Horde_Date $startInterval  Start of range date object.
      * @param Horde_Date $endInterval    End of range data object.
+     * @param boolean $showRecurrence    Return every instance of a recurring
+     *                                   event? If false, will only return
+     *                                   recurring events once inside the
+     *                                   $startDate - $endDate range.
      * @param boolean $hasAlarm          Only return events with alarms?
-     *                                   Defaults to all events.
      *
      * @return array  Events in the given time range.
      */
-    public function listEvents($startDate = null, $endDate = null, $hasAlarm = false)
+    public function listEvents($startDate = null, $endDate = null,
+                               $showRecurrence = false, $hasAlarm = false)
     {
         $result = $this->synchronize();
         if (is_a($result, 'PEAR_Error')) {
@@ -203,52 +207,48 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
         }
 
         if (is_null($startDate)) {
-            $startDate = new Horde_Date(array('mday' => 1, 'month' => 1, 'year' => 0000));
+            $startDate = new Horde_Date(array('mday' => 1,
+                                              'month' => 1,
+                                              'year' => 0000));
         }
         if (is_null($endDate)) {
-            $endDate = new Horde_Date(array('mday' => 31, 'month' => 12, 'year' => 9999));
+            $endDate = new Horde_Date(array('mday' => 31,
+                                            'month' => 12,
+                                            'year' => 9999));
         }
 
-        $ids = array();
+        $startDate = clone $startDate;
+        $startDate->hour = $startDate->min = $startDate->sec = 0;
+        $endDate = clone $endDate;
+        $endDate->hour = 23;
+        $endDate->min = $endDate->sec = 59;
 
+        $events = array();
         foreach($this->_events_cache as $event) {
             if ($hasAlarm && !$event->getAlarm()) {
                 continue;
             }
 
-            $keep_event = false;
-            /* check if event period intersects with given period */
-            if (!(($endDate->compareDateTime($event->start) < 0) ||
-                  ($startDate->compareDateTime($event->end) > 0))) {
-                $keep_event = true;
+            /* Ignore events out of the period. */
+            if (
+                /* Starts after the period. */
+                $event->start->compareDateTime($endDate) > 0 ||
+                /* End before the period and doesn't recur. */
+                (!$event->recurs() &&
+                 $event->end->compareDateTime($startDate) < 0) ||
+                /* Recurs and ... */
+                ($event->recurs() &&
+                  /* ... has a recurrence end before the period. */
+                  ($event->recurrence->hasRecurEnd() &&
+                   $event->recurrence->recurEnd->compareDateTime($startDate) < 0))) {
+                continue;
             }
 
-            /* do recurrence expansion if not keeping anyway */
-            if (!$keep_event && $event->recurs()) {
-                $next = $event->recurrence->nextRecurrence($startDate);
-                while ($next !== false &&
-                       $event->recurrence->hasException($next->year, $next->month, $next->mday)) {
-                    $next->mday++;
-                    $next = $event->recurrence->nextRecurrence($next);
-                }
-
-                if ($next !== false) {
-                    $duration = $next->timestamp() - $event->start->timestamp();
-                    $next_end = new Horde_Date($event->end->timestamp() + $duration);
-
-                    if ((!(($endDate->compareDateTime($next) < 0) ||
-                           ($startDate->compareDateTime($next_end) > 0)))) {
-                        $keep_event = true;
-                    }
-                }
-            }
-
-            if ($keep_event) {
-                $ids[$event->getUID()] = $event->getUID();
-            }
+            Kronolith::addEvents($events, $event, $startDate, $endDate,
+                                 $showRecurrence);
         }
 
-        return $ids;
+        return $events;
     }
 
     public function getEvent($eventId = null)

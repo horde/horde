@@ -92,10 +92,7 @@ class Kronolith_View_Month {
                                           'mday' => $this->_startOfView));
         $endDate = new Horde_Date(array('year' => $this->year,
                                         'month' => $this->month,
-                                        'mday' => $this->_startOfView + $this->_daysInView,
-                                        'hour' => 23,
-                                        'min' => 59,
-                                        'sec' => 59));
+                                        'mday' => $this->_startOfView + $this->_daysInView));
 
         if ($prefs->getValue('show_shared_side_by_side')) {
             $allCalendars = Kronolith::listCalendars();

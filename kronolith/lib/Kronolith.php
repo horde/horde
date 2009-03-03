@@ -477,53 +477,6 @@ class Kronolith
     }
 
     /**
-     * Returns all the event ids of the internal backend that might happen
-     * within a time period.
-     *
-     * This method does not calculate an recurring events. The returned list
-     * might contain ids of recurring events that do not actually occur during
-     * the time period, and it only contains an id once, even if there might
-     * be several occurences during the time period.
-     *
-     * @param object $startDate    The start of the time range.
-     * @param object $endDate      The end of the time range.
-     * @param array  $calendars    The calendars to check for events. Defaults
-     *                             to all visible calendars.
-     * @param boolean $alarmsOnly  Return only events with an alarm set?
-     *
-     * @return array  The events happening in this time period. A hash with
-     *                calendar names as keys and arrays of event ids as values.
-     */
-    public static function listEventIds($startDate = null, $endDate = null,
-                                        $calendars = null, $alarmsOnly = false)
-    {
-        $kronolith_driver = Kronolith::getDriver();
-
-        if (!empty($startDate)) {
-            $startDate = new Horde_Date($startDate);
-        }
-        if (!empty($endDate)) {
-            $endDate = new Horde_Date($endDate);
-        }
-        if (!isset($calendars)) {
-            $calendars = $GLOBALS['display_calendars'];
-        }
-        if (!is_array($calendars)) {
-            $calendars = array($calendars);
-        }
-
-        $eventIds = array();
-        foreach ($calendars as $cal) {
-            $kronolith_driver->open($cal);
-            $eventIds[$cal] = $kronolith_driver->listEvents($startDate,
-                                                            $endDate,
-                                                            $alarmsOnly);
-        }
-
-        return $eventIds;
-    }
-
-    /**
      * Returns all the alarms active on a specific date.
      *
      * @param Horde_Date $date    The date to check for alarms.
@@ -582,66 +535,43 @@ class Kronolith
     /**
      * Returns all the events that happen each day within a time period
      *
-     * @param int|Horde_Date $startDate  The start of the time range.
-     * @param int|Horde_Date $endDate    The end of the time range.
-     * @param array $calendars           The calendars to check for events.
-     * @param boolean $showRecurrence    Return every instance of a recurring
-     *                                   event? If false, will only return
-     *                                   recurring events once inside the
-     *                                   $startDate - $endDate range.
-     *                                   Defaults to true
-     * @param boolean $alarmsOnly        Filter results for events with alarms
-     *                                   Defaults to false
-     * @param boolean $showRemote        Return events from remote and
-     *                                   listTimeObjects as well?
+     * @param Horde_Date $startDate    The start of the time range.
+     * @param Horde_Date $endDate      The end of the time range.
+     * @param array $calendars         The calendars to check for events.
+     * @param boolean $showRecurrence  Return every instance of a recurring
+     *                                 event? If false, will only return
+     *                                 recurring events once inside the
+     *                                 $startDate - $endDate range.
+     *                                 Defaults to true
+     * @param boolean $alarmsOnly      Filter results for events with alarms
+     *                                 Defaults to false
+     * @param boolean $showRemote      Return events from remote and
+     *                                 listTimeObjects as well?
      *
      * @return array  The events happening in this time period.
      */
-    public static function listEvents($startDate = null, $endDate = null,
-                                      $calendars = null, $showRecurrence = true,
+    public static function listEvents($startDate, $endDate, $calendars = null,
+                                      $showRecurrence = true,
                                       $alarmsOnly = false, $showRemote = true)
     {
         global $registry;
 
-        if (!empty($startDate)) {
-            $startDate = new Horde_Date($startDate);
-        }
-        if (!empty($endDate)) {
-            $endDate = new Horde_Date($endDate);
-        }
         if (!isset($calendars)) {
             $calendars = $GLOBALS['display_calendars'];
         }
-
-        $startDate = clone $startDate;
-        $startDate->hour = $startDate->min = $startDate->sec = 0;
-        $endDate = clone $endDate;
-        $endDate->hour = 23;
-        $endDate->min = $endDate->sec = 59;
         $kronolith_driver = Kronolith::getDriver();
 
-        $eventIds = Kronolith::listEventIds($startDate, $endDate, $calendars, $alarmsOnly);
         $results = array();
-        foreach ($eventIds as $cal => $events) {
-            if (is_a($events, 'PEAR_Error')) {
-                return $events;
-            }
-
-            $kronolith_driver->open($cal);
-            foreach ($events as $id) {
-                $event = $kronolith_driver->getEvent($id);
-                if (is_a($event, 'PEAR_Error')) {
-                    return $event;
-                }
-
-                Kronolith::addEvents($results, $event, $startDate, $endDate,
-                                     $showRecurrence);
+        foreach ($calendars as $calendar) {
+            $kronolith_driver->open($calendar);
+            $events = $kronolith_driver->listEvents($startDate, $endDate, true);
+            if (!is_a($events, 'PEAR_Error')) {
+                Kronolith::mergeEvents($results, $events);
             }
         }
 
         if ($showRemote) {
             /* Check for listTimeObjects */
-            $apis = array();
             foreach ($GLOBALS['display_external_calendars'] as $external_cal) {
                 list($api, $category) = explode('/', $external_cal, 2);
                 if (!isset($apis[$api])) {
@@ -721,12 +651,9 @@ class Kronolith
             $driver = Kronolith::getDriver('Ical');
             foreach ($GLOBALS['display_remote_calendars'] as $url) {
                 $driver->open($url);
-                $events = $driver->listEvents($startDate, $endDate);
+                $events = $driver->listEvents($startDate, $endDate, true);
                 if (!is_a($events, 'PEAR_Error')) {
-                    foreach ($events as $event) {
-                        Kronolith::addEvents($results, $event, $startDate,
-                                             $endDate, $showRecurrence);
-                    }
+                    Kronolith::mergeEvents($results, $events);
                 }
             }
         }
@@ -736,12 +663,9 @@ class Kronolith
             $dhDriver = Kronolith::getDriver('Holidays');
             foreach (unserialize($GLOBALS['prefs']->getValue('holiday_drivers')) as $driver) {
                 $dhDriver->open($driver);
-                $events = $dhDriver->listEvents($startDate, $endDate);
+                $events = $dhDriver->listEvents($startDate, $endDate, true);
                 if (!is_a($events, 'PEAR_Error')) {
-                    foreach ($events as $event) {
-                        Kronolith::addEvents($results, $event, $startDate,
-                                             $endDate, $showRecurrence);
-                    }
+                    Kronolith::mergeEvents($results, $events);
                 }
             }
         }
@@ -754,6 +678,23 @@ class Kronolith
         }
 
         return $results;
+    }
+
+    /**
+     * Merges results from two listEvents() result sets.
+     *
+     * @param array $results  First list of events.
+     * @param array $events   List of events to be merged into the first one.
+     */
+    public static function mergeEvents(&$results, $events)
+    {
+        foreach ($events as $day => $day_events) {
+            if (isset($results[$day])) {
+                $results[$day] = array_merge($results[$day], $day_events);
+            } else {
+                $results[$day] = $day_events;
+            }
+        }
     }
 
     /**
@@ -968,9 +909,7 @@ class Kronolith
         $count = 0;
         foreach (array_keys($calendars) as $calendar) {
             $kronolith_driver->open($calendar);
-
-            /* Retrieve the event list from storage. */
-            $count += count($kronolith_driver->listEvents());
+            $count += $kronolith_driver->countEvents();
         }
 
         /* Reopen last calendar. */

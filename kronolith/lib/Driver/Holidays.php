@@ -21,21 +21,22 @@ class Kronolith_Driver_Holidays extends Kronolith_Driver
     }
 
     /**
-     * Returns a list of all holidays occuring between <code>$startDate</code>
-     * and <code>$endDate</code>.
+     * Lists all events in the time range, optionally restricting results to
+     * only events with alarms.
      *
-     * @param int|Horde_Date $startDate  The start of the datespan to be
-     *                                   checked. Defaults to the current date.
-     * @param int|Horde_Date $endDate    The end of the datespan. Defaults to
-     *                                   the current date.
-     * @param bool $hasAlarm             Left in for compatibility reasons and
-     *                                   has no effect on this function.
-     *                                   Defaults to <code>false</code>
+     * @param Horde_Date $startInterval  Start of range date object.
+     * @param Horde_Date $endInterval    End of range data object.
+     * @param boolean $showRecurrence    Return every instance of a recurring
+     *                                   event? If false, will only return
+     *                                   recurring events once inside the
+     *                                   $startDate - $endDate range.
+     * @param boolean $hasAlarm          Only return events with alarms? Has no
+     *                                   effect in this driver.
      *
-     * @return array  An array of all holidays within the given datespan.
+     * @return array  Events in the given time range.
      */
     public function listEvents($startDate = null, $endDate = null,
-                               $hasAlarm = false)
+                               $showRecurrence = false, $hasAlarm = false)
     {
         if (!class_exists('Date_Holidays')) {
             Horde::logMessage('Support for Date_Holidays has been enabled but the package seems to be missing.',
@@ -46,9 +47,15 @@ class Kronolith_Driver_Holidays extends Kronolith_Driver
             return array();
         }
 
+        $startDate = clone $startDate;
+        $startDate->hour = $startDate->min = $startDate->sec = 0;
+        $endDate = clone $endDate;
+        $endDate->hour = 23;
+        $endDate->min = $endDate->sec = 59;
+
         Date_Holidays::staticSetProperty('DIE_ON_MISSING_LOCALE', false);
 
-        $events = array();
+        $results = array();
         for ($year = $startDate->year; $year <= $endDate->year; $year++) {
             $dh = Date_Holidays::factory($this->_calendar, $year, $this->_params['language']);
             if (Date_Holidays::isError($dh)) {
@@ -58,10 +65,14 @@ class Kronolith_Driver_Holidays extends Kronolith_Driver
                 continue;
             }
             $dh->addTranslation($this->_params['language']);
-            $events = array_merge($events, $this->_getEvents($dh, $startDate, $endDate));
+            $events = $this->_getEvents($dh, $startDate, $endDate);
+            foreach ($events as $event) {
+                Kronolith::addEvents($results, $event, $startDate, $endDate,
+                                     $showRecurrence);
+            }
         }
 
-        return $events;
+        return $results;
     }
 
     private function _getEvents($dh, $startDate, $endDate)

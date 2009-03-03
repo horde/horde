@@ -40,62 +40,59 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
 
     public function listAlarms($date, $fullevent = false)
     {
-        $allevents = $this->listEvents($date, null, true);
+        $allevents = $this->listEvents($date, null, false, true);
         if (is_a($allevents, 'PEAR_Error')) {
             return $allevents;
         }
 
         $events = array();
-        foreach ($allevents as $eventId) {
-            $event = $this->getEvent($eventId);
-            if (is_a($event, 'PEAR_Error')) {
-                continue;
-            }
-
-            if (!$event->recurs()) {
-                $start = new Horde_Date($event->start);
-                $start->min -= $event->getAlarm();
-                if ($start->compareDateTime($date) <= 0 &&
-                    $date->compareDateTime($event->end) <= -1) {
-                    $events[] = $fullevent ? $event : $eventId;
-                }
-            } else {
-                if ($next = $event->recurrence->nextRecurrence($date)) {
-                    if ($event->recurrence->hasException($next->year, $next->month, $next->mday)) {
-                        continue;
-                    }
-                    $start = new Horde_Date($next);
+        foreach ($allevents as $dayevents) {
+            foreach ($dayevents as $event) {
+                if (!$event->recurs()) {
+                    $start = new Horde_Date($event->start);
                     $start->min -= $event->getAlarm();
-                    $diff = Date_Calc::dateDiff($event->start->mday,
-                                                $event->start->month,
-                                                $event->start->year,
-                                                $event->end->mday,
-                                                $event->end->month,
-                                                $event->end->year);
-                    if ($diff == -1) {
-                        $diff = 0;
-                    }
-                    $end = new Horde_Date(array('year' => $next->year,
-                                                'month' => $next->month,
-                                                'mday' => $next->mday + $diff,
-                                                'hour' => $event->end->hour,
-                                                'min' => $event->end->min,
-                                                'sec' => $event->end->sec));
                     if ($start->compareDateTime($date) <= 0 &&
-                        $date->compareDateTime($end) <= -1) {
-                        if ($fullevent) {
-                            $event->start = $start;
-                            $event->end = $end;
-                            $events[] = $event;
-                        } else {
-                            $events[] = $eventId;
+                        $date->compareDateTime($event->end) <= -1) {
+                        $events[] = $fullevent ? $event : $event->getId();
+                    }
+                } else {
+                    if ($next = $event->recurrence->nextRecurrence($date)) {
+                        if ($event->recurrence->hasException($next->year, $next->month, $next->mday)) {
+                            continue;
+                        }
+                        $start = new Horde_Date($next);
+                        $start->min -= $event->getAlarm();
+                        $diff = Date_Calc::dateDiff($event->start->mday,
+                                                    $event->start->month,
+                                                    $event->start->year,
+                                                    $event->end->mday,
+                                                    $event->end->month,
+                                                    $event->end->year);
+                        if ($diff == -1) {
+                            $diff = 0;
+                        }
+                        $end = new Horde_Date(array('year' => $next->year,
+                                                    'month' => $next->month,
+                                                    'mday' => $next->mday + $diff,
+                                                    'hour' => $event->end->hour,
+                                                    'min' => $event->end->min,
+                                                    'sec' => $event->end->sec));
+                        if ($start->compareDateTime($date) <= 0 &&
+                            $date->compareDateTime($end) <= -1) {
+                            if ($fullevent) {
+                                $event->start = $start;
+                                $event->end = $end;
+                                $events[] = $event;
+                            } else {
+                                $events[] = $event->getId();
+                            }
                         }
                     }
                 }
             }
         }
 
-        return is_array($events) ? $events : array();
+        return $events;
     }
 
     public function search($query)
@@ -157,12 +154,12 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
             $cond = substr($cond, 0, strlen($cond) - 5) . '))';
         }
 
-        $eventIds = $this->listEventsConditional($query->start,
-                                                 empty($query->end)
-                                                 ? new Horde_Date(array('mday' => 31, 'month' => 12, 'year' => 9999))
-                                                 : $query->end,
-                                                 $cond,
-                                                 $values);
+        $eventIds = $this->_listEventsConditional($query->start,
+                                                  empty($query->end)
+                                                      ? new Horde_Date(array('mday' => 31, 'month' => 12, 'year' => 9999))
+                                                      : $query->end,
+                                                  $cond,
+                                                  $values);
         if (is_a($eventIds, 'PEAR_Error')) {
             return $eventIds;
         }
@@ -218,38 +215,52 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
     }
 
     /**
-     * Lists all events in the time range, optionally restricting
-     * results to only events with alarms.
+     * Lists all events in the time range, optionally restricting results to
+     * only events with alarms.
      *
      * @param Horde_Date $startInterval  Start of range date object.
      * @param Horde_Date $endInterval    End of range data object.
+     * @param boolean $showRecurrence    Return every instance of a recurring
+     *                                   event? If false, will only return
+     *                                   recurring events once inside the
+     *                                   $startDate - $endDate range.
      * @param boolean $hasAlarm          Only return events with alarms?
-     *                                   Defaults to all events.
      *
      * @return array  Events in the given time range.
      */
     public function listEvents($startDate = null, $endDate = null,
-                               $hasAlarm = false)
+                               $showRecurrence = false, $hasAlarm = false)
     {
-        if (empty($endDate)) {
-            $endInterval = new Horde_Date(array('mday' => 31, 'month' => 12,
-                                                'year' => 9999));
-        } else {
-            $endInterval = clone $endDate;
-            $endInterval->mday++;
+        if (is_null($startDate)) {
+            $startDate = new Horde_Date(array('mday' => 1,
+                                              'month' => 1,
+                                              'year' => 0000));
+        }
+        if (is_null($endDate)) {
+            $endDate = new Horde_Date(array('mday' => 31,
+                                            'month' => 12,
+                                            'year' => 9999));
         }
 
-        $startInterval = null;
-        if (empty($startDate)) {
-            $startInterval = new Horde_Date(array('mday' => 1, 'month' => 1,
-                                                  'year' => 0000));
-        } else {
-            $startInterval = clone $startDate;
+        $startDate = clone $startDate;
+        $startDate->hour = $startDate->min = $startDate->sec = 0;
+        $endDate = clone $endDate;
+        $endDate->hour = 23;
+        $endDate->min = $endDate->sec = 59;
+
+        $events = $this->_listEventsConditional($startDate, $endDate,
+                                                $hasAlarm ? 'event_alarm > ?' : '',
+                                                $hasAlarm ? array(0) : array());
+        if (is_a($events, 'PEAR_Error')) {
+            return $events;
+        }
+        $results = array();
+        foreach ($events as $id) {
+            Kronolith::addEvents($results, $this->getEvent($id), $startDate,
+                                 $endDate, $showRecurrence);
         }
 
-        return $this->listEventsConditional($startInterval, $endInterval,
-                                            $hasAlarm ? 'event_alarm > ?' : '',
-                                            $hasAlarm ? array(0) : array());
+        return $results;
     }
 
     /**
@@ -264,8 +275,8 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
      * @return array  Events in the given time range satisfying the given
      *                conditions.
      */
-    public function listEventsConditional($startInterval, $endInterval,
-                                          $conditions = '', $vals = array())
+    private function _listEventsConditional($startInterval, $endInterval,
+                                            $conditions = '', $vals = array())
     {
         $q = 'SELECT event_id, event_uid, event_description, event_location,' .
             ' event_private, event_status, event_attendees,' .
@@ -287,10 +298,10 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         $stime = null;
         if (isset($startInterval)) {
             $stime = $startInterval->format('Y-m-d H:i:s');
-            $q .= 'event_end > ? AND ';
+            $q .= 'event_end >= ? AND ';
             $values[] = $stime;
         }
-        $q .= 'event_start < ?) OR (';
+        $q .= 'event_start <= ?) OR (';
         $values[] = $etime;
         if (isset($stime)) {
             $q .= 'event_recurenddate >= ? AND ';
@@ -301,7 +312,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         array_push($values, $etime, Horde_Date_Recurrence::RECUR_NONE);
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Kronolith_Driver_Sql::listEventsConditional(): user = "%s"; query = "%s"; values = "%s"',
+        Horde::logMessage(sprintf('Kronolith_Driver_Sql::_listEventsConditional(): user = "%s"; query = "%s"; values = "%s"',
                                   Auth::getAuth(), $q, implode(',', $values)),
                           __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
@@ -325,7 +336,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
                 $values = array($row['event_uid'], $row['event_id']);
 
                 /* Log the query at a DEBUG log level. */
-                Horde::logMessage(sprintf('Kronolith_Driver_Sql::listEventsConditional(): user = %s; query = "%s"; values = "%s"',
+                Horde::logMessage(sprintf('Kronolith_Driver_Sql::_listEventsConditional(): user = %s; query = "%s"; values = "%s"',
                                           Auth::getAuth(), $query, implode(',', $values)),
                                   __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
@@ -335,8 +346,8 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
                 }
             }
 
-            /* We have all the information we need to create an event
-             * object for this event, so go ahead and cache it. */
+            /* We have all the information we need to create an event object
+             * for this event, so go ahead and cache it. */
             $this->_cache[$this->_calendar][$row['event_id']] = new Kronolith_Event_Sql($this, $row);
             if ($row['event_recurtype'] == Horde_Date_Recurrence::RECUR_NONE) {
                 $events[$row['event_uid']] = $row['event_id'];
@@ -351,6 +362,24 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         }
 
         return $events;
+    }
+
+    /**
+     * Returns the number of events in the current calendar.
+     *
+     * @return integer  The number of events.
+     */
+    public function countEvents()
+    {
+        $query = sprintf('SELECT count(*) FROM %s WHERE calendar_id = ?',
+                         $this->_params['table']);
+        /* Log the query at a DEBUG log level. */
+        Horde::logMessage(sprintf('Kronolith_Driver_Sql::_countEvents(): user = "%s"; query = "%s"; values = "%s"',
+                                  Auth::getAuth(), $query, $this->_calendar),
+                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+
+        /* Run the query. */
+        return $this->_db->getOne($query, array($this->_calendar));
     }
 
     public function getEvent($eventId = null)
@@ -822,6 +851,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
     /**
      * Remove all events owned by the specified user in all calendars.
      *
+     * @todo Refactor: move to Kronolith::
      *
      * @param string $user  The user name to delete events for.
      *
@@ -829,6 +859,8 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
      */
     public function removeUserData($user)
     {
+        return PEAR::raiseError('to be refactored');
+
         if (!Auth::isAdmin()) {
             return PEAR::raiseError(_("Permission Denied"));
         }

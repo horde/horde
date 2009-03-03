@@ -36,18 +36,21 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
     }
 
     /**
-     * Lists all events in the time range, optionally restricting
-     * results to only events with alarms.
+     * Lists all events in the time range, optionally restricting results to
+     * only events with alarms.
      *
      * @param Horde_Date $startInterval  Start of range date object.
      * @param Horde_Date $endInterval    End of range data object.
+     * @param boolean $showRecurrence    Return every instance of a recurring
+     *                                   event? If false, will only return
+     *                                   recurring events once inside the
+     *                                   $startDate - $endDate range.
      * @param boolean $hasAlarm          Only return events with alarms?
-     *                                   Defaults to all events.
      *
      * @return array  Events in the given time range.
      */
     public function listEvents($startDate = null, $endDate = null,
-                               $hasAlarm = false)
+                               $showRecurrence = false, $hasAlarm = false)
     {
         $data = $this->_getRemoteCalendar();
         if (is_a($data, 'PEAR_Error')) {
@@ -58,6 +61,12 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
         if (!$iCal->parsevCalendar($data)) {
             return array();
         }
+
+        $startDate = clone $startDate;
+        $startDate->hour = $startDate->min = $startDate->sec = 0;
+        $endDate = clone $endDate;
+        $endDate->hour = 23;
+        $endDate->min = $endDate->sec = 59;
 
         $components = $iCal->getComponents();
         $events = array();
@@ -102,15 +111,18 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
 
         /* Loop through all explicitly defined recurrence intances and create
          * exceptions for those in the event with the matchin recurrence. */
+        $results = array();
         foreach ($events as $key => $event) {
             if ($event->recurs() &&
                 isset($exceptions[$event->getUID()][$event->getSequence()])) {
                 $timestamp = $exceptions[$event->getUID()][$event->getSequence()];
                 $events[$key]->recurrence->addException(date('Y', $timestamp), date('m', $timestamp), date('d', $timestamp));
+                Kronolith::addEvents($results, $event, $startDate, $endDate,
+                                     $showRecurrence);
             }
         }
 
-        return $events;
+        return $results;
     }
 
     public function getEvent($eventId = null)

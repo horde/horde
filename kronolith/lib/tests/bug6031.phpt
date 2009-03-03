@@ -64,9 +64,9 @@ $end   = new Horde_Date(172800);
 // List the events of tomorrow (none, since recurrence has exception)
 $a = $kron->listEvents($start, $end);
 if (is_a($a, 'PEAR_Error')) {
-  var_dump($a->getMessage());
+    var_dump($a->getMessage());
 } else {
-  var_dump($a);
+    var_dump($a);
 }
 
 $start = new Horde_Date(259200);
@@ -75,15 +75,13 @@ $end   = new Horde_Date(345600);
 // List the events in three days (recurring event)
 $a = $kron->listEvents($start, $end);
 if (is_a($a, 'PEAR_Error')) {
-  var_dump($a->getMessage());
+    var_dump($a->getMessage());
 } else {
-  var_dump($a);
+    $events = reset($a);
+    var_dump($events[0]->getId());
 }
 --EXPECT--
 bool(true)
 array(0) {
 }
-array(1) {
-  [1]=>
-  string(1) "1"
-}
+string(1) "1"

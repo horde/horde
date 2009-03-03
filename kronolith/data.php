@@ -113,39 +113,34 @@ case 'export':
     case Horde_Data::EXPORT_CSV:
         $data = array();
         foreach ($events as $cal => $calevents) {
-            if ($kronolith_driver->getCalendar() != $cal) {
-                $kronolith_driver->open($cal);
-            }
-            foreach ($calevents as $eventId) {
-                $event = &$kronolith_driver->getEvent($eventId);
-                if (is_a($event, 'PEAR_Error')) {
-                    continue;
-                }
+            foreach ($calevents as $dayevents) {
+                foreach ($dayevents as $event) {
 //@TODO Tags
-                $row = array();
-                $row['title'] = $event->getTitle();
-                $row['location'] = $event->location;
-                $row['description'] = $event->description;
-                $row['start_date'] = sprintf('%d-%02d-%02d', $event->start->year, $event->start->month, $event->start->mday);
-                $row['start_time'] = sprintf('%02d:%02d:%02d', $event->start->hour, $event->start->min, $event->start->sec);
-                $row['end_date'] = sprintf('%d-%02d-%02d', $event->end->year, $event->end->month, $event->end->mday);
-                $row['end_time'] = sprintf('%02d:%02d:%02d', $event->end->hour, $event->end->min, $event->end->sec);
-                $row['alarm'] = $event->alarm;
-                if ($event->recurs()) {
-                    $row['recur_type'] = $event->recurrence->getRecurType();
-                    $row['recur_end_date'] = sprintf('%d-%02d-%02d',
-                                                     $event->recurrence->recurEnd->year,
-                                                     $event->recurrence->recurEnd->month,
-                                                     $event->recurrence->recurEnd->mday);
-                    $row['recur_interval'] = $event->recurrence->getRecurInterval();
-                    $row['recur_data'] = $event->recurrence->recurData;
-                } else {
-                    $row['recur_type'] = null;
-                    $row['recur_end_date'] = null;
-                    $row['recur_interval'] = null;
-                    $row['recur_data'] = null;
+                    $row = array();
+                    $row['title'] = $event->getTitle();
+                    $row['location'] = $event->location;
+                    $row['description'] = $event->description;
+                    $row['start_date'] = sprintf('%d-%02d-%02d', $event->start->year, $event->start->month, $event->start->mday);
+                    $row['start_time'] = sprintf('%02d:%02d:%02d', $event->start->hour, $event->start->min, $event->start->sec);
+                    $row['end_date'] = sprintf('%d-%02d-%02d', $event->end->year, $event->end->month, $event->end->mday);
+                    $row['end_time'] = sprintf('%02d:%02d:%02d', $event->end->hour, $event->end->min, $event->end->sec);
+                    $row['alarm'] = $event->alarm;
+                    if ($event->recurs()) {
+                        $row['recur_type'] = $event->recurrence->getRecurType();
+                        $row['recur_end_date'] = sprintf('%d-%02d-%02d',
+                                                         $event->recurrence->recurEnd->year,
+                                                         $event->recurrence->recurEnd->month,
+                                                         $event->recurrence->recurEnd->mday);
+                        $row['recur_interval'] = $event->recurrence->getRecurInterval();
+                        $row['recur_data'] = $event->recurrence->recurData;
+                    } else {
+                        $row['recur_type'] = null;
+                        $row['recur_end_date'] = null;
+                        $row['recur_interval'] = null;
+                        $row['recur_data'] = null;
+                    }
+                    $data[] = $row;
                 }
-                $data[] = $row;
             }
         }
 
