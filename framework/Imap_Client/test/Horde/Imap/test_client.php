@@ -76,7 +76,11 @@ if (empty($argv[2])) {
 
 $imap_utils = new Horde_Imap_Client_Utils();
 if (!empty($argv[3])) {
-    $params = array_merge($params, $imap_utils->parseImapUrl($argv[3]));
+    $parseurl = $imap_utils->parseUrl($argv[3]);
+    if ($parseurl === false) {
+        exit("Bad URL. Exiting.\n");
+    }
+    $params = array_merge($params, $imap_utils->parseUrl($argv[3]));
 }
 
 function exception_handler($exception) {
@@ -861,25 +865,38 @@ foreach ($subject_lines as $val) {
     print "  BASE: \"" . $imap_utils->getBaseSubject($val) . "\"\n\n";
 }
 
-$imap_urls = array(
+$urls = array(
     'NOT A VALID URL',
-    'imap://test.example.com/',
-    'imap://test.example.com:143/',
-    'imap://testuser@test.example.com/',
-    'imap://testuser@test.example.com:143/',
-    'imap://;AUTH=PLAIN@test.example.com/',
-    'imap://;AUTH=PLAIN@test.example.com:143/',
-    'imap://;AUTH=*@test.example.com:143/',
-    'imap://testuser;AUTH=*@test.example.com:143/',
-    'imap://testuser;AUTH=PLAIN@test.example.com:143/'
+    'test.example.com/',
+    'test.example.com:143/',
+    'testuser@test.example.com/',
+    'testuser@test.example.com:143/',
+    ';AUTH=PLAIN@test.example.com/',
+    ';AUTH=PLAIN@test.example.com:143/',
+    ';AUTH=*@test.example.com:143/',
+    'testuser;AUTH=*@test.example.com:143/',
+    'testuser;AUTH=PLAIN@test.example.com:143/'
 );
 
-print "\nRFC 5092 URL parsing:\n";
-foreach ($imap_urls as $val) {
-    print "URL: " . $val . "\n";
-    print "PARSED:\n";
-    print_r($imap_utils->parseImapUrl($val));
-    print "\n";
+$url_types = array(
+    'pop' => 'RFC 2384 URL parsing',
+    'imap' => 'RFC 5092 URL parsing'
+);
+
+foreach ($url_types as $type => $label) {
+    print "\n" . $label . ":\n";
+    foreach ($urls as $val) {
+        $val = $type . '://' . $val;
+        print "URL: " . $val . "\n";
+        print "PARSED:\n";
+        $parseurl = $imap_utils->parseUrl($val);
+        if ($parseurl === false) {
+            print "INVALID URL\n";
+        } else {
+            print_r($parseurl);
+        }
+        print "\n";
+    }
 }
 
 if (isset($fetch_res) &&

@@ -167,33 +167,39 @@ class Horde_Imap_Client_Utils
     }
 
     /**
-     * Parse an IMAP URL (RFC 5092).
+     * Parse a POP3 (RFC 2384) or IMAP (RFC 5092) URL.
      *
-     * @param string $url  A IMAP URL string.
+     * @param string $url  A URL string.
      *
      * @return mixed  False if the URL is invalid.  If valid, a URL with the
      *                following fields:
      * <pre>
      * 'auth' - (string) The authentication method to use.
-     * 'port' - (integer) The remote port
      * 'hostspec' - (string) The remote server
+     * 'port' - (integer) The remote port
+     * 'type' - (string) Either 'imap' or 'pop'.
      * 'username' - (string) The username to use on the remote server.
      * </pre>
      */
-    public function parseImapUrl($url)
+    public function parseUrl($url)
     {
         $url = trim($url);
-        if (stripos($url, 'imap://') !== 0) {
+
+        $prefix = strpos($url, '://');
+        $type = substr($url, 0, $prefix);
+
+        if ((strcasecmp($type, 'imap') !== 0) &&
+            (strcasecmp($type, 'pop') !== 0)) {
             return false;
         }
-        $url = substr($url, 7);
+        $url = substr($url, $prefix + 3);
 
-        /* At present, only support imap://<iserver>[/] style URLs. */
+        /* At present, only support type://<iserver>[/] style URLs. */
         if (($pos = strpos($url, '/')) !== false) {
             $url = substr($url, 0, $pos);
         }
 
-        $ret_array = array();
+        $ret_array = array('type' => strtolower($type));
 
         /* Check for username/auth information. */
         if (($pos = strpos($url, '@')) !== false) {
@@ -214,6 +220,10 @@ class Horde_Imap_Client_Utils
         if (($pos = strpos($url, ':')) !== false) {
             $ret_array['port'] = substr($url, $pos + 1);
             $url = substr($url, 0, $pos);
+        }
+
+        if (strpos($url, ' ') !== false) {
+            return false;
         }
 
         $ret_array['hostspec'] = $url;
