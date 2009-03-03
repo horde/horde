@@ -34,28 +34,22 @@ class Horde_Kolab_Server_testTest extends Horde_Kolab_Test_Server
 {
 
     /**
-     * Set up testing.
-     *
-     * @return NULL
-     */
-    protected function setUp()
-    {
-        $this->ldap = &$this->prepareBasicServer();
-    }
-
-    /**
      * Test search base.
      *
+     * @dataProvider provideServerTypes
+     *
      * @return NULL
      */
-    public function testSearchBase()
+    public function testSearchBase($type)
     {
-        $result = $this->ldap->search('(objectClass=top)', array('objectClass'));
+        $server = &$this->prepareBasicServer($type);
+
+        $result = $server->search('(objectClass=top)', array('objectClass'));
         $this->assertEquals(13, count($result));
       
-        $result = $this->ldap->search('(objectClass=top)',
-                                      array('objectClass'),
-                                      'cn=internal,dc=example,dc=org');
+        $result = $server->search('(objectClass=top)',
+                                  array('objectClass'),
+                                  'cn=internal,dc=example,dc=org');
         $this->assertNoError($result);
         $this->assertEquals(4, count($result));
     }
@@ -63,14 +57,18 @@ class Horde_Kolab_Server_testTest extends Horde_Kolab_Test_Server
     /**
      * Test sorting.
      *
+     * @dataProvider provideServerTypes
+     *
      * @return NULL
      */
-    public function testSorting()
+    public function testSorting($type)
     {
-/*         $result = $this->ldap->search('(mail=*)', array('mail')); */
+        $server = &$this->prepareBasicServer($type);
+
+/*         $result = $server->search('(mail=*)', array('mail')); */
 /*         $this->assertNoError($result); */
 /*         $this->assertEquals(5, count($result)); */
-/*         $this->ldap->sort($result, 'mail'); */
+/*         $server->sort($result, 'mail'); */
 /*         foreach ($result as $object) { */
 /*             if (isset($object['data']['dn'])) { */
 /*                 switch ($object['data']['dn']) { */
@@ -88,10 +86,14 @@ class Horde_Kolab_Server_testTest extends Horde_Kolab_Test_Server
     /**
      * Test listing objects.
      *
+     * @dataProvider provideServerTypes
+     *
      * @return NULL
      */
-    public function testListObjects()
+    public function testListObjects($type)
     {
+        $server = &$this->prepareBasicServer($type);
+
         $filter     = '(&(objectClass=kolabInetOrgPerson)(uid=*)(mail=*)(sn=*))';
         $attributes = array(
             KOLAB_ATTR_SN,
@@ -102,16 +104,16 @@ class Horde_Kolab_Server_testTest extends Horde_Kolab_Test_Server
         );
 
         $sort   = KOLAB_ATTR_SN;
-        $result = $this->ldap->search($filter);
+        $result = $server->search($filter);
         $this->assertNoError($result);
         $this->assertEquals(2, count($result));
 
-        $result = $this->ldap->listObjects('Horde_Kolab_Server_Object_user');
+        $result = $server->listObjects('Horde_Kolab_Server_Object_user');
         $this->assertNoError($result);
         $this->assertEquals(2, count($result));
         $this->assertEquals('Horde_Kolab_Server_Object_user', get_class($result[0]));
 
-        $result = $this->ldap->listObjects('Horde_Kolab_Server_Object_sharedfolder');
+        $result = $server->listObjects('Horde_Kolab_Server_Object_sharedfolder');
         $this->assertNoError($result);
         $this->assertEquals(1, count($result));
         $this->assertEquals('Horde_Kolab_Server_Object_sharedfolder', get_class($result[0]));
@@ -120,24 +122,28 @@ class Horde_Kolab_Server_testTest extends Horde_Kolab_Test_Server
     /**
      * Test handling of object classes.
      *
+     * @dataProvider provideServerTypes
+     *
      * @return NULL
      */
-    public function testGetObjectClasses()
+    public function testGetObjectClasses($type)
     {
-        $classes = $this->ldap->getObjectClasses('cn=Gunnar Wrobel,dc=example,dc=org');
+        $server = &$this->prepareBasicServer($type);
+
+        $classes = $server->getObjectClasses('cn=Gunnar Wrobel,dc=example,dc=org');
         $this->assertNoError($classes);
         $this->assertContains('top', $classes);
         $this->assertContains('kolabinetorgperson', $classes);
         $this->assertContains('hordeperson', $classes);
 
         try {
-            $classes = $this->ldap->getObjectClasses('cn=DOES NOT EXIST,dc=example,dc=org');
+            $classes = $server->getObjectClasses('cn=DOES NOT EXIST,dc=example,dc=org');
         } catch (Horde_Kolab_Server_Exception $classes) {
         }
         $this->assertError($classes,
                            'LDAP Error: No such object: cn=DOES NOT EXIST,dc=example,dc=org: No such object');
 
-        $classes = $this->ldap->getObjectClasses('cn=The Administrator,dc=example,dc=org');
+        $classes = $server->getObjectClasses('cn=The Administrator,dc=example,dc=org');
         $this->assertNoError($classes);
         $this->assertContains('kolabinetorgperson', $classes);
     }
@@ -145,35 +151,39 @@ class Horde_Kolab_Server_testTest extends Horde_Kolab_Test_Server
     /**
      * Test handling of object types.
      *
+     * @dataProvider provideServerTypes
+     *
      * @return NULL
      */
-    public function testDetermineType()
+    public function testDetermineType($type)
     {
-        $type = $this->ldap->determineType('cn=empty.group@example.org,dc=example,dc=org');
+        $server = &$this->prepareBasicServer($type);
+
+        $type = $server->determineType('cn=empty.group@example.org,dc=example,dc=org');
         $this->assertNoError($type);
         $this->assertEquals('Horde_Kolab_Server_Object_group', $type);
 
-        $type = $this->ldap->determineType('cn=shared@example.org,dc=example,dc=org');
+        $type = $server->determineType('cn=shared@example.org,dc=example,dc=org');
         $this->assertNoError($type);
         $this->assertEquals('Horde_Kolab_Server_Object_sharedfolder', $type);
 
-        $type = $this->ldap->determineType('cn=The Administrator,dc=example,dc=org');
+        $type = $server->determineType('cn=The Administrator,dc=example,dc=org');
         $this->assertNoError($type);
         $this->assertEquals('Horde_Kolab_Server_Object_administrator', $type);
 
-        $type = $this->ldap->determineType('cn=Main Tainer,dc=example,dc=org');
+        $type = $server->determineType('cn=Main Tainer,dc=example,dc=org');
         $this->assertNoError($type);
         $this->assertEquals('Horde_Kolab_Server_Object_maintainer', $type);
 
-        $type = $this->ldap->determineType('cn=Domain Maintainer,dc=example,dc=org');
+        $type = $server->determineType('cn=Domain Maintainer,dc=example,dc=org');
         $this->assertNoError($type);
         $this->assertEquals('Horde_Kolab_Server_Object_domainmaintainer', $type);
 
-        $type = $this->ldap->determineType('cn=Test Address,cn=external,dc=example,dc=org');
+        $type = $server->determineType('cn=Test Address,cn=external,dc=example,dc=org');
         $this->assertNoError($type);
         $this->assertEquals('Horde_Kolab_Server_Object_address', $type);
 
-        $type = $this->ldap->determineType('cn=Gunnar Wrobel,dc=example,dc=org');
+        $type = $server->determineType('cn=Gunnar Wrobel,dc=example,dc=org');
         $this->assertNoError($type);
         $this->assertEquals('Horde_Kolab_Server_Object_user', $type);
     }
@@ -181,18 +191,22 @@ class Horde_Kolab_Server_testTest extends Horde_Kolab_Test_Server
     /**
      * Test retrieving a primary mail for a mail or id.
      *
+     * @dataProvider provideServerTypes
+     *
      * @return NULL
      */
-    public function testMailForIdOrMail()
+    public function testMailForIdOrMail($type)
     {
-        $mail = $this->ldap->mailForIdOrMail('wrobel');
+        $server = &$this->prepareBasicServer($type);
+
+        $mail = $server->mailForIdOrMail('wrobel');
         $this->assertEquals('wrobel@example.org', $mail);
 
-        $mail = $this->ldap->mailForIdOrMail('wrobel@example.org');
+        $mail = $server->mailForIdOrMail('wrobel@example.org');
         $this->assertNoError($mail);
         $this->assertEquals('wrobel@example.org', $mail);
 
-        $mail = $this->ldap->mailForIdOrMail('DOES NOT EXIST');
+        $mail = $server->mailForIdOrMail('DOES NOT EXIST');
         $this->assertNoError($mail);
         $this->assertSame(false, $mail);
     }
@@ -200,19 +214,23 @@ class Horde_Kolab_Server_testTest extends Horde_Kolab_Test_Server
     /**
      * Test retrieving a UID for a mail or id.
      *
+     * @dataProvider provideServerTypes
+     *
      * @return NULL
      */
-    public function testUidForIdOrMail()
+    public function testUidForIdOrMail($type)
     {
-        $uid = $this->ldap->uidForIdOrMail('wrobel');
+        $server = &$this->prepareBasicServer($type);
+
+        $uid = $server->uidForIdOrMail('wrobel');
         $this->assertNoError($uid);
         $this->assertEquals('cn=Gunnar Wrobel,dc=example,dc=org', $uid);
 
-        $uid = $this->ldap->uidForIdOrMail('wrobel@example.org');
+        $uid = $server->uidForIdOrMail('wrobel@example.org');
         $this->assertNoError($uid);
         $this->assertEquals('cn=Gunnar Wrobel,dc=example,dc=org', $uid);
 
-        $uid = $this->ldap->uidForIdOrMail('DOES NOT EXIST');
+        $uid = $server->uidForIdOrMail('DOES NOT EXIST');
         $this->assertNoError($uid);
         $this->assertSame(false, $uid);
     }
@@ -220,23 +238,27 @@ class Horde_Kolab_Server_testTest extends Horde_Kolab_Test_Server
     /**
      * Test retrieving a UID for a mail or id.
      *
+     * @dataProvider provideServerTypes
+     *
      * @return NULL
      */
-    public function testUidForMailOrIdOrAlias()
+    public function testUidForMailOrIdOrAlias($type)
     {
-        $uid = $this->ldap->uidForIdOrMailOrAlias('g.wrobel@example.org');
+        $server = &$this->prepareBasicServer($type);
+
+        $uid = $server->uidForIdOrMailOrAlias('g.wrobel@example.org');
         $this->assertNoError($uid);
         $this->assertEquals('cn=Gunnar Wrobel,dc=example,dc=org', $uid);
 
-        $uid = $this->ldap->uidForIdOrMailOrAlias('wrobel@example.org');
+        $uid = $server->uidForIdOrMailOrAlias('wrobel@example.org');
         $this->assertNoError($uid);
         $this->assertEquals('cn=Gunnar Wrobel,dc=example,dc=org', $uid);
 
-        $uid = $this->ldap->uidForIdOrMailOrAlias('wrobel');
+        $uid = $server->uidForIdOrMailOrAlias('wrobel');
         $this->assertNoError($uid);
         $this->assertEquals('cn=Gunnar Wrobel,dc=example,dc=org', $uid);
 
-        $uid = $this->ldap->uidForIdOrMailOrAlias('DOES NOT EXIST');
+        $uid = $server->uidForIdOrMailOrAlias('DOES NOT EXIST');
         $this->assertNoError($uid);
         $this->assertSame(false, $uid);
     }
@@ -244,13 +266,17 @@ class Horde_Kolab_Server_testTest extends Horde_Kolab_Test_Server
     /**
      * Test retrieving all addresses for a mail or id.
      *
+     * @dataProvider provideServerTypes
+     *
      * @return NULL
      */
-    public function testAddrsForIdOrMail()
+    public function testAddrsForIdOrMail($type)
     {
-        $addrs = $this->ldap->addrsForIdOrMail('wrobel');
+        $server = &$this->prepareBasicServer($type);
 
-        $testuser = $this->ldap->fetch('cn=Test Test,dc=example,dc=org');
+        $addrs = $server->addrsForIdOrMail('wrobel');
+
+        $testuser = $server->fetch('cn=Test Test,dc=example,dc=org');
         $this->assertNoError($testuser);
         $this->assertContains('wrobel@example.org',
                               $testuser->get(KOLAB_ATTR_KOLABDELEGATE, false));
@@ -262,7 +288,7 @@ class Horde_Kolab_Server_testTest extends Horde_Kolab_Test_Server
         $this->assertContains('g.wrobel@example.org', $addrs);
         $this->assertContains('gunnar@example.org', $addrs);
 
-        $addrs = $this->ldap->addrsForIdOrMail('test@example.org');
+        $addrs = $server->addrsForIdOrMail('test@example.org');
         $this->assertNoError($addrs);
         $this->assertContains('test@example.org', $addrs);
         $this->assertContains('t.test@example.org', $addrs);
@@ -271,23 +297,27 @@ class Horde_Kolab_Server_testTest extends Horde_Kolab_Test_Server
     /**
      * Test retrieving a UID for a primary mail.
      *
+     * @dataProvider provideServerTypes
+     *
      * @return NULL
      */
-    public function testUidForMailAddress()
+    public function testUidForMailAddress($type)
     {
-        $uid = $this->ldap->uidForIdOrMailOrAlias('wrobel@example.org');
+        $server = &$this->prepareBasicServer($type);
+
+        $uid = $server->uidForIdOrMailOrAlias('wrobel@example.org');
         $this->assertNoError($uid);
         $this->assertEquals('cn=Gunnar Wrobel,dc=example,dc=org', $uid);
 
-        $uid = $this->ldap->uidForIdOrMailOrAlias('test@example.org');
+        $uid = $server->uidForIdOrMailOrAlias('test@example.org');
         $this->assertNoError($uid);
         $this->assertEquals('cn=Test Test,dc=example,dc=org', $uid);
 
-        $uid = $this->ldap->uidForIdOrMailOrAlias('gunnar@example.org');
+        $uid = $server->uidForIdOrMailOrAlias('gunnar@example.org');
         $this->assertNoError($uid);
         $this->assertEquals('cn=Gunnar Wrobel,dc=example,dc=org', $uid);
 
-        $uid = $this->ldap->uidForIdOrMailOrAlias('wrobel');
+        $uid = $server->uidForIdOrMailOrAlias('wrobel');
         $this->assertNoError($uid);
         $this->assertEquals('cn=Gunnar Wrobel,dc=example,dc=org', $uid);
     }
@@ -295,11 +325,15 @@ class Horde_Kolab_Server_testTest extends Horde_Kolab_Test_Server
     /**
      * Test retrieving a UID for an attribute.
      *
+     * @dataProvider provideServerTypes
+     *
      * @return NULL
      */
-    public function testUidForAttr()
+    public function testUidForAttr($type)
     {
-        $uid = $this->ldap->uidForSearch(array('AND' => array(array('field' => 'alias',
+        $server = &$this->prepareBasicServer($type);
+
+        $uid = $server->uidForSearch(array('AND' => array(array('field' => 'alias',
                                                                     'op' => '=',
                                                                     'test' => 'g.wrobel@example.org'))));
         $this->assertNoError($uid);
@@ -309,24 +343,28 @@ class Horde_Kolab_Server_testTest extends Horde_Kolab_Test_Server
     /**
      * Test group membership testing.
      *
+     * @dataProvider provideServerTypes
+     *
      * @return NULL
      */
-    public function testMemberOfGroupAddress()
+    public function testMemberOfGroupAddress($type)
     {
-        $uid = $this->ldap->uidForIdOrMailOrAlias('g.wrobel@example.org');
+        $server = &$this->prepareBasicServer($type);
+
+        $uid = $server->uidForIdOrMailOrAlias('g.wrobel@example.org');
         $this->assertNoError($uid);
-        $member = $this->ldap->memberOfGroupAddress($uid, 'group@example.org');
+        $member = $server->memberOfGroupAddress($uid, 'group@example.org');
         $this->assertNoError($member);
         $this->assertTrue($member);
 
-        $member = $this->ldap->memberOfGroupAddress(
-            $this->ldap->uidForIdOrMailOrAlias('test@example.org'),
+        $member = $server->memberOfGroupAddress(
+            $server->uidForIdOrMailOrAlias('test@example.org'),
             'group@example.org');
         $this->assertNoError($member);
         $this->assertTrue($member);
 
-        $member = $this->ldap->memberOfGroupAddress(
-            $this->ldap->uidForIdOrMailOrAlias('somebody@example.org'),
+        $member = $server->memberOfGroupAddress(
+            $server->uidForIdOrMailOrAlias('somebody@example.org'),
             'group@example.org');
         $this->assertNoError($member);
         $this->assertFalse($member);
@@ -335,45 +373,49 @@ class Horde_Kolab_Server_testTest extends Horde_Kolab_Test_Server
     /**
      * Test group fetching.
      *
+     * @dataProvider provideServerTypes
+     *
      * @return NULL
      */
-    public function testGetGroups()
+    public function testGetGroups($type)
     {
+        $server = &$this->prepareBasicServer($type);
+
         $filter = '(&(objectClass=kolabGroupOfNames)(member='
             . Horde_LDAP::quote('cn=The Administrator,dc=example,dc=org') . '))';
-        $result = $this->ldap->search($filter, array());
+        $result = $server->search($filter, array());
         $this->assertNoError($result);
         $this->assertTrue(!empty($result));
 
-/*         $entry = $this->ldap->_firstEntry($result); */
+/*         $entry = $server->_firstEntry($result); */
 /*         $this->assertNoError($entry); */
 /*         $this->assertTrue(!empty($entry)); */
 
-/*         $uid = $this->ldap->_getDn($entry); */
+/*         $uid = $server->_getDn($entry); */
 /*         $this->assertNoError($uid); */
 /*         $this->assertTrue(!empty($uid)); */
 
-/*         $entry = $this->ldap->_nextEntry($entry); */
+/*         $entry = $server->_nextEntry($entry); */
 /*         $this->assertNoError($entry); */
 /*         $this->assertTrue(empty($entry)); */
 
-/*         $entries = $this->ldap->_getDns($result); */
+/*         $entries = $server->_getDns($result); */
 /*         $this->assertNoError($entries); */
 /*         $this->assertTrue(!empty($entries)); */
 
-        $groups = $this->ldap->getGroups('cn=The Administrator,dc=example,dc=org');
+        $groups = $server->getGroups('cn=The Administrator,dc=example,dc=org');
         $this->assertNoError($groups);
         $this->assertTrue(!empty($groups));
 
-        $groups = $this->ldap->getGroups($this->ldap->uidForIdOrMailOrAlias('g.wrobel@example.org'));
+        $groups = $server->getGroups($server->uidForIdOrMailOrAlias('g.wrobel@example.org'));
         $this->assertNoError($groups);
         $this->assertContains('cn=group@example.org,dc=example,dc=org', $groups);
 
-        $groups = $this->ldap->getGroups($this->ldap->uidForIdOrMailOrAlias('test@example.org'));
+        $groups = $server->getGroups($server->uidForIdOrMailOrAlias('test@example.org'));
         $this->assertNoError($groups);
         $this->assertContains('cn=group@example.org,dc=example,dc=org', $groups);
 
-        $groups = $this->ldap->getGroups('nobody');
+        $groups = $server->getGroups('nobody');
         $this->assertNoError($groups);
         $this->assertTrue(empty($groups));
 

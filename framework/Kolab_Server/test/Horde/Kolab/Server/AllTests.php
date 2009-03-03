@@ -2,7 +2,6 @@
 /**
  * All tests for the Horde_Kolab_Server:: package.
  *
- *
  * PHP version 5
  *
  * @category Kolab
@@ -26,7 +25,6 @@ require_once 'Horde/Autoloader.php';
 
 /**
  * Combine the tests for this package.
- *
  *
  * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
  *

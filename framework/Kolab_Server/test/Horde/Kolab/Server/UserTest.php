@@ -72,7 +72,7 @@ class Horde_Kolab_Server_UserTest extends Horde_Kolab_Test_Server
      */
     public function testAddInvalidUser()
     {
-        $user = $this->provideInvalidUserWithoutGivenName();
+        $user   = $this->provideInvalidUserWithoutGivenName();
         $result = $this->server->add($user);
     }
 
