@@ -144,6 +144,10 @@ abstract class Horde_Kolab_Server
                                                                    $params['user'],
                                                                    $e->getMessage()));
                 }
+                if ($uid === false) {
+                    throw new Horde_Kolab_Server_MissingObjectException(sprintf(_("Failed identifying the UID of the Kolab user %s."),
+                                                                                $params['user']));
+                }
                 $params['uid'] = $uid;
             }
             $server_params = array_merge($server_params, $params);

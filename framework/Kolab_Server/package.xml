@@ -51,6 +51,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
        <file name="Exception.php" role="php" />
        <file name="file.php" role="php" />
        <file name="ldap.php" role="php" />
+       <file name="MissingObjectException.php" role="php" />
        <file name="Object.php" role="php" />
        <file name="test.php" role="php" />
        <dir name="Object">
@@ -132,6 +133,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Kolab/Server/Exception.php" as="Horde/Kolab/Server/Exception.php" />
    <install name="lib/Horde/Kolab/Server/file.php" as="Horde/Kolab/Server/file.php" />
    <install name="lib/Horde/Kolab/Server/ldap.php" as="Horde/Kolab/Server/ldap.php" />
+   <install name="lib/Horde/Kolab/Server/MissingObjectException.php" as="Horde/Kolab/Server/MissingObjectException.php" />
    <install name="lib/Horde/Kolab/Server/test.php" as="Horde/Kolab/Server/test.php" />
    <install name="lib/Horde/Kolab/Server/Object.php" as="Horde/Kolab/Server/Object.php" />
    <install name="lib/Horde/Kolab/Server/Object/address.php" as="Horde/Kolab/Server/Object/address.php" />

@@ -440,8 +440,8 @@ class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap
         }
 
         if (!isset($this->_data[$dn])) {
-            throw new Horde_Kolab_Server_Exception(sprintf("LDAP Error: No such object: %s: No such object",
-                                                           $dn));
+            throw new Horde_Kolab_Server_MissingObjectException(sprintf("No such object: %s",
+                                                                        $dn));
         }
         if (empty($attrs)) {
             return $this->_data[$dn]['data'];
