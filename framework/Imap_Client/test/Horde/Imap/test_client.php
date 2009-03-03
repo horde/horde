@@ -16,9 +16,9 @@
  *   + setComparator()
  *   + RFC 4551 (CONDSTORE) related functions
  *
- * @author     Michael Slusarz <slusarz@horde.org>
- * @category   Horde
- * @package    Horde_Imap_Client
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @package  Horde_Imap_Client
  */
 
 /** Configuration **/
@@ -49,6 +49,7 @@ $test_mbox_utf8 = 'TestMailboxTest1è';
 /** End Configuration **/
 
 require_once 'Horde/Autoloader.php';
+$currdir = dirname(__FILE__);
 
 /* Check for Horde_Cache::. */
 if (@include_once 'Horde/Cache.php') {
@@ -73,6 +74,7 @@ if (empty($argv[2])) {
     exit("Need password. Exiting.\n");
 }
 
+$imap_utils = new Horde_Imap_Client_Utils();
 if (!empty($argv[3])) {
     $params = array_merge($params, $imap_utils->parseImapUrl($argv[3]));
 }
@@ -92,7 +94,6 @@ if (@include_once 'Benchmark/Timer.php') {
 // Add an ID field to send to server (ID extension)
 $params['id'] = array('name' => 'Horde_Imap_Client test program');
 
-$imap_utils = new Horde_Imap_Client_Utils();
 $imap_client = Horde_Imap_Client::getInstance($driver, $params);
 if ($driver == 'Cclient_Pop3') {
     $test_mbox = $test_mbox_utf8 = 'INBOX';
