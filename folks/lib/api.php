@@ -304,8 +304,7 @@ function _folks_isBlacklisted($user = null)
  */
 function _folks_listTimeObjectCategories()
 {
-    return array('birthday_friends' => _("Friends Birthdays"),
-                    'birthday_all' => _("Users Birthdays"));
+    return array('birthday_friends' => _("Friends Birthdays"));
 }
 
 /**
@@ -318,46 +317,40 @@ function _folks_listTimeObjectCategories()
 function _folks_listTimeObjects($categories, $start, $end)
 {
     require_once dirname(__FILE__) . '/base.php';
+    require_once FOLKS_BASE . '/lib/Friends.php';
 
-    $friends = array();
+    $friends_driver = Folks_Friends::singleton('sql');
+    $friends = $friends_driver->getFriends();
+    if ($friends instanceof PEAR_Error) {
+        return array();
+    }
+
     $objects = array();
 
-    foreach ($categories as $category) {
-        $what = substr($category, 0, strpos($category, '_', 2));
-        $criteria = array($what => array('from' => $start->timestamp(),
-                                        'to' => $end->timestamp()));
-
-        $users = $GLOBALS['folks_driver']->getUsers($criteria, 0, 500);
-        if ($users instanceof PEAR_Error) {
-            return array();
+    foreach ($friends as $friend) {
+        $user = $GLOBALS['folks_driver']->getProfile($friend);
+        if ($user instanceof PEAR_Error) {
+            continue;
         }
 
-        if (empty($friends)
-            && ($category == 'birthday_friends')) {
-            $friends = $GLOBALS['folks_driver']->getFriends(Auth::getAuth());
+        $user['user_birthday'] = date('Y') . substr($user['user_birthday'], 4);
+        $born = strtotime($user['user_birthday']);
+        if ($born === false ||
+            $born < $start->timestamp() ||
+            $born > $end->timestamp()) {
+            continue;
         }
 
-        foreach ($users as $user) {
+        $age = Folks::calcAge($user['user_birthday']);
+        $desc = $age['age'] . ' (' . $age['sign'] . ')';
 
-            if ($category == 'birthday_friends' &&
-                    !array_key_exists($user['user_uid'], $friends)) {
-                continue; // skip non friends
-            }
-
-            $age = Folks::calcAge($user['user_birthday']);
-            $desc = $age['age'] . ' (' . $age['sign'] . ')';
-            $user['user_birthday'] = date('Y') . substr($user['user_birthday'], 4);
-            $from = strtotime($user['user_birthday']);
-            $to = strtotime($user['user_birthday']) + 1;
-
-            $objects[$user['user_uid']] = array(
-                'title' => $user['user_uid'],
-                'description' => $desc,
-                'id' => $user['user_uid'],
-                'start' => date('Y-m-d\TH:i:s', $from),
-                'end' => date('Y-m-d\TH:i:s', $to),
-                'params' => array('user' => $user['user_uid']));
-        }
+        $objects[$friend] = array(
+            'title' => $friend,
+            'description' => $desc,
+            'id' => $friend,
+            'start' => date('Y-m-d\TH:i:s', $born),
+            'end' => date('Y-m-d\TH:i:s', $born + 1),
+            'params' => array('user' => $friend));
     }
 
     return $objects;
