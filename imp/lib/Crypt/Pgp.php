@@ -189,7 +189,15 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
 
         /* Try retrieving via a PGP public keyserver. */
         if ($server && is_a($result, 'PEAR_Error')) {
-            $result = $this->getFromPublicKeyserver($fingerprint, $address);
+            try {
+                $result = $this->getFromPublicKeyserver($fingerprint, $address);
+
+                /* If there is a cache driver configured and a cache object
+                 * exists, store the retrieved public key in the cache. */
+                if (is_object($cache)) {
+                    $cache->set("PGPpublicKey_" . $address . $fingerprint, $result, 3600);
+                }
+            } catch (Horde_Exception $e) {}
         }
 
         /* Return now, if no public key found at all. */
@@ -202,12 +210,6 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
          * if the keys are different. */
         if (is_array($result)) {
             reset($result);
-        }
-
-        /* If there is a cache driver configured and a cache object exists,
-         * store the public key in the cache. */
-        if (is_object($cache)) {
-            $cache->set("PGPpublicKey_" . $address . $fingerprint, $result, 3600);
         }
 
         return $result;

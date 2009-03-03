@@ -57,6 +57,8 @@ v5.0-git
 v4.3.4-cvs
 ----------
 
+[mms] SECURITY: Don't cache local PGP public keys retrieved from the
+      addressbook (found by Peter Meier <peter.meier@immerda.ch>).
 [jan] If updating a calendar event fails, try to import it instead (Bug #7589).
 [mms] Fix [un]escaping of various URLs on message screen caused by security
       fixes in v4.3.3 (Bug #7926).
