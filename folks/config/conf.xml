@@ -42,6 +42,7 @@
             <configstring name="blacklist" desc="Blacklist table"></configstring>
         </configsection>
        </case>
+      <case name="facebook" desc="FaceBook"></case>
        <case name="application" desc="Application">
             <configsection name="params">
                 <configenum name="app" desc="The application which is providing friends">letter
