@@ -73,12 +73,14 @@ class Folks_Report {
         $name = $GLOBALS['registry']->getApp() . ':admin';
 
         if ($GLOBALS['perms']->exists($name)) {
-            return array();
+            $permission = $GLOBALS['perms']->getPermission($name);
+            if ($permission instanceof PEAR_Error) {
+                return $permission;
+            }
+            return $permission->getUserPermissions(PERM_DELETE);
+        } else {
+            return $GLOBALS['conf']['auth']['admins'];
         }
-
-        $permission = $GLOBALS['perms']->getPermission($name);
-
-        return $permission->getUserPermissions(PERM_DELETE);
     }
 
     /**
