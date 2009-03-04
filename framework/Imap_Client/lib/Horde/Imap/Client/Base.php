@@ -1459,7 +1459,7 @@ abstract class Horde_Imap_Client_Base
      * Key: Horde_Imap_Client::FETCH_HEADERTEXT
      *   Desc: Returns the header text. Header text is defined only for the
      *         base RFC 2822 message or message/rfc822 parts. Attempting to
-     *         retireve the body text from other parts will result in a
+     *         retrieve the body text from other parts will result in a
      *         thrown exception.
      *         MORE THAN ONE of these entries can be defined. Each entry will
      *         be a separate array contained in the value field.
@@ -1492,7 +1492,7 @@ abstract class Horde_Imap_Client_Base
      * Key: Horde_Imap_Client::FETCH_BODYTEXT
      *   Desc: Returns the body text. Body text is defined only for the
      *         base RFC 2822 message or message/rfc822 parts. Attempting to
-     *         retireve the body text from other parts will result in a
+     *         retrieve the body text from other parts will result in a
      *         thrown exception.
      *         MORE THAN ONE of these entries can be defined. Each entry will
      *         be a separate array contained in the value field.
