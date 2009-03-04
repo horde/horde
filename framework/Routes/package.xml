@@ -40,8 +40,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
      <dir name="Routes">
       <file name="Exception.php" role="php" />
       <file name="Mapper.php" role="php" />
-      <file name="Route.php" role="php" />
       <file name="Printer.php" role="php" />
+      <file name="Route.php" role="php" />
       <file name="Utils.php" role="php" />
      </dir> <!-- /lib/Horde/Routes -->
     </dir> <!-- /lib/Horde -->
@@ -62,6 +62,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <filelist>
    <install name="lib/Horde/Routes/Exception.php" as="Horde/Routes/Exception.php" />
    <install name="lib/Horde/Routes/Mapper.php" as="Horde/Routes/Mapper.php" />
+   <install name="lib/Horde/Routes/Printer.php" as="Horde/Routes/Printer.php" />
    <install name="lib/Horde/Routes/Route.php" as="Horde/Routes/Route.php" />
    <install name="lib/Horde/Routes/Utils.php" as="Horde/Routes/Utils.php" />
   </filelist>
