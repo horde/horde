@@ -2011,6 +2011,10 @@ var DimpBase = {
     deleteFolderElt: function(fid, sub)
     {
         var f = $(fid), submbox;
+        if (!f) {
+            return;
+        }
+
         if (sub) {
             submbox = $(this.getSubFolderId(fid));
             if (submbox) {

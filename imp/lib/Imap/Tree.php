@@ -759,7 +759,9 @@ class IMP_Imap_Tree
             // This is a case where it is possible that the parent element has
             // changed (it now has children) but we can't catch it via the
             // bitflag (since hasChildren() is dynamically determined).
-            if ($this->_trackdiff && !is_null($this->_eltdiff)) {
+            if ($this->_trackdiff &&
+                !is_null($this->_eltdiff) &&
+                !isset($this->_eltdiff['a'][$elt['p']])) {
                 $this->_eltdiff['c'][$elt['p']] = 1;
             }
         }
