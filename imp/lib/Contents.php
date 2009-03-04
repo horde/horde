@@ -646,7 +646,7 @@ class IMP_Contents
         ));
 
         if (!is_null($this->_mailbox)) {
-            $params['index'] = $this->_index;
+            $params['uid'] = $this->_index;
             $params['mailbox'] = $this->_mailbox;
         }
 

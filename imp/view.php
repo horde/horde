@@ -14,10 +14,10 @@
  * 'ctype' - (string) The content-type to use instead of the content-type
  *           found in the original Horde_Mime_Part object.
  * 'id' - (string) The MIME part ID to display.
- * 'index - (integer) The index of the message.
  * 'mailbox' - (string) The mailbox of the message.
  * 'mode' - (integer) The view mode to use.
  *          DEFAULT: IMP_Contents::RENDER_FULL
+ * 'uid - (string) The UID of the message.
  * 'zip' - (boolean) Download in .zip format?
  * </pre>
  *
@@ -64,14 +64,14 @@ if ($actionID == 'compose_attach_preview') {
     $actionID = 'view_attach';
     $id = $mime->getMimeId();
 } else {
-    $index = Util::getFormData('index');
+    $uid = Util::getFormData('uid');
     $mailbox = Util::getFormData('mailbox');
-    if (!$index || !$mailbox) {
+    if (!$uid || !$mailbox) {
         exit;
     }
 
     try {
-        $contents = &IMP_Contents::singleton($index . IMP::IDX_SEP . $mailbox);
+        $contents = &IMP_Contents::singleton($uid . IMP::IDX_SEP . $mailbox);
     } catch (Horde_Exception $e) {
         Horde::fatal($e, __FILE__, __LINE__);
     }
