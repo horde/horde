@@ -67,7 +67,7 @@ class IMP_Folder
      * @param array $filter  An list of mailboxes that should be left out of
      *                       the list (UTF7-IMAP).
      *
-     * @return array  An array of folders, where each array alement is an
+     * @return array  An array of folders, where each array element is an
      *                associative array containing three values:
      * <pre>
      * 'val' - (string)  Folder name (UTF7-IMAP)
