@@ -59,7 +59,7 @@ class Kronolith_Imple_Embed extends Kronolith_Imple {
         }
 
         /* Load the registry with no session control */
-        $registry = &Registry::singleton(HORDE_SESSION_NONE);
+        $registry = &Registry::singleton(Registry::SESSION_NONE);
 
 
         /* Build the block parameters */

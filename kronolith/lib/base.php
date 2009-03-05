@@ -35,9 +35,9 @@ Horde_Autoloader::addClassPattern('/^Kronolith_/', $kronolith_dir);
 /* Registry. */
 $session_control = Util::nonInputVar('session_control');
 if ($session_control == 'none') {
-    $registry = &Registry::singleton(HORDE_SESSION_NONE);
+    $registry = &Registry::singleton(Registry::SESSION_NONE);
 } elseif ($session_control == 'readonly') {
-    $registry = &Registry::singleton(HORDE_SESSION_READONLY);
+    $registry = &Registry::singleton(Registry::SESSION_READONLY);
 } else {
     $registry = &Registry::singleton();
 }

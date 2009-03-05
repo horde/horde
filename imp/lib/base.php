@@ -65,11 +65,11 @@ case 'netscape':
     break;
 
 case 'none':
-    $s_ctrl = HORDE_SESSION_NONE;
+    $s_ctrl = Registry::SESSION_NONE;
     break;
 
 case 'readonly':
-    $s_ctrl = HORDE_SESSION_READONLY;
+    $s_ctrl = Registry::SESSION_READONLY;
     break;
 }
 $registry = &Registry::singleton($s_ctrl);
