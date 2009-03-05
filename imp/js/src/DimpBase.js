@@ -2292,7 +2292,7 @@ var DimpBase = {
         document.observe('keyup', this.keyupHandler.bindAsEventListener(this));
         document.observe('mouseover', this.mouseHandler.bindAsEventListener(this, 'over'));
         document.observe('dblclick', this.dblclickHandler.bindAsEventListener(this));
-        Event.observe(window, 'resize', this.onResize.bind(this));
+        Event.observe(window, 'resize', this.onResize.bind(this, false, false));
 
         $('dimpLoading').hide();
         $('dimpPage').show();
