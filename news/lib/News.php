@@ -349,7 +349,7 @@ class News {
     /**
      * Store file
      *
-     * @param $file_id     Image owner record id
+     * @param $file_id    File id
      * @param $file_src   File path
      */
     static public function saveFile($file_id, $file_src)
@@ -363,9 +363,24 @@ class News {
     }
 
     /**
+     * Get file contents
+     *
+     * @param $file_id     File ID
+     */
+    static public function getFile($file_id)
+    {
+        $vfs = self::loadVFS();
+        if ($vfs instanceof PEAR_Error) {
+            return $vfs;
+        }
+
+        return $vfs->read(self::VFS_PATH . '/files/', $file_id);
+    }
+
+    /**
      * Delete file
      *
-     * @param $id     Image owner record id
+     * @param $id     File ID
      */
     static public function deleteFile($file_id)
     {

@@ -28,16 +28,31 @@ $file_size = Util::getFormData('file_size');
 switch ($actionID) {
 case 'download_file':
 
+    $data = News::getFile($file_id);
+    if ($data instanceof PEAR_Error) {
+        if (Auth::isAdmin('news:admin')) {
+            Horde::fatal($data, __FILE__, __LINE__);
+        } else {
+            header('HTTP/1.0 404 Not Found');
+            echo '<h1>HTTP/1.0 404 Not Found</h1>';
+        }
+        exit;
+    }
+
     $browser->downloadHeaders($file_name, $file_type, false, $file_size);
-    readfile($conf['attributes']['attachments'] . '/' . $file_id);
+    echo $data;
     break;
 
 case 'view_file':
 
-    $data = file_get_contents($conf['attributes']['attachments'] . '/' . $file_id);
-    if ($data === false) {
-        header('HTTP/1.0 404 Not Found');
-        echo 'HTTP/1.0 404 Not Found';
+    $data = News::getFile($file_id);
+    if ($data instanceof PEAR_Error) {
+        if (Auth::isAdmin('news:admin')) {
+            Horde::fatal($data, __FILE__, __LINE__);
+        } else {
+            header('HTTP/1.0 404 Not Found');
+            echo '<h1>HTTP/1.0 404 Not Found</h1>';
+        }
         exit;
     }
 
@@ -68,9 +83,8 @@ case 'download_zip_all':
     $file_id = sprintf(_("FilesOfNews-%s"), $news_id);
     $zipfiles = array();
     foreach ($news->getFiles($news_id) as $file) {
-
-        $file_path = $conf['attributes']['attachments'] . '/' . $file['file_id'];
-        if (!file_exists($file_path)) {
+        $data = News::getFile($file_id);
+        if ($data instanceof PEAR_Error) {
             continue;
         }
         $zipfiles[] = array('data' => $file_path,
@@ -90,15 +104,18 @@ break;
 
 case 'download_zip':
 
-    $zipfiles = array('data' => file_get_contents($conf['attributes']['attachments'] . '/' . $file_id),
-                        'name' => $file_id);
-
-    if ($zipfiles[0]['data'] === false) {
-        header('HTTP/1.0 404 Not Found');
-        echo 'HTTP/1.0 404 Not Found';
+    $data = News::getFile($file_id);
+    if ($data instanceof PEAR_Error) {
+        if (Auth::isAdmin('news:admin')) {
+            Horde::fatal($data, __FILE__, __LINE__);
+        } else {
+            header('HTTP/1.0 404 Not Found');
+            echo '<h1>HTTP/1.0 404 Not Found</h1>';
+        }
         exit;
     }
 
+    $zipfiles = array('data' => $data, 'name' => $file_id);
     $zip = Horde_Compress::singleton('zip');
     $body = @$zip->compress($zipfiles);
     $browser->downloadHeaders($file_id . '.zip', 'application/zip', false, strlen($body));
