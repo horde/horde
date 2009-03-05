@@ -610,6 +610,9 @@ class Kronolith
             $driver = Kronolith::getDriver('Ical');
             foreach ($GLOBALS['display_remote_calendars'] as $url) {
                 $driver->open($url);
+                foreach (Kronolith::getRemoteParams($url) as $param => $value) {
+                    $driver->setParam($param, $value);
+                }
                 $events = $driver->listEvents($startDate, $endDate, true);
                 if (!is_a($events, 'PEAR_Error')) {
                     Kronolith::mergeEvents($results, $events);
@@ -1943,27 +1946,7 @@ class Kronolith
                 if (!empty($GLOBALS['conf']['http']['proxy']['proxy_host'])) {
                     $params['proxy'] = $GLOBALS['conf']['http']['proxy'];
                 }
-
-                /* Check for HTTP authentication credentials */
-                $cals = unserialize($GLOBALS['prefs']->getValue('remote_cals'));
-                foreach ($cals as $cal) {
-                    if ($cal['url'] == $calendar) {
-                        $user = isset($cal['user']) ? $cal['user'] : '';
-                        $password = isset($cal['password']) ? $cal['password'] : '';
-                        $key = Auth::getCredential('password');
-                        if ($key && $user) {
-                            require_once 'Horde/Secret.php';
-                            $user = Secret::read($key, base64_decode($user));
-                            $password = Secret::read($key, base64_decode($password));
-                        }
-                        if (!empty($user)) {
-                            $params['user'] = $user;
-                            $params['password'] = $password;
-                        }
-                        break;
-                    }
-                }
-
+                $params = Kronolith::getRemoteParams($calendar);
                 break;
 
             case 'Horde':
@@ -1983,6 +1966,34 @@ class Kronolith
         }
 
         return Kronolith::$_instances[$driver];
+    }
+
+    /**
+     * Check for HTTP authentication credentials
+     */
+    public static function getRemoteParams($calendar)
+    {
+        if (empty($calendar)) {
+            return array();
+        }
+
+        $cals = unserialize($GLOBALS['prefs']->getValue('remote_cals'));
+        foreach ($cals as $cal) {
+            if ($cal['url'] == $calendar) {
+                $user = isset($cal['user']) ? $cal['user'] : '';
+                $password = isset($cal['password']) ? $cal['password'] : '';
+                $key = Auth::getCredential('password');
+                if ($key && $user) {
+                    $user = Horde_Secret::read($key, base64_decode($user));
+                    $password = Horde_Secret::read($key, base64_decode($password));
+                }
+                if (!empty($user)) {
+                    return array('user' => $user, 'password' => $password);
+                }
+            }
+        }
+
+        return array();
     }
 
     /**

@@ -59,6 +59,9 @@ case 'ListEvents':
     $cal   = Util::getFormData('cal');
     list($driver, $calendar) = explode('|', $cal);
     $kronolith_driver = Kronolith::getDriver($driver, $calendar);
+    if ($driver == 'Ical') {
+        $kronolith_driver->setParam('timeout', 15);
+    }
     $events = $kronolith_driver->listEvents($start, $end, true, false, true);
     if (is_a($events, 'PEAR_Error')) {
         $notification->push($events, 'horde.error');

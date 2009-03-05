@@ -65,6 +65,17 @@ class Kronolith_Driver
         return isset($this->_params[$param]) ? $this->_params[$param] : null;
     }
 
+    /**
+     * Sets a configuration for this driver.
+     *
+     * @param string $param  A parameter name.
+     * @param mixed $value   The parameter value.
+     */
+    public function setParam($param, $value)
+    {
+        $this->_params[$param] = $value;
+    }
+
     public function open($calendar)
     {
         $this->_calendar = $calendar;
