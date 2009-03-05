@@ -55,14 +55,9 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
                                $showRecurrence = false, $hasAlarm = false,
                                $json = false)
     {
-        $data = $this->_getRemoteCalendar();
-        if (is_a($data, 'PEAR_Error')) {
-            return $data;
-        }
-
-        $iCal = new Horde_iCalendar();
-        if (!$iCal->parsevCalendar($data)) {
-            return array();
+        $iCal = $this->_getRemoteCalendar();
+        if (is_a($iCal, 'PEAR_Error')) {
+            return $iCal;
         }
 
         $startDate = clone $startDate;
@@ -120,9 +115,9 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
                 isset($exceptions[$event->getUID()][$event->getSequence()])) {
                 $timestamp = $exceptions[$event->getUID()][$event->getSequence()];
                 $events[$key]->recurrence->addException(date('Y', $timestamp), date('m', $timestamp), date('d', $timestamp));
-                Kronolith::addEvents($results, $event, $startDate, $endDate,
-                                     $showRecurrence, $json);
             }
+            Kronolith::addEvents($results, $event, $startDate, $endDate,
+                                 $showRecurrence, $json);
         }
 
         return $results;
@@ -130,14 +125,9 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
 
     public function getEvent($eventId = null)
     {
-        $data = $this->_getRemoteCalendar();
-        if (is_a($data, 'PEAR_Error')) {
-            return $data;
-        }
-
-        $iCal = new Horde_iCalendar();
-        if (!$iCal->parsevCalendar($data)) {
-            return array();
+        $iCal = $this->_getRemoteCalendar();
+        if (is_a($iCal, 'PEAR_Error')) {
+            return $iCal;
         }
 
         $components = $iCal->getComponents();
@@ -158,7 +148,7 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
     /**
      * Fetches a remote calendar into the session and return the data.
      *
-     * @return mixed  Either the calendar data, or an error on failure.
+     * @return Horde_iCalendar  The calendar data, or an error on failure.
      */
     private function _getRemoteCalendar()
     {
@@ -169,33 +159,51 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
             $url = str_replace('webcal://', 'http://', $url);
         }
 
-        if (empty($_SESSION['kronolith']['remote'][$url])) {
-            $options['method'] = 'GET';
-            $options['timeout'] = 5;
-            $options['allowRedirects'] = true;
+        if (!empty($_SESSION['kronolith']['remote'][$url])) {
+            return $_SESSION['kronolith']['remote'][$url];
+        }
 
-            if (isset($this->_params['proxy'])) {
-                $options = array_merge($options, $this->_params['proxy']);
-            }
+        $options['method'] = 'GET';
+        $options['timeout'] = isset($this->_params['timeout'])
+            ? $this->_params['timeout']
+            : 5;
+        $options['allowRedirects'] = true;
 
-            $http = new HTTP_Request($url, $options);
-            if (!empty($this->_params['user'])) {
-                $http->setBasicAuth($this->_params['user'],
-                                    $this->_params['password']);
-            }
-            @$http->sendRequest();
-            if ($http->getResponseCode() != 200) {
-                Horde::logMessage(sprintf('Failed to retrieve remote calendar: url = "%s", status = %s',
-                                          $url, $http->getResponseCode()),
-                                  __FILE__, __LINE__, PEAR_LOG_ERR);
-                return PEAR::raiseError(sprintf(_("Could not open %s."), $url));
-            }
-            $_SESSION['kronolith']['remote'][$url] = $http->getResponseBody();
+        if (isset($this->_params['proxy'])) {
+            $options = array_merge($options, $this->_params['proxy']);
+        }
 
-            /* Log fetch at DEBUG level. */
-            Horde::logMessage(sprintf('Retrieved remote calendar for %s: url = "%s"',
-                                      Auth::getAuth(), $url),
-                              __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        $http = new HTTP_Request($url, $options);
+        if (!empty($this->_params['user'])) {
+            $http->setBasicAuth($this->_params['user'],
+                                $this->_params['password']);
+        }
+        @$http->sendRequest();
+        if (!$http->getResponseCode()) {
+            Horde::logMessage(sprintf('Timed out retrieving remote calendar: url = "%s"',
+                                      $url),
+                              __FILE__, __LINE__, PEAR_LOG_INFO);
+            $_SESSION['kronolith']['remote'][$url] = PEAR::raiseError(sprintf(_("Could not open %s."), $url));
+            return $_SESSION['kronolith']['remote'][$url];
+        }
+        if ($http->getResponseCode() != 200) {
+            Horde::logMessage(sprintf('Failed to retrieve remote calendar: url = "%s", status = %s',
+                                      $url, $http->getResponseCode()),
+                              __FILE__, __LINE__, PEAR_LOG_INFO);
+            $_SESSION['kronolith']['remote'][$url] = PEAR::raiseError(sprintf(_("Could not open %s."), $url));
+            return $_SESSION['kronolith']['remote'][$url];
+        }
+
+        /* Log fetch at DEBUG level. */
+        Horde::logMessage(sprintf('Retrieved remote calendar for %s: url = "%s"',
+                                  Auth::getAuth(), $url),
+                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+
+        $data = $http->getResponseBody();
+        $_SESSION['kronolith']['remote'][$url] = new Horde_iCalendar();
+        $result = $_SESSION['kronolith']['remote'][$url]->parsevCalendar($data);
+        if (is_a($result, 'PEAR_Error')) {
+            $_SESSION['kronolith']['remote'][$url] = $result;
         }
 
         return $_SESSION['kronolith']['remote'][$url];
