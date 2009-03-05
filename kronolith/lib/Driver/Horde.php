@@ -44,11 +44,14 @@ class Kronolith_Driver_Horde extends Kronolith_Driver
      *                                   recurring events once inside the
      *                                   $startDate - $endDate range.
      * @param boolean $hasAlarm          Only return events with alarms?
+     * @param boolean $json              Store the results of the events'
+     *                                   toJSON() method?
      *
      * @return array  Events in the given time range.
      */
     public function listEvents($startDate = null, $endDate = null,
-                               $showRecurrence = false, $hasAlarm = false)
+                               $showRecurrence = false, $hasAlarm = false,
+                               $json = false)
     {
         list($this->api, $category) = explode('/', $this->_calendar, 2);
         if (!$this->_params['registry']->hasMethod($this->api . '/listTimeObjects')) {
@@ -86,7 +89,7 @@ class Kronolith_Driver_Horde extends Kronolith_Driver
             }
 
             Kronolith::addEvents($results, $event, $startDate,
-                                 $endDate, $showRecurrence);
+                                 $endDate, $showRecurrence, $json);
         }
 
         return $results;

@@ -1,10 +1,10 @@
 <script type="text/javascript">
-    function toggleTags(domid)
-    {
-        $('tag-show_' + domid).toggle();
-        $('tag-hide_' + domid).toggle();
-        $('tagnode_' + domid).toggle();
-    }
+function toggleTags(domid)
+{
+    $('tag-show_' + domid).toggle();
+    $('tag-hide_' + domid).toggle();
+    $('tagnode_' + domid).toggle();
+}
 </script>
 <?php
 Horde::addScriptFile('QuickFinder.js', 'horde', true);
@@ -13,7 +13,6 @@ Horde::addScriptFile('calendar-panel.js', 'kronolith', true);
 
 $info_img = Horde::img('info_icon.png', _("Calendar Information"), array('class' => 'calendar-info'), $registry->getImageDir('horde'));
 
-$remote_calendars = @unserialize($prefs->getValue('remote_cals'));
 $current_user = Auth::getAuth();
 $my_calendars = array();
 $shared_calendars = array();
@@ -110,10 +109,10 @@ $tagger = Kronolith::getTagger();
  </ul>
 <?php endif; ?>
 
-<?php if (count($remote_calendars)): ?>
+<?php if (count($GLOBALS['all_remote_calendars'])): ?>
  <h4><?php echo _("Remote Calendars:") ?></h4>
  <ul id="remotecalendars">
-<?php foreach ($remote_calendars as $id => $cal): ?>
+<?php foreach ($GLOBALS['all_remote_calendars'] as $id => $cal): ?>
   <li<?php echo Kronolith::getCSSColors($cal) ?>><label><input type="checkbox" class="checkbox" name="display_cal[]" value="remote_<?php echo htmlspecialchars($cal['url']) ?>"<?php echo (in_array($cal['url'], $display_remote_calendars) ? ' checked="checked"' : '') . ' /> ' . htmlspecialchars($cal['name']) ?></label> <?php echo $info_img ?></li>
 <?php endforeach; ?>
  </ul>

@@ -17,12 +17,13 @@ var frames = { horde_main: true },
 KronolithCore = {
     // Vars used and defaulting to null/false:
     //   DMenu, alertrequest, inAjaxCallback, is_logout, onDoActionComplete,
-    //   eventForm, eventsLoading
+    //   eventForm
 
     view: '',
     calendars: [],
     ecache: {},
     efifo: {},
+    eventsLoading: $H(),
     date: new Date(),
 
     doActionOpts: {
@@ -468,11 +469,78 @@ KronolithCore = {
     },
 
     /**
+     * Rebuilds the list of calendars.
      */
-    _loadEvents: function(firstDay, lastDay, callback, calendar)
+    updateCalendarList: function()
     {
-        this.eventsLoading = firstDay.dateString() + lastDay.dateString();
-        this.doAction('ListEvents', { start: firstDay.dateString(), end: lastDay.dateString() }, callback);
+        var internal = $H(Kronolith.conf.calendars.internal),
+            remote = $H(Kronolith.conf.calendars.remote),
+            my = 0, shared = 0, div;
+
+        internal.each(function(cal) {
+            if (cal.value.owner) {
+                my++;
+                div = $('kronolithMyCalendars');
+            } else {
+                shared++;
+                div = $('kronolithSharedCalendars');
+            }
+            div.appendChild(new Element('DIV', { 'class': cal.value.show ? 'kronolithCalOn' : 'kronolithCalOff' }).setStyle({ backgroundColor: cal.value.bg, color: cal.value.fg }).update(cal.value.name));
+        });
+        if (my) {
+            $('kronolithMyCalendars').show();
+        } else {
+            $('kronolithMyCalendars').hide();
+        }
+        if (shared) {
+            $('kronolithSharedCalendars').show();
+        } else {
+            $('kronolithSharedCalendars').hide();
+        }
+
+        remote.each(function(cal) {
+            $('kronolithRemoteCalendars').appendChild(new Element('DIV', { 'class': cal.value.show ? 'kronolithCalOn' : 'kronolithCalOff' }).setStyle({ backgroundColor: cal.value.bg, color: cal.value.fg }).update(cal.value.name));
+        });
+        if (remote.size()) {
+            $('kronolithRemoteCalendars').show();
+        } else {
+            $('kronolithRemoteCalendars').hide();
+        }
+    },
+
+    /**
+     */
+    _loadEvents: function(firstDay, lastDay, callback, calendars)
+    {
+        var start = firstDay.dateString(), end = lastDay.dateString(),
+            driver, calendar;
+        if (typeof calendars == 'undefined') {
+            calendars = Kronolith.conf.calendars;
+        }
+        calendars = $H(calendars);
+        calendars.each(function(type) {
+            switch (type.key) {
+            case 'internal':
+                driver = '';
+                break;
+            case 'external':
+                driver = 'Horde';
+                break;
+            case 'remote':
+                driver = 'Ical';
+                break;
+            case 'holiday':
+                driver = 'Holiday';
+                break;
+            }
+            $H(type.value).each(function(cal) {
+                if (cal.value.show) {
+                    calendar = driver + '|' + cal.key;
+                    this.eventsLoading[calendar] = start + end;
+                    this.doAction('ListEvents', { start: start, end: end, cal: calendar }, callback);
+                }
+            }, this);
+        }, this);
     },
 
     /**
@@ -485,7 +553,7 @@ KronolithCore = {
         var div;
 
         // Check if this is the still the result of the most current request.
-        if (r.response.sig != this.eventsLoading) {
+        if (r.response.sig != this.eventsLoading[r.response.cal]) {
             return;
         }
 
@@ -733,11 +801,13 @@ KronolithCore = {
     /* Onload function. */
     onDomLoad: function()
     {
-        KronolithCore.init();
+        this.init();
 
         if (Horde.dhtmlHistory.initialize()) {
             Horde.dhtmlHistory.addListener(this.go.bind(this));
         }
+
+        this.updateCalendarList();
 
         /* Initialize the starting page if necessary. addListener() will have
          * already fired if there is a current location so only do a go()

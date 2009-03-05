@@ -32,11 +32,14 @@ class Kronolith_Driver_Holidays extends Kronolith_Driver
      *                                   $startDate - $endDate range.
      * @param boolean $hasAlarm          Only return events with alarms? Has no
      *                                   effect in this driver.
+     * @param boolean $json              Store the results of the events'
+     *                                   toJSON() method?
      *
      * @return array  Events in the given time range.
      */
     public function listEvents($startDate = null, $endDate = null,
-                               $showRecurrence = false, $hasAlarm = false)
+                               $showRecurrence = false, $hasAlarm = false,
+                               $json = false)
     {
         if (!class_exists('Date_Holidays')) {
             Horde::logMessage('Support for Date_Holidays has been enabled but the package seems to be missing.',
@@ -68,7 +71,7 @@ class Kronolith_Driver_Holidays extends Kronolith_Driver
             $events = $this->_getEvents($dh, $startDate, $endDate);
             foreach ($events as $event) {
                 Kronolith::addEvents($results, $event, $startDate, $endDate,
-                                     $showRecurrence);
+                                     $showRecurrence, $json);
             }
         }
 

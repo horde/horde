@@ -146,6 +146,32 @@ class Kronolith
             // Turn debugging on?
             'debug' => !empty($conf['js']['debug']),
         );
+        foreach ($GLOBALS['all_calendars'] as $id => $calendar) {
+            $owner = $calendar->get('owner') == Auth::getAuth();
+            $code['conf']['calendars']['internal'][$id] = array(
+                'name' => ($owner ? '' : '[' . Auth::removeHook($calendar->get('owner')) . '] ')
+                    . $calendar->get('name'),
+                'owner' => $owner,
+                'fg' => Kronolith::foregroundColor($calendar),
+                'bg' => Kronolith::backgroundColor($calendar),
+                'show' => in_array($id, $GLOBALS['display_calendars']));
+        }
+        foreach ($GLOBALS['all_external_calendars'] as $api => $categories) {
+            foreach ($categories as $id => $name) {
+                $calendar = $api . '/' . $id;
+                $code['conf']['calendars']['external'][$calendar] = array(
+                    'name' => $name,
+                    'api' => $GLOBALS['registry']->get('name', $GLOBALS['registry']->hasInterface($api)),
+                    'show' => in_array($calendar, $GLOBALS['display_external_calendars']));
+            }
+        }
+        foreach ($GLOBALS['all_remote_calendars'] as $calendar) {
+            $code['conf']['calendars']['remote'][$calendar['url']] = array(
+                'name' => $calendar['name'],
+                'fg' => Kronolith::foregroundColor($calendar),
+                'bg' => Kronolith::backgroundColor($calendar),
+                'show' => in_array($calendar['url'], $GLOBALS['display_remote_calendars']));
+        }
 
         /* Gettext strings used in core javascript files. */
         $code['text'] = array_map('addslashes', array(
@@ -637,7 +663,7 @@ class Kronolith
      * @access private
      */
     public static function addEvents(&$results, &$event, $startDate, $endDate,
-                                     $showRecurrence)
+                                     $showRecurrence, $json)
     {
         if ($event->recurs() && $showRecurrence) {
             /* Recurring Event. */
@@ -679,7 +705,7 @@ class Kronolith
                 if (!$event->recurrence->hasException($event->start->year,
                                                       $event->start->month,
                                                       $event->start->mday)) {
-                    Kronolith::addCoverDates($results, $event, $event->start, $event->end);
+                    Kronolith::addCoverDates($results, $event, $event->start, $event->end, $json);
                 }
 
                 /* Start searching for recurrences from the day after it
@@ -699,7 +725,7 @@ class Kronolith
                     $nextEnd->mday  += $diff[2];
                     $nextEnd->hour  += $diff[3];
                     $nextEnd->min   += $diff[4];
-                    Kronolith::addCoverDates($results, $event, $next, $nextEnd);
+                    Kronolith::addCoverDates($results, $event, $next, $nextEnd, $json);
                 }
                 $next = $event->recurrence->nextRecurrence(
                     array('year' => $next->year,
@@ -781,7 +807,7 @@ class Kronolith
                             'month' => $eventEnd->month, 'mday' => $eventEnd->mday, 'year' => $eventEnd->year));
                     }
 
-                    $results[$loopDate->dateString()][$addEvent->getId()] = $addEvent;
+                    $results[$loopDate->dateString()][$addEvent->getId()] = $json ? $addEvent->toJSON() : $addEvent;
                 }
 
                 $loopDate = new Horde_Date(
@@ -801,9 +827,11 @@ class Kronolith
      * @param Horde_Date $eventStart  The event's start at the actual
      *                                recurrence.
      * @param Horde_Date $eventEnd    The event's end at the actual recurrence.
+     * @param boolean $json           Store the results of the events' toJSON()
+     *                                method?
      */
     public static function addCoverDates(&$results, $event, $eventStart,
-                                         $eventEnd)
+                                         $eventEnd, $json)
     {
         $i = $eventStart->mday;
         $loopDate = new Horde_Date(array('month' => $eventStart->month,
@@ -815,7 +843,7 @@ class Kronolith
                 $addEvent = clone $event;
                 $addEvent->start = $eventStart;
                 $addEvent->end = $eventEnd;
-                $results[$loopDate->dateString()][$addEvent->getId()] = $addEvent;
+                $results[$loopDate->dateString()][$addEvent->getId()] = $json ? $addEvent->toJSON() : $addEvent;
             }
             $loopDate = new Horde_Date(
                 array('month' => $eventStart->month,
@@ -965,12 +993,13 @@ class Kronolith
         /* Make sure all the remote calendars still exist. */
         $_temp = $GLOBALS['display_remote_calendars'];
         $GLOBALS['display_remote_calendars'] = array();
-        $_all = @unserialize($GLOBALS['prefs']->getValue('remote_cals'));
-        if (is_array($_all)) {
-            foreach ($_all as $id) {
-                if (in_array($id['url'], $_temp)) {
-                    $GLOBALS['display_remote_calendars'][] = $id['url'];
-                }
+        $GLOBALS['all_remote_calendars'] = @unserialize($GLOBALS['prefs']->getValue('remote_cals'));
+        if (!is_array($GLOBALS['all_remote_calendars'])) {
+            $GLOBALS['all_remote_calendars'] = array();
+        }
+        foreach ($GLOBALS['all_remote_calendars'] as $id) {
+            if (in_array($id['url'], $_temp)) {
+                $GLOBALS['display_remote_calendars'][] = $id['url'];
             }
         }
         $GLOBALS['prefs']->setValue('display_remote_cals', serialize($GLOBALS['display_remote_calendars']));

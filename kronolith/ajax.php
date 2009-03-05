@@ -56,17 +56,19 @@ switch ($action) {
 case 'ListEvents':
     $start = new Horde_Date(Util::getFormData('start'));
     $end   = new Horde_Date(Util::getFormData('end'));
-    $dates = Kronolith::listEvents($start, $end);
-    if (is_a($dates, 'PEAR_Error')) {
-        $notification->push($dates, 'horde.error');
+    $cal   = Util::getFormData('cal');
+    list($driver, $calendar) = explode('|', $cal);
+    $kronolith_driver = Kronolith::getDriver($driver, $calendar);
+    $events = $kronolith_driver->listEvents($start, $end, true, false, true);
+    if (is_a($events, 'PEAR_Error')) {
+        $notification->push($events, 'horde.error');
         $result = false;
     } else {
         $result = new stdClass;
+        $result->cal = $cal;
         $result->sig = $start->dateString() . $end->dateString();
-        foreach ($dates as $date => $events) {
-            foreach ($events as $id => $event) {
-                $result->events[$date][$id] = $event->toJSON();
-            }
+        if (count($events)) {
+            $result->events = $events;
         }
     }
     break;

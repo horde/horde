@@ -51,39 +51,24 @@
     <?php echo _("My Calendars") ?>
   </h3>
 
-  <?php if (count($my_calendars)): ?>
-  <div class="kronolithCalendars">
-    <?php foreach ($my_calendars as $id => $cal): ?>
-    <div class="<?php echo (in_array($id, $display_calendars)) ? 'kronolithCalOn' : 'kronolithCalOff' ?> full" style="background-color:<?php echo Kronolith::backgroundColor($cal) ?>;color:<?php echo Kronolith::foregroundColor($cal) ?>"><?php echo htmlspecialchars($cal->get('name')) ?></div>
-    <?php endforeach; ?>
+  <div id="kronolithMyCalendars" class="kronolithCalendars" style="display:none">
   </div>
-  <?php endif; ?>
 
   <h3>
     <a href="#" class="kronolithAdd">+</a>
     <?php echo _("Shared Calendars") ?>
   </h3>
 
-  <?php if (count($shared_calendars)): ?>
-  <div class="kronolithCalendars">
-    <?php foreach ($shared_calendars as $id => $cal): ?>
-    <div class="<?php echo (in_array($id, $display_calendars)) ? 'kronolithCalOn' : 'kronolithCalOff' ?> full" style="background-color:<?php echo Kronolith::backgroundColor($cal) ?>;color:<?php echo Kronolith::foregroundColor($cal) ?>"><?php echo htmlspecialchars($cal->get('name')) ?></div>
-    <?php endforeach; ?>
+  <div id="kronolithSharedCalendars" class="kronolithCalendars" style="display:none">
   </div>
-  <?php endif; ?>
 
   <h3>
     <a href="#" class="kronolithAdd">+</a>
     <?php echo _("Remote Calendars") ?>
   </h3>
 
-  <?php if (count($remote_calendars)): ?>
-  <div class="kronolithCalendars">
-    <?php foreach ($remote_calendars as $id => $cal): ?>
-    <div class="<?php echo (in_array($id, $display_calendars)) ? 'kronolithCalOn' : 'kronolithCalOff' ?> full" style="background-color:<?php echo Kronolith::backgroundColor($cal) ?>;color:<?php echo Kronolith::foregroundColor($cal) ?>"><?php echo htmlspecialchars($cal['name']) ?></div>
-    <?php endforeach; ?>
+  <div id="kronolithRemoteCalendars" class="kronolithCalendars" style="display:none">
   </div>
-  <?php endif; ?>
 
   <div id="kronolithMinical">
     <table cellspacing="1" cellpadding="0" border="0">

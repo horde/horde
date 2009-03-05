@@ -46,11 +46,14 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
      *                                   recurring events once inside the
      *                                   $startDate - $endDate range.
      * @param boolean $hasAlarm          Only return events with alarms?
+     * @param boolean $json              Store the results of the events'
+     *                                   toJSON() method?
      *
      * @return array  Events in the given time range.
      */
     public function listEvents($startDate = null, $endDate = null,
-                               $showRecurrence = false, $hasAlarm = false)
+                               $showRecurrence = false, $hasAlarm = false,
+                               $json = false)
     {
         $data = $this->_getRemoteCalendar();
         if (is_a($data, 'PEAR_Error')) {
@@ -118,7 +121,7 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
                 $timestamp = $exceptions[$event->getUID()][$event->getSequence()];
                 $events[$key]->recurrence->addException(date('Y', $timestamp), date('m', $timestamp), date('d', $timestamp));
                 Kronolith::addEvents($results, $event, $startDate, $endDate,
-                                     $showRecurrence);
+                                     $showRecurrence, $json);
             }
         }
 
