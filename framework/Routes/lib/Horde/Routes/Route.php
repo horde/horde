@@ -186,7 +186,7 @@ class Horde_Routes_Route
         unset($kargs['_filter']);
 
         $this->absolute = isset($kargs['_absolute']) ? $kargs['_absolute'] : false;
-        unset($kargs['absolute']);
+        unset($kargs['_absolute']);
 
         // Pull out the member/collection name if present, this applies only to
         // map.resource
