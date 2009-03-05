@@ -121,7 +121,7 @@ class Horde_Service_Facebook
      *
      * @var hash of Horde_Service_Facebook_* objects
      */
-    static protected $_objCache = array();
+     protected $_objCache = array();
 
 
     const API_VALIDATION_ERROR = 1;
@@ -209,16 +209,16 @@ class Horde_Service_Facebook
 
         // If not, assume it's a method/action class...
         $class = 'Horde_Service_Facebook_' . ucfirst($value);
-        if (!empty(self::$_objCache[$class])) {
-            return self::$_objCache[$class];
+        if (!empty($this->_objCache[$class])) {
+            return $this->_objCache[$class];
         }
 
         if (!class_exists($class)) {
             throw new Horde_Service_Facebook_Exception(sprintf("%s class not found", $class));
         }
 
-        self::$_objCache[$class] = new $class($this, $this->_request);
-        return self::$_objCache[$class];
+        $this->_objCache[$class] = new $class($this, $this->_request);
+        return $this->_objCache[$class];
     }
 
     /**
