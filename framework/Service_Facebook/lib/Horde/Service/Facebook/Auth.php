@@ -421,8 +421,8 @@ class Horde_Service_Facebook_Auth
      */
     public function setUser($user, $sessionKey, $expires = null, $no_cookie = false)
     {
-        if ($no_cookie || !$this->_request->getCookie($this->_facebook->apiKey . '_user') ||
-            $this->_request->getCookie($this->_facebook->apiKey . '_user') != $user) {
+        if (!$no_cookie && (!$this->_request->getCookie($this->_facebook->apiKey . '_user') ||
+            $this->_request->getCookie($this->_facebook->apiKey . '_user') != $user)) {
 
             $this->setCookies($user, $sessionKey, $expires);
         }
@@ -470,4 +470,22 @@ class Horde_Service_Facebook_Auth
         $this->expireSession();
 
     }
+
+    /**
+     * Returns the user corresponding to the current session object.
+     *
+     * @throws Horde_Service_Facebook_Exception
+     * @return integer  User id
+     */
+    public function &getLoggedInUser()
+    {
+        if (!$this->getSessionKey()) {
+            throw new Horde_Service_Facebook_Exception('users.getLoggedInUser requires a session_key',
+                Horde_Service_Facebook_ErrorCodes::API_EC_PARAM_SESSION_KEY);
+        }
+
+        return $this->_facebook->callMethod('facebook.users.getLoggedInUser',
+            array('session_key' => $this->getSessionKey()));
+    }
+
 }
