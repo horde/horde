@@ -27,13 +27,11 @@ class Horde_Service_Facebook_UploadRequest extends Horde_Service_Facebook_Reques
     }
 
     /**
-     * TODO
+     * Execute a RFC1867/RFC1341 Multipart Http Transaction.
      *
-     * @param $method
-     * @param $params
-     * @param $file
-     * @param $server_addr
-     * @return unknown_type
+     * @throws Horde_Service_Facebook_Exception
+     *
+     * @return string
      */
     private function _multipartHttpTransaction()
     {
@@ -64,11 +62,16 @@ class Horde_Service_Facebook_UploadRequest extends Horde_Service_Facebook_Reques
         $content_lines[] = $close_delimiter;
         $content_lines[] = '';
         $content = implode("\r\n", $content_lines);
-        $result = $this->_http->request('POST',
-                                        Horde_Service_Facebook::REST_SERVER_ADDR,
-                                        $content,
-                                        array('Content-Type' => $content_type,
-                                              'Content-Length' => strlen($content)));
+        try {
+            $result = $this->_http->request('POST',
+                                            Horde_Service_Facebook::REST_SERVER_ADDR,
+                                            $content,
+                                            array('Content-Type' => $content_type,
+                                                  'Content-Length' => strlen($content)));
+        } catch (Exception $e) {
+            throw new Horde_Service_Facebook_Exception(sprintf(_("Upload failed: %s"), $e->getMessage()));
+        }
+
         return $result->getBody();
     }
 

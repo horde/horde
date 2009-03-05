@@ -27,6 +27,8 @@ class Horde_Service_Facebook_Request
     /**
      * Run this request and return the data.
      *
+     * @throws Horde_Service_Facebook_Exception
+     *
      * @param string $dataFormat  Optionally specify the datatype to return.
      *
      * @return Either raw XML, JSON, or an array of decoded values.
@@ -53,6 +55,12 @@ class Horde_Service_Facebook_Request
         return $result;
     }
 
+    /**
+     * @throws Horde_Service_Facebook_Exception
+     * @param $method
+     * @param $params
+     * @return unknown_type
+     */
     protected function _postRequest($method, &$params)
     {
         $this->_finalizeParams($method, $params);
@@ -60,7 +68,13 @@ class Horde_Service_Facebook_Request
         //       we have to manually create the post string or we get an
         //       invalid signature error from FB
         $post_string = $this->_createPostString($params);
-        $result = $this->_http->post(Horde_Service_Facebook::REST_SERVER_ADDR, $post_string);
+        try {
+            $result = $this->_http->post(Horde_Service_Facebook::REST_SERVER_ADDR, $post_string);
+        } catch (Exception $e) {
+            // Not much we can do about a client exception - rethrow it as
+            // temporarily unavailable.
+            throw new Horde_Service_Facebook_Exception(_("Service is unavailable. Please try again later."));
+        }
         return $result->getBody();
     }
 
