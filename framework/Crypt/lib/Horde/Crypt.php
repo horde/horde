@@ -83,7 +83,7 @@ class Horde_Crypt
      * @return Horde_Crypt  The concrete Horde_Crypt reference.
      * @throws Horde_Exception
      */
-    static public function &singleton($driver, $params = array())
+    static public function singleton($driver, $params = array())
     {
         ksort($params);
         $signature = hash('md5', serialize(array($driver, $params)));
