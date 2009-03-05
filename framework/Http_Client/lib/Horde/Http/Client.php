@@ -219,7 +219,7 @@ class Horde_Http_Client
             }
         }
 
-        // Concantenate the headers
+        // Concatenate the headers
         $hdr = array();
         foreach ($headers as $header => $value) {
             $hdr[] = $header . ': ' . $value;
