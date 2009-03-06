@@ -269,7 +269,7 @@ div.msgSize {
     position: relative;
     right: 0;
     width: 14px;
-    overflow: auto;
+    overflow: hidden;
     background-image: url("graphics/scroller_back.png");
     background-repeat: repeat-y;
 }
