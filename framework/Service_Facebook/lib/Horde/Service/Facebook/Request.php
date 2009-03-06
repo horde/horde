@@ -86,6 +86,15 @@ class Horde_Service_Facebook_Request
      */
     protected function _finalizeParams($method, &$params)
     {
+        // Run through the params and see if any of them are arrays. If so,
+        // json encode them, as per the new Facebook API guidlines.
+        // http://www.facebook.com/developers/message.php#msg_351
+        foreach ($params as &$param) {
+            if (is_array($parm)) {
+                $param = json_endcode($param);
+            }
+        }
+
         $this->_addStandardParams($method, $params);
         // we need to do this before signing the params
         $this->_convertToCsv($params);

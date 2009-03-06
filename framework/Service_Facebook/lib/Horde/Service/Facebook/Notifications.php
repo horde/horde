@@ -33,9 +33,13 @@ class Horde_Service_Facebook_Notifications extends Horde_Service_Facebook_Base
     /**
      * Sends a notification to the specified users.
      *
+     * @param mixed $to_ids         Either an array of uids or a string
+     *                              delimited list of uids.
+     * @param string $notification  A FBML string for the notification.
+     * @param string $type          Either 'user_to_user' or 'app_to_user'
+     *
      * @throws Horde_Service_Facebook_Exception
      * @return A comma separated list of successful recipients
-     * @error  API_EC_PARAM_USER_ID_LIST
      */
     public function &send($to_ids, $notification, $type)
     {
@@ -45,7 +49,7 @@ class Horde_Service_Facebook_Notifications extends Horde_Service_Facebook_Base
                                                Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
         }
 
-        return $this->callMethod('facebook.notifications.send',
+        return $this->_facebook->callMethod('facebook.notifications.send',
             array('to_ids' => $to_ids,
                   'notification' => $notification,
                   'type' => $type,
@@ -72,7 +76,7 @@ class Horde_Service_Facebook_Notifications extends Horde_Service_Facebook_Base
             throw new Horde_Service_Facebook_Exception('session_key is required',
                                                Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
         }
-        return $this->callMethod('facebook.notifications.sendEmail',
+        return $this->_facebook->callMethod('facebook.notifications.sendEmail',
             array('recipients' => $recipients,
                   'subject' => $subject,
                   'text' => $text,
