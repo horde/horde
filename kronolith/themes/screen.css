@@ -399,6 +399,7 @@ table#calendar-list th.sortdown {
     overflow: auto;
     padding: 2px;
     font-size: 90%;
+    word-wrap: break-word;
 }
 .calendar-list-icon {
     width: 1%;
