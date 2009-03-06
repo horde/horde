@@ -1067,7 +1067,14 @@ ViewPort_Scroller = Class.create({
         c.insert({ after: this.scrollDiv }).setStyle({ marginRight: '-' + this.scrollDiv.getWidth() + 'px' });
 
         // Create scrollbar object.
-        this.scrollbar = new DimpSlider(this.scrollDiv, { buttonclass: { up: 'sbup', down: 'sbdown' }, cursorclass: 'sbcursor', onChange: this._onScroll.bind(this), onSlide: this.vp.opts.onSlide ? this.vp.opts.onSlide : null, pagesize: this.vp.getPageSize(), totalsize: this.vp.getMetaData('total_rows') });
+        this.scrollbar = new DimpSlider(this.scrollDiv, {
+            buttonclass: { up: 'sbup', down: 'sbdown' },
+            cursorclass: 'sbcursor',
+            onChange: this._onScroll.bind(this),
+            onSlide: this.vp.opts.onSlide ? this.vp.opts.onSlide : null,
+            pagesize: this.vp.getPageSize(),
+            totalsize: this.vp.getMetaData('total_rows')
+       });
 
         // Mouse wheel handler.
         c.observe(Prototype.Browser.Gecko ? 'DOMMouseScroll' : 'mousewheel', function(e) {
