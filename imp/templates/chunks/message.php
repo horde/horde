@@ -132,5 +132,3 @@ function _createDAfmsg($text, $image, $id, $class = '', $show_text = true)
  <a id="ctx_contacts_new"><span class="contextImg"></span><?php echo _("New Message") ?></a>
  <a id="ctx_contacts_add"><span class="contextImg"></span><?php echo _("Add to Address Book") ?></a>
 </div>
-
-<span id="popdown_img" class="iconImg popdownImg popdown" style="display:none"></span>
