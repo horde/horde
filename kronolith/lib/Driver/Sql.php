@@ -203,7 +203,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
 
         $event = $this->_db->getRow($query, $values, DB_FETCHMODE_ASSOC);
         if (is_a($event, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($event, __FILE__, __LINE__, PEAR_LOG_ERR);
             return $event;
         }
 
