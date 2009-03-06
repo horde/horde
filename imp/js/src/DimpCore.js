@@ -14,7 +14,8 @@ var frames = { horde_main: true },
 /* DimpCore object. */
 DimpCore = {
     // Vars used and defaulting to null/false:
-    //   DMenu, alertrequest, inAjaxCallback, is_logout, onDoActionComplete
+    //   DMenu, alertrequest, inAjaxCallback, is_init, is_logout,
+    //   onDoActionComplete
     server_error: 0,
 
     buttons: [
@@ -466,13 +467,11 @@ DimpCore = {
                 } else {
                     Effect.BlindDown(tmp, opts);
                 }
-                e.stop();
-                return;
+                break;
 
             case 'msg_print':
                 window.print();
-                e.stop();
-                return;
+                break;
 
             case 'msg_view_source':
                 this.popupWindow(this.addURLParam(DIMP.conf.URI_VIEW, { uid: DIMP.conf.msg_index, mailbox: DIMP.conf.msg_folder, actionID: 'view_source', id: 0 }, true), DIMP.conf.msg_index + '|' + DIMP.conf.msg_folder);
@@ -536,8 +535,16 @@ DimpCore = {
     /* DIMP initialization function. */
     init: function()
     {
+        if (this.is_init) {
+            return;
+        }
+        this.is_init = true;
+
         if (typeof ContextSensitive != 'undefined') {
-            this.DMenu = new ContextSensitive({ onClick: this.contextOnClick.bind(this), onShow: this.contextOnShow.bind(this) });
+            this.DMenu = new ContextSensitive({
+                onClick: this.contextOnClick.bind(this),
+                onShow: this.contextOnShow.bind(this)
+            });
         }
 
         /* Don't do additional onload stuff if we are in a popup. We need a
