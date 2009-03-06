@@ -2359,6 +2359,12 @@ var DimpBase = {
             $('dimpbarActions', 'serviceActions', 'applicationfolders', 'specialfolders', 'normalfolders').compact().invoke('select', 'LI').flatten().compact().each(function(e) {
                 e.observe('mouseover', e.addClassName.curry('over')).observe('mouseout', e.removeClassName.curry('over'));
             });
+
+            /* These are links, but they have no href attribute. Hovering
+             * requires something in href on IE6. */
+            $$('.context A').each(function(e) {
+                e.writeAttribute('href', '');
+            });
         }
     },
 
