@@ -345,6 +345,7 @@ table.multipleMsgs td.msgheader {
 span.spellcheckPopdownImg {
     cursor: pointer;
     background: url("graphics/popdown.png") no-repeat center center;
+    display: -moz-inline-stack;
     display: inline-block;
     height: 16px;
     width: 16px;
@@ -440,6 +441,7 @@ ul.nav-audio {
 span.threadImg {
     height: 20px;
     width: 20px;
+    display: -moz-inline-stack;
     display: inline-block;
     vertical-align: middle;
 }
@@ -513,6 +515,7 @@ span.threadImg8 {
 }
 
 .downloadAtc, .downloadZipAtc, .saveImgAtc, .stripAtc {
+    display: -moz-inline-stack;
     display: inline-block;
     height: 16px;
     width: 16px;

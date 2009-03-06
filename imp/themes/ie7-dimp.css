@@ -53,3 +53,9 @@ form#compose {
 .htmlMessage ul li , .htmlMessage ol li {
     margin-left: 2em;
 }
+
+/* Fixes broken inline-block. */
+div.msgStatus div, #msgHeadersContent .subject span, span.iconImg, span.contextImg, span.spellcheckPopdownImg {
+    zoom: 1;
+    *display: inline;
+}

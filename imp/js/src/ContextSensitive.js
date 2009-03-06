@@ -261,7 +261,7 @@ var ContextSensitive = Class.create({
             }
             this.submenus.set(id, submenu);
             $(submenu).addClassName('contextMenu');
-            $(id).addClassName('contextSubmenu').insert({ top: new Element('SPAN', { className: 'contextExpand' }) });
+            $(id).addClassName('contextSubmenu');
         }
     },
 

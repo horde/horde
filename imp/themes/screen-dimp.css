@@ -111,6 +111,7 @@ div.msgStatus {
     width: 8%;
 }
 div.msgStatus div, #msgHeadersContent .subject span {
+    display: -moz-inline-stack;
     display: inline-block;
     padding-right: 2px;
     width: 16px;
@@ -809,15 +810,12 @@ span.attachName:hover {
     color: #fff;
     cursor: pointer;
 }
-.context a span.contextExpand {
-    float: right;
-    width: 16px;
-    height: 16px;
-    margin-top: -1px;
-    background: url("graphics/popright.png") no-repeat;
-}
 .context div.sep {
     border-bottom: 1px #d4d4d4 solid;
+}
+.contextSubmenu {
+    background: url("graphics/popright.png") 95% 50% no-repeat;
+    padding-left: 16px;
 }
 
 /* Email Addresses. */
@@ -965,6 +963,7 @@ a.address:hover img {
 
 /* Images */
 span.iconImg, span.contextImg, span.spellcheckPopdownImg {
+    display: -moz-inline-stack;
     display: inline-block;
     height: 16px;
     width: 16px;
