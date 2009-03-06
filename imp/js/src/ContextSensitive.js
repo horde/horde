@@ -278,8 +278,13 @@ var ContextSensitive = Class.create({
             elt = e.element(),
             elt_up = elt.up(),
             id = elt.readAttribute('id'),
-            id_div = elt_up.readAttribute('id'),
-            offsets, sub, voffsets, x, y;
+            id_div, offsets, sub, voffsets, x, y;
+
+        if (elt_up == document) {
+            return;
+        }
+
+        id_div = elt_up.readAttribute('id');
 
         if (elt.hasClassName('contextSubmenu')) {
             sub = this.submenus.get(id);
