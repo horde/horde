@@ -19,6 +19,9 @@ class Folks_Report_letter extends Folks_Report {
             $admins = array($users);
         } elseif (empty($GLOBALS['conf']['report_content']['users'])) {
             $admins = $this->getAdmins();
+            if ($admins instanceof PEAR_Error) {
+                return $admins;
+            }
             if (empty($admins)) {
                 return true;
             }
