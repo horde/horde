@@ -52,7 +52,12 @@ class Auth_folks extends Auth_application {
      */
     function _getLoginScreen($app = 'folks', $url = '')
     {
-        $login = Horde::url($GLOBALS['registry']->get('webroot', 'folks') . '/login.php', true);
+        $webroot = $GLOBALS['registry']->get('webroot', 'folks');
+        if ($webroot instanceof PEAR_Error) {
+            return $webroot;
+        }
+
+        $login = Horde::url($webroot . '/login.php', true);
         if (!empty($url)) {
             $login = Util::addParameter($login, 'url', $url);
         }
@@ -90,7 +95,12 @@ class Auth_folks extends Auth_application {
         $password = Auth::genRandomPassword();
 
         /* Process. */
-        require_once $GLOBALS['registry']->get('fileroot', 'folks') . '/lib/base.php';
+        $fileroot = $GLOBALS['registry']->get('webroot', 'folks');
+        if ($fileroot instanceof PEAR_Error) {
+            return $fileroot;
+        }
+
+        require_once $fileroot . '/lib/base.php';
         $result = $GLOBALS['folks_driver']->changePassword($password, $userId);
         if ($result instanceof PEAR_Error) {
             return $result;
@@ -112,7 +122,12 @@ class Auth_folks extends Auth_application {
             return false;
         }
 
-        require_once $GLOBALS['registry']->get('fileroot', 'folks') . '/lib/base.php';
+        $fileroot = $GLOBALS['registry']->get('webroot', 'folks');
+        if ($fileroot instanceof PEAR_Error) {
+            return $fileroot;
+        }
+
+        require_once $fileroot . '/lib/base.php';
         if ($_COOKIE['folks_login_code'] != $GLOBALS['folks_driver']->getCookie($_COOKIE['folks_login_user'])) {
             return false;
         }
