@@ -350,7 +350,7 @@ if (!function_exists('_horde_hook_signup_addextra')) {
         $body = sprintf(_("Your username on %s %s is: %s. \n\n Please confirm the registration by going to this link \n %s"),
                             $GLOBALS['registry']->get('name', 'horde'),
                             Horde::url($GLOBALS['registry']->get('webroot', 'horde'), true),
-                            $user['user_uid'],
+                            $userID,
                             $link);
 
         $result = Folks::sendMail($extra['email'], _("Confirmation code"), $body);
