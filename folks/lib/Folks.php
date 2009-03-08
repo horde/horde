@@ -44,13 +44,12 @@ class Folks {
      */
     static function getCountries()
     {
-        if (file_exists(FOLKS_BASE . '/config/countries.php')) {
-            $countries = Horde::loadConfiguration('countries.php', 'countries', 'folks');
-        } else {
-            $countries = NLS::getCountryISO();
+        $result = Horde::loadConfiguration('countries.php', 'countries', 'folks');
+        if ($result instanceof PEAR_Error) {
+            return NLS::getCountryISO();
         }
 
-        return $countries;
+        return $result;
     }
 
     /**
