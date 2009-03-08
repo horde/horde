@@ -106,6 +106,13 @@ $_services['addUser'] = array(
     'args' => array('userId' => 'string')
 );
 
+$_services['getImageUrl'] = array(
+    'args' => array('user'        => 'string',
+                    'view'       => 'string',
+                    'full'       => 'boolean'),
+    'type' => 'string'
+);
+
 if (Auth::isAdmin()) {
     $_services['userList'] = array(
         'type' => '{urn:horde}stringArray'
@@ -114,6 +121,22 @@ if (Auth::isAdmin()) {
     $_services['removeUser'] = array(
         'args' => array('userId' => 'string')
     );
+}
+
+/**
+ * Returns profile image URL.
+ *
+ * @param string  $user      User uid
+ * @param string $view       The view ('small', 'big') to show.
+ * @param boolean $full      Return a path that includes the server name?
+ *
+ * @return string  The image path.
+ */
+function _folks_getImageUrl($user, $view = 'small', $full = false)
+{
+    require_once dirname(__FILE__) . '/base.php';
+
+    return Folks::getImageUrl($user, $view, $full);
 }
 
 /**
