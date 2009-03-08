@@ -24,7 +24,9 @@ function _loginNotice($user)
         return;
     }
 
-    $friends = $GLOBALS['folks_driver']->getFriends(Auth::getAuth());
+    require_once FOLKS_BASE . '/lib/Friends.php';
+    $friends_driver = Folks_Friends::singleton();
+    $friends = $friends_driver->getFriends();
     if ($friends instanceof PEAR_Error) {
         return $friends;
     } elseif (empty($friends)) {
