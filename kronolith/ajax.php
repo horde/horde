@@ -59,8 +59,18 @@ case 'ListEvents':
     $cal   = Util::getFormData('cal');
     list($driver, $calendar) = explode('|', $cal);
     $kronolith_driver = Kronolith::getDriver($driver, $calendar);
-    if ($driver == 'Ical') {
+    switch ($driver) {
+    case 'Ical':
         $kronolith_driver->setParam('timeout', 15);
+        break;
+    case '':
+        if (!array_key_exists($calendar,
+                              Kronolith::listCalendars(false, PERMS_READ))) {
+            $notification->push(_("Permission Denied"), 'horde.error');
+            $result = false;
+            break 2;
+        }
+        break;
     }
     $events = $kronolith_driver->listEvents($start, $end, true, false, true);
     if (is_a($events, 'PEAR_Error')) {
