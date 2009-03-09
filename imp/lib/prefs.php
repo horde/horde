@@ -69,7 +69,7 @@ function handlefolders($updated, $pref, $folder, $new)
     return $updated;
 }
 
-function handle_folderselect($updated)
+function handle_draftsselect($updated)
 {
     return $updated | handlefolders($updated, 'drafts_folder', 'drafts', 'drafts_new');
 }
