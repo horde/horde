@@ -420,7 +420,10 @@ class IMP
         $args = self::composeLinkArgs($args, $extra);
 
         if (is_null($view)) {
-            $view = $_SESSION['imp']['view'];
+            /* Default to 'imp' if not currently logged-in. */
+            $view = empty($_SESSION['imp']['view'])
+                ? 'imp'
+                : $_SESSION['imp']['view'];
         }
 
         if ($view == 'dimp') {
