@@ -268,7 +268,7 @@ class IMP_Imap_Tree
         $this->_changed = false;
         $this->_trackdiff = true;
 
-        return array_keys(array_diff(get_class_vars(__CLASS__), array('_instance')));
+        return array_diff(array_keys(get_class_vars(__CLASS__)), array('_instance'));
     }
 
     /**
