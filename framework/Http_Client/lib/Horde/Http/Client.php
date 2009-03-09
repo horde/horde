@@ -209,15 +209,8 @@ class Horde_Http_Client
             'data' => $data,
         );
 
-        // Stream context config.
-        $opts = array('http' => array(
-            'method' => $method,
-            'header' => implode("\n", $headers),
-            'content' => $data,
-            'timeout' => $this->_timeout,
-        ));
-
-        // Proxy settings
+        $opts = array('http' => array());
+        // Proxy settings - check first, so we can include the correct headers
         if ($this->proxyServer) {
             $opts['http']['proxy'] = 'tcp://' . $this->proxyServer;
             $opts['http']['request_fulluri'] = true;
@@ -225,6 +218,18 @@ class Horde_Http_Client
                 $headers['Proxy-Authorization'] = 'Basic ' . base64_encode($this->proxyUser . ':' . $this->proxyPass);
             }
         }
+
+        // Concantenate the headers
+        $hdr = array();
+        foreach ($headers as $header => $value) {
+            $hdr[] = $header . ': ' . $value;
+        }
+
+        // Stream context config.
+        $opts['http']['method'] = $method;
+        $opts['http']['header'] = implode("\n", $hdr);
+        $opts['http']['content'] = $data;
+        $opts['http']['timeout'] = $this->_timeout;
 
         $context = stream_context_create($opts);
         $stream = @fopen($uri, 'rb', false, $context);

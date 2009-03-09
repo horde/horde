@@ -3,10 +3,11 @@
  * Test script for the Horde_Imap_Client:: library.
  *
  * Usage:
- *   test_client.php [[username] [[password] [[IMAP URL]]]]
+ *   test_client.php [[username] [[password] [[IMAP URL] [driver]]]]
  *
  * Username/password/hostspec on the command line will override the $params
  * values.
+ * Driver on the command line will override the $driver value.
  *
  * TODO:
  *   + Test for 'charset' searching
@@ -16,13 +17,13 @@
  *   + setComparator()
  *   + RFC 4551 (CONDSTORE) related functions
  *
- * @author     Michael Slusarz <slusarz@horde.org>
- * @category   Horde
- * @package    Horde_Imap_Client
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @package  Horde_Imap_Client
  */
 
 /** Configuration **/
-$driver = 'Socket'; // 'Socket', 'Cclient', or 'Cclient_Pop3'
+$driver = 'Socket'; // 'Socket', 'Cclient', 'Cclient_Pop3', or 'Socket_Pop3'
 $params = array(
     'username' => '',
     'password' => '',
@@ -49,6 +50,7 @@ $test_mbox_utf8 = 'TestMailboxTest1è';
 /** End Configuration **/
 
 require_once 'Horde/Autoloader.php';
+$currdir = dirname(__FILE__);
 
 /* Check for Horde_Cache::. */
 if (@include_once 'Horde/Cache.php') {
@@ -73,13 +75,22 @@ if (empty($argv[2])) {
     exit("Need password. Exiting.\n");
 }
 
+$imap_utils = new Horde_Imap_Client_Utils();
 if (!empty($argv[3])) {
-    $params = array_merge($params, $imap_utils->parseImapUrl($argv[3]));
+    $parseurl = $imap_utils->parseUrl($argv[3]);
+    if ($parseurl === false) {
+        exit("Bad URL. Exiting.\n");
+    }
+    $params = array_merge($params, $imap_utils->parseUrl($argv[3]));
 }
 
-function exception_handler($exception) {
+if (!empty($argv[4])) {
+    $driver = $argv[4];
+}
+
+function exception_handler($e) {
     print "\n=====================================\n" .
-          'UNCAUGHT EXCEPTION: ' . $exception->getMessage() .
+          'UNCAUGHT EXCEPTION: ' . $e->getMessage() .
           "\n=====================================\n";
 }
 set_exception_handler('exception_handler');
@@ -92,10 +103,20 @@ if (@include_once 'Benchmark/Timer.php') {
 // Add an ID field to send to server (ID extension)
 $params['id'] = array('name' => 'Horde_Imap_Client test program');
 
-$imap_utils = new Horde_Imap_Client_Utils();
 $imap_client = Horde_Imap_Client::getInstance($driver, $params);
-if ($driver == 'Cclient_Pop3') {
+if (($driver == 'Cclient_Pop3') ||
+    ($driver == 'Socket_Pop3')) {
+    $pop3 = true;
     $test_mbox = $test_mbox_utf8 = 'INBOX';
+
+    print "============================================================\n" .
+          "NOTE: Due to the absence of an APPEND command in POP3, the test\n" .
+          "script is unable to build a test mailbox with messages. Various\n" .
+          "status and fetching commands will therefore either not be\n" .
+          "successful or else not match up with the expected output.\n" .
+          "============================================================\n\n";
+} else {
+    $pop3 = false;
 }
 
 $use_imapproxy = false;
@@ -557,10 +578,13 @@ try {
 $simple_fetch = array(
     Horde_Imap_Client::FETCH_STRUCTURE => true,
     Horde_Imap_Client::FETCH_ENVELOPE => true,
-    Horde_Imap_Client::FETCH_FLAGS => true,
     Horde_Imap_Client::FETCH_DATE => true,
     Horde_Imap_Client::FETCH_SIZE => true
 );
+
+if (!$pop3) {
+    $simple_fetch[Horde_Imap_Client::FETCH_FLAGS] = true;
+}
 
 print "\nSimple fetch example:\n";
 try {
@@ -701,7 +725,7 @@ try {
     print "Fetch: FAILED\n";
 
     // If POP3, try easier fetch criteria
-    if ($driver == 'Cclient_Pop3') {
+    if ($pop3) {
         try {
             print_r($imap_client->fetch('INBOX', array(
                 Horde_Imap_Client::FETCH_FULLMSG => array(
@@ -860,35 +884,48 @@ foreach ($subject_lines as $val) {
     print "  BASE: \"" . $imap_utils->getBaseSubject($val) . "\"\n\n";
 }
 
-$imap_urls = array(
+$urls = array(
     'NOT A VALID URL',
-    'imap://test.example.com/',
-    'imap://test.example.com:143/',
-    'imap://testuser@test.example.com/',
-    'imap://testuser@test.example.com:143/',
-    'imap://;AUTH=PLAIN@test.example.com/',
-    'imap://;AUTH=PLAIN@test.example.com:143/',
-    'imap://;AUTH=*@test.example.com:143/',
-    'imap://testuser;AUTH=*@test.example.com:143/',
-    'imap://testuser;AUTH=PLAIN@test.example.com:143/'
+    'test.example.com/',
+    'test.example.com:143/',
+    'testuser@test.example.com/',
+    'testuser@test.example.com:143/',
+    ';AUTH=PLAIN@test.example.com/',
+    ';AUTH=PLAIN@test.example.com:143/',
+    ';AUTH=*@test.example.com:143/',
+    'testuser;AUTH=*@test.example.com:143/',
+    'testuser;AUTH=PLAIN@test.example.com:143/'
 );
 
-print "\nRFC 5092 URL parsing:\n";
-foreach ($imap_urls as $val) {
-    print "URL: " . $val . "\n";
-    print "PARSED:\n";
-    print_r($imap_utils->parseImapUrl($val));
-    print "\n";
+$url_types = array(
+    'pop' => 'RFC 2384 URL parsing',
+    'imap' => 'RFC 5092 URL parsing'
+);
+
+foreach ($url_types as $type => $label) {
+    print "\n" . $label . ":\n";
+    foreach ($urls as $val) {
+        $val = $type . '://' . $val;
+        print "URL: " . $val . "\n";
+        print "PARSED:\n";
+        $parseurl = $imap_utils->parseUrl($val);
+        if ($parseurl === false) {
+            print "INVALID URL\n";
+        } else {
+            print_r($parseurl);
+        }
+        print "\n";
+    }
 }
 
 if (isset($fetch_res) &&
-    @require_once 'Horde/MIME/Message.php') {
-    print "\nTesting MIME_Message::parseStructure() on complex MIME message:\n";
-    $parse_res = MIME_Message::parseStructure($fetch_res[$uid3]['structure']);
+    @require_once 'Horde/Mime/Part.php') {
+    print "\nTesting Horde_Mime_Part::parseStructure() on complex MIME message:\n";
+    $parse_res = Horde_Mime_Part::parseStructure($fetch_res[$uid3]['structure']);
     print_r($parse_res);
 
-    print "\nTesting MIME_Message::parseMessage() on complex MIME message:\n";
-    $parse_text_res = MIME_Message::parseMessage(file_get_contents($currdir . '/test_email2.txt'));
+    print "\nTesting Horde_Mime_Part::parseMessage() on complex MIME message:\n";
+    $parse_text_res = Horde_Mime_Part::parseMessage(file_get_contents($currdir . '/test_email2.txt'));
     print_r($parse_text_res);
 }
 

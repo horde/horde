@@ -12,7 +12,7 @@
  *   RFC 2195 - AUTH=CRAM-MD5
  *   RFC 2221 - LOGIN-REFERRALS
  *   RFC 2342 - NAMESPACE
- *   RFC 2595/4616 - AUTH=PLAIN
+ *   RFC 2595/4616 - TLS & AUTH=PLAIN
  *   RFC 2831 - DIGEST-MD5 authentication mechanism.
  *   RFC 2971 - ID
  *   RFC 3501 - IMAP4rev1 specification
@@ -63,7 +63,7 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author   Michael Slusarz <slusarz@curecanti.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
  * @package  Horde_Imap_Client
  */
@@ -318,8 +318,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             }
 
             /* Use MD5 authentication first, if available. But no need to use
-             * use special authentication if we are already using an
-             * encrypted connection. */
+             * special authentication if we are already using an encrypted
+             * connection. */
             if ($this->_isSecure) {
                 $imap_auth_mech = array_reverse($imap_auth_mech);
             }
@@ -425,7 +425,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         if ($this->_stream === false) {
             $this->_stream = null;
             $this->_isSecure = false;
-            throw new Horde_Imap_Client_Exception('Error connecting to IMAP server: [' . $error_number . '] ' . $error_string);
+            throw new Horde_Imap_Client_Exception('Error connecting to IMAP server: [' . $error_number . '] ' . $error_string, Horde_Imap_Client_Exception::SERVER_CONNECT);
         }
 
         stream_set_timeout($this->_stream, $this->_params['timeout']);
@@ -492,7 +492,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             switch ($method) {
             case 'CRAM-MD5':
                 // RFC 2195
-                if (class_exists('Auth_SASL')) {
+                if (!class_exists('Auth_SASL')) {
                     throw new Horde_Imap_Client_Exception('The Auth_SASL package is required for CRAM-MD5 authentication');
                 }
                 $auth_sasl = Auth_SASL::factory('crammd5');
@@ -501,7 +501,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 break;
 
             case 'DIGEST-MD5':
-                if (class_exists('Auth_SASL')) {
+                if (!class_exists('Auth_SASL')) {
                     throw new Horde_Imap_Client_Exception('The Auth_SASL package is required for DIGEST-MD5 authentication');
                 }
                 $auth_sasl = Auth_SASL::factory('digestmd5');
@@ -3485,7 +3485,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         case 'REFERRAL':
             // Defined by RFC 2221
-            $this->_temp['referral'] = $this->_utils->parseImapUrl($data);
+            $this->_temp['referral'] = $this->_utils->parseUrl($data);
             break;
 
         case 'UNKNOWN-CTE':

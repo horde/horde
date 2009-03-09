@@ -199,6 +199,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
             '--batch',
             '--armor'
         );
+
         $result = $this->_callGpg($cmdline, 'w', $input, true, true);
 
         /* Get the keys from the temp files. */
@@ -262,6 +263,8 @@ class Horde_Crypt_Pgp extends Horde_Crypt
      * signature that has signed that UID. Signatures not associated with a
      * UID (e.g. revocation signatures and sub keys) will be stored under the
      * special keyword '_SIGNATURE'.
+     *
+     * @throws Horde_Exception
      */
     public function pgpPacketInformation($pgpdata)
     {
@@ -393,6 +396,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
      * @param string $pgpdata  The PGP data block.
      *
      * @return string  Tabular information on the PGP key.
+     * @throws Horde_Exception
      */
     public function pgpPrettyKey($pgpdata)
     {
@@ -488,6 +492,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
      * created      =>  Signature creation - UNIX timestamp
      * micalg       =>  The hash used to create the signature
      * </pre>
+     * @throws Horde_Exception
      */
     public function pgpPacketSignature($pgpdata, $email)
     {
@@ -532,6 +537,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
      * @param string $uid_idx  The UID index.
      *
      * @return array  See pgpPacketSignature().
+     * @throws Horde_Exception
      */
     public function pgpPacketSignatureByUidIndex($pgpdata, $uid_idx)
     {
@@ -599,6 +605,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
      * @param string $text  The PGP signed text block.
      *
      * @return string  The key ID of the key used to sign $text.
+     * @throws Horde_Exception
      */
     public function getSignersKeyID($text)
     {
@@ -825,7 +832,8 @@ class Horde_Crypt_Pgp extends Horde_Crypt
      *
      * @param string $pgpdata  The PGP data block.
      *
-     * @return array The fingerprints in $pgpdata indexed by key id.
+     * @return array  The fingerprints in $pgpdata indexed by key id.
+     * @throws Horde_Exception
      */
     public function getFingerprintsFromKey($pgpdata)
     {
@@ -970,6 +978,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
      * @param string $text  The PGP encrypted text.
      *
      * @return boolean  True if the text is symmetricallly encrypted.
+     * @throws Horde_Exception
      */
     public function encryptedSymmetrically($text)
     {
@@ -1015,6 +1024,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
      *                      (Default) or 'private'
      *
      * @return string  Command line keystring option to use with gpg program.
+     * @throws Horde_Exception
      */
     protected function _putInKeyring($keys = array(), $type = 'public')
     {
@@ -1493,6 +1503,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
      * @param boolean $verbose  Run GnuPG with verbose flag?
      *
      * @return stdClass  Class with members output, stderr, and stdout.
+     * @throws Horde_Exception
      */
     protected function _callGpg($options, $mode, $input = array(),
                                 $output = false, $stderr = false,
@@ -1529,26 +1540,33 @@ class Horde_Crypt_Pgp extends Horde_Crypt
         $cmdline = implode(' ', array_merge($this->_gnupg, $options));
 
         if ($mode == 'w') {
-            $fp = popen($cmdline, 'w');
-            $win32 = !strncasecmp(PHP_OS, 'WIN', 3);
+            if ($fp = popen($cmdline, 'w')) {;
+                $win32 = !strncasecmp(PHP_OS, 'WIN', 3);
 
-            if (!is_array($input)) {
-                $input = array($input);
-            }
-            foreach ($input as $line) {
-                if ($win32 && (strpos($line, "\x0d\x0a") !== false)) {
-                    $chunks = explode("\x0d\x0a", $line);
-                    foreach ($chunks as $chunk) {
-                        fputs($fp, $chunk . "\n");
-                    }
-                } else {
-                    fputs($fp, $line . "\n");
+                if (!is_array($input)) {
+                    $input = array($input);
                 }
+
+                foreach ($input as $line) {
+                    if ($win32 && (strpos($line, "\x0d\x0a") !== false)) {
+                        $chunks = explode("\x0d\x0a", $line);
+                        foreach ($chunks as $chunk) {
+                            fputs($fp, $chunk . "\n");
+                        }
+                    } else {
+                        fputs($fp, $line . "\n");
+                    }
+                }
+            } else {
+                throw new Horde_Exception(_("Error while talking to pgp binary."));
             }
         } elseif ($mode == 'r') {
-            $fp = popen($cmdline, 'r');
-            while (!feof($fp)) {
-                $data->stdout .= fgets($fp, 1024);
+            if ($fp = popen($cmdline, 'r')) {
+                while (!feof($fp)) {
+                    $data->stdout .= fgets($fp, 1024);
+                }
+            } else {
+                throw new Horde_Exception(_("Error while talking to pgp binary."));
             }
         }
         pclose($fp);

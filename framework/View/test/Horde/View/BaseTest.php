@@ -43,6 +43,28 @@ class Horde_View_BaseTest extends Horde_Test_Case
         $this->assertEquals('test', $this->_view->publicVar);
     }
 
+    public function testAssign()
+    {
+        $this->_view->assign(array('publicVar' => 'test'));
+        $this->assertEquals('test', $this->_view->publicVar);
+    }
+
+    public function testAssignDoesntOverridePrivateVariables()
+    {
+        try {
+            $this->_view->assign(array('_templatePath' => 'test'));
+        } catch (Exception $e) {
+            return;
+        }
+        $this->fail('Overwriting a private/protected variable should fail');
+    }
+
+    public function testAssignAllowsUnderscoreVariables()
+    {
+        $this->_view->assign(array('_private' => 'test'));
+        $this->assertEquals('test', $this->_view->_private);
+    }
+
     // test accessing variable
     public function testAccessVar()
     {
@@ -88,7 +110,7 @@ class Horde_View_BaseTest extends Horde_Test_Case
         $this->_view->myVar = 'test';
 
         $expected = "<div>test</div>";
-        $this->assertEquals($expected, $this->_view->render('testRender.html'));
+        $this->assertEquals($expected, $this->_view->render('testRender.html.php'));
     }
 
     // test rendering
