@@ -141,7 +141,7 @@ class Horde_Kolab_Server_testTest extends Horde_Kolab_Test_Server
         } catch (Horde_Kolab_Server_Exception $classes) {
         }
         $this->assertError($classes,
-                           'LDAP Error: No such object: cn=DOES NOT EXIST,dc=example,dc=org: No such object');
+                           'No such object: cn=DOES NOT EXIST,dc=example,dc=org');
 
         $classes = $server->getObjectClasses('cn=The Administrator,dc=example,dc=org');
         $this->assertNoError($classes);

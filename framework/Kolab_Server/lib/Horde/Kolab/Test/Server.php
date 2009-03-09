@@ -730,7 +730,7 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
      */
     public function assertError($var, $msg = null)
     {
-        $this->assertEquals('Horde_Kolab_Server_Exception', get_class($var));
+        $this->assertType('Horde_Kolab_Server_Exception', $var);
         if (isset($msg)) {
             $this->assertEquals($msg, $var->getMessage());
         }
