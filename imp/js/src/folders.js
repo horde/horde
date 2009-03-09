@@ -31,7 +31,7 @@ var ImpFolders = {
                 sel += this.displayNames[folder] + "\n";
             }
             ++folder;
-        });
+        }, this);
 
         return sel.strip();
     },
@@ -144,7 +144,7 @@ var ImpFolders = {
                 }
             }
             ++j;
-        });
+        }, this);
 
         if (newnames) {
             $('new_names').setValue(newnames.strip());
