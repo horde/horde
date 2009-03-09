@@ -146,7 +146,7 @@ class Horde_Kolab_Server_Object_user extends Horde_Kolab_Server_Object
                 return KOLAB_UT_STANDARD;
             }
         default:
-            return parent::_derive($attr);
+            return parent::derive($attr);
         }
     }
 

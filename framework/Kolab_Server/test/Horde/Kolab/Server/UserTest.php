@@ -85,6 +85,7 @@ class Horde_Kolab_Server_UserTest extends Horde_Kolab_Test_Server
     {
         $user = $this->server->fetch('cn=Gunnar Wrobel,dc=example,dc=org');
         $this->assertEquals('Horde_Kolab_Server_Object_user', get_class($user));
+        $this->assertEquals('Gunnar Wrobel', $user->get(KOLAB_ATTR_FNLN));
     }
 
     /**
