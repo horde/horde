@@ -92,8 +92,27 @@ class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap
                $this->_data  = array();
             }
         }
-        $this->store();
+
         parent::__construct($params);
+
+        if (isset($this->params['adminuser'])
+            && isset($this->params['adminpass'])) {
+            $base_dn = isset($this->params['basedn']) ? ',' . $this->params['basedn'] : '';
+            $dn = 'cn=' . $this->params['adminuser'] . ',cn=internal' . $base_dn;
+            $ldap_data = array(
+                'cn' => array('manager'),
+                'sn' => array('n/a'),
+                'uid' => array('manager'),
+                'userPassword' => array($this->params['adminpass']),
+                'objectClass' => array('top','inetOrgPerson','kolabInetOrgPerson')
+            );
+            $this->_data[$dn] = array(
+                'dn' => $dn,
+                'data' => $ldap_data
+            );
+        }
+
+        $this->store();
     }
 
     
