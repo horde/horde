@@ -58,18 +58,30 @@ case 'ListEvents':
     $end   = new Horde_Date(Util::getFormData('end'));
     $cal   = Util::getFormData('cal');
     list($driver, $calendar) = explode('|', $cal);
-    $kronolith_driver = Kronolith::getDriver($driver, $calendar);
     switch ($driver) {
-    case 'Ical':
-        $kronolith_driver->setParam('timeout', 15);
-        break;
-    case '':
+    case 'internal':
         if (!array_key_exists($calendar,
                               Kronolith::listCalendars(false, PERMS_READ))) {
             $notification->push(_("Permission Denied"), 'horde.error');
             $result = false;
             break 2;
         }
+        $driver = '';
+        break;
+    case 'external':
+        $driver = 'Horde';
+        break;
+    case 'remote':
+        $driver = 'Ical';
+        break;
+    case 'holiday':
+        $driver = 'Holiday';
+        break;
+    }
+    $kronolith_driver = Kronolith::getDriver($driver, $calendar);
+    switch ($driver) {
+    case 'Ical':
+        $kronolith_driver->setParam('timeout', 15);
         break;
     }
     $events = $kronolith_driver->listEvents($start, $end, true, false, true);

@@ -21,7 +21,7 @@ KronolithCore = {
 
     view: '',
     calendars: [],
-    ecache: {},
+    ecache: $H(),
     efifo: {},
     eventsLoading: $H(),
     date: new Date(),
@@ -485,7 +485,7 @@ KronolithCore = {
                 shared++;
                 div = $('kronolithSharedCalendars');
             }
-            div.appendChild(new Element('DIV', { 'class': cal.value.show ? 'kronolithCalOn' : 'kronolithCalOff' }).setStyle({ backgroundColor: cal.value.bg, color: cal.value.fg }).update(cal.value.name));
+            div.appendChild(new Element('DIV', { 'calendar': cal.key, 'calendarClass': 'internal', 'class': cal.value.show ? 'kronolithCalOn' : 'kronolithCalOff' }).setStyle({ backgroundColor: cal.value.bg, color: cal.value.fg }).update(cal.value.name));
         });
         if (my) {
             $('kronolithMyCalendars').show();
@@ -499,7 +499,7 @@ KronolithCore = {
         }
 
         remote.each(function(cal) {
-            $('kronolithRemoteCalendars').appendChild(new Element('DIV', { 'class': cal.value.show ? 'kronolithCalOn' : 'kronolithCalOff' }).setStyle({ backgroundColor: cal.value.bg, color: cal.value.fg }).update(cal.value.name));
+            $('kronolithRemoteCalendars').appendChild(new Element('DIV', { 'calendar': cal.key, 'calendarClass': 'remote', 'class': cal.value.show ? 'kronolithCalOn' : 'kronolithCalOff' }).setStyle({ backgroundColor: cal.value.bg, color: cal.value.fg }).update(cal.value.name));
         });
         if (remote.size()) {
             $('kronolithRemoteCalendars').show();
@@ -519,23 +519,9 @@ KronolithCore = {
         }
         calendars = $H(calendars);
         calendars.each(function(type) {
-            switch (type.key) {
-            case 'internal':
-                driver = '';
-                break;
-            case 'external':
-                driver = 'Horde';
-                break;
-            case 'remote':
-                driver = 'Ical';
-                break;
-            case 'holiday':
-                driver = 'Holiday';
-                break;
-            }
             $H(type.value).each(function(cal) {
                 if (cal.value.show) {
-                    calendar = driver + '|' + cal.key;
+                    calendar = type.key + '|' + cal.key;
                     this.eventsLoading[calendar] = start + end;
                     this.doAction('ListEvents', { start: start, end: end, cal: calendar }, callback);
                 }
@@ -558,9 +544,10 @@ KronolithCore = {
         }
 
         if (r.response.events) {
+            this._storeCache(r.response.events, r.response.cal);
             $H(r.response.events).each(function(date) {
                 $H(date.value).each(function(event) {
-                    div = new Element('DIV', { 'class': 'kronolithEvent', 'style': 'background-color:' + event.value.bg + ';color:' + event.value.fg, 'calendar': event.value.c });
+                    div = new Element('DIV', { 'id' : 'kronolithEventM' + event.key, 'class': 'kronolithEvent', 'style': 'background-color:' + event.value.bg + ';color:' + event.value.fg, 'calendar': event.value.c });
                     div.setText(event.value.t)
                         .observe('mouseover', div.addClassName.curry('kronolithSelected'))
                         .observe('mouseout', div.removeClassName.curry('kronolithSelected'));
@@ -582,6 +569,20 @@ KronolithCore = {
     parseDate: function(date)
     {
         return new Date(date.substr(0, 4), date.substr(4, 2) - 1, date.substr(6, 2));
+    },
+
+    _storeCache: function(events, calendar)
+    {
+        if (typeof calendar == 'string') {
+            calendar = calendar.split('|');
+        }
+        if (!this.ecache[calendar[0]]) {
+            this.ecache[calendar[0]] = $H();
+        }
+        if (!this.ecache[calendar[0]][calendar[1]]) {
+            this.ecache[calendar[0]][calendar[1]] = $H();
+        }
+        this.ecache[calendar[0]][calendar[1]] = this.ecache[calendar[0]][calendar[1]].merge(events);
     },
 
     _addHistory: function(loc, data)
@@ -647,7 +648,7 @@ KronolithCore = {
 
         var elt = e.element(),
             orig = e.element(),
-            id, tmp;
+            id, tmp, calendar, calendarClass;
 
         if (this.alertrequest) {
             this.alertsFade(this.alertrequest);
@@ -687,13 +688,6 @@ KronolithCore = {
             //case 'kronolithNavTasks':
             //case 'kronolithNavAgenda':
                 this.go(id.substring(12).toLowerCase());
-                e.stop();
-                return;
-
-            case 'kronolithMenu':
-                if (orig.match('div.kronolithCalendars div')) {
-                    this.toggleCalendar(orig);
-                }
                 e.stop();
                 return;
 
@@ -759,6 +753,18 @@ KronolithCore = {
             case 'hordeAlerts':
                 this.alertsFade(elt);
                 break;
+            }
+
+            calClass = elt.readAttribute('calendarClass');
+            if (calClass) {
+                var calendar = elt.readAttribute('calendar');
+                this.ecache[calClass][calendar].each(function(day) {
+                    $H(day.value).each(function(event) {
+                        $('kronolithEventM' + event.key).toggle();
+                    });
+                });
+                elt.toggleClassName('kronolithCalOn');
+                elt.toggleClassName('kronolithCalOff');
             }
 
             elt = elt.up();
