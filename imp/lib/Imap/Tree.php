@@ -207,7 +207,7 @@ class IMP_Imap_Tree
         if (is_null(self::$_instance)) {
             if (!empty($_SESSION['imp']['cache']['tree'])) {
                 $imp_cache = IMP::getCache();
-                self::$_instance = unserialize($imp_cache->get($_SESSION['imp']['cache']['tree'], 86400));
+                unserialize($imp_cache->get($_SESSION['imp']['cache']['tree'], 86400));
             }
             if (empty(self::$_instance)) {
                 self::$_instance = new IMP_Imap_Tree();
@@ -252,7 +252,7 @@ class IMP_Imap_Tree
      * Do cleanup prior to serialization and provide a list of variables
      * to serialize.
      */
-    function __sleep()
+    public function __sleep()
     {
         /* Don't store $_expanded and $_poll - these values are handled
          * by the subclasses.
@@ -268,13 +268,21 @@ class IMP_Imap_Tree
         $this->_changed = false;
         $this->_trackdiff = true;
 
-        return array_keys(get_class_vars(__CLASS__));
+        return array_keys(array_diff(get_class_vars(__CLASS__), array('_instance')));
+    }
+
+    /**
+     * Do tasks on unserialization.
+     */
+    public function __wakeup()
+    {
+        self::$_instance = $this;
     }
 
     /**
      * Store a serialized version of ourself in the current session.
      */
-    function __destruct()
+    public function __destruct()
     {
         /* We only need to store the object if using Horde_Cache and the tree
          * has changed. */
