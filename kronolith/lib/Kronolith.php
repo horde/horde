@@ -1954,6 +1954,9 @@ class Kronolith
                 break;
 
             case 'Holidays':
+                if (empty($GLOBALS['conf']['holidays']['enable'])) {
+                    return PEAR::raiseError(_("Holidays are disabled"));
+                }
                 $params['language'] = $GLOBALS['language'];
                 break;
             }
