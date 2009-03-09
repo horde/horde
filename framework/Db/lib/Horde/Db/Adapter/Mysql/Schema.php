@@ -72,7 +72,7 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Abstract_Schema
     public function nativeDatabaseTypes()
     {
         return array(
-            'primaryKey' => 'int(11) DEFAULT NULL auto_increment PRIMARY KEY',
+            'primaryKey' => 'int(10) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY',
             'string'     => array('name' => 'varchar',  'limit' => 255),
             'text'       => array('name' => 'text',     'limit' => null),
             'integer'    => array('name' => 'int',      'limit' => 11),

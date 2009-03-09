@@ -9,6 +9,9 @@
 /**
  * Horde Inflector class.
  *
+ * @TODO add the locale-bubbling pattern from
+ * Horde_Date_Parser/Horde_Support_Numerizer
+ *
  * @category   Horde
  * @package    Support
  * @copyright  2007-2009 The Horde Project (http://www.horde.org/)
@@ -144,7 +147,7 @@ class Horde_Support_Inflector {
      */
     public function pluralize($word)
     {
-        if ($plural = $this->_getCache($word, 'pluralize')) {
+        if ($plural = $this->getCache($word, 'pluralize')) {
             return $plural;
         }
 
@@ -155,11 +158,11 @@ class Horde_Support_Inflector {
         foreach ($this->_pluralizationRules as $regexp => $replacement) {
             $plural = preg_replace($regexp, $replacement, $word, -1, $matches);
             if ($matches > 0) {
-                return $this->_cache($word, 'pluralize', $plural);
+                return $this->setCache($word, 'pluralize', $plural);
             }
         }
 
-        return $this->_cache($word, 'pluralize', $word);
+        return $this->setCache($word, 'pluralize', $word);
     }
 
     /**
@@ -171,7 +174,7 @@ class Horde_Support_Inflector {
      */
     public function singularize($word)
     {
-        if ($singular = $this->_getCache($word, 'singularize')) {
+        if ($singular = $this->getCache($word, 'singularize')) {
             return $singular;
         }
 
@@ -182,11 +185,11 @@ class Horde_Support_Inflector {
         foreach ($this->_singularizationRules as $regexp => $replacement) {
             $singular = preg_replace($regexp, $replacement, $word, -1, $matches);
             if ($matches > 0) {
-                return $this->_cache($word, 'singularize', $singular);
+                return $this->setCache($word, 'singularize', $singular);
             }
         }
 
-        return $this->_cache($word, 'singularize', $word);
+        return $this->setCache($word, 'singularize', $word);
     }
 
     /**
@@ -200,7 +203,7 @@ class Horde_Support_Inflector {
      */
     public function camelize($word, $firstLetter = 'upper')
     {
-        if ($camelized = $this->_getCache($word, 'camelize' . $firstLetter)) {
+        if ($camelized = $this->getCache($word, 'camelize' . $firstLetter)) {
             return $camelized;
         }
 
@@ -226,7 +229,176 @@ class Horde_Support_Inflector {
             $camelized = implode('/', $parts);
         }
 
-        return $this->_cache($word, 'camelize' . $firstLetter, $camelized);
+        return $this->setCache($word, 'camelize' . $firstLetter, $camelized);
+    }
+
+    /**
+     * Capitalizes all the words and replaces some characters in the string to create
+     * a nicer looking title. Titleize is meant for creating pretty output.
+     *
+     * See:
+     *   http://daringfireball.net/2008/05/title_case
+     *   http://daringfireball.net/2008/08/title_case_update
+     *
+     * Examples
+     *   titleize("man from the boondocks") #=> "Man From The Boondocks"
+     *   titleize("x-men: the last stand")  #=> "X Men: The Last Stand"
+     */
+    public function titleize($word)
+    {
+        throw new Exception('not implemented yet');
+    }
+
+    /**
+     * The reverse of +camelize+. Makes an underscored form from the expression in the string.
+     *
+     * Examples
+     *   underscore("ActiveRecord")        #=> "active_record"
+     *   underscore("ActiveRecord_Errors") #=> active_record_errors
+     */
+    public function underscore($camelCasedWord)
+    {
+        $word = $camelCasedWord;
+        if ($result = $this->getCache($word, 'underscore')) {
+            return $result;
+        }
+        $result = strtolower(preg_replace('/([a-z])([A-Z])/', "\${1}_\${2}", $word));
+        return $this->setCache($word, 'underscore', $result);
+    }
+
+    /**
+     * Replaces underscores with dashes in the string.
+     *
+     * Example
+     *   dasherize("puni_puni") #=> "puni-puni"
+     */
+    public function dasherize($underscoredWord)
+    {
+        if ($result = $this->getCache($underscoredWord, 'dasherize')) {
+            return $result;
+        }
+
+        $result = str_replace('_', '-', $this->underscore($underscoredWord));
+        return $this->setCache($underscoredWord, 'dasherize', $result);
+    }
+
+    /**
+     * Capitalizes the first word and turns underscores into spaces and strips _id.
+     * Like titleize, this is meant for creating pretty output.
+     *
+     * Examples
+     *   humanize("employee_salary") #=> "Employee salary"
+     *   humanize("author_id")       #=> "Author"
+     */
+    public function humanize($lowerCaseAndUnderscoredWord)
+    {
+        $word = $lowerCaseAndUnderscoredWord;
+        if ($result = $this->getCache($word, 'humanize')) {
+            return $result;
+        }
+
+        $result = ucfirst(str_replace('_', ' ', $this->underscore($word)));
+        if (substr($result, -3, 3) == ' id') {
+            $result = str_replace(' id', '', $result);
+        }
+        return $this->setCache($word, 'humanize', $result);
+    }
+
+    /**
+     * Removes the module part from the expression in the string
+     *
+     * Examples
+     *   demodulize("Fax_Job") #=> "Job"
+     *   demodulize("User")    #=> "User"
+     */
+    public function demodulize($classNameInModule)
+    {
+        $result = explode('_', $classNameInModule);
+        return array_pop($result);
+    }
+
+    /**
+     * Create the name of a table like Rails does for models to table
+     * names. This method uses the pluralize method on the last word in the
+     * string.
+     *
+     * Examples
+     *   tableize("RawScaledScorer") #=> "raw_scaled_scorers"
+     *   tableize("egg_and_ham")     #=> "egg_and_hams"
+     *   tableize("fancyCategory")   #=> "fancy_categories"
+     */
+    public function tableize($className)
+    {
+        if ($result = $this->getCache($className, 'tableize')) {
+            return $result;
+        }
+
+        $result = $this->pluralize($this->underscore($className));
+        $result = str_replace('/', '_', $result);
+        return $this->setCache($className, 'tableize', $result);
+    }
+
+    /**
+     * Create a class name from a table name like Rails does for table names to
+     * models.
+     *
+     * Examples
+     *   classify("egg_and_hams") #=> "EggAndHam"
+     *   classify("post")         #=> "Post"
+     */
+    public function classify($tableName)
+    {
+        if ($result = $this->getCache($tableName, 'classify')) {
+            return $result;
+        }
+        $result = $this->camelize($this->singularize($tableName));
+
+        // classes use underscores instead of slashes for namespaces
+        $result = str_replace('/', '_', $result);
+        return $this->setCache($tableName, 'classify', $result);
+    }
+
+    /**
+     * Creates a foreign key name from a class name.
+     * +separate_class_name_and_id_with_underscore+ sets whether
+     * the method should put '_' between the name and 'id'.
+     *
+     * Examples
+     *   foreignKey("Message")        #=> "message_id"
+     *   foreignKey("Message", false) #=> "messageid"
+     *   foreignKey("Fax_Job")        #=> "fax_job_id"
+     */
+    public function foreignKey($className, $separateClassNameAndIdWithUnderscore=true)
+    {
+        throw new Exception('not implemented yet');
+    }
+
+    /**
+     * Ordinalize turns a number into an ordinal string used to denote the
+     * position in an ordered sequence such as 1st, 2nd, 3rd, 4th.
+     *
+     * Examples
+     *   ordinalize(1)     # => "1st"
+     *   ordinalize(2)     # => "2nd"
+     *   ordinalize(1002)  # => "1002nd"
+     *   ordinalize(1003)  # => "1003rd"
+     */
+    public function ordinalize($number)
+    {
+        throw new Exception('not implemented yet');
+    }
+
+
+    /*##########################################################################
+    # Store the results of the inflections to increase performance
+    ##########################################################################*/
+
+    /**
+     * Clear the inflection cache
+     */
+    public function clearCache()
+    {
+        $this->_cache = array();
     }
 
     /**
@@ -234,7 +406,7 @@ class Horde_Support_Inflector {
      *
      * @return string | false
      */
-    protected function _getCache($word, $rule)
+    public function getCache($word, $rule)
     {
         return isset($this->_cache[$word . '|' . $rule]) ?
             $this->_cache[$word . '|' . $rule] : false;
@@ -249,18 +421,10 @@ class Horde_Support_Inflector {
      *
      * @return string The inflected value
      */
-    protected function _cache($word, $rule, $value)
+    public function setCache($word, $rule, $value)
     {
         $this->_cache[$word . '|' . $rule] = $value;
         return $value;
-    }
-
-    /**
-     * Clear the inflection cache
-     */
-    public function clearCache()
-    {
-        $this->_cache = array();
     }
 
 }

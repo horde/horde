@@ -113,7 +113,7 @@ class Horde_Mime_Viewer
             return self::$_drivercache[$sig];
         }
 
-        /* Make sure 'horde' mime_drivers config is loaded. */
+        /* Make sure horde config is loaded. */
         if (empty(self::$_config['mime_drivers']['horde'])) {
             $res = Horde::loadConfiguration('mime_drivers.php', array('mime_drivers', 'mime_drivers_map'), 'horde');
             if (is_a($res, 'PEAR_Error')) {
@@ -122,14 +122,14 @@ class Horde_Mime_Viewer
             self::$_config = $res;
         }
 
-        /* Make sure app's' mime_drivers config is loaded. */
+        /* Make sure app's config is loaded. There is no requirement that
+         * an app have a separate config, so ignore any errors. */
         if (($app != 'horde') && empty(self::$_config['mime_drivers'][$app])) {
             $res = Horde::loadConfiguration('mime_drivers.php', array('mime_drivers', 'mime_drivers_map'), $app);
-            if (is_a($res, 'PEAR_Error')) {
-                return false;
+            if (!is_a($res, 'PEAR_Error')) {
+                require_once 'Horde/Array.php';
+                self::$_config = Horde_Array::array_merge_recursive_overwrite(self::$_config, $res);
             }
-            require_once 'Horde/Array.php';
-            self::$_config = Horde_Array::array_merge_recursive_overwrite(self::$_config, $res);
         }
 
         $driver = '';
@@ -221,11 +221,7 @@ class Horde_Mime_Viewer
 
         require_once dirname(__FILE__) . '/Viewer/Driver.php';
 
-        $old_error = error_reporting(0);
-        $ret = require_once $file;
-        error_reporting($old_error);
-
-        return $ret;
+        return require_once $file;
     }
 
     /**

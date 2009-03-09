@@ -13,7 +13,7 @@ require $filedir . '/../../../lib/Horde/Crypt.php';
 $_SERVER['HTTPS'] = 'on';
 $browser = &Browser::singleton();
 
-$pgp = Horde_Crypt::factory('pgp', array(
+$pgp = Horde_Crypt::factory('Pgp', array(
     'program' => '/usr/bin/gpg',
     'temp' => Util::getTempDir()
 ));

@@ -187,7 +187,8 @@ class Horde_Mime
      * @param string $defserver  The default domain to append to mailboxes.
      *
      * @return string  The text, encoded only if it contains non-ASCII
-     *                 characters, or PEAR_Error on error.
+     *                 characters.
+     * @throws Horde_Mime_Exception
      */
     static public function encodeAddress($addresses, $charset = null,
                                          $defserver = null)
@@ -201,9 +202,6 @@ class Horde_Mime
             }
 
             $addresses = Horde_Mime_Address::parseAddressList($addresses, array('defserver' => $defserver, 'nestgroups' => true));
-            if (is_a($addresses, 'PEAR_Error')) {
-                return $addresses;
-            }
         }
 
         $text = '';
@@ -315,6 +313,7 @@ class Horde_Mime
      *                            to.
      *
      * @return string  The decoded text.
+     * @throw Horde_Mime_Exception
      */
     static public function decodeAddrString($string, $to_charset = null)
     {
@@ -336,11 +335,18 @@ class Horde_Mime
      * @param string $name     The parameter name.
      * @param string $val      The parameter value.
      * @param string $charset  The charset the text should be encoded with.
-     * @param string $lang     The language to use when encoding.
+     * @param array $opts      Additional options:
+     * <pre>
+     * 'escape' - (boolean) If true, escape param values as described in
+     *            RFC 2045 [Appendix A].
+     *            DEFAULT: false
+     * 'lang' - (string) The language to use when encoding.
+     *          DEFAULT: None specified
+     * </pre>
      *
      * @return array  The encoded parameter string.
      */
-    static public function encodeParam($name, $val, $charset, $lang = null)
+    static public function encodeParam($name, $val, $charset, $opts = array())
     {
         $encode = $wrap = false;
         $output = array();
@@ -350,7 +356,7 @@ class Horde_Mime
         $pre_len = strlen($name) + 2;
 
         if (self::is8bit($val, $charset)) {
-            $string = String::lower($charset) . '\'' . (is_null($lang) ? '' : String::lower($lang)) . '\'' . rawurlencode($val);
+            $string = String::lower($charset) . '\'' . (empty($opts['lang']) ? '' : String::lower($opts['lang'])) . '\'' . rawurlencode($val);
             $encode = true;
             /* Account for trailing '*'. */
             ++$pre_len;
@@ -389,17 +395,30 @@ class Horde_Mime
             $output[$name . (($wrap) ? ('*' . $i) : '') . (($encode) ? '*' : '')] = $line;
         }
 
-        return (self::$brokenRFC2231 && !isset($output[$name]))
-            ? array_merge(array($name => self::encode($val, $charset)), $output)
-            : $output;
+        if (self::$brokenRFC2231 && !isset($output[$name])) {
+            $output = array_merge(array($name => self::encode($val, $charset)), $output);
+        }
+
+        /* Escape certain characters in params (See RFC 2045 [Appendix A]. */
+        if (!empty($opts['escape'])) {
+            foreach (array_keys($output) as $key) {
+                if (strcspn($output[$key], "\11\40\"(),/:;<=>?@[\\]") != strlen($output[$key])) {
+                    $output[$key] = '"' . addcslashes($output[$key], '\\"') . '"';
+                }
+            }
+        }
+
+        return $output;
     }
 
     /**
      * Decodes a MIME parameter string pursuant to RFC 2183 & 2231
      * (Content-Type and Content-Disposition headers).
      *
-     * @param string $string   The full header to decode (including the header
-     *                         name).
+     * @param string $type     Either 'Content-Type' or 'Content-Disposition'
+     *                         (case-insensitive).
+     * @param mixed $data      The text of the header or an array of
+     *                         param name => param values.
      * @param string $charset  The charset the text should be decoded to.
      *                         Defaults to system charset.
      *
@@ -409,25 +428,34 @@ class Horde_Mime
      * 'val' - (string) The header's "base" value.
      * </pre>
      */
-    static public function decodeParam($string, $charset = null)
+    static public function decodeParam($type, $data, $charset = null)
     {
         $convert = array();
         $ret = array('params' => array(), 'val' => '');
 
-        /* Give $string a bogus body part or else decode() will complain. */
-        require_once 'Mail/mimeDecode.php';
-        $mime_decode = new Mail_mimeDecode($string . "\n\nA");
-        $res = $mime_decode->decode();
-
-        /* Are we dealing with content-type or content-disposition? */
-        if (isset($res->disposition)) {
-            $ret['val'] = $res->disposition;
-            $params = isset($res->d_parameters) ? $res->d_parameters : array();
-        } elseif (isset($res->ctype_primary)) {
-            $ret['val'] = $res->ctype_primary . '/' . $res->ctype_secondary;
-            $params = isset($res->ctype_parameters) ? $res->ctype_parameters : array();
+        if (is_array($data)) {
+            // Use dummy base values
+            $ret['val'] = (String::lower($type) == 'content-type')
+                ? 'text/plain'
+                : 'attachment';
+            $params = $data;
         } else {
-            return $ret;
+            /* Give $string a bogus body part or else decode() will
+             * complain. */
+            require_once 'Mail/mimeDecode.php';
+            $mime_decode = new Mail_mimeDecode($type . ': ' . $data . "\n\nA");
+            $res = $mime_decode->decode();
+
+            /* Are we dealing with content-type or content-disposition? */
+            if (isset($res->disposition)) {
+                $ret['val'] = $res->disposition;
+                $params = isset($res->d_parameters) ? $res->d_parameters : array();
+            } elseif (isset($res->ctype_primary)) {
+                $ret['val'] = $res->ctype_primary . '/' . $res->ctype_secondary;
+                $params = isset($res->ctype_parameters) ? $res->ctype_parameters : array();
+            } else {
+                return $ret;
+            }
         }
 
         /* Sort the params list. Prevents us from having to manually keep
@@ -436,18 +464,23 @@ class Horde_Mime
 
         foreach ($params as $name => $val) {
             /* Asterisk at end indicates encoded value. */
-            if (($encode = substr($name, -1)) == '*') {
+            if (substr($name, -1) == '*') {
                 $name = substr($name, 0, -1);
+                $encode = true;
+            } else {
+                $encode = false;
             }
 
             /* This asterisk indicates continuation parameter. */
-            if (($pos = strrpos($name, '*')) === false) {
+            if (($pos = strrpos($name, '*')) !== false) {
                 $name = substr($name, 0, $pos);
             }
 
-            if (!isset($ret['params'][$name])) {
+            if (!isset($ret['params'][$name]) ||
+                ($encode && !isset($convert[$name]))) {
                 $ret['params'][$name] = '';
             }
+
             $ret['params'][$name] .= $val;
 
             if ($encode) {
@@ -463,6 +496,16 @@ class Horde_Mime
             $quote = strpos($val, "'", $quote + 1);
             substr($val, $quote + 1);
             $ret['params'][$name] = String::convertCharset(urldecode(substr($val, $quote + 1)), $orig_charset, $charset);
+        }
+
+        /* MIME parameters are supposed to be encoded via RFC 2231, but many
+         * mailers do RFC 2045 encoding instead. However, if we see at least
+         * one RFC 2231 encoding, then assume the sending mailer knew what
+         * it was doing. */
+        if (empty($convert)) {
+            foreach (array_diff(array_keys($ret['params']), array_keys($convert)) as $name) {
+                $ret['params'][$name] = self::decode($ret['params'][$name]);
+            }
         }
 
         return $ret;

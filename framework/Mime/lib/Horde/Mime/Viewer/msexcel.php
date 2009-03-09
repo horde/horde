@@ -1,7 +1,7 @@
 <?php
 /**
  * The Horde_Mime_Viewer_msexcel class renders out Microsoft Excel
- * documents in HTML format by using the xlHtml package.
+ * documents in HTML format by using the Gnumeric package.
  *
  * Copyright 1999-2009 The Horde Project (http://www.horde.org/)
  *
@@ -39,20 +39,17 @@ class Horde_Mime_Viewer_msexcel extends Horde_Mime_Viewer_Driver
             return array();
         }
 
-        $data = '';
         $tmp_xls = Horde::getTempFile('horde_msexcel');
+        $tmp_out = Horde::getTempFile('horde_msexcel');
 
         file_put_contents($tmp_xls, $this->_mimepart->getContents());
+        $args = ' -E Gnumeric_Excel:excel_dsf -T Gnumeric_html:html40 ' . $tmp_xls . ' ' . $tmp_out;
 
-        $fh = popen($this->_conf['location'] . " -nh $tmp_xls 2>&1", 'r');
-        while (($rc = fgets($fh, 8192))) {
-            $data .= $rc;
-        }
-        pclose($fh);
+        exec($this->_conf['location'] . $args);
 
         return array(
             $this->_mimepart->getMimeId() => array(
-                'data' => $data,
+                'data' => file_get_contents($tmp_out),
                 'status' => array(),
                 'type' => 'text/html; charset=' . NLS::getCharset()
             )

@@ -28,11 +28,9 @@ class Horde_Feed_BlogrollTest extends PHPUnit_Framework_TestCase
         foreach ($feed as $entry) {
             break;
         }
+
         $this->assertType('Horde_Feed_Entry_Blogroll', $entry);
         $this->assertGreaterThan(0, strlen($entry->text));
-        $this->assertGreaterThan(0, strlen($entry->description));
-        $this->assertGreaterThan(0, strlen($entry->title));
-        $this->assertGreaterThan(0, strlen($entry->htmlUrl));
         $this->assertGreaterThan(0, strlen($entry->xmlUrl));
 
         $this->assertEquals($entry->text, $entry['text']);
@@ -42,10 +40,19 @@ class Horde_Feed_BlogrollTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($entry->xmlUrl, $entry['xmlUrl']);
     }
 
+    public function testGroupedBlogrolls()
+    {
+        $this->markTestSkipped();
+        $feed = Horde_Feed::readFile($this->_feedDir . 'MySubscriptionsGrouped.opml');
+    }
+
     public static function getValidBlogrollTests()
     {
         return array(
+            array('BlogRollTestSample1.xml'),
+            array('BlogRollTestSample2.xml'),
             array('MySubscriptions.opml'),
+            array('MySubscriptionsGrouped.opml'),
         );
     }
 

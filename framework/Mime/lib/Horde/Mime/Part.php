@@ -1023,63 +1023,6 @@ class Horde_Mime_Part
     }
 
     /**
-     * Split the contents of the current Part into its respective subparts,
-     * if it is multipart MIME encoding.
-     *
-     * The boundary Content-Type parameter must be set for this function to
-     * work correctly.
-     *
-     * @return boolean  True if the contents were successfully split.
-     *                  False if any error occurred.
-     */
-    public function splitContents()
-    {
-        if ((!($boundary = $this->getContentTypeParameter('boundary'))) ||
-            !strlen($this->_contents)) {
-            return false;
-        }
-
-        $eol = $this->getEOL();
-        $retvalue = false;
-
-        $boundary = '--' . $boundary;
-        if (substr($this->_contents, 0, strlen($boundary)) == $boundary) {
-            $pos1 = 0;
-        } else {
-            $pos1 = strpos($this->_contents, $eol . $boundary);
-            if ($pos1 === false) {
-                return false;
-            }
-        }
-
-        $pos1 = strpos($this->_contents, $eol, $pos1 + 1);
-        if ($pos1 === false) {
-            return false;
-        }
-        $pos1 += strlen($eol);
-
-        reset($this->_parts);
-        $part_ptr = key($this->_parts);
-
-        while ($pos2 = strpos($this->_contents, $eol . $boundary, $pos1)) {
-            $this->_parts[$part_ptr]->setContents(substr($this->_contents, $pos1, $pos2 - $pos1));
-            $this->_parts[$part_ptr]->splitContents();
-            next($this->_parts);
-            $part_ptr = key($this->_parts);
-            if (is_null($part_ptr)) {
-                return false;
-            }
-            $pos1 = strpos($this->_contents, $eol, $pos2 + 1);
-            if ($pos1 === false) {
-                return true;
-            }
-            $pos1 += strlen($eol);
-        }
-
-        return true;
-    }
-
-    /**
      * Replace newlines in this part's contents with those specified by either
      * the given newline sequence or the part's current EOL setting.
      *
@@ -1304,7 +1247,7 @@ class Horde_Mime_Part
      * @param array $params                 Any parameters necessary for the
      *                                      Mail driver.
      *
-     * @return mixed  True on success, PEAR_Error on error.
+     * @throws Horde_Mime_Exception
      */
     public function send($email, $headers, $driver, $params = array())
     {
@@ -1362,7 +1305,8 @@ class Horde_Mime_Part
             } else {
                 $userinfo = $result->toString();
             }
-            return PEAR::raiseError($error, null, null, null, $userinfo);
+            // TODO: userinfo
+            throw new Horde_Mime_Exception($error);
         }
 
         return $result;
@@ -1475,12 +1419,9 @@ class Horde_Mime_Part
         if (isset($data['disposition'])) {
             $ob->setDisposition($data['disposition']);
             if (!empty($data['dparameters'])) {
-                foreach ($data['dparameters'] as $key => $val) {
-                    /* Disposition parameters are supposed to be encoded via
-                     * RFC 2231, but many mailers do RFC 2045 encoding
-                     * instead. */
-                    // @todo: RFC 2231 decoding
-                    $ob->setDispositionParameter($key, Horde_Mime::decode($val));
+                $params = Horde_Mime::decodeParam('content-disposition', $data['dparameters']);
+                foreach ($params['params'] as $key => $val) {
+                    $ob->setDispositionParameter($key, $val);
                 }
             }
         }
@@ -1494,11 +1435,9 @@ class Horde_Mime_Part
         }
 
         if (!empty($data['parameters'])) {
-            foreach ($data['parameters'] as $key => $val) {
-                /* Content-type parameters are supposed to be encoded via RFC
-                 * 2231, but many mailers do RFC 2045 encoding instead. */
-                // @todo: RFC 2231 decoding
-                $ob->setContentTypeParameter($key, Horde_Mime::decode($val));
+            $params = Horde_Mime::decodeParam('content-type', $data['parameters']);
+            foreach ($params['params'] as $key => $val) {
+                $ob->setContentTypeParameter($key, $val);
             }
         }
 
@@ -1515,7 +1454,10 @@ class Horde_Mime_Part
 
         /* Set the name. */
         if (!$ob->getName()) {
-            $ob->setName($ob->getDispositionParameter('filename'));
+            $fname = $ob->getDispositionParameter('filename');
+            if (strlen($fname)) {
+                $ob->setName($fname);
+            }
         }
 
         // @todo Handle language, location, md5, lines, envelope
@@ -1538,9 +1480,16 @@ class Horde_Mime_Part
      * This function can be called statically via:
      *    $mime_part = Horde_Mime_Part::parseMessage();
      *
-     * @param string $text  The text of the MIME message.
+     * @param string $text    The text of the MIME message.
+     * @param array $options  Additional options:
+     * <pre>
+     * 'structure' - (boolean) If true, returns a structure object instead of
+     *               a Horde_Mime_Part object.
+     * </pre>
      *
-     * @return Horde_Mime_Part  A Horde_Mime_Part object, or false on error.
+     * @return mixed  If 'structure' is true, a structure array. If 'structure'
+     *                is false, a Horde_Mime_Part object.
+     * @throws Horde_Mime_Exception
      */
     static public function parseMessage($text, $options = array())
     {
@@ -1554,15 +1503,19 @@ class Horde_Mime_Part
         require_once 'Mail/mimeDecode.php';
         $mimeDecode = new Mail_mimeDecode($text, Horde_Mime_Part::EOL);
         if (!($ob = $mimeDecode->decode($decode_args))) {
-            return false;
+            throw new Horde_Mime_Exception('Could not decode MIME message.');
         }
 
-        return self::parseStructure(self::_convertMimeDecodeData($ob), $options);
+        $ob = self::_convertMimeDecodeData($ob);
+
+        return empty($options['structure'])
+            ? self::parseStructure($ob)
+            : $ob;
     }
 
     /**
      * Convert the output from Mail_mimeDecode::decode() into a structure that
-     * parse() can handle.
+     * parseStructure() can handle.
      *
      * @param stdClass $ob  The output from Mail_mimeDecode::decode().
      *
@@ -1645,6 +1598,106 @@ class Horde_Mime_Part
         }
 
         return $part;
+    }
+
+    /**
+     * Attempts to obtain the raw text of a MIME part.
+     * This function can be called statically via:
+     *    $data = Horde_Mime_Part::getRawPartText();
+     *
+     * @param string $text  The full text of the MIME message.
+     * @param string $type  Either 'header' or 'body'.
+     * @param string $id    The MIME ID.
+     *
+     * @return string  The raw text.
+     * @throws Horde_Mime_Exception
+     */
+    static public function getRawPartText($text, $type, $id)
+    {
+        return self::_getRawPartText($text, $type, $id, null);
+    }
+
+    /**
+     * Obtain the raw text of a MIME part.
+     *
+     * @param string $text      The full text of the MIME message.
+     * @param string $type      Either 'header' or 'body'.
+     * @param string $id        The MIME ID.
+     * @param string $boundary  The boundary string.
+     *
+     * @return string  The raw text.
+     * @throws Horde_Mime_Exception
+     */
+    static protected function _getRawPartText($text, $type, $id,
+                                              $boundary = null)
+    {
+        /* We need to carry around the trailing "\n" because this is needed
+         * to correctly find the boundary string. */
+        $hdr_pos = strpos($text, "\n\n");
+        if ($hdr_pos === false) {
+            $hdr_pos = strpos($text, "\r\n\r\n");
+            $curr_pos = $hdr_pos + 3;
+        } else {
+            $curr_pos = $hdr_pos + 1;
+        }
+
+        if ($id == 0) {
+            switch ($type) {
+            case 'body':
+                if (is_null($boundary)) {
+                    return substr($text, $curr_pos + 1);
+                }
+                $end_boundary = strpos($text, "\n--" . $boundary, $curr_pos);
+                if ($end_boundary === false) {
+                    throw new Horde_Mime_Exception('Could not find MIME part.');
+                }
+                return substr($text, $curr_pos + 1, $end_boundary - $curr_pos);
+
+            case 'header':
+                return trim(substr($text, 0, $hdr_pos));
+            }
+        }
+
+        $base_pos = strpos($id, '.');
+        if ($base_pos !== false) {
+            $base_pos = substr($id, 0, $base_pos);
+            $id = substr($id, $base_pos + 1);
+        } else {
+            $base_pos = $id;
+            $id = 0;
+        }
+
+        $hdr_ob = Horde_Mime_Headers::parseHeaders(trim(substr($text, 0, $hdr_pos)));
+        $params = Horde_Mime::decodeParam('content-type', $hdr_ob->getValue('Content-Type'));
+        if (!isset($params['params']['boundary'])) {
+            throw new Horde_Mime_Exception('Could not find MIME part.');
+        }
+
+        $search = "\n--" . $params['params']['boundary'];
+        $search_len = strlen($search);
+
+        for ($i = 0; $i < $base_pos; ++$i) {
+            $new_pos = strpos($text, $search, $curr_pos);
+            if ($new_pos !== false) {
+                $curr_pos = $new_pos + $search_len;
+                if (isset($text[$curr_pos + 1])) {
+                    switch ($text[$curr_pos + 1]) {
+                    case "\r":
+                        ++$curr_pos;
+                        break;
+
+                    case "\n":
+                        // noop
+                        break;
+
+                    case '-':
+                        throw new Horde_Mime_Exception('Could not find MIME part.');
+                    }
+                }
+            }
+        }
+
+        return self::_getRawPartText(substr($text, $curr_pos), $type, $id, $params['params']['boundary']);
     }
 
 }

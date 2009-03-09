@@ -31,7 +31,9 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>alpha</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Add support for decoding IDN (RFC 3490) names (Request #5836).
+ <notes> * Use Gnumeric to display MS Excel documents.
+ * Use AbiWord to display MS Word documents (Request #8011).
+ * Add support for decoding IDN (RFC 3490) names (Request #5836).
  * Initial package.</notes>
  <contents>
   <dir name="/">
@@ -87,6 +89,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
        <file name="zip.php" role="php" />
       </dir> <!-- /lib/Horde/Mime/Viewer -->
       <file name="Address.php" role="php" />
+      <file name="Exception.php" role="php" />
       <file name="Headers.php" role="php" />
       <file name="Magic.php" role="php" />
       <file name="Mail.php" role="php" />
@@ -123,6 +126,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <min>1.5.0</min>
    </pearinstaller>
    <package>
+    <name>Horde_Framework</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
     <name>Mail_mimeDecode</name>
     <channel>pear.php.net</channel>
    </package>
@@ -149,10 +156,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
    </package>
    <package>
     <name>Horde_Compress</name>
-    <channel>pear.horde.org</channel>
-   </package>
-   <package>
-    <name>Horde_Framework</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
@@ -220,6 +223,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Mime/Viewer/wordperfect.php" as="Horde/Mime/Viewer/wordperfect.php" />
    <install name="lib/Horde/Mime/Viewer/zip.php" as="Horde/Mime/Viewer/zip.php" />
    <install name="lib/Horde/Mime/Address.php" as="Horde/Mime/Address.php" />
+   <install name="lib/Horde/Mime/Exception.php" as="Horde/Mime/Exception.php" />
    <install name="lib/Horde/Mime/Headers.php" as="Horde/Mime/Headers.php" />
    <install name="lib/Horde/Mime/Mdn.php" as="Horde/Mime/Mdn.php" />
    <install name="lib/Horde/Mime/Magic.php" as="Horde/Mime/Magic.php" />

@@ -7,7 +7,7 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author   Michael Slusarz <slusarz@curecanti.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
  * @package  Horde_Imap_Client
  */
@@ -52,6 +52,9 @@ class Horde_Imap_Client_Exception extends Exception
 
     // Thrown if the cache has become invalid.
     const CACHEUIDINVALID = 11;
+
+    // Thrown if server denies the network connection.
+    const SERVER_CONNECT = 12;
 
     /**
      * Define a callback function used to log the exception. Will be passed

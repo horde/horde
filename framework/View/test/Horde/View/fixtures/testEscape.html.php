@@ -1,0 +1,1 @@
+<div>test <?= $this->h($this->myVar) ?> quotes</div>

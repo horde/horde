@@ -4,6 +4,8 @@
  * 1939) via the PHP imap (c-client) module.  This driver is an abstraction
  * layer allowing POP3 commands to be used based on its IMAP equivalents.
  *
+ * Caching is not supported in this driver.
+ *
  * PHP IMAP module: http://www.php.net/imap
  *
  * No additional paramaters from those defined in Horde_Imap_Client_Cclient.
@@ -13,7 +15,7 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author   Michael Slusarz <slusarz@curecanti.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
  * @package  Horde_Imap_Client
  */
@@ -27,10 +29,14 @@ class Horde_Imap_Client_Cclient_Pop3 extends Horde_Imap_Client_Cclient
     public function __construct($params)
     {
         $this->_service = 'pop3';
-        if (!isset($params['port'])) {
+        if (empty($params['port'])) {
             $params['port'] = ($params['secure'] == 'ssl') ? 995 : 110;
         }
+
         parent::__construct($params);
+
+        // Disable caching.
+        $this->_params['cache'] = array('fields' => array());
     }
 
     /**
@@ -40,7 +46,7 @@ class Horde_Imap_Client_Cclient_Pop3 extends Horde_Imap_Client_Cclient
      */
     protected function _capability()
     {
-        throw new Horde_Imap_Client_Exception('IMAP CAPABILITY command not supported on POP3 servers.', Horde_Imap_Client_Exception::POP3_NOTSUPPORTED);
+        throw new Horde_Imap_Client_Exception('CAPABILITY command not supported in this POP3 driver.', Horde_Imap_Client_Exception::POP3_NOTSUPPORTED);
     }
 
     /**
@@ -167,18 +173,6 @@ class Horde_Imap_Client_Cclient_Pop3 extends Horde_Imap_Client_Cclient
     }
 
     /**
-     * Unsubscribe to a mailbox.
-     *
-     * @param string $mailbox  The mailbox to unsubscribe to (UTF7-IMAP).
-     *
-     * @throws Horde_Imap_Client_Exception
-     */
-    protected function _unsubscribeMailbox($mailbox)
-    {
-        throw new Horde_Imap_Client_Exception('Mailboxes other than INBOX not supported on POP3 servers.', Horde_Imap_Client_Exception::POP3_NOTSUPPORTED);
-    }
-
-    /**
      * Obtain a list of mailboxes matching a pattern.
      *
      * @param string $pattern  The mailbox search pattern.
@@ -214,14 +208,14 @@ class Horde_Imap_Client_Cclient_Pop3 extends Horde_Imap_Client_Cclient
      */
     protected function _status($mailbox, $flags)
     {
-        if (strcasecmp($mailbox, 'INBOX') !== 0) {
-            throw new Horde_Imap_Client_Exception('Mailboxes other than INBOX not supported on POP3 servers.', Horde_Imap_Client_Exception::POP3_NOTSUPPORTED);
-        }
+        $this->openMailbox($mailbox);
 
         // This driver only supports the base flags given by c-client.
         if (($flags & Horde_Imap_Client::STATUS_FIRSTUNSEEN) ||
             ($flags & Horde_Imap_Client::STATUS_FLAGS) ||
-            ($flags & Horde_Imap_Client::STATUS_PERMFLAGS)) {
+            ($flags & Horde_Imap_Client::STATUS_PERMFLAGS) ||
+            ($flags & Horde_Imap_Client::STATUS_HIGHESTMODSEQ) ||
+            ($flags & Horde_Imap_Client::STATUS_UIDNOTSTICKY)) {
             throw new Horde_Imap_Client_Exception('Improper status request on POP3 server.', Horde_Imap_Client_Exception::POP3_NOTSUPPORTED);
         }
 
@@ -349,7 +343,28 @@ class Horde_Imap_Client_Cclient_Pop3 extends Horde_Imap_Client_Cclient
      */
     protected function _store($options)
     {
-        throw new Horde_Imap_Client_Exception('Flagging messages not supported on POP3 servers.', Horde_Imap_Client_Exception::POP3_NOTSUPPORTED);
+        /* Only support deleting/undeleting messages. */
+        if (isset($options['replace'])) {
+            if (count(array_intersect($options['replace'], array('\\deleted')))) {
+                $options['add'] = array('\\deleted');
+            } else {
+                $options['remove'] = array('\\deleted');
+            }
+            unset($options['replace']);
+        } else {
+            if (!empty($options['add']) &&
+                count(array_intersect($options['add'], array('\\deleted')))) {
+                $options['add'] = array('\\deleted');
+            }
+
+            if (!empty($options['remove']) &&
+                !count(array_intersect($options['remove'], array('\\deleted')))) {
+                $options['add'] = array();
+                $options['remove'] = array('\\deleted');
+            }
+        }
+
+        return parent::_store($options);
     }
 
     /**
