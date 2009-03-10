@@ -250,7 +250,7 @@ class IMP
         }
 
         /* Add the list of mailboxes to the lists. */
-        $filter = empty($options['filter']) ? array() : array_flip($filter);
+        $filter = empty($options['filter']) ? array() : array_flip($options['filter']);
         foreach ($mailboxes as $mbox) {
             if (isset($filter[$mbox['val']])) {
                 continue;
