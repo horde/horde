@@ -701,10 +701,11 @@ abstract class Horde_Imap_Client_Base
 
         $this->_deleteMailbox($mailbox);
 
-        /* Delete mailbox cache. */
+        /* Delete mailbox caches. */
         if ($this->_initCache()) {
             $this->_cache->deleteMailbox($mailbox);
         }
+        unset($this->_temp['statuscache'][$mailbox]);
 
         /* Unsubscribe from mailbox. */
         try {
@@ -743,10 +744,11 @@ abstract class Horde_Imap_Client_Base
 
         $this->_renameMailbox($old, $new);
 
-        /* Delete mailbox cache. */
+        /* Delete mailbox caches. */
         if ($this->_initCache()) {
             $this->_cache->deleteMailbox($old);
         }
+        unset($this->_temp['statuscache'][$old]);
 
         /* Clean up subscription information. */
         try {
@@ -1043,6 +1045,8 @@ abstract class Horde_Imap_Client_Base
         $mailbox = Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($mailbox);
 
         $ret = $this->_append($mailbox, $data, $options);
+        unset($this->_temp['statuscache'][$mailbox]);
+
         if (is_array($ret)) {
             return $ret;
         }
