@@ -807,7 +807,7 @@ var ViewPort = Class.create({
             if (add) {
                 r.bg.push(flag);
             } else {
-                r.bg.without(flag);
+                r.bg = r.bg.without(flag);
             }
             if (filter) {
                 this._updateFlag(this.createSelection('uid', r.vp_id, r.view), flag, add);
