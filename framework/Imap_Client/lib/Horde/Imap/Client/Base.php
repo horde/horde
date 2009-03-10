@@ -943,7 +943,7 @@ abstract class Horde_Imap_Client_Base
         }
 
         $mailbox = Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($mailbox);
-        $curr_mbox = ($this->currentMailbox() == $mailbox);
+        $curr_mbox = ($this->_selected == $mailbox);
         $ret = array();
 
         /* Check for cached information. */
@@ -971,7 +971,7 @@ abstract class Horde_Imap_Client_Base
 
         $ret = array_merge($ret, $this->_status($mailbox, $flags));
 
-        if ($this->currentMailbox() != $mailbox) {
+        if ($this->_selected != $mailbox) {
             if (!isset($this->_temp['statuscache'])) {
                 $this->_temp['statuscache'] = array();
             }
