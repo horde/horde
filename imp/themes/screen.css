@@ -1,4 +1,7 @@
 /* Message list table styles. */
+.searchfolder a.smallheader {
+    display: block;
+}
 .messageList {
     table-layout: fixed;
     width: 100%;
