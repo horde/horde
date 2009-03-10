@@ -90,15 +90,28 @@ class IMP_Horde_Mime_Viewer_Related extends Horde_Mime_Viewer_Driver
             return array();
         }
 
-
         $render = $this->_params['contents']->renderMIMEPart($id, $inline ? IMP_Contents::RENDER_INLINE : IMP_Contents::RENDER_FULL, array('params' => array_merge($this->_params, array('related_id' => $id, 'related_cids' => $cids))));
 
         if (!$inline) {
             return $render;
         }
 
+        $data_id = null;
         foreach (array_keys($render) as $val) {
             $ret[$val] = $render[$val];
+            if ($ret[$val]) {
+                $data_id = $val;
+            }
+        }
+
+        /* We want the inline display to show multipart/related vs. the
+         * viewable MIME part.  This is because a multipart/related part is
+         * not downloadable and clicking on the MIME part may not produce the
+         * desired result in the full display (i.e. HTML parts with related
+         * images). */
+        if (!is_null($data_id) && ($data_id !== $related_id)) {
+            $ret[$related_id] = $ret[$data_id];
+            $ret[$data_id] = null;
         }
 
         return $ret;
