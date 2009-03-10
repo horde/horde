@@ -21,10 +21,20 @@ class IMP_Horde_Mime_Viewer_Alternative extends Horde_Mime_Viewer_Driver
     protected $_capability = array(
         'embedded' => false,
         'forceinline' => true,
-        'full' => false,
+        'full' => true,
         'info' => false,
         'inline' => true,
     );
+
+    /**
+     * Return the full rendered version of the Horde_Mime_Part object.
+     *
+     * @return array  See Horde_Mime_Viewer_Driver::render().
+     */
+    protected function _render()
+    {
+        return $this->_IMPrender(false);
+    }
 
     /**
      * Return the rendered inline version of the Horde_Mime_Part object.
@@ -32,6 +42,18 @@ class IMP_Horde_Mime_Viewer_Alternative extends Horde_Mime_Viewer_Driver
      * @return array  See Horde_Mime_Viewer_Driver::render().
      */
     protected function _renderInline()
+    {
+        return $this->_IMPrender(true);
+    }
+
+    /**
+     * Render out the currently set contents.
+     *
+     * @param boolean $inline  Are we viewing inline?
+     *
+     * @return array  See Horde_Mime_Viewer_Driver::render().
+     */
+    protected function _IMPrender($inline)
     {
         $base_id = $this->_mimepart->getMimeId();
         $subparts = $this->_mimepart->contentTypeMap();
@@ -47,7 +69,7 @@ class IMP_Horde_Mime_Viewer_Alternative extends Horde_Mime_Viewer_Driver
         foreach (array_keys($subparts) as $mime_id) {
             $ret[$mime_id] = null;
             if ((strcmp($base_id, $mime_id) !== 0) &&
-                $this->_params['contents']->canDisplay($mime_id, IMP_Contents::RENDER_INLINE)) {
+                $this->_params['contents']->canDisplay($mime_id, $inline ? IMP_Contents::RENDER_INLINE : IMP_Contents::RENDER_FULL)) {
                 $display_ids[strval($mime_id)] = true;
             }
         }
@@ -83,7 +105,7 @@ class IMP_Horde_Mime_Viewer_Alternative extends Horde_Mime_Viewer_Driver
         $render_part = $this->_mimepart->getPart($disp_id);
         foreach (array_keys($render_part->contentTypeMap()) as $val) {
             if (isset($display_ids[$val])) {
-                $render = $this->_params['contents']->renderMIMEPart($val, IMP_Contents::RENDER_INLINE, array('params' => $this->_params));
+                $render = $this->_params['contents']->renderMIMEPart($val, $inline ? IMP_Contents::RENDER_INLINE : IMP_Contents::RENDER_FULL, array('params' => $this->_params));
                 foreach (array_keys($render) as $id) {
                     $ret[$id] = $render[$id];
                     unset($display_ids[$id]);
@@ -91,6 +113,8 @@ class IMP_Horde_Mime_Viewer_Alternative extends Horde_Mime_Viewer_Driver
             }
         }
 
-        return $ret;
+        return $inline
+            ? $ret
+            : (isset($ret[$id]) ? array($base_id => $ret[$id]) : null);
     }
 }
