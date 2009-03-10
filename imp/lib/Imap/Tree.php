@@ -821,8 +821,8 @@ class IMP_Imap_Tree
              $this->isVFolder($this->_tree[$search_id]))) {
             if (!$vfolder_base) {
                 $id = $search_id;
-
             }
+
             $parent = $this->_tree[$id]['p'];
             unset($this->_tree[$id]);
 
@@ -852,6 +852,13 @@ class IMP_Imap_Tree
         $this->_changed = true;
 
         $elt = &$this->_tree[$id];
+
+        /* Delete the entry from the folder list cache(s). */
+        foreach (array('_subscribed', '_fulllist') as $var) {
+            if (!is_null($this->$var)) {
+                $this->$var = array_values(array_diff($this->$var, array($id)));
+            }
+        }
 
         /* Do not delete from tree if there are child elements - instead,
          * convert to a container element. */

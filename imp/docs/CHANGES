@@ -62,6 +62,7 @@ v4.3.4-cvs
 
 [mms] SECURITY: Don't cache local PGP public keys retrieved from the
       addressbook (found by Peter Meier <peter.meier@immerda.ch>).
+[mms] Fix cache issues in folder tree when deleting a mailbox (Bug #7745).
 [mms] Fix updating POP3 indices when deleting in mailbox view (Bug #8035).
 [jan] If updating a calendar event fails, try to import it instead (Bug #7589).
 [mms] Fix [un]escaping of various URLs on message screen caused by security
