@@ -1,6 +1,6 @@
 <?php
 /**
- * The IMP_Horde_Mime_Viewer_smil renders SMIL documents to very basic HTML.
+ * The IMP_Horde_Mime_Viewer_Smil renders SMIL documents to very basic HTML.
  *
  * Copyright 2006-2009 The Horde Project (http://www.horde.org/)
  *
@@ -11,7 +11,7 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package Horde_Mime
  */
-class IMP_Horde_Mime_Viewer_smil extends Horde_Mime_Viewer_smil
+class IMP_Horde_Mime_Viewer_Smil extends Horde_Mime_Viewer_Smil
 {
     /**
      * User-defined function callback for start elements.

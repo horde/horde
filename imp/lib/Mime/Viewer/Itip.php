@@ -1,6 +1,6 @@
 <?php
 /**
- * The IMP_Horde_Mime_Viewer_itip class displays vCalendar/iCalendar data
+ * The IMP_Horde_Mime_Viewer_Itip class displays vCalendar/iCalendar data
  * and provides an option to import the data into a calendar source,
  * if one is available.
  *
@@ -13,7 +13,7 @@
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
  * @package Horde_Mime
  */
-class IMP_Horde_Mime_Viewer_itip extends Horde_Mime_Viewer_Driver
+class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
 {
     /**
      * Can this driver render various views?

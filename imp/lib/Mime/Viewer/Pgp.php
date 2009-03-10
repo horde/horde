@@ -1,6 +1,6 @@
 <?php
 /**
- * The IMP_Horde_Mime_Viewer_pgp class allows viewing/decrypting of PGP
+ * The IMP_Horde_Mime_Viewer_Pgp class allows viewing/decrypting of PGP
  * formatted messages.  This class implements RFC 3156.
  *
  * This class handles the following MIME types:
@@ -20,7 +20,7 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package Horde_Mime
  */
-class IMP_Horde_Mime_Viewer_pgp extends Horde_Mime_Viewer_Driver
+class IMP_Horde_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Driver
 {
     /**
      * Can this driver render various views?

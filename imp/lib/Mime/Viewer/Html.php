@@ -1,6 +1,6 @@
 <?php
 /**
- * The IMP_Horde_Mime_Viewer_html class renders out HTML text with an effort
+ * The IMP_Horde_Mime_Viewer_Html class renders out HTML text with an effort
  * to remove potentially malicious code.
  *
  * Copyright 1999-2009 The Horde Project (http://www.horde.org/)
@@ -13,7 +13,7 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package Horde_Mime
  */
-class IMP_Horde_Mime_Viewer_html extends Horde_Mime_Viewer_html
+class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
 {
     /**
      * Cached block image.

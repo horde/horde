@@ -1,6 +1,6 @@
 <?php
 /**
- * The IMP_Horde_Mime_Viewer_zip class renders out the contents of ZIP files
+ * The IMP_Horde_Mime_Viewer_Zip class renders out the contents of ZIP files
  * in HTML format and allows downloading of extractable files.
  *
  * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
@@ -12,7 +12,7 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package Horde_Mime
  */
-class IMP_Horde_Mime_Viewer_zip extends Horde_Mime_Viewer_zip
+class IMP_Horde_Mime_Viewer_Zip extends Horde_Mime_Viewer_Zip
 {
     /**
      * Return the full rendered version of the Horde_Mime_Part object.

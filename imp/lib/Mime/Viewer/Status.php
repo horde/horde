@@ -1,6 +1,6 @@
 <?php
 /**
- * The IMP_Horde_Mime_Viewer_status class handles multipart/report messages
+ * The IMP_Horde_Mime_Viewer_Status class handles multipart/report messages
  * that refer to mail system administrative messages (RFC 3464).
  *
  * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
@@ -11,7 +11,7 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package Horde_Mime
  */
-class IMP_Horde_Mime_Viewer_status extends Horde_Mime_Viewer_Driver
+class IMP_Horde_Mime_Viewer_Status extends Horde_Mime_Viewer_Driver
 {
     /**
      * Can this driver render various views?

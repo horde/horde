@@ -1,6 +1,6 @@
 <?php
 /**
- * The IMP_Horde_Mime_Viewer_related class handles multipart/related
+ * The IMP_Horde_Mime_Viewer_Related class handles multipart/related
  * (RFC 2387) messages.
  *
  * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
@@ -11,7 +11,7 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package Horde_Mime
  */
-class IMP_Horde_Mime_Viewer_related extends Horde_Mime_Viewer_Driver
+class IMP_Horde_Mime_Viewer_Related extends Horde_Mime_Viewer_Driver
 {
     /**
      * Can this driver render various views?

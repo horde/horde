@@ -1,6 +1,6 @@
 <?php
 /**
- * The IMP_Horde_Mime_Viewer_tnef class allows MS-TNEF attachments to be
+ * The IMP_Horde_Mime_Viewer_Tnef class allows MS-TNEF attachments to be
  * displayed.
  *
  * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
@@ -11,7 +11,7 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package Horde_Mime
  */
-class IMP_Horde_Mime_Viewer_tnef extends Horde_Mime_Viewer_tnef
+class IMP_Horde_Mime_Viewer_Tnef extends Horde_Mime_Viewer_Tnef
 {
     /**
      * Can this driver render various views?

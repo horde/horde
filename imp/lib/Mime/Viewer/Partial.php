@@ -1,6 +1,6 @@
 <?php
 /**
- * The IMP_Horde_Mime_Viewer_partial class allows message/partial messages
+ * The IMP_Horde_Mime_Viewer_Partial class allows message/partial messages
  * to be displayed (RFC 2046 [5.2.2]).
  *
  * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
@@ -11,7 +11,7 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package Horde_Mime
  */
-class IMP_Horde_Mime_Viewer_partial extends Horde_Mime_Viewer_Driver
+class IMP_Horde_Mime_Viewer_Partial extends Horde_Mime_Viewer_Driver
 {
     /**
      * Can this driver render various views?

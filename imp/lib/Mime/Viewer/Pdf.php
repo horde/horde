@@ -1,6 +1,6 @@
 <?php
 /**
- * The IMP_Horde_Mime_Viewer_pdf class enables generation of thumbnails for
+ * The IMP_Horde_Mime_Viewer_Pdf class enables generation of thumbnails for
  * PDF attachments.
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
@@ -11,7 +11,7 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package Horde_Mime_Viewer
  */
-class IMP_Horde_Mime_Viewer_pdf extends Horde_Mime_Viewer_pdf
+class IMP_Horde_Mime_Viewer_Pdf extends Horde_Mime_Viewer_Pdf
 {
     /**
      * Can this driver render various views?

@@ -1,6 +1,6 @@
 <?php
 /**
- * The IMP_Horde_Mime_Viewer_plain class renders out text/plain MIME parts
+ * The IMP_Horde_Mime_Viewer_Plain class renders out text/plain MIME parts
  * with URLs made into hyperlinks.
  *
  * Copyright 1999-2009 The Horde Project (http://www.horde.org/)
@@ -12,7 +12,7 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package Horde_Mime_Viewer
  */
-class IMP_Horde_Mime_Viewer_plain extends Horde_Mime_Viewer_plain
+class IMP_Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
 {
     /**
      * Return the rendered inline version of the Horde_Mime_Part object.

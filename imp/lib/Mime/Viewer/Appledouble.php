@@ -1,6 +1,6 @@
 <?php
 /**
- * The IMP_Horde_Mime_Viewer_appledouble class handles multipart/appledouble
+ * The IMP_Horde_Mime_Viewer_Appledouble class handles multipart/appledouble
  * messages conforming to RFC 1740.
  *
  * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
@@ -11,7 +11,7 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package Horde_Mime
  */
-class IMP_Horde_Mime_Viewer_appledouble extends Horde_Mime_Viewer_Driver
+class IMP_Horde_Mime_Viewer_Appledouble extends Horde_Mime_Viewer_Driver
 {
     /**
      * This driver's capabilities.

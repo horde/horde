@@ -1,6 +1,6 @@
 <?php
 /**
- * The IMP_Horde_Mime_Viewer_images class allows display of images attached
+ * The IMP_Horde_Mime_Viewer_Images class allows display of images attached
  * to a message.
  *
  * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
@@ -11,7 +11,7 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package Horde_Mime
  */
-class IMP_Horde_Mime_Viewer_images extends Horde_Mime_Viewer_images
+class IMP_Horde_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
 {
     /**
      * Can this driver render various views?

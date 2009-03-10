@@ -1,6 +1,6 @@
 <?php
 /**
- * The IMP_Horde_Mime_Viewer_mdn class handles multipart/report messages that
+ * The IMP_Horde_Mime_Viewer_Mdn class handles multipart/report messages that
  * that refer to message disposition notification (MDN) messages (RFC 3798).
  *
  * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
@@ -11,7 +11,7 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package Horde_Mime
  */
-class IMP_Horde_Mime_Viewer_mdn extends Horde_Mime_Viewer_Driver
+class IMP_Horde_Mime_Viewer_Mdn extends Horde_Mime_Viewer_Driver
 {
     /**
      * Can this driver render various views?

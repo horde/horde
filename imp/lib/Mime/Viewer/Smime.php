@@ -1,6 +1,6 @@
 <?php
 /**
- * The IMP_Horde_Mime_Viewer_smime class allows viewing/decrypting of S/MIME
+ * The IMP_Horde_Mime_Viewer_Smime class allows viewing/decrypting of S/MIME
  * messages.
  * This class implements parts of RFC 2630, RFC 2632, and RFC 2633.
  *
@@ -23,7 +23,7 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package Horde_Mime_Viewer
  */
-class IMP_Horde_Mime_Viewer_smime extends Horde_Mime_Viewer_Driver
+class IMP_Horde_Mime_Viewer_Smime extends Horde_Mime_Viewer_Driver
 {
     /**
      * Can this driver render various views?

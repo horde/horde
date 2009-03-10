@@ -1,6 +1,6 @@
 <?php
 /**
- * The IMP_Horde_Mime_Viewer_alternative class renders out messages from
+ * The IMP_Horde_Mime_Viewer_Alternative class renders out messages from
  * multipart/alternative content types (RFC 2046 [5.1.4]).
  *
  * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
@@ -11,7 +11,7 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package Horde_Mime
  */
-class IMP_Horde_Mime_Viewer_alternative extends Horde_Mime_Viewer_Driver
+class IMP_Horde_Mime_Viewer_Alternative extends Horde_Mime_Viewer_Driver
 {
     /**
      * Can this driver render various views?
