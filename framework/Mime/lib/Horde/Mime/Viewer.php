@@ -127,7 +127,6 @@ class Horde_Mime_Viewer
         if (($app != 'horde') && empty(self::$_config['mime_drivers'][$app])) {
             $res = Horde::loadConfiguration('mime_drivers.php', array('mime_drivers', 'mime_drivers_map'), $app);
             if (!is_a($res, 'PEAR_Error')) {
-                require_once 'Horde/Array.php';
                 self::$_config = Horde_Array::array_merge_recursive_overwrite(self::$_config, $res);
             }
         }
@@ -215,11 +214,11 @@ class Horde_Mime_Viewer
     static final protected function _resolveDriver($driver = 'default',
                                                    $app = 'horde')
     {
+        $driver = ucfirst($driver);
+
         $file = ($app == 'horde')
             ? dirname(__FILE__) . '/Viewer/' . $driver . '.php'
             : $GLOBALS['registry']->applications[$app]['fileroot'] . '/lib/Mime/Viewer/' . $driver . '.php';
-
-        require_once dirname(__FILE__) . '/Viewer/Driver.php';
 
         return require_once $file;
     }
