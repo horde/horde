@@ -170,11 +170,11 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
          * mailto: links, links that have an "#xyz" anchor and ignore
          * all links that already have a target. */
         $data = preg_replace(
-            array('/<a\s([^>]*\s*href=["\']?(#|mailto:))/i',
-                  '/<a\s([^>]*)\s*target=["\']?[^>"\'\s]*["\']?/i',
+            array('/<a\s([^>]*\s+href=["\']?(#|mailto:))/i',
+                  '/<a\s([^>]*)\s+target=["\']?[^>"\'\s]*["\']?/i',
                   '/<a\s/i',
-                  '/<area\s([^>]*\s*href=["\']?(#|mailto:))/i',
-                  '/<area\s([^>]*)\s*target=["\']?[^>"\'\s]*["\']?/i',
+                  '/<area\s([^>]*\s+href=["\']?(#|mailto:))/i',
+                  '/<area\s([^>]*)\s+target=["\']?[^>"\'\s]*["\']?/i',
                   '/<area\s/i',
                   "/\x01/",
                   "/\x02/"),
