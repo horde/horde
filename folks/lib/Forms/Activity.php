@@ -12,6 +12,8 @@
  */
 class Folks_Activity_Form extends Horde_Form {
 
+    /**
+     */
     function __construct($vars, $title, $name)
     {
         parent::__construct($vars, $title, $name);
@@ -25,6 +27,8 @@ class Folks_Activity_Form extends Horde_Form {
         $this->setButtons(_("Post"));
     }
 
+    /**
+     */
     function execute()
     {
         $message = trim(strip_tags($this->_vars->get('activity')));
@@ -47,6 +51,49 @@ class Folks_Activity_Form extends Horde_Form {
 
         $message = Text_Filter::filter(trim($message), $filters, $filters_params);
 
-        return $GLOBALS['folks_driver']->logActivity($message, 'folks:custom');
+        $result = $GLOBALS['folks_driver']->logActivity($message, 'folks:custom');
+        if ($result instanceof PEAR_Error) {
+            return $result;
+        }
+
+        if ($conf['facebook']['enabled']) {
+            $message = trim(strip_tags($this->_vars->get('activity')));
+            register_shutdown_function(array(&$this, '_facebook'), $message);
+        }
+
+        return true;
+    }
+
+    /**
+     */
+    public function _facebook($message)
+    {
+        global $conf, $prefs;
+
+        // Check FB installation
+        if (!$conf['facebook']['enabled']) {
+            return true;
+        }
+
+        // Chacke FB user config
+        $fbp = unserialize($prefs->getValue('facebook'));
+        if (!$fbp || empty($fbp['uid'])) {
+            return true;
+        }
+
+        // Load FB
+        $context = array('http_client' => new Horde_Http_Client(),
+                         'http_request' => new Horde_Controller_Request_Http());
+        $facebook = new Horde_Service_Facebook($conf['facebook']['key'],
+                                               $conf['facebook']['secret'],
+                                               $context);
+
+        $facebook->auth->setUser($fbp['uid'], $fbp['sid'], 0);
+
+        try {
+            $facebook->users->setStatus($message);
+        } catch (Horde_Service_Facebook_Exception $e) {
+            // Do noting as we are exiting
+        }
     }
 }
