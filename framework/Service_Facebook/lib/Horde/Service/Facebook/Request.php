@@ -90,7 +90,7 @@ class Horde_Service_Facebook_Request
         // json encode them, as per the new Facebook API guidlines.
         // http://www.facebook.com/developers/message.php#msg_351
         foreach ($params as &$param) {
-            if (is_array($parm)) {
+            if (is_array($param)) {
                 $param = json_endcode($param);
             }
         }
