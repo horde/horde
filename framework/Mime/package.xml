@@ -170,17 +170,17 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/Mime/Viewer/ooo/common.xsl" as="Horde/Mime/Viewer/ooo/common.xsl" />
-   <install name="lib/Horde/Mime/Viewer/ooo/global_document.xsl" as="Horde/Mime/Viewer/ooo/global_document.xsl" />
-   <install name="lib/Horde/Mime/Viewer/ooo/main_html.xsl" as="Horde/Mime/Viewer/ooo/main_html.xsl" />
-   <install name="lib/Horde/Mime/Viewer/ooo/palm.xsl" as="Horde/Mime/Viewer/ooo/palm.xsl" />
-   <install name="lib/Horde/Mime/Viewer/ooo/style_header.xsl" as="Horde/Mime/Viewer/ooo/style_header.xsl" />
-   <install name="lib/Horde/Mime/Viewer/ooo/style_inlined.xsl" as="Horde/Mime/Viewer/ooo/style_inlined.xsl" />
-   <install name="lib/Horde/Mime/Viewer/ooo/style_mapping.xsl" as="Horde/Mime/Viewer/ooo/style_mapping.xsl" />
-   <install name="lib/Horde/Mime/Viewer/ooo/table.xsl" as="Horde/Mime/Viewer/ooo/table.xsl" />
-   <install name="lib/Horde/Mime/Viewer/ooo/table_cells.xsl" as="Horde/Mime/Viewer/ooo/table_cells.xsl" />
-   <install name="lib/Horde/Mime/Viewer/ooo/table_columns.xsl" as="Horde/Mime/Viewer/ooo/table_columns.xsl" />
-   <install name="lib/Horde/Mime/Viewer/ooo/table_rows.xsl" as="Horde/Mime/Viewer/ooo/table_rows.xsl" />
+   <install name="lib/Horde/Mime/Viewer/Ooo/common.xsl" as="Horde/Mime/Viewer/Ooo/common.xsl" />
+   <install name="lib/Horde/Mime/Viewer/Ooo/global_document.xsl" as="Horde/Mime/Viewer/Ooo/global_document.xsl" />
+   <install name="lib/Horde/Mime/Viewer/Ooo/main_html.xsl" as="Horde/Mime/Viewer/Ooo/main_html.xsl" />
+   <install name="lib/Horde/Mime/Viewer/Ooo/palm.xsl" as="Horde/Mime/Viewer/Ooo/palm.xsl" />
+   <install name="lib/Horde/Mime/Viewer/Ooo/style_header.xsl" as="Horde/Mime/Viewer/Ooo/style_header.xsl" />
+   <install name="lib/Horde/Mime/Viewer/Ooo/style_inlined.xsl" as="Horde/Mime/Viewer/Ooo/style_inlined.xsl" />
+   <install name="lib/Horde/Mime/Viewer/Ooo/style_mapping.xsl" as="Horde/Mime/Viewer/Ooo/style_mapping.xsl" />
+   <install name="lib/Horde/Mime/Viewer/Ooo/table.xsl" as="Horde/Mime/Viewer/Ooo/table.xsl" />
+   <install name="lib/Horde/Mime/Viewer/Ooo/table_cells.xsl" as="Horde/Mime/Viewer/Ooo/table_cells.xsl" />
+   <install name="lib/Horde/Mime/Viewer/Ooo/table_columns.xsl" as="Horde/Mime/Viewer/Ooo/table_columns.xsl" />
+   <install name="lib/Horde/Mime/Viewer/Ooo/table_rows.xsl" as="Horde/Mime/Viewer/Ooo/table_rows.xsl" />
    <install name="lib/Horde/Mime/Viewer/Audio.php" as="Horde/Mime/Viewer/Audio.php" />
    <install name="lib/Horde/Mime/Viewer/Css.php" as="Horde/Mime/Viewer/Css.php" />
    <install name="lib/Horde/Mime/Viewer/Deb.php" as="Horde/Mime/Viewer/Deb.php" />
