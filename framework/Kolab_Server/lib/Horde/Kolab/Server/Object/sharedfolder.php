@@ -2,7 +2,6 @@
 /**
  * A shared IMAP folder.
  *
- *
  * PHP version 5
  *
  * @category Kolab
@@ -15,7 +14,6 @@
 /**
  * This class provides methods to deal with shared folders
  * entries for Kolab.
- *
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
@@ -36,14 +34,14 @@ class Horde_Kolab_Server_Object_sharedfolder extends Horde_Kolab_Server_Object
      *
      * @var string
      */
-    var $filter = '(objectClass=kolabSharedFolder)';
+    public static $filter = '(objectClass=kolabSharedFolder)';
 
     /**
      * The attributes supported by this class
      *
      * @var array
      */
-    var $_supported_attributes = array(
+    public $supported_attributes = array(
         KOLAB_ATTR_CN,
         KOLAB_ATTR_DELETED,
         KOLAB_ATTR_FOLDERTYPE,
@@ -58,7 +56,7 @@ class Horde_Kolab_Server_Object_sharedfolder extends Horde_Kolab_Server_Object
      *
      * @var array
      */
-    var $_required_attributes = array(
+    public $required_attributes = array(
         KOLAB_ATTR_CN,
         KOLAB_ATTR_HOMESERVER,
     );
@@ -68,7 +66,7 @@ class Horde_Kolab_Server_Object_sharedfolder extends Horde_Kolab_Server_Object
      *
      * @var array
      */
-    var $_object_classes = array(
+    protected $object_classes = array(
         KOLAB_OC_TOP,
         KOLAB_OC_KOLABSHAREDFOLDER,
     );
@@ -82,7 +80,7 @@ class Horde_Kolab_Server_Object_sharedfolder extends Horde_Kolab_Server_Object
      *
      * @return string|PEAR_Error The ID.
      */
-    function generateId($info)
+    public static function generateId($info)
     {
         return trim($info['cn'], " \t\n\r\0\x0B,");
     }
@@ -94,7 +92,7 @@ class Horde_Kolab_Server_Object_sharedfolder extends Horde_Kolab_Server_Object
      *
      * @return array|PEAR_Error The hash representing this object.
      */
-    function toHash($attrs = null)
+    public function toHash($attrs = null)
     {
         if (!isset($attrs)) {
             $attrs = array(

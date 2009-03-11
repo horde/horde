@@ -126,87 +126,61 @@ class Horde_Kolab_Session
 
         if ($user != 'anonymous') {
             $server = $this->getServer($user, $credentials);
-            if (is_a($server, 'PEAR_Error')) {
-                $this->auth = $server;
-            } else {
-                $this->user_uid = $server->uid;
-                $user_object    = $server->fetch();
+            $this->user_uid = $server->uid;
+            $user_object    = $server->fetch();
 
-                if (is_a($user_object, 'PEAR_Error')) {
-                    $this->auth = $user_object;
-                } else {
-                    if (empty($conf['kolab']['imap']['allow_special_users'])
-                        && !is_a($user_object, 'Horde_Kolab_Server_Object_user')) {
-                        $this->auth = PEAR::raiseError(_('Access to special Kolab users is denied.'));
-                    } else if (isset($conf['kolab']['server']['deny_group'])) {
-                        $dn = $server->gidForMail($conf['kolab']['server']['deny_group']);
-                        if (is_a($dn, 'PEAR_Error')) {
-                            $this->auth = $dn;
-                        } else if (empty($dn)) {
-                            Horde::logMessage('The Kolab configuratin setting $conf[\'kolab\'][\'server\'][\'deny_group\'] holds a non-existing group!',
-                                              __FILE__, __LINE__, PEAR_LOG_WARNING);
-                            $this->auth = true;
-                        } else if (in_array($dn, $user_object->getGroups())) {
-                            $this->auth = PEAR::raiseError(_('You are member of a group that may not login on this server.'));
-                        } else {
-                            $this->auth = true;
-                        }
-                    } else if (isset($conf['kolab']['server']['allow_group'])) {
-                        $dn = $server->gidForMail($conf['kolab']['server']['allow_group']);
-                        if (is_a($dn, 'PEAR_Error')) {
-                            $this->auth = $dn;
-                        } else if (empty($dn)) {
-                            Horde::logMessage('The Kolab configuratin setting $conf[\'kolab\'][\'server\'][\'allow_group\'] holds a non-existing group!',
-                                              __FILE__, __LINE__, PEAR_LOG_WARNING);
-                            $this->auth = true;
-                        } else if (!in_array($dn, $user_object->getGroups())) {
-                            $this->auth = PEAR::raiseError(_('You are no member of a group that may login on this server.'));
-                        } else {
-                            $this->auth = true;
-                        }
-                    } else {
-                        /**
-                         * At this point we can be certain the user is an
-                         * authenticated Kolab user.
-                         */
-                        $this->auth = true;
-                    }
-
-                    if (empty($this->auth) || is_a($this->auth, 'PEAR_Error')) {
-                        return;
-                    }
-
-                    $result = $user_object->get(KOLAB_ATTR_MAIL);
-                    if (!empty($result) && !is_a($result, 'PEAR_Error')) {
-                        $this->user_mail = $result;
-                    }
-
-                    $result = $user_object->get(KOLAB_ATTR_SID);
-                    if (!empty($result) && !is_a($result, 'PEAR_Error')) {
-                        $this->user_id = $result;
-                    }
-
-                    $result = $user_object->get(KOLAB_ATTR_FNLN);
-                    if (!empty($result) && !is_a($result, 'PEAR_Error')) {
-                        $this->user_name = $result;
-                    }
-
-                    $result = $user_object->getServer('imap');
-                    if (!empty($result) && !is_a($result, 'PEAR_Error')) {
-                        $server = explode(':', $result, 2);
-                        if (!empty($server[0])) {
-                            $this->_imap_params['hostspec'] = $server[0];
-                        }
-                        if (!empty($server[1])) {
-                            $this->_imap_params['port'] = $server[1];
-                        }
-                    }
-
-                    $result = $user_object->getServer('freebusy');
-                    if (!empty($result) && !is_a($result, 'PEAR_Error')) {
-                        $this->freebusy_server = $result;
-                    }
+            if (empty($conf['kolab']['imap']['allow_special_users'])
+                && !is_a($user_object, 'Horde_Kolab_Server_Object_user')) {
+                throw new Horde_Kolab_Server_Exception(_('Access to special Kolab users is denied.'));
+            }
+            if (isset($conf['kolab']['server']['deny_group'])) {
+                $dn = $server->gidForMail($conf['kolab']['server']['deny_group']);
+                if (empty($dn)) {
+                    Horde::logMessage('The Kolab configuratin setting $conf[\'kolab\'][\'server\'][\'deny_group\'] holds a non-existing group!',
+                                      __FILE__, __LINE__, PEAR_LOG_WARNING);
+                } else if (in_array($dn, $user_object->getGroups())) {
+                    throw new Horde_Kolab_Server_Exception(_('You are member of a group that may not login on this server.'));
                 }
+            }
+            if (isset($conf['kolab']['server']['allow_group'])) {
+                $dn = $server->gidForMail($conf['kolab']['server']['allow_group']);
+                if (empty($dn)) {
+                    Horde::logMessage('The Kolab configuratin setting $conf[\'kolab\'][\'server\'][\'allow_group\'] holds a non-existing group!',
+                                      __FILE__, __LINE__, PEAR_LOG_WARNING);
+                } else if (!in_array($dn, $user_object->getGroups())) {
+                    throw new Horde_Kolab_Server_Exception(_('You are no member of a group that may login on this server.'));
+                }
+            }
+                
+            $result = $user_object->get(KOLAB_ATTR_MAIL);
+            if (!empty($result) && !is_a($result, 'PEAR_Error')) {
+                $this->user_mail = $result;
+            }
+
+            $result = $user_object->get(KOLAB_ATTR_SID);
+            if (!empty($result) && !is_a($result, 'PEAR_Error')) {
+                $this->user_id = $result;
+            }
+
+            $result = $user_object->get(KOLAB_ATTR_FNLN);
+            if (!empty($result) && !is_a($result, 'PEAR_Error')) {
+                $this->user_name = $result;
+            }
+
+            $result = $user_object->getServer('imap');
+            if (!empty($result) && !is_a($result, 'PEAR_Error')) {
+                $server = explode(':', $result, 2);
+                if (!empty($server[0])) {
+                    $this->_imap_params['hostspec'] = $server[0];
+                }
+                if (!empty($server[1])) {
+                    $this->_imap_params['port'] = $server[1];
+                }
+            }
+
+            $result = $user_object->getServer('freebusy');
+            if (!empty($result) && !is_a($result, 'PEAR_Error')) {
+                $this->freebusy_server = $result;
             }
         }
 

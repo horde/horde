@@ -99,23 +99,6 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
             }
             $world['result']['add'] = true;
             break;
-        case 'adding a user without first name':
-            try {
-                $result = $world['server']->add($this->provideInvalidUserWithoutGivenName());
-                $world['result']['add'] = $result;
-            } catch (Horde_Kolab_Server_Exception $e) {
-                $world['result']['add'] = $e;
-            }
-            break;
-        case 'adding a user without last name':
-            $world['result']['add'] = $world['server']->add($this->provideInvalidUserWithoutLastName());
-            break;
-        case 'adding a user without password':
-            $world['result']['add'] = $world['server']->add($this->provideInvalidUserWithoutPassword());
-            break;
-        case 'adding a user without primary mail':
-            $world['result']['add'] = $world['server']->add($this->provideInvalidUserWithoutMail());
-            break;
         case 'adding a distribution list':
             $world['result']['add'] = $world['server']->add($this->provideDistributionList());
             break;
@@ -285,20 +268,23 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
      *
      * @return Horde_Kolab_Server The empty server.
      */
-    public function &prepareEmptyKolabServer()
+    public function &prepareEmptyKolabServer($type = 'test')
     {
         global $conf;
 
-        $GLOBALS['KOLAB_SERVER_TEST_DATA'] = array();
-
         /** Prepare a Kolab test server */
-        $conf['kolab']['server']['driver']           = 'test';
+        $conf['kolab']['server']['driver']           = $type;
         $conf['kolab']['server']['params']['basedn'] = 'dc=example,dc=org';
+        $conf['kolab']['server']['params']['data']   = array();
+
+        if ($type == 'file') {
+            $conf['kolab']['server']['params']['file'] = Horde::getTempFile('fileTest');
+        }
 
         $server = Horde_Kolab_Server::singleton();
 
         /** Ensure we don't use a connection from older tests */
-        $server->unbind();
+        $server->clean();
 
         /** Clean the server data */
         return $server;
@@ -309,9 +295,9 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
      *
      * @return Horde_Kolab_Server The empty server.
      */
-    public function &prepareBasicServer()
+    public function &prepareBasicServer($type = 'test')
     {
-        $server = $this->prepareEmptyKolabServer();
+        $server = $this->prepareEmptyKolabServer($type);
         $this->prepareUsers($server);
         return $server;
     }
@@ -554,6 +540,11 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
                 'The value for "mail" is missing!'
             ),
         );
+    }
+
+    public function provideServerTypes()
+    {
+        return array(array('test'), array('file'));
     }
 
     /** FIXME: Prefix the stuff bewlow with provide...() */

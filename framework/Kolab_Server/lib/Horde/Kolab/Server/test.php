@@ -29,6 +29,13 @@ class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap
 {
 
     /**
+     * The current database data.
+     *
+     * @var array
+     */
+    private $_data;
+
+    /**
      * Array holding the current result set.
      *
      * @var array
@@ -77,14 +84,51 @@ class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap
      */
     public function __construct($params = array())
     {
+        $this->load();
         if (isset($params['data'])) {
-            $GLOBALS['KOLAB_SERVER_TEST_DATA'] = $params['data'];
+            $this->_data = $params['data'];
         } else {
-            if (!isset($GLOBALS['KOLAB_SERVER_TEST_DATA'])) {
-                $GLOBALS['KOLAB_SERVER_TEST_DATA'] = array();
+            if (!isset($this->_data)) {
+               $this->_data  = array();
             }
         }
+        $this->store();
         parent::__construct($params);
+    }
+
+    
+    /**
+     * Load the current state of the database.
+     *
+     * @return NULL
+     */
+    protected function load()
+    {
+        $this->_data = $GLOBALS['KOLAB_SERVER_TEST_DATA'];
+    }
+
+    /**
+     * Store the current state of the database.
+     *
+     * @return NULL
+     */
+    protected function store()
+    {
+        $GLOBALS['KOLAB_SERVER_TEST_DATA'] = $this->_data;
+    }
+
+    /**
+     * Cleans the current state of the database.
+     *
+     * @return NULL
+     */
+    public function clean()
+    {
+        $this->unbind();
+
+        $GLOBALS['KOLAB_SERVER_TEST_DATA'] = array();
+
+        $this->_data = array();
     }
 
     /**
@@ -116,7 +160,7 @@ class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap
         }
 
         if (!empty($dn)) {
-            if (!isset($GLOBALS['KOLAB_SERVER_TEST_DATA'][$dn])) {
+            if (!isset($this->_data[$dn])) {
                 throw new Horde_Kolab_Server_Exception('User does not exist!');
             }
 
@@ -273,8 +317,7 @@ class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap
             }
             $result = $subtree;
         }
-
-        return $result;
+        return $this->getEntries($result);
     }
 
     /**
@@ -293,7 +336,7 @@ class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap
     {
         if (isset($filter['log'])) {
             $result = array();
-            foreach ($GLOBALS['KOLAB_SERVER_TEST_DATA'] as $element) {
+            foreach ($this->_data as $element) {
                 if (isset($element['data'][$filter['att']])) {
                     switch ($filter['log']) {
                     case '=':
@@ -355,16 +398,16 @@ class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap
                         $dns[] = $entry['dn'];
                     }
                 }
-                $all_dns = array_keys($GLOBALS['KOLAB_SERVER_TEST_DATA']);
+                $all_dns = array_keys($this->_data);
                 $diff    = array_diff($all_dns, $dns);
 
                 $result = array();
                 foreach ($diff as $dn) {
                     if (empty($attributes)) {
-                        $result[] = $GLOBALS['KOLAB_SERVER_TEST_DATA'][$dn];
+                        $result[] = $this->_data[$dn];
                     } else {
-                        $selection = $GLOBALS['KOLAB_SERVER_TEST_DATA'][$dn];
-                        foreach ($GLOBALS['KOLAB_SERVER_TEST_DATA'][$dn]['data']
+                        $selection = $this->_data[$dn];
+                        foreach ($this->_data[$dn]['data']
                                  as $attr => $value) {
                             if (!in_array($attr, $attributes)) {
                                 unset($selection['data'][$attr]);
@@ -396,15 +439,15 @@ class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap
             $result = $this->bind();
         }
 
-        if (!isset($GLOBALS['KOLAB_SERVER_TEST_DATA'][$dn])) {
-            throw new Horde_Kolab_Server_Exception(sprintf("LDAP Error: No such object: %s: No such object",
-                                                           $dn));
+        if (!isset($this->_data[$dn])) {
+            throw new Horde_Kolab_Server_MissingObjectException(sprintf("No such object: %s",
+                                                                        $dn));
         }
         if (empty($attrs)) {
-            return $GLOBALS['KOLAB_SERVER_TEST_DATA'][$dn]['data'];
+            return $this->_data[$dn]['data'];
         } else {
             $result = array();
-            $data   = $GLOBALS['KOLAB_SERVER_TEST_DATA'][$dn]['data'];
+            $data   = $this->_data[$dn]['data'];
 
             foreach ($attrs as $attr) {
                 if (isset($data[$attr])) {
@@ -412,7 +455,6 @@ class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap
                     array_push($result, $attr);
                 }
             }
-            $result['count'] = 1;
             return $result;
         }
     }
@@ -436,13 +478,14 @@ class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap
             if (!is_array($val)) {
                 $val = array($val);
             }
-            $ldap_data[$key] = array_merge(array('count' => count($val)), $val);
+            $ldap_data[$key] = $val;
         }
 
-        $GLOBALS['KOLAB_SERVER_TEST_DATA'][$dn] = array(
+        $this->_data[$dn] = array(
             'dn' => $dn,
             'data' => $ldap_data
         );
+        $this->store();
     }
 
     /**
@@ -472,17 +515,14 @@ class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap
 
             $data = array_keys($this->_current_result[$this->_current_index]['data']);
 
-            $data['count']       = 1;
-            $data['dn']          = array($this->_current_result[$this->_current_index]['dn']);
-            $data['dn']['count'] = 1;
+            $data['dn'] = array($this->_current_result[$this->_current_index]['dn']);
 
             foreach ($this->_current_result[$this->_current_index]['data']
                      as $attr => $value) {
                 if (!is_array($value)) {
                     $value = array($value);
                 }
-                $data[$attr]          = $value;
-                $data[$attr]['count'] = count($value);
+                $data[$attr] = $value;
             }
             $this->_current_index++;
             return $data;
@@ -526,8 +566,7 @@ class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap
     protected function getEntries($result)
     {
         if (is_array($result)) {
-            $data          = array();
-            $data['count'] = count($result);
+            $data = array();
             foreach ($result as $entry) {
                 $t       = $entry['data'];
                 $t['dn'] = $entry['dn'];

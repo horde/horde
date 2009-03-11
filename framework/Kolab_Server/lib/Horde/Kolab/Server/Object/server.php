@@ -2,7 +2,6 @@
 /**
  * The server configuration.
  *
- *
  * PHP version 5
  *
  * @category Kolab
@@ -14,7 +13,6 @@
 
 /**
  * This class provides methods to deal with Kolab server configuration.
- *
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
@@ -35,14 +33,14 @@ class Horde_Kolab_Server_Object_server extends Horde_Kolab_Server_Object
      *
      * @var string
      */
-    var $filter = '(&((k=kolab))(objectclass=kolab))';
+    public static $filter = '(&((k=kolab))(objectclass=kolab))';
 
     /**
      * The attributes supported by this class
      *
      * @var array
      */
-    var $_supported_attributes = array(
+    public $supported_attributes = array(
         KOLAB_ATTR_FBPAST,
     );
 

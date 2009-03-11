@@ -54,8 +54,8 @@ class Horde_Kolab_Server_ldap extends Horde_Kolab_Server
                              'port'           => 389,
                              'version'        => 3,
                              'starttls'       => true,
-                             'binddn'         => '',
-                             'bindpw'         => '',
+                             'uid'            => '',
+                             'password'       => '',
                              'basedn'         => '',
                              'charset'        => '',
                              'options'        => array(),
@@ -65,6 +65,9 @@ class Horde_Kolab_Server_ldap extends Horde_Kolab_Server
         $config = array_merge($base_config, $params);
 
         $this->_base_dn = $config['basedn'];
+
+        $config['binddn'] = $config['uid'];
+        $config['bindpw'] = $config['password'];
 
         $this->_ldap = new Net_LDAP2($config);
 
@@ -166,6 +169,8 @@ class Horde_Kolab_Server_ldap extends Horde_Kolab_Server
      * @return array An array of Kolab objects.
      *
      * @throws Horde_Kolab_Server_Exception
+     *
+     * @todo Sorting
      */
     public function listObjects($type, $params = null)
     {
@@ -197,7 +202,8 @@ class Horde_Kolab_Server_ldap extends Horde_Kolab_Server
         }
 
         if ($sort) {
-/*             $this->sort($result, $sort); */
+            /* FIXME */
+            /*$this->sort($result, $sort); */
         }
 
         if (isset($params['from'])) {
@@ -211,15 +217,6 @@ class Horde_Kolab_Server_ldap extends Horde_Kolab_Server
         } else {
             $to = -1;
         }
-
-/*         $entries = $this->_getDns($result, $from, $to); */
-/*         if (!$entries  && $this->_errno()) { */
-/*             return PEAR::raiseError(sprintf(_("Search failed. Error was: %s"), */
-/*                                             $this->_error())); */
-/*         } */
-/*         if (!$entries) { */
-/*             return false; */
-/*         } */
 
         $entries = array();
         foreach ($result as $entry) {
@@ -236,7 +233,7 @@ class Horde_Kolab_Server_ldap extends Horde_Kolab_Server
             if (!empty($vars['required_group']) && $required_group->isMember($dn)) {
                 continue;
             }
-            $result = $this->fetch($dn, $type);
+            $result    = $this->fetch($dn, $type);
             $objects[] = $result;
         }
         return $objects;
@@ -339,7 +336,7 @@ class Horde_Kolab_Server_ldap extends Horde_Kolab_Server
             $criteria = array('AND' => array($users));
         }
 
-        $filter  = $this->searchQuery($criteria);
+        $filter = $this->searchQuery($criteria);
         return $this->dnForFilter($filter, $restrict);
     }
 
@@ -366,7 +363,7 @@ class Horde_Kolab_Server_ldap extends Horde_Kolab_Server
             $criteria = array('AND' => array($groups));
         }
 
-        $filter  = $this->searchQuery($criteria);
+        $filter = $this->searchQuery($criteria);
         return $this->dnForFilter($filter, $restrict);
     }
 

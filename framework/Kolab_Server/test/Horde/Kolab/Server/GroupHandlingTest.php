@@ -182,6 +182,8 @@ class Horde_Kolab_Server_GroupHandlingTest extends Horde_Kolab_Test_Server
      * Test modifying a group mail address.
      *
      * @scenario
+     *
+     * @return NULL
      */
     public function conflictBetweenGroupMailAndUserMailIsNotAllowed()
     {
@@ -194,6 +196,8 @@ class Horde_Kolab_Server_GroupHandlingTest extends Horde_Kolab_Test_Server
 
     /**
      * @scenario
+     *
+     * @return NULL
      */
     public function conflictBetweenUserMailAndGroupMailIsNotAllowed()
     {

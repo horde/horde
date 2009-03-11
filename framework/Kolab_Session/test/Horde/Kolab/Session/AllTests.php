@@ -1,21 +1,22 @@
 <?php
 /**
- * All tests for the Horde_Kolab_Server:: package.
+ * All tests for the Horde_Kolab_Session:: package.
+ *
  *
  * PHP version 5
  *
  * @category Kolab
- * @package  Kolab_Server
+ * @package  Kolab_Session
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Kolab_Server
+ * @link     http://pear.horde.org/index.php?package=Kolab_Session
  */
 
 /**
  * Define the main method
  */
 if (!defined('PHPUnit_MAIN_METHOD')) {
-    define('PHPUnit_MAIN_METHOD', 'Horde_Kolab_Server_AllTests::main');
+    define('PHPUnit_MAIN_METHOD', 'Horde_Kolab_Session_AllTests::main');
 }
 
 /**
@@ -26,18 +27,19 @@ require_once 'Horde/Autoloader.php';
 /**
  * Combine the tests for this package.
  *
+ *
  * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @category Kolab
- * @package  Kolab_Server
+ * @package  Kolab_Session
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Kolab_Server
+ * @link     http://pear.horde.org/index.php?package=Kolab_Session
  */
-class Horde_Kolab_Server_AllTests
+class Horde_Kolab_Session_AllTests
 {
 
     /**
@@ -57,7 +59,7 @@ class Horde_Kolab_Server_AllTests
      */
     public static function suite()
     {
-        $suite = new PHPUnit_Framework_TestSuite('Horde Framework - Kolab_Server');
+        $suite = new PHPUnit_Framework_TestSuite('Horde Framework - Kolab_Session');
 
         $basedir    = dirname(__FILE__);
         $baseregexp = preg_quote($basedir . DIRECTORY_SEPARATOR, '/');
@@ -69,7 +71,7 @@ class Horde_Kolab_Server_AllTests
 
                 $class = str_replace(DIRECTORY_SEPARATOR, '_',
                                      preg_replace("/^$baseregexp(.*)\.php/", '\\1', $pathname));
-                $suite->addTestSuite('Horde_Kolab_Server_' . $class);
+                $suite->addTestSuite('Horde_Kolab_Session_' . $class);
             }
         }
 
@@ -78,6 +80,6 @@ class Horde_Kolab_Server_AllTests
 
 }
 
-if (PHPUnit_MAIN_METHOD == 'Horde_Kolab_Server_AllTests::main') {
-    Horde_Kolab_Server_AllTests::main();
+if (PHPUnit_MAIN_METHOD == 'Horde_Kolab_Session_AllTests::main') {
+    Horde_Kolab_Session_AllTests::main();
 }

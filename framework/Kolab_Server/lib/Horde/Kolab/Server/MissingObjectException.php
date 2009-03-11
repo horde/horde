@@ -1,6 +1,6 @@
 <?php
 /**
- * Representation of a Kolab distribution list.
+ * A library for accessing the Kolab user database.
  *
  * PHP version 5
  *
@@ -12,9 +12,9 @@
  */
 
 /**
- * This class provides methods to deal with distribution lists for Kolab.
+ * This class provides an exception that indicates a non-existing object.
  *
- * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
@@ -25,23 +25,6 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_Object_distlist extends Horde_Kolab_Server_Object_group
+class Horde_Kolab_Server_MissingObjectException extends Horde_Kolab_Server_Exception
 {
-
-    /**
-     * The LDAP filter to retrieve this object type
-     *
-     * @var string
-     */
-    public static $filter = '(&(objectClass=kolabGroupOfNames)(mail=*))';
-
-
-    /**
-     * The attributes required when creating an object of this class.
-     *
-     * @var array
-     */
-    public $required_attributes = array(
-        KOLAB_ATTR_MAIL,
-    );
-};
+}
