@@ -1,7 +1,6 @@
 <?php
 
 require_once 'Horde/String.php';
-require_once dirname(__FILE__) . '/../Mime.php';
 
 /**
  * The Horde_Mime_Part:: class provides a wrapper around MIME parts and

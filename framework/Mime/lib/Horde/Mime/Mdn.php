@@ -69,8 +69,6 @@ class Horde_Mime_Mdn
             return true;
         }
 
-        require_once dirname(__FILE__) . '/Address.php';
-
         /* RFC 3798 [2.1]: Explicit confirmation is needed if there is more
          * than one distinct address in the Disposition-Notification-To
          * header. */
@@ -145,8 +143,6 @@ class Horde_Mime_Mdn
                              $mailparams = array(), $mod = array(),
                              $err = array())
     {
-        require_once dirname(__FILE__) . '/Headers.php';
-        require_once dirname(__FILE__) . '/Part.php';
         require_once 'Horde/Identity.php';
         require_once 'Horde/Text.php';
 

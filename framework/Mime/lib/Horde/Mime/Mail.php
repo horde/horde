@@ -286,7 +286,6 @@ class Horde_Mime_Mail
         }
 
         if (empty($type)) {
-            require_once dirname(__FILE__) . '/Magic.php';
             $type = Horde_Mime_Magic::filenameToMime($file, false);
         }
 
