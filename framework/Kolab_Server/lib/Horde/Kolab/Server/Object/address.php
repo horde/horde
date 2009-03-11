@@ -1,0 +1,101 @@
+<?php
+/**
+ * An entry in the global addressbook.
+ *
+ * PHP version 5
+ *
+ * @category Kolab
+ * @package  Kolab_Server
+ * @author   Gunnar Wrobel <wrobel@pardus.de>
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @link     http://pear.horde.org/index.php?package=Kolab_Server
+ */
+
+/**
+ * This class provides methods to deal with global address book
+ * entries for Kolab.
+ *
+ * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ *
+ * @category Kolab
+ * @package  Kolab_Server
+ * @author   Gunnar Wrobel <wrobel@pardus.de>
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @link     http://pear.horde.org/index.php?package=Kolab_Server
+ */
+class Horde_Kolab_Server_Object_address extends Horde_Kolab_Server_Object
+{
+
+    /**
+     * The LDAP filter to retrieve this object type
+     *
+     * @var string
+     */
+    public static $filter = '(&(objectclass=inetOrgPerson)(!(uid=*))(sn=*))';
+
+    /**
+     * The attributes supported by this class
+     *
+     * @var array
+     */
+    public $supported_attributes = array(
+        KOLAB_ATTR_SN,
+        KOLAB_ATTR_CN,
+        KOLAB_ATTR_GIVENNAME,
+        KOLAB_ATTR_FN,
+        KOLAB_ATTR_LNFN,
+        KOLAB_ATTR_MAIL,
+        KOLAB_ATTR_DELETED,
+    );
+
+    /**
+     * Attributes derived from the LDAP values.
+     *
+     * @var array
+     */
+    public $derived_attributes = array(
+        KOLAB_ATTR_LNFN,
+        KOLAB_ATTR_FNLN,
+    );
+
+    /**
+     * The attributes required when creating an object of this class.
+     *
+     * @var array
+     */
+    public $required_attributes = array(
+        KOLAB_ATTR_SN,
+        KOLAB_ATTR_GIVENNAME,
+    );
+
+    /**
+     * The ldap classes for this type of object.
+     *
+     * @var array
+     */
+    protected $object_classes = array(
+        KOLAB_OC_TOP,
+        KOLAB_OC_INETORGPERSON,
+        KOLAB_OC_KOLABINETORGPERSON,
+    );
+
+    /**
+     * Convert the object attributes to a hash.
+     *
+     * @param string $attrs The attributes to return.
+     *
+     * @return array|PEAR_Error The hash representing this object.
+     */
+    public function toHash($attrs = null)
+    {
+        if (!isset($attrs)) {
+            $attrs = array(
+                KOLAB_ATTR_LNFN,
+            );
+        }
+        return parent::toHash($attrs);
+    }
+}
