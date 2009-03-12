@@ -1138,8 +1138,13 @@ if ($redirect) {
         }
         if (!empty($conf['user']['select_sentmail_folder']) &&
             !$prefs->isLocked('sent_mail_folder')) {
+            $ssm_folder_options = array(
+                'abbrev' => false,
+                'filter' => array('INBOX'),
+                'selected' => $sent_mail_folder
+            );
             $t->set('ssm_tabindex', ++$tabindex);
-            $t->set('ssm_folders', IMP::flistSelect('', false, array('INBOX'), $sent_mail_folder));
+            $t->set('ssm_folders', IMP::flistSelect($ssm_folder_options));
         } else {
             if (!empty($sent_mail_folder)) {
                 $sent_mail_folder = '&quot;' . IMP::displayFolder($sent_mail_folder) . '&quot;';
