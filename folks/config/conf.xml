@@ -119,61 +119,62 @@
    </configsection>
  </configtab>
 
- <configtab name="report_content" desc="Content Reporting">
-  <configsection name="report_content">
-   <configheader>Content Reporting Settings</configheader>
-   <configswitch name="driver" desc="Driver to use">false
-    <case name="false" desc="Disable">
-    </case>
-    <case name="tickets" desc="Tickets (Whups)">
-     <configphp name="ticket_params" desc="Enter as a PHP array any
-     additional arguments for the created ticket (queue, state, priority,
-     etc). Example for Whups: array('queue' => 2, 'state' => 1, 'priority' => 1,
-     'type' => 1). You will need to look up the appropriate IDs in Whups's
-     database, or whatever is appropriate for the ticket system you are
-     using.">array()</configphp>
-     <configenum name="allow" desc="Who should be allowed to report
-     inappropriate content?">all
-      <values>
-       <value desc="All users">all</value>
-       <value desc="Authenticated users">authenticated</value>
-       <value desc="Never">never</value>
-      </values>
-     </configenum>
-    </case>
-    <case name="mail" desc="Email">
-     <configstring name="email" desc="Where should problem report emails be
-     sent?">webmaster@example.com</configstring>
-     <configstring name="maildomain" desc="If Horde cannot determine a user's
-     email address, this domain will be appended to their
-     username.">example.com</configstring>
-     <configstring name="username" required="false" desc="If requiring SMTP
-     authentication without a global SMTP user (in section &quot;Mailer&quot;
-     and allowing problem reporting for not authenticated users (in section
-     &quot;Menu Settings&quot;), what username should be use for SMTP
-     authentication?"/>
-     <configstring name="password" required="false" desc="The password to use"/>
-     <configenum name="allow" desc="Who should be allowed to report problems?">all
-      <values>
-       <value desc="All users">all</value>
-       <value desc="Authenticated users">authenticated</value>
-       <value desc="Never">never</value>
-      </values>
-     </configenum>
-    </case>
-    <case name="letter" desc="Send internal messages (Letter)">
-     <configlist name="users" desc="Username to receive these messages. If none, Folks admins will be used." />
-     <configenum name="allow" desc="Who should be allowed to report problems?">all
-      <values>
-       <value desc="All users">all</value>
-       <value desc="Authenticated users">authenticated</value>
-       <value desc="Never">never</value>
-      </values>
-     </configenum>
-    </case>
-   </configswitch>
-  </configsection>
- </configtab>
+ <configtab name="notifications" desc="Notifications">
+   <configsection name="notification">
+    <configheader>Notifications</configheader>
+    <configsection name="mail">
+     <configswitch name="enabled" desc="Email">true
+       <case name="false" desc="No">
+       </case>
+       <case name="true" desc="Yes">
+         <configboolean name="users" desc="Use to send users notifications" required="false">true</configboolean>
+         <configboolean name="friends" desc="Use to send friends notifications" required="false">false</configboolean>
+         <configboolean name="admins" desc="Use to send admin notifications" required="false">false</configboolean>
+         <configstring name="from_addr" desc="Email form where send mails">info@example.com</configstring>
+       </case>
+     </configswitch>
+    </configsection>
+    <configsection name="letter">
+     <configswitch name="enabled" desc="Letter">false
+       <case name="false" desc="No">
+       </case>
+       <case name="true" desc="Yes">
+         <configboolean name="users" desc="Use to send users notifications" required="false">true</configboolean>
+         <configboolean name="friends" desc="Use to send friends notifications" required="false">true</configboolean>
+         <configboolean name="admins" desc="Use to send admin notifications" required="false">true</configboolean>
+       </case>
+     </configswitch>
+    </configsection>
+    <configsection name="facebook">
+     <configswitch name="enabled" desc="Facebook">false
+       <case name="false" desc="No">
+       </case>
+       <case name="true" desc="Yes">
+         <configboolean name="users" desc="Use to send users notifications" required="false">true</configboolean>
+         <configboolean name="friends" desc="Use to send friends notifications" required="false">true</configboolean>
+         <configboolean name="admins" desc="Use to send admin notifications" required="false">false</configboolean>
+       </case>
+     </configswitch>
+    </configsection>
+    <configsection name="tickets">
+     <configswitch name="enabled" desc="Tickets (whups)">false
+       <case name="false" desc="No">
+       </case>
+       <case name="true" desc="Yes">
+         <configboolean name="users" desc="Use to send users notifications" required="false">false</configboolean>
+         <configboolean name="friends" desc="Use to send friends notifications" required="false">false</configboolean>
+         <configboolean name="admins" desc="Use to send admin notifications" required="false">false</configboolean>
+          <configphp name="ticket_params" desc="Enter as a PHP array any
+            additional arguments for the created ticket (queue, state, priority,
+            etc). Example for Whups: array('queue' => 2, 'state' => 1, 'priority' => 1,
+            'type' => 1). You will need to look up the appropriate IDs in Whups's
+            database, or whatever is appropriate for the ticket system you are
+            using.">array()</configphp>
+       </case>
+     </configswitch>
+    </configsection>
+   </configsection>
+</configtab>
 
  <configtab name="menu" desc="Menu">
    <configsection name="menu">

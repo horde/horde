@@ -49,15 +49,15 @@ $user_id = Util::getFormData('id');
 
 if ($form->validate()) {
     if (Util::getFormData('submitbutton') == _("Report")) {
-        require FOLKS_BASE . '/lib/Report.php';
-        $report = Folks_Report::factory();
 
         $body =  _("User") . ': ' . $user . "\n"
             . _("Report type") . ': ' . $enum[$vars->get('type')] . "\n"
             . _("Report reason") . ': ' . $vars->get('reason') . "\n"
             . Folks::getUrlFor('user', $user);
 
-        $result = $report->report($body);
+        require FOLKS_BASE . '/lib/Notification.php';
+        $rn = new Folks_Notification();
+        $result = $rn->notifyAdmins($title, $body);
         if ($result instanceof PEAR_Error) {
             $notification->push(_("User was not reported.") . ' ' .
                                 $result->getMessage(), 'horde.error');
