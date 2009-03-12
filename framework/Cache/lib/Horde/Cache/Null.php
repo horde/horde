@@ -11,7 +11,7 @@
  * @author  Duck <duck@obala.net>
  * @package Horde_Cache
  */
-class Horde_Cache_Apc extends Horde_Cache_Base
+class Horde_Cache_Null extends Horde_Cache_Base
 {
     /**
      * Attempts to retrieve a piece of cached data and return it to
