@@ -11,7 +11,7 @@
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Horde_Mime_Viewer
  */
-class Horde_Mime_Viewer_Php extends Horde_Mime_Viewer_source
+class Horde_Mime_Viewer_Php extends Horde_Mime_Viewer_Source
 {
     /**
      * Can this driver render various views?
@@ -154,4 +154,5 @@ class Horde_Mime_Viewer_Php extends Horde_Mime_Viewer_source
 
         return implode("\n", $results);
     }
+
 }
