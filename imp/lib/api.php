@@ -115,7 +115,7 @@ function _imp_authCredentials()
 {
     $app_name = $GLOBALS['registry']->get('name');
 
-    require_once dirname(__FILE__) . '/IMAP.php';
+    require_once dirname(__FILE__) . '/Imap.php';
     $servers = IMP_Imap::loadServerConfig();
     $server_list = array();
     foreach ($servers as $key => $val) {
