@@ -648,7 +648,9 @@ class IMP_Message
     {
         global $imp_search, $notification, $prefs;
 
-        $trash_folder = ($prefs->getValue('use_trash')) ? IMP::folderPref($prefs->getValue('trash_folder'), true) : null;
+        $trash_folder = ($prefs->getValue('use_trash'))
+            ? IMP::folderPref($prefs->getValue('trash_folder'), true)
+            : null;
 
         foreach ($mbox_list as $mbox) {
             $display_mbox = IMP::displayFolder($mbox);
@@ -674,7 +676,7 @@ class IMP_Message
                 }
 
                 if (empty($trash_folder) || ($trash_folder == $mbox)) {
-                    $this->flagAllInMailbox(array('\\deleted'), $mbox, true);
+                    $this->flagAllInMailbox(array('\\deleted'), array($mbox), true);
                     $this->expungeMailbox(array($mbox => 1));
                 } else {
                     $ret = $GLOBALS['imp_imap']->ob->search($mbox);
