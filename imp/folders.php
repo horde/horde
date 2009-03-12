@@ -50,8 +50,15 @@ if (!$conf['user']['allow_folders']) {
 $subscribe = $prefs->getValue('subscribe');
 $showAll = (!$subscribe || $_SESSION['imp']['showunsub']);
 
+$charset = NLS::getCharset();
+
 /* Get the base URL for this page. */
 $folders_url = Horde::selfUrl();
+
+/* This JS define is required by all folder pages. */
+IMP::addInlineScript(array(
+    'ImpFolders.folders_url = ' . Horde_Serialize::serialize($folders_url, Horde_Serialize::JSON, $charset)
+));
 
 /* Initialize the IMP_Folder object. */
 $imp_folder = &IMP_Folder::singleton();
@@ -60,7 +67,6 @@ $imp_folder = &IMP_Folder::singleton();
 $imaptree = &IMP_Imap_Tree::singleton();
 
 /* $folder_list is already encoded in UTF7-IMAP. */
-$charset = NLS::getCharset();
 $folder_list = Util::getFormData('folder_list', array());
 
 /* Set the URL to refresh the page to in the META tag */
@@ -283,6 +289,7 @@ case 'folders_empty_mailbox_confirm':
 case 'mbox_size':
     if (!empty($folder_list)) {
         Horde::addScriptFile('tables.js', 'horde', true);
+
         $title = _("Folder Sizes");
         require IMP_TEMPLATES . '/common-header.inc';
         IMP::menu();
@@ -347,8 +354,7 @@ if ($_SESSION['imp']['file_upload'] && ($actionID == 'import_mbox')) {
 list($raw_rows, $newmsgs, $displayNames) = $imaptree->build();
 
 IMP::addInlineScript(array(
-    'ImpFolders.displayNames = ' . Horde_Serialize::serialize($displayNames, Horde_Serialize::JSON, $charset),
-    'ImpFolders.folders_url = ' . Horde_Serialize::serialize($folders_url, Horde_Serialize::JSON, $charset)
+    'ImpFolders.displayNames = ' . Horde_Serialize::serialize($displayNames, Horde_Serialize::JSON, $charset)
 ));
 
 /* Prepare the header template. */
