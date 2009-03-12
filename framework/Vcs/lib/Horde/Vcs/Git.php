@@ -249,7 +249,7 @@ class Horde_Vcs_Git extends Horde_Vcs
     public function getBranchList()
     {
         if (!isset($this->_branchlist)) {
-            $branch_list = array();
+            $this->_branchlist = array();
             exec($this->getCommand() . ' show-ref --heads', $branch_list);
 
             foreach ($branch_list as $val) {
@@ -299,7 +299,6 @@ class Horde_Vcs_Directory_Git extends Horde_Vcs_Directory
         }
 
         $cmd = $rep->getCommand() . ' ls-tree --full-name ' . escapeshellarg($branch) . ' ' . escapeshellarg($dir) . ' 2>&1';
-
         $stream = popen($cmd, 'r');
         if (!$stream) {
             throw new Horde_Vcs_Exception('Failed to execute git ls-tree: ' . $cmd);
@@ -308,12 +307,13 @@ class Horde_Vcs_Directory_Git extends Horde_Vcs_Directory
         // Create two arrays - one of all the files, and the other of
         // all the dirs.
         while (!feof($stream)) {
-            $line = rtrim(fgets($stream, 1024));
-            if (!strlen($line)) {
-                continue;
-            }
+            $line = fgets($stream);
+            if ($line === false) { break; }
 
-            list( ,$type, , $file) = preg_split('/\s+/', $line, -1, PREG_SPLIT_NO_EMPTY);
+            $line = rtrim($line);
+            if (!strlen($line))  { continue; }
+
+            list(, $type, , $file) = preg_split('/\s+/', $line, -1, PREG_SPLIT_NO_EMPTY);
             if ($type == 'tree') {
                 $this->_dirs[] = basename($file);
             } else {
@@ -532,7 +532,19 @@ class Horde_Vcs_Log_Git extends Horde_Vcs_Log
         }
 
         $line = trim(fgets($pipe));
-        while ($line != '') {
+        while (true) {
+            $line = fgets($pipe);
+            if ($line === false) {
+                throw new Horde_Vcs_Exception('Unexpected end of log output');
+            }
+
+            $line = trim($line);
+            if ($line == '') { break; }
+
+            if (strpos($line, ':') === false) {
+                throw new Horde_Vcs_Exception('Malformed log line: ' . $line);
+            }
+
             list($key, $value) = explode(':', $line, 2);
             $value = trim($value);
 
@@ -572,8 +584,6 @@ class Horde_Vcs_Log_Git extends Horde_Vcs_Log
                 }
                 break;
             }
-
-            $line = trim(fgets($pipe));
         }
 
         $log = '';
