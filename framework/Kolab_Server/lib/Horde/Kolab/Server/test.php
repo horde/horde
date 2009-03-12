@@ -33,7 +33,7 @@ class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap
      *
      * @var array
      */
-    private $_data;
+    protected $_data;
 
     /**
      * Array holding the current result set.
