@@ -91,11 +91,16 @@ case 'ListEvents':
     } else {
         $result = new stdClass;
         $result->cal = $cal;
+        $result->view = Util::getFormData('view');
         $result->sig = $start->dateString() . $end->dateString();
         if (count($events)) {
             $result->events = $events;
         }
     }
+    break;
+
+case 'SaveCalPref':
+    $result = true;
     break;
 
 case 'ChunkContent':

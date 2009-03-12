@@ -20,7 +20,6 @@ KronolithCore = {
     //   eventForm
 
     view: '',
-    calendars: [],
     ecache: $H(),
     efifo: {},
     eventsLoading: $H(),
@@ -349,28 +348,21 @@ KronolithCore = {
 
         case 'month':
             var body = $('kronolithViewMonth').down('.kronolithViewBody'),
-                day = date.clone(), monthEnd = date.clone(),
-                cell, monday, firstDay;
-
-            // Calculate first and last days being displayed.
-            day.setDate(1);
-            day.moveToBeginOfWeek();
-            firstDay = day.clone()
-            monthEnd.moveToLastDayOfMonth();
-            monthEnd.moveToEndOfWeek();
+                dates = this.viewDates(date, view),
+                day = dates[0].clone();
 
             // Remove old rows. Maybe we should only rebuild the calendars if
             // necessary.
             body.childElements().invoke('remove');
 
             // Build new calendar view.
-            while (day.compareTo(monthEnd) < 1) {
+            while (day.compareTo(dates[1]) < 1) {
                 var row = body.insert(this.createWeekRow(day, date.getMonth()).show());
                 day.next().week();
             }
 
             // Load events.
-            this._loadEvents(firstDay, monthEnd, this._monthCallback.bind(this));
+            this._loadEvents(dates[0], dates[1], this._loadEventsCallback.bind(this), view);
 
             break;
         }
@@ -424,13 +416,8 @@ KronolithCore = {
     updateMinical: function(date, view)
     {
         var tbody = $('kronolithMinical').down('tbody'),
-            day = date.clone(), monthEnd = date.clone(),
+            dates = this.viewDates(date, view), day = dates[0].clone(),
             weekStart, weekEnd, weekEndDay, td, tr;
-
-        day.setDate(1);
-        day.moveToBeginOfWeek();
-        monthEnd.moveToLastDayOfMonth();
-        monthEnd.moveToEndOfWeek();
 
         // Update header.
         $('kronolithMinicalDate').setText(date.toString('MMMM yyyy')).setAttribute('date', date.dateString());
@@ -439,7 +426,7 @@ KronolithCore = {
         // if necessary.
         tbody.childElements().invoke('remove');
 
-        while (day.compareTo(monthEnd) < 1) {
+        while (day.compareTo(dates[1]) < 1) {
             // Create calendar row and insert week number.
             if (day.getDay() == Kronolith.conf.week_start) {
                 tr = new Element('tr');
@@ -510,36 +497,41 @@ KronolithCore = {
 
     /**
      */
-    _loadEvents: function(firstDay, lastDay, callback, calendars)
+    _loadEvents: function(firstDay, lastDay, callback, view, calendars)
     {
         var start = firstDay.dateString(), end = lastDay.dateString(),
             driver, calendar;
+
         if (typeof calendars == 'undefined') {
-            calendars = Kronolith.conf.calendars;
+            calendars = [];
+            $H(Kronolith.conf.calendars).each(function(type) {
+                $H(type.value).each(function(cal) {
+                    if (cal.value.show) {
+                        calendars.push([type.key, cal.key]);
+                    }
+                });
+            });
         }
-        calendars = $H(calendars);
-        calendars.each(function(type) {
-            $H(type.value).each(function(cal) {
-                if (cal.value.show) {
-                    calendar = type.key + '|' + cal.key;
-                    this.eventsLoading[calendar] = start + end;
-                    this.doAction('ListEvents', { start: start, end: end, cal: calendar }, callback);
-                }
-            }, this);
+
+        calendars.each(function(cal) {
+            var calendar = cal.join('|');
+            this.eventsLoading[calendar] = start + end;
+            this.doAction('ListEvents', { start: start, end: end, cal: calendar, view: view }, callback.bind(this));
         }, this);
     },
 
     /**
-     * Callback method for inserting events in the month view.
+     * Callback method for inserting events in the current view.
      *
-     * @param object r  The returned object.
+     * @param object r  The ajax response object.
      */
-    _monthCallback: function(r)
+    _loadEventsCallback: function(r)
     {
         var div;
 
         // Check if this is the still the result of the most current request.
-        if (r.response.sig != this.eventsLoading[r.response.cal]) {
+        if (r.response.view != this.view ||
+            r.response.sig != this.eventsLoading[r.response.cal]) {
             return;
         }
 
@@ -547,13 +539,17 @@ KronolithCore = {
             this._storeCache(r.response.events, r.response.cal);
             $H(r.response.events).each(function(date) {
                 $H(date.value).each(function(event) {
-                    div = new Element('DIV', { 'id' : 'kronolithEventM' + event.key, 'class': 'kronolithEvent', 'style': 'background-color:' + event.value.bg + ';color:' + event.value.fg, 'calendar': event.value.c });
-                    div.setText(event.value.t)
-                        .observe('mouseover', div.addClassName.curry('kronolithSelected'))
-                        .observe('mouseout', div.removeClassName.curry('kronolithSelected'));
-                    $('kronolithMonthDay' + date.key).insert(div);
-                });
-            });
+                    switch (this.view) {
+                    case 'month':
+                        div = new Element('DIV', { 'id' : 'kronolithEventM' + event.key, 'class': 'kronolithEvent', 'style': 'background-color:' + event.value.bg + ';color:' + event.value.fg, 'calendar': event.value.c });
+                        div.setText(event.value.t)
+                            .observe('mouseover', div.addClassName.curry('kronolithSelected'))
+                            .observe('mouseout', div.removeClassName.curry('kronolithSelected'));
+                        $('kronolithMonthDay' + date.key).insert(div);
+                        break;
+                    }
+                }, this);
+            }, this);
         }
     },
 
@@ -571,9 +567,32 @@ KronolithCore = {
         return new Date(date.substr(0, 4), date.substr(4, 2) - 1, date.substr(6, 2));
     },
 
+    /**
+     * Calculates first and last days being displayed.
+     *
+     * @var Date date    The date of the view.
+     * @var string view  A view name.
+     *
+     * @return array  Array with first and last day of the view.
+     */
+    viewDates: function(date, view)
+    {
+        var start = date.clone(), end = date.clone();
+
+        switch (view) {
+        case 'month':
+            start.setDate(1);
+            start.moveToBeginOfWeek();
+            end.moveToLastDayOfMonth();
+            end.moveToEndOfWeek();
+        }
+
+        return [start, end];
+    },
+
     _storeCache: function(events, calendar)
     {
-        if (typeof calendar == 'string') {
+        if (Object.isString(calendar)) {
             calendar = calendar.split('|');
         }
         if (!this.ecache[calendar[0]]) {
@@ -758,17 +777,28 @@ KronolithCore = {
             calClass = elt.readAttribute('calendarClass');
             if (calClass) {
                 var calendar = elt.readAttribute('calendar');
-                this.ecache[calClass][calendar].each(function(day) {
-                    $H(day.value).each(function(event) {
-                        $('kronolithEventM' + event.key).toggle();
+                if (typeof this.ecache[calClass] == 'undefined' ||
+                    typeof this.ecache[calClass][calendar] == 'undefined') {
+                    var dates = this.viewDates(this.date, this.view);
+                    this._loadEvents(dates[0], dates[1], this._loadEventsCallback.bind(this), this.view, [[calClass, calendar]]);
+                } else {
+                    this.ecache[calClass][calendar].each(function(day) {
+                        $H(day.value).each(function(event) {
+                            $('kronolithEventM' + event.key).toggle();
+                        });
                     });
-                });
+                }
                 elt.toggleClassName('kronolithCalOn');
                 elt.toggleClassName('kronolithCalOff');
+                if (calendarClass == 'remote' || calendarClass == 'external') {
+                    calendar = calendarClass + '_' + calendar;
+                }
+                this.doAction('SaveCalPref', { toggle_calendar: calendar });
             }
 
             elt = elt.up();
         }
+        // Workaround Firebug bug.
         Prototype.emptyFunction();
     },
 
