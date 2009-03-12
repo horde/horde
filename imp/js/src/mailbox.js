@@ -295,15 +295,14 @@ var ImpMessage = {
                 } else if (elt.hasClassName('viewAction')) {
                     this.submit('view_messages');
                 } else if (elt.hasClassName('hideAction') || elt.hasClassName('purgeAction')) {
-                	return;
+                    return;
                 }
 
                 e.stop();
                 return;
-            }
-
-            if (!id) {
-                return;
+            } else if (!id) {
+                elt = elt.up();
+                continue;
             }
 
             switch (id) {
