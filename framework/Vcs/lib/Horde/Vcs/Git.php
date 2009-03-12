@@ -368,7 +368,7 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File
         $cmd = $rep->getCommand() . ' rev-list --branches -- ' . escapeshellarg($this->queryModulePath()) . ' 2>&1';
         exec($cmd, $revs);
         if (stripos($revs[0], 'fatal') === 0) {
-            throw new Horde_Vcs_Exception($revs);
+            throw new Horde_Vcs_Exception(implode(', ', $revs));
         }
         $this->_revs = $revs;
 
