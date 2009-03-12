@@ -29,7 +29,12 @@ $tabs->addTab(_("Password"), Horde::applicationUrl('edit/password.php'), 'passwo
 
 if ($conf['comments']['allow'] != 'never'
         && $registry->hasMethod('forums/doComments')) {
-    $tabs->addTab(_("Comments"), 'comments.php', 'comments');
+    $tabs->addTab(_("Comments"), Horde::applicationUrl('edit/comments.php'), 'comments');
 }
+
+if ($conf['facebook']['enabled']) {
+    $tabs->addTab(_("Facebook"), Horde::applicationUrl('edit/facebook.php'), 'facebook');
+}
+
 
 Horde::addScriptFile('tables.js', 'horde', true);
