@@ -329,7 +329,7 @@ class Horde_Kolab_Server_ldap extends Horde_Kolab_Server
     {
         $users = array('field' => 'objectClass',
                        'op'    => '=',
-                       'test'  => KOLAB_SERVER_USER);
+                       'test'  => Horde_Kolab_Server::USER);
         if (!empty($criteria)) {
             $criteria = array('AND' => array($users, $criteria));
         } else {
@@ -356,7 +356,7 @@ class Horde_Kolab_Server_ldap extends Horde_Kolab_Server
     {
         $groups = array('field' => 'objectClass',
                         'op'    => '=',
-                        'test'  => KOLAB_SERVER_GROUP);
+                        'test'  => Horde_Kolab_Server::GROUP);
         if (!empty($criteria)) {
             $criteria = array('AND' => array($groups, $criteria));
         } else {

@@ -21,10 +21,6 @@ define('KOLAB_SERVER_RESULT_SINGLE', 1);
 define('KOLAB_SERVER_RESULT_STRICT', 2);
 define('KOLAB_SERVER_RESULT_MANY',   3);
 
-/** Define the base types. */
-define('KOLAB_SERVER_USER',  'kolabInetOrgPerson');
-define('KOLAB_SERVER_GROUP', 'kolabGroupOfNames');
-
 /**
  * This class provides methods to deal with Kolab objects stored in
  * the Kolab object db.
@@ -42,6 +38,12 @@ define('KOLAB_SERVER_GROUP', 'kolabGroupOfNames');
  */
 abstract class Horde_Kolab_Server
 {
+
+    /**
+     * The object types supported by this module.
+     */
+    const USER  = 'kolabInetOrgPerson';
+    const GROUP = 'kolabGroupOfNames';
 
     /**
      * Server parameters.
@@ -398,7 +400,7 @@ abstract class Horde_Kolab_Server
                          array(
                              array('field' => 'objectClass',
                                    'op'    => '=',
-                                   'test'  => KOLAB_SERVER_USER),
+                                   'test'  => Horde_Kolab_Server::USER),
                              array('OR' =>
                                    array(
                                        array('field' => 'uid',
@@ -436,7 +438,7 @@ abstract class Horde_Kolab_Server
                          array(
                              array('field' => 'objectClass',
                                    'op'    => '=',
-                                   'test'  => KOLAB_SERVER_USER),
+                                   'test'  => Horde_Kolab_Server::USER),
                              array('OR' =>
                                    array(
                                        array('field' => 'uid',
@@ -461,7 +463,7 @@ abstract class Horde_Kolab_Server
                          array(
                              array('field' => 'objectClass',
                                    'op'    => '=',
-                                   'test'  => KOLAB_SERVER_USER),
+                                   'test'  => Horde_Kolab_Server::USER),
                              array('field' => 'kolabDelegate',
                                    'op'    => '=',
                                    'test'  => $result['mail'][0]),
