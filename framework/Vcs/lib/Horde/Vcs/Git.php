@@ -69,8 +69,10 @@ class Horde_Vcs_Git extends Horde_Vcs
     {
         $where = str_replace($this->sourceroot() . '/', '', $where);
         $command = $this->getCommand() . ' ls-tree master ' . escapeshellarg($where) . ' 2>&1';
-        $entry = array();
-        exec($command, $entry);
+        exec($command, $entry, $retval);
+
+        if (!count($entry)) { return false; }
+
         $data = explode(' ', $entry[0]);
         return ($data[1] == 'blob');
     }
