@@ -345,7 +345,7 @@ abstract class Horde_Rdo_Mapper implements Countable
 
         $id = $this->adapter->insert($sql, $bindParams);
 
-        return $this->map(array_merge(array($this->tableDefinition->getPrimaryKey() => $id),
+        return $this->map(array_merge(array((string)$this->tableDefinition->getPrimaryKey() => $id),
                                       $fields));
     }
 
@@ -364,7 +364,7 @@ abstract class Horde_Rdo_Mapper implements Countable
     public function update($object, $fields = null)
     {
         if ($object instanceof Horde_Rdo_Base) {
-            $key = $this->tableDefinition->getPrimaryKey();
+            $key = (string)$this->tableDefinition->getPrimaryKey();
             $id = $object->$key;
             $fields = iterator_to_array($object);
 
@@ -396,7 +396,7 @@ abstract class Horde_Rdo_Mapper implements Countable
             $sql .= ' ' . $this->adapter->quoteColumnName($field) . ' = ?,';
             $bindParams[] = $value;
         }
-        $sql = substr($sql, 0, -1) . ' WHERE ' . $this->tableDefinition->getPrimaryKey() . ' = ?';
+        $sql = substr($sql, 0, -1) . ' WHERE ' . (string)$this->tableDefinition->getPrimaryKey() . ' = ?';
         $bindParams[] = $id;
 
         return $this->adapter->update($sql, $bindParams);
@@ -414,13 +414,13 @@ abstract class Horde_Rdo_Mapper implements Countable
     public function delete($object)
     {
         if ($object instanceof Horde_Rdo_Base) {
-            $key = $this->tableDefinition->getPrimaryKey();
+            $key = (string)$this->tableDefinition->getPrimaryKey();
             $id = $object->$key;
             $query = array($key => $id);
         } elseif ($object instanceof Horde_Rdo_Query) {
             $query = $object;
         } else {
-            $key = $this->tableDefinition->getPrimaryKey();
+            $key = (string)$this->tableDefinition->getPrimaryKey();
             $query = array($key => $object);
         }
 
@@ -470,7 +470,7 @@ abstract class Horde_Rdo_Mapper implements Countable
             if (is_numeric(key($arg))) {
                 // Numerically indexed arrays are assumed to be an array of
                 // primary keys.
-                $key = $this->tableDefinition->getPrimaryKey();
+                $key = (string)$this->tableDefinition->getPrimaryKey();
                 $query = new Horde_Rdo_Query();
                 $query->combineWith('OR');
                 foreach ($argv[0] as $id) {
