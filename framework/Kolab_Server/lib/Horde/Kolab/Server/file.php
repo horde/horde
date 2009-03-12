@@ -82,7 +82,7 @@ class Horde_Kolab_Server_file extends Horde_Kolab_Server_test
     protected function store()
     {
         $raw_data = serialize($this->_data);
-        $result = @file_put_contents($this->_file, $this->_data);
+        $result = @file_put_contents($this->_file, $raw_data);
         if ($result === false) {
             $error = error_get_last();
             Horde::logMessage(sprintf('Horde_Kolab_Server_file failed to store the database in %s. Error was: %s',
