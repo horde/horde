@@ -416,7 +416,7 @@ KronolithCore = {
     updateMinical: function(date, view)
     {
         var tbody = $('kronolithMinical').down('tbody'),
-            dates = this.viewDates(date, view), day = dates[0].clone(),
+            dates = this.viewDates(date, 'month'), day = dates[0].clone(),
             weekStart, weekEnd, weekEndDay, td, tr;
 
         // Update header.
@@ -580,11 +580,16 @@ KronolithCore = {
         var start = date.clone(), end = date.clone();
 
         switch (view) {
+        case 'week':
+            start.moveToBeginOfWeek();
+            end.moveToEndOfWeek();
+            break;
         case 'month':
             start.setDate(1);
             start.moveToBeginOfWeek();
             end.moveToLastDayOfMonth();
             end.moveToEndOfWeek();
+            break;
         }
 
         return [start, end];
