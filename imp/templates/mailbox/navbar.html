@@ -10,6 +10,8 @@
      <option value="!<tag:imp_all />"><gettext>All</gettext></option>
      <option value="<tag:imp_all />"><gettext>None</gettext></option>
      <option value="+<tag:imp_all />"><gettext>Invert</gettext></option>
+     <option value="<tag:imp_personal />"><gettext>Personal</gettext></option>
+     <option value="!<tag:imp_personal />"><gettext>Not Personal</gettext></option>
 <if:use_pop><else:use_pop>
      <option value="!<tag:imp_unseen />"><gettext>Seen</gettext></option>
      <option value="<tag:imp_unseen />"><gettext>Unseen</gettext></option>
@@ -23,8 +25,6 @@
      <option value="!<tag:imp_deleted />"><gettext>Not Deleted</gettext></option>
      <option value="<tag:imp_draft />"><gettext>Draft</gettext></option>
      <option value="!<tag:imp_draft />"><gettext>Not Draft</gettext></option>
-     <option value="<tag:imp_personal />"><gettext>Personal</gettext></option>
-     <option value="!<tag:imp_personal />"><gettext>Not Personal</gettext></option>
     </select>
 <if:readonly><else:readonly>
     <label for="flag<tag:id />" class="hidden"><gettext>Mark as:</gettext></label>
