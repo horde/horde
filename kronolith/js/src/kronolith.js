@@ -559,6 +559,8 @@ KronolithCore = {
                     }
                 }, this);
             }, this);
+        } else {
+            this._storeCache($H(), r.response.cal);
         }
     },
 
