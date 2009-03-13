@@ -78,6 +78,28 @@ class Kronolith_Driver_Holidays extends Kronolith_Driver
         return $results;
     }
 
+    public function getEvent($eventId = null)
+    {
+        list($id, $date) = explode('-', $eventId, 2);
+        $year = substr($date, 0, 4);
+
+        $dh = Date_Holidays::factory($this->_calendar, $year, $this->_params['language']);
+        if (Date_Holidays::isError($dh)) {
+            Horde::logMessage(sprintf('Factory was unable to produce driver object for driver %s in year %s with locale %s',
+                                      $this->_calendar, $year, $this->_params['language']),
+                              __FILE__, __LINE__, PEAR_LOG_ERR);
+            return false;
+        }
+        $dh->addTranslation($this->_params['language']);
+
+        $event = $dh->getHoliday($id);
+        if (is_a($event, 'PEAR_Error')) {
+            return $event;
+        }
+
+        return new Kronolith_Event_Holidays($this, $event);
+    }
+
     private function _getEvents($dh, $startDate, $endDate)
     {
         $events = array();
@@ -96,8 +118,7 @@ class Kronolith_Driver_Holidays extends Kronolith_Driver
             }
 
             foreach ($holidays as $holiday) {
-                $event = new Kronolith_Event_Holidays($this);
-                $event->fromDriver($holiday);
+                $event = new Kronolith_Event_Holidays($this, $holiday);
                 $events[] = $event;
             }
         }

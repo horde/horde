@@ -36,11 +36,10 @@ class Kronolith_Event_Holidays extends Kronolith_Event
         $this->stored = true;
         $this->initialized = true;
         $this->setTitle(String::convertCharset($dhEvent->getTitle(), 'UTF-8'));
-        $this->setId($dhEvent->getInternalName());
-
         $this->start = new Horde_Date($dhEvent->_date->getTime());
         $this->end = new Horde_Date($this->start);
         $this->end->mday++;
+        $this->setId($dhEvent->getInternalName() . '-' . $this->start->dateString());
     }
 
     /**
