@@ -98,14 +98,14 @@ case 'ListEvents':
     if (is_a($events, 'PEAR_Error')) {
         $notification->push($events, 'horde.error');
         $result = true;
-    } else {
-        $result = new stdClass;
-        $result->cal = $cal;
-        $result->view = Util::getFormData('view');
-        $result->sig = $start->dateString() . $end->dateString();
-        if (count($events)) {
-            $result->events = $events;
-        }
+        break;
+    }
+    $result = new stdClass;
+    $result->cal = $cal;
+    $result->view = Util::getFormData('view');
+    $result->sig = $start->dateString() . $end->dateString();
+    if (count($events)) {
+        $result->events = $events;
     }
     break;
 
@@ -118,10 +118,15 @@ case 'GetEvent':
     if (is_a($event, 'PEAR_Error')) {
         $notification->push($event, 'horde.error');
         $result = true;
-    } else {
-        $result = new stdClass;
-        $result->event = $event;
+        break;
     }
+    if (!$event) {
+        $notification->push(_("The requested event was not found."), 'horde.error');
+        $result = true;
+        break;
+    }
+    $result = new stdClass;
+    $result->event = $event;
     break;
 
 case 'SaveCalPref':
