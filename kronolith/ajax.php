@@ -75,7 +75,7 @@ case 'ListEvents':
         $driver = 'Ical';
         break;
     case 'holiday':
-        $driver = 'Holiday';
+        $driver = 'Holidays';
         break;
     }
     $kronolith_driver = Kronolith::getDriver($driver, $calendar);

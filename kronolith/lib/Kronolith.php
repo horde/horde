@@ -172,6 +172,13 @@ class Kronolith
                 'bg' => Kronolith::backgroundColor($calendar),
                 'show' => in_array($calendar['url'], $GLOBALS['display_remote_calendars']));
         }
+        if (!empty($GLOBALS['conf']['holidays']['enable'])) {
+            foreach (unserialize($GLOBALS['prefs']->getValue('holiday_drivers')) as $holiday) {
+                $code['conf']['calendars']['holiday'][$holiday] = array(
+                    'name' => $holiday,
+                    'show' => true);
+            }
+        }
 
         /* Gettext strings used in core javascript files. */
         $code['text'] = array_map('addslashes', array(
