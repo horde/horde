@@ -136,15 +136,9 @@ var DragDrop = {
 
     Drops: {
         drops: $H(),
-        init: false,
 
         register: function(obj)
         {
-            if (!this.init) {
-                document.observe('mouseover', this._mouseHandler.bindAsEventListener(this, 'over'));
-                document.observe('mouseout', this._mouseHandler.bindAsEventListener(this, 'out'));
-                this.init = true;
-            }
             this.drops.set(obj.element.identify(), obj);
             obj.element.addClassName('DropElt');
         },
@@ -156,35 +150,12 @@ var DragDrop = {
             }
 
             this.drops.unset(obj.element.identify());
-            obj.element.addClassName('DropElt');
+            obj.element.removeClassName('DropElt');
         },
 
         get_drop: function(el)
         {
             return this.drops.get(Object.isElement(el) ? $(el).identify() : el);
-        },
-
-        _mouseHandler: function(e, type)
-        {
-            var elt = e.element();
-
-            if (this.drops.size()) {
-                if (!elt.hasClassName('DropElt')) {
-                    elt = elt.up('.DropElt');
-                }
-
-                if (elt) {
-                    switch (type) {
-                    case 'over':
-                        this.get_drop(elt).mouseOver(e);
-                        break;
-
-                    case 'out':
-                        this.get_drop(elt).mouseOut(e);
-                        break;
-                    }
-                }
-            }
         }
     },
 
@@ -338,10 +309,25 @@ Drag = Class.create({
 
     _onMoveDrag: function(xy, e)
     {
-        var c_opt, caption, cname, d_cap,
+        var c_opt, caption, cname, d_cap, elt,
             d = DragDrop.Drops.drop,
             div = DragDrop.Drags.div,
             d_update = true;
+
+        /* Do mouseover/mouseout-like detection here. Saves on observe calls
+         * and handles case where mouse moves over scrollbars. */
+        if (DragDrop.Drops.drops.size()) {
+            elt = e.element();
+            if (!elt.hasClassName('DropElt')) {
+                elt = elt.up('.DropElt');
+            }
+
+            if (elt) {
+                DragDrop.Drops.get_drop(elt).mouseOver();
+            } else if (d) {
+                d.mouseOut();
+            }
+        }
 
         if (d && DragDrop.validDrop(this.element)) {
             d_cap = d.options.caption;
@@ -481,23 +467,19 @@ Drop = Class.create({
         DragDrop.Drops.unregister(this);
     },
 
-    mouseOver: function(e)
+    mouseOver: function()
     {
-        if (DragDrop.Drags.drag) {
-            DragDrop.Drops.drop = this;
-            if (Object.isFunction(this.options.onOver)) {
-                this.options.onOver(this.element, DragDrop.Drags.drag);
-            }
+        DragDrop.Drops.drop = this;
+        if (Object.isFunction(this.options.onOver)) {
+            this.options.onOver(this.element, DragDrop.Drags.drag);
         }
     },
 
-    mouseOut: function(e)
+    mouseOut: function()
     {
-        if (DragDrop.Drags.drag) {
-            if (Object.isFunction(this.options.onOut)) {
-                this.options.onOut(this.element, DragDrop.Drags.drag);
-            }
-            DragDrop.Drops.drop = null;
+        if (Object.isFunction(this.options.onOut)) {
+            this.options.onOut(this.element, DragDrop.Drags.drag);
         }
+        DragDrop.Drops.drop = null;
     }
 });
