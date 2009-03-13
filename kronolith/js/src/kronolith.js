@@ -461,11 +461,10 @@ KronolithCore = {
      */
     updateCalendarList: function()
     {
-        var internal = $H(Kronolith.conf.calendars.internal),
-            remote = $H(Kronolith.conf.calendars.remote),
-            my = 0, shared = 0, div;
+        var my = 0, shared = 0, ext = {}, extNames = {},
+            remote, api, div;
 
-        internal.each(function(cal) {
+        $H(Kronolith.conf.calendars.internal).each(function(cal) {
             if (cal.value.owner) {
                 my++;
                 div = $('kronolithMyCalendars');
@@ -486,6 +485,30 @@ KronolithCore = {
             $('kronolithSharedCalendars').hide();
         }
 
+        $H(Kronolith.conf.calendars.external).each(function(cal) {
+            api = cal.key.split('/');
+            if (typeof ext[api[0]] == 'undefined') {
+                ext[api[0]] = {};
+            }
+            ext[api[0]][api[1]] = cal.value;
+            extNames[api[0]] = cal.value.api;
+        });
+        $H(ext).each(function(api) {
+            $('kronolithExternalCalendars')
+                .insert(new Element('H3')
+                        .insert(new Element('A', { 'class': 'kronolithAdd'  })
+                                .update('+'))
+                        .insert({ bottom: extNames[api.key] }))
+                .insert(new Element('DIV', { 'id': 'kronolithExternalCalendar' + api.key, 'class': 'kronolithCalendars' }));
+            $H(api.value).each(function(cal) {
+                $('kronolithExternalCalendar' + api.key)
+                    .insert(new Element('DIV', { 'calendar': api.key + '/' + cal.key, 'calendarclass': 'external', 'class': cal.value.show ? 'kronolithCalOn' : 'kronolithCalOff' })
+                            .setStyle({ backgroundColor: cal.value.bg, color: cal.value.fg })
+                            .update(cal.value.name));
+            });
+        });
+
+        remote = $H(Kronolith.conf.calendars.remote);
         remote.each(function(cal) {
             $('kronolithRemoteCalendars').appendChild(new Element('DIV', { 'calendar': cal.key, 'calendarclass': 'remote', 'class': cal.value.show ? 'kronolithCalOn' : 'kronolithCalOff' }).setStyle({ backgroundColor: cal.value.bg, color: cal.value.fg }).update(cal.value.name));
         });

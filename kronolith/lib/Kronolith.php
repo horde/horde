@@ -161,6 +161,8 @@ class Kronolith
                 $calendar = $api . '/' . $id;
                 $code['conf']['calendars']['external'][$calendar] = array(
                     'name' => $name,
+                    'fg' => '#000',
+                    'bg' => '#ddd',
                     'api' => $GLOBALS['registry']->get('name', $GLOBALS['registry']->hasInterface($api)),
                     'show' => in_array($calendar, $GLOBALS['display_external_calendars']));
             }

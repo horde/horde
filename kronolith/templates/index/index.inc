@@ -62,6 +62,8 @@
   <div id="kronolithSharedCalendars" class="kronolithCalendars" style="display:none">
   </div>
 
+  <div id="kronolithExternalCalendars"></div>
+
   <h3>
     <a href="#" class="kronolithAdd">+</a>
     <?php echo _("Remote Calendars") ?>
