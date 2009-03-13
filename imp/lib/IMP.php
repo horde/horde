@@ -1719,8 +1719,16 @@ class IMP
      */
     public function base64ImgData($file)
     {
-        $data = file_get_contents(realpath($GLOBALS['registry']->get('fileroot', 'horde')) . preg_replace('/^' . preg_quote($GLOBALS['registry']->get('webroot', 'horde'), '/') . '/', '', $file));
-        return 'data:image/' . substr($file, strrpos($file, '.') + 1) . ';base64,' . base64_encode($data);
+        /* Only encode image files if they are below 3,000 bytes. RFC 2397
+         * only requires support of up to 1,024 characters (base64 encoded,
+         * not the size of the image).  However, browsers that support data
+         * URLs generally support more. Opera seems to have the smallest
+         * allowance - 4100 characters - so use Opera as a limit. */
+        $filename = realpath($GLOBALS['registry']->get('fileroot', 'horde')) . preg_replace('/^' . preg_quote($GLOBALS['registry']->get('webroot', 'horde'), '/') . '/', '', $file);
+
+        return (filesize($filename) <= 3000)
+            ? 'data:image/' . substr($file, strrpos($file, '.') + 1) . ';base64,' . base64_encode(file_get_contents($filename))
+            : $file;
     }
 
     /**
