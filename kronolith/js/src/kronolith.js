@@ -473,7 +473,7 @@ KronolithCore = {
                 shared++;
                 div = $('kronolithSharedCalendars');
             }
-            div.appendChild(new Element('DIV', { 'calendar': cal.key, 'calendarClass': 'internal', 'class': cal.value.show ? 'kronolithCalOn' : 'kronolithCalOff' }).setStyle({ backgroundColor: cal.value.bg, color: cal.value.fg }).update(cal.value.name));
+            div.appendChild(new Element('DIV', { 'calendar': cal.key, 'calendarclass': 'internal', 'class': cal.value.show ? 'kronolithCalOn' : 'kronolithCalOff' }).setStyle({ backgroundColor: cal.value.bg, color: cal.value.fg }).update(cal.value.name));
         });
         if (my) {
             $('kronolithMyCalendars').show();
@@ -487,7 +487,7 @@ KronolithCore = {
         }
 
         remote.each(function(cal) {
-            $('kronolithRemoteCalendars').appendChild(new Element('DIV', { 'calendar': cal.key, 'calendarClass': 'remote', 'class': cal.value.show ? 'kronolithCalOn' : 'kronolithCalOff' }).setStyle({ backgroundColor: cal.value.bg, color: cal.value.fg }).update(cal.value.name));
+            $('kronolithRemoteCalendars').appendChild(new Element('DIV', { 'calendar': cal.key, 'calendarclass': 'remote', 'class': cal.value.show ? 'kronolithCalOn' : 'kronolithCalOff' }).setStyle({ backgroundColor: cal.value.bg, color: cal.value.fg }).update(cal.value.name));
         });
         if (remote.size()) {
             $('kronolithRemoteCalendars').show();
@@ -519,6 +519,7 @@ KronolithCore = {
             this.eventsLoading[calendar] = start + end;
             this.loading++;
             $('kronolithLoading').show();
+            this._storeCache($H(), calendar);
             this.doAction('ListEvents', { start: start, end: end, cal: calendar, view: view }, callback.bind(this));
         }, this);
     },
@@ -559,8 +560,6 @@ KronolithCore = {
                     }
                 }, this);
             }, this);
-        } else {
-            this._storeCache($H(), r.response.cal);
         }
     },
 
@@ -790,7 +789,7 @@ KronolithCore = {
                 break;
             }
 
-            calClass = elt.readAttribute('calendarClass');
+            calClass = elt.readAttribute('calendarclass');
             if (calClass) {
                 var calendar = elt.readAttribute('calendar');
                 if (typeof this.ecache[calClass] == 'undefined' ||
@@ -806,8 +805,8 @@ KronolithCore = {
                 }
                 elt.toggleClassName('kronolithCalOn');
                 elt.toggleClassName('kronolithCalOff');
-                if (calendarClass == 'remote' || calendarClass == 'external') {
-                    calendar = calendarClass + '_' + calendar;
+                if (calClass == 'remote' || calClass == 'external') {
+                    calendar = calClass + '_' + calendar;
                 }
                 this.doAction('SaveCalPref', { toggle_calendar: calendar });
             }
