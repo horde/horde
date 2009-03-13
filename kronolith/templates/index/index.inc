@@ -192,6 +192,7 @@
 
 <!-- ini body -->
 <div id="kronolithBody">
+<div id="kronolithLoading" style="display:none"></div>
 <?php
 $img_blank = Horde::img('blank.gif', '', 'height="8" width="8"', $registry->getImageDir('horde'));
 require dirname(__FILE__) . '/month.inc';

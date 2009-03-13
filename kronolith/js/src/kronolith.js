@@ -23,6 +23,7 @@ KronolithCore = {
     ecache: $H(),
     efifo: {},
     eventsLoading: $H(),
+    loading: 0,
     date: new Date(),
 
     doActionOpts: {
@@ -516,6 +517,8 @@ KronolithCore = {
         calendars.each(function(cal) {
             var calendar = cal.join('|');
             this.eventsLoading[calendar] = start + end;
+            this.loading++;
+            $('kronolithLoading').show();
             this.doAction('ListEvents', { start: start, end: end, cal: calendar, view: view }, callback.bind(this));
         }, this);
     },
@@ -528,6 +531,12 @@ KronolithCore = {
     _loadEventsCallback: function(r)
     {
         var div;
+
+        // Hide spinner.
+        this.loading--;
+        if (!this.loading) {
+            $('kronolithLoading').hide();
+        }
 
         // Check if this is the still the result of the most current request.
         if (r.response.view != this.view ||

@@ -63,7 +63,7 @@ case 'ListEvents':
         if (!array_key_exists($calendar,
                               Kronolith::listCalendars(false, PERMS_READ))) {
             $notification->push(_("Permission Denied"), 'horde.error');
-            $result = false;
+            $result = true;
             break 2;
         }
         $driver = '';
@@ -87,7 +87,7 @@ case 'ListEvents':
     $events = $kronolith_driver->listEvents($start, $end, true, false, true);
     if (is_a($events, 'PEAR_Error')) {
         $notification->push($events, 'horde.error');
-        $result = false;
+        $result = true;
     } else {
         $result = new stdClass;
         $result->cal = $cal;

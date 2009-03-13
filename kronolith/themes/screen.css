@@ -482,6 +482,22 @@ body.kronolithAjax {
     display: none;
 }
 
+/* Loading spinner */
+#kronolithLoading {
+    position: absolute;
+    z-index: 1000;
+    background: transparent url("graphics/loading.gif") no-repeat center;
+    padding: 2px;
+    width: 16px;
+    height: 17px;
+    /* Take values from .kronolithView */
+    top: 50px;
+    left: 175px;
+    margin-top: 5px;
+    /* Take values from .kronolithRow */
+    border: 1px #c0c0c0 solid;
+}
+
 /* User data and options */
 #kronolithUser {
     float: right;
