@@ -12,6 +12,40 @@
  * @package Kronolith
  */
 
+function getDriver($cal)
+{
+    list($driver, $calendar) = explode('|', $cal);
+    switch ($driver) {
+    case 'internal':
+        if (!array_key_exists($calendar,
+                              Kronolith::listCalendars(false, PERMS_READ))) {
+            $GLOBALS['notification']->push(_("Permission Denied"), 'horde.error');
+            return false;
+        }
+        $driver = '';
+        break;
+    case 'external':
+        $driver = 'Horde';
+        break;
+    case 'remote':
+        $driver = 'Ical';
+        break;
+    case 'holiday':
+        $driver = 'Holidays';
+        break;
+    }
+
+    $kronolith_driver = Kronolith::getDriver($driver, $calendar);
+
+    switch ($driver) {
+    case 'Ical':
+        $kronolith_driver->setParam('timeout', 15);
+        break;
+    }
+
+    return $kronolith_driver;
+}
+
 // Need to load Util:: to give us access to Util::getPathInfo().
 $kronolith_dir = dirname(__FILE__);
 if (!defined('HORDE_BASE')) {
@@ -56,32 +90,8 @@ switch ($action) {
 case 'ListEvents':
     $start = new Horde_Date(Util::getFormData('start'));
     $end   = new Horde_Date(Util::getFormData('end'));
-    $cal   = Util::getFormData('cal');
-    list($driver, $calendar) = explode('|', $cal);
-    switch ($driver) {
-    case 'internal':
-        if (!array_key_exists($calendar,
-                              Kronolith::listCalendars(false, PERMS_READ))) {
-            $notification->push(_("Permission Denied"), 'horde.error');
-            $result = true;
-            break 2;
-        }
-        $driver = '';
-        break;
-    case 'external':
-        $driver = 'Horde';
-        break;
-    case 'remote':
-        $driver = 'Ical';
-        break;
-    case 'holiday':
-        $driver = 'Holidays';
-        break;
-    }
-    $kronolith_driver = Kronolith::getDriver($driver, $calendar);
-    switch ($driver) {
-    case 'Ical':
-        $kronolith_driver->setParam('timeout', 15);
+    if (!($kronolith_driver = getDriver($cal = Util::getFormData('cal')))) {
+        $result = true;
         break;
     }
     $events = $kronolith_driver->listEvents($start, $end, true, false, true);
@@ -96,6 +106,21 @@ case 'ListEvents':
         if (count($events)) {
             $result->events = $events;
         }
+    }
+    break;
+
+case 'GetEvent':
+    if (!($kronolith_driver = getDriver($cal = Util::getFormData('cal')))) {
+        $result = true;
+        break;
+    }
+    $event = $kronolith_driver->getEvent(Util::getFormData('id'));
+    if (is_a($event, 'PEAR_Error')) {
+        $notification->push($event, 'horde.error');
+        $result = true;
+    } else {
+        $result = new stdClass;
+        $result->event = $event;
     }
     break;
 

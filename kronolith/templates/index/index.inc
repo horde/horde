@@ -111,7 +111,7 @@
 <!-- end menu -->
 
 <!-- ini edit -->
-<div id="kronolithEventForm" style="display:none"><form action="#" method="post">
+<div id="kronolithEventForm" style="display:none"><form id="tobechanged" action="#" method="post">
 <div>
   <label for="id_ttl"><?php echo _("Title") ?></label><br />
   <input type="text" name="ttl" id="id_ttl" class="kronolithLongField" />

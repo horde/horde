@@ -579,7 +579,13 @@ KronolithCore = {
                 $H(date.value).each(function(event) {
                     switch (this.view) {
                     case 'month':
-                        div = new Element('DIV', { 'id' : 'kronolithEventM' + event.key, 'class': 'kronolithEvent', 'style': 'background-color:' + event.value.bg + ';color:' + event.value.fg, 'calendar': event.value.c });
+                        div = new Element('DIV', {
+                            'id': 'kronolithEventmonth' + r.response.cal + event.key,
+                            'calendar': r.response.cal,
+                            'eventid' : event.key,
+                            'class': 'kronolithEvent',
+                            'style': 'background-color:' + event.value.bg + ';color:' + event.value.fg
+                        });
                         div.setText(event.value.t)
                             .observe('mouseover', div.addClassName.curry('kronolithSelected'))
                             .observe('mouseout', div.removeClassName.curry('kronolithSelected'));
@@ -797,17 +803,6 @@ KronolithCore = {
                 e.stop();
                 return;
 
-            case 'kronolithBody':
-                var tmp = orig;
-                if (!tmp.match('div.kronolithEvent')) {
-                    tmp = tmp.up('div.kronolithEvent');
-                }
-                if (tmp) {
-                     this.editEvent();
-                }
-                e.stop();
-                return;
-
             case 'alertsloglink':
                 this.toggleAlertsLog();
                 break;
@@ -815,6 +810,12 @@ KronolithCore = {
             case 'hordeAlerts':
                 this.alertsFade(elt);
                 break;
+            }
+
+            if (elt.hasClassName('kronolithEvent')) {
+                this.editEvent(elt.readAttribute('calendar'), elt.readAttribute('eventid'));
+                e.stop();
+                return;
             }
 
             calClass = elt.readAttribute('calendarclass');
@@ -827,9 +828,9 @@ KronolithCore = {
                 } else {
                     this.ecache[calClass][calendar].each(function(day) {
                         $H(day.value).each(function(event) {
-                            $('kronolithEventM' + event.key).toggle();
-                        });
-                    });
+                            $('kronolithEvent' + this.view + calClass + '|' + calendar + event.key).toggle();
+                        }, this);
+                    }, this);
                 }
                 elt.toggleClassName('kronolithCalOn');
                 elt.toggleClassName('kronolithCalOff');
@@ -860,12 +861,33 @@ KronolithCore = {
         */
     },
 
-    editEvent: function()
+    editEvent: function(calendar, id)
     {
-        // todo: fill form.
-        $('kronolithEventForm').select('div.kronolithTags span').each(function(s) {
-	    $('id_tags').value = $F('id_tags') + s.getText() + ', ';
-        });
+        RedBox.loading();
+        this.doAction('GetEvent', { 'cal': calendar, 'id': id }, this._editEvent.bind(this));
+    },
+
+    /**
+     * Callback method for showing event forms.
+     *
+     * @param object r  The ajax response object.
+     */
+    _editEvent: function(r)
+    {
+        if (!r.response.event) {
+            RedBox.close();
+            return;
+        }
+
+        var ev = r.response.event;
+        $('id_ttl').value = ev.title;
+        $('id_local').value = ev.location;
+        $('id_fullday').checked = ev.allday;
+        $('id_from').value = ev.start._year + '-' + ev.start._month + '-' + ev.start._mday;
+        $('tobechanged').from_Hi.value = ev.start._hour + ':' + ev.start._min;
+        $('id_to').value = ev.end._year + '-' + ev.end._month + '-' + ev.end._mday;
+        $('tobechanged').to_Hi.value = ev.end._hour + ':' + ev.end._min;
+        $('id_tags').value = ev.tags.join(', ');
 
         RedBox.showHtml($('kronolithEventForm').show());
         this.eventForm = RedBox.getWindowContents();
