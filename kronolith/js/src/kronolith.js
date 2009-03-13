@@ -472,7 +472,9 @@ KronolithCore = {
                 shared++;
                 div = $('kronolithSharedCalendars');
             }
-            div.appendChild(new Element('DIV', { 'calendar': cal.key, 'calendarclass': 'internal', 'class': cal.value.show ? 'kronolithCalOn' : 'kronolithCalOff' }).setStyle({ backgroundColor: cal.value.bg, color: cal.value.fg }).update(cal.value.name));
+            div.insert(new Element('DIV', { 'calendar': cal.key, 'calendarclass': 'internal', 'class': cal.value.show ? 'kronolithCalOn' : 'kronolithCalOff' })
+                       .setStyle({ backgroundColor: cal.value.bg, color: cal.value.fg })
+                       .update(cal.value.name));
         });
         if (my) {
             $('kronolithMyCalendars').show();
@@ -510,7 +512,10 @@ KronolithCore = {
 
         remote = $H(Kronolith.conf.calendars.remote);
         remote.each(function(cal) {
-            $('kronolithRemoteCalendars').appendChild(new Element('DIV', { 'calendar': cal.key, 'calendarclass': 'remote', 'class': cal.value.show ? 'kronolithCalOn' : 'kronolithCalOff' }).setStyle({ backgroundColor: cal.value.bg, color: cal.value.fg }).update(cal.value.name));
+            $('kronolithRemoteCalendars')
+                .insert(new Element('DIV', { 'calendar': cal.key, 'calendarclass': 'remote', 'class': cal.value.show ? 'kronolithCalOn' : 'kronolithCalOff' })
+                        .setStyle({ backgroundColor: cal.value.bg, color: cal.value.fg })
+                        .update(cal.value.name));
         });
         if (remote.size()) {
             $('kronolithRemoteCalendars').show();
