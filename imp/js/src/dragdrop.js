@@ -323,7 +323,10 @@ Drag = Class.create({
             }
 
             if (elt) {
-                DragDrop.Drops.get_drop(elt).mouseOver();
+                elt = DragDrop.Drops.get_drop(elt);
+                if (elt != d) {
+                    elt.mouseOver();
+                }
             } else if (d) {
                 d.mouseOut();
             }
