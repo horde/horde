@@ -69,6 +69,7 @@ case 'view_file':
             $key = key($render);
             $browser->downloadHeaders($file_name, $render[$key]['type'], true, strlen($render[$key]['data']));
             echo $render[$key]['data'];
+            exit;
         }
     }
 
