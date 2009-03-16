@@ -942,6 +942,10 @@ div.kronolithView div.kronolithViewBody div.kronolithRow {
 div.kronolithView div.kronolithViewBody div.kronolithRow div {
     font-size: 95%;
 }
+div.kronolithView div.kronolithViewBody .kronolithEvent {
+    margin-bottom: 2px;
+    margin-right: 2px;
+}
 div.kronolithView div.kronolithViewBody div.kronolithRow div.kronolithFirstCol {
     font-weight: bold;
     text-align: center;
@@ -1013,7 +1017,7 @@ div.kronolithView div.kronolithViewBody div.kronolithRow div div.kronolithMore a
 }
 
 /* Events */
-div.kronolithView div.kronolithViewBody div.kronolithRow div .kronolithEvent {
+div.kronolithView div.kronolithViewBody div.kronolithRow div .kronolithEvent, .kronolithEvent {
     float: none;
     width: auto;
     height: 15px;

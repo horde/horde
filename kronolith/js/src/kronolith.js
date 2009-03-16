@@ -395,10 +395,16 @@ KronolithCore = {
         var cell = row.down().setText(monday.getWeek()).next();
         while (cell) {
             cell.id = 'kronolithMonthDay' + day.dateString();
+            cell.writeAttribute('date', day.dateString());
             cell.removeClassName('kronolithOtherMonth');
             if (typeof month != 'undefined' && day.getMonth() != month) {
                 cell.addClassName('kronolithOtherMonth');
             }
+            new Drop(cell, { onDrop: function(drop) {
+                var el = DragDrop.Drags.drag.element;
+                this.doAction('UpdateEvent', { cal: el.readAttribute('calendar'), id: el.readAttribute('eventid'), att: $H({ start: drop.readAttribute('date') }).toJSON() });
+                drop.insert(el);
+            }.bind(this) });
             cell.down('.kronolithDay').setText(day.getDate());
             cell = cell.next();
             day.add(1).day();
@@ -590,6 +596,7 @@ KronolithCore = {
                             .observe('mouseover', div.addClassName.curry('kronolithSelected'))
                             .observe('mouseout', div.removeClassName.curry('kronolithSelected'));
                         $('kronolithMonthDay' + date.key).insert(div);
+                        new Drag('kronolithEventmonth' + r.response.cal + event.key, { ghosting: true, parentElement: function() { return document.body; } });
                         break;
                     }
                 }, this);

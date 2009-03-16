@@ -73,6 +73,7 @@ class Kronolith
         // Need to include script files before we start output
         Horde::addScriptFile('prototype.js', 'horde', true);
         Horde::addScriptFile('effects.js', 'horde', true);
+        Horde::addScriptFile('dragdrop.js', 'imp', true);
 
         // ContextSensitive must be loaded first.
         while (list($key, $val) = each($scripts)) {
