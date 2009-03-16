@@ -136,7 +136,7 @@ class Horde_Kolab_Session
             if (isset($conf['kolab']['server']['deny_group'])) {
                 $dn = $server->gidForMail($conf['kolab']['server']['deny_group']);
                 if (empty($dn)) {
-                    Horde::logMessage('The Kolab configuratin setting $conf[\'kolab\'][\'server\'][\'deny_group\'] holds a non-existing group!',
+                    Horde::logMessage('The Kolab configuration setting $conf[\'kolab\'][\'server\'][\'deny_group\'] holds a non-existing group!',
                                       __FILE__, __LINE__, PEAR_LOG_WARNING);
                 } else if (in_array($dn, $user_object->getGroups())) {
                     throw new Horde_Kolab_Server_Exception(_('You are member of a group that may not login on this server.'));
@@ -145,12 +145,14 @@ class Horde_Kolab_Session
             if (isset($conf['kolab']['server']['allow_group'])) {
                 $dn = $server->gidForMail($conf['kolab']['server']['allow_group']);
                 if (empty($dn)) {
-                    Horde::logMessage('The Kolab configuratin setting $conf[\'kolab\'][\'server\'][\'allow_group\'] holds a non-existing group!',
+                    Horde::logMessage('The Kolab configuration setting $conf[\'kolab\'][\'server\'][\'allow_group\'] holds a non-existing group!',
                                       __FILE__, __LINE__, PEAR_LOG_WARNING);
                 } else if (!in_array($dn, $user_object->getGroups())) {
                     throw new Horde_Kolab_Server_Exception(_('You are no member of a group that may login on this server.'));
                 }
             }
+
+	    $this->auth = true;
                 
             $result = $user_object->get(KOLAB_ATTR_MAIL);
             if (!empty($result) && !is_a($result, 'PEAR_Error')) {
