@@ -11,7 +11,22 @@
  */
 
 require_once dirname(__FILE__) . '/tabs.php';
-require_once 'Horde/String.php';
+
+/**
+ * Returns a new or the current CAPTCHA string.
+ *
+ * @param boolean $new string
+ */
+function _getCAPTCHA($new = false)
+{
+    if ($new || empty($_SESSION['folks']['CAPTCHA'])) {
+        $_SESSION['folks']['CAPTCHA'] = '';
+        for ($i = 0; $i < 5; $i++) {
+            $_SESSION['folks']['CAPTCHA'] .= chr(rand(65, 90));
+        }
+    }
+    return $_SESSION['folks']['CAPTCHA'];
+}
 
 // Make sure auth backend allows passwords to be reset.
 $auth = Auth::singleton($conf['auth']['driver']);
@@ -47,6 +62,10 @@ if (!empty($answer)) {
         $form->addVariable(_("Please respond to your security question: ") . $question, 'security_question', 'description', true);
     }
     $form->addVariable(_("Security answer"), 'security_answer', 'text', true);
+} else {
+    $desc = _("The picture above is for antispam checking. Please retype the characters from the picture. They are case sensitive.");
+    $form->addVariable(_("Human check"), 'captcha', 'captcha', true, false, $desc,
+                        array(_getCAPTCHA(!$form->isSubmitted()), HORDE_BASE . '/config/couri.ttf'));
 }
 
 /* Validate the form. */
