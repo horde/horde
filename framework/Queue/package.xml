@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+http://pear.php.net/dtd/tasks-1.0.xsd
+http://pear.php.net/dtd/package-2.0
+http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Queue</name>
+ <channel>pear.horde.org</channel>
+ <summary>Horde Queue</summary>
+ <description>Queue layer with various storage backends and runners
+ </description>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2009-03-15</date>
+ <time>21:00:00</time>
+ <version>
+  <release>0.1.0</release>
+  <api>0.1.0</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <notes>Initial Horde_Queue implementation
+ </notes>
+ <contents>
+  <dir name="/">
+   <dir name="lib">
+    <dir name="Horde">
+     <dir name="Queue">
+      <dir name="Runner">
+       <file name="Base.php" role="php" />
+       <file name="RequestShutdown.php" role="php" />
+      </dir> <!-- /lib/Horde/Queue/Runner -->
+      <dir name="Storage">
+       <file name="Base.php" role="php" />
+       <file name="RequestOnly.php" role="php" />
+      </dir> <!-- /lib/Horde/Queue/Storage -->
+      <dir name="Task">
+       <file name="Base.php" role="php" />
+      </dir> <!-- /lib/Horde/Queue/Task -->
+     </dir> <!-- /lib/Horde/Queue -->
+    </dir> <!-- /lib/Horde -->
+   </dir> <!-- /lib -->
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.7.0</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install name="lib/Horde/Queue/Runner/Base.php" as="Horde/Queue/Runner/Base.php" />
+   <install name="lib/Horde/Queue/Runner/RequestShutdown.php" as="Horde/Queue/Runner/RequestShutdown.php" />
+   <install name="lib/Horde/Queue/Storage/Base.php" as="Horde/Queue/Storage/Base.php" />
+   <install name="lib/Horde/Queue/Storage/RequestOnly.php" as="Horde/Queue/Storage/RequestOnly.php" />
+   <install name="lib/Horde/Queue/Task/Base.php" as="Horde/Queue/Task/Base.php" />
+  </filelist>
+ </phprelease>
+</package>
