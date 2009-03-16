@@ -1,6 +1,12 @@
 <?php
 /* Include Horde's core.php file. */
-include_once '../lib/core.php';
+$filedir = dirname(__FILE__);
+if (file_exists($filedir . '/lib/base.local.php')) {
+    include_once $filedir . '/lib/base.local.php';
+} elseif (!defined('HORDE_BASE')) {
+    define('HORDE_BASE', $filedir . '/..');
+}
+include_once HORDE_BASE . '/lib/core.php';
 
 /* We should have loaded the String class, from the Horde_Util package, in
  * core.php. If String:: isn't defined, then we're not finding some critical
@@ -11,16 +17,15 @@ if (!class_exists('String')) {
 }
 
 /* Initialize the Horde_Test:: class. */
-if (!is_readable('../lib/Test.php')) {
+if (!is_readable(HORDE_BASE . '/lib/Test.php')) {
     echo 'ERROR: You must install Horde before running this script.';
     exit;
 }
-require_once '../lib/Test.php';
+require_once HORDE_BASE . '/lib/Test.php';
 $horde_test = new Horde_Test;
 
-
 $module = 'Kronolith';
-require_once './lib/version.php';
+require_once $filedir . '/lib/version.php';
 $module_version = KRONOLITH_VERSION;
 
 require TEST_TEMPLATES . 'header.inc';
