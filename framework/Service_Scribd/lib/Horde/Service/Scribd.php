@@ -4,6 +4,7 @@
  *
  * http://www.scribd.com/platform/documentation/api?method_name=Authentication
  * http://www.scribd.com/platform/account
+ * http://github.com/richid/services_scribd/tree/master
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @license  http://opensource.org/licenses/bsd-license.php BSD
