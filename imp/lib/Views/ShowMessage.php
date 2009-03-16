@@ -180,9 +180,9 @@ class IMP_Views_ShowMessage
             } elseif ($val = $mime_headers->getValue($head)) {
                 if ($head == 'date') {
                     /* Add local time to date header. */
-                    $val = nl2br($imp_ui->addLocalTime($envelope['date']));
+                    $val = htmlspecialchars($imp_ui->getLocalTime($envelope['date']));
                     if ($preview) {
-                        $result['fulldate'] = $val;
+                        $result['localdate'] = $val;
                     }
                 } elseif (!$preview) {
                     $val = htmlspecialchars($val);

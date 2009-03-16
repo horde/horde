@@ -941,7 +941,7 @@ var DimpBase = {
 
         // Add date
         $('msgHeadersColl').select('.date').invoke('update', r.minidate);
-        $('msgHeaderDate').select('.date').invoke('update', r.fulldate);
+        $('msgHeaderDate').select('.date').invoke('update', r.localdate);
 
         // Add from/to/cc headers
         [ 'from', 'to', 'cc' ].each(function(a) {

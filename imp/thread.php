@@ -100,7 +100,7 @@ foreach ($loop_array as $mbox => $idxlist) {
         $curr_msg['idx'] = $idx;
 
         /* Get headers for the message. */
-        $curr_msg['date'] = $imp_ui->addLocalTime(nl2br($envelope['date']));
+        $curr_msg['date'] = $imp_ui->getLocalTime($envelope['date']);
 
         if (IMP::isSpecialFolder($mbox)) {
             $curr_msg['addr_to'] = true;

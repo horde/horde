@@ -106,11 +106,9 @@ class IMP_UI_Message
      *
      * @param string $date  The date string.
      *
-     * @return string  The date string with the local time added on. If not
-     *                 in MIMP mode, the output has been run through
-     *                 htmlspecialchars().
+     * @return string  The local formatted time string.
      */
-    public function addLocalTime($date)
+    public function getLocalTime($date)
     {
         if (empty($date)) {
             $ltime = false;
@@ -120,9 +118,7 @@ class IMP_UI_Message
         }
 
         if (($ltime === false) || ($ltime === -1)) {
-            return ($_SESSION['imp']['view'] == 'mimp')
-                ? $date
-                : htmlspecialchars($date);
+            return '';
         }
 
         $time_str = strftime($GLOBALS['prefs']->getValue('time_format'), $ltime);
@@ -133,15 +129,11 @@ class IMP_UI_Message
             (date('d') != @date('d', $ltime))) {
             /* Not today, use the date. */
             $date_str = strftime($GLOBALS['prefs']->getValue('date_format'), $ltime);
-            $local_date = sprintf('[%s %s %s]', $date_str, $time_str, $tz);
-        } else {
-            /* Else, it's today, use the time only. */
-            $local_date = sprintf('[%s %s]', $time_str, $tz);
+            return sprintf('%s %s %s', $date_str, $time_str, $tz);
         }
 
-        return ($_SESSION['imp']['view'] == 'mimp')
-            ? $date . ' ' . $local_date
-            : htmlspecialchars($date) . ' <small>' . htmlspecialchars($local_date) . '</small>';
+        /* Else, it's today, use the time only. */
+        return sprintf('%s %s', $time_str, $tz);
     }
 
     /**

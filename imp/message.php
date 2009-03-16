@@ -237,7 +237,7 @@ $imp_ui = new IMP_UI_Message();
 $basic_headers = $imp_ui->basicHeaders();
 $display_headers = $msgAddresses = array();
 
-$format_date = $imp_ui->addLocalTime(nl2br($envelope['date']));
+$format_date = $imp_ui->getLocalTime($envelope['date']);
 if (!empty($format_date)) {
     $display_headers['date'] = $format_date;
 }
