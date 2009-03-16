@@ -856,7 +856,6 @@ a.address:hover img {
 
 /* Drag and drop styles. */
 .drag, .dragdrop {
-    position: absolute;
     background: #eee;
     border: 1px solid #ccc;
     font: 12px Geneva,Arial,Helvetica,sans-serif;

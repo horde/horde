@@ -16,8 +16,10 @@
  * Usage:
  *   new Drag(element, {
  *       classname: '',           // Class name of the drag element
+ *                                // DEFAULT: 'drag'
  *       caption: '',             // Either string or function to set caption
  *                                // on mouse move
+ *       parentElement: element,  // Define a parent element
  *       ghosting: false,         // Show ghost outline when dragging.
  *       offset: { x:0, y:0 },    // An offset to apply to ghosted elements.
  *       scroll: element,         // Scroll this element when above/below.
@@ -39,6 +41,7 @@
  *                             // mouse over
  *       hoverclass: '',       // Change the drag element to this class when
  *                             // hovering over an element.
+ *                             // DEFAULT: 'dragdrop'
  *       onDrop: function(drop,drag)  // Function fired when mouse button
  *                                    // released (a/k/a a drop event)
  *       onOver: function(drop,drag)  // Function fired when mouse over zone
@@ -236,16 +239,25 @@ Drag = Class.create({
 
         this.lastCoord = xy = [ e.pointerX(), e.pointerY() ];
 
-        if (this.options.ghosting) {
+        if (!this.options.caption) {
             if (!this.ghost) {
                 oleft = this.element.offsetLeft;
                 otop = this.element.offsetTop;
-                this.ghost = $(this.element.cloneNode(true)).writeAttribute('id', null).setOpacity(0.7).clonePosition(this.element, { setLeft: false, setTop: false }).setStyle({ left: oleft + 'px', position: 'absolute', top: otop + 'px', zIndex: parseInt(this.element.getStyle('zIndex')) + 1 });
+                this.ghost = $(this.element.cloneNode(true)).writeAttribute('id', null).clonePosition(this.element, { setLeft: false, setTop: false }).setStyle({ left: oleft + 'px', position: 'absolute', top: otop + 'px' });
+
+                if (this.options.ghosting) {
+                    this.ghost.setOpacity(0.7).setStyle({ zIndex: parseInt(this.element.getStyle('zIndex')) + 1 });
+                } else {
+                    this.elthold = new Element('SPAN').setStyle({ display: 'block' }).clonePosition(this.element);
+                    this.element.hide().insert({ before: this.elthold });
+                }
+
                 if (this.options.parentElement) {
                     this.options.parentElement().insert(this.ghost);
                 } else {
                     this.element.insert({ before: this.ghost });
                 }
+
                 vo = this.ghost.cumulativeOffset();
                 this.ghostOffset = [ vo[0] - oleft, vo[1] - otop ];
             }
@@ -253,14 +265,16 @@ Drag = Class.create({
             xy[0] -= this.ghostOffset[0];
             xy[1] -= this.ghostOffset[1];
 
-            switch (this.options.constraint) {
-            case 'horizontal':
-                xy[1] = this.ghost.offsetTop;
-                break;
+            if (!this.options.caption) {
+                switch (this.options.constraint) {
+                case 'horizontal':
+                    xy[1] = this.ghost.offsetTop;
+                    break;
 
-            case 'vertical':
-                xy[0] = this.ghost.offsetLeft;
-                break;
+                case 'vertical':
+                    xy[0] = this.ghost.offsetLeft;
+                    break;
+                }
             }
 
             if (this.options.snap) {
@@ -295,9 +309,14 @@ Drag = Class.create({
         this._stopScrolling();
 
         if (this.ghost) {
+            if (!this.options.ghosting) {
+                this.elthold.remove();
+                this.element.show();
+            }
             this.ghost.remove();
             this.ghost = null;
         }
+
         DragDrop.Drags.div.hide();
 
         if (DragDrop.validDrop(this.element) &&
@@ -319,6 +338,11 @@ Drag = Class.create({
             div = DragDrop.Drags.div,
             d_update = true,
             elt = e.element();
+
+        /* elt will be null if we drag off the browser window. */
+        if (!Object.isElement(elt)) {
+            return;
+        }
 
         if (this.lastelt == elt) {
             this._setCaption(div, xy);
@@ -457,15 +481,23 @@ Drag = Class.create({
 
     _setContents: function(elt, x, y)
     {
-        var d_pos = document.viewport.getDimensions(),
-            e_pos = elt.getDimensions();
+        var e_pos = elt.getDimensions(),
+            l = x,
+            t = y;
 
-        if ((x + e_pos.width > d_pos.width) ||
-            (y + e_pos.height > d_pos.height)) {
-            elt.hide();
-        } else {
-            elt.setStyle({ left: x + 'px', top: y + 'px' }).show();
+        if (x < 0) {
+            l = 0;
+        } else if (x + e_pos.width > window.innerWidth) {
+            l = window.innerWidth - e_pos.width;
         }
+
+        if (y < 0) {
+            t = 0;
+        } else if (y + e_pos.height > window.innerHeight) {
+            t = window.innerHeight - e_pos.height;
+        }
+
+        elt.setStyle({ left: l + 'px', top: t + 'px' }).show();
     }
 
 }),
@@ -478,7 +510,7 @@ Drop = Class.create({
         this.options = Object.extend({
             accept: [],
             caption: '',
-            hoverclass: '',
+            hoverclass: 'dragdrop',
             onDrop: null,
             onOut: null,
             onOver: null

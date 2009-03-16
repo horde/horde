@@ -2448,7 +2448,6 @@ DimpBase._folderDragConfig = {
 };
 
 DimpBase._folderDropConfig = {
-    hoverclass: 'dragdrop',
     caption: function(drop, drag, e) {
         var m,
             d = drag.readAttribute('l'),
