@@ -74,7 +74,7 @@ var DragDrop = {
         register: function(obj)
         {
             if (!this.div) {
-                this.div = new Element('DIV', { className: obj.options.classname }).hide();
+                this.div = new Element('DIV', { className: obj.options.classname }).setStyle({ position: 'absolute' }).hide();
                 $(document.body).insert(this.div);
                 document.observe('mousedown', this._mouseHandler.bindAsEventListener(this));
             }
