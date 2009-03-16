@@ -309,30 +309,41 @@ Drag = Class.create({
 
     _onMoveDrag: function(xy, e)
     {
-        var c_opt, caption, cname, d_cap, elt,
+        var c_opt, caption, cname, d_cap,
             d = DragDrop.Drops.drop,
             div = DragDrop.Drags.div,
-            d_update = true;
+            d_update = true,
+            elt = e.element();
+
+        if (this.lastelt == elt) {
+            this._setCaption(div, xy);
+            return;
+        }
+
+        this.lastelt = elt;
 
         /* Do mouseover/mouseout-like detection here. Saves on observe calls
          * and handles case where mouse moves over scrollbars. */
         if (DragDrop.Drops.drops.size()) {
-            elt = e.element();
             if (!elt.hasClassName('DropElt')) {
                 elt = elt.up('.DropElt');
             }
 
             if (elt) {
                 elt = DragDrop.Drops.get_drop(elt);
-                if (elt != d) {
+                if (elt == d) {
+                    d_update = false;
+                } else {
                     elt.mouseOver();
+                    d = elt;
                 }
             } else if (d) {
                 d.mouseOut();
+                d = null;
             }
         }
 
-        if (d && DragDrop.validDrop(this.element)) {
+        if (d_update && d && DragDrop.validDrop(this.element)) {
             d_cap = d.options.caption;
             if (d_cap) {
                 caption = Object.isFunction(d_cap) ? d_cap(d.element, this.element, e) : d_cap;
@@ -358,7 +369,12 @@ Drag = Class.create({
             }
         }
 
-        if (!this.lastcaption.empty()) {
+        this._setCaption(div, xy);
+    },
+
+    _setCaption: function(div, xy)
+    {
+        if (this.lastcaption) {
             this._setContents(div, xy[0] + 15, xy[1] + (this.ghost ? (this.ghost.getHeight() + 5) : 5));
         }
     },
