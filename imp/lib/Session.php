@@ -298,7 +298,7 @@ class IMP_Session
      *
      * @return boolean  True if this entry is "preferred".
      */
-    function isPreferredServer($server, $key = null)
+    static public function isPreferredServer($server, $key = null)
     {
         if (!is_null(self::$prefServer)) {
             return ($key == self::$prefServer);

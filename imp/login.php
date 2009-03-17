@@ -155,7 +155,7 @@ if ($show_list) {
     $isAuth = Auth::isAuthenticated();
     foreach ($servers as $key => $val) {
         $entry = array(
-            'sel' => ($server_key == $key) || IMP::isPreferredServer($val, $key),
+            'sel' => ($server_key == $key) || IMP_Session::isPreferredServer($val, $key),
             'val' => $key,
             'name' => $val['name']
         );
