@@ -2025,7 +2025,7 @@ var DimpBase = {
                 submbox.remove();
             }
         }
-        [ DragDrop.Drags.getDrag(fid), DragDrop.Drops.get_drop(fid) ].compact().invoke('destroy');
+        [ DragDrop.Drags.getDrag(fid), DragDrop.Drops.getDrop(fid) ].compact().invoke('destroy');
         this._removeMouseEvents(f);
         if (this.viewport) {
             this.viewport.deleteView(fid);
