@@ -631,15 +631,11 @@ class IMP_Message
 
         foreach ($process_list as $key => $val) {
             try {
-                $GLOBALS['imp_imap']->ob->expunge($key, array('ids' => is_array($val) ? $val : array()));
+                $update_list[$key] = $GLOBALS['imp_imap']->ob->expunge($key, array('ids' => is_array($val) ? $val : array(), 'list' => $msg_list));
 
                 $imp_mailbox = IMP_Mailbox::singleton($key);
                 if ($imp_mailbox->isBuilt()) {
                     $imp_mailbox->removeMsgs(is_array($val) ? array($key => $val) : true);
-                }
-
-                if ($msg_list) {
-                    $update_list[$key] = $val;
                 }
             } catch (Horde_Imap_Client_Exception $e) {}
         }
