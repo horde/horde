@@ -627,7 +627,7 @@ case 'PurgeDeleted':
     $change = _changed($mbox, $cacheid, $indices);
     if (!$change) {
         $sort = IMP::getSort($mbox);
-        $change = ($sort['by'] == SORTTHREAD);
+        $change = ($sort['by'] == Horde_Imap_Client::SORT_THREAD);
     }
     $imp_message = IMP_Message::singleton();
     $expunged = $imp_message->expungeMailbox(array($mbox => 1), array('list' => true));
