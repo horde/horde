@@ -2330,12 +2330,16 @@ abstract class Horde_Imap_Client_Base
         $res = $this->search($this->_selected, $search, array('sort' => array(Horde_Imap_Client::SORT_ARRIVAL)));
         $ret = array('uids' => $res['sort']);
         if ($seq) {
-            if (empty($ids)) {
-                $ids = range(1, count($ret['uids']));
+            if (!$res['count']) {
+                $ret['lookup'] = array();
             } else {
-                sort($ids, SORT_NUMERIC);
+                if (empty($ids)) {
+                    $ids = range(1, $res['count']);
+                } else {
+                    sort($ids, SORT_NUMERIC);
+                }
+                $ret['lookup'] = array_combine($ret['uids'], $ids);
             }
-            $ret['lookup'] = array_combine($ret['uids'], $ids);
         }
 
         return $ret;

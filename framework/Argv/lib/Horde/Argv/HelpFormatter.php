@@ -17,40 +17,40 @@
  * instances should use one of the HelpFormatter subclasses for
  * formatting help; by default IndentedHelpFormatter is used.
  *
-    Instance attributes:
-      parser : Horde_Argv_Parser
-        the controlling Horde_Argv_Parser instance
-      indent_increment : int
-        the number of columns to indent per nesting level
-      max_help_position : int
-        the maximum starting column for option help text
-      help_position : int
-        the calculated starting column for option help text;
-        initially the same as the maximum
-      width : int
-        total number of columns for output (pass None to constructor for
-        this value to be taken from the $COLUMNS environment variable)
-      level : int
-        current indentation level
-      current_indent : int
-        current indentation level (in columns)
-      help_width : int
-        number of columns available for option help text (calculated)
-      default_tag : str
-        text to replace with each option's default value, "%default"
-        by default.  Set to false value to disable default value expansion.
-      option_strings : { Option : str }
-        maps Option instances to the snippet of help text explaining
-        the syntax of that option, e.g. "-h, --help" or
-        "-fFILE, --file=FILE"
-      _short_opt_fmt : str
-        format string controlling how short options with values are
-        printed in help text.  Must be either "%s%s" ("-fFILE") or
-        "%s %s" ("-f FILE"), because those are the two syntaxes that
-        Optik supports.
-      _long_opt_fmt : str
-        similar but for long options; must be either "%s %s" ("--file FILE")
-        or "%s=%s" ("--file=FILE").
+ *  Instance attributes:
+ *    parser : Horde_Argv_Parser
+ *      the controlling Horde_Argv_Parser instance
+ *    indent_increment : int
+ *      the number of columns to indent per nesting level
+ *    max_help_position : int
+ *      the maximum starting column for option help text
+ *    help_position : int
+ *      the calculated starting column for option help text;
+ *      initially the same as the maximum
+ *    width : int
+ *      total number of columns for output (pass None to constructor for
+ *      this value to be taken from the $COLUMNS environment variable)
+ *    level : int
+ *      current indentation level
+ *    current_indent : int
+ *      current indentation level (in columns)
+ *    help_width : int
+ *      number of columns available for option help text (calculated)
+ *    default_tag : str
+ *      text to replace with each option's default value, "%default"
+ *      by default.  Set to false value to disable default value expansion.
+ *    option_strings : { Option : str }
+ *      maps Option instances to the snippet of help text explaining
+ *      the syntax of that option, e.g. "-h, --help" or
+ *      "-fFILE, --file=FILE"
+ *    _short_opt_fmt : str
+ *      format string controlling how short options with values are
+ *      printed in help text.  Must be either "%s%s" ("-fFILE") or
+ *      "%s %s" ("-f FILE"), because those are the two syntaxes that
+ *      Horde_Argv supports.
+ *    _long_opt_fmt : str
+ *      similar but for long options; must be either "%s %s" ("--file FILE")
+ *      or "%s=%s" ("--file=FILE").
  *
  * @category Horde
  * @package  Horde_Argv

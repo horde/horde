@@ -28,4 +28,5 @@ class Horde_Mime_Viewer_Source extends Horde_Mime_Viewer_Driver
         }
         return implode("\n", $html) . '</th><td><div>' . $code . '</div></td></tr></table>';
     }
+
 }
