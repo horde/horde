@@ -184,6 +184,7 @@ class DIMP
             'viewport_wait' => intval($conf['dimp']['viewport']['viewport_wait']),
             'login_view' => $prefs->getValue('dimp_login_view'),
             'background_inbox' => !empty($conf['dimp']['viewport']['background_inbox']),
+            'splitbar_pos' => $prefs->getValue('dimp_splitbar'),
 
             'atc_list' => IMP_UI_Mailbox::getAttachmentAltList(),
 

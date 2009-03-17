@@ -18,7 +18,7 @@ var ViewPort = Class.create({
     // Required: content_container, lines, fetch_action, template,
     //           cachecheck_action, ajaxRequest, buffer_pages,
     //           limit_factor, content_class, row_class, selected_class
-    // Optional: show_split_pane
+    // Optional: show_split_pane, page_size
     initialize: function(opts)
     {
         opts.content = $(opts.content_container);
@@ -34,9 +34,10 @@ var ViewPort = Class.create({
         this.fetch_hash = $H();
         this.views = $H();
 
+        this.splitbar_loc = opts.page_size;
         this.showSplitPane(opts.show_split_pane);
 
-        this.isbusy = this.line_height = this.page_size = this.splitbar = this.splitbar_loc = this.uc_run = this.view = this.viewport_init = null;
+        this.isbusy = this.line_height = this.page_size = this.splitbar = this.uc_run = this.view = this.viewport_init = null;
         this.request_num = 1;
     },
 
@@ -866,7 +867,8 @@ var ViewPort = Class.create({
             return Math.max(parseInt(this.getPageSize('max') * 0.45), 5);
 
         case 'max':
-            return parseInt(this._getMaxHeight() / this._getLineHeight());
+        case 'splitmax':
+            return parseInt((this._getMaxHeight() - (type == 'max' ? 0 : 100)) / this._getLineHeight());
 
         default:
             return this.page_size;
@@ -906,7 +908,12 @@ var ViewPort = Class.create({
             if (this.show_split_pane) {
                 if (!pane.visible()) {
                     this._initSplitBar();
-                    this.page_size = (this.splitbar_loc) ? this.splitbar_loc : this.getPageSize('default');
+                    if (this.splitbar_loc &&
+                        this.splitbar_loc > 0) {
+                        this.splitbar_loc = this.page_size = Math.min(this.splitbar_loc, this.getPageSize('splitmax'));
+                    } else {
+                        this.page_size = this.getPageSize('default');
+                    }
                 }
                 setpane = true;
             } else if (pane.visible()) {
@@ -949,8 +956,7 @@ var ViewPort = Class.create({
             onStart: function() {
                 // Cache these values since we will be using them multiple
                 // times in snap().
-                var lh = this._getLineHeight();
-                this.sp = { lh: lh, pos: $(this.opts.content).positionedOffset()[1], max: parseInt((this._getMaxHeight() - 100) / lh), lines: this.page_size };
+                this.sp = { lh: this._getLineHeight(), pos: $(this.opts.content).positionedOffset()[1], max: this.getPageSize('splitmax'), lines: this.page_size, orig: this.page_size };
             }.bind(this),
             snap: function(x, y, elt) {
                 var l = parseInt((y - this.sp.pos) / this.sp.lh);
@@ -965,11 +971,20 @@ var ViewPort = Class.create({
             onEnd: function() {
                 this.page_size = this.sp.lines;
                 this._renderViewport();
+                if (this.opts.onSplitBarChange &&
+                    this.sp.orig != this.sp.lines) {
+                    this.opts.onSplitBarChange();
+                }
             }.bind(this)
         });
         this.splitbar.observe('dblclick', function() {
+            var old_size = this.page_size;
             this.page_size = this.getPageSize('default');
             this._renderViewport();
+            if (this.opts.onSplitBarChange &&
+                old_size != this.page_size) {
+                this.opts.onSplitBarChange();
+            }
         }.bind(this));
     },
 

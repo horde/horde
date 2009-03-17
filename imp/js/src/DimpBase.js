@@ -408,6 +408,7 @@ var DimpBase = {
             selected_class: 'selectedRow',
             ajaxRequest: DimpCore.doAction.bind(DimpCore),
             norows: true,
+            page_size: DIMP.conf.splitbar_pos,
             onScrollIdle: settitle,
             onSlide: settitle,
             onContent: function(rows) {
@@ -560,6 +561,9 @@ var DimpBase = {
             }.bind(this),
             onUpdateClass: function(row) {
                 this.updateStatusFlags(row);
+            }.bind(this),
+            onSplitBarChange: function() {
+                this._updatePrefs('dimp_splitbar', this.viewport.getPageSize());
             }.bind(this),
             selectCallback: this._select.bind(this),
             deselectCallback: this._deselect.bind(this)

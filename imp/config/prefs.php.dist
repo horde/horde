@@ -1474,6 +1474,12 @@ $_prefs['dimp_toggle_headers'] = array(
     'shared' => false,
     'type' => 'implicit');
 
+$_prefs['dimp_splitbar'] = array(
+    'value' => 0,
+    'locked' => false,
+    'shared' => false,
+    'type' => 'implicit');
+
 // End DIMP Options
 
 // Other entries (used internally in IMP)
