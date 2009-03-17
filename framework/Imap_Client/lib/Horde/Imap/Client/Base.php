@@ -1161,16 +1161,20 @@ abstract class Horde_Imap_Client_Base
      *         are also flagged as deleted. By default, this array is
      *         assumed to contain UIDs (see 'sequence').
      *         DEFAULT: All messages marked as deleted will be expunged.
+     * 'list' - (boolean) If true, returns the list of expunged messages.
+     *          DEFAULT: false
      * 'sequence' - (boolean) If true, 'ids' is an array of sequence numbers.
      *              DEFAULT: 'sequence' is an array of UIDs.
      * </pre>
      *
+     * @return array  If 'list' option is true, returns the list of
+     *                expunged messages.
      * @throws Horde_Imap_Client_Exception
      */
     public function expunge($mailbox, $options = array())
     {
         $this->openMailbox($mailbox, Horde_Imap_Client::OPEN_READWRITE);
-        $this->_expunge($options);
+        return $this->_expunge($options);
     }
 
     /**
@@ -1178,6 +1182,8 @@ abstract class Horde_Imap_Client_Base
      *
      * @param array $options  Additional options.
      *
+     * @return array  If 'list' option is true, returns the list of
+     *                expunged messages.
      * @throws Horde_Imap_Client_Exception
      */
     abstract protected function _expunge($options);

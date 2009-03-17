@@ -1293,6 +1293,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      *
      * @param array $options  Additional options.
      *
+     * @return array  If 'list' option is true, returns the list of
+     *                expunged messages.
      * @throws Horde_Imap_Client_Exception
      */
     protected function _expunge($options)
@@ -1351,11 +1353,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         $tmp = &$this->_temp;
         $tmp['expunge'] = $tmp['vanished'] = array();
+        $list_msgs = !empty($options['list']);
 
         /* Always use UID EXPUNGE if available. */
         if ($uidplus) {
             $this->_sendLine('UID EXPUNGE ' . $uid_string);
-        } elseif ($use_cache) {
+        } elseif ($use_cache || $list_msgs) {
             $this->_sendLine('EXPUNGE');
         } else {
             /* This is faster than an EXPUNGE because the server will not
@@ -1368,7 +1371,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $this->store($mailbox, array('add' => array('\\deleted'), 'ids' => $unflag));
         }
 
-        if ($use_cache) {
+        if ($use_cache || $list_msgs) {
             if (!empty($tmp['vanished'])) {
                 $i = count($tmp['vanished']);
                 $expunged = $tmp['vanished'];
@@ -1389,6 +1392,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             if (isset($this->_init['enabled']['QRESYNC'])) {
                 $this->_cache->setMetaData($mailbox, array('HICmodseq' => $this->_temp['mailbox']['highestmodseq']));
             }
+
+            return $list_msgs ? $i : null;
         } elseif (!empty($tmp['expunge'])) {
             /* Updates status message count if not using cache. */
             $tmp['mailbox']['messages'] -= count($tmp['expunge']);
