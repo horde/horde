@@ -550,7 +550,7 @@ body.kronolithAjax {
     background-image: url("graphics/checkbox_on.png");
 }
 #kronolithMenu div.kronolithCalendars div.kronolithCalOver {
-    background-image: url("graphics/checkbox_over.png");
+    text-decoration: underline;
 }
 
 /* to be removed */
