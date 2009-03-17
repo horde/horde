@@ -242,7 +242,7 @@ Drag = Class.create({
 
     _mouseMove: function(e)
     {
-        var oleft, otop, vo, xy;
+        var oleft, otop, go, eo, xy;
 
         if (++this.move <= this.options.threshold) {
             return;
@@ -252,15 +252,15 @@ Drag = Class.create({
 
         if (!this.options.caption) {
             if (!this.ghost) {
-                oleft = this.element.offsetLeft;
-                otop = this.element.offsetTop;
-                this.ghost = $(this.element.cloneNode(true)).writeAttribute('id', null).clonePosition(this.element, { setLeft: false, setTop: false }).setStyle({ left: oleft + 'px', position: 'absolute', top: otop + 'px' });
+                this.ghost = $(this.element.cloneNode(true)).writeAttribute('id', null).clonePosition(this.element).setStyle({ position: 'absolute' });
 
                 if (this.options.ghosting) {
                     this.ghost.setOpacity(0.7).setStyle({ zIndex: parseInt(this.element.getStyle('zIndex')) + 1 });
+                    eo = this.element.cumulativeOffset();
                 } else {
                     this.elthold = new Element('SPAN').setStyle({ display: 'block' }).clonePosition(this.element);
                     this.element.hide().insert({ before: this.elthold });
+                    eo = this.elthold.cumulativeOffset();
                 }
 
                 if (this.options.parentElement) {
@@ -269,8 +269,9 @@ Drag = Class.create({
                     this.element.insert({ before: this.ghost });
                 }
 
-                vo = this.ghost.cumulativeOffset();
-                this.ghostOffset = [ vo[0] - oleft, vo[1] - otop ];
+                go = this.ghost.cumulativeOffset();
+                this.ghostOffset = [ go[0] + xy[0] - 2 * eo[0],
+                                     go[1] + xy[1] - 2 * eo[1] ];
 
                 if (this.options.snapToParent) {
                     this.dim = this.element.getDimensions();
