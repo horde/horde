@@ -519,7 +519,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             break;
 
         case 'LOGIN':
-            $this->_sendLine('LOGIN ' . $this->_utils->escape($this->_params['username']) . ' ' . $this->_utils->escape($this->_params['password']), array('debug' => '[LOGIN Command]'));
+            $this->_sendLine('LOGIN ' . $this->_utils->escape($this->_params['username']) . ' ' . $this->_utils->escape($this->_params['password']), array('debug' => sprintf('[LOGIN Command - username: %s]', $this->_params['username'])));
             break;
 
         case 'PLAIN':
@@ -527,10 +527,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $auth = base64_encode(implode("\0", array($this->_params['username'], $this->_params['username'], $this->_params['password'])));
             if ($this->queryCapability('SASL-IR')) {
                 // IMAP Extension for SASL Initial Client Response (RFC 4959)
-                $this->_sendLine('AUTHENTICATE PLAIN ' . $auth, array('debug' => '[SASL-IR AUTHENTICATE Command]'));
+                $this->_sendLine('AUTHENTICATE PLAIN ' . $auth, array('debug' => sprintf('[SASL-IR AUTHENTICATE Command - username: %s]', $this->_params['username'])));
             } else {
                 $this->_sendLine('AUTHENTICATE PLAIN', array('noparse' => true));
-                $this->_sendLine($auth, array('debug' => '[AUTHENTICATE Command]', 'notag' => true));
+                $this->_sendLine($auth, array('debug' => sprintf('[AUTHENTICATE Command - username: %s]', $this->_params['username']), 'notag' => true));
             }
             break;
         }
