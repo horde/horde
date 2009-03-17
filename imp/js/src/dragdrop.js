@@ -270,8 +270,7 @@ Drag = Class.create({
                 }
 
                 go = this.ghost.cumulativeOffset();
-                so = this.ghost.cumulativeScrollOffset();
-                this.ghostOffset = [ go[0] + so[0] - eo[0], go[1] + so[1] - eo[1] ];
+                this.ghostOffset = [ go[0] - eo[0], go[1] - eo[1] ];
                 if (!this.options.offset) {
                     this.ghostOffset[0] += xy[0] - eo[0];
                     this.ghostOffset[1] += xy[1] - eo[1];
@@ -290,8 +289,9 @@ Drag = Class.create({
                 }
             }
 
-            xy[0] -= this.ghostOffset[0];
-            xy[1] -= this.ghostOffset[1];
+            so = this.ghost.cumulativeScrollOffset();
+            xy[0] -= this.ghostOffset[0] + so[0];
+            xy[1] -= this.ghostOffset[1] + so[1];
 
             if (!this.options.caption) {
                 switch (this.options.constraint) {
@@ -525,18 +525,19 @@ Drag = Class.create({
     {
         var e_pos = elt.getDimensions(),
             l = x,
-            t = y;
+            t = y,
+            so = document.body.cumulativeScrollOffset();
 
-        if (x < 0) {
-            l = 0;
-        } else if (x + e_pos.width > window.innerWidth) {
-            l = window.innerWidth - e_pos.width;
+        if (x < so[0]) {
+            l = so[0];
+        } else if (x + e_pos.width > window.innerWidth + so[0]) {
+            l = window.innerWidth - e_pos.width + so[0];
         }
 
-        if (y < 0) {
-            t = 0;
-        } else if (y + e_pos.height > window.innerHeight) {
-            t = window.innerHeight - e_pos.height;
+        if (y < so[1]) {
+            t = so[1];
+        } else if (y + e_pos.height > window.innerHeight + so[1]) {
+            t = window.innerHeight - e_pos.height + so[1];
         }
 
         elt.setStyle({ left: l + 'px', top: t + 'px' }).show();
