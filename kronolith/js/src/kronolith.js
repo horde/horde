@@ -836,11 +836,7 @@ KronolithCore = {
                     var dates = this.viewDates(this.date, this.view);
                     this._loadEvents(dates[0], dates[1], this._loadEventsCallback.bind(this), this.view, [[calClass, calendar]]);
                 } else {
-                    this.ecache[calClass][calendar].each(function(day) {
-                        $H(day.value).each(function(event) {
-                            $('kronolithEvent' + this.view + calClass + '|' + calendar + event.key).toggle();
-                        }, this);
-                    }, this);
+                    $('kronolithViewMonth').select('div[calendar=' + calClass + '|' + calendar + ']').invoke('toggle');
                 }
                 elt.toggleClassName('kronolithCalOn');
                 elt.toggleClassName('kronolithCalOff');
