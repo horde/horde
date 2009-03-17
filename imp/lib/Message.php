@@ -598,24 +598,29 @@ class IMP_Message
      *                          If the value is not an array, all messages
      *                          flagged as deleted in the mailbox will be
      *                          deleted.
+     * @param array $options    Additional options:
+     * <pre>
+     * 'list' - (boolean) Return a list of messages expunged.
+     *          DEFAULT: false
+     * </pre>
      *
-     * @return array  An array of mailbox names as keys and UIDs as values
-     *                that were expunged.
+     * @return array  If 'list' option is true, an array of mailbox names as
+     *                keys and UIDs as values that were expunged.
      */
-    public function expungeMailbox($mbox_list)
+    public function expungeMailbox($mbox_list, $options = array())
     {
-        global $imp_search;
+        $msg_list = !empty($options['list']);
 
         if (empty($mbox_list)) {
-            return array();
+            return $msg_list ? array() : null;
         }
 
         $process_list = $update_list = array();
 
         foreach (array_keys($mbox_list) as $key) {
             if (!$GLOBALS['imp_imap']->isReadOnly($key)) {
-                if ($imp_search->isSearchMbox($key)) {
-                    foreach ($imp_search->getSearchFolders($key) as $skey) {
+                if ($GLOBALS['imp_search']->isSearchMbox($key)) {
+                    foreach ($GLOBALS['imp_search']->getSearchFolders($key) as $skey) {
                         $process_list[$skey] = $mbox_list[$key];
                     }
                 } else {
@@ -632,11 +637,14 @@ class IMP_Message
                 if ($imp_mailbox->isBuilt()) {
                     $imp_mailbox->removeMsgs(is_array($val) ? array($key => $val) : true);
                 }
-                $update_list[$key] = $val;
+
+                if ($msg_list) {
+                    $update_list[$key] = $val;
+                }
             } catch (Horde_Imap_Client_Exception $e) {}
         }
 
-        return $update_list;
+        return $msg_list ? $update_list : null;
     }
 
     /**

@@ -630,7 +630,7 @@ case 'PurgeDeleted':
         $change = ($sort['by'] == SORTTHREAD);
     }
     $imp_message = IMP_Message::singleton();
-    $expunged = $imp_message->expungeMailbox(array($mbox => 1));
+    $expunged = $imp_message->expungeMailbox(array($mbox => 1), array('list' => true));
     if (!empty($expunged[$mbox])) {
         $expunge_count = count($expunged[$mbox]);
         $display_folder = IMP::displayFolder($mbox);
