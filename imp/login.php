@@ -155,7 +155,7 @@ if ($show_list) {
     $isAuth = Auth::isAuthenticated();
     foreach ($servers as $key => $val) {
         $entry = array(
-            'sel' => IMP_Session::isPreferredServer($val, $key),
+            'sel' => ($server_key == $key) || IMP::isPreferredServer($val, $key),
             'val' => $key,
             'name' => $val['name']
         );
@@ -329,7 +329,7 @@ require IMP_TEMPLATES . '/common-header.inc';
 
 $charset = NLS::getCharset();
 IMP::addInlineScript(array(
-    'ImpLogin.autologin_url = ' . Horde_Serialize::serialize(Util::addParameter(Horde::selfUrl(), array('autologin' => $autologin, 'server_key' => '')), Horde_Serialize::JSON, $charset),
+    'ImpLogin.autologin_url = ' . Horde_Serialize::serialize(Util::addParameter(Horde::selfUrl(), array('autologin' => $autologin, 'server_key' => ''), null, false), Horde_Serialize::JSON, $charset),
     'ImpLogin.ie_clientcaps = ' . intval($t->get('ie_clientcaps')),
     'ImpLogin.imp_auth = ' . intval($imp_auth),
     'ImpLogin.lang_url = ' . Horde_Serialize::serialize($lang_url, Horde_Serialize::JSON, $charset),
