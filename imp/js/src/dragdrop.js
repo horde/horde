@@ -98,7 +98,7 @@ var DragDrop = {
             obj.element.removeClassName('DragElt');
         },
 
-        get_drag: function(el)
+        getDrag: function(el)
         {
             return this.drags.get(Object.isElement(el) ? $(el).identify() : el);
         },
@@ -133,7 +133,7 @@ var DragDrop = {
                     elt = elt.up('.DragElt');
                 }
                 if (elt) {
-                    this.get_drag(elt).mouseDown(e);
+                    this.getDrag(elt).mouseDown(e);
                 }
             }
         }
@@ -158,7 +158,7 @@ var DragDrop = {
             obj.element.removeClassName('DropElt');
         },
 
-        get_drop: function(el)
+        getDrop: function(el)
         {
             return this.drops.get(Object.isElement(el) ? $(el).identify() : el);
         }
@@ -397,7 +397,7 @@ Drag = Class.create({
             }
 
             if (elt) {
-                elt = DragDrop.Drops.get_drop(elt);
+                elt = DragDrop.Drops.getDrop(elt);
                 if (elt == d) {
                     d_update = false;
                 } else {
