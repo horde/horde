@@ -691,8 +691,8 @@ class IMP_Compose
          * current IMAP / POP3 connection are valid for SMTP authentication as
          * well. */
         if (!empty($params['auth']) && empty($params['username'])) {
-            $params['username'] = $_SESSION['imp']['user'];
-            $params['password'] = Horde_Secret::read(IMP::getAuthKey(), $_SESSION['imp']['pass']);
+            $params['username'] = $GLOBALS['imp_imap']->ob->getParam('username');
+            $params['password'] = $GLOBALS['imp_imap']->ob->getParam('password');
         }
 
         return array('driver' => $GLOBALS['conf']['mailer']['type'], 'params' => $params);

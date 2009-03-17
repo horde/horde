@@ -114,8 +114,7 @@ if (isset($_SESSION['imp']) && is_array($_SESSION['imp'])) {
     /* Make sure that if a username was specified, it is the current
      * username. */
     if ((!is_null($imapuser) && ($imapuser != $_SESSION['imp']['user'])) ||
-        (!is_null($pass) && ($pass != Horde_Secret::read(IMP::getAuthKey(), $_SESSION['imp']['pass'])))) {
-
+        (!is_null($pass) && ($pass != $GLOBALS['imp_imap']->ob->getParam('password')))) {
         /* Disable the old session. */
         unset($_SESSION['imp']);
         _redirect(Auth::addLogoutParameters(IMP::logoutUrl(), AUTH_REASON_FAILED));
