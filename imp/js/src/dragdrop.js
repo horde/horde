@@ -379,7 +379,7 @@ Drag = Class.create({
             d = DragDrop.Drops.drop,
             div = DragDrop.Drags.div,
             d_update = true,
-            elt = e.element();
+            elt = this._findElement(e);
 
         /* elt will be null if we drag off the browser window. */
         if (!Object.isElement(elt)) {
@@ -441,6 +441,25 @@ Drag = Class.create({
         }
 
         this._setCaption(div, xy);
+    },
+
+    _findElement: function(e)
+    {
+        if (this.options.caption || this.options.offset) {
+            return e.element();
+        }
+
+        if (!DragDrop.Drops.drops.size()) {
+            return;
+        }
+
+        Position.prepare();
+        var drop = DragDrop.Drops.drops.find(function(drop) {
+            return Position.within(drop.value.element, e.pointerX(), e.pointerY());
+        });
+        if (drop) {
+            return drop.value.element;
+        }
     },
 
     _setCaption: function(div, xy)
