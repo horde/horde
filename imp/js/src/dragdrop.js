@@ -242,7 +242,7 @@ Drag = Class.create({
 
     _mouseMove: function(e)
     {
-        var oleft, otop, go, eo, xy;
+        var oleft, otop, go, so, eo, xy;
 
         if (++this.move <= this.options.threshold) {
             return;
@@ -270,8 +270,12 @@ Drag = Class.create({
                 }
 
                 go = this.ghost.cumulativeOffset();
-                this.ghostOffset = [ go[0] + xy[0] - 2 * eo[0],
-                                     go[1] + xy[1] - 2 * eo[1] ];
+                so = this.ghost.cumulativeScrollOffset();
+                this.ghostOffset = [ go[0] + so[0] - eo[0], go[1] + so[1] - eo[1] ];
+                if (!this.options.offset) {
+                    this.ghostOffset[0] += xy[0] - eo[0];
+                    this.ghostOffset[1] += xy[1] - eo[1];
+                }
 
                 if (this.options.snapToParent) {
                     this.dim = this.element.getDimensions();
@@ -301,27 +305,27 @@ Drag = Class.create({
                 }
             }
 
-            if (this.options.snap) {
-                xy = this.options.snap(xy[0], xy[1], this.element);
-            }
-            if (this.options.snapToParent) {
-                if (xy[0] < 0) {
-                    xy[0] = 0;
-                }
-                if (xy[0] + this.dim.width > this.snap.width) {
-                    xy[0] = this.snap.width - this.dim.width;
-                }
-                if (xy[1] < 0) {
-                    xy[1] = 0;
-                }
-                if (xy[1] + this.dim.height > this.snap.height) {
-                    xy[1] = this.snap.height - this.dim.height;
-                }
-            }
-
             if (this.options.offset) {
                 xy[0] += this.options.offset.x;
                 xy[1] += this.options.offset.y;
+            } else {
+                if (this.options.snap) {
+                    xy = this.options.snap(xy[0], xy[1], this.element);
+                }
+                if (this.options.snapToParent) {
+                    if (xy[0] < 0) {
+                        xy[0] = 0;
+                    }
+                    if (xy[0] + this.dim.width > this.snap.width) {
+                        xy[0] = this.snap.width - this.dim.width;
+                    }
+                    if (xy[1] < 0) {
+                        xy[1] = 0;
+                    }
+                    if (xy[1] + this.dim.height > this.snap.height) {
+                        xy[1] = this.snap.height - this.dim.height;
+                    }
+                }
             }
 
             this._setContents(this.ghost, xy[0], xy[1]);
