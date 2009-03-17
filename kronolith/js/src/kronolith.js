@@ -402,8 +402,11 @@ KronolithCore = {
             }
             new Drop(cell, { onDrop: function(drop) {
                 var el = DragDrop.Drags.drag.element;
-                this.doAction('UpdateEvent', { cal: el.readAttribute('calendar'), id: el.readAttribute('eventid'), att: $H({ start: drop.readAttribute('date') }).toJSON() });
                 drop.insert(el);
+                this.doAction('UpdateEvent',
+                              { cal: el.readAttribute('calendar'),
+                                id: el.readAttribute('eventid'),
+                                att: $H({ start_date: drop.readAttribute('date') }).toJSON() });
             }.bind(this) });
             cell.down('.kronolithDay').setText(day.getDate());
             cell = cell.next();

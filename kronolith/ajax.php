@@ -129,6 +129,37 @@ case 'GetEvent':
     $result->event = $event;
     break;
 
+case 'UpdateEvent':
+    if (!($kronolith_driver = getDriver($cal = Util::getFormData('cal')))) {
+        break;
+    }
+    $event = $kronolith_driver->getEvent(Util::getFormData('id'));
+    if (is_a($event, 'PEAR_Error')) {
+        $notification->push($event, 'horde.error');
+        break;
+    }
+    if ($event) {
+        $notification->push(_("The requested event was not found."), 'horde.error');
+        break;
+    }
+    $attributes = Horde_Serialize::unserialize(Util::getFormData('att'), Horde_Serialize::JSON);
+    foreach ($attributes as $attribute => $value) {
+        switch ($attribute) {
+        case 'start_date':
+            $start = new Horde_Date($value);
+            $event->start->year = $start->year;
+            $event->start->month = $start->month;
+            $event->start->mday = $start->mday;
+            $event->end = $event->start->add(array('min' => $event->durMin));
+            break;
+        }
+    }
+    $result = $event->save();
+    if (is_a($result, 'PEAR_Error')) {
+        $notification->push($result, 'horde.error');
+    }
+    break;
+
 case 'SaveCalPref':
     $result = true;
     break;
