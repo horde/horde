@@ -228,11 +228,9 @@ Drag = Class.create({
         }
 
         if (this.options.snapToParent) {
-            if (this.options.parentElement) {
-                this.snap = this.options.parentElement().getDimensions();
-            } else {
-                this.snap = this.element.parentNode.getDimensions();
-            }
+            this.snap = this.options.parentElement
+                ? this.options.parentElement().getDimensions()
+                : this.element.parentNode.getDimensions();
         }
 
         if (!Prototype.Browser.IE && !Prototype.Browser.Gecko) {
@@ -278,14 +276,12 @@ Drag = Class.create({
 
                 if (this.options.snapToParent) {
                     this.dim = this.element.getDimensions();
-                    this.dim.width += parseInt(this.element.getStyle('paddingLeft'))
-                        + parseInt(this.element.getStyle('paddingRight'))
-                        + parseInt(this.element.getStyle('marginLeft'))
-                        + parseInt(this.element.getStyle('marginRight'));
-                    this.dim.height += parseInt(this.element.getStyle('paddingTop'))
-                        + parseInt(this.element.getStyle('paddingBottom'))
-                        + parseInt(this.element.getStyle('marginTop'))
-                        + parseInt(this.element.getStyle('marginBottom'));
+                    [ 'paddingLeft', 'paddingRight', 'marginLeft', 'marginRight' ].each(function(s) {
+                        this.dim.width += parseInt(this.element.getStyle(s));
+                    }, this);
+                    [ 'paddingTop', 'paddingBottom', 'marginTop', 'marginBottom' ].each(function(s) {
+                        this.dim.height += parseInt(this.element.getStyle(s));
+                    }, this);
                 }
             }
 
@@ -445,6 +441,8 @@ Drag = Class.create({
 
     _findElement: function(e)
     {
+        var drop, x, y;
+
         if (this.options.caption || this.options.offset) {
             return e.element();
         }
@@ -454,9 +452,14 @@ Drag = Class.create({
         }
 
         Position.prepare();
-        var drop = DragDrop.Drops.drops.find(function(drop) {
-            return Position.within(drop.value.element, e.pointerX(), e.pointerY());
+
+        x = e.pointerX();
+        y = e.pointerY();
+
+        drop = DragDrop.Drops.drops.find(function(drop) {
+            return Position.within(drop.value.element, x, y);
         });
+
         if (drop) {
             return drop.value.element;
         }
