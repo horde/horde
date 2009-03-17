@@ -597,7 +597,7 @@ var DimpBase = {
     _removeMouseEvents: function(elt)
     {
         var d, id = $(elt).readAttribute('id');
-        if (id && (d = DragDrop.Drags.get_drag(id))) {
+        if (id && (d = DragDrop.Drags.getDrag(id))) {
             d.destroy();
         }
 
@@ -2025,7 +2025,7 @@ var DimpBase = {
                 submbox.remove();
             }
         }
-        [ DragDrop.Drags.get_drag(fid), DragDrop.Drops.get_drop(fid) ].compact().invoke('destroy');
+        [ DragDrop.Drags.getDrag(fid), DragDrop.Drops.get_drop(fid) ].compact().invoke('destroy');
         this._removeMouseEvents(f);
         if (this.viewport) {
             this.viewport.deleteView(fid);
