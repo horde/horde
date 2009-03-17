@@ -596,7 +596,7 @@ KronolithCore = {
                             .observe('mouseover', div.addClassName.curry('kronolithSelected'))
                             .observe('mouseout', div.removeClassName.curry('kronolithSelected'));
                         $('kronolithMonthDay' + date.key).insert(div);
-                        new Drag('kronolithEventmonth' + r.response.cal + event.key, { ghosting: true, parentElement: function() { return document.body; } });
+                        new Drag('kronolithEventmonth' + r.response.cal + event.key, { parentElement: function() { return $('kronolithViewMonth').select('.kronolithViewBody')[0]; }, snapToParent: true });
                         break;
                     }
                 }, this);
