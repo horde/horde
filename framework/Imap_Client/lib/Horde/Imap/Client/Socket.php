@@ -49,6 +49,8 @@
  *   RFC 5257 - ANNOTATE
  *   RFC 5259 - CONVERT
  *   RFC 5267 - CONTEXT
+ *   RFC 5465 - NOTIFY
+ *   RFC 5466 - FILTERS
  *
  * Originally based on code from:
  *   + auth.php (1.49)
