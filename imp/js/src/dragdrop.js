@@ -27,6 +27,8 @@
  *       snap: null,              // If ghosting, snap allows to specify
  *                                // coords at which the ghosted image will
  *                                // "snap" into place.
+ *       snapToParent: false      // Keep image snapped inside the parent
+ *                                // element.
  *       threshold: 0,            // Move threshold
  *       // For the following functions, d = drop element, e = event object
  *       onStart: function(d,e),  // A function to run on mousedown
@@ -185,6 +187,7 @@ Drag = Class.create({
             ghosting: false,
             scroll: null,
             snap: null,
+            snapToParent: false,
             threshold: 0,
             onDrag: null,
             onEnd: null,
@@ -224,6 +227,14 @@ Drag = Class.create({
             this.options.onStart(this, e);
         }
 
+        if (this.options.snapToParent) {
+            if (this.options.parentElement) {
+                this.snap = this.options.parentElement().getDimensions();
+            } else {
+                this.snap = this.element.parentNode.getDimensions();
+            }
+        }
+
         if (!Prototype.Browser.IE && !Prototype.Browser.Gecko) {
             e.stop();
         }
@@ -260,6 +271,18 @@ Drag = Class.create({
 
                 vo = this.ghost.cumulativeOffset();
                 this.ghostOffset = [ vo[0] - oleft, vo[1] - otop ];
+
+                if (this.options.snapToParent) {
+                    this.dim = this.element.getDimensions();
+                    this.dim.width += parseInt(this.element.getStyle('paddingLeft'))
+                        + parseInt(this.element.getStyle('paddingRight'))
+                        + parseInt(this.element.getStyle('marginLeft'))
+                        + parseInt(this.element.getStyle('marginRight'));
+                    this.dim.height += parseInt(this.element.getStyle('paddingTop'))
+                        + parseInt(this.element.getStyle('paddingBottom'))
+                        + parseInt(this.element.getStyle('marginTop'))
+                        + parseInt(this.element.getStyle('marginBottom'));
+                }
             }
 
             xy[0] -= this.ghostOffset[0];
@@ -279,6 +302,20 @@ Drag = Class.create({
 
             if (this.options.snap) {
                 xy = this.options.snap(xy[0], xy[1], this.element);
+            }
+            if (this.options.snapToParent) {
+                if (xy[0] < 0) {
+                    xy[0] = 0;
+                }
+                if (xy[0] + this.dim.width > this.snap.width) {
+                    xy[0] = this.snap.width - this.dim.width;
+                }
+                if (xy[1] < 0) {
+                    xy[1] = 0;
+                }
+                if (xy[1] + this.dim.height > this.snap.height) {
+                    xy[1] = this.snap.height - this.dim.height;
+                }
             }
 
             if (this.options.offset) {
