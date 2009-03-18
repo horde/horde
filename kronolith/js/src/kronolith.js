@@ -910,7 +910,9 @@ KronolithCore = {
     /* Onload function. */
     onDomLoad: function()
     {
-        this.init();
+        if (typeof ContextSensitive != 'undefined') {
+            this.DMenu = new ContextSensitive({ onClick: this.contextOnClick, onShow: this.contextOnShow });
+        }
 
         document.observe('keydown', KronolithCore.keydownHandler.bindAsEventListener(KronolithCore));
         document.observe('keyup', KronolithCore.keyupHandler.bindAsEventListener(KronolithCore));
@@ -1015,25 +1017,6 @@ KronolithCore = {
 
     // By default, no context onClick action
     contextOnClick: Prototype.emptyFunction,
-
-    /* Kronolith initialization function. */
-    init: function()
-    {
-        if (typeof ContextSensitive != 'undefined') {
-            this.DMenu = new ContextSensitive({ onClick: this.contextOnClick, onShow: this.contextOnShow });
-        }
-
-        /* Don't do additional onload stuff if we are in a popup. We need a
-         * try/catch block here since, if the page was loaded by an opener
-         * out of this current domain, this will throw an exception. */
-        try {
-            if (parent.opener &&
-                parent.opener.location.host == window.location.host &&
-                parent.opener.DimpCore) {
-                Kronolith.baseWindow = parent.opener.Kronolith.baseWindow || parent.opener;
-            }
-        } catch (e) {}
-    }
 
 };
 
