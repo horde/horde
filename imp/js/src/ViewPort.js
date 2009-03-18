@@ -953,6 +953,7 @@ var ViewPort = Class.create({
         new Drag(this.splitbar, {
             constraint: 'vertical',
             ghosting: true,
+            nodrop: true,
             onStart: function() {
                 // Cache these values since we will be using them multiple
                 // times in snap().
