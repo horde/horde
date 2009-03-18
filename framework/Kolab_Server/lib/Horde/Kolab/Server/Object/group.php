@@ -36,34 +36,13 @@ class Horde_Kolab_Server_Object_group extends Horde_Kolab_Server_Object
     public static $filter = '(objectClass=kolabGroupOfNames)';
 
     /**
-     * The attributes supported by this class
-     *
-     * @var array
-     */
-    public $supported_attributes = array(
-        KOLAB_ATTR_CN,
-        KOLAB_ATTR_MAIL,
-        KOLAB_ATTR_MEMBER,
-        KOLAB_ATTR_DELETED,
-    );
-
-    /**
      * Attributes derived from the LDAP values.
      *
      * @var array
      */
     public $derived_attributes = array(
-        KOLAB_ATTR_ID,
-        KOLAB_ATTR_VISIBILITY,
-    );
-
-    /**
-     * The attributes required when creating an object of this class.
-     *
-     * @var array
-     */
-    public $required_attributes = array(
-        KOLAB_ATTR_CN,
+        Horde_Kolab_Server_Object::ATTRIBUTE_ID,
+        Horde_Kolab_Server_Object::ATTRIBUTE_VISIBILITY,
     );
 
     /**
@@ -72,8 +51,9 @@ class Horde_Kolab_Server_Object_group extends Horde_Kolab_Server_Object
      * @var array
      */
     protected $object_classes = array(
-        KOLAB_OC_TOP,
-        KOLAB_OC_KOLABGROUPOFNAMES,
+        Horde_Kolab_Server_Object::OBJECTCLASS_TOP,
+        Horde_Kolab_Server_Object::OBJECTCLASS_INETORGPERSON,
+        Horde_Kolab_Server_Object::OBJECTCLASS_KOLABGROUPOFNAMES,
     );
 
     /**
@@ -81,7 +61,7 @@ class Horde_Kolab_Server_Object_group extends Horde_Kolab_Server_Object
      *
      * @var string
      */
-    public $sort_by = KOLAB_ATTR_MAIL;
+    public $sort_by = Horde_Kolab_Server_Object::ATTRIBUTE_MAIL;
 
     /**
      * Derive an attribute value.
@@ -93,7 +73,7 @@ class Horde_Kolab_Server_Object_group extends Horde_Kolab_Server_Object
     protected function derive($attr)
     {
         switch ($attr) {
-        case KOLAB_ATTR_VISIBILITY:
+        case self::ATTRIBUTE_VISIBILITY:
             return strpos($this->_uid, 'cn=internal') === false;
         default:
             return parent::derive($attr);
@@ -111,9 +91,9 @@ class Horde_Kolab_Server_Object_group extends Horde_Kolab_Server_Object
     {
         if (!isset($attrs)) {
             $attrs = array(
-                KOLAB_ATTR_ID,
-                KOLAB_ATTR_MAIL,
-                KOLAB_ATTR_VISIBILITY,
+                Horde_Kolab_Server_Object::ATTRIBUTE_ID,
+                Horde_Kolab_Server_Object::ATTRIBUTE_MAIL,
+                Horde_Kolab_Server_Object::ATTRIBUTE_VISIBILITY,
             );
         }
         return parent::toHash($attrs);
@@ -163,7 +143,7 @@ class Horde_Kolab_Server_Object_group extends Horde_Kolab_Server_Object
      */
     public function getMembers()
     {
-        return $this->_get(KOLAB_ATTR_MEMBER, false);
+        return $this->_get(Horde_Kolab_Server_Object::ATTRIBUTE_MEMBER, false);
     }
 
     /**
@@ -180,7 +160,7 @@ class Horde_Kolab_Server_Object_group extends Horde_Kolab_Server_Object
             return $members;
         }
         if (!in_array($member, $members)) {
-            $this->_cache[KOLAB_ATTR_MEMBER][] = $member;
+            $this->_cache[Horde_Kolab_Server_Object::ATTRIBUTE_MEMBER][] = $member;
         } else {
             return PEAR::raiseError(_("The UID %s is already a member of the group %s!"),
                                     $member, $this->_uid);
@@ -202,8 +182,9 @@ class Horde_Kolab_Server_Object_group extends Horde_Kolab_Server_Object
             return $members;
         }
         if (in_array($member, $members)) {
-            $this->_cache[KOLAB_ATTR_MEMBER] = array_diff($this->_cache[KOLAB_ATTR_MEMBER],
-                                                          array($member));
+            $this->_cache[Horde_Kolab_Server_Object::ATTRIBUTE_MEMBER] =
+                array_diff($this->_cache[Horde_Kolab_Server_Object::ATTRIBUTE_MEMBER],
+                           array($member));
         } else {
             return PEAR::raiseError(_("The UID %s is no member of the group %s!"),
                                     $member, $this->_uid);

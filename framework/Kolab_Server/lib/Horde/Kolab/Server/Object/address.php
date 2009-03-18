@@ -37,38 +37,13 @@ class Horde_Kolab_Server_Object_address extends Horde_Kolab_Server_Object
     public static $filter = '(&(objectclass=inetOrgPerson)(!(uid=*))(sn=*))';
 
     /**
-     * The attributes supported by this class
-     *
-     * @var array
-     */
-    public $supported_attributes = array(
-        KOLAB_ATTR_SN,
-        KOLAB_ATTR_CN,
-        KOLAB_ATTR_GIVENNAME,
-        KOLAB_ATTR_FN,
-        KOLAB_ATTR_LNFN,
-        KOLAB_ATTR_MAIL,
-        KOLAB_ATTR_DELETED,
-    );
-
-    /**
      * Attributes derived from the LDAP values.
      *
      * @var array
      */
     public $derived_attributes = array(
-        KOLAB_ATTR_LNFN,
-        KOLAB_ATTR_FNLN,
-    );
-
-    /**
-     * The attributes required when creating an object of this class.
-     *
-     * @var array
-     */
-    public $required_attributes = array(
-        KOLAB_ATTR_SN,
-        KOLAB_ATTR_GIVENNAME,
+        Horde_Kolab_Server_Object::ATTRIBUTE_LNFN,
+        Horde_Kolab_Server_Object::ATTRIBUTE_FNLN,
     );
 
     /**
@@ -77,9 +52,9 @@ class Horde_Kolab_Server_Object_address extends Horde_Kolab_Server_Object
      * @var array
      */
     protected $object_classes = array(
-        KOLAB_OC_TOP,
-        KOLAB_OC_INETORGPERSON,
-        KOLAB_OC_KOLABINETORGPERSON,
+        Horde_Kolab_Server_Object::OBJECTCLASS_TOP,
+        Horde_Kolab_Server_Object::OBJECTCLASS_INETORGPERSON,
+        Horde_Kolab_Server_Object::OBJECTCLASS_KOLABINETORGPERSON,
     );
 
     /**
@@ -93,7 +68,7 @@ class Horde_Kolab_Server_Object_address extends Horde_Kolab_Server_Object
     {
         if (!isset($attrs)) {
             $attrs = array(
-                KOLAB_ATTR_LNFN,
+                Horde_Kolab_Server_Object::ATTRIBUTE_LNFN,
             );
         }
         return parent::toHash($attrs);
