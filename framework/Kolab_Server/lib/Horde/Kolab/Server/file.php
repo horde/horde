@@ -63,13 +63,13 @@ class Horde_Kolab_Server_file extends Horde_Kolab_Server_test
         if (!$raw_daata === false) {
             $data = @unserialize($raw_data);
             if ($data !== false) {
-                $this->_data = $data;
+                $this->data = $data;
             } else {
                 $error = error_get_last();
                 Horde::logMessage(sprintf('Horde_Kolab_Server_file failed to read the database from %s. Error was: %s',
                                           $this->_file, $error['message']), __FILE__,
                                   __LINE__, PEAR_LOG_WARNING);
-                $this->_data = array();
+                $this->data = array();
             }
         }
     }
@@ -81,7 +81,7 @@ class Horde_Kolab_Server_file extends Horde_Kolab_Server_test
      */
     protected function store()
     {
-        $raw_data = serialize($this->_data);
+        $raw_data = serialize($this->data);
         $result = @file_put_contents($this->_file, $raw_data);
         if ($result === false) {
             $error = error_get_last();
@@ -99,8 +99,8 @@ class Horde_Kolab_Server_file extends Horde_Kolab_Server_test
     public function clean()
     {
         unlink($this->_file);
-	$this->_data = array();
-	$this->store();
+        $this->data = array();
+        $this->store();
     }
 
     /**
