@@ -243,7 +243,7 @@ $selfURL = Horde::applicationUrl('smime.php');
 try {
     $imp_smime->checkForOpenSSL();
     $openssl_check = true;
-} catch
+} catch (Horde_Exception $e) {
     $openssl_check = false;
 }
 
