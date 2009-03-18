@@ -2433,7 +2433,7 @@ DimpBase._msgDragConfig = {
 
 DimpBase._folderDragConfig = {
     ghosting: true,
-    offset: { x: 5, y: 5 },
+    offset: { x: 15, y: 0 },
     scroll: 'normalfolders',
     threshold: 5,
     onDrag: function(d, e) {
