@@ -1003,6 +1003,7 @@ class Kronolith_Event
         $json->c = $this->getCalendar();
         $json->bg = $this->_backgroundColor;
         $json->fg = $this->_foregroundColor;
+        $json->e = $this->hasPermission(PERMS_EDIT);
         return $json;
     }
 
