@@ -443,7 +443,9 @@ Drag = Class.create({
     {
         var drop, x, y;
 
-        if (this.options.caption || this.options.offset) {
+        if (this.options.caption ||
+            (this.options.offset &&
+             (this.options.offset.x > 0 || this.options.offset.y > 0))) {
             return e.element();
         }
 
