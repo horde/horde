@@ -179,6 +179,11 @@ http://pear.php.net/dtd/package-2.0.xsd">
     * Added fullname attribute as support for kolab/issue2546 (Horde
       should use name and email from ldap as defaults)
     * Fixed initialization of parameters retrieved from LDAP.
+    * Fixed addrsForIdOrMail to return only lowercased mail addresses
+      (kolab/issue3426,
+      https://www.intevation.de/roundup/kolab/issue3426)
+    * Fixed testing problems with the test IMAP driver.
+    * Fixed notices when retrieving LDAP attributes.
    </notes>
   </release>
   <release>

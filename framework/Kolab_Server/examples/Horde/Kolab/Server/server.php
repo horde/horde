@@ -31,4 +31,4 @@ $object = $server->fetch($dn);
 var_dump(get_class($object));
 
 /** Display object attributes */
-var_dump($object->get(KOLAB_ATTR_CN));
+var_dump($object->get(Horde_Kolab_Server_Object::ATTRIBUTE_CN));
