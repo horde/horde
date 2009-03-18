@@ -2098,6 +2098,7 @@ var DimpBase = {
 
             if (action == 'undeleted') {
                 DimpCore.doAction('UndeleteMessage', args, vs);
+                vs.set({ isdel: false });
             } else {
                 actionCall = { deleted: 'DeleteMessage', spam: 'ReportSpam', ham: 'ReportHam', blacklist: 'Blacklist', whitelist: 'Whitelist' };
                 // This needs to be synchronous Ajax if we are calling from a
