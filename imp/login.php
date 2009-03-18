@@ -199,9 +199,9 @@ if (!empty($conf['user']['select_view'])) {
             'name' => _("Traditional")
         ),
         array(
-            'sel' => $view_cookie == 'dimp',
             'val' => 'dimp',
-            'name' => _("Dynamic")
+            'name' => _("Dynamic"),
+            'hide' => true
         ),
         array(
             'sel' => $view_cookie == 'mimp',
@@ -209,6 +209,9 @@ if (!empty($conf['user']['select_view'])) {
             'name' => _("Minimalist")
         )
     );
+
+    /* Dimp selection is handled by javascript. */
+    $dimp_sel = ($view_cookie == 'dimp');
 }
 
 /* Mobile login page. */
@@ -336,6 +339,7 @@ IMP::addInlineScript(array(
     'ImpLogin.nomenu = ' . intval(empty($conf['menu']['always'])),
     'ImpLogin.reloadmenu = ' . intval($logout_reason && $imp_auth && $conf['menu']['always']),
     'ImpLogin.show_list = ' . intval($show_list),
+    'ImpLogin.dimp_sel = ' . intval($dimp_sel),
 ));
 
 echo $t->fetch(IMP_TEMPLATES . '/login/login.html');

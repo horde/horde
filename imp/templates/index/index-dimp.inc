@@ -43,7 +43,12 @@ function _simpleButton($id, $text, $image, $imagedir = null)
         . Horde::highlightAccessKey($text, $ak) . '</a></li>';
 }
 ?>
-<div id="dimpLoading"><?php echo $loading_text ?></div>
+<div id="dimpLoading">
+ <?php echo $loading_text ?>
+ <noscript>
+  <div class="nojserror"><?php echo _("Error! This application requires javascript to be available and enabled in your browser.") ?></div>
+ </noscript>
+</div>
 <div id="dimpPage" style="display:none">
  <div id="header"></div>
  <div id="pageContainer">

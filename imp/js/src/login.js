@@ -7,7 +7,7 @@
 
 var ImpLogin = {
     // The following variables are defined in login.php:
-    //  autologin_url, imp_auth, lang_url, show_list
+    //  autologin_url, dimp_sel, imp_auth, lang_url, show_list
 
     _reload: function()
     {
@@ -66,6 +66,12 @@ var ImpLogin = {
                     document.imp_login.target = '_parent';
                 }
             }
+        }
+
+        /* Activate dynamic view. */
+        var o = $('select_view').down('option[value=dimp]').show();
+        if (this.dimp_sel) {
+            o.writeAttribute('selected', 'selected');
         }
 
         document.observe('change', this._changeHandler.bindAsEventListener(this));

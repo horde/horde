@@ -88,7 +88,7 @@
      <td class="light leftAlign">
       <select tabindex="<tag:view_tabindex />" id="select_view" name="select_view">
 <loop:views>
-       <option value="<tag:views.val />" <if:views.sel>selected="selected"</if:views.sel>><tag:views.name /></option>
+       <option value="<tag:views.val />"<if:views.hide> style="display:none"<else:views.hide><if:views.sel> selected="selected"</if:views.sel></else:views.hide></if:views.hide>><tag:views.name /></option>
 </loop:views>
       </select>
      </td>
