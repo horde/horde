@@ -1378,10 +1378,19 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 $i = count($tmp['vanished']);
                 $expunged = $tmp['vanished'];
             } elseif (!empty($tmp['expunge'])) {
-                $i = 0;
+                $i = $last = 0;
                 $t = $s_res['sort'];
+
+                /* Expunge responses can come in any order. Thus, we need to
+                 * reindex anytime we have an index that appears equal to or
+                 * after a previously seen index. If an IMAP server is smart,
+                 * it will expunge in reverse order instead. */
                 foreach ($tmp['expunge'] as $val) {
-                    $expunged[] = $t[$val - 1 + $i++];
+                    if ($i++ && ($val >= $last)) {
+                        $t = array_values($t);
+                    }
+                    $expunged[] = $t[$val - 1];
+                    $last = $val;
                 }
             }
 
