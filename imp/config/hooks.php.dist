@@ -108,7 +108,6 @@
 //
 // Throw a Horde_Exception object on failure.
 
-
 // if (!function_exists('_imp_hook_vinfo')) {
 //     function _imp_hook_vinfo($type = 'username', $data = null)
 //     {
