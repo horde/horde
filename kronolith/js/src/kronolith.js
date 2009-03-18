@@ -912,6 +912,12 @@ KronolithCore = {
     {
         this.init();
 
+        document.observe('keydown', KronolithCore.keydownHandler.bindAsEventListener(KronolithCore));
+        document.observe('keyup', KronolithCore.keyupHandler.bindAsEventListener(KronolithCore));
+        document.observe('click', KronolithCore.clickHandler.bindAsEventListener(KronolithCore));
+        document.observe('dblclick', KronolithCore.clickHandler.bindAsEventListener(KronolithCore, true));
+        document.observe('mouseover', KronolithCore.mouseHandler.bindAsEventListener(KronolithCore, 'over'));
+
         if (Horde.dhtmlHistory.initialize()) {
             Horde.dhtmlHistory.addListener(this.go.bind(this));
         }
@@ -1150,9 +1156,4 @@ Object.extend(Date.prototype, {
 
 /* Initialize global event handlers. */
 document.observe('dom:loaded', KronolithCore.onDomLoad.bind(KronolithCore));
-document.observe('keydown', KronolithCore.keydownHandler.bindAsEventListener(KronolithCore));
-document.observe('keyup', KronolithCore.keyupHandler.bindAsEventListener(KronolithCore));
-document.observe('click', KronolithCore.clickHandler.bindAsEventListener(KronolithCore));
-document.observe('dblclick', KronolithCore.clickHandler.bindAsEventListener(KronolithCore, true));
-document.observe('mouseover', KronolithCore.mouseHandler.bindAsEventListener(KronolithCore, 'over'));
 Event.observe(window, 'resize', KronolithCore.onResize.bind(KronolithCore));
