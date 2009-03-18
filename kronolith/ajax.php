@@ -138,7 +138,7 @@ case 'UpdateEvent':
         $notification->push($event, 'horde.error');
         break;
     }
-    if ($event) {
+    if (!$event) {
         $notification->push(_("The requested event was not found."), 'horde.error');
         break;
     }
