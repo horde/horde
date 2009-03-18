@@ -33,6 +33,34 @@ require_once 'Horde/Autoloader.php';
 class Horde_Kolab_Server_ServerTest extends PHPUnit_Framework_TestCase
 {
     /**
+     * The generating a uid for an object.
+     *
+     * @return NULL
+     */
+    public function testGenerateUid()
+    {
+        $ks = &Horde_Kolab_Server::factory('none');
+        $uid = $ks->generateUid('Horde_Kolab_Server_Object', array());
+        $this->assertEquals($uid, '');
+    }
+
+    /**
+     * Test creating the server object.
+     *
+     * @return NULL
+     */
+    public function testCreation()
+    {
+        try {
+            Horde_Kolab_Server::factory('dummy');
+            $this->assertFail('No error!');
+        } catch (Horde_Kolab_Server_Exception $e) {
+            $this->assertEquals($e->getMessage(),
+                                'Server type definition "Horde_Kolab_Server_dummy" missing.');
+        }
+    }
+
+    /**
      * The base class provides no abilities for reading data. So it
      * should mainly return error. But it should be capable of
      * returning a dummy Kolab user object.
@@ -44,6 +72,10 @@ class Horde_Kolab_Server_ServerTest extends PHPUnit_Framework_TestCase
         $ks   = &Horde_Kolab_Server::factory('none');
         $user = $ks->fetch('test');
         $this->assertEquals('Horde_Kolab_Server_Object_user', get_class($user));
+
+        $ks   = &Horde_Kolab_Server::factory('none', array('uid' => 'test'));
+        $user = $ks->fetch();
+        $this->assertEquals('Horde_Kolab_Server_Object_user', get_class($user));
     }
 
     /**
@@ -53,13 +85,47 @@ class Horde_Kolab_Server_ServerTest extends PHPUnit_Framework_TestCase
      *
      * @return NULL
      */
-    public function testDnFor()
+    public function testUidFor()
     {
         $ks = &Horde_Kolab_Server::factory('none');
+        $dn = $ks->uidForId('test');
+        $this->assertFalse($dn);
+        $dn = $ks->uidForMail('test');
+        $this->assertFalse($dn);
+        $dn = $ks->uidForAlias('test');
+        $this->assertFalse($dn);
         $dn = $ks->uidForIdOrMail('test');
-        $this->assertEquals(false, $dn);
+        $this->assertFalse($dn);
+        $dn = $ks->uidForMailOrAlias('test');
+        $this->assertFalse($dn);
         $dn = $ks->uidForIdOrMailOrAlias('test');
         $this->assertFalse($dn);
+        $dn = $ks->mailForIdOrMail('test');
+        $this->assertFalse($dn);
+        $dn = $ks->addrsForIdOrMail('test');
+        $this->assertEquals($dn, array());
+        $dn = $ks->gidForMail('test');
+        $this->assertFalse($dn);
+        $dn = $ks->memberOfGroupAddress('test', 'test@example.org');
+        $this->assertFalse($dn);
+        $dn = $ks->getGroups('test');
+        $this->assertEquals($dn, array());
+    }
+
+    /**
+     * Test listing objects.
+     *
+     * @return NULL
+     */
+    public function testList()
+    {
+        $ks   = &Horde_Kolab_Server::factory('none');
+        $hash = $ks->listHash('Horde_Kolab_Server_Object');
+        $this->assertEquals($hash, array());
+
+        $ks   = &Horde_Kolab_Server::factory('none', array('whatever'));
+        $hash = $ks->listHash('Horde_Kolab_Server_Object');
+        $this->assertEquals($hash, array());
     }
 
 }
@@ -147,14 +213,14 @@ class Horde_Kolab_Server_none extends Horde_Kolab_Server
      * search criteria.
      *
      * @param array $criteria The search parameters as array.
-     * @param int   $restrict A KOLAB_SERVER_RESULT_* result restriction.
+     * @param int   $restrict A Horde_Kolab_Server::RESULT_* result restriction.
      *
      * @return boolean|string|array The UID(s) or false if there was no result.
      *
      * @throws Horde_Kolab_Server_Exception
      */
     public function uidForSearch($criteria,
-                                 $restrict = KOLAB_SERVER_RESULT_SINGLE)
+                                 $restrict = Horde_Kolab_Server::RESULT_SINGLE)
     {
         /* In the default class we just return false */
         return false;
@@ -165,14 +231,14 @@ class Horde_Kolab_Server_none extends Horde_Kolab_Server
      * search criteria
      *
      * @param array $criteria The search parameters as array.
-     * @param int   $restrict A KOLAB_SERVER_RESULT_* result restriction.
+     * @param int   $restrict A Horde_Kolab_Server::RESULT_* result restriction.
      *
      * @return boolean|string|array The GID(s) or false if there was no result.
      *
      * @throws Horde_Kolab_Server_Exception
      */
     public function gidForSearch($criteria,
-                                 $restrict = KOLAB_SERVER_RESULT_SINGLE)
+                                 $restrict = Horde_Kolab_Server::RESULT_SINGLE)
     {
         /* In the default class we just return false */
         return false;
@@ -183,14 +249,14 @@ class Horde_Kolab_Server_none extends Horde_Kolab_Server
      *
      * @param array $criteria The search parameters as array.
      * @param array $attrs    The attributes to retrieve.
-     * @param int   $restrict A KOLAB_SERVER_RESULT_* result restriction.
+     * @param int   $restrict A Horde_Kolab_Server::RESULT_* result restriction.
      *
      * @return array The results.
      *
      * @throws Horde_Kolab_Server_Exception
      */
     public function attrsForSearch($criteria, $attrs,
-                                   $restrict = KOLAB_SERVER_RESULT_SINGLE)
+                                   $restrict = Horde_Kolab_Server::RESULT_SINGLE)
     {
         /* In the default class we just return an empty array */
         return array();

@@ -208,46 +208,6 @@ class Horde_Kolab_Server_UserHandlingTest extends Horde_Kolab_Test_Server
     /**
      * @scenario
      */
-    public function creatingUserWithoutGivenName()
-    {
-        $this->given('an empty Kolab server')
-            ->when('adding an invalid Kolab server object', $this->provideInvalidUserWithoutGivenName())
-            ->then('the result should indicate an error with', 'Either the last name or the given name is missing!');
-    }
-
-    /**
-     * @scenario
-     */
-    public function creatingUserWithoutLastName()
-    {
-        $this->given('an empty Kolab server')
-            ->when('adding an invalid Kolab server object', $this->provideInvalidUserWithoutLastName())
-            ->then('the result should indicate an error with', 'Either the last name or the given name is missing!');
-    }
-
-    /**
-     * @scenario
-     */
-    public function creatingUserWithoutPassword()
-    {
-        $this->given('an empty Kolab server')
-            ->when('adding an invalid Kolab server object', $this->provideInvalidUserWithoutPassword())
-            ->then('the result should indicate an error with', 'The value for "userPassword" is missing!');
-    }
-
-    /**
-     * @scenario
-     */
-    public function creatingUserWithoutPrimaryMail()
-    {
-        $this->given('an empty Kolab server')
-            ->when('adding an invalid Kolab server object', $this->provideInvalidUserWithoutMail())
-            ->then('the result should indicate an error with', 'The value for "mail" is missing!');
-    }
-
-    /**
-     * @scenario
-     */
     public function creatingUserWithoutTypeCreatesStandardUser()
     {
         $this->given('an empty Kolab server')

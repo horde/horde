@@ -48,23 +48,4 @@ class Horde_Kolab_Server_AddingObjectsTest extends Horde_Kolab_Test_Server
             ->when('adding a Kolab server object', $user)
             ->then('the result should be an object of type', 'Horde_Kolab_Server_Object_user');
     }
-
-    /**
-     * Test adding invalid users.
-     *
-     * @param array  $user  The user to add.
-     * @param string $error The error to expect.
-     *
-     * @scenario
-     * @dataProvider provideInvalidUsers
-     *
-     * @return NULL
-     */
-    public function addingInvalidUser($user, $error)
-    {
-        $this->given('an empty Kolab server')
-            ->when('adding an invalid Kolab server object', $user)
-            ->then('the result should indicate an error with', $error);
-    }
-
 }
