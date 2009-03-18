@@ -144,7 +144,7 @@ class Horde_Mime_Viewer_html extends Horde_Mime_Viewer_Driver
                          * domain is the same on both links (e.g.
                          * adtracking.example.com & www.example.com). */
                         preg_match('/\.?([^\.\/]+\.[^\.\/]+)[\/?]/', $link, $host1);
-                        preg_match('/\.?([^\.\/]+\.[^\.\/ ]+)([\/ ].*)?$/', $target, $host2);
+                        preg_match('/\.?([^\.\/]+\.[^\.\/ ]+)([\/ ].*)?$/s', $target, $host2);
                         if (!(count($host1) && count($host2)) ||
                             (strcasecmp($host1[1], $host2[1]) !== 0)) {
                             $data = preg_replace('/href\s*=\s*["\']?\s*(?:http|https|ftp):\/\/' . preg_quote($m[1][$i], '/') . '["\']?[^>]*>\s*(?:(?:http|https|ftp):\/\/)?' . preg_quote($m[2][$i], '/') . '<\/a/is', 'class="mimeStatusWarning" $0', $data);
