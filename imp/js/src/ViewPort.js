@@ -2,7 +2,7 @@
  * ViewPort.js - Code to create a viewport window in a web browser.
  *
  * Requires prototypejs 1.6+, DimpSlider.js, scriptaculous 1.8+ (effects.js
- * only), and DIMP's dragdrop.js.
+ * only), and Horde's dragdrop2.js.
  *
  * Copyright 2005-2009 The Horde Project (http://www.horde.org/)
  *

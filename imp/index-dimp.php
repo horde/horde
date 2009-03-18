@@ -18,7 +18,7 @@ $scripts = array(
     array('DimpBase.js', 'imp', true),
     array('ContextSensitive.js', 'imp', true),
     array('ViewPort.js', 'imp', true),
-    array('dragdrop.js', 'imp', true),
+    array('dragdrop2.js', 'horde', true),
     array('dhtmlHistory.js', 'horde', true),
     array('redbox.js', 'horde', true),
     array('mailbox-dimp.js', 'imp', false),
