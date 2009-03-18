@@ -488,7 +488,7 @@ Configuring IMP
 
    To use this caching, you must have a ``Cache System`` configured in Horde's
    ``Administration/Setup`` screen and have the relevant settings enabled in
-   IMP's setup screen (``Administration/Setup/Webmail/Mailbox and Fetchmail``.
+   IMP's setup screen (``Administration/Setup/Webmail/Mailbox and Fetchmail``).
 
 
 DIMP Troubleshooting
