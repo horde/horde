@@ -16,20 +16,20 @@
 <?php endif; ?>
 <p>
  <?php printf(_("Local calendar owned by %s."), Kronolith::getUserName($calendar->get('owner'))) ?>
- <?php echo _("To subscribe to this calendar from another calendar program, use this URL: ") ?>
+ <?php echo _("To subscribe to this calendar from another calendar program, use this URL:") ?>
 </p>
 <p class="calendar-info-url">
  <?php echo htmlspecialchars($subscribe_url) ?>
 </p>
 <p>
- <?php echo _("To subscribe to this calendar from a feed reader, use this URL: ") ?>
+ <?php echo _("To subscribe to this calendar from a feed reader, use this URL:") ?>
 </p>
 <p class="calendar-info-url">
  <?php echo htmlspecialchars(Kronolith::feedUrl($calendar->getName())) ?>
 </p>
 
 <p>
- <?php echo _("To embed this calendar in another website, use this code: ") ?>
+ <?php echo _("To embed this calendar in another website, use this code:") ?>
 </p>
 <p class="calendar-info-url">
 <?php echo htmlspecialchars(Kronolith::embedCode($calendar->getName())); ?>
