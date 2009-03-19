@@ -207,7 +207,7 @@ class IMP_Mailbox
                         $v['previewcut'] = $preview_info[$k]['IMPpreviewc'];
                     }
 
-                    $overview[$ids[$k]] = $v;
+                    $overview[] = $v;
                 }
 
                 $uids[$mbox] = array_keys($fetch_res);

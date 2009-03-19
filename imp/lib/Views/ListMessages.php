@@ -278,12 +278,12 @@ class IMP_Views_ListMessages
 
         /* Display message information. */
         reset($overview['overview']);
-        while (list($msgIndex, $ob) = each($overview['overview'])) {
+        while (list(,$ob) = each($overview['overview'])) {
             /* Initialize the header fields. */
             $msg = array(
                 'imapuid' => $ob['uid'],
                 'menutype' => 'message',
-                'rownum' => $msgIndex,
+                'rownum' => $ob['seq'],
                 'view' => $ob['mailbox'],
             );
 
