@@ -1,7 +1,7 @@
 --TEST--
 Bug #338 (fileinfo returning charset)
 --SKIPIF--
-<?php if (!extension_loaded('fileinfo')) echo 'skip'; ?>
+<?php if (!extension_loaded('fileinfo')) echo 'skip No fileinfo extension installed'; ?>
 --FILE--
 <?php
 require_once 'Horde/Util.php';

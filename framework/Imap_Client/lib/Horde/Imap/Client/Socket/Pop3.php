@@ -74,6 +74,13 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
     protected $_stream = null;
 
     /**
+     * The list of deleted messages.
+     *
+     * @var array
+     */
+    protected $_deleted = array();
+
+    /**
      * Constructs a new object.
      *
      * @param array $params  A hash containing configuration parameters.
@@ -352,6 +359,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             } catch (Horde_Imap_Client_Exception $e) {}
             fclose($this->_stream);
             $this->_stream = null;
+            $this->_deleted = array();
         }
     }
 
@@ -592,11 +600,15 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
      * @param array $options  Additional options. 'ids' and 'sequence' have
      *                        no effect in this driver.
      *
+     * @return array  If 'count' option is true, returns the list of
+     *                expunged messages.
      * @throws Horde_Imap_Client_Exception
      */
     protected function _expunge($options)
     {
+        $msg_list = $this->_deleted();
         $this->logout();
+        return empty($options['list']) ? null : $msg_list;
     }
 
     /**

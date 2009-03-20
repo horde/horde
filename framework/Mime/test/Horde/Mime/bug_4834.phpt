@@ -3,6 +3,7 @@ Bug #4834 Wrong encoding of email lists with groups.
 --FILE--
 <?php
 
+require_once 'Mail/RFC822.php';
 require_once 'Horde/Browser.php';
 require dirname(__FILE__) . '/../../../lib/Horde/Mime.php';
 require dirname(__FILE__) . '/../../../lib/Horde/Mime/Address.php';

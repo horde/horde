@@ -37,6 +37,13 @@
 class Horde_Imap_Client_Cache
 {
     /**
+     * Singleton instances.
+     *
+     * @var array
+     */
+    static protected $_instances = array();
+
+    /**
      * The configuration params.
      *
      * @var array
@@ -88,14 +95,13 @@ class Horde_Imap_Client_Cache
      */
     static public function singleton($params = array())
     {
-        static $instance = array();
-
+        ksort($params);
         $sig = hash('md5', serialize($params));
-        if (!isset($instance[$sig])) {
-            $instance[$sig] = new Horde_Imap_Client_Cache($params);
+        if (!isset(self::$_instances[$sig])) {
+            self::$_instances[$sig] = new Horde_Imap_Client_Cache($params);
         }
 
-        return $instance[$sig];
+        return self::$_instances[$sig];
     }
 
     /**

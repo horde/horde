@@ -49,6 +49,8 @@
  *   RFC 5257 - ANNOTATE
  *   RFC 5259 - CONVERT
  *   RFC 5267 - CONTEXT
+ *   RFC 5465 - NOTIFY
+ *   RFC 5466 - FILTERS
  *
  * Originally based on code from:
  *   + auth.php (1.49)
@@ -517,7 +519,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             break;
 
         case 'LOGIN':
-            $this->_sendLine('LOGIN ' . $this->_utils->escape($this->_params['username']) . ' ' . $this->_utils->escape($this->_params['password']), array('debug' => '[LOGIN Command]'));
+            $this->_sendLine('LOGIN ' . $this->_utils->escape($this->_params['username']) . ' ' . $this->_utils->escape($this->_params['password']), array('debug' => sprintf('[LOGIN Command - username: %s]', $this->_params['username'])));
             break;
 
         case 'PLAIN':
@@ -525,10 +527,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $auth = base64_encode(implode("\0", array($this->_params['username'], $this->_params['username'], $this->_params['password'])));
             if ($this->queryCapability('SASL-IR')) {
                 // IMAP Extension for SASL Initial Client Response (RFC 4959)
-                $this->_sendLine('AUTHENTICATE PLAIN ' . $auth, array('debug' => '[SASL-IR AUTHENTICATE Command]'));
+                $this->_sendLine('AUTHENTICATE PLAIN ' . $auth, array('debug' => sprintf('[SASL-IR AUTHENTICATE Command - username: %s]', $this->_params['username'])));
             } else {
                 $this->_sendLine('AUTHENTICATE PLAIN', array('noparse' => true));
-                $this->_sendLine($auth, array('debug' => '[AUTHENTICATE Command]', 'notag' => true));
+                $this->_sendLine($auth, array('debug' => sprintf('[AUTHENTICATE Command - username: %s]', $this->_params['username']), 'notag' => true));
             }
             break;
         }
@@ -820,10 +822,11 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             if (is_null($this->_temp['mailbox']['highestmodseq']) ||
                 ($this->_temp['mailbox']['uidvalidity'] != $metadata['uidvalid'])) {
                 $this->_cache->deleteMailbox($mailbox);
-            } else {
+            } elseif (!isset($metadata['HICmodseq']) ||
+                      ($metadata['HICmodseq'] != $this->_temp['mailbox']['highestmodseq'])) {
                 /* We know the mailbox has been updated, so update the
                  * highestmodseq metadata in the cache. */
-                $this->_cache->setMetaData($mailbox, array('HICmodseq' => $this->_temp['mailbox']['highestmodseq']));
+                $this->_updateMetaData($mailbox, array('HICmodseq' => $this->_temp['mailbox']['highestmodseq']));
             }
         } elseif ($condstore) {
             $this->_init['enabled']['CONDSTORE'] = true;
@@ -1291,6 +1294,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      *
      * @param array $options  Additional options.
      *
+     * @return array  If 'list' option is true, returns the list of
+     *                expunged messages.
      * @throws Horde_Imap_Client_Exception
      */
     protected function _expunge($options)
@@ -1349,11 +1354,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         $tmp = &$this->_temp;
         $tmp['expunge'] = $tmp['vanished'] = array();
+        $list_msgs = !empty($options['list']);
 
         /* Always use UID EXPUNGE if available. */
         if ($uidplus) {
             $this->_sendLine('UID EXPUNGE ' . $uid_string);
-        } elseif ($use_cache) {
+        } elseif ($use_cache || $list_msgs) {
             $this->_sendLine('EXPUNGE');
         } else {
             /* This is faster than an EXPUNGE because the server will not
@@ -1366,16 +1372,26 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $this->store($mailbox, array('add' => array('\\deleted'), 'ids' => $unflag));
         }
 
-        if ($use_cache) {
+        if ($use_cache || $list_msgs) {
+            $expunged = array();
+
             if (!empty($tmp['vanished'])) {
                 $i = count($tmp['vanished']);
                 $expunged = $tmp['vanished'];
             } elseif (!empty($tmp['expunge'])) {
-                $expunged = array();
-                $i = 0;
+                $i = $last = 0;
                 $t = $s_res['sort'];
+
+                /* Expunge responses can come in any order. Thus, we need to
+                 * reindex anytime we have an index that appears equal to or
+                 * after a previously seen index. If an IMAP server is smart,
+                 * it will expunge in reverse order instead. */
                 foreach ($tmp['expunge'] as $val) {
-                    $expunged[] = $t[$val - 1 + $i++];
+                    if ($i++ && ($val >= $last)) {
+                        $t = array_values($t);
+                    }
+                    $expunged[] = $t[$val - 1];
+                    $last = $val;
                 }
             }
 
@@ -1385,8 +1401,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             }
 
             if (isset($this->_init['enabled']['QRESYNC'])) {
-                $this->_cache->setMetaData($mailbox, array('HICmodseq' => $this->_temp['mailbox']['highestmodseq']));
+                $this->_updateMetaData($mailbox, array('HICmodseq' => $this->_temp['mailbox']['highestmodseq']));
             }
+
+            return $list_msgs ? $expunged : null;
         } elseif (!empty($tmp['expunge'])) {
             /* Updates status message count if not using cache. */
             $tmp['mailbox']['messages'] -= count($tmp['expunge']);
@@ -1505,7 +1523,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                         $results[] = $results_criteria[$val];
                     }
                 }
-                $cmd .= 'SORT RETURN ( ' . implode(' ', $results) . ') (';
+                $cmd .= 'SORT RETURN (' . implode(' ', $results) . ') (';
             } else {
                 $cmd .= 'SORT (';
             }

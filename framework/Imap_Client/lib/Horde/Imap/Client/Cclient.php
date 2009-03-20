@@ -697,26 +697,33 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
      *
      * @param array $options  Additional options.
      *
+     * @return array  If 'list' option is true, returns the list of
+     *                expunged messages.
      * @throws Horde_Imap_Client_Exception
      */
     protected function _expunge($options)
     {
         // Already guaranteed to be logged in here.
 
+        $msg_list = !empty($options['list']);
+
+        if (!empty($options['ids']) || $msg_list) {
+            $search_query = new Horde_Imap_Client_Search_Query();
+            $search_query->flag('\\deleted');
+            $ids = $this->search($this->_selected, $search_query, array('sequence' => $use_seq));
+        }
+
         if (empty($options['ids'])) {
             $old_error = error_reporting(0);
             imap_expunge($this->_stream);
             error_reporting($old_error);
-            return;
+            return $msg_list ? $ids['match'] : null;
         }
 
         $use_seq = !empty($options['sequence']);
 
         // Need to temporarily unflag all messages marked as deleted but not
         // a part of requested UIDs to delete.
-        $search_query = new Horde_Imap_Client_Search_Query();
-        $search_query->flag('\\deleted');
-        $ids = $this->search($this->_selected, $search_query, array('sequence' => $use_seq));
         if (!empty($ids['match'])) {
             $unflag = array_diff($ids['match'], $options['ids']);
             if (!empty($unflag)) {
@@ -746,6 +753,8 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
         if (!empty($unflag)) {
             $this->store($this->_selected, array('add' => array('\\deleted'), 'ids' => $unflag, 'sequence' => $use_seq));
         }
+
+        return $msg_list ? $ids['match'] : null;
     }
 
     /**
