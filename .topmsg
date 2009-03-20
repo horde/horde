@@ -1,7 +1,0 @@
-From: Gunnar Wrobel <p@rdus.de>
-Subject: [PATCH] t/Kolab_Server/HK/GW/InitialImport
-
-The initial import and conversion of Kolab_Server into a Horde 4 / PHP
-5 package.
-
-Signed-off-by: Gunnar Wrobel <p@rdus.de>
