@@ -1301,7 +1301,33 @@ abstract class Horde_Imap_Client_Base
             }
         }
 
-        $ret = $this->_search($query, $options);
+        /* If CONDSTORE is available, we can take advantage of search result
+         * caching. We invalidate the cache when the MODSEQ changes. We
+         * store results by hashing the options array - the generated
+         * query is already added to '_query' key above. */
+        $cache = $ret = null;
+        if (isset($this->_init['enabled']['CONDSTORE'])) {
+            ksort($options);
+            $cache = hash('md5', serialize($options));
+            $metadata = $this->_cache->getMetaData($mailbox, array('HICsearch'));
+            if (isset($metadata['HICsearch'][$cache])) {
+                $ret = $metadata['HICsearch'][$cache];
+                if ($this->_debug) {
+                    fwrite($this->_debug, sprintf("Horde_Imap_Client: Retrieved search results from cache (mailbox: %s; id: %s)\n", $mailbox, $cache));
+                }
+            }
+        }
+
+        if (is_null($ret)) {
+            $ret = $this->_search($query, $options);
+            if ($cache) {
+                $metadata['HICsearch'][$cache] = $ret;
+                $this->_updateMetaData($mailbox, $metadata);
+                if ($this->_debug) {
+                    fwrite($this->_debug, sprintf("Horde_Imap_Client: Saved search results to cache (mailbox: %s; id: %s)\n", $mailbox, $cache));
+                }
+            }
+        }
 
         if (!empty($options['reverse'])) {
             if (empty($options['sort'])) {
@@ -1319,7 +1345,8 @@ abstract class Horde_Imap_Client_Base
      *
      * @param object $query   The search query.
      * @param array $options  Additional options. The '_query' key contains
-     *                        the value of $query->build().
+     *                        the value of $query->build(). 'sort' and
+     *                        'reverse' should be ignored.
      *
      * @return array  An array of UIDs (default) or an array of message
      *                sequence numbers (if 'sequence' is true).
@@ -1864,7 +1891,8 @@ abstract class Horde_Imap_Client_Base
                             if (!empty($uids)) {
                                 $this->_fetch(array(Horde_Imap_Client::FETCH_FLAGS => true), array('changedsince' => $metadata['HICmodseq'], 'ids' => $uids));
                             }
-                            $this->_cache->setMetaData($mailbox, array('HICmodseq' => $status_res['highestmodseq']));
+
+                            $this->_updateMetaData($mailbox, array('HICmodseq' => $status_res['highestmodseq']));
                         }
                     }
 
@@ -2453,13 +2481,30 @@ abstract class Horde_Imap_Client_Base
         try {
             $this->_cache->set($mailbox, $tocache, $uidvalid);
             if ($is_flags) {
-                $this->_cache->setMetaData($mailbox, array('HICmodseq' => max($highestmodseq)));
+                $this->_updateMetaData($mailbox, array('HICmodseq' => max($highestmodseq)));
             }
         } catch (Horde_Imap_Client_Exception $e) {
             if ($e->getCode() != Horde_Imap_Client_Exception::CACHEUIDINVALID) {
                 throw $e;
             }
         }
+    }
+
+    /**
+     * Update metadata entries.
+     *
+     * @param string $mailbox  Mailbox to update.
+     * @param array $data      The data to update with.
+     */
+    protected function _updateMetaData($mailbox, $data)
+    {
+        /* If we see that HICmodseq is being updated, we know that we have
+         * to invalidate the search cache. */
+        if (isset($data['HICmodseq']) && !isset($data['HICsearch'])) {
+            $data['HICsearch'] = array();
+        }
+
+        $this->_cache->setMetaData($mailbox, $data);
     }
 
 }

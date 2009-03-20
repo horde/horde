@@ -825,7 +825,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             } else {
                 /* We know the mailbox has been updated, so update the
                  * highestmodseq metadata in the cache. */
-                $this->_cache->setMetaData($mailbox, array('HICmodseq' => $this->_temp['mailbox']['highestmodseq']));
+                $this->_updateMetaData($mailbox, array('HICmodseq' => $this->_temp['mailbox']['highestmodseq']));
             }
         } elseif ($condstore) {
             $this->_init['enabled']['CONDSTORE'] = true;
@@ -1400,7 +1400,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             }
 
             if (isset($this->_init['enabled']['QRESYNC'])) {
-                $this->_cache->setMetaData($mailbox, array('HICmodseq' => $this->_temp['mailbox']['highestmodseq']));
+                $this->_updateMetaData($mailbox, array('HICmodseq' => $this->_temp['mailbox']['highestmodseq']));
             }
 
             return $list_msgs ? $expunged : null;
