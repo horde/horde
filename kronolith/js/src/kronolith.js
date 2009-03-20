@@ -598,6 +598,14 @@ KronolithCore = {
                         div.setText(event.value.t)
                             .observe('mouseover', div.addClassName.curry('kronolithSelected'))
                             .observe('mouseout', div.removeClassName.curry('kronolithSelected'));
+                        if (event.value.a) {
+                            div.insert(' ')
+                                .insert(new Element('IMG', { 'src': Kronolith.conf.URI_IMG + 'alarm-' + event.value.fg.substr(1) + '.png', 'title': Kronolith.text.alarm + ' ' + event.value.a }));
+                        }
+                        if (event.value.r) {
+                            div.insert(' ')
+                                .insert(new Element('IMG', { 'src': Kronolith.conf.URI_IMG + 'recur-' + event.value.fg.substr(1) + '.png', 'title': Kronolith.text.recur[event.value.r] }));
+                        }
                         $('kronolithMonthDay' + date.key).insert(div);
                         if (event.value.e) {
                             new Drag('kronolithEventmonth' + r.response.cal + event.key, { threshold: 5, parentElement: function() { return $('kronolithViewMonth').select('.kronolithViewBody')[0]; }, snapToParent: true });
@@ -923,7 +931,7 @@ KronolithCore = {
             $('kronolithEventCalendar').value = ev.ty + '|' + ev.c;
             $('kronolithEventTitle').value = ev.t;
             $('kronolithEventLocation').value = ev.l;
-            $('kronolithEventAllday').checked = ev.a;
+            $('kronolithEventAllday').checked = ev.al;
             $('kronolithEventStartDate').value = ev.sd
             $('kronolithEventStartTime').value = ev.st;
             $('kronolithEventEndDate').value = ev.ed;

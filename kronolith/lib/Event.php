@@ -1015,20 +1015,35 @@ abstract class Kronolith_Event
         $json->fg = $this->_foregroundColor;
         $json->e = $this->hasPermission(PERMS_EDIT);
         $json->d = $this->hasPermission(PERMS_DELETE);
+        if ($this->alarm) {
+            if ($this->alarm % 10080 == 0) {
+                $alarm_value = $this->alarm / 10080;
+                $json->a = sprintf(ngettext("%d week", "%d weeks", $alarm_value), $alarm_value);
+            } elseif ($this->alarm % 1440 == 0) {
+                $alarm_value = $this->alarm / 1440;
+                $json->a = sprintf(ngettext("%d day", "%d days", $alarm_value), $alarm_value);
+            } elseif ($this->alarm % 60 == 0) {
+                $alarm_value = $this->alarm / 60;
+                $json->a = sprintf(ngettext("%d hour", "%d hours", $alarm_value), $alarm_value);
+            } else {
+                $alarm_value = $this->alarm;
+                $json->a = sprintf(ngettext("%d minute", "%d minutes", $alarm_value), $alarm_value);
+            }
+        }
+        if ($this->recurs()) {
+            $json->r = $this->recurrence->getRecurType();
+        }
 
         if ($full) {
             $json->i = $this->getId();
             $json->ty = $this->_calendarType;
             $json->l = $this->getLocation();
-            $json->a = $this->isAllDay();
+            $json->al = $this->isAllDay();
             $json->sd = $this->start->strftime('%x');
             $json->st = $this->start->format($time_format);
             $json->ed = $this->end->strftime('%x');
             $json->et = $this->end->format($time_format);
             $json->tg = array_values($this->tags);
-            if ($this->recurs()) {
-                $json->r = $this->recurrence->getRecurType();
-            }
         }
 
         return $json;
@@ -2056,24 +2071,16 @@ abstract class Kronolith_Event
             if ($this->alarm) {
                 if ($this->alarm % 10080 == 0) {
                     $alarm_value = $this->alarm / 10080;
-                    $title = $alarm_value == 1 ?
-                        _("Alarm 1 week before") :
-                        sprintf(_("Alarm %d weeks before"), $alarm_value);
+                    $title = sprintf(ngettext("Alarm %d week before", "Alarm %d weeks before", $alarm_value), $alarm_value);
                 } elseif ($this->alarm % 1440 == 0) {
                     $alarm_value = $this->alarm / 1440;
-                    $title = $alarm_value == 1 ?
-                        _("Alarm 1 day before") :
-                        sprintf(_("Alarm %d days before"), $alarm_value);
+                    $title = sprintf(ngettext("Alarm %d day before", "Alarm %d days before", $alarm_value), $alarm_value);
                 } elseif ($this->alarm % 60 == 0) {
                     $alarm_value = $this->alarm / 60;
-                    $title = $alarm_value == 1 ?
-                        _("Alarm 1 hour before") :
-                        sprintf(_("Alarm %d hours before"), $alarm_value);
+                    $title = sprintf(ngettext("Alarm %d hour before", "Alarm %d hours before", $alarm_value), $alarm_value);
                 } else {
                     $alarm_value = $this->alarm;
-                    $title = $alarm_value == 1 ?
-                        _("Alarm 1 minute before") :
-                        sprintf(_("Alarm %d minutes before"), $alarm_value);
+                    $title = sprintf(ngettext("Alarm %d minute before", "Alarm %d minutes before", $alarm_value), $alarm_value);
                 }
                 $status .= Horde::img('alarm-' . $icon_color . '.png', $title,
                                       array('title' => $title,

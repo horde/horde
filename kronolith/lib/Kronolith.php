@@ -137,6 +137,7 @@ class Kronolith
         $code['conf'] = array(
             'URI_AJAX' => Horde::url($kronolith_webroot . '/ajax.php', true, -1),
             'URI_PREFS' => Horde::url($horde_webroot . '/services/prefs/', true, -1),
+            'URI_IMG' => $registry->getImageDir() . '/',
             //'URI_VIEW' => Util::addParameter(Horde::url($imp_webroot . '/view.php', true, -1), array('actionID' => 'view_source', 'id' => 0), null, false),
             'SESSION_ID' => defined('SID') ? SID : '',
             'prefs_url' => str_replace('&amp;', '&', Horde::getServiceLink('options', 'kronolith')),
@@ -191,12 +192,22 @@ class Kronolith
         $code['text'] = array_map('addslashes', array(
             'ajax_timeout' => _("There has been no contact with the remote server for several minutes. The server may be temporarily unavailable or network problems may be interrupting your session. You will not see any updates until the connection is restored."),
             'ajax_recover' => _("The connection to the remote server has been restored."),
+            'alarm' => _("Alarm:"),
         ));
         for ($i = 1; $i <= 12; ++$i) {
             $code['text']['month'][$i - 1] = NLS::getLangInfo(constant('MON_' . $i));
         }
         for ($i = 1; $i <= 7; ++$i) {
             $code['text']['weekday'][$i] = NLS::getLangInfo(constant('DAY_' . $i));
+        }
+        foreach (array(Horde_Date_Recurrence::RECUR_DAILY,
+                       Horde_Date_Recurrence::RECUR_WEEKLY,
+                       Horde_Date_Recurrence::RECUR_MONTHLY_DATE,
+                       Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY,
+                       Horde_Date_Recurrence::RECUR_YEARLY_DATE,
+                       Horde_Date_Recurrence::RECUR_YEARLY_DAY,
+                       Horde_Date_Recurrence::RECUR_YEARLY_WEEKDAY) as $recurType) {
+            $code['text']['recur'][$recurType] = Kronolith::recurToString($recurType);
         }
 
         return array('var Kronolith = ' . Horde_Serialize::serialize($code, Horde_Serialize::JSON, NLS::getCharset()) . ';');
