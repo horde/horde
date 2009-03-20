@@ -600,7 +600,7 @@ KronolithCore = {
                             .observe('mouseout', div.removeClassName.curry('kronolithSelected'));
                         $('kronolithMonthDay' + date.key).insert(div);
                         if (event.value.e) {
-                            new Drag('kronolithEventmonth' + r.response.cal + event.key, { parentElement: function() { return $('kronolithViewMonth').select('.kronolithViewBody')[0]; }, snapToParent: true });
+                            new Drag('kronolithEventmonth' + r.response.cal + event.key, { threshold: 5, parentElement: function() { return $('kronolithViewMonth').select('.kronolithViewBody')[0]; }, snapToParent: true });
                         }
                         break;
                     }
