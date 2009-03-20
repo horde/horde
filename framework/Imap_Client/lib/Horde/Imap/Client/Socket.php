@@ -822,7 +822,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             if (is_null($this->_temp['mailbox']['highestmodseq']) ||
                 ($this->_temp['mailbox']['uidvalidity'] != $metadata['uidvalid'])) {
                 $this->_cache->deleteMailbox($mailbox);
-            } else {
+            } elseif (!isset($metadata['HICmodseq']) ||
+                      ($metadata['HICmodseq'] != $this->_temp['mailbox']['highestmodseq'])) {
                 /* We know the mailbox has been updated, so update the
                  * highestmodseq metadata in the cache. */
                 $this->_updateMetaData($mailbox, array('HICmodseq' => $this->_temp['mailbox']['highestmodseq']));
