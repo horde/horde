@@ -402,6 +402,9 @@ KronolithCore = {
             }
             new Drop(cell, { onDrop: function(drop) {
                 var el = DragDrop.Drags.drag.element;
+                if (drop == el.parentNode) {
+                    return;
+                }
                 drop.insert(el);
                 this.doAction('UpdateEvent',
                               { cal: el.readAttribute('calendar'),
@@ -608,6 +611,7 @@ KronolithCore = {
                         }
                         $('kronolithMonthDay' + date.key).insert(div);
                         if (event.value.e) {
+                            div.setStyle({ 'cursor': 'move' });
                             new Drag('kronolithEventmonth' + r.response.cal + event.key, { threshold: 5, parentElement: function() { return $('kronolithViewMonth').select('.kronolithViewBody')[0]; }, snapToParent: true });
                         }
                         break;
