@@ -8,9 +8,16 @@ v3.0-git
 [mms] Add support for git repositories.
 
 
---------
-v2.1-RC1
---------
+----------
+v2.1.1-cvs
+----------
+
+
+
+
+----
+v2.1
+----
 
 [jan] Add Italian translation (Fabio Pedretti <fabio.pedretti@ing.unibs.it>).
 [cjh] Allow configuring which views the file name and latest revision number
