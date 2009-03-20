@@ -34,14 +34,4 @@ class Horde_Kolab_Server_Object_distlist extends Horde_Kolab_Server_Object_group
      * @var string
      */
     public static $filter = '(&(objectClass=kolabGroupOfNames)(mail=*))';
-
-
-    /**
-     * The attributes required when creating an object of this class.
-     *
-     * @var array
-     */
-    public $required_attributes = array(
-        KOLAB_ATTR_MAIL,
-    );
 };

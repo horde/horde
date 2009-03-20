@@ -37,38 +37,13 @@ class Horde_Kolab_Server_Object_sharedfolder extends Horde_Kolab_Server_Object
     public static $filter = '(objectClass=kolabSharedFolder)';
 
     /**
-     * The attributes supported by this class
-     *
-     * @var array
-     */
-    public $supported_attributes = array(
-        KOLAB_ATTR_CN,
-        KOLAB_ATTR_DELETED,
-        KOLAB_ATTR_FOLDERTYPE,
-        KOLAB_ATTR_HOMESERVER,
-        KOLAB_ATTR_IMAPHOST,
-        KOLAB_ATTR_QUOTA,
-        KOLAB_ATTR_ACL,
-    );
-
-    /**
-     * The attributes required when creating an object of this class.
-     *
-     * @var array
-     */
-    public $required_attributes = array(
-        KOLAB_ATTR_CN,
-        KOLAB_ATTR_HOMESERVER,
-    );
-
-    /**
      * The ldap classes for this type of object.
      *
      * @var array
      */
     protected $object_classes = array(
-        KOLAB_OC_TOP,
-        KOLAB_OC_KOLABSHAREDFOLDER,
+        Horde_Kolab_Server_Object::OBJECTCLASS_TOP,
+        Horde_Kolab_Server_Object::OBJECTCLASS_KOLABSHAREDFOLDER,
     );
 
     /**
@@ -96,9 +71,9 @@ class Horde_Kolab_Server_Object_sharedfolder extends Horde_Kolab_Server_Object
     {
         if (!isset($attrs)) {
             $attrs = array(
-                KOLAB_ATTR_CN,
-                KOLAB_ATTR_HOMESERVER,
-                KOLAB_ATTR_FOLDERTYPE,
+                Horde_Kolab_Server_Object::ATTRIBUTE_CN,
+                Horde_Kolab_Server_Object::ATTRIBUTE_HOMESERVER,
+                Horde_Kolab_Server_Object::ATTRIBUTE_FOLDERTYPE,
             );
         }
         return parent::toHash($attrs);

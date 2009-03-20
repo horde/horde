@@ -55,6 +55,9 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
         case 'the Kolab auth driver has been selected':
             $world['auth'] = &$this->prepareKolabAuthDriver();
             break;
+        case 'the current Kolab server':
+            $world['server'] = &$this->prepareCurrentKolabServer();
+            break;
         default:
             return $this->notImplemented($action);
         }
@@ -291,6 +294,17 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
     }
 
     /**
+     * Prepare the currently configured Kolab server.
+     *
+     * @return Horde_Kolab_Server The current server.
+     */
+    public function &prepareCurrentKolabServer()
+    {
+        $server = Horde_Kolab_Server::singleton();
+        return $server;
+    }
+
+    /**
      * Prepare a Kolab server with some basic entries.
      *
      * @return Horde_Kolab_Server The empty server.
@@ -360,7 +374,7 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
                       'kolabHomeServer' => 'home.example.org',
                       'kolabImapServer' => 'imap.example.org',
                       'kolabFreeBusyServer' => 'https://fb.example.org/freebusy',
-                      KOLAB_ATTR_IPOLICY => array('ACT_REJECT_IF_CONFLICTS'),
+                      'kolabInvitationPolicy' => array('ACT_REJECT_IF_CONFLICTS'),
                       'alias' => array('gunnar@example.org',
                                        'g.wrobel@example.org'),
                 );
@@ -383,7 +397,7 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
                      'kolabImapServer' => 'home.example.org',
                      'kolabFreeBusyServer' => 'https://fb.example.org/freebusy',
                      'alias' => array('t.test@example.org'),
-                     KOLAB_ATTR_KOLABDELEGATE => 'wrobel@example.org',);
+                     'kolabDelegate' => 'wrobel@example.org',);
     }
 
     /**
@@ -715,6 +729,8 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
     {
         if (is_a($var, 'Horde_Kolab_Server_Exception')) {
             $this->assertEquals('', $var->getMessage());
+        } else if (is_a($var, 'PEAR_Error')) {
+            $this->assertEquals('', $var->getMessage());
         }
     }
 
@@ -730,9 +746,15 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
      */
     public function assertError($var, $msg = null)
     {
-        $this->assertType('Horde_Kolab_Server_Exception', $var);
-        if (isset($msg)) {
-            $this->assertEquals($msg, $var->getMessage());
+        if (!is_a($var, 'PEAR_Error')) {
+            $this->assertType('Horde_Kolab_Server_Exception', $var);
+            if (isset($msg)) {
+                $this->assertEquals($msg, $var->getMessage());
+            }
+        } else {
+            if (isset($msg)) {
+                $this->assertEquals($msg, $var->getMessage());
+            }
         }
     }
 }

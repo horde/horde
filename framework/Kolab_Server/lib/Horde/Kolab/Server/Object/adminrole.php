@@ -36,40 +36,13 @@ class Horde_Kolab_Server_Object_adminrole extends Horde_Kolab_Server_Object
     public static $filter = '(&(cn=*)(objectClass=inetOrgPerson)(!(uid=manager))(sn=*))';
 
     /**
-     * The attributes supported by this class
-     *
-     * @var array
-     */
-    public $supported_attributes = array(
-        KOLAB_ATTR_SN,
-        KOLAB_ATTR_CN,
-        KOLAB_ATTR_GIVENNAME,
-        KOLAB_ATTR_FN,
-        KOLAB_ATTR_SID,
-        KOLAB_ATTR_USERPASSWORD,
-        KOLAB_ATTR_DELETED,
-    );
-
-    /**
-     * The attributes required when creating an object of this class.
-     *
-     * @var array
-     */
-    public $required_attributes = array(
-        KOLAB_ATTR_SN,
-        KOLAB_ATTR_GIVENNAME,
-        KOLAB_ATTR_USERPASSWORD,
-        KOLAB_ATTR_SID,
-    );
-
-    /**
      * Attributes derived from the LDAP values.
      *
      * @var array
      */
     public $derived_attributes = array(
-        KOLAB_ATTR_ID,
-        KOLAB_ATTR_LNFN,
+        Horde_Kolab_Server_Object::ATTRIBUTE_ID,
+        Horde_Kolab_Server_Object::ATTRIBUTE_LNFN,
     );
 
     /**
@@ -78,9 +51,9 @@ class Horde_Kolab_Server_Object_adminrole extends Horde_Kolab_Server_Object
      * @var array
      */
     protected $object_classes = array(
-        KOLAB_OC_TOP,
-        KOLAB_OC_INETORGPERSON,
-        KOLAB_OC_KOLABINETORGPERSON,
+        Horde_Kolab_Server_Object::OBJECTCLASS_TOP,
+        Horde_Kolab_Server_Object::OBJECTCLASS_INETORGPERSON,
+        Horde_Kolab_Server_Object::OBJECTCLASS_KOLABINETORGPERSON,
     );
 
     /**
@@ -102,8 +75,8 @@ class Horde_Kolab_Server_Object_adminrole extends Horde_Kolab_Server_Object
     {
         if (!isset($attrs)) {
             $attrs = array(
-                KOLAB_ATTR_SID,
-                KOLAB_ATTR_LNFN,
+                Horde_Kolab_Server_Object::ATTRIBUTE_SID,
+                Horde_Kolab_Server_Object::ATTRIBUTE_LNFN,
             );
         }
         return parent::toHash($attrs);
@@ -138,10 +111,10 @@ class Horde_Kolab_Server_Object_adminrole extends Horde_Kolab_Server_Object
             $parts           = split(',', $this->required_group);
             list($groupname) = sscanf($parts[0], 'cn=%s');
 
-            $result = $this->db->add(array(KOLAB_ATTR_CN => $groupname,
-                                            'type' => 'Horde_Kolab_Server_Object_group',
-                                            KOLAB_ATTR_MEMBER => $members,
-                                            KOLAB_ATTR_VISIBILITY => false));
+            $result = $this->db->add(array(Horde_Kolab_Server_Object::ATTRIBUTE_CN => $groupname,
+                                           'type' => 'Horde_Kolab_Server_Object_group',
+                                           Horde_Kolab_Server_Object::ATTRIBUTE_MEMBER => $members,
+                                           Horde_Kolab_Server_Object::ATTRIBUTE_VISIBILITY => false));
             if (is_a($result, 'PEAR_Error')) {
                 return $result;
             }
@@ -153,7 +126,7 @@ class Horde_Kolab_Server_Object_adminrole extends Horde_Kolab_Server_Object
             if ($result === false) {
                 $members   = $admin_group->getMembers();
                 $members[] = $this->uid;
-                $admin_group->save(array(KOLAB_ATTR_MEMBER => $members));
+                $admin_group->save(array(Horde_Kolab_Server_Object::ATTRIBUTE_MEMBER => $members));
             }
         }
         return parent::save($info);

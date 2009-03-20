@@ -12,48 +12,6 @@
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
 
-/** Define the possible Kolab object attributes */
-define('KOLAB_ATTR_UID',          'dn');
-define('KOLAB_ATTR_ID',           'id');
-define('KOLAB_ATTR_SN',           'sn');
-define('KOLAB_ATTR_CN',           'cn');
-define('KOLAB_ATTR_GIVENNAME',    'givenName');
-define('KOLAB_ATTR_FN',           'fn');
-define('KOLAB_ATTR_LNFN',         'lnfn');
-define('KOLAB_ATTR_FNLN',         'fnln');
-define('KOLAB_ATTR_MAIL',         'mail');
-define('KOLAB_ATTR_SID',          'uid');
-define('KOLAB_ATTR_ACL',          'acl');
-define('KOLAB_ATTR_MEMBER',       'member');
-define('KOLAB_ATTR_USERTYPE',     'usertype');
-define('KOLAB_ATTR_DOMAIN',       'domain');
-define('KOLAB_ATTR_FOLDERTYPE',   'kolabFolderType');
-define('KOLAB_ATTR_USERPASSWORD', 'userPassword');
-define('KOLAB_ATTR_DELETED',      'kolabDeleteFlag');
-define('KOLAB_ATTR_FREEBUSYHOST', 'kolabFreeBusyServer');
-define('KOLAB_ATTR_IMAPHOST',     'kolabImapServer');
-define('KOLAB_ATTR_HOMESERVER',   'kolabHomeServer');
-define('KOLAB_ATTR_KOLABDELEGATE','kolabDelegate');
-define('KOLAB_ATTR_IPOLICY',      'kolabInvitationPolicy');
-define('KOLAB_ATTR_QUOTA',        'cyrus-userquota');
-define('KOLAB_ATTR_FBPAST',       'kolabFreeBusyPast');
-define('KOLAB_ATTR_FBFUTURE',     'kolabFreeBusyFuture');
-define('KOLAB_ATTR_VISIBILITY',   'visible');
-
-/** Define the possible Kolab object classes */
-define('KOLAB_OC_TOP',                'top');
-define('KOLAB_OC_INETORGPERSON',      'inetOrgPerson');
-define('KOLAB_OC_KOLABINETORGPERSON', 'kolabInetOrgPerson');
-define('KOLAB_OC_HORDEPERSON',        'hordePerson');
-define('KOLAB_OC_KOLABGROUPOFNAMES',  'kolabGroupOfNames');
-define('KOLAB_OC_KOLABSHAREDFOLDER',  'kolabSharedFolder');
-
-/** Define the possible Kolab user types */
-define('KOLAB_UT_STANDARD',           0);
-define('KOLAB_UT_INTERNAL',           1);
-define('KOLAB_UT_GROUP',              2);
-define('KOLAB_UT_RESOURCE',           3);
-
 /**
  * This class provides methods to deal with Kolab objects stored in
  * the Kolab db.
@@ -71,6 +29,38 @@ define('KOLAB_UT_RESOURCE',           3);
  */
 class Horde_Kolab_Server_Object
 {
+
+    /** Define attributes specific to this object type */
+    const ATTRIBUTE_UID          = 'dn';
+    const ATTRIBUTE_ID           = 'id';
+    const ATTRIBUTE_SID          = 'uid';
+    const ATTRIBUTE_CN           = 'cn';
+    const ATTRIBUTE_SN           = 'sn';
+    const ATTRIBUTE_GIVENNAME    = 'givenName';
+    const ATTRIBUTE_FN           = 'fn';
+    const ATTRIBUTE_MAIL         = 'mail';
+    const ATTRIBUTE_DELEGATE     = 'kolabDelegate';
+    const ATTRIBUTE_MEMBER       = 'member';
+    const ATTRIBUTE_VISIBILITY   = 'visible';
+    const ATTRIBUTE_LNFN         = 'lnfn';
+    const ATTRIBUTE_FNLN         = 'fnln';
+    const ATTRIBUTE_DOMAIN       = 'domain';
+    const ATTRIBUTE_DELETED      = 'kolabDeleteFlag';
+    const ATTRIBUTE_FBPAST       = 'kolabFreeBusyPast';
+    const ATTRIBUTE_FBFUTURE     = 'kolabFreeBusyFuture';
+    const ATTRIBUTE_FOLDERTYPE   = 'kolabFolderType';
+    const ATTRIBUTE_HOMESERVER   = 'kolabHomeServer';
+    const ATTRIBUTE_FREEBUSYHOST = 'kolabFreeBusyServer';
+    const ATTRIBUTE_IMAPHOST     = 'kolabImapServer';
+    const ATTRIBUTE_IPOLICY      = 'kolabInvitationPolicy';
+
+    /** Define the possible Kolab object classes */
+    const OBJECTCLASS_TOP                = 'top';
+    const OBJECTCLASS_INETORGPERSON      = 'inetOrgPerson';
+    const OBJECTCLASS_KOLABINETORGPERSON = 'kolabInetOrgPerson';
+    const OBJECTCLASS_HORDEPERSON        = 'hordePerson';
+    const OBJECTCLASS_KOLABGROUPOFNAMES  = 'kolabGroupOfNames';
+    const OBJECTCLASS_KOLABSHAREDFOLDER  = 'kolabSharedFolder';
 
     /**
      * Link into the Kolab server.
@@ -117,7 +107,7 @@ class Horde_Kolab_Server_Object
      *
      * @var array
      */
-    public $supported_attributes = array();
+    public $supported_attributes = false;
 
     /**
      * Attributes derived from the LDAP values.
@@ -125,7 +115,7 @@ class Horde_Kolab_Server_Object
      * @var array
      */
     public $derived_attributes = array(
-        KOLAB_ATTR_ID,
+        self::ATTRIBUTE_ID,
     );
 
     /**
@@ -133,7 +123,7 @@ class Horde_Kolab_Server_Object
      *
      * @var array
      */
-    public $required_attributes = array();
+    public $required_attributes = false;
 
     /**
      * The ldap classes for this type of object.
@@ -147,7 +137,7 @@ class Horde_Kolab_Server_Object
      *
      * @var string
      */
-    var $sort_by = KOLAB_ATTR_SN;
+    var $sort_by = self::ATTRIBUTE_SN;
 
     /**
      * Initialize the Kolab Object. Provide either the UID or a
@@ -161,13 +151,13 @@ class Horde_Kolab_Server_Object
     {
         $this->db = &$db;
         if (empty($uid)) {
-            if (empty($data) || !isset($data[KOLAB_ATTR_UID])) {
+            if (empty($data) || !isset($data[self::ATTRIBUTE_UID])) {
                 throw new Horde_Kolab_Server_Exception(_('Specify either the UID or a search result!'));
             }
-            if (is_array($data[KOLAB_ATTR_UID])) {
-                $this->uid = $data[KOLAB_ATTR_UID][0];
+            if (is_array($data[self::ATTRIBUTE_UID])) {
+                $this->uid = $data[self::ATTRIBUTE_UID][0];
             } else {
-                $this->uid = $data[KOLAB_ATTR_UID];
+                $this->uid = $data[self::ATTRIBUTE_UID];
             }
             $this->_cache = $data;
         } else {
@@ -247,16 +237,18 @@ class Horde_Kolab_Server_Object
     /**
      * Get the specified attribute of this object
      *
-     * @param string $attr The attribute to read
+     * @param string  $attr   The attribute to read
+     * @param boolean $single Should only a single attribute be returned?
      *
      * @return string the value of this attribute
      *
      * @todo: This needs to be magic
      */
-    public function get($attr)
+    public function get($attr, $single = true)
     {
-        if ($attr != KOLAB_ATTR_UID) {
-            if (!in_array($attr, $this->supported_attributes)
+        if ($attr != self::ATTRIBUTE_UID) {
+            if ($this->supported_attributes !== false
+                && !in_array($attr, $this->supported_attributes)
                 && !in_array($attr, $this->derived_attributes)) {
                 throw new Horde_Kolab_Server_Exception(sprintf(_("Attribute \"%s\" not supported!"),
                                                                $attr));
@@ -271,26 +263,12 @@ class Horde_Kolab_Server_Object
         }
 
         switch ($attr) {
-        case KOLAB_ATTR_UID:
+        case self::ATTRIBUTE_UID:
             return $this->uid;
-        case KOLAB_ATTR_FN:
+        case self::ATTRIBUTE_FN:
             return $this->getFn();
-        case KOLAB_ATTR_SN:
-        case KOLAB_ATTR_CN:
-        case KOLAB_ATTR_GIVENNAME:
-        case KOLAB_ATTR_MAIL:
-        case KOLAB_ATTR_SID:
-        case KOLAB_ATTR_USERPASSWORD:
-        case KOLAB_ATTR_DELETED:
-        case KOLAB_ATTR_IMAPHOST:
-        case KOLAB_ATTR_FREEBUSYHOST:
-        case KOLAB_ATTR_HOMESERVER:
-        case KOLAB_ATTR_FBPAST:
-        case KOLAB_ATTR_FBFUTURE:
-        case KOLAB_ATTR_FOLDERTYPE:
-            return $this->_get($attr, true);
         default:
-            return $this->_get($attr, false);
+            return $this->_get($attr, $single);
         }
     }
 
@@ -325,20 +303,20 @@ class Horde_Kolab_Server_Object
     protected function derive($attr)
     {
         switch ($attr) {
-        case KOLAB_ATTR_ID:
+        case self::ATTRIBUTE_ID:
             $result = split(',', $this->uid);
             if (substr($result[0], 0, 3) == 'cn=') {
                 return substr($result[0], 3);
             } else {
                 return $result[0];
             }
-        case KOLAB_ATTR_LNFN:
-            $gn = $this->_get(KOLAB_ATTR_GIVENNAME, true);
-            $sn = $this->_get(KOLAB_ATTR_SN, true);
+        case self::ATTRIBUTE_LNFN:
+            $gn = $this->_get(self::ATTRIBUTE_GIVENNAME, true);
+            $sn = $this->_get(self::ATTRIBUTE_SN, true);
             return sprintf('%s, %s', $sn, $gn);
-        case KOLAB_ATTR_FNLN:
-            $gn = $this->_get(KOLAB_ATTR_GIVENNAME, true);
-            $sn = $this->_get(KOLAB_ATTR_SN, true);
+        case self::ATTRIBUTE_FNLN:
+            $gn = $this->_get(self::ATTRIBUTE_GIVENNAME, true);
+            $sn = $this->_get(self::ATTRIBUTE_SN, true);
             return sprintf('%s %s', $gn, $sn);
         default:
             return false;
@@ -354,13 +332,13 @@ class Horde_Kolab_Server_Object
      */
     public function toHash($attrs = null)
     {
-        if (!isset($attrs)) {
-            $attrs = array();
-        }
         $result = array();
-        foreach ($attrs as $key) {
-            $value        = $this->get($key);
-            $result[$key] = $value;
+
+        if (isset($attrs)) {
+            foreach ($attrs as $key) {
+                $value        = $this->get($key);
+                $result[$key] = $value;
+            }
         }
 
         return $result;
@@ -385,8 +363,8 @@ class Horde_Kolab_Server_Object
      */
     protected function getFn()
     {
-        $sn = $this->_get(KOLAB_ATTR_SN, true);
-        $cn = $this->_get(KOLAB_ATTR_CN, true);
+        $sn = $this->_get(self::ATTRIBUTE_SN, true);
+        $cn = $this->_get(self::ATTRIBUTE_CN, true);
         return trim(substr($cn, 0, strlen($cn) - strlen($sn)));
     }
 
@@ -450,10 +428,12 @@ class Horde_Kolab_Server_Object
      */
     public function save($info)
     {
-        foreach ($this->required_attributes as $attribute) {
-            if (!isset($info[$attribute])) {
-                throw new Horde_Kolab_Server_Exception(sprintf(_("The value for \"%s\" is missing!"),
-                                                                 $attribute));
+        if ($this->required_attributes !== false) {
+            foreach ($this->required_attributes as $attribute) {
+                if (!isset($info[$attribute])) {
+                    throw new Horde_Kolab_Server_Exception(sprintf(_("The value for \"%s\" is missing!"),
+                                                                   $attribute));
+                }
             }
         }
 

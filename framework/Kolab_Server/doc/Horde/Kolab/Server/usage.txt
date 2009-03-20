@@ -84,10 +84,10 @@ Depending on the sub class such an object presents different
 features. One primary method is common to all the objects though:
 Fetching attribute values with "get()".
 
- $attr = $object->get(KOLAB_ATTR_CN);
+ $attr = $object->get(Horde_Kolab_Server_Object::ATTRIBUTE_CN);
 
-"KOLAB_ATTR_CN" is being used to retrieve the "common name" of the
-object:
+"Horde_Kolab_Server_Object::ATTRIBUTE_CN" is being used to retrieve
+the "common name" of the object:
 
  var_dump($attr);
 

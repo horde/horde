@@ -16,11 +16,6 @@
  */
 require_once 'Horde/Autoloader.php';
 
-/** Define types of return values. */
-define('KOLAB_SERVER_RESULT_SINGLE', 1);
-define('KOLAB_SERVER_RESULT_STRICT', 2);
-define('KOLAB_SERVER_RESULT_MANY',   3);
-
 /**
  * This class provides methods to deal with Kolab objects stored in
  * the Kolab object db.
@@ -44,6 +39,11 @@ abstract class Horde_Kolab_Server
      */
     const USER  = 'kolabInetOrgPerson';
     const GROUP = 'kolabGroupOfNames';
+
+    /** Define types of return values. */
+    const RESULT_SINGLE = 1;
+    const RESULT_STRICT = 2;
+    const RESULT_MANY   = 3;
 
     /**
      * Server parameters.
@@ -155,9 +155,9 @@ abstract class Horde_Kolab_Server
             $server_params = array_merge($server_params, $params);
         }
 
-        $sparam             = $server_params;
-        $sparam['password'] = isset($sparam['password']) ? md5($sparam['password']) : '';
-        $signature          = serialize(array($driver, $sparam));
+        $sparam         = $server_params;
+        $sparam['pass'] = isset($sparam['pass']) ? md5($sparam['pass']) : '';
+        $signature      = serialize(array($driver, $sparam));
         if (empty($instances[$signature])) {
             $instances[$signature] = &Horde_Kolab_Server::factory($driver,
                                                                   $server_params);
@@ -247,14 +247,14 @@ abstract class Horde_Kolab_Server
      * Identify the UID for the first object found with the given ID.
      *
      * @param string $id       Search for objects with this ID.
-     * @param int    $restrict A KOLAB_SERVER_RESULT_* result restriction.
+     * @param int    $restrict A Horde_Kolab_Server::RESULT_* result restriction.
      *
      * @return mixed The UID or false if there was no result.
      *
      * @throws Horde_Kolab_Server_Exception
      */
     public function uidForId($id,
-                             $restrict = KOLAB_SERVER_RESULT_SINGLE)
+                             $restrict = Horde_Kolab_Server::RESULT_SINGLE)
     {
         $criteria = array('AND' => array(array('field' => 'uid',
                                               'op'    => '=',
@@ -268,14 +268,14 @@ abstract class Horde_Kolab_Server
      * Identify the UID for the first user found with the given mail.
      *
      * @param string $mail     Search for users with this mail address.
-     * @param int    $restrict A KOLAB_SERVER_RESULT_* result restriction.
+     * @param int    $restrict A Horde_Kolab_Server::RESULT_* result restriction.
      *
      * @return mixed The UID or false if there was no result.
      *
      * @throws Horde_Kolab_Server_Exception
      */
     public function uidForMail($mail,
-                               $restrict = KOLAB_SERVER_RESULT_SINGLE)
+                               $restrict = Horde_Kolab_Server::RESULT_SINGLE)
     {
         $criteria = array('AND' => array(array('field' => 'mail',
                                               'op'    => '=',
@@ -289,14 +289,14 @@ abstract class Horde_Kolab_Server
      * Identify the UID for the first object found with the given alias.
      *
      * @param string $mail     Search for objects with this mail alias.
-     * @param int    $restrict A KOLAB_SERVER_RESULT_* result restriction.
+     * @param int    $restrict A Horde_Kolab_Server::RESULT_* result restriction.
      *
      * @return mixed The UID or false if there was no result.
      *
      * @throws Horde_Kolab_Server_Exception
      */
     public function uidForAlias($mail,
-                                $restrict = KOLAB_SERVER_RESULT_SINGLE)
+                                $restrict = Horde_Kolab_Server::RESULT_SINGLE)
     {
         $criteria = array('AND' => array(array('field' => 'alias',
                                               'op'    => '=',
@@ -347,10 +347,10 @@ abstract class Horde_Kolab_Server
                          array(
                              array('field' => 'alias',
                                    'op'    => '=',
-                                   'test'  => $id),
+                                   'test'  => $mail),
                              array('field' => 'mail',
                                    'op'    => '=',
-                                   'test'  => $id),
+                                   'test'  => $mail),
                          )
         );
         return $this->uidForSearch($criteria);
@@ -415,7 +415,7 @@ abstract class Horde_Kolab_Server
         );
 
         $data = $this->attrsForSearch($criteria, array('mail'),
-                                      KOLAB_SERVER_RESULT_STRICT);
+                                      self::RESULT_STRICT);
         if (!empty($data)) {
             return $data['mail'][0];
         } else {
@@ -453,8 +453,12 @@ abstract class Horde_Kolab_Server
         );
 
         $result = $this->attrsForSearch($criteria, array('mail', 'alias'),
-                                        KOLAB_SERVER_RESULT_STRICT);
-        $addrs  = array_merge((array) $result['mail'], (array) $result['alias']);
+                                        self::RESULT_STRICT);
+        if (isset($result['alias'])) {
+            $addrs = array_merge((array) $result['mail'], (array) $result['alias']);
+        } else {
+            $addrs = $result['mail'];
+        }
 
         if (empty($result)) {
             return array();
@@ -471,7 +475,7 @@ abstract class Horde_Kolab_Server
         );
 
         $result = $this->attrsForSearch($criteria, array('mail', 'alias'),
-                                      KOLAB_SERVER_RESULT_MANY);
+                                      self::RESULT_MANY);
         if (!empty($result)) {
             foreach ($result as $adr) {
                 if (isset($adr['mail'])) {
@@ -483,6 +487,8 @@ abstract class Horde_Kolab_Server
             }
         }
 
+        $addrs = array_map('strtolower', $addrs);
+
         return $addrs;
     }
 
@@ -490,14 +496,14 @@ abstract class Horde_Kolab_Server
      * Identify the GID for the first group found with the given mail.
      *
      * @param string $mail     Search for groups with this mail address.
-     * @param int    $restrict A KOLAB_SERVER_RESULT_* result restriction.
+     * @param int    $restrict A Horde_Kolab_Server::RESULT_* result restriction.
      *
      * @return mixed The GID or false if there was no result.
      *
      * @throws Horde_Kolab_Server_Exception
      */
     public function gidForMail($mail,
-                               $restrict = KOLAB_SERVER_RESULT_SINGLE)
+                               $restrict = Horde_Kolab_Server::RESULT_SINGLE)
     {
         $criteria = array('AND' => array(array('field' => 'mail',
                                               'op'    => '=',
@@ -531,7 +537,7 @@ abstract class Horde_Kolab_Server
         );
 
         $result = $this->gidForSearch($criteria,
-                                      KOLAB_SERVER_RESULT_SINGLE);
+                                      self::RESULT_SINGLE);
         return !empty($result);
     }
 
@@ -554,7 +560,7 @@ abstract class Horde_Kolab_Server
                           ),
         );
 
-        $result = $this->gidForSearch($criteria, KOLAB_SERVER_RESULT_MANY);
+        $result = $this->gidForSearch($criteria, self::RESULT_MANY);
         if (empty($result)) {
             return array();
         }
@@ -649,40 +655,40 @@ abstract class Horde_Kolab_Server
      * attribute value.
      *
      * @param array $criteria The search parameters as array.
-     * @param int   $restrict A KOLAB_SERVER_RESULT_* result restriction.
+     * @param int   $restrict A Horde_Kolab_Server::RESULT_* result restriction.
      *
      * @return boolean|string|array The UID(s) or false if there was no result.
      *
      * @throws Horde_Kolab_Server_Exception
      */
     abstract public function uidForSearch($criteria,
-                                          $restrict = KOLAB_SERVER_RESULT_SINGLE);
+                                          $restrict = Horde_Kolab_Server::RESULT_SINGLE);
 
     /**
      * Identify the GID for the first group found using a specified
      * attribute value.
      *
      * @param array $criteria The search parameters as array.
-     * @param int   $restrict A KOLAB_SERVER_RESULT_* result restriction.
+     * @param int   $restrict A Horde_Kolab_Server::RESULT_* result restriction.
      *
      * @return boolean|string|array The GID(s) or false if there was no result.
      *
      * @throws Horde_Kolab_Server_Exception
      */
     abstract public function gidForSearch($criteria,
-                                          $restrict = KOLAB_SERVER_RESULT_SINGLE);
+                                          $restrict = Horde_Kolab_Server::RESULT_SINGLE);
 
     /**
      * Identify attributes for the objects found using a filter.
      *
      * @param array $criteria The search parameters as array.
      * @param array $attrs    The attributes to retrieve.
-     * @param int   $restrict A KOLAB_SERVER_RESULT_* result restriction.
+     * @param int   $restrict A Horde_Kolab_Server::RESULT_* result restriction.
      *
      * @return array The results.
      *
      * @throws Horde_Kolab_Server_Exception
      */
     abstract public function attrsForSearch($criteria, $attrs,
-                                            $restrict = KOLAB_SERVER_RESULT_SINGLE);
+                                            $restrict = Horde_Kolab_Server::RESULT_SINGLE);
 }

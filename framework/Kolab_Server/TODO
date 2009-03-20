@@ -1,9 +1,5 @@
 
-- Generate real LDAP testing
-
 - Convert external Project modifications into Kolab_Server.
-
-- Check against current HEAD/FW3 that everything has been merged.
 
 - Implement currently missing scenarios.
 
@@ -13,6 +9,6 @@
 
 - Implement external project requirements
 
-- Check with current HEAD libraries.
-
 - Check with current HEAD applications.
+
+- Implement server setup

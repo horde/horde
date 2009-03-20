@@ -50,12 +50,16 @@ class Horde_Kolab_Server_ldap extends Horde_Kolab_Server
      */
     public function __construct($params = array())
     {
+        if (!isset($params['charset'])) {
+            $params['charset'] = 'UTF-8';
+        }
+
         $base_config = array('host'           => 'localhost',
                              'port'           => 389,
                              'version'        => 3,
                              'starttls'       => true,
                              'uid'            => '',
-                             'password'       => '',
+                             'pass'           => '',
                              'basedn'         => '',
                              'charset'        => '',
                              'options'        => array(),
@@ -67,7 +71,7 @@ class Horde_Kolab_Server_ldap extends Horde_Kolab_Server
         $this->_base_dn = $config['basedn'];
 
         $config['binddn'] = $config['uid'];
-        $config['bindpw'] = $config['password'];
+        $config['bindpw'] = $config['pass'];
 
         $this->_ldap = new Net_LDAP2($config);
 
@@ -89,7 +93,7 @@ class Horde_Kolab_Server_ldap extends Horde_Kolab_Server
     public function read($dn, $attrs = null)
     {
         $params = array('scope' => 'one');
-        if (isset($attrs)) {
+        if (!empty($attrs)) {
             $params['attributes'] = $attr;
         }
 
@@ -256,11 +260,11 @@ class Horde_Kolab_Server_ldap extends Horde_Kolab_Server
         case 'Horde_Kolab_Server_Object_user':
             if (!isset($info['user_type']) || $info['user_type'] == 0) {
                 return sprintf('cn=%s,%s', $id, $this->_base_dn);
-            } else if ($info['user_type'] == KOLAB_UT_INTERNAL) {
+            } else if ($info['user_type'] == Horde_Kolab_Server_Object_user::USERTYPE_INTERNAL) {
                 return sprintf('cn=%s,cn=internal,%s', $id, $this->_base_dn);
-            } else if ($info['user_type'] == KOLAB_UT_GROUP) {
+            } else if ($info['user_type'] == Horde_Kolab_Server_Object_user::USERTYPE_GROUP) {
                 return sprintf('cn=%s,cn=groups,%s', $id, $this->_base_dn);
-            } else if ($info['user_type'] == KOLAB_UT_RESOURCE) {
+            } else if ($info['user_type'] == Horde_Kolab_Server_Object_user::USERTYPE_RESOURCE) {
                 return sprintf('cn=%s,cn=resources,%s', $id, $this->_base_dn);
             } else {
                 return sprintf('cn=%s,%s', $id, $this->_base_dn);
@@ -318,14 +322,14 @@ class Horde_Kolab_Server_ldap extends Horde_Kolab_Server
      * search criteria.
      *
      * @param array $criteria The search parameters as array.
-     * @param int   $restrict A KOLAB_SERVER_RESULT_* result restriction.
+     * @param int   $restrict A Horde_Kolab_Server::RESULT_* result restriction.
      *
      * @return boolean|string|array The UID(s) or false if there was no result.
      *
      * @throws Horde_Kolab_Server_Exception
      */
     public function uidForSearch($criteria,
-                                 $restrict = KOLAB_SERVER_RESULT_SINGLE)
+                                 $restrict = Horde_Kolab_Server::RESULT_SINGLE)
     {
         $users = array('field' => 'objectClass',
                        'op'    => '=',
@@ -345,14 +349,14 @@ class Horde_Kolab_Server_ldap extends Horde_Kolab_Server
      * search criteria
      *
      * @param array $criteria The search parameters as array.
-     * @param int   $restrict A KOLAB_SERVER_RESULT_* result restriction.
+     * @param int   $restrict A Horde_Kolab_Server::RESULT_* result restriction.
      *
      * @return boolean|string|array The GID(s) or false if there was no result.
      *
      * @throws Horde_Kolab_Server_Exception
      */
     public function gidForSearch($criteria,
-                                 $restrict = KOLAB_SERVER_RESULT_SINGLE)
+                                 $restrict = Horde_Kolab_Server::RESULT_SINGLE)
     {
         $groups = array('field' => 'objectClass',
                         'op'    => '=',
@@ -372,14 +376,14 @@ class Horde_Kolab_Server_ldap extends Horde_Kolab_Server
      *
      * @param array $criteria The search parameters as array.
      * @param array $attrs    The attributes to retrieve.
-     * @param int   $restrict A KOLAB_SERVER_RESULT_* result restriction.
+     * @param int   $restrict A Horde_Kolab_Server::RESULT_* result restriction.
      *
      * @return array The results.
      *
      * @throws Horde_Kolab_Server_Exception
      */
     public function attrsForSearch($criteria, $attrs,
-                                   $restrict = KOLAB_SERVER_RESULT_SINGLE)
+                                   $restrict = Horde_Kolab_Server::RESULT_SINGLE)
     {
         $params = array('attributes' => $attrs);
         $filter = $this->searchQuery($criteria);
@@ -510,7 +514,7 @@ class Horde_Kolab_Server_ldap extends Horde_Kolab_Server
      * Identify the DN of the first result entry.
      *
      * @param array $result   The LDAP search result.
-     * @param int   $restrict A KOLAB_SERVER_RESULT_* result restriction.
+     * @param int   $restrict A Horde_Kolab_Server::RESULT_* result restriction.
      *
      * @return boolean|string|array The DN(s) or false if there was no result.
      *
@@ -518,7 +522,7 @@ class Horde_Kolab_Server_ldap extends Horde_Kolab_Server
      *                                      meet the expectations.
      */
     protected function dnFromResult($result,
-                                    $restrict = KOLAB_SERVER_RESULT_SINGLE)
+                                    $restrict = Horde_Kolab_Server::RESULT_SINGLE)
     {
         if (empty($result)) {
             return false;
@@ -529,14 +533,14 @@ class Horde_Kolab_Server_ldap extends Horde_Kolab_Server
         }
 
         switch ($restrict) {
-        case KOLAB_SERVER_RESULT_STRICT:
+        case self::RESULT_STRICT:
             if (count($dns) > 1) {
                 throw new Horde_Kolab_Server_Exception(sprintf(_("Found %s results when expecting only one!"),
                                                                $count));
             }
-        case KOLAB_SERVER_RESULT_SINGLE:
+        case self::RESULT_SINGLE:
             return $dns[0];
-        case KOLAB_SERVER_RESULT_MANY:
+        case self::RESULT_MANY:
             return $dns;
         }
     }
@@ -546,7 +550,7 @@ class Horde_Kolab_Server_ldap extends Horde_Kolab_Server
      *
      * @param array $result   The LDAP search result.
      * @param array $attrs    The attributes to retrieve.
-     * @param int   $restrict A KOLAB_SERVER_RESULT_* result restriction.
+     * @param int   $restrict A Horde_Kolab_Server::RESULT_* result restriction.
      *
      * @return array The DN.
      *
@@ -554,20 +558,20 @@ class Horde_Kolab_Server_ldap extends Horde_Kolab_Server
      *                                      meet the expectations.
      */
     protected function attrsFromResult($result, $attrs,
-                                       $restrict = KOLAB_SERVER_RESULT_SINGLE)
+                                       $restrict = Horde_Kolab_Server::RESULT_SINGLE)
     {
         switch ($restrict) {
-        case KOLAB_SERVER_RESULT_STRICT:
+        case self::RESULT_STRICT:
             if (count($result) > 1) {
                 throw new Horde_Kolab_Server_Exception(sprintf(_("Found %s results when expecting only one!"),
                                                                $count));
             }
-        case KOLAB_SERVER_RESULT_SINGLE:
+        case self::RESULT_SINGLE:
             if (count($result) > 0) {
                 return $result[0];
             }
             return array();
-        case KOLAB_SERVER_RESULT_MANY:
+        case self::RESULT_MANY:
             return $result;
         }
         return array();
@@ -578,14 +582,14 @@ class Horde_Kolab_Server_ldap extends Horde_Kolab_Server
      * Identify the DN for the first object found using a filter.
      *
      * @param string $filter   The LDAP filter to use.
-     * @param int    $restrict A KOLAB_SERVER_RESULT_* result restriction.
+     * @param int    $restrict A Horde_Kolab_Server::RESULT_* result restriction.
      *
      * @return boolean|string|array The DN(s) or false if there was no result.
      *
      * @throws Horde_Kolab_Server_Exception
      */
     protected function dnForFilter($filter,
-                                   $restrict = KOLAB_SERVER_RESULT_SINGLE)
+                                   $restrict = Horde_Kolab_Server::RESULT_SINGLE)
     {
         $params = array('attributes' => 'dn');
         $result = $this->search($filter, $params, $this->_base_dn);

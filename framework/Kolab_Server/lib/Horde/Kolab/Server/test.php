@@ -33,7 +33,14 @@ class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap
      *
      * @var array
      */
-    protected $_data;
+    protected $data;
+
+    /**
+     * Indicates if we are bound.
+     *
+     * @var array
+     */
+    protected $bound;
 
     /**
      * Array holding the current result set.
@@ -86,10 +93,10 @@ class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap
     {
         $this->load();
         if (isset($params['data'])) {
-            $this->_data = $params['data'];
+            $this->data = $params['data'];
         } else {
-            if (!isset($this->_data)) {
-               $this->_data  = array();
+            if (!isset($this->data)) {
+               $this->data  = array();
             }
         }
 
@@ -106,7 +113,7 @@ class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap
                 'userPassword' => array($this->params['adminpass']),
                 'objectClass' => array('top','inetOrgPerson','kolabInetOrgPerson')
             );
-            $this->_data[$dn] = array(
+            $this->data[$dn] = array(
                 'dn' => $dn,
                 'data' => $ldap_data
             );
@@ -123,7 +130,11 @@ class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap
      */
     protected function load()
     {
-        $this->_data = $GLOBALS['KOLAB_SERVER_TEST_DATA'];
+        if (isset($GLOBALS['KOLAB_SERVER_TEST_DATA'])) {
+            $this->data = $GLOBALS['KOLAB_SERVER_TEST_DATA'];
+        } else {
+            $this->data = array();
+        }
     }
 
     /**
@@ -133,7 +144,7 @@ class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap
      */
     protected function store()
     {
-        $GLOBALS['KOLAB_SERVER_TEST_DATA'] = $this->_data;
+        $GLOBALS['KOLAB_SERVER_TEST_DATA'] = $this->data;
     }
 
     /**
@@ -147,7 +158,7 @@ class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap
 
         $GLOBALS['KOLAB_SERVER_TEST_DATA'] = array();
 
-        $this->_data = array();
+        $this->data = array();
     }
 
     /**
@@ -179,33 +190,33 @@ class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap
         }
 
         if (!empty($dn)) {
-            if (!isset($this->_data[$dn])) {
+            if (!isset($this->data[$dn])) {
                 throw new Horde_Kolab_Server_Exception('User does not exist!');
             }
 
-            $this->_bound = true;
+            $this->bound = true;
 
             try {
                 $data = $this->read($dn, array('userPassword'));
             } catch (Horde_Kolab_Server_Exception $e) {
-                $this->_bound = false;
+                $this->bound = false;
                 throw $e;
             }
             if (!isset($data['userPassword'])) {
-                $this->_bound = false;
+                $this->bound = false;
                 throw new Horde_Kolab_Server_Exception('User has no password entry!');
             }
-            $this->_bound = $data['userPassword'][0] == $pw;
-            if (!$this->_bound) {
+            $this->bound = $data['userPassword'][0] == $pw;
+            if (!$this->bound) {
                 throw new Horde_Kolab_Server_Exception('Incorrect password!');
             }
         } else if (!empty($this->params['no_anonymous_bind'])) {
-            $this->_bound = false;
+            $this->bound = false;
             throw new Horde_Kolab_Server_Exception('Anonymous bind is not allowed!');
         } else {
-            $this->_bound = true;
+            $this->bound = true;
         }
-        return $this->_bound;
+        return $this->bound;
     }
 
     /**
@@ -215,7 +226,7 @@ class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap
      */
     public function unbind()
     {
-        $this->_bound = false;
+        $this->bound = false;
     }
 
     /**
@@ -310,7 +321,7 @@ class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap
      */
     public function search($filter = null, $params = array(), $base = null)
     {
-        if (!$this->_bound) {
+        if (!$this->bound) {
             $result = $this->bind();
         }
 
@@ -355,7 +366,7 @@ class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap
     {
         if (isset($filter['log'])) {
             $result = array();
-            foreach ($this->_data as $element) {
+            foreach ($this->data as $element) {
                 if (isset($element['data'][$filter['att']])) {
                     switch ($filter['log']) {
                     case '=':
@@ -417,16 +428,16 @@ class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap
                         $dns[] = $entry['dn'];
                     }
                 }
-                $all_dns = array_keys($this->_data);
+                $all_dns = array_keys($this->data);
                 $diff    = array_diff($all_dns, $dns);
 
                 $result = array();
                 foreach ($diff as $dn) {
                     if (empty($attributes)) {
-                        $result[] = $this->_data[$dn];
+                        $result[] = $this->data[$dn];
                     } else {
-                        $selection = $this->_data[$dn];
-                        foreach ($this->_data[$dn]['data']
+                        $selection = $this->data[$dn];
+                        foreach ($this->data[$dn]['data']
                                  as $attr => $value) {
                             if (!in_array($attr, $attributes)) {
                                 unset($selection['data'][$attr]);
@@ -454,19 +465,19 @@ class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap
      */
     public function read($dn, $attrs = null)
     {
-        if (!$this->_bound) {
+        if (!$this->bound) {
             $result = $this->bind();
         }
 
-        if (!isset($this->_data[$dn])) {
+        if (!isset($this->data[$dn])) {
             throw new Horde_Kolab_Server_MissingObjectException(sprintf("No such object: %s",
                                                                         $dn));
         }
         if (empty($attrs)) {
-            return $this->_data[$dn]['data'];
+            return $this->data[$dn]['data'];
         } else {
             $result = array();
-            $data   = $this->_data[$dn]['data'];
+            $data   = $this->data[$dn]['data'];
 
             foreach ($attrs as $attr) {
                 if (isset($data[$attr])) {
@@ -488,7 +499,7 @@ class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap
      */
     public function save($dn, $data)
     {
-        if (!$this->_bound) {
+        if (!$this->bound) {
             $result = $this->bind();
         }
 
@@ -500,7 +511,7 @@ class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap
             $ldap_data[$key] = $val;
         }
 
-        $this->_data[$dn] = array(
+        $this->data[$dn] = array(
             'dn' => $dn,
             'data' => $ldap_data
         );

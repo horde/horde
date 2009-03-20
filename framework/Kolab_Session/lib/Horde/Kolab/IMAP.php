@@ -124,7 +124,7 @@ class Horde_Kolab_IMAP
      */
     function &factory($server, $port, $driver = 'cclient')
     {
-        @include_once dirname(__FILE__) . '/IMAP/' . $driver . '.php';
+        include_once dirname(__FILE__) . '/IMAP/' . $driver . '.php';
 
         $class = 'Horde_Kolab_IMAP_' . $driver;
         if (class_exists($class)) {

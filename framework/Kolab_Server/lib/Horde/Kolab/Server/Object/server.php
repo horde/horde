@@ -41,7 +41,7 @@ class Horde_Kolab_Server_Object_server extends Horde_Kolab_Server_Object
      * @var array
      */
     public $supported_attributes = array(
-        KOLAB_ATTR_FBPAST,
+        Horde_Kolab_Server_Object::ATTRIBUTE_FBPAST,
     );
 
 }

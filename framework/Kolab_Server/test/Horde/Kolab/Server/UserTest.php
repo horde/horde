@@ -85,7 +85,7 @@ class Horde_Kolab_Server_UserTest extends Horde_Kolab_Test_Server
     {
         $user = $this->server->fetch('cn=Gunnar Wrobel,dc=example,dc=org');
         $this->assertEquals('Horde_Kolab_Server_Object_user', get_class($user));
-        $this->assertEquals('Gunnar Wrobel', $user->get(KOLAB_ATTR_FNLN));
+        $this->assertEquals('Gunnar Wrobel', $user->get(Horde_Kolab_Server_Object::ATTRIBUTE_FNLN));
     }
 
     /**
@@ -104,7 +104,7 @@ class Horde_Kolab_Server_UserTest extends Horde_Kolab_Test_Server
         $this->assertEquals('home.example.org', $imap);
 
         $user = $this->server->fetch('cn=Gunnar Wrobel,dc=example,dc=org');
-        $attr = $user->get(KOLAB_ATTR_FREEBUSYHOST);
+        $attr = $user->get(Horde_Kolab_Server_Object::ATTRIBUTE_FREEBUSYHOST);
         if (is_a($attr, 'PEAR_Error')) {
             $this->assertEquals('', $attr->getMessage());
         }

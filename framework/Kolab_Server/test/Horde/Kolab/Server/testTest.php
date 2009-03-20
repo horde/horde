@@ -96,14 +96,14 @@ class Horde_Kolab_Server_testTest extends Horde_Kolab_Test_Server
 
         $filter     = '(&(objectClass=kolabInetOrgPerson)(uid=*)(mail=*)(sn=*))';
         $attributes = array(
-            KOLAB_ATTR_SN,
-            KOLAB_ATTR_CN,
-            KOLAB_ATTR_UID,
-            KOLAB_ATTR_MAIL,
-            KOLAB_ATTR_DELETED,
+            Horde_Kolab_Server_Object::ATTRIBUTE_SN,
+            Horde_Kolab_Server_Object::ATTRIBUTE_CN,
+            Horde_Kolab_Server_Object::ATTRIBUTE_UID,
+            Horde_Kolab_Server_Object::ATTRIBUTE_MAIL,
+            Horde_Kolab_Server_Object::ATTRIBUTE_DELETED,
         );
 
-        $sort   = KOLAB_ATTR_SN;
+        $sort   = Horde_Kolab_Server_Object::ATTRIBUTE_SN;
         $result = $server->search($filter);
         $this->assertNoError($result);
         $this->assertEquals(2, count($result));
@@ -279,7 +279,7 @@ class Horde_Kolab_Server_testTest extends Horde_Kolab_Test_Server
         $testuser = $server->fetch('cn=Test Test,dc=example,dc=org');
         $this->assertNoError($testuser);
         $this->assertContains('wrobel@example.org',
-                              $testuser->get(KOLAB_ATTR_KOLABDELEGATE, false));
+                              $testuser->get(Horde_Kolab_Server_Object::ATTRIBUTE_DELEGATE, false));
 
         $this->assertNoError($addrs);
         $this->assertContains('wrobel@example.org', $addrs);

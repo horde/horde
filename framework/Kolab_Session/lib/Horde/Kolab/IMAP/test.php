@@ -74,6 +74,7 @@ class Horde_Kolab_IMAP_test extends Horde_Kolab_IMAP
         $tls = ($tls) ? 'tls' : 'notls';
         $this->_connected = $login . ':' . $password . ':' . $tls;
         $this->_user = $login;
+        unset($this->_mbox);
         $this->_mbox = null;
         $this->_mboxname = null;
     }

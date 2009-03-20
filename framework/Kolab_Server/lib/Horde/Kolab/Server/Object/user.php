@@ -29,6 +29,15 @@
 class Horde_Kolab_Server_Object_user extends Horde_Kolab_Server_Object
 {
 
+    /** Define attributes specific to this object type */
+    const ATTRIBUTE_USERTYPE = 'usertype';
+
+    /** Define the possible Kolab user types */
+    const USERTYPE_STANDARD = 0;
+    const USERTYPE_INTERNAL = 1;
+    const USERTYPE_GROUP    = 2;
+    const USERTYPE_RESOURCE = 3;
+
     /**
      * The LDAP filter to retrieve this object type
      *
@@ -41,22 +50,7 @@ class Horde_Kolab_Server_Object_user extends Horde_Kolab_Server_Object
      *
      * @var array
      */
-    public $supported_attributes = array(
-        KOLAB_ATTR_SN,
-        KOLAB_ATTR_CN,
-        KOLAB_ATTR_GIVENNAME,
-        KOLAB_ATTR_FN,
-        KOLAB_ATTR_SID,
-        KOLAB_ATTR_USERPASSWORD,
-        KOLAB_ATTR_MAIL,
-        KOLAB_ATTR_DELETED,
-        KOLAB_ATTR_IMAPHOST,
-        KOLAB_ATTR_FREEBUSYHOST,
-        KOLAB_ATTR_HOMESERVER,
-        KOLAB_ATTR_KOLABDELEGATE,
-        KOLAB_ATTR_IPOLICY,
-        KOLAB_ATTR_FBFUTURE,
-    );
+    public $supported_attributes = false;
 
     /**
      * Attributes derived from the LDAP values.
@@ -64,10 +58,11 @@ class Horde_Kolab_Server_Object_user extends Horde_Kolab_Server_Object
      * @var array
      */
     public $derived_attributes = array(
-        KOLAB_ATTR_ID,
-        KOLAB_ATTR_USERTYPE,
-        KOLAB_ATTR_LNFN,
-        KOLAB_ATTR_FNLN,
+        'id',
+        'usertype',
+        //FIXME: Do we really want to have this type of functionality within this library?
+        'lnfn',
+        'fnln',
     );
 
     /**
@@ -75,13 +70,7 @@ class Horde_Kolab_Server_Object_user extends Horde_Kolab_Server_Object
      *
      * @var array
      */
-    public $required_attributes = array(
-        KOLAB_ATTR_SN,
-        KOLAB_ATTR_GIVENNAME,
-        KOLAB_ATTR_USERPASSWORD,
-        KOLAB_ATTR_MAIL,
-        KOLAB_ATTR_HOMESERVER,
-    );
+    public $required_attributes = false;
 
     /**
      * The ldap classes for this type of object.
@@ -89,10 +78,10 @@ class Horde_Kolab_Server_Object_user extends Horde_Kolab_Server_Object
      * @var array
      */
     protected $object_classes = array(
-        KOLAB_OC_TOP,
-        KOLAB_OC_INETORGPERSON,
-        KOLAB_OC_KOLABINETORGPERSON,
-        KOLAB_OC_HORDEPERSON,
+        self::OBJECTCLASS_TOP,
+        self::OBJECTCLASS_INETORGPERSON,
+        self::OBJECTCLASS_KOLABINETORGPERSON,
+        self::OBJECTCLASS_HORDEPERSON,
     );
 
     /**
@@ -135,15 +124,15 @@ class Horde_Kolab_Server_Object_user extends Horde_Kolab_Server_Object
     protected function derive($attr)
     {
         switch ($attr) {
-        case KOLAB_ATTR_USERTYPE:
+        case self::ATTRIBUTE_USERTYPE:
             if (strpos($this->_uid, 'cn=internal')) {
-                return KOLAB_UT_INTERNAL;
+                return self::USERTYPE_INTERNAL;
             } else if (strpos($this->_uid, 'cn=group')) {
-                return KOLAB_UT_GROUP;
+                return self::USERTYPE_GROUP;
             } else if (strpos($this->_uid, 'cn=resource')) {
-                return KOLAB_UT_RESOURCE;
+                return self::USERTYPE_RESOURCE;
             } else {
-                return KOLAB_UT_STANDARD;
+                return self::USERTYPE_STANDARD;
             }
         default:
             return parent::derive($attr);
@@ -161,10 +150,10 @@ class Horde_Kolab_Server_Object_user extends Horde_Kolab_Server_Object
     {
         if (!isset($attrs)) {
             $attrs = array(
-                KOLAB_ATTR_SID,
-                KOLAB_ATTR_FN,
-                KOLAB_ATTR_MAIL,
-                KOLAB_ATTR_USERTYPE,
+                self::ATTRIBUTE_SID,
+                self::ATTRIBUTE_FN,
+                self::ATTRIBUTE_MAIL,
+                self::ATTRIBUTE_USERTYPE,
             );
         }
         return parent::toHash($attrs);
@@ -178,7 +167,7 @@ class Horde_Kolab_Server_Object_user extends Horde_Kolab_Server_Object
      */
     public function getGroups()
     {
-        return $this->_db->getGroups($this->_uid);
+        return $this->db->getGroups($this->uid);
     }
 
     /**
@@ -196,7 +185,7 @@ class Horde_Kolab_Server_Object_user extends Horde_Kolab_Server_Object
 
         switch ($server_type) {
         case 'freebusy':
-            $server = $this->get(KOLAB_ATTR_FREEBUSYHOST);
+            $server = $this->get(self::ATTRIBUTE_FREEBUSYHOST);
             if (!empty($server)) {
                 return $server;
             }
@@ -214,13 +203,13 @@ class Horde_Kolab_Server_Object_user extends Horde_Kolab_Server_Object
                 return 'https://' . $server . '/freebusy';
             }
         case 'imap':
-            $server = $this->get(KOLAB_ATTR_IMAPHOST);
+            $server = $this->get(self::ATTRIBUTE_IMAPHOST);
             if (!empty($server)) {
                 return $server;
             }
         case 'homeserver':
         default:
-            $server = $this->get(KOLAB_ATTR_HOMESERVER);
+            $server = $this->get(self::ATTRIBUTE_HOMESERVER);
             if (empty($server)) {
                 $server = $_SERVER['SERVER_NAME'];
             }
