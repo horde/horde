@@ -11,7 +11,7 @@
  * @author  Jan Schneider <jan@horde.org>
  * @package Kronolith
  */
-class Kronolith_Event
+abstract class Kronolith_Event
 {
     /**
      * Flag that is set to true if this event has data from either a storage
@@ -172,6 +172,13 @@ class Kronolith_Event
      * @var string
      */
     protected $_calendar;
+
+    /**
+     * The type of the calender this event exists on.
+     *
+     * @var string
+     */
+    protected $_calendarType;
 
     /**
      * The HTML background color to be used for this event.
@@ -1010,6 +1017,8 @@ class Kronolith_Event
         $json->d = $this->hasPermission(PERMS_DELETE);
 
         if ($full) {
+            $json->i = $this->getId();
+            $json->ty = $this->_calendarType;
             $json->l = $this->getLocation();
             $json->a = $this->isAllDay();
             $json->sd = $this->start->strftime('%x');

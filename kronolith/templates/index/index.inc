@@ -111,7 +111,10 @@
 <!-- end menu -->
 
 <!-- ini edit -->
-<div id="kronolithEventDialog" style="display:none"><form id="kronolithEventForm">
+<div id="kronolithEventDialog" style="display:none">
+<form id="kronolithEventForm">
+<input id="kronolithEventCalendar" type="hidden" name="calendar" />
+<input id="kronolithEventId" type="hidden" name="eventid" />
 <div>
   <label for="kronolithEventTitle"><?php echo _("Title") ?></label><br />
   <input type="text" name="title" id="kronolithEventTitle" class="kronolithLongField" />
@@ -186,7 +189,7 @@
 <div id="kronolithEventActions">
   <input id="kronolithEventSave" type="button" value="<?php echo _("Save") ?>" class="button ok" />
   <input id="kronolithEventDelete" type="button" value="<?php echo _("Delete") ?>" class="button ko" />
-  <input type="button" value="<?php echo _("Cancel") ?>" class="button cancel" />
+  <input id="kronolithEventCancel" type="button" value="<?php echo _("Cancel") ?>" class="button cancel" />
   <span id="kronolithEventAdvancedLink">| <a href="#"><?php echo _("Advanced") ?></a></span><br />
 </div>
 

@@ -114,7 +114,11 @@ case 'GetEvent':
         $result = true;
         break;
     }
-    $event = $kronolith_driver->getEvent(Util::getFormData('id'));
+    if (is_null($id = Util::getFormData('id'))) {
+        $result = true;
+        break;
+    }
+    $event = $kronolith_driver->getEvent($id);
     if (is_a($event, 'PEAR_Error')) {
         $notification->push($event, 'horde.error');
         $result = true;
@@ -133,7 +137,11 @@ case 'UpdateEvent':
     if (!($kronolith_driver = getDriver($cal = Util::getFormData('cal')))) {
         break;
     }
-    $event = $kronolith_driver->getEvent(Util::getFormData('id'));
+    if (is_null($id = Util::getFormData('id'))) {
+        $result = true;
+        break;
+    }
+    $event = $kronolith_driver->getEvent($id);
     if (is_a($event, 'PEAR_Error')) {
         $notification->push($event, 'horde.error');
         break;
@@ -158,6 +166,42 @@ case 'UpdateEvent':
     if (is_a($result, 'PEAR_Error')) {
         $notification->push($result, 'horde.error');
     }
+    break;
+
+case 'DeleteEvent':
+    if (!($kronolith_driver = getDriver($cal = Util::getFormData('cal')))) {
+        $result = true;
+        break;
+    }
+    if (is_null($id = Util::getFormData('id'))) {
+        $result = true;
+        break;
+    }
+    $event = $kronolith_driver->getEvent($id);
+    if (is_a($event, 'PEAR_Error')) {
+        $notification->push($event, 'horde.error');
+        $result = true;
+        break;
+    }
+    if (!$event) {
+        $notification->push(_("The requested event was not found."), 'horde.error');
+        $result = true;
+        break;
+    }
+    $share = &$kronolith_shares->getShare($event->getCalendar());
+    if (!$share->hasPermission(Auth::getAuth(), PERMS_DELETE, $event->getCreatorID())) {
+        $notification->push(_("You do not have permission to delete this event."), 'horde.warning');
+        $result = true;
+        break;
+    }
+    $deleted = $kronolith_driver->deleteEvent($event->getId());
+    if (is_a($deleted, 'PEAR_Error')) {
+        $notification->push($deleted, 'horde.error');
+        $result = true;
+        break;
+    }
+    $result = new stdClass;
+    $result->deleted = true;
     break;
 
 case 'SaveCalPref':

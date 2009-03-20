@@ -12,6 +12,12 @@
  */
 class Kronolith_Event_Kolab extends Kronolith_Event
 {
+    /**
+     * The type of the calender this event exists on.
+     *
+     * @var string
+     */
+    protected $_calendarType = 'internal';
 
     public function fromDriver($event)
     {

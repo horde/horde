@@ -12,6 +12,13 @@
 class Kronolith_Event_Holidays extends Kronolith_Event
 {
     /**
+     * The type of the calender this event exists on.
+     *
+     * @var string
+     */
+    protected $_calendarType = 'holiday';
+
+    /**
      * The status of this event.
      *
      * @var integer

@@ -11,6 +11,12 @@
  */
 class Kronolith_Event_Ical extends Kronolith_Event
 {
+    /**
+     * The type of the calender this event exists on.
+     *
+     * @var string
+     */
+    protected $_calendarType = 'remote';
 
     public function fromDriver($vEvent)
     {

@@ -754,10 +754,20 @@ KronolithCore = {
                 e.stop();
                 return;
 
-            case 'kronolithEventActions':
-                if (orig.match('input.button')) {
-	            this._closeRedBox();
-                }
+            case 'kronolithEventDelete':
+                var cal = $F('kronolithEventCalendar'),
+                    eventid = $F('kronolithEventId'),
+                    elm = $('kronolithEvent' + this.view + cal + eventid);
+                this.doAction('DeleteEvent',
+                              { 'cal': cal, 'id': eventid },
+                              function(r) { if (r.response.deleted) elm.remove(); else elm.toggle() });
+                elm.hide();
+                this._closeRedBox();
+                e.stop();
+                return;
+
+            case 'kronolithEventCancel':
+                this._closeRedBox();
                 e.stop();
                 return;
 
@@ -872,7 +882,9 @@ KronolithCore = {
     editEvent: function(calendar, id)
     {
         RedBox.onDisplay = function() {
-            $('kronolithEventForm').focusFirstElement();
+            try {
+                $('kronolithEventForm').focusFirstElement();
+            } catch(e) {}
             RedBox.onDisplay = null;
         };
 
@@ -881,7 +893,7 @@ KronolithCore = {
             this.doAction('GetEvent', { 'cal': calendar, 'id': id }, this._editEvent.bind(this));
         } else {
             var d = new Date();
-            $('kronolithEventForm').reset();
+            $('kronolithEventForm').enable().reset();
             $('kronolithEventDelete').hide();
             $('kronolithEventStartDate').value = d.toString(Kronolith.conf.date_format);
             $('kronolithEventStartTime').value = d.toString(Kronolith.conf.time_format);
@@ -907,6 +919,8 @@ KronolithCore = {
 
         try {
             var ev = r.response.event;
+            $('kronolithEventId').value = ev.i;
+            $('kronolithEventCalendar').value = ev.ty + '|' + ev.c;
             $('kronolithEventTitle').value = ev.t;
             $('kronolithEventLocation').value = ev.l;
             $('kronolithEventAllday').checked = ev.a;
@@ -923,8 +937,11 @@ KronolithCore = {
             }
             if (ev.e) {
                 $('kronolithEventSave').show();
+                $('kronolithEventForm').enable();
             } else {
                 $('kronolithEventSave').hide();
+                $('kronolithEventForm').disable();
+                $('kronolithEventCancel').enable();
             }
             if (ev.d) {
                 $('kronolithEventDelete').show();

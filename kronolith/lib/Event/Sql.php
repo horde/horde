@@ -13,6 +13,13 @@
 class Kronolith_Event_Sql extends Kronolith_Event
 {
     /**
+     * The type of the calender this event exists on.
+     *
+     * @var string
+     */
+    protected $_calendarType = 'internal';
+
+    /**
      * @var array
      */
     private $_properties = array();
