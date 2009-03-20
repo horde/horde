@@ -68,10 +68,10 @@ v4.3.4-cvs
 [jan] If updating a calendar event fails, try to import it instead (Bug #7589).
 [mms] Fix [un]escaping of various URLs on message screen caused by security
       fixes in v4.3.3 (Bug #7926).
-[mms] Add hook to allow hiding of IMAP folders (Request #7353, Gunnar
-      Wrobel <p@rdus.de>).
 [jan] Fix rendering of subjects in RTL scripts when using LTR translations
       (vilius@lnk.lt, Bug #3511).
+[mms] Add hook to allow hiding of IMAP folders (Request #7353, Gunnar
+      Wrobel <p@rdus.de>).
 [jan] Fix logging of messages forwarded with attachments (Bug #7911).
 
 
@@ -79,7 +79,7 @@ v4.3.4-cvs
 v4.3.3
 ------
 
-[cjh] SECURITY: Escape output in pgp.php and smime.php
+[cjh] SECURITY: Escape output in message.php, pgp.php and smime.php
       (found by Gunnar Wrobel <p@rdus.de>).
 [jan] Use all credentials and mailer settings for iTip replies (Bug #7388).
 [mms] Show translated 'INBOX' prefix for subfolders (Request #7759).
@@ -107,7 +107,6 @@ v4.3.1
 [jan] Use mailer configuration when sending iTip replies (Bug #7388).
 [jan] Always display multipart/appledouble attachments.
 [mms] Upgrade prototype.js to v1.6.0.3.
-[jan] Escape output in test.php.
 
 
 ----

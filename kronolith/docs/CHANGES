@@ -23,6 +23,7 @@ v2.3.1-cvs
 [jan] Empty view cache when changing calendar selection
       (stpierre@nebrwesleyan.edu, Bug #7879).
 [mjr] Fix category CSS being included on embedded widgets.
+[cjh] Work around BC break with Horde versions before 3.2 (Bug #7820).
 [jan] Allow to manually change attendee responses (paul@carnie.com.au,
       Request #7443).
 [jan] Fix linking to last week across certain year boundaries (Bug #7827).
@@ -33,6 +34,7 @@ v2.3.1-cvs
       reminders through Kronolith (develop@kristov.de, Bug #7038).
 [cjh] Add a PostgreSQL-specific upgrade script for 2.2 to 2.3
       (michael.menge@zdv.uni-tuebingen.de, Bug #7454).
+[mms] Upgrade prototype.js to v1.6.0.3.
 
 
 ----
