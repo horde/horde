@@ -2352,7 +2352,7 @@ abstract class Horde_Imap_Client_Base
      *
      * @return array  An array with 2 possible entries:
      * <pre>
-     * 'lookup' - (array) If $ids is not null, the mapping of sequence
+     * 'lookup' - (array) If $seqs is not empty, the mapping of sequence
      *            numbers (keys) to UIDs (values).
      * 'uids' - (array) The list of UIDs.
      * </pre>

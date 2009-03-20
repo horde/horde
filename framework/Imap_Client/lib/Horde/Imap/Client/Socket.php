@@ -1522,7 +1522,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                         $results[] = $results_criteria[$val];
                     }
                 }
-                $cmd .= 'SORT RETURN ( ' . implode(' ', $results) . ') (';
+                $cmd .= 'SORT RETURN (' . implode(' ', $results) . ') (';
             } else {
                 $cmd .= 'SORT (';
             }

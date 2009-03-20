@@ -31,7 +31,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>alpha</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Added PHP socket based POP3 driver.
+ <notes>* Added search (message list) caching if CONDSTORE is enabled.
+* Added PHP socket based POP3 driver.
 * Initial release
  </notes>
  <contents>
