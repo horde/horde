@@ -994,9 +994,12 @@ class Kronolith_Event
      * Returns a simple object suitable for json transport representing this
      * event.
      *
+     * @param boolean $full        Whether to return all event details.
+     * @param string $time_format  The date() format to use for time formatting.
+     *
      * @return object  A simple object.
      */
-    public function toJSON()
+    public function toJSON($full = false, $time_format = 'H:i')
     {
         $json = new stdClass;
         $json->t = $this->getTitle();
@@ -1004,6 +1007,21 @@ class Kronolith_Event
         $json->bg = $this->_backgroundColor;
         $json->fg = $this->_foregroundColor;
         $json->e = $this->hasPermission(PERMS_EDIT);
+        $json->d = $this->hasPermission(PERMS_DELETE);
+
+        if ($full) {
+            $json->l = $this->getLocation();
+            $json->a = $this->isAllDay();
+            $json->sd = $this->start->strftime('%x');
+            $json->st = $this->start->format($time_format);
+            $json->ed = $this->end->strftime('%x');
+            $json->et = $this->end->format($time_format);
+            $json->tg = array_values($this->tags);
+            if ($this->recurs()) {
+                $json->r = $this->recurrence->getRecurType();
+            }
+        }
+
         return $json;
     }
 

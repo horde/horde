@@ -126,7 +126,7 @@ case 'GetEvent':
         break;
     }
     $result = new stdClass;
-    $result->event = $event;
+    $result->event = $event->toJSON(true, $prefs->getValue('twentyFour') ? 'H:i' : 'h:i A');
     break;
 
 case 'UpdateEvent':

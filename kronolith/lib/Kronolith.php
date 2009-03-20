@@ -144,6 +144,10 @@ class Kronolith
             'is_ie6' => ($browser->isBrowser('msie') && ($browser->getMajor() < 7)),
             'login_view' => $prefs->getValue('defaultview'),
             'week_start' => (int)$prefs->getValue('week_start_monday'),
+            'date_format' => str_replace(array('%e', '%d', '%a', '%A', '%m', '%h', '%b', '%B', '%y', '%Y'),
+                                         array('d', 'dd', 'ddd', 'dddd', 'MM', 'MMM', 'MMM', 'MMMM', 'yy', 'yyyy'),
+                                         NLS::getLangInfo(D_FMT)),
+            'time_format' => $prefs->getValue('twentyFour') ? 'HH:mm' : 'hh:mm tt',
             // Turn debugging on?
             'debug' => !empty($conf['js']['debug']),
         );

@@ -871,8 +871,26 @@ KronolithCore = {
 
     editEvent: function(calendar, id)
     {
-        RedBox.loading();
-        this.doAction('GetEvent', { 'cal': calendar, 'id': id }, this._editEvent.bind(this));
+        RedBox.onDisplay = function() {
+            $('kronolithEventForm').focusFirstElement();
+            RedBox.onDisplay = null;
+        };
+
+        if (id) {
+            RedBox.loading();
+            this.doAction('GetEvent', { 'cal': calendar, 'id': id }, this._editEvent.bind(this));
+        } else {
+            var d = new Date();
+            $('kronolithEventForm').reset();
+            $('kronolithEventDelete').hide();
+            $('kronolithEventStartDate').value = d.toString(Kronolith.conf.date_format);
+            $('kronolithEventStartTime').value = d.toString(Kronolith.conf.time_format);
+            d.add(1).hour();
+            $('kronolithEventEndDate').value = d.toString(Kronolith.conf.date_format);
+            $('kronolithEventEndTime').value = d.toString(Kronolith.conf.time_format);
+            RedBox.showHtml($('kronolithEventDialog').show());
+            this.eventForm = RedBox.getWindowContents();
+        }
     },
 
     /**
@@ -887,17 +905,35 @@ KronolithCore = {
             return;
         }
 
-        var ev = r.response.event;
-        $('id_ttl').value = ev.title;
-        $('id_local').value = ev.location;
-        $('id_fullday').checked = ev.allday;
-        $('id_from').value = ev.start._year + '-' + ev.start._month + '-' + ev.start._mday;
-        $('tobechanged').from_Hi.value = ev.start._hour + ':' + ev.start._min;
-        $('id_to').value = ev.end._year + '-' + ev.end._month + '-' + ev.end._mday;
-        $('tobechanged').to_Hi.value = ev.end._hour + ':' + ev.end._min;
-        $('id_tags').value = ev.tags.join(', ');
+        try {
+            var ev = r.response.event;
+            $('kronolithEventTitle').value = ev.t;
+            $('kronolithEventLocation').value = ev.l;
+            $('kronolithEventAllday').checked = ev.a;
+            $('kronolithEventStartDate').value = ev.sd
+            $('kronolithEventStartTime').value = ev.st;
+            $('kronolithEventEndDate').value = ev.ed;
+            $('kronolithEventEndTime').value = ev.et;
+            $('kronolithEventTags').value = ev.tg.join(', ');
+            if (ev.r) {
+                // @todo: refine
+                $A($('kronolithEventRecurrence').options).find(function(option) {
+                    return option.value == ev.r;
+                }).selected = true;
+            }
+            if (ev.e) {
+                $('kronolithEventSave').show();
+            } else {
+                $('kronolithEventSave').hide();
+            }
+            if (ev.d) {
+                $('kronolithEventDelete').show();
+            } else {
+                $('kronolithEventDelete').hide();
+            }
+        } catch (e) {}
 
-        RedBox.showHtml($('kronolithEventForm').show());
+        RedBox.showHtml($('kronolithEventDialog').show());
         this.eventForm = RedBox.getWindowContents();
     },
 

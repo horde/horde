@@ -111,32 +111,32 @@
 <!-- end menu -->
 
 <!-- ini edit -->
-<div id="kronolithEventForm" style="display:none"><form id="tobechanged" action="#" method="post">
+<div id="kronolithEventDialog" style="display:none"><form id="kronolithEventForm">
 <div>
-  <label for="id_ttl"><?php echo _("Title") ?></label><br />
-  <input type="text" name="ttl" id="id_ttl" class="kronolithLongField" />
+  <label for="kronolithEventTitle"><?php echo _("Title") ?></label><br />
+  <input type="text" name="title" id="kronolithEventTitle" class="kronolithLongField" />
 </div>
 
 <table cellspacing="2" cellpadding="0" border="0"><tbody>
   <tr>
     <td class="rightAlign">
-      <label for="id_local"><?php echo _("Location") ?></label><br />
+      <label for="kronolithEventLocation"><?php echo _("Location") ?></label><br />
       <small><a href="#"><?php echo _("Geolocation") ?></a></small>
     </td>
-    <td><input type="text" name="local" id="id_local" value="Porto, Portugal" class="kronolithLongField" /></td>
+    <td><input type="text" name="location" id="kronolithEventLocation" class="kronolithLongField" /></td>
   </tr>
 
   <tr>
-    <td class="rightAlign"><label for="id_fullday"><?php echo _("All-day") ?></label></td>
-    <td><input type="checkbox" name="fullday" id="id_fullday" /></td>
+    <td class="rightAlign"><label for="kronolithEventAllday"><?php echo _("All-day") ?></label></td>
+    <td><input type="checkbox" name="whole_day" id="kronolithEventAllday" /></td>
   </tr>
 
   <tr>
-    <td class="rightAlign"><label for="id_from"><?php echo _("From") ?></label></td>
+    <td class="rightAlign"><label for="kronolithEventStartDate"><?php echo _("From") ?></label></td>
     <td>
-      <input type="text" name="from_ymd" id="id_from" value="2006-10-30" size="9" class="kronolithDatePicker" />
+      <input type="text" name="start_date" id="kronolithEventStartDate" size="9" class="kronolithDatePicker" />
       <?php echo _("at") ?>
-      <input type="text" name="from_Hi" value="10:30" size="4" />
+      <input type="text" name="start_time" id="kronolithEventStartTime" size="6" />
     </td>
   </tr>
 
@@ -144,33 +144,34 @@
     <td class="rightAlign">
       <label for="id_to"><?php echo _("To") ?></label></td>
     <td>
-      <input type="text" name="to_ymd" id="id_to" value="2006-10-30" size="9" class="kronolithDatePicker" />
+      <input type="text" name="end_date" id="kronolithEventEndDate" size="9" class="kronolithDatePicker" />
       <?php echo _("at") ?>
-      <input type="text" name="to_Hi" value="10:30" size="4" />
+      <input type="text" name="end_time" id="kronolithEventEndTime" size="6" />
     </td>
   </tr>
 
   <tr>
-    <td class="rightAlign"><label for="id_recur"><?php echo _("Repeat") ?></label></td>
-    <td><select name="recur" id="id_recur" class="kronolithLongField">
+    <td class="rightAlign"><label for="kronolithEventRecurrence"><?php echo _("Repeat") ?></label></td>
+    <td><select name="recur" id="kronolithEventRecurrence" class="kronolithLongField">
       <option value="0"><?php echo _("no repeat") ?></option>
       <option value="1"><?php echo _("Every day") ?></option>
       <option value="2"><?php echo _("Every week") ?></option>
-      <option value="3"><?php echo _("Every 15 days") ?></option>
-      <option value="4" selected><?php echo _("Every year") ?></option>
-      <option value="5"><?php echo _("Custom...") ?></option>
+      <option value=""><?php echo _("Every 14 days") ?></option>
+      <option value="3"><?php echo _("Every month") ?></option>
+      <option value="5"><?php echo _("Every year") ?></option>
+      <option value="-1"><?php echo _("Custom...") ?></option>
     </select></td>
   </tr>
 </tbody></table>
 
 <div>
   <label for="id_url"><?php echo _("URL") ?></label><br />
-  <input type="text" name="url" id="id_url" class="kronolithLongField" />
+  <input type="text" name="url" id="kronolithEventUrl" class="kronolithLongField" />
 </div>
 
 <div>
   <label for="id_tags"><?php echo _("Tags") ?></label><br />
-  <textarea name="tags" id="id_tags" rows="2" class="kronolithLongField"></textarea>
+  <textarea name="tags" id="kronolithEventTags" rows="2" class="kronolithLongField"></textarea>
 </div>
 
 <div class="kronolithTags">
@@ -183,8 +184,8 @@
 </div>
 
 <div id="kronolithEventActions">
-  <input type="button" value="<?php echo _("Save") ?>" class="button ok" />
-  <input type="button" value="<?php echo _("Delete") ?>" class="button ko" />
+  <input id="kronolithEventSave" type="button" value="<?php echo _("Save") ?>" class="button ok" />
+  <input id="kronolithEventDelete" type="button" value="<?php echo _("Delete") ?>" class="button ko" />
   <input type="button" value="<?php echo _("Cancel") ?>" class="button cancel" />
   <span id="kronolithEventAdvancedLink">| <a href="#"><?php echo _("Advanced") ?></a></span><br />
 </div>

@@ -699,13 +699,13 @@ span#kronolithQuickEvent {
 }
 
 /* Event form dialog */
-#kronolithEventForm {
+#kronolithEventDialog {
     width: 400px;
     padding: 10px 20px;
     background: #efefef;
     border: 1px #c0c0c0 solid;
 }
-#kronolithEventForm div {
+#kronolithEventDialog div {
     margin-bottom: 5px;
 }
 #kronolithEventForm label {
