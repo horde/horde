@@ -73,6 +73,9 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <pearinstaller>
     <min>1.5.0</min>
    </pearinstaller>
+   <extension>
+    <name>hash</name>
+   </extension>
   </required>
   <optional>
    <package>
