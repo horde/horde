@@ -15,7 +15,7 @@
  */
 var ViewPort = Class.create({
 
-    // Required: content_container, lines, fetch_action, template,
+    // Required: content_container, fetch_action, template,
     //           cachecheck_action, ajaxRequest, buffer_pages,
     //           limit_factor, content_class, row_class, selected_class
     // Optional: show_split_pane, page_size
