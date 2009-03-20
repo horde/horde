@@ -133,7 +133,7 @@ class IMP_UI_Message
         }
 
         /* Else, it's today, use the time only. */
-        return sprintf('%s %s', $time_str, $tz);
+        return sprintf(_("Today, %s %s"), $time_str, $tz);
     }
 
     /**
