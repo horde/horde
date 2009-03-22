@@ -19,35 +19,50 @@ class Horde_Imap_Client_Utils
 {
     /**
      * Create an IMAP message sequence string from a list of indices.
-     * Format: range_start:range_end,uid,uid2,range2_start:range2_end,...
+     * Index Format: range_start:range_end,uid,uid2,...
+     * Mailbox Format: {mbox_length}[mailbox]range_start:range_end,uid,uid2,...
      *
-     * @param array $in  An array of indices.
+     * @param array $in  An array of indices. See 'mailbox' below.
      * @param array $options  Additional options:
      * <pre>
+     * 'mailbox' - (boolean) If true, store mailbox information with the
+     *             ID list.  $ids should be an array of arrays, with keys as
+     *             mailbox names and values as IDs.
+     *             DEFAULT: false
      * 'nosort' - (boolean) Do not numerically sort the IDs before creating
      *            the range?
-     *            DEFAULT: IDs are sorted
+     *            DEFAULT: false
      * </pre>
      *
      * @return string  The IMAP message sequence string.
      */
-    public function toSequenceString($ids, $options = array())
+    public function toSequenceString($in, $options = array())
     {
-        if (empty($ids)) {
+        if (empty($in)) {
             return '';
         }
 
-        // Make sure IDs are unique
-        $ids = array_keys(array_flip($ids));
+        if (!empty($options['mailbox'])) {
+            $str = '';
 
-        if (empty($options['nosort'])) {
-            sort($ids, SORT_NUMERIC);
+            foreach ($in as $mbox => $ids) {
+                $str .= '{' . strlen($mbox) . '}' . $mbox . implode(',' $this->_toSequenceString($ids, array('nosort' => !empty($options['nosort'])));
+            }
+
+            return $str;
         }
 
-        $first = $last = array_shift($ids);
+        // Make sure IDs are unique
+        $in = array_keys(array_flip($in));
+
+        if (empty($options['nosort'])) {
+            sort($in, SORT_NUMERIC);
+        }
+
+        $first = $last = array_shift($in);
         $out = array();
 
-        foreach ($ids as $val) {
+        foreach ($in as $val) {
             if ($last + 1 == $val) {
                 $last = $val;
             } else {
@@ -62,16 +77,49 @@ class Horde_Imap_Client_Utils
 
     /**
      * Parse an IMAP message sequence string into a list of indices.
-     * Format: range_start:range_end,uid,uid2,range2_start:range2_end,...
+     * See Horde_Imap_Client_Utils::toSequenceString() for allowed formats.
      *
      * @param string $str  The IMAP message sequence string.
      *
-     * @return array  An array of indices.
+     * @return array  An array of indices.  If string contains mailbox info,
+     *                return value will be an array of arrays, with keys as
+     *                mailbox names and values as IDs. Otherwise, return the
+     *                list of IDs.
      */
     public function fromSequenceString($str)
     {
         $ids = array();
         $str = trim($str);
+
+        if (!strlen($str)) {
+            return $ids;
+        }
+
+        if ($str[0] == '{') {
+            while ($str) {
+                if ($str[0] != '{') {
+                    break;
+                }
+
+                $i = strpos($str, '}');
+                $count = intval(substr($str, 1, $i - 1));
+                $mbox = substr($str, $i + 1, $count);
+                $i += $count + 1;
+                $end = strpos($str, '{', $i);
+
+                if ($end === false) {
+                    $uidstr = substr($str, $i);
+                    $str = '';
+                } else {
+                    $uidstr = substr($str, $i, $end - $i);
+                    $str = substr($str, $end);
+                }
+
+                $ids[$mbox] = $this->_fromSequenceString($uids);
+            }
+
+            return $ids;
+        }
 
         $idarray = explode(',', $str);
         if (empty($idarray)) {
