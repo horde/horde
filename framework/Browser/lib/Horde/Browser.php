@@ -130,6 +130,7 @@ class Horde_Browser
         'TurnitinBot',
         'Twiceler',
         'Ultraseek',
+        'Vagabondo/Kliksafe',
         'ViolaBot',
         'voyager',
         'W3C-checklink',
