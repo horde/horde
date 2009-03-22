@@ -184,7 +184,8 @@ class IMP_Views_ListMessages
             if (isset($md->search)) {
                 $cached = Horde_Serialize::unserialize($args['cached'], Horde_Serialize::JSON);
             } else {
-                $cached = IMP::parseRangeString($args['cached']);
+                $imap_utils = new Horde_Imap_Client_Utils();
+                $cached = $imap_utils->fromSequenceString($args['cached']);
                 $cached = reset($cached);
             }
             $cached = array_flip($cached);

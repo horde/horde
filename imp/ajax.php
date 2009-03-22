@@ -17,7 +17,7 @@ function _generateDeleteResult($mbox, $indices, $change, $nothread = false)
 
     $result = new stdClass;
     $result->folder = $mbox;
-    $result->uids = IMP::toRangeString($indices);
+    $result->uids = $GLOBALS['imap_utils']->toSequenceString($indices, array('mailbox' => true));
     $result->remove = ($GLOBALS['prefs']->getValue('hide_deleted') ||
                        $GLOBALS['prefs']->getValue('use_trash'));
     $result->cacheid = $imp_mailbox->getCacheID($mbox);
@@ -172,9 +172,11 @@ $dimp_logout = ($action == 'LogOut');
 $session_timeout = 'json';
 require_once $imp_dir . '/lib/base.php';
 
+$imap_utils = new Horde_Imap_Client_Utils();
+
 // Process common request variables.
 $mbox = Util::getPost('view');
-$indices = IMP::parseRangeString(Util::getPost('uid'));
+$indices = $imap_utils->fromSequenceString(Util::getPost('uid'));
 $cacheid = Util::getPost('cacheid');
 
 // Open an output buffer to ensure that we catch errors that might break JSON
