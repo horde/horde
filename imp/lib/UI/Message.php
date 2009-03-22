@@ -366,7 +366,7 @@ class IMP_UI_Message
             /* Build the address line. */
             $addr_count = count($addr_array);
             $ret = '<span class="nowrap">' . implode(',</span> <span class="nowrap">', $addr_array) . '</span>';
-            if ($addr_count > 15) {
+            if ($link && $addr_count > 15) {
                 Horde::addScriptFile('prototype.js', 'horde', true);
 
                 $ret = '<span>' .
