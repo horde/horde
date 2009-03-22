@@ -1311,7 +1311,7 @@ abstract class Horde_Imap_Client_Base
             $cache = hash('md5', serialize($options));
             $metadata = $this->_cache->getMetaData($mailbox, array('HICsearch'));
             if (isset($metadata['HICsearch'][$cache])) {
-                $ret = $metadata['HICsearch'][$cache];
+                $ret = $this->_utils->fromSequenceString($metadata['HICsearch'][$cache]);
                 if ($this->_debug) {
                     fwrite($this->_debug, sprintf("Horde_Imap_Client: Retrieved search results from cache (mailbox: %s; id: %s)\n", $mailbox, $cache));
                 }
@@ -1321,7 +1321,7 @@ abstract class Horde_Imap_Client_Base
         if (is_null($ret)) {
             $ret = $this->_search($query, $options);
             if ($cache) {
-                $metadata['HICsearch'][$cache] = $ret;
+                $metadata['HICsearch'][$cache] = $this->_utils->toSequenceString($ret, array('nosort' => true));
                 $this->_updateMetaData($mailbox, $metadata);
                 if ($this->_debug) {
                     fwrite($this->_debug, sprintf("Horde_Imap_Client: Saved search results to cache (mailbox: %s; id: %s)\n", $mailbox, $cache));
