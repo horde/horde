@@ -30,6 +30,12 @@ class Horde_Kolab_Server_ldap extends Horde_Kolab_Server
 {
 
     /**
+     * The object types supported by this server type.
+     */
+    const USER  = 'kolabInetOrgPerson';
+    const GROUP = 'kolabGroupOfNames';
+
+    /**
      * LDAP connection handle.
      *
      * @var Net_LDAP2
@@ -186,7 +192,7 @@ class Horde_Kolab_Server_ldap extends Horde_Kolab_Server
 
         $result = Horde_Kolab_Server_Object::loadClass($type);
         $vars   = get_class_vars($type);
-        $filter = $vars['filter'];
+        $filter = call_user_func(array($type, 'getFilter'));
         $sort   = $vars['sort_by'];
 
         if (isset($params['sort'])) {
@@ -333,7 +339,7 @@ class Horde_Kolab_Server_ldap extends Horde_Kolab_Server
     {
         $users = array('field' => 'objectClass',
                        'op'    => '=',
-                       'test'  => Horde_Kolab_Server::USER);
+                       'test'  => self::USER);
         if (!empty($criteria)) {
             $criteria = array('AND' => array($users, $criteria));
         } else {
@@ -360,7 +366,7 @@ class Horde_Kolab_Server_ldap extends Horde_Kolab_Server
     {
         $groups = array('field' => 'objectClass',
                         'op'    => '=',
-                        'test'  => Horde_Kolab_Server::GROUP);
+                        'test'  => self::GROUP);
         if (!empty($criteria)) {
             $criteria = array('AND' => array($groups, $criteria));
         } else {
@@ -594,5 +600,329 @@ class Horde_Kolab_Server_ldap extends Horde_Kolab_Server
         $params = array('attributes' => 'dn');
         $result = $this->search($filter, $params, $this->_base_dn);
         return $this->dnFromResult($result, $restrict);
+    }
+
+    /**
+     * Identify the UID for the first object found with the given ID.
+     *
+     * @param string $id       Search for objects with this ID.
+     * @param int    $restrict A Horde_Kolab_Server::RESULT_* result restriction.
+     *
+     * @return mixed The UID or false if there was no result.
+     *
+     * @throws Horde_Kolab_Server_Exception
+     */
+    public function uidForId($id,
+                             $restrict = Horde_Kolab_Server::RESULT_SINGLE)
+    {
+        $criteria = array('AND' => array(array('field' => 'uid',
+                                               'op'    => '=',
+                                               'test'  => $id),
+                          ),
+        );
+        return $this->uidForSearch($criteria, $restrict);
+    }
+
+    /**
+     * Identify the UID for the first user found with the given mail.
+     *
+     * @param string $mail     Search for users with this mail address.
+     * @param int    $restrict A Horde_Kolab_Server::RESULT_* result restriction.
+     *
+     * @return mixed The UID or false if there was no result.
+     *
+     * @throws Horde_Kolab_Server_Exception
+     */
+    public function uidForMail($mail,
+                               $restrict = Horde_Kolab_Server::RESULT_SINGLE)
+    {
+        $criteria = array('AND' => array(array('field' => 'mail',
+                                              'op'    => '=',
+                                              'test'  => $mail),
+                         ),
+        );
+        return $this->uidForSearch($criteria, $restrict);
+    }
+
+    /**
+     * Identify the UID for the first object found with the given alias.
+     *
+     * @param string $mail     Search for objects with this mail alias.
+     * @param int    $restrict A Horde_Kolab_Server::RESULT_* result restriction.
+     *
+     * @return mixed The UID or false if there was no result.
+     *
+     * @throws Horde_Kolab_Server_Exception
+     */
+    public function uidForAlias($mail,
+                                $restrict = Horde_Kolab_Server::RESULT_SINGLE)
+    {
+        $criteria = array('AND' => array(array('field' => 'alias',
+                                              'op'    => '=',
+                                              'test'  => $mail),
+                         ),
+        );
+        return $this->uidForSearch($criteria, $restrict);
+    }
+
+    /**
+     * Identify the UID for the first object found with the given ID or mail.
+     *
+     * @param string $id Search for objects with this uid/mail.
+     *
+     * @return string|boolean The UID or false if there was no result.
+     *
+     * @throws Horde_Kolab_Server_Exception
+     */
+    public function uidForIdOrMail($id)
+    {
+        $criteria = array('OR' =>
+                         array(
+                             array('field' => 'uid',
+                                   'op'    => '=',
+                                   'test'  => $id),
+                             array('field' => 'mail',
+                                   'op'    => '=',
+                                   'test'  => $id),
+                         ),
+        );
+        return $this->uidForSearch($criteria);
+    }
+
+    /**
+     * Identify the UID for the first object found with the given mail
+     * address or alias.
+     *
+     * @param string $mail Search for objects with this mail address
+     * or alias.
+     *
+     * @return string|boolean The UID or false if there was no result.
+     *
+     * @throws Horde_Kolab_Server_Exception
+     */
+    public function uidForMailOrAlias($mail)
+    {
+        $criteria = array('OR' =>
+                         array(
+                             array('field' => 'alias',
+                                   'op'    => '=',
+                                   'test'  => $mail),
+                             array('field' => 'mail',
+                                   'op'    => '=',
+                                   'test'  => $mail),
+                         )
+        );
+        return $this->uidForSearch($criteria);
+    }
+
+    /**
+     * Identify the UID for the first object found with the given ID,
+     * mail or alias.
+     *
+     * @param string $id Search for objects with this ID/mail/alias.
+     *
+     * @return string|boolean The UID or false if there was no result.
+     *
+     * @throws Horde_Kolab_Server_Exception
+     */
+    public function uidForIdOrMailOrAlias($id)
+    {
+        $criteria = array('OR' =>
+                         array(
+                             array('field' => 'alias',
+                                   'op'    => '=',
+                                   'test'  => $id),
+                             array('field' => 'mail',
+                                   'op'    => '=',
+                                   'test'  => $id),
+                             array('field' => 'uid',
+                                   'op'    => '=',
+                                   'test'  => $id),
+                         ),
+        );
+        return $this->uidForSearch($criteria);
+    }
+
+    /**
+     * Identify the primary mail attribute for the first object found
+     * with the given ID or mail.
+     *
+     * @param string $id Search for objects with this ID/mail.
+     *
+     * @return mixed The mail address or false if there was no result.
+     *
+     * @throws Horde_Kolab_Server_Exception
+     */
+    public function mailForIdOrMail($id)
+    {
+        $criteria = array('AND' =>
+                         array(
+                             array('field' => 'objectClass',
+                                   'op'    => '=',
+                                   'test'  => self::USER),
+                             array('OR' =>
+                                   array(
+                                       array('field' => 'uid',
+                                             'op'    => '=',
+                                             'test'  => $id),
+                                       array('field' => 'mail',
+                                             'op'    => '=',
+                                             'test'  => $id),
+                                   ),
+                             ),
+                         ),
+        );
+
+        $data = $this->attrsForSearch($criteria, array('mail'),
+                                      self::RESULT_STRICT);
+        if (!empty($data)) {
+            return $data['mail'][0];
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Returns a list of allowed email addresses for the given user.
+     *
+     * @param string $id Search for objects with this ID/mail.
+     *
+     * @return array An array of allowed mail addresses.
+     *
+     * @throws Horde_Kolab_Server_Exception
+     */
+    public function addrsForIdOrMail($id)
+    {
+        $criteria = array('AND' =>
+                         array(
+                             array('field' => 'objectClass',
+                                   'op'    => '=',
+                                   'test'  => self::USER),
+                             array('OR' =>
+                                   array(
+                                       array('field' => 'uid',
+                                             'op'    => '=',
+                                             'test'  => $id),
+                                       array('field' => 'mail',
+                                             'op'    => '=',
+                                             'test'  => $id),
+                                   ),
+                             ),
+                         ),
+        );
+
+        $result = $this->attrsForSearch($criteria, array('mail', 'alias'),
+                                        self::RESULT_STRICT);
+        if (isset($result['alias'])) {
+            $addrs = array_merge((array) $result['mail'], (array) $result['alias']);
+        } else {
+            $addrs = $result['mail'];
+        }
+
+        if (empty($result)) {
+            return array();
+        }
+        $criteria = array('AND' =>
+                         array(
+                             array('field' => 'objectClass',
+                                   'op'    => '=',
+                                   'test'  => self::USER),
+                             array('field' => 'kolabDelegate',
+                                   'op'    => '=',
+                                   'test'  => $result['mail'][0]),
+                         ),
+        );
+
+        $result = $this->attrsForSearch($criteria, array('mail', 'alias'),
+                                      self::RESULT_MANY);
+        if (!empty($result)) {
+            foreach ($result as $adr) {
+                if (isset($adr['mail'])) {
+                    $addrs = array_merge((array) $addrs, (array) $adr['mail']);
+                }
+                if (isset($adr['alias'])) {
+                    $addrs = array_merge((array) $addrs, (array) $adr['alias']);
+                }
+            }
+        }
+
+        $addrs = array_map('strtolower', $addrs);
+
+        return $addrs;
+    }
+
+    /**
+     * Identify the GID for the first group found with the given mail.
+     *
+     * @param string $mail     Search for groups with this mail address.
+     * @param int    $restrict A Horde_Kolab_Server::RESULT_* result restriction.
+     *
+     * @return mixed The GID or false if there was no result.
+     *
+     * @throws Horde_Kolab_Server_Exception
+     */
+    public function gidForMail($mail,
+                               $restrict = Horde_Kolab_Server::RESULT_SINGLE)
+    {
+        $criteria = array('AND' => array(array('field' => 'mail',
+                                              'op'    => '=',
+                                              'test'  => $mail),
+                         ),
+        );
+        return $this->gidForSearch($criteria, $restrict);
+    }
+
+    /**
+     * Is the given UID member of the group with the given mail address?
+     *
+     * @param string $uid  UID of the user.
+     * @param string $mail Search the group with this mail address.
+     *
+     * @return boolean True in case the user is in the group, false otherwise.
+     *
+     * @throws Horde_Kolab_Server_Exception
+     */
+    public function memberOfGroupAddress($uid, $mail)
+    {
+        $criteria = array('AND' =>
+                          array(
+                              array('field' => 'mail',
+                                    'op'    => '=',
+                                    'test'  => $mail),
+                              array('field' => 'member',
+                                    'op'    => '=',
+                                    'test'  => $uid),
+                          ),
+        );
+
+        $result = $this->gidForSearch($criteria,
+                                      self::RESULT_SINGLE);
+        return !empty($result);
+    }
+
+    /**
+     * Get the groups for this object.
+     *
+     * @param string $uid The UID of the object to fetch.
+     *
+     * @return array An array of group ids.
+     *
+     * @throws Horde_Kolab_Server_Exception
+     */
+    public function getGroups($uid)
+    {
+        $criteria = array('AND' =>
+                          array(
+                              array('field' => 'member',
+                                    'op'    => '=',
+                                    'test'  => $uid),
+                          ),
+        );
+
+        $result = $this->gidForSearch($criteria, self::RESULT_MANY);
+        if (empty($result)) {
+            return array();
+        }
+        return $result;
     }
 }
