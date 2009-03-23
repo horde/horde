@@ -60,7 +60,7 @@ class Horde_Kolab_Server_file extends Horde_Kolab_Server_test
     protected function load()
     {
         $raw_data = file_get_contents($this->_file);
-        if (!$raw_daata === false) {
+        if (!$raw_data === false) {
             $data = @unserialize($raw_data);
             if ($data !== false) {
                 $this->data = $data;
