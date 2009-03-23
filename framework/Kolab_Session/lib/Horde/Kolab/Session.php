@@ -154,17 +154,17 @@ class Horde_Kolab_Session
 
 	    $this->auth = true;
                 
-            $result = $user_object->get(Horde_Kolab_Server_Object::ATTRIBUTE_MAIL);
+            $result = $user_object->get(Horde_Kolab_Server_Object_user::ATTRIBUTE_MAIL);
             if (!empty($result) && !is_a($result, 'PEAR_Error')) {
                 $this->user_mail = $result;
             }
 
-            $result = $user_object->get(Horde_Kolab_Server_Object::ATTRIBUTE_SID);
+            $result = $user_object->get(Horde_Kolab_Server_Object_user::ATTRIBUTE_SID);
             if (!empty($result) && !is_a($result, 'PEAR_Error')) {
                 $this->user_id = $result;
             }
 
-            $result = $user_object->get(Horde_Kolab_Server_Object::ATTRIBUTE_FNLN);
+            $result = $user_object->get(Horde_Kolab_Server_Object_user::ATTRIBUTE_FNLN);
             if (!empty($result) && !is_a($result, 'PEAR_Error')) {
                 $this->user_name = $result;
             }
