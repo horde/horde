@@ -34,9 +34,9 @@ class Horde_Kolab_Server_Object_domainmaintainer extends Horde_Kolab_Server_Obje
      * @var array
      */
     public $derived_attributes = array(
-        Horde_Kolab_Server_Object::ATTRIBUTE_ID,
-        Horde_Kolab_Server_Object::ATTRIBUTE_LNFN,
-        Horde_Kolab_Server_Object::ATTRIBUTE_DOMAIN,
+        self::ATTRIBUTE_ID,
+        self::ATTRIBUTE_LNFN,
+        self::ATTRIBUTE_DOMAIN,
     );
 
     /**
@@ -58,9 +58,9 @@ class Horde_Kolab_Server_Object_domainmaintainer extends Horde_Kolab_Server_Obje
     {
         if (!isset($attrs)) {
             $attrs = array(
-                Horde_Kolab_Server_Object::ATTRIBUTE_SID,
-                Horde_Kolab_Server_Object::ATTRIBUTE_LNFN,
-                Horde_Kolab_Server_Object::ATTRIBUTE_DOMAIN,
+                self::ATTRIBUTE_SID,
+                self::ATTRIBUTE_LNFN,
+                self::ATTRIBUTE_DOMAIN,
             );
         }
         return parent::toHash($attrs);
@@ -75,7 +75,7 @@ class Horde_Kolab_Server_Object_domainmaintainer extends Horde_Kolab_Server_Obje
      */
     public function save($info)
     {
-        foreach ($info[Horde_Kolab_Server_Object::ATTRIBUTE_DOMAIN] as $domain) {
+        foreach ($info[self::ATTRIBUTE_DOMAIN] as $domain) {
             $domain_uid = sprintf('cn=%s,cn=domain,cn=internal,%s',
                                   $domain, $this->db->getBaseUid());
 
@@ -87,8 +87,8 @@ class Horde_Kolab_Server_Object_domainmaintainer extends Horde_Kolab_Server_Obje
             }
             if (!$domain_group->exists()) {
                 $members = array($this->uid);
-                $domain_group->save(array(Horde_Kolab_Server_Object::ATTRIBUTE_CN => $domain,
-                                          Horde_Kolab_Server_Object::ATTRIBUTE_MEMBER => $members));
+                $domain_group->save(array(self::ATTRIBUTE_CN => $domain,
+                                          self::ATTRIBUTE_MEMBER => $members));
             } else {
                 $result = $domain_group->isMember($this->uid);
                 if (is_a($result, 'PEAR_Error')) {
@@ -97,7 +97,7 @@ class Horde_Kolab_Server_Object_domainmaintainer extends Horde_Kolab_Server_Obje
                 if ($result === false) {
                     $members   = $domain_group->getMembers();
                     $members[] = $this->uid;
-                    $domain_group->save(array(Horde_Kolab_Server_Object::ATTRIBUTE_MEMBER => $members));
+                    $domain_group->save(array(self::ATTRIBUTE_MEMBER => $members));
                 }
             }
         }

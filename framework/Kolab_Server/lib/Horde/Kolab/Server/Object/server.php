@@ -25,15 +25,8 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_Object_server extends Horde_Kolab_Server_Object
+class Horde_Kolab_Server_Object_server extends Horde_Kolab_Server_Object_base
 {
-
-    /**
-     * The LDAP filter to retrieve this object type
-     *
-     * @var string
-     */
-    public static $filter = '(&((k=kolab))(objectclass=kolab))';
 
     /**
      * The attributes supported by this class
@@ -41,7 +34,19 @@ class Horde_Kolab_Server_Object_server extends Horde_Kolab_Server_Object
      * @var array
      */
     public $supported_attributes = array(
-        Horde_Kolab_Server_Object::ATTRIBUTE_FBPAST,
+        self::ATTRIBUTE_FBPAST,
     );
 
+    /**
+     * Return the filter string to retrieve this object type.
+     *
+     * @static
+     *
+     * @return string The filter to retrieve this object type from the server
+     *                database.
+     */
+    public static function getFilter()
+    {
+        return '(&((k=kolab))(objectclass=kolab))';
+    }
 }

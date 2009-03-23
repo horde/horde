@@ -26,15 +26,8 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_Object_sharedfolder extends Horde_Kolab_Server_Object
+class Horde_Kolab_Server_Object_sharedfolder extends Horde_Kolab_Server_Object_base
 {
-
-    /**
-     * The LDAP filter to retrieve this object type
-     *
-     * @var string
-     */
-    public static $filter = '(objectClass=kolabSharedFolder)';
 
     /**
      * The ldap classes for this type of object.
@@ -42,9 +35,22 @@ class Horde_Kolab_Server_Object_sharedfolder extends Horde_Kolab_Server_Object
      * @var array
      */
     protected $object_classes = array(
-        Horde_Kolab_Server_Object::OBJECTCLASS_TOP,
-        Horde_Kolab_Server_Object::OBJECTCLASS_KOLABSHAREDFOLDER,
+        self::OBJECTCLASS_TOP,
+        self::OBJECTCLASS_KOLABSHAREDFOLDER,
     );
+
+    /**
+     * Return the filter string to retrieve this object type.
+     *
+     * @static
+     *
+     * @return string The filter to retrieve this object type from the server
+     *                database.
+     */
+    public static function getFilter()
+    {
+        return '(objectClass=kolabSharedFolder)';
+    }
 
     /**
      * Generates an ID for the given information.
@@ -71,9 +77,9 @@ class Horde_Kolab_Server_Object_sharedfolder extends Horde_Kolab_Server_Object
     {
         if (!isset($attrs)) {
             $attrs = array(
-                Horde_Kolab_Server_Object::ATTRIBUTE_CN,
-                Horde_Kolab_Server_Object::ATTRIBUTE_HOMESERVER,
-                Horde_Kolab_Server_Object::ATTRIBUTE_FOLDERTYPE,
+                self::ATTRIBUTE_CN,
+                self::ATTRIBUTE_HOMESERVER,
+                self::ATTRIBUTE_FOLDERTYPE,
             );
         }
         return parent::toHash($attrs);

@@ -25,15 +25,8 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_Object_adminrole extends Horde_Kolab_Server_Object
+class Horde_Kolab_Server_Object_adminrole extends Horde_Kolab_Server_Object_base
 {
-
-    /**
-     * The LDAP filter to retrieve this object type
-     *
-     * @var string
-     */
-    public static $filter = '(&(cn=*)(objectClass=inetOrgPerson)(!(uid=manager))(sn=*))';
 
     /**
      * Attributes derived from the LDAP values.
@@ -41,8 +34,8 @@ class Horde_Kolab_Server_Object_adminrole extends Horde_Kolab_Server_Object
      * @var array
      */
     public $derived_attributes = array(
-        Horde_Kolab_Server_Object::ATTRIBUTE_ID,
-        Horde_Kolab_Server_Object::ATTRIBUTE_LNFN,
+        self::ATTRIBUTE_ID,
+        self::ATTRIBUTE_LNFN,
     );
 
     /**
@@ -51,9 +44,9 @@ class Horde_Kolab_Server_Object_adminrole extends Horde_Kolab_Server_Object
      * @var array
      */
     protected $object_classes = array(
-        Horde_Kolab_Server_Object::OBJECTCLASS_TOP,
-        Horde_Kolab_Server_Object::OBJECTCLASS_INETORGPERSON,
-        Horde_Kolab_Server_Object::OBJECTCLASS_KOLABINETORGPERSON,
+        self::OBJECTCLASS_TOP,
+        self::OBJECTCLASS_INETORGPERSON,
+        self::OBJECTCLASS_KOLABINETORGPERSON,
     );
 
     /**
@@ -63,6 +56,19 @@ class Horde_Kolab_Server_Object_adminrole extends Horde_Kolab_Server_Object
      * @var string
      */
     protected $required_group;
+
+    /**
+     * Return the filter string to retrieve this object type.
+     *
+     * @static
+     *
+     * @return string The filter to retrieve this object type from the server
+     *                database.
+     */
+    public static function getFilter()
+    {
+        return '(&(cn=*)(objectClass=inetOrgPerson)(!(uid=manager))(sn=*))';
+    }
 
     /**
      * Convert the object attributes to a hash.
@@ -75,8 +81,8 @@ class Horde_Kolab_Server_Object_adminrole extends Horde_Kolab_Server_Object
     {
         if (!isset($attrs)) {
             $attrs = array(
-                Horde_Kolab_Server_Object::ATTRIBUTE_SID,
-                Horde_Kolab_Server_Object::ATTRIBUTE_LNFN,
+                self::ATTRIBUTE_SID,
+                self::ATTRIBUTE_LNFN,
             );
         }
         return parent::toHash($attrs);
@@ -111,10 +117,10 @@ class Horde_Kolab_Server_Object_adminrole extends Horde_Kolab_Server_Object
             $parts           = split(',', $this->required_group);
             list($groupname) = sscanf($parts[0], 'cn=%s');
 
-            $result = $this->db->add(array(Horde_Kolab_Server_Object::ATTRIBUTE_CN => $groupname,
+            $result = $this->db->add(array(self::ATTRIBUTE_CN => $groupname,
                                            'type' => 'Horde_Kolab_Server_Object_group',
-                                           Horde_Kolab_Server_Object::ATTRIBUTE_MEMBER => $members,
-                                           Horde_Kolab_Server_Object::ATTRIBUTE_VISIBILITY => false));
+                                           self::ATTRIBUTE_MEMBER => $members,
+                                           self::ATTRIBUTE_VISIBILITY => false));
             if (is_a($result, 'PEAR_Error')) {
                 return $result;
             }
@@ -126,7 +132,7 @@ class Horde_Kolab_Server_Object_adminrole extends Horde_Kolab_Server_Object
             if ($result === false) {
                 $members   = $admin_group->getMembers();
                 $members[] = $this->uid;
-                $admin_group->save(array(Horde_Kolab_Server_Object::ATTRIBUTE_MEMBER => $members));
+                $admin_group->save(array(self::ATTRIBUTE_MEMBER => $members));
             }
         }
         return parent::save($info);

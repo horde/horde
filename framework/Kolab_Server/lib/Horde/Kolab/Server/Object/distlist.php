@@ -27,11 +27,16 @@
  */
 class Horde_Kolab_Server_Object_distlist extends Horde_Kolab_Server_Object_group
 {
-
     /**
-     * The LDAP filter to retrieve this object type
+     * Return the filter string to retrieve this object type.
      *
-     * @var string
+     * @static
+     *
+     * @return string The filter to retrieve this object type from the server
+     *                database.
      */
-    public static $filter = '(&(objectClass=kolabGroupOfNames)(mail=*))';
+    public static function getFilter()
+    {
+        return '(&(objectClass=kolabGroupOfNames)(mail=*))';
+    }
 };

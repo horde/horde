@@ -31,36 +31,18 @@ class Horde_Kolab_Server_Object
 {
 
     /** Define attributes specific to this object type */
+
+    /** The global ID of this object on the server */
     const ATTRIBUTE_UID          = 'dn';
+
+    /** The ID part of the UID */
     const ATTRIBUTE_ID           = 'id';
-    const ATTRIBUTE_SID          = 'uid';
-    const ATTRIBUTE_CN           = 'cn';
-    const ATTRIBUTE_SN           = 'sn';
-    const ATTRIBUTE_GIVENNAME    = 'givenName';
-    const ATTRIBUTE_FN           = 'fn';
-    const ATTRIBUTE_MAIL         = 'mail';
-    const ATTRIBUTE_DELEGATE     = 'kolabDelegate';
-    const ATTRIBUTE_MEMBER       = 'member';
-    const ATTRIBUTE_VISIBILITY   = 'visible';
-    const ATTRIBUTE_LNFN         = 'lnfn';
-    const ATTRIBUTE_FNLN         = 'fnln';
-    const ATTRIBUTE_DOMAIN       = 'domain';
-    const ATTRIBUTE_DELETED      = 'kolabDeleteFlag';
-    const ATTRIBUTE_FBPAST       = 'kolabFreeBusyPast';
-    const ATTRIBUTE_FBFUTURE     = 'kolabFreeBusyFuture';
-    const ATTRIBUTE_FOLDERTYPE   = 'kolabFolderType';
-    const ATTRIBUTE_HOMESERVER   = 'kolabHomeServer';
-    const ATTRIBUTE_FREEBUSYHOST = 'kolabFreeBusyServer';
-    const ATTRIBUTE_IMAPHOST     = 'kolabImapServer';
-    const ATTRIBUTE_IPOLICY      = 'kolabInvitationPolicy';
+
+    /** The attribute holding the object classes */
+    const ATTRIBUTE_OC           = 'objectClass';
 
     /** Define the possible Kolab object classes */
-    const OBJECTCLASS_TOP                = 'top';
-    const OBJECTCLASS_INETORGPERSON      = 'inetOrgPerson';
-    const OBJECTCLASS_KOLABINETORGPERSON = 'kolabInetOrgPerson';
-    const OBJECTCLASS_HORDEPERSON        = 'hordePerson';
-    const OBJECTCLASS_KOLABGROUPOFNAMES  = 'kolabGroupOfNames';
-    const OBJECTCLASS_KOLABSHAREDFOLDER  = 'kolabSharedFolder';
+    const OBJECTCLASS_TOP        = 'top';
 
     /**
      * Link into the Kolab server.
@@ -88,21 +70,6 @@ class Horde_Kolab_Server_Object
     /** FIXME: Add an attribute cache for the get() function */
 
     /**
-     * The LDAP filter to retrieve this object type.
-     *
-     * @var string
-     */
-    public static $filter = '';
-
-    /**
-     * The group the UID must be member of so that this object really
-     * matches this class type. This may not include the root UID.
-     *
-     * @var string
-     */
-    protected $required_group;
-
-    /**
      * The LDAP attributes supported by this class.
      *
      * @var array
@@ -110,7 +77,7 @@ class Horde_Kolab_Server_Object
     public $supported_attributes = false;
 
     /**
-     * Attributes derived from the LDAP values.
+     * Attributes derived from other object attributes.
      *
      * @var array
      */
@@ -130,14 +97,16 @@ class Horde_Kolab_Server_Object
      *
      * @var array
      */
-    protected $object_classes = array();
+    protected $object_classes = array(
+        self::OBJECTCLASS_TOP
+    );
 
     /**
      * Sort by this attributes (must be a LDAP attribute).
      *
      * @var string
      */
-    var $sort_by = self::ATTRIBUTE_SN;
+    var $sort_by = self::ATTRIBUTE_UID;
 
     /**
      * Initialize the Kolab Object. Provide either the UID or a
@@ -209,6 +178,19 @@ class Horde_Kolab_Server_Object
     }
 
     /**
+     * Return the filter string to retrieve this object type.
+     *
+     * @static
+     *
+     * @return string The filter to retrieve this object type from the server
+     *                database.
+     */
+    public static function getFilter()
+    {
+        return '(&(' . self::ATTRIBUTE_OC . '=' . self::OBJECTCLASS_TOP . '))';
+    }
+
+    /**
      * Does the object exist?
      *
      * @return NULL
@@ -231,7 +213,7 @@ class Horde_Kolab_Server_Object
     protected function read()
     {
         $this->_cache = $this->db->read($this->uid,
-					$this->supported_attributes);
+                                        $this->supported_attributes);
     }
 
     /**
@@ -247,6 +229,7 @@ class Horde_Kolab_Server_Object
     public function get($attr, $single = true)
     {
         if ($attr != self::ATTRIBUTE_UID) {
+            // FIXME: This wont work this way.
             if ($this->supported_attributes !== false
                 && !in_array($attr, $this->supported_attributes)
                 && !in_array($attr, $this->derived_attributes)) {
@@ -265,8 +248,6 @@ class Horde_Kolab_Server_Object
         switch ($attr) {
         case self::ATTRIBUTE_UID:
             return $this->uid;
-        case self::ATTRIBUTE_FN:
-            return $this->getFn();
         default:
             return $this->_get($attr, $single);
         }
@@ -304,22 +285,8 @@ class Horde_Kolab_Server_Object
     {
         switch ($attr) {
         case self::ATTRIBUTE_ID:
-            $result = split(',', $this->uid);
-            if (substr($result[0], 0, 3) == 'cn=') {
-                return substr($result[0], 3);
-            } else {
-                return $result[0];
-            }
-        case self::ATTRIBUTE_LNFN:
-            $gn = $this->_get(self::ATTRIBUTE_GIVENNAME, true);
-            $sn = $this->_get(self::ATTRIBUTE_SN, true);
-            return sprintf('%s, %s', $sn, $gn);
-        case self::ATTRIBUTE_FNLN:
-            $gn = $this->_get(self::ATTRIBUTE_GIVENNAME, true);
-            $sn = $this->_get(self::ATTRIBUTE_SN, true);
-            return sprintf('%s %s', $gn, $sn);
-        default:
-            return false;
+            return substr($this->uid, 0,
+                          strlen($this->uid) - strlen($this->db->getBaseUid()) - 1);
         }
     }
 
@@ -355,68 +322,17 @@ class Horde_Kolab_Server_Object
     }
 
     /**
-     * Get the "first name" attribute of this object
-     *
-     * FIXME: This should get refactored to be combined with the Id value.
-     *
-     * @return string the "first name" of this object
-     */
-    protected function getFn()
-    {
-        $sn = $this->_get(self::ATTRIBUTE_SN, true);
-        $cn = $this->_get(self::ATTRIBUTE_CN, true);
-        return trim(substr($cn, 0, strlen($cn) - strlen($sn)));
-    }
-
-    /**
-     * Get the groups for this object
-     *
-     * @return mixed An array of group ids or a PEAR Error in case of
-     *               an error.
-     */
-    public function getGroups()
-    {
-        return array();
-    }
-
-    /**
-     * Returns the server url of the given type for this user.
-     *
-     * This method can be used to encapsulate multidomain support.
-     *
-     * @param string $server_type The type of server URL that should be returned.
-     *
-     * @return string|PEAR_Error The server url or empty.
-     */
-    public function getServer($server_type)
-    {
-        throw new Horde_Kolab_Server_Exception('Not implemented!');
-    }
-
-    /**
      * Generates an ID for the given information.
      *
      * @param array $info The data of the object.
      *
      * @static
      *
-     * @return string|PEAR_Error The ID.
+     * @return string The ID.
      */
     public static function generateId($info)
     {
-        $id_mapfields = array('givenName', 'sn');
-        $id_format    = '%s %s';
-
-        $fieldarray = array();
-        foreach ($id_mapfields as $mapfield) {
-            if (isset($info[$mapfield])) {
-                $fieldarray[] = $info[$mapfield];
-            } else {
-                $fieldarray[] = '';
-            }
-        }
-
-        return trim(vsprintf($id_format, $fieldarray), " \t\n\r\0\x0B,");
+        return hash('sha256', uniqid(mt_rand(), true));
     }
 
     /**
@@ -437,7 +353,7 @@ class Horde_Kolab_Server_Object
             }
         }
 
-        $info['objectClass'] = $this->object_classes;
+        $info[self::ATTRIBUTE_OC] = $this->object_classes;
 
         $result = $this->db->save($this->uid, $info);
         if ($result === false || is_a($result, 'PEAR_Error')) {

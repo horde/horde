@@ -26,15 +26,8 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_Object_address extends Horde_Kolab_Server_Object
+class Horde_Kolab_Server_Object_address extends Horde_Kolab_Server_Object_base
 {
-
-    /**
-     * The LDAP filter to retrieve this object type
-     *
-     * @var string
-     */
-    public static $filter = '(&(objectclass=inetOrgPerson)(!(uid=*))(sn=*))';
 
     /**
      * Attributes derived from the LDAP values.
@@ -42,8 +35,8 @@ class Horde_Kolab_Server_Object_address extends Horde_Kolab_Server_Object
      * @var array
      */
     public $derived_attributes = array(
-        Horde_Kolab_Server_Object::ATTRIBUTE_LNFN,
-        Horde_Kolab_Server_Object::ATTRIBUTE_FNLN,
+        self::ATTRIBUTE_LNFN,
+        self::ATTRIBUTE_FNLN,
     );
 
     /**
@@ -52,10 +45,23 @@ class Horde_Kolab_Server_Object_address extends Horde_Kolab_Server_Object
      * @var array
      */
     protected $object_classes = array(
-        Horde_Kolab_Server_Object::OBJECTCLASS_TOP,
-        Horde_Kolab_Server_Object::OBJECTCLASS_INETORGPERSON,
-        Horde_Kolab_Server_Object::OBJECTCLASS_KOLABINETORGPERSON,
+        self::OBJECTCLASS_TOP,
+        self::OBJECTCLASS_INETORGPERSON,
+        self::OBJECTCLASS_KOLABINETORGPERSON,
     );
+
+    /**
+     * Return the filter string to retrieve this object type.
+     *
+     * @static
+     *
+     * @return string The filter to retrieve this object type from the server
+     *                database.
+     */
+    public static function getFilter()
+    {
+        return '(&(objectclass=inetOrgPerson)(!(uid=*))(sn=*))';
+    }
 
     /**
      * Convert the object attributes to a hash.
@@ -68,7 +74,7 @@ class Horde_Kolab_Server_Object_address extends Horde_Kolab_Server_Object
     {
         if (!isset($attrs)) {
             $attrs = array(
-                Horde_Kolab_Server_Object::ATTRIBUTE_LNFN,
+                self::ATTRIBUTE_LNFN,
             );
         }
         return parent::toHash($attrs);

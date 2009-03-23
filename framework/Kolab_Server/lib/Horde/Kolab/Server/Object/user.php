@@ -26,7 +26,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_Object_user extends Horde_Kolab_Server_Object
+class Horde_Kolab_Server_Object_user extends Horde_Kolab_Server_Object_base
 {
 
     /** Define attributes specific to this object type */
@@ -37,13 +37,6 @@ class Horde_Kolab_Server_Object_user extends Horde_Kolab_Server_Object
     const USERTYPE_INTERNAL = 1;
     const USERTYPE_GROUP    = 2;
     const USERTYPE_RESOURCE = 3;
-
-    /**
-     * The LDAP filter to retrieve this object type
-     *
-     * @var string
-     */
-    public static $filter = '(&(objectClass=kolabInetOrgPerson)(uid=*)(mail=*)(sn=*))';
 
     /**
      * The attributes supported by this class
@@ -58,6 +51,7 @@ class Horde_Kolab_Server_Object_user extends Horde_Kolab_Server_Object
      * @var array
      */
     public $derived_attributes = array(
+        self::ATTRIBUTE_FN,
         'id',
         'usertype',
         //FIXME: Do we really want to have this type of functionality within this library?
@@ -115,6 +109,19 @@ class Horde_Kolab_Server_Object_user extends Horde_Kolab_Server_Object
     }
 
     /**
+     * Return the filter string to retrieve this object type.
+     *
+     * @static
+     *
+     * @return string The filter to retrieve this object type from the server
+     *                database.
+     */
+    public static function getFilter()
+    {
+        return  '(&(objectClass=kolabInetOrgPerson)(uid=*)(mail=*)(sn=*))';
+    }
+
+    /**
      * Derive an attribute value.
      *
      * @param string $attr The attribute to derive.
@@ -134,6 +141,16 @@ class Horde_Kolab_Server_Object_user extends Horde_Kolab_Server_Object
             } else {
                 return self::USERTYPE_STANDARD;
             }
+        case self::ATTRIBUTE_LNFN:
+            $gn = $this->_get(self::ATTRIBUTE_GIVENNAME, true);
+            $sn = $this->_get(self::ATTRIBUTE_SN, true);
+            return sprintf('%s, %s', $sn, $gn);
+        case self::ATTRIBUTE_FNLN:
+            $gn = $this->_get(self::ATTRIBUTE_GIVENNAME, true);
+            $sn = $this->_get(self::ATTRIBUTE_SN, true);
+            return sprintf('%s %s', $gn, $sn);
+        case self::ATTRIBUTE_FN:
+            return $this->getFn();
         default:
             return parent::derive($attr);
         }
@@ -157,6 +174,20 @@ class Horde_Kolab_Server_Object_user extends Horde_Kolab_Server_Object
             );
         }
         return parent::toHash($attrs);
+    }
+
+    /**
+     * Get the "first name" attribute of this object
+     *
+     * FIXME: This should get refactored to be combined with the Id value.
+     *
+     * @return string the "first name" of this object
+     */
+    protected function getFn()
+    {
+        $sn = $this->_get(self::ATTRIBUTE_SN, true);
+        $cn = $this->_get(self::ATTRIBUTE_CN, true);
+        return trim(substr($cn, 0, strlen($cn) - strlen($sn)));
     }
 
     /**
