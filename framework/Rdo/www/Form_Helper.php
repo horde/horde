@@ -22,14 +22,14 @@ class Horde_Rdo_Form_Helper extends Horde_Form
      *
      * @var string
      */
-    protected $primaryKey;
+    protected $_primaryKey;
 
     /**
      * Rdo_Mapper object that we display.
      *
      * @var Horde_Rdo_Mapper $mapper
      */
-    protected $mapper;
+    protected $_mapper;
 
     /**
      * Extends Horde_Form for general purposes and prepare initial form.
@@ -39,10 +39,10 @@ class Horde_Rdo_Form_Helper extends Horde_Form
         parent::__construct($vars, $title, $name);
 
         if (is_array($params)) {
-            $this->mapper = $params['mapper'];
+            $this->_mapper = $params['mapper'];
             unset($params['mapper']);
         } else {
-            $this->mapper = $params;
+            $this->_mapper = $params;
             $params = array();
         }
 
@@ -68,15 +68,15 @@ class Horde_Rdo_Form_Helper extends Horde_Form
         }
 
         $i = 0;
-        $this->getPrimaryKey();
-        $allFields = $this->getFields($vars->get('action'));
+        $this->_getPrimaryKey();
+        $allFields = $this->_getFields($vars->get('action'));
 
         /* Determine what to display */
         if ($vars->get('action') == 'search_active') {
             if ($vars->get('fields')) {
                 $fields = explode('|', $vars->get('fields'));
             } else {
-                $fields = $this->primaryKey;
+                $fields = $this->_primaryKey;
             }
             if ($vars->get('horde_helper_add')) {
                 $fields[] = $vars->get('horde_helper_add');
@@ -92,7 +92,7 @@ class Horde_Rdo_Form_Helper extends Horde_Form
                 continue;
             }
 
-            $params = $this->formMeta($vars->get('action'), $key);
+            $params = $this->_formMeta($vars->get('action'), $key);
             if (is_object($params)) {
                 return $params;
             }
@@ -107,7 +107,7 @@ class Horde_Rdo_Form_Helper extends Horde_Form
                 break;
 
             case 'update':
-                if (in_array($key, $this->primaryKey)) {
+                if (in_array($key, $this->_primaryKey)) {
                     $this->addHidden('', $key, $params['type'], true);
                     $params['readonly'] = true;
                 }
@@ -119,7 +119,7 @@ class Horde_Rdo_Form_Helper extends Horde_Form
                 $params['readonly'] = false;
                 $params['required'] = false;
                 if (!$params['hidden']) {
-                    $this->addCase($params['humanName'], $key);
+                    $this->_addCase($params['humanName'], $key);
                 }
                 break;
             }
@@ -168,7 +168,7 @@ class Horde_Rdo_Form_Helper extends Horde_Form
     /**
      * Add a comparison operator selection
      */
-    protected function addCase($humanName, $key)
+    protected function _addCase($humanName, $key)
     {
         $this->addVariable($humanName, 'cases_' . $key, 'enum', false, false, 'cases',
                            array(array('=' => '=', '>' => '>', '<' => '<',
@@ -187,7 +187,7 @@ class Horde_Rdo_Form_Helper extends Horde_Form
      *   - description
      *   - params
      */
-    protected function formMeta($action, $column, $key = false)
+    protected function _formMeta($action, $column, $key = false)
     {
         static $map;
 
@@ -203,7 +203,7 @@ class Horde_Rdo_Form_Helper extends Horde_Form
                 unset($map['__sections']);
             }
 
-            foreach ($this->getFields($action) as $id) {
+            foreach ($this->_getFields($action) as $id) {
                 if (!isset($map[$id])) {
                     $map[$id] = array();
                 }
@@ -226,9 +226,9 @@ class Horde_Rdo_Form_Helper extends Horde_Form
                     $map[$id]['description'] = '';
                 }
                 if (!isset($map[$id]['required'])) {
-                    $map[$id]['required'] = in_array($id, $this->primaryKey);
+                    $map[$id]['required'] = in_array($id, $this->_primaryKey);
                 }
-                if ($action == 'update' && in_array($id, $this->primaryKey)) {
+                if ($action == 'update' && in_array($id, $this->_primaryKey)) {
                     $map[$id]['readonly'] = true;
                 }
 
@@ -280,22 +280,39 @@ class Horde_Rdo_Form_Helper extends Horde_Form
      */
     public function getSelected()
     {
-        static $params;
+        static $selected;
 
-        if (is_null($params)) {
-            foreach ($this->primaryKey as $key) {
-                if ($this->_vars->$key) {
-                    $params[$key] = $this->_vars->$key;
-                }
+        if ($selected !== null) {
+            return $selected;
+        }
+
+        foreach ($this->_primaryKey as $key) {
+            if ($this->_vars->$key) {
+                $params[$key] = $this->_vars->$key;
             }
         }
 
-        return $params;
+        $selected = $this->_mapper->findOne($params);
+
+        if ($selected === null) {
+            return PEAR::raiseError(_("Does not exists"));
+        }
+
+        return $selected;
     }
 
+    /**
+     * Get the renderer for this form, either a custom renderer or the
+     * standard one.
+     *
+     * @param array $params  A hash of renderer-specific parameters.
+     *
+     * @return object Horde_Form_Renderer  The form renderer.
+     */
     function getRenderer($params = array())
     {
         if ($this->_vars->action == 'search' || $this->_vars->action == 'search_active') {
+            require_once dirname(__FILE__) . '/Form_Renderer_Helper.php';
             $renderer = new Horde_Form_Renderer_Form_Helper($params);
         } else {
             $renderer = new Horde_Form_Renderer($params);
@@ -322,7 +339,7 @@ class Horde_Rdo_Form_Helper extends Horde_Form
 
         /* Add test cases and filter not existing filters */
         if ($this->_vars->action == 'search' || $this->_vars->action == 'search_active') {
-            $fields = $this->getFields('search');
+            $fields = $this->_getFields('search');
             foreach ($info as $key => $value) {
                 $name = substr($key, 0, strrpos($key, '_'));
                 if (empty($value) || !in_array($name, $fields)) {
@@ -360,30 +377,21 @@ class Horde_Rdo_Form_Helper extends Horde_Form
     }
 
     /**
-     * Return the selected object or false if none.
-     */
-    public function getSelected()
-    {
-        return $this->mapper->find(Horde_Rdo::FIND_FIRST,
-                                   parent::getSelected());
-    }
-
-    /**
      * Return the form meta data
      */
     public function formMetaData($action)
     {
-        if (method_exists($this->mapper, 'formMeta')) {
-            return $this->mapper->formMeta($action);
+        if (method_exists($this->_mapper, 'formMeta')) {
+            return $this->_mapper->formMeta($action);
         } else {
-            return $this->mapper->model->getFields();
+            return $this->_mapper->fields;
         }
     }
 
     /**
      * Array of field name.
      */
-    protected function getFields($action)
+    protected function _getFields($action)
     {
         static $fields;
 
@@ -391,10 +399,10 @@ class Horde_Rdo_Form_Helper extends Horde_Form
             return $fields;
         }
 
-        if (method_exists($this->mapper, 'formFields')) {
-            $fields = $this->mapper->formFields($action);
+        if (method_exists($this->_mapper, 'formFields')) {
+            $fields = $this->_mapper->formFields($action);
         } else {
-            $fields = $this->mapper->model->listFields();
+            $fields = $this->_mapper->fields;
         }
 
         return $fields;
@@ -403,16 +411,14 @@ class Horde_Rdo_Form_Helper extends Horde_Form
     /**
      * Get primary key.
      */
-    protected function getPrimaryKey()
+    protected function _getPrimaryKey()
     {
-        if ($this->primaryKey !== null) {
-            return $this->primaryKey;
-        }
-
-        if (method_exists($this->mapper, 'getPrimaryKey')) {
-            $this->primaryKey = $this->mapper->getPrimaryKey();
-        } else {
-            $this->primaryKey = array($this->mapper->model->key);
+        if ($this->_primaryKey === null) {
+            if (method_exists($this->_mapper, 'getPrimaryKey')) {
+                $this->_primaryKey = $this->_mapper->getPrimaryKey();
+            } else {
+                $this->_primaryKey = $this->_mapper->tableDefinition->getPrimaryKey()->columns;
+            }
         }
     }
 
@@ -434,14 +440,14 @@ class Horde_Rdo_Form_Helper extends Horde_Form
     public function create($params)
     {
         foreach ($params as $key => $value) {
-            $meta = $this->formMeta('update', $key);
+            $meta = $this->_formMeta('update', $key);
             if ($meta['type'] == 'set') {
                 $params[$key] = implode('|', $value);
             }
         }
 
         try {
-            $this->mapper->create($params);
+            $this->_mapper->create($params);
         } catch (Exception $e) {
             return PEAR::raiseError($e->getMessage());
         }
@@ -453,7 +459,7 @@ class Horde_Rdo_Form_Helper extends Horde_Form
     public function update($params)
     {
         foreach ($params as $key => $value) {
-            $meta = $this->formMeta('update', $key);
+            $meta = $this->_formMeta('update', $key);
             if ($meta['type'] == 'set' && is_array($value)) {
                 $params[$key] = implode('|', $value);
             }

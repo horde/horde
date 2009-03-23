@@ -2,7 +2,7 @@
 /**
  * @package Horde_Rdo
  */
-class Horde_Rdo_Table_Helper_Lens extends Horde_Rdo_Lens
+class Horde_Rdo_Table_Helper_Lens extends Horde_Lens
 {
     /**
      */
@@ -27,6 +27,7 @@ class Horde_Rdo_Table_Helper_Lens extends Horde_Rdo_Lens
         if (!is_object($target)) {
             $target = (object)$target;
         }
+
         return parent::decorate($target);
     }
 
@@ -35,9 +36,11 @@ class Horde_Rdo_Table_Helper_Lens extends Horde_Rdo_Lens
     public function __get($key)
     {
         $value = parent::__get($key);
+
         if ($key == 'updated' || $key == 'created') {
             return strftime($this->date_format, $value) . ' ' . date($this->time_format , $value);
         }
+
         return htmlspecialchars($value);
     }
 
