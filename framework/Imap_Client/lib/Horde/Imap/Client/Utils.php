@@ -46,7 +46,7 @@ class Horde_Imap_Client_Utils
             $str = '';
 
             foreach ($in as $mbox => $ids) {
-                $str .= '{' . strlen($mbox) . '}' . $mbox . implode(',' $this->_toSequenceString($ids, array('nosort' => !empty($options['nosort'])));
+                $str .= '{' . strlen($mbox) . '}' . $mbox . implode(',', $this->_toSequenceString($ids, array('nosort' => !empty($options['nosort']))));
             }
 
             return $str;
