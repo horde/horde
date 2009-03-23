@@ -58,6 +58,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
         <file name="address.php" role="php" />
         <file name="administrator.php" role="php" />
         <file name="adminrole.php" role="php" />
+        <file name="base.php" role="php" />
         <file name="distlist.php" role="php" />
         <file name="domainmaintainer.php" role="php" />
         <file name="group.php" role="php" />
@@ -139,6 +140,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Kolab/Server/Object/address.php" as="Horde/Kolab/Server/Object/address.php" />
    <install name="lib/Horde/Kolab/Server/Object/administrator.php" as="Horde/Kolab/Server/Object/administrator.php" />
    <install name="lib/Horde/Kolab/Server/Object/adminrole.php" as="Horde/Kolab/Server/Object/adminrole.php" />
+   <install name="lib/Horde/Kolab/Server/Object/base.php" as="Horde/Kolab/Server/Object/base.php" />
    <install name="lib/Horde/Kolab/Server/Object/distlist.php" as="Horde/Kolab/Server/Object/distlist.php" />
    <install name="lib/Horde/Kolab/Server/Object/domainmaintainer.php" as="Horde/Kolab/Server/Object/domainmaintainer.php" />
    <install name="lib/Horde/Kolab/Server/Object/group.php" as="Horde/Kolab/Server/Object/group.php" />
