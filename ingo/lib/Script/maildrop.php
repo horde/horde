@@ -664,18 +664,19 @@ class Maildrop_Recipe {
             return '';
         }
 
-        $text[] = "if( \\";
+        if (count($this->_conditions) > 0) {
 
-        if (count($this->_conditions > 1)) {
+            $text[] = "if( \\";
+
             $nest = false;
             foreach ($this->_conditions as $condition) {
                 $cond = $nest ? $this->_combine : '   ';
                 $text[] = $cond . $condition['condition'] . $condition['flags'] . $condition['extra'] . " \\";
                 $nest = true;
             }
-        }
 
-        $text[] = ')';
+            $text[] = ')';
+        }
 
         foreach ($this->_action as $val) {
             $text[] = $val;
