@@ -37,12 +37,12 @@ class Horde_Kolab_Server_ServerTest extends PHPUnit_Framework_TestCase
      *
      * @return NULL
      */
-    public function testGenerateUid()
-    {
-        $ks = &Horde_Kolab_Server::factory('none');
-        $uid = $ks->generateUid('Horde_Kolab_Server_Object', array());
-        $this->assertEquals($uid, '');
-    }
+/*     public function testGenerateUid() */
+/*     { */
+/*         $ks = &Horde_Kolab_Server::factory('none'); */
+/*         $uid = $ks->generateUid('Horde_Kolab_Server_Object', array()); */
+/*         $this->assertEquals($uid, ''); */
+/*     } */
 
     /**
      * Test creating the server object.
@@ -76,40 +76,6 @@ class Horde_Kolab_Server_ServerTest extends PHPUnit_Framework_TestCase
         $ks   = &Horde_Kolab_Server::factory('none', array('uid' => 'test'));
         $user = $ks->fetch();
         $this->assertEquals('Horde_Kolab_Server_Object_user', get_class($user));
-    }
-
-    /**
-     * The base class returns no valid data. The DN request should
-     * just return false and the search for a mail address returns the
-     * provided argument.
-     *
-     * @return NULL
-     */
-    public function testUidFor()
-    {
-        $ks = &Horde_Kolab_Server::factory('none');
-        $dn = $ks->uidForId('test');
-        $this->assertFalse($dn);
-        $dn = $ks->uidForMail('test');
-        $this->assertFalse($dn);
-        $dn = $ks->uidForAlias('test');
-        $this->assertFalse($dn);
-        $dn = $ks->uidForIdOrMail('test');
-        $this->assertFalse($dn);
-        $dn = $ks->uidForMailOrAlias('test');
-        $this->assertFalse($dn);
-        $dn = $ks->uidForIdOrMailOrAlias('test');
-        $this->assertFalse($dn);
-        $dn = $ks->mailForIdOrMail('test');
-        $this->assertFalse($dn);
-        $dn = $ks->addrsForIdOrMail('test');
-        $this->assertEquals($dn, array());
-        $dn = $ks->gidForMail('test');
-        $this->assertFalse($dn);
-        $dn = $ks->memberOfGroupAddress('test', 'test@example.org');
-        $this->assertFalse($dn);
-        $dn = $ks->getGroups('test');
-        $this->assertEquals($dn, array());
     }
 
     /**
