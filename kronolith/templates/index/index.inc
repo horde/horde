@@ -113,8 +113,8 @@
 <!-- ini edit -->
 <div id="kronolithEventDialog" style="display:none">
 <form id="kronolithEventForm">
-<input id="kronolithEventCalendar" type="hidden" name="calendar" />
-<input id="kronolithEventId" type="hidden" name="eventid" />
+<input id="kronolithEventCalendar" type="hidden" name="cal" />
+<input id="kronolithEventId" type="hidden" name="id" />
 <div>
   <label for="kronolithEventTitle"><?php echo _("Title") ?></label><br />
   <input type="text" name="title" id="kronolithEventTitle" class="kronolithLongField" />

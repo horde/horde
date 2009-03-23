@@ -144,6 +144,7 @@ class Kronolith
             'name' => $registry->get('name'),
             'is_ie6' => ($browser->isBrowser('msie') && ($browser->getMajor() < 7)),
             'login_view' => $prefs->getValue('defaultview'),
+            'default_calendar' => 'internal|' . Kronolith::getDefaultCalendar(PERMS_EDIT),
             'week_start' => (int)$prefs->getValue('week_start_monday'),
             'date_format' => str_replace(array('%e', '%d', '%a', '%A', '%m', '%h', '%b', '%B', '%y', '%Y'),
                                          array('d', 'dd', 'ddd', 'dddd', 'MM', 'MMM', 'MMM', 'MMMM', 'yy', 'yyyy'),

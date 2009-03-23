@@ -33,6 +33,9 @@ function getDriver($cal)
     case 'holiday':
         $driver = 'Holidays';
         break;
+    default:
+        $GLOBALS['notification']->push('No calendar driver specified', 'horde.error');
+        break;
     }
 
     $kronolith_driver = Kronolith::getDriver($driver, $calendar);
@@ -133,6 +136,45 @@ case 'GetEvent':
     $result->event = $event->toJSON(true, $prefs->getValue('twentyFour') ? 'H:i' : 'h:i A');
     break;
 
+case 'SaveEvent':
+    $cal = Util::getFormData('cal');
+    if (!($kronolith_driver = getDriver($cal))) {
+        $result = true;
+        break;
+    }
+    $event = $kronolith_driver->getEvent(Util::getFormData('id'));
+    if (is_a($event, 'PEAR_Error')) {
+        $notification->push($event, 'horde.error');
+        $result = true;
+        break;
+    }
+    if (!$event) {
+        $notification->push(_("The requested event was not found."), 'horde.error');
+        $result = true;
+        break;
+    }
+    if (!$event->hasPermission(PERMS_EDIT)) {
+        $notification->push(_("You do not have permission to edit this event."), 'horde.warning');
+        $result = true;
+        break;
+    }
+    $event->readForm();
+    $result = $event->save();
+    if (is_a($result, 'PEAR_Error')) {
+        $notification->push($result, 'horde.error');
+    }
+    $start = new Horde_Date(Util::getFormData('view_start'));
+    $end   = new Horde_Date(Util::getFormData('view_end'));
+    Kronolith::addEvents($events, $event, $start, $end, true, true);
+    $result = new stdClass;
+    $result->cal = $cal;
+    $result->view = Util::getFormData('view');
+    $result->sig = $start->dateString() . $end->dateString();
+    if (count($events)) {
+        $result->events = $events;
+    }
+    break;
+
 case 'UpdateEvent':
     if (!($kronolith_driver = getDriver($cal = Util::getFormData('cal')))) {
         break;
@@ -148,6 +190,11 @@ case 'UpdateEvent':
     }
     if (!$event) {
         $notification->push(_("The requested event was not found."), 'horde.error');
+        break;
+    }
+    if (!$event->hasPermission(PERMS_EDIT)) {
+        $notification->push(_("You do not have permission to edit this event."), 'horde.warning');
+        $result = true;
         break;
     }
     $attributes = Horde_Serialize::unserialize(Util::getFormData('att'), Horde_Serialize::JSON);
@@ -188,8 +235,7 @@ case 'DeleteEvent':
         $result = true;
         break;
     }
-    $share = &$kronolith_shares->getShare($event->getCalendar());
-    if (!$share->hasPermission(Auth::getAuth(), PERMS_DELETE, $event->getCreatorID())) {
+    if (!$event->hasPermission(PERMS_DELETE)) {
         $notification->push(_("You do not have permission to delete this event."), 'horde.warning');
         $result = true;
         break;

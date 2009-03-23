@@ -256,7 +256,7 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
 
     public function getEvent($eventId = null)
     {
-        if (is_null($eventId)) {
+        if (!strlen($eventId)) {
             return new Kronolith_Event_Kolab($this);
         }
 

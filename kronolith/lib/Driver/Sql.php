@@ -387,7 +387,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
 
     public function getEvent($eventId = null)
     {
-        if (is_null($eventId)) {
+        if (!strlen($eventId)) {
             return new Kronolith_Event_Sql($this);
         }
 

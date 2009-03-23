@@ -1551,46 +1551,90 @@ abstract class Kronolith_Event
             $this->setAttendees($_SESSION['kronolith']['attendees']);
         }
 
+        // strptime() is locale dependent, i.e. %p is not always matching
+        // AM/PM. Set the locale to C to workaround this, but grab the
+        // locale's D_FMT before that.
+        $date_format = NLS::getLangInfo(D_FMT);
+        $old_locale = setlocale(LC_TIME, 0);
+        setlocale(LC_TIME, 'C');
+
         // Event start.
-        $start = Util::getFormData('start');
-        $start_year = $start['year'];
-        $start_month = $start['month'];
-        $start_day = $start['day'];
-        $start_hour = Util::getFormData('start_hour');
-        $start_min = Util::getFormData('start_min');
-        $am_pm = Util::getFormData('am_pm');
-
-        if (!$prefs->getValue('twentyFour')) {
-            if ($am_pm == 'PM') {
-                if ($start_hour != 12) {
-                    $start_hour += 12;
-                }
-            } elseif ($start_hour == 12) {
-                $start_hour = 0;
-            }
-        }
-
-        if (Util::getFormData('end_or_dur') == 1) {
-            if (Util::getFormData('whole_day') == 1) {
-                $start_hour = 0;
-                $start_min = 0;
-                $dur_day = 0;
-                $dur_hour = 24;
-                $dur_min = 0;
+        if ($start_date = Util::getFormData('start_date')) {
+            $start_time = Util::getFormData('start_time');
+            $start = $start_date . ' ' . $start_time;
+            $format = $date_format . ' '
+                . ($prefs->getValue('twentyFour') ? '%H:%M' : '%I:%M %p');
+            // Try exact format match first.
+            if ($date_arr = strptime($start, $format)) {
+                $this->start = new Horde_Date(
+                    array('year'  => $date_arr['tm_year'] + 1900,
+                          'month' => $date_arr['tm_mon'] + 1,
+                          'mday'  => $date_arr['tm_mday'],
+                          'hour'  => $date_arr['tm_hour'],
+                          'min'   => $date_arr['tm_min'],
+                          'sec'   => $date_arr['tm_sec']));
             } else {
-                $dur_day = (int)Util::getFormData('dur_day');
-                $dur_hour = (int)Util::getFormData('dur_hour');
-                $dur_min = (int)Util::getFormData('dur_min');
+                $this->start = new Horde_Date($start);
             }
+        } else {
+            $start = Util::getFormData('start');
+            $start_year = $start['year'];
+            $start_month = $start['month'];
+            $start_day = $start['day'];
+            $start_hour = Util::getFormData('start_hour');
+            $start_min = Util::getFormData('start_min');
+            $am_pm = Util::getFormData('am_pm');
+
+            if (!$prefs->getValue('twentyFour')) {
+                if ($am_pm == 'PM') {
+                    if ($start_hour != 12) {
+                        $start_hour += 12;
+                    }
+                } elseif ($start_hour == 12) {
+                    $start_hour = 0;
+                }
+            }
+
+            if (Util::getFormData('end_or_dur') == 1) {
+                if (Util::getFormData('whole_day') == 1) {
+                    $start_hour = 0;
+                    $start_min = 0;
+                    $dur_day = 0;
+                    $dur_hour = 24;
+                    $dur_min = 0;
+                } else {
+                    $dur_day = (int)Util::getFormData('dur_day');
+                    $dur_hour = (int)Util::getFormData('dur_hour');
+                    $dur_min = (int)Util::getFormData('dur_min');
+                }
+            }
+
+            $this->start = new Horde_Date(array('hour' => $start_hour,
+                                                'min' => $start_min,
+                                                'month' => $start_month,
+                                                'mday' => $start_day,
+                                                'year' => $start_year));
         }
 
-        $this->start = new Horde_Date(array('hour' => $start_hour,
-                                            'min' => $start_min,
-                                            'month' => $start_month,
-                                            'mday' => $start_day,
-                                            'year' => $start_year));
-
-        if (Util::getFormData('end_or_dur') == 1) {
+        if ($end_date = Util::getFormData('end_date')) {
+            // Event end.
+            $end_time = Util::getFormData('end_time');
+            $end = $end_date . ' ' . $end_time;
+            $format = $date_format . ' '
+                . ($prefs->getValue('twentyFour') ? '%H:%M' : '%I:%M %p');
+            // Try exact format match first.
+            if ($date_arr = strptime($end, $format)) {
+                $this->end = new Horde_Date(
+                    array('year'  => $date_arr['tm_year'] + 1900,
+                          'month' => $date_arr['tm_mon'] + 1,
+                          'mday'  => $date_arr['tm_mday'],
+                          'hour'  => $date_arr['tm_hour'],
+                          'min'   => $date_arr['tm_min'],
+                          'sec'   => $date_arr['tm_sec']));
+            } else {
+                $this->end = new Horde_Date($end);
+            }
+        } elseif (Util::getFormData('end_or_dur') == 1) {
             // Event duration.
             $this->end = new Horde_Date(array('hour' => $start_hour + $dur_hour,
                                               'min' => $start_min + $dur_min,
@@ -1627,35 +1671,39 @@ abstract class Kronolith_Event
             }
         }
 
+        setlocale(LC_TIME, $old_locale);
+
         // Alarm.
-        if (Util::getFormData('alarm') == 1) {
-            $this->setAlarm(Util::getFormData('alarm_value') * Util::getFormData('alarm_unit'));
-            // Notification.
-            if (Util::getFormData('alarm_change_method')) {
-                $types = Util::getFormData('event_alarms');
-                if (!empty($types)) {
-                    $methods = array();
-                    foreach ($types as $type) {
-                        $methods[$type] = array();
-                        switch ($type){
-                        case 'notify':
-                            $methods[$type]['sound'] = Util::getFormData('event_alarms_sound');
-                            break;
-                        case 'mail':
-                            $methods[$type]['email'] = Util::getFormData('event_alarms_email');
-                            break;
-                        case 'popup':
-                            break;
+        if (!is_null($alarm = Util::getFormData('alarm'))) {
+            if ($alarm) {
+                $this->setAlarm(Util::getFormData('alarm_value') * Util::getFormData('alarm_unit'));
+                // Notification.
+                if (Util::getFormData('alarm_change_method')) {
+                    $types = Util::getFormData('event_alarms');
+                    if (!empty($types)) {
+                        $methods = array();
+                        foreach ($types as $type) {
+                            $methods[$type] = array();
+                            switch ($type){
+                            case 'notify':
+                                $methods[$type]['sound'] = Util::getFormData('event_alarms_sound');
+                                break;
+                            case 'mail':
+                                $methods[$type]['email'] = Util::getFormData('event_alarms_email');
+                                break;
+                            case 'popup':
+                                break;
+                            }
                         }
+                        $this->methods = $methods;
                     }
-                    $this->methods = $methods;
+                } else {
+                    $this->methods = array();
                 }
             } else {
+                $this->setAlarm(0);
                 $this->methods = array();
             }
-        } else {
-            $this->setAlarm(0);
-            $this->methods = array();
         }
 
         // Recurrence.
@@ -1743,7 +1791,7 @@ abstract class Kronolith_Event
         }
 
         // Tags.
-        $this->tags = Util::getFormData('tags');
+        $this->tags = Util::getFormData('tags', $this->tags);
 
         $this->initialized = true;
     }
