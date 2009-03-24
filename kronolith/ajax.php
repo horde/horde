@@ -86,181 +86,185 @@ $cacheid = Util::getPost('cacheid');
 // encoding.
 ob_start();
 
-$notify = true;
-$result = false;
-
-switch ($action) {
-case 'ListEvents':
-    $start = new Horde_Date(Util::getFormData('start'));
-    $end   = new Horde_Date(Util::getFormData('end'));
-    if (!($kronolith_driver = getDriver($cal = Util::getFormData('cal')))) {
-        $result = true;
-        break;
-    }
-    $events = $kronolith_driver->listEvents($start, $end, true, false, true);
-    if (is_a($events, 'PEAR_Error')) {
-        $notification->push($events, 'horde.error');
-        $result = true;
-        break;
-    }
-    $result = new stdClass;
-    $result->cal = $cal;
-    $result->view = Util::getFormData('view');
-    $result->sig = $start->dateString() . $end->dateString();
-    if (count($events)) {
-        $result->events = $events;
-    }
-    break;
-
-case 'GetEvent':
-    if (!($kronolith_driver = getDriver($cal = Util::getFormData('cal')))) {
-        $result = true;
-        break;
-    }
-    if (is_null($id = Util::getFormData('id'))) {
-        $result = true;
-        break;
-    }
-    $event = $kronolith_driver->getEvent($id);
-    if (is_a($event, 'PEAR_Error')) {
-        $notification->push($event, 'horde.error');
-        $result = true;
-        break;
-    }
-    if (!$event) {
-        $notification->push(_("The requested event was not found."), 'horde.error');
-        $result = true;
-        break;
-    }
-    $result = new stdClass;
-    $result->event = $event->toJSON(true, $prefs->getValue('twentyFour') ? 'H:i' : 'h:i A');
-    break;
-
-case 'SaveEvent':
-    $cal = Util::getFormData('cal');
-    if (!($kronolith_driver = getDriver($cal))) {
-        $result = true;
-        break;
-    }
-    $event = $kronolith_driver->getEvent(Util::getFormData('id'));
-    if (is_a($event, 'PEAR_Error')) {
-        $notification->push($event, 'horde.error');
-        $result = true;
-        break;
-    }
-    if (!$event) {
-        $notification->push(_("The requested event was not found."), 'horde.error');
-        $result = true;
-        break;
-    }
-    if (!$event->hasPermission(PERMS_EDIT)) {
-        $notification->push(_("You do not have permission to edit this event."), 'horde.warning');
-        $result = true;
-        break;
-    }
-    $event->readForm();
-    $result = $event->save();
-    if (is_a($result, 'PEAR_Error')) {
-        $notification->push($result, 'horde.error');
-    }
-    $start = new Horde_Date(Util::getFormData('view_start'));
-    $end   = new Horde_Date(Util::getFormData('view_end'));
-    Kronolith::addEvents($events, $event, $start, $end, true, true);
-    $result = new stdClass;
-    $result->cal = $cal;
-    $result->view = Util::getFormData('view');
-    $result->sig = $start->dateString() . $end->dateString();
-    if (count($events)) {
-        $result->events = $events;
-    }
-    break;
-
-case 'UpdateEvent':
-    if (!($kronolith_driver = getDriver($cal = Util::getFormData('cal')))) {
-        break;
-    }
-    if (is_null($id = Util::getFormData('id'))) {
-        $result = true;
-        break;
-    }
-    $event = $kronolith_driver->getEvent($id);
-    if (is_a($event, 'PEAR_Error')) {
-        $notification->push($event, 'horde.error');
-        break;
-    }
-    if (!$event) {
-        $notification->push(_("The requested event was not found."), 'horde.error');
-        break;
-    }
-    if (!$event->hasPermission(PERMS_EDIT)) {
-        $notification->push(_("You do not have permission to edit this event."), 'horde.warning');
-        $result = true;
-        break;
-    }
-    $attributes = Horde_Serialize::unserialize(Util::getFormData('att'), Horde_Serialize::JSON);
-    foreach ($attributes as $attribute => $value) {
-        switch ($attribute) {
-        case 'start_date':
-            $start = new Horde_Date($value);
-            $event->start->year = $start->year;
-            $event->start->month = $start->month;
-            $event->start->mday = $start->mday;
-            $event->end = $event->start->add(array('min' => $event->durMin));
+try {
+    $notify = true;
+    $result = false;
+    
+    switch ($action) {
+    case 'ListEvents':
+        $start = new Horde_Date(Util::getFormData('start'));
+        $end   = new Horde_Date(Util::getFormData('end'));
+        if (!($kronolith_driver = getDriver($cal = Util::getFormData('cal')))) {
+            $result = true;
             break;
         }
-    }
-    $result = $event->save();
-    if (is_a($result, 'PEAR_Error')) {
-        $notification->push($result, 'horde.error');
-    }
-    break;
-
-case 'DeleteEvent':
-    if (!($kronolith_driver = getDriver($cal = Util::getFormData('cal')))) {
-        $result = true;
-        break;
-    }
-    if (is_null($id = Util::getFormData('id'))) {
-        $result = true;
-        break;
-    }
-    $event = $kronolith_driver->getEvent($id);
-    if (is_a($event, 'PEAR_Error')) {
-        $notification->push($event, 'horde.error');
-        $result = true;
-        break;
-    }
-    if (!$event) {
-        $notification->push(_("The requested event was not found."), 'horde.error');
-        $result = true;
-        break;
-    }
-    if (!$event->hasPermission(PERMS_DELETE)) {
-        $notification->push(_("You do not have permission to delete this event."), 'horde.warning');
-        $result = true;
-        break;
-    }
-    $deleted = $kronolith_driver->deleteEvent($event->getId());
-    if (is_a($deleted, 'PEAR_Error')) {
-        $notification->push($deleted, 'horde.error');
-        $result = true;
-        break;
-    }
-    $result = new stdClass;
-    $result->deleted = true;
-    break;
-
-case 'SaveCalPref':
-    $result = true;
-    break;
-
-case 'ChunkContent':
-    $chunk = basename(Util::getPost('chunk'));
-    if (!empty($chunk)) {
+        $events = $kronolith_driver->listEvents($start, $end, true, false, true);
+        if (is_a($events, 'PEAR_Error')) {
+            $notification->push($events, 'horde.error');
+            $result = true;
+            break;
+        }
         $result = new stdClass;
-        $result->chunk = Util::bufferOutput('include', KRONOLITH_TEMPLATES . '/chunks/' . $chunk . '.php');
+        $result->cal = $cal;
+        $result->view = Util::getFormData('view');
+        $result->sig = $start->dateString() . $end->dateString();
+        if (count($events)) {
+            $result->events = $events;
+        }
+        break;
+    
+    case 'GetEvent':
+        if (!($kronolith_driver = getDriver($cal = Util::getFormData('cal')))) {
+            $result = true;
+            break;
+        }
+        if (is_null($id = Util::getFormData('id'))) {
+            $result = true;
+            break;
+        }
+        $event = $kronolith_driver->getEvent($id);
+        if (is_a($event, 'PEAR_Error')) {
+            $notification->push($event, 'horde.error');
+            $result = true;
+            break;
+        }
+        if (!$event) {
+            $notification->push(_("The requested event was not found."), 'horde.error');
+            $result = true;
+            break;
+        }
+        $result = new stdClass;
+        $result->event = $event->toJSON(true, $prefs->getValue('twentyFour') ? 'H:i' : 'h:i A');
+        break;
+    
+    case 'SaveEvent':
+        $cal = Util::getFormData('cal');
+        if (!($kronolith_driver = getDriver($cal))) {
+            $result = true;
+            break;
+        }
+        $event = $kronolith_driver->getEvent(Util::getFormData('id'));
+        if (is_a($event, 'PEAR_Error')) {
+            $notification->push($event, 'horde.error');
+            $result = true;
+            break;
+        }
+        if (!$event) {
+            $notification->push(_("The requested event was not found."), 'horde.error');
+            $result = true;
+            break;
+        }
+        if (!$event->hasPermission(PERMS_EDIT)) {
+            $notification->push(_("You do not have permission to edit this event."), 'horde.warning');
+            $result = true;
+            break;
+        }
+        $event->readForm();
+        $result = $event->save();
+        if (is_a($result, 'PEAR_Error')) {
+            $notification->push($result, 'horde.error');
+        }
+        $start = new Horde_Date(Util::getFormData('view_start'));
+        $end   = new Horde_Date(Util::getFormData('view_end'));
+        Kronolith::addEvents($events, $event, $start, $end, true, true);
+        $result = new stdClass;
+        $result->cal = $cal;
+        $result->view = Util::getFormData('view');
+        $result->sig = $start->dateString() . $end->dateString();
+        if (count($events)) {
+            $result->events = $events;
+        }
+        break;
+    
+    case 'UpdateEvent':
+        if (!($kronolith_driver = getDriver($cal = Util::getFormData('cal')))) {
+            break;
+        }
+        if (is_null($id = Util::getFormData('id'))) {
+            $result = true;
+            break;
+        }
+        $event = $kronolith_driver->getEvent($id);
+        if (is_a($event, 'PEAR_Error')) {
+            $notification->push($event, 'horde.error');
+            break;
+        }
+        if (!$event) {
+            $notification->push(_("The requested event was not found."), 'horde.error');
+            break;
+        }
+        if (!$event->hasPermission(PERMS_EDIT)) {
+            $notification->push(_("You do not have permission to edit this event."), 'horde.warning');
+            $result = true;
+            break;
+        }
+        $attributes = Horde_Serialize::unserialize(Util::getFormData('att'), Horde_Serialize::JSON);
+        foreach ($attributes as $attribute => $value) {
+            switch ($attribute) {
+            case 'start_date':
+                $start = new Horde_Date($value);
+                $event->start->year = $start->year;
+                $event->start->month = $start->month;
+                $event->start->mday = $start->mday;
+                $event->end = $event->start->add(array('min' => $event->durMin));
+                break;
+            }
+        }
+        $result = $event->save();
+        if (is_a($result, 'PEAR_Error')) {
+            $notification->push($result, 'horde.error');
+        }
+        break;
+    
+    case 'DeleteEvent':
+        if (!($kronolith_driver = getDriver($cal = Util::getFormData('cal')))) {
+            $result = true;
+            break;
+        }
+        if (is_null($id = Util::getFormData('id'))) {
+            $result = true;
+            break;
+        }
+        $event = $kronolith_driver->getEvent($id);
+        if (is_a($event, 'PEAR_Error')) {
+            $notification->push($event, 'horde.error');
+            $result = true;
+            break;
+        }
+        if (!$event) {
+            $notification->push(_("The requested event was not found."), 'horde.error');
+            $result = true;
+            break;
+        }
+        if (!$event->hasPermission(PERMS_DELETE)) {
+            $notification->push(_("You do not have permission to delete this event."), 'horde.warning');
+            $result = true;
+            break;
+        }
+        $deleted = $kronolith_driver->deleteEvent($event->getId());
+        if (is_a($deleted, 'PEAR_Error')) {
+            $notification->push($deleted, 'horde.error');
+            $result = true;
+            break;
+        }
+        $result = new stdClass;
+        $result->deleted = true;
+        break;
+    
+    case 'SaveCalPref':
+        $result = true;
+        break;
+    
+    case 'ChunkContent':
+        $chunk = basename(Util::getPost('chunk'));
+        if (!empty($chunk)) {
+            $result = new stdClass;
+            $result->chunk = Util::bufferOutput('include', KRONOLITH_TEMPLATES . '/chunks/' . $chunk . '.php');
+        }
+        break;
     }
-    break;
+} catch (Exception $e) {
+    $notification->push($e->getMessage(), 'horde.error');
 }
 
 // Clear the output buffer that we started above, and log any unexpected
