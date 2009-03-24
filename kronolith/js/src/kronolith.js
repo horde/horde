@@ -962,7 +962,7 @@ KronolithCore = {
             this.doAction('ListTopTags', {}, this._topTags.bind(this));
             this.doAction('GetEvent', { 'cal': calendar, 'id': id }, this._editEvent.bind(this));
         } else {
-        	this.doAction('ListTopTags', {}, this._topTags.bind(this));
+            this.doAction('ListTopTags', {}, this._topTags.bind(this));
             var d = new Date();
             $('kronolithEventForm').enable();
             $('kronolithEventForm').reset();
@@ -981,14 +981,14 @@ KronolithCore = {
     
     _topTags: function(r)
     {
-    	if (!r.response.tags) {
-    		return;
-    	}
-    	$('eventTopTags').update();
-    	r.response.tags.each(function(tag) {
-    		$('eventTopTags').insert(new Element('span').update(tag));
-    	});
-    	return;
+        if (!r.response.tags) {
+            return;
+        }
+        $('eventTopTags').update();
+        r.response.tags.each(function(tag) {
+            $('eventTopTags').insert(new Element('span').update(tag));
+        });
+        return;
     },
     
     /**
