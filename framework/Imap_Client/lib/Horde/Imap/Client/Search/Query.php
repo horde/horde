@@ -301,6 +301,16 @@ class Horde_Imap_Client_Search_Query
     }
 
     /**
+     * Determines if flags are a part of the search.
+     *
+     * @return boolean  True if search query involves flags.
+     */
+    public function flagSearch()
+    {
+        return !empty($this->_search['flag']);
+    }
+
+    /**
      * Search for either new messages (messages that have the '\Recent' flag
      * but not the '\Seen' flag) or old messages (messages that do not have
      * the '\Recent' flag).  If new messages are searched, this will clear

@@ -1223,7 +1223,7 @@ abstract class Horde_Imap_Client_Base
      * Horde_Imap_Client::SORT_FROM
      * Horde_Imap_Client::SORT_SIZE
      * Horde_Imap_Client::SORT_SUBJECT
-     * Horde_Imap_Client::SORT_TO.
+     * Horde_Imap_Client::SORT_TO
      * </pre>
      *          Additionally, any sort criteria can be sorted in reverse order
      *          (instead of the default ascending order) by adding a
@@ -1268,8 +1268,6 @@ abstract class Horde_Imap_Client_Base
      */
     public function search($mailbox, $query = null, $options = array())
     {
-        $this->openMailbox($mailbox, Horde_Imap_Client::OPEN_AUTO);
-
         if (empty($options['results'])) {
             $options['results'] = array(
                 Horde_Imap_Client::SORT_RESULTS_MATCH,
@@ -1301,40 +1299,37 @@ abstract class Horde_Imap_Client_Base
             }
         }
 
-        /* If CONDSTORE is available, we can take advantage of search result
-         * caching. We invalidate the cache when the MODSEQ changes. We
-         * store results by hashing the options array - the generated
-         * query is already added to '_query' key above. */
-        $cache = $ret = null;
-        if (isset($this->_init['enabled']['CONDSTORE'])) {
-            ksort($options);
-            $cache = hash('md5', serialize($options));
-            $metadata = $this->_cache->getMetaData($mailbox, array('HICsearch'));
-            if (isset($metadata['HICsearch'][$cache])) {
-                $ret = $this->_utils->fromSequenceString($metadata['HICsearch'][$cache]);
-                if ($this->_debug) {
-                    fwrite($this->_debug, sprintf("Horde_Imap_Client: Retrieved search results from cache (mailbox: %s; id: %s)\n", $mailbox, $cache));
-                }
+        $type = empty($options['sort']) ? 'match' : 'sort';
+
+        /* Take advantage of search result caching.  If CONDSTORE available,
+         * we can cache all queries and invalidate the cache when the MODSEQ
+         * changes. If CONDSTORE not available, we can only store queries
+         * that don't involve flags. We store results by hashing the options
+         * array - the generated query is already added to '_query' key
+         * above. */
+        $cache = null;
+        if ($this->_initCache() &&
+            (isset($this->_init['enabled']['CONDSTORE']) ||
+             !$query->flagSearch())) {
+            $cache = $this->_getSearchCache('search', $mailbox, $options);
+            if (isset($cache['data'])) {
+                $cache['data'][$type] = $this->_utils->fromSequenceString($cache['data'][$type]);
+                return $cache['data'];
             }
         }
 
-        if (is_null($ret)) {
-            $ret = $this->_search($query, $options);
-            if ($cache) {
-                $metadata['HICsearch'][$cache] = $this->_utils->toSequenceString($ret, array('nosort' => true));
-                $this->_updateMetaData($mailbox, $metadata);
-                if ($this->_debug) {
-                    fwrite($this->_debug, sprintf("Horde_Imap_Client: Saved search results to cache (mailbox: %s; id: %s)\n", $mailbox, $cache));
-                }
-            }
-        }
+        $this->openMailbox($mailbox, Horde_Imap_Client::OPEN_AUTO);
+
+        $ret = $this->_search($query, $options);
 
         if (!empty($options['reverse'])) {
-            if (empty($options['sort'])) {
-                $ret['match'] = array_reverse($ret['match']);
-            } else {
-                $ret['sort'] = array_reverse($ret['sort']);
-            }
+            $ret[$type] = array_reverse($ret[$type]);
+        }
+
+        if ($cache) {
+            $save = $ret;
+            $save[$type] = $this->_utils->toSequenceString($ret[$type], array('nosort' => true));
+            $this->_setSearchCache($save, $cache);
         }
 
         return $ret;
@@ -1345,8 +1340,8 @@ abstract class Horde_Imap_Client_Base
      *
      * @param object $query   The search query.
      * @param array $options  Additional options. The '_query' key contains
-     *                        the value of $query->build(). 'sort' and
-     *                        'reverse' should be ignored.
+     *                        the value of $query->build(). 'reverse' should
+     *                        be ignored (handled in search()).
      *
      * @return array  An array of UIDs (default) or an array of message
      *                sequence numbers (if 'sequence' is true).
@@ -1442,10 +1437,30 @@ abstract class Horde_Imap_Client_Base
      */
     public function thread($mailbox, $options = array())
     {
+        /* Take advantage of search result caching.  If CONDSTORE available,
+         * we can cache all queries and invalidate the cache when the MODSEQ
+         * changes. If CONDSTORE not available, we can only store queries
+         * that don't involve flags. See search() for similar caching. */
+        $cache = null;
+        if ($this->_initCache() &&
+            (isset($this->_init['enabled']['CONDSTORE']) ||
+             empty($options['search']) ||
+             !$options['search']->flagSearch())) {
+            $cache = $this->_getSearchCache('thread', $mailbox, $options);
+            if (isset($cache['data'])) {
+                return $cache['data'];
+            }
+        }
+
         $this->openMailbox($mailbox, Horde_Imap_Client::OPEN_AUTO);
 
-        $ret = $this->_thread($options);
-        return new Horde_Imap_Client_Thread($ret, empty($options['sequence']) ? 'uid' : 'sequence');
+        $ob = new Horde_Imap_Client_Thread($this->_thread($options), empty($options['sequence']) ? 'uid' : 'sequence');
+
+        if ($cache) {
+            $this->_setSearchCache($ob, $cache);
+        }
+
+        return $ob;
     }
 
     /**
@@ -2344,6 +2359,37 @@ abstract class Horde_Imap_Client_Base
     /* Utility functions. */
 
     /**
+     * Returns a unique identifier for the current mailbox status.
+     *
+     * @param string $mailbox  A mailbox. Either in UTF7-IMAP or UTF-8.
+     *
+     * @return string  The cache ID string, which will change when the
+     *                 composition of the mailbox changes.
+     * @throws Horde_Imap_Client_Exception
+     */
+    public function getCacheId($mailbox)
+    {
+        $query = Horde_Imap_Client::STATUS_UIDVALIDITY;
+
+        /* Use MODSEQ as cache ID if CONDSTORE extension is available. */
+        if (isset($this->_init['enabled']['CONDSTORE'])) {
+            $condstore = true;
+            $query |= Horde_Imap_Client::STATUS_HIGHESTMODSEQ;
+        } else {
+            $condstore = false;
+            $query |= Horde_Imap_Client::STATUS_MESSAGES | Horde_Imap_Client::STATUS_UIDNEXT;
+        }
+
+        $status = $this->status($mailbox, $query);
+
+        $data = $condstore
+            ? array($status['highestmodseq'], $status['uidvalidity'])
+            : array($status['uidvalidity'], $status['uidnext'], $status['messages']);
+
+        return implode('|', $data);
+    }
+
+    /**
      * Returns UIDs for an ALL search, or for a sequence number -> UID lookup.
      *
      * @param mixed $ids    If null, return all UIDs for the mailbox. If an
@@ -2487,6 +2533,67 @@ abstract class Horde_Imap_Client_Base
             if ($e->getCode() != Horde_Imap_Client_Exception::CACHEUIDINVALID) {
                 throw $e;
             }
+        }
+    }
+
+    /**
+     * Retrieve data from the search cache.
+     *
+     * @param string $type     The cache type ('search' or 'thread').
+     * @param string $mailbox  The mailbox to update.
+     * @param array $options   The options array of the calling function.
+     *
+     * @return array  If retrieved, data will be in key 'data'.  If not, array
+     *                will contain state needed for self::_setSearchCache().
+     */
+    protected function _getSearchCache($type, $mailbox, $options)
+    {
+        ksort($options);
+        $cache = hash('md5', $type . serialize($options));
+        $metadata = $this->_cache->getMetaData($mailbox, array('HICsearch'));
+
+        /* Do check for cache expiration for non-CONDSTORE hosts here. */
+        if (!isset($this->_init['enabled']['CONDSTORE'])) {
+            $mboxid = $this->getCacheId($mailbox);
+            if (isset($metadata['HICsearch']['cacheid']) &&
+                ($metadata['HICsearch']['cacheid'] != $mboxid)) {
+                $metadata['HICsearch'] = array();
+                if ($this->_debug) {
+                    fwrite($this->_debug, sprintf("Horde_Imap_Client: Expired %s results from cache (mailbox: %s; id: %s)\n", $type, $mailbox, $cache));
+                }
+            }
+            $metadata['HICsearch']['cacheid'] = $mboxid;
+        }
+
+        if (isset($metadata['HICsearch'][$cache])) {
+            if ($this->_debug) {
+                fwrite($this->_debug, sprintf("Horde_Imap_Client: Retrieved %s results from cache (mailbox: %s; id: %s)\n", $type, $mailbox, $cache));
+            }
+            return array('data' => unserialize($metadata['HICsearch'][$cache]));
+        }
+
+        return array(
+            'id' => $cache,
+            'mailbox' => $mailbox,
+            'metadata' => $metadata,
+            'type' => $type
+        );
+    }
+
+    /**
+     * Set data in the search cache.
+     *
+     * @param mixed $data   The cache data to store.
+     * @param array $cache  The data object returned from
+     *                      self::_getSearchCache().
+     */
+    protected function _setSearchCache($data, $cache)
+    {
+        $cache['metadata']['HICsearch'][$cache['id']] = serialize($data);
+        $this->_updateMetaData($cache['mailbox'], $cache['metadata']);
+
+        if ($this->_debug) {
+            fwrite($this->_debug, sprintf("Horde_Imap_Client: Saved %s results to cache (mailbox: %s; id: %s)\n", $cache['type'], $cache['mailbox'], $cache['id']));
         }
     }
 
