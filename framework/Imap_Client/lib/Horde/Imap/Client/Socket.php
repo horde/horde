@@ -1975,7 +1975,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 }
 
                 if ($level++) {
-                    $ptr['l'] = $level;
+                    $ptr['l'] = $level - 1;
                 }
             }
             $islast = true;
