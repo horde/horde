@@ -903,7 +903,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
                         $thread_base_idx = $index;
                     }
                     $lookup[$index] = $use_seq ? $index : $val;
-                    $ret[$val] = array('uid' => $val);
+                    $ret[$val] = array();
                 }
                 break;
 
@@ -911,7 +911,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
                 if (!is_null($container) && ($container === $index)) {
                     $container_base = $val;
                 } else {
-                    $ret[$lookup[$index]]['base'] = (!is_null($container))
+                    $ret[$lookup[$index]]['b'] = (!is_null($container))
                         ? $lookup[$container_base]
                         : ((!empty($level) || ($val != 0)) ? $lookup[$thread_base_idx] : null);
                     ++$i;
@@ -922,17 +922,22 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
             case 'branch':
                 if ($container === $index) {
                     $container = $container_base = null;
-                    $ret[$lookup[$last_index]]['last'] = true;
                 } else {
-                    $ret[$lookup[$index]]['level'] = $level--;
-                    $ret[$lookup[$index]]['last'] = !(!is_null($container) && empty($level));
+                    if ($level--) {
+                        $ret[$lookup[$index]]['l'] = $level + 1;
+                    }
+                    if (!is_null($container) && empty($level)) {
+                        $ret[$lookup[$index]]['s'] = true;
+                    }
                     if ($index === $thread_base_idx) {
                         $index = null;
 
                     } elseif (!empty($level) &&
                               !is_null($last_index) &&
                               isset($ret[$last_index])) {
-                        $ret[$lookup[$last_index]]['last'] = ($last_i == ($i - 1));
+                        if (!($last_i == ($i - 1))) {
+                            $ret[$lookup[$last_index]]['s'] = true;
+                        }
                     }
                 }
                 $last_index = $index;
