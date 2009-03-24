@@ -877,10 +877,10 @@ KronolithCore = {
                 }
                 if (tmp && tmp.readAttribute('date')) {
                     if (tmp.hasClassName('kronolithMinicalWeek')) {
-		        this.go('week:' + tmp.readAttribute('date'));
-		    } else if (!tmp.hasClassName('empty')) {
-		        this.go('day:' + tmp.readAttribute('date'));
-		    }
+                        this.go('week:' + tmp.readAttribute('date'));
+                    } else if (!tmp.hasClassName('empty')) {
+                        this.go('day:' + tmp.readAttribute('date'));
+                    }
                 }
                 e.stop();
                 return;
@@ -909,6 +909,12 @@ KronolithCore = {
                 return;
             }
 
+            if (elt.hasClassName('eventTopTag')) {
+                etags = $F('kronolithEventTags');
+                $('kronolithEventTags').value = (etags ? etags + ', ' :  '') + elt.getText();
+                return;
+            }
+            
             calClass = elt.readAttribute('calendarclass');
             if (calClass) {
                 var calendar = elt.readAttribute('calendar');
@@ -986,7 +992,7 @@ KronolithCore = {
         }
         $('eventTopTags').update();
         r.response.tags.each(function(tag) {
-            $('eventTopTags').insert(new Element('span').update(tag));
+            $('eventTopTags').insert(new Element('span', {'class': 'eventTopTag'}).update(tag));
         });
         return;
     },
