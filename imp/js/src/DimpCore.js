@@ -33,7 +33,7 @@ DimpCore = {
     debug: function(label, e)
     {
         if (!this.is_logout && DIMP.conf.debug) {
-            if (console) {
+            if (console.error) {
                 // Firebug error reporting.
                 console.error(label, e);
             } else {
