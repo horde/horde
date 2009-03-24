@@ -177,14 +177,7 @@
   <textarea name="tags" id="kronolithEventTags" rows="2" class="kronolithLongField"></textarea>
 </div>
 
-<div class="kronolithTags">
-  <span>portugal</span>
-  <span>política</span>
-  <span>religião</span>
-  <span>outra</span>
-  <span>informática</span>
-  <span>lálá</span>
-</div>
+<div id="eventTopTags" class="kronolithTags"></div>
 
 <div id="kronolithEventActions">
   <input id="kronolithEventSave" type="button" value="<?php echo _("Save") ?>" class="button ok" />

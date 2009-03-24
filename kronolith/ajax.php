@@ -89,7 +89,7 @@ ob_start();
 try {
     $notify = true;
     $result = false;
-    
+
     switch ($action) {
     case 'ListEvents':
         $start = new Horde_Date(Util::getFormData('start'));
@@ -112,7 +112,7 @@ try {
             $result->events = $events;
         }
         break;
-    
+
     case 'GetEvent':
         if (!($kronolith_driver = getDriver($cal = Util::getFormData('cal')))) {
             $result = true;
@@ -136,7 +136,7 @@ try {
         $result = new stdClass;
         $result->event = $event->toJSON(true, $prefs->getValue('twentyFour') ? 'H:i' : 'h:i A');
         break;
-    
+
     case 'SaveEvent':
         $cal = Util::getFormData('cal');
         if (!($kronolith_driver = getDriver($cal))) {
@@ -175,7 +175,7 @@ try {
             $result->events = $events;
         }
         break;
-    
+
     case 'UpdateEvent':
         if (!($kronolith_driver = getDriver($cal = Util::getFormData('cal')))) {
             break;
@@ -215,7 +215,7 @@ try {
             $notification->push($result, 'horde.error');
         }
         break;
-    
+
     case 'DeleteEvent':
         if (!($kronolith_driver = getDriver($cal = Util::getFormData('cal')))) {
             $result = true;
@@ -250,16 +250,26 @@ try {
         $result = new stdClass;
         $result->deleted = true;
         break;
-    
+
     case 'SaveCalPref':
         $result = true;
         break;
-    
+
     case 'ChunkContent':
         $chunk = basename(Util::getPost('chunk'));
         if (!empty($chunk)) {
             $result = new stdClass;
             $result->chunk = Util::bufferOutput('include', KRONOLITH_TEMPLATES . '/chunks/' . $chunk . '.php');
+        }
+        break;
+
+    case 'ListTopTags':
+        $tagger = new Kronolith_Tagger();
+        $result = new stdClass;
+        $result->tags = array();
+        $tags = $tagger->getCloud(Auth::getAuth(), 10);
+        foreach ($tags as $tag) {
+            $result->tags[] = $tag['tag_name'];
         }
         break;
     }

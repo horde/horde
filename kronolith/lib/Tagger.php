@@ -180,7 +180,6 @@ class Kronolith_Tagger
         $this->tag($localId, $add, $content_type);
     }
 
-
     /**
      * @TODO
      * @param array $tags  An array of tag ids.
@@ -190,9 +189,20 @@ class Kronolith_Tagger
         //TODO
     }
 
+    /**
+     * List tags beginning with $token.  Used for autocomplete code.
+     *
+     * @param $token
+     * @return unknown_type
+     */
     public function listTags($token)
     {
         return self::$_tagger->getTags(array('q' => $token));
     }
 
+    public function getCloud($user, $limit = 5)
+    {
+        return self::$_tagger->getTagCloud(array('userId' => $user,
+                                                  'limit' => $limit));
+    }
 }
