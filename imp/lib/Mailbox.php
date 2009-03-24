@@ -729,21 +729,9 @@ class IMP_Mailbox
     {
         if (!$this->_searchmbox) {
             $sortpref = IMP::getSort($this->_mailbox);
-
-            /* Use MODSEQ as cache ID if CONDSTORE extension is available. */
-            if ($GLOBALS['imp_imap']->ob->queryCapability('CONDSTORE')) {
-                $condstore = true;
-                $query = Horde_Imap_Client::STATUS_HIGHESTMODSEQ;
-            } else {
-                $condstore = false;
-                $query = Horde_Imap_Client::STATUS_MESSAGES | Horde_Imap_Client::STATUS_UIDNEXT | Horde_Imap_Client::STATUS_UIDVALIDITY;
-            }
-
             try {
-                $status = $GLOBALS['imp_imap']->ob->status($this->_mailbox, $query);
-                return $condstore
-                    ? $status['highestmodseq']
-                    : implode('|', array($status['uidvalidity'], $status['uidnext'], $status['messages'], $sortpref['by'], $sortpref['dir']));
+                $id = $GLOBALS['imp_imap']->ob->getCacheId($this->_mailbox);
+                return $id . '|' . $sortpref['by'] . '|' . $sortpref['dir'];
             } catch (Horde_Imap_Client_Exception $e) {}
         }
 
