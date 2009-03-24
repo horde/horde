@@ -1473,11 +1473,15 @@ abstract class Horde_Imap_Client_Base
      *                message sequence number (if 'sequence' is true). Values
      *                of each entry:
      * <pre>
-     * 'base' - (integer) The UID of the base message. Is null if this is the
-     *          only message in the thread.
-     * 'last' - (boolean) Is this the last message in a subthread?
-     * 'level' - (integer) The thread level of this message (1 = base).
-     * 'uid' - (integer) The UID of the message.
+     * 'b' (base) - (integer) [OPTIONAL] The ID of the base message. Is not
+     *              set, this is the only message in the thread.
+     *              DEFAULT: Only message in thread
+     * 'l' (level) - (integer) [OPTIONAL] The thread level of this
+     *               message (1 = base).
+     *               DEFAULT: 0
+     * 's' (subthread) - (boolean) [OPTIONAL] Are there more messages in this
+     *                   subthread?
+     *                   DEFAULT: No
      * </pre>
      * @throws Horde_Imap_Client_Exception
      */

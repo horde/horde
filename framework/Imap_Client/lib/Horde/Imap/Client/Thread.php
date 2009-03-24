@@ -61,8 +61,8 @@ class Horde_Imap_Client_Thread
      */
     public function getThreadIndent($index)
     {
-        return isset($this->_thread[$index]['level'])
-            ? $this->_thread[$index]['level']
+        return isset($this->_thread[$index])
+            ? (isset($this->_thread[$index]['l']) ? $this->_thread[$index]['l'] : 0)
             : false;
     }
 
@@ -76,8 +76,8 @@ class Horde_Imap_Client_Thread
      */
     public function getThreadBase($index)
     {
-        return !empty($this->_thread[$index]['base'])
-            ? $this->_thread[$index]['base']
+        return isset($this->_thread[$index])
+            ? (isset($this->_thread[$index]['b']) ? $this->_thread[$index]['b'] : null)
             : false;
     }
 
@@ -92,9 +92,7 @@ class Horde_Imap_Client_Thread
      */
     public function lastInLevel($index)
     {
-        return !empty($this->_thread[$index]['last'])
-            ? $this->_thread[$index]['last']
-            : false;
+        return empty($this->_thread[$index]['s']);
     }
 
     /**
@@ -131,7 +129,7 @@ class Horde_Imap_Client_Thread
         while (list($k, $v) = each($this->_thread)) {
             if ($k == $begin) {
                 $in_thread = true;
-            } elseif ($in_thread && ($v['base'] != $begin)) {
+            } elseif ($in_thread && ($this->getThreadBase($k) != $begin)) {
                 break;
             }
 

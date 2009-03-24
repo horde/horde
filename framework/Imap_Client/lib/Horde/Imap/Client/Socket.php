@@ -1962,12 +1962,21 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 if (is_null($tp['base']) && ($level || $cnt)) {
                     $tp['base'] = $val;
                 }
-                $tp['resp'][$val] = array(
-                    'base' => $tp['base'],
-                    'last' => $islast,
-                    'level' => $level++,
-                    'id' => $val
-                );
+
+                $tp['resp'][$val] = array();
+                $ptr = &$tp['resp'][$val];
+
+                if (!is_null($tp['base'])) {
+                    $ptr['b'] = $tp['base'];
+                }
+
+                if (!$islast) {
+                    $ptr['s'] = true;
+                }
+
+                if ($level++) {
+                    $ptr['l'] = $level;
+                }
             }
             $islast = true;
         }
