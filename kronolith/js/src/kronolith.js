@@ -1161,7 +1161,7 @@ KronolithCore = {
     contextOnShow: Prototype.emptyFunction,
 
     // By default, no context onClick action
-    contextOnClick: Prototype.emptyFunction,
+    contextOnClick: Prototype.emptyFunction
 
 };
 
