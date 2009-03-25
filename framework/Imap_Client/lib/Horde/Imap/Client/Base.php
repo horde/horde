@@ -2558,10 +2558,8 @@ abstract class Horde_Imap_Client_Base
 
         $status = $this->status($mailbox, Horde_Imap_Client::STATUS_UIDVALIDITY);
         $metadata = $this->_cache->getMetaData($mailbox, $status['uidvalidity'], array('HICsearch'));
-        print_r($metadata);
 
         $cacheid = $this->getCacheId($mailbox);
-        print "CACHEID: $cacheid\n";
         if (isset($metadata['HICsearch']['cacheid']) &&
             ($metadata['HICsearch']['cacheid'] != $cacheid)) {
             $metadata['HICsearch'] = array();
