@@ -909,8 +909,8 @@ KronolithCore = {
                 return;
             }
 
-            if (elt.hasClassName('eventTopTag')) {
-                etags = $F('kronolithEventTags');
+            if (elt.hasClassName('kronolithEventTag')) {
+                var etags = $F('kronolithEventTags');
                 $('kronolithEventTags').value = (etags ? etags + ', ' :  '') + elt.getText();
                 return;
             }
@@ -963,12 +963,11 @@ KronolithCore = {
             RedBox.onDisplay = null;
         };
 
+        this.doAction('ListTopTags', {}, this._topTags);
         if (id) {
             RedBox.loading();
-            this.doAction('ListTopTags', {}, this._topTags.bind(this));
             this.doAction('GetEvent', { 'cal': calendar, 'id': id }, this._editEvent.bind(this));
         } else {
-            this.doAction('ListTopTags', {}, this._topTags.bind(this));
             var d = new Date();
             $('kronolithEventForm').enable();
             $('kronolithEventForm').reset();
@@ -987,12 +986,12 @@ KronolithCore = {
     
     _topTags: function(r)
     {
+        $('kronolithEventTopTags').update();
         if (!r.response.tags) {
             return;
         }
-        $('eventTopTags').update();
         r.response.tags.each(function(tag) {
-            $('eventTopTags').insert(new Element('span', {'class': 'eventTopTag'}).update(tag));
+            $('kronolithEventTopTags').insert(new Element('span', { 'class': 'kronolithEventTag' }).update(tag));
         });
         return;
     },

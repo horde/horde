@@ -730,12 +730,12 @@ div#kronolithEventActions #kronolithEventAdvancedLink a {
     color: inherit;
 }
 
-div.kronolithTags {
+div#kronolithEventTopTags {
     max-height: 75px;
     overflow: auto;
     line-height: 20px;
 }
-div.kronolithTags span {
+div#kronolithEventTopTags span {
     padding: 2px 4px;
     background-color: #fff;
     border: 1px #c0c0c0 solid;
@@ -743,7 +743,7 @@ div.kronolithTags span {
     -webkit-border-radius: 4px;
     font-size: 90%;
 }
-div.kronolithTags span:hover {
+div#kronolithEventTopTags span:hover {
     background-color: #ffc;
     cursor: pointer;
 }

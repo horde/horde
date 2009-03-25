@@ -177,7 +177,7 @@
   <textarea name="tags" id="kronolithEventTags" rows="2" class="kronolithLongField"></textarea>
 </div>
 
-<div id="eventTopTags" class="kronolithTags"></div>
+<div id="kronolithEventTopTags"></div>
 
 <div id="kronolithEventActions">
   <input id="kronolithEventSave" type="button" value="<?php echo _("Save") ?>" class="button ok" />
