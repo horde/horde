@@ -1155,6 +1155,7 @@ abstract class Horde_Imap_Client_Base
             $search_query = new Horde_Imap_Client_Search_Query();
             $search_query->flag('\\deleted', true);
             $search_res = $this->search($this->_selected, $search_query);
+            $mbox = $this->_selected;
         } else {
             $search_res = null;
         }
@@ -1164,7 +1165,7 @@ abstract class Horde_Imap_Client_Base
         $this->_mode = 0;
 
         if (!is_null($search_res)) {
-            $this->_cache->deleteMsgs($this->_selected, $search_res['match']);
+            $this->_cache->deleteMsgs($mbox, $search_res['match']);
         }
     }
 
