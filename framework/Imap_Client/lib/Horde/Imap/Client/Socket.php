@@ -822,18 +822,11 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $this->_init['enabled']['CONDSTORE'] = true;
         }
 
-        if (isset($this->_init['enabled']['CONDSTORE'])) {
-            /* MODSEQ should be set if CONDSTORE is active. Some servers won't
-             * advertise in SELECT/EXAMINE info though. */
-            if (!isset($this->_temp['mailbox']['highestmodseq'])) {
-                $this->_temp['mailbox']['highestmodseq'] = 1;
-            } elseif ($qresync &&
-                      empty($this->_temp['mailbox']['highestmodseq'])) {
-                /* Check that MODSEQ is enabled for the mailbox and, if not,
-                 * delete the cache. Note: Invalidating the cache based on
-                 * UIDVALIDITY is done within Horde_Imap_Client_Cache::. */
-                $this->_cache->deleteMailbox($mailbox);
-            }
+        /* MODSEQ should be set if CONDSTORE is active. Some servers won't
+         * advertise in SELECT/EXAMINE info though. */
+        if (isset($this->_init['enabled']['CONDSTORE']) &&
+            !isset($this->_temp['mailbox']['highestmodseq'])) {
+            $this->_temp['mailbox']['highestmodseq'] = 1;
         }
     }
 
@@ -1274,7 +1267,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         } else {
             // If caching, we need to know the UIDs being deleted, so call
             // expunge() before calling close().
-            if ($this->_initCache()) {
+            if ($this->_initCache(true)) {
                 $this->expunge($this->_selected);
             }
 
@@ -1305,7 +1298,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $seq = !empty($options['sequence']);
         $s_res = null;
         $uidplus = $this->queryCapability('UIDPLUS');
-        $use_cache = $this->_initCache();
+        $use_cache = $this->_initCache(true);
 
         if (empty($options['ids'])) {
             $uid_string = '1:*';
@@ -1398,15 +1391,20 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             if (!empty($expunged)) {
                 $this->_cache->deleteMsgs($mailbox, $expunged);
                 $tmp['mailbox']['messages'] -= $i;
-                if (isset($this->_init['enabled']['QRESYNC'])) {
-                    $this->_updateMetaData($mailbox, array('HICmodseq' => $this->_temp['mailbox']['highestmodseq']));
-                } elseif (isset($this->_init['enabled']['CONDSTORE'])) {
-                    /* Unfortunately, RFC 4551 does not provide any method to
-                     * obtain the HIGHESTMODSEQ after an EXPUNGE is completed.
-                     * Instead, unselect the mailbox - if we need to reselect
-                     * the mailbox, the HIGHESTMODSEQ info will appear in the
-                     * EXAMINE/SELECT response. */
-                    $this->close();
+
+                /* Update MODSEQ if active for mailbox. */
+                if (!empty($this->_temp['mailbox']['highestmodseq'])) {
+                    if (isset($this->_init['enabled']['QRESYNC'])) {
+                        $this->_updateMetaData($mailbox, array('HICmodseq' => $this->_temp['mailbox']['highestmodseq']));
+                    } else {
+                        /* Unfortunately, RFC 4551 does not provide any method
+                         * to obtain the HIGHESTMODSEQ after an EXPUNGE is
+                         * completed. Instead, unselect the mailbox - if we
+                         * need to reselect the mailbox, the HIGHESTMODSEQ
+                         * info will appear in the EXAMINE/SELECT
+                         * HIGHESTMODSEQ response. */
+                        $this->close();
+                    }
                 }
             }
 
@@ -2637,7 +2635,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $cmd_prefix = (empty($options['sequence']) ? 'UID ' : '') .
                       'STORE ' . $seq . ' ';
 
-        $ucsince = null;
+        $condstore = $ucsince = null;
+
         if (empty($this->_temp['mailbox']['highestmodseq'])) {
             if (!empty($options['unchangedsince'])) {
                 /* RFC 4551 [3.1] - trying to do a UNCHANGEDSINCE STORE on a
@@ -2645,12 +2644,21 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                  * here and throw an exception. */
                 throw new Horde_Imap_Client_Exception('Mailbox does not support mod-sequences.', Horde_Imap_Client_Exception::MBOXNOMODSEQ);
             }
-        } elseif (!empty($options['unchangedsince'])) {
-            $ucsince = intval($options['unchangedsince']);
         } else {
-            /* If CONDSTORE is enabled, we need to add UNCHANGEDSINCE output
-             * to ensure we get MODSEQ updated information. */
-            $ucsince = $this->_temp['mailbox']['highestmodseq'];
+            if (!empty($options['unchangedsince'])) {
+                $ucsince = intval($options['unchangedsince']);
+            }
+
+            if (isset($this->_init['enabled']['CONDSTORE'])) {
+                /* If we reach here, MODSEQ is active for mailbox. */
+                $condstore = true;
+
+                /* If CONDSTORE is enabled, we need to verify UNCHANGEDSINCE
+                 * added to ensure we get MODSEQ updated information. */
+                if (is_null($ucsince)) {
+                    $ucsince = $this->_temp['mailbox']['highestmodseq'];
+                }
+            }
         }
 
         if ($ucsince) {
@@ -2671,8 +2679,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         /* Update the flags in the cache. Only update if store was successful
          * and flag information was not returned. */
-        if (!empty($this->_temp['fetchresp']) &&
-            isset($this->_init['enabled']['CONDSTORE'])) {
+        if ($condstore && !empty($this->_temp['fetchresp'])) {
             $fr = $this->_temp['fetchresp'];
             $out = $uids = array();
 
@@ -3576,9 +3583,18 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             break;
 
         case 'HIGHESTMODSEQ':
+            // Defined by RFC 4551 [3.1.1]
+            $this->_temp['mailbox']['highestmodseq'] = $data;
+            break;
+
         case 'NOMODSEQ':
-            // Defined by RFC 4551 [3.1.1 & 3.1.2]
-            $this->_temp['mailbox']['highestmodseq'] = ($code == 'HIGHESTMODSEQ') ? $data : 0;
+            // Defined by RFC 4551 [3.1.2]
+            $this->_temp['mailbox']['highestmodseq'] = 0;
+
+            // Delete cache for mailbox, if it exists.
+            if ($this->_initCache()) {
+                $this->_cache->deleteMailbox($this->_selected);
+            }
             break;
 
         case 'MODIFIED':

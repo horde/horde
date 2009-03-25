@@ -732,7 +732,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
 
             /* If we are using a cache, we need to get the list of
              * messages that will be expunged. */
-            if ($this->_initCache()) {
+            if ($this->_initCache($this->_selected)) {
                 if ($use_seq) {
                     $res = $this->search($this->_selected, $search_query);
                     $expunged = $res['match'];

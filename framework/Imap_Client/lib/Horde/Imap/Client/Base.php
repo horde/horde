@@ -196,10 +196,15 @@ abstract class Horde_Imap_Client_Base
     /**
      * Initialize the Horde_Imap_Client_Cache object, if necessary.
      *
+     * @param boolean $current  If true, we are going to update the currently
+     *                          selected mailbox. Add an additional check to
+     *                          see if caching is available in current
+     *                          mailbox.
+     *
      * @return boolean  Returns true if caching is enabled.
      * @throws Horde_Imap_Client_Exception
      */
-    protected function _initCache()
+    protected function _initCache($current = false)
     {
         if (empty($this->_params['cache']['fields'])) {
             return false;
@@ -214,7 +219,14 @@ abstract class Horde_Imap_Client_Base
             )));
         }
 
-        return true;
+        if (!$current) {
+            return true;
+        }
+
+        /* If UIDs are labeled as not sticky, don't cache since UIDs will
+         * change on every access. */
+        $status = $this->status($this->_selected, Horde_Imap_Client::STATUS_UIDNOTSTICKY);
+        return !$status['uidnotsticky'];
     }
 
     /**
@@ -260,7 +272,9 @@ abstract class Horde_Imap_Client_Base
             }
         }
         $capability = strtoupper($capability);
-        return isset($this->_init['capability'][$capability]) ? $this->_init['capability'][$capability] : false;
+        return isset($this->_init['capability'][$capability])
+            ? $this->_init['capability'][$capability]
+            : false;
     }
 
     /**
@@ -909,9 +923,9 @@ abstract class Horde_Imap_Client_Base
      *   Return key: 'highestmodseq'
      *   Return format: (integer) If the server supports the CONDSTORE IMAP
      *                  extension, this will be the highest mod-sequence value
-     *                  of all messages in the mailbox or 0 if the mailbox
-     *                  does not support mod-sequences. Else, this value will
-     *                  be undefined.
+     *                  of all messages in the mailbox. Else 0 if CONDSTORE
+     *                  not available or the mailbox does not support
+     *                  mod-sequences.
      *
      * Flag: Horde_Imap_Client::STATUS_UIDNOTSTICKY
      *   Return key: 'uidnotsticky'
@@ -960,6 +974,19 @@ abstract class Horde_Imap_Client_Base
                     $flags &= ~$val;
                 }
             }
+        }
+
+        /* Catch flags that are not supported. */
+        if (($flags & Horde_Imap_Client::STATUS_HIGHESTMODSEQ) &&
+            isset($this->_init['enabled']['CONDSTORE'])) {
+            $ret['highestmodseq'] = 0;
+            $flags &= ~$val;
+        }
+
+        if (($flags & Horde_Imap_Client::STATUS_UIDNOTSTICKY) &&
+            !$this->queryCapability('UIDPLUS')) {
+            $ret['uidnotsticky'] = false;
+            $flags &= ~$val;
         }
 
         if (!$flags) {
@@ -1123,7 +1150,8 @@ abstract class Horde_Imap_Client_Base
         }
 
         /* If we are caching, search for deleted messages. */
-        if (!empty($options['expunge']) && $this->_initCache()) {
+        if (!empty($options['expunge']) &&
+            $this->_initCache(true)) {
             $search_query = new Horde_Imap_Client_Search_Query();
             $search_query->flag('\\deleted', true);
             $search_res = $this->search($this->_selected, $search_query);
@@ -1301,6 +1329,8 @@ abstract class Horde_Imap_Client_Base
 
         $type = empty($options['sort']) ? 'match' : 'sort';
 
+        $this->openMailbox($mailbox, Horde_Imap_Client::OPEN_AUTO);
+
         /* Take advantage of search result caching.  If CONDSTORE available,
          * we can cache all queries and invalidate the cache when the MODSEQ
          * changes. If CONDSTORE not available, we can only store queries
@@ -1308,7 +1338,7 @@ abstract class Horde_Imap_Client_Base
          * array - the generated query is already added to '_query' key
          * above. */
         $cache = null;
-        if ($this->_initCache() &&
+        if ($this->_initCache(true) &&
             (isset($this->_init['enabled']['CONDSTORE']) ||
              !$query->flagSearch())) {
             $cache = $this->_getSearchCache('search', $mailbox, $options);
@@ -1319,8 +1349,6 @@ abstract class Horde_Imap_Client_Base
                 return $cache['data'];
             }
         }
-
-        $this->openMailbox($mailbox, Horde_Imap_Client::OPEN_AUTO);
 
         $ret = $this->_search($query, $options);
 
@@ -1441,12 +1469,14 @@ abstract class Horde_Imap_Client_Base
      */
     public function thread($mailbox, $options = array())
     {
+        $this->openMailbox($mailbox, Horde_Imap_Client::OPEN_AUTO);
+
         /* Take advantage of search result caching.  If CONDSTORE available,
          * we can cache all queries and invalidate the cache when the MODSEQ
          * changes. If CONDSTORE not available, we can only store queries
          * that don't involve flags. See search() for similar caching. */
         $cache = null;
-        if ($this->_initCache() &&
+        if ($this->_initCache(true) &&
             (isset($this->_init['enabled']['CONDSTORE']) ||
              empty($options['search']) ||
              !$options['search']->flagSearch())) {
@@ -1455,8 +1485,6 @@ abstract class Horde_Imap_Client_Base
                 return $cache['data'];
             }
         }
-
-        $this->openMailbox($mailbox, Horde_Imap_Client::OPEN_AUTO);
 
         $ob = new Horde_Imap_Client_Thread($this->_thread($options), empty($options['sequence']) ? 'uid' : 'sequence');
 
@@ -1835,7 +1863,6 @@ abstract class Horde_Imap_Client_Base
     public function fetch($mailbox, $criteria, $options = array())
     {
         $cache_array = $get_fields = $new_criteria = $ret = array();
-        $cf = $this->_initCache() ? $this->_params['cache']['fields'] : array();
         $qresync = isset($this->_init['enabled']['QRESYNC']);
         $seq = !empty($options['sequence']);
 
@@ -1853,13 +1880,16 @@ abstract class Horde_Imap_Client_Base
             throw new Horde_Imap_Client_Exception('The vanished FETCH modifier is missing a pre-requisite.');
         }
 
+        $this->openMailbox($mailbox, Horde_Imap_Client::OPEN_AUTO);
+
+        $cf = $this->_initCache(true)
+            ? $this->_params['cache']['fields']
+            : array();
+
         /* The 'changedsince' modifier implicitly adds the MODSEQ FETCH item.
          * (RFC 4551 [3.3.1]). A UID SEARCH will always return UID
          * information (RFC 3501 [6.4.8]). Don't add to criteria because it
          * simply creates a longer FETCH command. */
-
-        $this->openMailbox($mailbox, Horde_Imap_Client::OPEN_AUTO);
-
         if (!empty($cf)) {
             /* We need the UIDVALIDITY for the current mailbox. */
             $status_res = $this->status($this->_selected, Horde_Imap_Client::STATUS_HIGHESTMODSEQ | Horde_Imap_Client::STATUS_UIDVALIDITY);
@@ -2443,7 +2473,11 @@ abstract class Horde_Imap_Client_Base
      */
     protected function _updateCache($data, $options = array())
     {
-        if (!$this->_initCache()) {
+        $mailbox = empty($options['mailbox'])
+            ? $this->_selected
+            : $options['mailbox'];
+
+        if (!$this->_initCache(empty($options['mailbox']))) {
             return;
         }
 
@@ -2453,7 +2487,6 @@ abstract class Horde_Imap_Client_Base
 
         $cf = $this->_params['cache']['fields'];
         $tocache = array();
-        $mailbox = empty($options['mailbox']) ? $this->_selected : $options['mailbox'];
 
         $status_flags = 0;
         if (isset($this->_init['enabled']['CONDSTORE'])) {
