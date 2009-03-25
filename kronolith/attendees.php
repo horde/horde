@@ -179,7 +179,7 @@ case 'clear':
 }
 
 // Get the current Free/Busy view; default to the 'day' view if none specified.
-$view = Util::getFormData('view', 'day');
+$view = Util::getFormData('view', 'Day');
 
 // Pre-format our delete image/link.
 $delimg = Horde::img('delete.png', _("Remove Attendee"), null,
@@ -189,10 +189,10 @@ $ident = &Identity::singleton();
 $identities = $ident->getAll('id');
 $vars = Variables::getDefaultVariables();
 $tabs = new Horde_UI_Tabs(null, $vars);
-$tabs->addTab(_("Day"), 'javascript:switchView(\'day\')', 'day');
-$tabs->addTab(_("Work Week"), 'javascript:switchView(\'workweek\')', 'workweek');
-$tabs->addTab(_("Week"), 'javascript:switchView(\'week\')', 'week');
-$tabs->addTab(_("Month"), 'javascript:switchView(\'month\')', 'month');
+$tabs->addTab(_("Day"), 'javascript:switchView(\'Day\')', 'Day');
+$tabs->addTab(_("Work Week"), 'javascript:switchView(\'Workweek\')', 'Workweek');
+$tabs->addTab(_("Week"), 'javascript:switchView(\'Week\')', 'Week');
+$tabs->addTab(_("Month"), 'javascript:switchView(\'Month\')', 'Month');
 
 $attendee_view = &Kronolith_FreeBusy_View::singleton($view);
 

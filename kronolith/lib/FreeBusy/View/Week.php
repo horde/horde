@@ -50,7 +50,7 @@ class Kronolith_FreeBusy_View_Week extends Kronolith_FreeBusy_View {
             $t = new Horde_Date(array('month' => $this->_start->month,
                                       'mday' => $this->_start->mday + $i,
                                       'year' => $this->_start->year));
-            $day_label = Horde::link('#', '', '', '', 'return switchDateView(\'day\',' . $t->dateString() . ');') . $t->strftime($date_format) . '</a>';
+            $day_label = Horde::link('#', '', '', '', 'return switchDateView(\'Day\',' . $t->dateString() . ');') . $t->strftime($date_format) . '</a>';
             $hours_html .= sprintf('<th colspan="%d" width="%s%%">%s</th>',
                                    $span, $dayWidth, $day_label);
         }
