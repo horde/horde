@@ -50,11 +50,8 @@ class Horde_Imap_Client_Exception extends Exception
     // mod-sequences.
     const MBOXNOMODSEQ = 10;
 
-    // Thrown if the cache has become invalid.
-    const CACHEUIDINVALID = 11;
-
     // Thrown if server denies the network connection.
-    const SERVER_CONNECT = 12;
+    const SERVER_CONNECT = 11;
 
     /**
      * Define a callback function used to log the exception. Will be passed

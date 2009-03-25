@@ -266,7 +266,7 @@ class Horde_Imap_Client_Cache
      *                           the uidvalidity is still valid.
      * @param integer $uidvalid  The IMAP uidvalidity value of the mailbox.
      */
-    public function set($mailbox, $data, $uidvalid = null)
+    public function set($mailbox, $data, $uidvalid)
     {
         $save = array_keys($data);
         if (empty($save)) {
@@ -303,9 +303,10 @@ class Horde_Imap_Client_Cache
     /**
      * Get metadata information for a mailbox.
      *
-     * @param string $mailbox  An IMAP mailbox string.
-     * @param array $entries   An array of entries to return. If empty,
-     *                         returns all metadata.
+     * @param string $mailbox    An IMAP mailbox string.
+     * @param integer $uidvalid  The IMAP uidvalidity value of the mailbox.
+     * @param array $entries     An array of entries to return. If empty,
+     *                           returns all metadata.
      *
      * @return array  The requested metadata. Requested entries that do not
      *                exist will be undefined. The following entries are
@@ -314,9 +315,9 @@ class Horde_Imap_Client_Cache
      * 'uidvalid' - (integer) The UIDVALIDITY of the mailbox.
      * </pre>
      */
-    public function getMetaData($mailbox, $entries = array())
+    public function getMetaData($mailbox, $uidvalid = null, $entries = array())
     {
-        $this->_loadSliceMap($mailbox);
+        $this->_loadSliceMap($mailbox, $uidvalid);
         return empty($entries)
             ? $this->_slicemap[$mailbox]['data']
             : array_intersect_key($this->_slicemap[$mailbox]['data'], array_flip($entries));
@@ -325,17 +326,18 @@ class Horde_Imap_Client_Cache
     /**
      * Set metadata information for a mailbox.
      *
-     * @param string $mailbox  An IMAP mailbox string.
-     * @param array $data      The list of data to save. The keys are the
-     *                         metadata IDs, the values are the associated
-     *                         data. The following labels are reserved:
-     *                         'uidvalid'.
+     * @param string $mailbox    An IMAP mailbox string.
+     * @param integer $uidvalid  The IMAP uidvalidity value of the mailbox.
+     * @param array $data        The list of data to save. The keys are the
+     *                           metadata IDs, the values are the associated
+     *                           data. The following labels are reserved:
+     *                           'uidvalid'.
      */
-    public function setMetaData($mailbox, $data = array())
+    public function setMetaData($mailbox, $uidvalid, $data = array())
     {
         if (!empty($data)) {
             unset($data['uidvalid']);
-            $this->_loadSliceMap($mailbox);
+            $this->_loadSliceMap($mailbox, $uidvalid);
             $this->_slicemap[$mailbox]['data'] = array_merge($this->_slicemap[$mailbox]['data'], $data);
             if (!isset($this->_save[$mailbox])) {
                 $this->_save[$mailbox] = array();
@@ -591,22 +593,24 @@ class Horde_Imap_Client_Cache
             $ptr = &$this->_slicemap[$mailbox]['data']['uidvalid'];
             if (is_null($ptr)) {
                 $ptr = $uidvalid;
+                return;
             } elseif (!is_null($uidvalid) && ($ptr != $uidvalid)) {
                 $this->deleteMailbox($mailbox);
-                throw new Horde_Imap_Client_Exception('UIDs have been invalidated', Horde_Imap_Client_Exception::CACHEUIDINVALID);
+            } else {
+                return;
             }
-        } else {
-            $this->_slicemap[$mailbox] = array(
-                // Tracking count for purposes of determining slices
-                'count' => 0,
-                // Metadata storage
-                // By default includes UIDVALIDITY of mailbox.
-                'data' => array('uidvalid' => $uidvalid),
-                // UIDs to delete
-                'delete' => array(),
-                // The slice list.
-                'slice' => array()
-            );
         }
+
+        $this->_slicemap[$mailbox] = array(
+            // Tracking count for purposes of determining slices
+            'count' => 0,
+            // Metadata storage
+            // By default includes UIDVALIDITY of mailbox.
+            'data' => array('uidvalid' => $uidvalid),
+            // UIDs to delete
+            'delete' => array(),
+            // The slice list.
+            'slice' => array()
+        );
     }
 }
