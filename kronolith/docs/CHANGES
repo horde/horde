@@ -17,7 +17,7 @@ v3.0-git
 v2.3.1-cvs
 ----------
 
-[jan] Fix start and end time calculation of multi-day events (Bug #7799).
+[jan] Fix start and end time calculation of multi-day events (Bug #7788).
 [jan] Wrap URL in calendar information in IE7 (almarin@um.es, Bug #8043).
 [jan] Fix "Date-string has wrong format" error with holidays (Bug #7961).
 [jan] Use improved translation support in Date_Holidays (Bug #7272).
