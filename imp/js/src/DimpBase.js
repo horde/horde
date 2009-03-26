@@ -2457,7 +2457,26 @@ DimpBase._folderDropConfig = {
         if (drop == $('dropbase')) {
             return DIMP.text.moveto.replace(/%s/, d).replace(/%s/, DIMP.text.baselevel);
         } else {
-            m = (e.ctrlKey) ? DIMP.text.copyto : DIMP.text.moveto;
+            switch (e.type) {
+            case 'mousemove':
+                m = (e.ctrlKey) ? DIMP.text.copyto : DIMP.text.moveto;
+                break;
+
+            case 'keydown':
+                /* Can't use ctrlKey here since different browsers handle
+                 * the ctrlKey in different ways when it comes to firing
+                 * keybaord events. */
+                m = (e.keyCode == 17) ? DIMP.text.copyto : DIMP.text.moveto;
+                break;
+
+            case 'keyup':
+                if (e.keyCode == 17) {
+                    m = DIMP.text.moveto;
+                } else {
+                    m = (e.ctrlKey) ? DIMP.text.copyto : DIMP.text.moveto;
+                }
+                break;
+            }
             if (drag.hasClassName('folder')) {
                 return (ftype != 'special' && !DimpBase.isSubfolder(drag, drop)) ? m.replace(/%s/, d).replace(/%s/, l) : '';
             } else {
@@ -2465,6 +2484,7 @@ DimpBase._folderDropConfig = {
             }
         }
     },
+    keypress: true,
     onDrop: DimpBase._folderDropHandler.bind(DimpBase)
 };
 
