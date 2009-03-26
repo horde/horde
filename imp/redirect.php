@@ -117,7 +117,7 @@ if (isset($_SESSION['imp']) && is_array($_SESSION['imp'])) {
         (!is_null($pass) && ($pass != $GLOBALS['imp_imap']->ob->getParam('password')))) {
         /* Disable the old session. */
         unset($_SESSION['imp']);
-        _redirect(Auth::addLogoutParameters(IMP::logoutUrl(), AUTH_REASON_FAILED));
+        _redirect(IMP::getLogoutUrl(AUTH_REASON_FAILED, true));
     }
 
     /* Finish up any login tasks we haven't completed yet. */
@@ -174,7 +174,7 @@ if (!is_null($imapuser) && !is_null($pass)) {
         _redirect(_framesetUrl(_newSessionUrl($actionID, $isLogin)));
     }
 
-    _redirect(Auth::addLogoutParameters(IMP::logoutUrl()));
+    _redirect(IMP::getLogoutUrl(null, true));
 }
 
 /* No session, and no login attempt. Just go to the login page. */

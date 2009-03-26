@@ -100,7 +100,7 @@ class IMP
         if (Util::getFormData('popup')) {
             Util::closeWindowJS();
         } else {
-            $url = Util::addParameter(Auth::addLogoutParameters(self::logoutUrl()), 'url', Horde::selfUrl(true));
+            $url = Util::addParameter(self::getLogoutUrl(null, true), 'url', Horde::selfUrl(true));
             header('Location: ' . $url);
         }
         exit;
@@ -451,43 +451,6 @@ class IMP
         }
 
         return Util::addParameter(Horde::applicationUrl(($view == 'mimp') ? 'compose-mimp.php' : 'compose.php'), $args);
-    }
-
-    /**
-     * Generates an URL to the logout screen that includes any known
-     * information, such as username, server, etc., that can be filled in on
-     * the login form.
-     *
-     * @return string  Logout URL with logout parameters added.
-     */
-    static public function logoutUrl()
-    {
-        // TODO
-        $params = array(
-            'imapuser' => isset($_SESSION['imp']['user']) ?
-                          $_SESSION['imp']['user'] :
-                          Util::getFormData('imapuser'),
-            'server'   => isset($_SESSION['imp']['server']) ?
-                          $_SESSION['imp']['server'] :
-                          Util::getFormData('server'),
-            'port'     => isset($_SESSION['imp']['port']) ?
-                          $_SESSION['imp']['port'] :
-                          Util::getFormData('port'),
-            'protocol' => isset($_SESSION['imp']['protocol']) ?
-                          $_SESSION['imp']['protocol'] :
-                          Util::getFormData('protocol'),
-            'language' => isset($_SESSION['imp']['language']) ?
-                          $_SESSION['imp']['language'] :
-                          Util::getFormData('language'),
-            'smtphost' => isset($_SESSION['imp']['smtphost']) ?
-                          $_SESSION['imp']['smtphost'] :
-                          Util::getFormData('smtphost'),
-            'smtpport' => isset($_SESSION['imp']['smtpport']) ?
-                          $_SESSION['imp']['smtpport'] :
-                          Util::getFormData('smtpport'),
-        );
-
-        return Util::addParameter($GLOBALS['registry']->get('webroot', 'imp') . '/login.php', array_diff($params, array('')), null, false);
     }
 
     /**
@@ -1364,13 +1327,36 @@ class IMP
     /**
      * Returns the proper logout URL for logging out of IMP.
      *
+     * @param integer $reason
+     * @param boolean $force  Force URL to IMP login page.
+     *
      * @return string  The logout URL.
      */
-    static public function getLogoutUrl()
+    static public function getLogoutUrl($reason = null, $force = false)
     {
-        return ((Auth::getProvider() == 'imp') || $_SESSION['imp']['autologin'])
-            ? Horde::getServiceLink('logout', 'horde', true)
-            : Auth::addLogoutParameters($GLOBALS['registry']->get('webroot', 'imp') . '/login.php', AUTH_REASON_LOGOUT);
+        $params = array_filter(array(
+            'server_key' => isset($_SESSION['imp']['server_key']) ?
+                          $_SESSION['imp']['server_key'] :
+                          Util::getFormData('server_key'),
+            'language' => Util::getFormData('language')
+        ));
+
+        if ($force ||
+            !((Auth::getProvider() != 'imp') || !$_SESSION['imp']['autologin'])) {
+            $url = $GLOBALS['registry']->get('webroot', 'imp') . '/login.php';
+        } else {
+            $url = Horde::getServiceLink('logout', 'horde', true);
+        }
+
+        $url = (!is_null($reason) && is_array($reason))
+            ? Auth::addLogoutParameters($url, $reason[0], $reason[1])
+            : Auth::addLogoutParameters($url, $reason);
+
+        if (!empty($params)) {
+            $url = Util::addParameter($url, $params, null, false);
+        }
+
+        return $url;
     }
 
     /**

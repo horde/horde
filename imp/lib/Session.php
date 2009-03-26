@@ -43,6 +43,7 @@ class IMP_Session
      * 'protocol'      -- Either 'imap' or 'pop'.
      * 'rteavail'      -- Is the HTML editor available?
      * 'search'        -- Settings used by the IMP_Search library.
+     * 'server_key'    -- Server used to login.
      * 'smime'         -- Settings related to the S/MIME viewer.
      * 'smtp'          -- SMTP options ('host' and 'port')
      * 'showunsub'     -- Show unsusubscribed mailboxes on the folders screen.
@@ -69,6 +70,7 @@ class IMP_Session
         $_SESSION['imp'] = array(
             'cache' => array(),
             'imap' => array(),
+            'server_key' => $server,
             'showunsub' => false
         );
         $sess = &$_SESSION['imp'];
