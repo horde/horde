@@ -55,6 +55,21 @@ class Horde_Vcs_Git extends Horde_Vcs
     protected $_branchlist;
 
     /**
+     * The git version
+     *
+     * @var string
+     */
+    public $version;
+
+    public function __construct($params = array())
+    {
+        parent::__construct($params);
+
+        $v = trim(shell_exec($this->getPath('git') . ' --version'));
+        $this->version = preg_replace('/[^\d\.]/', '', $v);
+    }
+
+    /**
      * TODO
      */
     public function isValidRevision($rev)
@@ -365,9 +380,23 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File
         parent::__construct($rep, $fl, $opts);
 
         $log_list = null;
-        $revs = array();
 
-        $cmd = $rep->getCommand() . ' rev-list --branches -- ' . escapeshellarg($this->queryModulePath()) . ' 2>&1';
+        if (version_compare($rep->version, '1.6.0', '>=')) {
+            $cmd = $rep->getCommand() . ' rev-list --branches -- ' . escapeshellarg($this->queryModulePath()) . ' 2>&1';
+        } else {
+            $cmd = $rep->getCommand() . ' branch -v --no-abbrev';
+            exec($cmd, $branch_heads);
+            if (stripos($branch_heads[0], 'fatal') === 0) {
+                throw new Horde_Vcs_Exception(implode(', ', $branch_heads));
+            }
+            foreach ($branch_heads as &$hd) {
+                $line = explode(' ', substr($hd, 2));
+                $hd = $line[1];
+            }
+
+            $cmd = $rep->getCommand() . ' rev-list ' . implode(' ', $branch_heads) . ' -- ' . escapeshellarg($this->queryModulePath()) . ' 2>&1';
+        }
+
         exec($cmd, $revs);
         if (stripos($revs[0], 'fatal') === 0) {
             throw new Horde_Vcs_Exception(implode(', ', $revs));
