@@ -109,7 +109,7 @@ class Horde_Kolab_Server_Object_adminrole extends Horde_Kolab_Server_Object_base
                               $this->db->getBaseUid());
 
         $admin_group = $this->db->fetch($admins_uid, 'Horde_Kolab_Server_Object_group');
-        if (is_a($admin_group, 'PEAR_Error') || !$admin_group->exists()) {
+        if ($admin_group instanceOf PEAR_Error || !$admin_group->exists()) {
 
             $members = array($this->uid);
 
@@ -121,12 +121,12 @@ class Horde_Kolab_Server_Object_adminrole extends Horde_Kolab_Server_Object_base
                                            'type' => 'Horde_Kolab_Server_Object_group',
                                            self::ATTRIBUTE_MEMBER => $members,
                                            self::ATTRIBUTE_VISIBILITY => false));
-            if (is_a($result, 'PEAR_Error')) {
+            if ($result instanceOf PEAR_Error) {
                 return $result;
             }
         } else {
             $result = $admin_group->isMember($this->uid);
-            if (is_a($result, 'PEAR_Error')) {
+            if ($result instanceOf PEAR_Error) {
                 return $result;
             }
             if ($result === false) {

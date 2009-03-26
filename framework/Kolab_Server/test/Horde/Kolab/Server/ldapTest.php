@@ -56,7 +56,7 @@ class Horde_Kolab_Server_ldapTest extends PHPUnit_Framework_TestCase
                                           'count' => 1)));
 
         $classes = $ldap->getObjectClasses('cn=Gunnar Wrobel,dc=example,dc=org');
-        if (is_a($classes, 'PEAR_Error')) {
+        if ($classes instanceOf PEAR_Error) {
             $this->assertEquals('', $classes->getMessage());
         }
         $this->assertContains('top', $classes);

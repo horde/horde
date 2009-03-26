@@ -727,9 +727,9 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
      */
     public function assertNoError($var)
     {
-        if (is_a($var, 'Horde_Kolab_Server_Exception')) {
+        if ($var instanceOf Horde_Kolab_Server_Exception) {
             $this->assertEquals('', $var->getMessage());
-        } else if (is_a($var, 'PEAR_Error')) {
+        } else if ($var instanceOf PEAR_Error) {
             $this->assertEquals('', $var->getMessage());
         }
     }
@@ -746,7 +746,7 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
      */
     public function assertError($var, $msg = null)
     {
-        if (!is_a($var, 'PEAR_Error')) {
+        if (!$var instanceOf PEAR_Error) {
             $this->assertType('Horde_Kolab_Server_Exception', $var);
             if (isset($msg)) {
                 $this->assertEquals($msg, $var->getMessage());

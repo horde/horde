@@ -147,7 +147,7 @@ class Horde_Kolab_Server_Object
      * @return Horde_Kolab_Server_Object|PEAR_Error The newly created concrete
      *                                 Horde_Kolab_Server_Object instance.
      */
-    public function &factory($type, $uid, &$storage, $data = null)
+    static public function &factory($type, $uid, &$storage, $data = null)
     {
         $result = Horde_Kolab_Server_Object::loadClass($type);
 
@@ -170,7 +170,7 @@ class Horde_Kolab_Server_Object
      *
      * @return true|PEAR_Error True if successfull.
      */
-    public static function loadClass($type)
+    static public function loadClass($type)
     {
         if (!class_exists($type)) {
             throw new Horde_Kolab_Server_Exception('Class definition of ' . $type . ' not found.');
@@ -356,7 +356,7 @@ class Horde_Kolab_Server_Object
         $info[self::ATTRIBUTE_OC] = $this->object_classes;
 
         $result = $this->db->save($this->uid, $info);
-        if ($result === false || is_a($result, 'PEAR_Error')) {
+        if ($result === false || $result instanceOf PEAR_Error) {
             return $result;
         }
 
