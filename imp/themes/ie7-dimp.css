@@ -24,12 +24,8 @@ div.msgSize {
 form#compose {
     margin-top: -13px;
 }
-#to, #cc, #bcc {
+#to, #cc, #bcc, .msgBody {
     overflow: auto;
-}
-
-.msgBody {
-    width: expression(document.body.clientWidth-220);
 }
 
 .block-monthgrid table {
