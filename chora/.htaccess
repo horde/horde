@@ -3,5 +3,5 @@
 	RewriteRule   ^([a-z]+).php/(.*)$ $1.php?f=$2 [QSA,L]
 	RewriteCond   %{REQUEST_FILENAME}  !-d
 	RewriteCond   %{REQUEST_FILENAME}  !-f
-	RewriteRule   ^(.*)$ browse.php?f=$1 [QSA]
+	RewriteRule   ^(.*)$ browsedir.php?f=$1 [QSA]
 </IfModule>
