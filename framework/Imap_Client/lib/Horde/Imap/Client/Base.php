@@ -980,13 +980,13 @@ abstract class Horde_Imap_Client_Base
         if (($flags & Horde_Imap_Client::STATUS_HIGHESTMODSEQ) &&
             isset($this->_init['enabled']['CONDSTORE'])) {
             $ret['highestmodseq'] = 0;
-            $flags &= ~$val;
+            $flags &= ~Horde_Imap_Client::STATUS_HIGHESTMODSEQ;
         }
 
         if (($flags & Horde_Imap_Client::STATUS_UIDNOTSTICKY) &&
             !$this->queryCapability('UIDPLUS')) {
             $ret['uidnotsticky'] = false;
-            $flags &= ~$val;
+            $flags &= ~Horde_Imap_Client::STATUS_UIDNOTSTICKY;
         }
 
         if (!$flags) {
