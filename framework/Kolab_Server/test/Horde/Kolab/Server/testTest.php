@@ -111,12 +111,12 @@ class Horde_Kolab_Server_testTest extends Horde_Kolab_Test_Server
         $result = $server->listObjects('Horde_Kolab_Server_Object_user');
         $this->assertNoError($result);
         $this->assertEquals(2, count($result));
-        $this->assertEquals('Horde_Kolab_Server_Object_user', get_class($result[0]));
+        $this->assertEquals('Horde_Kolab_Server_Object_user', get_class(array_shift($result)));
 
         $result = $server->listObjects('Horde_Kolab_Server_Object_sharedfolder');
         $this->assertNoError($result);
         $this->assertEquals(1, count($result));
-        $this->assertEquals('Horde_Kolab_Server_Object_sharedfolder', get_class($result[0]));
+        $this->assertEquals('Horde_Kolab_Server_Object_sharedfolder', get_class(array_shift($result)));
     }
 
     /**

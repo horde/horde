@@ -88,7 +88,7 @@ abstract class Horde_Kolab_Server
      * @throws Horde_Kolab_Server_Exception If the requested Horde_Kolab_Server
      *                                      subclass could not be found.
      */
-    public function &factory($driver, $params = array())
+    static public function &factory($driver, $params = array())
     {
         $class = 'Horde_Kolab_Server_' . basename($driver);
         if (class_exists($class)) {
@@ -119,7 +119,7 @@ abstract class Horde_Kolab_Server
      *                                      missing or the given user could not
      *                                      be identified.
      */
-    public function &singleton($params = null)
+    static public function &singleton($params = null)
     {
         global $conf;
 
@@ -270,8 +270,8 @@ abstract class Horde_Kolab_Server
         }
 
         $hash = array();
-        foreach ($list as $entry) {
-            $hash[] = $entry->toHash($attributes);
+        foreach ($list as $uid => $entry) {
+            $hash[$uid] = $entry->toHash($attributes);
         }
 
         return $hash;

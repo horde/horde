@@ -244,7 +244,7 @@ class Horde_Kolab_Server_ldap extends Horde_Kolab_Server
                 continue;
             }
             $result    = $this->fetch($dn, $type);
-            $objects[] = $result;
+            $objects[$dn] = $result;
         }
         return $objects;
     }
