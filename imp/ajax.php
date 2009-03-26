@@ -511,7 +511,7 @@ case 'GetForwardData':
     $imp_compose = IMP_Compose::singleton(Util::getPost('imp_compose'));
     $imp_contents = IMP_Contents::singleton($idx_string);
     $imp_ui = new IMP_UI_Compose();
-    $fwd_msg = $imp_ui->getForwardData($imp_compose, $imp_contents, Util::getPost('type'), $idx_string);
+    $fwd_msg = $imp_ui->getForwardData($imp_compose, $imp_contents, $idx_string);
     $header = $fwd_msg['headers'];
     $header['replytype'] = 'forward';
 

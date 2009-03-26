@@ -77,8 +77,8 @@ $prefGroups['reply_forward'] = array(
     'column' => _("Message Options"),
     'label' => _("Message Replies/Forwards"),
     'desc' => _("Customize how you reply to or forward mail."),
-    'members' => array('reply_quote', 'reply_format', 'forward_default',
-                       'forward_bodytext', 'reply_headers', 'attrib_text')
+    'members' => array('reply_quote', 'reply_format', 'forward_bodytext',
+                       'reply_headers', 'attrib_text')
 );
 
 $prefGroups['drafts'] = array(
@@ -701,21 +701,9 @@ $_prefs['reply_format'] = array(
     'type' => 'checkbox',
     'desc' => _("When replying/forwarding to a message, should we use the same format as the original message?"));
 
-// What should the default forward method be?
-$_prefs['forward_default'] = array(
-    'value' => 'forward_all',
-    'locked' => false,
-    'shared' => false,
-    'type' => 'enum',
-    'enum' => array('forward_all' => _("Entire Message"),
-                    'forward_body' => _("Body Text Only"),
-                    'forward_attachments' => _("Body Text with Attachments")),
-    'desc' => _("Default forwarding method:"),
-    'help' => 'message-forward');
-
 // Should the original message be included?
 $_prefs['forward_bodytext'] = array(
-    'value' => 1,
+    'value' => 0,
     'locked' => false,
     'shared' => false,
     'type' => 'checkbox',

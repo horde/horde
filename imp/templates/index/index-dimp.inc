@@ -393,12 +393,6 @@ function _simpleButton($id, $text, $image, $imagedir = null)
  <a id="ctx_reply_reply_list"><span class="contextImg"></span><?php echo _("To List") ?></a>
 </div>
 
-<div class="context" id="ctx_forward" style="display:none">
- <a id="ctx_forward_forward_all"><span class="contextImg"></span><?php echo _("Entire Message") ?></a>
- <a id="ctx_forward_forward_body"><span class="contextImg"></span><?php echo _("Body Text Only") ?></a>
- <a id="ctx_forward_forward_attachments"><span class="contextImg"></span><?php echo _("Attachments Only") ?></a>
-</div>
-
 <div class="context" id="ctx_otheractions" style="display:none">
  <a id="previewtoggle"><span class="contextImg"></span><?php echo ($prefs->getValue('dimp_show_preview') ? _("Hide Preview") : _("Show Preview")); ?></a>
  <div class="sep"></div>

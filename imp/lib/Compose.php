@@ -1323,8 +1323,6 @@ class IMP_Compose
      * Determine the text and headers for a forwarded message.
      *
      * @param IMP_Contents $contents  An IMP_Contents object.
-     * @param string $forcebodytxt    Force addition of body text, even if
-     *                                prefs would not allow it.
      *
      * @return array  An array with the following keys:
      * <pre>
@@ -1336,7 +1334,7 @@ class IMP_Compose
      *              message's addresses.
      * </pre>
      */
-    public function forwardMessage($contents, $forcebodytxt = false)
+    public function forwardMessage($contents)
     {
         /* The headers of the message. */
         $header = array(
@@ -1365,7 +1363,7 @@ class IMP_Compose
             $header['subject'] = 'Fwd:';
         }
 
-        if ($forcebodytxt || $GLOBALS['prefs']->getValue('forward_bodytext')) {
+        if ($GLOBALS['prefs']->getValue('forward_bodytext')) {
             $from = Horde_Mime_Address::addrArray2String($h->getOb('from'));
 
             $msg_pre = "\n----- " .

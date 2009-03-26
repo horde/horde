@@ -22,9 +22,7 @@ var DimpFullmessage = {
             func = 'GetReplyData';
             break;
 
-        case 'forward_all':
-        case 'forward_body':
-        case 'forward_attachments':
+        case 'forward':
             func = 'GetForwardData';
             break;
         }
@@ -86,7 +84,7 @@ var DimpFullmessage = {
 
             case 'forward_link':
             case 'reply_link':
-                this.quickreply(id == 'reply_link' ? 'reply' : DIMP.conf.forward_default);
+                this.quickreply(id == 'reply_link' ? 'reply' : 'forward');
                 e.stop();
                 return;
 
@@ -120,12 +118,6 @@ var DimpFullmessage = {
             this.quickreply(id.substring(10));
             break;
 
-        case 'ctx_forward_forward_all':
-        case 'ctx_forward_forward_body':
-        case 'ctx_forward_forward_attachments':
-            this.quickreply(id.substring(12));
-            break;
-
         default:
             parentfunc(id, elt);
             break;
@@ -145,7 +137,6 @@ var DimpFullmessage = {
         DimpCore.init();
 
         this.addPopdown('reply_link', 'replypopdown');
-        this.addPopdown('forward_link', 'fwdpopdown');
 
         /* Set up address linking. */
         [ 'from', 'to', 'cc', 'bcc', 'replyTo' ].each(function(a) {

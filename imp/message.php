@@ -507,10 +507,7 @@ if (!IMP::$printMode) {
             $a_template->set('show_reply_all', Horde::widget(IMP::composeLink(array(), array('actionID' => 'reply_all') + $compose_params), _("To All"), 'widget', '', '', _("To _All"), true));
         }
 
-        $a_template->set('forward', Horde::widget(IMP::composeLink(array(), array('actionID' => $prefs->getValue('forward_default')) + $compose_params), _("Forward"), 'widget hasmenu', '', '', _("Fo_rward"), true));
-        $a_template->set('forwardall', Horde::widget(IMP::composeLink(array(), array('actionID' => 'forward_all') + $compose_params), _("Entire Message"), 'widget', '', '', _("Entire Message"), true));
-        $a_template->set('forwardbody', Horde::widget(IMP::composeLink(array(), array('actionID' => 'forward_body') + $compose_params), _("Body Text Only"), 'widget', '', '', _("Body Text Only"), true));
-        $a_template->set('forwardattachments', Horde::widget(IMP::composeLink(array(), array('actionID' => 'forward_attachments') + $compose_params), _("Body Text with Attachments"), 'widget', '', '', _("Body Text with Attachments"), true));
+        $a_template->set('forward', Horde::widget(IMP::composeLink(array(), array('actionID' => 'forward') + $compose_params), _("Forward"), 'widget', '', '', _("Fo_rward"), true));
 
         $a_template->set('redirect', Horde::widget(IMP::composeLink(array(), array('actionID' => 'redirect_compose') + $compose_params), _("Redirect"), 'widget', '', '', _("Redirec_t"), true));
     }

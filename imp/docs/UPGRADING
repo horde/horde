@@ -23,7 +23,7 @@ supported.
 
 * servers.php has changed
 * imp_hook_vinfo has changed
-* alternative_display, attachment_display pref is gone.
+* alternative_display, attachment_display, forward_default pref is gone.
 * imp_hook_spam_bounce -> imp_hook_spam_email
 * imp_hook_msglist_format input has changed.
 

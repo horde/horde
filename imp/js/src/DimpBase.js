@@ -653,6 +653,10 @@ var DimpBase = {
             this.flag(id.substring(12));
             break;
 
+        case 'ctx_message_forward':
+            this.composeMailbox('forward');
+            break;
+
         case 'ctx_draft_resume':
             this.composeMailbox('resume');
             break;
@@ -668,12 +672,6 @@ var DimpBase = {
         case 'ctx_reply_reply_all':
         case 'ctx_reply_reply_list':
             this.composeMailbox(id.substring(10));
-            break;
-
-        case 'ctx_forward_forward_all':
-        case 'ctx_forward_forward_body':
-        case 'ctx_forward_forward_attachments':
-            this.composeMailbox(id.substring(12));
             break;
 
         case 'previewtoggle':
@@ -1559,7 +1557,7 @@ var DimpBase = {
 
             case 'button_forward':
             case 'button_reply':
-                this.composeMailbox(id == 'button_reply' ? 'reply' : DIMP.conf.forward_default);
+                this.composeMailbox(id == 'button_reply' ? 'reply' : 'forward');
                 break;
 
             case 'button_deleted':
@@ -2330,11 +2328,8 @@ var DimpBase = {
         /* Add popdown menus. */
         this._addMouseEvents({ id: 'button_reply', type: 'reply' }, true);
         DM.disable('button_reply_img', true, true);
-        this._addMouseEvents({ id: 'button_forward', type: 'forward' }, true);
-        DM.disable('button_forward_img', true, true);
         this._addMouseEvents({ id: 'button_other', type: 'otheractions' }, true);
         DM.addSubMenu('ctx_message_reply', 'ctx_reply');
-        DM.addSubMenu('ctx_message_forward', 'ctx_forward');
         DM.addSubMenu('ctx_message_setflag', 'ctx_flag');
         DM.addSubMenu('oa_setflag', 'ctx_flag');
         DM.addSubMenu('ctx_draft_setflag', 'ctx_flag');

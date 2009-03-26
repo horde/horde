@@ -159,7 +159,6 @@ class DIMP
             'popup_width' => 820,
             'popup_height' => 610,
 
-            'forward_default' => $prefs->getValue('forward_default'),
             'spam_folder' => IMP::folderPref($prefs->getValue('spam_folder'), true),
             'spam_reporting' => (int) !empty($conf['spam']['reporting']),
             'spam_spamfolder' => (int) !empty($conf['spam']['spamfolder']),

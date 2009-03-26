@@ -37,7 +37,7 @@ function _createDAfmsg($text, $image, $id, $class = '', $show_text = true)
      <?php _createDAfmsg(_("Reply"), 'Reply', 'reply_link', 'hasmenu', $show_text) ?>
     </span>
     <span>
-     <?php _createDAfmsg(_("Forward"), 'Forward', 'forward_link', 'hasmenu', $show_text) ?>
+     <?php _createDAfmsg(_("Forward"), 'Forward', 'forward_link', '', $show_text) ?>
     </span>
 <?php if (!empty($conf['spam']['reporting']) && (!$conf['spam']['spamfolder'] || ($folder != IMP::folderPref($prefs->getValue('spam_folder'), true)))): ?>
     <span>
@@ -120,12 +120,6 @@ function _createDAfmsg($text, $image, $id, $class = '', $show_text = true)
 <?php if ($show_msg_result['list_info']['exists']): ?>
  <a id="ctx_reply_reply_list"><span class="contextImg"></span><?php echo _("To List") ?></a>
 <?php endif; ?>
-</div>
-
-<div class="context" id="ctx_fwdpopdown" style="display:none">
- <a id="ctx_forward_forward_all"><span class="contextImg"></span><?php echo _("Entire Message") ?></a>
- <a id="ctx_forward_forward_body"><span class="contextImg"></span><?php echo _("Body Text Only") ?></a>
- <a id="ctx_forward_forward_attachments"><span class="contextImg"></span><?php echo _("Attachments Only") ?></a>
 </div>
 
 <div class="context" id="ctx_contacts" style="display:none">

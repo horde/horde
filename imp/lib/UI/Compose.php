@@ -81,18 +81,14 @@ class IMP_UI_Compose
 
     /**
      */
-    function getForwardData(&$imp_compose, &$imp_contents, $type, $index)
+    function getForwardData(&$imp_compose, &$imp_contents, $index)
     {
-        $fwd_msg = $imp_compose->forwardMessage($imp_contents, ($type == 'forward_body'));
-        if ($type == 'forward_all') {
-            $subject_header = $imp_compose->attachIMAPMessage(array($index), $fwd_msg['headers']);
-            if ($subject_header === false) {
-                // TODO: notification
-            } else {
-                $fwd_msg['headers']['subject'] = $subject_header;
-            }
-        } elseif ($type == 'forward_attachments') {
-            $imp_compose->attachFilesFromMessage($imp_contents, array('notify' => true));
+        $fwd_msg = $imp_compose->forwardMessage($imp_contents);
+        $subject_header = $imp_compose->attachIMAPMessage(array($index), $fwd_msg['headers']);
+        if ($subject_header === false) {
+            // TODO: notification
+        } else {
+            $fwd_msg['headers']['subject'] = $subject_header;
         }
 
         return $fwd_msg;

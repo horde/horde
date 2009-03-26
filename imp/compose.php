@@ -104,9 +104,7 @@ if ($actionID) {
     case 'reply':
     case 'reply_all':
     case 'reply_list':
-    case 'forward_all':
-    case 'forward_body':
-    case 'forward_attachments':
+    case 'forward':
     case 'redirect_compose':
     case 'fwd_digest':
         // These are all safe actions that might be invoked without a token.
@@ -346,19 +344,13 @@ case 'reply_list':
     $reply_index = $index;
     break;
 
-case 'forward_all':
-case 'forward_body':
-case 'forward_attachments':
+case 'forward':
     if (!($imp_contents = &_getIMPContents($index, $thismailbox))) {
         break;
     }
 
-    $fwd_msg = $imp_ui->getForwardData($imp_compose, $imp_contents, $actionID, $index . IMP::IDX_SEP . $thismailbox);
-    if ($actionID == 'forward_all') {
-        $msg = '';
-    } else {
-        $msg = $fwd_msg['body'];
-    }
+    $fwd_msg = $imp_ui->getForwardData($imp_compose, $imp_contents, $index . IMP::IDX_SEP . $thismailbox);
+    $msg = $fwd_msg['body'];
     $header = $fwd_msg['headers'];
     $format = $fwd_msg['format'];
     $rtemode = ($rtemode || (!is_null($rtemode) && ($format == 'html')));
@@ -894,9 +886,6 @@ if ($redirect) {
             break;
 
         case 'forward':
-        case 'forward_all':
-        case 'forward_body':
-        case 'forward_attachments':
             $reply_type = 'forward';
             break;
         }

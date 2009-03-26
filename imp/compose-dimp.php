@@ -191,7 +191,7 @@ $folder = Util::getFormData('folder');
 $show_editor = false;
 $title = _("New Message");
 
-if (in_array($type, array('reply', 'reply_all', 'reply_list', 'forward_all', 'forward_body', 'forward_attachments', 'resume'))) {
+if (in_array($type, array('reply', 'reply_all', 'reply_list', 'forward', 'resume'))) {
     if (!$index || !$folder) {
         $type = 'new';
     }
@@ -232,15 +232,9 @@ case 'reply_list':
     }
     break;
 
-case 'forward_all':
-case 'forward_body':
-case 'forward_attachments':
-    $fwd_msg = $imp_ui->getForwardData($imp_compose, $imp_contents, $type, $index . IMP::IDX_SEP . $folder);
-    if ($type == 'forward_all') {
-        $msg = '';
-    } else {
-        $msg = $fwd_msg['body'];
-    }
+case 'forward':
+    $fwd_msg = $imp_ui->getForwardData($imp_compose, $imp_contents, $index . IMP::IDX_SEP . $folder);
+    $msg = $fwd_msg['body'];
     $header = $fwd_msg['headers'];
     $header['replytype'] = 'forward';
     $title = $header['title'];
@@ -249,7 +243,8 @@ case 'forward_attachments':
     }
     $type = 'forward';
 
-    if (!$prefs->isLocked('default_identity') && !is_null($fwd_msg['identity'])) {
+    if (!$prefs->isLocked('default_identity') &&
+        !is_null($fwd_msg['identity'])) {
         $identity->setDefault($fwd_msg['identity']);
     }
     break;
