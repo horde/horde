@@ -6,6 +6,11 @@ if (!empty($msgcount)) {
 if ($pageOb['pagecount'] > 1) {
     $title .= ' - ' . $pageOb['page'] . ' ' . _("of") . ' ' . $pageOb['pagecount'];
 }
+
+if ($readonly) {
+    $title .= ' [' . _("Read-Only") . ']';
+}
+
 $c = &$mimp_render->add(new Horde_Mobile_card('m', $title));
 $c->softkey('#o', _("Menu"));
 
