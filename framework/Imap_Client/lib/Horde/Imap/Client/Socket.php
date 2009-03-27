@@ -1347,7 +1347,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
          * we will get VANISHED responses, so we need to do this. */
         if ($use_cache && is_null($s_res)) {
             /* Keys in $s_res['sort'] start at 0, not 1. */
-            $s_res = $this->search($mailbox, null, array('sort' => array(Horde_Imap_Client::SORT_ARRIVAL)));
+            $s_res = $this->_getSeqUIDLookup(null, false);
+            $s_res['sort'] = $s_res['uids'];
         }
 
         $tmp = &$this->_temp;

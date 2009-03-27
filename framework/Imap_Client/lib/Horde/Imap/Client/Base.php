@@ -2436,8 +2436,12 @@ abstract class Horde_Imap_Client_Base
      */
     protected function _getSeqUIDLookup($ids, $seq)
     {
-        $search = new Horde_Imap_Client_Search_Query();
-        $search->sequence($ids, $seq);
+        if (is_null($ids)) {
+            $search = null;
+        } else {
+            $search = new Horde_Imap_Client_Search_Query();
+            $search->sequence($ids, $seq);
+        }
         $res = $this->search($this->_selected, $search, array('sort' => array(Horde_Imap_Client::SORT_ARRIVAL)));
         $ret = array('uids' => $res['sort']);
         if ($seq) {
