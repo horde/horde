@@ -1076,6 +1076,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 if ($mailbox == $this->_selected) {
                     if (isset($this->_temp['mailbox'][$val])) {
                         $data[$val] = $this->_temp['mailbox'][$val];
+                    } elseif ($key == Horde_Imap_Client::STATUS_UIDNEXT) {
+                        /* UIDNEXT is not strictly required on mailbox open.
+                         * See RFC 3501 [6.3.1]. */
+                        $data[$val] = 0;
                     } else {
                         if ($key == Horde_Imap_Client::STATUS_UIDNOTSTICKY) {
                             /* In the absence of uidnotsticky information, or

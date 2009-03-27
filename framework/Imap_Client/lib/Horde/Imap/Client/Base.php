@@ -2414,11 +2414,19 @@ abstract class Horde_Imap_Client_Base
 
         $status = $this->status($mailbox, $query);
 
-        $data = $condstore
-            ? array($status['highestmodseq'], $status['uidvalidity'])
-            : array($status['uidvalidity'], $status['uidnext'], $status['messages']);
+        if ($condstore) {
+            return implode('|', array($status['highestmodseq'], $status['uidvalidity']));
+        }
 
-        return implode('|', $data);
+        if (empty($status['uidnext'])) {
+            /* UIDNEXT is not strictly required on mailbox open. If it is
+             * not available, use the last UID in the mailbox instead. */
+            $search_res = $this->fetch($this->_selected, array(Horde_Imap_Client::FETCH_UID => true), array('ids' => array('*'), 'sequence' => true));
+            $result = reset($search_res);
+            $status['uidnext'] = $result['uid'];
+        }
+
+        return implode('|', array($status['uidvalidity'], $status['uidnext'], $status['messages']));
     }
 
     /**
