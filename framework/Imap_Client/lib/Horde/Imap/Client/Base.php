@@ -215,6 +215,7 @@ abstract class Horde_Imap_Client_Base
             $this->_cache = Horde_Imap_Client_Cache::singleton(array_merge($p['cache'], array(
                 'debug' => $this->_debug,
                 'hostspec' => $p['hostspec'],
+                'port' => $p['port'],
                 'username' => $p['username']
             )));
         }

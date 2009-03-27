@@ -10,6 +10,7 @@
  * 'driver' - (string) The Horde_Cache driver to use.
  * 'driver_params' - (string) The params to pass to the Horde_Cache driver.
  * 'hostspec' - (string) The IMAP hostspec.
+ * 'port' - (string) The IMAP port.
  * 'username' - (string) The IMAP username.
  *
  * Optional Parameters:
@@ -115,8 +116,9 @@ class Horde_Imap_Client_Cache
     {
         if (empty($params['driver']) ||
             empty($params['driver_params']) ||
-            empty($params['username']) ||
-            empty($params['hostspec'])) {
+            empty($params['hostspec']) ||
+            empty($params['port']) ||
+            empty($params['username'])) {
             throw new Horde_Imap_Client_Exception('Missing required parameters to Horde_Imap_Client_Cache.');
         }
 
@@ -152,6 +154,7 @@ class Horde_Imap_Client_Cache
             'debug' => empty($params['debug']) ? false : $params['debug'],
             'hostspec' => $params['hostspec'],
             'lifetime' => empty($params['lifetime']) ? 604800 : intval($params['lifetime']),
+            'port' => $params['port'],
             'slicesize' => empty($params['slicesize']) ? 50 : intval($params['slicesize']),
             'username' => $params['username']
         );
@@ -207,8 +210,8 @@ class Horde_Imap_Client_Cache
      */
     protected function _getCID($mailbox, $slice)
     {
-        /* Cache ID = "prefix | username | mailbox | hostspec | slice" */
-        return 'horde_imap_client|' . $this->_params['username'] . '|' . $mailbox . '|' . $this->_params['hostspec'] . '|' . $slice;
+        /* Cache ID = prefix | username | mailbox | hostspec | port | slice */
+        return implode('|', array('horde_imap_client', $this->_params['username'], $mailbox, $this->_params['hostspec'], $this->_params['port'], $slice));
     }
 
     /**
