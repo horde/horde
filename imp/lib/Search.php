@@ -616,7 +616,9 @@ class IMP_Search
      */
     public function isSearchMbox($id = null)
     {
-        return ($id === null) ? !empty($this->_id) : isset($_SESSION['imp']['search']['q'][$this->_strip($id)]);
+        return is_null($id)
+            ? !empty($this->_id)
+            : isset($_SESSION['imp']['search']['q'][$this->_strip($id)]);
     }
 
     /**
@@ -641,7 +643,9 @@ class IMP_Search
      */
     public function searchMboxID()
     {
-        return ($this->_id !== null) ? $this->_id : false;
+        return is_null($this->_id)
+            ? false
+            : $this->_id;
     }
 
     /**
@@ -654,7 +658,9 @@ class IMP_Search
      */
     protected function _strip($id)
     {
-        return ($id === null) ? $this->_id : ((strpos($id, IMP::SEARCH_MBOX) === 0) ? substr($id, strlen(IMP::SEARCH_MBOX)) : $id);
+        return is_null($id)
+            ? $this->_id
+            : ((strpos($id, IMP::SEARCH_MBOX) === 0) ? substr($id, strlen(IMP::SEARCH_MBOX)) : $id);
     }
 
     /**
