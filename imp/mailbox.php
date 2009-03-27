@@ -72,12 +72,6 @@ if (!empty($conf['hooks']['mbox_redirect'])) {
 $search_mbox = $imp_search->isSearchMbox();
 $vfolder = $imp_search->isVFolder();
 
-/* We know we are going to be exclusively dealing with this mailbox, so
- * select it on the IMAP server (saves some STATUS calls). */
-if (!$search_mbox) {
-    $imp_imap->ob->openMailbox($imp_mbox['mailbox']);
-}
-
 /* There is a chance that this page is loaded directly via message.php. If so,
  * don't re-include config files, and the following variables will already be
  * set: $actionID, $start. */
@@ -225,6 +219,12 @@ case 'view_messages':
 case 'login_compose':
     $open_compose_window = IMP::openComposeWin();
     break;
+}
+
+/* We know we are going to be exclusively dealing with this mailbox, so
+ * select it on the IMAP server (saves some STATUS calls). */
+if (!$search_mbox) {
+    $imp_imap->ob->openMailbox($imp_mbox['mailbox']);
 }
 
 /* Token to use in requests */
