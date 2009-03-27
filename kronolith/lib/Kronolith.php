@@ -58,7 +58,8 @@ class Kronolith
     static private $_tagger;
 
     /**
-     * Output everything up to but not including the <body> tag.
+     * Output everything for the AJAX interface up to but not including the
+     * <body> tag.
      *
      * @param string $title   The title of the page.
      * @param array $scripts  Any additional scripts that need to be loaded.
@@ -95,6 +96,9 @@ class Kronolith
         if (!empty($title)) {
             $page_title .= ' :: ' . $title;
         }
+
+        // No IE 8 code at the moment.
+        header('X-UA-Compatible: IE=7');
 
         if (isset($GLOBALS['language'])) {
             header('Content-type: text/html; charset=' . NLS::getCharset());
