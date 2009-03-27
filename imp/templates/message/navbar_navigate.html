@@ -1,6 +1,7 @@
 <table class="msgActionTable">
  <tr class="mboxcontrol">
   <td>
+<if:readonly><else:readonly>
 <if:usepop><else:usepop>
    <div class="leftFloat">
     <label for="flag<tag:id />" class="hidden"><gettext>Mark as:</gettext></label>
@@ -17,7 +18,6 @@
    </div>
 </else:usepop></if:usepop>
 <if:move>
-<if:readonly><else:readonly>
    <div class="leftFloat msgActions">
     <ul class="msgactions">
      <li><tag:move /></li>
@@ -30,8 +30,8 @@
      <tag:options />
     </select>
    </div>
-</else:readonly></if:readonly>
 </if:move>
+</else:readonly></if:readonly>
    <div class="rightFloat nowrap">
     <tag:back_to />&nbsp;
     <if:prev><tag:prev /></if:prev><tag:prev_img /><if:prev></a></if:prev>
