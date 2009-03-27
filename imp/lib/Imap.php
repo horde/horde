@@ -231,18 +231,31 @@ class IMP_Imap
     }
 
     /**
-     * Is the current IMAP connection read-only?
+     * Is the given mailbox read-only?
      *
-     * @param string $mailbox  The mailbox.
+     * @param string $mailbox  The mailbox to check.
      *
-     * @return boolean  Is the connection read-only?
+     * @return boolean  Is the mailbox read-only?
      */
     public function isReadOnly($mailbox)
     {
         if (!isset($this->_readonly[$mailbox])) {
-            $this->_readonly[$mailbox] =
-                !empty($GLOBALS['conf']['hooks']['mbox_readonly']) &&
+            /* These tests work on both regular and search mailboxes. */
+            $res = !empty($GLOBALS['conf']['hooks']['mbox_readonly']) &&
                 Horde::callHook('_imp_hook_mbox_readonly', array($mailbox), 'imp');
+
+            /* This check can only be done for regular IMAP mailboxes. */
+            // TODO: POP3 also?
+            if (!$res &&
+                ($_SESSION['imp']['protocol'] == 'imap') &&
+                !$GLOBALS['imp_search']->isSearchMbox($mailbox)) {
+                try {
+                    $status = $this->ob->status($mailbox, Horde_Imap_Client::STATUS_UIDNOTSTICKY);
+                    $res = $status['uidnotsticky'];
+                } catch (Horde_Imap_Client_Exception $e) {}
+            }
+
+            $this->_readonly[$mailbox] = $res;
         }
 
         return $this->_readonly[$mailbox];
