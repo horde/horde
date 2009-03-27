@@ -109,10 +109,17 @@ if ($actionID && ($actionID != 'message_missing')) {
     }
 }
 
+/* We know we are going to be exclusively dealing with this mailbox, so
+ * select it on the IMAP server (saves some STATUS calls). Open R/W to clear
+ * the RECENT flag. */
+if (!$search_mbox) {
+    $imp_imap->ob->openMailbox($imp_mbox['mailbox'], Horde_Imap_Client::OPEN_READWRITE);
+}
+
 /* Determine if mailbox is readonly. */
 $readonly = $imp_imap->isReadOnly($imp_mbox['mailbox']);
 if ($readonly &&
-    in_array($actionID, array('blacklist', 'whitelist', 'spam_report', 'notspam_report', 'move_messages', 'flag_messages', 'empty_mailbox'))) {
+    in_array($actionID, array('blacklist', 'whitelist', 'spam_report', 'notspam_report', 'delete_messages', 'undelete_messages', 'move_messages', 'flag_messages', 'empty_mailbox', 'filter'))) {
     $actionID = null;
 }
 
@@ -221,12 +228,6 @@ case 'login_compose':
     break;
 }
 
-/* We know we are going to be exclusively dealing with this mailbox, so
- * select it on the IMAP server (saves some STATUS calls). */
-if (!$search_mbox) {
-    $imp_imap->ob->openMailbox($imp_mbox['mailbox']);
-}
-
 /* Token to use in requests */
 $mailbox_token = IMP::getRequestToken('imp.mailbox');
 
@@ -243,7 +244,7 @@ if (!$readonly && !empty($_SESSION['imp']['filteravail'])) {
 }
 
 /* Run filters now. */
-if (!$readonly && $do_filter) {
+if ($do_filter) {
     $imp_filter = new IMP_Filter();
     $imp_filter->filter($imp_mbox['mailbox']);
 }
@@ -542,14 +543,14 @@ if ($pageOb['msgcount']) {
 
     /* Prepare the actions template. */
     $a_template = new IMP_Template();
-    if ($use_trash &&
-        (($imp_mbox['mailbox'] == (IMP::folderPref($prefs->getValue('trash_folder'), true))) || ($vtrash !== null))) {
-        $a_template->set('delete', Horde::widget('#', _("Delete"), 'widget permdeleteAction', '', '', _("_Delete")));
-    } else {
-        $a_template->set('delete', Horde::widget('#', _("Delete"), 'widget deleteAction', '', '', _("_Delete")));
+    if (!$readonly) {
+        $del_class = ($use_trash && (($imp_mbox['mailbox'] == (IMP::folderPref($prefs->getValue('trash_folder'), true))) || !is_null($vtrash)))
+            ? 'permdeleteAction'
+            : 'deleteAction';
+        $a_template->set('delete', Horde::widget('#', _("Delete"), 'widget ' . $del_class, '', '', _("_Delete")));
     }
 
-    if ($showdelete['purge'] || ($vtrash !== null)) {
+    if ($showdelete['purge'] || !is_null($vtrash)) {
         $a_template->set('undelete', Horde::widget('#', _("Undelete"), 'widget undeleteAction', '', '', _("_Undelete")));
     }
 

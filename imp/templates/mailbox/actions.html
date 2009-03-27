@@ -10,7 +10,7 @@
    <div class="leftFloat">
     <ul class="msgactions">
 <if:readonly><else:readonly>
-     <li><tag:delete /></li>
+     <if:delete><li><tag:delete /></li></if:delete>
      <if:undelete><li><tag:undelete /></li></if:undelete>
      <if:blacklist><li><tag:blacklist /></li></if:blacklist>
      <if:whitelist><li><tag:whitelist /></li></if:whitelist>
