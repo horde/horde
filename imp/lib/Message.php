@@ -118,23 +118,38 @@ class IMP_Message
         }
 
         foreach ($msgList as $mbox => $msgIndices) {
+            $error = null;
+
             if (($action == 'move') && $GLOBALS['imp_imap']->isReadOnly($mbox)) {
-                $notification->push(sprintf($message, IMP::displayFolder($mbox), IMP::displayFolder($targetMbox)) . ': ' . _("The target directory is read-only."), 'horde.error');
-                $return_value = false;
-                continue;
+                $error =  _("The target directory is read-only.");
+            }
+
+            if (!$error) {
+                try {
+                    $GLOBALS['imp_imap']->checkUidvalidity($mbox);
+                } catch (Horde_Exception $e) {
+                    $error = $e->getMessage();
+                }
             }
 
             /* Attempt to copy/move messages to new mailbox. */
-            try {
-                $GLOBALS['imp_imap']->ob->copy($mbox, $targetMbox, array('ids' => $msgIndices, 'move' => $imap_move));
+            if (!$error) {
+                try {
+                    $GLOBALS['imp_imap']->ob->copy($mbox, $targetMbox, array('ids' => $msgIndices, 'move' => $imap_move));
 
-                $imp_mailbox = IMP_Mailbox::singleton($mbox);
-                if (($action == 'move') && $imp_mailbox->isBuilt()) {
-                    $imp_mailbox->removeMsgs(array($mbox => $msgIndices));
+                    $imp_mailbox = IMP_Mailbox::singleton($mbox);
+                    if (($action == 'move') && $imp_mailbox->isBuilt()) {
+                        $imp_mailbox->removeMsgs(array($mbox => $msgIndices));
+                    }
+                } catch (Horde_Imap_Client_Exception $e) {
+                    $error = $e->getMessage();
                 }
-            } catch (Horde_Imap_Client_Exception $e) {
-                $notification->push(sprintf($message, IMP::displayFolder($mbox), IMP::displayFolder($targetMbox)) . ': ' . $e->getMessage(), 'horde.error');
+            }
+
+            if ($error) {
+                $notification->push(sprintf($message, IMP::displayFolder($mbox), IMP::displayFolder($targetMbox)) . ': ' . $error, 'horde.error');
                 $return_value = false;
+                continue;
             }
         }
 
@@ -187,8 +202,22 @@ class IMP_Message
         }
 
         foreach ($msgList as $mbox => $msgIndices) {
+            $error = null;
+
             if ($GLOBALS['imp_imap']->isReadOnly($mbox)) {
-                $notification->push(sprintf(_("There was an error deleting messages from the folder \"%s\". This folder is read-only."), IMP::displayFolder($mbox)), 'horde.error');
+                $error = _("This folder is read-only.");
+            }
+
+            if (!$error) {
+                try {
+                    $GLOBALS['imp_imap']->checkUidvalidity($mbox);
+                } catch (Horde_Exception $e) {
+                    $error = $e->getMessage();
+                }
+            }
+
+            if ($error) {
+                $notification->push(sprintf(_("There was an error deleting messages from the folder \"%s\"."), IMP::displayFolder($mbox)) . ' ' . $error, 'horde.error');
                 $return_value = false;
                 continue;
             }
@@ -449,6 +478,8 @@ class IMP_Message
             throw new Horde_Exception(_("Cannot strip the MIME part as the mailbox is read-only"));
         }
 
+        $GLOBALS['imp_imap']->checkUidvalidity($mbox);
+
         /* Get a local copy of the message. */
         $contents = IMP_Contents::singleton($index . IMP::IDX_SEP . $mbox);
 
@@ -530,8 +561,6 @@ class IMP_Message
      */
     public function flag($flags, $indices, $action = true)
     {
-        global $notification;
-
         if (!($msgList = IMP::parseIndicesList($indices))) {
             return false;
         }
@@ -541,16 +570,31 @@ class IMP_Message
             : array('remove' => $flags);
 
         foreach ($msgList as $mbox => $msgIndices) {
+            $error = null;
+
             if ($GLOBALS['imp_imap']->isReadOnly($mbox)) {
-                $notification->push(sprintf(_("There was an error flagging messages in the folder \"%s\". This folder is read-only."), IMP::displayFolder($mbox)), 'horde.error');
-                continue;
+                $error = _("This folder is read-only.");
             }
 
-            /* Flag/unflag the messages now. */
-            try {
-                $GLOBALS['imp_imap']->ob->store($mbox, array_merge($action_array, array('ids' => $msgIndices)));
-            } catch (Horde_Imap_Client_Exception $e) {
-                $notification->push(sprintf(_("There was an error flagging messages in the folder \"%s\". This is what the server said"), IMP::displayFolder($mbox)) . ': ' . $e->getMessage(), 'horde.error');
+            if (!$error) {
+                try {
+                    $GLOBALS['imp_imap']->checkUidvalidity($mbox);
+                } catch (Horde_Exception $e) {
+                    $error = $e->getMessage();
+                }
+            }
+
+            if (!$error) {
+                /* Flag/unflag the messages now. */
+                try {
+                    $GLOBALS['imp_imap']->ob->store($mbox, array_merge($action_array, array('ids' => $msgIndices)));
+                } catch (Horde_Imap_Client_Exception $e) {
+                    $error = $e->getMessage();
+                }
+            }
+
+            if ($error) {
+                $GLOBALS['notification']->push(sprintf(_("There was an error flagging messages in the folder \"%s\". This folder is read-only."), IMP::displayFolder($mbox)), 'horde.error');
                 return false;
             }
         }
@@ -630,6 +674,16 @@ class IMP_Message
         }
 
         foreach ($process_list as $key => $val) {
+            /* If expunging a particular UID list, need to check
+             * UIDVALIDITY. */
+            if (is_array($val)) {
+                try {
+                    $GLOBALS['imp_imap']->checkUidvalidity($key);
+                } catch (Horde_Exception $e) {
+                    continue;
+                }
+            }
+
             try {
                 $update_list[$key] = $GLOBALS['imp_imap']->ob->expunge($key, array('ids' => is_array($val) ? $val : array(), 'list' => $msg_list));
 

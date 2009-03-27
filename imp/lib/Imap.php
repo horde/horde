@@ -49,6 +49,13 @@ class IMP_Imap
     protected $_nsdefault;
 
     /**
+     * UIDVALIDITY check cache.
+     *
+     * @var array
+     */
+    protected $_uidvalid = array();
+
+    /**
      * Constructor.
      */
     function __construct()
@@ -259,6 +266,37 @@ class IMP_Imap
         }
 
         return $this->_readonly[$mailbox];
+    }
+
+    /**
+     * Do a UIDVALIDITY check - needed if UIDs are passed between page
+     * accesses.
+     *
+     * @param string $mailbox  The mailbox to check. Must be an IMAP mailbox.
+     *
+     * @throws Horde_Exception
+     */
+    public function checkUidvalidity($mailbox)
+    {
+        // TODO: POP3 also?
+        if ($_SESSION['imp']['protocol'] == 'pop') {
+            return;
+        }
+
+        if (!isset($this->_uidvalid[$mailbox])) {
+            $status = $this->ob->status($mailbox, Horde_Imap_Client::STATUS_UIDVALIDITY);
+            $ptr = &$_SESSION['imp']['cache'];
+            $val = isset($ptr['uidvalid'][$mailbox])
+                ? $ptr['uidvalid'][$mailbox]
+                : null;
+            $ptr['uidvalid'][$mailbox] = $status['uidvalidity'];
+
+            $this->_uidvalid[$mailbox] = (!is_null($val) && ($status['uidvalidity'] != $val));
+        }
+
+        if ($this->_uidvalid[$mailbox]) {
+            throw new Horde_Exception(_("Mailbox structure on server has changed."));
+        }
     }
 
     /**

@@ -2,6 +2,8 @@
 v5.0-git
 --------
 
+[mms] Sanity check - don't do message operations reliant on UID list if
+      UIDVALIDITY of mailbox has changed.
 [mms] Simplify forwarding - always attach entire message.
 [mms] Remember splitbar position on login/refresh (DIMP).
 [mms] Disable some advanced functions if using POP3 driver (caching,
