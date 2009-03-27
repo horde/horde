@@ -58,7 +58,8 @@ class Chora
             'sbt' => constant($GLOBALS['conf']['options']['defaultsort']),
             'sa'  => 0,
             'ord' => Horde_Vcs::SORT_ASCENDING,
-            'ws'  => 1
+            'ws'  => 1,
+            'onb' => 0,
         );
 
         /* Use the last sourceroot used as the default value if the user has
