@@ -114,7 +114,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
         /* Make sure the key is valid. */
         $key_info = $this->pgpPacketInformation($public_key);
         if (!isset($key_info['signature'])) {
-            throw new Horde_Exception(_("Not a valid public key."), 'horde.error');
+            throw new Horde_Exception(_("Not a valid public key."));
         }
 
         /* Remove the '_SIGNATURE' entry. */
@@ -297,7 +297,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
         global $conf;
 
         if (empty($conf['utils']['gnupg_keyserver'])) {
-            throw new Horde_Exception(_("Public PGP keyserver support has been disabled."), 'horde.warning');
+            throw new Horde_Exception(_("Public PGP keyserver support has been disabled."));
         }
 
         $timeout = (empty($conf['utils']['gnupg_timeout'])) ? PGP_KEYSERVER_TIMEOUT : $conf['utils']['gnupg_timeout'];

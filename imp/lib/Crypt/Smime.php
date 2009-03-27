@@ -107,13 +107,13 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
         /* Make sure the certificate is valid. */
         $key_info = openssl_x509_parse($cert);
         if (!is_array($key_info) || !isset($key_info['subject'])) {
-            throw new Horde_Exception(_("Not a valid public key."), 'horde.error');
+            throw new Horde_Exception(_("Not a valid public key."));
         }
 
         /* Add key to the user's address book. */
         $email = $this->getEmailFromKey($cert);
         if (is_null($email)) {
-            throw new Horde_Exception(_("No email information located in the public key."), 'horde.error');
+            throw new Horde_Exception(_("No email information located in the public key."));
         }
 
         /* Get the name corresponding to this key. */
@@ -122,12 +122,12 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
         } elseif (isset($key_info['subject']['OU'])) {
             $name = $key_info['subject']['OU'];
         } else {
-            throw new Horde_Exception(_("Not a valid public key."), 'horde.error');
+            throw new Horde_Exception(_("Not a valid public key."));
         }
 
-        $res = $GLOBALS['registry']->call('contacts/addField', array($email, $name, self::PUBKEY_FIELD, $cert, $GLOBALS['prefs']->getValue('add_source')));
-        if (is_a($res, 'PEAR_Error')) {
-            throw new Horde_Exception($res);
+        $result = $GLOBALS['registry']->call('contacts/addField', array($email, $name, self::PUBKEY_FIELD, $cert, $GLOBALS['prefs']->getValue('add_source')));
+        if (is_a($result, 'PEAR_Error')) {
+            throw new Horde_Exception($result);
         }
     }
 
@@ -197,12 +197,12 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
         if (empty($params['sources'])) {
             return array();
         }
-        $res = $GLOBALS['registry']->call('contacts/getAllAttributeValues', array(self::PUBKEY_FIELD, $params['sources']));
-        if (is_a($res, 'PEAR_Error')) {
-            throw new Horde_Exception($res);
+        $result = $GLOBALS['registry']->call('contacts/getAllAttributeValues', array(self::PUBKEY_FIELD, $params['sources']));
+        if (is_a($result, 'PEAR_Error')) {
+            throw new Horde_Exception($result);
         }
 
-        return $res;
+        return $result;
     }
 
     /**
@@ -215,9 +215,9 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
     public function deletePublicKey($email)
     {
         $params = IMP_Compose::getAddressSearchParams();
-        $res = $GLOBALS['registry']->call('contacts/deleteField', array($email, self::PUBKEY_FIELD, $params['sources']));
-        if (is_a($res, 'PEAR_Error')) {
-            throw new Horde_Exception($res);
+        $result = $GLOBALS['registry']->call('contacts/deleteField', array($email, self::PUBKEY_FIELD, $params['sources']));
+        if (is_a($result, 'PEAR_Error')) {
+            throw new Horde_Exception($result);
         }
     }
 
@@ -284,11 +284,11 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
         } elseif (isset($_SESSION['imp']['smime']['null_passphrase'])) {
             return ($_SESSION['imp']['smime']['null_passphrase']) ? null : false;
         } else {
-            $res = $this->verifyPassphrase($private_key, null);
+            $result = $this->verifyPassphrase($private_key, null);
             if (!isset($_SESSION['imp']['smime'])) {
                 $_SESSION['imp']['smime'] = array();
             }
-            $_SESSION['imp']['smime']['null_passphrase'] = ($res) ? null : false;
+            $_SESSION['imp']['smime']['null_passphrase'] = ($result) ? null : false;
             return $_SESSION['imp']['smime']['null_passphrase'];
         }
     }
@@ -402,10 +402,10 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
             $params['newpassword'] = $pkpass;
         }
 
-        $res = $this->parsePKCS12Data($pkcs12, $params);
-        $this->addPersonalPrivateKey($res->private);
-        $this->addPersonalPublicKey($res->public);
-        $this->addAdditionalCert($res->certs);
+        $result = $this->parsePKCS12Data($pkcs12, $params);
+        $this->addPersonalPrivateKey($result->private);
+        $this->addPersonalPublicKey($result->public);
+        $this->addAdditionalCert($result->certs);
     }
 
     /**
