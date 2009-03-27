@@ -438,6 +438,11 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $this->_temp['no_cap'] = true;
         }
 
+        // Add separator to make it easier to read debug log.
+        if ($this->_debug) {
+            fwrite($this->_debug, str_repeat('-', 30) . "\n");
+        }
+
         // Get greeting information.  This is untagged so we need to specially
         // deal with it here.  A BYE response will be caught and thrown in
         // _getLine().
