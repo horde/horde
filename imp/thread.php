@@ -27,8 +27,7 @@ if ($mode == 'thread') {
     }
 } else {
     /* MSGVIEW MODE: Make sure we have a valid list of messages. */
-    $imap_utils = new Horde_Imap_Client_Utils();
-    $msglist = $imap_utils->fromSequenceString(Util::getFormData('msglist'));
+    $msglist = $GLOBALS['imp_imap']->utils->fromSequenceString(Util::getFormData('msglist'));
     if (empty($msglist)) {
         $error = true;
     }

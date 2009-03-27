@@ -218,8 +218,7 @@ case 'empty_mailbox':
     break;
 
 case 'view_messages':
-    $imap_utils = new Horde_Imap_Client_Utils();
-    $redirect = Util::addParameter(IMP::generateIMPUrl('thread.php', $imp_mbox['mailbox'], null, null, false), array('mode' => 'msgview', 'msglist' => $imap_utils->toSequenceString(IMP::parseIndicesList($indices), array('mailbox' => true))), null, false);
+    $redirect = Util::addParameter(IMP::generateIMPUrl('thread.php', $imp_mbox['mailbox'], null, null, false), array('mode' => 'msgview', 'msglist' => $GLOBALS['imp_imap']->utils->toSequenceString(IMP::parseIndicesList($indices), array('mailbox' => true))), null, false);
     header('Location: ' . $redirect);
     exit;
 
