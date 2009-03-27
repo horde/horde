@@ -978,7 +978,7 @@ abstract class Horde_Imap_Client_Base
 
         /* Catch flags that are not supported. */
         if (($flags & Horde_Imap_Client::STATUS_HIGHESTMODSEQ) &&
-            isset($this->_init['enabled']['CONDSTORE'])) {
+            !isset($this->_init['enabled']['CONDSTORE'])) {
             $ret['highestmodseq'] = 0;
             $flags &= ~Horde_Imap_Client::STATUS_HIGHESTMODSEQ;
         }
