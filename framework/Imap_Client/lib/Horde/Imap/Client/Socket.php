@@ -1736,8 +1736,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                     /* There is no requirement that IDs be returned in
                      * sequence order (see RFC 4549 [4.3.1]). So we must sort
                      * ourselves. */
-                    $sorted = $slice;
-                    sort($sorted, SORT_NUMERIC);
+                    $sorted = array_flip($slice);
+                    ksort($sorted, SORT_NUMERIC);
                     break;
 
                 case Horde_Imap_Client::SORT_SIZE:
