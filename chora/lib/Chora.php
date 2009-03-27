@@ -184,9 +184,14 @@ class Chora
         $dirs = explode('/', $where);
         $dir_count = count($dirs) - 1;
 
+        $path = '';
         foreach ($dirs as $i => $dir) {
+            if (!empty($path)) {
+                $path .= '/';
+            }
+            $path .= $dir;
             if (!empty($dir)) {
-                $bar .= '/ <a href="' . self::url('browsedir', $dir . ($i == $dir_count ? '' : '/')) . '">'. Text::htmlallspaces($dir) . '</a> ';
+                $bar .= '/ <a href="' . self::url('browsedir', $path . ($i == $dir_count && !$GLOBALS['atdir'] ? '' : '/')) . '">'. Text::htmlallspaces($dir) . '</a> ';
             }
         }
 
