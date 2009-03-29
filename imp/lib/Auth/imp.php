@@ -62,7 +62,11 @@ class Auth_imp extends Auth
             return true;
         } catch (Horde_Imap_Client_Exception $e) {
             IMP::loginLogMessage($e->getMessage(), __FILE__, __LINE__);
-            $this->_setAuthError(AUTH_REASON_BADLOGIN);
+            if ($e->getCode() == Horde_Imap_Client_Exception::SERVER_CONNECT) {
+                $this->_setAuthError(AUTH_REASON_MESSAGE, _("Could not connect to the remote server."));
+            } else {
+                $this->_setAuthError(AUTH_REASON_BADLOGIN);
+            }
             return false;
         }
     }
