@@ -36,4 +36,28 @@ class Horde_Kolab_Server_Object_administrator extends Horde_Kolab_Server_Object_
      * @var string
      */
     protected $required_group = 'cn=admin,cn=internal';
+
+    /**
+     * Returns the server url of the given type for this user.
+     *
+     * This method is used to encapsulate multidomain support.
+     *
+     * @param string $server_type The type of server URL that should be returned.
+     *
+     * @return string The server url or empty on error.
+     */
+    public function getServer($server_type)
+    {
+        global $conf;
+
+        switch ($server_type) {
+        case 'homeserver':
+        default:
+            $server = $this->get(self::ATTRIBUTE_HOMESERVER);
+            if (empty($server)) {
+                $server = $_SERVER['SERVER_NAME'];
+            }
+            return $server;
+        }
+    }
 }
