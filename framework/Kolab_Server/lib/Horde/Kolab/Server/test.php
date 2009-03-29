@@ -664,4 +664,42 @@ class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap
         return $this->_error;
     }
 
+    /**
+     * Identify the DN of the first result entry.
+     *
+     * @todo Check if this could be reintegrated with the code in the LDAP handler
+     *       again.
+     *
+     * @param array $result   The LDAP search result.
+     * @param int   $restrict A Horde_Kolab_Server::RESULT_* result restriction.
+     *
+     * @return boolean|string|array The DN(s) or false if there was no result.
+     *
+     * @throws Horde_Kolab_Server_Exception If the number of results did not
+     *                                      meet the expectations.
+     */
+    protected function dnFromResult($result,
+                                    $restrict = Horde_Kolab_Server::RESULT_SINGLE)
+    {
+        if (empty($result)) {
+            return false;
+        }
+        $dns = array();
+        foreach ($result as $entry) {
+            $dns[] = $entry['dn'];
+        }
+
+        switch ($restrict) {
+        case self::RESULT_STRICT:
+            if (count($dns) > 1) {
+                throw new Horde_Kolab_Server_Exception(sprintf(_("Found %s results when expecting only one!"),
+                                                               $count));
+            }
+        case self::RESULT_SINGLE:
+            return $dns[0];
+        case self::RESULT_MANY:
+            return $dns;
+        }
+    }
+
 }

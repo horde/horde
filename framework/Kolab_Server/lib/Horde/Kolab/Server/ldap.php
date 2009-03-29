@@ -63,7 +63,7 @@ class Horde_Kolab_Server_ldap extends Horde_Kolab_Server
         $base_config = array('host'           => 'localhost',
                              'port'           => 389,
                              'version'        => 3,
-                             'starttls'       => true,
+                             'starttls'       => false,
                              'uid'            => '',
                              'pass'           => '',
                              'basedn'         => '',
@@ -79,7 +79,10 @@ class Horde_Kolab_Server_ldap extends Horde_Kolab_Server
         $config['binddn'] = $config['uid'];
         $config['bindpw'] = $config['pass'];
 
-        $this->_ldap = new Net_LDAP2($config);
+        $this->_ldap = Net_LDAP2::connect($config);
+        if (is_a($this->_ldap, 'PEAR_Error')) {
+            throw new Horde_Kolab_Server_Exception($this->_ldap);
+        }
 
         parent::__construct($params);
     }
@@ -98,20 +101,16 @@ class Horde_Kolab_Server_ldap extends Horde_Kolab_Server
      */
     public function read($dn, $attrs = null)
     {
-        $params = array('scope' => 'one');
+        $params = array('scope' => 'base');
         if (!empty($attrs)) {
-            $params['attributes'] = $attr;
+            $params['attributes'] = $attrs;
         }
 
-        $result = $this->search(null, $params, $dn);
-        if (empty($result) || !($result instanceOf Net_LDAP2_Search)) {
-            throw new Horde_Kolab_Server_Exception(_("Empty or invalid result!"));
+        $data = $this->search(null, $params, $dn);
+        if (empty($data)) {
+            throw new Horde_Kolab_Server_Exception(_("Empty result!"));
         }            
 
-        $data = $result->as_struct();
-        if (is_a($data, 'PEAR_Error')) {
-            throw new Horde_Kolab_Server_Exception($data);
-        }
         if (!isset($data[$dn])) {
             throw new Horde_Kolab_Server_Exception(sprintf(_("No result found for %s"),
                                                            $dn));
@@ -418,7 +417,7 @@ class Horde_Kolab_Server_ldap extends Horde_Kolab_Server
         if (is_a($result, 'PEAR_Error')) {
             throw new Horde_Kolab_Server_Exception($result->getMessage());
         }
-        return $result;
+        return $result->as_struct();
     }
 
     /**
@@ -533,10 +532,7 @@ class Horde_Kolab_Server_ldap extends Horde_Kolab_Server
         if (empty($result)) {
             return false;
         }
-        $dns = array();
-        foreach ($result as $entry) {
-            $dns[] = $entry['dn'];
-        }
+        $dns = array_keys($result);
 
         switch ($restrict) {
         case self::RESULT_STRICT:
