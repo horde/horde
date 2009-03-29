@@ -34,7 +34,11 @@ class Horde_Db_Migration_Base
      * @var integer
      */
     public $version = null;
-
+    
+    /**
+     * Database connection adapter
+     * @var Horde_Db_Adapter_Abstract
+     */
     protected $_connection;
 
 
@@ -77,9 +81,9 @@ class Horde_Db_Migration_Base
 
         // benchmark method call
         $t = new Horde_Support_Timer();
-        $t->start();
+        $t->push();
             $result = call_user_func_array(array($this->_connection, $method), $args);
-        $time = $t->finish();
+        $time = $t->pop();
 
         // print stats
         $this->say(sprintf("%.4fs", $time), 'subitem');
@@ -112,9 +116,9 @@ class Horde_Db_Migration_Base
 
         $result = null;
         $t = new Horde_Support_Timer();
-        $t->start();
+        $t->push();
             $result = $this->$direction();
-        $time = $t->finish();
+        $time = $t->pop();
 
         if ($direction == 'up') {
             $this->announce("migrated (" . sprintf("%.4fs", $time) . ")");
