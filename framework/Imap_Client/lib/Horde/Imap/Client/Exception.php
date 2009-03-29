@@ -26,7 +26,7 @@ class Horde_Imap_Client_Exception extends Exception
     // There was an unrecoverable error in UTF7IMAP -> UTF8 conversion.
     const UTF7IMAP_CONVERSION = 3;
 
-    // The IMAP server sent ended the connection.
+    // The IMAP server ended the connection.
     const IMAP_DISCONNECT = 4;
 
     // The charset used in the search query is not supported on the server.
