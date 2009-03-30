@@ -449,7 +449,7 @@ $hdr_template = new IMP_Template();
 $hdr_template->set('title', $title);
 $hdr_template->set('pagetitle', $pagetitle);
 if ($readonly) {
-    $hdr_template->set('readonly', Horde::img('locked.png', _("Read-Only"), '', $graphicsdir));
+    $hdr_template->set('readonly', Horde::img('locked.png', _("Read-Only")));
 }
 $hdr_template->set('refresh', Horde::link($refresh_url, $refresh_title, '', '', '', '', $refresh_ak) . Horde::img('reload.png', _("Reload"), '', $graphicsdir) . '</a>');
 if (isset($filter_url)) {
