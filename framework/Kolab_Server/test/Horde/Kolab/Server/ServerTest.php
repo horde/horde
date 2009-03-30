@@ -56,7 +56,7 @@ class Horde_Kolab_Server_ServerTest extends PHPUnit_Framework_TestCase
             $this->assertFail('No error!');
         } catch (Horde_Kolab_Server_Exception $e) {
             $this->assertEquals($e->getMessage(),
-                                'Server type definition "Horde_Kolab_Server_dummy" missing.');
+                                'Server type definition "Horde_Kolab_Server_Dummy" missing.');
         }
     }
 
@@ -110,7 +110,7 @@ class Horde_Kolab_Server_ServerTest extends PHPUnit_Framework_TestCase
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_none extends Horde_Kolab_Server
+class Horde_Kolab_Server_None extends Horde_Kolab_Server
 {
     /**
      * Stub for reading object data.

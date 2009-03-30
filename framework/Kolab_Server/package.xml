@@ -49,11 +49,11 @@ http://pear.php.net/dtd/package-2.0.xsd">
       <file name="Server.php" role="php" />
       <dir name="Server">
        <file name="Exception.php" role="php" />
-       <file name="file.php" role="php" />
-       <file name="ldap.php" role="php" />
+       <file name="File.php" role="php" />
+       <file name="Ldap.php" role="php" />
        <file name="MissingObjectException.php" role="php" />
        <file name="Object.php" role="php" />
-       <file name="test.php" role="php" />
+       <file name="Test.php" role="php" />
        <dir name="Object">
         <file name="address.php" role="php" />
         <file name="administrator.php" role="php" />
@@ -84,10 +84,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
        <file name="DistListHandlingTest.php" role="test" />
        <file name="GroupHandlingTest.php" role="test" />
        <file name="GroupTest.php" role="test" />
-       <file name="ldapTest.php" role="test" />
+       <file name="LdapTest.php" role="test" />
        <file name="ObjectTest.php" role="test" />
        <file name="ServerTest.php" role="test" />
-       <file name="testTest.php" role="test" />
+       <file name="TestTest.php" role="test" />
        <file name="UserHandlingTest.php" role="test" />
        <file name="UserTest.php" role="test" />
       </dir> <!-- /test/Horde/Kolab/Server -->
@@ -132,10 +132,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Kolab/Server.php" as="Horde/Kolab/Server.php" />
    <install name="lib/Horde/Kolab/Test/Server.php" as="Horde/Kolab/Test/Server.php" />
    <install name="lib/Horde/Kolab/Server/Exception.php" as="Horde/Kolab/Server/Exception.php" />
-   <install name="lib/Horde/Kolab/Server/file.php" as="Horde/Kolab/Server/file.php" />
-   <install name="lib/Horde/Kolab/Server/ldap.php" as="Horde/Kolab/Server/ldap.php" />
+   <install name="lib/Horde/Kolab/Server/File.php" as="Horde/Kolab/Server/File.php" />
+   <install name="lib/Horde/Kolab/Server/Ldap.php" as="Horde/Kolab/Server/Ldap.php" />
    <install name="lib/Horde/Kolab/Server/MissingObjectException.php" as="Horde/Kolab/Server/MissingObjectException.php" />
-   <install name="lib/Horde/Kolab/Server/test.php" as="Horde/Kolab/Server/test.php" />
+   <install name="lib/Horde/Kolab/Server/Test.php" as="Horde/Kolab/Server/Test.php" />
    <install name="lib/Horde/Kolab/Server/Object.php" as="Horde/Kolab/Server/Object.php" />
    <install name="lib/Horde/Kolab/Server/Object/address.php" as="Horde/Kolab/Server/Object/address.php" />
    <install name="lib/Horde/Kolab/Server/Object/administrator.php" as="Horde/Kolab/Server/Object/administrator.php" />

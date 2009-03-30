@@ -90,7 +90,7 @@ abstract class Horde_Kolab_Server
      */
     static public function &factory($driver, $params = array())
     {
-        $class = 'Horde_Kolab_Server_' . basename($driver);
+        $class = 'Horde_Kolab_Server_' . ucfirst(basename($driver));
         if (class_exists($class)) {
             $db = new $class($params);
             return $db;
