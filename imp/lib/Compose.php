@@ -1183,7 +1183,7 @@ class IMP_Compose
         $subject = $h->getValue('subject');
         $header['subject'] = empty($subject)
             ? 'Re: '
-            : 'Re: ' . $GLOBALS['imp_imap']->utils->getBaseSubject($subject, array('keepblob' => true));
+            : 'Re: ' . $GLOBALS['imp_imap']->ob->utils->getBaseSubject($subject, array('keepblob' => true));
 
         if (in_array($actionID, array('reply', '*'))) {
             ($header['to'] = $to) ||
@@ -1357,7 +1357,7 @@ class IMP_Compose
         $header['subject'] = $h->getValue('subject');
         if (!empty($header['subject'])) {
             $header['title'] = _("Forward") . ': ' . $header['subject'];
-            $header['subject'] = 'Fwd: ' . $GLOBALS['imp_imap']->utils->getBaseSubject($header['subject'], array('keepblob' => true));
+            $header['subject'] = 'Fwd: ' . $GLOBALS['imp_imap']->ob->utils->getBaseSubject($header['subject'], array('keepblob' => true));
         } else {
             $header['title'] = _("Forward");
             $header['subject'] = 'Fwd:';
@@ -1459,7 +1459,7 @@ class IMP_Compose
             } elseif (String::length($name) > 80) {
                 $name = String::substr($name, 0, 80) . '...';
             }
-            return 'Fwd: ' . $GLOBALS['imp_imap']->utils->getBaseSubject($name, array('keepblob' => true));
+            return 'Fwd: ' . $GLOBALS['imp_imap']->ob->utils->getBaseSubject($name, array('keepblob' => true));
         } else {
             return 'Fwd: ' . sprintf(_("%u Forwarded Messages"), $attached);
         }

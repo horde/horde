@@ -27,7 +27,7 @@ if ($mode == 'thread') {
     }
 } else {
     /* MSGVIEW MODE: Make sure we have a valid list of messages. */
-    $msglist = $GLOBALS['imp_imap']->utils->fromSequenceString(Util::getFormData('msglist'));
+    $msglist = $GLOBALS['imp_imap']->ob->utils->fromSequenceString(Util::getFormData('msglist'));
     if (empty($msglist)) {
         $error = true;
     }

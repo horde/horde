@@ -152,7 +152,7 @@ class IMP_Horde_Mime_Viewer_Smime extends Horde_Mime_Viewer_Driver
             return null;
         }
 
-        $raw_text = $GLOBALS['imp_imap']->utils->removeBareNewlines($this->_params['contents']->getBodyPart($this->_mimepart->getMimeId(), array('mimeheaders' => true)));
+        $raw_text = $GLOBALS['imp_imap']->ob->utils->removeBareNewlines($this->_params['contents']->getBodyPart($this->_mimepart->getMimeId(), array('mimeheaders' => true)));
 
         try {
             $decrypted_data = $this->_impsmime->decryptMessage($raw_text);
@@ -175,7 +175,7 @@ class IMP_Horde_Mime_Viewer_Smime extends Horde_Mime_Viewer_Driver
             return array();
         }
 
-        $raw_text = $GLOBALS['imp_imap']->utils->removeBareNewlines($this->_params['contents']->getBodyPart($this->_mimepart->getMimeId(), array('mimeheaders' => true)));
+        $raw_text = $GLOBALS['imp_imap']->ob->utils->removeBareNewlines($this->_params['contents']->getBodyPart($this->_mimepart->getMimeId(), array('mimeheaders' => true)));
 
         try {
             $sig_result = $this->_impsmime->verifySignature($raw_text);
@@ -240,7 +240,7 @@ class IMP_Horde_Mime_Viewer_Smime extends Horde_Mime_Viewer_Driver
         $raw_text = $base_id
             ? $this->_params['contents']->getBodyPart($base_id, array('mimeheaders' => true))
             : $this->_params['contents']->fullMessageText();
-        $raw_text = $GLOBALS['imp_imap']->utils->removeBareNewlines($raw_text);
+        $raw_text = $GLOBALS['imp_imap']->ob->utils->removeBareNewlines($raw_text);
 
         $sig_result = null;
 

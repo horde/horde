@@ -21,13 +21,6 @@ class IMP_Imap
     public $ob = null;
 
     /**
-     * The Horde_Imap_Client_Utils object.
-     *
-     * @var Horde_Imap_Client_Utils
-     */
-    public $utils = null;
-
-    /**
      * Is connection read-only?
      *
      * @var array
@@ -65,8 +58,6 @@ class IMP_Imap
 
         /* Rebuild the Horde_Imap_Client object. */
         $this->_loadImapObject();
-
-        $this->utils = new Horde_Imap_Client_Utils();
     }
 
     /**
