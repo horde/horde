@@ -3206,7 +3206,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             feof($this->_stream)) {
             $this->_temp['logout'] = true;
             $this->logout();
-            throw new Horde_Imap_Client_Exception('IMAP Server closed the connection unexpectedly.', Horde_Imap_Client_Exception::IMAP_DISCONNECT);
+            if ($this->_debug) {
+                fwrite($this->_debug, '[ERROR: IMAP server closed the connection.]' . "\n");
+            }
+            throw new Horde_Imap_Client_Exception('IMAP server closed the connection unexpectedly.', Horde_Imap_Client_Exception::IMAP_DISCONNECT);
         }
 
         $ret = '';
@@ -3240,20 +3243,24 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             }
         } else {
             if (empty($this->_temp['buffer_in'])) {
-                $this->_temp['buffer_in'] = fread($this->_stream, 8192);
+                if (!($in = fread($this->_stream, 8192))) {
+                    if ($this->_debug) {
+                        fwrite($this->_debug, '[ERROR: IMAP response timed out.]' . "\n");
+                    }
+                    throw new Horde_Imap_Client_Exception('IMAP response timed out.', Horde_Imap_Client_Exception::SERVER_TIMEOUT);
+                }
+                $this->_temp['buffer_in'] = $in;
             }
 
             $ptr = &$this->_temp['buffer_in'];
-            if ($ptr) {
-                $pos = strpos($ptr, "\n");
-                if ($pos === false) {
-                    $ret = $ptr;
-                    $ptr = '';
-                    return $ret . $this->_readData();
-                }
-                $ret = substr($ptr, 0, $pos + 1);
-                $ptr = substr($ptr, $pos + 1);
+            $pos = strpos($ptr, "\n");
+            if ($pos === false) {
+                $ret = $ptr;
+                $ptr = '';
+                return $ret . $this->_readData();
             }
+            $ret = substr($ptr, 0, $pos + 1);
+            $ptr = substr($ptr, $pos + 1);
         }
 
         if ($this->_debug) {
