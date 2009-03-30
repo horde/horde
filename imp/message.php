@@ -28,6 +28,13 @@ function _moveAfterAction()
 
 require_once dirname(__FILE__) . '/lib/base.php';
 
+/* We know we are going to be exclusively dealing with this mailbox, so
+ * select it on the IMAP server (saves some STATUS calls). Open R/W to clear
+ * the RECENT flag. */
+if (!$imp_search->isSearchMbox($imp_mbox['mailbox'])) {
+    $imp_imap->ob->openMailbox($imp_mbox['mailbox'], Horde_Imap_Client::OPEN_READWRITE);
+}
+
 /* Make sure we have a valid index. */
 $imp_mailbox = &IMP_Mailbox::singleton($imp_mbox['mailbox'], $imp_mbox['index']);
 if (!$imp_mailbox->isValidIndex()) {
@@ -428,7 +435,7 @@ if (!IMP::$printMode) {
      * message in the header. */
     $h_page_label = htmlspecialchars($page_label);
     $header_label = $h_page_label;
-    if (isset($imp_search) && $imp_search->isSearchMbox()) {
+    if ($imp_search->isSearchMbox()) {
         $header_label .= ' [' . Horde::link(Util::addParameter(Horde::applicationUrl('mailbox.php'), 'mailbox', $mailbox_name)) . IMP::displayFolder($mailbox_name) . '</a>]';
     }
 
