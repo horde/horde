@@ -259,7 +259,7 @@ class DIMP
                 'attach_limit' => ($conf['compose']['attach_count_limit'] ? intval($conf['compose']['attach_count_limit']) : -1),
                 'close_draft' => $prefs->getValue('close_draft'),
                 'compose_cursor' => ($compose_cursor ? $compose_cursor : 'top'),
-
+                'spellcheck' => intval($prefs->getValue('compose_spellcheck')),
             );
 
             if ($registry->hasMethod('contacts/search')) {

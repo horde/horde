@@ -2,6 +2,7 @@
 v5.0-git
 --------
 
+[mms] Implement spellcheck on send in DIMP.
 [mms] Sanity check - don't do message operations reliant on UID list if
       UIDVALIDITY of mailbox has changed.
 [mms] Simplify forwarding - always attach entire message.

@@ -11,7 +11,7 @@ var DimpCompose = {
     // Variables defaulting to empty/false:
     //   auto_save_interval, button_pressed, compose_cursor, dbtext,
     //   editor_on, mp_padding, resizebcc, resizecc, resizeto, row_height,
-    //   sbtext, uploading
+    //   sbtext, skip_spellcheck, spellcheck, uploading
     last_msg: '',
     textarea_ready: true,
 
@@ -126,15 +126,15 @@ var DimpCompose = {
         var db, params, sb,
             c = $('compose');
 
-        if (DIMP.SpellCheckerObject) {
+        if (DIMP.SpellCheckerObject &&
+            DIMP.SpellCheckerObject.isActive()) {
             DIMP.SpellCheckerObject.resume();
+            this.skip_spellcheck = true;
             if (!this.textarea_ready) {
                 this.uniqueSubmit.bind(this, action).defer();
                 return;
             }
         }
-
-        c.setStyle({ cursor: 'wait' });
 
         if (action == 'send_message' || action == 'save_draft') {
             this.button_pressed = true;
@@ -143,6 +143,14 @@ var DimpCompose = {
             case 'send_message':
                 if (($F('subject') == '') &&
                     !window.confirm(DIMP.text_compose.nosubject)) {
+                    return;
+                }
+
+                if (!this.skip_spellcheck &&
+                    DIMP.conf_compose.spellcheck &&
+                    DIMP.SpellCheckerObject &&
+                    !DIMP.SpellCheckerObject.isActive()) {
+                    DIMP.SpellCheckerObject.spellCheck(this.onNoSpellError.bind(this, action));
                     return;
                 }
 
@@ -168,6 +176,9 @@ var DimpCompose = {
                 return;
             }
         }
+
+        c.setStyle({ cursor: 'wait' });
+        this.skip_spellcheck = false;
         $('action').setValue(action);
 
         if (action == 'add_attachment') {
@@ -284,6 +295,12 @@ var DimpCompose = {
         }
 
         DimpCore.showNotifications(r.msgs);
+    },
+
+    onNoSpellError: function(action)
+    {
+        this.skip_spellcheck = true;
+        this.uniqueSubmit(action);
     },
 
     toggleHtmlEditor: function(noupdate)
