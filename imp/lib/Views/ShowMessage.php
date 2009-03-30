@@ -216,12 +216,9 @@ class IMP_Views_ShowMessage
         }
 
         /* Process the subject. */
-        if (($subject = $mime_headers->getValue('subject'))) {
-            require_once 'Horde/Text.php';
-            $result['subject'] = Text::htmlSpaces(IMP::filterText($subject));
-        } else {
-            $result['subject'] = htmlspecialchars(_("[No Subject]"));
-        }
+        $result['subject'] = ($subject = $mime_headers->getValue('subject'))
+            ? $imp_ui->getDisplaySubject($subject)
+            : htmlspecialchars(_("[No Subject]"));
 
         /* Get X-Priority. */
         $result['priority'] = $imp_ui->getXpriority($mime_headers->getValue('x-priority'));

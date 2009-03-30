@@ -287,13 +287,8 @@ foreach (array('to', 'cc', 'bcc') as $val) {
 }
 
 /* Process the subject now. */
-if (($subject = $mime_headers->getValue('subject'))) {
-    /* Filter the subject text, if requested. */
-    require_once 'Horde/Text.php';
-    $subject = IMP::filterText($subject);
-    $disp_subject = Text::htmlSpaces($subject);
-    $display_headers['subject'] = $disp_subject ? $disp_subject : $subject;
-
+if ($subject = $mime_headers->getValue('subject')) {
+    $display_headers['subject'] = $imp_ui->getDisplaySubject($subject);
     $title = sprintf(_("%s: %s"), $page_label, $subject);
     $shortsub = htmlspecialchars($subject);
 } else {

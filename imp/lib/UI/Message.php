@@ -414,4 +414,24 @@ class IMP_UI_Message
         return implode("\n", $out) . "\n</table>\n";
     }
 
+    /**
+     * Get the display subject (filtered, formatted, and linked).
+     *
+     * @param string $subject  The subject text.
+     *
+     * @return string  The display subject string.
+     */
+    public function getDisplaySubject($subject)
+    {
+        require_once 'Horde/Text.php';
+        require_once 'Horde/Text/Filter.php';
+
+        $subject = IMP::filterText($subject);
+        if (!($disp_subject = Text::htmlSpaces($subject))) {
+            $disp_subject = $subject;
+        }
+
+        return Text_Filter::filter($disp_subject, 'text2html', array('parselevel' => TEXT_HTML_MICRO, 'class' => null, 'callback' => null));
+    }
+
 }

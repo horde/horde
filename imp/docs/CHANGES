@@ -2,6 +2,7 @@
 v5.0-git
 --------
 
+[mms] Link URLs/e-mails in subjects in message views (Request #7487).
 [mms] Implement spellcheck on send in DIMP.
 [mms] Sanity check - don't do message operations reliant on UID list if
       UIDVALIDITY of mailbox has changed.
