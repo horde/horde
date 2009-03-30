@@ -137,6 +137,13 @@ class DIMP
         foreach (DIMP::menuList() as $app) {
             $app_urls[$app] = Horde::url($registry->getInitialPage($app), true);
         }
+        require IMP_BASE . '/config/portal.php';
+        foreach ($dimp_block_list as $block) {
+            $app = $block['ob']->getApp();
+            if (empty($app_urls[$app])) {
+                $app_urls[$app] = Horde::url($registry->getInitialPage($app), true);
+            }
+        }
 
         /* Variables used in core javascript files. */
         $code['conf'] = array(
