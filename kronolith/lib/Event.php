@@ -185,14 +185,14 @@ abstract class Kronolith_Event
      *
      * @var string
      */
-    protected $_backgroundColor;
+    protected $_backgroundColor = '#dddddd';
 
     /**
      * The HTML foreground color to be used for this event.
      *
      * @var string
      */
-    protected $_foregroundColor;
+    protected $_foregroundColor = '#000';
 
     /**
      * The VarRenderer class to use for printing select elements.
@@ -231,11 +231,11 @@ abstract class Kronolith_Event
         if (!empty($this->_calendar) &&
             isset($GLOBALS['all_calendars'][$this->_calendar])) {
             $share = $GLOBALS['all_calendars'][$this->_calendar];
-            $this->_backgroundColor = $share->get('color');
-            if (empty($this->_backgroundColor)) {
-                $this->_backgroundColor = '#dddddd';
+            $backgroundColor = $share->get('color');
+            if (!empty($backgroundColor)) {
+                $this->_backgroundColor = $backgroundColor;
+                $this->_foregroundColor = Horde_Image::brightness($this->_backgroundColor) < 128 ? '#f6f6f6' : '#000';
             }
-            $this->_foregroundColor = Horde_Image::brightness($this->_backgroundColor) < 128 ? '#f6f6f6' : '#000';
         }
 
         if ($eventObject !== null) {
