@@ -74,10 +74,6 @@ class IMP_Message
     {
         global $conf, $notification, $prefs;
 
-        if (($action == 'move') && $GLOBALS['imp_imap']->isReadOnly($targetMbox)) {
-            return false;
-        }
-
         if ($conf['tasklist']['use_tasklist'] &&
             (strpos($targetMbox, '_tasklist_') === 0)) {
             /* If the target is a tasklist, handle the move/copy specially. */
@@ -120,8 +116,14 @@ class IMP_Message
         foreach ($msgList as $mbox => $msgIndices) {
             $error = null;
 
-            if (($action == 'move') && $GLOBALS['imp_imap']->isReadOnly($mbox)) {
-                $error =  _("The target directory is read-only.");
+            if ($GLOBALS['imp_imap']->isReadOnly($targetMbox)) {
+                $error = _("The target directory is read-only.");
+            }
+
+            if (!$error &&
+                ($action == 'move') &&
+                $GLOBALS['imp_imap']->isReadOnly($mbox)) {
+                $error = _("The source directory is read-only.");
             }
 
             if (!$error) {
