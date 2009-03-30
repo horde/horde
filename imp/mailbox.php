@@ -573,7 +573,7 @@ if ($pageOb['msgcount']) {
         $a_template->set('whitelist', Horde::widget('#', _("Whitelist"), 'widget whitelistAction', '', '', _("_Whitelist")));
     }
 
-    if (empty($conf['hooks']['disable_compose']) || !Horde::callHook('_imp_hook_disable_compose', array(false), 'imp')) {
+    if (empty($conf['hooks']['disable_compose']) || !Horde::callHook('_imp_hook_disable_compose', array(), 'imp')) {
         $a_template->set('forward', Horde::widget('#', _("Forward"), 'widget forwardAction', '', '', _("Fo_rward")));
     }
 

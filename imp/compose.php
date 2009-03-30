@@ -148,7 +148,7 @@ NLS::setTimeZone();
 
 /* Determine if compose mode is disabled. */
 $compose_disable = !empty($conf['hooks']['disable_compose']) &&
-                   Horde::callHook('_imp_hook_disable_compose', array(true), 'imp');
+                   Horde::callHook('_imp_hook_disable_compose', array(), 'imp');
 
 /* Determine if mailboxes are readonly. */
 $readonly_drafts = $readonly_sentmail = false;

@@ -318,7 +318,7 @@ $compose_params = array(
 
 /* Add compose actions (Reply, Reply List, Reply All, Forward, Redirect). */
 if (empty($conf['hooks']['disable_compose']) ||
-    !Horde::callHook('_imp_hook_disable_compose', array(true), 'imp')) {
+    !Horde::callHook('_imp_hook_disable_compose', array(), 'imp')) {
     $items = array(IMP::composeLink(array(), array('a' => 'r') + $compose_params) => _("Reply"));
 
     if ($list_info['reply_list']) {
