@@ -3079,7 +3079,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     }
 
     /**
-     * Gets a line from the IMAP stream and parses it.
+     * Gets data from the IMAP stream and parses it.
      *
      * @return array  An array with the following keys:
      * <pre>
@@ -3097,22 +3097,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     {
         $ob = array('line' => '', 'response' => '', 'tag' => '', 'token' => '');
 
-        if (feof($this->_stream)) {
-            $this->_temp['logout'] = true;
-            $this->logout();
-            throw new Horde_Imap_Client_Exception('IMAP Server closed the connection unexpectedly.', Horde_Imap_Client_Exception::IMAP_DISCONNECT);
-        }
-
-        $read = rtrim(fgets($this->_stream));
-        if (empty($read)) {
-            return;
-        }
-
-        if ($this->_debug) {
-            fwrite($this->_debug, 'S (' . microtime(true) . '): ' . $read . "\n");
-        }
-
-        $read = explode(' ', $read, 3);
+        $read = explode(' ', $this->_readData(), 3);
 
         switch ($read[0]) {
         /* Continuation response. */
@@ -3158,7 +3143,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                         $pos = strrpos($line, '{');
                         $literal_len = substr($line, $pos + 1, -1);
                         if (is_numeric($literal_len)) {
-
                             // Check for literal8 response
                             if ($line[$pos - 1] == '~') {
                                 $binary = true;
@@ -3183,22 +3167,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                             break;
                         }
                         $binary = $literal = false;
-                        $line = rtrim(fgets($this->_stream));
+                        $line = $this->_readData();
                     } else {
                         $literal = true;
-                        $line = '';
-                        while ($literal_len) {
-                            $data_read = fread($this->_stream, min($literal_len, 8192));
-                            $literal_len -= strlen($data_read);
-                            $line .= $data_read;
-                        }
-                    }
-
-                    if ($this->_debug) {
-                        $debug_line = $binary
-                            ? "[BINARY DATA - $literal_len bytes]"
-                            : $line;
-                        fwrite($this->_debug, 'S (' . microtime(true) . '): ' . $debug_line . "\n");
+                        $line = $this->_readData($literal_len, $binary);
                     }
                 } while (true);
 
@@ -3216,6 +3188,82 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         }
 
         return $ob;
+    }
+
+    /**
+     * Read data from stream using fread().
+     *
+     * @param integer $len     The number of bytes to read.
+     * @param boolean $binary  Binary data?
+     *
+     * @return string  The data requested (stripped of trailing CRLF).
+     * @throws Horde_Imap_Client_Exception
+     */
+    protected function _readData($len = null, $binary = false)
+    {
+        if ((($len && !empty($this->_temp['buffer_in'])) ||
+             (!$len && empty($this->_temp['buffer_in']))) &&
+            feof($this->_stream)) {
+            $this->_temp['logout'] = true;
+            $this->logout();
+            throw new Horde_Imap_Client_Exception('IMAP Server closed the connection unexpectedly.', Horde_Imap_Client_Exception::IMAP_DISCONNECT);
+        }
+
+        $ret = '';
+
+        if ($len) {
+            $bytes = $len;
+
+            if (!empty($this->_temp['buffer_in'])) {
+                $ptr = &$this->_temp['buffer_in'];
+                $bufferlen = strlen($ptr);
+                if ($bytes > $bufferlen) {
+                    $ret = $ptr;
+                    $ptr = '';
+                    $bytes -= $bufferlen;
+                } else {
+                    $ret = substr($ptr, 0, $bytes);
+                    $ptr = substr($ptr, $bytes);
+                    $bytes = 0;
+                }
+            }
+
+            while ($bytes && ($in = fread($this->_stream, 8192))) {
+                $in_len = strlen($in);
+                if ($in_len > $bytes) {
+                    $ret .= substr($in, 0, $bytes);
+                    $ptr = substr($in, $bytes);
+                    break;
+                }
+                $ret .= $in;
+                $bytes -= strlen($in);
+            }
+        } else {
+            if (empty($this->_temp['buffer_in'])) {
+                $this->_temp['buffer_in'] = fread($this->_stream, 8192);
+            }
+
+            $ptr = &$this->_temp['buffer_in'];
+            if ($ptr) {
+                $pos = strpos($ptr, "\n");
+                if ($pos === false) {
+                    $ret = $ptr;
+                    $ptr = '';
+                    return $ret . $this->_readData();
+                }
+                $ret = substr($ptr, 0, $pos + 1);
+                $ptr = substr($ptr, $pos + 1);
+            }
+        }
+
+        if ($this->_debug) {
+            $debug_line = $binary
+                ? '[BINARY DATA - ' . $len . ' bytes]'
+                : $ret;
+            fwrite($this->_debug, 'S (' . microtime(true) . '): ' . rtrim($debug_line) . "\n");
+        }
+
+        return rtrim($ret);
     }
 
     /**
