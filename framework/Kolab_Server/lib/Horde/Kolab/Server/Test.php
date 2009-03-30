@@ -348,7 +348,8 @@ class Horde_Kolab_Server_Test extends Horde_Kolab_Server_Ldap
         }
         $result = $this->doSearch($filter, $attributes);
         if (empty($result)) {
-            return null;
+            $search = new Horde_Kolab_Server_Test_Search(null);
+            return $search;
         }
         if ($base) {
             $subtree = array();
@@ -359,7 +360,8 @@ class Horde_Kolab_Server_Test extends Horde_Kolab_Server_Ldap
             }
             $result = $subtree;
         }
-        return $this->getEntries($result);
+        $search = new Horde_Kolab_Server_Test_Search($this->getEntries($result));
+        return $search;
     }
 
     /**
