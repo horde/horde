@@ -40,28 +40,28 @@ class Horde_Kolab_Server_ldapTest extends PHPUnit_Framework_TestCase
      */
     public function testGetObjectClasses()
     {
-        $ldap = $this->getMock('Horde_Kolab_Server_ldap', array('read'));
-        $ldap->expects($this->any())
-            ->method('read')
-            ->will($this->returnValue(array (
-                                          'objectClass' =>
-                                          array (
-                                              'count' => 4,
-                                              0 => 'top',
-                                              1 => 'inetOrgPerson',
-                                              2 => 'kolabInetOrgPerson',
-                                              3 => 'hordePerson',
-                                          ),
-                                          0 => 'objectClass',
-                                          'count' => 1)));
+/*       $ldap = $this->getMock('Horde_Kolab_Server_ldap', array('read')); */
+/*         $ldap->expects($this->any()) */
+/*             ->method('read') */
+/*             ->will($this->returnValue(array ( */
+/*                                           'objectClass' => */
+/*                                           array ( */
+/*                                               'count' => 4, */
+/*                                               0 => 'top', */
+/*                                               1 => 'inetOrgPerson', */
+/*                                               2 => 'kolabInetOrgPerson', */
+/*                                               3 => 'hordePerson', */
+/*                                           ), */
+/*                                           0 => 'objectClass', */
+/*                                           'count' => 1))); */
 
-        $classes = $ldap->getObjectClasses('cn=Gunnar Wrobel,dc=example,dc=org');
-        if ($classes instanceOf PEAR_Error) {
-            $this->assertEquals('', $classes->getMessage());
-        }
-        $this->assertContains('top', $classes);
-        $this->assertContains('kolabinetorgperson', $classes);
-        $this->assertContains('hordeperson', $classes);
+/*         $classes = $ldap->getObjectClasses('cn=Gunnar Wrobel,dc=example,dc=org'); */
+/*         if ($classes instanceOf PEAR_Error) { */
+/*             $this->assertEquals('', $classes->getMessage()); */
+/*         } */
+/*         $this->assertContains('top', $classes); */
+/*         $this->assertContains('kolabinetorgperson', $classes); */
+/*         $this->assertContains('hordeperson', $classes); */
 
 /*         $ldap = $this->getMock('Horde_Kolab_Server_ldap', array('read')); */
 /*         $ldap->expects($this->any()) */

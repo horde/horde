@@ -79,12 +79,25 @@ class Horde_Kolab_Server_ldap extends Horde_Kolab_Server
         $config['binddn'] = $config['uid'];
         $config['bindpw'] = $config['pass'];
 
+	$this->connect();
+
+        parent::__construct($params);
+    }
+
+    
+    /**
+     * Connect to the LDAP server.
+     *
+     * @return NULL.
+     *
+     * @throws Horde_Kolab_Server_Exception If the connection failed.
+     */
+    protected function connect()
+    {
         $this->_ldap = Net_LDAP2::connect($config);
         if (is_a($this->_ldap, 'PEAR_Error')) {
             throw new Horde_Kolab_Server_Exception($this->_ldap);
         }
-
-        parent::__construct($params);
     }
 
     /**

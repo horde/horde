@@ -124,7 +124,17 @@ class Horde_Kolab_Server_test extends Horde_Kolab_Server_ldap
         $this->store();
     }
 
-    
+    /**
+     * Connect to the server.
+     *
+     * @return NULL.
+     *
+     * @throws Horde_Kolab_Server_Exception If the connection failed.
+     */
+    protected function connect()
+    {
+    }
+
     /**
      * Load the current state of the database.
      *
