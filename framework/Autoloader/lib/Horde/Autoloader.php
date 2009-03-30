@@ -46,7 +46,7 @@ class Horde_Autoloader
 
             if (!is_null($replace) || preg_match($pattern, $file)) {
                 $file = str_replace(array('::', '_'), '/', $file) . '.php';
-                $oldErrorReporting = error_reporting(E_ALL ^ E_WARNING);
+                $oldErrorReporting = error_reporting(E_ALL ^ E_WARNING ^ E_DEPRECATED);
                 /* @TODO H4: Change back to include */
                 $included = include_once $file;
                 error_reporting($oldErrorReporting);
