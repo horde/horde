@@ -119,7 +119,11 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
             $params['attributes'] = $attrs;
         }
 
-        $data = $this->search(null, $params, $dn);
+        $result = $this->search(null, $params, $dn);
+        $data = $result->as_struct();
+        if (is_a($data, 'PEAR_Error')) {
+            throw new Horde_Kolab_Server_Exception($data->getMessage());
+        }
         if (empty($data)) {
             throw new Horde_Kolab_Server_Exception(_("Empty result!"));
         }            
@@ -219,12 +223,17 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
         }
 
         $result = $this->search($filter, $options, $base);
-        if (empty($result)) {
+        $data = $result->as_struct();
+        if (is_a($data, 'PEAR_Error')) {
+            throw new Horde_Kolab_Server_Exception($data->getMessage());
+        }
+        if (empty($data)) {
             return array();
         }
 
         if ($sort) {
             /* FIXME */
+            /* $data = $result->as_sorted_struct(); */
             /*$this->sort($result, $sort); */
         }
 
@@ -241,7 +250,7 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
         }
 
         $entries = array();
-        foreach ($result as $entry) {
+        foreach ($data as $entry) {
             $entries[] = $entry['dn'];
         }
 
@@ -317,25 +326,6 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
     }
 
     /**
-     * Save an object.
-     *
-     * @param string $dn   The DN of the object.
-     * @param array  $data The data for the object.
-     *
-     * @return boolean True if successfull.
-     *
-     * @throws Horde_Kolab_Server_Exception If the given type is unknown.
-     */
-    function save($dn, $data)
-    {
-        $result = $this->_add($dn, $data);
-        if (!$result  && $this->_errno()) {
-            throw new Horde_Kolab_Server_Exception(sprintf(_("Failed saving object. Error was: %s"),
-                                                           $this->_error()));
-        }
-    }
-
-    /**
      * Identify the UID for the first object found using the specified
      * search criteria.
      *
@@ -406,7 +396,11 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
         $params = array('attributes' => $attrs);
         $filter = $this->searchQuery($criteria);
         $result = $this->search($filter, $params, $this->_base_dn);
-        return $this->attrsFromResult($result, $attrs, $restrict);
+        $data = $result->as_struct();
+        if (is_a($data, 'PEAR_Error')) {
+            throw new Horde_Kolab_Server_Exception($data->getMessage());
+        }
+        return $this->attrsFromResult($data, $attrs, $restrict);
     }
 
     /**
@@ -430,7 +424,7 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
         if (is_a($result, 'PEAR_Error')) {
             throw new Horde_Kolab_Server_Exception($result->getMessage());
         }
-        return $result->as_struct();
+        return $result;
     }
 
     /**
@@ -608,7 +602,11 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
     {
         $params = array('attributes' => 'dn');
         $result = $this->search($filter, $params, $this->_base_dn);
-        return $this->dnFromResult($result, $restrict);
+        $data = $result->as_struct();
+        if (is_a($data, 'PEAR_Error')) {
+            throw new Horde_Kolab_Server_Exception($data->getMessage());
+        }
+        return $this->dnFromResult($data, $restrict);
     }
 
     /**
