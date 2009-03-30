@@ -307,7 +307,6 @@ KronolithCore = {
 
                 this.updateView(date, loc);
                 if ($('kronolithView' + locCap)) {
-                    $('kronolithViewHead').appear();
                     $('kronolithView' + locCap).appear();
                 }
                 this.updateMinical(date, loc);
@@ -349,7 +348,7 @@ KronolithCore = {
             break;
 
         case 'month':
-            var tbody = $('kronolithViewMonth').down('.kronolithViewBody'),
+            var tbody = $('kronolithViewMonthBody'),
                 dates = this.viewDates(date, view),
                 day = dates[0].clone(), rows = 0, row;
 
@@ -634,7 +633,7 @@ KronolithCore = {
                         $('kronolithMonthDay' + date.key).insert(div);
                         if (event.value.e) {
                             div.setStyle({ 'cursor': 'move' });
-                            new Drag('kronolithEventmonth' + r.response.cal + event.key, { threshold: 5, parentElement: function() { return $('kronolithViewMonth').select('.kronolithViewBody')[0]; }, snapToParent: true });
+                            new Drag('kronolithEventmonth' + r.response.cal + event.key, { threshold: 5, parentElement: function() { return $('kronolithViewMonthBody'); }, snapToParent: true });
                         }
                         break;
                     }

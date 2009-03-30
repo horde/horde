@@ -932,9 +932,6 @@ div.kronolithView div.kronolithViewBody div.kronolithRow {
 }
 
 /* Main view month */
-.kronolithViewMonth div.kronolithViewBody div.kronolithRow div {
-    height: 86px;
-}
 #kronolithViewMonthContainer {
     position: absolute;
     top: 24px;
@@ -995,19 +992,6 @@ div.kronolithView div.kronolithViewBody div.kronolithRow div .kronolithCorner {
     width: auto;
     height: auto;
     border: none;
-}
-div.kronolithViewMonth div.kronolithViewBody div.kronolithRow div.kronolithDay {
-    display: inline;
-    width: 15px;
-    height: 15px;
-    line-height: 15px;
-    margin: 0 2px 2px 0;
-    padding: 0;
-    border-width: 0 1px 1px 0;
-    text-align: center;
-    vertical-align: middle;
-    font-weight: bold;
-    cursor: pointer;
 }
 div.kronolithView div.kronolithViewBody div.kronolithRow div a.kronolithAdd {
     display: inline;

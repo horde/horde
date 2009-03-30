@@ -1,4 +1,5 @@
-<table id="kronolithViewHead" class="kronolithView" style="display:none">
+<div id="kronolithViewMonth" style="display:none">
+<table id="kronolithViewHead" class="kronolithView">
   <tr>
     <td class="kronolithFirstCol">&nbsp;</td>
     <?php for ($w = $prefs->getValue('week_start_monday'), $i = $w, $c = $i + 7; $i < $c; $i++): ?>
@@ -8,8 +9,8 @@
 </table>
 
 <div id="kronolithViewMonthContainer">
-<table id="kronolithViewMonth" class="kronolithView kronolithViewMonth" style="display:none;">
-<tbody class="kronolithViewBody">
+<table class="kronolithView kronolithViewMonth">
+<tbody id="kronolithViewMonthBody">
   <tr id="kronolithRowTemplate" class="kronolithRow" style="display:none">
     <td class="kronolithFirstCol"></td>
     <td class="kronolithCol<?php if ($w == 6 || $w == 0) echo ' kronolithWeekend' ?>">
@@ -36,4 +37,5 @@
   </tr>
 </tbody>
 </table>
+</div>
 </div>
