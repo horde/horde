@@ -45,11 +45,13 @@ class Horde_Kolab_Server_testTest extends Horde_Kolab_Test_Server
         $server = &$this->prepareBasicServer($type);
 
         $result = $server->search('(objectClass=top)', array('objectClass'));
+        $result = $result->as_struct();
         $this->assertEquals(13, count($result));
       
         $result = $server->search('(objectClass=top)',
                                   array('objectClass'),
                                   'cn=internal,dc=example,dc=org');
+        $result = $result->as_struct();
         $this->assertNoError($result);
         $this->assertEquals(4, count($result));
     }
@@ -105,6 +107,7 @@ class Horde_Kolab_Server_testTest extends Horde_Kolab_Test_Server
 
         $sort   = Horde_Kolab_Server_Object_base::ATTRIBUTE_SN;
         $result = $server->search($filter);
+        $result = $result->as_struct();
         $this->assertNoError($result);
         $this->assertEquals(2, count($result));
 
