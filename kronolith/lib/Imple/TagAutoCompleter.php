@@ -47,9 +47,12 @@ class Kronolith_Imple_TagAutoCompleter extends Kronolith_Imple
 
         $js_params = array(
             'tokens: [","]',
-            'indicator: "' . $this->_params['triggerId'] . '_loading_img"',
-            'afterUpdateElement: function(f, t) { if (!f.value.endsWith(";")) { f.value += ","; } f.value += " "; }'
+            'indicator: "' . $this->_params['triggerId'] . '_loading_img"'
         );
+
+        if (!empty($this->_params['updateElement'])) {
+            $js_params[] = 'updateElement: ' . $this->_params['updateElement'];
+        }
 
         $params[] = '{' . implode(',', $js_params) . '}';
 
