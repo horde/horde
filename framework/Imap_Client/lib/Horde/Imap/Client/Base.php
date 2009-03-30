@@ -1228,6 +1228,8 @@ abstract class Horde_Imap_Client_Base
      *                         Defaults to an ALL search.
      * @param array $options   Additional options:
      * <pre>
+     * 'nocache' - (boolean) Don't cache the results.
+     *             DEFAULT: false (results cached, if possible)
      * 'results' - (array) The data to return. Consists of zero or more of the
      *                     following flags:
      * <pre>
@@ -1340,7 +1342,8 @@ abstract class Horde_Imap_Client_Base
          * array - the generated query is already added to '_query' key
          * above. */
         $cache = null;
-        if ($this->_initCache(true) &&
+        if (empty($options['nocache']) &&
+            $this->_initCache(true) &&
             (isset($this->_init['enabled']['CONDSTORE']) ||
              !$query->flagSearch())) {
             $cache = $this->_getSearchCache('search', $mailbox, $options);
@@ -2472,8 +2475,8 @@ abstract class Horde_Imap_Client_Base
     /**
      * Store FETCH data in cache.
      *
-     * @param array $data      The data array.
-     * @param array $options   Additional options:
+     * @param array $data     The data array.
+     * @param array $options  Additional options:
      * <pre>
      * 'mailbox' - (string) The mailbox to update.
      *             DEFAULT: The selected mailbox.

@@ -1346,9 +1346,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             }
         }
 
-        /* We need to get Msgno -> UID lookup table if we are caching.
-         * Apparently, there is no guarantee that if we are using QRESYNC that
-         * we will get VANISHED responses, so we need to do this. */
+        /* We need to get sequence num -> UID lookup table if we are caching.
+         * There is no guarantee that if we are using QRESYNC that we will get
+         * VANISHED responses, so this is necessary. */
         if ($use_cache && is_null($s_res)) {
             /* Keys in $s_res['sort'] start at 0, not 1. */
             $s_res = $this->_getSeqUIDLookup(null, false);
