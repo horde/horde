@@ -213,7 +213,8 @@ class IMP_Mailbox
                 $uids[$mbox] = array_keys($fetch_res);
 
                 if (!is_null($cache) && !empty($tostore)) {
-                    $cache->set($mbox, $tostore);
+                    $status = $GLOBALS['imp_imap']->ob->status($mbox, Horde_Imap_Client::STATUS_UIDVALIDITY);
+                    $cache->set($mbox, $tostore, $status['uidvalidity']);
                 }
             } catch (Horde_Imap_Client_Exception $e) {}
         }
