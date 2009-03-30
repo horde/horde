@@ -173,10 +173,23 @@ abstract class Horde_Kolab_Server
     /**
      * Fetch a Kolab object.
      *
-     * This method will not necessarily retrieve any data from the server and
-     * might simply generate a new instance for the desired object. This method
-     * can also be used in order to fetch non-existing objects that will be
-     * saved later.
+     * This method will not retrieve any data from the server
+     * immediately. Instead it will simply generate a new instance for the
+     * desired object.
+     *
+     * The server data will only be accessed once you start reading the object
+     * data.
+     *
+     * This method can also be used in order to fetch non-existing objects that
+     * will be saved later. This is however not recommended and you should
+     * rather use the add($info) method for that.
+     *
+     * If you do not provide the object type the server will try to determine it
+     * automatically based on the uid. As this requires reading data from the
+     * server it is recommended to specify the object type whenever it is known.
+     *
+     * If you do not specify a uid the object corresponding to the user bound to
+     * the server will be returned.
      *
      * @param string $uid  The UID of the object to fetch.
      * @param string $type The type of the object to fetch.
@@ -251,6 +264,10 @@ abstract class Horde_Kolab_Server
 
     /**
      * Generate a hash representation for a list of objects.
+     *
+     * @todo The LDAP driver needs a more efficient version of this call as it
+     *       is not required to generate objects before returning data as a
+     *       hash. It can be derived directly from the LDAP result.
      *
      * @param string $type   The type of the objects to be listed
      * @param array  $params Additional parameters.
