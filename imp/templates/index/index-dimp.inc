@@ -339,11 +339,9 @@ function _simpleButton($id, $text, $image, $imagedir = null)
  <a id="ctx_folder_create"><span class="contextImg"></span><?php echo _("Create subfolder") ?></a>
  <a id="ctx_folder_rename"><span class="contextImg"></span><?php echo _("Rename Folder") ?></a>
  <a id="ctx_folder_empty"><span class="contextImg"></span><?php echo _("Empty Folder") ?></a>
- <a id="ctx_folder_delete"><span class="contextImg"></span><?php echo _("Delete Folder") ?></a>
- <div id="ctx_folder_seen_sep" class="sep"></div>
+ <a id="ctx_folder_delete" class="sep"><span class="contextImg"></span><?php echo _("Delete Folder") ?></a>
  <a id="ctx_folder_seen"><span class="contextImg"></span><?php echo _("Mark all as Read") ?></a>
- <a id="ctx_folder_unseen"><span class="contextImg"></span><?php echo _("Mark all as New") ?></a>
- <div id="ctx_folder_poll_sep" class="sep"></div>
+ <a id="ctx_folder_unseen" class="sep"><span class="contextImg"></span><?php echo _("Mark all as New") ?></a>
  <a id="ctx_folder_poll"><span class="contextImg"></span><?php echo _("Check for New Mail") ?></a>
  <a id="ctx_folder_nopoll"><span class="contextImg"></span><?php echo _("Do Not Check for New Mail") ?></a>
 </div>
@@ -355,10 +353,8 @@ function _simpleButton($id, $text, $image, $imagedir = null)
 
 <div class="context" id="ctx_message" style="display:none">
  <a id="ctx_message_reply"><span class="contextImg"></span><?php echo _("Reply") ?></a>
- <a id="ctx_message_forward"><span class="contextImg"></span><?php echo _("Forward") ?></a>
- <div class="sep"></div>
- <a id="ctx_message_setflag"><span class="contextImg"></span><?php echo _("Mark as") ?></a>
- <div class="sep"></div>
+ <a id="ctx_message_forward" class="sep"><span class="contextImg"></span><?php echo _("Forward") ?></a>
+ <a id="ctx_message_setflag" class="sep"><span class="contextImg"></span><?php echo _("Mark as") ?></a>
 <?php if (!empty($conf['spam']['reporting'])): ?>
  <a id="ctx_message_spam"><span class="contextImg"></span><?php echo _("Mark as Spam") ?></a>
 <?php endif; ?>
@@ -378,10 +374,8 @@ function _simpleButton($id, $text, $image, $imagedir = null)
 </div>
 
 <div class="context" id="ctx_draft" style="display:none">
- <a id="ctx_draft_resume"><span class="contextImg"></span><?php echo _("Resume Draft") ?></a>
- <div class="sep"></div>
- <a id="ctx_draft_setflag"><span class="contextImg"></span><?php echo _("Mark as") ?></a>
- <div class="sep"></div>
+ <a id="ctx_draft_resume" class="sep"><span class="contextImg"></span><?php echo _("Resume Draft") ?></a>
+ <a id="ctx_draft_setflag" class="sep"><span class="contextImg"></span><?php echo _("Mark as") ?></a>
  <a id="ctx_draft_deleted"><span class="contextImg"></span><?php echo _("Delete") ?></a>
 <?php if (!$usetrash): ?>
  <a id="ctx_draft_undeleted"><span class="contextImg"></span><?php echo _("Undelete") ?></a>
@@ -395,22 +389,18 @@ function _simpleButton($id, $text, $image, $imagedir = null)
 </div>
 
 <div class="context" id="ctx_otheractions" style="display:none">
- <a id="previewtoggle"><span class="contextImg"></span><?php echo ($prefs->getValue('dimp_show_preview') ? _("Hide Preview") : _("Show Preview")); ?></a>
- <div class="sep"></div>
- <a id="oa_setflag"><span class="contextImg"></span><?php echo _("Mark as") ?></a>
- <div class="sep" id="oa_sep1"></div>
+ <a id="previewtoggle" class="sep"><span class="contextImg"></span><?php echo ($prefs->getValue('dimp_show_preview') ? _("Hide Preview") : _("Show Preview")); ?></a>
+ <a id="oa_setflag" class="sep"><span class="contextImg"></span><?php echo _("Mark as") ?></a>
 <?php if ($has_blacklist || $has_whitelist): ?>
 <?php if ($has_blacklist): ?>
- <a id="oa_blacklist"><span class="contextImg"></span><?php echo _("Blacklist") ?></a>
+ <a id="oa_blacklist"<?php if (!$has_whitelist): ?> class="sep"<?php endif; ?>><span class="contextImg"></span><?php echo _("Blacklist") ?></a>
 <?php endif; ?>
 <?php if ($has_whitelist): ?>
- <a id="oa_whitelist"><span class="contextImg"></span><?php echo _("Whitelist") ?></a>
+ <a id="oa_whitelist" class="sep"><span class="contextImg"></span><?php echo _("Whitelist") ?></a>
 <?php endif; ?>
- <div class="sep" id="oa_sep2"></div>
 <?php endif; ?>
- <a id="oa_selectall"><span class="contextImg"></span><?php echo _("Select All") ?></a>
+ <a id="oa_selectall"<?php if (!$usetrash): ?> class="sep" <?php endif; ?>><span class="contextImg"></span><?php echo _("Select All") ?></a>
 <?php if (!$usetrash): ?>
- <div class="sep"></div>
  <a id="oa_purge_deleted"><span class="contextImg"></span><?php echo _("Purge Deleted") ?></a>
  <a id="oa_undeleted"><span class="contextImg"></span><?php echo _("Undelete") ?></a>
 <?php endif; ?>

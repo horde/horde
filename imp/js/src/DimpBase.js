@@ -494,11 +494,7 @@ var DimpBase = {
                      * elsewhere. */
                     tmp = [ $('button_deleted') ].compact().invoke('up', 'SPAN');
                     [ 'ctx_message_', 'ctx_draft_' ].each(function(c) {
-                        var t = $(c + 'setflag');
-                        if (t) {
-                            tmp = tmp.concat([ t, t.previous('DIV.sep'), t.next('DIV.sep') ]);
-                        }
-                        tmp = tmp.concat($(c + 'deleted', c + 'undeleted'));
+                        tmp = tmp.concat($(c + 'deleted', c + 'setflag', c + 'undeleted'));
                     });
 
                     if (this.viewport.getMetaData('readonly')) {
@@ -759,9 +755,9 @@ var DimpBase = {
             break;
 
         case 'ctx_otheractions':
-            tmp = $('oa_sep1', 'oa_blacklist', 'oa_whitelist', 'oa_sep2', 'oa_undeleted');
+            tmp = $('oa_blacklist', 'oa_whitelist', 'oa_undeleted');
             if (this.viewport.getMetaData('readonly')) {
-                $('oa_setflag').hide().previous('DIV.sep').hide();
+                $('oa_setflag').hide();
             } else {
                 tmp.push($('oa_setflag'));
             }

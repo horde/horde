@@ -810,7 +810,7 @@ span.attachName:hover, .nojserror {
     color: #fff;
     cursor: pointer;
 }
-.context div.sep {
+.context .sep {
     border-bottom: 1px #d4d4d4 solid;
 }
 .contextSubmenu {
