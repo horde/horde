@@ -66,6 +66,8 @@ v4.3.4-cvs
 
 [mms] SECURITY: Don't cache local PGP public keys retrieved from the
       addressbook (found by Peter Meier <peter.meier@immerda.ch>).
+[mms] If using spellcheck on send, automatically send if no spelling errors
+      exist (Request #6892).
 [jan] Show all addresses when printing messages.
 [mms] Fix cache issues in folder tree when deleting a mailbox (Bug #7745).
 [mms] Fix updating POP3 indices when deleting in mailbox view (Bug #8035).

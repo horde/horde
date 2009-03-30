@@ -8,7 +8,7 @@
 var ImpCompose = {
     /* Variables defined in compose.php:
      *   cancel_url, spellcheck, cursor_pos, identities, max_attachments,
-     *   popup, redirect, reloaded, rtemode, smf_check */
+     *   popup, redirect, reloaded, rtemode, smf_check, skip_spellcheck */
     display_unload_warning: true,
     textarea_ready: true,
 
@@ -172,13 +172,17 @@ var ImpCompose = {
                 return;
             }
 
-            if (this.spellcheck &&
+            if (!this.skip_spellcheck &&
+                this.spellcheck &&
                 IMP.SpellCheckerObject &&
                 !IMP.SpellCheckerObject.isActive()) {
-                IMP.SpellCheckerObject.spellCheck();
+                IMP.SpellCheckerObject.spellCheck(this.onNoSpellError.bind(this, actionID, e));
                 return;
             }
+
         }
+
+        this.skip_spellcheck = false;
 
         if (IMP.SpellCheckerObject) {
             IMP.SpellCheckerObject.resume();
@@ -201,6 +205,12 @@ var ImpCompose = {
         } else {
             this._uniqSubmit.defer();
         }
+    },
+
+    onNoSpellError: function(actionID, e)
+    {
+        this.skip_spellcheck = true;
+        this.uniqSubmit(actionID, e);
     },
 
     attachmentChanged: function()
