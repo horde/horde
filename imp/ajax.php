@@ -17,7 +17,7 @@ function _generateDeleteResult($mbox, $indices, $change, $nothread = false)
 
     $result = new stdClass;
     $result->folder = $mbox;
-    $result->uids = $GLOBALS['imap_imap']->ob->utils->toSequenceString($indices, array('mailbox' => true));
+    $result->uids = $GLOBALS['imp_imap']->ob->utils->toSequenceString($indices, array('mailbox' => true));
     $result->remove = ($GLOBALS['prefs']->getValue('hide_deleted') ||
                        $GLOBALS['prefs']->getValue('use_trash'));
     $result->cacheid = $imp_mailbox->getCacheID($mbox);
@@ -174,7 +174,7 @@ require_once $imp_dir . '/lib/base.php';
 
 // Process common request variables.
 $mbox = Util::getPost('view');
-$indices = $imap_imap->ob->utils->fromSequenceString(Util::getPost('uid'));
+$indices = $imp_imap->ob->utils->fromSequenceString(Util::getPost('uid'));
 $cacheid = Util::getPost('cacheid');
 
 // Open an output buffer to ensure that we catch errors that might break JSON
