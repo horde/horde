@@ -165,6 +165,7 @@ function _simpleButton($id, $text, $image, $imagedir = null)
        <span class="rightFloat" id="msgHeader"></span>
        <span id="folderLoading" class="loadingImg" style="display:none"></span>
        <span id="folderName"></span>
+       <span class="iconImg readonlyImg" style="display:none" title="<?php echo htmlspecialchars(_("Read-Only")) ?>"></span>
       </div>
      </div>
 

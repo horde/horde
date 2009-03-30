@@ -19,6 +19,7 @@ if (!$index || !$folder) {
 }
 
 $imp_ui = new IMP_UI_Message();
+$readonly = $imp_imap->isReadOnly($folder);
 
 $args = array(
     'headers' => array_diff(array_keys($imp_ui->basicHeaders()), array('subject')),
@@ -63,6 +64,7 @@ foreach (array('from', 'to', 'cc', 'bcc', 'replyTo') as $val) {
         $compose_result['js'][] = 'DimpFullmessage.' . $val . ' = ' . Horde_Serialize::serialize($show_msg_result[$val], Horde_Serialize::JSON);
     }
 }
+
 IMP::addInlineScript($compose_result['js']);
 IMP::addInlineScript($compose_result['jsonload'], 'load');
 IMP::addInlineScript(array(DIMP::notify()), 'dom');

@@ -203,3 +203,6 @@ span.keyupImg {
 span.keydownImg {
     background-image: url("graphics/key_down.png");
 }
+span.readonlyImg {
+    background-image: url("graphics/locked.png");
+}

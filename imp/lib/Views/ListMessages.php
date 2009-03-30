@@ -93,7 +93,7 @@ class IMP_Views_ListMessages
         /* Create the base object. */
         $result = new stdClass;
         $result->id = $mbox;
-        $result->reset = false;
+        $result->reset = 0;
         $result->totalrows = $msgcount;
         $result->label = $label;
         $result->cacheid = $imp_mailbox->getCacheID();
@@ -140,6 +140,9 @@ class IMP_Views_ListMessages
         }
         if ($GLOBALS['imp_search']->isSearchMbox($mbox)) {
             $md->search = 1;
+        }
+        if ($GLOBALS['imp_imap']->isReadOnly($mbox)) {
+            $md->readonly = 1;
         }
 
         /* Check for mailbox existence now. If there are no messages, there

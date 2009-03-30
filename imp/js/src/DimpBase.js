@@ -446,7 +446,7 @@ var DimpBase = {
                 this.setMessageListTitle();
             }.bind(this),
             onComplete: function() {
-                var row, ssc,
+                var row, ssc, tmp,
                     l = this.viewport.getMetaData('label');
 
                 if (this.uid) {
@@ -488,6 +488,25 @@ var DimpBase = {
                                 [ $('button_ham').up(), $('ctx_message_ham') ].invoke('show');
                             }
                         }
+                    }
+
+                    /* Read-only changes. 'oa_setflag' is handled
+                     * elsewhere. */
+                    tmp = [ $('button_deleted') ].compact().invoke('up', 'SPAN');
+                    [ 'ctx_message_', 'ctx_draft_' ].each(function(c) {
+                        var t = $(c + 'setflag');
+                        if (t) {
+                            tmp = tmp.concat([ t, t.previous('DIV.sep'), t.next('DIV.sep') ]);
+                        }
+                        tmp = tmp.concat($(c + 'deleted', c + 'undeleted'));
+                    });
+
+                    if (this.viewport.getMetaData('readonly')) {
+                        tmp.compact().invoke('hide');
+                        $('folderName').next().show();
+                    } else {
+                        tmp.compact().invoke('show');
+                        $('folderName').next().hide();
                     }
                 } else if (this.filtertoggle) {
                     if (this.filtertoggle == 1 &&
@@ -740,7 +759,13 @@ var DimpBase = {
             break;
 
         case 'ctx_otheractions':
-            $('oa_setflag', 'oa_sep1', 'oa_blacklist', 'oa_whitelist', 'oa_sep2', 'oa_undeleted').compact().invoke(this.viewport.getSelected().size() ? 'show' : 'hide');
+            tmp = $('oa_sep1', 'oa_blacklist', 'oa_whitelist', 'oa_sep2', 'oa_undeleted');
+            if (this.viewport.getMetaData('readonly')) {
+                $('oa_setflag').hide().previous('DIV.sep').hide();
+            } else {
+                tmp.push($('oa_setflag'));
+            }
+            tmp.compact().invoke(this.viewport.getSelected().size() ? 'show' : 'hide');
             break;
 
         default:

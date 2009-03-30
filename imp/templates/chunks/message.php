@@ -49,9 +49,11 @@ function _createDAfmsg($text, $image, $id, $class = '', $show_text = true)
      <?php _createDAfmsg(_("Report Innocent"), 'Ham', 'button_ham', '', $show_text) ?>
     </span>
 <?php endif; ?>
+<?php if (!$readonly): ?>
     <span>
      <?php _createDAfmsg(_("Delete"), 'Delete', 'button_deleted', '', $show_text) ?>
     </span>
+<?php endif; ?>
    </div>
   </div>
 
