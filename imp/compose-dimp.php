@@ -27,6 +27,10 @@ function _removeAutoSaveDraft($index)
 
 require_once dirname(__FILE__) . '/lib/base.php';
 
+/* Determine if compose mode is disabled. */
+$compose_disable = !empty($conf['hooks']['disable_compose']) &&
+                   Horde::callHook('_imp_hook_disable_compose', array(), 'imp');
+
 /* The headers of the message. */
 $header = array();
 foreach (array('to', 'cc', 'bcc', 'subject', 'in_reply_to', 'references') as $v) {
@@ -112,6 +116,10 @@ if (count($_POST)) {
         break;
 
     case 'send_message':
+        if ($compose_disable) {
+            break;
+        }
+
         try {
             $from = $identity->getFromLine(null, Util::getFormData('from'));
         } catch (Horde_Exception $e) {

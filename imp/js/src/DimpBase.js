@@ -2346,14 +2346,19 @@ var DimpBase = {
 
         this._setFilterText(true);
 
-        /* Add popdown menus. */
-        this._addMouseEvents({ id: 'button_reply', type: 'reply' }, true);
-        DM.disable('button_reply_img', true, true);
+        /* Add popdown menus. Check for disabled compose at the same time. */
         this._addMouseEvents({ id: 'button_other', type: 'otheractions' }, true);
         DM.addSubMenu('ctx_message_reply', 'ctx_reply');
         DM.addSubMenu('ctx_message_setflag', 'ctx_flag');
         DM.addSubMenu('oa_setflag', 'ctx_flag');
         DM.addSubMenu('ctx_draft_setflag', 'ctx_flag');
+
+        if (DIMP.conf.disable_compose) {
+            $('button_reply', 'button_forward').compact().invoke('up', 'SPAN').concat($('button_compose', 'composelink', 'ctx_contacts_new')).compact().invoke('remove');
+        } else {
+            this._addMouseEvents({ id: 'button_reply', type: 'reply' }, true);
+            DM.disable('button_reply_img', true, true);
+        }
 
         new Drop('dropbase', this._folderDropConfig);
 

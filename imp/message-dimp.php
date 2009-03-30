@@ -38,49 +38,60 @@ if (isset($show_msg_result['error'])) {
     exit;
 }
 
-$compose_args = array(
-    'folder' => $folder,
-    'index' => $index,
-    'messageCache' => '',
-    'popup' => false,
-    'qreply' => true,
-);
-$compose_result = IMP_Views_Compose::showCompose($compose_args);
-
-/* Init IMP_UI_Compose:: object. */
-$imp_ui = new IMP_UI_Compose();
-
-/* Attach spellchecker & auto completer. */
-$imp_ui->attachAutoCompleter(array('to', 'cc', 'bcc'));
-$imp_ui->attachSpellChecker('dimp');
-
-$compose_result['js'] = array_merge($compose_result['js'], array(
-    'DIMP.conf.msg_index = "' . $show_msg_result['index'] . '"',
-    'DIMP.conf.msg_folder = "' . $show_msg_result['folder'] . '"'
-));
-
-foreach (array('from', 'to', 'cc', 'bcc', 'replyTo') as $val) {
-    if (!empty($show_msg_result[$val])) {
-        $compose_result['js'][] = 'DimpFullmessage.' . $val . ' = ' . Horde_Serialize::serialize($show_msg_result[$val], Horde_Serialize::JSON);
-    }
-}
-
-IMP::addInlineScript($compose_result['js']);
-IMP::addInlineScript($compose_result['jsonload'], 'load');
-IMP::addInlineScript(array(DIMP::notify()), 'dom');
-
 $scripts = array(
     array('ContextSensitive.js', 'imp', true),
     array('fullmessage-dimp.js', 'imp', true),
-    array('compose-dimp.js', 'imp', true),
     array('imp.js', 'imp', true)
 );
+
+$js_out = array(
+    'DIMP.conf.msg_index = "' . $show_msg_result['index'] . '"',
+    'DIMP.conf.msg_folder = "' . $show_msg_result['folder'] . '"'
+);
+
+foreach (array('from', 'to', 'cc', 'bcc', 'replyTo') as $val) {
+    if (!empty($show_msg_result[$val])) {
+        $js_out[] = 'DimpFullmessage.' . $val . ' = ' . Horde_Serialize::serialize($show_msg_result[$val], Horde_Serialize::JSON);
+    }
+}
+
+/* Determine if compose mode is disabled. */
+$disable_compose = !empty($conf['hooks']['disable_compose']) &&
+    !Horde::callHook('_imp_hook_disable_compose', array(), 'imp');
+
+if (!$disable_compose) {
+    $compose_args = array(
+        'folder' => $folder,
+        'index' => $index,
+        'messageCache' => '',
+        'popup' => false,
+        'qreply' => true,
+    );
+    $compose_result = IMP_Views_Compose::showCompose($compose_args);
+
+    /* Init IMP_UI_Compose:: object. */
+    $imp_ui = new IMP_UI_Compose();
+
+    /* Attach spellchecker & auto completer. */
+    $imp_ui->attachAutoCompleter(array('to', 'cc', 'bcc'));
+    $imp_ui->attachSpellChecker('dimp');
+
+    $js_out = array_merge($js_out, $compose_result['js']);
+    $scripts[] = array('compose-dimp.js', 'imp', true);
+
+    IMP::addInlineScript($compose_result['jsonload'], 'load');
+}
+
+IMP::addInlineScript($js_out);
+IMP::addInlineScript(array(DIMP::notify()), 'dom');
 
 DIMP::header($show_msg_result['subject'], $scripts);
 echo "<body>\n";
 require IMP_TEMPLATES . '/chunks/message.php';
 IMP::includeScriptFiles();
 IMP::outputInlineScript();
-echo $compose_result['jsappend'];
+if (!$disable_compose) {
+    echo $compose_result['jsappend'];
+}
 $notification->notify(array('listeners' => array('javascript')));
 echo "</body>\n</html>";

@@ -136,7 +136,11 @@ var DimpFullmessage = {
     {
         DimpCore.init();
 
-        this.addPopdown('reply_link', 'replypopdown');
+        if (DIMP.conf.disable_compose) {
+            tmp = $('reply_link', 'forward_link').compact().invoke('up', 'SPAN').concat([ $('ctx_contacts_new') ]).compact().invoke('remove');
+        } else {
+            this.addPopdown('reply_link', 'replypopdown');
+        }
 
         /* Set up address linking. */
         [ 'from', 'to', 'cc', 'bcc', 'replyTo' ].each(function(a) {

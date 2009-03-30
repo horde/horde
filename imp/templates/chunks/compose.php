@@ -15,6 +15,10 @@
 $d_read = $GLOBALS['prefs']->getValue('disposition_request_read');
 $save_attach = $GLOBALS['prefs']->getValue('save_attachments');
 
+/* Determine if compose mode is disabled. */
+$compose_disable = !empty($GLOBALS['conf']['hooks']['disable_compose']) &&
+                   Horde::callHook('_imp_hook_disable_compose', array(), 'imp');
+
 // Small utility function to simplify creating dimpactions buttons.
 // As of right now, we don't show text only links.
 function _createDAcompose($text, $image, $id)
@@ -44,6 +48,7 @@ function _createDAcompose($text, $image, $id)
 <input type="hidden" id="composeCache" name="composeCache" value="<?php echo $composeCache ?>" />
 
 <div class="dimpActions dimpActionsCompose">
+<?php if (!$compose_disable): ?>
  <span>
   <?php _createDAcompose(_("Send"), 'Forward', 'send_button') ?>
  </span>
@@ -56,6 +61,7 @@ function _createDAcompose($text, $image, $id)
   <span>
    <label><input type="checkbox" class="checkbox" id="save_sent_mail" name="save_sent_mail"<?php if ($identity->saveSentmail()) echo ' checked="checked"' ?> /> <?php echo _("Save in ") ?><span id="sent_mail_folder_label"><?php echo $sent_mail_folder ?></span></label>
   </span>
+<?php endif; ?>
 <?php endif; ?>
  <span>
   <?php _createDAcompose(_("Check Spelling"), 'Spellcheck', 'spellcheck') ?>

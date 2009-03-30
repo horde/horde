@@ -107,6 +107,7 @@ function _createDAfmsg($text, $image, $id, $class = '', $show_text = true)
   </div>
  </div>
 
+<?php if (!$disable_compose): ?>
  <div id="qreply" style="display:none">
   <div class="header">
    <div class="headercloseimg"><?php echo IMP::img('close.png', 'X', array(), $horde_img) ?></div>
@@ -123,6 +124,7 @@ function _createDAfmsg($text, $image, $id, $class = '', $show_text = true)
  <a id="ctx_reply_reply_list"><span class="contextImg"></span><?php echo _("To List") ?></a>
 <?php endif; ?>
 </div>
+<?php endif; ?>
 
 <div class="context" id="ctx_contacts" style="display:none">
  <a id="ctx_contacts_new"><span class="contextImg"></span><?php echo _("New Message") ?></a>

@@ -178,6 +178,8 @@ class DIMP
                 ? array()
                 : array_map(array('DIMP', '_appendedFolderPref'), $conf['server']['fixed_folders']),
 
+            'disable_compose' => (!empty($conf['hooks']['disable_compose']) && Horde::callHook('_imp_hook_disable_compose', array(), 'imp')),
+
             'name' => $registry->get('name', 'dimp'),
 
             'preview_pref' => (bool)$prefs->getValue('dimp_show_preview'),
