@@ -14,15 +14,24 @@ v3.0-git
 
 
 ----------
-v2.3.1-cvs
+v2.3.2-cvs
 ----------
 
+
+
+
+------
+v2.3.1
+------
+
+[jan] Render contact autocompletion list on top of free/busy blocks (Bug #7273).
 [jan] Save recurrence exceptions when copying events (Bug #7689).
 [jan] Prevent warnings if trying to add address lists as attendees (Bug #7834).
 [jan] Fix start and end time calculation of multi-day events (Bug #7788).
 [jan] Wrap URL in calendar information in IE7 (almarin@um.es, Bug #8043).
 [jan] Fix "Date-string has wrong format" error with holidays (Bug #7961).
-[jan] Use improved translation support in Date_Holidays (Bug #7272).
+[jan] Use improved translation support in Date_Holidays (requires 0.21.0 now,
+      Bug #7272).
 [jan] Empty view cache when changing calendar selection
       (stpierre@nebrwesleyan.edu, Bug #7879).
 [mjr] Fix category CSS being included on embedded widgets.
