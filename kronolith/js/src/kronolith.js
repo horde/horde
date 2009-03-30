@@ -307,6 +307,7 @@ KronolithCore = {
 
                 this.updateView(date, loc);
                 if ($('kronolithView' + locCap)) {
+                    $('kronolithViewHead').appear();
                     $('kronolithView' + locCap).appear();
                 }
                 this.updateMinical(date, loc);
@@ -348,19 +349,25 @@ KronolithCore = {
             break;
 
         case 'month':
-            var body = $('kronolithViewMonth').down('.kronolithViewBody'),
+            var tbody = $('kronolithViewMonth').down('.kronolithViewBody'),
                 dates = this.viewDates(date, view),
-                day = dates[0].clone();
+                day = dates[0].clone(), rows = 0, row;
 
             // Remove old rows. Maybe we should only rebuild the calendars if
             // necessary.
-            body.childElements().invoke('remove');
+            tbody.childElements().each(function(row) {
+                if (row.identify() != 'kronolithRowTemplate') {
+                    row.remove();
+                }
+            });
 
             // Build new calendar view.
             while (day.compareTo(dates[1]) < 1) {
-                var row = body.insert(this.createWeekRow(day, date.getMonth()).show());
+                row = tbody.insert(this.createWeekRow(day, date.getMonth()).show());
                 day.next().week();
+                rows++;
             }
+            this._equalRowHeights(tbody);
 
             // Load events.
             this._loadEvents(dates[0], dates[1], this._loadEventsCallback.bind(this), view);
@@ -381,24 +388,31 @@ KronolithCore = {
      */
     createWeekRow: function(date, month)
     {
+        var monday = date.clone(), day = date.clone(),
+            today = new Date().dateString(),
+            row, cell, dateString;
+
         // Find monday of the week, to determine the week number.
-        var monday = date.clone(), day = date.clone();
         if (monday.getDay() != 1) {
             monday.moveToDayOfWeek(1, 1);
         }
 
         // Create a copy of the row template.
-        var row = $('kronolithRowTemplate').cloneNode(true);
+        row = $('kronolithRowTemplate').cloneNode(true);
         row.removeAttribute('id');
 
         // Fill week number and day cells.
-        var cell = row.down().setText(monday.getWeek()).next();
+        cell = row.down().setText(monday.getWeek()).next();
         while (cell) {
-            cell.id = 'kronolithMonthDay' + day.dateString();
-            cell.writeAttribute('date', day.dateString());
-            cell.removeClassName('kronolithOtherMonth');
+            dateString = day.dateString();
+            cell.id = 'kronolithMonthDay' + dateString;
+            cell.writeAttribute('date', dateString);
+            cell.removeClassName('kronolithOtherMonth').removeClassName('kronolithToday');
             if (typeof month != 'undefined' && day.getMonth() != month) {
                 cell.addClassName('kronolithOtherMonth');
+            }
+            if (dateString == today) {
+                cell.addClassName('kronolithToday');
             }
             new Drop(cell, { onDrop: function(drop) {
                 var el = DragDrop.Drags.drag.element;
@@ -417,6 +431,12 @@ KronolithCore = {
         }
 
         return row;
+    },
+
+    _equalRowHeights: function(tbody)
+    {
+        var children = tbody.childElements();
+        children.invoke('setStyle', { 'height': (100 / (children.size() - 1)) + '%' });
     },
 
     /**
@@ -1099,6 +1119,7 @@ KronolithCore = {
     // IE 6 width fixes (See Bug #6793)
     _resizeIE6: function()
     {
+        return;
         // One width to rule them all:
         // 20 label, 2 label border, 2 label margin, 16 scrollbar,
         // 7 cols, 2 col border, 2 col margin
@@ -1279,6 +1300,7 @@ Object.extend(Date.prototype, {
     {
         return this.toString('yyyyMMdd');
     }
+
 });
 
 /* Initialize global event handlers. */

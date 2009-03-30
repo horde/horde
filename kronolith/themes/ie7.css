@@ -1,0 +1,3 @@
+#kronolithViewMonth {
+    height: expression(kronolithViewMonthContainer.offsetHeight-12);
+}

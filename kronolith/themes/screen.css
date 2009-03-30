@@ -487,13 +487,10 @@ body.kronolithAjax {
     position: absolute;
     z-index: 1000;
     background: transparent url("graphics/loading.gif") no-repeat center;
+    margin-top: 2px;
     padding: 2px;
     width: 16px;
-    height: 17px;
-    /* Take values from .kronolithView */
-    top: 50px;
-    left: 175px;
-    margin-top: 5px;
+    height: 16px;
     /* Take values from .kronolithRow */
     border: 1px #c0c0c0 solid;
 }
@@ -848,15 +845,15 @@ div#kronolithEventTopTags span:hover {
 }
 
 /* Main views */
-div.kronolithView {
+#kronolithBody {
     position: absolute;
-    top: 50px;
+    top: 45px;
     left: 175px;
     right: 10px;
     bottom: 10px;
-    display: block;
-    margin: 5px 0;
     overflow: hidden;
+}
+.kronolithView {
 }
 div.kronolithView div.kronolithRow div {
     width: 13%;
@@ -874,6 +871,22 @@ div.kronolithRow div {
 div.kronolithRow div.kronolithFirstCol {
     width: 20px !important;
 }
+table.kronolithView {
+    width: 100%;
+    height: 100%;
+    table-layout: fixed;
+    border-spacing: 2px;
+    margin-left: -2px;
+}
+table.kronolithView td {
+    padding: 0;
+    border: 1px #c0c0c0 solid;
+    vertical-align: top;
+    overflow: hidden;
+}
+table.kronolithView td.kronolithFirstCol {
+    width: 20px;
+}
 
 /* Main view header row */
 div.kronolithView div.kronolithViewHead div.kronolithRow {
@@ -888,6 +901,18 @@ div.kronolithView div.kronolithViewHead div.kronolithRow div span {
     padding: 0 5px;
 }
 div.kronolithView div.kronolithViewHead div.kronolithRow div.kronolithFirstCol {
+    border-color: transparent;
+}
+#kronolithViewHead {
+    width: 100%;
+    height: 20px;
+    line-height: 20px;
+    font-weight: bold;
+}
+#kronolithViewHead span {
+    padding: 0 5px;
+}
+#kronolithViewHead .kronolithFirstCol {
     border-color: transparent;
 }
 
@@ -909,6 +934,13 @@ div.kronolithView div.kronolithViewBody div.kronolithRow {
 /* Main view month */
 .kronolithViewMonth div.kronolithViewBody div.kronolithRow div {
     height: 86px;
+}
+#kronolithViewMonthContainer {
+    position: absolute;
+    top: 24px;
+    right: 0;
+    bottom: 0;
+    left: 0;
 }
 
 /* Main view week */
@@ -1015,10 +1047,88 @@ div.kronolithView div.kronolithViewBody div.kronolithRow div div.kronolithMore {
 div.kronolithView div.kronolithViewBody div.kronolithRow div div.kronolithMore a {
     text-decoration: none;
 }
+.kronolithFirstCol {
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+}
+.kronolithNight {
+    background-color: #f4f4f4;
+}
+.kronolithCorner {
+    float: left;
+    margin: 0 2px 2px 0;
+    padding: 0;
+    width: auto;
+    height: auto;
+    font-size: 85%;
+    cursor: pointer;
+}
+.kronolithDay {
+    position: relative;
+    float: left;
+    display: inline;
+    width: 15px;
+    height: 15px;
+    line-height: 15px;
+    margin: 0 2px 2px 0;
+    padding: 0;
+    border-right: 1px solid #c0c0c0;
+    border-bottom: 1px solid #c0c0c0;
+    text-align: center;
+    vertical-align: middle;
+    font-weight: bold;
+}
+a.kronolithAdd {
+    display: inline;
+    width: 15px;
+    height: 15px;
+    line-height: 15px;
+    padding: 2px;
+    text-align: center;
+    background: transparent url("graphics/new_small_fade.png") 3px 5px no-repeat;
+}
+a.kronolithAdd:hover {
+    background-image: url("graphics/new_small.png");
+}
+.kronolithOtherMonth {
+    background: #f7f7f7;
+}
+.kronolithOtherMonth .kronolithDay {
+    border-color: transparent;
+    color: silver;
+}
+.kronolithToday {
+    background-color: #ebf3fc;
+    border-color: #808080;
+}
+.kronolithMore {
+    position: absolute;
+    z-index: 10;
+    right: 0;
+    bottom: 0;
+    width: 15px;
+    height: 15px;
+    background: white;
+    border-right: none;
+    border-bottom: none;
+    text-align: center;
+}
+/*
+.kronolithWeekend {
+    background: #ffc;
+}
+.kronolithOtherMonth {
+    background: #e7eeec;
+}
+table.kronolithView td.kronolithToday {
+    border: 2px solid #446;
+    background: #fff;
+}
+*/
 
 /* Events */
 div.kronolithView div.kronolithViewBody div.kronolithRow div .kronolithEvent, .kronolithEvent {
-    float: none;
     width: auto;
     height: 15px;
     line-height: 15px;
@@ -1077,6 +1187,9 @@ div.kronolithView .kronolithEvents .kronolithEvent .kronolithDragger.kronolithDr
 div.kronolithView .kronolithEvents .kronolithEvent .kronolithEventInfo {
     margin: 10px 0;
     padding: 5px;
+}
+.kronolithEvent.kronolithSelected {
+    height: auto;
 }
 
 /* To be removed */
