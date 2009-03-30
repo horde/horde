@@ -119,7 +119,7 @@ if (!$search_mbox) {
 /* Determine if mailbox is readonly. */
 $readonly = $imp_imap->isReadOnly($imp_mbox['mailbox']);
 if ($readonly &&
-    in_array($actionID, array('blacklist', 'whitelist', 'spam_report', 'notspam_report', 'delete_messages', 'undelete_messages', 'move_messages', 'flag_messages', 'empty_mailbox', 'filter'))) {
+    in_array($actionID, array('delete_messages', 'undelete_messages', 'move_messages', 'flag_messages', 'empty_mailbox', 'filter'))) {
     $actionID = null;
 }
 
@@ -565,11 +565,11 @@ if ($pageOb['msgcount']) {
         $a_template->set('purge_deleted', Horde::widget(Util::addParameter($mailbox_link, array('actionID' => 'expunge_mailbox', 'mailbox_token' => $mailbox_token)), _("Purge Deleted"), 'widget purgeAction', '', '', _("Pur_ge Deleted")));
     }
 
-    if (!$readonly && $registry->hasMethod('mail/blacklistFrom')) {
+    if ($registry->hasMethod('mail/blacklistFrom')) {
         $a_template->set('blacklist', Horde::widget('#', _("Blacklist"), 'widget blacklistAction', '', '', _("_Blacklist")));
     }
 
-    if (!$readonly && $registry->hasMethod('mail/whitelistFrom')) {
+    if ($registry->hasMethod('mail/whitelistFrom')) {
         $a_template->set('whitelist', Horde::widget('#', _("Whitelist"), 'widget whitelistAction', '', '', _("_Whitelist")));
     }
 
@@ -577,15 +577,13 @@ if ($pageOb['msgcount']) {
         $a_template->set('forward', Horde::widget('#', _("Forward"), 'widget forwardAction', '', '', _("Fo_rward")));
     }
 
-    if (!$readonly &&
-        $conf['spam']['reporting'] &&
+    if ($conf['spam']['reporting'] &&
         ($conf['spam']['spamfolder'] ||
          ($imp_mbox['mailbox'] != IMP::folderPref($prefs->getValue('spam_folder'), true)))) {
         $a_template->set('spam', Horde::widget('#', _("Report as Spam"), 'widget spamAction', '', '', _("Report as Spam")));
     }
 
-    if (!$readonly &&
-        $conf['notspam']['reporting'] &&
+    if ($conf['notspam']['reporting'] &&
         (!$conf['notspam']['spamfolder'] ||
          ($imp_mbox['mailbox'] == IMP::folderPref($prefs->getValue('spam_folder'), true)))) {
         $a_template->set('notspam', Horde::widget('#', _("Report as Innocent"), 'widget notspamAction', '', '', _("Report as Innocent")));
