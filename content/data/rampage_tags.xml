@@ -5,8 +5,6 @@
  <create>false</create>
  <overwrite>false</overwrite>
 
- <charset></charset>
-
  <table>
 
   <name>rampage_tags</name>
