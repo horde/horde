@@ -1788,6 +1788,14 @@ abstract class Kronolith_Event
                 $this->recurrence->setRecurInterval(Util::getFormData('recur_yearly_weekday_interval', 1));
                 break;
             }
+
+            if ($exceptions = Util::getFormData('exceptions')) {
+                foreach ($exceptions as $exception) {
+                    $this->recurrence->addException((int)substr($exception, 0, 4),
+                                                    (int)substr($exception, 4, 2),
+                                                    (int)substr($exception, 6, 2));
+                }
+            }
         }
 
         // Tags.

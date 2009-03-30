@@ -350,14 +350,16 @@ endif;
 <?php endif; ?>
 </tr>
 
-<?php if ($event->recurs() && $event->recurrence->getExceptions()): ?>
+<?php if ($event->recurs() && ($exceptions = $event->recurrence->getExceptions())): ?>
 <!-- exceptions -->
 <tr>
  <td class="rightAlign" valign="top">
   <strong><?php echo _("Exceptions") ?></strong>
  </td>
  <td colspan="4">
-  <?php echo $event->exceptionsList(); ?>
+ <?php echo $event->exceptionsList(); foreach($exceptions as $exception): ?>
+ <input type="hidden" name="exceptions[]" value="<?php echo $exception ?>" />
+ <?php endforeach; ?>
  </td>
 </tr>
 <?php endif; ?>
