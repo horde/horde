@@ -160,7 +160,7 @@ window.onload = function() {
     <label for="search_results" class="hidden"><?php echo _("Search results") ?></label>
     <select id="search_results" name="search_results" multiple="multiple" size="10" style="width:250px" onchange="document.contacts.search_results[0].selected=false" ondblclick="addAddress()">
       <option value=""><?php echo _("* Please select address(es) *") ?></option>
-      <?php foreach ($addresses as $addr): if ($display == 'email'): ?>
+      <?php foreach ($addresses as $addr): if (strpos($addr['email'], ',') !== false && strpos($addr['email'], ':') === false) $addr['email'] = $addr['name'] . ': ' . $addr['email']; if ($display == 'email'): ?>
       <option value="<?php echo rawurlencode($addr['name']) ?>"><?php echo htmlspecialchars($addr['email']) ?></option>
       <?php else: ?>
       <option value="<?php echo rawurlencode($addr['email']) ?>"><?php echo htmlspecialchars($addr['name']) ?></option>

@@ -17,6 +17,7 @@ v3.0-git
 v2.3.1-cvs
 ----------
 
+[jan] Prevent warnings if trying to add address lists as attendees (Bug #7834).
 [jan] Fix start and end time calculation of multi-day events (Bug #7788).
 [jan] Wrap URL in calendar information in IE7 (almarin@um.es, Bug #8043).
 [jan] Fix "Date-string has wrong format" error with holidays (Bug #7961).
