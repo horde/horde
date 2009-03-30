@@ -2270,6 +2270,8 @@ OLD DIMP CHANGELOG
 v1.1.2
 ------
 
+[mms] Add confirmation box if attempting to send message without subject
+      (Request #8076).
 [mms] Fix address autocomplete display on IE (Bug #7982).
 
 

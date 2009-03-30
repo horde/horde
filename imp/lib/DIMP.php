@@ -269,6 +269,7 @@ class DIMP
             /* Gettext strings used in compose page. */
             $code['text_compose'] = array_map('addslashes', array(
                 'cancel' => _("Cancelling this message will permanently discard its contents and will delete auto-saved drafts.\nAre you sure you want to do this?"),
+                 'nosubject' => _("The message does not have a Subject entered.") . "\n" . _("Send message without a Subject?"),
                 'fillform' => _("You have already changed the message body, are you sure you want to drop the changes?"),
                 'remove' => _("remove"),
                 'uploading' => _("Uploading..."),

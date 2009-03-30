@@ -141,6 +141,11 @@ var DimpCompose = {
 
             switch (action) {
             case 'send_message':
+                if (($F('subject') == '') &&
+                    !window.confirm(DIMP.text_compose.nosubject)) {
+                    return;
+                }
+
                 if (!this.sbtext) {
                     sb = $('send_button');
                     this.sbtext = sb.getText();
