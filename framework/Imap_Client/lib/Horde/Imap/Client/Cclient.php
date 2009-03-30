@@ -642,7 +642,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
         while (list(,$val) = each($data)) {
             $old_error = error_reporting(0);
             $text = is_resource($val['data']) ? stream_get_contents($val['data']) : $val['data'];
-            $res = imap_append($this->_stream, $this->_connString($mailbox), $this->_utils->removeBareNewlines($text), empty($val['flags']) ? null : implode(' ', $val['flags']));
+            $res = imap_append($this->_stream, $this->_connString($mailbox), $this->utils->removeBareNewlines($text), empty($val['flags']) ? null : implode(' ', $val['flags']));
             error_reporting($old_error);
 
             if ($res === false) {
@@ -977,7 +977,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
             $seq = '1:*';
             $options['ids'] = range(1, imap_num_msg($this->_stream));
         } else {
-            $seq = $this->_utils->toSequenceString($options['ids']);
+            $seq = $this->utils->toSequenceString($options['ids']);
         }
 
         $ret = array_combine($options['ids'], array_fill(0, count($options['ids']), array()));
@@ -1361,7 +1361,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
 
         $seq = empty($options['ids'])
             ? '1:*'
-            : $this->_utils->toSequenceString($options['ids']);
+            : $this->utils->toSequenceString($options['ids']);
 
         $old_error = error_reporting(0);
 
@@ -1411,7 +1411,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
 
         $seq = empty($options['ids'])
             ? '1:*'
-            : $this->_utils->toSequenceString($options['ids']);
+            : $this->utils->toSequenceString($options['ids']);
 
         $old_error = error_reporting(0);
         $res = imap_mail_copy($this->_stream, $seq, $this->_connString($dest), $opts);

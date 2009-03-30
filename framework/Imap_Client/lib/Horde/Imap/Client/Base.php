@@ -17,6 +17,13 @@
 abstract class Horde_Imap_Client_Base
 {
     /**
+     * The Horde_Imap_Client_Utils object
+     *
+     * @var Horde_Imap_Client_Utils
+     */
+    public $utils;
+
+    /**
      * Hash containing connection parameters.
      *
      * @var array
@@ -60,13 +67,6 @@ abstract class Horde_Imap_Client_Base
         'enabled' => array(),
         'namespace' => array()
     );
-
-    /**
-     * The Horde_Imap_Client_Utils object
-     *
-     * @var Horde_Imap_Client_Utils
-     */
-    protected $_utils = null;
 
     /**
      * The Horde_Imap_Client_Cache object.
@@ -131,7 +131,7 @@ abstract class Horde_Imap_Client_Base
 
         $this->_params = $params;
 
-        $this->_utils = new Horde_Imap_Client_Utils();
+        $this->utils = new Horde_Imap_Client_Utils();
 
         // This will initialize debugging, if needed.
         $this->__wakeup();
@@ -1346,7 +1346,7 @@ abstract class Horde_Imap_Client_Base
             $cache = $this->_getSearchCache('search', $mailbox, $options);
             if (isset($cache['data'])) {
                 if (isset($cache['data'][$type])) {
-                    $cache['data'][$type] = $this->_utils->fromSequenceString($cache['data'][$type]);
+                    $cache['data'][$type] = $this->utils->fromSequenceString($cache['data'][$type]);
                 }
                 return $cache['data'];
             }
@@ -1361,7 +1361,7 @@ abstract class Horde_Imap_Client_Base
         if ($cache) {
             $save = $ret;
             if (isset($save[$type])) {
-                $save[$type] = $this->_utils->toSequenceString($ret[$type], array('nosort' => true));
+                $save[$type] = $this->utils->toSequenceString($ret[$type], array('nosort' => true));
             }
             $this->_setSearchCache($save, $cache);
         }
