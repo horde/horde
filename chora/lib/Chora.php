@@ -42,6 +42,10 @@ class Chora
         global $acts, $defaultActs, $where, $atdir, $fullname, $sourceroot;
 
         $GLOBALS['sourceroots'] = Horde::loadConfiguration('sourceroots.php', 'sourceroots');
+        if (is_a($GLOBALS['sourceroots'], 'PEAR_Error')) {
+            $GLOBALS['notification']->push($GLOBALS['sourceroots']);
+            $GLOBALS['sourceroots'] = array();
+        }
         $sourceroots = self::sourceroots();
 
         /**
@@ -86,9 +90,13 @@ class Chora
             }
         }
 
+        $acts = array();
+        if (!isset($defaultActs['rt'])) {
+            self::fatal(_("No repositories found."));
+        }
+
         /* See if any have been passed as GET variables, and if so, assign
          * them into the acts array. */
-        $acts = array();
         foreach ($defaultActs as $key => $default) {
             $acts[$key] = Util::getFormData($key, $default);
         }
