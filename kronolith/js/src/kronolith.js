@@ -1111,60 +1111,6 @@ KronolithCore = {
                 e.observe('mouseover', e.addClassName.curry('over')).observe('mouseout', e.removeClassName.curry('over'));
             });
         }
-
-        this._resizeIE6();
-    },
-
-    // IE 6 width fixes (See Bug #6793)
-    _resizeIE6: function()
-    {
-        return;
-        // One width to rule them all:
-        // 20 label, 2 label border, 2 label margin, 16 scrollbar,
-        // 7 cols, 2 col border, 2 col margin
-        var col_width = (($('kronolithViewMonth').getWidth()-20-2-2-16)/7)-2-2;
-        $('kronolithViewMonth').select('.kronolithCol').invoke('setStyle', { width: col_width + 'px' });
-
-        // Set month dimensions.
-        // 6 rows, 2 row border, 2 row margin
-        var col_height = (($('kronolithViewMonth').getHeight()-25)/6)-2-2;
-        $('kronolithViewMonth').select('.kronolithViewBody .kronolithCol').invoke('setStyle', { height: col_height + 'px' });
-        $('kronolithViewMonth').select('.kronolithViewBody .kronolithFirstCol').invoke('setStyle', { height: col_height + 'px' });
-
-        // Set week dimensions.
-        $('kronolithViewWeek').select('.kronolithCol').invoke('setStyle', { width: (col_width - 1) + 'px' });
-
-        // Set day dimensions.
-        // 20 label, 2 label border, 2 label margin, 16 scrollbar, 2 col border
-        var head_col_width = $('kronolithViewDay').getWidth()-20-2-2-16-3;
-        // 20 label, 2 label border, 2 label margin, 16 scrollbar, 2 col border
-        // 7 cols
-        var col_width = ((head_col_width+7)/7)-1;
-        $('kronolithViewDay').select('.kronolithViewHead .kronolithCol').invoke('setStyle', { width: head_col_width + 'px' });
-        $('kronolithViewDay').select('.kronolithViewBody .kronolithCol').invoke('setStyle', { width: col_width + 'px' });
-        $('kronolithViewDay').select('.kronolithViewBody .kronolithAllDay .kronolithCol').invoke('setStyle', { width: head_col_width + 'px' });
-
-        /*
-        if (Kronolith.conf.is_ie6) {
-            var tmp = parseInt($('sidebarPanel').getStyle('width'), 10),
-                tmp1 = document.viewport.getWidth() - tmp - 30;
-            $('normalfolders').setStyle({ width: tmp + 'px' });
-            $('kronlithmain').setStyle({ width: tmp1 + 'px' });
-            $('msglist').setStyle({ width: (tmp1 - 5) + 'px' });
-            $('msgBody').setStyle({ width: (tmp1 - 25) + 'px' });
-            tmp = $('dimpmain_portal').down('IFRAME');
-            if (tmp) {
-                this._resizeIE6Iframe(tmp);
-            }
-        }
-        */
-    },
-
-    _resizeIE6Iframe: function(iframe)
-    {
-        if (Kronolith.conf.is_ie6) {
-            iframe.setStyle({ width: $('kronolithmain').getStyle('width'), height: (document.viewport.getHeight() - 20) + 'px' });
-        }
     },
 
     toggleCalendar: function(elm)
