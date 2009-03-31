@@ -1,5 +1,7 @@
 --TEST--
 Bug #6031: Recurring events are not displayed in Kolab.
+--SKIPIF--
+skip Kolab_Test is gone.
 --FILE--
 <?php
 // Pretend that we are kronolith
