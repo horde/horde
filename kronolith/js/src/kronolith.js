@@ -401,7 +401,10 @@ KronolithCore = {
         row.removeAttribute('id');
 
         // Fill week number and day cells.
-        cell = row.down().setText(monday.getWeek()).next();
+        cell = row.down()
+            .setText(monday.getWeek())
+            .writeAttribute('date', monday.dateString())
+            .next();
         while (cell) {
             dateString = day.dateString();
             cell.id = 'kronolithMonthDay' + dateString;
@@ -424,7 +427,9 @@ KronolithCore = {
                                 id: el.readAttribute('eventid'),
                                 att: $H({ start_date: drop.readAttribute('date') }).toJSON() });
             }.bind(this) });
-            cell.down('.kronolithDay').setText(day.getDate());
+            cell.down('.kronolithDay')
+                .setText(day.getDate())
+                .writeAttribute('date', dateString);
             cell = cell.next();
             day.add(1).day();
         }
@@ -906,9 +911,19 @@ KronolithCore = {
 
             case 'kronolithViewMonth':
                 if (orig.hasClassName('kronolithFirstCol')) {
-                    this.go('week');
+                    var date = orig.readAttribute('date');
+                    if (date) {
+                        this.go('week:' + date);
+                        e.stop();
+                        return;
+                    }
                 } else if (orig.hasClassName('kronolithDay')) {
-                    this.go('day');
+                    var date = orig.readAttribute('date');
+                    if (date) {
+                        this.go('day:' + date);
+                        e.stop();
+                        return;
+                    }
                 }
                 e.stop();
                 return;
@@ -926,11 +941,10 @@ KronolithCore = {
                 this.editEvent(elt.readAttribute('calendar'), elt.readAttribute('eventid'));
                 e.stop();
                 return;
-            }
-
-            if (elt.hasClassName('kronolithEventTag')) {
+            } else if (elt.hasClassName('kronolithEventTag')) {
                 var etags = $F('kronolithEventTags');
                 $('kronolithEventTags').value = (etags ? etags + ', ' :  '') + elt.getText();
+                e.stop();
                 return;
             }
             
