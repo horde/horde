@@ -851,7 +851,7 @@ div#kronolithEventTopTags span:hover {
     left: 175px;
     right: 10px;
     bottom: 10px;
-    overflow: hidden;
+    overflow: auto;
 }
 .kronolithView {
 }
@@ -915,6 +915,17 @@ div.kronolithView div.kronolithViewHead div.kronolithRow div.kronolithFirstCol {
 #kronolithViewHead .kronolithFirstCol {
     border-color: transparent;
 }
+.kronolithViewHead {
+    height: 20px;
+    line-height: 20px;
+    font-weight: bold;
+}
+.kronolithViewHead span {
+    padding: 0 5px;
+}
+.kronolithViewHead .kronolithFirstCol {
+    border-color: transparent;
+}
 
 /* Main view body */
 div.kronolithView div.kronolithViewBody {
@@ -965,6 +976,12 @@ div.kronolithView div.kronolithViewBody div.kronolithRow {
 }
 .kronolithViewDay div.kronolithViewBody div.kronolithRow.kronolithAllDay div.kronolithCol {
     border-width: 1px;
+}
+.kronolithViewDay td {
+    height: 40px;
+}
+.kronolithViewHead td {
+    height: 20px;
 }
 
 /* More main view */
