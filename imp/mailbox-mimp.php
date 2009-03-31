@@ -87,7 +87,7 @@ $sortpref = IMP::getSort($imp_mbox['mailbox']);
 $imp_ui = new IMP_UI_Mailbox($imp_mbox['mailbox']);
 
 /* Build the array of message information. */
-$mbox_info = $imp_mailbox->getMailboxArray(range($pageOb['begin'], $pageOb['end']));
+$mbox_info = $imp_mailbox->getMailboxArray(range($pageOb['begin'], $pageOb['end']), array('headers' => array('x-priority')));
 
 /* Get thread information. */
 $threadob = ($sortpref['by'] == Horde_Imap_Client::SORT_THREAD)
@@ -98,7 +98,7 @@ reset($mbox_info);
 while (list(,$ob) = each($mbox_info['overview'])) {
     /* Initialize the header fields. */
     $msg = array(
-        'number' => $ob['seq'],
+        'subject' => $imp_ui->getSubject($ob['envelope']['subject']),
         'status' => ''
     );
 
@@ -109,8 +109,6 @@ while (list(,$ob) = each($mbox_info['overview'])) {
         $msg['from'] = String::substr($msg['from'], 0, $conf['mimp']['mailbox']['max_from_chars']) . '...';
     }
 
-    $msg['subject'] = $imp_ui->getSubject($ob['envelope']['subject']);
-
     if (!is_null($threadob) && ($threadob->getThreadIndent($ob['uid']))) {
         $msg['subject'] = '>> ' . ltrim($msg['subject']);
     }
@@ -119,38 +117,25 @@ while (list(,$ob) = each($mbox_info['overview'])) {
         $msg['subject'] = String::substr($msg['subject'], 0, $conf['mimp']['mailbox']['max_subj_chars']) . '...';
     }
 
-    /* Generate the target link. */
-    $target = IMP::generateIMPUrl('message-mimp.php', $imp_mbox['mailbox'], $ob['uid'], $ob['mailbox']);
-
     /* Get flag information. */
-    if ($_SESSION['imp']['protocol'] != 'pop') {
-        $to_ob = Horde_Mime_Address::getAddressesFromObject($ob['envelope']['to']);
-        if (!empty($to_ob) && $identity->hasAddress($to_ob[0]['inner'])) {
-            $msg['status'] .= '+';
-        }
-        if (!in_array('\\seen', $ob['flags'])) {
-            $msg['status'] .= 'N';
-        }
-        if (in_array('\\answered', $ob['flags'])) {
-            $msg['status'] .= 'r';
-        }
-        if (in_array('\\draft', $ob['flags'])) {
-            $target = IMP::composeLink(array(), array('a' => 'd', 'thismailbox' => $imp_mbox['mailbox'], 'index' => $ob['uid'], 'bodypart' => 1));
-        }
-        if (in_array('\\flagged', $ob['flags'])) {
-            $msg['status'] .= 'I';
-        }
-        if (in_array('\\deleted', $ob['flags'])) {
-            $msg['status'] .= 'D';
-        }
+    $imp_flags = &IMP_Imap_Flags::singleton();
+    $flag_parse = $imp_flags->parse(array(
+        'flags' => $ob['flags'],
+        'personal' => Horde_Mime_Address::getAddressesFromObject($ob['envelope']['to']),
+        'priority' => $ob['headers']->getValue('x-priority')
+    ));
 
-        /* Support for the pseudo-standard '$Forwarded' flag. */
-        if (in_array('$forwarded', $ob['flags'])) {
-            $msg['status'] .= 'F';
+    foreach ($flag_parse as $val) {
+        if (isset($val['abbrev'])) {
+            $msg['status'] .= $val['abbrev'];
         }
     }
 
-    $msg['target'] = $target;
+    /* Generate the target link. */
+    $msg['target'] = in_array('\\draft', $ob['flags'])
+        ? IMP::composeLink(array(), array('a' => 'd', 'thismailbox' => $imp_mbox['mailbox'], 'index' => $ob['uid'], 'bodypart' => 1))
+         : IMP::generateIMPUrl('message-mimp.php', $imp_mbox['mailbox'], $ob['uid'], $ob['mailbox']);
+
     $msgs[] = $msg;
 }
 

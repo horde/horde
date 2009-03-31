@@ -53,9 +53,10 @@ var ImpMessage = {
     flagMessage: function(form)
     {
         var f1 = $('flag1'), f2 = $('flag2');
-        if ((form == 1 && $F(f1)) ||
-            (form == 2 && $F(f2))) {
-            $('flag').setValue((form == 1) ? $F(f1) : $F(f2));
+
+        if ((form == 1 && $F(f1) != "") ||
+            (form == 2 && $F(f2) != "")) {
+            $('messages').down('[name=flag]').setValue((form == 1) ? $F(f1) : $F(f2));
             this.submit('flag_message');
         }
     },

@@ -179,94 +179,35 @@
 //     }
 // }
 
-// This is an example hook function for displaying additional message
-// information in the message listing screen for a mailbox.  This example hook
-// will add a icon if the message contains attachments and will change the
-// display of the message entry based on the X-Priority header.
+// This is an example hook function for adding additional message flags
+// in the message listing screen for a mailbox.  This example hook
+// will add a icon if the message was sent from a user within the same domain.
 //
-// INPUT:
-// $mbox - (string) The mailbox.
-// $uids - (array) A list of UIDs.
-// $mode - (string) Either 'imp' or 'dimp'.
+// @param array $data   The overview information for a message as returned
+//                      from the IMP_Mailbox::getMailboxArray() call (see
+//                      lib/Mailbox.php for documentation on the structure of
+//                      the array).
+// @param string $mode  Either 'imp' or 'dimp'.
 //
-// OUTPUT:
-// An array of arrays, with UIDs as keys and the following array values:
-//
-// For IMP:
-// 'class' - (array) CSS classnames that will be added to the row.
-// 'flagbits' - (integer) Flag mask which will be OR'd with the current flags
-//              set for the row.  The flag constants used in IMP can be
-//              found at the top of lib/IMP.php.
-// 'status' - (string) HTML code to add to the status column for the row.
-//
-// For DIMP:
-// 'atc' - (string) Attachment type (either 'signed', 'encrypted', or
-//         'attachment').
-// 'class' - (array) CSS classnames that will be added to the row.
+// @return array  An array of additional flags to add. These flags must be
+//                defined in the 'msgflags' preference. On error, return an
+//                empty array.
 
-// if (!function_exists('_imp_hook_msglist_format')) {
-//     function _imp_hook_msglist_format($mbox, $uids, $mode)
+// if (!function_exists('_imp_hook_msglist_flags')) {
+//     function _imp_hook_msglist_flags($data, $mode)
 //     {
-//         try {
-//             $imap_res = $GLOBALS['imp_imap']->ob->fetch($mbox, array(
-//                 Horde_Imap_Client::FETCH_HEADERS => array(array('headers' => array('x-priority'), 'label' => 'hdr_search', 'parse' => true, 'peek' => true)),
-//                 Horde_Imap_Client::FETCH_STRUCTURE => array('parse' => true)
-//             ), array('ids' => array_values($uids)));
-//         } catch (Horde_Imap_Client_Exception $e) {
-//             return array();
+//         $flags = array();
+//
+//         $from_ob = Horde_Mime_Address::getAddressesFromObject($ob['envelope']['from']);
+//         if (!empty($from_ob) &&
+//             (strcasecmp($from_ob[0]['hostname'], 'example.com') === 0)) {
+//             /* The '$indomain' flag in this example must have already been
+//              * created in the 'msgflags' preference. */
+//             $flags = array('$indomain');
 //         }
 //
-//         $alt_list = IMP_UI_Mailbox::getAttachmentAltList();
-//         $imp_ui = new IMP_UI_Mailbox($mbox);
-//         $imp_msg_ui = new IMP_UI_Message();
-//         $ret = array();
-//
-//         foreach ($uids as $uid) {
-//             $tmp = array('status' => '');
-//             $res_ptr = &$imap_res[$uid];
-//
-//             // Add attachment information
-//             if (($attachment = $imp_ui->getAttachmentType($res_ptr['structure']->getType()))) {
-//                 switch ($mode) {
-//                 case 'imp':
-//                     $alt_text = (isset($alt_list[$attachment]))
-//                         ? $alt_list[$attachment]
-//                         : $alt_list['attachment'];
-//                     $tmp['status'] = Horde::img($attachment . '.png', $alt_text, array('title' => $alt_text));
-//                     break;
-//
-//                 case 'dimp':
-//                     $tmp['atc'] = $attachment;
-//                     break;
-//                 }
-//             }
-//
-//             // Add X-Priority information
-//             switch ($imp_msg_ui->getXpriority($res_ptr['headers']['hdr_search']->getValue('x-priority'))) {
-//             case 'high':
-//                 if ($mode == 'imp') {
-//                     $tmp['flagbits'] = IMP::FLAG_FLAGGED;
-//                     $tmp['status'] .= Horde::img('mail_priority_high.png', _("High Priority"), array('title' => _("High Priority")));
-//                 }
-//                 $tmp['class'][] = 'important';
-//                 break;
-//
-//             case 'low':
-//                 if ($mode == 'imp') {
-//                     $tmp['status'] .= Horde::img('mail_priority_low.png', _("Low Priority"), array('title' => _("Low Priority")));
-//                 }
-//                 $tmp['class'][] = 'unimportant';
-//                 break;
-//             }
-//
-//             if (!empty($tmp)) {
-//                 $ret[$uid] = $tmp;
-//             }
-//         }
-//
-//         return $ret;
+//         return $flags;
 //     }
-// }
 
 // This is an example hook function for the IMP redirection scheme. This
 // function is called when the user opens a mailbox in IMP, and allows the
@@ -365,6 +306,36 @@
 //     {
 //         // Make messages in the 'foo' mailbox readonly.
 //         return ($mailbox == 'foo');
+//     }
+// }
+
+// This is an example hook function for the mailbox view. This functions
+// allows additional information to be added/edited from the data that is
+// passed to the mailbox display template:
+//    imp: TODO
+//   dimp: imp/templates/javascript/mailbox-dimp.js.
+// The current entry array is passed in, the value returned should be the
+// altered array to use in the template. If you are going to add new columns,
+// you also have to update these fields:
+//    imp: TODO
+//   dimp: imp/templates/index/dimp.inc to contain the new field in the header
+//         imp/themes/screen-dimp.css to specify the column width.
+
+// if (!function_exists('_imp_hook_mailboxarray')) {
+//     function _imp_hook_mailboxarray($msgs, $view) {
+//         switch ($view) {
+//         case 'dimp':
+//             foreach (array_keys($msgs) as $key) {
+//                 $msgs[$key]['foo'] = true;
+//             }
+//             break;
+//
+//         case 'imp':
+//             // TODO
+//             break;
+//         }
+//
+//         return $msg;
 //     }
 // }
 
@@ -532,26 +503,6 @@ if (!function_exists('_imp_hook_quota')) {
         return array($quota[1] * 1024, $quota[2] * 1024);
     }
 }
-
-
-// This is an example hook function for the dynamic (dimp) mailbox view. This
-// function is allows additional information to be added to the array that is
-// is passed to the mailbox display template -
-// imp/templates/javascript/mailbox-dimp.js.  The current entry array is
-// passed in, the value returned should be the altered array to use in the
-// template. If you are going to add new columns, you also have to update
-// imp/templates/index/dimp.inc to contain the new field in the header and
-// imp/themes/screen-dimp.css to specify the column width.
-
-// if (!function_exists('_imp_hook_dimp_mailboxarray')) {
-//     function _imp_hook_dimp_mailboxarray($msgs) {
-//         foreach (array_keys($msgs) as $key) {
-//             $msgs[$key]['foo'] = true;
-//         }
-//
-//         return $msg;
-//     }
-// }
 
 // This is an example hook function for the dynamic (dimp) message view.  This
 // function allows additional information to be added to the array that is

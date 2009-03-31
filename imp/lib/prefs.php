@@ -158,6 +158,53 @@ function handle_soundselect($updated)
     return $GLOBALS['prefs']->setValue('nav_audio', Util::getFormData('nav_audio'));
 }
 
+function handle_flagmanagement($updated)
+{
+    $imp_flags = &IMP_Imap_Flags::singleton();
+    $flag_action = Util::getFormData('flag_action');
+    $flag_data = Util::getFormData('flag_data');
+
+    if ($flag_action == 'add') {
+        $imp_flags->addFlag($flag_data);
+        return false;
+    }
+
+    $def_color = $GLOBALS['prefs']->getValue('msgflags_color');
+
+    // Don't set updated on these actions. User may want to do more actions.
+    foreach ($imp_flags->getList() as $key => $val) {
+        $md5 = hash('md5', $key);
+
+        switch ($flag_action) {
+        case 'delete':
+            if ($flag_data == ('bg_' . $md5)) {
+                $imp_flags->deleteFlag($key);
+                return false;
+            }
+            break;
+
+        default:
+            /* Change labels for user-defined flags. */
+            if ($val['t'] == 'imapp') {
+                $label = Util::getFormData('label_' . $md5);
+                if (strlen($label) && ($label != $val['l'])) {
+                    $imp_flags->updateFlag($key, array('l' => $label));
+                }
+            }
+
+            /* Change background for all flags. */
+            $bg = strtolower(Util::getFormData('bg_' . $md5));
+            if ((isset($val['b']) && ($bg != $val['b'])) ||
+                (!isset($val['b']) && ($bg != $def_color))) {
+                $imp_flags->updateFlag($key, array('b' => $bg));
+            }
+            break;
+        }
+    }
+
+    return false;
+}
+
 function prefs_callback()
 {
     global $prefs;

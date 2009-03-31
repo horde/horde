@@ -101,16 +101,9 @@ class IMP_Views_ShowMessage
         /* Set the current time zone. */
         NLS::setTimeZone();
 
-        /* Get envelope/flag/header information. */
+        /* Get envelope/header information. We don't use flags in this
+         * view. */
         try {
-            $flags_ret = $GLOBALS['imp_imap']->ob->fetch($folder, array(
-                Horde_Imap_Client::FETCH_FLAGS => true,
-            ), array('ids' => array($index)));
-            if (!isset($flags_ret[$index])) {
-                $result['error'] = $error_msg;
-                $result['errortype'] = 'horde.error';
-                return $result;
-            }
             $fetch_ret = $GLOBALS['imp_imap']->ob->fetch($folder, array(
                 Horde_Imap_Client::FETCH_ENVELOPE => true,
                 Horde_Imap_Client::FETCH_HEADERTEXT => array(array('parse' => true, 'peek' => false))

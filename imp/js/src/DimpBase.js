@@ -31,17 +31,6 @@ var DimpBase = {
         sf_subject: 'subject'
     }),
 
-    flags: $H({
-        unseen: 'Unseen',
-        flagged: 'Flagged',
-        deletedmsg: 'Deleted',
-        unimportant: 'LowPriority',
-        important: 'HighPriority',
-        answered: 'Answered',
-        forwarded: 'Forwarded',
-        draft: 'Draft'
-    }),
-
     // Message selection functions
 
     // vs = (ViewPort_Selection) A ViewPort_Selection object.
@@ -342,7 +331,7 @@ var DimpBase = {
     // r = ViewPort row data
     msgWindow: function(r)
     {
-        this.updateUnseenUID(r, 0);
+        this.updateSeenUID(r, 1);
         var url = DIMP.conf.message_url;
         url += (url.include('?') ? '&' : '?') +
                $H({ folder: r.view,
@@ -418,9 +407,12 @@ var DimpBase = {
                     search = this.sfilters.get(this._getSearchfilterField()).capitalize();
                     mf = new RegExp("(" + $F('msgList_filter') + ")", "i");
                 }
+
                 rows.get('dataob').each(function(row) {
                     var elt, tmp, u,
                         r = $(row.domid);
+
+                    this.updateStatusFlags(row);
 
                     // Add thread graphics
                     if (thread && thread.get(row.imapuid)) {
@@ -574,9 +566,6 @@ var DimpBase = {
                 }
                 return this.cacheids[id];
             }.bind(this),
-            onUpdateClass: function(row) {
-                this.updateStatusFlags(row);
-            }.bind(this),
             onSplitBarChange: function() {
                 this._updatePrefs('dimp_splitbar', this.viewport.getPageSize());
             }.bind(this),
@@ -619,27 +608,29 @@ var DimpBase = {
         DimpCore.DMenu.removeElement($(elt).identify());
     },
 
-    contextOnClick: function(parentfunc, id, elt)
+    contextOnClick: function(parentfunc, elt, base, submenu)
     {
+        var id = elt.readAttribute('id');
+
         switch (id) {
         case 'ctx_folder_create':
-            this.createSubFolder(elt);
+            this.createSubFolder(base);
             break;
 
         case 'ctx_container_rename':
         case 'ctx_folder_rename':
-            this.renameFolder(elt);
+            this.renameFolder(base);
             break;
 
         case 'ctx_folder_empty':
-            mbox = elt.readAttribute('mbox');
+            mbox = base.readAttribute('mbox');
             if (window.confirm(DIMP.text.empty_folder)) {
                 DimpCore.doAction('EmptyFolder', { view: mbox }, null, this._emptyFolderCallback.bind(this));
             }
             break;
 
         case 'ctx_folder_delete':
-            mbox = elt.readAttribute('mbox');
+            mbox = base.readAttribute('mbox');
             if (window.confirm(DIMP.text.delete_folder)) {
                 DimpCore.doAction('DeleteFolder', { view: mbox }, null, this.bcache.get('folderC') || this.bcache.set('folderC', this._folderCallback.bind(this)));
             }
@@ -647,25 +638,28 @@ var DimpBase = {
 
         case 'ctx_folder_seen':
         case 'ctx_folder_unseen':
-            this.flag(id == 'ctx_folder_seen' ? 'allSeen' : 'allUnseen', { mailbox: elt.readAttribute('mbox') });
+            this.flag(id == 'ctx_folder_seen' ? 'allSeen' : 'allUnseen', { mailbox: base.readAttribute('mbox') });
             break;
 
         case 'ctx_folder_poll':
         case 'ctx_folder_nopoll':
-            this.modifyPollFolder(elt.readAttribute('mbox'), id == 'ctx_folder_poll');
+            this.modifyPollFolder(base.readAttribute('mbox'), id == 'ctx_folder_poll');
             break;
 
         case 'ctx_container_create':
-            this.createSubFolder(elt);
+            this.createSubFolder(base);
             break;
 
         case 'ctx_message_spam':
         case 'ctx_message_ham':
         case 'ctx_message_blacklist':
         case 'ctx_message_whitelist':
+            this.flag(id.substring(12));
+            break;
+
         case 'ctx_message_deleted':
         case 'ctx_message_undeleted':
-            this.flag(id.substring(12));
+            this.flag('imapflag', { imap: '\\deleted', set: id == 'ctx_message_deleted' });
             break;
 
         case 'ctx_message_forward':
@@ -676,11 +670,9 @@ var DimpBase = {
             this.composeMailbox('resume');
             break;
 
-        case 'ctx_draft_flagged':
-        case 'ctx_draft_clear':
         case 'ctx_draft_deleted':
         case 'ctx_draft_undeleted':
-            this.flag(id.substring(10));
+            this.flag('imapflag', { imap: '\\deleted', set: id == 'ctx_draft_deleted' });
             break;
 
         case 'ctx_reply_reply':
@@ -693,22 +685,13 @@ var DimpBase = {
             this.togglePreviewPane();
             break;
 
-        case 'flag_seen':
-        case 'flag_unseen':
-        case 'flag_flagged':
-        case 'flag_clear':
-        case 'flag_answered':
-        case 'flag_unanswered':
-        case 'flag_draft':
-        case 'flag_notdraft':
-            this.flag(id.substring(5));
-            break;
-
         case 'oa_blacklist':
         case 'oa_whitelist':
-        case 'oa_undeleted':
             this.flag(id.substring(3));
             break;
+
+        case 'oa_undeleted':
+            this.flag('imapflag', { imap: '\\deleted', set: false });
 
         case 'oa_selectall':
             this.selectAll();
@@ -719,7 +702,17 @@ var DimpBase = {
             break;
 
         default:
-            parentfunc(id, elt);
+            if (submenu == 'ctx_message_setflag' ||
+                submenu == 'ctx_draft_setflag' ||
+                submenu == 'oa_setflag') {
+                this.flag('imapflag', { imap: elt.readAttribute('flag'), set: true });
+            } else if (submenu == 'ctx_message_unsetflag' ||
+                       submenu == 'ctx_draft_unsetflag' ||
+                       submenu == 'oa_unsetflag') {
+                this.flag('imapflag', { imap: elt.readAttribute('flag'), set: false });
+            } else {
+                parentfunc(elt, base, submenu);
+            }
             break;
         }
     },
@@ -734,7 +727,8 @@ var DimpBase = {
             folder = $(ctx.ctx);
             if (folder.readAttribute('mbox') == 'INBOX') {
                 elts.invoke('hide');
-            } else if (DIMP.conf.fixed_folders.indexOf(folder.readAttribute('mbox')) != -1) {
+            } else if (DIMP.conf.fixed_folders &&
+                       DIMP.conf.fixed_folders.indexOf(folder.readAttribute('mbox')) != -1) {
                 elts.shift();
                 elts.invoke('hide');
             } else {
@@ -899,8 +893,8 @@ var DimpBase = {
                   // There is a chance that the message may have been marked
                   // as unseen since first being viewed. If so, we need to
                   // explicitly flag as seen here.
-                if (data.bg.indexOf('unseen') != -1) {
-                    this.flag('seen');
+                if (this.isUnseen(data)) {
+                    this.flag('imapflag', { imap: '\\seen', set: true });
                 }
                 return this._loadPreviewCallback(this.ppcache[pp_uid]);
             }
@@ -923,7 +917,7 @@ var DimpBase = {
             search = this.viewport.getViewportSelection().search({ imapuid: { equal: [ r.index ] }, view: { equal: [ r.folder ] } });
             if (search.size()) {
                 row = search.get('dataob').first();
-                this.updateUnseenUID(row, 0);
+                this.updateSeenUID(row, 1);
             }
         }
 
@@ -958,7 +952,7 @@ var DimpBase = {
         switch (r.priority) {
         case 'high':
         case 'low':
-            tmp.invoke('insert', { top: new Element('SPAN').addClassName('status' + r.priority.capitalize() + 'Priority') });
+            tmp.invoke('insert', { top: new Element('DIV').addClassName('flag' + r.priority.capitalize() + 'priority') });
             break;
         }
 
@@ -1047,25 +1041,24 @@ var DimpBase = {
     },
 
     // Labeling functions
-    updateUnseenUID: function(r, setflag)
+    updateSeenUID: function(r, setflag)
     {
-        var sel, unseen, unseenset;
-        if (!r.bg) {
-            return false;
-        }
-        unseenset = r.bg.indexOf('unseen') != -1;
-        if ((setflag && unseenset) || (!setflag && !unseenset)) {
+        var isunseen = this.isUnseen(r),
+            sel, unseen;
+
+        if ((setflag && !isunseen) || (!setflag && isunseen)) {
             return false;
         }
 
         sel = this.viewport.createSelection('dataob', r);
         unseen = Number($(this.getFolderId(r.view)).readAttribute('u'));
+
         if (setflag) {
-            this.viewport.updateFlag(sel, 'unseen', true);
-            ++unseen;
-        } else {
-            this.viewport.updateFlag(sel, 'unseen', false);
+            this.updateFlag(sel, '\\seen', true);
             --unseen;
+        } else {
+            this.updateFlag(sel, '\\seen', false);
+            ++unseen;
         }
 
         this.updateUnseenStatus(r.view, unseen);
@@ -1333,7 +1326,7 @@ var DimpBase = {
                     DimpCore.doAction('CopyMessage', this.viewport.addRequestParams({ tofld: foldername }), uids, this.bcache.get('pollFC') || this.bcache.set('pollFC', this._pollFoldersCallback.bind(this)));
                 } else if (this.folder != foldername) {
                     // Don't allow drag/drop to the current folder.
-                    this.viewport.updateFlag(uids, 'deletedmsg', true);
+                    this.updateFlag(uids, '\\deleted', true);
                     DimpCore.doAction('MoveMessage', this.viewport.addRequestParams({ tofld: foldername }), uids, this.bcache.get('deleteC') || this.bcache.set('deleteC', this._deleteCallback.bind(this)));
                 }
             }
@@ -1396,7 +1389,7 @@ var DimpBase = {
             if (e.shiftKey) {
                 this.moveSelected((r.last().rownum == this.viewport.getMetaData('total_rows')) ? (r.first().rownum - 1) : (r.last().rownum + 1), true);
             }
-            this.flag('deleted', { index: r });
+            this.flag('imapflag', { imap: '\\deleted', index: r, set: true });
             e.stop();
             break;
 
@@ -1516,7 +1509,7 @@ var DimpBase = {
         }
 
         var elt = e.element(),
-            id, mbox, tmp;
+            id, tmp;
 
         while (Object.isElement(elt)) {
             id = elt.readAttribute('id');
@@ -1581,10 +1574,14 @@ var DimpBase = {
                 this.composeMailbox(id == 'button_reply' ? 'reply' : 'forward');
                 break;
 
-            case 'button_deleted':
             case 'button_ham':
             case 'button_spam':
                 this.flag(id.substring(7));
+                e.stop();
+                return;
+
+            case 'button_deleted':
+                this.flag('imapflag', { imap: '\\deleted', set: true });
                 e.stop();
                 return;
 
@@ -1816,7 +1813,7 @@ var DimpBase = {
                 this._expirePPCache(uids);
             } else {
                 // Need this to catch spam deletions.
-                this.viewport.updateFlag(search, 'deletedmsg', true);
+                this.updateFlag(search, '\\deleted', true);
             }
         }
     },
@@ -2059,12 +2056,11 @@ var DimpBase = {
     },
 
     /* Flag actions for message list. */
-    // opts = 'index', 'mailbox', 'noserver' (only for answered/unanswered)
+    // opts = 'imap' 'index', 'mailbox', 'noserver' (only for answered/unanswered), 'set'
     flag: function(action, opts)
     {
         var actionCall, args, vs,
-            obs = [],
-            unseenstatus = 1;
+            flags = [];
         opts = opts || {};
 
         if (opts.index) {
@@ -2085,12 +2081,10 @@ var DimpBase = {
         case 'allSeen':
             DimpCore.doAction((action == 'allUnseen') ? 'MarkFolderUnseen' : 'MarkFolderSeen', { view: opts.mailbox }, null, this.bcache.get('flagAC') || this.bcache.set('flagAC', this._flagAllCallback.bind(this)));
             if (opts.mailbox == this.folder) {
-                this.viewport.updateFlag(this.createSelection('rownum', $A($R(1, this.viewport.getMetaData('total_rows')))), 'unseen', action == 'allUnseen');
+                this.updateFlag(this.createSelection('rownum', $A($R(1, this.viewport.getMetaData('total_rows')))), '\\seen', action != 'allUnseen');
             }
             break;
 
-        case 'deleted':
-        case 'undeleted':
         case 'spam':
         case 'ham':
         case 'blacklist':
@@ -2099,146 +2093,136 @@ var DimpBase = {
                 break;
             }
 
-            // Make sure that any given row is not deleted more than once.
-            // Need to explicitly mark here because message may already be
-            // flagged deleted when we load page (i.e. switching to using
-            // trash folder).
-            if (action == 'deleted') {
-                vs = vs.search({ isdel: { not: [ true ] } });
-                if (!vs.size()) {
-                    break;
-                }
-                vs.set({ isdel: true });
-            }
-
             args = this.viewport.addRequestParams({});
-            if (action == 'deleted' || action == 'undeleted') {
-                this.viewport.updateFlag(vs, 'deletedmsg', action == 'deleted');            }
 
-            if (action == 'undeleted') {
-                DimpCore.doAction('UndeleteMessage', args, vs);
-                vs.set({ isdel: false });
+            actionCall = {
+                spam: 'ReportSpam',
+                ham: 'ReportHam',
+                blacklist: 'Blacklist',
+                whitelist: 'Whitelist'
+            };
+
+            // This needs to be synchronous Ajax if we are calling from a
+            // popup window because Mozilla will not correctly call the
+            // callback function if the calling window has been closed.
+            DimpCore.doAction(actionCall[action], this.viewport.addRequestParams({}), vs, this.bcache.get('deleteC') || this.bcache.set('deleteC', this._deleteCallback.bind(this)), { asynchronous: !(opts.index && opts.mailbox) });
+
+            // If reporting spam, to indicate to the user that something is
+            // happening (since spam reporting may not be instantaneous).
+            if (action == 'spam' || action == 'ham') {
+                this.msgListLoading(true);
+            }
+            break;
+
+        case 'imapflag':
+            if (!vs.size()) {
+                break;
+            }
+
+            flags = [ (opts.set ? '' : '-') + opts.imap ];
+
+            switch (opts.imap) {
+            case '\\deleted':
+                // Make sure that any given row is not deleted more than once.
+                // Need to explicitly mark here because message may already be
+                // flagged deleted when we load page (i.e. switching to using
+                // trash folder).
+                if (opts.set) {
+                    vs = vs.search({ isdel: { not: [ true ] } });
+                    if (!vs.size()) {
+                        return;
+                    }
+                    vs.set({ isdel: true });
+                } else {
+                    vs.set({ isdel: false });
+                }
+
+                this.updateFlag(vs, opts.imap, opts.set);
+                DimpCore.doAction(opts.set ? 'DeleteMessage' : 'UndeleteMessage', this.viewport.addRequestParams({}), vs, this.bcache.get('deleteC') || this.bcache.set('deleteC', this._deleteCallback.bind(this)), { asynchronous: !(opts.index && opts.mailbox) });
+                return;
+
+            case '\\seen':
+                vs.get('dataob').each(function(s) {
+                    this.updateSeenUID(s, opts.set);
+                }, this);
+                break;
+
+            case '\\answered':
+                if (opts.set) {
+                    this.updateFlag(vs, '\\flagged', false);
+                    flags.push('-\\flagged');
+                }
+                break;
+            }
+
+            this.updateFlag(vs, opts.imap, opts.set);
+            if (!opts.noserver) {
+                DimpCore.doAction('MarkMessage', { flags: flags.toJSON(), view: this.folder }, vs);
+            }
+        }
+    },
+
+    isUnseen: function(r)
+    {
+        /* Unseen is a weird flag. Since we are doing a reverse match on this
+         * flag (knowing a message is SEEN is not as important as knowing the
+         * message lacks the SEEN FLAG), the presence of \\seen indicates that
+         * the message is in reality unseen. */
+        return r.flag.include('\\seen');
+    },
+
+    updateFlag: function(vs, flag, add)
+    {
+        /* See isUnseen() - if flag is \\seen, need to do the opposite
+         * action. */
+        if (flag == '\\seen') {
+            add = !add;
+        }
+
+        vs.get('dataob').each(function(ob) {
+            ob.flag = ob.flag.without(flag);
+            if (add) {
+                ob.flag.push(flag);
             } else {
-                actionCall = { deleted: 'DeleteMessage', spam: 'ReportSpam', ham: 'ReportHam', blacklist: 'Blacklist', whitelist: 'Whitelist' };
-                // This needs to be synchronous Ajax if we are calling from a
-                // popup window because Mozilla will not correctly call the
-                // callback function if the calling window has been closed.
-                DimpCore.doAction(actionCall[action], args, vs, this.bcache.get('deleteC') || this.bcache.set('deleteC', this._deleteCallback.bind(this)), { asynchronous: !(opts.index && opts.mailbox) });
-
-                // If reporting spam, to indicate to the user that something is
-                // happening (since spam reporting may not be instantaneous).
-                if (action == 'spam' || action == 'ham') {
-                    this.msgListLoading(true);
+                var r = $(ob.domid);
+                if (r) {
+                    r.removeClassName(DIMP.conf.flags[flag].c);
                 }
             }
-            break;
-
-        case 'unseen':
-        case 'seen':
-            if (!vs.size()) {
-                break;
-            }
-            args = { view: this.folder, flags: [ '-\\seen' ].toJSON() };
-            if (action == 'seen') {
-                unseenstatus = 0;
-                args.flags = [ '\\seen' ].toJSON();
-            }
-            obs = vs.get('dataob');
-            if (obs.size()) {
-                obs.each(function(s) {
-                    this.updateUnseenUID(s, unseenstatus);
-                }, this);
-                DimpCore.doAction('MarkMessage', args, this.viewport.createSelection('dataob', obs));
-            }
-            break;
-
-        case 'flagged':
-        case 'clear':
-            if (!vs.size()) {
-                break;
-            }
-            args = {
-                view: this.folder,
-                flags: [ ((action == 'flagged') ? '' : '-') + '\\flagged' ].toJSON()
-            };
-            this.viewport.updateFlag(vs, 'flagged', action == 'flagged');
-            DimpCore.doAction('MarkMessage', args, vs);
-            break;
-
-        case 'answered':
-            if (!vs.size()) {
-                break;
-            }
-            this.viewport.updateFlag(vs, 'answered', true);
-            this.viewport.updateFlag(vs, 'flagged', false);
-            if (!opts.noserver) {
-                args = {
-                    view: this.folder,
-                    flags: [ '\\answered', '-\\flagged' ].toJSON()
-                };
-                DimpCore.doAction('MarkMessage', args, vs);
-            }
-            break;
-
-        case 'unanswered':
-            if (!vs.size()) {
-                break;
-            }
-            this.viewport.updateFlag(vs, 'answered', false);
-            if (!opts.noserver) {
-                args = {
-                    view: this.folder,
-                    flags: [ '-\\answered' ].toJSON()
-                };
-                DimpCore.doAction('MarkMessage', args, vs);
-            }
-            break;
-
-        case 'draft':
-        case 'notdraft':
-            if (!vs.size()) {
-                break;
-            }
-            args = {
-                view: this.folder,
-                flags: [ ((action == 'draft') ? '' : '-') + '\\draft' ].toJSON()
-            };
-            this.viewport.updateFlag(vs, 'draft', action == 'draft');
-            DimpCore.doAction('MarkMessage', args, vs);
-            break;
-
-        case 'forwarded':
-            this.viewport.updateFlag(vs, 'forwarded', true);
-            break;
-        }
+            this.updateStatusFlags(ob);
+        }, this);
     },
 
     updateStatusFlags: function(row)
     {
-        var elt = new Element('DIV'),
+        var bg = null,
+            f = document.createDocumentFragment(),
             r = $(row.domid),
-            s = r.down('.msgStatus'),
-            tmp;
+            s;
 
-        // Add attachment graphic
-        if (row.atc) {
-            tmp = 'status' + row.atc.capitalize();
-            if (!s.down('.' + tmp)) {
-                s.insert($(elt.cloneNode(false)).writeAttribute({ className: tmp, title: DIMP.conf.atc_list[row.atc] || null }));
-            }
+        if (!r) {
+            return;
         }
 
-        this.flags.each(function(c) {
-            tmp = 'status' + c.value;
-            var d = s.down('.' + tmp);
-            if (r.hasClassName(c.key)) {
-                if (!d) {
-                    s.insert($(elt.cloneNode(false)).writeAttribute({ className: tmp, title: DIMP.text[tmp] || null }));
-                }
-            } else if (d) {
-                d.remove();
+        s = r.down('.msgStatus');
+
+        row.flag.each(function(a) {
+            var ptr = DIMP.conf.flags[a];
+            if (!ptr.elt) {
+                ptr.elt = new Element('DIV', { className: 'msgflags ' + ptr.c, title: ptr.l });
+            }
+            r.addClassName(ptr.c);
+            f.appendChild(ptr.elt.cloneNode(false));
+            if (ptr.b) {
+                bg = ptr.b;
             }
         });
+
+        /* Clear existing flags. */
+        s.down().nextSiblings().invoke('remove');
+
+        s.appendChild(f);
+        r.setStyle({ background: bg });
     },
 
     /* Miscellaneous folder actions. */
@@ -2349,9 +2333,12 @@ var DimpBase = {
         /* Add popdown menus. Check for disabled compose at the same time. */
         this._addMouseEvents({ id: 'button_other', type: 'otheractions' }, true);
         DM.addSubMenu('ctx_message_reply', 'ctx_reply');
-        DM.addSubMenu('ctx_message_setflag', 'ctx_flag');
-        DM.addSubMenu('oa_setflag', 'ctx_flag');
-        DM.addSubMenu('ctx_draft_setflag', 'ctx_flag');
+        [ 'ctx_message_', 'oa_', 'ctx_draft_' ].each(function(i) {
+            if ($(i + 'setflag')) {
+                DM.addSubMenu(i + 'setflag', 'ctx_flag');
+                DM.addSubMenu(i + 'unsetflag', 'ctx_flag');
+            }
+        });
 
         if (DIMP.conf.disable_compose) {
             $('button_reply', 'button_forward').compact().invoke('up', 'SPAN').concat($('button_compose', 'composelink', 'ctx_contacts_new')).compact().invoke('remove');

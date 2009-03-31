@@ -116,21 +116,49 @@ class IMP_Mailbox
      * Build the array of message information.
      *
      * @param array $msgnum   An array of message sequence numbers.
-     * @param mixed $preview  Include preview information?  If empty, add no
-     *                        preview information. If 1, uses value from
-     *                        prefs.  If 2, forces addition of preview info.
-     * @param array $headers  A list of non-standard (non-envelope) headers to
-     *                        return.
+     * @param array $options  Additional options:
+     * <pre>
+     * 'headers' - (array) A list of non-standard (non-envelope) headers to
+     *             return.
+     *             DEFAULT: Only envelope headers returned.
+     * 'preview' - (mixed) Include preview information?  If empty, add no
+     *                     preview information. If 1, uses value from prefs.
+     *                     If 2, forces addition of preview info.
+     *                     DEFAULT: No preview information.
+     * 'structure' - (boolean) Get structure information from server.
+     *               Contained in the 'strucutre' entry.
+     *               DEFAULT: false
+     * </pre>
      *
      * @return array  An array with the following keys:
      * <pre>
-     * 'overview' - (array) The overview information.
+     * 'overview' - (array) The overview information. Contains the following:
+     *              'envelope' - (array) Envelope information returned from
+     *                           the IMAP server. See
+     *                           Horde_Imap_Client::fetch() for format.
+     *              'flags' - (array) The list of IMAP flags returned from
+     *                        the server. See Horde_Imap_Client::fetch() for
+     *                        the format.
+     *              'headers' - (array) Any headers requested in
+     *                          $options['headers']. Horde_Mime_Headers objects
+     *                          are returned.  See Horde_Imap_Client::fetch()
+     *                          for the format.
+     *              'mailbox' - (string) The mailbox containing the message.
+     *              'preview' - (string) If requested in $options['preview'],
+     *                          the preview text.
+     *              'previewcut'- (boolean) Has the preview text been cut?
+     *              'seq' - (integer) The sequence number of the message.
+     *              'size' - (integer) The size of the message in bytes.
+     *              'structure'- (array) The structure of the message. Only
+     *                           set if $options['structure'] is true. See
+     *                           Horde_Imap_Client::fetch() for format.
+     *              'uid' - (string) The unique ID of the message.
+     *
      * 'uids' - (array) The array of UIDs. It is in the same format as used
      *          for IMP::parseIndicesList().
      * </pre>
      */
-    public function getMailboxArray($msgnum, $preview = false,
-                                    $headers = array())
+    public function getMailboxArray($msgnum, $options = array())
     {
         $this->_buildMailbox();
 
@@ -159,18 +187,27 @@ class IMP_Mailbox
             Horde_Imap_Client::FETCH_SEQ => true
         );
 
-        if (!empty($headers)) {
-            $fetch_criteria[Horde_Imap_Client::FETCH_HEADERS] = array(array('headers' => $headers, 'label' => 'imp', 'parse' => true, 'peek' => true));
+        if (!empty($options['headers'])) {
+            $fetch_criteria[Horde_Imap_Client::FETCH_HEADERS] = array(array('headers' => $options['headers'], 'label' => 'imp', 'parse' => true, 'peek' => true));
         }
 
-        $cache = $preview ? $GLOBALS['imp_imap']->ob->getCache() : null;
+        if (!empty($options['structure'])) {
+            $fetch_criteria[Horde_Imap_Client::FETCH_STRUCTURE] = array('parse' => true);
+        }
+
+        if (empty($options['preview'])) {
+            $cache = null;
+            $options['preview'] = 0;
+        } else {
+            $cache = $GLOBALS['imp_imap']->ob->getCache();
+        }
 
         /* Retrieve information from each mailbox. */
         foreach ($to_process as $mbox => $ids) {
             try {
                 $fetch_res = $GLOBALS['imp_imap']->ob->fetch($mbox, $fetch_criteria, array('ids' => array_keys($ids)));
 
-                if ($preview) {
+                if ($options['preview']) {
                     $preview_info = $tostore = array();
                     if ($cache) {
                         try {
@@ -186,10 +223,9 @@ class IMP_Mailbox
                         $v['headers'] = $v['headers']['imp'];
                     }
 
-                    if ($preview &&
-                        (($preview === 2) ||
-                         !$GLOBALS['prefs']->getValue('preview_show_unread') ||
-                         !in_array('\\seen', $v['flags']))) {
+                    if (($options['preview'] === 2) ||
+                        !$GLOBALS['prefs']->getValue('preview_show_unread') ||
+                        !in_array('\\seen', $v['flags'])) {
                         if (empty($preview_info[$k])) {
                             try {
                                 $imp_contents = IMP_Contents::singleton($k . IMP::IDX_SEP . $mbox);

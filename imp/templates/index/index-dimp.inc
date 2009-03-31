@@ -17,6 +17,10 @@ $sidebar_width = max((int)$prefs->getValue('sidebar_width') - 50, 150) . 'px';
 // Quota information
 $show_quota = (isset($_SESSION['imp']['quota']) && is_array($_SESSION['imp']['quota']));
 
+// Get the list of available IMAP flags
+$imp_flags = &IMP_Imap_Flags::singleton();
+$flag_list = $imp_flags->getList(array('imap' => true));
+
 // Small utility functions to simplify creating dimpactions buttons.
 // As of right now, we don't show text only links.
 function _createDA($text, $image, $id = null, $class = '', $show_text = true)
@@ -354,12 +358,15 @@ function _simpleButton($id, $text, $image, $imagedir = null)
 <div class="context" id="ctx_message" style="display:none">
  <a id="ctx_message_reply"><span class="contextImg"></span><?php echo _("Reply") ?></a>
  <a id="ctx_message_forward" class="sep"><span class="contextImg"></span><?php echo _("Forward") ?></a>
- <a id="ctx_message_setflag" class="sep"><span class="contextImg"></span><?php echo _("Mark as") ?></a>
+<?php if (!empty($flag_list)): ?>
+ <a id="ctx_message_setflag"><span class="contextImg"></span><?php echo _("Mark as") ?></a>
+ <a id="ctx_message_unsetflag" class="sep"><span class="contextImg"></span><?php echo _("Unmark as") ?></a>
+<?php endif; ?>
 <?php if (!empty($conf['spam']['reporting'])): ?>
- <a id="ctx_message_spam"><span class="contextImg"></span><?php echo _("Mark as Spam") ?></a>
+ <a id="ctx_message_spam"><span class="contextImg"></span><?php echo _("Report as Spam") ?></a>
 <?php endif; ?>
 <?php if (!empty($conf['notspam']['reporting'])): ?>
- <a id="ctx_message_ham"><span class="contextImg"></span><?php echo _("Mark as Innocent") ?></a>
+ <a id="ctx_message_ham"><span class="contextImg"></span><?php echo _("Report as Innocent") ?></a>
 <?php endif; ?>
 <?php if ($has_blacklist): ?>
  <a id="ctx_message_blacklist"><span class="contextImg"></span><?php echo _("Blacklist") ?></a>
@@ -375,7 +382,10 @@ function _simpleButton($id, $text, $image, $imagedir = null)
 
 <div class="context" id="ctx_draft" style="display:none">
  <a id="ctx_draft_resume" class="sep"><span class="contextImg"></span><?php echo _("Resume Draft") ?></a>
- <a id="ctx_draft_setflag" class="sep"><span class="contextImg"></span><?php echo _("Mark as") ?></a>
+<?php if (!empty($flag_list)): ?>
+ <a id="ctx_draft_setflag"><span class="contextImg"></span><?php echo _("Mark as") ?></a>
+ <a id="ctx_draft_unsetflag" class="sep"><span class="contextImg"></span><?php echo _("Unmark as") ?></a>
+<?php endif; ?>
  <a id="ctx_draft_deleted"><span class="contextImg"></span><?php echo _("Delete") ?></a>
 <?php if (!$usetrash): ?>
  <a id="ctx_draft_undeleted"><span class="contextImg"></span><?php echo _("Undelete") ?></a>
@@ -390,7 +400,10 @@ function _simpleButton($id, $text, $image, $imagedir = null)
 
 <div class="context" id="ctx_otheractions" style="display:none">
  <a id="previewtoggle" class="sep"><span class="contextImg"></span><?php echo ($prefs->getValue('dimp_show_preview') ? _("Hide Preview") : _("Show Preview")); ?></a>
- <a id="oa_setflag" class="sep"><span class="contextImg"></span><?php echo _("Mark as") ?></a>
+<?php if (!empty($flag_list)): ?>
+ <a id="oa_setflag"><span class="contextImg"></span><?php echo _("Mark as") ?></a>
+ <a id="oa_unsetflag" class="sep"><span class="contextImg"></span><?php echo _("Unmark as") ?></a>
+<?php endif; ?>
 <?php if ($has_blacklist || $has_whitelist): ?>
 <?php if ($has_blacklist): ?>
  <a id="oa_blacklist"<?php if (!$has_whitelist): ?> class="sep"<?php endif; ?>><span class="contextImg"></span><?php echo _("Blacklist") ?></a>
@@ -406,16 +419,13 @@ function _simpleButton($id, $text, $image, $imagedir = null)
 <?php endif; ?>
 </div>
 
+<?php if (!empty($flag_list)): ?>
 <div class="context" id="ctx_flag" style="display:none">
- <a id="flag_seen"><span class="contextImg"></span><?php echo _("Seen") ?></a>
- <a id="flag_unseen"><span class="contextImg"></span><?php echo _("Unseen") ?></a>
- <a id="flag_flagged"><span class="contextImg"></span><?php echo _("Flagged For Followup") ?></a>
- <a id="flag_clear"><span class="contextImg"></span><?php echo _("Not Flagged") ?></a>
- <a id="flag_answered"><span class="contextImg"></span><?php echo _("Answered") ?></a>
- <a id="flag_unanswered"><span class="contextImg"></span><?php echo _("Not Answered") ?></a>
- <a id="flag_draft"><span class="contextImg"></span><?php echo _("Draft") ?></a>
- <a id="flag_notdraft"><span class="contextImg"></span><?php echo _("Not Draft") ?></a>
+<?php foreach ($flag_list as $key => $val): ?>
+ <a flag="<?php echo htmlspecialchars($key) ?>"><span class="contextImg <?php echo htmlspecialchars($val['c']) ?>"></span><?php echo htmlspecialchars($val['l']) ?></a>
+<?php endforeach; ?>
 </div>
+<?php endif; ?>
 
 <div class="context" id="ctx_contacts" style="display:none">
  <a id="ctx_contacts_new"><span class="contextImg"></span><?php echo _("New Message") ?></a>

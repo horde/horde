@@ -148,6 +148,17 @@ class DIMP
             }
         }
 
+        /* Generate flag array. */
+        $flags = array();
+        $imp_flags = &IMP_Imap_Flags::singleton();
+        foreach ($imp_flags->getList() as $val) {
+            $flags[$val['flag']] = array_filter(array(
+                'b' => isset($val['b']) ? $val['b'] : null,
+                'c' => $val['c'],
+                'l' => $val['l']
+            ));
+        }
+
         /* Variables used in core javascript files. */
         $code['conf'] = array_filter(array(
             'URI_DIMP_INBOX' => Horde::applicationUrl('index-dimp.php', true, -1),
@@ -168,6 +179,8 @@ class DIMP
 
             'popup_width' => 820,
             'popup_height' => 610,
+
+            'flags' => $flags,
 
             'spam_folder' => IMP::folderPref($prefs->getValue('spam_folder'), true),
             'spam_reporting' => intval(!empty($conf['spam']['reporting'])),
@@ -196,8 +209,6 @@ class DIMP
             'login_view' => $prefs->getValue('dimp_login_view'),
             'background_inbox' => intval(!empty($conf['dimp']['viewport']['background_inbox'])),
             'splitbar_pos' => $prefs->getValue('dimp_splitbar'),
-
-            'atc_list' => IMP_UI_Mailbox::getAttachmentAltList(),
 
             // Turn debugging on?
             'debug' => intval(!empty($conf['dimp']['js']['debug'])),
@@ -239,10 +250,6 @@ class DIMP
             'alog_message' => _("Message"),
             'alog_success' => _("Success"),
             'alog_warning' => _("Warning"),
-            'statusAnswered' => _("Replied"),
-            'statusForwarded' => _("Forwarded"),
-            'statusUnseen' => _("Unseen"),
-            'statusFlagged' => _("Flagged"),
         ));
 
         /* Gettext strings with individual escaping. */

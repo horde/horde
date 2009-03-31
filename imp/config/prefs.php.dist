@@ -133,6 +133,13 @@ if (!empty($GLOBALS['conf']['mailbox']['show_preview'])) {
 }
 
 if (!$is_pop3) {
+    $prefGroups['flags'] = array(
+        'column' => _("Message Options"),
+        'label' => _("Message Flags"),
+        'desc' => _("Customize flag highlighting."),
+        'members' => array('flagmanagement')
+    );
+
     $prefGroups['fetchmail'] = array(
         'column' => _("Message Options"),
         'label' => _("Fetch Mail"),
@@ -146,7 +153,7 @@ $prefGroups['display'] = array(
     'label' => _("Mailbox and Folder Display Options"),
     'desc' => _("Change display options such as how many messages you see on each page and how messages are sorted."),
     'members' => array('mailbox_start', 'sortby', 'sortdir', 'max_msgs',
-                       'from_link', 'time_format')
+                       'from_link', 'time_format', 'atc_flag')
 );
 if (!$is_pop3) {
     $prefGroups['display']['members'] = array_merge(
@@ -527,6 +534,7 @@ $_prefs['stationery_link'] = array(
     'desc' => _("To the stationery and form responses."));
 
 $_prefs['stationery'] = array(
+    // value = serialize(array())
     'value' => 'a:0:{}',
     'locked' => false,
     'shared' => false,
@@ -1068,6 +1076,154 @@ $_prefs['preview_show_tooltip'] = array(
 // End Message Preview
 
 
+// IMAP Flag preferences
+
+// UI for flag management.
+$_prefs['flagmanagement'] = array(
+    'type' => 'special'
+);
+
+// Message flags
+$_prefs['msgflags'] = array(
+    // Format:
+    //   KEY: Flag name
+    //   VALUE: Array with the following entries
+    //          'a' - (string) [abbreviation] The abbreviation used in
+    //                the mimp (minimal) view.
+    //                DEFAULT: Don't show flag
+    //          'b' - (string) [background] The CSS background color
+    //                DEFAULT: Use value of 'msgflags_color'
+    //          'c' - (string) [class] The CSS background class (used to
+    //                display status icon).
+    //                NO DEFAULT (entry required)
+    //          'd' - (boolean) [delete] If true, entry can be deleted.
+    //                DEFAULT: false
+    //          'l' - (string) [label] The flag text label.
+    //                NO DEFAULT (entry required)
+    //          't' - (string) [type] The flag type:
+    //                'atc' - Attachment information
+    //                'imap' - IMAP flags (not user settable)
+    //                'imapp' - IMAP flags (personal flags - created by user
+                                through the prefs interface)
+    //                'imapu' - IMAP flags (user settable)
+    //                'imp' - IMP defined flags
+    //                NO DEFAULT (entry required)
+    'value' => json_encode(array(
+        // Static internal imp flags (i.e. status icons)
+        // THESE ENTRIES MUST NOT BE DELETED
+        'personal' => array(
+            'a' => '+',
+            'c' => 'flagPersonal',
+            'l' => _("Personal"),
+            't' => 'imp'
+        ),
+        'highpri' => array(
+            'a' => '^',
+            'b' => '#ffcccc',
+            'c' => 'flagHighpriority',
+            'l' => _("High Priority"),
+            't' => 'imp'
+        ),
+        'lowpri' => array(
+            'a' => 'v',
+            'c' => 'flagLowpriority',
+            'l' => _("Low Priority"),
+            't' => 'imp'
+        ),
+
+        // Attachment flags
+        // THESE ENTRIES MUST NOT BE DELETED
+        'signed' => array(
+            'c' => 'flagSignedmsg',
+            'l' => _("Message is Signed"),
+            't' => 'atc'
+        ),
+        'encrypt' => array(
+            'c' => 'flagEncryptmsg',
+            'l' => _("Message is Encrypted"),
+            't' => 'atc'
+        ),
+        'attach' => array(
+            'c' => 'flagAttachmsg',
+            'l' => _("Message has Attachments"),
+            't' => 'atc'
+        ),
+
+        // IMAP flags
+        // KEY: IMAP flag as it exsits on the IMAP server
+        // VALUES (additional to base values):
+        //   'n' - (boolean) [NOT match] Don't match the flag.
+        //         DEFAULT: false
+
+        // System IMAP flags (RFC 3501 [2.3.2])
+        '\\seen' => array(
+            'a' => 'N',
+            'b' => '#eeeeff',
+            'c' => 'flagUnseen',
+            'l' => _("Unseen"),
+            'n' => true,
+            't' => 'imap'
+        ),
+        '\\answered' => array(
+            'a' => 'r',
+            'b' => '#ccffcc',
+            'c' => 'flagAnswered',
+            'l' => _("Answered"),
+            't' => 'imap'
+        ),
+        '\\draft' => array(
+            'a' => 'd',
+            'c' => 'flagDraft',
+            'l' => _("Draft"),
+            't' => 'imapu'
+        ),
+        '\\flagged' => array(
+            'a' => '*',
+            'b' => '#ffcccc',
+            'c' => 'flagFlagged',
+            'l' => _("Flagged for Followup"),
+            't' => 'imapu'
+        ),
+        '\\deleted' => array(
+            'a' => 'D',
+            'b' => '#999999',
+            'c' => 'flagDeleted',
+            'l' => _("Deleted"),
+            't' => 'imap'
+        ),
+
+        // Forwarded flag (RFC 4550 [2.8])
+        '$forwarded' => array(
+            'a' => 'F',
+            'b' => '#aadddd',
+            'c' => 'flagForwarded',
+            'l' => _("Forwarded"),
+            // Pursuant to RFC, this flag SHOULD NOT be changed by the user
+            't' => 'imap'
+        )
+    )),
+    'locked' => false,
+    'shared' => false,
+    'type' => 'implicit'
+);
+
+// The default color to use for flags that don't require row highlighting.
+$_prefs['msgflags_color'] = array(
+    'value' => '#ffffff',
+    'locked' => false,
+    'shared' => false,
+    'type' => 'implicit');
+
+// By default, don't allow user to alter flags set by system events.
+$_prefs['msgflags_hidesys'] = array(
+    'value' => true,
+    'locked' => false,
+    'shared' => false,
+    'type' => 'implicit');
+
+// End IMAP Flag preferences
+
+
 // Fetch Mail preferences
 
 // Change this if you want to customize how fetchmailprefs.php works.
@@ -1087,6 +1243,7 @@ $_prefs['fetchmail_menu'] = array(
 
 // Don't change anything here.
 $_prefs['fm_accounts'] = array(
+    // value = serialize(array())
     'value' => 'a:0:{}',
     'locked' => false,
     'shared' => false,
@@ -1143,6 +1300,7 @@ $_prefs['sortdir'] = array(
 
 // sort prefs for individual folders
 $_prefs['sortpref'] = array(
+    // value = serialize(array())
     'value' => 'a:0:{}',
     'locked' => false,
     'shared' => false,
@@ -1168,6 +1326,16 @@ $_prefs['from_link'] = array(
         2 => _("Do not generate a link in the From: column")
     ),
     'desc' => _("The From: column of the message should be linked:"));
+
+// Display attachment information in mailbox list.
+// Disabled by default, and not shown to user, because this display requires
+// substantial overhead to parse the message structures of all message in
+// the mailbox list at view time.
+$_prefs['atc_flag'] = array(
+    'value' => 0,
+    'locked' => true,
+    'type' => 'checkbox',
+    'desc' => _("Display attachment information about a message in the mailbox listing?"));
 
 // Time format for messages dated today
 $_prefs['time_format'] = array(
@@ -1227,6 +1395,7 @@ $_prefs['nav_poll_all'] = array(
 
 // list of folders to expand by default
 $_prefs['expanded_folders'] = array(
+    // value = serialize(array())
     'value' => 'a:0:{}',
     'locked' => false,
     'shared' => false,

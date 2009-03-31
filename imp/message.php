@@ -146,12 +146,11 @@ case 'notspam_report':
 
 case 'flag_message':
     $flag = Util::getFormData('flag');
-    if ($flag) {
+    if ($flag && !empty($indices_array)) {
+        $set = true;
         if ($flag[0] == '0') {
             $flag = substr($flag, 1);
             $set = false;
-        } else {
-            $set = true;
         }
         $imp_message->flag(array($flag), $indices_array, $set);
         if ($prefs->getValue('mailbox_return')) {
@@ -301,12 +300,12 @@ $xpriority = $mime_headers->getValue('x-priority');
 switch ($imp_ui->getXpriority($xpriority)) {
 case 'high':
     $basic_headers['priority'] = _("Priority");
-    $display_headers['priority'] = Horde::img('mail_priority_high.png', _("High Priority")) . '&nbsp;' . $xpriority;
+    $display_headers['priority'] = '<div class="msgflags flagHighpriority" title="' . htmlspecialchars(_("High Priority")) . '"></div>' . '&nbsp;' . $xpriority;
     break;
 
 case 'low':
     $basic_headers['priority'] = _("Priority");
-    $display_headers['priority'] = Horde::img('mail_priority_low.png', _("Low Priority")) . '&nbsp;' . $xpriority;
+    $display_headers['priority'] = '<div class="msgflags flagLowpriority" title="' . htmlspecialchars(_("Low Priority")) . '"></div>' . '&nbsp;' . $xpriority;
     break;
 }
 
@@ -394,35 +393,25 @@ if (!IMP::$printMode && !empty($conf['maillog']['use_maillog'])) {
 /* Everything below here is related to preparing the output. */
 if (!IMP::$printMode) {
     /* Set the status information of the message. */
-    $identity = $status = null;
-    if (!$use_pop) {
-        if (!empty($msgAddresses)) {
-            $identity = $user_identity->getMatchingIdentity($msgAddresses);
-            if (($identity !== null) ||
-                $user_identity->getMatchingIdentity($msgAddresses, false) !== null) {
-                $status .= Horde::img('mail_personal.png', _("Personal"), array('title' => _("Personal")));
-            }
-            if ($identity === null) {
-                $identity = $user_identity->getDefault();
-            }
-        }
+    $identity = $match_identity = $status = null;
 
-        /* Set status flags. */
-        if (!in_array('\\seen', $flags)) {
-            $status .= Horde::img('mail_unseen.png', _("Unseen"), array('title' => _("Unseen")));
+    if (!empty($msgAddresses)) {
+        $identity = $match_identity = $user_identity->getMatchingIdentity($msgAddresses);
+        if (is_null($identity)) {
+            $identity = $user_identity->getDefault();
         }
-        $flag_array = array(
-            '\\answered' => _("Answered"),
-            '\\draft'    => _("Draft"),
-            '\\flagged'  => _("Flagged For Followup"),
-            '\\deleted'  => _("Deleted"),
-            /* Support for the pseudo-standard '$Forwarded' flag. */
-            '$forwarded' => _("Forwarded")
-        );
-        foreach ($flag_array as $flag => $desc) {
-            if (in_array($flag, $flags)) {
-                $status .= Horde::img('mail_' . ltrim($flag, '\\$') . '.png', $desc, array('title' => $desc));
-            }
+    }
+
+    $imp_flags = &IMP_Imap_Flags::singleton();
+    $flag_parse = $imp_flags->parse(array(
+        'div' => true,
+        'flags' => $flags,
+        'personal' => $match_identity
+    ));
+
+    foreach ($flag_parse as $val) {
+        if (isset($val['div'])) {
+            $status .= $val['div'];
         }
     }
 
@@ -454,10 +443,14 @@ if (!IMP::$printMode) {
     $n_template->set('usepop', $use_pop);
     $n_template->set('id', 1);
 
-    if ($conf['user']['allow_folders']) {
-        $n_template->set('move', Horde::widget('#', _("Move to folder"), 'widget moveAction', '', '', _("Move"), true));
-        $n_template->set('copy', Horde::widget('#', _("Copy to folder"), 'widget copyAction', '', '', _("Copy"), true));
-        $n_template->set('options', IMP::flistSelect(array('heading' => _("This message to"), 'new_folder' => true, 'inc_tasklists' => true, 'inc_notepads' => true)));
+    if (!$use_pop) {
+        $n_template->set('flaglist', $imp_flags->getList(array('imap' => true, 'mailbox' => $imp_mbox['mailbox'])));
+
+        if ($conf['user']['allow_folders']) {
+            $n_template->set('move', Horde::widget('#', _("Move to folder"), 'widget moveAction', '', '', _("Move"), true));
+            $n_template->set('copy', Horde::widget('#', _("Copy to folder"), 'widget copyAction', '', '', _("Copy"), true));
+            $n_template->set('options', IMP::flistSelect(array('heading' => _("This message to"), 'new_folder' => true, 'inc_tasklists' => true, 'inc_notepads' => true)));
+        }
     }
 
     $n_template->set('back_to', Horde::widget($mailbox_url, sprintf(_("Back to %s"), $h_page_label), 'widget', '', '', sprintf(_("Bac_k to %s"), $h_page_label), true));
@@ -747,7 +740,6 @@ if (IMP::$printMode) {
 echo $m_template->fetch(IMP_TEMPLATES . '/message/message.html');
 
 if (!IMP::$printMode) {
-    echo '<input type="hidden" name="flag" id="flag" value="" />';
     $a_template->set('isbottom', true);
     echo $a_template->fetch(IMP_TEMPLATES . '/message/navbar_actions.html');
 

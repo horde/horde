@@ -704,12 +704,6 @@ var ViewPort = Class.create({
                 c_nodes.push(this.template.evaluate(r));
             }, this);
             c.update(c_nodes.join(''));
-
-            if (this.opts.onUpdateClass) {
-                rows.get('dataob').each(function(d) {
-                    this.opts.onUpdateClass(d);
-                }, this);
-            }
         } else {
             // If loading a viewport for the first time, show a blank
             // viewport rather than the empty viewport status message.
@@ -790,54 +784,11 @@ var ViewPort = Class.create({
     },
 
     // vs = (Viewport_Selection) A Viewport_Selection object.
-    // flag = (string) Flag name.
+    // cname = (string) Class name.
     // add = (boolean) Whether to set/unset flag.
-    updateFlag: function(vs, flag, add)
+    _updateClass: function(vs, cname, add)
     {
-        this._updateFlag(vs, flag, add, this.isFiltering());
-        this._updateClass(vs, flag, add);
-    },
-
-    // vs = (Viewport_Selection) A Viewport_Selection object.
-    // flag = (string) Flag name.
-    // add = (boolean) Whether to set/unset flag.
-    // filter = (boolean) Are we filtering results?
-    _updateFlag: function(vs, flag, add, filter)
-    {
-        vs.get('dataob').each(function(r) {
-            if (add) {
-                r.bg.push(flag);
-            } else {
-                r.bg = r.bg.without(flag);
-            }
-            if (filter) {
-                this._updateFlag(this.createSelection('uid', r.vp_id, r.view), flag, add);
-            }
-        }, this);
-    },
-
-    // vs = (Viewport_Selection) A Viewport_Selection object.
-    // flag = (string) Flag name.
-    // add = (boolean) Whether to set/unset flag.
-    _updateClass: function(vs, flag, add)
-    {
-        var divs = vs.get('div'),
-            sel = new ViewPort_Selection(this._getBuffer(), 'div', divs);
-
-        divs.each(function(d) {
-            if (add) {
-                d.addClassName(flag);
-            } else {
-                d.removeClassName(flag);
-            }
-        }, this);
-
-
-        if (this.opts.onUpdateClass) {
-            sel.get('dataob').each(function(d) {
-                this.opts.onUpdateClass(d);
-            }, this);
-        }
+        vs.get('div').invoke(add ? 'addClassName' : 'removeClassName', cname);
     },
 
     _getLineHeight: function()

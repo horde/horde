@@ -108,7 +108,7 @@ try {
 
 $envelope = $fetch_ret[$index]['envelope'];
 $flags = $flags_ret[$index]['flags'];
-$mime_headers = $fetch_ret[$index]['headertext'][0];
+$mime_headers = reset($fetch_ret[$index]['headertext']);
 $use_pop = ($_SESSION['imp']['protocol'] == 'pop');
 
 /* Parse the message. */
@@ -206,35 +206,24 @@ case 'low':
 
 /* Set the status information of the message. */
 $status = '';
-$identity = null;
-if (!$use_pop) {
-    if (!empty($msgAddresses)) {
-        $identity = $user_identity->getMatchingIdentity($msgAddresses);
-        if (!is_null($identity) ||
-            ($user_identity->getMatchingIdentity($msgAddresses, false) !== null)) {
-            $status .= '+';
-        }
-        if (is_null($identity)) {
-            $identity = $user_identity->getDefault();
-        }
-    }
+$match_identity = $identity = null;
 
-    /* Set status flags. */
-    if (!in_array('\\seen', $flags)) {
-        $status .= 'N';
+if (!empty($msgAddresses)) {
+    $match_identity = $identity = $user_identity->getMatchingIdentity($msgAddresses);
+    if (is_null($identity)) {
+        $identity = $user_identity->getDefault();
     }
-    $flag_array = array(
-        '\\answered' => 'r',
-        '\\draft' => 'D',
-        '\\flagged' => '!',
-        '\\deleted' => 'd',
-        /* Support for the pseudo-standard '$Forwarded' flag. */
-        '$forwarded' => 'F'
-    );
-    foreach ($flag_array as $flag => $desc) {
-        if (in_array($flag, $flags)) {
-            $status .= $desc;
-        }
+}
+
+$imp_flags = &IMP_Imap_Flags::singleton();
+$flag_parse = $imp_flags->parse(array(
+    'flags' => $flags,
+    'personal' => $match_identity
+));
+
+foreach ($flag_parse as $val) {
+    if (isset($val['abbrev'])) {
+        $status .= $val['abbrev'];
     }
 }
 

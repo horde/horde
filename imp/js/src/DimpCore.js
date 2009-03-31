@@ -524,9 +524,9 @@ DimpCore = {
     // By default, no context onShow action
     contextOnShow: Prototype.emptyFunction,
 
-    contextOnClick: function(id, elt)
+    contextOnClick: function(elt, base, submenu)
     {
-        switch (id) {
+        switch (elt.readAttribute('id')) {
         case 'ctx_contacts_new':
             this.compose('new', { to: elt.readAttribute('address') });
             break;

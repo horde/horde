@@ -262,11 +262,11 @@ class IMP_Views_ListMessages
      *                                  to process.
      * @param boolean $search           Is this a search mbox?
      *
-     * @return array TODO
+     * @return array  TODO
      */
     private function _getOverviewData($imp_mailbox, $folder, $msglist, $search)
     {
-        $lookup = $msgs = array();
+        $msgs = array();
 
         if (empty($msglist)) {
             return $msgs;
@@ -275,7 +275,7 @@ class IMP_Views_ListMessages
         require_once 'Horde/Identity.php';
 
         /* Get mailbox information. */
-        $overview = $imp_mailbox->getMailboxArray($msglist, false, array('list-post'));
+        $overview = $imp_mailbox->getMailboxArray($msglist, array('headers' => array('list-post', 'x-priority'), 'structure' => $GLOBALS['prefs']->getValue('atc_flag')));
         $charset = NLS::getCharset();
         $imp_ui = new IMP_UI_Mailbox($folder);
 
@@ -284,6 +284,8 @@ class IMP_Views_ListMessages
         while (list(,$ob) = each($overview['overview'])) {
             /* Initialize the header fields. */
             $msg = array(
+                'bg' => array('msgRow'),
+                'flag' => array(),
                 'imapuid' => $ob['uid'],
                 'menutype' => 'message',
                 'rownum' => $ob['seq'],
@@ -291,31 +293,27 @@ class IMP_Views_ListMessages
             );
 
             /* Get all the flag information. */
-            $bg = array('msgRow');
-            if ($_SESSION['imp']['protocol'] != 'pop') {
-                if (!in_array('\\seen', $ob['flags'])) {
-                    $bg[] = 'unseen';
-                }
-                if (in_array('\\answered', $ob['flags'])) {
-                    $bg[] = 'answered';
-                }
-                if (in_array('\\draft', $ob['flags'])) {
-                    $bg[] = 'draft';
-                    $msg['menutype'] = 'draft';
-                    $msg['draft'] = 1;
-                }
-                if (in_array('\\flagged', $ob['flags'])) {
-                    $bg[] = 'flagged';
-                }
-                if (in_array('\\deleted', $ob['flags'])) {
-                    $bg[] = 'deletedmsg';
-                }
-                if (in_array('$forwarded', $ob['flags'])) {
-                    $bg[] = 'forwarded';
-                }
+            if (!empty($GLOBALS['conf']['hooks']['msglist_flags'])) {
+                $ob['flags'] = array_merge($ob['flags'], Horde::callHook('_imp_hook_msglist_flags', array($ob, 'dimp'), 'imp'));
             }
 
-            $msg['bg'] = $bg;
+            $imp_flags = &IMP_Imap_Flags::singleton();
+            $flag_parse = $imp_flags->parse(array(
+                'atc' => isset($ob['structure']) ? $ob['structure'] : null,
+                'flags' => $ob['flags'],
+                'personal' => Horde_Mime_Address::getAddressesFromObject($ob['envelope']['to']),
+                'priority' => $ob['headers']->getValue('x-priority')
+            ));
+
+            foreach ($flag_parse as $val) {
+                $msg['flag'][] = $val['flag'];
+            }
+
+            /* Specific flag checking. */
+            if (in_array('\\draft', $ob['flags'])) {
+                $msg['menutype'] = 'draft';
+                $msg['draft'] = 1;
+            }
 
             /* Format size information. */
             $msg['size'] = htmlspecialchars($imp_ui->getSize($ob['size']), ENT_QUOTES, $charset);
@@ -345,39 +343,11 @@ class IMP_Views_ListMessages
             } else {
                 $msgs[$ob['uid']] = $msg;
             }
-
-            if (!isset($lookup[$ob['mailbox']])) {
-                $lookup[$ob['mailbox']] = array();
-            }
-            $lookup[$ob['mailbox']][] = $ob['uid'];
-        }
-
-        /* Add user supplied information from hook. */
-        if (!empty($GLOBALS['conf']['imp']['hooks']['msglist_format'])) {
-            foreach (array_keys($lookup) as $mbox) {
-                $ob_f = Horde::callHook('_imp_hook_msglist_format', array($mbox, $lookup[$mbox], 'dimp'), 'imp');
-
-                foreach ($ob_f as $uid => $val) {
-                    if ($search) {
-                        $ptr = &$msgs[$uid . $mbox];
-                    } else {
-                        $ptr = &$msgs[$uid];
-                    }
-
-                    if (!empty($val['atc'])) {
-                        $ptr['atc'] = $val['atc'];
-                    }
-
-                    if (!empty($val['class'])) {
-                        $ptr['bg'] = array_merge($ptr['bg'], $val['class']);
-                    }
-                }
-            }
         }
 
         /* Allow user to alter template array. */
-        if (!empty($GLOBALS['conf']['imp']['dimp']['hooks']['mailboxarray'])) {
-            $msgs = Horde::callHook('_imp_hook_dimp_mailboxarray', array($msgs), 'imp');
+        if (!empty($GLOBALS['conf']['imp']['hooks']['mailboxarray'])) {
+            $msgs = Horde::callHook('_imp_hook_mailboxarray', array($msgs, 'dimp'), 'imp');
         }
 
         return $msgs;

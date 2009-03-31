@@ -369,6 +369,10 @@
    a custom function to dynamically determine the icons shown for standard
    folders on the folder page? If so, make sure you define
    _imp_hook_mbox_icons() in hooks.php.">false</configboolean>
+   <configboolean name="mailboxarray" required="false" desc="Should we run a
+   custom function in which array elements can be added to use in the template
+   file, while processing the message lists? If so, make sure you define
+   _imp_hook_mailboxarray() in config/hooks.php.">false</configboolean>
    <configboolean name="mbox_readonly" required="false" desc="Should we use a
    custom function to dynamically determine whether a given folder is
    read-only? If so, make sure you define _imp_hook_mbox_readonly() in
@@ -381,10 +385,10 @@
    custom function to dynamically generate the email address to send spam
    reporting emails to? If so, make sure you define _imp_hook_spam_email() in
    hooks.php.">false</configboolean>
-   <configboolean name="msglist_format" required="false" desc="Should we use
-   a custom function to provide additional information/custom formatting of
-   messages in the mailbox message list? If so, make sure you define
-   _imp_hook_msglist_format() in hooks.php.">false</configboolean>
+   <configboolean name="msglist_flags" required="false" desc="Should we use
+   a custom function to provide additional flags to messages in the mailbox
+   message list? If so, make sure you define _imp_hook_msglist_flags() in
+   hooks.php.">false</configboolean>
    <configboolean name="display_folder" required="false" desc="Should we use
    a custom function to dynamically determine if we show a specified IMAP
    mailbox in the folderlist ? If so, make sure you define
@@ -471,12 +475,6 @@
   <configheader>Custom Hooks</configheader>
   <configsection name="dimp">
    <configsection name="hooks">
-    <configboolean name="mailboxarray" required="false" desc="Should we
-    run a custom function in which array elements can be added to use in the
-    template file, while processing the message lists? If so, make sure
-    you define _imp_hook_dimp_mailboxarray() in config/hooks.php. The elements
-    will be available as template tags in the imp/templates/imp/mailbox.html
-    template file.">false</configboolean>
     <configboolean name="previewview" required="false" desc="Should we
     run a custom function in which array elements can be modified, and
     javascript code be provided to dynamically update page elements in the

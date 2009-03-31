@@ -103,11 +103,8 @@ span.loadingImg {
 }
 
 /* Columns */
-div.msgStatus, div.msgFrom, div.msgSubject, div.msgDate, div.msgSize {
-    float: left;
-    overflow: hidden;
-}
 div.msgStatus {
+    float: left;
     width: 8%;
 }
 div.msgStatus div, #msgHeadersContent .subject span {
@@ -120,15 +117,19 @@ div.msgStatus div, #msgHeadersContent .subject span {
     vertical-align: inherit;
 }
 div.msgFrom {
+    float: left;
     width: 20%;
 }
 div.msgSubject {
+    float: left;
     width: 52%;
 }
 div.msgDate {
+    float: left;
     width: 14%;
 }
 div.msgSize {
+    float: left;
     width: 6%;
 }
 
@@ -181,7 +182,7 @@ div.msgSize {
 }
 
 /* Rows */
-.msglist div.msgRow, .msglist div div {
+.msglist div.msgRow, .msglist div.msgRow div {
     cursor: pointer;
     font-size: 95%;
     white-space: nowrap;
@@ -190,33 +191,8 @@ div.msgSize {
     height: 16px;
     margin-bottom: 1px;
 }
-/* Flags */
-.msglist div.unseen {
-    font-weight: bold;
-}
-.msglist div.important {
-    background: #fcc;
-}
-.msglist div.answered {
-    background: #cfc;
-}
-.msglist div.forwarded {
-    background: #add;
-}
-.msglist div.flagged {
-    background: #fcc;
-}
-.msglist div.unimportant {
-    font-weight: normal;
-}
-.msglist div.deletedmsg {
-    background: #999;
-}
-.msglist div.deletedmsg div.msgFrom, .msglist div.deletedmsg div.msgSubject, .msglist div.deletedmsg div.msgDate, .msglist div.deletedmsg div.msgSize {
-    text-decoration: line-through;
-}
 .msglist div.selectedRow {
-    background: #ffc;
+    background: #ffc !important;
 }
 
 /* Checkbox images */
@@ -230,55 +206,18 @@ div.msgSize {
     background-image: url("graphics/checkbox_on.png");
 }
 
-/* Status images and flags selectors */
-.msglist div.statusUnseen {
-    background-image: url("graphics/mail_unseen.png");
-}
-.msglist div.statusFlagged {
-    background-image: url("graphics/mail_flagged.png");
-}
-.msglist div.statusDeleted {
-    background-image: url("graphics/mail_deleted.png");
-}
-.msglist div.statusLowPriority, #msgHeadersContent span.statusLowPriority {
-    background-image: url("graphics/mail_priority_low.png");
-}
-.msglist div.statusHighPriority, #msgHeadersContent span.statusHighPriority {
-    background-image: url("graphics/mail_priority_high.png");
-}
-.msglist div.statusAnswered {
-    background-image: url("graphics/mail_answered.png");
-}
-.msglist div.statusForwarded {
-    background-image: url("graphics/mail_forwarded.png");
-}
-.msglist div.statusDraft {
-    background-image: url("graphics/mail_draft.png");
-}
-.msglist div.statusAttachment {
-    background-image: url("graphics/attachment.png");
-}
-.msglist div.statusEncrypted {
-    background-image: url("graphics/encrypted.png");
-}
-.msglist div.statusSigned {
-    background-image: url("graphics/signed.png");
-}
-
 /* Scroller */
 .sbdiv {
     position: relative;
     right: 0;
     width: 14px;
     overflow: hidden;
-    background-image: url("graphics/scroller_back.png");
-    background-repeat: repeat-y;
+    background: url("graphics/scroller_back.png") repeat-y;
 }
 .sbcursor {
     width: 13px;
     border-left: 1px solid silver;
-    background-image: url("graphics/scroller.png");
-    background-repeat: repeat-y;
+    background: url("graphics/scroller.png") repeat-y;
 }
 .sbup {
     width: 13px;
@@ -1017,29 +956,20 @@ span.dimpactionDrafts {
 #ctx_message_undeleted span.contextImg, #ctx_draft_undeleted span.contextImg, #oa_undeleted span.contextImg {
     background-image: url("graphics/undelete.png");
 }
-#flag_seen span.contextImg, #ctx_folder_seen span.contextImg {
+#ctx_folder_seen span.contextImg {
     background-image: url("graphics/mail_seen.png");
 }
-#flag_unseen span.contextImg, #ctx_folder_unseen span.contextImg, #ctx_folder_poll span.contextImg, #ctx_folder_nopoll span.contextImg {
+#ctx_folder_unseen span.contextImg, #ctx_folder_poll span.contextImg, #ctx_folder_nopoll span.contextImg {
     background-image: url("graphics/mail_unseen.png");
 }
-#ctx_message_setflag span.contextImg, #ctx_draft_setflag span.contextImg, #oa_setflag span.contextImg, #flag_flagged span.contextImg {
+#ctx_message_setflag span.contextImg, #ctx_draft_setflag span.contextImg, #oa_setflag span.contextImg {
     background-image: url("graphics/mail_flagged.png");
 }
-#flag_clear span.contextImg {
+#ctx_message_unsetflag span.contextImg, #ctx_draft_unsetflag span.contextImg, #oa_unsetflag span.contextImg {
     background-image: url("graphics/mail_clearflag.png");
 }
-#flag_answered span.contextImg {
-    background-image: url("graphics/mail_answered.png");
-}
-#flag_unanswered span.contextImg {
-    background-image: url("graphics/mail_notanswered.png");
-}
-#flag_draft span.contextImg, #ctx_draft_resume span.contextImg {
+#ctx_draft_resume span.contextImg {
     background-image: url("graphics/mail_draft.png");
-}
-#flag_notdraft span.contextImg {
-    background-image: url("graphics/mail_notdraft.png");
 }
 #previewtoggle span.contextImg {
     background-image: url("graphics/preview.png");

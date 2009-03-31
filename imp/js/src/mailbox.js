@@ -5,31 +5,25 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  */
 
-var ImpMessage = {
+var ImpMailbox = {
     // The following variables are defined in mailbox.php:
-    //  messagelist, sortlimit, unread
-    keyId: null,
-    startrange: null,
+    //  sortlimit, unread
 
     anySelected: function()
     {
-        return $H(this.messagelist).keys().detect(function(e) {
-            return $('check' + e).checked;
-        });
+        return $('messages').select('[name="indices[]"]').detect(Form.Element.getValue);
     },
 
     selectRow: function(id, select)
     {
-        var rid = $(id.replace(/check/, 'row'));
-
         if (select) {
-            rid.addClassName('selectedRow');
+            id.addClassName('selectedRow');
         } else {
             // Make sure to remove both regular and -over versions.
-            rid.removeClassName('selectedRow').removeClassName('selectedRow-over');
+            id.removeClassName('selectedRow').removeClassName('selectedRow-over');
         }
 
-        $(id).checked = select;
+        id.down('INPUT.checkbox').setValue(select);
     },
 
     confirmDialog: function(url, msg)
@@ -70,80 +64,39 @@ var ImpMessage = {
         $('messages').submit();
     },
 
-    makeSelection: function(form)
-    {
-        var flag = '';
-
-        switch (parseInt(form)) {
-        case -1:
-            if ($('checkAll').checked) {
-                flag = '!';
-            }
-            flag += IMP.conf.IMP_ALL;
-            break;
-
-        case 1:
-            flag = $F('filter1');
-            break;
-
-        default:
-            flag = $F('filter2');
-        }
-
-        // Fixes Bug #6893
-        if (flag.empty()) {
-            return;
-        } else if (flag.startsWith('!')) {
-            this.selectFlagged(parseInt(flag.substring(1)), false);
-        } else if (flag.startsWith('+')) {
-            this.selectFlagged(flag.substring(0, 1), null);
-        } else {
-            this.selectFlagged(parseInt(flag), true);
-        }
-
-        // Reset the form.
-        switch (parseInt(form)) {
-        case 1:
-            $('select1').reset();
-            break;
-
-        default:
-            $('select2').reset();
-        }
-    },
-
     selectRange: function(e)
     {
-        var id = e.element().readAttribute('id'),
-            checkbox = $(id),
-            count = 0,
-            checked, elts;
+        // elt = checkbox element
+        var elt = e.element(),
+            tr = elt.up('TR'),
+            checked = $F(elt),
+            end, start;
 
-        if (!checkbox) {
-            return;
-        }
-
-        checked = checkbox.checked;
-
-        if (this.startrange !== null && e.shiftKey) {
-            elts = [ $(this.startrange).readAttribute('id'), checkbox.readAttribute('id') ];
-            $H(this.messagelist).keys().detect(function(r) {
-                r = 'check' + r;
-                if (elts.indexOf(r) != -1) {
-                    ++count;
+        if (this.startrange && e.shiftKey) {
+            if (this.startrange != elt) {
+                // Dirty trick - use position in page to determine which way
+                // to traverse
+                if (this.startrange.offsetTop < tr.offsetTop) {
+                    start = this.startrange.next();
+                    end = tr;
+                } else {
+                    start = tr;
+                    end = this.startrange.previous();
                 }
-                if (count) {
-                    this.selectRow(r, checked);
-                    if (count == 2) {
-                        return true;
+
+                do {
+                    this.selectRow(start, checked);
+                    if (start == end) {
+                        break;
                     }
-                }
-            }, this);
+                    start = start.next();
+                } while (start);
+            }
         } else {
-            this.selectRow(id, checked);
+            this.selectRow(tr, checked);
         }
 
-        this.startrange = id;
+        this.startrange = tr;
     },
 
     updateFolders: function(form)
@@ -189,22 +142,6 @@ var ImpMessage = {
         }
     },
 
-    // Put everything reliant on IMAP flags in this section.
-    selectFlagged: function(flag, val)
-    {
-        $H(this.messagelist).keys().each(function(e) {
-            var check, elt = $('check' + e);
-            if (flag == '+') {
-                check = !elt.checked;
-            } else if (flag & this.messagelist[e]) {
-                check = val;
-            } else {
-                check = !val;
-            }
-            this.selectRow(elt.id, check);
-        }, this);
-    },
-
     flagMessages: function(form)
     {
         var f1 = $('flag1'), f2 = $('flag2');
@@ -212,8 +149,7 @@ var ImpMessage = {
         if ((form == 1 && $F(f1) != "") ||
             (form == 2 && $F(f2) != "")) {
             if (this.anySelected()) {
-                // Can't use $() here.  See Bug #4736.
-                document.messages.flag.value = (form == 1) ? $F(f1) : $F(f2);
+                $('messages').down('[name=flag]').setValue((form == 1) ? $F(f1) : $F(f2));
                 this.submit('flag_messages');
             } else {
                 if (form == 1) {
@@ -249,12 +185,12 @@ var ImpMessage = {
     {
         var id = e.element().readAttribute('id');
 
-        if (id.startsWith('filter')) {
-            this.makeSelection(id.substring(6));
-        } else if (id.startsWith('flag')) {
-            this.flagMessages(id.substring(4));
-        } else if (id.startsWith('targetMailbox')) {
-            this.updateFolders(id.substring(13));
+        if (id) {
+            if (id.startsWith('flag')) {
+                this.flagMessages(id.substring(4));
+            } else if (id.startsWith('targetMailbox')) {
+                this.updateFolders(id.substring(13));
+            }
         }
     },
 
@@ -267,8 +203,6 @@ var ImpMessage = {
         var elt = e.element(), id;
 
         while (Object.isElement(elt)) {
-            id = elt.readAttribute('id');
-
             if (elt.match('.msgactions A.widget')) {
                 if (elt.hasClassName('moveAction')) {
                     this._transfer('move_messages');
@@ -300,7 +234,13 @@ var ImpMessage = {
 
                 e.stop();
                 return;
-            } else if (!id) {
+            } else if (elt.hasClassName('checkbox')) {
+                this.selectRange(e);
+                // Fall through to elt.up() call below.
+            }
+
+            id = elt.readAttribute('id');
+            if (!id) {
                 elt = elt.up();
                 continue;
             }
@@ -311,15 +251,16 @@ var ImpMessage = {
                 if (id == 'checkheader') {
                     $('checkAll').checked = !$('checkAll').checked;
                 }
-                this.makeSelection(-1);
+
+                $('messages').select('TABLE.messageList TR[id]').each(function(i, s) {
+                    this.selectRow(i, $F('checkAll'));
+                }, this);
                 return;
             }
 
-            if (id.startsWith('check') && elt.hasClassName('checkbox')) {
-                this.selectRange(e);
-            } else if (!this.sortlimit &&
-                      elt.match('TH') &&
-                      elt.up('TABLE.messageList')) {
+            if (!this.sortlimit &&
+                elt.match('TH') &&
+                elt.up('TABLE.messageList')) {
                 document.location.href = elt.down('A').href;
             }
 
@@ -329,80 +270,65 @@ var ImpMessage = {
 
     keyDownHandler: function(e)
     {
-        var o = e.element(),
+        var elt = e.element(),
             key = e.keyCode,
-            checkinc, loc, next, nextId, old, row, subjinc;
+            loc, search;
 
         if (e.altKey || e.ctrlKey) {
-            switch (key) {
-            case Event.KEY_UP:
-                checkinc = -1;
-                subjinc = -1;
-                break;
-
-            case Event.KEY_DOWN:
-                checkinc = 1;
-                subjinc = 1;
-                break;
-
-            default:
+            if (!(key == Event.KEY_UP || key == Event.KEY_DOWN)) {
                 return;
             }
 
-            if (typeof this.messagelist == 'undefined') {
-                return;
+            if (!this.cursor) {
+                this.cursor = elt.up('TABLE.messageList TR');
             }
 
-            if (o.id.indexOf('check') == 0 && o.tagName == 'INPUT') {
-                old = o.id.substring(5);
-                this.keyId = this.getMessage(old, checkinc);
-                next = $('subject' + this.keyId);
-            } else if (o.id.indexOf('subject') == 0 && o.tagName == 'A') {
-                old = o.id.substring(7);
-                this.keyId = this.getMessage(old, subjinc);
-                next = $('subject' + this.keyId);
-            } else {
-                this.keyId = ((checkinc + subjinc) > 0) ? $H(this.messagelist).keys().first() : $H(this.messagelist).keys().last();
-                if (Event.KEY_UP || Event.KEY_DOWN) {
-                    next = $('subject' + this.keyId);
+            if (this.cursor) {
+                if (e.altKey) {
+                    this.selectRow(this.cursor, !$F(this.cursor.down('INPUT.checkbox')));
                 }
+
+                switch (key) {
+                case Event.KEY_UP:
+                    this.cursor = this.cursor.previous();
+                    if (!this.cursor.readAttribute('id')) {
+                        search = 'last';
+                    }
+                    break;
+
+                case Event.KEY_DOWN:
+                    this.cursor = this.cursor.next();
+                    if (!this.cursor) {
+                        search = 'first';
+                    }
+                    break;
+                }
+            } else {
+                search = Event.KEY_DOWN ? 'first' : 'last';
             }
-        } else if (key == 32 &&
-               o.id.indexOf('subject') == 0 &&
-               o.tagName == 'A') {
-            // Space key - toggle selection of the current message.
-            this.startrange = 'check' + this.keyId;
-            this.selectRow(this.startrange, !$(this.startrange).checked);
+
+            if (search) {
+                this.cursor = (search == 'first')
+                    ? $('messages').select('TABLE.messageList TR[id]').first()
+                    : $('messages').select('TABLE.messageList TR[id]').last();
+            }
+
+            this.cursor.down('TD a.mboxSubject').focus();
+        } else if (key == 32 && this.cursor) {
+            this.selectRow(this.cursor, !$F(this.cursor.down('INPUT.checkbox')));
         } else if (!e.shiftKey) {
             if (key == Event.KEY_LEFT && $('prev')) {
-                loc = $('prev').href;
+                loc = $('prev');
             } else if (key == Event.KEY_RIGHT && $('next')) {
-                loc = $('next').href;
+                loc = $('next');
             }
 
             if (loc) {
-                document.location.href = loc;
+                document.location.href = loc.readAttribute('href');
             }
             return;
         } else {
             return;
-        }
-
-        if (next) {
-            next.focus();
-            row = $('row' + this.keyId);
-            if (e.altKey) {
-                nextId = next.id.replace(/subject/, 'check');
-                this.selectRow(nextId, !$(nextId).checked);
-            } else if (old != next.id && row.className.indexOf('-over') == -1) {
-                row.className += '-over';
-            }
-            if (old) {
-                row = $('row' + old);
-                if (old != next.id) {
-                    row.className = row.className.replace(/-over/, '');
-                }
-            }
         }
 
         e.stop();
@@ -417,15 +343,17 @@ var ImpMessage = {
 
 };
 
-document.observe('change', ImpMessage.changeHandler.bindAsEventListener(ImpMessage));
-document.observe('click', ImpMessage.clickHandler.bindAsEventListener(ImpMessage));
-document.observe('keydown', ImpMessage.keyDownHandler.bindAsEventListener(ImpMessage));
-document.observe('submit', ImpMessage.submitHandler.bindAsEventListener(ImpMessage));
+document.observe('dom:loaded', function() {
+    var im = ImpMailbox;
 
-Event.observe(window, 'load', function() {
+    document.observe('change', im.changeHandler.bindAsEventListener(im));
+    document.observe('click', im.clickHandler.bindAsEventListener(im));
+    document.observe('keydown', im.keyDownHandler.bindAsEventListener(im));
+    document.observe('submit', im.submitHandler.bindAsEventListener(im));
+
     if (window.fluid) {
         try {
-            window.fluid.setDockBadge(ImpMessage.unread);
+            window.fluid.setDockBadge(ImpMailbox.unread);
         } catch (e) {}
     }
 });

@@ -31,6 +31,7 @@ RFC 3691        UNSELECT
 RFC 4315        UIDPLUS
 RFC 4422        SASL Authentication (for DIGEST-MD5)
 RFC 4466        Collected extensions (updates RFCs 2088, 3501, 3502, 3516)
+RFC 4550        Lemonade Profile (specifically [2.8] - $Forwarded flag)
 RFC 4551        CONDSTORE
 RFC 4731        ESEARCH
 RFC 4959        SASL-IR

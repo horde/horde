@@ -1,25 +1,6 @@
-.msglist div.statusDeleted {
-    background-image: url("graphics/mail_deleted.png");
-}
-.msglist div.statusForwarded, #hordeAlerts div.imp-forward, #hordeAlerts div.imp-redirect {
+#hordeAlerts div.imp-forward, #hordeAlerts div.imp-redirect {
     background-image: url("graphics/mail_forwarded.png");
 }
-.msglist div.statusLowPriority {
-    background-image: url("graphics/mail_priority_low.png");
-}
-.msglist div.statusHighPriority {
-    background-image: url("graphics/mail_priority_high.png");
-}
-.msglist div.statusAttachment {
-    background-image: url("graphics/attachment.png");
-}
-.msglist div.statusEncrypted {
-    background-image: url("graphics/encrypted.png");
-}
-.msglist div.statusSigned {
-    background-image: url("graphics/signed.png");
-}
-
 
 #sidebarPanel .base {
     background-image: url("graphics/folder.png");
@@ -119,29 +100,23 @@ span.dimpactionDrafts {
 #ctx_message_undeleted span.contextImg, #ctx_draft_undeleted span.contextImg, #oa_undeleted span.contextImg {
     background-image: url("graphics/undelete.png");
 }
-#flag_seen span.contextImg, #ctx_folder_seen span.contextImg {
+#ctx_folder_seen span.contextImg {
     background-image: url("graphics/mail_seen.png");
 }
-.msglist div.statusUnseen, #flag_unseen span.contextImg, #ctx_folder_unseen span.contextImg, #ctx_folder_poll span.contextImg, #ctx_folder_nopoll span.contextImg {
+#ctx_folder_unseen span.contextImg, #ctx_folder_poll span.contextImg, #ctx_folder_nopoll span.contextImg {
     background-image: url("graphics/mail_unseen.png");
 }
-.msglist div.statusFlagged, #ctx_message_setflag span.contextImg, #ctx_draft_setflag span.contextImg, #oa_setflag span.contextImg, #flag_flagged span.contextImg {
+#ctx_message_setflag span.contextImg, #ctx_draft_setflag span.contextImg, #oa_setflag span.contextImg {
     background-image: url("graphics/mail_flagged.png");
 }
-#flag_clear span.contextImg {
+#ctx_message_unsetflag span.contextImg, #ctx_draft_unsetflag span.contextImg, #oa_unsetflag span.contextImg {
     background-image: url("graphics/mail_clearflag.png");
 }
-.msglist div.statusAnswered, #hordeAlerts div.imp-reply, #flag_answered span.contextImg {
+#hordeAlerts div.imp-reply {
     background-image: url("graphics/mail_answered.png");
 }
-#flag_unanswered span.contextImg {
-    background-image: url("graphics/mail_notanswered.png");
-}
-.msglist div.statusDraft, #flag_draft span.contextImg, #ctx_draft_resume span.contextImg {
+#ctx_draft_resume span.contextImg {
     background-image: url("graphics/mail_draft.png");
-}
-#flag_notdraft span.contextImg {
-    background-image: url("graphics/mail_notdraft.png");
 }
 #previewtoggle span.contextImg {
     background-image: url("graphics/preview.png");

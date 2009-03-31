@@ -159,23 +159,10 @@ class IMP_UI_Mailbox
     }
 
     /**
-     * The list of ALT text to use for mailbox display icons.
-     *
-     * @return array  Type -> ALT text mappings.
-     */
-    static public function getAttachmentAltList()
-    {
-        return array(
-            'signed' => _("Message is signed"),
-            'encrypted' => _("Message is encrypted"),
-            'attachment' => _("Message has attachments")
-        );
-    }
-
-    /**
      * Return the icon to use for a given attachment.
      *
-     * @return string  The mailbox display icon type.
+     * @return string  The mailbox display icon type (attach, encrypt,
+     *                 signed).
      */
     public function getAttachmentType($type)
     {
@@ -186,7 +173,7 @@ class IMP_UI_Mailbox
                 return 'signed';
 
             case 'encrypted':
-                return 'encrypted';
+                return 'encrypt';
 
             case 'alternative':
             case 'related':
@@ -194,10 +181,10 @@ class IMP_UI_Mailbox
                 break;
 
             default:
-                return 'attachment';
+                return 'attach';
             }
         } elseif ($type == 'application/pkcs7-mime') {
-             return 'encrypted';
+             return 'encrypt';
         }
 
         return '';

@@ -25,16 +25,6 @@ class IMP
     const PGP_SYM_ENCRYPT = 8;
     const PGP_SYM_SIGNENC = 9;
 
-    /* IMAP flag constants. */
-    const FLAG_ALL = 0;
-    const FLAG_UNSEEN = 1;
-    const FLAG_DELETED = 2;
-    const FLAG_ANSWERED = 4;
-    const FLAG_FLAGGED = 8;
-    const FLAG_DRAFT = 16;
-    const FLAG_PERSONAL = 32;
-    const FLAG_FORWARDED = 64;
-
     /* IMP Mailbox view constants. */
     const MAILBOX_START_FIRSTUNSEEN = 1;
     const MAILBOX_START_LASTUNSEEN = 2;
@@ -244,9 +234,9 @@ class IMP
             (!empty($GLOBALS['conf']['hooks']['permsdenied']) ||
              (self::hasPermission('create_folders') &&
               self::hasPermission('max_folders')))) {
-            $text .= '<option value="" disabled="disabled">- - - - - - - - -</option>' . "\n";
+            $text .= '<option value="" disabled="disabled">- - - - - - - -</option>' . "\n";
             $text .= '<option value="*new*">' . _("New Folder") . "</option>\n";
-            $text .= '<option value="" disabled="disabled">- - - - - - - - -</option>' . "\n";
+            $text .= '<option value="" disabled="disabled">- - - - - - - -</option>' . "\n";
         }
 
         /* Add the list of mailboxes to the lists. */

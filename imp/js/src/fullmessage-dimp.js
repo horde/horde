@@ -91,7 +91,11 @@ var DimpFullmessage = {
             case 'button_deleted':
             case 'button_ham':
             case 'button_spam':
-                DIMP.baseWindow.DimpBase.flag(id.substring(7), { index: DIMP.conf.msg_index, mailbox: DIMP.conf.msg_folder });
+                if (id == 'button_deleted') {
+                    DIMP.baseWindow.DimpBase.flag('imapflag', { imap: '\\deleted', index: DIMP.conf.msg_index, mailbox: DIMP.conf.msg_folder, set: true });
+                } else {
+                    DIMP.baseWindow.DimpBase.flag(id.substring(7), { index: DIMP.conf.msg_index, mailbox: DIMP.conf.msg_folder });
+                }
                 window.close();
                 e.stop();
                 return;
@@ -109,8 +113,10 @@ var DimpFullmessage = {
         parentfunc(e);
     },
 
-    contextOnClick: function(parentfunc, id, elt)
+    contextOnClick: function(parentfunc, elt, base, submenu)
     {
+        var id = elt.readAttribute('id');
+
         switch (id) {
         case 'ctx_reply_reply':
         case 'ctx_reply_reply_all':
@@ -119,7 +125,7 @@ var DimpFullmessage = {
             break;
 
         default:
-            parentfunc(id, elt);
+            parentfunc(elt, base, submenu);
             break;
         }
     },
