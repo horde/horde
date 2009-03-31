@@ -67,6 +67,13 @@ class IMP_Search
     protected $_saveVFolder = true;
 
     /**
+     * The list of Virtual Folders obtained from the prefs.
+     *
+     * @var array
+     */
+    static protected $_vfolder;
+
+    /**
      * Constructor.
      *
      * @param array $params  Available parameters:
@@ -275,24 +282,22 @@ class IMP_Search
      */
     protected function _getVFolderList()
     {
-        static $vfolder;
-
-        if (isset($vfolder)) {
-            return $vfolder;
+        if (isset(self::$_vfolder)) {
+            return self::$_vfolder;
         }
 
         $vfolder = $GLOBALS['prefs']->getValue('vfolder');
-        if (empty($vfolder)) {
-            return array();
+        if (!empty($vfolder)) {
+            $old_error = error_reporting(0);
+            $vfolder = unserialize($vfolder);
+            error_reporting($old_error);
         }
 
-        $old_error = error_reporting(0);
-        $vfolder = unserialize($vfolder);
-        error_reporting($old_error);
-
-        if (!is_array($vfolder)) {
+        if (empty($vfolder) || !is_array($vfolder)) {
             $vfolder = array();
         }
+
+        self::$_vfolder = $vfolder;
 
         return $vfolder;
     }
