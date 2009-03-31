@@ -10,10 +10,10 @@
 
 $code = array(
 /* Variables used in core javascript files. */
-    'conf' =>  array(
+    'conf' => array(
         'IMP_ALL' => IMP::FLAG_ALL,
-        'isIE' => $GLOBALS['browser']->isBrowser('msie'),
-        'pop3' => (isset($_SESSION['imp']) && ($_SESSION['imp']['protocol'] == 'pop')),
+        'isIE' => intval($GLOBALS['browser']->isBrowser('msie')),
+        'pop3' => intval((isset($_SESSION['imp']) && ($_SESSION['imp']['protocol'] == 'pop'))),
         'fixed_folders' => empty($GLOBALS['conf']['server']['fixed_folders'])
             ? array()
             : $GLOBALS['conf']['server']['fixed_folders'],

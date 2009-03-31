@@ -149,7 +149,7 @@ class DIMP
         }
 
         /* Variables used in core javascript files. */
-        $code['conf'] = array(
+        $code['conf'] = array_filter(array(
             'URI_DIMP_INBOX' => Horde::applicationUrl('index-dimp.php', true, -1),
             'URI_IMP' => Horde::applicationUrl('ajax.php', true, -1),
             'URI_PREFS' => Horde::url($horde_webroot . '/services/prefs/', true, -1),
@@ -170,12 +170,12 @@ class DIMP
             'popup_height' => 610,
 
             'spam_folder' => IMP::folderPref($prefs->getValue('spam_folder'), true),
-            'spam_reporting' => (int) !empty($conf['spam']['reporting']),
-            'spam_spamfolder' => (int) !empty($conf['spam']['spamfolder']),
-            'ham_reporting' => (int) !empty($conf['notspam']['reporting']),
-            'ham_spamfolder' => (int) !empty($conf['notspam']['spamfolder']),
-            'refresh_time' => (int) $prefs->getValue('refresh_time'),
-            'search_all' => (int) !empty($conf['dimp']['search']['search_all']),
+            'spam_reporting' => intval(!empty($conf['spam']['reporting'])),
+            'spam_spamfolder' => intval(!empty($conf['spam']['spamfolder'])),
+            'ham_reporting' => intval(!empty($conf['notspam']['reporting'])),
+            'ham_spamfolder' => intval(!empty($conf['notspam']['spamfolder'])),
+            'refresh_time' => intval($prefs->getValue('refresh_time')),
+            'search_all' => intval(!empty($conf['dimp']['search']['search_all'])),
 
             'fixed_folders' => empty($conf['server']['fixed_folders'])
                 ? array()
@@ -185,23 +185,23 @@ class DIMP
 
             'name' => $registry->get('name', 'dimp'),
 
-            'preview_pref' => (bool)$prefs->getValue('dimp_show_preview'),
-            'toggle_pref' => (bool)$prefs->getValue('dimp_toggleheaders'),
+            'preview_pref' => intval($prefs->getValue('dimp_show_preview')),
+            'toggle_pref' => intval($prefs->getValue('dimp_toggleheaders')),
 
-            'is_ie6' => ($browser->isBrowser('msie') && ($browser->getMajor() < 7)),
+            'is_ie6' => intval($browser->isBrowser('msie') && ($browser->getMajor() < 7)),
 
             'buffer_pages' => intval($conf['dimp']['viewport']['buffer_pages']),
             'limit_factor' => intval($conf['dimp']['viewport']['limit_factor']),
             'viewport_wait' => intval($conf['dimp']['viewport']['viewport_wait']),
             'login_view' => $prefs->getValue('dimp_login_view'),
-            'background_inbox' => !empty($conf['dimp']['viewport']['background_inbox']),
+            'background_inbox' => intval(!empty($conf['dimp']['viewport']['background_inbox'])),
             'splitbar_pos' => $prefs->getValue('dimp_splitbar'),
 
             'atc_list' => IMP_UI_Mailbox::getAttachmentAltList(),
 
             // Turn debugging on?
-            'debug' => !empty($conf['dimp']['js']['debug']),
-        );
+            'debug' => intval(!empty($conf['dimp']['js']['debug'])),
+        ));
 
         /* Gettext strings used in core javascript files. */
         $code['text'] = array_map('addslashes', array(
@@ -252,15 +252,15 @@ class DIMP
         if ($compose_mode) {
             /* Variables used in compose page. */
             $compose_cursor = $GLOBALS['prefs']->getValue('compose_cursor');
-            $code['conf_compose'] = array(
-                'rte_avail' => $browser->hasFeature('rte'),
-                'cc' => (bool) $prefs->getValue('compose_cc'),
-                'bcc' => (bool) $prefs->getValue('compose_bcc'),
+            $code['conf_compose'] = array_filter(array(
+                'rte_avail' => intval($browser->hasFeature('rte')),
+                'cc' => intval($prefs->getValue('compose_cc')),
+                'bcc' => intval($prefs->getValue('compose_bcc')),
                 'attach_limit' => ($conf['compose']['attach_count_limit'] ? intval($conf['compose']['attach_count_limit']) : -1),
-                'close_draft' => $prefs->getValue('close_draft'),
+                'close_draft' => intval($prefs->getValue('close_draft')),
                 'compose_cursor' => ($compose_cursor ? $compose_cursor : 'top'),
                 'spellcheck' => intval($prefs->getValue('compose_spellcheck')),
-            );
+            ));
 
             if ($registry->hasMethod('contacts/search')) {
                 $code['conf_compose']['abook_url'] = Horde::applicationUrl('contacts.php');
