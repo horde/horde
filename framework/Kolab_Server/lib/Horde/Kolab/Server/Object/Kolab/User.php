@@ -26,7 +26,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_Object_user extends Horde_Kolab_Server_Object_base
+class Horde_Kolab_Server_Object_Kolab_User extends Horde_Kolab_Server_Object_Kolabinetorgperson
 {
 
     /** Define attributes specific to this object type */
@@ -65,18 +65,6 @@ class Horde_Kolab_Server_Object_user extends Horde_Kolab_Server_Object_base
      * @var array
      */
     public $required_attributes = false;
-
-    /**
-     * The ldap classes for this type of object.
-     *
-     * @var array
-     */
-    protected $object_classes = array(
-        self::OBJECTCLASS_TOP,
-        self::OBJECTCLASS_INETORGPERSON,
-        self::OBJECTCLASS_KOLABINETORGPERSON,
-        self::OBJECTCLASS_HORDEPERSON,
-    );
 
     /**
      * Initialize the Kolab Object. Provide either the UID or a
@@ -198,7 +186,7 @@ class Horde_Kolab_Server_Object_user extends Horde_Kolab_Server_Object_base
      */
     public function getGroups()
     {
-        return $this->db->getGroups($this->uid);
+        return $this->server->getGroups($this->uid);
     }
 
     /**

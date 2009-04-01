@@ -1,6 +1,6 @@
 <?php
 /**
- * A bsaic object representation.
+ * An organizational person (objectclass 2.5.6.7).
  *
  * PHP version 5
  *
@@ -12,9 +12,9 @@
  */
 
 /**
- * This class provides basic methods common to all Kolab server objects.
+ * This class provides methods for the organizationalPerson objectclass.
  *
- * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
@@ -25,53 +25,22 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_Object_base extends Horde_Kolab_Server_Object
+class Horde_Kolab_Server_Object_Organizationalperson extends Horde_Kolab_Server_Object_Person
 {
 
-    const ATTRIBUTE_SID          = 'uid';
-    const ATTRIBUTE_CN           = 'cn';
-    const ATTRIBUTE_SN           = 'sn';
-    const ATTRIBUTE_GIVENNAME    = 'givenName';
-    const ATTRIBUTE_FN           = 'fn';
-    const ATTRIBUTE_MAIL         = 'mail';
-    const ATTRIBUTE_DELEGATE     = 'kolabDelegate';
-    const ATTRIBUTE_MEMBER       = 'member';
-    const ATTRIBUTE_VISIBILITY   = 'visible';
-    const ATTRIBUTE_LNFN         = 'lnfn';
-    const ATTRIBUTE_FNLN         = 'fnln';
-    const ATTRIBUTE_DOMAIN       = 'domain';
-    const ATTRIBUTE_DELETED      = 'kolabDeleteFlag';
-    const ATTRIBUTE_FBPAST       = 'kolabFreeBusyPast';
-    const ATTRIBUTE_FBFUTURE     = 'kolabFreeBusyFuture';
-    const ATTRIBUTE_FOLDERTYPE   = 'kolabFolderType';
-    const ATTRIBUTE_HOMESERVER   = 'kolabHomeServer';
-    const ATTRIBUTE_FREEBUSYHOST = 'kolabFreeBusyServer';
-    const ATTRIBUTE_IMAPHOST     = 'kolabImapServer';
-    const ATTRIBUTE_IPOLICY      = 'kolabInvitationPolicy';
+    const ATTRIBUTE_POSTALADDRESS          = 'postalAddress';
 
-    const OBJECTCLASS_INETORGPERSON      = 'inetOrgPerson';
-    const OBJECTCLASS_KOLABINETORGPERSON = 'kolabInetOrgPerson';
-    const OBJECTCLASS_HORDEPERSON        = 'hordePerson';
-    const OBJECTCLASS_KOLABGROUPOFNAMES  = 'kolabGroupOfNames';
-    const OBJECTCLASS_KOLABSHAREDFOLDER  = 'kolabSharedFolder';
+    const OBJECTCLASS_ORGANIZATIONALPERSON = 'organizationalPerson';
 
     /**
-     * The group the UID must be member of so that this object really
-     * matches this class type. This may not include the root UID.
-     *
-     * @var string
-     */
-    protected $required_group;
-
-    /**
-     * The attributes supported by this class
+     * The ldap classes for this type of object.
      *
      * @var array
      */
-/*     public $supported_attributes = array( */
-/*         self::ATTRIBUTE_FBPAST, */
-/*     ); */
-
+    protected $object_classes = array(
+        self::OBJECTCLASS_TOP,
+        self::OBJECTCLASS_ORGANIZATIONALPERSON
+    );
 
     /**
      * Derive an attribute value.

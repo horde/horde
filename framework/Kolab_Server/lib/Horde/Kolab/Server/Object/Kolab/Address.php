@@ -26,7 +26,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_Object_address extends Horde_Kolab_Server_Object_base
+class Horde_Kolab_Server_Object_Kolab_Address extends Horde_Kolab_Server_Object_Kolabinetorgperson
 {
 
     /**

@@ -29,6 +29,10 @@
  */
 class Horde_Kolab_Server_Object
 {
+    /** Define types of return values for searches. */
+    const RESULT_SINGLE = 1;
+    const RESULT_STRICT = 2;
+    const RESULT_MANY   = 3;
 
     /** Define attributes specific to this object type */
 
@@ -49,7 +53,7 @@ class Horde_Kolab_Server_Object
      *
      * @var Kolab_Server
      */
-    protected $db;
+    protected $server;
 
     /**
      * UID of this object on the Kolab server.
@@ -112,13 +116,13 @@ class Horde_Kolab_Server_Object
      * Initialize the Kolab Object. Provide either the UID or a
      * LDAP search result.
      *
-     * @param Horde_Kolab_Server &$db  The link into the Kolab db.
-     * @param string             $uid  UID of the object.
-     * @param array              $data A possible array of data for the object
+     * @param Horde_Kolab_Server &$server The link into the Kolab server.
+     * @param string             $uid     UID of the object.
+     * @param array              $data    A possible array of data for the object
      */
-    public function __construct(&$db, $uid = null, $data = null)
+    public function __construct(&$server, $uid = null, $data = null)
     {
-        $this->db = &$db;
+        $this->server = &$server;
         if (empty($uid)) {
             if (empty($data) || !isset($data[self::ATTRIBUTE_UID])) {
                 throw new Horde_Kolab_Server_Exception(_('Specify either the UID or a search result!'));
@@ -212,8 +216,8 @@ class Horde_Kolab_Server_Object
      */
     protected function read()
     {
-        $this->_cache = $this->db->read($this->uid,
-                                        $this->supported_attributes);
+        $this->_cache = $this->server->read($this->uid,
+                                            $this->supported_attributes);
     }
 
     /**
@@ -286,7 +290,7 @@ class Horde_Kolab_Server_Object
         switch ($attr) {
         case self::ATTRIBUTE_ID:
             return substr($this->uid, 0,
-                          strlen($this->uid) - strlen($this->db->getBaseUid()) - 1);
+                          strlen($this->uid) - strlen($this->server->getBaseUid()) - 1);
         }
     }
 
@@ -355,7 +359,7 @@ class Horde_Kolab_Server_Object
 
         $info[self::ATTRIBUTE_OC] = $this->object_classes;
 
-        $result = $this->db->save($this->uid, $info);
+        $result = $this->server->save($this->uid, $info);
         if ($result === false || $result instanceOf PEAR_Error) {
             return $result;
         }
@@ -363,5 +367,131 @@ class Horde_Kolab_Server_Object
         $this->_cache = $info;
 
         return $result;
+    }
+
+    /**
+     * Identify the UID(s) of the result entry(s).
+     *
+     * @param array $result   The LDAP search result.
+     * @param int   $restrict A Horde_Kolab_Server::RESULT_* result restriction.
+     *
+     * @return boolean|string|array The UID(s) or false if there was no result.
+     *
+     * @throws Horde_Kolab_Server_Exception If the number of results did not
+     *                                      meet the expectations.
+     */
+    static protected function uidFromResult($result,
+                                            $restrict = Horde_Kolab_Server::RESULT_SINGLE)
+    {
+        if (empty($result)) {
+            return false;
+        }
+        $uids = array_keys($result);
+
+        switch ($restrict) {
+        case self::RESULT_STRICT:
+            if (count($uids) > 1) {
+                throw new Horde_Kolab_Server_Exception(sprintf(_("Found %s results when expecting only one!"),
+                                                               $count));
+            }
+        case self::RESULT_SINGLE:
+            return array_pop($uids);
+        case self::RESULT_MANY:
+            return $uids;
+        }
+    }
+
+    /**
+     * Get the attributes of the result entry(s).
+     *
+     * @param array $result   The LDAP search result.
+     * @param array $attrs    The attributes to retrieve.
+     * @param int   $restrict A Horde_Kolab_Server::RESULT_* result restriction.
+     *
+     * @return array The attributes of the entry(s) found.
+     *
+     * @throws Horde_Kolab_Server_Exception If the number of results did not
+     *                                      meet the expectations.
+     */
+    static protected function attrsFromResult($result, $attrs,
+                                              $restrict = Horde_Kolab_Server::RESULT_SINGLE)
+    {
+        switch ($restrict) {
+        case self::RESULT_STRICT:
+            if (count($result) > 1) {
+                throw new Horde_Kolab_Server_Exception(sprintf(_("Found %s results when expecting only one!"),
+                                                               $count));
+            }
+        case self::RESULT_SINGLE:
+            if (count($result) > 0) {
+                return array_pop($result);
+            }
+            return array();
+        case self::RESULT_MANY:
+            return $result;
+        }
+        return array();
+    }
+
+    /**
+     * Returns the set of search operations supported by this object type.
+     *
+     * @return array An array of supported search operations.
+     */
+    static public function getSearchOperations()
+    {
+        $searches = array(
+            'basicUidForSearch',
+            'attrsForSearch',
+        );
+        return $searches;
+    }
+
+    /**
+     * Identify the UID for the first object found using the specified
+     * search criteria.
+     *
+     * @param array $criteria The search parameters as array.
+     * @param int   $restrict A Horde_Kolab_Server::RESULT_* result restriction.
+     *
+     * @return boolean|string|array The UID(s) or false if there was no result.
+     *
+     * @throws Horde_Kolab_Server_Exception
+     */
+    static public function basicUidForSearch($server, $criteria,
+                                             $restrict = Horde_Kolab_Server::RESULT_SINGLE)
+    {
+        $params = array('attributes' => self::ATTRIBUTE_UID);
+        $filter = $server->searchQuery($criteria);
+        $result = $server->search($filter, $params, $server->getBaseUid());
+        $data = $result->as_struct();
+        if (is_a($data, 'PEAR_Error')) {
+            throw new Horde_Kolab_Server_Exception($data->getMessage());
+        }
+        return self::uidFromResult($data, $restrict);
+    }
+
+    /**
+     * Identify attributes for the objects found using a filter.
+     *
+     * @param array $criteria The search parameters as array.
+     * @param array $attrs    The attributes to retrieve.
+     * @param int   $restrict A Horde_Kolab_Server::RESULT_* result restriction.
+     *
+     * @return array The results.
+     *
+     * @throws Horde_Kolab_Server_Exception
+     */
+    static public function attrsForSearch($server, $criteria, $attrs,
+                                          $restrict = Horde_Kolab_Server::RESULT_SINGLE)
+    {
+        $params = array('attributes' => $attrs);
+        $filter = $server->searchQuery($criteria);
+        $result = $server->search($filter, $params, $server->getBaseUid());
+        $data   = $result->as_struct();
+        if (is_a($data, 'PEAR_Error')) {
+            throw new Horde_Kolab_Server_Exception($data->getMessage());
+        }
+        return self::attrsFromResult($data, $attrs, $restrict);
     }
 };

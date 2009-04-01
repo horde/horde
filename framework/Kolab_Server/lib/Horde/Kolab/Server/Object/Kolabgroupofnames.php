@@ -25,8 +25,13 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_Object_group extends Horde_Kolab_Server_Object_base
+class Horde_Kolab_Server_Object_Kolabgroupofnames extends Horde_Kolab_Server_Object_Inetorgperson
 {
+
+    const ATTRIBUTE_VISIBILITY   = 'visible';
+    const ATTRIBUTE_MEMBER       = 'member';
+
+    const OBJECTCLASS_KOLABGROUPOFNAMES = 'kolabGroupOfNames';
 
     /**
      * Attributes derived from the LDAP values.
@@ -218,6 +223,123 @@ class Horde_Kolab_Server_Object_group extends Horde_Kolab_Server_Object_base
         } else {
             return true;
         }
+    }
+
+    /**
+     * Returns the set of search operations supported by this object type.
+     *
+     * @return array An array of supported search operations.
+     */
+    static public function getSearchOperations()
+    {
+        $searches = array(
+            'gidForSearch',
+            'gidForMail',
+            'memberOfGroupAddress',
+            'getGroups',
+        );
+        return $searches;
+    }
+
+    /**
+     * FIXME: This method belongs somewhere where we are aware of groups
+     * Identify the GID for the first group found using the specified
+     * search criteria
+     *
+     * @param array $criteria The search parameters as array.
+     * @param int   $restrict A Horde_Kolab_Server::RESULT_* result restriction.
+     *
+     * @return boolean|string|array The GID(s) or false if there was no result.
+     *
+     * @throws Horde_Kolab_Server_Exception
+     */
+    static public function gidForSearch($server, $criteria,
+                                        $restrict = Horde_Kolab_Server_Object::RESULT_SINGLE)
+    {
+        $groups = array('field' => self::ATTRIBUTE_OC,
+                        'op'    => '=',
+                        'test'  => self::OBJECTCLASS_KOLABGROUPOFNAMES);
+        if (!empty($criteria)) {
+            $criteria = array('AND' => array($groups, $criteria));
+        } else {
+            $criteria = array('AND' => array($groups));
+        }
+        return self::basicUidForSearch($server, $criteria, $restrict);
+    }
+
+    /**
+     * Identify the GID for the first group found with the given mail.
+     *
+     * @param string $mail     Search for groups with this mail address.
+     * @param int    $restrict A Horde_Kolab_Server::RESULT_* result restriction.
+     *
+     * @return mixed The GID or false if there was no result.
+     *
+     * @throws Horde_Kolab_Server_Exception
+     */
+    static public function gidForMail($server, $mail,
+                                      $restrict = Horde_Kolab_Server_Object::RESULT_SINGLE)
+    {
+        $criteria = array('AND' => array(array('field' => self::ATTRIBUTE_MEMBER,
+                                               'op'    => '=',
+                                               'test'  => $mail),
+                         ),
+        );
+        return self::gidForSearch($server, $criteria, $restrict);
+    }
+
+    /**
+     * Is the given UID member of the group with the given mail address?
+     *
+     * @param string $uid  UID of the user.
+     * @param string $mail Search the group with this mail address.
+     *
+     * @return boolean True in case the user is in the group, false otherwise.
+     *
+     * @throws Horde_Kolab_Server_Exception
+     */
+    static public function memberOfGroupAddress($server, $uid, $mail)
+    {
+        $criteria = array('AND' =>
+                          array(
+                              array('field' => self::ATTRIBUTE_MAIL,
+                                    'op'    => '=',
+                                    'test'  => $mail),
+                              array('field' => self::ATTRIBUTE_MEMBER,
+                                    'op'    => '=',
+                                    'test'  => $uid),
+                          ),
+        );
+
+        $result = self::gidForSearch($server, $criteria,
+                                      self::RESULT_SINGLE);
+        return !empty($result);
+    }
+
+    /**
+     * Get the groups for this object.
+     *
+     * @param string $uid The UID of the object to fetch.
+     *
+     * @return array An array of group ids.
+     *
+     * @throws Horde_Kolab_Server_Exception
+     */
+    public function getGroups($server, $uid)
+    {
+        $criteria = array('AND' =>
+                          array(
+                              array('field' => self::ATTRIBUTE_MEMBER,
+                                    'op'    => '=',
+                                    'test'  => $uid),
+                          ),
+        );
+
+        $result = self::gidForSearch($server, $criteria, self::RESULT_MANY);
+        if (empty($result)) {
+            return array();
+        }
+        return $result;
     }
 
 }

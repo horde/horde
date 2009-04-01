@@ -26,7 +26,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_Object_administrator extends Horde_Kolab_Server_Object_adminrole
+class Horde_Kolab_Server_Object_Kolab_Administrator extends Horde_Kolab_Server_Object_Kolab_Adminrole
 {
 
     /**

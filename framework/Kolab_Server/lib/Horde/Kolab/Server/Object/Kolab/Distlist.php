@@ -25,7 +25,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_Object_distlist extends Horde_Kolab_Server_Object_group
+class Horde_Kolab_Server_Object_Kolab_Distlist extends Horde_Kolab_Server_Object_Kolabgroupofnames
 {
     /**
      * Return the filter string to retrieve this object type.

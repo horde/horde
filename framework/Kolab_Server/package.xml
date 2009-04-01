@@ -50,21 +50,27 @@ http://pear.php.net/dtd/package-2.0.xsd">
       <dir name="Server">
        <file name="Exception.php" role="php" />
        <file name="File.php" role="php" />
+       <file name="Kolab.php" role="php" />
        <file name="Ldap.php" role="php" />
        <file name="MissingObjectException.php" role="php" />
        <file name="Object.php" role="php" />
        <dir name="Object">
-        <file name="address.php" role="php" />
-        <file name="administrator.php" role="php" />
-        <file name="adminrole.php" role="php" />
-        <file name="base.php" role="php" />
-        <file name="distlist.php" role="php" />
-        <file name="domainmaintainer.php" role="php" />
-        <file name="group.php" role="php" />
-        <file name="maintainer.php" role="php" />
-        <file name="server.php" role="php" />
-        <file name="sharedfolder.php" role="php" />
-        <file name="user.php" role="php" />
+        <file name="Inetorgperson.php" role="php" />
+        <file name="Kolabgroupofnames.php" role="php" />
+        <file name="Kolabinetorgperson.php" role="php" />
+	<file name="Kolabsharedfolder.php" role="php" />
+        <file name="Organizationalperson.php" role="php" />
+        <file name="Person.php" role="php" />
+        <dir name="Kolab">
+         <file name="Address.php" role="php" />
+         <file name="Administrator.php" role="php" />
+         <file name="Adminrole.php" role="php" />
+         <file name="Distlist.php" role="php" />
+         <file name="Domainmaintainer.php" role="php" />
+         <file name="Maintainer.php" role="php" />
+         <file name="Server.php" role="php" />
+         <file name="User.php" role="php" />
+        </dir> <!-- /lib/Horde/Kolab/Server/Object/Kolab -->
        </dir> <!-- /lib/Horde/Kolab/Server/Object -->
        <file name="Test.php" role="php" />
        <dir name="Test">
@@ -136,20 +142,24 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Kolab/Test/Server.php" as="Horde/Kolab/Test/Server.php" />
    <install name="lib/Horde/Kolab/Server/Exception.php" as="Horde/Kolab/Server/Exception.php" />
    <install name="lib/Horde/Kolab/Server/File.php" as="Horde/Kolab/Server/File.php" />
+   <install name="lib/Horde/Kolab/Server/Kolab.php" as="Horde/Kolab/Server/Kolab.php" />
    <install name="lib/Horde/Kolab/Server/Ldap.php" as="Horde/Kolab/Server/Ldap.php" />
    <install name="lib/Horde/Kolab/Server/MissingObjectException.php" as="Horde/Kolab/Server/MissingObjectException.php" />
    <install name="lib/Horde/Kolab/Server/Object.php" as="Horde/Kolab/Server/Object.php" />
-   <install name="lib/Horde/Kolab/Server/Object/address.php" as="Horde/Kolab/Server/Object/address.php" />
-   <install name="lib/Horde/Kolab/Server/Object/administrator.php" as="Horde/Kolab/Server/Object/administrator.php" />
-   <install name="lib/Horde/Kolab/Server/Object/adminrole.php" as="Horde/Kolab/Server/Object/adminrole.php" />
-   <install name="lib/Horde/Kolab/Server/Object/base.php" as="Horde/Kolab/Server/Object/base.php" />
-   <install name="lib/Horde/Kolab/Server/Object/distlist.php" as="Horde/Kolab/Server/Object/distlist.php" />
-   <install name="lib/Horde/Kolab/Server/Object/domainmaintainer.php" as="Horde/Kolab/Server/Object/domainmaintainer.php" />
-   <install name="lib/Horde/Kolab/Server/Object/group.php" as="Horde/Kolab/Server/Object/group.php" />
-   <install name="lib/Horde/Kolab/Server/Object/maintainer.php" as="Horde/Kolab/Server/Object/maintainer.php" />
-   <install name="lib/Horde/Kolab/Server/Object/server.php" as="Horde/Kolab/Server/Object/server.php" />
-   <install name="lib/Horde/Kolab/Server/Object/sharedfolder.php" as="Horde/Kolab/Server/Object/sharedfolder.php" />
-   <install name="lib/Horde/Kolab/Server/Object/user.php" as="Horde/Kolab/Server/Object/user.php" />
+   <install name="lib/Horde/Kolab/Server/Object/Inetorgperson.php" as="Horde/Kolab/Server/Object/Inetorgperson.php" />
+   <install name="lib/Horde/Kolab/Server/Object/Kolabgroupofnames.php" as="Horde/Kolab/Server/Object/Kolabgroupofnames.php" />
+   <install name="lib/Horde/Kolab/Server/Object/Kolabinetorgperson.php" as="Horde/Kolab/Server/Object/Kolabinetorgperson.php" />
+   <install name="lib/Horde/Kolab/Server/Object/Kolabsharedfolder.php" as="Horde/Kolab/Server/Object/Kolabsharedfolder.php" />
+   <install name="lib/Horde/Kolab/Server/Object/Kolab/Address.php" as="Horde/Kolab/Server/Object/Kolab/Address.php" />
+   <install name="lib/Horde/Kolab/Server/Object/Kolab/Administrator.php" as="Horde/Kolab/Server/Object/Kolab/Administrator.php" />
+   <install name="lib/Horde/Kolab/Server/Object/Kolab/Adminrole.php" as="Horde/Kolab/Server/Object/Kolab/Adminrole.php" />
+   <install name="lib/Horde/Kolab/Server/Object/Kolab/Distlist.php" as="Horde/Kolab/Server/Object/Kolab/Distlist.php" />
+   <install name="lib/Horde/Kolab/Server/Object/Kolab/Domainmaintainer.php" as="Horde/Kolab/Server/Object/Kolab/Domainmaintainer.php" />
+   <install name="lib/Horde/Kolab/Server/Object/Kolab/Maintainer.php" as="Horde/Kolab/Server/Object/Kolab/Maintainer.php" />
+   <install name="lib/Horde/Kolab/Server/Object/Kolab/Server.php" as="Horde/Kolab/Server/Object/Kolab/Server.php" />
+   <install name="lib/Horde/Kolab/Server/Object/Kolab/User.php" as="Horde/Kolab/Server/Object/Kolab/User.php" />
+   <install name="lib/Horde/Kolab/Server/Object/Organizationalperson.php" as="Horde/Kolab/Server/Object/Organizationalperson.php" />
+   <install name="lib/Horde/Kolab/Server/Object/Person.php" as="Horde/Kolab/Server/Object/Person.php" />
    <install name="lib/Horde/Kolab/Server/Test.php" as="Horde/Kolab/Server/Test.php" />
    <install name="lib/Horde/Kolab/Server/Test/Search.php" as="Horde/Kolab/Server/Test/Search.php" />
    <install name="test/Horde/Kolab/Server/AddingObjectsTest.php" as="Horde/Kolab/Server/AddingObjectsTest.php" />

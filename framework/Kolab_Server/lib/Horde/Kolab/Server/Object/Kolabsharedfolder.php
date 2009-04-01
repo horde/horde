@@ -26,8 +26,10 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_Object_sharedfolder extends Horde_Kolab_Server_Object_base
+class Horde_Kolab_Server_Object_Kolabsharedfolder extends Horde_Kolab_Server_Object
 {
+
+    const OBJECTCLASS_KOLABSHAREDFOLDER = 'kolabSharedFolder';
 
     /**
      * The ldap classes for this type of object.

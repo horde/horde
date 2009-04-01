@@ -25,7 +25,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_Object_adminrole extends Horde_Kolab_Server_Object_base
+class Horde_Kolab_Server_Object_Kolab_Adminrole extends Horde_Kolab_Server_Object_Kolabinetorgperson
 {
 
     /**
@@ -36,17 +36,6 @@ class Horde_Kolab_Server_Object_adminrole extends Horde_Kolab_Server_Object_base
     public $derived_attributes = array(
         self::ATTRIBUTE_ID,
         self::ATTRIBUTE_LNFN,
-    );
-
-    /**
-     * The ldap classes for this type of object.
-     *
-     * @var array
-     */
-    protected $object_classes = array(
-        self::OBJECTCLASS_TOP,
-        self::OBJECTCLASS_INETORGPERSON,
-        self::OBJECTCLASS_KOLABINETORGPERSON,
     );
 
     /**
@@ -106,9 +95,9 @@ class Horde_Kolab_Server_Object_adminrole extends Horde_Kolab_Server_Object_base
         }
 
         $admins_uid = sprintf('%s,%s', $this->required_group,
-                              $this->db->getBaseUid());
+                              $this->server->getBaseUid());
 
-        $admin_group = $this->db->fetch($admins_uid, 'Horde_Kolab_Server_Object_group');
+        $admin_group = $this->server->fetch($admins_uid, 'Horde_Kolab_Server_Object_Kolabgroupofnames');
         if ($admin_group instanceOf PEAR_Error || !$admin_group->exists()) {
 
             $members = array($this->uid);
@@ -117,10 +106,10 @@ class Horde_Kolab_Server_Object_adminrole extends Horde_Kolab_Server_Object_base
             $parts           = split(',', $this->required_group);
             list($groupname) = sscanf($parts[0], 'cn=%s');
 
-            $result = $this->db->add(array(self::ATTRIBUTE_CN => $groupname,
-                                           'type' => 'Horde_Kolab_Server_Object_group',
-                                           self::ATTRIBUTE_MEMBER => $members,
-                                           self::ATTRIBUTE_VISIBILITY => false));
+            $result = $this->server->add(array(self::ATTRIBUTE_CN => $groupname,
+                                               'type' => 'Horde_Kolab_Server_Object_Kolabgroupofnames',
+                                               Horde_Kolab_Server_Object_Kolabgroupofnames::ATTRIBUTE_MEMBER => $members,
+                                               Horde_Kolab_Server_Object_Kolabgroupofnames::ATTRIBUTE_VISIBILITY => false));
             if ($result instanceOf PEAR_Error) {
                 return $result;
             }

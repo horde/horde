@@ -1,6 +1,6 @@
 <?php
 /**
- * The server configuration.
+ * A Kolab maintainer.
  *
  * PHP version 5
  *
@@ -12,7 +12,8 @@
  */
 
 /**
- * This class provides methods to deal with Kolab server configuration.
+ * This class provides methods to deal with maintainer
+ * entries for Kolab.
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
@@ -25,28 +26,15 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_Object_server extends Horde_Kolab_Server_Object_base
+class Horde_Kolab_Server_Object_Kolab_Maintainer extends Horde_Kolab_Server_Object_Kolab_Adminrole
 {
 
     /**
-     * The attributes supported by this class
+     * The group the UID must be member of so that this object really
+     * matches this class type. This may not include the root UID.
      *
-     * @var array
+     * @var string
      */
-    public $supported_attributes = array(
-        self::ATTRIBUTE_FBPAST,
-    );
+    protected $required_group = 'cn=maintainer,cn=internal';
 
-    /**
-     * Return the filter string to retrieve this object type.
-     *
-     * @static
-     *
-     * @return string The filter to retrieve this object type from the server
-     *                database.
-     */
-    public static function getFilter()
-    {
-        return '(&((k=kolab))(objectclass=kolab))';
-    }
 }

@@ -25,8 +25,10 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_Object_domainmaintainer extends Horde_Kolab_Server_Object_adminrole
+class Horde_Kolab_Server_Object_Kolab_Domainmaintainer extends Horde_Kolab_Server_Object_Kolab_Adminrole
 {
+
+    const ATTRIBUTE_DOMAIN       = 'domain';
 
     /**
      * Attributes derived from the LDAP values.
@@ -77,18 +79,18 @@ class Horde_Kolab_Server_Object_domainmaintainer extends Horde_Kolab_Server_Obje
     {
         foreach ($info[self::ATTRIBUTE_DOMAIN] as $domain) {
             $domain_uid = sprintf('cn=%s,cn=domain,cn=internal,%s',
-                                  $domain, $this->db->getBaseUid());
+                                  $domain, $this->server->getBaseUid());
 
             //FIXME: This should be made easier by the group object
 
-            $domain_group = $this->db->fetch($domain_uid, 'Horde_Kolab_Server_Object_group');
+            $domain_group = $this->server->fetch($domain_uid, 'Horde_Kolab_Server_Object_Kolabgroupofnames');
             if ($domain_group instanceOf PEAR_Error) {
                 return $domain_group;
             }
             if (!$domain_group->exists()) {
                 $members = array($this->uid);
                 $domain_group->save(array(self::ATTRIBUTE_CN => $domain,
-                                          self::ATTRIBUTE_MEMBER => $members));
+                                          Horde_Kolab_Server_Object_Kolabgroupofnames::ATTRIBUTE_MEMBER => $members));
             } else {
                 $result = $domain_group->isMember($this->uid);
                 if ($result instanceOf PEAR_Error) {
@@ -97,7 +99,7 @@ class Horde_Kolab_Server_Object_domainmaintainer extends Horde_Kolab_Server_Obje
                 if ($result === false) {
                     $members   = $domain_group->getMembers();
                     $members[] = $this->uid;
-                    $domain_group->save(array(self::ATTRIBUTE_MEMBER => $members));
+                    $domain_group->save(array(Horde_Kolab_Server_Object_Kolabgroupofnames::ATTRIBUTE_MEMBER => $members));
                 }
             }
         }
