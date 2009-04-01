@@ -44,13 +44,18 @@ class Horde_Kolab_Server_testTest extends Horde_Kolab_Test_Server
     {
         $server = &$this->prepareBasicServer($type);
 
-        $result = $server->search('(objectClass=top)', array('objectClass'));
+        $result = $server->search(
+            '(' . Horde_Kolab_Server_Object::ATTRIBUTE_OC
+            . '=' . Horde_Kolab_Server_Object::OBJECTCLASS_TOP . ')',
+            array(Horde_Kolab_Server_Object::ATTRIBUTE_OC));
         $result = $result->as_struct();
         $this->assertEquals(13, count($result));
       
-        $result = $server->search('(objectClass=top)',
-                                  array('objectClass'),
-                                  'cn=internal,dc=example,dc=org');
+        $result = $server->search(
+            '(' . Horde_Kolab_Server_Object::ATTRIBUTE_OC
+            . '=' . Horde_Kolab_Server_Object::OBJECTCLASS_TOP . ')',
+            array(Horde_Kolab_Server_Object::ATTRIBUTE_OC),
+            'cn=internal,dc=example,dc=org');
         $result = $result->as_struct();
         $this->assertNoError($result);
         $this->assertEquals(4, count($result));
@@ -98,28 +103,28 @@ class Horde_Kolab_Server_testTest extends Horde_Kolab_Test_Server
 
         $filter     = '(&(objectClass=kolabInetOrgPerson)(uid=*)(mail=*)(sn=*))';
         $attributes = array(
-            Horde_Kolab_Server_Object_base::ATTRIBUTE_SN,
-            Horde_Kolab_Server_Object_base::ATTRIBUTE_CN,
-            Horde_Kolab_Server_Object::ATTRIBUTE_UID,
-            Horde_Kolab_Server_Object_base::ATTRIBUTE_MAIL,
-            Horde_Kolab_Server_Object_base::ATTRIBUTE_DELETED,
+            Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_SN,
+            Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_CN,
+            Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_UID,
+            Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_MAIL,
+            Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_DELETED,
         );
 
-        $sort   = Horde_Kolab_Server_Object_base::ATTRIBUTE_SN;
+        $sort   = Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_SN;
         $result = $server->search($filter);
         $result = $result->as_struct();
         $this->assertNoError($result);
         $this->assertEquals(2, count($result));
 
-        $result = $server->listObjects('Horde_Kolab_Server_Object_user');
+        $result = $server->listObjects('Horde_Kolab_Server_Object_Kolab_User');
         $this->assertNoError($result);
         $this->assertEquals(2, count($result));
-        $this->assertEquals('Horde_Kolab_Server_Object_user', get_class(array_shift($result)));
+        $this->assertEquals('Horde_Kolab_Server_Object_Kolab_User', get_class(array_shift($result)));
 
-        $result = $server->listObjects('Horde_Kolab_Server_Object_sharedfolder');
+        $result = $server->listObjects('Horde_Kolab_Server_Object_Kolabsharedfolder');
         $this->assertNoError($result);
         $this->assertEquals(1, count($result));
-        $this->assertEquals('Horde_Kolab_Server_Object_sharedfolder', get_class(array_shift($result)));
+        $this->assertEquals('Horde_Kolab_Server_Object_Kolabsharedfolder', get_class(array_shift($result)));
     }
 
     /**
@@ -137,7 +142,6 @@ class Horde_Kolab_Server_testTest extends Horde_Kolab_Test_Server
         $this->assertNoError($classes);
         $this->assertContains('top', $classes);
         $this->assertContains('kolabinetorgperson', $classes);
-        $this->assertContains('hordeperson', $classes);
 
         try {
             $classes = $server->getObjectClasses('cn=DOES NOT EXIST,dc=example,dc=org');
@@ -164,31 +168,31 @@ class Horde_Kolab_Server_testTest extends Horde_Kolab_Test_Server
 
         $type = $server->determineType('cn=empty.group@example.org,dc=example,dc=org');
         $this->assertNoError($type);
-        $this->assertEquals('Horde_Kolab_Server_Object_group', $type);
+        $this->assertEquals('Horde_Kolab_Server_Object_Kolabgroupofnames', $type);
 
         $type = $server->determineType('cn=shared@example.org,dc=example,dc=org');
         $this->assertNoError($type);
-        $this->assertEquals('Horde_Kolab_Server_Object_sharedfolder', $type);
+        $this->assertEquals('Horde_Kolab_Server_Object_Kolabsharedfolder', $type);
 
         $type = $server->determineType('cn=The Administrator,dc=example,dc=org');
         $this->assertNoError($type);
-        $this->assertEquals('Horde_Kolab_Server_Object_administrator', $type);
+        $this->assertEquals('Horde_Kolab_Server_Object_Kolab_Administrator', $type);
 
         $type = $server->determineType('cn=Main Tainer,dc=example,dc=org');
         $this->assertNoError($type);
-        $this->assertEquals('Horde_Kolab_Server_Object_maintainer', $type);
+        $this->assertEquals('Horde_Kolab_Server_Object_Kolab_Maintainer', $type);
 
         $type = $server->determineType('cn=Domain Maintainer,dc=example,dc=org');
         $this->assertNoError($type);
-        $this->assertEquals('Horde_Kolab_Server_Object_domainmaintainer', $type);
+        $this->assertEquals('Horde_Kolab_Server_Object_Kolab_Domainmaintainer', $type);
 
         $type = $server->determineType('cn=Test Address,cn=external,dc=example,dc=org');
         $this->assertNoError($type);
-        $this->assertEquals('Horde_Kolab_Server_Object_address', $type);
+        $this->assertEquals('Horde_Kolab_Server_Object_Kolab_Address', $type);
 
         $type = $server->determineType('cn=Gunnar Wrobel,dc=example,dc=org');
         $this->assertNoError($type);
-        $this->assertEquals('Horde_Kolab_Server_Object_user', $type);
+        $this->assertEquals('Horde_Kolab_Server_Object_Kolab_User', $type);
     }
 
     /**
@@ -282,7 +286,7 @@ class Horde_Kolab_Server_testTest extends Horde_Kolab_Test_Server
         $testuser = $server->fetch('cn=Test Test,dc=example,dc=org');
         $this->assertNoError($testuser);
         $this->assertContains('wrobel@example.org',
-                              $testuser->get(Horde_Kolab_Server_Object_base::ATTRIBUTE_DELEGATE, false));
+                              $testuser->get(Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_DELEGATE, false));
 
         $this->assertNoError($addrs);
         $this->assertContains('wrobel@example.org', $addrs);

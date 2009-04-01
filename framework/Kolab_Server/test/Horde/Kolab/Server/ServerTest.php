@@ -37,12 +37,12 @@ class Horde_Kolab_Server_ServerTest extends PHPUnit_Framework_TestCase
      *
      * @return NULL
      */
-/*     public function testGenerateUid() */
-/*     { */
-/*         $ks = &Horde_Kolab_Server::factory('none'); */
-/*         $uid = $ks->generateUid('Horde_Kolab_Server_Object', array()); */
-/*         $this->assertEquals($uid, ''); */
-/*     } */
+    public function testGenerateUid()
+    {
+        $ks = &Horde_Kolab_Server::factory('none');
+        $uid = $ks->generateUid('Horde_Kolab_Server_Object', array());
+        $this->assertEquals(preg_replace('/[0-9a-f]*/', '', $uid), '');
+    }
 
     /**
      * Test creating the server object.
@@ -71,11 +71,11 @@ class Horde_Kolab_Server_ServerTest extends PHPUnit_Framework_TestCase
     {
         $ks   = &Horde_Kolab_Server::factory('none');
         $user = $ks->fetch('test');
-        $this->assertEquals('Horde_Kolab_Server_Object_user', get_class($user));
+        $this->assertEquals('Horde_Kolab_Server_Object_Kolab_User', get_class($user));
 
         $ks   = &Horde_Kolab_Server::factory('none', array('uid' => 'test'));
         $user = $ks->fetch();
-        $this->assertEquals('Horde_Kolab_Server_Object_user', get_class($user));
+        $this->assertEquals('Horde_Kolab_Server_Object_Kolab_User', get_class($user));
     }
 
     /**
@@ -134,7 +134,7 @@ class Horde_Kolab_Server_None extends Horde_Kolab_Server
      */
     protected function determineType($uid)
     {
-        return 'Horde_Kolab_Server_Object_user';
+        return 'Horde_Kolab_Server_Object_Kolab_User';
     }
 
     /**

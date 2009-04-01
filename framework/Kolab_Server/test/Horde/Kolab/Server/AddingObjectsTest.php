@@ -46,6 +46,6 @@ class Horde_Kolab_Server_AddingObjectsTest extends Horde_Kolab_Test_Server
     {
         $this->given('an empty Kolab server')
             ->when('adding a Kolab server object', $user)
-            ->then('the result should be an object of type', 'Horde_Kolab_Server_Object_user');
+            ->then('the result should be an object of type', 'Horde_Kolab_Server_Object_Kolab_User');
     }
 }

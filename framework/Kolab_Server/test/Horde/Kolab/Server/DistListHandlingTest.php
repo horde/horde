@@ -47,7 +47,7 @@ class Horde_Kolab_Server_DistListHandlingTest extends Horde_Kolab_Test_Server
         $this->given('an empty Kolab server')
             ->when('adding a distribution list')
             ->then('the result should be an object of type',
-                   'Horde_Kolab_Server_Object_distlist');
+                   'Horde_Kolab_Server_Object_Kolab_Distlist');
     }
 
 }

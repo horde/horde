@@ -64,7 +64,7 @@ class Horde_Kolab_Server_AdminTest extends Horde_Kolab_Test_Server
     {
         $admin = $this->provideBasicAdmin();
         $this->assertNoError($admin);
-        $uid = $this->ldap->generateUid('Horde_Kolab_Server_Object_administrator', $admin);
+        $uid = $this->ldap->generateUid('Horde_Kolab_Server_Object_Kolab_Administrator', $admin);
         $this->assertNoError($uid);
         $this->assertEquals('cn=The Administrator,dc=example,dc=org', $uid);
     }
@@ -91,7 +91,7 @@ class Horde_Kolab_Server_AdminTest extends Horde_Kolab_Test_Server
 
         $admin = $this->ldap->fetch('cn=The Administrator,dc=example,dc=org');
         $this->assertNoError($admin);
-        $this->assertEquals('Horde_Kolab_Server_Object_administrator',
+        $this->assertEquals('Horde_Kolab_Server_Object_Kolab_Administrator',
                             get_class($admin));
     }
 
@@ -127,7 +127,7 @@ class Horde_Kolab_Server_AdminTest extends Horde_Kolab_Test_Server
         $this->assertNoError($entries);
         $this->assertEquals(1, count($entries));
 
-        $list = $this->ldap->listObjects('Horde_Kolab_Server_Object_administrator');
+        $list = $this->ldap->listObjects('Horde_Kolab_Server_Object_Kolab_Administrator');
         $this->assertNoError($list);
         $this->assertEquals(1, count($list));
     }

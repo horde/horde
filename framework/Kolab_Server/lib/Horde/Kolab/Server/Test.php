@@ -25,7 +25,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_Test extends Horde_Kolab_Server_Ldap
+class Horde_Kolab_Server_Test extends Horde_Kolab_Server_Kolab
 {
 
     /**
@@ -527,7 +527,8 @@ class Horde_Kolab_Server_Test extends Horde_Kolab_Server_Ldap
 
         $this->data[$dn] = array(
             'dn' => $dn,
-            'data' => $ldap_data
+            'data' => array_merge($ldap_data,
+				  array('dn' => $dn)),
         );
         $this->store();
     }
@@ -614,7 +615,7 @@ class Horde_Kolab_Server_Test extends Horde_Kolab_Server_Ldap
             foreach ($result as $entry) {
                 $t       = $entry['data'];
                 $t['dn'] = $entry['dn'];
-                $data[]  = $t;
+                $data[$entry['dn']]  = $t;
             }
             return $data;
         }

@@ -66,7 +66,7 @@ class Horde_Kolab_Server_GroupTest extends Horde_Kolab_Test_Server
     {
         $groups = $this->validGroups();
         $this->assertEquals('cn=empty.group@example.org,dc=example,dc=org',
-                            $this->ldap->generateUid('Horde_Kolab_Server_Object_group', $groups[0][0]));
+                            $this->ldap->generateUid('Horde_Kolab_Server_Object_Kolabgroupofnames', $groups[0][0]));
     }
 
     /**
@@ -80,7 +80,7 @@ class Horde_Kolab_Server_GroupTest extends Horde_Kolab_Test_Server
 
         $group = $this->ldap->fetch('cn=empty.group@example.org,dc=example,dc=org');
         $this->assertNoError($group);
-        $this->assertEquals('Horde_Kolab_Server_Object_group', get_class($group));
+        $this->assertEquals('Horde_Kolab_Server_Object_Kolabgroupofnames', get_class($group));
     }
 
     /**
@@ -129,7 +129,7 @@ class Horde_Kolab_Server_GroupTest extends Horde_Kolab_Test_Server
         $result = $result->as_struct();
         $this->assertEquals(3, count($result));
 
-        $list = $this->ldap->listObjects('Horde_Kolab_Server_Object_group');
+        $list = $this->ldap->listObjects('Horde_Kolab_Server_Object_Kolabgroupofnames');
         $this->assertNoError($list);
         $this->assertEquals(3, count($list));
     }

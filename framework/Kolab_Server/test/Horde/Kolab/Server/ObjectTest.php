@@ -86,7 +86,7 @@ class Horde_Kolab_Server_ObjectTest extends Horde_Kolab_Test_Server
     public function testConstructDn($dn, $data, $expect)
     {
         $ko  = &new Horde_Kolab_Server_Object($this->_dummydb, $dn, $data);
-        $ndn = $ko->get(Horde_Kolab_Server_Object_base::ATTRIBUTE_UID);
+        $ndn = $ko->get(Horde_Kolab_Server_Object_Kolab_User::ATTRIBUTE_UID);
         $this->assertNoError($ndn);
         $this->assertEquals($expect, $ndn);
     }
@@ -119,10 +119,10 @@ class Horde_Kolab_Server_ObjectTest extends Horde_Kolab_Test_Server
      */
     public function testGetFn($data, $expect)
     {
-        $ko = &Horde_Kolab_Server_Object::factory('Horde_Kolab_Server_Object_user',
+        $ko = &Horde_Kolab_Server_Object::factory('Horde_Kolab_Server_Object_Kolab_User',
                                                   null, $this->_dummydb, $data);
         $this->assertNoError($ko);
-        $ndn = $ko->get(Horde_Kolab_Server_Object_base::ATTRIBUTE_FN);
+        $ndn = $ko->get(Horde_Kolab_Server_Object_Kolab_User::ATTRIBUTE_FN);
         $this->assertNoError($ndn);
         $this->assertEquals($expect, $ndn);
     }
