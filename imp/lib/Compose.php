@@ -236,6 +236,10 @@ class IMP_Compose
             $append_flags[] = '\\seen';
         }
 
+        /* RFC 3503 [3.4] states that when saving a draft, the client MUST
+         * set the $MDNSent keyword. However, IMP doesn't write MDN headers
+         * until send time so no need to set the flag here. */
+
         /* Get the message ID. */
         $headers = Horde_Mime_Headers::parseHeaders($data);
 
@@ -433,6 +437,7 @@ class IMP_Compose
         $headers->addHeader('Date', date('r'));
 
         /* Add Return Receipt Headers. */
+        $mdn = null;
         if (!empty($opts['readreceipt']) &&
             $conf['compose']['allow_receipts']) {
             $mdn = new Horde_Mime_Mdn();
@@ -584,8 +589,15 @@ class IMP_Compose
                 $imp_folder->create($opts['sent_folder'], $prefs->getValue('subscribe'));
             }
 
+            $flags = array('\\seen');
+
+            /* RFC 3503 [3.3] - set $MDNSent flag on sent message. */
+            if ($mdn) {
+                $flags[] = array('$MDNSent');
+            }
+
             try {
-                $GLOBALS['imp_imap']->ob->append(String::convertCharset($opts['sent_folder'], NLS::getCharset(), 'UTF-8'), array(array('data' => $fcc, 'flags' => array('\\seen'))));
+                $GLOBALS['imp_imap']->ob->append(String::convertCharset($opts['sent_folder'], NLS::getCharset(), 'UTF-8'), array(array('data' => $fcc, 'flags' => $flags)));
             } catch (Horde_Imap_Client_Exception $e) {
                 $notification->push(sprintf(_("Message sent successfully, but not saved to %s"), IMP::displayFolder($opts['sent_folder'])));
                 $sent_saved = false;

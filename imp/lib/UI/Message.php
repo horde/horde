@@ -57,11 +57,19 @@ class IMP_UI_Message
     }
 
     /**
-     * TODO
+     * Check if we need to send a MDN, and send if needed.
+     *
+     * @param string $mailbox     The mailbox of the message.
+     * @param integer $uid        The UID of the message.
+     * @param array $headers      The headers of the message.
+     * @param boolean $confirmed  Has the MDN request been confirmed?
+     *
+     * @return boolean  True if the MDN request needs to be confirmed.
      */
-    public function MDNCheck($headers, $confirmed = false)
+    public function MDNCheck($mailbox, $uid, $headers, $confirmed = false)
     {
-        if (!$GLOBALS['prefs']->getValue('disposition_send_mdn')) {
+        if (!$GLOBALS['prefs']->getValue('disposition_send_mdn') ||
+            $GLOBALS['imp_imap']->isReadOnly($mailbox)) {
             return false;
         }
 
@@ -73,29 +81,54 @@ class IMP_UI_Message
         }
 
         $msg_id = $headers->getValue('message-id');
+        $mdn_flag = $need_mdn = false;
 
         /* See if we have already processed this message. */
-        if (!IMP_Maillog::sentMDN($msg_id, 'displayed')) {
-            /* See if we need to query the user. */
-            if ($mdn->userConfirmationNeeded() && !$confirmed) {
-                return true;
-            } else {
-                /* Send out the MDN now. */
-                $mail_driver = IMP_Compose::getMailDriver();
-
-                try {
-                    $mdn->generate(false, $confirmed, 'displayed', $mail_driver['driver'], $mail_driver['params']);
-                    IMP_Maillog::log('mdn', $msg_id, 'displayed');
-                    $success = true;
-                } catch (Horde_Mime_Exception $e) {
-                    $success = false;
-                }
-
-                if ($GLOBALS['conf']['sentmail']['driver'] != 'none') {
-                    $sentmail = IMP_Sentmail::factory();
-                    $sentmail->log('mdn', '', $return_addr, $success);
-                }
+        /* 1st test: $MDNSent keyword (RFC 3503 [3.1]). */
+        try {
+            $status = $GLOBALS['imp_imap']->ob->status($mailbox, Horde_Imap_Client::STATUS_PERMFLAGS);
+            if (in_array('\\*', $status['permflags']) ||
+                in_array('$mdnsent', $status['permflags'])) {
+                $mdn_flag = true;
+                $res = $GLOBALS['imp_imap']->ob->fetch($mailbox, array(
+                        Horde_Imap_Client::FETCH_FLAGS => true
+                    ), array('ids' => array($uid)));
+                $need_mdn = in_array('$mdnsent', $res[$uid]['flags']);
             }
+        } catch (Horde_Imap_Client_Exception $e) {}
+
+        if (!$mdn_flag) {
+            /* 2nd test: Use Maillog as a fallback. */
+            $need_mdn = !IMP_Maillog::sentMDN($msg_id, 'displayed');
+        }
+
+        if (!$need_mdn) {
+            return false;
+        }
+
+        /* See if we need to query the user. */
+        if ($mdn->userConfirmationNeeded() && !$confirmed) {
+            return true;
+        }
+
+        /* Send out the MDN now. */
+        try {
+            $mail_driver = IMP_Compose::getMailDriver();
+            $mdn->generate(false, $confirmed, 'displayed', $mail_driver['driver'], $mail_driver['params']);
+            IMP_Maillog::log('mdn', $msg_id, 'displayed');
+            $success = true;
+
+            if ($mdn_flag) {
+                $imp_message = &IMP_Message::singleton();
+                $imp_message->flag(array('$MDNSent'), $uid . IMP::IDX_SEP . $mailbox, true);
+            }
+        } catch (Horde_Mime_Exception $e) {
+            $success = false;
+        }
+
+        if ($GLOBALS['conf']['sentmail']['driver'] != 'none') {
+            $sentmail = IMP_Sentmail::factory();
+            $sentmail->log('mdn', '', $return_addr, $success);
         }
 
         return false;

@@ -342,7 +342,7 @@ class IMP_Views_ShowMessage
             }
 
             /* Do MDN processing now. */
-            if ($imp_ui->MDNCheck($mime_headers)) {
+            if ($imp_ui->MDNCheck($folder, $index, $mime_headers)) {
                 $confirm_link = Horde::link('', '', '', '', 'DimpCore.doAction(\'SendMDN\',{folder:\'' . $folder . '\',index:' . $index . '}); return false;', '', '') . _("HERE") . '</a>';
                 $GLOBALS['notification']->push(sprintf(_("The sender of this message is requesting a Message Disposition Notification from you when you have read this message. Click %s to send the notification message."), $confirm_link), 'dimp.request', array('content.raw'));
             }

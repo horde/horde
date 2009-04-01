@@ -385,7 +385,7 @@ $view_link = IMP::generateIMPUrl('view.php', $imp_mbox['mailbox'], $index, $mail
 /* Retrieve any history information for this message. */
 if (!IMP::$printMode && !empty($conf['maillog']['use_maillog'])) {
     /* Do MDN processing now. */
-    if ($imp_ui->MDNCheck($mime_headers, Util::getFormData('mdn_confirm'))) {
+    if ($imp_ui->MDNCheck($imp_mbox['mailbox'], $index, $mime_headers, Util::getFormData('mdn_confirm'))) {
         $confirm_link = Horde::link(htmlspecialchars(Util::addParameter($selfURL, 'mdn_confirm', 1))) . _("HERE") . '</a>';
         $notification->push(sprintf(_("The sender of this message is requesting a Message Disposition Notification from you when you have read this message. Please click %s to send the notification message."), $confirm_link), 'horde.message', array('content.raw'));
     }

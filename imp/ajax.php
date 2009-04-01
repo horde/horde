@@ -685,7 +685,7 @@ case 'SendMDN':
     }
 
     $imp_ui = new IMP_UI_Message();
-    $imp_ui->MDNCheck(reset($fetch_ret[$index]['headertext']), true);
+    $imp_ui->MDNCheck($mbox, $index, $reset($fetch_ret[$index]['headertext']), true);
     break;
 
 case 'PGPSymmetric':
