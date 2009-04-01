@@ -130,7 +130,7 @@ class Horde_Kolab_Session
             $user_object    = $server->fetch();
 
             if (empty($conf['kolab']['imap']['allow_special_users'])
-                && !is_a($user_object, 'Horde_Kolab_Server_Object_user')) {
+                && !is_a($user_object, 'Horde_Kolab_Server_Object_Kolab_User')) {
                 throw new Horde_Kolab_Server_Exception(_('Access to special Kolab users is denied.'));
             }
             if (isset($conf['kolab']['server']['deny_group'])) {
@@ -154,17 +154,17 @@ class Horde_Kolab_Session
 
 	    $this->auth = true;
                 
-            $result = $user_object->get(Horde_Kolab_Server_Object_user::ATTRIBUTE_MAIL);
+            $result = $user_object->get(Horde_Kolab_Server_Object_Kolab_User::ATTRIBUTE_MAIL);
             if (!empty($result) && !is_a($result, 'PEAR_Error')) {
                 $this->user_mail = $result;
             }
 
-            $result = $user_object->get(Horde_Kolab_Server_Object_user::ATTRIBUTE_SID);
+            $result = $user_object->get(Horde_Kolab_Server_Object_Kolab_User::ATTRIBUTE_SID);
             if (!empty($result) && !is_a($result, 'PEAR_Error')) {
                 $this->user_id = $result;
             }
 
-            $result = $user_object->get(Horde_Kolab_Server_Object_user::ATTRIBUTE_FNLN);
+            $result = $user_object->get(Horde_Kolab_Server_Object_Kolab_User::ATTRIBUTE_FNLN);
             if (!empty($result) && !is_a($result, 'PEAR_Error')) {
                 $this->user_name = $result;
             }

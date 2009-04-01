@@ -16,6 +16,8 @@
  */
 require_once 'Horde/Autoloader.php';
 
+require_once 'Horde/Util.php';
+
 /**
  * Test the Kolab session handler.
  *
@@ -30,7 +32,7 @@ require_once 'Horde/Autoloader.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Session
  */
-class Horde_Kolab_Session_SessionTest extends Horde_Kolab_Test_Session
+class Horde_Kolab_Session_SessionTest extends Horde_Kolab_Test_Server
 {
     /**
      * Test class construction.
@@ -80,7 +82,7 @@ class Horde_Kolab_Session_SessionTest extends Horde_Kolab_Test_Session
      */
     public function testGetSession()
     {
-        $server = &$this->prepareEmptyKolabSession();
+        $server = &$this->prepareEmptyKolabServer();
         $result = $server->add($this->provideBasicUserTwo());
         $this->assertNoError($result);
         $this->assertEquals(1, count($GLOBALS['KOLAB_SERVER_TEST_DATA']));
@@ -118,7 +120,7 @@ class Horde_Kolab_Session_SessionTest extends Horde_Kolab_Test_Session
      */
     public function testGetFreeBusySession()
     {
-        $server = &$this->prepareEmptyKolabSession();
+        $server = &$this->prepareEmptyKolabServer();
         $result = $server->add($this->provideBasicUserTwo());
         $this->assertNoError($result);
         $session = &Horde_Kolab_Session::singleton();
@@ -136,7 +138,7 @@ class Horde_Kolab_Session_SessionTest extends Horde_Kolab_Test_Session
         $conf['kolab']['server']['allow_group'] = 'group2@example.org';
         $conf['kolab']['server']['deny_group'] = null;
 
-        $server = &$this->prepareEmptyKolabSession();
+        $server = &$this->prepareEmptyKolabServer();
         $result = $server->add($this->provideBasicUserOne());
         $this->assertNoError($result);
         $result = $server->add($this->provideBasicUserTwo());
@@ -176,7 +178,7 @@ class Horde_Kolab_Session_SessionTest extends Horde_Kolab_Test_Session
         $conf['kolab']['server']['deny_group'] = 'group2@example.org';
         unset($conf['kolab']['server']['allow_group']);
 
-        $server = &$this->prepareEmptyKolabSession();
+        $server = &$this->prepareEmptyKolabServer();
         $result = $server->add($this->provideBasicUserOne());
         $this->assertNoError($result);
         $result = $server->add($this->provideBasicUserTwo());
