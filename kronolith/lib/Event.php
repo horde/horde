@@ -1011,9 +1011,11 @@ abstract class Kronolith_Event
         $json = new stdClass;
         $json->t = $this->getTitle();
         $json->c = $this->getCalendar();
+        $json->s = $this->start->toJSON();
+        $json->e = $this->end->toJSON();
         $json->bg = $this->_backgroundColor;
         $json->fg = $this->_foregroundColor;
-        $json->e = $this->hasPermission(PERMS_EDIT);
+        $json->ed = $this->hasPermission(PERMS_EDIT);
         $json->d = $this->hasPermission(PERMS_DELETE);
         if ($this->alarm) {
             if ($this->alarm % 10080 == 0) {

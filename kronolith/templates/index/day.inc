@@ -1,4 +1,5 @@
 <div id="kronolithViewDay" class="kronolithView kronolithViewDay" style="display:none">
+<div id="kronolithEventsDay"></div>
 <table class="kronolithView kronolithViewDay">
   <thead class="kronolithViewHead"><tr>
     <td class="kronolithFirstCol">&nbsp;</td>
