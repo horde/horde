@@ -12,3 +12,15 @@
 - Check with current HEAD applications.
 
 - Implement server setup
+
+- Load-Balancing.
+
+- Read entry after writing and detect inconsistencies.
+
+- Umlaut support
+
+- Schema analysis support.
+
+- Password history support
+
+- Check escaping search parameters when running searchQuery()
