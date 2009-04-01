@@ -1165,30 +1165,30 @@ div.kronolithView div.kronolithViewBody div.kronolithRow div .kronolithEvent.kro
 div.kronolithViewWeek .kronolithEvents .kronolithEvent {
     width: 11%;
 }
-div.kronolithView .kronolithEvents .kronolithEvent .kronolithDragger {
+.kronolithEvent .kronolithDragger {
     position: absolute;
     width: 100%;
     height: 12px;
     background: transparent url("graphics/drag-handle.png") center center no-repeat;
 }
-div.kronolithView .kronolithEvents .kronolithEvent.kronolithSelected .kronolithDragger {
+.kronolithEvent:hover .kronolithDragger, .kronolithEvent.kronolithSelected .kronolithDragger {
     background-color: #202020;
 }
-div.kronolithView .kronolithEvents .kronolithEvent .kronolithDragger.kronolithDraggerTop {
+.kronolithEvent .kronolithDragger.kronolithDraggerTop {
     top: 0;
     -moz-border-radius: 5px 5px 0 0;
     -webkit-border-top-left-radius: 5px;
     -webkit-border-top-right-radius: 5px;
     cursor: n-resize;
 }
-div.kronolithView .kronolithEvents .kronolithEvent .kronolithDragger.kronolithDraggerBottom {
+.kronolithEvent .kronolithDragger.kronolithDraggerBottom {
     bottom: 0;
     -moz-border-radius: 0 0 5px 5px;
     -webkit-border-bottom-left-radius: 5px;
     -webkit-border-bottom-right-radius: 5px;
     cursor: s-resize;
 }
-div.kronolithView .kronolithEvents .kronolithEvent .kronolithEventInfo {
+.kronolithEvent .kronolithEventInfo {
     margin: 10px 0;
     padding: 5px;
 }

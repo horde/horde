@@ -648,17 +648,6 @@ KronolithCore = {
             'class': 'kronolithEvent',
             'style': 'background-color:' + event.value.bg + ';color:' + event.value.fg
         });
-        div.setText(event.value.t)
-            .observe('mouseover', div.addClassName.curry('kronolithSelected'))
-            .observe('mouseout', div.removeClassName.curry('kronolithSelected'));
-        if (event.value.a) {
-            div.insert(' ')
-                .insert(new Element('IMG', { 'src': Kronolith.conf.URI_IMG + 'alarm-' + event.value.fg.substr(1) + '.png', 'title': Kronolith.text.alarm + ' ' + event.value.a }));
-        }
-        if (event.value.r) {
-            div.insert(' ')
-                .insert(new Element('IMG', { 'src': Kronolith.conf.URI_IMG + 'recur-' + event.value.fg.substr(1) + '.png', 'title': Kronolith.text.recur[event.value.r] }));
-        }
 
         switch (view) {
         case 'day':
@@ -666,6 +655,7 @@ KronolithCore = {
             var midnight = Date.parseExact(date, 'yyyyMMdd'),
                 start = Date.parse(event.value.s),
                 end = Date.parse(event.value.e),
+                innerDiv = new Element('DIV', { 'class': 'kronolithEventInfo' }),
                 container = $('kronolithViewDay'),
                 tr = container.down('tbody tr').next('tr'),
                 td = tr.down('td'),
@@ -677,8 +667,12 @@ KronolithCore = {
                 'top': ((midnight.getElapsed(start) / 60000 | 0) * height / 60 + offset | 0) + 'px',
                 'height': ((start.getElapsed(end) / 60000 | 0) * height / 60 - spacing | 0) + 'px',
                 'width': '100%'
-            });
+            })
+                .insert(new Element('DIV', { 'class': 'kronolithDragger kronolithDraggerTop' }))
+                .insert(innerDiv)
+                .insert(new Element('DIV', { 'class': 'kronolithDragger kronolithDraggerBottom' }));
             $('kronolithEventsDay').insert(div);
+            div = innerDiv;
             break;
 
         case 'month':
@@ -689,6 +683,18 @@ KronolithCore = {
                 new Drag('kronolithEventmonth' + calendar + event.key, { threshold: 5, parentElement: function() { return $('kronolithViewMonthBody'); }, snapToParent: true });
             }
             break;
+        }
+
+        div.setText(event.value.t)
+            .observe('mouseover', div.addClassName.curry('kronolithSelected'))
+            .observe('mouseout', div.removeClassName.curry('kronolithSelected'));
+        if (event.value.a) {
+            div.insert(' ')
+                .insert(new Element('IMG', { 'src': Kronolith.conf.URI_IMG + 'alarm-' + event.value.fg.substr(1) + '.png', 'title': Kronolith.text.alarm + ' ' + event.value.a }));
+        }
+        if (event.value.r) {
+            div.insert(' ')
+                .insert(new Element('IMG', { 'src': Kronolith.conf.URI_IMG + 'recur-' + event.value.fg.substr(1) + '.png', 'title': Kronolith.text.recur[event.value.r] }));
         }
     },
 
