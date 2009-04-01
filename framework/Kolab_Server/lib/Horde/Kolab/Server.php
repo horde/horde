@@ -35,17 +35,6 @@ abstract class Horde_Kolab_Server
 {
 
     /**
-     * The object types supported by this module.
-     */
-    const USER  = 'undefined';
-    const GROUP = 'undefined';
-
-    /** Define types of return values. */
-    const RESULT_SINGLE = 1;
-    const RESULT_STRICT = 2;
-    const RESULT_MANY   = 3;
-
-    /**
      * Server parameters.
      *
      * @var array
@@ -60,6 +49,13 @@ abstract class Horde_Kolab_Server
     public $uid;
 
     /**
+     * The search methods offered by the object defined for this server.
+     *
+     * @var array
+     */
+    protected $searches;
+
+    /**
      * Construct a new Horde_Kolab_Server object.
      *
      * @param array $params Parameter array.
@@ -70,6 +66,9 @@ abstract class Horde_Kolab_Server
         if (isset($params['uid'])) {
             $this->uid = $params['uid'];
         }
+
+        // Initialize the search operations supported by this server.
+        $this->searches = $this->getSearchOperations();
     }
 
     /**
@@ -265,6 +264,17 @@ abstract class Horde_Kolab_Server
     /**
      * Generate a hash representation for a list of objects.
      *
+     * The approach taken here is somewhat slow as the server data gets fetched
+     * into objects first which are then converted to hashes again. Since a
+     * server search will usually deliver the result as a hash the intermediate
+     * object conversion is inefficient.
+     *
+     * But as the object classes are able to treat the attributes returned from
+     * the server with custom parsing, this is currently the preferred
+     * method. Especially for large result sets it would be better if this
+     * method would call a static object class function that operate on the
+     * result array returned from the server without using objects.
+     *
      * @todo The LDAP driver needs a more efficient version of this call as it
      *       is not required to generate objects before returning data as a
      *       hash. It can be derived directly from the LDAP result.
@@ -295,6 +305,36 @@ abstract class Horde_Kolab_Server
     }
 
     /**
+     * Returns the set of objects supported by this server type.
+     *
+     * @return array An array of supported search operations.
+     */
+    static public function getSupportedObjects()
+    {
+        $objects = array(
+            'Horde_Kolab_Server_Object',
+        );
+        return $objects;
+    }
+
+    /**
+     * Returns the set of search operations supported by this server type.
+     *
+     * @return array An array of supported search operations.
+     */
+    public function getSearchOperations()
+    {
+        $server_searches = array();
+        foreach ($this->getSupportedObjects() as $sobj) {
+            $searches = call_user_func(array($sobj, 'getSearchOperations'));
+            foreach ($searches as $search) {
+                $server_searches[$search] = array('class' => $sobj);
+            }
+        }
+        return $server_searches;
+    }
+
+    /**
      * Capture undefined calls.
      *
      * @param string $method The name of the called method.
@@ -306,6 +346,12 @@ abstract class Horde_Kolab_Server
      */
     public function __call($method, $args)
     {
+        if (in_array($method, array_keys($this->searches))) {
+            array_unshift($args, $this);
+            if (isset($this->searches[$method])) {
+                return call_user_func_array(array($this->searches[$method]['class'], $method), $args);
+            }
+        }
         throw new Horde_Kolab_Server_Exception(
             sprintf("The server type \"%s\" does not support method \"%s\"!",
                     get_class($this), $method));
@@ -366,45 +412,4 @@ abstract class Horde_Kolab_Server
      */
     abstract public function getBaseUid();
 
-    /**
-     * Identify the UID for the first user found using a specified
-     * attribute value.
-     *
-     * @param array $criteria The search parameters as array.
-     * @param int   $restrict A Horde_Kolab_Server::RESULT_* result restriction.
-     *
-     * @return boolean|string|array The UID(s) or false if there was no result.
-     *
-     * @throws Horde_Kolab_Server_Exception
-     */
-    abstract public function uidForSearch($criteria,
-                                          $restrict = Horde_Kolab_Server::RESULT_SINGLE);
-
-    /**
-     * Identify the GID for the first group found using a specified
-     * attribute value.
-     *
-     * @param array $criteria The search parameters as array.
-     * @param int   $restrict A Horde_Kolab_Server::RESULT_* result restriction.
-     *
-     * @return boolean|string|array The GID(s) or false if there was no result.
-     *
-     * @throws Horde_Kolab_Server_Exception
-     */
-    abstract public function gidForSearch($criteria,
-                                          $restrict = Horde_Kolab_Server::RESULT_SINGLE);
-
-    /**
-     * Identify attributes for the objects found using a filter.
-     *
-     * @param array $criteria The search parameters as array.
-     * @param array $attrs    The attributes to retrieve.
-     * @param int   $restrict A Horde_Kolab_Server::RESULT_* result restriction.
-     *
-     * @return array The results.
-     *
-     * @throws Horde_Kolab_Server_Exception
-     */
-    abstract public function attrsForSearch($criteria, $attrs,
-                                            $restrict = Horde_Kolab_Server::RESULT_SINGLE);
 }
