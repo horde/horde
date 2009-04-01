@@ -262,10 +262,11 @@ abstract class IMP_Fetchmail
      *
      * @param string $header  The message header text.
      * @param string $body    The message body text.
+     * @param array $flags    The IMAP flags to add.
      *
      * @return boolean  True on success, false on failure.
      */
-    protected function _addMessage($header, $body)
+    protected function _addMessage($header, $body, $flags)
     {
         $msg = rtrim($header);
 
@@ -281,7 +282,7 @@ abstract class IMP_Fetchmail
         }
 
         try {
-            $GLOBALS['imp_imap']->ob->append($this->_params['lmailbox'], array(array('data' => $msg)));
+            $GLOBALS['imp_imap']->ob->append($this->_params['lmailbox'], array(array('data' => $msg, 'flags' => $flags)));
             return true;
         } catch (Horde_Imap_Client_Exception $e) {
             return false;

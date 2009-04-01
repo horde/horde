@@ -195,14 +195,15 @@ class IMP_Fetchmail_imap extends IMP_Fetchmail
             try {
                 $res = $this->_ob->fetch($mbox, array(
                     Horde_Imap_Client::FETCH_HEADERTEXT => array(array('peek' => $peek)),
-                    Horde_Imap_Client::FETCH_BODYTEXT => array(array('peek' => true))
+                    Horde_Imap_Client::FETCH_BODYTEXT => array(array('peek' => true)),
+                    Horde_Imap_Client::FETCH_FLAGS => true
                 ), array('ids' => array($id)));
             } catch (Horde_Imap_Client_Exception $e) {
                 continue;
             }
 
             /* Append to the server. */
-            if ($this->_addMessage($res[$id]['headertext'][0], $res[$id]['bodytext'][0])) {
+            if ($this->_addMessage($res[$id]['headertext'][0], $res[$id]['bodytext'][0], $res[$id]['flags'])) {
                 ++$numMsgs;
                 $to_store[] = $id;
             }
