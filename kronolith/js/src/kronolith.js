@@ -564,9 +564,6 @@ KronolithCore = {
      */
     _loadEvents: function(firstDay, lastDay, callback, view, calendars)
     {
-        var start = firstDay.dateString(), end = lastDay.dateString(),
-            driver, calendar;
-
         if (typeof calendars == 'undefined') {
             calendars = [];
             $H(Kronolith.conf.calendars).each(function(type) {
@@ -579,7 +576,29 @@ KronolithCore = {
         }
 
         calendars.each(function(cal) {
-            var calendar = cal.join('|');
+            var startDay = firstDay.clone(), endDay = lastDay.clone(),
+                events, date;
+
+            if (typeof this.ecache[cal[0]] != 'undefined' &&
+                typeof this.ecache[cal[0]][cal[1]] != 'undefined') {
+                while (!Object.isUndefined(this.ecache[cal[0]][cal[1]].get(startDay.dateString())) &&
+                       startDay.compareTo(endDay) < 0) {
+                    date = startDay.dateString();
+                    $H(this.ecache[cal[0]][cal[1]].get(date)).each(function(event) { this._insertEvent(event, cal.join('|'), date); }, this);
+                    startDay.add(1).day();
+                }
+                while (!Object.isUndefined(this.ecache[cal[0]][cal[1]].get(endDay.dateString())) &&
+                       startDay.compareTo(endDay) < 0) {
+                    date = endDay.dateString();
+                    $H(this.ecache[cal[0]][cal[1]].get(date)).each(function(event) { this._insertEvent(event, cal.join('|'), date); }, this);
+                    endDay.add(-1).day();
+                }
+                if (startDay.compareTo(endDay) == 0) {
+                    return;
+                }
+            }
+            var start = startDay.dateString(), end = endDay.dateString(),
+                calendar = cal.join('|');
             this.eventsLoading[calendar] = start + end;
             this.loading++;
             $('kronolithLoading').show();
@@ -603,8 +622,8 @@ KronolithCore = {
             $('kronolithLoading').hide();
         }
 
+        this._storeCache(r.response.events || {}, r.response.cal, r.response.sig);
         if (r.response.events) {
-            this._storeCache(r.response.events, r.response.cal);
 
             // Check if this is the still the result of the most current
             // request.
@@ -615,35 +634,40 @@ KronolithCore = {
 
             $H(r.response.events).each(function(date) {
                 $H(date.value).each(function(event) {
-                    switch (this.view) {
-                    case 'month':
-                        div = new Element('DIV', {
-                            'id': 'kronolithEventmonth' + r.response.cal + event.key,
-                            'calendar': r.response.cal,
-                            'eventid' : event.key,
-                            'class': 'kronolithEvent',
-                            'style': 'background-color:' + event.value.bg + ';color:' + event.value.fg
-                        });
-                        div.setText(event.value.t)
-                            .observe('mouseover', div.addClassName.curry('kronolithSelected'))
-                            .observe('mouseout', div.removeClassName.curry('kronolithSelected'));
-                        if (event.value.a) {
-                            div.insert(' ')
-                                .insert(new Element('IMG', { 'src': Kronolith.conf.URI_IMG + 'alarm-' + event.value.fg.substr(1) + '.png', 'title': Kronolith.text.alarm + ' ' + event.value.a }));
-                        }
-                        if (event.value.r) {
-                            div.insert(' ')
-                                .insert(new Element('IMG', { 'src': Kronolith.conf.URI_IMG + 'recur-' + event.value.fg.substr(1) + '.png', 'title': Kronolith.text.recur[event.value.r] }));
-                        }
-                        $('kronolithMonthDay' + date.key).insert(div);
-                        if (event.value.e) {
-                            div.setStyle({ 'cursor': 'move' });
-                            new Drag('kronolithEventmonth' + r.response.cal + event.key, { threshold: 5, parentElement: function() { return $('kronolithViewMonthBody'); }, snapToParent: true });
-                        }
-                        break;
-                    }
+                    this._insertEvent(event, r.response.cal, date.key);
                 }, this);
             }, this);
+        }
+    },
+
+    _insertEvent: function(event, calendar, date)
+    {
+        switch (this.view) {
+        case 'month':
+            div = new Element('DIV', {
+                'id': 'kronolithEventmonth' + calendar + event.key,
+                'calendar': calendar,
+                'eventid' : event.key,
+                'class': 'kronolithEvent',
+                'style': 'background-color:' + event.value.bg + ';color:' + event.value.fg
+            });
+            div.setText(event.value.t)
+                .observe('mouseover', div.addClassName.curry('kronolithSelected'))
+                .observe('mouseout', div.removeClassName.curry('kronolithSelected'));
+            if (event.value.a) {
+                div.insert(' ')
+                    .insert(new Element('IMG', { 'src': Kronolith.conf.URI_IMG + 'alarm-' + event.value.fg.substr(1) + '.png', 'title': Kronolith.text.alarm + ' ' + event.value.a }));
+            }
+            if (event.value.r) {
+                div.insert(' ')
+                    .insert(new Element('IMG', { 'src': Kronolith.conf.URI_IMG + 'recur-' + event.value.fg.substr(1) + '.png', 'title': Kronolith.text.recur[event.value.r] }));
+            }
+            $('kronolithMonthDay' + date).insert(div);
+            if (event.value.e) {
+                div.setStyle({ 'cursor': 'move' });
+                new Drag('kronolithEventmonth' + calendar + event.key, { threshold: 5, parentElement: function() { return $('kronolithViewMonthBody'); }, snapToParent: true });
+            }
+            break;
         }
     },
 
@@ -695,7 +719,7 @@ KronolithCore = {
         return [start, end];
     },
 
-    _storeCache: function(events, calendar)
+    _storeCache: function(events, calendar, dates)
     {
         if (Object.isString(calendar)) {
             calendar = calendar.split('|');
@@ -705,6 +729,14 @@ KronolithCore = {
         }
         if (!this.ecache[calendar[0]][calendar[1]]) {
             this.ecache[calendar[0]][calendar[1]] = $H();
+        }
+        if (typeof dates != 'undefined') {
+            var start = Date.parseExact(dates.substr(0, 8), 'yyyyMMdd'),
+                end = Date.parseExact(dates.substr(8, 8), 'yyyyMMdd');
+            while (start.compareTo(end) <= 0) {
+                this.ecache[calendar[0]][calendar[1]].set(start.dateString(), {});
+                start.add(1).day();
+            }
         }
         this.ecache[calendar[0]][calendar[1]] = this.ecache[calendar[0]][calendar[1]].merge(events);
     },
