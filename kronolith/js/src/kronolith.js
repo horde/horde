@@ -17,7 +17,7 @@ var frames = { horde_main: true },
 KronolithCore = {
     // Vars used and defaulting to null/false:
     //   DMenu, alertrequest, inAjaxCallback, is_logout, onDoActionComplete,
-    //   eventForm
+    //   eventForm, daySizes
 
     view: '',
     ecache: $H(),
@@ -651,21 +651,29 @@ KronolithCore = {
 
         switch (view) {
         case 'day':
+            if (Object.isUndefined(this.daySizes)) {
+                /* Calculate some dimensions for the day view. */
+                this.daySizes = {};
+                var container = $('kronolithViewDay'),
+                    tr = container.down('tbody tr').next('tr'),
+                    td = tr.down('td'), height;
+                this.daySizes.offset = tr.offsetTop
+                    - container.down('.kronolithAllDay').offsetTop;
+                this.daySizes.height = tr.next('tr').offsetTop - tr.offsetTop;
+                this.daySizes.spacing = this.daySizes.height - tr.getHeight()
+                    + parseInt(td.getStyle('borderTopWidth'))
+                    + parseInt(td.getStyle('borderBottomWidth'));
+            }
+
             div.writeAttribute('id', 'kronolithEventday' + calendar + event.key);
             var midnight = Date.parseExact(date, 'yyyyMMdd'),
                 start = Date.parse(event.value.s),
                 end = Date.parse(event.value.e),
-                innerDiv = new Element('DIV', { 'class': 'kronolithEventInfo' }),
-                container = $('kronolithViewDay'),
-                tr = container.down('tbody tr').next('tr'),
-                td = tr.down('td'),
-                offset = tr.offsetTop - container.down('.kronolithAllDay').offsetTop,
-                height = tr.next('tr').offsetTop - tr.offsetTop,
-                spacing = height - tr.getHeight() + parseInt(td.getStyle('borderTopWidth')) + parseInt(td.getStyle('borderBottomWidth'));
+                innerDiv = new Element('DIV', { 'class': 'kronolithEventInfo' });
 
             div.setStyle({
-                'top': ((midnight.getElapsed(start) / 60000 | 0) * height / 60 + offset | 0) + 'px',
-                'height': ((start.getElapsed(end) / 60000 | 0) * height / 60 - spacing | 0) + 'px',
+                'top': ((midnight.getElapsed(start) / 60000 | 0) * this.daySizes.height / 60 + this.daySizes.offset | 0) + 'px',
+                'height': ((start.getElapsed(end) / 60000 | 0) * this.daySizes.height / 60 - this.daySizes.spacing | 0) + 'px',
                 'width': '100%'
             })
                 .insert(new Element('DIV', { 'class': 'kronolithDragger kronolithDraggerTop' }))
