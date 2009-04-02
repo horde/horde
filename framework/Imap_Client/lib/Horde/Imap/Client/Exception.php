@@ -53,8 +53,8 @@ class Horde_Imap_Client_Exception extends Exception
     // Thrown if server denies the network connection.
     const SERVER_CONNECT = 11;
 
-    // Thrown if server response times out.
-    const SERVER_TIMEOUT = 12;
+    // Thrown if read error for server response.
+    const SERVER_READERROR = 12;
 
     /**
      * Define a callback function used to log the exception. Will be passed

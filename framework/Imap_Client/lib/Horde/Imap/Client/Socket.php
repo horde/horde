@@ -3191,9 +3191,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     }
 
     /**
-     * Read data from stream using fread().
+     * Read data from stream.
      *
-     * @param integer $len     The number of bytes to read.
+     * @param integer $len     The number of bytes to read. If not present,
+     *                         reads a single line of data.
      * @param boolean $binary  Binary data?
      *
      * @return string  The data requested (stripped of trailing CRLF).
@@ -3201,9 +3202,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      */
     protected function _readData($len = null, $binary = false)
     {
-        if ((($len && !empty($this->_temp['buffer_in'])) ||
-             (!$len && empty($this->_temp['buffer_in']))) &&
-            feof($this->_stream)) {
+        if (feof($this->_stream)) {
             $this->_temp['logout'] = true;
             $this->logout();
             if ($this->_debug) {
@@ -3212,65 +3211,32 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             throw new Horde_Imap_Client_Exception('IMAP server closed the connection unexpectedly.', Horde_Imap_Client_Exception::IMAP_DISCONNECT);
         }
 
-        $ret = '';
-
-        if ($len) {
-            $bytes = $len;
-
-            if (!empty($this->_temp['buffer_in'])) {
-                $ptr = &$this->_temp['buffer_in'];
-                $bufferlen = strlen($ptr);
-                if ($bytes > $bufferlen) {
-                    $ret = $ptr;
-                    $ptr = '';
-                    $bytes -= $bufferlen;
-                } else {
-                    $ret = substr($ptr, 0, $bytes);
-                    $ptr = substr($ptr, $bytes);
-                    $bytes = 0;
-                }
-            }
-
-            while ($bytes && ($in = fread($this->_stream, 8192))) {
+        if (is_null($len)) {
+            $data = fgets($this->_stream);
+        } else {
+            $data = '';
+            while ($len && ($in = fread($this->_stream, min($len, 8192)))) {
+                $data .= $in;
                 $in_len = strlen($in);
-                if ($in_len > $bytes) {
-                    $ret .= substr($in, 0, $bytes);
-                    $ptr = substr($in, $bytes);
+                if ($in_len > $len) {
                     break;
                 }
-                $ret .= $in;
-                $bytes -= strlen($in);
+                $len -= $in_len;
             }
-        } else {
-            if (empty($this->_temp['buffer_in'])) {
-                if (!($in = fread($this->_stream, 8192))) {
-                    if ($this->_debug) {
-                        fwrite($this->_debug, '[ERROR: IMAP response timed out.]' . "\n");
-                    }
-                    throw new Horde_Imap_Client_Exception('IMAP response timed out.', Horde_Imap_Client_Exception::SERVER_TIMEOUT);
-                }
-                $this->_temp['buffer_in'] = $in;
-            }
+        }
 
-            $ptr = &$this->_temp['buffer_in'];
-            $pos = strpos($ptr, "\n");
-            if ($pos === false) {
-                $ret = $ptr;
-                $ptr = '';
-                return $ret . $this->_readData();
+        if ($data === false) {
+            if ($this->_debug) {
+                fwrite($this->_debug, '[ERROR: IMAP read error.]' . "\n");
             }
-            $ret = substr($ptr, 0, $pos + 1);
-            $ptr = substr($ptr, $pos + 1);
+            throw new Horde_Imap_Client_Exception('IMAP read error.', Horde_Imap_Client_Exception::SERVER_READERROR);
         }
 
         if ($this->_debug) {
-            $debug_line = $binary
-                ? '[BINARY DATA - ' . $len . ' bytes]'
-                : $ret;
-            fwrite($this->_debug, 'S (' . microtime(true) . '): ' . rtrim($debug_line) . "\n");
+            fwrite($this->_debug, 'S (' . microtime(true) . '): ' . ($binary ? '[BINARY DATA - ' . $len . ' bytes]' : $data));
         }
 
-        return rtrim($ret);
+        return rtrim($data);
     }
 
     /**
