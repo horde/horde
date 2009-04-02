@@ -169,6 +169,7 @@ function _kronolith_removeUserData($user)
         return PEAR::raiseError(_("You are not allowed to remove user data."));
     }
 
+    $no_maint = true;
     require_once dirname(__FILE__) . '/base.php';
 
     /* Remove all events owned by the user in all calendars. */
@@ -256,6 +257,7 @@ function __kronolith_modified($uid)
  */
 function _kronolith_browse($path = '', $properties = array())
 {
+    $no_maint = true;
     require_once dirname(__FILE__) . '/base.php';
     global $registry;
 
@@ -481,6 +483,7 @@ function _kronolith_browse($path = '', $properties = array())
  */
 function _kronolith_put($path, $content, $content_type)
 {
+    $no_maint = true;
     require_once dirname(__FILE__) . '/base.php';
 
     if (substr($path, 0, 9) == 'kronolith') {
@@ -612,6 +615,7 @@ function _kronolith_put($path, $content, $content_type)
  */
 function _kronolith_path_delete($path)
 {
+    $no_maint = true;
     require_once dirname(__FILE__) . '/base.php';
 
     if (substr($path, 0, 9) == 'kronolith') {
@@ -662,6 +666,7 @@ function _kronolith_path_delete($path)
  */
 function _kronolith_listCalendars($owneronly = false, $permission = null)
 {
+    $no_maint = true;
     require_once dirname(__FILE__) . '/base.php';
     if (is_null($permission)) {
         $permission = PERMS_SHOW;
@@ -680,6 +685,7 @@ function _kronolith_listCalendars($owneronly = false, $permission = null)
  */
 function _kronolith_list($calendar = null, $startstamp = 0, $endstamp = 0)
 {
+    $no_maint = true;
     require_once dirname(__FILE__) . '/base.php';
 
     if (empty($calendar)) {
@@ -722,6 +728,7 @@ function _kronolith_list($calendar = null, $startstamp = 0, $endstamp = 0)
  */
 function _kronolith_listBy($action, $timestamp, $calendar = null)
 {
+    $no_maint = true;
     require_once dirname(__FILE__) . '/base.php';
 
     if (empty($calendar)) {
@@ -754,6 +761,7 @@ function _kronolith_listBy($action, $timestamp, $calendar = null)
  */
 function _kronolith_getActionTimestamp($uid, $action, $calendar = null)
 {
+    $no_maint = true;
     require_once dirname(__FILE__) . '/base.php';
 
     if (empty($calendar)) {
@@ -785,6 +793,7 @@ function _kronolith_getActionTimestamp($uid, $action, $calendar = null)
  */
 function _kronolith_import($content, $contentType, $calendar = null)
 {
+    $no_maint = true;
     require_once dirname(__FILE__) . '/base.php';
 
     if (!isset($calendar)) {
@@ -876,6 +885,7 @@ function _kronolith_import($content, $contentType, $calendar = null)
  */
 function _kronolith_export($uid, $contentType)
 {
+    $no_maint = true;
     require_once dirname(__FILE__) . '/base.php';
     global $kronolith_shares;
 
@@ -925,6 +935,7 @@ function _kronolith_export($uid, $contentType)
  */
 function _kronolith_exportCalendar($calendar, $contentType)
 {
+    $no_maint = true;
     require_once dirname(__FILE__) . '/base.php';
     global $kronolith_shares;
 
@@ -982,6 +993,7 @@ function _kronolith_delete($uid)
         return true;
     }
 
+    $no_maint = true;
     require_once dirname(__FILE__) . '/base.php';
 
     $kronolith_driver = Kronolith::getDriver();
@@ -1041,6 +1053,7 @@ function _kronolith_delete($uid)
  */
 function _kronolith_replace($uid, $content, $contentType)
 {
+    $no_maint = true;
     require_once dirname(__FILE__) . '/base.php';
 
     $event = Kronolith::getDriver()->getByUID($uid);
@@ -1109,6 +1122,7 @@ function _kronolith_replace($uid, $content, $contentType)
 function _kronolith_getFreeBusy($startstamp = null, $endstamp = null,
                                 $calendar = null)
 {
+    $no_maint = true;
     require_once dirname(__FILE__) . '/base.php';
 
     if (is_null($calendar)) {
@@ -1130,6 +1144,7 @@ function _kronolith_getFreeBusy($startstamp = null, $endstamp = null,
  */
 function &_kronolith_eventFromUID($uid)
 {
+    $no_maint = true;
     require_once dirname(__FILE__) . '/base.php';
 
     $event = Kronolith::getDriver()->getByUID($uid);
@@ -1162,6 +1177,7 @@ function &_kronolith_eventFromUID($uid)
  */
 function _kronolith_updateAttendee($response, $sender = null)
 {
+    $no_maint = true;
     require_once dirname(__FILE__) . '/base.php';
 
     $uid = $response->getAttribute('UID');
@@ -1253,6 +1269,7 @@ function _kronolith_listEvents($startstamp = null, $endstamp = null,
                                $calendars = null, $showRecurrence = true,
                                $alarmsOnly = false)
 {
+    $no_maint = true;
     require_once dirname(__FILE__) . '/base.php';
 
     if (!isset($calendars)) {
@@ -1282,6 +1299,7 @@ function _kronolith_listEvents($startstamp = null, $endstamp = null,
  */
 function _kronolith_listAlarms($time, $user = null)
 {
+    $no_maint = true;
     require_once dirname(__FILE__) . '/base.php';
     require_once 'Horde/Group.php';
 
@@ -1448,6 +1466,7 @@ function _kronolith_unsubscribe($calendar)
  */
 function _kronolith_lock($calendar, $event = null)
 {
+    $no_maint = true;
     require_once dirname(__FILE__) . '/base.php';
 
     if (!array_key_exists($calendar,
@@ -1467,6 +1486,7 @@ function _kronolith_lock($calendar, $event = null)
  */
 function _kronolith_unlock($calendar, $lockid)
 {
+    $no_maint = true;
     require_once dirname(__FILE__) . '/base.php';
 
     if (!array_key_exists($calendar,
@@ -1486,6 +1506,7 @@ function _kronolith_unlock($calendar, $lockid)
  */
 function _kronolith_checkLocks($calendar, $event = null)
 {
+    $no_maint = true;
     require_once dirname(__FILE__) . '/base.php';
 
     if (!array_key_exists($calendar,

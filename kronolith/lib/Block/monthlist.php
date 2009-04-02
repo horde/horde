@@ -59,7 +59,7 @@ class Horde_Block_Kronolith_monthlist extends Horde_Block {
     function _content()
     {
         // @TODO Remove this hack when maintenance is refactored.
-        $from_block = true;
+        $no_maint = true;
         require_once dirname(__FILE__) . '/../base.php';
         require_once KRONOLITH_BASE . '/lib/Day.php';
 

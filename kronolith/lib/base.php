@@ -87,7 +87,7 @@ Kronolith::initialize();
  * already performed maintenance.
  */
 require_once 'Horde/Maintenance.php';
-if (empty($from_block) && Kronolith::loginTasksFlag() &&
+if (empty($no_maint) && Kronolith::loginTasksFlag() &&
     !strstr($_SERVER['PHP_SELF'], 'maintenance.php') &&
     !headers_sent() && !defined('AUTH_HANDLER') &&
     $GLOBALS['prefs']->getValue('do_maintenance')) {
