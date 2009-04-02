@@ -422,7 +422,7 @@ function _simpleButton($id, $text, $image, $imagedir = null)
 <?php if (!empty($flag_list)): ?>
 <div class="context" id="ctx_flag" style="display:none">
 <?php foreach ($flag_list as $key => $val): ?>
- <a flag="<?php echo htmlspecialchars($key) ?>"><span class="contextImg <?php echo htmlspecialchars($val['c']) ?>"></span><?php echo htmlspecialchars($val['l']) ?></a>
+ <a flag="<?php echo htmlspecialchars($key) ?>"><span class="contextImg <?php echo htmlspecialchars($val['c']) ?>"<?php echo ($val['t'] == 'imapp') ? ' style="background:' . htmlspecialchars($val['b']) . '"' : '' ?>></span><?php echo htmlspecialchars($val['l']) ?></a>
 <?php endforeach; ?>
 </div>
 <?php endif; ?>
