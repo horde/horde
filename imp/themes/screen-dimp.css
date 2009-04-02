@@ -1005,13 +1005,13 @@ span.dimpactionDrafts {
     background-image: url("graphics/add_contact.png");
 }
 #ctx_flag span.contextImg.flagUser {
+    border: 1px black solid;
     height: 15px;
     width: 15px;
-    border: 1px black solid;
 }
 div.msgRow div.msgSubject span.flagUser {
-    border: 1px black solid;
     font-size: 90%;
+    font-weight: normal;
     margin-right: 3px;
 }
 

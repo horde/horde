@@ -30,13 +30,12 @@
 .messageList td label input {
     vertical-align: middle;
 }
-.messageList td span.flagUser, #messages h1.header span.flagUser {
-    border: 1px black solid;
-    font-size: 75%;
+.messageList td span.flagUser {
+    font-size: 80%;
     margin-right: 3px;
 }
 #messages h1.header span.flagUser {
-    margin-right: 0px;
+    font-size: 80%;
     margin-left: 3px;
 }
 
