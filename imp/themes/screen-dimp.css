@@ -1018,7 +1018,7 @@ div.msgRow div.msgSubject span.flagUser {
 /* Thread images */
 span.threadImg {
     margin-top: -4px;
-    margin-right: 0;
+    margin-right: 1px;
 }
 
 /* Other images */

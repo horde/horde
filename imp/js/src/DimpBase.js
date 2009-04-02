@@ -18,6 +18,7 @@ var DimpBase = {
     pivotrow: -1,
     ppcache: {},
     ppfifo: [],
+    tcache: {},
 
     sfiltersfolder: $H({
         sf_all: 'all',
@@ -417,12 +418,17 @@ var DimpBase = {
                     // Add thread graphics
                     if (thread && thread.get(row.imapuid)) {
                         elt = r.down('.msgSubject');
-                        tmp = elt.cloneNode(false);
+                        tmp = document.createDocumentFragment();
                         u = thread.get(row.imapuid);
                         $R(0, u.length, true).each(function(i) {
-                            tmp.insert(new Element('SPAN', { className: 'threadImg threadImg' + u.charAt(i) }));
-                        });
-                        elt.replace(tmp.insert(elt.getText().escapeHTML()));
+                            var c = u.charAt(i);
+                            if (!this.tcache[c]) {
+                                this.tcache[c] = new Element('SPAN', { className: 'threadImg threadImg' + c });
+                            }
+                            tmp.appendChild(this.tcache[c].cloneNode(false));
+                        }, this);
+                        elt.select('SPAN.threadImg').invoke('remove');
+                        elt.insertBefore(tmp, elt.firstChild);
                     }
 
                     // Add context menu
@@ -2196,15 +2202,20 @@ var DimpBase = {
     updateStatusFlags: function(row)
     {
         var bg = null,
-            f = document.createDocumentFragment(),
+            pf = document.createDocumentFragment(),
             r = $(row.domid),
-            s;
+            sf = document.createDocumentFragment(),
+            stat, sub;
 
         if (!r) {
             return;
         }
 
-        s = r.down('.msgStatus');
+        stat = r.down('.msgStatus');
+        sub = r.down('.msgSubject');
+
+        /* Clear existing user flags. */
+        sub.select('.flagUser').invoke('remove');
 
         row.flag.each(function(a) {
             var ptr = DIMP.conf.flags[a];
@@ -2214,13 +2225,13 @@ var DimpBase = {
                     // need to truncate label text ourselves.
                     ptr.elt = new Element('SPAN', { className: ptr.c, title: ptr.l }).setStyle({ background: ptr.b }).update(ptr.l.truncate(10));
                 }
-                r.down('.msgSubject').insert({ top: ptr.elt.cloneNode(true) });
+                pf.appendChild(ptr.elt.cloneNode(true));
             } else {
                 if (!ptr.elt) {
                     ptr.elt = new Element('DIV', { className: 'msgflags ' + ptr.c, title: ptr.l });
                 }
                 r.addClassName(ptr.c);
-                f.appendChild(ptr.elt.cloneNode(false));
+                sf.appendChild(ptr.elt.cloneNode(false));
                 if (ptr.b) {
                     bg = ptr.b;
                 }
@@ -2228,9 +2239,17 @@ var DimpBase = {
         });
 
         /* Clear existing flags. */
-        s.down().nextSiblings().invoke('remove');
+        stat.down().nextSiblings().invoke('remove');
 
-        s.appendChild(f);
+        /* Add flag graphics. */
+        if (sf.firstChild) {
+            stat.appendChild(sf);
+        }
+        if (pf.firstChild) {
+            sub.insertBefore(pf, sub.lastChild);
+        }
+
+        /* Set (or reset) the background row color. */
         r.setStyle({ background: bg });
     },
 
