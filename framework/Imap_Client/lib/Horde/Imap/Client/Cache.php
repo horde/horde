@@ -251,7 +251,7 @@ class Horde_Imap_Client_Cache
                 }
             }
 
-            if ($this->_params['debug']) {
+            if ($this->_params['debug'] && !empty($ret_array)) {
                 fwrite($this->_params['debug'], 'Horde_Imap_Client_Cache: Retrieved from cache (mailbox: ' . $mailbox . '; UIDs: ' . implode(',', array_keys($ret_array)) . ")\n");
             }
         }
