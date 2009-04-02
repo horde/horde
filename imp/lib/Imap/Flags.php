@@ -14,7 +14,7 @@
 class IMP_Imap_Flags
 {
     /* IMAP flag prefix for IMP-specific flags. */
-    const PREFIX = '$IMPFlag';
+    const PREFIX = '$impflag';
 
     /**
      * Singleton instance.
@@ -138,7 +138,9 @@ class IMP_Imap_Flags
         $this->_flags = json_decode($GLOBALS['prefs']->getValue('msgflags'), true);
 
         /* Sanity checking. */
-        if (!is_array($this->_flags)) {
+        if (is_array($this->_flags)) {
+            $this->_flags = array_change_key_case($this->_flags, CASE_LOWER);
+        } else {
             $this->_flags = array();
             $this->_save();
         }
@@ -251,6 +253,7 @@ class IMP_Imap_Flags
      * 'div' - (string) A DIV HTML element, if 'div' option is true and a
      *         classname is defined.
      * 'label' - (string) The label of the flag.
+     * 'type' - (string) The flag type.
      * </pre>
      */
     public function parse($options = array())
@@ -324,7 +327,8 @@ class IMP_Imap_Flags
             $tmp = array(
                 'bg' => isset($val['b']) ? $val['b'] : $def_color,
                 'flag' => $key,
-                'label' => $val['l']
+                'label' => $val['l'],
+                'type' => $val['t']
             );
 
             if (isset($val['a'])) {
