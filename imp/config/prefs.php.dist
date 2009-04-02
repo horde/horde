@@ -1104,7 +1104,7 @@ $_prefs['msgflags'] = array(
     //                'atc' - Attachment information
     //                'imap' - IMAP flags (not user settable)
     //                'imapp' - IMAP flags (personal flags - created by user
-                                through the prefs interface)
+    //                          through the prefs interface)
     //                'imapu' - IMAP flags (user settable)
     //                'imp' - IMP defined flags
     //                NO DEFAULT (entry required)
