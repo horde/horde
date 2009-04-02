@@ -2208,13 +2208,22 @@ var DimpBase = {
 
         row.flag.each(function(a) {
             var ptr = DIMP.conf.flags[a];
-            if (!ptr.elt) {
-                ptr.elt = new Element('DIV', { className: 'msgflags ' + ptr.c, title: ptr.l });
-            }
-            r.addClassName(ptr.c);
-            f.appendChild(ptr.elt.cloneNode(false));
-            if (ptr.b) {
-                bg = ptr.b;
+            if (ptr.p) {
+                if (!ptr.elt) {
+                    // Until text-overflow is supported on all browsers,
+                    // need to truncate label text ourselves.
+                    ptr.elt = new Element('SPAN', { className: ptr.c, title: ptr.l }).setStyle({ background: ptr.b }).update(ptr.l.truncate(10));
+                }
+                r.down('.msgSubject').insert({ top: ptr.elt.cloneNode(true) });
+            } else {
+                if (!ptr.elt) {
+                    ptr.elt = new Element('DIV', { className: 'msgflags ' + ptr.c, title: ptr.l });
+                }
+                r.addClassName(ptr.c);
+                f.appendChild(ptr.elt.cloneNode(false));
+                if (ptr.b) {
+                    bg = ptr.b;
+                }
             }
         });
 

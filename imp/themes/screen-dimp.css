@@ -1009,6 +1009,11 @@ span.dimpactionDrafts {
     width: 15px;
     border: 1px black solid;
 }
+div.msgRow div.msgSubject span.flagUser {
+    border: 1px black solid;
+    font-size: 90%;
+    margin-right: 3px;
+}
 
 /* Thread images */
 span.threadImg {

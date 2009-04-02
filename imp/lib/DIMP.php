@@ -155,7 +155,9 @@ class DIMP
             $flags[$val['flag']] = array_filter(array(
                 'b' => isset($val['b']) ? $val['b'] : null,
                 'c' => $val['c'],
-                'l' => $val['l']
+                'l' => $val['l'],
+                // Indicate if this is a user *P*ref flag
+                'p' => intval($val['t'] == 'imapp')
             ));
         }
 
