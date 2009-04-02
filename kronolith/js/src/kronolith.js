@@ -344,9 +344,11 @@ KronolithCore = {
     {
         switch (view) {
         case 'day':
+            this.dayEvents = [];
+            this.dayGroups = [];
             $$('.kronolithEvent').invoke('remove');
             $('kronolithViewDay').down('.kronolithCol').setText(date.toString('D'));
-            this._loadEvents(date, date, this._loadEventsCallback.bind(this), view);
+            this._loadEvents(date, date, view);
             break;
 
         case 'month':
@@ -371,7 +373,7 @@ KronolithCore = {
             this._equalRowHeights(tbody);
 
             // Load events.
-            this._loadEvents(dates[0], dates[1], this._loadEventsCallback.bind(this), view);
+            this._loadEvents(dates[0], dates[1], view);
 
             break;
         }
@@ -564,7 +566,7 @@ KronolithCore = {
 
     /**
      */
-    _loadEvents: function(firstDay, lastDay, callback, view, calendars)
+    _loadEvents: function(firstDay, lastDay, view, calendars)
     {
         if (typeof calendars == 'undefined') {
             calendars = [];
@@ -579,20 +581,18 @@ KronolithCore = {
 
         calendars.each(function(cal) {
             var startDay = firstDay.clone(), endDay = lastDay.clone(),
+                cals = this.ecache.get(cal[0]),
                 events, date;
 
-            if (typeof this.ecache[cal[0]] != 'undefined' &&
-                typeof this.ecache[cal[0]][cal[1]] != 'undefined') {
-                while (!Object.isUndefined(this.ecache[cal[0]][cal[1]].get(startDay.dateString())) &&
+            if (typeof cals != 'undefined' &&
+                typeof cals.get(cal[1]) != 'undefined') {
+                cals = cals.get(cal[1]);
+                while (!Object.isUndefined(cals.get(startDay.dateString())) &&
                        startDay.isBefore(endDay)) {
-                    date = startDay.dateString();
-                    $H(this.ecache[cal[0]][cal[1]].get(date)).each(function(event) { this._insertEvent(event, cal.join('|'), date, view); }, this);
                     startDay.add(1).day();
                 }
-                while (!Object.isUndefined(this.ecache[cal[0]][cal[1]].get(endDay.dateString())) &&
+                while (!Object.isUndefined(cals.get(endDay.dateString())) &&
                        (startDay.isBefore(endDay) || startDay.equals(endDay))) {
-                    date = endDay.dateString();
-                    $H(this.ecache[cal[0]][cal[1]].get(date)).each(function(event) { this._insertEvent(event, cal.join('|'), date, view); }, this);
                     endDay.add(-1).day();
                 }
                 if (startDay.compareTo(endDay) > 0) {
@@ -605,7 +605,7 @@ KronolithCore = {
             this.loading++;
             $('kronolithLoading').show();
             this._storeCache($H(), calendar);
-            this.doAction('ListEvents', { start: start, end: end, cal: calendar, view: view }, callback.bind(this));
+            this.doAction('ListEvents', { start: start, end: end, cal: calendar, view: view }, this._loadEventsCallback.bind(this));
         }, this);
     },
 
@@ -624,7 +624,6 @@ KronolithCore = {
 
         this._storeCache(r.response.events || {}, r.response.cal, r.response.sig);
         if (r.response.events) {
-
             // Check if this is the still the result of the most current
             // request.
             if (r.response.view != this.view ||
@@ -632,8 +631,15 @@ KronolithCore = {
                 return;
             }
 
+            switch (this.view) {
+            case 'day':
+                this.dayEvents = [];
+                this.dayGroups = [];
+                $$('.kronolithEvent').invoke('remove');
+            }
+
             $H(r.response.events).each(function(date) {
-                $H(date.value).each(function(event) {
+                this._getCacheForDate(date.key).sortBy(this._sortEvents).each(function(event) {
                     this._insertEvent(event, r.response.cal, date.key, this.view);
                 }, this);
             }, this);
@@ -642,6 +648,9 @@ KronolithCore = {
 
     _insertEvent: function(event, calendar, date, view)
     {
+        calendar = event.value.cal || calendar;
+        event.value.cal = calendar;
+
         var div = new Element('DIV', {
             'calendar': calendar,
             'eventid' : event.key,
@@ -665,7 +674,9 @@ KronolithCore = {
                     + parseInt(td.getStyle('borderBottomWidth'));
             }
 
-            div.writeAttribute('id', 'kronolithEventday' + calendar + event.key);
+            event.value.nodeId = 'kronolithEventday' + calendar + event.key;
+            div.writeAttribute('id', event.value.nodeId);
+
             var midnight = Date.parseExact(date, 'yyyyMMdd'),
                 start = Date.parse(event.value.s),
                 end = Date.parse(event.value.e),
@@ -680,11 +691,62 @@ KronolithCore = {
                 .insert(innerDiv)
                 .insert(new Element('DIV', { 'class': 'kronolithDragger kronolithDraggerBottom' }));
             $('kronolithEventsDay').insert(div);
+
+            var column = 1, columns, width = 100, conflict = false,
+                pos = this.dayGroups.length, placeFound = false;
+
+            this.dayEvents.each(function(ev) {
+                var evStart = Date.parse(ev.s), evEnd = Date.parse(ev.e);
+                if (!evEnd.isAfter(start)) {
+                    placeFound = ev;
+                    return;
+                }
+
+                if (!conflict) {
+                    conflict = ev;
+                    for (i = 0; i < this.dayGroups.length; i++) {
+                        if (this.dayGroups[i].indexOf(conflict) != -1) {
+                            if (this.dayGroups[i].indexOf(placeFound) == -1) {
+                                placeFound = false;
+                            }
+                            break;
+                        }
+                    }
+                }
+                if (!placeFound) {
+                    column++;
+                }
+            }, this);
+            event.value.column = column;
+
+            if (conflict) {
+                for (i = 0; i < this.dayGroups.length; i++) {
+                    if (this.dayGroups[i].indexOf(conflict) != -1) {
+                        pos = i;
+                        break;
+                    }
+                }
+                columns = Math.max(conflict.columns, column);
+            } else {
+                columns = column;
+            }
+            if (Object.isUndefined(this.dayGroups[pos])) {
+                this.dayGroups[pos] = [];
+            }
+            this.dayGroups[pos].push(event.value);
+            width = 100 / columns;
+            this.dayGroups[pos].each(function(ev) {
+                ev.columns = columns;
+                $(ev.nodeId).setStyle({ 'width': width + '%', 'left': (width * (ev.column - 1)) + '%' });
+            });
+            this.dayEvents.push(event.value);
+
             div = innerDiv;
             break;
 
         case 'month':
-            div.writeAttribute('id', 'kronolithEventmonth' + calendar + event.key);
+            event.value.nodeId = 'kronolithEventmonth' + calendar + event.key;
+            div.writeAttribute('id', event.value.nodeId);
             $('kronolithMonthDay' + date).insert(div);
             if (event.value.ed) {
                 div.setStyle({ 'cursor': 'move' });
@@ -759,21 +821,21 @@ KronolithCore = {
         if (Object.isString(calendar)) {
             calendar = calendar.split('|');
         }
-        if (!this.ecache[calendar[0]]) {
-            this.ecache[calendar[0]] = $H();
+        if (!this.ecache.get(calendar[0])) {
+            this.ecache.set(calendar[0], $H());
         }
-        if (!this.ecache[calendar[0]][calendar[1]]) {
-            this.ecache[calendar[0]][calendar[1]] = $H();
+        if (!this.ecache.get(calendar[0]).get(calendar[1])) {
+            this.ecache.get(calendar[0]).set(calendar[1], $H());
         }
         if (typeof dates != 'undefined') {
             var start = Date.parseExact(dates.substr(0, 8), 'yyyyMMdd'),
                 end = Date.parseExact(dates.substr(8, 8), 'yyyyMMdd');
             while (start.compareTo(end) <= 0) {
-                this.ecache[calendar[0]][calendar[1]].set(start.dateString(), {});
+                this.ecache.get(calendar[0]).get(calendar[1]).set(start.dateString(), {});
                 start.add(1).day();
             }
         }
-        this.ecache[calendar[0]][calendar[1]] = this.ecache[calendar[0]][calendar[1]].merge(events);
+        this.ecache.get(calendar[0]).set(calendar[1], this.ecache.get(calendar[0]).get(calendar[1]).merge(events));
     },
 
     _deleteCache: function(event, calendar)
@@ -790,6 +852,40 @@ KronolithCore = {
                 delete day.value[event];
             }
         });
+    },
+
+    /**
+     * Return all events for a single day from all displayed calendars merged
+     * into a single hash.
+     *
+     * @param string date  A yyyymmdd date string.
+     *
+     * @return Hash  An event hash which event ids as keys and event objects as
+     *               values.
+     */
+    _getCacheForDate: function(date)
+    {
+        var events = $H();
+        this.ecache.each(function(type) {
+            type.value.each(function(cal) {
+                events = events.merge(cal.value.get(date));
+            });
+        });
+        return events;
+    },
+
+    /**
+     * Helper method for Enumerable.sortBy to sort events first by start time,
+     * second by end time reversed.
+     *
+     * @param Hash event  A hash entry with the event object as the value.
+     *
+     * @return string  A comparable string.
+     */
+    _sortEvents: function(event)
+    {
+        return Date.parse(event.value.s).toString('HHmmss')
+            + (240000 - parseInt(Date.parse(event.value.e).toString('HHmmss'))).toPaddedString('0');
     },
 
     _addHistory: function(loc, data)
@@ -1021,7 +1117,7 @@ KronolithCore = {
                 if (typeof this.ecache[calClass] == 'undefined' ||
                     typeof this.ecache[calClass][calendar] == 'undefined') {
                     var dates = this.viewDates(this.date, this.view);
-                    this._loadEvents(dates[0], dates[1], this._loadEventsCallback.bind(this), this.view, [[calClass, calendar]]);
+                    this._loadEvents(dates[0], dates[1], this.view, [[calClass, calendar]]);
                 } else {
                     $('kronolithViewMonth').select('div[calendar=' + calClass + '|' + calendar + ']').invoke('toggle');
                 }
@@ -1110,7 +1206,7 @@ KronolithCore = {
 
         try {
             var ev = r.response.event;
-            $('kronolithEventId').value = ev.i;
+            $('kronolithEventId').value = ev.id;
             $('kronolithEventCalendar').value = ev.ty + '|' + ev.c;
             $('kronolithEventTitle').value = ev.t;
             $('kronolithEventLocation').value = ev.l;

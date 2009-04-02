@@ -1037,7 +1037,7 @@ abstract class Kronolith_Event
         }
 
         if ($full) {
-            $json->i = $this->getId();
+            $json->id = $this->getId();
             $json->ty = $this->_calendarType;
             $json->l = $this->getLocation();
             $json->al = $this->isAllDay();
