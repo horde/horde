@@ -279,6 +279,21 @@ div.msgflags.flagForwarded, span.contextImg.flagForwarded {
     background-image: url("graphics/mail_forwarded.png");
 }
 
+/* Flag management (prefs) styles. */
+table.flagmanagement {
+    padding-bottom: 10px;
+}
+table.flagmanagement td {
+    padding-right: 12px;
+}
+table.flagmanagement thead td {
+    font-weight: bold;
+    text-decoration: underline;
+}
+table.flagmanagement tbody td.flagicon {
+    text-align: center;
+}
+
 .folderunsub {
     background: #bbb;
     font-style: italic;
