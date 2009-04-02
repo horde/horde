@@ -59,18 +59,36 @@ class Horde_Imap_Client_Utils
             sort($in, SORT_NUMERIC);
         }
 
+        $i = count($in);
         $first = $last = array_shift($in);
         $out = array();
 
-        foreach ($in as $val) {
-            if ($last + 1 == $val) {
+        if ($i == 1) {
+            return $first;
+        }
+
+        $i -= 2;
+        reset($in);
+        while (list($key, $val) = each($in)) {
+            if ((($last + 1) == $val) && ($i != $key)) {
                 $last = $val;
             } else {
-                $out[] = $first . ($last == $first ? '' : (':' . $last));
-                $first = $last = $val;
+                if ($last == $first) {
+                    $out[] = $first;
+                } elseif ($last == ($first + 1)) {
+                    $out[] = $first;
+                    $out[] = $last;
+                } else {
+                    $out[] = $first . ':' . $last;
+                }
+
+                if ($i == $key) {
+                    $out[] = $val;
+                } else {
+                    $first = $last = $val;
+                }
             }
         }
-        $out[] = $first . ($last == $first ? '' : (':' . $last));
 
         return implode(',', $out);
     }
@@ -126,13 +144,23 @@ class Horde_Imap_Client_Utils
             $idarray = array($str);
         }
 
-        foreach ($idarray as $val) {
-            $range = array_map('intval', explode(':', $val));
-            if (count($range) == 1) {
+        reset($idarray);
+        while (list(,$val) = each($idarray)) {
+            $pos = strpos($val, ':');
+            if ($pos === false) {
                 $ids[] = $val;
             } else {
-                list($low, $high) = ($range[0] < $range[1]) ? $range : array_reverse($range);
-                $ids = array_merge($ids, range($low, $high));
+                $low = substr($val, 0, $pos);
+                $high = substr($val, $pos + 1);
+                if ($low > $high) {
+                    $tmp = $low;
+                    $low = $high;
+                    $high = $tmp;
+                }
+
+                for (; $low <= $high; ++$low) {
+                    $ids[] = $low;
+                }
             }
         }
 
