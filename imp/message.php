@@ -411,7 +411,7 @@ if (!IMP::$printMode) {
 
     foreach ($flag_parse as $val) {
         if ($val['type'] == 'imapp') {
-            $status .= '<span class="userFlag" style="background:' . htmlspecialchars($val['bg']) . '">' . htmlspecialchars($val['label']) . '</span>';
+            $status .= '<span class="' . $val['classname'] . '" style="background:' . htmlspecialchars($val['bg']) . '">' . htmlspecialchars($val['label']) . '</span>';
         } else {
             $status .= $val['div'];
         }

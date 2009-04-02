@@ -860,7 +860,7 @@ while (list(,$ob) = each($mbox_info['overview'])) {
             $flag_label = String::substr($val['label'], 0, 10) . '...';
         }
 
-        $msg['subject'] = '<span class="userFlag" style="background:' . htmlspecialchars($val['bg']) . '" title="' . htmlspecialchars($val['label']) . '">' . htmlspecialchars($flag_label) . '</span>' . $msg['subject'];
+        $msg['subject'] = '<span class="' . $val['classname'] . '" style="background:' . htmlspecialchars($val['bg']) . '" title="' . htmlspecialchars($val['label']) . '">' . htmlspecialchars($flag_label) . '</span>' . $msg['subject'];
     }
 
     /* Set up threading tree now. */
