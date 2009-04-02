@@ -109,14 +109,6 @@ while (list(,$ob) = each($mbox_info['overview'])) {
         $msg['from'] = String::substr($msg['from'], 0, $conf['mimp']['mailbox']['max_from_chars']) . '...';
     }
 
-    if (!is_null($threadob) && ($threadob->getThreadIndent($ob['uid']))) {
-        $msg['subject'] = '>> ' . ltrim($msg['subject']);
-    }
-
-    if (String::length($msg['subject']) > $conf['mimp']['mailbox']['max_subj_chars']) {
-        $msg['subject'] = String::substr($msg['subject'], 0, $conf['mimp']['mailbox']['max_subj_chars']) . '...';
-    }
-
     /* Get flag information. */
     $imp_flags = &IMP_Imap_Flags::singleton();
     $flag_parse = $imp_flags->parse(array(
@@ -128,7 +120,22 @@ while (list(,$ob) = each($mbox_info['overview'])) {
     foreach ($flag_parse as $val) {
         if (isset($val['abbrev'])) {
             $msg['status'] .= $val['abbrev'];
+        } elseif ($val['type'] == 'imapp') {
+            $msg['subject'] = '*' .
+                ((String::length($val['label']) > 8)
+                     ? String::substr($val['label'], 0, 5) . '...'
+                     : $val['label']
+                ) .
+                '* ' . $msg['subject'];
         }
+    }
+
+    if (!is_null($threadob) && ($threadob->getThreadIndent($ob['uid']))) {
+        $msg['subject'] = '>> ' . ltrim($msg['subject']);
+    }
+
+    if (String::length($msg['subject']) > $conf['mimp']['mailbox']['max_subj_chars']) {
+        $msg['subject'] = String::substr($msg['subject'], 0, $conf['mimp']['mailbox']['max_subj_chars']) . '...';
     }
 
     /* Generate the target link. */

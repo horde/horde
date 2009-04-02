@@ -224,6 +224,12 @@ $flag_parse = $imp_flags->parse(array(
 foreach ($flag_parse as $val) {
     if (isset($val['abbrev'])) {
         $status .= $val['abbrev'];
+    } elseif ($val['type'] == 'imapp') {
+        if (String::length($val['label']) > 8) {
+            $status .= ' *' . String::substr($val['label'], 0, 5) . '...*';
+        } else {
+            $status .= ' *' . $val['label'] . '*';
+        }
     }
 }
 
@@ -339,7 +345,7 @@ MIMP::addMIMPMenu($mset, 'message');
 
 $mimp_render->set('title', $display_headers['subject']);
 
-$c = &$mimp_render->add(new Horde_Mobile_card('m', $status . ' ' . $display_headers['subject'] . ' ' . sprintf(_("(%d of %d)"), $msgindex, $msgcount)));
+$c = &$mimp_render->add(new Horde_Mobile_card('m', ($status ? $status . ' | ' : '') . $display_headers['subject'] . ' ' . sprintf(_("(%d of %d)"), $msgindex, $msgcount)));
 $c->softkey('#o', _("Menu"));
 
 $imp_notify->setMobileObject($c);
