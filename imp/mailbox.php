@@ -779,14 +779,19 @@ while (list(,$ob) = each($mbox_info['overview'])) {
         'priority' => $ob['headers']->getValue('x-priority')
     ));
 
+    $subject_flags = array();
     foreach ($flag_parse as $val) {
-        if (isset($val['div'])) {
-            $msg['status'] .= $val['div'];
+        if ($val['type'] == 'imapp') {
+            $subject_flags[] = $val;
+        } else {
+            if (isset($val['div'])) {
+                $msg['status'] .= $val['div'];
+            }
+            if (isset($val['classname'])) {
+                $msg['class'] = $val['classname'];
+            }
+            $msg['bg'] = $val['bg'];
         }
-        if (isset($val['classname'])) {
-            $msg['class'] = $val['classname'];
-        }
-        $msg['bg'] = $val['bg'];
     }
 
     /* Show colors for fetchmail messages? */
@@ -846,6 +851,16 @@ while (list(,$ob) = each($mbox_info['overview'])) {
         $msg['subject'] = substr(Horde::linkTooltip($target, $msg['preview'], '', '', '', $msg['preview']), 0, -1) . ' class="mboxSubject">' . $msg['subject'] . '</a>';
     } else {
         $msg['subject'] = substr(Horde::link($target, $msg['preview']), 0, -1) . ' class="mboxSubject">' . $msg['subject'] . '</a>' . (!empty($msg['preview']) ? '<br /><small>' . $msg['preview'] . '</small>' : '');
+    }
+
+    /* Add subject flags. */
+    foreach ($subject_flags as $val) {
+        $flag_label = $val['label'];
+        if (String::length($val['label']) > 12) {
+            $flag_label = String::substr($val['label'], 0, 10) . '...';
+        }
+
+        $msg['subject'] = '<span class="userFlag" style="background:' . htmlspecialchars($val['bg']) . '" title="' . htmlspecialchars($val['label']) . '">' . htmlspecialchars($flag_label) . '</span>' . $msg['subject'];
     }
 
     /* Set up threading tree now. */

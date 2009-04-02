@@ -410,7 +410,9 @@ if (!IMP::$printMode) {
     ));
 
     foreach ($flag_parse as $val) {
-        if (isset($val['div'])) {
+        if ($val['type'] == 'imapp') {
+            $status .= '<span class="userFlag" style="background:' . htmlspecialchars($val['bg']) . '">' . htmlspecialchars($val['label']) . '</span>';
+        } else {
             $status .= $val['div'];
         }
     }
@@ -444,6 +446,7 @@ if (!IMP::$printMode) {
     $n_template->set('id', 1);
 
     if (!$use_pop) {
+        $n_template->set('mailbox', $imp_mbox['mailbox']);
         $n_template->set('flaglist', $imp_flags->getList(array('imap' => true, 'mailbox' => $imp_mbox['mailbox'])));
 
         if ($conf['user']['allow_folders']) {
