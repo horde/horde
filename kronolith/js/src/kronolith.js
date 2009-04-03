@@ -283,7 +283,7 @@ KronolithCore = {
             });
             $('kronolithNav' + locCap).addClassName('on');
             if (this.view && this.view != loc) {
-                $('kronolithView' + this.view.capitalize()).fade();
+                $('kronolithView' + this.view.capitalize()).fade({ 'queue': 'end' });
             }
 
             switch (loc) {
@@ -307,7 +307,11 @@ KronolithCore = {
 
                 this.updateView(date, loc);
                 if ($('kronolithView' + locCap)) {
-                    $('kronolithView' + locCap).appear();
+                    var dates = this.viewDates(date, loc);
+                    $('kronolithView' + locCap).appear({
+                        'queue': 'end',
+                        'afterFinish': function() { this._loadEvents(dates[0], dates[1], loc); }.bind(this)
+                    });
                 }
                 this.updateMinical(date, loc);
                 this.date = date;
@@ -316,7 +320,7 @@ KronolithCore = {
 
             default:
                 if ($('kronolithView' + locCap)) {
-                    $('kronolithView' + locCap).appear();
+                    $('kronolithView' + locCap).appear({ 'queue': 'end' });
                 }
                 break;
             }
@@ -348,7 +352,6 @@ KronolithCore = {
             this.dayGroups = [];
             $$('.kronolithEvent').invoke('remove');
             $('kronolithViewDay').down('.kronolithCol').setText(date.toString('D'));
-            this._loadEvents(date, date, view);
             break;
 
         case 'month':
@@ -371,9 +374,6 @@ KronolithCore = {
                 rows++;
             }
             this._equalRowHeights(tbody);
-
-            // Load events.
-            this._loadEvents(dates[0], dates[1], view);
 
             break;
         }
@@ -589,10 +589,12 @@ KronolithCore = {
                 cals = cals.get(cal[1]);
                 while (!Object.isUndefined(cals.get(startDay.dateString())) &&
                        startDay.isBefore(endDay)) {
+                    this._insertEvents([startDay.dateString()], view, cal.join('|'));
                     startDay.add(1).day();
                 }
                 while (!Object.isUndefined(cals.get(endDay.dateString())) &&
                        (startDay.isBefore(endDay) || startDay.equals(endDay))) {
+                    this._insertEvents([endDay.dateString()], view, cal.join('|'));
                     endDay.add(-1).day();
                 }
                 if (startDay.compareTo(endDay) > 0) {
@@ -631,19 +633,41 @@ KronolithCore = {
                 return;
             }
 
-            switch (this.view) {
-            case 'day':
-                this.dayEvents = [];
-                this.dayGroups = [];
-                $$('.kronolithEvent').invoke('remove');
-            }
-
-            $H(r.response.events).each(function(date) {
-                this._getCacheForDate(date.key).sortBy(this._sortEvents).each(function(event) {
-                    this._insertEvent(event, r.response.cal, date.key, this.view);
-                }, this);
-            }, this);
+            this._insertEvents($H(r.response.events).keys(), this.view, r.response.cal);
         }
+    },
+
+    /**
+     * Reads events from the cache and inserts them into the view.
+     *
+     * If inserting events into day views, the calendar parameter is ignored,
+     * and events from all visible calendars are inserted instead. This is
+     * necessary because the complete view has to be re-rendered if events are
+     * not in chronological order.
+     *
+     * @param Array dates      A list of dates (as strings) to process.
+     * @param string view      The view to update.
+     * @param string calendar  The calendar to update.
+     */
+    _insertEvents: function(dates, view, calendar)
+    {
+        switch (view) {
+        case 'day':
+            // We have recreate events from all calendars in
+            $$('.kronolithEvent').invoke('remove');
+            this.dayEvents = [];
+            this.dayGroups = [];
+        }
+
+        dates.each(function(date) {
+            this._getCacheForDate(date).sortBy(this._sortEvents).each(function(event) {
+                if (view != 'day' &&
+                    calendar && calendar != event.value.calendar) {
+                    return;
+                }
+                this._insertEvent(event, calendar, date, view);
+            }, this);
+        }, this);
     },
 
     _insertEvent: function(event, calendar, date, view)
@@ -816,17 +840,34 @@ KronolithCore = {
         return [start, end];
     },
 
+    /**
+     * Stores a set of events in the cache.
+     *
+     * For dates in the specified date ranges that don't contain any events,
+     * empty cache entries are created so that those dates aren't re-fetched
+     * each time.
+     *
+     * @param object events    A list of calendars and events as return from
+     *                         an ajax request.
+     * @param string calendar  A calendar string or array.
+     * @param string dates     A date range in the format yyyymmddyyyymmdd as
+     *                         used in the ajax response signature.
+     */
     _storeCache: function(events, calendar, dates)
     {
         if (Object.isString(calendar)) {
             calendar = calendar.split('|');
         }
+
+        // Create cache entry for the calendar.
         if (!this.ecache.get(calendar[0])) {
             this.ecache.set(calendar[0], $H());
         }
         if (!this.ecache.get(calendar[0]).get(calendar[1])) {
             this.ecache.get(calendar[0]).set(calendar[1], $H());
         }
+
+        // Create empty cache entries for all dates.
         if (typeof dates != 'undefined') {
             var start = Date.parseExact(dates.substr(0, 8), 'yyyyMMdd'),
                 end = Date.parseExact(dates.substr(8, 8), 'yyyyMMdd');
@@ -835,22 +876,36 @@ KronolithCore = {
                 start.add(1).day();
             }
         }
+
+        // Store calendar string in event objects.
+        var cal = calendar.join('|');
+        $H(events).each(function(date) {
+            $H(date.value).each(function(event) {
+                event.value.calendar = cal;
+            });
+        });
+
+        // Store events in cache.
         this.ecache.get(calendar[0]).set(calendar[1], this.ecache.get(calendar[0]).get(calendar[1]).merge(events));
     },
 
+    /**
+     * Deletes an event from the cache.
+     *
+     * @param string event     An event ID.
+     * @param string calendar  A calendar string or array.
+     */
     _deleteCache: function(event, calendar)
     {
         if (Object.isString(calendar)) {
             calendar = calendar.split('|');
         }
-        if (!this.ecache[calendar[0]] ||
-            !this.ecache[calendar[0]][calendar[1]]) {
+        if (!this.ecache.get(calendar[0]) ||
+            !this.ecache.get(calendar[0]).get(calendar[1])) {
             return;
         }
-        this.ecache[calendar[0]][calendar[1]].each(function(day) {
-            if (day.value[event]) {
-                delete day.value[event];
-            }
+        this.ecache.get(calendar[0]).get(calendar[1]).each(function(day) {
+            day.value.unset(event);
         });
     },
 
@@ -868,6 +923,9 @@ KronolithCore = {
         var events = $H();
         this.ecache.each(function(type) {
             type.value.each(function(cal) {
+                if (!Kronolith.conf.calendars[type.key][cal.key].show) {
+                    return;
+                }
                 events = events.merge(cal.value.get(date));
             });
         });
@@ -1113,8 +1171,8 @@ KronolithCore = {
             calClass = elt.readAttribute('calendarclass');
             if (calClass) {
                 var calendar = elt.readAttribute('calendar');
-                if (typeof this.ecache[calClass] == 'undefined' ||
-                    typeof this.ecache[calClass][calendar] == 'undefined') {
+                if (typeof this.ecache.get(calClass) == 'undefined' ||
+                    typeof this.ecache.get(calClass).get(calendar) == 'undefined') {
                     var dates = this.viewDates(this.date, this.view);
                     this._loadEvents(dates[0], dates[1], this.view, [[calClass, calendar]]);
                 } else {
