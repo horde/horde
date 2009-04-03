@@ -60,6 +60,13 @@ var KronolithTagger = Class.create({
         
         addNewTagNode: function(value)
         {
+            // Don't add if it's already present.
+            for (var x = 0, len = this.p.selectedTags.length; x < len; x++) {
+                if (this.p.selectedTags[x] == value) {
+                    return;
+                }
+            }
+          
             var newTag = new Element('li', {class: 'kronolithACListItem kronolithTagACListItem'}).update(value);
             var x = new Element('img', {class: 'kronolithTagACRemove', src:this.p.URI_IMG_HORDE + "/delete-small.png"});
             x.observe('click', this._removeTag.bindAsEventListener(this));
