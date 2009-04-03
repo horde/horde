@@ -1015,8 +1015,8 @@ abstract class Kronolith_Event
         $json->e = $this->end->toJson();
         $json->bg = $this->_backgroundColor;
         $json->fg = $this->_foregroundColor;
-        $json->ed = $this->hasPermission(PERMS_EDIT);
-        $json->d = $this->hasPermission(PERMS_DELETE);
+        $json->pe = $this->hasPermission(PERMS_EDIT);
+        $json->pd = $this->hasPermission(PERMS_DELETE);
         if ($this->alarm) {
             if ($this->alarm % 10080 == 0) {
                 $alarm_value = $this->alarm / 10080;

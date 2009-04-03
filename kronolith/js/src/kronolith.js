@@ -1222,7 +1222,7 @@ KronolithCore = {
                     return option.value == ev.r;
                 }).selected = true;
             }
-            if (ev.ed) {
+            if (ev.pe) {
                 $('kronolithEventSave').show();
                 $('kronolithEventForm').enable();
             } else {
@@ -1230,7 +1230,7 @@ KronolithCore = {
                 $('kronolithEventForm').disable();
                 $('kronolithEventCancel').enable();
             }
-            if (ev.d) {
+            if (ev.pd) {
                 $('kronolithEventDelete').show();
             } else {
                 $('kronolithEventDelete').hide();
