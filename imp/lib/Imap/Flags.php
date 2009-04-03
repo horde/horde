@@ -13,8 +13,8 @@
  */
 class IMP_Imap_Flags
 {
-    /* IMAP flag prefix for IMP-specific flags. */
-    const PREFIX = '$impflag';
+    /* IMAP flag prefix for IMP-specific flags/keywords. */
+    const PREFIX = 'impflag';
 
     /**
      * Singleton instance.
