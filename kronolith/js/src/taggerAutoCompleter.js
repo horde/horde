@@ -36,6 +36,19 @@ var KronolithTagger = Class.create({
 
         },
 
+        reset: function(e)
+        {
+            // TODO: Resize the trigger field to fill the current line?
+            //$(this.p.trigger).value = '';
+
+            // Clear the hidden input field
+            //$(this.p.tags).value = '';
+
+            if (this.p.selectedTags.length) {
+                $('kronolithTagACBox').select('li.kronolithTagACListItem').each(function(item) {this.removeTagNode(item) }.bind(this));
+            }
+        },
+
         _onKeyDown: function(e)
         {
             // Check for a comma
@@ -71,7 +84,7 @@ var KronolithTagger = Class.create({
 
             var newTag = new Element('li', {class: 'kronolithACListItem kronolithTagACListItem'}).update(value);
             var x = new Element('img', {class: 'kronolithTagACRemove', src:this.p.URI_IMG_HORDE + "/delete-small.png"});
-            x.observe('click', this._removeTag.bindAsEventListener(this));
+            x.observe('click', this._removeTagHandler.bindAsEventListener(this));
             newTag.insert(x);
             $(this.p.container).insert({before: newTag});
             $(this.p.trigger).value = '';
@@ -87,21 +100,21 @@ var KronolithTagger = Class.create({
             this.p.selectedTags.push(value);
         },
 
-        _removeTag: function(e)
+        removeTagNode: function(item)
         {
-            item = Event.element(e).up();
-            // The value to remove from the hidden textbox
             var value = item.collectTextNodesIgnoreClass('informal');
-
             for (var x = 0, len = this.p.selectedTags.length; x < len; x++) {
                 if (this.p.selectedTags[x] == value) {
                     this.p.selectedTags.splice(x, 1);
                 }
             }
-
-            $(this.p.tags).value = this.p.selectedTags.join(',');
-
-            // Nuke the node.
             item.remove();
+        },
+
+        _removeTagHandler: function(e)
+        {
+            item = Event.element(e).up();
+            this.removeTagNode(item);
+            $(this.p.tags).value = this.p.selectedTags.join(',');
         }
 });

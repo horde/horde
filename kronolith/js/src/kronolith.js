@@ -1024,7 +1024,6 @@ KronolithCore = {
 
             case 'kronolithEventCancel':
                 this._closeRedBox();
-                // TODO: Need to clear the tagger fields.
                 e.stop();
                 return;
 
@@ -1160,6 +1159,7 @@ KronolithCore = {
         };
 
         this.doAction('ListTopTags', {}, this._topTags);
+        $('kronolithTagACTrigger').kronolithTagger.reset();
         if (id) {
             RedBox.loading();
             this.doAction('GetEvent', { 'cal': calendar, 'id': id }, this._editEvent.bind(this));
