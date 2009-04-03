@@ -1106,7 +1106,7 @@ KronolithCore = {
                 e.stop();
                 return;
             } else if (elt.hasClassName('kronolithEventTag')) {
-                $('kronolithTagACTrigger').forceTaggerUpdate(elt.getText());
+                $('kronolithTagACTrigger').kronolithTagger.addNewTagNode(elt.getText());
                 e.stop();
                 return;
             }

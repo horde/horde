@@ -2,38 +2,40 @@ var KronolithTagger = Class.create({
         initialize: function(params)
         {
             this.p = params;
-            
+
             trigger = $(this.p.trigger);
             trigger.observe('keydown', this._onKeyDown.bindAsEventListener(this));
-            trigger.forceTaggerUpdate = function(item) {
-                this.addNewTagNode(item);
-            }.bind(this);
+
+            // Bind this object to the trigger so we can call it's methods
+            // from client code.
+            trigger.kronolithTagger = this;
+
             // Make sure the right dom elements are styled correctly.
             $(this.p.container).addClassName('kronolithACListItem kronolithTagACContainer');
-            
+
             // Make sure the p.tags element is hidden
             if (!this.p.debug) {
                 $(this.p.tags).hide();
             }
-            
+
             // Set the updateElement callback
             this.p.params.updateElement = this._updateElement.bind(this);
-            
+
             // Look for clicks on the box to simulate clicking in an input box
             $(this.p.box).observe('click', function() {$(this.p.trigger).focus()}.bindAsEventListener(this));
-            
+
             // Create the underlaying Autocompleter
             new Ajax.Autocompleter(params.trigger, params.resultsId, params.uri, params.params);
-            
+
             // Prepopulate the tags and the container elements?
             if (this.p.existing) {
                for (var i = 0, l = this.p.existing.length; i < l; i++) {
                     this.addNewTagNode(this.p.existing[i]);
                 }
             }
-            
+
         },
-        
+
         _onKeyDown: function(e)
         {
             // Check for a comma
@@ -48,16 +50,16 @@ var KronolithTagger = Class.create({
                     this.addNewTagNode(value);
                 }
                 e.stop();
-            }          
+            }
         },
-        
+
         // Used as the updateElement callback.
         _updateElement: function(item)
         {
             var value = item.collectTextNodesIgnoreClass('informal');
             this.addNewTagNode(value);
         },
-        
+
         addNewTagNode: function(value)
         {
             // Don't add if it's already present.
@@ -66,7 +68,7 @@ var KronolithTagger = Class.create({
                     return;
                 }
             }
-          
+
             var newTag = new Element('li', {class: 'kronolithACListItem kronolithTagACListItem'}).update(value);
             var x = new Element('img', {class: 'kronolithTagACRemove', src:this.p.URI_IMG_HORDE + "/delete-small.png"});
             x.observe('click', this._removeTag.bindAsEventListener(this));
@@ -84,13 +86,13 @@ var KronolithTagger = Class.create({
             // ...and keep the selectedTags array up to date.
             this.p.selectedTags.push(value);
         },
-         
+
         _removeTag: function(e)
         {
             item = Event.element(e).up();
             // The value to remove from the hidden textbox
             var value = item.collectTextNodesIgnoreClass('informal');
-            
+
             for (var x = 0, len = this.p.selectedTags.length; x < len; x++) {
                 if (this.p.selectedTags[x] == value) {
                     this.p.selectedTags.splice(x, 1);
@@ -101,5 +103,5 @@ var KronolithTagger = Class.create({
 
             // Nuke the node.
             item.remove();
-        }     
+        }
 });
