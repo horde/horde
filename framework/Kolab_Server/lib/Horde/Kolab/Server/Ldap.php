@@ -214,23 +214,18 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
             $to = -1;
         }
 
-        $entries = array();
-        foreach ($data as $entry) {
-            $entries[] = $entry['dn'];
-        }
-
         if (!empty($vars['required_group'])) {
             $required_group = $this->fetch($vars['required_group'],
                                            'Horde_Kolab_Server_Object_Kolabgroupofnames');
         }
 
         $objects = array();
-        foreach ($entries as $dn) {
-            if (!empty($vars['required_group']) && $required_group->isMember($dn)) {
+        foreach ($data as $uid => $entry) {
+            if (!empty($vars['required_group']) && $required_group->isMember($uid)) {
                 continue;
             }
-            $result    = $this->fetch($dn, $type);
-            $objects[$dn] = $result;
+            $result    = &Horde_Kolab_Server_Object::factory($type, $uid, $this, $entry);
+            $objects[$uid] = $result;
         }
         return $objects;
     }
