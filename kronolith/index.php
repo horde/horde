@@ -65,4 +65,12 @@ require KRONOLITH_TEMPLATES . '/index/index.inc';
 Kronolith::includeScriptFiles();
 Kronolith::outputInlineScript();
 $notification->notify(array('listeners' => array('javascript')));
+Kronolith_Imple::factory('TagAutoCompleter',
+     array('box' => 'kronolithTagACBox',
+           'triggerId' => 'kronolithTagACTrigger',
+           'tags' => 'kronolithEventTags',
+           'container' => 'kronolithTagACContainer'
+           //'existing' => array('tag1', 'tag2'),
+           //'debug' => true
+           ));
 echo "</body>\n</html>";

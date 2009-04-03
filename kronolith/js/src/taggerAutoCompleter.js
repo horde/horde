@@ -2,19 +2,25 @@ var KronolithTagger = Class.create({
         initialize: function(params)
         {
             this.p = params;
-            $(this.p.trigger).observe('keydown', this._onKeyDown.bindAsEventListener(this));
             
+            trigger = $(this.p.trigger);
+            trigger.observe('keydown', this._onKeyDown.bindAsEventListener(this));
+            trigger.forceTaggerUpdate = function(item) {
+                this.addNewTagNode(item);
+            }.bind(this);
             // Make sure the right dom elements are styled correctly.
-            $(this.p.container).addClassName('listItem tagACContainer');
-            $(this.p.trigger).addClassName('showTag');
+            $(this.p.container).addClassName('kronolithACListItem kronolithTagACContainer');
             
             // Make sure the p.tags element is hidden
-            if (!params.debug) {
+            if (!this.p.debug) {
                 $(this.p.tags).hide();
             }
             
             // Set the updateElement callback
-            params.params.updateElement = this._updateElement.bind(this);
+            this.p.params.updateElement = this._updateElement.bind(this);
+            
+            // Look for clicks on the box to simulate clicking in an input box
+            $(this.p.box).observe('click', function() {$(this.p.trigger).focus()}.bindAsEventListener(this));
             
             // Create the underlaying Autocompleter
             new Ajax.Autocompleter(params.trigger, params.resultsId, params.uri, params.params);
@@ -54,8 +60,8 @@ var KronolithTagger = Class.create({
         
         addNewTagNode: function(value)
         {
-            var newTag = new Element('li', {class: 'listItem tagListItem'}).update(value);
-            var x = new Element('img', {class: 'tagRemove', src:this.p.URI_IMG_HORDE + "/delete-small.png"});
+            var newTag = new Element('li', {class: 'kronolithACListItem kronolithTagACListItem'}).update(value);
+            var x = new Element('img', {class: 'kronolithTagACRemove', src:this.p.URI_IMG_HORDE + "/delete-small.png"});
             x.observe('click', this._removeTag.bindAsEventListener(this));
             newTag.insert(x);
             $(this.p.container).insert({before: newTag});

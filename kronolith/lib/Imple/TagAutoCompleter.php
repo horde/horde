@@ -33,7 +33,7 @@ class Kronolith_Imple_TagAutoCompleter extends Kronolith_Imple
 
     /**
      * Attach the Imple object to a javascript event.
-     * Assume that if the 'container' parameter is empty then we want a
+     * Assume that if the 'box' parameter is empty then we want a
      * traditional autocompleter, otherwise we get a spiffy pretty one.
      *
      */
@@ -43,7 +43,7 @@ class Kronolith_Imple_TagAutoCompleter extends Kronolith_Imple
         parent::attach();
         Horde::addScriptFile('autocomplete.js', 'horde', true);
 
-        if ($pretty = !empty($this->_params['container'])) {
+        if ($pretty = !empty($this->_params['box'])) {
             Horde::addScriptFile('taggerAutoCompleter.js', 'kronolith', true);
         }
         $this->_params['uri'] =  Horde::url($GLOBALS['registry']->get('webroot', 'kronolith') . '/imple.php?imple=TagAutoCompleter/input=' . rawurlencode($this->_params['triggerId']), true);
@@ -69,7 +69,8 @@ class Kronolith_Imple_TagAutoCompleter extends Kronolith_Imple
         $params[] = '{' . implode(',', $js_params) . '}';
 
         if ($pretty) {
-            $js_vars = array('resultsId' => $this->_params['resultsId'],
+            $js_vars = array('box' => $this->_params['box'],
+                             'resultsId' => $this->_params['resultsId'],
                              'uri' => $this->_params['uri'],
                              'selectedTags' => array(),
                              'trigger' => $this->_params['triggerId'],
@@ -77,12 +78,8 @@ class Kronolith_Imple_TagAutoCompleter extends Kronolith_Imple
                              'container' => $this->_params['container'],
                              'URI_IMG_HORDE' => $registry->getImageDir('horde'),
                              'params' => $params);
-            // These are optional
-            if ($this->_params['debug']) {
-                $js_vars['debug'] = $this->_params['debug'];
-            }
 
-            if ($this->_params['existing']) {
+            if (!empty($this->_params['existing'])) {
                 $js_vars['existing'] = $this->_params['existing'];
             }
 

@@ -1024,6 +1024,7 @@ KronolithCore = {
 
             case 'kronolithEventCancel':
                 this._closeRedBox();
+                // TODO: Need to clear the tagger fields.
                 e.stop();
                 return;
 
@@ -1105,8 +1106,7 @@ KronolithCore = {
                 e.stop();
                 return;
             } else if (elt.hasClassName('kronolithEventTag')) {
-                var etags = $F('kronolithEventTags');
-                $('kronolithEventTags').value = (etags ? etags + ', ' :  '') + elt.getText();
+                $('kronolithTagACTrigger').forceTaggerUpdate(elt.getText());
                 e.stop();
                 return;
             }
