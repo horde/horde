@@ -33,7 +33,6 @@ require_once 'Horde/Autoloader.php';
  */
 abstract class Horde_Kolab_Server
 {
-
     /**
      * Server parameters.
      *
@@ -54,6 +53,13 @@ abstract class Horde_Kolab_Server
      * @var array
      */
     protected $searches;
+
+    /**
+     * Does this server type support automatic schema analysis?
+     *
+     * @var boolean
+     */
+    public $schema_support = false;
 
     /**
      * Construct a new Horde_Kolab_Server object.
@@ -275,16 +281,16 @@ abstract class Horde_Kolab_Server
      * method would call a static object class function that operate on the
      * result array returned from the server without using objects.
      *
-     * @todo The LDAP driver needs a more efficient version of this call as it
-     *       is not required to generate objects before returning data as a
-     *       hash. It can be derived directly from the LDAP result.
-     *
      * @param string $type   The type of the objects to be listed
      * @param array  $params Additional parameters.
      *
      * @return array An array of Kolab objects.
      *
      * @throws Horde_Kolab_Server_Exception
+     *
+     * @todo The LDAP driver needs a more efficient version of this call as it
+     *       is not required to generate objects before returning data as a
+     *       hash. It can be derived directly from the LDAP result.
      */
     public function listHash($type, $params = null)
     {
@@ -349,7 +355,8 @@ abstract class Horde_Kolab_Server
         if (in_array($method, array_keys($this->searches))) {
             array_unshift($args, $this);
             if (isset($this->searches[$method])) {
-                return call_user_func_array(array($this->searches[$method]['class'], $method), $args);
+                return call_user_func_array(array($this->searches[$method]['class'],
+                                                  $method), $args);
             }
         }
         throw new Horde_Kolab_Server_Exception(
