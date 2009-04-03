@@ -51,6 +51,20 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
     private $_base_dn;
 
     /**
+     * Does this server type support automatic schema analysis?
+     *
+     * @var boolean
+     */
+    public $schema_support = false;
+
+    /**
+     * The LDAP schemas.
+     *
+     * @var Net_LDAP2_Schema
+     */
+    private $_schema;
+
+    /**
      * Construct a new Horde_Kolab_Server_ldap object.
      *
      * @param array $params Parameter array.
@@ -81,6 +95,10 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
         $config['bindpw'] = $config['pass'];
 
         $this->_config = $config;
+
+        if (!empty($params['schema_support'])) {
+            $this->schema_support = true;
+        }
 
         $this->connect();
 
@@ -133,7 +151,7 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
         }
 
         $result = $this->search(null, $params, $dn);
-        $data = $result->as_struct();
+        $data   = $result->as_struct();
         if (is_a($data, 'PEAR_Error')) {
             throw new Horde_Kolab_Server_Exception($data->getMessage());
         }
@@ -188,7 +206,7 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
         }
 
         $result = $this->search($filter, $options, $base);
-        $data = $result->as_struct();
+        $data   = $result->as_struct();
         if (is_a($data, 'PEAR_Error')) {
             throw new Horde_Kolab_Server_Exception($data->getMessage());
         }
@@ -224,7 +242,8 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
             if (!empty($vars['required_group']) && $required_group->isMember($uid)) {
                 continue;
             }
-            $result    = &Horde_Kolab_Server_Object::factory($type, $uid, $this, $entry);
+            $result = &Horde_Kolab_Server_Object::factory($type, $uid,
+                                                          $this, $entry);
             $objects[$uid] = $result;
         }
         return $objects;
@@ -238,6 +257,45 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
     public function getBaseUid()
     {
         return $this->_base_dn;
+    }
+
+    /**
+     * Return the attributes supported by the given object classes.
+     *
+     * @param array $object_classes The object classes to search for attributes.
+     *
+     * @return array The supported attributes.
+     *
+     * @throws Horde_Kolab_Server_Exception If the schema analysis fails.
+     */
+    public function getSupportedAttributes($object_classes)
+    {
+        if (!isset($this->_schema)) {
+            $result = $this->_ldap->schema();
+            if ($result instanceOf PEAR_Error) {
+                throw new Horde_Kolab_Server_Exception($result->getMessage());
+            }
+            $this->_schema = &$result;
+        }
+        $supported = array();
+        $required  = array();
+        foreach ($object_classes as $object_class) {
+            $info = $this->_schema->get('objectclass', $object_class);
+            if ($info instanceOf PEAR_Error) {
+                throw new Horde_Kolab_Server_Exception($info->getMessage());
+            }
+            if (isset($info['may'])) {
+                $supported = array_merge($supported, $info['may']);
+            }
+            if (isset($info['must'])) {
+                $supported = array_merge($supported, $info['must']);
+                $required  = array_merge($required, $info['must']);
+            }
+        }
+        if (empty($supported) && empty($required)) {
+            return false;
+        }
+        return array('required' => $required, 'supported' => $supported);
     }
 
     /**
@@ -281,7 +339,8 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
             throw new Horde_Kolab_Server_Exception(sprintf(_("The object %s has no %s attribute!"),
                                                            $dn, Horde_Kolab_Server_Object::ATTRIBUTE_OC));
         }
-        $result = array_map('strtolower', $object[Horde_Kolab_Server_Object::ATTRIBUTE_OC]);
+        $result = array_map('strtolower',
+                            $object[Horde_Kolab_Server_Object::ATTRIBUTE_OC]);
         return $result;
     }
 
@@ -339,8 +398,12 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
                 if (isset($vals['field'])) {
                     require_once 'Horde/String.php';
                     require_once 'Horde/NLS.php';
-                    $rhs     = String::convertCharset($vals['test'], NLS::getCharset(), $this->params['charset']);
-                    $clause .= Horde_LDAP::buildClause($vals['field'], $vals['op'], $rhs, array('begin' => !empty($vals['begin'])));
+                    $rhs     = String::convertCharset($vals['test'],
+                                                      NLS::getCharset(),
+                                                      $this->params['charset']);
+                    $clause .= Horde_LDAP::buildClause($vals['field'],
+                                                       $vals['op'], $rhs,
+                                                       array('begin' => !empty($vals['begin'])));
                 } else {
                     foreach ($vals as $test) {
                         if (!empty($test['OR'])) {
@@ -348,8 +411,12 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
                         } elseif (!empty($test['AND'])) {
                             $clause .= '(&' . $this->buildSearchQuery($test) . ')';
                         } else {
-                            $rhs     = String::convertCharset($test['test'], NLS::getCharset(), $this->params['charset']);
-                            $clause .= Horde_LDAP::buildClause($test['field'], $test['op'], $rhs, array('begin' => !empty($vals['begin'])));
+                            $rhs     = String::convertCharset($test['test'],
+                                                              NLS::getCharset(),
+                                                              $this->params['charset']);
+                            $clause .= Horde_LDAP::buildClause($test['field'],
+                                                               $test['op'], $rhs,
+                                                               array('begin' => !empty($vals['begin'])));
                         }
                     }
                 }
