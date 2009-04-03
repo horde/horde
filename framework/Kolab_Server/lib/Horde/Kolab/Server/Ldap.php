@@ -37,6 +37,13 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
     private $_ldap;
 
     /**
+     * The configuration for connection to the LDAP server.
+     *
+     * @var array
+     */
+    private $_config;
+
+    /**
      * Base DN of the LDAP server.
      *
      * @var string
@@ -73,6 +80,8 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
         $config['binddn'] = $config['uid'];
         $config['bindpw'] = $config['pass'];
 
+        $this->_config = $config;
+
         $this->connect();
 
         parent::__construct($params);
@@ -88,7 +97,7 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
      */
     protected function connect()
     {
-        $this->_ldap = Net_LDAP2::connect($config);
+        $this->_ldap = Net_LDAP2::connect($this->_config);
         if (is_a($this->_ldap, 'PEAR_Error')) {
             throw new Horde_Kolab_Server_Exception($this->_ldap);
         }
