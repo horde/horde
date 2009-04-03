@@ -138,7 +138,7 @@ To function properly, IMP **requires** the following:
 
    While IMP is an application that is installed on a Web server and is run
    from a Web browser, it is only an IMAP and POP3 *client*, like Outlook,
-   Apple Mail or Thunderbird. You must have access to an IMAP or POP3
+   Apple Mail, or Thunderbird. You must have access to an IMAP or POP3
    server(s) on which your users' mail is stored in order to use IMP.
 
    IMAP is *strongly* recommended over POP3.  See, e.g.,
@@ -152,6 +152,8 @@ To function properly, IMP **requires** the following:
    - Cyrus (http://asg.web.cmu.edu/cyrus/)
    - Dovecot (http://www.dovecot.org/)
    - UW-IMAP (ftp://ftp.cac.washington.edu/imap/)
+
+   Most of these pacakages also include POP3 support as well.
 
    The selected IMAP server MUST support IMAP4rev1 (RFC 3501).
    The selected POP server MUST support POP3 (RFC 1939/STD 53).
@@ -179,16 +181,16 @@ The following items are not required, but are strongly **RECOMMENDED**:
 
       ftp://ftp.horde.org/pub/turba/
 
-   Turba provides a local address book and an LDAP directory search function
+   Turba provides the local address book and an LDAP directory search function
    to IMP.
 
-   You must use the 2.x branch of Turba with IMP 4.x.
+   You must use the 3.x branch of Turba with IMP 5.x.
 
 3. Ingo, the Horde mail filters manager.
 
    Ingo is the Horde mail filters management application, designed to be
    integrated with other Horde applications to provide a unified interface to
-   filter management throughout the Horde suite.
+   mail filter management throughout the Horde suite.
 
    Ingo is available from:
 
@@ -196,14 +198,9 @@ The following items are not required, but are strongly **RECOMMENDED**:
 
       ftp://ftp.horde.org/pub/ingo/
 
-   Ingo provides the mail filtering interfaces to IMP - there is no built-in
-   filtering in IMP.
+   Ingo provides the mail filtering interfaces to IMP.
 
-   You must use the 1.x branch of Ingo with IMP 4.x.
-
-   To use IMAP client-side filtering (i.e. the filtering provided by IMP 3.x),
-   ingo should use the ``null`` driver and the ``imap`` script settings (set
-   in ``ingo/config/backends.php``).
+   You must use the 2.x branch of Ingo with IMP 5.x.
 
 4. Nag, the Horde tasks manager.
 
@@ -220,7 +217,7 @@ The following items are not required, but are strongly **RECOMMENDED**:
    If nag is available on your system, users can easily create new tasks from
    individual email messages.
 
-   You must use the 2.x branch of Nag with IMP 4.x.
+   You must use the 3.x branch of Nag with IMP 5.x.
 
 5. Gollem, the Horde file manager.
 
@@ -237,7 +234,7 @@ The following items are not required, but are strongly **RECOMMENDED**:
    Gollem allows a user to attach files from various VFS filesystems to
    outgoing messages in IMP.
 
-   You must use the 1.x branch of Gollem with IMP 4.x.
+   You must use the 2.x branch of Gollem with IMP 5.x.
 
 6. aspell - Spelling Checker
 
@@ -252,10 +249,9 @@ The following items are not required, but are strongly **RECOMMENDED**:
 
 7. A web server with PATH_INFO support.
 
-   IMP requires a web server that correctly sets the PATH_INFO environment
-   variable for all PHP scripts for several features. Every modern web server
-   supports this, but you might have to enable this feature in the web server
-   configuration. e.g. Apache servers require::
+   IMP requires the PATH_INFO environment variable for several features. Every
+   modern web server supports this, but you might have to enable this feature
+   in the web server configuration. e.g. Apache servers require::
 
       AcceptPathInfo On
 
@@ -268,8 +264,6 @@ The following items are not required, but are strongly **RECOMMENDED**:
    During composition of messages, it is possible that the PHP session may
    timeout. If VFS is enabled in Horde, IMP can store the draft message and
    allow the user to recover the message when they next login.
-
-.. _`Bug #5955`: http://bugs.horde.org/ticket/?id=5955#c13
 
 
 Installing IMP
@@ -367,14 +361,13 @@ Configuring IMP
 
    a. servers.php
 
-      You must be sure to list your IMAP/POP3 server names and
-      configuration information in ``servers.php`` (unless you allow
-      users to choose any server).
+      You must be sure to list your IMAP/POP3 server names and configuration
+      information in ``servers.php``.
 
    b. motd.php
 
-      You should either provide your own message-of-the-day type
-      information, or remove motd.php.
+      You should either provide your own message-of-the-day type information,
+      or remove motd.php.
 
    You must login to Horde as a Horde Administrator to finish the
    configuration of IMP.  Use the Horde ``Administration`` menu item to get to
@@ -395,15 +388,6 @@ Configuring IMP
    `horde/docs/TRANSLATIONS`_ file for instructions.
 
    IMP Configuration Pointers
-
-   * If you would like IMP to scan all text messages for UUencoded data, you
-     must make this change in ``imp/config/mime_drivers.php``::
-
-     $mime_drivers['imp']['plain']['uuencode'] = true;
-
-     Note that this is a performance hit since *every* text body must be
-     scanned in its entriety to look for uuencoded data.  Therefore, this
-     feature is disabled by default.
 
    * By default, IMP is configured to NOT display text/html message parts
      inline.  This is done for various security reasons.  If you would like
@@ -431,22 +415,24 @@ Configuring IMP
    The simplest way to avoid this is to have the mail server running on the
    same system as the Web server, and configuring IMP to connect to the IMAP
    or POP3 server on ``localhost`` instead of on the Internet hostname.  In
-   cases where that is not possible, we recommend using IMAP-SSL or POP3-SSL
+   cases where that is not possible, it is highly recommended that the mail
+   server be located on a private, secure network. Alternatively, the mail
+   server can be accessed via TLS (or via the deprecated SSL-specific ports)
    to ensure that users' passwords remain safe after they have entrusted them
    to IMP.
 
    Other security steps you can take to increase security include:
 
-   * Use session cookies instead or URL based sessions.
+   * Use session cookies instead of URL based sessions.
    * Set your php ``session.entropy_length`` to a larger value (e.g. 16) and
      ``session.entropy_file`` to a random source (e.g. ``/dev/urandom``)
    * Enable and use the php mycrypt extension.
    * If your database, mail server, and web server are on the same host
      machine, then:
 
-     * use unix socket database access and disable tcp database access.
-     * use ``localhost`` for all TCP/IP connections to avoid the network.
-     * use the command-line sendmail for sending mail if possible.
+     * Use unix socket database access and disable tcp database access.
+     * Use ``localhost`` for all TCP/IP connections to avoid the network.
+     * Use the command-line sendmail for sending mail if possible.
 
 5. Testing IMP
 
@@ -480,44 +466,44 @@ Configuring IMP
 
    IMP Specific Performance Information::
 
-   IMP can use persistent caching on the server side to store information about
-   user's messages.  This results in much reduced mail server traffic and
-   requires the server to parse the structure of every message only once.  The
-   tradeoff is your cache backend must be able to handle the potentially large
-   amounts of cached data this option will produce.
+   IMP can use persistent caching on the server side to store information
+   about user's messages.  This results in much reduced mail server traffic
+   and requires the server to parse the structure of every message only once.
+   The tradeoff is your cache backend must be able to handle the potentially
+   large amounts of cached data this option will produce. However, cache
+   storage is potentially cheap when compared to the performance gained by
+   using caching.
 
    To use this caching, you must have a ``Cache System`` configured in Horde's
    ``Administration/Setup`` screen and have the relevant settings enabled in
    IMP's setup screen (``Administration/Setup/Webmail/Mailbox and Fetchmail``).
 
 
-DIMP Troubleshooting
-====================
+Dynamic View (dimp) Troubleshooting
+===================================
 
-DIMP differs from most traditional Horde applications in that it requires
-javascript support and, in fact, javascript performs the bulk of the page
-display.  As such, debugging DIMP is more complex than with other Horde
-applications.
+DIMP (IMP's dynamic, AJAX-based view) differs from traditional Horde
+applications in that it requires javascript support; in fact, javascript
+performs the bulk of the page display.  As such, debugging DIMP is more
+complex than with other Horde applications.
 
 If you run into problems with DIMP, first follow the troubleshooting steps
-for both Horde and IMP - namely checking PHP error logs and Horde debug logs,
-to determine if the problem is located there.  Since DIMP uses Horde and IMP
-code extensively on the server side, most server-based errors will be logged
-in the traditional manner.
+for Horde - namely checking PHP error logs and Horde debug logs to determine
+if the problem is located there.  Server-based errors will be logged in the
+traditional manner.
 
 Only if traditional debugging is unsuccessful will you need to move to
 javascript debugging.  It is highly recommended to use Mozilla Firefox with
-the `Firebug`_ extension installed in order to better track javascript errors
-- it is what the developers use and makes deciphering error codes and error
-line numbers much easier.  Next, it is also recommended to set the ``debug``
-parameter in ``dimp/conf/conf.php`` to ``true`` (no quotes) - this will popup
-javascript exceptions that may not be able to be caught by Firebug.  Next you
-will want to turn off javascript caching, if on, in ``dimp/conf/conf.php``.
+the `Firebug`_ extension installed in order to better track javascript
+errors - it is what the developers use and makes deciphering error codes and
+error line numbers much easier.  It is also recommended to set the ``debug``
+parameter in ``dimp/conf/conf.php`` to ``true`` (no quotes).  Next you will
+want to turn off javascript caching, if on, in ``dimp/conf/conf.php``.
 Finally, you need to change ``horde/conf/registry.php`` to serve the
 javascript files from the ``js/src/`` directory rather than the ``js/``
 directory (we compress javascript files to reduce network load, but this
-results in all javascript errors occurring on line 1 which is not very useful
-to diagnose the problem).
+results in all javascript errors occurring on "line 1" which is not very
+useful to diagnose problems).
 
 If you do find a javascript error, it would be great if you could fix the
 issue and provide a patch :)  Absent that, before reporting to the mailing
