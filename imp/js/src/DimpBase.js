@@ -616,7 +616,7 @@ var DimpBase = {
 
     contextOnClick: function(parentfunc, elt, baseelt, menu)
     {
-        var id = elt.readAttribute('id');
+        var flag, id = elt.readAttribute('id');
 
         switch (id) {
         case 'ctx_folder_create':
@@ -711,11 +711,11 @@ var DimpBase = {
             if (menu == 'ctx_message_setflag' ||
                 menu == 'ctx_draft_setflag' ||
                 menu == 'oa_setflag') {
-                this.flag('imapflag', { imap: elt.readAttribute('flag'), set: true });
+                this.flag('imapflag', { imap: elt.readAttribute('flag'), set: true, userset: true });
             } else if (menu == 'ctx_message_unsetflag' ||
                        menu == 'ctx_draft_unsetflag' ||
                        menu == 'oa_unsetflag') {
-                this.flag('imapflag', { imap: elt.readAttribute('flag'), set: false });
+                this.flag('imapflag', { imap: elt.readAttribute('flag'), set: false, userset: true });
             } else {
                 parentfunc(elt, baseelt, menu);
             }
@@ -2061,7 +2061,8 @@ var DimpBase = {
     },
 
     /* Flag actions for message list. */
-    // opts = 'imap' 'index', 'mailbox', 'noserver' (only for answered/unanswered), 'set'
+    // opts = 'imap' 'index', 'mailbox', 'noserver' (only for
+    // answered/unanswered), 'set', 'userset'
     flag: function(action, opts)
     {
         var actionCall, args, vs,
@@ -2147,6 +2148,10 @@ var DimpBase = {
                 return;
 
             case '\\seen':
+                if (opts.userset) {
+                    opts.set = !opts.set;
+                }
+
                 vs.get('dataob').each(function(s) {
                     this.updateSeenUID(s, opts.set);
                 }, this);
