@@ -105,6 +105,10 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
 
         $this->_config = $config;
 
+        if (!empty($params['schema_support'])) {
+            $this->schema_support = true;
+        }
+
         $this->connect();
 
         parent::__construct($params);
@@ -466,7 +470,6 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
             }
         }
     }
-
 
     /**
      * Search for object data.
