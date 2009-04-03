@@ -39,7 +39,8 @@ class Horde_Kolab_Server_Object_Organizationalperson extends Horde_Kolab_Server_
      */
     protected $object_classes = array(
         self::OBJECTCLASS_TOP,
-        self::OBJECTCLASS_ORGANIZATIONALPERSON
+        self::OBJECTCLASS_PERSON,
+        self::OBJECTCLASS_ORGANIZATIONALPERSON,
     );
 
     /**
