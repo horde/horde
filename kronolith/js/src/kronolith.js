@@ -1159,12 +1159,12 @@ KronolithCore = {
         };
 
         this.doAction('ListTopTags', {}, this._topTags);
-        $('kronolithTagACTrigger').kronolithTagger.reset();
         if (id) {
             RedBox.loading();
             this.doAction('GetEvent', { 'cal': calendar, 'id': id }, this._editEvent.bind(this));
         } else {
             var d = new Date();
+            $('kronolithTagACTrigger').kronolithTagger.init();
             $('kronolithEventForm').enable();
             $('kronolithEventForm').reset();
             $('kronolithEventId').value = '';
@@ -1215,7 +1215,7 @@ KronolithCore = {
             $('kronolithEventStartTime').value = ev.st;
             $('kronolithEventEndDate').value = ev.ed;
             $('kronolithEventEndTime').value = ev.et;
-            $('kronolithEventTags').value = ev.tg.join(', ');
+            $('kronolithTagACTrigger').kronolithTagger.init(ev.tg);
             if (ev.r) {
                 // @todo: refine
                 $A($('kronolithEventRecurrence').options).find(function(option) {

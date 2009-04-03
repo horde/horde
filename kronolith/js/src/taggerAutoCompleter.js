@@ -29,24 +29,26 @@ var KronolithTagger = Class.create({
 
             // Prepopulate the tags and the container elements?
             if (this.p.existing) {
-               for (var i = 0, l = this.p.existing.length; i < l; i++) {
-                    this.addNewTagNode(this.p.existing[i]);
-                }
+                this.init(this.p.existing);
             }
 
         },
 
-        reset: function(e)
+        init: function(existing)
         {
             // TODO: Resize the trigger field to fill the current line?
-            //$(this.p.trigger).value = '';
-
-            // Clear the hidden input field
-            //$(this.p.tags).value = '';
-
+            // Clear any existing values
             if (this.p.selectedTags.length) {
                 $('kronolithTagACBox').select('li.kronolithTagACListItem').each(function(item) {this.removeTagNode(item) }.bind(this));
             }
+
+            // Add any initial values
+            if (typeof existing != 'undefined' && existing.length) {
+                for (var i = 0, l = existing.length; i < l; i++) {
+                    this.addNewTagNode(existing[i]);
+                }
+            }
+
         },
 
         _onKeyDown: function(e)
