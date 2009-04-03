@@ -2,6 +2,9 @@
  * mailbox-dimp.js - Template used to format the rows in the message list
  * display.
  *
+ * 'status', 'style', and 'subjectdata' are entries that are internally
+ * created by DimpBase.js.
+ *
  * See the documentation of prototypejs - Template for the template format:
  *   http://www.prototypejs.org/api/template
  *
@@ -12,12 +15,13 @@
  */
 
 DimpBase.message_list_template =
-'<div id="#{domid}" class="#{bg_string}">' +
+'<div id="#{domid}" class="#{bg_string}" style="#{style}">' +
  '<div class="msgStatus">' +
   '<div class="msCheck"></div>' +
+  '#{status}' +
  '</div>' +
  '<div class="msgFrom">#{from}</div>' +
- '<div class="msgSubject" title="#{subject}">#{subject}</div>' +
+ '<div class="msgSubject" title="#{subject}">#{subjectdata}#{subject}</div>' +
  '<div class="msgDate">#{date}</div>' +
  '<div class="msgSize">#{size}</div>' +
 '</div>';

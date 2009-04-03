@@ -401,46 +401,70 @@ var DimpBase = {
             page_size: DIMP.conf.splitbar_pos,
             onScrollIdle: settitle,
             onSlide: settitle,
-            onContent: function(rows) {
-                var mf, search,
+            onContent: function(row) {
+                var bg, search,
                     thread = ((this.viewport.getMetaData('sortby') == DIMP.conf.sortthread) && this.viewport.getMetaData('thread'));
+
                 if (this.viewport.isFiltering()) {
-                    search = this.sfilters.get(this._getSearchfilterField()).capitalize();
-                    mf = new RegExp("(" + $F('msgList_filter') + ")", "i");
+                    search = this.sfilters.get(this._getSearchfilterField());
                 }
 
-                rows.get('dataob').each(function(row) {
-                    var elt, tmp, u,
-                        r = $(row.domid);
+                row.subjectdata = row.status = '';
 
-                    this.updateStatusFlags(row);
+                // Add thread graphics
+                if (thread && thread.get(row.imapuid)) {
+                    u = thread.get(row.imapuid);
+                    $R(0, u.length, true).each(function(i) {
+                        var c = u.charAt(i);
+                        if (!this.tcache[c]) {
+                            this.tcache[c] = '<span class="threadImg threadImg' + c + '"></span>';
+                        }
+                        row.subjectdata += this.tcache[c];
+                    }, this);
+                }
 
-                    // Add thread graphics
-                    if (thread && thread.get(row.imapuid)) {
-                        elt = r.down('.msgSubject');
-                        tmp = document.createDocumentFragment();
-                        u = thread.get(row.imapuid);
-                        $R(0, u.length, true).each(function(i) {
-                            var c = u.charAt(i);
-                            if (!this.tcache[c]) {
-                                this.tcache[c] = new Element('SPAN', { className: 'threadImg threadImg' + c });
-                            }
-                            tmp.appendChild(this.tcache[c].cloneNode(false));
-                        }, this);
-                        elt.select('SPAN.threadImg').invoke('remove');
-                        elt.insertBefore(tmp, elt.firstChild);
+                /* Generate the status flags. */
+                row.flag.each(function(a) {
+                    var ptr = DIMP.conf.flags[a];
+                    if (ptr.p) {
+                        if (!ptr.elt) {
+                            /* Until text-overflow is supported on all
+                             * browsers, need to truncate label text
+                             * ourselves. */
+                            ptr.elt = '<span class="' + ptr.c + '" title="' + ptr.l + '" style="background:' + ptr.b + '">' + ptr.l.truncate(10) + '</span>';
+                        }
+                        row.subjectdata += ptr.elt;
+                    } else {
+                        if (!ptr.elt) {
+                            ptr.elt = '<div class="msgflags ' + ptr.c + '" title="' + ptr.l + '"></div>';
+                        }
+                        row.status += ptr.elt;
+
+                        row.bg_string += ' ' + ptr.c;
+
+                        if (ptr.b) {
+                            bg = ptr.b;
+                        }
                     }
+                });
 
+                // Set bg
+                if (bg) {
+                    row.style = 'background:' + bg;
+                }
+
+                // Highlight search terms
+                if (search == 'from' || search == 'subject') {
+                    row[search] = row[search].gsub(new RegExp("(" + $F('msgList_filter') + ")", "i"), '<span class="searchMatch">#{1}</span>');
+                }
+            }.bind(this),
+            onContentComplete: function(rows) {
+                rows.each(function(row) {
                     // Add context menu
                     this._addMouseEvents({ id: row.domid, type: row.menutype });
-                    new Drag(r, this._msgDragConfig);
-
-                    // Highlight search terms
-                    if (search == 'From' || search == 'Subject') {
-                        elt = r.down('.msg' + search);
-                        elt.update(elt.getText().escapeHTML().gsub(mf, '<span class="searchMatch">#{1}</span>'));
-                    }
+                    new Drag(row.domid, this._msgDragConfig);
                 }, this);
+
                 this.setMessageListTitle();
             }.bind(this),
             onComplete: function() {
@@ -2193,68 +2217,10 @@ var DimpBase = {
             ob.flag = ob.flag.without(flag);
             if (add) {
                 ob.flag.push(flag);
-            } else {
-                var r = $(ob.domid);
-                if (r) {
-                    r.removeClassName(DIMP.conf.flags[flag].c);
-                }
             }
-            this.updateStatusFlags(ob);
+
+            this.viewport.updateRow(ob);
         }, this);
-    },
-
-    updateStatusFlags: function(row)
-    {
-        var bg = null,
-            pf = document.createDocumentFragment(),
-            r = $(row.domid),
-            sf = document.createDocumentFragment(),
-            stat, sub;
-
-        if (!r) {
-            return;
-        }
-
-        stat = r.down('.msgStatus');
-        sub = r.down('.msgSubject');
-
-        /* Clear existing user flags. */
-        sub.select('.flagUser').invoke('remove');
-
-        row.flag.each(function(a) {
-            var ptr = DIMP.conf.flags[a];
-            if (ptr.p) {
-                if (!ptr.elt) {
-                    // Until text-overflow is supported on all browsers,
-                    // need to truncate label text ourselves.
-                    ptr.elt = new Element('SPAN', { className: ptr.c, title: ptr.l }).setStyle({ background: ptr.b }).update(ptr.l.truncate(10));
-                }
-                pf.appendChild(ptr.elt.cloneNode(true));
-            } else {
-                if (!ptr.elt) {
-                    ptr.elt = new Element('DIV', { className: 'msgflags ' + ptr.c, title: ptr.l });
-                }
-                r.addClassName(ptr.c);
-                sf.appendChild(ptr.elt.cloneNode(false));
-                if (ptr.b) {
-                    bg = ptr.b;
-                }
-            }
-        });
-
-        /* Clear existing flags. */
-        stat.down().nextSiblings().invoke('remove');
-
-        /* Add flag graphics. */
-        if (sf.firstChild) {
-            stat.appendChild(sf);
-        }
-        if (pf.firstChild) {
-            sub.insertBefore(pf, sub.lastChild);
-        }
-
-        /* Set (or reset) the background row color. */
-        r.setStyle({ background: bg });
     },
 
     /* Miscellaneous folder actions. */

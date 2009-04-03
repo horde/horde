@@ -678,8 +678,7 @@ var ViewPort = Class.create({
         var c = this.opts.content,
             c_nodes = [],
             page_size = this.getPageSize(),
-            rows,
-            sel = this.getSelected();
+            rows;
 
         if (this.opts.onClearRows) {
             this.opts.onClearRows(c.childElements());
@@ -692,29 +691,57 @@ var ViewPort = Class.create({
         rows = this.createSelection('rownum', $A($R(offset + 1, offset + page_size)));
 
         if (rows.size()) {
-            rows.get('dataob').each(function(row) {
-                var r = Object.clone(row);
-                if (r.bg) {
-                    r.bg = row.bg.clone();
-                    if (sel.contains('uid', r.vp_id)) {
-                        r.bg.push(this.opts.selected_class);
-                    }
-                    r.bg_string = r.bg.join(' ');
-                }
-                c_nodes.push(this.template.evaluate(r));
-            }, this);
-            c.update(c_nodes.join(''));
+            c_nodes = rows.get('dataob');
+            c.update(c_nodes.collect(this.prepareRow.bind(this)).join(''));
         } else {
             // If loading a viewport for the first time, show a blank
             // viewport rather than the empty viewport status message.
             c.update((this.opts.empty && this.viewport_init != 1) ? this.opts.empty.innerHTML : '');
         }
 
-        if (this.opts.onContent) {
-            this.opts.onContent(rows);
+        if (this.opts.onContentComplete) {
+            this.opts.onContentComplete(c_nodes);
         }
 
         return true;
+    },
+
+    prepareRow: function(row)
+    {
+        var r = Object.clone(row);
+
+        if (r.bg) {
+            r.bg = row.bg.clone();
+            if (this.getSelected().contains('uid', r.vp_id)) {
+                r.bg.push(this.opts.selected_class);
+            }
+            r.bg_string = r.bg.join(' ');
+        } else {
+            r.bg_string = '';
+        }
+
+        if (this.opts.onContent) {
+            this.opts.onContent(r);
+        }
+
+        return this.template.evaluate(r);
+    },
+
+    updateRow: function(row)
+    {
+        var d = $(row.domid);
+        if (d) {
+            if (this.opts.onClearRows) {
+                this.opts.onClearRows([ d ]);
+            }
+
+            d.replace(this.prepareRow(row));
+
+            if (this.opts.onContentComplete) {
+                this.opts.onContentComplete([ row ]);
+            }
+        }
+
     },
 
     _displayFetchError: function()
