@@ -12,7 +12,7 @@ $objects['Horde_Kolab_Server_Object'] = array(
     ),
 );
 
-$objects['Horde_Kolab_Server_Object_user'] = array(
+$objects['Horde_Kolab_Server_Object_Kolab_User'] = array(
     'label'       => _("User"),
     'list_label'  => _("Users"),
     'attributes'  => array(
@@ -36,7 +36,7 @@ $objects['Horde_Kolab_Server_Object_user'] = array(
     ),
 );
 
-$objects['Horde_Kolab_Server_Object_administrator'] = array(
+$objects['Horde_Kolab_Server_Object_Kolab_Administrator'] = array(
     'label'       => _("Administrator"),
     'list_label'  => _("Administrators"),
     'attributes'  => array(
