@@ -614,29 +614,29 @@ var DimpBase = {
         DimpCore.DMenu.removeElement($(elt).identify());
     },
 
-    contextOnClick: function(parentfunc, elt, base, submenu)
+    contextOnClick: function(parentfunc, elt, baseelt, menu)
     {
         var id = elt.readAttribute('id');
 
         switch (id) {
         case 'ctx_folder_create':
-            this.createSubFolder(base);
+            this.createSubFolder(baseelt);
             break;
 
         case 'ctx_container_rename':
         case 'ctx_folder_rename':
-            this.renameFolder(base);
+            this.renameFolder(baseelt);
             break;
 
         case 'ctx_folder_empty':
-            mbox = base.readAttribute('mbox');
+            mbox = baseelt.readAttribute('mbox');
             if (window.confirm(DIMP.text.empty_folder)) {
                 DimpCore.doAction('EmptyFolder', { view: mbox }, null, this._emptyFolderCallback.bind(this));
             }
             break;
 
         case 'ctx_folder_delete':
-            mbox = base.readAttribute('mbox');
+            mbox = baseelt.readAttribute('mbox');
             if (window.confirm(DIMP.text.delete_folder)) {
                 DimpCore.doAction('DeleteFolder', { view: mbox }, null, this.bcache.get('folderC') || this.bcache.set('folderC', this._folderCallback.bind(this)));
             }
@@ -644,16 +644,16 @@ var DimpBase = {
 
         case 'ctx_folder_seen':
         case 'ctx_folder_unseen':
-            this.flag(id == 'ctx_folder_seen' ? 'allSeen' : 'allUnseen', { mailbox: base.readAttribute('mbox') });
+            this.flag(id == 'ctx_folder_seen' ? 'allSeen' : 'allUnseen', { mailbox: baseelt.readAttribute('mbox') });
             break;
 
         case 'ctx_folder_poll':
         case 'ctx_folder_nopoll':
-            this.modifyPollFolder(base.readAttribute('mbox'), id == 'ctx_folder_poll');
+            this.modifyPollFolder(baseelt.readAttribute('mbox'), id == 'ctx_folder_poll');
             break;
 
         case 'ctx_container_create':
-            this.createSubFolder(base);
+            this.createSubFolder(baseelt);
             break;
 
         case 'ctx_message_spam':
@@ -708,40 +708,39 @@ var DimpBase = {
             break;
 
         default:
-            if (submenu == 'ctx_message_setflag' ||
-                submenu == 'ctx_draft_setflag' ||
-                submenu == 'oa_setflag') {
+            if (menu == 'ctx_message_setflag' ||
+                menu == 'ctx_draft_setflag' ||
+                menu == 'oa_setflag') {
                 this.flag('imapflag', { imap: elt.readAttribute('flag'), set: true });
-            } else if (submenu == 'ctx_message_unsetflag' ||
-                       submenu == 'ctx_draft_unsetflag' ||
-                       submenu == 'oa_unsetflag') {
+            } else if (menu == 'ctx_message_unsetflag' ||
+                       menu == 'ctx_draft_unsetflag' ||
+                       menu == 'oa_unsetflag') {
                 this.flag('imapflag', { imap: elt.readAttribute('flag'), set: false });
             } else {
-                parentfunc(elt, base, submenu);
+                parentfunc(elt, baseelt, menu);
             }
             break;
         }
     },
 
-    contextOnShow: function(parentfunc, ctx_id, ctx)
+    contextOnShow: function(parentfunc, ctx_id, base)
     {
-        var elts, folder, ob, sel, tmp;
+        var elts, ob, sel, tmp;
 
         switch (ctx_id) {
         case 'ctx_folder':
             elts = $('ctx_folder_create', 'ctx_folder_rename', 'ctx_folder_delete');
-            folder = $(ctx.ctx);
-            if (folder.readAttribute('mbox') == 'INBOX') {
+            if (base.readAttribute('mbox') == 'INBOX') {
                 elts.invoke('hide');
             } else if (DIMP.conf.fixed_folders &&
-                       DIMP.conf.fixed_folders.indexOf(folder.readAttribute('mbox')) != -1) {
+                       DIMP.conf.fixed_folders.indexOf(base.readAttribute('mbox')) != -1) {
                 elts.shift();
                 elts.invoke('hide');
             } else {
                 elts.invoke('show');
             }
 
-            tmp = folder.hasAttribute('u');
+            tmp = base.hasAttribute('u');
             [ $('ctx_folder_poll') ].invoke(tmp ? 'hide' : 'show');
             [ $('ctx_folder_nopoll') ].invoke(tmp? 'show' : 'hide');
             break;
@@ -765,7 +764,7 @@ var DimpBase = {
             break;
 
         default:
-            parentfunc(ctx_id, ctx);
+            parentfunc(ctx_id, base);
             break;
         }
     },

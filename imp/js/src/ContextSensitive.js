@@ -30,19 +30,14 @@
 
 var ContextSensitive = Class.create({
 
-    queueSettings: {
-        limit: 5,
-        position: 'end',
-        scope: 'contextsensitive'
-    },
-
     initialize: function(opts)
     {
-        this.basectx = this.submenu = null;
-        this.elements = $H();
-        this.submenus = $H();
+        this.baseelt = null;
         this.current = [];
+        this.elements = $H();
         this.opts = opts || {};
+        this.submenus = $H();
+        this.triggers = [];
 
         document.observe('contextmenu', this._rightClickHandler.bindAsEventListener(this));
         document.observe('click', this._leftClickHandler.bindAsEventListener(this));
@@ -74,22 +69,29 @@ var ContextSensitive = Class.create({
      */
     close: function()
     {
-        this._closeSubmenu(0, true);
+        this._closeMenu(0, true);
     },
 
     /**
-     * Close all submenus below a specified level.
+     * Close all menus below a specified level.
      */
-    _closeSubmenu: function(idx, immediate)
+    _closeMenu: function(idx, immediate)
     {
         if (this.current.size()) {
             this.current.splice(idx, this.current.size() - idx).each(function(s) {
-                Effect.Fade(s, {
-                    duration: 0.15,
-                    afterFinish: function() { this.basectx = this.submenu = null; }.bind(this),
-                    queue: immediate ? 'global' : this.queueSettings
-                });
-            }, this);
+                // Fade-out on final display.
+                if (idx == 0) {
+                    Effect.Fade(s, { duration: 0.15 });
+                } else {
+                    $(s).hide();
+                }
+            });
+
+            this.triggers.splice(idx, this.triggers.size() - idx);
+
+            if (idx == 0) {
+                this.baseelt = null;
+            }
         }
     },
 
@@ -128,7 +130,7 @@ var ContextSensitive = Class.create({
      */
     _leftClickHandler: function(e)
     {
-        var base, elt, elt_up, submenu;
+        var base, elt, elt_up, trigger;
 
         // Check for a right click. FF on Linux triggers an onclick event even
         // w/a right click, so disregard.
@@ -146,13 +148,13 @@ var ContextSensitive = Class.create({
 
                 if (elt.hasClassName('contextSubmenu') &&
                     elt_up.readAttribute('id') != this.currentmenu()) {
-                    this._closeSubmenu(this.current.indexOf(elt.readAttribute('id')));
+                    this._closeMenu(this.current.indexOf(elt.readAttribute('id')));
                 } else {
-                    base = this.current.first();
-                    submenu = this.submenu;
+                    base = this.baseelt;
+                    trigger = this.triggers.last();
                     this.close();
                     if (this.opts.onClick) {
-                        this.opts.onClick(elt, base, submenu);
+                        this.opts.onClick(elt, base, trigger);
                     }
                 }
                 return;
@@ -204,9 +206,10 @@ var ContextSensitive = Class.create({
             return false;
         }
 
-        // Register the current element that will be shown and the element
-        // that was clicked on.
         this.close();
+
+        // Register the element that was clicked on.
+        this.baseelt = target;
 
         offset = ctx.opts.offset;
         if (!offset && (Object.isUndefined(x) || Object.isUndefined(y))) {
@@ -221,8 +224,8 @@ var ContextSensitive = Class.create({
             y = offsets[1] + offset.getHeight() + voffsets.top;
         }
 
-        this.basectx = ctx;
         this._displayMenu(el, x, y);
+        this.triggers.push(el_id);
 
         return true;
     },
@@ -230,7 +233,7 @@ var ContextSensitive = Class.create({
     /**
      * Display the [sub]menu on the screen.
      */
-    _displayMenu: function(elt, x, y, submenu)
+    _displayMenu: function(elt, x, y)
     {
         // Get window/element dimensions
         var id = elt.readAttribute('id'),
@@ -246,19 +249,19 @@ var ContextSensitive = Class.create({
         }
 
         if (this.opts.onShow) {
-            this.opts.onShow(id, this.basectx);
+            this.opts.onShow(id, elt);
         }
 
-        Effect.Appear(elt, {
-            from: 0.0,
-            afterSetup: function() {
-                elt.setStyle({ left: x + 'px', top: y + 'px' })
-                this.current.push(id);
-                this.submenu = submenu;
-            }.bind(this),
-            duration: 0.15,
-            queue: this.queueSettings
-        });
+        elt.setStyle({ left: x + 'px', top: y + 'px' })
+
+        if (this.current.size()) {
+            elt.show();
+        } else {
+            // Fade-in on initial display.
+            Effect.Appear(elt, { duration: 0.15 });
+        }
+
+        this.current.push(id);
     },
 
     /**
@@ -299,9 +302,9 @@ var ContextSensitive = Class.create({
 
         if (elt.hasClassName('contextSubmenu')) {
             sub = this.submenus.get(id);
-            if (sub != cm || this.submenu != id) {
+            if (sub != cm || this.currentmenu() != id) {
                 if (id_div != cm) {
-                    this._closeSubmenu(this.current.indexOf(id_div) + 1);
+                    this._closeMenu(this.current.indexOf(id_div) + 1);
                 }
 
                 offsets = elt.viewportOffset();
@@ -309,11 +312,12 @@ var ContextSensitive = Class.create({
                 x = offsets[0] + voffsets.left + elt.getWidth();
                 y = offsets[1] + voffsets.top;
                 this._displayMenu($(sub), x, y, id);
+                this.triggers.push(id);
             }
         } else if ((this.current.size() > 1) &&
                    elt_up.hasClassName('contextMenu') &&
                    id_div != cm) {
-            this._closeSubmenu(this.current.indexOf(id));
+            this._closeMenu(this.current.indexOf(id));
         }
     }
 

@@ -113,7 +113,7 @@ var DimpFullmessage = {
         parentfunc(e);
     },
 
-    contextOnClick: function(parentfunc, elt, base, submenu)
+    contextOnClick: function(parentfunc, elt, baseelt, menu)
     {
         var id = elt.readAttribute('id');
 
@@ -125,7 +125,7 @@ var DimpFullmessage = {
             break;
 
         default:
-            parentfunc(elt, base, submenu);
+            parentfunc(elt, baseelt, menu);
             break;
         }
     },

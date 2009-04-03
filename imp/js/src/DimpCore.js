@@ -524,7 +524,7 @@ DimpCore = {
     // By default, no context onShow action
     contextOnShow: Prototype.emptyFunction,
 
-    contextOnClick: function(elt, base, submenu)
+    contextOnClick: function(elt, baseelt, menu)
     {
         switch (elt.readAttribute('id')) {
         case 'ctx_contacts_new':
