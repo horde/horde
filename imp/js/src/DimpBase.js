@@ -983,7 +983,7 @@ var DimpBase = {
 
         // Add subject/priority
         tmp = pm.select('.subject');
-        tmp.invoke('update', r.subject);
+        tmp.invoke('update', r.subject === null ? '[' + DIMP.text.badsubject + ']' : r.subject);
         switch (r.priority) {
         case 'high':
         case 'low':
