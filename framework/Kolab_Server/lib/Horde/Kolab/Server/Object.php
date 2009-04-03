@@ -37,16 +37,16 @@ class Horde_Kolab_Server_Object
     /** Define attributes specific to this object type */
 
     /** The global ID of this object on the server */
-    const ATTRIBUTE_UID          = 'dn';
+    const ATTRIBUTE_UID = 'dn';
 
     /** The ID part of the UID */
-    const ATTRIBUTE_ID           = 'id';
+    const ATTRIBUTE_ID = 'id';
 
     /** The attribute holding the object classes */
-    const ATTRIBUTE_OC           = 'objectClass';
+    const ATTRIBUTE_OC = 'objectClass';
 
     /** Define the possible Kolab object classes */
-    const OBJECTCLASS_TOP        = 'top';
+    const OBJECTCLASS_TOP = 'top';
 
     /**
      * Link into the Kolab server.
@@ -135,6 +135,13 @@ class Horde_Kolab_Server_Object
             $this->_cache = $data;
         } else {
             $this->uid = $uid;
+        }
+
+        if ($server->schema_support === true) {
+            $result = $server->getSupportedAttributes($this->object_classes);
+
+            $this->supported_attributes = $result['supported'];
+            $this->required_attributes  = $result['required'];
         }
     }
 
@@ -237,6 +244,7 @@ class Horde_Kolab_Server_Object
             if ($this->supported_attributes !== false
                 && !in_array($attr, $this->supported_attributes)
                 && !in_array($attr, $this->derived_attributes)) {
+                var_dump($this->supported_attributes);
                 throw new Horde_Kolab_Server_Exception(sprintf(_("Attribute \"%s\" not supported!"),
                                                                $attr));
             }
@@ -451,8 +459,10 @@ class Horde_Kolab_Server_Object
      * Identify the UID for the first object found using the specified
      * search criteria.
      *
-     * @param array $criteria The search parameters as array.
-     * @param int   $restrict A Horde_Kolab_Server::RESULT_* result restriction.
+     * @param Horde_Kolab_Server $server   The server to query.
+     * @param array              $criteria The search parameters as array.
+     * @param int                $restrict A Horde_Kolab_Server::RESULT_* result
+     *                                     restriction.
      *
      * @return boolean|string|array The UID(s) or false if there was no result.
      *
@@ -464,7 +474,7 @@ class Horde_Kolab_Server_Object
         $params = array('attributes' => self::ATTRIBUTE_UID);
         $filter = $server->searchQuery($criteria);
         $result = $server->search($filter, $params, $server->getBaseUid());
-        $data = $result->as_struct();
+        $data   = $result->as_struct();
         if (is_a($data, 'PEAR_Error')) {
             throw new Horde_Kolab_Server_Exception($data->getMessage());
         }
@@ -474,9 +484,11 @@ class Horde_Kolab_Server_Object
     /**
      * Identify attributes for the objects found using a filter.
      *
-     * @param array $criteria The search parameters as array.
-     * @param array $attrs    The attributes to retrieve.
-     * @param int   $restrict A Horde_Kolab_Server::RESULT_* result restriction.
+     * @param Horde_Kolab_Server $server   The server to query.
+     * @param array              $criteria The search parameters as array.
+     * @param array              $attrs    The attributes to retrieve.
+     * @param int                $restrict A Horde_Kolab_Server::RESULT_* result
+     *                                     restriction.
      *
      * @return array The results.
      *
