@@ -840,7 +840,7 @@ class Kronolith
                             'month' => $loopDate->month, 'mday' => $loopDate->mday, 'year' => $loopDate->year));
                     }
 
-                    $results[$loopDate->dateString()][$addEvent->getId()] = $json ? $addEvent->toJSON() : $addEvent;
+                    $results[$loopDate->dateString()][$addEvent->getId()] = $json ? $addEvent->toJson() : $addEvent;
                 }
 
                 $loopDate = new Horde_Date(
@@ -876,7 +876,7 @@ class Kronolith
                 $addEvent = clone $event;
                 $addEvent->start = $eventStart;
                 $addEvent->end = $eventEnd;
-                $results[$loopDate->dateString()][$addEvent->getId()] = $json ? $addEvent->toJSON() : $addEvent;
+                $results[$loopDate->dateString()][$addEvent->getId()] = $json ? $addEvent->toJson() : $addEvent;
             }
             $loopDate = new Horde_Date(
                 array('month' => $eventStart->month,
