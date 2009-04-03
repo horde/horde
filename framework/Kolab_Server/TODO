@@ -24,3 +24,5 @@
 - Password history support
 
 - Check escaping search parameters when running searchQuery()
+
+- Support alias attribute names
