@@ -17,7 +17,7 @@ var frames = { horde_main: true },
 KronolithCore = {
     // Vars used and defaulting to null/false:
     //   DMenu, alertrequest, inAjaxCallback, is_logout, onDoActionComplete,
-    //   eventForm, daySizes
+    //   eventForm, daySizes, viewLoading
 
     view: '',
     ecache: $H(),
@@ -306,12 +306,11 @@ KronolithCore = {
                 }
 
                 this.updateView(date, loc);
+                var dates = this.viewDates(date, loc);
+                this._loadEvents(dates[0], dates[1], loc);
                 if ($('kronolithView' + locCap)) {
-                    var dates = this.viewDates(date, loc);
-                    $('kronolithView' + locCap).appear({
-                        'queue': 'end',
-                        'afterFinish': function() { this._loadEvents(dates[0], dates[1], loc); }.bind(this)
-                    });
+                    this.viewLoading = true;
+                    $('kronolithView' + locCap).appear({ 'queue': 'end', 'afterFinish': function() { this.viewLoading = false; }.bind(this) });
                 }
                 this.updateMinical(date, loc);
                 this.date = date;
@@ -320,7 +319,8 @@ KronolithCore = {
 
             default:
                 if ($('kronolithView' + locCap)) {
-                    $('kronolithView' + locCap).appear({ 'queue': 'end' });
+                    this.viewLoading = true;
+                    $('kronolithView' + locCap).appear({ 'queue': 'end', 'afterFinish': function() { this.viewLoading = false; }.bind(this) });
                 }
                 break;
             }
@@ -350,7 +350,6 @@ KronolithCore = {
         case 'day':
             this.dayEvents = [];
             this.dayGroups = [];
-            $$('.kronolithEvent').invoke('remove');
             $('kronolithViewDay').down('.kronolithCol').setText(date.toString('D'));
             break;
 
@@ -653,6 +652,13 @@ KronolithCore = {
     {
         switch (view) {
         case 'day':
+            // The day view requires the view to be completely loaded, to
+            // correctly calculate the dimensions.
+            if (this.viewLoading || this.view != view) {
+                this._insertEvents.bind(this, dates, view, calendar).defer();
+                return;
+            }
+
             // We have recreate events from all calendars in
             $$('.kronolithEvent').invoke('remove');
             this.dayEvents = [];
@@ -670,17 +676,27 @@ KronolithCore = {
         }, this);
     },
 
+    /**
+     * Creates the DOM node for an event bubble and inserts it into the view.
+     *
+     * @param object event     A Hash member with the event to insert.
+     * @param string calendar  The calendar to update.
+     * @param string date      The day to update.
+     * @param string view      The view to update.
+     */
     _insertEvent: function(event, calendar, date, view)
     {
         calendar = event.value.cal || calendar;
         event.value.cal = calendar;
 
-        var div = new Element('DIV', {
-            'calendar': calendar,
-            'eventid' : event.key,
-            'class': 'kronolithEvent',
-            'style': 'background-color:' + event.value.bg + ';color:' + event.value.fg
-        });
+        _createElement = function(event, calendar) {
+            return new Element('DIV', {
+                'calendar': calendar,
+                'eventid' : event.key,
+                'class': 'kronolithEvent',
+                'style': 'background-color:' + event.value.bg + ';color:' + event.value.fg
+            });
+        };
 
         switch (view) {
         case 'day':
@@ -699,6 +715,7 @@ KronolithCore = {
             }
 
             event.value.nodeId = 'kronolithEventday' + calendar + event.key;
+            var div = _createElement(event, calendar);
             div.writeAttribute('id', event.value.nodeId);
 
             var midnight = Date.parseExact(date, 'yyyyMMdd'),
@@ -770,6 +787,7 @@ KronolithCore = {
 
         case 'month':
             event.value.nodeId = 'kronolithEventmonth' + calendar + event.key;
+            var div = _createElement(event, calendar);
             div.writeAttribute('id', event.value.nodeId);
             $('kronolithMonthDay' + date).insert(div);
             if (event.value.ed) {
