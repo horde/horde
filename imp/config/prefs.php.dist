@@ -86,7 +86,7 @@ $prefGroups['drafts'] = array(
     'label' => _("Message Drafts"),
     'desc' => _("Customize how to deal with message drafts."),
     'members' => array('draftsselect', 'close_draft', 'unseen_drafts',
-                       'auto_delete_drafts')
+                       'auto_save_drafts', 'auto_delete_drafts')
 );
 
 $prefGroups['viewing'] = array(
@@ -304,7 +304,7 @@ $_prefs['use_vinbox'] = array(
 
 // use IMAP subscribe?
 $_prefs['subscribe'] = array(
-    'value' => 0,
+    'value' => 1,
     'locked' => false,
     'shared' => false,
     'type' => 'checkbox',
@@ -363,9 +363,9 @@ $_prefs['vfolder'] = array(
 // Folder sharing preferences
 
 // folder sharing options
-// set 'locked' => true to disable folder sharing
 $_prefs['acl'] = array(
     'value' => '',
+    // set 'locked' => true to disable folder sharing
     'locked' => false,
     'shared' => false,
     'type' => 'implicit');
@@ -587,8 +587,9 @@ $_prefs['compose_confirm'] = array(
 
 // allow the user to add a "X-Priority" header when composing messages?
 $_prefs['set_priority'] = array(
-    'value' => 0,
-    'locked' => false,
+    'value' => 1,
+    // Locked by default
+    'locked' => true,
     'shared' => false,
     'type' => 'checkbox',
     'desc' => _("Set the X-Priority header when composing messages?"));
@@ -613,8 +614,10 @@ $_prefs['compose_html'] = array(
 );
 
 // The list of buttons to show in FCKeditor
+// See http://www.fckeditor.net/ for details on configuration
 $_prefs['fckeditor_buttons'] = array(
     'value' => "[['FontFormat','FontName','FontSize'],['Bold','Italic','Underline'],['TextColor','BGColor'],'/',['JustifyLeft','JustifyCenter','JustifyRight','JustifyFull'],['OrderedList','UnorderedList','Outdent','Indent'],['Link'],['Undo','Redo']]",
+    // Locked by default
     'locked' => true,
     'shared' => false,
     'type' => 'textarea',
@@ -667,10 +670,12 @@ $_prefs['save_attachments'] = array(
     'locked' => false,
     'shared' => false,
     'type' => 'enum',
-    'enum' => array('always' => _("Always save attachments"),
-                    'prompt_yes' => _("Prompt every time an attachment is sent; default to YES"),
-                    'prompt_no' => _("Prompt every time an attachment is sent; default to NO"),
-                    'never' => _("Never save attachments")),
+    'enum' => array(
+        'always' => _("Always save attachments"),
+        'prompt_yes' => _("Prompt every time an attachment is sent; default to YES"),
+        'prompt_no' => _("Prompt every time an attachment is sent; default to NO"),
+        'never' => _("Never save attachments")
+    ),
     'desc' => _("When saving sent-mail, should we save attachment data?"),
     'help' => 'prefs-save_attachments');
 
@@ -695,7 +700,8 @@ $_prefs['disposition_request_read'] = array(
 // Should the original message be included?
 $_prefs['reply_quote'] = array(
     'value' => 1,
-    'locked' => false,
+    // Locked by default
+    'locked' => true,
     'shared' => false,
     'type' => 'checkbox',
     'desc' => _("Include original message in a reply?"));
@@ -757,14 +763,18 @@ $_prefs['unseen_drafts'] = array(
     'desc' => _("Save drafts as unseen?"));
 
 // auto-save drafts? value is in minutes, 0 == don't save.
-// Only works w/DIMP - does not show in prefs screen by default
+// Only works w/DIMP
 $_prefs['auto_save_drafts'] = array(
     'value' => 5,
-    'locked' => false,
+    // Locked by default
+    'locked' => true,
     'shared' => false,
     'type' => 'enum',
-    'enum' => array(0 => _("No"),
-                    5 => _("Every 5 minutes")),
+    'enum' => array(
+        0 => _("No"),
+        1 => _("Every minute"),
+        5 => _("Every 5 minutes")
+    ),
     'desc' => _("Save drafts automatically while composing?"),
 );
 
@@ -804,8 +814,10 @@ $_prefs['delete_spam_after_report'] = array(
     'locked' => false,
     'shared' => false,
     'type' => 'enum',
-    'enum' => array(0 => _("Nothing"),
-                    1 => _("Delete spam messages")),
+    'enum' => array(
+        0 => _("Nothing"),
+        1 => _("Delete spam messages")
+    ),
     'desc' => _("What should we do with spam messages after they have been reported as spam or innocent?"),
     'help' => 'prefs-delete_spam_after_report'
 );
@@ -838,7 +850,8 @@ $_prefs['html_image_addrbook'] = array(
 // should we try to mark different conversations with different colors?
 $_prefs['highlight_text'] = array(
     'value' => 1,
-    'locked' => false,
+    // Locked by default
+    'locked' => true,
     'shared' => false,
     'type' => 'checkbox',
     'desc' => _("Mark different levels of quoting with different colors?"));
@@ -846,7 +859,8 @@ $_prefs['highlight_text'] = array(
 // should we try to mark simple markup with html tags?
 $_prefs['highlight_simple_markup'] = array(
     'value' => 1,
-    'locked' => false,
+    // Locked by default
+    'locked' => true,
     'shared' => false,
     'type' => 'checkbox',
     'desc' => _("Mark simple markup?"));
@@ -857,17 +871,20 @@ $_prefs['show_quoteblocks'] = array(
     'locked' => false,
     'shared' => false,
     'type' => 'enum',
-    'enum' => array('shown' => _("Shown"),
-                    'thread' => _("Hidden in Thread View"),
-                    'list' => _("Hidden in List Messages"),
-                    'listthread' => _("Hidden in Thread View and List Messages"),
-                    'hidden' => _("Hidden")),
+    'enum' => array(
+        'shown' => _("Shown"),
+        'thread' => _("Hidden in Thread View"),
+        'list' => _("Hidden in List Messages"),
+        'listthread' => _("Hidden in Thread View and List Messages"),
+        'hidden' => _("Hidden")
+    ),
     'desc' => _("Should large blocks of quoted text be shown or hidden by default? It can be toggled easily whichever you choose."));
 
 // should we dim signatures?
 $_prefs['dim_signature'] = array(
     'value' => 1,
-    'locked' => false,
+    // Locked by default
+    'locked' => true,
     'shared' => false,
     'type' => 'checkbox',
     'desc' => _("Dim signatures?"));
@@ -886,16 +903,19 @@ $_prefs['parts_display'] = array(
     'locked' => false,
     'shared' => false,
     'type' => 'enum',
-    'enum' => array('all' => _("Show all parts"),
-                    'atc' => _("Show attachments only"),
-                    'none' => _("Don't show any parts")),
+    'enum' => array(
+        'all' => _("Show all parts"),
+        'atc' => _("Show attachments only"),
+        'none' => _("Don't show any parts")
+    ),
     'desc' => _("How do you want to display the parts of a message by default?"));
 
 // Display custom headers (configured via the identity screen) when viewing
 // messages?
 $_prefs['mail_hdr'] = array(
+    // Value is a list of headers to display, separated by "\n"
+    // e.g.: "Message-ID\nX-Spam-Level"
     'value' => '',
-//  'value' => "Message-ID\nX-Spam-Level",
     'locked' => false,
     'shared' => false,
     'type' => 'textarea',
@@ -911,14 +931,17 @@ $_prefs['default_msg_charset'] = array(
     'locked' => false,
     'shared' => false,
     'type' => 'enum',
-    'enum' => array_merge(array('' => _("Default (US-ASCII)")),
-                          $GLOBALS['nls']['encodings']),
+    'enum' => array_merge(
+        array('' => _("Default (US-ASCII)")),
+        $GLOBALS['nls']['encodings']
+    ),
     'desc' => _("The default charset for messages with no charset information:"),
     'help' => 'prefs-default_msg_charset');
 
 $_prefs['disposition_send_mdn'] = array(
-    'value' => 0,
-    'locked' => false,
+    'value' => 1,
+    // Locked by default
+    'locked' => true,
     'shared' => false,
     'type' => 'checkbox',
     'desc' => _("Prompt to send read receipt when requested by the sender?"),
@@ -963,7 +986,7 @@ $_prefs['vtrash_id'] = array(
 
 // display the 'Empty Trash' link in the menubar?
 $_prefs['empty_trash_menu'] = array(
-    'value' => 1,
+    'value' => 0,
     'locked' => false,
     'shared' => false,
     'type' => 'checkbox',
@@ -995,12 +1018,14 @@ $_prefs['refresh_time'] = array(
     'locked' => false,
     'shared' => false,
     'type' => 'enum',
-    'enum' => array(0 => _("Never"),
-                    30 => _("Every 30 seconds"),
-                    60 => _("Every minute"),
-                    300 => _("Every 5 minutes"),
-                    900 => _("Every 15 minutes"),
-                    1800 => _("Every half hour")),
+    'enum' => array(
+        0 => _("Never"),
+        30 => _("Every 30 seconds"),
+        60 => _("Every minute"),
+        300 => _("Every 5 minutes"),
+        900 => _("Every 15 minutes"),
+        1800 => _("Every half hour")
+    ),
     'desc' => _("Refresh Folder Views:"),
 );
 
@@ -1042,15 +1067,17 @@ $_prefs['preview_maxlen'] = array(
     'locked' => false,
     'shared' => false,
     'type' => 'enum',
-    'enum' => array(100 => _("100 characters"),
-                    250 => _("250 characters"),
-                    500 => _("500 characters"),
-                    1000 => _("1000 characters")),
+    'enum' => array(
+        100 => _("100 characters"),
+        250 => _("250 characters"),
+        500 => _("500 characters"),
+        1000 => _("1000 characters")
+    ),
     'desc' => _("Characters to display:")
 );
 
 $_prefs['preview_strip_nl'] = array(
-    'value' => '1',
+    'value' => 1,
     'locked' => false,
     'shared' => false,
     'type' => 'checkbox',
@@ -1058,7 +1085,7 @@ $_prefs['preview_strip_nl'] = array(
 );
 
 $_prefs['preview_show_unread'] = array(
-    'value' => '1',
+    'value' => 1,
     'locked' => false,
     'shared' => false,
     'type' => 'checkbox',
@@ -1066,7 +1093,7 @@ $_prefs['preview_show_unread'] = array(
 );
 
 $_prefs['preview_show_tooltip'] = array(
-    'value' => '0',
+    'value' => 0,
     'locked' => false,
     'shared' => false,
     'type' => 'checkbox',
@@ -1235,7 +1262,7 @@ $_prefs['fetchmail_link'] = array(
 
 // Show the Fetch mail icon on the menubar?
 $_prefs['fetchmail_menu'] = array(
-    'value' => 1,
+    'value' => 0,
     'locked' => false,
     'shared' => false,
     'type' => 'checkbox',
@@ -1266,10 +1293,12 @@ $_prefs['mailbox_start'] = array(
     'locked' => false,
     'shared' => false,
     'type' => 'enum',
-    'enum' => array(IMP::MAILBOX_START_FIRSTUNSEEN => _("Page with the First (oldest) Unseen Message"),
-                    IMP::MAILBOX_START_LASTUNSEEN => _("Page with the Last (newest) Unseen Message"),
-                    IMP::MAILBOX_START_FIRSTPAGE => _("First Mailbox Page"),
-                    IMP::MAILBOX_START_LASTPAGE => _("Last Mailbox Page")),
+    'enum' => array(
+        IMP::MAILBOX_START_FIRSTUNSEEN => _("Page with the First (oldest) Unseen Message"),
+        IMP::MAILBOX_START_LASTUNSEEN => _("Page with the Last (newest) Unseen Message"),
+        IMP::MAILBOX_START_FIRSTPAGE => _("First Mailbox Page"),
+        IMP::MAILBOX_START_LASTPAGE => _("Last Mailbox Page")
+    ),
     'desc' => _("When opening a new mailbox for the first time, which page do you want to start on?"),
     'help' => 'prefs-mailbox_start');
 
@@ -1279,13 +1308,15 @@ $_prefs['sortby'] = array(
     'locked' => false,
     'shared' => false,
     'type' => 'enum',
-    'enum' => array(Horde_Imap_Client::SORT_ARRIVAL => _("Arrival Time"),
-                    Horde_Imap_Client::SORT_DATE => _("Message Date"),
-                    Horde_Imap_Client::SORT_FROM => _("From Address"),
-                    Horde_Imap_Client::SORT_TO => _("To Address"),
-                    Horde_Imap_Client::SORT_SUBJECT => _("Subject Field"),
-                    Horde_Imap_Client::SORT_SIZE => _("Message Size"),
-                    Horde_Imap_Client::SORT_THREAD => _("Thread View")),
+    'enum' => array(
+        Horde_Imap_Client::SORT_ARRIVAL => _("Arrival Time"),
+        Horde_Imap_Client::SORT_DATE => _("Message Date"),
+        Horde_Imap_Client::SORT_FROM => _("From Address"),
+        Horde_Imap_Client::SORT_TO => _("To Address"),
+        Horde_Imap_Client::SORT_SUBJECT => _("Subject Field"),
+        Horde_Imap_Client::SORT_SIZE => _("Message Size"),
+        Horde_Imap_Client::SORT_THREAD => _("Thread View")
+    ),
     'desc' => _("Default sorting criteria:"));
 
 // default sorting direction
@@ -1294,8 +1325,10 @@ $_prefs['sortdir'] = array(
     'locked' => false,
     'shared' => false,
     'type' => 'enum',
-    'enum' => array(0 => _("Ascending"),
-                    1 => _("Descending")),
+    'enum' => array(
+        0 => _("Ascending"),
+        1 => _("Descending")
+    ),
     'desc' => _("Default sorting direction:"));
 
 // sort prefs for individual folders
@@ -1308,7 +1341,7 @@ $_prefs['sortpref'] = array(
 
 // mailbox constraints
 $_prefs['max_msgs'] = array(
-    'value' => 20,
+    'value' => 30,
     'locked' => false,
     'shared' => false,
     'type' => 'number',
@@ -1333,7 +1366,9 @@ $_prefs['from_link'] = array(
 // the mailbox list at view time.
 $_prefs['atc_flag'] = array(
     'value' => 0,
+    // Locked by default
     'locked' => true,
+    'shared' => false,
     'type' => 'checkbox',
     'desc' => _("Display attachment information about a message in the mailbox listing?"));
 
@@ -1354,13 +1389,15 @@ $_prefs['time_format'] = array(
 
 // expand folder tree by default
 $_prefs['nav_expanded'] = array(
-    'value' => 0,
+    'value' => 2,
     'locked' => false,
     'shared' => false,
     'type' => 'enum',
-    'enum' => array(0 => _("No"),
-                    1 => _("Yes"),
-                    2 => _("Remember the last view")),
+    'enum' => array(
+        0 => _("No"),
+        1 => _("Yes"),
+        2 => _("Remember the last view")
+    ),
     'desc' => _("Expand the entire folder tree by default in the folders view?"));
 
 // folder tree view style
@@ -1369,8 +1406,10 @@ $_prefs['tree_view'] = array(
     'locked' => false,
     'shared' => false,
     'type' => 'enum',
-    'enum' => array(0 => _("Combine all namespaces"),
-                    1 => _("Show non-private mailboxes in separate folders")),
+    'enum' => array(
+        0 => _("Combine all namespaces"),
+        1 => _("Show non-private mailboxes in separate folders")
+    ),
     'desc' => _("How should namespaces be displayed in the folder tree view?")
 );
 
@@ -1380,14 +1419,16 @@ $_prefs['nav_expanded_sidebar'] = array(
     'locked' => false,
     'shared' => false,
     'type' => 'enum',
-    'enum' => array(0 => _("No"),
-                    1 => _("Yes"),
-                    2 => _("Current expanded status in the folders view")),
+    'enum' => array(
+        0 => _("No"),
+        1 => _("Yes"),
+        2 => _("Current expanded status in the folders view")
+    ),
     'desc' => _("Expand the entire folder tree by default in the sidebar?"));
 
 // poll all folders for new mail?
 $_prefs['nav_poll_all'] = array(
-    'value' => false,
+    'value' => 0,
     'locked' => $is_pop3,
     'shared' => false,
     'type' => 'checkbox',
@@ -1480,7 +1521,7 @@ $_prefs['sourceselect'] = array('type' => 'special');
 // 'value' => "source_one\tsource_two"
 // refer to turba/config/sources.php for possible source values
 $_prefs['search_sources'] = array(
-    'value' => "",
+    'value' => '',
     'locked' => false,
     'shared' => false,
     'type' => 'implicit');
@@ -1493,7 +1534,7 @@ $_prefs['search_sources'] = array(
 // 'field_three' in source_two.
 // refer to turba/config/sources.php for possible source and field values
 $_prefs['search_fields'] = array(
-    'value' => "",
+    'value' => '',
     'locked' => false,
     'shared' => false,
     'type' => 'implicit');
@@ -1597,7 +1638,7 @@ $_prefs['smime_additional_cert'] = array(
 // display only the first 250 characters of a message on first message view?
 $_prefs['mimp_preview_msg'] = array(
     'value' => 0,
-    'locked' => true,
+    'locked' => false,
     'shared' => false,
     'type' => 'checkbox',
     'desc' => _("Display only the first 250 characters of a message initially?")
@@ -1613,8 +1654,10 @@ $_prefs['dimp_login_view'] = array(
     'locked' => false,
     'shared' => false,
     'type' => 'enum',
-    'enum' => array('portal' => _("Portal"),
-                    'inbox' => _("Inbox")),
+    'enum' => array(
+        'portal' => _("Portal"),
+        'inbox' => _("Inbox")
+    ),
     'desc' => _("The page to view immediately after login in DIMP.")
 );
 
