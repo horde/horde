@@ -66,10 +66,11 @@ var ViewPort = Class.create({
                 // Need to store current buffer to save current offset
                 this.views.set(this.view, { buffer: this._getBuffer(), offset: this.currentOffset() });
             }
-            curr = this.views.get(view);
         } else {
             init = true;
         }
+
+        curr = this.views.get(view);
 
         if (background) {
             opts = { background: true, view: view };
