@@ -1,0 +1,15 @@
+<?php
+/**
+ * $Horde: fima/config/report.php.dist,v 1.0 2008/08/24 13:35:20 trt Exp $
+ *
+ * This file will defines the set of existing reports.
+ * Reports are located in fima/lib/Report/.
+ */
+
+$_reports = array('GeneralOverview' => _("General Overview"),
+                  'PeriodOverview'  => _("Period Overview"),
+                  'AccountOverview' => _("Account Overview"),
+                  'AssetOverview'	=> _("Asset Overview"),
+                  'Analysis'        => _("Analysis"),
+                  'Trend'           => _("Trend"),
+                  );

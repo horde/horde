@@ -1,0 +1,12 @@
+================================
+ Fima Development TODO List
+================================
+
+:Last update:   $Date: 2009/03/13 18:02:54 $
+:Revision:      $Revision: 1.1 $
+
+- fix search with umlaute
+- drill down in reports
+- shift all postings from an account or only selected
+- simplified entering of budget/forecast values analog to report Account Overview
+- after selecting asset account immediately show result
