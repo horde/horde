@@ -744,7 +744,7 @@ span.attachName:hover, .nojserror {
     text-decoration: none;
     color: #000;
 }
-.context a:hover {
+.context a:hover, .context a.contextSubmenu.contextHover {
     background: gray;
     color: #fff;
     cursor: pointer;

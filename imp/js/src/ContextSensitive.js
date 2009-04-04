@@ -87,7 +87,9 @@ var ContextSensitive = Class.create({
                 }
             });
 
-            this.triggers.splice(idx, this.triggers.size() - idx);
+            this.triggers.splice(idx, this.triggers.size() - idx).each(function(s) {
+                $(s).removeClassName('contextHover');
+            });
 
             if (idx == 0) {
                 this.baseelt = null;
@@ -313,6 +315,7 @@ var ContextSensitive = Class.create({
                 y = offsets[1] + voffsets.top;
                 this._displayMenu($(sub), x, y, id);
                 this.triggers.push(id);
+                elt.addClassName('contextHover');
             }
         } else if ((this.current.size() > 1) &&
                    elt_up.hasClassName('contextMenu') &&
