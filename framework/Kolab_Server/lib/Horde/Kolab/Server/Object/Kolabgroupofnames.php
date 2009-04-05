@@ -48,7 +48,7 @@ class Horde_Kolab_Server_Object_Kolabgroupofnames extends Horde_Kolab_Server_Obj
      *
      * @var array
      */
-    protected $object_classes = array(
+    public $object_classes = array(
         self::OBJECTCLASS_TOP,
         self::OBJECTCLASS_INETORGPERSON,
         self::OBJECTCLASS_KOLABGROUPOFNAMES,

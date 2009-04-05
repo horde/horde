@@ -37,27 +37,44 @@ class Horde_Kolab_Server_Object_Inetorgperson extends Horde_Kolab_Server_Object_
 
     const OBJECTCLASS_INETORGPERSON      = 'inetOrgPerson';
 
+    /** Middle names */
+    const ATTRIBUTE_MIDDLENAMES = 'middleNames';
+
     /**
-     * The ldap classes for this type of object.
+     * A structure to initialize the attribute structure for this class.
      *
      * @var array
      */
-    protected $object_classes = array(
-        self::OBJECTCLASS_TOP,
-        self::OBJECTCLASS_PERSON,
-        self::OBJECTCLASS_ORGANIZATIONALPERSON,
-        self::OBJECTCLASS_INETORGPERSON,
+    static public $init_attributes = array(
+        /**
+         * Derived attributes are calculated based on other attribute values.
+         */
+        'derived' => array(
+            self::ATTRIBUTE_GIVENNAME => array(
+                'desc' => 'Given name.',
+            ),
+            self::ATTRIBUTE_MIDDLENAMES => array(
+                'desc' => 'Additional names separated from the given name by whitespace.',
+            ),
+        ),
+        /**
+         * Default values for attributes without a value.
+         */
+        'defaults' => array(
+        ),
+        /**
+         * Locked attributes. These are fixed after the object has been stored
+         * once. They may not be modified again.
+         */
+        'locked' => array(
+        ),
+        /**
+         * The object classes representing this object.
+         */
+        'object_classes' => array(
+            self::OBJECTCLASS_INETORGPERSON,
+        ),
     );
-
-    /**
-     * The attributes supported by this class
-     *
-     * @var array
-     */
-/*     public $supported_attributes = array( */
-/*         self::ATTRIBUTE_FBPAST, */
-/*     ); */
-
 
     /**
      * Derive an attribute value.
@@ -76,10 +93,51 @@ class Horde_Kolab_Server_Object_Inetorgperson extends Horde_Kolab_Server_Object_
             } else {
                 return $result[0];
             }
+        case self::ATTRIBUTE_GIVENNAME:
+        case self::ATTRIBUTE_MIDDLENAMES:
+            $gn = $this->_get(self::ATTRIBUTE_GIVENNAME);
+            if (empty($gn)) {
+                return;
+            }
+            list($a[self::ATTRIBUTE_GIVENNAME],
+                 $a[self::ATTRIBUTE_MIDDLENAMES]) = explode(' ', $gn, 2);
+            if (empty($a[$attr])) {
+                return;
+            }
+            return $a[$attr];
         default:
             return parent::derive($attr);
         }
     }
+
+    /**
+     * Collapse derived values back into the main attributes.
+     *
+     * @param string $attr The attribute to collapse.
+     * @param array  $info The information currently working on.
+     *
+     * @return mixed The value of the attribute.
+     */
+    protected function collapse($attr, &$info)
+    {
+        switch ($attr) {
+        case self::ATTRIBUTE_GIVENNAME:
+        case self::ATTRIBUTE_MIDDLENAMES:
+            if (!isset($info[self::ATTRIBUTE_MIDDLENAMES])
+                && !isset($info[self::ATTRIBUTE_GIVENNAME])) {
+                return;
+            }
+
+            if (isset($info[self::ATTRIBUTE_MIDDLENAMES])) {
+                $givenname = isset($info[self::ATTRIBUTE_GIVENNAME]) ? $info[self::ATTRIBUTE_GIVENNAME] : '';
+                $info[self::ATTRIBUTE_GIVENNAME] = $givenname . isset($info[self::ATTRIBUTE_MIDDLENAMES]) ? ' ' . $info[self::ATTRIBUTE_MIDDLENAMES] : '';
+                unset($info[self::ATTRIBUTE_MIDDLENAMES]);
+            }
+        default:
+            return parent::derive($attr);
+        }
+    }
+
 
     /**
      * Generates an ID for the given information.

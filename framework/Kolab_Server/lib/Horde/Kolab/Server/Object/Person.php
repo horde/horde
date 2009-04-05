@@ -35,34 +35,34 @@ class Horde_Kolab_Server_Object_Person extends Horde_Kolab_Server_Object
     const OBJECTCLASS_PERSON     = 'person';
 
     /**
-     * The ldap classes for this type of object.
+     * A structure to initialize the attribute structure for this class.
      *
      * @var array
      */
-    protected $object_classes = array(
-        self::OBJECTCLASS_TOP,
-        self::OBJECTCLASS_PERSON
+    static public $init_attributes = array(
+        /**
+         * Derived attributes are calculated based on other attribute values.
+         */
+        'derived' => array(
+        ),
+        /**
+         * Default values for attributes without a value.
+         */
+        'defaults' => array(
+        ),
+        /**
+         * Locked attributes. These are fixed after the object has been stored
+         * once. They may not be modified again.
+         */
+        'locked' => array(
+        ),
+        /**
+         * The object classes representing this object.
+         */
+        'object_classes' => array(
+            self::OBJECTCLASS_PERSON
+        ),
     );
-
-    /**
-     * Alias names for attributes.
-     *
-     * @var array
-     */
-    protected $attribute_aliases = array(
-        self::ATTRIBUTE_CN => 'commonName',
-        self::ATTRIBUTE_SN => 'surname',
-    );
-
-    /**
-     * The attributes supported by this class
-     *
-     * @var array
-     */
-/*     public $supported_attributes = array( */
-/*         self::ATTRIBUTE_FBPAST, */
-/*     ); */
-
 
     /**
      * Derive an attribute value.

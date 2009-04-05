@@ -263,6 +263,7 @@ abstract class Horde_Kolab_Server
                 sprintf(_("The object with the uid \"%s\" does already exist!"),
                         $uid));
         }
+        unset($info['type']);
         $object->save($info);
         return $object;
     }
