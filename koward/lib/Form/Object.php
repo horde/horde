@@ -23,6 +23,8 @@ class Koward_Form_Object extends Horde_Form {
 
         parent::Horde_Form($vars);
 
+        $type = false;
+
         if (empty($this->object)) {
             $title = _("Add Object");
             $this->setButtons(_("Add"));
@@ -39,14 +41,27 @@ class Koward_Form_Object extends Horde_Form {
                 $vars->get($v->getVarName()) != $vars->get('__old_' . $v->getVarName())) {
                 $this->koward->notification->push(sprintf(_("Selected object type \"%s\"."), $object_conf[$vars->get('type')]['label']), 'horde.message');
             }
+
+            $type = $vars->get('type');
         } else {
             $title = _("Edit Object");
-            $type = get_class($this->object);
+            $class_name = get_class($this->object);
+            foreach ($this->koward->objects as $name => $config) {
+                if ($config['class'] == $class_name) {
+                    $type = $name;
+                    if (!empty($config['preferred'])) {
+                        break;
+                    }
+                }
+            }
+            if (empty($type)) {
+                throw new Koward_Exception('Undefined object class!');
+            }
             if (!$this->isSubmitted()) {
                 $vars->set('type', $type);
-                $keys = array_keys($this->koward->objects[$type]['attributes']);
+                $keys = array_keys($this->_getFields($this->koward->objects[$type]));
                 $vars->set('object', $this->object->toHash($keys));
-                $this->setButtons(_("Edit"));
+                $this->setButtons(true);
             }
         }
 
@@ -56,10 +71,79 @@ class Koward_Form_Object extends Horde_Form {
 
         $this->setTitle($title);
 
-        $type = $vars->get('type');
-        if (isset($type)) {
+        if (!empty($type)) {
             $this->_addFields($this->koward->objects[$type]);
         }
+    }
+
+    /**
+     * Get the fields for an object type
+     */
+    function _getFields($config)
+    {
+        if (isset($config['attributes']['fields']) && !empty($config['attribute']['override'])) {
+            return $config['attributes']['fields'];
+        } else {
+            list($attributes, $attribute_map) = $this->koward->server->getAttributes($config['class']);
+
+            if (isset($config['attributes']['show'])) {
+                $akeys = $config['attributes']['show'];
+            } else {
+                $akeys = array_keys($attributes);
+                if (isset($config['attributes']['hide'])) {
+                    $akeys = array_diff($akeys, $config['attributes']['hide']);
+                }
+            }
+
+            foreach ($akeys as $key) {
+                if (isset($config['attributes']['hide'])
+                    && in_array($key, $config['attributes']['hide'])) {
+                    continue;
+                }
+                if (isset($config['attributes']['fields'][$key])) {
+                    $form_attributes[$key] = $config['attributes']['fields'][$key];
+                } else {
+                    $form_attributes[$key] = array(
+                        'type' => 'text',
+                        'required' => in_array($key, $attribute_map['required']),
+                        'readonly' => in_array($key, $attribute_map['locked']),
+                        'params' => array('regex' => '', 'size' => 40, 'maxlength' => 255)
+                    );
+                }
+                if (isset($config['attributes']['order'][$key])) {
+                    $form_attributes[$key]['order'] = $config['attributes']['order'][$key];
+                } else {
+                    $form_attributes[$key]['order'] = -1;
+                }
+                if (isset($config['attributes']['labels'][$key])) {
+                    $form_attributes[$key]['label'] = $config['attributes']['labels'][$key];
+                } else if (isset($this->koward->labels[$key])) {
+                    $form_attributes[$key]['label'] = $this->koward->labels[$key];
+                } else {
+                    $form_attributes[$key]['label'] = $key;
+                }
+            }
+            uasort($form_attributes, array($this, '_sortFields'));
+            return $form_attributes;
+        }
+        return array();
+    }
+
+    /**
+     * Sort fields for an object type
+     */
+    function _sortFields($a, $b)
+    {
+        if ($a['order'] == -1) {
+            return 1;
+        }
+        if ($b['order'] == -1) {
+            return -1;
+        }
+        if ($a['order'] == $b['order']) {
+            return 0;
+        }
+        return ($a['order'] < $b['order']) ? -1 : 1;
     }
 
     /**
@@ -68,7 +152,7 @@ class Koward_Form_Object extends Horde_Form {
     function _addFields($config)
     {
         // Now run through and add the form variables.
-        $fields = isset($config['attributes']) ? $config['attributes'] : array();
+        $fields = $this->_getFields($config);
         $tabs   = isset($config['tabs']) ? $config['tabs'] : array('' => $fields);
 
         foreach ($tabs as $tab => $tab_fields) {
@@ -76,12 +160,13 @@ class Koward_Form_Object extends Horde_Form {
                 $this->setSection($tab, $tab);
             }
             foreach ($tab_fields as $key => $field) {
-                if (!in_array($key, array_keys($fields)) ||
-                    !isset($this->koward->attributes[$key])) {
+                if (!in_array($key, array_keys($fields))
+                    //                    || !isset($this->koward->attributes[$key])
+                ) {
                     continue;
                 }
-
-                $attribute = $this->koward->attributes[$key];
+                $attribute = $field;
+                //                $attribute = $this->koward->attributes[$key];
                 $params = isset($attribute['params']) ? $attribute['params'] : array();
                 $desc = isset($attribute['desc']) ? $attribute['desc'] : null;
 
@@ -101,7 +186,13 @@ class Koward_Form_Object extends Horde_Form {
         if (isset($info['object'])) {
             if (empty($this->object)) {
                 if (isset($info['type'])) {
-                    $object = $this->koward->server->add(array_merge(array('type' => $info['type']),
+                    if (isset($this->koward->objects[$info['type']]['class'])) {
+                        $class = $this->koward->objects[$info['type']]['class'];
+                    } else {
+                        throw new Koward_Exception(sprintf('Invalid type \"%s\" specified!',
+                                                           $info['type']));
+                    }
+                    $object = $this->koward->server->add(array_merge(array('type' => $class),
                                                                  $info['object']));
                     $this->koward->notification->push(_("Successfully added the object."),
                                                      'horde.message');

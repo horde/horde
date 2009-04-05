@@ -3,6 +3,8 @@
 
 <?= $this->tabs->render($this->object_type); ?>
 
+<?php if (isset($this->objectlist)): ?>
+
 <table cellspacing="0" width="100%" class="linedRow">
  <thead>
   <tr>
@@ -35,3 +37,4 @@
   <?php endforeach; ?>
  </tbody>
 </table>
+<?php endif; ?>

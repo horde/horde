@@ -12,6 +12,13 @@ require_once dirname(__FILE__) . '/ApplicationController.php';
 class ObjectController extends Koward_ApplicationController
 {
 
+    var $object_type;
+    var $objectlist;
+    var $attributes;
+    var $tabs;
+    var $object;
+    var $post;
+
     public function listall()
     {
         require_once 'Horde/UI/Tabs.php';
@@ -20,11 +27,22 @@ class ObjectController extends Koward_ApplicationController
 
         $this->object_type = $this->params->get('id', $this->types[0]);
 
-        if (isset($this->koward->objects[$this->object_type])) {
-            $this->attributes = $this->koward->objects[$this->object_type]['attributes'];
+        if (isset($this->koward->objects[$this->object_type]['list_attributes'])) {
+            $this->attributes = $this->koward->objects[$this->object_type]['list_attributes'];
+        } else if (isset($this->koward->objects[$this->object_type]['attributes']['fields'])) {
+            $this->attributes = $this->koward->objects[$this->object_type]['attributes']['fields'];
+        } else {
+            $this->koward->notification->push(sprintf('No attributes have been defined for the list view of objects with type %s.',
+                                                      $this->object_type),
+                                              'horde.error');
+        }
+
+        if (isset($this->attributes)
+            && isset($this->koward->objects[$this->object_type])) {
             $params = array('attributes' => array_keys($this->attributes));
-            $this->objectlist = $this->koward->server->listHash($this->object_type,
-                                                               $params);
+            $class = $this->koward->objects[$this->object_type]['class'];
+            $this->objectlist = $this->koward->server->listHash($class,
+                                                                $params);
             foreach ($this->objectlist as $uid => $info) {
                 $this->objectlist[$uid]['edit_url'] = Horde::link(
                     $this->urlFor(array('controller' => 'object', 
@@ -45,9 +63,8 @@ class ObjectController extends Koward_ApplicationController
                                         'action' => 'view',
                                         'id' => $uid)), _("View"));
             }
-        } else {
-            $this->objectlist = 'Unkown object type.';
         }
+
         $this->tabs = new Horde_UI_Tabs(null, Variables::getDefaultVariables());
         foreach ($this->koward->objects as $key => $configuration) {
             $this->tabs->addTab($configuration['list_label'],
@@ -126,10 +143,12 @@ class ObjectController extends Koward_ApplicationController
             if ($this->form->validate()) {
                 $object = $this->form->execute();
 
-                header('Location: ' . $this->urlFor(array('controller' => 'object', 
-                                                          'action' => 'view',
-                                                          'id' => $object->get(Horde_Koward_Server_Object::ATTRIBUTE_UID))));
-                exit;
+                if (!empty($object)) {
+                    header('Location: ' . $this->urlFor(array('controller' => 'object', 
+                                                              'action' => 'view',
+                                                              'id' => $object->get(Horde_Kolab_Server_Object::ATTRIBUTE_UID))));
+                    exit;
+                }
             }
         } catch (Exception $e) {
             $this->koward->notification->push($e->getMessage(), 'horde.error');
