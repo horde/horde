@@ -471,6 +471,7 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
         }
     }
 
+
     /**
      * Search for object data.
      *
