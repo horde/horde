@@ -49,10 +49,6 @@ case 'c':
     break;
 }
 
-/* Initialize the user's identities. */
-require_once 'Horde/Identity.php';
-$identity = &Identity::singleton(array('imp', 'imp'));
-
 /* Get the base URL for this page. */
 $mailbox_url = IMP::generateIMPUrl('mailbox-mimp.php', $imp_mbox['mailbox']);
 
@@ -98,8 +94,8 @@ reset($mbox_info);
 while (list(,$ob) = each($mbox_info['overview'])) {
     /* Initialize the header fields. */
     $msg = array(
-        'subject' => $imp_ui->getSubject($ob['envelope']['subject']),
-        'status' => ''
+        'status' => '',
+        'subject' => $imp_ui->getSubject($ob['envelope']['subject'])
     );
 
     /* Format the from header. */
@@ -130,7 +126,7 @@ while (list(,$ob) = each($mbox_info['overview'])) {
         }
     }
 
-    if (!is_null($threadob) && ($threadob->getThreadIndent($ob['uid']))) {
+    if ($threadob && $threadob->getThreadIndent($ob['uid'])) {
         $msg['subject'] = '>> ' . ltrim($msg['subject']);
     }
 
@@ -169,7 +165,8 @@ foreach ($sort_list as $key => $val) {
     } else {
         $sortdir = $sortpref['dir'];
         $sortkey = $key;
-        if (($key == Horde_Imap_Client::SORT_SUBJECT) && IMP::threadSortAvailable($mailbox)) {
+        if (($key == Horde_Imap_Client::SORT_SUBJECT) &&
+            IMP::threadSortAvailable($mailbox)) {
             if (is_null($threadob)) {
                 $items[Util::addParameter($mailbox, array('a' => 'c', 'sb' => Horde_Imap_Client::SORT_THREAD, 'sd' => $sortdir))] = _("Sort by Thread");
             } else {
