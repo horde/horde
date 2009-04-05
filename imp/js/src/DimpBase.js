@@ -659,14 +659,14 @@ var DimpBase = {
             break;
 
         case 'ctx_folder_empty':
-            mbox = baseelt.readAttribute('mbox');
+            mbox = baseelt.up('LI').readAttribute('mbox');
             if (window.confirm(DIMP.text.empty_folder)) {
                 DimpCore.doAction('EmptyFolder', { view: mbox }, null, this._emptyFolderCallback.bind(this));
             }
             break;
 
         case 'ctx_folder_delete':
-            mbox = baseelt.readAttribute('mbox');
+            mbox = baseelt.up('LI').readAttribute('mbox');
             if (window.confirm(DIMP.text.delete_folder)) {
                 DimpCore.doAction('DeleteFolder', { view: mbox }, null, this.bcache.get('folderC') || this.bcache.set('folderC', this._folderCallback.bind(this)));
             }
@@ -674,12 +674,12 @@ var DimpBase = {
 
         case 'ctx_folder_seen':
         case 'ctx_folder_unseen':
-            this.flag(id == 'ctx_folder_seen' ? 'allSeen' : 'allUnseen', { mailbox: baseelt.readAttribute('mbox') });
+            this.flag(id == 'ctx_folder_seen' ? 'allSeen' : 'allUnseen', { mailbox: baseelt.up('LI').readAttribute('mbox') });
             break;
 
         case 'ctx_folder_poll':
         case 'ctx_folder_nopoll':
-            this.modifyPollFolder(baseelt.readAttribute('mbox'), id == 'ctx_folder_poll');
+            this.modifyPollFolder(baseelt.up('LI').readAttribute('mbox'), id == 'ctx_folder_poll');
             break;
 
         case 'ctx_container_create':
