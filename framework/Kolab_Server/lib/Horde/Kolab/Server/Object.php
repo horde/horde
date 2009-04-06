@@ -72,6 +72,14 @@ class Horde_Kolab_Server_Object
     private $_cache = false;
 
     /**
+     * Cache for derived values. This may not be the same cache as the original
+     * value cache as some attributes may have the same name.
+     *
+     * @var array
+     */
+    private $_derivative_cache = array();
+
+    /**
      * Does the object exist in the LDAP database?
      *
      * @var boolean
@@ -335,28 +343,101 @@ class Horde_Kolab_Server_Object
      *
      * @return mixed The value of the attribute.
      */
-    protected function derive($attr)
+    protected function derive($attr, $separator = '$')
     {
         switch ($attr) {
         case self::ATTRIBUTE_ID:
             return substr($this->uid, 0,
                           strlen($this->uid) - strlen($this->server->getBaseUid()) - 1);
+        default:
+            $basekey = $this->attributes[$attr]['base'];
+            $base = $this->_get($basekey);
+            if (empty($base)) {
+                return;
+            }
+            $fields = explode($separator, $base);
+            //FIXME: Fill the cache here
+            return isset($fields[$this->attributes[$attr]['order']]) ? $fields[$this->attributes[$attr]['order']] : null;
+            
         }
     }
 
     /**
      * Collapse derived values back into the main attributes.
      *
-     * @param string $attr The attribute to collapse.
-     * @param array  $info The information currently working on.
+     * @param string $key        The attribute to collapse into.
+     * @param array  $attributes The attribute to collapse.
+     * @param array  $info       The information currently working on.
+     * @param string $separator  Separate the fields using this character.
      *
-     * @return mixed The value of the attribute.
+     * @return NULL.
      */
-    protected function collapse($attr, &$info)
+    protected function collapse($key, $attributes, &$info, $separator = '$')
     {
         switch ($attr) {
         default:
+            /**
+             * Check how many empty entries we have at the end of the array. We
+             * may omit these together with their field separators.
+             */
+            krsort($attributes);
+            $empty = count($attributes);
+            foreach ($attributes as $attribute) {
+                if (empty($info[$attribute])) {
+                    $empty--;
+                } else {
+                    break;
+                }
+            }
+            ksort($attributes);
+            $unset = $attributes;
+            $result = '';
+            for ($i = 0; $i < $empty; $i++) {
+                $akey = array_shift($attributes);
+                //FIXME: We don't handle multiple values correctly here
+                $value = isset($info[$akey]) ? $info[$akey] : '';
+                if (is_array($value)) {
+                    $value = $value[0];
+                }
+                $result .= $this->quote($value);
+                if ($i != ($empty - 1)) {
+                    $result .= $separator;
+                }
+            }
+            foreach ($unset as $attribute) {
+                unset($info[$attribute]);
+            }
+
+            $info[$key] = $result;
         }
+    }
+
+    /**
+     * Quote field separaotrs within a LDAP value.
+     *
+     * @param string $string The string that should be quoted.
+     *
+     * @return string The quoted string.
+     */
+    protected function quote($string)
+    {
+        return str_replace(array('\\',   '$',),
+                           array('\\5c', '\\24',),
+                           $string);
+    }
+
+    /**
+     * Unquote a LDAP value.
+     *
+     * @param string $string The string that should be unquoted.
+     *
+     * @return string The unquoted string.
+     */
+    protected function unquote($string)
+    {
+        return str_replace(array('\\5c', '\\24',),
+                           array('\\',   '$',),
+                           $string);
     }
 
     /**
@@ -417,7 +498,9 @@ class Horde_Kolab_Server_Object
      *
      * @param array $info The information about the object.
      *
-     * @return boolean|PEAR_Error True on success.
+     * @return boolean True on success.
+     *
+     * @throws Horde_Kolab_Server_Exception If saving the data failed.
      */
     public function save($info)
     {
@@ -428,6 +511,19 @@ class Horde_Kolab_Server_Object
                                                                    $key));
                 }
             }
+        }
+
+        $collapse = array();
+        foreach ($this->attribute_map['derived'] as $key) {
+            $attribute = $this->attributes[$key];
+            if (isset($attribute['base'])
+                && isset($attribute['order'])) {
+                $collapse[$attribute['base']][$attribute['order']] = $key;
+            }
+        }
+
+        foreach ($collapse as $key => $attributes) {
+            $this->collapse($key, $attributes, $info);
         }
 
         if (!$this->exists()) {
@@ -485,12 +581,6 @@ class Horde_Kolab_Server_Object
                         }
                     }
                 }
-            }
-        }
-
-        foreach ($this->attribute_map['derived'] as $attribute) {
-            if (isset($info[$attribute])) {
-                $this->collapse($attribute, $info);
             }
         }
 

@@ -30,6 +30,7 @@ class Horde_Kolab_Server_Object_Person extends Horde_Kolab_Server_Object
 
     const ATTRIBUTE_CN           = 'cn';
     const ATTRIBUTE_SN           = 'sn';
+    const ATTRIBUTE_SNSUFFIX     = 'snsuffix';
     const ATTRIBUTE_USERPASSWORD = 'userPassword';
 
     const OBJECTCLASS_PERSON     = 'person';
@@ -45,6 +46,16 @@ class Horde_Kolab_Server_Object_Person extends Horde_Kolab_Server_Object
             self::ATTRIBUTE_SN,
             self::ATTRIBUTE_USERPASSWORD,
         ),
+        'derived' => array(
+            self::ATTRIBUTE_SN => array(
+                'base' => self::ATTRIBUTE_SN,
+                'order' => 0,
+            ),
+            self::ATTRIBUTE_SNSUFFIX => array(
+                'base' => self::ATTRIBUTE_SN,
+                'order' => 1,
+            ),
+        ),
         'required' => array(
             self::ATTRIBUTE_CN,
             self::ATTRIBUTE_SN,
@@ -55,51 +66,40 @@ class Horde_Kolab_Server_Object_Person extends Horde_Kolab_Server_Object
     );
 
     /**
-     * Derive an attribute value.
-     *
-     * @param string $attr The attribute to derive.
-     *
-     * @return mixed The value of the attribute.
-     */
-    protected function derive($attr)
-    {
-        switch ($attr) {
-        case self::ATTRIBUTE_ID:
-            $result = split(',', $this->uid);
-            if (substr($result[0], 0, 3) == 'cn=') {
-                return substr($result[0], 3);
-            } else {
-                return $result[0];
-            }
-        default:
-            return parent::derive($attr);
-        }
-    }
-
-    /**
      * Generates an ID for the given information.
      *
      * @param array $info The data of the object.
      *
      * @static
      *
-     * @return string|PEAR_Error The ID.
+     * @return string The ID.
      */
     public static function generateId($info)
     {
-        $id_mapfields = array('givenName', 'sn');
-        $id_format    = '%s %s';
-
-        $fieldarray = array();
-        foreach ($id_mapfields as $mapfield) {
-            if (isset($info[$mapfield])) {
-                $fieldarray[] = $info[$mapfield];
-            } else {
-                $fieldarray[] = '';
-            }
+        if (!empty($info[self::ATTRIBUTE_CN])) {
+            return self::ATTRIBUTE_CN . '=' . $info[self::ATTRIBUTE_CN];
         }
-
-        return trim(vsprintf($id_format, $fieldarray), " \t\n\r\0\x0B,");
+        return self::ATTRIBUTE_CN . '=' . $info[self::ATTRIBUTE_SN];
     }
 
+    /**
+     * Saves object information. This may either create a new entry or modify an
+     * existing entry.
+     *
+     * Please note that fields with multiple allowed values require the callee
+     * to provide the full set of values for the field. Any old values that are
+     * not resubmitted will be considered to be deleted.
+     *
+     * @param array $info The information about the object.
+     *
+     * @return boolean|PEAR_Error True on success.
+     */
+    public function save($info)
+    {
+        if (empty($info[self::ATTRIBUTE_CN])
+            && !empty($info[self::ATTRIBUTE_SN])) {
+            $info[self::ATTRIBUTE_CN] = $info[self::ATTRIBUTE_SN];
+        }
+        return parent::save($info);
+    }
 }
