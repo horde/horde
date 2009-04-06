@@ -164,12 +164,12 @@ var ViewPort = Class.create({
     // opts = (object) TODO [cacheid, noupdate, view]
     remove: function(vs, opts)
     {
-        if (this.isbusy) {
-            this.remove.bind(this, vs, cacheid, view).defer();
+        if (!vs.size()) {
             return;
         }
 
-        if (!vs.size()) {
+        if (this.isbusy) {
+            this.remove.bind(this, vs, opts).defer();
             return;
         }
 
