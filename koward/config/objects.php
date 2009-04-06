@@ -31,6 +31,7 @@ $objects['person'] = array(
         'cn' => array(
             'title' => _("Common name"),
             'width' => 40,
+            'link_view'=> true,
         ),
         'sn' => array(
             'title' => _("Last name"),
@@ -41,14 +42,21 @@ $objects['person'] = array(
         'hide' => array(
             'objectClass',
             'id',
+	    'cn',
+	    'seeAlso',
+	    'description',
         ),
         'order' => array(
             'sn' => 5,
             'snsuffix' => 6,
+            'userPassword' => 7,
         ),
         'fields' => array(
             'cn' => array(
                 'required' => false,
+            ),
+            'userPassword' => array(
+                'required' => true,
             ),
         ),
     ),

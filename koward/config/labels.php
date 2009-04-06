@@ -8,3 +8,4 @@ $labels['sn'] = _("Last name");
 $labels['snsuffix'] = _("Name suffix");
 $labels['personalTitle'] = _("Title");
 $labels['userPassword'] = _("Password");
+$labels['telephoneNumber'] = _("Phone");
