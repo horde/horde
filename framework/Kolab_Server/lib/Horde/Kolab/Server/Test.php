@@ -504,14 +504,15 @@ class Horde_Kolab_Server_Test extends Horde_Kolab_Server_Kolab
     }
 
     /**
-     * Add a new object
+     * Save an object.
      *
-     * @param string $dn   The DN of the object to be added.
-     * @param array  $data The attributes of the object to be added.
+     * @param string  $uid    The UID of the object to be added.
+     * @param array   $data   The attributes of the object to be added.
+     * @param boolean $exists Does the object already exist on the server?
      *
-     * @return boolean  True if adding succeeded.
+     * @return boolean  True if saving succeeded.
      */
-    public function save($dn, $data)
+    public function save($uid, $data, $exists = false)
     {
         if (!$this->bound) {
             $result = $this->bind();
@@ -525,11 +526,20 @@ class Horde_Kolab_Server_Test extends Horde_Kolab_Server_Kolab
             $ldap_data[$key] = $val;
         }
 
-        $this->data[$dn] = array(
-            'dn' => $dn,
-            'data' => array_merge($ldap_data,
-				  array('dn' => $dn)),
-        );
+        if ($exists === false) {
+            $this->data[$uid] = array(
+                'dn' => $uid,
+                'data' => array_merge($ldap_data,
+                                      array('dn' => $uid)),
+            );
+        } else {
+            $this->data[$uid] = array(
+                'dn' => $uid,
+                'data' => array_merge($this->data[$uid]['data'],
+                                      $ldap_data,
+                                      array('dn' => $uid)),
+            );
+        }
         $this->store();
     }
 
