@@ -437,7 +437,8 @@ case 'send_message':
     } catch (IMP_Compose_Exception $e) {
         $get_sig = false;
         $code = $e->getCode();
-        $notification->push($e, strpos($code, 'horde.') === 0 ? $code : 'horde.error');
+        $notification->push($e->getMessage(), strpos($code, 'horde.') === 0 ? $code : 'horde.error');
+
         // TODO
         switch ($e->encrypt) {
         case 'pgp_symmetric_passphrase_dialog':
