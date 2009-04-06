@@ -1521,7 +1521,7 @@ $_prefs['sourceselect'] = array('type' => 'special');
 // 'value' => "source_one\tsource_two"
 // refer to turba/config/sources.php for possible source values
 $_prefs['search_sources'] = array(
-    'value' => '',
+    'value' => "",
     'locked' => false,
     'shared' => false,
     'type' => 'implicit');
@@ -1534,7 +1534,7 @@ $_prefs['search_sources'] = array(
 // 'field_three' in source_two.
 // refer to turba/config/sources.php for possible source and field values
 $_prefs['search_fields'] = array(
-    'value' => '',
+    'value' => "",
     'locked' => false,
     'shared' => false,
     'type' => 'implicit');
