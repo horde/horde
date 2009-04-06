@@ -354,6 +354,20 @@ KronolithCore = {
             $('kronolithViewDay').down('.kronolithCol').setText(date.toString('D'));
             break;
 
+        case 'week':
+            this.dayEvents = [];
+            this.dayGroups = [];
+            this.allDayEvents = [];
+            var div = $('kronolithEventsWeek').down('div'),
+                dates = this.viewDates(date, view),
+                day = dates[0].clone();
+            for (var i = 0; i < 7; i++) {
+                div.writeAttribute('id', 'kronolithEventsWeek' + day.dateString());
+                div = div.next('div');
+                day.next().day();
+            }
+            break;
+
         case 'month':
             var tbody = $('kronolithViewMonthBody'),
                 dates = this.viewDates(date, view),
@@ -445,6 +459,35 @@ KronolithCore = {
     {
         var children = tbody.childElements();
         children.invoke('setStyle', { 'height': (100 / (children.size() - 1)) + '%' });
+    },
+
+    /**
+     * Calculates some dimensions for the day and week view.
+     *
+     * @param string storage  Property name where the dimensions are stored.
+     * @param string view     DOM node ID of the view.
+     */
+    _calculateRowSizes: function(storage, view)
+    {
+        if (!Object.isUndefined(this[storage])) {
+            return;
+        }
+
+        this[storage] = {};
+        var container = $(view),
+            trA = container.down('.kronolithAllDay'),
+            tdA = trA.down('td'),
+            tr = trA.next('tr'),
+            td = tr.down('td'), height;
+        this[storage].offset = tr.offsetTop - trA.offsetTop;
+        this[storage].height = tr.next('tr').offsetTop - tr.offsetTop;
+        this[storage].spacing = this[storage].height - tr.getHeight()
+            + parseInt(td.getStyle('borderTopWidth'))
+            + parseInt(td.getStyle('borderBottomWidth'));
+        this[storage].allDay = tr.offsetTop - trA.offsetTop;
+        this[storage].allDay -= this[storage].allDay - trA.getHeight()
+            + parseInt(td.getStyle('borderTopWidth'))
+            + parseInt(tdA.getStyle('borderBottomWidth'));
     },
 
     /**
@@ -651,25 +694,30 @@ KronolithCore = {
      */
     _insertEvents: function(dates, view, calendar)
     {
-        switch (view) {
-        case 'day':
-            // The day view requires the view to be completely loaded, to
-            // correctly calculate the dimensions.
+        if (view == 'day' || view == 'week') {
+            // The day and week views require the view to be completely
+            // loaded, to correctly calculate the dimensions.
             if (this.viewLoading || this.view != view) {
                 this._insertEvents.bind(this, dates, view, calendar).defer();
                 return;
             }
-
-            // We have recreate events from all calendars in
-            $$('.kronolithEvent').invoke('remove');
-            this.dayEvents = [];
-            this.dayGroups = [];
-            this.allDayEvents = [];
         }
 
         dates.each(function(date) {
+            if (view == 'day' || view == 'week') {
+                this.dayEvents = [];
+                this.dayGroups = [];
+                this.allDayEvents = [];
+                if (view == 'day') {
+                    $$('.kronolithEvent').invoke('remove');
+                } else {
+                    $('kronolithEventsWeek' + date)
+                        .select('.kronolithEvent')
+                        .invoke('remove');
+                }
+            }
             this._getCacheForDate(date).sortBy(this._sortEvents).each(function(event) {
-                if (view != 'day' &&
+                if ((view != 'day' && view != 'week') &&
                     calendar && calendar != event.value.calendar) {
                     return;
                 }
@@ -703,25 +751,8 @@ KronolithCore = {
 
         switch (view) {
         case 'day':
-            if (Object.isUndefined(this.daySizes)) {
-                /* Calculate some dimensions for the day view. */
-                this.daySizes = {};
-                var container = $('kronolithViewDay'),
-                    trA = container.down('.kronolithAllDay'),
-                    tdA = trA.down('td'),
-                    tr = trA.next('tr'),
-                    td = tr.down('td'), height;
-                this.daySizes.offset = tr.offsetTop - trA.offsetTop;
-                this.daySizes.height = tr.next('tr').offsetTop - tr.offsetTop;
-                this.daySizes.spacing = this.daySizes.height - tr.getHeight()
-                    + parseInt(td.getStyle('borderTopWidth'))
-                    + parseInt(td.getStyle('borderBottomWidth'));
-                this.daySizes.allDay = tr.offsetTop - trA.offsetTop;
-                this.daySizes.allDay -= this.daySizes.allDay - trA.getHeight()
-                    + parseInt(td.getStyle('borderTopWidth'))
-                    + parseInt(tdA.getStyle('borderBottomWidth'));
-            }
-
+        case 'week':
+            this._calculateRowSizes('daySizes', view == 'day' ? 'kronolithViewDay' : 'kronolithViewWeek');
             event.value.nodeId = 'kronolithEventday' + calendar + event.key;
             var div = _createElement(event, calendar);
 
@@ -742,7 +773,7 @@ KronolithCore = {
                 .insert(new Element('DIV', { 'class': 'kronolithDragger kronolithDraggerTop' }))
                 .insert(innerDiv)
                 .insert(new Element('DIV', { 'class': 'kronolithDragger kronolithDraggerBottom' }));
-            $('kronolithEventsDay').insert(div);
+            $(view == 'day' ? 'kronolithEventsDay' : 'kronolithEventsWeek' + date).insert(div);
 
             if (event.value.al) {
                 this.allDayEvents.push(event.value);
@@ -808,9 +839,6 @@ KronolithCore = {
 
             div = innerDiv;
             break;
-
-        case 'week':
-            return;
 
         case 'month':
             event.value.nodeId = 'kronolithEventmonth' + calendar + event.key;
@@ -1022,7 +1050,6 @@ KronolithCore = {
 
     onResize: function(noupdate, nowait)
     {
-        this._resizeIE6();
     },
 
     /* Keydown event handler */

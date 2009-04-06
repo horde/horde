@@ -1,4 +1,13 @@
 <div id="kronolithViewWeek" class="kronolithView kronolithViewWeek" style="display:none">
+<div id="kronolithEventsWeek">
+  <div class="kronolithEventsWeek"></div>
+  <div class="kronolithEventsWeek"></div>
+  <div class="kronolithEventsWeek"></div>
+  <div class="kronolithEventsWeek"></div>
+  <div class="kronolithEventsWeek"></div>
+  <div class="kronolithEventsWeek"></div>
+  <div class="kronolithEventsWeek"></div>
+</div>
 <table class="kronolithView kronolithViewDay">
   <thead class="kronolithViewHead"><tr>
     <td class="kronolithFirstCol">&nbsp;</td>
