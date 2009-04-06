@@ -448,8 +448,29 @@ abstract class Horde_Kolab_Server
                     }
                     $attrs[Horde_Kolab_Server_Object::ATTRIBUTE_OC]['default'] = $object_classes;
 
-                    $attrs = array_merge($attrs, $derived);
-
+                    foreach ($derived as $key => $attribute) {
+                        if (isset($attribute['base'])) {
+                            if (!is_array($attribute['base'])) {
+                                $bases = array($attribute['base']);
+                            } else {
+                                $bases = $attribute['base'];
+                            }
+                            /**
+                             * Usually derived attribute are determined on basis
+                             * of one or more attributes. If any of these is not
+                             * supported the derived attribute should not be
+                             * included into the set of supported attributes.
+                             */
+                            foreach ($bases as $base) {
+                                if (!isset($attrs[$base])) {
+                                    continue;
+                                }
+                                $attrs[$key] = $attribute;
+                            }
+                        } else {
+                            $attrs[$key] = $attribute;
+                        }
+                    }
                 }
                 $this->attributes[$class] = array($attrs,
                                                   array(
@@ -541,6 +562,17 @@ abstract class Horde_Kolab_Server
      * @throws Horde_Kolab_Server_Exception
      */
     abstract public function read($uid, $attrs = null);
+
+    /**
+     * Save an object.
+     *
+     * @param string  $uid    The UID of the object to be added.
+     * @param array   $data   The attributes of the object to be added.
+     * @param boolean $exists Does the object already exist on the server?
+     *
+     * @return boolean  True if saving succeeded.
+     */
+    abstract public function save($uid, $data, $exists = false);
 
     /**
      * Determine the type of a Kolab object.
