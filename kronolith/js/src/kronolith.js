@@ -350,6 +350,7 @@ KronolithCore = {
         case 'day':
             this.dayEvents = [];
             this.dayGroups = [];
+            this.allDayEvents = [];
             $('kronolithViewDay').down('.kronolithCol').setText(date.toString('D'));
             break;
 
@@ -663,6 +664,7 @@ KronolithCore = {
             $$('.kronolithEvent').invoke('remove');
             this.dayEvents = [];
             this.dayGroups = [];
+            this.allDayEvents = [];
         }
 
         dates.each(function(date) {
@@ -691,6 +693,7 @@ KronolithCore = {
 
         _createElement = function(event, calendar) {
             return new Element('DIV', {
+                'id': event.value.nodeId,
                 'calendar': calendar,
                 'eventid' : event.key,
                 'class': 'kronolithEvent',
@@ -704,19 +707,23 @@ KronolithCore = {
                 /* Calculate some dimensions for the day view. */
                 this.daySizes = {};
                 var container = $('kronolithViewDay'),
-                    tr = container.down('tbody tr').next('tr'),
+                    trA = container.down('.kronolithAllDay'),
+                    tdA = trA.down('td'),
+                    tr = trA.next('tr'),
                     td = tr.down('td'), height;
-                this.daySizes.offset = tr.offsetTop
-                    - container.down('.kronolithAllDay').offsetTop;
+                this.daySizes.offset = tr.offsetTop - trA.offsetTop;
                 this.daySizes.height = tr.next('tr').offsetTop - tr.offsetTop;
                 this.daySizes.spacing = this.daySizes.height - tr.getHeight()
                     + parseInt(td.getStyle('borderTopWidth'))
                     + parseInt(td.getStyle('borderBottomWidth'));
+                this.daySizes.allDay = tr.offsetTop - trA.offsetTop;
+                this.daySizes.allDay -= this.daySizes.allDay - trA.getHeight()
+                    + parseInt(td.getStyle('borderTopWidth'))
+                    + parseInt(tdA.getStyle('borderBottomWidth'));
             }
 
             event.value.nodeId = 'kronolithEventday' + calendar + event.key;
             var div = _createElement(event, calendar);
-            div.writeAttribute('id', event.value.nodeId);
 
             var midnight = Date.parseExact(date, 'yyyyMMdd'),
                 start = Date.parse(event.value.s),
@@ -724,14 +731,31 @@ KronolithCore = {
                 innerDiv = new Element('DIV', { 'class': 'kronolithEventInfo' });
 
             div.setStyle({
-                'top': ((midnight.getElapsed(start) / 60000 | 0) * this.daySizes.height / 60 + this.daySizes.offset | 0) + 'px',
-                'height': ((start.getElapsed(end) / 60000 | 0) * this.daySizes.height / 60 - this.daySizes.spacing | 0) + 'px',
+                'top': event.value.al
+                    ? 0
+                    : ((midnight.getElapsed(start) / 60000 | 0) * this.daySizes.height / 60 + this.daySizes.offset | 0) + 'px',
+                'height': event.value.al
+                    ? this.daySizes.allDay + 'px'
+                    : ((start.getElapsed(end) / 60000 | 0) * this.daySizes.height / 60 - this.daySizes.spacing | 0) + 'px',
                 'width': '100%'
             })
                 .insert(new Element('DIV', { 'class': 'kronolithDragger kronolithDraggerTop' }))
                 .insert(innerDiv)
                 .insert(new Element('DIV', { 'class': 'kronolithDragger kronolithDraggerBottom' }));
             $('kronolithEventsDay').insert(div);
+
+            if (event.value.al) {
+                this.allDayEvents.push(event.value);
+                var width = 100 / this.allDayEvents.length;
+                for (var i = 0; i < this.allDayEvents.length; i++) {
+                    $(this.allDayEvents[i].nodeId).setStyle({
+                        'width': width + '%',
+                        'left': i * width + '%'
+                    });
+                }
+                div = innerDiv;
+                break;
+            }
 
             var column = 1, columns, width = 100, conflict = false,
                 pos = this.dayGroups.length, placeFound = false;
@@ -785,10 +809,12 @@ KronolithCore = {
             div = innerDiv;
             break;
 
+        case 'week':
+            return;
+
         case 'month':
             event.value.nodeId = 'kronolithEventmonth' + calendar + event.key;
             var div = _createElement(event, calendar);
-            div.writeAttribute('id', event.value.nodeId);
             $('kronolithMonthDay' + date).insert(div);
             if (event.value.ed) {
                 div.setStyle({ 'cursor': 'move' });

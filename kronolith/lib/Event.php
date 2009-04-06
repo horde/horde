@@ -1013,6 +1013,7 @@ abstract class Kronolith_Event
         $json->c = $this->getCalendar();
         $json->s = $this->start->toJson();
         $json->e = $this->end->toJson();
+        $json->al = $this->isAllDay();
         $json->bg = $this->_backgroundColor;
         $json->fg = $this->_foregroundColor;
         $json->pe = $this->hasPermission(PERMS_EDIT);
@@ -1040,7 +1041,6 @@ abstract class Kronolith_Event
             $json->id = $this->getId();
             $json->ty = $this->_calendarType;
             $json->l = $this->getLocation();
-            $json->al = $this->isAllDay();
             $json->sd = $this->start->strftime('%x');
             $json->st = $this->start->format($time_format);
             $json->ed = $this->end->strftime('%x');
