@@ -81,7 +81,7 @@ class Koward_Form_Object extends Horde_Form {
      */
     function _getFields($config)
     {
-        if (isset($config['attributes']['fields']) && !empty($config['attribute']['override'])) {
+        if (isset($config['attributes']['fields']) && !empty($config['attributes']['override'])) {
             return $config['attributes']['fields'];
         } else {
             list($attributes, $attribute_map) = $this->koward->server->getAttributes($config['class']);
@@ -95,21 +95,19 @@ class Koward_Form_Object extends Horde_Form {
                 }
             }
 
+            $form_attributes = array();
+
             foreach ($akeys as $key) {
                 if (isset($config['attributes']['hide'])
                     && in_array($key, $config['attributes']['hide'])) {
                     continue;
                 }
-                if (isset($config['attributes']['fields'][$key])) {
-                    $form_attributes[$key] = $config['attributes']['fields'][$key];
-                } else {
-                    $form_attributes[$key] = array(
-                        'type' => 'text',
-                        'required' => in_array($key, $attribute_map['required']),
-                        'readonly' => in_array($key, $attribute_map['locked']),
-                        'params' => array('regex' => '', 'size' => 40, 'maxlength' => 255)
-                    );
-                }
+                $form_attributes[$key] = array(
+                    'type' => 'text',
+                    'required' => in_array($key, $attribute_map['required']),
+                    'readonly' => in_array($key, $attribute_map['locked']),
+                    'params' => array('regex' => '', 'size' => 40, 'maxlength' => 255)
+                );
                 if (isset($config['attributes']['order'][$key])) {
                     $form_attributes[$key]['order'] = $config['attributes']['order'][$key];
                 } else {
@@ -121,6 +119,10 @@ class Koward_Form_Object extends Horde_Form {
                     $form_attributes[$key]['label'] = $this->koward->labels[$key];
                 } else {
                     $form_attributes[$key]['label'] = $key;
+                }
+                if (isset($config['attributes']['fields'][$key])) {
+                    $form_attributes[$key] = array_merge($form_attributes[$key],
+                                                         $config['attributes']['fields'][$key]);
                 }
             }
             uasort($form_attributes, array($this, '_sortFields'));
