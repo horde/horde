@@ -401,6 +401,9 @@ class Horde_Kolab_Server_Object
      */
     public static function generateId($info)
     {
+        if (!empty($info[self::ATTRIBUTE_ID])) {
+            return $info[self::ATTRIBUTE_ID];
+        }
         return hash('sha256', uniqid(mt_rand(), true));
     }
 
@@ -428,7 +431,7 @@ class Horde_Kolab_Server_Object
         }
 
         if (!$this->exists()) {
-            foreach ($this->attribute_map['required'] as $attribute) {
+            foreach ($this->attribute_map['required'] as $key) {
                 if (!in_array($key, array_keys($info)) || empty($info[$key])) {
                     if (empty($this->attributes[$key]['default'])) {
                         throw new Horde_Kolab_Server_Exception(sprintf(_("The value for \"%s\" is empty but required!"),
