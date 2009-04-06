@@ -504,8 +504,11 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
                 return $oc;
             } catch (Horde_Kolab_Server_Exception $e)  {
             }
+            if ($oc == 'top') {
+                return 'Horde_Kolab_Server_Object';
+            }
         }
-        throw new Horde_Kolab_Server_Exception(sprintf(_("Unkown Kolab object type for UID %s."),
+        throw new Horde_Kolab_Server_Exception(sprintf(_("Unkown object type for UID %s."),
                                                        $uid));
     }
 
@@ -524,8 +527,7 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
     {
         switch ($type) {
         default:
-            Horde_Kolab_Server_Object::loadClass($type);
-            call_user_func(array($type, 'generateServerUid'), $id, $info);
+            return sprintf('%s,%s', $id, $this->getBaseUid());
         }
     }
 }
