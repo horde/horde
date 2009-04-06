@@ -102,8 +102,25 @@ class Koward_Form_Object extends Horde_Form {
                     && in_array($key, $config['attributes']['hide'])) {
                     continue;
                 }
+
+                if (isset($config['attributes']['type'][$key])) {
+                    $type = $config['attributes']['type'][$key];
+                } else if (isset($attributes[$key]['syntax'])) {
+                    list($syntax, $length) = explode('{', $attributes[$key]['syntax'], 2);
+                    switch ($syntax) {
+                    case '1.3.6.1.4.1.1466.115.121.1.50':
+                        $type = 'phone';
+                        break;
+                    default:
+                        $type = 'text';
+                        break;
+                    }
+                } else {
+                    $type = 'text';
+                }
+
                 $form_attributes[$key] = array(
-                    'type' => 'text',
+                    'type' => $type,
                     'required' => in_array($key, $attribute_map['required']),
                     'readonly' => in_array($key, $attribute_map['locked']),
                     'params' => array('regex' => '', 'size' => 40, 'maxlength' => 255)
