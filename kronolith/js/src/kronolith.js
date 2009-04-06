@@ -1189,12 +1189,13 @@ KronolithCore = {
             calClass = elt.readAttribute('calendarclass');
             if (calClass) {
                 var calendar = elt.readAttribute('calendar');
+                Kronolith.conf.calendars[calClass][calendar].show = !Kronolith.conf.calendars[calClass][calendar].show;
                 if (typeof this.ecache.get(calClass) == 'undefined' ||
                     typeof this.ecache.get(calClass).get(calendar) == 'undefined') {
                     var dates = this.viewDates(this.date, this.view);
                     this._loadEvents(dates[0], dates[1], this.view, [[calClass, calendar]]);
                 } else {
-                    $('kronolithViewMonth').select('div[calendar=' + calClass + '|' + calendar + ']').invoke('toggle');
+                    $('kronolithBody').select('div[calendar=' + calClass + '|' + calendar + ']').invoke('toggle');
                 }
                 elt.toggleClassName('kronolithCalOn');
                 elt.toggleClassName('kronolithCalOff');
