@@ -45,6 +45,10 @@ class Horde_Kolab_Server_Object_Person extends Horde_Kolab_Server_Object
             self::ATTRIBUTE_SN,
             self::ATTRIBUTE_USERPASSWORD,
         ),
+        'required' => array(
+            self::ATTRIBUTE_CN,
+            self::ATTRIBUTE_SN,
+        ),
         'object_classes' => array(
             self::OBJECTCLASS_PERSON
         ),
