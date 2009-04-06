@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+http://pear.php.net/dtd/tasks-1.0.xsd
+http://pear.php.net/dtd/package-2.0
+http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Horde_RPC</name>
+ <channel>pear.horde.org</channel>
+ <summary>Horde RPC API</summary>
+ <description>The Horde_RPC:: class provides a common abstracted interface to
+various remote methods of accessing Horde functionality.
+ </description>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Jan Schneider</name>
+  <user>jan</user>
+  <email>jan@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2006-05-08</date>
+ <time>23:04:55</time>
+ <version>
+  <release>0.0.2</release>
+  <api>0.0.2</api>
+ </version>
+ <stability>
+  <release>beta</release>
+  <api>beta</api>
+ </stability>
+ <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <notes>Converted to package.xml 2.0 for pear.horde.org
+ </notes>
+ <contents>
+  <dir name="/">
+   <dir name="RPC">
+    <file baseinstalldir="/Horde" name="PhpSoap.php" role="php" />
+    <file baseinstalldir="/Horde" name="jsonrpc.php" role="php" />
+    <file baseinstalldir="/Horde" name="phpgw.php" role="php" />
+    <file baseinstalldir="/Horde" name="soap.php" role="php" />
+    <file baseinstalldir="/Horde" name="syncml.php" role="php" />
+    <file baseinstalldir="/Horde" name="syncml_wbxml.php" role="php" />
+    <file baseinstalldir="/Horde" name="webdav.php" role="php" />
+    <file baseinstalldir="/Horde" name="xmlrpc.php" role="php" />
+   </dir> <!-- /RPC -->
+   <dir name="tests">
+    <file baseinstalldir="/Horde" name="rpc-test.php" role="test" />
+   </dir> <!-- /tests -->
+   <file baseinstalldir="/Horde" name="RPC.php" role="php" />
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>4.3.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0b1</min>
+   </pearinstaller>
+   <package>
+    <name>SOAP</name>
+    <channel>pear.php.net</channel>
+    <min>0.8RC3</min>
+   </package>
+   <package>
+    <name>Horde_Framework</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Support</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <extension>
+    <name>xmlrpc</name>
+   </extension>
+  </required>
+ </dependencies>
+ <phprelease />
+ <changelog>
+  <release>
+   <version>
+    <release>0.0.1</release>
+    <api>0.0.1</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2003-11-25</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>Initial release as a Horde package
+   </notes>
+  </release>
+ </changelog>
+</package>
