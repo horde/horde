@@ -41,7 +41,7 @@ abstract class Horde_Kolab_Server
      *
      * @var array
      */
-    protected $params = array();
+    public $params = array();
 
     /**
      * The UID of the current user.
@@ -411,7 +411,7 @@ abstract class Horde_Kolab_Server
                              * information from the server we will skip the
                              * attributes defined within the object class here.
                              */
-                            if (!empty($GLOBALS['conf']['kolab']['server']['schema_override'])
+                            if (!empty($this->params['schema_override'])
                                 && in_array($type, 'defined', 'required')) {
                                 continue;
                             }
