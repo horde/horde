@@ -1403,7 +1403,7 @@ class IMP_Compose
 
         return array(
             'body' => $msg,
-            'encoding' => $msg_text['encoding'],
+            'encoding' => isset($msg_text) ? $msg_text['encoding'] : NLS::getCharset(),
             'format' => $format,
             'headers' => $header,
             'identity' => $this->_getMatchingIdentity($h)
