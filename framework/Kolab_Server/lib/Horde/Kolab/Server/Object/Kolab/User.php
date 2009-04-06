@@ -257,14 +257,15 @@ class Horde_Kolab_Server_Object_Kolab_User extends Horde_Kolab_Server_Object_Kol
         if (isset($conf['kolab']['server']['user_id_mapfields'])) {
             $id_mapfields = $conf['kolab']['server']['user_id_mapfields'];
         } else {
-            $id_mapfields = array('givenName', 'sn');
+            $id_mapfields = array(self::ATTRIBUTE_GIVENNAME,
+                                  self::ATTRIBUTE_SN);
         }
 
         /** The user ID format. */
         if (isset($conf['kolab']['server']['user_id_format'])) {
             $id_format = $conf['kolab']['server']['user_id_format'];
         } else {
-            $id_format = '%s %s';
+            $id_format    = self::ATTRIBUTE_CN . '=' . '%s %s';
         }
 
         $fieldarray = array();

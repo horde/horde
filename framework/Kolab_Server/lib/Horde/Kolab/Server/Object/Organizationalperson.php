@@ -63,51 +63,15 @@ class Horde_Kolab_Server_Object_Organizationalperson extends Horde_Kolab_Server_
     );
 
     /**
-     * Derive an attribute value.
-     *
-     * @param string $attr The attribute to derive.
-     *
-     * @return mixed The value of the attribute.
-     */
-    protected function derive($attr)
-    {
-        switch ($attr) {
-        case self::ATTRIBUTE_ID:
-            $result = split(',', $this->uid);
-            if (substr($result[0], 0, 3) == 'cn=') {
-                return substr($result[0], 3);
-            } else {
-                return $result[0];
-            }
-        default:
-            return parent::derive($attr);
-        }
-    }
-
-    /**
-     * Generates an ID for the given information.
-     *
-     * @param array $info The data of the object.
+     * Return the filter string to retrieve this object type.
      *
      * @static
      *
-     * @return string|PEAR_Error The ID.
+     * @return string The filter to retrieve this object type from the server
+     *                database.
      */
-    public static function generateId($info)
+    public static function getFilter()
     {
-        $id_mapfields = array('givenName', 'sn');
-        $id_format    = '%s %s';
-
-        $fieldarray = array();
-        foreach ($id_mapfields as $mapfield) {
-            if (isset($info[$mapfield])) {
-                $fieldarray[] = $info[$mapfield];
-            } else {
-                $fieldarray[] = '';
-            }
-        }
-
-        return trim(vsprintf($id_format, $fieldarray), " \t\n\r\0\x0B,");
+        return '(&(' . self::ATTRIBUTE_OC . '=' . self::OBJECTCLASS_ORGANIZATIONALPERSON . '))';
     }
-
 }

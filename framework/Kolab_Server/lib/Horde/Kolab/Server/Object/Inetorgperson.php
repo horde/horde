@@ -51,35 +51,40 @@ class Horde_Kolab_Server_Object_Inetorgperson extends Horde_Kolab_Server_Object_
             self::ATTRIBUTE_GIVENNAME,
             self::ATTRIBUTE_MAIL,
         ),
-        /**
-         * Derived attributes are calculated based on other attribute values.
-         */
         'derived' => array(
             self::ATTRIBUTE_GIVENNAME => array(
+                'base' => self::ATTRIBUTE_GIVENNAME,
+                'order' => 0,
                 'desc' => 'Given name.',
             ),
             self::ATTRIBUTE_MIDDLENAMES => array(
+                'base' => self::ATTRIBUTE_GIVENNAME,
+                'order' => 1,
                 'desc' => 'Additional names separated from the given name by whitespace.',
             ),
         ),
-        /**
-         * Default values for attributes without a value.
-         */
         'defaults' => array(
         ),
-        /**
-         * Locked attributes. These are fixed after the object has been stored
-         * once. They may not be modified again.
-         */
         'locked' => array(
+            self::ATTRIBUTE_MAIL,
         ),
-        /**
-         * The object classes representing this object.
-         */
         'object_classes' => array(
             self::OBJECTCLASS_INETORGPERSON,
         ),
     );
+
+    /**
+     * Return the filter string to retrieve this object type.
+     *
+     * @static
+     *
+     * @return string The filter to retrieve this object type from the server
+     *                database.
+     */
+    public static function getFilter()
+    {
+        return '(&(' . self::ATTRIBUTE_OC . '=' . self::OBJECTCLASS_INETORGPERSON . '))';
+    }
 
     /**
      * Derive an attribute value.
@@ -88,28 +93,12 @@ class Horde_Kolab_Server_Object_Inetorgperson extends Horde_Kolab_Server_Object_
      *
      * @return mixed The value of the attribute.
      */
-    protected function derive($attr)
+    protected function derive($attr, $separator = '$')
     {
         switch ($attr) {
-        case self::ATTRIBUTE_ID:
-            $result = split(',', $this->uid);
-            if (substr($result[0], 0, 3) == 'cn=') {
-                return substr($result[0], 3);
-            } else {
-                return $result[0];
-            }
         case self::ATTRIBUTE_GIVENNAME:
         case self::ATTRIBUTE_MIDDLENAMES:
-            $gn = $this->_get(self::ATTRIBUTE_GIVENNAME);
-            if (empty($gn)) {
-                return;
-            }
-            list($a[self::ATTRIBUTE_GIVENNAME],
-                 $a[self::ATTRIBUTE_MIDDLENAMES]) = explode(' ', $gn, 2);
-            if (empty($a[$attr])) {
-                return;
-            }
-            return $a[$attr];
+            return $this->getField($attr, ' ', 2);
         default:
             return parent::derive($attr);
         }
@@ -123,23 +112,15 @@ class Horde_Kolab_Server_Object_Inetorgperson extends Horde_Kolab_Server_Object_
      *
      * @return mixed The value of the attribute.
      */
-    protected function collapse($attr, &$info)
+    protected function collapse($key, $attributes, &$info, $separator = '$')
     {
-        switch ($attr) {
+        switch ($key) {
         case self::ATTRIBUTE_GIVENNAME:
-        case self::ATTRIBUTE_MIDDLENAMES:
-            if (!isset($info[self::ATTRIBUTE_MIDDLENAMES])
-                && !isset($info[self::ATTRIBUTE_GIVENNAME])) {
-                return;
-            }
-
-            if (isset($info[self::ATTRIBUTE_MIDDLENAMES])) {
-                $givenname = isset($info[self::ATTRIBUTE_GIVENNAME]) ? $info[self::ATTRIBUTE_GIVENNAME] : '';
-                $info[self::ATTRIBUTE_GIVENNAME] = $givenname . isset($info[self::ATTRIBUTE_MIDDLENAMES]) ? ' ' . $info[self::ATTRIBUTE_MIDDLENAMES] : '';
-                unset($info[self::ATTRIBUTE_MIDDLENAMES]);
-            }
+            parent::collapse($key, $attributes, $info, ' ');
+            break;
         default:
-            return parent::derive($attr);
+            parent::collapse($key, $attributes, $info, $separator);
+            break;
         }
     }
 
@@ -155,8 +136,9 @@ class Horde_Kolab_Server_Object_Inetorgperson extends Horde_Kolab_Server_Object_
      */
     public static function generateId($info)
     {
-        $id_mapfields = array('givenName', 'sn');
-        $id_format    = '%s %s';
+        $id_mapfields = array(self::ATTRIBUTE_GIVENNAME,
+                              self::ATTRIBUTE_SN);
+        $id_format    = self::ATTRIBUTE_CN . '=' . '%s %s';
 
         $fieldarray = array();
         foreach ($id_mapfields as $mapfield) {
