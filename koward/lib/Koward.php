@@ -36,6 +36,8 @@ class Koward_Koward {
         $this->objects    = Horde::loadConfiguration('objects.php', 'objects');
         $this->attributes = Horde::loadConfiguration('attributes.php', 'attributes');
         $this->labels     = Horde::loadConfiguration('labels.php', 'labels');
+        $this->order      = Horde::loadConfiguration('order.php', 'order');
+        $this->visible    = Horde::loadConfiguration('visible.php', 'visible');
         $this->server     = Horde_Kolab_Server::singleton(array('user' => Auth::getAuth(),
                                                                 'pass' => Auth::getCredential('password')));
     }
