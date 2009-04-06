@@ -28,3 +28,5 @@
 - Support alias attribute names
 
 - Support size restrictions.
+
+- Rename ATTRIBUTE_UID as "uid" is already used on the kolab server
