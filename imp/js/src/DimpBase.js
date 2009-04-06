@@ -465,6 +465,9 @@ var DimpBase = {
                 }
             }.bind(this),
             onContentComplete: function(rows) {
+                var row, ssc, tmp,
+                    l = this.viewport.getMetaData('label');
+
                 rows.each(function(row) {
                     // Add context menu
                     this._addMouseEvents({ id: row.domid, type: row.menutype });
@@ -472,10 +475,6 @@ var DimpBase = {
                 }, this);
 
                 this.setMessageListTitle();
-            }.bind(this),
-            onComplete: function() {
-                var row, ssc, tmp,
-                    l = this.viewport.getMetaData('label');
 
                 if (this.uid) {
                     row = this.viewport.getViewportSelection().search({ imapuid: { equal: [ this.uid ] }, view: { equal: [ this.folder ] } });

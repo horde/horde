@@ -85,9 +85,6 @@ var ViewPort = Class.create({
         if (curr) {
             this._updateContent(curr.offset, opts);
             if (!background) {
-                if (this.opts.onComplete) {
-                    this.opts.onComplete();
-                }
                 this.opts.ajaxRequest(this.opts.fetch_action, this.addRequestParams({ checkcache: 1, rownum: this.currentOffset() + 1 }));
             }
             return true;
@@ -603,10 +600,6 @@ var ViewPort = Class.create({
                 (cr_id && cr_id.background) ||
                 !this._updateContent((cr_id && cr_id.offset) ? cr_id.offset : (r.rownum ? parseInt(r.rownum) - 1 : this.currentOffset()))) {
                 return;
-            }
-
-            if (this.opts.onComplete) {
-                this.opts.onComplete();
             }
         }
 
