@@ -1509,11 +1509,11 @@ abstract class Kronolith_Event
     {
         return $this->allday ||
             ($this->start->hour == 0 && $this->start->min == 0 && $this->start->sec == 0 &&
-             (($this->end->hour == 0 && $this->end->min == 0 && $this->end->sec == 0) ||
-              ($this->end->hour == 23 && $this->end->min == 59)) &&
-             ($this->end->mday > $this->start->mday ||
-              $this->end->month > $this->start->month ||
-              $this->end->year > $this->start->year));
+             (($this->end->hour == 23 && $this->end->min == 59) ||
+              ($this->end->hour == 0 && $this->end->min == 0 && $this->end->sec == 0 &&
+               ($this->end->mday > $this->start->mday ||
+                $this->end->month > $this->start->month ||
+                $this->end->year > $this->start->year))));
     }
 
     public function getAlarm()
