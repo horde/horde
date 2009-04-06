@@ -50,6 +50,10 @@
  *      if true, unrecognized arguments will be auto-created, instead
  *      of throwing a BadOptionException.
  *
+ *    ignoreUnknownArgs : bool = false
+ *      if true, unrecognized arguments will be silently skipped, instead of
+ *      throwing a BadOptionException.
+ *
  *    rargs : [string]
  *      the argument list currently being parsed.  Only set when
  *      parseArgs() is active, and continually trimmed down as
@@ -88,6 +92,7 @@ class Horde_Argv_Parser extends Horde_Argv_OptionContainer
             'epilog' => null,
             'allowInterspersedArgs' => true,
             'allowUnknownArgs' => false,
+            'ignoreUnknownArgs' => false,
             ), $args);
 
         parent::__construct($args['optionClass'], $args['conflictHandler'], $args['description']);
@@ -96,8 +101,10 @@ class Horde_Argv_Parser extends Horde_Argv_OptionContainer
         $this->version = $args['version'];
         $this->allowInterspersedArgs = $args['allowInterspersedArgs'];
         $this->allowUnknownArgs = $args['allowUnknownArgs'];
-        if (is_null($args['formatter']))
+        $this->ignoreUnknownArgs = $args['ignoreUnknownArgs'];
+        if (is_null($args['formatter'])) {
             $args['formatter'] = new Horde_Argv_IndentedHelpFormatter();
+        }
         $this->formatter = $args['formatter'];
         $this->formatter->setParser($this);
         $this->epilog = $args['epilog'];
@@ -130,7 +137,7 @@ class Horde_Argv_Parser extends Horde_Argv_OptionContainer
     }
 
     // -- Private methods -----------------------------------------------
-    // (used by our or OptionContainer's constructor)
+    // (used by our OptionContainer's constructor)
 
     protected function _createOptionList()
     {
@@ -457,12 +464,16 @@ class Horde_Argv_Parser extends Horde_Argv_OptionContainer
             $opt = $this->_matchLongOpt($opt);
             $option = $this->longOpt[$opt];
         } catch (Horde_Argv_BadOptionException $e) {
+            if ($this->ignoreUnknownArgs) {
+                return;
+            }
             if ($this->allowUnknownArgs) {
                 $option = $this->addOption($opt);
             } else {
                 throw $e;
             }
         }
+
         if ($option->takesValue()) {
             $nargs = $option->nargs;
             if (count($rargs) < $nargs) {
