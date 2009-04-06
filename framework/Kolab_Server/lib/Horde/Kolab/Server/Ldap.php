@@ -498,10 +498,10 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
     public function determineType($uid)
     {
         $ocs = $this->getObjectClasses($uid);
-        array_reverse($ocs);
+        $ocs = array_reverse($ocs);
         foreach ($ocs as $oc) {
             try {
-                $class_name = 'Horde_Kolab_Server_Object_' . ucfirst($oc);
+                $class_name = 'Horde_Kolab_Server_Object_' . ucfirst(strtolower($oc));
                 Horde_Kolab_Server_Object::loadClass($class_name);
                 return $class_name;
             } catch (Horde_Kolab_Server_Exception $e)  {
