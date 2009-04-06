@@ -119,6 +119,13 @@ class ObjectController extends Koward_ApplicationController
                 $this->vars = Variables::getDefaultVariables();
                 $this->form = new Koward_Form_Object($this->vars, $this->object,
                                                     array('title' => _("View object")));
+                $this->edit = Horde::link(
+                    $this->urlFor(array('controller' => 'object', 
+                                        'action' => 'edit',
+                                        'id' => $this->params->id)),
+                    _("Edit")) . Horde::img('edit.png', _("Edit"), '',
+                                            $GLOBALS['registry']->getImageDir('horde'))
+                    . '</a>';
             }
         } catch (Exception $e) {
             $this->koward->notification->push($e->getMessage(), 'horde.error');
