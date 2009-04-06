@@ -211,8 +211,8 @@ var ViewPort = Class.create({
     {
         this._getBuffer(opts.view).setMetaData({ total_rows: this.getMetaData('total_rows', opts.view) - vs.size() }, true);
 
-        if (this.opts.onRemoveRows) {
-            this.opts.onRemoveRows(vs);
+        if (this.opts.onClearRows) {
+            this.opts.onClearRows(vs.get('div').compact());
         }
 
         this._getBuffer().remove(vs.get('rownum'));
