@@ -28,14 +28,7 @@
 class Horde_Kolab_Server_Object_Kolab_Adminrole extends Horde_Kolab_Server_Object_Kolabinetorgperson
 {
 
-    /**
-     * Attributes derived from the LDAP values.
-     *
-     * @var array
-     */
-    public $derived_attributes = array(
-        self::ATTRIBUTE_ID,
-        self::ATTRIBUTE_LNFN,
+    static public $init_attributes = array(
     );
 
     /**
