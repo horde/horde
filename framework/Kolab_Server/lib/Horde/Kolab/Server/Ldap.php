@@ -167,16 +167,16 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
     /**
      * Save an object.
      *
-     * @param string  $dn     The DN of the object to be added.
+     * @param string  $uid    The UID of the object to be added.
      * @param array   $data   The attributes of the object to be added.
      * @param boolean $exists Does the object already exist on the server?
      *
      * @return boolean  True if saving succeeded.
      */
-    public function save($dn, $data, $exists = false)
+    public function save($uid, $data, $exists = false)
     {
         if ($exists === false) {
-            $entry  = Net_LDAP2_Entry::createFresh($dn, $data);
+            $entry  = Net_LDAP2_Entry::createFresh($uid, $data);
             $result = $this->_ldap->add($entry);
             if ($result instanceOf PEAR_Error) {
                 throw new Horde_Kolab_Server_Exception($result->getMessage());
@@ -196,7 +196,7 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
                     unset($data[$key]);
                 }
             }
-            $result = $this->_ldap->modify($dn, array('delete' => $deletes,
+            $result = $this->_ldap->modify($uid, array('delete' => $deletes,
                                                       'replace' => $data));
             if ($result instanceOf PEAR_Error) {
                 throw new Horde_Kolab_Server_Exception($result->getMessage());
@@ -500,13 +500,14 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
         array_reverse($ocs);
         foreach ($ocs as $oc) {
             try {
-                Horde_Kolab_Server_Object::loadClass($oc);
-                return $oc;
+                $class_name = 'Horde_Kolab_Server_Object_' . ucfirst($oc);
+                Horde_Kolab_Server_Object::loadClass($class_name);
+                return $class_name;
             } catch (Horde_Kolab_Server_Exception $e)  {
             }
-            if ($oc == 'top') {
-                return 'Horde_Kolab_Server_Object';
-            }
+        }
+        if ($oc == 'top') {
+            return 'Horde_Kolab_Server_Object';
         }
         throw new Horde_Kolab_Server_Exception(sprintf(_("Unkown object type for UID %s."),
                                                        $uid));
