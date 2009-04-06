@@ -343,23 +343,36 @@ class Horde_Kolab_Server_Object
      *
      * @return mixed The value of the attribute.
      */
-    protected function derive($attr, $separator = '$')
+    protected function derive($attr)
     {
         switch ($attr) {
         case self::ATTRIBUTE_ID:
             return substr($this->uid, 0,
                           strlen($this->uid) - strlen($this->server->getBaseUid()) - 1);
         default:
-            $basekey = $this->attributes[$attr]['base'];
-            $base = $this->_get($basekey);
-            if (empty($base)) {
-                return;
-            }
-            $fields = explode($separator, $base);
             //FIXME: Fill the cache here
-            return isset($fields[$this->attributes[$attr]['order']]) ? $fields[$this->attributes[$attr]['order']] : null;
-            
+            return $this->getField($attr);
         }
+    }
+
+    /**
+     * Get a derived attribute value.
+     *
+     * @param string $attr      The attribute to derive.
+     * @param string $separator The field separator.
+     * @param int    $max_count The maximal number of fields.
+     *
+     * @return mixed The value of the attribute.
+     */
+    protected function getField($attr, $separator = '$', $max_count = null)
+    {
+        $basekey = $this->attributes[$attr]['base'];
+        $base = $this->_get($basekey);
+        if (empty($base)) {
+            return;
+        }
+        $fields = explode($separator, $base, $max_count);
+        return isset($fields[$this->attributes[$attr]['order']]) ? $fields[$this->attributes[$attr]['order']] : null;
     }
 
     /**
@@ -374,7 +387,7 @@ class Horde_Kolab_Server_Object
      */
     protected function collapse($key, $attributes, &$info, $separator = '$')
     {
-        switch ($attr) {
+        switch ($key) {
         default:
             /**
              * Check how many empty entries we have at the end of the array. We
