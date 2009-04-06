@@ -688,14 +688,17 @@ var DimpBase = {
 
         case 'ctx_message_spam':
         case 'ctx_message_ham':
-        case 'ctx_message_blacklist':
-        case 'ctx_message_whitelist':
-            this.flag(id.substring(12));
+            this.reportSpam(id == 'ctx_message_spam');
             break;
 
+        case 'ctx_message_blacklist':
+        case 'ctx_message_whitelist':
+            this.blacklist(id == 'ctx_message_blacklist');
+            break;
+
+        case 'ctx_draft_deleted':
         case 'ctx_message_deleted':
-        case 'ctx_message_undeleted':
-            this.flag('imapflag', { imap: '\\deleted', set: id == 'ctx_message_deleted' });
+            this.deleteMsg();
             break;
 
         case 'ctx_message_forward':
@@ -704,11 +707,6 @@ var DimpBase = {
 
         case 'ctx_draft_resume':
             this.composeMailbox('resume');
-            break;
-
-        case 'ctx_draft_deleted':
-        case 'ctx_draft_undeleted':
-            this.flag('imapflag', { imap: '\\deleted', set: id == 'ctx_draft_deleted' });
             break;
 
         case 'ctx_reply_reply':
@@ -723,11 +721,13 @@ var DimpBase = {
 
         case 'oa_blacklist':
         case 'oa_whitelist':
-            this.flag(id.substring(3));
+            this.blacklist(id == 'oa_blacklist');
             break;
 
+        case 'ctx_draft_undeleted':
+        case 'ctx_message_undeleted':
         case 'oa_undeleted':
-            this.flag('imapflag', { imap: '\\deleted', set: false });
+            this.flag('\\deleted', false);
 
         case 'oa_selectall':
             this.selectAll();
@@ -742,12 +742,12 @@ var DimpBase = {
                 menu == 'ctx_draft_setflag' ||
                 menu == 'oa_setflag') {
                 flag = elt.readAttribute('flag');
-                this.flag('imapflag', { imap: flag, set: this.convertFlag(flag, true) });
+                this.flag(flag, this.convertFlag(flag, true));
             } else if (menu == 'ctx_message_unsetflag' ||
                        menu == 'ctx_draft_unsetflag' ||
                        menu == 'oa_unsetflag') {
                 flag = elt.readAttribute('flag');
-                this.flag('imapflag', { imap: flag, set: this.convertFlag(flag, false) });
+                this.flag(flag, this.convertFlag(flag, false));
             } else {
                 parentfunc(elt, baseelt, menu);
             }
@@ -931,7 +931,7 @@ var DimpBase = {
                   // as unseen since first being viewed. If so, we need to
                   // explicitly flag as seen here.
                 if (this.hasFlag('\\seen', data)) {
-                    this.flag('imapflag', { imap: '\\seen', set: true });
+                    this.flag('\\seen', true);
                 }
                 return this._loadPreviewCallback(this.ppcache[pp_uid]);
             }
@@ -1421,7 +1421,7 @@ var DimpBase = {
             if (e.shiftKey) {
                 this.moveSelected((r.last().rownum == this.viewport.getMetaData('total_rows')) ? (r.first().rownum - 1) : (r.last().rownum + 1), true);
             }
-            this.flag('imapflag', { imap: '\\deleted', index: r, set: true });
+            this.deleteMsg();
             e.stop();
             break;
 
@@ -1608,12 +1608,12 @@ var DimpBase = {
 
             case 'button_ham':
             case 'button_spam':
-                this.flag(id.substring(7));
+                this.reportSpam(id == 'button_spam');
                 e.stop();
                 return;
 
             case 'button_deleted':
-                this.flag('imapflag', { imap: '\\deleted', set: true });
+                this.deleteMsg();
                 e.stop();
                 return;
 
@@ -2093,15 +2093,11 @@ var DimpBase = {
     },
 
     /* Flag actions for message list. */
-    // opts = 'imap' 'index', 'mailbox', 'noserver' (only for
-    // answered/unanswered), 'set'
-    flag: function(action, opts)
+    _getFlagSelection: function(opts)
     {
-        var actionCall, args, vs,
-            flags = [];
-        opts = opts || {};
-
-        if (opts.index) {
+        if (opts.vs) {
+            vs = opts.vs;
+        } else if (opts.index) {
             if (opts.mailbox) {
                 vs = this.viewport.getViewportSelection().search({ imapuid: { equal: [ opts.index ] }, view: { equal: [ opts.mailbox ] } });
                 if (!vs.size() && opts.mailbox != this.folder) {
@@ -2114,81 +2110,100 @@ var DimpBase = {
             vs = this.viewport.getSelected();
         }
 
-        switch (action) {
-        case 'spam':
-        case 'ham':
-        case 'blacklist':
-        case 'whitelist':
-            if (!vs.size()) {
-                break;
-            }
+        return vs;
+    },
 
-            args = this.viewport.addRequestParams({});
+    _doMsgAction: function(type, opts, args)
+    {
+        var vs = this._getFlagSelection(opts);
 
-            actionCall = {
-                spam: 'ReportSpam',
-                ham: 'ReportHam',
-                blacklist: 'Blacklist',
-                whitelist: 'Whitelist'
-            };
-
+        if (vs.size()) {
             // This needs to be synchronous Ajax if we are calling from a
             // popup window because Mozilla will not correctly call the
             // callback function if the calling window has been closed.
-            DimpCore.doAction(actionCall[action], this.viewport.addRequestParams({}), vs, this.bcache.get('deleteC') || this.bcache.set('deleteC', this._deleteCallback.bind(this)), { asynchronous: !(opts.index && opts.mailbox) });
+            DimpCore.doAction(type, this.viewport.addRequestParams(args), vs, this.bcache.get('deleteC') || this.bcache.set('deleteC', this._deleteCallback.bind(this)), { asynchronous: !(opts.index && opts.mailbox) });
+            return vs;
+        }
 
-            // If reporting spam, to indicate to the user that something is
-            // happening (since spam reporting may not be instantaneous).
-            if (action == 'spam' || action == 'ham') {
-                this.msgListLoading(true);
+        return false;
+    },
+
+    // spam = (boolean) True for spam, false for innocent
+    // opts = 'index', 'mailbox'
+    reportSpam: function(spam, opts)
+    {
+        opts = opts || {};
+        if (this._doMsgAction('ReportSpam', opts, { spam: spam })) {
+            // Indicate to the user that something is happening (since spam
+            // reporting may not be instantaneous).
+            this.msgListLoading(true);
+        }
+    },
+
+    // blacklist = (boolean) True for blacklist, false for whitelist
+    // opts = 'index', 'mailbox'
+    blacklist: function(blacklist, opts)
+    {
+        opts = opts || {};
+        this._doMsgAction('Blacklist', opts, { blacklist: blacklist });
+    },
+
+    // opts = 'index', 'mailbox'
+    deleteMsg: function(opts)
+    {
+        opts = opts || {};
+        var vs = this._getFlagSelection(opts);
+
+        // Make sure that any given row is not deleted more than once. Need to
+        // explicitly mark here because message may already be flagged deleted
+        // when we load page (i.e. switching to using trash folder).
+        vs = vs.search({ isdel: { not: [ true ] } });
+        if (!vs.size()) {
+            return;
+        }
+        vs.set({ isdel: true });
+
+        opts.vs = vs;
+
+        this._doMsgAction('DeleteMessage', opts, {});
+        this.updateFlag(vs, '\\deleted', true);
+    },
+
+    // flag = (string) IMAP flag name
+    // set = (boolean) True to set flag
+    // opts = (Object) 'index', 'mailbox', 'noserver'
+    flag: function(flag, set, opts)
+    {
+        opts = opts || {};
+        var flags = [ (opts.set ? '' : '-') + flag ];
+            vs = this._getFlagSelection(opts);
+
+        if (!vs.size()) {
+            return;
+        }
+
+        switch (flag) {
+        case '\\answered':
+            if (set) {
+                this.updateFlag(vs, '\\flagged', false);
+                flags.push('-\\flagged');
             }
             break;
 
-        case 'imapflag':
-            if (!vs.size()) {
-                break;
-            }
+        case '\\deleted':
+            vs.set({ isdel: false });
+            break;
 
-            flags = [ (opts.set ? '' : '-') + opts.imap ];
+        case '\\seen':
+            vs.get('dataob').each(function(s) {
+                this.updateSeenUID(s, set);
+            }, this);
+            break;
+        }
 
-            switch (opts.imap) {
-            case '\\deleted':
-                // Make sure that any given row is not deleted more than once.
-                // Need to explicitly mark here because message may already be
-                // flagged deleted when we load page (i.e. switching to using
-                // trash folder).
-                if (opts.set) {
-                    vs = vs.search({ isdel: { not: [ true ] } });
-                    if (!vs.size()) {
-                        return;
-                    }
-                    vs.set({ isdel: true });
-                } else {
-                    vs.set({ isdel: false });
-                }
-
-                this.updateFlag(vs, opts.imap, opts.set);
-                DimpCore.doAction(opts.set ? 'DeleteMessage' : 'UndeleteMessage', this.viewport.addRequestParams({}), vs, this.bcache.get('deleteC') || this.bcache.set('deleteC', this._deleteCallback.bind(this)), { asynchronous: !(opts.index && opts.mailbox) });
-                return;
-
-            case '\\seen':
-                vs.get('dataob').each(function(s) {
-                    this.updateSeenUID(s, opts.set);
-                }, this);
-                break;
-
-            case '\\answered':
-                if (opts.set) {
-                    this.updateFlag(vs, '\\flagged', false);
-                    flags.push('-\\flagged');
-                }
-                break;
-            }
-
-            this.updateFlag(vs, opts.imap, opts.set);
-            if (!opts.noserver) {
-                DimpCore.doAction('MarkMessage', { flags: flags.toJSON(), view: this.folder }, vs);
-            }
+        this.updateFlag(vs, flag, set);
+        if (!opts.noserver) {
+            DimpCore.doAction('FlagMessage', { flags: flags.toJSON(), view: this.folder }, vs);
         }
     },
 

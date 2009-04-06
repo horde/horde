@@ -92,9 +92,9 @@ var DimpFullmessage = {
             case 'button_ham':
             case 'button_spam':
                 if (id == 'button_deleted') {
-                    DIMP.baseWindow.DimpBase.flag('imapflag', { imap: '\\deleted', index: DIMP.conf.msg_index, mailbox: DIMP.conf.msg_folder, set: true });
+                    DIMP.baseWindow.DimpBase.deleteMsg({ index: DIMP.conf.msg_index, mailbox: DIMP.conf.msg_folder });
                 } else {
-                    DIMP.baseWindow.DimpBase.flag(id.substring(7), { index: DIMP.conf.msg_index, mailbox: DIMP.conf.msg_folder });
+                    DIMP.baseWindow.DimpBase.reportSpam(id == 'button_spam', { index: DIMP.conf.msg_index, mailbox: DIMP.conf.msg_folder });
                 }
                 window.close();
                 e.stop();

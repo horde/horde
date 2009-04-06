@@ -377,7 +377,7 @@ case 'CopyMessage':
     }
     break;
 
-case 'MarkMessage':
+case 'FlagMessage':
     $flags = Util::getPost('flags');
     if (!$flags || empty($indices)) {
         break;
@@ -407,23 +407,15 @@ case 'MarkMessage':
     break;
 
 case 'DeleteMessage':
-case 'UndeleteMessage':
     if (empty($indices)) {
         break;
     }
 
     $imp_message = IMP_Message::singleton();
-    if ($action == 'DeleteMessage') {
-        $change = _changed($mbox, $cacheid, true);
-        $result = $imp_message->delete($indices);
-        if ($result) {
-            $result = _generateDeleteResult($mbox, $indices, $change, !$prefs->getValue('hide_deleted') && !$prefs->getValue('use_trash'));
-        }
-    } else {
-        $result = $imp_message->undelete($indices);
-        if ($result) {
-            $result = new stdClass;
-        }
+    $change = _changed($mbox, $cacheid, true);
+    $result = $imp_message->delete($indices);
+    if ($result) {
+        $result = _generateDeleteResult($mbox, $indices, $change, !$prefs->getValue('hide_deleted') && !$prefs->getValue('use_trash'));
     }
     break;
 
@@ -446,9 +438,8 @@ case 'AddContact':
     break;
 
 case 'ReportSpam':
-case 'ReportHam':
     $change = _changed($mbox, $cacheid, false);
-    $spam_result = IMP_Spam::reportSpam($indices, ($action == 'ReportSpam') ? 'spam' : 'notspam');
+    $spam_result = IMP_Spam::reportSpam($indices, Util::getPost('spam') ? 'spam' : 'notspam');
     if ($spam_result) {
         $result = _generateDeleteResult($mbox, $indices, $change);
         // If $spam_result is non-zero, then we know the message has been
@@ -458,19 +449,18 @@ case 'ReportHam':
     break;
 
 case 'Blacklist':
-case 'Whitelist':
     if (empty($indices)) {
         break;
     }
 
     $imp_filter = new IMP_Filter();
-    if ($action == 'Whitelist') {
-        $imp_filter->whitelistMessage($indices, false);
-    } else {
+    if (Util::getPost('blacklist')) {
         $change = _changed($mbox, $cacheid, false);
         if ($imp_filter->blacklistMessage($indices, false)) {
             $result = _generateDeleteResult($mbox, $indices, $change);
         }
+    } else {
+        $imp_filter->whitelistMessage($indices, false);
     }
     break;
 
