@@ -131,7 +131,7 @@ case 'process_import_public_key':
     } else {
         /* Add the public key to the storage system. */
         try {
-            $imp_pgp->addPublicKey($publicKey);
+            $key_info = $imp_pgp->addPublicKey($publicKey);
             foreach ($key_info['signature'] as $sig) {
                 $notification->push(sprintf(_("PGP Public Key for \"%s (%s)\" was successfully added."), $sig['name'], $sig['email']), 'horde.success');
             }
@@ -217,7 +217,7 @@ case 'process_import_personal_private_key':
 case 'view_public_key':
 case 'info_public_key':
     try {
-        $key = $imp_pgp->getPublicKey(Util::getFormData('email'), null, false);
+        $key = $imp_pgp->getPublicKey(Util::getFormData('email'), array('noserver' => true));
     } catch (Horde_Exception $e) {
         $key = $e->getMessage();
     }
