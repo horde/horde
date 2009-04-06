@@ -101,11 +101,26 @@ class Horde_Kolab_Server_Object
      */
     static public $init_attributes = array(
         /**
+         * Attributes that are defined for this object type. It is not
+         * guaranteed that this setting takes effect as this module can be
+         * configured to only trust the schema returned from the server.
+         */
+        'defined' => array(
+            self::ATTRIBUTE_OC,
+        ),
+        /**
          * Derived attributes are calculated based on other attribute values.
          */
         'derived' => array(
-            self::ATTRIBUTE_ID => array(
-            ),
+            self::ATTRIBUTE_ID => array(),
+        ),
+        /**
+         * Attributes that are required for this object type. It is not
+         * guaranteed that this setting takes effect as this module can be
+         * configured to only trust the schema returned from the server.
+         */
+        'required' => array(
+            self::ATTRIBUTE_OC,
         ),
         /**
          * Default values for attributes without a value.
@@ -124,7 +139,7 @@ class Horde_Kolab_Server_Object
          * The object classes representing this object.
          */
         'object_classes' => array(
-            self::OBJECTCLASS_TOP
+            self::OBJECTCLASS_TOP,
         ),
     );
 

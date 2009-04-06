@@ -46,6 +46,11 @@ class Horde_Kolab_Server_Object_Inetorgperson extends Horde_Kolab_Server_Object_
      * @var array
      */
     static public $init_attributes = array(
+        'defined' => array(
+            self::ATTRIBUTE_SID,
+            self::ATTRIBUTE_GIVENNAME,
+            self::ATTRIBUTE_MAIL,
+        ),
         /**
          * Derived attributes are calculated based on other attribute values.
          */
