@@ -39,18 +39,60 @@ $objects['person'] = array(
         ),
     ),
     'attributes'  => array(
-        'hide' => array(
-            'objectClass',
-            'id',
-	    'cn',
-	    'seeAlso',
-	    'description',
+        'fields' => array(
+            'cn' => array(
+                'required' => false,
+            ),
+            'userPassword' => array(
+                'required' => true,
+            ),
         ),
-        'order' => array(
-            'sn' => 5,
-            'snsuffix' => 6,
-            'userPassword' => 7,
+    ),
+);
+
+$objects['organizationalperson'] = array(
+    'class'       => 'Horde_Kolab_Server_Object_Organizationalperson',
+    'label'       => _("Organizational person"),
+    'list_label'  => _("Organizational persons"),
+    'list_attributes'  => array(
+        'cn' => array(
+            'title' => _("Common name"),
+            'width' => 40,
+            'link_view'=> true,
         ),
+        'sn' => array(
+            'title' => _("Last name"),
+            'width' => 40,
+        ),
+    ),
+    'attributes'  => array(
+        'fields' => array(
+            'cn' => array(
+                'required' => false,
+            ),
+            'userPassword' => array(
+                'required' => true,
+            ),
+        ),
+    ),
+);
+
+$objects['inetperson'] = array(
+    'class'       => 'Horde_Kolab_Server_Object_Inetorgperson',
+    'label'       => _("Inet person"),
+    'list_label'  => _("Inet persons"),
+    'list_attributes'  => array(
+        'cn' => array(
+            'title' => _("Common name"),
+            'width' => 40,
+            'link_view'=> true,
+        ),
+        'sn' => array(
+            'title' => _("Last name"),
+            'width' => 40,
+        ),
+    ),
+    'attributes'  => array(
         'fields' => array(
             'cn' => array(
                 'required' => false,
@@ -122,7 +164,6 @@ $objects['kolabuser'] = array(
     'attributes'  => array(
         'hide' => array(
             'objectClass',
-            'userPassword',
             'seeAlso',
             'x121Address',
             'registeredAddress',
@@ -135,24 +176,26 @@ $objects['kolabuser'] = array(
             'kolabHomeMTA',
             'kolabDelegate',
         ),
-        'order' => array(
-            'mail' => 1,
-            'kolabSalutation' => 2,
-            'givenName' => 3,
-            'middleNames' => 4,
-            'sn' => 5,
-            'snsuffix' => 6,
-            'personalTitle' => 7,
-        ),
         'labels' => array(
             'mail' => _("Account ID"),
         ),
         'fields' => array(
             'kolabSalutation' => array(
-                'label' => _("Salutation"),
                 'type' => 'enum',
                 'params' => array('values' => array(_("Mr.") => _("Mr."),
                                                     _("Mrs.") => _("Mrs.")),
+                                  'prompt' => true),
+            ),
+            'gender' => array(
+                'type' => 'enum',
+                'params' => array('values' => array(_("1") => _("male"),
+                                                    _("2") => _("female")),
+                                  'prompt' => true),
+            ),
+            'kolabMaritalStatus' => array(
+                'type' => 'enum',
+                'params' => array('values' => array(_("0") => _("single"),
+                                                    _("1") => _("married")),
                                   'prompt' => true),
             ),
         ),
