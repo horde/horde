@@ -534,18 +534,31 @@ class Horde_Kolab_Server_Test extends Horde_Kolab_Server_Kolab
     }
 
     /**
-     * Return the attributes of an entry.
+     * Return the schema for the given objectClass.
      *
-     * @param array $entry The LDAP entry.
+     * @param string $objectclass Fetch the schema for this objectClass.
      *
-     * @return array  The attributes of the entry.
+     * @return array The schema for the given objectClass.
+     *
+     * @throws Horde_Kolab_Server_Exception If retrieval of the schema failed.
      */
-    protected function getAttributes($entry)
+    public function getObjectclassSchema($objectclass)
     {
-        if (is_array($entry)) {
-            return $entry;
-        }
-        return false;
+        return array();
+    }
+
+    /**
+     * Return the schema for the given attribute.
+     *
+     * @param string $attribute Fetch the schema for this attribute.
+     *
+     * @return array The schema for the given attribute.
+     *
+     * @throws Horde_Kolab_Server_Exception If retrieval of the schema failed.
+     */
+    public function getAttributeSchema($attribute)
+    {
+        return array();
     }
 
     /**

@@ -28,9 +28,6 @@
  */
 class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
 {
-    /** Maximum accepted level for the object class hierarchy */
-    const MAX_HIERARCHY = 100;
-
     /**
      * LDAP connection handle.
      *
@@ -51,13 +48,6 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
      * @var string
      */
     private $_base_dn;
-
-    /**
-     * Does this server type support automatic schema analysis?
-     *
-     * @var boolean
-     */
-    public $schema_support = false;
 
     /**
      * The LDAP schemas.
@@ -104,10 +94,6 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
         $config['bindpw'] = $config['pass'];
 
         $this->_config = $config;
-
-        if (!empty($params['schema_support'])) {
-            $this->schema_support = true;
-        }
 
         $this->connect();
 
@@ -310,167 +296,66 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
     }
 
     /**
-     * Return the attributes supported by the given object class.
+     * Return the ldap schema.
      *
-     * @param string $class Determine the attributes for this class.
+     * @return Net_LDAP2_Schema The LDAP schema.
      *
-     * @return array The supported attributes.
-     *
-     * @throws Horde_Kolab_Server_Exception If the schema analysis fails.
+     * @throws Horde_Kolab_Server_Exception If retrieval of the schema failed.
      */
-    public function &getAttributes($class)
+    private function _getSchema()
     {
-        static $cache = null;
-        static $lifetime;
-
-        if (!isset($this->attributes)) {
-            if (!empty($GLOBALS['conf']['kolab']['server']['cache']['driver'])) {
-                $params = isset($GLOBALS['conf']['kolab']['server']['cache']['params'])
-                    ? $GLOBALS['conf']['kolab']['server']['cache']['params'] : null;
-                $params['sub'] = 'attributes';
-                $cache = Horde_Cache::singleton($GLOBALS['conf']['kolab']['server']['cache']['driver'],
-                                                $params);
-                register_shutdown_function(array($this, 'shutdown'));
-                $lifetime = isset($GLOBALS['conf']['kolab']['server']['cache']['lifetime'])
-                    ? $GLOBALS['conf']['kolab']['server']['cache']['lifetime'] : 300;
+        if (!isset($this->_schema)) {
+            $result = $this->_ldap->schema();
+            if ($result instanceOf PEAR_Error) {
+                throw new Horde_Kolab_Server_Exception($result->getMessage());
             }
+            $this->_schema = &$result;
         }
-
-        if (empty($this->attributes[$class])) {
-
-            if (!empty($cache)) {
-                $this->attributes[$class] = @unserialize($cache->get($class, $lifetime));
-            }
-
-            if (empty($this->attributes[$class])) {
-
-                $childclass = $class;
-                $classes    = array();
-                $level      = 0;
-                while ($childclass != 'Horde_Kolab_Server_Object'
-                       && $level < self::MAX_HIERARCHY) {
-                    $classes[] = $childclass;
-                    $childclass = get_parent_class($childclass);
-                    $level++;
-                }
-
-                /** Finally add the basic object class */
-                $classes[] = $childclass;
-
-                if ($level == self::MAX_HIERARCHY) {
-                    Horde::logMessage(sprintf('The maximal level of the object hierarchy has been exceeded for class \"%s\"!',
-                                              $class),
-                                      __FILE__, __LINE__, PEAR_LOG_ERROR);
-                }
-
-                /**
-                 * Collect attributes from top to bottom.
-                 */
-                $classes = array_reverse($classes);
-
-                $derived        = array();
-                $defaults       = array();
-                $locked         = array();
-                $object_classes = array();
-
-                foreach ($classes as $childclass) {
-                    $vars = get_class_vars($childclass);
-                    if (isset($vars['init_attributes'])) {
-                        $derived = array_merge($derived,
-                                               $vars['init_attributes']['derived']);
-                        $defaults = array_merge($defaults,
-                                                $vars['init_attributes']['defaults']);
-                        $locked = array_merge($locked,
-                                              $vars['init_attributes']['locked']);
-                        $object_classes = array_merge($object_classes,
-                                                      $vars['init_attributes']['object_classes']);
-                    }
-                }
-
-                if ($this->schema_support === true) {
-                    if (!isset($this->_schema)) {
-                        $result = $this->_ldap->schema();
-                        if ($result instanceOf PEAR_Error) {
-                            throw new Horde_Kolab_Server_Exception($result->getMessage());
-                        }
-                        $this->_schema = &$result;
-                    }
-                    $supported = array();
-                    $required  = array();
-                    foreach ($object_classes as $object_class) {
-                        $info = $this->_schema->get('objectclass', $object_class);
-                        if ($info instanceOf PEAR_Error) {
-                            throw new Horde_Kolab_Server_Exception($info->getMessage());
-                        }
-                        if (isset($info['may'])) {
-                            $supported = array_merge($supported, $info['may']);
-                        }
-                        if (isset($info['must'])) {
-                            $supported = array_merge($supported, $info['must']);
-                            $required  = array_merge($required, $info['must']);
-                        }
-                    }
-                    if (empty($supported) && empty($required)) {
-                        return false;
-                    }
-                    foreach ($supported as $attribute) {
-                        $info = $this->_schema->get('attribute', $attribute);
-                        if ($info instanceOf PEAR_Error) {
-                            throw new Horde_Kolab_Server_Exception($info->getMessage());
-                        }
-                        $attrs[$attribute] = $info;
-                    }
-                    foreach ($required as $attribute) {
-                        $attrs[$attribute]['required'] = true;
-                    }
-                    foreach ($locked as $attribute) {
-                        $attrs[$attribute]['locked'] = true;
-                    }
-                    foreach ($defaults as $attribute) {
-                        $attrs[$attribute]['default'] = true;
-                    }
-                    $attrs[Horde_Kolab_Server_Object::ATTRIBUTE_OC]['default'] = $object_classes;
-
-                    $attrs = array_merge($attrs, $derived);
-
-                    $this->attributes[$class] = array($attrs,
-                                                      array(
-                                                          'derived'  => $derived,
-                                                          'locked'   => $locked,
-                                                          'required' => $required,
-                                                      ));
-                } else {
-                    $this->attributes[$class] = array(array(),
-                                                      array(
-                                                          'derived'  => array(),
-                                                          'locked'   => array(),
-                                                          'required' => array(),
-                                                      ));
-                }
-            }
-        }
-        return $this->attributes[$class];
+        return $this->_schema;
     }
 
     /**
-     * Stores the attribute definitions in the cache.
+     * Return the schema for the given objectClass.
+     *
+     * @param string $objectclass Fetch the schema for this objectClass.
+     *
+     * @return array The schema for the given objectClass.
+     *
+     * @throws Horde_Kolab_Server_Exception If retrieval of the schema failed.
      */
-    function shutdown()
+    protected function getObjectclassSchema($objectclass)
     {
-        if (isset($this->attributes)) {
-            if (!empty($GLOBALS['conf']['kolab']['server']['cache']['driver'])) {
-                $params = isset($GLOBALS['conf']['kolab']['server']['cache']['params'])
-                    ? $GLOBALS['conf']['kolab']['server']['cache']['params'] : null;
-                $params['sub'] = 'attributes';
-                $cache = Horde_Cache::singleton($GLOBALS['conf']['kolab']['server']['cache']['driver'],
-                                                $params);
-                foreach ($this->attributes as $key => $value) {
-                    $cache->set($key, @serialize($value));
-                }
+        if (!empty($this->_config['schema_support'])) {
+            $schema = $this->_getSchema();
+            $info = $schema->get('objectclass', $object_class);
+            if ($info instanceOf PEAR_Error) {
+                throw new Horde_Kolab_Server_Exception($info->getMessage());
             }
+            return $info;
         }
+        return parent::getObjectclassSchema($objectclass);
     }
 
+    /**
+     * Return the schema for the given attribute.
+     *
+     * @param string $attribute Fetch the schema for this attribute.
+     *
+     * @return array The schema for the given attribute.
+     *
+     * @throws Horde_Kolab_Server_Exception If retrieval of the schema failed.
+     */
+    protected function getAttributeSchema($attribute)
+    {
+        if (!empty($this->_config['schema_support'])) {
+            $schema = $this->_getSchema();
+            $info = $schema->get('attribute', $attribute);
+            if ($info instanceOf PEAR_Error) {
+                throw new Horde_Kolab_Server_Exception($info->getMessage());
+            }
+        }
+        return parent::getAttributeSchema($attribute);
+    }
 
     /**
      * Search for object data.

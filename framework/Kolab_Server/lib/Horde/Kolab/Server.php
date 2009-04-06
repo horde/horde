@@ -33,6 +33,9 @@ require_once 'Horde/Autoloader.php';
  */
 abstract class Horde_Kolab_Server
 {
+    /** Maximum accepted level for the object class hierarchy */
+    const MAX_HIERARCHY = 100;
+
     /**
      * Server parameters.
      *
@@ -53,13 +56,6 @@ abstract class Horde_Kolab_Server
      * @var array
      */
     protected $searches;
-
-    /**
-     * Does this server type support automatic schema analysis?
-     *
-     * @var boolean
-     */
-    public $schema_support = false;
 
     /**
      * Construct a new Horde_Kolab_Server object.
@@ -173,6 +169,24 @@ abstract class Horde_Kolab_Server
         }
 
         return $instances[$signature];
+    }
+
+    /**
+     * Stores the attribute definitions in the cache.
+     */
+    function shutdown()
+    {
+        if (isset($this->attributes)) {
+            if (!empty($GLOBALS['conf']['kolab']['server']['cache']['driver'])) {
+                $params = isset($GLOBALS['conf']['kolab']['server']['cache']['params'])
+                    ? $GLOBALS['conf']['kolab']['server']['cache']['params'] : null;
+                $cache = Horde_Cache::singleton($GLOBALS['conf']['kolab']['server']['cache']['driver'],
+                                                $params);
+                foreach ($this->attributes as $key => $value) {
+                    $cache->set('attributes_' . $key, @serialize($value));
+                }
+            }
+        }
     }
 
     /**
@@ -322,6 +336,157 @@ abstract class Horde_Kolab_Server
             'Horde_Kolab_Server_Object',
         );
         return $objects;
+    }
+
+    /**
+     * Return the attributes supported by the given object class.
+     *
+     * @param string $class Determine the attributes for this class.
+     *
+     * @return array The supported attributes.
+     *
+     * @throws Horde_Kolab_Server_Exception If the schema analysis fails.
+     */
+    public function &getAttributes($class)
+    {
+        static $cache = null;
+        static $lifetime;
+
+        if (!isset($this->attributes)) {
+            if (!empty($GLOBALS['conf']['kolab']['server']['cache']['driver'])) {
+                $params = isset($GLOBALS['conf']['kolab']['server']['cache']['params'])
+                    ? $GLOBALS['conf']['kolab']['server']['cache']['params'] : null;
+                $cache = Horde_Cache::singleton($GLOBALS['conf']['kolab']['server']['cache']['driver'],
+                                                $params);
+                register_shutdown_function(array($this, 'shutdown'));
+                $lifetime = isset($GLOBALS['conf']['kolab']['server']['cache']['lifetime'])
+                    ? $GLOBALS['conf']['kolab']['server']['cache']['lifetime'] : 300;
+            }
+        }
+
+        if (empty($this->attributes[$class])) {
+
+            if (!empty($cache)) {
+                $this->attributes[$class] = @unserialize($cache->get('attributes_' . $class, $lifetime));
+            }
+
+            if (empty($this->attributes[$class])) {
+
+                $childclass = $class;
+                $classes    = array();
+                $level      = 0;
+                while ($childclass != 'Horde_Kolab_Server_Object'
+                       && $level < self::MAX_HIERARCHY) {
+                    $classes[] = $childclass;
+                    $childclass = get_parent_class($childclass);
+                    $level++;
+                }
+
+                /** Finally add the basic object class */
+                $classes[] = $childclass;
+
+                if ($level == self::MAX_HIERARCHY) {
+                    Horde::logMessage(sprintf('The maximal level of the object hierarchy has been exceeded for class \"%s\"!',
+                                              $class),
+                                      __FILE__, __LINE__, PEAR_LOG_ERROR);
+                }
+
+                /**
+                 * Collect attributes from bottom to top.
+                 */
+                $classes = array_reverse($classes);
+
+                $types = array('defined', 'required', 'derived', 'defaults',
+                               'locked', 'object_classes');
+                foreach ($types as $type) {
+                    $$type = array();
+                }
+
+                foreach ($classes as $childclass) {
+                    $vars = get_class_vars($childclass);
+                    if (isset($vars['init_attributes'])) {
+                        foreach ($types as $type) {
+                            /**
+                             * If the user wishes to adhere to the schema
+                             * information from the server we will skip the
+                             * attributes defined within the object class here.
+                             */
+                            if (!empty($GLOBALS['conf']['kolab']['server']['schema_override'])
+                                && in_array($type, 'defined', 'required')) {
+                                continue;
+                            }
+                            if (isset($vars['init_attributes'][$type])) {
+                                $$type = array_merge($$type,
+                                                     $vars['init_attributes'][$type]);
+                            }
+                        }
+                    }
+                }
+
+                $attrs = array();
+
+                foreach ($object_classes as $object_class) {
+                    $info = $this->getObjectclassSchema($object_class);
+                    if (isset($info['may'])) {
+                        $defined = array_merge($defined, $info['may']);
+                    }
+                    if (isset($info['must'])) {
+                        $defined  = array_merge($defined, $info['must']);
+                        $required = array_merge($required, $info['must']);
+                    }
+                    foreach ($defined as $attribute) {
+                        $attrs[$attribute] = $this->getAttributeSchema($attribute);
+                    }
+                    foreach ($required as $attribute) {
+                        $attrs[$attribute]['required'] = true;
+                    }
+                    foreach ($locked as $attribute) {
+                        $attrs[$attribute]['locked'] = true;
+                    }
+                    foreach ($defaults as $attribute => $default) {
+                        $attrs[$attribute]['default'] = $default;
+                    }
+                    $attrs[Horde_Kolab_Server_Object::ATTRIBUTE_OC]['default'] = $object_classes;
+
+                    $attrs = array_merge($attrs, $derived);
+
+                }
+                $this->attributes[$class] = array($attrs,
+                                                  array(
+                                                      'derived'  => array_keys($derived),
+                                                      'locked'   => $locked,
+                                                      'required' => $required));
+            }
+        }
+        return $this->attributes[$class];
+    }
+
+    /**
+     * Return the schema for the given objectClass.
+     *
+     * @param string $objectclass Fetch the schema for this objectClass.
+     *
+     * @return array The schema for the given objectClass.
+     *
+     * @throws Horde_Kolab_Server_Exception If retrieval of the schema failed.
+     */
+    protected function getObjectclassSchema($objectclass)
+    {
+        return array();
+    }
+
+    /**
+     * Return the schema for the given attribute.
+     *
+     * @param string $attribute Fetch the schema for this attribute.
+     *
+     * @return array The schema for the given attribute.
+     *
+     * @throws Horde_Kolab_Server_Exception If retrieval of the schema failed.
+     */
+    protected function getAttributeSchema($attribute)
+    {
+        return array();
     }
 
     /**
