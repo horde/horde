@@ -327,7 +327,7 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
     {
         if (!empty($this->_config['schema_support'])) {
             $schema = $this->_getSchema();
-            $info = $schema->get('objectclass', $object_class);
+            $info = $schema->get('objectclass', $objectclass);
             if ($info instanceOf PEAR_Error) {
                 throw new Horde_Kolab_Server_Exception($info->getMessage());
             }
@@ -353,6 +353,7 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
             if ($info instanceOf PEAR_Error) {
                 throw new Horde_Kolab_Server_Exception($info->getMessage());
             }
+            return $info;
         }
         return parent::getAttributeSchema($attribute);
     }
