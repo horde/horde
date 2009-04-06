@@ -112,7 +112,7 @@ class Horde_Kolab_Server_Kolab extends Horde_Kolab_Server_Ldap
             } else if ($info['user_type'] == Horde_Kolab_Server_Object_Kolab_User::USERTYPE_RESOURCE) {
                 return sprintf('%s,cn=resources,%s', $id, $this->getBaseUid());
             } else {
-                return parent::getServerUid($type, $id, $info);
+                return parent::generateServerUid($type, $id, $info);
             }
         case 'Horde_Kolab_Server_Object_Kolab_Address':
             return sprintf('%s,cn=external,%s', $id, $this->getBaseUid());
