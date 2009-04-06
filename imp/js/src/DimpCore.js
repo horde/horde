@@ -8,11 +8,8 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  */
 
-/* Trick some Horde js into thinking this is the parent Horde window. */
-var frames = { horde_main: true },
-
 /* DimpCore object. */
-DimpCore = {
+var DimpCore = {
     // Vars used and defaulting to null/false:
     //   DMenu, alertrequest, inAjaxCallback, is_init, is_logout,
     //   onDoActionComplete
