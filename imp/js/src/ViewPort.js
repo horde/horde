@@ -46,7 +46,7 @@ var ViewPort = Class.create({
     // background = Load view in background?
     loadView: function(view, search, background)
     {
-        var buffer, curr, init, opts = {}, ps;
+        var buffer, curr, init = true, opts = {}, ps;
 
         this._clearWait();
 
@@ -66,11 +66,8 @@ var ViewPort = Class.create({
                 // Need to store current buffer to save current offset
                 this.views.set(this.view, { buffer: this._getBuffer(), offset: this.currentOffset() });
             }
-        } else {
-            init = true;
+            init = false;
         }
-
-        curr = this.views.get(view);
 
         if (background) {
             opts = { background: true, view: view };
@@ -82,13 +79,17 @@ var ViewPort = Class.create({
             }
         }
 
+        curr = this.views.get(view);
+
         if (curr) {
             this._updateContent(curr.offset, opts);
             if (!background) {
                 this.opts.ajaxRequest(this.opts.fetch_action, this.addRequestParams({ checkcache: 1, rownum: this.currentOffset() + 1 }));
             }
             return true;
-        } else if (!init) {
+        }
+
+        if (!init) {
             if (this.opts.onClearRows) {
                 this.opts.onClearRows(this.opts.content.childElements());
             }
@@ -98,6 +99,7 @@ var ViewPort = Class.create({
 
         buffer = this._getBuffer(view, true);
         this.views.set(view, { buffer: buffer, offset: 0 });
+
         if (search) {
             opts.search = search;
         } else {
@@ -115,7 +117,7 @@ var ViewPort = Class.create({
     },
 
     // rownum = (integer) Row number
-    // noupdate = (Object)
+    // opts = (Object) [noupdate, top]
     scrollTo: function(rownum, opts)
     {
         var s = this.scroller;
@@ -651,7 +653,7 @@ var ViewPort = Class.create({
     },
 
     // offset = (integer) TODO
-    // opts = (object) TODO [view]
+    // opts = (object) TODO [background, view]
     _updateContent: function(offset, opts)
     {
         opts = opts || {};
@@ -743,6 +745,7 @@ var ViewPort = Class.create({
         if (this.opts.onFail) {
             this.opts.onFail();
         }
+
         if (this.opts.error) {
             this.opts.content.update(this.opts.error.innerHTML);
         }
@@ -804,26 +807,16 @@ var ViewPort = Class.create({
         return this.scroller.currentOffset();
     },
 
-    // vs = (Viewport_Selection) A Viewport_Selection object.
-    // cname = (string) Class name.
-    // add = (boolean) Whether to set/unset flag.
-    _updateClass: function(vs, cname, add)
-    {
-        vs.get('div').invoke(add ? 'addClassName' : 'removeClassName', cname);
-    },
-
     _getLineHeight: function()
     {
-        if (this.line_height) {
-            return this.line_height;
+        if (!this.line_height) {
+            // To avoid hardcoding the line height, create a temporary row to
+            // figure out what the CSS says.
+            var d = new Element('DIV', { className: this.opts.content_class }).insert(new Element('DIV', { className: this.opts.row_class })).hide();
+            $(document.body).insert(d);
+            this.line_height = d.getHeight();
+            d.remove();
         }
-
-        // To avoid hardcoding the line height, create a temporary row to
-        // figure out what the CSS says.
-        var d = new Element('DIV', { className: this.opts.content_class }).insert(new Element('DIV', { className: this.opts.row_class })).hide();
-        $(document.body).insert(d);
-        this.line_height = d.getHeight();
-        d.remove();
 
         return this.line_height;
     },
@@ -904,10 +897,8 @@ var ViewPort = Class.create({
         if (setpane) {
             pane.setStyle({ height: (this._getMaxHeight() - h - lh) + 'px' }).show();
             this.splitbar.show();
-        } else {
-            if (diff = de.scrollHeight - de.clientHeight) {
-                c.setStyle({ height: (lh * (this.page_size - 1)) + 'px' });
-            }
+        } else if (diff = de.scrollHeight - de.clientHeight) {
+            c.setStyle({ height: (lh * (this.page_size - 1)) + 'px' });
         }
 
         if (!noupdate) {
@@ -929,7 +920,13 @@ var ViewPort = Class.create({
             onStart: function() {
                 // Cache these values since we will be using them multiple
                 // times in snap().
-                this.sp = { lh: this._getLineHeight(), pos: $(this.opts.content).positionedOffset()[1], max: this.getPageSize('splitmax'), lines: this.page_size, orig: this.page_size };
+                this.sp = {
+                    lh: this._getLineHeight(),
+                    lines: this.page_size,
+                    max: this.getPageSize('splitmax'),
+                    orig: this.page_size,
+                    pos: $(this.opts.content).positionedOffset()[1]
+                };
             }.bind(this),
             snap: function(x, y, elt) {
                 var l = parseInt((y - this.sp.pos) / this.sp.lh);
@@ -995,10 +992,10 @@ var ViewPort = Class.create({
         if (!opts.add) {
             sel = this.getSelected();
             b.deselect(sel, true);
-            this._updateClass(sel, this.opts.selected_class, false);
+            sel.get('div').invoke('removeClassName', this.opts.selected_class);
         }
         b.select(vs);
-        this._updateClass(vs, this.opts.selected_class, true);
+        vs.get('div').invoke('addClassName', this.opts.selected_class);
         if (this.opts.selectCallback) {
             this.opts.selectCallback(vs, opts);
         }
@@ -1010,12 +1007,9 @@ var ViewPort = Class.create({
     {
         opts = opts || {};
 
-        if (!vs.size()) {
-            return;
-        }
-
-        if (this._getBuffer().deselect(vs, opts && opts.clearall)) {
-            this._updateClass(vs, this.opts.selected_class, false);
+        if (vs.size() &&
+            this._getBuffer().deselect(vs, opts && opts.clearall)) {
+            vs.get('div').invoke('removeClassName', this.opts.selected_class);
             if (this.opts.deselectCallback) {
                 this.opts.deselectCallback(vs, opts)
             }
@@ -1048,7 +1042,7 @@ ViewPort_Scroller = Class.create({
         var c = this.vp.opts.content;
 
         // Create the outer div.
-        this.scrollDiv = new Element('DIV', { className: 'sbdiv', style: 'height:' + c.getHeight() + 'px;' }).hide();
+        this.scrollDiv = new Element('DIV', { className: 'sbdiv' }).setStyle({ height: c.getHeight() + 'px' }).hide();
 
         // Add scrollbar to parent viewport and give our parent a right
         // margin just big enough to accomodate the scrollbar.
@@ -1067,12 +1061,10 @@ ViewPort_Scroller = Class.create({
         // Mouse wheel handler.
         c.observe(Prototype.Browser.Gecko ? 'DOMMouseScroll' : 'mousewheel', function(e) {
             // Fix issue on FF 3 (as of 3.0) that triggers two events
-            if (Prototype.Browser.Gecko && e.eventPhase == 2) {
-                return;
+            if (!e.eventPhase == 2) {
+                var move_num = Math.min(this.vp.getPageSize(), 3);
+                this.moveScroll(this.currentOffset() + ((e.wheelDelta >= 0 || e.detail < 0) ? (-1 * move_num) : move_num));
             }
-            var move_num = this.vp.getPageSize();
-            move_num = (move_num > 3) ? 3 : move_num;
-            this.moveScroll(this.currentOffset() + ((e.wheelDelta >= 0 || e.detail < 0) ? (-1 * move_num) : move_num));
         }.bindAsEventListener(this));
 
         return true;
@@ -1620,7 +1612,7 @@ Object.extend(Array.prototype, {
     },
     numericSort: function()
     {
-        return this.collect(Number).sort(function(a,b) {
+        return this.collect(Number).sort(function(a, b) {
             return (a > b) ? 1 : ((a < b) ? -1 : 0);
         });
     }

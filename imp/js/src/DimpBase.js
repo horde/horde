@@ -569,7 +569,7 @@ var DimpBase = {
             }.bind(this),
             onClearRows: function(r) {
                 r.each(function(row) {
-                    if (row.id) {
+                    if (row.readAttribute('id')) {
                         this._removeMouseEvents(row);
                     }
                 }, this);
