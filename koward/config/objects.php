@@ -4,13 +4,51 @@ $objects['object'] = array(
     'class'       => 'Horde_Kolab_Server_Object',
     'label'       => _("Object"),
     'list_label'  => _("Objects"),
+    'list_attributes'  => array(
+        'id' => array(
+            'title' => _("Object id"),
+            'width' => 80,
+            'link_view'=> true,
+        ),
+    ),
     'attributes'  => array(
         'override' => true,
         'fields' => array(
             'id' => array(
-                'title' => _("Object id"),
-                'width' => 80,
-                'link_view'=> true,
+                'label' => _("Object ID"),
+                'type' => 'text',
+                'params' => array('regex' => '', 'size' => 40, 'maxlength' => 255)
+            ),
+        ),
+    ),
+);
+
+$objects['person'] = array(
+    'class'       => 'Horde_Kolab_Server_Object_Person',
+    'label'       => _("Person"),
+    'list_label'  => _("Persons"),
+    'list_attributes'  => array(
+        'cn' => array(
+            'title' => _("Common name"),
+            'width' => 40,
+        ),
+        'sn' => array(
+            'title' => _("Last name"),
+            'width' => 40,
+        ),
+    ),
+    'attributes'  => array(
+        'hide' => array(
+            'objectClass',
+            'id',
+        ),
+        'order' => array(
+            'sn' => 5,
+            'snsuffix' => 6,
+        ),
+        'fields' => array(
+            'cn' => array(
+                'required' => false,
             ),
         ),
     ),
@@ -20,26 +58,23 @@ $objects['user'] = array(
     'class'       => 'Horde_Kolab_Server_Object_Kolab_User',
     'label'       => _("User"),
     'list_label'  => _("Users"),
-    'attributes'  => array(
-        'override' => true,
-        'fields' => array(
-            'sn' => array(
-                'title' => _("Last name"),
-                'width' => 20,
-            ),
-            'givenName' => array(
-                'title' => _("First name"),
-                'width' => 20,
-            ),
-            'mail' => array(
-                'title' => _("E-mail"),
-                'width' => 20,
-                'link_view'=> true,
-            ),
-            'uid' => array(
-                'title' => _("User ID"),
-                'width' => 20,
-            ),
+    'list_attributes'  => array(
+        'sn' => array(
+            'title' => _("Last name"),
+            'width' => 20,
+        ),
+        'givenName' => array(
+            'title' => _("First name"),
+            'width' => 20,
+        ),
+        'mail' => array(
+            'title' => _("E-mail"),
+            'width' => 20,
+            'link_view'=> true,
+        ),
+        'uid' => array(
+            'title' => _("User ID"),
+            'width' => 20,
         ),
     ),
 );
@@ -98,6 +133,8 @@ $objects['kolabuser'] = array(
             'givenName' => 3,
             'middleNames' => 4,
             'sn' => 5,
+            'snsuffix' => 6,
+            'personalTitle' => 7,
         ),
         'labels' => array(
             'mail' => _("Account ID"),
