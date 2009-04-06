@@ -86,7 +86,9 @@ class Koward_Form_Object extends Horde_Form {
         } else {
             list($attributes, $attribute_map) = $this->koward->server->getAttributes($config['class']);
 
-            if (isset($config['attributes']['show'])) {
+            if (isset($this->koward->visible['show'])) {
+                $akeys = $this->koward->visible['show'];
+            } else if (isset($config['attributes']['show'])) {
                 $akeys = $config['attributes']['show'];
             } else {
                 $akeys = array_keys($attributes);
@@ -98,8 +100,10 @@ class Koward_Form_Object extends Horde_Form {
             $form_attributes = array();
 
             foreach ($akeys as $key) {
-                if (isset($config['attributes']['hide'])
-                    && in_array($key, $config['attributes']['hide'])) {
+                if ((isset($this->koward->visible['hide'])
+                     && in_array($key, $this->koward->visible['hide']))
+                    || (isset($config['attributes']['hide'])
+                        && in_array($key, $config['attributes']['hide']))) {
                     continue;
                 }
 
@@ -108,8 +112,12 @@ class Koward_Form_Object extends Horde_Form {
                 } else if (isset($attributes[$key]['syntax'])) {
                     list($syntax, $length) = explode('{', $attributes[$key]['syntax'], 2);
                     switch ($syntax) {
+                    case '1.3.6.1.4.1.1466.115.121.1.22':
                     case '1.3.6.1.4.1.1466.115.121.1.50':
                         $type = 'phone';
+                        break;
+                    case '1.3.6.1.4.1.1466.115.121.1.28':
+                        $type = 'image';
                         break;
                     default:
                         $type = 'text';
@@ -127,6 +135,8 @@ class Koward_Form_Object extends Horde_Form {
                 );
                 if (isset($config['attributes']['order'][$key])) {
                     $form_attributes[$key]['order'] = $config['attributes']['order'][$key];
+                } else if (isset($this->koward->order[$key])) {
+                    $form_attributes[$key]['order'] = $this->koward->order[$key];
                 } else {
                     $form_attributes[$key]['order'] = -1;
                 }
