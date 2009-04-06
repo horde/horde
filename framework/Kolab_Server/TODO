@@ -26,3 +26,5 @@
 - Check escaping search parameters when running searchQuery()
 
 - Support alias attribute names
+
+- Support size restrictions.
