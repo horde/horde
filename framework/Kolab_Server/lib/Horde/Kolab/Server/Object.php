@@ -71,6 +71,13 @@ class Horde_Kolab_Server_Object
      */
     private $_cache = false;
 
+    /**
+     * Does the object exist in the LDAP database?
+     *
+     * @var boolean
+     */
+    private $_exists;
+
     /** FIXME: Add an attribute cache for the get() function */
 
     /**
@@ -78,31 +85,47 @@ class Horde_Kolab_Server_Object
      *
      * @var array
      */
-    public $supported_attributes = false;
+    public $attributes;
 
     /**
-     * Attributes derived from other object attributes.
+     * An attribute map for faster access.
      *
      * @var array
      */
-    public $derived_attributes = array(
-        self::ATTRIBUTE_ID,
-    );
+    public $attribute_map;
 
     /**
-     * The attributes required when creating an object of this class.
+     * A structure to initialize the attribute structure for this class.
      *
      * @var array
      */
-    public $required_attributes = false;
-
-    /**
-     * The ldap classes for this type of object.
-     *
-     * @var array
-     */
-    protected $object_classes = array(
-        self::OBJECTCLASS_TOP
+    static public $init_attributes = array(
+        /**
+         * Derived attributes are calculated based on other attribute values.
+         */
+        'derived' => array(
+            self::ATTRIBUTE_ID => array(
+            ),
+        ),
+        /**
+         * Default values for attributes without a value.
+         */
+        'defaults' => array(
+        ),
+        /**
+         * Locked attributes. These are fixed after the object has been stored
+         * once. They may not be modified again.
+         */
+        'locked' => array(
+            self::ATTRIBUTE_ID,
+            self::ATTRIBUTE_OC,
+        ),
+        /**
+         * The object classes representing this object.
+         */
+        'object_classes' => array(
+            self::OBJECTCLASS_TOP
+        ),
     );
 
     /**
@@ -137,12 +160,7 @@ class Horde_Kolab_Server_Object
             $this->uid = $uid;
         }
 
-        if ($server->schema_support === true) {
-            $result = $server->getSupportedAttributes($this->object_classes);
-
-            $this->supported_attributes = $result['supported'];
-            $this->required_attributes  = $result['required'];
-        }
+        list($this->attributes, $this->attribute_map) = $server->getAttributes(get_class($this));
     }
 
     /**
@@ -208,12 +226,15 @@ class Horde_Kolab_Server_Object
      */
     public function exists()
     {
-        try {
-            $this->read();
-        } catch (Horde_Kolab_Server_Exception $e) {
-            return false;
+        if (!isset($this->_exists)) {
+            try {
+                $this->read();
+                $this->_exists = true;
+            } catch (Horde_Kolab_Server_Exception $e) {
+                $this->_exists = false;
+            }
         }
-        return true;
+        return $this->_exists;
     }
 
     /**
@@ -223,8 +244,13 @@ class Horde_Kolab_Server_Object
      */
     protected function read()
     {
+        if (!empty($this->attributes)) {
+            $attributes = array_keys($this->attributes);
+        } else {
+            $attributes = null;
+        }
         $this->_cache = $this->server->read($this->uid,
-                                            $this->supported_attributes);
+                                            $attributes);
     }
 
     /**
@@ -241,10 +267,10 @@ class Horde_Kolab_Server_Object
     {
         if ($attr != self::ATTRIBUTE_UID) {
             // FIXME: This wont work this way.
-            if ($this->supported_attributes !== false
-                && !in_array($attr, $this->supported_attributes)
-                && !in_array($attr, $this->derived_attributes)) {
-                var_dump($this->supported_attributes);
+            if (!empty($this->attributes)
+                && !in_array($attr, array_keys($this->attributes))
+                && !empty($this->attribute_map['derived'])
+                && !in_array($attr, $this->attribute_map['derived'])) {
                 throw new Horde_Kolab_Server_Exception(sprintf(_("Attribute \"%s\" not supported!"),
                                                                $attr));
             }
@@ -253,7 +279,8 @@ class Horde_Kolab_Server_Object
             }
         }
 
-        if (in_array($attr, $this->derived_attributes)) {
+        if (!empty($this->attribute_map['derived']) 
+            && in_array($attr, $this->attribute_map['derived'])) {
             return $this->derive($attr);
         }
 
@@ -303,6 +330,21 @@ class Horde_Kolab_Server_Object
     }
 
     /**
+     * Collapse derived values back into the main attributes.
+     *
+     * @param string $attr The attribute to collapse.
+     * @param array  $info The information currently working on.
+     *
+     * @return mixed The value of the attribute.
+     */
+    protected function collapse($attr, &$info)
+    {
+        switch ($attr) {
+        default:
+        }
+    }
+
+    /**
      * Convert the object attributes to a hash.
      *
      * @param string $attrs The attributes to return.
@@ -348,7 +390,12 @@ class Horde_Kolab_Server_Object
     }
 
     /**
-     * Saves object information.
+     * Saves object information. This may either create a new entry or modify an
+     * existing entry.
+     *
+     * Please note that fields with multiple allowed values require the callee
+     * to provide the full set of values for the field. Any old values that are
+     * not resubmitted will be considered to be deleted.
      *
      * @param array $info The information about the object.
      *
@@ -356,23 +403,83 @@ class Horde_Kolab_Server_Object
      */
     public function save($info)
     {
-        if ($this->required_attributes !== false) {
-            foreach ($this->required_attributes as $attribute) {
-                if (!isset($info[$attribute])) {
-                    throw new Horde_Kolab_Server_Exception(sprintf(_("The value for \"%s\" is missing!"),
-                                                                   $attribute));
+        if (!empty($this->attributes)) {
+            foreach ($info as $key => $value) {
+                if (!in_array($key, array_keys($this->attributes))) {
+                    throw new Horde_Kolab_Server_Exception(sprintf(_("Attribute \"%s\" not supported!"),
+                                                                   $key));
                 }
             }
         }
 
-        $info[self::ATTRIBUTE_OC] = $this->object_classes;
+        if (!$this->exists()) {
+            foreach ($this->attribute_map['required'] as $attribute) {
+                if (!in_array($key, array_keys($info)) || empty($info[$key])) {
+                    if (empty($this->attributes[$key]['default'])) {
+                        throw new Horde_Kolab_Server_Exception(sprintf(_("The value for \"%s\" is empty but required!"),
+                                                                       $key));
+                    } else {
+                        $info[$key] = $this->attributes[$key]['default'];
+                    }
+                }
+            }
 
-        $result = $this->server->save($this->uid, $info);
-        if ($result === false || $result instanceOf PEAR_Error) {
-            return $result;
+            $submitted = $info;
+            foreach ($submitted as $key => $value) {
+                if (empty($value)) {
+                    unset($info[$key]);
+                }
+            }
+        } else {
+            foreach ($info as $key => $value) {
+                if (in_array($key, $this->attribute_map['locked'])) {
+                    throw new Horde_Kolab_Server_Exception(sprintf(_("The value for \"%s\" may not be modified on an existing object!"),
+                                                                   $key));
+                }
+            }
+
+            $old_keys = array_keys($this->_cache);
+            $submitted = $info;
+            foreach ($submitted as $key => $value) {
+                if (empty($value) && !isset($this->_cache[$key])) {
+                    unset($info[$key]);
+                    continue;
+                }
+                if (in_array($key, $old_keys)) {
+                    if (!is_array($value) && !is_array($this->_cache[$key])) {
+                        if ($value == $this->_cache[$key]) {
+                            // Unchanged value
+                            unset($info[$key]);
+                        }
+                    } else {
+                        if (!is_array($value)) {
+                            $value = array($value);
+                            $info[$key] = $value;
+                        }
+                        if (!is_array($this->_cache[$key])) {
+                            $changes = array_diff(array($this->_cache[$key]), $value);
+                        } else {
+                            $changes = array_diff($this->_cache[$key], $value);
+                        }
+                        if (empty($changes)) {
+                            // Unchanged value
+                            unset($info[$key]);
+                        }
+                    }
+                }
+            }
         }
 
-        $this->_cache = $info;
+        foreach ($this->attribute_map['derived'] as $attribute) {
+            if (isset($info[$attribute])) {
+                $this->collapse($attribute, $info);
+            }
+        }
+
+        $result = $this->server->save($this->uid, $info, $this->exists());
+
+        $this->_exists = true;
+        $this->_cache  = array_merge($this->_cache, $info);
 
         return $result;
     }

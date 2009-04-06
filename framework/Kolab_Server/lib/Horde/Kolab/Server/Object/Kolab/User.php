@@ -30,6 +30,8 @@ class Horde_Kolab_Server_Object_Kolab_User extends Horde_Kolab_Server_Object_Kol
 {
 
     /** Define attributes specific to this object type */
+
+    /** The user type */
     const ATTRIBUTE_USERTYPE = 'usertype';
 
     /** Define the possible Kolab user types */
@@ -39,32 +41,34 @@ class Horde_Kolab_Server_Object_Kolab_User extends Horde_Kolab_Server_Object_Kol
     const USERTYPE_RESOURCE = 3;
 
     /**
-     * The attributes supported by this class
+     * A structure to initialize the attribute structure for this class.
      *
      * @var array
      */
-    public $supported_attributes = false;
-
-    /**
-     * Attributes derived from the LDAP values.
-     *
-     * @var array
-     */
-    public $derived_attributes = array(
-        self::ATTRIBUTE_FN,
-        'id',
-        'usertype',
-        //FIXME: Do we really want to have this type of functionality within this library?
-        'lnfn',
-        'fnln',
+    static public $init_attributes = array(
+        /**
+         * Derived attributes are calculated based on other attribute values.
+         */
+        'derived' => array(
+            self::ATTRIBUTE_USERTYPE => array(),
+        ),
+        /**
+         * Default values for attributes without a value.
+         */
+        'defaults' => array(
+        ),
+        /**
+         * Locked attributes. These are fixed after the object has been stored
+         * once. They may not be modified again.
+         */
+        'locked' => array(
+        ),
+        /**
+         * The object classes representing this object.
+         */
+        'object_classes' => array(
+        ),
     );
-
-    /**
-     * The attributes required when creating an object of this class.
-     *
-     * @var array
-     */
-    public $required_attributes = false;
 
     /**
      * Initialize the Kolab Object. Provide either the UID or a
