@@ -674,7 +674,7 @@ var DimpBase = {
 
         case 'ctx_folder_seen':
         case 'ctx_folder_unseen':
-            this.flag(id == 'ctx_folder_seen' ? 'allSeen' : 'allUnseen', { mailbox: baseelt.up('LI').readAttribute('mbox') });
+            this.flagAll('\\seen', id == 'ctx_folder_seen', baseelt.up('LI').readAttribute('mbox'));
             break;
 
         case 'ctx_folder_poll':
@@ -741,11 +741,13 @@ var DimpBase = {
             if (menu == 'ctx_message_setflag' ||
                 menu == 'ctx_draft_setflag' ||
                 menu == 'oa_setflag') {
-                this.flag('imapflag', { imap: elt.readAttribute('flag'), set: true, userset: true });
+                flag = elt.readAttribute('flag');
+                this.flag('imapflag', { imap: flag, set: this.convertFlag(flag, true) });
             } else if (menu == 'ctx_message_unsetflag' ||
                        menu == 'ctx_draft_unsetflag' ||
                        menu == 'oa_unsetflag') {
-                this.flag('imapflag', { imap: elt.readAttribute('flag'), set: false, userset: true });
+                flag = elt.readAttribute('flag');
+                this.flag('imapflag', { imap: flag, set: this.convertFlag(flag, false) });
             } else {
                 parentfunc(elt, baseelt, menu);
             }
@@ -928,7 +930,7 @@ var DimpBase = {
                   // There is a chance that the message may have been marked
                   // as unseen since first being viewed. If so, we need to
                   // explicitly flag as seen here.
-                if (this.isUnseen(data)) {
+                if (this.hasFlag('\\seen', data)) {
                     this.flag('imapflag', { imap: '\\seen', set: true });
                 }
                 return this._loadPreviewCallback(this.ppcache[pp_uid]);
@@ -1078,7 +1080,7 @@ var DimpBase = {
     // Labeling functions
     updateSeenUID: function(r, setflag)
     {
-        var isunseen = this.isUnseen(r),
+        var isunseen = !this.hasFlag('\\seen', r),
             sel, unseen;
 
         if ((setflag && !isunseen) || (!setflag && isunseen)) {
@@ -1088,13 +1090,8 @@ var DimpBase = {
         sel = this.viewport.createSelection('dataob', r);
         unseen = Number($(this.getFolderId(r.view)).readAttribute('u'));
 
-        if (setflag) {
-            this.updateFlag(sel, '\\seen', true);
-            --unseen;
-        } else {
-            this.updateFlag(sel, '\\seen', false);
-            ++unseen;
-        }
+        unseen += setflag ? -1 : 1;
+        this.updateFlag(sel, '\\seen', setflag);
 
         this.updateUnseenStatus(r.view, unseen);
     },
@@ -1866,7 +1863,12 @@ var DimpBase = {
 
     _flagAllCallback: function(r)
     {
-        if (r.response.mbox) {
+        if (r.response) {
+            if (r.response.mbox == this.folder) {
+                r.response.flags.each(function(f) {
+                    this.updateFlag(this.viewport.createSelection('rownum', $A($R(1, this.viewport.getMetaData('total_rows')))), f, r.response.set);
+                }, this);
+            }
             this.setFolderLabel(r.response.mbox, r.response.u);
         }
     },
@@ -2092,7 +2094,7 @@ var DimpBase = {
 
     /* Flag actions for message list. */
     // opts = 'imap' 'index', 'mailbox', 'noserver' (only for
-    // answered/unanswered), 'set', 'userset'
+    // answered/unanswered), 'set'
     flag: function(action, opts)
     {
         var actionCall, args, vs,
@@ -2113,14 +2115,6 @@ var DimpBase = {
         }
 
         switch (action) {
-        case 'allUnseen':
-        case 'allSeen':
-            DimpCore.doAction((action == 'allUnseen') ? 'MarkFolderUnseen' : 'MarkFolderSeen', { view: opts.mailbox }, null, this.bcache.get('flagAC') || this.bcache.set('flagAC', this._flagAllCallback.bind(this)));
-            if (opts.mailbox == this.folder) {
-                this.updateFlag(this.createSelection('rownum', $A($R(1, this.viewport.getMetaData('total_rows')))), '\\seen', action != 'allUnseen');
-            }
-            break;
-
         case 'spam':
         case 'ham':
         case 'blacklist':
@@ -2178,10 +2172,6 @@ var DimpBase = {
                 return;
 
             case '\\seen':
-                if (opts.userset) {
-                    opts.set = !opts.set;
-                }
-
                 vs.get('dataob').each(function(s) {
                     this.updateSeenUID(s, opts.set);
                 }, this);
@@ -2202,22 +2192,30 @@ var DimpBase = {
         }
     },
 
-    isUnseen: function(r)
+    // type = (string) 'seen' or 'unseen'
+    // mbox = (string) The mailbox to flag
+    flagAll: function(type, set, mbox)
     {
-        /* Unseen is a weird flag. Since we are doing a reverse match on this
-         * flag (knowing a message is SEEN is not as important as knowing the
-         * message lacks the SEEN FLAG), the presence of \\seen indicates that
-         * the message is in reality unseen. */
-        return r.flag.include('\\seen');
+        DimpCore.doAction('FlagAll', { flags: [ type ].toJSON(), set: Number(set), view: mbox }, null, this.bcache.get('flagAC') || this.bcache.set('flagAC', this._flagAllCallback.bind(this)));
+    },
+
+    hasFlag: function(f, r)
+    {
+        return this.convertFlag(f, r.flag.include(f));
+    },
+
+    convertFlag: function(f, set)
+    {
+        /* For some flags, we need to do an inverse match (e.g. knowing a
+         * message is SEEN is not as important as knowing the message lacks
+         * the SEEN FLAG). This function will determine if, for a given flag,
+         * the inverse action should be taken on it. */
+        return DIMP.conf.flags[f].n ? !set : set;
     },
 
     updateFlag: function(vs, flag, add)
     {
-        /* See isUnseen() - if flag is \\seen, need to do the opposite
-         * action. */
-        if (flag == '\\seen') {
-            add = !add;
-        }
+        add = this.convertFlag(flag, add);
 
         vs.get('dataob').each(function(ob) {
             ob.flag = ob.flag.without(flag);

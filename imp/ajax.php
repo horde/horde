@@ -263,19 +263,22 @@ case 'EmptyFolder':
     $result->mbox = $mbox;
     break;
 
-case 'MarkFolderSeen':
-case 'MarkFolderUnseen':
-    if (empty($mbox)) {
+case 'FlagAll':
+    $flags = Horde_Serialize::unserialize(Util::getPost('flags'), Horde_Serialize::JSON);
+    if (empty($mbox) || empty($flags)) {
         break;
     }
 
+    $set = Util::getPost('set');
+
     $imp_message = IMP_Message::singleton();
-    $result = $imp_message->flagAllInMailbox(array('seen'),
-                                             array($mbox),
-                                             $action == 'MarkFolderSeen');
+    $result = $imp_message->flagAllInMailbox($flags, array($mbox), $set);
+
     if ($result) {
         $result = new stdClass;
+        $result->flags = $flags;
         $result->mbox = $mbox;
+        $result->set = intval($set);
 
         $poll = _getPollInformation($mbox);
         if (!empty($poll)) {

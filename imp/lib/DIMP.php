@@ -156,6 +156,7 @@ class DIMP
                 'b' => isset($val['b']) ? $val['b'] : null,
                 'c' => $val['c'],
                 'l' => $val['l'],
+                'n' => isset($val['n']) ? $val['n'] : null,
                 // Indicate if this is a user *P*ref flag
                 'p' => intval($val['t'] == 'imapp')
             ));
