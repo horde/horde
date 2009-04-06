@@ -32,6 +32,7 @@ class Horde_Kolab_Server_Object_Person extends Horde_Kolab_Server_Object
     const ATTRIBUTE_SN           = 'sn';
     const ATTRIBUTE_SNSUFFIX     = 'snsuffix';
     const ATTRIBUTE_USERPASSWORD = 'userPassword';
+    const ATTRIBUTE_TELNO        = 'telephoneNumber';
 
     const OBJECTCLASS_PERSON     = 'person';
 
@@ -45,6 +46,7 @@ class Horde_Kolab_Server_Object_Person extends Horde_Kolab_Server_Object
             self::ATTRIBUTE_CN,
             self::ATTRIBUTE_SN,
             self::ATTRIBUTE_USERPASSWORD,
+            self::ATTRIBUTE_TELNO,
         ),
         'derived' => array(
             self::ATTRIBUTE_SN => array(
@@ -59,11 +61,94 @@ class Horde_Kolab_Server_Object_Person extends Horde_Kolab_Server_Object
         'required' => array(
             self::ATTRIBUTE_CN,
             self::ATTRIBUTE_SN,
+            self::ATTRIBUTE_USERPASSWORD,
         ),
         'object_classes' => array(
             self::OBJECTCLASS_PERSON
         ),
     );
+
+    /**
+     * Salt and hash the password.
+     *
+     * @param string $password The password.
+     *
+     * @return string The salted hashed password.
+     */
+    protected function hashPassword($password)
+    {
+        $type = isset($this->server->params['hashtype']) ? $this->server->params['hashtype'] : 'sha1';
+        switch ($type) {
+        case 'plain':
+            /**
+             * Do not hash passwords. This is of course not recommended.
+             */
+            return $password;
+        case 'sha256':
+            /**
+             * Hash passwords with sha256. Ensure your server actually supports this.
+             */
+            return $this->sha256($password, $this->gensalt());
+        default:
+            /**
+             * Hash passwords with sha1. The default.
+             */
+            return $this->ssha($password, $this->gensalt());
+        }
+    }
+
+    /**
+     * Return a salted hashed string.
+     *
+     * @param string $string The string to be transformed to a hash.
+     * @param string $salt   A salt string.
+     *
+     * @return string The salted hashed string.
+     */
+    protected function sha256($string, $salt)
+    {
+        return '{SHA256}' . base64_encode(pack('H*', hash('sha256', $string . $salt)) . $salt);
+    }
+
+    /**
+     * Return a salted hashed string.
+     *
+     * @param string $string The string to be transformed to a hash.
+     * @param string $salt   A salt string.
+     *
+     * @return string The salted hashed string.
+     */
+    protected function ssha($string, $salt)
+    {
+        return '{SSHA}' . base64_encode(pack('H*', sha1($string . $salt)) . $salt);
+    }
+
+    /**
+     * Return 4 random bytes.
+     *
+     * @return string 4 random bytes.
+     */
+    public function gensalt()
+    {
+        $salt = '';
+        while (strlen($salt) < 4) {
+            $salt = $salt . chr(mt_rand(0,255));
+	}
+        return $salt;
+    }
+
+    /**
+     * Return the filter string to retrieve this object type.
+     *
+     * @static
+     *
+     * @return string The filter to retrieve this object type from the server
+     *                database.
+     */
+    public static function getFilter()
+    {
+        return '(&(' . self::ATTRIBUTE_OC . '=' . self::OBJECTCLASS_PERSON . '))';
+    }
 
     /**
      * Generates an ID for the given information.
@@ -96,10 +181,16 @@ class Horde_Kolab_Server_Object_Person extends Horde_Kolab_Server_Object
      */
     public function save($info)
     {
-        if (empty($info[self::ATTRIBUTE_CN])
+        if (!$this->exists()
+            && empty($info[self::ATTRIBUTE_CN])
             && !empty($info[self::ATTRIBUTE_SN])) {
             $info[self::ATTRIBUTE_CN] = $info[self::ATTRIBUTE_SN];
         }
+
+        if (isset($info[self::ATTRIBUTE_USERPASSWORD])) {
+            $info[self::ATTRIBUTE_USERPASSWORD] = $this->hashPassword($info[self::ATTRIBUTE_USERPASSWORD]);
+        }
+
         return parent::save($info);
     }
 }
