@@ -65,8 +65,7 @@ class Horde_Kolab_Server_Kolab extends Horde_Kolab_Server_Ldap
             if (in_array('kolabsharedfolder', $oc)) {
                 return 'Horde_Kolab_Server_Object_Kolabsharedfolder';
             }
-            throw new Horde_Kolab_Server_Exception(sprintf(_("Unkown Kolab object type for DN %s."),
-                                                           $dn));
+            return parent::determineType($dn);
         }
 
         $groups = $this->getGroups($dn);
@@ -132,7 +131,7 @@ class Horde_Kolab_Server_Kolab extends Horde_Kolab_Server_Ldap
                 return sprintf('cn=%s,cn=internal,%s', $id, $this->getBaseUid());
             }
         default:
-            parent::generateServerUid($type, $id, $info);
+            return parent::generateServerUid($type, $id, $info);
         }
     }
 }
