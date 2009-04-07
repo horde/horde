@@ -507,7 +507,7 @@ var DimpCompose = {
     {
         var span = new Element('SPAN').insert(name),
             div = new Element('DIV').insert(span).insert(' [' + type + '] (' + size + ' KB) '),
-            input = new Element('INPUT', { type: 'button', atc_id: atc_num, value: DIMP.text_compose.remove });
+            input = new Element('SPAN', { atc_id: atc_num, className: 'remove' }).insert(DIMP.text_compose.remove);
         div.insert(input);
         $('attach_list').insert(div);
 
@@ -523,7 +523,7 @@ var DimpCompose = {
         var ids = [];
         e.each(function(n) {
             n = $(n);
-            ids.push(n.down('INPUT').readAttribute('atc_id'));
+            ids.push(n.down('SPAN.remove').readAttribute('atc_id'));
             n.remove();
         });
         DimpCore.doAction('DeleteAttach', { atc_indices: ids, imp_compose: $F('composeCache') });
@@ -682,7 +682,7 @@ var DimpCompose = {
                 break;
 
             case 'attach_list':
-                if (orig.match('INPUT')) {
+                if (orig.match('SPAN.remove')) {
                     this.removeAttach([ orig.up() ]);
                 } else if (orig.match('SPAN.attachName')) {
                     atc_num = orig.next().readAttribute('atc_id');

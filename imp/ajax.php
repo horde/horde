@@ -544,7 +544,9 @@ case 'DeleteAttach':
     $atc = Util::getPost('atc_indices');
     if (!is_null($atc)) {
         $imp_compose = IMP_Compose::singleton(Util::getPost('imp_compose'));
-        $imp_compose->deleteAttachment($atc);
+        foreach ($imp_compose->deleteAttachment($atc) as $val) {
+            $notification->push(sprintf(_("Deleted the attachment \"%s\"."), Horde_Mime::decode($val)), 'horde.success');
+        }
     }
     break;
 

@@ -702,10 +702,13 @@ div.dimpActionsCompose, div.dimpActionsMsg {
 #attach_list {
     padding-top: 5px;
 }
-#attach_list input {
-    background: none;
+#attach_list span.remove {
     border: 1px solid #ccc;
     font-weight: bold;
+    padding: 1px 2px;
+}
+#attach_list span.remove:hover {
+    text-decoration: underline;
 }
 #attach_list div, span.attachmentImg {
     background-image: url("graphics/attachment.png");
