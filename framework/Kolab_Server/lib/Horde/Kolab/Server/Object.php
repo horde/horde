@@ -545,7 +545,8 @@ class Horde_Kolab_Server_Object
 
         if (!$this->exists()) {
             foreach ($this->attribute_map['required'] as $key) {
-                if (!in_array($key, array_keys($info)) || $info[$key] === null) {
+                if (!in_array($key, array_keys($info)) || $info[$key] === null
+                    || $info[$key] === '') {
                     if (empty($this->attributes[$key]['default'])) {
                         throw new Horde_Kolab_Server_Exception(sprintf(_("The value for \"%s\" is empty but required!"),
                                                                        $key));
@@ -557,7 +558,7 @@ class Horde_Kolab_Server_Object
 
             $submitted = $info;
             foreach ($submitted as $key => $value) {
-                if ($value === null) {
+                if ($value === null || $info[$key] === '') {
                     unset($info[$key]);
                 }
             }
@@ -570,7 +571,7 @@ class Horde_Kolab_Server_Object
                  * stored or the value is locked. If there is an old value we
                  * must assume the value was removed.
                  */
-                if ($value === null
+                if (($value === null || $info[$key] === '')
                     && (!isset($this->_cache[$key])
                         || in_array($key, $this->attribute_map['locked']))) {
 
