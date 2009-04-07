@@ -947,9 +947,12 @@ KronolithCore = {
         // Create empty cache entries for all dates.
         if (typeof dates != 'undefined') {
             var start = Date.parseExact(dates.substr(0, 8), 'yyyyMMdd'),
-                end = Date.parseExact(dates.substr(8, 8), 'yyyyMMdd');
+                end = Date.parseExact(dates.substr(8, 8), 'yyyyMMdd'),
+                calHash = this.ecache.get(calendar[0]).get(calendar[1]);
             while (start.compareTo(end) <= 0) {
-                this.ecache.get(calendar[0]).get(calendar[1]).set(start.dateString(), {});
+                if (!calHash.get(start.dateString())) {
+                    calHash.set(start.dateString(), {});
+                }
                 start.add(1).day();
             }
         }
@@ -982,7 +985,7 @@ KronolithCore = {
             return;
         }
         this.ecache.get(calendar[0]).get(calendar[1]).each(function(day) {
-            day.value.unset(event);
+            delete day.value[event];
         });
     },
 
