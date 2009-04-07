@@ -198,6 +198,9 @@ $objects['kolabuser'] = array(
                                                     _("1") => _("married")),
                                   'prompt' => true),
             ),
+            'userPassword' => array(
+                'type' => 'passwordconfirm',
+            ),
         ),
     ),
 );
