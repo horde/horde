@@ -1768,6 +1768,7 @@ var DimpBase = {
         if (val) {
             switch (mode) {
             case 'rename':
+                folder = folder.up('LI');
                 if (folder.readAttribute('l') != val) {
                     action = 'RenameFolder';
                     params = { old_name: folder.readAttribute('mbox'),
@@ -1781,10 +1782,11 @@ var DimpBase = {
                 action = 'CreateFolder';
                 params = { view: val };
                 if (mode == 'createsub') {
-                    params.parent = folder.readAttribute('mbox');
+                    params.parent = folder.up('LI').readAttribute('mbox');
                 }
                 break;
             }
+
             if (action) {
                 DimpCore.doAction(action, params, null, this.bcache.get('folderC') || this.bcache.set('folderC', this._folderCallback.bind(this)));
             }
