@@ -435,7 +435,15 @@ abstract class Horde_Kolab_Server
                         $required = array_merge($required, $info['must']);
                     }
                     foreach ($defined as $attribute) {
-                        $attrs[$attribute] = $this->getAttributeSchema($attribute);
+                        try {
+                            $attrs[$attribute] = $this->getAttributeSchema($attribute);
+                        } catch (Horde_Kolab_Server_Exception $e) {
+                            /**
+                             * If the server considers the attribute to be
+                             * invalid we mark it.
+                             */
+                            $attrs[$attribute] = array('invalid' => true);
+                        }
                     }
                     foreach ($required as $attribute) {
                         $attrs[$attribute]['required'] = true;
