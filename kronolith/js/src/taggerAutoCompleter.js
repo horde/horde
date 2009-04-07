@@ -28,7 +28,7 @@ var KronolithTagger = Class.create({
             new Ajax.Autocompleter(params.trigger, params.resultsId, params.uri, params.params);
 
             // Prepopulate the tags and the container elements?
-            if (this.p.existing) {
+            if (typeof this.p.existing != 'undefined') {
                 this.init(this.p.existing);
             }
 
@@ -41,6 +41,9 @@ var KronolithTagger = Class.create({
             if (this.p.selectedTags.length) {
                 $('kronolithTagACBox').select('li.kronolithTagACListItem').each(function(item) {this.removeTagNode(item) }.bind(this));
             }
+
+            // Clear the hidden tags field
+            $(this.p.tags).value = '';
 
             // Add any initial values
             if (typeof existing != 'undefined' && existing.length) {
