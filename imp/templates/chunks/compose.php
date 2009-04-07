@@ -77,82 +77,60 @@ function _createDAcompose($text, $image, $id)
 <?php endif; ?>
   </div>
   <table cellspacing="0">
-   <thead>
-    <tr>
-     <td class="label"><?php echo _("From: ") ?></td>
-     <td>
-      <select id="identity" name="identity">
+   <tr>
+    <td class="label"><?php echo _("From: ") ?></td>
+    <td>
+     <select id="identity" name="identity">
 <?php foreach ($identity->getSelectList() as $id => $from): ?>
-       <option value="<?php echo htmlspecialchars($id) ?>"<?php if ($id == $selected_identity) echo ' selected="selected"' ?>><?php echo htmlspecialchars($from) ?></option>
+      <option value="<?php echo htmlspecialchars($id) ?>"<?php if ($id == $selected_identity) echo ' selected="selected"' ?>><?php echo htmlspecialchars($from) ?></option>
 <?php endforeach; ?>
-      </select>
-     </td>
-    </tr>
-   </thead>
-  </table>
-  <table cellspacing="0" id="sendto">
-   <thead>
-    <tr>
-     <td class="label"><span><?php echo _("To: ") ?></span></td>
-     <td>
-      <textarea id="to" name="to" rows="1" cols="75"></textarea>
-      <div id="to_results" class="autocomplete" style="display:none"></div>
-     </td>
-     <td>
-      <span id="to_loading_img" class="loadingImg" style="display:none"></span>
-     </td>
-    </tr>
-   </thead>
-  </table>
-  <table cellspacing="0" id="sendcc" style="display:none">
-   <thead>
-    <tr>
-     <td class="label"><span><?php echo _("Cc: ") ?></span></td>
-     <td>
-      <textarea id="cc" name="cc" rows="1" cols="75"></textarea>
-      <div id="cc_results" class="autocomplete" style="display:none"></div>
-     </td>
-     <td>
-      <span id="cc_loading_img" class="loadingImg" style="display:none"></span>
-     </td>
-    </tr>
-   </thead>
-  </table>
-  <table cellspacing="0" id="sendbcc" style="display:none">
-   <thead>
-    <tr>
-     <td class="label"><span><?php echo _("Bcc: ") ?></span></td>
-     <td>
-      <textarea id="bcc" name="bcc" rows="1" cols="75"></textarea>
-      <div id="bcc_results" class="autocomplete" style="display:none"></div>
-     </td>
-     <td>
-      <span id="bcc_loading_img" class="loadingImg" style="display:none"></span>
-     </td>
-    </tr>
-   </thead>
-  </table>
-  <table cellspacing="0">
-   <thead>
-    <tr>
-     <td class="label"><?php echo _("Subject: ") ?></td>
-     <td class="subject"><input type="text" id="subject" name="subject" /></td>
-    </tr>
-   </thead>
-  </table>
-  <table cellspacing="0">
-   <thead>
-    <tr class="atcrow">
-     <td class="label"><span class="iconImg attachmentImg"></span>: </td>
-     <td id="attach_cell">
-      <input type="file" id="upload" name="file_1" />
+     </select>
+    </td>
+   </tr>
+   <tr id="sendto">
+    <td class="label"><span><?php echo _("To: ") ?></span></td>
+    <td>
+     <textarea id="to" name="to" rows="1" cols="75"></textarea>
+     <div id="to_results" class="autocomplete" style="display:none"></div>
+    </td>
+    <td class="autocompleteImg">
+     <span id="to_loading_img" class="loadingImg" style="display:none"></span>
+    </td>
+   </tr>
+   <tr id="sendcc" style="display:none">
+    <td class="label"><span><?php echo _("Cc: ") ?></span></td>
+    <td>
+     <textarea id="cc" name="cc" rows="1" cols="75"></textarea>
+     <div id="cc_results" class="autocomplete" style="display:none"></div>
+    </td>
+    <td class="autocompleteImg">
+     <span id="cc_loading_img" class="loadingImg" style="display:none"></span>
+    </td>
+   </tr>
+   <tr id="sendbcc" style="display:none">
+    <td class="label"><span><?php echo _("Bcc: ") ?></span></td>
+    <td>
+     <textarea id="bcc" name="bcc" rows="1" cols="75"></textarea>
+     <div id="bcc_results" class="autocomplete" style="display:none"></div>
+    </td>
+    <td class="autocompleteImg">
+     <span id="bcc_loading_img" class="loadingImg" style="display:none"></span>
+    </td>
+   </tr>
+   <tr>
+    <td class="label"><?php echo _("Subject: ") ?></td>
+    <td class="subject"><input type="text" id="subject" name="subject" /></td>
+   </tr>
+   <tr class="atcrow">
+    <td class="label"><span class="iconImg attachmentImg"></span>: </td>
+    <td id="attach_cell">
+     <input type="file" id="upload" name="file_1" />
 <?php if (strpos($save_attach, 'prompt') !== false): ?>
-      <label><input type="checkbox" class="checkbox" name="save_attachments_select"<?php if (strpos($save_attach, 'yes') !== false) echo ' checked="checked"' ?> /> <?php echo _("Save Attachments in sent folder") ?></label><br />
+     <label><input type="checkbox" class="checkbox" name="save_attachments_select"<?php if (strpos($save_attach, 'yes') !== false) echo ' checked="checked"' ?> /> <?php echo _("Save Attachments in sent folder") ?></label><br />
 <?php endif; ?>
-      <div id="attach_list"></div>
-     </td>
-    </tr>
-   </thead>
+     <div id="attach_list"></div>
+    </td>
+   </tr>
   </table>
  </div>
 

@@ -630,14 +630,14 @@ div.dimpActionsCompose, div.dimpActionsMsg {
     display: block;
     cursor: pointer;
 }
-.msgwrite thead tr {
+.msgwrite tr {
     vertical-align: top;
 }
-.msgwrite thead td {
+.msgwrite td {
     padding: 3px 5px 1px 0;
     font-size: 90%;
 }
-.msgwrite thead td.label {
+.msgwrite td.label {
     height: 15px;
     white-space: nowrap;
     text-align: right;
@@ -645,11 +645,20 @@ div.dimpActionsCompose, div.dimpActionsMsg {
     padding-top: 4px;
     padding-left: 2px;
 }
-.msgwrite thead td.subject {
+.msgwrite td.subject {
     font-weight: bold;
 }
 .msgwrite .atcrow {
     line-height: 130%;
+}
+#to, #cc, #bcc, #subject {
+    width: 100%;
+}
+.msgwrite td.autocompleteImg {
+    width: 25px;
+}
+.msgwrite td.autocompleteImg span.loadingImg {
+    display: block;
 }
 
 #messageParent {
