@@ -1164,7 +1164,7 @@ KronolithCore = {
             //case 'kronolithNavYear':
             //case 'kronolithNavTasks':
             //case 'kronolithNavAgenda':
-                this.go(id.substring(12).toLowerCase());
+                this.go(id.substring(12).toLowerCase() + ':' + this.date.dateString());
                 e.stop();
                 return;
 
