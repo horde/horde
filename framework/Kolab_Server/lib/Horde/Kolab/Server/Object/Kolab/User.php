@@ -46,26 +46,13 @@ class Horde_Kolab_Server_Object_Kolab_User extends Horde_Kolab_Server_Object_Kol
      * @var array
      */
     static public $init_attributes = array(
-        /**
-         * Derived attributes are calculated based on other attribute values.
-         */
         'derived' => array(
             self::ATTRIBUTE_USERTYPE => array(),
         ),
-        /**
-         * Default values for attributes without a value.
-         */
         'defaults' => array(
         ),
-        /**
-         * Locked attributes. These are fixed after the object has been stored
-         * once. They may not be modified again.
-         */
         'locked' => array(
         ),
-        /**
-         * The object classes representing this object.
-         */
         'object_classes' => array(
         ),
     );
@@ -133,14 +120,6 @@ class Horde_Kolab_Server_Object_Kolab_User extends Horde_Kolab_Server_Object_Kol
             } else {
                 return self::USERTYPE_STANDARD;
             }
-        case self::ATTRIBUTE_LNFN:
-            $gn = $this->_get(self::ATTRIBUTE_GIVENNAME, true);
-            $sn = $this->_get(self::ATTRIBUTE_SN, true);
-            return sprintf('%s, %s', $sn, $gn);
-        case self::ATTRIBUTE_FNLN:
-            $gn = $this->_get(self::ATTRIBUTE_GIVENNAME, true);
-            $sn = $this->_get(self::ATTRIBUTE_SN, true);
-            return sprintf('%s %s', $gn, $sn);
         case self::ATTRIBUTE_FN:
             return $this->getFn();
         default:
