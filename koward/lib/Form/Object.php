@@ -127,10 +127,15 @@ class Koward_Form_Object extends Horde_Form {
                     $type = 'text';
                 }
 
+                $locked = in_array($key, $attribute_map['locked']) && !empty($this->object);
+                if (!$locked) {
+                    $required = in_array($key, $attribute_map['required'])  && empty($this->object);
+                }
+
                 $form_attributes[$key] = array(
                     'type' => $type,
-                    'required' => in_array($key, $attribute_map['required']),
-                    'readonly' => in_array($key, $attribute_map['locked']),
+                    'required' => $required,
+                    'readonly' => $locked,
                     'params' => array('regex' => '', 'size' => 40, 'maxlength' => 255)
                 );
                 if (isset($config['attributes']['order'][$key])) {
