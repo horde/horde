@@ -1060,11 +1060,8 @@ ViewPort_Scroller = Class.create({
 
         // Mouse wheel handler.
         c.observe(Prototype.Browser.Gecko ? 'DOMMouseScroll' : 'mousewheel', function(e) {
-            // Fix issue on FF 3 (as of 3.0) that triggers two events
-            if (!e.eventPhase == 2) {
-                var move_num = Math.min(this.vp.getPageSize(), 3);
-                this.moveScroll(this.currentOffset() + ((e.wheelDelta >= 0 || e.detail < 0) ? (-1 * move_num) : move_num));
-            }
+            var move_num = Math.min(this.vp.getPageSize(), 3);
+            this.moveScroll(this.currentOffset() + ((e.wheelDelta >= 0 || e.detail < 0) ? (-1 * move_num) : move_num));
         }.bindAsEventListener(this));
 
         return true;
