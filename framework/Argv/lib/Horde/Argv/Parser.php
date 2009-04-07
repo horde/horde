@@ -468,7 +468,7 @@ class Horde_Argv_Parser extends Horde_Argv_OptionContainer
                 return;
             }
             if ($this->allowUnknownArgs) {
-                $option = $this->addOption($opt);
+                $option = $this->addOption($opt, array('default' => true, 'action' => 'append'));
             } else {
                 throw $e;
             }
@@ -477,11 +477,13 @@ class Horde_Argv_Parser extends Horde_Argv_OptionContainer
         if ($option->takesValue()) {
             $nargs = $option->nargs;
             if (count($rargs) < $nargs) {
-                if ($nargs == 1)
-                    $this->parserError(sprintf(_("%s option requires an argument"), $opt));
-                else
-                    $this->parserError(sprintf(_("%s option requires %d arguments"),
-                                               $opt, $nargs));
+                if (!$option->hasDefault()) {
+                    if ($nargs == 1) {
+                        $this->parserError(sprintf(_("%s option requires an argument"), $opt));
+                    } else {
+                        $this->parserError(sprintf(_("%s option requires %d arguments"), $opt, $nargs));
+                    }
+                }
             } elseif ($nargs == 1) {
                 $value = array_shift($rargs);
             } else {
@@ -511,7 +513,7 @@ class Horde_Argv_Parser extends Horde_Argv_OptionContainer
 
             if (!$option) {
                 if ($this->allowUnknownArgs) {
-                    $option = $this->addOption($opt);
+                    $option = $this->addOption($opt, array('default' => true, 'action' => 'append'));
                 } else {
                     throw new Horde_Argv_BadOptionException($opt);
                 }
@@ -527,11 +529,13 @@ class Horde_Argv_Parser extends Horde_Argv_OptionContainer
 
                 $nargs = $option->nargs;
                 if (count($rargs) < $nargs) {
-                    if ($nargs == 1)
-                        $this->parserError(sprintf(_("%s option requires an argument"), $opt));
-                    else
-                        $this->parserError(sprintf(_("%s option requires %d arguments"), $opt, $nargs));
-
+                    if (!$option->hasDefault()) {
+                        if ($nargs == 1) {
+                            $this->parserError(sprintf(_("%s option requires an argument"), $opt));
+                        } else {
+                            $this->parserError(sprintf(_("%s option requires %d arguments"), $opt, $nargs));
+                        }
+                    }
                 } elseif ($nargs == 1) {
                     $value = array_shift($rargs);
                 } else {
@@ -545,8 +549,7 @@ class Horde_Argv_Parser extends Horde_Argv_OptionContainer
 
             $option->process($opt, $value, $values, $this);
 
-            if ($stop)
-                break;
+            if ($stop) { break; }
         }
     }
 

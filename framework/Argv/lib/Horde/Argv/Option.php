@@ -31,14 +31,14 @@
  */
 class Horde_Argv_Option
 {
-    const SUPPRESS_HELP = "SUPPRESS HELP";
-    const SUPPRESS_USAGE = "SUPPRESS USAGE";
+    const SUPPRESS_HELP = 'SUPPRESS HELP';
+    const SUPPRESS_USAGE = 'SUPPRESS USAGE';
 
     /**
      * Not supplying a default is different from a default of None,
      * so we need an explicit "not supplied" value.
      */
-    public static $NO_DEFAULT = array("NO", "DEFAULT");
+    public static $NO_DEFAULT = array('NO', 'DEFAULT');
 
     public static function parseNumber($value)
     {
@@ -125,33 +125,39 @@ class Horde_Argv_Option
     }
 
 
-    # The list of instance attributes that may be set through
-    # keyword args to the constructor.
-    public $ATTRS = array('action',
-             'type',
-             'dest',
-             'default',
-             'nargs',
-             'const',
-             'choices',
-             'callback',
-             'callbackArgs',
-             'help',
-             'metavar',
+    /**
+     * The list of instance attributes that may be set through keyword args to
+     * the constructor.
+     */
+    public $ATTRS = array(
+        'action',
+        'type',
+        'dest',
+        'default',
+        'nargs',
+        'const',
+        'choices',
+        'callback',
+        'callbackArgs',
+        'help',
+        'metavar',
     );
 
-    # The set of actions allowed by option parsers.  Explicitly listed
-    # here so the constructor can validate its arguments.
-    public $ACTIONS = array("store",
-               "store_const",
-               "store_true",
-               "store_false",
-               "append",
-               "append_const",
-               "count",
-               "callback",
-               "help",
-               "version",
+    /**
+     * The set of actions allowed by option parsers.  Explicitly listed here so
+     * the constructor can validate its arguments.
+     */
+    public $ACTIONS = array(
+        'store',
+        'store_const',
+        'store_true',
+        'store_false',
+        'append',
+        'append_const',
+        'count',
+        'callback',
+        'help',
+        'version',
     );
 
     /**
@@ -159,38 +165,40 @@ class Horde_Argv_Option
      * also listed just for constructor argument validation.  (If
      * the action is one of these, there must be a destination.)
      */
-    public $STORE_ACTIONS = array("store",
-                     "store_const",
-                     "store_true",
-                     "store_false",
-                     "append",
-                     "append_const",
-                     "count",
-    );
-
-    # The set of actions for which it makes sense to supply a value
-    # type, ie. which may consume an argument from the command line.
-    public $TYPED_ACTIONS = array("store",
-                                  "append",
-                                  "callback",
+    public $STORE_ACTIONS = array(
+        'store',
+        'store_const',
+        'store_true',
+        'store_false',
+        'append',
+        'append_const',
+        'count',
     );
 
     /**
-     * The set of actions which *require* a value type, ie. that
-     * always consume an argument from the command line.
+     * The set of actions for which it makes sense to supply a value type,
+     * ie. which may consume an argument from the command line.
      */
-    public $ALWAYS_TYPED_ACTIONS = array("store",
-                                         "append",
+    public $TYPED_ACTIONS = array(
+        'store',
+        'append',
+        'callback',
     );
 
-    # The set of actions which take a 'const' attribute.
-    public $CONST_ACTIONS = array("store_const",
-                                  "append_const",
-    );
+    /**
+     * The set of actions which *require* a value type, ie. that always consume
+     * an argument from the command line.
+     */
+    public $ALWAYS_TYPED_ACTIONS = array('store', 'append');
+
+    /**
+     * The set of actions which take a 'const' attribute.
+     */
+    public $CONST_ACTIONS = array('store_const', 'append_const');
 
     # The set of known types for option parsers.  Again, listed here for
     # constructor argument validation.
-    public $TYPES = array("string", "int", "long", "float", "complex", "choice");
+    public $TYPES = array('string', 'int', 'long', 'float', 'complex', 'choice');
 
     # Dictionary of argument checking functions, which convert and
     # validate option arguments according to the option type.
@@ -472,12 +480,18 @@ class Horde_Argv_Option
         return !is_null($this->type);
     }
 
+    public function hasDefault()
+    {
+        return $this->default !== self::$NO_DEFAULT;
+    }
+
     public function getOptString()
     {
-        if ($this->longOpts)
+        if ($this->longOpts) {
             return $this->longOpts[0];
-        else
+        } else {
             return $this->shortOpts[0];
+        }
     }
 
 
@@ -522,15 +536,15 @@ class Horde_Argv_Option
 
     public function takeAction($action, $dest, $opt, $value, $values, $parser)
     {
-        if ($action == 'store')
+        if ($action == 'store') {
             $values->$dest = $value;
-        elseif ($action == 'store_const')
+        } elseif ($action == 'store_const') {
             $values->$dest = $this->const;
-        elseif ($action == 'store_true')
+        } elseif ($action == 'store_true') {
             $values->$dest = true;
-        elseif ($action == 'store_false')
+        } elseif ($action == 'store_false') {
             $values->$dest = false;
-        elseif ($action == 'append') {
+        } elseif ($action == 'append') {
             $values->{$dest}[] = $value;
         } elseif ($action == 'append_const') {
             $values->{$dest}[] = $this->const;
