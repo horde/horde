@@ -49,6 +49,9 @@ class Horde_Kolab_Server_Object_Person extends Horde_Kolab_Server_Object
             self::ATTRIBUTE_TELNO,
         ),
         'derived' => array(
+            self::ATTRIBUTE_USERPASSWORD => array(
+                'base' => self::ATTRIBUTE_USERPASSWORD,
+            ),
             self::ATTRIBUTE_SN => array(
                 'base' => self::ATTRIBUTE_SN,
                 'order' => 0,
@@ -67,6 +70,23 @@ class Horde_Kolab_Server_Object_Person extends Horde_Kolab_Server_Object
             self::OBJECTCLASS_PERSON
         ),
     );
+
+    /**
+     * Derive an attribute value.
+     *
+     * @param string $attr The attribute to derive.
+     *
+     * @return mixed The value of the attribute.
+     */
+    protected function derive($attr)
+    {
+        switch ($attr) {
+        case self::ATTRIBUTE_USERPASSWORD:
+            return '';
+        default:
+            return parent::derive($attr);
+        }
+    }
 
     /**
      * Salt and hash the password.
@@ -187,8 +207,10 @@ class Horde_Kolab_Server_Object_Person extends Horde_Kolab_Server_Object
             $info[self::ATTRIBUTE_CN] = $info[self::ATTRIBUTE_SN];
         }
 
-        if (isset($info[self::ATTRIBUTE_USERPASSWORD])) {
+        if (!empty($info[self::ATTRIBUTE_USERPASSWORD])) {
             $info[self::ATTRIBUTE_USERPASSWORD] = $this->hashPassword($info[self::ATTRIBUTE_USERPASSWORD]);
+        } else if (isset($info[self::ATTRIBUTE_USERPASSWORD])) {
+            unset($info[self::ATTRIBUTE_USERPASSWORD]);
         }
 
         return parent::save($info);
