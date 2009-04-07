@@ -14,6 +14,12 @@ if (!defined('PHPUnit_MAIN_METHOD')) {
     define('PHPUnit_MAIN_METHOD', 'Horde_Argv_AllTests::main');
 }
 
+if (!function_exists('_')) {
+    function _($t) {
+        return $t;
+    }
+}
+
 require_once 'PHPUnit/Framework/TestSuite.php';
 require_once 'PHPUnit/TextUI/TestRunner.php';
 
