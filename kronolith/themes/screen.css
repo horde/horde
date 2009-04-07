@@ -887,6 +887,10 @@ table.kronolithView td {
 table.kronolithView td.kronolithFirstCol {
     width: 20px;
 }
+.kronolithAllDayContainer {
+    height: 100%;
+    overflow: hidden;
+}
 
 /* Main view header row */
 div.kronolithView div.kronolithViewHead div.kronolithRow {

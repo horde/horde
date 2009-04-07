@@ -18,27 +18,27 @@
   <tbody id="kronolithViewWeekBody" class="kronolithViewBody">
     <tr class="kronolithRow kronolithAllDay">
       <td class="kronolithFirstCol"><?php echo _("All day") ?></td>
-      <td class="kronolithCol<?php if ($w == 6 || $w == 0) echo ' kronolithWeekend' ?>">
+      <td class="kronolithCol<?php if ($w == 6 || $w == 0) echo ' kronolithWeekend' ?>"><div class="kronolithAllDayContainer">
         <div class="kronolithCorner"><a class="kronolithAdd"><?php echo $img_blank ?></a></div>
-      </td>
-      <td class="kronolithCol<?php if ($w == 5 || $w == 6) echo ' kronolithWeekend' ?>">
+      </div></td>
+      <td class="kronolithCol<?php if ($w == 5 || $w == 6) echo ' kronolithWeekend' ?>"><div class="kronolithAllDayContainer">
         <div class="kronolithCorner"><a class="kronolithAdd"><?php echo $img_blank ?></a></div>
-      </td>
-      <td class="kronolithCol<?php if ($w == 4 || $w == 5) echo ' kronolithWeekend' ?>">
+      </div></td>
+      <td class="kronolithCol<?php if ($w == 4 || $w == 5) echo ' kronolithWeekend' ?>"><div class="kronolithAllDayContainer">
         <div class="kronolithCorner"><a class="kronolithAdd"><?php echo $img_blank ?></a></div>
-      </td>
-      <td class="kronolithCol<?php if ($w == 3 || $w == 4) echo ' kronolithWeekend' ?>">
+      </div></td>
+      <td class="kronolithCol<?php if ($w == 3 || $w == 4) echo ' kronolithWeekend' ?>"><div class="kronolithAllDayContainer">
         <div class="kronolithCorner"><a class="kronolithAdd"><?php echo $img_blank ?></a></div>
-      </td>
-      <td class="kronolithCol<?php if ($w == 2 || $w == 3) echo ' kronolithWeekend' ?>">
+      </div></td>
+      <td class="kronolithCol<?php if ($w == 2 || $w == 3) echo ' kronolithWeekend' ?>"><div class="kronolithAllDayContainer">
         <div class="kronolithCorner"><a class="kronolithAdd"><?php echo $img_blank ?></a></div>
-      </td>
-      <td class="kronolithCol<?php if ($w == 1 || $w == 2) echo ' kronolithWeekend' ?>">
+      </div></td>
+      <td class="kronolithCol<?php if ($w == 1 || $w == 2) echo ' kronolithWeekend' ?>"><div class="kronolithAllDayContainer">
         <div class="kronolithCorner"><a class="kronolithAdd"><?php echo $img_blank ?></a></div>
-      </td>
-      <td class="kronolithCol<?php if ($w == 0 || $w == 1) echo ' kronolithWeekend' ?>">
+      </div></td>
+      <td class="kronolithCol<?php if ($w == 0 || $w == 1) echo ' kronolithWeekend' ?>"><div class="kronolithAllDayContainer">
         <div class="kronolithCorner"><a class="kronolithAdd"><?php echo $img_blank ?></a></div>
-      </td>
+      </div></td>
     </tr>
     <?php for ($i = 0; $i < 24; $i++): ?>
     <tr class="kronolithRow<?php if ($i < 9 || $i > 19) echo ' kronolithNight' ?>">

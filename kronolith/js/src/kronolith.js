@@ -364,7 +364,7 @@ KronolithCore = {
                 day = dates[0].clone();
             for (var i = 0; i < 7; i++) {
                 div.writeAttribute('id', 'kronolithEventsWeek' + day.dateString());
-                td.writeAttribute('id', 'kronolithAllDay' + day.dateString());
+                td.down('div').writeAttribute('id', 'kronolithAllDay' + day.dateString());
                 div = div.next('div');
                 td = td.next('td');
                 day.next().day();
