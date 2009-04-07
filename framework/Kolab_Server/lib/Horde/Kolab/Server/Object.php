@@ -302,7 +302,7 @@ class Horde_Kolab_Server_Object
             }
         }
 
-        if (!empty($this->attribute_map['derived']) 
+        if (!empty($this->attribute_map['derived'])
             && in_array($attr, $this->attribute_map['derived'])) {
             return $this->derive($attr);
         }
@@ -371,7 +371,11 @@ class Horde_Kolab_Server_Object
         if (empty($base)) {
             return;
         }
-        $fields = explode($separator, $base, $max_count);
+        if (!empty($max_count)) {
+            $fields = explode($separator, $base, $max_count);
+        } else {
+            $fields = explode($separator, $base);
+        }
         return isset($fields[$this->attributes[$attr]['order']]) ? $fields[$this->attributes[$attr]['order']] : null;
     }
 
@@ -529,7 +533,7 @@ class Horde_Kolab_Server_Object
         $collapse = array();
         foreach ($this->attribute_map['derived'] as $key) {
             $attribute = $this->attributes[$key];
-            if (isset($attribute['base'])
+            if (empty($attribute['readonly']) && isset($attribute['base'])
                 && isset($attribute['order'])) {
                 $collapse[$attribute['base']][$attribute['order']] = $key;
             }
@@ -541,7 +545,7 @@ class Horde_Kolab_Server_Object
 
         if (!$this->exists()) {
             foreach ($this->attribute_map['required'] as $key) {
-                if (!in_array($key, array_keys($info)) || empty($info[$key])) {
+                if (!in_array($key, array_keys($info)) || $info[$key] === null) {
                     if (empty($this->attributes[$key]['default'])) {
                         throw new Horde_Kolab_Server_Exception(sprintf(_("The value for \"%s\" is empty but required!"),
                                                                        $key));
@@ -553,22 +557,23 @@ class Horde_Kolab_Server_Object
 
             $submitted = $info;
             foreach ($submitted as $key => $value) {
-                if (empty($value)) {
+                if ($value === null) {
                     unset($info[$key]);
                 }
             }
         } else {
-            foreach ($info as $key => $value) {
-                if (in_array($key, $this->attribute_map['locked'])) {
-                    throw new Horde_Kolab_Server_Exception(sprintf(_("The value for \"%s\" may not be modified on an existing object!"),
-                                                                   $key));
-                }
-            }
-
             $old_keys = array_keys($this->_cache);
             $submitted = $info;
             foreach ($submitted as $key => $value) {
-                if (empty($value) && !isset($this->_cache[$key])) {
+                /**
+                 * Empty values are ignored in case there is also no old value
+                 * stored or the value is locked. If there is an old value we
+                 * must assume the value was removed.
+                 */
+                if ($value === null
+                    && (!isset($this->_cache[$key])
+                        || in_array($key, $this->attribute_map['locked']))) {
+
                     unset($info[$key]);
                     continue;
                 }
@@ -593,6 +598,16 @@ class Horde_Kolab_Server_Object
                             unset($info[$key]);
                         }
                     }
+                }
+            }
+
+            /**
+             * This ensures that we did not change anything that is locked after creating the element.
+             */
+            foreach ($info as $key => $value) {
+                if (in_array($key, $this->attribute_map['locked'])) {
+                    throw new Horde_Kolab_Server_Exception(sprintf(_("The value for \"%s\" may not be modified on an existing object!"),
+                                                                   $key));
                 }
             }
         }
