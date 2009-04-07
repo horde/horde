@@ -204,3 +204,7 @@ $objects['kolabuser'] = array(
         ),
     ),
 );
+
+if (file_exists(dirname(__FILE__) . '/objects.local.php')) {
+    require_once(dirname(__FILE__) . '/objects.local.php');
+}
