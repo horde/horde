@@ -359,11 +359,14 @@ KronolithCore = {
             this.dayGroups = [];
             this.allDayEvents = [];
             var div = $('kronolithEventsWeek').down('div'),
+                td = $('kronolithViewWeekBody').down('td').next('td'),
                 dates = this.viewDates(date, view),
                 day = dates[0].clone();
             for (var i = 0; i < 7; i++) {
                 div.writeAttribute('id', 'kronolithEventsWeek' + day.dateString());
+                td.writeAttribute('id', 'kronolithAllDay' + day.dateString());
                 div = div.next('div');
+                td = td.next('td');
                 day.next().day();
             }
             break;
@@ -714,6 +717,9 @@ KronolithCore = {
                     $('kronolithEventsWeek' + date)
                         .select('.kronolithEvent')
                         .invoke('remove');
+                    $('kronolithAllDay' + date)
+                        .select('.kronolithEvent')
+                        .invoke('remove');
                 }
             }
             this._getCacheForDate(date).sortBy(this._sortEvents).each(function(event) {
@@ -761,6 +767,15 @@ KronolithCore = {
                 end = Date.parse(event.value.e),
                 innerDiv = new Element('DIV', { 'class': 'kronolithEventInfo' });
 
+            if (event.value.al) {
+                if (view == 'day') {
+                    $('kronolithViewDayBody').down('td').next('td').insert(div);
+                } else {
+                    $('kronolithAllDay' + date).insert(div);
+                }
+                break;
+            }
+
             div.setStyle({
                 'top': event.value.al
                     ? 0
@@ -774,19 +789,6 @@ KronolithCore = {
                 .insert(innerDiv)
                 .insert(new Element('DIV', { 'class': 'kronolithDragger kronolithDraggerBottom' }));
             $(view == 'day' ? 'kronolithEventsDay' : 'kronolithEventsWeek' + date).insert(div);
-
-            if (event.value.al) {
-                this.allDayEvents.push(event.value);
-                var width = 100 / this.allDayEvents.length;
-                for (var i = 0; i < this.allDayEvents.length; i++) {
-                    $(this.allDayEvents[i].nodeId).setStyle({
-                        'width': width + '%',
-                        'left': i * width + '%'
-                    });
-                }
-                div = innerDiv;
-                break;
-            }
 
             var column = 1, columns, width = 100, conflict = false,
                 pos = this.dayGroups.length, placeFound = false;

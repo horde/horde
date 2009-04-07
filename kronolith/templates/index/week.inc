@@ -15,7 +15,7 @@
     <td class="kronolithCol"><span><?php echo NLS::getLangInfo(constant('DAY_' . ($i % 7 + 1))) ?></span></td>
     <?php endfor; ?>
   </tr></thead>
-  <tbody class="kronolithViewBody">
+  <tbody id="kronolithViewWeekBody" class="kronolithViewBody">
     <tr class="kronolithRow kronolithAllDay">
       <td class="kronolithFirstCol"><?php echo _("All day") ?></td>
       <td class="kronolithCol<?php if ($w == 6 || $w == 0) echo ' kronolithWeekend' ?>">

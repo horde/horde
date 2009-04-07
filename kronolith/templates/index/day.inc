@@ -5,7 +5,7 @@
     <td class="kronolithFirstCol">&nbsp;</td>
     <td class="kronolithCol"><span></span></td>
   </tr></thead>
-  <tbody class="kronolithViewBody">
+  <tbody id="kronolithViewDayBody" class="kronolithViewBody">
     <tr class="kronolithRow kronolithAllDay">
       <td class="kronolithFirstCol"><?php echo _("All day") ?></td>
       <td class="kronolithCol"></td>
