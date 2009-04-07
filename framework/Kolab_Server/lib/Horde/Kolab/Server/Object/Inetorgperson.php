@@ -30,8 +30,8 @@ class Horde_Kolab_Server_Object_Inetorgperson extends Horde_Kolab_Server_Object_
 
     const ATTRIBUTE_SID          = 'uid';
     const ATTRIBUTE_GIVENNAME    = 'givenName';
-    const ATTRIBUTE_FN           = 'fn';
     const ATTRIBUTE_MAIL         = 'mail';
+    const ATTRIBUTE_FN           = 'fn';
     const ATTRIBUTE_LNFN         = 'lnfn';
     const ATTRIBUTE_FNLN         = 'fnln';
 
@@ -61,6 +61,16 @@ class Horde_Kolab_Server_Object_Inetorgperson extends Horde_Kolab_Server_Object_
                 'base' => self::ATTRIBUTE_GIVENNAME,
                 'order' => 1,
                 'desc' => 'Additional names separated from the given name by whitespace.',
+            ),
+            self::ATTRIBUTE_FNLN => array(
+                'base' => array(self::ATTRIBUTE_GIVENNAME,
+                                self::ATTRIBUTE_SN),
+                'readonly' => true,
+            ),
+            self::ATTRIBUTE_LNFN => array(
+                'base' => array(self::ATTRIBUTE_GIVENNAME,
+                                self::ATTRIBUTE_SN),
+                'readonly' => true,
             ),
         ),
         'defaults' => array(
@@ -99,6 +109,14 @@ class Horde_Kolab_Server_Object_Inetorgperson extends Horde_Kolab_Server_Object_
         case self::ATTRIBUTE_GIVENNAME:
         case self::ATTRIBUTE_MIDDLENAMES:
             return $this->getField($attr, ' ', 2);
+        case self::ATTRIBUTE_LNFN:
+            $gn = $this->get(self::ATTRIBUTE_GIVENNAME, true);
+            $sn = $this->get(self::ATTRIBUTE_SN, true);
+            return sprintf('%s, %s', $sn, $gn);
+        case self::ATTRIBUTE_FNLN:
+            $gn = $this->get(self::ATTRIBUTE_GIVENNAME, true);
+            $sn = $this->get(self::ATTRIBUTE_SN, true);
+            return sprintf('%s %s', $gn, $sn);
         default:
             return parent::derive($attr);
         }
