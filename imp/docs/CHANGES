@@ -2280,6 +2280,8 @@ OLD DIMP CHANGELOG
 v1.1.2
 ------
 
+[mms] Make dimp work with IE 8 (uses IE 7 compatibility mode) (requires IMP
+      4.3.4+).
 [mms] Add confirmation box if attempting to send message without subject
       (Request #8076).
 [mms] Fix address autocomplete display on IE (Bug #7982).

@@ -1725,7 +1725,8 @@ class IMP
         switch ($GLOBALS['browser']->getBrowser()) {
         case 'msie':
             $ie_major = $GLOBALS['browser']->getMajor();
-            if ($ie_major == 7) {
+            // TODO: IE8 specific styling
+            if ($ie_major >= 7) {
                 $browser_css[] = 'ie7.css';
                 $browser_css[] = 'ie7-dimp.css';
             } elseif ($ie_major < 7) {

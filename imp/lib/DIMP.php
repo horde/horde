@@ -104,10 +104,18 @@ class DIMP
 
         echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">' . "\n" .
              (!empty($GLOBALS['language']) ? '<html lang="' . strtr($GLOBALS['language'], '_', '-') . '"' : '<html') . ">\n".
-             "<head>\n" .
-             '<title>' . htmlspecialchars($page_title) . "</title>\n" .
+             "<head>\n";
+
+        // TODO: Make dimp work with IE 8 standards mode
+        if ($GLOBALS['browser']->isBrowser('msie') &&
+            ($GLOBALS['browser']->getMajor() == 8)) {
+            echo '<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />' . "\n";
+        }
+
+        echo '<title>' . htmlspecialchars($page_title) . "</title>\n" .
              '<link href="' . $GLOBALS['registry']->getImageDir() . "/favicon.ico\" rel=\"SHORTCUT ICON\" />\n".
              IMP::wrapInlineScript(DIMP::_includeDIMPJSVars());
+
 
         IMP::includeStylesheetFiles(true, 'dimp');
 
