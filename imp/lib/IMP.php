@@ -1662,6 +1662,13 @@ class IMP
                     $out .= $tmp;
                 }
 
+                /* Use CSS tidy to clean up file. */
+                require_once HORDE_BASE . '/services/csstidy/class.csstidy.php';
+                $css_tidy = new csstidy();
+                $css_tidy->load_template('highest_compression');
+                $css_tidy->parse($out);
+                $out = $css_tidy->print->plain();
+
                 switch ($cache_type) {
                 case 'filesystem':
                     register_shutdown_function(array('IMP', 'filesystemGC'), 'css');
