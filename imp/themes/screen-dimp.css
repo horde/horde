@@ -6,6 +6,9 @@
 input {
     vertical-align: middle;
 }
+.nojserror {
+    color: red;
+}
 
 /* ini header */
 #quota {
@@ -724,13 +727,13 @@ div.dimpActionsCompose, div.dimpActionsMsg {
     height: 20px;
     padding-left: 20px;
 }
-
-span.attachName {
-    text-decoration: underline;
+#attach_list span.attachName {
+    color: blue;
     cursor: pointer;
+    text-decoration: underline;
 }
-span.attachName:hover, .nojserror {
-    color: red;
+#attach_list span.attachName:hover {
+    font-weight: bold;
 }
 
 /* Context Menus */
