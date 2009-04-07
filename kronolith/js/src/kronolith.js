@@ -750,8 +750,7 @@ KronolithCore = {
                 'id': event.value.nodeId,
                 'calendar': calendar,
                 'eventid' : event.key,
-                'class': 'kronolithEvent',
-                'style': 'background-color:' + event.value.bg + ';color:' + event.value.fg
+                'class': 'kronolithEvent'
             });
         };
 
@@ -760,21 +759,23 @@ KronolithCore = {
         case 'week':
             this._calculateRowSizes('daySizes', view == 'day' ? 'kronolithViewDay' : 'kronolithViewWeek');
             event.value.nodeId = 'kronolithEventday' + calendar + event.key;
-            var div = _createElement(event, calendar);
+            var div = _createElement(event, calendar),
+                style = { 'backgroundColor': event.value.bg,
+                          'color': event.value.fg };
+
+            if (event.value.al) {
+                if (view == 'day') {
+                    $('kronolithViewDayBody').down('td').next('td').insert(div.setStyle(style));
+                } else {
+                    $('kronolithAllDay' + date).insert(div.setStyle(style));
+                }
+                break;
+            }
 
             var midnight = Date.parseExact(date, 'yyyyMMdd'),
                 start = Date.parse(event.value.s),
                 end = Date.parse(event.value.e),
                 innerDiv = new Element('DIV', { 'class': 'kronolithEventInfo' });
-
-            if (event.value.al) {
-                if (view == 'day') {
-                    $('kronolithViewDayBody').down('td').next('td').insert(div);
-                } else {
-                    $('kronolithAllDay' + date).insert(div);
-                }
-                break;
-            }
 
             div.setStyle({
                 'top': event.value.al
@@ -782,15 +783,14 @@ KronolithCore = {
                     : ((midnight.getElapsed(start) / 60000 | 0) * this.daySizes.height / 60 + this.daySizes.offset | 0) + 'px',
                 'height': event.value.al
                     ? this.daySizes.allDay + 'px'
-                    : ((start.getElapsed(end) / 60000 | 0) * this.daySizes.height / 60 - this.daySizes.spacing | 0) + 'px',
-                'width': '100%'
+                    : ((start.getElapsed(end) / 60000 | 0) * this.daySizes.height / 60 - this.daySizes.spacing | 0) + 'px'
             })
-                .insert(new Element('DIV', { 'class': 'kronolithDragger kronolithDraggerTop' }))
-                .insert(innerDiv)
-                .insert(new Element('DIV', { 'class': 'kronolithDragger kronolithDraggerBottom' }));
+                .insert(innerDiv.setStyle(style))
+                .insert(new Element('DIV', { 'class': 'kronolithDragger kronolithDraggerTop' }).setStyle(style))
+                .insert(new Element('DIV', { 'class': 'kronolithDragger kronolithDraggerBottom' }).setStyle(style));
             $(view == 'day' ? 'kronolithEventsDay' : 'kronolithEventsWeek' + date).insert(div);
 
-            var column = 1, columns, width = 100, conflict = false,
+            var column = 1, columns, width, left, conflict = false,
                 pos = this.dayGroups.length, placeFound = false;
 
             this.dayEvents.each(function(ev) {
@@ -844,7 +844,10 @@ KronolithCore = {
 
         case 'month':
             event.value.nodeId = 'kronolithEventmonth' + calendar + event.key;
-            var div = _createElement(event, calendar);
+            var div = _createElement(event, calendar)
+                .setStyle({ 'backgroundColor': event.value.bg,
+                            'color': event.value.fg });
+
             $('kronolithMonthDay' + date).insert(div);
             if (event.value.ed) {
                 div.setStyle({ 'cursor': 'move' });

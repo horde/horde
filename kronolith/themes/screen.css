@@ -1185,12 +1185,13 @@ div.kronolithViewWeek .kronolithEvents .kronolithEvent {
 }
 .kronolithEvent .kronolithDragger {
     position: absolute;
-    width: 100%;
+    left: 0;
+    right: 3px;
     height: 12px;
     background: transparent url("graphics/drag-handle.png") center center no-repeat;
 }
 .kronolithEvent:hover .kronolithDragger, .kronolithEvent.kronolithSelected .kronolithDragger {
-    background-color: #202020;
+    background-color: #202020 !important;
 }
 .kronolithEvent .kronolithDragger.kronolithDraggerTop {
     top: 0;
@@ -1207,8 +1208,13 @@ div.kronolithViewWeek .kronolithEvents .kronolithEvent {
     cursor: s-resize;
 }
 .kronolithEvent .kronolithEventInfo {
-    margin: 10px 0;
+    position: absolute;
+    top: 7px;
+    right: 3px;
+    bottom: 7px;
+    left: 0;
     padding: 5px;
+    overflow: hidden;
 }
 #kronolithViewMonth .kronolithEvent.kronolithSelected, #kronolithViewDay .kronolithAllDay .kronolithEvent.kronolithSelected, #kronolithViewWeek .kronolithAllDay .kronolithEvent.kronolithSelected {
     height: auto;
