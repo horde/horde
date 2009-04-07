@@ -36,10 +36,12 @@ class Horde_Controller_Request_Cli extends Horde_Controller_Request_Base
     {
         parent::__construct($options);
 
-        $parser = new Horde_Argv_Parser(array('allowUnknownArgs' => true));
+        $parser = new Horde_Argv_Parser(array(
+            'allowUnknownArgs' => true,
+        ));
         list($this->_argv, $args) = $parser->parseArgs();
-        if (count($args) != 1) {
-            throw new Horde_Controller_Exception("unknown command: " . implode(' ', $args));
+        if (!count($args)) {
+            throw new Horde_Controller_Exception('unknown command: ' . implode(' ', $args));
         }
         $this->_path = $args[0];
     }
