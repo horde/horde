@@ -1466,6 +1466,10 @@ ViewPort_Filter = Class.create({
  * ViewPort_Selection
  */
 ViewPort_Selection = Class.create({
+
+    // Define property to aid in object detection
+    viewport_selection: true,
+
     // Formats:
     //     'dataob' = Data objects
     //     'div' = DOM DIVs
@@ -1479,9 +1483,6 @@ ViewPort_Selection = Class.create({
         if (!Object.isUndefined(format)) {
             this.add(format, data);
         }
-
-        // Define property to aid in object detection
-        this.viewport_selection = true;
     },
 
     add: function(format, d)
