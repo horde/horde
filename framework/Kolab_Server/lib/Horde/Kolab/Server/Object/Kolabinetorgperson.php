@@ -28,15 +28,18 @@
 class Horde_Kolab_Server_Object_Kolabinetorgperson extends Horde_Kolab_Server_Object_Inetorgperson
 {
 
-    const ATTRIBUTE_ALIAS        = 'alias';
-    const ATTRIBUTE_DELEGATE     = 'kolabDelegate';
-    const ATTRIBUTE_DELETED      = 'kolabDeleteFlag';
-    const ATTRIBUTE_FBFUTURE     = 'kolabFreeBusyFuture';
-    const ATTRIBUTE_FOLDERTYPE   = 'kolabFolderType';
-    const ATTRIBUTE_HOMESERVER   = 'kolabHomeServer';
-    const ATTRIBUTE_FREEBUSYHOST = 'kolabFreeBusyServer';
-    const ATTRIBUTE_IMAPHOST     = 'kolabImapServer';
-    const ATTRIBUTE_IPOLICY      = 'kolabInvitationPolicy';
+    const ATTRIBUTE_ALIAS         = 'alias';
+    const ATTRIBUTE_DELEGATE      = 'kolabDelegate';
+    const ATTRIBUTE_DELETED       = 'kolabDeleteFlag';
+    const ATTRIBUTE_FBFUTURE      = 'kolabFreeBusyFuture';
+    const ATTRIBUTE_FOLDERTYPE    = 'kolabFolderType';
+    const ATTRIBUTE_HOMESERVER    = 'kolabHomeServer';
+    const ATTRIBUTE_FREEBUSYHOST  = 'kolabFreeBusyServer';
+    const ATTRIBUTE_IMAPHOST      = 'kolabImapServer';
+    const ATTRIBUTE_IPOLICY       = 'kolabInvitationPolicy';
+    const ATTRIBUTE_SALUTATION    = 'kolabSalutation';
+    const ATTRIBUTE_GENDER        = 'gender';
+    const ATTRIBUTE_MARITALSTATUS = 'kolabMaritalStatus';
 
     const OBJECTCLASS_KOLABINETORGPERSON = 'kolabInetOrgPerson';
 
@@ -46,9 +49,20 @@ class Horde_Kolab_Server_Object_Kolabinetorgperson extends Horde_Kolab_Server_Ob
      * @var array
      */
     static public $init_attributes = array(
+        'defined' => array(
+            self::ATTRIBUTE_IMAPHOST,
+            self::ATTRIBUTE_HOMESERVER,
+            self::ATTRIBUTE_FREEBUSYHOST,
+            self::ATTRIBUTE_SALUTATION,
+            self::ATTRIBUTE_GENDER,
+            self::ATTRIBUTE_MARITALSTATUS,
+        ),
         'derived' => array(
         ),
         'defaults' => array(
+        ),
+        'required' => array(
+            self::ATTRIBUTE_MAIL,
         ),
         'locked' => array(
             self::ATTRIBUTE_MAIL,
