@@ -53,6 +53,8 @@ $visible['hide'] = array(
     'kolabFreeBusyFuture',
     'calFBURL',
     'kolabComment',
-
+    'kolabImapServer',
+    'kolabFreeBusyServer',
+    'usertype',
     'jpegPhoto',
 );
