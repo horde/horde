@@ -2,7 +2,12 @@
  * DIMP core CSS.
  */
 
-/* ini header. */
+/* global */
+input {
+    vertical-align: middle;
+}
+
+/* ini header */
 #quota {
     float: right;
     font-weight: normal;
@@ -600,6 +605,7 @@ div.dimpActionsCompose, div.dimpActionsMsg {
 
 /* Message Composition. */
 .composeAddrbook {
+    color: blue;
     cursor: pointer;
     text-decoration: underline;
 }
