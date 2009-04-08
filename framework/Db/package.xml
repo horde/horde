@@ -111,7 +111,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Db/Adapter/Mysql/Column.php" as="Horde/Db/Adapter/Mysql/Column.php" />
    <install name="lib/Horde/Db/Adapter/Mysql/Schema.php" as="Horde/Db/Adapter/Mysql/Schema.php" />
 
-   <install name="lib/Horde/Db/Adapter/Mysqli/Result.php" as="Horde/Db/Adapter/Mysqli/Statement.php" />
+   <install name="lib/Horde/Db/Adapter/Mysqli/Result.php" as="Horde/Db/Adapter/Mysqli/Result.php" />
    <install name="lib/Horde/Db/Adapter/Mysqli.php" as="Horde/Db/Adapter/Mysqli.php" />
 
    <install name="lib/Horde/Db/Adapter/Oci8.php" as="Horde/Db/Adapter/Oci8.php" />
