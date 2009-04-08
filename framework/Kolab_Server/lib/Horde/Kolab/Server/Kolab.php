@@ -106,7 +106,9 @@ class Horde_Kolab_Server_Kolab extends Horde_Kolab_Server_Ldap
     {
         switch ($type) {
         case 'Horde_Kolab_Server_Object_Kolab_User':
-            if ($info['user_type'] == Horde_Kolab_Server_Object_Kolab_User::USERTYPE_INTERNAL) {
+            if (empty($info['user_type'])) {
+                return parent::generateServerUid($type, $id, $info);
+            } else if ($info['user_type'] == Horde_Kolab_Server_Object_Kolab_User::USERTYPE_INTERNAL) {
                 return sprintf('%s,cn=internal,%s', $id, $this->getBaseUid());
             } else if ($info['user_type'] == Horde_Kolab_Server_Object_Kolab_User::USERTYPE_GROUP) {
                 return sprintf('%s,cn=groups,%s', $id, $this->getBaseUid());
