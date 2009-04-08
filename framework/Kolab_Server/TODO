@@ -11,15 +11,13 @@
 
 - Check with current HEAD applications.
 
-- Implement server setup
+- Implement initial server bootstrap
 
 - Load-Balancing.
 
 - Read entry after writing and detect inconsistencies.
 
 - Umlaut support
-
-- Schema analysis support.
 
 - Password history support
 
@@ -28,5 +26,3 @@
 - Support alias attribute names
 
 - Support size restrictions.
-
-- Rename ATTRIBUTE_UID as "uid" is already used on the kolab server
