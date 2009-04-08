@@ -750,7 +750,7 @@ KronolithCore = {
                     calendar && calendar != event.value.calendar) {
                     return;
                 }
-                this._insertEvent(event, calendar, date, view);
+                this._insertEvent(event, date, view);
             }, this);
             day.next().day();
         }
@@ -760,20 +760,17 @@ KronolithCore = {
      * Creates the DOM node for an event bubble and inserts it into the view.
      *
      * @param object event     A Hash member with the event to insert.
-     * @param string calendar  The calendar to update.
      * @param string date      The day to update.
      * @param string view      The view to update.
      */
-    _insertEvent: function(event, calendar, date, view)
+    _insertEvent: function(event, date, view)
     {
-        calendar = event.value.cal || calendar;
-        event.value.cal = calendar;
-        event.value.nodeId = 'kronolithEvent' + calendar + date + event.key;
+        event.value.nodeId = 'kronolithEvent' + event.value.calendar + date + event.key;
 
-        _createElement = function(event, calendar) {
+        _createElement = function(event) {
             return new Element('DIV', {
                 'id': event.value.nodeId,
-                'calendar': calendar,
+                'calendar': event.value.calendar,
                 'eventid' : event.key,
                 'class': 'kronolithEvent'
             });
@@ -783,7 +780,7 @@ KronolithCore = {
         case 'day':
         case 'week':
             this._calculateRowSizes('daySizes', view == 'day' ? 'kronolithViewDay' : 'kronolithViewWeek');
-            var div = _createElement(event, calendar),
+            var div = _createElement(event),
                 style = { 'backgroundColor': event.value.bg,
                           'color': event.value.fg };
 
@@ -864,7 +861,7 @@ KronolithCore = {
             break;
 
         case 'month':
-            var div = _createElement(event, calendar)
+            var div = _createElement(event)
                 .setStyle({ 'backgroundColor': event.value.bg,
                             'color': event.value.fg });
 
