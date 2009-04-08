@@ -724,7 +724,7 @@ KronolithCore = {
             // The day and week views require the view to be completely
             // loaded, to correctly calculate the dimensions.
             if (this.viewLoading || this.view != view) {
-                this._insertEvents.bind(this, dates, view, calendar).defer();
+                this._insertEvents.bind(this, [dates[0].clone(), dates[1].clone()], view, calendar).defer();
                 return;
             }
         }
