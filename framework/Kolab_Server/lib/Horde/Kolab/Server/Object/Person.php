@@ -27,13 +27,24 @@
  */
 class Horde_Kolab_Server_Object_Person extends Horde_Kolab_Server_Object
 {
+    /** Define attributes specific to this object type */
 
+    /** The common name */
     const ATTRIBUTE_CN           = 'cn';
+
+    /** The surname */
     const ATTRIBUTE_SN           = 'sn';
+
+    /** A surname suffix */
     const ATTRIBUTE_SNSUFFIX     = 'snsuffix';
+
+    /** A password for this person */
     const ATTRIBUTE_USERPASSWORD = 'userPassword';
+
+    /** A telephone number for this person */
     const ATTRIBUTE_TELNO        = 'telephoneNumber';
 
+    /** The specific object class of this object type */
     const OBJECTCLASS_PERSON     = 'person';
 
     /**
@@ -64,7 +75,6 @@ class Horde_Kolab_Server_Object_Person extends Horde_Kolab_Server_Object
         'required' => array(
             self::ATTRIBUTE_CN,
             self::ATTRIBUTE_SN,
-            self::ATTRIBUTE_USERPASSWORD,
         ),
         'object_classes' => array(
             self::OBJECTCLASS_PERSON
