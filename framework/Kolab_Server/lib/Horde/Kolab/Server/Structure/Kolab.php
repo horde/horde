@@ -1,6 +1,6 @@
 <?php
 /**
- * The driver for accessing the Kolab user database stored in LDAP.
+ * The driver for handling the Kolab user database structure.
  *
  * PHP version 5
  *
@@ -26,36 +26,44 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_Kolab extends Horde_Kolab_Server_Ldap
+class Horde_Kolab_Server_Structure_Kolab extends Horde_Kolab_Server_Structure_Ldap
 {
     /**
-     * Returns the set of objects supported by this server type.
+     * Returns the set of objects supported by this structure.
      *
-     * @return array An array of supported search operations.
+     * @return array An array of supported objects.
      */
-    static public function getSupportedObjects()
+    public function getSupportedObjects()
     {
-        $objects = array(
+        return array(
             'Horde_Kolab_Server_Object',
             'Horde_Kolab_Server_Object_Groupofnames',
             'Horde_Kolab_Server_Object_Kolabinetorgperson',
             'Horde_Kolab_Server_Object_Kolabgroupofnames',
+            'Horde_Kolab_Server_Object_Kolabsharedfolder',
+            'Horde_Kolab_Server_Object_Kolab_Address',
+            'Horde_Kolab_Server_Object_Kolab_Administrator',
+            'Horde_Kolab_Server_Object_Kolab_Distlist',
+            'Horde_Kolab_Server_Object_Kolab_Domainmaintainer',
+            'Horde_Kolab_Server_Object_Kolab_Maintainer',
+            'Horde_Kolab_Server_Object_Kolab_Server',
+            'Horde_Kolab_Server_Object_Kolab_User',
         );
-        return $objects;
     }
 
     /**
-     * Determine the type of a Kolab object.
+     * Determine the type of an object by its tree position and other
+     * parameters.
      *
-     * @param string $dn The DN of the object to examine.
+     * @param string $uid The UID of the object to examine.
      *
-     * @return int The corresponding Kolab object type.
+     * @return string The class name of the corresponding object type.
      *
      * @throws Horde_Kolab_Server_Exception If the object type is unknown.
      */
-    public function determineType($dn)
+    public function determineType($uid)
     {
-        $oc = $this->getObjectClasses($dn);
+        $oc = $this->server->getObjectClasses($uid);
         // Not a user type?
         if (!in_array('kolabinetorgperson', $oc)) {
             // Is it a group?
@@ -66,25 +74,25 @@ class Horde_Kolab_Server_Kolab extends Horde_Kolab_Server_Ldap
             if (in_array('kolabsharedfolder', $oc)) {
                 return 'Horde_Kolab_Server_Object_Kolabsharedfolder';
             }
-            return parent::determineType($dn);
+            return parent::determineType($uid);
         }
 
-        $groups = $this->getGroups($dn);
+        $groups = $this->server->getGroups($uid);
         if (!empty($groups)) {
-            if (in_array('cn=admin,cn=internal,' . $this->getBaseUid(), $groups)) {
+            if (in_array('cn=admin,cn=internal,' . $this->server->getBaseUid(), $groups)) {
                 return 'Horde_Kolab_Server_Object_Kolab_Administrator';
             }
-            if (in_array('cn=maintainer,cn=internal,' . $this->getBaseUid(),
+            if (in_array('cn=maintainer,cn=internal,' . $this->server->getBaseUid(),
                          $groups)) {
                 return 'Horde_Kolab_Server_Object_Kolab_Maintainer';
             }
-            if (in_array('cn=domain-maintainer,cn=internal,' . $this->getBaseUid(),
+            if (in_array('cn=domain-maintainer,cn=internal,' . $this->server->getBaseUid(),
                          $groups)) {
                 return 'Horde_Kolab_Server_Object_Kolab_Domainmaintainer';
             }
         }
 
-        if (strpos($dn, 'cn=external') !== false) {
+        if (strpos($uid, 'cn=external') !== false) {
             return 'Horde_Kolab_Server_Object_Kolab_Address';
         }
 
@@ -94,11 +102,11 @@ class Horde_Kolab_Server_Kolab extends Horde_Kolab_Server_Ldap
     /**
      * Generates a UID for the given information.
      *
-     * @param string $type The type of the object to create.
+     * @param string $type The class name of the object to create.
      * @param string $id   The id of the object.
      * @param array  $info Any additional information about the object to create.
      *
-     * @return string The DN.
+     * @return string The UID.
      *
      * @throws Horde_Kolab_Server_Exception If the given type is unknown.
      */
@@ -109,22 +117,22 @@ class Horde_Kolab_Server_Kolab extends Horde_Kolab_Server_Ldap
             if (empty($info['user_type'])) {
                 return parent::generateServerUid($type, $id, $info);
             } else if ($info['user_type'] == Horde_Kolab_Server_Object_Kolab_User::USERTYPE_INTERNAL) {
-                return sprintf('%s,cn=internal,%s', $id, $this->getBaseUid());
+                return sprintf('%s,cn=internal,%s', $id, $this->server->getBaseUid());
             } else if ($info['user_type'] == Horde_Kolab_Server_Object_Kolab_User::USERTYPE_GROUP) {
-                return sprintf('%s,cn=groups,%s', $id, $this->getBaseUid());
+                return sprintf('%s,cn=groups,%s', $id, $this->server->getBaseUid());
             } else if ($info['user_type'] == Horde_Kolab_Server_Object_Kolab_User::USERTYPE_RESOURCE) {
-                return sprintf('%s,cn=resources,%s', $id, $this->getBaseUid());
+                return sprintf('%s,cn=resources,%s', $id, $this->server->getBaseUid());
             } else {
                 return parent::generateServerUid($type, $id, $info);
             }
         case 'Horde_Kolab_Server_Object_Kolab_Address':
-            return sprintf('%s,cn=external,%s', $id, $this->getBaseUid());
+            return sprintf('%s,cn=external,%s', $id, $this->server->getBaseUid());
         case 'Horde_Kolab_Server_Object_Kolabgroupofnames':
         case 'Horde_Kolab_Server_Object_Kolab_Distlist':
             if (!isset($info['visible']) || !empty($info['visible'])) {
                 return parent::generateServerUid($type, $id, $info);
             } else {
-                return sprintf('%s,cn=internal,%s', $id, $this->getBaseUid());
+                return sprintf('%s,cn=internal,%s', $id, $this->server->getBaseUid());
             }
         case 'Horde_Kolab_Server_Object_Kolabsharedfolder':
         case 'Horde_Kolab_Server_Object_Kolab_Administrator':

@@ -58,6 +58,13 @@ abstract class Horde_Kolab_Server
     protected $searches;
 
     /**
+     * The structure handler for this server.
+     *
+     * @var Horde_Kolab_Server_Structure
+     */
+    public $structure;
+
+    /**
      * Construct a new Horde_Kolab_Server object.
      *
      * @param array $params Parameter array.
@@ -68,6 +75,15 @@ abstract class Horde_Kolab_Server
         if (isset($params['uid'])) {
             $this->uid = $params['uid'];
         }
+
+        $structure        = isset($params['structure']['driver'])
+            ? $params['structure']['driver'] : 'kolab';
+        $structure_params = isset($params['structure']['params'])
+            ? $params['structure']['params'] : array();
+
+        $this->structure = &Horde_Kolab_Server_Structure::factory($structure,
+                                                                  $this,
+                                                                  $structure_params);
 
         // Initialize the search operations supported by this server.
         $this->searches = $this->getSearchOperations();
@@ -328,16 +344,44 @@ abstract class Horde_Kolab_Server
     }
 
     /**
-     * Returns the set of objects supported by this server type.
+     * Returns the set of objects supported by this server.
      *
-     * @return array An array of supported search operations.
+     * @return array An array of supported objects.
      */
-    static public function getSupportedObjects()
+    public function getSupportedObjects()
     {
-        $objects = array(
-            'Horde_Kolab_Server_Object',
-        );
-        return $objects;
+        return $this->structure->getSupportedObjects();
+    }
+
+    /**
+     * Determine the type of an object by its tree position and other
+     * parameters.
+     *
+     * @param string $uid The UID of the object to examine.
+     *
+     * @return string The class name of the corresponding object type.
+     *
+     * @throws Horde_Kolab_Server_Exception If the object type is unknown.
+     */
+    public function determineType($uid)
+    {
+        return $this->structure->determineType($uid);
+    }
+
+    /**
+     * Generates a UID for the given information.
+     *
+     * @param string $type The class name of the object to create.
+     * @param string $id   The id of the object.
+     * @param array  $info Any additional information about the object to create.
+     *
+     * @return string The UID.
+     *
+     * @throws Horde_Kolab_Server_Exception
+     */
+    protected function generateServerUid($type, $id, $info)
+    {
+        return $this->structure->generateServerUid($type, $id, $info);
     }
 
     /**
@@ -528,9 +572,11 @@ abstract class Horde_Kolab_Server
     {
         $server_searches = array();
         foreach ($this->getSupportedObjects() as $sobj) {
-            $searches = call_user_func(array($sobj, 'getSearchOperations'));
-            foreach ($searches as $search) {
-                $server_searches[$search] = array('class' => $sobj);
+            if (in_array('getSearchOperations', get_class_methods($sobj))) {
+                $searches = call_user_func(array($sobj, 'getSearchOperations'));
+                foreach ($searches as $search) {
+                    $server_searches[$search] = array('class' => $sobj);
+                }
             }
         }
         return $server_searches;
@@ -586,17 +632,6 @@ abstract class Horde_Kolab_Server
     abstract public function save($uid, $data, $exists = false);
 
     /**
-     * Determine the type of a Kolab object.
-     *
-     * @param string $uid The UID of the object to examine.
-     *
-     * @return string The corresponding Kolab object type.
-     *
-     * @throws Horde_Kolab_Server_Exception
-     */
-    abstract protected function determineType($uid);
-
-    /**
      * List all objects of a specific type
      *
      * @param string $type   The type of the objects to be listed
@@ -607,19 +642,6 @@ abstract class Horde_Kolab_Server
      * @throws Horde_Kolab_Server_Exception
      */
     abstract public function listObjects($type, $params = null);
-
-    /**
-     * Generates a UID for the given information.
-     *
-     * @param string $type The type of the object to create.
-     * @param string $id   The id of the object.
-     * @param array  $info Any additional information about the object to create.
-     *
-     * @return string The UID.
-     *
-     * @throws Horde_Kolab_Server_Exception
-     */
-    abstract protected function generateServerUid($type, $id, $info);
 
     /**
      * Return the root of the UID values on this server.

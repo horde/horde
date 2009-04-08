@@ -145,7 +145,7 @@ class Horde_Kolab_Server_None extends Horde_Kolab_Server
      *
      * @return string The corresponding Kolab object type.
      */
-    protected function determineType($uid)
+    public function determineType($uid)
     {
         return 'Horde_Kolab_Server_Object_Kolab_User';
     }
@@ -239,5 +239,15 @@ class Horde_Kolab_Server_None extends Horde_Kolab_Server
     {
         /* In the default class we just return an empty array */
         return array();
+    }
+
+    /**
+     * Returns the set of objects supported by this server.
+     *
+     * @return array An array of supported objects.
+     */
+    public function getSupportedObjects()
+    {
+        return array('Horde_Kolab_Server_Object');
     }
 }
