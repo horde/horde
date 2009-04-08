@@ -694,16 +694,14 @@ KronolithCore = {
             dates = [start, end];
 
         this._storeCache(r.response.events || {}, r.response.cal, dates);
-        if (r.response.events) {
-            // Check if this is the still the result of the most current
-            // request.
-            if (r.response.view != this.view ||
-                r.response.sig != this.eventsLoading[r.response.cal]) {
-                return;
-            }
 
-            this._insertEvents(dates, this.view, r.response.cal);
+        // Check if this is the still the result of the most current request.
+        if (r.response.view != this.view ||
+            r.response.sig != this.eventsLoading[r.response.cal]) {
+            return;
         }
+
+        this._insertEvents(dates, this.view, r.response.cal);
     },
 
     /**
