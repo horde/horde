@@ -56,13 +56,9 @@ class Horde_Kolab_Server_Object_Kolabinetorgperson extends Horde_Kolab_Server_Ob
             self::ATTRIBUTE_SALUTATION,
             self::ATTRIBUTE_GENDER,
             self::ATTRIBUTE_MARITALSTATUS,
-        ),
-        'derived' => array(
-        ),
-        'defaults' => array(
-        ),
-        'required' => array(
-            self::ATTRIBUTE_MAIL,
+            self::ATTRIBUTE_IPOLICY,
+            self::ATTRIBUTE_ALIAS,
+            self::ATTRIBUTE_DELEGATE,
         ),
         'locked' => array(
             self::ATTRIBUTE_MAIL,
