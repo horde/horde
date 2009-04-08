@@ -145,6 +145,12 @@ class Horde_Kolab_Server_ObjectTest extends Horde_Kolab_Test_Server
  */
 class DummyDB
 {
-
-
+    public function getAttributes()
+    {
+        return array(array(Horde_Kolab_Server_Object_Kolab_User::ATTRIBUTE_FN => array()),
+              array(
+                  'derived'  => array(Horde_Kolab_Server_Object_Kolab_User::ATTRIBUTE_FN),
+                  'locked'   => array(),
+                  'required' => array()));
+    }
 }

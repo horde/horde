@@ -87,7 +87,7 @@ class Horde_Kolab_Server_GroupHandlingTest extends Horde_Kolab_Test_Server
             ->and('retrieving a hash list with all objects of type',
                   'Horde_Kolab_Server_Object_Kolabgroupofnames')
             ->then('the provided list and the result list match with regard to these attributes',
-                   'mail', 'id', $group_list);
+                   'mail', 'cn', $group_list);
     }
 
     /**
@@ -155,7 +155,7 @@ class Horde_Kolab_Server_GroupHandlingTest extends Horde_Kolab_Test_Server
     public function creatingGroupWithoutVisibilityCreatesVisibleGroup()
     {
         $this->given('an empty Kolab server')
-            ->when('adding an object', $this->validGroupWithoutMembers())
+            ->when('adding an object', $this->provideGroupWithoutMembers())
             ->and('retrieving a hash list with all objects of type',
                   'Horde_Kolab_Server_Object_Kolabgroupofnames')
             ->then('each element in the result list has an attribute set to a given value',

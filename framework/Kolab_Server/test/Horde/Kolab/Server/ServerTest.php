@@ -126,6 +126,19 @@ class Horde_Kolab_Server_None extends Horde_Kolab_Server
     }
 
     /**
+     * Stub for saving object data.
+     *
+     * @param string $uid   The object to retrieve.
+     * @param string $attrs Restrict to these attributes.
+     *
+     * @return array|PEAR_Error An array of attributes.
+     */
+    public function save($uid, $data, $exists = false)
+    {
+        throw new Horde_Kolab_Server_Exception('Not implemented!');
+    }
+
+    /**
      * Determine the type of a Kolab object.
      *
      * @param string $uid The UID of the object to examine.

@@ -334,9 +334,9 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
         $this->assertNoError($result);
         $result = $server->add($this->provideBasicDomainMaintainer());
         $this->assertNoError($result);
-        $result = $server->add($this->provideBasicGroupOne());
+        $result = $server->add($this->provideGroupWithoutMembers());
         $this->assertNoError($result);
-        $result = $server->add($this->provideBasicGroupTwo());
+        $result = $server->add($this->provideBasicGroupOne());
         $this->assertNoError($result);
         $result = $server->add($this->provideBasicMaintainer());
         $this->assertNoError($result);
@@ -406,10 +406,11 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
      */
     public function provideBasicAddress()
     {
-        return array('givenName' => 'Test',
-                     'sn' => 'Address',
-                     'type' => 'Horde_Kolab_Server_Object_Kolab_Address',
-                     'mail' => 'address@example.org');
+        return array('type' => 'Horde_Kolab_Server_Object_Kolab_Address',
+                     Horde_Kolab_Server_Object_Kolab_Administrator::ATTRIBUTE_GIVENNAME    => 'Test',
+                     Horde_Kolab_Server_Object_Kolab_Administrator::ATTRIBUTE_SN           => 'Address',
+                     Horde_Kolab_Server_Object_Kolab_Administrator::ATTRIBUTE_MAIL         => 'address@example.org',
+        );
     }
 
     /**
@@ -419,11 +420,12 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
      */
     public function provideBasicAdmin()
     {
-        return array('sn' => 'Administrator',
-                     'givenName' => 'The',
-                     'uid' => 'admin',
-                     'type' => 'Horde_Kolab_Server_Object_Kolab_Administrator',
-                     'userPassword' => 'none');
+        return array('type' => 'Horde_Kolab_Server_Object_Kolab_Administrator',
+                     Horde_Kolab_Server_Object_Kolab_Administrator::ATTRIBUTE_GIVENNAME    => 'The',
+                     Horde_Kolab_Server_Object_Kolab_Administrator::ATTRIBUTE_SN           => 'Administrator',
+                     Horde_Kolab_Server_Object_Kolab_Administrator::ATTRIBUTE_SID          => 'admin',
+                     Horde_Kolab_Server_Object_Kolab_Administrator::ATTRIBUTE_USERPASSWORD => 'none',
+        );
     }
 
     /**
@@ -433,11 +435,11 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
      */
     public function provideBasicMaintainer()
     {
-        return array('sn' => 'Tainer',
-                     'givenName' => 'Main',
-                     'uid' => 'maintainer',
-                     'type' => 'Horde_Kolab_Server_Object_Kolab_Maintainer',
-                     'userPassword' => 'none',
+        return array('type' => 'Horde_Kolab_Server_Object_Kolab_Maintainer',
+                     Horde_Kolab_Server_Object_Kolab_Maintainer::ATTRIBUTE_GIVENNAME    => 'Main',
+                     Horde_Kolab_Server_Object_Kolab_Maintainer::ATTRIBUTE_SN           => 'Tainer',
+                     Horde_Kolab_Server_Object_Kolab_Maintainer::ATTRIBUTE_SID          => 'maintainer',
+                     Horde_Kolab_Server_Object_Kolab_Maintainer::ATTRIBUTE_USERPASSWORD => 'none',
         );
     }
 
@@ -448,12 +450,13 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
      */
     public function provideBasicDomainMaintainer()
     {
-        return array('sn' => 'Maintainer',
-                     'givenName' => 'Domain',
-                     'uid' => 'domainmaintainer',
-                     'type' => 'Horde_Kolab_Server_Object_Kolab_Domainmaintainer',
-                     'userPassword' => 'none',
-                     'domain' => array('example.com'),
+        return array('type' => 'Horde_Kolab_Server_Object_Kolab_Domainmaintainer',
+                     Horde_Kolab_Server_Object_Kolab_Domainmaintainer::ATTRIBUTE_GIVENNAME    => 'Domain',
+                     Horde_Kolab_Server_Object_Kolab_Domainmaintainer::ATTRIBUTE_SN           => 'Maintainer',
+                     Horde_Kolab_Server_Object_Kolab_Domainmaintainer::ATTRIBUTE_SID          => 'domainmaintainer',
+                     Horde_Kolab_Server_Object_Kolab_Domainmaintainer::ATTRIBUTE_USERPASSWORD => 'none',
+                     Horde_Kolab_Server_Object_Kolab_Domainmaintainer::ATTRIBUTE_DOMAIN       => array('example.com'),
+
         );
     }
 
@@ -464,9 +467,57 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
      */
     public function provideBasicSharedFolder()
     {
-        return array('cn' => 'shared@example.org',
-                     'kolabHomeServer' => 'example.org',
-                     'type' => 'Horde_Kolab_Server_Object_Kolabsharedfolder');
+        return array('type' => 'Horde_Kolab_Server_Object_Kolabsharedfolder',
+                     Horde_Kolab_Server_Object_Kolabsharedfolder::ATTRIBUTE_CN         => 'shared@example.org',
+                     Horde_Kolab_Server_Object_Kolabsharedfolder::ATTRIBUTE_HOMESERVER => 'example.org',
+        );
+    }
+
+    /**
+     * Provide a set of valid groups.
+     *
+     * @return array The array of groups.
+     */
+    public function groupLists()
+    {
+        $groups = $this->validGroups();
+        $result = array();
+        foreach ($groups as $group) {
+            $result[] = array($group);
+        }
+        return $result;
+    }
+
+    /**
+     * Provide a set of valid groups.
+     *
+     * @return array The array of groups.
+     */
+    public function validGroups()
+    {
+        return array(
+            array(
+                $this->provideGroupWithoutMembers(),
+            ),
+            array(
+                $this->provideBasicGroupOne(),
+            ),
+            array(
+                $this->provideBasicGroupTwo(),
+            ),
+        );
+    }
+
+    /**
+     * Return a test group.
+     *
+     * @return array The test group.
+     */
+    public function provideGroupWithoutMembers()
+    {
+        return array('type' => 'Horde_Kolab_Server_Object_Kolabgroupofnames',
+                     Horde_Kolab_Server_Object_Kolab_Distlist::ATTRIBUTE_MAIL   => 'empty.group@example.org',
+                     Horde_Kolab_Server_Object_Kolab_Distlist::ATTRIBUTE_MEMBER => array());
     }
 
     /**
@@ -476,8 +527,11 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
      */
     public function provideBasicGroupOne()
     {
-        return array('mail' => 'empty.group@example.org',
-                     'type' => 'Horde_Kolab_Server_Object_Kolabgroupofnames');
+        return array('type' => 'Horde_Kolab_Server_Object_Kolabgroupofnames',
+                     Horde_Kolab_Server_Object_Kolab_Distlist::ATTRIBUTE_MAIL   => 'group@example.org',
+                     Horde_Kolab_Server_Object_Kolab_Distlist::ATTRIBUTE_MEMBER => array('cn=Test Test,dc=example,dc=org',
+                                                                                         'cn=Gunnar Wrobel,dc=example,dc=org')
+        );
     }
 
     /**
@@ -487,18 +541,19 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
      */
     public function provideBasicGroupTwo()
     {
-        return array('mail' => 'group@example.org',
-                     'type' => 'Horde_Kolab_Server_Object_Kolabgroupofnames',
-                     'member' => array('cn=Test Test,dc=example,dc=org',
-                                       'cn=Gunnar Wrobel,dc=example,dc=org'));
+        return array('type' => 'Horde_Kolab_Server_Object_Kolabgroupofnames',
+                     Horde_Kolab_Server_Object_Kolab_Distlist::ATTRIBUTE_MAIL   => 'group2@example.org',
+                     Horde_Kolab_Server_Object_Kolab_Distlist::ATTRIBUTE_MEMBER => array('cn=Gunnar Wrobel,dc=example,dc=org')
+        );
     }
 
     public function provideDistributionList()
     {
-        return array('mail' => 'distlist@example.org',
-                     'type' => 'Horde_Kolab_Server_Object_Kolab_Distlist',
-                     'member' => array('cn=Test Test,dc=example,dc=org',
-                                       'cn=Gunnar Wrobel,dc=example,dc=org'));
+        return array('type' => 'Horde_Kolab_Server_Object_Kolab_Distlist',
+                     Horde_Kolab_Server_Object_Kolab_Distlist::ATTRIBUTE_MAIL   => 'distlist@example.org',
+                     Horde_Kolab_Server_Object_Kolab_Distlist::ATTRIBUTE_MEMBER => array('cn=Test Test,dc=example,dc=org',
+                                                                                         'cn=Gunnar Wrobel,dc=example,dc=org')
+        );
     }
 
     public function provideInvalidUserWithoutPassword()
@@ -610,28 +665,6 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
         );
     }
 
-    public function validGroups()
-    {
-        return array(
-            array(
-                $this->validGroupWithoutMembers(),
-            ),
-            array(
-                array('mail' => 'group@example.org',
-                      'type' => 'Horde_Kolab_Server_Object_Kolabgroupofnames',
-                      'member' => array('cn=Test Test,dc=example,dc=org',
-                                        'cn=Gunnar Wrobel,dc=example,dc=org')
-                ),
-            ),
-            array(
-                array('mail' => 'group2@example.org',
-                      'type' => 'Horde_Kolab_Server_Object_Kolabgroupofnames',
-                      'member' => array('cn=Gunnar Wrobel,dc=example,dc=org')
-                ),
-            ),
-        );
-    }
-
     public function validSharedFolders()
     {
         return array(
@@ -641,49 +674,10 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
         );
     }
 
-    public function validGroupWithoutMembers()
-    {
-        return array('mail' => 'empty.group@example.org',
-                     'type' => 'Horde_Kolab_Server_Object_Kolabgroupofnames',
-        );
-    }
 
     public function userLists()
     {
         return array(
-        );
-    }
-
-    public function groupLists()
-    {
-        return array(
-            array(
-                array(
-                    array('type' => 'Horde_Kolab_Server_Object_Kolabgroupofnames',
-                          'mail' => 'empty.group@example.org',
-                    ),
-                )
-            ),
-            array(
-                array(
-                    array('mail' => 'empty.group@example.org',
-                          'type' => 'Horde_Kolab_Server_Object_Kolabgroupofnames',
-                    ),
-                ),
-                array(
-                    array('mail' => 'group@example.org',
-                          'type' => 'Horde_Kolab_Server_Object_Kolabgroupnames',
-                          'member' => array('cn=Test Test,dc=example,dc=org',
-                                            'cn=Gunnar Wrobel,dc=example,dc=org')
-                    ),
-                ),
-                array(
-                    array('mail' => 'group2@example.org',
-                          'type' => 'Horde_Kolab_Server_Object_Kolabgroupofnames',
-                          'member' => array('cn=Gunnar Wrobel,dc=example,dc=org')
-                    ),
-                ),
-            )
         );
     }
 

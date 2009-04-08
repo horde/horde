@@ -55,7 +55,7 @@ class Horde_Kolab_Server_UserTest extends Horde_Kolab_Test_Server
     public function testGenerateId()
     {
         $users = $this->validUsers();
-        $this->assertEquals('Gunnar Wrobel',
+        $this->assertEquals('cn=Gunnar Wrobel',
                             Horde_Kolab_Server_Object_Kolab_User::generateId($users[0][0]));
 
         $this->assertEquals('cn=Gunnar Wrobel,dc=example,dc=org',

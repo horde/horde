@@ -101,7 +101,7 @@ class Horde_Kolab_Server_GroupTest extends Horde_Kolab_Test_Server
         $this->assertContains('id', array_keys($hash));
         $this->assertContains('visible', array_keys($hash));
         $this->assertEquals('empty.group@example.org', $hash['mail']);
-        $this->assertEquals('empty.group@example.org', $hash['id']);
+        $this->assertEquals('cn=empty.group@example.org', $hash['id']);
         $this->assertTrue($hash['visible']);
     }
 
