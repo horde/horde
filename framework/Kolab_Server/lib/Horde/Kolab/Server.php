@@ -173,6 +173,8 @@ abstract class Horde_Kolab_Server
 
     /**
      * Stores the attribute definitions in the cache.
+     *
+     * @return Horde_Kolab_Server The concrete Horde_Kolab_Server reference.
      */
     function shutdown()
     {
@@ -180,8 +182,8 @@ abstract class Horde_Kolab_Server
             if (!empty($GLOBALS['conf']['kolab']['server']['cache']['driver'])) {
                 $params = isset($GLOBALS['conf']['kolab']['server']['cache']['params'])
                     ? $GLOBALS['conf']['kolab']['server']['cache']['params'] : null;
-                $cache = Horde_Cache::singleton($GLOBALS['conf']['kolab']['server']['cache']['driver'],
-                                                $params);
+                $cache  = Horde_Cache::singleton($GLOBALS['conf']['kolab']['server']['cache']['driver'],
+                                                 $params);
                 foreach ($this->attributes as $key => $value) {
                     $cache->set('attributes_' . $key, @serialize($value));
                 }
@@ -356,8 +358,8 @@ abstract class Horde_Kolab_Server
             if (!empty($GLOBALS['conf']['kolab']['server']['cache']['driver'])) {
                 $params = isset($GLOBALS['conf']['kolab']['server']['cache']['params'])
                     ? $GLOBALS['conf']['kolab']['server']['cache']['params'] : null;
-                $cache = Horde_Cache::singleton($GLOBALS['conf']['kolab']['server']['cache']['driver'],
-                                                $params);
+                $cache  = Horde_Cache::singleton($GLOBALS['conf']['kolab']['server']['cache']['driver'],
+                                                 $params);
                 register_shutdown_function(array($this, 'shutdown'));
                 $lifetime = isset($GLOBALS['conf']['kolab']['server']['cache']['lifetime'])
                     ? $GLOBALS['conf']['kolab']['server']['cache']['lifetime'] : 300;
@@ -377,7 +379,7 @@ abstract class Horde_Kolab_Server
                 $level      = 0;
                 while ($childclass != 'Horde_Kolab_Server_Object'
                        && $level < self::MAX_HIERARCHY) {
-                    $classes[] = $childclass;
+                    $classes[]  = $childclass;
                     $childclass = get_parent_class($childclass);
                     $level++;
                 }
