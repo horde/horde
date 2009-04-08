@@ -143,6 +143,9 @@ var ContextSensitive = Class.create({
         // Check for click in open contextmenu.
         if (this.current.size()) {
             elt = e.element();
+            if (!elt.match('A')) {
+                elt = elt.up('A');
+            }
             elt_up = elt.up();
 
             if (elt_up.hasClassName('contextMenu')) {

@@ -737,16 +737,9 @@ var DimpBase = {
             break;
 
         default:
-            if (menu == 'ctx_message_setflag' ||
-                menu == 'ctx_draft_setflag' ||
-                menu == 'oa_setflag') {
+            if (menu.endsWith('_setflag') || menu.endsWith('_unsetflag')) {
                 flag = elt.readAttribute('flag');
-                this.flag(flag, this.convertFlag(flag, true));
-            } else if (menu == 'ctx_message_unsetflag' ||
-                       menu == 'ctx_draft_unsetflag' ||
-                       menu == 'oa_unsetflag') {
-                flag = elt.readAttribute('flag');
-                this.flag(flag, this.convertFlag(flag, false));
+                this.flag(flag, this.convertFlag(flag, menu.endsWith('_setflag')));
             } else {
                 parentfunc(elt, baseelt, menu);
             }
@@ -2176,7 +2169,7 @@ var DimpBase = {
     flag: function(flag, set, opts)
     {
         opts = opts || {};
-        var flags = [ (opts.set ? '' : '-') + flag ];
+        var flags = [ (set ? '' : '-') + flag ];
             vs = this._getFlagSelection(opts);
 
         if (!vs.size()) {
