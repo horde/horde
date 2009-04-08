@@ -28,17 +28,33 @@
  */
 class Horde_Kolab_Server_Object_Kolabsharedfolder extends Horde_Kolab_Server_Object
 {
+    /** Define attributes specific to this object type */
 
+    /** The common name */
+    const ATTRIBUTE_CN = 'cn';
+
+    /** The home server of this folder */
+    const ATTRIBUTE_HOMESERVER = 'kolabHomeServer';
+
+    /** The specific object class of this object type */
     const OBJECTCLASS_KOLABSHAREDFOLDER = 'kolabSharedFolder';
 
     /**
-     * The ldap classes for this type of object.
+     * A structure to initialize the attribute structure for this class.
      *
      * @var array
      */
-    protected $object_classes = array(
-        self::OBJECTCLASS_TOP,
-        self::OBJECTCLASS_KOLABSHAREDFOLDER,
+    static public $init_attributes = array(
+        'defined' => array(
+            self::ATTRIBUTE_CN,
+            self::ATTRIBUTE_HOMESERVER,
+        ),
+        'required' => array(
+            self::ATTRIBUTE_CN,
+        ),
+        'object_classes' => array(
+            self::OBJECTCLASS_KOLABSHAREDFOLDER,
+        ),
     );
 
     /**
@@ -51,7 +67,7 @@ class Horde_Kolab_Server_Object_Kolabsharedfolder extends Horde_Kolab_Server_Obj
      */
     public static function getFilter()
     {
-        return '(objectClass=kolabSharedFolder)';
+        return '(' . self::ATTRIBUTE_OC . '=' . self::OBJECTCLASS_KOLABSHAREDFOLDER .')';
     }
 
     /**
@@ -65,7 +81,7 @@ class Horde_Kolab_Server_Object_Kolabsharedfolder extends Horde_Kolab_Server_Obj
      */
     public static function generateId($info)
     {
-        return trim($info['cn'], " \t\n\r\0\x0B,");
+        return trim(self::ATTRIBUTE_CN . '=' . $info['cn'], " \t\n\r\0\x0B,");
     }
 
     /**
