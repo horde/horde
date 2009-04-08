@@ -49,6 +49,26 @@ function getDriver($cal)
     return $kronolith_driver;
 }
 
+function saveEvent($event)
+{
+    $result = $event->save();
+    if (is_a($result, 'PEAR_Error')) {
+        $GLOBALS['notification']->push($result, 'horde.error');
+        return true;
+    }
+    $start = new Horde_Date(Util::getFormData('view_start'));
+    $end   = new Horde_Date(Util::getFormData('view_end'));
+    Kronolith::addEvents($events, $event, $start, $end, true, true);
+    $result = new stdClass;
+    $result->cal = Util::getFormData('cal');
+    $result->view = Util::getFormData('view');
+    $result->sig = $start->dateString() . $end->dateString();
+    if (count($events)) {
+        $result->events = $events;
+    }
+    return $result;
+}
+
 // Need to load Util:: to give us access to Util::getPathInfo().
 $kronolith_dir = dirname(__FILE__);
 if (!defined('HORDE_BASE')) {
@@ -114,7 +134,7 @@ try {
         break;
 
     case 'GetEvent':
-        if (!($kronolith_driver = getDriver($cal = Util::getFormData('cal')))) {
+        if (!($kronolith_driver = getDriver(Util::getFormData('cal')))) {
             $result = true;
             break;
         }
@@ -138,8 +158,7 @@ try {
         break;
 
     case 'SaveEvent':
-        $cal = Util::getFormData('cal');
-        if (!($kronolith_driver = getDriver($cal))) {
+        if (!($kronolith_driver = getDriver(Util::getFormData('cal')))) {
             $result = true;
             break;
         }
@@ -160,24 +179,11 @@ try {
             break;
         }
         $event->readForm();
-        $result = $event->save();
-        if (is_a($result, 'PEAR_Error')) {
-            $notification->push($result, 'horde.error');
-        }
-        $start = new Horde_Date(Util::getFormData('view_start'));
-        $end   = new Horde_Date(Util::getFormData('view_end'));
-        Kronolith::addEvents($events, $event, $start, $end, true, true);
-        $result = new stdClass;
-        $result->cal = $cal;
-        $result->view = Util::getFormData('view');
-        $result->sig = $start->dateString() . $end->dateString();
-        if (count($events)) {
-            $result->events = $events;
-        }
+        $result = saveEvent($event);
         break;
 
     case 'UpdateEvent':
-        if (!($kronolith_driver = getDriver($cal = Util::getFormData('cal')))) {
+        if (!($kronolith_driver = getDriver(Util::getFormData('cal')))) {
             break;
         }
         if (is_null($id = Util::getFormData('id'))) {
@@ -210,14 +216,11 @@ try {
                 break;
             }
         }
-        $result = $event->save();
-        if (is_a($result, 'PEAR_Error')) {
-            $notification->push($result, 'horde.error');
-        }
+        $result = saveEvent($event);
         break;
 
     case 'DeleteEvent':
-        if (!($kronolith_driver = getDriver($cal = Util::getFormData('cal')))) {
+        if (!($kronolith_driver = getDriver(Util::getFormData('cal')))) {
             $result = true;
             break;
         }

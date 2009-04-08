@@ -386,7 +386,7 @@ KronolithCore = {
 
             // Build new calendar view.
             while (day.compareTo(dates[1]) < 1) {
-                row = tbody.insert(this.createWeekRow(day, date.getMonth()).show());
+                row = tbody.insert(this.createWeekRow(day, date.getMonth(), dates).show());
                 day.next().week();
                 rows++;
             }
@@ -400,16 +400,20 @@ KronolithCore = {
      * Creates a single row of day cells for usage in the month and multi-week
      * views.
      *
-     * @param Date date      The first day to show in the row.
-     * @oaram integer month  The current month. Days not from the current month
-     *                       get the kronolithOtherMonth CSS class assigned.
+     * @param Date date        The first day to show in the row.
+     * @param integer month    The current month. Days not from the current
+     *                         month get the kronolithOtherMonth CSS class
+     *                         assigned.
+     * @param array viewDates  Array of Date objects with the start and end
+     *                         dates of the view.
      *
      * @return Element  The element rendering a week row.
      */
-    createWeekRow: function(date, month)
+    createWeekRow: function(date, month, viewDates)
     {
         var monday = date.clone(), day = date.clone(),
             today = new Date().dateString(),
+            start = viewDates[0].dateString(), end = viewDates[1].dateString(),
             row, cell, dateString;
 
         // Find monday of the week, to determine the week number.
@@ -431,22 +435,36 @@ KronolithCore = {
             cell.id = 'kronolithMonthDay' + dateString;
             cell.writeAttribute('date', dateString);
             cell.removeClassName('kronolithOtherMonth').removeClassName('kronolithToday');
-            if (typeof month != 'undefined' && day.getMonth() != month) {
+            if (day.getMonth() != month) {
                 cell.addClassName('kronolithOtherMonth');
             }
             if (dateString == today) {
                 cell.addClassName('kronolithToday');
             }
             new Drop(cell, { onDrop: function(drop) {
-                var el = DragDrop.Drags.drag.element;
+                var el = DragDrop.Drags.drag.element,
+                    eventid = el.readAttribute('eventid'),
+                    cal = el.readAttribute('calendar');
                 if (drop == el.parentNode) {
                     return;
                 }
                 drop.insert(el);
+                this.eventsLoading[cal] = start + end;
+                this.loading++;
+                $('kronolithLoading').show();
                 this.doAction('UpdateEvent',
-                              { cal: el.readAttribute('calendar'),
-                                id: el.readAttribute('eventid'),
-                                att: $H({ start_date: drop.readAttribute('date') }).toJSON() });
+                              { 'cal': cal,
+                                'id': eventid,
+                                'view': this.view,
+                                'view_start': start,
+                                'view_end': end,
+                                'att': $H({ start_date: drop.readAttribute('date') }).toJSON() },
+                              function(r) {
+                                  if (r.response.events) {
+                                      this._removeEvent(eventid, cal);
+                                      this._loadEventsCallback(r);
+                                  }
+                              }.bind(this));
             }.bind(this) });
             cell.down('.kronolithDay')
                 .setText(day.getDate())
@@ -849,7 +867,7 @@ KronolithCore = {
                             'color': event.value.fg });
 
             $('kronolithMonthDay' + date).insert(div);
-            if (event.value.ed) {
+            if (event.value.pe) {
                 div.setStyle({ 'cursor': 'move' });
                 new Drag('kronolithEventmonth' + calendar + event.key, { threshold: 5, parentElement: function() { return $('kronolithViewMonthBody'); }, snapToParent: true });
             }
@@ -1122,6 +1140,7 @@ KronolithCore = {
                     end = viewDates[1].dateString();
                 this.eventsLoading[cal] = start + end;
                 this.loading++;
+                $('kronolithLoading').show();
                 this.doAction('SaveEvent',
                               $H($('kronolithEventForm').serialize({ 'hash': true }))
                                   .merge({
