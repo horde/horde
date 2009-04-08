@@ -796,12 +796,9 @@ KronolithCore = {
                 innerDiv = new Element('DIV', { 'class': 'kronolithEventInfo' });
 
             div.setStyle({
-                'top': event.value.al
-                    ? 0
-                    : ((midnight.getElapsed(start) / 60000 | 0) * this.daySizes.height / 60 + this.daySizes.offset | 0) + 'px',
-                'height': event.value.al
-                    ? this.daySizes.allDay + 'px'
-                    : ((start.getElapsed(end) / 60000 | 0) * this.daySizes.height / 60 - this.daySizes.spacing | 0) + 'px'
+                'top': ((midnight.getElapsed(start) / 60000 | 0) * this.daySizes.height / 60 + this.daySizes.offset | 0) + 'px',
+                'height': ((start.getElapsed(end) / 60000 | 0) * this.daySizes.height / 60 - this.daySizes.spacing | 0) + 'px',
+                'width': '100%'
             })
                 .insert(innerDiv.setStyle(style))
                 .insert(new Element('DIV', { 'class': 'kronolithDragger kronolithDraggerTop' }).setStyle(style))
