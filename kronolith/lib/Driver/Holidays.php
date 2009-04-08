@@ -33,7 +33,7 @@ class Kronolith_Driver_Holidays extends Kronolith_Driver
      * @param boolean $hasAlarm          Only return events with alarms? Has no
      *                                   effect in this driver.
      * @param boolean $json              Store the results of the events'
-     *                                   toJSON() method?
+     *                                   toJson() method?
      *
      * @return array  Events in the given time range.
      */

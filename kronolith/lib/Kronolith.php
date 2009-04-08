@@ -770,6 +770,7 @@ class Kronolith
             }
         } else {
             /* Event only occurs once. */
+            $allDay = $event->isAllDay();
 
             /* Work out what day it starts on. */
             if ($event->start->compareDateTime($startDate) < 0) {
@@ -792,7 +793,7 @@ class Kronolith
                     $event->end->min != 0 ||
                     $event->end->sec != 0 ||
                     $event->start->compareDateTime($event->end) == 0 ||
-                    $event->isAllDay()) {
+                    $allDay) {
                     $eventEnd = clone $event->end;
                 } else {
                     $eventEnd = new Horde_Date(
@@ -815,7 +816,7 @@ class Kronolith
                                              'mday' => $i,
                                              'year' => $eventStart->year));
             while ($loopDate->compareDateTime($eventEnd) <= 0) {
-                if (!$event->isAllDay() ||
+                if (!$allDay ||
                     $loopDate->compareDateTime($eventEnd) != 0) {
                     $addEvent = clone $event;
 
@@ -840,7 +841,7 @@ class Kronolith
                             'month' => $loopDate->month, 'mday' => $loopDate->mday, 'year' => $loopDate->year));
                     }
 
-                    $results[$loopDate->dateString()][$addEvent->getId()] = $json ? $addEvent->toJson() : $addEvent;
+                    $results[$loopDate->dateString()][$addEvent->getId()] = $json ? $addEvent->toJson($allDay) : $addEvent;
                 }
 
                 $loopDate = new Horde_Date(
@@ -860,7 +861,7 @@ class Kronolith
      * @param Horde_Date $eventStart  The event's start at the actual
      *                                recurrence.
      * @param Horde_Date $eventEnd    The event's end at the actual recurrence.
-     * @param boolean $json           Store the results of the events' toJSON()
+     * @param boolean $json           Store the results of the events' toJson()
      *                                method?
      */
     public static function addCoverDates(&$results, $event, $eventStart,
@@ -870,13 +871,14 @@ class Kronolith
         $loopDate = new Horde_Date(array('month' => $eventStart->month,
                                          'mday' => $i,
                                          'year' => $eventStart->year));
+        $allDay = $event->isAllDay();
         while ($loopDate->compareDateTime($eventEnd) <= 0) {
-            if (!$event->isAllDay() ||
+            if (!$allDay ||
                 $loopDate->compareDateTime($eventEnd) != 0) {
                 $addEvent = clone $event;
                 $addEvent->start = $eventStart;
                 $addEvent->end = $eventEnd;
-                $results[$loopDate->dateString()][$addEvent->getId()] = $json ? $addEvent->toJson() : $addEvent;
+                $results[$loopDate->dateString()][$addEvent->getId()] = $json ? $addEvent->toJson($allDay) : $addEvent;
             }
             $loopDate = new Horde_Date(
                 array('month' => $eventStart->month,

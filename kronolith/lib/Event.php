@@ -1001,19 +1001,21 @@ abstract class Kronolith_Event
      * Returns a simple object suitable for json transport representing this
      * event.
      *
+     * @param boolean $allDay      If not null, overrides whether the event is
+     *                             an all-day event.
      * @param boolean $full        Whether to return all event details.
      * @param string $time_format  The date() format to use for time formatting.
      *
      * @return object  A simple object.
      */
-    public function toJSON($full = false, $time_format = 'H:i')
+    public function toJson($allDay = null, $full = false, $time_format = 'H:i')
     {
         $json = new stdClass;
         $json->t = $this->getTitle();
         $json->c = $this->getCalendar();
         $json->s = $this->start->toJson();
         $json->e = $this->end->toJson();
-        $json->al = $this->isAllDay();
+        $json->al = is_null($allDay) ? $this->isAllDay() : $allDay;
         $json->bg = $this->_backgroundColor;
         $json->fg = $this->_foregroundColor;
         $json->pe = $this->hasPermission(PERMS_EDIT);

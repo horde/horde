@@ -154,7 +154,7 @@ try {
             break;
         }
         $result = new stdClass;
-        $result->event = $event->toJSON(true, $prefs->getValue('twentyFour') ? 'H:i' : 'h:i A');
+        $result->event = $event->toJson(null, true, $prefs->getValue('twentyFour') ? 'H:i' : 'h:i A');
         break;
 
     case 'SaveEvent':

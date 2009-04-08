@@ -196,7 +196,7 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
      *                                   $startDate - $endDate range.
      * @param boolean $hasAlarm          Only return events with alarms?
      * @param boolean $json              Store the results of the events'
-     *                                   toJSON() method?
+     *                                   toJson() method?
      *
      * @return array  Events in the given time range.
      */
