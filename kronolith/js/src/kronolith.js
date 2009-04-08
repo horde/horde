@@ -301,6 +301,7 @@ KronolithCore = {
                 if (this.view == loc && date.getYear() == this.date.getYear() &&
                     ((loc == 'year') ||
                      (loc == 'month' && date.getMonth() == this.date.getMonth()) ||
+                     (loc == 'week' && date.getWeek() == this.date.getWeek()) ||
                      (loc == 'day' && date.dateString() == this.date.dateString()))) {
                          return;
                 }
