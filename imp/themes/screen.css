@@ -315,10 +315,7 @@ table.flagmanagement tbody td.flagicon {
     background: #f00;
 }
 
-table.msgheaders, td {
-    vertical-align: inherit;
-}
-table.msgheaders, td.msgheader {
+td.msgheader {
     width: 100%;
 }
 table.multipleMsgs td.msgheader {

@@ -67,6 +67,9 @@ div#quota {
 }
 
 /* SpellChecker styles. */
+#spellcheck {
+    color: #000;
+}
 .Checking {
     color: red;
 }
@@ -477,8 +480,7 @@ div.msgSize {
 .dimpActions .disabled span.popdown:hover, .dimpActions .disabled span.spellcheckPopdownImg {
     border: 0;
     cursor: default;
-    padding-left: 2px;
-    padding-right: 2px;
+    margin: 0;
 }
 #button_compose, #button_checkmail {
     display: none;
@@ -769,6 +771,7 @@ div.dimpActionsCompose, div.dimpActionsMsg {
     background: gray;
     color: #fff;
     cursor: pointer;
+    text-decoration: none;
 }
 .context .sep {
     border-bottom: 1px #d4d4d4 solid;
