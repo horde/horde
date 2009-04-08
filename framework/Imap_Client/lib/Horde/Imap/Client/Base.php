@@ -1868,6 +1868,7 @@ abstract class Horde_Imap_Client_Base
     public function fetch($mailbox, $criteria, $options = array())
     {
         $cache_array = $get_fields = $new_criteria = $ret = array();
+        $header_cache = null;
         $qresync = isset($this->_init['enabled']['QRESYNC']);
         $seq = !empty($options['sequence']);
 
@@ -1917,7 +1918,9 @@ abstract class Horde_Imap_Client_Base
                 if (empty($v['noext']) && isset($cf[$k])) {
                     /* Structure can be cached two ways - via Horde_Mime_Part
                      * or by internal array format. */
-                    $cache_field = empty($v['parse']) ? 'HICstructa' : 'HICstructm';
+                    $cache_field = empty($v['parse'])
+                        ? 'HICstructa'
+                        : 'HICstructm';
                     $fetch_field = 'structure';
                 }
                 break;
@@ -1977,6 +1980,17 @@ abstract class Horde_Imap_Client_Base
                     unset($criteria[$k]);
                 }
                 break;
+
+            case Horde_Imap_Client::FETCH_HEADERTEXT:
+                // Caching for this access only - and only base header is
+                // cached. TODO: peek?
+                foreach ($v as $k2 => $v2) {
+                    if (!isset($v2['id']) || ($v2['id'] === 0)) {
+                        $header_cache = $k2;
+                        break;
+                    }
+                }
+                break;
             }
 
             if (!is_null($cache_field)) {
@@ -1989,7 +2003,7 @@ abstract class Horde_Imap_Client_Base
         }
 
         /* If nothing is cacheable, we can do a straight search. */
-        if (empty($cache_array)) {
+        if (empty($cache_array) && is_null($header_cache)) {
             return $this->_fetch($criteria, $options);
         }
 
@@ -2020,6 +2034,19 @@ abstract class Horde_Imap_Client_Base
                 }
             }
 
+            if (!is_null($header_cache) &&
+                isset($this->_temp['headertext'][$val])) {
+                $ret[$id]['headertext'][0] = empty($crit[Horde_Imap_Client::FETCH_HEADERTEXT][$header_cache]['parse'])
+                    ? $this->_temp['headertext'][$val]
+                    : Horde_Mime_Headers::parseHeaders($this->_temp['headertext'][$val]);
+
+                if (count($crit[Horde_Imap_Client::FETCH_HEADERTEXT]) == 1) {
+                    unset($crit[Horde_Imap_Client::FETCH_HEADERTEXT]);
+                } else {
+                    unset($crit[Horde_Imap_Client::FETCH_HEADERTEXT][$header_cache]);
+                }
+            }
+
             if (!$seq) {
                 unset($crit[Horde_Imap_Client::FETCH_UID]);
             }
@@ -2039,10 +2066,22 @@ abstract class Horde_Imap_Client_Base
             foreach ($new_criteria as $val) {
                 $opts['ids'] = $val['i'];
                 $fetch_res = $this->_fetch($val['c'], $opts);
+
                 reset($fetch_res);
                 while (list($k, $v) = each($fetch_res)) {
                     reset($v);
                     while (list($k2, $v2) = each($v)) {
+                        if (!is_null($header_cache) &&
+                            ($k2 == 'headertext') &&
+                            isset($v2[0])) {
+                            /* Store headertext internally as the raw text -
+                             * can convert to parsed format if needed. */
+                            $this->_temp['headertext'][$k] = $v2[0];
+                            if (!empty($val['c'][Horde_Imap_Client::FETCH_HEADERTEXT][$header_cache]['parse'])) {
+                                $v2[0] = Horde_Mime_Headers::parseHeaders($v2[0]);
+                            }
+                        }
+
                         $ret[$k][$k2] = $v2;
                     }
                 }
@@ -2055,7 +2094,8 @@ abstract class Horde_Imap_Client_Base
     /**
      * Fetch message data.
      *
-     * @param array $criteria  The fetch criteria.
+     * @param array $criteria  The fetch criteria. Function must not handle
+     *                         'parse' param to FETCH_HEADERTEXT.
      * @param array $options   Additional options.
      *
      * @return array  See self::fetch().

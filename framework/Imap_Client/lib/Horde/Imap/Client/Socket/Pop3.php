@@ -813,11 +813,6 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
                             if (isset($val['start']) && !empty($val['length'])) {
                                 $tmp = substr($tmp, $val['start'], $val['length']);
                             }
-
-                            if (!empty($val['parse']) &&
-                                ($type == Horde_Imap_Client::FETCH_HEADERTEXT)) {
-                                $tmp = Horde_Mime_Headers::parseHeaders($tmp);
-                            }
                         } catch (Horde_Mime_Exception $e) {
                             $tmp = false;
                         }

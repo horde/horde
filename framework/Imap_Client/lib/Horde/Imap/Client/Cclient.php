@@ -1045,7 +1045,8 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
                             $tmp = substr($tmp, $val['start'], $val['length']);
                         }
 
-                        if (!empty($val['parse'])) {
+                        if (!empty($val['parse']) &&
+                            ($type == Horde_Imap_Client::FETCH_BODYPART)) {
                             $tmp = Horde_Mime_Headers::parseHeaders($tmp);
                         }
 

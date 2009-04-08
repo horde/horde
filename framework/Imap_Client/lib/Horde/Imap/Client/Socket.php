@@ -2131,7 +2131,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
                     switch ($type) {
                     case Horde_Imap_Client::FETCH_HEADERTEXT:
-                        $fp['parseheadertext'] = !empty($val['parse']);
                         $cmd .= 'HEADER';
                         break;
 
@@ -2387,9 +2386,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                             if (!isset($tmp[$label])) {
                                 $tmp[$label] = array();
                             }
-                            $tmp[$label][$mime_id] = empty($this->_temp['fetchparams']['parseheadertext'])
-                                ? $data[++$i]
-                                : Horde_Mime_Headers::parseHeaders($data[++$i]);
+                            $tmp[$label][$mime_id] = $data[++$i];
                         }
                     }
                 } elseif (strpos($tag, 'BINARY[') === 0) {
