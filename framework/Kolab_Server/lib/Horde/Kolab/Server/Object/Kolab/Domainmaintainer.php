@@ -31,14 +31,14 @@ class Horde_Kolab_Server_Object_Kolab_Domainmaintainer extends Horde_Kolab_Serve
     const ATTRIBUTE_DOMAIN       = 'domain';
 
     /**
-     * Attributes derived from the LDAP values.
+     * A structure to initialize the attribute structure for this class.
      *
      * @var array
      */
-    public $derived_attributes = array(
-        self::ATTRIBUTE_ID,
-        self::ATTRIBUTE_LNFN,
-        self::ATTRIBUTE_DOMAIN,
+    static public $init_attributes = array(
+        'defined' => array(
+            self::ATTRIBUTE_DOMAIN,
+        ),
     );
 
     /**
