@@ -39,22 +39,6 @@ class Horde_Kolab_Server_Object_Organizationalperson extends Horde_Kolab_Server_
      */
     static public $init_attributes = array(
         /**
-         * Derived attributes are calculated based on other attribute values.
-         */
-        'derived' => array(
-        ),
-        /**
-         * Default values for attributes without a value.
-         */
-        'defaults' => array(
-        ),
-        /**
-         * Locked attributes. These are fixed after the object has been stored
-         * once. They may not be modified again.
-         */
-        'locked' => array(
-        ),
-        /**
          * The object classes representing this object.
          */
         'object_classes' => array(
