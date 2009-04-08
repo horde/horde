@@ -59,6 +59,7 @@ class Horde_Kolab_Server_Object_Kolabinetorgperson extends Horde_Kolab_Server_Ob
             self::ATTRIBUTE_IPOLICY,
             self::ATTRIBUTE_ALIAS,
             self::ATTRIBUTE_DELEGATE,
+            self::ATTRIBUTE_FBFUTURE,
         ),
         'locked' => array(
             self::ATTRIBUTE_MAIL,
