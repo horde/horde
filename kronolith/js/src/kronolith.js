@@ -765,7 +765,7 @@ KronolithCore = {
      */
     _insertEvent: function(event, date, view)
     {
-        event.value.nodeId = 'kronolithEvent' + event.value.calendar + date + event.key;
+        event.value.nodeId = 'kronolithEvent' + view + event.value.calendar + date + event.key;
 
         _createElement = function(event) {
             return new Element('DIV', {
@@ -868,7 +868,7 @@ KronolithCore = {
             $('kronolithMonthDay' + date).insert(div);
             if (event.value.pe) {
                 div.setStyle({ 'cursor': 'move' });
-                new Drag('kronolithEvent' + event.value.calendar + date + event.key, { threshold: 5, parentElement: function() { return $('kronolithViewMonthBody'); }, snapToParent: true });
+                new Drag('kronolithEventmonth' +  event.value.calendar + date + event.key, { threshold: 5, parentElement: function() { return $('kronolithViewMonthBody'); }, snapToParent: true });
             }
             break;
         }
@@ -1160,6 +1160,7 @@ KronolithCore = {
                 return;
 
             case 'kronolithEventDelete':
+                // todo: fix using new id(s).
                 var cal = $F('kronolithEventCalendar'),
                     eventid = $F('kronolithEventId'),
                     elm = $('kronolithEvent' + this.view + cal + eventid);
