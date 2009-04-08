@@ -209,12 +209,12 @@ class Horde_Kolab_Server_Test extends Horde_Kolab_Server_Kolab
             $this->bound = true;
 
             try {
-                $data = $this->read($dn, array('userPassword'));
+                $data = $this->read($dn, array(Horde_Kolab_Server_Object_Person::ATTRIBUTE_USERPASSWORD));
             } catch (Horde_Kolab_Server_Exception $e) {
                 $this->bound = false;
                 throw $e;
             }
-            if (!isset($data['userPassword'])) {
+            if (!isset($data[Horde_Kolab_Server_Object_Person::ATTRIBUTE_USERPASSWORD])) {
                 $this->bound = false;
                 throw new Horde_Kolab_Server_Exception('User has no password entry!');
             }

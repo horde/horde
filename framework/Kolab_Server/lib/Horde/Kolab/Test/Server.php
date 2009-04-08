@@ -276,8 +276,9 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
         global $conf;
 
         /** Prepare a Kolab test server */
-        $conf['kolab']['server']['driver']           = $type;
-        $conf['kolab']['server']['params']['basedn'] = 'dc=example,dc=org';
+        $conf['kolab']['server']['driver']             = $type;
+        $conf['kolab']['server']['params']['basedn']   = 'dc=example,dc=org';
+        $conf['kolab']['server']['params']['hashtype'] = 'plain';
 
         if ($type == 'file') {
             $conf['kolab']['server']['params']['file'] = Horde::getTempFile('fileTest');
