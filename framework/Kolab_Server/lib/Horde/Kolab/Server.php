@@ -455,29 +455,28 @@ abstract class Horde_Kolab_Server
                         $attrs[$attribute]['default'] = $default;
                     }
                     $attrs[Horde_Kolab_Server_Object::ATTRIBUTE_OC]['default'] = $object_classes;
-
-                    foreach ($derived as $key => $attribute) {
-                        if (isset($attribute['base'])) {
-                            if (!is_array($attribute['base'])) {
-                                $bases = array($attribute['base']);
-                            } else {
-                                $bases = $attribute['base'];
-                            }
-                            /**
-                             * Usually derived attribute are determined on basis
-                             * of one or more attributes. If any of these is not
-                             * supported the derived attribute should not be
-                             * included into the set of supported attributes.
-                             */
-                            foreach ($bases as $base) {
-                                if (!isset($attrs[$base])) {
-                                    continue;
-                                }
-                                $attrs[$key] = $attribute;
-                            }
+                }
+                foreach ($derived as $key => $attribute) {
+                    if (isset($attribute['base'])) {
+                        if (!is_array($attribute['base'])) {
+                            $bases = array($attribute['base']);
                         } else {
+                            $bases = $attribute['base'];
+                        }
+                        /**
+                         * Usually derived attribute are determined on basis
+                         * of one or more attributes. If any of these is not
+                         * supported the derived attribute should not be
+                         * included into the set of supported attributes.
+                         */
+                        foreach ($bases as $base) {
+                            if (!isset($attrs[$base])) {
+                                continue;
+                            }
                             $attrs[$key] = $attribute;
                         }
+                    } else {
+                        $attrs[$key] = $attribute;
                     }
                 }
                 $this->attributes[$class] = array($attrs,
@@ -572,13 +571,15 @@ abstract class Horde_Kolab_Server
     abstract public function read($uid, $attrs = null);
 
     /**
-     * Save an object.
+     * Stub for saving object data.
      *
      * @param string  $uid    The UID of the object to be added.
      * @param array   $data   The attributes of the object to be added.
      * @param boolean $exists Does the object already exist on the server?
      *
      * @return boolean  True if saving succeeded.
+     *
+     * @throws Horde_Kolab_Server_Exception
      */
     abstract public function save($uid, $data, $exists = false);
 
