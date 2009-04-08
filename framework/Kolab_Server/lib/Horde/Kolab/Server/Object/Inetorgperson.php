@@ -73,8 +73,6 @@ class Horde_Kolab_Server_Object_Inetorgperson extends Horde_Kolab_Server_Object_
                 'readonly' => true,
             ),
         ),
-        'defaults' => array(
-        ),
         'locked' => array(
             self::ATTRIBUTE_MAIL,
         ),
