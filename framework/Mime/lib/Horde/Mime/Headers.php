@@ -159,7 +159,7 @@ class Horde_Mime_Headers
             $remote_addr = $remote_path[0];
             if ($have_netdns) {
                 $response = $resolver->query($remote_addr, 'PTR');
-                $remote = $response ? $response->answer[0]->ptrdname : $host;
+                $remote = $response ? $response->answer[0]->ptrdname : $remote_addr;
             } else {
                 $remote = gethostbyaddr($remote_addr);
             }
@@ -168,7 +168,7 @@ class Horde_Mime_Headers
             if (empty($_SERVER['REMOTE_HOST'])) {
                 if ($have_netdns) {
                     $response = $resolver->query($remote_addr, 'PTR');
-                    $remote = $response ? $response->answer[0]->ptrdname : $host;
+                    $remote = $response ? $response->answer[0]->ptrdname : $remote_addr;
                 } else {
                     $remote = gethostbyaddr($remote_addr);
                 }
