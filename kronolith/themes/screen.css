@@ -530,7 +530,7 @@ body.kronolithAjax {
     position: absolute;
     right: 0;
     padding-right: 8px;
-    background: transparent url("graphics/plus.png") no-repeat;
+    background: transparent url("graphics/plus.png") no-repeat top right;
     color: transparent;
     cursor: pointer;
 }
@@ -594,7 +594,7 @@ span#kronolithQuickEvent {
     line-height: 35px;
 }
 #kronolithSearch {
-    width: 80px;
+    width: 146px;
 }
 
 /* Quick edit */
@@ -1101,6 +1101,7 @@ div.kronolithView div.kronolithViewBody div.kronolithRow div div.kronolithMore a
     line-height: 15px;
     margin: 0 2px 2px 0;
     padding: 0;
+    background-color: #fff;
     border-right: 1px solid #c0c0c0;
     border-bottom: 1px solid #c0c0c0;
     text-align: center;
@@ -1109,7 +1110,7 @@ div.kronolithView div.kronolithViewBody div.kronolithRow div div.kronolithMore a
 }
 a.kronolithAdd {
     display: inline;
-    width: 15px;
+    width: auto;
     height: 15px;
     line-height: 15px;
     padding: 2px;
@@ -1123,6 +1124,7 @@ a.kronolithAdd:hover {
     background: #f7f7f7;
 }
 .kronolithOtherMonth .kronolithDay {
+    background: #f7f7f7;
     border-color: transparent;
     color: silver;
 }
