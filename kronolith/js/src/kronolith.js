@@ -658,7 +658,7 @@ KronolithCore = {
                     startDay.add(1).day();
                 }
                 while (!Object.isUndefined(cals.get(endDay.dateString())) &&
-                       (startDay.isBefore(endDay) || startDay.equals(endDay))) {
+                       (!startDay.isAfter(endDay))) {
                     this._insertEvents([endDay, endDay], view, cal.join('|'));
                     endDay.add(-1).day();
                 }
@@ -746,7 +746,7 @@ KronolithCore = {
                 }
             }
             this._getCacheForDate(date).sortBy(this._sortEvents).each(function(event) {
-                if ((view != 'day' && view != 'week') &&
+                if (view != 'day' && view != 'week' &&
                     calendar && calendar != event.value.calendar) {
                     return;
                 }
