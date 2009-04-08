@@ -468,11 +468,17 @@ class Horde_Kolab_Server_Object
     {
         $result = array();
 
-        if (isset($attrs)) {
-            foreach ($attrs as $key) {
-                $value        = $this->get($key);
-                $result[$key] = $value;
-            }
+        /**
+         * Return all supported attributes if no specific attributes were
+         * requested.
+         */
+        if (empty($attrs)) {
+            $attrs = array_keys($this->attributes);
+        }
+
+        foreach ($attrs as $key) {
+            $value        = $this->get($key);
+            $result[$key] = $value;
         }
 
         return $result;
@@ -615,8 +621,12 @@ class Horde_Kolab_Server_Object
 
         $result = $this->server->save($this->uid, $info, $this->exists());
 
-        $this->_exists = true;
-        $this->_cache  = array_merge($this->_cache, $info);
+        if (!$this->_exists) {
+            $this->_exists = true;
+            $this->_cache  = $info;
+        } else {
+            $this->_cache  = array_merge($this->_cache, $info);
+        }
 
         return $result;
     }
