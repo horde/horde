@@ -37,6 +37,7 @@ class Horde_Kolab_Server_Kolab extends Horde_Kolab_Server_Ldap
     {
         $objects = array(
             'Horde_Kolab_Server_Object',
+            'Horde_Kolab_Server_Object_Groupofnames',
             'Horde_Kolab_Server_Object_Kolabinetorgperson',
             'Horde_Kolab_Server_Object_Kolabgroupofnames',
         );

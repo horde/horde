@@ -25,41 +25,39 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_Object_Kolabgroupofnames extends Horde_Kolab_Server_Object_Inetorgperson
+class Horde_Kolab_Server_Object_Kolabgroupofnames extends Horde_Kolab_Server_Object_Groupofnames
 {
+    /** Define attributes specific to this object type */
 
-    const ATTRIBUTE_VISIBILITY   = 'visible';
-    const ATTRIBUTE_MEMBER       = 'member';
+    /** The visibility of the group */
+    const ATTRIBUTE_VISIBILITY = 'visible';
 
+    /** The members of this group */
+    const ATTRIBUTE_MEMBER = 'member';
+
+    /** The mail address of this group */
+    const ATTRIBUTE_MAIL = 'mail';
+
+    /** The specific object class of this object type */
     const OBJECTCLASS_KOLABGROUPOFNAMES = 'kolabGroupOfNames';
 
     /**
-     * Attributes derived from the LDAP values.
+     * A structure to initialize the attribute structure for this class.
      *
      * @var array
      */
-    public $derived_attributes = array(
-        self::ATTRIBUTE_ID,
-        self::ATTRIBUTE_VISIBILITY,
+    static public $init_attributes = array(
+        'defined' => array(
+            self::ATTRIBUTE_VISIBILITY,
+            self::ATTRIBUTE_MAIL,
+        ),
+        'derived' => array(
+            self::ATTRIBUTE_VISIBILITY => array(),
+        ),
+        'object_classes' => array(
+            self::OBJECTCLASS_KOLABGROUPOFNAMES,
+        ),
     );
-
-    /**
-     * The ldap classes for this type of object.
-     *
-     * @var array
-     */
-    public $object_classes = array(
-        self::OBJECTCLASS_TOP,
-        self::OBJECTCLASS_INETORGPERSON,
-        self::OBJECTCLASS_KOLABGROUPOFNAMES,
-    );
-
-    /**
-     * Sort by this attributes (must be a LDAP attribute).
-     *
-     * @var string
-     */
-    public $sort_by = self::ATTRIBUTE_MAIL;
 
     /**
      * Return the filter string to retrieve this object type.
@@ -71,7 +69,7 @@ class Horde_Kolab_Server_Object_Kolabgroupofnames extends Horde_Kolab_Server_Obj
      */
     public static function getFilter()
     {
-        return '(objectClass=kolabGroupOfNames)';
+        return '(' . self::ATTRIBUTE_OC . '=' . self::OBJECTCLASS_KOLABGROUPOFNAMES . ')';
     }
 
     /**
@@ -85,29 +83,12 @@ class Horde_Kolab_Server_Object_Kolabgroupofnames extends Horde_Kolab_Server_Obj
     {
         switch ($attr) {
         case self::ATTRIBUTE_VISIBILITY:
+            //FIXME: This needs structural knowledge and should be in a
+            //structural class.
             return strpos($this->_uid, 'cn=internal') === false;
         default:
             return parent::derive($attr);
         }
-    }
-
-    /**
-     * Convert the object attributes to a hash.
-     *
-     * @param string $attrs The attributes to return.
-     *
-     * @return array|PEAR_Error The hash representing this object.
-     */
-    public function toHash($attrs = null)
-    {
-        if (!isset($attrs)) {
-            $attrs = array(
-                self::ATTRIBUTE_ID,
-                self::ATTRIBUTE_MAIL,
-                self::ATTRIBUTE_VISIBILITY,
-            );
-        }
-        return parent::toHash($attrs);
     }
 
     /**
@@ -121,10 +102,10 @@ class Horde_Kolab_Server_Object_Kolabgroupofnames extends Horde_Kolab_Server_Obj
      */
     public static function generateId($info)
     {
-        if (isset($info['mail'])) {
-            return trim($info['mail'], " \t\n\r\0\x0B,");
+        if (isset($info[self::ATTRIBUTE_MAIL])) {
+            return trim(self::ATTRIBUTE_CN . '=' . $info[self::ATTRIBUTE_MAIL], " \t\n\r\0\x0B,");
         } else {
-            return trim($info['cn'], " \t\n\r\0\x0B,");
+            return trim(self::ATTRIBUTE_CN . '=' . $info[self::ATTRIBUTE_CN], " \t\n\r\0\x0B,");
         }
     }
 
@@ -137,92 +118,14 @@ class Horde_Kolab_Server_Object_Kolabgroupofnames extends Horde_Kolab_Server_Obj
      */
     public function save($info)
     {
-        if (!isset($info['cn'])) {
-            if (!isset($info['mail'])) {
+        if (!isset($info[self::ATTRIBUTE_CN])) {
+            if (!isset($info[self::ATTRIBUTE_MAIL])) {
                 throw new Horde_Kolab_Server_Exception('Either the mail address or the common name has to be specified for a group object!');
             } else {
-                $info['cn'] = $info['mail'];
+                $info[self::ATTRIBUTE_CN] = $info[self::ATTRIBUTE_MAIL];
             }
         }
         return parent::save($info);
-    }
-
-    /**
-     * Retrieve the member list for this group.
-     *
-     * @return array|PEAR_Error The list of members in this group.
-     */
-    public function getMembers()
-    {
-        return $this->_get(self::ATTRIBUTE_MEMBER, false);
-    }
-
-    /**
-     * Add a member to this group.
-     *
-     * @param string $member The UID of the member to add.
-     *
-     * @return array|PEAR_Error True if successful.
-     */
-    public function addMember($member)
-    {
-        $members = $this->getMembers();
-        if (is_a($members, 'PEAR_Error')) {
-            return $members;
-        }
-        if (!in_array($member, $members)) {
-            $this->_cache[self::ATTRIBUTE_MEMBER][] = $member;
-        } else {
-            return PEAR::raiseError(_("The UID %s is already a member of the group %s!"),
-                                    $member, $this->_uid);
-        }
-        return $this->save($this->_cache);
-    }
-
-    /**
-     * Delete a member from this group.
-     *
-     * @param string $member The UID of the member to delete.
-     *
-     * @return array|PEAR_Error True if successful.
-     */
-    public function deleteMember($member)
-    {
-        $members = $this->getMembers();
-        if (is_a($members, 'PEAR_Error')) {
-            return $members;
-        }
-        if (in_array($member, $members)) {
-            $this->_cache[self::ATTRIBUTE_MEMBER] =
-                array_diff($this->_cache[self::ATTRIBUTE_MEMBER],
-                           array($member));
-        } else {
-            return PEAR::raiseError(_("The UID %s is no member of the group %s!"),
-                                    $member, $this->_uid);
-
-        }
-        return $this->save($this->_cache);
-    }
-
-    /**
-     * Is the specified UID member of this group?
-     *
-     * @param string $member The UID of the member to check.
-     *
-     * @return boolean|PEAR_Error True if the UID is a member of the group,
-     *                            false otherwise.
-     */
-    public function isMember($member)
-    {
-        $members = $this->getMembers();
-        if (is_a($members, 'PEAR_Error') || !is_array($members)) {
-            return $members;
-        }
-        if (!in_array($member, $members)) {
-            return false;
-        } else {
-            return true;
-        }
     }
 
     /**
@@ -233,38 +136,10 @@ class Horde_Kolab_Server_Object_Kolabgroupofnames extends Horde_Kolab_Server_Obj
     static public function getSearchOperations()
     {
         $searches = array(
-            'gidForSearch',
             'gidForMail',
             'memberOfGroupAddress',
-            'getGroups',
         );
         return $searches;
-    }
-
-    /**
-     * FIXME: This method belongs somewhere where we are aware of groups
-     * Identify the GID for the first group found using the specified
-     * search criteria
-     *
-     * @param array $criteria The search parameters as array.
-     * @param int   $restrict A Horde_Kolab_Server::RESULT_* result restriction.
-     *
-     * @return boolean|string|array The GID(s) or false if there was no result.
-     *
-     * @throws Horde_Kolab_Server_Exception
-     */
-    static public function gidForSearch($server, $criteria,
-                                        $restrict = Horde_Kolab_Server_Object::RESULT_SINGLE)
-    {
-        $groups = array('field' => self::ATTRIBUTE_OC,
-                        'op'    => '=',
-                        'test'  => self::OBJECTCLASS_KOLABGROUPOFNAMES);
-        if (!empty($criteria)) {
-            $criteria = array('AND' => array($groups, $criteria));
-        } else {
-            $criteria = array('AND' => array($groups));
-        }
-        return self::basicUidForSearch($server, $criteria, $restrict);
     }
 
     /**
@@ -280,7 +155,7 @@ class Horde_Kolab_Server_Object_Kolabgroupofnames extends Horde_Kolab_Server_Obj
     static public function gidForMail($server, $mail,
                                       $restrict = Horde_Kolab_Server_Object::RESULT_SINGLE)
     {
-        $criteria = array('AND' => array(array('field' => self::ATTRIBUTE_MEMBER,
+        $criteria = array('AND' => array(array('field' => self::ATTRIBUTE_MAIL,
                                                'op'    => '=',
                                                'test'  => $mail),
                          ),
@@ -314,32 +189,6 @@ class Horde_Kolab_Server_Object_Kolabgroupofnames extends Horde_Kolab_Server_Obj
         $result = self::gidForSearch($server, $criteria,
                                       self::RESULT_SINGLE);
         return !empty($result);
-    }
-
-    /**
-     * Get the groups for this object.
-     *
-     * @param string $uid The UID of the object to fetch.
-     *
-     * @return array An array of group ids.
-     *
-     * @throws Horde_Kolab_Server_Exception
-     */
-    public function getGroups($server, $uid)
-    {
-        $criteria = array('AND' =>
-                          array(
-                              array('field' => self::ATTRIBUTE_MEMBER,
-                                    'op'    => '=',
-                                    'test'  => $uid),
-                          ),
-        );
-
-        $result = self::gidForSearch($server, $criteria, self::RESULT_MANY);
-        if (empty($result)) {
-            return array();
-        }
-        return $result;
     }
 
 }

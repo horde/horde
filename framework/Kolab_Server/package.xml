@@ -55,6 +55,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
        <file name="MissingObjectException.php" role="php" />
        <file name="Object.php" role="php" />
        <dir name="Object">
+        <file name="Groupofnames.php" role="php" />
         <file name="Inetorgperson.php" role="php" />
         <file name="Kolabgroupofnames.php" role="php" />
         <file name="Kolabinetorgperson.php" role="php" />
@@ -146,6 +147,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Kolab/Server/Ldap.php" as="Horde/Kolab/Server/Ldap.php" />
    <install name="lib/Horde/Kolab/Server/MissingObjectException.php" as="Horde/Kolab/Server/MissingObjectException.php" />
    <install name="lib/Horde/Kolab/Server/Object.php" as="Horde/Kolab/Server/Object.php" />
+   <install name="lib/Horde/Kolab/Server/Object/Groupofnames.php" as="Horde/Kolab/Server/Object/Groupofnames.php" />
    <install name="lib/Horde/Kolab/Server/Object/Inetorgperson.php" as="Horde/Kolab/Server/Object/Inetorgperson.php" />
    <install name="lib/Horde/Kolab/Server/Object/Kolabgroupofnames.php" as="Horde/Kolab/Server/Object/Kolabgroupofnames.php" />
    <install name="lib/Horde/Kolab/Server/Object/Kolabinetorgperson.php" as="Horde/Kolab/Server/Object/Kolabinetorgperson.php" />
