@@ -873,7 +873,7 @@ KronolithCore = {
             $('kronolithMonthDay' + date).insert(div);
             if (event.value.pe) {
                 div.setStyle({ 'cursor': 'move' });
-                new Drag('kronolithEventmonth' + calendar + event.key, { threshold: 5, parentElement: function() { return $('kronolithViewMonthBody'); }, snapToParent: true });
+                new Drag('kronolithEvent' + event.value.calendar + date + event.key, { threshold: 5, parentElement: function() { return $('kronolithViewMonthBody'); }, snapToParent: true });
             }
             break;
         }
