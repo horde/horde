@@ -653,12 +653,12 @@ KronolithCore = {
                 cals = cals.get(cal[1]);
                 while (!Object.isUndefined(cals.get(startDay.dateString())) &&
                        startDay.isBefore(endDay)) {
-                    this._insertEvents([startDay.dateString()], view, cal.join('|'));
+                    this._insertEvents([startDay, startDay], view, cal.join('|'));
                     startDay.add(1).day();
                 }
                 while (!Object.isUndefined(cals.get(endDay.dateString())) &&
                        (startDay.isBefore(endDay) || startDay.equals(endDay))) {
-                    this._insertEvents([endDay.dateString()], view, cal.join('|'));
+                    this._insertEvents([endDay, endDay], view, cal.join('|'));
                     endDay.add(-1).day();
                 }
                 if (startDay.compareTo(endDay) > 0) {
@@ -688,7 +688,11 @@ KronolithCore = {
             $('kronolithLoading').hide();
         }
 
-        this._storeCache(r.response.events || {}, r.response.cal, r.response.sig);
+        var start = Date.parseExact(r.response.sig.substr(0, 8), 'yyyyMMdd'),
+            end = Date.parseExact(r.response.sig.substr(8, 8), 'yyyyMMdd'),
+            dates = [start, end];
+
+        this._storeCache(r.response.events || {}, r.response.cal, dates);
         if (r.response.events) {
             // Check if this is the still the result of the most current
             // request.
@@ -697,7 +701,7 @@ KronolithCore = {
                 return;
             }
 
-            this._insertEvents($H(r.response.events).keys(), this.view, r.response.cal);
+            this._insertEvents(dates, this.view, r.response.cal);
         }
     },
 
@@ -709,7 +713,7 @@ KronolithCore = {
      * necessary because the complete view has to be re-rendered if events are
      * not in chronological order.
      *
-     * @param Array dates      A list of dates (as strings) to process.
+     * @param Array dates      Start and end of dates to process.
      * @param string view      The view to update.
      * @param string calendar  The calendar to update.
      */
@@ -724,7 +728,9 @@ KronolithCore = {
             }
         }
 
-        dates.each(function(date) {
+        var day = dates[0].clone(), date;
+        while (!day.isAfter(dates[1])) {
+            date = day.dateString();
             if (view == 'day' || view == 'week') {
                 this.dayEvents = [];
                 this.dayGroups = [];
@@ -747,7 +753,8 @@ KronolithCore = {
                 }
                 this._insertEvent(event, calendar, date, view);
             }, this);
-        }, this);
+            day.next().day();
+        }
     },
 
     /**
@@ -762,6 +769,7 @@ KronolithCore = {
     {
         calendar = event.value.cal || calendar;
         event.value.cal = calendar;
+        event.value.nodeId = 'kronolithEvent' + calendar + date + event.key;
 
         _createElement = function(event, calendar) {
             return new Element('DIV', {
@@ -776,7 +784,6 @@ KronolithCore = {
         case 'day':
         case 'week':
             this._calculateRowSizes('daySizes', view == 'day' ? 'kronolithViewDay' : 'kronolithViewWeek');
-            event.value.nodeId = 'kronolithEventday' + calendar + event.key;
             var div = _createElement(event, calendar),
                 style = { 'backgroundColor': event.value.bg,
                           'color': event.value.fg };
@@ -858,7 +865,6 @@ KronolithCore = {
             break;
 
         case 'month':
-            event.value.nodeId = 'kronolithEventmonth' + calendar + event.key;
             var div = _createElement(event, calendar)
                 .setStyle({ 'backgroundColor': event.value.bg,
                             'color': event.value.fg });
@@ -961,14 +967,14 @@ KronolithCore = {
 
         // Create empty cache entries for all dates.
         if (typeof dates != 'undefined') {
-            var start = Date.parseExact(dates.substr(0, 8), 'yyyyMMdd'),
-                end = Date.parseExact(dates.substr(8, 8), 'yyyyMMdd'),
-                calHash = this.ecache.get(calendar[0]).get(calendar[1]);
-            while (start.compareTo(end) <= 0) {
-                if (!calHash.get(start.dateString())) {
-                    calHash.set(start.dateString(), {});
+            var calHash = this.ecache.get(calendar[0]).get(calendar[1]),
+                day = dates[0].clone(), date;
+            while (!day.isAfter(dates[1])) {
+                date = day.dateString();
+                if (!calHash.get(date)) {
+                    calHash.set(date, {});
                 }
-                start.add(1).day();
+                day.add(1).day();
             }
         }
 
