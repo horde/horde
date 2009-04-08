@@ -34,6 +34,9 @@ class Horde_Kolab_Server_Object_Kolab_User extends Horde_Kolab_Server_Object_Kol
     /** The user type */
     const ATTRIBUTE_USERTYPE = 'usertype';
 
+    /** The first name */
+    const ATTRIBUTE_FN = 'fn';
+
     /** Define the possible Kolab user types */
     const USERTYPE_STANDARD = 0;
     const USERTYPE_INTERNAL = 1;
@@ -48,12 +51,10 @@ class Horde_Kolab_Server_Object_Kolab_User extends Horde_Kolab_Server_Object_Kol
     static public $init_attributes = array(
         'derived' => array(
             self::ATTRIBUTE_USERTYPE => array(),
+            self::ATTRIBUTE_FN => array(),
         ),
-        'defaults' => array(
-        ),
-        'locked' => array(
-        ),
-        'object_classes' => array(
+        'required' => array(
+            self::ATTRIBUTE_USERPASSWORD,
         ),
     );
 
