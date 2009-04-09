@@ -129,7 +129,7 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
      * to access object attributes. This is slower but takes special object
      * handling into account (e.g. custom attribute parsing).
      *
-     * @param string $dn    The object to retrieve.
+     * @param string $uid   The object to retrieve.
      * @param string $attrs Restrict to these attributes.
      *
      * @return array|boolean An array of attributes or false if the specified
@@ -138,14 +138,14 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
      * @throws Horde_Kolab_Server_Exception If the search operation retrieved a
      *                                      problematic result.
      */
-    public function read($dn, $attrs = null)
+    public function read($uid, $attrs = null)
     {
         $params = array('scope' => 'base');
         if (!empty($attrs)) {
             $params['attributes'] = $attrs;
         }
 
-        $result = $this->search(null, $params, $dn);
+        $result = $this->search(null, $params, $uid);
         $data   = $result->as_struct();
         if (is_a($data, 'PEAR_Error')) {
             throw new Horde_Kolab_Server_Exception($data,
@@ -156,16 +156,16 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
                                                    Horde_Kolab_Server_Exception::EMPTY_RESULT);
         }            
 
-        if (!isset($data[$dn])) {
+        if (!isset($data[$uid])) {
             throw new Horde_Kolab_Server_Exception(sprintf(_("No result found for %s"),
-                                                           $dn),
+                                                           $uid),
                                                    Horde_Kolab_Server_Exception::EMPTY_RESULT);
         }
-        if (is_a($data[$dn], 'PEAR_Error')) {
-            throw new Horde_Kolab_Server_Exception($data[$dn],
+        if (is_a($data[$uid], 'PEAR_Error')) {
+            throw new Horde_Kolab_Server_Exception($data[$uid],
                                                    Horde_Kolab_Server_Exception::SYSTEM);
         }
-        return $data[$dn];
+        return $data[$uid];
     }
 
     /**
@@ -421,19 +421,19 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
     /**
      * Get the LDAP object classes for the given DN.
      *
-     * @param string $dn DN of the object.
+     * @param string $uid DN of the object.
      *
      * @return array An array of object classes.
      *
      * @throws Horde_Kolab_Server_Exception If the object has no
      *                                      object classes.
      */
-    public function getObjectClasses($dn)
+    public function getObjectClasses($uid)
     {
-        $object = $this->read($dn, array(Horde_Kolab_Server_Object::ATTRIBUTE_OC));
+        $object = $this->read($uid, array(Horde_Kolab_Server_Object::ATTRIBUTE_OC));
         if (!isset($object[Horde_Kolab_Server_Object::ATTRIBUTE_OC])) {
             throw new Horde_Kolab_Server_Exception(sprintf("The object %s has no %s attribute!",
-                                                           $dn, Horde_Kolab_Server_Object::ATTRIBUTE_OC),
+                                                           $uid, Horde_Kolab_Server_Object::ATTRIBUTE_OC),
                                                    Horde_Kolab_Server_Exception::SYSTEM);
         }
         $result = array_map('strtolower',
@@ -453,15 +453,13 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
     public function searchQuery($criteria)
     {
         /* Build the LDAP filter. */
-        $filter = '';
         if (count($criteria)) {
-            foreach ($criteria as $key => $vals) {
-                if ($key == 'OR') {
-                    $filter .= '(|' . $this->buildSearchQuery($vals) . ')';
-                } elseif ($key == 'AND') {
-                    $filter .= '(&' . $this->buildSearchQuery($vals) . ')';
-                }
+            $f = $this->buildSearchQuery($criteria);
+            if (!$f instanceOf Net_LDAP2_Filter) {
+                var_dump($f->getMessage());
+                die();
             }
+            $filter = $f->asString();
         } else {
             /* Accept everything. */
             $filter = '(' . strtolower(Horde_Kolab_Server_Object::ATTRIBUTE_OC) . '=*)';
@@ -483,43 +481,41 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
      *
      * @return string  An LDAP query fragment.
      */
-    protected function buildSearchQuery($criteria)
+    protected function &buildSearchQuery($criteria)
     {
-        $clause = '';
+        if (isset($criteria['field'])) {
+            require_once 'Horde/String.php';
+            require_once 'Horde/NLS.php';
+            $rhs     = $criteria['test'];
+            /* Keep this in for reference as we did not really test servers with different encoding yet */
+            //$rhs     = String::convertCharset($criteria['test'], NLS::getCharset(), $this->params['charset']);
+            switch ($criteria['op']) {
+            case '=':
+                $op = 'equals';
+                break;
+            }
+            return Net_LDAP2_Filter::create($criteria['field'], $op, $rhs);
+        }
         foreach ($criteria as $key => $vals) {
-            if (!empty($vals['OR'])) {
-                $clause .= '(|' . $this->buildSearchQuery($vals) . ')';
-            } elseif (!empty($vals['AND'])) {
-                $clause .= '(&' . $this->buildSearchQuery($vals) . ')';
-            } else {
-                if (isset($vals['field'])) {
-                    require_once 'Horde/String.php';
-                    require_once 'Horde/NLS.php';
-                    $rhs     = String::convertCharset($vals['test'],
-                                                      NLS::getCharset(),
-                                                      $this->params['charset']);
-                    $clause .= Horde_LDAP::buildClause($vals['field'],
-                                                       $vals['op'], $rhs,
-                                                       array('begin' => !empty($vals['begin'])));
+            if (!empty($vals['OR'])
+                || !empty($vals['AND'])) {
+                $parts = $this->buildSearchQuery($vals);
+                if (count($parts) > 1) {
+                    return Net_LDAP2_Filter::combine((!empty($vals['OR'])) ? '|' : '&', $parts);
                 } else {
-                    foreach ($vals as $test) {
-                        if (!empty($test['OR'])) {
-                            $clause .= '(|' . $this->buildSearchQuery($test) . ')';
-                        } elseif (!empty($test['AND'])) {
-                            $clause .= '(&' . $this->buildSearchQuery($test) . ')';
-                        } else {
-                            $rhs     = String::convertCharset($test['test'],
-                                                              NLS::getCharset(),
-                                                              $this->params['charset']);
-                            $clause .= Horde_LDAP::buildClause($test['field'],
-                                                               $test['op'], $rhs,
-                                                               array('begin' => !empty($vals['begin'])));
-                        }
-                    }
+                    return $parts[0];
+                }
+            } else {
+                $parts = array();
+                foreach ($vals as $test) {
+                    $parts[] = &$this->buildSearchQuery($test);
+                }
+                if (count($parts) > 1) {
+                    return Net_LDAP2_Filter::combine(($key == 'OR') ? '|' : '&', $parts);
+                } else {
+                    return $parts[0];
                 }
             }
         }
-
-        return $clause;
     }
 }
