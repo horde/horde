@@ -30,22 +30,22 @@ class Horde_Kolab_Server_Object_Person extends Horde_Kolab_Server_Object
     /** Define attributes specific to this object type */
 
     /** The common name */
-    const ATTRIBUTE_CN           = 'cn';
+    const ATTRIBUTE_CN = 'cn';
 
     /** The surname */
-    const ATTRIBUTE_SN           = 'sn';
+    const ATTRIBUTE_SN = 'sn';
 
     /** A surname suffix */
-    const ATTRIBUTE_SNSUFFIX     = 'snsuffix';
+    const ATTRIBUTE_SNSUFFIX = 'snsuffix';
 
     /** A password for this person */
     const ATTRIBUTE_USERPASSWORD = 'userPassword';
 
     /** A telephone number for this person */
-    const ATTRIBUTE_TELNO        = 'telephoneNumber';
+    const ATTRIBUTE_TELNO = 'telephoneNumber';
 
     /** The specific object class of this object type */
-    const OBJECTCLASS_PERSON     = 'person';
+    const OBJECTCLASS_PERSON = 'person';
 
     /**
      * A structure to initialize the attribute structure for this class.
@@ -107,7 +107,8 @@ class Horde_Kolab_Server_Object_Person extends Horde_Kolab_Server_Object
      */
     protected function hashPassword($password)
     {
-        $type = isset($this->server->params['hashtype']) ? $this->server->params['hashtype'] : 'sha1';
+        $type = isset($this->server->params['hashtype'])
+            ? $this->server->params['hashtype'] : 'sha1';
         switch ($type) {
         case 'plain':
             /**
@@ -162,8 +163,8 @@ class Horde_Kolab_Server_Object_Person extends Horde_Kolab_Server_Object
     {
         $salt = '';
         while (strlen($salt) < 4) {
-            $salt = $salt . chr(mt_rand(0,255));
-	}
+            $salt = $salt . chr(mt_rand(0, 255));
+        }
         return $salt;
     }
 
@@ -225,4 +226,38 @@ class Horde_Kolab_Server_Object_Person extends Horde_Kolab_Server_Object
 
         return parent::save($info);
     }
+
+    /**
+     * Returns the set of search operations supported by this object type.
+     *
+     * @return array An array of supported search operations.
+     */
+    static public function getSearchOperations()
+    {
+        return array(
+            'uidForCn',
+        );
+    }
+
+    /**
+     * Identify the UID for the first object found with the given common name.
+     *
+     * @param string $cn       Search for objects with this common name.
+     * @param int    $restrict A Horde_Kolab_Server::RESULT_* result restriction.
+     *
+     * @return mixed The UID or false if there was no result.
+     *
+     * @throws Horde_Kolab_Server_Exception
+     */
+    static public function uidForCn($server, $cn,
+                                    $restrict = Horde_Kolab_Server_Object::RESULT_SINGLE)
+    {
+        $criteria = array('AND' => array(array('field' => self::ATTRIBUTE_CN,
+                                               'op'    => '=',
+                                               'test'  => $cn),
+                          ),
+        );
+        return self::basicUidForSearch($server, $criteria, $restrict);
+    }
+
 }
