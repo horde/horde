@@ -133,4 +133,58 @@ class Horde_Kolab_Server_PersonTest extends Horde_Kolab_Test_Server
             $this->assertFalse($server->uidForCn($this->objects[$add][Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN]));
         }
     }
+
+    /**
+     * Test modifying the surname of a person.
+     *
+     * @dataProvider provideServers
+     *
+     * @return NULL
+     */
+    public function testModifyPersonSn($server)
+    {
+        $result = $server->add($this->objects[2]);
+        $this->assertNoError($result);
+        $cn_result = $server->uidForCn($this->objects[2][Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN]);
+        $person = $server->fetch($cn_result);
+        $this->assertEquals($person->get(Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN),
+                            $this->objects[2][Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN]);
+        $result = $person->save(array(Horde_Kolab_Server_Object_Person::ATTRIBUTE_SN => 'Kolab_Server_PersonTest_modified'));
+        $person = $server->fetch($cn_result);
+        $this->assertEquals($person->get(Horde_Kolab_Server_Object_Person::ATTRIBUTE_SN),
+                            'Kolab_Server_PersonTest_modified');
+        $result = $server->delete($cn_result);
+        $this->assertNoError($result);
+        $cn_result = $server->uidForCn($this->objects[$add][Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN]);
+        $this->assertNoError($cn_result);
+        $this->assertFalse($server->uidForCn($this->objects[$add][Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN]));
+    }
+
+    /**
+     * Test modifying the cn of a person. This should have an effect on the UID
+     * of the object and needs to rename the object.
+     *
+     * @dataProvider provideServers
+     *
+     * @return NULL
+     */
+    public function testModifyPersonCn($server)
+    {
+        $result = $server->add($this->objects[2]);
+        $this->assertNoError($result);
+        $cn_result = $server->uidForCn($this->objects[2][Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN]);
+        $person = $server->fetch($cn_result);
+        $this->assertEquals($person->get(Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN),
+                            $this->objects[2][Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN]);
+        $result = $person->save(array(Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN => 'Kolab_Server_PersonTest_äö'));
+        $cn_result = $server->uidForCn('Kolab_Server_PersonTest_äö');
+        $person = $server->fetch($cn_result);
+        $this->assertEquals($person->get(Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN),
+                            'Kolab_Server_PersonTest_äö');
+        $result = $server->delete($cn_result);
+        $this->assertNoError($result);
+        $cn_result = $server->uidForCn($this->objects[$add][Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN]);
+        $this->assertNoError($cn_result);
+        $this->assertFalse($server->uidForCn($this->objects[$add][Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN]));
+    }
 }
