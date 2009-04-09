@@ -272,7 +272,8 @@ class Horde_Kolab_Server_Test extends Horde_Kolab_Server_Ldap
                     } else {
                         $result['att'] = $filter_parts[0];
                         $result['log'] = $filter_parts[1];
-                        $result['val'] = $filter_parts[2];
+                        $val = Net_LDAP2_Util::unescape_filter_value($filter_parts[2]);
+                        $result['val'] = $val[0];
                         return $result;
                     }
                 }
