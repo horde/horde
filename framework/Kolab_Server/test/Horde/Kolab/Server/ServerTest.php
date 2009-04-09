@@ -139,6 +139,20 @@ class Horde_Kolab_Server_None extends Horde_Kolab_Server
     }
 
     /**
+     * Stub for deleting an object.
+     *
+     * @param string $uid The UID of the object to be deleted.
+     *
+     * @return boolean True if saving succeeded.
+     *
+     * @throws Horde_Kolab_Server_Exception
+     */
+    public function delete($uid)
+    {
+        throw new Horde_Kolab_Server_Exception('Not implemented!');
+    }
+
+    /**
      * Determine the type of a Kolab object.
      *
      * @param string $uid The UID of the object to examine.
