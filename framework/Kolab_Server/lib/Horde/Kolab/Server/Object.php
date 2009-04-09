@@ -409,6 +409,9 @@ class Horde_Kolab_Server_Object
                     break;
                 }
             }
+            if ($empty == 0) {
+                return;
+            }
             ksort($attributes);
             $unset = $attributes;
             $result = '';
@@ -619,6 +622,16 @@ class Horde_Kolab_Server_Object
                     throw new Horde_Kolab_Server_Exception(sprintf(_("The value for \"%s\" may not be modified on an existing object!"),
                                                                    $key));
                 }
+            }
+
+            /* Check for potential renaming of the object here */
+            $new_info = array_merge($this->_cache, $info);
+            $new_uid = $this->server->generateServerUid(get_class($this),
+                                                        $this->generateId($new_info),
+                                                        $new_info);
+            if ($new_uid != $this->uid) {
+                $this->server->rename($this->uid, $new_uid);
+                $this->uid = $new_uid;
             }
         }
 
