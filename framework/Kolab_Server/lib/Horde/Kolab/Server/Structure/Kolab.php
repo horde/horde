@@ -38,6 +38,9 @@ class Horde_Kolab_Server_Structure_Kolab extends Horde_Kolab_Server_Structure_Ld
         return array(
             'Horde_Kolab_Server_Object',
             'Horde_Kolab_Server_Object_Groupofnames',
+            'Horde_Kolab_Server_Object_Person',
+            'Horde_Kolab_Server_Object_Organizationalperson',
+            'Horde_Kolab_Server_Object_Inetorgperson',
             'Horde_Kolab_Server_Object_Kolabinetorgperson',
             'Horde_Kolab_Server_Object_Kolabgroupofnames',
             'Horde_Kolab_Server_Object_Kolabsharedfolder',
