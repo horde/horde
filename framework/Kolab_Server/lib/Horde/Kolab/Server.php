@@ -178,6 +178,7 @@ abstract class Horde_Kolab_Server
 
         $sparam         = $server_params;
         $sparam['pass'] = isset($sparam['pass']) ? md5($sparam['pass']) : '';
+        ksort($sparam);
         $signature      = serialize(array($driver, $sparam));
         if (empty($instances[$signature])) {
             $instances[$signature] = &Horde_Kolab_Server::factory($driver,
