@@ -304,9 +304,7 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
         /** Prepare a Kolab test server */
         $conf['kolab']['server']['driver'] = 'ldap';
 
-        $server = Horde_Kolab_Server::singleton($params);
-
-        return $server;
+        return Horde_Kolab_Server::singleton($params);
     }
 
     /**
@@ -320,7 +318,7 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
         /**
          * We always use the test server
          */
-        $servers[] = $this->prepareEmptyKolabServer();
+        $servers[] = array($this->prepareEmptyKolabServer());
 
         $base = getenv('HORDE_BASE');
         if (!empty($base)) {
@@ -328,11 +326,11 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
             if (file_exists($config)) {
                 @include $config; 
                 if (!empty($conf['kolab']['server']['params'])) {
-                    $servers[] = $this->prepareLdapKolabServer($conf['kolab']['server']['params']);
+                    $servers[] = array($this->prepareLdapKolabServer($conf['kolab']['server']['params']));
                 }
             }
         }
-        return array($servers);
+        return $servers;
     }
 
     /**
