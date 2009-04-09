@@ -17,11 +17,7 @@
 
 - Read entry after writing and detect inconsistencies.
 
-- Umlaut support
-
 - Password history support
-
-- Check escaping search parameters when running searchQuery()
 
 - Support alias attribute names
 
