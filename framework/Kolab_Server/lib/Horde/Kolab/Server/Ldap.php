@@ -85,7 +85,6 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
                              'options'        => array(),
                              'auto_reconnect' => true);
 
-
         $config = array_merge($base_config, $params);
 
         $this->_base_dn = $config['basedn'];
@@ -112,7 +111,8 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
     {
         $this->_ldap = Net_LDAP2::connect($this->_config);
         if (is_a($this->_ldap, 'PEAR_Error')) {
-            throw new Horde_Kolab_Server_Exception($this->_ldap);
+            throw new Horde_Kolab_Server_Exception($this->_ldap,
+                                                   Horde_Kolab_Server_Exception::SYSTEM);
         }
     }
 
@@ -148,18 +148,22 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
         $result = $this->search(null, $params, $dn);
         $data   = $result->as_struct();
         if (is_a($data, 'PEAR_Error')) {
-            throw new Horde_Kolab_Server_Exception($data->getMessage());
+            throw new Horde_Kolab_Server_Exception($data,
+                                                   Horde_Kolab_Server_Exception::SYSTEM);
         }
         if (empty($data)) {
-            throw new Horde_Kolab_Server_Exception(_("Empty result!"));
+            throw new Horde_Kolab_Server_Exception(_("Empty result!"),
+                                                   Horde_Kolab_Server_Exception::EMPTY_RESULT);
         }            
 
         if (!isset($data[$dn])) {
             throw new Horde_Kolab_Server_Exception(sprintf(_("No result found for %s"),
-                                                           $dn));
+                                                           $dn),
+                                                   Horde_Kolab_Server_Exception::EMPTY_RESULT);
         }
         if (is_a($data[$dn], 'PEAR_Error')) {
-            throw new Horde_Kolab_Server_Exception($data[$dn]);
+            throw new Horde_Kolab_Server_Exception($data[$dn],
+                                                   Horde_Kolab_Server_Exception::SYSTEM);
         }
         return $data[$dn];
     }
@@ -179,7 +183,8 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
             $entry  = Net_LDAP2_Entry::createFresh($uid, $data);
             $result = $this->_ldap->add($entry);
             if ($result instanceOf PEAR_Error) {
-                throw new Horde_Kolab_Server_Exception($result->getMessage());
+                throw new Horde_Kolab_Server_Exception($result,
+                                                       Horde_Kolab_Server_Exception::SYSTEM);
             }
         } else {
             $deletes = array();
@@ -199,9 +204,35 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
             $result = $this->_ldap->modify($uid, array('delete' => $deletes,
                                                       'replace' => $data));
             if ($result instanceOf PEAR_Error) {
-                throw new Horde_Kolab_Server_Exception($result->getMessage());
+                throw new Horde_Kolab_Server_Exception($result,
+                                                       Horde_Kolab_Server_Exception::SYSTEM);
             }
         }
+        Horde::logMessage(sprintf('The object \"%s\" has been successfully saved!',
+                                  $uid),
+                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        return true;
+    }
+
+    /**
+     * Delete an object.
+     *
+     * @param string $uid The UID of the object to be deleted.
+     *
+     * @return boolean True if saving succeeded.
+     *
+     * @throws Horde_Kolab_Server_Exception
+     */
+    public function delete($uid)
+    {
+        $result = $this->_ldap->delete($uid);
+        if ($result instanceOf PEAR_Error) {
+            throw new Horde_Kolab_Server_Exception($result,
+                                                   Horde_Kolab_Server_Exception::SYSTEM);
+        }
+        Horde::logMessage(sprintf('The object \"%s\" has been successfully deleted!',
+                                  $uid),
+                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
         return true;
     }
 
@@ -244,7 +275,8 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
         $result = $this->search($filter, $options, $base);
         $data   = $result->as_struct();
         if (is_a($data, 'PEAR_Error')) {
-            throw new Horde_Kolab_Server_Exception($data->getMessage());
+            throw new Horde_Kolab_Server_Exception($data,
+                                                   Horde_Kolab_Server_Exception::SYSTEM);
         }
         if (empty($data)) {
             return array();
@@ -307,7 +339,8 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
         if (!isset($this->_schema)) {
             $result = $this->_ldap->schema();
             if ($result instanceOf PEAR_Error) {
-                throw new Horde_Kolab_Server_Exception($result->getMessage());
+                throw new Horde_Kolab_Server_Exception($result,
+                                                       Horde_Kolab_Server_Exception::SYSTEM);
             }
             $this->_schema = &$result;
         }
@@ -329,7 +362,8 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
             $schema = $this->_getSchema();
             $info = $schema->get('objectclass', $objectclass);
             if ($info instanceOf PEAR_Error) {
-                throw new Horde_Kolab_Server_Exception($info->getMessage());
+                throw new Horde_Kolab_Server_Exception($info,
+                                                       Horde_Kolab_Server_Exception::SYSTEM);
             }
             return $info;
         }
@@ -351,7 +385,8 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
             $schema = $this->_getSchema();
             $info = $schema->get('attribute', $attribute);
             if ($info instanceOf PEAR_Error) {
-                throw new Horde_Kolab_Server_Exception($info->getMessage());
+                throw new Horde_Kolab_Server_Exception($info,
+                                                       Horde_Kolab_Server_Exception::SYSTEM);
             }
             return $info;
         }
@@ -377,7 +412,8 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
         }
         $result = $this->_ldap->search($base, $filter, $params);
         if (is_a($result, 'PEAR_Error')) {
-            throw new Horde_Kolab_Server_Exception($result->getMessage());
+            throw new Horde_Kolab_Server_Exception($result,
+                                                   Horde_Kolab_Server_Exception::SYSTEM);
         }
         return $result;
     }
@@ -396,8 +432,9 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
     {
         $object = $this->read($dn, array(Horde_Kolab_Server_Object::ATTRIBUTE_OC));
         if (!isset($object[Horde_Kolab_Server_Object::ATTRIBUTE_OC])) {
-            throw new Horde_Kolab_Server_Exception(sprintf(_("The object %s has no %s attribute!"),
-                                                           $dn, Horde_Kolab_Server_Object::ATTRIBUTE_OC));
+            throw new Horde_Kolab_Server_Exception(sprintf("The object %s has no %s attribute!",
+                                                           $dn, Horde_Kolab_Server_Object::ATTRIBUTE_OC),
+                                                   Horde_Kolab_Server_Exception::SYSTEM);
         }
         $result = array_map('strtolower',
                             $object[Horde_Kolab_Server_Object::ATTRIBUTE_OC]);
