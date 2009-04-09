@@ -633,7 +633,7 @@ abstract class Horde_Kolab_Server
     abstract public function save($uid, $data, $exists = false);
 
     /**
-     * Delete an object.
+     * Stub for deleting an object.
      *
      * @param string $uid The UID of the object to be deleted.
      *
