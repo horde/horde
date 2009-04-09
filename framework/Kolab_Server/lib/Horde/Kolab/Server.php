@@ -179,7 +179,7 @@ abstract class Horde_Kolab_Server
         $sparam         = $server_params;
         $sparam['pass'] = isset($sparam['pass']) ? md5($sparam['pass']) : '';
         ksort($sparam);
-        $signature      = serialize(array($driver, $sparam));
+        $signature = serialize(array($driver, $sparam));
         if (empty($instances[$signature])) {
             $instances[$signature] = &Horde_Kolab_Server::factory($driver,
                                                                   $server_params);
@@ -631,6 +631,17 @@ abstract class Horde_Kolab_Server
      * @throws Horde_Kolab_Server_Exception
      */
     abstract public function save($uid, $data, $exists = false);
+
+    /**
+     * Delete an object.
+     *
+     * @param string $uid The UID of the object to be deleted.
+     *
+     * @return boolean True if saving succeeded.
+     *
+     * @throws Horde_Kolab_Server_Exception
+     */
+    abstract public function delete($uid);
 
     /**
      * List all objects of a specific type

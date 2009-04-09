@@ -540,7 +540,31 @@ class Horde_Kolab_Server_Test extends Horde_Kolab_Server_Ldap
                                       array('dn' => $uid)),
             );
         }
+        Horde::logMessage(sprintf('The object \"%s\" has been successfully saved!',
+                                  $uid),
+                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
         $this->store();
+    }
+
+    /**
+     * Delete an object.
+     *
+     * @param string $uid The UID of the object to be deleted.
+     *
+     * @return boolean True if saving succeeded.
+     *
+     * @throws Horde_Kolab_Server_Exception
+     */
+    public function delete($uid)
+    {
+        if (isset($this->data[$uid])) {
+            unset($this->data[$uid]);
+        }
+        $this->store();
+        Horde::logMessage(sprintf('The object \"%s\" has been successfully deleted!',
+                                  $uid),
+                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        return true;
     }
 
     /**
