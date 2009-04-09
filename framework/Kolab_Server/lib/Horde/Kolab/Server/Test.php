@@ -569,6 +569,29 @@ class Horde_Kolab_Server_Test extends Horde_Kolab_Server_Ldap
     }
 
     /**
+     * Rename an object.
+     *
+     * @param string $uid The UID of the object to be renamed.
+     * @param string $new The new UID of the object.
+     *
+     * @return boolean True if renaming succeeded.
+     *
+     * @throws Horde_Kolab_Server_Exception
+     */
+    public function rename($uid, $new)
+    {
+        if (isset($this->data[$uid])) {
+            $this->data[$new] = $this->data[$uid];
+            unset($this->data[$uid]);
+        }
+        $this->store();
+        Horde::logMessage(sprintf('The object \"%s\" has been successfully renamed to \"%s\"!',
+                                  $uid, $new),
+                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        return true;
+    }
+
+    /**
      * Return the schema for the given objectClass.
      *
      * @param string $objectclass Fetch the schema for this objectClass.

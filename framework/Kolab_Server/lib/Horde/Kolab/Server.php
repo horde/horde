@@ -614,11 +614,23 @@ abstract class Horde_Kolab_Server
      *
      * @param string $uid The UID of the object to be deleted.
      *
-     * @return boolean True if saving succeeded.
+     * @return boolean True if deleting the object succeeded.
      *
      * @throws Horde_Kolab_Server_Exception
      */
     abstract public function delete($uid);
+
+    /**
+     * Stub for renaming an object.
+     *
+     * @param string $uid The UID of the object to be renamed.
+     * @param string $new The new UID of the object.
+     *
+     * @return boolean True if renaming succeeded.
+     *
+     * @throws Horde_Kolab_Server_Exception
+     */
+    abstract public function rename($uid, $new);
 
     /**
      * List all objects of a specific type

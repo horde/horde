@@ -201,8 +201,10 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
                     unset($data[$key]);
                 }
             }
-            $result = $this->_ldap->modify($uid, array('delete' => $deletes,
-                                                      'replace' => $data));
+            /* Net_LDAP2 will work on this as a reference */
+            $mod_uid = $uid;
+            $result = $this->_ldap->modify($mod_uid, array('delete' => $deletes,
+                                                           'replace' => $data));
             if ($result instanceOf PEAR_Error) {
                 throw new Horde_Kolab_Server_Exception($result,
                                                        Horde_Kolab_Server_Exception::SYSTEM);
@@ -232,6 +234,31 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
         }
         Horde::logMessage(sprintf('The object \"%s\" has been successfully deleted!',
                                   $uid),
+                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        return true;
+    }
+
+    /**
+     * Rename an object.
+     *
+     * @param string $uid The UID of the object to be renamed.
+     * @param string $new The new UID of the object.
+     *
+     * @return boolean True if renaming succeeded.
+     *
+     * @throws Horde_Kolab_Server_Exception
+     */
+    public function rename($uid, $new)
+    {
+        /* Net_LDAP modifies the variable */
+        $old = $uid;
+        $result = $this->_ldap->move($old, $new);
+        if ($result instanceOf PEAR_Error) {
+            throw new Horde_Kolab_Server_Exception($result,
+                                                   Horde_Kolab_Server_Exception::SYSTEM);
+        }
+        Horde::logMessage(sprintf('The object \"%s\" has been successfully renamed to \"%s\"!',
+                                  $uid, $new),
                           __FILE__, __LINE__, PEAR_LOG_DEBUG);
         return true;
     }
