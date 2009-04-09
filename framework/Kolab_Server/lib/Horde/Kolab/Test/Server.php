@@ -289,8 +289,50 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
         /** Ensure we don't use a connection from older tests */
         $server->clean();
 
-        /** Clean the server data */
         return $server;
+    }
+
+    /**
+     * Prepare a connection to a real LDAP server.
+     *
+     * @return Horde_Kolab_Server The LDAP server connection.
+     */
+    public function &prepareLdapKolabServer($params)
+    {
+        global $conf;
+
+        /** Prepare a Kolab test server */
+        $conf['kolab']['server']['driver'] = 'ldap';
+
+        $server = Horde_Kolab_Server::singleton($params);
+
+        return $server;
+    }
+
+    /**
+     * Provide different server types.
+     *
+     * @return array The different server types.
+     */
+    public function &provideServers()
+    {
+        $servers = array();
+        /**
+         * We always use the test server
+         */
+        $servers[] = $this->prepareEmptyKolabServer();
+
+        $base = getenv('HORDE_BASE');
+        if (!empty($base)) {
+            $config = $base . '/config/kolab.php';
+            if (file_exists($config)) {
+                @include $config; 
+                if (!empty($conf['kolab']['server']['params'])) {
+                    $servers[] = $this->prepareLdapKolabServer($conf['kolab']['server']['params']);
+                }
+            }
+        }
+        return array($servers);
     }
 
     /**
