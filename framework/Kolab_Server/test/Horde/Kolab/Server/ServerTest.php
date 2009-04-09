@@ -40,8 +40,8 @@ class Horde_Kolab_Server_ServerTest extends PHPUnit_Framework_TestCase
     public function testGenerateUid()
     {
         $ks = &Horde_Kolab_Server::factory('none');
-        $uid = $ks->generateUid('Horde_Kolab_Server_Object', array());
-        $this->assertEquals(preg_replace('/[0-9a-f]*/', '', $uid), '');
+        $user = new Horde_Kolab_Server_Object($ks, null, null);
+        $this->assertEquals(preg_replace('/[0-9a-f]*/', '', $user->get(Horde_Kolab_Server_Object::ATTRIBUTE_UID)), '');
     }
 
     /**
@@ -186,7 +186,7 @@ class Horde_Kolab_Server_None extends Horde_Kolab_Server
      *
      * @return string|PEAR_Error The UID.
      */
-    protected function generateServerUid($type, $id, $info)
+    public function generateServerUid($type, $id, $info)
     {
         return $id;
     }

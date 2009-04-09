@@ -489,175 +489,153 @@ class Horde_Kolab_Server_testTest extends Horde_Kolab_Test_Server
      */
     public function testSearch()
     {
-/*         $db = &Horde_Kolab_Server::factory('test', */
-/*                                            array('data' => */
-/*                                                  array( */
-/*                                                      'cn=a' => array( */
-/*                                                          'dn' => 'cn=a', */
-/*                                                          'data' => array( */
-/*                                                              'a' => '1', */
-/*                                                              'b' => '1', */
-/*                                                              'c' => '1', */
-/*                                                          ) */
-/*                                                      ), */
-/*                                                      'cn=b' => array( */
-/*                                                          'dn' => 'cn=b', */
-/*                                                          'data' => array( */
-/*                                                              'a' => '1', */
-/*                                                              'b' => '2', */
-/*                                                              'c' => '2', */
-/*                                                          ) */
-/*                                                      ), */
-/*                                                      'cn=c' => array( */
-/*                                                          'dn' => 'cn=c', */
-/*                                                          'data' => array( */
-/*                                                              'a' => '1', */
-/*                                                              'b' => '2', */
-/*                                                              'c' => '3', */
-/*                                                          ) */
-/*                                                      ), */
-/*                                                      'cn=d' => array( */
-/*                                                          'dn' => 'cn=d', */
-/*                                                          'data' => array( */
-/*                                                              'a' => '2', */
-/*                                                              'b' => '2', */
-/*                                                              'c' => '1', */
-/*                                                          ) */
-/*                                                      ), */
-/*                                                  ) */
-/*                                            ) */
-/*         ); */
+        $db = &Horde_Kolab_Server::factory('test',
+                                           array('data' =>
+                                                 array(
+                                                     'cn=a' => array(
+                                                         'dn' => 'cn=a',
+                                                         'data' => array(
+                                                             'a' => '1',
+                                                             'b' => '1',
+                                                             'c' => '1',
+                                                         )
+                                                     ),
+                                                     'cn=b' => array(
+                                                         'dn' => 'cn=b',
+                                                         'data' => array(
+                                                             'a' => '1',
+                                                             'b' => '2',
+                                                             'c' => '2',
+                                                         )
+                                                     ),
+                                                     'cn=c' => array(
+                                                         'dn' => 'cn=c',
+                                                         'data' => array(
+                                                             'a' => '1',
+                                                             'b' => '2',
+                                                             'c' => '3',
+                                                         )
+                                                     ),
+                                                     'cn=d' => array(
+                                                         'dn' => 'cn=d',
+                                                         'data' => array(
+                                                             'a' => '2',
+                                                             'b' => '2',
+                                                             'c' => '1',
+                                                         )
+                                                     ),
+                                                 )
+                                           )
+        );
 
-/*         $a = $db->search('(c=1)'); */
-/*         $this->assertNoError($a); */
-/*         $this->assertEquals( */
-/*             array( */
-/*                 array( */
-/*                     'dn' => 'cn=a', */
-/*                     'data' => array( */
-/*                         'a' => '1', */
-/*                         'b' => '1', */
-/*                         'c' => '1', */
-/*                     ) */
-/*                 ), */
-/*                 array( */
-/*                     'dn' => 'cn=d', */
-/*                     'data' => array( */
-/*                         'a' => '2', */
-/*                         'b' => '2', */
-/*                         'c' => '1', */
-/*                     ) */
-/*                 ), */
-/*             ), */
-/*             $a */
-/*         ); */
+        $a = $db->search('(c=1)');
+        $this->assertNoError($a);
+        $this->assertEquals(
+            array(
+                'cn=a' => array(
+                    'a' => '1',
+                    'b' => '1',
+                    'c' => '1',
+                    'dn' => 'cn=a',
+                ),
+                'cn=d' => array(
+                    'a' => '2',
+                    'b' => '2',
+                    'c' => '1',
+                    'dn' => 'cn=d',
+                ),
+            ),
+            $a->as_struct()
+        );
 
-/*         $a = $db->_search('(c=3)'); */
-/*         $this->assertNoError($a); */
-/*         $this->assertEquals( */
-/*             array( */
-/*                 array( */
-/*                     'dn' => 'cn=c', */
-/*                     'data' => array( */
-/*                         'a' => '1', */
-/*                         'b' => '2', */
-/*                         'c' => '3', */
-/*                     ) */
-/*                 ), */
-/*             ), */
-/*             $a */
-/*         ); */
+        $a = $db->search('(c=3)');
+        $this->assertNoError($a);
+        $this->assertEquals(
+            array(
+                'cn=c' => array(
+                    'a' => '1',
+                    'b' => '2',
+                    'c' => '3',
+                    'dn' => 'cn=c',
+                ),
+            ),
+            $a->as_struct()
+        );
 
-/*         $a = $db->_search('(c=3)', array('a')); */
-/*         $this->assertNoError($a); */
-/*         $this->assertEquals( */
-/*             array( */
-/*                 array( */
-/*                     'dn' => 'cn=c', */
-/*                     'data' => array( */
-/*                         'a' => '1', */
-/*                     ) */
-/*                 ), */
-/*             ), */
-/*             $a */
-/*         ); */
+        $a = $db->search('(c=3)', array('attributes' => array('a')));
+        $this->assertNoError($a);
+        $this->assertEquals(
+            array(
+                'cn=c' => array(
+                    'a' => '1',
+                    'dn' => 'cn=c',
+                ),
+            ),
+            $a->as_struct()
+        );
 
-/*         $a = $db->_search('(&(a=1)(b=2))', array('a', 'b')); */
-/*         $this->assertNoError($a); */
-/*         $this->assertEquals( */
-/*             array( */
-/*                 array( */
-/*                     'dn' => 'cn=b', */
-/*                     'data' => array( */
-/*                         'a' => '1', */
-/*                         'b' => '2', */
-/*                     ) */
-/*                 ), */
-/*                 array( */
-/*                     'dn' => 'cn=c', */
-/*                     'data' => array( */
-/*                         'a' => '1', */
-/*                         'b' => '2', */
-/*                     ) */
-/*                 ), */
-/*             ), */
-/*             $a */
-/*         ); */
+        $a = $db->search('(&(a=1)(b=2))', array('attributes' => array('a', 'b')));
+        $this->assertNoError($a);
+        $this->assertEquals(
+            array(
+                'cn=b' => array(
+                    'a' => '1',
+                    'b' => '2',
+                    'dn' => 'cn=b',
+                ),
+                'cn=c' => array(
+                    'a' => '1',
+                    'b' => '2',
+                    'dn' => 'cn=c',
+                ),
+            ),
+            $a->as_struct()
+        );
 
-/*         $a = $db->_search('(&(b=2))', array('b')); */
-/*         $this->assertNoError($a); */
-/*         $this->assertEquals( */
-/*             array( */
-/*                 array( */
-/*                     'dn' => 'cn=b', */
-/*                     'data' => array( */
-/*                         'b' => '2', */
-/*                     ) */
-/*                 ), */
-/*                 array( */
-/*                     'dn' => 'cn=c', */
-/*                     'data' => array( */
-/*                         'b' => '2', */
-/*                     ) */
-/*                 ), */
-/*                 array( */
-/*                     'dn' => 'cn=d', */
-/*                     'data' => array( */
-/*                         'b' => '2', */
-/*                     ) */
-/*                 ), */
-/*             ), */
-/*             $a */
-/*         ); */
+        $a = $db->search('(&(b=2))', array('attributes' => array('b')));
+        $this->assertNoError($a);
+        $this->assertEquals(
+            array(
+                'cn=b' => array(
+                    'b' => '2',
+                    'dn' => 'cn=b',
+                ),
+                'cn=c' => array(
+                    'b' => '2',
+                    'dn' => 'cn=c',
+                ),
+                'cn=d' => array(
+                    'b' => '2',
+                    'dn' => 'cn=d',
+                ),
+            ),
+            $a->as_struct()
+        );
 
-/*         $a = $db->_search('(!(b=2))', array('a', 'b')); */
-/*         $this->assertNoError($a); */
-/*         $this->assertEquals( */
-/*             array( */
-/*                 array( */
-/*                     'dn' => 'cn=a', */
-/*                     'data' => array( */
-/*                         'a' => '1', */
-/*                         'b' => '1', */
-/*                     ) */
-/*                 ), */
-/*             ), */
-/*             $a */
-/*         ); */
+        $a = $db->search('(!(b=2))', array('attributes' => array('a', 'b')));
+        $this->assertNoError($a);
+        $this->assertEquals(
+            array(
+                'cn=a' => array(
+                    'a' => '1',
+                    'b' => '1',
+                    'dn' => 'cn=a',
+                ),
+            ),
+            $a->as_struct()
+        );
 
-/*         $a = $db->_search('(&(!(x=2))(b=1))', array('b')); */
-/*         $this->assertNoError($a); */
-/*         $this->assertEquals( */
-/*             array( */
-/*                 array( */
-/*                     'dn' => 'cn=a', */
-/*                     'data' => array( */
-/*                         'b' => '1', */
-/*                     ) */
-/*                 ), */
-/*             ), */
-/*             $a */
-/*         ); */
+        $a = $db->search('(&(!(x=2))(b=1))', array('attributes' => array('b')));
+        $this->assertNoError($a);
+        $this->assertEquals(
+            array(
+                'cn=a' => array(
+                    'b' => '1',
+                    'dn' => 'cn=a',
+                ),
+            ),
+            $a->as_struct()
+        );
     }
 
 }

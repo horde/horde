@@ -65,8 +65,9 @@ class Horde_Kolab_Server_GroupTest extends Horde_Kolab_Test_Server
     public function testGenerateId()
     {
         $groups = $this->validGroups();
-        $this->assertEquals('cn=empty.group@example.org,dc=example,dc=org',
-                            $this->ldap->generateUid('Horde_Kolab_Server_Object_Kolabgroupofnames', $groups[0][0]));
+        $user = new Horde_Kolab_Server_Object_Kolabgroupofnames($this->ldap, null, $groups[0][0]);
+        $this->assertNoError($user);
+        $this->assertEquals('cn=empty.group@example.org,dc=example,dc=org', $user->get(Horde_Kolab_Server_Object::ATTRIBUTE_UID));
     }
 
     /**

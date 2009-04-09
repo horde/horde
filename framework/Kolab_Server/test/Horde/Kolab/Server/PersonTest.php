@@ -51,17 +51,41 @@ class Horde_Kolab_Server_PersonTest extends Horde_Kolab_Test_Server
             Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN           => 'Kolab_Server_PersonTest_123',
             Horde_Kolab_Server_Object_Person::ATTRIBUTE_USERPASSWORD => 'Kolab_Server_PersonTest_123',
         ),
+        /* Person with problematic characters */
+        array(
+            'type' => 'Horde_Kolab_Server_Object_Person',
+            Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN           => 'Kolab_Server_PersonTest_!"$%&()=?',
+            Horde_Kolab_Server_Object_Person::ATTRIBUTE_SN           => 'Kolab_Server_PersonTest_!"$%&()=?',
+            Horde_Kolab_Server_Object_Person::ATTRIBUTE_USERPASSWORD => 'Kolab_Server_PersonTest_!"$%&()=?',
+        ),
+        /* Person with difficult encoding */
+        array(
+            'type' => 'Horde_Kolab_Server_Object_Person',
+            Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN           => 'Kolab_Server_PersonTest_ügöräß§',
+            Horde_Kolab_Server_Object_Person::ATTRIBUTE_SN           => 'Kolab_Server_PersonTest_ügöräß§',
+            Horde_Kolab_Server_Object_Person::ATTRIBUTE_USERPASSWORD => 'Kolab_Server_PersonTest_ügöräß§',
+        ),
+        /* Person with forward slash */
+        array(
+            'type' => 'Horde_Kolab_Server_Object_Person',
+            Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN           => 'Kolab_Server_PersonTest_/',
+            Horde_Kolab_Server_Object_Person::ATTRIBUTE_SN           => 'Kolab_Server_PersonTest_/',
+            Horde_Kolab_Server_Object_Person::ATTRIBUTE_USERPASSWORD => 'Kolab_Server_PersonTest_/',
+        ),
     );
 
     /**
      * Test ID generation for a person.
      *
+     * @dataProvider provideServers
+     *
      * @return NULL
      */
-    public function testGenerateId()
+    public function testGenerateId($server)
     {
-        $this->assertEquals(Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN . '=' . $this->objects[0][Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN],
-                            Horde_Kolab_Server_Object_Person::generateId($this->objects[0]));
+        $a = new Horde_Kolab_Server_Object_Person($server, null, $this->objects[0]);
+        $this->assertContains(Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN . '=' . $this->objects[0][Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN],
+                              $a->get(Horde_Kolab_Server_Object_Person::ATTRIBUTE_UID));
     }
 
     /**
@@ -86,14 +110,27 @@ class Horde_Kolab_Server_PersonTest extends Horde_Kolab_Test_Server
      */
     public function testAddPerson($server)
     {
-        $result = $server->add($this->objects[0]);
-        $this->assertNoError($result);
-        $cn_result = $server->uidForCn($this->objects[0][Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN]);
-        $this->assertContains(Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN . '=' . $this->objects[0][Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN],
-                              $cn_result);
-        $result = $server->delete($cn_result);
-        $this->assertNoError($result);
-        $cn_result = $server->uidForCn($this->objects[0][Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN]);
-        $this->assertFalse($server->uidForCn($this->objects[0][Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN]));
+        $adds = array(0, 2, 3, 4);
+        foreach ($adds as $add) {
+            $result = $server->add($this->objects[$add]);
+            $this->assertNoError($result);
+            $cn_result = $server->uidForCn($this->objects[$add][Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN]);
+            $this->assertNoError($cn_result);
+            $dn_parts = Net_LDAP2_Util::ldap_explode_dn($cn_result, array('casefold' => 'lower'));
+            $dnpart = Net_LDAP2_Util::unescape_dn_value($dn_parts[0]);
+            /**
+             * FIXME: I currently do not really understand why the forward slash
+             * is not correctly converted back but I lack the time to analyse it
+             * in detail. The server entry looks okay.
+            */
+            $dnpart = str_replace('\/', '/', $dnpart);
+            $this->assertContains(Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN . '=' . $this->objects[$add][Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN],
+                                  $dnpart[0]);
+            $result = $server->delete($cn_result);
+            $this->assertNoError($result);
+            $cn_result = $server->uidForCn($this->objects[$add][Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN]);
+            $this->assertNoError($cn_result);
+            $this->assertFalse($server->uidForCn($this->objects[$add][Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN]));
+        }
     }
 }

@@ -46,18 +46,6 @@ class Horde_Kolab_Server_ObjectTest extends Horde_Kolab_Test_Server
     }
 
     /**
-     * Test construction of the class.
-     *
-     * @expectedException Horde_Kolab_Server_Exception
-     *
-     * @return NULL
-     */
-    public function testConstructFailureWithoutUid()
-    {
-        $ko = &new Horde_Kolab_Server_Object($this->_dummydb);
-    }
-
-    /**
      * Provide test data for the ConstructDn test.
      *
      * @return array The test object data.

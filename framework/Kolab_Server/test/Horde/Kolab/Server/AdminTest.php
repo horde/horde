@@ -64,9 +64,9 @@ class Horde_Kolab_Server_AdminTest extends Horde_Kolab_Test_Server
     {
         $admin = $this->provideBasicAdmin();
         $this->assertNoError($admin);
-        $uid = $this->ldap->generateUid('Horde_Kolab_Server_Object_Kolab_Administrator', $admin);
-        $this->assertNoError($uid);
-        $this->assertEquals('cn=The Administrator,dc=example,dc=org', $uid);
+        $user = new Horde_Kolab_Server_Object_Kolab_Administrator($this->ldap, null, $admin);
+        $this->assertNoError($user);
+        $this->assertEquals('cn=The Administrator,dc=example,dc=org', $user->get(Horde_Kolab_Server_Object::ATTRIBUTE_UID));
     }
 
     /**
