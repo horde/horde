@@ -91,6 +91,7 @@ class Horde_Kolab_Server_PersonTest extends Horde_Kolab_Test_Server
         $cn_result = $server->uidForCn($this->objects[0][Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN]);
         $this->assertContains(Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN . '=' . $this->objects[0][Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN],
                               $cn_result);
+        $result = $server->delete($cn_result);
         $this->assertNoError($result);
         $cn_result = $server->uidForCn($this->objects[0][Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN]);
         $this->assertFalse($server->uidForCn($this->objects[0][Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN]));
