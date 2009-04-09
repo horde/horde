@@ -659,14 +659,14 @@ var DimpBase = {
 
         case 'ctx_folder_empty':
             mbox = baseelt.up('LI').readAttribute('mbox');
-            if (window.confirm(DIMP.text.empty_folder)) {
+            if (window.confirm(DIMP.text.empty_folder.replace(/%s/, mbox))) {
                 DimpCore.doAction('EmptyFolder', { view: mbox }, null, this._emptyFolderCallback.bind(this));
             }
             break;
 
         case 'ctx_folder_delete':
             mbox = baseelt.up('LI').readAttribute('mbox');
-            if (window.confirm(DIMP.text.delete_folder)) {
+            if (window.confirm(DIMP.text.delete_folder.replace(/%s/, mbox))) {
                 DimpCore.doAction('DeleteFolder', { view: mbox }, null, this.bcache.get('folderC') || this.bcache.set('folderC', this._folderCallback.bind(this)));
             }
             break;
