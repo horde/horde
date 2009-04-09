@@ -145,10 +145,14 @@ var ContextSensitive = Class.create({
             elt = e.element();
             if (!elt.match('A')) {
                 elt = elt.up('A');
+                if (!elt) {
+                    this._rightClickHandler(e, true);
+                    return;
+                }
             }
             elt_up = elt.up();
 
-            if (elt_up.hasClassName('contextMenu')) {
+            if (elt_up && elt_up.hasClassName('contextMenu')) {
                 e.stop();
 
                 if (elt.hasClassName('contextSubmenu') &&
