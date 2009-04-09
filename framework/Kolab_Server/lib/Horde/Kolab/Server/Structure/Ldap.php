@@ -83,4 +83,34 @@ class Horde_Kolab_Server_Structure_Ldap extends Horde_Kolab_Server_Structure
     {
         return sprintf('%s,%s', $id, $this->server->getBaseUid());
     }
+
+    /**
+     * Quote an UID part.
+     *
+     * @param string $id   The UID part.
+     *
+     * @return string The UID part.
+     */
+    public function quoteForUid($id)
+    {
+        require_once 'Net/LDAP2/Util.php';
+
+        $id = Net_LDAP2_Util::escape_dn_value($id);
+        return $id[0];
+    }
+
+    /**
+     * Quote an filter part.
+     *
+     * @param string $part   The filter part.
+     *
+     * @return string The quoted part.
+     */
+    public function quoteForFilter($part)
+    {
+        require_once 'Net/LDAP2/Util.php';
+
+        $part = Net_LDAP2_Util::escape_filter_value($part);
+        return $part[0];
+    }
 }

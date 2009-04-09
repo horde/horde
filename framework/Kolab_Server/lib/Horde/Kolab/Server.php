@@ -250,27 +250,6 @@ abstract class Horde_Kolab_Server
     }
 
     /**
-     * Generates a unique ID for the given information.
-     *
-     * @param string $type The type of the object to create.
-     * @param array  $info Any additional information about the object to create.
-     *
-     * @return string The UID.
-     *
-     * @throws Horde_Kolab_Server_Exception
-     */
-    public function generateUid($type, $info)
-    {
-        if (!class_exists($type)) {
-            $result = Horde_Kolab_Server_Object::loadClass($type);
-        }
-
-        $id = call_user_func(array($type, 'generateId'), $info);
-
-        return $this->generateServerUid($type, $id, $info);
-    }
-
-    /**
      * Add a Kolab object.
      *
      * @param array $info The object to store.
@@ -288,13 +267,11 @@ abstract class Horde_Kolab_Server
                 'The type of a new object must be specified!');
         }
 
-        $uid = $this->generateUid($info['type'], $info);
-
-        $object = &Horde_Kolab_Server_Object::factory($info['type'], $uid, $this);
+        $object = &Horde_Kolab_Server_Object::factory($info['type'], null, $this, $info);
         if ($object->exists()) {
             throw new Horde_Kolab_Server_Exception(
                 sprintf(_("The object with the uid \"%s\" does already exist!"),
-                        $uid));
+                        $object->get(Horde_Kolab_Server_Object::ATTRIBUTE_UID)));
         }
         unset($info['type']);
         $object->save($info);
@@ -380,7 +357,7 @@ abstract class Horde_Kolab_Server
      *
      * @throws Horde_Kolab_Server_Exception
      */
-    protected function generateServerUid($type, $id, $info)
+    public function generateServerUid($type, $id, $info)
     {
         return $this->structure->generateServerUid($type, $id, $info);
     }

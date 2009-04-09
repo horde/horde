@@ -166,22 +166,25 @@ class Horde_Kolab_Server_Object
      * @param string             $uid     UID of the object.
      * @param array              $data    A possible array of data for the object
      */
-    public function __construct(&$server, $uid = null, $data = null)
+    public function __construct(&$server, $uid = null, $data = false)
     {
         $this->server = &$server;
         if (empty($uid)) {
-            if (empty($data) || !isset($data[self::ATTRIBUTE_UID])) {
-                throw new Horde_Kolab_Server_Exception(_('Specify either the UID or a search result!'));
-            }
-            if (is_array($data[self::ATTRIBUTE_UID])) {
-                $this->uid = $data[self::ATTRIBUTE_UID][0];
+            if (isset($data[self::ATTRIBUTE_UID])) {
+                if (is_array($data[self::ATTRIBUTE_UID])) {
+                    $this->uid = $data[self::ATTRIBUTE_UID][0];
+                } else {
+                    $this->uid = $data[self::ATTRIBUTE_UID];
+                }
             } else {
-                $this->uid = $data[self::ATTRIBUTE_UID];
+                $this->uid = $this->server->generateServerUid(get_class($this),
+                                                              $this->generateId($data),
+                                                              $data);
             }
-            $this->_cache = $data;
         } else {
             $this->uid = $uid;
         }
+        $this->_cache = $data;
 
         list($this->attributes, $this->attribute_map) = $server->getAttributes(get_class($this));
     }
@@ -503,12 +506,12 @@ class Horde_Kolab_Server_Object
      *
      * @return string The ID.
      */
-    public static function generateId($info)
+    public function generateId($info)
     {
         if (!empty($info[self::ATTRIBUTE_ID])) {
-            return $info[self::ATTRIBUTE_ID];
+            return $this->server->structure->quoteForUid($info[self::ATTRIBUTE_ID]);
         }
-        return hash('sha256', uniqid(mt_rand(), true));
+        return $this->server->structure->quoteForUid(hash('sha256', uniqid(mt_rand(), true)));
     }
 
     /**

@@ -100,12 +100,12 @@ class Horde_Kolab_Server_Object_Kolabgroupofnames extends Horde_Kolab_Server_Obj
      *
      * @return string|PEAR_Error The ID.
      */
-    public static function generateId($info)
+    public function generateId($info)
     {
         if (isset($info[self::ATTRIBUTE_MAIL])) {
-            return trim(self::ATTRIBUTE_CN . '=' . $info[self::ATTRIBUTE_MAIL], " \t\n\r\0\x0B,");
+            return self::ATTRIBUTE_CN . '=' . $this->server->structure->quoteForUid(trim($info[self::ATTRIBUTE_MAIL]), " \t\n\r\0\x0B,");
         } else {
-            return trim(self::ATTRIBUTE_CN . '=' . $info[self::ATTRIBUTE_CN], " \t\n\r\0\x0B,");
+            return self::ATTRIBUTE_CN . '=' . $this->server->structure->quoteForUid(trim($info[self::ATTRIBUTE_CN]), " \t\n\r\0\x0B,");
         }
     }
 

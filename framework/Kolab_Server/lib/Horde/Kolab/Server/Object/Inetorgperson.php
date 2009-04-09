@@ -150,7 +150,7 @@ class Horde_Kolab_Server_Object_Inetorgperson extends Horde_Kolab_Server_Object_
      *
      * @return string|PEAR_Error The ID.
      */
-    public static function generateId($info)
+    public function generateId($info)
     {
         $id_mapfields = array(self::ATTRIBUTE_GIVENNAME,
                               self::ATTRIBUTE_SN);
@@ -159,7 +159,7 @@ class Horde_Kolab_Server_Object_Inetorgperson extends Horde_Kolab_Server_Object_
         $fieldarray = array();
         foreach ($id_mapfields as $mapfield) {
             if (isset($info[$mapfield])) {
-                $fieldarray[] = $info[$mapfield];
+                $fieldarray[] = $this->server->structure->quoteForUid($info[$mapfield]);
             } else {
                 $fieldarray[] = '';
             }
@@ -167,4 +167,5 @@ class Horde_Kolab_Server_Object_Inetorgperson extends Horde_Kolab_Server_Object_
 
         return trim(vsprintf($id_format, $fieldarray), " \t\n\r\0\x0B,");
     }
+
 }

@@ -79,9 +79,9 @@ class Horde_Kolab_Server_Object_Kolabsharedfolder extends Horde_Kolab_Server_Obj
      *
      * @return string|PEAR_Error The ID.
      */
-    public static function generateId($info)
+    public function generateId($info)
     {
-        return trim(self::ATTRIBUTE_CN . '=' . $info['cn'], " \t\n\r\0\x0B,");
+        return self::ATTRIBUTE_CN . '=' . $this->server->structure->quoteForUid(trim($info['cn'], " \t\n\r\0\x0B,"));
     }
 
     /**

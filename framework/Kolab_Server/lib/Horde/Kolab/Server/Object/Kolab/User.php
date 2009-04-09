@@ -229,7 +229,7 @@ class Horde_Kolab_Server_Object_Kolab_User extends Horde_Kolab_Server_Object_Kol
      *
      * @return string|PEAR_Error The ID.
      */
-    public static function generateId($info)
+    public function generateId($info)
     {
         global $conf;
 
@@ -251,7 +251,7 @@ class Horde_Kolab_Server_Object_Kolab_User extends Horde_Kolab_Server_Object_Kol
         $fieldarray = array();
         foreach ($id_mapfields as $mapfield) {
             if (isset($info[$mapfield])) {
-                $fieldarray[] = $info[$mapfield];
+                $fieldarray[] = $this->server->structure->quoteForUid($info[$mapfield]);
             } else {
                 $fieldarray[] = '';
             }

@@ -120,22 +120,32 @@ class Horde_Kolab_Server_Structure_Kolab extends Horde_Kolab_Server_Structure_Ld
             if (empty($info['user_type'])) {
                 return parent::generateServerUid($type, $id, $info);
             } else if ($info['user_type'] == Horde_Kolab_Server_Object_Kolab_User::USERTYPE_INTERNAL) {
-                return sprintf('%s,cn=internal,%s', $id, $this->server->getBaseUid());
+                return parent::generateServerUid($type,
+                                                 sprintf('%s,cn=internal', $id),
+                                                 $info);
             } else if ($info['user_type'] == Horde_Kolab_Server_Object_Kolab_User::USERTYPE_GROUP) {
-                return sprintf('%s,cn=groups,%s', $id, $this->server->getBaseUid());
+                return parent::generateServerUid($type,
+                                                 sprintf('%s,cn=groups', $id),
+                                                 $info);
             } else if ($info['user_type'] == Horde_Kolab_Server_Object_Kolab_User::USERTYPE_RESOURCE) {
-                return sprintf('%s,cn=resources,%s', $id, $this->server->getBaseUid());
+                return parent::generateServerUid($type,
+                                                 sprintf('%s,cn=resources', $id),
+                                                 $info);
             } else {
                 return parent::generateServerUid($type, $id, $info);
             }
         case 'Horde_Kolab_Server_Object_Kolab_Address':
-            return sprintf('%s,cn=external,%s', $id, $this->server->getBaseUid());
+            return parent::generateServerUid($type,
+                                             sprintf('%s,cn=external', $id),
+                                             $info);
         case 'Horde_Kolab_Server_Object_Kolabgroupofnames':
         case 'Horde_Kolab_Server_Object_Kolab_Distlist':
             if (!isset($info['visible']) || !empty($info['visible'])) {
                 return parent::generateServerUid($type, $id, $info);
             } else {
-                return sprintf('%s,cn=internal,%s', $id, $this->server->getBaseUid());
+                return parent::generateServerUid($type,
+                                                 sprintf('%s,cn=internal', $id),
+                                                 $info);
             }
         case 'Horde_Kolab_Server_Object_Kolabsharedfolder':
         case 'Horde_Kolab_Server_Object_Kolab_Administrator':

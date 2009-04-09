@@ -190,12 +190,12 @@ class Horde_Kolab_Server_Object_Person extends Horde_Kolab_Server_Object
      *
      * @return string The ID.
      */
-    public static function generateId($info)
+    public function generateId($info)
     {
         if (!empty($info[self::ATTRIBUTE_CN])) {
-            return self::ATTRIBUTE_CN . '=' . $info[self::ATTRIBUTE_CN];
+            return self::ATTRIBUTE_CN . '=' . $this->server->structure->quoteForUid($info[self::ATTRIBUTE_CN]);
         }
-        return self::ATTRIBUTE_CN . '=' . $info[self::ATTRIBUTE_SN];
+        return self::ATTRIBUTE_CN . '=' . $this->server->structure->quoteForUid($info[self::ATTRIBUTE_SN]);
     }
 
     /**

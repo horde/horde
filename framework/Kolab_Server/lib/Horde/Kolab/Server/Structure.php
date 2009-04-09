@@ -116,4 +116,22 @@ abstract class Horde_Kolab_Server_Structure
      * @throws Horde_Kolab_Server_Exception If the given type is unknown.
      */
     abstract public function generateServerUid($type, $id, $info);
+
+    /**
+     * Quote an UID part.
+     *
+     * @param string $id   The UID part.
+     *
+     * @return string The quoted part.
+     */
+    abstract public function quoteForUid($id);
+
+    /**
+     * Quote an filter part.
+     *
+     * @param string $part   The filter part.
+     *
+     * @return string The quoted part.
+     */
+    abstract public function quoteForFilter($part);
 }
