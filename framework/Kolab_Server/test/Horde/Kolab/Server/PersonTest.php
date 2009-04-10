@@ -72,7 +72,36 @@ class Horde_Kolab_Server_PersonTest extends Horde_Kolab_Test_Server
             Horde_Kolab_Server_Object_Person::ATTRIBUTE_SN           => 'Kolab_Server_PersonTest_/',
             Horde_Kolab_Server_Object_Person::ATTRIBUTE_USERPASSWORD => 'Kolab_Server_PersonTest_/',
         ),
+        /* Person with double cn */
+        array(
+            'type' => 'Horde_Kolab_Server_Object_Person',
+            Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN           => array('Kolab_Server_PersonTest_cn1',
+                                                                              'Kolab_Server_PersonTest_cn2'),
+            Horde_Kolab_Server_Object_Person::ATTRIBUTE_SN           => 'Kolab_Server_PersonTest_cncn',
+            Horde_Kolab_Server_Object_Person::ATTRIBUTE_USERPASSWORD => 'Kolab_Server_PersonTest_cncn',
+        ),
     );
+
+    /**
+     * Provide different server types.
+     *
+     * @return array The different server types.
+     */
+    public function &provideServers()
+    {
+        $servers = array();
+        /**
+         * We always use the test server
+         */
+        $servers[] = array($this->prepareEmptyKolabServer());
+        if (false) {
+            $real = $this->prepareLdapKolabServer();
+            if (!empty($real)) {
+                $servers[] = array($real);
+            }
+        }
+        return $servers;
+    }
 
     /**
      * Test ID generation for a person.
@@ -186,5 +215,29 @@ class Horde_Kolab_Server_PersonTest extends Horde_Kolab_Test_Server
         $cn_result = $server->uidForCn($this->objects[$add][Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN]);
         $this->assertNoError($cn_result);
         $this->assertFalse($server->uidForCn($this->objects[$add][Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN]));
+    }
+
+    /**
+     * Test adding a person with two common names.
+     *
+     * @dataProvider provideServers
+     *
+     * @return NULL
+     */
+    public function testAddDoubleCnPerson($server)
+    {
+        $result = $server->add($this->objects[5]);
+        $this->assertNoError($result);
+        $cn_result = $server->uidForCn($this->objects[5][Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN][0]);
+        $this->assertNoError($cn_result);
+        $dn_parts = Net_LDAP2_Util::ldap_explode_dn($cn_result, array('casefold' => 'lower'));
+        $dnpart = Net_LDAP2_Util::unescape_dn_value($dn_parts[0]);
+        $this->assertContains(Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN . '=' . $this->objects[5][Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN][0],
+                              $dnpart[0]);
+        $result = $server->delete($cn_result);
+        $this->assertNoError($result);
+        $cn_result = $server->uidForCn($this->objects[5][Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN]);
+        $this->assertNoError($cn_result);
+        $this->assertFalse($server->uidForCn($this->objects[5][Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN]));
     }
 }
