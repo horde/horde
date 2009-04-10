@@ -512,7 +512,12 @@ class Horde_Kolab_Server_Object
     public function generateId($info)
     {
         if (!empty($info[self::ATTRIBUTE_ID])) {
-            return $this->server->structure->quoteForUid($info[self::ATTRIBUTE_ID]);
+            if (is_array($info[self::ATTRIBUTE_ID])) {
+                $id = $info[self::ATTRIBUTE_ID][0];
+            } else {
+                $id = $info[self::ATTRIBUTE_ID];
+            }
+            return $this->server->structure->quoteForUid($id);
         }
         return $this->server->structure->quoteForUid(hash('sha256', uniqid(mt_rand(), true)));
     }
@@ -602,10 +607,12 @@ class Horde_Kolab_Server_Object
                             $info[$key] = $value;
                         }
                         if (!is_array($this->_cache[$key])) {
-                            $changes = array_diff(array($this->_cache[$key]), $value);
+                            $old = array($this->_cache[$key]);
                         } else {
-                            $changes = array_diff($this->_cache[$key], $value);
+                            $old = $this->_cache[$key];
                         }
+                        $changes = array_merge(array_diff($old, $value),
+                                               array_diff($value, $old));
                         if (empty($changes)) {
                             // Unchanged value
                             unset($info[$key]);
