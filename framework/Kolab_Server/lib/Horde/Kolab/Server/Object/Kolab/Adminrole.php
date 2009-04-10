@@ -49,25 +49,7 @@ class Horde_Kolab_Server_Object_Kolab_Adminrole extends Horde_Kolab_Server_Objec
      */
     public static function getFilter()
     {
-        return '(&(cn=*)(objectClass=inetOrgPerson)(!(uid=manager))(sn=*))';
-    }
-
-    /**
-     * Convert the object attributes to a hash.
-     *
-     * @param string $attrs The attributes to return.
-     *
-     * @return array|PEAR_Error The hash representing this object.
-     */
-    public function toHash($attrs = null)
-    {
-        if (!isset($attrs)) {
-            $attrs = array(
-                self::ATTRIBUTE_SID,
-                self::ATTRIBUTE_LNFN,
-            );
-        }
-        return parent::toHash($attrs);
+        return '(&(' . self::ATTRIBUTE_CN . '=*)(' . self::ATTRIBUTE_OC . '=' . self::OBJECTCLASS_INETORGPERSON . ')(!(' . self::ATTRIBUTE_UID . '=manager))(' . self::ATTRIBUTE_SN . '=*))';
     }
 
     /**
@@ -79,19 +61,14 @@ class Horde_Kolab_Server_Object_Kolab_Adminrole extends Horde_Kolab_Server_Objec
      */
     public function save($info)
     {
-        if (!isset($info['cn'])) {
-            if (!isset($info['sn']) || !isset($info['givenName'])) {
-                return PEAR::raiseError('Either the last name or the given name is missing!');
-            } else {
-                $info['cn'] = $this->generateId($info);
-            }
-        }
-
         $admins_uid = sprintf('%s,%s', $this->required_group,
                               $this->server->getBaseUid());
 
-        $admin_group = $this->server->fetch($admins_uid, 'Horde_Kolab_Server_Object_Kolabgroupofnames');
-        if ($admin_group instanceOf PEAR_Error || !$admin_group->exists()) {
+        $save_result = parent::save($info);
+
+        $admin_group = $this->server->fetch($admins_uid,
+                                            'Horde_Kolab_Server_Object_Kolabgroupofnames');
+        if (!$admin_group->exists()) {
 
             $members = array($this->uid);
 
@@ -99,25 +76,32 @@ class Horde_Kolab_Server_Object_Kolab_Adminrole extends Horde_Kolab_Server_Objec
             $parts           = split(',', $this->required_group);
             list($groupname) = sscanf($parts[0], 'cn=%s');
 
-            $result = $this->server->add(array(self::ATTRIBUTE_CN => $groupname,
-                                               'type' => 'Horde_Kolab_Server_Object_Kolabgroupofnames',
-                                               Horde_Kolab_Server_Object_Kolabgroupofnames::ATTRIBUTE_MEMBER => $members,
-                                               Horde_Kolab_Server_Object_Kolabgroupofnames::ATTRIBUTE_VISIBILITY => false));
-            if ($result instanceOf PEAR_Error) {
-                return $result;
-            }
+            $this->createAdminroleGroup($groupname, $members);
         } else {
             $result = $admin_group->isMember($this->uid);
-            if ($result instanceOf PEAR_Error) {
-                return $result;
-            }
             if ($result === false) {
                 $members   = $admin_group->getMembers();
                 $members[] = $this->uid;
-                $admin_group->save(array(self::ATTRIBUTE_MEMBER => $members));
+                $admin_group->save(array(Horde_Kolab_Server_Object_Kolabgroupofnames::ATTRIBUTE_MEMBER => $members));
             }
         }
-        return parent::save($info);
+        return $save_result;
     }
 
+    /**
+     * Create a required group to represent the admin role.
+     *
+     * @param string $groupname The name of the group.
+     * @param array  $members   The initial members.
+     *
+     * @return boolean True on success.
+     */
+    protected function createAdminroleGroup($groupname, $members)
+    {
+        $result = $this->server->add(array('type' => 'Horde_Kolab_Server_Object_Kolabgroupofnames',
+                                           self::ATTRIBUTE_CN => $groupname,
+                                           Horde_Kolab_Server_Object_Kolabgroupofnames::ATTRIBUTE_MEMBER => $members,
+                                           Horde_Kolab_Server_Object_Kolabgroupofnames::ATTRIBUTE_VISIBILITY => false));
+        return true;
+    }
 }
