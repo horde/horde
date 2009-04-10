@@ -103,10 +103,14 @@ class Horde_Kolab_Server_Object_Kolabgroupofnames extends Horde_Kolab_Server_Obj
     public function generateId($info)
     {
         if (isset($info[self::ATTRIBUTE_MAIL])) {
-            return self::ATTRIBUTE_CN . '=' . $this->server->structure->quoteForUid(trim($info[self::ATTRIBUTE_MAIL]), " \t\n\r\0\x0B,");
+            $id = $info[self::ATTRIBUTE_MAIL];
         } else {
-            return self::ATTRIBUTE_CN . '=' . $this->server->structure->quoteForUid(trim($info[self::ATTRIBUTE_CN]), " \t\n\r\0\x0B,");
+            $id = $info[self::ATTRIBUTE_CN];
         }
+        if (is_array($id)) {
+            $id = $id[0];
+        }
+        return self::ATTRIBUTE_CN . '=' . $this->server->structure->quoteForUid(trim($id, " \t\n\r\0\x0B,"));
     }
 
     /**
@@ -118,11 +122,13 @@ class Horde_Kolab_Server_Object_Kolabgroupofnames extends Horde_Kolab_Server_Obj
      */
     public function save($info)
     {
-        if (!isset($info[self::ATTRIBUTE_CN])) {
-            if (!isset($info[self::ATTRIBUTE_MAIL])) {
-                throw new Horde_Kolab_Server_Exception('Either the mail address or the common name has to be specified for a group object!');
-            } else {
-                $info[self::ATTRIBUTE_CN] = $info[self::ATTRIBUTE_MAIL];
+        if (!$this->exists()) {
+            if (!isset($info[self::ATTRIBUTE_CN])) {
+                if (!isset($info[self::ATTRIBUTE_MAIL])) {
+                    throw new Horde_Kolab_Server_Exception('Either the mail address or the common name has to be specified for a group object!');
+                } else {
+                    $info[self::ATTRIBUTE_CN] = $info[self::ATTRIBUTE_MAIL];
+                }
             }
         }
         return parent::save($info);
