@@ -251,7 +251,11 @@ class Horde_Kolab_Server_Object_Kolab_User extends Horde_Kolab_Server_Object_Kol
         $fieldarray = array();
         foreach ($id_mapfields as $mapfield) {
             if (isset($info[$mapfield])) {
-                $fieldarray[] = $this->server->structure->quoteForUid($info[$mapfield]);
+                $id = $info[$mapfield];
+                if (is_array($id)) {
+                    $id = $id[0];
+                }
+                $fieldarray[] = $this->server->structure->quoteForUid($id);
             } else {
                 $fieldarray[] = '';
             }

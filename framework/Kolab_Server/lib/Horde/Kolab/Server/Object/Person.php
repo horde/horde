@@ -193,9 +193,14 @@ class Horde_Kolab_Server_Object_Person extends Horde_Kolab_Server_Object
     public function generateId($info)
     {
         if (!empty($info[self::ATTRIBUTE_CN])) {
-            return self::ATTRIBUTE_CN . '=' . $this->server->structure->quoteForUid($info[self::ATTRIBUTE_CN]);
+            $id = $info[self::ATTRIBUTE_CN];
+        } else {
+            $id = $info[self::ATTRIBUTE_SN];
         }
-        return self::ATTRIBUTE_CN . '=' . $this->server->structure->quoteForUid($info[self::ATTRIBUTE_SN]);
+        if (is_array($id)) {
+            $id = $id[0];
+        }
+        return self::ATTRIBUTE_CN . '=' . $this->server->structure->quoteForUid($id);
     }
 
     /**

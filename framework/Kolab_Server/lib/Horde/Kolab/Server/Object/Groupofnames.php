@@ -81,7 +81,11 @@ class Horde_Kolab_Server_Object_Groupofnames extends Horde_Kolab_Server_Object
      */
     public function generateId($info)
     {
-        return trim(self::ATTRIBUTE_CN . '=' . $info[self::ATTRIBUTE_CN], " \t\n\r\0\x0B,");
+        $id = $info[self::ATTRIBUTE_CN];
+        if (is_array($id)) {
+            $id = $id[0];
+        }
+        return trim(self::ATTRIBUTE_CN . '=' . $id, " \t\n\r\0\x0B,");
     }
 
     /**
