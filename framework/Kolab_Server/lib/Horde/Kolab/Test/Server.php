@@ -297,14 +297,21 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
      *
      * @return Horde_Kolab_Server The LDAP server connection.
      */
-    public function &prepareLdapKolabServer($params)
+    public function &prepareLdapKolabServer()
     {
         global $conf;
 
-        /** Prepare a Kolab test server */
-        $conf['kolab']['server']['driver'] = 'ldap';
-
-        return Horde_Kolab_Server::singleton($params);
+        $base = getenv('HORDE_BASE');
+        if (!empty($base)) {
+            $config = $base . '/config/kolab.php';
+            if (file_exists($config)) {
+                @include $config; 
+                if (!empty($conf['kolab']['server']['params'])) {
+                    return Horde_Kolab_Server::singleton($params);
+                }
+            }
+        }
+        return false;
     }
 
     /**
@@ -319,16 +326,9 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
          * We always use the test server
          */
         $servers[] = array($this->prepareEmptyKolabServer());
-
-        $base = getenv('HORDE_BASE');
-        if (!empty($base)) {
-            $config = $base . '/config/kolab.php';
-            if (file_exists($config)) {
-                @include $config; 
-                if (!empty($conf['kolab']['server']['params'])) {
-                    $servers[] = array($this->prepareLdapKolabServer($conf['kolab']['server']['params']));
-                }
-            }
+        $real = $this->prepareLdapKolabServer();
+        if (!empty($real)) {
+            $servers[] = array($real);
         }
         return $servers;
     }
@@ -753,7 +753,8 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
     }
 
     /**
-     * Ensure that the variable contains no Horde_Kolab_Server_Exception and fail if it does.
+     * Ensure that the variable contains no Horde_Kolab_Server_Exception and
+     * fail if it does.
      *
      * @param mixed $var The variable to check.
      *
@@ -769,9 +770,9 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
     }
 
     /**
-     * Ensure that the variable contains a Horde_Kolab_Server_Exception and fail if it does
-     * not. Optionally compare the error message with the provided message and
-     * fail if both do not match.
+     * Ensure that the variable contains a Horde_Kolab_Server_Exception and fail
+     * if it does not. Optionally compare the error message with the provided
+     * message and fail if both do not match.
      *
      * @param mixed  $var The variable to check.
      * @param string $msg The expected error message.
