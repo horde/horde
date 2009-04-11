@@ -782,9 +782,9 @@ var DimpBase = {
         case 'ctx_otheractions':
             tmp = $('oa_blacklist', 'oa_whitelist', 'oa_undeleted');
             if (this.viewport.getMetaData('readonly')) {
-                $('oa_setflag').hide();
+                $('oa_setflag', 'oa_unsetflag').invoke('hide');
             } else {
-                tmp.push($('oa_setflag'));
+                tmp = tmp.concat($('oa_setflag', 'oa_unsetflag'));
             }
             tmp.compact().invoke(this.viewport.getSelected().size() ? 'show' : 'hide');
             break;
