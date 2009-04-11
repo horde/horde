@@ -174,8 +174,8 @@ function _simpleButton($id, $text, $image, $imagedir = null)
      </div>
 
      <div class="dimpActions">
-      <form action="#" method="post" onsubmit="return false;">
-       <input type="text" name="msgList_filter" id="msgList_filter" size="30" />
+      <form action="#" method="post">
+       <input id="msgList_filter" type="text" size="30" />
       </form>
       <span>
        <?php _createDA(_("Reply"), 'Reply', 'button_reply', '', $show_text) ?>

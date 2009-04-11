@@ -11,7 +11,7 @@ var DimpBase = {
     // Vars used and defaulting to null/false:
     //   cfolderaction, filter_on, filtertoggle, fl_visible, folder,
     //   folderswitch, fspecial, isvisible, message_list_template, offset,
-    //   pollPE, pp, searchobserve, uid, viewport
+    //   pollPE, pp, uid, viewport
     bcache: $H(),
     cacheids: {},
     lastrow: -1,
@@ -1254,10 +1254,6 @@ var DimpBase = {
         }
 
         this.filter_on = false;
-        if (this.searchobserve) {
-            clearTimeout(this.searchobserve);
-            this.searchobserve = null;
-        }
         this._setFilterText(true);
         Effect.SlideUp($('qoptions').up(), { duration: 0.5, afterFinish: this.onResize.bind(this, reset) });
         this.filtertoggle = 2;
@@ -1394,6 +1390,9 @@ var DimpBase = {
                 if (form.readAttribute('id') == 'RB_folder') {
                     this.cfolderaction(e);
                     e.stop();
+                } else if (elt.readAttribute('id') == 'msgList_filter') {
+                    this.searchfilterRun();
+                    e.stop();
                 }
                 break;
             }
@@ -1484,18 +1483,6 @@ var DimpBase = {
                 e.stop();
             }
             break;
-        }
-    },
-
-    keyupHandler: function(e)
-    {
-        if (e.element().readAttribute('id') == 'msgList_filter') {
-            if (this.searchobserve) {
-                clearTimeout(this.searchobserve);
-            }
-            if (this.filter_on) {
-                this.searchobserve = (this.bcache.get('searchfilterR') || this.bcache.set('searchfilterR', this.searchfilterRun.bind(this))).delay(0.5);
-            }
         }
     },
 
@@ -2310,7 +2297,6 @@ var DimpBase = {
 
         /* Register global handlers now. */
         document.observe('keydown', this.keydownHandler.bindAsEventListener(this));
-        document.observe('keyup', this.keyupHandler.bindAsEventListener(this));
         document.observe('mouseover', this.mouseHandler.bindAsEventListener(this, 'over'));
         document.observe('dblclick', this.dblclickHandler.bindAsEventListener(this));
         Event.observe(window, 'resize', this.onResize.bind(this, false, false));
