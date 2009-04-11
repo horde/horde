@@ -299,14 +299,14 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
      */
     public function &prepareLdapKolabServer()
     {
-        global $conf;
-
         $base = getenv('HORDE_BASE');
         if (!empty($base)) {
             $config = $base . '/config/kolab.php';
             if (file_exists($config)) {
                 @include $config; 
                 if (!empty($conf['kolab']['server']['params'])) {
+                    $params = $conf['kolab']['server']['params'];
+                    $params['driver'] = 'ldap';
                     return Horde_Kolab_Server::singleton($params);
                 }
             }
