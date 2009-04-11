@@ -922,7 +922,7 @@ var DimpBase = {
                   // There is a chance that the message may have been marked
                   // as unseen since first being viewed. If so, we need to
                   // explicitly flag as seen here.
-                if (this.hasFlag('\\seen', data)) {
+                if (!this.hasFlag('\\seen', data)) {
                     this.flag('\\seen', true);
                 }
                 return this._loadPreviewCallback(this.ppcache[pp_uid]);
