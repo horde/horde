@@ -379,7 +379,7 @@ class Horde_Kolab_Server_Object
         } else {
             $fields = explode($separator, $base);
         }
-        return isset($fields[$this->attributes[$attr]['order']]) ? $fields[$this->attributes[$attr]['order']] : null;
+        return isset($fields[$this->attributes[$attr]['order']]) ? $this->unquote($fields[$this->attributes[$attr]['order']]) : null;
     }
 
     /**
@@ -417,7 +417,6 @@ class Horde_Kolab_Server_Object
             $result = '';
             for ($i = 0; $i < $empty; $i++) {
                 $akey = array_shift($attributes);
-                //FIXME: We don't handle multiple values correctly here
                 $value = isset($info[$akey]) ? $info[$akey] : '';
                 if (is_array($value)) {
                     $value = $value[0];
@@ -436,7 +435,7 @@ class Horde_Kolab_Server_Object
     }
 
     /**
-     * Quote field separaotrs within a LDAP value.
+     * Quote field separators within a LDAP value.
      *
      * @param string $string The string that should be quoted.
      *
@@ -556,10 +555,6 @@ class Horde_Kolab_Server_Object
             }
         }
 
-        foreach ($collapse as $key => $attributes) {
-            $this->collapse($key, $attributes, $info);
-        }
-
         if (!$this->exists()) {
             foreach ($this->attribute_map['required'] as $key) {
                 if (!in_array($key, array_keys($info)) || $info[$key] === null
@@ -640,6 +635,10 @@ class Horde_Kolab_Server_Object
                 $this->server->rename($this->uid, $new_uid);
                 $this->uid = $new_uid;
             }
+        }
+
+        foreach ($collapse as $key => $attributes) {
+            $this->collapse($key, $attributes, $info);
         }
 
         $result = $this->server->save($this->uid, $info, $this->exists());
