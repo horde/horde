@@ -80,6 +80,14 @@ class Horde_Kolab_Server_PersonTest extends Horde_Kolab_Test_Server
             Horde_Kolab_Server_Object_Person::ATTRIBUTE_SN           => 'Kolab_Server_PersonTest_cncn',
             Horde_Kolab_Server_Object_Person::ATTRIBUTE_USERPASSWORD => 'Kolab_Server_PersonTest_cncn',
         ),
+        /* Person with name suffix*/
+        array(
+            'type' => 'Horde_Kolab_Server_Object_Person',
+            Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN           => 'Kolab_Server_PersonTest_123',
+            Horde_Kolab_Server_Object_Person::ATTRIBUTE_SN           => 'Kolab_Server_PersonTest_123',
+            Horde_Kolab_Server_Object_Person::ATTRIBUTE_SNSUFFIX     => 'Kolab_Server_PersonTest_suffix',
+            Horde_Kolab_Server_Object_Person::ATTRIBUTE_USERPASSWORD => 'Kolab_Server_PersonTest_123',
+        ),
     );
 
     /**
@@ -239,5 +247,125 @@ class Horde_Kolab_Server_PersonTest extends Horde_Kolab_Test_Server
         $cn_result = $server->uidForCn($this->objects[5][Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN]);
         $this->assertNoError($cn_result);
         $this->assertFalse($server->uidForCn($this->objects[5][Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN]));
+    }
+
+    /**
+     * Test a person with a name suffix.
+     *
+     * @dataProvider provideServers
+     *
+     * @return NULL
+     */
+    public function testHandlePersonWithSuffix($server)
+    {
+        $result = $server->add($this->objects[6]);
+        $this->assertNoError($result);
+
+        $cn_result = $server->uidForCn($this->objects[6][Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN]);
+        $this->assertNoError($cn_result);
+        $person = $server->fetch($cn_result);
+        $this->assertEquals($this->objects[6][Horde_Kolab_Server_Object_Person::ATTRIBUTE_SN],
+			    $person->get(Horde_Kolab_Server_Object_Person::ATTRIBUTE_SN));
+        $this->assertEquals($this->objects[6][Horde_Kolab_Server_Object_Person::ATTRIBUTE_SNSUFFIX],
+			    $person->get(Horde_Kolab_Server_Object_Person::ATTRIBUTE_SNSUFFIX));
+
+        $person->save(array(Horde_Kolab_Server_Object_Person::ATTRIBUTE_SN => 'Kolab_Server_PersonTest_123$123',
+                            Horde_Kolab_Server_Object_Person::ATTRIBUTE_SNSUFFIX => 'Kolab_Server_PersonTest_123$123'));
+
+        $cn_result = $server->uidForCn($this->objects[6][Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN]);
+        $this->assertNoError($cn_result);
+        $person = $server->fetch($cn_result);
+        $this->assertEquals('Kolab_Server_PersonTest_123$123',
+			    $person->get(Horde_Kolab_Server_Object_Person::ATTRIBUTE_SN));
+        $this->assertEquals('Kolab_Server_PersonTest_123$123',
+			    $person->get(Horde_Kolab_Server_Object_Person::ATTRIBUTE_SNSUFFIX));
+
+        $person->save(array(Horde_Kolab_Server_Object_Person::ATTRIBUTE_SN => 'Kolab_Server_PersonTest_123$456',
+                            Horde_Kolab_Server_Object_Person::ATTRIBUTE_SNSUFFIX => ''));
+
+        $cn_result = $server->uidForCn($this->objects[6][Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN]);
+        $this->assertNoError($cn_result);
+        $person = $server->fetch($cn_result);
+        $this->assertEquals('Kolab_Server_PersonTest_123$456',
+			    $person->get(Horde_Kolab_Server_Object_Person::ATTRIBUTE_SN));
+        $this->assertEquals('',
+			    $person->get(Horde_Kolab_Server_Object_Person::ATTRIBUTE_SNSUFFIX));
+
+        try {
+            $person->save(array(Horde_Kolab_Server_Object_Person::ATTRIBUTE_SN => '',
+                                Horde_Kolab_Server_Object_Person::ATTRIBUTE_SNSUFFIX => 'test'));
+        } catch (Horde_Kolab_Server_Object_Exception $e) {
+            $this->assertError($e);
+        }
+
+        $result = $server->delete($cn_result);
+        $this->assertNoError($result);
+        $cn_result = $server->uidForCn($this->objects[6][Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN]);
+        $this->assertNoError($cn_result);
+        $this->assertFalse($server->uidForCn($this->objects[6][Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN]));
+    }
+
+    /**
+     * Test handling a phone number.
+     *
+     * @dataProvider provideServers
+     *
+     * @return NULL
+     */
+    public function testHandlingAPhoneNumaber($server)
+    {
+        $result = $server->add($this->objects[6]);
+        $this->assertNoError($result);
+
+        $cn = $this->objects[6][Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN];
+
+        $cn_result = $server->uidForCn($cn);
+        $this->assertNoError($cn_result);
+
+        $person = $server->fetch($cn_result);
+        $this->assertNoError($person);
+
+        $this->assertEquals($person->get(Horde_Kolab_Server_Object_Person::ATTRIBUTE_TELNO),
+                            '');
+
+        $person->save(array(Horde_Kolab_Server_Object_Person::ATTRIBUTE_TELNO => '123456789'));
+
+        $cn_result = $server->uidForCn($cn);
+        $this->assertNoError($cn_result);
+
+        $person = $server->fetch($cn_result);
+        $this->assertNoError($person);
+
+        $this->assertEquals($person->get(Horde_Kolab_Server_Object_Person::ATTRIBUTE_TELNO),
+                            '123456789');
+
+        $person->save(array(Horde_Kolab_Server_Object_Person::ATTRIBUTE_TELNO => '1234567890'));
+
+        $cn_result = $server->uidForCn($cn);
+        $this->assertNoError($cn_result);
+
+        $person = $server->fetch($cn_result);
+        $this->assertNoError($person);
+
+        $this->assertEquals($person->get(Horde_Kolab_Server_Object_Person::ATTRIBUTE_TELNO),
+                            '1234567890');
+
+
+        $person->save(array(Horde_Kolab_Server_Object_Person::ATTRIBUTE_TELNO => ''));
+
+        $cn_result = $server->uidForCn($cn);
+        $this->assertNoError($cn_result);
+
+        $person = $server->fetch($cn_result);
+        $this->assertNoError($person);
+
+        $this->assertEquals($person->get(Horde_Kolab_Server_Object_Person::ATTRIBUTE_TELNO),
+                            '');
+
+        $result = $server->delete($cn_result);
+        $this->assertNoError($result);
+        $cn_result = $server->uidForCn($this->objects[6][Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN]);
+        $this->assertNoError($cn_result);
+        $this->assertFalse($server->uidForCn($this->objects[6][Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN]));
     }
 }
