@@ -190,6 +190,9 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
             $deletes = array();
             foreach ($data as $key => $values) {
                 $empty = true;
+                if (!is_array($values)) {
+                    $values = array($values);
+                }
                 foreach ($values as $value) {
                     if (!empty($value)) {
                         $empty = false;
