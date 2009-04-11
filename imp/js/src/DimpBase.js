@@ -458,8 +458,10 @@ var DimpBase = {
                     row[search] = row[search].gsub(new RegExp("(" + $F('msgList_filter') + ")", "i"), '<span class="searchMatch">#{1}</span>');
                 }
 
-                // Check status. If null, invalid string was scrubbed by the
-                // JSON encode.
+                // If null, invalid string was scrubbed by JSON encode.
+                if (row.from === null) {
+                    row.from = '[' + DIMP.text.badaddr + ']';
+                }
                 if (row.subject === null) {
                     row.subject = '[' + DIMP.text.badsubject + ']';
                 }
