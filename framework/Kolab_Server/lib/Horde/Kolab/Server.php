@@ -142,12 +142,15 @@ abstract class Horde_Kolab_Server
 
         static $instances = array();
 
-        if (isset($conf['kolab']['server']['driver'])) {
+        $server_params = array();
+
+         if (!empty($params['driver'])) {
+            $driver = $params['driver'];
+            unset($params['driver']);
+         } else if (isset($conf['kolab']['server']['driver'])) {
             $driver = $conf['kolab']['server']['driver'];
             if (isset($conf['kolab']['server']['params'])) {
                 $server_params = $conf['kolab']['server']['params'];
-            } else {
-                $server_params = array();
             }
         } else {
             throw new Horde_Kolab_Server_Exception(
