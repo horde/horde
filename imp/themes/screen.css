@@ -543,7 +543,8 @@ span.threadImg8 {
 .mimePartInfo {
     border: 1px solid #ccc;
     background: #efefef;
-    display: table;
+    display: -moz-inline-stack;
+    display: inline-block;
 }
 .mimePartInfo img {
     vertical-align: bottom;

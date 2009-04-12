@@ -8,7 +8,7 @@
 }
 
 /* Fixes broken inline-block. */
-span.spellcheckPopdownImg, span.threadImg, .downloadAtc, .downloadZipAtc, .saveImgAtc, .stripAtc {
+span.spellcheckPopdownImg, span.threadImg, .downloadAtc, .downloadZipAtc, .saveImgAtc, .stripAtc, span.mimePartInfo {
     zoom: 1;
     *display: inline;
 }
