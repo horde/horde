@@ -120,7 +120,18 @@ class Horde_Kolab_Server_Object
          * Derived attributes are calculated based on other attribute values.
          */
         'derived' => array(
-            self::ATTRIBUTE_ID => array(),
+            self::ATTRIBUTE_UID => array(
+                'method' => 'getUid',
+            ),
+            self::ATTRIBUTE_ID => array(
+                'method' => 'getId',
+            ),
+        ),
+        /**
+         * Attributes that are written using the information from several other
+         * attributes.
+         */
+        'collapsed' => array(
         ),
         /**
          * Attributes that are required for this object type. It is not
@@ -291,31 +302,22 @@ class Horde_Kolab_Server_Object
      */
     public function get($attr, $single = true)
     {
-        if ($attr != self::ATTRIBUTE_UID) {
-            // FIXME: This wont work this way.
-            if (!empty($this->attributes)
-                && !in_array($attr, array_keys($this->attributes))
-                && !empty($this->attribute_map['derived'])
-                && !in_array($attr, $this->attribute_map['derived'])) {
-                throw new Horde_Kolab_Server_Exception(sprintf(_("Attribute \"%s\" not supported!"),
-                                                               $attr));
-            }
-            if (!$this->_cache) {
-                $this->read();
-            }
+        if (!empty($this->attributes)
+            && !in_array($attr, array_keys($this->attributes))
+            && !empty($this->attribute_map['derived'])
+            && !in_array($attr, $this->attribute_map['derived'])) {
+            throw new Horde_Kolab_Server_Exception(sprintf(_("Attribute \"%s\" not supported!"),
+                                                           $attr));
+        }
+        if (!$this->_cache) {
+            $this->read();
         }
 
-        if (!empty($this->attribute_map['derived'])
-            && in_array($attr, $this->attribute_map['derived'])) {
+        if (isset($this->attribute_map['derived'][$attr])) {
             return $this->derive($attr);
         }
 
-        switch ($attr) {
-        case self::ATTRIBUTE_UID:
-            return $this->uid;
-        default:
-            return $this->_get($attr, $single);
-        }
+        return $this->_get($attr, $single);
     }
 
     /**
@@ -348,89 +350,48 @@ class Horde_Kolab_Server_Object
      */
     protected function derive($attr)
     {
-        switch ($attr) {
-        case self::ATTRIBUTE_ID:
-            return substr($this->uid, 0,
-                          strlen($this->uid) - strlen($this->server->getBaseUid()) - 1);
-        default:
+        if (isset($this->attributes[$attr]['method'])) {
+            if (isset($this->attributes[$attr]['args'])) {
+                $args = $this->attributes[$attr]['args'];
+            } else {
+                $args = array();
+            }
             //FIXME: Fill the cache here
-            return $this->getField($attr);
+            return call_user_func_array(array($this,
+                                              $this->attributes[$attr]['method']),
+                                        $args);
         }
-    }
-
-    /**
-     * Get a derived attribute value.
-     *
-     * @param string $attr      The attribute to derive.
-     * @param string $separator The field separator.
-     * @param int    $max_count The maximal number of fields.
-     *
-     * @return mixed The value of the attribute.
-     */
-    protected function getField($attr, $separator = '$', $max_count = null)
-    {
-        $basekey = $this->attributes[$attr]['base'];
-        $base = $this->_get($basekey);
-        if (empty($base)) {
-            return;
-        }
-        if (!empty($max_count)) {
-            $fields = explode($separator, $base, $max_count);
-        } else {
-            $fields = explode($separator, $base);
-        }
-        return isset($fields[$this->attributes[$attr]['order']]) ? $this->unquote($fields[$this->attributes[$attr]['order']]) : null;
+        return false;
     }
 
     /**
      * Collapse derived values back into the main attributes.
      *
      * @param string $key        The attribute to collapse into.
-     * @param array  $attributes The attribute to collapse.
+     * @param array  $attributes The attributes to collapse.
      * @param array  $info       The information currently working on.
-     * @param string $separator  Separate the fields using this character.
      *
      * @return NULL.
      */
-    protected function collapse($key, $attributes, &$info, $separator = '$')
+    protected function collapse($key, $attributes, &$info)
     {
-        switch ($key) {
-        default:
-            /**
-             * Check how many empty entries we have at the end of the array. We
-             * may omit these together with their field separators.
-             */
-            krsort($attributes);
-            $empty = count($attributes);
-            foreach ($attributes as $attribute) {
-                if (empty($info[$attribute])) {
-                    $empty--;
-                } else {
-                    break;
+        $changes = false;
+        foreach ($attributes as $attribute) {
+            if (isset($info[$attribute])) {
+                $changes = true;
+            }
+        }
+        if ($changes) {
+            if (isset($attributes['method'])) {
+                $args = array($key, $attributes['base'], $info);
+                if (isset($attributes['args'])) {
+                    $args = array_merge($args, $attributes['args']);
                 }
+                //FIXME: Fill the cache here
+                return call_user_func_array(array($this,
+                                                 $attributes['method']),
+                                           $args);
             }
-            if ($empty == 0) {
-                return;
-            }
-            ksort($attributes);
-            $unset = $attributes;
-            $result = '';
-            for ($i = 0; $i < $empty; $i++) {
-                $akey = array_shift($attributes);
-                $value = isset($info[$akey]) ? $info[$akey] : '';
-                if (is_array($value)) {
-                    $value = $value[0];
-                }
-                $result .= $this->quote($value);
-                if ($i != ($empty - 1)) {
-                    $result .= $separator;
-                }
-            }
-            foreach ($unset as $attribute) {
-                unset($info[$attribute]);
-            }
-
-            $info[$key] = $result;
         }
     }
 
@@ -500,6 +461,110 @@ class Horde_Kolab_Server_Object
     }
 
     /**
+     * Get the ID of this object
+     *
+     * @return string the ID of this object
+     */
+    public function getId()
+    {
+        return substr($this->uid, 0,
+                      strlen($this->uid) - strlen($this->server->getBaseUid()) - 1);
+    }
+
+    /**
+     * Get a derived attribute value.
+     *
+     * @param string $attr      The attribute to derive.
+     * @param string $separator The field separator.
+     * @param int    $max_count The maximal number of fields.
+     *
+     * @return mixed The value of the attribute.
+     */
+    protected function getField($base, $field = 0, $separator = '$', $max_count = null)
+    {
+        $basekey = $this->attributes[$attr]['base'];
+        $base = $this->_get($basekey);
+        if (empty($base)) {
+            return;
+        }
+        if (!empty($max_count)) {
+            $fields = explode($separator, $base, $max_count);
+        } else {
+            $fields = explode($separator, $base);
+        }
+        return isset($fields[$field]) ? $this->unquote($fields[$field]) : null;
+    }
+
+    /**
+     * Set a collapsed attribute value.
+     *
+     * @param string $key        The attribute to collapse into.
+     * @param array  $attributes The attributes to collapse.
+     * @param array  $info       The information currently working on.
+     * @param string $separator  Separate the fields using this character.
+     *
+     * @return NULL.
+     */
+    protected function setField($key, $attributes, &$info, $separator = '$')
+    {
+        /**
+         * Check how many empty entries we have at the end of the array. We
+         * may omit these together with their field separators.
+         */
+        krsort($attributes);
+        $empty = count($attributes);
+        foreach ($attributes as $attribute) {
+            /**
+             * We do not expect the callee to always provide all attributes
+             * required for a collapsed attribute. So it is necessary to check
+             * for old values here.
+             */
+            if (!isset($info[$attribute])) {
+                $old = $this->get($info[$attribute]);
+                if (!empty($old)) {
+                    $info[$attribute] = $old;
+                }
+            }
+            if (empty($info[$attribute])) {
+                $empty--;
+            } else {
+                break;
+            }
+        }
+        if ($empty == 0) {
+            return;
+        }
+        ksort($attributes);
+        $unset = $attributes;
+        $result = '';
+        for ($i = 0; $i < $empty; $i++) {
+            $akey = array_shift($attributes);
+            $value =  $info[$akey];
+            if (is_array($value)) {
+                $value = $value[0];
+            }
+            $result .= $this->quote($value);
+            if ($i != ($empty - 1)) {
+                $result .= $separator;
+            }
+        }
+        foreach ($unset as $attribute) {
+            unset($info[$attribute]);
+        }
+        $info[$key] = $result;
+    }
+
+    /**
+     * Get an empty value
+     *
+     * @return string An empty string.
+     */
+    public function getEmpty()
+    {
+        return '';
+    }
+
+    /**
      * Generates an ID for the given information.
      *
      * @param array $info The data of the object.
@@ -546,15 +611,6 @@ class Horde_Kolab_Server_Object
             }
         }
 
-        $collapse = array();
-        foreach ($this->attribute_map['derived'] as $key) {
-            $attribute = $this->attributes[$key];
-            if (empty($attribute['readonly']) && isset($attribute['base'])
-                && isset($attribute['order'])) {
-                $collapse[$attribute['base']][$attribute['order']] = $key;
-            }
-        }
-
         if (!$this->exists()) {
             foreach ($this->attribute_map['required'] as $key) {
                 if (!in_array($key, array_keys($info)) || $info[$key] === null
@@ -575,24 +631,25 @@ class Horde_Kolab_Server_Object
                 }
             }
         } else {
-            $old_keys = array_keys($this->_cache);
+            $old_keys = array_keys($this->attributes);
             $submitted = $info;
             foreach ($submitted as $key => $value) {
                 /**
-                 * Empty values are ignored in case there is also no old value
-                 * stored or the value is locked. If there is an old value we
-                 * must assume the value was removed.
+                 * Empty values are ignored in case there is no old value stored
+                 * or the value is locked. If there is an old value we must
+                 * assume the value was removed.
                  */
+                $old = $this->get($key);
                 if (($value === null || $info[$key] === '')
-                    && (!isset($this->_cache[$key])
+                    && (empty($old)
                         || in_array($key, $this->attribute_map['locked']))) {
 
                     unset($info[$key]);
                     continue;
                 }
                 if (in_array($key, $old_keys)) {
-                    if (!is_array($value) && !is_array($this->_cache[$key])) {
-                        if ($value == $this->_cache[$key]) {
+                    if (!is_array($value) && !is_array($old)) {
+                        if ($value == $old) {
                             // Unchanged value
                             unset($info[$key]);
                         }
@@ -601,10 +658,8 @@ class Horde_Kolab_Server_Object
                             $value = array($value);
                             $info[$key] = $value;
                         }
-                        if (!is_array($this->_cache[$key])) {
-                            $old = array($this->_cache[$key]);
-                        } else {
-                            $old = $this->_cache[$key];
+                        if (!is_array($old)) {
+                            $old = array($old);
                         }
                         $changes = array_merge(array_diff($old, $value),
                                                array_diff($value, $old));
@@ -637,7 +692,7 @@ class Horde_Kolab_Server_Object
             }
         }
 
-        foreach ($collapse as $key => $attributes) {
+        foreach ($this->attribute_map['collapsed'] as $key => $attributes) {
             $this->collapse($key, $attributes, $info);
         }
 

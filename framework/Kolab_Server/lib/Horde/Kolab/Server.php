@@ -390,7 +390,6 @@ abstract class Horde_Kolab_Server
                     ? $GLOBALS['conf']['kolab']['server']['cache']['lifetime'] : 300;
             }
         }
-
         if (empty($this->attributes[$class])) {
 
             if (!empty($cache)) {
@@ -423,8 +422,8 @@ abstract class Horde_Kolab_Server
                  */
                 $classes = array_reverse($classes);
 
-                $types = array('defined', 'required', 'derived', 'defaults',
-                               'locked', 'object_classes');
+                $types = array('defined', 'required', 'derived', 'collapsed', 
+                               'defaults', 'locked', 'object_classes');
                 foreach ($types as $type) {
                     $$type = array();
                 }
@@ -483,34 +482,49 @@ abstract class Horde_Kolab_Server
                     }
                     $attrs[Horde_Kolab_Server_Object::ATTRIBUTE_OC]['default'] = $object_classes;
                 }
-                foreach ($derived as $key => $attribute) {
-                    if (isset($attribute['base'])) {
-                        if (!is_array($attribute['base'])) {
-                            $bases = array($attribute['base']);
-                        } else {
-                            $bases = $attribute['base'];
-                        }
-                        /**
-                         * Usually derived attribute are determined on basis
-                         * of one or more attributes. If any of these is not
-                         * supported the derived attribute should not be
-                         * included into the set of supported attributes.
-                         */
-                        foreach ($bases as $base) {
-                            if (!isset($attrs[$base])) {
-                                continue;
+                foreach ($derived as $key => $attributes) {
+                    $supported = true;
+                    if (isset($attributes['base'])) {
+                        foreach ($attributes['base'] as $attribute) {
+                            /**
+                             * Usually derived attribute are determined on basis
+                             * of one or more attributes. If any of these is not
+                             * supported the derived attribute should not be
+                             * included into the set of supported attributes.
+                             */
+                            if (!isset($attrs[$attrs])) {
+                                unset($derived[$attribute]);
+                                $supported = false;
+                                break;
                             }
-                            $attrs[$key] = $attribute;
                         }
-                    } else {
-                        $attrs[$key] = $attribute;
+                    }
+                    if ($supported) {
+                        $attrs[$key] = $attributes;
+                    }
+                }
+                $check_collapsed = $collapsed;
+                foreach ($check_collapsed as $key => $attributes) {
+                    if (isset($attributes['base'])) {
+                        foreach ($attributes['base'] as $attribute) {
+                            /**
+                             * Usually collapsed attribute are determined on basis
+                             * of one or more attributes. If any of these is not
+                             * supported the collapsed attribute should not be
+                             * included into the set of supported attributes.
+                             */
+                            if (!isset($attrs[$attrs])) {
+                                unset($collapsed[$attribute]);
+                            }
+                        }
                     }
                 }
                 $this->attributes[$class] = array($attrs,
                                                   array(
-                                                      'derived'  => array_keys($derived),
-                                                      'locked'   => $locked,
-                                                      'required' => $required));
+                                                      'derived'   => array_keys($derived),
+                                                      'collapsed' => $collapsed,
+                                                      'locked'    => $locked,
+                                                      'required'  => $required));
             }
         }
         return $this->attributes[$class];

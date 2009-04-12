@@ -135,10 +135,26 @@ class DummyDB
 {
     public function getAttributes()
     {
-        return array(array(Horde_Kolab_Server_Object_Kolab_User::ATTRIBUTE_FN => array()),
+        return array(array(Horde_Kolab_Server_Object_Kolab_User::ATTRIBUTE_UID => array(
+                               'method' => 'getUid',
+                           ),
+                           Horde_Kolab_Server_Object_Kolab_User::ATTRIBUTE_FN => array(
+                               'method' => 'getFn',
+                           )),
               array(
-                  'derived'  => array(Horde_Kolab_Server_Object_Kolab_User::ATTRIBUTE_FN),
+                  'derived'  => array(Horde_Kolab_Server_Object_Kolab_User::ATTRIBUTE_UID => array(
+                                          'method' => 'getUid',
+                                      ),
+                                      Horde_Kolab_Server_Object_Kolab_User::ATTRIBUTE_FN => array(
+                                          'method' => 'getFn',
+                                      ),
+                  ),
                   'locked'   => array(),
                   'required' => array()));
+    }
+
+    public function read()
+    {
+        return false;
     }
 }
