@@ -32,6 +32,18 @@ class Horde_Kolab_Server_Object_Inetorgperson extends Horde_Kolab_Server_Object_
     /** The short ID */
     const ATTRIBUTE_SID = 'uid';
 
+    /** The organization / company */
+    const ATTRIBUTE_ORGANIZATION = 'o';
+
+    /** The business category */
+    const ATTRIBUTE_BUSINESSCATEGORY = 'businessCategory';
+
+    /** The phone number at home*/
+    const ATTRIBUTE_HOMEPHONE = 'homePhone';
+
+    /** The mobile phone number */
+    const ATTRIBUTE_MOBILE = 'mobile';
+
     /** The given name */
     const ATTRIBUTE_GIVENNAME = 'givenName';
 
@@ -74,6 +86,10 @@ class Horde_Kolab_Server_Object_Inetorgperson extends Horde_Kolab_Server_Object_
             self::ATTRIBUTE_MAIL,
             self::ATTRIBUTE_LABELEDURI,
             self::ATTRIBUTE_HOMEPOSTALADDRESS,
+            self::ATTRIBUTE_ORGANIZATION,
+            self::ATTRIBUTE_BUSINESSCATEGORY,
+            self::ATTRIBUTE_HOMEPHONE,
+            self::ATTRIBUTE_MOBILE,
         ),
         'derived' => array(
             self::ATTRARRAY_HOMEPOSTALADDRESS => array(
@@ -134,7 +150,10 @@ class Horde_Kolab_Server_Object_Inetorgperson extends Horde_Kolab_Server_Object_
                     self::ATTRIBUTE_GIVENNAME,
                     self::ATTRIBUTE_MIDDLENAMES,
                 ),
-                'separator' => ' ',
+                'method' => 'setField',
+                'args' => array(
+                    ' ',
+                ),
             ),
             self::ATTRIBUTE_LABELEDURI => array(
                 'base' => array(
@@ -204,10 +223,16 @@ class Horde_Kolab_Server_Object_Inetorgperson extends Horde_Kolab_Server_Object_
     protected function getLabeledUriHash()
     {
         $result = array();
-        $uris   = $this->get(self::ATTRIBUTE_LABELEDURI);
+        $uris   = $this->get(self::ATTRIBUTE_LABELEDURI, false);
+        if (empty($uris)) {
+            return array();
+        }
+        if (!is_array($uris)) {
+            $uris = array($uris);
+        }
         foreach ($uris as $uri) {
             list($address, $label) = explode(' ', $uri, 2);
-            $result[$label] = $address;
+            $result[$label]        = $address;
         }
         return $result;
     }
@@ -215,12 +240,16 @@ class Horde_Kolab_Server_Object_Inetorgperson extends Horde_Kolab_Server_Object_
     /**
      * Store a hash of URIs. The keys of the hash are the labels.
      *
+     * @param string $key        The attribute to collapse into.
+     * @param array  $attributes The attributes to collapse.
+     * @param array  &$info      The information currently working on.
+     *
      * @return NULL
      */
     protected function setLabeledUriHash($key, $attributes, &$info)
     {
         $result = array();
-        $uris = $info[self::ATTRARRAY_LABELEDURI];
+        $uris   = $info[self::ATTRARRAY_LABELEDURI];
         foreach ($uris as $label => $address) {
             $result[] = $address . ' ' . $label;
         }
@@ -235,11 +264,14 @@ class Horde_Kolab_Server_Object_Inetorgperson extends Horde_Kolab_Server_Object_
      */
     protected function getHomePostalAddressHash()
     {
-        $result = array();
+        $result    = array();
         $addresses = $this->get(self::ATTRIBUTE_HOMEPOSTALADDRESS);
+        if (!is_array($addresses)) {
+            $addresses = array($addresses);
+        }
         foreach ($addresses as $address) {
             list($name_segment, $street_segment,
-                 $postal_address, $postal_code, $city)  = sscanf('%s$%s$%s$%s %s', $address);
+                 $postal_address, $postal_code, $city) = sscanf('%s$%s$%s$%s %s', $address);
             if ($name_segment == _("Post office box")) {
                 $result[] = array(
                     self::ATTRIBUTE_POSTOFFICEBOX => $street_segment,
@@ -262,14 +294,18 @@ class Horde_Kolab_Server_Object_Inetorgperson extends Horde_Kolab_Server_Object_
     /**
      * Store home postal addresses provided as array.
      *
+     * @param string $key        The attribute to collapse into.
+     * @param array  $attributes The attributes to collapse.
+     * @param array  &$info      The information currently working on.
+     *
      * @return NULL
      */
     protected function setHomePostalAddressHash($key, $attributes, &$info)
     {
-        $result = array();
-        $dbPostalData = array();
-        $db_elements = array(self::ATTRIBUTE_GIVENNAME,
-                             self::ATTRIBUTE_SN);
+        $result         = array();
+        $db_postal_data = array();
+        $db_elements    = array(self::ATTRIBUTE_GIVENNAME,
+                                self::ATTRIBUTE_SN);
         foreach ($db_elements as $attribute) {
             if (!empty($info[$attribute])) {
                 if (is_array($info[$attribute])) {
@@ -277,48 +313,48 @@ class Horde_Kolab_Server_Object_Inetorgperson extends Horde_Kolab_Server_Object_
                 } else {
                     $new = $info[$attribute];
                 }
-                $dbPostalData[$attribute] = $this->quote($new);
+                $db_postal_data[$attribute] = $this->quote($new);
             } else {
                 $old = $this->_get($attribute, true);
                 if (!empty($old)) {
-                    $dbPostalData[$attribute] = $this->quote($old);
+                    $db_postal_data[$attribute] = $this->quote($old);
                 } else {
-                    $dbPostalData[$attribute] = '';
+                    $db_postal_data[$attribute] = '';
                 }
             }
         }
-        $elements= array(self::ATTRIBUTE_STREET,
-                         self::ATTRIBUTE_POSTOFFICEBOX,
-                         self::ATTRIBUTE_POSTALADDRESS,
-                         self::ATTRIBUTE_POSTALCODE,
-                         self::ATTRIBUTE_CITY);
+        $elements = array(self::ATTRIBUTE_STREET,
+                          self::ATTRIBUTE_POSTOFFICEBOX,
+                          self::ATTRIBUTE_POSTALADDRESS,
+                          self::ATTRIBUTE_POSTALCODE,
+                          self::ATTRIBUTE_CITY);
         if (!empty($info[self::ATTRARRAY_HOMEPOSTALADDRESS])) {
             $addresses = $info[self::ATTRARRAY_HOMEPOSTALADDRESS];
         } else {
             $addresses = $this->get(self::ATTRARRAY_HOMEPOSTALADDRESS);
         }
         foreach ($addresses as $address) {
-            $postalData = array();
+            $postal_data = array();
             foreach ($elements as $element) {
                 if (isset($address[$element])) {
-                    $postalData[$element] = $this->quote($address[$element]);
+                    $postal_data[$element] = $this->quote($address[$element]);
                 } else {
-                    $postalData[$element] = '';
+                    $postal_data[$element] = '';
                 }
             }
-            if (!empty($postalData[self::ATTRIBUTE_STREET])) {
-                $postalData['street_segment'] = $postalData[self::ATTRIBUTE_STREET];
-                $postalData['name_segment'] = $dbPostalData[self::ATTRIBUTE_GIVENNAME] . ' ' . $dbPostalData[self::ATTRIBUTE_SN];
+            if (!empty($postal_data[self::ATTRIBUTE_STREET])) {
+                $postal_data['street_segment'] = $postal_data[self::ATTRIBUTE_STREET];
+                $postal_data['name_segment']   = $db_postal_data[self::ATTRIBUTE_GIVENNAME] . ' ' . $db_postal_data[self::ATTRIBUTE_SN];
             } else {
-                $postalData['street_segment'] = $postalData[self::ATTRIBUTE_POSTOFFICEBOX];
-                $postalData['name_segment'] = _("Post office box");
+                $postal_data['street_segment'] = $postal_data[self::ATTRIBUTE_POSTOFFICEBOX];
+                $postal_data['name_segment']   = _("Post office box");
             }
             $result[] = sprintf('%s$%s$%s$%s %s',
-                                $postalData['name_segment'],
-                                $postalData['street_segment'],
-                                $postalData[self::ATTRIBUTE_POSTALADDRESS],
-                                $postalData[self::ATTRIBUTE_POSTALCODE],
-                                $postalData[self::ATTRIBUTE_CITY]);
+                                $postal_data['name_segment'],
+                                $postal_data['street_segment'],
+                                $postal_data[self::ATTRIBUTE_POSTALADDRESS],
+                                $postal_data[self::ATTRIBUTE_POSTALCODE],
+                                $postal_data[self::ATTRIBUTE_CITY]);
         }
         $info[self::ATTRIBUTE_HOMEPOSTALADDRESS] = $result;
         unset($info[self::ATTRARRAY_HOMEPOSTALADDRESS]);
