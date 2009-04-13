@@ -650,7 +650,7 @@ class Horde_Kolab_Server_Object
                 }
                 if (in_array($key, $old_keys)) {
                     if (!is_array($value) && !is_array($old)) {
-                        if ($value == $old) {
+                        if ($value === $old) {
                             // Unchanged value
                             unset($info[$key]);
                         }
