@@ -41,6 +41,9 @@ class Horde_Kolab_Server_Object_Person extends Horde_Kolab_Server_Object
     /** A password for this person */
     const ATTRIBUTE_USERPASSWORD = 'userPassword';
 
+    /** A password for this person */
+    const ATTRIBUTE_USERPASSWORDRAW = 'userPasswordRaw';
+
     /** A telephone number for this person */
     const ATTRIBUTE_TELNO = 'telephoneNumber';
 
@@ -61,15 +64,47 @@ class Horde_Kolab_Server_Object_Person extends Horde_Kolab_Server_Object
         ),
         'derived' => array(
             self::ATTRIBUTE_USERPASSWORD => array(
-                'base' => self::ATTRIBUTE_USERPASSWORD,
+                'base' => array(
+                    self::ATTRIBUTE_USERPASSWORD
+                ),
+                'method' => 'getEmpty',
+            ),
+            self::ATTRIBUTE_USERPASSWORDRAW => array(
+                'base' => array(
+                    self::ATTRIBUTE_USERPASSWORD
+                ),
+                'method' => '_get',
+                'args' => array(
+                    self::ATTRIBUTE_USERPASSWORD,
+                ),
             ),
             self::ATTRIBUTE_SN => array(
-                'base' => self::ATTRIBUTE_SN,
-                'order' => 0,
+                'base' => array(
+                    self::ATTRIBUTE_SN,
+                ),
+                'method' => 'getField',
+                'args' => array(
+                    self::ATTRIBUTE_SN,
+                ),
             ),
             self::ATTRIBUTE_SNSUFFIX => array(
-                'base' => self::ATTRIBUTE_SN,
-                'order' => 1,
+                'base' => array(
+                    self::ATTRIBUTE_SN,
+                ),
+                'method' => 'getField',
+                'args' => array(
+                    self::ATTRIBUTE_SN,
+                    1
+                ),
+            ),
+        ),
+        'collapsed' => array(
+            self::ATTRIBUTE_SN => array(
+                'base' => array(
+                    self::ATTRIBUTE_SN,
+                    self::ATTRIBUTE_SNSUFFIX,
+                ),
+                'method' => 'setField',
             ),
         ),
         'required' => array(
@@ -80,23 +115,6 @@ class Horde_Kolab_Server_Object_Person extends Horde_Kolab_Server_Object
             self::OBJECTCLASS_PERSON
         ),
     );
-
-    /**
-     * Derive an attribute value.
-     *
-     * @param string $attr The attribute to derive.
-     *
-     * @return mixed The value of the attribute.
-     */
-    protected function derive($attr)
-    {
-        switch ($attr) {
-        case self::ATTRIBUTE_USERPASSWORD:
-            return '';
-        default:
-            return parent::derive($attr);
-        }
-    }
 
     /**
      * Salt and hash the password.
