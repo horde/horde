@@ -497,7 +497,6 @@ class Horde_Kolab_Server_Test extends Horde_Kolab_Server_Ldap
             foreach ($attrs as $attr) {
                 if (isset($data[$attr])) {
                     $result[$attr] = $data[$attr];
-                    array_push($result, $attr);
                 }
             }
             return $result;
@@ -560,6 +559,9 @@ class Horde_Kolab_Server_Test extends Horde_Kolab_Server_Ldap
     {
         if (isset($this->data[$uid])) {
             unset($this->data[$uid]);
+        } else {
+            throw new Horde_Kolab_Server_MissingObjectException(sprintf("No such object: %s",
+                                                                        $uid));
         }
         $this->store();
         Horde::logMessage(sprintf('The object \"%s\" has been successfully deleted!',
