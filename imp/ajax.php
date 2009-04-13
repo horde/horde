@@ -694,7 +694,7 @@ case 'SMIMEPersonal':
     if ($action == 'SMIMEPersonal') {
         $imp_smime = Horde_Crypt::singleton(array('IMP', 'Smime'));
         try {
-            $imp_smime->requireSecureConnection();
+            Horde::requireSecureConnection();
             if ($passphrase) {
                 if ($imp_smime->storePassphrase($passphrase)) {
                     $result->success = 1;
@@ -710,7 +710,7 @@ case 'SMIMEPersonal':
     } else {
         $imp_pgp = Horde_Crypt::singleton(array('IMP', 'Pgp'));
         try {
-            $imp_pgp->requireSecureConnection();
+            Horde::requireSecureConnection();
             if ($passphrase) {
                 if ($imp_pgp->storePassphrase(($action == 'PGPSymmetric') ? 'symmetric' : 'personal', $passphrase, Util::getFormData('symmetricid'))) {
                     $result->success = 1;

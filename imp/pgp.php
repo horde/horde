@@ -77,12 +77,7 @@ try {
     Horde::fatal($e, __FILE__, __LINE__);
 }
 
-try {
-    $imp_pgp->requireSecureConnection();
-    $secure_check = true;
-} catch (Horde_Exception $e) {
-    $secure_check = false;
-}
+$secure_check = Horde::isConnectionSecure();
 
 /* Run through the action handlers */
 $actionID = Util::getFormData('actionID');
