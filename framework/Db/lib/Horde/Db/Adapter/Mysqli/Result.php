@@ -41,7 +41,7 @@ class Horde_Db_Adapter_Mysqli_Result implements Iterator
     /**
      * @var string
      */
-    protected $arg2;
+    protected $_arg2;
 
     /**
      * Result resource
