@@ -145,14 +145,14 @@ class Horde_Kolab_Server_Object_Organizationalperson extends Horde_Kolab_Server_
      *
      * @param string $key        The attribute to collapse into.
      * @param array  $attributes The attributes to collapse.
-     * @param array  $info       The information currently working on.
+     * @param array  &$info      The information currently working on.
      *
      * @return NULL.
      */
     protected function setPostalAddress($key, $attributes, &$info)
     {
-        $empty      = true;
-        $postalData = array();
+        $empty       = true;
+        $postal_data = array();
         foreach ($attributes as $attribute) {
             if (isset($info[$attribute])) {
                 if (is_array($info[$attribute])) {
@@ -160,15 +160,15 @@ class Horde_Kolab_Server_Object_Organizationalperson extends Horde_Kolab_Server_
                 } else {
                     $new = $info[$attribute];
                 }
-                $postalData[$attribute] = $this->quote($new);
-                $empty                  = false;
+                $postal_data[$attribute] = $this->quote($new);
+                $empty                   = false;
             } else {
                 $old = $this->get($attribute, true);
                 if (!empty($old)) {
-                    $postalData[$attribute] = $old;
-                    $empty                  = false;
+                    $postal_data[$attribute] = $old;
+                    $empty                   = false;
                 } else {
-                    $postalData[$attribute] = '';
+                    $postal_data[$attribute] = '';
                 }
             }
         }
@@ -177,18 +177,18 @@ class Horde_Kolab_Server_Object_Organizationalperson extends Horde_Kolab_Server_
             return;
         }
 
-        if (!empty($postalData[self::ATTRIBUTE_POSTOFFICEBOX])) {
-            $postalData['street_segment'] = $postalData[self::ATTRIBUTE_POSTOFFICEBOX];
+        if (!empty($postal_data[self::ATTRIBUTE_POSTOFFICEBOX])) {
+            $postal_data['street_segment'] = $postal_data[self::ATTRIBUTE_POSTOFFICEBOX];
         } else {
-            $postalData['street_segment'] = $postalData[self::ATTRIBUTE_STREET];
+            $postal_data['street_segment'] = $postal_data[self::ATTRIBUTE_STREET];
         }
 
         $info[$key] = sprintf('%s$%s$%s$%s %s',
-                              $postalData[self::ATTRIBUTE_SN],
-                              $postalData[self::ATTRIBUTE_POSTALADDRESS],
-                              $postalData['street_segment'],
-                              $postalData[self::ATTRIBUTE_POSTALCODE],
-                              $postalData[self::ATTRIBUTE_CITY]);
+                              $postal_data[self::ATTRIBUTE_SN],
+                              $postal_data[self::ATTRIBUTE_POSTALADDRESS],
+                              $postal_data['street_segment'],
+                              $postal_data[self::ATTRIBUTE_POSTALCODE],
+                              $postal_data[self::ATTRIBUTE_CITY]);
     }
 
 }
