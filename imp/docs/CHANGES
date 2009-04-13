@@ -68,9 +68,9 @@ v5.0-git
 [mms] Add preference to delete draft on resume & send.
 
 
-----------
-v4.3.4-cvs
-----------
+------
+v4.3.4
+------
 
 [mms] SECURITY: Don't cache local PGP public keys retrieved from the
       addressbook (found by Peter Meier <peter.meier@immerda.ch>).
@@ -84,8 +84,8 @@ v4.3.4-cvs
       fixes in v4.3.3 (Bug #7926).
 [jan] Fix rendering of subjects in RTL scripts when using LTR translations
       (vilius@lnk.lt, Bug #3511).
-[mms] Add hook to allow hiding of IMAP folders (Request #7353, Gunnar
-      Wrobel <p@rdus.de>).
+[mms] Add hook to allow hiding of IMAP folders (Gunnar Wrobel <p@rdus.de>,
+      Request #7353).
 [jan] Fix logging of messages forwarded with attachments (Bug #7911).
 
 
