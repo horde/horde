@@ -11,7 +11,7 @@
 /* DimpCore object. */
 var DimpCore = {
     // Vars used and defaulting to null/false:
-    //   DMenu, alertrequest, inAjaxCallback, is_init, is_logout,
+    //   DMenu, Growler, inAjaxCallback, is_init, is_logout,
     //   onDoActionComplete
     server_error: 0,
 
@@ -214,43 +214,24 @@ var DimpCore = {
             case 'imp.redirect':
             case 'dimp.request':
             case 'dimp.sticky':
-                var iefix, log, tmp,
-                    alerts = $('hordeAlerts'),
-                    div = new Element('DIV', { className: m.type.replace('.', '-') }),
+                var log, tmp,
                     msg = m.message;
 
-                if (!alerts) {
-                    alerts = new Element('DIV', { id: 'hordeAlerts' });
-                    $(document.body).insert(alerts);
+                if (!this.Growler) {
+                    this.Growler = new Growler({ location: 'br' });
                 }
 
                 if ($w('dimp.request dimp.sticky').indexOf(m.type) == -1) {
                     msg = msg.unescapeHTML().unescapeHTML();
                 }
-                alerts.insert(div.update(msg));
 
-                // IE6 has a bug that does not allow the body of a div to be
-                // clicked to trigger an onclick event for that div (it only
-                // seems to be an issue if the div is overlaying an element
-                // that itself contains an image).  However, the alert box
-                // normally displays over the message list, and we use several
-                // graphics in the default message list layout, so we see this
-                // buggy behavior 99% of the time.  The workaround is to
-                // overlay the div with a like sized div containing a clear
-                // gif, which tricks IE into the correct behavior.
-                if (DIMP.conf.is_ie6) {
-                    iefix = new Element('DIV', { id: 'hordeIE6AlertsFix' }).clonePosition(div, { setLeft: false, setTop: false });
-                    iefix.insert(div.remove());
-                    alerts.insert(iefix);
-                }
-
-                if ($w('horde.error dimp.request dimp.sticky').indexOf(m.type) == -1) {
-                    this.alertsFade.bind(this, div).delay(m.type == 'horde.warning' ? 10 : 3);
-                }
-
-                if (m.type == 'dimp.request') {
-                    this.alertrequest = div;
-                }
+                // TODO: dimp.request
+                this.Growler.growl(msg, {
+                    className: m.type.replace('.', '-'),
+                    life: (m.type == 'horde.error') ? 10 : 5,
+                    sticky: true
+//                    sticky: m.type == 'dimp.sticky'
+                });
 
                 if (tmp = $('hordeAlertslog')) {
                     switch (m.type) {
@@ -281,13 +262,6 @@ var DimpCore = {
                 }
             }
         }, this);
-    },
-
-    alertsFade: function(elt)
-    {
-        if (elt) {
-            Effect.Fade(elt, { duration: 1.5, afterFinish: this.removeAlert.bind(this) });
-        }
     },
 
     toggleAlertsLog: function()
@@ -451,11 +425,6 @@ var DimpCore = {
 
         var elt = e.element(), id, opts, tmp;
 
-        if (this.alertrequest) {
-            this.alertsFade(this.alertrequest);
-            this.alertrequest = null;
-        }
-
         while (Object.isElement(elt)) {
             id = elt.readAttribute('id');
 
@@ -481,10 +450,6 @@ var DimpCore = {
 
             case 'alertsloglink':
                 this.toggleAlertsLog();
-                break;
-
-            case 'hordeAlerts':
-                this.alertsFade(elt);
                 break;
 
             case 'largeaddrspan_active':

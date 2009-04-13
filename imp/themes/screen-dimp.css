@@ -804,19 +804,6 @@ a.address:hover img {
     padding-left: 4px;
 }
 
-#hordeAlerts div.dimp-sticky {
-    background-color: #ebe20c;
-    background-image: url("graphics/warning.png");
-    border-color: #807b00;
-    color: #000;
-}
-#hordeAlerts div.imp-reply {
-    background-image: url("graphics/mail_answered.png");
-}
-#hordeAlerts div.imp-forward, #hordeAlerts div.imp-redirect {
-    background-image: url("graphics/mail_forwarded.png");
-}
-
 /* Drag and drop styles. */
 .drag, .dragdrop {
     background: #eee;
@@ -1083,4 +1070,18 @@ span.keydownImg {
 span.readonlyImg {
     background-image: url("graphics/locked.png");
     vertical-align: sub;
+}
+
+/* Growler notification styles. */
+#Growler div.dimp-sticky {
+    background-color: #ebe20c;
+    background-image: url("graphics/warning.png");
+    border-color: #807b00;
+    color: #000;
+}
+#Growler div.imp-reply {
+    background-image: url("graphics/mail_answered.png");
+}
+#Growler div.imp-forward, div.imp-redirect {
+    background-image: url("graphics/mail_forwarded.png");
 }

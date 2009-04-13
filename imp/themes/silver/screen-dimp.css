@@ -1,7 +1,3 @@
-#hordeAlerts div.imp-forward, #hordeAlerts div.imp-redirect {
-    background-image: url("graphics/mail_forwarded.png");
-}
-
 #sidebarPanel .base {
     background-image: url("graphics/folder.png");
 }
@@ -31,9 +27,6 @@
 }
 #attach_list div, span.attachmentImg {
     background-image: url("graphics/attachment.png");
-}
-#hordeAlerts div.dimp-sticky {
-    background-image: url("graphics/warning.png");
 }
 
 .header {
@@ -112,9 +105,6 @@ span.dimpactionDrafts {
 #ctx_message_unsetflag span.contextImg, #ctx_draft_unsetflag span.contextImg, #oa_unsetflag span.contextImg {
     background-image: url("graphics/mail_clearflag.png");
 }
-#hordeAlerts div.imp-reply {
-    background-image: url("graphics/mail_answered.png");
-}
 #ctx_draft_resume span.contextImg {
     background-image: url("graphics/mail_draft.png");
 }
@@ -180,4 +170,14 @@ span.keydownImg {
 }
 span.readonlyImg {
     background-image: url("graphics/locked.png");
+}
+
+#Growler div.dimp-sticky {
+    background-image: url("graphics/warning.png");
+}
+#Growler div.imp-reply {
+    background-image: url("graphics/mail_answered.png");
+}
+#Growler div.imp-forward, #Growler div.imp-redirect {
+    background-image: url("graphics/mail_forwarded.png");
 }
