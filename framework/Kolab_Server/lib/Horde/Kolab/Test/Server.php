@@ -837,6 +837,42 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
     }
 
     /**
+     * Test simple attributes.
+     *
+     * @dataProvider provideServers
+     *
+     * @return NULL
+     */
+    public function assertSimpleAttributes(Horde_Kolab_Server_Object $object,
+                                           Horde_Kolab_Server $server, array $list)
+    {
+        foreach ($list as $item) {
+            $this->assertSimpleSequence($object, $server,
+                                        $item,
+                                        array($item, 'öäü/)(="§%$&§§$\'*', '', array('a', 'b'), '0'),
+                                        true);
+        }
+    }
+
+    /**
+     * Test easy attributes.
+     *
+     * @dataProvider provideServers
+     *
+     * @return NULL
+     */
+    public function assertEasyAttributes(Horde_Kolab_Server_Object $object,
+                                         Horde_Kolab_Server $server, array $list)
+    {
+        foreach ($list as $key => $items) {
+            $this->assertSimpleSequence($object, $server,
+                                        $key,
+                                        $items,
+                                        true);
+        }
+    }
+
+    /**
      * Assert that a save() operation yields some predictable attribute results.
      *
      * @param Horde_Kolab_Server_Object $object    The object to work on.
@@ -848,12 +884,14 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
      */
     protected function assertSimpleSequence(Horde_Kolab_Server_Object &$object,
                                             Horde_Kolab_Server &$server,
-                                            $attribute, array $sequence)
+                                            $attribute, array $sequence,
+                                            $pop_arrays = false)
     {
         foreach ($sequence as $value) {
             $this->assertStoreFetch($object, $server,
                                     array($attribute => $value),
-                                    array($attribute => $value));
+                                    array($attribute => $value),
+                                    $pop_arrays);
         }
     }
 
@@ -869,7 +907,8 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
      */
     protected function assertStoreFetch(Horde_Kolab_Server_Object &$object,
                                         Horde_Kolab_Server &$server,
-                                        array $store, array $fetch)
+                                        array $store, array $fetch,
+                                        $pop_arrays = false)
     {
         $result = $object->save($store);
         $this->assertNoError($result);
@@ -877,8 +916,12 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
         $object = $server->fetch($object->getUid());
 
         foreach ($fetch as $attribute => $expect) {
+            $actual = $object->get($attribute, false);
+            if ($pop_arrays && is_array($actual) && count($actual) == 1) {
+                $actual = array_pop($actual);
+            }
             $this->assertEquals($expect,
-                                $object->get($attribute));
+                                $actual);
         }
     }
 
