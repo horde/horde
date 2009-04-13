@@ -828,7 +828,6 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
         $this->assertNoError($object);
 
         $this->added[] = array(&$server, $object->getUid());
-
         $object = $server->fetch($object->getUid());
 
         foreach ($fetch as $attribute => $expect) {
@@ -853,8 +852,8 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
     {
         foreach ($sequence as $value) {
             $this->assertStoreFetch($object, $server,
-                                    array($attribute => $step),
-                                    array($attribute => $step));
+                                    array($attribute => $value),
+                                    array($attribute => $value));
         }
     }
 
