@@ -35,6 +35,13 @@ require_once 'Horde/Autoloader.php';
 class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
 {
     /**
+     * Uid of added objects. Should be removed on tearDown.
+     *
+     * @var array
+     */
+    public $added;
+
+    /**
      * Handle a "given" step.
      *
      * @param array  &$world    Joined "world" of variables.
@@ -789,6 +796,104 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
         } else {
             if (isset($msg)) {
                 $this->assertEquals($msg, $var->getMessage());
+            }
+        }
+    }
+
+    protected function fetchByCn($server, $cn)
+    {
+        $cn_result = $server->uidForCn($cn);
+        $this->assertNoError($cn_result);
+
+        $object = $server->fetch($cn_result);
+        $this->assertNoError($object);
+
+        return $object;
+    }
+
+    /**
+     * Assert that creating a new object operation yields some predictable
+     * attribute results.
+     *
+     * @param Horde_Kolab_Server         $server The server the object resides on.
+     * @param array                      $store  The information to save.
+     * @param array                      $fetch  The expected results.
+     *
+     * @return NULL.
+     */
+    protected function assertAdd(Horde_Kolab_Server &$server,
+                                 array $store, array $fetch)
+    {
+        $object = $server->add($store);
+        $this->assertNoError($object);
+
+        $this->added[] = array(&$server, $object->getUid());
+
+        $object = $server->fetch($object->getUid());
+
+        foreach ($fetch as $attribute => $expect) {
+            $this->assertEquals($expect, $object->get($attribute));
+        }
+        return $object;
+    }
+
+    /**
+     * Assert that a save() operation yields some predictable attribute results.
+     *
+     * @param Horde_Kolab_Server_Object $object    The object to work on.
+     * @param Horde_Kolab_Server        $server    The server the object resides on.
+     * @param string                    $attribute The attribute to work on.
+     * @param array                     $sequence  The sequence of values to set and expect.
+     *
+     * @return NULL.
+     */
+    protected function assertSimpleSequence(Horde_Kolab_Server_Object &$object,
+                                            Horde_Kolab_Server &$server,
+                                            $attribute, array $sequence)
+    {
+        foreach ($sequence as $value) {
+            $this->assertStoreFetch($object, $server,
+                                    array($attribute => $step),
+                                    array($attribute => $step));
+        }
+    }
+
+    /**
+     * Assert that a save() operation yields some predictable attribute results.
+     *
+     * @param Horde_Kolab_Server_Object  $object The object to work on.
+     * @param Horde_Kolab_Server         $server The server the object resides on.
+     * @param array                      $store  The information to save.
+     * @param array                      $fetch  The expected results.
+     *
+     * @return NULL.
+     */
+    protected function assertStoreFetch(Horde_Kolab_Server_Object &$object,
+                                        Horde_Kolab_Server &$server,
+                                        array $store, array $fetch)
+    {
+        $result = $object->save($store);
+        $this->assertNoError($result);
+
+        $object = $server->fetch($object->getUid());
+
+        foreach ($fetch as $attribute => $expect) {
+            $this->assertEquals($expect,
+                                $object->get($attribute));
+        }
+    }
+
+    /**
+     * Cleanup function.
+     *
+     * @return NULL.
+     */
+    public function tearDown()
+    {
+        if (isset($this->added)) {
+            foreach ($this->added as $add) {
+                $result = $add[0]->delete($add[1]);
+                $this->assertNoError($result);
             }
         }
     }
