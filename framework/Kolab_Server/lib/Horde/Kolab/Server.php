@@ -492,7 +492,7 @@ abstract class Horde_Kolab_Server
                              * supported the derived attribute should not be
                              * included into the set of supported attributes.
                              */
-                            if (!isset($attrs[$attrs])) {
+                            if (!isset($attrs[$attribute])) {
                                 unset($derived[$attribute]);
                                 $supported = false;
                                 break;
@@ -513,7 +513,7 @@ abstract class Horde_Kolab_Server
                              * supported the collapsed attribute should not be
                              * included into the set of supported attributes.
                              */
-                            if (!isset($attrs[$attrs])) {
+                            if (!isset($attrs[$attribute])) {
                                 unset($collapsed[$attribute]);
                             }
                         }
