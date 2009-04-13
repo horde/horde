@@ -27,20 +27,123 @@
  */
 class Horde_Kolab_Server_Object_Kolabinetorgperson extends Horde_Kolab_Server_Object_Inetorgperson
 {
+    /** Define attributes specific to this object type */
 
-    const ATTRIBUTE_ALIAS         = 'alias';
-    const ATTRIBUTE_DELEGATE      = 'kolabDelegate';
-    const ATTRIBUTE_DELETED       = 'kolabDeleteFlag';
-    const ATTRIBUTE_FBFUTURE      = 'kolabFreeBusyFuture';
-    const ATTRIBUTE_FOLDERTYPE    = 'kolabFolderType';
-    const ATTRIBUTE_HOMESERVER    = 'kolabHomeServer';
-    const ATTRIBUTE_FREEBUSYHOST  = 'kolabFreeBusyServer';
-    const ATTRIBUTE_IMAPHOST      = 'kolabImapServer';
-    const ATTRIBUTE_IPOLICY       = 'kolabInvitationPolicy';
-    const ATTRIBUTE_SALUTATION    = 'kolabSalutation';
-    const ATTRIBUTE_GENDER        = 'gender';
+    /** Alias mail addresses */
+    const ATTRIBUTE_ALIAS = 'alias';
+
+    /** Delegates for this person */
+    const ATTRIBUTE_DELEGATE = 'kolabDelegate';
+
+    /** Marker for a deleted object */
+    const ATTRIBUTE_DELETED = 'kolabDeleteFlag';
+
+    /** How many days of the free/busy future should be calculated in advance? */
+    const ATTRIBUTE_FBFUTURE = 'kolabFreeBusyFuture';
+
+    /** 
+     * The home server of this person. It identifies the correct machine in a
+     * master/slave setup.
+     */
+    const ATTRIBUTE_HOMESERVER = 'kolabHomeServer';
+
+    /** The free/busy server of this person */
+    const ATTRIBUTE_FREEBUSYHOST = 'kolabFreeBusyServer';
+
+    /** The host that keeps the IMAP mail store of this person */
+    const ATTRIBUTE_IMAPHOST = 'kolabImapServer';
+
+    /** The invitation policy for this person */
+    const ATTRIBUTE_IPOLICY = 'kolabInvitationPolicy';
+
+    /** The salutation of this person. */
+    const ATTRIBUTE_SALUTATION = 'kolabSalutation';
+
+    /** Persons gender */
+    const ATTRIBUTE_GENDER = 'gender';
+
+    /** The marital status */
     const ATTRIBUTE_MARITALSTATUS = 'kolabMaritalStatus';
 
+    /** The german tax ID */
+    const ATTRIBUTE_GERMANTAXID = 'germanTaxId';
+
+    /** The country of residence */
+    const ATTRIBUTE_COUNTRY = 'c';
+
+    /** The IMAP quota */
+    const ATTRIBUTE_QUOTA = 'cyrus-userquota';
+
+    /** Allowed recipients for this person */
+    const ATTRIBUTE_ALLOWEDRECIPIENTS = 'kolabAllowSMTPRecipient';
+
+    /** Allowed senders for this person */
+    const ATTRIBUTE_ALLOWEDFROM = 'kolabAllowSMTPFrom';
+
+    /** The date of birth */
+    const ATTRIBUTE_DATEOFBIRTH = 'dateOfBirth';
+
+    /** The place of birth */
+    const ATTRIBUTE_PLACEOFBIRTH = 'birthPlace';
+
+    /** Birth name */
+    const ATTRIBUTE_BIRTHNAME = 'birthName';
+
+    /** Country of citizenship */
+    const ATTRIBUTE_COUNTRYCITIZENSHIP = 'countryOfCitizenship';
+
+    /** Legal form (if the person is a legal entity) */
+    const ATTRIBUTE_LEGALFORM = 'legalForm';
+
+    /** Registered capital (if the person is a legal entity) */
+    const ATTRIBUTE_REGISTEREDCAPITAL = 'tradeRegisterRegisteredCapital';
+
+    /** URI for bylaw (if the person is a legal entity) */
+    const ATTRIBUTE_BYLAWURI = 'bylawURI';
+
+    /** Date of incorporation (if the person is a legal entity) */
+    const ATTRIBUTE_DATEOFINCORPORATION = 'dateOfIncorporation';
+
+    /** Legal representative (if the person is a legal entity) */
+    const ATTRIBUTE_LEGALREPRESENTATIVE = 'legalRepresentative';
+
+    /** Commercial procuration (if the person is a legal entity) */
+    const ATTRIBUTE_COMMERCIALPROCURATION = 'commercialProcuration';
+
+    /** Legal representation policy (if the person is a legal entity) */
+    const ATTRIBUTE_LEGALREPRESENTATIONPOLICY = 'legalRepresentationPolicy';
+
+    /** Acting deputy (if the person is a legal entity) */
+    const ATTRIBUTE_ACTINGDEPUTY = 'actingDeputy';
+
+    /** VAT number (if the person is a legal entity) */
+    const ATTRIBUTE_VATNUMBER = 'VATNumber';
+
+    /** Additional legal relationships (if the person is a legal entity) */
+    const ATTRIBUTE_OTHERLEGAL = 'otherLegalRelationship';
+
+    /** Is this entity in liquidation? (if the person is a legal entity) */
+    const ATTRIBUTE_INLIQUIDATION = 'inLiquidation';
+
+    /** Type of entity as given by the trade register (if the person is a legal entity) */
+    const ATTRIBUTE_TRTYPE = 'tradeRegisterType';
+
+    /** Location of entity as given by the trade register (if the person is a legal entity) */
+    const ATTRIBUTE_TRLOCATION = 'tradeRegisterLocation';
+
+    /** Identifier of entity as given by the trade register (if the person is a legal entity) */
+    const ATTRIBUTE_TRIDENTIFIER = 'tradeRegisterIdentifier';
+
+    /** URI of entity as given by the trade register (if the person is a legal entity) */
+    const ATTRIBUTE_TRURI = 'tradeRegisterURI';
+
+    /** Date of last change in the trade register (if the person is a legal entity) */
+    const ATTRIBUTE_TRLASTCHANGED = 'tradeRegisterLastChangedDate';
+
+    /** Subdomain for this person */
+    const ATTRIBUTE_DC = 'domainComponent';
+
+    /** The specific object class of this object type */
     const OBJECTCLASS_KOLABINETORGPERSON = 'kolabInetOrgPerson';
 
     /**
@@ -50,16 +153,43 @@ class Horde_Kolab_Server_Object_Kolabinetorgperson extends Horde_Kolab_Server_Ob
      */
     static public $init_attributes = array(
         'defined' => array(
-            self::ATTRIBUTE_IMAPHOST,
+            self::ATTRIBUTE_ALIAS,
+            self::ATTRIBUTE_DELEGATE,
+            self::ATTRIBUTE_DELETED,
+            self::ATTRIBUTE_FBFUTURE,
             self::ATTRIBUTE_HOMESERVER,
             self::ATTRIBUTE_FREEBUSYHOST,
+            self::ATTRIBUTE_IMAPHOST,
+            self::ATTRIBUTE_IPOLICY,
             self::ATTRIBUTE_SALUTATION,
             self::ATTRIBUTE_GENDER,
             self::ATTRIBUTE_MARITALSTATUS,
-            self::ATTRIBUTE_IPOLICY,
-            self::ATTRIBUTE_ALIAS,
-            self::ATTRIBUTE_DELEGATE,
-            self::ATTRIBUTE_FBFUTURE,
+            self::ATTRIBUTE_GERMANTAXID,
+            self::ATTRIBUTE_COUNTRY,
+            self::ATTRIBUTE_QUOTA,
+            self::ATTRIBUTE_ALLOWEDRECIPIENTS,
+            self::ATTRIBUTE_ALLOWEDFROM,
+            self::ATTRIBUTE_DATEOFBIRTH,
+            self::ATTRIBUTE_PLACEOFBIRTH,
+            self::ATTRIBUTE_BIRTHNAME,
+            self::ATTRIBUTE_COUNTRYCITIZENSHIP,
+            self::ATTRIBUTE_LEGALFORM,
+            self::ATTRIBUTE_REGISTEREDCAPITAL,
+            self::ATTRIBUTE_BYLAWURI,
+            self::ATTRIBUTE_DATEOFINCORPORATION,
+            self::ATTRIBUTE_LEGALREPRESENTATIVE,
+            self::ATTRIBUTE_COMMERCIALPROCURATION,
+            self::ATTRIBUTE_LEGALREPRESENTATIONPOLICY,
+            self::ATTRIBUTE_ACTINGDEPUTY,
+            self::ATTRIBUTE_VATNUMBER,
+            self::ATTRIBUTE_OTHERLEGAL,
+            self::ATTRIBUTE_INLIQUIDATION,
+            self::ATTRIBUTE_TRTYPE,
+            self::ATTRIBUTE_TRLOCATION,
+            self::ATTRIBUTE_TRIDENTIFIER,
+            self::ATTRIBUTE_TRURI,
+            self::ATTRIBUTE_TRLASTCHANGED,
+            self::ATTRIBUTE_DC,
         ),
         'locked' => array(
             self::ATTRIBUTE_MAIL,
