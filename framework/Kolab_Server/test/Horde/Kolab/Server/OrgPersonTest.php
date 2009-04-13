@@ -110,43 +110,11 @@ class Horde_Kolab_Server_OrgPersonTest extends Horde_Kolab_Test_Server
      */
     public function testHandlingAJobTitle($server)
     {
-        $result = $server->add($this->objects[0]);
-        $this->assertNoError($result);
-
-        $cn = $this->objects[0][Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_CN];
-
-        $person = $this->fetchNew($server, $cn);
-
-        $this->assertEquals($person->get(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_JOBTITLE),
-                            '');
-
-        $person->save(array(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_JOBTITLE => 'Teacher'));
-
-        $person = $this->fetchNew($server, $cn);
-
-        $this->assertEquals($person->get(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_JOBTITLE),
-                            'Teacher');
-
-        $person->save(array(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_JOBTITLE => 'öäü/)(="§%$&§§$\'*'));
-
-        $person = $this->fetchNew($server, $cn);
-
-        $this->assertEquals($person->get(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_JOBTITLE),
-                            'öäü/)(="§%$&§§$\'*');
-
-
-        $person->save(array(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_JOBTITLE => ''));
-
-        $person = $this->fetchNew($server, $cn);
-
-        $this->assertEquals($person->get(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_JOBTITLE),
-                            '');
-
-        $result = $server->delete($person->get(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_UID));
-        $this->assertNoError($result);
-        $cn_result = $server->uidForCn($this->objects[0][Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_CN]);
-        $this->assertNoError($cn_result);
-        $this->assertFalse($server->uidForCn($this->objects[0][Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_CN]));
+        $person = $this->assertAdd($server, $this->objects[0],
+                                   array(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_JOBTITLE => ''));
+        $this->assertSimpleSequence($person, $server,
+                                    Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_JOBTITLE,
+                                    array('Teacher', 'öäü/)(="§%$&§§$\'*', '', '0'));
     }
 
     /**
@@ -158,69 +126,31 @@ class Horde_Kolab_Server_OrgPersonTest extends Horde_Kolab_Test_Server
      */
     public function testHandlingAPostalAddress($server)
     {
-        $result = $server->add($this->objects[0]);
-        $this->assertNoError($result);
+        $person = $this->assertAdd($server, $this->objects[0],
+                                   array(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTALADDRESSRAW => 'Kolab_Server_OrgPersonTest_123$$$ '));
 
-        $cn = $this->objects[0][Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_CN];
+        $this->assertStoreFetch($person, $server,
+                                array(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_SN => 'Kolab_Server_OrgPersonTest_456'),
+                                array(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTALADDRESSRAW => 'Kolab_Server_OrgPersonTest_456$$$ '));
 
-        $person = $this->fetchNew($server, $cn);
+        $this->assertStoreFetch($person, $server,
+                                array(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_SN => 'Kolab_Server_OrgPersonTest_123',
+                                      Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_STREET => 'Street 1',
+                                      Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTALCODE => '12345',
+                                      Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTALADDRESS => 'c/o here',
+                                      Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_CITY => 'Nowhere'),
+                                array(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTALADDRESSRAW => 'Kolab_Server_OrgPersonTest_123$c/o here$Street 1$12345 Nowhere'));
+        $this->assertStoreFetch($person, $server,
+                                array(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTOFFICEBOX => 'öäü/)(="§%$&§§$\'*',
+                                      Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_STREET => ''),
+                                array(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTALADDRESSRAW => 'Kolab_Server_OrgPersonTest_123$c/o here$öäü/)(="§%\24&§§\24\'*$12345 Nowhere'));
 
-        $this->assertEquals($person->get(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTALADDRESSRAW),
-                            'Kolab_Server_OrgPersonTest_123$$$ ');
-
-        $person->save(array(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_SN => 'Kolab_Server_OrgPersonTest_456'));
-
-        $person = $this->fetchNew($server, $cn);
-
-        $this->assertEquals($person->get(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTALADDRESSRAW),
-                            'Kolab_Server_OrgPersonTest_456$$$ ');
-
-        $person->save(array(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_SN => 'Kolab_Server_OrgPersonTest_123',
-                            Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_STREET => 'Street 1',
-                            Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTALCODE => '12345',
-                            Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTALADDRESS => 'c/o here',
-                            Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_CITY => 'Nowhere'));
-
-        $person = $this->fetchNew($server, $cn);
-
-        $this->assertEquals('Kolab_Server_OrgPersonTest_123$c/o here$Street 1$12345 Nowhere',
-                            $person->get(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTALADDRESSRAW));
-
-        $person->save(array(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTOFFICEBOX => 'öäü/)(="§%$&§§$\'*',
-                            Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_STREET => ''));
-
-        $person = $this->fetchNew($server, $cn);
-
-        $this->assertEquals('Kolab_Server_OrgPersonTest_123$c/o here$öäü/)(="§%\5c24&§§\5c24\'*$12345 Nowhere',
-                            $person->get(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTALADDRESSRAW));
-
-
-        $person->save(array(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_STREET => '',
-                            Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTALCODE => '',
-                            Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTALADDRESS => '',
-                            Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTOFFICEBOX => '',
-                            Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_CITY => ''));
-
-        $person = $this->fetchNew($server, $cn);
-
-        $this->assertEquals('Kolab_Server_OrgPersonTest_123$$$ ',
-                            $person->get(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTALADDRESSRAW));
-
-        $result = $server->delete($cn_result);
-        $this->assertNoError($result);
-        $cn_result = $server->uidForCn($this->objects[0][Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_CN]);
-        $this->assertNoError($cn_result);
-        $this->assertFalse($server->uidForCn($this->objects[0][Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_CN]));
-    }
-
-    private function fetchNew($server, $cn)
-    {
-        $cn_result = $server->uidForCn($cn);
-        $this->assertNoError($cn_result);
-
-        $person = $server->fetch($cn_result);
-        $this->assertNoError($person);
-
-        return $person;
+        $this->assertStoreFetch($person, $server,
+                                array(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_STREET => '',
+                                      Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTALCODE => '',
+                                      Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTALADDRESS => '',
+                                      Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTOFFICEBOX => '',
+                                      Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_CITY => ''),
+                                array(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTALADDRESSRAW => 'Kolab_Server_OrgPersonTest_123$$$ '));
     }
 }

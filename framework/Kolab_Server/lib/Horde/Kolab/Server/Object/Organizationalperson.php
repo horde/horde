@@ -69,6 +69,7 @@ class Horde_Kolab_Server_Object_Organizationalperson extends Horde_Kolab_Server_
             self::ATTRIBUTE_POSTALCODE,
             self::ATTRIBUTE_CITY,
             self::ATTRIBUTE_FAX,
+            self::ATTRIBUTE_POSTALADDRESS,
         ),
         'derived' => array(
             self::ATTRIBUTE_POSTALADDRESS => array(
@@ -93,11 +94,12 @@ class Horde_Kolab_Server_Object_Organizationalperson extends Horde_Kolab_Server_
                     self::ATTRIBUTE_SN,
                     self::ATTRIBUTE_STREET,
                     self::ATTRIBUTE_POSTOFFICEBOX,
+                    self::ATTRIBUTE_POSTALADDRESS,
                     self::ATTRIBUTE_POSTALCODE,
                     self::ATTRIBUTE_CITY,
                 ),
+                'method' => 'setPostalAddress',
             ),
-            'method' => 'setPostalAddress',
         ),
         'object_classes' => array(
             self::OBJECTCLASS_ORGANIZATIONALPERSON,
@@ -131,8 +133,8 @@ class Horde_Kolab_Server_Object_Organizationalperson extends Horde_Kolab_Server_
             return $postal;
         }
         $postal_parts = explode('$', $postal);
-        if (isset($postal_parts[2])) {
-            return $this->unquote($postal_parts[2]);
+        if (isset($postal_parts[1])) {
+            return $this->unquote($postal_parts[1]);
         } else {
             return '';
         }
@@ -152,7 +154,7 @@ class Horde_Kolab_Server_Object_Organizationalperson extends Horde_Kolab_Server_
         $empty      = true;
         $postalData = array();
         foreach ($attributes as $attribute) {
-            if (!empty($info[$attribute])) {
+            if (isset($info[$attribute])) {
                 if (is_array($info[$attribute])) {
                     $new = $info[$attribute][0];
                 } else {
@@ -161,9 +163,9 @@ class Horde_Kolab_Server_Object_Organizationalperson extends Horde_Kolab_Server_
                 $postalData[$attribute] = $this->quote($new);
                 $empty                  = false;
             } else {
-                $old = $this->_get($attribute, true);
+                $old = $this->get($attribute, true);
                 if (!empty($old)) {
-                    $postalData[$attribute] = $this->quote($old);
+                    $postalData[$attribute] = $old;
                     $empty                  = false;
                 } else {
                     $postalData[$attribute] = '';
@@ -175,10 +177,10 @@ class Horde_Kolab_Server_Object_Organizationalperson extends Horde_Kolab_Server_
             return;
         }
 
-        if (!empty($postalData[self::ATTRIBUTE_STREET])) {
-            $postalData['street_segment'] = $postalData[self::ATTRIBUTE_STREET];
-        } else {
+        if (!empty($postalData[self::ATTRIBUTE_POSTOFFICEBOX])) {
             $postalData['street_segment'] = $postalData[self::ATTRIBUTE_POSTOFFICEBOX];
+        } else {
+            $postalData['street_segment'] = $postalData[self::ATTRIBUTE_STREET];
         }
 
         $info[$key] = sprintf('%s$%s$%s$%s %s',
