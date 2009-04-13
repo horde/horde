@@ -2,6 +2,7 @@
 v5.0-git
 --------
 
+[mms] Use mailbox names in folder confirmation actions (DIMP) (Request #8162).
 [mms] Optimize viewport row insertion/updating (DIMP).
 [mms] Add support for defining and displaying custom IMAP flags and for
       configuring the highlighting of system flags (Request #937).
