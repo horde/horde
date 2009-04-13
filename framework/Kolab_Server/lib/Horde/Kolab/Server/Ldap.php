@@ -156,16 +156,7 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
                                                    Horde_Kolab_Server_Exception::EMPTY_RESULT);
         }            
 
-        if (!isset($data[$uid])) {
-            throw new Horde_Kolab_Server_Exception(sprintf(_("No result found for %s"),
-                                                           $uid),
-                                                   Horde_Kolab_Server_Exception::EMPTY_RESULT);
-        }
-        if (is_a($data[$uid], 'PEAR_Error')) {
-            throw new Horde_Kolab_Server_Exception($data[$uid],
-                                                   Horde_Kolab_Server_Exception::SYSTEM);
-        }
-        return $data[$uid];
+        return array_pop($data);
     }
 
     /**
@@ -194,7 +185,7 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
                     $values = array($values);
                 }
                 foreach ($values as $value) {
-                    if (!empty($value)) {
+                    if (!($value === null || $info[$key] === '')) {
                         $empty = false;
                         break;
                     }
