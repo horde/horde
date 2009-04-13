@@ -239,7 +239,7 @@ var ImpCompose = {
             if (lastRow) {
                 td = new Element('TD', { align: 'left' }).insert(new Element('STRONG').insert(IMP.text.compose_file + ' ' + (usedFields + 1) + ':')).insert('&nbsp;')
 
-                td.insert(new Element('INPUT', { type: 'file', name: 'upload_' + (usedFields + 1), size: 25 }));
+                td.insert(new Element('INPUT', { type: 'file', id: 'upload_' + (usedFields + 1), name: 'upload_' + (usedFields + 1), size: 25 }));
 
                 newRow = new Element('TR', { id: 'attachment_row_' + (usedFields + 1) }).insert(td);
 
