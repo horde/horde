@@ -275,11 +275,13 @@ class Horde_Kolab_Server_Object_Kolab_User extends Horde_Kolab_Server_Object_Kol
      */
     public function save($info)
     {
-        if (!isset($info['cn'])) {
-            if (!isset($info['sn']) || !isset($info['givenName'])) {
-                throw new Horde_Kolab_Server_Exception(_("Either the last name or the given name is missing!"));
-            } else {
-                $info['cn'] = $this->generateId($info);
+        if (!$this->exists()) {
+            if (!isset($info['cn'])) {
+                if (!isset($info['sn']) || !isset($info['givenName'])) {
+                    throw new Horde_Kolab_Server_Exception(_("Either the last name or the given name is missing!"));
+                } else {
+                    $info['cn'] = $this->generateId($info);
+                }
             }
         }
 
