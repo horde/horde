@@ -515,7 +515,8 @@ class Horde_Kolab_Server_Object
          * may omit these together with their field separators.
          */
         krsort($attributes);
-        $empty = count($attributes);
+        $empty = true;
+        $end   = count($attributes);
         foreach ($attributes as $attribute) {
             /**
              * We do not expect the callee to always provide all attributes
@@ -528,24 +529,26 @@ class Horde_Kolab_Server_Object
                     $info[$attribute] = $old;
                 }
             }
-            if (empty($info[$attribute])) {
-                $empty--;
+            if ($empty && empty($info[$attribute])) {
+                $end--;
+            } else {
+                $empty = false;
             }
         }
-        if ($empty == 0) {
+        if ($empty) {
             return;
         }
         ksort($attributes);
         $unset = $attributes;
         $result = '';
-        for ($i = 0; $i < $empty; $i++) {
+        for ($i = 0; $i < $end; $i++) {
             $akey = array_shift($attributes);
             $value =  $info[$akey];
             if (is_array($value)) {
                 $value = $value[0];
             }
             $result .= $this->quote($value);
-            if ($i != ($empty - 1)) {
+            if ($i != ($end - 1)) {
                 $result .= $separator;
             }
         }
@@ -640,7 +643,7 @@ class Horde_Kolab_Server_Object
                  * or the value is locked. If there is an old value we must
                  * assume the value was removed.
                  */
-                $old = $this->get($key);
+                $old = $this->get($key, false);
                 if (($value === null || $info[$key] === '')
                     && (empty($old)
                         || in_array($key, $this->attribute_map['locked']))) {
