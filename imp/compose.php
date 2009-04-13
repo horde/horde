@@ -1108,10 +1108,10 @@ if ($redirect) {
     }
     if ($_SESSION['imp']['file_upload']) {
         $compose_options[] = array(
-            'url' => Horde::link('#attachments', '', 'widget', null,
-                                 'Field.focus(\'upload_1\');return false;'),
+            'url' => Horde::link('#attachments', '', 'widget'),
             'img' => Horde::img('manage_attachments.png'),
-            'label' => $show_text ? _("Attachments") : '');
+            'label' => $show_text ? _("Attachments") : ''
+        );
     }
     $t->set('compose_options', $compose_options);
     $t->set('help_options', Help::link('imp', 'compose-options'));
