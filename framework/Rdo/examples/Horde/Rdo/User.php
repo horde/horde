@@ -9,7 +9,7 @@ require_once 'Horde/Autoloader.php';
 
 @include './conf.php';
 if (empty($conf['sql'])) {
-    die('No sql configuration found.');
+    die("No sql configuration found\n");
 }
 
 /**
