@@ -280,7 +280,7 @@ class Horde_Kolab_Server_PersonTest extends Horde_Kolab_Test_Server
         try {
             $person->save(array(Horde_Kolab_Server_Object_Person::ATTRIBUTE_SN => '',
                                 Horde_Kolab_Server_Object_Person::ATTRIBUTE_SNSUFFIX => 'test'));
-        } catch (Horde_Kolab_Server_Object_Exception $e) {
+        } catch (Horde_Kolab_Server_Exception $e) {
             $this->assertError($e);
         }
     }
@@ -298,6 +298,6 @@ class Horde_Kolab_Server_PersonTest extends Horde_Kolab_Test_Server
                                    array(Horde_Kolab_Server_Object_Person::ATTRIBUTE_TELNO => ''));
         $this->assertSimpleSequence($person, $server,
                                     Horde_Kolab_Server_Object_Person::ATTRIBUTE_TELNO,
-                                    array('123456789', '1234567890', '0'));
+                                    array('123456789', '1234567890', '', '0'));
     }
 }
