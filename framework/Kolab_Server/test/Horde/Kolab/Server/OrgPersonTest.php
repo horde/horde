@@ -102,19 +102,19 @@ class Horde_Kolab_Server_OrgPersonTest extends Horde_Kolab_Test_Server
     }
 
     /**
-     * Test handling a job title.
+     * Test handling simple attributes.
      *
      * @dataProvider provideServers
      *
      * @return NULL
      */
-    public function testHandlingAJobTitle($server)
+    public function testSimpleAttributes($server)
     {
         $person = $this->assertAdd($server, $this->objects[0],
                                    array(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_JOBTITLE => ''));
-        $this->assertSimpleSequence($person, $server,
-                                    Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_JOBTITLE,
-                                    array('Teacher', 'öäü/)(="§%$&§§$\'*', '', '0'));
+        $this->assertSimpleAttributes($person, $server,
+                                      array(
+                                      ));
     }
 
     /**
@@ -142,15 +142,50 @@ class Horde_Kolab_Server_OrgPersonTest extends Horde_Kolab_Test_Server
                                 array(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTALADDRESSRAW => 'Kolab_Server_OrgPersonTest_123$c/o here$Street 1$12345 Nowhere'));
         $this->assertStoreFetch($person, $server,
                                 array(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTOFFICEBOX => 'öäü/)(="§%$&§§$\'*',
-                                      Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_STREET => ''),
+                                      Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_STREET => null),
                                 array(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTALADDRESSRAW => 'Kolab_Server_OrgPersonTest_123$c/o here$öäü/)(="§%\24&§§\24\'*$12345 Nowhere'));
 
         $this->assertStoreFetch($person, $server,
-                                array(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_STREET => '',
-                                      Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTALCODE => '',
+                                array(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_STREET => null,
+                                      Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTALCODE => null,
+                                      //FIXME: Why does this need a string?
                                       Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTALADDRESS => '',
-                                      Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTOFFICEBOX => '',
-                                      Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_CITY => ''),
+                                      Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTOFFICEBOX => null,
+                                      Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_CITY => null),
                                 array(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTALADDRESSRAW => 'Kolab_Server_OrgPersonTest_123$$$ '));
+    }
+
+
+    /**
+     * Test handling easy attributes.
+     *
+     * @dataProvider provideServers
+     *
+     * @return NULL
+     */
+    public function testEasyAttributes($server)
+    {
+        $person = $this->assertAdd($server, $this->objects[0],
+                                   array(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_JOBTITLE => ''));
+        $this->assertEasyAttributes($person, $server,
+                                    array(
+                                        Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_JOBTITLE => array(
+                                            'Teacher',
+                                            '0',
+                                            'Something',
+                                            null,
+                                            '',
+                                            array('This', 'That'),
+                                        ),
+                                        Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_FAX => array(
+                                            '123456789',
+                                            '+1234567890',
+                                            array('1', '2'),
+                                            '0',
+                                            //FIXME: How to delete?
+                                            //null
+                                        )
+                                    )
+        );
     }
 }

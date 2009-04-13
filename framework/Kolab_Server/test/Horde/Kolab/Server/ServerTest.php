@@ -122,7 +122,7 @@ class Horde_Kolab_Server_None extends Horde_Kolab_Server
      */
     public function read($uid, $attrs = null)
     {
-        throw new Horde_Kolab_Server_Exception('Not implemented!');
+        return false;
     }
 
     /**

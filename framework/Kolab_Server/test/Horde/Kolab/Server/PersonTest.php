@@ -298,6 +298,6 @@ class Horde_Kolab_Server_PersonTest extends Horde_Kolab_Test_Server
                                    array(Horde_Kolab_Server_Object_Person::ATTRIBUTE_TELNO => ''));
         $this->assertSimpleSequence($person, $server,
                                     Horde_Kolab_Server_Object_Person::ATTRIBUTE_TELNO,
-                                    array('123456789', '1234567890', '', '0'));
+                                    array('123456789', '+1234567890', array('1', '2'), null, '0'), true);
     }
 }
