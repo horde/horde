@@ -27,18 +27,40 @@
  */
 class Horde_Kolab_Server_Object_Inetorgperson extends Horde_Kolab_Server_Object_Organizationalperson
 {
+    /** Define attributes specific to this object type */
 
-    const ATTRIBUTE_SID          = 'uid';
-    const ATTRIBUTE_GIVENNAME    = 'givenName';
-    const ATTRIBUTE_MAIL         = 'mail';
-    const ATTRIBUTE_FN           = 'fn';
-    const ATTRIBUTE_LNFN         = 'lnfn';
-    const ATTRIBUTE_FNLN         = 'fnln';
+    /** The short ID */
+    const ATTRIBUTE_SID = 'uid';
 
-    const OBJECTCLASS_INETORGPERSON      = 'inetOrgPerson';
+    /** The given name */
+    const ATTRIBUTE_GIVENNAME = 'givenName';
 
     /** Middle names */
     const ATTRIBUTE_MIDDLENAMES = 'middleNames';
+
+    /** The mail address of this person */
+    const ATTRIBUTE_MAIL = 'mail';
+
+    /** Home addresses */
+    const ATTRIBUTE_HOMEPOSTALADDRESS = 'homePostalAddress';
+
+    /** Home addresses as array */
+    const ATTRARRAY_HOMEPOSTALADDRESS = 'homePostalAddressArray';
+
+    /** Labeled URI */
+    const ATTRIBUTE_LABELEDURI = 'labeledURI';
+
+    /** Labeled URIs as array */
+    const ATTRARRAY_LABELEDURI = 'labeledURIArray';
+
+    /** The last name followed by the first name */
+    const ATTRIBUTE_LNFN = 'lnfn';
+
+    /** The first name followed by the last name */
+    const ATTRIBUTE_FNLN = 'fnln';
+
+    /** The specific object class of this object type */
+    const OBJECTCLASS_INETORGPERSON = 'inetOrgPerson';
 
     /**
      * A structure to initialize the attribute structure for this class.
@@ -50,27 +72,83 @@ class Horde_Kolab_Server_Object_Inetorgperson extends Horde_Kolab_Server_Object_
             self::ATTRIBUTE_SID,
             self::ATTRIBUTE_GIVENNAME,
             self::ATTRIBUTE_MAIL,
+            self::ATTRIBUTE_LABELEDURI,
+            self::ATTRIBUTE_HOMEPOSTALADDRESS,
         ),
         'derived' => array(
+            self::ATTRARRAY_HOMEPOSTALADDRESS => array(
+                'base' => array(
+                    self::ATTRIBUTE_HOMEPOSTALADDRESS,
+                    self::ATTRIBUTE_GIVENNAME,
+                    self::ATTRIBUTE_SN
+                ),
+                'method' => 'getHomePostalAddressHash',
+            ),
+            self::ATTRARRAY_LABELEDURI => array(
+                'base' => array(
+                    self::ATTRIBUTE_LABELEDURI,
+                ),
+                'method' => 'getLabeledUriHash',
+            ),
             self::ATTRIBUTE_GIVENNAME => array(
-                'base' => self::ATTRIBUTE_GIVENNAME,
-                'order' => 0,
-                'desc' => 'Given name.',
+                'base' => array(
+                    self::ATTRIBUTE_GIVENNAME,
+                ),
+                'method' => 'getField',
+                'args' => array(
+                    self::ATTRIBUTE_GIVENNAME,
+                    0,
+                    ' '
+                ),
             ),
             self::ATTRIBUTE_MIDDLENAMES => array(
-                'base' => self::ATTRIBUTE_GIVENNAME,
-                'order' => 1,
-                'desc' => 'Additional names separated from the given name by whitespace.',
+                'base' => array(
+                    self::ATTRIBUTE_GIVENNAME,
+                ),
+                'method' => 'getField',
+                'args' => array(
+                    self::ATTRIBUTE_GIVENNAME,
+                    1,
+                    ' ',
+                    2
+                ),
             ),
             self::ATTRIBUTE_FNLN => array(
-                'base' => array(self::ATTRIBUTE_GIVENNAME,
-                                self::ATTRIBUTE_SN),
-                'readonly' => true,
+                'base' => array(
+                    self::ATTRIBUTE_GIVENNAME,
+                    self::ATTRIBUTE_SN
+                ),
+                'method' => 'getFnLn',
             ),
             self::ATTRIBUTE_LNFN => array(
-                'base' => array(self::ATTRIBUTE_GIVENNAME,
-                                self::ATTRIBUTE_SN),
-                'readonly' => true,
+                'base' => array(
+                    self::ATTRIBUTE_GIVENNAME,
+                    self::ATTRIBUTE_SN
+                ),
+                'method' => 'getLnFn',
+            ),
+        ),
+        'collapsed' => array(
+            self::ATTRIBUTE_GIVENNAME => array(
+                'base' => array(
+                    self::ATTRIBUTE_GIVENNAME,
+                    self::ATTRIBUTE_MIDDLENAMES,
+                ),
+                'separator' => ' ',
+            ),
+            self::ATTRIBUTE_LABELEDURI => array(
+                'base' => array(
+                    self::ATTRARRAY_LABELEDURI,
+                ),
+                'method' => 'setLabeledUriHash',
+            ),
+            self::ATTRIBUTE_HOMEPOSTALADDRESS => array(
+                'base' => array(
+                    self::ATTRARRAY_HOMEPOSTALADDRESS,
+                    self::ATTRIBUTE_GIVENNAME,
+                    self::ATTRIBUTE_SN
+                ),
+                'method' => 'setHomePostalAddressHash',
             ),
         ),
         'locked' => array(
@@ -95,51 +173,156 @@ class Horde_Kolab_Server_Object_Inetorgperson extends Horde_Kolab_Server_Object_
     }
 
     /**
-     * Derive an attribute value.
+     * Get the name of this Object as "Firstname Lastname".
      *
-     * @param string $attr The attribute to derive.
-     *
-     * @return mixed The value of the attribute.
+     * @return string The name.
      */
-    protected function derive($attr, $separator = '$')
+    protected function getFnLn()
     {
-        switch ($attr) {
-        case self::ATTRIBUTE_GIVENNAME:
-        case self::ATTRIBUTE_MIDDLENAMES:
-            return $this->getField($attr, ' ', 2);
-        case self::ATTRIBUTE_LNFN:
-            $gn = $this->get(self::ATTRIBUTE_GIVENNAME, true);
-            $sn = $this->get(self::ATTRIBUTE_SN, true);
-            return sprintf('%s, %s', $sn, $gn);
-        case self::ATTRIBUTE_FNLN:
-            $gn = $this->get(self::ATTRIBUTE_GIVENNAME, true);
-            $sn = $this->get(self::ATTRIBUTE_SN, true);
-            return sprintf('%s %s', $gn, $sn);
-        default:
-            return parent::derive($attr);
-        }
+        $gn = $this->get(self::ATTRIBUTE_GIVENNAME, true);
+        $sn = $this->get(self::ATTRIBUTE_SN, true);
+        return sprintf('%s %s', $gn, $sn);
     }
 
     /**
-     * Collapse derived values back into the main attributes.
+     * Get the name of this Object as "Lastname, Firstname".
      *
-     * @param string $attr The attribute to collapse.
-     * @param array  $info The information currently working on.
-     *
-     * @return mixed The value of the attribute.
+     * @return string The name.
      */
-    protected function collapse($key, $attributes, &$info, $separator = '$')
+    protected function getLnFn()
     {
-        switch ($key) {
-        case self::ATTRIBUTE_GIVENNAME:
-            parent::collapse($key, $attributes, $info, ' ');
-            break;
-        default:
-            parent::collapse($key, $attributes, $info, $separator);
-            break;
-        }
+        $gn = $this->get(self::ATTRIBUTE_GIVENNAME, true);
+        $sn = $this->get(self::ATTRIBUTE_SN, true);
+        return sprintf('%s, %s', $sn, $gn);
     }
 
+    /**
+     * Return a hash of URIs. The keys of the hash are the labels.
+     *
+     * @return array The URIs.
+     */
+    protected function getLabeledUriHash()
+    {
+        $result = array();
+        $uris   = $this->get(self::ATTRIBUTE_LABELEDURI);
+        foreach ($uris as $uri) {
+            list($address, $label) = explode(' ', $uri, 2);
+            $result[$label] = $address;
+        }
+        return $result;
+    }
+
+    /**
+     * Store a hash of URIs. The keys of the hash are the labels.
+     *
+     * @return NULL
+     */
+    protected function setLabeledUriHash($key, $attributes, &$info)
+    {
+        $result = array();
+        $uris = $info[self::ATTRARRAY_LABELEDURI];
+        foreach ($uris as $label => $address) {
+            $result[] = $address . ' ' . $label;
+        }
+        $info[self::ATTRIBUTE_LABELEDURI] = $result;
+        unset($info[self::ATTRARRAY_LABELEDURI]);
+    }
+
+    /**
+     * Get home postal addresses as an array.
+     *
+     * @return array The home addressses.
+     */
+    protected function getHomePostalAddressHash()
+    {
+        $result = array();
+        $addresses = $this->get(self::ATTRIBUTE_HOMEPOSTALADDRESS);
+        foreach ($addresses as $address) {
+            list($name_segment, $street_segment,
+                 $postal_address, $postal_code, $city)  = sscanf('%s$%s$%s$%s %s', $address);
+            if ($name_segment == _("Post office box")) {
+                $result[] = array(
+                    self::ATTRIBUTE_POSTOFFICEBOX => $street_segment,
+                    self::ATTRIBUTE_POSTALADDRESS => $postal_address,
+                    self::ATTRIBUTE_POSTALCODE => $postal_code,
+                    self::ATTRIBUTE_CITY => $city
+                );
+            } else {
+                $result[] = array(
+                    self::ATTRIBUTE_STREET => $street_segment,
+                    self::ATTRIBUTE_POSTALADDRESS => $postal_address,
+                    self::ATTRIBUTE_POSTALCODE => $postal_code,
+                    self::ATTRIBUTE_CITY => $city
+                );
+            }
+        }
+        return $result;
+    }
+
+    /**
+     * Store home postal addresses provided as array.
+     *
+     * @return NULL
+     */
+    protected function setHomePostalAddressHash($key, $attributes, &$info)
+    {
+        $result = array();
+        $dbPostalData = array();
+        $db_elements = array(self::ATTRIBUTE_GIVENNAME,
+                             self::ATTRIBUTE_SN);
+        foreach ($db_elements as $attribute) {
+            if (!empty($info[$attribute])) {
+                if (is_array($info[$attribute])) {
+                    $new = $info[$attribute][0];
+                } else {
+                    $new = $info[$attribute];
+                }
+                $dbPostalData[$attribute] = $this->quote($new);
+            } else {
+                $old = $this->_get($attribute, true);
+                if (!empty($old)) {
+                    $dbPostalData[$attribute] = $this->quote($old);
+                } else {
+                    $dbPostalData[$attribute] = '';
+                }
+            }
+        }
+        $elements= array(self::ATTRIBUTE_STREET,
+                         self::ATTRIBUTE_POSTOFFICEBOX,
+                         self::ATTRIBUTE_POSTALADDRESS,
+                         self::ATTRIBUTE_POSTALCODE,
+                         self::ATTRIBUTE_CITY);
+        if (!empty($info[self::ATTRARRAY_HOMEPOSTALADDRESS])) {
+            $addresses = $info[self::ATTRARRAY_HOMEPOSTALADDRESS];
+        } else {
+            $addresses = $this->get(self::ATTRARRAY_HOMEPOSTALADDRESS);
+        }
+        foreach ($addresses as $address) {
+            $postalData = array();
+            foreach ($elements as $element) {
+                if (isset($address[$element])) {
+                    $postalData[$element] = $this->quote($address[$element]);
+                } else {
+                    $postalData[$element] = '';
+                }
+            }
+            if (!empty($postalData[self::ATTRIBUTE_STREET])) {
+                $postalData['street_segment'] = $postalData[self::ATTRIBUTE_STREET];
+                $postalData['name_segment'] = $dbPostalData[self::ATTRIBUTE_GIVENNAME] . ' ' . $dbPostalData[self::ATTRIBUTE_SN];
+            } else {
+                $postalData['street_segment'] = $postalData[self::ATTRIBUTE_POSTOFFICEBOX];
+                $postalData['name_segment'] = _("Post office box");
+            }
+            $result[] = sprintf('%s$%s$%s$%s %s',
+                                $postalData['name_segment'],
+                                $postalData['street_segment'],
+                                $postalData[self::ATTRIBUTE_POSTALADDRESS],
+                                $postalData[self::ATTRIBUTE_POSTALCODE],
+                                $postalData[self::ATTRIBUTE_CITY]);
+        }
+        $info[self::ATTRIBUTE_HOMEPOSTALADDRESS] = $result;
+        unset($info[self::ATTRARRAY_HOMEPOSTALADDRESS]);
+    }
 
     /**
      * Generates an ID for the given information.
