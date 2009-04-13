@@ -168,6 +168,19 @@ class Horde_Db_Adapter_Mysqli_Result implements Iterator
     }
 
     /**
+     * Return the current row and advance the recordset one row.
+     */
+    public function fetch()
+    {
+        if (!$this->valid()) {
+            return null;
+        }
+        $row = $this->current();
+        $this->next();
+        return $row;
+    }
+
+    /**
      * Implementation of the valid() method for iterator
      *
      * @return boolean Whether the iteration is valid
