@@ -142,12 +142,8 @@ class DummyDB
                                'method' => 'getFn',
                            )),
               array(
-                  'derived'  => array(Horde_Kolab_Server_Object_Kolab_User::ATTRIBUTE_UID => array(
-                                          'method' => 'getUid',
-                                      ),
-                                      Horde_Kolab_Server_Object_Kolab_User::ATTRIBUTE_FN => array(
-                                          'method' => 'getFn',
-                                      ),
+                  'derived'  => array(Horde_Kolab_Server_Object_Kolab_User::ATTRIBUTE_UID,
+                                      Horde_Kolab_Server_Object_Kolab_User::ATTRIBUTE_FN,
                   ),
                   'locked'   => array(),
                   'required' => array()));
