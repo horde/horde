@@ -33,6 +33,9 @@ class Horde_Kolab_Server_Object_Kolabsharedfolder extends Horde_Kolab_Server_Obj
     /** The common name */
     const ATTRIBUTE_CN = 'cn';
 
+    /** The type of this folder  */
+    const ATTRIBUTE_FOLDERTYPE    = 'kolabFolderType';
+
     /** The home server of this folder */
     const ATTRIBUTE_HOMESERVER = 'kolabHomeServer';
 
