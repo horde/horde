@@ -313,7 +313,8 @@ class Horde_Kolab_Server_Object
             $this->read();
         }
 
-        if (isset($this->attribute_map['derived'][$attr])) {
+        if (!empty($this->attribute_map['derived'])
+            && in_array($attr, $this->attribute_map['derived'])) {
             return $this->derive($attr);
         }
 
@@ -376,14 +377,14 @@ class Horde_Kolab_Server_Object
     protected function collapse($key, $attributes, &$info)
     {
         $changes = false;
-        foreach ($attributes as $attribute) {
+        foreach ($attributes['base'] as $attribute) {
             if (isset($info[$attribute])) {
                 $changes = true;
             }
         }
         if ($changes) {
             if (isset($attributes['method'])) {
-                $args = array($key, $attributes['base'], $info);
+                $args = array($key, $attributes['base'], &$info);
                 if (isset($attributes['args'])) {
                     $args = array_merge($args, $attributes['args']);
                 }
@@ -472,17 +473,19 @@ class Horde_Kolab_Server_Object
     }
 
     /**
-     * Get a derived attribute value.
+     * Get a derived attribute value by returning a given position in a
+     * delimited string.
      *
-     * @param string $attr      The attribute to derive.
+     * @param string $basekey   Name of the attribute that holds the
+     *                          delimited string.
+     * @param string $field     The position of the field to retrieve.
      * @param string $separator The field separator.
      * @param int    $max_count The maximal number of fields.
      *
      * @return mixed The value of the attribute.
      */
-    protected function getField($base, $field = 0, $separator = '$', $max_count = null)
+    protected function getField($basekey, $field = 0, $separator = '$', $max_count = null)
     {
-        $basekey = $this->attributes[$attr]['base'];
         $base = $this->_get($basekey);
         if (empty($base)) {
             return;
@@ -520,15 +523,13 @@ class Horde_Kolab_Server_Object
              * for old values here.
              */
             if (!isset($info[$attribute])) {
-                $old = $this->get($info[$attribute]);
+                $old = $this->get($attribute);
                 if (!empty($old)) {
                     $info[$attribute] = $old;
                 }
             }
             if (empty($info[$attribute])) {
                 $empty--;
-            } else {
-                break;
             }
         }
         if ($empty == 0) {
