@@ -80,7 +80,7 @@ var ContextSensitive = Class.create({
         if (this.current.size()) {
             this.current.splice(idx, this.current.size() - idx).each(function(s) {
                 // Fade-out on final display.
-                if (idx == 0) {
+                if (!immediate && idx == 0) {
                     Effect.Fade(s, { duration: 0.15 });
                 } else {
                     $(s).hide();
