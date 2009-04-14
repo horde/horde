@@ -1,6 +1,6 @@
 <?php
 /**
- * A bsaic object representation.
+ * A representation of a Kolab entity.
  *
  * PHP version 5
  *
@@ -224,8 +224,9 @@ class Horde_Kolab_Server_Object_Kolabinetorgperson extends Horde_Kolab_Server_Ob
      * Identify the kolab UID for the first object found using the specified
      * search criteria.
      *
-     * @param array $criteria The search parameters as array.
-     * @param int   $restrict A Horde_Kolab_Server::RESULT_* result restriction.
+     * @param Horde_Kolab_Server $server   The server to query.
+     * @param array              $criteria The search parameters as array.
+     * @param int                $restrict A Horde_Kolab_Server::RESULT_* result restriction.
      *
      * @return boolean|string|array The UID(s) or false if there was no result.
      *
@@ -248,8 +249,9 @@ class Horde_Kolab_Server_Object_Kolabinetorgperson extends Horde_Kolab_Server_Ob
     /**
      * Identify the UID for the first object found with the given ID.
      *
-     * @param string $id       Search for objects with this ID.
-     * @param int    $restrict A Horde_Kolab_Server::RESULT_* result restriction.
+     * @param Horde_Kolab_Server $server   The server to query.
+     * @param string             $id       Search for objects with this ID.
+     * @param int                $restrict A Horde_Kolab_Server::RESULT_* result restriction.
      *
      * @return mixed The UID or false if there was no result.
      *
@@ -269,15 +271,16 @@ class Horde_Kolab_Server_Object_Kolabinetorgperson extends Horde_Kolab_Server_Ob
     /**
      * Identify the UID for the first user found with the given mail.
      *
-     * @param string $mail     Search for users with this mail address.
-     * @param int    $restrict A Horde_Kolab_Server::RESULT_* result restriction.
+     * @param Horde_Kolab_Server $server   The server to query.
+     * @param string             $mail     Search for users with this mail address.
+     * @param int                $restrict A Horde_Kolab_Server::RESULT_* result restriction.
      *
      * @return mixed The UID or false if there was no result.
      *
      * @throws Horde_Kolab_Server_Exception
      */
     static public function uidForMail($server, $mail,
-                               $restrict = Horde_Kolab_Server_Object::RESULT_SINGLE)
+                                      $restrict = Horde_Kolab_Server_Object::RESULT_SINGLE)
     {
         $criteria = array('AND' => array(array('field' => self::ATTRIBUTE_MAIL,
                                                'op'    => '=',
@@ -290,7 +293,8 @@ class Horde_Kolab_Server_Object_Kolabinetorgperson extends Horde_Kolab_Server_Ob
     /**
      * Identify the UID for the first object found with the given ID or mail.
      *
-     * @param string $id Search for objects with this uid/mail.
+     * @param Horde_Kolab_Server $server The server to query.
+     * @param string             $id     Search for objects with this uid/mail.
      *
      * @return string|boolean The UID or false if there was no result.
      *
@@ -314,15 +318,16 @@ class Horde_Kolab_Server_Object_Kolabinetorgperson extends Horde_Kolab_Server_Ob
     /**
      * Identify the UID for the first object found with the given alias.
      *
-     * @param string $mail     Search for objects with this mail alias.
-     * @param int    $restrict A Horde_Kolab_Server::RESULT_* result restriction.
+     * @param Horde_Kolab_Server $server   The server to query.
+     * @param string             $mail     Search for objects with this mail alias.
+     * @param int                $restrict A Horde_Kolab_Server::RESULT_* result restriction.
      *
      * @return mixed The UID or false if there was no result.
      *
      * @throws Horde_Kolab_Server_Exception
      */
     static public function uidForAlias($server, $mail,
-                                $restrict = Horde_Kolab_Server_Object::RESULT_SINGLE)
+                                       $restrict = Horde_Kolab_Server_Object::RESULT_SINGLE)
     {
         $criteria = array('AND' => array(array('field' => self::ATTRIBUTE_ALIAS,
                                                'op'    => '=',
@@ -332,11 +337,13 @@ class Horde_Kolab_Server_Object_Kolabinetorgperson extends Horde_Kolab_Server_Ob
         return self::uidForSearch($server, $criteria, $restrict);
     }
 
+
     /**
      * Identify the UID for the first object found with the given mail
      * address or alias.
      *
-     * @param string $mail Search for objects with this mail address
+     * @param Horde_Kolab_Server $server The server to query.
+     * @param string             $mail   Search for objects with this mail address
      * or alias.
      *
      * @return string|boolean The UID or false if there was no result.
@@ -362,7 +369,8 @@ class Horde_Kolab_Server_Object_Kolabinetorgperson extends Horde_Kolab_Server_Ob
      * Identify the UID for the first object found with the given ID,
      * mail or alias.
      *
-     * @param string $id Search for objects with this ID/mail/alias.
+     * @param Horde_Kolab_Server $server The server to query.
+     * @param string             $id     Search for objects with this ID/mail/alias.
      *
      * @return string|boolean The UID or false if there was no result.
      *
@@ -390,7 +398,8 @@ class Horde_Kolab_Server_Object_Kolabinetorgperson extends Horde_Kolab_Server_Ob
      * Identify the primary mail attribute for the first object found
      * with the given ID or mail.
      *
-     * @param string $id Search for objects with this ID/mail.
+     * @param Horde_Kolab_Server $server The server to query.
+     * @param string             $id     Search for objects with this ID/mail.
      *
      * @return mixed The mail address or false if there was no result.
      *
@@ -428,7 +437,8 @@ class Horde_Kolab_Server_Object_Kolabinetorgperson extends Horde_Kolab_Server_Ob
     /**
      * Returns a list of allowed email addresses for the given user.
      *
-     * @param string $id Search for objects with this ID/mail.
+     * @param Horde_Kolab_Server $server The server to query.
+     * @param string             $id     Search for objects with this ID/mail.
      *
      * @return array An array of allowed mail addresses.
      *
