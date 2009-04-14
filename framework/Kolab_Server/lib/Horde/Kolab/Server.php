@@ -144,10 +144,10 @@ abstract class Horde_Kolab_Server
 
         $server_params = array();
 
-         if (!empty($params['driver'])) {
+        if (!empty($params['driver'])) {
             $driver = $params['driver'];
             unset($params['driver']);
-         } else if (isset($conf['kolab']['server']['driver'])) {
+        } else if (isset($conf['kolab']['server']['driver'])) {
             $driver = $conf['kolab']['server']['driver'];
             if (isset($conf['kolab']['server']['params'])) {
                 $server_params = $conf['kolab']['server']['params'];
@@ -422,7 +422,7 @@ abstract class Horde_Kolab_Server
                  */
                 $classes = array_reverse($classes);
 
-                $types = array('defined', 'required', 'derived', 'collapsed', 
+                $types = array('defined', 'required', 'derived', 'collapsed',
                                'defaults', 'locked', 'object_classes');
                 foreach ($types as $type) {
                     $$type = array();
