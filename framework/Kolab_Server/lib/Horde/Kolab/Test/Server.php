@@ -933,7 +933,8 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
     public function tearDown()
     {
         if (isset($this->added)) {
-            foreach ($this->added as $add) {
+            $added = array_reverse($this->added);
+            foreach ($added as $add) {
                 $result = $add[0]->delete($add[1]);
                 $this->assertNoError($result);
             }
