@@ -2359,6 +2359,11 @@ var DimpBase = {
             this.sfiltersfolder.unset('sf_all');
         }
 
+        /* Remove unavailable menu items. */
+        if (!$('GrowlerLog')) {
+            $('alertsloglink').remove();
+        }
+
         /* Check for new mail. */
         this.setPollFolders();
 

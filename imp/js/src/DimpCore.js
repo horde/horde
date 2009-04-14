@@ -212,79 +212,25 @@ var DimpCore = {
             case 'imp.reply':
             case 'imp.forward':
             case 'imp.redirect':
-                var log, tmp,
-                    msg = m.message;
+                var log = 0;
 
-                if (!this.Growler) {
-                    this.Growler = new Growler({ location: 'br' });
+                switch (m.type) {
+                case 'horde.error':
+                case 'horde.message':
+                case 'horde.success':
+                case 'horde.warning':
+                    log = 1;
+                    break;
                 }
 
-                this.Growler.growl(msg, {
+                this.Growler.growl(m.message, {
                     className: m.type.replace('.', '-'),
                     life: 8,
+                    log: log,
                     sticky: m.type == 'horde.error'
                 });
-
-                if (tmp = $('hordeAlertslog')) {
-                    switch (m.type) {
-                    case 'horde.error':
-                        log = DIMP.text.alog_error;
-                        break;
-
-                    case 'horde.message':
-                        log = DIMP.text.alog_message;
-                        break;
-
-                    case 'horde.success':
-                        log = DIMP.text.alog_success;
-                        break;
-
-                    case 'horde.warning':
-                        log = DIMP.text.alog_warning;
-                        break;
-                    }
-
-                    if (log) {
-                        tmp = tmp.down('DIV UL');
-                        if (tmp.down().hasClassName('hordeNoalerts')) {
-                            tmp.down().remove();
-                        }
-                        tmp.insert(new Element('LI').insert(new Element('P', { className: 'label' }).insert(log)).insert(new Element('P', { className: 'indent' }).insert(msg).insert(new Element('SPAN', { className: 'alertdate'} ).insert('[' + (new Date).toLocaleString() + ']'))));
-                    }
-                }
             }
         }, this);
-    },
-
-    toggleAlertsLog: function()
-    {
-        var alink = $('alertsloglink').down('A'),
-            div = $('hordeAlertslog').down('DIV'),
-            opts = { duration: 0.5, queue: { position: 'end', scope: 'hordeAlertslog', limit: 2} };
-
-        if (div.visible()) {
-            Effect.BlindUp(div, opts);
-            alink.update(DIMP.text.showalog);
-        } else {
-            Effect.BlindDown(div, opts);
-            alink.update(DIMP.text.hidealog);
-        }
-    },
-
-    removeAlert: function(effect)
-    {
-        try {
-            var elt = $(effect.element),
-                parent = elt.up();
-
-            elt.remove();
-            if (!parent.childElements().size() &&
-                parent.readAttribute('id') == 'hordeIE6AlertsFix') {
-                parent.remove();
-            }
-        } catch (e) {
-            this.debug('removeAlert', e);
-        }
     },
 
     compose: function(type, args)
@@ -441,7 +387,12 @@ var DimpCore = {
                 break;
 
             case 'alertsloglink':
-                this.toggleAlertsLog();
+                tmp = $('alertsloglink').down('A');
+                if (this.Growler.toggleLog()) {
+                    tmp.update(DIMP.text.hidealog);
+                } else {
+                    tmp.update(DIMP.text.showalog);
+                }
                 break;
 
             case 'largeaddrspan_active':
@@ -524,6 +475,13 @@ var DimpCore = {
         if (!DIMP.conf.ham_reporting) {
             this.buttons = this.buttons.without('button_ham');
         }
+
+        /* Add Growler notifications. */
+        this.Growler = new Growler({
+            location: 'br',
+            log: true,
+            noalerts: DIMP.text.noalerts
+        });
 
         /* Add click handler. */
         document.observe('click', DimpCore.clickHandler.bindAsEventListener(DimpCore));

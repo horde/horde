@@ -260,10 +260,7 @@ class DIMP
             'empty_folder' => _("Permanently delete all messages in %s?"),
             'delete_folder' => _("Permanently delete %s?"),
             'hidealog' => _("Hide Alerts Log"),
-            'alog_error' => _("Error"),
-            'alog_message' => _("Message"),
-            'alog_success' => _("Success"),
-            'alog_warning' => _("Warning"),
+            'noalerts' => _("No Alerts"),
         ));
 
         /* Gettext strings with individual escaping. */

@@ -64,9 +64,7 @@ function _simpleButton($id, $text, $image, $imagedir = null)
 <?php if (($_SESSION['imp']['protocol'] != 'pop') && $prefs->getValue('fetchmail_menu')): ?>
     <?php echo _simpleButton('fetchmaillink', _("_Fetch Mail"), 'fetchmail.png') ?>
 <?php endif; ?>
-<?php if (!$is_ie6): ?>
     <?php echo _simpleButton('alertsloglink', _("Alerts _Log"), 'info_icon.png', $hordeimg) ?>
-<?php endif; ?>
    </ul>
    <div class="sepfull" style="width:<?php echo $sidebar_width ?>"></div>
    <ul id="serviceActions">
@@ -441,13 +439,3 @@ function _simpleButton($id, $text, $image, $imagedir = null)
   <span class="dispaddrlist" style="display:none"></span>
  </span>
 </div>
-
-<?php if (!$is_ie6): ?>
-<div id="hordeAlertslog">
- <div style="display:none">
-  <ul>
-   <li class="hordeNoalerts"><strong><?php echo _("No Alerts") ?></strong></li>
-  </ul>
- </div>
-</div>
-<?php endif; ?>
