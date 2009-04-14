@@ -9,28 +9,16 @@
 
 var DimpBase = {
     // Vars used and defaulting to null/false:
-    //   cfolderaction, filter_on, filtertoggle, fl_visible, folder,
-    //   folderswitch, fspecial, isvisible, message_list_template, offset,
-    //   pollPE, pp, uid, viewport
+    //   cfolderaction, fl_visible, folder, folderswitch, isvisible,
+    //   message_list_template, offset, pollPE, pp, sfolder, uid, viewport
     bcache: $H(),
     cacheids: {},
     lastrow: -1,
     pivotrow: -1,
     ppcache: {},
     ppfifo: [],
+    searchid: 'dimp\x00qsearch',
     tcache: {},
-
-    sfiltersfolder: $H({
-        sf_all: 'all',
-        sf_current: 'current'
-    }),
-
-    sfilters: $H({
-        sf_msgall: 'msgall',
-        sf_from: 'from',
-        sf_to: 'to',
-        sf_subject: 'subject'
-    }),
 
     // Message selection functions
 
@@ -94,7 +82,7 @@ var DimpBase = {
         // from the search input, because the user may immediately start
         // keyboard navigation after that. Thus, we need to ensure that a
         // message click loses focus on the search input.
-        $('msgList_filter').blur();
+        $('quicksearch').blur();
 
         if (opts.shift) {
             if (selcount) {
@@ -224,7 +212,7 @@ var DimpBase = {
                     this._addHistory(loc);
                 }
             }
-            this.loadFolder(f);
+            this.loadMailbox(f);
             return;
         }
 
@@ -351,35 +339,35 @@ var DimpBase = {
         });
     },
 
-    loadFolder: function(f, background)
+    loadMailbox: function(f, opts)
     {
+        opts = opts || {};
+
         if (!this.viewport) {
             this._createViewPort();
         }
 
-        if (!background) {
+        if (!opts.background) {
             this.resetSelected();
+            this.quicksearchClear(true);
 
             if (this.folder == f) {
-                this.searchfilterClear(false);
                 return;
             }
 
-            this.searchfilterClear(true);
             $('folderName').update(DIMP.text.loading);
             $('msgHeader').update();
             this.folderswitch = true;
             this.folder = f;
         }
 
-        this.viewport.loadView(f, this.uid ? { imapuid: this.uid, view: f } : null, background);
+        this.viewport.loadView(f, this.uid ? { imapuid: this.uid, view: f } : null, opts.background);
     },
 
     _createViewPort: function()
     {
-        var mf = $('msgList_filter'),
-            // No need to cache - this function only called once.
-            settitle = this.setMessageListTitle.bind(this);
+        // No need to cache - this function only called once.
+        var settitle = this.setMessageListTitle.bind(this);
 
         this.viewport = new ViewPort({
             content_container: 'msgList',
@@ -402,14 +390,11 @@ var DimpBase = {
             onScrollIdle: settitle,
             onSlide: settitle,
             onContent: function(row) {
-                var bg, search, u,
+                var bg, re, search, u,
                     thread = ((this.viewport.getMetaData('sortby') == DIMP.conf.sortthread) && this.viewport.getMetaData('thread'));
 
-                if (this.viewport.isFiltering()) {
-                    search = this.sfilters.get(this._getSearchfilterField());
-                }
-
                 row.subjectdata = row.status = '';
+                row.subjecttitle = row.subject;
 
                 // Add thread graphics
                 if (thread && thread.get(row.imapuid)) {
@@ -453,17 +438,21 @@ var DimpBase = {
                     row.style = 'background:' + bg;
                 }
 
-                // Highlight search terms
-                if (search == 'from' || search == 'subject') {
-                    row[search] = row[search].gsub(new RegExp("(" + $F('msgList_filter') + ")", "i"), '<span class="searchMatch">#{1}</span>');
+                // Check for search strings
+                if (this.isSearch()) {
+                    re = new RegExp("(" + $F('quicksearch') + ")", "i");
+                    [ 'from', 'subject' ].each(function(h) {
+                        row[h] = row[h].gsub(re, '<span class="quicksearchMatch">#{1}</span>');
+                    });
                 }
 
-                // If null, invalid string was scrubbed by JSON encode.
+                // If these fields are null, invalid string was scrubbed by
+                // JSON encode.
                 if (row.from === null) {
                     row.from = '[' + DIMP.text.badaddr + ']';
                 }
                 if (row.subject === null) {
-                    row.subject = '[' + DIMP.text.badsubject + ']';
+                    row.subject = row.subjecttitle = '[' + DIMP.text.badsubject + ']';
                 }
             }.bind(this),
             onContentComplete: function(rows) {
@@ -493,6 +482,9 @@ var DimpBase = {
                 // retrieving data from the server.
                 l = this.viewport.getMetaData('label');
                 if (l) {
+                    if (this.isSearch()) {
+                        l += ' (' + this.sfolder + ')';
+                    }
                     $('folderName').update(l);
                 }
 
@@ -533,17 +525,14 @@ var DimpBase = {
                         tmp.compact().invoke('show');
                         $('folderName').next().hide();
                     }
-                } else if (this.filtertoggle) {
-                    if (this.filtertoggle == 1 &&
-                        this.viewport.getMetaData('sortby') == DIMP.conf.sortthread) {
-                        ssc = DIMP.conf.sortdate;
-                    }
-                    this.filtertoggle = 0;
+                } else if (this.filtertoggle &&
+                           this.viewport.getMetaData('sortby') == DIMP.conf.sortthread) {
+                    ssc = DIMP.conf.sortdate;
                 }
 
                 this.setSortColumns(ssc);
 
-                if (this.viewport.isFiltering()) {
+                if (this.isSearch()) {
                     this.resetSelected();
                 } else {
                     this.setFolderLabel(this.folder, this.viewport.getMetaData('unseen') || 0);
@@ -603,6 +592,14 @@ var DimpBase = {
                 }
                 return this.cacheids[id];
             }.bind(this),
+            requestParams: function(id) {
+                return this.isSearch(id)
+                    ? $H({
+                        qsearch: $F('quicksearch'),
+                        qsearchmbox: this.sfolder
+                    })
+                    : $H();
+            }.bind(this),
             onSplitBarChange: function() {
                 this._updatePrefs('dimp_splitbar', this.viewport.getPageSize());
             }.bind(this),
@@ -614,12 +611,6 @@ var DimpBase = {
         if (!DIMP.conf.preview_pref) {
             $('msgList').addClassName('msglistNoPreview');
         }
-
-        // Set up viewport filter events.
-        this.viewport.addFilter('ListMessages', this._addSearchfilterParams.bind(this));
-        mf.observe('focus', this._searchfilterOnFocus.bind(this));
-        mf.observe('blur', this._searchfilterOnBlur.bind(this));
-        mf.addClassName('msgFilterDefault');
     },
 
     _addMouseEvents: function(p, popdown)
@@ -805,12 +796,12 @@ var DimpBase = {
 
     updateTitle: function()
     {
-        var elt, label, unseen;
-
-        if (this.viewport.isFiltering()) {
-            label = DIMP.text.search + ' :: ' + (this.viewport.getMetaData('total_rows') || 0) + ' ' + DIMP.text.resfound;
-        } else {
+        var elt, unseen,
             label = this.viewport.getMetaData('label');
+
+        if (this.isSearch()) {
+            label += ' (' + this.sfolder + ')';
+        } else {
             elt = $(this.getFolderId(this.folder));
             if (elt) {
                 unseen = elt.readAttribute('u');
@@ -866,15 +857,14 @@ var DimpBase = {
         }
 
         tmp = m.down('div.msgFrom a');
-        if ((this.viewport.isFiltering() && this.fspecial) ||
-            this.viewport.getMetaData('special')) {
+        if (this.viewport.getMetaData('special')) {
             tmp.hide().next().show();
         } else {
             tmp.show().next().hide();
         }
 
         tmp = m.down('div.msgSubject a');
-        if (this.viewport.isFiltering() ||
+        if (this.isSearch() ||
             this.viewport.getMetaData('nothread') ||
             this.viewport.getMetaData('sortlimit')) {
             tmp.show().next().hide();
@@ -1211,99 +1201,57 @@ var DimpBase = {
         $('dimpmain_portal').update(r.response.portal);
     },
 
-    /* Search filter functions. */
-    searchfilterRun: function()
+    /* Search functions. */
+    isSearch: function(id)
     {
-        if (!this.viewport.isFiltering()) {
-            this.filtertoggle = 1;
-            this.fspecial = this.viewport.getMetaData('special');
-        }
-        this.viewport.runFilter($F('msgList_filter'));
+        return (id ? id : this.folder) == this.searchid;
     },
 
-    _searchfilterOnFocus: function()
+    _quicksearchOnFocus: function()
     {
-        var q = $('qoptions').up();
-
-        if ($('msgList_filter').hasClassName('msgFilterDefault')) {
+        if ($('quicksearch').hasClassName('quicksearchDefault')) {
             this._setFilterText(false);
         }
-
-        if (!this.filter_on) {
-            this.filter_on = true;
-            $('sf_current').update(this.viewport.getMetaData('label'));
-            this._setSearchfilterParams(this.viewport.getMetaData('special') ? 'to' : 'from', 'msg');
-            this._setSearchfilterParams('current', 'folder');
-            $(document.documentElement).setStyle({ overflowY: 'hidden' });
-            Effect.SlideDown(q, { duration: 0.5, afterFinish: function() { this.onResize(false, true); $(document.documentElement).setStyle({ overflowY: 'auto' }); }.bind(this) });
-        }
     },
 
-    _searchfilterOnBlur: function()
+    _quicksearchOnBlur: function()
     {
-        if (!$F('msgList_filter')) {
+        if (!$F('quicksearch')) {
             this._setFilterText(true);
         }
     },
 
-    // reset = (boolean) TODO
-    searchfilterClear: function(reset)
+    quicksearchRun: function()
     {
-        if (!this.filter_on) {
-            return;
+        if (this.isSearch()) {
+            this.viewport.reload();
+        } else {
+            this.sfolder = this.folder;
+            $('quicksearch_close').show();
+            this.loadMailbox(this.searchid);
         }
+    },
 
-        this.filter_on = false;
-        this._setFilterText(true);
-        Effect.SlideUp($('qoptions').up(), { duration: 0.5, afterFinish: this.onResize.bind(this, reset) });
-        this.filtertoggle = 2;
-        this.resetSelected();
-        this.viewport.stopFilter(reset);
+    // 'noload' = (boolean) If true, don't load the mailbox
+    quicksearchClear: function(noload)
+    {
+        if (this.isSearch()) {
+            this._setFilterText(true);
+            $('quicksearch_close').hide();
+            this.resetSelected();
+            if (!noload) {
+                this.loadMailbox(this.sfolder);
+            }
+            this.viewport.deleteView(this.searchid);
+        }
     },
 
     // d = (boolean) Deactivate filter input?
     _setFilterText: function(d)
     {
-        var mf = $('msgList_filter');
-        if (d) {
-            mf.setValue(DIMP.text.search);
-            mf.addClassName('msgFilterDefault');
-        } else {
-            mf.setValue('');
-            mf.removeClassName('msgFilterDefault');
-        }
-    },
-
-    // type = 'folder' or 'msg'
-    _setSearchfilterParams: function(id, type)
-    {
-        var c = (type == 'folder') ? this.sfiltersfolder : this.sfilters;
-        c.keys().each(function(i) {
-            $(i).writeAttribute('className', (id == c.get(i)) ? 'qselected' : '');
-        });
-    },
-
-    updateSearchfilter: function(id, type)
-    {
-        this._setSearchfilterParams(id, type);
-        if ($F('msgList_filter')) {
-            this.viewport.runFilter();
-        }
-    },
-
-    _addSearchfilterParams: function()
-    {
-        var sf = this.sfiltersfolder.keys().find(function(s) {
-            return $(s).hasClassName('qselected');
-        });
-        return $H({ searchfolder: this.sfiltersfolder.get(sf), searchmsg: this.sfilters.get(this._getSearchfilterField()) });
-    },
-
-    _getSearchfilterField: function()
-    {
-        return this.sfilters.keys().find(function(s) {
-            return $(s).hasClassName('qselected');
-        });
+        var qs = $('quicksearch');
+        qs.setValue(d ? DIMP.text.search : '');
+        [ qs ].invoke(d ? 'addClassName' : 'removeClassName', 'quicksearchDefault');
     },
 
     /* Enable/Disable DIMP action buttons as needed. */
@@ -1376,9 +1324,9 @@ var DimpBase = {
             case Event.KEY_ESC:
             case Event.KEY_TAB:
                 // Catch escapes in search box
-                if (elt.readAttribute('id') == 'msgList_filter') {
+                if (elt.readAttribute('id') == 'quicksearch') {
                     if (kc == Event.KEY_ESC || !elt.getValue()) {
-                        this.searchfilterClear(false);
+                        this.quicksearchClear();
                     }
                     elt.blur();
                     e.stop();
@@ -1390,8 +1338,12 @@ var DimpBase = {
                 if (form.readAttribute('id') == 'RB_folder') {
                     this.cfolderaction(e);
                     e.stop();
-                } else if (elt.readAttribute('id') == 'msgList_filter') {
-                    this.searchfilterRun();
+                } else if (elt.readAttribute('id') == 'quicksearch') {
+                    if ($F('quicksearch')) {
+                        this.quicksearchRun();
+                    } else {
+                        this.quicksearchClear();
+                    }
                     e.stop();
                 }
                 break;
@@ -1601,20 +1553,6 @@ var DimpBase = {
                 e.stop();
                 return;
 
-            case 'sf_all':
-            case 'sf_current':
-                this.updateSearchfilter(id.substring(3), 'folder');
-                e.stop();
-                return;
-
-            case 'sf_msgall':
-            case 'sf_from':
-            case 'sf_to':
-            case 'sf_subject':
-                this.updateSearchfilter(id.substring(3), 'msg');
-                e.stop();
-                return;
-
             case 'msglistHeader':
                 this.sort(e);
                 e.stop();
@@ -1628,11 +1566,6 @@ var DimpBase = {
             case 'msg_newwin':
             case 'msg_newwin_options':
                 this.msgWindow(this.viewport.getViewportSelection().search({ imapuid: { equal: [ DIMP.conf.msg_index ] } , view: { equal: [ DIMP.conf.msg_folder ] } }).get('dataob').first());
-                e.stop();
-                return;
-
-            case 'qclose':
-                this.searchfilterClear(false);
                 e.stop();
                 return;
 
@@ -1662,6 +1595,10 @@ var DimpBase = {
                     e.stop();
                     return;
                 }
+                break;
+
+            case 'quicksearch_close':
+                this.quicksearchClear();
                 break;
             }
 
@@ -2293,7 +2230,8 @@ var DimpBase = {
     {
         DimpCore.init();
 
-        var DM = DimpCore.DMenu;
+        var DM = DimpCore.DMenu,
+            qs = $('quicksearch');
 
         /* Register global handlers now. */
         document.observe('keydown', this.keydownHandler.bindAsEventListener(this));
@@ -2322,7 +2260,7 @@ var DimpBase = {
             } else {
                 this.go('portal');
                 if (DIMP.conf.background_inbox) {
-                    this.loadFolder('INBOX', true);
+                    this.loadMailbox('INBOX', { background: true });
                 }
             }
         }
@@ -2354,11 +2292,6 @@ var DimpBase = {
 
         this._resizeIE6();
 
-        /* Remove unneeded search folders. */
-        if (!DIMP.conf.search_all) {
-            this.sfiltersfolder.unset('sf_all');
-        }
-
         /* Remove unavailable menu items. */
         if (!$('GrowlerLog')) {
             $('alertsloglink').remove();
@@ -2366,6 +2299,10 @@ var DimpBase = {
 
         /* Check for new mail. */
         this.setPollFolders();
+
+        /* Init quicksearch. */
+        qs.observe('focus', this._quicksearchOnFocus.bind(this));
+        qs.observe('blur', this._quicksearchOnBlur.bind(this));
 
         if (DIMP.conf.is_ie6) {
             /* Disable text selection in preview pane for IE 6. */

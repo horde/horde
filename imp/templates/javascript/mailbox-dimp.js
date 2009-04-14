@@ -21,7 +21,7 @@ DimpBase.message_list_template =
   '#{status}' +
  '</div>' +
  '<div class="msgFrom">#{from}</div>' +
- '<div class="msgSubject" title="#{subject}">#{subjectdata}#{subject}</div>' +
+ '<div class="msgSubject" title="#{subjecttitle}">#{subjectdata}#{subject}</div>' +
  '<div class="msgDate">#{date}</div>' +
  '<div class="msgSize">#{size}</div>' +
 '</div>';

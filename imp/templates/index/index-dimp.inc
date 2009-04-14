@@ -173,8 +173,9 @@ function _simpleButton($id, $text, $image, $imagedir = null)
 
      <div class="dimpActions">
       <form action="#" method="post">
-       <input id="msgList_filter" type="text" size="30" />
+       <input autocomplete="off" class="quicksearchDefault" id="quicksearch" type="text" size="30" />
       </form>
+      <?php echo IMP::img('close.png', '', array('id' => 'quicksearch_close', 'style' => 'display:none', 'title' => _("Clear Search")), $hordeimg) ?>
       <span>
        <?php _createDA(_("Reply"), 'Reply', 'button_reply', '', $show_text) ?>
       </span>
@@ -203,23 +204,6 @@ function _simpleButton($id, $text, $image, $imagedir = null)
       <span>
        <?php _createDA(_("Other Actions"), 'Other', 'button_other', '', $show_text) ?>
       </span>
-     </div>
-
-     <div style="display:none">
-      <div id="qoptions">
-       <span id="qclose"><a>x</a></span>
-       <span class="qlabel"><?php echo _("Folders: ") ?></span>
-<?php if (!empty($conf['dimp']['search']['search_all'])): ?>
-       <a id="sf_all"><?php echo _("All") ?></a>
-<?php endif; ?>
-       <a id="sf_current"></a>
-       <span class="qlabel">|&nbsp;</span>
-       <span class="qlabel"><?php echo _("Message: ") ?></span>
-       <a id="sf_msgall"><?php echo _("All") ?></a>
-       <a id="sf_from"><?php echo _("From") ?></a>
-       <a id="sf_to"><?php echo _("To") ?></a>
-       <a id="sf_subject"><?php echo _("Subject") ?></a>
-      </div>
      </div>
 
      <div id="msglistHeader" class="item">

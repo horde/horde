@@ -817,65 +817,18 @@ a.address:hover img {
     color: red;
 }
 
-/* Message Search Filter bar */
-#qoptions {
-    background: gray;
-    color: #fff;
-    font-size: 90%;
-    padding: 5px 5px 5px 10px;
-}
-#qoptions a, #qoptions a:visited {
-    text-decoration: none;
-    font-weight: bold;
-    color: #fff;
-    margin: 0 5px;
-    padding: 2px 5px;
-}
-#qoptions a.qselected, #qoptions a.qselected:visited, #qoptions a:hover {
-    background: #fafafa;
-    color: #000;
-    font-weight: bold;
-    border-top: 1px silver solid;
-    border-left: 1px silver solid;
-    border-bottom: 1px #e0e0e0 solid;
-    border-right: 1px #e0e0e0 solid;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    padding: 1px 4px;
-}
-#qclose a, #qclose a:visited {
-    float: right;
-    margin-top: -2px;
-    width: 10px;
-    background: #efefef;
-    color: #000;
-    font-weight: bold;
-    border-top: 1px silver solid;
-    border-left: 1px silver solid;
-    border-bottom: 1px #e0e0e0 solid;
-    border-right: 1px #e0e0e0 solid;
-    text-align: center;
-    vertical-align: middle;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    padding: 0 2px 2px 4px;
-    text-decoration: none;
-}
-#qclose a:hover {
-    background: #fff;
-    padding: 0 2px 2px 4px;
-}
-#qoptions .qlabel {
-    font-weight: bold;
-}
-
-.msgFilterDefault {
+/* Search-related styles */
+.quicksearchDefault {
     color: #a0a0a0;
 }
-
-.searchMatch {
+.quicksearchMatch {
     font-weight: bold;
     text-decoration: underline;
+}
+#quicksearch_close {
+    cursor: pointer;
+    float: right;
+    padding: 2px 5px 0 0;
 }
 
 /* Redbox styles. */

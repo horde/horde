@@ -200,7 +200,6 @@ class DIMP
             'ham_reporting' => intval(!empty($conf['notspam']['reporting'])),
             'ham_spamfolder' => intval(!empty($conf['notspam']['spamfolder'])),
             'refresh_time' => intval($prefs->getValue('refresh_time')),
-            'search_all' => intval(!empty($conf['dimp']['search']['search_all'])),
 
             'fixed_folders' => empty($conf['server']['fixed_folders'])
                 ? array()
@@ -231,7 +230,6 @@ class DIMP
             'portal' => ("Portal"),
             'prefs' => _("User Options"),
             'search' => _("Search"),
-            'resfound' => _("messages found"),
             'message' => _("Message"),
             'messages' => _("Messages"),
             'of' => _("of"),

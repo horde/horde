@@ -18,7 +18,7 @@ var ViewPort = Class.create({
     // Required: content_container, fetch_action, template,
     //           cachecheck_action, ajaxRequest, buffer_pages,
     //           limit_factor, content_class, row_class, selected_class
-    // Optional: show_split_pane, page_size
+    // Optional: requestParams, show_split_pane, page_size
     initialize: function(opts)
     {
         opts.content = $(opts.content_container);
@@ -41,7 +41,7 @@ var ViewPort = Class.create({
         this.request_num = 1;
     },
 
-    // view = ID of view. Can not contain a '%' character.
+    // view = ID of view.
     // search = (object) Search parameters
     // background = Load view in background?
     loadView: function(view, search, background)
@@ -155,11 +155,7 @@ var ViewPort = Class.create({
     // params = TODO
     reload: function(params)
     {
-        if (this.isFiltering()) {
-            this.filter.filter(null, params);
-        } else {
-            this._fetchBuffer({ offset: this.currentOffset(), purge: true, params: params });
-        }
+        this._fetchBuffer({ offset: this.currentOffset(), purge: true, params: params });
     },
 
     // vs = (Viewport_Selection) A Viewport_Selection object.
@@ -228,36 +224,6 @@ var ViewPort = Class.create({
         }
 
         this.isbusy = false;
-    },
-
-    // action = TODO
-    // callback = TODO
-    addFilter: function(action, callback)
-    {
-        this.filter = new ViewPort_Filter(this, action, callback);
-    },
-
-    // val = TODO
-    // params = TODO
-    runFilter: function(val, params)
-    {
-        if (this.filter) {
-            this.filter.filter(Object.isUndefined(val) ? null : val, params);
-        }
-    },
-
-    // Return: (boolean) Is filtering currently active?
-    isFiltering: function()
-    {
-        return this.filter ? this.filter.isFiltering() : false;
-    },
-
-    // reset = (boolean) If true, don't update the viewport
-    stopFilter: function(reset)
-    {
-        if (this.filter) {
-            this.filter.clear(reset);
-        }
     },
 
     // noupdate = (boolean) TODO
@@ -387,11 +353,6 @@ var ViewPort = Class.create({
         }
         params.set(type, Object.toJSON(value));
 
-        // Are we currently filtering results?
-        if (this.isFiltering()) {
-            action = this.filter.getAction();
-        }
-
         // Generate a unique request ID value based on the search params.
         // Since javascript does not have a native hashing function, use a
         // local lookup table instead.
@@ -504,12 +465,11 @@ var ViewPort = Class.create({
         var cid = this.getMetaData('cacheid', opts.view),
             cached, params, rowlist;
 
-        if (this.isFiltering()) {
-            params = this.filter.addFilterParams().merge({ view: this.isFiltering() });
-        } else {
-            params = this.opts.additionalParams ? this.opts.additionalParams(opts.view || this.view) : $H();
-            params.update({ view: opts.view || this.view });
-        }
+        params = this.opts.requestParams
+            ? this.opts.requestParams(opts.view || this.view)
+            : $H();
+
+        params.update({ view: opts.view || this.view });
 
         if (cid) {
             params.update({ cacheid: cid });
@@ -528,6 +488,7 @@ var ViewPort = Class.create({
                 ? cached.toJSON()
                 : '';
         }
+
         if (cached.length) {
             params.update({ cached: cached });
         }
@@ -1359,107 +1320,6 @@ ViewPort_Buffer = Class.create({
             this.usermdata.update(vals);
         }
     }
-}),
-
-/**
- * ViewPort_Filter
- */
-ViewPort_Filter = Class.create({
-
-    initialize: function(vp, action, callback)
-    {
-        this.vp = vp;
-        this.action = action;
-        this.callback = callback;
-
-        this.filtering = this.last_filter = this.last_folder = null;
-    },
-
-    // val = (string) The string to filter on. if null, will use the last
-    //                filter string.
-    filter: function(val, params)
-    {
-        params = params || {};
-
-        if (val === null) {
-            val = this.last_filter;
-        } else {
-            val = val.toLowerCase();
-            if (val == this.last_filter) {
-                return;
-            }
-        }
-
-        if (!val) {
-            this.clear();
-            return;
-        }
-
-        this.last_filter = val;
-
-        if (this.filtering) {
-            this.vp._fetchBuffer({ offset: 0, params: params });
-            return;
-        }
-
-        this.filtering = true;
-        this.last_folder = this.vp.view;
-
-        // Filter visible rows immediately.
-        var c = this.vp.opts.content, delrows;
-        delrows = c.childElements().findAll(function(n) {
-            return n.collectTextNodes().toLowerCase().indexOf(val) == -1;
-        });
-        if (this.vp.opts.onClearRows) {
-            this.vp.opts.onClearRows(delrows);
-        }
-        delrows.invoke('remove');
-        this.vp.scroller.clear();
-        if (this.vp.opts.empty && !c.childElements().size()) {
-            c.update(this.vp.opts.empty.innerHTML);
-        }
-
-        this.vp.loadView('%%filter%%');
-    },
-
-    isFiltering: function()
-    {
-        return this.filtering ? this.last_folder : false;
-    },
-
-    getAction: function()
-    {
-        return this.action;
-    },
-
-    addFilterParams: function()
-    {
-        if (!this.filtering) {
-            return $H();
-        }
-
-        var params = $H({ filter: this.last_filter });
-
-        // Get parameters from a callback function, if defined.
-        if (this.callback) {
-            params.update(this.callback());
-        }
-
-        return params;
-    },
-
-    clear: function(reset)
-    {
-        if (this.filtering) {
-            this.filtering = null;
-            if (!reset) {
-                this.vp.loadView(this.last_folder);
-            }
-            this.vp.deleteView('%%filter%%');
-            this.last_filter = this.last_folder = null;
-        }
-    }
-
 }),
 
 /**

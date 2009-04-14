@@ -22,54 +22,20 @@ class IMP_Views_ListMessages
     public function ListMessages($args)
     {
         $mbox = $args['mbox'];
-        $search_id = null;
+        $is_search = false;
 
         $sortpref = IMP::getSort($mbox);
 
-        /* If we're searching, do search. */
-        if (!empty($args['filter']) &&
-            !empty($args['searchfolder']) &&
-            !empty($args['searchmsg'])) {
+        /* Check for quicksearch request. */
+        if (strlen($args['qsearch']) &&
+            strlen($args['qsearchmbox'])) {
             /* Create the search query. */
             $query = new Horde_Imap_Client_Search_Query();
-
-            /* Create message search list. */
-            switch ($args['searchmsg']) {
-            case 'msgall':
-                $query->text($args['filter'], false);
-                break;
-
-            case 'from':
-                $query->headerText('From', $args['filter']);
-                break;
-
-            case 'to':
-                $query->headerText('To', $args['filter']);
-                break;
-
-            case 'subject':
-                $query->headerText('Subject', $args['filter']);
-                break;
-            }
-
-            /* Create folder search list. */
-            switch ($args['searchfolder']) {
-            case 'all':
-                $imptree = &IMP_Imap_Tree::singleton();
-                $folder_list = $imptree->folderList();
-                break;
-
-            case 'current':
-                $folder_list = array($mbox);
-                break;
-            }
+            $query->text($args['qsearch'], false);
 
             /* Set the search in the IMP session. */
-            $c_ptr = &$_SESSION['imp']['cache'];
-            $search_id = $GLOBALS['imp_search']->createSearchQuery($query, $folder_list, array(), _("Search Results"), isset($c_ptr['dimp_searchquery']) ? $c_ptr['dimp_searchquery'] : null);
-
-            /* Folder is now the search folder. */
-            $mbox = $c_ptr['dimp_searchquery'] = $GLOBALS['imp_search']->createSearchID($search_id);
+            $GLOBALS['imp_search']->createSearchQuery($query, array($args['qsearchmbox']), array(), _("Search Results"), $mbox);
+            $is_search = true;
         }
 
         $label = IMP::getLabel($mbox);
@@ -138,7 +104,7 @@ class IMP_Views_ListMessages
         if (IMP::isSpecialFolder($mbox)) {
             $md->special = 1;
         }
-        if ($GLOBALS['imp_search']->isSearchMbox($mbox)) {
+        if ($is_search || $GLOBALS['imp_search']->isSearchMbox($mbox)) {
             $md->search = 1;
         }
         if ($GLOBALS['imp_imap']->isReadOnly($mbox)) {
@@ -148,7 +114,7 @@ class IMP_Views_ListMessages
         /* Check for mailbox existence now. If there are no messages, there
          * is a chance that the mailbox doesn't exist. If there is at least
          * 1 message, we don't need this check. */
-        if (empty($msgcount) && is_null($search_id)) {
+        if (empty($msgcount) && !$is_search) {
             $imp_folder = &IMP_Folder::singleton();
             if (!$imp_folder->exists($mbox)) {
                 $GLOBALS['notification']->push(sprintf(_("Mailbox %s does not exist."), $label), 'horde.error');
@@ -234,7 +200,7 @@ class IMP_Views_ListMessages
         $result->data = $this->_getOverviewData($imp_mailbox, $mbox, $data, isset($md->search));
 
         /* Get unseen/thread information. */
-        if (is_null($search_id)) {
+        if (!$is_search) {
             $imptree = &IMP_Imap_Tree::singleton();
             $info = $imptree->getElementInfo($mbox);
             if (!empty($info)) {

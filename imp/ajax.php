@@ -69,11 +69,10 @@ function _getListMessages($mbox, $change)
     $args = array(
         'cached' => Util::getPost('cached'),
         'cacheid' => Util::getPost('cacheid'),
-        'filter' => Util::getPost('filter'),
         'mbox' => $mbox,
         'rangeslice' => Util::getPost('rangeslice'),
-        'searchfolder' => Util::getPost('searchfolder'),
-        'searchmsg' => Util::getPost('searchmsg'),
+        'qsearch' => Util::getPost('qsearch'),
+        'qsearchmbox' => Util::getPost('qsearchmbox'),
     );
 
     $search = Util::getPost('search');

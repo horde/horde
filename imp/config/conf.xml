@@ -520,14 +520,6 @@
     background?">true</configboolean>
    </configsection>
 
-   <configheader>Search Settings</configheader>
-   <configsection name="search">
-    <configboolean name="search_all" desc="Allow user to search all mailboxes
-    at a single time? Unless your mail server is optimized to perform searches,
-    enabling this can cause massive server load if a user has a large
-    mailbox.">false</configboolean>
-   </configsection>
-
    <configsection name="menu" desc="Menu Settings">
     <configheader>Menu Settings</configheader>
     <configmultienum name="apps" desc="Select any applications that should be
