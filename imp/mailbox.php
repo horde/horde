@@ -768,7 +768,10 @@ while (list(,$ob) = each($mbox_info['overview'])) {
 
     /* Get all the flag information. */
     if (!empty($GLOBALS['conf']['hooks']['msglist_flags'])) {
-        $ob['flags'] = array_merge($ob['flags'], Horde::callHook('_imp_hook_msglist_flags', array($ob, 'imp'), 'imp'));
+        $flags = Horde::callHook('_imp_hook_msglist_flags', array($ob, 'imp'), 'imp');
+        if (!is_a($flags, 'PEAR_Error')) {
+            $ob['flags'] = array_merge($ob['flags'], $flags);
+        }
     }
 
     $flag_parse = $imp_flags->parse(array(
