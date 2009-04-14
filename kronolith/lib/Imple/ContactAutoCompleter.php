@@ -94,9 +94,6 @@ class Kronolith_Imple_ContactAutoCompleter extends Kronolith_Imple
      * Uses the Registry to expand names and return error information for
      * any address that is either not valid or fails to expand.
      *
-     * This method can be called statically, i.e.:
-     *   $ret = IMP_Compose::expandAddresses();
-     *
      * @param string $search  The term to search by.
      *
      * @return array  All matching addresses.
