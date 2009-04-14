@@ -86,7 +86,7 @@ class DIMP
             }
         }
         Horde::addScriptFile('DimpCore.js', 'imp', true);
-        Horde::addScriptFile('Growler.js', 'imp', true);
+        Horde::addScriptFile('Growler.js', 'horde', true);
 
         // Add other scripts now
         foreach ($scripts as $val) {
