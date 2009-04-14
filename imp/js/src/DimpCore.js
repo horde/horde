@@ -212,8 +212,6 @@ var DimpCore = {
             case 'imp.reply':
             case 'imp.forward':
             case 'imp.redirect':
-            case 'dimp.request':
-            case 'dimp.sticky':
                 var log, tmp,
                     msg = m.message;
 
@@ -221,16 +219,10 @@ var DimpCore = {
                     this.Growler = new Growler({ location: 'br' });
                 }
 
-                if ($w('dimp.request dimp.sticky').indexOf(m.type) == -1) {
-                    msg = msg.unescapeHTML().unescapeHTML();
-                }
-
-                // TODO: dimp.request
                 this.Growler.growl(msg, {
                     className: m.type.replace('.', '-'),
-                    life: (m.type == 'horde.error') ? 10 : 5,
-                    sticky: true
-//                    sticky: m.type == 'dimp.sticky'
+                    life: 8,
+                    sticky: m.type == 'horde.error'
                 });
 
                 if (tmp = $('hordeAlertslog')) {

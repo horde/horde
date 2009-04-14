@@ -381,15 +381,6 @@ $mailbox_url = Util::addParameter(IMP::generateIMPUrl('mailbox.php', $imp_mbox['
 /* Generate the view link. */
 $view_link = IMP::generateIMPUrl('view.php', $imp_mbox['mailbox'], $index, $mailbox_name);
 
-/* Retrieve any history information for this message. */
-if (!IMP::$printMode && !empty($conf['maillog']['use_maillog'])) {
-    /* Do MDN processing now. */
-    if ($imp_ui->MDNCheck($imp_mbox['mailbox'], $index, $mime_headers, Util::getFormData('mdn_confirm'))) {
-        $confirm_link = Horde::link(htmlspecialchars(Util::addParameter($selfURL, 'mdn_confirm', 1))) . _("HERE") . '</a>';
-        $notification->push(sprintf(_("The sender of this message is requesting a Message Disposition Notification from you when you have read this message. Please click %s to send the notification message."), $confirm_link), 'horde.message', array('content.raw'));
-    }
-}
-
 /* Everything below here is related to preparing the output. */
 if (!IMP::$printMode) {
     /* Set the status information of the message. */
@@ -593,6 +584,12 @@ $parts_list = $imp_contents->getContentTypeMap();
 $strip_atc = $prefs->getValue('strip_attachments');
 $atc_parts = $display_ids = array();
 $msgtext = '';
+
+/* Do MDN processing now. */
+if (!IMP::$printMode &&
+    $imp_ui->MDNCheck($imp_mbox['mailbox'], $index, $mime_headers, Util::getFormData('mdn_confirm'))) {
+    $msgtext .= $imp_ui->formatStatusMsg(array('text' => array(_("The sender of this message is requesting a Message Disposition Notification from you when you have read this message."), sprintf(_("Click %s to send the notification message."), Horde::link(htmlspecialchars(Util::addParameter($selfURL, 'mdn_confirm', 1))) . _("HERE") . '</a>'))));
+}
 
 $show_parts = Util::getFormData('show_parts', $prefs->getValue('parts_display'));
 if ($show_parts == 'all') {

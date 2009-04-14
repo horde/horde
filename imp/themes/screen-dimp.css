@@ -1073,12 +1073,6 @@ span.readonlyImg {
 }
 
 /* Growler notification styles. */
-#Growler div.dimp-sticky {
-    background-color: #ebe20c;
-    background-image: url("graphics/warning.png");
-    border-color: #807b00;
-    color: #000;
-}
 #Growler div.imp-reply {
     background-image: url("graphics/mail_answered.png");
 }

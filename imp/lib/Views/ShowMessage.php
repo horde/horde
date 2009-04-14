@@ -238,6 +238,16 @@ class IMP_Views_ShowMessage
             array_unshift($part_info, 'id');
         }
 
+        /* Retrieve any history information for this message. */
+        if (!$preview && !empty($GLOBALS['conf']['maillog']['use_maillog'])) {
+            IMP_Maillog::displayLog($mime_headers->getValue('message-id'));
+        }
+
+        /* Do MDN processing now. */
+        if ($imp_ui->MDNCheck($folder, $index, $mime_headers)) {
+            $result['msgtext'] .= $imp_ui->formatStatusMsg(array('text' => array(_("The sender of this message is requesting a Message Disposition Notification from you when you have read this message."), sprintf(_("Click %s to send the notification message."), Horde::link('', '', '', '', 'DimpCore.doAction(\'SendMDN\',{folder:\'' . $folder . '\',index:' . $index . '}); return false;', '', '') . _("HERE") . '</a>'))));
+        }
+
         /* Build body text. This needs to be done before we build the
          * attachment list that lives in the header. */
         foreach ($parts_list as $mime_id => $mime_type) {
@@ -326,19 +336,6 @@ class IMP_Views_ShowMessage
             }
         } elseif (!$preview && !empty($GLOBALS['conf']['dimp']['hooks']['messageview'])) {
             $result = Horde::callHook('_imp_hook_dimp_messageview', array($result), 'imp');
-        }
-
-        /* Retrieve any history information for this message. */
-        if (!empty($GLOBALS['conf']['maillog']['use_maillog'])) {
-            if (!$preview) {
-                IMP_Maillog::displayLog($mime_headers->getValue('message-id'));
-            }
-
-            /* Do MDN processing now. */
-            if ($imp_ui->MDNCheck($folder, $index, $mime_headers)) {
-                $confirm_link = Horde::link('', '', '', '', 'DimpCore.doAction(\'SendMDN\',{folder:\'' . $folder . '\',index:' . $index . '}); return false;', '', '') . _("HERE") . '</a>';
-                $GLOBALS['notification']->push(sprintf(_("The sender of this message is requesting a Message Disposition Notification from you when you have read this message. Click %s to send the notification message."), $confirm_link), 'dimp.request', array('content.raw'));
-            }
         }
 
         if (!$preview) {

@@ -172,9 +172,6 @@ span.readonlyImg {
     background-image: url("graphics/locked.png");
 }
 
-#Growler div.dimp-sticky {
-    background-image: url("graphics/warning.png");
-}
 #Growler div.imp-reply {
     background-image: url("graphics/mail_answered.png");
 }
