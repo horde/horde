@@ -102,22 +102,6 @@ class Horde_Kolab_Server_KolabinetorgpersonTest extends Horde_Kolab_Test_Server
     }
 
     /**
-     * Test handling simple attributes.
-     *
-     * @dataProvider provideServers
-     *
-     * @return NULL
-     */
-    public function testSimpleAttributes($server)
-    {
-        $person = $this->assertAdd($server, $this->objects[0],
-                                   array(Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_SID => ''));
-        $this->assertSimpleAttributes($person, $server,
-                                      array(
-                                      ));
-    }
-
-    /**
      * Test handling easy attributes.
      *
      * @dataProvider provideServers
