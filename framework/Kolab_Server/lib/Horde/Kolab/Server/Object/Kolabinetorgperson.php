@@ -200,6 +200,19 @@ class Horde_Kolab_Server_Object_Kolabinetorgperson extends Horde_Kolab_Server_Ob
     );
 
     /**
+     * Return the filter string to retrieve this object type.
+     *
+     * @static
+     *
+     * @return string The filter to retrieve this object type from the server
+     *                database.
+     */
+    public static function getFilter()
+    {
+        return '(&(' . self::ATTRIBUTE_OC . '=' . self::OBJECTCLASS_KOLABINETORGPERSON . '))';
+    }
+
+    /**
      * Returns the set of search operations supported by this object type.
      *
      * @return array An array of supported search operations.
