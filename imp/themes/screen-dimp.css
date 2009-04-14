@@ -423,7 +423,7 @@ div.msgSize {
 /* Actions */
 .dimpActions {
     background: #efefef;
-    padding: 4px 4px 4px 2px;
+    padding: 4px 2px 6px;
     border: 1px silver solid;
     border-bottom: 0;
     background: transparent url("graphics/backhead_s2.png") repeat-x;
