@@ -1315,11 +1315,11 @@ abstract class Kronolith_Event
         // We explicitly allow admin access here for the alarms notifications.
         if (!Auth::isAdmin() && $this->isPrivate() &&
             $this->getCreatorId() != $user) {
-            return sprintf(_("Private Event from %s to %s"), $start, $end);
+            return _("busy");
         } elseif (Auth::isAdmin() || $this->hasPermission(PERMS_READ, $user)) {
             return strlen($this->title) ? $this->title : _("[Unnamed event]");
         } else {
-            return sprintf(_("Event from %s to %s"), $start, $end);
+            return _("busy");
         }
     }
 
