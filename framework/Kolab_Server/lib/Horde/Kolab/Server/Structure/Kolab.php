@@ -42,6 +42,8 @@ class Horde_Kolab_Server_Structure_Kolab extends Horde_Kolab_Server_Structure_Ld
             'Horde_Kolab_Server_Object_Organizationalperson',
             'Horde_Kolab_Server_Object_Inetorgperson',
             'Horde_Kolab_Server_Object_Kolabinetorgperson',
+            'Horde_Kolab_Server_Object_Kolabgermanbankarrangement',
+            'Horde_Kolab_Server_Object_Kolabpop3account',
             'Horde_Kolab_Server_Object_Kolabgroupofnames',
             'Horde_Kolab_Server_Object_Kolabsharedfolder',
             'Horde_Kolab_Server_Object_Kolab_Address',
@@ -72,6 +74,10 @@ class Horde_Kolab_Server_Structure_Kolab extends Horde_Kolab_Server_Structure_Ld
             // Is it a group?
             if (in_array('kolabgroupofnames', $oc)) {
                 return 'Horde_Kolab_Server_Object_Kolabgroupofnames';
+            }
+            // Is it an external pop3 account?
+            if (in_array('kolabexternalpop3account', $oc)) {
+                return 'Horde_Kolab_Server_Object_Kolabpop3account';
             }
             // Is it a shared Folder?
             if (in_array('kolabsharedfolder', $oc)) {
