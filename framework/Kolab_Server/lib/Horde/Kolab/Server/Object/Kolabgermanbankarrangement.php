@@ -69,6 +69,14 @@ class Horde_Kolab_Server_Object_Kolabgermanbankarrangement extends Horde_Kolab_S
                 'method' => 'getParentUid',
             ),
         ),
+        'collapsed' => array(
+            self::ATTRIBUTE_OWNERUID => array(
+                'base' => array(
+                    self::ATTRIBUTE_OWNERUID
+                ),
+                'method' => 'removeAttribute',
+            ),
+        ),
         'required' => array(
             self::ATTRIBUTE_NUMBER,
             self::ATTRIBUTE_BANKCODE,
@@ -90,14 +98,17 @@ class Horde_Kolab_Server_Object_Kolabgermanbankarrangement extends Horde_Kolab_S
     public function generateId(&$info)
     {
         if (!isset($info[self::ATTRIBUTE_OWNERUID])) {
-            throw new Horde_Kolab_Server_Exception(_("No parent object provided!"),
-                                                   Horde_Kolab_Server_Exception::INVALID_INFORMATION);
-        }
-
-        if (is_array($info[self::ATTRIBUTE_OWNERUID])) {
-            $uid = $info[self::ATTRIBUTE_OWNERUID][0];
+            $uid = $this->get(self::ATTRIBUTE_OWNERUID);
+            if (empty($uid)) {
+                throw new Horde_Kolab_Server_Exception(_("No parent object provided!"),
+                                                       Horde_Kolab_Server_Exception::INVALID_INFORMATION);
+            }
         } else {
-            $uid = $info[self::ATTRIBUTE_OWNERUID];
+            if (is_array($info[self::ATTRIBUTE_OWNERUID])) {
+                $uid = $info[self::ATTRIBUTE_OWNERUID][0];
+            } else {
+                $uid = $info[self::ATTRIBUTE_OWNERUID];
+            }
         }
 
         $object = $this->server->fetch($uid);
@@ -118,6 +129,8 @@ class Horde_Kolab_Server_Object_Kolabgermanbankarrangement extends Horde_Kolab_S
         }
 
         $base = substr($uid, 0, strpos($uid, $this->server->getBaseUid()) - 1);
+
+	unset($info[self::ATTRIBUTE_OWNERUID]);
 
         return self::ATTRIBUTE_NUMBER . '=' . $this->server->structure->quoteForUid($number) . ',' . $base;
     }

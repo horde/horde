@@ -96,6 +96,14 @@ class Horde_Kolab_Server_Object_Kolabpop3account extends Horde_Kolab_Server_Obje
                 'method' => 'getParentUid',
             ),
         ),
+        'collapsed' => array(
+            self::ATTRIBUTE_OWNERUID => array(
+                'base' => array(
+                    self::ATTRIBUTE_OWNERUID
+                ),
+                'method' => 'removeAttribute',
+            ),
+        ),
         'required' => array(
             self::ATTRIBUTE_CN,
             self::ATTRIBUTE_SERVER,
@@ -110,23 +118,24 @@ class Horde_Kolab_Server_Object_Kolabpop3account extends Horde_Kolab_Server_Obje
     /**
      * Generates an ID for the given information.
      *
-     * @param array $info The data of the object.
-     *
-     * @static
+     * @param array &$info The data of the object.
      *
      * @return string|PEAR_Error The ID.
      */
     public function generateId(&$info)
     {
         if (!isset($info[self::ATTRIBUTE_OWNERUID])) {
-            throw new Horde_Kolab_Server_Exception(_("No parent object provided!"),
-                                                   Horde_Kolab_Server_Exception::INVALID_INFORMATION);
-        }
-
-        if (is_array($info[self::ATTRIBUTE_OWNERUID])) {
-            $uid = $info[self::ATTRIBUTE_OWNERUID][0];
+            $uid = $this->get(self::ATTRIBUTE_OWNERUID);
+            if (empty($uid)) {
+                throw new Horde_Kolab_Server_Exception(_("No parent object provided!"),
+                                                       Horde_Kolab_Server_Exception::INVALID_INFORMATION);
+            }
         } else {
-            $uid = $info[self::ATTRIBUTE_OWNERUID];
+            if (is_array($info[self::ATTRIBUTE_OWNERUID])) {
+                $uid = $info[self::ATTRIBUTE_OWNERUID][0];
+            } else {
+                $uid = $info[self::ATTRIBUTE_OWNERUID];
+            }
         }
 
         $object = $this->server->fetch($uid);
@@ -158,6 +167,8 @@ class Horde_Kolab_Server_Object_Kolabpop3account extends Horde_Kolab_Server_Obje
         $cn = $user . '@' . $server;
 
         $base = substr($uid, 0, strpos($uid, $this->server->getBaseUid()) - 1);
+
+	unset($info[self::ATTRIBUTE_OWNERUID]);
 
         return self::ATTRIBUTE_CN . '=' . $this->server->structure->quoteForUid($cn) . ',' . $base;
     }

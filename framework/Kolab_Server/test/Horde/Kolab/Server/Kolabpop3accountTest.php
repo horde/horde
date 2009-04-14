@@ -66,7 +66,7 @@ class Horde_Kolab_Server_Kolabpop3accountTest extends Horde_Kolab_Test_Server
          * We always use the test server
          */
         $servers[] = array($this->prepareEmptyKolabServer());
-        if (false) {
+        if (true) {
             $real = $this->prepareLdapKolabServer();
             if (!empty($real)) {
                 $servers[] = array($real);
@@ -126,15 +126,11 @@ class Horde_Kolab_Server_Kolabpop3accountTest extends Horde_Kolab_Test_Server
                                         Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_PASSWORD => array(
                                             'something',
                                             'somewhere',
-                                            null,
-                                            array('a', 'b'),
-                                            '',
                                         ),
                                         Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_DESCRIPTION => array(
                                             'something',
                                             'somewhere',
                                             null,
-                                            array('a', 'b'),
                                             '',
                                         ),
                                         Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_MAIL => array(
@@ -148,21 +144,18 @@ class Horde_Kolab_Server_Kolabpop3accountTest extends Horde_Kolab_Test_Server
                                             '110',
                                             '111',
                                             null,
-                                            array('20', '21'),
                                             '',
                                         ),
                                         Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_USESSL => array(
                                             'TRUE',
                                             'FALSE',
                                             null,
-                                            array('TRUE', 'FALSE'),
                                             '',
                                         ),
                                         Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_USETLS => array(
                                             'TRUE',
                                             'FALSE',
                                             null,
-                                            array('TRUE', 'FALSE'),
                                             '',
                                         ),
                                         Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_LOGINMETHOD => array(
@@ -176,14 +169,12 @@ class Horde_Kolab_Server_Kolabpop3accountTest extends Horde_Kolab_Test_Server
                                             'TRUE',
                                             'FALSE',
                                             null,
-                                            array('TRUE', 'FALSE'),
                                             '',
                                         ),
                                         Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_KEEPMAILONSERVER => array(
                                             'TRUE',
                                             'FALSE',
                                             null,
-                                            array('TRUE', 'FALSE'),
                                             '',
                                         ),
                                     )
