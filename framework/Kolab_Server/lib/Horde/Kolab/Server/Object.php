@@ -583,6 +583,24 @@ class Horde_Kolab_Server_Object
     }
 
     /**
+     * Simply remove an attribute so that it does not get transported
+     * to the server (it might have been needed before e.g. ID
+     * generation).
+     *
+     * @param string $key        The attribute to collapse into.
+     * @param array  $attributes The attributes to collapse.
+     * @param array  $info       The information currently working on.
+     *
+     * @return NULL.
+     */
+    protected function removeAttribute($key, $attributes, &$info)
+    {
+        foreach ($attributes as $attribute) {
+            unset($info[$attribute]);
+        }
+    }
+
+    /**
      * Get an empty value
      *
      * @return string An empty string.
@@ -596,8 +614,6 @@ class Horde_Kolab_Server_Object
      * Generates an ID for the given information.
      *
      * @param array $info The data of the object.
-     *
-     * @static
      *
      * @return string The ID.
      */
