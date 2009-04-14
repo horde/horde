@@ -81,7 +81,7 @@ class IMP_UI_Message
         }
 
         $msg_id = $headers->getValue('message-id');
-        $mdn_flag = $need_mdn = false;
+        $mdn_flag = $mdn_sent = false;
 
         /* See if we have already processed this message. */
         /* 1st test: $MDNSent keyword (RFC 3503 [3.1]). */
@@ -93,16 +93,16 @@ class IMP_UI_Message
                 $res = $GLOBALS['imp_imap']->ob->fetch($mailbox, array(
                         Horde_Imap_Client::FETCH_FLAGS => true
                     ), array('ids' => array($uid)));
-                $need_mdn = in_array('$mdnsent', $res[$uid]['flags']);
+                $mdn_sent = in_array('$mdnsent', $res[$uid]['flags']);
             }
         } catch (Horde_Imap_Client_Exception $e) {}
 
         if (!$mdn_flag) {
             /* 2nd test: Use Maillog as a fallback. */
-            $need_mdn = !IMP_Maillog::sentMDN($msg_id, 'displayed');
+            $mdn_sent = IMP_Maillog::sentMDN($msg_id, 'displayed');
         }
 
-        if (!$need_mdn) {
+        if ($mdn_sent) {
             return false;
         }
 
