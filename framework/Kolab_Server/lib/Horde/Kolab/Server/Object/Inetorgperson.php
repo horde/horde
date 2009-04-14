@@ -164,8 +164,6 @@ class Horde_Kolab_Server_Object_Inetorgperson extends Horde_Kolab_Server_Object_
             self::ATTRIBUTE_HOMEPOSTALADDRESS => array(
                 'base' => array(
                     self::ATTRARRAY_HOMEPOSTALADDRESS,
-                    self::ATTRIBUTE_GIVENNAME,
-                    self::ATTRIBUTE_SN
                 ),
                 'method' => 'setHomePostalAddressHash',
             ),
@@ -266,6 +264,9 @@ class Horde_Kolab_Server_Object_Inetorgperson extends Horde_Kolab_Server_Object_
     {
         $result    = array();
         $addresses = $this->get(self::ATTRIBUTE_HOMEPOSTALADDRESS);
+	if (empty($addresses)) {
+	  return $addresses;
+	}
         if (!is_array($addresses)) {
             $addresses = array($addresses);
         }
