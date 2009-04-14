@@ -30,8 +30,9 @@ class Horde_Kolab_Server_Exception extends Horde_Exception
     /**
      * Constants to define the error type.
      */
-    const SYSTEM       = 1;
-    const EMPTY_RESULT = 2;
+    const SYSTEM              = 1;
+    const EMPTY_RESULT        = 2;
+    const INVALID_INFORMATION = 3;
 
     /**
      * The array of available error messages. These are connected to the error
@@ -65,8 +66,9 @@ class Horde_Kolab_Server_Exception extends Horde_Exception
     protected function setMessages()
     {
         $this->messages = array(
-            self::SYSTEM       => _("An internal error occured."),
-            self::EMPTY_RESULT => _("No result was found."),
+            self::SYSTEM              => _("An internal error occured."),
+            self::EMPTY_RESULT        => _("No result was found."),
+            self::INVALID_INFORMATION => _("The information provided is invalid."),
         );
     }
 }
