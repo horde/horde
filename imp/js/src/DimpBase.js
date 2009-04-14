@@ -402,7 +402,7 @@ var DimpBase = {
             onScrollIdle: settitle,
             onSlide: settitle,
             onContent: function(row) {
-                var bg, search,
+                var bg, search, u,
                     thread = ((this.viewport.getMetaData('sortby') == DIMP.conf.sortthread) && this.viewport.getMetaData('thread'));
 
                 if (this.viewport.isFiltering()) {
@@ -1496,9 +1496,7 @@ var DimpBase = {
             tmp;
 
         while (Object.isElement(elt)) {
-            id = elt.readAttribute('id');
-
-            switch (id) {
+            switch (elt.readAttribute('id')) {
             case 'msgList':
                 if (!orig.hasClassName('msgRow')) {
                     orig = orig.up('.msgRow');
@@ -2078,6 +2076,8 @@ var DimpBase = {
     /* Flag actions for message list. */
     _getFlagSelection: function(opts)
     {
+        var vs;
+
         if (opts.vs) {
             vs = opts.vs;
         } else if (opts.index) {
@@ -2158,7 +2158,7 @@ var DimpBase = {
     flag: function(flag, set, opts)
     {
         opts = opts || {};
-        var flags = [ (set ? '' : '-') + flag ];
+        var flags = [ (set ? '' : '-') + flag ],
             vs = this._getFlagSelection(opts);
 
         if (!vs.size()) {
