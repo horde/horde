@@ -224,13 +224,3 @@ require dirname(__FILE__) . '/day.inc';
   <a href="#">teste</a>
   <a href="#">teste</a>
 </div>
-
-<?php if (!($browser->isBrowser('msie') && ($browser->getMajor() < 7))): ?>
-<div id="hordeAlertslog">
- <div style="display:none">
-  <ul>
-   <li class="hordeNoalerts"><strong><?php echo _("No Alerts") ?></strong></li>
-  </ul>
- </div>
-</div>
-<?php endif; ?>

@@ -16,7 +16,7 @@ var frames = { horde_main: true },
 /* Kronolith object. */
 KronolithCore = {
     // Vars used and defaulting to null/false:
-    //   DMenu, alertrequest, inAjaxCallback, is_logout, onDoActionComplete,
+    //   DMenu, Growler, inAjaxCallback, is_logout, onDoActionComplete,
     //   eventForm, daySizes, viewLoading
 
     view: '',
@@ -122,112 +122,14 @@ KronolithCore = {
             case 'horde.message':
             case 'horde.success':
             case 'horde.warning':
-            case 'kronolith.request':
-            case 'kronolith.sticky':
-                var iefix, log, tmp,
-                    alerts = $('hordeAlerts'),
-                    div = new Element('DIV', { className: m.type.replace('.', '-') }),
-                    msg = m.message;
-
-                if (!alerts) {
-                    alerts = new Element('DIV', { id: 'hordeAlerts' });
-                    $(document.body).insert(alerts);
-                }
-
-                if ($w('kronolith.request kronolith.sticky').indexOf(m.type) == -1) {
-                    msg = msg.unescapeHTML().unescapeHTML();
-                }
-                alerts.insert(div.update(msg));
-
-                // IE6 has a bug that does not allow the body of a div to be
-                // clicked to trigger an onclick event for that div (it only
-                // seems to be an issue if the div is overlaying an element
-                // that itself contains an image).  However, the alert box
-                // normally displays over the message list, and we use several
-                // graphics in the default message list layout, so we see this
-                // buggy behavior 99% of the time.  The workaround is to
-                // overlay the div with a like sized div containing a clear
-                // gif, which tricks IE into the correct behavior.
-                if (Kronolith.conf.is_ie6) {
-                    iefix = new Element('DIV', { id: 'hordeIE6AlertsFix' }).clonePosition(div, { setLeft: false, setTop: false });
-                    iefix.insert(div.remove());
-                    alerts.insert(iefix);
-                }
-
-                if ($w('horde.error kronolith.request kronolith.sticky').indexOf(m.type) == -1) {
-                    this.alertsFade.bind(this, div).delay(m.type == 'horde.warning' ? 10 : 3);
-                }
-
-                if (m.type == 'kronolith.request') {
-                    this.alertrequest = div;
-                }
-
-                if (tmp = $('hordeAlertslog')) {
-                    switch (m.type) {
-                    case 'horde.error':
-                        log = Kronolith.text.alog_error;
-                        break;
-
-                    case 'horde.message':
-                        log = Kronolith.text.alog_message;
-                        break;
-
-                    case 'horde.success':
-                        log = Kronolith.text.alog_success;
-                        break;
-
-                    case 'horde.warning':
-                        log = Kronolith.text.alog_warning;
-                        break;
-                    }
-
-                    if (log) {
-                        tmp = tmp.down('DIV UL');
-                        if (tmp.down().hasClassName('hordeNoalerts')) {
-                            tmp.down().remove();
-                        }
-                        tmp.insert(new Element('LI').insert(new Element('P', { className: 'label' }).insert(log)).insert(new Element('P', { className: 'indent' }).insert(msg).insert(new Element('SPAN', { className: 'alertdate'}).insert('[' + (new Date).toLocaleString() + ']'))));
-                    }
-                }
+                this.Growler.growl(m.message, {
+                    className: m.type.replace('.', '-'),
+                    life: 8,
+                    log: true,
+                    sticky: m.type == 'horde.error'
+                });
             }
         }, this);
-    },
-
-    alertsFade: function(elt)
-    {
-        if (elt) {
-            Effect.Fade(elt, { duration: 1.5, afterFinish: this.removeAlert.bind(this) });
-        }
-    },
-
-    toggleAlertsLog: function()
-    {
-        var alink = $('alertsloglink').down('A'),
-            div = $('hordeAlertslog').down('DIV'),
-            opts = { duration: 0.5 };
-        if (div.visible()) {
-            Effect.BlindUp(div, opts);
-            alink.update(Kronolith.text.showalog);
-        } else {
-            Effect.BlindDown(div, opts);
-            alink.update(Kronolith.text.hidealog);
-        }
-    },
-
-    removeAlert: function(effect)
-    {
-        try {
-            var elt = $(effect.element),
-                parent = elt.up();
-
-            elt.remove();
-            if (!parent.childElements().size() &&
-                parent.readAttribute('id') == 'hordeIE6AlertsFix') {
-                parent.remove();
-            }
-        } catch (e) {
-            this.debug('removeAlert', e);
-        }
     },
 
     logout: function(url)
@@ -1107,11 +1009,6 @@ KronolithCore = {
             orig = e.element(),
             id, tmp, calendar, calendarClass;
 
-        if (this.alertrequest) {
-            this.alertsFade(this.alertrequest);
-            this.alertrequest = null;
-        }
-
         while (Object.isElement(elt)) {
             id = elt.readAttribute('id');
 
@@ -1248,11 +1145,12 @@ KronolithCore = {
                 return;
 
             case 'alertsloglink':
-                this.toggleAlertsLog();
-                break;
-
-            case 'hordeAlerts':
-                this.alertsFade(elt);
+                tmp = $('alertsloglink').down('A');
+                if (this.Growler.toggleLog()) {
+                    tmp.update(DIMP.text.hidealog);
+                } else {
+                    tmp.update(DIMP.text.showalog);
+                }
                 break;
             }
 
@@ -1435,6 +1333,13 @@ KronolithCore = {
             s.observe('mouseout', s.removeClassName.curry('kronolithCalOver'));
         });
 
+        /* Add Growler notifications. */
+        this.Growler = new Growler({
+            location: 'br',
+            log: true
+            noalerts: Kronolith.text.noalerts
+        });
+
         if (Kronolith.conf.is_ie6) {
             /* Disable text selection in preview pane for IE 6. */
             document.observe('selectstart', Event.stop);
@@ -1449,11 +1354,7 @@ KronolithCore = {
 
     toggleCalendar: function(elm)
     {
-        if (elm.hasClassName('on')) {
-            elm.removeClassName('on');
-        } else {
-            elm.addClassName('on');
-        }
+        elm.toggleClassName('on');
     },
 
     // By default, no context onShow action

@@ -55,7 +55,3 @@ table.monthgrid td.today {
 body.rightPanel #page {
     margin: 0;
 }
-
-#hordeAlertslog {
-    display: none !important;
-}
