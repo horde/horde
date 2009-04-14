@@ -2,6 +2,7 @@
 v3.0-git
 --------
 
+[cjh] With only SHOW permissions, display event titles as "busy".
 [mjr] Replace categories and keywords by tags.
 [jan] Set colors per calendar (Request #7480).
 [jan] Add individual notification methods for single events (Alfonso Marín
