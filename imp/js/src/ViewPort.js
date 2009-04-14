@@ -555,7 +555,7 @@ var ViewPort = Class.create({
         this.isbusy = false;
 
         if (r.partial) {
-            this.select(this.getViewportSelection(id));
+            this.select(this.getSelection(id));
         } else {
             // Don't update the viewport if we are now in a different view, or
             // if we are loading in the background.
@@ -925,7 +925,7 @@ var ViewPort = Class.create({
         return buffer ? new ViewPort_Selection(buffer, format, data) : new ViewPort_Selection(this._getBuffer(this.view));
     },
 
-    getViewportSelection: function(view, nopartial)
+    getSelection: function(view, nopartial)
     {
         var buffer = this._getBuffer(view);
         return this.createSelection('uid', buffer ? buffer.getAllUIDs(nopartial) : [], view);

@@ -477,7 +477,7 @@ var DimpBase = {
                 this.setMessageListTitle();
 
                 if (this.uid) {
-                    row = this.viewport.getViewportSelection().search({ imapuid: { equal: [ this.uid ] }, view: { equal: [ this.folder ] } });
+                    row = this.viewport.getSelection().search({ imapuid: { equal: [ this.uid ] }, view: { equal: [ this.folder ] } });
                     if (row.size()) {
                         this.viewport.scrollTo(row.get('rownum').first());
                         this.viewport.select(row);
@@ -586,7 +586,7 @@ var DimpBase = {
             onCachedList: function(id) {
                 var tmp, vs;
                 if (!this.cacheids[id]) {
-                    vs = this.viewport.getViewportSelection(id, true);
+                    vs = this.viewport.getSelection(id, true);
                     if (!vs.size()) {
                         return '';
                     }
@@ -944,7 +944,7 @@ var DimpBase = {
             t = $('msgHeadersContent').down('THEAD');
 
         if (!r.error) {
-            search = this.viewport.getViewportSelection().search({ imapuid: { equal: [ r.index ] }, view: { equal: [ r.folder ] } });
+            search = this.viewport.getSelection().search({ imapuid: { equal: [ r.index ] }, view: { equal: [ r.folder ] } });
             if (search.size()) {
                 row = search.get('dataob').first();
                 this.updateSeenUID(row, 1);
@@ -1574,7 +1574,7 @@ var DimpBase = {
 
             case 'msg_newwin':
             case 'msg_newwin_options':
-                this.msgWindow(this.viewport.getViewportSelection().search({ imapuid: { equal: [ DIMP.conf.msg_index ] } , view: { equal: [ DIMP.conf.msg_folder ] } }).get('dataob').first());
+                this.msgWindow(this.viewport.getSelection().search({ imapuid: { equal: [ DIMP.conf.msg_index ] } , view: { equal: [ DIMP.conf.msg_folder ] } }).get('dataob').first());
                 e.stop();
                 return;
 
@@ -1749,7 +1749,7 @@ var DimpBase = {
 
         // Need to convert uid list to listing of unique viewport IDs since
         // we may be dealing with multiple mailboxes (i.e. virtual folders)
-        vs = this.viewport.getViewportSelection(this.folder);
+        vs = this.viewport.getSelection(this.folder);
         if (vs.getBuffer().getMetaData('search')) {
             $H(r.uids).each(function(pair) {
                 pair.value.each(function(v) {
@@ -1757,7 +1757,7 @@ var DimpBase = {
                 });
             });
 
-            search = this.viewport.getViewportSelection().search({ vp_id: { equal: uids } });
+            search = this.viewport.getSelection().search({ vp_id: { equal: uids } });
         } else {
             r.uids = r.uids[this.folder];
             r.uids.each(function(f, u) {
@@ -2028,9 +2028,9 @@ var DimpBase = {
             vs = opts.vs;
         } else if (opts.index) {
             if (opts.mailbox) {
-                vs = this.viewport.getViewportSelection().search({ imapuid: { equal: [ opts.index ] }, view: { equal: [ opts.mailbox ] } });
+                vs = this.viewport.getSelection().search({ imapuid: { equal: [ opts.index ] }, view: { equal: [ opts.mailbox ] } });
                 if (!vs.size() && opts.mailbox != this.folder) {
-                    vs = this.viewport.getViewportSelection(opts.mailbox).search({ imapuid: { equal: [ opts.index ] } });
+                    vs = this.viewport.getSelection(opts.mailbox).search({ imapuid: { equal: [ opts.index ] } });
                 }
             } else {
                 vs = this.viewport.createSelection('dataob', opts.index);
