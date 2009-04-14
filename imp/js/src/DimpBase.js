@@ -187,6 +187,15 @@ var DimpBase = {
     {
         var app, f, separator;
 
+        /* If switching from options, we need to reload page to pick up any
+         * prefs changes. */
+        if (this.folder === null &&
+            loc != 'options' &&
+            $('appoptions') &&
+            $('appoptions').hasClassName('on')) {
+            return DimpCore.redirect(DIMP.conf.URI_DIMP_INBOX);
+        }
+
         if (loc.startsWith('compose:')) {
             return;
         }
@@ -287,9 +296,9 @@ var DimpBase = {
         // don't need to parse through them.
         elt.ancestors().slice(0, -2).find(function(n) {
             if (n.hasClassName('subfolders')) {
-                this._toggleSubFolder(n.id.substring(3), 'exp');
+                this._toggleSubFolder(n.readAttribute('id').substring(3), 'exp');
             } else {
-                return (n.id == 'foldersSidebar');
+                return (n.readAttribute('id') == 'foldersSidebar');
             }
         }, this);
     },
