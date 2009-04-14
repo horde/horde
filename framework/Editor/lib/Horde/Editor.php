@@ -24,10 +24,8 @@ class Horde_Editor
     /**
      * Attempts to return a concrete Horde_Editor instance based on $driver.
      *
-     * @param mixed $driver  The type of concrete Horde_Editor subclass to
-     *                       return. If $driver is an array, then we will look
-     *                       in $driver[0]/lib/Editor/ for the subclass
-     *                       implementation named $driver[1].php.
+     * @param string $driver  The type of concrete Horde_Editor subclass to
+     *                       return.
      * @param array $params  A hash containing any additional configuration or
      *                       connection parameters a subclass might need.
      *
@@ -36,38 +34,20 @@ class Horde_Editor
      */
     static public function factory($driver, $params = null)
     {
-        if (is_array($driver)) {
-            list($app, $driv_name) = $driver;
-            $driver = basename($driv_name);
-        } else {
-            $driver = basename($driver);
-        }
-
-        if (empty($driver) || (strcmp($driver, 'none') == 0)) {
-            return $editor = new Horde_Editor();
+        $driver = ucfirst(basename($driver));
+        if (empty($driver) || (strcmp($driver, 'None') == 0)) {
+            return new Horde_Editor();
         }
 
         $class = 'Horde_Editor_' . $driver;
-        if (!empty($app)) {
-            $class = $app . '_' . $class;
-        }
-
         if (!class_exists($class)) {
-            if (empty($app)) {
-                include_once dirname(__FILE__) . '/Editor/' . $driver . '.php';
-            } else {
-                include_once $GLOBALS['registry']->get('fileroot', $app) . '/lib/Editor/' . $driver . '.php';
-            }
+            throw new Exception('Driver ' . $driver . ' not found');
         }
 
-        if (class_exists($class)) {
-            if (is_null($params) && class_exists('Horde')) {
-                $params = Horde::getDriverConfig('editor', $driver);
-            }
-            return new $class($params);
+        if (is_null($params) && class_exists('Horde')) {
+            $params = Horde::getDriverConfig('editor', $driver);
         }
-
-        return PEAR::raiseError('Class definition of ' . $class . ' not found.');
+        return new $class($params);
     }
 
     /**
