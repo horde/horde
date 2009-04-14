@@ -462,6 +462,30 @@ class Horde_Kolab_Server_Object
     }
 
     /**
+     * Get the parent UID of this object
+     *
+     * @return string the parent UID of this object
+     */
+    public function getParentUid()
+    {
+        $base = Net_LDAP2_Util::ldap_explode_dn($this->uid,
+                                                array('casefold' => 'none',
+                                                      'reverse' => false,
+                                                      'onlyvalues' => false));
+        if ($base instanceOf PEAR_Error) {
+            throw new Horde_Kolab_Server_Exception($base,
+                                                   Horde_Kolab_Server_Exception::SYSTEM);
+        }
+        $id = array_shift($base);
+        $parent = Net_LDAP2_Util::canonical_dn($base, array('casefold' => 'none'));
+        if ($parent instanceOf PEAR_Error) {
+            throw new Horde_Kolab_Server_Exception($parent,
+                                                   Horde_Kolab_Server_Exception::SYSTEM);
+        }
+        return $parent;
+    }
+
+    /**
      * Get the ID of this object
      *
      * @return string the ID of this object
@@ -786,6 +810,7 @@ class Horde_Kolab_Server_Object
         $searches = array(
             'basicUidForSearch',
             'attrsForSearch',
+            'objectsForUid',
         );
         return $searches;
     }
@@ -841,4 +866,34 @@ class Horde_Kolab_Server_Object
         }
         return self::attrsFromResult($data, $attrs, $restrict);
     }
+
+    /**
+     * Returns the UIDs of the sub objects of the given object class for the
+     * object with the given uid.
+     *
+     * @param Horde_Kolab_Server $server The server to query.
+     * @param string             $uid    Returns subobjects for this uid.
+     * @param string             $oc     Objectclass of the objects to search.
+     *
+     * @return mixed The UIDs or false if there was no result.
+     *
+     * @throws Horde_Kolab_Server_Exception
+     */
+    static public function objectsForUid($server, $uid, $oc)
+    {
+        $params   = array('attributes' => self::ATTRIBUTE_UID);
+        $criteria = array('AND' => array(array('field' => self::ATTRIBUTE_OC,
+                                               'op'    => '=',
+                                               'test'  => $oc),
+                          ),
+        );
+        $filter = $server->searchQuery($criteria);
+        $result = $server->search($filter, $params, $uid);
+        $data   = $result->as_struct();
+        if (is_a($data, 'PEAR_Error')) {
+            throw new Horde_Kolab_Server_Exception($data->getMessage());
+        }
+        return self::uidFromResult($data, Horde_Kolab_Server_Object::RESULT_MANY);
+    }
+
 };
