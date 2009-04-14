@@ -1336,7 +1336,7 @@ KronolithCore = {
         /* Add Growler notifications. */
         this.Growler = new Growler({
             location: 'br',
-            log: true
+            log: true,
             noalerts: Kronolith.text.noalerts
         });
 
