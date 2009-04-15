@@ -217,7 +217,7 @@ class DIMP
             'viewport_wait' => intval($conf['dimp']['viewport']['viewport_wait']),
             'login_view' => $prefs->getValue('dimp_login_view'),
             'background_inbox' => intval(!empty($conf['dimp']['viewport']['background_inbox'])),
-            'splitbar_pos' => $prefs->getValue('dimp_splitbar'),
+            'splitbar_pos' => intval($prefs->getValue('dimp_splitbar')),
 
             // Turn debugging on?
             'debug' => intval(!empty($conf['dimp']['js']['debug'])),
