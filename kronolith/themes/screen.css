@@ -959,6 +959,9 @@ div.kronolithView div.kronolithViewBody div.kronolithRow {
 #kronolithViewWeek div.kronolithViewBody div.kronolithRow div {
     height: 41px;
 }
+.kronolithWeekDay {
+    cursor: pointer;
+}
 
 /* Main view day */
 .kronolithViewDay div.kronolithViewBody div.kronolithRow div.kronolithFirstCol {

@@ -9,11 +9,15 @@
   <div class="kronolithEventsWeek"></div>
 </div>
 <table class="kronolithView kronolithViewDay">
-  <thead class="kronolithViewHead"><tr>
+  <thead id="kronolithViewWeekHead" class="kronolithViewHead"><tr>
     <td class="kronolithFirstCol">&nbsp;</td>
-    <?php for ($w = $prefs->getValue('week_start_monday'), $i = $w, $c = $i + 7; $i < $c; $i++): ?>
-    <td class="kronolithCol"><span><?php echo NLS::getLangInfo(constant('DAY_' . ($i % 7 + 1))) ?></span></td>
-    <?php endfor; ?>
+    <td class="kronolithCol kronolithWeekDay"><span></span></td>
+    <td class="kronolithCol kronolithWeekDay"><span></span></td>
+    <td class="kronolithCol kronolithWeekDay"><span></span></td>
+    <td class="kronolithCol kronolithWeekDay"><span></span></td>
+    <td class="kronolithCol kronolithWeekDay"><span></span></td>
+    <td class="kronolithCol kronolithWeekDay"><span></span></td>
+    <td class="kronolithCol kronolithWeekDay"><span></span></td>
   </tr></thead>
   <tbody id="kronolithViewWeekBody" class="kronolithViewBody">
     <tr class="kronolithRow kronolithAllDay">

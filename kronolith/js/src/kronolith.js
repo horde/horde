@@ -262,13 +262,16 @@ KronolithCore = {
             this.dayGroups = [];
             this.allDayEvents = [];
             var div = $('kronolithEventsWeek').down('div'),
+                th = $('kronolithViewWeekHead').down('.kronolithWeekDay'),
                 td = $('kronolithViewWeekBody').down('td').next('td'),
                 dates = this.viewDates(date, view),
                 day = dates[0].clone();
             for (var i = 0; i < 7; i++) {
                 div.writeAttribute('id', 'kronolithEventsWeek' + day.dateString());
+                th.writeAttribute('date', day.dateString()).down('span').setText(day.toString('dddd, d'));
                 td.down('div').writeAttribute('id', 'kronolithAllDay' + day.dateString());
                 div = div.next('div');
+                th = th.next('td');
                 td = td.next('td');
                 day.next().day();
             }
@@ -1174,6 +1177,10 @@ KronolithCore = {
                 return;
             } else if (elt.hasClassName('kronolithAddEvent')) {
                 this.editEvent(null, null, elt.readAttribute('date'));
+                e.stop();
+                return;
+            } else if (elt.hasClassName('kronolithWeekDay')) {
+                this.go('day:' + elt.readAttribute('date'));
                 e.stop();
                 return;
             } else if (elt.hasClassName('kronolithEventTag')) {
