@@ -7,8 +7,11 @@
  */
 
 $horde_img = $registry->getImageDir('horde');
+
+$close_img = IMP::img('close.png', 'X', array(), $horde_img);
 $menu_view = $prefs->getValue('menu_view');
 $show_text = ($menu_view == 'text' || $menu_view == 'both');
+
 
 // Small utility function to simplify creating dimpactions buttons.
 // As of right now, we don't show text only links.
@@ -26,35 +29,29 @@ function _createDAfmsg($text, $image, $id, $class = '', $show_text = true)
 ?>
 <div id="pageContainer">
  <div id="msgData">
-  <div class="noprint">
-   <div class="header">
-    <div class="headercloseimg" id="windowclose"><?php echo IMP::img('close.png', 'X', array(), $horde_img) ?></div>
-    <div><?php echo _("Message:") . ' ' . $show_msg_result['subject'] ?></div>
-   </div>
-
-   <div class="dimpActions dimpActionsMsg">
-    <span>
-     <?php _createDAfmsg(_("Reply"), 'Reply', 'reply_link', 'hasmenu', $show_text) ?>
-    </span>
-    <span>
-     <?php _createDAfmsg(_("Forward"), 'Forward', 'forward_link', '', $show_text) ?>
-    </span>
+  <div class="dimpActions dimpActionsMsg noprint">
+   <div class="headercloseimg" id="windowclose"><?php echo $close_img ?></div>
+   <span>
+    <?php _createDAfmsg(_("Reply"), 'Reply', 'reply_link', 'hasmenu', $show_text) ?>
+   </span>
+   <span>
+    <?php _createDAfmsg(_("Forward"), 'Forward', 'forward_link', '', $show_text) ?>
+   </span>
 <?php if (!empty($conf['spam']['reporting']) && (!$conf['spam']['spamfolder'] || ($folder != IMP::folderPref($prefs->getValue('spam_folder'), true)))): ?>
-    <span>
-     <?php _createDAfmsg(_("Report Spam"), 'Spam', 'button_spam', '', $show_text) ?>
-    </span>
+   <span>
+    <?php _createDAfmsg(_("Report Spam"), 'Spam', 'button_spam', '', $show_text) ?>
+   </span>
 <?php endif; ?>
 <?php if (!empty($conf['notspam']['reporting']) && (!$conf['notspam']['spamfolder'] || ($folder == IMP::folderPref($prefs->getValue('spam_folder'), true)))): ?>
-    <span>
-     <?php _createDAfmsg(_("Report Innocent"), 'Ham', 'button_ham', '', $show_text) ?>
-    </span>
+   <span>
+    <?php _createDAfmsg(_("Report Innocent"), 'Ham', 'button_ham', '', $show_text) ?>
+   </span>
 <?php endif; ?>
 <?php if (!$readonly): ?>
-    <span>
-     <?php _createDAfmsg(_("Delete"), 'Delete', 'button_deleted', '', $show_text) ?>
-    </span>
+   <span>
+    <?php _createDAfmsg(_("Delete"), 'Delete', 'button_deleted', '', $show_text) ?>
+   </span>
 <?php endif; ?>
-   </div>
   </div>
 
   <div class="msgfullread">
@@ -110,7 +107,7 @@ function _createDAfmsg($text, $image, $id, $class = '', $show_text = true)
 <?php if (!$disable_compose): ?>
  <div id="qreply" style="display:none">
   <div class="header">
-   <div class="headercloseimg"><?php echo IMP::img('close.png', 'X', array(), $horde_img) ?></div>
+   <div class="headercloseimg"><?php echo $close_img ?></div>
    <div><?php echo _("Message:") . ' ' . $show_msg_result['subject'] ?></div>
   </div>
   <?php echo $compose_result['html']; ?>

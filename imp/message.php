@@ -288,12 +288,10 @@ foreach (array('to', 'cc', 'bcc') as $val) {
 /* Process the subject now. */
 if ($subject = $mime_headers->getValue('subject')) {
     $display_headers['subject'] = $imp_ui->getDisplaySubject($subject);
-    $title = sprintf(_("%s: %s"), $page_label, $subject);
-    $shortsub = htmlspecialchars($subject);
 } else {
-    $display_headers['subject'] = $shortsub = _("[No Subject]");
-    $title = sprintf(_("%s: %s"), $page_label, $shortsub);
+    $display_headers['subject'] = _("[No Subject]");
 }
+$title = sprintf(_("%s: %s"), $page_label, $display_headers['subject']);
 
 /* See if the 'X-Priority' header has been set. */
 $xpriority = $mime_headers->getValue('x-priority');
@@ -424,7 +422,7 @@ if (!IMP::$printMode) {
     $t_template->set('thismailbox', htmlspecialchars($mailbox_name));
     $t_template->set('start', htmlspecialchars($msgindex));
     $t_template->set('index', htmlspecialchars($index));
-    $t_template->set('label', sprintf(_("%s: %s"), $header_label, $shortsub));
+    $t_template->set('label', $header_label);
     $t_template->set('msg_count', sprintf(_("(%d&nbsp;of&nbsp;%d)"), $msgindex, $imp_mailbox->getMessageCount()));
     $t_template->set('status', $status);
     $t_template->set('message_token', $message_token);
