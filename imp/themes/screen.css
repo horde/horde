@@ -1,3 +1,9 @@
+/* Mailbox header styling. */
+.mboxheader {
+    font-size: 110%;
+    text-align: left;
+}
+
 /* Message list table styles. */
 .searchfolder a.smallheader {
     display: block;
@@ -34,7 +40,7 @@
     font-size: 80%;
     margin-right: 3px;
 }
-#messages h1.header span.flagUser {
+#messages h1.mboxheader span.flagUser {
     font-size: 80%;
     margin-left: 3px;
 }
@@ -237,7 +243,7 @@ div.msgflags {
     background-repeat: no-repeat;
     vertical-align: inherit;
 }
-.header div.msgflags {
+.mboxheader div.msgflags {
     vertical-align: sub;
 }
 

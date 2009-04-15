@@ -162,7 +162,7 @@ function _simpleButton($id, $text, $image, $imagedir = null)
 <?php endif; ?>
      </div>
      <br class="clear" />
-     <div id="mailboxHeader" class="header">
+     <div class="header mboxheader">
       <div>
        <span class="rightFloat" id="msgHeader"></span>
        <span id="folderLoading" class="loadingImg" style="display:none"></span>
