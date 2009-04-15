@@ -1027,6 +1027,11 @@ KronolithCore = {
                 e.stop();
                 return;
 
+            case 'kronolithToday':
+                this.go(Kronolith.conf.login_view);
+                e.stop();
+                return;
+
             case 'id_fullday':
                 this.eventForm.select('.edit_at').each(Element.toggle);
                 e.stop();
