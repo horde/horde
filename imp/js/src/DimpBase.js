@@ -499,20 +499,19 @@ var DimpBase = {
 
                 if (this.folderswitch) {
                     this.folderswitch = false;
-                    if (this.folder == DIMP.conf.spam_folder) {
-                        if (!DIMP.conf.spam_spamfolder &&
-                            DimpCore.buttons.indexOf('button_spam') != -1) {
+                    if (this.folder == DIMP.conf.spam_mbox) {
+                        if (!DIMP.conf.spam_spammbox && $('button_spam')) {
                             [ $('button_spam').up(), $('ctx_message_spam') ].invoke('hide');
                         }
-                        if (DimpCore.buttons.indexOf('button_ham') != -1) {
+                        if ($('button_ham')) {
                             [ $('button_ham').up(), $('ctx_message_ham') ].invoke('show');
                         }
                     } else {
-                        if (DimpCore.buttons.indexOf('button_spam') != -1) {
+                        if ($('button_spam')) {
                             [ $('button_spam').up(), $('ctx_message_spam') ].invoke('show');
                         }
-                        if (DimpCore.buttons.indexOf('button_ham') != -1) {
-                            if (DIMP.conf.ham_spamfolder) {
+                        if ($('button_ham')) {
+                            if (DIMP.conf.ham_spammbox) {
                                 [ $('button_ham').up(), $('ctx_message_ham') ].invoke('hide');
                             } else {
                                 [ $('button_ham').up(), $('ctx_message_ham') ].invoke('show');
@@ -1267,12 +1266,9 @@ var DimpBase = {
     toggleButtons: function()
     {
         var disable = (this.selectedCount() == 0);
-        DimpCore.buttons.each(function(b) {
-            var elt = $(b);
-            if (elt) {
-                [ elt.up() ].invoke(disable ? 'addClassName' : 'removeClassName', 'disabled');
-                DimpCore.DMenu.disable(b + '_img', true, disable);
-            }
+        $('dimpmain_folder_top').select('DIV.dimpActions A.noselectDisable').each(function(b) {
+            [ b.up() ].invoke(disable ? 'addClassName' : 'removeClassName', 'disabled');
+            DimpCore.DMenu.disable(b.readAttribute('id') + '_img', true, disable);
         });
     },
 

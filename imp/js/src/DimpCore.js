@@ -15,11 +15,6 @@ var DimpCore = {
     //   onDoActionComplete
     server_error: 0,
 
-    buttons: [
-        'button_reply', 'button_forward', 'button_spam', 'button_ham',
-        'button_deleted'
-    ],
-
     doActionOpts: {
         onException: function(r, e) { DimpCore.debug('onException', e); },
         onFailure: function(t, o) { DimpCore.debug('onFailure', t); },
@@ -467,14 +462,6 @@ var DimpCore = {
                 DIMP.baseWindow = parent.opener.DIMP.baseWindow || parent.opener;
             }
         } catch (e) {}
-
-        /* Remove unneeded buttons. */
-        if (!DIMP.conf.spam_reporting) {
-            this.buttons = this.buttons.without('button_spam');
-        }
-        if (!DIMP.conf.ham_reporting) {
-            this.buttons = this.buttons.without('button_ham');
-        }
 
         /* Add Growler notifications. */
         this.Growler = new Growler({

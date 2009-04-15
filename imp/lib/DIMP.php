@@ -194,11 +194,9 @@ class DIMP
 
             'flags' => $flags,
 
-            'spam_folder' => IMP::folderPref($prefs->getValue('spam_folder'), true),
-            'spam_reporting' => intval(!empty($conf['spam']['reporting'])),
-            'spam_spamfolder' => intval(!empty($conf['spam']['spamfolder'])),
-            'ham_reporting' => intval(!empty($conf['notspam']['reporting'])),
-            'ham_spamfolder' => intval(!empty($conf['notspam']['spamfolder'])),
+            'spam_mbox' => IMP::folderPref($prefs->getValue('spam_folder'), true),
+            'spam_spammbox' => intval(!empty($conf['spam']['spamfolder'])),
+            'ham_spammbox' => intval(!empty($conf['notspam']['spamfolder'])),
             'refresh_time' => intval($prefs->getValue('refresh_time')),
 
             'fixed_folders' => empty($conf['server']['fixed_folders'])

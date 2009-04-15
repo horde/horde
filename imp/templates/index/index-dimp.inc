@@ -177,29 +177,29 @@ function _simpleButton($id, $text, $image, $imagedir = null)
       </form>
       <?php echo IMP::img('close.png', '', array('id' => 'quicksearch_close', 'style' => 'display:none', 'title' => _("Clear Search")), $hordeimg) ?>
       <span>
-       <?php _createDA(_("Reply"), 'Reply', 'button_reply', '', $show_text) ?>
+       <?php _createDA(_("Reply"), 'Reply', 'button_reply', 'noselectDisable', $show_text) ?>
       </span>
       <span>
-       <?php _createDA(_("Forward"), 'Forward', 'button_forward', '', $show_text) ?>
+       <?php _createDA(_("Forward"), 'Forward', 'button_forward', 'noselectDisable', $show_text) ?>
       </span>
 <?php if (!empty($conf['spam']['reporting'])): ?>
       <span>
-       <?php _createDA(_("Spam"), 'Spam', 'button_spam', '', $show_text) ?>
+       <?php _createDA(_("Spam"), 'Spam', 'button_spam', 'noselectDisable', $show_text) ?>
       </span>
 <?php endif; ?>
 <?php if (!empty($conf['notspam']['reporting'])): ?>
       <span style="display:none">
-       <?php _createDA(_("Innocent"), 'Ham', 'button_ham', '', $show_text) ?>
+       <?php _createDA(_("Innocent"), 'Ham', 'button_ham', 'noselectDisable', $show_text) ?>
       </span>
 <?php endif; ?>
+      <span>
+       <?php _createDA(_("Delete"), 'Delete', 'button_deleted', 'noselectDisable', $show_text) ?>
+      </span>
       <span id="button_compose">
        <?php _createDA(_("Compose"), 'Compose', '', '', $show_text) ?>
       </span>
       <span id="button_checkmail">
        <?php _createDA(_("Get Mail"), 'Checkmail', '', '', $show_text) ?>
-      </span>
-      <span>
-       <?php _createDA(_("Delete"), 'Delete', 'button_deleted', '', $show_text) ?>
       </span>
       <span>
        <?php _createDA(_("Other Actions"), 'Other', 'button_other', '', $show_text) ?>
