@@ -423,3 +423,12 @@ function _simpleButton($id, $text, $image, $imagedir = null)
   <span class="dispaddrlist" style="display:none"></span>
  </span>
 </div>
+
+<div id="folderform" style="display:none">
+ <form action="#" class="RBForm">
+  <p></p>
+  <input type="text" size="15" />
+  <input type="button" class="button RBFolderOk" value="<?php echo _("Ok") ?>" />
+  <input type="button" class="button RBFolderCancel" value="<?php echo _("Cancel") ?>" />
+ </form>
+</div>

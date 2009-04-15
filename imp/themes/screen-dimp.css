@@ -833,12 +833,12 @@ a.address:hover img {
 }
 
 /* Redbox styles. */
-#RB_folder {
+.RBForm {
     width: 20em;
     padding: 6px;
     border: 1px solid #ccc;
 }
-#RB_folder input {
+.RBForm input {
     margin: .2em;
 }
 

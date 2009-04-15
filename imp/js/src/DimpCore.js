@@ -25,7 +25,7 @@ var DimpCore = {
     debug: function(label, e)
     {
         if (!this.is_logout && DIMP.conf.debug) {
-            if (console.error) {
+            if (console && console.error) {
                 // Firebug error reporting.
                 console.error(label, e);
             } else {
@@ -172,9 +172,7 @@ var DimpCore = {
         }
         this.server_error = 0;
 
-        if (!r.msgs_noauto) {
-            this.showNotifications(r.msgs);
-        }
+        this.showNotifications(r.msgs);
 
         if (this.onDoActionComplete) {
             this.onDoActionComplete(r);
@@ -195,6 +193,8 @@ var DimpCore = {
         }
 
         msgs.find(function(m) {
+            var log = 0;
+
             switch (m.type) {
             case 'dimp.timeout':
                 this.logout(DIMP.conf.timeout_url);
@@ -204,20 +204,12 @@ var DimpCore = {
             case 'horde.message':
             case 'horde.success':
             case 'horde.warning':
+                log = 1;
+                // Fall through to below case.
+
             case 'imp.reply':
             case 'imp.forward':
             case 'imp.redirect':
-                var log = 0;
-
-                switch (m.type) {
-                case 'horde.error':
-                case 'horde.message':
-                case 'horde.success':
-                case 'horde.warning':
-                    log = 1;
-                    break;
-                }
-
                 this.Growler.growl(m.message, {
                     className: m.type.replace('.', '-'),
                     life: 8,
@@ -283,8 +275,7 @@ var DimpCore = {
             cnt = alist.size();
 
         if (cnt > 15) {
-            tmp = $('largeaddrspan').cloneNode(true);
-            tmp.writeAttribute('id', 'largeaddrspan_active');
+            tmp = $('largeaddrspan').cloneNode(true).writeAttribute('id', 'largeaddrspan_active');
             elt.insert(tmp);
             base = tmp.down('.dispaddrlist');
             tmp = tmp.down(1);
@@ -363,14 +354,15 @@ var DimpCore = {
 
             switch (id) {
             case 'partlist_toggle':
-                tmp = $('partlist');
                 $('partlist_col', 'partlist_exp').invoke('toggle');
-                opts = { duration: 0.2, queue: { position: 'end', scope: 'partlist', limit: 2 } };
-                if (tmp.visible()) {
-                    Effect.BlindUp(tmp, opts);
-                } else {
-                    Effect.BlindDown(tmp, opts);
-                }
+                Effect.toggle('partlist', 'blind', {
+                    duration: 0.2,
+                    queue: {
+                        position: 'end',
+                        scope: 'partlist',
+                        limit: 2
+                    }
+                });
                 break;
 
             case 'msg_print':
@@ -382,12 +374,7 @@ var DimpCore = {
                 break;
 
             case 'alertsloglink':
-                tmp = $('alertsloglink').down('A');
-                if (this.Growler.toggleLog()) {
-                    tmp.update(DIMP.text.hidealog);
-                } else {
-                    tmp.update(DIMP.text.showalog);
-                }
+                $('alertsloglink').down('A').update(this.Growler.toggleLog() ? DIMP.text.hidealog : DIMP.text.showalog);
                 break;
 
             case 'largeaddrspan_active':
@@ -463,7 +450,7 @@ var DimpCore = {
             }
         } catch (e) {}
 
-        /* Add Growler notifications. */
+        /* Add Growler notification handler. */
         this.Growler = new Growler({
             location: 'br',
             log: true,

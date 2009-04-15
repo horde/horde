@@ -37,7 +37,7 @@ var ViewPort = Class.create({
         this.splitbar_loc = opts.page_size;
         this.showSplitPane(opts.show_split_pane);
 
-        this.isbusy = this.line_height = this.page_size = this.splitbar = this.uc_run = this.view = this.viewport_init = null;
+        this.isbusy = this.line_height = this.old_page_size = this.page_size = this.splitbar = this.viewport_init = null;
         this.request_num = 1;
     },
 
@@ -230,7 +230,8 @@ var ViewPort = Class.create({
     // nowait = (boolean) TODO
     onResize: function(noupdate, nowait)
     {
-        if (!this.uc_run || !this.opts.content.visible()) {
+        if (!this.opts.content.childElements().size() ||
+            !this.opts.content.visible()) {
             return;
         }
 
@@ -624,14 +625,6 @@ var ViewPort = Class.create({
             return false;
         }
 
-        if (!this.uc_run) {
-            // Code for viewport that only needs to be initialized once.
-            this.uc_run = true;
-            if (this.opts.onFirstContent) {
-                this.opts.onFirstContent();
-            }
-        }
-
         var c = this.opts.content,
             c_nodes = [],
             page_size = this.getPageSize(),
@@ -901,7 +894,7 @@ var ViewPort = Class.create({
             }.bind(this),
             onEnd: function() {
                 this.page_size = this.sp.lines;
-                this._renderViewport();
+                this.onResize(false, true);
                 if (this.opts.onSplitBarChange &&
                     this.sp.orig != this.sp.lines) {
                     this.opts.onSplitBarChange();
