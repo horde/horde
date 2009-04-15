@@ -49,7 +49,7 @@ foreach (Kronolith::listCalendars() as $id => $cal) {
 }
 
 $datejs = str_replace('_', '-', $language) . '.js';
-if (!file_exists($registry->get('fileroot') . '/js/' . $datejs)) {
+if (!file_exists($registry->get('jsfs') . '/' . $datejs)) {
     $datejs = 'en-US.js';
 }
 $scripts = array(
