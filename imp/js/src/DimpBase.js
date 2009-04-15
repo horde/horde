@@ -748,24 +748,26 @@ var DimpBase = {
         }
     },
 
-    contextOnShow: function(parentfunc, ctx_id, base)
+    contextOnShow: function(parentfunc, ctx_id, baseelt)
     {
         var elts, ob, sel, tmp;
 
         switch (ctx_id) {
         case 'ctx_folder':
             elts = $('ctx_folder_create', 'ctx_folder_rename', 'ctx_folder_delete');
-            if (base.readAttribute('mbox') == 'INBOX') {
+            baseelt = baseelt.up('LI');
+
+            if (baseelt.readAttribute('mbox') == 'INBOX') {
                 elts.invoke('hide');
             } else if (DIMP.conf.fixed_folders &&
-                       DIMP.conf.fixed_folders.indexOf(base.readAttribute('mbox')) != -1) {
+                       DIMP.conf.fixed_folders.indexOf(baseelt.readAttribute('mbox')) != -1) {
                 elts.shift();
                 elts.invoke('hide');
             } else {
                 elts.invoke('show');
             }
 
-            tmp = base.hasAttribute('u');
+            tmp = baseelt.hasAttribute('u');
             [ $('ctx_folder_poll') ].invoke(tmp ? 'hide' : 'show');
             [ $('ctx_folder_nopoll') ].invoke(tmp? 'show' : 'hide');
             break;
@@ -789,7 +791,7 @@ var DimpBase = {
             break;
 
         default:
-            parentfunc(ctx_id, base);
+            parentfunc(ctx_id, baseelt);
             break;
         }
     },

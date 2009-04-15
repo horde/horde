@@ -258,7 +258,7 @@ var ContextSensitive = Class.create({
         }
 
         if (this.opts.onShow) {
-            this.opts.onShow(id, elt);
+            this.opts.onShow(id, this.baseelt);
         }
 
         elt.setStyle({ left: x + 'px', top: y + 'px' })
