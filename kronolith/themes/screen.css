@@ -1069,6 +1069,8 @@ div.kronolithView div.kronolithViewBody div.kronolithRow div div.kronolithMore a
 .kronolithFirstCol {
     font-weight: bold;
     text-align: center;
+}
+#kronolithViewMonth .kronolithFirstCol {
     cursor: pointer;
 }
 .kronolithNight {
