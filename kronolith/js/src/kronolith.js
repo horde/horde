@@ -698,7 +698,9 @@ KronolithCore = {
             var midnight = Date.parseExact(date, 'yyyyMMdd'),
                 start = Date.parse(event.value.s),
                 end = Date.parse(event.value.e),
-                innerDiv = new Element('DIV', { 'class': 'kronolithEventInfo' });
+                innerDiv = new Element('DIV', { 'class': 'kronolithEventInfo' }),
+                draggerTop = new Element('DIV', { 'id': event.value.nodeId + 'top', 'class': 'kronolithDragger kronolithDraggerTop' }).setStyle(style),
+                draggerBottom = new Element('DIV', { 'id': event.value.nodeId + 'bottom', 'class': 'kronolithDragger kronolithDraggerBottom' }).setStyle(style);
 
             div.setStyle({
                 'top': ((midnight.getElapsed(start) / 60000 | 0) * this.daySizes.height / 60 + this.daySizes.offset | 0) + 'px',
@@ -706,9 +708,14 @@ KronolithCore = {
                 'width': '100%'
             })
                 .insert(innerDiv.setStyle(style))
-                .insert(new Element('DIV', { 'class': 'kronolithDragger kronolithDraggerTop' }).setStyle(style))
-                .insert(new Element('DIV', { 'class': 'kronolithDragger kronolithDraggerBottom' }).setStyle(style));
+                .insert(draggerTop)
+                .insert(draggerBottom);
             $(view == 'day' ? 'kronolithEventsDay' : 'kronolithEventsWeek' + date).insert(div);
+
+            if (event.value.pe) {
+                div.addClassName('kronolithEditable');
+                new Drag(event.value.nodeId + 'bottom', { 'threshold': 5, 'constraint': 'vertical', 'scroll': 'kronolithBody', 'parentElement': function() { return $('kronolithBody'); }, 'snapToParent': true });
+            }
 
             var column = 1, columns, width, left, conflict = false,
                 pos = this.dayGroups.length, placeFound = false;
@@ -770,7 +777,7 @@ KronolithCore = {
             $('kronolithMonthDay' + date).insert(div);
             if (event.value.pe) {
                 div.setStyle({ 'cursor': 'move' });
-                new Drag('kronolithEventmonth' +  event.value.calendar + date + event.key, { threshold: 5, parentElement: function() { return $('kronolithViewMonthBody'); }, snapToParent: true });
+                new Drag('kronolithEventmonth' + event.value.calendar + date + event.key, { threshold: 5, parentElement: function() { return $('kronolithViewMonthBody'); }, snapToParent: true });
             }
             break;
         }

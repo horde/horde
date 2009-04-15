@@ -1194,23 +1194,34 @@ div.kronolithViewWeek .kronolithEvents .kronolithEvent {
     left: 0;
     right: 3px;
     height: 12px;
+}
+.kronolithEvent.kronolithEditable .kronolithDragger {
     background: transparent url("graphics/drag-handle.png") center center no-repeat;
 }
-.kronolithEvent:hover .kronolithDragger, .kronolithEvent.kronolithSelected .kronolithDragger {
+.kronolithDragger.drag {
+    background: transparent url("graphics/drag-handle.png") center center no-repeat;
+    opacity: .8;
+    filter: alpha(opacity=80);
+ }
+.kronolithEvent.kronolithEditable:hover .kronolithDragger, .kronolithEvent.kronolithEditable.kronolithSelected .kronolithDragger, .kronolithDragger.drag {
     background-color: #202020 !important;
 }
-.kronolithEvent .kronolithDragger.kronolithDraggerTop {
+.kronolithEvent .kronolithDragger.kronolithDraggerTop, .kronolithDraggerTop.drag {
     top: 0;
     -moz-border-radius: 5px 5px 0 0;
     -webkit-border-top-left-radius: 5px;
     -webkit-border-top-right-radius: 5px;
-    cursor: n-resize;
 }
-.kronolithEvent .kronolithDragger.kronolithDraggerBottom {
+.kronolithEvent .kronolithDragger.kronolithDraggerBottom, .kronolithDraggerBottom.drag {
     bottom: 0;
     -moz-border-radius: 0 0 5px 5px;
     -webkit-border-bottom-left-radius: 5px;
     -webkit-border-bottom-right-radius: 5px;
+}
+.kronolithEvent.kronolithEditable .kronolithDragger.kronolithDraggerTop {
+    cursor: n-resize;
+}
+.kronolithEvent.kronolithEditable .kronolithDragger.kronolithDraggerBottom {
     cursor: s-resize;
 }
 .kronolithEvent .kronolithEventInfo {
