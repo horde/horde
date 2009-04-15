@@ -456,15 +456,9 @@ class IMP_UI_Message
      */
     public function getDisplaySubject($subject)
     {
-        require_once 'Horde/Text.php';
         require_once 'Horde/Text/Filter.php';
 
-        $subject = IMP::filterText($subject);
-        if (!($disp_subject = Text::htmlSpaces($subject))) {
-            $disp_subject = $subject;
-        }
-
-        return Text_Filter::filter($disp_subject, 'text2html', array('parselevel' => TEXT_HTML_MICRO, 'class' => null, 'callback' => null));
+        return Text_Filter::filter(IMP::filterText($subject), 'text2html', array('parselevel' => TEXT_HTML_MICRO, 'class' => null, 'callback' => null));
     }
 
 }
