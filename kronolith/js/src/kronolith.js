@@ -372,6 +372,8 @@ KronolithCore = {
             cell.down('.kronolithDay')
                 .setText(day.getDate())
                 .writeAttribute('date', dateString);
+            cell.down('.kronolithAddEvent')
+                .writeAttribute('date', dateString);
             cell = cell.next();
             day.add(1).day();
         }
@@ -1165,6 +1167,10 @@ KronolithCore = {
                 this.editEvent(elt.readAttribute('calendar'), elt.readAttribute('eventid'));
                 e.stop();
                 return;
+            } else if (elt.hasClassName('kronolithAddEvent')) {
+                this.editEvent(null, null, elt.readAttribute('date'));
+                e.stop();
+                return;
             } else if (elt.hasClassName('kronolithEventTag')) {
                 $('kronolithTagACTrigger').kronolithTagger.addNewTagNode(elt.getText());
                 e.stop();
@@ -1211,7 +1217,7 @@ KronolithCore = {
         */
     },
 
-    editEvent: function(calendar, id)
+    editEvent: function(calendar, id, date)
     {
         RedBox.onDisplay = function() {
             try {
@@ -1228,7 +1234,7 @@ KronolithCore = {
             RedBox.loading();
             this.doAction('GetEvent', { 'cal': calendar, 'id': id }, this._editEvent.bind(this));
         } else {
-            var d = new Date();
+            var d = date ? Date.parseExact(date, 'yyyyMMdd') : new Date();
             $('kronolithEventId').value = '';
             $('kronolithEventCalendar').value = Kronolith.conf.default_calendar;
             $('kronolithEventDelete').hide();

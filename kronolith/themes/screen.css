@@ -1037,18 +1037,6 @@ div.kronolithView div.kronolithViewBody div.kronolithRow div .kronolithCorner {
     height: auto;
     border: none;
 }
-div.kronolithView div.kronolithViewBody div.kronolithRow div a.kronolithAdd {
-    display: inline;
-    width: 15px;
-    height: 15px;
-    line-height: 15px;
-    padding: 2px;
-    text-align: center;
-    background: transparent url("graphics/new_small_fade.png") 3px 5px no-repeat;
-}
-div.kronolithView div.kronolithViewBody div.kronolithRow div a.kronolithAdd:hover {
-    background-image: url("graphics/new_small.png");
-}
 div.kronolithView div.kronolithViewBody div.kronolithRow div.kronolithOtherMonth {
     background: #f7f7f7;
 }
@@ -1108,16 +1096,17 @@ div.kronolithView div.kronolithViewBody div.kronolithRow div div.kronolithMore a
     vertical-align: middle;
     font-weight: bold;
 }
-a.kronolithAdd {
+.kronolithAddEvent {
     display: inline;
     width: auto;
+    width: 15px;
     height: 15px;
     line-height: 15px;
     padding: 2px;
     text-align: center;
     background: transparent url("graphics/new_small_fade.png") 3px 5px no-repeat;
 }
-a.kronolithAdd:hover {
+.kronolithAddEvent:hover {
     background-image: url("graphics/new_small.png");
 }
 .kronolithOtherMonth {
