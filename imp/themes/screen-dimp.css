@@ -573,6 +573,7 @@ div.dimpActionsCompose, div.dimpActionsMsg {
     overflow: hidden;
     padding-left: 2px;
     max-width: 40%;
+    vertical-align: top;
 }
 #msgHeadersColl span.fromcontainer {
     padding-left: 5px;

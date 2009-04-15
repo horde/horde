@@ -983,7 +983,11 @@ var DimpBase = {
         switch (r.priority) {
         case 'high':
         case 'low':
-            tmp.invoke('insert', { top: new Element('DIV').addClassName('flag' + r.priority.capitalize() + 'priority') });
+            // Can't use invoke() here - new Element must be created for
+            // each object.
+            tmp.each(function(t) {
+                t.insert({ top: new Element('DIV', { className: 'msgflags flag' + r.priority.capitalize() + 'priority' }) });
+            });
             break;
         }
 
