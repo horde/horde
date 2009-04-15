@@ -383,31 +383,66 @@ var DimpBase = {
 
     _createViewPort: function()
     {
-        // No need to cache - this function only called once.
-        var settitle = this.setMessageListTitle.bind(this);
-
         this.viewport = new ViewPort({
-            content_container: 'msgList',
-            empty_container: 'msgList_empty',
-            error_container: 'msgList_error',
-            fetch_action: 'ListMessages',
+            // Mandatory config
+            ajax_url: DIMP.conf.URI_IMP + '/ViewPort',
+            content: 'msgList',
             template: this.message_list_template,
+
+            // Optional config
+            ajax_opts: DimpCore.doActionOpts,
             buffer_pages: DIMP.conf.buffer_pages,
-            limit_factor: DIMP.conf.limit_factor,
-            viewport_wait: DIMP.conf.viewport_wait,
-            show_split_pane: DIMP.conf.preview_pref,
-            split_pane: 'previewPane',
-            splitbar: 'splitBar',
             content_class: 'msglist',
-            row_class: 'msgRow',
-            selected_class: 'selectedRow',
-            ajaxRequest: DimpCore.doAction.bind(DimpCore),
-            norows: true,
+            empty_msg: DIMP.text.vp_empty,
+            error_msg: DIMP.text.vp_error,
+            limit_factor: DIMP.conf.limit_factor,
             page_size: DIMP.conf.splitbar_pos,
-            onScrollIdle: settitle,
-            onSlide: settitle,
+            show_split_pane: DIMP.conf.preview_pref,
+            split_bar: 'splitBar',
+            split_pane: 'previewPane',
+            wait: DIMP.conf.viewport_wait,
+
+            // Callbacks
+            onAjaxRequest: function(id) {
+                var p = this.isSearch(id)
+                    ? $H({
+                        qsearch: $F('quicksearch'),
+                        qsearchmbox: this.sfolder
+                    })
+                    : $H();
+                return DimpCore.addRequestParams(p);
+            }.bind(this),
+            onAjaxResponse: DimpCore.doActionComplete.bind(DimpCore),
+            onCachedList: function(id) {
+                var tmp, vs;
+                if (!this.cacheids[id]) {
+                    vs = this.viewport.getSelection(id, true);
+                    if (!vs.size()) {
+                        return '';
+                    }
+
+                    if (vs.getBuffer().getMetaData('search')) {
+                        this.cacheids[id] = vs.get('uid').toJSON();
+                    } else {
+                        tmp = {};
+                        tmp[id] = vs.get('uid').clone();
+                        this.cacheids[id] = DimpCore.toRangeString(tmp);
+                    }
+                }
+                return this.cacheids[id];
+            }.bind(this),
+            onCacheUpdate: function(id) {
+                delete this.cacheids[id];
+            }.bind(this),
+            onClearRows: function(r) {
+                r.each(function(row) {
+                    if (row.readAttribute('id')) {
+                        this._removeMouseEvents(row);
+                    }
+                }, this);
+            }.bind(this),
             onContent: function(row) {
-                var bg, re, search, u,
+                var bg, re, u,
                     thread = this.viewport.getMetaData('thread') || $H();
 
                 row.subjectdata = row.status = '';
@@ -426,29 +461,31 @@ var DimpBase = {
                 }
 
                 /* Generate the status flags. */
-                row.flag.each(function(a) {
-                    var ptr = DIMP.conf.flags[a];
-                    if (ptr.p) {
-                        if (!ptr.elt) {
-                            /* Until text-overflow is supported on all
-                             * browsers, need to truncate label text
-                             * ourselves. */
-                            ptr.elt = '<span class="' + ptr.c + '" title="' + ptr.l + '" style="background:' + ptr.b + '">' + ptr.l.truncate(10) + '</span>';
-                        }
-                        row.subjectdata += ptr.elt;
-                    } else {
-                        if (!ptr.elt) {
-                            ptr.elt = '<div class="msgflags ' + ptr.c + '" title="' + ptr.l + '"></div>';
-                        }
-                        row.status += ptr.elt;
+                if (row.flag) {
+                    row.flag.each(function(a) {
+                        var ptr = DIMP.conf.flags[a];
+                        if (ptr.p) {
+                            if (!ptr.elt) {
+                                /* Until text-overflow is supported on all
+                                 * browsers, need to truncate label text
+                                 * ourselves. */
+                                ptr.elt = '<span class="' + ptr.c + '" title="' + ptr.l + '" style="background:' + ptr.b + '">' + ptr.l.truncate(10) + '</span>';
+                            }
+                            row.subjectdata += ptr.elt;
+                        } else {
+                            if (!ptr.elt) {
+                                ptr.elt = '<div class="msgflags ' + ptr.c + '" title="' + ptr.l + '"></div>';
+                            }
+                            row.status += ptr.elt;
 
-                        row.bg_string += ' ' + ptr.c;
+                            row.bg.push(ptr.c);
 
-                        if (ptr.b) {
-                            bg = ptr.b;
+                            if (ptr.b) {
+                                bg = ptr.b;
+                            }
                         }
-                    }
-                });
+                    });
+                }
 
                 // Set bg
                 if (bg) {
@@ -549,60 +586,25 @@ var DimpBase = {
 
                 this.setSortColumns(ssc);
             }.bind(this),
-            onFetch: this.msgListLoading.bind(this, true),
+            onDeselect: this._deselect.bind(this),
             onEndFetch: this.msgListLoading.bind(this, false),
-            onCacheUpdate: function(id) {
-                delete this.cacheids[id];
-            }.bind(this),
-            onWait: function() {
-                if ($('dimpmain_folder').visible()) {
-                    DimpCore.showNotifications([ { type: 'horde.warning', message: DIMP.text.listmsg_wait } ]);
-                }
-            },
             onFail: function() {
                 if ($('dimpmain_folder').visible()) {
                     DimpCore.showNotifications([ { type: 'horde.error', message: DIMP.text.listmsg_timeout } ]);
                 }
                 this.msgListLoading(false);
             }.bind(this),
-            onClearRows: function(r) {
-                r.each(function(row) {
-                    if (row.readAttribute('id')) {
-                        this._removeMouseEvents(row);
-                    }
-                }, this);
-            }.bind(this),
-            onCachedList: function(id) {
-                var tmp, vs;
-                if (!this.cacheids[id]) {
-                    vs = this.viewport.getSelection(id, true);
-                    if (!vs.size()) {
-                        return '';
-                    }
-
-                    if (vs.getBuffer().getMetaData('search')) {
-                        this.cacheids[id] = vs.get('uid').toJSON();
-                    } else {
-                        tmp = {};
-                        tmp[id] = vs.get('uid').clone();
-                        this.cacheids[id] = DimpCore.toRangeString(tmp);
-                    }
-                }
-                return this.cacheids[id];
-            }.bind(this),
-            requestParams: function(id) {
-                return this.isSearch(id)
-                    ? $H({
-                        qsearch: $F('quicksearch'),
-                        qsearchmbox: this.sfolder
-                    })
-                    : $H();
-            }.bind(this),
+            onFetch: this.msgListLoading.bind(this, true),
+            onSelect: this._select.bind(this),
+            onSlide: this.setMessageListTitle.bind(this),
             onSplitBarChange: function() {
                 this._updatePrefs('dimp_splitbar', this.viewport.getPageSize());
             }.bind(this),
-            selectCallback: this._select.bind(this),
-            deselectCallback: this._deselect.bind(this)
+            onWait: function() {
+                if ($('dimpmain_folder').visible()) {
+                    DimpCore.showNotifications([ { type: 'horde.warning', message: DIMP.text.listmsg_wait } ]);
+                }
+            }
         });
 
         // If starting in no preview mode, need to set the no preview class
@@ -1449,8 +1451,8 @@ var DimpBase = {
         var elt = e.element(),
             tmp;
 
-        if (!elt.hasClassName('msgRow')) {
-            elt = elt.up('.msgRow');
+        if (!elt.hasClassName('vpRow')) {
+            elt = elt.up('.vpRow');
         }
 
         if (elt) {
@@ -2126,7 +2128,7 @@ var DimpBase = {
 
     hasFlag: function(f, r)
     {
-        return this.convertFlag(f, r.flag.include(f));
+        return r.flag && this.convertFlag(f, r.flag.include(f));
     },
 
     convertFlag: function(f, set)
@@ -2158,7 +2160,10 @@ var DimpBase = {
 
     _updateFlag: function(ob, flag, add)
     {
-        ob.flag = ob.flag.without(flag);
+        ob.flag = ob.flag
+            ? ob.flag.without(flag)
+            : [];
+
         if (add) {
             ob.flag.push(flag);
         }
@@ -2453,8 +2458,8 @@ DimpBase._folderDropConfig = {
 /* Need to register a callback function for doAction to catch viewport
  * information returned from the server. */
 DimpCore.onDoActionComplete = function(r) {
-    if (DimpBase.viewport && r.response.viewport) {
-        DimpBase.viewport.ajaxResponse(r.response.viewport);
+    if (DimpBase.viewport) {
+        DimpBase.viewport.parseJSONResponse(r);
     }
 };
 

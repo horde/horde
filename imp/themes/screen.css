@@ -253,7 +253,7 @@ div.msgflags.flagPersonal {
 div.msgflags.flagHighpriority {
     background-image: url("graphics/mail_priority_high.png");
 }
-tr.flagLowpriority, div.msgRow.flagLowpriority {
+tr.flagLowpriority {
     font-weight: normal !important;
 }
 div.msgflags.flagLowpriority {
@@ -268,7 +268,7 @@ div.msgflags.flagEncryptmsg {
 div.msgflags.flagAttachmsg {
     background-image: url("graphics/attachment.png");
 }
-tr.flagUnseen, div.msgRow.flagUnseen {
+tr.flagUnseen {
     font-weight: bold;
 }
 div.msgflags.flagUnseen, span.contextImg.flagUnseen {
@@ -283,7 +283,7 @@ div.msgflags.flagDraft, span.contextImg.flagDraft {
 div.msgflags.flagFlagged, span.contextImg.flagFlagged {
     background-image: url("graphics/mail_flagged.png");
 }
-tr.flagDeleted *, div.msgRow.flagDeleted {
+tr.flagDeleted * {
     text-decoration: line-through;
 }
 div.msgflags.flagDeleted, span.contextImg.flagDeleted {

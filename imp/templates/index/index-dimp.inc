@@ -234,11 +234,7 @@ function _simpleButton($id, $text, $image, $imagedir = null)
     </div>
 
     <div id="msgSplitPane">
-     <div id="msgListDiv" class="noprint">
-      <div id="msgList_empty" style="display:none"><em><?php echo _("There are no messages in this mailbox.") ?></em></div>
-      <div id="msgList_error" style="display:none"><em><?php echo _("Could not get message list from server.") ?></em></div>
-      <div id="msgList" class="msglist">&nbsp;</div>
-     </div>
+     <div id="msgList" class="msglist noprint">&nbsp;</div>
      <div id="splitBar" style="display:none" class="splitBar noprint"></div>
      <div id="previewPane" style="display:none">
       <span id="msgLoading" class="loadingImg" style="display:none"></span>

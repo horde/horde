@@ -185,7 +185,7 @@ div.msgSize {
     border-bottom: 1px silver solid;
     float: left;
 }
-.msglist em {
+.msglist span.vpEmpty, .msglist span.vpError {
     font-weight: bold;
 }
 .msglistNoPreview {
@@ -193,7 +193,7 @@ div.msgSize {
 }
 
 /* Rows */
-.msglist div.msgRow, .msglist div.msgRow div {
+.msglist div.vpRow, .msglist div.vpRow div {
     cursor: pointer;
     font-size: 95%;
     white-space: nowrap;
@@ -202,8 +202,19 @@ div.msgSize {
     height: 16px;
     margin-bottom: 1px;
 }
-.msglist div.selectedRow {
+.msglist div.vpRowSelected {
     background: #ffc !important;
+}
+
+/* Rows: flags. */
+div.vpRow.flagLowpriority {
+    font-weight: normal !important;
+}
+div.vpRow.flagUnseen {
+    font-weight: bold;
+}
+div.vpRow.flagDeleted {
+    text-decoration: line-through;
 }
 
 /* Checkbox images */
@@ -213,7 +224,7 @@ div.msgSize {
 .msglist div.msCheck:hover {
     background-image: url("graphics/checkbox_over.png");
 }
-.msglist div.selectedRow div.msCheck {
+.msglist div.vpRowSelected div.msCheck {
     background-image: url("graphics/checkbox_on.png");
 }
 
@@ -974,7 +985,7 @@ span.dimpactionDrafts {
     height: 15px;
     width: 15px;
 }
-div.msgRow div.msgSubject span.flagUser {
+div.vpRow div.msgSubject span.flagUser {
     font-size: 90%;
     font-weight: normal;
     margin-right: 3px;

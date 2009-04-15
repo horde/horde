@@ -58,8 +58,7 @@ class IMP_Views_ListMessages
 
         /* Create the base object. */
         $result = new stdClass;
-        $result->id = $mbox;
-        $result->reset = 0;
+        $result->view = $mbox;
         $result->totalrows = $msgcount;
         $result->label = $label;
         $result->cacheid = $imp_mailbox->getCacheID();
@@ -179,14 +178,14 @@ class IMP_Views_ListMessages
         /* Build the overview list for slice information. */
         if ($args['rangeslice']) {
             $slice = new stdClass;
-            $slice->id = $mbox;
+            $slice->view = $mbox;
             $slice->partial = 1;
             $slice->rowlist = $rowlist;
 
             $slice_data = array();
             foreach ($rowlist as $key => $val) {
                 $slice_data[$key] = array(
-                    'imapuid' => $sorted_list['s'][$val],
+                    'imapuid' => intval($sorted_list['s'][$val]),
                     'mailbox' => isset($sorted_list['m'][$val]['m']) ? $sorted_list['m'][$val]['m'] : $mbox,
                     'rownum' => $val
                 );
@@ -250,9 +249,7 @@ class IMP_Views_ListMessages
         while (list(,$ob) = each($overview['overview'])) {
             /* Initialize the header fields. */
             $msg = array(
-                'bg' => array('msgRow'),
-                'flag' => array(),
-                'imapuid' => $ob['uid'],
+                'imapuid' => intval($ob['uid']),
                 'menutype' => 'message',
                 'rownum' => $ob['seq'],
                 'view' => $ob['mailbox'],
@@ -271,8 +268,11 @@ class IMP_Views_ListMessages
                 'priority' => $ob['headers']->getValue('x-priority')
             ));
 
-            foreach ($flag_parse as $val) {
-                $msg['flag'][] = $val['flag'];
+            if (!empty($flag_parse)) {
+                $msg['flag'] = array();
+                foreach ($flag_parse as $val) {
+                    $msg['flag'][] = $val['flag'];
+                }
             }
 
             /* Specific flag checking. */

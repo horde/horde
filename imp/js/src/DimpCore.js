@@ -116,6 +116,7 @@ var DimpCore = {
         action = action.startsWith('*')
             ? action.substring(1)
             : DIMP.conf.URI_IMP + '/' + action;
+
         if (uids) {
             if (uids.viewport_selection) {
                 b = uids.getBuffer();
@@ -133,12 +134,22 @@ var DimpCore = {
             }
             params.set('uid', this.toRangeString(uids));
         }
-        if (DIMP.conf.SESSION_ID) {
-            params.update(DIMP.conf.SESSION_ID.toQueryParams());
-        }
-        opts.parameters = params.toQueryString();
+
+        opts.parameters = this.addRequestParams(params);
         opts.onComplete = function(t, o) { this.doActionComplete(t, callback); }.bind(this);
         new Ajax.Request(action, opts);
+    },
+
+    // params - (Hash)
+    addRequestParams: function(params)
+    {
+        var p = params.clone();
+
+        if (DIMP.conf.SESSION_ID) {
+            p.update(DIMP.conf.SESSION_ID.toQueryParams());
+        }
+
+        return p;
     },
 
     doActionComplete: function(request, callback)
@@ -174,8 +185,8 @@ var DimpCore = {
 
         this.showNotifications(r.msgs);
 
-        if (this.onDoActionComplete) {
-            this.onDoActionComplete(r);
+        if (r.response && this.onDoActionComplete) {
+            this.onDoActionComplete(r.response);
         }
 
         this.inAjaxCallback = false;
@@ -347,7 +358,7 @@ var DimpCore = {
             return;
         }
 
-        var elt = e.element(), id, opts, tmp;
+        var elt = e.element(), id, tmp;
 
         while (Object.isElement(elt)) {
             id = elt.readAttribute('id');

@@ -29,7 +29,7 @@ function _generateDeleteResult($mbox, $indices, $change, $nothread = false)
     }
 
     if ($change) {
-        $result->viewport = _getListMessages($mbox, true);
+        $result->ViewPort = _getListMessages($mbox, true);
     }
 
     $poll = _getPollInformation($mbox);
@@ -104,7 +104,7 @@ function _getListMessages($mbox, $change)
 
     $req_id = Util::getPost('request_id');
     if (!is_null($req_id)) {
-        $res->request_id = $req_id;
+        $res->request_id = intval($req_id);
     }
 
     return $res;
@@ -309,7 +309,7 @@ case 'PollFolders':
     }
 
     if (!empty($mbox) && _changed($mbox, $cacheid)) {
-        $result->viewport = _getListMessages($mbox, true);
+        $result->ViewPort = _getListMessages($mbox, true);
     }
 
     $quota = _getQuota();
@@ -318,7 +318,7 @@ case 'PollFolders':
     }
     break;
 
-case 'ListMessages':
+case 'ViewPort':
     if (empty($mbox)) {
         break;
     }
@@ -336,7 +336,7 @@ case 'ListMessages':
     if (Util::getPost('rangeslice') ||
         !Util::getPost('checkcache') ||
         $changed) {
-        $result->viewport = _getListMessages($mbox, $changed);
+        $result->ViewPort = _getListMessages($mbox, $changed);
     }
     break;
 

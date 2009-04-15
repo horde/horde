@@ -257,6 +257,8 @@ class DIMP
             'delete_folder' => _("Permanently delete %s?"),
             'hidealog' => _("Hide Alerts Log"),
             'noalerts' => _("No Alerts"),
+            'vp_empty' => _("There are no messages in this mailbox."),
+            'vp_error' => _("Could not get message list from server."),
         ));
 
         /* Gettext strings with individual escaping. */
