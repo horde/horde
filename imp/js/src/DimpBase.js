@@ -9,15 +9,17 @@
 
 var DimpBase = {
     // Vars used and defaulting to null/false:
-    //   cfolderaction, fl_visible, folder, folderswitch,
-    //   message_list_template, offset, pollPE, pp, sfolder, uid, viewport
+    //   cfolderaction, fl_visible, folder, folderswitch, offset, pollPE,
+    //   pp, sfolder, uid, viewport
+    // message_list_template set via templates/javascript/mailbox.js
     bcache: $H(),
     cacheids: {},
     lastrow: -1,
     pivotrow: -1,
     ppcache: {},
     ppfifo: [],
-    searchid: 'dimp\x00qsearch',
+    // Null character in mailbox name indicates search mailbox.
+    qsearchid: 'dimp\x00qsearch',
     tcache: {},
 
     // Preview pane cache size is 20 entries. Given that a reasonable guess
@@ -1207,7 +1209,7 @@ var DimpBase = {
     /* Search functions. */
     isSearch: function(id)
     {
-        return (id ? id : this.folder) == this.searchid;
+        return (id ? id : this.folder) == this.qsearchid;
     },
 
     _quicksearchOnFocus: function()
@@ -1231,7 +1233,7 @@ var DimpBase = {
         } else {
             this.sfolder = this.folder;
             $('quicksearch_close').show();
-            this.loadMailbox(this.searchid);
+            this.loadMailbox(this.qsearchid);
         }
     },
 
@@ -1245,7 +1247,7 @@ var DimpBase = {
             if (!noload) {
                 this.loadMailbox(this.sfolder);
             }
-            this.viewport.deleteView(this.searchid);
+            this.viewport.deleteView(this.qsearchid);
         }
     },
 
