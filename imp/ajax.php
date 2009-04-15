@@ -646,6 +646,7 @@ case 'ModifyPollFolder':
     }
 
     $add = Util::getPost('add');
+    $display_folder = IMP::displayFolder($mbox);
 
     $imptree = IMP_Imap_Tree::singleton();
 
@@ -658,8 +659,10 @@ case 'ModifyPollFolder':
         if ($info = $imptree->getElementInfo($mbox)) {
             $result->poll = array($mbox => $info['unseen']);
         }
+        $notification->push(sprintf(_("\"%s\" mailbox now polled for new mail."),  $display_folder), 'horde.success');
     } else {
         $imptree->removePollList($mbox);
+        $notification->push(sprintf(_("\"%s\" mailbox no longer polled for new mail."),  $display_folder), 'horde.success');
     }
     break;
 
