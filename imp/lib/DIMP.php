@@ -208,7 +208,7 @@ class DIMP
             'name' => $registry->get('name', 'dimp'),
 
             'preview_pref' => intval($prefs->getValue('dimp_show_preview')),
-            'toggle_pref' => intval($prefs->getValue('dimp_toggleheaders')),
+            'toggle_pref' => intval($prefs->getValue('dimp_toggle_headers')),
 
             'is_ie6' => intval($browser->isBrowser('msie') && ($browser->getMajor() < 7)),
 
