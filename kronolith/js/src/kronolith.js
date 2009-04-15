@@ -1213,15 +1213,15 @@ KronolithCore = {
             RedBox.onDisplay = null;
         };
 
+        $('kronolithTagACTrigger').kronolithTagger.init();
+        $('kronolithEventForm').enable();
+        $('kronolithEventForm').reset();
         this.doAction('ListTopTags', {}, this._topTags);
         if (id) {
             RedBox.loading();
             this.doAction('GetEvent', { 'cal': calendar, 'id': id }, this._editEvent.bind(this));
         } else {
             var d = new Date();
-            $('kronolithTagACTrigger').kronolithTagger.init();
-            $('kronolithEventForm').enable();
-            $('kronolithEventForm').reset();
             $('kronolithEventId').value = '';
             $('kronolithEventCalendar').value = Kronolith.conf.default_calendar;
             $('kronolithEventDelete').hide();
@@ -1259,38 +1259,36 @@ KronolithCore = {
             return;
         }
 
-        try {
-            var ev = r.response.event;
-            $('kronolithEventId').value = ev.id;
-            $('kronolithEventCalendar').value = ev.ty + '|' + ev.c;
-            $('kronolithEventTitle').value = ev.t;
-            $('kronolithEventLocation').value = ev.l;
-            $('kronolithEventAllday').checked = ev.al;
-            $('kronolithEventStartDate').value = ev.sd
-            $('kronolithEventStartTime').value = ev.st;
-            $('kronolithEventEndDate').value = ev.ed;
-            $('kronolithEventEndTime').value = ev.et;
-            $('kronolithTagACTrigger').kronolithTagger.init(ev.tg);
-            if (ev.r) {
-                // @todo: refine
-                $A($('kronolithEventRecurrence').options).find(function(option) {
-                    return option.value == ev.r;
+        var ev = r.response.event;
+        $('kronolithEventId').value = ev.id;
+        $('kronolithEventCalendar').value = ev.ty + '|' + ev.c;
+        $('kronolithEventTitle').value = ev.t;
+        $('kronolithEventLocation').value = ev.l;
+        $('kronolithEventAllday').checked = ev.al;
+        $('kronolithEventStartDate').value = ev.sd
+        $('kronolithEventStartTime').value = ev.st;
+        $('kronolithEventEndDate').value = ev.ed;
+        $('kronolithEventEndTime').value = ev.et;
+        $('kronolithTagACTrigger').kronolithTagger.init(ev.tg);
+        if (ev.r) {
+            // @todo: refine
+            $A($('kronolithEventRecurrence').options).find(function(option) {
+                return option.value == ev.r || option.value == -1;
                 }).selected = true;
-            }
-            if (ev.pe) {
-                $('kronolithEventSave').show();
-                $('kronolithEventForm').enable();
-            } else {
-                $('kronolithEventSave').hide();
-                $('kronolithEventForm').disable();
-                $('kronolithEventCancel').enable();
-            }
-            if (ev.pd) {
-                $('kronolithEventDelete').show();
-            } else {
-                $('kronolithEventDelete').hide();
-            }
-        } catch (e) {}
+        }
+        if (ev.pe) {
+            $('kronolithEventSave').show();
+            $('kronolithEventForm').enable();
+        } else {
+            $('kronolithEventSave').hide();
+            $('kronolithEventForm').disable();
+            $('kronolithEventCancel').enable();
+        }
+        if (ev.pd) {
+            $('kronolithEventDelete').show();
+        } else {
+            $('kronolithEventDelete').hide();
+        }
 
         RedBox.showHtml($('kronolithEventDialog').show());
         this.eventForm = RedBox.getWindowContents();
