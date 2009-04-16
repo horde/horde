@@ -59,7 +59,7 @@ case 'rule_delete':
         'id' => Util::getFormData('id'),
         'name' => Util::getFormData('name'),
         'combine' => Util::getFormData('combine'),
-        'conditions' = array()
+        'conditions' => array()
     );
 
     $field = Util::getFormData('field');
