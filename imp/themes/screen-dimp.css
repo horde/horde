@@ -117,6 +117,7 @@ span.loadingImg {
 div.msgStatus {
     float: left;
     width: 8%;
+    text-indent: 0 !important;
 }
 div.msgStatus div, #msgHeadersContent .subject span {
     display: -moz-inline-stack;
@@ -158,6 +159,7 @@ div.msgSize {
 #msglistHeader div {
     padding-top: 1px;
     height: 15px;
+    text-indent: 1px;
 }
 #msglistHeader div.sortup {
     padding-left: 0;
@@ -201,6 +203,7 @@ div.msgSize {
     text-overflow: ellipsis;
     height: 16px;
     margin-bottom: 1px;
+    text-indent: 1px;
 }
 .msglist div.vpRowSelected {
     background: #ffc !important;
