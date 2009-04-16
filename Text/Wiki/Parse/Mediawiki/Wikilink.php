@@ -236,7 +236,9 @@ class Text_Wiki_Parse_Wikilink extends Text_Wiki_Parse {
      * - 'src' => the name of the image file
      * - 'attr' => an array of attributes for the image:
      * | - 'alt' => the optional alternate image text
-     * | - 'align => 'left', 'center' or 'right'
+     * | - 'align' => 'left', 'center' or 'right'
+     * | - 'width' => 'NNNpx'
+     * | - 'height' => 'NNNpx'
      *
      * @access public
      * @param array &$matches The array of matches from parse().
@@ -245,22 +247,30 @@ class Text_Wiki_Parse_Wikilink extends Text_Wiki_Parse {
     function image($name, $text, $interlang, $colon)
     {
         $attr = array('alt' => '');
-        // scan text for supplementary attibutes
-        if (strpos($text, '|') !== false) {
-            $splits = explode('|', $text);
-            $sep = '';
-            foreach ($splits as $split) {
-                switch (strtolower($split)) {
-                    case 'left': case 'center': case 'right':
-                        $attr['align'] = strtolower($split);
-                        break;
-                    default:
+        $splits = explode('|', $text);
+        $sep = '';
+        foreach ($splits as $split) {
+            switch (strtolower($split)) {
+                case 'left': case 'center': case 'right':
+                    $attr['align'] = strtolower($split);
+                    break;
+                default:
+                    // this regex is imho not restrictive enough but should
+                    // keep false positives to a minimum
+                    if (preg_match('/\dpx\s*$/i', $split)) {
+                        $split = preg_replace("/\s/", "", $split);
+                        $split = preg_replace("/px$/i", "", $split);
+                        list($width,$height) = explode("x", $split);
+                        $attr['width'] = $width;
+                        if ($height) {
+                            $attr['height'] = $height;
+                        }
+                    }
+					else {
                         $attr['alt'] .= $sep . $split;
                         $sep = '|';
-                }
+                    }
             }
-        } else {
-            $attr['alt'] = $text;
         }
         $options = array(
             'src' => ($interlang ? $interlang . ':' : '') . $name,
