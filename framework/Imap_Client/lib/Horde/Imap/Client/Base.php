@@ -2018,7 +2018,9 @@ abstract class Horde_Imap_Client_Base
         }
 
         /* Get the cached values. */
-        $data = $this->_cache->get($this->_selected, $uids, $get_fields, $status_res['uidvalidity']);
+        if (!empty($cache_array)) {
+            $data = $this->_cache->get($this->_selected, $uids, $get_fields, $status_res['uidvalidity']);
+        }
 
         // Build a list of what we still need.
         foreach ($uids as $val) {
