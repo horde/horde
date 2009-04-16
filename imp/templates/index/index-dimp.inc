@@ -172,10 +172,14 @@ function _simpleButton($id, $text, $image, $imagedir = null)
      </div>
 
      <div class="dimpActions">
-      <form action="#" method="post">
-       <input autocomplete="off" class="quicksearchDefault" id="quicksearch" type="text" size="30" />
-      </form>
-      <?php echo IMP::img('close.png', '', array('id' => 'quicksearch_close', 'style' => 'display:none', 'title' => _("Clear Search")), $hordeimg) ?>
+      <div id="quicksearch">
+       <form action="#" method="post">
+        <input autocomplete="off" id="quicksearch_input" type="text" size="25" />
+       </form>
+       <span>
+        <?php echo IMP::img('close.png', '', array('id' => 'quicksearch_close', 'style' => 'display:none', 'title' => _("Clear Search")), $hordeimg) ?>
+       </span>
+      </div>
       <span>
        <?php _createDA(_("Reply"), 'Reply', 'button_reply', 'noselectDisable', $show_text) ?>
       </span>

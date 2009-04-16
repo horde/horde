@@ -462,10 +462,6 @@ div.vpRow.flagDeleted {
     padding: 1px 3px 3px 3px;
     cursor: pointer;
 }
-.dimpActions form {
-    float: right;
-    padding: 0;
-}
 .dimpActions .disabled a, .dimpActions .disabled a:visited, .dimpActions .disabled a:active, .dimpActions .disabled a:hover {
     cursor: default;
     text-decoration: none;
@@ -830,17 +826,41 @@ a.address:hover img {
 }
 
 /* Search-related styles */
-.quicksearchDefault {
+#quicksearch {
+    background: #f3f3f3 url("graphics/search.png") 1px center no-repeat;
+    padding: 1px 0 1px 20px;
+    float: right;
+    border: 1px solid #999;
+    cursor: default;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+}
+#quicksearch form {
+    display: inline;
+}
+#quicksearch span {
+    display: -moz-inline-stack;
+    display: inline-block;
+    width: 20px;
+}
+#quicksearch_input {
+    border: none;
     color: #a0a0a0;
+    margin-bottom: 1px;
+    padding: 0;
+}
+#quicksearch_close {
+    margin-top: -1px;
+}
+.quicksearchActive {
+    background-color: #fff !important;
+}
+.quicksearchActive #quicksearch_input {
+    color: #000 !important;
 }
 .quicksearchMatch {
     font-weight: bold;
     text-decoration: underline;
-}
-#quicksearch_close {
-    cursor: pointer;
-    float: right;
-    padding: 2px 5px 0 0;
 }
 
 /* Redbox styles. */

@@ -90,7 +90,7 @@ var DimpBase = {
         // from the search input, because the user may immediately start
         // keyboard navigation after that. Thus, we need to ensure that a
         // message click loses focus on the search input.
-        $('quicksearch').blur();
+        $('quicksearch_input').blur();
 
         if (opts.shift) {
             if (selcount) {
@@ -406,7 +406,7 @@ var DimpBase = {
             onAjaxRequest: function(id) {
                 var p = this.isSearch(id)
                     ? $H({
-                        qsearch: $F('quicksearch'),
+                        qsearch: $F('quicksearch_input'),
                         qsearchmbox: this.sfolder
                     })
                     : $H();
@@ -494,7 +494,7 @@ var DimpBase = {
 
                 // Check for search strings
                 if (this.isSearch()) {
-                    re = new RegExp("(" + $F('quicksearch') + ")", "i");
+                    re = new RegExp("(" + $F('quicksearch_input') + ")", "i");
                     [ 'from', 'subject' ].each(function(h) {
                         row[h] = row[h].gsub(re, '<span class="quicksearchMatch">#{1}</span>');
                     });
@@ -1218,14 +1218,14 @@ var DimpBase = {
 
     _quicksearchOnFocus: function()
     {
-        if ($('quicksearch').hasClassName('quicksearchDefault')) {
+        if (!$('quicksearch').hasClassName('quicksearchActive')) {
             this._setFilterText(false);
         }
     },
 
     _quicksearchOnBlur: function()
     {
-        if (!$F('quicksearch')) {
+        if (!$F('quicksearch_input')) {
             this._setFilterText(true);
         }
     },
@@ -1258,9 +1258,8 @@ var DimpBase = {
     // d = (boolean) Deactivate filter input?
     _setFilterText: function(d)
     {
-        var qs = $('quicksearch');
-        qs.setValue(d ? DIMP.text.search : '');
-        [ qs ].invoke(d ? 'addClassName' : 'removeClassName', 'quicksearchDefault');
+        $('quicksearch_input').setValue(d ? DIMP.text.search : '');
+        [ $('quicksearch') ].invoke(d ? 'removeClassName' : 'addClassName', 'quicksearchActive');
     },
 
     /* Enable/Disable DIMP action buttons as needed. */
@@ -1335,7 +1334,7 @@ var DimpBase = {
             case Event.KEY_ESC:
             case Event.KEY_TAB:
                 // Catch escapes in search box
-                if (elt.readAttribute('id') == 'quicksearch') {
+                if (elt.readAttribute('id') == 'quicksearch_input') {
                     if (kc == Event.KEY_ESC || !elt.getValue()) {
                         this.quicksearchClear();
                     }
@@ -1349,8 +1348,8 @@ var DimpBase = {
                 if (form.readAttribute('id') == 'RB_folder') {
                     this.cfolderaction(e);
                     e.stop();
-                } else if (elt.readAttribute('id') == 'quicksearch') {
-                    if ($F('quicksearch')) {
+                } else if (elt.readAttribute('id') == 'quicksearch_input') {
+                    if ($F('quicksearch_input')) {
                         this.quicksearchRun();
                     } else {
                         this.quicksearchClear();
@@ -2242,7 +2241,7 @@ var DimpBase = {
         DimpCore.init();
 
         var DM = DimpCore.DMenu,
-            qs = $('quicksearch');
+            qs = $('quicksearch_input');
 
         /* Register global handlers now. */
         document.observe('keydown', this.keydownHandler.bindAsEventListener(this));

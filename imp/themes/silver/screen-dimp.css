@@ -149,6 +149,11 @@ span.dimpactionDrafts {
 #quota span.iconImg {
     background-image: url("graphics/quotauncover.gif");
 }
+
+#quicksearch {
+    background-image: url("graphics/search.png");
+}
+
 #th_expand span.iconImg, #partlist_col {
     background-image: url("graphics/arrow_collapsed.png");
 }

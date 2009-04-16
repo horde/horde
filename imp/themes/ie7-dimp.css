@@ -51,7 +51,7 @@ form#compose {
 }
 
 /* Fixes broken inline-block. */
-div.msgStatus div, #msgHeadersContent .subject span, span.iconImg, span.contextImg, span.spellcheckPopdownImg {
+div.msgStatus div, #msgHeadersContent .subject span, span.iconImg, span.contextImg, span.spellcheckPopdownImg, #quicksearch span  {
     zoom: 1;
     *display: inline;
 }
