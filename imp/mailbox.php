@@ -444,7 +444,7 @@ if (isset($filter_url)) {
 $hdr_template->set('search', false);
 if ($_SESSION['imp']['protocol'] != 'pop') {
     if (!$search_mbox) {
-        $hdr_template->set('search', Horde::link(Util::addParameter(Horde::applicationUrl('search.php'), 'search_mailbox', $imp_mbox['mailbox']), sprintf(_("Search %s"), $rawtitle)) . Horde::img('search.png', _("Search"), '', $graphicsdir) . '</a>');
+        $hdr_template->set('search', Horde::link(Util::addParameter(Horde::applicationUrl('search.php'), 'search_mailbox', $imp_mbox['mailbox']), sprintf(_("Search %s"), $rawtitle)) . Horde::img('search.png', _("Search")) . '</a>');
         if (!$readonly) {
             $hdr_template->set('empty', Horde::link(Util::addParameter($mailbox_imp_url, array('actionID' => 'empty_mailbox', 'mailbox' => $imp_mbox['mailbox'], 'mailbox_token' => $mailbox_token)), _("Empty folder"), '', '', "ImpMailbox.confirmDialog(this.href, '" . addslashes(_("Are you sure you wish to delete all mail in this folder?")) . "'); return false;") . Horde::img('empty_spam.png', _("Empty folder")) . '</a>');
         }

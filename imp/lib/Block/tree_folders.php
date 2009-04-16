@@ -45,7 +45,7 @@ class Horde_Block_imp_tree_folders extends Horde_Block
         $tree->addNode($parent . 'search', $parent, _("Search"),
                        $indent, false,
                        array('icon' => 'search.png',
-                             'icondir' => $GLOBALS['registry']->getImageDir('horde'),
+                             'icondir' => $image_dir,
                              'url' => Horde::applicationUrl('search.php')));
 
         if ($_SESSION['imp']['protocol'] == 'pop') {

@@ -615,7 +615,7 @@ class IMP
         }
 
         if ($_SESSION['imp']['protocol'] != 'pop') {
-            $menu->add($menu_search_url, _("_Search"), 'search.png', $registry->getImageDir('horde'));
+            $menu->add($menu_search_url, _("_Search"), 'search.png');
         }
 
         if (($_SESSION['imp']['protocol'] != 'pop') &&
