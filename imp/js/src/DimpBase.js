@@ -898,8 +898,8 @@ var DimpBase = {
 
     loadPreview: function(data, params)
     {
-        var pp = $('previewPane'), pp_offset, pp_uid;
-        if (!pp.visible()) {
+        var offset, pp_uid;
+        if (!$('previewPane').visible()) {
             return;
         }
 
@@ -923,8 +923,10 @@ var DimpBase = {
             }
         }
 
-        pp_offset = pp.positionedOffset();
-        $('msgLoading').setStyle({ position: 'absolute', top: (pp_offset.top + 10) + 'px', left: (pp_offset.left + 10) + 'px' }).show();
+        offset = $('previewMsg').visible()
+            ? $('msgBody').positionedOffset()
+            : $('previewPane').positionedOffset();
+        $('msgLoading').setStyle({ position: 'absolute', top: (offset.top + 10) + 'px', left: (offset.left + 10) + 'px' }).show();
 
         DimpCore.doAction('ShowPreview', params || {}, this.viewport.createSelection('dataob', this.pp), this.bcache.get('loadPC') || this.bcache.set('loadPC', this._loadPreviewCallback.bind(this)));
     },
