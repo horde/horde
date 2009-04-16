@@ -90,7 +90,7 @@ var DimpBase = {
         // from the search input, because the user may immediately start
         // keyboard navigation after that. Thus, we need to ensure that a
         // message click loses focus on the search input.
-        $('quicksearch_input').blur();
+        $('qsearch_input').blur();
 
         if (opts.shift) {
             if (selcount) {
@@ -406,7 +406,7 @@ var DimpBase = {
             onAjaxRequest: function(id) {
                 var p = this.isSearch(id)
                     ? $H({
-                        qsearch: $F('quicksearch_input'),
+                        qsearch: $F('qsearch_input'),
                         qsearchmbox: this.sfolder
                     })
                     : $H();
@@ -494,9 +494,9 @@ var DimpBase = {
 
                 // Check for search strings
                 if (this.isSearch()) {
-                    re = new RegExp("(" + $F('quicksearch_input') + ")", "i");
+                    re = new RegExp("(" + $F('qsearch_input') + ")", "i");
                     [ 'from', 'subject' ].each(function(h) {
-                        row[h] = row[h].gsub(re, '<span class="quicksearchMatch">#{1}</span>');
+                        row[h] = row[h].gsub(re, '<span class="qsearchMatch">#{1}</span>');
                     });
                 }
 
@@ -1216,16 +1216,10 @@ var DimpBase = {
         return (id ? id : this.folder) == this.qsearchid;
     },
 
-    _quicksearchOnFocus: function()
-    {
-        if (!$('quicksearch').hasClassName('quicksearchActive')) {
-            this._setFilterText(false);
-        }
-    },
-
     _quicksearchOnBlur: function()
     {
-        if (!$F('quicksearch_input')) {
+        $('qsearch').removeClassName('qsearchFocus');
+        if (!$F('qsearch_input')) {
             this._setFilterText(true);
         }
     },
@@ -1236,7 +1230,7 @@ var DimpBase = {
             this.viewport.reload();
         } else {
             this.sfolder = this.folder;
-            $('quicksearch_close').show();
+            $('qsearch_close').show();
             this.loadMailbox(this.qsearchid);
         }
     },
@@ -1245,8 +1239,10 @@ var DimpBase = {
     quicksearchClear: function(noload)
     {
         if (this.isSearch()) {
-            this._setFilterText(true);
-            $('quicksearch_close').hide();
+            $('qsearch_close').hide();
+            if (!$('qsearch').hasClassName('qsearchFocus')) {
+                this._setFilterText(true);
+            }
             this.resetSelected();
             if (!noload) {
                 this.loadMailbox(this.sfolder);
@@ -1258,8 +1254,8 @@ var DimpBase = {
     // d = (boolean) Deactivate filter input?
     _setFilterText: function(d)
     {
-        $('quicksearch_input').setValue(d ? DIMP.text.search : '');
-        [ $('quicksearch') ].invoke(d ? 'removeClassName' : 'addClassName', 'quicksearchActive');
+        $('qsearch_input').setValue(d ? DIMP.text.search : '');
+        [ $('qsearch') ].invoke(d ? 'removeClassName' : 'addClassName', 'qsearchActive');
     },
 
     /* Enable/Disable DIMP action buttons as needed. */
@@ -1334,7 +1330,7 @@ var DimpBase = {
             case Event.KEY_ESC:
             case Event.KEY_TAB:
                 // Catch escapes in search box
-                if (elt.readAttribute('id') == 'quicksearch_input') {
+                if (elt.readAttribute('id') == 'qsearch_input') {
                     if (kc == Event.KEY_ESC || !elt.getValue()) {
                         this.quicksearchClear();
                     }
@@ -1348,8 +1344,8 @@ var DimpBase = {
                 if (form.readAttribute('id') == 'RB_folder') {
                     this.cfolderaction(e);
                     e.stop();
-                } else if (elt.readAttribute('id') == 'quicksearch_input') {
-                    if ($F('quicksearch_input')) {
+                } else if (elt.readAttribute('id') == 'qsearch_input') {
+                    if ($F('qsearch_input')) {
                         this.quicksearchRun();
                     } else {
                         this.quicksearchClear();
@@ -1588,8 +1584,17 @@ var DimpBase = {
                 }
                 break;
 
-            case 'quicksearch_close':
+            case 'qsearch_close':
                 this.quicksearchClear();
+                e.stop();
+                return;
+
+            case 'qsearch':
+                elt.addClassName('qsearchFocus');
+                if (!elt.hasClassName('qsearchActive')) {
+                    this._setFilterText(false);
+                }
+                $('qsearch_input').focus();
                 break;
 
             default:
@@ -2240,8 +2245,7 @@ var DimpBase = {
     {
         DimpCore.init();
 
-        var DM = DimpCore.DMenu,
-            qs = $('quicksearch_input');
+        var DM = DimpCore.DMenu;
 
         /* Register global handlers now. */
         document.observe('keydown', this.keydownHandler.bindAsEventListener(this));
@@ -2315,8 +2319,7 @@ var DimpBase = {
         this.setPollFolders();
 
         /* Init quicksearch. */
-        qs.observe('focus', this._quicksearchOnFocus.bind(this));
-        qs.observe('blur', this._quicksearchOnBlur.bind(this));
+        $('qsearch_input').observe('blur', this._quicksearchOnBlur.bind(this));
 
         if (DIMP.conf.is_ie6) {
             /* Disable text selection in preview pane for IE 6. */

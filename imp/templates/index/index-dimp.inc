@@ -172,12 +172,12 @@ function _simpleButton($id, $text, $image, $imagedir = null)
      </div>
 
      <div class="dimpActions">
-      <div id="quicksearch">
+      <div id="qsearch">
        <form action="#" method="post">
-        <input autocomplete="off" id="quicksearch_input" type="text" size="25" />
+        <input autocomplete="off" id="qsearch_input" type="text" size="25" />
        </form>
        <span>
-        <?php echo IMP::img('close.png', '', array('id' => 'quicksearch_close', 'style' => 'display:none', 'title' => _("Clear Search")), $hordeimg) ?>
+        <?php echo IMP::img('close.png', '', array('id' => 'qsearch_close', 'style' => 'display:none', 'title' => _("Clear Search")), $hordeimg) ?>
        </span>
       </div>
       <span>
