@@ -98,7 +98,7 @@ function _getListMessages($mbox, $change)
 
     // TODO: This can potentially be optimized for arrival time sort - if the
     // cache ID changes, we know the changes must occur at end of mailbox.
-    if (!$res->reset && (Util::getPost('purge') || $change)) {
+    if (empty($res->reset) && (Util::getPost('purge') || $change)) {
         $res->update = 1;
     }
 
