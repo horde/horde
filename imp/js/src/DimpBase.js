@@ -898,7 +898,8 @@ var DimpBase = {
 
     loadPreview: function(data, params)
     {
-        var offset, pp_uid;
+        var pp_uid;
+
         if (!$('previewPane').visible()) {
             return;
         }
@@ -923,10 +924,7 @@ var DimpBase = {
             }
         }
 
-        offset = $('previewMsg').visible()
-            ? $('msgBody').positionedOffset()
-            : $('previewPane').positionedOffset();
-        $('msgLoading').setStyle({ position: 'absolute', top: (offset.top + 10) + 'px', left: (offset.left + 10) + 'px' }).show();
+        $('msgLoading').clonePosition('splitBar', { setHeight: false, setWidth: false }).show();
 
         DimpCore.doAction('ShowPreview', params || {}, this.viewport.createSelection('dataob', this.pp), this.bcache.get('loadPC') || this.bcache.set('loadPC', this._loadPreviewCallback.bind(this)));
     },
@@ -2206,19 +2204,18 @@ var DimpBase = {
 
     msgListLoading: function(show)
     {
-        var ml_offset;
+        var c;
 
         if (this.fl_visible != show) {
             this.fl_visible = show;
             if (show) {
-                ml_offset = $('msgList').positionedOffset();
-                $('folderLoading').setStyle({ position: 'absolute', top: (ml_offset.top + 10) + 'px', left: (ml_offset.left + 10) + 'px' });
-                Effect.Appear('folderLoading', { duration: 0.2 });
-                $(document.body).setStyle({ cursor: 'progress' });
+                $('viewportLoading').clonePosition('msgList', { setHeight: false, setWidth: false });
+                c = 'progress';
             } else {
-                Effect.Fade('folderLoading', { duration: 0.2 });
-                $(document.body).setStyle({ cursor: 'default' });
+                c = 'default';
             }
+            $(document.body).setStyle({ cursor: c });
+            Effect.toggle('viewportLoading', 'appear', { duration: 0.2 });
         }
     },
 

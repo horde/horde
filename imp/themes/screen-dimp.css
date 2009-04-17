@@ -111,6 +111,14 @@ span.loadingImg {
     width: 16px;
     height: 16px;
 }
+#msgLoading, #viewportLoading {
+    position: absolute;
+    margin: 10px 0 0 10px;
+}
+#msgLoading {
+    /* Positioned relative to .splitBar, which is 7px high by default. */
+    margin-top: 17px;
+}
 
 /* Columns */
 div.msgStatus {
