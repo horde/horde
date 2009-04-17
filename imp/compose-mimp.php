@@ -198,10 +198,10 @@ case _("Send"):
     $imp_ui = new IMP_UI_Compose();
 
     $header['to'] = $imp_ui->getAddressList(Util::getFormData('to'));
-    if ($conf['compose']['allow_cc']) {
+    if ($prefs->getValue('compose_cc')) {
         $header['cc'] = $imp_ui->getAddressList(Util::getFormData('cc'));
     }
-    if ($conf['compose']['allow_bcc']) {
+    if ($prefs->getValue('compose_bcc')) {
         $header['bcc'] = $imp_ui->getAddressList(Util::getFormData('bcc'));
     }
 
