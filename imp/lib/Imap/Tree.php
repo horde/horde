@@ -39,8 +39,10 @@ class IMP_Imap_Tree
     const NEXT_SHOWCLOSED = 1;
     const NEXT_SHOWSUB = 2;
 
-    /* The string used to indicate the base of the tree. */
-    const BASE_ELT = '%';
+    /* The string used to indicate the base of the tree. This must be null
+     * since this is the only 7-bit character not allowed in IMAP
+     * mailboxes. */
+    const BASE_ELT = null;
 
     /* Defines used with the output from the build() function. */
     const SPECIAL_INBOX = 1;
