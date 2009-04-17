@@ -40,6 +40,16 @@ http://pear.php.net/dtd/package-2.0.xsd">
  <notes>
   * Converted the package to Horde 4 / PHP 5.
   * Split the session driver into a separate package (Kolab_Session).
+  * Use exceptions rather than PEAR errors.
+  * Schema support.
+  * Use class variables to represent objectClass attributes. Thus it
+    is possible to accomodate for variable attribute names.
+  * Cleaner class structure that matches the objectClass structure and
+    also allows to represent logical classes.
+  * Separate classes to handle the LDAP tree structure in a more
+    flexible way.
+  * Added LDAP write support.
+  * Real LDAP server unit testing.
  </notes>
  <contents>
   <dir name="/">
