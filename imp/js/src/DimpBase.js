@@ -2004,7 +2004,7 @@ var DimpBase = {
     _sizeFolderlist: function()
     {
         var nf = $('normalfolders');
-        nf.setStyle({ height: (document.viewport.getHeight() - nf.cumulativeOffset()[1] - 10) + 'px' });
+        nf.setStyle({ height: (document.viewport.getHeight() - nf.cumulativeOffset()[1]) + 'px' });
     },
 
     /* Flag actions for message list. */
