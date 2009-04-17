@@ -86,7 +86,6 @@ div#quota {
 
 /* SplitPane styles. */
 #msgSplitPane {
-    background-color: #fff;
     border-left: 1px silver solid;
     border-right: 1px silver solid;
     border-bottom: 1px silver solid;
@@ -97,7 +96,7 @@ div#quota {
     border-color: ThreeDHighlight ThreeDShadow ThreeDShadow ThreeDHighlight;
     cursor: n-resize;
     height: 5px;
-    clear: left;
+    clear: both;
     z-index: 10;
 }
 
@@ -154,25 +153,17 @@ div.msgSize {
 }
 #msglistHeader a {
     cursor: pointer;
-    display: block;
 }
 #msglistHeader div {
     padding-top: 1px;
     height: 15px;
     text-indent: 1px;
 }
-#msglistHeader div.sortup {
+#msglistHeader div.sortup, #msglistHeader div.sortdown {
     padding-left: 0;
     background-position: 2px;
 }
-#msglistHeader div.sortup a {
-    padding-left: 14px;
-}
-#msglistHeader div.sortdown {
-    padding-left: 0;
-    background-position: 2px;
-}
-#msglistHeader div.sortdown a {
+#msglistHeader div.sortup a, #msglistHeader div.sortdown a {
     padding-left: 14px;
 }
 #msglistHeader a small {
@@ -244,16 +235,16 @@ div.vpRow.flagDeleted {
     border-left: 1px solid silver;
     background: url("graphics/scroller.png") repeat-y;
 }
-.sbup {
+.sbup, .sbdown {
     width: 13px;
     height: 16px;
     border-left: 1px solid silver;
+}
+.sbup {
     background-image: url("graphics/sbcursor_top.png");
 }
 .sbdown {
-    width: 13px;
-    height: 17px;
-    border-left: 1px solid silver;
+    border-bottom: 1px solid silver;
     background-image: url("graphics/sbcursor_bottom.png");
 }
 
@@ -270,25 +261,8 @@ div.vpRow.flagDeleted {
 }
 
 /* Sidebar */
-#sidebarPanel span {
-    white-space: normal;
-}
 #sidebarPanel a {
     cursor: pointer;
-    padding: 0;
-}
-#sidebarPanel a:hover {
-    background: transparent;
-}
-#sidebarPanel p {
-    margin: 0 0 5px;
-}
-#sidebarPanel p a {
-    text-decoration: none;
-    font-weight: bold;
-}
-#sidebarPanel p a img {
-    padding-right: 3px;
 }
 #sidebarPanel .sepfull {
     font-size: 1px !important;
@@ -299,33 +273,24 @@ div.vpRow.flagDeleted {
     width: 150px;
     background: silver;
 }
-#sidebarPanel .count, #sidebarPanel a:hover .count {
+#sidebarPanel .count {
     color: silver;
 }
 #sidebarPanel li {
     list-style: none;
     width: 100%;
-    height: 17px;
-    line-height: 17px;
-    margin: 1px 0 0;
+    height: 16px;
+    line-height: 16px;
+    padding-top: 1px;
     white-space: nowrap;
 }
 #sidebarPanel li.folder, #sidebarPanel li.custom, #sidebarPanel li.servicelink {
-    float: none;
     width: 100%;
     text-decoration: none;
-    padding: 0;
-}
-#sidebarPanel li.custom, #sidebarPanel li.servicelink {
-    display: block;
 }
 #sidebarPanel li a {
-    padding-top: 1px;
     width: 130px;
     text-decoration: none;
-}
-#sidebarPanel li.custom a, #sidebarPanel li.servicelink a {
-    padding-top: 0;
 }
 #sidebarPanel li.servicelink a {
     font-weight: bold;
@@ -337,60 +302,17 @@ div.vpRow.flagDeleted {
     float: left;
     padding: 1px 4px 0 0;
 }
-#sidebarPanel li.folder a {
-    display: inline;
+#sidebarPanel li.on {
+    background: #ffc;
 }
-#sidebarPanel .base, #sidebarPanel .col, #sidebarPanel .exp, #sidebarPanel .create, #sidebarPanel .drafts, #sidebarPanel .inbox, #sidebarPanel .sent, #sidebarPanel .spam, #sidebarPanel .trash, #sidebarPanel .customimg {
-    display: inline;
-    float: left;
-    width: 20px;
-    height: 100%;
-    background-repeat: no-repeat;
-}
-#sidebarPanel .base {
-    background-image: url("graphics/folder.png");
-}
-#sidebarPanel .col {
-    background-image: url("graphics/folder_minus.png");
-}
-#sidebarPanel .exp {
-    background-image: url("graphics/folder_plus.png");
-}
-#sidebarPanel .create {
-    background-image: url("graphics/folder_create.png");
-}
-#sidebarPanel .drafts {
-    background-image: url("graphics/folder_drafts.png");
-}
-#sidebarPanel .inbox {
-    background-image: url("graphics/folder_inbox.png");
-}
-#sidebarPanel .sent {
-    background-image: url("graphics/folder_sent.png");
-}
-#sidebarPanel .spam {
-    background-image: url("graphics/folder_spam.png");
-}
-#sidebarPanel .trash {
-    background-image: url("graphics/folder_trash.png");
-}
-#sidebarPanel #normalfolders {
-    overflow-x: hidden;
-}
-#sidebarPanel #myfolders {
-    display: none;
-}
-#foldersSidebar {
-    overflow: hidden;
+#sidebarPanel li div {
+    cursor: pointer;
 }
 #sidebarPanel .folderlist li a {
     width: auto;
     overflow: hidden;
     display: block;
     float: none;
-}
-#sidebarPanel li div {
-    cursor: pointer;
 }
 #sidebarPanel li.subfolders {
     height: auto;
@@ -399,19 +321,57 @@ div.vpRow.flagDeleted {
 #sidebarPanel li.subfolders ul {
     padding-left: 10px;
 }
-#sidebarPanel li.subfolders li a {
-    width: auto;
+#sidebarPanel li a.drop {
+    border: 1px solid orange;
+    padding: 1px 1px 1px 19px;
 }
-#sidebarPanel li.on {
-    background: #ffc;
+#sidebarPanel div.iconDiv {
+    display: inline;
+    float: left;
+    width: 20px;
+    height: 100%;
+    background-repeat: no-repeat;
+}
+#sidebarPanel div.base {
+    background-image: url("graphics/folder.png");
+}
+#sidebarPanel div.col {
+    background-image: url("graphics/folder_minus.png");
+}
+#sidebarPanel div.exp {
+    background-image: url("graphics/folder_plus.png");
+}
+#sidebarPanel div.create {
+    background-image: url("graphics/folder_create.png");
+}
+#sidebarPanel div.drafts {
+    background-image: url("graphics/folder_drafts.png");
+}
+#sidebarPanel div.inbox {
+    background-image: url("graphics/folder_inbox.png");
+}
+#sidebarPanel div.sent {
+    background-image: url("graphics/folder_sent.png");
+}
+#sidebarPanel div.spam {
+    background-image: url("graphics/folder_spam.png");
+}
+#sidebarPanel div.trash {
+    background-image: url("graphics/folder_trash.png");
+}
+#sidebarPanel #normalfolders {
+    overflow-x: hidden;
+}
+#sidebarPanel #myfolders {
+    display: none;
 }
 #sidebarPanel .over a, #sidebarPanel li.folder:hover, #sidebarPanel li.custom:hover, #sidebarPanel li.servicelink:hover {
     font-weight: bold;
     text-decoration: underline;
 }
-#sidebarPanel li a.drop {
-    border: 1px solid orange;
-    padding: 1px 1px 1px 19px;
+
+#foldersSidebar {
+    overflow: hidden;
 }
 
 /* Options */
@@ -420,7 +380,8 @@ div.vpRow.flagDeleted {
 }
 .dimpOptions div {
     cursor: pointer;
-    line-height: 17px;
+    line-height: 16px;
+    padding-top: 1px;
 }
 .dimpOptions div a, .dimpOptions div a:visited {
     text-decoration: none;
@@ -500,6 +461,7 @@ div.dimpActionsCompose, div.dimpActionsMsg {
     border-bottom: 1px solid #999;
 }
 
+/* Preview pane styles. */
 #previewPane {
     overflow: auto;
     height: 250px;
@@ -507,7 +469,15 @@ div.dimpActionsCompose, div.dimpActionsMsg {
     border-top: 1px silver solid;
     background: #fff;
 }
+#previewInfo {
+    background: transparent url(graphics/ico_message_off.png) no-repeat scroll 10px 15px;
+    line-height: 18px;
+    text-align: left;
+    padding: 15px 80px 10px 35px;
+    color: #a0a0a0;
+}
 
+/* Headers styles. */
 .msgHeaders {
     background: transparent url("graphics/backhead_r.png") repeat-x;
     border-bottom: 1px #b9b9b3 solid;
@@ -664,9 +634,13 @@ div.dimpActionsCompose, div.dimpActionsMsg {
 .msgwrite .atcrow {
     line-height: 130%;
 }
-#to, #cc, #bcc, #subject {
+#to, #cc, #bcc {
     width: 100%;
 }
+#subject {
+    width: 40em;
+}
+
 .msgwrite td.autocompleteImg {
     width: 25px;
 }
@@ -690,23 +664,6 @@ div.dimpActionsCompose, div.dimpActionsMsg {
     margin: 0;
     padding: 0;
     width: 100%;
-}
-
-#previewInfo {
-    background: transparent url(graphics/ico_message_off.png) no-repeat scroll 10px 15px;
-    line-height: 18px;
-    text-align: left;
-    padding: 15px 80px 10px 35px;
-    color: #a0a0a0;
-}
-
-.htmledit {
-    display: none;
-    padding: 4px;
-}
-
-#subject {
-    width: 40em;
 }
 
 #composeloading, #rteloading {

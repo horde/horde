@@ -1859,7 +1859,7 @@ var DimpBase = {
             if (base.descendantOf('specialfolders')) {
                 opts.afterFinish = this._sizeFolderlist;
             }
-            base.firstDescendant().writeAttribute({ className: s.visible() ? 'exp' : 'col' });
+            base.firstDescendant().toggleClassName('exp').toggleClassName('col');
             Effect.toggle(s, 'blind', opts);
         }
     },
@@ -1876,12 +1876,9 @@ var DimpBase = {
             submbox = $(submboxid),
             ftype = ob.v ? (ob.co ? 'vcontainer' : 'virtual') : (ob.co ? 'container' : (ob.s ? 'special' : 'folder'));
 
-        div = new Element('DIV', { className: ob.cl || 'base', id: fid + '_div' });
+        div = new Element('DIV', { className: 'iconDiv ' + (ob.ch ? 'exp' : (ob.cl || 'base')), id: fid + '_div' });
         if (ob.i) {
             div.setStyle({ backgroundImage: 'url("' + ob.i + '")' });
-        }
-        if (ob.ch) {
-            div.writeAttribute({ className: 'exp' });
         }
 
         li = new Element('LI', { className: 'folder', id: fid, l: label, mbox: mbox, ftype: ftype }).insert(div).insert(new Element('A', { id: fid + '_label', title: label }).insert(label));
