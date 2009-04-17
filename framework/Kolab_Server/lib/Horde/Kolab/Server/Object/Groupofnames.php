@@ -216,7 +216,7 @@ class Horde_Kolab_Server_Object_Groupofnames extends Horde_Kolab_Server_Object
      *
      * @throws Horde_Kolab_Server_Exception
      */
-    public function getGroups($server, $uid)
+    static public function getGroups($server, $uid)
     {
         $criteria = array('AND' =>
                           array(
