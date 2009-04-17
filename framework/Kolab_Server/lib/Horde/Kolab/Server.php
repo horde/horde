@@ -65,6 +65,13 @@ abstract class Horde_Kolab_Server
     public $structure;
 
     /**
+     * A cache for object attribute definitions.
+     *
+     * @var array
+     */
+    protected $attributes;
+
+    /**
      * Construct a new Horde_Kolab_Server object.
      *
      * @param array $params Parameter array.

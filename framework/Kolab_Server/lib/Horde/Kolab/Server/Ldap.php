@@ -57,13 +57,6 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
     private $_schema;
 
     /**
-     * A cache for object attribute definitions.
-     *
-     * @var array
-     */
-    static protected $attributes;
-
-    /**
      * Construct a new Horde_Kolab_Server_ldap object.
      *
      * @param array $params Parameter array.
