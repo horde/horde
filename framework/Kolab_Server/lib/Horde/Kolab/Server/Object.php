@@ -705,8 +705,7 @@ class Horde_Kolab_Server_Object
                         if (!is_array($old)) {
                             $old = array($old);
                         }
-                        $changes = array_merge(array_diff($old, $value),
-                                               array_diff($value, $old));
+                        $changes = $this->getArrayChanges($old, $value);
                         if (empty($changes)) {
                             // Unchanged value
                             unset($info[$key]);
@@ -750,6 +749,34 @@ class Horde_Kolab_Server_Object
         }
 
         return $result;
+    }
+
+    /**
+     * Identify changes between two arrays.
+     *
+     * @param array $a1 The first array.
+     * @param array $a2 The second array.
+     *
+     * @return array The differences between both arrays.
+     */
+    protected function getArrayChanges($a1, $a2)
+    {
+        if (empty($a1) || empty($a2)) {
+            return !empty($a1) ? $a1 : $a2;
+        }
+        $ar = array();
+        foreach ($a2 as $k => $v) {
+            if (!is_array($v) || !is_array($a1[$k])) {
+                if ($v !== $a1[$k]) {
+                    $ar[$k] = $v;
+                }
+            } else {
+                if ($arr = $this->getArrayChanges($a1[$k], $a2[$k])) {
+                    $ar[$k] = $arr;
+                }
+            }
+        }
+        return $ar;
     }
 
     /**
@@ -851,7 +878,7 @@ class Horde_Kolab_Server_Object
         $filter = $server->searchQuery($criteria);
         $result = $server->search($filter, $params, $server->getBaseUid());
         $data   = $result->as_struct();
-        if (is_a($data, 'PEAR_Error')) {
+        if ($data instanceOf PEAR_Error) {
             throw new Horde_Kolab_Server_Exception($data->getMessage());
         }
         return self::uidFromResult($data, $restrict);
