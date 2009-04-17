@@ -296,7 +296,7 @@ case 'ListFolders':
     }
     break;
 
-case 'PollFolders':
+case 'Poll':
     $result = new stdClass;
 
     $imptree = IMP_Imap_Tree::singleton();

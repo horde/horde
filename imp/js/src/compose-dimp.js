@@ -225,7 +225,7 @@ var DimpCompose = {
             case 'save_draft':
                 this.button_pressed = false;
                 if (DIMP.baseWindow) {
-                    DIMP.baseWindow.DimpBase.pollFolders();
+                    DIMP.baseWindow.DimpBase.poll();
                     DIMP.baseWindow.DimpCore.showNotifications(r.msgs);
                 }
                 if (DIMP.conf_compose.close_draft) {
@@ -243,7 +243,7 @@ var DimpCompose = {
                     }
 
                     if (d.draft_delete) {
-                        DIMP.baseWindow.DimpBase.pollFolders();
+                        DIMP.baseWindow.DimpBase.poll();
                     }
 
                     DIMP.baseWindow.DimpCore.showNotifications(r.msgs);

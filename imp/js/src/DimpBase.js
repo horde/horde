@@ -671,7 +671,7 @@ var DimpBase = {
 
         case 'ctx_folder_poll':
         case 'ctx_folder_nopoll':
-            this.modifyPollFolder(baseelt.up('LI').readAttribute('mbox'), id == 'ctx_folder_poll');
+            this.modifyPoll(baseelt.up('LI').readAttribute('mbox'), id == 'ctx_folder_poll');
             break;
 
         case 'ctx_container_create':
@@ -1144,12 +1144,12 @@ var DimpBase = {
     },
 
     /* Folder list updates. */
-    pollFolders: function()
+    poll: function()
     {
         var args = {};
 
         // Reset poll folder counter.
-        this.setPollFolders();
+        this.setPoll();
 
         // Check for label info - it is possible that the mailbox may be
         // loading but not complete yet and sending this request will cause
@@ -1160,10 +1160,10 @@ var DimpBase = {
             args = this.viewport.addRequestParams({});
         }
         $('checkmaillink').down('A').update('[' + DIMP.text.check + ']');
-        DimpCore.doAction('PollFolders', args, null, this.bcache.get('pollFC') || this.bcache.set('pollFC', this._pollFoldersCallback.bind(this)));
+        DimpCore.doAction('Poll', args, null, this.bcache.get('pollFC') || this.bcache.set('pollFC', this._pollCallback.bind(this)));
     },
 
-    _pollFoldersCallback: function(r)
+    _pollCallback: function(r)
     {
         r = r.response;
         if (r.poll) {
@@ -1184,14 +1184,14 @@ var DimpBase = {
         q.down('SPAN.used IMG').writeAttribute({ width: 99 - r.p });
     },
 
-    setPollFolders: function()
+    setPoll: function()
     {
         if (DIMP.conf.refresh_time) {
             if (this.pollPE) {
                 this.pollPE.stop();
             }
             // Don't cache - this code is only run once.
-            this.pollPE = new PeriodicalExecuter(this.pollFolders.bind(this), DIMP.conf.refresh_time);
+            this.pollPE = new PeriodicalExecuter(this.poll.bind(this), DIMP.conf.refresh_time);
         }
     },
 
@@ -1294,7 +1294,7 @@ var DimpBase = {
 
             if (uids.size()) {
                 if (e.ctrlKey) {
-                    DimpCore.doAction('CopyMessage', this.viewport.addRequestParams({ tofld: foldername }), uids, this.bcache.get('pollFC') || this.bcache.set('pollFC', this._pollFoldersCallback.bind(this)));
+                    DimpCore.doAction('CopyMessage', this.viewport.addRequestParams({ tofld: foldername }), uids, this.bcache.get('pollFC') || this.bcache.set('pollFC', this._pollCallback.bind(this)));
                 } else if (this.folder != foldername) {
                     // Don't allow drag/drop to the current folder.
                     this.updateFlag(uids, '\\deleted', true);
@@ -1493,7 +1493,7 @@ var DimpBase = {
                 return;
 
             case 'checkmaillink':
-                this.pollFolders();
+                this.poll();
                 e.stop();
                 return;
 
@@ -1725,7 +1725,7 @@ var DimpBase = {
         var search = null, uids = [], vs;
 
         this.msgListLoading(false);
-        this._pollFoldersCallback(r);
+        this._pollCallback(r);
 
         r = r.response;
         if (!r.uids || r.folder != this.folder) {
@@ -2183,12 +2183,12 @@ var DimpBase = {
         DimpCore.doAction('PurgeDeleted', this.viewport.addRequestParams({}), null, this.bcache.get('deleteC') || this.bcache.set('deleteC', this._deleteCallback.bind(this)));
     },
 
-    modifyPollFolder: function(folder, add)
+    modifyPoll: function(folder, add)
     {
-        DimpCore.doAction('ModifyPollFolder', { view: folder, add: (add) ? 1 : 0 }, null, this.bcache.get('modifyPFC') || this.bcache.set('modifyPFC', this._modifyPollFolderCallback.bind(this)));
+        DimpCore.doAction('ModifyPoll', { view: folder, add: (add) ? 1 : 0 }, null, this.bcache.get('modifyPFC') || this.bcache.set('modifyPFC', this._modifyPollCallback.bind(this)));
     },
 
-    _modifyPollFolderCallback: function(r)
+    _modifyPollCallback: function(r)
     {
         r = r.response;
         var f = r.folder, fid, p = { response: { poll: {} } };
@@ -2201,7 +2201,7 @@ var DimpBase = {
             p.response.poll[f] = 0;
         }
 
-        this._pollFoldersCallback(p);
+        this._pollCallback(p);
 
         if (!r.add) {
             fid.removeAttribute('u');
@@ -2316,7 +2316,7 @@ var DimpBase = {
         }
 
         /* Check for new mail. */
-        this.setPollFolders();
+        this.setPoll();
 
         /* Init quicksearch. */
         $('qsearch_input').observe('blur', this._quicksearchOnBlur.bind(this));
