@@ -57,6 +57,12 @@ form#compose {
     display: none;
 }
 
+/* IE 6 doesn't support DOM.class1.class2 - treats this as DOM.class2. So
+ * flag icons will appear as background for row. This works around this. */
+div.vpRow {
+    background: none;
+}
+
 /* Fixes li & ol list numbering issues in HTML messages. */
 .htmlMessage ul li, .htmlMessage ol li {
     margin-left: 2em;
