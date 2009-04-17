@@ -363,15 +363,15 @@ table.multipleMsgs td.msgheader {
 }
 
 /* SpellChecker styles. */
-.Checking {
+.spellcheckChecking {
     color: #f00;
 }
-.incorrect {
+.spellcheckIncorrect {
     text-decoration: underline;
     cursor: pointer;
     color: #f00;
 }
-.corrected {
+.spellcheckCorrected {
     text-decoration: underline;
     cursor: pointer;
     color: #090;

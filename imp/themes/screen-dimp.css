@@ -70,15 +70,15 @@ div#quota {
 #spellcheck {
     color: #000;
 }
-.Checking {
+.spellcheckChecking {
     color: red;
 }
-.incorrect {
+.spellcheckIncorrect {
     text-decoration: underline;
     cursor: pointer;
     color: red;
 }
-.corrected {
+.spellcheckCorrected {
     text-decoration: underline;
     cursor: pointer;
     color: #090;

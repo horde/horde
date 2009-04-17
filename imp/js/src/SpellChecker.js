@@ -66,7 +66,7 @@ var SpellChecker = Class.create({
         // showSuggestions mode.
         document.observe('click', this.onClick.bindAsEventListener(this));
 
-        this.status('CheckSpelling');
+        this.setStatus('CheckSpelling');
     },
 
     setLocale: function(e)
@@ -108,7 +108,7 @@ var SpellChecker = Class.create({
             p = $H(),
             url = this.url;
 
-        this.status('Checking');
+        this.setStatus('Checking');
         this.removeChoices();
 
         this.onNoError = noerror;
@@ -166,14 +166,14 @@ var SpellChecker = Class.create({
         this.removeChoices();
 
         if (Object.isUndefined(result)) {
-            this.status('Error');
+            this.setStatus('Error');
             return;
         }
 
         this.suggestions = result.suggestions || [];
 
         if (this.onNoError && !this.suggestions.size()) {
-            this.status('CheckSpelling');
+            this.setStatus('CheckSpelling');
             this.onNoError();
             return;
         }
@@ -189,7 +189,7 @@ var SpellChecker = Class.create({
 
         $A(bad).each(function(node) {
             re = new RegExp("(?:^|\\b)" + RegExp.escape(node) + "(?:\\b|$)", 'g');
-            re_text = '<span index="' + (i++) + '" name="incorrect" class="incorrect">' + node + '</span>';
+            re_text = '<span index="' + (i++) + '" class="spellcheckIncorrect">' + node + '</span>';
             content = content.replace(re, re_text);
             // Go through and see if we matched anything inside a tag.
             if (this.htmlAreaParent) {
@@ -213,7 +213,7 @@ var SpellChecker = Class.create({
         this.reviewDiv.update(content);
 
         // Now attach results behavior to each link.
-        this.reviewDiv.select('span[name="incorrect"]').invoke('observe', 'click', this.showSuggestions.bindAsEventListener(this));
+        this.reviewDiv.select('span.spellcheckIncorrect').invoke('observe', 'click', this.showSuggestions.bindAsEventListener(this));
 
         // Falsify links
         this.reviewDiv.select('A').invoke('observe', 'click', Event.stop);
@@ -226,7 +226,7 @@ var SpellChecker = Class.create({
             input.hide().insert({ before: this.reviewDiv });
         }
 
-        this.status('ResumeEdit');
+        this.setStatus('ResumeEdit');
     },
 
     showSuggestions: function(e)
@@ -257,7 +257,7 @@ var SpellChecker = Class.create({
 
     replaceWord: function(li, word)
     {
-        word.update(li.innerHTML).writeAttribute({ className: 'corrected' });
+        word.update(li.innerHTML).writeAttribute({ className: 'spellcheckCorrected' });
         this.removeChoices();
     },
 
@@ -280,7 +280,7 @@ var SpellChecker = Class.create({
         var input = $(this.target),
             t;
 
-        this.reviewDiv.select('span[name="incorrect"]').each(function(n) {
+        this.reviewDiv.select('span.spellcheckIncorrect').each(function(n) {
             n.replace(n.innerHTML);
         });
 
@@ -300,7 +300,7 @@ var SpellChecker = Class.create({
         this.reviewDiv.remove();
         this.reviewDiv = null;
 
-        this.status('CheckSpelling');
+        this.setStatus('CheckSpelling');
 
         if (this.htmlAreaParent) {
             // Fix for Safari 3/fckeditor - Ticket #6909
@@ -314,7 +314,7 @@ var SpellChecker = Class.create({
         }
     },
 
-    status: function(state)
+    setStatus: function(state)
     {
         if (!this.statusButton) {
             return;
@@ -330,7 +330,7 @@ var SpellChecker = Class.create({
             this.statusButton.update(this.buttonStates[state]);
             break;
         }
-        this.statusButton.className = this.statusClass + ' ' + state;
+        this.statusButton.className = this.statusClass + ' spellcheck' + state;
     },
 
     isActive: function()
