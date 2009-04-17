@@ -199,6 +199,7 @@ class DIMP
             'ham_spammbox' => intval(!empty($conf['notspam']['spamfolder'])),
             'refresh_time' => intval($prefs->getValue('refresh_time')),
 
+            'base_mbox' => IMP_Imap_Tree::BASE_ELT,
             'fixed_folders' => empty($conf['server']['fixed_folders'])
                 ? array()
                 : array_map(array('DIMP', '_appendedFolderPref'), $conf['server']['fixed_folders']),
@@ -386,9 +387,10 @@ class DIMP
      * 'co' (container) = Is this folder a container element? [boolean]
      *                    [DEFAULT: no]
      * 'i' (icon) = A user defined icon to use. [string] [DEFAULT: none]
-     * 'l' (label) = The folder display label. [string]
+     * 'l' (label) = The folder display label. [string] [DEFAULT: 'm' val]
      * 'm' (mbox) = The mailbox value. [string]
-     * 'pa' (parent) = The parent element. [string]
+     * 'pa' (parent) = The parent element. [string] [DEFAULT:
+     *                                               DIMP.conf.base_mbox]
      * 'po' (polled) = Is the element polled? [boolean] [DEFAULT: no]
      * 's' (special) = Is this a "special" element? [boolean] [DEFAULT: no]
      * 'u' (unseen) = The number of unseen messages. [integer]
@@ -401,9 +403,13 @@ class DIMP
         if ($elt['children']) {
            $ob->ch = 1;
         }
-        $ob->l = $elt['base_elt']['l'];
         $ob->m = rawurlencode($elt['value']);
-        $ob->pa = rawurlencode($elt['parent']);
+        if ($ob->m != $elt['base_elt']['l']) {
+            $ob->l = $elt['base_elt']['l'];
+        }
+        if ($elt['parent'] != IMP_Imap_Tree::BASE_ELT) {
+            $ob->pa = rawurlencode($elt['parent']);
+        }
         if ($elt['polled']) {
             $ob->po = 1;
         }

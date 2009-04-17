@@ -1870,12 +1870,13 @@ var DimpBase = {
     {
         var div, f_node, li, ll, parent_e,
             fid = this.getFolderId(ob.m),
+            label = ob.l || ob.m,
             mbox = decodeURIComponent(ob.m),
             submboxid = this.getSubFolderId(fid),
             submbox = $(submboxid),
             ftype = ob.v ? (ob.co ? 'vcontainer' : 'virtual') : (ob.co ? 'container' : (ob.s ? 'special' : 'folder'));
 
-        li = new Element('LI', { className: 'folder', id: fid, l: ob.l, mbox: mbox, ftype: ftype });
+        li = new Element('LI', { className: 'folder', id: fid, l: label, mbox: mbox, ftype: ftype });
 
         div = new Element('DIV', { className: ob.cl || 'base', id: fid + '_div' });
         if (ob.i) {
@@ -1885,7 +1886,7 @@ var DimpBase = {
             div.writeAttribute({ className: 'exp' });
         }
 
-        li.insert(div).insert(new Element('A', { id: fid + '_label', title: ob.l }).insert(ob.l));
+        li.insert(div).insert(new Element('A', { id: fid + '_label', title: label }).insert(label));
 
         // Now walk through the parent <ul> to find the right place to
         // insert the new folder.
@@ -1899,7 +1900,7 @@ var DimpBase = {
             if (ob.s) {
                 parent_e = $('specialfolders');
             } else {
-                parent_e = $(this.getSubFolderId(this.getFolderId(ob.pa)));
+                parent_e = $(this.getSubFolderId(this.getFolderId(ob.pa || DIMP.conf.base_mbox)));
                 parent_e = parent_e ? parent_e.down() : $('normalfolders');
             }
 
