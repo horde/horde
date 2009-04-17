@@ -339,7 +339,7 @@ table.multipleMsgs td.msgheader {
     background: #f4f4f4;
     border: 1px solid #d4d4d4;
     position: absolute;
-    padding: 2px 2px 2px 2px;
+    padding: 2px;
 }
 .autocomplete ul {
     margin: 1px;
@@ -363,17 +363,14 @@ table.multipleMsgs td.msgheader {
 }
 
 /* SpellChecker styles. */
-.spellcheckChecking {
+.spellcheckChecking, .spellcheckIncorrect {
     color: #f00;
 }
-.spellcheckIncorrect {
+.spellcheckIncorrect, .spellcheckCorrected {
     text-decoration: underline;
     cursor: pointer;
-    color: #f00;
 }
 .spellcheckCorrected {
-    text-decoration: underline;
-    cursor: pointer;
     color: #090;
 }
 
@@ -444,7 +441,7 @@ ul.nav-audio {
 }
 #RB_loading {
     z-index: 101;
-    width: 66;
+    width: 66px;
     margin-left: auto;
     margin-right: auto;
     margin-top: 200px;
@@ -534,6 +531,9 @@ span.threadImg8 {
     width: 100%;
     margin-bottom: 3px;
 }
+.mimeStatusIcon {
+    width: 22px;
+}
 .mimeStatusWarning {
     border: 1px solid #800;
     background: #e81222;
@@ -554,7 +554,6 @@ span.threadImg8 {
 }
 .mimePartInfo img {
     vertical-align: bottom;
-    padding-right: 3px;
 }
 
 .mimeStatusMessage td, .mimeStatusWarning td, .mimePartInfo td {
@@ -571,8 +570,8 @@ span.threadImg8 {
     height: 16px;
     width: 16px;
     background: transparent center right no-repeat;
-    padding-left: 1px;
-    padding-right: 1px;
+    padding: 0 1px;
+    vertical-align: bottom;
 }
 .downloadAtc {
     background-image: url("graphics/download.png");
@@ -585,7 +584,4 @@ span.threadImg8 {
 }
 .stripAtc {
     background-image: url("graphics/delete.png");
-}
-.mimeStatusIcon {
-    width: 22px;
 }

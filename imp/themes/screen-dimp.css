@@ -642,11 +642,8 @@ div.dimpActionsCompose, div.dimpActionsMsg {
 .msgwrite .atcrow {
     line-height: 130%;
 }
-#to, #cc, #bcc {
+#to, #cc, #bcc, #subject {
     width: 100%;
-}
-#subject {
-    width: 40em;
 }
 
 .msgwrite td.autocompleteImg {

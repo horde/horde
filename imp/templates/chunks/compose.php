@@ -120,6 +120,7 @@ function _createDAcompose($text, $image, $id)
    <tr>
     <td class="label"><?php echo _("Subject: ") ?></td>
     <td class="subject"><input type="text" id="subject" name="subject" /></td>
+    <td></td>
    </tr>
    <tr class="atcrow">
     <td class="label"><span class="iconImg attachmentImg"></span>: </td>
