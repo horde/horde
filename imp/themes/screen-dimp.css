@@ -910,34 +910,34 @@ span.iconImg, span.contextImg, span.spellcheckPopdownImg {
 }
 
 span.dimpactionReply {
-    background-image: url("graphics/reply_menu.png");
+    background-image: url("graphics/reply.png");
 }
 span.dimpactionForward {
-    background-image: url("graphics/forward_menu.png");
+    background-image: url("graphics/forward.png");
 }
 span.dimpactionSpam {
-    background-image: url("graphics/spam_menu.png");
+    background-image: url("graphics/spam.png");
 }
 span.dimpactionHam {
-    background-image: url("graphics/ham_menu.png");
+    background-image: url("graphics/ham.png");
 }
 span.dimpactionCompose {
-    background-image: url("graphics/compose_menu.png");
+    background-image: url("graphics/compose.png");
 }
 span.dimpactionCheckmail {
-    background-image: url("graphics/checkmail_menu.png");
+    background-image: url("graphics/checkmail.png");
 }
 span.dimpactionDelete {
-    background-image: url("graphics/delete_menu.png");
+    background-image: url("graphics/delete.png");
 }
 span.dimpactionOther {
-    background-image: url("graphics/plus_menu.png");
+    background-image: url("graphics/plus.png");
 }
 span.dimpactionSpellcheck {
-    background-image: url("graphics/spellcheck_menu.png");
+    background-image: url("graphics/spellcheck.png");
 }
 span.dimpactionDrafts {
-    background-image: url("graphics/drafts_menu.png");
+    background-image: url("graphics/drafts.png");
 }
 
 /* Context menu images */
