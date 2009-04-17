@@ -251,7 +251,7 @@ class IMP_Views_ListMessages
             $msg = array(
                 'imapuid' => intval($ob['uid']),
                 'menutype' => 'message',
-                'rownum' => $ob['seq'],
+                'rownum' => intval($ob['seq']),
                 'view' => $ob['mailbox'],
             );
 

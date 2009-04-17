@@ -416,7 +416,7 @@ class DIMP
             $ob->cl = 'exp';
         } else {
             if ($elt['polled']) {
-                $ob->u = $elt['unseen'];
+                $ob->u = intval($elt['unseen']);
             }
 
             switch ($elt['special']) {

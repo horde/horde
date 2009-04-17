@@ -304,7 +304,7 @@ case 'Poll':
     $result->poll = array();
     foreach ($imptree->getPollList(true) as $val) {
         if ($info = $imptree->getElementInfo($val)) {
-            $result->poll[$val] = $info['unseen'];
+            $result->poll[$val] = intval($info['unseen']);
         }
     }
 
@@ -471,7 +471,7 @@ case 'ShowPreview':
     $ptr = each($indices);
     $args = array(
         'folder' => $ptr['key'],
-        'index' => reset($ptr['value']),
+        'index' => intval(reset($ptr['value'])),
         'preview' => true,
     );
 
