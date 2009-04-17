@@ -1040,6 +1040,7 @@ var DimpBase = {
     clearPreviewPane: function()
     {
         $('msgLoading', 'previewMsg').invoke('hide');
+        $('previewPane').scrollTop = 0;
         $('previewInfo').show();
         this.pp = null;
     },
