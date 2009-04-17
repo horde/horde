@@ -1876,8 +1876,6 @@ var DimpBase = {
             submbox = $(submboxid),
             ftype = ob.v ? (ob.co ? 'vcontainer' : 'virtual') : (ob.co ? 'container' : (ob.s ? 'special' : 'folder'));
 
-        li = new Element('LI', { className: 'folder', id: fid, l: label, mbox: mbox, ftype: ftype });
-
         div = new Element('DIV', { className: ob.cl || 'base', id: fid + '_div' });
         if (ob.i) {
             div.setStyle({ backgroundImage: 'url("' + ob.i + '")' });
@@ -1886,7 +1884,7 @@ var DimpBase = {
             div.writeAttribute({ className: 'exp' });
         }
 
-        li.insert(div).insert(new Element('A', { id: fid + '_label', title: label }).insert(label));
+        li = new Element('LI', { className: 'folder', id: fid, l: label, mbox: mbox, ftype: ftype }).insert(div).insert(new Element('A', { id: fid + '_label', title: label }).insert(label));
 
         // Now walk through the parent <ul> to find the right place to
         // insert the new folder.
