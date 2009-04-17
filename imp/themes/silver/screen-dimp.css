@@ -168,12 +168,6 @@ span.dimpactionDrafts {
 span.popdownImg, span.spellcheckPopdownImg {
     background-image: url("graphics/popdown.png");
 }
-span.keyupImg {
-    background-image: url("graphics/key_up.png");
-}
-span.keydownImg {
-    background-image: url("graphics/key_down.png");
-}
 span.readonlyImg {
     background-image: url("graphics/locked.png");
 }
