@@ -201,7 +201,7 @@ var DimpBase = {
             loc != 'options' &&
             $('appoptions') &&
             $('appoptions').hasClassName('on')) {
-            return DimpCore.redirect(DIMP.conf.URI_DIMP_INBOX);
+            return DimpCore.redirect(DIMP.conf.URI_DIMP + '#' + loc);
         }
 
         if (loc.startsWith('compose:')) {
@@ -265,7 +265,7 @@ var DimpBase = {
             this.highlightSidebar('appoptions');
             this._addHistory(loc);
             DimpCore.setTitle(DIMP.text.prefs);
-            this.iframeContent(loc, DIMP.conf.prefs_url);
+            this.iframeContent(loc, DIMP.conf.URI_PREFS_IMP);
             break;
         }
     },
@@ -338,7 +338,7 @@ var DimpBase = {
     msgWindow: function(r)
     {
         this.updateSeenUID(r, 1);
-        var url = DIMP.conf.message_url;
+        var url = DIMP.conf.URI_MESSAGE;
         url += (url.include('?') ? '&' : '?') +
                $H({ folder: r.view,
                     uid: r.imapuid }).toQueryString();
@@ -385,7 +385,7 @@ var DimpBase = {
     {
         this.viewport = new ViewPort({
             // Mandatory config
-            ajax_url: DIMP.conf.URI_IMP + '/ViewPort',
+            ajax_url: DIMP.conf.URI_AJAX + '/ViewPort',
             content: 'msgList',
             template: this.message_list_template,
 
@@ -1497,7 +1497,7 @@ var DimpBase = {
                 return;
 
             case 'fetchmaillink':
-                IMPDialog.display({ dialog_load: DIMP.conf.URI_IMP + '/FetchmailDialog' });
+                IMPDialog.display({ dialog_load: DIMP.conf.URI_AJAX + '/FetchmailDialog' });
                 e.stop();
                 return;
 

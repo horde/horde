@@ -308,9 +308,11 @@ $compose_result = IMP_Views_Compose::showCompose($args);
 $t->set('compose_html', $compose_result['html']);
 
 /* Javscript variables to be set immediately. */
-$compose_result['js'][] = 'DIMP.conf_compose.show_editor = ' . intval($show_editor);
+if ($show_editor) {
+    $compose_result['js'][] = 'DIMP.conf_compose.show_editor = 1';
+}
 if (Util::getFormData('popup')) {
-    $compose_result['js'][] = 'DIMP.conf_compose.popup = true';
+    $compose_result['js'][] = 'DIMP.conf_compose.popup = 1';
 }
 IMP::addInlineScript($compose_result['js']);
 

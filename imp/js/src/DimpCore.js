@@ -46,7 +46,8 @@ var DimpCore = {
             }
 
             var u = o.value.numericSort(),
-                first = last = u.shift(),
+                first = u.shift(),
+                last = first,
                 out = [];
 
             u.each(function(k) {
@@ -115,7 +116,7 @@ var DimpCore = {
         params = $H(params);
         action = action.startsWith('*')
             ? action.substring(1)
-            : DIMP.conf.URI_IMP + '/' + action;
+            : DIMP.conf.URI_AJAX + '/' + action;
 
         if (uids) {
             if (uids.viewport_selection) {
@@ -208,7 +209,7 @@ var DimpCore = {
 
             switch (m.type) {
             case 'dimp.timeout':
-                this.logout(DIMP.conf.timeout_url);
+                this.logout(DIMP.conf.URI_TIMEOUT);
                 return true;
 
             case 'horde.error':
@@ -233,7 +234,7 @@ var DimpCore = {
 
     compose: function(type, args)
     {
-        var url = DIMP.conf.compose_url;
+        var url = DIMP.conf.URI_COMPOSE;
         args = args || {};
         if (type) {
             args.type = type;
@@ -266,7 +267,7 @@ var DimpCore = {
     logout: function(url)
     {
         this.is_logout = true;
-        this.redirect(url || (DIMP.conf.URI_IMP + '/LogOut'));
+        this.redirect(url || (DIMP.conf.URI_AJAX + '/LogOut'));
     },
 
     redirect: function(url)

@@ -173,131 +173,121 @@ class DIMP
 
         /* Variables used in core javascript files. */
         $code['conf'] = array_filter(array(
-            'URI_DIMP_INBOX' => Horde::applicationUrl('index-dimp.php', true, -1),
-            'URI_IMP' => Horde::applicationUrl('ajax.php', true, -1),
+            // URL variables
+            'URI_AJAX' => Horde::applicationUrl('ajax.php', true, -1),
+            'URI_COMPOSE' => Horde::applicationUrl('compose-dimp.php'),
+            'URI_DIMP' => Horde::applicationUrl('index-dimp.php', true, -1),
+            'URI_MESSAGE' => Horde::applicationUrl('message-dimp.php'),
             'URI_PREFS' => Horde::url($horde_webroot . '/services/prefs/', true, -1),
+            'URI_PREFS_IMP' => str_replace('&amp;', '&', Horde::getServiceLink('options', 'imp')),
+            'URI_TIMEOUT' => Auth::addLogoutParameters($horde_webroot . '/login.php', AUTH_REASON_SESSION),
             'URI_VIEW' => Horde::applicationUrl('view.php', true, -1),
 
             'SESSION_ID' => defined('SID') ? SID : '',
 
+            // Other variables
             'app_urls' => $app_urls,
-            'timeout_url' => Auth::addLogoutParameters($horde_webroot . '/login.php', AUTH_REASON_SESSION),
-            'message_url' => Horde::applicationUrl('message-dimp.php'),
-            'compose_url' => Horde::applicationUrl('compose-dimp.php'),
-            'prefs_url' => str_replace('&amp;', '&', Horde::getServiceLink('options', 'imp')),
-
-            'sortthread' => Horde_Imap_Client::SORT_THREAD,
-            'sortdate' => Horde_Imap_Client::SORT_DATE,
-
-            'popup_width' => 820,
-            'popup_height' => 610,
-
-            'flags' => $flags,
-
-            'spam_mbox' => IMP::folderPref($prefs->getValue('spam_folder'), true),
-            'spam_spammbox' => intval(!empty($conf['spam']['spamfolder'])),
-            'ham_spammbox' => intval(!empty($conf['notspam']['spamfolder'])),
-            'refresh_time' => intval($prefs->getValue('refresh_time')),
-
+            'background_inbox' => intval(!empty($conf['dimp']['viewport']['background_inbox'])),
             'base_mbox' => IMP_Imap_Tree::BASE_ELT,
+            'buffer_pages' => intval($conf['dimp']['viewport']['buffer_pages']),
+            'debug' => intval(!empty($conf['dimp']['js']['debug'])),
+            'disable_compose' => intval(!empty($conf['hooks']['disable_compose']) && Horde::callHook('_imp_hook_disable_compose', array(), 'imp')),
             'fixed_folders' => empty($conf['server']['fixed_folders'])
                 ? array()
                 : array_map(array('DIMP', '_appendedFolderPref'), $conf['server']['fixed_folders']),
-
-            'disable_compose' => (!empty($conf['hooks']['disable_compose']) && Horde::callHook('_imp_hook_disable_compose', array(), 'imp')),
-
-            'name' => $registry->get('name', 'dimp'),
-
-            'preview_pref' => intval($prefs->getValue('dimp_show_preview')),
-            'toggle_pref' => intval($prefs->getValue('dimp_toggle_headers')),
-
+            'flags' => $flags,
+            'ham_spammbox' => intval(!empty($conf['notspam']['spamfolder'])),
             'is_ie6' => intval($browser->isBrowser('msie') && ($browser->getMajor() < 7)),
-
-            'buffer_pages' => intval($conf['dimp']['viewport']['buffer_pages']),
             'limit_factor' => intval($conf['dimp']['viewport']['limit_factor']),
-            'viewport_wait' => intval($conf['dimp']['viewport']['viewport_wait']),
             'login_view' => $prefs->getValue('dimp_login_view'),
-            'background_inbox' => intval(!empty($conf['dimp']['viewport']['background_inbox'])),
+            'name' => $registry->get('name', 'dimp'),
+            'popup_height' => 610,
+            'popup_width' => 820,
+            'preview_pref' => intval($prefs->getValue('dimp_show_preview')),
+            'refresh_time' => intval($prefs->getValue('refresh_time')),
+            'sortdate' => Horde_Imap_Client::SORT_DATE,
+            'sortthread' => Horde_Imap_Client::SORT_THREAD,
+            'spam_mbox' => IMP::folderPref($prefs->getValue('spam_folder'), true),
+            'spam_spammbox' => intval(!empty($conf['spam']['spamfolder'])),
             'splitbar_pos' => intval($prefs->getValue('dimp_splitbar')),
 
-            // Turn debugging on?
-            'debug' => intval(!empty($conf['dimp']['js']['debug'])),
+            'toggle_pref' => intval($prefs->getValue('dimp_toggle_headers')),
+            'viewport_wait' => intval($conf['dimp']['viewport']['viewport_wait']),
         ));
 
         /* Gettext strings used in core javascript files. */
-        $code['text'] = array_map('addslashes', array(
-            'portal' => ("Portal"),
-            'prefs' => _("User Options"),
-            'search' => _("Search"),
-            'message' => _("Message"),
-            'messages' => _("Messages"),
-            'of' => _("of"),
-            'nomessages' => _("No Messages"),
-            'ok' => _("Ok"),
-            'copyto' => _("Copy %s to %s"),
-            'moveto' => _("Move %s to %s"),
-            'baselevel' => _("base level of the folder tree"),
-            'cancel' => _("Cancel"),
-            'loading' => _("Loading..."),
-            'check' => _("Checking..."),
-            'verify' => _("Verifying..."),
-            'onlogout' => _("Logging Out..."),
+        $code['text'] = array(
+            'ajax_recover' => _("The connection to the server has been restored."),
+            'ajax_timeout' => _("There has been no contact with the server for several minutes. The server may be temporarily unavailable or network problems may be interrupting your session. You will not see any updates until the connection is restored."),
             'badaddr' => _("Invalid Address"),
             'badsubject' => _("Invalid Subject"),
-            'ajax_timeout' => _("There has been no contact with the remote server for several minutes. The server may be temporarily unavailable or network problems may be interrupting your session. You will not see any updates until the connection is restored."),
-            'ajax_recover' => _("The connection to the remote server has been restored."),
-            'listmsg_wait' => _("The server is still generating the message list."),
-            'listmsg_timeout' => _("The server was unable to generate the message list. Please try again later."),
-            'popup_block' => _("A popup window could not be opened. Your browser may be blocking popups."),
-            'hide_preview' => _("Hide Preview"),
-            'show_preview' => _("Show Preview"),
-            'rename_prompt' => _("Rename folder to:"),
+            'baselevel' => _("base level of the folder tree"),
+            'cancel' => _("Cancel"),
+            'check' => _("Checking..."),
+            'copyto' => _("Copy %s to %s"),
             'create_prompt' => _("Create folder:"),
             'createsub_prompt' => _("Create subfolder:"),
-            'empty_folder' => _("Permanently delete all messages in %s?"),
             'delete_folder' => _("Permanently delete %s?"),
+            'empty_folder' => _("Permanently delete all messages in %s?"),
+            'getmail' => Horde::highlightAccessKey(addslashes(_("_Get Mail")), Horde::getAccessKey(_("_Get Mail"), true)),
+            'hide_preview' => _("Hide Preview"),
             'hidealog' => _("Hide Alerts Log"),
+            'listmsg_wait' => _("The server is still generating the message list."),
+            'listmsg_timeout' => _("The server was unable to generate the message list."),
+            'loading' => _("Loading..."),
+            'message' => _("Message"),
+            'messages' => _("Messages"),
+            'moveto' => _("Move %s to %s"),
             'noalerts' => _("No Alerts"),
+            'nomessages' => _("No Messages"),
+            'of' => _("of"),
+            'ok' => _("Ok"),
+            'onlogout' => _("Logging Out..."),
+            'popup_block' => _("A popup window could not be opened. Your browser may be blocking popups."),
+            'portal' => ("Portal"),
+            'prefs' => _("User Options"),
+            'rename_prompt' => _("Rename folder to:"),
+            'search' => _("Search"),
+            'show_preview' => _("Show Preview"),
+            'showalog' => Horde::highlightAccessKey(addslashes(_("_Alerts Log")), Horde::getAccessKey(_("_Alerts Log"), true)),
+            'verify' => _("Verifying..."),
             'vp_empty' => _("There are no messages in this mailbox."),
             'vp_error' => _("Could not get message list from server."),
-        ));
-
-        /* Gettext strings with individual escaping. */
-        $code['text']['getmail'] = Horde::highlightAccessKey(addslashes(_("_Get Mail")), Horde::getAccessKey(_("_Get Mail"), true));
-        $code['text']['showalog'] = Horde::highlightAccessKey(addslashes(_("_Alerts Log")), Horde::getAccessKey(_("_Alerts Log"), true));
+        );
 
         if ($compose_mode) {
-            /* Variables used in compose page. */
             $compose_cursor = $GLOBALS['prefs']->getValue('compose_cursor');
+
+            /* Variables used in compose page. */
             $code['conf_compose'] = array_filter(array(
-                'rte_avail' => intval($browser->hasFeature('rte')),
-                'cc' => intval($prefs->getValue('compose_cc')),
-                'bcc' => intval($prefs->getValue('compose_bcc')),
                 'attach_limit' => ($conf['compose']['attach_count_limit'] ? intval($conf['compose']['attach_count_limit']) : -1),
+                'bcc' => intval($prefs->getValue('compose_bcc')),
+                'cc' => intval($prefs->getValue('compose_cc')),
                 'close_draft' => intval($prefs->getValue('close_draft')),
                 'compose_cursor' => ($compose_cursor ? $compose_cursor : 'top'),
+                'rte_avail' => intval($browser->hasFeature('rte')),
                 'spellcheck' => intval($prefs->getValue('compose_spellcheck')),
             ));
 
             if ($registry->hasMethod('contacts/search')) {
-                $code['conf_compose']['abook_url'] = Horde::applicationUrl('contacts.php');
+                $code['conf_compose']['URI_ABOOK'] = Horde::applicationUrl('contacts.php');
             }
 
             /* Gettext strings used in compose page. */
-            $code['text_compose'] = array_map('addslashes', array(
+            $code['text_compose'] = array(
+                'atc_limit' => _("The attachment limit has been reached."),
                 'cancel' => _("Cancelling this message will permanently discard its contents and will delete auto-saved drafts.\nAre you sure you want to do this?"),
-                 'nosubject' => _("The message does not have a Subject entered.") . "\n" . _("Send message without a Subject?"),
                 'fillform' => _("You have already changed the message body, are you sure you want to drop the changes?"),
+                'nosubject' => _("The message does not have a Subject entered.") . "\n" . _("Send message without a Subject?"),
                 'remove' => _("Remove"),
-                'uploading' => _("Uploading..."),
-                'attachment_limit' => _("The attachment limit has been reached."),
-                'sending' => _("Sending..."),
                 'saving' => _("Saving..."),
+                'sending' => _("Sending..."),
                 'toggle_html' => _("Really discard all formatting information? This operation cannot be undone."),
-            ));
+                'uploading' => _("Uploading..."),
+            );
         }
 
-        return array('var DIMP = ' . Horde_Serialize::serialize($code, Horde_Serialize::JSON, NLS::getCharset()) . ';');
+        return array('var DIMP = ' . Horde_Serialize::serialize($code, Horde_Serialize::JSON, NLS::getCharset()));
     }
 
     /**

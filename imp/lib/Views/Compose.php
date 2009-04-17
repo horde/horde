@@ -83,9 +83,12 @@ class IMP_Views_Compose
 
         $result['js'] = array(
             'DIMP.conf_compose.auto_save_interval_val = ' . intval($GLOBALS['prefs']->getValue('auto_save_drafts')),
-            'DIMP.conf_compose.identities = ' . Horde_Serialize::serialize($identities, Horde_Serialize::JSON),
-            'DIMP.conf_compose.qreply = ' . intval(!empty($args['qreply'])),
+            'DIMP.conf_compose.identities = ' . Horde_Serialize::serialize($identities, Horde_Serialize::JSON)
         );
+
+        if (!empty($args['qreply'])) {
+            $result['js'] = 'DIMP.conf_compose.qreply = 1';
+        }
 
         $compose_html = $rte = false;
         if ($_SESSION['imp']['rteavail']) {

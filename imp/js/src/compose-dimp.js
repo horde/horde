@@ -32,7 +32,7 @@ var DimpCompose = {
         } else if (DIMP.baseWindow || DIMP.conf_compose.popup) {
             DimpCore.closePopup();
         } else {
-            DimpCore.redirect(DIMP.conf.URI_DIMP_INBOX);
+            DimpCore.redirect(DIMP.conf.URI_DIMP);
         }
     },
 
@@ -198,7 +198,7 @@ var DimpCompose = {
             if (!DIMP.baseWindow) {
                 params.nonotify = true;
             }
-            DimpCore.doAction('*' + DIMP.conf.compose_url, params, null, this.uniqueSubmitCallback.bind(this));
+            DimpCore.doAction('*' + DIMP.conf.URI_COMPOSE, params, null, this.uniqueSubmitCallback.bind(this));
         }
     },
 
@@ -260,7 +260,7 @@ var DimpCompose = {
                 if (DIMP.conf_compose.attach_limit != -1 &&
                     $('attach_list').childElements().size() > DIMP.conf_compose.attach_limit) {
                     $('upload').writeAttribute('disabled', false);
-                    elt = new Element('DIV', [ DIMP.text_compose.attachment_limit ]);
+                    elt = new Element('DIV', [ DIMP.text_compose.atc_limit ]);
                 } else {
                     elt = new Element('INPUT', { type: 'file', name: 'file_1' });
                 }
@@ -637,7 +637,7 @@ var DimpCompose = {
     /* Open the addressbook window. */
     openAddressbook: function()
     {
-        window.open(DIMP.conf_compose.abook_url, 'contacts', 'toolbar=no,location=no,status=no,scrollbars=yes,resizable=yes,width=550,height=300,left=100,top=100');
+        window.open(DIMP.conf_compose.URI_ABOOK, 'contacts', 'toolbar=no,location=no,status=no,scrollbars=yes,resizable=yes,width=550,height=300,left=100,top=100');
     },
 
     /* Click observe handler. */
@@ -741,7 +741,7 @@ var DimpCompose = {
         }
 
         /* Add addressbook link formatting. */
-        if (DIMP.conf_compose.abook_url) {
+        if (DIMP.conf_compose.URI_ABOOK) {
             $('sendto', 'sendcc', 'sendbcc').each(function(a) {
                 a.down('TD.label SPAN').addClassName('composeAddrbook');
             });
