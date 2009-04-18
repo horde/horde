@@ -9,8 +9,8 @@
 
 var DimpBase = {
     // Vars used and defaulting to null/false:
-    //   cfolderaction, fl_visible, folder, folderswitch, offset, pollPE,
-    //   pp, sfolder, uid, viewport
+    //   cfolderaction, folder, folderswitch, offset, pollPE, pp, sfolder,
+    //   uid, viewport
     // message_list_template set via templates/javascript/mailbox.js
     bcache: $H(),
     cacheids: {},
@@ -587,14 +587,14 @@ var DimpBase = {
                 this.setSortColumns(ssc);
             }.bind(this),
             onDeselect: this._deselect.bind(this),
-            onEndFetch: this.msgListLoading.bind(this, false),
+            onEndFetch: this.loadingImg.bind(this, 'viewport', false),
             onFail: function() {
                 if ($('dimpmain_folder').visible()) {
                     DimpCore.showNotifications([ { type: 'horde.error', message: DIMP.text.listmsg_timeout } ]);
                 }
-                this.msgListLoading(false);
+                this.loadingImg('viewport', false);
             }.bind(this),
-            onFetch: this.msgListLoading.bind(this, true),
+            onFetch: this.loadingImg.bind(this, 'viewport', true),
             onSelect: this._select.bind(this),
             onSlide: this.setMessageListTitle.bind(this),
             onSplitBarChange: function() {
@@ -924,7 +924,7 @@ var DimpBase = {
             }
         }
 
-        $('msgLoading').clonePosition('splitBar', { setHeight: false, setWidth: false }).show();
+        this.loadingImg('msg', true);
 
         DimpCore.doAction('ShowPreview', params || {}, this.viewport.createSelection('dataob', this.pp), this.bcache.get('loadPC') || this.bcache.set('loadPC', this._loadPreviewCallback.bind(this)));
     },
@@ -1016,7 +1016,8 @@ var DimpBase = {
         }
 
         $('msgBody').update(r.msgtext);
-        $('msgLoading', 'previewInfo').invoke('hide');
+        this.loadingImg('msg', false);
+        $('previewInfo').hide();
         $('previewPane').scrollTop = 0;
         pm.show();
 
@@ -1039,7 +1040,8 @@ var DimpBase = {
 
     clearPreviewPane: function()
     {
-        $('msgLoading', 'previewMsg').invoke('hide');
+        this.loadingImg('msg', false);
+        $('previewMsg').hide();
         $('previewPane').scrollTop = 0;
         $('previewInfo').show();
         this.pp = null;
@@ -1723,7 +1725,7 @@ var DimpBase = {
     {
         var search = null, uids = [], vs;
 
-        this.msgListLoading(false);
+        this.loadingImg('viewport', false);
         this._pollCallback(r);
 
         r = r.response;
@@ -2049,7 +2051,7 @@ var DimpBase = {
         if (this._doMsgAction('ReportSpam', opts, { spam: spam })) {
             // Indicate to the user that something is happening (since spam
             // reporting may not be instantaneous).
-            this.msgListLoading(true);
+            this.loadingImg('viewport', true);
         }
     },
 
@@ -2203,21 +2205,18 @@ var DimpBase = {
         }
     },
 
-    msgListLoading: function(show)
+    loadingImg: function(id, show)
     {
         var c;
 
-        if (this.fl_visible != show) {
-            this.fl_visible = show;
-            if (show) {
-                $('viewportLoading').clonePosition('msgList', { setHeight: false, setWidth: false });
-                c = 'progress';
-            } else {
-                c = 'default';
-            }
-            $(document.body).setStyle({ cursor: c });
-            Effect.toggle('viewportLoading', 'appear', { duration: 0.2 });
+        if (show) {
+            $(id + 'Loading').clonePosition(id == 'viewport' ? 'msgList' : 'splitBar', { setHeight: false, setWidth: false }).show();
+            c = 'progress';
+        } else {
+            Effect.Fade(id + 'Loading', { duration: 0.2 });
+            c = 'default';
         }
+        $(document.body).setStyle({ cursor: c });
     },
 
     // p = (element) Parent element
