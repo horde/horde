@@ -122,7 +122,7 @@ function _getPollInformation($mbox)
     $elt = $imptree->get($mbox);
     if ($imptree->isPolled($elt)) {
         $info = $imptree->getElementInfo($mbox);
-        return array($mbox => isset($info['unseen']) ? $info['unseen'] : 0);
+        return array($mbox => isset($info['unseen']) ? intval($info['unseen']) : 0);
     }
     return array();
 }
@@ -277,11 +277,13 @@ case 'FlagAll':
         $result = new stdClass;
         $result->flags = $flags;
         $result->mbox = $mbox;
-        $result->set = intval($set);
+        if ($set) {
+            $result->set = 1;
+        }
 
         $poll = _getPollInformation($mbox);
         if (!empty($poll)) {
-            $result->poll = array($mbox => $poll[$mbox]['u']);
+            $result->poll = array($mbox => $poll[$mbox]);
         }
     }
     break;

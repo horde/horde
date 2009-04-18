@@ -1783,7 +1783,7 @@ var DimpBase = {
                     this.updateFlag(this.viewport.createSelection('rownum', $A($R(1, this.viewport.getMetaData('total_rows')))), f, r.response.set);
                 }, this);
             }
-            this.setFolderLabel(r.response.mbox, r.response.u);
+            this._pollCallback(r);
         }
     },
 
