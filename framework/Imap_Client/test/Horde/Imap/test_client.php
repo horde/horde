@@ -71,7 +71,7 @@ if (empty($params['username'])) {
 if (empty($params['password'])) {
     $params['password'] = $argv[2];
 }
-if (empty($argv[2])) {
+if (empty($params['password'])) {
     exit("Need password. Exiting.\n");
 }
 
