@@ -163,7 +163,7 @@ class IMP_Views_ListMessages
         foreach (range($slice_start, $slice_end) as $key) {
             $uid = $sorted_list['s'][$key] .
                 (isset($sorted_list['m'][$key]['m'])
-                    ? $sorted_list['m'][$key]['m']
+                    ? IMP::IDX_SEP . $sorted_list['m'][$key]['m']
                     : '');
             if ($uid) {
                 $msglist[$key] = $sorted_list['s'][$key];
@@ -186,8 +186,7 @@ class IMP_Views_ListMessages
             foreach ($rowlist as $key => $val) {
                 $slice_data[$key] = array(
                     'imapuid' => intval($sorted_list['s'][$val]),
-                    'mailbox' => isset($sorted_list['m'][$val]['m']) ? $sorted_list['m'][$val]['m'] : $mbox,
-                    'rownum' => $val
+                    'mailbox' => isset($sorted_list['m'][$val]['m']) ? $sorted_list['m'][$val]['m'] : $mbox
                 );
             }
             $slice->data = $slice_data;
@@ -251,7 +250,6 @@ class IMP_Views_ListMessages
             $msg = array(
                 'imapuid' => intval($ob['uid']),
                 'menutype' => 'message',
-                'rownum' => intval($ob['seq']),
                 'view' => $ob['mailbox'],
             );
 
@@ -305,7 +303,7 @@ class IMP_Views_ListMessages
             /* Need both UID and mailbox to create a unique ID string if
              * using a search mailbox.  Otherwise, use only the UID. */
             if ($search) {
-                $msgs[$ob['uid'] . $ob['mailbox']] = $msg;
+                $msgs[$ob['uid'] . IMP::IDX_SEP . $ob['mailbox']] = $msg;
             } else {
                 $msgs[$ob['uid']] = $msg;
             }
