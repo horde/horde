@@ -15,4 +15,7 @@
  */
 abstract class Horde_Vfs_Adapter_Db_Base
 {
+    /**
+     * Store a version number for each file (for optimistic concurrency, etc).
+     */
 }
