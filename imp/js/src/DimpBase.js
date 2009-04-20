@@ -1834,23 +1834,29 @@ var DimpBase = {
     _toggleSubFolder: function(base, mode)
     {
         base = $(base);
-        var opts = {
+
+        var s,
+            id = base.readAttribute('id'),
+            opts = {
                 duration: 0.2,
                 queue: {
                     position: 'end',
                     scope: 'subfolder',
                     limit: 2
                 }
-            },
-            s = $(this.getSubFolderId(base.readAttribute('id')));
+            };
+
+        /* Strip off the specialContainer suffix. */
+        if (base.hasClassName('specialContainer')) {
+            id = id.slice(0, -8);
+        }
+
+        s = $(this.getSubFolderId(id));
 
         if (s &&
             (mode == 'tog' ||
              (mode == 'exp' && !s.visible()) ||
              (mode == 'col' && s.visible()))) {
-            if (base.descendantOf('specialfolders')) {
-                opts.afterFinish = this._sizeFolderlist;
-            }
             base.firstDescendant().toggleClassName('exp').toggleClassName('col');
             Effect.toggle(s, 'blind', opts);
         }
@@ -1860,20 +1866,38 @@ var DimpBase = {
     // For format of the ob object, see DIMP::_createFolderElt().
     createFolder: function(ob)
     {
-        var div, f_node, li, ll, parent_e,
+        var div, f_node, ftype, li, ll, parent_e, tmp,
+            cname = 'folder',
             fid = this.getFolderId(ob.m),
             label = ob.l || ob.m,
             mbox = decodeURIComponent(ob.m),
             submboxid = this.getSubFolderId(fid),
             submbox = $(submboxid),
-            ftype = ob.v ? (ob.co ? 'vcontainer' : 'virtual') : (ob.co ? 'container' : (ob.s ? 'special' : 'folder'));
+            title = mbox;
 
-        div = new Element('DIV', { className: 'iconDiv ' + (ob.ch ? 'exp' : (ob.cl || 'base')), id: fid + '_div' });
+        if (ob.v) {
+            ftype = ob.co ? 'vcontainer' : 'virtual';
+            title = label;
+        } else if (ob.co) {
+            ftype = 'container';
+
+            /* This is a dummy container element to display child elements of
+             * a mailbox displayed in the 'specialfolders' section. */
+            if (ob.s) {
+                fid += '_special';
+                ob.s = false;
+                cname += ' specialContainer';
+            }
+        } else {
+            ftype = ob.s ? 'special' : 'folder';
+        }
+
+        div = new Element('DIV', { className: 'iconDiv', id: fid + '_div' });
         if (ob.i) {
             div.setStyle({ backgroundImage: 'url("' + ob.i + '")' });
         }
 
-        li = new Element('LI', { className: 'folder', id: fid, l: label, mbox: mbox, ftype: ftype }).insert(div).insert(new Element('A', { id: fid + '_label', title: label }).insert(label));
+        li = new Element('LI', { className: cname, id: fid, l: label, mbox: mbox }).insert(div).insert(new Element('A', { id: fid + '_label', title: title }).insert(label));
 
         // Now walk through the parent <ul> to find the right place to
         // insert the new folder.
@@ -1881,14 +1905,27 @@ var DimpBase = {
             if (submbox.insert({ before: li }).visible()) {
                 // If an expanded parent mailbox was deleted, we need to toggle
                 // the icon accordingly.
-                div.removeClassName('exp').addClassName('col');
+                div.addClassName('col');
             }
         } else {
+            div.addClassName(ob.ch ? 'exp' : (ob.cl || 'base'));
+
             if (ob.s) {
                 parent_e = $('specialfolders');
+
+                /* Create a dummy container element in 'normalfolders'
+                 * section. */
+                if (ob.ch) {
+                    div.removeClassName('exp').addClassName(ob.cl || 'base');
+
+                    tmp = Object.clone(ob);
+                    tmp.co = true;
+                    this.createFolder(tmp);
+                }
             } else {
-                parent_e = $(this.getSubFolderId(this.getFolderId(ob.pa || DIMP.conf.base_mbox)));
-                parent_e = parent_e ? parent_e.down() : $('normalfolders');
+                parent_e = (ob.pa == DIMP.conf.base_mbox)
+                    ? $('normalfolders')
+                    : $(this.getSubFolderId(this.getFolderId(ob.pa))).down();
             }
 
             ll = mbox.toLowerCase();
@@ -1906,10 +1943,12 @@ var DimpBase = {
             }
 
             // Make sure the sub<mbox> ul is created if necessary.
-            if (ob.ch) {
+            if (!ob.s && ob.ch) {
                 li.insert({ after: new Element('LI', { className: 'subfolders', id: submboxid }).insert(new Element('UL')).hide() });
             }
         }
+
+        li.writeAttribute('ftype', ftype);
 
         // Make the new folder a drop target.
         if (!ob.v) {
@@ -1923,24 +1962,18 @@ var DimpBase = {
         }
 
         switch (ftype) {
-        case 'container':
-        case 'folder':
-            new Drag(li, this._folderDragConfig);
-            break;
-
         case 'special':
             // For purposes of the contextmenu, treat special folders
             // like regular folders.
             ftype = 'folder';
-            break;
+            // Fall through.
 
-        case 'vcontainer':
-        case 'virtual':
-            li.observe('contextmenu', Event.stop);
+        case 'container':
+        case 'folder':
+            new Drag(li, this._folderDragConfig);
+            this._addMouseEvents({ id: fid, type: ftype });
             break;
         }
-
-        this._addMouseEvents({ id: fid, type: ftype });
     },
 
     deleteFolder: function(folder)

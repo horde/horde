@@ -2,6 +2,8 @@
 v5.0-git
 --------
 
+[mms] Move subfolders of special folders to lower folder display tree in
+      DIMP (Bug #8127).
 [mms] Simplify quicksearch UI in DIMP.
 [mms] Improve notification display (DIMP).
 [mms] Use mailbox names in folder confirmation actions (DIMP) (Request #8162).
