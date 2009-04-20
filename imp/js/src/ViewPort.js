@@ -967,7 +967,7 @@ var ViewPort = Class.create({
         this.split_bar.observe('dblclick', function() {
             var old_size = this.page_size;
             this.page_size = this.getPageSize('default');
-            this._renderViewport();
+            this._onResize(true);
             if (this.opts.onSplitBarChange &&
                 old_size != this.page_size) {
                 this.opts.onSplitBarChange();
