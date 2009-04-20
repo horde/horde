@@ -63,6 +63,32 @@ class Horde_View_Helper_Form extends Horde_View_Helper_Base
         return new $builder($objectName, $object, $this->_view, $options);
     }
 
+    /**
+     * Returns a label tag tailored for labelling an input field for a specified
+     * attribute (identified by +method+) on an object assigned to the template
+     * (identified by +object+). The text of label will default to the attribute
+     * name unless you specify it explicitly. Additional options on the label
+     * tag can be passed as a hash with +options+. These options will be tagged
+     * onto the HTML as an HTML element attribute as in the example shown.
+     *
+     * ==== Examples
+     *   label(:post, :title)
+     *   # => <label for="post_title">Title</label>
+     *
+     *   label(:post, :title, "A short title")
+     *   # => <label for="post_title">A short title</label>
+     *
+     *   label(:post, :title, "A short title", :class => "title_label")
+     *   # => <label for="post_title" class="title_label">A short title</label>
+     */
+    public function label($objectName, $method, $text, $options = array())
+    {
+        $object = isset($options['object']) ? $options['object'] : null;
+        unset($options['object']);
+        $tag = new $this->_instanceTag($objectName, $method, $this->_view, $object);
+        return $tag->toLabelTag($text, $options);
+    }
+
     public function textField($objectName, $method, $options = array())
     {
         $object = isset($options['object']) ? $options['object'] : null;
