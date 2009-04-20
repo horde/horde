@@ -55,6 +55,39 @@
  * onSplitBarChange
  * onWait
  *
+ * Outgoing AJAX request has the following params (TODO):
+ * ------------------------------------------------------
+ * For a row request:
+ *   request_id: (integer) TODO
+ *   rownum: (integer) TODO
+ *   slice: (string)
+ *
+ * For a search request:
+ *   request_id: (integer) TODO
+ *   search: (JSON object)
+ *   search_after: (integer)
+ *   search_before: (integer)
+ *
+ * For a rangeslice request:
+ *   rangeslice: (boolean)
+ *   slice: (string)
+ *
+ * Incoming AJAX response has the following params (TODO):
+ * -------------------------------------------------------
+ * cacheid
+ * data
+ * label
+ * metadata (optional)
+ * request_id
+ * rangelist: TODO
+ * reset (optional) - If set, purges all cached data
+ * resetmd (optional) - If set, purges all user metadata
+ * rowlist
+ * rownum (optional)
+ * totalrows
+ * update (optional) - If set, update the rowlist instead of overwriting it.
+ * view
+ *
  * Requires prototypejs 1.6+, DimpSlider.js, scriptaculous 1.8+ (effects.js
  * only), and Horde's dragdrop2.js.
  *
@@ -363,33 +396,26 @@ var ViewPort = Class.create({
 
         var limit = this._getBuffer().isNearingLimit(offset);
         if (limit) {
-            this._fetchBuffer({ offset: offset, background: true, nearing: limit });
+            this._fetchBuffer({
+                background: true,
+                nearing: limit,
+                offset: offset
+            });
         }
 
         return true;
     },
 
-    // opts = (object) The following parameters are used
-    // One of the following:
+    // opts = (object) The following parameters:
+    // One of the following is REQUIRED:
     //   offset: (integer) Value of offset
     //   search: (object) List of search keys/values
     //
-    // Optional:
+    // OPTIONAL:
     //   background: (boolean) Do fetch in background
-    //   purge: (boolean) TODO
     //   nearing: (string) TODO [only used w/offset]
     //   params: (object) Parameters to add to outgoing URL
-    //   rowlist: (object) TODO
     //   view: (string) The view to retrieve. Defaults to current view.
-    //
-    // Outgoing request has the following params:
-    //   rownum: (integer) TODO
-    //   request_id: (integer) TODO
-    //   rows: (JSON array) TODO [optional]
-    //
-    //   search: (JSON object)
-    //   search_after: (integer)
-    //   search_before: (integer)
     _fetchBuffer: function(opts)
     {
         if (this.isbusy) {
@@ -634,21 +660,7 @@ var ViewPort = Class.create({
         }
     },
 
-    // r = (Object) viewport response object. Properties:
-    //     cacheid
-    //     data
-    //     label
-    //     metadata (optional)
-    //     partial (optional) - TODO
-    //     request_id
-    //     reset (optional) - If set, purges all cached data
-    //     resetmd (optional) - If set, purges all user metadata
-    //     rowlist
-    //     rownum (optional)
-    //     totalrows
-    //     update (optional) - If set, update the rowlist instead of
-    //                         overwriting it.
-    //     view
+    // r = (Object) viewport response object
     _ajaxResponse: function(r)
     {
         if (this.isbusy) {
