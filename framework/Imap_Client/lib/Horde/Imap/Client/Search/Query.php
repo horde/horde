@@ -429,7 +429,7 @@ class Horde_Imap_Client_Search_Query
             $this->_search['date'] = array();
         }
         $this->_search['date'][$header ? 'header' : 'internal'] = array(
-            'date' => $date->format('d-M-y'),
+            'date' => $date->format('d-M-Y'),
             'range' => $range,
             'not' => $not
         );
