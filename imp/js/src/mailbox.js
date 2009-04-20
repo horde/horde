@@ -16,13 +16,7 @@ var ImpMailbox = {
 
     selectRow: function(id, select)
     {
-        if (select) {
-            id.addClassName('selectedRow');
-        } else {
-            // Make sure to remove both regular and -over versions.
-            id.removeClassName('selectedRow').removeClassName('selectedRow-over');
-        }
-
+        [ id ].invoke(select ? 'addClassName' : 'removeClassName', 'selectedRow');
         id.down('INPUT.checkbox').setValue(select);
     },
 
@@ -272,7 +266,7 @@ var ImpMailbox = {
     {
         var elt = e.element(),
             key = e.keyCode,
-            loc, search;
+            loc, search, tmp;
 
         if (e.altKey || e.ctrlKey) {
             if (!(key == Event.KEY_UP || key == Event.KEY_DOWN)) {
@@ -304,16 +298,15 @@ var ImpMailbox = {
                     break;
                 }
             } else {
-                search = Event.KEY_DOWN ? 'first' : 'last';
+                search = key == Event.KEY_DOWN ? 'first' : 'last';
             }
 
             if (search) {
-                this.cursor = (search == 'first')
-                    ? $('messages').select('TABLE.messageList TR[id]').first()
-                    : $('messages').select('TABLE.messageList TR[id]').last();
+                tmp = $('messages').select('TABLE.messageList TR[id]');
+                this.cursor = (search == 'first') ? tmp.first() : tmp.last();
             }
 
-            this.cursor.down('TD a.mboxSubject').focus();
+            this.cursor.down('TD A.mboxSubject').focus();
         } else if (key == 32 && this.cursor) {
             this.selectRow(this.cursor, !$F(this.cursor.down('INPUT.checkbox')));
         } else if (!e.shiftKey) {
