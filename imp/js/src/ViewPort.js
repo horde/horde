@@ -43,7 +43,7 @@
  * onAjaxResponse
  * onCachedList
  * onCacheUpdate
- * onClearRows
+ * onClear
  * onContent
  * onContentComplete
  * onDeselect
@@ -90,7 +90,7 @@ var ViewPort = Class.create({
         this.split_bar_loc = opts.page_size;
         this.show_split_pane = opts.show_split_pane;
 
-        this.isbusy = this.line_height = this.page_size = this.split_bar = this.viewport_init = null;
+        this.isbusy = this.line_height = this.page_size = this.split_bar = null;
         this.request_num = 1;
 
         // Init empty string now.
@@ -98,6 +98,8 @@ var ViewPort = Class.create({
 
         // Set up AJAX response function.
         this.ajax_response = this.opts.onAjaxResponse || this._ajaxRequestComplete.bind(this);
+
+        Event.observe(window, 'resize', this.onResize.bind(this));
     },
 
     // view = ID of view.
@@ -132,16 +134,13 @@ var ViewPort = Class.create({
         if (background) {
             opts = { background: true, view: view };
         } else {
-            this.view = view;
-            if (!this.viewport_init) {
-                this.viewport_init = 1;
-                this._renderViewport();
+            if (!this.view) {
+                this.onResize(true);
             }
+            this.view = view;
         }
 
-        curr = this.views[view];
-
-        if (curr) {
+        if (curr = this.views[view]) {
             this._updateContent(curr.getMetaData('offset') || 0, opts);
             if (!background) {
                 this._ajaxRequest({ checkcache: 1, rownum: this.currentOffset() + 1 });
@@ -150,8 +149,8 @@ var ViewPort = Class.create({
         }
 
         if (!init) {
-            if (this.opts.onClearRows) {
-                this.opts.onClearRows(this.visibleRows());
+            if (this.opts.onClear) {
+                this.opts.onClear(this.visibleRows());
             }
             this.opts.content.update();
             this.scroller.clear();
@@ -164,6 +163,7 @@ var ViewPort = Class.create({
         } else {
             opts.offset = 0;
         }
+
         this._fetchBuffer(opts);
     },
 
@@ -174,7 +174,7 @@ var ViewPort = Class.create({
     },
 
     // rownum = (integer) Row number
-    // opts = (Object) [noupdate, top]
+    // opts = (Object) [noupdate, top] TODO
     scrollTo: function(rownum, opts)
     {
         var s = this.scroller;
@@ -213,7 +213,11 @@ var ViewPort = Class.create({
     // params = TODO
     reload: function(params)
     {
-        this._fetchBuffer({ offset: this.currentOffset(), purge: true, params: params });
+        this._fetchBuffer({
+            offset: this.currentOffset(),
+            params: params,
+            purge: true
+        });
     },
 
     // vs = (Viewport_Selection) A Viewport_Selection object.
@@ -229,8 +233,8 @@ var ViewPort = Class.create({
             return;
         }
 
-        opts = opts || {};
         this.isbusy = true;
+        opts = opts || {};
 
         var args,
             i = 0,
@@ -249,7 +253,7 @@ var ViewPort = Class.create({
             // Set 'to' to a value slightly above 0 to prevent Effect.Fade
             // from auto hiding.  Hiding is unnecessary, since we will be
             // removing from the document shortly.
-            args = { duration: 0.3, to: 0.01 };
+            args = { duration: 0.25, to: 0.01 };
             visible.each(function(v) {
                 if (++i == vsize) {
                     args.afterFinish = this._removeids.bind(this, vs, opts);
@@ -267,8 +271,8 @@ var ViewPort = Class.create({
     {
         this._getBuffer(opts.view).setMetaData({ total_rows: this.getMetaData('total_rows', opts.view) - vs.size() }, true);
 
-        if (this.opts.onClearRows) {
-            this.opts.onClearRows(vs.get('div').compact());
+        if (this.opts.onClear) {
+            this.opts.onClear(vs.get('div').compact());
         }
 
         this._getBuffer().remove(vs.get('rownum'));
@@ -284,12 +288,10 @@ var ViewPort = Class.create({
         this.isbusy = false;
     },
 
-    // noupdate = (boolean) TODO
     // nowait = (boolean) TODO
-    onResize: function(noupdate, nowait)
+    onResize: function(nowait)
     {
-        if (!this.opts.content.visible() ||
-            !this.visibleRows().size()) {
+        if (!this.opts.content.visible()) {
             return;
         }
 
@@ -298,24 +300,73 @@ var ViewPort = Class.create({
         }
 
         if (nowait) {
-            this._renderViewport(noupdate);
+            this._onResize();
         } else {
-            this.resizefunc = this._renderViewport.bind(this, noupdate).delay(0.1);
+            this.resizefunc = this._onResize.bind(this).delay(0.1);
         }
+    },
+
+    _onResize: function()
+    {
+        // This is needed for IE 6 - or else horizontal scrolling can occur.
+        if (!this.opts.content.offsetHeight) {
+            return this._onResize.bind(this).defer();
+        }
+
+        var diff, h, setpane,
+            c = $(this.opts.content),
+            de = document.documentElement,
+            lh = this._getLineHeight();
+
+        // Get split pane dimensions
+        if (this.opts.split_pane) {
+            if (this.show_split_pane) {
+                if (!this.opts.split_pane.visible()) {
+                    this._initSplitBar();
+                    if (this.split_bar_loc &&
+                        this.split_bar_loc > 0) {
+                        this.split_bar_loc = this.page_size = Math.min(this.split_bar_loc, this.getPageSize('splitmax'));
+                    } else {
+                        this.page_size = this.getPageSize('default');
+                    }
+                }
+                setpane = true;
+            } else if (this.opts.split_pane.visible()) {
+                this.split_bar_loc = this.page_size;
+                [ this.opts.split_pane, this.split_bar ].invoke('hide');
+            }
+        }
+
+        if (!setpane) {
+            this.page_size = this.getPageSize('max');
+        }
+
+        // Do some magic to ensure we never cause a horizontal scroll.
+        h = lh * this.page_size;
+        c.setStyle({ height: h + 'px' });
+        if (setpane) {
+            this.opts.split_pane.setStyle({ height: (this._getMaxHeight() - h - lh) + 'px' }).show();
+            this.split_bar.show();
+        } else if (diff = de.scrollHeight - de.clientHeight) {
+            c.setStyle({ height: (lh * (this.page_size - 1)) + 'px' });
+        }
+
+        this.scroller.onResize();
     },
 
     // offset = (integer) TODO
     requestContentRefresh: function(offset)
     {
-        if (this._updateContent(offset)) {
-            var limit = this._getBuffer().isNearingLimit(offset);
-            if (limit) {
-                this._fetchBuffer({ offset: offset, background: true, nearing: limit });
-            }
-            return true;
+        if (!this._updateContent(offset)) {
+            return false;
         }
 
-        return false;
+        var limit = this._getBuffer().isNearingLimit(offset);
+        if (limit) {
+            this._fetchBuffer({ offset: offset, background: true, nearing: limit });
+        }
+
+        return true;
     },
 
     // opts = (object) The following parameters are used
@@ -342,14 +393,13 @@ var ViewPort = Class.create({
     _fetchBuffer: function(opts)
     {
         if (this.isbusy) {
-            this._fetchBuffer.bind(this, opts).defer();
-            return;
+            return this._fetchBuffer.bind(this, opts).defer();
         }
 
         this.isbusy = true;
 
         // Only call onFetch() if we are loading in foreground.
-        if (this.opts.onFetch && !opts.background) {
+        if (!opts.background && this.opts.onFetch) {
             this.opts.onFetch();
         }
 
@@ -378,14 +428,17 @@ var ViewPort = Class.create({
             value = opts.search;
             tmp = this._lookbehind(view);
 
-            params.update({ search_before: tmp, search_after: b.bufferSize() - tmp });
+            params.update({
+                search_after: b.bufferSize() - tmp,
+                search_before: tmp
+            });
         } else {
             type = 'rownum';
             value = opts.offset + 1;
 
             // This gets the list of rows needed which do not already appear
             // in the buffer.
-            allrows = b.getAllRows(true);
+            allrows = b.getAllRows();
             tmp = opts.rowlist || this._getSliceBounds(value, opts.nearing, view);
             rlist = $A($R(tmp.start, tmp.end)).diff(allrows);
 
@@ -697,8 +750,8 @@ var ViewPort = Class.create({
             page_size = this.getPageSize(),
             rows;
 
-        if (this.opts.onClearRows) {
-            this.opts.onClearRows(c.childElements());
+        if (this.opts.onClear) {
+            this.opts.onClear(c.childElements());
         }
 
         this.scroller.updateSize();
@@ -749,8 +802,8 @@ var ViewPort = Class.create({
     {
         var d = $(row.domid);
         if (d) {
-            if (this.opts.onClearRows) {
-                this.opts.onClearRows([ d ]);
+            if (this.opts.onClear) {
+                this.opts.onClear([ d ]);
             }
 
             d.replace(this.prepareRow(row));
@@ -867,61 +920,7 @@ var ViewPort = Class.create({
     showSplitPane: function(show)
     {
         this.show_split_pane = show;
-        this.onResize(false, true);
-    },
-
-    _renderViewport: function(noupdate)
-    {
-        if (!this.viewport_init) {
-            return;
-        }
-
-        // This is needed for IE 6 - or else horizontal scrolling can occur.
-        if (!this.opts.content.offsetHeight) {
-            return this._renderViewport.bind(this, noupdate).defer();
-        }
-
-        var diff, h, setpane,
-            c = $(this.opts.content),
-            de = document.documentElement,
-            lh = this._getLineHeight();
-
-        // Get split pane dimensions
-        if (this.opts.split_pane) {
-            if (this.show_split_pane) {
-                if (!this.opts.split_pane.visible()) {
-                    this._initSplitBar();
-                    if (this.split_bar_loc &&
-                        this.split_bar_loc > 0) {
-                        this.split_bar_loc = this.page_size = Math.min(this.split_bar_loc, this.getPageSize('splitmax'));
-                    } else {
-                        this.page_size = this.getPageSize('default');
-                    }
-                }
-                setpane = true;
-            } else if (this.opts.split_pane.visible()) {
-                this.split_bar_loc = this.page_size;
-                [ this.opts.split_pane, this.split_bar ].invoke('hide');
-            }
-        }
-
-        if (!setpane) {
-            this.page_size = this.getPageSize('max');
-        }
-
-        // Do some magic to ensure we never cause a horizontal scroll.
-        h = lh * this.page_size;
-        c.setStyle({ height: h + 'px' });
-        if (setpane) {
-            this.opts.split_pane.setStyle({ height: (this._getMaxHeight() - h - lh) + 'px' }).show();
-            this.split_bar.show();
-        } else if (diff = de.scrollHeight - de.clientHeight) {
-            c.setStyle({ height: (lh * (this.page_size - 1)) + 'px' });
-        }
-
-        if (!noupdate) {
-            this.scroller.onResize();
-        }
+        this.onResize(true);
     },
 
     _initSplitBar: function()
@@ -958,7 +957,7 @@ var ViewPort = Class.create({
             }.bind(this),
             onEnd: function() {
                 this.page_size = this.sp.lines;
-                this.onResize(false, true);
+                this.onResize(true);
                 if (this.opts.onSplitBarChange &&
                     this.sp.orig != this.sp.lines) {
                     this.opts.onSplitBarChange();
@@ -1280,10 +1279,9 @@ ViewPort_Buffer = Class.create({
         return nopartial ? u.diff(this.partial.keys()) : u;
     },
 
-    getAllRows: function(nopartial)
+    getAllRows: function()
     {
-        var r = this.rowlist.keys();
-        return nopartial ? this.rowsToUIDs(r, true) : r;
+        return this.rowsToUIDs(this.rowlist.keys(), true);
     },
 
     rowsToUIDs: function(rows, nopartial)

@@ -434,12 +434,8 @@ var DimpBase = {
             onCacheUpdate: function(id) {
                 delete this.cacheids[id];
             }.bind(this),
-            onClearRows: function(r) {
-                r.each(function(row) {
-                    if (row.readAttribute('id')) {
-                        this._removeMouseEvents(row);
-                    }
-                }, this);
+            onClear: function(r) {
+                r.each(this._removeMouseEvents.bind(this));
             }.bind(this),
             onContent: function(row) {
                 var bg, re, u,
@@ -629,11 +625,14 @@ var DimpBase = {
     _removeMouseEvents: function(elt)
     {
         var d, id = $(elt).readAttribute('id');
-        if (id && (d = DragDrop.Drags.getDrag(id))) {
-            d.destroy();
-        }
 
-        DimpCore.DMenu.removeElement($(elt).identify());
+        if (id) {
+            if (d = DragDrop.Drags.getDrag(id)) {
+                d.destroy();
+            }
+
+            DimpCore.DMenu.removeElement(id);
+        }
     },
 
     contextOnClick: function(parentfunc, elt, baseelt, menu)
@@ -786,14 +785,6 @@ var DimpBase = {
             parentfunc(ctx_id, baseelt);
             break;
         }
-    },
-
-    onResize: function()
-    {
-        if (this.viewport) {
-            this.viewport.onResize(false, false);
-        }
-        this._resizeIE6();
     },
 
     updateTitle: function()
@@ -2242,7 +2233,6 @@ var DimpBase = {
 
         /* Register global handlers now. */
         document.observe('keydown', this.keydownHandler.bindAsEventListener(this));
-        Event.observe(window, 'resize', this.onResize.bind(this, false, false));
 
         /* Limit to folders sidebar only. */
         $('foldersSidebar').observe('mouseover', this.mouseoverHandler.bindAsEventListener(this));
@@ -2317,6 +2307,7 @@ var DimpBase = {
         if (DIMP.conf.is_ie6) {
             /* Disable text selection in preview pane for IE 6. */
             document.observe('selectstart', Event.stop);
+            Event.observe(window, 'resize', this._resizeIE6.bind(this));
 
             /* Since IE 6 doesn't support hover over non-links, use javascript
              * events to replicate mouseover CSS behavior. */
