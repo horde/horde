@@ -175,21 +175,11 @@ class IMP_Views_ListMessages
         }
         $result->rowlist = $rowlist;
 
-        /* Build the overview list for slice information. */
+        /* Build the list for rangeslice information. */
         if ($args['rangeslice']) {
             $slice = new stdClass;
+            $slice->rangelist = array_keys($rowlist);
             $slice->view = $mbox;
-            $slice->partial = 1;
-            $slice->rowlist = $rowlist;
-
-            $slice_data = array();
-            foreach ($rowlist as $key => $val) {
-                $slice_data[$key] = array(
-                    'imapuid' => intval($sorted_list['s'][$val]),
-                    'mailbox' => isset($sorted_list['m'][$val]['m']) ? $sorted_list['m'][$val]['m'] : $mbox
-                );
-            }
-            $slice->data = $slice_data;
 
             return $slice;
         }

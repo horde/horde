@@ -416,7 +416,7 @@ var DimpBase = {
             onCachedList: function(id) {
                 var tmp, vs;
                 if (!this.cacheids[id]) {
-                    vs = this.viewport.getSelection(id, true);
+                    vs = this.viewport.getSelection(id);
                     if (!vs.size()) {
                         return '';
                     }
