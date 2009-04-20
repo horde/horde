@@ -38,6 +38,7 @@ class Horde_Controller_Request_Cli extends Horde_Controller_Request_Base
 
         $parser = new Horde_Argv_Parser(array(
             'allowUnknownArgs' => true,
+            'addHelpOption' => false,
         ));
         list($this->_argv, $args) = $parser->parseArgs();
         if (!count($args)) {
