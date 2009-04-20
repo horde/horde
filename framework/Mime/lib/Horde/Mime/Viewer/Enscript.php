@@ -86,11 +86,9 @@ class Horde_Mime_Viewer_Enscript extends Horde_Mime_Viewer_Source
         $results = shell_exec($this->_conf['location'] . " -E$lang --language=html --color --output=- < $tmpin");
 
         /* Strip out the extraneous HTML from enscript. */
-        if ($inline) {
-            $res_arr = preg_split('/\<\/?pre\>/i', $results);
-            if (count($res_arr) == 3) {
-                $results = trim($res_arr[1]);
-            }
+        $res_arr = preg_split('/\<\/?pre\>/i', $results);
+        if (count($res_arr) == 3) {
+            $results = trim($res_arr[1]);
         }
 
         return $this->_lineNumber($results);
