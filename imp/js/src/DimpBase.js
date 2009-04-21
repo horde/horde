@@ -341,7 +341,7 @@ var DimpBase = {
         var url = DIMP.conf.URI_MESSAGE;
         url += (url.include('?') ? '&' : '?') +
                $H({ folder: r.view,
-                    uid: r.imapuid }).toQueryString();
+                    uid: Number(r.imapuid) }).toQueryString();
         DimpCore.popupWindow(url, 'msgview' + r.view + r.imapuid);
     },
 
@@ -378,7 +378,7 @@ var DimpBase = {
             this.folder = f;
         }
 
-        this.viewport.loadView(f, this.uid ? { imapuid: this.uid, view: f } : null, opts.background);
+        this.viewport.loadView(f, this.uid ? { imapuid: Number(this.uid), view: f } : null, opts.background);
     },
 
     _createViewPort: function()
