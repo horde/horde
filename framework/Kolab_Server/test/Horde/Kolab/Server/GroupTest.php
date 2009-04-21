@@ -12,9 +12,9 @@
  */
 
 /**
- *  We need the base class
+ * The Autoloader allows us to omit "require/include" statements.
  */
-require_once 'Horde/Kolab/Test/Server.php';
+require_once 'Horde/Autoloader.php';
 
 /**
  * Test the group object.
