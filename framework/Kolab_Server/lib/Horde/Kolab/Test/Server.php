@@ -157,13 +157,7 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
             if (!isset($world['result'])) {
                 $this->fail('Did not receive a result!');
             }
-            foreach ($world['result'] as $result) {
-                if ($result instanceOf Horde_Kolab_Server_Exception) {
-                    $this->assertEquals('', $result->getMessage());
-                } else {
-                    $this->assertTrue($result);
-                }
-            }
+            $this->assertNoError($world['result']);
             break;
         case 'the result should indicate an error with':
             if (!isset($world['result'])) {
@@ -769,7 +763,11 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
      */
     public function assertNoError($var)
     {
-        if ($var instanceOf Horde_Kolab_Server_Exception) {
+        if (is_array($var)) {
+            foreach ($var as $element) {
+                $this->assertNoError($element);
+            }
+        } elseif ($var instanceOf Exception) {
             $this->assertEquals('', $var->getMessage());
         } else if ($var instanceOf PEAR_Error) {
             $this->assertEquals('', $var->getMessage());
