@@ -1746,7 +1746,8 @@ var DimpBase = {
 
         if (search.size()) {
             if (r.remove) {
-                this.viewport.remove(search, { cacheid: r.cacheid, noupdate: r.viewport });
+                // TODO: Don't use cacheid
+                this.viewport.remove(search, { cacheid: r.cacheid, noupdate: r.ViewPort });
                 this._expirePPCache(uids);
             } else {
                 // Need this to catch spam deletions.
