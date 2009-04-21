@@ -1928,13 +1928,16 @@ var DimpBase = {
                     : $(this.getSubFolderId(this.getFolderId(ob.pa))).down();
             }
 
-            ll = mbox.toLowerCase();
-            f_node = parent_e.childElements().find(function(node) {
-                var nodembox = node.readAttribute('mbox');
-                return nodembox &&
-                       (!ob.s || nodembox != 'INBOX') &&
-                       (ll < nodembox.toLowerCase());
-            });
+            /* Virtual folders are sorted on the server. */
+            if (!ob.v) {
+                ll = mbox.toLowerCase();
+                f_node = parent_e.childElements().find(function(node) {
+                    var nodembox = node.readAttribute('mbox');
+                    return nodembox &&
+                           (!ob.s || nodembox != 'INBOX') &&
+                           (ll < nodembox.toLowerCase());
+                });
+            }
 
             if (f_node) {
                 f_node.insert({ before: li });
