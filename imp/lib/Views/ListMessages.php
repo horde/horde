@@ -64,12 +64,11 @@ class IMP_Views_ListMessages
         $result->cacheid = $imp_mailbox->getCacheID();
 
         /* Determine the row slice to process. */
-        if (isset($args['slice_rownum'])) {
-            $rownum = max(1, $args['slice_rownum']);
+        if (isset($args['slice_start'])) {
             $slice_start = $args['slice_start'];
             $slice_end = $args['slice_end'];
         } else {
-            $result->rownum = $rownum = 1;
+            $rownum = 1;
             foreach (array_keys($sorted_list['s'], $args['search_uid']) as $val) {
                 if (empty($sorted_list['m'][$val]) ||
                     ($sorted_list['m'][$val] == $args['search_mbox'])) {
@@ -85,7 +84,10 @@ class IMP_Views_ListMessages
             } elseif ($slice_end > $msgcount) {
                 $slice_start -= $slice_end - $msgcount;
             }
+
+            $result->rownum = $rownum;
         }
+
         $slice_start = max(1, $slice_start);
         $slice_end = min($msgcount, $slice_end);
 

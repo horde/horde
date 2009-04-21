@@ -79,7 +79,6 @@ function _getListMessages($mbox, $change)
     if (empty($search)) {
         list($slice_start, $slice_end) = explode(':', Util::getPost('slice'), 2);
         $args += array(
-            'slice_rownum' => intval(Util::getPost('rownum')),
             'slice_start' => intval($slice_start),
             'slice_end' => intval($slice_end)
         );
