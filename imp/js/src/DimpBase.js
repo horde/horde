@@ -438,21 +438,24 @@ var DimpBase = {
             }.bind(this),
             onContent: function(row) {
                 var bg, re, u,
-                    thread = this.viewport.getMetaData('thread') || $H();
+                    thread = this.viewport.getMetaData('thread') || $H(),
+                    tsort = (this.viewport.getMetaData('sortby') == DIMP.conf.sortthread);
 
                 row.subjectdata = row.status = '';
                 row.subjecttitle = row.subject;
 
                 // Add thread graphics
-                u = thread.get(row.imapuid);
-                if (u) {
-                    $R(0, u.length, true).each(function(i) {
-                        var c = u.charAt(i);
-                        if (!this.tcache[c]) {
-                            this.tcache[c] = '<span class="threadImg threadImg' + c + '"></span>';
-                        }
-                        row.subjectdata += this.tcache[c];
-                    }, this);
+                if (tsort) {
+                    u = thread.get(row.imapuid);
+                    if (u) {
+                        $R(0, u.length, true).each(function(i) {
+                            var c = u.charAt(i);
+                            if (!this.tcache[c]) {
+                                this.tcache[c] = '<span class="threadImg threadImg' + c + '"></span>';
+                            }
+                            row.subjectdata += this.tcache[c];
+                        }, this);
+                    }
                 }
 
                 /* Generate the status flags. */
