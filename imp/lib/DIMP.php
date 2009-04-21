@@ -252,7 +252,6 @@ class DIMP
             'showalog' => Horde::highlightAccessKey(addslashes(_("_Alerts Log")), Horde::getAccessKey(_("_Alerts Log"), true)),
             'verify' => _("Verifying..."),
             'vp_empty' => _("There are no messages in this mailbox."),
-            'vp_error' => _("Could not get message list from server."),
         );
 
         if ($compose_mode) {

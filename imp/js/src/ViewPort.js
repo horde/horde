@@ -21,8 +21,6 @@
  *               per server access when listing rows.
  * empty_msg: (string) A string to display when the view is empty. Inserted in
  *            a SPAN element with class 'vpEmpty'.
- * error_msg: (string) A string to display when an error is encountered.
- *            Inserted in a SPAN element with class 'vpError'.
  * limit_factor: (integer) When browsing through a list, if a user comes
  *               within this percentage of the end of the current cached
  *               viewport, send a background request to the server to retrieve
@@ -48,7 +46,6 @@
  * onContentComplete
  * onDeselect
  * onEndFetch
- * onFail
  * onFetch
  * onSelect
  * onSlide
@@ -59,7 +56,6 @@
  * ------------------------------------------------------
  * For a row request:
  *   request_id: (integer) TODO
- *   rownum: (integer) TODO
  *   slice: (string)
  *
  * For a search request:
@@ -115,9 +111,6 @@ var ViewPort = Class.create({
         this.scroller = new ViewPort_Scroller(this);
         this.template = new Template(opts.template);
 
-        this.current_req_lookup = {};
-        this.current_req = {};
-        this.fetch_hash = {};
         this.views = {};
 
         this.split_bar_loc = opts.page_size;
@@ -169,6 +162,8 @@ var ViewPort = Class.create({
         } else {
             if (!this.view) {
                 this.onResize(true);
+            } else if (this.view != view) {
+                this.active_req = null;
             }
             this.view = view;
         }
@@ -176,7 +171,7 @@ var ViewPort = Class.create({
         if (curr = this.views[view]) {
             this._updateContent(curr.getMetaData('offset') || 0, opts);
             if (!background) {
-                this._ajaxRequest({ checkcache: 1, rownum: this.currentOffset() + 1 });
+                this._ajaxRequest({ checkcache: 1 });
             }
             return;
         }
@@ -248,8 +243,7 @@ var ViewPort = Class.create({
     {
         this._fetchBuffer({
             offset: this.currentOffset(),
-            params: params,
-            purge: true
+            params: $H(params).merge({ purge: true })
         });
     },
 
@@ -429,24 +423,13 @@ var ViewPort = Class.create({
             this.opts.onFetch();
         }
 
-        var view = (opts.view || this.view),
-            allrows,
+        var llist, lrows, rlist, tmp, type, value,
+            view = (opts.view || this.view),
             b = this._getBuffer(view),
-            cr,
             params = $H(opts.params),
-            request_id,
-            request_string,
-            request_old,
-            rlist,
-            tmp,
-            type,
-            value,
-            viewable;
+            r_id = this.request_num++;
 
-        // If asking for an explicit purge, add to the request.
-        if (opts.purge) {
-            params.set('purge', true);
-        }
+        params.update({ request_id: r_id });
 
         // Determine if we are querying via offset or a search query
         if (opts.search) {
@@ -455,6 +438,7 @@ var ViewPort = Class.create({
             tmp = this._lookbehind(view);
 
             params.update({
+                search: Object.toJSON(value),
                 search_after: b.bufferSize() - tmp,
                 search_before: tmp
             });
@@ -462,87 +446,53 @@ var ViewPort = Class.create({
             type = 'rownum';
             value = opts.offset + 1;
 
-            // This gets the list of rows needed which do not already appear
-            // in the buffer.
-            allrows = b.getAllRows();
-            tmp = opts.rowlist || this._getSliceBounds(value, opts.nearing, view);
-            rlist = $A($R(tmp.start, tmp.end)).diff(allrows);
+            // llist: keys - request_ids; vals - loading rownums
+            llist = b.getMetaData('llist') || $H();
+            lrows = llist.values().flatten();
 
-            if (!opts.purge && !rlist.size()) {
+            b.setMetaData({ req_offset: opts.offset }, true);
+
+            /* If the current offset is part of a pending request, update
+             * the offset. */
+            if (lrows.size() &&
+                !params.get('purge') &&
+                b.sliceLoaded(value, lrows)) {
+                /* One more hurdle. If we are loading in background, and now
+                 * we are in foreground, we need to search for the request
+                 * that contains the current rownum. For now, just use the
+                 * last request. */
+                if (!this.active_req && !opts.background) {
+                    this.active_req = llist.keys().numericSort().last();
+                }
                 this.isbusy = false;
                 return;
             }
 
+            /* This gets the list of rows needed which do not already appear
+             * in the buffer. */
+            tmp = this._getSliceBounds(value, opts.nearing, view);
+            rlist = $A($R(tmp.start, tmp.end)).diff(b.getAllRows());
+
+            if (!params.get('purge') && !rlist.size()) {
+                this.isbusy = false;
+                return;
+            }
+
+            /* Add rows to the loading list for the view. */
+            rlist = rlist.diff(lrows).numericSort();
+            llist.set(r_id, rlist);
+            b.setMetaData({ llist: llist }, true);
+
             params.update({ slice: rlist.first() + ':' + rlist.last() });
         }
-        params.set(type, Object.toJSON(value));
 
-        // Generate a unique request ID value based on the search params.
-        // Since javascript does not have a native hashing function, use a
-        // local lookup table instead.
-        request_string = [ view, type, value ].toJSON();
-        request_id = this.fetch_hash[request_string];
-
-        // If we have a current request pending in the current view, figure
-        // out if we need to send a new request
-        cr = this.current_req[view];
-        if (cr) {
-            if (request_id && cr.get(request_id)) {
-                // Check for repeat request.  We technically should never
-                // reach here but if we do, make sure we don't go into an
-                // infinite loop.
-                if (++cr.get(request_id).count == 4) {
-                    this._displayFetchError();
-                    this._removeRequest(view, request_id);
-                    this.isbusy = false;
-                    return;
-                }
-            } else if (type == 'rownum') {
-                // Check for message list requests that are requesting
-                // (essentially) the same message slice - such as two
-                // scroll down requests sent in quick succession.  If the
-                // original request contains the viewable slice needed by the
-                // second request, ignore the later request and just
-                // reposition the viewport on display.
-                viewable = $A($R(value, value + this.getPageSize())).diff(allrows);
-                if (!viewable.size()) {
-                    this.isbusy = false;
-                    return;
-                }
-                request_old = cr.keys().numericSort().find(function(k) {
-                    var r = cr.get(k).rlist;
-                    viewable = viewable.diff(r);
-                    if (!viewable.size()) {
-                        return true;
-                    }
-                    rlist = rlist.diff(r);
-                });
-                if (request_old) {
-                    if (!opts.background) {
-                        this._addRequest(view, request_old, { background: false, offset: value - 1 });
-                    }
-                    this.isbusy = false;
-                    return;
-                } else if (!opts.background) {
-                    // Set all other pending requests to background, since the
-                    // current request is now the active request.
-                    cr.keys().each(function(k) {
-                        this._addRequest(view, k, { background: true });
-                    }, this);
-                }
-            }
-            // If we are in search mode, we must bite the bullet and simply
-            // accept the entire slice back from the server.
+        if (!opts.background) {
+            this.active_req = r_id;
+            this._handleWait();
         }
-
-        if (!request_id) {
-            request_id = this.fetch_hash[request_string] = this.request_num++;
-        }
-        params.set('request_id', request_id);
-        this._addRequest(view, request_id, { background: opts.background, offset: value - 1, rlist: rlist });
 
         this._ajaxRequest(params, { noslice: true, view: view });
-        this._handleWait();
+
         this.isbusy = false;
     },
 
@@ -671,83 +621,39 @@ var ViewPort = Class.create({
         this.isbusy = true;
         this._clearWait();
 
-        var buffer, cr_id,
-            view = r.request_id ? this.current_req_lookup[r.request_id] : r.view,
-            cr = this.current_req[view];
+        var offset,
+            buffer = this._getBuffer(r.view),
+            llist = buffer.getMetaData('llist') || $H();
 
-        if (cr && r.request_id) {
-            cr_id = cr.get(r.request_id);
-        }
-
-        buffer = this._getBuffer(view);
         buffer.update(Object.isArray(r.data) ? {} : r.data, Object.isArray(r.rowlist) ? {} : r.rowlist, r.metadata || {}, { reset: r.reset, resetmd: r.resetmd, update: r.update });
+
+        llist.unset(r.request_id);
 
         buffer.setMetaData({
             cacheid: r.cacheid,
             label: r.label,
+            llist: llist,
             total_rows: r.totalrows
         }, true);
 
         if (this.opts.onCacheUpdate) {
-            this.opts.onCacheUpdate(view);
+            this.opts.onCacheUpdate(r.view);
         }
 
-        if (r.request_id) {
-            this._removeRequest(view, r.request_id);
+        if (r.request_id == this.active_req) {
+            this.active_req = null;
+            offset = buffer.getMetaData('req_offset');
+            buffer.setMetaData({ req_offset: undefined });
+
+            // TODO: Flag for no _fetchBuffer()?
+            this._updateContent(Object.isUndefined(offset) ? (r.rownum ? Number(r.rownum) - 1 : this.currentOffset()) : offset);
+
+            if (this.opts.onEndFetch) {
+                this.opts.onEndFetch();
+            }
         }
 
         this.isbusy = false;
-
-        /* Don't update the viewport if we are now in a different view, or
-         * if we are loading in the background. */
-        if ((this.view == view || r.search) &&
-            !(cr_id && cr_id.background) &&
-            this._updateContent((cr_id && cr_id.offset) ? cr_id.offset : (r.rownum ? parseInt(r.rownum) - 1 : this.currentOffset())) &&
-            this.opts.onEndFetch) {
-            this.opts.onEndFetch();
-        }
-    },
-
-    // Adds a request to the current request queue.
-    // Requests are stored by view ID. Under each ID is the following:
-    //   count: (integer) Number of times slice has attempted to be loaded
-    //   background: (boolean) Do not update current view
-    //   offset: (integer) The offset to use
-    //   rlist: (array) The row list
-    // params = (object) [background, offset, rlist]
-    _addRequest: function(view, r_id, params)
-    {
-        var req_view = this.current_req[view], req;
-        if (!req_view) {
-            req_view = this.current_req[view] = $H();
-        }
-
-        req = req_view.get(r_id);
-        if (!req) {
-            req = req_view.set(r_id, { count: 1 });
-        }
-        ['background', 'offset', 'rlist'].each(function(p) {
-            if (!Object.isUndefined(params[p])) {
-                req[p] = params[p];
-            }
-        });
-
-        this.current_req_lookup[r_id] = view;
-    },
-
-    // Removes a request to the current request queue.
-    // view = (string) The view to remove a request for
-    // r_id = (string) The request ID to remove
-    _removeRequest: function(view, r_id)
-    {
-        var cr = this.current_req[view];
-        if (cr) {
-            cr.unset(r_id);
-            if (!cr.size()) {
-                delete this.current_req[view];
-            }
-        }
-        delete this.current_req_lookup[r_id];
     },
 
     // offset = (integer) TODO
@@ -757,7 +663,8 @@ var ViewPort = Class.create({
         opts = opts || {};
 
         if (!this._getBuffer(opts.view).sliceLoaded(offset)) {
-            this._fetchBuffer($H(opts).merge({ offset: offset }).toObject());
+            opts.offset = offset;
+            this._fetchBuffer(opts);
             return false;
         }
 
@@ -767,7 +674,7 @@ var ViewPort = Class.create({
             rows;
 
         if (this.opts.onClear) {
-            this.opts.onClear(c.childElements());
+            this.opts.onClear(this.visibleRows());
         }
 
         this.scroller.updateSize();
@@ -829,17 +736,6 @@ var ViewPort = Class.create({
             }
         }
 
-    },
-
-    _displayFetchError: function()
-    {
-        if (this.opts.onFail) {
-            this.opts.onFail();
-        }
-
-        if (this.opts.errormsg) {
-            this.opts.content.update(new Element('SPAN', { className: 'vpError' }).insert(this.opts.errormsg));
-        }
     },
 
     _handleWait: function(call)
@@ -1238,9 +1134,14 @@ ViewPort_Buffer = Class.create({
     },
 
     // offset = (integer) Offset of the beginning of the slice.
-    sliceLoaded: function(offset)
+    // rows = (array) Additional rows to include in the search.
+    sliceLoaded: function(offset, rows)
     {
-        return !this._rangeCheck($A($R(offset + 1, Math.min(offset + this.vp.getPageSize() - 1, this.getMetaData('total_rows')))));
+        var range = $A($R(offset + 1, Math.min(offset + this.vp.getPageSize() - 1, this.getMetaData('total_rows'))));
+
+        return rows
+            ? (range.diff(this.rowlist.keys().concat(rows)).size() == 0)
+            : !this._rangeCheck(range);
     },
 
     isNearingLimit: function(offset)
@@ -1371,6 +1272,7 @@ ViewPort_Buffer = Class.create({
             this.usermdata.update(vals);
         }
     }
+
 }),
 
 /**

@@ -394,7 +394,6 @@ var DimpBase = {
             buffer_pages: DIMP.conf.buffer_pages,
             content_class: 'msglist',
             empty_msg: DIMP.text.vp_empty,
-            error_msg: DIMP.text.vp_error,
             limit_factor: DIMP.conf.limit_factor,
             page_size: DIMP.conf.splitbar_pos,
             show_split_pane: DIMP.conf.preview_pref,
