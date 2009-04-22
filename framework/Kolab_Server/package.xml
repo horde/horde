@@ -50,6 +50,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
     flexible way.
   * Added LDAP write support.
   * Real LDAP server unit testing.
+  * Support configurable attribute mapping.
  </notes>
  <contents>
   <dir name="/">
@@ -66,6 +67,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
        <dir name="Object">
         <file name="Groupofnames.php" role="php" />
         <file name="Inetorgperson.php" role="php" />
+        <file name="Kolab.php" role="php" />
         <file name="Kolabgermanbankarrangement.php" role="php" />
         <file name="Kolabgroupofnames.php" role="php" />
         <file name="Kolabinetorgperson.php" role="php" />
@@ -80,7 +82,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
          <file name="Distlist.php" role="php" />
          <file name="Domainmaintainer.php" role="php" />
          <file name="Maintainer.php" role="php" />
-         <file name="Server.php" role="php" />
          <file name="User.php" role="php" />
         </dir> <!-- /lib/Horde/Kolab/Server/Object/Kolab -->
        </dir> <!-- /lib/Horde/Kolab/Server/Object -->
@@ -90,9 +91,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
         <file name="Ldap.php" role="php" />
        </dir> <!-- /lib/Horde/Kolab/Server/Structure -->
        <file name="Test.php" role="php" />
-       <dir name="Test">
-        <file name="Search.php" role="php" />
-       </dir> <!-- /lib/Horde/Kolab/Server/Test -->
       </dir> <!-- /lib/Horde/Kolab/Server -->
       <dir name="Test">
        <file name="Server.php" role="php" />
@@ -170,6 +168,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Kolab/Server/Object.php" as="Horde/Kolab/Server/Object.php" />
    <install name="lib/Horde/Kolab/Server/Object/Groupofnames.php" as="Horde/Kolab/Server/Object/Groupofnames.php" />
    <install name="lib/Horde/Kolab/Server/Object/Inetorgperson.php" as="Horde/Kolab/Server/Object/Inetorgperson.php" />
+   <install name="lib/Horde/Kolab/Server/Object/Kolab.php" as="Horde/Kolab/Server/Object/Kolab.php" />
    <install name="lib/Horde/Kolab/Server/Object/Kolabgermanbankarrangement.php" as="Horde/Kolab/Server/Object/Kolabgermanbankarrangement.php" />
    <install name="lib/Horde/Kolab/Server/Object/Kolabgroupofnames.php" as="Horde/Kolab/Server/Object/Kolabgroupofnames.php" />
    <install name="lib/Horde/Kolab/Server/Object/Kolabinetorgperson.php" as="Horde/Kolab/Server/Object/Kolabinetorgperson.php" />
@@ -181,7 +180,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Kolab/Server/Object/Kolab/Distlist.php" as="Horde/Kolab/Server/Object/Kolab/Distlist.php" />
    <install name="lib/Horde/Kolab/Server/Object/Kolab/Domainmaintainer.php" as="Horde/Kolab/Server/Object/Kolab/Domainmaintainer.php" />
    <install name="lib/Horde/Kolab/Server/Object/Kolab/Maintainer.php" as="Horde/Kolab/Server/Object/Kolab/Maintainer.php" />
-   <install name="lib/Horde/Kolab/Server/Object/Kolab/Server.php" as="Horde/Kolab/Server/Object/Kolab/Server.php" />
    <install name="lib/Horde/Kolab/Server/Object/Kolab/User.php" as="Horde/Kolab/Server/Object/Kolab/User.php" />
    <install name="lib/Horde/Kolab/Server/Object/Organizationalperson.php" as="Horde/Kolab/Server/Object/Organizationalperson.php" />
    <install name="lib/Horde/Kolab/Server/Object/Person.php" as="Horde/Kolab/Server/Object/Person.php" />
@@ -189,7 +187,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Kolab/Server/Structure/Kolab.php" as="Horde/Kolab/Server/Structure/Kolab.php" />
    <install name="lib/Horde/Kolab/Server/Structure/Ldap.php" as="Horde/Kolab/Server/Structure/Ldap.php" />
    <install name="lib/Horde/Kolab/Server/Test.php" as="Horde/Kolab/Server/Test.php" />
-   <install name="lib/Horde/Kolab/Server/Test/Search.php" as="Horde/Kolab/Server/Test/Search.php" />
    <install name="test/Horde/Kolab/Server/AddingObjectsTest.php" as="Horde/Kolab/Server/AddingObjectsTest.php" />
    <install name="test/Horde/Kolab/Server/AdminTest.php" as="Horde/Kolab/Server/AdminTest.php" />
    <install name="test/Horde/Kolab/Server/AllTests.php" as="Horde/Kolab/Server/AllTests.php" />
