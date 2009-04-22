@@ -102,22 +102,14 @@ class Horde_Kolab_Server_Test extends Horde_Kolab_Server_Ldap
 
         parent::__construct($params);
 
-        if (isset($this->params['adminuser'])
-            && isset($this->params['adminpass'])) {
-            $base_dn = isset($this->params['basedn']) ? ',' . $this->params['basedn'] : '';
-            $dn = 'cn=' . $this->params['adminuser'] . ',cn=internal' . $base_dn;
-            if (!isset($this->data[$dn])) {
-                $ldap_data = array(
-                    'cn' => array('manager'),
-                    'sn' => array('n/a'),
-                    'uid' => array('manager'),
-                    'userPassword' => array($this->params['adminpass']),
-                    'objectClass' => array('top','inetOrgPerson','kolabInetOrgPerson')
-                );
-                $this->data[$dn] = array(
-                    'dn' => $dn,
-                    'data' => $ldap_data
-                );
+        if (isset($this->params['admin'])
+            && isset($this->params['admin']['type'])) {
+            $type = $this->params['admin']['type'];
+            $data = $this->params['admin'];
+            unset($data['type']);
+            $admin = new $type($this, null, $data);
+            if (!$admin->exists()) {
+                $admin->save();
             }
         }
 
@@ -349,8 +341,7 @@ class Horde_Kolab_Server_Test extends Horde_Kolab_Server_Ldap
         }
         $result = $this->doSearch($filter, $attributes);
         if (empty($result)) {
-            $search = new Horde_Kolab_Server_Test_Search(null);
-            return $search;
+            return array();
         }
         if ($base) {
             $subtree = array();
@@ -361,8 +352,7 @@ class Horde_Kolab_Server_Test extends Horde_Kolab_Server_Ldap
             }
             $result = $subtree;
         }
-        $search = new Horde_Kolab_Server_Test_Search($this->getEntries($result));
-        return $search;
+        return $this->getEntries($result);
     }
 
     /**
@@ -386,7 +376,8 @@ class Horde_Kolab_Server_Test extends Horde_Kolab_Server_Ldap
                     switch ($filter['log']) {
                     case '=':
                         $value = $element['data'][$filter['att']];
-                        if (($filter['val'] == '*' && !empty($value))
+                        if ((($filter['val'] == '*' || $filter['val'] == '\2a')
+                             && !empty($value))
                             || $value == $filter['val']
                             || (is_array($value)
                                 && in_array($filter['val'], $value))) {
