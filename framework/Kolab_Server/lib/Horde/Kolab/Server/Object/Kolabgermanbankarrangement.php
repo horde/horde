@@ -130,7 +130,7 @@ class Horde_Kolab_Server_Object_Kolabgermanbankarrangement extends Horde_Kolab_S
 
         $base = substr($uid, 0, strpos($uid, $this->server->getBaseUid()) - 1);
 
-	unset($info[self::ATTRIBUTE_OWNERUID]);
+        unset($info[self::ATTRIBUTE_OWNERUID]);
 
         return self::ATTRIBUTE_NUMBER . '=' . $this->server->structure->quoteForUid($number) . ',' . $base;
     }
