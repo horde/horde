@@ -253,7 +253,12 @@ class Horde_Kolab_Server_Object
      */
     public static function getFilter()
     {
-        return '(&(' . self::ATTRIBUTE_OC . '=' . self::OBJECTCLASS_TOP . '))';
+        $criteria = array('AND' => array(array('field' => self::ATTRIBUTE_OC,
+                                               'op'    => '=',
+                                               'test'  => self::OBJECTCLASS_TOP),
+                          ),
+        );
+        return $criteria;
     }
 
     /**
@@ -644,7 +649,7 @@ class Horde_Kolab_Server_Object
      *
      * @throws Horde_Kolab_Server_Exception If saving the data failed.
      */
-    public function save($info)
+    public function save($info = null)
     {
         $info = $this->prepareInformation($info);
 
@@ -671,6 +676,19 @@ class Horde_Kolab_Server_Object
      */
     public function prepareInformation($info)
     {
+        if (empty($info)) {
+            /**
+             * If no data to save has been provided the object might have been
+             * created with initial data. This would have been stored in the
+             * cache and should be written now.
+             */
+            if (!empty($this->_cache)) {
+                $info = $this->_cache;
+            } else {
+                return;
+            }
+        }
+
         if (!empty($this->attributes)) {
             foreach ($info as $key => $value) {
                 if (!in_array($key, array_keys($this->attributes))) {
@@ -891,11 +909,7 @@ class Horde_Kolab_Server_Object
     {
         $params = array('attributes' => self::ATTRIBUTE_UID);
         $filter = $server->searchQuery($criteria);
-        $result = $server->search($filter, $params, $server->getBaseUid());
-        $data   = $result->as_struct();
-        if ($data instanceOf PEAR_Error) {
-            throw new Horde_Kolab_Server_Exception($data->getMessage());
-        }
+        $data = $server->search($filter, $params, $server->getBaseUid());
         return self::uidFromResult($data, $restrict);
     }
 
@@ -917,11 +931,7 @@ class Horde_Kolab_Server_Object
     {
         $params = array('attributes' => $attrs);
         $filter = $server->searchQuery($criteria);
-        $result = $server->search($filter, $params, $server->getBaseUid());
-        $data   = $result->as_struct();
-        if (is_a($data, 'PEAR_Error')) {
-            throw new Horde_Kolab_Server_Exception($data->getMessage());
-        }
+        $data   = $server->search($filter, $params, $server->getBaseUid());
         return self::attrsFromResult($data, $attrs, $restrict);
     }
 
@@ -947,10 +957,6 @@ class Horde_Kolab_Server_Object
         );
         $filter = $server->searchQuery($criteria);
         $result = $server->search($filter, $params, $uid);
-        $data   = $result->as_struct();
-        if (is_a($data, 'PEAR_Error')) {
-            throw new Horde_Kolab_Server_Exception($data->getMessage());
-        }
         return self::uidFromResult($data, Horde_Kolab_Server_Object::RESULT_MANY);
     }
 
