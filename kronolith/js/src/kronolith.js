@@ -720,7 +720,76 @@ KronolithCore = {
 
             if (event.value.pe) {
                 div.addClassName('kronolithEditable');
-                new Drag(event.value.nodeId + 'bottom', { 'threshold': 5, 'constraint': 'vertical', 'scroll': 'kronolithBody', 'parentElement': function() { return $('kronolithBody'); }, 'snapToParent': true });
+                var minTop = $('kronolithEventsDay').offsetTop
+                        + this.daySizes.allDay
+                        + this.daySizes.spacing,
+                    step = this.daySizes.height / 6,
+                    dragTop = draggerTop.cumulativeOffset()[1],
+                    dragBottom = draggerBottom.cumulativeOffset()[1],
+                    dragBottomHeight = draggerBottom.getHeight(),
+                    eventTop = div.cumulativeOffset()[1],
+                    maxTop = div.offsetTop + draggerBottom.offsetTop
+                        - this.daySizes.allDay - this.daySizes.spacing
+                        - draggerTop.getHeight()
+                        - parseInt(innerDiv.getStyle('lineHeight')),
+                    minBottom = div.offsetTop
+                        - this.daySizes.allDay - this.daySizes.spacing
+                        + draggerTop.getHeight() - dragBottomHeight
+                        + parseInt(innerDiv.getStyle('lineHeight')),
+                    opts = {
+                        'threshold': 5,
+                        'constraint': 'vertical',
+                        'scroll': 'kronolithBody',
+                        'parentElement': function() {
+                            return $('kronolithBody');
+                        },
+                        'onStart': function(d, e) {
+                            this.addClassName('kronolithSelected');
+                        }.bind(div),
+                        'onEnd': function(d, e) {
+                            this[1].removeClassName('kronolithSelected');
+                            this[0]._setEventText(innerDiv, event.value);
+                        }.bind([this, div]),
+                        'onDrag': function(d, e) {
+                            var top = d.ghost.cumulativeOffset()[1],
+                                draggingTop = d.ghost.hasClassName('kronolithDraggerTop'),
+                                offset, height;
+                            if (draggingTop) {
+                                offset = top - dragTop;
+                                height = this[1].offsetHeight - offset;
+                                this[1].setStyle({
+                                    'top': (this[1].offsetTop + offset) + 'px',
+                                });
+                                offset = d.ghost.offsetTop - minTop;
+                                dragTop = top;
+                            } else {
+                                offset = top - dragBottom;
+                                height = this[1].offsetHeight + offset;
+                                offset = this[1].offsetTop - this[0].daySizes.allDay - this[0].daySizes.spacing;
+                                dragBottom = top;
+                            }
+                            this[1].setStyle({
+                                'height': height + 'px'
+                            });
+                            var hourFrom = offset / this[0].daySizes.height | 0,
+                                minFrom = Math.round(offset % this[0].daySizes.height / step * 10).toPaddedString(2),
+                                hourTo = (offset + height + this[0].daySizes.spacing) / this[0].daySizes.height | 0,
+                                minTo = Math.round((offset + height + this[0].daySizes.spacing) % this[0].daySizes.height / step * 10).toPaddedString(2)
+                            innerDiv.setText('(' + hourFrom + ':' + minFrom + '-' + hourTo + ':' + minTo + ') ' + event.value.t);
+                        }.bind([this, div])
+                    };
+
+                opts.snap = function(x, y, elm) {
+                    y = Math.max(0, step * (Math.min(maxTop, y - minTop) / step | 0)) + minTop;
+                    return [0, y];
+                }
+                new Drag(event.value.nodeId + 'top', opts);
+
+                opts.snap = function(x, y, elm) {
+                    y = step * (Math.max(minBottom, y - minTop - dragBottomHeight) / step | 0) + minTop + dragBottomHeight;
+                    return [0, y];
+                }
+                new Drag(event.value.nodeId + 'bottom', opts);
             }
 
             var column = 1, columns, width, left, conflict = false,
@@ -788,17 +857,23 @@ KronolithCore = {
             break;
         }
 
-        div.setText(event.value.t)
+        this._setEventText(div, event.value)
             .observe('mouseover', div.addClassName.curry('kronolithSelected'))
             .observe('mouseout', div.removeClassName.curry('kronolithSelected'));
-        if (event.value.a) {
+    },
+
+    _setEventText: function(div, event)
+    {
+        div.setText(event.t);
+        if (event.a) {
             div.insert(' ')
-                .insert(new Element('IMG', { 'src': Kronolith.conf.URI_IMG + 'alarm-' + event.value.fg.substr(1) + '.png', 'title': Kronolith.text.alarm + ' ' + event.value.a }));
+                .insert(new Element('IMG', { 'src': Kronolith.conf.URI_IMG + 'alarm-' + event.fg.substr(1) + '.png', 'title': Kronolith.text.alarm + ' ' + event.a }));
         }
-        if (event.value.r) {
+        if (event.r) {
             div.insert(' ')
-                .insert(new Element('IMG', { 'src': Kronolith.conf.URI_IMG + 'recur-' + event.value.fg.substr(1) + '.png', 'title': Kronolith.text.recur[event.value.r] }));
+                .insert(new Element('IMG', { 'src': Kronolith.conf.URI_IMG + 'recur-' + event.fg.substr(1) + '.png', 'title': Kronolith.text.recur[event.r] }));
         }
+        return div;
     },
 
     _removeEvent: function(event, calendar)
