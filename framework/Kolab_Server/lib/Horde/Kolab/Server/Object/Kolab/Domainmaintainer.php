@@ -28,7 +28,7 @@
 class Horde_Kolab_Server_Object_Kolab_Domainmaintainer extends Horde_Kolab_Server_Object_Kolab_Adminrole
 {
 
-    const ATTRIBUTE_DOMAIN       = 'domain';
+    const ATTRIBUTE_DOMAIN = 'domain';
 
     /**
      * A structure to initialize the attribute structure for this class.
@@ -45,9 +45,10 @@ class Horde_Kolab_Server_Object_Kolab_Domainmaintainer extends Horde_Kolab_Serve
      * The group the UID must be member of so that this object really
      * matches this class type. This may not include the root UID.
      *
-     * @var string
+     * @var array
      */
-    protected $required_group = 'cn=domain-maintainer,cn=internal';
+    protected $required_group = array(self::ATTRIBUTE_CN => 'domain-maintainer',
+                                      Horde_Kolab_Server_Object_Kolabgroupofnames::ATTRIBUTE_VISIBILITY => false);
 
     /**
      * Convert the object attributes to a hash.
@@ -75,7 +76,7 @@ class Horde_Kolab_Server_Object_Kolab_Domainmaintainer extends Horde_Kolab_Serve
      *
      * @return boolean|PEAR_Error True on success.
      */
-    public function save($info)
+    public function save($info = null)
     {
         foreach ($info[self::ATTRIBUTE_DOMAIN] as $domain) {
             $domain_uid = sprintf('cn=%s,cn=domain,cn=internal,%s',

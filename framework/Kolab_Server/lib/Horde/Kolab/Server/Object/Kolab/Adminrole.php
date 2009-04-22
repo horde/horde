@@ -49,7 +49,31 @@ class Horde_Kolab_Server_Object_Kolab_Adminrole extends Horde_Kolab_Server_Objec
      */
     public static function getFilter()
     {
-        return '(&(' . self::ATTRIBUTE_CN . '=*)(' . self::ATTRIBUTE_OC . '=' . self::OBJECTCLASS_INETORGPERSON . ')(!(' . self::ATTRIBUTE_UID . '=manager))(' . self::ATTRIBUTE_SN . '=*))';
+        if (isset($conf['kolab']['server']['params']['admin'][self::ATTRIBUTE_SID])) {
+            $manager = $conf['kolab']['server']['params']['admin'][self::ATTRIBUTE_SID];
+        } else {
+            $manager = 'manager';
+        }
+
+        $criteria = array('AND' => array(
+                              array('field' => self::ATTRIBUTE_CN,
+                                    'op'    => '=',
+                                    'test'  => '*'),
+                              array('field' => self::ATTRIBUTE_SN,
+                                    'op'    => '=',
+                                    'test'  => '*'),
+                              array('field' => self::ATTRIBUTE_OC,
+                                    'op'    => '=',
+                                    'test'  => self::OBJECTCLASS_INETORGPERSON),
+                              array('NOT' => array(
+                                        array('field' => self::ATTRIBUTE_SID,
+                                              'op'    => '=',
+                                              'test'  => $manager),
+                                    ),
+                              ),
+                          ),
+        );
+        return $criteria;
     }
 
     /**
@@ -59,49 +83,28 @@ class Horde_Kolab_Server_Object_Kolab_Adminrole extends Horde_Kolab_Server_Objec
      *
      * @return boolean|PEAR_Error True on success.
      */
-    public function save($info)
+    public function save($info = null)
     {
-        $admins_uid = sprintf('%s,%s', $this->required_group,
-                              $this->server->getBaseUid());
+        $admin_group = new Horde_Kolab_Server_Object_Kolabgroupofnames($this->server, null, $this->required_group);
 
         $save_result = parent::save($info);
 
-        $admin_group = $this->server->fetch($admins_uid,
-                                            'Horde_Kolab_Server_Object_Kolabgroupofnames');
         if (!$admin_group->exists()) {
-
-            $members = array($this->uid);
-
-            //FIXME: This is not okay and also contains too much LDAP knowledge
-            $parts           = split(',', $this->required_group);
-            list($groupname) = sscanf($parts[0], 'cn=%s');
-
-            $this->createAdminroleGroup($groupname, $members);
+            $data = array_merge($this->required_group,
+                                array(Horde_Kolab_Server_Object_Kolabgroupofnames::ATTRIBUTE_MEMBER => array($this->uid)));
         } else {
             $result = $admin_group->isMember($this->uid);
             if ($result === false) {
                 $members   = $admin_group->getMembers();
                 $members[] = $this->uid;
-                $admin_group->save(array(Horde_Kolab_Server_Object_Kolabgroupofnames::ATTRIBUTE_MEMBER => $members));
+                $data      = array(Horde_Kolab_Server_Object_Kolabgroupofnames::ATTRIBUTE_MEMBER => $members);
+            } else {
+                $data = null;
             }
         }
+        if (!empty($data)) {
+            return $admin_group->save($data);
+        }
         return $save_result;
-    }
-
-    /**
-     * Create a required group to represent the admin role.
-     *
-     * @param string $groupname The name of the group.
-     * @param array  $members   The initial members.
-     *
-     * @return boolean True on success.
-     */
-    protected function createAdminroleGroup($groupname, $members)
-    {
-        $result = $this->server->add(array('type' => 'Horde_Kolab_Server_Object_Kolabgroupofnames',
-                                           self::ATTRIBUTE_CN => $groupname,
-                                           Horde_Kolab_Server_Object_Kolabgroupofnames::ATTRIBUTE_MEMBER => $members,
-                                           Horde_Kolab_Server_Object_Kolabgroupofnames::ATTRIBUTE_VISIBILITY => false));
-        return true;
     }
 }

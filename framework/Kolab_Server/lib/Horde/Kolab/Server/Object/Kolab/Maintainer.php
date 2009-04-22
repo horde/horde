@@ -33,8 +33,9 @@ class Horde_Kolab_Server_Object_Kolab_Maintainer extends Horde_Kolab_Server_Obje
      * The group the UID must be member of so that this object really
      * matches this class type. This may not include the root UID.
      *
-     * @var string
+     * @var array
      */
-    protected $required_group = 'cn=maintainer,cn=internal';
+    protected $required_group = array(self::ATTRIBUTE_CN => 'maintainer',
+                                      Horde_Kolab_Server_Object_Kolabgroupofnames::ATTRIBUTE_VISIBILITY => false);
 
 }
