@@ -196,7 +196,12 @@ class Horde_Kolab_Server_Object_Person extends Horde_Kolab_Server_Object
      */
     public static function getFilter()
     {
-        return '(&(' . self::ATTRIBUTE_OC . '=' . self::OBJECTCLASS_PERSON . '))';
+        $criteria = array('AND' => array(array('field' => self::ATTRIBUTE_OC,
+                                               'op'    => '=',
+                                               'test'  => self::OBJECTCLASS_PERSON),
+                          ),
+        );
+        return $criteria;
     }
 
     /**
@@ -233,7 +238,7 @@ class Horde_Kolab_Server_Object_Person extends Horde_Kolab_Server_Object
      *
      * @return boolean|PEAR_Error True on success.
      */
-    public function save($info)
+    public function save($info = null)
     {
         if (!$this->exists()
             && empty($info[self::ATTRIBUTE_CN])

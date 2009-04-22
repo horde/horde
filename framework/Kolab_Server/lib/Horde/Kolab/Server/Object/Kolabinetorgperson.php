@@ -209,7 +209,12 @@ class Horde_Kolab_Server_Object_Kolabinetorgperson extends Horde_Kolab_Server_Ob
      */
     public static function getFilter()
     {
-        return '(&(' . self::ATTRIBUTE_OC . '=' . self::OBJECTCLASS_KOLABINETORGPERSON . '))';
+        $criteria = array('AND' => array(array('field' => self::ATTRIBUTE_OC,
+                                               'op'    => '=',
+                                               'test'  => self::OBJECTCLASS_KOLABINETORGPERSON),
+                          ),
+        );
+        return $criteria;
     }
 
     /**

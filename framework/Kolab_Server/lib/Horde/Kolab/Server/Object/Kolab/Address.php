@@ -60,7 +60,22 @@ class Horde_Kolab_Server_Object_Kolab_Address extends Horde_Kolab_Server_Object_
      */
     public static function getFilter()
     {
-        return '(&(objectclass=inetOrgPerson)(!(uid=*))(sn=*))';
+        $criteria = array('AND' => array(
+                              array('field' => self::ATTRIBUTE_SN,
+                                    'op'    => '=',
+                                    'test'  => '*'),
+                              array('field' => self::ATTRIBUTE_OC,
+                                    'op'    => '=',
+                                    'test'  => self::OBJECTCLASS_INETORGPERSON),
+                              array('NOT' => array(
+                                        array('field' => self::ATTRIBUTE_SID,
+                                              'op'    => '=',
+                                              'test'  => '*'),
+                                    ),
+                              ),
+                          ),
+        );
+        return $criteria;
     }
 
     /**

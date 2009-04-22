@@ -69,7 +69,12 @@ class Horde_Kolab_Server_Object_Kolabgroupofnames extends Horde_Kolab_Server_Obj
      */
     public static function getFilter()
     {
-        return '(' . self::ATTRIBUTE_OC . '=' . self::OBJECTCLASS_KOLABGROUPOFNAMES . ')';
+        $criteria = array('AND' => array(array('field' => self::ATTRIBUTE_OC,
+                                               'op'    => '=',
+                                               'test'  => self::OBJECTCLASS_KOLABGROUPOFNAMES),
+                          ),
+        );
+        return $criteria;
     }
 
     /**
@@ -120,7 +125,7 @@ class Horde_Kolab_Server_Object_Kolabgroupofnames extends Horde_Kolab_Server_Obj
      *
      * @return boolean|PEAR_Error True on success.
      */
-    public function save($info)
+    public function save($info = null)
     {
         if (!$this->exists()) {
             if (!isset($info[self::ATTRIBUTE_CN])) {

@@ -70,7 +70,12 @@ class Horde_Kolab_Server_Object_Kolabsharedfolder extends Horde_Kolab_Server_Obj
      */
     public static function getFilter()
     {
-        return '(' . self::ATTRIBUTE_OC . '=' . self::OBJECTCLASS_KOLABSHAREDFOLDER .')';
+        $criteria = array('AND' => array(array('field' => self::ATTRIBUTE_OC,
+                                               'op'    => '=',
+                                               'test'  => self::OBJECTCLASS_KOLABSHAREDFOLDER),
+                          ),
+        );
+        return $criteria;
     }
 
     /**

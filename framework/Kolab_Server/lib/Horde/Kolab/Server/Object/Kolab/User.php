@@ -98,7 +98,22 @@ class Horde_Kolab_Server_Object_Kolab_User extends Horde_Kolab_Server_Object_Kol
      */
     public static function getFilter()
     {
-        return  '(&(objectClass=kolabInetOrgPerson)(uid=*)(mail=*)(sn=*))';
+        $criteria = array('AND' => array(
+                              array('field' => self::ATTRIBUTE_SN,
+                                    'op'    => '=',
+                                    'test'  => '*'),
+                              array('field' => self::ATTRIBUTE_MAIL,
+                                    'op'    => '=',
+                                    'test'  => '*'),
+                              array('field' => self::ATTRIBUTE_SID,
+                                    'op'    => '=',
+                                    'test'  => '*'),
+                              array('field' => self::ATTRIBUTE_OC,
+                                    'op'    => '=',
+                                    'test'  => self::OBJECTCLASS_KOLABINETORGPERSON),
+                          ),
+        );
+        return $criteria;
     }
 
     /**
@@ -273,7 +288,7 @@ class Horde_Kolab_Server_Object_Kolab_User extends Horde_Kolab_Server_Object_Kol
      * @throws Horde_Kolab_Server_Exception If the information to be saved is
      *                                      invalid.
      */
-    public function save($info)
+    public function save($info = null)
     {
         if (!$this->exists()) {
             if (!isset($info['cn'])) {

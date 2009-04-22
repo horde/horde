@@ -37,6 +37,15 @@ class Horde_Kolab_Server_Object_Kolab_Distlist extends Horde_Kolab_Server_Object
      */
     public static function getFilter()
     {
-        return '(&(objectClass=kolabGroupOfNames)(mail=*))';
+        $criteria = array('AND' => array(
+                              array('field' => self::ATTRIBUTE_MAIL,
+                                    'op'    => '=',
+                                    'test'  => '*'),
+                              array('field' => self::ATTRIBUTE_OC,
+                                    'op'    => '=',
+                                    'test'  => self::OBJECTCLASS_KOLABGROUPOFNAMES),
+                          ),
+        );
+        return $criteria;
     }
 };

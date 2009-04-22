@@ -186,7 +186,12 @@ class Horde_Kolab_Server_Object_Inetorgperson extends Horde_Kolab_Server_Object_
      */
     public static function getFilter()
     {
-        return '(&(' . self::ATTRIBUTE_OC . '=' . self::OBJECTCLASS_INETORGPERSON . '))';
+        $criteria = array('AND' => array(array('field' => self::ATTRIBUTE_OC,
+                                               'op'    => '=',
+                                               'test'  => self::OBJECTCLASS_INETORGPERSON),
+                          ),
+        );
+        return $criteria;
     }
 
     /**
