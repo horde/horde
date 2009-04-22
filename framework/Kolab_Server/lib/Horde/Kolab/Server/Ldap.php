@@ -110,6 +110,83 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
     }
 
     /**
+     * Map attributes defined within this library their their real world
+     * counterparts.
+     *
+     * @param array $data The data that has been read and needs to be mapped.
+     *
+     * @return NULL
+     */
+    protected function unmapAttributes(&$data)
+    {
+        if (!empty($this->params['map'])) {
+            foreach ($this->params['map'] as $attribute => $map) {
+                if (isset($data[$map])) {
+                    $data[$attribute] = $data[$map];
+                    unset($data[$map]);
+                }
+            }
+        }
+    }
+
+    /**
+     * Map attributes defined within this library into their real world
+     * counterparts.
+     *
+     * @param array $data The data to be written.
+     *
+     * @return NULL
+     */
+    protected function mapAttributes(&$data)
+    {
+        if (!empty($this->params['map'])) {
+            foreach ($this->params['map'] as $attribute => $map) {
+                if (isset($data[$attribute])) {
+                    $data[$map] = $data[$attribute];
+                    unset($data[$attribute]);
+                }
+            }
+        }
+    }
+
+    /**
+     * Map attribute keys defined within this library into their real world
+     * counterparts.
+     *
+     * @param array $keys The attribute keys.
+     *
+     * @return NULL
+     */
+    protected function mapKeys(&$keys)
+    {
+        if (!empty($this->params['map'])) {
+            foreach ($this->params['map'] as $attribute => $map) {
+                if (in_array($attribute, $keys)) {
+                    $data[$map] = $data[$attribute];
+                    unset($data[$attribute]);
+                }
+            }
+        }
+    }
+
+    /**
+     * Map a single attribute key defined within this library into its real
+     * world counterpart.
+     *
+     * @param array $field The attribute name.
+     *
+     * @return The real name of this attribute on the server we connect to.
+     */
+    protected function mapField($field)
+    {
+        if (!empty($this->params['map'])
+            && isset($this->params['map'][$field])) {
+            return $this->params['map'][$field];
+        }
+        return $field;
+    }
+
+    /**
      * Low level access to reading object data.
      *
      * This function provides fast access to the Server data.
@@ -138,12 +215,7 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
             $params['attributes'] = $attrs;
         }
 
-        $result = $this->search(null, $params, $uid);
-        $data   = $result->as_struct();
-        if (is_a($data, 'PEAR_Error')) {
-            throw new Horde_Kolab_Server_Exception($data,
-                                                   Horde_Kolab_Server_Exception::SYSTEM);
-        }
+        $data = $this->search(null, $params, $uid);
         if (empty($data)) {
             throw new Horde_Kolab_Server_Exception(_("Empty result!"),
                                                    Horde_Kolab_Server_Exception::EMPTY_RESULT);
@@ -163,6 +235,8 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
      */
     public function save($uid, $data, $exists = false)
     {
+        $this->mapAttributes($data);
+
         if ($exists === false) {
             $entry  = Net_LDAP2_Entry::createFresh($uid, $data);
             $result = $this->_ldap->add($entry);
@@ -270,10 +344,11 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
             $base = $params['base_dn'];
         }
 
-        $result = Horde_Kolab_Server_Object::loadClass($type);
-        $vars   = get_class_vars($type);
-        $filter = call_user_func(array($type, 'getFilter'));
-        $sort   = $vars['sort_by'];
+        $result   = Horde_Kolab_Server_Object::loadClass($type);
+        $vars     = get_class_vars($type);
+        $criteria = call_user_func(array($type, 'getFilter'));
+        $filter   = $this->searchQuery($criteria);
+        $sort     = $vars['sort_by'];
 
         if (isset($params['sort'])) {
             $sort = $params['sort'];
@@ -286,12 +361,7 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
             $options['attributes'] = $vars['_supported_attributes'];
         }
 
-        $result = $this->search($filter, $options, $base);
-        $data   = $result->as_struct();
-        if (is_a($data, 'PEAR_Error')) {
-            throw new Horde_Kolab_Server_Exception($data,
-                                                   Horde_Kolab_Server_Exception::SYSTEM);
-        }
+        $data = $this->search($filter, $options, $base);
         if (empty($data)) {
             return array();
         }
@@ -421,6 +491,10 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
      */
     public function search($filter = null, $params = array(), $base = null)
     {
+        if (isset($params['attributes'])) {
+            $this->mapKeys($params['attributes']);
+        }
+
         if (!isset($base)) {
             $base = $this->_base_dn;
         }
@@ -429,7 +503,13 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
             throw new Horde_Kolab_Server_Exception($result,
                                                    Horde_Kolab_Server_Exception::SYSTEM);
         }
-        return $result;
+        $data   = $result->as_struct();
+        if (is_a($data, 'PEAR_Error')) {
+            throw new Horde_Kolab_Server_Exception($data,
+                                                   Horde_Kolab_Server_Exception::SYSTEM);
+        }
+        $this->unmapAttributes($data);
+        return $data;
     }
 
     /**
@@ -508,14 +588,23 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
                 $op = 'equals';
                 break;
             }
-            return Net_LDAP2_Filter::create($criteria['field'], $op, $rhs);
+            return Net_LDAP2_Filter::create($this->mapField($criteria['field']),
+                                            $op, $rhs);
         }
         foreach ($criteria as $key => $vals) {
             if (!empty($vals['OR'])
-                || !empty($vals['AND'])) {
+                || !empty($vals['AND'])
+                || !empty($vals['NOT'])) {
                 $parts = $this->buildSearchQuery($vals);
                 if (count($parts) > 1) {
-                    return Net_LDAP2_Filter::combine((!empty($vals['OR'])) ? '|' : '&', $parts);
+                    if (!empty($vals['OR'])) {
+                        $operator = '|';
+                    } else if (!empty($vals['NOT'])) {
+                        $operator = '!';
+                    } else {
+                        $operator = '&';
+                    }
+                    return Net_LDAP2_Filter::combine($operator, $parts);
                 } else {
                     return $parts[0];
                 }
@@ -524,8 +613,21 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
                 foreach ($vals as $test) {
                     $parts[] = &$this->buildSearchQuery($test);
                 }
+                switch ($key) {
+                case 'OR':
+                    $operator = '|';
+                    break;
+                case 'AND':
+                    $operator = '&';
+                    break;
+                case 'NOT':
+                    $operator = '!';
+                    break;
+                }
                 if (count($parts) > 1) {
-                    return Net_LDAP2_Filter::combine(($key == 'OR') ? '|' : '&', $parts);
+                    return Net_LDAP2_Filter::combine($operator, $parts);
+                } else if ($operator == '!') {
+                    return Net_LDAP2_Filter::combine($operator, $parts[0]);
                 } else {
                     return $parts[0];
                 }
