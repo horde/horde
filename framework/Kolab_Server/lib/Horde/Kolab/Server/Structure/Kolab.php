@@ -41,6 +41,7 @@ class Horde_Kolab_Server_Structure_Kolab extends Horde_Kolab_Server_Structure_Ld
             'Horde_Kolab_Server_Object_Person',
             'Horde_Kolab_Server_Object_Organizationalperson',
             'Horde_Kolab_Server_Object_Inetorgperson',
+            'Horde_Kolab_Server_Object_Kolab',
             'Horde_Kolab_Server_Object_Kolabinetorgperson',
             'Horde_Kolab_Server_Object_Kolabgermanbankarrangement',
             'Horde_Kolab_Server_Object_Kolabpop3account',
@@ -51,7 +52,6 @@ class Horde_Kolab_Server_Structure_Kolab extends Horde_Kolab_Server_Structure_Ld
             'Horde_Kolab_Server_Object_Kolab_Distlist',
             'Horde_Kolab_Server_Object_Kolab_Domainmaintainer',
             'Horde_Kolab_Server_Object_Kolab_Maintainer',
-            'Horde_Kolab_Server_Object_Kolab_Server',
             'Horde_Kolab_Server_Object_Kolab_User',
         );
     }
