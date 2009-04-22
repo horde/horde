@@ -646,6 +646,31 @@ class Horde_Kolab_Server_Object
      */
     public function save($info)
     {
+        $info = $this->prepareInformation($info);
+
+        $result = $this->server->save($this->uid, $info, $this->exists());
+
+        if (!$this->_exists) {
+            $this->_exists = true;
+            $this->_cache  = $info;
+        } else {
+            $this->_cache  = array_merge($this->_cache, $info);
+        }
+
+        return $result;
+    }
+
+    /**
+     * Prepare the object information before saving.
+     *
+     * @param array $info The information about the object.
+     *
+     * @return array The set of information. Ready for saving.
+     *
+     * @throws Horde_Kolab_Server_Exception If the given information contains errors.
+     */
+    public function prepareInformation($info)
+    {
         if (!empty($this->attributes)) {
             foreach ($info as $key => $value) {
                 if (!in_array($key, array_keys($this->attributes))) {
@@ -738,17 +763,7 @@ class Horde_Kolab_Server_Object
         foreach ($this->attribute_map['collapsed'] as $key => $attributes) {
             $this->collapse($key, $attributes, $info);
         }
-
-        $result = $this->server->save($this->uid, $info, $this->exists());
-
-        if (!$this->_exists) {
-            $this->_exists = true;
-            $this->_cache  = $info;
-        } else {
-            $this->_cache  = array_merge($this->_cache, $info);
-        }
-
-        return $result;
+        return $info;
     }
 
     /**
