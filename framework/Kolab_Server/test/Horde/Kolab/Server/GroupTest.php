@@ -118,7 +118,6 @@ class Horde_Kolab_Server_GroupTest extends Horde_Kolab_Test_Server
         $result = $this->ldap->search('(&(!(cn=domains))(objectClass=kolabGroupOfNames))',
                                       array(),
                                       $this->ldap->getBaseUid());
-        $result = $result->as_struct();
         $this->assertEquals(0, count($result));
 
         $this->_addValidGroups();
@@ -127,7 +126,6 @@ class Horde_Kolab_Server_GroupTest extends Horde_Kolab_Test_Server
         $result = $this->ldap->search('(&(!(cn=domains))(objectClass=kolabGroupOfNames))',
                                       array(),
                                       $this->ldap->getBaseUid());
-        $result = $result->as_struct();
         $this->assertEquals(3, count($result));
 
         $list = $this->ldap->listObjects('Horde_Kolab_Server_Object_Kolabgroupofnames');

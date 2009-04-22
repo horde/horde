@@ -48,7 +48,6 @@ class Horde_Kolab_Server_testTest extends Horde_Kolab_Test_Server
             '(' . Horde_Kolab_Server_Object::ATTRIBUTE_OC
             . '=' . Horde_Kolab_Server_Object::OBJECTCLASS_TOP . ')',
             array(Horde_Kolab_Server_Object::ATTRIBUTE_OC));
-        $result = $result->as_struct();
         $this->assertEquals(13, count($result));
       
         $result = $server->search(
@@ -56,7 +55,6 @@ class Horde_Kolab_Server_testTest extends Horde_Kolab_Test_Server
             . '=' . Horde_Kolab_Server_Object::OBJECTCLASS_TOP . ')',
             array(Horde_Kolab_Server_Object::ATTRIBUTE_OC),
             'cn=internal,dc=example,dc=org');
-        $result = $result->as_struct();
         $this->assertNoError($result);
         $this->assertEquals(4, count($result));
     }
@@ -112,7 +110,6 @@ class Horde_Kolab_Server_testTest extends Horde_Kolab_Test_Server
 
         $sort   = Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_SN;
         $result = $server->search($filter);
-        $result = $result->as_struct();
         $this->assertNoError($result);
         $this->assertEquals(2, count($result));
 
@@ -545,7 +542,7 @@ class Horde_Kolab_Server_testTest extends Horde_Kolab_Test_Server
                     'dn' => 'cn=d',
                 ),
             ),
-            $a->as_struct()
+            $a
         );
 
         $a = $db->search('(c=3)');
@@ -559,7 +556,7 @@ class Horde_Kolab_Server_testTest extends Horde_Kolab_Test_Server
                     'dn' => 'cn=c',
                 ),
             ),
-            $a->as_struct()
+            $a
         );
 
         $a = $db->search('(c=3)', array('attributes' => array('a')));
@@ -571,7 +568,7 @@ class Horde_Kolab_Server_testTest extends Horde_Kolab_Test_Server
                     'dn' => 'cn=c',
                 ),
             ),
-            $a->as_struct()
+            $a
         );
 
         $a = $db->search('(&(a=1)(b=2))', array('attributes' => array('a', 'b')));
@@ -589,7 +586,7 @@ class Horde_Kolab_Server_testTest extends Horde_Kolab_Test_Server
                     'dn' => 'cn=c',
                 ),
             ),
-            $a->as_struct()
+            $a
         );
 
         $a = $db->search('(&(b=2))', array('attributes' => array('b')));
@@ -609,7 +606,7 @@ class Horde_Kolab_Server_testTest extends Horde_Kolab_Test_Server
                     'dn' => 'cn=d',
                 ),
             ),
-            $a->as_struct()
+            $a
         );
 
         $a = $db->search('(!(b=2))', array('attributes' => array('a', 'b')));
@@ -622,7 +619,7 @@ class Horde_Kolab_Server_testTest extends Horde_Kolab_Test_Server
                     'dn' => 'cn=a',
                 ),
             ),
-            $a->as_struct()
+            $a
         );
 
         $a = $db->search('(&(!(x=2))(b=1))', array('attributes' => array('b')));
@@ -634,7 +631,7 @@ class Horde_Kolab_Server_testTest extends Horde_Kolab_Test_Server
                     'dn' => 'cn=a',
                 ),
             ),
-            $a->as_struct()
+            $a
         );
     }
 
