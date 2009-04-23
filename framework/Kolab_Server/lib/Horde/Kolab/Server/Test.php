@@ -336,6 +336,7 @@ class Horde_Kolab_Server_Test extends Horde_Kolab_Server_Ldap
             if (!is_array($attributes)) {
                 $attributes = array($attributes);
             }
+            $this->mapKeys($attributes);
         } else {
             $attributes = array();
         }
@@ -352,6 +353,9 @@ class Horde_Kolab_Server_Test extends Horde_Kolab_Server_Ldap
             }
             $result = $subtree;
         }
+
+        $this->unmapAttributes($result);
+
         return $this->getEntries($result);
     }
 
@@ -480,8 +484,12 @@ class Horde_Kolab_Server_Test extends Horde_Kolab_Server_Ldap
                                                                         $dn));
         }
         if (empty($attrs)) {
-            return $this->data[$dn]['data'];
+            $data = $this->data[$dn]['data'];
+            $this->unmapAttributes($data);
+            return $data;
         } else {
+            $this->mapKeys($attrs);
+
             $result = array();
             $data   = $this->data[$dn]['data'];
 
@@ -490,6 +498,9 @@ class Horde_Kolab_Server_Test extends Horde_Kolab_Server_Ldap
                     $result[$attr] = $data[$attr];
                 }
             }
+
+            $this->unmapAttributes($result);
+
             return $result;
         }
     }
@@ -508,6 +519,8 @@ class Horde_Kolab_Server_Test extends Horde_Kolab_Server_Ldap
         if (!$this->bound) {
             $result = $this->bind();
         }
+
+        $this->mapAttributes($data);
 
         $ldap_data = array();
         foreach ($data as $key => $val) {
