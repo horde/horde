@@ -552,28 +552,28 @@ body.kronolithAjax {
 
 /* to be removed */
 div.c1 {
-	color: #336600;
+    color: #336600;
 }
 div.c2 {
-	color: #1a5587;
+    color: #1a5587;
 }
 div.c3 {
-	color: #d38a23;
+    color: #d38a23;
 }
 div.c4 {
-	color: #4b2a16;
+    color: #4b2a16;
 }
 div.c1.kronolithEventFull {
-	background-color: #336600 !important;
+    background-color: #336600 !important;
 }
 div.c2.kronolithEventFull {
-	background-color: #1a5587 !important;
+    background-color: #1a5587 !important;
 }
 div.c3.kronolithEventFull {
-	background-color: #d38a23 !important;
+    background-color: #d38a23 !important;
 }
 div.c4.kronolithEventFull {
-	background-color: #4b2a16 !important;
+    background-color: #4b2a16 !important;
 }
 
 #kronolithAddEvents span {
@@ -1278,61 +1278,6 @@ li.panel-tags {
 
 .panel-tags li:hover {
     text-decoration: underline;
-}
-
-#kronolithTagACBox {
-    background:white none repeat scroll 0 0;
-    border:1px solid #666699;
-    cursor:default;
-    /*overflow:hidden;*/
-    text-align:left;
-    min-height: 58px;
-}
-
-.kronolithTagACList {
-    display:block;
-    overflow:hidden;
-    width:100%;
-    cursor:default;
-    list-style-type:none;
-    margin:0;
-    padding:0;
-}
-
-.kronolithACListItem {
-    display:inline-block;
-    font-size:90%;
-    padding:2px 1px 1px 2px;
-    height: 17px;
-    white-space:nowrap;
-}
-
-.kronolithTagACListItem {
-    background-color:lightblue;
-    border:1px solid #C0C0C0;
-    -moz-border-radius-bottomleft:4px;
-    -moz-border-radius-bottomright:4px;
-    -moz-border-radius-topleft:4px;
-    -moz-border-radius-topright:4px;
-    margin:5px;
-}
-
-#kronolithTagACTrigger {
-    background:transparent none repeat scroll 0 0;
-    border:0 none;
-    display:inline;
-    position:static;
-    width:80px;
-}
-
-.kronolithTagACContainer {
-    height:18px;
-    margin:2px;
-    padding:2px 2px 2px 0;
-}
-
-.kronolithTagACRemove:hover {
-    cursor:pointer;
 }
 
 #hordeAlerts div.kronolith-sticky, #hordeAlerts div.kronolith-sticky {

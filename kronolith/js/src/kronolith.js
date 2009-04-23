@@ -1184,7 +1184,7 @@ KronolithCore = {
                 e.stop();
                 return;
             } else if (elt.hasClassName('kronolithEventTag')) {
-                $('kronolithTagACTrigger').kronolithTagger.addNewTagNode(elt.getText());
+                $('tags').tagger.addNewTagNode(elt.getText());
                 e.stop();
                 return;
             }
@@ -1238,7 +1238,7 @@ KronolithCore = {
             RedBox.onDisplay = null;
         };
 
-        $('kronolithTagACTrigger').kronolithTagger.init();
+        $('tags').tagger.init();
         $('kronolithEventForm').enable();
         $('kronolithEventForm').reset();
         this.doAction('ListTopTags', {}, this._topTags);
@@ -1294,7 +1294,7 @@ KronolithCore = {
         $('kronolithEventStartTime').value = ev.st;
         $('kronolithEventEndDate').value = ev.ed;
         $('kronolithEventEndTime').value = ev.et;
-        $('kronolithTagACTrigger').kronolithTagger.init(ev.tg);
+        $('tags').tagger.init(ev.tg);
         if (ev.r) {
             // @todo: refine
             $A($('kronolithEventRecurrence').options).find(function(option) {

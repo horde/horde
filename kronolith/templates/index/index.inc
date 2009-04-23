@@ -174,14 +174,8 @@
 
 <div>
   <label for="id_tags"><?php echo _("Tags") ?></label><br />
-  <div id="kronolithTagACBox" class="kronolithLongField">
-   <ul class="kronolithTagACList">
-    <li id="kronolithTagACContainer" class="kronolithACListItem kronolithTagACContainer"><input name="kronolithTagACTrigger" id="kronolithTagACTrigger" type="text" /></li>
-   </ul>
-   <div id="kronolithTagACTrigger_results" class="autocomplete"></div>
-  </div>
-  <input type="hidden" id="kronolithEventTags" name="tags" />
-  <span id="kronolithTagACTrigger_loading_img" style="display:none;"><?php echo Horde::img('loading.gif', _("Loading...")) ?></span>
+  <input id="tags" name="tags" />
+  <span id="tags_loading_img" style="display:none;"><?php echo Horde::img('loading.gif', _("Loading...")) ?></span>
 </div>
 
 <div id="kronolithEventTopTags"></div>

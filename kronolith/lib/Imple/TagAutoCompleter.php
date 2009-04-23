@@ -33,7 +33,7 @@ class Kronolith_Imple_TagAutoCompleter extends Kronolith_Imple
 
     /**
      * Attach the Imple object to a javascript event.
-     * Assume that if the 'box' parameter is empty then we want a
+     * If the 'pretty' parameter is empty then we want a
      * traditional autocompleter, otherwise we get a spiffy pretty one.
      *
      */
@@ -43,10 +43,12 @@ class Kronolith_Imple_TagAutoCompleter extends Kronolith_Imple
         parent::attach();
         Horde::addScriptFile('autocomplete.js', 'horde', true);
 
-        if ($pretty = !empty($this->_params['box'])) {
+        if ($pretty = !empty($this->_params['pretty'])) {
             Horde::addScriptFile('taggerAutoCompleter.js', 'kronolith', true);
+            $this->_params['uri'] =  Horde::url($GLOBALS['registry']->get('webroot', 'kronolith') . '/imple.php?imple=TagAutoCompleter', true);
+        } else {
+            $this->_params['uri'] =  Horde::url($GLOBALS['registry']->get('webroot', 'kronolith') . '/imple.php?imple=TagAutoCompleter/input=' . rawurlencode($this->_params['triggerId']), true);
         }
-        $this->_params['uri'] =  Horde::url($GLOBALS['registry']->get('webroot', 'kronolith') . '/imple.php?imple=TagAutoCompleter/input=' . rawurlencode($this->_params['triggerId']), true);
 
         if (!$pretty) {
             $params = array(
@@ -69,13 +71,9 @@ class Kronolith_Imple_TagAutoCompleter extends Kronolith_Imple
         $params[] = '{' . implode(',', $js_params) . '}';
 
         if ($pretty) {
-            $js_vars = array('box' => $this->_params['box'],
-                             'resultsId' => $this->_params['resultsId'],
+            $js_vars = array('boxClass' => 'hordeACBox kronolithLongField',
                              'uri' => $this->_params['uri'],
-                             'selectedTags' => array(),
                              'trigger' => $this->_params['triggerId'],
-                             'tags' => $this->_params['tags'],
-                             'container' => $this->_params['container'],
                              'URI_IMG_HORDE' => $registry->getImageDir('horde'),
                              'params' => $params);
 
@@ -83,7 +81,7 @@ class Kronolith_Imple_TagAutoCompleter extends Kronolith_Imple
                 $js_vars['existing'] = $this->_params['existing'];
             }
 
-           $script = array('new KronolithTagger(' . Horde_Serialize::serialize($js_vars, Horde_Serialize::JSON, NLS::getCharset()) . ')');
+            $script = array('new KronolithTagger(' . Horde_Serialize::serialize($js_vars, Horde_Serialize::JSON, NLS::getCharset()) . ')');
         } else {
             $script = array('new Ajax.Autocompleter(' . implode(',', $params) . ')');
         }
