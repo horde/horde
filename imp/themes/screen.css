@@ -33,6 +33,9 @@
     border: 1px solid #ddd;
     vertical-align: middle;
 }
+.messageList td label {
+    padding-right: 2px;
+}
 .messageList td label input {
     vertical-align: middle;
 }
@@ -40,7 +43,12 @@
     font-size: 80%;
     margin-right: 3px;
 }
-#messages h1.mboxheader span.flagUser {
+
+#messages h1.header {
+    font-size: 110%;
+    vertical-align: bottom;
+}
+#messages h1.header span.flagUser {
     font-size: 80%;
     margin-left: 3px;
 }
