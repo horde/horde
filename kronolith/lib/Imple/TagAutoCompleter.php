@@ -44,7 +44,7 @@ class Kronolith_Imple_TagAutoCompleter extends Kronolith_Imple
         Horde::addScriptFile('autocomplete.js', 'horde', true);
 
         if ($pretty = !empty($this->_params['pretty'])) {
-            Horde::addScriptFile('taggerAutoCompleter.js', 'kronolith', true);
+            Horde::addScriptFile('prettyautocomplete.js', 'horde', true);
             $this->_params['uri'] =  Horde::url($GLOBALS['registry']->get('webroot', 'kronolith') . '/imple.php?imple=TagAutoCompleter', true);
         } else {
             $this->_params['uri'] =  Horde::url($GLOBALS['registry']->get('webroot', 'kronolith') . '/imple.php?imple=TagAutoCompleter/input=' . rawurlencode($this->_params['triggerId']), true);
@@ -81,7 +81,7 @@ class Kronolith_Imple_TagAutoCompleter extends Kronolith_Imple
                 $js_vars['existing'] = $this->_params['existing'];
             }
 
-            $script = array('new KronolithTagger(' . Horde_Serialize::serialize($js_vars, Horde_Serialize::JSON, NLS::getCharset()) . ')');
+            $script = array('new PrettyAutocompleter(' . Horde_Serialize::serialize($js_vars, Horde_Serialize::JSON, NLS::getCharset()) . ')');
         } else {
             $script = array('new Ajax.Autocompleter(' . implode(',', $params) . ')');
         }
