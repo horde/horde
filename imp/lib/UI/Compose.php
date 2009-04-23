@@ -62,9 +62,8 @@ class IMP_UI_Compose
             IMP_Maillog::log('redirect', $headers->getValue('message-id'), $recipients);
         }
 
-        $bodytext = $contents->getBody();
         try {
-            $imp_compose->sendMessage($recipients, $headers, $bodytext, $charset);
+            $imp_compose->sendMessage($recipients, $headers, $mime_message, $charset);
         } catch (IMP_Compose_Exception $e) {
             throw new Horde_Exception($e);
         }

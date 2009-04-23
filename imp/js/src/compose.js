@@ -149,24 +149,19 @@ var ImpCompose = {
 
     uniqSubmit: function(actionID, e)
     {
+        var form;
+
         e.stop();
 
         if (actionID == 'redirect') {
             if ($F('to') == '') {
                 alert(IMP.text.compose_recipient);
                 $('to').focus();
-            } else {
-                // Ticket #6727; this breaks on WebKit w/FCKeditor.
-                if (!Prototype.Browser.WebKit) {
-                    $('redirect').setStyle({ cursor: 'wait' });
-                }
-                this.display_unload_warning = false;
+                return;
             }
 
-            return;
-        }
-
-        if (actionID == 'send_message') {
+            form = $('redirect');
+        } else if (actionID == 'send_message') {
             if (($F('subject') == '') &&
                 !window.confirm(IMP.text.compose_nosubject)) {
                 return;
@@ -180,30 +175,31 @@ var ImpCompose = {
                 return;
             }
 
-        }
+            this.skip_spellcheck = false;
 
-        this.skip_spellcheck = false;
+            if (IMP.SpellCheckerObject) {
+                IMP.SpellCheckerObject.resume();
+            }
 
-        if (IMP.SpellCheckerObject) {
-            IMP.SpellCheckerObject.resume();
+            form = $('compose');
+            $('actionID').setValue('send_message');
         }
 
         // Ticket #6727; this breaks on WebKit w/FCKeditor.
         if (!Prototype.Browser.WebKit) {
-            $('compose').setStyle({ cursor: 'wait' });
+            form.setStyle({ cursor: 'wait' });
         }
 
         this.display_unload_warning = false;
-        $('actionID').setValue(actionID);
-        this._uniqSubmit();
+        this._uniqSubmit(form);
     },
 
-    _uniqSubmit: function()
+    _uniqSubmit: function(form)
     {
         if (this.textarea_ready) {
-            $('compose').submit();
+            form.submit();
         } else {
-            this._uniqSubmit.defer();
+            this._uniqSubmit.bind(this, form).defer();
         }
     },
 
@@ -253,7 +249,7 @@ var ImpCompose = {
         if (typeof IMP.SpellCheckerObject != 'object') {
             // If we fired before the onload that initializes the spellcheck,
             // wait.
-            this.initializeSpellChecker.defer();
+            this.initializeSpellChecker.bind(this).defer();
             return;
         }
 
