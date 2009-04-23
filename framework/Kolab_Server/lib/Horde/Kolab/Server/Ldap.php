@@ -162,8 +162,8 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
         if (!empty($this->params['map'])) {
             foreach ($this->params['map'] as $attribute => $map) {
                 if (in_array($attribute, $keys)) {
-                    $data[$map] = $data[$attribute];
-                    unset($data[$attribute]);
+                    $keys = array_diff($keys, array($attribute));
+                    $keys[] = $map;
                 }
             }
         }
@@ -546,17 +546,15 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
      */
     public function searchQuery($criteria)
     {
+        /* Accept everything. */
+        $filter = '(' . strtolower(Horde_Kolab_Server_Object::ATTRIBUTE_OC) . '=*)';
+
         /* Build the LDAP filter. */
         if (count($criteria)) {
             $f = $this->buildSearchQuery($criteria);
-            if (!$f instanceOf Net_LDAP2_Filter) {
-                var_dump($f->getMessage());
-                die();
+            if ($f instanceOf Net_LDAP2_Filter) {
+                $filter = $f->asString();
             }
-            $filter = $f->asString();
-        } else {
-            /* Accept everything. */
-            $filter = '(' . strtolower(Horde_Kolab_Server_Object::ATTRIBUTE_OC) . '=*)';
         }
 
         /* Add source-wide filters, which are _always_ AND-ed. */
