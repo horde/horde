@@ -42,8 +42,6 @@ class Horde_Kolab_Server_Object_Kolab_Adminrole extends Horde_Kolab_Server_Objec
     /**
      * Return the filter string to retrieve this object type.
      *
-     * @static
-     *
      * @return string The filter to retrieve this object type from the server
      *                database.
      */

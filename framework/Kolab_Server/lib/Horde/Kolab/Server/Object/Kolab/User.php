@@ -91,8 +91,6 @@ class Horde_Kolab_Server_Object_Kolab_User extends Horde_Kolab_Server_Object_Kol
     /**
      * Return the filter string to retrieve this object type.
      *
-     * @static
-     *
      * @return string The filter to retrieve this object type from the server
      *                database.
      */

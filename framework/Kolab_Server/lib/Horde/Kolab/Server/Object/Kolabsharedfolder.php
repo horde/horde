@@ -63,8 +63,6 @@ class Horde_Kolab_Server_Object_Kolabsharedfolder extends Horde_Kolab_Server_Obj
     /**
      * Return the filter string to retrieve this object type.
      *
-     * @static
-     *
      * @return string The filter to retrieve this object type from the server
      *                database.
      */

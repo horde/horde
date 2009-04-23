@@ -53,8 +53,6 @@ class Horde_Kolab_Server_Object_Kolab_Address extends Horde_Kolab_Server_Object_
     /**
      * Return the filter string to retrieve this object type.
      *
-     * @static
-     *
      * @return string The filter to retrieve this object type from the server
      *                database.
      */
