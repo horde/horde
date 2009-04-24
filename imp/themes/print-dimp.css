@@ -24,6 +24,7 @@ a, a:visited {
 
 #previewPane {
     height: auto !important;
+    overflow: visible !important;
 }
 
 #msgHeaders, .dispaddrlist {
