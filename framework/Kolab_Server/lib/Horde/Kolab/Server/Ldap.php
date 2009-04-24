@@ -161,9 +161,9 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
     {
         if (!empty($this->params['map'])) {
             foreach ($this->params['map'] as $attribute => $map) {
-                if (in_array($attribute, $keys)) {
-                    $keys = array_diff($keys, array($attribute));
-                    $keys[] = $map;
+                $key = array_search($attribute, $keys);
+                if ($key !== false) {
+                    $keys[$key] = $map;
                 }
             }
         }
