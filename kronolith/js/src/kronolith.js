@@ -652,6 +652,7 @@ KronolithCore = {
                         .invoke('remove');
                 }
             }
+
             this._getCacheForDate(date).sortBy(this._sortEvents).each(function(event) {
                 if (view != 'day' && view != 'week' &&
                     calendar && calendar != event.value.calendar) {
@@ -1184,7 +1185,7 @@ KronolithCore = {
                 e.stop();
                 return;
             } else if (elt.hasClassName('kronolithEventTag')) {
-                $('tags').tagger.addNewTagNode(elt.getText());
+                $('tags').autocompleter.addNewItemNode(elt.getText());
                 e.stop();
                 return;
             }
@@ -1238,7 +1239,7 @@ KronolithCore = {
             RedBox.onDisplay = null;
         };
 
-        $('tags').tagger.init();
+        $('tags').autocompleter.init();
         $('kronolithEventForm').enable();
         $('kronolithEventForm').reset();
         this.doAction('ListTopTags', {}, this._topTags);
@@ -1294,7 +1295,7 @@ KronolithCore = {
         $('kronolithEventStartTime').value = ev.st;
         $('kronolithEventEndDate').value = ev.ed;
         $('kronolithEventEndTime').value = ev.et;
-        $('tags').tagger.init(ev.tg);
+        $('tags').autocompleter.init(ev.tg);
         if (ev.r) {
             // @todo: refine
             $A($('kronolithEventRecurrence').options).find(function(option) {
