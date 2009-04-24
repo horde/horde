@@ -87,7 +87,7 @@ class IMP_Views_Compose
         );
 
         if (!empty($args['qreply'])) {
-            $result['js'] = 'DIMP.conf_compose.qreply = 1';
+            $result['js'][] = 'DIMP.conf_compose.qreply = 1';
         }
 
         $compose_html = $rte = false;
