@@ -147,6 +147,7 @@ class Horde_Kolab_Server_Object_Kolabgroupofnames extends Horde_Kolab_Server_Obj
         $searches = array(
             'gidForMail',
             'memberOfGroupAddress',
+            'getGroupAddresses',
         );
         return $searches;
     }
@@ -200,4 +201,46 @@ class Horde_Kolab_Server_Object_Kolabgroupofnames extends Horde_Kolab_Server_Obj
         return !empty($result);
     }
 
+
+    /**
+     * Get the mail addresses for the group of this object.
+     *
+     * @param string $uid The UID of the object to fetch.
+     *
+     * @return array An array of mail addresses.
+     *
+     * @throws Horde_Kolab_Server_Exception
+     */
+    static public function getGroupAddresses($server, $uid)
+    {
+        $criteria = array('AND' =>
+                          array(
+                              array('field' => self::ATTRIBUTE_OC,
+                                    'op'    => '=',
+                                    'test'  => self::OBJECTCLASS_GROUPOFNAMES),
+                              array('field' => self::ATTRIBUTE_MEMBER,
+                                    'op'    => '=',
+                                    'test'  => $uid),
+                          ),
+        );
+
+        $data = self::attrsForSearch($server, $criteria, array(self::ATTRIBUTE_MAIL),
+                                     self::RESULT_MANY);
+
+        if (empty($data)) {
+            return array();
+        }
+
+        $mails = array();
+        foreach ($data as $element) {
+            if (isset($element[self::ATTRIBUTE_MAIL])) {
+                if (is_array($element[self::ATTRIBUTE_MAIL])) {
+                    $mails = array_merge($mails, $element[self::ATTRIBUTE_MAIL]);
+                } else {
+                    $mails[] = $element[self::ATTRIBUTE_MAIL];
+                }
+            }
+        }
+        return $mails;
+    }
 }

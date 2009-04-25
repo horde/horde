@@ -415,9 +415,17 @@ class Horde_Kolab_Server_testTest extends Horde_Kolab_Test_Server
         $this->assertNoError($groups);
         $this->assertContains('cn=group@example.org,dc=example,dc=org', $groups);
 
+        $groups = $server->getGroupAddresses($server->uidForIdOrMailOrAlias('g.wrobel@example.org'));
+        $this->assertNoError($groups);
+        $this->assertContains('group@example.org', $groups);
+
         $groups = $server->getGroups($server->uidForIdOrMailOrAlias('test@example.org'));
         $this->assertNoError($groups);
         $this->assertContains('cn=group@example.org,dc=example,dc=org', $groups);
+
+        $groups = $server->getGroupAddresses($server->uidForIdOrMailOrAlias('test@example.org'));
+        $this->assertNoError($groups);
+        $this->assertContains('group@example.org', $groups);
 
         $groups = $server->getGroups('nobody');
         $this->assertNoError($groups);

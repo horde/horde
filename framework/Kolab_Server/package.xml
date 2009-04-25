@@ -51,6 +51,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   * Added LDAP write support.
   * Real LDAP server unit testing.
   * Support configurable attribute mapping.
+  * Added getGroupAddresses() to return the mail addresses of groups
+    the user belongs to.
  </notes>
  <contents>
   <dir name="/">
