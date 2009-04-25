@@ -1,24 +1,32 @@
+====================================
+ Kolab_Server Development TODO List
+====================================
 
-- Convert external Project modifications into Kolab_Server.
+ - Ensure getBaseUid always returns a value (see
+   Kolab_Freebusy/lib/Horde/Kolab/FreeBusy/Access.php)
 
-- Implement currently missing scenarios.
+ - Ensure the correct hostnames for a user get returned (getServer).
 
-- Implement Kolab-webadmin functions
+ - Implement currently missing scenarios.
 
-- Check Kolab-webadmin patch in Kolab issue tracker.
+ - Implement Kolab-webadmin functions
 
-- Implement external project requirements
+ - Check Kolab-webadmin patch in Kolab issue tracker.
 
-- Check with current HEAD applications.
+ - Implement external project requirements
 
-- Implement initial server bootstrap
+ - Check with current HEAD applications.
 
-- Load-Balancing.
+ - Implement initial server bootstrap
 
-- Read entry after writing and detect inconsistencies.
+ - Load-Balancing.
 
-- Password history support
+ - Read entry after writing and detect inconsistencies.
 
-- Support alias attribute names
+ - Password history support
 
-- Support size restrictions.
+ - Support alias attribute names
+
+ - Support size restrictions.
+
+ - Implement search result caching.
