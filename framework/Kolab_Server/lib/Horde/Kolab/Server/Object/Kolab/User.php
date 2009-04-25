@@ -187,6 +187,17 @@ class Horde_Kolab_Server_Object_Kolab_User extends Horde_Kolab_Server_Object_Kol
     }
 
     /**
+     * Get the group mail addresses for this object
+     *
+     * @return mixed|PEAR_Error An array of group addresses, false if no groups were
+     *                          found.
+     */
+    function getGroupAddresses()
+    {
+        return $this->server->getGroupAddresses($this->uid);
+    }
+
+    /**
      * Returns the server url of the given type for this user.
      *
      * This method is used to encapsulate multidomain support.
