@@ -787,6 +787,53 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
             $html .= '</tbody></table>';
         }
 
+        if ($registry->hasMethod('calendar/getFbCalendars') &&
+            $registry->hasMethod('calendar/listEvents') &&
+            !is_a($calendars = $registry->call('calendar/getFbCalendars'), 'PEAR_Error')) {
+
+            $vevent_allDay = true;
+            $vevent_start = new Horde_Date($start);
+            $vevent_end = new Horde_Date($end);
+            // Check if it's an all-day event.
+            if (is_array($start)) {
+                $vevent_end = $vevent_end->sub(1);
+            } else {
+                $vevent_allDay = false;
+                $time_span_start = new Horde_Date($start);
+                $time_span_start = $time_span_start->sub($prefs->getValue('conflict_interval') * 60);
+                $time_span_end = new Horde_Date($end);
+                $time_span_end = $time_span_end->add($prefs->getValue('conflict_interval') * 60);
+            }
+            $events = $registry->call('calendar/listEvents', array($start, $vevent_end, $calendars, false));
+
+            if (!is_a($events, 'PEAR_Error') && count($events)) {
+                $html .= '<h2 class="smallheader">' . _("Possible Conflicts") . '</h2><table id="itipconflicts">';
+                // TODO: Check if there are too many events to show.
+                foreach ($events as $calendar) {
+                    foreach ($calendar as $event) {
+                        if ($vevent_allDay || $event->isAllDay()) {
+                            $html .= '<tr class="itipcollision">';
+                        } else {
+                            if ($event->end->compareDateTime($time_span_start) <= -1 ||
+                                $event->start->compareDateTime($time_span_end) >= 1) {
+                               continue;
+                            }
+                            if ($event->end->compareDateTime($vevent_start) <= -1 ||
+                                $event->start->compareDateTime($vevent_end) >= 1) {
+                                $html .= '<tr class="itipnearcollision">';
+                            } else {
+                                $html .= '<tr class="itipcollision">';
+                            }
+                        }
+
+                        $html .= '<td>'. $event->getTitle() . '</td><td>'
+                            . $event->getTimeRange() . '</td></tr>';
+                    }
+                }
+                $html .= '</table>';
+            }
+        }
+
         if ($_SESSION['imp']['view'] != 'imp') {
             return $html;
         }

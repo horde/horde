@@ -175,6 +175,13 @@ $prefGroups['addressbooks'] = array(
     'members' => array('save_recipients', 'display_contact', 'sourceselect')
 );
 
+$prefGroups['events'] = array(
+    'column' => _("Other Options"),
+    'label' => _("Event Requests"),
+    'desc' => _("Customize how should be dealt with event or meeting requests."),
+    'members' => array('conflict_interval')
+);
+
 if (isset($GLOBALS['conf']['utils']['gnupg'])) {
     $prefGroups['pgp'] = array(
         'column' => _("Other Options"),
@@ -1552,6 +1559,20 @@ $_prefs['add_source'] = array(
 );
 
 // End Address book preferences
+
+
+// Event preferences
+
+// Amount of minutes to consider a event as a non-conflicting one in iTip
+$_prefs['conflict_interval'] = array(
+    'value' => 30,
+    'locked' => false,
+    'shared' => false,
+    'type' => 'number',
+    'desc' => _("Minutes needed to consider a event as a non-conflicting one in iTip")
+);
+
+// End Calendar preferences
 
 
 // PGP options

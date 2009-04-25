@@ -141,6 +141,11 @@ $_services['checkLocks'] = array(
     'type' => 'string'
 );
 
+$_services['getFbCalendars'] = array(
+    'args' => array(),
+    'type' => '{urn:horde}stringArray'
+);
+
 /**
  * Returns a list of available permissions.
  *
@@ -1516,4 +1521,13 @@ function _kronolith_checkLocks($calendar, $event = null)
     $share = &$GLOBALS['kronolith_shares']->getShare($calendar);
 
     return $share->checkLocks($event);
+}
+
+/**
+ *
+ * @return array  A list of calendars used to display free/busy information
+ */
+function _kronolith_getFbCalendars()
+{
+    return (unserialize($GLOBALS['prefs']->getValue('fb_cals')));
 }

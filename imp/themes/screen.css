@@ -593,3 +593,12 @@ span.threadImg8 {
 .stripAtc {
     background-image: url("graphics/delete.png");
 }
+
+#itipconflicts tr.itipcollision {
+    background-color: #f00;
+    color: #fff;
+}
+
+#itipconflicts tr.itipnearcollision {
+    background-color: #ee0;
+}
