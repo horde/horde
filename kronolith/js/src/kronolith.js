@@ -739,6 +739,7 @@ KronolithCore = {
                         'threshold': 5,
                         'constraint': 'vertical',
                         'scroll': 'kronolithBody',
+                        'nodrop': true,
                         'parentElement': function() {
                             return $(view == 'day' ? 'kronolithEventsDay' : 'kronolithEventsWeek' + date);
                         },
@@ -746,13 +747,37 @@ KronolithCore = {
                             this.addClassName('kronolithSelected');
                         }.bind(div),
                         'onEnd': function(d, e) {
+                            var dates = this[0].viewDates(midnight, view),
+                                start = dates[0].toString('yyyyMMdd'),
+                                end = dates[1].toString('yyyyMMdd');
                             this[1].removeClassName('kronolithSelected');
                             this[0]._setEventText(innerDiv, event.value);
+                            this[0].eventsLoading[event.value.calendar] = start + end;
+                            this[0].loading++;
+                            $('kronolithLoading').show();
+                            this[0].doAction(
+                                'UpdateEvent',
+                                { 'cal': event.value.calendar,
+                                  'id': event.key,
+                                  'view': view,
+                                  'view_start': start,
+                                  'view_end': end,
+                                  'att': $H({
+                                      start: event.value.start,
+                                      end: event.value.end,
+                                  }).toJSON()
+                                },
+                                function(r) {
+                                    if (r.response.events) {
+                                        this._removeEvent(event.key, event.value.calendar);
+                                        this._loadEventsCallback(r);
+                                    }
+                                }.bind(this[0]));
                         }.bind([this, div]),
                         'onDrag': function(d, e) {
                             var top = d.ghost.cumulativeOffset()[1],
                                 draggingTop = d.ghost.hasClassName('kronolithDraggerTop'),
-                                offset, height;
+                                offset, height, dates;
                             if (draggingTop) {
                                 offset = top - dragTop;
                                 height = this[1].offsetHeight - offset;
@@ -770,11 +795,8 @@ KronolithCore = {
                             this[1].setStyle({
                                 'height': height + 'px'
                             });
-                            var hourFrom = offset / this[0][storage].height | 0,
-                                minFrom = Math.round(offset % this[0][storage].height / step * 10).toPaddedString(2),
-                                hourTo = (offset + height + this[0][storage].spacing) / this[0][storage].height | 0,
-                                minTo = Math.round((offset + height + this[0][storage].spacing) % this[0][storage].height / step * 10).toPaddedString(2)
-                            innerDiv.update('(' + hourFrom + ':' + minFrom + '-' + hourTo + ':' + minTo + ') ' + event.value.t);
+                            this[0]._calculateEventDates(event.value, storage, step, offset, height);
+                            innerDiv.update('(' + event.value.start.toString(Kronolith.conf.time_format) + ' - ' + event.value.end.toString(Kronolith.conf.time_format) + ') ' + event.value.t);
                         }.bind([this, div])
                     };
 
@@ -877,7 +899,23 @@ KronolithCore = {
     _removeEvent: function(event, calendar)
     {
         this._deleteCache(event, calendar);
-        $('kronolithViewMonth').select('div[calendar=' + calendar + '][eventid=' + event + ']').invoke('remove');
+        $('kronolithBody').select('div[calendar=' + calendar + '][eventid=' + event + ']').invoke('remove');
+    },
+
+    /**
+     * Calculates the event's start and end dates based on some drag and drop
+     * information.
+     */
+    _calculateEventDates: function(event, storage, step, offset, height)
+    {
+        event.start.set({
+            hour: offset / this[storage].height | 0,
+            minute: Math.round(offset % this[storage].height / step * 10)
+        });
+        event.end.set({
+            hour: (offset + height + this[storage].spacing) / this[storage].height | 0,
+            minute: Math.round((offset + height + this[storage].spacing) % this[storage].height / step * 10)
+        });
     },
 
     /**

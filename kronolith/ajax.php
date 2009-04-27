@@ -58,6 +58,8 @@ function saveEvent($event)
     }
     $start = new Horde_Date(Util::getFormData('view_start'));
     $end   = new Horde_Date(Util::getFormData('view_end'));
+    $end->hour = 23;
+    $end->min = $endDate->sec = 59;
     Kronolith::addEvents($events, $event, $start, $end, true, true);
     $result = new stdClass;
     $result->cal = Util::getFormData('cal');
@@ -213,6 +215,14 @@ try {
                 $event->start->month = $start->month;
                 $event->start->mday = $start->mday;
                 $event->end = $event->start->add(array('min' => $event->durMin));
+                break;
+
+            case 'start':
+                $event->start = new Horde_Date($value);
+                break;
+
+            case 'end':
+                $event->end = new Horde_Date($value);
                 break;
             }
         }
