@@ -776,7 +776,7 @@ KronolithCore = {
                                 minFrom = Math.round(offset % this[0][storage].height / step * 10).toPaddedString(2),
                                 hourTo = (offset + height + this[0][storage].spacing) / this[0][storage].height | 0,
                                 minTo = Math.round((offset + height + this[0][storage].spacing) % this[0][storage].height / step * 10).toPaddedString(2)
-                            innerDiv.setText('(' + hourFrom + ':' + minFrom + '-' + hourTo + ':' + minTo + ') ' + event.value.t);
+                            innerDiv.update('(' + hourFrom + ':' + minFrom + '-' + hourTo + ':' + minTo + ') ' + event.value.t);
                         }.bind([this, div])
                     };
 
