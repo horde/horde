@@ -137,7 +137,11 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <min>1.4.0b1</min>
    </pearinstaller>
    <package>
-    <name>Auth</name>
+    <name>Autoloader</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Horde_Framework</name>
     <channel>pear.horde.org</channel>
    </package>
   </required>
@@ -147,7 +151,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Horde_SessionObjects</name>
+    <name>Horde_Cache</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
