@@ -138,6 +138,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    </pearinstaller>
    <package>
     <name>Net_LDAP2</name>
+    <channel>pear.php.net</channel>
    </package>
    <package>
     <name>Autoloader</name>
