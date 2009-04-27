@@ -137,6 +137,9 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <min>1.4.0b1</min>
    </pearinstaller>
    <package>
+    <name>Net_LDAP2</name>
+   </package>
+   <package>
     <name>Autoloader</name>
     <channel>pear.horde.org</channel>
    </package>
