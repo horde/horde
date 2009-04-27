@@ -112,11 +112,11 @@ http://pear.php.net/dtd/package-2.0.xsd">
        <file name="GroupTest.php" role="test" />
        <file name="InetorgpersonTest.php" role="test" />
        <file name="LdapTest.php" role="test" />
-       <file name="KolabgermanbankarrangemenTest.php" role="test" />
+       <file name="KolabgermanbankarrangementTest.php" role="test" />
        <file name="KolabinetorgpersonTest.php" role="test" />
        <file name="Kolabpop3accountTest.php" role="test" />
        <file name="ObjectTest.php" role="test" />
-       <file name="OrganizationalpersonTest.php" role="test" />
+       <file name="OrgPersonTest.php" role="test" />
        <file name="PersonTest.php" role="test" />
        <file name="ServerTest.php" role="test" />
        <file name="TestTest.php" role="test" />
@@ -201,10 +201,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="test/Horde/Kolab/Server/Kolabpop3accountTest.php" as="Horde/Kolab/Server/Kolabpop3accountTest.php" />
    <install name="test/Horde/Kolab/Server/LdapTest.php" as="Horde/Kolab/Server/LdapTest.php" />
    <install name="test/Horde/Kolab/Server/ObjectTest.php" as="Horde/Kolab/Server/ObjectTest.php" />
-   <install name="test/Horde/Kolab/Server/OrganizationalpersonTest.php" as="Horde/Kolab/Server/OrganizationalpersonTest.php" />
+   <install name="test/Horde/Kolab/Server/OrgPersonTest.php" as="Horde/Kolab/Server/OrgPersonTest.php" />
    <install name="test/Horde/Kolab/Server/PersonTest.php" as="Horde/Kolab/Server/PersonTest.php" />
    <install name="test/Horde/Kolab/Server/ServerTest.php" as="Horde/Kolab/Server/ServerTest.php" />
-   <install name="test/Horde/Kolab/Server/testTest.php" as="Horde/Kolab/Server/testTest.php" />
+   <install name="test/Horde/Kolab/Server/TestTest.php" as="Horde/Kolab/Server/TestTest.php" />
    <install name="test/Horde/Kolab/Server/UserHandlingTest.php" as="Horde/Kolab/Server/UserHandlingTest.php" />
    <install name="test/Horde/Kolab/Server/UserTest.php" as="Horde/Kolab/Server/UserTest.php" />
   </filelist>
