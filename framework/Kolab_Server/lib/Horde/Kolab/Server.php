@@ -206,7 +206,8 @@ abstract class Horde_Kolab_Server
     function shutdown()
     {
         if (isset($this->attributes)) {
-            if (!empty($GLOBALS['conf']['kolab']['server']['cache']['driver'])) {
+            if (!empty($GLOBALS['conf']['kolab']['server']['cache']['driver'])
+		&& class_exists('Horde_Cache')) {
                 $params = isset($GLOBALS['conf']['kolab']['server']['cache']['params'])
                     ? $GLOBALS['conf']['kolab']['server']['cache']['params'] : null;
                 $cache  = Horde_Cache::singleton($GLOBALS['conf']['kolab']['server']['cache']['driver'],
@@ -387,7 +388,8 @@ abstract class Horde_Kolab_Server
         static $lifetime;
 
         if (!isset($this->attributes)) {
-            if (!empty($GLOBALS['conf']['kolab']['server']['cache']['driver'])) {
+            if (!empty($GLOBALS['conf']['kolab']['server']['cache']['driver'])
+		&& class_exists('Horde_Cache')) {
                 $params = isset($GLOBALS['conf']['kolab']['server']['cache']['params'])
                     ? $GLOBALS['conf']['kolab']['server']['cache']['params'] : null;
                 $cache  = Horde_Cache::singleton($GLOBALS['conf']['kolab']['server']['cache']['driver'],
