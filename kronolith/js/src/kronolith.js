@@ -355,9 +355,7 @@ KronolithCore = {
                     return;
                 }
                 drop.insert(el);
-                this.eventsLoading[cal] = start + end;
-                this.loading++;
-                $('kronolithLoading').show();
+                this.startLoading(cal, start, end);
                 this.doAction('UpdateEvent',
                               { 'cal': cal,
                                 'id': eventid,
@@ -536,6 +534,20 @@ KronolithCore = {
     },
 
     /**
+     * Sets the load signature and show the loading spinner.
+     *
+     * @param string cal    The loading calendar.
+     * @param string start  The first day of the loading view.
+     * @param string end    The last day of the loading view.
+     */
+    startLoading: function(cal, start, end)
+    {
+        this.eventsLoading[cal] = start + end;
+        this.loading++;
+        $('kronolithLoading').show();
+    },
+
+    /**
      */
     _loadEvents: function(firstDay, lastDay, view, calendars)
     {
@@ -574,9 +586,7 @@ KronolithCore = {
             }
             var start = startDay.dateString(), end = endDay.dateString(),
                 calendar = cal.join('|');
-            this.eventsLoading[calendar] = start + end;
-            this.loading++;
-            $('kronolithLoading').show();
+            this.startLoading(calendar, start, end);
             this._storeCache($H(), calendar);
             this.doAction('ListEvents', { start: start, end: end, cal: calendar, view: view }, this._loadEventsCallback.bind(this));
         }, this);
@@ -752,9 +762,7 @@ KronolithCore = {
                                 end = dates[1].toString('yyyyMMdd');
                             this[1].removeClassName('kronolithSelected');
                             this[0]._setEventText(innerDiv, event.value);
-                            this[0].eventsLoading[event.value.calendar] = start + end;
-                            this[0].loading++;
-                            $('kronolithLoading').show();
+                            this[0].startLoading(event.value.calendar, start, end);
                             this[0].doAction(
                                 'UpdateEvent',
                                 { 'cal': event.value.calendar,
@@ -1165,9 +1173,7 @@ KronolithCore = {
                     viewDates = this.viewDates(this.date, this.view),
                     start = viewDates[0].dateString(),
                     end = viewDates[1].dateString();
-                this.eventsLoading[cal] = start + end;
-                this.loading++;
-                $('kronolithLoading').show();
+                this.startLoading(cal, start, end);
                 this.doAction('SaveEvent',
                               $H($('kronolithEventForm').serialize({ 'hash': true }))
                                   .merge({
