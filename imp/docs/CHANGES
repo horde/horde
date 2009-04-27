@@ -2,8 +2,8 @@
 v5.0-git
 --------
 
-[jan] Show possible event conflicts in iTip viewer (Gonçalo Queirós
-      <goncalo.queiros@portugalmail.net>).
+[jan] Show possible event conflicts in iTip viewer (Request #3991, Gonçalo
+      Queirós <goncalo.queiros@portugalmail.net>).
 [mms] Move subfolders of special folders to lower folder display tree in
       DIMP (Bug #8127).
 [mms] Simplify quicksearch UI in DIMP.
