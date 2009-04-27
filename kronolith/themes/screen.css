@@ -990,7 +990,7 @@ div.kronolithView div.kronolithViewBody div.kronolithRow {
 .kronolithViewHead td {
     height: 20px;
 }
-#kronolithEventsDay {
+#kronolithEventsDay, #kronolithEventsWeek {
     position: absolute;
     top: 27px;
     right: 5px;
@@ -998,20 +998,17 @@ div.kronolithView div.kronolithViewBody div.kronolithRow {
     left: 25px;
 }
 #kronolithEventsWeek {
-    position: absolute;
-    top: 26px;
-    right: 4px;
-    bottom: 2px;
-    left: 24px;
+    left: 23px;
+    right: 3px;
 }
 .kronolithEventsWeek {
     position: relative;
     float: left;
     height: 100%;
-    width: 14.2857%;
+    width: 14.285714%;
 }
 .kronolithEventsWeek .kronolithEvent {
-    margin: 1px 3px 1px 1px;
+    margin: 0 2px;
 }
 
 /* More main view */

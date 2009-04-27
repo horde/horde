@@ -403,8 +403,7 @@ KronolithCore = {
         }
 
         this[storage] = {};
-        var container = $(view),
-            trA = container.down('.kronolithAllDay'),
+        var trA = $(view).down('.kronolithAllDay'),
             tdA = trA.down('td'),
             tr = trA.next('tr'),
             td = tr.down('td'), height;
@@ -687,7 +686,8 @@ KronolithCore = {
         switch (view) {
         case 'day':
         case 'week':
-            this._calculateRowSizes('daySizes', view == 'day' ? 'kronolithViewDay' : 'kronolithViewWeek');
+            var storage = view + 'Sizes';
+            this._calculateRowSizes(storage, view == 'day' ? 'kronolithViewDay' : 'kronolithViewWeek');
             var div = _createElement(event),
                 style = { 'backgroundColor': event.value.bg,
                           'color': event.value.fg };
@@ -709,8 +709,8 @@ KronolithCore = {
                 draggerBottom = new Element('DIV', { 'id': event.value.nodeId + 'bottom', 'class': 'kronolithDragger kronolithDraggerBottom' }).setStyle(style);
 
             div.setStyle({
-                'top': ((midnight.getElapsed(start) / 60000 | 0) * this.daySizes.height / 60 + this.daySizes.offset | 0) + 'px',
-                'height': ((start.getElapsed(end) / 60000 | 0) * this.daySizes.height / 60 - this.daySizes.spacing | 0) + 'px',
+                'top': ((midnight.getElapsed(start) / 60000 | 0) * this[storage].height / 60 + this[storage].offset | 0) + 'px',
+                'height': ((start.getElapsed(end) / 60000 | 0) * this[storage].height / 60 - this[storage].spacing | 0) + 'px',
                 'width': '100%'
             })
                 .insert(innerDiv.setStyle(style))
@@ -720,28 +720,29 @@ KronolithCore = {
 
             if (event.value.pe) {
                 div.addClassName('kronolithEditable');
-                var minTop = $('kronolithEventsDay').offsetTop
-                        + this.daySizes.allDay
-                        + this.daySizes.spacing,
-                    step = this.daySizes.height / 6,
+                var minTop = this[storage].allDay + this[storage].spacing,
+                    step = this[storage].height / 6,
                     dragTop = draggerTop.cumulativeOffset()[1],
                     dragBottom = draggerBottom.cumulativeOffset()[1],
                     dragBottomHeight = draggerBottom.getHeight(),
                     eventTop = div.cumulativeOffset()[1],
                     maxTop = div.offsetTop + draggerBottom.offsetTop
-                        - this.daySizes.allDay - this.daySizes.spacing
+                        - this[storage].allDay - this[storage].spacing
                         - draggerTop.getHeight()
                         - parseInt(innerDiv.getStyle('lineHeight')),
                     minBottom = div.offsetTop
-                        - this.daySizes.allDay - this.daySizes.spacing
+                        - this[storage].allDay - this[storage].spacing
                         + draggerTop.getHeight() - dragBottomHeight
                         + parseInt(innerDiv.getStyle('lineHeight')),
+                    maxBottom = 24 * KronolithCore[storage].height
+                        + KronolithCore[storage].allDay
+                        - dragBottomHeight - minTop;
                     opts = {
                         'threshold': 5,
                         'constraint': 'vertical',
                         'scroll': 'kronolithBody',
                         'parentElement': function() {
-                            return $('kronolithBody');
+                            return $(view == 'day' ? 'kronolithEventsDay' : 'kronolithEventsWeek' + date);
                         },
                         'onStart': function(d, e) {
                             this.addClassName('kronolithSelected');
@@ -765,16 +766,16 @@ KronolithCore = {
                             } else {
                                 offset = top - dragBottom;
                                 height = this[1].offsetHeight + offset;
-                                offset = this[1].offsetTop - this[0].daySizes.allDay - this[0].daySizes.spacing;
+                                offset = this[1].offsetTop - this[0][storage].allDay - this[0][storage].spacing;
                                 dragBottom = top;
                             }
                             this[1].setStyle({
                                 'height': height + 'px'
                             });
-                            var hourFrom = offset / this[0].daySizes.height | 0,
-                                minFrom = Math.round(offset % this[0].daySizes.height / step * 10).toPaddedString(2),
-                                hourTo = (offset + height + this[0].daySizes.spacing) / this[0].daySizes.height | 0,
-                                minTo = Math.round((offset + height + this[0].daySizes.spacing) % this[0].daySizes.height / step * 10).toPaddedString(2)
+                            var hourFrom = offset / this[0][storage].height | 0,
+                                minFrom = Math.round(offset % this[0][storage].height / step * 10).toPaddedString(2),
+                                hourTo = (offset + height + this[0][storage].spacing) / this[0][storage].height | 0,
+                                minTo = Math.round((offset + height + this[0][storage].spacing) % this[0][storage].height / step * 10).toPaddedString(2)
                             innerDiv.setText('(' + hourFrom + ':' + minFrom + '-' + hourTo + ':' + minTo + ') ' + event.value.t);
                         }.bind([this, div])
                     };
@@ -786,7 +787,7 @@ KronolithCore = {
                 new Drag(event.value.nodeId + 'top', opts);
 
                 opts.snap = function(x, y, elm) {
-                    y = step * (Math.max(minBottom, y - minTop - dragBottomHeight) / step | 0) + minTop + dragBottomHeight;
+                    y = Math.min(maxBottom, step * (Math.max(minBottom, y - minTop - dragBottomHeight) / step | 0) + dragBottomHeight) + minTop;
                     return [0, y];
                 }
                 new Drag(event.value.nodeId + 'bottom', opts);
