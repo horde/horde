@@ -702,15 +702,13 @@ KronolithCore = {
             }
 
             var midnight = Date.parseExact(date, 'yyyyMMdd'),
-                start = Date.parse(event.value.s),
-                end = Date.parse(event.value.e),
                 innerDiv = new Element('DIV', { 'class': 'kronolithEventInfo' }),
                 draggerTop = new Element('DIV', { 'id': event.value.nodeId + 'top', 'class': 'kronolithDragger kronolithDraggerTop' }).setStyle(style),
                 draggerBottom = new Element('DIV', { 'id': event.value.nodeId + 'bottom', 'class': 'kronolithDragger kronolithDraggerBottom' }).setStyle(style);
 
             div.setStyle({
-                'top': ((midnight.getElapsed(start) / 60000 | 0) * this[storage].height / 60 + this[storage].offset | 0) + 'px',
-                'height': ((start.getElapsed(end) / 60000 | 0) * this[storage].height / 60 - this[storage].spacing | 0) + 'px',
+                'top': ((midnight.getElapsed(event.value.start) / 60000 | 0) * this[storage].height / 60 + this[storage].offset | 0) + 'px',
+                'height': ((event.value.start.getElapsed(event.value.end) / 60000 | 0) * this[storage].height / 60 - this[storage].spacing | 0) + 'px',
                 'width': '100%'
             })
                 .insert(innerDiv.setStyle(style))
@@ -797,8 +795,7 @@ KronolithCore = {
                 pos = this.dayGroups.length, placeFound = false;
 
             this.dayEvents.each(function(ev) {
-                var evStart = Date.parse(ev.s), evEnd = Date.parse(ev.e);
-                if (!evEnd.isAfter(start)) {
+                if (!ev.end.isAfter(event.value.start)) {
                     placeFound = ev;
                     return;
                 }
@@ -965,11 +962,13 @@ KronolithCore = {
             }
         }
 
-        // Store calendar string in event objects.
+        // Store calendar string and other useful information in event objects.
         var cal = calendar.join('|');
         $H(events).each(function(date) {
             $H(date.value).each(function(event) {
                 event.value.calendar = cal;
+                event.value.start = Date.parse(event.value.s);
+                event.value.end = Date.parse(event.value.e);
             });
         });
 
@@ -1030,8 +1029,8 @@ KronolithCore = {
      */
     _sortEvents: function(event)
     {
-        return Date.parse(event.value.s).toString('HHmmss')
-            + (240000 - parseInt(Date.parse(event.value.e).toString('HHmmss'))).toPaddedString('0');
+        return event.value.start.toString('HHmmss')
+            + (240000 - parseInt(event.value.end.toString('HHmmss'))).toPaddedString('0');
     },
 
     _addHistory: function(loc, data)
