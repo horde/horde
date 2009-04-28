@@ -801,14 +801,26 @@ KronolithCore = {
                 }
                 new Drag(event.value.nodeId + 'bottom', opts);
 
+                if (view == 'week') {
+                    var dates = this.viewDates(midnight, view),
+                        eventStart = event.value.start.clone(),
+                        eventEnd = event.value.end.clone(),
+                        minLeft = $('kronolithEventsWeek' + dates[0].toString('yyyyMMdd')).offsetLeft - $('kronolithEventsWeek' + date).offsetLeft,
+                        maxLeft = $('kronolithEventsWeek' + dates[1].toString('yyyyMMdd')).offsetLeft - $('kronolithEventsWeek' + date).offsetLeft,
+                        stepY = (maxLeft - minLeft) / 6;
+                }
                 new Drag(div, {
                     'threshold': 5,
-                    'constraint': 'vertical',
                     'nodrop': true,
                     'parentElement': function() { return $(view == 'day' ? 'kronolithEventsDay' : 'kronolithEventsWeek' + date); },
                     'snap': function(x, y, elm) {
+                        if (view == 'week') {
+                            x = Math.max(minLeft, stepY * ((Math.min(maxLeft, x) + stepY / 2) / stepY | 0));
+                        } else {
+                            x = 0;
+                        }
                         y = Math.max(0, step * (Math.min(maxDiv, y - minTop) / step | 0)) + minTop;
-                        return [0, y];
+                        return [x, y];
                     },
                     'onStart': function(d, e) {
                         this.addClassName('kronolithSelected');
@@ -818,7 +830,8 @@ KronolithCore = {
                         if (Object.isUndefined(d.innerDiv)) {
                             d.innerDiv = d.ghost.select('.kronolithEventInfo')[0];
                         }
-                        this[0]._calculateEventDates(event.value, storage, step, d.ghost.offsetTop - minTop, divHeight);
+                        var offsetX = Math.round(d.ghost.offsetLeft / stepY)
+                        this[0]._calculateEventDates(event.value, storage, step, d.ghost.offsetTop - minTop, divHeight, eventStart.clone().addDays(offsetX), eventEnd.clone().addDays(offsetX));
                         d.innerDiv.update('(' + event.value.start.toString(Kronolith.conf.time_format) + ' - ' + event.value.end.toString(Kronolith.conf.time_format) + ') ' + event.value.t);
                         this[1].clonePosition(d.ghost);
                     }.bind([this, div]),
@@ -921,8 +934,10 @@ KronolithCore = {
      * Calculates the event's start and end dates based on some drag and drop
      * information.
      */
-    _calculateEventDates: function(event, storage, step, offset, height)
+    _calculateEventDates: function(event, storage, step, offset, height, start, end)
     {
+        event.start = start;
+        event.end = end;
         event.start.set({
             hour: offset / this[storage].height | 0,
             minute: Math.round(offset % this[storage].height / step * 10)
