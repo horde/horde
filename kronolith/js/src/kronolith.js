@@ -1010,7 +1010,7 @@ KronolithCore = {
      * empty cache entries are created so that those dates aren't re-fetched
      * each time.
      *
-     * @param object events    A list of calendars and events as return from
+     * @param object events    A list of calendars and events as returned from
      *                         an ajax request.
      * @param string calendar  A calendar string or array.
      * @param string dates     A date range in the format yyyymmddyyyymmdd as
@@ -1029,32 +1029,33 @@ KronolithCore = {
         if (!this.ecache.get(calendar[0]).get(calendar[1])) {
             this.ecache.get(calendar[0]).set(calendar[1], $H());
         }
+        var calHash = this.ecache.get(calendar[0]).get(calendar[1]);
 
         // Create empty cache entries for all dates.
         if (typeof dates != 'undefined') {
-            var calHash = this.ecache.get(calendar[0]).get(calendar[1]),
-                day = dates[0].clone(), date;
+            var day = dates[0].clone(), date;
             while (!day.isAfter(dates[1])) {
                 date = day.dateString();
                 if (!calHash.get(date)) {
-                    calHash.set(date, {});
+                    calHash.set(date, $H());
                 }
                 day.add(1).day();
             }
         }
 
-        // Store calendar string and other useful information in event objects.
         var cal = calendar.join('|');
         $H(events).each(function(date) {
+            // Store calendar string and other useful information in event
+            // objects.
             $H(date.value).each(function(event) {
                 event.value.calendar = cal;
                 event.value.start = Date.parse(event.value.s);
                 event.value.end = Date.parse(event.value.e);
             });
-        });
 
-        // Store events in cache.
-        this.ecache.get(calendar[0]).set(calendar[1], this.ecache.get(calendar[0]).get(calendar[1]).merge(events));
+            // Store events in cache.
+            calHash.set(date.key, calHash.get(date.key).merge(date.value));
+        });
     },
 
     /**
