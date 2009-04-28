@@ -77,7 +77,7 @@ class Folks_Driver_sql extends Folks_Driver {
     {
         $sql = 'SELECT user_uid FROM ' . $this->_params['online']
             . ' WHERE user_uid <> "" AND user_uid <> "0" '
-            . '  ORDER BY time_last_click DESC LIMIT 0, ' . (int)$limit;
+            . ' ORDER BY time_last_click DESC LIMIT 0, ' . (int)$limit;
 
         return $this->_db->getCol($sql);
     }
