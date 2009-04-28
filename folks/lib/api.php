@@ -82,17 +82,32 @@ $_services['listTimeObjects'] = array(
 );
 
 $_services['logActivity'] = array(
-    'args' => array('activity_message' => 'string', 'scope' => 'string', 'user' => 'string'),
+    'args' => array('activity_message' => 'string',
+                    'scope' => 'string',
+                    'user' => 'string'),
     'type' => 'boolean'
 );
 
 $_services['getActivity'] = array(
-    'args' => array('user' => 'user_name'),
+    'args' => array('user' => 'string'),
     'type' => 'boolean'
 );
 
+$_services['setStatus'] = array(
+    'args' => array('status' => 'boolean'),
+    'args' => array('user' => 'string'),
+    'type' => 'array'
+);
+
+$_services['getStatus'] = array(
+    'args' => array('user' => 'string'),
+    'type' => 'array'
+);
+
 $_services['authenticate'] = array(
-    'args' => array('userID' => 'string', 'credentials' => '{urn:horde}hash', 'params' => '{urn:horde}hash'),
+    'args' => array('userID'      => 'string',
+                    'credentials' => '{urn:horde}hash',
+                    'params'      => '{urn:horde}hash'),
     'checkperms' => false,
     'type' => 'boolean'
 );
@@ -107,7 +122,7 @@ $_services['addUser'] = array(
 );
 
 $_services['getImageUrl'] = array(
-    'args' => array('user'        => 'string',
+    'args' => array('user'       => 'string',
                     'view'       => 'string',
                     'full'       => 'boolean'),
     'type' => 'string'
@@ -382,14 +397,13 @@ function _folks_listTimeObjects($categories, $start, $end)
 /**
  * Log user's activity
  *
- *
- * @param string $message    Activity message
+ * @param mixed $message    Activity message or details
  * @param string $scope    Scope
  * @param string $user    $user
  *
  * @return boolean  True on success or a PEAR_Error object on failure.
  */
-function _folks_logActivity($message, $scope, $user = null)
+function _folks_logActivity($message, $scope = 'folks', $user = null)
 {
     if (empty($user)) {
         $user = Auth::getAuth();
@@ -397,15 +411,9 @@ function _folks_logActivity($message, $scope, $user = null)
         return PEAR::raiseError(_("You cannot log activities for other users."));
     }
 
-    // Do not load the whole applcation
-    // require_once dirname(__FILE__) . '/base.php';
-    // return $GLOBALS['folks_driver']->logActivity($message, $scope, $user)
+    require_once dirname(__FILE__) . '/base.php';
 
-    $_db = DB::connect($GLOBALS['conf']['sql']);
-    $query = 'INSERT INTO folks_activity'
-            . ' (user_uid, activity_message, activity_scope, activity_date) '
-            . ' VALUES (?, ?, ?, ?)';
-    return $_db->query($query, array($user, $message, $scope, $_SERVER['REQUEST_TIME']));
+    return $GLOBALS['folks_driver']->logActivity($message, $scope, $user);
 }
 
 /**
@@ -421,6 +429,49 @@ function _folks_getActivity($user, $limit = 10)
     require_once dirname(__FILE__) . '/base.php';
 
     return $GLOBALS['folks_driver']->getActivity($user, $limit);
+}
+
+/**
+ * Set user status
+ *
+ * @param booelan $online True to set user online, false to push it offline
+ * @param string $user    Username
+ *
+ * @return boolean True if succes, PEAR_Error on failure
+ */
+function _folks_setStatus($online = true, $user = null)
+{
+    require_once dirname(__FILE__) . '/base.php';
+
+    if ($user == null) {
+        $user = Auth::getAuth();
+    }
+
+    if ($online) {
+        return $GLOBALS['folks_driver']->resetOnlineUsers();
+    } else {
+        $result = $GLOBALS['folks_driver']->deleteOnlineUser($user);
+        $GLOBALS['cache']->expire('folksOnlineUsers');
+        return $result;
+    }
+}
+
+/**
+ * Get user status
+ *
+ * @param string $user    Username
+ *
+ * @return boolean True if user is online, false otherwise
+ */
+function _folks_getStatus($user = null)
+{
+    require_once dirname(__FILE__) . '/base.php';
+
+    if ($user == null) {
+        $user = Auth::getAuth();
+    }
+
+    return $GLOBALS['folks_driver']->isOnline($user);
 }
 
 /**
