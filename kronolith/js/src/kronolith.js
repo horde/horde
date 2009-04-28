@@ -812,6 +812,7 @@ KronolithCore = {
                     },
                     'onStart': function(d, e) {
                         this.addClassName('kronolithSelected');
+                        this.setStyle({ 'left': 0, 'width': '100%', 'zIndex': 1 });
                     }.bind(div),
                     'onDrag': function(d, e) {
                         if (Object.isUndefined(d.innerDiv)) {
