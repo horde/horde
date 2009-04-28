@@ -13,3 +13,19 @@ function saveSearch(url) {
                 }
             });
 }
+
+        function updateStatus(statusText, inputNode) {
+            {$spinner}.toggle();
+            params = new Object();
+            params.actionID = 'updateStatus';
+            params.statusText = statusText;
+            new Ajax.Updater({success:'currentStatus'},
+                 '$endpoint',
+                 {
+                     method: 'post',
+                     parameters: params,
+                     onComplete: function() {inputNode.value = '';{$spinner}.toggle()},
+                     onFailure: function() {{$spinner}.toggle()}
+                 }
+           );
+        }
