@@ -1,8 +1,6 @@
 <?php
 /**
- * Folks internal firends implementaton
- *
- * NOTE: You must add enable facebook in global horde configuration
+ * Folks facebook firends implementation
  *
  * $Horde: incubator/letter/lib/Friends/letter.php,v 1.9 2009/01/06 17:50:52 jan Exp $
  *
@@ -17,34 +15,27 @@
 class Folks_Friends_facebook extends Folks_Friends {
 
     /**
+     * FB connection parameters
+     */
+    private $_facebook;
+    private $_sid;
+    private $_uid;
+
+    /**
      * Get user friends
      *
      * @return array of users
      */
     protected function _getFriends()
     {
-        global $conf, $prefs;
-
-        if (!$conf['facebook']['enabled']) {
-            return PEAR::raiseError(_("No Facebook integration exists."));
+        if (!$this->_loadFB) {
+            return $this->_fb);
         }
 
-        $context = array('http_client' => new Horde_Http_Client(),
-                         'http_request' => new Horde_Controller_Request_Http());
-        $facebook = new Horde_Service_Facebook($conf['facebook']['key'],
-                                               $conf['facebook']['secret'],
-                                               $context);
-
-        $session = unserialize($prefs->getValue('facebook'));
-        $facebook->auth->setUser($session['uid'], $session['sid'], 0);
-
-        $fql = 'SELECT uid, name FROM user WHERE uid IN ('
-            . 'SELECT uid2 FROM friend WHERE uid1=' . $session['uid'] . ')';
-
-        $results = $facebook->fql->run($fql);
-        $friends = array();
-        foreach ($results as $result) {
-            $friends[$result['uid']] = $result['uid'];
+        try {
+            $friends = $this->_fb->friends->get(null, $this->_uid);
+        } catch (Horde_Service_Facebook_Exception $e) {
+            return PEAR::raiseError($e->getMessage());
         }
 
         return $friends;
@@ -55,6 +46,50 @@ class Folks_Friends_facebook extends Folks_Friends {
      */
     public function getGroups()
     {
-        return array('whitelist' => _("Friends"));
+        if (!$this->_loadFB) {
+            return $this->_fb);
+        }
+
+        try {
+            $groups = $this->_fb->friends->getLists();
+        } catch (Horde_Service_Facebook_Exception $e) {
+            return PEAR::raiseError($e->getMessage());
+        }
+
+        return $groups;
+    }
+
+
+    /**
+     * Load FB content
+     */
+    private function _loadFB()
+    {
+        if ($this->_fb) {
+            return true;
+        }
+
+        if (!$conf['facebook']['enabled']) {
+            $this->_fb = PEAR::raiseError(_("No Facebook integration exists."));
+            return false;
+        }
+
+        // Check FB user config
+        $fbp = unserialize($prefs->getValue('facebook'));
+        if (!$fbp || empty($fbp['uid'])) {
+            $this->_fb = PEAR::raiseError(_("User has no link."));
+            return false;
+        }
+
+        $context = array('http_client' => new Horde_Http_Client(),
+                         'http_request' => new Horde_Controller_Request_Http());
+
+        $this->_fb = new Horde_Service_Facebook($conf['facebook']['key'],
+                                               $conf['facebook']['secret'],
+                                               $context);
+
+        $this->_fb->auth->setUser($fbp['uid'], $fbp['sid'], 0);
+
+        return true;
     }
 }

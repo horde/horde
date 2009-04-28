@@ -72,7 +72,7 @@ class Folks_Notification_facebook extends Folks_Notification {
         }
 
         try {
-            $message = '<strong>' . $subject . ':</strong> ' . $body;
+            $message = $this->_formatBody($subject, $body);
             $result = $this->_fb->notifications->send(array($this->_fbp['uid']), $message, 'user_to_user');
         } catch (Horde_Service_Facebook_Exception $e) {
             return PEAR::raiseError($e->getMessage(), $e->getCode());
@@ -104,7 +104,7 @@ class Folks_Notification_facebook extends Folks_Notification {
         }
 
         try {
-            $message = '<strong>' . $subject . ':</strong> ' . $body;
+            $message = $this->_formatBody($subject, $body);
             $result = $this->_fb->notifications->send($friends, $message, 'user_to_user');
         } catch (Horde_Service_Facebook_Exception $e) {
             return PEAR::raiseError($e->getMessage(), $e->getCode());
@@ -145,5 +145,21 @@ class Folks_Notification_facebook extends Folks_Notification {
         $this->_fb->auth->setUser($this->_fbp['uid'], $this->_fbp['sid'], 0);
 
         return true;
+    }
+
+    /**
+     * Format notification content
+     *
+     * @param string $subject     Subject of message
+     * @param string $body        Body of message
+     *
+     * @return string Formatted message
+     */
+    private function _formatBody($subject, $body)
+    {
+        require_once 'Horde/Text/Filter.php';
+
+        return '<b>' . $subject . ':</b> '
+                . Text_Filter::filter($body, 'text2html', array('parselevel' => TEXT_HTML_MICRO_LINKURL));
     }
 }
