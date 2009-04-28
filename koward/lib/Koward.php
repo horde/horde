@@ -17,6 +17,8 @@ class Koward_Koward {
      */
     static protected $instance = null;
 
+    static protected $server = null;
+
     public $objectconf;
 
     public function __construct()
@@ -38,8 +40,17 @@ class Koward_Koward {
         $this->labels     = Horde::loadConfiguration('labels.php', 'labels');
         $this->order      = Horde::loadConfiguration('order.php', 'order');
         $this->visible    = Horde::loadConfiguration('visible.php', 'visible');
-        $this->server     = Horde_Kolab_Server::singleton(array('user' => Auth::getAuth(),
+        $this->search     = Horde::loadConfiguration('search.php', 'search');
+    }
+
+    public function getServer()
+    {
+        if (!isset(self::$server)) {
+            self::$server = Horde_Kolab_Server::singleton(array('user' => Auth::getAuth(),
                                                                 'pass' => Auth::getCredential('password')));
+        }
+
+        return self::$server;
     }
 
     /**
@@ -77,7 +88,7 @@ class Koward_Koward {
 
     public function getObject($uid)
     {
-        return $this->server->fetch($uid);
+        return $this->getServer()->fetch($uid);
     }
 
     static public function singleton()
