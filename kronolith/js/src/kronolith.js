@@ -634,13 +634,22 @@ KronolithCore = {
      */
     _insertEvents: function(dates, view, calendar)
     {
-        if (view == 'day' || view == 'week') {
+        switch (view) {
+        case 'day':
+        case 'week':
             // The day and week views require the view to be completely
             // loaded, to correctly calculate the dimensions.
             if (this.viewLoading || this.view != view) {
                 this._insertEvents.bind(this, [dates[0].clone(), dates[1].clone()], view, calendar).defer();
                 return;
             }
+            break;
+
+        case 'month':
+            $('kronolithViewMonthBody')
+                .select('div[calendar=' + calendar + ']')
+                .invoke('remove');
+            break;
         }
 
         var day = dates[0].clone(), date;
@@ -664,7 +673,7 @@ KronolithCore = {
 
             this._getCacheForDate(date).sortBy(this._sortEvents).each(function(event) {
                 if (view != 'day' && view != 'week' &&
-                    calendar && calendar != event.value.calendar) {
+                    calendar != event.value.calendar) {
                     return;
                 }
                 this._insertEvent(event, date, view);
