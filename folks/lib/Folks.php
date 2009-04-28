@@ -117,6 +117,10 @@ class Folks {
      */
     static public function calcAge($birthday)
     {
+        if (substr($birthday, 0, 4) == '0000') {
+            return array('age' => '', 'sign' => '');
+        }
+
         list($year, $month, $day) = explode('-', $birthday);
         $year_diff = date('Y') - $year;
         $month_diff = date('m') - $month;
@@ -128,7 +132,7 @@ class Folks {
             $year_diff--;
         }
 
-        if ($year_diff < 1 || $year == '0000') {
+        if (empty($year_diff)) {
             return array('age' => '', 'sign' => '');
         }
 
