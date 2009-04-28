@@ -38,7 +38,6 @@ if ($user) {
         if ($result instanceof PEAR_Error) {
             $notification->push($result);
         } elseif ($friends->needsApproval($user)) {
-            $notification->push(sprintf(_("A confirmation was send to \"%s\"."), $user), 'horde.warning');
             $title = sprintf(_("%s added you as a friend on %s"),
                                         Auth::getAuth(),
                                         $GLOBALS['registry']->get('name', 'horde'));
@@ -48,7 +47,12 @@ if ($user) {
                             Util::addParameter(Horde::applicationUrl('edit/friends/approve.php', true, -1), 'user', Auth::getAuth()),
                             Util::addParameter(Horde::applicationUrl('edit/friends/reject.php', true, -1), 'user', Auth::getAuth()),
                             Folks::getUrlFor('user', Auth::getAuth(), true, -1));
-            $friends->sendNotification($user, $title, $body);
+            $result = $friends->sendNotification($user, $title, $body);
+            if ($result instanceof PEAR_Error) {
+                $notification->push($result);
+            } else {
+                $notification->push(sprintf(_("A confirmation was send to \"%s\"."), $user), 'horde.warning');
+            }
             header('Location: ' . Horde::applicationUrl('edit/friends/index.php'));
             exit;
         } else {
