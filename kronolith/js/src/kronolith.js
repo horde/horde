@@ -895,7 +895,7 @@ KronolithCore = {
 
     _setEventText: function(div, event)
     {
-        div.setText(event.t);
+        div.update(event.t);
         if (event.a) {
             div.insert(' ')
                 .insert(new Element('IMG', { 'src': Kronolith.conf.URI_IMG + 'alarm-' + event.fg.substr(1) + '.png', 'title': Kronolith.text.alarm + ' ' + event.a }));
