@@ -1,209 +1,209 @@
 <?php
 
-$objects['object'] = array(
-    'class'       => 'Horde_Kolab_Server_Object',
-    'label'       => _("Object"),
-    'list_label'  => _("Objects"),
-    'list_attributes'  => array(
-        'id' => array(
-            'title' => _("Object id"),
-            'width' => 80,
-            'link_view'=> true,
-        ),
-    ),
-    'attributes'  => array(
-        'override' => true,
-        'fields' => array(
-            'id' => array(
-                'label' => _("Object ID"),
-                'type' => 'text',
-                'params' => array('regex' => '', 'size' => 40, 'maxlength' => 255)
-            ),
-        ),
-    ),
-);
+/* $objects['object'] = array( */
+/*     'class'       => 'Horde_Kolab_Server_Object', */
+/*     'label'       => _("Object"), */
+/*     'list_label'  => _("Objects"), */
+/*     'list_attributes'  => array( */
+/*         'id' => array( */
+/*             'title' => _("Object id"), */
+/*             'width' => 80, */
+/*             'link_view'=> true, */
+/*         ), */
+/*     ), */
+/*     'attributes'  => array( */
+/*         'override' => true, */
+/*         'fields' => array( */
+/*             'id' => array( */
+/*                 'label' => _("Object ID"), */
+/*                 'type' => 'text', */
+/*                 'params' => array('regex' => '', 'size' => 40, 'maxlength' => 255) */
+/*             ), */
+/*         ), */
+/*     ), */
+/* ); */
 
-$objects['person'] = array(
-    'class'       => 'Horde_Kolab_Server_Object_Person',
-    'label'       => _("Person"),
-    'list_label'  => _("Persons"),
-    'list_attributes'  => array(
-        'cn' => array(
-            'title' => _("Common name"),
-            'width' => 40,
-            'link_view'=> true,
-        ),
-        'sn' => array(
-            'title' => _("Last name"),
-            'width' => 40,
-        ),
-    ),
-    'attributes'  => array(
-        'fields' => array(
-            'cn' => array(
-                'required' => false,
-            ),
-            'userPassword' => array(
-                'required' => true,
-            ),
-        ),
-    ),
-);
+/* $objects['person'] = array( */
+/*     'class'       => 'Horde_Kolab_Server_Object_Person', */
+/*     'label'       => _("Person"), */
+/*     'list_label'  => _("Persons"), */
+/*     'list_attributes'  => array( */
+/*         'cn' => array( */
+/*             'title' => _("Common name"), */
+/*             'width' => 40, */
+/*             'link_view'=> true, */
+/*         ), */
+/*         'sn' => array( */
+/*             'title' => _("Last name"), */
+/*             'width' => 40, */
+/*         ), */
+/*     ), */
+/*     'attributes'  => array( */
+/*         'fields' => array( */
+/*             'cn' => array( */
+/*                 'required' => false, */
+/*             ), */
+/*             'userPassword' => array( */
+/*                 'required' => true, */
+/*             ), */
+/*         ), */
+/*     ), */
+/* ); */
 
-$objects['organizationalperson'] = array(
-    'class'       => 'Horde_Kolab_Server_Object_Organizationalperson',
-    'label'       => _("Organizational person"),
-    'list_label'  => _("Organizational persons"),
-    'list_attributes'  => array(
-        'cn' => array(
-            'title' => _("Common name"),
-            'width' => 40,
-            'link_view'=> true,
-        ),
-        'sn' => array(
-            'title' => _("Last name"),
-            'width' => 40,
-        ),
-    ),
-    'attributes'  => array(
-        'fields' => array(
-            'cn' => array(
-                'required' => false,
-            ),
-            'userPassword' => array(
-                'required' => true,
-            ),
-        ),
-    ),
-);
+/* $objects['organizationalperson'] = array( */
+/*     'class'       => 'Horde_Kolab_Server_Object_Organizationalperson', */
+/*     'label'       => _("Organizational person"), */
+/*     'list_label'  => _("Organizational persons"), */
+/*     'list_attributes'  => array( */
+/*         'cn' => array( */
+/*             'title' => _("Common name"), */
+/*             'width' => 40, */
+/*             'link_view'=> true, */
+/*         ), */
+/*         'sn' => array( */
+/*             'title' => _("Last name"), */
+/*             'width' => 40, */
+/*         ), */
+/*     ), */
+/*     'attributes'  => array( */
+/*         'fields' => array( */
+/*             'cn' => array( */
+/*                 'required' => false, */
+/*             ), */
+/*             'userPassword' => array( */
+/*                 'required' => true, */
+/*             ), */
+/*         ), */
+/*     ), */
+/* ); */
 
-$objects['inetperson'] = array(
-    'class'       => 'Horde_Kolab_Server_Object_Inetorgperson',
-    'label'       => _("Inet person"),
-    'list_label'  => _("Inet persons"),
-    'list_attributes'  => array(
-        'cn' => array(
-            'title' => _("Common name"),
-            'width' => 40,
-            'link_view'=> true,
-        ),
-        'sn' => array(
-            'title' => _("Last name"),
-            'width' => 40,
-        ),
-    ),
-    'attributes'  => array(
-        'fields' => array(
-            'cn' => array(
-                'required' => false,
-            ),
-            'userPassword' => array(
-                'required' => true,
-            ),
-        ),
-    ),
-);
+/* $objects['inetperson'] = array( */
+/*     'class'       => 'Horde_Kolab_Server_Object_Inetorgperson', */
+/*     'label'       => _("Inet person"), */
+/*     'list_label'  => _("Inet persons"), */
+/*     'list_attributes'  => array( */
+/*         'cn' => array( */
+/*             'title' => _("Common name"), */
+/*             'width' => 40, */
+/*             'link_view'=> true, */
+/*         ), */
+/*         'sn' => array( */
+/*             'title' => _("Last name"), */
+/*             'width' => 40, */
+/*         ), */
+/*     ), */
+/*     'attributes'  => array( */
+/*         'fields' => array( */
+/*             'cn' => array( */
+/*                 'required' => false, */
+/*             ), */
+/*             'userPassword' => array( */
+/*                 'required' => true, */
+/*             ), */
+/*         ), */
+/*     ), */
+/* ); */
 
-$objects['user'] = array(
-    'class'       => 'Horde_Kolab_Server_Object_Kolab_User',
-    'label'       => _("User"),
-    'list_label'  => _("Users"),
-    'list_attributes'  => array(
-        'sn' => array(
-            'title' => _("Last name"),
-            'width' => 20,
-        ),
-        'givenName' => array(
-            'title' => _("First name"),
-            'width' => 20,
-        ),
-        'mail' => array(
-            'title' => _("E-mail"),
-            'width' => 20,
-            'link_view'=> true,
-        ),
-        'uid' => array(
-            'title' => _("User ID"),
-            'width' => 20,
-        ),
-    ),
-);
+/* $objects['user'] = array( */
+/*     'class'       => 'Horde_Kolab_Server_Object_Kolab_User', */
+/*     'label'       => _("User"), */
+/*     'list_label'  => _("Users"), */
+/*     'list_attributes'  => array( */
+/*         'sn' => array( */
+/*             'title' => _("Last name"), */
+/*             'width' => 20, */
+/*         ), */
+/*         'givenName' => array( */
+/*             'title' => _("First name"), */
+/*             'width' => 20, */
+/*         ), */
+/*         'mail' => array( */
+/*             'title' => _("E-mail"), */
+/*             'width' => 20, */
+/*             'link_view'=> true, */
+/*         ), */
+/*         'uid' => array( */
+/*             'title' => _("User ID"), */
+/*             'width' => 20, */
+/*         ), */
+/*     ), */
+/* ); */
 
-$objects['admin'] = array(
-    'class'       => 'Horde_Kolab_Server_Object_Kolab_Administrator',
-    'label'       => _("Administrator"),
-    'list_label'  => _("Administrators"),
-    'attributes'  => array(
-    ),
-);
+/* $objects['admin'] = array( */
+/*     'class'       => 'Horde_Kolab_Server_Object_Kolab_Administrator', */
+/*     'label'       => _("Administrator"), */
+/*     'list_label'  => _("Administrators"), */
+/*     'attributes'  => array( */
+/*     ), */
+/* ); */
 
-$objects['kolabuser'] = array(
-    'class'       => 'Horde_Kolab_Server_Object_Kolab_User',
-    'preferred'   => true,
-    'label'       => _("Kolab user"),
-    'list_label'  => _("Kolab users"),
-    'list_attributes'  => array(
-        'sn' => array(
-            'title' => _("Last name"),
-            'width' => 20,
-        ),
-        'givenName' => array(
-            'title' => _("First name"),
-            'width' => 20,
-        ),
-        'mail' => array(
-            'title' => _("E-mail"),
-            'width' => 20,
-            'link_view'=> true,
-        ),
-        'uid' => array(
-            'title' => _("User ID"),
-            'width' => 20,
-        ),
-    ),
-    'attributes'  => array(
-        'hide' => array(
-            'objectClass',
-            'seeAlso',
-            'x121Address',
-            'registeredAddress',
-            'destinationIndicator',
-            'preferredDeliveryMethod',
-            'telexNumber',
-            'teletexTerminalIdentifier',
-            'internationaliSDNNumber',
-            'kolabEncryptedPassword',
-            'kolabHomeMTA',
-            'kolabDelegate',
-        ),
-        'labels' => array(
-            'mail' => _("Account ID"),
-        ),
-        'fields' => array(
-            'kolabSalutation' => array(
-                'type' => 'enum',
-                'params' => array('values' => array(_("Mr.") => _("Mr."),
-                                                    _("Mrs.") => _("Mrs.")),
-                                  'prompt' => true),
-            ),
-            'gender' => array(
-                'type' => 'enum',
-                'params' => array('values' => array(_("1") => _("male"),
-                                                    _("2") => _("female")),
-                                  'prompt' => true),
-            ),
-            'kolabMaritalStatus' => array(
-                'type' => 'enum',
-                'params' => array('values' => array(_("0") => _("single"),
-                                                    _("1") => _("married")),
-                                  'prompt' => true),
-            ),
-            'userPassword' => array(
-                'type' => 'passwordconfirm',
-            ),
-        ),
-    ),
-);
+/* $objects['kolabuser'] = array( */
+/*     'class'       => 'Horde_Kolab_Server_Object_Kolab_User', */
+/*     'preferred'   => true, */
+/*     'label'       => _("Kolab user"), */
+/*     'list_label'  => _("Kolab users"), */
+/*     'list_attributes'  => array( */
+/*         'sn' => array( */
+/*             'title' => _("Last name"), */
+/*             'width' => 20, */
+/*         ), */
+/*         'givenName' => array( */
+/*             'title' => _("First name"), */
+/*             'width' => 20, */
+/*         ), */
+/*         'mail' => array( */
+/*             'title' => _("E-mail"), */
+/*             'width' => 20, */
+/*             'link_view'=> true, */
+/*         ), */
+/*         'uid' => array( */
+/*             'title' => _("User ID"), */
+/*             'width' => 20, */
+/*         ), */
+/*     ), */
+/*     'attributes'  => array( */
+/*         'hide' => array( */
+/*             'objectClass', */
+/*             'seeAlso', */
+/*             'x121Address', */
+/*             'registeredAddress', */
+/*             'destinationIndicator', */
+/*             'preferredDeliveryMethod', */
+/*             'telexNumber', */
+/*             'teletexTerminalIdentifier', */
+/*             'internationaliSDNNumber', */
+/*             'kolabEncryptedPassword', */
+/*             'kolabHomeMTA', */
+/*             'kolabDelegate', */
+/*         ), */
+/*         'labels' => array( */
+/*             'mail' => _("Account ID"), */
+/*         ), */
+/*         'fields' => array( */
+/*             'kolabSalutation' => array( */
+/*                 'type' => 'enum', */
+/*                 'params' => array('values' => array(_("Mr.") => _("Mr."), */
+/*                                                     _("Mrs.") => _("Mrs.")), */
+/*                                   'prompt' => true), */
+/*             ), */
+/*             'gender' => array( */
+/*                 'type' => 'enum', */
+/*                 'params' => array('values' => array(_("1") => _("male"), */
+/*                                                     _("2") => _("female")), */
+/*                                   'prompt' => true), */
+/*             ), */
+/*             'kolabMaritalStatus' => array( */
+/*                 'type' => 'enum', */
+/*                 'params' => array('values' => array(_("0") => _("single"), */
+/*                                                     _("1") => _("married")), */
+/*                                   'prompt' => true), */
+/*             ), */
+/*             'userPassword' => array( */
+/*                 'type' => 'passwordconfirm', */
+/*             ), */
+/*         ), */
+/*     ), */
+/* ); */
 
 if (file_exists(dirname(__FILE__) . '/objects.local.php')) {
     require_once(dirname(__FILE__) . '/objects.local.php');

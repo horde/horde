@@ -2,7 +2,6 @@
 $visible['hide'] = array(
     'objectClass',
     'id',
-    'cn',
     'lnfn',
     'fnln',
     'seeAlso',
