@@ -20,10 +20,8 @@
 <a href="<?php echo Util::addParameter(Horde::applicationUrl('edit/friends/blacklist.php'), 'user', $user); ?>" title="<?php echo sprintf(_("Add %s to you blacklist?"), $user) ?>" onclick="return confirm('<?php echo sprintf(_("Add %s to you blacklist?"), $user) ?>')">
 <img src="<?php echo $registry->getImageDir('horde') ?>/locked.png"> <?php echo _("Blacklist") ?></a>
 
-<?php if ($conf['report_content']['driver']): ?>
 <a href="<?php echo Util::addParameter(Horde::applicationUrl('report.php'), 'user', $user); ?>" title="<?php echo _("Report user") ?>">
 <img src="<?php echo $registry->getImageDir('horde') ?>/problem.png"> <?php echo _("Report") ?></a>
-<?php endif; ?>
 
 <a href="<?php echo Folks::getUrlFor('list', 'list') ?>" title="<?php echo _("User list") ?>">
 <img src="<?php echo $registry->getImageDir('horde') ?>/group.png"> <?php echo _("Users") ?></a>
