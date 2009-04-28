@@ -810,6 +810,9 @@ KronolithCore = {
                         y = Math.max(0, step * (Math.min(maxDiv, y - minTop) / step | 0)) + minTop;
                         return [0, y];
                     },
+                    'onStart': function(d, e) {
+                        this.addClassName('kronolithSelected');
+                    }.bind(div),
                     'onDrag': function(d, e) {
                         if (Object.isUndefined(d.innerDiv)) {
                             d.innerDiv = d.ghost.select('.kronolithEventInfo')[0];
