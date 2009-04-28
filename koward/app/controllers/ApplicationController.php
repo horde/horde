@@ -30,11 +30,11 @@ class Koward_ApplicationController extends Horde_Controller_Base
                    _("_Objects"), 'user.png', $registry->getImageDir('horde'));
         $menu->add($this->urlFor(array('controller' => 'object', 'action' => 'edit')),
                    _("_Add"), 'plus.png', $registry->getImageDir('horde'));
-        $menu->add(Horde::applicationUrl('search'), _("_Search"), 'search.png', $registry->getImageDir('horde'));
+        $menu->add($this->urlFor(array('controller' => 'object', 'action' => 'search')),
+                   _("_Search"), 'search.png', $registry->getImageDir('horde'));
         $menu->add(Horde::applicationUrl('Queries'), _("_Queries"), 'query.png', $registry->getImageDir('koward'));
         $menu->add($this->urlFor(array('controller' => 'check', 'action' => 'show')),
                    _("_Test"), 'problem.png', $registry->getImageDir('horde'));
-
         return $menu;
     }
 }
