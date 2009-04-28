@@ -1249,20 +1249,18 @@ KronolithCore = {
                 return;
 
             case 'kronolithEventDelete':
-                // todo: fix using new id(s).
                 var cal = $F('kronolithEventCalendar'),
-                    eventid = $F('kronolithEventId'),
-                    elm = $('kronolithEvent' + this.view + cal + eventid);
+                    eventid = $F('kronolithEventId');
                 this.doAction('DeleteEvent',
                               { 'cal': cal, 'id': eventid },
                               function(r) {
                                   if (r.response.deleted) {
                                       this._removeEvent(eventid, cal);
                                   } else {
-                                      elm.toggle();
+                                      $('kronolithBody').select('div[calendar=' + cal + '][eventid=' + eventid + ']').invoke('toggle');
                                   }
                               }.bind(this));
-                elm.hide();
+                $('kronolithBody').select('div[calendar=' + cal + '][eventid=' + eventid + ']').invoke('hide');
                 this._closeRedBox();
                 e.stop();
                 return;
