@@ -727,7 +727,7 @@ KronolithCore = {
             $(view == 'day' ? 'kronolithEventsDay' : 'kronolithEventsWeek' + date).insert(div);
 
             if (event.value.pe) {
-                div.addClassName('kronolithEditable');
+                div.addClassName('kronolithEditable').setStyle({ 'cursor': 'move' });
                 var minTop = this[storage].allDay + this[storage].spacing,
                     step = this[storage].height / 6,
                     dragTop = draggerTop.cumulativeOffset()[1],
@@ -743,8 +743,12 @@ KronolithCore = {
                         + draggerTop.getHeight() - dragBottomHeight
                         + parseInt(innerDiv.getStyle('lineHeight')),
                     maxBottom = 24 * KronolithCore[storage].height
-                        + KronolithCore[storage].allDay
-                        - dragBottomHeight - minTop;
+                        + this[storage].allDay
+                        - dragBottomHeight - minTop,
+                    divHeight = div.getHeight(),
+                    maxDiv = 24 * KronolithCore[storage].height
+                        + this[storage].allDay
+                        - divHeight - minTop,
                     opts = {
                         'threshold': 5,
                         'constraint': 'vertical',
@@ -757,30 +761,7 @@ KronolithCore = {
                             this.addClassName('kronolithSelected');
                         }.bind(div),
                         'onEnd': function(d, e) {
-                            var dates = this[0].viewDates(midnight, view),
-                                start = dates[0].toString('yyyyMMdd'),
-                                end = dates[1].toString('yyyyMMdd');
-                            this[1].removeClassName('kronolithSelected');
-                            this[0]._setEventText(innerDiv, event.value);
-                            this[0].startLoading(event.value.calendar, start, end);
-                            this[0].doAction(
-                                'UpdateEvent',
-                                { 'cal': event.value.calendar,
-                                  'id': event.key,
-                                  'view': view,
-                                  'view_start': start,
-                                  'view_end': end,
-                                  'att': $H({
-                                      start: event.value.start,
-                                      end: event.value.end,
-                                  }).toJSON()
-                                },
-                                function(r) {
-                                    if (r.response.events) {
-                                        this._removeEvent(event.key, event.value.calendar);
-                                        this._loadEventsCallback(r);
-                                    }
-                                }.bind(this[0]));
+                            this[0]._onDragEnd(d, this[1], innerDiv, event, midnight, view);
                         }.bind([this, div]),
                         'onDrag': function(d, e) {
                             var top = d.ghost.cumulativeOffset()[1],
@@ -819,6 +800,28 @@ KronolithCore = {
                     return [0, y];
                 }
                 new Drag(event.value.nodeId + 'bottom', opts);
+
+                new Drag(div, {
+                    'threshold': 5,
+                    'constraint': 'vertical',
+                    'nodrop': true,
+                    'parentElement': function() { return $(view == 'day' ? 'kronolithEventsDay' : 'kronolithEventsWeek' + date); },
+                    'snap': function(x, y, elm) {
+                        y = Math.max(0, step * (Math.min(maxDiv, y - minTop) / step | 0)) + minTop;
+                        return [0, y];
+                    },
+                    'onDrag': function(d, e) {
+                        if (Object.isUndefined(d.innerDiv)) {
+                            d.innerDiv = d.ghost.select('.kronolithEventInfo')[0];
+                        }
+                        this[0]._calculateEventDates(event.value, storage, step, d.ghost.offsetTop - minTop, divHeight);
+                        d.innerDiv.update('(' + event.value.start.toString(Kronolith.conf.time_format) + ' - ' + event.value.end.toString(Kronolith.conf.time_format) + ') ' + event.value.t);
+                        this[1].clonePosition(d.ghost);
+                    }.bind([this, div]),
+                    'onEnd': function(d, e) {
+                        this[0]._onDragEnd(d, this[1], innerDiv, event, midnight, view);
+                    }.bind([this, div]),
+                });
             }
 
             var column = 1, columns, width, left, conflict = false,
@@ -924,6 +927,38 @@ KronolithCore = {
             hour: (offset + height + this[storage].spacing) / this[storage].height | 0,
             minute: Math.round((offset + height + this[storage].spacing) % this[storage].height / step * 10)
         });
+    },
+
+    /**
+     * Called as the event handler after dragging/resizing a day/week event.
+     */
+    _onDragEnd: function(drag, div, innerDiv, event, date, view)
+    {
+        var dates = this.viewDates(date, view),
+            start = dates[0].toString('yyyyMMdd'),
+            end = dates[1].toString('yyyyMMdd');
+        div.removeClassName('kronolithSelected');
+        this._setEventText(innerDiv, event.value);
+        drag.destroy();
+        this.startLoading(event.value.calendar, start, end);
+        this.doAction(
+            'UpdateEvent',
+            { 'cal': event.value.calendar,
+              'id': event.key,
+              'view': view,
+              'view_start': start,
+              'view_end': end,
+              'att': $H({
+                  start: event.value.start,
+                  end: event.value.end,
+              }).toJSON()
+            },
+            function(r) {
+                if (r.response.events) {
+                    this._removeEvent(event.key, event.value.calendar);
+                    this._loadEventsCallback(r);
+                }
+            }.bind(this));
     },
 
     /**
