@@ -79,12 +79,19 @@ class Koward_Form_Object extends Horde_Form {
     /**
      * Get the fields for an object type
      */
-    function _getFields($config)
+    public function getTypeFields($type)
+    {
+        return $this->_getFields($this->koward->objects[$type]);
+    }
+    /**
+     * Get the fields for a configuration array.
+     */
+    private function _getFields($config)
     {
         if (isset($config['attributes']['fields']) && !empty($config['attributes']['override'])) {
             return $config['attributes']['fields'];
         } else {
-            list($attributes, $attribute_map) = $this->koward->server->getAttributes($config['class']);
+            list($attributes, $attribute_map) = $this->koward->getServer()->getAttributes($config['class']);
 
             if (isset($this->koward->visible['show'])) {
                 $akeys = $this->koward->visible['show'];
@@ -226,10 +233,10 @@ class Koward_Form_Object extends Horde_Form {
                         throw new Koward_Exception(sprintf('Invalid type \"%s\" specified!',
                                                            $info['type']));
                     }
-                    $object = $this->koward->server->add(array_merge(array('type' => $class),
+                    $object = $this->koward->getServer()->add(array_merge(array('type' => $class),
                                                                  $info['object']));
                     $this->koward->notification->push(_("Successfully added the object."),
-                                                     'horde.message');
+                                                      'horde.message');
                     return $object;
                 }
             } else {
