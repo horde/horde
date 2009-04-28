@@ -169,10 +169,11 @@ class Folks_Notification {
             if ($permission instanceof PEAR_Error) {
                 return $permission;
             } else {
-                $admins = $permission->getUserPermissions(PERM_DELETE);
+                $admins = $permission->getUserPermissions(PERMS_DELETE);
                 if ($admins instanceof PEAR_Error) {
                     return $admins;
                 }
+                $admins = array_keys($admins);
             }
         }
 
@@ -186,9 +187,11 @@ class Folks_Notification {
     /**
      * Returns all avaiable methods
      *
+     * @param string $type Type of notification to check
+     *
      * @return true on succes, PEAR_Error on failure
      */
-    public function getMethods()
+    public function getMethods($type = 'user')
     {
         $methods = array();
 
@@ -198,10 +201,12 @@ class Folks_Notification {
             }
             $instance = $this->singleton($driver, $params);
             if ($instance instanceof PEAR_Error) {
-                Horde::logMessage($instance, __FILE__, __LINE__, PEAR_LOG_ERR);
-            } else {
-                $methods[$driver] = $instance->getName();
+                return $instance;
             }
+            if (!$instance->isAvailable($type)) {
+                continue;
+            }
+            $methods[$driver] = $instance->getName();
         }
 
         return $methods;
