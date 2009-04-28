@@ -22,9 +22,7 @@ require_once FOLKS_BASE . '/lib/Friends.php';
 $friends = Folks_Friends::singleton();
 
 // Manage adding groups
-$form = new Horde_Form($vars, $title, 'addgroup');
-$translated = Horde::loadConfiguration('groups.php', 'groups', 'folks');
-asort($translated);
+$form = new Horde_Form($vars, $title, 'invite');
 $form->addVariable(_("Friend's e-mail"), 'email', 'email', true);
 
 $v = &$form->addVariable(_("Subject"), 'subject', 'text', true);
