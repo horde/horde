@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+http://pear.php.net/dtd/tasks-1.0.xsd
+http://pear.php.net/dtd/package-2.0
+http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Koward</name>
+ <channel>pear.horde.org</channel>
+ <summary>An administration frontend for the Kolab server.</summary>
+ <description>This package provides a web based frontend for the
+ administration of the Kolab server.
+ </description>
+ <lead>
+  <name>Gunnar Wrobel</name>
+  <user>wrobel</user>
+  <email>p@rdus.de</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Jan Schneider</name>
+  <user>jan</user>
+  <email>jan@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2009-04-29</date>
+ <version>
+  <release>0.0.1</release>
+  <api>0.0.1</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <notes>
+  * Initial release.
+ </notes>
+ <contents>
+  <dir name="/">
+   <dir name="lib">
+    <file name="Koward.php" role="php" />
+    <dir name="Koward">
+     <file name="Cli.php" role="php" />
+     <dir name="Controller">
+      <file name="Application.php" role="php" />
+      <file name="CheckController.php" role="php" />
+      <file name="IndexController.php" role="php" />
+      <file name="LoginController.php" role="php" />
+      <file name="ObjectController.php" role="php" />
+     </dir> <!-- /lib/Koward/Controller -->
+     <file name="Exception.php" role="php" />
+     <dir name="Form">
+      <file name="Actions.php" role="php" />
+      <file name="Object.php" role="php" />
+      <file name="Search.php" role="php" />
+     </dir> <!-- /lib/Koward/Form -->
+     <file name="Test.php" role="php" />
+     <dir name="Test">
+      <file name="AllTests.php" role="php" />
+      <file name="Renderer.php" role="php" />
+      <dir name="Server">
+       <file name="UserTest.php" role="php" />
+      </dir> <!-- /lib/Koward/Test/Server -->
+      <dir name="Template">
+       <file name="scenario_header.html.dist" role="php" />
+       <file name="scenario.html.dist" role="php" />
+       <file name="scenarios.html.dist" role="php" />
+       <file name="step.html.dist" role="php" />
+      </dir> <!-- /lib/Koward/Test/Template -->
+     </dir> <!-- /lib/Koward/Test -->
+     <dir name="View">
+      <dir name="Check">
+       <file name="run.html.php" role="php" />
+       <file name="show.html.php" role="php" />
+      </dir> <!-- /lib/Koward/View/Check -->
+      <dir name="Index">
+       <file name="index.html.php" role="php" />
+      </dir> <!-- /lib/Koward/View/Index -->
+      <dir name="Login">
+       <file name="login.html.php" role="php" />
+      </dir> <!-- /lib/Koward/View/Login -->
+      <dir name="Object">
+       <file name="delete.html.php" role="php" />
+       <file name="edit.html.php" role="php" />
+       <file name="listall.html.php" role="php" />
+       <file name="search.html.php" role="php" />
+       <file name="view.html.php" role="php" />
+      </dir> <!-- /lib/Koward/View/Login -->
+      <dir name="shared">
+       <file name="_header.html.php" role="php" />
+       <file name="_menu.html.php" role="php" />
+      </dir> <!-- /lib/Koward/View/shared -->
+     </dir> <!-- /lib/Koward/View -->
+    </dir> <!-- /lib/Koward -->
+   </dir> <!-- /lib -->
+   <dir name="script">
+    <dir name="Koward">
+     <file name="koward.php" role="script">
+      <replace from="@php_bin@" to="php_bin" type="pear-config"/>
+     </file>
+    </dir> <!-- /Koward -->
+   </dir> <!-- /script -->
+   <dir name="test">
+    <dir name="Koward">
+     <file name="AllTests.php" role="test" />
+     <file name="KowardTest.php" role="test" />
+     <file name="TestInit.php" role="test" />
+    </dir> <!-- /test/Koward -->
+   </dir> <!-- /test -->
+   <dir name="www">
+    <dir name="Koward">
+     <dir name="app">
+      <file name="koward.php" role="www" />
+      <dir name="themes">
+       <file name="screen.css" role="www" />
+       <dir name="graphics">
+        <file name="favicon.ico" role="www" />
+        <file name="query.png" role="www" />
+       </dir> <!-- /www/Koward/app/themes/graphics -->
+       <dir name="kolab">
+        <file name="screen.css" role="www" />
+       </dir> <!-- /www/Koward/app/themes/kolab -->
+      </dir> <!-- /www/Koward/app/themes -->
+     </dir> <!-- /www/Koward/app -->
+     <dir name="config">
+      <file name="conf.php.dist" role="www" />
+      <file name="hooks.php.dist" role="www" />
+      <file name="koward.php.dist" role="www" />
+      <file name="labels.php.dist" role="www" />
+      <file name="nls.php.dist" role="www" />
+      <file name="objects.php.dist" role="www" />
+      <file name="order.php.dist" role="www" />
+      <file name="registry.php.dist" role="www" />
+      <file name="routes.php.dist" role="www" />
+      <file name="search.php.dist" role="www" />
+      <file name="visible.php.dist" role="www" />
+     </dir> <!-- /www/Koward/config -->
+    </dir> <!-- /www/Koward -->
+   </dir> <!-- /www -->
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.8</min>
+   </php>
+   <pearinstaller>
+    <min>1.7.2</min>
+   </pearinstaller>
+   <package>
+    <name>Autoloader</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Browser</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Controller</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Horde_Framework</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Kolab_Server</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Routes</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>View</name>
+    <channel>pear.horde.org</channel>
+   </package>
+  </required>
+  <optional>
+   <package>
+    <name>PHPUnit</name>
+    <channel>pear.phpunit.de</channel>
+   </package>
+  </optional>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install name="lib/Koward.php" as="Koward.php" />
+   <install name="lib/Koward/Cli.php" as="Koward/Cli.php" />
+   <install name="lib/Koward/Controller/Application.php" as="Koward/Controller/Application.php" />
+   <install name="lib/Koward/Controller/CheckController.php" as="Koward/Controller/CheckController.php" />
+   <install name="lib/Koward/Controller/IndexController.php" as="Koward/Controller/IndexController.php" />
+   <install name="lib/Koward/Controller/LoginController.php" as="Koward/Controller/LoginController.php" />
+   <install name="lib/Koward/Controller/ObjectController.php" as="Koward/Controller/ObjectController.php" />
+   <install name="lib/Koward/Exception.php" as="Koward/Exception.php" />
+   <install name="lib/Koward/Form/Actions.php" as="Koward/Form/Actions.php" />
+   <install name="lib/Koward/Form/Object.php" as="Koward/Form/Object.php" />
+   <install name="lib/Koward/Form/Search.php" as="Koward/Form/Search.php" />
+   <install name="lib/Koward/Test.php" as="Koward/Test.php" />
+   <install name="lib/Koward/Test/AllTests.php" as="Koward/Test/AllTests.php" />
+   <install name="lib/Koward/Test/Renderer.php" as="Koward/Test/Renderer.php" />
+   <install name="lib/Koward/Test/Server/UserTest.php" as="Koward/Test/Server/UserTest.php" />
+   <install name="lib/Koward/Test/Template/scenario_header.html.dist" as="Test/Template/scenario_header.html.dist" />
+   <install name="lib/Koward/Test/Template/scenario.html.dist" as="Test/Template/scenario.html.dist" />
+   <install name="lib/Koward/Test/Template/scenarios.html.dist" as="Test/Template/scenarios.html.dist" />
+   <install name="lib/Koward/Test/Template/step.html.dist" as="Test/Template/step.html.dist" />
+   <install name="lib/Koward/View/Check/run.html.php" as="Koward/View/Check/run.html.php" />
+   <install name="lib/Koward/View/Check/show.html.php" as="Koward/View/Check/show.html.php" />
+   <install name="lib/Koward/View/Index/index.html.php" as="Koward/View/Index/index.html.php" />
+   <install name="lib/Koward/View/Login/login.html.php" as="Koward/View/Login/login.html.php" />
+   <install name="lib/Koward/View/Object/delete.html.php" as="Koward/View/Object/delete.html.php" />
+   <install name="lib/Koward/View/Object/edit.html.php" as="Koward/View/Object/edit.html.php" />
+   <install name="lib/Koward/View/Object/listall.html.php" as="Koward/View/Object/listall.html.php" />
+   <install name="lib/Koward/View/Object/search.html.php" as="Koward/View/Object/search.html.php" />
+   <install name="lib/Koward/View/Object/view.html.php" as="Koward/View/Object/view.html.php" />
+   <install name="lib/Koward/View/shared/_header.html.php" as="Koward/View/shared/_header.html.php" />
+   <install name="lib/Koward/View/shared/_menu.html.php" as="Koward/View/shared/_menu.html.php" />
+   <install name="script/Koward/koward.php" as="koward" />
+   <install name="test/Koward/AllTests.php" as="Koward/AllTests.php" />
+   <install name="test/Koward/KowardTest.php" as="Koward/KowardTest.php" />
+   <install name="test/Koward/TestInit.php" as="Koward/TestInit.php" />
+   <install name="www/Koward/app/koward.php" as="app/koward.php" />
+   <install name="www/Koward/config/attributes.php.dist" as="config/.php.dist" />
+   <install name="www/Koward/config/conf.php.dist" as="config/conf.php.dist" />
+   <install name="www/Koward/config/hooks.php.dist" as="config/hooks.php.dist" />
+   <install name="www/Koward/config/koward.php.dist" as="config/koward.php.dist" />
+   <install name="www/Koward/config/labels.php.dist" as="config/labels.php.dist" />
+   <install name="www/Koward/config/nls.php.dist" as="config/nls.php.dist" />
+   <install name="www/Koward/config/objects.php.dist" as="config/objects.php.dist" />
+   <install name="www/Koward/config/order.php.dist" as="config/order.php.dist" />
+   <install name="www/Koward/config/registry.php.dist" as="config/registry.php.dist" />
+   <install name="www/Koward/config/routes.php.dist" as="config/routes.php.dist" />
+   <install name="www/Koward/config/search.php.dist" as="config/search.php.dist" />
+   <install name="www/Koward/config/visible.php.dist" as="config/visible.php.dist" />
+  </filelist>
+ </phprelease>
+</package>
