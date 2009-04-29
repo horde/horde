@@ -527,4 +527,50 @@ class Horde_Kolab_Server_Object_Kolabinetorgperson extends Horde_Kolab_Server_Ob
         return $addrs;
     }
 
+    /**
+     * Returns the server url of the given type for this user.
+     *
+     * This method is used to encapsulate multidomain support.
+     *
+     * @param string $server_type The type of server URL that should be returned.
+     *
+     * @return string The server url or empty on error.
+     */
+    public function getServer($server_type)
+    {
+        global $conf;
+
+        switch ($server_type) {
+        case 'freebusy':
+            $server = $this->get(self::ATTRIBUTE_FREEBUSYHOST);
+            if (!empty($server)) {
+                return $server;
+            }
+            if (isset($conf['kolab']['freebusy']['server'])) {
+                return $conf['kolab']['freebusy']['server'];
+            }
+            $server = $this->getServer('homeserver');
+            if (empty($server)) {
+                $server = $_SERVER['SERVER_NAME'];
+            }
+            if (isset($conf['kolab']['server']['freebusy_url_format'])) {
+                return sprintf($conf['kolab']['server']['freebusy_url_format'],
+                               $server);
+            } else {
+                return 'https://' . $server . '/freebusy';
+            }
+        case 'imap':
+            $server = $this->get(self::ATTRIBUTE_IMAPHOST);
+            if (!empty($server)) {
+                return $server;
+            }
+        case 'homeserver':
+        default:
+            $server = $this->get(self::ATTRIBUTE_HOMESERVER);
+            if (empty($server)) {
+                $server = $_SERVER['SERVER_NAME'];
+            }
+            return $server;
+        }
+    }
 }
