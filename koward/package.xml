@@ -166,6 +166,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <channel>pear.horde.org</channel>
    </package>
    <package>
+    <name>Horde_Form</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
     <name>Horde_Framework</name>
     <channel>pear.horde.org</channel>
    </package>
@@ -226,7 +230,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="test/Koward/KowardTest.php" as="Koward/KowardTest.php" />
    <install name="test/Koward/TestInit.php" as="Koward/TestInit.php" />
    <install name="www/Koward/app/koward.php" as="app/koward.php" />
-   <install name="www/Koward/config/attributes.php.dist" as="config/.php.dist" />
+   <install name="www/Koward/config/attributes.php.dist" as="config/attributes.php.dist" />
    <install name="www/Koward/config/conf.php.dist" as="config/conf.php.dist" />
    <install name="www/Koward/config/hooks.php.dist" as="config/hooks.php.dist" />
    <install name="www/Koward/config/koward.php.dist" as="config/koward.php.dist" />
