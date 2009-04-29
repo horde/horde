@@ -8,7 +8,7 @@
  * @package  Koward
  */
 
-class Koward_Koward {
+class Koward {
 
     /**
      * The singleton instance.
@@ -41,6 +41,79 @@ class Koward_Koward {
         $this->order      = Horde::loadConfiguration('order.php', 'order');
         $this->visible    = Horde::loadConfiguration('visible.php', 'visible');
         $this->search     = Horde::loadConfiguration('search.php', 'search');
+    }
+
+    public static function dispatch($koward)
+    {
+        $webroot = Koward::_detectWebroot($koward);
+
+        // Set up our request and routing objects
+        $request = new Horde_Controller_Request_Http();
+        $mapper = new Horde_Routes_Mapper();
+
+        // Application routes are relative only to the application. Let the mapper know
+        // where they start.
+        $mapper->prefix = $webroot;
+
+        $uri = $request->getUri();
+        $uri = substr($uri, strlen($webroot));
+        if (strpos($uri, '/') === false) {
+            $app = $uri;
+            $path = '';
+        } else {
+            list($app, $path) = explode('/', $uri, 2);
+        }
+
+        // Check for route definitions.
+        $routeFile = dirname($koward) . '/config/routes.php';
+        if (!file_exists($routeFile)) {
+            throw new Horde_Controller_Exception('Not routable');
+        }
+
+        // Load application routes.
+        include $routeFile;
+
+        $context = array(
+            'mapper' => $mapper,
+            'controllerDir' => dirname(__FILE__) . '/Koward/Controller',
+            'viewsDir' => dirname(__FILE__) . '/Koward/View',
+            // 'logger' => '',
+        );
+
+        $dispatcher = Horde_Controller_Dispatcher::singleton($context);
+        $dispatcher->dispatch($request);
+    }
+
+    private static function _detectWebroot($origin)
+    {
+        // Note for Windows users: the below assumes that your PHP_SELF variable
+        // uses forward slashes. If it does not, you'll have to tweak this.
+        if (isset($_SERVER['SCRIPT_URL']) || isset($_SERVER['SCRIPT_NAME'])) {
+            $path = empty($_SERVER['SCRIPT_URL']) ?
+                $_SERVER['SCRIPT_NAME'] :
+                $_SERVER['SCRIPT_URL'];
+            $appdir = str_replace(DIRECTORY_SEPARATOR, '/', $origin);
+            $appdir = basename(preg_replace(';/koward.php$;', '', $appdir));
+            if (preg_match(';/' . $appdir . ';', $path)) {
+                $webroot = preg_replace(';/' . $appdir . '.*;', '/' . $appdir, $path);
+            } else {
+                $webroot = '';
+            }
+        } elseif (isset($_SERVER['PHP_SELF'])) {
+            $webroot = preg_split(';/;', $_SERVER['PHP_SELF'], 2, PREG_SPLIT_NO_EMPTY);
+            $webroot = strstr(dirname($origin), DIRECTORY_SEPARATOR . array_shift($webroot));
+            if ($webroot !== false) {
+                $webroot = preg_replace(array('/\\\\/', ';/config$;'), array('/', ''), $webroot);
+            } elseif ($webroot === false) {
+                $webroot = '';
+            } else {
+                $webroot = '/';
+            }
+        } else {
+            $webroot = '/';
+        }
+
+        return $webroot;
     }
 
     public function getServer()
