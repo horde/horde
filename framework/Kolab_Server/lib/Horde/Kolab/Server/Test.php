@@ -380,7 +380,7 @@ class Horde_Kolab_Server_Test extends Horde_Kolab_Server_Ldap
                     switch ($filter['log']) {
                     case '=':
                         $value = $element['data'][$filter['att']];
-                        if ((($filter['val'] == '*' || $filter['val'] == '\2a')
+                        if ((($filter['val'] == '*')
                              && !empty($value))
                             || $value == $filter['val']
                             || (is_array($value)
