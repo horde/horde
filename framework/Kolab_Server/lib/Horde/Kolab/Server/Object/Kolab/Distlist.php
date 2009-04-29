@@ -37,8 +37,7 @@ class Horde_Kolab_Server_Object_Kolab_Distlist extends Horde_Kolab_Server_Object
     {
         $criteria = array('AND' => array(
                               array('field' => self::ATTRIBUTE_MAIL,
-                                    'op'    => '=',
-                                    'test'  => '*'),
+                                    'op'    => 'any'),
                               array('field' => self::ATTRIBUTE_OC,
                                     'op'    => '=',
                                     'test'  => self::OBJECTCLASS_KOLABGROUPOFNAMES),

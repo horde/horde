@@ -55,11 +55,9 @@ class Horde_Kolab_Server_Object_Kolab_Adminrole extends Horde_Kolab_Server_Objec
 
         $criteria = array('AND' => array(
                               array('field' => self::ATTRIBUTE_CN,
-                                    'op'    => '=',
-                                    'test'  => '*'),
+                                    'op'    => 'any'),
                               array('field' => self::ATTRIBUTE_SN,
-                                    'op'    => '=',
-                                    'test'  => '*'),
+                                    'op'    => 'any'),
                               array('field' => self::ATTRIBUTE_OC,
                                     'op'    => '=',
                                     'test'  => self::OBJECTCLASS_INETORGPERSON),
