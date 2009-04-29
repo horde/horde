@@ -32,6 +32,9 @@ class Horde_Kolab_Server_Object_Kolabgroupofnames extends Horde_Kolab_Server_Obj
     /** The visibility of the group */
     const ATTRIBUTE_VISIBILITY = 'visible';
 
+    /** The ou subtree of the group */
+    const ATTRIBUTE_OU = 'ou';
+
     /** The members of this group */
     const ATTRIBUTE_MEMBER = 'member';
 
