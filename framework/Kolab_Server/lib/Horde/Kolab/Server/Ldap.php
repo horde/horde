@@ -575,8 +575,13 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
      */
     protected function &buildSearchQuery($criteria)
     {
+        if (!is_array($criteria)) {
+            throw new Horde_Kolab_Server_Exception(sprintf("Invalid search criteria \"%s\"!",
+                                                           $criteria),
+                                                   Horde_Kolab_Server_Exception::SYSTEM);
+        }
         if (isset($criteria['field'])) {
-            $rhs     = $criteria['test'];
+            $rhs     = isset($criteria['test']) ? $criteria['test'] : '';
             /* Keep this in for reference as we did not really test servers with different encoding yet */
             // require_once 'Horde/String.php';
             // require_once 'Horde/NLS.php';
@@ -585,6 +590,8 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
             case '=':
                 $op = 'equals';
                 break;
+            default:
+                $op = $criteria['op'];
             }
             return Net_LDAP2_Filter::create($this->mapField($criteria['field']),
                                             $op, $rhs);
