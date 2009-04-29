@@ -1,14 +1,14 @@
 <?php
 
-class Koward_ApplicationController extends Horde_Controller_Base
+class Koward_Controller_Application extends Horde_Controller_Base
 {
     protected function _initializeApplication()
     {
-        $this->koward = Koward_Koward::singleton();
+        $this->koward = Koward::singleton();
 
         $this->types = array_keys($this->koward->objects);
         if (empty($this->types)) {
-            throw new KowardException('No object types have been configured!');
+            throw new Koward_Exception('No object types have been configured!');
         }
 
         $this->menu = $this->getMenu();

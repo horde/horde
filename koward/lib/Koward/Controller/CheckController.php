@@ -3,13 +3,10 @@
  * @package Koward
  */
 
-// @TODO Clean up
-require_once dirname(__FILE__) . '/ApplicationController.php';
-
 /**
  * @package Koward
  */
-class CheckController extends Koward_ApplicationController
+class CheckController extends Koward_Controller_Application
 {
 
     protected function _initializeApplication()
