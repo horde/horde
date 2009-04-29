@@ -14,22 +14,38 @@ class Horde_Service_Facebook_Streams extends Horde_Service_Facebook_Base
      * Get a user's stream
      * http://wiki.developers.facebook.com/index.php/Stream.get
      *
+     * Note: This requires the READ_STREAM extended permission to be added for
+     *       the application.
+     *
+     * @param string $viewerId  The user id or page id of the page whose stream
+     *                          to read.
+     * @param array $sourceIds
+     * @param timestamp $start
+     * @param timestamp $end
+     * @param int $limit
+     * @param string $filterKey
      */
-    function &get($viewerId, $sourceIds = array(), $start = '', $end = '',
+    function &get($viewerId = '', $sourceIds = array(), $start = '', $end = '',
                  $limit = '', $filterKey = '')
     {
-        return $this->_facebook->callMethod('Stream.get',
-            array('viewer_id' => $viewerId,
+        if (empty($viewerId) && !$session_key = $this->_facebook->auth->getSessionKey()) {
+            throw new Horde_Service_Facebook_Exception('users.hasAppPermission requires either a uid or a session_key',
+                Horde_Service_Facebook_ErrorCodes::API_EC_PARAM_SESSION_KEY);
+        }
+        $params = array('viewer_id' => $viewerId,
                   'source_ids' => $sourceIds,
                   'start_time' => $start,
                   'end_time' => $end,
-                  'filter_key' => $filterKey));
+                  'filter_key' => $filterKey);
+        if (!empty($session_key)) {
+            $params['session_key'] = $session_key;
+        }
+
+        return $this->_facebook->callMethod('Stream.get', $params);
     }
 
     /**
      * Get a post's comments.
-     *
-     *
      */
     function &getComments($post_id)
     {
