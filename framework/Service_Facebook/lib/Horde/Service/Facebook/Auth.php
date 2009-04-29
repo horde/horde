@@ -49,9 +49,16 @@ class Horde_Service_Facebook_Auth
 
     /** EXTEND_PERMS constants **/
     const EXTEND_PERMS_OFFLINE = 'offline_access';
+
+    // These perms are now wrapped up in the publish_stream permission, but are
+    // left here for BC and to allow atomic setting of the perms if desired.
     const EXTEND_PERMS_STATUSUPDATE = 'status_update';
     const EXTEND_PERMS_SHAREITEM = 'share_item';
     const EXTEND_PERMS_UPLOADPHOTO = 'photo_upload';
+
+    const EXTEND_PERMS_PUBLISHSTREAM = 'publish_stream';
+
+
 
     /**
      * TODO: Probably abstract out a Base class for these?
