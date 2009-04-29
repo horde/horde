@@ -128,6 +128,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
       </dir> <!-- /www/Koward/app/themes -->
      </dir> <!-- /www/Koward/app -->
      <dir name="config">
+      <file name="attributes.php.dist" role="www" />
       <file name="conf.php.dist" role="www" />
       <file name="hooks.php.dist" role="www" />
       <file name="koward.php.dist" role="www" />
@@ -237,6 +238,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="www/Koward/config/routes.php.dist" as="config/routes.php.dist" />
    <install name="www/Koward/config/search.php.dist" as="config/search.php.dist" />
    <install name="www/Koward/config/visible.php.dist" as="config/visible.php.dist" />
+   <install name="www/Koward/app/themes/screen.css" as="app/themes/screen.css" />
+   <install name="www/Koward/app/themes/kolab/screen.css" as="app/themes/kolab/screen.css" />
+   <install name="www/Koward/app/themes/graphics/favicon.ico" as="app/themes/kolab/favicon.ico" />
+   <install name="www/Koward/app/themes/graphics/query.png" as="app/themes/kolab/query.png" />
   </filelist>
  </phprelease>
 </package>
