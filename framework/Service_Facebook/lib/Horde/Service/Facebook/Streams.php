@@ -29,7 +29,7 @@ class Horde_Service_Facebook_Streams extends Horde_Service_Facebook_Base
                  $limit = '', $filterKey = '')
     {
         if (empty($viewerId) && !$session_key = $this->_facebook->auth->getSessionKey()) {
-            throw new Horde_Service_Facebook_Exception('users.hasAppPermission requires either a uid or a session_key',
+            throw new Horde_Service_Facebook_Exception('Streams.publish requires either a uid or a session_key',
                 Horde_Service_Facebook_ErrorCodes::API_EC_PARAM_SESSION_KEY);
         }
         $params = array('viewer_id' => $viewerId,
@@ -75,9 +75,27 @@ class Horde_Service_Facebook_Streams extends Horde_Service_Facebook_Base
      * @param string $action_links  Array of action links.
      * @param string $target_id     The id of user/page you are publishing to.
      */
-    function publish($message = '', $attachment = '', $action_links = '', $target_id = '')
+    function publish($message = '', $attachment = '', $action_links = '', $target_id = '', $uid = '')
     {
+        if (empty($uid) && !$session_key = $this->_facebook->auth->getSessionKey()) {
+            throw new Horde_Service_Facebook_Exception('Streams.publish requires either a uid or a session_key',
+                Horde_Service_Facebook_ErrorCodes::API_EC_PARAM_SESSION_KEY);
+        }
 
+        $params = array('message' => $message,
+                        'action_links' => $action_links,
+                        'target_id' => $target_id);
+        if (!empty($uid)) {
+            $params['uid'] = $uid;
+        }
+        if (!empty($session_key)) {
+            $params['session_key'] = $session_key;
+        }
+        if (!empty($attachment)) {
+            $params['attachment'] = json_encode($attachment);
+        }
+
+        return $this->_facebook->callMethod('Stream.publish', $params);
     }
 
     /**
