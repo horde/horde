@@ -377,6 +377,19 @@ class Horde_Kolab_Server_Object_Inetorgperson extends Horde_Kolab_Server_Object_
      */
     public function generateId($info)
     {
+        if ($this->exists()) {
+            if (!isset($info[self::ATTRIBUTE_GIVENNAME])
+                && !isset($info[self::ATTRIBUTE_SN])) {
+                return false;
+            }
+            if (!isset($info[self::ATTRIBUTE_GIVENNAME])) {
+                $info[self::ATTRIBUTE_GIVENNAME] = $this->get(self::ATTRIBUTE_GIVENNAME);
+            }
+            if (!isset($info[self::ATTRIBUTE_SN])) {
+                $info[self::ATTRIBUTE_SN] = $this->get(self::ATTRIBUTE_SN);
+            }
+        }
+
         $id_mapfields = array(self::ATTRIBUTE_GIVENNAME,
                               self::ATTRIBUTE_SN);
         $id_format    = self::ATTRIBUTE_CN . '=' . '%s %s';
