@@ -1870,7 +1870,7 @@ abstract class Kronolith_Event
                 '" id="' . $this->_formIDEncode($property) . '" size="4" maxlength="4" />';
 
         case 'end[month]':
-            $sel = $this->isInitialized() ? $this->end->month : $this->start->month;
+            $sel = $this->end ? $this->end->month : $this->start->month;
             for ($i = 1; $i < 13; ++$i) {
                 $options[$i] = strftime('%b', mktime(1, 1, 1, $i, 1));
             }
@@ -1879,7 +1879,7 @@ abstract class Kronolith_Event
             break;
 
         case 'end[day]':
-            $sel = $this->isInitialized() ? $this->end->mday : $this->start->mday;
+            $sel = $this->end ? $this->end->mday : $this->start->mday;
             for ($i = 1; $i < 32; ++$i) {
                 $options[$i] = $i;
             }
@@ -1888,9 +1888,9 @@ abstract class Kronolith_Event
             break;
 
         case 'end_hour':
-            $sel = $this->isInitialized() ?
-                $this->end->format($prefs->getValue('twentyFour') ? 'G' : 'g') :
-                $this->start->format($prefs->getValue('twentyFour') ? 'G' : 'g') + 1;
+            $sel = $this->end
+                ? $this->end->format($prefs->getValue('twentyFour') ? 'G' : 'g')
+                : $this->start->format($prefs->getValue('twentyFour') ? 'G' : 'g') + 1;
             $hour_min = $prefs->getValue('twentyFour') ? 0 : 1;
             $hour_max = $prefs->getValue('twentyFour') ? 24 : 13;
             for ($i = $hour_min; $i < $hour_max; ++$i) {
@@ -1901,7 +1901,7 @@ abstract class Kronolith_Event
             break;
 
         case 'end_min':
-            $sel = $this->isInitialized() ? $this->end->min : $this->start->min;
+            $sel = $this->end ? $this->end->min : $this->start->min;
             $sel = sprintf('%02d', $sel);
             for ($i = 0; $i < 12; ++$i) {
                 $min = sprintf('%02d', $i * 5);
@@ -1940,7 +1940,7 @@ abstract class Kronolith_Event
             break;
 
         case 'recur_enddate[year]':
-            if ($this->isInitialized()) {
+            if ($this->end) {
                 $end = ($this->recurs() && $this->recurrence->hasRecurEnd())
                         ? $this->recurrence->recurEnd->year
                         : $this->end->year;
@@ -1953,7 +1953,7 @@ abstract class Kronolith_Event
                 '" id="' . $this->_formIDEncode($property) . '" size="4" maxlength="4" />';
 
         case 'recur_enddate[month]':
-            if ($this->isInitialized()) {
+            if ($this->end) {
                 $sel = ($this->recurs() && $this->recurrence->hasRecurEnd())
                     ? $this->recurrence->recurEnd->month
                     : $this->end->month;
@@ -1968,7 +1968,7 @@ abstract class Kronolith_Event
             break;
 
         case 'recur_enddate[day]':
-            if ($this->isInitialized()) {
+            if ($this->end) {
                 $sel = ($this->recurs() && $this->recurrence->hasRecurEnd())
                     ? $this->recurrence->recurEnd->mday
                     : $this->end->mday;

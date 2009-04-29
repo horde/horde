@@ -43,24 +43,18 @@ if (!$date) {
     }
 }
 $event->start = new Horde_Date($date);
-
-$url = Util::getFormData('url');
-
-// Default to a 1 hour duration.
 $event->end = new Horde_Date($event->start);
 if (Util::getFormData('allday')) {
     $event->end->mday++;
-    /*
-    $event->end->hour = 23;
-    $event->end->min = $event->end->sec = 59;
-    */
 } else {
+    // Default to a 1 hour duration.
     $event->end->hour++;
 }
 $month = $event->start->month;
 $year = $event->start->year;
 
 $buttons = array('<input type="submit" class="button" name="save" value="' . _("Save Event") . '" />');
+$url = Util::getFormData('url');
 if (isset($url)) {
     $cancelurl = $url;
 } else {

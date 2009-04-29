@@ -1504,8 +1504,8 @@ class Kronolith
      *                                    recurring event, the date of this
      *                                    intance.
      */
-    public static function sendITipNotifications(&$event, &$notification, $action,
-                                   $instance = null)
+    public static function sendITipNotifications(&$event, &$notification,
+                                                 $action, $instance = null)
     {
         global $conf;
 
