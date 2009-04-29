@@ -58,16 +58,7 @@ class Horde_Service_Facebook_Photos extends Horde_Service_Facebook_Base
             $params['session_key'] = $skey;
         }
 
-        // @TODO: HACK - This is needed since FB doesn't currently quote the aid
-        // in the returned JSON data, which leads to it being interpreted as
-        // a float which gets mangled due to precision issues.
-        if ($this->_facebook->dataFormat == Horde_Service_Facebook::DATA_FORMAT_ARRAY) {
-            $oldFormat = $this->_facebook->setInternalFormat(Horde_Service_Facebook::DATA_FORMAT_XML);
-        }
         $results = $this->_facebook->callMethod('facebook.photos.addTag', $params);
-        if (!empty($oldFormat)) {
-            $this->_facebook->setInternalFormat($oldFormat);
-        }
 
         return $results;
 
@@ -111,16 +102,7 @@ class Horde_Service_Facebook_Photos extends Horde_Service_Facebook_Base
             $params['session_key'] = $skey;
         }
 
-        // @TODO: HACK - This is needed since FB doesn't currently quote the aid
-        // in the returned JSON data, which leads to it being interpreted as
-        // a float which gets mangled due to precision issues.
-        if ($this->_facebook->dataFormat == Horde_Service_Facebook::DATA_FORMAT_ARRAY) {
-            $oldFormat = $this->_facebook->setInternalFormat(Horde_Service_Facebook::DATA_FORMAT_XML);
-        }
         $results = $this->_facebook->callMethod('facebook.photos.createAlbum', $params);
-        if (!empty($oldFormat)) {
-            $this->_facebook->setInternalFormat($oldFormat);
-        }
 
         return $results;
     }
@@ -159,17 +141,7 @@ class Horde_Service_Facebook_Photos extends Horde_Service_Facebook_Base
             $params['pids'] = $pids;
         }
 
-        // @TODO: HACK - This is needed since FB doesn't currently quote the aid
-        // in the returned JSON data, which leads to it being interpreted as
-        // a float which gets mangled due to precision issues.
-        if ($this->_facebook->dataFormat == Horde_Service_Facebook::DATA_FORMAT_ARRAY) {
-            $oldFormat = $this->_facebook->setInternalFormat(Horde_Service_Facebook::DATA_FORMAT_XML);
-        }
         $results = $this->_facebook->callMethod('facebook.photos.get', $params);
-
-        if (!empty($oldFormat)) {
-            $this->_facebook->setInternalFormat($oldFormat);
-        }
 
         return $results;
     }
@@ -194,20 +166,10 @@ class Horde_Service_Facebook_Photos extends Horde_Service_Facebook_Base
                                                Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
         }
 
-        // @TODO: HACK - This is needed since FB doesn't currently quote the aid
-        // in the returned JSON data, which leads to it being interpreted as
-        // a float which gets mangled due to precision issues.
-        if ($this->_facebook->dataFormat == Horde_Service_Facebook::DATA_FORMAT_ARRAY) {
-            $oldFormat = $this->_facebook->setInternalFormat(Horde_Service_Facebook::DATA_FORMAT_XML);
-        }
         $results = $this->_facebook->callMethod('facebook.photos.getAlbums',
                                                  array('uid' => $uid,
                                                        'aids' => $aids,
                                                        'session_key' => $skey));
-       if (!empty($oldFormat)) {
-           $this->_facebook->setInternalFormat($oldFormat);
-       }
-
        return $results;
     }
 
@@ -228,16 +190,7 @@ class Horde_Service_Facebook_Photos extends Horde_Service_Facebook_Base
                                                Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
         }
 
-        // @TODO: HACK - This is needed since FB doesn't currently quote the aid
-        // in the returned JSON data, which leads to it being interpreted as
-        // a float which gets mangled due to precision issues.
-        if ($this->_facebook->dataFormat == Horde_Service_Facebook::DATA_FORMAT_ARRAY) {
-            $oldFormat = $this->_facebook->setInternalFormat(Horde_Service_Facebook::DATA_FORMAT_XML);
-        }
         $results = $this->_facebook->callMethod('facebook.photos.getTags', array('pids' => $pids, 'session_key' => $skey));
-        if (!empty($oldFormat)) {
-            $this->_facebook->setInternalFormat($oldFormat);
-        }
 
         return $results;
     }
@@ -271,16 +224,7 @@ class Horde_Service_Facebook_Photos extends Horde_Service_Facebook_Base
             $params['session_key'] = $skey;
         }
 
-        // @TODO: HACK - This is needed since FB doesn't currently quote the aid
-        // in the returned JSON data, which leads to it being interpreted as
-        // a float which gets mangled due to precision issues.
-        if ($this->_facebook->dataFormat == Horde_Service_Facebook::DATA_FORMAT_ARRAY) {
-            $oldFormat = $this->_facebook->setInternalFormat(Horde_Service_Facebook::DATA_FORMAT_XML);
-        }
         $results = $this->_facebook->callUploadMethod('facebook.photos.upload', $params, $file);
-        if (!empty($oldFormat)) {
-            $this->_facebook->setInternalFormat($oldFormat);
-        }
 
         return $results;
     }
