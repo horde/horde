@@ -1,0 +1,66 @@
+<?php
+/**
+ * registry.php -- Horde application registry.
+ *
+ * $Horde: horde/config/registry.php.dist,v 1.306 2009/01/14 20:51:07 chuck Exp $
+ *
+ * This configuration file is used by Horde to determine which Horde
+ * applications are installed and where, as well as how they interact.
+ *
+ * Application registry
+ * --------------------
+ * The following settings register installed Horde applications.
+ * By default, Horde assumes that the application directories live
+ * inside the horde directory.
+ *
+ * Attribute     Type     Description
+ * ---------     ----     -----------
+ * fileroot      string   The base filesystem path for the module's files.
+ * webroot       string   The base URI for the module.
+ * jsuri         string   The base URI for static javascript files.
+ * jsfs          string   The base filesystem path for static javascript files.
+ * themesuri     string   The base URI for the themes. This can be used to
+ *                        serve all icons and style sheets from a separate
+ *                        server.
+ * themesfs      string   The base file system directory for the themes.
+ * icon          string   The URI for an icon to show in menus for the module.
+ *                        Setting this will override the default theme-based
+ *                        logic in the code.
+ * name          string   The name used in menus and descriptions for a module
+ * status        string   'inactive', 'hidden', 'notoolbar', 'heading',
+ *                        'block', 'admin', or 'active'.
+ * provides      string   Service types the module provides.
+ * initial_page  string   The initial (default) page (filename) for the module.
+ * templates     string   The filesystem path to the templates directory.
+ * menu_parent   string   The name of the 'heading' group that this app should
+ *                        show up under.
+ * target        string   The (optional) target frame for the link.
+ * url           string   The (optional) URL of 'heading' entries.
+ */
+
+// We try to automatically determine the proper webroot for Horde here. This
+// still assumes that applications live under horde/. If this results in
+// incorrect results for you, simply change the 'webroot' setting in the
+// 'horde' stanza below.
+
+$this->applications['horde'] = array(
+    'fileroot' => dirname(__FILE__) . '/..',
+    'webroot' => '/',
+    'initial_page' => 'login.php',
+    'name' => _("Horde"),
+    'status' => 'active',
+    'templates' => dirname(__FILE__) . '/../templates',
+    'provides' => 'horde',
+    'themesuri' => '/app/themes',
+    'themesfs' => dirname(__FILE__) . '/../app/themes',
+);
+
+$this->applications['koward'] = array(
+    'fileroot' => dirname(__FILE__) . '/..',
+    'webroot' => $this->applications['horde']['webroot'] . '/app',
+    'name' => _("Koward"),
+    'status' => 'active',
+    'initial_page' => 'index.php',
+    'themesuri' => '/app/themes',
+    'themesfs' => dirname(__FILE__) . '/../app/themes',
+);

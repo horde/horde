@@ -1,0 +1,272 @@
+<?php
+/**
+ * NLS (National Language Support) configuration file.
+ *
+ * $Horde: horde/config/nls.php.dist,v 1.77 2008/10/14 21:11:47 jan Exp $
+ */
+
+/**
+ ** Defaults
+ **/
+
+/* The language to fall back on if we cannot determine one any other
+   way (user choice or preferences). If empty, we will try to negotiate
+   with the browser using HTTP_ACCEPT_LANGUAGE. */
+$nls['defaults']['language'] = '';
+
+
+/**
+ ** Language
+ **/
+
+$nls['languages']['ar_OM'] = '&#x202d;Arabic (Oman) &#x202e;(&#x0627;&#x0644;&#x0639;&#x0631;&#x0628;&#x064a;&#x0629;)';
+$nls['languages']['ar_SY'] = '&#x202d;Arabic (Syria) &#x202e;(&#x0627;&#x0644;&#x0639;&#x0631;&#x0628;&#x064a;&#x0629;)';
+$nls['languages']['id_ID'] = 'Bahasa Indonesia';
+$nls['languages']['bs_BA'] = 'Bosanski';
+$nls['languages']['bg_BG'] = '&#x202d;Bulgarian (&#x0411;&#x044a;&#x043b;&#x0433;&#x0430;&#x0440;&#x0441;&#x043a;&#x0438;)';
+$nls['languages']['ca_ES'] = 'Catal&#xe0;';
+$nls['languages']['zh_CN'] = '&#x202d;Chinese (Simplified) (&#x7b80;&#x4f53;&#x4e2d;&#x6587;)';
+$nls['languages']['zh_TW'] = '&#x202d;Chinese (Traditional) (&#x6b63;&#x9ad4;&#x4e2d;&#x6587;)';
+$nls['languages']['cs_CZ'] = '&#x202d;Czech (&#x010c;esky)';
+$nls['languages']['da_DK'] = 'Dansk';
+$nls['languages']['de_DE'] = 'Deutsch';
+$nls['languages']['en_US'] = '&#x202d;English (American)';
+$nls['languages']['en_GB'] = '&#x202d;English (British)';
+$nls['languages']['en_CA'] = '&#x202d;English (Canadian)';
+$nls['languages']['es_ES'] = 'Espa&#xf1;ol';
+$nls['languages']['et_EE'] = 'Eesti';
+$nls['languages']['eu_ES'] = 'Euskara';
+$nls['languages']['fr_FR'] = 'Fran&#xe7;ais';
+$nls['languages']['gl_ES'] = 'Galego';
+$nls['languages']['el_GR'] = '&#x202d;Greek (&#x0395;&#x03bb;&#x03bb;&#x03b7;&#x03bd;&#x03b9;&#x03ba;&#x03ac;)';
+$nls['languages']['he_IL'] = '&#x202d;Hebrew &#x202e;(&#x05E2;&#x05D1;&#x05E8;&#x05D9;&#x05EA;)';
+$nls['languages']['is_IS'] = '&#xcd;slenska';
+$nls['languages']['it_IT'] = 'Italiano';
+$nls['languages']['ja_JP'] = '&#x202d;Japanese (&#x65e5;&#x672c;&#x8a9e;)';
+$nls['languages']['km_KH'] = '&#x202d;Khmer (&#x1781;&#x17d2;&#x1798;&#x17c2;&#x179a;)';
+$nls['languages']['ko_KR'] = '&#x202d;Korean (&#xd55c;&#xad6d;&#xc5b4;)';
+$nls['languages']['lv_LV'] = 'Latvie&#x0161;u';
+$nls['languages']['lt_LT'] = 'Lietuvi&#x0173;';
+$nls['languages']['mk_MK'] = '&#x202d;Macedonian (&#x041c;&#x0430;&#x043a;&#x0435;&#x0434;&#x043e;&#x043d;&#x0441;&#x043a;&#x0438;)';
+$nls['languages']['hu_HU'] = 'Magyar';
+$nls['languages']['nl_NL'] = 'Nederlands';
+$nls['languages']['nb_NO'] = 'Norsk bokm&#xe5;l';
+$nls['languages']['nn_NO'] = 'Norsk nynorsk';
+$nls['languages']['fa_IR'] = '&#x202d;Persian &#x202e;(&#x0641;&#x0627;&#x0631;&#x0633;&#x0649;)';
+$nls['languages']['pl_PL'] = 'Polski';
+$nls['languages']['pt_PT'] = 'Portugu&#xea;s';
+$nls['languages']['pt_BR'] = 'Portugu&#xea;s Brasileiro';
+$nls['languages']['ro_RO'] = 'Rom&#xe2;n&#xe4;';
+$nls['languages']['ru_RU'] = '&#x202d;Russian (&#x0420;&#x0443;&#x0441;&#x0441;&#x043a;&#x0438;&#x0439;)';
+$nls['languages']['sk_SK'] = '&#x202d;Slovak (Sloven&#x010d;ina)';
+$nls['languages']['sl_SI'] = '&#x202d;Slovenian (Sloven&#x0161;&#x010d;ina)';
+$nls['languages']['fi_FI'] = 'Suomi';
+$nls['languages']['sv_SE'] = 'Svenska';
+$nls['languages']['th_TH'] = '&#x202d;Thai (&#x0e44;&#x0e17;&#x0e22;)';
+if (version_compare(PHP_VERSION, '5', 'lt') || version_compare(PHP_VERSION, '6', 'ge')) {
+    $nls['languages']['tr_TR'] = 'T&#xfc;rk&#xe7;e';
+}
+$nls['languages']['uk_UA'] = '&#x202d;Ukrainian (&#x0423;&#x043a;&#x0440;&#x0430;&#x0457;&#x043d;&#x0441;&#x044c;&#x043a;&#x0430;)';
+
+
+/**
+ ** Aliases for languages with different browser and gettext codes
+ **/
+
+$nls['aliases']['ar'] = 'ar_SY';
+$nls['aliases']['bg'] = 'bg_BG';
+$nls['aliases']['bs'] = 'bs_BA';
+$nls['aliases']['ca'] = 'ca_ES';
+$nls['aliases']['cs'] = 'cs_CZ';
+$nls['aliases']['da'] = 'da_DK';
+$nls['aliases']['de'] = 'de_DE';
+$nls['aliases']['el'] = 'el_GR';
+$nls['aliases']['en'] = 'en_US';
+$nls['aliases']['es'] = 'es_ES';
+$nls['aliases']['et'] = 'et_EE';
+$nls['aliases']['fa'] = 'fa_IR';
+$nls['aliases']['fi'] = 'fi_FI';
+$nls['aliases']['fr'] = 'fr_FR';
+$nls['aliases']['gl'] = 'gl_ES';
+$nls['aliases']['he'] = 'he_IL';
+$nls['aliases']['hu'] = 'hu_HU';
+$nls['aliases']['id'] = 'id_ID';
+$nls['aliases']['is'] = 'is_IS';
+$nls['aliases']['it'] = 'it_IT';
+$nls['aliases']['ja'] = 'ja_JP';
+$nls['aliases']['km'] = 'km_KH';
+$nls['aliases']['ko'] = 'ko_KR';
+$nls['aliases']['lt'] = 'lt_LT';
+$nls['aliases']['lv'] = 'lv_LV';
+$nls['aliases']['mk'] = 'mk_MK';
+$nls['aliases']['nl'] = 'nl_NL';
+$nls['aliases']['nn'] = 'nn_NO';
+$nls['aliases']['no'] = 'nb_NO';
+$nls['aliases']['pl'] = 'pl_PL';
+$nls['aliases']['pt'] = 'pt_PT';
+$nls['aliases']['ro'] = 'ro_RO';
+$nls['aliases']['ru'] = 'ru_RU';
+$nls['aliases']['sk'] = 'sk_SK';
+$nls['aliases']['sl'] = 'sl_SI';
+$nls['aliases']['sv'] = 'sv_SE';
+$nls['aliases']['th'] = 'th_TH';
+if (version_compare(PHP_VERSION, '5', 'lt') || version_compare(PHP_VERSION, '6', 'ge')) {
+    $nls['aliases']['tr'] = 'tr_TR';
+}
+$nls['aliases']['uk'] = 'uk_UA';
+
+
+/**
+ ** Charsets. These differ somewhat on different systems; see below
+ ** for a set of BSD charset names.
+ **/
+
+$nls['charsets']['ar_OM'] = 'windows-1256';
+$nls['charsets']['ar_SY'] = 'windows-1256';
+$nls['charsets']['bg_BG'] = 'windows-1251';
+$nls['charsets']['bs_BA'] = 'ISO-8859-2';
+$nls['charsets']['cs_CZ'] = 'ISO-8859-2';
+$nls['charsets']['el_GR'] = 'ISO-8859-7';
+$nls['charsets']['eu_ES'] = 'UTF-8';
+$nls['charsets']['fa_IR'] = 'UTF-8';
+$nls['charsets']['he_IL'] = 'UTF-8';
+$nls['charsets']['hu_HU'] = 'ISO-8859-2';
+$nls['charsets']['ja_JP'] = 'SHIFT_JIS';
+$nls['charsets']['km_KH'] = 'UTF-8';
+$nls['charsets']['ko_KR'] = 'EUC-KR';
+$nls['charsets']['lt_LT'] = 'ISO-8859-13';
+$nls['charsets']['lv_LV'] = 'windows-1257';
+$nls['charsets']['mk_MK'] = 'ISO-8859-5';
+$nls['charsets']['pl_PL'] = 'ISO-8859-2';
+$nls['charsets']['ru_RU'] = 'windows-1251';
+$nls['charsets']['ru_RU.KOI8-R'] = 'KOI8-R';
+$nls['charsets']['sk_SK'] = 'ISO-8859-2';
+$nls['charsets']['sl_SI'] = 'ISO-8859-2';
+$nls['charsets']['th_TH'] = 'TIS-620';
+if (version_compare(PHP_VERSION, '5', 'lt') || version_compare(PHP_VERSION, '6', 'ge')) {
+    $nls['charsets']['tr_TR'] = 'ISO-8859-9';
+}
+$nls['charsets']['uk_UA'] = 'windows-1251';
+$nls['charsets']['zh_CN'] = 'GB2312';
+$nls['charsets']['zh_TW'] = 'BIG5';
+
+/**
+ * BSD charsets.
+ */
+if (strpos(PHP_OS, 'BSD') !== false) {
+    $nls['charsets']['ar_OM'] = 'windows-1256';
+    $nls['charsets']['ar_SY'] = 'windows-1256';
+    $nls['charsets']['bg_BG'] = 'windows-1251';
+    $nls['charsets']['bs_BA'] = 'ISO8859-2';
+    $nls['charsets']['cs_CZ'] = 'ISO8859-2';
+    $nls['charsets']['el_GR'] = 'ISO8859-7';
+    $nls['charsets']['eu_ES'] = 'UTF-8';
+    $nls['charsets']['fa_IR'] = 'UTF-8';
+    $nls['charsets']['he_IL'] = 'UTF-8';
+    $nls['charsets']['hu_HU'] = 'ISO8859-2';
+    $nls['charsets']['ja_JP'] = 'SHIFT_JIS';
+    $nls['charsets']['km_KH'] = 'UTF-8';
+    $nls['charsets']['ko_KR'] = 'EUC-KR';
+    $nls['charsets']['lt_LT'] = 'ISO8859-13';
+    $nls['charsets']['lv_LV'] = 'windows-1257';
+    $nls['charsets']['mk_MK'] = 'ISO8859-5';
+    $nls['charsets']['pl_PL'] = 'ISO8859-2';
+    $nls['charsets']['ru_RU'] = 'windows-1251';
+    $nls['charsets']['ru_RU.KOI8-R'] = 'KOI8-R';
+    $nls['charsets']['sk_SK'] = 'ISO8859-2';
+    $nls['charsets']['sl_SI'] = 'ISO8859-2';
+    $nls['charsets']['th_TH'] = 'TIS-620';
+    if (version_compare(PHP_VERSION, '5', 'lt') ||
+        version_compare(PHP_VERSION, '6', 'ge')) {
+        $nls['charsets']['tr_TR'] = 'ISO-8859-9';
+    }
+    $nls['charsets']['uk_UA'] = 'windows-1251';
+    $nls['charsets']['zh_CN'] = 'GB2312';
+    $nls['charsets']['zh_TW'] = 'BIG5';
+}
+
+
+/**
+ ** Multibyte charsets
+ **/
+
+$nls['multibyte']['BIG5'] = true;
+$nls['multibyte']['EUC-KR'] = true;
+$nls['multibyte']['GB2312'] = true;
+$nls['multibyte']['SHIFT_JIS'] = true;
+$nls['multibyte']['UTF-8'] = true;
+
+
+/**
+ ** Right-to-left languages
+ **/
+
+$nls['rtl']['ar_OM'] = true;
+$nls['rtl']['ar_SY'] = true;
+$nls['rtl']['fa_IR'] = true;
+$nls['rtl']['he_IL'] = true;
+
+
+/**
+ ** Preferred charsets for email traffic if not the languages' default
+ ** charsets.
+ **/
+
+$nls['emails']['ja_JP'] = 'ISO-2022-JP';
+
+
+/**
+ ** Available charsets for outgoing email traffic.
+ **/
+
+$nls['encodings']['windows-1256'] = _("Arabic (Windows-1256)");
+$nls['encodings']['ARMSCII-8'] = _("Armenian (ARMSCII-8)");
+$nls['encodings']['ISO-8859-13'] = _("Baltic (ISO-8859-13)");
+$nls['encodings']['ISO-8859-14'] = _("Celtic (ISO-8859-14)");
+$nls['encodings']['ISO-8859-2'] = _("Central European (ISO-8859-2)");
+$nls['encodings']['GB2312'] = _("Chinese Simplified (GB2312)");
+$nls['encodings']['BIG5'] = _("Chinese Traditional (Big5)");
+$nls['encodings']['KOI8-R'] = _("Cyrillic (KOI8-R)");
+$nls['encodings']['windows-1251'] = _("Cyrillic (Windows-1251)");
+$nls['encodings']['KOI8-U'] = _("Cyrillic/Ukrainian (KOI8-U)");
+$nls['encodings']['ISO-8859-7'] = _("Greek (ISO-8859-7)");
+$nls['encodings']['ISO-8859-8-I'] = _("Hebrew (ISO-8859-8-I)");
+$nls['encodings']['ISO-2022-JP'] = _("Japanese (ISO-2022-JP)");
+$nls['encodings']['EUC-KR'] = _("Korean (EUC-KR)");
+$nls['encodings']['ISO-8859-10'] = _("Nordic (ISO-8859-10)");
+$nls['encodings']['ISO-8859-3'] = _("South European (ISO-8859-3)");
+$nls['encodings']['TIS-620'] = _("Thai (TIS-620)");
+$nls['encodings']['ISO-8859-9'] = _("Turkish (ISO-8859-9)");
+$nls['encodings']['UTF-8'] = _("Unicode (UTF-8)");
+$nls['encodings']['VISCII'] = _("Vietnamese (VISCII)");
+$nls['encodings']['ISO-8859-1'] = _("Western (ISO-8859-1)");
+$nls['encodings']['ISO-8859-15'] = _("Western (ISO-8859-15)");
+asort($nls['encodings']);
+
+
+/**
+ ** Multi-language spelling support
+ **/
+
+$nls['spelling']['cs_CZ'] = '-T latin2 -d czech';
+$nls['spelling']['da_DK'] = '-d dansk';
+$nls['spelling']['de_DE'] = '-T latin1 -d deutsch';
+$nls['spelling']['el_GR'] = '-T latin1 -d ellinika';
+$nls['spelling']['en_CA'] = '-d canadian';
+$nls['spelling']['en_GB'] = '-d british';
+$nls['spelling']['en_US'] = '-d american';
+$nls['spelling']['es_ES'] = '-d espanol';
+$nls['spelling']['fr_FR'] = '-d francais';
+$nls['spelling']['it_IT'] = '-T latin1 -d italian';
+$nls['spelling']['nl_NL'] = '-d nederlands';
+$nls['spelling']['pl_PL'] = '-d polish';
+$nls['spelling']['pt_BR'] = '-d br';
+$nls['spelling']['pt_PT'] = '-T latin1 -d portuguese';
+$nls['spelling']['ru_RU'] = '-d russian';
+$nls['spelling']['sl_SI'] = '-d slovensko';
+$nls['spelling']['sv_SE'] = '-d svenska';
+if (isset($nls['charsets']['tr_TR'])) {
+    $nls['spelling']['tr_TR'] = '-d tr';
+}
+
+$GLOBALS['nls'] = &$nls;
