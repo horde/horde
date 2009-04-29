@@ -17,7 +17,7 @@ class Koward_Form_Search extends Horde_Form {
 
     public function __construct(&$vars, &$object, $params = array())
     {
-        $this->koward = &Koward_Koward::singleton();
+        $this->koward = &Koward::singleton();
 
         $this->object = &$object;
 

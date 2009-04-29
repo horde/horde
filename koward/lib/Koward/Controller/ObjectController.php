@@ -3,13 +3,10 @@
  * @package Koward
  */
 
-// @TODO Clean up
-require_once dirname(__FILE__) . '/ApplicationController.php';
-
 /**
  * @package Koward
  */
-class ObjectController extends Koward_ApplicationController
+class ObjectController extends Koward_Controller_Application
 {
 
     var $object_type;
@@ -40,8 +37,8 @@ class ObjectController extends Koward_ApplicationController
             && isset($this->koward->objects[$this->object_type])) {
             $params = array('attributes' => array_keys($this->attributes));
             $class = $this->koward->objects[$this->object_type]['class'];
-            $this->objectlist = $this->koward->server->listHash($class,
-                                                                $params);
+            $this->objectlist = $this->koward->getServer()->listHash($class,
+                                                                     $params);
             foreach ($this->objectlist as $uid => $info) {
                 $this->objectlist[$uid]['edit_url'] = Horde::link(
                     $this->urlFor(array('controller' => 'object', 

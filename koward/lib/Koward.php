@@ -23,18 +23,14 @@ class Koward {
 
     public function __construct()
     {
-        require_once 'Horde/Notification.php';
-        require_once 'Horde/Registry.php';
+        global $registry, $notification, $browser, $conf;
 
-        $this->notification = Notification::singleton();
-        $this->registry     = Registry::singleton();
+        $this->registry     = &$registry;
+        $this->notification = &$notification;
 
-        $result = $this->registry->pushApp('koward', false);
-        if ($result instanceOf PEAR_Error) {
-            $this->notification->push($result);
-        }
+        $this->auth = &Auth::singleton($conf['auth']['driver']);
 
-        $this->conf       = Horde::loadConfiguration('conf.php', 'conf');
+        $this->conf       = Horde::loadConfiguration('koward.php', 'koward');
         $this->objects    = Horde::loadConfiguration('objects.php', 'objects');
         $this->attributes = Horde::loadConfiguration('attributes.php', 'attributes');
         $this->labels     = Horde::loadConfiguration('labels.php', 'labels');
@@ -45,6 +41,30 @@ class Koward {
 
     public static function dispatch($koward)
     {
+        global $registry, $notification, $browser;
+
+        /* Horde core classes that aren't autoloaded. */
+        include_once 'Horde/Util.php';
+        include_once 'Horde/String.php';
+        include_once 'Horde/NLS.php';
+        include_once 'Horde/Auth.php';
+        include_once 'Horde/Perms.php';
+        include_once 'Horde/Notification.php';
+        include_once 'Horde/Registry.php';
+
+        $notification = Notification::singleton();
+        $registry     = Registry::singleton();
+
+        /* Browser detection object. */
+        if (class_exists('Horde_Browser')) {
+            $browser = Horde_Browser::singleton();
+        }
+
+        $result = $registry->pushApp('koward', false);
+        if ($result instanceOf PEAR_Error) {
+            $notification->push($result);
+        }
+
         $webroot = Koward::_detectWebroot($koward);
 
         // Set up our request and routing objects
@@ -65,7 +85,7 @@ class Koward {
         }
 
         // Check for route definitions.
-        $routeFile = dirname($koward) . '/config/routes.php';
+        $routeFile = dirname($koward) . '/../config/routes.php';
         if (!file_exists($routeFile)) {
             throw new Horde_Controller_Exception('Not routable');
         }
@@ -167,7 +187,7 @@ class Koward {
     static public function singleton()
     {
         if (!isset(self::$instance)) {
-            self::$instance = new Koward_Koward();
+            self::$instance = new Koward();
         }
 
         return self::$instance;

@@ -17,7 +17,7 @@ class Koward_Form_Actions extends Horde_Form {
 
     public function __construct(&$object)
     {
-        $this->koward = &Koward_Koward::singleton();
+        $this->koward = &Koward::singleton();
 
         $this->object = &$object;
 

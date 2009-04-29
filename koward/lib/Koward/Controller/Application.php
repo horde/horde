@@ -4,7 +4,17 @@ class Koward_Controller_Application extends Horde_Controller_Base
 {
     protected function _initializeApplication()
     {
+        global $registry;
+
         $this->koward = Koward::singleton();
+
+        if (is_a(($pushed = $registry->pushApp('horde', empty($this->auth_handler))), 'PEAR_Error')) {
+            if ($pushed->getCode() == 'permission_denied') {
+                header('Location: ' . $this->urlFor(array('controller' => 'login', 'action' => 'login')));
+                exit;
+            }
+        }
+
 
         $this->types = array_keys($this->koward->objects);
         if (empty($this->types)) {
@@ -13,7 +23,7 @@ class Koward_Controller_Application extends Horde_Controller_Base
 
         $this->menu = $this->getMenu();
 
-        $this->theme = isset($this->koward->conf['koward']['theme']) ? $this->koward->conf['koward']['theme'] : 'koward';
+        $this->theme = isset($this->koward->conf['theme']) ? $this->koward->conf['theme'] : 'koward';
     }
 
     /**
