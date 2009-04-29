@@ -666,6 +666,18 @@ class Horde_Kolab_Server_Object
     }
 
     /**
+     * Delete this object.
+     *
+     * @return boolean True if deleting the object succeeded.
+     *
+     * @throws Horde_Kolab_Server_Exception
+     */
+    public function delete()
+    {
+        return $this->server->delete($this->uid);
+    }
+
+    /**
      * Prepare the object information before saving.
      *
      * @param array $info The information about the object.
@@ -768,13 +780,15 @@ class Horde_Kolab_Server_Object
             }
 
             /* Check for potential renaming of the object here */
-            $new_info = array_merge($this->_cache, $info);
-            $new_uid = $this->server->generateServerUid(get_class($this),
-                                                        $this->generateId($new_info),
-                                                        $new_info);
-            if ($new_uid != $this->uid) {
-                $this->server->rename($this->uid, $new_uid);
-                $this->uid = $new_uid;
+            $new_id = $this->generateId($info);
+            if ($new_id !== false) {
+                $new_uid = $this->server->generateServerUid(get_class($this),
+                                                            $new_id,
+                                                            $new_info);
+                if ($new_uid != $this->uid) {
+                    $this->server->rename($this->uid, $new_uid);
+                    $this->uid = $new_uid;
+                }
             }
         }
 
@@ -958,6 +972,16 @@ class Horde_Kolab_Server_Object
         $filter = $server->searchQuery($criteria);
         $result = $server->search($filter, $params, $uid);
         return self::uidFromResult($data, Horde_Kolab_Server_Object::RESULT_MANY);
+    }
+
+    /**
+     * Returns the set of actions supported by this object type.
+     *
+     * @return array An array of supported actions.
+     */
+    public function getActions()
+    {
+        return array();
     }
 
 };
