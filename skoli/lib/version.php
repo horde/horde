@@ -1,0 +1,1 @@
+<?php define('SKOLI_VERSION', '0.1-cvs') ?>
