@@ -91,7 +91,7 @@ class Horde_Service_Facebook_Request
         // http://www.facebook.com/developers/message.php#msg_351
         foreach ($params as &$param) {
             if (is_array($param)) {
-                $param = json_endcode($param);
+                $param = json_encode($param);
             }
         }
 
