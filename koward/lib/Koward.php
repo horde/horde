@@ -70,15 +70,6 @@ class Koward {
         // where they start.
         $mapper->prefix = $webroot;
 
-        $uri = $request->getUri();
-        $uri = substr($uri, strlen($webroot));
-        if (strpos($uri, '/') === false) {
-            $app = $uri;
-            $path = '';
-        } else {
-            list($app, $path) = explode('/', $uri, 2);
-        }
-
         // Check for route definitions.
         $routeFile = dirname($koward) . '/../../koward/config/routes.php';
         if (!file_exists($routeFile)) {
