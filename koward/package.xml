@@ -29,7 +29,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </lead>
  <date>2009-04-30</date>
  <version>
-  <release>0.0.2</release>
+  <release>0.0.3</release>
   <api>0.0.1</api>
  </version>
  <stability>
@@ -212,6 +212,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <channel>pear.horde.org</channel>
    </package>
    <package>
+    <name>Auth</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
     <name>Browser</name>
     <channel>pear.horde.org</channel>
    </package>
@@ -228,7 +232,19 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <channel>pear.horde.org</channel>
    </package>
    <package>
+    <name>Horde_NLS</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Horde_Notification</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
     <name>Kolab_Server</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Perms</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
@@ -270,7 +286,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Koward/View/Check/run.html.php" as="Koward/View/Check/run.html.php" />
    <install name="lib/Koward/View/Check/show.html.php" as="Koward/View/Check/show.html.php" />
    <install name="lib/Koward/View/Index/index.html.php" as="Koward/View/Index/index.html.php" />
-   <install name="lib/Koward/View/Index/login.html.php" as="Koward/View/Login/login.html.php" />
+   <install name="lib/Koward/View/Index/login.html.php" as="Koward/View/Index/login.html.php" />
    <install name="lib/Koward/View/Object/delete.html.php" as="Koward/View/Object/delete.html.php" />
    <install name="lib/Koward/View/Object/edit.html.php" as="Koward/View/Object/edit.html.php" />
    <install name="lib/Koward/View/Object/listall.html.php" as="Koward/View/Object/listall.html.php" />
