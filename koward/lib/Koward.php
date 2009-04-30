@@ -53,6 +53,8 @@ class Koward {
         include_once 'Horde/Registry.php';
 
         $notification = Notification::singleton();
+        $notification->attach('status');
+
         $registry     = Registry::singleton();
 
         /* Browser detection object. */
