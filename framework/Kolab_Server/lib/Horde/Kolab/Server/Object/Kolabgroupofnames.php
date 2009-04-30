@@ -108,6 +108,13 @@ class Horde_Kolab_Server_Object_Kolabgroupofnames extends Horde_Kolab_Server_Obj
      */
     public function generateId($info)
     {
+        if ($this->exists()) {
+            if (!isset($info[self::ATTRIBUTE_MAIL])
+                && !isset($info[self::ATTRIBUTE_CN])) {
+                return false;
+            }
+        }
+
         if (isset($info[self::ATTRIBUTE_MAIL])) {
             $id = $info[self::ATTRIBUTE_MAIL];
         } else {
