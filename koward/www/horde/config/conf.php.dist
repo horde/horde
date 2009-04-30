@@ -18,7 +18,6 @@ $conf['auth']['driver'] = 'kolab';
 $conf['auth']['params'] = array();
 $conf['prefs']['driver'] = 'session';
 $conf['menu']['always'] = false;
-$conf['menu']['links']['logout'] = 'authenticated';
 $conf['portal']['fixed_blocks'] = array();
 $conf['imsp']['enabled'] = false;
 $conf['kolab']['enabled'] = true;
