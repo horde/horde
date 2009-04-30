@@ -8,14 +8,11 @@
  */
 class IndexController extends Koward_Controller_Application
 {
-    protected $welcome;
-
     protected $auth_handler = 'login';
 
     public function index()
     {
         $this->title = _("Index");
-        $this->welcome = _("Welcome to the Koward administration interface");
     }
 
     public function login()
@@ -27,7 +24,6 @@ class IndexController extends Koward_Controller_Application
         }
 
         $this->title = _("Login");
-        $this->welcome = _("Welcome.");
 
         $this->post = $this->urlFor(array('controller' => 'index', 
                                           'action' => 'login'));

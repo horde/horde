@@ -2,6 +2,8 @@
 
 class Koward_Controller_Application extends Horde_Controller_Base
 {
+    protected $welcome;
+
     protected function _initializeApplication()
     {
         global $registry;
@@ -30,6 +32,8 @@ class Koward_Controller_Application extends Horde_Controller_Base
         $this->menu = $this->getMenu();
 
         $this->theme = isset($this->koward->conf['koward']['theme']) ? $this->koward->conf['koward']['theme'] : 'koward';
+
+        $this->welcome = isset($this->koward->conf['koward']['greeting']) ? $this->koward->conf['koward']['greeting'] : _("Welcome.");
 
     }
 
