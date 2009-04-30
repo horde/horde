@@ -6,24 +6,31 @@ class Koward_Controller_Application extends Horde_Controller_Base
     {
         global $registry;
 
-        $this->koward = Koward::singleton();
-
-        if (is_a(($pushed = $registry->pushApp('horde', empty($this->auth_handler))), 'PEAR_Error')) {
+        if (is_a(($pushed = $registry->pushApp('koward',
+                                               empty($this->auth_handler)
+                                               || $this->auth_handler != $this->params[':action'])), 'PEAR_Error')) {
             if ($pushed->getCode() == 'permission_denied') {
-                header('Location: ' . $this->urlFor(array('controller' => 'login', 'action' => 'login')));
+                header('Location: ' . $this->urlFor(array('controller' => 'index', 'action' => 'login')));
                 exit;
             }
         }
 
+        $this->koward = Koward::singleton();
 
-        $this->types = array_keys($this->koward->objects);
-        if (empty($this->types)) {
+        if ($this->koward->objects instanceOf PEAR_Error) {
+            return;
+        }
+
+        if (!empty($this->koward->objects)) {
+            $this->types = array_keys($this->koward->objects);
+        } else  {
             throw new Koward_Exception('No object types have been configured!');
         }
 
         $this->menu = $this->getMenu();
 
-        $this->theme = isset($this->koward->conf['theme']) ? $this->koward->conf['theme'] : 'koward';
+        $this->theme = isset($this->koward->conf['koward']['theme']) ? $this->koward->conf['koward']['theme'] : 'koward';
+
     }
 
     /**
@@ -42,9 +49,17 @@ class Koward_Controller_Application extends Horde_Controller_Base
                    _("_Add"), 'plus.png', $registry->getImageDir('horde'));
         $menu->add($this->urlFor(array('controller' => 'object', 'action' => 'search')),
                    _("_Search"), 'search.png', $registry->getImageDir('horde'));
-        $menu->add(Horde::applicationUrl('Queries'), _("_Queries"), 'query.png', $registry->getImageDir('koward'));
-        $menu->add($this->urlFor(array('controller' => 'check', 'action' => 'show')),
+        if (!empty($this->koward->conf['koward']['menu']['queries'])) {
+            $menu->add(Horde::applicationUrl('Queries'), _("_Queries"), 'query.png', $registry->getImageDir('koward'));
+        }
+        if (!empty($this->koward->conf['koward']['menu']['test'])) {
+            $menu->add($this->urlFor(array('controller' => 'check', 'action' => 'show')),
                    _("_Test"), 'problem.png', $registry->getImageDir('horde'));
+        }
+        if (Auth::getAuth()) {
+            $menu->add($this->urlFor(array('controller' => 'index', 'action' => 'logout')),
+                       _("_Logout"), 'logout.png', $registry->getImageDir('horde'));
+        }
         return $menu;
     }
 }

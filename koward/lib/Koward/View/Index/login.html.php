@@ -6,7 +6,7 @@
 
 <?php $this->koward->notification->notify(array('listeners' => 'status')) ?>
 
-<form name="koward_login" method="post" action="<?= $this->post ?>"
+<form name="koward_login" method="post" action="<?= $this->post ?>">
 <table width="100%"><tr><td align="center"><table width="300" align="center">
 
 <tr>

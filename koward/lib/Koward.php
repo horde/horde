@@ -30,7 +30,7 @@ class Koward {
 
         $this->auth = &Auth::singleton($conf['auth']['driver']);
 
-        $this->conf       = Horde::loadConfiguration('koward.php', 'koward');
+        $this->conf       = Horde::loadConfiguration('conf.php', 'conf');
         $this->objects    = Horde::loadConfiguration('objects.php', 'objects');
         $this->attributes = Horde::loadConfiguration('attributes.php', 'attributes');
         $this->labels     = Horde::loadConfiguration('labels.php', 'labels');
@@ -60,11 +60,6 @@ class Koward {
             $browser = Horde_Browser::singleton();
         }
 
-        $result = $registry->pushApp('koward', false);
-        if ($result instanceOf PEAR_Error) {
-            $notification->push($result);
-        }
-
         $webroot = Koward::_detectWebroot($koward);
 
         // Set up our request and routing objects
@@ -85,7 +80,7 @@ class Koward {
         }
 
         // Check for route definitions.
-        $routeFile = dirname($koward) . '/../config/routes.php';
+        $routeFile = dirname($koward) . '/../../koward/config/routes.php';
         if (!file_exists($routeFile)) {
             throw new Horde_Controller_Exception('Not routable');
         }
