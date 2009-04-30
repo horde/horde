@@ -1,9 +1,8 @@
 <?php
-
-/** Tell the registry to take everything from this application directory. */
-if (!defined('HORDE_BASE')) {
-    define('HORDE_BASE', dirname(__FILE__) . '/..');
-}
+/**
+ * Identify the horde base application.
+ */
+require_once dirname(__FILE__) . '/../../koward/config/base.php';
 
 /**
  * The Autoloader allows us to omit "require/include" statements.

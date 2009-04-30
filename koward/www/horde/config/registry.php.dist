@@ -45,22 +45,22 @@
 
 $this->applications['horde'] = array(
     'fileroot' => dirname(__FILE__) . '/..',
-    'webroot' => '/',
+    'webroot' => '/horde',
     'initial_page' => 'login.php',
     'name' => _("Horde"),
     'status' => 'active',
     'templates' => dirname(__FILE__) . '/../templates',
     'provides' => 'horde',
-    'themesuri' => '/app/themes',
-    'themesfs' => dirname(__FILE__) . '/../app/themes',
+    'themesuri' => '/horde/themes',
+    'themesfs' => dirname(__FILE__) . '/../../htdocs/horde/themes',
 );
 
 $this->applications['koward'] = array(
-    'fileroot' => dirname(__FILE__) . '/..',
-    'webroot' => $this->applications['horde']['webroot'] . '/app',
+    'fileroot' => dirname(__FILE__) . '/../../koward',
+    'webroot' => '/koward',
     'name' => _("Koward"),
     'status' => 'active',
-    'initial_page' => 'index.php',
-    'themesuri' => '/app/themes',
-    'themesfs' => dirname(__FILE__) . '/../app/themes',
+    'initial_page' => 'index',
+    'themesuri' => '/koward/themes',
+    'themesfs' => dirname(__FILE__) . '/../../htdocs/koward/themes',
 );
