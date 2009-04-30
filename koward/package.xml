@@ -146,12 +146,21 @@ http://pear.php.net/dtd/package-2.0.xsd">
        <file name="horde.js" role="www" />
        <file name="prototype.js" role="www" />
        <file name="redbox.js" role="www" />
+       <file name="stripe.js" role="www" />
       </dir> <!-- /www/htdocs/horde/js -->
       <dir name="themes">
        <dir name="graphics">
+        <dir name="alerts">
+         <file name="alarm.png" role="www" />
+         <file name="error.png" role="www" />
+         <file name="message.png" role="www" />
+         <file name="success.png" role="www" />
+         <file name="warning.png" role="www" />
+        </dir> <!-- /www/htdocs/horde/themes/graphics/alerts -->
         <file name="favicon.ico" role="www" />
         <file name="logout.png" role="www" />
         <file name="plus.png" role="www" />
+        <file name="required.png" role="www" />
         <file name="search.png" role="www" />
         <file name="tab_bottom.gif" role="www" />
         <file name="user.png" role="www" />
@@ -164,12 +173,21 @@ http://pear.php.net/dtd/package-2.0.xsd">
        <file name="screen.css" role="www" />
        <dir name="silver">
         <dir name="graphics">
+         <dir name="alerts">
+          <file name="alarm.png" role="www" />
+          <file name="error.png" role="www" />
+          <file name="message.png" role="www" />
+          <file name="success.png" role="www" />
+          <file name="warning.png" role="www" />
+         </dir> <!-- /www/htdocs/horde/themes/silver/graphics/alerts -->
          <file name="currentTab_left.png" role="www" />
          <file name="currentTab_right.png" role="www" />
          <file name="delete.png" role="www" />
          <file name="edit.png" role="www" />
+         <file name="menu.png" role="www" />
          <file name="logout.png" role="www" />
          <file name="plus.png" role="www" />
+         <file name="required.png" role="www" />
          <file name="search.png" role="www" />
          <file name="tab_left.png" role="www" />
          <file name="tab_right.png" role="www" />
@@ -309,9 +327,16 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="www/htdocs/horde/js/horde.js" as="htdocs/horde/js/horde.js" />
    <install name="www/htdocs/horde/js/prototype.js" as="htdocs/horde/js/prototype.js" />
    <install name="www/htdocs/horde/js/redbox.js" as="htdocs/horde/js/redbox.js" />
+   <install name="www/htdocs/horde/js/stripe.js" as="htdocs/horde/js/stripe.js" />
+   <install name="www/htdocs/horde/themes/graphics/alerts/alarm.png" as="htdocs/horde/themes/graphics/alerts/alarm.png" />
+   <install name="www/htdocs/horde/themes/graphics/alerts/error.png" as="htdocs/horde/themes/graphics/alerts/error.png" />
+   <install name="www/htdocs/horde/themes/graphics/alerts/message.png" as="htdocs/horde/themes/graphics/alerts/message.png" />
+   <install name="www/htdocs/horde/themes/graphics/alerts/success.png" as="htdocs/horde/themes/graphics/alerts/success.png" />
+   <install name="www/htdocs/horde/themes/graphics/alerts/warning.png" as="htdocs/horde/themes/graphics/alerts/warning.png" />
    <install name="www/htdocs/horde/themes/graphics/favicon.ico" as="htdocs/horde/themes/graphics/favicon.ico" />
    <install name="www/htdocs/horde/themes/graphics/logout.png" as="htdocs/horde/themes/graphics/logout.png" />
    <install name="www/htdocs/horde/themes/graphics/plus.png" as="htdocs/horde/themes/graphics/plus.png" />
+   <install name="www/htdocs/horde/themes/graphics/required.png" as="htdocs/horde/themes/graphics/required.png" />
    <install name="www/htdocs/horde/themes/graphics/search.png" as="htdocs/horde/themes/graphics/search.png" />
    <install name="www/htdocs/horde/themes/graphics/tab_bottom.gif" as="htdocs/horde/themes/graphics/tab_bottom.gif" />
    <install name="www/htdocs/horde/themes/graphics/user.png" as="htdocs/horde/themes/graphics/user.png" />
@@ -321,12 +346,19 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="www/htdocs/horde/themes/opera.css" as="htdocs/horde/themes/opera.css" />
    <install name="www/htdocs/horde/themes/rtl.css" as="htdocs/horde/themes/rtl.css" />
    <install name="www/htdocs/horde/themes/screen.css" as="htdocs/horde/themes/screen.css" />
+   <install name="www/htdocs/horde/themes/silver/graphics/alerts/alarm.png" as="htdocs/horde/themes/silver/graphics/alerts/alarm.png" />
+   <install name="www/htdocs/horde/themes/silver/graphics/alerts/error.png" as="htdocs/horde/themes/silver/graphics/alerts/error.png" />
+   <install name="www/htdocs/horde/themes/silver/graphics/alerts/message.png" as="htdocs/horde/themes/silver/graphics/alerts/message.png" />
+   <install name="www/htdocs/horde/themes/silver/graphics/alerts/success.png" as="htdocs/horde/themes/silver/graphics/alerts/success.png" />
+   <install name="www/htdocs/horde/themes/silver/graphics/alerts/warning.png" as="htdocs/horde/themes/silver/graphics/alerts/warning.png" />
    <install name="www/htdocs/horde/themes/silver/graphics/currentTab_left.png" as="htdocs/horde/themes/silver/graphics/currentTab_left.png" />
    <install name="www/htdocs/horde/themes/silver/graphics/currentTab_right.png" as="htdocs/horde/themes/silver/graphics/currentTab_right.png" />
    <install name="www/htdocs/horde/themes/silver/graphics/delete.png" as="htdocs/horde/themes/silver/graphics/delete.png" />
    <install name="www/htdocs/horde/themes/silver/graphics/edit.png" as="htdocs/horde/themes/silver/graphics/edit.png" />
    <install name="www/htdocs/horde/themes/silver/graphics/logout.png" as="htdocs/horde/themes/silver/graphics/logout.png" />
+   <install name="www/htdocs/horde/themes/silver/graphics/menu.png" as="htdocs/horde/themes/silver/graphics/menu.png" />
    <install name="www/htdocs/horde/themes/silver/graphics/plus.png" as="htdocs/horde/themes/silver/graphics/plus.png" />
+   <install name="www/htdocs/horde/themes/silver/graphics/required.png" as="htdocs/horde/themes/silver/graphics/required.png" />
    <install name="www/htdocs/horde/themes/silver/graphics/search.png" as="htdocs/horde/themes/silver/graphics/search.png" />
    <install name="www/htdocs/horde/themes/silver/graphics/tab_left.png" as="htdocs/horde/themes/silver/graphics/tab_left.png" />
    <install name="www/htdocs/horde/themes/silver/graphics/tab_right.png" as="htdocs/horde/themes/silver/graphics/tab_right.png" />
