@@ -268,6 +268,9 @@ class Horde_Kolab_Server_Object
      */
     public function exists()
     {
+        if (empty($this->uid)) {
+            return false;
+        }
         if (!isset($this->_exists)) {
             try {
                 $this->read();
