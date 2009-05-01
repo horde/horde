@@ -29,6 +29,17 @@ class Koward_Controller_Application extends Horde_Controller_Base
             throw new Koward_Exception('No object types have been configured!');
         }
 
+        if (!$this->koward->hasPermission($this->getPermissionId(), null, Koward::PERM_GET)) {
+            $this->koward->notification->push(_("Access denied."), 'horde.error');
+            if (Auth::getAuth()) {
+                $url = $this->urlFor(array('controller' => 'index', 'action' => 'index'));
+            } else {
+                $url = $this->urlFor(array('controller' => 'index', 'action' => 'login'));
+            }
+            header('Location: ' . $url);
+            exit;
+        }
+
         $this->menu = $this->getMenu();
 
         $this->theme = isset($this->koward->conf['koward']['theme']) ? $this->koward->conf['koward']['theme'] : 'koward';
@@ -69,6 +80,6 @@ class Koward_Controller_Application extends Horde_Controller_Base
 
     public function getPermissionId()
     {
-        return $this->params['controller'] . ':' . $this->params['action'];
+        return $this->params['controller'] . '/' . $this->params['action'];
     }
 }

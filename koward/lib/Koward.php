@@ -10,6 +10,8 @@
 
 class Koward {
 
+    const PERM_GET = 1;
+
     /**
      * The singleton instance.
      *
@@ -36,6 +38,7 @@ class Koward {
         $this->objects    = Horde::loadConfiguration('objects.php', 'objects');
         $this->attributes = Horde::loadConfiguration('attributes.php', 'attributes');
         $this->labels     = Horde::loadConfiguration('labels.php', 'labels');
+        $this->perms      = Horde::loadConfiguration('perms.php', 'perms');
         $this->order      = Horde::loadConfiguration('order.php', 'order');
         $this->visible    = Horde::loadConfiguration('visible.php', 'visible');
         $this->search     = Horde::loadConfiguration('search.php', 'search');
@@ -208,19 +211,30 @@ class Koward {
      * here. But for the first draft this would be too much as the permission
      * system would also require integration with the group system etc.
      */
-    public function hasPermission($permission, $user = null, $perm = null)
+    public function hasPermission($id, $user = null, $perm = null)
     {
+        $global = $this->_hasPermission($this->perms,
+                                        $id, $perm);
+
         if ($user === null) {
             $session = Horde_Kolab_Session::singleton();
-            $object = $this->getObject($session->user_uid);
-            $class_name = get_class($object);
+            if (!empty($session->user_uid)) {
+                $user = $this->getObject($session->user_uid);
+            }
         }
 
-        if (!isset($this->objects[$type]['permission'])) {
-            return false;
+        if (empty($user)) {
+            return $global;
         }
-        return $this->_hasPermission($this->objects[$type]['permission'],
-                                     $id, $perm);
+
+        if (isset($this->objects[$type]['permission'])) {
+            $object = $this->_hasPermission($this->objects[$type]['permission'],
+                                            $id, $perm);
+        } else {
+            return $global;
+        }
+
+        return $objects || $global;
     }
 
     private function _hasPermission(&$root, $id, $perm)
@@ -232,11 +246,11 @@ class Koward {
             return $perm & $root;
         }
         if (is_array($root)) {
-            list($sub, $id) = explode(':', $id, 2);
+            list($sub, $path) = explode('/', $id, 2);
             if (!isset($root[$sub])) {
                 return false;
             }
-            return $this->_hasPermission($root[$sub], $id, $perm);
+            return $this->_hasPermission($root[$sub], $path, $perm);
         }
     }
 
