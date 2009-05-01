@@ -113,6 +113,12 @@ class Horde_Kolab_Server_Object_Kolabgroupofnames extends Horde_Kolab_Server_Obj
                 && !isset($info[self::ATTRIBUTE_CN])) {
                 return false;
             }
+            if (!isset($info[self::ATTRIBUTE_MAIL])) {
+                $info[self::ATTRIBUTE_MAIL] = $this->get(self::ATTRIBUTE_MAIL);
+            }
+            if (!isset($info[self::ATTRIBUTE_CN])) {
+                $info[self::ATTRIBUTE_CN] = $this->get(self::ATTRIBUTE_CN);
+            }
         }
 
         if (isset($info[self::ATTRIBUTE_MAIL])) {
