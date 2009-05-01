@@ -1,3 +1,10 @@
 <?php
 
+$conf['koward']['greeting'] = _('Welcome to the Kolab administration frontend.');
+
 $conf['koward']['theme'] = 'silver';
+
+$conf['koward']['menu']['queries'] = false;
+$conf['koward']['menu']['test'] = true;
+
+$conf['koward']['default_view'] = array('controller' => 'index', 'action' => 'index');
