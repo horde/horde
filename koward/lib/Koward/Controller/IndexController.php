@@ -37,7 +37,16 @@ class IndexController extends Koward_Controller_Application
                 $entry = sprintf('Login success for %s [%s] to Horde',
                                  Auth::getAuth(), $_SERVER['REMOTE_ADDR']);
                 Horde::logMessage($entry, __FILE__, __LINE__, PEAR_LOG_NOTICE);
-                header('Location: ' . $this->urlFor(array('controller' => 'index', 'action' => 'index')));
+
+                $type = $this->koward->getType();
+                if (!empty($type) && isset($this->koward->objects[$type]['default_view'])) {
+                    $url = $this->urlFor($this->koward->objects[$type]['default_view']);
+                } else if (isset($this->koward->conf['koward']['default_view'])) {
+                    $url = $this->urlFor($this->koward->conf['koward']['default_view']);
+                } else {
+                    $url = $this->urlFor(array('controller' => 'index', 'action' => 'index'));
+                }
+                header('Location: ' . $url);
                 exit;
             } else {
                 $entry = sprintf('FAILED LOGIN for %s [%s] to Horde',
