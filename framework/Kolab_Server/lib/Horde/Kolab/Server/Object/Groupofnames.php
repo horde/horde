@@ -95,7 +95,7 @@ class Horde_Kolab_Server_Object_Groupofnames extends Horde_Kolab_Server_Object
      */
     public function getMembers()
     {
-        return $this->_get(self::ATTRIBUTE_MEMBER, false);
+        return $this->get(self::ATTRIBUTE_MEMBER, false);
     }
 
     /**
@@ -107,15 +107,11 @@ class Horde_Kolab_Server_Object_Groupofnames extends Horde_Kolab_Server_Object
      */
     public function addMember($member)
     {
-        $members = $this->getMembers();
-        if (is_a($members, 'PEAR_Error')) {
-            return $members;
-        }
-        if (!in_array($member, $members)) {
+        if (!in_array($member, $this->getMembers())) {
             $this->_cache[self::ATTRIBUTE_MEMBER][] = $member;
         } else {
-            return PEAR::raiseError(_("The UID %s is already a member of the group %s!"),
-                                    $member, $this->_uid);
+            throw new Horde_Kolab_Server_Exception(_("The UID %s is already a member of the group %s!"),
+                                                   $member, $this->_uid);
         }
         return $this->save($this->_cache);
     }
@@ -130,17 +126,14 @@ class Horde_Kolab_Server_Object_Groupofnames extends Horde_Kolab_Server_Object
     public function deleteMember($member)
     {
         $members = $this->getMembers();
-        if (is_a($members, 'PEAR_Error')) {
-            return $members;
-        }
         if (in_array($member, $members)) {
             //FIXME: As the member attribute is required we may not remove the last member
             $this->_cache[self::ATTRIBUTE_MEMBER] =
                 array_diff($this->_cache[self::ATTRIBUTE_MEMBER],
                            array($member));
         } else {
-            return PEAR::raiseError(_("The UID %s is no member of the group %s!"),
-                                    $member, $this->_uid);
+            throw new Horde_Kolab_Server_Exception(_("The UID %s is no member of the group %s!"),
+                                                   $member, $this->_uid);
 
         }
         return $this->save($this->_cache);
@@ -157,8 +150,8 @@ class Horde_Kolab_Server_Object_Groupofnames extends Horde_Kolab_Server_Object
     public function isMember($member)
     {
         $members = $this->getMembers();
-        if (is_a($members, 'PEAR_Error') || !is_array($members)) {
-            return $members;
+        if (!is_array($members)) {
+            return $member == $members;
         }
         if (!in_array($member, $members)) {
             return false;
