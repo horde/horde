@@ -45,15 +45,7 @@ class Koward_Form_Object extends Horde_Form {
             $type = $vars->get('type');
         } else {
             $title = _("Edit Object");
-            $class_name = get_class($this->object);
-            foreach ($this->koward->objects as $name => $config) {
-                if ($config['class'] == $class_name) {
-                    $type = $name;
-                    if (!empty($config['preferred'])) {
-                        break;
-                    }
-                }
-            }
+            $type = $this->koward->getType($this->object);
             if (empty($type)) {
                 throw new Koward_Exception('Undefined object class!');
             }
