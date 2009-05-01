@@ -594,7 +594,7 @@ class Ingo_Script_sieve extends Ingo_Script {
             foreach ($filter['conditions'] as $condition) {
                 $tmp = '';
                 switch ($condition['match']) {
-                case 'equal to':
+                case 'equal':
                     $tmp = new Sieve_Test_Relational(array('comparison' => 'eq', 'headers' => $condition['field'], 'value' => $condition['value']));
                     $test->addTest($tmp);
                     break;
