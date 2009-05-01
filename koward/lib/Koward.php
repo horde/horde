@@ -13,11 +13,13 @@ class Koward {
     /**
      * The singleton instance.
      *
-     * @var Koward_Koward
+     * @var Koward
      */
     static protected $instance = null;
 
     static protected $server = null;
+
+    static protected $map_class_type = null;
 
     public $objectconf;
 
@@ -170,6 +172,72 @@ class Koward {
     public function getObject($uid)
     {
         return $this->getServer()->fetch($uid);
+    }
+
+
+    public function getType($mixed = null)
+    {
+        if ($mixed instanceOf Horde_Kolab_Server_Object) {
+            $class_name = get_class($mixed);
+        } else if (!empty($mixed)) {
+            $class_name = $mixed;
+        } else {
+            $session = Horde_Kolab_Session::singleton();
+            $object = $this->getObject($session->user_uid);
+            $class_name = get_class($object);
+        }
+
+        if (empty(self::$map_class_type)) {
+            foreach ($this->objects as $name => $config) {
+                self::$map_class_type[$config['class']]['types'][] = $name;
+                if (!empty($config['preferred'])) {
+                    self::$map_class_type['preferred'] = $name;
+                }
+            }
+        }
+
+        if (isset(self::$map_class_type[$class_name]['types'])) {
+            return self::$map_class_type[$class_name]['types'][0];
+        } else {
+            return self::$map_class_type['preferred'];
+        }
+    }
+
+    /**
+     * In the long run we might wish to use the Horde permission system
+     * here. But for the first draft this would be too much as the permission
+     * system would also require integration with the group system etc.
+     */
+    public function hasPermission($permission, $user = null, $perm = null)
+    {
+        if ($user === null) {
+            $session = Horde_Kolab_Session::singleton();
+            $object = $this->getObject($session->user_uid);
+            $class_name = get_class($object);
+        }
+
+        if (!isset($this->objects[$type]['permission'])) {
+            return false;
+        }
+        return $this->_hasPermission($this->objects[$type]['permission'],
+                                     $id, $perm);
+    }
+
+    private function _hasPermission(&$root, $id, $perm)
+    {
+        if (empty($root)) {
+            return false;
+        }
+        if (is_int($root)) {
+            return $perm & $root;
+        }
+        if (is_array($root)) {
+            list($sub, $id) = explode(':', $id, 2);
+            if (!isset($root[$sub])) {
+                return false;
+            }
+            return $this->_hasPermission($root[$sub], $id, $perm);
+        }
     }
 
     static public function singleton()
