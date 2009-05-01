@@ -66,4 +66,9 @@ class Koward_Controller_Application extends Horde_Controller_Base
         }
         return $menu;
     }
+
+    public function getPermissionId()
+    {
+        return $this->params['controller'] . ':' . $this->params['action'];
+    }
 }
