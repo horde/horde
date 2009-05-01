@@ -129,14 +129,23 @@ class ObjectController extends Koward_Controller_Application
 
                 $actions = $this->object->getActions();
                 if (!empty($actions)) {
-                    $this->actions = new Koward_Form_Actions($this->object);
+                    try {
+                        $this->actions = new Koward_Form_Actions($this->object);
 
-                    $this->post = $this->urlFor(array('controller' => 'object', 
+                        $this->post = $this->urlFor(array('controller' => 'object', 
                                                       'action' => 'view',
                                                       'id' => $this->params->id));
 
-                    if ($this->actions->validate()) {
-                        $this->actions->execute();
+                        if ($this->actions->validate()) {
+                            $this->actions->execute();
+
+                            /** Reload the object */
+                            $this->object = $this->koward->getObject($this->params->id);
+                            $actions = $this->object->getActions();
+                            $this->actions = new Koward_Form_Actions($this->object);
+                        }
+                    } catch (Exception $e) {
+                        $this->koward->notification->push($e->getMessage(), 'horde.error');
                     }
                 }
 
