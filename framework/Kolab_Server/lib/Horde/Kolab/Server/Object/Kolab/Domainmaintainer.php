@@ -47,7 +47,7 @@ class Horde_Kolab_Server_Object_Kolab_Domainmaintainer extends Horde_Kolab_Serve
      *
      * @var array
      */
-    protected $required_group = array(self::ATTRIBUTE_CN => 'domain-maintainer',
+    public $required_group = array(self::ATTRIBUTE_CN => 'domain-maintainer',
                                       Horde_Kolab_Server_Object_Kolabgroupofnames::ATTRIBUTE_VISIBILITY => false);
 
     /**

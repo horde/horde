@@ -35,7 +35,7 @@ class Horde_Kolab_Server_Object_Kolab_Maintainer extends Horde_Kolab_Server_Obje
      *
      * @var array
      */
-    protected $required_group = array(self::ATTRIBUTE_CN => 'maintainer',
+    public $required_group = array(self::ATTRIBUTE_CN => 'maintainer',
                                       Horde_Kolab_Server_Object_Kolabgroupofnames::ATTRIBUTE_VISIBILITY => false);
 
 }
