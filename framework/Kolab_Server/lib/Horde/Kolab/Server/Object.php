@@ -65,8 +65,6 @@ class Horde_Kolab_Server_Object
     /**
      * The cached LDAP result
      *
-     * FIXME: Include _ldap here
-     *
      * @var mixed
      */
     private $_cache = false;
@@ -84,7 +82,7 @@ class Horde_Kolab_Server_Object
      *
      * @var boolean
      */
-    private $_exists;
+    private $_exists = false;
 
     /** FIXME: Add an attribute cache for the get() function */
 
@@ -268,18 +266,11 @@ class Horde_Kolab_Server_Object
      */
     public function exists()
     {
-        if (empty($this->uid)) {
+        try {
+            return $this->read();
+        } catch (Horde_Kolab_Server_Exception $e) {
             return false;
         }
-        if (!isset($this->_exists)) {
-            try {
-                $this->read();
-                $this->_exists = true;
-            } catch (Horde_Kolab_Server_Exception $e) {
-                $this->_exists = false;
-            }
-        }
-        return $this->_exists;
     }
 
     /**
@@ -289,13 +280,20 @@ class Horde_Kolab_Server_Object
      */
     protected function read()
     {
-        if (!empty($this->attributes)) {
-            $attributes = array_keys($this->attributes);
-        } else {
-            $attributes = null;
+        if (empty($this->uid)) {
+            return false;
         }
-        $this->_cache = $this->server->read($this->uid,
-                                            $attributes);
+        if (empty($this->_exists)) {
+            if (!empty($this->attributes)) {
+                $attributes = array_keys($this->attributes);
+            } else {
+                $attributes = null;
+            }
+            $this->_cache = $this->server->read($this->uid,
+                                                $attributes);
+            $this->_exists = true;
+        }
+        return $this->_exists;
     }
 
     /**
@@ -317,9 +315,8 @@ class Horde_Kolab_Server_Object
             throw new Horde_Kolab_Server_Exception(sprintf(_("Attribute \"%s\" not supported!"),
                                                            $attr));
         }
-        if (!$this->_cache) {
-            $this->read();
-        }
+
+        $this->exists();
 
         if (!empty($this->attribute_map['derived'])
             && in_array($attr, $this->attribute_map['derived'])) {
