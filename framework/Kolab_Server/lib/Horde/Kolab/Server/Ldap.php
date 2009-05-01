@@ -385,18 +385,20 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
         }
 
         if (!empty($vars['required_group'])) {
-            $required_group = $this->fetch($vars['required_group'],
-                                           'Horde_Kolab_Server_Object_Kolabgroupofnames');
+            $required_group = new Horde_Kolab_Server_Object_Kolabgroupofnames($this,
+                                                                              null,
+                                                                              $vars['required_group']);
         }
 
         $objects = array();
         foreach ($data as $uid => $entry) {
-            if (!empty($vars['required_group']) && $required_group->isMember($uid)) {
-                continue;
+            if (!empty($vars['required_group'])) {
+                if (!$required_group->exists() || !$required_group->isMember($uid)) {
+                    continue;
+                }
             }
-            $result = &Horde_Kolab_Server_Object::factory($type, $uid,
-                                                          $this, $entry);
-            $objects[$uid] = $result;
+            $objects[$uid] = &Horde_Kolab_Server_Object::factory($type, $uid,
+                                                                 $this, $entry);
         }
         return $objects;
     }
