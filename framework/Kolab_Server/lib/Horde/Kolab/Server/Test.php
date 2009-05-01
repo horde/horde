@@ -508,9 +508,9 @@ class Horde_Kolab_Server_Test extends Horde_Kolab_Server_Ldap
     /**
      * Save an object.
      *
-     * @param string  $uid    The UID of the object to be added.
-     * @param array   $data   The attributes of the object to be added.
-     * @param boolean $exists Does the object already exist on the server?
+     * @param string  $uid     The UID of the object to be added.
+     * @param array   $data    The attributes of the object to be added/replaced.
+     * @param boolean $exists  Does the object already exist on the server?
      *
      * @return boolean  True if saving succeeded.
      */
@@ -520,6 +520,86 @@ class Horde_Kolab_Server_Test extends Horde_Kolab_Server_Ldap
             $result = $this->bind();
         }
 
+        if ($exists === false) {
+
+            $ldap_data = $this->_toStorage($data['add']);
+
+            $this->data[$uid] = array(
+                'dn' => $uid,
+                'data' => array_merge($ldap_data,
+                                      array('dn' => $uid)),
+            );
+        } else {
+
+            if (isset($data['delete'])) {
+                foreach ($data['delete'] as $k => $v) {
+                    if (is_int($k)) {
+                        $w = $this->mapField($v);
+                        if (isset($this->data[$uid]['data'][$w])) {
+                            /** Delete a complete attribute */
+                            unset($this->data[$uid]['data'][$w]);
+                        }
+                    } else {
+                        $l = $this->mapField($k);
+                        if (isset($this->data[$uid]['data'][$l])) {
+                            if (!is_array($v)) {
+                                $v = array($v);
+                            }
+                            foreach ($v as $w) {
+                                $key = array_search($w, $this->data[$uid]['data'][$l]);
+                                if ($key !== false) {
+                                    /** Delete a single value */
+                                    unset($this->data[$uid]['data'][$l][$key]);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (isset($data['replace'])) {
+                $ldap_data = $this->_toStorage($data['replace']);
+
+                $this->data[$uid] = array(
+                    'dn' => $uid,
+                    'data' => array_merge($this->data[$uid]['data'],
+                                          $ldap_data,
+                                          array('dn' => $uid)),
+                );
+            }
+
+            if (isset($data['add'])) {
+                $ldap_data = $this->_toStorage($data['add']);
+
+                foreach ($ldap_data as $k => $v) {
+                    if (is_array($v)) {
+                        foreach ($v as $w) {
+                            $this->data[$uid]['data'][$k][] = $w;
+                        }
+                    } else {
+                        $this->data[$uid]['data'][$k][] = $v;
+                    }
+                    $this->data[$uid]['data'][$k] = array_values($this->data[$uid]['data'][$k]);
+                }
+            }
+        }
+
+
+        Horde::logMessage(sprintf('The object \"%s\" has been successfully saved!',
+                                  $uid),
+                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        $this->store();
+    }
+
+    /**
+     * Rewrite a data array to our internal storage format.
+     *
+     * @param array   $data    The attributes of the object to be added/replaced.
+     *
+     * @return array  The transformed data set.
+     */
+    private function _toStorage($data)
+    {
         $this->mapAttributes($data);
 
         $ldap_data = array();
@@ -529,25 +609,7 @@ class Horde_Kolab_Server_Test extends Horde_Kolab_Server_Ldap
             }
             $ldap_data[$key] = $val;
         }
-
-        if ($exists === false) {
-            $this->data[$uid] = array(
-                'dn' => $uid,
-                'data' => array_merge($ldap_data,
-                                      array('dn' => $uid)),
-            );
-        } else {
-            $this->data[$uid] = array(
-                'dn' => $uid,
-                'data' => array_merge($this->data[$uid]['data'],
-                                      $ldap_data,
-                                      array('dn' => $uid)),
-            );
-        }
-        Horde::logMessage(sprintf('The object \"%s\" has been successfully saved!',
-                                  $uid),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
-        $this->store();
+        return $ldap_data;
     }
 
     /**

@@ -227,9 +227,9 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
     /**
      * Save an object.
      *
-     * @param string  $uid    The UID of the object to be added.
-     * @param array   $data   The attributes of the object to be added.
-     * @param boolean $exists Does the object already exist on the server?
+     * @param string  $uid     The UID of the object to be added.
+     * @param array   $data    The attributes of the object to be changed.
+     * @param boolean $exists  Does the object already exist on the server?
      *
      * @return boolean  True if saving succeeded.
      */
@@ -238,34 +238,16 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
         $this->mapAttributes($data);
 
         if ($exists === false) {
-            $entry  = Net_LDAP2_Entry::createFresh($uid, $data);
+            $entry  = Net_LDAP2_Entry::createFresh($uid, $data['add']);
             $result = $this->_ldap->add($entry);
             if ($result instanceOf PEAR_Error) {
                 throw new Horde_Kolab_Server_Exception($result,
                                                        Horde_Kolab_Server_Exception::SYSTEM);
             }
         } else {
-            $deletes = array();
-            foreach ($data as $key => $values) {
-                $empty = true;
-                if (!is_array($values)) {
-                    $values = array($values);
-                }
-                foreach ($values as $value) {
-                    if (!($value === null || $info[$key] === '')) {
-                        $empty = false;
-                        break;
-                    }
-                }
-                if ($empty === true) {
-                    $deletes[] = $key;
-                    unset($data[$key]);
-                }
-            }
             /* Net_LDAP2 will work on this as a reference */
             $mod_uid = $uid;
-            $result = $this->_ldap->modify($mod_uid, array('delete' => $deletes,
-                                                           'replace' => $data));
+            $result = $this->_ldap->modify($mod_uid, $data);
             if ($result instanceOf PEAR_Error) {
                 throw new Horde_Kolab_Server_Exception($result,
                                                        Horde_Kolab_Server_Exception::SYSTEM);
