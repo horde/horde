@@ -84,6 +84,13 @@ class Horde_Kolab_Server_Object
      */
     private $_exists = false;
 
+    /**
+     * A cache for the list of actions this object supports.
+     *
+     * @var array
+     */
+    protected $_actions;
+
     /** FIXME: Add an attribute cache for the get() function */
 
     /**
@@ -289,8 +296,18 @@ class Horde_Kolab_Server_Object
             } else {
                 $attributes = null;
             }
-            $this->_cache = $this->server->read($this->uid,
-                                                $attributes);
+            $result = $this->server->read($this->uid,
+                                          $attributes);
+            /**
+             * If reading the server data was unsuccessfull we should keep the
+             * initial data in our cache. If reading was successfull we should
+             * merge with the initial cache setting.
+             */
+            if (is_array($this->_cache) && is_array($result)) {
+                $this->_cache = array_merge($this->_cache, $result);
+            } else if (!is_array($this->_cache)) {
+                $this->_cache = $result;
+            }
             $this->_exists = true;
         }
         return $this->_exists;
@@ -653,7 +670,9 @@ class Horde_Kolab_Server_Object
     {
         $info = $this->prepareInformation($info);
 
-        $result = $this->server->save($this->uid, $info, $this->exists());
+        $changes = $this->prepareChanges($info);
+
+        $result = $this->server->save($this->uid, $changes, $this->exists());
 
         if (!$this->_exists) {
             $this->_exists = true;
@@ -678,11 +697,11 @@ class Horde_Kolab_Server_Object
     }
 
     /**
-     * Prepare the object information before saving.
+     * Distill the server side object information to save.
      *
      * @param array $info The information about the object.
      *
-     * @return array The set of information. Ready for saving.
+     * @return array The set of information.
      *
      * @throws Horde_Kolab_Server_Exception If the given information contains errors.
      */
@@ -730,7 +749,7 @@ class Horde_Kolab_Server_Object
                 }
             }
         } else {
-            $old_keys = array_keys($this->attributes);
+            $all_keys = array_keys($this->attributes);
             $submitted = $info;
             foreach ($submitted as $key => $value) {
                 /**
@@ -742,11 +761,11 @@ class Horde_Kolab_Server_Object
                 if (($value === null || $info[$key] === '')
                     && (empty($old)
                         || in_array($key, $this->attribute_map['locked']))) {
-
                     unset($info[$key]);
                     continue;
                 }
-                if (in_array($key, $old_keys)) {
+
+                if (in_array($key, $all_keys)) {
                     if (!is_array($value) && !is_array($old)) {
                         if ($value === $old) {
                             // Unchanged value
@@ -799,6 +818,66 @@ class Horde_Kolab_Server_Object
     }
 
     /**
+     * Prepare the server changes before saving.
+     *
+     * @param array $info The information to store.
+     *
+     * @return array The set of changes. Ready for saving.
+     *
+     * @throws Horde_Kolab_Server_Exception If the given information contains errors.
+     */
+    public function prepareChanges($info)
+    {
+        if (!empty($this->attributes)) {
+            foreach ($info as $key => $value) {
+                if (!in_array($key, array_keys($this->attributes))) {
+                    throw new Horde_Kolab_Server_Exception(sprintf(_("Attribute \"%s\" not supported!"),
+                                                                   $key));
+                }
+            }
+        }
+
+        if (!$this->exists()) {
+            $changes['add'] = $info;
+        } else {
+            $all_keys = array_keys($this->attributes);
+            foreach ($info as $key => $value) {
+                $old = $this->_get($key, false);
+                if (is_array($value) && count($value) == 1) {
+                    $value = $value[0];
+                }
+                if (is_array($old) && count($old) == 1) {
+                    $old = $old[0];
+                }
+                if ($old === false && !($value === null || $value === '')) {
+                    $changes['add'][$key] = $value;
+                } else if ($old !== false && ($value === null || $value === '')) {
+                    $changes['delete'][] = $key;
+                } else if (is_array($old) || is_array($value)) {
+                    if (!is_array($old)) {
+                        $old = array($old);
+                    }
+                    if (!is_array($value)) {
+                        $value = array($value);
+                    }
+                    $adds = array_diff($value, $old);
+                    if (!empty($adds)) {
+                        $changes['add'][$key] = $adds;
+                    }
+                    $deletes = array_diff($old, $value);
+                    if (!empty($deletes)) {
+                        $changes['delete'][$key] = $deletes;
+                    }
+                } else {
+                    $changes['replace'][$key] = $value;
+                }
+            }
+        }
+
+        return $changes;
+    }
+
+    /**
      * Identify changes between two arrays.
      *
      * @param array $a1 The first array.
@@ -810,6 +889,11 @@ class Horde_Kolab_Server_Object
     {
         if (empty($a1) || empty($a2)) {
             return !empty($a1) ? $a1 : $a2;
+        }
+        if (count($a1) != count($a2)) {
+            $intersection = array_intersect($a1, $a2);
+            return array_merge(array_diff($a1, $intersection),
+                               array_diff($a2, $intersection));
         }
         $ar = array();
         foreach ($a2 as $k => $v) {
@@ -980,6 +1064,19 @@ class Horde_Kolab_Server_Object
      * @return array An array of supported actions.
      */
     public function getActions()
+    {
+        if (!isset($this->_actions)) {
+            $this->_actions = $this->_getActions();
+        }
+        return $this->_actions;
+    }
+
+    /**
+     * Returns the set of actions supported by this object type.
+     *
+     * @return array An array of supported actions.
+     */
+    protected function _getActions()
     {
         return array();
     }
