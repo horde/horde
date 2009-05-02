@@ -787,6 +787,20 @@ class Horde_Yaml_LoaderTest extends PHPUnit_Framework_TestCase
         return dirname(__FILE__) . "/fixtures/{$name}.yml";
     }
 
+    public function testUnfolding()
+    {
+        $parsed = Horde_Yaml::loadFile($this->fixture('basic'));
+        $expected = "Line 1 Line 2";
+        $this->assertEquals($expected, $parsed['foldedStringTest']);
+    }
+
+    public function testUnliteralizing()
+    {
+        $parsed = Horde_Yaml::loadFile($this->fixture('basic'));
+        $expected = "Line #1\nLine #2";
+        $this->assertEquals($expected, $parsed['literalStringTest']);
+    }
+
 }
 
 
@@ -807,4 +821,5 @@ class Horde_Yaml_LoaderTest_MockLoader
     {
         return false;
     }
+
 }

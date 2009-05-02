@@ -188,4 +188,31 @@ class Horde_Yaml_DumperTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
+    public function testShouldWrapStringsWithCommentDelimiterInQuotes()
+    {
+        $value = array('foo' => 'string # this is not a comment');
+        $expected = "---\n"
+                    . "foo: '{$value['foo']}'\n";
+        $actual = $this->dumper->dump($value);
+        $this->assertEquals($expected, $actual);
+        // round-trip assert
+        $this->assertEquals($value, Horde_Yaml::load($actual), "Error with: >{$actual}<");
+    }
+
+    public function testShouldNotWrapStringsWithCommentDelimiterForFoldedStrings()
+    {
+        // stringWithHash: 'string # this is part of the string, not a comment'
+        $value = array('foo' => 'string # this is not a comment but it is a long string that gets folded', 'bar' => 2);
+        $expected = "---\n"
+                    . "foo: >\n"
+                    . "  string # this is not a comment but it is\n"
+                    . "  a long string that gets folded\n"
+                    . "bar: 2\n";
+
+        $actual = $this->dumper->dump($value);
+        $this->assertEquals($expected, $actual);
+        // round-trip assert
+        $this->assertEquals($value, Horde_Yaml::load($actual), "Error: expected: " . print_r($value, true) . ", actual: " . print_r(Horde_Yaml::load($actual), true) . ", from: >" . $actual . "<"); // fails presently due to bug in loader which causes an extra "\n" at end of string
+    }
+
 }

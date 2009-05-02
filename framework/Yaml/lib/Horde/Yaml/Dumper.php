@@ -130,11 +130,13 @@ class Horde_Yaml_Dumper
      */
     protected function _dumpNode($key, $value, $indent)
     {
+        $literal = false;
         // Do some folding here, for blocks.
         if (strpos($value, "\n") !== false
             || strpos($value, ': ') !== false
             || strpos($value, '- ') !== false) {
             $value = $this->_doLiteralBlock($value, $indent);
+            $literal = true;
         } else {
             $value = $this->_fold($value, $indent);
         }
@@ -152,6 +154,11 @@ class Horde_Yaml_Dumper
         }
 
         $spaces = str_repeat(' ', $indent);
+
+        // Quote strings if necessary, and not folded
+        if (!$literal && strpos($value, "\n") === false && strchr($value, '#')) {
+            $value = "'{$value}'";
+        }
 
         if (is_int($key)) {
             // It's a sequence.

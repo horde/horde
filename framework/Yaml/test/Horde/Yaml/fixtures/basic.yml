@@ -1,5 +1,4 @@
 foo: bar
-
 # A folded block as a mapped value
 no time: >
   There isn't any time
@@ -11,4 +10,9 @@ no time: >
 some time: |
   There is nothing but time
   for your tricks.
-
+literalStringTest: |
+  Line #1
+  Line #2
+foldedStringTest: >
+  Line 1
+  Line 2
