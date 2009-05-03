@@ -56,6 +56,8 @@
   object in one query, then all foreign-key objects in a 2nd, and join
   the two.
 
+- Implement eager loading with several relationships to the same table.
+
 - Observer hooks: beforeDelete, afterDelete, beforeUpdate, afterUpdate, beforeCreate, afterCreate
 
 - Support fixtures (YAML?) for testing
