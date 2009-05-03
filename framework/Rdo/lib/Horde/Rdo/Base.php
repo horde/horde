@@ -123,8 +123,7 @@ abstract class Horde_Rdo_Base implements IteratorAggregate {
             break;
 
         case Horde_Rdo::ONE_TO_MANY:
-            $this->_fields[$field] = $this->cache($field,
-                $m->find(array($rel['foreignKey'] => $this->{$rel['foreignKey']})));
+            $this->_fields[$field] = $m->find(array($rel['foreignKey'] => $this->{$rel['foreignKey']}));
             break;
 
         case Horde_Rdo::MANY_TO_MANY:
@@ -132,9 +131,9 @@ abstract class Horde_Rdo_Base implements IteratorAggregate {
             $query = new Horde_Rdo_Query();
             $on = isset($rel['on']) ? $rel['on'] : $m->model->key;
             $query->addRelationship($field, array('mapper' => $mapper,
-                                                     'table' => $rel['through'],
-                                                     'type' => Horde_Rdo::MANY_TO_MANY,
-                                                     'query' => array($on => new Horde_Rdo_Query_Literal($on), $key => $this->$key)));
+                                                  'table' => $rel['through'],
+                                                  'type' => Horde_Rdo::MANY_TO_MANY,
+                                                  'query' => array($on => new Horde_Rdo_Query_Literal($on), $key => $this->$key)));
             $this->_fields[$field] = $m->find($query);
             break;
         }
