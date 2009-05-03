@@ -170,7 +170,8 @@ abstract class Horde_Rdo_Base implements IteratorAggregate {
     public function __isset($field)
     {
         $m = $this->getMapper();
-        return isset($m->fields[$field])
+        return isset($this->_fields[$field])
+            || isset($m->fields[$field])
             || isset($m->lazyFields[$field])
             || isset($m->relationships[$field])
             || isset($m->lazyRelationships[$field]);
