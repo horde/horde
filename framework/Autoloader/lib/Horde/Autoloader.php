@@ -97,7 +97,10 @@ class Horde_Autoloader
      */
     public static function addClassPattern($pattern, $replace = null)
     {
-        self::$_classPatterns[] = array($pattern, rtrim($replace, '/') . '/');
+        if (strlen($replace)) {
+            $replace = rtrim($replace, '/') . '/';
+        }
+        self::$_classPatterns[] = array($pattern, $replace);
     }
 
 }
