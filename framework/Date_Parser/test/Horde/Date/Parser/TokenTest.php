@@ -10,7 +10,7 @@
  * @package    Horde_Date
  * @subpackage UnitTests
  */
-class Horde_Date_Parser_TokenTest extends PHPUnit_Framework_TestCase
+class Horde_Date_Parser_TokenTest extends Horde_Test_Case
 {
     public function testToken()
     {
@@ -33,15 +33,20 @@ class Horde_Date_Parser_TokenTest extends PHPUnit_Framework_TestCase
         $this->assertType('int', $token->getTag('bar'));
     }
 
-}
-  def test_match
-    token = Chronic::Token.new('saturday')
-    repeater = Chronic::Repeater.scan_for_day_names(token)
-    assert_equal Chronic::RepeaterDayName, repeater.class
-    assert_equal :saturday, repeater.type
+    public function testScanForDayNames()
+    {
+        $parser = Horde_Date_Parser::factory();
+        $tokenizer = $parser->componentFactory('Repeater');
 
-    token = Chronic::Token.new('sunday')
-    repeater = Chronic::Repeater.scan_for_day_names(token)
-    assert_equal Chronic::RepeaterDayName, repeater.class
-    assert_equal :sunday, repeater.type
-  end
+        $token = new Horde_Date_Parser_Token('saturday');
+        $repeater = $tokenizer->scanForDayNames($token);
+        $this->assertType('Horde_Date_Repeater_DayName', $repeater);
+        $this->assertEquals('saturday', $repeater->type);
+
+        $token = new Horde_Date_Parser_Token('sunday');
+        $repeater = $tokenizer->scanForDayNames($token);
+        $this->assertType('Horde_Date_Repeater_DayName', $repeater);
+        $this->assertEquals('sunday', $repeater->type);
+    }
+
+}
