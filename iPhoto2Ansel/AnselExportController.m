@@ -60,7 +60,7 @@ NSString * const TURAnselServerPasswordKey = @"password";
     
     NSUserDefaults *userPrefs = [NSUserDefaults standardUserDefaults];
     [userPrefs registerDefaults: defaultValues];
-        
+
     // UI Defaults
     [mSizePopUp selectItemWithTag: [userPrefs integerForKey:TURAnselExportSize]];
     [self setStatusText: @"Not Connected" withColor: [NSColor redColor]];
@@ -124,9 +124,18 @@ NSString * const TURAnselServerPasswordKey = @"password";
     if ([currentServer objectForKey:TURAnselServerNickKey] == [[theCol dataCell] stringValue]) {
         [self disconnect];
     }
+
     NSUserDefaults *userPrefs = [NSUserDefaults standardUserDefaults]; 
+
+    // See if the removed server is the current default.
+    if ([[userPrefs objectForKey:TURAnselDefaultServerKey] objectForKey: TURAnselServerNickKey] == [[theCol dataCell] stringValue]) {
+        [userPrefs setObject: nil forKey:TURAnselDefaultServerKey];
+    }
+
+    // Remove it from the servers dictionary
     [anselServers removeObjectAtIndex: [serverTable selectedRow]];
     [userPrefs setObject:anselServers forKey:TURAnselServersKey];
+
     [userPrefs synchronize];
     [serverTable reloadData];
     [self updateServersPopupMenu];
@@ -681,9 +690,8 @@ NSString * const TURAnselServerPasswordKey = @"password";
         NSDictionary *defaultServer = [prefs objectForKey:TURAnselDefaultServerKey];
         if ([defaultServer count]) {
             currentServer = [defaultServer retain];
-            [self doConnect];
             int itemCount = [mServersPopUp numberOfItems];
-            
+
             // C99 mode is off by default in Apple's gcc.
             int i;
             for (i = 0; i < itemCount; i++) {
@@ -693,6 +701,8 @@ NSString * const TURAnselServerPasswordKey = @"password";
                     break;
                 }
             }
+
+            [self doConnect];
         }
 
     }
