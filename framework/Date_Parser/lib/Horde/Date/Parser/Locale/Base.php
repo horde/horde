@@ -3,6 +3,7 @@ class Horde_Date_Parser_Locale_Base
 {
     public $definitions = array();
     public $args = array();
+    public $now;
 
     public function __construct($args)
     {
@@ -57,7 +58,7 @@ class Horde_Date_Parser_Locale_Base
             'guess' => true,
             'ambiguousTimeRange' => 6,
         );
-        $options = array_merge($defaultOptions, $specifiedOptions);
+        $options = array_merge($defaultOptions, $this->args, $specifiedOptions);
 
         // ensure the specified options are valid
         foreach (array_keys($specifiedOptions) as $key) {
