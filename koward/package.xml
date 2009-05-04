@@ -82,6 +82,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
        <file name="login.html.php" role="php" />
       </dir> <!-- /lib/Koward/View/Index -->
       <dir name="Object">
+       <file name="add.html.php" role="php" />
        <file name="delete.html.php" role="php" />
        <file name="edit.html.php" role="php" />
        <file name="listall.html.php" role="php" />
@@ -305,6 +306,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Koward/View/Check/show.html.php" as="Koward/View/Check/show.html.php" />
    <install name="lib/Koward/View/Index/index.html.php" as="Koward/View/Index/index.html.php" />
    <install name="lib/Koward/View/Index/login.html.php" as="Koward/View/Index/login.html.php" />
+   <install name="lib/Koward/View/Object/add.html.php" as="Koward/View/Object/add.html.php" />
    <install name="lib/Koward/View/Object/delete.html.php" as="Koward/View/Object/delete.html.php" />
    <install name="lib/Koward/View/Object/edit.html.php" as="Koward/View/Object/edit.html.php" />
    <install name="lib/Koward/View/Object/listall.html.php" as="Koward/View/Object/listall.html.php" />

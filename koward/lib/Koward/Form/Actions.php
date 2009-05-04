@@ -15,32 +15,13 @@ class Koward_Form_Actions extends Horde_Form {
      */
     protected $koward;
 
-    public function __construct(&$object)
+    public function __construct($buttons)
     {
         $this->koward = &Koward::singleton();
-
-        $this->object = &$object;
 
         parent::Horde_Form(Variables::getDefaultVariables());
 
         $this->setTitle(_("Object actions"));
-
-        $class_name = get_class($this->object);
-        foreach ($this->koward->objects as $name => $config) {
-            if ($config['class'] == $class_name) {
-                $this->type = $name;
-                if (!empty($config['preferred'])) {
-                    break;
-                }
-            }
-        }
-
-        $buttons = array();
-        foreach ($this->object->getActions() as $action) {
-            if (isset($this->koward->objects[$this->type]['actions'][$action])) {
-                $buttons[] = $this->koward->objects[$this->type]['actions'][$action];
-            }
-        }
 
         if (!empty($buttons)) {
             $this->setButtons($buttons);

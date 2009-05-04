@@ -23,6 +23,13 @@ class ObjectController extends Koward_Controller_Application
 
         $this->object_type = $this->params->get('id', $this->types[0]);
 
+        $this->checkAccess($this->getPermissionId() . '/' . $this->object_type);
+
+        $this->allowEdit = $this->koward->hasAccess('object/edit/' . $this->object_type,
+                                                    Koward::PERM_EDIT);
+        $this->allowDelete = $this->koward->hasAccess('object/delete/' . $this->object_type,
+                                                      Koward::PERM_DELETE);
+
         if (isset($this->koward->objects[$this->object_type]['list_attributes'])) {
             $this->attributes = $this->koward->objects[$this->object_type]['list_attributes'];
         } else if (isset($this->koward->objects[$this->object_type]['attributes']['fields'])) {
@@ -54,15 +61,20 @@ class ObjectController extends Koward_Controller_Application
                     _("Delete")) . Horde::img('delete.png', _("Delete"), '',
                                               $GLOBALS['registry']->getImageDir('horde'))
                     . '</a>';
-                $this->objectlist[$uid]['view_url'] = Horde::link(
-                    $this->urlFor(array('controller' => 'object', 
-                                        'action' => 'view',
-                                        'id' => $uid)), _("View"));
+                if ($this->koward->hasAccess('object/view/' . $this->object_type, Koward::PERM_READ)) {
+                    $this->objectlist[$uid]['view_url'] = Horde::link(
+                        $this->urlFor(array('controller' => 'object', 
+                                            'action' => 'view',
+                                            'id' => $uid)), _("View"));
+                }
             }
         }
 
         $this->tabs = new Horde_UI_Tabs(null, Variables::getDefaultVariables());
         foreach ($this->koward->objects as $key => $configuration) {
+            if (!$this->koward->hasAccess($this->getPermissionId() . '/' . $key)) {
+                continue;
+            }
             $this->tabs->addTab($configuration['list_label'],
                                 $this->urlFor(array('controller' => 'object', 
                                                     'action' => 'listall',
@@ -81,6 +93,10 @@ class ObjectController extends Koward_Controller_Application
                                                  'horde.error');
             } else {
                 $this->object = $this->koward->getObject($this->params->id);
+
+                $this->checkAccess($this->getPermissionId() . '/' . $this->koward->getType($this->object),
+                                   Koward::PERM_DELETE);
+
                 $this->submit_url = $this->urlFor(array('controller' => 'object',
                                                         'action' => 'delete',
                                                         'id' => $this->params->id,
@@ -127,10 +143,29 @@ class ObjectController extends Koward_Controller_Application
 
                 $this->object = $this->koward->getObject($this->params->id);
 
+                $this->object_type = $this->koward->getType($this->object);
+
+                $this->checkAccess($this->getPermissionId() . '/' . $this->object_type,
+                                   Koward::PERM_READ);
+
+                $this->allowEdit = $this->koward->hasAccess('object/edit/' . $this->object_type,
+                                                            Koward::PERM_EDIT);
+
                 $actions = $this->object->getActions();
                 if (!empty($actions)) {
+                    $buttons = array();
+                    foreach ($actions as $action) {
+                        if (isset($this->koward->objects[$this->object_type]['actions'][$action])
+                            && $this->koward->hasAccess('object/action/' . $this->object_type . '/' . $action,
+                                                        Koward::PERM_EDIT)) {
+                            $buttons[] = $this->koward->objects[$this->object_type]['actions'][$action];
+                        }
+                    }
+                }
+                    
+                if (!empty($buttons)) {
                     try {
-                        $this->actions = new Koward_Form_Actions($this->object);
+                        $this->actions = new Koward_Form_Actions($buttons);
 
                         $this->post = $this->urlFor(array('controller' => 'object', 
                                                       'action' => 'view',
@@ -169,15 +204,46 @@ class ObjectController extends Koward_Controller_Application
         $this->render();
     }
 
+    public function add()
+    {
+        $this->object = null;
+
+        require_once 'Horde/Util.php';
+        $type = Util::getFormData('type');
+
+        if (!empty($type)) {
+            $this->checkAccess($this->getPermissionId() . '/' . $type,
+                               Koward::PERM_EDIT);
+        } else {
+            $this->checkAccess($this->getPermissionId(),
+                               Koward::PERM_EDIT);
+        }
+
+        $this->_edit();
+    }
+
     public function edit()
     {
-        try {
-            if (empty($this->params->id)) {
-                $this->object = null;
-            } else {
+        if (empty($this->params->id)) {
+            $this->koward->notification->push(_("The object that should be viewed has not been specified."),
+                                              'horde.error');
+        } else {
+            try {
                 $this->object = $this->koward->getObject($this->params->id);
+            } catch (Exception $e) {
+                $this->koward->notification->push($e->getMessage(), 'horde.error');
             }
 
+            $this->checkAccess($this->getPermissionId() . '/' . $this->koward->getType($this->object),
+                               Koward::PERM_EDIT);
+
+            $this->_edit();
+        }
+    }
+
+    private function _edit()
+    {
+        try {
             require_once 'Horde/Variables.php';
             $this->vars = Variables::getDefaultVariables();
             foreach ($this->params as $key => $value) {
@@ -205,8 +271,8 @@ class ObjectController extends Koward_Controller_Application
             $this->koward->notification->push($e->getMessage(), 'horde.error');
         }
 
-        $this->post = $this->urlFor(array('controller' => 'object', 
-                                          'action' => 'edit',
+        $this->post = $this->urlFor(array('controller' => $this->params['controller'], 
+                                          'action' => $this->params['action'],
                                           'id' => $this->params->id));
 
         $this->render();

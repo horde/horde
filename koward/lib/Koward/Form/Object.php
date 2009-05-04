@@ -30,6 +30,9 @@ class Koward_Form_Object extends Horde_Form {
             $this->setButtons(_("Add"));
 
             foreach ($this->koward->objects as $key => $config) {
+                if (!$this->koward->hasAccess('object/add/' . $key, Koward::PERM_EDIT)) {
+                    continue;
+                }
                 $options[$key] = $config['label'];
             }
             

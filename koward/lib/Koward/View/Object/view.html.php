@@ -9,5 +9,7 @@ if (isset($this->actions)) {
 if (isset($this->form)) {
     echo $this->form->renderInactive(new Horde_Form_Renderer(), $this->vars);
 
-    echo $this->edit;
+    if ($this->allowEdit) {
+        echo $this->edit;
+    }
 }

@@ -29,16 +29,7 @@ class Koward_Controller_Application extends Horde_Controller_Base
             throw new Koward_Exception('No object types have been configured!');
         }
 
-        if (!$this->koward->hasPermission($this->getPermissionId(), null, Koward::PERM_GET)) {
-            $this->koward->notification->push(_("Access denied."), 'horde.error');
-            if (Auth::getAuth()) {
-                $url = $this->urlFor(array('controller' => 'index', 'action' => 'index'));
-            } else {
-                $url = $this->urlFor(array('controller' => 'index', 'action' => 'login'));
-            }
-            header('Location: ' . $url);
-            exit;
-        }
+        $this->checkAccess();
 
         $this->menu = $this->getMenu();
 
@@ -58,12 +49,21 @@ class Koward_Controller_Application extends Horde_Controller_Base
         require_once 'Horde/Menu.php';
         $menu = new Menu();
 
-        $menu->add($this->urlFor(array('controller' => 'object', 'action' => 'listall')),
-                   _("_Objects"), 'user.png', $registry->getImageDir('horde'));
-        $menu->add($this->urlFor(array('controller' => 'object', 'action' => 'edit')),
-                   _("_Add"), 'plus.png', $registry->getImageDir('horde'));
-        $menu->add($this->urlFor(array('controller' => 'object', 'action' => 'search')),
-                   _("_Search"), 'search.png', $registry->getImageDir('horde'));
+        if ($this->koward->hasAccess('object/listall')) {
+            $menu->add($this->urlFor(array('controller' => 'object', 'action' => 'listall')),
+                       _("_Objects"), 'user.png', $registry->getImageDir('horde'));
+        }
+
+        if ($this->koward->hasAccess('object/add', Koward::PERM_EDIT)) {
+            $menu->add($this->urlFor(array('controller' => 'object', 'action' => 'add')),
+                       _("_Add"), 'plus.png', $registry->getImageDir('horde'));
+        }
+
+        if ($this->koward->hasAccess('object/search')) {
+            $menu->add($this->urlFor(array('controller' => 'object', 'action' => 'search')),
+                       _("_Search"), 'search.png', $registry->getImageDir('horde'));
+        }
+
         if (!empty($this->koward->conf['koward']['menu']['queries'])) {
             $menu->add(Horde::applicationUrl('Queries'), _("_Queries"), 'query.png', $registry->getImageDir('koward'));
         }
@@ -81,5 +81,23 @@ class Koward_Controller_Application extends Horde_Controller_Base
     public function getPermissionId()
     {
         return $this->params['controller'] . '/' . $this->params['action'];
+    }
+
+    public function checkAccess($id = null, $permission = Koward::PERM_SHOW)
+    {
+        if ($id === null) {
+            $id = $this->getPermissionId();
+        }
+
+        if (!$this->koward->hasAccess($id, $permission)) {
+            $this->koward->notification->push(_("Access denied."), 'horde.error');
+            if (Auth::getAuth()) {
+                $url = $this->urlFor(array('controller' => 'index', 'action' => 'index'));
+            } else {
+                $url = $this->urlFor(array('controller' => 'index', 'action' => 'login'));
+            }
+            header('Location: ' . $url);
+            exit;
+        }
     }
 }

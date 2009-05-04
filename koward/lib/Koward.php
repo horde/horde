@@ -10,7 +10,10 @@
 
 class Koward {
 
-    const PERM_GET = 1;
+    const PERM_SHOW = 1;
+    const PERM_READ = 2;
+    const PERM_EDIT = 4;
+    const PERM_DELETE = 8;
 
     /**
      * The singleton instance.
@@ -206,6 +209,12 @@ class Koward {
         }
     }
 
+
+    public function hasAccess($id, $permission = Koward::PERM_SHOW)
+    {
+        return $this->hasPermission($id, null, $permission);
+    }
+
     /**
      * In the long run we might wish to use the Horde permission system
      * here. But for the first draft this would be too much as the permission
@@ -217,24 +226,21 @@ class Koward {
                                         $id, $perm);
 
         if ($user === null) {
-            $session = Horde_Kolab_Session::singleton();
-            if (!empty($session->user_uid)) {
-                $user = $this->getObject($session->user_uid);
+            try {
+                $session = Horde_Kolab_Session::singleton();
+                if (!empty($session->user_uid)) {
+                    $user = $this->getObject($session->user_uid);
+                    $type = $this->getType($user);
+                    if (isset($this->objects[$type]['permission'])) {
+                        return $this->_hasPermission($this->objects[$type]['permission'],
+                                                     $id, $perm);
+                    }
+                }
+            } catch (Exception $e) {
+                Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_DEBUG);
             }
         }
-
-        if (empty($user)) {
-            return $global;
-        }
-
-        if (isset($this->objects[$type]['permission'])) {
-            $object = $this->_hasPermission($this->objects[$type]['permission'],
-                                            $id, $perm);
-        } else {
-            return $global;
-        }
-
-        return $objects || $global;
+        return $global;
     }
 
     private function _hasPermission(&$root, $id, $perm)
@@ -246,6 +252,9 @@ class Koward {
             return $perm & $root;
         }
         if (is_array($root)) {
+            if (empty($id)) {
+                return true;
+            }
             list($sub, $path) = explode('/', $id, 2);
             if (!isset($root[$sub])) {
                 return false;
