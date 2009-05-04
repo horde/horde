@@ -10,31 +10,72 @@
  * @package    Horde_Date
  * @subpackage UnitTests
  */
-class Horde_Date_Parser_Locale_BaseTest extends PHPUnit_Framework_TestCase
+class Horde_Date_Parser_Locale_BaseTest extends Horde_Test_Case
 {
-    public function testToday()
+    public function setUp()
     {
-        var_dump((string)Horde_Date_Parser::parse('today at 11'));
-        var_dump((string)Horde_Date_Parser::parse('tomorrow'));
-        var_dump((string)Horde_Date_Parser::parse('may 27'));
-        var_dump((string)Horde_Date_Parser::parse('thursday'));
-        var_dump((string)Horde_Date_Parser::parse('next month'));
-        var_dump((string)Horde_Date_Parser::parse('last week tuesday'));
-        var_dump((string)Horde_Date_Parser::parse('3 years ago'));
-        var_dump((string)Horde_Date_Parser::parse('6 in the morning'));
-        var_dump((string)Horde_Date_Parser::parse('afternoon yesterday'));
-        var_dump((string)Horde_Date_Parser::parse('3rd wednesday in november'));
-        var_dump((string)Horde_Date_Parser::parse('4th day last week'));
+        // Wed Aug 16 14:00:00 UTC 2006
+        $this->now = new Horde_Date('2006-08-16 14:00:00');
+        $this->parser = Horde_Date_Parser::factory(array('now' => $this->now));
     }
 
-class TestParsing < Test::Unit::TestCase
-  # Wed Aug 16 14:00:00 UTC 2006
-  TIME_2006_08_16_14_00_00 = Time.local(2006, 8, 16, 14, 0, 0, 0)
+    public function testTodayAt11()
+    {
+        $this->assertEquals('2006-08-16 11:00:00', (string)$this->parser->parse('today at 11'));
+    }
 
-  def setup
-    @time_2006_08_16_14_00_00 = TIME_2006_08_16_14_00_00
-  end
+    public function testTomorrow()
+    {
+        $this->assertEquals('2006-08-17 12:00:00', (string)$this->parser->parse('tomorrow'));
+    }
 
+    public function testMay27()
+    {
+        $this->assertEquals('2007-05-27 12:00:00', (string)$this->parser->parse('may 27'));
+    }
+
+    public function testThursday()
+    {
+        $this->assertEquals('2006-08-17 12:00:00', (string)$this->parser->parse('thursday'));
+    }
+
+    public function testNextMonth()
+    {
+        $this->assertEquals('2006-09-15 12:00:00', (string)$this->parser->parse('next month'));
+    }
+
+    public function testLastWeekTuesday()
+    {
+        $this->assertEquals('2006-08-08 12:00:00', (string)$this->parser->parse('last week tuesday'));
+    }
+
+    public function test3YearsAgo()
+    {
+        $this->assertEquals('2003-08-16 14:00:00', (string)$this->parser->parse('3 years ago'));
+        $this->assertEquals('2003-08-16 14:00:00', (string)$this->parser->parse('three years ago'));
+    }
+
+    public function test6InTheMorning()
+    {
+        $this->assertEquals('2006-08-16 06:00:00', (string)$this->parser->parse('6 in the morning'));
+    }
+
+    public function testAfternoonYesterday()
+    {
+        $this->assertEquals('2006-08-15 17:30:00', (string)$this->parser->parse('afternoon yesterday'));
+    }
+
+    public function test3rdWednesdayInNovember()
+    {
+        $this->assertEquals('2006-11-15 12:00:00', (string)$this->parser->parse('3rd wednesday in november'));
+    }
+
+    public function test4thDayLastWeek()
+    {
+        $this->assertEquals('2006-08-09 12:00:00', (string)$this->parser->parse('4th day last week'));
+    }
+
+    /*
   def test_parse_guess_dates
     # rm_sd
 
@@ -636,5 +677,6 @@ class TestParsing < Test::Unit::TestCase
   def parse_now(string, options={})
     Chronic.parse(string, {:now => TIME_2006_08_16_14_00_00 }.merge(options))
   end
+    */
 
 }

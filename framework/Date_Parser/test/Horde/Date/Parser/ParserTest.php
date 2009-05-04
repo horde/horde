@@ -1,50 +1,64 @@
-require 'chronic'
-require 'test/unit'
+<?php
+/**
+ * @category   Horde
+ * @package    Horde_Date
+ * @subpackage UnitTests
+ */
 
-class TestChronic < Test::Unit::TestCase
+/**
+ * @category   Horde
+ * @package    Horde_Date
+ * @subpackage UnitTests
+ */
+class Horde_Date_Parser_ParserTest extends Horde_Test_Case
+{
+    public function setUp()
+    {
+        // Wed Aug 16 14:00:00 UTC 2006
+        $this->now = new Horde_Date('2006-08-16 14:00:00');
+    }
 
-  def setup
-    # Wed Aug 16 14:00:00 UTC 2006
-    @now = Time.local(2006, 8, 16, 14, 0, 0, 0)
-  end
+    public function testPostNormalizeAmPmAliases()
+    {
+        // affect wanted patterns
+        $tokens = array(new Horde_Date_Parser_Token('5:00'), new Horde_Date_Parser_Token('morning'));
+        $tokens[0]->tag('repeater_time', new Horde_Date_Repeater_Time('5:00'));
+        $tokens[1]->tag('repeater_day_portion', new Horde_Date_Repeater_DayPortion('morning'));
 
-  def test_post_normalize_am_pm_aliases
-    # affect wanted patterns
+        $this->assertEquals('morning', $tokens[1]->tags[0][1]->type);
 
-    tokens = [Chronic::Token.new("5:00"), Chronic::Token.new("morning")]
-    tokens[0].tag(Chronic::RepeaterTime.new("5:00"))
-    tokens[1].tag(Chronic::RepeaterDayPortion.new(:morning))
+        $parser = Horde_Date_Parser::factory();
+        $tokens = $parser->dealiasAndDisambiguateTimes($tokens, array());
 
-    assert_equal :morning, tokens[1].tags[0].type
+        $this->assertEquals('am', $tokens[1]->tags[0][1]->type);
+        $this->assertEquals(2, count($tokens));
 
-    tokens = Chronic.dealias_and_disambiguate_times(tokens, {})
+        // don't affect unwanted patterns
+        $tokens = array(new Horde_Date_Parser_Token('friday'), new Horde_Date_Parser_Token('morning'));
+        $tokens[0]->tag('repeater_day_name', 'friday');
+        $tokens[1]->tag('repeater_day_portion', 'morning');
 
-    assert_equal :am, tokens[1].tags[0].type
-    assert_equal 2, tokens.size
+        $this->assertEquals('morning', $tokens[1]->tags[0][1]);
 
-    # don't affect unwanted patterns
+        $parser = Horde_Date_Parser::factory();
+        $tokens = $parser->dealiasAndDisambiguateTimes($tokens, array());
 
-    tokens = [Chronic::Token.new("friday"), Chronic::Token.new("morning")]
-    tokens[0].tag(Chronic::RepeaterDayName.new(:friday))
-    tokens[1].tag(Chronic::RepeaterDayPortion.new(:morning))
+        $this->assertEquals('morning', $tokens[1]->tags[0][1]);
+        $this->assertEquals(2, count($tokens));
+    }
 
-    assert_equal :morning, tokens[1].tags[0].type
+    public function testGuess()
+    {
+        $parser = Horde_Date_Parser::factory();
 
-    tokens = Chronic.dealias_and_disambiguate_times(tokens, {})
+        $span = new Horde_Date_Span(new Horde_Date('2006-08-16 00:00:00'), new Horde_Date('2006-08-17 00:00:00'));
+        $this->assertEquals(new Horde_Date('2006-08-16 12:00:00'), $parser->guess($span));
 
-    assert_equal :morning, tokens[1].tags[0].type
-    assert_equal 2, tokens.size
-  end
+        $span = new Horde_Date_Span(new Horde_Date('2006-08-16 00:00:00'), new Horde_Date('2006-08-17 00:00:01'));
+        $this->assertEquals(new Horde_Date('2006-08-16 12:00:00'), $parser->guess($span));
 
-  def test_guess
-    span = Chronic::Span.new(Time.local(2006, 8, 16, 0), Time.local(2006, 8, 17, 0))
-    assert_equal Time.local(2006, 8, 16, 12), Chronic.guess(span)
+        $span = new Horde_Date_Span(new Horde_Date('2006-11-01 00:00:00'), new Horde_Date('2006-12-01 00:00:00'));
+        $this->assertEquals(new Horde_Date('2006-11-16 00:00:00'), $parser->guess($span));
+    }
 
-    span = Chronic::Span.new(Time.local(2006, 8, 16, 0), Time.local(2006, 8, 17, 0, 0, 1))
-    assert_equal Time.local(2006, 8, 16, 12), Chronic.guess(span)
-
-    span = Chronic::Span.new(Time.local(2006, 11), Time.local(2006, 12))
-    assert_equal Time.local(2006, 11, 16), Chronic.guess(span)
-  end
-
-end
+}
