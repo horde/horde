@@ -151,21 +151,10 @@ class ObjectController extends Koward_Controller_Application
                 $this->allowEdit = $this->koward->hasAccess('object/edit/' . $this->object_type,
                                                             Koward::PERM_EDIT);
 
-                $actions = $this->object->getActions();
-                if (!empty($actions)) {
-                    $buttons = array();
-                    foreach ($actions as $action) {
-                        if (isset($this->koward->objects[$this->object_type]['actions'][$action])
-                            && $this->koward->hasAccess('object/action/' . $this->object_type . '/' . $action,
-                                                        Koward::PERM_EDIT)) {
-                            $buttons[] = $this->koward->objects[$this->object_type]['actions'][$action];
-                        }
-                    }
-                }
-                    
+                $buttons = $this->_getButtons($this->object, $this->object_type);
                 if (!empty($buttons)) {
                     try {
-                        $this->actions = new Koward_Form_Actions($buttons);
+                        $this->actions = new Koward_Form_Actions($this->object, $buttons);
 
                         $this->post = $this->urlFor(array('controller' => 'object', 
                                                       'action' => 'view',
@@ -176,8 +165,8 @@ class ObjectController extends Koward_Controller_Application
 
                             /** Reload the object */
                             $this->object = $this->koward->getObject($this->params->id);
-                            $actions = $this->object->getActions();
-                            $this->actions = new Koward_Form_Actions($this->object);
+                            $buttons = $this->_getButtons($this->object, $this->object_type);
+                            $this->actions = new Koward_Form_Actions($this->object, $buttons);
                         }
                     } catch (Exception $e) {
                         $this->koward->notification->push($e->getMessage(), 'horde.error');
@@ -202,6 +191,22 @@ class ObjectController extends Koward_Controller_Application
         }
 
         $this->render();
+    }
+
+    private function _getButtons(&$object, $type)
+    {
+        $actions = $object->getActions();
+        if (!empty($actions)) {
+            $buttons = array();
+            foreach ($actions as $action) {
+                if (isset($this->koward->objects[$type]['actions'][$action])
+                    && $this->koward->hasAccess('object/action/' . $type . '/' . $action,
+                                                Koward::PERM_EDIT)) {
+                    $buttons[] = $this->koward->objects[$type]['actions'][$action];
+                }
+            }
+        }
+        return $buttons;
     }
 
     public function add()
