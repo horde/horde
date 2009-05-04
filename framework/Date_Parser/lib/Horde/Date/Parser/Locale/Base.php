@@ -551,7 +551,8 @@ class Horde_Date_Parser_Locale_Base
             }
         }
 
-        rsort($repeaters);
+        // Return repeaters in order from widest (years) to smallest (seconds)
+        usort($repeaters, create_function('$a, $b', 'return $b->width() > $a->width();'));
         return $repeaters;
     }
 
