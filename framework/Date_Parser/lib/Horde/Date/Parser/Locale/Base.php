@@ -600,14 +600,14 @@ class Horde_Date_Parser_Locale_Base
             }
         }
 
-        if ($dayPortionIndex && $timeIndex) {
+        if ($dayPortionIndex !== null && $timeIndex !== null) {
             $t1 = $tokens[$dayPortionIndex];
             $t1tag = $t1->getTag('repeater_day_portion');
 
-            if ($t1tag == 'morning') {
+            if ($t1tag->type == 'morning') {
                 $t1->untag('repeater_day_portion');
                 $t1->tag('repeater_day_portion', new Horde_Date_Repeater_DayPortion('am'));
-            } elseif (in_array($t1tag, array('afternoon', 'evening', 'night'))) {
+            } elseif (in_array($t1tag->type, array('afternoon', 'evening', 'night'))) {
                 $t1->untag('repeater_day_portion');
                 $t1->tag('repeater_day_portion', new Horde_Date_Repeater_DayPortion('pm'));
             }
