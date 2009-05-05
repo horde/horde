@@ -1444,13 +1444,15 @@ KronolithCore = {
 
     _topTags: function(r)
     {
-        $('kronolithEventTopTags').update();
         if (!r.response.tags) {
+            $('kronolithEventTopTags').update();
             return;
         }
+        t = new Element('div', {});
         r.response.tags.each(function(tag) {
-            $('kronolithEventTopTags').insert(new Element('span', { 'class': 'kronolithEventTag' }).update(tag));
+            t.insert(new Element('span', { 'class': 'kronolithEventTag' }).update(tag));
         });
+        $('kronolithEventTopTags').update(t);
         return;
     },
 
