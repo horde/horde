@@ -1,2 +1,3 @@
 http://www.hueniverse.com/hueniverse/2009/03/sunday-morning-homework.html
 http://www.hueniverse.com/hueniverse/2009/04/explaining-the-oauth-session-fixation-attack.html
+http://hasin.wordpress.com/2009/05/02/using-oauth-pecl-extension-to-talk-to-twitter/
