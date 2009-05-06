@@ -181,17 +181,18 @@ class Kronolith_Tagger
     }
 
     /**
-     * Search for resources are tagged with all of the requested tags.
+     * Search for resources that are tagged with all of the requested tags.
      *
      * @param array $tags  An array of tag_names.
      */
-    public function search($tags, $content_type = null)
+    public function search($tags, $content_type = null, $userId = null)
     {
 
     }
 
     /**
-     * List tags beginning with $token.  Used for autocomplete code.
+     * List tags belonging to the current user beginning with $token.
+     * Used for autocomplete code.
      *
      * @param string $token  The token to match the start of the tag with.
      *
@@ -199,7 +200,7 @@ class Kronolith_Tagger
      */
     public function listTags($token)
     {
-        return self::$_tagger->getTags(array('q' => $token));
+        return self::$_tagger->getTags(array('q' => $token, 'userId' => Auth::getAuth()));
     }
 
     /**
