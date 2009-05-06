@@ -349,6 +349,7 @@ class Content_Tagger
      *   notTagId   Don't return objects tagged with one or more tags.
      *   typeId     Only return objects with a specific type.
      *   objectId   Return objects with the same tags as $objectId.
+     *   userId     Limit results to objects tagged by a specific user.
      *
      * @return array  An array of object ids.
      */
@@ -405,7 +406,10 @@ class Content_Tagger
                 $sql .= ' AND objects.type_id IN (' . implode(', ', $args['typeId']) . ')';
             }
 
-
+            if (!empty($args['userId'])) {
+                $args['userId'] = $this->_userManager->ensureUsers($args['userId']);
+                $sql .= ' AND tagged.user_id IN ( ' . implode(', ', $args['userId']) . ')';
+            }
         }
 
         if (isset($args['limit'])) {
