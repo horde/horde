@@ -131,9 +131,9 @@ class Kronolith_Tagger
      * Tag the given resource with *only* the tags provided, removing any tags
      * that are already present but not in the list.
      *
-     * @param $localId
-     * @param $tags
-     * @param $content_type
+     * @param string $localId  The identifier for the kronolith object.
+     * @param mixed $tags      Either a tag_id, tag_name, or array of tag_ids.
+     * @param $content_type    The type of object that $localId represents.
      *
      * @return void
      */
@@ -192,14 +192,24 @@ class Kronolith_Tagger
     /**
      * List tags beginning with $token.  Used for autocomplete code.
      *
-     * @param $token
-     * @return unknown_type
+     * @param string $token  The token to match the start of the tag with.
+     *
+     * @return A tag_id => tag_name hash
      */
     public function listTags($token)
     {
         return self::$_tagger->getTags(array('q' => $token));
     }
 
+    /**
+     * Return the data needed to build a tag cloud based on the passed in
+     * user's tag data set.
+     *
+     * @param string $user    The user whose tags should be included.
+     * @param integer $limit  The maximum number of tags to include.
+     *
+     * @return An array of hashes, each containing tag_id, tag_name, and count.
+     */
     public function getCloud($user, $limit = 5)
     {
         return self::$_tagger->getTagCloud(array('userId' => $user,
