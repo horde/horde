@@ -413,6 +413,7 @@ NSString * const TURAnselServerPasswordKey = @"password";
 {
     [galleryCombo deselectItemAtIndex: [galleryCombo indexOfSelectedItem]];
     [mServersPopUp setEnabled: false];
+    [mNewGalleryButton setEnabled: false];
     [self setStatusText: @"Connecting..."];
     [spinner startAnimation: self];
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];

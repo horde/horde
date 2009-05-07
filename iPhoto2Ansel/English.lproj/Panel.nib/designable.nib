@@ -8,8 +8,8 @@
 		<string key="IBDocument.HIToolboxVersion">353.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="387"/>
 			<integer value="137"/>
+			<integer value="387"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -276,7 +276,7 @@
 															<reference key="NSSuperview" ref="675618554"/>
 															<bool key="NSEnabled">YES</bool>
 															<object class="NSButtonCell" key="NSCell" id="843634421">
-																<int key="NSCellFlags">604110336</int>
+																<int key="NSCellFlags">67239424</int>
 																<int key="NSCellFlags2">134479872</int>
 																<string key="NSContents">Create New</string>
 																<reference key="NSSupport" ref="22"/>
@@ -1212,14 +1212,6 @@
 					<int key="connectionID">239</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">newGalleryButton</string>
-						<reference key="source" ref="685567789"/>
-						<reference key="destination" ref="60291071"/>
-					</object>
-					<int key="connectionID">334</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
 						<string key="label">showNewGallery:</string>
 						<reference key="source" ref="685567789"/>
@@ -1234,38 +1226,6 @@
 						<reference key="destination" ref="943334524"/>
 					</object>
 					<int key="connectionID">359</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">anselHostURL</string>
-						<reference key="source" ref="685567789"/>
-						<reference key="destination" ref="143194876"/>
-					</object>
-					<int key="connectionID">415</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">username</string>
-						<reference key="source" ref="685567789"/>
-						<reference key="destination" ref="943485916"/>
-					</object>
-					<int key="connectionID">416</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">password</string>
-						<reference key="source" ref="685567789"/>
-						<reference key="destination" ref="407883474"/>
-					</object>
-					<int key="connectionID">417</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">serverNickName</string>
-						<reference key="source" ref="685567789"/>
-						<reference key="destination" ref="536650280"/>
-					</object>
-					<int key="connectionID">418</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
@@ -1410,6 +1370,14 @@
 						<reference key="destination" ref="407883474"/>
 					</object>
 					<int key="connectionID">533</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">mNewGalleryButton</string>
+						<reference key="source" ref="685567789"/>
+						<reference key="destination" ref="60291071"/>
+					</object>
+					<int key="connectionID">534</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -2244,9 +2212,9 @@
 					<reference ref="5"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<reference ref="5"/>
-					<string>{{419, 246}, {455, 195}}</string>
+					<string>{{677, 386}, {455, 195}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{419, 246}, {455, 195}}</string>
+					<string>{{677, 386}, {455, 195}}</string>
 					<reference ref="5"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<reference ref="5"/>
@@ -2341,7 +2309,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">533</int>
+			<int key="maxID">534</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
