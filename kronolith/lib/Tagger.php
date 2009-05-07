@@ -62,7 +62,8 @@ class Kronolith_Tagger
             $types = $type_mgr->ensureTypes(array('calendar', 'event'));
 
             // Remember the types to avoid having Content query them again.
-            self::$_type_ids = array('calendar' => (int)$types[0], 'event' => (int)$types[1]);
+            self::$_type_ids = array('calendar' => (int)$types[0],
+                                     'event' => (int)$types[1]);
         }
     }
 
@@ -114,7 +115,7 @@ class Kronolith_Tagger
      * the user that added the tag.
      *
      * @param string $localId       The kronolith object identifier.
-     * @param mixed $tags            Either a tag_id, tag_name or an array of
+     * @param mixed $tags           Either a tag_id, tag_name or an array of
      *                              ids or names to remove.
      * @param string $content_type  The type of object that $localId represents.
      *
@@ -183,11 +184,79 @@ class Kronolith_Tagger
     /**
      * Search for resources that are tagged with all of the requested tags.
      *
-     * @param array $tags  An array of tag_names.
+     * TODO: Change this to use something like a Content_Tagger::tagExists() or
+     *       possibly add a $create = true parameter to ensureTags()
+     *       so searching for any arbitrary text string won't cause the string
+     *       to be added to the rampage_tags table as a tag (via ensureTags)
+     *
+     * @param array $tags  Either a tag_id, tag_name or an array.
+     * @param array $filter  Array of filter parameters.
+     *   (string)typeId      - only return either events or calendars, not both.
+     *   (array)userId       - only include objects owned by userId(s).
+     *   (array)calendarId   - restrict to events contained in these calendars.
+     *
+     * @return A hash of 'calendars' and 'events' that each contain an array
+     *         of calendar_ids and event_uids respectively or PEAR_Error on
+     *         failure. Should this return the objects?
      */
-    public function search($tags, $content_type = null, $userId = null)
+    public function search($tags, $filter = array())
     {
+        if (!empty($filter['calendar'])) {
+            // At least filter by ownerId to ease the post-filtering query.
+            $owners = array();
+            if (!is_array($filter['calendar'])) {
+                $filter['calendar'] = array($filter['calendar']);
+            }
+            foreach ($filter['calendar'] as $calendar) {
+                $owners[] = $GLOBALS['all_calendars'][$calendar]->get('owner');
+            }
+            $args = array('tagId' => self::$_tagger->ensureTags($tags),
+                          'userId' => $owners,
+                          'typeId' => self::$_type_ids['event']);
 
+            // $results is an object_id => object_name hash
+            $results = self::$_tagger->getObjects($args);
+
+            //TODO: Are there any cases where we can shortcut the postFilter?
+            $results = array('calendar' => array(),
+                             'event' => $this->_postFilter($results, $filter['calendar']));
+        } else {
+            $args = array('tagId' => self::$_tagger->ensureTags($tags));
+            if (!empty($filter['userId'])) {
+                $args['userId'] = $filter['userId'];
+            }
+
+            $cal_results = array();
+            if (empty($filter['typeId']) || $filter['typeId'] == 'calendar') {
+                $args['typeId'] = self::$_type_ids['calendar'];
+                $cal_results = self::$_tagger->getObjects($args);
+            }
+
+            $event_results = array();
+            if (empty($filter['typeId']) || $filter['typeId'] == 'event') {
+                $args['typeId'] = self::$_type_ids['event'];
+                $event_results = self::$_tagger->getObjects($args);
+            }
+
+            $results = array('calendar' => array_values($cal_results),
+                             'event' => array_values($event_results));
+        }
+
+        return $results;
+    }
+
+    /**
+     * Filter events in the $results array to return only those that are
+     * in $calendar.
+     *
+     * @param $results
+     * @param $calendar
+     * @return unknown_type
+     */
+    protected function _postFilter($results, $calendar)
+    {
+        $driver = Kronolith::getDriver();
+        return $driver->filterEventsByCalendar($results, $calendar);
     }
 
     /**
