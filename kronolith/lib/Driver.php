@@ -311,7 +311,7 @@ class Kronolith_Driver
      */
     public function deleteEvent($eventId)
     {
-        return PEAR::raiseError('Not supported');
+
     }
 
     /**
@@ -322,4 +322,11 @@ class Kronolith_Driver
         return PEAR::raiseError(_("Removing user data is not supported with the current calendar storage backend."));
     }
 
+    /**
+     * Stub to be overridden in the child class if it can implement.
+     */
+    public function filterEventsByCalendar($uids, $calendar)
+    {
+        return PEAR::raiseError('Not supported');
+    }
 }

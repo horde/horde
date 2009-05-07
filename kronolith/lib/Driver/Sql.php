@@ -896,4 +896,25 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         return true;
     }
 
+    /**
+     * Filter an array of event_uids to return only the events that belong to
+     * one of the $calendars.
+     *
+     * @param array $uids      An array of event_uid values.
+     * @param array $calendar  An array of calendar_ids.
+     *
+     * @return An array of event_uid values filtered by calendar_ids || PEAR_Error
+     */
+    public function filterEventsByCalendar($uids, $calendar)
+    {
+        $sql = 'SELECT event_uid FROM kronolith_events WHERE calendar_id IN (' . str_repeat('?, ', count($calendar) - 1) . '?) '
+            . 'AND event_uid IN (' . str_repeat('?,', count($uids) - 1) . '?)';
+
+        /* Log the query at a DEBUG log level. */
+        Horde::logMessage(sprintf('Kronolith_Driver_Sql::filterEventsByCalendar(): %s', $sql),
+                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+
+        return $this->_db->getCol($sql, 0, array_merge($calendar, $uids));
+    }
+
 }
