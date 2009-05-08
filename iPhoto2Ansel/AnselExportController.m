@@ -431,7 +431,7 @@ NSString * const TURAnselServerPasswordKey = @"password";
     [galleryCombo setEnabled: NO];
     [mNewGalleryButton setEnabled: NO];
     [viewGallery setEnabled: NO];
-    
+    [defaultImageView setImage: nil];
     [currentServer release];
     currentServer = nil;
     [anselController release];
