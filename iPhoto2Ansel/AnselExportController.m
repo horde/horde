@@ -82,6 +82,9 @@ NSString * const TURAnselServerPasswordKey = @"password";
                                              selector: @selector(exportWindowDidBecomeKey:)
                                                  name: NSWindowDidBecomeKeyNotification 
                                                object :nil];
+    
+    // Holds gallery's images info for the gallery preview 
+    browserData = [[NSMutableArray alloc] init];
 }
 -(void)dealloc
 {
@@ -101,20 +104,19 @@ NSString * const TURAnselServerPasswordKey = @"password";
 #pragma mark Actions
 - (IBAction)clickViewGallery: (id)sender
 {
+    [browserData removeAllObjects];
+    NSMutableArray *images = [currentGallery listImages];
+    for (NSDictionary *image in images) {
+        AnselGalleryViewItem *item = [[AnselGalleryViewItem alloc] initWithURL: [NSURL URLWithString: [image objectForKey:@"url"]]];
+        [browserData addObject: item];
+    }
+
     [NSApp beginSheet: mviewGallerySheet
        modalForWindow: [self window]
         modalDelegate: nil
        didEndSelector: nil
           contextInfo: nil];
-    
-    NSMutableArray *images = [currentGallery listImages];
-    NSLog(@"%@", images);
-    browserData = [[NSMutableArray alloc] init];
-    for (NSDictionary *image in images) {
-        AnselGalleryViewItem *item = [[AnselGalleryViewItem alloc] initWithURL: [NSURL URLWithString: [image objectForKey:@"url"]]];
-        [browserData addObject: item];
-    }
-    
+
     [browserView reloadData];
 }
 
@@ -224,7 +226,7 @@ NSString * const TURAnselServerPasswordKey = @"password";
     }
 
     [prefs synchronize];
-    
+
     [self updateServersPopupMenu];
     
     [newServer release];
