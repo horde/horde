@@ -7,6 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import <Quartz/Quartz.h>
 #import "ExportPluginProtocol.h"
 
 @class TURAnsel, TURAnselGallery;
@@ -43,6 +44,14 @@ extern NSString * const TURAnselServerPasswordKey;
     IBOutlet NSPopUpButton *mServersPopUp;
     IBOutlet NSButton *mCancelConnect;
     
+    // Gallery View
+    IBOutlet NSButton *viewGallery;
+    IBOutlet NSWindow *mviewGallerySheet;
+    IBOutlet NSButton *closeGalleryView;
+    IBOutlet IKImageBrowserView *browserView;
+    NSMutableArray *browserData;
+    
+    
     // New Server sheet
     IBOutlet NSWindow *newServerSheet;
     IBOutlet NSTextField *mServerSheetHostURL;
@@ -50,6 +59,7 @@ extern NSString * const TURAnselServerPasswordKey;
     IBOutlet NSSecureTextField *mServerSheetPassword;
     IBOutlet NSTextField *mServerSheetServerNickName;
     IBOutlet NSButton *mMakeNewServerDefault;
+
     
     // Server list
     IBOutlet NSPanel *serverListPanel;
@@ -77,6 +87,7 @@ extern NSString * const TURAnselServerPasswordKey;
     // Remembers the selected server before it changes. Used to reselect the
     // proper server if necessary when server panels are closed.
     int mIndexOfPreviouslySelectedServer;
+    
 }
 
 @property (readwrite, retain) TURAnselGallery *currentGallery;
@@ -90,6 +101,9 @@ extern NSString * const TURAnselServerPasswordKey;
 - (IBAction) doCancelAddServer: (id)sender;
 - (IBAction) clickServer: (id)sender;
 - (IBAction) clickCancelConnect: (id)sender;
+
+- (IBAction) clickViewGallery: (id)sender;
+- (IBAction) closeGalleryView: (id)sender;
 
 // Server List
 - (IBAction) closeServerList: (id)sender;

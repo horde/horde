@@ -22,9 +22,6 @@
 @synthesize username;
 @synthesize password;
 
-static NSString *ERR_DOMAIN = @"com.theupstairsroom.TURAnsel";
-
-
 #pragma mark init
 - (id)initWithConnectionParameters: (NSDictionary *)params
 {

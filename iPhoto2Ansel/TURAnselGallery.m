@@ -73,6 +73,33 @@
 }
 
 /**
+ * Get the complete list of image ids and URLs
+ */
+- (id)listImages
+{
+    if (!imageList) {
+        
+        NSArray *params = [[NSArray alloc] initWithObjects:
+                           @"ansel",                                //Scope
+                           [NSNumber numberWithInt: galleryId],     //Gallery Id
+                           [NSNumber numberWithInt: 2],             //PERMS_SHOW
+                           @"thumb",                                // Thumbnail
+                           [NSNumber numberWithBool:YES],           // Full path
+                           nil];
+        
+        [self setState:TURAnselGalleryStateBusy];
+        XMLRPCResponse *response = [anselController callRPCMethod: @"images.listImages"
+                                                       withParams: params];
+    
+        if (response) {
+            imageList = [response retain];
+        }
+    }
+    
+    return imageList;
+}
+    
+/**
  * Upload the provided image to this gallery.
  */
 - (void)uploadImageObject: (NSDictionary *)imageParameters
@@ -136,6 +163,7 @@
     [anselController release];
     [galleryDefaultImageURL release];
     [galleryDescription release];
+    [imageList release];
     [super dealloc];
 }
 

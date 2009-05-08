@@ -11,6 +11,7 @@
 #import "TURAnselGalleryPanelController.h";
 #import "FBProgressController.h";
 #import "ImageResizer.h";
+#import "AnselGalleryViewItem.h";
 
 @interface AnselExportController (PrivateAPI)
 - (void)showNewServerSheet;
@@ -88,6 +89,7 @@ NSString * const TURAnselServerPasswordKey = @"password";
     [progressController release];
     [anselServers release];
     [currentServer release];
+    [browserData release];
     [super dealloc];
 }
 
@@ -97,6 +99,31 @@ NSString * const TURAnselServerPasswordKey = @"password";
 }
 
 #pragma mark Actions
+- (IBAction)clickViewGallery: (id)sender
+{
+    [NSApp beginSheet: mviewGallerySheet
+       modalForWindow: [self window]
+        modalDelegate: nil
+       didEndSelector: nil
+          contextInfo: nil];
+    
+    NSMutableArray *images = [currentGallery listImages];
+    NSLog(@"%@", images);
+    browserData = [[NSMutableArray alloc] init];
+    for (NSDictionary *image in images) {
+        AnselGalleryViewItem *item = [[AnselGalleryViewItem alloc] initWithURL: [NSURL URLWithString: [image objectForKey:@"url"]]];
+        [browserData addObject: item];
+    }
+    
+    [browserView reloadData];
+}
+
+- (IBAction) closeGalleryView: (id)sender
+{
+    [NSApp endSheet: mviewGallerySheet];
+    [mviewGallerySheet orderOut: nil];
+}
+
 // Put up the newGallerySheet NSPanel
 - (IBAction)showNewGallery: (id)sender
 {
@@ -736,5 +763,19 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
             row:(int)rowIndex
 {
     return [[anselServers objectAtIndex: rowIndex] objectForKey: [aTableColumn identifier]];
+}
+
+#pragma mark
+#pragma mark IKImageBrowserView Datasource methods
+- (NSUInteger)numberOfItemsInImageBrowser:(IKImageBrowserView *) aBrowser
+{	
+    //NSLog(@"%@", [browserData count]);
+	return [browserData count];
+}
+
+- (id)imageBrowser:(IKImageBrowserView *) aBrowser itemAtIndex:(NSUInteger)index
+{
+   // NSLog(@"%@", [[browserData objectAtIndex:index] path]);
+	return [browserData objectAtIndex:index];
 }
 @end
