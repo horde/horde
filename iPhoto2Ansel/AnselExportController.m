@@ -396,6 +396,7 @@ NSString * const TURAnselServerPasswordKey = @"password";
         [mNewGalleryButton setEnabled: NO];
         [mExportMgr disableControls];   
         [galleryCombo setEnabled: YES];
+        [viewGallery setEnabled: NO];
     }
 }
 
@@ -427,8 +428,9 @@ NSString * const TURAnselServerPasswordKey = @"password";
 {
     [galleryCombo setDelegate: nil];
     [galleryCombo setDataSource: nil];
-    [galleryCombo setEnabled: false];
-    [mNewGalleryButton setEnabled: false];
+    [galleryCombo setEnabled: NO];
+    [mNewGalleryButton setEnabled: NO];
+    [viewGallery setEnabled: NO];
     
     [currentServer release];
     currentServer = nil;
@@ -441,8 +443,9 @@ NSString * const TURAnselServerPasswordKey = @"password";
 -(void)doConnect
 {
     [galleryCombo deselectItemAtIndex: [galleryCombo indexOfSelectedItem]];
-    [mServersPopUp setEnabled: false];
-    [mNewGalleryButton setEnabled: false];
+    [mServersPopUp setEnabled: NO];
+    [mNewGalleryButton setEnabled: NO];
+    [viewGallery setEnabled: NO];
     [self setStatusText: @"Connecting..."];
     [spinner startAnimation: self];
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
@@ -626,7 +629,6 @@ NSString * const TURAnselServerPasswordKey = @"password";
     [galleryCombo reloadData];
     [galleryCombo setEnabled: true];
     [mNewGalleryButton setEnabled: true];
-    
     [self setStatusText: @"Connected" withColor: [NSColor greenColor]];
     [self canExport];
     [spinner stopAnimation: self];
@@ -687,6 +689,8 @@ NSString * const TURAnselServerPasswordKey = @"password";
     [defaultImageView setImage: theImage];
     [theImage release];
     [self canExport];
+    
+    [viewGallery setEnabled: YES];
 }
 
 #pragma mark TURAnselGalleryPanel Notifications
