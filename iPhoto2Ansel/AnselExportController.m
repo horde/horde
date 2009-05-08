@@ -769,13 +769,11 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 #pragma mark IKImageBrowserView Datasource methods
 - (NSUInteger)numberOfItemsInImageBrowser:(IKImageBrowserView *) aBrowser
 {	
-    //NSLog(@"%@", [browserData count]);
 	return [browserData count];
 }
 
 - (id)imageBrowser:(IKImageBrowserView *) aBrowser itemAtIndex:(NSUInteger)index
 {
-   // NSLog(@"%@", [[browserData objectAtIndex:index] path]);
 	return [browserData objectAtIndex:index];
 }
 @end
