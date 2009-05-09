@@ -9,6 +9,7 @@
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<integer value="137"/>
+			<integer value="577"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -581,7 +582,7 @@
 				<nil key="NSViewClass"/>
 				<string key="NSWindowContentMaxSize">{3.40282e+38, 3.40282e+38}</string>
 				<object class="NSView" key="NSWindowView" id="573233790">
-					<nil key="NSNextResponder"/>
+					<reference key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<object class="NSMutableArray" key="NSSubviews">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -740,9 +741,9 @@
 											<string key="NSFrameSize">{423, 251}</string>
 											<reference key="NSSuperview" ref="896759949"/>
 											<bool key="constrainsToOriginalSize">NO</bool>
-											<bool key="cellsHaveSubtitle">NO</bool>
-											<bool key="cellsHaveTitle">NO</bool>
-											<bool key="outlinesCells">NO</bool>
+											<bool key="cellsHaveSubtitle">YES</bool>
+											<bool key="cellsHaveTitle">YES</bool>
+											<bool key="outlinesCells">YES</bool>
 											<bool key="shadowsCells">YES</bool>
 											<bool key="animates">NO</bool>
 											<bool key="allowsReordering">NO</bool>
@@ -754,6 +755,7 @@
 									</object>
 									<string key="NSFrame">{{1, 1}, {423, 251}}</string>
 									<reference key="NSSuperview" ref="445821140"/>
+									<reference key="NSNextKeyView" ref="798730592"/>
 									<reference key="NSDocView" ref="798730592"/>
 									<reference key="NSBGColor" ref="258809705"/>
 									<int key="NScvFlags">6</int>
@@ -781,6 +783,7 @@
 							</object>
 							<string key="NSFrame">{{20, 60}, {440, 268}}</string>
 							<reference key="NSSuperview" ref="573233790"/>
+							<reference key="NSNextKeyView" ref="896759949"/>
 							<int key="NSsFlags">50</int>
 							<reference key="NSVScroller" ref="34214668"/>
 							<reference key="NSHScroller" ref="355872151"/>
@@ -789,6 +792,7 @@
 						</object>
 					</object>
 					<string key="NSFrameSize">{480, 327}</string>
+					<reference key="NSSuperview"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1920, 1178}}</string>
 				<string key="NSMaxSize">{3.40282e+38, 3.40282e+38}</string>

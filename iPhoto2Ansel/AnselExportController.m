@@ -107,7 +107,15 @@ NSString * const TURAnselServerPasswordKey = @"password";
     [browserData removeAllObjects];
     NSMutableArray *images = [currentGallery listImages];
     for (NSDictionary *image in images) {
-        AnselGalleryViewItem *item = [[AnselGalleryViewItem alloc] initWithURL: [NSURL URLWithString: [image objectForKey:@"url"]]];
+        NSString *caption = [image objectForKey:@"caption"];
+        if (caption == nil) {
+            caption = [image objectForKey:@"filename"];
+        }
+
+        NSDate *theDate = [NSDate dateWithTimeIntervalSince1970: [[image objectForKey:@"original_date"] doubleValue]];
+        AnselGalleryViewItem *item = [[AnselGalleryViewItem alloc] initWithURL: [NSURL URLWithString: [image objectForKey:@"url"]]
+                                                                     withTitle: caption
+                                                                      withDate: theDate];
         [browserData addObject: item];
     }
 
