@@ -11,6 +11,7 @@
 		8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
 		B00EF55A0EF5DD5900A9D71C /* AnselServers.nib in Resources */ = {isa = PBXBuildFile; fileRef = B00EF5580EF5DD5900A9D71C /* AnselServers.nib */; };
 		B00EF5670EF5E22900A9D71C /* TURAnselServersPanelController.m in Sources */ = {isa = PBXBuildFile; fileRef = B00EF5660EF5E22900A9D71C /* TURAnselServersPanelController.m */; };
+		B03B92BC0FB5F43600F628AF /* TURAnselGalleryNode.m in Sources */ = {isa = PBXBuildFile; fileRef = B03B92BB0FB5F43600F628AF /* TURAnselGalleryNode.m */; };
 		B04FC1A90EEB4A2B008EEB0E /* AnselGalleryPanel.nib in Resources */ = {isa = PBXBuildFile; fileRef = B04FC1A70EEB4A2B008EEB0E /* AnselGalleryPanel.nib */; };
 		B05C4A060EE9E001005B4B28 /* ImageResizer.m in Sources */ = {isa = PBXBuildFile; fileRef = B05C4A050EE9E001005B4B28 /* ImageResizer.m */; };
 		B06C1E030EB1644600BFAFCB /* AnselExportPluginBox.m in Sources */ = {isa = PBXBuildFile; fileRef = B06C1E020EB1644600BFAFCB /* AnselExportPluginBox.m */; };
@@ -82,6 +83,8 @@
 		B00EF5590EF5DD5900A9D71C /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/AnselServers.nib; sourceTree = "<group>"; };
 		B00EF5650EF5E22900A9D71C /* TURAnselServersPanelController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TURAnselServersPanelController.h; sourceTree = "<group>"; };
 		B00EF5660EF5E22900A9D71C /* TURAnselServersPanelController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TURAnselServersPanelController.m; sourceTree = "<group>"; };
+		B03B92BA0FB5F43600F628AF /* TURAnselGalleryNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TURAnselGalleryNode.h; sourceTree = "<group>"; };
+		B03B92BB0FB5F43600F628AF /* TURAnselGalleryNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TURAnselGalleryNode.m; sourceTree = "<group>"; };
 		B03D3B590ED5BB3800CF5B92 /* XMLRPC-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "XMLRPC-Info.plist"; sourceTree = SOURCE_ROOT; };
 		B04FC1A80EEB4A2B008EEB0E /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/AnselGalleryPanel.nib; sourceTree = "<group>"; };
 		B05C4A040EE9E001005B4B28 /* ImageResizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageResizer.h; sourceTree = "<group>"; };
@@ -268,6 +271,8 @@
 				B07D426F0EC230B100B59765 /* TURAnselGallery.m */,
 				B00EF5650EF5E22900A9D71C /* TURAnselServersPanelController.h */,
 				B00EF5660EF5E22900A9D71C /* TURAnselServersPanelController.m */,
+				B03B92BA0FB5F43600F628AF /* TURAnselGalleryNode.h */,
+				B03B92BB0FB5F43600F628AF /* TURAnselGalleryNode.m */,
 			);
 			name = AnselToolkit;
 			sourceTree = "<group>";
@@ -433,6 +438,7 @@
 				B0CCED420EEC6E810012D3D3 /* TURAnselGalleryPanelController.m in Sources */,
 				B00EF5670EF5E22900A9D71C /* TURAnselServersPanelController.m in Sources */,
 				B0B6669B0FB357B3009459D5 /* AnselGalleryViewItem.m in Sources */,
+				B03B92BC0FB5F43600F628AF /* TURAnselGalleryNode.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

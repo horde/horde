@@ -104,8 +104,20 @@ NSString * const TURAnselServerPasswordKey = @"password";
 #pragma mark Actions
 - (IBAction)clickViewGallery: (id)sender
 {
+    [spinner startAnimation: self];
+    [self setStatusText: @"Getting image list..."];
     [browserData removeAllObjects];
     NSMutableArray *images = [currentGallery listImages];
+    if ([images count] == 0) {
+        [browserView reloadData];
+        //TODO: Show a panel showing there are no images? Or just disable the
+        //      view gallery button?
+
+        [spinner stopAnimation: self];
+        [self setStatusText: @"Connected" withColor: [NSColor greenColor]];
+        return;
+    }
+
     for (NSDictionary *image in images) {
         NSString *caption = [image objectForKey:@"caption"];
         if (caption == nil) {
@@ -125,7 +137,11 @@ NSString * const TURAnselServerPasswordKey = @"password";
        didEndSelector: nil
           contextInfo: nil];
 
+    [spinner stopAnimation: self];
+    [self setStatusText: @"Connected" withColor: [NSColor greenColor]];
+
     [browserView reloadData];
+    
 }
 
 - (IBAction) closeGalleryView: (id)sender
@@ -686,6 +702,8 @@ NSString * const TURAnselServerPasswordKey = @"password";
 #pragma mark comboBoxDelegate
 - (void)comboBoxSelectionDidChange:(NSNotification *)notification
 {    
+    [spinner startAnimation: self];
+    [self setStatusText: @"Loading gallery data..."];
     int row = [galleryCombo indexOfSelectedItem];
     [currentGallery setDelegate:nil];
     [currentGallery autorelease];
@@ -697,8 +715,11 @@ NSString * const TURAnselServerPasswordKey = @"password";
     [defaultImageView setImage: theImage];
     [theImage release];
     [self canExport];
-    
     [viewGallery setEnabled: YES];
+    [spinner stopAnimation: self];
+    // TODO: Check this. Assume we can set back to connected since we obviously
+    //       are connected if we're getting gallery info.
+    [self setStatusText: @"Connected" withColor: [NSColor greenColor]];
 }
 
 #pragma mark TURAnselGalleryPanel Notifications

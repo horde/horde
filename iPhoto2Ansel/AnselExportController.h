@@ -43,6 +43,7 @@ extern NSString * const TURAnselServerPasswordKey;
     IBOutlet NSButton *mNewGalleryButton;
     IBOutlet NSPopUpButton *mServersPopUp;
     IBOutlet NSButton *mCancelConnect;
+    IBOutlet NSTextField *mImageCountLabel;
     
     // Gallery View
     IBOutlet NSButton *viewGallery;

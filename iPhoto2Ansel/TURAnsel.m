@@ -247,7 +247,7 @@ objectValueForTableColumn:(NSTableColumn *)tc
 
     id galleries = [self callRPCMethod:@"images.listGalleries"
                             withParams:params];
-    
+    NSLog(@"%@", galleries);
     if (state != TURAnselStateError) {
         state = TURAnselStateConnected;
         for (NSString *gal in galleries) {
