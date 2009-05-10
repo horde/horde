@@ -37,6 +37,14 @@ class Koward_Controller_Application extends Horde_Controller_Base
 
         $this->welcome = isset($this->koward->conf['koward']['greeting']) ? $this->koward->conf['koward']['greeting'] : _("Welcome.");
 
+        $this->current_user = Auth::getAuth();
+
+        $session = Horde_Kolab_Session::singleton();
+        if (!empty($session->user_uid)) {
+            $user = $this->koward->getObject($session->user_uid);
+            $type = $this->koward->getType($user);
+            $this->role = $this->koward->objects[$type]['label'];
+        }
     }
 
     /**
