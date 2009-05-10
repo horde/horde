@@ -160,13 +160,39 @@ class ObjectController extends Koward_Controller_Application
                                                       'action' => 'view',
                                                       'id' => $this->params->id));
 
-                        if ($this->actions->validate()) {
-                            $this->actions->execute();
+                        if (!empty($this->params->token) && !empty($this->params->oaction)) {
+                            if (is_array($this->params->token) && count($this->params->token) == 1) {
+                                $token = $this->params->token[0];
+                            } else {
+                                $token = $this->params->token;
+                            }
+                            $this->koward->checkRequestToken('object.' . $this->params->oaction, $token);
 
-                            /** Reload the object */
-                            $this->object = $this->koward->getObject($this->params->id);
-                            $buttons = $this->_getButtons($this->object, $this->object_type);
-                            $this->actions = new Koward_Form_Actions($this->object, $buttons);
+                            $action = $this->params->oaction;
+                            $result = $this->object->$action();
+                            if ($result === true) {
+                                $this->koward->notification->push(sprintf(_("Successfully deleted the object \"%s\""),
+                                                                          $this->params->id),
+                                                                  'horde.message');
+                            } else {
+                                $this->koward->notification->push(_("Failed to delete the object."),
+                                                                  'horde.error');
+                            }
+                            header('Location: ' . $this->urlFor(array('controller' => 'object', 
+                                                                      'action' => 'view',
+                                                                      'id' => $this->params->id));
+                            exit;
+                        } else if ($this->actions->validate()) {
+                            $action = $this->actions->execute();
+
+                            $this->action_url = $this->urlFor(array('controller' => 'object',
+                                                                    'action' => 'view',
+                                                                    'id' => $this->params->id,
+                                                                    'action' => $action,
+                                                                    'token' => $this->koward->getRequestToken('object.' . $action)));
+                            $this->return_url = $this->urlFor(array('controller' => 'object', 
+                                                                    'action' => 'view',
+                                                                    'id' => $this->params->id));
                         }
                     } catch (Exception $e) {
                         $this->koward->notification->push($e->getMessage(), 'horde.error');
@@ -290,10 +316,27 @@ class ObjectController extends Koward_Controller_Application
             $this->vars = Variables::getDefaultVariables();
             $this->form = new Koward_Form_Search($this->vars, $this->object);
 
-            if ($this->form->validate()) {
-                $result = $this->form->execute();
+            $this->allowEdit = $this->koward->hasAccess('object/edit',
+                                                        Koward::PERM_EDIT);
+            $this->allowDelete = $this->koward->hasAccess('object/delete',
+                                                          Koward::PERM_DELETE);
 
-                $uids = array_keys($result);
+            if ($this->form->validate()) {
+                if (isset($this->koward->search['list_attributes'])) {
+                    $this->attributes = $this->koward->search['list_attributes'];
+                } else {
+                    $this->attributes = array(
+                        '__id' => array(
+                            'title' => _("Kennung"),
+                            'width' => 100,
+                            'link_view'=> true,
+                        )
+                    );
+                }
+
+                $this->objectlist = $this->form->execute(array_keys($this->attributes));
+
+                $uids = array_keys($this->objectlist);
 
                 if (count($uids) == 1) {
                     header('Location: ' . $this->urlFor(array('controller' => 'object', 
@@ -303,18 +346,7 @@ class ObjectController extends Koward_Controller_Application
                 } else if (count($uids) == 0) {
                     $this->koward->notification->push(_("No results found!"), 'horde.message');
                 } else {
-                    if (isset($this->koward->search['list_attributes'])) {
-                        $this->attributes = $this->koward->search['list_attributes'];
-                    } else {
-                        $this->attributes = array(
-                            '__id' => array(
-                                'title' => _("Kennung"),
-                                'width' => 100,
-                                'link_view'=> true,
-                            )
-                        );
-                    }
-                    foreach ($result as $uid => $info) {
+                    foreach ($this->objectlist as $uid => $info) {
                         $this->objectlist[$uid]['edit_url'] = Horde::link(
                             $this->urlFor(array('controller' => 'object', 
                                                 'action' => 'edit',

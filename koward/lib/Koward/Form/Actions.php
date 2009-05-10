@@ -39,7 +39,7 @@ class Koward_Form_Actions extends Horde_Form {
             $type = $this->koward->getType($this->object);
             foreach ($this->koward->objects[$type]['actions'] as $action => $label) {
                 if ($submit == $label) {
-                    $this->object->$action();
+                    return $action;
                 }
             }
         }
