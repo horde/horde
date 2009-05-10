@@ -157,8 +157,8 @@ class ObjectController extends Koward_Controller_Application
                         $this->actions = new Koward_Form_Actions($this->object, $buttons);
 
                         $this->post = $this->urlFor(array('controller' => 'object', 
-                                                      'action' => 'view',
-                                                      'id' => $this->params->id));
+							  'action' => 'view',
+							  'id' => $this->params->id));
 
                         if (!empty($this->params->token) && !empty($this->params->oaction)) {
                             if (is_array($this->params->token) && count($this->params->token) == 1) {
@@ -180,7 +180,7 @@ class ObjectController extends Koward_Controller_Application
                             }
                             header('Location: ' . $this->urlFor(array('controller' => 'object', 
                                                                       'action' => 'view',
-                                                                      'id' => $this->params->id));
+                                                                      'id' => $this->params->id)));
                             exit;
                         } else if ($this->actions->validate()) {
                             $action = $this->actions->execute();
@@ -326,8 +326,8 @@ class ObjectController extends Koward_Controller_Application
                     $this->attributes = $this->koward->search['list_attributes'];
                 } else {
                     $this->attributes = array(
-                        '__id' => array(
-                            'title' => _("Kennung"),
+                        'dn' => array(
+                            'title' => _("Distinguished name"),
                             'width' => 100,
                             'link_view'=> true,
                         )
@@ -366,6 +366,10 @@ class ObjectController extends Koward_Controller_Application
                                                 'action' => 'view',
                                                 'id' => $uid)), _("View"));
                         $this->objectlist[$uid]['__id'] = $uid;
+                        if (!empty($this->koward->search['complex_attributes'])) {
+                            $object = $this->koward->getObject($uid);
+                            $this->objectlist[$uid] = array_merge($object->toHash(array_keys($this->attributes)), $this->objectlist[$uid]);
+                        }
                     }
                 }
             }
