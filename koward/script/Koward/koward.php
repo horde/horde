@@ -54,7 +54,7 @@ Horde_Autoloader::addClassPattern('/^Koward_/', 'Koward/');
 
 /** Dispatch the request. */
 try {
-  Koward::dispatch($opts->base . '/htdocs/koward/koward.php', 'Koward_Cli', '/koward');
+  Koward::dispatch($opts->base . '/htdocs/koward/koward.php', 'Koward_Cli');
 } catch (Exception $e) {
     // @TODO Make nicer
     echo '<h1>' . $e->getMessage() . '</h1>';
