@@ -76,7 +76,7 @@ class Koward_Form_Search extends Horde_Form {
         }
     }
 
-    function &execute()
+    function &execute($attributes)
     {
         $this->getInfo($this->_vars, $info);
         if (isset($info['object'])) {
@@ -93,7 +93,7 @@ class Koward_Form_Search extends Horde_Form {
                                              $this->koward->search['criteria']));
             $filter = $this->koward->getServer()->searchQuery($criteria);
             $params = array('scope' => 'sub',
-                            'attributes' => array('dn'));
+                            'attributes' => array_merge(array('dn'), $attributes));
             return $this->koward->getServer()->search($filter, $params);
         }
     }
