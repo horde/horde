@@ -14,7 +14,7 @@ Horde_Autoloader::addClassPattern('/^Koward_/', 'Koward/');
 
 /** Dispatch the request. */
 try {
-    Koward::dispatch(__FILE__);
+    Koward::dispatch(__FILE__, 'Horde_Controller_Request_Http');
 } catch (Exception $e) {
     // @TODO Make nicer
     echo '<h1>' . $e->getMessage() . '</h1>';

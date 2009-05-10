@@ -47,7 +47,8 @@ class Koward {
         $this->search     = Horde::loadConfiguration('search.php', 'search');
     }
 
-    public static function dispatch($koward)
+    public static function dispatch($koward, $request_class = 'Horde_Controller_Request_Http',
+                                    $webroot = null)
     {
         global $registry, $notification, $browser;
 
@@ -63,17 +64,19 @@ class Koward {
         $notification = Notification::singleton();
         $notification->attach('status');
 
-        $registry     = Registry::singleton();
+        $registry = Registry::singleton();
 
         /* Browser detection object. */
         if (class_exists('Horde_Browser')) {
             $browser = Horde_Browser::singleton();
         }
 
-        $webroot = Koward::_detectWebroot($koward);
+        if ($webroot === null) {
+            $webroot = Koward::_detectWebroot($koward);
+        }
 
         // Set up our request and routing objects
-        $request = new Horde_Controller_Request_Http();
+        $request = new $request_class();
         $mapper = new Horde_Routes_Mapper();
 
         // Application routes are relative only to the application. Let the mapper know
@@ -230,6 +233,10 @@ class Koward {
                 $session = Horde_Kolab_Session::singleton();
                 if (!empty($session->user_uid)) {
                     $user = $this->getObject($session->user_uid);
+                    if (get_class($user) == $this->conf['koward']['cli_admin']
+                        && Horde_CLI::runningFromCLI()) {
+                        return true;
+                    }
                     $type = $this->getType($user);
                     if (isset($this->objects[$type]['permission'])) {
                         return $this->_hasPermission($this->objects[$type]['permission'],

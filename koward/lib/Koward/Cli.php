@@ -59,7 +59,7 @@ class Koward_Cli extends Horde_Controller_Request_Base
         );
         list($this->_argv, $args) = $parser->parseArgs();
         if (!count($args)) {
-            throw new Horde_Controller_Exception('unknown command: ' . implode(' ', $args));
+            throw new Koward_Exception('unknown command: ' . implode(' ', $args));
         }
 
         /**
@@ -80,12 +80,21 @@ class Koward_Cli extends Horde_Controller_Request_Base
             }
         }
 
+        if (is_a(($pushed = $registry->pushApp('koward',
+                                               empty($this->auth_handler)
+                                               || $this->auth_handler != $this->params[':action'])), 'PEAR_Error')) {
+            if ($pushed->getCode() == 'permission_denied') {
+                header('Location: ' . $this->urlFor(array('controller' => 'index', 'action' => 'login')));
+                exit;
+            }
+        }
+
         /**
          * A rough command line handler that allows us to map CLI requests into
          * the web view of the system.
          */
         switch ($args[0]) {
-        case 'object/edit':
+        case 'object/add':
             $this->_cmd_argv['formname'] = 'koward_form_object';
 
             /** Has the object type been set? */
@@ -116,7 +125,7 @@ class Koward_Cli extends Horde_Controller_Request_Base
                  * to use the standard form mechanisms via CLI. Think of some
                  * alternatives here.
                  */
-                $koward = &Koward_Koward::singleton();
+                $koward = &Koward::singleton();
                 $token = $koward->getRequestToken('cli');
                 $this->_cmd_argv['koward_form_object_formToken'] = $token;
 
@@ -178,7 +187,7 @@ class Koward_Cli extends Horde_Controller_Request_Base
             /**
              * Provide a token for immediate deletion.
              */
-            $koward = &Koward_Koward::singleton();
+            $koward = &Koward::singleton();
             $this->_cmd_argv['token'] = $koward->getRequestToken('object.delete');
 
             break;
