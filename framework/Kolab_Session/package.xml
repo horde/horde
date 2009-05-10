@@ -86,7 +86,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Horde_SessionObjects</name>
+    <name>SessionObjects</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
