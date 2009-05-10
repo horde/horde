@@ -72,7 +72,7 @@ class Koward {
         }
 
         if ($webroot === null) {
-            $webroot = Koward::_detectWebroot($koward);
+            $webroot = $registry->get('webroot', 'koward');
         }
 
         // Set up our request and routing objects
@@ -101,38 +101,6 @@ class Koward {
 
         $dispatcher = Horde_Controller_Dispatcher::singleton($context);
         $dispatcher->dispatch($request);
-    }
-
-    private static function _detectWebroot($origin)
-    {
-        // Note for Windows users: the below assumes that your PHP_SELF variable
-        // uses forward slashes. If it does not, you'll have to tweak this.
-        if (isset($_SERVER['SCRIPT_URL']) || isset($_SERVER['SCRIPT_NAME'])) {
-            $path = empty($_SERVER['SCRIPT_URL']) ?
-                $_SERVER['SCRIPT_NAME'] :
-                $_SERVER['SCRIPT_URL'];
-            $appdir = str_replace(DIRECTORY_SEPARATOR, '/', $origin);
-            $appdir = basename(preg_replace(';/koward.php$;', '', $appdir));
-            if (preg_match(';/' . $appdir . ';', $path)) {
-                $webroot = preg_replace(';/' . $appdir . '.*;', '/' . $appdir, $path);
-            } else {
-                $webroot = '';
-            }
-        } elseif (isset($_SERVER['PHP_SELF'])) {
-            $webroot = preg_split(';/;', $_SERVER['PHP_SELF'], 2, PREG_SPLIT_NO_EMPTY);
-            $webroot = strstr(dirname($origin), DIRECTORY_SEPARATOR . array_shift($webroot));
-            if ($webroot !== false) {
-                $webroot = preg_replace(array('/\\\\/', ';/config$;'), array('/', ''), $webroot);
-            } elseif ($webroot === false) {
-                $webroot = '';
-            } else {
-                $webroot = '/';
-            }
-        } else {
-            $webroot = '/';
-        }
-
-        return $webroot;
     }
 
     public function getServer()
