@@ -82,7 +82,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Controller/Base.php" as="Horde/Controller/Base.php" />
    <install name="lib/Horde/Controller/Dispatcher.php" as="Horde/Controller/Dispatcher.php" />
    <install name="lib/Horde/Controller/Exception.php" as="Horde/Controller/Exception.php" />
-   <install name="lib/Horde/Controller/FileUpload.php" as="Horde/Controller/Exception.php" />
+   <install name="lib/Horde/Controller/FileUpload.php" as="Horde/Controller/FileUpload.php" />
    <install name="lib/Horde/Controller/Scanner.php" as="Horde/Controller/Scanner.php" />
    <install name="lib/Horde/Controller/StatusCodes.php" as="Horde/Controller/StatusCodes.php" />
    <install name="lib/Horde/Controller/UrlWriter.php" as="Horde/Controller/UrlWriter.php" />
