@@ -366,8 +366,8 @@ KronolithCore = {
                               function(r) {
                                   if (r.response.events) {
                                       this._removeEvent(eventid, cal);
-                                      this._loadEventsCallback(r);
                                   }
+                                  this._loadEventsCallback(r);
                               }.bind(this));
             }.bind(this) });
             cell.down('.kronolithDay')
@@ -993,8 +993,8 @@ KronolithCore = {
             function(r) {
                 if (r.response.events) {
                     this._removeEvent(event.key, event.value.calendar);
-                    this._loadEventsCallback(r);
                 }
+                this._loadEventsCallback(r);
             }.bind(this));
     },
 
@@ -1255,12 +1255,10 @@ KronolithCore = {
                                       'view_end': end
                                   }),
                               function(r) {
-                                  if (r.response.events) {
-                                      if (eventid) {
-                                          this._removeEvent(eventid, cal);
-                                      }
-                                      this._loadEventsCallback(r);
+                                  if (r.response.events && eventid) {
+                                      this._removeEvent(eventid, cal);
                                   }
+                                  this._loadEventsCallback(r);
                                   this._closeRedBox();
                               }.bind(this));
                 e.stop();
