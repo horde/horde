@@ -819,7 +819,7 @@ KronolithCore = {
                         eventEnd = event.value.end.clone(),
                         minLeft = $('kronolithEventsWeek' + dates[0].toString('yyyyMMdd')).offsetLeft - $('kronolithEventsWeek' + date).offsetLeft,
                         maxLeft = $('kronolithEventsWeek' + dates[1].toString('yyyyMMdd')).offsetLeft - $('kronolithEventsWeek' + date).offsetLeft,
-                        stepY = (maxLeft - minLeft) / 6;
+                        stepX = (maxLeft - minLeft) / 6;
                 }
                 new Drag(div, {
                     'threshold': 5,
@@ -827,7 +827,7 @@ KronolithCore = {
                     'parentElement': function() { return $(view == 'day' ? 'kronolithEventsDay' : 'kronolithEventsWeek' + date); },
                     'snap': function(x, y, elm) {
                         if (view == 'week') {
-                            x = Math.max(minLeft, stepY * ((Math.min(maxLeft, x) + stepY / 2) / stepY | 0));
+                            x = Math.max(minLeft, stepX * ((Math.min(maxLeft, x) + stepX / 2) / stepX | 0));
                         } else {
                             x = 0;
                         }
@@ -842,7 +842,7 @@ KronolithCore = {
                         if (Object.isUndefined(d.innerDiv)) {
                             d.innerDiv = d.ghost.select('.kronolithEventInfo')[0];
                         }
-                        var offsetX = Math.round(d.ghost.offsetLeft / stepY)
+                        var offsetX = Math.round(d.ghost.offsetLeft / stepX)
                         this[0]._calculateEventDates(event.value, storage, step, d.ghost.offsetTop - minTop, divHeight, eventStart.clone().addDays(offsetX), eventEnd.clone().addDays(offsetX));
                         d.innerDiv.update('(' + event.value.start.toString(Kronolith.conf.time_format) + ' - ' + event.value.end.toString(Kronolith.conf.time_format) + ') ' + event.value.t);
                         this[1].clonePosition(d.ghost);
