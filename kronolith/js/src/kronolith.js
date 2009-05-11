@@ -842,8 +842,12 @@ KronolithCore = {
                         if (Object.isUndefined(d.innerDiv)) {
                             d.innerDiv = d.ghost.select('.kronolithEventInfo')[0];
                         }
-                        var offsetX = Math.round(d.ghost.offsetLeft / stepX)
-                        this[0]._calculateEventDates(event.value, storage, step, d.ghost.offsetTop - minTop, divHeight, eventStart.clone().addDays(offsetX), eventEnd.clone().addDays(offsetX));
+                        if (view == 'week') {
+                            var offsetX = Math.round(d.ghost.offsetLeft / stepX);
+                            this[0]._calculateEventDates(event.value, storage, step, d.ghost.offsetTop - minTop, divHeight, eventStart.clone().addDays(offsetX), eventEnd.clone().addDays(offsetX));
+                        } else {
+                            this[0]._calculateEventDates(event.value, storage, step, d.ghost.offsetTop - minTop, divHeight);
+                        }
                         d.innerDiv.update('(' + event.value.start.toString(Kronolith.conf.time_format) + ' - ' + event.value.end.toString(Kronolith.conf.time_format) + ') ' + event.value.t);
                         this[1].clonePosition(d.ghost);
                     }.bind([this, div]),
@@ -948,8 +952,10 @@ KronolithCore = {
      */
     _calculateEventDates: function(event, storage, step, offset, height, start, end)
     {
-        event.start = start;
-        event.end = end;
+        if (!Object.isUndefined(start)) {
+            event.start = start;
+            event.end = end;
+        }
         event.start.set({
             hour: offset / this[storage].height | 0,
             minute: Math.round(offset % this[storage].height / step * 10)
