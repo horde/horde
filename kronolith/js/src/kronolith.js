@@ -1217,7 +1217,7 @@ KronolithCore = {
                 return;
 
             case 'kronolithToday':
-                this.go(Kronolith.conf.login_view);
+                this.go(Kronolith.conf.login_view + ':' + new Date().dateString());
                 e.stop();
                 return;
 
