@@ -644,18 +644,14 @@ KronolithCore = {
                 return;
             }
             break;
-
-        case 'month':
-            $('kronolithViewMonthBody')
-                .select('div[calendar=' + calendar + ']')
-                .invoke('remove');
-            break;
         }
 
         var day = dates[0].clone(), date;
         while (!day.isAfter(dates[1])) {
             date = day.dateString();
-            if (view == 'day' || view == 'week') {
+            switch (view) {
+            case 'day':
+            case 'week':
                 this.dayEvents = [];
                 this.dayGroups = [];
                 this.allDayEvents = [];
@@ -669,6 +665,13 @@ KronolithCore = {
                         .select('.kronolithEvent')
                         .invoke('remove');
                 }
+                break;
+
+            case 'month':
+                $('kronolithMonthDay' + date)
+                    .select('div[calendar=' + calendar + ']')
+                    .invoke('remove');
+                break;
             }
 
             this._getCacheForDate(date).sortBy(this._sortEvents).each(function(event) {
