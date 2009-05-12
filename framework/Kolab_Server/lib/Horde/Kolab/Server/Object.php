@@ -720,6 +720,8 @@ class Horde_Kolab_Server_Object
             }
         }
 
+        $this->prepareObjectInformation($info);
+
         if (!empty($this->attributes)) {
             foreach ($info as $key => $value) {
                 if (!in_array($key, array_keys($this->attributes))) {
@@ -815,6 +817,19 @@ class Horde_Kolab_Server_Object
             $this->collapse($key, $attributes, $info);
         }
         return $info;
+    }
+
+    /**
+     * Distill the server side object information to save.
+     *
+     * @param array $info The information about the object.
+     *
+     * @return NULL.
+     *
+     * @throws Horde_Kolab_Server_Exception If the given information contains errors.
+     */
+    public function prepareObjectInformation(&$info)
+    {
     }
 
     /**

@@ -156,7 +156,7 @@ class Horde_Kolab_Server_Object_Person extends Horde_Kolab_Server_Object
      */
     protected function sha256($string, $salt)
     {
-        return '{SHA256}' . base64_encode(pack('H*', hash('sha256', $string . $salt)) . $salt);
+        return '{SSHA256}' . base64_encode(pack('H*', hash('sha256', $string . $salt)) . $salt);
     }
 
     /**
@@ -240,18 +240,15 @@ class Horde_Kolab_Server_Object_Person extends Horde_Kolab_Server_Object
     }
 
     /**
-     * Saves object information. This may either create a new entry or modify an
-     * existing entry.
-     *
-     * Please note that fields with multiple allowed values require the callee
-     * to provide the full set of values for the field. Any old values that are
-     * not resubmitted will be considered to be deleted.
+     * Distill the server side object information to save.
      *
      * @param array $info The information about the object.
      *
-     * @return boolean|PEAR_Error True on success.
+     * @return array The set of information.
+     *
+     * @throws Horde_Kolab_Server_Exception If the given information contains errors.
      */
-    public function save($info = null)
+    public function prepareObjectInformation(&$info)
     {
         if (!$this->exists()
             && empty($info[self::ATTRIBUTE_CN])
@@ -264,8 +261,6 @@ class Horde_Kolab_Server_Object_Person extends Horde_Kolab_Server_Object
         } else if (isset($info[self::ATTRIBUTE_USERPASSWORD])) {
             unset($info[self::ATTRIBUTE_USERPASSWORD]);
         }
-
-        return parent::save($info);
     }
 
     /**

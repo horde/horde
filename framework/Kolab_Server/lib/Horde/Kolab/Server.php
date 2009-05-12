@@ -278,14 +278,15 @@ abstract class Horde_Kolab_Server
                 'The type of a new object must be specified!');
         }
 
-        $object = &Horde_Kolab_Server_Object::factory($info['type'], null, $this, $info);
+        $type = $info['type'];
+        unset($info['type']);
+        $object = &Horde_Kolab_Server_Object::factory($type, null, $this, $info);
         if ($object->exists()) {
             throw new Horde_Kolab_Server_Exception(
                 sprintf(_("The object with the uid \"%s\" does already exist!"),
                         $object->get(Horde_Kolab_Server_Object::ATTRIBUTE_UID)));
         }
-        unset($info['type']);
-        $object->save($info);
+        $object->save();
         return $object;
     }
 
