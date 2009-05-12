@@ -199,11 +199,18 @@ abstract class Horde_Rdo_Mapper implements Countable
         }
 
         $relationships = array();
-        foreach ($fields as $fieldName => $fieldValue) {
+        foreach ($fields as $fieldName => &$fieldValue) {
             if (strpos($fieldName, '@') !== false) {
                 list($rel, $field) = explode('@', $fieldName, 2);
                 $relationships[$rel][$field] = $fieldValue;
                 unset($fields[$fieldName]);
+            }
+            if (isset($this->fields[$fieldName])) {
+                $fieldName = $this->fields[$fieldName];
+            }
+            $column = $this->tableDefinition->getColumn($fieldName);
+            if ($column) {
+                $fieldValue = $column->typeCast($fieldValue);
             }
         }
 
