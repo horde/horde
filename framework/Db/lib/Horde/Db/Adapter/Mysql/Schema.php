@@ -266,7 +266,7 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Abstract_Schema
         // create columns from rows
         $columns = array();
         foreach ($rows as $row) {
-            $columns[] = $this->componentFactory('Column', array(
+            $columns[$row['Field']] = $this->componentFactory('Column', array(
                 $row['Field'], $row['Default'], $row['Type'], $row['Null'] == 'YES'));
         }
 

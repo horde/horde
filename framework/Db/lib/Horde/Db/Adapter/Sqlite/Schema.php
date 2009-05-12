@@ -198,7 +198,7 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Abstract_Schema
         // create columns from rows
         $columns = array();
         foreach ($rows as $row) {
-            $columns[] = $this->componentFactory('Column', array(
+            $columns[$row[1]] = $this->componentFactory('Column', array(
                 $row[1], $row[4], $row[2], !(bool)$row[3]));
         }
 

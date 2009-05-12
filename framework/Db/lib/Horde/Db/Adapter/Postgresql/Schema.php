@@ -273,7 +273,7 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Abstract_Schem
         // create columns from rows
         $columns = array();
         foreach ($rows as $row) {
-            $columns[] = $this->componentFactory('Column', array(
+            $columns[$row[0]] = $this->componentFactory('Column', array(
                 $row[0], $row[2], $row[1], !(boolean)$row[3]));
         }
         return $columns;

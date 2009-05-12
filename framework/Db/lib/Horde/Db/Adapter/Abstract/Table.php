@@ -76,6 +76,14 @@ class Horde_Db_Adapter_Abstract_Table
     }
 
     /**
+     * @return  Horde_Db_Adapter_Abstract_Column
+     */
+    public function getColumn($column)
+    {
+        return isset($this->_columns[$column]) ? $this->_columns[$column] : null;
+    }
+
+    /**
      * @return  array
      */
     public function getColumnNames()
