@@ -184,6 +184,8 @@ class ObjectController extends Koward_Controller_Application
                             exit;
                         } else if ($this->actions->validate()) {
                             $action = $this->actions->execute();
+			    //FIXME: Hack
+                            $result = $this->object->$action();
 
                             $this->action_url = $this->urlFor(array('controller' => 'object',
                                                                     'action' => 'view',
