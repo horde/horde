@@ -3,7 +3,7 @@
 http://pear.php.net/dtd/tasks-1.0.xsd
 http://pear.php.net/dtd/package-2.0
 http://pear.php.net/dtd/package-2.0.xsd">
- <name>Horde_SpellChecker</name>
+ <name>SpellChecker</name>
  <channel>pear.horde.org</channel>
  <summary>Spellcheck API</summary>
  <description>Unified spellchecking API.
