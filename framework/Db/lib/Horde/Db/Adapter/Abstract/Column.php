@@ -211,50 +211,50 @@ class Horde_Db_Adapter_Abstract_Column
     }
 
     /**
-     * @TODO Return a Horde_Date or DateTime object instead?
+     * @TODO Return a Horde_Date object instead?
      *
      * @param   string  $string
-     * @return  string
+     * @return  DateTime
      */
     public function stringToDate($string)
     {
-        if (empty($string)) { return null; }
-
-        // preserve '0000-00-00' (http://bugs.php.net/bug.php?id=45647)
-        if (preg_replace('/[^\d]/', '', $string) == 0) {
-            return '0000-00-00';
+        if (empty($string) ||
+            // preserve '0000-00-00' (http://bugs.php.net/bug.php?id=45647)
+            preg_replace('/[^\d]/', '', $string) == 0) {
+            return null;
         }
 
-        return date('Y-m-d', strtotime($string));
+        return new DateTime($string);
     }
 
     /**
-     * @TODO Return a Horde_Date or DateTime object instead?
+     * @TODO Return a Horde_Date object instead?
      *
      * @param   string  $string
-     * @return  string
+     * @return  DateTime
      */
     public function stringToTime($string)
     {
-        if (empty($string)) { return null; }
-
-        // preserve '0000-00-00 00:00:00' (http://bugs.php.net/bug.php?id=45647)
-        if (preg_replace('/[^\d]/', '', $string) == 0) {
-            return '0000-00-00 00:00:00';
+        if (empty($string) ||
+            // preserve '0000-00-00 00:00:00' (http://bugs.php.net/bug.php?id=45647)
+            preg_replace('/[^\d]/', '', $string) == 0) {
+            return null;
         }
 
-        return date('Y-m-d H:i:s', strtotime($string));
+        return new DateTime($string);
     }
 
     /**
-     * @TODO Return a Horde_Date or DateTime object instead?
+     * @TODO Return a Horde_Date object instead?
      *
      * @param   string  $string
-     * @return  string
+     * @return  DateTime
      */
     public function stringToDummyTime($value)
     {
-        if (empty($string)) return null;
+        if (empty($string)) {
+            return null;
+        }
         return $this->stringToTime('2000-01-01 ' . $string);
     }
 
