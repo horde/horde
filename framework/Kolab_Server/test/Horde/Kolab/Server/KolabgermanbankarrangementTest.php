@@ -119,17 +119,9 @@ class Horde_Kolab_Server_KolabgermanbankarrangementTest extends Horde_Kolab_Test
         $account_data = $this->objects[1];
         $account_data[Horde_Kolab_Server_Object_Kolabgermanbankarrangement::ATTRIBUTE_OWNERUID] = $person->getUid();
         $account = $this->assertAdd($server, $account_data,
-                                   array(Horde_Kolab_Server_Object_Kolabgermanbankarrangement::ATTRIBUTE_OWNERUID => $person->getUid()));
+                                    array(Horde_Kolab_Server_Object_Kolabgermanbankarrangement::ATTRIBUTE_OWNERUID => $person->getUid()));
         $this->assertEasyAttributes($account, $server,
                                     array(
-                                        Horde_Kolab_Server_Object_Kolabgermanbankarrangement::ATTRIBUTE_BANKCODE => array(
-                                            '01234567890123456789',
-                                            '0',
-                                            '101',
-                                            null,
-                                            '',
-                                            array('101', '202'),
-                                        ),
                                         Horde_Kolab_Server_Object_Kolabgermanbankarrangement::ATTRIBUTE_HOLDER => array(
                                             'something',
                                             'somewhere',

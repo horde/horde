@@ -48,9 +48,10 @@ class Horde_Kolab_Server_Kolabpop3accountTest extends Horde_Kolab_Test_Server
         /* Default account */
         array(
             'type' => 'Horde_Kolab_Server_Object_Kolabpop3account',
-            Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_SERVER   => 'pop3.example.com',
+            Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_MAIL      => 'frank@example.com',
+            Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_SERVER    => 'pop.example.com',
             Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_LOGINNAME => 'frank',
-            Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_PASSWORD => ' must3r',
+            Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_PASSWORD  => 'test',
         ),
     );
 
@@ -89,7 +90,7 @@ class Horde_Kolab_Server_Kolabpop3accountTest extends Horde_Kolab_Test_Server
         $account_data = $this->objects[1];
         $account_data[Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_OWNERUID] = $person->getUid();
         $a = new Horde_Kolab_Server_Object_Kolabpop3account($server, null, $account_data);
-        $this->assertContains(Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_CN . '=' . $this->objects[1][Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_LOGINNAME] . '@' . $this->objects[1][Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_SERVER],
+        $this->assertContains(Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_MAIL . '=' . $this->objects[1][Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_MAIL],
                               $a->get(Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_UID));
     }
 
@@ -133,12 +134,10 @@ class Horde_Kolab_Server_Kolabpop3accountTest extends Horde_Kolab_Test_Server
                                             null,
                                             '',
                                         ),
-                                        Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_MAIL => array(
+                                        Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_SERVER => array(
                                             'something',
                                             'somewhere',
-                                            null,
                                             array('a', 'b'),
-                                            '',
                                         ),
                                         Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_PORT => array(
                                             '110',
@@ -213,7 +212,7 @@ class Horde_Kolab_Server_Kolabpop3accountTest extends Horde_Kolab_Test_Server
         $this->assertEquals($account->get(Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_SERVER),
                             'pop3s.example.com');
 
-        $this->assertContains('pop3s.example.com', $account->getUid());
+        $this->assertContains('frank@example.com', $account->getUid());
 
         $result = $server->delete($account->getUid());
         $this->assertNoError($result);
