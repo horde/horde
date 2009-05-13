@@ -70,13 +70,15 @@ class Horde_Kolab_Server_Object_Kolab_Domainmaintainer extends Horde_Kolab_Serve
     }
 
     /**
-     * Saves object information.
+     * Distill the server side object information to save.
      *
      * @param array $info The information about the object.
      *
-     * @return boolean|PEAR_Error True on success.
+     * @return NULL.
+     *
+     * @throws Horde_Kolab_Server_Exception If the given information contains errors.
      */
-    public function save($info = null)
+    public function prepareObjectInformation(&$info)
     {
         foreach ($info[self::ATTRIBUTE_DOMAIN] as $domain) {
             $domain_uid = sprintf('cn=%s,cn=domain,cn=internal,%s',
@@ -104,7 +106,7 @@ class Horde_Kolab_Server_Object_Kolab_Domainmaintainer extends Horde_Kolab_Serve
                 }
             }
         }
-        return parent::save($info);
+        parent::prepareObjectInformation(&$info);
     }
 
 }
