@@ -375,7 +375,7 @@ class Horde_Kolab_Server_Object_Inetorgperson extends Horde_Kolab_Server_Object_
      *
      * @return string|PEAR_Error The ID.
      */
-    public function generateId($info)
+    public function generateId(&$info)
     {
         if ($this->exists()) {
             if (!isset($info[self::ATTRIBUTE_GIVENNAME])
