@@ -488,9 +488,13 @@ class Horde_Kolab_Server_Object
      *
      * @return string the parent UID of this object
      */
-    public function getParentUid()
+    public function getParentUid($level = 1, $uid = null)
     {
-        $base = Net_LDAP2_Util::ldap_explode_dn($this->uid,
+        if (empty($uid)) {
+            $uid = $this->uid;
+        }
+
+        $base = Net_LDAP2_Util::ldap_explode_dn($uid,
                                                 array('casefold' => 'none',
                                                       'reverse' => false,
                                                       'onlyvalues' => false));
@@ -504,7 +508,12 @@ class Horde_Kolab_Server_Object
             throw new Horde_Kolab_Server_Exception($parent,
                                                    Horde_Kolab_Server_Exception::SYSTEM);
         }
-        return $parent;
+        $level--;
+        if ($level == 0) {
+            return $parent;
+        } else {
+            return $this->getParentUid($level, $parent);
+        }
     }
 
     /**
