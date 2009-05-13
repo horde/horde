@@ -213,7 +213,7 @@ class Horde_Kolab_Server_Object_Person extends Horde_Kolab_Server_Object
      *
      * @return string The ID.
      */
-    public function generateId($info)
+    public function generateId(&$info)
     {
         if ($this->exists()) {
             if (!isset($info[self::ATTRIBUTE_CN])
