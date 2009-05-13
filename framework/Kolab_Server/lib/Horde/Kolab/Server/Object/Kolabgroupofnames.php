@@ -106,7 +106,7 @@ class Horde_Kolab_Server_Object_Kolabgroupofnames extends Horde_Kolab_Server_Obj
      *
      * @return string|PEAR_Error The ID.
      */
-    public function generateId($info)
+    public function generateId(&$info)
     {
         if ($this->exists()) {
             if (!isset($info[self::ATTRIBUTE_MAIL])
@@ -133,13 +133,15 @@ class Horde_Kolab_Server_Object_Kolabgroupofnames extends Horde_Kolab_Server_Obj
     }
 
     /**
-     * Saves object information.
+     * Distill the server side object information to save.
      *
      * @param array $info The information about the object.
      *
-     * @return boolean|PEAR_Error True on success.
+     * @return NULL.
+     *
+     * @throws Horde_Kolab_Server_Exception If the given information contains errors.
      */
-    public function save($info = null)
+    public function prepareObjectInformation(&$info)
     {
         if (!$this->exists()) {
             if (!isset($info[self::ATTRIBUTE_CN])) {
@@ -150,7 +152,6 @@ class Horde_Kolab_Server_Object_Kolabgroupofnames extends Horde_Kolab_Server_Obj
                 }
             }
         }
-        return parent::save($info);
     }
 
     /**
