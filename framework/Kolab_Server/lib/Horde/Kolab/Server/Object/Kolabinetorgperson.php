@@ -200,6 +200,90 @@ class Horde_Kolab_Server_Object_Kolabinetorgperson extends Horde_Kolab_Server_Ob
     );
 
     /**
+     * Generates an ID for the given information.
+     *
+     * @param array $info The data of the object.
+     *
+     * @static
+     *
+     * @return string|PEAR_Error The ID.
+     */
+    public function generateId(&$info)
+    {
+        /**
+         * Never rename the object, even if the components of the CN attribute
+         * changed
+         */
+        if ($this->exists()) {
+            return false;
+        }
+        return self::ATTRIBUTE_CN . '=' . $this->generateCn($info);
+    }
+
+    /**
+     * Generates the common name for the given information.
+     *
+     * @param array $info The data of the object.
+     *
+     * @return string The common name.
+     */
+    public function generateCn($info)
+    {
+        global $conf;
+
+        /** The fields that should get mapped into the user ID. */
+        if (isset($conf['kolab']['server']['params']['user_cn_mapfields'])) {
+            $id_mapfields = $conf['kolab']['server']['params']['user_cn_mapfields'];
+        } else {
+            $id_mapfields = array(self::ATTRIBUTE_GIVENNAME,
+                                  self::ATTRIBUTE_SN);
+        }
+
+        /** The user ID format. */
+        if (isset($conf['kolab']['server']['params']['user_cn_format'])) {
+            $id_format = $conf['kolab']['server']['params']['user_cn_format'];
+        } else {
+            $id_format = '%s %s';
+        }
+
+        $fieldarray = array();
+        foreach ($id_mapfields as $mapfield) {
+            if (isset($info[$mapfield])) {
+                $id = $info[$mapfield];
+                if (is_array($id)) {
+                    $id = $id[0];
+                }
+                $fieldarray[] = $this->server->structure->quoteForUid($id);
+            } else {
+                $fieldarray[] = '';
+            }
+        }
+        return trim(vsprintf($id_format, $fieldarray), " \t\n\r\0\x0B,");
+    }
+
+    /**
+     * Distill the server side object information to save.
+     *
+     * @param array $info The information about the object.
+     *
+     * @return NULL.
+     *
+     * @throws Horde_Kolab_Server_Exception If the given information contains errors.
+     */
+    public function prepareObjectInformation(&$info)
+    {
+        if (!$this->exists()) {
+            if (!isset($info[self::ATTRIBUTE_CN])) {
+                if (!isset($info[self::ATTRIBUTE_SN]) || !isset($info[self::ATTRIBUTE_GIVENNAME])) {
+                    throw new Horde_Kolab_Server_Exception(_("Either the last name or the given name is missing!"));
+                } else {
+                    $info[self::ATTRIBUTE_CN] = $this->generateCn($info);
+                }
+            }
+        }
+    }
+
+    /**
      * Return the filter string to retrieve this object type.
      *
      * @static

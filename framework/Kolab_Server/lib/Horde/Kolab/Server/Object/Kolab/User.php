@@ -59,36 +59,6 @@ class Horde_Kolab_Server_Object_Kolab_User extends Horde_Kolab_Server_Object_Kol
     );
 
     /**
-     * Initialize the Kolab Object. Provide either the UID or a
-     * LDAP search result.
-     *
-     * @param Horde_Kolab_Server &$db  The link into the Kolab db.
-     * @param string             $dn   UID of the object.
-     * @param array              $data A possible array of data for the object
-     */
-    public function __construct(&$db, $dn = null, $data = null)
-    {
-        global $conf;
-
-        /** Allows to customize the supported user attributes. */
-        if (isset($conf['kolab']['server']['user_supported_attrs'])) {
-            $this->supported_attributes = $conf['kolab']['server']['user_supported_attrs'];
-        }
-
-        /** Allows to customize the required user attributes. */
-        if (isset($conf['kolab']['server']['user_required_attrs'])) {
-            $this->required_attributes = $conf['kolab']['server']['user_required_attrs'];
-        }
-
-        /** Allows to customize the user object classes. */
-        if (isset($conf['kolab']['server']['user_objectclasses'])) {
-            $this->object_classes = $conf['kolab']['server']['user_object_classes'];
-        }
-
-        parent::__construct($db, $dn, $data);
-    }
-
-    /**
      * Return the filter string to retrieve this object type.
      *
      * @return string The filter to retrieve this object type from the server
@@ -192,91 +162,5 @@ class Horde_Kolab_Server_Object_Kolab_User extends Horde_Kolab_Server_Object_Kol
     function getGroupAddresses()
     {
         return $this->server->getGroupAddresses($this->uid);
-    }
-
-    /**
-     * Generates an ID for the given information.
-     *
-     * @param array $info The data of the object.
-     *
-     * @static
-     *
-     * @return string|PEAR_Error The ID.
-     */
-    public function generateId($info)
-    {
-        global $conf;
-
-        /** The fields that should get mapped into the user ID. */
-        if (isset($conf['kolab']['server']['user_id_mapfields'])) {
-            $id_mapfields = $conf['kolab']['server']['user_id_mapfields'];
-        } else {
-            $id_mapfields = array(self::ATTRIBUTE_GIVENNAME,
-                                  self::ATTRIBUTE_SN);
-        }
-
-        /** The user ID format. */
-        if (isset($conf['kolab']['server']['user_id_format'])) {
-            $id_format = $conf['kolab']['server']['user_id_format'];
-        } else {
-            $id_format    = self::ATTRIBUTE_CN . '=' . '%s %s';
-        }
-
-        $fieldarray = array();
-        foreach ($id_mapfields as $mapfield) {
-            if (isset($info[$mapfield])) {
-                $id = $info[$mapfield];
-                if (is_array($id)) {
-                    $id = $id[0];
-                }
-                $fieldarray[] = $this->server->structure->quoteForUid($id);
-            } else {
-                $fieldarray[] = '';
-            }
-        }
-        return trim(vsprintf($id_format, $fieldarray), " \t\n\r\0\x0B,");
-    }
-
-    /**
-     * Saves object information.
-     *
-     * @param array $info The information about the object.
-     *
-     * @return boolean|PEAR_Error True on success.
-     *
-     * @throws Horde_Kolab_Server_Exception If the information to be saved is
-     *                                      invalid.
-     */
-    public function save($info = null)
-    {
-        if (!$this->exists()) {
-            if (!isset($info['cn'])) {
-                if (!isset($info['sn']) || !isset($info['givenName'])) {
-                    throw new Horde_Kolab_Server_Exception(_("Either the last name or the given name is missing!"));
-                } else {
-                    $info['cn'] = $this->generateId($info);
-                }
-            }
-        }
-
-        if (isset($conf['kolab']['server']['user_mapping'])) {
-            $mapped = array();
-            $map    = $conf['kolab']['server']['user_mapping'];
-            foreach ($map as $key => $val) {
-                $mapped[$val] = $info[$key];
-            }
-            $info = $mapped;
-        }
-
-        if (isset($conf['kolab']['server']['user_mapping'])) {
-            $mapped = array();
-            $map    = $conf['kolab']['server']['user_mapping'];
-            foreach ($map as $key => $val) {
-                $mapped[$val] = $info[$key];
-            }
-            $info = $mapped;
-        }
-
-        return parent::save($info);
     }
 };
