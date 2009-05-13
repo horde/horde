@@ -35,7 +35,7 @@ class Horde_Date_Repeater_Day extends Horde_Date_Repeater
 
         case 'past':
             $dayBegin = new Horde_Date(array('year' => $this->now->year, 'month' => $this->now->month, 'day' => $this->now->day));
-            $dayBegin = new Horde_Date(array('year' => $this->now->year, 'month' => $this->now->month, 'day' => $this->now->day, 'hour' => $this->now->hour));
+            $dayEnd = new Horde_Date(array('year' => $this->now->year, 'month' => $this->now->month, 'day' => $this->now->day, 'hour' => $this->now->hour));
             break;
 
         case 'none':
