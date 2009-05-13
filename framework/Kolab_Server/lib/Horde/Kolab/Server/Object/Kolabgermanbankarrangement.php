@@ -67,6 +67,9 @@ class Horde_Kolab_Server_Object_Kolabgermanbankarrangement extends Horde_Kolab_S
         'derived' => array(
             self::ATTRIBUTE_OWNERUID => array(
                 'method' => 'getParentUid',
+                'args' => array(
+                    2,
+                ),
             ),
         ),
         'collapsed' => array(
@@ -117,22 +120,42 @@ class Horde_Kolab_Server_Object_Kolabgermanbankarrangement extends Horde_Kolab_S
                                                            $uid),
                                                    Horde_Kolab_Server_Exception::INVALID_INFORMATION);
         }
+
         if (!isset($info[self::ATTRIBUTE_NUMBER])) {
-            throw new Horde_Kolab_Server_Exception(_("No account number given!"),
-                                                   Horde_Kolab_Server_Exception::INVALID_INFORMATION);
+            $number = $this->get(self::ATTRIBUTE_NUMBER);
+            if (empty($number)) {
+                throw new Horde_Kolab_Server_Exception(_("No account number given!"),
+                                                       Horde_Kolab_Server_Exception::INVALID_INFORMATION);
+            }
+        } else {
+            if (is_array($info[self::ATTRIBUTE_NUMBER])) {
+                $number = $info[self::ATTRIBUTE_NUMBER][0];
+            } else {
+                $number = $info[self::ATTRIBUTE_NUMBER];
+            }
         }
 
-        if (is_array($info[self::ATTRIBUTE_NUMBER])) {
-            $number = $info[self::ATTRIBUTE_NUMBER][0];
+        if (!isset($info[self::ATTRIBUTE_BANKCODE])) {
+            $bankcode = $this->get(self::ATTRIBUTE_BANKCODE);
+            if (empty($bankcode)) {
+                throw new Horde_Kolab_Server_Exception(_("No bankcode given!"),
+                                                       Horde_Kolab_Server_Exception::INVALID_INFORMATION);
+            }
         } else {
-            $number = $info[self::ATTRIBUTE_NUMBER];
+            if (is_array($info[self::ATTRIBUTE_BANKCODE])) {
+                $bankcode = $info[self::ATTRIBUTE_BANKCODE][0];
+            } else {
+                $bankcode = $info[self::ATTRIBUTE_BANKCODE];
+            }
         }
 
         $base = substr($uid, 0, strpos($uid, $this->server->getBaseUid()) - 1);
 
         unset($info[self::ATTRIBUTE_OWNERUID]);
 
-        return self::ATTRIBUTE_NUMBER . '=' . $this->server->structure->quoteForUid($number) . ',' . $base;
+        return self::ATTRIBUTE_NUMBER . '=' . $this->server->structure->quoteForUid($number) . ',' 
+            . self::ATTRIBUTE_BANKCODE . '=' . $this->server->structure->quoteForUid($bankcode) . ','
+            . $base;
     }
 
     /**

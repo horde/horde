@@ -29,9 +29,6 @@ class Horde_Kolab_Server_Object_Kolabpop3account extends Horde_Kolab_Server_Obje
 {
     /** Define attributes specific to this object type */
 
-    /** The common name */
-    const ATTRIBUTE_CN = 'cn';
-
     /** Server the account resides on */
     const ATTRIBUTE_SERVER = 'externalPop3AccountServer';
 
@@ -78,7 +75,6 @@ class Horde_Kolab_Server_Object_Kolabpop3account extends Horde_Kolab_Server_Obje
      */
     static public $init_attributes = array(
         'defined' => array(
-            self::ATTRIBUTE_CN,
             self::ATTRIBUTE_SERVER,
             self::ATTRIBUTE_LOGINNAME,
             self::ATTRIBUTE_PASSWORD,
@@ -105,7 +101,7 @@ class Horde_Kolab_Server_Object_Kolabpop3account extends Horde_Kolab_Server_Obje
             ),
         ),
         'required' => array(
-            self::ATTRIBUTE_CN,
+            self::ATTRIBUTE_MAIL,
             self::ATTRIBUTE_SERVER,
             self::ATTRIBUTE_LOGINNAME,
             self::ATTRIBUTE_PASSWORD,
@@ -144,56 +140,26 @@ class Horde_Kolab_Server_Object_Kolabpop3account extends Horde_Kolab_Server_Obje
                                                            $uid),
                                                    Horde_Kolab_Server_Exception::INVALID_INFORMATION);
         }
-        if (!isset($info[self::ATTRIBUTE_SERVER])) {
-            throw new Horde_Kolab_Server_Exception(_("No server name given!"),
-                                                   Horde_Kolab_Server_Exception::INVALID_INFORMATION);
-        }
-        if (!isset($info[self::ATTRIBUTE_LOGINNAME])) {
-            throw new Horde_Kolab_Server_Exception(_("No login name given!"),
-                                                   Horde_Kolab_Server_Exception::INVALID_INFORMATION);
-        }
 
-        if (is_array($info[self::ATTRIBUTE_SERVER])) {
-            $server = $info[self::ATTRIBUTE_SERVER][0];
+        if (!isset($info[self::ATTRIBUTE_MAIL])) {
+            $mail = $this->get(self::ATTRIBUTE_MAIL);
+            if (empty($mail)) {
+                throw new Horde_Kolab_Server_Exception(_("No mail given!"),
+                                                       Horde_Kolab_Server_Exception::INVALID_INFORMATION);
+            }
         } else {
-            $server = $info[self::ATTRIBUTE_SERVER];
+            if (is_array($info[self::ATTRIBUTE_MAIL])) {
+                $mail = $info[self::ATTRIBUTE_MAIL][0];
+            } else {
+                $mail = $info[self::ATTRIBUTE_MAIL];
+            }
         }
-        if (is_array($info[self::ATTRIBUTE_LOGINNAME])) {
-            $user = $info[self::ATTRIBUTE_LOGINNAME][0];
-        } else {
-            $user = $info[self::ATTRIBUTE_LOGINNAME];
-        }
-
-        $cn = $user . '@' . $server;
 
         $base = substr($uid, 0, strpos($uid, $this->server->getBaseUid()) - 1);
 
-	unset($info[self::ATTRIBUTE_OWNERUID]);
+        unset($info[self::ATTRIBUTE_OWNERUID]);
 
-        return self::ATTRIBUTE_CN . '=' . $this->server->structure->quoteForUid($cn) . ',' . $base;
-    }
-
-    /**
-     * Saves object information. This may either create a new entry or modify an
-     * existing entry.
-     *
-     * Please note that fields with multiple allowed values require the callee
-     * to provide the full set of values for the field. Any old values that are
-     * not resubmitted will be considered to be deleted.
-     *
-     * @param array $info The information about the object.
-     *
-     * @return boolean|PEAR_Error True on success.
-     */
-    public function save($info = null)
-    {
-        if (!$this->exists() && empty($info[self::ATTRIBUTE_CN])
-            && !empty($info[self::ATTRIBUTE_SERVER])
-            && !empty($info[self::ATTRIBUTE_LOGINNAME])) {
-            $info[self::ATTRIBUTE_CN] = $info[self::ATTRIBUTE_LOGINNAME] . '@' . $info[self::ATTRIBUTE_SERVER];
-        }
-
-        return parent::save($info);
+        return self::ATTRIBUTE_MAIL . '=' . $this->server->structure->quoteForUid($mail) . ',' . $base;
     }
 
     /**
