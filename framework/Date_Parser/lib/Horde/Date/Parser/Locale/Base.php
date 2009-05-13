@@ -284,7 +284,6 @@ class Horde_Date_Parser_Locale_Base
             }
         }
 
-        // I guess you're out of luck!
         return null;
     }
 
