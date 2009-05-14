@@ -75,7 +75,7 @@ $_services['listBy'] = array(
 );
 
 $_services['getActionTimestamp'] = array(
-    'args' => array('uid' => 'string', 'timestamp' => 'int'),
+    'args' => array('uid' => 'string', 'action' => 'string', 'calendar' => 'string'),
     'type' => 'int',
 );
 
