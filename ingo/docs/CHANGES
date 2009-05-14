@@ -9,6 +9,9 @@ v2.0-git
 v1.2.2-cvs
 ----------
 
+[jan] Take default settings for forwards, vacation and spam rules from
+      config/prefs.php in the SQL storage driver.
+[jan] No longer try to read spam folder from IMP's preferences.
 [jan] Fix maildrop rules without conditions (almarin@um.es, Bug #8103).
 [cjh] Fix checks for the forward_file and forward_script procmail parameters
       in the VFS driver (Bug #7811).

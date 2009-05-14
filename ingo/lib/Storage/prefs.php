@@ -48,6 +48,14 @@ class Ingo_Storage_prefs extends Ingo_Storage
             }
             break;
 
+        case self::ACTION_WHITELIST:
+            $ob = new Ingo_Storage_whitelist();
+            $data = @unserialize($prefs->getValue('whitelist'));
+            if ($data) {
+                $ob->setWhitelist($data, false);
+            }
+            break;
+
         case self::ACTION_FILTERS:
             $ob = new Ingo_Storage_filters();
             $data = @unserialize($prefs->getValue('rules', false));
@@ -93,14 +101,6 @@ class Ingo_Storage_prefs extends Ingo_Storage
                 if (isset($data['end'])) {
                     $ob->setVacationEnd($data['end']);
                 }
-            }
-            break;
-
-        case self::ACTION_WHITELIST:
-            $ob = new Ingo_Storage_whitelist();
-            $data = @unserialize($prefs->getValue('whitelist'));
-            if ($data) {
-                $ob->setWhitelist($data, false);
             }
             break;
 
