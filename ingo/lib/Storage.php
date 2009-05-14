@@ -742,21 +742,6 @@ class Ingo_Storage_spam extends Ingo_Storage_rule
     protected $_folder = null;
     protected $_level = 5;
 
-    public function __construct()
-    {
-        // Attempt to get the default Spam folder from imp
-        if (in_array('imp', $GLOBALS['registry']->listApps())) {
-            $prefs = Prefs::factory($GLOBALS['conf']['prefs']['driver'],
-                                    'imp', Ingo::getUser(), '', null, false);
-            $prefs->retrieve();
-
-            $folder = $prefs->getValue('spam_folder', false);
-            if ($folder !== false) {
-                $this->_folder = $folder;
-            }
-        }
-    }
-
     public function setSpamFolder($folder)
     {
         $this->_folder = $folder;
