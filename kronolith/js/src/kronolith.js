@@ -254,7 +254,7 @@ KronolithCore = {
             this.dayEvents = [];
             this.dayGroups = [];
             this.allDayEvents = [];
-            $('kronolithViewDay').down('.kronolithCol').setText(date.toString('D'));
+            $('kronolithViewDay').down('caption span').setText(date.toString('D'));
             break;
 
         case 'week':
@@ -266,6 +266,9 @@ KronolithCore = {
                 td = $('kronolithViewWeekBody').down('td').next('td'),
                 dates = this.viewDates(date, view),
                 day = dates[0].clone();
+
+            $('kronolithViewWeek').down('caption span').setText(Kronolith.text.week.interpolate({ week: date.getWeek() }));
+
             for (var i = 0; i < 7; i++) {
                 div.writeAttribute('id', 'kronolithEventsWeek' + day.dateString());
                 th.writeAttribute('date', day.dateString()).down('span').setText(day.toString('dddd, d'));
@@ -281,6 +284,8 @@ KronolithCore = {
             var tbody = $('kronolithViewMonthBody'),
                 dates = this.viewDates(date, view),
                 day = dates[0].clone(), rows = 0, row;
+
+            $('kronolithViewMonth').down('caption span').setText(date.toString('MMMM'));
 
             // Remove old rows. Maybe we should only rebuild the calendars if
             // necessary.

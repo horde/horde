@@ -200,6 +200,7 @@ class Kronolith
             'ajax_recover' => _("The connection to the remote server has been restored."),
             'alarm' => _("Alarm:"),
             'noalerts' => _("No Alerts"),
+            'week' => str_replace('%d', '#{week}', _("Week %d")),
         ));
         for ($i = 1; $i <= 12; ++$i) {
             $code['text']['month'][$i - 1] = NLS::getLangInfo(constant('MON_' . $i));
