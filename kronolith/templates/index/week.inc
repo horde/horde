@@ -10,10 +10,12 @@
 </div>
 <table class="kronolithView kronolithViewDay">
   <caption>
-    <a class="kronolithToday" title="<?php echo _("Today") ?>"><?php echo _("Today") ?></a>
-    <a class="kronolithPrev" title="<?php echo _("Previous") ?>">&lt;</a>
-    <a class="kronolithNext" title="<?php echo _("Next") ?>">&gt;</a>
-    <span>Sun, April 5 - Sat, April 11 <!-- fmt: this should be the week span --></span>
+    <span></span>
+    <span class="kronolithNavigation">
+      <a class="kronolithToday" title="<?php echo _("Today") ?>"><?php echo _("Today") ?></a>
+      <a class="kronolithPrev" title="<?php echo _("Previous") ?>">&lt;</a>
+      <a class="kronolithNext" title="<?php echo _("Next") ?>">&gt;</a>
+    </span>
   </caption>
   <thead id="kronolithViewWeekHead" class="kronolithViewHead"><tr>
     <td class="kronolithFirstCol">&nbsp;</td>

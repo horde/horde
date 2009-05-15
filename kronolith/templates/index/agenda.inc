@@ -2,10 +2,12 @@
 
 <table class="kronolithView kronolithViewAgenda">
 <caption>
+    <span><?php echo _("Agenda") ?></span>
+    <span class="kronolithNavigation">
     <a title="<?php echo _("Today") ?>" class="kronolithToday"><?php echo _("Today") ?></a>
     <a title="<?php echo _("Previous") ?>" class="kronolithPrev">&lt;</a>
     <a title="<?php echo _("Next") ?>" class="kronolithNext">&gt;</a>
-    <span><?php echo _("Agenda") ?></span>
+    </span>
 </caption>
 <tbody class="kronolithViewBody">
 <?php

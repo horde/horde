@@ -2,9 +2,11 @@
 
 <table class="kronolithView kronolithViewYear">
 <caption>
+    <span><?php echo $today->format("Y") ?></span>
+    <span class="kronolithNavigation">
     <a title="<?php echo _("Previous") ?>" class="kronolithPrev">&lt;</a>
     <a title="<?php echo _("Next") ?>" class="kronolithNext">&gt;</a>
-    <span><?php echo $today->format("Y") ?></span>
+    </span>
 </caption>
 </table>
 

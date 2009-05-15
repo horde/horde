@@ -2,15 +2,13 @@
 <div id="kronolithEventsDay"></div>
 <table class="kronolithView kronolithViewDay">
   <caption>
-    <a class="kronolithToday" title="<?php echo _("Today") ?>"><?php echo _("Today") ?></a>
-    <a class="kronolithPrev" title="<?php echo _("Previous") ?>">&lt;</a>
-    <a class="kronolithNext" title="<?php echo _("Next") ?>">&gt;</a>
-    <span><?php echo $today->format('l, F j, Y') ?></span>
+    <span></span>
+    <span class="kronolithNavigation">
+      <a class="kronolithToday" title="<?php echo _("Today") ?>"><?php echo _("Today") ?></a>
+      <a class="kronolithPrev" title="<?php echo _("Previous") ?>">&lt;</a>
+      <a class="kronolithNext" title="<?php echo _("Next") ?>">&gt;</a>
+    </span>
   </caption>
-  <thead class="kronolithViewHead"><tr>
-    <td class="kronolithFirstCol">&nbsp;</td>
-    <td class="kronolithCol"><span></span></td>
-  </tr></thead>
   <tbody id="kronolithViewDayBody" class="kronolithViewBody">
     <tr class="kronolithRow kronolithAllDay">
       <td class="kronolithFirstCol"><?php echo _("All day") ?></td>

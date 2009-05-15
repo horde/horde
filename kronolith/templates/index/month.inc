@@ -1,11 +1,13 @@
 <div id="kronolithViewMonth" style="display:none">
 <table id="kronolithViewHead" class="kronolithView">
-<caption>
-<a class="kronolithToday" title="<?php echo _("Today") ?>"><?php echo _("Today") ?></a>
-<a class="kronolithPrev" title="<?php echo _("Previous") ?>">&lt;</a>
-<a class="kronolithNext" title="<?php echo _("Next") ?>">&gt;</a>
-<span><?php echo $today->format('F Y') ?></span>
-</caption>
+  <caption>
+    <span></span>
+    <span class="kronolithNavigation">
+      <a class="kronolithToday" title="<?php echo _("Today") ?>"><?php echo _("Today") ?></a>
+      <a class="kronolithPrev" title="<?php echo _("Previous") ?>">&lt;</a>
+      <a class="kronolithNext" title="<?php echo _("Next") ?>">&gt;</a>
+    </span>
+  </caption>
   <tr>
     <td class="kronolithFirstCol">&nbsp;</td>
     <?php for ($w = $prefs->getValue('week_start_monday'), $i = $w, $c = $i + 7; $i < $c; $i++): ?>
