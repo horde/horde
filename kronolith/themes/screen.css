@@ -487,7 +487,7 @@ body.kronolithAjax {
     position: absolute;
     z-index: 1000;
     background: transparent url("graphics/loading.gif") no-repeat center;
-    margin-top: 2px;
+    margin-top: 22px;
     padding: 2px;
     width: 16px;
     height: 16px;
@@ -576,6 +576,9 @@ div.c4.kronolithEventFull {
     background-color: #4b2a16 !important;
 }
 
+#kronolithAddEvents {
+    margin-bottom: 18px;
+}
 #kronolithAddEvents span {
     /* We need some style here. */
     margin-bottom: 5px;
@@ -946,10 +949,35 @@ div.kronolithView div.kronolithViewBody div.kronolithRow {
     height: auto;
 }
 
+/* Captions. */
+#kronolithBody caption {
+    position: relative;
+    margin: 0 2px;
+    height: 20px;
+    line-height: 20px;
+    border-bottom: 1px dotted #808080;
+    text-align: left;
+    font-weight: bold;
+}
+#kronolithBody caption span {
+    padding: 0;
+}
+#kronolithBody caption span.kronolithNavigation {
+    position: absolute;
+    right: 2px;
+    cursor: pointer;
+}
+
+/* Main view year */
+#kronolithViewYear .kronolithMinical {
+    float: left;
+    margin: 0 15px 15px 20px;
+}
+
 /* Main view month */
 #kronolithViewMonthContainer {
     position: absolute;
-    top: 24px;
+    top: 44px;
     right: 0;
     bottom: 0;
     left: 0;
@@ -1009,6 +1037,46 @@ div.kronolithView div.kronolithViewBody div.kronolithRow {
 }
 .kronolithEventsWeek .kronolithEvent {
     margin: 0 2px;
+}
+
+/* Main view agenda. */
+#kronolithViewAgenda thead.kronolithViewHead td.kronolithFirstCol {
+    width: 70px;
+}
+#kronolithViewAgenda tbody.kronolithViewBody td.kronolithFirstCol {
+    width: 70px;
+    padding: 4px;
+    text-align: left;
+}
+#kronolithViewAgenda div.kronolithEvent {
+    font-weight: bold;
+}
+#kronolithViewAgenda div.kronolithEvent .kronolithDate {
+    font-weight: normal;
+    color: #333;
+}
+
+/* Main view tasks. */
+#kronolithViewTasks tbody.kronolithViewBody td {
+    padding: 4px 4px 4px 20px;
+    background-image: url("graphics/checkbox_off.png");
+    background-position: 2px 3px;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+#kronolithViewTasks tbody.kronolithViewBody td.kronolithTaskCompleted, #kronolithViewTasks tbody.kronolithViewBody td:hover {
+    background-image: url("graphics/checkbox_on.png");
+}
+#kronolithViewTasks tbody.kronolithViewBody td.kronolithTaskCompleted {
+    color: #ccc;
+    text-decoration: line-through;
+}
+#kronolithViewTasks tbody.kronolithViewBody td.kronolithTaskDue {
+    color: #a00;
+    font-weight: bold;
+}
+#kronolithViewTasks .kronolithInfo {
+    color: #ccc;
 }
 
 /* More main view */
@@ -1119,7 +1187,7 @@ div.kronolithView div.kronolithViewBody div.kronolithRow div div.kronolithMore a
     border-color: transparent;
     color: silver;
 }
-.kronolithToday {
+.kronolithViewMonth .kronolithToday {
     background-color: #ebf3fc;
     border-color: #808080;
 }
