@@ -816,7 +816,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         } catch (Horde_Imap_Client_Exception $e) {
             // An EXAMINE/SELECT failure with a return of 'NO' will cause the
             // current mailbox to be unselected.
-            if ($this->_temp['parseresperr']['response'] == 'NO') {
+            if (isset($this->_temp['parseresperr']['response']) &&
+                ($this->_temp['parseresperr']['response'] == 'NO')) {
                 $this->_selected = null;
                 $this->_mode = 0;
             }
