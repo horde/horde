@@ -420,6 +420,7 @@ class IMP_Mailbox
     public function isValidIndex()
     {
         $this->_rebuild();
+        $this->setIndex(0, 'offset');
         return !is_null($this->_arrayIndex);
     }
 
@@ -635,9 +636,7 @@ class IMP_Mailbox
     protected function _rebuild($force = false)
     {
         if ($force ||
-            (!is_null($this->_arrayIndex) &&
-             !$this->_searchmbox &&
-             !$this->getIMAPIndex(1))) {
+            (!is_null($this->_arrayIndex) && !$this->getIMAPIndex(1))) {
             $this->_sorted = null;
             $this->_buildMailbox();
         }
