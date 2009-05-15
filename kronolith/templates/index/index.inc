@@ -198,6 +198,9 @@ $img_blank = Horde::img('blank.gif', '', 'height="8" width="8"', $registry->getI
 require dirname(__FILE__) . '/month.inc';
 require dirname(__FILE__) . '/week.inc';
 require dirname(__FILE__) . '/day.inc';
+require dirname(__FILE__) . '/year.inc';
+require dirname(__FILE__) . '/tasks.inc';
+require dirname(__FILE__) . '/agenda.inc';
 ?>
 </div>
 <!-- end body -->
