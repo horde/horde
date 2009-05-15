@@ -48,7 +48,7 @@
 
   <h3>
     <a href="#" class="kronolithAdd">+</a>
-    <?php echo _("My Calendars") ?>
+    <span><?php echo _("My Calendars") ?></span>
   </h3>
 
   <div id="kronolithMyCalendars" class="kronolithCalendars" style="display:none">
@@ -56,7 +56,7 @@
 
   <h3>
     <a href="#" class="kronolithAdd">+</a>
-    <?php echo _("Shared Calendars") ?>
+    <span><?php echo _("Shared Calendars") ?></span>
   </h3>
 
   <div id="kronolithSharedCalendars" class="kronolithCalendars" style="display:none">
@@ -66,13 +66,13 @@
 
   <h3>
     <a href="#" class="kronolithAdd">+</a>
-    <?php echo _("Remote Calendars") ?>
+    <span><?php echo _("Remote Calendars") ?></span>
   </h3>
 
   <div id="kronolithRemoteCalendars" class="kronolithCalendars" style="display:none">
   </div>
 
-  <div id="kronolithMinical">
+  <div id="kronolithMinical" class="kronolithMinical">
     <table cellspacing="1" cellpadding="0" border="0">
     <caption>
       <a id="kronolithMinicalPrev" title="<?php echo _("Previous month") ?>">&lt;</a>
@@ -94,9 +94,9 @@
     </table>
   </div>
 
-  <h3>
+  <h3 class="search">
     <a href="#" class="kronolithAdd"><?php echo _("Advanced") ?></a>
-    <?php echo _("Search") ?>
+    <span><?php echo _("Search") ?></span>
   </h3>
 
   <form action="#" method="post">

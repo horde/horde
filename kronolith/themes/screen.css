@@ -780,13 +780,13 @@ div#kronolithEventTopTags span:hover {
 }
 
 /* Mini calendar */
-#kronolithMinical {
+.kronolithMinical {
     position: relative;
 }
-#kronolithMinical table {
+.kronolithMinical table {
     width: 100%;
 }
-#kronolithMinical caption {
+.kronolithMinical caption {
     position: relative;
     margin-bottom: 10px;
     height: 20px;
@@ -796,7 +796,7 @@ div#kronolithEventTopTags span:hover {
     border-bottom: 1px #000 dotted;
     text-align: left;
 }
-#kronolithMinicalDate {
+.kronolithMinicalDate {
     cursor: pointer;
 }
 #kronolithMinicalPrev, #kronolithMinicalNext {
@@ -811,10 +811,10 @@ div#kronolithEventTopTags span:hover {
     right: 15px;
 }
 
-#kronolithMinical th, #kronolithMinical td {
+.kronolithMinical th, .kronolithMinical td {
     font-size: 90%;
 }
-#kronolithMinical th, #kronolithMinical td.kronolithMinicalWeek {
+.kronolithMinical th, .kronolithMinical td.kronolithMinicalWeek {
     width: 16px;
     height: 16px;
     line-height: 16px;
@@ -823,7 +823,7 @@ div#kronolithEventTopTags span:hover {
     color: #202020;
     border: 1px #c0c0c0 solid !important;
 }
-#kronolithMinical tbody td {
+.kronolithMinical tbody td {
     width: 16px;
     height: 16px;
     line-height: 16px;
@@ -833,13 +833,13 @@ div#kronolithEventTopTags span:hover {
     empty-cells: show;
     cursor: pointer;
 }
-#kronolithMinical .kronolithMinicalEmpty {
+.kronolithMinical .kronolithMinicalEmpty {
     background: none;
     border: none;
     color: silver;
     cursor: default;
 }
-#kronolithMinical .kronolithSelected {
+.kronolithMinical .kronolithSelected {
     background-color: #ebf3fc;
     border: 1px #808080 solid;
 }
