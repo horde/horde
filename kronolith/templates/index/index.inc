@@ -5,7 +5,7 @@
   <!-- ini user zone -->
   <div id="kronolithUser">
    <?php echo $identity->getName(); if ($logout_link) echo ' <span class="kronolithSeparator">&middot;</span> ' . $logout_link ?><br />
-   <a href="#" id="kronolithToday"><?php echo _("Today") ?></a> <span class="kronolithSeparator">&middot;</span> <a href="#"><?php echo _("Options") ?></a><?php if ($help_link) echo ' <span class="kronolithSeparator">&middot;</span> ' . $help_link ?><br />
+   <a href="#"><?php echo _("Options") ?></a><?php if ($help_link) echo ' <span class="kronolithSeparator">&middot;</span> ' . $help_link ?><br />
   </div>
   <!-- end user zone -->
 </div>
