@@ -163,16 +163,19 @@ class IMP_Message
      * Trash folder is being used.
      * Handles use of the IMP::SEARCH_MBOX mailbox and the Trash folder.
      *
-     * @param mixed $indices    See IMP::parseIndicesList().
-     * @param boolean $nuke     Override user preferences and nuke (i.e.
-     *                          permanently delete) the messages instead?
-     * @param boolean $keeplog  Should any history information of the
-     *                          message be kept?
+     * @param mixed $indices  See IMP::parseIndicesList().
+     * @param array $options  Additional options:
+     * <pre>
+     * 'keeplog' - (boolean) Should any history information of the message be
+     *             kept?
+     * 'nuke' - (boolean) Override user preferences and nuke (i.e. permanently
+     *          delete) the messages instead?
+     * </pre>
      *
      * @return integer|boolean  The number of messages deleted if successful,
      *                          false if not.
      */
-    public function delete($indices, $nuke = false, $keeplog = false)
+    public function delete($indices, $options = array())
     {
         global $conf, $notification, $prefs;
 
@@ -189,10 +192,10 @@ class IMP_Message
         }
 
         $return_value = 0;
-        $maillog_update = (!$keeplog && !empty($conf['maillog']['use_maillog']));
+        $maillog_update = (empty($options['keeplog']) && !empty($conf['maillog']['use_maillog']));
 
         /* Check for Trash folder. */
-        $use_trash_folder = !$this->_usepop && !$nuke && !$use_vtrash && $use_trash;
+        $use_trash_folder = !$this->_usepop && empty($options['nuke']) && !$use_vtrash && $use_trash;
         if ($use_trash_folder) {
             include_once IMP_BASE . '/lib/Folder.php';
             $imp_folder = IMP_Folder::singleton();
@@ -255,7 +258,7 @@ class IMP_Message
                 $del_flags = array('\\deleted');
 
                 if ($this->_usepop ||
-                    $nuke ||
+                    !empty($options['nuke']) ||
                     ($use_trash && ($mbox == $trash)) ||
                     ($use_vtrash && ($GLOBALS['imp_search']->isVTrashFolder()))) {
                     /* Purge messages immediately. */
@@ -539,7 +542,7 @@ class IMP_Message
             throw new Horde_Exception(_("An error occured while attempting to strip the attachment."));
         }
 
-        $this->delete($indices, true, true);
+        $this->delete($indices, array('nuke' => true, 'keeplog' => true));
 
         $imp_mailbox = IMP_Mailbox::singleton($mbox);
         $imp_mailbox->setIndex(reset($uid));

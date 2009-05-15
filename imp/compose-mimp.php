@@ -219,7 +219,7 @@ case _("Send"):
                 $prefs->getValue('auto_delete_drafts')) {
                 $imp_message = &IMP_Message::singleton();
                 $idx_array = array($index . IMP::IDX_SEP . $thismailbox);
-                $delete_draft = $imp_message->delete($idx_array, true);
+                $delete_draft = $imp_message->delete($idx_array, array('nuke' => true));
             }
 
             $notification->push(_("Message sent successfully."), 'horde.success');

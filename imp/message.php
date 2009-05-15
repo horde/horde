@@ -410,7 +410,7 @@ if (!IMP::$printMode) {
      * message in the header. */
     $h_page_label = htmlspecialchars($page_label);
     $header_label = $h_page_label;
-    if ($imp_search->isSearchMbox()) {
+    if ($imp_search->isSearchMbox($imp_mbox['mailbox'])) {
         $header_label .= ' [' . Horde::link(Util::addParameter(Horde::applicationUrl('mailbox.php'), 'mailbox', $mailbox_name)) . IMP::displayFolder($mailbox_name) . '</a>]';
     }
 

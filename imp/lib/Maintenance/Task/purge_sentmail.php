@@ -49,7 +49,7 @@ class Maintenance_Task_purge_sentmail extends Maintenance_Task
             }
 
             /* Go through the message list and delete the messages. */
-            if ($imp_message->delete(array($mbox => $msg_ids), true)) {
+            if ($imp_message->delete(array($mbox => $msg_ids), array('nuke' => true))) {
                 $msgcount = count($msg_ids);
                 if ($msgcount == 1) {
                     $notification->push(sprintf(_("Purging 1 message from sent-mail folder %s."), IMP::displayFolder($mbox)), 'horde.message');

@@ -49,7 +49,7 @@ class Maintenance_Task_purge_spam extends Maintenance_Task
 
         /* Go through the message list and delete the messages. */
         $imp_message = IMP_Message::singleton();
-        if ($imp_message->delete(array($spam_folder => $msg_ids), true)) {
+        if ($imp_message->delete(array($spam_folder => $msg_ids), array('nuke' => true))) {
             $msgcount = count($msg_ids);
             if ($msgcount == 1) {
                 $notification->push(_("Purging 1 message from Spam folder."), 'horde.message');

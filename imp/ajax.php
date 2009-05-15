@@ -537,7 +537,7 @@ case 'DeleteDraft':
     }
     $imp_message = IMP_Message::singleton();
     $idx_array = array($index . IMP::IDX_SEP . IMP::folderPref($prefs->getValue('drafts_folder'), true));
-    $imp_message->delete($idx_array, true);
+    $imp_message->delete($idx_array, array('nuke' => true));
     break;
 
 case 'DeleteAttach':

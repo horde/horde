@@ -21,7 +21,7 @@ function _removeAutoSaveDraft($index)
 {
     if (!empty($index)) {
         $imp_message = &IMP_Message::singleton();
-        $imp_message->delete(array($index . IMP::IDX_SEP . IMP::folderPref($GLOBALS['prefs']->getValue('drafts_folder'), true)), true);
+        $imp_message->delete(array($index . IMP::IDX_SEP . IMP::folderPref($GLOBALS['prefs']->getValue('drafts_folder'), true)), array('nuke' => true));
     }
 }
 
