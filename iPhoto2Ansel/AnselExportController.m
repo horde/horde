@@ -106,10 +106,8 @@ NSString * const TURAnselServerPasswordKey = @"password";
 {
     [spinner startAnimation: self];
     [self setStatusText: @"Getting image list..."];
-    [browserData removeAllObjects];
     NSMutableArray *images = [currentGallery listImages];
     if ([images count] == 0) {
-        [browserView reloadData];
         //TODO: Show a panel showing there are no images? Or just disable the
         //      view gallery button?
 
@@ -148,6 +146,8 @@ NSString * const TURAnselServerPasswordKey = @"password";
 {
     [NSApp endSheet: mviewGallerySheet];
     [mviewGallerySheet orderOut: nil];
+    [browserData removeAllObjects];
+    [browserView reloadData];
 }
 
 // Put up the newGallerySheet NSPanel
@@ -208,10 +208,9 @@ NSString * const TURAnselServerPasswordKey = @"password";
         [self showNewServerSheet];
     } else if (![[[mServersPopUp selectedItem] title] isEqual:@"(None)"]) {
         // Connect to a server
-        if (currentServer == [[mServersPopUp selectedItem] representedObject]) {
-            return;
+        if (currentServer != nil) {
+            [self disconnect];
         }
-        [self disconnect];
         currentServer = [[mServersPopUp selectedItem] representedObject];
         [self doConnect];
     }
@@ -290,7 +289,8 @@ NSString * const TURAnselServerPasswordKey = @"password";
 }
 
 // These seem to be called when the plugin panel is actived/deactivated while
-// export screen is open, not when the plugin is finished.
+// export screen is open, not when the plugin is finished or the export window
+// is clsoed from the Cancel button
 - (void)viewWillBeActivated
 {
     [self canExport];
@@ -450,8 +450,10 @@ NSString * const TURAnselServerPasswordKey = @"password";
 // Make sure we clean up from any previous connection
 -(void)disconnect
 {
+    [galleryCombo deselectItemAtIndex: [galleryCombo indexOfSelectedItem]];
     [galleryCombo setDelegate: nil];
     [galleryCombo setDataSource: nil];
+    [galleryCombo reloadData];
     [galleryCombo setEnabled: NO];
     [mNewGalleryButton setEnabled: NO];
     [viewGallery setEnabled: NO];
@@ -476,14 +478,14 @@ NSString * const TURAnselServerPasswordKey = @"password";
     NSDictionary *p = [[NSDictionary alloc] initWithObjects: [NSArray arrayWithObjects:
                                                               [currentServer objectForKey:TURAnselServerEndpointKey],
                                                               [currentServer objectForKey:TURAnselServerUsernameKey],
-                                                              [currentServer objectForKey:TURAnselServerPasswordKey]]
+                                                              [currentServer objectForKey:TURAnselServerPasswordKey],
+                                                              nil]
                                                     forKeys: [NSArray arrayWithObjects:@"endpoint", @"username", @"password", nil]];
     // Create our controller
     anselController = [[TURAnsel alloc] initWithConnectionParameters:p];
     [anselController setDelegate:self];
     
     // Set up the galleryCombo
-    [galleryCombo setUsesDataSource:YES];
     [galleryCombo setDataSource:anselController];
     [galleryCombo setDelegate:self];
     [spinner startAnimation:self];
@@ -584,7 +586,6 @@ NSString * const TURAnselServerPasswordKey = @"password";
         NSString *imageDescription = [mExportMgr imageTitleAtIndex:i];
         NSArray *keywords = [mExportMgr imageKeywordsAtIndex: i];
         
-        NSLog(@"Keywords: %@", keywords);
         NSArray *keys = [[NSArray alloc] initWithObjects:
                          @"filename", @"description", @"data", @"type", @"tags", nil];
         
@@ -630,6 +631,8 @@ NSString * const TURAnselServerPasswordKey = @"password";
     // Need to do this ourselves since we aren't using iPhoto's progress bar.
     // Not really cancelling the export, but all this method does is close
     // the export interface and notify iPhoto that we are done.
+    [mServersPopUp selectItemAtIndex: 0];
+    [self disconnect];
     [mExportMgr cancelExportBeforeBeginning];
 }
 
@@ -717,8 +720,6 @@ NSString * const TURAnselServerPasswordKey = @"password";
     [self canExport];
     [viewGallery setEnabled: YES];
     [spinner stopAnimation: self];
-    // TODO: Check this. Assume we can set back to connected since we obviously
-    //       are connected if we're getting gallery info.
     [self setStatusText: @"Connected" withColor: [NSColor greenColor]];
 }
 
@@ -731,20 +732,37 @@ NSString * const TURAnselServerPasswordKey = @"password";
 }
 
 #pragma mark export notifications
+
+- (void)exportWindowWillClose: (NSNotification *)notification
+{
+    [mServersPopUp selectItemAtIndex: 0];
+    [self disconnect];    
+    [[NSNotificationCenter defaultCenter] removeObserver: self
+                                                    name: NSWindowWillCloseNotification
+                                                  object: nil];
+}
+
 - (void)exportWindowDidBecomeKey: (NSNotification *)notification
 {
-    // We only want to do this once...
-    [[NSNotificationCenter defaultCenter] removeObserver: self
-                                                    name: NSWindowDidBecomeKeyNotification 
-                                                  object: nil];
-    [self updateServersPopupMenu];
     
+    // Register for the close notification
+    [[NSNotificationCenter defaultCenter] addObserver: self
+                                             selector: @selector(exportWindowWillClose:)
+                                                 name: NSWindowWillCloseNotification 
+                                              object :nil];
+
+    // Only do this once
+    [[NSNotificationCenter defaultCenter] removeObserver: self
+                                                    name: NSWindowDidBecomeKeyNotification
+                                                  object: nil];
+
+    [self updateServersPopupMenu];
+
     // Register for notifications
     [[NSNotificationCenter defaultCenter] addObserver: self
                                              selector: @selector(NSPopUpWillPopUp:)
                                                  name:@"NSPopUpButtonWillPopUpNotification"
                                                object: nil];
-    
     if ([anselServers count] == 0) {
         [self showNewServerSheet];
     } else {
@@ -767,9 +785,9 @@ NSString * const TURAnselServerPasswordKey = @"password";
 
             [self doConnect];
         }
-
     }
 }
+
 - (void)sizeChoiceWillChange: (NSNotification *)notification
 {
     NSInteger newSize = [mSizePopUp selectedTag];

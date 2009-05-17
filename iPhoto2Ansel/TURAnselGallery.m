@@ -158,11 +158,9 @@
 #pragma mark Overrides----------------------------------------------------------
 - (void)dealloc
 {
-    NSLog(@"TURAnselGallery dealloc called");
-    [galleryDescription release];
+    NSLog(@"TURAnselGallery dealloc called on Gallery %@", self);
     [anselController release];
     [galleryDefaultImageURL release];
-    [galleryDescription release];
     [imageList release];
     [super dealloc];
 }
@@ -176,7 +174,7 @@
 
 - (id)description 
 {
-    NSString *text = [NSString stringWithFormat:@"Description: %@ Id: %d has: %d images", galleryDescription, galleryId, galleryImageCount];
+    NSString *text = [NSString stringWithFormat:@"Description: %@ Id: %d has: %d images", galleryName, galleryId, galleryImageCount];
     return text;
 }
 
