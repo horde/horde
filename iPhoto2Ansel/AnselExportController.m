@@ -732,11 +732,10 @@ NSString * const TURAnselServerPasswordKey = @"password";
 }
 
 #pragma mark export notifications
-
 - (void)exportWindowWillClose: (NSNotification *)notification
 {
     [mServersPopUp selectItemAtIndex: 0];
-    [self disconnect];    
+    [self disconnect];
     [[NSNotificationCenter defaultCenter] removeObserver: self
                                                     name: NSWindowWillCloseNotification
                                                   object: nil];
@@ -748,7 +747,7 @@ NSString * const TURAnselServerPasswordKey = @"password";
     // Register for the close notification
     [[NSNotificationCenter defaultCenter] addObserver: self
                                              selector: @selector(exportWindowWillClose:)
-                                                 name: NSWindowWillCloseNotification 
+                                                 name: NSWindowWillCloseNotification
                                               object :nil];
 
     // Only do this once
