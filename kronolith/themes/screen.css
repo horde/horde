@@ -806,11 +806,13 @@ div#kronolithEventTopTags span:hover {
     position: absolute;
     top: 0;
     right: 0;
-    font-weight: bold;
+    width: 16px;
+    color: transparent;
     cursor: pointer;
-    text-decoration: none;
+    background: transparent url("graphics/right.png") no-repeat top right;
 }
 #kronolithMinicalPrev {
+    background-image: url("graphics/left.png");
     right: 15px;
 }
 
@@ -967,11 +969,26 @@ div.kronolithView div.kronolithViewBody div.kronolithRow {
     right: 2px;
     cursor: pointer;
 }
+.kronolithPrev, .kronolithNext {
+    position: absolute;
+    right: 0;
+    width: 16px;
+    color: transparent;
+    background: transparent url("graphics/right.png") no-repeat top right;
+}
+.kronolithPrev {
+    right: 15px;
+    background-image: url("graphics/left.png");
+}
+#kronolithBody caption .kronolithToday {
+    position: absolute;
+    right: 35px;
+}
 
 /* Main view year */
 #kronolithViewYear .kronolithMinical {
     float: left;
-    margin: 0 15px 15px 20px;
+    margin: 2px 15px 13px 20px;
 }
 
 /* Main view month */
