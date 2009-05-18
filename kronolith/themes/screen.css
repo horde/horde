@@ -251,7 +251,7 @@ a.newEvent img {
     background: #f00;
 }
 .unknown {
-    background: #d4d0c8 url("graphics/unknown-background.png") repeat top left;
+    background: #d4d0c8 url("graphics/unknown-background.png") repeat left top;
 }
 .free {
     position: relative;
@@ -428,7 +428,7 @@ table#calendar-list th.sortdown {
     margin-top: 200px;
     padding-bottom: 66px;
     text-align: center;
-    background: url("graphics/redbox_spinner.gif") no-repeat bottom center;
+    background: url("graphics/redbox_spinner.gif") no-repeat center bottom;
 }
 #RB_window {
     z-index: 102;
@@ -530,7 +530,7 @@ body.kronolithAjax {
     position: absolute;
     right: 0;
     padding-right: 8px;
-    background: transparent url("graphics/plus.png") no-repeat top right;
+    background: transparent url("graphics/plus.png") no-repeat right center;
     color: transparent;
     cursor: pointer;
 }
@@ -610,7 +610,7 @@ span#kronolithQuickEvent {
     height: 75px;
     margin: 0;
     padding: 0;
-    background: transparent url("graphics/back_quick.png") top left no-repeat;
+    background: transparent url("graphics/back_quick.png") no-repeat left top;
 }
 #kronolithQuickinsert form {
     padding:  5px;
@@ -809,7 +809,7 @@ div#kronolithEventTopTags span:hover {
     width: 16px;
     color: transparent;
     cursor: pointer;
-    background: transparent url("graphics/right.png") no-repeat top right;
+    background: transparent url("graphics/right.png") no-repeat right center;
 }
 #kronolithMinicalPrev {
     background-image: url("graphics/left.png");
@@ -974,7 +974,7 @@ div.kronolithView div.kronolithViewBody div.kronolithRow {
     right: 0;
     width: 16px;
     color: transparent;
-    background: transparent url("graphics/right.png") no-repeat top right;
+    background: transparent url("graphics/right.png") no-repeat right center;
 }
 .kronolithPrev {
     right: 15px;
