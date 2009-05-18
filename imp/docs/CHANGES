@@ -2284,6 +2284,13 @@ OLD DIMP CHANGELOG
 ==================
 
 ------
+v1.1.3
+------
+[mms] Fix renaming folders with non-7bit characters
+      (rainer.groesslinger@gmail.com, Bug #8286).
+
+
+------
 v1.1.2
 ------
 
@@ -2489,9 +2496,9 @@ v1.0-ALPHA
 OLD MIMP CHANGELOG
 ==================
 
-----------
-v1.1.2-cvs
-----------
+------
+v1.1.2
+------
 
 [cjh] Implement custom menu items (Bug #7630).
 
