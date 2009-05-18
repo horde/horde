@@ -382,6 +382,7 @@ class DIMP
      *                                               DIMP.conf.base_mbox]
      * 'po' (polled) = Is the element polled? [boolean] [DEFAULT: no]
      * 's' (special) = Is this a "special" element? [boolean] [DEFAULT: no]
+     * 't' (title) = The title value. [string] [DEFAULT: 'm' val]
      * 'u' (unseen) = The number of unseen messages. [integer]
      * 'v' (virtual) = Is this a virtual folder? [boolean] [DEFAULT: no]
      * </pre>
@@ -389,21 +390,27 @@ class DIMP
     static private function _createFolderElt($elt)
     {
         $ob = new stdClass;
+
         if ($elt['children']) {
            $ob->ch = 1;
         }
-        $ob->m = rawurlencode($elt['value']);
-        if ($ob->m != $elt['base_elt']['l']) {
-            $ob->l = $elt['base_elt']['l'];
+        $ob->m = $elt['value'];
+        if ($ob->m != $elt['name']) {
+            $ob->l = $elt['name'];
         }
         if ($elt['parent'] != IMP_Imap_Tree::BASE_ELT) {
-            $ob->pa = rawurlencode($elt['parent']);
+            $ob->pa = $elt['parent'];
         }
         if ($elt['polled']) {
             $ob->po = 1;
         }
         if ($elt['vfolder']) {
             $ob->v = 1;
+        }
+
+        $tmp = IMP::getLabel($ob->m);
+        if ($tmp != $ob->m) {
+            $ob->t = $tmp;
         }
 
         if ($elt['container']) {

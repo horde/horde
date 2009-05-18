@@ -659,7 +659,7 @@ var DimpBase = {
             break;
 
         case 'ctx_folder_delete':
-            mbox = baseelt.up('LI').readAttribute('mbox');
+            mbox = baseelt.up('LI').readAttribute('title');
             if (window.confirm(DIMP.text.delete_folder.replace(/%s/, mbox))) {
                 DimpCore.doAction('DeleteFolder', { view: mbox }, null, this.bcache.get('folderC') || this.bcache.set('folderC', this._folderCallback.bind(this)));
             }
@@ -1122,14 +1122,14 @@ var DimpBase = {
             window.fluid.setDockBadge(unseen ? unseen : '');
         }
 
-        $(fid + '_label').update((unseen > 0) ?
+        $(fid).down('A').update((unseen > 0) ?
             new Element('STRONG').insert(elt.readAttribute('l')).insert('&nbsp;').insert(new Element('SPAN', { className: 'count', dir: 'ltr' }).insert('(' + unseen + ')')) :
             elt.readAttribute('l'));
     },
 
     getFolderId: function(f)
     {
-        return 'fld' + decodeURIComponent(f).replace(/_/g,'__').replace(/\W/g, '_');
+        return 'fld' + f.replace(/_/g,'__').replace(/\W/g, '_');
     },
 
     getSubFolderId: function(f)
@@ -1873,10 +1873,10 @@ var DimpBase = {
             cname = 'folder',
             fid = this.getFolderId(ob.m),
             label = ob.l || ob.m,
-            mbox = decodeURIComponent(ob.m),
+            mbox = ob.m,
             submboxid = this.getSubFolderId(fid),
             submbox = $(submboxid),
-            title = mbox;
+            title = ob.t || ob.m;
 
         if (ob.v) {
             ftype = ob.co ? 'vcontainer' : 'virtual';
@@ -1895,12 +1895,12 @@ var DimpBase = {
             ftype = ob.s ? 'special' : 'folder';
         }
 
-        div = new Element('DIV', { className: 'iconDiv', id: fid + '_div' });
+        div = new Element('DIV', { className: 'iconDiv' });
         if (ob.i) {
             div.setStyle({ backgroundImage: 'url("' + ob.i + '")' });
         }
 
-        li = new Element('LI', { className: cname, id: fid, l: label, mbox: mbox }).insert(div).insert(new Element('A', { id: fid + '_label', title: title }).insert(label));
+        li = new Element('LI', { className: cname, id: fid, l: label, mbox: mbox, title: title }).insert(div).insert(new Element('A').insert(label));
 
         // Now walk through the parent <ul> to find the right place to
         // insert the new folder.
@@ -1984,19 +1984,16 @@ var DimpBase = {
 
     deleteFolder: function(folder)
     {
-        var f = decodeURIComponent(folder), fid;
         if (this.folder == f) {
             this.go('folder:INBOX');
         }
-
-        fid = this.getFolderId(folder);
-        this.deleteFolderElt(fid, true);
+        this.deleteFolderElt(this.getFolderId(folder), true);
     },
 
     changeFolder: function(ob)
     {
         var fid = this.getFolderId(ob.m),
-            fdiv = $(fid + '_div'),
+            fdiv = $(fid).down('DIV'),
             oldexpand = fdiv && fdiv.hasClassName('col');
         this.deleteFolderElt(fid, !ob.ch);
         if (ob.co && this.folder == ob.m) {
