@@ -337,16 +337,21 @@ class IMP_Horde_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Driver
 
         if ($GLOBALS['prefs']->getValue('pgp_verify') ||
             Util::getFormData('pgp_verify_msg')) {
-            $signed_data = $GLOBALS['imp_imap']->ob->utils->removeBareNewlines($this->_params['contents']->getBodyPart($signed_id, array('mimeheaders' => true)));
+            $graphicsdir = $GLOBALS['registry']->getImageDir('horde');
             $sig_part = $this->_params['contents']->getMIMEPart($sig_id);
 
-            /* Check for 'x-imp-pgp-signature' type. This is set by the
-             * 'plain' driver when parsing PGP armor text. */
-            $graphicsdir = $GLOBALS['registry']->getImageDir('horde');
             try {
-                $sig_result = ($sig_part->getType() == 'x-imp-pgp-signature')
-                    ? $this->_imppgp->verifySignature($signed_data, $this->_address)
-                    : $this->_imppgp->verifySignature($signed_data, $this->_address, $sig_part->getContents());
+                /* Check for 'x-imp-pgp-signature' type. This is set by the
+                 * 'plain' driver when parsing PGP armor text. */
+                switch ($sig_part->getType()) {
+                case 'application/x-imp-pgp-signature':
+                    $sig_result = $this->_imppgp->verifySignature($GLOBALS['imp_imap']->ob->utils->removeBareNewlines($sig_part->getContents()), $this->_address);
+                    break;
+
+                default:
+                    $sig_result = $this->_imppgp->verifySignature($GLOBALS['imp_imap']->ob->utils->removeBareNewlines($this->_params['contents']->getBodyPart($signed_id, array('mimeheaders' => true))), $this->_address, $sig_part->getContents());
+                    break;
+                }
 
                 $icon = Horde::img('alerts/success.png', _("Success"), null, $graphicsdir);
                 $sig_text = $sig_result->message;
