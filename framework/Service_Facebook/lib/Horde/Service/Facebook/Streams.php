@@ -136,7 +136,7 @@ class Horde_Service_Facebook_Streams extends Horde_Service_Facebook_Base
         if (!empty($uid)) {
             $params['uid'] = $uid;
         } else {
-            $params['session_key'] => $session_key;
+            $params['session_key'] = $session_key;
         }
 
         return $this->_facebook->callMethod('Stream.remove', $params);
@@ -190,7 +190,7 @@ class Horde_Service_Facebook_Streams extends Horde_Service_Facebook_Base
         if (!empty($uid)) {
             $params['uid'] = $uid;
         } else {
-            $params['session_key'] => $session_key;
+            $params['session_key'] = $session_key;
         }
 
         return $this->_facebook->callMethod('Stream.removeComment', $params);
