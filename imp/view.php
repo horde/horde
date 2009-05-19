@@ -65,6 +65,10 @@ if ($actionID == 'compose_attach_preview') {
     $id = $mime->getMimeId();
 } else {
     $uid = Util::getFormData('uid');
+    if (!$uid) {
+        // TODO: Remove usage of 'index'
+        $uid = Util::getFormData('index');
+    }
     $mailbox = Util::getFormData('mailbox');
     if (!$uid || !$mailbox) {
         exit;
