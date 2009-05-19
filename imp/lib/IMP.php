@@ -970,21 +970,21 @@ class IMP
     }
 
     /**
-     * Generates a URL with necessary mailbox/index information.
+     * Generates a URL with necessary mailbox/UID information.
      *
      * @param string $page      Page name to link to.
      * @param string $mailbox   The base mailbox to use on the linked page.
-     * @param string $index     The index to use on the linked page.
-     * @param string $tmailbox  The mailbox associated with $index.
+     * @param string $uid       The UID to use on the linked page.
+     * @param string $tmailbox  The mailbox associated with $uid.
      * @param boolean $encode   Encode the argument separator?
      *
      * @return string  URL to $page with any necessary mailbox information
      *                 added to the parameter list of the URL.
      */
-    static public function generateIMPUrl($page, $mailbox, $index = null,
+    static public function generateIMPUrl($page, $mailbox, $uid = null,
                                           $tmailbox = null, $encode = true)
     {
-        return Util::addParameter(Horde::applicationUrl($page), self::getIMPMboxParameters($mailbox, $index, $tmailbox), null, $encode);
+        return Util::addParameter(Horde::applicationUrl($page), self::getIMPMboxParameters($mailbox, $uid, $tmailbox), null, $encode);
     }
 
     /**
@@ -992,19 +992,19 @@ class IMP
      * status.
      *
      * @param string $mailbox   The mailbox to use on the linked page.
-     * @param string $index     The index to use on the linked page.
-     * @param string $tmailbox  The mailbox associated with $index to use on
+     * @param string $uid       The uid to use on the linked page.
+     * @param string $tmailbox  The mailbox associated with $uid to use on
      *                          the linked page.
      *
      * @return array  The list of parameters needed to indicate the current
      *                mailbox status.
      */
-    static public function getIMPMboxParameters($mailbox, $index = null,
+    static public function getIMPMboxParameters($mailbox, $uid = null,
                                                 $tmailbox = null)
     {
         $params = array('mailbox' => $mailbox);
-        if (!is_null($index)) {
-            $params['index'] = $index;
+        if (!is_null($uid)) {
+            $params['index'] = $uid;
             if ($mailbox != $tmailbox) {
                 $params['thismailbox'] = $tmailbox;
             }
