@@ -542,7 +542,7 @@ class IMP_Folder
             if (preg_match('/From (.+@.+|- )/A', $line)) {
                 if (!empty($message)) {
                     try {
-                        $GLOBALS['imp_imap']->ob->append($mbox, array(array('data' => $message)));
+                        $GLOBALS['imp_imap']->ob->append($folder, array(array('data' => $message)));
                         ++$msgcount;
                     } catch (Horde_Imap_Client_Exception $e) {}
                 }
@@ -555,7 +555,7 @@ class IMP_Folder
 
         if (!empty($message)) {
             try {
-                $GLOBALS['imp_imap']->ob->append($mbox, array(array('data' => $message)));
+                $GLOBALS['imp_imap']->ob->append($folder, array(array('data' => $message)));
                 ++$msgcount;
             } catch (Horde_Imap_Client_Exception $e) {}
         }
