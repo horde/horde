@@ -348,15 +348,10 @@ class IMP_Horde_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Driver
                     ? $this->_imppgp->verifySignature($signed_data, $this->_address)
                     : $this->_imppgp->verifySignature($signed_data, $this->_address, $sig_part->getContents());
 
-                if ($sig_result->result) {
-                    $icon = Horde::img('alerts/success.png', _("Success"), null, $graphicsdir);
-                    $sig_text = $sig_result->message;
-                } else {
-                    $icon = Horde::img('alerts/warning.png', _("Warning"), null, $graphicsdir);
-                   $sig_text = _("The signature could not be checked because the sender's key could not be found.");
-                }
+                $icon = Horde::img('alerts/success.png', _("Success"), null, $graphicsdir);
+                $sig_text = $sig_result->message;
             } catch (Horde_Exception $e) {
-                $icon = Horde::img('alerts/error.png', _("Error"), null, $graphicsdir);
+                $icon = Horde::img('alerts/warning.png', _("Warning"), null, $graphicsdir);
                 $sig_text = $e->getMessage();
             }
 
