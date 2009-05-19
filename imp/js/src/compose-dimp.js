@@ -285,7 +285,9 @@ var DimpCompose = {
             this.dbtext = this.sbtext = null;
         }
 
-        DimpCore.showNotifications(r.msgs);
+        if (!r.msgs_noauto) {
+            DimpCore.showNotifications(r.msgs);
+        }
     },
 
     onNoSpellError: function(action)
