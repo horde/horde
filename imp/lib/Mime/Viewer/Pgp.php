@@ -340,11 +340,11 @@ class IMP_Horde_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Driver
             $signed_data = $GLOBALS['imp_imap']->ob->utils->removeBareNewlines($this->_params['contents']->getBodyPart($signed_id, array('mimeheaders' => true)));
             $sig_part = $this->_params['contents']->getMIMEPart($sig_id);
 
-            /* Check for the 'x-imp-pgp-signature' param. This is set by the
-             * plain driver when parsing PGP armor text. */
+            /* Check for 'x-imp-pgp-signature' type. This is set by the
+             * 'plain' driver when parsing PGP armor text. */
             $graphicsdir = $GLOBALS['registry']->getImageDir('horde');
             try {
-                $sig_result = $sig_part->getContentTypeParameter('x-imp-pgp-signature')
+                $sig_result = ($sig_part->getType() == 'x-imp-pgp-signature')
                     ? $this->_imppgp->verifySignature($signed_data, $this->_address)
                     : $this->_imppgp->verifySignature($signed_data, $this->_address, $sig_part->getContents());
 
