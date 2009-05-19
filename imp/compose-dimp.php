@@ -163,7 +163,7 @@ if (count($_POST)) {
         try {
             $sent = $imp_compose->buildAndSendMessage($message, $header, $charset, $html, $options);
         } catch (IMP_Compose_Exception $e) {
-            $notification->push($e, 'horde.error');
+            $notification->push($e->getMessage(), 'horde.error');
             break;
         }
         $result->success = true;

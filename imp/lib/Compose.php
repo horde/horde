@@ -872,10 +872,6 @@ class IMP_Compose
      */
     protected function _parseAddress($ob, $email)
     {
-        if (Horde_Mime::is8bit($ob['mailbox'])) {
-            throw new IMP_Compose_Exception(sprintf(_("Invalid character in e-mail address: %s."), $email));
-        }
-
         // Make sure we have a valid host.
         $host = trim($ob['host']);
         if (empty($host)) {
@@ -884,7 +880,9 @@ class IMP_Compose
 
         // Convert IDN hosts to ASCII.
         if (Util::extensionExists('idn')) {
+            $old_error = error_reporting(0);
             $host = idn_to_ascii(String::convertCharset($host, NLS::getCharset(), 'UTF-8'));
+            error_reporting($old_error);
         } elseif (Horde_Mime::is8bit($ob['mailbox'])) {
             throw new IMP_Compose_Exception(sprintf(_("Invalid character in e-mail address: %s."), $email));
         }
