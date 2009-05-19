@@ -213,7 +213,8 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
 
         /* Return now, if no public key found at all. */
         if (is_a($result, 'PEAR_Error')) {
-            throw new Horde_Exception($result);
+            Horde::logMessage('PGPpublicKey: ' . $result->getMessage(), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            throw new Horde_Exception(sprintf(_("Could not retrieve public key for %s."), $address));
         }
 
         /* If more than one public key is returned, just return the first in
