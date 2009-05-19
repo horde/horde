@@ -45,11 +45,17 @@ class Horde_Service_Facebook_Streams extends Horde_Service_Facebook_Base
     }
 
     /**
-     * Get a post's comments.
+     * Get a post's comments. Note that the owner of the post that is being
+     * retrieved must have the application authorized.
+     *
+     * @param string $postId  The post id of the post whose comments we are
+     *                        retrieving.
+     *
+     * @return array
      */
-    function &getComments($post_id)
+    function &getComments($postId)
     {
-
+        return $this->_facebook->callMethod('Stream.getComments', array('post_id' => $postId));
     }
 
     /**
@@ -58,10 +64,23 @@ class Horde_Service_Facebook_Streams extends Horde_Service_Facebook_Base
      * http://wiki.developers.facebook.com/index.php/Stream.getFilters
      *
      * @param integer $uid  The user id of whose filters we are requesting.
+     *
+     * @return Array of filter data.
      */
-    function getFilters($uid)
+    function getFilters($uid = '')
     {
+        if (empty($uid) && !$session_key = $this->_facebook->auth->getSessionKey()) {
+            throw new Horde_Service_Facebook_Exception('Streams.getFilters requires either a uid or a session_key',
+                Horde_Service_Facebook_ErrorCodes::API_EC_PARAM_SESSION_KEY);
+        }
 
+        if (!empty($uid)) {
+            $params = array('uid' => $uid);
+        } else {
+            $params = array('session_key' => $session_key);
+        }
+
+        return $this->_facebook->callMethod('Streams.getFilters', $params);
     }
 
     /**
@@ -106,21 +125,50 @@ class Horde_Service_Facebook_Streams extends Horde_Service_Facebook_Base
      *
      * @return unknown_type
      */
-    function remove($post_id, $uid = '')
+    function remove($postId, $uid = '')
     {
+        if (empty($uid) && !$session_key = $this->_facebook->auth->getSessionKey()) {
+            throw new Horde_Service_Facebook_Exception('Streams.remove requires either a uid or a session_key',
+                Horde_Service_Facebook_ErrorCodes::API_EC_PARAM_SESSION_KEY);
+        }
 
+        $params = array('post_id' => $postId);
+        if (!empty($uid)) {
+            $params['uid'] = $uid;
+        } else {
+            $params['session_key'] => $session_key;
+        }
+
+        return $this->_facebook->callMethod('Stream.remove', $params);
     }
 
     /**
+     * Add a comment to a user's post.
      *
      * @param string $post_id  The post id the comment belongs to
-     * @param string $comment  The body of the comment.
-     * @param string $uid
+     * @param string $comment  The body of the comment (text only, no HTML).
+     * @param string $uid      The user id of the user who is posting the
+     *                         comment.
      *
-     * @return unknown_type
+     * @return string The comment id of the posted comment.
      */
-    function addComment($post_id, $comment, $uid = '')
+    function addComment($postId, $comment, $uid = '')
     {
+        if (empty($uid) && !$session_key = $this->_facebook->auth->getSessionKey()) {
+            throw new Horde_Service_Facebook_Exception('Streams.addComment requires either a uid or a session_key',
+                Horde_Service_Facebook_ErrorCodes::API_EC_PARAM_SESSION_KEY);
+        }
+
+        $params = array('post_id' => $postId,
+                        'comment' => $comment);
+
+        if (!empty($uid)) {
+            $params['uid'] = $uid;
+        } else {
+            $params['session_key'] = $session_key;
+        }
+
+        return $this->_facebook->callMethod('Stream.addComment', $params);
     }
 
     /**
@@ -129,10 +177,23 @@ class Horde_Service_Facebook_Streams extends Horde_Service_Facebook_Base
      * @param string $comment_id  The comment id to remove.
      * @param string $uid         User id
      *
-     * @return unknown_type
+     * @return boolean
      */
-    function removeComment($comment_id, $uid = '')
+    function removeComment($commentId, $uid = '')
     {
+        if (empty($uid) && !$session_key = $this->_facebook->auth->getSessionKey()) {
+            throw new Horde_Service_Facebook_Exception('Streams.removeComment requires either a uid or a session_key',
+                Horde_Service_Facebook_ErrorCodes::API_EC_PARAM_SESSION_KEY);
+        }
+
+        $params = array('comment_id' => $commentId);
+        if (!empty($uid)) {
+            $params['uid'] = $uid;
+        } else {
+            $params['session_key'] => $session_key;
+        }
+
+        return $this->_facebook->callMethod('Stream.removeComment', $params);
     }
 
     /**
@@ -143,21 +204,46 @@ class Horde_Service_Facebook_Streams extends Horde_Service_Facebook_Base
      *
      * @return unknown_type
      */
-    function addLike($post_id, $uid = '')
+    function addLike($postId, $uid = '')
     {
+        if (empty($uid) && !$session_key = $this->_facebook->auth->getSessionKey()) {
+            throw new Horde_Service_Facebook_Exception('Streams.addLike requires either a uid or a session_key',
+                Horde_Service_Facebook_ErrorCodes::API_EC_PARAM_SESSION_KEY);
+        }
+
+        $params = array('post_id' => $postId);
+        if (!empty($uid)) {
+            $params['uid'] = $uid;
+        } else {
+            $params['session_key'] = $session_key;
+        }
+
+        return $this->_facebook->callMethod('Stream.addLike', $params);
     }
 
     /**
      * Remove a "like" from a stream post.
      *
-     * @param string $post_id
-     * @param string $uid
+     * @param string $postId  The post id to remove a like from.
+     * @param string $uid     The user id who the like belongs to.
      *
-     * @return unknown_type
+     * @return boolean
      */
-    function removeLike($post_id, $uid = '')
+    function removeLike($postId, $uid = '')
     {
+        if (empty($uid) && !$session_key = $this->_facebook->auth->getSessionKey()) {
+            throw new Horde_Service_Facebook_Exception('Streams.removeLike requires either a uid or a session_key',
+                Horde_Service_Facebook_ErrorCodes::API_EC_PARAM_SESSION_KEY);
+        }
 
+        $params = array('post_id' => $postId);
+        if (!empty($uid)) {
+            $params['uid'] = $uid;
+        } else {
+            $params['session_key'] = $session_key;
+        }
+
+        return $this->_facebook->callMethod('Stream.removeLike', $params);
     }
 
 }
