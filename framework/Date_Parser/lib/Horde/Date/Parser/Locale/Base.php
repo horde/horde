@@ -1,4 +1,6 @@
 <?php
+/**
+ */
 class Horde_Date_Parser_Locale_Base
 {
     public $definitions = array();
@@ -92,7 +94,7 @@ class Horde_Date_Parser_Locale_Base
         }
 
         // strip any non-tagged tokens
-        $tokens = array_filter($tokens, create_function('$t', 'return $t->tagged();'));
+        $tokens = array_values(array_filter($tokens, create_function('$t', 'return $t->tagged();')));
 
         // do the heavy lifting
         $span = $this->tokensToSpan($tokens, $options);
@@ -255,7 +257,7 @@ class Horde_Date_Parser_Locale_Base
         // maybe it's a specific date
         foreach ($this->definitions['date'] as $handler) {
             if ($handler->match($tokens, $this->definitions)) {
-                $goodTokens = array_filter($tokens, create_function('$o', 'return !$o->getTag("separator");'));
+                $goodTokens = array_values(array_filter($tokens, create_function('$o', 'return !$o->getTag("separator");')));
                 return call_user_func(array($this, $handler->handlerMethod), $goodTokens, $options);
             }
         }
@@ -263,7 +265,7 @@ class Horde_Date_Parser_Locale_Base
         // I guess it's not a specific date, maybe it's just an anchor
         foreach ($this->definitions['anchor'] as $handler) {
             if ($handler->match($tokens, $this->definitions)) {
-                $goodTokens = array_filter($tokens, create_function('$o', 'return !$o->getTag("separator");'));
+                $goodTokens = array_values(array_filter($tokens, create_function('$o', 'return !$o->getTag("separator");')));
                 return call_user_func(array($this, $handler->handlerMethod), $goodTokens, $options);
             }
         }
@@ -271,7 +273,7 @@ class Horde_Date_Parser_Locale_Base
         // not an anchor, perhaps it's an arrow
         foreach ($this->definitions['arrow'] as $handler) {
             if ($handler->match($tokens, $this->definitions)) {
-                $goodTokens = array_filter($tokens, create_function('$o', 'return !$o->getTag("separator_at") && !$o->getTag("separator_slash_or_dash") && !$o->getTag("separator_comma");'));
+                $goodTokens = array_values(array_filter($tokens, create_function('$o', 'return !$o->getTag("separator_at") && !$o->getTag("separator_slash_or_dash") && !$o->getTag("separator_comma");')));
                 return call_user_func(array($this, $handler->handlerMethod), $goodTokens, $options);
             }
         }
