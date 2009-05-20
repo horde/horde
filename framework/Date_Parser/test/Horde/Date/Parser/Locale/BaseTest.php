@@ -172,13 +172,11 @@ class Horde_Date_Parser_Locale_BaseTest extends Horde_Test_Case
 
     public function testParseGuessDates_sd_sm_sy()
     {
-        /*
         $time = $this->parser->parse("27/5/1979");
-        $this->assertEquals(new Horde_Date('1979, 5, 27, 12'), $time);
+        $this->assertEquals(new Horde_Date('1979-05-27 12:00:00'), $time);
 
         $time = $this->parser->parse("27/5/1979 @ 0700");
-        $this->assertEquals(new Horde_Date('1979, 5, 27, 7'), $time);
-        */
+        $this->assertEquals(new Horde_Date('1979-05-27 07:00:00'), $time);
     }
 
     public function testParseGuessDates_sm_sy()
