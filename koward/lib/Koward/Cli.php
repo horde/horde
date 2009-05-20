@@ -68,6 +68,13 @@ class Koward_Cli extends Horde_Controller_Request_Base
          */
         $this->_path = $registry->get('webroot', 'koward') . '/' . $args[0];
 
+        if (is_a(($pushed = $registry->pushApp('koward', false)), 'PEAR_Error')) {
+            if ($pushed->getCode() == 'permission_denied') {
+                echo 'Perission denied!';
+                exit;
+            }
+        }
+
         $this->_cmd_argv = array();
 
         /* Authenticate the user if possible. */
