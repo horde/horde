@@ -60,7 +60,7 @@ class IMP_Message
 
     /**
      * Copies or moves a list of messages to a new mailbox.
-     * Handles use of the IMP::SEARCH_MBOX mailbox and the Trash mailbox.
+     * Handles search and Trash mailboxes.
      *
      * @param string $targetMbox  The mailbox to move/copy messages to
      *                            (UTF7-IMAP).
@@ -161,7 +161,7 @@ class IMP_Message
     /**
      * Deletes a list of messages taking into account whether or not a
      * Trash folder is being used.
-     * Handles use of the IMP::SEARCH_MBOX mailbox and the Trash folder.
+     * Handles search and Trash mailboxes.
      *
      * @param mixed $indices  See IMP::parseIndicesList().
      * @param array $options  Additional options:
@@ -300,7 +300,7 @@ class IMP_Message
 
     /**
      * Undeletes a list of messages.
-     * Handles the IMP::SEARCH_MBOX mailbox.
+     * Handles search mailboxes.
      * This function works with IMAP only, not POP3.
      *
      * @param mixed $indices  See IMP::parseIndicesList().
@@ -314,7 +314,7 @@ class IMP_Message
 
     /**
      * Copies or moves a list of messages to a tasklist or notepad.
-     * Handles use of the IMP::SEARCH_MBOX mailbox and the Trash folder.
+     * Handles search and Trash mailboxes.
      *
      * @param string $list    The list in which the task or note will be
      *                        created.
@@ -456,7 +456,7 @@ class IMP_Message
 
     /**
      * Strips one or all MIME parts out of a message.
-     * Handles the IMP::SEARCH_MBOX mailbox.
+     * Handles search mailboxes.
      *
      * @param mixed $indices  See IMP::parseIndicesList().
      * @param string $partid  The MIME ID of the part to strip. All parts are
@@ -554,7 +554,7 @@ class IMP_Message
 
     /**
      * Sets or clears a given flag for a list of messages.
-     * Handles use of the IMP::SEARCH_MBOX mailbox.
+     * Handles search mailboxes.
      * This function works with IMAP only, not POP3.
      *
      * @param array $flags     The IMAP flag(s) to set or clear.

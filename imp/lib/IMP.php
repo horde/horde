@@ -131,8 +131,9 @@ class IMP
 
     /**
      * Returns the plain text label that is displayed for the current mailbox,
-     * replacing IMP::SEARCH_MBOX with an appropriate string and removing
-     * namespace and folder prefix information from what is shown to the user.
+     * replacing virtual search mailboxes with an appropriate description and
+     * removing namespace and mailbox prefix information from what is shown to
+     * the user.
      *
      * @param string $mbox  The mailbox to use for the label.
      *
