@@ -118,7 +118,7 @@ abstract class Horde_Db_Adapter_Abstract_Schema
               "#{quoted_string_prefix}'#{quote_string(value.to_yaml)}'"
             end
             */
-        } elseif ($value instanceof DateTime) {
+        } elseif ($value instanceof DateTime || $value instanceof Horde_Date) {
             return $this->_adapter->quoteString($type == 'integer'
                                                 ? $value->format('U')
                                                 : $value->format('Y-m-d H:i:s'));
