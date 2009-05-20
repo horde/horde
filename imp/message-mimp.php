@@ -62,7 +62,7 @@ case 'u':
                 exit;
             }
             if (($_SESSION['imp']['protocol'] != 'pop') &&
-                !IMP::hideDeletedMsgs() &&
+                !IMP::hideDeletedMsgs($imp_mbox['mailbox']) &&
                 !$GLOBALS['prefs']->getValue('use_trash')) {
                 $imp_mailbox->setIndex(1, 'offset');
             }

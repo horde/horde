@@ -204,7 +204,7 @@ if ((IMP::loginTasksFlag() === 2) &&
 $GLOBALS['imp_mbox'] = IMP::getCurrentMailboxInfo();
 
 // Initialize IMP_Search object.
-$GLOBALS['imp_search'] = (isset($_SESSION['imp']) && strpos($GLOBALS['imp_mbox']['mailbox'], IMP::SEARCH_MBOX) === 0)
+$GLOBALS['imp_search'] = (isset($_SESSION['imp']) && IMP_Search::isSearchMbox($GLOBALS['imp_mbox']['mailbox']))
     ? new IMP_Search(array('id' => $GLOBALS['imp_mbox']['mailbox']))
     : new IMP_Search();
 

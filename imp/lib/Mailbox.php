@@ -283,7 +283,7 @@ class IMP_Mailbox
         $query = null;
 
         if ($this->_searchmbox) {
-            if (IMP::hideDeletedMsgs()) {
+            if (IMP::hideDeletedMsgs($this->_mailbox)) {
                 $query = new Horde_Imap_Client_Search_Query();
                 $query->flag('\\deleted', false);
             }
@@ -303,7 +303,7 @@ class IMP_Mailbox
                 $this->_sorted = $threadob->messageList((bool)$sortpref['dir']);
             } else {
                 if (($_SESSION['imp']['protocol'] != 'pop') &&
-                    IMP::hideDeletedMsgs()) {
+                    IMP::hideDeletedMsgs($this->_mailbox)) {
                     $query = new Horde_Imap_Client_Search_Query();
                     $query->flag('\\deleted', false);
                 }
@@ -364,7 +364,7 @@ class IMP_Mailbox
 
         $criteria = new Horde_Imap_Client_Search_Query();
 
-        if (IMP::hideDeletedMsgs()) {
+        if (IMP::hideDeletedMsgs($this->_mailbox)) {
             $criteria->flag('\\deleted', false);
         } elseif ($count) {
             try {

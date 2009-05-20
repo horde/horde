@@ -1015,13 +1015,14 @@ class IMP
     /**
      * Determine whether we're hiding deleted messages.
      *
+     * @param string $mbox    The current mailbox.
      * @param boolean $force  Force a redetermination of the return value
      *                        (return value is normally cached after the first
      *                        call).
      *
      * @return boolean  True if deleted messages should be hidden.
      */
-    static public function hideDeletedMsgs($force = false)
+    static public function hideDeletedMsgs($mbox, $force = false)
     {
         $delhide = &self::$_delhide;
 
@@ -1032,7 +1033,7 @@ class IMP
                 $sortpref = self::getSort();
                 $delhide = ($GLOBALS['prefs']->getValue('delhide') &&
                             !$GLOBALS['prefs']->getValue('use_trash') &&
-                            ($GLOBALS['imp_search']->isSearchMbox() ||
+                            ($GLOBALS['imp_search']->isSearchMbox($mbox) ||
                              ($sortpref['by'] != Horde_Imap_Client::SORT_THREAD)));
             }
         }
@@ -1188,7 +1189,7 @@ class IMP
             $mbox = $GLOBALS['imp_mbox']['mailbox'];
         }
 
-        $prefmbox = $GLOBALS['imp_search']->isSearchMbox()
+        $prefmbox = $GLOBALS['imp_search']->isSearchMbox($mbox)
             ? $mbox
             : self::folderPref($mbox, false);
 

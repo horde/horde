@@ -55,7 +55,7 @@ if (!empty($conf['hooks']['mbox_redirect'])) {
 }
 
 /* Is this a search mailbox? */
-$search_mbox = $imp_search->isSearchMbox();
+$search_mbox = $imp_search->isSearchMbox($imp_mbox['mailbox']);
 $vfolder = $imp_search->isVFolder();
 
 /* There is a chance that this page is loaded directly via message.php. If so,
@@ -182,7 +182,7 @@ case 'flag_messages':
 
 case 'hide_deleted':
     $prefs->setValue('delhide', !$prefs->getValue('delhide'));
-    IMP::hideDeletedMsgs(true);
+    IMP::hideDeletedMsgs($imp_mbox['mailbox'], true);
     break;
 
 case 'expunge_mailbox':
@@ -250,7 +250,7 @@ if (empty($conf['fetchmail']['show_account_colors'])) {
 $mbox_info = $imp_mailbox->getMailboxArray(range($pageOb['begin'], $pageOb['end']), array('preview' => $show_preview, 'headers' => $overview_headers, 'structure' => $prefs->getValue('atc_flag')));
 
 /* Determine sorting preferences. */
-$sortpref = IMP::getSort();
+$sortpref = IMP::getSort($imp_mbox['mailbox']);
 
 /* If search results are empty, return to the search page if this is
  * not a virtual folder. */

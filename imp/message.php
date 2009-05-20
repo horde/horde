@@ -22,7 +22,7 @@ function _returnToMailbox($startIndex = null, $actID = null)
 function _moveAfterAction()
 {
     return (($_SESSION['imp']['protocol'] != 'pop') &&
-            !IMP::hideDeletedMsgs() &&
+            !IMP::hideDeletedMsgs($GLOBALS['imp_mbox']['mailbox']) &&
             !$GLOBALS['prefs']->getValue('use_trash'));
 }
 
