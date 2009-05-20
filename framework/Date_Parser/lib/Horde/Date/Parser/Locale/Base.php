@@ -368,7 +368,7 @@ class Horde_Date_Parser_Locale_Base
     {
         $newTokens = array($tokens[1], $tokens[0], $tokens[2]);
         $timeTokens = array_slice($tokens, 3);
-        return $this->handle_rmn_sd_sy($newTokens + $timeTokens, $options);
+        return $this->handle_rmn_sd_sy(array_merge($newTokens, $timeTokens), $options);
     }
 
     public function handle_sm_sd_sy($tokens, $options)
@@ -391,14 +391,14 @@ class Horde_Date_Parser_Locale_Base
     {
         $newTokens = array($tokens[1], $tokens[0], $tokens[2]);
         $timeTokens = array_slice($tokens, 3);
-        return $this->handle_sm_sd_sy($newTokens + $timeTokens, $options);
+        return $this->handle_sm_sd_sy(array_merge($newTokens, $timeTokens), $options);
     }
 
     public function handle_sy_sm_sd($tokens, $options)
     {
         $newTokens = array($tokens[1], $tokens[2], $tokens[0]);
         $timeTokens = array_slice($tokens, 3);
-        return $this->handle_sm_sd_sy($newTokens + $timeTokens, $options);
+        return $this->handle_sm_sd_sy(array_merge($newTokens, $timeTokens), $options);
     }
 
     public function handle_sm_sy($tokens, $options)
