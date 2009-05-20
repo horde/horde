@@ -2286,6 +2286,8 @@ OLD DIMP CHANGELOG
 ------
 v1.1.3
 ------
+
+[mms] Fix deleting messages after undeleting (Bug #8298).
 [mms] Fix renaming folders with non-7bit characters
       (rainer.groesslinger@gmail.com, Bug #8286).
 
