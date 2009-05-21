@@ -329,124 +329,133 @@ class Horde_Date_Parser_Locale_BaseTest extends Horde_Test_Case
         $this->assertEquals(new Horde_Date(2006, 8, 18, 19), $time);
     }
 
-    /*
-  def test_parse_guess_gr
-    # year
-
+    public function testParseGuessGrYear()
+    {
         $time = $this->parser->parse("this year");
-        $this->assertEquals(new Horde_Date('2006, 10, 24, 12, 30'), $time);
+        $this->assertEquals(new Horde_Date(2006, 10, 24, 12, 30), $time);
 
         $time = $this->parser->parse("this year", array('context' => 'past'));
-        $this->assertEquals(new Horde_Date('2006, 4, 24, 12, 30'), $time);
+        $this->assertEquals(new Horde_Date(2006, 4, 24, 12, 30), $time);
+    }
 
-    # month
-
+    public function testParseGuessGrMonth()
+    {
         $time = $this->parser->parse("this month");
-        $this->assertEquals(new Horde_Date('2006, 8, 24, 12'), $time);
+        $this->assertEquals(new Horde_Date(2006, 8, 24, 12), $time);
 
         $time = $this->parser->parse("this month", array('context' => 'past'));
-        $this->assertEquals(new Horde_Date('2006, 8, 8, 12'), $time);
+        $this->assertEquals(new Horde_Date(2006, 8, 8, 12), $time);
 
-    time = Chronic.parse("next month", :now => Time.local(2006, 11, 15))
-        $this->assertEquals(new Horde_Date('2006, 12, 16, 12'), $time);
+        $time = $this->parser->parse("next month", array('now' => new Horde_Date(2006, 11, 15)));
+        $this->assertEquals(new Horde_Date(2006, 12, 16, 12), $time);
+    }
 
-    # month name
-
+    public function testParseGuessGrMonthName()
+    {
         $time = $this->parser->parse("last november");
-        $this->assertEquals(new Horde_Date('2005, 11, 16'), $time);
+        $this->assertEquals(new Horde_Date(2005, 11, 16), $time);
+    }
 
-    # fortnight
-
+    public function testParseGuessGrFortnight()
+    {
         $time = $this->parser->parse("this fortnight");
-        $this->assertEquals(new Horde_Date('2006, 8, 21, 19, 30'), $time);
+        $this->assertEquals(new Horde_Date(2006, 8, 21, 19, 30), $time);
 
         $time = $this->parser->parse("this fortnight", array('context' => 'past'));
-        $this->assertEquals(new Horde_Date('2006, 8, 14, 19'), $time);
+        $this->assertEquals(new Horde_Date(2006, 8, 14, 19), $time);
+    }
 
-    # week
-
+    public function testParseGuessGrWeek()
+    {
         $time = $this->parser->parse("this week");
-        $this->assertEquals(new Horde_Date('2006, 8, 18, 7, 30'), $time);
+        $this->assertEquals(new Horde_Date(2006, 8, 18, 7, 30), $time);
 
         $time = $this->parser->parse("this week", array('context' => 'past'));
-        $this->assertEquals(new Horde_Date('2006, 8, 14, 19'), $time);
+        $this->assertEquals(new Horde_Date(2006, 8, 14, 19), $time);
+    }
 
-    # weekend
-
+    public function testParseGuessGrWeekend()
+    {
         $time = $this->parser->parse("this weekend");
-        $this->assertEquals(new Horde_Date('2006, 8, 20'), $time);
+        $this->assertEquals(new Horde_Date(2006, 8, 20), $time);
 
         $time = $this->parser->parse("this weekend", array('context' => 'past'));
-        $this->assertEquals(new Horde_Date('2006, 8, 13'), $time);
+        $this->assertEquals(new Horde_Date(2006, 8, 13), $time);
 
         $time = $this->parser->parse("last weekend");
-        $this->assertEquals(new Horde_Date('2006, 8, 13'), $time);
+        $this->assertEquals(new Horde_Date(2006, 8, 13), $time);
+    }
 
-    # day
-
+    public function testParseGuessGrDay()
+    {
         $time = $this->parser->parse("this day");
-        $this->assertEquals(new Horde_Date('2006, 8, 16, 19, 30'), $time);
+        $this->assertEquals(new Horde_Date(2006, 8, 16, 19, 30), $time);
 
         $time = $this->parser->parse("this day", array('context' => 'past'));
-        $this->assertEquals(new Horde_Date('2006, 8, 16, 7'), $time);
+        $this->assertEquals(new Horde_Date(2006, 8, 16, 7), $time);
 
         $time = $this->parser->parse("today");
-        $this->assertEquals(new Horde_Date('2006, 8, 16, 19, 30'), $time);
+        $this->assertEquals(new Horde_Date(2006, 8, 16, 19, 30), $time);
 
         $time = $this->parser->parse("yesterday");
-        $this->assertEquals(new Horde_Date('2006, 8, 15, 12'), $time);
+        $this->assertEquals(new Horde_Date(2006, 8, 15, 12), $time);
 
         $time = $this->parser->parse("tomorrow");
-        $this->assertEquals(new Horde_Date('2006, 8, 17, 12'), $time);
+        $this->assertEquals(new Horde_Date(2006, 8, 17, 12), $time);
+    }
 
-    # day name
-
+    public function testParseGuessGrDayName()
+    {
         $time = $this->parser->parse("this tuesday");
-        $this->assertEquals(new Horde_Date('2006, 8, 22, 12'), $time);
+        $this->assertEquals(new Horde_Date(2006, 8, 22, 12), $time);
 
         $time = $this->parser->parse("next tuesday");
-        $this->assertEquals(new Horde_Date('2006, 8, 22, 12'), $time);
+        $this->assertEquals(new Horde_Date(2006, 8, 22, 12), $time);
 
         $time = $this->parser->parse("last tuesday");
-        $this->assertEquals(new Horde_Date('2006, 8, 15, 12'), $time);
+        $this->assertEquals(new Horde_Date(2006, 8, 15, 12), $time);
 
         $time = $this->parser->parse("this wed");
-        $this->assertEquals(new Horde_Date('2006, 8, 23, 12'), $time);
+        $this->assertEquals(new Horde_Date(2006, 8, 23, 12), $time);
 
         $time = $this->parser->parse("next wed");
-        $this->assertEquals(new Horde_Date('2006, 8, 23, 12'), $time);
+        $this->assertEquals(new Horde_Date(2006, 8, 23, 12), $time);
 
         $time = $this->parser->parse("last wed");
-        $this->assertEquals(new Horde_Date('2006, 8, 9, 12'), $time);
+        $this->assertEquals(new Horde_Date(2006, 8, 9, 12), $time);
+    }
 
-    # day portion
-
+    public function testParseGuessGrDayPortion()
+    {
         $time = $this->parser->parse("this morning");
-        $this->assertEquals(new Horde_Date('2006, 8, 16, 9'), $time);
+        $this->assertEquals(new Horde_Date(2006, 8, 16, 9), $time);
 
         $time = $this->parser->parse("tonight");
-        $this->assertEquals(new Horde_Date('2006, 8, 16, 22'), $time);
+        $this->assertEquals(new Horde_Date(2006, 8, 16, 22), $time);
+    }
 
-    # minute
-
+    public function testParseGuessGrMinute()
+    {
         $time = $this->parser->parse("next minute");
-        $this->assertEquals(new Horde_Date('2006, 8, 16, 14, 1, 30'), $time);
+        $this->assertEquals(new Horde_Date(2006, 8, 16, 14, 1, 30), $time);
+    }
 
-    # second
-
+    public function testParseGuessGrSecond()
+    {
         $time = $this->parser->parse("this second");
-        $this->assertEquals(new Horde_Date('2006, 8, 16, 14'), $time);
+        $this->assertEquals(new Horde_Date(2006, 8, 16, 14), $time);
 
         $time = $this->parser->parse("this second", array('context' => 'past'));
-        $this->assertEquals(new Horde_Date('2006, 8, 16, 14'), $time);
+        $this->assertEquals(new Horde_Date(2006, 8, 16, 14), $time);
 
         $time = $this->parser->parse("next second");
-        $this->assertEquals(new Horde_Date('2006, 8, 16, 14, 0, 1'), $time);
+        $this->assertEquals(new Horde_Date(2006, 8, 16, 14, 0, 1), $time);
 
         $time = $this->parser->parse("last second");
-        $this->assertEquals(new Horde_Date('2006, 8, 16, 13, 59, 59'), $time);
-  end
+        $this->assertEquals(new Horde_Date(2006, 8, 16, 13, 59, 59), $time);
+    }
 
+    /*
   def test_parse_guess_grr
         $time = $this->parser->parse("yesterday at 4:00");
         $this->assertEquals(new Horde_Date('2006, 8, 15, 16'), $time);
