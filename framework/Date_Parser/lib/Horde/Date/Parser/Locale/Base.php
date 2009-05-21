@@ -328,7 +328,7 @@ class Horde_Date_Parser_Locale_Base
         $year = $tokens[1]->getTag('scalar_year');
 
         try {
-            return new Horde_Date_Span(new Horde_Date(array('year' => $year, 'month' => $month)), new Horde_Date(array('year' => $year, 'month' => $month + 1)));
+            return new Horde_Date_Span(new Horde_Date(array('year' => $year, 'month' => $month, 'day' => 1)), new Horde_Date(array('year' => $year, 'month' => $month + 1, 'day' => 1)));
         } catch (Exception $e) {
             return null;
         }
