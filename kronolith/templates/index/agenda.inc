@@ -1,6 +1,7 @@
 <div id="kronolithViewAgenda" class="kronolithView kronolithViewAgenda" style="display:none">
 <table class="kronolithView kronolithViewAgenda">
   <caption>
+    <div id="kronolithLoadingagenda" class="kronolithLoading"></div>
     <span><?php echo _("Agenda") ?></span>
     <span class="kronolithNavigation">
       <a class="kronolithGotoToday"><?php echo _("Today") ?></a>

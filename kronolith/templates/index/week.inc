@@ -18,7 +18,7 @@
     </span>
   </caption>
   <thead id="kronolithViewWeekHead" class="kronolithViewHead"><tr>
-    <td class="kronolithFirstCol">&nbsp;</td>
+    <td class="kronolithFirstCol"><div id="kronolithLoadingweek" class="kronolithLoading"></div></td>
     <td class="kronolithCol kronolithWeekDay"><span></span></td>
     <td class="kronolithCol kronolithWeekDay"><span></span></td>
     <td class="kronolithCol kronolithWeekDay"><span></span></td>

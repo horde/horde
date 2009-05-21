@@ -1,4 +1,5 @@
 <div id="kronolithViewDay" class="kronolithView kronolithViewDay" style="display:none">
+<div id="kronolithLoadingday" class="kronolithLoading"></div>
 <div id="kronolithEventsDay"></div>
 <table class="kronolithView kronolithViewDay">
   <caption>

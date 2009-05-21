@@ -9,7 +9,7 @@
     </span>
   </caption>
   <tr>
-    <td class="kronolithFirstCol">&nbsp;</td>
+    <td class="kronolithFirstCol"><div id="kronolithLoadingmonth" class="kronolithLoading"></div></td>
     <?php for ($w = $prefs->getValue('week_start_monday'), $i = $w, $c = $i + 7; $i < $c; $i++): ?>
     <td class="kronolithCol"><span><?php echo NLS::getLangInfo(constant('DAY_' . ($i % 7 + 1))) ?></span></td>
     <?php endfor; ?>

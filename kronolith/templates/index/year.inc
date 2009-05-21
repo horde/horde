@@ -1,6 +1,7 @@
 <div id="kronolithViewYear" class="kronolithView kronolithViewYear" style="display:none">
 <table class="kronolithView kronolithViewYear">
   <caption>
+    <div id="kronolithLoadingyear" class="kronolithLoading" style="display:none"></div>
     <span><?php echo $today->format("Y") ?></span>
     <span class="kronolithNavigation">
       <a class="kronolithGotoToday"><?php echo _("Today") ?></a>

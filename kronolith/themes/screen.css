@@ -483,11 +483,21 @@ body.kronolithAjax {
 }
 
 /* Loading spinner */
-#kronolithLoading {
+.kronolithLoading {
     position: absolute;
-    z-index: 1000;
+    left: 0;
+}
+#kronolithLoadingweek, #kronolithLoadingmonth {
+    top: 24px;
+}
+#kronolithLoadingtasks, #kronolithLoadingagenda {
+    position: relative;
+    float: left;
+    top: -2px;
+    margin-right: 2px;
+}
+#kronolithLoading {
     background: transparent url("graphics/loading.gif") no-repeat center;
-    margin-top: 22px;
     padding: 2px;
     width: 16px;
     height: 16px;
@@ -851,7 +861,7 @@ div#kronolithEventTopTags span:hover {
 /* Main views */
 #kronolithBody {
     position: absolute;
-    top: 45px;
+    top: 43px;
     left: 175px;
     right: 10px;
     bottom: 10px;
@@ -953,7 +963,7 @@ div.kronolithView div.kronolithViewBody div.kronolithRow {
 /* Captions. */
 #kronolithBody caption {
     position: relative;
-    margin: 0 2px 0 26px;
+    margin: 2px 2px 0 26px;
     height: 20px;
     line-height: 20px;
     border-bottom: 1px dotted #808080;
@@ -993,7 +1003,7 @@ div.kronolithView div.kronolithViewBody div.kronolithRow {
 /* Main view month */
 #kronolithViewMonthContainer {
     position: absolute;
-    top: 44px;
+    top: 46px;
     right: 0;
     bottom: 0;
     left: 0;
