@@ -1034,16 +1034,19 @@ div.kronolithView div.kronolithViewBody div.kronolithRow {
 .kronolithViewHead td {
     height: 20px;
 }
-#kronolithEventsDay, #kronolithEventsWeek {
+#kronolithEventsDay {
     position: absolute;
-    top: 27px;
+    top: 23px;
     right: 5px;
     bottom: 3px;
     left: 25px;
 }
 #kronolithEventsWeek {
-    left: 23px;
+    position: absolute;
+    top: 47px;
     right: 3px;
+    bottom: 3px;
+    left: 23px;
 }
 .kronolithEventsWeek {
     position: relative;
