@@ -342,7 +342,7 @@ class Horde_Date_Parser_Locale_Base
 
         try {
             $dayStart = new Horde_Date($year, $month, $day);
-            return $this->dayOrTime($daystart, array($tokens[3]), $options);
+            return $this->dayOrTime($dayStart, array($tokens[3]), $options);
         } catch (Exception $e) {
             return null;
         }
