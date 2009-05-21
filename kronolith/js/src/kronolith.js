@@ -1367,22 +1367,24 @@ KronolithCore = {
                 this.go(this.view + ':' + new Date().dateString());
                 e.stop();
                 return;
+
+            case 'kronolithAddEvent':
+                this.editEvent(null, null, elt.readAttribute('date'));
+                e.stop();
+                return;
+
+            case 'kronolithEventTag':
+                $('tags').autocompleter.addNewItemNode(elt.getText());
+                e.stop();
+                return;
             }
 
             if (elt.hasClassName('kronolithEvent')) {
                 this.editEvent(elt.readAttribute('calendar'), elt.readAttribute('eventid'));
                 e.stop();
                 return;
-            } else if (elt.hasClassName('kronolithAddEvent')) {
-                this.editEvent(null, null, elt.readAttribute('date'));
-                e.stop();
-                return;
             } else if (elt.hasClassName('kronolithWeekDay')) {
                 this.go('day:' + elt.readAttribute('date'));
-                e.stop();
-                return;
-            } else if (elt.hasClassName('kronolithEventTag')) {
-                $('tags').autocompleter.addNewItemNode(elt.getText());
                 e.stop();
                 return;
             }
