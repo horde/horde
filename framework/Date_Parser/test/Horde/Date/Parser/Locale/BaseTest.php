@@ -236,7 +236,7 @@ class Horde_Date_Parser_Locale_BaseTest extends Horde_Test_Case
     public function testParseGuessDatesOverflow()
     {
         $time = $this->parser->parse("may 40");
-        // assert_equal nil, time
+        $this->assertEquals(new Horde_Date('2040-05-16 12:00:00'), $time);
 
         $time = $this->parser->parse("may 27 40");
         $this->assertEquals(new Horde_Date('2040-05-27 12:00:00'), $time);
