@@ -124,7 +124,7 @@ class Horde_Support_Numerizer_Locale_Base
     protected function _andition($string)
     {
         while (true) {
-            if (preg_match('/([1-9]\d*)( | and )([1-9]\d*)(?=[^\w]|$)/i', $string, $sc, PREG_OFFSET_CAPTURE)) {
+            if (preg_match('/(\d+)( | and )(\d+)(?=[^\w]|$)/i', $string, $sc, PREG_OFFSET_CAPTURE)) {
                 if (preg_match('/and/', $sc[2][0]) || $sc[1][0] > $sc[3][0]) {
                     $string = substr($string, 0, $sc[1][1]) . ((int)$sc[1][0] + (int)$sc[3][0]) . substr($string, $sc[3][1] + strlen($sc[3][0]));
                     continue;
