@@ -1368,6 +1368,29 @@ KronolithCore = {
                 e.stop();
                 return;
 
+            case 'kronolithPrev':
+            case 'kronolithNext':
+                var newDate = this.date.clone(),
+                    offset = elt.className == 'kronolithPrev' ? -1 : 1;
+                switch (this.view) {
+                case 'day':
+                    newDate.add(offset).day();
+                    break;
+                case 'week':
+                    newDate.add(offset).week();
+                    break;
+                case 'month':
+                case 'agenda':
+                    newDate.add(offset).month();
+                    break;
+                case 'year':
+                    newDate.add(offset).year();
+                    break;
+                }
+                this.go(this.view + ':' + newDate.dateString());
+                e.stop();
+                return;
+
             case 'kronolithAddEvent':
                 this.editEvent(null, null, elt.readAttribute('date'));
                 e.stop();
