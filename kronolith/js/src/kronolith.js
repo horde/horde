@@ -1230,11 +1230,6 @@ KronolithCore = {
                 e.stop();
                 return;
 
-            case 'kronolithToday':
-                this.go(Kronolith.conf.login_view + ':' + new Date().dateString());
-                e.stop();
-                return;
-
             case 'id_fullday':
                 this.eventForm.select('.edit_at').each(Element.toggle);
                 e.stop();
@@ -1363,6 +1358,15 @@ KronolithCore = {
                     tmp.update(DIMP.text.showalog);
                 }
                 break;
+            }
+
+            // Caution, this only works if the element has definitely only a
+            // single CSS class.
+            switch (elt.className) {
+            case 'kronolithGotoToday':
+                this.go(this.view + ':' + new Date().dateString());
+                e.stop();
+                return;
             }
 
             if (elt.hasClassName('kronolithEvent')) {

@@ -980,7 +980,7 @@ div.kronolithView div.kronolithViewBody div.kronolithRow {
     right: 15px;
     background-image: url("graphics/left.png");
 }
-#kronolithBody caption .kronolithToday {
+.kronolithGotoToday {
     position: absolute;
     right: 35px;
 }
