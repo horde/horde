@@ -62,7 +62,9 @@ class Horde_Support_Numerizer_Locale_BaseTest extends PHPUnit_Framework_TestCase
     public function testLeavesDatesAlone()
     {
         $numerizer = Horde_Support_Numerizer::factory();
+
         $this->assertEquals('2006-08-20 03:00', $numerizer->numerize('2006-08-20 03:00'));
+        $this->assertEquals('2006-08-20 15:30:30', $numerizer->numerize('2006-08-20 15:30:30'));
     }
 
 }
