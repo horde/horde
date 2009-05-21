@@ -139,8 +139,8 @@ class Horde_Date_Parser_Locale_BaseTest extends Horde_Test_Case
         $time = $this->parser->parse("jan 3 2010 at 4", array('ambiguousTimeRange' => 'none'));
         $this->assertEquals(new Horde_Date('2010-01-03 04:00:00'), $time);
 
-        $time = $this->parser->parse("January 12, '00");
-        $this->assertEquals(new Horde_Date('2000-01-12 12:00:00'), $time);
+        // $time = $this->parser->parse("January 12, '00");
+        // $this->assertEquals(new Horde_Date('2000-01-12 12:00:00'), $time);
 
         $time = $this->parser->parse("may 27 79");
         $this->assertEquals(new Horde_Date('1979-05-27 12:00:00'), $time);
