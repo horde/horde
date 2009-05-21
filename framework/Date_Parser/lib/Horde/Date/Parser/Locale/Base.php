@@ -308,7 +308,7 @@ class Horde_Date_Parser_Locale_Base
         $month->now = $this->now;
         $span = $month->this($options['context']);
 
-        $dayStart = new Horde_Date(array('year' => $span->begin->year, 'month' => $span->begin->month, 'day' => $day));
+        $dayStart = new Horde_Date($span->begin->year, $span->begin->month, $day);
         return $this->dayOrTime($dayStart, $timeTokens, $options);
     }
 
@@ -328,7 +328,7 @@ class Horde_Date_Parser_Locale_Base
         $year = $tokens[1]->getTag('scalar_year');
 
         try {
-            return new Horde_Date_Span(new Horde_Date(array('year' => $year, 'month' => $month, 'day' => 1)), new Horde_Date(array('year' => $year, 'month' => $month + 1, 'day' => 1)));
+            return new Horde_Date_Span(new Horde_Date($year, $month, 1), new Horde_Date($year, $month + 1, 1));
         } catch (Exception $e) {
             return null;
         }
@@ -341,7 +341,7 @@ class Horde_Date_Parser_Locale_Base
         $year = $tokens[5]->getTag('scalar_year');
 
         try {
-            $dayStart = new Horde_Date(array('year' => $year, 'month' => $month, 'day' => $day));
+            $dayStart = new Horde_Date($year, $month, $day);
             return $this->dayOrTime($daystart, array($tokens[3]), $options);
         } catch (Exception $e) {
             return null;
@@ -357,7 +357,7 @@ class Horde_Date_Parser_Locale_Base
         $timeTokens = array_slice($tokens, 3);
 
         try {
-            $dayStart = new Horde_Date(array('year' => $year, 'month' => $month, 'day' => $day));
+            $dayStart = new Horde_Date($year, $month, $day);
             return $this->dayOrTime($dayStart, $timeTokens, $options);
         } catch (Exception $e) {
             return null;
@@ -380,7 +380,7 @@ class Horde_Date_Parser_Locale_Base
         $timeTokens = array_slice($tokens, 3);
 
         try {
-            $dayStart = new Horde_Date(array('year' => $year, 'month' => $month, 'day' => $day));
+            $dayStart = new Horde_Date($year, $month, $day);
             return $this->dayOrTime($dayStart, $timeTokens, $options);
         } catch (Exception $e) {
             return null;
@@ -407,7 +407,7 @@ class Horde_Date_Parser_Locale_Base
         $year = $tokens[1]->getTag('scalar_year');
 
         try {
-            return new Horde_Date_Span(new Horde_Date(array('year' => $year, 'month' => $month)), new Horde_Date(array('year' => $year, 'month' => $month = 1)));
+            return new Horde_Date_Span(new Horde_Date($year, $month, 1), new Horde_Date($year, $month + 1, 1));
         } catch (Exception $e) {
             return null;
         }
