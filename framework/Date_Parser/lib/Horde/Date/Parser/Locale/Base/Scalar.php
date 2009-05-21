@@ -31,7 +31,7 @@ class Horde_Date_Parser_Locale_Base_Scalar
     {
         if (preg_match($this->scalarRegex, $token->word)) {
             if (!in_array($postToken, $this->timeSignifiers)) {
-                return (int)$token->word;
+                return $token->word;
             }
         }
     }
@@ -39,8 +39,8 @@ class Horde_Date_Parser_Locale_Base_Scalar
     public function scanForDays($token, $postToken)
     {
         if (preg_match($this->dayRegex, $token->word)) {
-            if ((int)$token->word <= 31 && !in_array($postToken, $this->timeSignifiers)) {
-                return (int)$token->word;
+            if ($token->word <= 31 && !in_array($postToken, $this->timeSignifiers)) {
+                return $token->word;
             }
         }
     }
@@ -48,8 +48,8 @@ class Horde_Date_Parser_Locale_Base_Scalar
     public function scanForMonths($token, $postToken)
     {
         if (preg_match($this->monthRegex, $token->word)) {
-            if ((int)$token->word <= 12 && !in_array($postToken, $this->timeSignifiers)) {
-                return (int)$token->word;
+            if ($token->word <= 12 && !in_array($postToken, $this->timeSignifiers)) {
+                return $token->word;
             }
         }
     }
@@ -58,7 +58,7 @@ class Horde_Date_Parser_Locale_Base_Scalar
     {
         if (preg_match($this->yearRegex, $token->word)) {
             if (!in_array($postToken, $this->timeSignifiers)) {
-                return (int)$token->word;
+                return $token->word;
             }
         }
     }
