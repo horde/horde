@@ -799,7 +799,7 @@ div#kronolithEventTopTags span:hover {
     border-bottom: 1px #000 dotted;
     text-align: left;
 }
-.kronolithMinicalDate {
+#kronolithMinicalDate {
     cursor: pointer;
 }
 #kronolithMinicalPrev, #kronolithMinicalNext {
@@ -842,7 +842,6 @@ div#kronolithEventTopTags span:hover {
     background: none;
     border: none;
     color: silver;
-    cursor: default;
 }
 .kronolithMinical .kronolithSelected {
     background-color: #ebf3fc;
