@@ -450,7 +450,7 @@ class Horde_Date_Parser_Locale_Base
 
     public function handle_s_r_p($tokens, $options)
     {
-        $span = $this->parse('this second', array('guess' => false, 'now' => $this->now));
+        $span = new Horde_Date_Span($this->now, $this->now->add(1));
         return $this->handle_srp($tokens, $span, $options);
     }
 
