@@ -480,7 +480,7 @@ class Horde_Date_Parser_Locale_Base
 
         for ($i = 0; $i < $ordinal; $i++) {
             $span = $repeater->next('future');
-            if ($span->begin > $outerSpan->end) {
+            if ($span->begin->after($outerSpan->end)) {
                 $span = null;
                 break;
             }
