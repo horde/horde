@@ -258,6 +258,7 @@ class Horde_Date_Parser_Locale_Base
         foreach ($this->definitions['date'] as $handler) {
             if ($handler->match($tokens, $this->definitions)) {
                 $goodTokens = array_values(array_filter($tokens, create_function('$o', 'return !$o->getTag("separator");')));
+                $this->debug($handler->handlerMethod, $goodTokens, $options);
                 return call_user_func(array($this, $handler->handlerMethod), $goodTokens, $options);
             }
         }
@@ -266,6 +267,7 @@ class Horde_Date_Parser_Locale_Base
         foreach ($this->definitions['anchor'] as $handler) {
             if ($handler->match($tokens, $this->definitions)) {
                 $goodTokens = array_values(array_filter($tokens, create_function('$o', 'return !$o->getTag("separator");')));
+                $this->debug($handler->handlerMethod, $goodTokens, $options);
                 return call_user_func(array($this, $handler->handlerMethod), $goodTokens, $options);
             }
         }
@@ -274,6 +276,7 @@ class Horde_Date_Parser_Locale_Base
         foreach ($this->definitions['arrow'] as $handler) {
             if ($handler->match($tokens, $this->definitions)) {
                 $goodTokens = array_values(array_filter($tokens, create_function('$o', 'return !$o->getTag("separator_at") && !$o->getTag("separator_slash_or_dash") && !$o->getTag("separator_comma");')));
+                $this->debug($handler->handlerMethod, $goodTokens, $options);
                 return call_user_func(array($this, $handler->handlerMethod), $goodTokens, $options);
             }
         }
@@ -282,13 +285,13 @@ class Horde_Date_Parser_Locale_Base
         foreach ($this->definitions['narrow'] as $handler) {
             if ($handler->match($tokens, $this->definitions)) {
                 //good_tokens = tokens.select { |o| !o.get_tag Separator }
+                $this->debug($handler->handlerMethod, $tokens, $options);
                 return call_user_func(array($this, $handler->handlerMethod), $tokens, $options);
             }
         }
 
         return null;
     }
-
 
     public function dayOrTime($dayStart, $timeTokens, $options)
     {
@@ -494,6 +497,18 @@ class Horde_Date_Parser_Locale_Base
     {
         $outerSpan = $this->getAnchor(array($tokens[2], $tokens[3]), $options);
         return $this->handle_orr(array($tokens[0], $tokens[1]), $outerSpan, $options);
+    }
+
+
+    /*##########################################################################
+    # Logging Methods
+    ##########################################################################*/
+
+    public function debug($method, $args)
+    {
+        $args = func_get_args();
+        $method = array_shift($args);
+        // echo "$method\n";
     }
 
 
