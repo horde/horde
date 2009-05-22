@@ -41,7 +41,7 @@ class Horde_Date_Parser_Locale_BaseTest extends Horde_Test_Case
 
     public function testNextMonth()
     {
-        $this->assertEquals('2006-09-15 12:00:00', (string)$this->parser->parse('next month'));
+        $this->assertEquals('2006-09-16 00:00:00', (string)$this->parser->parse('next month'));
     }
 
     public function testLastWeekTuesday()
