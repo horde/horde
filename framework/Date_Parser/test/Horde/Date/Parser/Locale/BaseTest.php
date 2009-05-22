@@ -362,7 +362,6 @@ class Horde_Date_Parser_Locale_BaseTest extends Horde_Test_Case
 
     public function testParseGuess_g_r_Fortnight()
     {
-        $this->fail("No support for fortnights currently");
         $time = $this->parser->parse("this fortnight");
         $this->assertEquals(new Horde_Date(2006, 8, 21, 19, 30), $time);
 
@@ -547,11 +546,9 @@ class Horde_Date_Parser_Locale_BaseTest extends Horde_Test_Case
         $this->assertEquals(new Horde_Date(2006, 7, 16, 14), $time);
 
         $time = $this->parser->parse("1 fortnight ago");
-        $this->markTestSkipped('Fortnights are not yet supported');
         $this->assertEquals(new Horde_Date(2006, 8, 2, 14), $time);
 
         $time = $this->parser->parse("2 fortnights ago");
-        $this->markTestSkipped('Fortnights are not yet supported');
         $this->assertEquals(new Horde_Date(2006, 7, 19, 14), $time);
 
         $time = $this->parser->parse("3 weeks ago");
@@ -575,8 +572,8 @@ class Horde_Date_Parser_Locale_BaseTest extends Horde_Test_Case
         $time = $this->parser->parse("20 seconds before now");
         $this->assertEquals(new Horde_Date(2006, 8, 16, 13, 59, 40), $time);
 
-        $time = $this->parser->parse("1 monday ago");
         $this->markTestSkipped('not yet supported');
+        $time = $this->parser->parse("1 monday ago");
         $this->assertEquals(new Horde_Date(2006, 8, 14, 12), $time);
     }
 
@@ -589,7 +586,6 @@ class Horde_Date_Parser_Locale_BaseTest extends Horde_Test_Case
         $this->assertEquals(new Horde_Date(2007, 2, 16, 14), $time);
 
         $time = $this->parser->parse("3 fortnights hence");
-        $this->markTestSkipped('Fortnights are not yet supported');
         $this->assertEquals(new Horde_Date(2006, 9, 27, 14), $time);
 
         $time = $this->parser->parse("1 week from now");
