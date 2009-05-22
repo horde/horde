@@ -13,7 +13,7 @@ class Horde_Date_Repeater_Month extends Horde_Date_Repeater
         parent::next($pointer);
 
         if (!$this->currentMonthStart) {
-            $this->currentMonthStart = new Horde_Date(array('year' => $this->now->year, 'month' => $this->now->month));
+            $this->currentMonthStart = new Horde_Date(array('year' => $this->now->year, 'month' => $this->now->month, 'day' => 1));
         }
         $direction = ($pointer == 'future') ? 1 : -1;
         $this->currentMonthStart->month += $direction;
@@ -30,17 +30,17 @@ class Horde_Date_Repeater_Month extends Horde_Date_Repeater
         switch ($pointer) {
         case 'future':
             $monthStart = new Horde_Date(array('year' => $this->now->year, 'month' => $this->now->month, 'day' => $this->now->day + 1));
-            $monthEnd = new Horde_Date(array('year' => $this->now->year, 'month' => $this->now->month + 1));
+            $monthEnd = new Horde_Date(array('year' => $this->now->year, 'month' => $this->now->month + 1, 'day' => 1));
             break;
 
         case 'past':
-            $monthStart = new Horde_Date(array('year' => $this->now->year, 'month' => $this->now->month));
+            $monthStart = new Horde_Date(array('year' => $this->now->year, 'month' => $this->now->month, 'day' => 1));
             $monthEnd = new Horde_Date(array('year' => $this->now->year, 'month' => $this->now->month, 'day' => $this->now->day));
             break;
 
         case 'none':
-            $monthStart = new Horde_Date(array('year' => $this->now->year, 'month' => $this->now->month));
-            $monthEnd = new Horde_Date(array('year' => $this->now->year, 'month' => $this->now->month + 1));
+            $monthStart = new Horde_Date(array('year' => $this->now->year, 'month' => $this->now->month, 'day' => 1));
+            $monthEnd = new Horde_Date(array('year' => $this->now->year, 'month' => $this->now->month + 1, 'day' => 1));
             break;
         }
 
