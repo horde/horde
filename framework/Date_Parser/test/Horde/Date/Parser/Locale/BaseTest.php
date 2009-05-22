@@ -358,7 +358,7 @@ class Horde_Date_Parser_Locale_BaseTest extends Horde_Test_Case
 
     public function testParseGuessGrFortnight()
     {
-        $this->markTestSkipped("No support for fortnights currently");
+        $this->fail("No support for fortnights currently");
         $time = $this->parser->parse("this fortnight");
         $this->assertEquals(new Horde_Date(2006, 8, 21, 19, 30), $time);
 
