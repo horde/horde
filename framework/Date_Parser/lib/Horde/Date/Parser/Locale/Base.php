@@ -195,9 +195,10 @@ class Horde_Date_Parser_Locale_Base
      */
     public function guess($span)
     {
-        if (empty($span)) {
+        if (! $span instanceof Horde_Date_Span) {
             return null;
         }
+
         if ($span->width() > 1) {
             return $span->begin->add($span->width() / 2);
         } else {
