@@ -36,7 +36,8 @@ class Horde_Service_Facebook_Streams extends Horde_Service_Facebook_Base
                   'source_ids' => $sourceIds,
                   'start_time' => $start,
                   'end_time' => $end,
-                  'filter_key' => $filterKey);
+                  'filter_key' => $filterKey,
+                  'limit' => $limit);
         if (!empty($session_key)) {
             $params['session_key'] = $session_key;
         }
