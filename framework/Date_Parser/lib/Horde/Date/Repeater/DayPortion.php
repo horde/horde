@@ -87,7 +87,7 @@ class Horde_Date_Repeater_DayPortion extends Horde_Date_Repeater
                 }
             }
 
-            $rangeEnd = new Horde_Date(array('year' => $rangeStart->year, 'month' => $rangeStart->month, 'day' => $rangeStart->day, 'sec' => $this->range[1] - $this->range[0]));
+            $rangeEnd = $rangeStart->add($this->range[1] - $this->range[0]);
             $this->currentSpan = new Horde_Date_Span($rangeStart, $rangeEnd);
         } else {
             switch ($pointer) {
@@ -118,7 +118,7 @@ class Horde_Date_Repeater_DayPortion extends Horde_Date_Repeater
         $this->now = $span->begin;
         $portionSpan = $this->next($pointer);
         $direction = ($pointer == 'future') ? 1 : -1;
-        return $portionSpan + ($direction * ($amount - 1) * Horde_Date_Repeater_Day::DAY_SECONDS);
+        return $portionSpan->add(array('day' => $direction * ($amount - 1)));
     }
 
     public function width()
