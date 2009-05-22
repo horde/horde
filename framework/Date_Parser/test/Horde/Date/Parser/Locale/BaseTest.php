@@ -335,6 +335,7 @@ class Horde_Date_Parser_Locale_BaseTest extends Horde_Test_Case
         $this->assertEquals(new Horde_Date(2006, 10, 24, 12, 30), $time);
 
         $time = $this->parser->parse("this year", array('context' => 'past'));
+        $this->fail("check against chronic with guess -> false; if it matches just adjust this");
         $this->assertEquals(new Horde_Date(2006, 4, 24, 12, 30), $time);
     }
 
