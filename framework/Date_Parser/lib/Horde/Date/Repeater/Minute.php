@@ -45,7 +45,7 @@ class Horde_Date_Repeater_Minute extends Horde_Date_Repeater
     public function offset($span, $amount, $pointer)
     {
         $direction = ($pointer == 'future') ? 1 : -1;
-        return $span->add(array('min' => $diretion * $amount));
+        return $span->add(array('min' => $direction * $amount));
     }
 
     public function width()
