@@ -211,10 +211,8 @@ class Horde_Db_Adapter_Abstract_Column
     }
 
     /**
-     * @TODO Return a Horde_Date object instead?
-     *
      * @param   string  $string
-     * @return  DateTime
+     * @return  Horde_Date
      */
     public function stringToDate($string)
     {
@@ -224,14 +222,15 @@ class Horde_Db_Adapter_Abstract_Column
             return null;
         }
 
-        return new DateTime($string);
+        $d = new Horde_Date($string);
+        $d->setDefaultFormat('Y-m-d');
+
+        return $d;
     }
 
     /**
-     * @TODO Return a Horde_Date object instead?
-     *
      * @param   string  $string
-     * @return  DateTime
+     * @return  Horde_Date
      */
     public function stringToTime($string)
     {
@@ -241,14 +240,14 @@ class Horde_Db_Adapter_Abstract_Column
             return null;
         }
 
-        return new DateTime($string);
+        return new Horde_Date($string);
     }
 
     /**
      * @TODO Return a Horde_Date object instead?
      *
      * @param   string  $string
-     * @return  DateTime
+     * @return  Horde_Date
      */
     public function stringToDummyTime($value)
     {
