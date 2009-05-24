@@ -20,8 +20,17 @@ class Horde_Date_Span
      */
     public $end;
 
+    /**
+     * Constructor
+     *
+     * @param mixed $begin  Horde_Date or other format accepted by the Horde_Date constructor
+     * @param mixed $end    Horde_Date or other format accepted by the Horde_Date constructor
+     */
     public function __construct($begin, $end)
     {
+        if (! $begin instanceof Horde_Date) { $begin = new Horde_Date($begin); }
+        if (! $end instanceof Horde_Date) { $end = new Horde_Date($end); }
+
         $this->begin = $begin;
         $this->end = $end;
     }
