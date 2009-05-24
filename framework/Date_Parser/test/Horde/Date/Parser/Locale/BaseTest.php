@@ -337,9 +337,8 @@ class Horde_Date_Parser_Locale_BaseTest extends Horde_Test_Case
         $time = $this->parser->parse("this year");
         $this->assertEquals(new Horde_Date(2006, 10, 24, 12, 30), $time);
 
-        $time = $this->parser->parse("this year", array('context' => 'past'));
-        $this->fail("check against chronic with guess -> false; if it matches just adjust this");
-        $this->assertEquals(new Horde_Date(2006, 4, 24, 12, 30), $time);
+        $span = $this->parser->parse("this year", array('context' => 'past', 'guess' => false));
+        $this->assertEquals(new Horde_Date_Span('2006-01-01 00:00:00', '2006-08-16 00:00:00'), $span);
     }
 
     public function testParseGuess_g_r_Month()
@@ -660,9 +659,8 @@ class Horde_Date_Parser_Locale_BaseTest extends Horde_Test_Case
 
     public function testParseGuess_o_r_g_r()
     {
-        $time = $this->parser->parse("3rd month next year");
-        $this->fail("check against chronic with guess -> false; if it matches just adjust this");
-        $this->assertEquals(new Horde_Date(2007, 3, 16, 12, 30), $time);
+        $span = $this->parser->parse("3rd month next year", array('guess' => false));
+        $this->assertEquals(new Horde_Date_Span('2007-03-01 00:00:00', '2007-04-01 00:00:00'), $span);
 
         $time = $this->parser->parse("3rd thursday this september");
         $this->assertEquals(new Horde_Date(2006, 9, 21, 12), $time);
