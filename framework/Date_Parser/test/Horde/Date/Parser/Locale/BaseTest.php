@@ -206,7 +206,6 @@ class Horde_Date_Parser_Locale_BaseTest extends Horde_Test_Case
         $this->assertEquals(new Horde_Date('2006-08-20, 19:00:00'), $time);
 
         $time = $this->parser->parse("2006-08-20 03:00");
-        $this->fail("Have to fix Horde_Support_Numerizer");
         $this->assertEquals(new Horde_Date('2006-08-20, 03:00:00'), $time);
 
         $time = $this->parser->parse("2006-08-20 03:30:30");
@@ -226,8 +225,7 @@ class Horde_Date_Parser_Locale_BaseTest extends Horde_Test_Case
 
         $now = new Horde_Date(time());
         $time = $this->parser->parse((string)$now);
-        $this->fail("Have to fix Horde_Support_Numerizer");
-        $this->assertEquals($now, $time);
+        $this->assertEquals((string)$now, (string)$time);
     }
 
     public function testParseGuessDates_rm_sd_rt()
