@@ -104,6 +104,7 @@ KronolithCore = {
     setTitle: function(title)
     {
         document.title = Kronolith.conf.name + ' :: ' + title;
+        return title;
     },
 
     showNotifications: function(msgs)
@@ -256,7 +257,7 @@ KronolithCore = {
             this.dayEvents = [];
             this.dayGroups = [];
             this.allDayEvents = [];
-            $('kronolithViewDay').down('caption span').setText(date.toString('D'));
+            $('kronolithViewDay').down('caption span').setText(this.setTitle(date.toString('D')));
             break;
 
         case 'week':
@@ -269,7 +270,7 @@ KronolithCore = {
                 dates = this.viewDates(date, view),
                 day = dates[0].clone();
 
-            $('kronolithViewWeek').down('caption span').setText(Kronolith.text.week.interpolate({ week: date.getWeek() }));
+            $('kronolithViewWeek').down('caption span').setText(this.setTitle(Kronolith.text.week.interpolate({ week: date.getWeek() })));
 
             for (var i = 0; i < 7; i++) {
                 div.writeAttribute('id', 'kronolithEventsWeek' + day.dateString());
@@ -287,7 +288,7 @@ KronolithCore = {
                 dates = this.viewDates(date, view),
                 day = dates[0].clone(), row;
 
-            $('kronolithViewMonth').down('caption span').setText(date.toString('MMMM'));
+            $('kronolithViewMonth').down('caption span').setText(this.setTitle(date.toString('MMMM yyyy')));
 
             // Remove old rows. Maybe we should only rebuild the calendars if
             // necessary.
@@ -306,6 +307,10 @@ KronolithCore = {
 
             break;
 
+        case 'year':
+            $('kronolithViewYear').down('caption span').setText(this.setTitle(date.toString('yyyy')));
+            break;
+
         case 'agenda':
             var tbody = $('kronolithViewAgendaBody');
 
@@ -321,7 +326,6 @@ KronolithCore = {
 
             // Build new calendar view.
             tbody.insert(this.createAgendaDay(date, 0).show());
-
             break;
         }
     },
