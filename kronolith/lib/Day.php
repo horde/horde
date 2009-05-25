@@ -56,7 +56,7 @@ class Kronolith_Day extends Horde_Date {
         if (is_null($day)) {
             $day = date('j');
         }
-        parent::Horde_Date(array('year' => $year, 'month' => $month, 'mday' => $day));
+        parent::__construct(array('year' => $year, 'month' => $month, 'mday' => $day));
 
         $this->_slotsPerHour = $GLOBALS['prefs']->getValue('slots_per_hour');
         if (!$this->_slotsPerHour) {
