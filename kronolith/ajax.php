@@ -18,7 +18,7 @@ function getDriver($cal)
     switch ($driver) {
     case 'internal':
         if (!array_key_exists($calendar,
-                              Kronolith::listCalendars(false, PERMS_READ))) {
+                              Kronolith::listCalendars(false, PERMS_SHOW))) {
             $GLOBALS['notification']->push(_("Permission Denied"), 'horde.error');
             return false;
         }
@@ -116,20 +116,19 @@ try {
     case 'ListEvents':
         $start = new Horde_Date(Util::getFormData('start'));
         $end   = new Horde_Date(Util::getFormData('end'));
-        if (!($kronolith_driver = getDriver($cal = Util::getFormData('cal')))) {
-            $result = true;
+        $cal   = Util::getFormData('cal');
+        $result = new stdClass;
+        $result->cal = $cal;
+        $result->view = Util::getFormData('view');
+        $result->sig = $start->dateString() . $end->dateString();
+        if (!($kronolith_driver = getDriver($cal))) {
             break;
         }
         $events = $kronolith_driver->listEvents($start, $end, true, false, true);
         if (is_a($events, 'PEAR_Error')) {
             $notification->push($events, 'horde.error');
-            $result = true;
             break;
         }
-        $result = new stdClass;
-        $result->cal = $cal;
-        $result->view = Util::getFormData('view');
-        $result->sig = $start->dateString() . $end->dateString();
         if (count($events)) {
             $result->events = $events;
         }
