@@ -65,7 +65,7 @@ class Horde_Kolab_Server_KolabgermanbankarrangementTest extends Horde_Kolab_Test
          * We always use the test server
          */
         $servers[] = array($this->prepareEmptyKolabServer());
-        if (true) {
+        if (false) {
             $real = $this->prepareLdapKolabServer();
             if (!empty($real)) {
                 $servers[] = array($real);

@@ -88,7 +88,6 @@ class Horde_Kolab_Server_PersonTest extends Horde_Kolab_Test_Server
             'type' => 'Horde_Kolab_Server_Object_Person',
             Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN           => 'Kolab_Server_PersonTest_123',
             Horde_Kolab_Server_Object_Person::ATTRIBUTE_SN           => 'Kolab_Server_PersonTest_123',
-            Horde_Kolab_Server_Object_Person::ATTRIBUTE_SNSUFFIX     => 'Kolab_Server_PersonTest_suffix',
             Horde_Kolab_Server_Object_Person::ATTRIBUTE_USERPASSWORD => 'Kolab_Server_PersonTest_123',
         ),
         /* Person for telephone number handling*/
@@ -96,7 +95,6 @@ class Horde_Kolab_Server_PersonTest extends Horde_Kolab_Test_Server
             'type' => 'Horde_Kolab_Server_Object_Person',
             Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN           => 'Kolab_Server_PersonTest_123456',
             Horde_Kolab_Server_Object_Person::ATTRIBUTE_SN           => 'Kolab_Server_PersonTest_123456',
-            Horde_Kolab_Server_Object_Person::ATTRIBUTE_SNSUFFIX     => 'Kolab_Server_PersonTest_suffix',
             Horde_Kolab_Server_Object_Person::ATTRIBUTE_USERPASSWORD => 'Kolab_Server_PersonTest_123456',
         ),
     );
@@ -246,43 +244,6 @@ class Horde_Kolab_Server_PersonTest extends Horde_Kolab_Test_Server
         $dnpart = Net_LDAP2_Util::unescape_dn_value($dn_parts[0]);
         $this->assertContains(Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN . '=' . $this->objects[5][Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN][0],
                               $dnpart[0]);
-    }
-
-    /**
-     * Test a person with a name suffix.
-     *
-     * @dataProvider provideServers
-     *
-     * @return NULL
-     */
-    public function testHandlePersonWithSuffix($server)
-    {
-        $person = $this->assertAdd($server, $this->objects[6],
-                                   array(Horde_Kolab_Server_Object_Person::ATTRIBUTE_SN => $this->objects[6][Horde_Kolab_Server_Object_Person::ATTRIBUTE_SN],
-                                         Horde_Kolab_Server_Object_Person::ATTRIBUTE_SNSUFFIX => $this->objects[6][Horde_Kolab_Server_Object_Person::ATTRIBUTE_SNSUFFIX]));
-        $this->assertStoreFetch($person, $server,
-                                array(Horde_Kolab_Server_Object_Person::ATTRIBUTE_SN => 'Kolab_Server_PersonTest_123$123',
-                                      Horde_Kolab_Server_Object_Person::ATTRIBUTE_SNSUFFIX => 'Kolab_Server_PersonTest_123$123'),
-                                array(Horde_Kolab_Server_Object_Person::ATTRIBUTE_SN => 'Kolab_Server_PersonTest_123$123',
-                                      Horde_Kolab_Server_Object_Person::ATTRIBUTE_SNSUFFIX => 'Kolab_Server_PersonTest_123$123'));
-
-        $this->assertStoreFetch($person, $server,
-                                array(Horde_Kolab_Server_Object_Person::ATTRIBUTE_SN => 'Kolab_Server_PersonTest_123$456',
-                                      Horde_Kolab_Server_Object_Person::ATTRIBUTE_SNSUFFIX => ''),
-                                array(Horde_Kolab_Server_Object_Person::ATTRIBUTE_SN => 'Kolab_Server_PersonTest_123$456',
-                                      Horde_Kolab_Server_Object_Person::ATTRIBUTE_SNSUFFIX => ''));
-
-        $this->assertStoreFetch($person, $server,
-                                array(Horde_Kolab_Server_Object_Person::ATTRIBUTE_SNSUFFIX => 'Kolab_Server_PersonTest_789'),
-                                array(Horde_Kolab_Server_Object_Person::ATTRIBUTE_SN => 'Kolab_Server_PersonTest_123$456',
-                                      Horde_Kolab_Server_Object_Person::ATTRIBUTE_SNSUFFIX => 'Kolab_Server_PersonTest_789'));
-
-        try {
-            $person->save(array(Horde_Kolab_Server_Object_Person::ATTRIBUTE_SN => '',
-                                Horde_Kolab_Server_Object_Person::ATTRIBUTE_SNSUFFIX => 'test'));
-        } catch (Horde_Kolab_Server_Exception $e) {
-            $this->assertError($e);
-        }
     }
 
     /**
