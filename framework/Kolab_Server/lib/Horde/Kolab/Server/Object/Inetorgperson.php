@@ -71,6 +71,9 @@ class Horde_Kolab_Server_Object_Inetorgperson extends Horde_Kolab_Server_Object_
     /** The first name followed by the last name */
     const ATTRIBUTE_FNLN = 'fnln';
 
+    /** The SMIME certificate for the user */
+    const ATTRIBUTE_SMIMECERTIFICATE = 'userSMIMECertificate';
+
     /** The specific object class of this object type */
     const OBJECTCLASS_INETORGPERSON = 'inetOrgPerson';
 
@@ -90,6 +93,7 @@ class Horde_Kolab_Server_Object_Inetorgperson extends Horde_Kolab_Server_Object_
             self::ATTRIBUTE_BUSINESSCATEGORY,
             self::ATTRIBUTE_HOMEPHONE,
             self::ATTRIBUTE_MOBILE,
+            self::ATTRIBUTE_SMIMECERTIFICATE,
         ),
         'derived' => array(
             self::ATTRARRAY_HOMEPOSTALADDRESS => array(
