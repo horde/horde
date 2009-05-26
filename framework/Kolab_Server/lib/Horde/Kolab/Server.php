@@ -186,6 +186,10 @@ abstract class Horde_Kolab_Server
             $server_params = array_merge($server_params, $params);
         }
 
+        if (!empty($params['write']) && isset($server_params['host_master'])) {
+            $server_params['host'] = $server_params['host_master'];
+        }
+
         $sparam         = $server_params;
         $sparam['pass'] = isset($sparam['pass']) ? md5($sparam['pass']) : '';
         ksort($sparam);
