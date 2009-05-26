@@ -299,7 +299,7 @@ KronolithCore = {
             });
 
             // Build new calendar view.
-            while (day.compareTo(dates[1]) < 1) {
+            while (!day.isAfter(dates[1])) {
                 tbody.insert(this.createWeekRow(day, date.getMonth(), dates).show());
                 day.next().week();
             }
@@ -312,8 +312,11 @@ KronolithCore = {
             break;
 
         case 'agenda':
-            var tbody = $('kronolithViewAgendaBody');
+            var tbody = $('kronolithViewAgendaBody'),
+                dates = this.viewDates(date, view),
+                day = dates[0].clone(), row;
 
+            this.setTitle(Kronolith.text.agenda + ' ' + dates[0].toString('d') + ' - ' + dates[1].toString('d'));
             $('kronolithViewAgenda').down('caption span').setText(Kronolith.text.agenda);
 
             // Remove old rows. Maybe we should only rebuild the calendars if
@@ -325,7 +328,10 @@ KronolithCore = {
             });
 
             // Build new calendar view.
-            tbody.insert(this.createAgendaDay(date, 0).show());
+            while (!day.isAfter(dates[1])) {
+                tbody.insert(this.createAgendaDay(day, 0).show());
+                day.next().day();
+            }
             break;
         }
     },
@@ -480,6 +486,7 @@ KronolithCore = {
     {
         var tbody = $('kronolithMinical').down('tbody'),
             dates = this.viewDates(date, 'month'), day = dates[0].clone(),
+            date7 = date.clone().add(1).week(),
             weekStart, weekEnd, weekEndDay, td, tr;
 
         // Update header.
@@ -509,7 +516,8 @@ KronolithCore = {
             if (view &&
                 (view == 'month' ||
                  (view == 'week' && date.between(weekStart, weekEnd)) ||
-                 ((view == 'day'  || view == 'agenda') && date.compareTo(day) == 0))) {
+                 (view == 'day' && date.equals(day)) ||
+                 (view == 'agenda' && !day.isBefore(date) && day.isBefore(date7)))) {
                 td.addClassName('kronolithSelected');
             }
             td.setText(day.getDate());
@@ -1103,6 +1111,9 @@ KronolithCore = {
             start.moveToBeginOfWeek();
             end.moveToLastDayOfMonth();
             end.moveToEndOfWeek();
+            break;
+        case 'agenda':
+            end.add(6).days();
             break;
         }
 
