@@ -46,7 +46,8 @@
     <span id="kronolithQuickEvent" onclick="$('kronolithQuickinsert').appear()">+</span>
   </div>
 
-  <h3>
+  <div id="kronolithMenuCalendars">
+  <h3 id="kronolithCalendarsFirst">
     <a href="#" class="kronolithAdd">+</a>
     <span><?php echo _("My Calendars") ?></span>
   </h3>
@@ -71,7 +72,9 @@
 
   <div id="kronolithRemoteCalendars" class="kronolithCalendars" style="display:none">
   </div>
+  </div>
 
+  <div id="kronolithMenuBottom">
   <div id="kronolithMinical" class="kronolithMinical">
     <table cellspacing="1" cellpadding="0" border="0">
     <caption>
@@ -107,6 +110,7 @@
     </select>
     <input type="submit" value="OK" class="button ok" /><br />
   </form>
+  </div>
 </div>
 <!-- end menu -->
 

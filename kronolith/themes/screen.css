@@ -463,6 +463,9 @@ table#calendar-list th.sortdown {
 /*****************
  * AJAX INTERFACE
  *****************/
+html,body {
+    height: 100%;
+}
 body.kronolithAjax {
     overflow: hidden;
 }
@@ -517,14 +520,27 @@ body.kronolithAjax {
 #kronolithMain {
     clear: both;
     padding-top: 15px;
+    height: 100%;
 }
 
 /* Left menu column */
 #kronolithMenu {
     position: absolute;
-    left: 10px;
-    width: 150px;
     top: 10px;
+    left: 10px;
+    width: 153px;
+    height: 100%;
+}
+#kronolithMenuCalendars {
+    position: absolute;
+    top: 34px;
+    bottom: 280px;
+    padding-top: -15px;
+    overflow: auto;
+}
+#kronolithMenuBottom {
+    position: absolute;
+    bottom: 10px;
 }
 #kronolithMenu h3 {
     position: relative;
@@ -535,6 +551,9 @@ body.kronolithAjax {
     font-size: 100%;
     font-weight: bold;
     border-bottom: 1px #000 dotted;
+}
+#kronolithMenu h3#kronolithCalendarsFirst {
+    margin-top: 0;
 }
 #kronolithMenu a.kronolithAdd {
     position: absolute;
