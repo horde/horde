@@ -42,3 +42,6 @@
 - what to do about '0000-00-00' with PostgreSQL?
 
 - http://dev.mysql.com/doc/refman/5.1/en/time-zone-support.html
+
+- Support mysqlnd statistics:
+  http://developers.sun.com/databases/articles/mysql_php4.html#7
