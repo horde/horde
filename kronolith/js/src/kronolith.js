@@ -979,11 +979,13 @@ KronolithCore = {
         case 'agenda':
             var div = _createElement(event)
                 .setStyle({ 'backgroundColor': event.value.bg,
-                            'color': event.value.fg })
-                .update(new Element('SPAN', { 'class': 'kronolithDate' }).update(event.value.start.toString('t')))
-                .insert(' ')
-                .insert(new Element('SPAN', { 'class': 'kronolithSep' }).update('&middot;'))
-                .insert(' ')
+                            'color': event.value.fg });
+            if (!event.value.al) {
+                div.update(new Element('SPAN', { 'class': 'kronolithDate' }).update(event.value.start.toString('t')))
+                    .insert(' ')
+                    .insert(new Element('SPAN', { 'class': 'kronolithSep' }).update('&middot;'))
+                    .insert(' ');
+            }
             $('kronolithAgendaDay' + date).insert(div);
             break;
         }
