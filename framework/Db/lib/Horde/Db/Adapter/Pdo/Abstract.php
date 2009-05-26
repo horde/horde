@@ -213,7 +213,15 @@ abstract class Horde_Db_Adapter_Pdo_Abstract extends Horde_Db_Adapter_Abstract
 
         // collect options to build PDO Data Source Name (DSN) string
         $dsnOpts = $this->_config;
-        unset($dsnOpts['adapter'], $dsnOpts['username'], $dsnOpts['password']);
+        unset(
+            $dsnOpts['adapter'],
+            $dsnOpts['username'],
+            $dsnOpts['password'],
+            $dsnOpts['protocol'],
+            $dsnOpts['persistent'],
+            $dsnOpts['charset'],
+            $dsnOpts['phptype']
+        );
 
         // return DSN and user/pass for connection
         return array(
