@@ -42,6 +42,11 @@ class Horde_Db_Adapter_Mysqli extends Horde_Db_Adapter_Abstract
      */
     protected $_schemaClass = 'Horde_Db_Adapter_Mysql_Schema';
 
+    /**
+     * @var boolean
+     */
+    protected $_hasMysqliFetchAll = false;
+
 
     /*##########################################################################
     # Public
@@ -145,6 +150,8 @@ class Horde_Db_Adapter_Mysqli extends Horde_Db_Adapter_Abstract
         if (!empty($config['charset'])) {
             $this->setCharset($config['charset']);
         }
+
+        $this->_hasMysqliFetchAll = function_exists('mysqli_fetch_all');
     }
 
     /**
@@ -215,10 +222,14 @@ class Horde_Db_Adapter_Mysqli extends Horde_Db_Adapter_Abstract
     public function selectAll($sql, $arg1=null, $arg2=null)
     {
         $result = $this->execute($sql, $arg1, $arg2);
-        $rows = array();
-        if ($result) {
-            while ($row = $result->fetch_array()) {
-                $rows[] = $row;
+        if ($this->_hasMysqliFetchAll) {
+            return $result->fetch_all(MYSQLI_BOTH);
+        } else {
+            $rows = array();
+            if ($result) {
+                while ($row = $result->fetch_array()) {
+                    $rows[] = $row;
+                }
             }
         }
         return $rows;
