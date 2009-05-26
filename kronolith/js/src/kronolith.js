@@ -190,6 +190,7 @@ KronolithCore = {
 
             switch (loc) {
             case 'day':
+            case 'agenda':
             case 'week':
             case 'month':
             case 'year':
@@ -204,7 +205,7 @@ KronolithCore = {
                     ((loc == 'year') ||
                      (loc == 'month' && date.getMonth() == this.date.getMonth()) ||
                      (loc == 'week' && date.getWeek() == this.date.getWeek()) ||
-                     (loc == 'day' && date.dateString() == this.date.dateString()))) {
+                     ((loc == 'day'  || loc == 'agenda') && date.dateString() == this.date.dateString()))) {
                          return;
                 }
 
@@ -284,7 +285,7 @@ KronolithCore = {
         case 'month':
             var tbody = $('kronolithViewMonthBody'),
                 dates = this.viewDates(date, view),
-                day = dates[0].clone(), rows = 0, row;
+                day = dates[0].clone(), row;
 
             $('kronolithViewMonth').down('caption span').setText(date.toString('MMMM'));
 
@@ -298,11 +299,28 @@ KronolithCore = {
 
             // Build new calendar view.
             while (day.compareTo(dates[1]) < 1) {
-                row = tbody.insert(this.createWeekRow(day, date.getMonth(), dates).show());
+                tbody.insert(this.createWeekRow(day, date.getMonth(), dates).show());
                 day.next().week();
-                rows++;
             }
             this._equalRowHeights(tbody);
+
+            break;
+
+        case 'agenda':
+            var tbody = $('kronolithViewAgendaBody');
+
+            $('kronolithViewAgenda').down('caption span').setText(Kronolith.text.agenda);
+
+            // Remove old rows. Maybe we should only rebuild the calendars if
+            // necessary.
+            tbody.childElements().each(function(row) {
+                if (row.identify() != 'kronolithAgendaTemplate') {
+                    row.remove();
+                }
+            });
+
+            // Build new calendar view.
+            tbody.insert(this.createAgendaDay(date, 0).show());
 
             break;
         }
@@ -388,6 +406,31 @@ KronolithCore = {
         return row;
     },
 
+    /**
+     * Creates a table row for a single day in the agenda view.
+     *
+     * @param Date date        The first day to show in the row.
+     * @param integer num    The number of the row.
+     *
+     * @return Element  The element rendering a week row.
+     */
+    createAgendaDay: function(date, num)
+    {
+        // Create a copy of the row template.
+        var row = $('kronolithAgendaTemplate').cloneNode(true);
+        row.removeAttribute('id');
+
+        // Fill week number and day cells.
+        row.addClassName('kronolithRow' + (num % 2 ? 'Odd' : 'Even'))
+            .down()
+            .setText(date.toString('D'))
+            .next()
+            .writeAttribute('id', 'kronolithAgendaDay' + date.dateString());
+        //.writeAttribute('date', date.dateString())
+
+        return row;
+    },
+
     _equalRowHeights: function(tbody)
     {
         var children = tbody.childElements();
@@ -462,13 +505,15 @@ KronolithCore = {
             if (view &&
                 (view == 'month' ||
                  (view == 'week' && date.between(weekStart, weekEnd)) ||
-                 (view == 'day' && date.compareTo(day) == 0))) {
+                 ((view == 'day'  || view == 'agenda') && date.compareTo(day) == 0))) {
                 td.addClassName('kronolithSelected');
             }
             td.setText(day.getDate());
             tr.insert(td);
             day.next().day();
         }
+
+        $('kronolithMenuCalendars').setStyle({ 'bottom': $('kronolithMenuBottom').getHeight() + 'px' });
     },
 
     /**
@@ -714,11 +759,12 @@ KronolithCore = {
         switch (view) {
         case 'day':
         case 'week':
-            var storage = view + 'Sizes';
-            this._calculateRowSizes(storage, view == 'day' ? 'kronolithViewDay' : 'kronolithViewWeek');
-            var div = _createElement(event),
+            var storage = view + 'Sizes',
+                div = _createElement(event),
                 style = { 'backgroundColor': event.value.bg,
                           'color': event.value.fg };
+
+            this._calculateRowSizes(storage, view == 'day' ? 'kronolithViewDay' : 'kronolithViewWeek');
 
             if (event.value.al) {
                 if (view == 'day') {
@@ -925,6 +971,17 @@ KronolithCore = {
                 new Drag('kronolithEventmonth' + event.value.calendar + date + event.key, { threshold: 5, parentElement: function() { return $('kronolithViewMonthBody'); }, snapToParent: true });
             }
             break;
+
+        case 'agenda':
+            var div = _createElement(event)
+                .setStyle({ 'backgroundColor': event.value.bg,
+                            'color': event.value.fg })
+                .update(new Element('SPAN', { 'class': 'kronolithDate' }).update(event.value.start.toString('t')))
+                .insert(' ')
+                .insert(new Element('SPAN', { 'class': 'kronolithSep' }).update('&middot;'))
+                .insert(' ')
+            $('kronolithAgendaDay' + date).insert(div);
+            break;
         }
 
         this._setEventText(div, event.value)
@@ -934,7 +991,7 @@ KronolithCore = {
 
     _setEventText: function(div, event)
     {
-        div.update(event.t);
+        div.insert(event.t);
         if (event.a) {
             div.insert(' ')
                 .insert(new Element('IMG', { 'src': Kronolith.conf.URI_IMG + 'alarm-' + event.fg.substr(1) + '.png', 'title': Kronolith.text.alarm + ' ' + event.a }));
@@ -1375,13 +1432,13 @@ KronolithCore = {
                     offset = elt.className == 'kronolithPrev' ? -1 : 1;
                 switch (this.view) {
                 case 'day':
+                case 'agenda':
                     newDate.add(offset).day();
                     break;
                 case 'week':
                     newDate.add(offset).week();
                     break;
                 case 'month':
-                case 'agenda':
                     newDate.add(offset).month();
                     break;
                 case 'year':

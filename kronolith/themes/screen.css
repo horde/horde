@@ -534,8 +534,7 @@ body.kronolithAjax {
 #kronolithMenuCalendars {
     position: absolute;
     top: 34px;
-    bottom: 280px;
-    padding-top: -15px;
+    margin-bottom: 20px;
     overflow: auto;
 }
 #kronolithMenuBottom {

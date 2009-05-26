@@ -201,6 +201,7 @@ class Kronolith
             'alarm' => _("Alarm:"),
             'noalerts' => _("No Alerts"),
             'week' => str_replace('%d', '#{week}', _("Week %d")),
+            'agenda' => _("Agenda"),
         ));
         for ($i = 1; $i <= 12; ++$i) {
             $code['text']['month'][$i - 1] = NLS::getLangInfo(constant('MON_' . $i));
