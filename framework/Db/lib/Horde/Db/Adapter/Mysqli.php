@@ -372,7 +372,7 @@ class Horde_Db_Adapter_Mysqli extends Horde_Db_Adapter_Abstract
     }
 
     /**
-     * Parse configuration array into options for PDO constructor.
+     * Parse configuration array into options for MySQLi constructor.
      *
      * @throws  Horde_Db_Exception
      * @return  array  [host, username, password, dbname, port, socket]
@@ -386,8 +386,8 @@ class Horde_Db_Adapter_Mysqli extends Horde_Db_Adapter_Abstract
             $msg = 'Required config missing: ' . implode(', ', array_keys($diff));
             throw new Horde_Db_Exception($msg);
         }
-        $rails2pdo = array('database' => 'dbname', 'socket' => 'unix_socket');
-        foreach ($rails2pdo as $from => $to) {
+        $rails2mysqli = array('database' => 'dbname');
+        foreach ($rails2mysqli as $from => $to) {
             if (isset($this->_config[$from])) {
                 $this->_config[$to] = $this->_config[$from];
                 unset($this->_config[$from]);
