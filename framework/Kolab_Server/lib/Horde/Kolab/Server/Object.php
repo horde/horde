@@ -42,6 +42,9 @@ class Horde_Kolab_Server_Object
     /** The ID part of the UID */
     const ATTRIBUTE_ID = 'id';
 
+    /** The time the object was created */
+    const ATTRIBUTE_CREATIONDATE = 'createTimestamp';
+
     /** The attribute holding the object classes */
     const ATTRIBUTE_OC = 'objectClass';
 
@@ -120,6 +123,7 @@ class Horde_Kolab_Server_Object
          */
         'defined' => array(
             self::ATTRIBUTE_OC,
+            self::ATTRIBUTE_CREATIONDATE,
         ),
         /**
          * Derived attributes are calculated based on other attribute values.
@@ -402,6 +406,7 @@ class Horde_Kolab_Server_Object
         foreach ($attributes['base'] as $attribute) {
             if (isset($info[$attribute])) {
                 $changes = true;
+                break;
             }
         }
         if ($changes) {
@@ -556,14 +561,15 @@ class Horde_Kolab_Server_Object
     /**
      * Set a collapsed attribute value.
      *
-     * @param string $key        The attribute to collapse into.
-     * @param array  $attributes The attributes to collapse.
-     * @param array  $info       The information currently working on.
-     * @param string $separator  Separate the fields using this character.
+     * @param string  $key        The attribute to collapse into.
+     * @param array   $attributes The attributes to collapse.
+     * @param array   $info       The information currently working on.
+     * @param string  $separator  Separate the fields using this character.
+     * @param boolean $unset      Unset the base values.
      *
      * @return NULL.
      */
-    protected function setField($key, $attributes, &$info, $separator = '$')
+    protected function setField($key, $attributes, &$info, $separator = '$', $unset = true)
     {
         /**
          * Check how many empty entries we have at the end of the array. We
@@ -607,8 +613,10 @@ class Horde_Kolab_Server_Object
                 $result .= $separator;
             }
         }
-        foreach ($unset as $attribute) {
-            unset($info[$attribute]);
+        if ($unset === true) {
+            foreach ($unset as $attribute) {
+                unset($info[$attribute]);
+            }
         }
         $info[$key] = $result;
     }
@@ -724,6 +732,7 @@ class Horde_Kolab_Server_Object
              */
             if (!empty($this->_cache)) {
                 $info = $this->_cache;
+                $this->_cache = false;
             } else {
                 return;
             }
@@ -823,7 +832,9 @@ class Horde_Kolab_Server_Object
         }
 
         foreach ($this->attribute_map['collapsed'] as $key => $attributes) {
-            $this->collapse($key, $attributes, $info);
+            if ($attributes !== false) {
+                $this->collapse($key, $attributes, $info);
+            }
         }
         return $info;
     }
@@ -1079,7 +1090,7 @@ class Horde_Kolab_Server_Object
         );
         $filter = $server->searchQuery($criteria);
         $result = $server->search($filter, $params, $uid);
-        return self::uidFromResult($data, Horde_Kolab_Server_Object::RESULT_MANY);
+        return self::uidFromResult($result, Horde_Kolab_Server_Object::RESULT_MANY);
     }
 
     /**
