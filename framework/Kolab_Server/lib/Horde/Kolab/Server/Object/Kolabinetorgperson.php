@@ -41,7 +41,7 @@ class Horde_Kolab_Server_Object_Kolabinetorgperson extends Horde_Kolab_Server_Ob
     /** How many days of the free/busy future should be calculated in advance? */
     const ATTRIBUTE_FBFUTURE = 'kolabFreeBusyFuture';
 
-    /** 
+    /**
      * The home server of this person. It identifies the correct machine in a
      * master/slave setup.
      */
@@ -286,8 +286,6 @@ class Horde_Kolab_Server_Object_Kolabinetorgperson extends Horde_Kolab_Server_Ob
     /**
      * Return the filter string to retrieve this object type.
      *
-     * @static
-     *
      * @return string The filter to retrieve this object type from the server
      *                database.
      */
@@ -299,6 +297,54 @@ class Horde_Kolab_Server_Object_Kolabinetorgperson extends Horde_Kolab_Server_Ob
                           ),
         );
         return $criteria;
+    }
+
+    /**
+     * List the external pop3 accounts of this object.
+     *
+     * @return array The data of the pop3 accounts.
+     */
+    public function getExternalAccounts()
+    {
+        $account_uids = $this->objectsForUid($this->server, $this->uid, Horde_Kolab_Server_Object_Kolabpop3account::OBJECTCLASS_KOLABEXTERNALPOP3ACCOUNT);
+        if ($account_uids !== false) {
+            foreach ($account_uids as $account_uid) {
+                $account = $this->server->fetch($account_uid, 'Horde_Kolab_Server_Object_Kolabpop3account');
+                $result[] = $account->toHash();
+            }
+        }
+        return $result;
+    }
+
+    /**
+     * Create/update an external pop3 accounts of this object.
+     *
+     * @param array $account The account data.
+     *
+     * @return NULL
+     */
+    public function saveExternalAccount($account)
+    {
+        $account[Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_OWNERUID] = $this->getUid();
+        $object = &Horde_Kolab_Server_Object::factory('Horde_Kolab_Server_Object_Kolabpop3account',
+                                                      null, $this->server, $account);
+        $object->save();
+    }
+
+    /**
+     * Delete an external account.
+     *
+     * @param string $mail The mail address of the pop3 account.
+     *
+     * @return NULL
+     */
+    public function deleteExternalAccount($mail)
+    {
+        $account[Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_OWNERUID] = $this->getUid();
+        $account[Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_MAIL] = $mail;
+        $object = &Horde_Kolab_Server_Object::factory('Horde_Kolab_Server_Object_Kolabpop3account',
+                                                      null, $this->server, $account);
+        $object->delete();
     }
 
     /**
