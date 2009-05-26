@@ -80,7 +80,7 @@ if ($GLOBALS['registry']->hasMethod('contacts/sources')) {
 
 // show dynamic view?
 $_prefs['dynamic_view'] = array(
-    'value' => 0,
+    'value' => 1,
     'locked' => false,
     'shared' => false,
     'type' => 'checkbox',
