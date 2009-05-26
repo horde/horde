@@ -258,12 +258,13 @@ EOD;
     protected function _getHordeImageOb($load)
     {
         $img = null;
-        $params = array('temp' => Horde::getTempdir());
-
+        //@TODO: Pass in a Horde_Logger in $context if desired.
+        $context = array('tmpdir' => Horde::getTempDir());
         if (!empty($GLOBALS['conf']['image']['convert'])) {
-            $img = &Horde_Image::singleton('im', $params);
+            $context['convert'] = $GLOBALS['conf']['image']['convert'];
+            $img = Horde_Image::factory('im', array('context' => $context));
         } elseif (Util::extensionExists('gd')) {
-            $img = &Horde_Image::singleton('gd', $params);
+            $img = Horde_Image::factory('gd', array('context' => $context));
         }
 
         if (!$img || is_a($img, 'PEAR_Error')) {

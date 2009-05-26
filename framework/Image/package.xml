@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+http://pear.php.net/dtd/tasks-1.0.xsd
+http://pear.php.net/dtd/package-2.0
+http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Horde_Image</name>
+ <channel>pear.horde.org</channel>
+ <summary>Horde Image API</summary>
+ <description>This package provides an Image utility API, with backends for:
+* GD
+* GIF
+* PNG
+* SVG
+* SWF
+* ImageMagick convert command line tool
+* Imagick Extension
+ </description>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <developer>
+  <name>Michael J. Rubinsky</name>
+  <user>mrubinsk</user>
+  <email>mrubinsk@horde.org</email>
+  <active>yes</active>
+ </developer>
+ <date>2009-05-24</date>
+ <time>22:07:11</time>
+ <version>
+  <release>0.1.0</release>
+  <api>0.1.0</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <notes>Initial Horde 4 package</notes>
+ <contents>
+  <dir name="/">
+   <dir name="lib">
+    <dir name="Horde">
+     <dir name="Image">
+      <dir name="Effect">
+       <file name="border.php" role="php" />
+       <dir name="im">
+        <file name="drop_shadow.php" role="php" />
+        <file name="round_corners.php" role="php" />
+        <file name="text_watermark.php" role="php" />
+        <file name="photo_stack.php" role="php" />
+        <file name="polaroid_image.php" role="php" />
+        <file name="border.php" role="php" />
+        <file name="composite.php" role="php" />
+       </dir> <!-- /Horde/Image/Effect/im -->
+       <dir name="gd">
+        <file name="drop_shadow.php" role="php" />
+        <file name="round_corners.php" role="php" />
+        <file name="text_watermark.php" role="php" />
+        <file name="unsharp_mask.php" role="php" />
+       </dir> <!-- /Horde/Image/Effect/gd -->
+      </dir> <!-- /Horde/Image/Effect -->
+      <file name="Effect.php" role="php" />
+      <file name="gd.php" role="php" />
+      <file name="im.php" role="php" />
+      <file name="imagick.php" role="php" />
+      <file name="png.php" role="php" />
+      <file name="rgb.php" role="php" />
+      <file name="svg.php" role="php" />
+      <file name="swf.php" role="php" />
+     </dir> <!-- /Horde/Image -->
+     <dir name="tests">
+      <file name="gd.php" role="test" />
+      <file name="im.php" role="test" />
+      <file name="svg.php" role="test" />
+      <file name="swf.php" role="test" />
+     </dir> <!-- /tests -->
+     <file name="Image.php" role="php" />
+    </dir> <!-- /Horde -->
+   </dir> <!-- /lib -->
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.5.0</min>
+   </pearinstaller>
+   <package>
+    <name>Util</name>
+    <channel>pear.horde.org</channel>
+   </package>
+  </required>
+  <optional>
+   <package>
+    <name>XML_SVG</name>
+    <channel>pear.php.net</channel>
+   </package>
+  </optional>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install name="lib/Horde/Image/Effect/border.php" as="Horde/Image/Effect/border.php" />
+   <install name="lib/Horde/Image/Effect/im/drop_shadow.php" as="Horde/Image/Effect/im/drop_shadow.php" />
+   <install name="lib/Horde/Image/Effect/im/round_corners.php" as="Horde/Image/Effect/im/round_corners.php" />
+   <install name="lib/Horde/Image/Effect/im/text_watermark.php" as="Horde/Image/Effect/im/text_watermark.php" />
+   <install name="lib/Horde/Image/Effect/im/photo_stack.php" as="Horde/Image/Effect/im/photo_stack.php" />
+   <install name="lib/Horde/Image/Effect/im/polaroid_image.php" as="Horde/Image/Effect/im/polaroid_image.php" />
+   <install name="lib/Horde/Image/Effect/im/border.php" as="Horde/Image/Effect/im/border.php" />
+   <install name="lib/Horde/Image/Effect/im/composite.php" as="Horde/Image/Effect/im/composite.php" />
+   <install name="lib/Horde/Image/Effect/gd/drop_shadow.php" as="Horde/Image/Effect/gd/drop_shadow.php" />
+   <install name="lib/Horde/Image/Effect/gd/round_corners.php" as="Horde/Image/Effect/gd/round_corners.php" />
+   <install name="lib/Horde/Image/Effect/gd/text_watermark.php" as="Horde/Image/Effect/gd/text_watermark.php" />
+   <install name="lib/Horde/Image/Effect/gd/unsharp_mask.php" as="Horde/Image/Effect/gd/unsharp_mask.php" />
+   <install name="lib/Horde/Image/Effect.php" as="Horde/Image/Effect.php" />
+   <install name="lib/Horde/Image/gd.php" as="Horde/Image/gd.php" />
+   <install name="lib/Horde/Image/im.php" as="Horde/Image/im.php" />
+   <install name="lib/Horde/Image/imagick.php" as="Horde/Image/imagick.php" />
+   <install name="lib/Horde/Image/png.php" as="Horde/Image/png.php" />
+   <install name="lib/Horde/Image/rgb.php" as="Horde/Image/rgb.php" />
+   <install name="lib/Horde/Image/svg.php" as="Horde/Image/svg.php" />
+   <install name="lib/Horde/Image/swf.php" as="Horde/Image/swf.php" />
+   <install name="lib/Horde/Image.php" as="Horde/Image.php" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>0.0.1</release>
+    <api>0.0.1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2004-01-01</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>Initial release as a PEAR package
+   </notes>
+  </release>
+ </changelog>
+</package>
