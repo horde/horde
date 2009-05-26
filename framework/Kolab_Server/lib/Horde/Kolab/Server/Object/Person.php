@@ -35,9 +35,6 @@ class Horde_Kolab_Server_Object_Person extends Horde_Kolab_Server_Object
     /** The surname */
     const ATTRIBUTE_SN = 'sn';
 
-    /** A surname suffix */
-    const ATTRIBUTE_SNSUFFIX = 'snsuffix';
-
     /** A password for this person */
     const ATTRIBUTE_USERPASSWORD = 'userPassword';
 
@@ -77,34 +74,6 @@ class Horde_Kolab_Server_Object_Person extends Horde_Kolab_Server_Object
                 'args' => array(
                     self::ATTRIBUTE_USERPASSWORD,
                 ),
-            ),
-            self::ATTRIBUTE_SN => array(
-                'base' => array(
-                    self::ATTRIBUTE_SN,
-                ),
-                'method' => 'getField',
-                'args' => array(
-                    self::ATTRIBUTE_SN,
-                ),
-            ),
-            self::ATTRIBUTE_SNSUFFIX => array(
-                'base' => array(
-                    self::ATTRIBUTE_SN,
-                ),
-                'method' => 'getField',
-                'args' => array(
-                    self::ATTRIBUTE_SN,
-                    1
-                ),
-            ),
-        ),
-        'collapsed' => array(
-            self::ATTRIBUTE_SN => array(
-                'base' => array(
-                    self::ATTRIBUTE_SN,
-                    self::ATTRIBUTE_SNSUFFIX,
-                ),
-                'method' => 'setField',
             ),
         ),
         'required' => array(
