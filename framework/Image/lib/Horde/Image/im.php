@@ -89,7 +89,6 @@ class Horde_Image_im extends Horde_Image
         // images, so use 1x1 for our default if needed.
         if (Util::loadExtension('imagick')) {
             ini_set('imagick.locale_fix', 1);
-            require_once 'Horde/Image/imagick.php';
             $this->_width = max(array($this->_width, 1));
             $this->_height = max(array($this->_height, 1));
             // Use a proxy for the Imagick calls to keep exception catching
