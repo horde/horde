@@ -527,9 +527,9 @@ body.kronolithAjax {
 #kronolithMenu {
     position: absolute;
     top: 10px;
+    bottom: 10px;
     left: 10px;
     width: 153px;
-    height: 100%;
 }
 #kronolithMenuCalendars {
     position: absolute;
@@ -539,7 +539,7 @@ body.kronolithAjax {
 }
 #kronolithMenuBottom {
     position: absolute;
-    bottom: 10px;
+    bottom: 0;
 }
 #kronolithMenu h3 {
     position: relative;
