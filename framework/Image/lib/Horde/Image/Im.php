@@ -122,25 +122,25 @@ class Horde_Image_Im extends Horde_Image
         }
     }
 
-//    /**
-//     * Load the image data from a string. Need to override this method
-//     * in order to load the imagick object if we need to.
-//     *
-//     * @TODO: This can be nuked when imagick is broken out.
-//     *
-//     * @param string $id          An arbitrary id for the image.
-//     * @param string $image_data  The data to use for the image.
-//     */
-//    public function loadString($id, $image_data)
-//    {
-//        parent::loadString($id, $image_data);
-//        if (!is_null($this->_imagick)) {
-//            $this->_imagick->clear();
-//            $this->_imagick->readImageBlob($image_data);
-//            $this->_imagick->setFormat($this->_type);
-//            $this->_imagick->setIteratorIndex(0);
-//        }
-//    }
+    /**
+     * Load the image data from a string. Need to override this method
+     * in order to load the imagick object if we need to.
+     *
+     * @TODO: This can be nuked when imagick is broken out.
+     *
+     * @param string $id          An arbitrary id for the image.
+     * @param string $image_data  The data to use for the image.
+     */
+    public function loadString($id, $image_data)
+    {
+        parent::loadString($id, $image_data);
+        if (!is_null($this->_imagick)) {
+            $this->_imagick->clear();
+            $this->_imagick->readImageBlob($image_data);
+            $this->_imagick->setFormat($this->_type);
+            $this->_imagick->setIteratorIndex(0);
+        }
+    }
 
     /**
      * Load the image data from a file. Need to override this method
