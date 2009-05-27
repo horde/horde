@@ -307,7 +307,7 @@ class Horde_Image_Effect_Im_PhotoStack extends Horde_Image_Effect
             $new = Horde_Image::factory('im', array('context' => $context));
             $new->loadString('somestring', $image->getImageBlob());
             $image->destroy();
-            $new->addEffect('round_corners', array('border' => 2, 'bordercolor' => '#111'));
+            $new->addEffect('RoundCorners', array('border' => 2, 'bordercolor' => '#111'));
             $new->applyEffects();
             $return  = new Horde_Image_ImagickProxy($size['width'] + $this->_params['borderwidth'],
                                                 $size['height'] + $this->_params['borderwidth'],
@@ -319,7 +319,7 @@ class Horde_Image_Effect_Im_PhotoStack extends Horde_Image_Effect
         } else {
             $size = $image->getDimensions();
             $new = Horde_Image::factory('im', array('data' => $image->raw(), 'context' => $context));
-            $new->addEffect('round_corners', array('border' => 2, 'bordercolor' => '#111', 'background' => 'none'));
+            $new->addEffect('RoundCorners', array('border' => 2, 'bordercolor' => '#111', 'background' => 'none'));
             $new->applyEffects();
             return $new->toFile();
         }
