@@ -9,7 +9,7 @@ class Horde_Support_Numerizer_Locale_De extends Horde_Support_Numerizer_Locale_B
         'siebzehn' => 17,
         'achtzehn' => 18,
         'neunzehn' => 19,
-        'eins' => 1,
+        'ein[se]?' => 1,
         'zwei' => 2,
         'zwo' => 2,
         'drei' => 3,
@@ -22,7 +22,6 @@ class Horde_Support_Numerizer_Locale_De extends Horde_Support_Numerizer_Locale_B
         'zehn' => 10,
         'elf' => 11,
         'zwölf' => 12,
-        'eine?' => 1,
     );
 
     public $TEN_PREFIXES = array(
@@ -39,9 +38,9 @@ class Horde_Support_Numerizer_Locale_De extends Horde_Support_Numerizer_Locale_B
     public $BIG_PREFIXES = array(
         'hundert' => 100,
         'tausend' => 1000,
-        'million' => 1000000,
-        'milliarde' => 1000000000,
-        'billion' => 1000000000000,
+        'million *' => 1000000,
+        'milliarde *' => 1000000000,
+        'billion *' => 1000000000000,
     );
 
     /**
@@ -54,13 +53,10 @@ class Horde_Support_Numerizer_Locale_De extends Horde_Support_Numerizer_Locale_B
      */
     public function numerize($string)
     {
-        // preprocess?
-
         $string = $this->_replaceTenPrefixes($string);
         $string = $this->_directReplacements($string);
         $string = $this->_replaceBigPrefixes($string);
         $string = $this->_fractionalAddition($string);
-        $string = $this->_andition($string);
 
         return $string;
     }
@@ -89,19 +85,20 @@ class Horde_Support_Numerizer_Locale_De extends Horde_Support_Numerizer_Locale_B
     {
         foreach ($this->BIG_PREFIXES as $bp => $bp_replacement) {
             $string = preg_replace_callback(
-                '/(\d*) *' . $bp . '/i',
+                '/(\d*) *' . $bp . '(\d?)/i',
                 create_function(
                     '$m',
-                    '$factor = (int)$m[1]; if (!$factor) $factor = 1; return (' . $bp_replacement . ' * $factor) . "und";'
+                    '$factor = (int)$m[1]; if (!$factor) $factor = 1; return (' . $bp_replacement . ' * $factor)' . ($bp_replacement == 100 ? ' . ($m[2] ? "und" : "")' : ' . "und"') . ' . $m[2];'
                 ),
                 $string);
+            $string = $this->_andition($string);
         }
         return $string;
     }
 
     protected function _andition($string)
     {
-        while (preg_match('/(\d+)((?:und)+)(\d*)(?=[^\w]|$)/i', $string, $sc, PREG_OFFSET_CAPTURE)) {
+        while (preg_match('/(\d+)((?: *und *)+)(\d*)(?=\w|$)/i', $string, $sc, PREG_OFFSET_CAPTURE)) {
             $string = substr($string, 0, $sc[1][1]) . ((int)$sc[1][0] + (int)$sc[3][0]) . substr($string, $sc[3][1] + strlen($sc[3][0]));
         }
         return $string;
