@@ -631,7 +631,7 @@ class Horde_Date_Parser_Locale_Base
         }
 
         // handle ambiguous times if ambiguousTimeRange is specified
-        if ($options['ambiguousTimeRange'] != 'none') {
+        if (!isset($options['ambiguousTimeRange']) || $options['ambiguousTimeRange'] != 'none') {
             $ttokens = array();
             foreach ($tokens as $i => $t0) {
                 $ttokens[] = $t0;
