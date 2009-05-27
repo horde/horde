@@ -262,9 +262,9 @@ EOD;
         $context = array('tmpdir' => Horde::getTempDir());
         if (!empty($GLOBALS['conf']['image']['convert'])) {
             $context['convert'] = $GLOBALS['conf']['image']['convert'];
-            $img = Horde_Image::factory('im', array('context' => $context));
+            $img = Horde_Image::factory('Im', array('context' => $context));
         } elseif (Util::extensionExists('gd')) {
-            $img = Horde_Image::factory('gd', array('context' => $context));
+            $img = Horde_Image::factory('Gd', array('context' => $context));
         }
 
         if (!$img || is_a($img, 'PEAR_Error')) {

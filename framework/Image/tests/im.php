@@ -118,7 +118,7 @@ case 'testRoundCorners':
     // Tests resizing, and rounding corners with appropriate background maintained.
     $image = getImageObject(array('filename' => 'img1.jpg'));
     $image->resize(150,150);
-    $image->addEffect('round_corners',
+    $image->addEffect('RoundCorners',
                       array('border' => 2,
                             'bordercolor' => '#333',
                             'background' => 'none'));
@@ -129,7 +129,7 @@ case 'testRoundCornersRedBG':
     // Tests resizing, and rounding corners with appropriate background maintained.
     $image = getImageObject(array('filename' => 'img1.jpg'));
     $image->resize(150,150);
-    $image->addEffect('round_corners',
+    $image->addEffect('RoundCorners',
                       array('border' => 2,
                             'bordercolor' => '#333',
                             'background' => 'red'));
@@ -139,10 +139,10 @@ case 'testRoundCornersRedBG':
 case 'testRoundCornersDropShadowTransparentBG':
     $image = getImageObject(array('filename' => 'img1.jpg'));
     $image->resize(150,150);
-    $image->addEffect('round_corners',
+    $image->addEffect('RoundCorners',
                       array('border' => 2,
                             'bordercolor' => '#333'));
-    $image->addEffect('drop_shadow',
+    $image->addEffect('DropShadow',
                       array('background' => 'none',
                             'padding' => 5,
                             'distance' => 5,
@@ -153,10 +153,10 @@ case 'testRoundCornersDropShadowTransparentBG':
 case 'testRoundCornersDropShadowYellowBG':
     $image = getImageObject(array('filename' => 'img1.jpg'));
     $image->resize(150,150);
-    $image->addEffect('round_corners',
+    $image->addEffect('RoundCorners',
                       array('border' => 2,
                             'bordercolor' => '#333'));
-    $image->addEffect('drop_shadow',
+    $image->addEffect('DropShadow',
                       array('background' => 'yellow',
                             'padding' => 5,
                             'distance' => 5,
@@ -168,8 +168,8 @@ case 'testBorderedDropShadowTransparentBG':
     $image = getImageObject(array('filename' => 'img1.jpg',
                                   'background' => 'none'));
     $image->resize(150,150);
-    $image->addEffect('border', array('bordercolor' => '#333', 'borderwidth' => 1));
-    $image->addEffect('drop_shadow',
+    $image->addEffect('Border', array('bordercolor' => '#333', 'borderwidth' => 1));
+    $image->addEffect('DropShadow',
                       array('background' => 'none',
                             'padding' => 5,
                             'distance' => '8',
@@ -181,8 +181,8 @@ case 'testBorderedDropShadowBlueBG':
     $image = getImageObject(array('filename' => 'img1.jpg',
                                   'background' => 'none'));
     $image->resize(150,150);
-    $image->addEffect('border', array('bordercolor' => '#333', 'borderwidth' => 1));
-    $image->addEffect('drop_shadow',
+    $image->addEffect('Border', array('bordercolor' => '#333', 'borderwidth' => 1));
+    $image->addEffect('DropShadow',
                       array('background' => 'blue',
                             'padding' => 5,
                             'distance' => '8',
@@ -193,7 +193,7 @@ case 'testBorderedDropShadowBlueBG':
 case 'testPolaroidTransparentBG':
     $image = getImageObject(array('filename' => 'img1.jpg'));
     $image->resize(150, 150);
-    $image->addEffect('polaroid_image',
+    $image->addEffect('PolaroidImage',
                       array('background' => 'none',
                             'padding' => 5));
     $image->display();
@@ -202,7 +202,7 @@ case 'testPolaroidTransparentBG':
 case 'testPolaroidBlueBG':
     $image = getImageObject(array('filename' => 'img1.jpg'));
     $image->resize(150, 150);
-    $image->addEffect('polaroid_image',
+    $image->addEffect('PolaroidImage',
                       array('background' => 'blue',
                             'padding' => 5));
     $image->display();
@@ -216,7 +216,7 @@ case 'testPlainstackTransparentBG':
                                     'height' => 1,
                                     'background' => 'none'));
 
-    $baseImg->addEffect('photo_stack',
+    $baseImg->addEffect('PhotoStack',
                         array('images' => $imgs,
                               'resize_height' => 150,
                               'padding' => 0,
@@ -234,7 +234,7 @@ case 'testPlainstackBlueBG':
                                     'height' => 1,
                                     'background' => 'none'));
 
-    $baseImg->addEffect('photo_stack',
+    $baseImg->addEffect('PhotoStack',
                         array('images' => $imgs,
                               'resize_height' => 150,
                               'padding' => 0,
@@ -252,7 +252,7 @@ case 'testRoundstackTransparentBG':
                                     'height' => 1,
                                     'background' => 'none'));
 
-    $baseImg->addEffect('photo_stack',
+    $baseImg->addEffect('PhotoStack',
                         array('images' => $imgs,
                               'resize_height' => 150,
                               'padding' => 0,
@@ -270,7 +270,7 @@ case 'testRoundstackBlueBG':
                                     'height' => 1,
                                     'background' => 'none'));
 
-    $baseImg->addEffect('photo_stack',
+    $baseImg->addEffect('PhotoStack',
                         array('images' => $imgs,
                               'resize_height' => 150,
                               'padding' => 0,
@@ -288,7 +288,7 @@ case 'testPolaroidstackTransparentBG':
                                     'height' => 1,
                                     'background' => 'none'));
 
-    $baseImg->addEffect('photo_stack',
+    $baseImg->addEffect('PhotoStack',
                         array('images' => $imgs,
                               'resize_height' => 150,
                               'padding' => 0,
@@ -306,7 +306,7 @@ case 'testPolaroidstackBlueBG':
                                     'height' => 1,
                                     'background' => 'none'));
 
-    $baseImg->addEffect('photo_stack',
+    $baseImg->addEffect('PhotoStack',
                         array('images' => $imgs,
                               'resize_height' => 150,
                               'padding' => 0,

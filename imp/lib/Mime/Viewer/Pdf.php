@@ -114,7 +114,7 @@ class IMP_Horde_Mime_Viewer_Pdf extends Horde_Mime_Viewer_Pdf
             return false;
         }
 
-        $img = Horde_Image::factory('im', array('context' => array('tmpdir' => Horde::getTempdir(),
+        $img = Horde_Image::factory('Im', array('context' => array('tmpdir' => Horde::getTempdir(),
                                                                    'convert' => $GLOBALS['conf']['image']['convert'])));
         if (is_a($img, 'PEAR_Error')) {
             return false;
