@@ -2,11 +2,10 @@
 <?php Util::pformInput() ?>
 <input type="hidden" name="actionID" value="search_calendar" />
 <input type="hidden" name="search_mode" value="basic" />
-<table cellspacing="0" width="100%">
 
 <br /><br />
 <h1 class="header">
- <span class="rightFloat" class="smallheader">
+ <span class="smallheader rightFloat">
   <?php echo Horde::widget(Util::addParameter(Horde::applicationUrl('search.php'), 'search_mode', 'advanced'), _("Advanced Search"), 'smallheader', '', '', _("Ad_vanced Search")) ?>
  </span>
  <?php echo _("Basic Search") ?>
