@@ -85,6 +85,7 @@ class IMP_Imap_Flags
         $ret = $this->_flags;
         $avail_flags = array_keys($ret);
 
+        $types = array();
         if (!empty($options['imap'])) {
             $types = array('imapp', 'imapu');
             if (!$GLOBALS['prefs']->getValue('msgflags_hidesys')) {
