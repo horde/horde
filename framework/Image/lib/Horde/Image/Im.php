@@ -693,30 +693,6 @@ class Horde_Image_Im extends Horde_Image
         @unlink($tmpout);
     }
 
-
-    /**
-     * Return point size for font
-     */
-    public static function getFontSize($fontsize)
-    {
-        switch ($fontsize) {
-        case 'medium':
-            $point = 18;
-            break;
-        case 'large':
-            $point = 24;
-            break;
-        case 'giant':
-            $point = 30;
-            break;
-        default:
-            $point = 12;
-        }
-
-        return $point;
-    }
-
-
     /**
      * Get the version of the convert command available. This needs to be
      * publicly visable since it's used by various Effects.

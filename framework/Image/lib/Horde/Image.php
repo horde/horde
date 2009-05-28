@@ -647,6 +647,18 @@ class Horde_Image
         return $this->_tmpdir;
     }
 
+    /**
+     * Utility function to zero out cached geometry information. Shouldn't
+     * really be called from client code, but is needed since Effects may need
+     * to clear these.
+     *
+     */
+    public function clearGeometry()
+    {
+        $this->_height = 0;
+        $this->_width = 0;
+    }
+
     protected function _logDebug($message)
     {
         if (!empty($this->_logger)) {
@@ -659,6 +671,28 @@ class Horde_Image
         if (!empty($this->_logger)) {
             $this->_logger->err($message);
         }
+    }
+
+    /**
+     * Return point size for font
+     */
+    public static function getFontSize($fontsize)
+    {
+        switch ($fontsize) {
+        case 'medium':
+            $point = 18;
+            break;
+        case 'large':
+            $point = 24;
+            break;
+        case 'giant':
+            $point = 30;
+            break;
+        default:
+            $point = 12;
+        }
+
+        return $point;
     }
 
 }
