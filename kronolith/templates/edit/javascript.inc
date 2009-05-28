@@ -1,7 +1,7 @@
 <script type="text/javascript">
+KronolithEventForm = new Object();
 
 <?php if (!Util::nonInputVar('issearch')): ?>
-KronolithEventForm = new Object();
 KronolithEventForm.setInterval = function(field)
 {
     elt = document.eventform[field];
