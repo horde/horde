@@ -46,6 +46,15 @@ class Kronolith_Driver_Holidays extends Kronolith_Driver
                               __FILE__, __LINE__, PEAR_LOG_ERR);
             return array();
         }
+
+        if (is_null($startDate) && !is_null($endDate)) {
+            $startDate = clone $endDate;
+            $startDate->year--;
+        }
+        if (is_null($endDate) && !is_null($startDate)) {
+            $endDate = clone $startDate;
+            $endDate->year++;
+        }
         if ($hasAlarm || is_null($startDate) || is_null($endDate)) {
             return array();
         }

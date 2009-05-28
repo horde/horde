@@ -63,6 +63,17 @@ class Kronolith_Driver_Horde extends Kronolith_Driver
             return $eventsList;
         }
 
+        if (is_null($startDate)) {
+            $startDate = new Horde_Date(array('mday' => 1,
+                                              'month' => 1,
+                                              'year' => 0000));
+        }
+        if (is_null($endDate)) {
+            $endDate = new Horde_Date(array('mday' => 31,
+                                            'month' => 12,
+                                            'year' => 9999));
+        }
+
         $startDate = clone $startDate;
         $startDate->hour = $startDate->min = $startDate->sec = 0;
         $endDate = clone $endDate;
