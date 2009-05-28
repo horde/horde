@@ -2,6 +2,8 @@
 v3.0-git
 --------
 
+[jan] Allow searching of any type of calendar and improve searching of
+      recurring events.
 [cjh] With only SHOW permissions, display event titles as "busy".
 [mjr] Replace categories and keywords by tags.
 [jan] Set colors per calendar (Request #7480).

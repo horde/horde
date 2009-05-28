@@ -8,32 +8,42 @@
  * @author Meilof Veeningen <meilof@gmail.com>
  */
 
-/**
- * Used with usort() to sort events based on their start times.
- */
-function _sortEvents($a, $b)
-{
-    $start_a = $a->recurs() ? $a->recurrence->nextRecurrence($GLOBALS['event']->start) : $a->start;
-    $start_b = $b->recurs() ? $b->recurrence->nextRecurrence($GLOBALS['event']->start) : $b->start;
-    $diff = $start_a->compareDateTime($start_b);
-    if ($diff == 0) {
-        return strcoll($a->title, $b->title);
-    } else {
-        return $diff;
-    }
-}
-
 @define('KRONOLITH_BASE', dirname(__FILE__));
 require_once KRONOLITH_BASE . '/lib/base.php';
 
 /* Get search parameters. */
 $search_mode = Util::getFormData('search_mode', 'basic');
+$search_calendar = explode('|', Util::getFormData('calendar', '|__any'), 2);
+$events = null;
 
-if ($search_mode != 'basic') {
+if ($search_mode == 'basic') {
+    $desc = Util::getFormData('pattern_desc');
+    $title = Util::getFormData('pattern_title');
+    if (strlen($desc) || strlen($title)) {
+        $event = Kronolith::getDriver()->getEvent();
+        $event->setDescription($desc);
+        $event->setTitle($title);
+        $event->status = null;
+
+        $time1 = $_SERVER['REQUEST_TIME'];
+        $range = Util::getFormData('range');
+        if ($range == '+') {
+            $event->start = new Horde_Date($time1);
+            $event->end = null;
+        } elseif ($range == '-') {
+            $event->start = null;
+            $event->end = new Horde_Date($time1);
+        } else {
+            $time2 = $time1 + $range;
+            $event->start = new Horde_Date(min($time1, $time2));
+            $event->end = new Horde_Date(max($time1, $time2));
+        }
+        $events = Kronolith::search($event);
+    }
+} else {
     /* Make a new empty event object with default values. */
-    $event = Kronolith::getDriver()->getEvent();
-    $event->title = $event->calendars = $event->location =
-    $event->status = $event->description = null;
+    $event = Kronolith::getDriver($search_calendar[0], $search_calendar[1])->getEvent();
+    $event->title = $event->location = $event->status = $event->description = null;
 
     /* Set start on today, stop on tomorrow. */
     $event->start = new Horde_Date(mktime(0, 0, 0));
@@ -45,42 +55,39 @@ if ($search_mode != 'basic') {
     $event->initialized = true;
 
     $q_title = Util::getFormData('title');
-
-    if (isset($q_title)) {
-        /* We're returning from a previous search. */
+    if (strlen($q_title)) {
         $event->readForm();
         if (Util::getFormData('status') == Kronolith::STATUS_NONE) {
             $event->status = null;
         }
-    }
-}
 
-$desc = Util::getFormData('pattern_desc');
-$title = Util::getFormData('pattern_title');
-if ($desc || $title) {
-    /* We're doing a simple search. */
-    $event = Kronolith::getDriver()->getEvent();
-    $event->setDescription($desc);
-    $event->setTitle($title);
-    $event->status = null;
-
-    $time1 = $_SERVER['REQUEST_TIME'];
-    $range = Util::getFormData('range');
-    if ($range == '+') {
-        $event->start = new Horde_Date($time1);
-        $event->end = null;
-    } elseif ($range == '-') {
-        $event->start = null;
-        $event->end = new Horde_Date($time1);
-    } else {
-        $time2 = $time1 + $range;
-        $event->start = new Horde_Date(min($time1, $time2));
-        $event->end = new Horde_Date(max($time1, $time2));
+        $events = Kronolith::search($event, $search_calendar[1] == '__any' ? null : $search_calendar[0] . '|' . $search_calendar[1]);
     }
-    $events = Kronolith::search($event);
-} elseif (isset($q_title)) {
-    /* Advanced search. */
-    $events = Kronolith::search($event);
+
+    $optgroup = $GLOBALS['browser']->hasFeature('optgroup');
+    $current_user = Auth::getAuth();
+    $calendars = array();
+    foreach (Kronolith::listCalendars(false, PERMS_READ) as $id => $cal) {
+        if ($cal->get('owner') == $current_user) {
+            $calendars[_("My Calendars:")]['|' . $id] = $cal->get('name');
+        } else {
+            $calendars[_("Shared Calendars:")]['|' . $id] = $cal->get('name');
+        }
+    }
+    foreach ($GLOBALS['all_external_calendars'] as $api => $categories) {
+        $app = $GLOBALS['registry']->get('name', $GLOBALS['registry']->hasInterface($api));
+        foreach ($categories as $id => $name) {
+            $calendars[$app . ':']['Horde|external_' . $api . '/' . $id] = $name;
+        }
+    }
+    foreach ($GLOBALS['all_remote_calendars'] as $cal) {
+        $calendars[_("Remote Calendars:")]['Ical|' . $cal['url']] = $cal['name'];
+    }
+    if (!empty($GLOBALS['conf']['holidays']['enable'])) {
+        foreach (unserialize($GLOBALS['prefs']->getValue('holiday_drivers')) as $holiday) {
+            $calendars[_("Holidays:")]['Holidays|' . $holiday] = $holiday;
+        }
+    }
 }
 
 $title = _("Search");
@@ -98,18 +105,14 @@ if ($search_mode == 'basic') {
 }
 
 /* Display search results. */
-if (isset($events)) {
+if (!is_null($events)) {
     if (count($events)) {
-        usort($events, '_sortEvents');
-
         require KRONOLITH_TEMPLATES . '/search/header.inc';
         require KRONOLITH_TEMPLATES . '/search/event_headers.inc';
-
-        foreach ($events as $found) {
-            $start = $found->recurs() ? $found->recurrence->nextRecurrence($event->start) : $found->start;
-            $end = new Horde_Date($start);
-            $end->min += $found->durMin;
-            require KRONOLITH_TEMPLATES . '/search/event_summaries.inc';
+        foreach ($events as $day => $day_events) {
+            foreach ($day_events as $event) {
+                require KRONOLITH_TEMPLATES . '/search/event_summaries.inc';
+            }
         }
         require KRONOLITH_TEMPLATES . '/search/event_footers.inc';
     } else {

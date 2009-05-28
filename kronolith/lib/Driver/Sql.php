@@ -95,7 +95,15 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         return $events;
     }
 
-    public function search($query)
+    /**
+     * Searches a calendar.
+     *
+     * @param object $query  An object with the criteria to search for.
+     * @param boolean $json  Store the results of the events' toJson() method?
+     *
+     * @return mixed  An array of Kronolith_Events or a PEAR_Error.
+     */
+    public function search($query, $json = false)
     {
         /* Build SQL conditions based on the query string. */
         $cond = '((';
@@ -164,13 +172,34 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
             return $eventIds;
         }
 
+        $now = new Horde_Date($_SERVER['REQUEST_TIME']);
         $events = array();
         foreach ($eventIds as $eventId) {
             $event = $this->getEvent($eventId);
             if (is_a($event, 'PEAR_Error')) {
                 return $event;
             }
-            $events[] = $event;
+            $showRecurrence = true;
+            if ($event->recurs()) {
+                if (empty($query->end)) {
+                    $eventEnd = $event->recurrence->nextRecurrence($now);
+                    if (!$eventEnd) {
+                        continue;
+                    }
+                } else {
+                    $eventEnd = $query->end;
+                }
+                if (empty($query->start)) {
+                    $eventStart = $event->start;
+                    $showRecurrence = false;
+                } else {
+                    $eventStart = $query->start;
+                }
+            } else {
+                $eventStart = $event->start;
+                $eventEnd = $event->end;
+            }
+            Kronolith::addEvents($events, $event, $eventStart, $eventEnd, $showRecurrence, $json, false);
         }
 
         return $events;
