@@ -60,17 +60,17 @@ $tagger = Kronolith::getTagger();
         <?php foreach ($tags as $tag_id => $tag): ?>
          <li class="panel-tags">
 <?php
-Kronolith_Imple::factory('TagActions', array('triggerId' => 'remove' . md5($id . $tag_id),
-                                             'action' => 'delete',
-                                             'resource' => $id,
-                                             'type' => 'calendar',
-                                             'tagId' => $tag_id));
 echo $tag;
 if ($cal->hasPermission(Auth::getAuth(), PERMS_EDIT)) {
     echo '<a href="#" id="remove' . md5($id . $tag_id) . '">'
         . Horde::img('delete-small.png', _("Remove Tag"), '', $registry->getImageDir('horde'))
         . '</a>';
 }
+Kronolith_Imple::factory('TagActions', array('triggerId' => 'remove' . md5($id . $tag_id),
+                                             'action' => 'delete',
+                                             'resource' => $id,
+                                             'type' => 'calendar',
+                                             'tagId' => $tag_id));
 ?>
         </li>
         <?php endforeach;?>
