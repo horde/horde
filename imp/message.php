@@ -384,6 +384,8 @@ $mailbox_url = Util::addParameter(IMP::generateIMPUrl('mailbox.php', $imp_mbox['
 /* Generate the view link. */
 $view_link = IMP::generateIMPUrl('view.php', $imp_mbox['mailbox'], $index, $mailbox_name);
 
+$imp_flags = &IMP_Imap_Flags::singleton();
+
 /* Everything below here is related to preparing the output. */
 if (!IMP::$printMode) {
     /* Set the status information of the message. */
@@ -396,7 +398,6 @@ if (!IMP::$printMode) {
         }
     }
 
-    $imp_flags = &IMP_Imap_Flags::singleton();
     $flag_parse = $imp_flags->parse(array(
         'div' => true,
         'flags' => $flags,
@@ -441,7 +442,10 @@ if (!IMP::$printMode) {
 
     if (!$use_pop) {
         $n_template->set('mailbox', $imp_mbox['mailbox']);
-        $n_template->set('flaglist', $imp_flags->getList(array('imap' => true, 'mailbox' => $imp_mbox['mailbox'])));
+
+        $tmp = $imp_flags->getFlagList($imp_mbox['mailbox']);
+        $n_template->set('flaglist_set', $tmp['set']);
+        $n_template->set('flaglist_unset', $tmp['unset']);
 
         if ($conf['user']['allow_folders']) {
             $n_template->set('move', Horde::widget('#', _("Move to folder"), 'widget moveAction', '', '', _("Move"), true));
