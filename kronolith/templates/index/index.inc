@@ -102,13 +102,13 @@
     <span><?php echo _("Search") ?></span>
   </h3>
 
-  <form action="#" method="post">
-    <input type="text" id="kronolithSearch" class="kronolithLongField" /><br />
-    <select name="q_what">
-      <option value="1"><?php echo _("Calendars") ?></option>
-      <option value="2"><?php echo _("Events") ?></option>
+  <form id="kronolithSearchForm">
+    <input type="text" id="kronolithSearchTerm" class="kronolithLongField" /><br />
+    <select id="kronolithSearchContext">
+      <option value="Events"><?php echo _("Events") ?></option>
+      <option value="Calendars"><?php echo _("Calendars") ?></option>
     </select>
-    <input type="submit" value="OK" class="button ok" /><br />
+    <input id="kronolithSearchButton" type="button" value="OK" class="button ok" /><br />
   </form>
   </div>
 </div>

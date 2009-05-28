@@ -263,6 +263,42 @@ try {
         $result->deleted = true;
         break;
 
+    case 'SearchEvents':
+        $query = Horde_Serialize::unserialize(Util::getFormData('query'), Horde_Serialize::JSON);
+        if (!isset($query->start)) {
+            $query->start = new Horde_Date($_SERVER['REQUEST_TIME']);
+        }
+        if (!isset($query->end)) {
+            $query->end = null;
+        }
+        $cals   = Horde_Serialize::unserialize(Util::getFormData('cals'), Horde_Serialize::JSON);
+        $events = array();
+        foreach ($cals as $cal) {
+            if (!($kronolith_driver = getDriver($cal))) {
+                break;
+            }
+            $result = $kronolith_driver->search($query, true);
+            if (is_a($result, 'PEAR_Error')) {
+                $notification->push($result, 'horde.error');
+                break;
+            }
+            if ($result) {
+                $events[$cal] = $result;
+            }
+        }
+        $result = new stdClass;
+        $result->view = 'search';
+        $result->query = Util::getFormData('query');
+        if ($events) {
+            $result->events = $events;
+        }
+        break;
+
+    case 'SearchCalendars':
+        $result = new stdClass;
+        $result->events = 'Searched for calendars: ' . Util::getFormData('title');
+        break;
+
     case 'SaveCalPref':
         $result = true;
         break;
