@@ -65,7 +65,7 @@ if ($actionID && ($actionID != 'print_message')) {
 }
 
 /* Determine if mailbox is readonly. */
-$readonly = $imp_imap->isReadOnly($imp_mbox['mailbox']);
+$peek = $readonly = $imp_imap->isReadOnly($imp_mbox['mailbox']);
 if ($readonly &&
     in_array($actionID, array('delete_message', 'undelete_message', 'move_message', 'flag_message', 'strip_attachment', 'strip_all'))) {
     $actionID = null;
@@ -147,7 +147,7 @@ case 'notspam_report':
 case 'flag_message':
     $flag = Util::getFormData('flag');
     if ($flag && !empty($indices_array)) {
-        $set = true;
+        $peek = $set = true;
         if ($flag[0] == '0') {
             $flag = substr($flag, 1);
             $set = false;
@@ -207,7 +207,7 @@ try {
     ), array('ids' => array($index)));
     $fetch_ret = $imp_imap->ob->fetch($mailbox_name, array(
         Horde_Imap_Client::FETCH_ENVELOPE => true,
-        Horde_Imap_Client::FETCH_HEADERTEXT => array(array('parse' => true, 'peek' => $readonly))
+        Horde_Imap_Client::FETCH_HEADERTEXT => array(array('parse' => true, 'peek' => $peek))
     ), array('ids' => array($index)));
 } catch (Horde_Imap_Client_Exception $e) {
     require IMP_BASE . '/mailbox.php';
