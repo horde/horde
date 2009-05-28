@@ -201,8 +201,8 @@ class IMP_Contents
         try {
             $res = $GLOBALS['imp_imap']->ob->fetch($this->_mailbox, $query, array('ids' => array($this->_index)));
             return empty($options['mimeheaders'])
-                ? $res[$this->_index]['bodypart'][$id]
-                : $res[$this->_index]['mimeheader'][$id] . $res[$this->_index]['bodypart'][$id];
+                ? $res[$this->_index]['bodypart'][$id] . "\r\n"
+                : $res[$this->_index]['mimeheader'][$id] . "\r\n\r\n" . $res[$this->_index]['bodypart'][$id] . "\r\n";
         } catch (Horde_Imap_Client_Exception $e) {
             return '';
         }
