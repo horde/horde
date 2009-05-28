@@ -137,7 +137,7 @@ if (!$is_pop3) {
         'column' => _("Message Options"),
         'label' => _("Message Flags"),
         'desc' => _("Customize flag highlighting."),
-        'members' => array('flagmanagement')
+        'members' => array('msgflags_hidesys', 'flagmanagement')
     );
 
     $prefGroups['fetchmail'] = array(
@@ -1248,12 +1248,13 @@ $_prefs['msgflags_color'] = array(
     'shared' => false,
     'type' => 'implicit');
 
-// By default, don't allow user to alter flags set by system events.
+// Allow user to alter system flags?
 $_prefs['msgflags_hidesys'] = array(
-    'value' => true,
+    'value' => false,
     'locked' => false,
     'shared' => false,
-    'type' => 'implicit');
+    'type' => 'checkbox',
+    'desc' => _("Show only user flags in the drop down lists to mark messages?"));
 
 // End IMAP Flag preferences
 
