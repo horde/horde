@@ -36,47 +36,28 @@ class Horde_Image_Effect_Im_Composite extends Horde_Image_Effect
      */
     public function apply()
     {
-        $this->_image->_imagick = null;
-        if (!is_null($this->_image->_imagick)) {
-            foreach ($this->_params['images'] as $image) {
-                $topimg = new Horde_Image_ImagickProxy();
-                $topimg->clear();
-                $topimg->readImageBlob($image->raw());
-
-                /* Calculate center for composite (gravity center)*/
-                $geometry = $this->_image->_imagick->getImageGeometry();
-                $x = $geometry['width'] / 2;
-                $y = $geometry['height'] / 2;
-
-                if (isset($this->_params['x']) && isset($this->_params['y'])) {
-                    $x = $this->_params['x'];
-                    $y = $this->_params['y'];
-                }
-                $this->_image->_imagick->compositeImage($topimg, constant('Imagick::COMPOSITE_OVER'), $x, $y);
-            }
-        } else {
-            $ops = $geometry = $gravity = '';
-            if (isset($this->_params['gravity'])) {
-                $gravity = ' -gravity ' . $this->_params['gravity'];
-            }
-
-            if (isset($this->_params['x']) && isset($this->_params['y'])) {
-                $geometry = ' -geometry +' . $this->_params['x'] . '+' . $this->_params['y'] . ' ';
-            }
-            if (isset($this->_params['compose'])) {
-                // The -matte ensures that the destination (background) image
-                // has an alpha channel - to avoid black holes in the image.
-                $compose = ' -compose ' . $this->_params['compose'] . ' -matte';
-            }
-
-            foreach($this->_params['images'] as $image) {
-                $temp = $image->toFile();
-                $this->_image->addFileToClean($temp);
-                $ops .= ' ' . $temp . $gravity . $compose . ' -composite';
-            }
-            $this->_image->addOperation($geometry);
-            $this->_image->addPostSrcOperation($ops);
+        $ops = $geometry = $gravity = '';
+        if (isset($this->_params['gravity'])) {
+            $gravity = ' -gravity ' . $this->_params['gravity'];
         }
+
+        if (isset($this->_params['x']) && isset($this->_params['y'])) {
+            $geometry = ' -geometry +' . $this->_params['x'] . '+' . $this->_params['y'] . ' ';
+        }
+        if (isset($this->_params['compose'])) {
+            // The -matte ensures that the destination (background) image
+            // has an alpha channel - to avoid black holes in the image.
+            $compose = ' -compose ' . $this->_params['compose'] . ' -matte';
+        }
+
+        foreach($this->_params['images'] as $image) {
+            $temp = $image->toFile();
+            $this->_image->addFileToClean($temp);
+            $ops .= ' ' . $temp . $gravity . $compose . ' -composite';
+        }
+        $this->_image->addOperation($geometry);
+        $this->_image->addPostSrcOperation($ops);
+
         return true;
     }
 

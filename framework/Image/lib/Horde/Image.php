@@ -62,23 +62,19 @@ class Horde_Image
      */
     protected $_logger;
 
-    // @TODO: width/height should be protected since they aren't reliable
-    //        (should use ::getDimensions()) but we need a way to set them
-    //        to zero from Effects... leaving public until a clearGeometry()
-    //        method is implemented.
     /**
      * The current width of the image data.
      *
      * @var integer
      */
-    public $_width = 0;
+    protected $_width = 0;
 
     /**
      * The current height of the image data.
      *
      * @var integer
      */
-    public $_height = 0;
+    protected $_height = 0;
 
     /**
      * A directory for temporary files.
