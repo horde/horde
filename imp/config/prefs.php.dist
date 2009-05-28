@@ -137,7 +137,7 @@ if (!$is_pop3) {
         'column' => _("Message Options"),
         'label' => _("Message Flags"),
         'desc' => _("Customize flag highlighting."),
-        'members' => array('msgflags_hidesys', 'flagmanagement')
+        'members' => array('flagmanagement')
     );
 
     $prefGroups['fetchmail'] = array(
@@ -1136,10 +1136,10 @@ $_prefs['msgflags'] = array(
     //                NO DEFAULT (entry required)
     //          't' - (string) [type] The flag type:
     //                'atc' - Attachment information
-    //                'imap' - IMAP flags (not user settable)
+    //                'imap' - IMAP system flags (not settable by user)
     //                'imapp' - IMAP flags (personal flags - created by user
     //                          through the prefs interface)
-    //                'imapu' - IMAP flags (user settable)
+    //                'imapu' - IMAP system flags (settable by user)
     //                'imp' - IMP defined flags
     //                NO DEFAULT (entry required)
     'value' => json_encode(array(
@@ -1196,20 +1196,24 @@ $_prefs['msgflags'] = array(
             'c' => 'flagUnseen',
             'l' => _("Unseen"),
             'n' => true,
-            't' => 'imap'
+            't' => 'imapu'
         ),
         '\\answered' => array(
             'a' => 'r',
             'b' => '#ccffcc',
             'c' => 'flagAnswered',
             'l' => _("Answered"),
+            // By default, this flag is not settable by the user - it is
+            // automatically set when a message is replied to.
             't' => 'imap'
         ),
         '\\draft' => array(
             'a' => 'd',
             'c' => 'flagDraft',
             'l' => _("Draft"),
-            't' => 'imapu'
+            // By default, this flag is not settable by the user - it is
+            // automatically set/reset when a message is drafted/finished.
+            't' => 'imap'
         ),
         '\\flagged' => array(
             'a' => '*',
@@ -1223,7 +1227,7 @@ $_prefs['msgflags'] = array(
             'b' => '#999999',
             'c' => 'flagDeleted',
             'l' => _("Deleted"),
-            't' => 'imap'
+            't' => 'imapu'
         ),
 
         // Forwarded flag (RFC 4550 [2.8])
@@ -1247,14 +1251,6 @@ $_prefs['msgflags_color'] = array(
     'locked' => false,
     'shared' => false,
     'type' => 'implicit');
-
-// Allow user to alter system flags?
-$_prefs['msgflags_hidesys'] = array(
-    'value' => false,
-    'locked' => false,
-    'shared' => false,
-    'type' => 'checkbox',
-    'desc' => _("Show only user flags in the drop down lists to mark messages?"));
 
 // End IMAP Flag preferences
 

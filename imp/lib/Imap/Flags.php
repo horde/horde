@@ -64,7 +64,8 @@ class IMP_Imap_Flags
      * 'fgcolor' - (boolean) If true, add foreground color information to be
      *             used for text overlay purposes.
      *             DEFAULT: false
-     * 'imap' - (boolean) If true, only return IMAP flags.
+     * 'imap' - (boolean) If true, only return IMAP flags that can be set by
+     *          the user.
      *          DEFAULT: false
      * 'mailbox' - (string) A real (not virtual) IMAP mailbox. If set, will
      *             determine what flags are available in the mailbox.
@@ -88,9 +89,6 @@ class IMP_Imap_Flags
         $types = array();
         if (!empty($options['imap'])) {
             $types = array('imapp', 'imapu');
-            if (!$GLOBALS['prefs']->getValue('msgflags_hidesys')) {
-                $types[] = 'imap';
-            }
         }
 
         /* Reduce the list of flags for the mailbox depending on the return
