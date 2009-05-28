@@ -1,3 +1,4 @@
+<?php require KRONOLITH_TEMPLATES . '/edit/javascript.inc'; ?>
 <form method="post" name="eventform" action="search.php">
 <?php Util::pformInput() ?>
 <input type="hidden" name="actionID" value="search_calendar" />
@@ -5,7 +6,7 @@
 
 <br /><br />
 <h1 class="header">
- <span class="rightFloat" class="smallheader">
+ <span class="smallheader rightFloat">
   <?php echo Horde::widget(Util::addParameter(Horde::applicationUrl('search.php'), 'search_mode', 'basic'), _("Basic Search"), 'smallheader', '', '', _("_Basic Search")) ?>
  </span>
  <?php echo _("Advanced Search") ?>
@@ -21,7 +22,6 @@
 <?php
 $calendars = Kronolith::listCalendars(false, PERMS_READ);
 $issearch = true;
-require KRONOLITH_TEMPLATES . '/edit/javascript.inc';
 ?>
 <!-- title -->
 <tr>
