@@ -112,7 +112,11 @@ class Horde_View_Helper_Tag extends Horde_View_Helper_Base
      */
     public function escapeOnce($html)
     {
-        return $this->_fixDoubleEscape($this->_view->escape($html));
+        if (version_compare(PHP_VERSION, '5.2.3', '>=')) {
+            return htmlspecialchars($html, ENT_QUOTES, $this->_view->getEncoding(), false);
+        } else {
+            return $this->_fixDoubleEscape($this->_view->escape($html));
+        }
     }
 
     /**
