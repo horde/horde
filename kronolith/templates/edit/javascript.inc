@@ -257,6 +257,9 @@ Event.observe(window, 'load', function() {
 KronolithEventForm.toggleSection = function(section)
 {
     var dir = '<?php echo $GLOBALS['registry']->getImageDir() ?>';
+    if (!$('section_' + section)) {
+        return;
+    }
     $('section_' + section).toggle();
     if ($('section_' + section).visible()) {
         $('toggle_' + section).src = dir + '/minus.png';
@@ -273,11 +276,11 @@ KronolithEventForm.toggleSection = function(section)
     }
 }
 Event.observe(window, 'load', function() {
-	KronolithEventForm.toggleSection('alarm');
-	KronolithEventForm.toggleSection('description');
-	KronolithEventForm.toggleSection('attendees');
-	KronolithEventForm.toggleSection('recurrence');
-	KronolithEventForm.toggleSection('tags');
+    KronolithEventForm.toggleSection('alarm');
+    KronolithEventForm.toggleSection('description');
+    KronolithEventForm.toggleSection('attendees');
+    KronolithEventForm.toggleSection('recurrence');
+    KronolithEventForm.toggleSection('tags');
 });
 
 </script>
