@@ -55,6 +55,15 @@ http://pear.php.net/dtd/package-2.0.xsd">
         <file name="Border.php" role="php" />
         <file name="Composite.php" role="php" />
        </dir> <!-- /Horde/Image/Effect/im -->
+       <dir name="Imagick">
+        <file name="DropShadow.php" role="php" />
+        <file name="RoundCorners.php" role="php" />
+        <file name="TextWatermark.php" role="php" />
+        <file name="PhotoStack.php" role="php" />
+        <file name="PolaroidImage.php" role="php" />
+        <file name="Border.php" role="php" />
+        <file name="Composite.php" role="php" />
+       </dir> <!-- /Horde/Image/Effect/Imagick -->
        <dir name="Gd">
         <file name="DropShadow.php" role="php" />
         <file name="RoundCorners.php" role="php" />
@@ -71,6 +80,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
       <file name="rgb.php" role="php" />
       <file name="Svg.php" role="php" />
       <file name="Swf.php" role="php" />
+      <file name="Exception.php" role="php" />
      </dir> <!-- /Horde/Image -->
      <dir name="tests">
       <file name="gd.php" role="test" />
@@ -79,7 +89,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
       <file name="swf.php" role="test" />
      </dir> <!-- /tests -->
      <file name="Image.php" role="php" />
-     <file name="Exception.php" role="php" />
     </dir> <!-- /Horde -->
    </dir> <!-- /lib -->
   </dir> <!-- / -->
@@ -114,6 +123,13 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Image/Effect/Im/PolaroidImage.php" as="Horde/Image/Effect/Im/PolaroidImage.php" />
    <install name="lib/Horde/Image/Effect/Im/Border.php" as="Horde/Image/Effect/Im/Border.php" />
    <install name="lib/Horde/Image/Effect/Im/Composite.php" as="Horde/Image/Effect/Im/Composite.php" />
+   <install name="lib/Horde/Image/Effect/Imagick/DropShadow.php" as="Horde/Image/Effect/Imagick/DropShadow.php" />
+   <install name="lib/Horde/Image/Effect/Imagick/RoundCorners.php" as="Horde/Image/Effect/Imagick/RoundCorners.php" />
+   <install name="lib/Horde/Image/Effect/Imagick/TextWatermark.php" as="Horde/Image/Effect/Imagick/TextWatermark.php" />
+   <install name="lib/Horde/Image/Effect/Imagick/PhotoStack.php" as="Horde/Image/Effect/Imagick/PhotoStack.php" />
+   <install name="lib/Horde/Image/Effect/Imagick/PolaroidImage.php" as="Horde/Image/Effect/Imagick/PolaroidImage.php" />
+   <install name="lib/Horde/Image/Effect/Imagick/Border.php" as="Horde/Image/Effect/Imagick/Border.php" />
+   <install name="lib/Horde/Image/Effect/Imagick/Composite.php" as="Horde/Image/Effect/Imagick/Composite.php" />
    <install name="lib/Horde/Image/Effect/Gd/DropShadow.php" as="Horde/Image/Effect/Gd/DropShadow.php" />
    <install name="lib/Horde/Image/Effect/Gd/RoundCorners.php" as="Horde/Image/Effect/Gd/RoundCorners.php" />
    <install name="lib/Horde/Image/Effect/Gd/TextWatermark.php" as="Horde/Image/Effect/Gd/TextWatermark.php" />
@@ -127,6 +143,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Image/rgb.php" as="Horde/Image/rgb.php" />
    <install name="lib/Horde/Image/Svg.php" as="Horde/Image/Svg.php" />
    <install name="lib/Horde/Image/Swf.php" as="Horde/Image/Swf.php" />
+   <install name="lib/Horde/Image/Exception.php" as="Horde/Image/Exception.php" />
    <install name="lib/Horde/Image.php" as="Horde/Image.php" />
   </filelist>
  </phprelease>
