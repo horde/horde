@@ -338,18 +338,18 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      */
     public function verifySignature($text, $address, $signature = '')
     {
-        $fingerprint = null;
-
-        /* Get fingerprint of key. */
         if (!empty($signature)) {
             $packet_info = $this->pgpPacketInformation($signature);
             if (isset($packet_info['fingerprint'])) {
                 $fingerprint = $packet_info['fingerprint'];
             }
-        } else {
+        }
+
+        if (!isset($fingerprint)) {
             $fingerprint = $this->getSignersKeyID($text);
         }
 
+        /* Get fingerprint of key. */
         $public_key = $this->getPublicKey($address, array('fingerprint' => $fingerprint));
 
         if (empty($signature)) {
