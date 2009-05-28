@@ -349,6 +349,35 @@ class IMP_Imap_Flags
     }
 
     /**
+     * Get the list of set/unset actions for use in dropdown lists.
+     *
+     * @param string $mbox  The current mailbox.
+     *
+     * @return array  An array with 2 elements: 'set' and 'unset'.
+     */
+    public function getFlagList($mbox)
+    {
+        $ret = array('set' => array(), 'unset' => array());
+
+        foreach ($this->getList(array('imap' => true, 'mailbox' => $mbox)) as $val) {
+            $tmp = array(
+                'f' => $val['flag'],
+                'l' => $val['l']
+            );
+
+            /* Check for 'opposite' flag actions. */
+            $act1 = isset($val['n']) ? 'unset' : 'set';
+            $act2 = ($act1 == 'set') ? 'unset' : 'set';
+
+            $ret[$act1][] = $tmp;
+            $tmp['f'] = '0' . $val['flag'];
+            $ret[$act2][] = $tmp;
+        }
+
+        return $ret;
+    }
+
+    /**
      * Output a DIV element to display the icon.
      *
      * @param string $c  A classname.

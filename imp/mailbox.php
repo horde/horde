@@ -505,27 +505,9 @@ if ($pageOb['msgcount']) {
     $n_template->set('use_pop', $_SESSION['imp']['protocol'] == 'pop');
 
     if (!$n_template->get('use_pop')) {
-        $flaglist_set = $flaglist_unset = array();
-        foreach ($imp_flags->getList(array('imap' => true, 'mailbox' => $search_mbox ? null : $imp_mbox['mailbox'])) as $val) {
-            $tmp = array(
-                'f' => $val['flag'],
-                'l' => $val['l']
-            );
-
-            /* These entries are 'opposite' flag actions. */
-            if (isset($val['n'])) {
-                $flaglist_unset[] = $tmp;
-                $tmp['f'] = '0' . $val['flag'];
-                $flaglist_set[] = $tmp;
-            } else {
-                $flaglist_set[] = $tmp;
-                $tmp['f'] = '0' . $val['flag'];
-                $flaglist_unset[] = $tmp;
-            }
-        }
-
-        $n_template->set('flaglist_set', $flaglist_set);
-        $n_template->set('flaglist_unset', $flaglist_unset);
+        $tmp = $imp_flags->getFlagList($search_mbox ? null : $imp_mbox['mailbox']);
+        $n_template->set('flaglist_set', $tmp['set']);
+        $n_template->set('flaglist_unset', $tmp['unset']);
 
         if ($n_template->get('use_folders')) {
             $n_template->set('move', Horde::widget('#', _("Move to folder"), 'widget moveAction', '', '', _("Move"), true));
