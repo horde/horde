@@ -89,6 +89,11 @@ class Kronolith_Driver_Holidays extends Kronolith_Driver
 
     public function getEvent($eventId = null)
     {
+        if (!$eventId) {
+            $date = new Date();
+            return new Kronolith_Event_Holidays($this, new Date_Holidays_Holiday(null, null, $date, null));
+        }
+
         list($id, $date) = explode('-', $eventId, 2);
         $year = substr($date, 0, 4);
 

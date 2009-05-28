@@ -108,6 +108,7 @@ class Kronolith_Driver_Horde extends Kronolith_Driver
 
     public function getEvent($eventId = null)
     {
+        return new Kronolith_Event_Horde($this);
     }
 
 }

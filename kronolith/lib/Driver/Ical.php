@@ -136,6 +136,10 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
 
     public function getEvent($eventId = null)
     {
+        if (!$eventId) {
+            return new Kronolith_Event_Ical($this);
+        }
+
         $iCal = $this->_getRemoteCalendar();
         if (is_a($iCal, 'PEAR_Error')) {
             return $iCal;
