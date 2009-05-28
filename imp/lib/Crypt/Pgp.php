@@ -154,8 +154,8 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      * @param string $address  The e-mail address to search by.
      * @param array $options   Additional options:
      * <pre>
-     * 'fingerprint' - (string) The fingerprint of the user's key.
-     *                 DEFAULT: fingerprint not used
+     * 'keyid' - (string) The key ID of the user's key.
+     *           DEFAULT: key ID not used
      * 'nocache' - (boolean) Don't retrieve from cache?
      *             DEFAULT: false
      * 'noserver' - (boolean) Whether to check the public key servers for the
@@ -168,14 +168,14 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      */
     public function getPublicKey($address, $options = array())
     {
-        $fingerprint = empty($options['fingerprint'])
+        $keyid = empty($options['keyid'])
             ? ''
-            : $options['fingerprint'];
+            : $options['keyid'];
 
         /* If there is a cache driver configured, try to get the public key
          * from the cache. */
         if (empty($options['nocache']) && ($cache = IMP::getCache())) {
-            $result = $cache->get("PGPpublicKey_" . $address . $fingerprint, 3600);
+            $result = $cache->get("PGPpublicKey_" . $address . $keyid, 3600);
             if ($result) {
                 Horde::logMessage('PGPpublicKey: ' . serialize($result), __FILE__, __LINE__, PEAR_LOG_DEBUG);
                 return $result;
@@ -201,12 +201,12 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
         /* Try retrieving via a PGP public keyserver. */
         if (empty($options['noserver']) && is_a($result, 'PEAR_Error')) {
             try {
-                $result = $this->getFromPublicKeyserver($fingerprint, $address);
+                $result = $this->getFromPublicKeyserver($keyid, $address);
 
                 /* If there is a cache driver configured and a cache object
                  * exists, store the retrieved public key in the cache. */
                 if (is_object($cache)) {
-                    $cache->set("PGPpublicKey_" . $address . $fingerprint, $result, 3600);
+                    $cache->set("PGPpublicKey_" . $address . $keyid, $result, 3600);
                 }
             } catch (Horde_Exception $e) {}
         }
@@ -269,15 +269,15 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
     /**
      * Get a public key via a public PGP keyserver.
      *
-     * @param string $fingerprint  The fingerprint of the requested key.
-     * @param string $address      The email address of the requested key.
+     * @param string $keyid    The key ID of the requested key.
+     * @param string $address  The email address of the requested key.
      *
      * @return string  See Horde_Crypt_Pgp::getPublicKeyserver()
      * @throws Horde_Exception
      */
-    public function getFromPublicKeyserver($fingerprint, $address = null)
+    public function getFromPublicKeyserver($keyid, $address = null)
     {
-        return $this->_keyserverConnect($fingerprint, 'get', $address);
+        return $this->_keyserverConnect($keyid, 'get', $address);
     }
 
     /**
@@ -340,17 +340,17 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
     {
         if (!empty($signature)) {
             $packet_info = $this->pgpPacketInformation($signature);
-            if (isset($packet_info['fingerprint'])) {
-                $fingerprint = $packet_info['fingerprint'];
+            if (isset($packet_info['keyid'])) {
+                $keyid = $packet_info['keyid'];
             }
         }
 
-        if (!isset($fingerprint)) {
-            $fingerprint = $this->getSignersKeyID($text);
+        if (!isset($keyid)) {
+            $keyid = $this->getSignersKeyID($text);
         }
 
-        /* Get fingerprint of key. */
-        $public_key = $this->getPublicKey($address, array('fingerprint' => $fingerprint));
+        /* Get key ID of key. */
+        $public_key = $this->getPublicKey($address, array('keyid' => $keyid));
 
         if (empty($signature)) {
             $options = array('type' => 'signature');
