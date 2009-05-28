@@ -58,15 +58,22 @@ $tagger = Kronolith::getTagger();
     <div id="tagnode_<?php echo $id?>" style="display:none;">
       <ul id="tags_<?php echo $id?>">
         <?php foreach ($tags as $tag_id => $tag): ?>
-         <li class="panel-tags"><?php echo $tag . ($cal->hasPermission(Auth::getAuth(), PERMS_EDIT) ? '<a href="#" id="remove' . md5($id . $tag_id) . '">' . Horde::img('delete-small.png', _("Remove Tag"), '', $registry->getImageDir('horde')) . '</a>' : '') . '</li>'?>
-        <?php
-         Kronolith_Imple::factory('TagActions', array('triggerId' => 'remove' . md5($id . $tag_id),
-                                                      'action' => 'delete',
-                                                      'resource' => $id,
-                                                      'type' => 'calendar',
-                                                      'tagId' => $tag_id));
-       ?>
-       <?php endforeach;?>
+         <li class="panel-tags">
+<?php
+Kronolith_Imple::factory('TagActions', array('triggerId' => 'remove' . md5($id . $tag_id),
+                                             'action' => 'delete',
+                                             'resource' => $id,
+                                             'type' => 'calendar',
+                                             'tagId' => $tag_id));
+echo $tag;
+if ($cal->hasPermission(Auth::getAuth(), PERMS_EDIT)) {
+    echo '<a href="#" id="remove' . md5($id . $tag_id) . '">'
+        . Horde::img('delete-small.png', _("Remove Tag"), '', $registry->getImageDir('horde'))
+        . '</a>';
+}
+?>
+        </li>
+        <?php endforeach;?>
       </ul>
       <div class="clear">&nbsp;</div>
       <input type="text" name="newtags-input_<?php echo $id?>" id="newtags-input_<?php echo $id?>" size="10" /><input type="button" class="button" value="add" name="newtags-button_<?php echo $id?>" id="newtags-button_<?php echo $id?>" />
