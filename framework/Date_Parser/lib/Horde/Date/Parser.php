@@ -6,7 +6,10 @@ class Horde_Date_Parser
 {
     public static function parse($text, $args = array())
     {
-        return self::factory($args)->parse($text, $args);
+        $factoryArgs = $args;
+        unset($args['locale']);
+
+        return self::factory($factoryArgs)->parse($text, $args);
     }
 
     public static function factory($args = array())
