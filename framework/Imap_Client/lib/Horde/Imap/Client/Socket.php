@@ -3209,10 +3209,20 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             throw new Horde_Imap_Client_Exception('IMAP server closed the connection unexpectedly.', Horde_Imap_Client_Exception::IMAP_DISCONNECT);
         }
 
+        $data = '';
+
         if (is_null($len)) {
-            $data = fgets($this->_stream);
+            do {
+                /* Can't do a straight fgets() because extremely large lines
+                 * will result in read errors. */
+                if ($tmp = fgets($this->_stream, 8192)) {
+                    $data .= $tmp;
+                    if (!isset($tmp[8191]) || ($tmp[8191] == "\n")) {
+                        break;
+                    }
+                }
+            } while ($tmp !== false);
         } else {
-            $data = '';
             while ($len && ($in = fread($this->_stream, min($len, 8192)))) {
                 $data .= $in;
                 $in_len = strlen($in);
