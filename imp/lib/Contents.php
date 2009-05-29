@@ -267,10 +267,11 @@ class IMP_Contents
      * @param integer $id     The MIME index of the part requested.
      * @param array $options  Additional options:
      * <pre>
-     * 'nocontents' - (boolean) TODO
-     *              DEFAULT: TODO
-     * 'nodecode' - (boolean) TODO
-     *            DEFAULT: TODO
+     * 'nocontents' - (boolean) If true, don't add the contents to the part
+     *              DEFAULT: Contents are added to the part
+     * 'nodecode' - (boolean) If 'nocontents' is false, and this setting is
+     *              true, does not transfer decode the contents.
+     *            DEFAULT: Contents are transfer decoded.
      * </pre>
      *
      * @return Horde_Mime_Part  The raw MIME part asked for (reference).
