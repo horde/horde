@@ -195,7 +195,7 @@ class Horde_Text_Flowed
         $opt = $this->_optlength - 1 - $delsp;
 
         /* Process message line by line. */
-        $text = explode("\n", $this->_text);
+        $text = preg_split("/\r?\n/", $this->_text);
         $text_count = count($text) - 1;
         $skip = 0;
         reset($text);
@@ -229,7 +229,7 @@ class Horde_Text_Flowed
                  * line. A line is not flowed if it is a signature line. */
                 if ($line != '-- ') {
                     while (!empty($line) &&
-                           ($line[strlen($line) - 1] == ' ') &&
+                           (substr($line, -1) == ' ') &&
                            ($text_count != $no) &&
                            ($this->_numquotes($text[$no + 1]) == $num_quotes)) {
                         /* If DelSp is yes and this is flowed input, we need to
@@ -351,11 +351,9 @@ class Horde_Text_Flowed
      */
     protected function _unstuff($text)
     {
-        if (!empty($text) && ($text[0] == ' ')) {
-            $text = substr($text, 1);
-        }
-
-        return $text;
+        return (!empty($text) && ($text[0] == ' '))
+            ? substr($text, 1)
+            : $text;
     }
 
 }
