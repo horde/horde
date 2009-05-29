@@ -41,10 +41,14 @@ class Horde_Log_Handler_Stream extends Horde_Log_Handler_Base
      *
      * @param mixed $streamOrUrl   Stream or URL to open as a stream
      * @param string $mode         Mode, only applicable if a URL is given
+     * @param Horde_Log_Formatter_Interface $formatter  Log formatter
      */
-    public function __construct($streamOrUrl, $mode = 'a+')
+    public function __construct($streamOrUrl, $mode = 'a+', $formatter = null)
     {
-        $this->_formatter = new Horde_Log_Formatter_Simple();
+        if (is_null($formatter)) {
+            $formatter = new Horde_Log_Formatter_Simple();
+        }
+        $this->_formatter = $formatter;
 
         if (is_resource($streamOrUrl)) {
             if (get_resource_type($streamOrUrl) != 'stream') {

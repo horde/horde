@@ -57,10 +57,15 @@ class Horde_Log_Handler_Firebug extends Horde_Log_Handler_Base
 
     /**
      * Class Constructor
+     *
+     * @param Horde_Log_Formatter_Interface $formatter  Log formatter
      */
-    public function __construct()
+    public function __construct($formatter = null)
     {
-        $this->_formatter = new Horde_Log_Formatter_Simple();
+        if (is_null($formatter)) {
+            $formatter = new Horde_Log_Formatter_Simple();
+        }
+        $this->_formatter = $formatter;
     }
 
     /**
