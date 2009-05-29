@@ -7,18 +7,30 @@
  *
  * @package Horde_Image
  */
-require_once dirname(__FILE__) . '/../../../lib/base.php';
+define('HORDE_BASE', '/var/www/html/horde');
+define('AUTH_HANDLER', true);
+require_once HORDE_BASE . '/lib/base.php';
 
-$driver = Util::getFormData('driver', 'im');
+// Putting these here so they don't interfere with timing/memory data when
+// profiling.
+$driver = Util::getFormData('driver', 'Im');
 $test = Util::getFormData('test');
+$convert = trim(`which convert`);
+$handler = new Horde_Log_Handler_Stream(fopen('/tmp/imagetest.log','a+'));
+$logger = new Horde_Log_Logger($handler);
+
 switch ($test) {
 case 'testInitialState':
     // Solid blue background color - basically tests initial state of the
     // Horde_Image object.
+    $time = xdebug_time_index();
     $image = getImageObject(array('height' => '200',
                                   'width' => '200',
                                   'background' => 'blue'));
     $image->display();
+    $time = xdebug_time_index() - $time;
+    $memory = xdebug_peak_memory_usage();
+    logThis($test, $time, $memory);
     exit;
     break;
 
@@ -29,12 +41,19 @@ case 'testInitialStateAfterLoad':
     break;
 
 case 'testResize':
+    $time = xdebug_time_index();
     $image = getImageObject(array('filename' => 'img2.jpg'));
     $image->resize(150, 150);
     $image->display();
+
+    $time = xdebug_time_index() - $time;
+    $memory = xdebug_peak_memory_usage();
+    logThis($test, $time, $memory);
     break;
 
 case 'testPrimitivesTransparentBG':
+    $time = xdebug_time_index();
+
     // Transparent PNG image with various primitives.
     $image = getImageObject(array('height' => '200',
                                   'width' => '200',
@@ -43,6 +62,9 @@ case 'testPrimitivesTransparentBG':
     $image->roundedRectangle(30, 30, 100, 60, 15, 'black', 'red');
     $image->circle(30, 30, 30, 'black', 'blue');
     $image->display();
+    $time = xdebug_time_index() - $time;
+    $memory = xdebug_peak_memory_usage();
+    logThis($test, $time, $memory);
     break;
 
 case 'testTransparentPrimitivesReversed':
@@ -58,6 +80,7 @@ case 'testTransparentPrimitivesReversed':
     break;
 
 case 'testTransparentBGWithBorder':
+    $time = xdebug_time_index();
     // Same as above, but with border.
      $image = getImageObject(array('height' => '200',
                                    'width' => '200',
@@ -68,6 +91,9 @@ case 'testTransparentBGWithBorder':
     $image->addEffect('border', array('bordercolor' => 'blue',
                                       'borderwidth' => 1));
     $image->display();
+    $time = xdebug_time_index() - $time;
+    $memory = xdebug_peak_memory_usage();
+    logThis($test, $time, $memory);
     break;
 
 
@@ -115,6 +141,7 @@ case 'testPolylineCircleLineText':
     break;
 
 case 'testRoundCorners':
+    $time = xdebug_time_index();
     // Tests resizing, and rounding corners with appropriate background maintained.
     $image = getImageObject(array('filename' => 'img1.jpg'));
     $image->resize(150,150);
@@ -123,9 +150,15 @@ case 'testRoundCorners':
                             'bordercolor' => '#333',
                             'background' => 'none'));
     $image->applyEffects();
+
+    $time = xdebug_time_index() - $time;
+    $memory = xdebug_peak_memory_usage();
+    logThis($test, $time, $memory);
+
     $image->display();
     break;
 case 'testRoundCornersRedBG':
+    $time = xdebug_time_index();
     // Tests resizing, and rounding corners with appropriate background maintained.
     $image = getImageObject(array('filename' => 'img1.jpg'));
     $image->resize(150,150);
@@ -135,8 +168,12 @@ case 'testRoundCornersRedBG':
                             'background' => 'red'));
     $image->applyEffects();
     $image->display();
+    $time = xdebug_time_index() - $time;
+    $memory = xdebug_peak_memory_usage();
+    logThis($test, $time, $memory);
     break;
 case 'testRoundCornersDropShadowTransparentBG':
+    $time = xdebug_time_index();
     $image = getImageObject(array('filename' => 'img1.jpg'));
     $image->resize(150,150);
     $image->addEffect('RoundCorners',
@@ -147,10 +184,14 @@ case 'testRoundCornersDropShadowTransparentBG':
                             'padding' => 5,
                             'distance' => 5,
                             'fade' => 3));
+    $time = xdebug_time_index() - $time;
+    $mem = xdebug_peak_memory_usage();
+    logThis($test, $time, $mem);
     $image->display();
     break;
 
 case 'testRoundCornersDropShadowYellowBG':
+    $time = xdebug_time_index();
     $image = getImageObject(array('filename' => 'img1.jpg'));
     $image->resize(150,150);
     $image->addEffect('RoundCorners',
@@ -162,53 +203,74 @@ case 'testRoundCornersDropShadowYellowBG':
                             'distance' => 5,
                             'fade' => 3));
     $image->display();
+    $time = xdebug_time_index() - $time;
+    $memory = xdebug_peak_memory_usage();
+    logThis($test, $time, $memory);
     break;
 
 case 'testBorderedDropShadowTransparentBG':
+    $time = xdebug_time_index();
+
     $image = getImageObject(array('filename' => 'img1.jpg',
                                   'background' => 'none'));
     $image->resize(150,150);
     $image->addEffect('Border', array('bordercolor' => '#333', 'borderwidth' => 1));
     $image->addEffect('DropShadow',
                       array('background' => 'none',
-                            'padding' => 5,
-                            'distance' => '8',
-                            'fade' => 2));
+                            'padding' => 10,
+                            'distance' => '10',
+                            'fade' => 5));
     $image->display();
+    $time = xdebug_time_index() - $time;
+    $memory = xdebug_peak_memory_usage();
+    logThis($test, $time, $memory);
     break;
 
 case 'testBorderedDropShadowBlueBG':
+    $time = xdebug_time_index();
     $image = getImageObject(array('filename' => 'img1.jpg',
                                   'background' => 'none'));
     $image->resize(150,150);
     $image->addEffect('Border', array('bordercolor' => '#333', 'borderwidth' => 1));
     $image->addEffect('DropShadow',
                       array('background' => 'blue',
-                            'padding' => 5,
-                            'distance' => '8',
-                            'fade' => 2));
+                            'padding' => 10,
+                            'distance' => '10',
+                            'fade' => 5));
     $image->display();
+    $time = xdebug_time_index() - $time;
+    $mem = xdebug_peak_memory_usage();
+    logThis($test, $time, $mem);
     break;
 
 case 'testPolaroidTransparentBG':
+    $time = xdebug_time_index();
     $image = getImageObject(array('filename' => 'img1.jpg'));
     $image->resize(150, 150);
     $image->addEffect('PolaroidImage',
                       array('background' => 'none',
                             'padding' => 5));
     $image->display();
+    $time = xdebug_time_index() - $time;
+    $memory = xdebug_peak_memory_usage();
+    logThis($test, $time, $memory);
     break;
 
 case 'testPolaroidBlueBG':
+    $time = xdebug_time_index();
     $image = getImageObject(array('filename' => 'img1.jpg'));
     $image->resize(150, 150);
     $image->addEffect('PolaroidImage',
                       array('background' => 'blue',
                             'padding' => 5));
     $image->display();
+    $time = xdebug_time_index() - $time;
+    $memory = xdebug_peak_memory_usage();
+    logThis($test, $time, $memory);
     break;
 
 case 'testPlainstackTransparentBG':
+    $time = xdebug_time_index();
     $imgs = array(getImageObject(array('filename' => 'img1.jpg')),
                   getImageObject(array('filename' => 'img2.jpg')),
                   getImageObject(array('filename' => 'img3.jpg')));
@@ -224,9 +286,14 @@ case 'testPlainstackTransparentBG':
                               'type' => 'plain'));
     $baseImg->applyEffects();
     $baseImg->display();
+    $time = xdebug_time_index() - $time;
+    $memory = xdebug_peak_memory_usage();
+    logThis($test, $time, $memory);
     break;
 
 case 'testPlainstackBlueBG':
+    $time = xdebug_time_index();
+
     $imgs = array(getImageObject(array('filename' => 'img1.jpg')),
                   getImageObject(array('filename' => 'img2.jpg')),
                   getImageObject(array('filename' => 'img3.jpg')));
@@ -237,15 +304,19 @@ case 'testPlainstackBlueBG':
     $baseImg->addEffect('PhotoStack',
                         array('images' => $imgs,
                               'resize_height' => 150,
-                              'padding' => 0,
+                              'padding' => 5,
                               'background' => 'blue',
                               'type' => 'plain'));
     $baseImg->applyEffects();
     $baseImg->display();
+    $time = xdebug_time_index() - $time;
+    $memory = xdebug_peak_memory_usage();
+    logThis($test, $time, $memory);
     break;
 
 case 'testRoundstackTransparentBG':
-        $imgs = array(getImageObject(array('filename' => 'img1.jpg')),
+    $time = xdebug_time_index();
+    $imgs = array(getImageObject(array('filename' => 'img1.jpg')),
                   getImageObject(array('filename' => 'img2.jpg')),
                   getImageObject(array('filename' => 'img3.jpg')));
     $baseImg = getImageObject(array('width' => 1,
@@ -260,10 +331,14 @@ case 'testRoundstackTransparentBG':
                               'type' => 'rounded'));
     $baseImg->applyEffects();
     $baseImg->display();
+    $time = xdebug_time_index() - $time;
+    $memory = xdebug_peak_memory_usage();
+    logThis($test, $time, $memory);
     break;
 
 case 'testRoundstackBlueBG':
-        $imgs = array(getImageObject(array('filename' => 'img1.jpg')),
+    $time = xdebug_time_index();
+    $imgs = array(getImageObject(array('filename' => 'img1.jpg')),
                   getImageObject(array('filename' => 'img2.jpg')),
                   getImageObject(array('filename' => 'img3.jpg')));
     $baseImg = getImageObject(array('width' => 1,
@@ -278,9 +353,13 @@ case 'testRoundstackBlueBG':
                               'type' => 'rounded'));
     $baseImg->applyEffects();
     $baseImg->display();
+    $time = xdebug_time_index() - $time;
+    $memory = xdebug_peak_memory_usage();
+    logThis($test, $time, $memory);
     break;
 
 case 'testPolaroidstackTransparentBG':
+    $time = xdebug_time_index();
     $imgs = array(getImageObject(array('filename' => 'img1.jpg')),
               getImageObject(array('filename' => 'img2.jpg')),
               getImageObject(array('filename' => 'img3.jpg')));
@@ -296,6 +375,9 @@ case 'testPolaroidstackTransparentBG':
                               'type' => 'polaroid'));
     $baseImg->applyEffects();
     $baseImg->display();
+    $time = xdebug_time_index() - $time;
+    $memory = xdebug_peak_memory_usage();
+    logThis($test, $time, $memory);
     break;
 
 case 'testPolaroidstackBlueBG':
@@ -328,10 +410,16 @@ function getImageObject($params = array())
 {
     global $conf;
 
-    $context = array('tmpdir' => Horde::getTempDir());
-    if (!empty($conf['image']['convert'])) {
-        $context['convert'] = $conf['image']['convert'];
-    }
+    // Always pass the convert parameter to be consistent when profiling.
+    $context = array('tmpdir' => Horde::getTempDir(),
+                     'convert' => $GLOBALS['convert']);
     $params['context'] = $context;
-    return Horde_Image::factory('im', $params);
+    return Horde_Image::factory($GLOBALS['driver'], $params);
+}
+
+function logThis($effect, $time, $memory)
+{
+    global $driver, $logger;
+
+    $logger->debug("$driver, $effect, $time, $memory");
 }

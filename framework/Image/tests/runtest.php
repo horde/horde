@@ -2,8 +2,8 @@
 /**
  * Test harness for generating the test images for Horde_Image tests
  */
-require_once dirname(__FILE__) . '/../../../lib/base.php';
-//$GLOBALS['conf']['image']['convert'] = trim(`which convert`);
+define('HORDE_BASE', '/var/www/html/horde');
+require_once HORDE_BASE . '/lib/core.php';
 
 $allTests = array(
     'testInitialState' => 'Test initial state. Solid blue square',
@@ -35,10 +35,12 @@ $allTests = array(
   <title>Horde_Image Tests</title>
  </head>
  <body style="background-color:gray">
+<table width="50%">
+ <thead><td>Effect</td><td>Im</td><td>Imagick</td></thead>
 <?php
-echo '<table width="50%">';
 foreach ($allTests as $name => $description) {
-    echo '<tr><td text-align="top">' . $description . '</td><td>' . Horde::img('im.php?test=' . $name, '', '', '') . '</td></tr>';
+    echo '<tr><td text-align="top">' . $description . '</td><td>' . Horde::img('im.php?test=' . $name, '', '', '') . '</td>'
+        . '<td text-align="top">' . Horde::img('im.php?test=' . $name . '&driver=Imagick', '', '', '') . '</td>';
 }
 echo '</table>';
 ?></body></html>
