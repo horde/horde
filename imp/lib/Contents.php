@@ -175,6 +175,9 @@ class IMP_Contents
      * @param integer $id     The ID of the MIME part.
      * @param array $options  Additional options:
      * <pre>
+     * 'length' - (integer) If set, only download this many bytes of the
+     *            bodypart from the server.
+     *            DEFAULT: All data is retrieved.
      * 'mimeheaders' - (boolean) Include the MIME headers also?
      *                 DEFAULT: No
      * </pre>
@@ -194,6 +197,10 @@ class IMP_Contents
         $query = array(
             Horde_Imap_Client::FETCH_BODYPART => array(array('id' => $id, 'peek' => true))
         );
+        if (!empty($options['length'])) {
+            $query[Horde_Imap_Client::FETCH_BODYPART][0]['start'] = 0;
+            $query[Horde_Imap_Client::FETCH_BODYPART][0]['length'] = $options['length'];
+        }
         if (!empty($options['mimeheaders'])) {
             $query[Horde_Imap_Client::FETCH_MIMEHEADER] = array(array('id' => $id, 'peek' => true));
         }
@@ -267,6 +274,9 @@ class IMP_Contents
      * @param integer $id     The MIME index of the part requested.
      * @param array $options  Additional options:
      * <pre>
+     * 'length' - (integer) If set, only download this many bytes of the
+     *            bodypart from the server.
+     *            DEFAULT: All data is retrieved.
      * 'nocontents' - (boolean) If true, don't add the contents to the part
      *              DEFAULT: Contents are added to the part
      * 'nodecode' - (boolean) If 'nocontents' is false, and this setting is
@@ -286,7 +296,7 @@ class IMP_Contents
             empty($options['nocontents']) &&
             !is_null($this->_mailbox) &&
             !$part->getContents()) {
-            $contents = $this->getBodyPart($id);
+            $contents = $this->getBodyPart($id, array('length' => empty($options['length']) ? null : $options['length']));
             if (($part->getPrimaryType() == 'text') &&
                 (String::upper($part->getCharset()) == 'US-ASCII') &&
                 Horde_Mime::is8bit($contents)) {
@@ -429,11 +439,25 @@ class IMP_Contents
      */
     public function generatePreview()
     {
-        if (($mimeid = $this->findBody()) === null) {
+        // For preview generation, don't go through overhead of scanning for
+        // embedded parts. Necessary evil, or else very large parts (e.g
+        // 5 MB+ text parts) will take ages to scan.
+        $oldbuild = $this->_build;
+        $this->_build = true;
+        $mimeid = $this->findBody();
+
+        if (is_null($mimeid)) {
+            $this->_build = $oldbuild;
             return array('cut' => false, 'text' => '');
         }
 
-        $pmime = $this->getMIMEPart($mimeid);
+        $maxlen = empty($GLOBALS['conf']['msgcache']['preview_size'])
+            ? $GLOBALS['prefs']->getValue('preview_maxlen')
+            : $GLOBALS['conf']['msgcache']['preview_size'];
+
+        // Retrieve 3x the size of $maxlen of bodytext data. This should
+        // account for any content-encoding & HTML tags.
+        $pmime = $this->getMIMEPart($mimeid, array('length' => $maxlen * 3));
         $ptext = $pmime->getContents();
         $ptext = String::convertCharset($ptext, $pmime->getCharset());
         if ($pmime->getType() == 'text/html') {
@@ -442,18 +466,13 @@ class IMP_Contents
                                          array('charset' => NLS::getCharset()));
         }
 
-        $maxlen = empty($GLOBALS['conf']['msgcache']['preview_size'])
-            ? $GLOBALS['prefs']->getValue('preview_maxlen')
-            : $GLOBALS['conf']['msgcache']['preview_size'];
+        $this->_build = $oldbuild;
 
         if (String::length($ptext) > $maxlen) {
-            $ptext = String::substr($ptext, 0, $maxlen) . ' ...';
-            $cut = true;
-        } else {
-            $cut = false;
+            return array('cut' => true, 'text' => String::substr($ptext, 0, $maxlen) . ' ...');
         }
 
-        return array('cut' => $cut, 'text' => $ptext);
+        return array('cut' => false, 'text' => $ptext);
     }
 
     /**
