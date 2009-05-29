@@ -76,11 +76,10 @@ class Horde_Image_Effect_Im_PhotoStack extends Horde_Image_Effect
                                                        $this->_params['resize_height'],
                                                        true);
             $size = $this->_params['images'][$cnt - 1]->getDimensions();
-            //$this->_image->resize(2 * $this->_params['resize_height'], 2 * $this->_params['resize_height']);
             for ($i = 0; $i < $cnt; $i++) {
                 $this->_params['images'][$i]->resize($size['height'], $size['width'], false);
             }
-            $xo = $yo = (count($this->_params['images']) + 1) * $this->_params['offset'];
+            $xo = $yo = (count($this->_params['images'])) * $this->_params['offset'];
             $ops = '';
             $haveBottom = false;
             foreach ($this->_params['images'] as $image) {
@@ -93,7 +92,7 @@ class Horde_Image_Effect_Im_PhotoStack extends Horde_Image_Effect
                     $temp = $image->toFile();
                 }
                 $this->_image->addFileToClean($temp);
-                $ops .= ' \( ' . $temp . ' -background none -thumbnail ' . $size['width'] . 'x' . $size['height'] . '! -repage +' . $xo . '+' . $yo . ($this->_params['type'] == 'plain' ? ' -bordercolor "#333" -border 1 ' : ' ' ) . ((!$haveBottom) ? '\( +clone -shadow 80x4+0+0 \) +swap -mosaic' : '') . ' \) ';
+                $ops .= ' \( ' . $temp . ' -background none -thumbnail ' . $size['width'] . 'x' . $size['height'] . '! -repage +' . $xo . '+' . $yo . ($this->_params['type'] == 'plain' ? ' -bordercolor "#333" -border 1 ' : ' ' ) . ((!$haveBottom) ? '\( +clone -shadow 80x3+4+4 \) +swap -mosaic' : '') . ' \) ';
                 $haveBottom = true;
             }
 
@@ -101,7 +100,6 @@ class Horde_Image_Effect_Im_PhotoStack extends Horde_Image_Effect
             // convert versions before 6.4 it seems. Without it specified as
             // none here, all stacks come out with a white background.
             $this->_image->addPostSrcOperation($ops . ' -background ' . $this->_params['background'] . ' -mosaic -bordercolor ' . $this->_params['background'] . ' -border ' . $this->_params['padding']);
-
             break;
 
         case 'polaroid':
