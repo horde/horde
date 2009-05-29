@@ -1307,7 +1307,7 @@ var DimpBase = {
     /* Keydown event handler */
     keydownHandler: function(e)
     {
-        var co, form, ps, r, row, rowoff, sel,
+        var co, form, h, pp, ps, r, row, rowoff, sel,
             elt = e.element(),
             kc = e.keyCode || e.charCode;
 
@@ -1382,7 +1382,22 @@ var DimpBase = {
 
         case Event.KEY_PAGEUP:
         case Event.KEY_PAGEDOWN:
-            if (!e.ctrlKey && !e.shiftKey && !e.altKey && !e.metaKey) {
+            if (e.altKey) {
+                pp = $('previewPane');
+                h = pp.getHeight();
+                if (h != pp.scrollHeight) {
+                    switch (kc) {
+                    case Event.KEY_PAGEUP:
+                        pp.scrollTop = Math.max(pp.scrollTop - h, 0);
+                        break;
+
+                    case Event.KEY_PAGEDOWN:
+                        pp.scrollTop = Math.min(pp.scrollTop + h, pp.scrollHeight - h + 1);
+                        break;
+                    }
+                }
+                e.stop();
+            } else if (!e.ctrlKey && !e.shiftKey && !e.metaKey) {
                 ps = this.viewport.getPageSize() - 1;
                 move = ps * (kc == Event.KEY_PAGEUP ? -1 : 1);
                 if (sel.size() == 1) {
