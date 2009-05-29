@@ -224,8 +224,9 @@ class IMP_Mailbox
                     }
 
                     if (($options['preview'] === 2) ||
-                        !$GLOBALS['prefs']->getValue('preview_show_unread') ||
-                        !in_array('\\seen', $v['flags'])) {
+                        (($options['preview'] === 1) &&
+                         (!$GLOBALS['prefs']->getValue('preview_show_unread') ||
+                          !in_array('\\seen', $v['flags'])))) {
                         if (empty($preview_info[$k])) {
                             try {
                                 $imp_contents = IMP_Contents::singleton($k . IMP::IDX_SEP . $mbox);
