@@ -351,8 +351,13 @@ if ($_SESSION['imp']['file_upload'] && ($actionID == 'import_mbox')) {
 }
 
 /* Build the folder tree. */
-list($raw_rows, $newmsgs, $displayNames) = $imaptree->build();
+list($raw_rows, $newmsgs) = $imaptree->build();
 
+/* Build the list of display names. */
+reset($raw_rows);
+while (list(,$r) = each($raw_rows)) {
+    $displayNames[] = $r['display'];
+}
 IMP::addInlineScript(array(
     'ImpFolders.displayNames = ' . Horde_Serialize::serialize($displayNames, Horde_Serialize::JSON, $charset)
 ));

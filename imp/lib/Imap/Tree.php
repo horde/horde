@@ -1586,9 +1586,8 @@ class IMP_Imap_Tree
      *                       different icon whether the folder is opened or
      *                       closed.
      *
-     * @return array  An array with three elements: the folder list, the total
-     *                number of new messages, and a list with folder names
-     *                suitable for user interaction.
+     * @return array  An array with two elements: the folder list and the
+     *                total number of new messages.
      *                The folder list array contains the following added
      *                entries on top of the entries provided by element():
      * <pre>
@@ -1598,7 +1597,7 @@ class IMP_Imap_Tree
      */
     public function build($mask = 0, $open = true)
     {
-        $displayNames = $newmsgs = $rows = array();
+        $newmsgs = $rows = array();
         $this->_forceopen = $open;
 
         /* Start iterating through the list of mailboxes, displaying them. */
@@ -1616,13 +1615,12 @@ class IMP_Imap_Tree
             /* Hide folder prefixes from the user. */
             if ($row['level'] >= 0) {
                 $rows[] = $row;
-                $displayNames[] = addslashes($row['display']);
             }
         } while (($mailbox = $this->next($mask)));
 
         $this->_forceopen = false;
 
-        return array($rows, $newmsgs, $displayNames);
+        return array($rows, $newmsgs);
     }
 
     /**
