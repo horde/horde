@@ -23,7 +23,7 @@ class Horde_Mime_Viewer_Simple extends Horde_Mime_Viewer_Driver
         'forceinline' => false,
         'full' => true,
         'info' => false,
-        'inline' => true
+        'inline' => false
     );
 
     /**
@@ -38,22 +38,6 @@ class Horde_Mime_Viewer_Simple extends Horde_Mime_Viewer_Driver
                 'data' => $this->_mimepart->getContents(),
                 'status' => array(),
                 'type' => 'text/plain; charset=' . $this->_mimepart->getCharset()
-            )
-        );
-    }
-
-    /**
-     * Return the rendered inline version of the Horde_Mime_Part object.
-     *
-     * @return array  See Horde_Mime_Viewer_Driver::render().
-     */
-    protected function _renderInline()
-    {
-        return array(
-            $this->_mimepart->getMimeId() => array(
-                'data' => String::convertCharset($this->_mimepart->getContents(), $this->_mimepart->getCharset()),
-                'status' => array(),
-                'type' => 'text/plain; charset=' . NLS::getCharset()
             )
         );
     }
