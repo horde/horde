@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+http://pear.php.net/dtd/tasks-1.0.xsd
+http://pear.php.net/dtd/package-2.0
+http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Date</name>
+ <channel>pear.horde.org</channel>
+ <summary>Horde Date package</summary>
+ <description>Package for creating and manipulating dates.
+ </description>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Jan Schneider</name>
+  <user>jan</user>
+  <email>jan@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2009-05-29</date>
+ <version>
+  <release>0.3.0</release>
+  <api>0.3.0</api>
+ </version>
+ <stability>
+  <release>beta</release>
+  <api>beta</api>
+ </stability>
+ <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <notes>* Add Horde_Date_Repeater
+* Add Horde_Date_Span</notes>
+ <contents>
+  <dir name="/">
+   <dir name="lib">
+    <dir name="Horde">
+     <dir name="Date">
+      <dir name="Repeater">
+       <file name="Day.php" role="php" />
+       <file name="DayName.php" role="php" />
+       <file name="DayPortion.php" role="php" />
+       <file name="Exception.php" role="php" />
+       <file name="Fortnight.php" role="php" />
+       <file name="Hour.php" role="php" />
+       <file name="Minute.php" role="php" />
+       <file name="Month.php" role="php" />
+       <file name="MonthName.php" role="php" />
+       <file name="Season.php" role="php" />
+       <file name="SeasonName.php" role="php" />
+       <file name="Second.php" role="php" />
+       <file name="Time.php" role="php" />
+       <file name="Week.php" role="php" />
+       <file name="Weekend.php" role="php" />
+       <file name="Year.php" role="php" />
+      </dir> <!-- /lib/Horde/Date/Repeater -->
+      <file name="Recurrence.php" role="php" />
+      <file name="Repeater.php" role="php" />
+      <file name="Span.php" role="php" />
+     </dir> <!-- /lib/Horde/Date -->
+     <file name="Date.php" role="php" />
+    </dir> <!-- /lib/Horde -->
+   </dir> <!-- /lib -->
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.7.0</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install name="lib/Horde/Date.php" as="Horde/Date.php" />
+   <install name="lib/Horde/Date/Recurrence.php" as="Horde/Date/Recurrence.php" />
+   <install name="lib/Horde/Date/Repeater.php" as="Horde/Date/Repeater.php" />
+   <install name="lib/Horde/Date/Repeater/Day.php" as="Horde/Date/Repeater/Day.php" />
+   <install name="lib/Horde/Date/Repeater/DayName.php" as="Horde/Date/Repeater/DayName.php" />
+   <install name="lib/Horde/Date/Repeater/DayPortion.php" as="Horde/Date/Repeater/DayPortion.php" />
+   <install name="lib/Horde/Date/Repeater/Exception.php" as="Horde/Date/Repeater/Exception.php" />
+   <install name="lib/Horde/Date/Repeater/Fortnight.php" as="Horde/Date/Repeater/Fortnight.php" />
+   <install name="lib/Horde/Date/Repeater/Hour.php" as="Horde/Date/Repeater/Hour.php" />
+   <install name="lib/Horde/Date/Repeater/Minute.php" as="Horde/Date/Repeater/Minute.php" />
+   <install name="lib/Horde/Date/Repeater/Month.php" as="Horde/Date/Repeater/Month.php" />
+   <install name="lib/Horde/Date/Repeater/MonthName.php" as="Horde/Date/Repeater/MonthName.php" />
+   <install name="lib/Horde/Date/Repeater/Season.php" as="Horde/Date/Repeater/Season.php" />
+   <install name="lib/Horde/Date/Repeater/SeasonName.php" as="Horde/Date/Repeater/SeasonName.php" />
+   <install name="lib/Horde/Date/Repeater/Second.php" as="Horde/Date/Repeater/Second.php" />
+   <install name="lib/Horde/Date/Repeater/Time.php" as="Horde/Date/Repeater/Time.php" />
+   <install name="lib/Horde/Date/Repeater/Week.php" as="Horde/Date/Repeater/Week.php" />
+   <install name="lib/Horde/Date/Repeater/Weekend.php" as="Horde/Date/Repeater/Weekend.php" />
+   <install name="lib/Horde/Date/Repeater/Year.php" as="Horde/Date/Repeater/Year.php" />
+   <install name="lib/Horde/Date/Span.php" as="Horde/Date/Span.php" />
+  </filelist>
+ </phprelease>
+</package>
