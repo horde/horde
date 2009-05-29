@@ -3217,7 +3217,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                  * will result in read errors. */
                 if ($tmp = fgets($this->_stream, 8192)) {
                     $data .= $tmp;
-                    if (!isset($tmp[8191]) || ($tmp[8191] == "\n")) {
+                    if (!isset($tmp[8190]) || ($tmp[8190] == "\n")) {
                         break;
                     }
                 }
