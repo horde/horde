@@ -76,13 +76,11 @@ class Horde_Image_Effect_Im_PhotoStack extends Horde_Image_Effect
                                                        $this->_params['resize_height'],
                                                        true);
             $size = $this->_params['images'][$cnt - 1]->getDimensions();
-            for ($i = 0; $i < $cnt; $i++) {
-                $this->_params['images'][$i]->resize($size['height'], $size['width'], false);
-            }
             $xo = $yo = (count($this->_params['images'])) * $this->_params['offset'];
             $ops = '';
             $haveBottom = false;
             foreach ($this->_params['images'] as $image) {
+                $image->resize($size['height'], $size['width'], false);
                 $xo -= $this->_params['offset'];
                 $yo -= $this->_params['offset'];
 
