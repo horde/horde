@@ -98,7 +98,26 @@ class IMP_Mailbox
         $this->_searchmbox = $GLOBALS['imp_search']->isSearchMbox($mailbox);
 
         if (!is_null($index)) {
+            /* Try to rebuild sorted information from the session cache. */
+            if (isset($_SESSION['imp']['cache']['imp_mailbox'][$mailbox])) {
+                $tmp = unserialize($_SESSION['imp']['cache']['imp_mailbox'][$mailbox]);
+                $this->_sorted = $tmp['s'];
+                $this->_sortedInfo = $tmp['i'];
+            }
             $this->setIndex($index);
+        }
+    }
+
+    /**
+     * Cache mailbox information if viewing in standard (IMP) message mode.
+     * Needed to keep navigation consistent when moving through the message
+     * list, and to ensure messages aren't marked as missing in search
+     * mailboxes (e.g. if search is dependent on unseen flag).
+     */
+    public function __destruct()
+    {
+        if (!is_null($this->_arrayIndex)) {
+            $_SESSION['imp']['cache']['imp_mailbox'][$this->_mailbox] = serialize(array('i' => $this->_sortedInfo, 's' => $this->_sorted));
         }
     }
 
