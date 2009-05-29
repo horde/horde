@@ -526,7 +526,6 @@ class Horde_Image
         return $pts;
     }
 
-
     /**
      * Attempts to apply requested effect to this image.  If the
      * effect cannot be found a PEAR_Error is returned.
