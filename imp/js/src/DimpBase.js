@@ -1984,7 +1984,7 @@ var DimpBase = {
 
     deleteFolder: function(folder)
     {
-        if (this.folder == f) {
+        if (this.folder == folder) {
             this.go('folder:INBOX');
         }
         this.deleteFolderElt(this.getFolderId(folder), true);
