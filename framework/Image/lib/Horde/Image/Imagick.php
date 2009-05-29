@@ -411,7 +411,7 @@ class Horde_Image_Imagick extends Horde_Image
         // transparency.
         $border = $image->clone();
         $border->borderImage(new ImagickPixel($color), $width, $height);
-        $border->compositeImage($image, Imagick::COMPOSITE_COPY, $width, $height);
+        $border->compositeImage($image, Imagick::COMPOSITE_OVER, $width, $height);
         $image->clear();
         $image->addImage($border);
         $border->destroy();

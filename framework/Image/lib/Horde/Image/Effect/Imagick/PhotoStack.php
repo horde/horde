@@ -104,7 +104,10 @@ class Horde_Image_Effect_Imagick_PhotoStack extends Horde_Image_Effect
                 if ($this->_params['type'] == 'rounded') {
                     $imgk = $this->_roundBorder($imgk);
                 } else {
-                    Horde_Image_Imagick::borderImage($imgk, $this->_params['bordercolor'], 1, 1);
+                    Horde_Image_Imagick::borderImage($imgk,
+                                                     $this->_params['bordercolor'],
+                                                     $this->_params['borderwidth'],
+                                                     $this->_params['borderwidth']);
                 }
                 // Only shadow the bottom image for 'plain' stacks
                 if (!$haveBottom) {
@@ -181,27 +184,36 @@ class Horde_Image_Effect_Imagick_PhotoStack extends Horde_Image_Effect
             $image->destroy();
         }
 
+        //@TODO: Was this here for BC with Imagick compiled against older Im?
+        // Remove this after I checked against my older IM install
         // If we have a background other than 'none' we need to
         // compose two images together to make sure we *have* a background.
-        if ($this->_params['background'] != 'none') {
-            $size = $this->_image->getDimensions();
-            $new = new Imagick();
-            $new->newImage($length * 1.5 + 20, $length * 1.5 + 20, new ImagickPixel($this->_params['background']));
-            $new->setImageFormat($this->_image->getType());
-            $new->compositeImage($this->_image->imagick, Imagick::COMPOSITE_OVER, 0, 0);
-            $this->_image->imagick->clear();
-            $this->_image->imagick->addImage($new);
-            $new->destroy();
-        }
+//        if ($this->_params['background'] != 'none') {
+//            $size = $this->_image->getDimensions();
+//            $new = new Imagick();
+//            $new->newImage($length * 1.5 + 20, $length * 1.5 + 20, new ImagickPixel($this->_params['background']));
+//            $new->setImageFormat($this->_image->getType());
+//            $new->compositeImage($this->_image->imagick, Imagick::COMPOSITE_OVER, 0, 0);
+//            $this->_image->imagick->clear();
+//            $this->_image->imagick->addImage($new);
+//            $new->destroy();
+//        }
 
         // Trim the canvas before resizing to keep the thumbnails as large
         // as possible.
         $this->_image->imagick->trimImage(0);
-        if ($this->_params['padding']) {
-            Horde_Image_Imagick::borderImage($this->_image->imagick,
-                                             $this->_params['background'],
-                                             $this->_params['padding'],
-                                             $this->_params['padding']);
+        if ($this->_params['padding'] || $this->_params['background'] != 'none') {
+            $this->_image->imagick->borderImage(
+                new ImagickPixel($this->_params['background']),
+                $this->_params['padding'],
+                $this->_params['padding']);
+
+            // @TODO: Same here, did I do this for older Im versions not working
+            // right?
+            //Horde_Image_Imagick::borderImage($this->_image->imagick,
+            //                                 $this->_params['background'],
+            //                                 $this->_params['padding'],
+            //                                 $this->_params['padding']);
         }
 
         return true;
