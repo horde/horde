@@ -32,6 +32,11 @@ class Horde_Image_Effect_Imagick_DropShadow extends Horde_Image_Effect
      */
     public function apply()
     {
+        // There is what *I* call a bug in the magickwand interface of Im that
+        // Imagick is compiled against. The X and Y parameters are ignored, and
+        // the distance of the shadow is determined *solely* by the sigma value
+        // which makes it pretty much impossible to have Imagick shadows look
+        // identical to Im shadows...
         $shadow = $this->_image->imagick->clone();
         $shadow->setImageBackgroundColor(new ImagickPixel('black'));
         $shadow->shadowImage(80, $this->_params['fade'],
@@ -54,14 +59,14 @@ class Horde_Image_Effect_Imagick_DropShadow extends Horde_Image_Effect
             $new->destroy();
         }
 
+        $shadow->compositeImage($this->_image->imagick, Imagick::COMPOSITE_OVER, 0, 0);
+
         if ($this->_params['padding']) {
             Horde_Image_Imagick::borderImage($shadow,
                                              $this->_params['background'],
                                              $this->_params['padding'],
                                              $this->_params['padding']);
         }
-
-        $shadow->compositeImage($this->_image->imagick, Imagick::COMPOSITE_OVER, 0, 0);
         $this->_image->imagick->clear();
         $this->_image->imagick->addImage($shadow);
         $shadow->destroy();
