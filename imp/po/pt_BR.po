@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: pt_BR\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2008-07-06 23:19-0300\n"
-"PO-Revision-Date: 2008-07-04 00:10-0300\n"
+"PO-Revision-Date: 2009-05-29 13:19+0200\n"
 "Last-Translator: Luis Felipe Marzagao <duli@fedoraproject.org>\n"
 "Language-Team: Português brasileiro <i18n@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
@@ -3829,7 +3829,7 @@ msgstr "Gravar destinatários automaticamente nos seus contatos padrão?"
 
 #: templates/search/search.html:171
 msgid "Save search as a virtual folder?"
-msgstr "Garvar pesquisa como uma pasta virtual?"
+msgstr "Gravar pesquisa como uma pasta virtual?"
 
 #: config/prefs.php.dist:255
 msgid "Save sent mail?"
