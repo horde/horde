@@ -16,7 +16,7 @@
  * @package    Horde_View
  * @subpackage Helper
  */
-class Horde_View_Helper_Block extends Horde_View_Helper
+class Horde_View_Helper_Block extends Horde_View_Helper_Base
 {
     /**
      * Blocks that have already been fetched.
