@@ -41,13 +41,6 @@ abstract class Horde_View_Base
     private $_helpers = array();
 
     /**
-     * Callback for escaping.
-     *
-     * @var string
-     */
-    private $_escape = 'htmlspecialchars';
-
-    /**
      * Encoding to use in escaping mechanisms; defaults to UTF-8.
      * @var string
      */
@@ -72,11 +65,6 @@ abstract class Horde_View_Base
      */
     public function __construct($config = array())
     {
-        // user-defined escaping callback
-        if (!empty($config['escape'])) {
-            $this->setEscape($config['escape']);
-        }
-
         // encoding
         if (!empty($config['encoding'])) {
             $this->setEncoding($config['encoding']);
@@ -218,16 +206,6 @@ abstract class Horde_View_Base
     }
 
     /**
-     * Sets the escape() callback.
-     *
-     * @param mixed $spec The callback for escape() to use.
-     */
-    public function setEscape($spec)
-    {
-        $this->_escape = $spec;
-    }
-
-    /**
      * Assigns multiple variables to the view.
      *
      * The array keys are used as names, each assigned their
@@ -336,26 +314,7 @@ abstract class Horde_View_Base
     }
 
     /**
-     * Escapes a value for output in a template.
-     *
-     * If escaping mechanism is one of htmlspecialchars or htmlentities, uses
-     * {@link $_encoding} setting.
-     *
-     * @param mixed $var The output to escape.
-     *
-     * @return mixed The escaped value.
-     */
-    public function escape($var)
-    {
-        if (in_array($this->_escape, array('htmlspecialchars', 'htmlentities'))) {
-            return call_user_func($this->_escape, $var, ENT_QUOTES, $this->_encoding);
-        }
-
-        return call_user_func($this->_escape, $var);
-    }
-
-    /**
-     * Set encoding to use with htmlentities() and htmlspecialchars()
+     * Set encoding
      *
      * @param string $encoding
      */
@@ -365,7 +324,7 @@ abstract class Horde_View_Base
     }
 
     /**
-     * Return current escape encoding
+     * Return current encoding
      *
      * @return string
      */

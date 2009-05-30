@@ -55,13 +55,6 @@ interface Horde_View_Interface
     public function addHelper($helper);
 
     /**
-     * Sets the escape() callback.
-     *
-     * @param mixed $spec The callback for escape() to use.
-     */
-    public function setEscape($spec);
-
-    /**
      * Assigns multiple variables to the view.
      *
      * The array keys are used as names, each assigned their
@@ -83,26 +76,14 @@ interface Horde_View_Interface
     public function render($name);
 
     /**
-     * Escapes a value for output in a template.
-     *
-     * If escaping mechanism is one of htmlspecialchars or htmlentities, uses
-     * {@link $_encoding} setting.
-     *
-     * @param mixed $var The output to escape.
-     *
-     * @return mixed The escaped value.
-     */
-    public function escape($var);
-
-    /**
-     * Set encoding to use with htmlentities() and htmlspecialchars()
+     * Set encoding
      *
      * @param string $encoding
      */
     public function setEncoding($encoding);
 
     /**
-     * Return current escape encoding
+     * Return current encoding
      *
      * @return string
      */

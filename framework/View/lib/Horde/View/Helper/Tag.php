@@ -102,6 +102,21 @@ class Horde_View_Helper_Tag extends Horde_View_Helper_Base
     }
 
     /**
+     * Escapes a value for output in a view template.
+     *
+     * <code>
+     *   <p><?= $this->h($this->templateVar) ?></p>
+     * </code>
+     *
+     * @param   mixed   $var The output to escape.
+     * @return  mixed   The escaped value.
+     */
+    public function escape($var)
+    {
+        return htmlspecialchars($var, ENT_QUOTES, $this->_view->getEncoding());
+    }
+
+    /**
      * Returns the escaped $html without affecting existing escaped entities.
      *
      *   $this->escapeOnce("1 > 2 &amp; 3")
