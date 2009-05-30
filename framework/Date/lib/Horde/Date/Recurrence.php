@@ -115,9 +115,9 @@ class Horde_Date_Recurrence
      *
      * @param Horde_Date $start  Start of the recurring event.
      */
-    function __construct($start)
+    public function __construct($start)
     {
-        $this->start = is_a($start, 'Horde_Date') ? clone $start : new Horde_Date($start);
+        $this->start = new Horde_Date($start);
     }
 
     /**
@@ -128,7 +128,7 @@ class Horde_Date_Recurrence
      *
      * @return boolean  True if this event recurs on the given day(s).
      */
-    function recurOnDay($dayMask)
+    public function recurOnDay($dayMask)
     {
         return ($this->recurData & $dayMask);
     }
@@ -139,7 +139,7 @@ class Horde_Date_Recurrence
      * @param integer $dayMask  A mask consisting of Horde_Date::MASK_*
      *                          constants specifying the day(s) to recur on.
      */
-    function setRecurOnDay($dayMask)
+    public function setRecurOnDay($dayMask)
     {
         $this->recurData = $dayMask;
     }
@@ -150,7 +150,7 @@ class Horde_Date_Recurrence
      * @return integer  A mask consisting of Horde_Date::MASK_* constants
      *                  specifying the day(s) this event recurs on.
      */
-    function getRecurOnDays()
+    public function getRecurOnDays()
     {
         return $this->recurData;
     }
@@ -163,7 +163,7 @@ class Horde_Date_Recurrence
      *
      * @return boolean  True if the event has the specified recurrence type.
      */
-    function hasRecurType($recurrence)
+    public function hasRecurType($recurrence)
     {
         return ($recurrence == $this->recurType);
     }
@@ -173,7 +173,7 @@ class Horde_Date_Recurrence
      *
      * @param integer $recurrence  A RECUR_* constant.
      */
-    function setRecurType($recurrence)
+    public function setRecurType($recurrence)
     {
         $this->recurType = $recurrence;
     }
@@ -183,7 +183,7 @@ class Horde_Date_Recurrence
      *
      * @return integer  A RECUR_* constant.
      */
-    function getRecurType()
+    public function getRecurType()
     {
         return $this->recurType;
     }
@@ -193,17 +193,17 @@ class Horde_Date_Recurrence
      *
      * @return string  Human readable recurring type.
      */
-    function getRecurName()
+    public function getRecurName()
     {
         switch ($this->getRecurType()) {
-            case self::RECUR_NONE: return _("No recurrence");
-            case self::RECUR_DAILY: return _("Daily");
-            case self::RECUR_WEEKLY: return _("Weekly");
-            case self::RECUR_MONTHLY_DATE:
-            case self::RECUR_MONTHLY_WEEKDAY: return _("Monthly");
-            case self::RECUR_YEARLY_DATE:
-            case self::RECUR_YEARLY_DAY:
-            case self::RECUR_YEARLY_WEEKDAY: return _("Yearly");
+        case self::RECUR_NONE: return _("No recurrence");
+        case self::RECUR_DAILY: return _("Daily");
+        case self::RECUR_WEEKLY: return _("Weekly");
+        case self::RECUR_MONTHLY_DATE:
+        case self::RECUR_MONTHLY_WEEKDAY: return _("Monthly");
+        case self::RECUR_YEARLY_DATE:
+        case self::RECUR_YEARLY_DAY:
+        case self::RECUR_YEARLY_WEEKDAY: return _("Yearly");
         }
     }
 
@@ -212,7 +212,7 @@ class Horde_Date_Recurrence
      *
      * @param integer $interval  The time between recurrences.
      */
-    function setRecurInterval($interval)
+    public function setRecurInterval($interval)
     {
         if ($interval > 0) {
             $this->recurInterval = $interval;
@@ -224,7 +224,7 @@ class Horde_Date_Recurrence
      *
      * @return integer  The number of seconds between recurrences.
      */
-    function getRecurInterval()
+    public function getRecurInterval()
     {
         return $this->recurInterval;
     }
@@ -234,7 +234,7 @@ class Horde_Date_Recurrence
      *
      * @param integer $count  The number of recurrences.
      */
-    function setRecurCount($count)
+    public function setRecurCount($count)
     {
         if ($count > 0) {
             $this->recurCount = (int)$count;
@@ -250,7 +250,7 @@ class Horde_Date_Recurrence
      *
      * @return integer  The number recurrences.
      */
-    function getRecurCount()
+    public function getRecurCount()
     {
         return $this->recurCount;
     }
@@ -260,7 +260,7 @@ class Horde_Date_Recurrence
      *
      * @return boolean  True if this recurrence has a fixed count.
      */
-    function hasRecurCount()
+    public function hasRecurCount()
     {
         return isset($this->recurCount);
     }
@@ -270,7 +270,7 @@ class Horde_Date_Recurrence
      *
      * @param Horde_Date $start  The recurrence start.
      */
-    function setRecurStart($start)
+    public function setRecurStart($start)
     {
         $this->start = clone $start;
     }
@@ -280,7 +280,7 @@ class Horde_Date_Recurrence
      *
      * @return Horde_Date  The recurrence start.
      */
-    function getRecurStart()
+    public function getRecurStart()
     {
         return $this->start;
     }
@@ -290,7 +290,7 @@ class Horde_Date_Recurrence
      *
      * @param Horde_Date $end  The recurrence end.
      */
-    function setRecurEnd($end)
+    public function setRecurEnd($end)
     {
         if (!empty($end)) {
             // Recurrence counts and end dates are mutually exclusive.
@@ -306,7 +306,7 @@ class Horde_Date_Recurrence
      *
      * @return Horde_Date  The recurrence end.
      */
-    function getRecurEnd()
+    public function getRecurEnd()
     {
         return $this->recurEnd;
     }
@@ -316,7 +316,7 @@ class Horde_Date_Recurrence
      *
      * @return boolean  True if this recurrence ends.
      */
-    function hasRecurEnd()
+    public function hasRecurEnd()
     {
         return isset($this->recurEnd) && isset($this->recurEnd->year) &&
             $this->recurEnd->year != 9999;
@@ -331,9 +331,9 @@ class Horde_Date_Recurrence
      *                             if the event does not recur after
      *                             $afterDate.
      */
-    function nextRecurrence($after)
+    public function nextRecurrence($after)
     {
-        if (!is_a($after, 'Horde_Date')) {
+        if (! $after instanceof Horde_Date) {
             $after = new Horde_Date($after);
         }
 
@@ -347,14 +347,14 @@ class Horde_Date_Recurrence
 
         switch ($this->getRecurType()) {
         case self::RECUR_DAILY:
-            $diff = Date_Calc::dateDiff($this->start->mday, $this->start->month, $this->start->year, $after->mday, $after->month, $after->year);
+            $diff = $this->start->diff($after);
             $recur = ceil($diff / $this->recurInterval);
             if ($this->recurCount && $recur >= $this->recurCount) {
                 return false;
             }
+
             $recur *= $this->recurInterval;
-            $next = clone $this->start;
-            list($next->mday, $next->month, $next->year) = explode('/', Date_Calc::daysToDate(Date_Calc::dateToDays($next->mday, $next->month, $next->year) + $recur, '%e/%m/%Y'));
+            $next = $this->start->add(array('day' => $recur));
             if ((!$this->hasRecurEnd() ||
                  $next->compareDateTime($this->recurEnd) <= 0) &&
                 $next->compareDateTime($after) >= 0) {
@@ -385,8 +385,7 @@ class Horde_Date_Recurrence
             $after_week_end = clone $after_week;
             $after_week_end->mday += 7;
 
-            $diff = Date_Calc::dateDiff($start_week->mday, $start_week->month, $start_week->year,
-                                        $after_week->mday, $after_week->month, $after_week->year);
+            $diff = $start_week->diff($after_week);
             $recur = $diff + ($diff % ($this->recurInterval * 7));
             if ($this->recurCount &&
                 ceil($recur / 7) / $this->recurInterval >= $this->recurCount) {
@@ -642,7 +641,7 @@ class Horde_Date_Recurrence
      *
      * @return boolean  True if an active recurrence exists.
      */
-    function hasActiveRecurrence()
+    public function hasActiveRecurrence()
     {
         if (!$this->hasRecurEnd()) {
             return true;
@@ -655,12 +654,7 @@ class Horde_Date_Recurrence
                 return true;
             }
 
-            $next = $this->nextRecurrence(array('year' => $next->year,
-                                                'month' => $next->month,
-                                                'mday' => $next->mday + 1,
-                                                'hour' => $next->hour,
-                                                'min' => $next->min,
-                                                'sec' => $next->sec));
+            $next = $this->nextRecurrence($next->add(array('day' => 1)));
         }
 
         return false;
@@ -676,7 +670,7 @@ class Horde_Date_Recurrence
      *                             has no active recurrence after
      *                             $afterDate.
      */
-    function nextActiveRecurrence($afterDate)
+    public function nextActiveRecurrence($afterDate)
     {
         $next = $this->nextRecurrence($afterDate);
         while (is_object($next)) {
@@ -698,7 +692,7 @@ class Horde_Date_Recurrence
      * @param integer $month  The month of the execption.
      * @param integer $mday   The day of the month of the exception.
      */
-    function addException($year, $month, $mday)
+    public function addException($year, $month, $mday)
     {
         $this->exceptions[] = sprintf('%04d%02d%02d', $year, $month, $mday);
     }
@@ -710,7 +704,7 @@ class Horde_Date_Recurrence
      * @param integer $month  The month of the execption.
      * @param integer $mday   The day of the month of the exception.
      */
-    function deleteException($year, $month, $mday)
+    public function deleteException($year, $month, $mday)
     {
         $key = array_search(sprintf('%04d%02d%02d', $year, $month, $mday), $this->exceptions);
         if ($key !== false) {
@@ -727,7 +721,7 @@ class Horde_Date_Recurrence
      *
      * @return boolean  True if an exception exists for the given date.
      */
-    function hasException($year, $month, $mday)
+    public function hasException($year, $month, $mday)
     {
         return in_array(sprintf('%04d%02d%02d', $year, $month, $mday),
                         $this->getExceptions());
@@ -739,7 +733,7 @@ class Horde_Date_Recurrence
      * @return array  Array containing the dates of all the exceptions in
      *                YYYYMMDD form.
      */
-    function getExceptions()
+    public function getExceptions()
     {
         return $this->exceptions;
     }
@@ -751,7 +745,7 @@ class Horde_Date_Recurrence
      * @param integer $month  The month of the execption.
      * @param integer $mday   The day of the month of the completion.
      */
-    function addCompletion($year, $month, $mday)
+    public function addCompletion($year, $month, $mday)
     {
         $this->completions[] = sprintf('%04d%02d%02d', $year, $month, $mday);
     }
@@ -763,7 +757,7 @@ class Horde_Date_Recurrence
      * @param integer $month  The month of the execption.
      * @param integer $mday   The day of the month of the completion.
      */
-    function deleteCompletion($year, $month, $mday)
+    public function deleteCompletion($year, $month, $mday)
     {
         $key = array_search(sprintf('%04d%02d%02d', $year, $month, $mday), $this->completions);
         if ($key !== false) {
@@ -780,7 +774,7 @@ class Horde_Date_Recurrence
      *
      * @return boolean  True if a completion exists for the given date.
      */
-    function hasCompletion($year, $month, $mday)
+    public function hasCompletion($year, $month, $mday)
     {
         return in_array(sprintf('%04d%02d%02d', $year, $month, $mday),
                         $this->getCompletions());
@@ -792,7 +786,7 @@ class Horde_Date_Recurrence
      * @return array  Array containing the dates of all the completions in
      *                YYYYMMDD form.
      */
-    function getCompletions()
+    public function getCompletions()
     {
         return $this->completions;
     }
@@ -805,7 +799,7 @@ class Horde_Date_Recurrence
      *
      * @param string $rrule  A vCalendar 1.0 conform RRULE value.
      */
-    function fromRRule10($rrule)
+    public function fromRRule10($rrule)
     {
         if (!$rrule) {
             return;
@@ -899,7 +893,7 @@ class Horde_Date_Recurrence
      *
      * @return string  A vCalendar 1.0 conform RRULE value.
      */
-    function toRRule10($calendar)
+    public function toRRule10($calendar)
     {
         switch ($this->recurType) {
         case self::RECUR_NONE:
@@ -971,7 +965,7 @@ class Horde_Date_Recurrence
      *
      * @param string $rrule  An iCalendar 2.0 conform RRULE value.
      */
-    function fromRRule20($rrule)
+    public function fromRRule20($rrule)
     {
         // Parse the recurrence rule into keys and values.
         $rdata = array();
@@ -1067,7 +1061,7 @@ class Horde_Date_Recurrence
      *
      * @return string  An iCalendar 2.0 conform RRULE value.
      */
-    function toRRule20($calendar)
+    public function toRRule20($calendar)
     {
         switch ($this->recurType) {
         case self::RECUR_NONE:
@@ -1152,7 +1146,7 @@ class Horde_Date_Recurrence
      *
      * @return boolean  True if the hash seemed valid, false otherwise.
      */
-    function fromHash($hash)
+    public function fromHash($hash)
     {
         if (!isset($hash['interval']) || !isset($hash['interval']) ||
             !isset($hash['range-type'])) {
@@ -1361,7 +1355,7 @@ class Horde_Date_Recurrence
      *
      * @return array  The recurrence hash.
      */
-    function toHash()
+    public function toHash()
     {
         if ($this->getRecurType() == self::RECUR_NONE) {
             return array();
