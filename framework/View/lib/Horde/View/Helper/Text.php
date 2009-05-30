@@ -47,7 +47,7 @@ class Horde_View_Helper_Text extends Horde_View_Helper_Base
      */
     public function h($var)
     {
-        return htmlentities($var, ENT_QUOTES, $this->_view->getEncoding());
+        return htmlspecialchars($var, ENT_QUOTES, $this->_view->getEncoding());
     }
 
     /**
