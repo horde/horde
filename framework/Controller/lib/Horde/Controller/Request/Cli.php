@@ -36,15 +36,7 @@ class Horde_Controller_Request_Cli extends Horde_Controller_Request_Base
     {
         parent::__construct($options);
 
-        $parser = new Horde_Argv_Parser(array(
-            'allowUnknownArgs' => true,
-            'addHelpOption' => false,
-        ));
-        list($this->_argv, $args) = $parser->parseArgs();
-        if (!count($args)) {
-            throw new Horde_Controller_Exception('unknown command: ' . implode(' ', $args));
-        }
-        $this->_path = $args[0];
+        $this->setPath();
     }
 
     public function getUri()
@@ -55,6 +47,29 @@ class Horde_Controller_Request_Cli extends Horde_Controller_Request_Base
     public function getPath()
     {
         return $this->_path;
+    }
+
+    public function setPath($args = null)
+    {
+        if (is_string($args)) {
+            $this->_path = $args;
+        } else {
+            if ($args instanceof Horde_Argv_Parser) {
+                $parser = $args;
+            } else {
+                $parser = new Horde_Argv_Parser(array(
+                    'allowUnknownArgs' => true,
+                    'addHelpOption' => false,
+                ));
+            }
+
+            list($this->_argv, $args) = $parser->parseArgs();
+            if (!count($args)) {
+                throw new Horde_Controller_Exception('unknown command: ' . implode(' ', $args));
+            }
+            $this->_path = $args[0];
+            $this->_path = str_replace('-', '_', $this->_path);
+        }
     }
 
     /**
