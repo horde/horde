@@ -42,6 +42,9 @@ class Horde_Date_DateTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('2007-12-31 00:00:00', (string)$d->sub(array('day' => 1)));
         $this->assertEquals('2009-01-01 00:00:00', (string)$d->add(array('year' => 1)));
         $this->assertEquals('2008-01-01 04:00:00', (string)$d->add(14400));
+
+        $span = new Horde_Date_Span('2006-01-01 00:00:00', '2006-08-16 00:00:00');
+        $this->assertEquals('2006-04-24 12:30:00', (string)$span->begin->add($span->width() / 2));
     }
 
 }
