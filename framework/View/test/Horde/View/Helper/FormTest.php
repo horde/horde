@@ -27,9 +27,9 @@ class Horde_View_Helper_FormTest extends Horde_Test_Case
     public function setUp()
     {
         $this->view = new Horde_View();
-        $this->view->addHelper(new Horde_View_Helper_Form($this->view));
-        $this->view->addHelper(new Horde_View_Helper_FormTag($this->view));
-        $this->view->addHelper(new Horde_View_Helper_Tag($this->view));
+        $this->view->addHelper('Form');
+        $this->view->addHelper('FormTag');
+        $this->view->addHelper('Tag');
         $this->view->addHelper(new Horde_View_Helper_FormTest_MockUrlHelper($this->view));
 
         $this->post = (object)array('title', 'authorName', 'body',

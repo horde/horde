@@ -27,8 +27,8 @@ class Horde_View_Helper_JavascriptTest extends Horde_Test_Case
     public function setUp()
     {
         $this->view = new Horde_View();
-        $this->view->addHelper(new Horde_View_Helper_Tag($this->view));
-        $this->view->addHelper(new Horde_View_Helper_Javascript($this->view));
+        $this->view->addHelper('Javascript');
+        $this->view->addHelper('Tag');
     }
 
     public function testJavascriptTag()

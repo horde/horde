@@ -26,59 +26,60 @@ class Horde_View_Helper_TagTest extends Horde_Test_Case
 {
     public function setUp()
     {
-        $this->helper = new Horde_View_Helper_Tag(new Horde_View());
+        $this->view = new Horde_View();
+        $this->view->addHelper('Tag');
     }
 
     public function testTag()
     {
-        $this->assertEquals('<br />', $this->helper->tag('br'));
+        $this->assertEquals('<br />', $this->view->tag('br'));
         $this->assertEquals('<br clear="left" />',
-                            $this->helper->tag('br', array('clear' => 'left')));
+                            $this->view->tag('br', array('clear' => 'left')));
         $this->assertEquals('<br>',
-                            $this->helper->tag('br', null, true));
+                            $this->view->tag('br', null, true));
     }
 
     public function testTagOptions()
     {
         $this->assertRegExp('/\A<p class="(show|elsewhere)" \/>\z/',
-                            $this->helper->tag('p', array('class' => 'show',
-                                                          'class' => 'elsewhere')));
+                            $this->view->tag('p', array('class' => 'show',
+                                                        'class' => 'elsewhere')));
     }
 
     public function testTagOptionsRejectsNullOption()
     {
         $this->assertEquals('<p />',
-                            $this->helper->tag('p', array('ignored' => null)));
+                            $this->view->tag('p', array('ignored' => null)));
     }
 
     public function testTagOptionsAcceptsBlankOption()
     {
         $this->assertEquals('<p included="" />',
-                            $this->helper->tag('p', array('included' => '')));
+                            $this->view->tag('p', array('included' => '')));
     }
 
     public function testTagOptionsConvertsBooleanOption()
     {
         $this->assertEquals('<p disabled="disabled" multiple="multiple" readonly="readonly" />',
-                            $this->helper->tag('p', array('disabled' => true,
-                                                          'multiple' => true,
-                                                          'readonly' => true)));
+                            $this->view->tag('p', array('disabled' => true,
+                                                        'multiple' => true,
+                                                        'readonly' => true)));
     }
 
     public function testContentTag()
     {
         $this->assertEquals('<a href="create">Create</a>',
-                            $this->helper->contentTag('a', 'Create', array('href' => 'create')));
+                            $this->view->contentTag('a', 'Create', array('href' => 'create')));
     }
 
     public function testCdataSection()
     {
-        $this->assertEquals('<![CDATA[<hello world>]]>', $this->helper->cdataSection('<hello world>'));
+        $this->assertEquals('<![CDATA[<hello world>]]>', $this->view->cdataSection('<hello world>'));
     }
 
     public function testEscapeOnce()
     {
-        $this->assertEquals('1 &lt; 2 &amp; 3', $this->helper->escapeOnce('1 < 2 &amp; 3'));
+        $this->assertEquals('1 &lt; 2 &amp; 3', $this->view->escapeOnce('1 < 2 &amp; 3'));
     }
 
     public function testDoubleEscapingAttributes()
@@ -86,7 +87,7 @@ class Horde_View_Helper_TagTest extends Horde_Test_Case
         $attributes = array('1&amp;2', '1 &lt; 2', '&#8220;test&#8220;');
         foreach ($attributes as $escaped) {
             $this->assertEquals("<a href=\"$escaped\" />",
-                                $this->helper->tag('a', array('href' => $escaped)));
+                                $this->view->tag('a', array('href' => $escaped)));
         }
     }
 
@@ -95,7 +96,7 @@ class Horde_View_Helper_TagTest extends Horde_Test_Case
         $attributes = array('&1;', '&#1dfa3;', '& #123;');
         foreach ($attributes as $escaped) {
             $this->assertEquals('<a href="' . str_replace('&', '&amp;', $escaped) . '" />',
-                                $this->helper->tag('a', array('href' => $escaped)));
+                                $this->view->tag('a', array('href' => $escaped)));
         }
     }
 
