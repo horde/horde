@@ -30,7 +30,7 @@ class Horde_Image_Effect_Im_Border extends Horde_Image_Effect
     public function apply()
     {
         $this->_image->addPostSrcOperation(sprintf(
-            "   -bordercolor \"%s\" %s -border %s",
+            "-bordercolor \"%s\" %s -border %s",
             $this->_params['bordercolor'],
             (!empty($this->_params['preserve']) ? '-compose Copy' : ''),
             $this->_params['borderwidth']));
