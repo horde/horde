@@ -34,4 +34,22 @@ class Horde_Date_Parser
         return new Horde_Date_Parser_Locale_Base($args);
     }
 
+    /**
+     * Return a list of available locales
+     */
+    public static function getLocales()
+    {
+        $dir = dirname(__FILE__) . '/Parser/Locale';
+        $locales = array();
+        foreach (new DirectoryIterator($dir) as $f) {
+            if ($f->isFile()) {
+                $locale = str_replace('.php', '', $f->getFilename());
+                $locale = preg_replace_callback('/([A-Z][a-z]*)([A-Z].*)?/', create_function('$m', 'if (!isset($m[2])) { return strtolower($m[1]); } else { return strtolower($m[1]) . "_" . strtoupper($m[2]); }'), $locale);
+                $locales[] = $locale;
+            }
+        }
+
+        return $locales;
+    }
+
 }
