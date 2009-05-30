@@ -244,4 +244,16 @@ class Horde_View_BaseTest extends Horde_Test_Case
         $this->_view->addHelper(new Horde_View_Helper_Text($this->_view));
     }
 
+    public function testAddBuiltinHelpers()
+    {
+        $view = new Horde_View();
+        $view->addBuiltinHelpers();
+
+        try {
+            $this->assertEquals('&amp;', $view->h('&'));
+        } catch (Exception $e) {
+            $this->fail('h helper not callable');
+        }
+    }
+
 }
