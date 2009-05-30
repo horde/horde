@@ -188,6 +188,8 @@ abstract class Horde_View_Base
      *   $v->addHelper('Tag');        // Adds a new Horde_View_Helper_Tag to the view
      *   $v->addHelper('AppHelper');  // Adds a new AppHelper object to the view if
      *                                // it exists, otherwise throws an exception.
+     *
+     * @return Horde_View_Helper  Returns the helper object that was added.
      */
     public function addHelper($helper)
     {
@@ -211,6 +213,8 @@ abstract class Horde_View_Base
             }
             $this->_helpers[$method] = $helper;
         }
+
+        return $helper;
     }
 
     /**
