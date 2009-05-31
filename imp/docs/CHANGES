@@ -76,6 +76,16 @@ v5.0-git
 [mms] Add preference to delete draft on resume & send.
 
 
+----------
+v4.3.5-cvs
+----------
+
+[mms] Fix unqualified domain preference (Bug #8272).
+[jan] Highlight signed messages depending on the signature verification.
+[mms] Fix display_folder hook (m.gabriel@das-netzwerkteam.de, Bug #8254).
+[jan] Use correct charset when rendering inline PGP data.
+
+
 ------
 v4.3.4
 ------
