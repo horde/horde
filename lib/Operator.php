@@ -2,7 +2,7 @@
 /**
  * Operator Base Class.
  *
- * $Horde: incubator/operator/lib/Operator.php,v 1.13 2009/01/06 17:51:06 jan Exp $
+ * $Horde: incubator/operator/lib/Operator.php,v 1.14 2009/05/31 17:14:09 bklang Exp $
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
@@ -94,26 +94,36 @@ class Operator {
 
         $accountcodes = $operator_driver->getAccountCodes();
 
-        // Add an option to select all accounts
-        $keys = $accountcodes;
-        array_unshift($keys, '%');
-        $values = $accountcodes;
-        array_unshift($values, _("-- All Accounts --"));
+        if (Auth::isAdmin() || 
+            $GLOBALS['perms']->hasPermission('operator:accountcodes',
+                                             Auth::getAuth(),
+                                             PERMS_READ)) {
+            $permfilter = false;
+        }
 
+        if (!$permfilter ||
+            $GLOBALS['perms']->hasPermission('operator:accountcodes:%',
+                                             Auth::geAuth(), 
+                                             PERMS_READ)) {
+
+            // Add an option to select all accounts
+            $keys = $accountcodes;
+            array_unshift($keys, '%');
+            $values = $accountcodes;
+            array_unshift($values, _("-- All Accounts Combined --"));
+        }
+    
+        // Only add the Empty value if it is exists in the backend
         if ($index = array_search('', $values)) {
            $values[$index] = _("-- Empty Accountcode --");
         }
 
-        // Make the index of each array entry the same as its value
-        // array_combine() is PHP5-only
-        //$accountcodes = array_combine($keys, $values);
-        $accountcodes = array();
-
         // Filter the returned list of account codes through Permissions
         // if requested.
+        $accountcodes = array();
         foreach ($keys as $index => $accountcode) {
             if ($permfilter) {
-                if (empty($accountcode) || $accountcode == '%') {
+                if (empty($accountcode)) {
                     $permitem = 'operator:accountcodes';
                 } else {
                     $permitem = 'operator:accountcodes:' . $accountcode;

@@ -20,7 +20,7 @@
  * The table structure can be created by the scripts/sql/operator_foo.sql
  * script.
  *
- * $Horde: incubator/operator/lib/Driver/asterisksql.php,v 1.11 2009/01/06 17:51:07 jan Exp $
+ * $Horde: incubator/operator/lib/Driver/asterisksql.php,v 1.12 2009/05/31 17:14:08 bklang Exp $
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
@@ -298,33 +298,43 @@ class Operator_Driver_asterisksql extends Operator_Driver {
             $failed[$row['year']][$row['month']] = $row['failed'];
         }
 
+        $s_numcalls = array();
+        $s_minutes = array();
+        $s_failed = array();
         while($start->compareDate($end) <= 0) {
             $index = $start->strftime('%Y-%m');
             $year = $start->year;
             $month = $start->month;
 
             if (empty($numcalls[$year]) || empty($numcalls[$year][$month])) {
-                $stats[$index]['numcalls'] = 0;
+                $s_numcalls[$index] = 0;
             } else {
-                $stats[$index]['numcalls'] = $numcalls[$year][$month];
+                $s_numcalls[$index] = $numcalls[$year][$month];
             }
 
             if (empty($minutes[$year]) || empty($minutes[$year][$month])) {
-                $stats[$index]['minutes'] = 0;
+                $s_minutes[$index] = 0;
             } else {
-                $stats[$index]['minutes'] = $minutes[$year][$month];
+                $s_minutes[$index] = $minutes[$year][$month];
             }
 
             if (empty($failed[$year]) || empty($failed[$year][$month])) {
-                $stats[$index]['failed'] = 0;
+                $s_failed[$index] = 0;
             } else {
-                $stats[$index]['failed'] = $failed[$year][$month];
+                $s_failed[$index] = $failed[$year][$month];
             }
 
             // Find the first day of the next month
             $start->month++;
             $start->correct();
         }
+
+        $info = Operator::getGraphInfo('numcalls');
+        $stats['numcalls'] = array($info['title'] => $s_numcalls);
+        $info = Operator::getGraphInfo('minutes');
+        $stats['minutes'] = array($info['title'] => $s_minutes);
+        $info = Operator::getGraphInfo('failed');
+        $stats['failed'] = array($info['title'] => $s_failed);
 
         return $stats;
     }
