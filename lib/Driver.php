@@ -3,7 +3,7 @@
  * Operator_Driver:: defines an API for implementing storage backends for
  * Operator.
  *
- * $Horde: incubator/operator/lib/Driver.php,v 1.5 2009/01/06 17:51:06 jan Exp $
+ * $Horde: incubator/operator/lib/Driver.php,v 1.6 2009/05/31 22:20:06 bklang Exp $
  *
  * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
  *
@@ -29,14 +29,16 @@ class Operator_Driver {
         } else {
             $permentry = 'operator:accountcodes:' . $accountcode;
         }
-        if (!Auth::isAdmin() &&
-            !$GLOBALS['perms']->hasPermission($permentry, Auth::getAuth(),
+        if (Auth::isAdmin() ||
+            $GLOBALS['perms']->hasPermission('operator:accountcodes',
+                                              Auth::getAuth(),
+                                              PERMS_READ) ||
+            $GLOBALS['perms']->hasPermission($permentry, Auth::getAuth(),
                                               PERMS_READ)) {
-            return PEAR::raiseError(_("You do not have permission to view call detail records for that account code."));
+            return $this->_getRecords($start, $end, $accountcode, $dcontext,
+                                      $rowstart, $rowlimit);
         }
-
-        return $this->_getRecords($start, $end, $accountcode, $dcontext,
-                                  $rowstart, $rowlimit);
+        return PEAR::raiseError(_("You do not have permission to view call detail records for that account code."));
     }
 
     /**
@@ -64,14 +66,17 @@ class Operator_Driver {
         } else {
             $permentry = 'operator:accountcodes:' . $accountcode;
         }
-        if (!Auth::isAdmin() &&
-            !$GLOBALS['perms']->hasPermission($permentry, Auth::getAuth(), 
+        if (Auth::isAdmin() ||
+            $GLOBALS['perms']->hasPermission('operator:accountcodes',
+                                              Auth::getAuth(),
+                                              PERMS_READ) ||
+            $GLOBALS['perms']->hasPermission($permentry, Auth::getAuth(), 
                                               PERMS_READ)) {
-            return PEAR::raiseError(_("You do not have permission to view call detail records for that account code."));
+            return $this->_getMonthlyCallStats($start, $end, $accountcode,
+                                               $dcontext);
         }
 
-        return $this->_getMonthlyCallStats($start, $end, $accountcode,
-                                           $dcontext);
+        return PEAR::raiseError(_("You do not have permission to view call detail records for that account code."));
     }
 
     /**
