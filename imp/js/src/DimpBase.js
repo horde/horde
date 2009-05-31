@@ -201,7 +201,7 @@ var DimpBase = {
             loc != 'options' &&
             $('appoptions') &&
             $('appoptions').hasClassName('on')) {
-            return DimpCore.redirect(DIMP.conf.URI_DIMP + '#' + loc);
+            return DimpCore.redirect(DIMP.conf.URI_DIMP + '#' + loc, true);
         }
 
         if (loc.startsWith('compose:')) {

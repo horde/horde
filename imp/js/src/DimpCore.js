@@ -270,13 +270,12 @@ var DimpCore = {
         this.redirect(url || (DIMP.conf.URI_AJAX + '/LogOut'));
     },
 
-    redirect: function(url)
+    redirect: function(url, force)
     {
-        url = this.addURLParam(url);
-        if (parent.frames.horde_main) {
-            parent.location = url;
-        } else {
-            window.location = url;
+        var ptr = parent.frames.horde_main ? parent : window;
+        ptr.location = this.addURLParam(url);
+        if (force) {
+            ptr.location.reload();
         }
     },
 
