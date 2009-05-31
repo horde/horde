@@ -29,10 +29,18 @@ class Horde_Image_Effect_Imagick_Border extends Horde_Image_Effect
      */
     public function apply()
     {
-        Horde_Image_Imagick::borderImage($this->_image->imagick,
-                                         $this->_params['bordercolor'],
-                                         $this->_params['borderwidth'],
-                                         $this->_params['borderwidth']);
+        if ($this->_params['preserve']) {
+            Horde_Image_Imagick::frameImage($this->_image->imagick,
+                                             $this->_params['bordercolor'],
+                                             $this->_params['borderwidth'],
+                                             $this->_params['borderwidth']);
+        } else {
+            $this->_image->imagick->borderImage(
+                new ImagickPixel($this->_params['bordercolor']),
+                $this->_params['borderwidth'],
+                $this->_params['borderwidth']);
+        }
+
         return true;
     }
 

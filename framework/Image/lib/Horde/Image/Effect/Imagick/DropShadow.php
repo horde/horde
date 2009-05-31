@@ -43,29 +43,12 @@ class Horde_Image_Effect_Imagick_DropShadow extends Horde_Image_Effect
                              $this->_params['distance'],
                              $this->_params['distance']);
 
-
-        // If we have an actual background color, we need to explicitly
-        // create a new background image with that color to be sure there
-        // *is* a background color.
-        if ($this->_params['background'] != 'none') {
-            $size = $shadow->getImageGeometry();
-            $new = new Imagick();
-            $new->newImage($size['width'], $size['height'], new ImagickPixel($this->_params['background']));
-            $new->setImageFormat($this->_image->getType());
-
-            $new->compositeImage($shadow, Imagick::COMPOSITE_OVER, 0, 0);
-            $shadow->clear();
-            $shadow->addImage($new);
-            $new->destroy();
-        }
-
         $shadow->compositeImage($this->_image->imagick, Imagick::COMPOSITE_OVER, 0, 0);
 
         if ($this->_params['padding']) {
-            Horde_Image_Imagick::borderImage($shadow,
-                                             $this->_params['background'],
-                                             $this->_params['padding'],
-                                             $this->_params['padding']);
+            $shadow->borderImage($this->_params['background'],
+                                                $this->_params['padding'],
+                                                $this->_params['padding']);
         }
         $this->_image->imagick->clear();
         $this->_image->imagick->addImage($shadow);

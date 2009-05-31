@@ -50,7 +50,9 @@ class Horde_Image_Effect_Imagick_RoundCorners extends Horde_Image_Effect
         }
 
         // If we have a background other than 'none' we need to
-        // compose two images together to make sure we *have* a background.
+        // compose two images together to make sure we *have* a background. We
+        // can't use border because we don't want to extend the image area, just
+        // fill in the parts removed by the rounding.
         if ($this->_params['background'] != 'none') {
             $size = $this->_image->getDimensions();
             $new = new Imagick();

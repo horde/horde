@@ -396,8 +396,9 @@ class Horde_Image_Imagick extends Horde_Image
     }
 
     /**
-     * Utility function to wrap Imagick::borderImage so we can preserve any
-     * transparency in the image.
+     * Utility function to wrap Imagick::borderImage. Use when you don't want
+     * to replace all pixels in the clipping area with the border color i.e.
+     * you want to "frame" the existing image. Preserves transparency etc...
      *
      * @param Imagick &$image  The Imagick object to border.
      * @param integer $width
@@ -405,7 +406,7 @@ class Horde_Image_Imagick extends Horde_Image
      *
      * @return void
      */
-    static public function borderImage(&$image, $color, $width, $height)
+    static public function frameImage(&$image, $color, $width, $height)
     {
          // Need to jump through these hoops in order to preserve any
         // transparency.
