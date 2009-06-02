@@ -206,6 +206,24 @@ abstract class Horde_Kolab_Server
     }
 
     /**
+     * Get the connection to the master server for write access.
+     *
+     * @return Horde_Kolab_Server The Horde_Kolab_Server reference to the master
+     *                            server.
+     */
+    function &getMaster()
+    {
+        if (!isset($this->params['host_master'])
+            || !emtpy($this->params['write'])
+            || $this->params['host_master'] == $this->params['host']) {
+            return $this;
+        }
+        $params = $this->params;
+        $params['write'] = true;
+        return Horde_Kolab_Server::singleton($params);
+    }
+
+    /**
      * Stores the attribute definitions in the cache.
      *
      * @return Horde_Kolab_Server The concrete Horde_Kolab_Server reference.
