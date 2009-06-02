@@ -1106,8 +1106,18 @@ class IMP
         $sortpref = @unserialize($GLOBALS['prefs']->getValue('sortpref'));
         $entry = (isset($sortpref[$prefmbox])) ? $sortpref[$prefmbox] : array();
 
+        if (!isset($entry['b'])) {
+            $sortby = $GLOBALS['prefs']->getValue('sortby');
+            /* IMP 4 upgrade: check for old, non-existent sort values.
+             * See Bug #7296. */
+            if ($sortby > 10) {
+                $sortby = Horde_Imap_Client::SORT_ARRIVAL;
+                $GLOBALS['prefs']->setValue($sortby);
+            }
+        }
+
         $ob = array(
-            'by' => isset($entry['b']) ? $entry['b'] : $GLOBALS['prefs']->getValue('sortby'),
+            'by' => isset($entry['b']) ? $entry['b'] : $sortby,
             'dir' => isset($entry['d']) ? $entry['d'] : $GLOBALS['prefs']->getValue('sortdir'),
             'limit' => false
         );
