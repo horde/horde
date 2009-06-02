@@ -689,7 +689,9 @@ class Horde_Kolab_Server_Object
 
         $changes = $this->prepareChanges($info);
 
-        $result = $this->server->save($this->uid, $changes, $this->exists());
+        $server = $this->server->getMaster();
+
+        $result = $server->save($this->uid, $changes, $this->exists());
 
         if (!$this->_exists) {
             $this->_exists = true;
@@ -710,7 +712,9 @@ class Horde_Kolab_Server_Object
      */
     public function delete()
     {
-        return $this->server->delete($this->uid);
+        $server = $this->server->getMaster();
+
+        return $server->delete($this->uid);
     }
 
     /**
