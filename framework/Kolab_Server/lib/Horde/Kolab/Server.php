@@ -143,13 +143,11 @@ abstract class Horde_Kolab_Server
      *                                      missing or the given user could not
      *                                      be identified.
      */
-    static public function &singleton($params = null)
+    static public function &singleton($params = array())
     {
         global $conf;
 
         static $instances = array();
-
-        $server_params = array();
 
         if (!empty($params['driver'])) {
             $driver = $params['driver'];
@@ -157,46 +155,48 @@ abstract class Horde_Kolab_Server
         } else if (isset($conf['kolab']['server']['driver'])) {
             $driver = $conf['kolab']['server']['driver'];
             if (isset($conf['kolab']['server']['params'])) {
-                $server_params = $conf['kolab']['server']['params'];
+                if (!is_array($params)) {
+                    $params = $conf['kolab']['server']['params'];
+                } else {
+                    $params = array_merge($conf['kolab']['server']['params'],
+                                          $params);
+                }
             }
         } else {
             throw new Horde_Kolab_Server_Exception(
                 'The configuration for the Kolab server driver is missing!');
         }
 
-        if (!empty($params)) {
-            if (isset($params['user'])) {
-                $tmp_server = &Horde_Kolab_Server::factory($driver, $server_params);
+        if (isset($params['user']) && !isset($params['uid'])) {
+            $tmp_server = &Horde_Kolab_Server::factory($driver, $params);
 
-                try {
-                    $uid = $tmp_server->uidForIdOrMail($params['user']);
-                } catch (Horde_Kolab_Server_Exception $e) {
-                    throw new Horde_Kolab_Server_Exception(
-                        sprintf(_("Failed identifying the UID of the Kolab user %s. Error was: %s"),
-                                $params['user'],
-                                $e->getMessage()));
-                }
-                if ($uid === false) {
-                    throw new Horde_Kolab_Server_MissingObjectException(
-                        sprintf(_("Failed identifying the UID of the Kolab user %s."),
-                                $params['user']));
-                }
-                $params['uid'] = $uid;
+            try {
+                $uid = $tmp_server->uidForIdOrMail($params['user']);
+            } catch (Horde_Kolab_Server_Exception $e) {
+                throw new Horde_Kolab_Server_Exception(
+                    sprintf(_("Failed identifying the UID of the Kolab user %s. Error was: %s"),
+                            $params['user'],
+                            $e->getMessage()));
             }
-            $server_params = array_merge($server_params, $params);
+            if ($uid === false) {
+                throw new Horde_Kolab_Server_MissingObjectException(
+                    sprintf(_("Failed identifying the UID of the Kolab user %s. No such user."),
+                            $params['user']));
+            }
+            $params['uid'] = $uid;
         }
 
-        if (!empty($params['write']) && isset($server_params['host_master'])) {
-            $server_params['host'] = $server_params['host_master'];
+        if (!empty($params['write']) && isset($params['host_master'])) {
+            $params['host'] = $params['host_master'];
         }
 
-        $sparam         = $server_params;
+        $sparam         = $params;
         $sparam['pass'] = isset($sparam['pass']) ? md5($sparam['pass']) : '';
         ksort($sparam);
         $signature = serialize(array($driver, $sparam));
         if (empty($instances[$signature])) {
             $instances[$signature] = &Horde_Kolab_Server::factory($driver,
-                                                                  $server_params);
+                                                                  $params);
         }
 
         return $instances[$signature];
