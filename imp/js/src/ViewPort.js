@@ -435,11 +435,11 @@ var ViewPort = Class.create({
         if (opts.search) {
             type = 'search';
             value = opts.search;
-            tmp = this._lookbehind(view);
+            tmp = this._lookbehind();
 
             params.update({
                 search: Object.toJSON(value),
-                search_after: b.bufferSize() - tmp,
+                search_after: this.bufferSize() - tmp,
                 search_before: tmp
             });
         } else {
@@ -498,10 +498,9 @@ var ViewPort = Class.create({
 
     // rownum = (integer) Row number
     // nearing = (string) 'bottom', 'top', null
-    // view = (string) The view to retrieve. Defaults to current view.
-    _getSliceBounds: function(rownum, nearing, view)
+    _getSliceBounds: function(rownum, nearing)
     {
-        var b_size = this._getBuffer(view).bufferSize(),
+        var b_size = this.bufferSize(),
             ob = {};
 
         switch (nearing) {
@@ -516,7 +515,7 @@ var ViewPort = Class.create({
             break;
 
         default:
-            ob.start = Math.max(rownum - this._lookbehind(view), 1);
+            ob.start = Math.max(rownum - this._lookbehind(), 1);
             ob.end = ob.start + b_size;
             break;
         }
@@ -524,10 +523,9 @@ var ViewPort = Class.create({
         return ob;
     },
 
-    // view = (string) The view to retrieve. Defaults to current view.
-    _lookbehind: function(view)
+    _lookbehind: function()
     {
-        return parseInt(0.4 * this._getBuffer(view).bufferSize(), 10);
+        return parseInt(0.4 * this.bufferSize(), 10);
     },
 
     // args = (object) The list of parameters.
@@ -783,7 +781,7 @@ var ViewPort = Class.create({
 
         return (!create && this.views[view])
             ? this.views[view]
-            : new ViewPort_Buffer(this, this.opts.buffer_pages, this.opts.limit_factor, view);
+            : new ViewPort_Buffer(this, view);
     },
 
     currentOffset: function()
@@ -827,6 +825,17 @@ var ViewPort = Class.create({
     _getMaxHeight: function()
     {
         return document.viewport.getHeight() - this.opts.content.viewportOffset()[1];
+    },
+
+    bufferSize: function()
+    {
+        // Buffer size must be at least the maximum page size.
+        return Math.round(Math.max(this.getPageSize('max') + 1, this.opts.buffer_pages * this.getPageSize()));
+    },
+
+    limitTolerance: function()
+    {
+        return Math.round(this.bufferSize() * (this.opts.limit_factor / 100));
     },
 
     showSplitPane: function(show)
@@ -1062,10 +1071,8 @@ ViewPort_Scroller = Class.create({
  */
 ViewPort_Buffer = Class.create({
 
-    initialize: function(vp, b_pages, l_factor, view)
+    initialize: function(vp, view)
     {
-        this.bufferPages = b_pages;
-        this.limitFactor = l_factor;
         this.vp = vp;
         this.view = view;
         this.clear();
@@ -1074,17 +1081,6 @@ ViewPort_Buffer = Class.create({
     getView: function()
     {
         return this.view;
-    },
-
-    _limitTolerance: function()
-    {
-        return Math.round(this.bufferSize() * (this.limitFactor / 100));
-    },
-
-    bufferSize: function()
-    {
-        // Buffer size must be at least the maximum page size.
-        return Math.round(Math.max(this.vp.getPageSize('max') + 1, this.bufferPages * this.vp.getPageSize()));
     },
 
     // d = (object) Data
@@ -1148,9 +1144,9 @@ ViewPort_Buffer = Class.create({
     {
         if (this.uidlist.size() != this.getMetaData('total_rows')) {
             if (offset != 0 &&
-                this._rangeCheck($A($R(Math.max(offset + 1 - this._limitTolerance(), 1), offset)))) {
+                this._rangeCheck($A($R(Math.max(offset + 1 - this.vp.limitTolerance(), 1), offset)))) {
                 return 'top';
-            } else if (this._rangeCheck($A($R(offset + 1, Math.min(offset + this._limitTolerance() + this.vp.getPageSize() - 1, this.getMetaData('total_rows')))).reverse())) {
+            } else if (this._rangeCheck($A($R(offset + 1, Math.min(offset + this.vp.limitTolerance() + this.vp.getPageSize() - 1, this.getMetaData('total_rows')))).reverse())) {
                 // Search for missing messages in reverse order since in
                 // normal usage (sequential scrolling through the message
                 // list) messages are more likely to be missing at furthest
