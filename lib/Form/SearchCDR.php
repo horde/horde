@@ -2,7 +2,7 @@
 /**
  * SearchCDRForm Class
  *
- * $Horde: incubator/operator/lib/Form/SearchCDR.php,v 1.6 2008/07/06 18:21:50 bklang Exp $
+ * $Horde: incubator/operator/lib/Form/SearchCDR.php,v 1.7 2009/06/02 14:53:20 chuck Exp $
  *
  * Copyright 2008 Alkaloid Networks LLC <http://projects.alkaloid.net>
  *
@@ -22,7 +22,7 @@ class SearchCDRForm extends Horde_Form {
         parent::Horde_Form($vars, $title);
 
         // FIXME: Generate a list of clients from Turba?
-        //$clients = 
+        //$clients =
 
         $now = time();
         if (!$vars->exists('startdate')) {
@@ -40,7 +40,7 @@ class SearchCDRForm extends Horde_Form {
             // Default to the end of the previous calendar month
             $month = date('n', $now) - 1;
             $year = date('Y', $now);
-            $lastday = Horde_Date::daysInMonth($month, $year);
+            $lastday = Horde_Date_Utils::daysInMonth($month, $year);
             $enddate = array('day' => $lastday,
                              'month' => $month,
                              'year' => $year,
