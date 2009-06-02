@@ -149,52 +149,55 @@ abstract class Horde_Kolab_Server
 
         static $instances = array();
 
-        if (!empty($params['driver'])) {
-            $driver = $params['driver'];
-            unset($params['driver']);
-        } else if (isset($conf['kolab']['server']['driver'])) {
-            $driver = $conf['kolab']['server']['driver'];
-            if (isset($conf['kolab']['server']['params'])) {
-                if (!is_array($params)) {
-                    $params = $conf['kolab']['server']['params'];
-                } else {
-                    $params = array_merge($conf['kolab']['server']['params'],
-                                          $params);
-                }
-            }
-        } else {
-            throw new Horde_Kolab_Server_Exception(
-                'The configuration for the Kolab server driver is missing!');
-        }
-
-        if (isset($params['user']) && !isset($params['uid'])) {
-            $tmp_server = &Horde_Kolab_Server::factory($driver, $params);
-
-            try {
-                $uid = $tmp_server->uidForIdOrMail($params['user']);
-            } catch (Horde_Kolab_Server_Exception $e) {
-                throw new Horde_Kolab_Server_Exception(
-                    sprintf(_("Failed identifying the UID of the Kolab user %s. Error was: %s"),
-                            $params['user'],
-                            $e->getMessage()));
-            }
-            if ($uid === false) {
-                throw new Horde_Kolab_Server_MissingObjectException(
-                    sprintf(_("Failed identifying the UID of the Kolab user %s. No such user."),
-                            $params['user']));
-            }
-            $params['uid'] = $uid;
-        }
-
-        if (!empty($params['write']) && isset($params['host_master'])) {
-            $params['host'] = $params['host_master'];
-        }
-
-        $sparam         = $params;
-        $sparam['pass'] = isset($sparam['pass']) ? md5($sparam['pass']) : '';
+        $sparam = $params;
+        $sparam['pass'] = isset($sparam['pass']) ? hash('sha256', $sparam['pass']) : '';
         ksort($sparam);
-        $signature = serialize(array($driver, $sparam));
+        $signature = serialize($sparam);
+
         if (empty($instances[$signature])) {
+
+            if (!empty($params['driver'])) {
+                $driver = $params['driver'];
+                unset($params['driver']);
+            } else if (isset($conf['kolab']['server']['driver'])) {
+                $driver = $conf['kolab']['server']['driver'];
+                if (isset($conf['kolab']['server']['params'])) {
+                    if (!is_array($params)) {
+                        $params = $conf['kolab']['server']['params'];
+                    } else {
+                        $params = array_merge($conf['kolab']['server']['params'],
+                                              $params);
+                    }
+                }
+            } else {
+                throw new Horde_Kolab_Server_Exception(
+                    'The configuration for the Kolab server driver is missing!');
+            }
+
+            if (isset($params['user'])) {
+                $tmp_server = &Horde_Kolab_Server::factory($driver, $params);
+
+                try {
+                    $uid = $tmp_server->uidForIdOrMail($params['user']);
+                } catch (Horde_Kolab_Server_Exception $e) {
+                    throw new Horde_Kolab_Server_Exception(
+                        sprintf(_("Failed identifying the UID of the Kolab user %s. Error was: %s"),
+                                $params['user'],
+                                $e->getMessage()));
+                }
+                if ($uid === false) {
+                    throw new Horde_Kolab_Server_MissingObjectException(
+                        sprintf(_("Failed identifying the UID of the Kolab user %s. No such user."),
+                                $params['user']));
+                }
+                $params['uid'] = $uid;
+                unset($params['user']);
+            }
+
+            if (!empty($params['write']) && isset($params['host_master'])) {
+                $params['host'] = $params['host_master'];
+            }
+
             $instances[$signature] = &Horde_Kolab_Server::factory($driver,
                                                                   $params);
         }
