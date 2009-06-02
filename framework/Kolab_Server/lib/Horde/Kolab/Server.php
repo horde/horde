@@ -156,6 +156,8 @@ abstract class Horde_Kolab_Server
 
         if (empty($instances[$signature])) {
 
+            $user_pass = '';
+
             if (!empty($params['driver'])) {
                 $driver = $params['driver'];
                 unset($params['driver']);
@@ -165,6 +167,10 @@ abstract class Horde_Kolab_Server
                     if (!is_array($params)) {
                         $params = $conf['kolab']['server']['params'];
                     } else {
+                        if (isset($params['user']) && isset($params['pass'])) {
+                            $user_pass = $params['pass'];
+                            unset($params['pass']);
+                        }
                         $params = array_merge($conf['kolab']['server']['params'],
                                               $params);
                     }
@@ -175,6 +181,7 @@ abstract class Horde_Kolab_Server
             }
 
             if (isset($params['user'])) {
+
                 $tmp_server = &Horde_Kolab_Server::factory($driver, $params);
 
                 try {
@@ -192,6 +199,7 @@ abstract class Horde_Kolab_Server
                 }
                 $params['uid'] = $uid;
                 unset($params['user']);
+                $params['pass'] = $user_pass;
             }
 
             if (!empty($params['write']) && isset($params['host_master'])) {
@@ -214,7 +222,7 @@ abstract class Horde_Kolab_Server
     function &getMaster()
     {
         if (!isset($this->params['host_master'])
-            || !emtpy($this->params['write'])
+            || !empty($this->params['write'])
             || $this->params['host_master'] == $this->params['host']) {
             return $this;
         }
