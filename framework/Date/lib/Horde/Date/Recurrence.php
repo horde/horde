@@ -367,8 +367,8 @@ class Horde_Date_Recurrence
                 return false;
             }
 
-            $start_week = Horde_Date::firstDayOfWeek($this->start->format('W'),
-                                                     $this->start->year);
+            $start_week = Horde_Date_Utils::firstDayOfWeek($this->start->format('W'),
+                                                           $this->start->year);
             $start_week->hour = $this->start->hour;
             $start_week->min  = $this->start->min;
             $start_week->sec  = $this->start->sec;
@@ -381,7 +381,7 @@ class Horde_Date_Recurrence
             } else {
                 $theYear = $after->year;
             }
-            $after_week = Horde_Date::firstDayOfWeek($week, $theYear);
+            $after_week = Horde_Date_Utils::firstDayOfWeek($week, $theYear);
             $after_week_end = clone $after_week;
             $after_week_end->mday += 7;
 
@@ -530,7 +530,7 @@ class Horde_Date_Recurrence
 
             // Seperate case here for February 29th
             if ($estart->month == 2 && $estart->mday == 29) {
-                while (!Horde_Date::isLeapYear($after->year)) {
+                while (!Horde_Date_Utils::isLeapYear($after->year)) {
                     ++$after->year;
                 }
             }
@@ -823,13 +823,15 @@ class Horde_Date_Recurrence
         case 'W':
             $this->setRecurType(self::RECUR_WEEKLY);
             if (!empty($remainder)) {
-                $maskdays = array('SU' => Horde_Date::MASK_SUNDAY,
-                                  'MO' => Horde_Date::MASK_MONDAY,
-                                  'TU' => Horde_Date::MASK_TUESDAY,
-                                  'WE' => Horde_Date::MASK_WEDNESDAY,
-                                  'TH' => Horde_Date::MASK_THURSDAY,
-                                  'FR' => Horde_Date::MASK_FRIDAY,
-                                  'SA' => Horde_Date::MASK_SATURDAY);
+                $maskdays = array(
+                    'SU' => Horde_Date::MASK_SUNDAY,
+                    'MO' => Horde_Date::MASK_MONDAY,
+                    'TU' => Horde_Date::MASK_TUESDAY,
+                    'WE' => Horde_Date::MASK_WEDNESDAY,
+                    'TH' => Horde_Date::MASK_THURSDAY,
+                    'FR' => Horde_Date::MASK_FRIDAY,
+                    'SA' => Horde_Date::MASK_SATURDAY,
+                );
                 $mask = 0;
                 while (preg_match('/^ ?[A-Z]{2} ?/', $remainder, $matches)) {
                     $day = trim($matches[0]);
@@ -839,13 +841,15 @@ class Horde_Date_Recurrence
                 $this->setRecurOnDay($mask);
             } else {
                 // Recur on the day of the week of the original recurrence.
-                $maskdays = array(Horde_Date::DATE_SUNDAY => Horde_Date::MASK_SUNDAY,
-                                  Horde_Date::DATE_MONDAY => Horde_Date::MASK_MONDAY,
-                                  Horde_Date::DATE_TUESDAY => Horde_Date::MASK_TUESDAY,
-                                  Horde_Date::DATE_WEDNESDAY => Horde_Date::MASK_WEDNESDAY,
-                                  Horde_Date::DATE_THURSDAY => Horde_Date::MASK_THURSDAY,
-                                  Horde_Date::DATE_FRIDAY => Horde_Date::MASK_FRIDAY,
-                                  Horde_Date::DATE_SATURDAY => Horde_Date::MASK_SATURDAY);
+                $maskdays = array(
+                    Horde_Date::DATE_SUNDAY => Horde_Date::MASK_SUNDAY,
+                    Horde_Date::DATE_MONDAY => Horde_Date::MASK_MONDAY,
+                    Horde_Date::DATE_TUESDAY => Horde_Date::MASK_TUESDAY,
+                    Horde_Date::DATE_WEDNESDAY => Horde_Date::MASK_WEDNESDAY,
+                    Horde_Date::DATE_THURSDAY => Horde_Date::MASK_THURSDAY,
+                    Horde_Date::DATE_FRIDAY => Horde_Date::MASK_FRIDAY,
+                    Horde_Date::DATE_SATURDAY => Horde_Date::MASK_SATURDAY,
+                );
                 $this->setRecurOnDay($maskdays[$this->start->dayOfWeek()]);
             }
             break;
@@ -987,13 +991,15 @@ class Horde_Date_Recurrence
             case 'WEEKLY':
                 $this->setRecurType(self::RECUR_WEEKLY);
                 if (isset($rdata['BYDAY'])) {
-                    $maskdays = array('SU' => Horde_Date::MASK_SUNDAY,
-                                      'MO' => Horde_Date::MASK_MONDAY,
-                                      'TU' => Horde_Date::MASK_TUESDAY,
-                                      'WE' => Horde_Date::MASK_WEDNESDAY,
-                                      'TH' => Horde_Date::MASK_THURSDAY,
-                                      'FR' => Horde_Date::MASK_FRIDAY,
-                                      'SA' => Horde_Date::MASK_SATURDAY);
+                    $maskdays = array(
+                        'SU' => Horde_Date::MASK_SUNDAY,
+                        'MO' => Horde_Date::MASK_MONDAY,
+                        'TU' => Horde_Date::MASK_TUESDAY,
+                        'WE' => Horde_Date::MASK_WEDNESDAY,
+                        'TH' => Horde_Date::MASK_THURSDAY,
+                        'FR' => Horde_Date::MASK_FRIDAY,
+                        'SA' => Horde_Date::MASK_SATURDAY,
+                    );
                     $days = explode(',', $rdata['BYDAY']);
                     $mask = 0;
                     foreach ($days as $day) {
