@@ -193,7 +193,7 @@ class Horde_Kolab_Server_PersonTest extends Horde_Kolab_Test_Server
                                    array(Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN => $this->objects[2][Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN]));
         $this->assertSimpleSequence($person, $server,
                                     Horde_Kolab_Server_Object_Person::ATTRIBUTE_SN,
-                                    array('modified', 'modified_again'));
+                                    array('modified', 'modified_again'), true);
     }
 
     /**
