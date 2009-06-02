@@ -733,7 +733,7 @@ class Kronolith
             }
             while ($diff[2] < 0) {
                 --$diff[1];
-                $diff[2] += Horde_Date::daysInMonth($event->start->month, $event->start->year);
+                $diff[2] += Horde_Date_Utils::daysInMonth($event->start->month, $event->start->year);
             }
             while ($diff[1] < 0) {
                 --$diff[0];

@@ -53,7 +53,7 @@ class Kronolith_View_Week {
 
         $this->year = $year;
         $this->week = $week;
-        $day = Horde_Date::firstDayOfWeek($week, $year);
+        $day = Horde_Date_Utils::firstDayOfWeek($week, $year);
 
         if (!isset($this->startDay)) {
             if ($GLOBALS['prefs']->getValue('week_start_monday')) {

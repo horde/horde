@@ -85,7 +85,7 @@ class Kronolith_FreeBusy_View_Month extends Kronolith_FreeBusy_View {
     {
         $this->_start = new Horde_Date($day);
         $this->_start->mday = 1;
-        $this->_days = Horde_Date::daysInMonth($day->month, $day->year);
+        $this->_days = Horde_Date_Utils::daysInMonth($day->month, $day->year);
         $this->_end = new Horde_Date($this->_start);
         $this->_end->hour = 23;
         $this->_end->min = $this->_end->sec = 59;
